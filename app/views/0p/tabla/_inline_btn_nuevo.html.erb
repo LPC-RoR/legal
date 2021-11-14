@@ -1,0 +1,3 @@
+<%= link_to  "/#{o.class.name.tableize}/#{o.id}/#{c}/new", class: "btn btn-outline-#{color(c)} btn-sm" do %>
+    <%= "+ #{c.humanize.singularize}" %>
+<% end %>

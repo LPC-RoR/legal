@@ -1,0 +1,6 @@
+<%= form_for :objeto_base, url: "/#{c}/asigna_select_elemento?#{url_params(parametros)}" do |form| %>
+	<div class='form-inline'>
+		<%= form.select :objeto_id, lista_seleccion.collect { |asignacion| [asignacion.send(nombre_selector), asignacion.id] }, include_blank: false, prompt: "Seleccione #{nombre_selector.humanize.capitalize}" %>
+		<%= form.submit 'Asignar'  %>
+	</div>
+<% end  %>

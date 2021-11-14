@@ -1,0 +1,8 @@
+<% if crud_conditions(objeto, 'Editar') %>
+	<%= render partial: '0p/general/btn_turbolink', locals: {texto: nil, gly: 'pencil', link: [:edit, objeto], delete: false, clr: color(objeto.class.name.tableize)} %>
+<% end %>
+<% if crud_conditions(objeto, 'Eliminar') %>
+	<% if not has_child?(objeto) %>
+		<%= render partial: '0p/general/btn_turbolink', locals: {texto: nil, gly: 'trash', link: objeto, delete: true, clr: color(objeto.class.name.tableize)} %>
+	<% end %>
+<% end %>

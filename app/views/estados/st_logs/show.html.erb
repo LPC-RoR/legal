@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Perfil:</strong>
+  <%= @st_log.perfil_id %>
+</p>
+
+<p>
+  <strong>Class name:</strong>
+  <%= @st_log.class_name %>
+</p>
+
+<p>
+  <strong>Objeto:</strong>
+  <%= @st_log.objeto_id %>
+</p>
+
+<p>
+  <strong>E origen:</strong>
+  <%= @st_log.e_origen %>
+</p>
+
+<p>
+  <strong>E destino:</strong>
+  <%= @st_log.e_destino %>
+</p>
+
+<%= link_to 'Edit', edit_st_log_path(@st_log) %> |
+<%= link_to 'Back', st_logs_path %>

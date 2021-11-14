@@ -1,0 +1,54 @@
+<% if objeto.blank? %>
+	<h3 class='text-info'>No hay registros</h3>
+<% else %>
+	<% objeto.class.name.constantize::DISPLAY_FIELDS.each_with_index do |field, index| %>
+		<% if field[2] == 'title' %>
+			<% if index > 0 %>
+					</tbody>
+				</table>
+			<% end %>
+			<h3><%=field[1]%></h3>
+			<table class="table table-striped table-sm  thead-dark">
+				<tbody>
+		<% else %>
+			<% if index == 0 %>
+				<table class="table table-striped table-sm  thead-dark">
+					<tbody>
+			<% end %>
+			<% if field[2] == 'file' %>
+				<tr>
+					<td><small><b><%=field[1]%></b></small></td>
+					<td><small><%= (objeto.send(field[0]).present? ? link_to( objeto.send(field[0]).send('url').split('/').last, objeto.send(field[0]).send('url')) : '[ Sin archivo cargado ]') %></small></td>
+				</tr>
+			<% elsif field[2] == 'datetime' %>
+				<tr>
+					<td><small><b><%=field[1]%></b></small></td>
+					<td><small><%=( objeto.send(field[0]).strftime("%d-%m-%Y") unless objeto.send(field[0]).blank? )%></small></td>
+				</tr>
+			<% elsif field[2] == 'asociation' %>
+				<tr>
+					<td><small><b><%=field[1]%></b></small></td>
+					<td>
+						<ul>
+						<% objeto.send(field[0]).each do |asoc| %>
+							<li><small><%=asoc.send(field[0].singularize) %></small></li>
+						<% end %>
+						</ul>
+					</td>
+				</tr>
+			<% elsif field[2] == 'text' %>
+				<tr>
+					<td><small><b><%=field[1]%></b></small></td>
+					<td><small><%= simple_format(objeto.send(field[0])) %></small></td>
+				</tr>
+			<% else %>
+				<tr>
+					<td><small><b><%=field[1]%></b></small></td>
+					<td><small><%= objeto.send(field[0]) %></small></td>
+				</tr>
+			<% end %>
+		<% end %>
+	<% end %>
+		</tbody>
+	</table>
+<% end %>

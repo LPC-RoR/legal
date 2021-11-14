@@ -1,0 +1,10 @@
+<tr>
+	<% c.classify.constantize::TABLA_FIELDS.each do |field| %>
+		<% if sortable?(c, field[0]) %>
+			<td><small><i><%= sortable cristiano(field[0].delete_prefix('d_'), 'field', 'singular') %></i><small></td>
+		<% else %>
+			<td><i><small><%= cristiano(field[0].delete_prefix('d_'), 'field', 'singular') %></i></small></td>
+		<% end %>
+	<% end %>
+    <td colspan="1"></td>
+</tr>

@@ -1,0 +1,2 @@
+class AppRecurso < ApplicationRecord
+end

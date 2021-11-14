@@ -1,0 +1,16 @@
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :orden, label: 'Orden', v: true } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :nivel, label: 'Nivel', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'select', token: :tipo, label: 'Tipo', sel_list: SbElemento::TIPOS, v: true } %>
+
+<%#= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :tipo, label: 'Tipo', v: true } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :elemento, label: 'Elemento', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'select', token: :acceso, label: 'Acceso', sel_list: SbElemento::ACCESOS, v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'select', token: :despliegue, label: 'Despliegue', sel_list: SbElemento::DESPLIEGUES, v: false } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :controlador, label: 'Controlador', v: false } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'check_box', token: :activo, label: 'Activo?', v: false } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :sb_lista_id, label: nil, v: false } %>

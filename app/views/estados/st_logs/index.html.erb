@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>St Logs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Perfil</th>
+      <th>Class name</th>
+      <th>Objeto</th>
+      <th>E origen</th>
+      <th>E destino</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @st_logs.each do |st_log| %>
+      <tr>
+        <td><%= st_log.perfil_id %></td>
+        <td><%= st_log.class_name %></td>
+        <td><%= st_log.objeto_id %></td>
+        <td><%= st_log.e_origen %></td>
+        <td><%= st_log.e_destino %></td>
+        <td><%= link_to 'Show', st_log %></td>
+        <td><%= link_to 'Edit', edit_st_log_path(st_log) %></td>
+        <td><%= link_to 'Destroy', st_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New St Log', new_st_log_path %>

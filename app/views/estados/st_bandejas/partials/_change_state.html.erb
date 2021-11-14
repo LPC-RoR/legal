@@ -1,0 +1,30 @@
+<% if StModelo.find_by(st_modelo: objeto.class.name).st_estados.empty? %>
+	<h6 class='text-muted'><small><small>Lista de estados vacía</small></small></h6>
+<% else %>
+	<% unless StModelo.find_by(st_modelo: objeto.class.name).st_estados.find_by(st_estado: objeto.estado).present? %>
+		<h6 class='text-muted'><small><small>Estados no encontrado</small></small></h6>
+	<% else %>
+		<% if seguridad_desde('admin') or AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.find_by(st_perfil_modelo: objeto.class.name).rol == 'admin' %>
+			<% StModelo.find_by(st_modelo: objeto.class.name).st_estados.find_by(st_estado: objeto.estado).destinos_admin.split(' ').each do |destino_admin| %>
+
+				<small>
+  				<%= link_to link_x_btn(objeto, "/cambio_estado?st=#{destino_admin}", false) do %>
+					<i class="bi bi-box-arrow-in-right"></i></i> <%= destino_admin %>
+  				<% end %>
+  				</small>
+
+			<% end %>
+		<% end %>
+	<% end %>
+
+	<% StModelo.find_by(st_modelo: objeto.class.name).st_estados.find_by(st_estado: objeto.estado).destinos.split(' ').each do |destino| %>
+
+		<small>
+			<%= link_to link_x_btn(objeto, "/cambio_estado?st=#{destino}", false) do %>
+				<i class="bi bi-box-arrow-in-right"></i></i> <%= destino %>
+			<% end %>
+		</small>
+
+	<% end %>
+
+<% end %>

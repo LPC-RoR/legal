@@ -1,0 +1,16 @@
+	<% ['ingreso', 'enviado', 'recibido', 'cerrado'].each do |estado| %>
+		<i class="bi bi-arrow-right"></i>
+		<% if estado == 'ingreso' %>
+			<i class="bi bi-plus"></i> 
+		<% else %>
+			<i class="bi bi-tag"></i> 
+		<% end %>
+
+		<small>
+		<% if @e == estado %>
+			<b><%= estado %></b>
+		<% else %>
+			<%= link_to estado, "/app_mensajes?e=#{estado}" %>
+		<% end %>
+		</small></br>
+	<% end %>

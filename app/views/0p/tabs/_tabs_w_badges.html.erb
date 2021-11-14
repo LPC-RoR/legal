@@ -1,0 +1,23 @@
+<!-- TAB -->
+<% if tabs.count == 1 %>
+  <h6><%= "| #{tabs[0]}" %></h6>
+<% else %>
+  <div class="container-fluid">
+    <ul class="nav nav-tabs">
+
+      <!-- TABS -->
+      <% unless tabs.blank? %>
+        <!-- Recorre los TABS si no estan vaciós -->
+        <% tabs.each do |t| %>
+          <li class="nav-item">
+            <!-- Construye el TAB y destaca el que está activo -->
+            <!--%= link_to t, "#{link_tabs}#{t}", class: "nav-link #{(t == active ? 'active' : '')}" %-->
+            <%= link_to t, {controller: controller_name, action: action_name, html_options: get_html_opts(@options, tag, t)}, class: "nav-link #{(t == active ? 'active' : '')}" %>
+          </li>
+
+        <% end %>
+      <% end %>
+
+    </ul> 
+  </div>
+<% end %>

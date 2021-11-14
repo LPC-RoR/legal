@@ -1,0 +1,20 @@
+<!-- TITULO -->
+<!-- size: determina el tamaño del font -->
+<!-- titulo: Es el texto del título -->
+<!-- a e {'index', 'seleccion', 'new', 'edit' -->
+<h<%= size%>>
+<div class="p-3 mb-2 bg-<%=color(c)%> text-white">
+	<% case a %>
+	<% when 'index' %>
+		<%= c.humanize %>
+	<% when 'seleccion' %>
+		<%= "? Selecciona #{c.humanize.singularize}" %>
+	<% when 'new' %>
+		<i class="bi bi-plus-square"></i> <%= cristiano(c, 'controller', 'singular') %>
+	<% when 'edit' %>
+		<i class="bi bi-pencil-square"></i> <%= cristiano(c, 'controller', 'singular') %>
+	<% else %>
+		<%= titulo %>
+	<% end %>
+</div>
+</h<%= size%>>

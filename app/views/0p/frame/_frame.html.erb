@@ -1,0 +1,14 @@
+<!-- TODOS los CONTROLADORES FRAME tienen el TITULO en el MODELO -->
+<%= render partial: '0p/general/titulo', locals: {c: controller_name, a: nil, titulo: frame_titulo(controller_name, action_name), size: '5'} %>
+
+<!-- Pregunta si esta acción de recursos despliega TABS -->
+<!-- Si es así, obtiene los TABSv del modelo Recurso -->
+<% if frame_with_tabs?(controller_name, action_name) %>
+	<%= render partial: '0p/tabs/tabs', locals: {tabs: frame_tabs(controller_name, action_name), tag: 'ftab', active: @ftab } %>
+<% end %>
+
+<!-- Pregunta si esta acción despliega una TABLA, si es asi la despliega -->
+<% if frame_with_table?(controller_name, action_name) %>
+	<%= render partial: '0p/general/titulo', locals: {c: app_alias_tabla(controller_name), a: 'index', titulo: '', size: '5'} %>
+	<%= render partial: '0p/tabla/solo_tabla', locals: {c: app_alias_tabla(controller_name), a: 'index'} %>
+<% end %>

@@ -1,0 +1,8 @@
+<div class='row'>
+	<div class='col-md-4'>
+		<%= render partial: '0p/sidelist/sidelist', locals: {sb_list: @sb_elementos, name_list: @sb_name, sb_link: @sb_link } %>
+	</div>
+	<div class='col-md-8'>
+		<%= yield %>
+	</div>
+</div>

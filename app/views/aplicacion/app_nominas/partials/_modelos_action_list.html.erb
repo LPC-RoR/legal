@@ -1,0 +1,43 @@
+<p class='text-<%=clr%>'>
+	<i class="bi bi-<%=gly%>"></i></i><small> <%= nombre %></small>
+</p>
+<hr>
+<% if coleccion.empty? %>
+	<h6 class='text-muted'><small><small>Lista Vacía</small></small></h6>
+<% else %>
+
+	<% unless coleccion.blank? %>
+	  	<% coleccion.each do |objeto| %>
+			<div class='row'>
+				<div class='col-md-4'>
+					<small><small><p class='text-<%=clr%>'><%=objeto.send(field) %></p></small></small>
+				</div>
+				<div class='col-md-4'>
+					<%= link_to link_x_btn(objeto, '/cambia_ingreso', base) do %>
+						<i class="bi bi-<%=objeto.ingresa_registros == true ? 'plus' : 'x'%>"></i>
+					<% end %>
+					<%= link_to link_x_btn(objeto, '/cambia_rol', base) do %>
+						<i class="bi bi-<%=objeto.rol == 'admin' ? 'person-rolodex' : 'person'%>"></i>
+					<% end %>
+				</div>
+				<div class='col-md-4'>
+					<% unless objeto.st_perfil_estados.any? %>
+						<%= link_to link_x_btn(objeto, link, base) do %>
+							<i class="bi bi-<%=gly_link%>"></i>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-md-1'>
+					<!--i class="bi bi-arrow-right"></i-->
+				</div>
+				<div class='col-md-11'>
+		  			<%= render partial: 'aplicacion/app_nominas/partials/state_list', locals: {modelo: objeto} %>
+				</div>
+			</div>
+			<hr>
+		<% end %>
+	<% end %>
+
+<% end %>

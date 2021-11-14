@@ -1,0 +1,23 @@
+<li class="nav-item dropdown ml-auto">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= nombre %>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+    <% unless drop_items.blank? %>
+      <% drop_items.each do |item| %>
+        <% if item[1] == 'pull_down_item' %>
+          <%= render partial: '0p/navbar/dropdown', locals: {nombre: item[0], drop_items: dropdown_items(item[0])} %>
+        <% else %>
+          <small><%= link_to item[0], item[1], class: "dropdown-item" %></small>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <div class="dropdown-divider"></div>
+
+    <%#= link_to 'Repositorio', directorios_path, class: "dropdown-item" %>
+    <%#= link_to 'Datos', datos_path, class: "dropdown-item" %>
+
+  </div>
+</li>

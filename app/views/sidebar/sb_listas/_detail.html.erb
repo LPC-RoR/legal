@@ -1,0 +1,7 @@
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :lista, label: 'Nombre del Menú', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'select', token: :acceso, label: 'Seguridad', sel_list: SbLista::ACCESOS, v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :link, label: 'Link', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'check_box', token: :activa, label: 'Activa?', v: true } %>

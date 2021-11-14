@@ -1,0 +1,31 @@
+<div class="container-fluid">
+
+	<%= render partial: '0p/general/form_icon_text', locals: {text: cristiano(controller_name, 'controller', 'singular'), size: font_size[:title]} %>
+
+	<%= form_with(model: @objeto, local: true) do |form| %>
+		<% if @objeto.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@objeto.errors.count, "error") %> evitan que este registro sea grabado:</h2>
+
+			<ul>
+			<% @objeto.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+			<% end %>
+			</ul>
+		  
+		</div>
+		<% end %>
+
+		<%= render partial: detail_partial(controller_name), locals: {c: controller_name, form: form} %>
+
+		</br>
+
+		<div class="actions">
+		<%#= form.submit "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{cristiano(@objeto.class.name, 'class', 'singular')}" %>
+		<%= button_tag(type: 'submit', class: "btn btn-#{color(:app)}") do %>
+			<i class="bi bi-save2"></i>
+			<%= "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{cristiano(@objeto.class.name, 'class', 'singular')}" %>
+		<% end %>
+		</div>
+	<% end %>
+</div>

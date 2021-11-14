@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%=app_setup[:nombre]%></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag asset_path('favicon.ico') if File.exist?("app/assets/images/favicon.ico") %>
+  </head>
+
+  <body>
+    <!--            NAVBAR                     -->
+    <%= render partial: '0p/navbar/navbar' %>
+    <!--            CONTENIDO + MENU DERECHA   -->
+    <div class="container-fluid">
+      <% if File.exist?("app/views/layouts/_base_layout.html.erb") %>
+        <%= render partial: 'layouts/base_layout' %>
+      <% else %>
+
+        <% if controller_name == 'st_bandejas' or app_bandeja_controllers.include?(controller_name) %>
+            <%= render partial: 'layouts/bandejas' %>
+        <% elsif controller_name == 'app_mensajes' and usuario_signed_in? %>
+            <%= render partial: 'layouts/mensajes' %>
+        <% elsif sidebar_controllers.include?(controller_name) and action_name != 'home' %>
+            <%= render partial: 'layouts/sidebar' %>
+        <% else %>
+          <%= yield %>
+        <% end %>
+
+      <% end %>
+    </div>
+    <!------------------------------------------->
+    <hr>
+    <!-- TEMA_AYUDA -->
+    <%# if objeto_tema_ayuda('foot').present? %>
+      <%#= render partial: 'help/tema_ayudas/partials/elem_foot', locals: {elem: objeto_tema_ayuda('foot')} %>
+    <%# end %>
+    <%= render partial: 'home/h_imagenes/partials/imagen', locals: {nombre: 'Foot', size: image_size[:foot]} if foot? %>
+  </body>
+</html>

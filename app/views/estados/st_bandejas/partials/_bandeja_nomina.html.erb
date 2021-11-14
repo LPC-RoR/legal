@@ -1,0 +1,57 @@
+<%= @nomina.email %>
+<%= @nomina.st_perfil_modelos.count %>
+<% if @nomina.st_perfil_modelos.empty? %>
+	<p class='text-muted'><small>Sin bandejas activas</small></p>
+<% else %>
+
+	<% @nomina.st_perfil_modelos.order(:st_perfil_modelo).each do |st_perfil_modelo| %>
+
+		<i class="bi bi-inbox"></i> <small><%= st_perfil_modelo.st_perfil_modelo %></small></br>
+
+		<% if st_perfil_modelo.rol == 'admin' %>
+
+			<% StModelo.find_by(st_modelo: st_perfil_modelo.st_perfil_modelo).st_estados.order(:orden).each do |st_estado| %>
+
+				<i class="bi bi-arrow-right"></i>
+				<% if st_estado.st_estado == 'ingreso' %>
+					<i class="bi bi-plus"></i> 
+				<% else %>
+					<i class="bi bi-tag"></i> 
+				<% end %>
+
+				<small>
+				<% if @m == st_perfil_modelo.st_perfil_modelo and @e == st_estado.st_estado %>
+					<b><%= st_estado.st_estado %></b>
+				<% else %>
+					<%= link_to st_estado.st_estado, "/st_bandejas?m=#{st_perfil_modelo.st_perfil_modelo}&e=#{st_estado.st_estado}" %>
+				<% end %>
+				</small></br>
+
+			<% end %>
+
+		<% else %>
+
+			<% st_perfil_modelo.st_perfil_estados.each do |st_perfil_estado| %>
+
+				<i class="bi bi-arrow-right"></i>
+				<% if st_perfil_estado.st_perfil_estado == 'ingreso' %>
+					<i class="bi bi-plus"></i> 
+				<% else %>
+					<i class="bi bi-tag"></i> 
+				<% end %>
+
+				<small>
+				<% if @m == st_perfil_modelo.st_perfil_modelo and @e == st_perfil_estado.st_perfil_estado %>
+					<b><%= st_perfil_estado.st_perfil_estado %></b>
+				<% else %>
+					<%= link_to st_perfil_estado.st_perfil_estado, "/st_bandejas?m=#{st_perfil_modelo.st_perfil_modelo}&e=#{st_perfil_estado.st_perfil_estado}" %>
+				<% end %>
+				</small></br>
+
+			<% end %>
+
+		<% end %>
+
+		<hr>
+	<% end %>
+<% end %>

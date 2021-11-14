@@ -1,0 +1,14 @@
+<table class="table table-striped table-sm  thead-dark">
+  <thead>
+   	<%= render partial: '0p/tabla/th', locals: {c: c} %>
+  </thead>
+
+  <tbody>
+  	<!-- Opción para evitar escribir el parcial _modelo.html.erb en cada controlador-->
+  	<% unless coleccion.blank? %>
+	  	<% coleccion.each do |objeto| %>
+		  	<%= render partial: "/0p/tabla/modelo", locals: {a: a, objeto: objeto} %>
+		<% end  %>
+  	<% end %>
+  </tbody>
+</table>

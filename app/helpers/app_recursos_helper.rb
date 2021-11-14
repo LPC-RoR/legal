@@ -1,0 +1,2 @@
+module AppRecursosHelper
+end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  st_perfil_modelo: MyString
+  rol: MyString
+  ingresa_registros: false
+  app_nomina_id: 1
+
+two:
+  st_perfil_modelo: MyString
+  rol: MyString
+  ingresa_registros: false
+  app_nomina_id: 1

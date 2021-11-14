@@ -1,0 +1,13 @@
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'person-workspace', text: cristiano(@objeto.class.name, 'Class', 'singular'), clr: app_color[:app]} %></h4>
+
+</br>
+<div class='row'>
+	<div class='col-md-6'>
+		<%= render partial: 'aplicacion/app_nominas/partials/modelos_action_list', locals: {nombre: 'Modelos Activados', gly: 'card-checklist', clr: 'info', coleccion: @objeto.st_perfil_modelos.order(:st_perfil_modelo), field: 'st_perfil_modelo', link: '/desasignar', gly_link: 'x-circle', base: true, action: seguridad_desde('admin')} %>
+	</div>
+	<div class='col-md-6'>
+		<% if seguridad_desde('admin') %>
+			<%= render partial: '0p/list/action_list', locals: {nombre: 'Modelos Disponibles', gly: 'card-list', clr: 'info', coleccion: @modelos_disponibles, field: 'st_modelo', link: '/asigna', gly_link: 'plus-circle', base: true, action: true} %>
+		<% end %>
+	</div>
+</div>

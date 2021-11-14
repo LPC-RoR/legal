@@ -1,0 +1,1 @@
+<%= image_tag (size.blank? ? objeto.ilustracion.url : objeto.ilustracion.send(size).url), class: class_image unless objeto.ilustracion.blank? %>

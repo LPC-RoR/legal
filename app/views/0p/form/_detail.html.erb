@@ -1,0 +1,57 @@
+<% c.classify.constantize::FORM_FIELDS.each do |field| %>
+
+	<% case field[1] %>
+	<% when 'show' %>
+		<% if action_name == 'edit' %>
+			<h5><%= @objeto.send(field[0]) %></h5>
+		<% end %>
+	<% when 'entry' %>
+	  <div class="field">
+		<%= form.label field[0].delete_prefix('d_') %></br>
+	  	<%= form.text_field field[0] %>
+	  </div>
+	<% when 'string' %>
+	  <div class="field">
+		<%= form.label field[0].delete_prefix('d_') %></br>
+	  	<%= form.text_field field[0] %>
+	  </div>
+    <% when 'text_area' %>
+	  <div class="field">
+		<%= form.label field[0].delete_prefix('d_') %></br>
+	  	<%= form.text_area field[0], size: '24x6' %>
+	  </div>
+	<% when 'select' %>
+		<%= form.select field[0], field[0].split('_')[0].classify.constantize.all.collect { |p| [p.send(field[0].split('_')[0].downcase), p.id] }, include_blank: true %>
+	<% when  'check_box' %>
+			<p>
+			<label>
+			  <%= form.check_box field[0] %>
+			  <%= field[0] %>
+			</label>
+			</p>
+	<% when 'file_field' %>
+		</br>
+	  <p>
+	    <label>Archivo <%= @objeto.class.name %></label></br>
+	  	<% if @objeto.send(field[0]).present? %>
+		  	<i><%= @objeto.send(field[0]).url.split('/').last %></i></br>
+	  	<% else %>
+		    <%= form.file_field field[0] %>
+	    <% end %>
+	  </p>
+
+	  	<% if @objeto.send(field[0]).present? %>
+			<p>
+			<label>
+			  <%= form.check_box :remove_archivo_carga %>
+			  Remueve Archivo
+			</label>
+			</p>
+		<% end %>
+	<% when 'hidden' %>
+	  <%= form.hidden_field field[0] %>
+	<% end %>
+
+<% end %>
+
+

@@ -1,0 +1,26 @@
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'list-nested', text: name_list, clr: app_color[:app]} %></h4>
+
+<% sb_list.each do |elemento| %>
+	<small>
+
+	<div class='row'>
+		<div class="col-md-<%= elemento.nivel-1%>"></div>
+		<div class="col-md-<%= 12 - elemento.nivel+1%>">
+			<% case elemento.tipo %>
+			<% when 'item' %>
+				<% if @id.to_i == elemento.id %>
+					<b class='text-primary'><%= elemento.elemento %></b>
+				<% elsif elemento.activo == false %>
+					<i class='text-muted'><%= elemento.elemento %></i>
+				<% else %>
+					<%#= link_to elemento.elemento, "#{sb_link}?t=#{elemento.elemento}" %>
+					<%= link_to elemento.elemento, "#{sb_link}?id=#{elemento.id}" %>
+				<% end %>
+			<% when 'list' %>
+				<b class='text-muted'><%= elemento.elemento %></b>
+			<% end %>
+		</div>
+	</div>
+
+	</small>
+<% end %>

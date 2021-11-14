@@ -1,0 +1,11 @@
+
+<%= form_tag(path, :method => "get", id: "search-form") do %>
+	<div class="input-group mb-3">
+		<%= text_field_tag :search, params[:search], placeholder: "palabras clave", class: 'form-control' %>
+
+	<button type="submit" class="btn btn-info">
+	  <i class="bi bi-search icon-white"></i>
+	</button>
+
+	</div>
+<% end %>

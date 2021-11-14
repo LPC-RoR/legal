@@ -1,0 +1,58 @@
+<%#= render partial: '0p/general/o_titulo', locals: {o: @objeto, a: action_name, size: '5'} %>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'envelope', text: @objeto.author, clr: app_color[:app]} %></h4>
+
+<%= render partial: '0p/general/btn_turbolink', locals: {texto: (@objeto.estado = 'ingreso' ? 'Enviar' : 'Enviado'), gly: (@objeto.estado = 'ingreso' ? 'envelope' : 'mailbox'), link: "/app_mensajes/#{@objeto.id}/estado?estado=enviado", delete: false, style: 'btn-outline-dark', clr: color(controller_name)} if ['ingreso', 'cerrado'].include?(@objeto.estado) %>
+
+<%= render partial: '0p/general/btn_turbolink', locals: {texto: 'Cerrar', gly: 'check-circle', link: "/app_mensajes/#{@objeto.id}/estado?estado=cerrado", delete: false, style: 'btn-outline-dark', clr: color(controller_name)} if @objeto.estado == 'enviado' %>
+
+</br></br>
+
+<!-- Despliegue del Mensaje -->
+<h6>
+  <b><%= @objeto.mensaje %></b>
+  <%= render partial: '0p/general/icon_text', locals: {gly: 'chat-square-text', text: 'Detalle mensaje', clr: app_color[:app]} %>
+  <%= sanitize simple_format(@objeto.detalle) %>
+</h6>
+
+<!-- Despliegue de Respuestas -->
+<% if @objeto.children.any? %>
+  <div class='row'>
+    <div class='col-md-1'></div>
+    <div class='col-md-11'>
+      <%= render partial: '0p/general/icon_text', locals: {gly: 'list-nested', text: 'Respuestas', clr: app_color[:app]} %>
+
+      <% @objeto.children.order(fecha_envio: :desc).each do |resp| %>
+        <small>
+          <i class="bi bi-tag"></i> <%= resp.tipo %> - 
+          <i class="bi bi-mailbox"></i> <%= resp.app_perfil.email %> - 
+          <i class="bi bi-calendar-event"></i> <%= resp.fecha_envio.strftime("%d-%m-%Y") %>
+        </small>
+        <h6>
+          <%= sanitize simple_format(resp.detalle) %>
+        </h6>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<!--Form RESPUESTA -->
+<div class='row'>
+  <div class='col-md-6'>
+    <%= render partial: '0p/general/icon_text', locals: {gly: 'pencil', text: 'Respuesta', clr: app_color[:app]} %>
+    <%= form_for :mensaje_base, url: "/app_mensajes/respuesta?padre_id=#{@objeto.id}" do |form| %>
+ 
+      <%= form.text_field(:mensaje, size: 30, class: 'form-control' ) %>
+
+      <%= form.text_area :detalle, size: '56x10' %><!--/br-->
+
+      <%= button_tag(type: 'submit', class: "btn btn-#{color(:app)}") do %>
+        <i class="bi bi-reply"></i>
+        <%= "Mensaje" %>
+      <% end %>
+
+    <% end  %>
+
+  </div>
+  <div class='col-md-6'></div>
+  </div>
+</div>

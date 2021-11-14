@@ -1,0 +1,30 @@
+<p class='text-<%=clr%>'>
+	<i class="bi bi-<%=gly%>"></i></i><small> <%= nombre %></small>
+</p>
+<% if coleccion.empty? %>
+	<h6 class='text-muted'><small><small>Lista Vacía</small></small></h6>
+<% else %>
+
+	<table class="table">
+		<tbody>
+			<!-- Opción para evitar escribir el parcial _modelo.html.erb en cada controlador-->
+			<% unless coleccion.blank? %>
+			  	<% coleccion.each do |objeto| %>
+			  		<tr>
+			  			<td><small><small><p class='text-<%=clr%>'><%=objeto.send(field) %></p></small></small></td>
+			  			<% unless link.blank? %>
+				  			<% if action %>
+					  			<td>
+					  				<%= link_to link_x_btn(objeto, link, base) do %>
+					  					<i class="bi bi-<%=gly_link%>"></i>
+					  				<% end %>
+					  			</td>
+				  			<% end %>
+			  			<% end %>
+				  	</tr>
+				<% end  %>
+			<% end %>
+		</tbody>
+	</table>
+
+<% end %>

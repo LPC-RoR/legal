@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: 1
+  nivel: 1
+  tipo: MyString
+  elemento: MyString
+  acceso: MyString
+  activo: false
+  despliegue: MyString
+  controlador: MyString
+  sb_lista_id: 1
+
+two:
+  orden: 1
+  nivel: 1
+  tipo: MyString
+  elemento: MyString
+  acceso: MyString
+  activo: false
+  despliegue: MyString
+  controlador: MyString
+  sb_lista_id: 1

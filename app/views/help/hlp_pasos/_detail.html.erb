@@ -1,0 +1,14 @@
+<small><%= form.label 'Orden | Paso' %></small></br>
+<div class='form-inline'>
+
+	<%= form.text_field(:orden, size: 5, class: 'form-control' ) %>
+
+	<%= form.text_field(:paso, size: 57, class: 'form-control' ) %>
+
+</div>
+
+<small><%= form.label 'Detalle' %></small></br>
+
+<%= form.text_area :detalle, size: '68x3' %><!--/br-->
+
+<%= form.hidden_field :hlp_tutorial_id %>

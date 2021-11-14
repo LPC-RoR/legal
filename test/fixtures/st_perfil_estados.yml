@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  st_perfil_estado: MyString
+  rol: MyString
+  st_perfil_modelo_id: 1
+
+two:
+  st_perfil_estado: MyString
+  rol: MyString
+  st_perfil_modelo_id: 1

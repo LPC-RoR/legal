@@ -1,0 +1,2 @@
+class StBandeja < ApplicationRecord
+end

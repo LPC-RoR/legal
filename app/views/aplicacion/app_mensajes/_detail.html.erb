@@ -1,0 +1,10 @@
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :email, label: 'E-mail', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :mensaje, label: 'Tema', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text_area', token: :email, label: 'Detalle', v: false } %>
+
+<%= form.hidden_field :app_perfil_id %>
+<%= form.hidden_field :tipo %>
+<%= form.hidden_field :estado %>
+<%= form.hidden_field :fecha_envio %>

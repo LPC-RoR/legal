@@ -1,0 +1,28 @@
+<% if StModelo.all.empty? %>
+	<p class='text-muted'><small>Sin bandejas activas</small></p>
+<% else %>
+	<% StModelo.all.order(:st_modelo).each do |st_modelo| %>
+		<i class="bi bi-inbox"></i> <small><%= st_modelo.st_modelo %></small></br>
+
+		<% st_modelo.st_estados.order(:orden).each do |st_estado| %>
+
+			<i class="bi bi-arrow-right"></i>
+			<% if st_estado.st_estado == 'ingreso' %>
+				<i class="bi bi-plus"></i> 
+			<% else %>
+				<i class="bi bi-tag"></i> 
+			<% end %>
+
+			<small>
+			<% if @m == st_modelo.st_modelo and @e == st_estado.st_estado %>
+				<b><%= st_estado.st_estado %></b>
+			<% else %>
+				<%= link_to st_estado.st_estado, "/st_bandejas?m=#{st_modelo.st_modelo}&e=#{st_estado.st_estado}" %>
+			<% end %>
+			</small></br>
+
+		<% end %>
+
+		<hr>
+	<% end %>
+<% end %>

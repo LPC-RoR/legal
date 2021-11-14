@@ -1,0 +1,14 @@
+<%= render partial: '0p/general/titulo', locals: {c: controller_name, a: action_name, titulo: 'Selección Archivos', size: '5'} %>
+
+<table class="table table-striped">
+	<tbody>
+		<% @archivos.each do |a| %>
+			<tr>
+				<td><%= a.split('/').last %></td>
+				<td>
+					<%= render partial: '0p/general/btn_turbolink', locals: {texto: 'Selección', gly: 'hand-index', link: "/cargas/new?archivo=#{a.split('/').last}", clr: color(objeto.class.name.tableize), delete: false} %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

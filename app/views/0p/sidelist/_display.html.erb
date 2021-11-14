@@ -1,0 +1,10 @@
+<% if @elemento.despliegue == 'show' %>
+	<%= render partial: get_partial(@elemento.controlador, 'show') %>
+<% elsif ['list', 'ulist'].include?(@elemento.despliegue) %>
+	<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'easel3-fill', text: @elemento.elemento, clr: app_color[:app]} %></h4>
+	<% if partial?(@elemento.controlador, 'index') %>
+		<%= render partial: get_partial(@elemento.controlador, 'index') %>
+	<% else %>
+		<%= render partial: '0p/tabla/solo_tabla', locals: {c: @elemento.controlador, a: 'index'} %>
+	<% end %>
+<% end %>

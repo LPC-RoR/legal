@@ -1,0 +1,17 @@
+<!-- CAMPOS -->
+<%= form_for :nuevo_objeto, url: "/#{c}/inline_nuevo?#{url_params(parametros)}" do |form| %>
+
+	<small><%= form.label "Orden | #{c.humanize.singularize}" %></small></br>
+	<div class='form-inline'>
+		<%= form.text_field(:orden, size: order_size, class: 'form-control' ) %>
+		<%= form.text_field(:objeto, size: objeto_size, class: 'form-control' ) %>
+	</div>
+
+	<% if detalle %>
+		<small><%= form.label 'Detalle' %></small></br>
+	  	<%= form.text_area :detalle, size: '68x3' %><!--/br-->
+	<% end %>
+</br>
+	<%= form.submit "+ #{c.humanize.singularize}"  %>
+
+<% end  %>

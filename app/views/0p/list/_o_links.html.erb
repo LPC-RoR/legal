@@ -1,0 +1,9 @@
+<div class="p-3 mb-2 bg-info text-white"><%= titulo %></div>
+
+<div class="list-group">
+	<% unless coleccion.blank? %>
+		<% coleccion.each do |objeto| %>
+			<%= link_to objeto.send(d_field), {controller: c, action: a, html_options: get_html_opts(options, o_id, objeto.id)}, class: "list-group-item list-group-item-action list-group-item-info" %>
+		<% end %>
+	<% end %>
+</div>

@@ -1,0 +1,7 @@
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'number', token: :orden, label: 'Orden', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :st_estado, label: 'Estado', v: true } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :destinos, label: 'Destinos', v: true } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :destinos_admin, label: 'Destinos para Administradores', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :st_modelo_id, label: nil, v: false } %>

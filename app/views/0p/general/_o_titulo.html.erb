@@ -1,0 +1,18 @@
+<!-- TITULO -->
+<!-- size: determina el tamaño del font -->
+<!-- titulo: Es el texto del título -->
+<div class="p-3 mb-2 bg-<%=color(o.class.name.tableize)%> text-white">
+	<h<%= size.to_i+1%>>
+		<%= "#{cristiano(o.class.name, 'class', 'singular')}" %>
+	</h<%= size.to_i+1%>>
+	
+	<h<%= size%>>
+		<%= "#{show_title(o)}" %>
+	</h<%= size%>>
+
+	<% if status?(o) %>
+		<p><small><%= "#{o.status}" %></small></p>
+	<% else %>
+		</br>
+	<% end %>
+</div>

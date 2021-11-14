@@ -1,0 +1,10 @@
+<% unless @coleccion['app_mejoras'].empty? %>
+	<% @coleccion['app_mejoras'].each do |mej| %>
+		<small><small><b><%= mej.app_perfil.email %></b> <%= mej.app_perfil.created_at.strftime("%d-%m-%Y") %></small></small></br>
+		<small><%= sanitize simple_format(mej.detalle) %></small>
+		<% if mej.app_perfil.id == perfil_activo_id %>
+			<%= render partial: '0p/tabla/btns', locals: {a: 'index', objeto: mej} %>
+		<% end %>
+		<hr>
+	<% end %>
+<% end %>

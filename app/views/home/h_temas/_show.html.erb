@@ -1,0 +1,17 @@
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-earmark-richtext', text: @objeto.tema, clr: app_color[:app]} %></h4>
+
+<% @objeto.imagenes.order(created_at: :desc).each do |imagen| %>
+	<i class='text-muted'><%= imagen.nombre %></i></br>
+	<% unless imagen.imagen.blank? %>
+		<%= image_tag imagen.imagen.send('thumb').url, class: nil %></br>
+	<% end %>
+	<% unless imagen.credito_imagen.blank? %>
+		<small><small><%= imagen.credito_imagen %></small></small></br>
+	<% end %>
+	<%= render partial: '0p/tabla/btns', locals: {a: 'index', objeto: imagen} %>
+	<hr>
+<% end %>
+
+<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {texto: cristiano('AppImagen', 'class', 'singular'), o: @objeto, c: 'app_imagenes', gly: 'plus-circle', delete: false} %>
+
+<i class='text-muted'><%= simple_format(@objeto.detalle) %></i></br>

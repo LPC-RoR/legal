@@ -1,0 +1,13 @@
+<h4><i class="bi bi-diagram-3"></i> <%= perfil_activo.email %></h4>
+<div class='row'>
+	<div class='col-md-2'>
+		<% if seguridad_desde('admin') %>
+		  <%= render partial: 'estados/st_bandejas/partials/bandeja_admin' %>
+		<% else %>
+		  <%= render partial: 'estados/st_bandejas/partials/bandeja_nomina' %>
+		<% end %>
+	</div>
+	<div class='col-md-10'>
+		<%= yield %>
+	</div>
+</div>

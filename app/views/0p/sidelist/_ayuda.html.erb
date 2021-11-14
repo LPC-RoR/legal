@@ -1,0 +1,8 @@
+<% if @elemento.despliegue == 'ayuda' %>
+	<% if @objeto.blank? %>
+		<%= render partial: '0p/general/titulo', locals: {c: nil, a: nil, titulo: "Tutorial NO encontrado", size: '5'} %>
+	<% else %>
+		<%#= render partial: '0p/general/titulo', locals: {c: nil, a: nil, titulo: "Tutorial : #{@objeto.tutorial}", size: '5'} %>
+		<%= render partial: 'help/hlp_tutoriales/show' %>
+	<% end %>
+<% end %>

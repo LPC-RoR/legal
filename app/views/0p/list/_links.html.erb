@@ -1,0 +1,7 @@
+<div class="p-3 mb-2 bg-info text-white"><%= titulo %></div>
+
+<div class="list-group">
+<% list.each do |item| %>
+	<%= link_to item, {controller: controller_name, action: action_name, html_options: get_html_opts(options, 'sel', item)}, class: "list-group-item list-group-item-action list-group-item-info #{"active" if item == sel}" %>
+<% end %>
+</div>

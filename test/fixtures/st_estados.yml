@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: 1
+  st_estado: MyString
+  destinos: MyString
+  destinos_admin: MyString
+  st_modelo_id: 1
+
+two:
+  orden: 1
+  st_estado: MyString
+  destinos: MyString
+  destinos_admin: MyString
+  st_modelo_id: 1

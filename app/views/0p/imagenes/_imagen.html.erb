@@ -1,0 +1,4 @@
+<!-- 'field' permite usar campos con distintos nombres -->
+<!-- 'size' permite usar las medidas que se le dio a la imagen en la carga -->
+<!-- 'class_image' permite usar las distintas clases de despliegue -->
+<%= image_tag (size.blank? ? objeto.send(field).url : objeto.send(field).send(size).url), class: img_class unless objeto.send(field).blank? %>
