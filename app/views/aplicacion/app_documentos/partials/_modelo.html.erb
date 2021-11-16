@@ -1,0 +1,14 @@
+<tr class="table-<%=table_row_type(objeto)%>">
+
+	<td>
+		<i class="bi bi-file-text"></i>
+		<small> <%= objeto.created_at.strftime("%d-%m-%Y") %> </small>
+	</td>
+
+	<td>
+		<%= render partial: '0p/general/btn_turbolink', locals: {texto: nil, gly: 'download', link: objeto.archivo.url, delete: false, clr: color(objeto.class.name.tableize)} if objeto.archivo.present? %>
+	</td>
+
+	<td><%= render partial: '0p/tabla/btns', locals: {a: 'index', objeto: objeto} %></td>
+
+</tr>

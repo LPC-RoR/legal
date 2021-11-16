@@ -19,9 +19,9 @@
   <small><small><%= page_entries_info(@coleccion[c]) %></small></small>
 <% end %>
 
-<table class="table table-striped table-sm  thead-dark">
+<table class="table <%= table_types(c) %> table-sm">
   <thead>
-   	<%= render partial: '0p/tabla/th', locals: {c: app_alias_tabla(c)} unless ['directorios', 'documentos', 'archivos', 'imagenes'].include?(c) %>
+   	<%= render partial: '0p/tabla/th', locals: {c: app_alias_tabla(c)} unless ['app_directorios', 'app_documentos', 'app_archivos', 'app_imagenes'].include?(c) %>
   </thead>
 
   <tbody>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_201441) do
+ActiveRecord::Schema.define(version: 2021_11_15_132930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2021_11_10_201441) do
     t.index ["usuario_id"], name: "index_app_administradores_on_usuario_id"
   end
 
+  create_table "app_archivos", force: :cascade do |t|
+    t.string "archivo"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_class"], name: "index_app_archivos_on_owner_class"
+    t.index ["owner_id"], name: "index_app_archivos_on_owner_id"
+  end
+
   create_table "app_contactos", force: :cascade do |t|
     t.string "nombre"
     t.string "telefono"
@@ -35,6 +45,37 @@ ActiveRecord::Schema.define(version: 2021_11_10_201441) do
     t.datetime "updated_at", null: false
     t.index ["owner_class"], name: "index_app_contactos_on_owner_class"
     t.index ["owner_id"], name: "index_app_contactos_on_owner_id"
+  end
+
+  create_table "app_dir_dires", force: :cascade do |t|
+    t.integer "parent_id"
+    t.integer "child_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_app_dir_dires_on_child_id"
+    t.index ["parent_id"], name: "index_app_dir_dires_on_parent_id"
+  end
+
+  create_table "app_directorios", force: :cascade do |t|
+    t.string "directorio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.index ["directorio"], name: "index_app_directorios_on_directorio"
+    t.index ["owner_class"], name: "index_app_directorios_on_owner_class"
+    t.index ["owner_id"], name: "index_app_directorios_on_owner_id"
+  end
+
+  create_table "app_documentos", force: :cascade do |t|
+    t.string "documento"
+    t.boolean "publico"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.index ["owner_class"], name: "index_app_documentos_on_owner_class"
+    t.index ["owner_id"], name: "index_app_documentos_on_owner_id"
   end
 
   create_table "app_imagenes", force: :cascade do |t|
@@ -120,6 +161,36 @@ ActiveRecord::Schema.define(version: 2021_11_10_201441) do
     t.index ["app_administrador_id"], name: "index_app_perfiles_on_app_administrador_id"
     t.index ["email"], name: "index_app_perfiles_on_email"
     t.index ["usuario_id"], name: "index_app_perfiles_on_usuario_id"
+  end
+
+  create_table "app_repos", force: :cascade do |t|
+    t.string "repositorio"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_class"], name: "index_app_repos_on_owner_class"
+    t.index ["owner_id"], name: "index_app_repos_on_owner_id"
+    t.index ["repositorio"], name: "index_app_repos_on_repositorio"
+  end
+
+  create_table "causas", force: :cascade do |t|
+    t.string "causa"
+    t.string "identificador"
+    t.string "cliente_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "estado"
+    t.index ["estado"], name: "index_causas_on_estado"
+  end
+
+  create_table "clientes", force: :cascade do |t|
+    t.string "razon_social"
+    t.string "rut"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "estado"
+    t.index ["estado"], name: "index_clientes_on_estado"
   end
 
   create_table "h_imagenes", force: :cascade do |t|

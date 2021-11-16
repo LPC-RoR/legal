@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  documento: MyString
+  app_directorio_id: 1
+  publico: false
+
+two:
+  documento: MyString
+  app_directorio_id: 1
+  publico: false

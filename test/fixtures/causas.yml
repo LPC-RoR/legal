@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  causa: MyString
+  identificador: MyString
+  cliente_id: MyString
+
+two:
+  causa: MyString
+  identificador: MyString
+  cliente_id: MyString

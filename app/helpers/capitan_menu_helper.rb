@@ -20,8 +20,9 @@ module CapitanMenuHelper
 	    ## Menu principal de la aplicación
 	    # [ 'Item del menú', 'link', 'accesso', 'gly' ]
 	    [
-#	        ['',               "/vistas/graficos",   'usuario', 'bar-chart-line'],
-#	        ["Colecciones",    "/vistas",            'anonimo', 'newspaper'],
+	        ['',        "/st_bandejas",      'nomina', 'inboxes'],
+	        ['Público', '/app_repos/publico', 'nomina', 'archive'],
+	        ['Perfil',  '/app_repos/perfil',  'nomina', 'archive']
 #	        ["Escritorio",     "/vistas/escritorio", 'usuario', 'window-sidebar']
 	    ]
 

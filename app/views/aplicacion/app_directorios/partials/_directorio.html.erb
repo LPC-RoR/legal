@@ -1,0 +1,23 @@
+
+<table class="table <%= table_types_base[:borderless] %> table-sm">
+  <tbody>
+
+  	<!-- Directorios-->
+  	<% unless @coleccion['app_directorios'].blank? %>
+	  	<% @coleccion['app_directorios'].each do |dir| %>
+		  	<%= render partial: "/aplicacion/app_directorios/partials/modelo", locals: {a: 'index', objeto: dir} %>
+  		<% end  %>
+  	<% end %>
+
+    <!-- Directorios-->
+    <% unless @coleccion['app_documentos'].blank? %>
+      <% @coleccion['app_documentos'].each do |doc| %>
+        <%= render partial: "/aplicacion/app_directorios/partials/modelo", locals: {a: 'index', objeto: doc} %>
+      <% end  %>
+    <% end %>
+
+  </tbody>
+</table>
+
+<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: objeto ,c: 'app_directorios', gly: 'folder-plus', clr: color('app_directorios')} unless objeto.class.name == 'AppDirectorio' %>
+<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: objeto ,c: 'app_documentos', gly: 'journal-plus', clr: color('app_documentos')} %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Archivo:</strong>
+  <%= @app_archivo.archivo %>
+</p>
+
+<p>
+  <strong>Owner class:</strong>
+  <%= @app_archivo.owner_class %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @app_archivo.owner_id %>
+</p>
+
+<%= link_to 'Edit', edit_app_archivo_path(@app_archivo) %> |
+<%= link_to 'Back', app_archivos_path %>

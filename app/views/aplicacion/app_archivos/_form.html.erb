@@ -1,0 +1,32 @@
+<%= form_with(model: app_archivo, local: true) do |form| %>
+  <% if app_archivo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(app_archivo.errors.count, "error") %> prohibited this app_archivo from being saved:</h2>
+
+      <ul>
+      <% app_archivo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :archivo %>
+    <%= form.text_field :archivo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_class %>
+    <%= form.text_field :owner_class %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_id %>
+    <%= form.number_field :owner_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

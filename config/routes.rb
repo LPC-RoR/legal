@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :causas
+  resources :clientes
   scope module: 'aplicacion' do
     resources :app_administradores
     resources :app_nominas
@@ -27,6 +29,17 @@ Rails.application.routes.draw do
       match :estado, via: :get, on: :member
     end
     resources :app_msg_msgs
+
+    resources :app_documentos
+    resources :app_dir_dires
+    resources :app_directorios do
+      match :nuevo, via: :post, on: :collection
+    end
+    resources :app_repos do
+      match :publico, via: :get, on: :collection
+      match :perfil, via: :get, on: :collection
+    end
+    resources :app_archivos
   end
 
   scope module: 'home' do

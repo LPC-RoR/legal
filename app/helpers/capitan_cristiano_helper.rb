@@ -18,6 +18,10 @@ module CapitanCristianoHelper
 			'Contacto'
 		elsif ['AppMensaje', 'app_mensajes'].include?(text)
 			'Mensaje'
+		elsif ['AppDirectorio', 'app_directorios'].include?(text)
+			'Directorio'
+		elsif ['AppDocumento', 'app_documentos'].include?(text)
+			'Documento'
 		elsif ['HTema', 'h_temas'].include?(text)
 			'Tema'
 		elsif ['HLink', 'h_links'].include?(text)
@@ -59,6 +63,7 @@ module CapitanCristianoHelper
 				when 'singular'
 					text.tableize.humanize.singularize
 				when 'plural'
+					text.pluralize
 				end
 			when 'controller'
 				case destino

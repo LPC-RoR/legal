@@ -27,12 +27,12 @@ module CapitanRecursosHelper
 
 	def app_color
 		{
-			app: 'primary',
-			navbar: 'primary',
+			app: 'dark',
+			navbar: 'dark',
 			help: 'dark',
 			data: 'success',
-			title_tema: 'primary',
-			detalle_tema: 'primary'
+			title_tema: 'info',
+			detalle_tema: 'info'
 		}
 	end
 

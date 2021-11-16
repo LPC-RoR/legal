@@ -57,7 +57,7 @@
     <% when 'file' %>
 		<small>
 		  	<% if @objeto.send(token.to_s).present? %>
-		  		<%= image_tag(@objeto.send(token.to_s).half.url) %></br>
+		  		<%= image_tag(@objeto.send(token.to_s).half.url) if @objeto.class.name == 'AppImagen' %></br>
 			  	<small><i><%= @objeto.send(token.to_s).url.split('/').last %></i></small></br>
 				<label>
 				  <%= form.check_box "remove_#{token.to_s}".to_sym %>

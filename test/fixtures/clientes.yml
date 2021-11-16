@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  razon_social: MyString
+  rut: MyString
+
+two:
+  razon_social: MyString
+  rut: MyString

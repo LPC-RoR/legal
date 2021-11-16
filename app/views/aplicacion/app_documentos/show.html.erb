@@ -1,0 +1,14 @@
+<%#= render partial: '0p/general/o_titulo', locals: {o: @objeto, a: action_name, size: '5'} %>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'journal', text: @objeto.documento, clr: app_color[:app]} %></h4>
+
+<% if @objeto.padre.present? %>
+	<%= render partial: '0p/general/btn_turbolink', locals: {texto: nil, gly: 'arrow-90deg-up', link: @objeto.padre, delete: false, style: 'btn-outline-dark', clr: color(controller_name)} %>
+	</br>
+<% end %>
+
+</br>
+<h5><i class="bi bi-file-text"></i><small>Versiones del Documento</small></h5>
+<!-- para que funcione correctamente y no se DUPLIQUE el 'btn_nuevo' se debe poner la condicion del botón nuevo automático en false -->
+<%= render partial: 'aplicacion/app_documentos/partials/directorio' %>
+</br>
+<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'app_archivos', gly: 'plus-circle'} %>

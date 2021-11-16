@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Parent:</strong>
+  <%= @app_dir_dir.parent_id %>
+</p>
+
+<p>
+  <strong>Child:</strong>
+  <%= @app_dir_dir.child_id %>
+</p>
+
+<%= link_to 'Edit', edit_app_dir_dir_path(@app_dir_dir) %> |
+<%= link_to 'Back', app_dir_dires_path %>

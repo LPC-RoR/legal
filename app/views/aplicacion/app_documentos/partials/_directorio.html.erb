@@ -1,0 +1,15 @@
+<table class="table <%= table_types_base[:borderless] %> table-sm">
+  <tbody>
+
+  	<!-- Archivos-->
+  	<% unless @coleccion['app_archivos'].blank? %>
+	  	<% @coleccion['app_archivos'].each do |objeto| %>
+		  	<%= render partial: "/aplicacion/app_documentos/partials/modelo", locals: {a: 'index', objeto: objeto} %>
+  		<% end  %>
+  	<% end %>
+
+  </tbody>
+</table>
+
+<%#= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'app_directorios', gly: 'folder-plus', clr: color('app_directorios')} unless @objeto.class.name == 'AppDirectorio' %>
+<%#= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'app_documentos', gly: 'journal-plus', clr: color('app_documentos')} %>

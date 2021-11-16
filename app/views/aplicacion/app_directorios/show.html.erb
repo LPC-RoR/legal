@@ -1,0 +1,40 @@
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'folder', text: " #{@objeto.directorio}", clr: app_color[:app]} %></h4>
+
+<% @padres.each do |padre| %>
+	<%= render partial: '0p/general/btn_turbolink', locals: {texto: padre.directorio, gly: 'folder', link: padre, delete: false, style: 'btn-outline-dark', clr: color(controller_name)} %>
+<% end %>
+
+<div class='row'>
+	<div class='col-md-6'>
+
+		<%= form_for :nuevo_directorio, url: "/app_directorios/nuevo?objeto_id=#{@objeto.id}" do |form| %>
+			<div class='form-inline'>
+				<%= form.text_field(:directorio, size: 50, class: 'form-control', placeholder: 'nuevo directorio' ) %>
+
+				<button type="submit" class="btn btn-primary">
+				  <i class="bi-plus-circle"></i>
+				  <i class="bi-folder"></i>
+				</button>
+
+			</div>
+		<% end  %>
+
+	    <%= render partial: 'aplicacion/app_directorios/partials/directorio', locals: {objeto: @objeto} %>
+	</div>
+	<div class='col-md-6'>
+	</div>
+</div>
+
+
+
+</br></br>
+<div class='row'>
+	<div class='col-md-6'>
+	</div>
+	<div class='col-md-6'>
+		<!--i class="bi bi-images"></i><small> Imágenes</small-->
+		<%#= paginate @coleccion['imagenes'] %>
+		<%#= render partial: '/aplicacion/imagenes/partials/index', locals: {coleccion: @coleccion['imagenes']} %>
+		<%#= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'imagenes', gly: 'plus-circle'} %>
+	</div>
+</div>
