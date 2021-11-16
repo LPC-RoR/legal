@@ -7,7 +7,7 @@
 		<% st_modelo.st_estados.order(:orden).each do |st_estado| %>
 
 			<i class="bi bi-arrow-right"></i>
-			<% if st_estado.st_estado == 'ingreso' %>
+			<% if st_estado.orden == 1 %>
 				<i class="bi bi-plus"></i> 
 			<% else %>
 				<i class="bi bi-tag"></i> 

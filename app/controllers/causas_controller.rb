@@ -19,7 +19,8 @@ class CausasController < ApplicationController
 
   # GET /causas/new
   def new
-    @objeto = Causa.new(estado: 'ingreso')
+    modelo_causa = StModelo.find_by(st_modelo: 'Causa')
+    @objeto = Causa.new(estado: modelo_causa.primer_estado.st_estado)
   end
 
   # GET /causas/1/edit

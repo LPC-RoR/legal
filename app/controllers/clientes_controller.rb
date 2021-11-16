@@ -20,7 +20,8 @@ class ClientesController < ApplicationController
 
   # GET /clientes/new
   def new
-    @objeto = Cliente.new(estado: 'ingreso')
+    modelo_cliente = StModelo.find_by(st_modelo: 'Cliente')
+    @objeto = Cliente.new(estado: modelo_cliente.primer_estado.st_estado)
   end
 
   # GET /clientes/1/edit

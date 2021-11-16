@@ -22,6 +22,8 @@ module CapitanCristianoHelper
 			'Directorio'
 		elsif ['AppDocumento', 'app_documentos'].include?(text)
 			'Documento'
+		elsif ['AppArchivo', 'app_archivos'].include?(text)
+			'Archivo'
 		elsif ['HTema', 'h_temas'].include?(text)
 			'Tema'
 		elsif ['HLink', 'h_links'].include?(text)

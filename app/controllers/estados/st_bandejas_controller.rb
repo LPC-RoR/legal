@@ -5,11 +5,12 @@ class Estados::StBandejasController < ApplicationController
   def index
     # Manejo del sidebar
     unless StModelo.all.empty?
-      @m = params[:m].blank? ? StModelo.all.order(:st_modelo).first.st_modelo : params[:m]
+      primer_modelo = StModelo.all.order(:st_modelo).first
+      @m = params[:m].blank? ? primer_modelo.st_modelo : params[:m]
       if StModelo.find_by(st_modelo: @m).blank?
         @e = nil
       else
-        @e = (params[:e].blank? ? 'ingreso' : params[:e])
+        @e = (params[:e].blank? ? primer_modelo.primer_estado : params[:e])
       end
     else
       @m = nil
@@ -18,8 +19,7 @@ class Estados::StBandejasController < ApplicationController
 
     # Despliegue
     @coleccion = {}
-    estado = (@e == 'st_plus' ? 'ingreso' : @e)
-    @coleccion[@m.tableize] = @m.constantize.where(estado: estado).order(:created_at)
+    @coleccion[@m.tableize] = @m.constantize.where(estado: @e).order(:created_at)
 
     @nomina = AppNomina.find_by(email: perfil_activo.email) unless seguridad_desde('admin')
 
