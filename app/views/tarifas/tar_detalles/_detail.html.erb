@@ -1,0 +1,13 @@
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'number', token: :orden, label: 'Orden', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :codigo, label: 'Código', v: true } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :detalle, label: 'Detalle', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'select', token: :tipo, label: 'Tipo', sel_list: TarDetalle::TIPOS, v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :formula, label: 'Fórmula', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'check_box', token: :esconder, label: 'esconder', v: true } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'check_box', token: :total, label: 'total', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :tar_tarifa_id, label: nil, v: false } %>

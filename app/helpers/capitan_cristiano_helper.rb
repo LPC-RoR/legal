@@ -50,8 +50,20 @@ module CapitanCristianoHelper
 	end
 
 	def cristiano_app(text, origen, destino)
-		if ['nombre_espaniol'].include?(text)
-			'Nombre (Español)'
+		if ['TarElemento', 'tar_elementos'].include?(text)
+			'Elemento'
+		elsif ['TarTarifa', 'tar_tarifas'].include?(text)
+			'Tarifa'
+		elsif ['TarServicio', 'tar_servicios'].include?(text)
+			'Servicio'
+		elsif ['TarDetalle', 'tar_detalles'].include?(text)
+			'Detalle Tarifa'
+		elsif ['TarValor', 'tar_valores'].include?(text)
+			'Valor Tarifa'
+		elsif ['codigo'].include?(text)
+			'Código'
+		elsif ['formula'].include?(text)
+			'Fórmula'
 		else
 			case origen
 			when 'field'

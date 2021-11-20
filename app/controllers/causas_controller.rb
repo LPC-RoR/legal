@@ -1,5 +1,7 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado ]
+
+  include Tarifas
 
   # GET /causas or /causas.json
   def index
@@ -8,7 +10,13 @@ class CausasController < ApplicationController
 
   # GET /causas/1 or /causas/1.json
   def show
+
+    @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
+
     @coleccion = {}
+
+    @coleccion['tar_valores'] = @objeto.valores
+    @coleccion['tar_facturaciones'] = @objeto.facturaciones
 
     @repo = AppRepo.where(owner_class: 'Causa').find_by(owner_id: @objeto.id)
     @repo = AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @repo.blank?
@@ -55,6 +63,15 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def cambio_estado
+    StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
+
+    @objeto.estado = params[:st]
+    @objeto.save
+
+    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
   end
 
   # DELETE /causas/1 or /causas/1.json

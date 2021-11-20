@@ -47,12 +47,31 @@ module CapitanRecursosHelper
 	## ------------------------------------------------------- LAYOUTS CONTROLLERS
 
 	def app_sidebar_controllers
-		[
-		]
+		[ 'tar_elementos' ]
+	end
+
+	def otros_bandeja_controllers
+		['tar_tarifas', 'tar_detalles', 'tar_valores']
 	end
 
 	def app_bandeja_controllers
-		StModelo.all.order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize}
+		StModelo.all.order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize}.union(otros_bandeja_controllers)
+	end
+
+	## ------------------------------------------------------- SCOPES & PARTIALS
+
+	def app_controllers_scope
+		{
+			tarifas: ['tar_elementos', 'tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_facturaciones', 'tar_servicios']
+		}
+	end
+
+	def app_scope_controller(controller)
+		if app_controllers_scope[:tarifas].include?(controller)
+			'tarifas'
+		else
+			nil
+		end
 	end
 
 	## ------------------------------------------------------- TABLA | BTNS
@@ -83,50 +102,30 @@ module CapitanRecursosHelper
 	end
 
 	def app_new_button_conditions(controller)
-		if [].include?(controller)
-			admin?
+		if ['tar_elementos'].include?(controller)
+			controller_name == 'app_recursos'
+		elsif ['causas'].include?(controller)
+			((controller_name == 'clientes' and @objeto.estado == 'activo') or (controller_name == 'st_bandejas' and @e == 'ingreso'))
+		elsif ['tar_tarifas', 'tar_valores', 'tar_facturaciones', 'tar_servicios'].include?(controller)
+			false
 		else
 			true
 		end
 	end
 
 	def app_crud_conditions(objeto, btn)
-		if [].include?(objeto.class.name)
-			admin?
+		if ['TarElemento'].include?(objeto.class.name)
+			controller_name == 'app_recursos'
 		else
 			case objeto.class.name
 			when 'Clase'
 				admin?
+			when 'TarFacturacion'
+				false
 			else
 				true
 			end
 		end
-	end
-
-	def x_conditions(objeto, btn)
-		case objeto.class.name
-		when 'Clase'
-			case btn
-			when 'Boton1'
-				true
-			when 'Boton2'
-				false
-			end
-		else
-			true
-		end
-	end
-
-	def x_btns(objeto)
-		case objeto.class.name
-		when 'Clase'
-			[
-				['Boton1', '/boton1', true],
-				['Boton2', '/boton2', true]
-			]
-        else
-        	[]
-		end		
 	end
 
 	def show_link_condition(objeto)

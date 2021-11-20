@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  codigo: MyString
+  detalle: MyString
+  valor_uf: 9.99
+  valor: 9.99
+  owner_class: MyString
+  owner_id: 1
+
+two:
+  codigo: MyString
+  detalle: MyString
+  valor_uf: 9.99
+  valor: 9.99
+  owner_class: MyString
+  owner_id: 1

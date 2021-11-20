@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_15_132930) do
+ActiveRecord::Schema.define(version: 2021_11_19_194833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,7 +181,9 @@ ActiveRecord::Schema.define(version: 2021_11_15_132930) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "estado"
+    t.integer "tar_tarifa_id"
     t.index ["estado"], name: "index_causas_on_estado"
+    t.index ["tar_tarifa_id"], name: "index_causas_on_tar_tarifa_id"
   end
 
   create_table "clientes", force: :cascade do |t|
@@ -311,6 +313,94 @@ ActiveRecord::Schema.define(version: 2021_11_15_132930) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["app_nomina_id"], name: "index_st_perfil_modelos_on_app_nomina_id"
+  end
+
+  create_table "tar_detalles", force: :cascade do |t|
+    t.integer "orden"
+    t.string "codigo"
+    t.string "detalle"
+    t.string "tipo"
+    t.string "formula"
+    t.integer "tar_tarifa_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "esconder"
+    t.boolean "total"
+    t.index ["codigo"], name: "index_tar_detalles_on_codigo"
+    t.index ["orden"], name: "index_tar_detalles_on_orden"
+    t.index ["tar_tarifa_id"], name: "index_tar_detalles_on_tar_tarifa_id"
+  end
+
+  create_table "tar_elementos", force: :cascade do |t|
+    t.integer "orden"
+    t.string "elemento"
+    t.string "codigo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo"], name: "index_tar_elementos_on_codigo"
+    t.index ["orden"], name: "index_tar_elementos_on_orden"
+  end
+
+  create_table "tar_facturaciones", force: :cascade do |t|
+    t.string "facturable"
+    t.decimal "monto"
+    t.string "estado"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "glosa"
+    t.index ["estado"], name: "index_tar_facturaciones_on_estado"
+    t.index ["facturable"], name: "index_tar_facturaciones_on_facturable"
+    t.index ["owner_class"], name: "index_tar_facturaciones_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_facturaciones_on_owner_id"
+  end
+
+  create_table "tar_servicios", force: :cascade do |t|
+    t.string "codigo"
+    t.string "descripcion"
+    t.text "detalle"
+    t.string "tipo"
+    t.string "moneda"
+    t.decimal "monto"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "estado"
+    t.index ["codigo"], name: "index_tar_servicios_on_codigo"
+    t.index ["estado"], name: "index_tar_servicios_on_estado"
+    t.index ["owner_class"], name: "index_tar_servicios_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_servicios_on_owner_id"
+    t.index ["tipo"], name: "index_tar_servicios_on_tipo"
+  end
+
+  create_table "tar_tarifas", force: :cascade do |t|
+    t.string "tarifa"
+    t.string "estado"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "facturables"
+    t.index ["estado"], name: "index_tar_tarifas_on_estado"
+    t.index ["facturables"], name: "index_tar_tarifas_on_facturables"
+    t.index ["owner_class"], name: "index_tar_tarifas_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_tarifas_on_owner_id"
+  end
+
+  create_table "tar_valores", force: :cascade do |t|
+    t.string "codigo"
+    t.string "detalle"
+    t.decimal "valor_uf"
+    t.decimal "valor"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo"], name: "index_tar_valores_on_codigo"
+    t.index ["owner_class"], name: "index_tar_valores_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_valores_on_owner_id"
   end
 
   create_table "usuarios", force: :cascade do |t|

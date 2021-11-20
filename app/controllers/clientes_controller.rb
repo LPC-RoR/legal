@@ -1,5 +1,5 @@
 class ClientesController < ApplicationController
-  before_action :set_cliente, only: %i[ show edit update destroy ]
+  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado ]
 
   # GET /clientes or /clientes.json
   def index
@@ -9,6 +9,8 @@ class ClientesController < ApplicationController
   # GET /clientes/1 or /clientes/1.json
   def show
     @coleccion = {}
+    @coleccion['tar_tarifas'] = @objeto.tarifas.order(:created_at)
+    @coleccion['tar_servicios'] = @objeto.servicios.order(:created_at)
     @coleccion['causas'] = @objeto.causas.order(:created_at)
 
     @repo = AppRepo.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)
@@ -56,6 +58,15 @@ class ClientesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def cambio_estado
+    StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
+
+    @objeto.estado = params[:st]
+    @objeto.save
+
+    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
   end
 
   # DELETE /clientes/1 or /clientes/1.json

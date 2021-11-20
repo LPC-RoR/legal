@@ -87,7 +87,7 @@ module ApplicationHelper
 		elsif controllers_scope[:data].include?(controller)
 			'data'
 		else
-			nil
+			app_scope_controller(controller)
 		end
 	end
 

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  facturable: MyString
+  monto: 9.99
+  estado: MyString
+  owner_class: MyString
+  owner_id: 1
+
+two:
+  facturable: MyString
+  monto: 9.99
+  estado: MyString
+  owner_class: MyString
+  owner_id: 1

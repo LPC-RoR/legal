@@ -1,0 +1,6 @@
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :tarifa, label: 'Tarifa', v: true } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :facturables, label: 'Detalles Facturables', v: true } %>
+
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :estado, label: nil, v: false } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :owner_class, label: nil, v: false } %>
+<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :owner_id, label: nil, v: false } %>

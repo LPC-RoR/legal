@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @tar_servicio.codigo %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @tar_servicio.descripcion %>
+</p>
+
+<p>
+  <strong>Detalle:</strong>
+  <%= @tar_servicio.detalle %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @tar_servicio.tipo %>
+</p>
+
+<p>
+  <strong>Moneda:</strong>
+  <%= @tar_servicio.moneda %>
+</p>
+
+<p>
+  <strong>Monto:</strong>
+  <%= @tar_servicio.monto %>
+</p>
+
+<p>
+  <strong>Owner class:</strong>
+  <%= @tar_servicio.owner_class %>
+</p>
+
+<p>
+  <strong>Objeto:</strong>
+  <%= @tar_servicio.objeto_id %>
+</p>
+
+<%= link_to 'Edit', edit_tar_servicio_path(@tar_servicio) %> |
+<%= link_to 'Back', tar_servicios_path %>

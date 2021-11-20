@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tar Servicios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Descripcion</th>
+      <th>Detalle</th>
+      <th>Tipo</th>
+      <th>Moneda</th>
+      <th>Monto</th>
+      <th>Owner class</th>
+      <th>Objeto</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tar_servicios.each do |tar_servicio| %>
+      <tr>
+        <td><%= tar_servicio.codigo %></td>
+        <td><%= tar_servicio.descripcion %></td>
+        <td><%= tar_servicio.detalle %></td>
+        <td><%= tar_servicio.tipo %></td>
+        <td><%= tar_servicio.moneda %></td>
+        <td><%= tar_servicio.monto %></td>
+        <td><%= tar_servicio.owner_class %></td>
+        <td><%= tar_servicio.objeto_id %></td>
+        <td><%= link_to 'Show', tar_servicio %></td>
+        <td><%= link_to 'Edit', edit_tar_servicio_path(tar_servicio) %></td>
+        <td><%= link_to 'Destroy', tar_servicio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tar Servicio', new_tar_servicio_path %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: 1
+  codigo: MyString
+  detalle: MyString
+  tipo: MyString
+  formula: MyString
+  tar_tarifa_id: 1
+
+two:
+  orden: 1
+  codigo: MyString
+  detalle: MyString
+  tipo: MyString
+  formula: MyString
+  tar_tarifa_id: 1

@@ -1,4 +1,4 @@
-<%= form.select :cliente_id, Cliente.all.collect { |cliente| [cliente.razon_social, cliente.id] }, include_blank: false, prompt: "Seleccione Cliente" %>
+<%= form.select :cliente_id, Cliente.where(estado: 'activo').collect { |cliente| [cliente.razon_social, cliente.id] }, include_blank: false, prompt: "Seleccione Cliente" %>
 
 <%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :identificador, label: 'Identificador', v: true } %>
 

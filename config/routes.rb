@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :causas
-  resources :clientes
+  resources :causas do
+    match :cambio_estado, via: :get, on: :member
+  end
+  resources :clientes do
+    match :cambio_estado, via: :get, on: :member
+  end
   scope module: 'aplicacion' do
     resources :app_administradores
     resources :app_nominas
@@ -81,6 +85,22 @@ Rails.application.routes.draw do
       match :cambia_ingreso, via: :get, on: :member
     end
     resources :st_bandejas
+  end
+
+  scope module: 'tarifas' do
+    resources :tar_elementos
+    resources :tar_tarifas do 
+      resources :tar_detalles
+      match :asigna, via: :get, on: :member
+      match :desasigna, via: :get, on: :member
+    end
+    resources :tar_detalles
+    resources :tar_valores
+    resources :tar_facturaciones do
+      match :crea_facturacion, via: :get, on: :collection
+      match :elimina, via: :get, on: :member
+    end
+    resources :tar_servicios
   end
 
   devise_for :usuarios

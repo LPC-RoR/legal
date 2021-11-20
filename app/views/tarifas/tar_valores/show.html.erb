@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @tar_valor.codigo %>
+</p>
+
+<p>
+  <strong>Detalle:</strong>
+  <%= @tar_valor.detalle %>
+</p>
+
+<p>
+  <strong>Valor uf:</strong>
+  <%= @tar_valor.valor_uf %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @tar_valor.valor %>
+</p>
+
+<p>
+  <strong>Owner class:</strong>
+  <%= @tar_valor.owner_class %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @tar_valor.owner_id %>
+</p>
+
+<%= link_to 'Edit', edit_tar_valor_path(@tar_valor) %> |
+<%= link_to 'Back', tar_valores_path %>

@@ -21,6 +21,11 @@ class Estados::StBandejasController < ApplicationController
     @coleccion = {}
     @coleccion[@m.tableize] = @m.constantize.where(estado: @e).order(:created_at)
 
+    if @coleccion[@m.tableize].count > 25
+      @coleccion[@m.tableize] = @coleccion[@m.tableize].page(params[:page])
+      @paginate = true
+    end
+
     @nomina = AppNomina.find_by(email: perfil_activo.email) unless seguridad_desde('admin')
 
   end

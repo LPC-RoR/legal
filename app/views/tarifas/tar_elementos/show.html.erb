@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Orden:</strong>
+  <%= @tar_elemento.orden %>
+</p>
+
+<p>
+  <strong>Elemento:</strong>
+  <%= @tar_elemento.elemento %>
+</p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @tar_elemento.codigo %>
+</p>
+
+<%= link_to 'Edit', edit_tar_elemento_path(@tar_elemento) %> |
+<%= link_to 'Back', tar_elementos_path %>

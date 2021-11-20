@@ -1,9 +1,19 @@
 <h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: "Cliente #{@objeto.razon_social	}", clr: app_color[:app]} %></h4>
 
+<%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
+</br></br>
+
 <div class='row'>
 	<div class='col-md-6'>
+		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas del cliente', clr: app_color[:app]} %></h5>
+		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_tarifas', a: 'index'} %>
+		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_tarifas', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
+<hr>
+		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Servicios del cliente', clr: app_color[:app]} %></h5>
+		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_servicios', a: 'index'} %>
+		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_servicios', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
+<hr>
 		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: 'Causas del cliente', clr: app_color[:app]} %></h5>
-
 		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'causas', a: 'index'} %>
 	</div>
 	<div class='col-md-6'>

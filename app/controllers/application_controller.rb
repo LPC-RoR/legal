@@ -169,4 +169,7 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+	def number? string
+	  true if Float(string) rescue false
+	end
 end

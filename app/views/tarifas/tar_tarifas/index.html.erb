@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tar Tarifas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tarifa</th>
+      <th>Estado</th>
+      <th>Owner class</th>
+      <th>Owner</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tar_tarifas.each do |tar_tarifa| %>
+      <tr>
+        <td><%= tar_tarifa.tarifa %></td>
+        <td><%= tar_tarifa.estado %></td>
+        <td><%= tar_tarifa.owner_class %></td>
+        <td><%= tar_tarifa.owner_id %></td>
+        <td><%= link_to 'Show', tar_tarifa %></td>
+        <td><%= link_to 'Edit', edit_tar_tarifa_path(tar_tarifa) %></td>
+        <td><%= link_to 'Destroy', tar_tarifa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tar Tarifa', new_tar_tarifa_path %>
