@@ -29,7 +29,7 @@ module Sidebar
     	@sb_link = (lista.blank? ? nil : lista.link)
 	    @sb_elementos = get_elementos(lista)
 
-	    unless ['new', 'edit', 'create', 'show'].include?(action_name)
+	    unless ['new', 'edit', 'create', 'show', 'update'].include?(action_name)
 	    	@id = get_id(@sb_elementos, param_id)
 		    @elemento = SbElemento.find(@id)
 
@@ -57,7 +57,7 @@ module Sidebar
 
 		carga_sidebar_base(nombre, param_id)
 
-	    unless ['new', 'edit', 'create', 'show'].include?(action_name)
+	    unless ['new', 'edit', 'create', 'show', 'update'].include?(action_name)
 
 		    if @elemento.despliegue == 'show'
 	    		@objeto = @elemento.controlador.classify.constantize.first
@@ -81,6 +81,7 @@ module Sidebar
 	end
 
 	# ************************************************************************** SIDEBAR
+
 	def carga_solo_sidebar
       carga_sidebar(nombre_sidebar(controller_name), nil)
     end
@@ -95,6 +96,6 @@ module Sidebar
 	end
 
 	def get_elemento_id(controlador, nombre_elemento)
-		SbElemento.where(controlador: controlador).find_by(elemento: nombre_elemento).id
+		SbElemento.where(despliegue: 'list').where(controlador: controlador).find_by(elemento: nombre_elemento).id
 	end
 end

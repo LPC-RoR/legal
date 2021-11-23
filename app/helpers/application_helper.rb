@@ -134,7 +134,7 @@ module ApplicationHelper
 		end
 	end
 
-	## ------------------------------------------------------- SIDEBAR
+	## ------------------------------------------------------- SIDEBAR + BANDEJA
 
 	def base_sidebar_controllers
 		[
@@ -148,6 +148,14 @@ module ApplicationHelper
 
 	def sidebar_controllers
 		base_sidebar_controllers.union(app_sidebar_controllers)
+	end
+
+	def base_bandeja_controllers
+		StModelo.all.order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize}
+	end
+
+	def bandeja_controllers
+		base_bandeja_controllers.union(app_bandeja_controllers)
 	end
 
 	## ------------------------------------------------------- TABLA
@@ -181,13 +189,6 @@ module ApplicationHelper
 		end
 	end
 
-	# Obtiene los estados de un modelo usando el controlador
-	# "-tabla.html.erb"
-	def c_estados(controller)
-#		dejamos con comentario para eliminar completamente el uso de config/application.rb
-#		Rails.configuration.x.tables.exceptions[controller][:estados]
-	end
-
 	def sortable?(controller, field)
 		if sortable_fields[controller].present?
 			sortable_fields[controller].include?(field) ? true : false
@@ -204,6 +205,7 @@ module ApplicationHelper
 	end
 
 	## ------------------------------------------------------- TABLA | BTNS
+	
 	def new_button_conditions(controller)
 		if ['app_administradores', 'app_nominas', 'hlp_tutoriales', 'hlp_pasos'].include?(controller)
 				seguridad_desde('admin')

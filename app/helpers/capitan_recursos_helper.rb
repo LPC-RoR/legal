@@ -50,12 +50,8 @@ module CapitanRecursosHelper
 		[ 'tar_elementos' ]
 	end
 
-	def otros_bandeja_controllers
-		['tar_tarifas', 'tar_detalles', 'tar_valores']
-	end
-
 	def app_bandeja_controllers
-		StModelo.all.order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize}.union(otros_bandeja_controllers)
+		['tar_tarifas', 'tar_detalles', 'tar_valores']
 	end
 
 	## ------------------------------------------------------- SCOPES & PARTIALS
@@ -84,17 +80,9 @@ module CapitanRecursosHelper
 
 	# En modelo.html.erb define el tipo de fila de tabla
 	# Se usa para marcar con un color distinto la fila que cumple el criterio
+	# Ejemplo en CVCh
 	def table_row_type(objeto)
-		case objeto.class.name
-		when 'Publicacion'
-			if usuario_signed_in?
-				(objeto.carpetas.ids & perfil_activo.carpetas.ids).empty? ? 'default' : 'dark'
-			else
-				'default'
-			end
-		else
-			'default'
-		end
+		'default'
 	end
 
 	def app_alias_tabla(controller)

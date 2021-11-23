@@ -9,6 +9,7 @@ module IniciaAplicacion
 		# SB_LISTAS
 
 		if ActiveRecord::Base.connection.table_exists? 'sb_listas'
+
 			# LISTA ADMINISTRACION
 			lista = SbLista.find_by(lista: 'Administración')
 			if lista.blank?
