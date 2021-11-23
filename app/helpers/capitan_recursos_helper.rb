@@ -5,7 +5,7 @@ module CapitanRecursosHelper
 		{
 			nombre: 'Legal',
 			home_link: 'http://www.legal.cl',
-			logo_navbar: 'logo_navbar.gif'
+			logo_navbar: 'logo_navbar.png'
 		}
 	end
 
