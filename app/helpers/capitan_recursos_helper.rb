@@ -13,7 +13,7 @@ module CapitanRecursosHelper
 		{
 			portada: nil,
 			tema: 'half',
-			foot: 'half'
+			foot: 'quarter'
 		}
 	end
 
