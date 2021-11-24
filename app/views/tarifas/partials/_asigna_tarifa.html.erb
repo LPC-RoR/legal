@@ -1,0 +1,32 @@
+<div class='row'>
+	<div class='col-md-6'>
+		<p class='text-<%=app_color[:app]%>'>
+			<i class="bi bi-cash-coin"></i></i><small> Asignada</small>
+		</p>
+		<% if objeto.tar_tarifa.blank? %>
+			<h6 class='text-muted'><small><small>Sin tarifa asignada</small></small></h6>
+		<% else %>
+
+			<table class="table">
+				<tbody>
+			  		<tr>
+			  			<td><small><small><p class='text-<%=app_color[:app]%>'><%=objeto.tar_tarifa.tarifa %></p></small></small></td>
+			  			<td>
+			  				<% unless objeto.valores.any? %>
+			  				<%= link_to link_x_btn(objeto.tar_tarifa, '/desasigna', true) do %>
+			  					<i class="bi bi-x-circle"></i>
+			  				<% end %>
+			  				<% end %>
+			  			</td>
+				  	</tr>
+				</tbody>
+			</table>
+
+		<% end %>
+	</div>
+	<div class='col-md-6'>
+		<% unless objeto.tar_tarifa.present? %>
+			<%= render partial: '0p/list/action_list', locals: {nombre: 'Tarifas Disponibles', gly: 'cash-coin', clr: 'info', coleccion: objeto.tarifas_disponibles, field: 'tarifa', link: '/asigna', gly_link: 'plus-circle', base: true, action: true} %>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,8 @@
+<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: app_color[:app]} %></h5>
+
+<% objeto.tar_tarifa.facturables.split(' ').each do |facturable| %>
+	<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(facturable) %>
+    	<%= render partial: '0p/general/btn_turbolink', locals: {texto: objeto.tar_tarifa.tar_detalles.find_by(codigo: facturable).detalle, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{facturable}", clr: app_color[:app], delete: false} %>
+    <% end %>
+<% end %>
+<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>

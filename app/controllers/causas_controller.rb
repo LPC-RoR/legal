@@ -18,11 +18,10 @@ class CausasController < ApplicationController
     @coleccion['tar_valores'] = @objeto.valores
     @coleccion['tar_facturaciones'] = @objeto.facturaciones
 
-    @repo = AppRepo.where(owner_class: 'Causa').find_by(owner_id: @objeto.id)
-    @repo = AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @repo.blank?
+    AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 
-    @coleccion['app_directorios'] = @repo.directorios
-    @coleccion['app_documentos'] = @repo.documentos
+    @coleccion['app_directorios'] = @objeto.repo.directorios
+    @coleccion['app_documentos'] = @objeto.repo.documentos
   end
 
   # GET /causas/new

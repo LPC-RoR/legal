@@ -1,0 +1,2 @@
+class TarConvenio < ApplicationRecord
+end

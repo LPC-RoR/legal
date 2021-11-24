@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
 
+  resources :consultorias do
+    match :cambio_estado, via: :get, on: :member
+  end
   resources :causas do
     match :cambio_estado, via: :get, on: :member
   end
   resources :clientes do
     match :cambio_estado, via: :get, on: :member
+    match :crea_factura, via: :get, on: :member
   end
   scope module: 'aplicacion' do
     resources :app_administradores
@@ -99,8 +103,18 @@ Rails.application.routes.draw do
     resources :tar_facturaciones do
       match :crea_facturacion, via: :get, on: :collection
       match :elimina, via: :get, on: :member
+      match :facturable, via: :get, on: :member
     end
     resources :tar_servicios
+
+    resources :tar_convenios
+    resources :tar_facturas do 
+      match :set_documento, via: :post, on: :member
+      match :elimina, via: :get, on: :member
+      match :back_estado, via: :get, on: :member
+      match :set_pago, via: :post, on: :member
+      match :set_facturada, via: :get, on: :member
+    end
   end
 
   devise_for :usuarios

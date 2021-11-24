@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  consultoria: MyString
+  cliente_id: 1
+  estado: MyString
+  tar_tarea_id: 1
+
+two:
+  consultoria: MyString
+  cliente_id: 1
+  estado: MyString
+  tar_tarea_id: 1

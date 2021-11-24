@@ -1,0 +1,12 @@
+    <%= render partial: '0p/tabs/tabs', locals: {tabs: @tabs, tag: 'tab', active: @tab } %>
+</br>
+    <div class='row'>
+      <div class='col-md-8'>
+        <h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: "Facturas en estado #{@tab }", clr: app_color[:app]} %></h5>
+
+        <%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturas', a: 'index'} %>
+      </div>
+      <div class='col-md-4'>
+        <%= render partial: 'clientes/partials/por_facturar' %>
+      </div>
+    </div>

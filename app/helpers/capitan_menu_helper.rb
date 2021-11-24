@@ -20,10 +20,10 @@ module CapitanMenuHelper
 	    ## Menu principal de la aplicación
 	    # [ 'Item del menú', 'link', 'accesso', 'gly' ]
 	    [
-	        ['',        "/st_bandejas",      'nomina', 'inboxes'],
+	        ['',        "/st_bandejas",       'nomina', 'inboxes'],
 	        ['Público', '/app_repos/publico', 'nomina', 'archive'],
-	        ['Perfil',  '/app_repos/perfil',  'nomina', 'archive']
-#	        ["Escritorio",     "/vistas/escritorio", 'usuario', 'window-sidebar']
+	        ['Perfil',  '/app_repos/perfil',  'nomina', 'archive'],
+	        ['',        "/tar_facturas",      'nomina', 'currency-dollar']
 	    ]
 
 	end

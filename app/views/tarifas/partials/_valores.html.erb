@@ -1,0 +1,22 @@
+<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Valores', clr: app_color[:app]} %></h5>
+<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_valores', a: 'index'} %>
+<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: objeto, c: 'tar_valores', a: 'index', gly: 'plus-circle'} %>
+
+</br></br>
+<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Despliegue Tarifa', clr: app_color[:app]} %></h5>
+
+<small>
+<table class='table'>
+	<tbody>
+		<% array_tarifa.each do |d_elem| %>
+			<tr>
+				<td><<%=(d_elem[2] == true) ? 'b' : 'i'%>><%= d_elem[0] %></<<%=(d_elem[2] == true) ? 'b' : 'i'%>></td>
+				<td align='right'><%= number_to_currency(d_elem[1], locale: :en, precision: 0) %></td>
+				<% if d_elem[2] == true %>
+					</b>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+</small>

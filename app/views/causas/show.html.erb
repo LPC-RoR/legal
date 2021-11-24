@@ -7,72 +7,13 @@
 	<div class='col-md-6'>
 		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
 
-		<div class='row'>
-			<div class='col-md-6'>
-				<p class='text-<%=app_color[:app]%>'>
-					<i class="bi bi-cash-coin"></i></i><small> Asignada</small>
-				</p>
-				<% if @objeto.tar_tarifa.blank? %>
-					<h6 class='text-muted'><small><small>Causa sin tarifa</small></small></h6>
-				<% else %>
-
-					<table class="table">
-						<tbody>
-					  		<tr>
-					  			<td><small><small><p class='text-<%=app_color[:app]%>'><%=@objeto.tar_tarifa.tarifa %></p></small></small></td>
-					  			<td>
-					  				<% unless @objeto.valores.any? %>
-					  				<%= link_to link_x_btn(@objeto.tar_tarifa, '/desasigna', true) do %>
-					  					<i class="bi bi-x-circle"></i>
-					  				<% end %>
-					  				<% end %>
-					  			</td>
-						  	</tr>
-						</tbody>
-					</table>
-
-				<% end %>
-			</div>
-			<div class='col-md-6'>
-				<% unless @objeto.tar_tarifa.present? %>
-					<%= render partial: '0p/list/action_list', locals: {nombre: 'Tarifas Disponibles', gly: 'cash-coin', clr: 'info', coleccion: @objeto.cliente.tarifas, field: 'tarifa', link: '/asigna', gly_link: 'plus-circle', base: true, action: true} %>
-	    		<% end %>
-			</div>
-		</div>
+		<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
 
 		<% if @objeto.tar_tarifa.present? %>
 
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Valores', clr: app_color[:app]} %></h5>
-			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_valores', a: 'index'} %>
-			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_valores', a: 'index', gly: 'plus-circle'} %>
+			<%= render partial: 'tarifas/partials/valores', locals: {objeto: @objeto, array_tarifa: @array_tarifa} %>
 
-			</br></br>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Despliegue Tarifa', clr: app_color[:app]} %></h5>
-
-			<small>
-			<table class='table'>
-				<tbody>
-					<% @array_tarifa.each do |d_elem| %>
-						<tr>
-							<td><<%=(d_elem[2] == true) ? 'b' : 'i'%>><%= d_elem[0] %></<<%=(d_elem[2] == true) ? 'b' : 'i'%>></td>
-							<td align='right'><%= number_to_currency(d_elem[1], locale: :en, precision: 0) %></td>
-							<% if d_elem[2] == true %>
-								</b>
-							<% end %>
-						</tr>
-					<% end %>
-				</tbody>
-			</table>
-			</small>
-
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: app_color[:app]} %></h5>
-
-			<% @objeto.tar_tarifa.facturables.split(' ').each do |facturable| %>
-				<% unless @objeto.facturaciones.map {|facts| facts.facturable}.include?(facturable) %>
-			    	<%= render partial: '0p/general/btn_turbolink', locals: {texto: @objeto.tar_tarifa.tar_detalles.find_by(codigo: facturable).detalle, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{@objeto.class.name}&owner_id=#{@objeto.id}&facturable=#{facturable}", clr: app_color[:app], delete: false} %>
-			    <% end %>
-			<% end %>
-			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>
+			<%= render partial: 'tarifas/partials/facturacion', locals: {objeto: @objeto} %>
 
 		<% end %>
 
@@ -80,6 +21,6 @@
 	<div class='col-md-6'>
 		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Repositorio de la causa', clr: app_color[:app]} %></h5>
 
-	    <%= render partial: 'aplicacion/app_directorios/partials/directorio', locals: {objeto: @repo} %>
+	    <%= render partial: 'aplicacion/app_directorios/partials/directorio', locals: {objeto: @objeto.repo} %>
 	</div>
 </div>

@@ -10,7 +10,7 @@ class Estados::StBandejasController < ApplicationController
       if StModelo.find_by(st_modelo: @m).blank?
         @e = nil
       else
-        @e = (params[:e].blank? ? primer_modelo.primer_estado : params[:e])
+        @e = (params[:e].blank? ? primer_modelo.primer_estado.st_estado : params[:e])
       end
     else
       @m = nil

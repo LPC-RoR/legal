@@ -87,9 +87,10 @@ class ApplicationController < ActionController::Base
 				end
 			end
 
-			inicia_app if @perfil.present?
-
 		end
+
+		inicia_app if perfil_activo.present?
+
 	end
 
 	# Este método se usa para construir un nombre de directorio a partir de un correo electrónico.

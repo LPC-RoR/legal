@@ -1,0 +1,3 @@
+<% if ['tar_facturas'].include?(controller_name) %>
+	<%= render partial: '0p/general/btn_proceso', locals: {texto: nil, link: link_x_btn(objeto, '/crea_factura', true), clr: color(objeto.class.name.tableize), delete: false, gly: 'plus-circle'} %>
+<% end %>

@@ -1,5 +1,6 @@
 class ClientesController < ApplicationController
-  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado ]
+  before_action :authenticate_usuario!
+  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura ]
 
   # GET /clientes or /clientes.json
   def index
@@ -8,10 +9,18 @@ class ClientesController < ApplicationController
 
   # GET /clientes/1 or /clientes/1.json
   def show
+    init_tab(['Causas', 'Consultorías', 'Tarifas y servicios'], params[:tab])
+    @options = {'tab' => @tab}
+
     @coleccion = {}
-    @coleccion['tar_tarifas'] = @objeto.tarifas.order(:created_at)
-    @coleccion['tar_servicios'] = @objeto.servicios.order(:created_at)
-    @coleccion['causas'] = @objeto.causas.order(:created_at)
+    if @tab == 'Tarifas y servicios'
+      @coleccion['tar_tarifas'] = @objeto.tarifas.order(:created_at)
+      @coleccion['tar_servicios'] = @objeto.servicios.order(:created_at)
+    elsif @tab == 'Causas'
+      @coleccion['causas'] = @objeto.causas.order(:created_at)
+    else
+      @coleccion['consultorias'] = @objeto.consultorias.order(:created_at)
+    end
 
     @repo = AppRepo.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)
     @repo = AppRepo.create(repositorio: @objeto.razon_social, owner_class: 'Cliente', owner_id: @objeto.id) if @repo.blank?
@@ -67,6 +76,16 @@ class ClientesController < ApplicationController
     @objeto.save
 
     redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
+  end
+
+  def crea_factura
+    factura = TarFactura.create(owner_class: 'Cliente', owner_id: @objeto.id, estado: 'ingreso')
+
+    @objeto.facturacion_pendiente.each do |facturacion|
+      factura.tar_facturaciones << facturacion
+    end
+
+    redirect_to tar_facturas_path
   end
 
   # DELETE /clientes/1 or /clientes/1.json

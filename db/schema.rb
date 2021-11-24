@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_19_194833) do
+ActiveRecord::Schema.define(version: 2021_11_24_191422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,17 @@ ActiveRecord::Schema.define(version: 2021_11_19_194833) do
     t.index ["estado"], name: "index_clientes_on_estado"
   end
 
+  create_table "consultorias", force: :cascade do |t|
+    t.string "consultoria"
+    t.integer "cliente_id"
+    t.string "estado"
+    t.integer "tar_tarifa_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_consultorias_on_cliente_id"
+    t.index ["tar_tarifa_id"], name: "index_consultorias_on_tar_tarifa_id"
+  end
+
   create_table "h_imagenes", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", null: false
@@ -315,6 +326,20 @@ ActiveRecord::Schema.define(version: 2021_11_19_194833) do
     t.index ["app_nomina_id"], name: "index_st_perfil_modelos_on_app_nomina_id"
   end
 
+  create_table "tar_convenios", force: :cascade do |t|
+    t.datetime "fecha"
+    t.decimal "monto"
+    t.string "estado"
+    t.integer "tar_factura_id"
+    t.integer "tar_facturacion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estado"], name: "index_tar_convenios_on_estado"
+    t.index ["fecha"], name: "index_tar_convenios_on_fecha"
+    t.index ["tar_factura_id"], name: "index_tar_convenios_on_tar_factura_id"
+    t.index ["tar_facturacion_id"], name: "index_tar_convenios_on_tar_facturacion_id"
+  end
+
   create_table "tar_detalles", force: :cascade do |t|
     t.integer "orden"
     t.string "codigo"
@@ -350,10 +375,25 @@ ActiveRecord::Schema.define(version: 2021_11_19_194833) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "glosa"
+    t.integer "tar_factura_id"
     t.index ["estado"], name: "index_tar_facturaciones_on_estado"
     t.index ["facturable"], name: "index_tar_facturaciones_on_facturable"
     t.index ["owner_class"], name: "index_tar_facturaciones_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturaciones_on_owner_id"
+    t.index ["tar_factura_id"], name: "index_tar_facturaciones_on_tar_factura_id"
+  end
+
+  create_table "tar_facturas", force: :cascade do |t|
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.integer "documento"
+    t.string "estado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "detalle_pago"
+    t.index ["estado"], name: "index_tar_facturas_on_estado"
+    t.index ["owner_class"], name: "index_tar_facturas_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"
   end
 
   create_table "tar_servicios", force: :cascade do |t|

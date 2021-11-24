@@ -6,6 +6,8 @@ class TarFacturacion < ApplicationRecord
 		['estado',     'normal']
 	]
 
+	belongs_to :tar_factura, optional: true
+
 	def padre
 		self.owner_class.constantize.find(self.owner_id)
 	end

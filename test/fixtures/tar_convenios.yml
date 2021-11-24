@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fecha: 2021-11-24 12:23:05
+  monto: 9.99
+  estado: MyString
+  tar_factura_id: 1
+
+two:
+  fecha: 2021-11-24 12:23:05
+  monto: 9.99
+  estado: MyString
+  tar_factura_id: 1

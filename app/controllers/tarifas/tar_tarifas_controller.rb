@@ -53,17 +53,28 @@ class Tarifas::TarTarifasController < ApplicationController
   end
 
   def asigna
-    causa = params[:class_name].constantize.find(params[:objeto_id])
-    @objeto.causas << causa
 
-    redirect_to causa
+    objeto = params[:class_name].constantize.find(params[:objeto_id])
+    @objeto.send(params[:class_name].tableize) << objeto
+
+    redirect_to objeto
+
+#    causa = params[:class_name].constantize.find(params[:objeto_id])
+#    @objeto.causas << causa
+
+#    redirect_to causa
   end
 
   def desasigna
-    causa = params[:class_name].constantize.find(params[:objeto_id])
-    @objeto.causas.delete(causa)
+    objeto = params[:class_name].constantize.find(params[:objeto_id])
+    @objeto.send(params[:class_name].tableize).delete(objeto)
 
-    redirect_to causa
+    redirect_to objeto
+
+#    causa = params[:class_name].constantize.find(params[:objeto_id])
+#    @objeto.causas.delete(causa)
+
+#    redirect_to causa
   end
 
   # DELETE /tar_tarifas/1 or /tar_tarifas/1.json

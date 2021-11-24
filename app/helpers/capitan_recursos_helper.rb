@@ -4,7 +4,7 @@ module CapitanRecursosHelper
 	def app_setup
 		{
 			nombre: 'Legal',
-			home_link: 'http://www.legal.cl',
+			home_link: 'http://3.144.225.201/',
 			logo_navbar: 'logo_navbar.png'
 		}
 	end
@@ -51,14 +51,14 @@ module CapitanRecursosHelper
 	end
 
 	def app_bandeja_controllers
-		['tar_tarifas', 'tar_detalles', 'tar_valores']
+		['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_facturas']
 	end
 
 	## ------------------------------------------------------- SCOPES & PARTIALS
 
 	def app_controllers_scope
 		{
-			tarifas: ['tar_elementos', 'tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_facturaciones', 'tar_servicios']
+			tarifas: ['tar_elementos', 'tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_facturaciones', 'tar_servicios', 'tar_facturas']
 		}
 	end
 
@@ -92,9 +92,9 @@ module CapitanRecursosHelper
 	def app_new_button_conditions(controller)
 		if ['tar_elementos'].include?(controller)
 			controller_name == 'app_recursos'
-		elsif ['causas'].include?(controller)
-			((controller_name == 'clientes' and @objeto.estado == 'activo') or (controller_name == 'st_bandejas' and @e == 'ingreso'))
-		elsif ['tar_tarifas', 'tar_valores', 'tar_facturaciones', 'tar_servicios'].include?(controller)
+		elsif ['causas', 'consultorias', 'clientes'].include?(controller)
+			(controller_name == 'st_bandejas' and @e == primer_estado(controller))
+		elsif ['tar_tarifas', 'tar_valores', 'tar_facturaciones', 'tar_servicios', 'tar_facturas'].include?(controller)
 			false
 		else
 			true
@@ -104,12 +104,14 @@ module CapitanRecursosHelper
 	def app_crud_conditions(objeto, btn)
 		if ['TarElemento'].include?(objeto.class.name)
 			controller_name == 'app_recursos'
+		elsif ['TarFactura', 'TarFacturacion'].include?(objeto.class.name)
+			false
 		else
 			case objeto.class.name
 			when 'Clase'
 				admin?
-			when 'TarFacturacion'
-				false
+			when 'Cliente'
+				controller_name == 'st_bandejas'
 			else
 				true
 			end

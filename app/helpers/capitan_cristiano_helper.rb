@@ -60,6 +60,10 @@ module CapitanCristianoHelper
 			'Detalle Tarifa'
 		elsif ['TarValor', 'tar_valores'].include?(text)
 			'Valor Tarifa'
+		elsif ['TarFactura', 'tar_facturas'].include?(text)
+			'Factura'
+		elsif ['consultoria', 'Consultoria', 'consultorias'].include?(text)
+			'Consultoría'
 		elsif ['codigo'].include?(text)
 			'Código'
 		elsif ['formula'].include?(text)

@@ -17,4 +17,12 @@ class TarServicio < ApplicationRecord
 		self.owner_class.constantize.find(self.owner_id)
 	end
 
+	def cliente
+		self.padre
+	end
+
+	def facturaciones
+		TarFacturacion.where(owner_class: 'TarServicio', owner_id: self.id)
+	end
+
 end

@@ -158,6 +158,10 @@ module ApplicationHelper
 		base_bandeja_controllers.union(app_bandeja_controllers)
 	end
 
+	def primer_estado(controller)
+		StModelo.find_by(st_modelo: controller.classify).primer_estado.st_estado
+	end
+
 	## ------------------------------------------------------- TABLA
 
 	def table_types(controller)
@@ -217,6 +221,10 @@ module ApplicationHelper
 				seguridad_desde('admin')
 		elsif ['sb_elementos'].include?(controller)
 				(@objeto.acceso == 'dog' ? dog? : seguridad_desde('admin'))
+		elsif ['st_modelos'].include?(controller)
+				dog?
+		elsif ['st_estados'].include?(controller)
+				seguridad_desde('admin')
 		else
 			app_new_button_conditions(controller)
 		end
@@ -229,6 +237,10 @@ module ApplicationHelper
 			false
 		elsif ['SbLista', 'SbElemento'].include?(objeto.class.name)
 			(usuario_signed_in? and seguridad_desde(objeto.acceso))
+		elsif ['st_modelos'].include?(controller)
+				dog?
+		elsif ['st_estados'].include?(controller)
+				seguridad_desde('admin')
 		elsif ['AppObservacion', 'AppMejora'].include?(objeto.class.name)
 			(usuario_signed_in? and objeto.perfil.id == current_usuario.id)
 		else

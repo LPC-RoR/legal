@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tar Convenios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Monto</th>
+      <th>Estado</th>
+      <th>Tar factura</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tar_convenios.each do |tar_convenio| %>
+      <tr>
+        <td><%= tar_convenio.fecha %></td>
+        <td><%= tar_convenio.monto %></td>
+        <td><%= tar_convenio.estado %></td>
+        <td><%= tar_convenio.tar_factura_id %></td>
+        <td><%= link_to 'Show', tar_convenio %></td>
+        <td><%= link_to 'Edit', edit_tar_convenio_path(tar_convenio) %></td>
+        <td><%= link_to 'Destroy', tar_convenio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tar Convenio', new_tar_convenio_path %>

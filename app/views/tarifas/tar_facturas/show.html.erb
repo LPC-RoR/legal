@@ -1,0 +1,30 @@
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: "Factura de cliente: #{@objeto.padre.razon_social	}", clr: app_color[:app]} %></h4>
+
+Estado: <%= @objeto.estado %></br>
+Número factura: <%= @objeto.documento %></br>
+Detalle del pago: <%= @objeto.detalle_pago %></br>
+
+<% if @objeto.estado == 'ingreso' %>
+	<%= form_for :set_documento, url: "/tar_facturas/#{@objeto.id}/set_documento" do |form| %>
+		<div class='form-inline'>
+			<%= form.text_field(:documento, size: 60, class: 'form-control', placeholder: 'Número Factura' ) %>
+
+			<button type="submit" class="btn btn-info">
+			  <i class="bi bi-check-all"></i>
+			</button>
+		</div>
+	<% end  %>
+<% elsif @objeto.estado == 'facturada' %>
+	<%= form_for :set_pago, url: "/tar_facturas/#{@objeto.id}/set_pago" do |form| %>
+		<div class='form-inline'>
+			<%= form.text_field(:detalle_pago, size: 60, class: 'form-control', placeholder: 'Detalle del pago' ) %>
+
+			<button type="submit" class="btn btn-info">
+			  <i class="bi bi-check-all"></i>
+			</button>
+		</div>
+	<% end  %>
+<% end %>
+</br>
+
+<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} %>

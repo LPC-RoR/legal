@@ -19,7 +19,7 @@
         <%= render partial: 'layouts/base_layout' %>
       <% else %>
 
-        <% if controller_name == 'st_bandejas' or app_bandeja_controllers.include?(controller_name) %>
+        <% if controller_name == 'st_bandejas' or bandeja_controllers.include?(controller_name) %>
             <%= render partial: 'layouts/bandejas' %>
         <% elsif controller_name == 'app_mensajes' and usuario_signed_in? %>
             <%= render partial: 'layouts/mensajes' %>

@@ -3,22 +3,38 @@
 <%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 </br></br>
 
+
 <div class='row'>
 	<div class='col-md-6'>
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas del cliente', clr: app_color[:app]} %></h5>
-		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_tarifas', a: 'index'} %>
-		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_tarifas', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
-<hr>
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Servicios del cliente', clr: app_color[:app]} %></h5>
-		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_servicios', a: 'index'} %>
-		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_servicios', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
-<hr>
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: 'Causas del cliente', clr: app_color[:app]} %></h5>
-		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'causas', a: 'index'} %>
+
+		<%= render partial: '0p/tabs/tabs', locals: {tabs: @tabs, tag: 'tab', active: @tab } %>
+
+		</br>
+
+		<% if @tab == 'Tarifas y servicios' %>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas del cliente', clr: app_color[:app]} %></h5>
+			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_tarifas', a: 'index'} %>
+			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_tarifas', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
+
+			<hr>
+
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Servicios del cliente', clr: app_color[:app]} %></h5>
+			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_servicios', a: 'index'} %>
+			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_servicios', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
+		<% elsif @tab == 'Causas' %>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: 'Causas del cliente', clr: app_color[:app]} %></h5>
+			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'causas', a: 'index'} %>
+		<% else %>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: 'Consultorías al cliente', clr: app_color[:app]} %></h5>
+			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'consultorias', a: 'index'} %>
+		<% end %>
+
 	</div>
 	<div class='col-md-6'>
+
 		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Repositorio del cliente', clr: app_color[:app]} %></h5>
 
 	    <%= render partial: 'aplicacion/app_directorios/partials/directorio', locals: {objeto: @repo} %>
+	    
 	</div>
 </div>

@@ -164,6 +164,16 @@ module IniciaAplicacion
 	end
 
 	def inicia_app
+
+		servicios_mensuales = TarServicio.where(tipo: 'mensual')
+		servicios_mensuales.each do |sm|
+
+			dia = sm.facturaciones.empty? ? nil : sm.facturaciones.order(created_at: :desc).first.created_at
+			hoy = DateTime.now
+			if dia.blank? or (dia.year != hoy.year or dia.month != hoy.month)
+			    TarFacturacion.create(owner_class: 'TarServicio', owner_id: sm.id, facturable: 'servicio mensual', glosa: sm.descripcion, estado: 'ingreso', monto: sm.monto)
+			end
+		end
 	end
 
 end
