@@ -3,24 +3,45 @@
 <%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 </br></br>
 
-<div class='row'>
-	<div class='col-md-6'>
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
+<%= render partial: '0p/tabs/tabs', locals: {tabs: @tabs, tag: 'tab', active: @tab } %></br>
 
-		<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
+<% if @tab == 'Documentos y enlaces' %>
 
-		<% if @objeto.tar_tarifa.present? %>
+	<div class='row'>
+		<div class='col-md-6'>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Repositorio de la causa', clr: app_color[:app]} %></h5>
 
-			<%= render partial: 'tarifas/partials/valores', locals: {objeto: @objeto, array_tarifa: @array_tarifa} %>
+		    <%= render partial: 'aplicacion/app_directorios/partials/directorio', locals: {objeto: @objeto.repo} %>
+		</div>
+		<div class='col-md-6'>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Enlaces de la causa', clr: app_color[:app]} %></h5>
 
-			<%= render partial: 'tarifas/partials/facturacion', locals: {objeto: @objeto} %>
-
-		<% end %>
-
+			<%= render partial: 'aplicacion/app_enlaces/partials/enlaces' %>
+		</div>
 	</div>
-	<div class='col-md-6'>
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Repositorio de la causa', clr: app_color[:app]} %></h5>
 
-	    <%= render partial: 'aplicacion/app_directorios/partials/directorio', locals: {objeto: @objeto.repo} %>
+<% elsif @tab == 'Facturación' %>
+
+	<div class='row'>
+		<div class='col-md-6'>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
+
+			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
+
+			<% if @objeto.tar_tarifa.present? %>
+
+				<%= render partial: 'tarifas/partials/valores', locals: {objeto: @objeto, array_tarifa: @array_tarifa} %>
+
+			<% end %>
+		</div>
+		<div class='col-md-6'>
+			<% if @objeto.tar_tarifa.present? %>
+
+				<%= render partial: 'tarifas/partials/facturacion', locals: {objeto: @objeto, array_tarifa: @array_tarifa} %>
+
+			<% end %>
+		</div>
 	</div>
-</div>
+
+<% end %>
+

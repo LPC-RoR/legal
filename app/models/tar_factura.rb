@@ -1,7 +1,7 @@
 class TarFactura < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['owner_class', 'show'],
+		['concepto', 'show'],
 		['documento',   'normal'],
 		['created_at',  'normal']
 	]

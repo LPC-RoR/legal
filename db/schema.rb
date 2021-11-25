@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_25_123514) do
+ActiveRecord::Schema.define(version: 2021_11_25_182314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,17 @@ ActiveRecord::Schema.define(version: 2021_11_25_123514) do
     t.integer "owner_id"
     t.index ["owner_class"], name: "index_app_documentos_on_owner_class"
     t.index ["owner_id"], name: "index_app_documentos_on_owner_id"
+  end
+
+  create_table "app_enlaces", force: :cascade do |t|
+    t.string "descripcion"
+    t.string "enlace"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_class"], name: "index_app_enlaces_on_owner_class"
+    t.index ["owner_id"], name: "index_app_enlaces_on_owner_id"
   end
 
   create_table "app_imagenes", force: :cascade do |t|
@@ -394,6 +405,7 @@ ActiveRecord::Schema.define(version: 2021_11_25_123514) do
     t.string "detalle_pago"
     t.datetime "fecha_uf"
     t.decimal "uf_factura"
+    t.string "concepto"
     t.index ["estado"], name: "index_tar_facturas_on_estado"
     t.index ["owner_class"], name: "index_tar_facturas_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"

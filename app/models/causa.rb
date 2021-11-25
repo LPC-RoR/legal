@@ -1,6 +1,7 @@
 class Causa < ApplicationRecord
 
 	TABLA_FIELDS = 	[
+		['identificador', 'normal'],
 		['causa', 'show']
 	]
 
@@ -17,6 +18,10 @@ class Causa < ApplicationRecord
 
 	def facturaciones
 		TarFacturacion.where(owner_class: 'Causa', owner_id: self.id)
+	end
+
+	def enlaces
+		AppEnlace.where(owner_class: 'Causa', owner_id: self.id)
 	end
 
 	def repo

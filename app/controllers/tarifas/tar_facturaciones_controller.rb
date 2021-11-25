@@ -58,10 +58,19 @@ class Tarifas::TarFacturacionesController < ApplicationController
   end
 
   def facturable
-    tar_factura = params[:class_name].constantize.find(params[:objeto_id])
+    tar_factura = @objeto.tar_factura
     tar_factura.tar_facturaciones.delete(@objeto)
 
-    redirect_to tar_factura
+    if tar_factura.tar_facturaciones.empty?
+      tar_factura.delete
+      redirect_to tar_facturas_path
+    else
+      concepto = (tar_factura.tar_facturaciones.count == 1 ? tar_factura.tar_facturaciones.first.glosa : "Varios de cliente #{tar_factura.padre.razon_social}")
+      tar_factura.concepto = concepto
+      tar_factura.save
+      redirect_to tar_factura
+    end
+
   end
 
   # DELETE /tar_facturaciones/1 or /tar_facturaciones/1.json

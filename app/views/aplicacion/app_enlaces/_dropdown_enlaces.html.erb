@@ -1,0 +1,23 @@
+<li class="nav-item dropdown ml-auto">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Enlaces
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    <% if usuario_signed_in? %>
+
+      <% unless enlaces_generales.empty? %>
+        <% enlaces_generales.each do |enlace| %>
+          <%= link_to enlace.descripcion, enlace.enlace, target: :_blank, class: "dropdown-item" %>
+        <% end %>
+      <% end %>
+
+      <% if enlaces_perfil.any? %>
+        <div class="dropdown-divider"></div>
+        <% enlaces_perfil.each do |enlace| %>
+          <%= link_to enlace.descripcion, enlace.enlace, target: :_blank, class: "dropdown-item" %>
+        <% end %>
+      <% end %>
+
+    <% end %>
+  </div>
+</li>

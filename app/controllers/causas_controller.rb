@@ -11,17 +11,25 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
+    init_tab(['Documentos y enlaces', 'Facturación'], params[:tab])
+    @options = { 'tab' => @tab }
 
     @coleccion = {}
 
-    @coleccion['tar_valores'] = @objeto.valores
-    @coleccion['tar_facturaciones'] = @objeto.facturaciones
+    if @tab == 'Documentos y enlaces'
+      AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 
-    AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
+      @coleccion['app_directorios'] = @objeto.repo.directorios
+      @coleccion['app_documentos'] = @objeto.repo.documentos
 
-    @coleccion['app_directorios'] = @objeto.repo.directorios
-    @coleccion['app_documentos'] = @objeto.repo.documentos
+      @coleccion['app_enlaces'] = @objeto.enlaces.order(:descripcion)
+    elsif @tab == 'Facturación'
+      @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
+
+      @coleccion['tar_valores'] = @objeto.valores
+      @coleccion['tar_facturaciones'] = @objeto.facturaciones
+    end
+
   end
 
   # GET /causas/new

@@ -61,7 +61,7 @@ module ApplicationHelper
 
 	def controllers_scope
 		{
-			aplicacion: ['app_administradores', 'app_nominas', 'app_perfiles', 'app_observaciones', 'app_mejoras', 'app_imagenes', 'app_contactos', 'app_mensajes', 'app_repos', 'app_directorios', 'app_documentos', 'app_archivos', 'archivos', 'comentarios', 'directorios', 'documentos', 'imagenes', 'licencias', 'mejoras', 'observaciones', 'recursos', 'subs'],
+			aplicacion: ['app_administradores', 'app_nominas', 'app_perfiles', 'app_observaciones', 'app_mejoras', 'app_imagenes', 'app_contactos', 'app_mensajes', 'app_repos', 'app_directorios', 'app_documentos', 'app_archivos', 'app_enlaces'],
 			home:       ['h_temas', 'h_links', 'h_imagenes'],
 			help:       ['conversaciones', 'mensajes', 'hlp_pasos', 'temaf_ayudas', 'hlp_tutoriales'],
 			sidebar:    ['sb_listas', 'sb_elementos'],
@@ -132,6 +132,14 @@ module ApplicationHelper
 		else
 			tipo_item == 'anonimo'
 		end
+	end
+
+	def enlaces_generales
+		AppEnlace.where(owner_id: nil).order(:descripcion)
+	end
+
+	def enlaces_perfil
+		AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion)
 	end
 
 	## ------------------------------------------------------- SIDEBAR + BANDEJA
@@ -213,7 +221,7 @@ module ApplicationHelper
 	def new_button_conditions(controller)
 		if ['app_administradores', 'app_nominas', 'hlp_tutoriales', 'hlp_pasos'].include?(controller)
 				seguridad_desde('admin')
-		elsif ['app_perfiles', 'usuarios', 'ind_palabras', 'app_contactos', 'app_directorios', 'app_documentos', 'app_archivos'].include?(controller)
+		elsif ['app_perfiles', 'usuarios', 'ind_palabras', 'app_contactos', 'app_directorios', 'app_documentos', 'app_archivos', 'app_enlaces'].include?(controller)
 			false
 		elsif ['app_mensajes'].include?(controller)
 			action_name == 'index' and @e == 'ingreso'

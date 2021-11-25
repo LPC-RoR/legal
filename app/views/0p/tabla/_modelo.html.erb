@@ -39,7 +39,7 @@
 		<% when 'pesos' %>
 			<td align='right'><small> <%=number_to_currency(get_field(f[0], objeto), locale: :en, precision: 0) %> </small></td>
 		<% when 'uf' %>
-			<td align='right'><small> <%=number_to_currency(get_field(f[0], objeto), locale: :en, precision: 2) %> </small></td>
+			<td align='right'><small> <%=number_to_currency(get_field(f[0], objeto), unit: 'UF' , locale: :en, precision: 2) %> </small></td>
 		<% when 'diahora' %>
 			<td><small> <%= objeto.send(f[0]).strftime("%d-%m-%Y") %> </small></td>
 		<% when 'link'  %>

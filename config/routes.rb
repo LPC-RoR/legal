@@ -48,6 +48,8 @@ Rails.application.routes.draw do
       match :perfil, via: :get, on: :collection
     end
     resources :app_archivos
+
+    resources :app_enlaces
   end
 
   scope module: 'home' do

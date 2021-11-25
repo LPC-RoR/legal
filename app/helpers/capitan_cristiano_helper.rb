@@ -24,6 +24,8 @@ module CapitanCristianoHelper
 			'Documento'
 		elsif ['AppArchivo', 'app_archivos'].include?(text)
 			'Archivo'
+		elsif ['AppEnlace', 'app_enlaces'].include?(text)
+			'Enlace'
 		elsif ['HTema', 'h_temas'].include?(text)
 			'Tema'
 		elsif ['HLink', 'h_links'].include?(text)
@@ -68,6 +70,8 @@ module CapitanCristianoHelper
 			'Código'
 		elsif ['formula'].include?(text)
 			'Fórmula'
+		elsif ['descripcion'].include?(text)
+			'Descripción'
 		else
 			case origen
 			when 'field'

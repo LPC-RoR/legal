@@ -4,7 +4,8 @@ module CapitanMenuHelper
 		{
 			recursos: false,
 			contacto: true,
-			ayuda: true
+			ayuda: true,
+			enlaces: true
 		}
 	end
 
@@ -23,7 +24,8 @@ module CapitanMenuHelper
 	        ['',        "/st_bandejas",       'nomina', 'inboxes'],
 	        ['Público', '/app_repos/publico', 'nomina', 'archive'],
 	        ['Perfil',  '/app_repos/perfil',  'nomina', 'archive'],
-	        ['',        "/tar_facturas",      'nomina', 'currency-dollar']
+	        ['',        "/tar_facturas",      'nomina', 'currency-dollar'],
+	        ['',        app_enlaces_path,     'nomina', 'link']
 	    ]
 
 	end

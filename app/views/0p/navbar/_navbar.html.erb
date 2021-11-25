@@ -27,6 +27,9 @@
         <% end %>
         <!-- Recursos -->
         <%= render partial: 'aplicacion/parciales/recursos_dropdown_menu' if usuario_signed_in? and optional_menu_item[:recursos] %>
+
+        <%= render partial: 'aplicacion/app_enlaces/dropdown_enlaces' if optional_menu_item[:enlaces] == true %>
+
       </ul>
 
       <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
@@ -39,6 +42,7 @@
               <% end %>
             <% end %>
         <% end %>
+
       </ul>
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
