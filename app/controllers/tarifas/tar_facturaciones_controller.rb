@@ -19,10 +19,13 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
   def crea_facturacion
     causa = params[:owner_class].constantize.find(params[:owner_id])
-    tar_detalle = causa.tar_tarifa.tar_detalles.find_by(codigo: params[:facturable])
-    TarFacturacion.create(owner_class: 'Causa', owner_id: causa.id, facturable: params[:facturable], glosa: "#{tar_detalle.detalle} : #{causa.identificador} #{causa.causa}", estado: 'ingreso', monto: do_eval(causa, params[:facturable]))
+    
+    unless do_eval(causa, params[:facturable]) == 0
+      tar_detalle = causa.tar_tarifa.tar_detalles.find_by(codigo: params[:facturable])
+      TarFacturacion.create(owner_class: 'Causa', owner_id: causa.id, facturable: params[:facturable], glosa: "#{tar_detalle.detalle} : #{causa.identificador} #{causa.causa}", estado: 'ingreso', monto: do_eval(causa, params[:facturable]))
+    end
 
-    redirect_to causa
+    redirect_to "/causas/#{causa.id}?html_options[tab]=Facturación"
   end
 
   # GET /tar_facturaciones/1/edit

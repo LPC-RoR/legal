@@ -57,7 +57,7 @@ class Tarifas::TarTarifasController < ApplicationController
     objeto = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.send(params[:class_name].tableize) << objeto
 
-    redirect_to objeto
+    redirect_to "/causas/#{objeto.id}?html_options[tab]=Facturación"
 
 #    causa = params[:class_name].constantize.find(params[:objeto_id])
 #    @objeto.causas << causa
@@ -69,7 +69,7 @@ class Tarifas::TarTarifasController < ApplicationController
     objeto = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.send(params[:class_name].tableize).delete(objeto)
 
-    redirect_to objeto
+    redirect_to "/causas/#{objeto.id}?html_options[tab]=Facturación"
 
 #    causa = params[:class_name].constantize.find(params[:objeto_id])
 #    @objeto.causas.delete(causa)
