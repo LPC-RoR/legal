@@ -28,7 +28,7 @@
         <!-- Recursos -->
         <%= render partial: 'aplicacion/parciales/recursos_dropdown_menu' if usuario_signed_in? and optional_menu_item[:recursos] %>
 
-        <%= render partial: 'aplicacion/app_enlaces/dropdown_enlaces' if optional_menu_item[:enlaces] == true %>
+        <%= render partial: 'aplicacion/app_enlaces/dropdown_enlaces' if (optional_menu_item[:enlaces] == true and usuario_signed_in?) %>
 
       </ul>
 
