@@ -71,8 +71,13 @@ class Tarifas::TarFacturasController < ApplicationController
       @objeto.fecha_uf = params[:set_documento][:fecha_uf]
       @objeto.uf_factura = params[:set_documento][:uf_factura]
       @objeto.tar_facturaciones.each do |fact|
-        fact.monto = fact.monto_uf * params[:set_documento][:uf_factura].to_f
-        fact.save
+        if fact.monto_uf.present?
+          if fact.monto_uf > 0
+            uf_factura = params[:set_documento][:uf_factura].to_f
+            fact.monto = (fact.monto_uf * uf_factura)
+            fact.save
+          end
+        end
       end
       parametro = true
     end
