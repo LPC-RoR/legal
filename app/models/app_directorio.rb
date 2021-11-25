@@ -22,7 +22,7 @@ class AppDirectorio < ApplicationRecord
 	end
 
 	def padre
-		self.owner_class.constantize.find(self.owner_id)
+		self.parent.present? ? self.parent : self.owner_class.constantize.find(self.owner_id)
 	end
 
 	def padres_ids

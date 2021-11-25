@@ -171,7 +171,9 @@ module IniciaAplicacion
 			dia = sm.facturaciones.empty? ? nil : sm.facturaciones.order(created_at: :desc).first.created_at
 			hoy = DateTime.now
 			if dia.blank? or (dia.year != hoy.year or dia.month != hoy.month)
-			    TarFacturacion.create(owner_class: 'TarServicio', owner_id: sm.id, facturable: 'servicio mensual', glosa: sm.descripcion, estado: 'ingreso', monto: sm.monto)
+				monto_uf = sm.moneda == 'uf' ? sm.monto : 0
+				monto = sm.moneda == 'pesos' ? sm.monto : 0
+			    TarFacturacion.create(owner_class: 'TarServicio', owner_id: sm.id, facturable: 'servicio mensual', glosa: sm.descripcion, estado: 'ingreso', monto_uf: monto_uf, monto: monto)
 			end
 		end
 	end

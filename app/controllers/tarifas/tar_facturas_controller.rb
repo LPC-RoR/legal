@@ -56,6 +56,7 @@ class Tarifas::TarFacturasController < ApplicationController
   end
 
   def set_documento
+    parametro = false
     unless params[:set_documento][:documento].blank?
       @objeto.documento = params[:set_documento][:documento].to_i
       @objeto.estado = 'facturada'
@@ -63,8 +64,20 @@ class Tarifas::TarFacturasController < ApplicationController
         fact.estado = 'facturada'
         fact.save
       end
-      @objeto.save
+      parametro = true
     end
+
+    unless params[:set_documento][:fecha_uf].blank? and params[:set_documento][:uf_factura].blank?
+      @objeto.fecha_uf = params[:set_documento][:fecha_uf]
+      @objeto.uf_factura = params[:set_documento][:uf_factura]
+      @objeto.tar_facturaciones.each do |fact|
+        fact.monto = fact.monto_uf * params[:set_documento][:uf_factura].to_f
+        fact.save
+      end
+      parametro = true
+    end
+
+    @objeto.save if parametro
 
     redirect_to @objeto
   end

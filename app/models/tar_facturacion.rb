@@ -1,9 +1,10 @@
 class TarFacturacion < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['glosa', 'normal'],
-		['monto',      'pesos'],
-		['estado',     'normal']
+		['glosa',    'normal'],
+		['monto_uf', 'uf'],
+		['monto',    'pesos'],
+		['estado',   'normal']
 	]
 
 	belongs_to :tar_factura, optional: true
