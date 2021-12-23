@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Liquidacion:</strong>
+  <%= @tar_liquidacion.liquidacion %>
+</p>
+
+<p>
+  <strong>Owner class:</strong>
+  <%= @tar_liquidacion.owner_class %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @tar_liquidacion.owner_id %>
+</p>
+
+<%= link_to 'Edit', edit_tar_liquidacion_path(@tar_liquidacion) %> |
+<%= link_to 'Back', tar_liquidaciones_path %>

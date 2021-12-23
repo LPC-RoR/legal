@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tar Liquidaciones</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Liquidacion</th>
+      <th>Owner class</th>
+      <th>Owner</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tar_liquidaciones.each do |tar_liquidacion| %>
+      <tr>
+        <td><%= tar_liquidacion.liquidacion %></td>
+        <td><%= tar_liquidacion.owner_class %></td>
+        <td><%= tar_liquidacion.owner_id %></td>
+        <td><%= link_to 'Show', tar_liquidacion %></td>
+        <td><%= link_to 'Edit', edit_tar_liquidacion_path(tar_liquidacion) %></td>
+        <td><%= link_to 'Destroy', tar_liquidacion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tar Liquidacion', new_tar_liquidacion_path %>

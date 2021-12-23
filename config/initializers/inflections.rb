@@ -16,7 +16,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     # palabras terminadas en 'a', no agregue las otras vocales porque no hay problema
     inflect.plural /([ti]a)$/i, '\1s'
 
-    inflect.singular /([icv]e)s$/i, '\1'
+    inflect.singular /([icvs]e)s$/i, '\1'
 
     # raiz
     inflect.plural /(rai)z$/i, '\1ces'

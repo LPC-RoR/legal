@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_25_182314) do
+ActiveRecord::Schema.define(version: 2021_12_08_021120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -337,6 +337,20 @@ ActiveRecord::Schema.define(version: 2021_11_25_182314) do
     t.index ["app_nomina_id"], name: "index_st_perfil_modelos_on_app_nomina_id"
   end
 
+  create_table "tar_bases", force: :cascade do |t|
+    t.string "base"
+    t.decimal "monto_uf"
+    t.decimal "monto"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.integer "perfil_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_class"], name: "index_tar_bases_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_bases_on_owner_id"
+    t.index ["perfil_id"], name: "index_tar_bases_on_perfil_id"
+  end
+
   create_table "tar_convenios", force: :cascade do |t|
     t.datetime "fecha"
     t.decimal "monto"
@@ -411,6 +425,16 @@ ActiveRecord::Schema.define(version: 2021_11_25_182314) do
     t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"
   end
 
+  create_table "tar_liquidaciones", force: :cascade do |t|
+    t.string "liquidacion"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_class"], name: "index_tar_liquidaciones_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_liquidaciones_on_owner_id"
+  end
+
   create_table "tar_servicios", force: :cascade do |t|
     t.string "codigo"
     t.string "descripcion"
@@ -456,6 +480,17 @@ ActiveRecord::Schema.define(version: 2021_11_25_182314) do
     t.index ["codigo"], name: "index_tar_valores_on_codigo"
     t.index ["owner_class"], name: "index_tar_valores_on_owner_class"
     t.index ["owner_id"], name: "index_tar_valores_on_owner_id"
+  end
+
+  create_table "tar_variables", force: :cascade do |t|
+    t.string "variable"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.decimal "porcentaje"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_class"], name: "index_tar_variables_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_variables_on_owner_id"
   end
 
   create_table "usuarios", force: :cascade do |t|

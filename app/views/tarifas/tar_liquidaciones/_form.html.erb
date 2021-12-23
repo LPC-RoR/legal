@@ -1,0 +1,32 @@
+<%= form_with(model: tar_liquidacion, local: true) do |form| %>
+  <% if tar_liquidacion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tar_liquidacion.errors.count, "error") %> prohibited this tar_liquidacion from being saved:</h2>
+
+      <ul>
+      <% tar_liquidacion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :liquidacion %>
+    <%= form.text_field :liquidacion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_class %>
+    <%= form.text_field :owner_class %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_id %>
+    <%= form.number_field :owner_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

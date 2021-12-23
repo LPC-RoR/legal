@@ -167,7 +167,12 @@ module ApplicationHelper
 	end
 
 	def primer_estado(controller)
-		StModelo.find_by(st_modelo: controller.classify).primer_estado.st_estado
+		st_modelo = StModelo.find_by(st_modelo: controller.classify)
+		st_modelo.blank? ? nil : st_modelo.primer_estado.st_estado
+	end
+
+	def count_modelo_estado(modelo, estado)
+		modelo.constantize.where(estado: estado).count == 0 ? '' : "(#{modelo.constantize.where(estado: estado).count})"
 	end
 
 	## ------------------------------------------------------- TABLA

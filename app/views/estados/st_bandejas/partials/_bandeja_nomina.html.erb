@@ -21,9 +21,9 @@
 
 				<small>
 				<% if @m == st_perfil_modelo.st_perfil_modelo and @e == st_estado.st_estado %>
-					<b><%= st_estado.st_estado %></b>
+					<b><%= "#{st_estado.st_estado} #{count_modelo_estado(st_modelo.st_modelo, st_estado.st_estado) unless count_modelo_estado(st_modelo.st_modelo, st_estado.st_estado) == 0 }" %></b>
 				<% else %>
-					<%= link_to st_estado.st_estado, "/st_bandejas?m=#{st_perfil_modelo.st_perfil_modelo}&e=#{st_estado.st_estado}" %>
+					<%= link_to "#{st_estado.st_estado} #{count_modelo_estado(st_modelo.st_modelo, st_estado.st_estado) unless count_modelo_estado(st_modelo.st_modelo, st_estado.st_estado) == 0 }", "/st_bandejas?m=#{st_perfil_modelo.st_perfil_modelo}&e=#{st_estado.st_estado}" %>
 				<% end %>
 				</small></br>
 
@@ -42,9 +42,9 @@
 
 				<small>
 				<% if @m == st_perfil_modelo.st_perfil_modelo and @e == st_perfil_estado.st_perfil_estado %>
-					<b><%= st_perfil_estado.st_perfil_estado %></b>
+					<b><%= "#{st_perfil_estado.st_perfil_estado} #{count_modelo_estado(st_perfil_modelo.st_perfil_modelo, st_perfil_estado.st_perfil_estado) unless count_modelo_estado(st_perfil_modelo.st_perfil_modelo, st_perfil_estado.st_perfil_estado) == 0}" %></b>
 				<% else %>
-					<%= link_to st_perfil_estado.st_perfil_estado, "/st_bandejas?m=#{st_perfil_modelo.st_perfil_modelo}&e=#{st_perfil_estado.st_perfil_estado}" %>
+					<%= link_to "#{st_perfil_estado.st_perfil_estado} #{count_modelo_estado(st_perfil_modelo.st_perfil_modelo, st_perfil_estado.st_perfil_estado) unless count_modelo_estado(st_perfil_modelo.st_perfil_modelo, st_perfil_estado.st_perfil_estado) == 0}", "/st_bandejas?m=#{st_perfil_modelo.st_perfil_modelo}&e=#{st_perfil_estado.st_perfil_estado}" %>
 				<% end %>
 				</small></br>
 

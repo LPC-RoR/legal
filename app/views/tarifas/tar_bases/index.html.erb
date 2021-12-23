@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tar Bases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Monto uf</th>
+      <th>Monto</th>
+      <th>Owner class</th>
+      <th>Owner</th>
+      <th>Perfil</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tar_bases.each do |tar_bas| %>
+      <tr>
+        <td><%= tar_bas.monto_uf %></td>
+        <td><%= tar_bas.monto %></td>
+        <td><%= tar_bas.owner_class %></td>
+        <td><%= tar_bas.owner_id %></td>
+        <td><%= tar_bas.perfil_id %></td>
+        <td><%= link_to 'Show', tar_bas %></td>
+        <td><%= link_to 'Edit', edit_tar_bas_path(tar_bas) %></td>
+        <td><%= link_to 'Destroy', tar_bas, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tar Bas', new_tar_bas_path %>

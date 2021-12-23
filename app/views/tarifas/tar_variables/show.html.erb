@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Variable:</strong>
+  <%= @tar_variable.variable %>
+</p>
+
+<p>
+  <strong>Owner class:</strong>
+  <%= @tar_variable.owner_class %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @tar_variable.owner_id %>
+</p>
+
+<p>
+  <strong>Porcentaje:</strong>
+  <%= @tar_variable.porcentaje %>
+</p>
+
+<%= link_to 'Edit', edit_tar_variable_path(@tar_variable) %> |
+<%= link_to 'Back', tar_variables_path %>

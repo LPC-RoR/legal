@@ -1,4 +1,4 @@
-<% if objeto.estado == 'ingreso' %>
+<% if objeto.estado == primer_estado(objeto.class.name.tableize) %>
 	<%= render partial: '0p/general/btn_proceso', locals: {texto: nil, link: link_x_btn(objeto, '/elimina', true), clr: color(objeto.class.name.tableize), delete: false, gly: 'x-circle'} %>
 <% elsif ['facturada', 'pagada'].include?(objeto.estado) %>
 	<%= render partial: '0p/general/btn_proceso', locals: {texto: nil, link: link_x_btn(objeto, '/back_estado', true), clr: color(objeto.class.name.tableize), delete: false, gly: 'x-circle'} %>

@@ -117,6 +117,10 @@ Rails.application.routes.draw do
       match :set_pago, via: :post, on: :member
       match :set_facturada, via: :get, on: :member
     end
+
+    resources :tar_variables
+    resources :tar_bases
+    resources :tar_liquidaciones
   end
 
   devise_for :usuarios
