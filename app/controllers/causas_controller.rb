@@ -98,11 +98,11 @@ class CausasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/st_bandejas?m=Causa&e=ingreso" 
+      @redireccion = "/st_bandejas?m=Causa&e=#{@objeto.estado}"
     end
 
     # Only allow a list of trusted parameters through.
     def causa_params
-      params.require(:causa).permit(:causa, :identificador, :cliente_id, :estado)
+      params.require(:causa).permit(:causa, :identificador, :cliente_id, :estado, :tipo)
     end
 end

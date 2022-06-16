@@ -1,7 +1,10 @@
 class Causa < ApplicationRecord
 
+	TIPOS=['Juicio', 'Demanda']
+
 	TABLA_FIELDS = 	[
 		['identificador', 'normal'],
+		['tipo', 'normal'],
 		['causa', 'show']
 	]
 

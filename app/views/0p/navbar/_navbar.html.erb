@@ -27,9 +27,6 @@
         <% end %>
         <!-- Recursos -->
         <%= render partial: 'aplicacion/parciales/recursos_dropdown_menu' if usuario_signed_in? and optional_menu_item[:recursos] %>
-
-        <%= render partial: 'aplicacion/app_enlaces/dropdown_enlaces' if (optional_menu_item[:enlaces] == true and usuario_signed_in?) %>
-
       </ul>
 
       <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
@@ -42,12 +39,11 @@
               <% end %>
             <% end %>
         <% end %>
-
       </ul>
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: ayuda_app_recursos_path, active: (controller_name == 'app_recursos' and action_name == 'ayuda'), delete: false, gly: 'question-square'} %>
+        <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: ayuda_app_recursos_path, active: (controller_name == 'app_recursos' and action_name == 'ayuda'), delete: false, gly: 'question-square'} if optional_menu_item[:ayuda] %>
 
         <% if usuario_signed_in? %>
 
@@ -59,8 +55,10 @@
 
           <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_app_mensaje_path, active: controller_name == 'app_mensajes', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
 
-          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Ingreso', link: new_usuario_session_path, active: (controller_name == 'sessions'), delete: false, gly: nil} %>
-          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Registro', link: new_usuario_registration_path, active: (controller_name == 'registrations'), delete: false, gly: nil} %>
+          <!-- INGRESO -->
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_usuario_session_path, active: (controller_name == 'sessions'), delete: false, gly: 'person'} %>
+          <!-- REGISTRO -->
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_usuario_registration_path, active: (controller_name == 'registrations'), delete: false, gly: 'person-plus'} %>
 
         <% end %>
 
@@ -68,4 +66,3 @@
     </div>
   </div>
 </nav>
-</br>

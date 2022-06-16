@@ -1,4 +1,4 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Causa #{@objeto.causa	}", clr: app_color[:app]} %></h4>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Causa #{@objeto.causa	} (#{@objeto.tipo})", clr: app_color[:app]} %></h4>
 
 <%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 </br></br>

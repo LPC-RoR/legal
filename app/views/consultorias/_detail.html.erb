@@ -1,5 +1,9 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Cliente', v: true } %>
 <%= form.select :cliente_id, Cliente.where(estado: 'activo').collect { |cliente| [cliente.razon_social, cliente.id] }, include_blank: false, prompt: "Seleccione Cliente" %>
 
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :consultoria, label: 'Consultoría', v: false } %>
+</br>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Consultoría', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :consultoria } %>
 
 <%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :estado, label: nil, v: false } %>

@@ -1,5 +1,12 @@
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :rut, label: 'RUT', v: true } %>
-
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :razon_social, label: 'Razon Social', v: false } %>
+<div class='row'>
+	<div class='col-md-4'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'RUT', v: true } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rut } %>
+	</div>
+	<div class='col-md-8'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Razon Social', v: true } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :razon_social } %>
+	</div>
+</div>
 
 <%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :estado, label: nil, v: false } %>
