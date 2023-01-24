@@ -53,7 +53,7 @@
 
         <% else %>
 
-          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_mensaje_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_app_mensaje_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
 
           <%= render partial: '0p/navbar/btn', locals: {nombre: 'Ingreso', link: new_usuario_session_path, active: (controller_name == 'sessions'), delete: false, gly: nil} %>
           <%= render partial: '0p/navbar/btn', locals: {nombre: 'Registro', link: new_usuario_registration_path, active: (controller_name == 'registrations'), delete: false, gly: nil} %>
