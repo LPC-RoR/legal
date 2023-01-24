@@ -267,8 +267,8 @@ module ApplicationHelper
 	end
 
 	## ------------------------------------------------------- FORM
-	# Este helper pergunta si hay un partial llamado _detail en el directorio de las vistas del controlador
-	def detail_partial?(controller, partial)
+	# Este helper pergunta si hay un partial con un nombre particular en el directorio del controlador
+	def partial?(controller, partial)
 		File.exist?("app/views/#{(scope_controller(controller).blank? ? '' : "#{scope_controller(controller)}/")}#{controller}/_#{partial}.html.erb")
 	end
 
@@ -279,7 +279,7 @@ module ApplicationHelper
 	# Este helper encuentra el partial que se debe desplegar como form
 	# originalmente todos llegaban a _form
 	# ahora pregunta si hay un partial llamado _datail en el directorio de las vistas del modelo
-	def detail_partial(controller)
+	def partial(controller)
 		if detail_partial?(controller, 'detail')
 			get_partial(controller, 'detail')
 		else
