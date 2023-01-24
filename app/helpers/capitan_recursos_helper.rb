@@ -3,7 +3,7 @@ module CapitanRecursosHelper
 
 	def app_setup
 		{
-			nombre: 'Tacal',
+			nombre: 'Legal',
 			home_link: 'http://www.appname.cl',
 			logo_navbar: 'logo_navbar.png'
 		}
