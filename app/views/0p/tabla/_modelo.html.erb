@@ -5,13 +5,13 @@
 	<!-- Hay que usar el nombre del campos display en TABLA_FIELDS -->
 
 	<% case objeto.class.name %>
-	<% when 'AppDirectorio' %>
+	<% when 'Directorio' %>
 		<td><i class="bi bi-folder2"></i></td>
-	<% when 'AppDocumento'  %>
+	<% when 'Documento'  %>
 		<td><i class="bi bi-journals"></i></td>
-	<% when 'AppArchivo'  %>
+	<% when 'Archivo'  %>
 		<td><i class="bi bi-file-text"></i></td>
-	<% when 'AppImagen' %>
+	<% when 'Imagen' %>
 		<td><i class="bi bi-file-richtext"></i></td>
 	<% end %>
 
@@ -36,22 +36,20 @@
 			<td><small> <%= get_field(f[0], objeto) %> </small></td>
 		<% when 'valor' %>
 			<td align='right'><small> <%= get_field(f[0], objeto) %> </small></td>
-		<% when 'pesos' %>
-			<td align='right'><small> <%=number_to_currency(get_field(f[0], objeto), locale: :en, precision: 0) %> </small></td>
-		<% when 'uf' %>
-			<td align='right'><small> <%=number_to_currency(get_field(f[0], objeto), locale: :en, precision: 2) %> </small></td>
 		<% when 'diahora' %>
 			<td><small> <%= objeto.send(f[0]).strftime("%d-%m-%Y") %> </small></td>
+		<% when 'show_diahora' %>
+			<td><small> <%= link_to objeto.send(f[0]).strftime("%d-%m-%Y"), objeto %> </small></td>
 		<% when 'link'  %>
 				<td><small><%= (get_field(f[0], objeto).blank? ? '[ link no disponible ]' : link_to( "[ #{get_field(f[0], objeto)} ]", get_field(f[0], objeto), target: :_blank)) %></small></td>
 		<% when 'url'  %>
 			<td><small> <%= (objeto.send(f[0]).send('url').present? ? objeto.d_nombre : '[ sin archivo carga ]') %> </small></td>
 		<% when 'link_file' %>
 			<td>
-				<% if ['AppDocumento', 'AppArchivo', 'AppImagen'].include?(objeto.class.name) %>
+				<% if ['Documento', 'Archivo', 'Imagen'].include?(objeto.class.name) %>
 					<%= render partial: '0p/general/btn_turbolink', locals: {texto: nil, gly: 'download', link: objeto.send(f[0]).send('url'), delete: false, clr: color(objeto.class.name.tableize)} if objeto.send(f[0]).present? %>
 				<% else %>
-					<small><%= (objeto.send(f[0]).present? ? link_to( objeto.d_nombre, objeto.send(f[0]).send('url')) : '[ Sin archivo cargado ]') %></small>
+				<small><%= (objeto.send(f[0]).present? ? link_to( objeto.d_nombre, objeto.send(f[0]).send('url')) : '[ Sin archivo cargado ]') %></small>
 				<% end %>
 			</td>
 		<% end %>

@@ -1,4 +1,6 @@
 class TarTarifa < ApplicationRecord
+	# Tabla de TARIFAS
+	# tiene tar_detalles
 
 	TABLA_FIELDS = [
 		['tarifa',   'show'],

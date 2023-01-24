@@ -300,12 +300,11 @@ module ApplicationHelper
 
 		success = true
 		label.split(':').each do |field_name|
+			puts "field_name"
+			puts field_name
 			if success
-				if objeto.class::column_names.include?(label) or objeto.class.instance_methods(false).include?(label.to_sym)
-					objeto = objeto.send(field_name)
-				else
-					success = false
-				end
+				objeto = objeto.send(field_name)
+				success = false if objeto.blank?
 			end
 		end
 

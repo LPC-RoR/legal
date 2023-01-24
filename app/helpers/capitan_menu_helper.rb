@@ -25,7 +25,7 @@ module CapitanMenuHelper
 	        ['Público', '/app_repos/publico', 'nomina', 'archive'],
 	        ['Perfil',  '/app_repos/perfil',  'nomina', 'archive'],
 	        ['',        "/tar_facturas",      'nomina', 'currency-dollar'],
-	        ['',        "/tar_bases",         'admin',  'receipt'],
+#	        ['',        "/tar_bases",         'admin',  'receipt'],
 	        ['',        app_enlaces_path,     'nomina', 'link']
 	    ]
 

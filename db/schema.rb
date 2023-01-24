@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_16_011715) do
+ActiveRecord::Schema.define(version: 2022_06_29_001248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,9 +194,11 @@ ActiveRecord::Schema.define(version: 2022_06_16_011715) do
     t.string "estado"
     t.integer "tar_tarifa_id"
     t.string "tipo"
+    t.integer "tipo_causa_id"
     t.index ["estado"], name: "index_causas_on_estado"
     t.index ["tar_tarifa_id"], name: "index_causas_on_tar_tarifa_id"
     t.index ["tipo"], name: "index_causas_on_tipo"
+    t.index ["tipo_causa_id"], name: "index_causas_on_tipo_causa_id"
   end
 
   create_table "clientes", force: :cascade do |t|
@@ -493,6 +495,13 @@ ActiveRecord::Schema.define(version: 2022_06_16_011715) do
     t.datetime "updated_at", null: false
     t.index ["owner_class"], name: "index_tar_variables_on_owner_class"
     t.index ["owner_id"], name: "index_tar_variables_on_owner_id"
+  end
+
+  create_table "tipo_causas", force: :cascade do |t|
+    t.string "tipo_causa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tipo_causa"], name: "index_tipo_causas_on_tipo_causa"
   end
 
   create_table "usuarios", force: :cascade do |t|

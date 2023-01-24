@@ -1,4 +1,6 @@
 class TarFactura < ApplicationRecord
+	# Tabla de FACTURAS de VENTA
+	# Tiene tar_facturaciones
 
 	TABLA_FIELDS = [
 		['concepto', 'show'],

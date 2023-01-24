@@ -1,18 +1,17 @@
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Cliente', v: true } %>
-<%= form.select :cliente_id, Cliente.where(estado: 'activo').collect { |cliente| [cliente.razon_social, cliente.id] }, include_blank: false, prompt: "Seleccione Cliente" %>
+<%= form.select :cliente_id, Cliente.where(estado: 'activo').collect { |cliente| [cliente.razon_social, cliente.id] }, include_blank: false, prompt: "Seleccione Cliente" %></br>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo de Causa', v: true } %>
+<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.collect {|tc| [tc.tipo_causa, tc.id]}, display_field: 'tipo_causa', prompt: 'Tipo de Causa' } %>
 
 <div class='row'>
 	<div class='col-md-3'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Identificador', v: true } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :identificador } %>
 	</div>
-	<div class='col-md-6'>
+	<div class='col-md-9'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Causa', v: true } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :causa } %>
-	</div>
-	<div class='col-md-3'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
-		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: Causa::TIPOS, label: 'Tipo' } %>
 	</div>
 </div>
 

@@ -1,4 +1,7 @@
 class Cliente < ApplicationRecord
+	# tabla de CLINTES
+	# 1.- Evaluar has_many tar_facturas
+
 	TABLA_FIELDS = 	[
 		['razon_social', 'show']
 	]

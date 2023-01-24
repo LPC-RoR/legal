@@ -16,12 +16,13 @@
         <%= f.password_field :password, autocomplete: "current-password" %>
       </div>
 
-      <% if devise_mapping.rememberable? %>
-        <div class="field">
-          <%= f.check_box :remember_me %>
-          <small><%= f.label 'recuerdame' %></small>
-        </div>
-      <% end %>
+      <%# if devise_mapping.rememberable? %>
+        <!--div class="field"-->
+          <%#= f.check_box :remember_me %>
+          <!--small><%#= f.label 'recuerdame' %></small-->
+        <!--/div-->
+      <%# end %>
+      </br>
 
       <div class="actions">
         <%= f.submit "Ingresar" %>
