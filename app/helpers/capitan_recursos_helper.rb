@@ -54,15 +54,18 @@ module CapitanRecursosHelper
 		StModelo.all.order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize}
 	end
 
-	## ------------------------------------------------------- SCOPES & PARTIALS
+	## ------------------------------------------------------- FORM SCOPES & PARTIALS
 
 	def app_controllers_scope
 		{
+			tarifas: ['tar_tarifas']
 		}
 	end
 
 	def app_scope_controller(controller)
-		nil
+		if app_controllers_scope[:tarifas].include?(controller)
+			'tarifas'
+		end
 	end
 
 	## ------------------------------------------------------- TABLA | BTNS
@@ -95,7 +98,7 @@ module CapitanRecursosHelper
 	def app_new_button_conditions(controller)
 		if ['contacto_personas', 'contacto_empresas'].include?(controller)
 			@e == 'ingreso'
-		elsif ['medicamentos', 'diagnosticos', 'antecedente_formaciones', 'fichas'].include?(controller)
+		elsif ['medicamentos', 'diagnosticos', 'antecedente_formaciones', 'fichas', 'causas', 'consultorias', 'tar_tarifas', 'tar_servicios'].include?(controller)
 			false
 		elsif ['pcds'].include?(controller)
 			['st_bandejas'].include?(controller_name)

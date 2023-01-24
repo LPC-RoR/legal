@@ -91,14 +91,6 @@ module ApplicationHelper
 		end
 	end
 
-	def partial?(controller, partial)
-		File.exist?("app/views/#{(scope_controller(controller).blank? ? '' : "#{scope_controller(controller)}/")}#{controller}/_#{partial}.html.erb")
-	end
-
-	def get_partial(controller, partial)
-		"#{(scope_controller(controller).blank? ? '' : "#{scope_controller(controller)}/")}#{controller}/#{partial}"
-	end
-
 	## ------------------------------------------------------- MENU
 
 	def nomenu_controllers
@@ -275,6 +267,25 @@ module ApplicationHelper
 	end
 
 	## ------------------------------------------------------- FORM
+	# Este helper pergunta si hay un partial llamado _detail en el directorio de las vistas del controlador
+	def detail_partial?(controller, partial)
+		File.exist?("app/views/#{(scope_controller(controller).blank? ? '' : "#{scope_controller(controller)}/")}#{controller}/_#{partial}.html.erb")
+	end
+
+	def get_partial(controller, partial)
+		"#{(scope_controller(controller).blank? ? '' : "#{scope_controller(controller)}/")}#{controller}/#{partial}"
+	end
+
+	# Este helper encuentra el partial que se debe desplegar como form
+	# originalmente todos llegaban a _form
+	# ahora pregunta si hay un partial llamado _datail en el directorio de las vistas del modelo
+	def detail_partial(controller)
+		if detail_partial?(controller, 'detail')
+			get_partial(controller, 'detail')
+		else
+			'0p/form/detail'
+		end
+	end
 
 	def url_params(parametros)
 		params_options = "n_params=#{parametros.length}"
@@ -282,14 +293,6 @@ module ApplicationHelper
 			params_options = params_options+"&class_name#{indice+1}=#{obj.class.name}&obj_id#{indice+1}=#{obj.id}"
 		end
 		params_options
-	end
-
-	def detail_partial(controller)
-		if partial?(controller, 'detail')
-			get_partial(controller, 'detail')
-		else
-			'0p/form/detail'
-		end
 	end
 
 	## -------------------------------------------------------- TABLA & SHOW

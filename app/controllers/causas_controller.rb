@@ -78,7 +78,8 @@ class CausasController < ApplicationController
     @objeto.estado = params[:st]
     @objeto.save
 
-    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
+#    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
+    redirect_to "/causas/#{@objeto.id}"
   end
 
   # DELETE /causas/1 or /causas/1.json
