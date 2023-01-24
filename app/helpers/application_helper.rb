@@ -279,8 +279,8 @@ module ApplicationHelper
 	# Este helper encuentra el partial que se debe desplegar como form
 	# originalmente todos llegaban a _form
 	# ahora pregunta si hay un partial llamado _datail en el directorio de las vistas del modelo
-	def partial(controller)
-		if detail_partial?(controller, 'detail')
+	def detail_partial(controller)
+		if partial?(controller, 'detail')
 			get_partial(controller, 'detail')
 		else
 			'0p/form/detail'
