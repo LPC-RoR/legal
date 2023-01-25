@@ -24,6 +24,7 @@
 		<% elsif @tab == 'Causas' %>
 			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: 'Causas del cliente', clr: app_color[:app]} %></h5>
 			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'causas', a: 'index'} %>
+			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'causas', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
 		<% else %>
 			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: 'Consultorías al cliente', clr: app_color[:app]} %></h5>
 			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'consultorias', a: 'index'} %>

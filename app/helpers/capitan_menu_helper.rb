@@ -22,9 +22,9 @@ module CapitanMenuHelper
 	    # [ 'Item del menú', 'link', 'accesso', 'gly' ]
 	    [
 	        ['',        "/st_bandejas",       'nomina', 'inboxes'],
-	        ['Público', '/app_repos/publico', 'nomina', 'archive'],
-	        ['Perfil',  '/app_repos/perfil',  'nomina', 'archive'],
-	        ['',        "/tar_facturas",      'nomina', 'currency-dollar'],
+#	        ['Público', '/app_repos/publico', 'nomina', 'archive'],
+#	        ['Perfil',  '/app_repos/perfil',  'nomina', 'archive'],
+#	        ['',        "/tar_facturas",      'nomina', 'currency-dollar'],
 #	        ['',        "/tar_bases",         'admin',  'receipt'],
 	        ['',        app_enlaces_path,     'nomina', 'link']
 	    ]

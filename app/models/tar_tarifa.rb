@@ -12,6 +12,10 @@ class TarTarifa < ApplicationRecord
 	has_many :consultorias
 
 	def padre
-		self.owner_class.constantize.find(self.owner_id)
+		if self.owner_class.blank?
+			nil
+		else
+			self.owner_class.constantize.find(self.owner_id)
+		end
 	end
 end

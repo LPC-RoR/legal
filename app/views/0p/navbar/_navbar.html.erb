@@ -25,6 +25,14 @@
               <% end %>
             <% end %>
         <% end %>
+        
+        <% if usuario_signed_in? %>
+          <!-- DROPDOWN MENU DE DOCUMENTOS -->
+          <%= render partial: '0p/navbar/d_down_documentos', locals: {nombre: 'Documentos', drop_items: nil} %>
+          <!-- DROPDOWN MENU DE VALORES -->
+          <%= render partial: '0p/navbar/d_down_pesos', locals: {nombre: 'Valores', drop_items: nil} %>
+        <% end %>
+
         <!-- Recursos -->
         <%= render partial: 'aplicacion/parciales/recursos_dropdown_menu' if usuario_signed_in? and optional_menu_item[:recursos] %>
       </ul>

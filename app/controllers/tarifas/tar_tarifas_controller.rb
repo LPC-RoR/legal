@@ -3,7 +3,8 @@ class Tarifas::TarTarifasController < ApplicationController
 
   # GET /tar_tarifas or /tar_tarifas.json
   def index
-    @coleccion = TarTarifa.all
+    @coleccion = {}
+    @coleccion['tar_tarifas'] = TarTarifa.where(owner_class: '')
   end
 
   # GET /tar_tarifas/1 or /tar_tarifas/1.json
@@ -15,7 +16,9 @@ class Tarifas::TarTarifasController < ApplicationController
 
   # GET /tar_tarifas/new
   def new
-    @objeto = TarTarifa.new(owner_class: params[:class_name], owner_id: params[:objeto_id], estado: 'ingreso')
+    owner_class = (params[:class_name].blank? ? nil : params[:class_name])
+    owner_id    = (params[:objeto_id].blank? ? nil : params[:objeto_id])
+    @objeto = TarTarifa.new(owner_class: owner_class, owner_id: owner_id, estado: 'ingreso')
   end
 
   # GET /tar_tarifas/1/edit
@@ -94,7 +97,7 @@ class Tarifas::TarTarifasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.padre
+      @redireccion = @objeto.padre.blank? ? tar_tarifas_path : "/clientes/#{@objeto.padre.id}?html_options[tab]=Tarifas+y+servicios"
     end
 
     # Only allow a list of trusted parameters through.

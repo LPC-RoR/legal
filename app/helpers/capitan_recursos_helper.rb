@@ -58,7 +58,7 @@ module CapitanRecursosHelper
 
 	def app_controllers_scope
 		{
-			tarifas: ['tar_tarifas']
+			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores']
 		}
 	end
 
@@ -102,6 +102,8 @@ module CapitanRecursosHelper
 			false
 		elsif ['pcds'].include?(controller)
 			['st_bandejas'].include?(controller_name)
+		elsif ['causas', 'consultorias'].include?(controller)
+			controller_name != 'clientes'
 		else
 			true
 		end

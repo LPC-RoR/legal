@@ -15,7 +15,7 @@ class Causa < ApplicationRecord
 
 	belongs_to :tipo_causa
 
-	def tarifas_disponibles
+	def tarifas_cliente
 		self.cliente.tarifas
 	end
 
