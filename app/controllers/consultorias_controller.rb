@@ -41,7 +41,8 @@ class ConsultoriasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Consultoria was successfully created." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Consultoria was successfully created." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +55,8 @@ class ConsultoriasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(consultoria_params)
-        format.html { redirect_to @objeto, notice: "Consultoria was successfully updated." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Consultoria was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,9 +76,10 @@ class ConsultoriasController < ApplicationController
 
   # DELETE /consultorias/1 or /consultorias/1.json
   def destroy
+    set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to consultorias_url, notice: "Consultoria was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Consultoria was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -85,6 +88,10 @@ class ConsultoriasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_consultoria
       @objeto = Consultoria.find(params[:id])
+    end
+
+    def set_redireccion
+      @redireccion = "/st_bandejas?m=Consultoria&e=#{@objeto.estado}"
     end
 
     # Only allow a list of trusted parameters through.
