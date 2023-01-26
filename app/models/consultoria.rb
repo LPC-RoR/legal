@@ -7,7 +7,7 @@ class Consultoria < ApplicationRecord
 	belongs_to :cliente
 	belongs_to :tar_tarifa, optional: true
 
-	def tarifas_disponibles
+	def tarifas_cliente
 		self.cliente.tarifas
 	end
 
@@ -17,6 +17,10 @@ class Consultoria < ApplicationRecord
 
 	def facturaciones
 		TarFacturacion.where(owner_class: 'Consultoria', owner_id: self.id)
+	end
+
+	def enlaces
+		AppEnlace.where(owner_class: 'Consultoria', owner_id: self.id)
 	end
 
 	def repo

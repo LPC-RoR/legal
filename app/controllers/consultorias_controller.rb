@@ -11,17 +11,24 @@ class ConsultoriasController < ApplicationController
   # GET /consultorias/1 or /consultorias/1.json
   def show
 
-    @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
+    init_tab(['Documentos y enlaces', 'Facturación'], params[:tab])
+    @options = { 'tab' => @tab }
 
     @coleccion = {}
 
-    @coleccion['tar_valores'] = @objeto.valores
-    @coleccion['tar_facturaciones'] = @objeto.facturaciones
+    if @tab == 'Documentos y enlaces'
+      AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 
-    AppRepo.create(repositorio: @objeto.consultoria, owner_class: 'Consultoria', owner_id: @objeto.id) if @objeto.repo.blank?
+      @coleccion['app_directorios'] = @objeto.repo.directorios
+      @coleccion['app_documentos'] = @objeto.repo.documentos
 
-    @coleccion['app_directorios'] = @objeto.repo.directorios
-    @coleccion['app_documentos'] = @objeto.repo.documentos
+      @coleccion['app_enlaces'] = @objeto.enlaces.order(:descripcion)
+    elsif @tab == 'Facturación'
+      @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
+
+      @coleccion['tar_valores'] = @objeto.valores
+      @coleccion['tar_facturaciones'] = @objeto.facturaciones
+    end
 
   end
 
@@ -71,7 +78,7 @@ class ConsultoriasController < ApplicationController
     @objeto.estado = params[:st]
     @objeto.save
 
-    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
+    redirect_to "/consultorias/#{@objeto.id}"
   end
 
   # DELETE /consultorias/1 or /consultorias/1.json
