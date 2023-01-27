@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Owner class:</strong>
+  <%= @registro.owner_class %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @registro.owner_id %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @registro.fecha %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @registro.tipo %>
+</p>
+
+<p>
+  <strong>Detalle:</strong>
+  <%= @registro.detalle %>
+</p>
+
+<p>
+  <strong>Nota:</strong>
+  <%= @registro.nota %>
+</p>
+
+<p>
+  <strong>Duracion.time:</strong>
+  <%= @registro.duracion.time %>
+</p>
+
+<p>
+  <strong>Descuento:</strong>
+  <%= @registro.descuento %>
+</p>
+
+<p>
+  <strong>Razon descuento:</strong>
+  <%= @registro.razon_descuento %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @registro.estado %>
+</p>
+
+<%= link_to 'Edit', edit_registro_path(@registro) %> |
+<%= link_to 'Back', registros_path %>

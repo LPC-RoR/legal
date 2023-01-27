@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_29_001248) do
+ActiveRecord::Schema.define(version: 2023_01_26_152146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,26 @@ ActiveRecord::Schema.define(version: 2022_06_29_001248) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["clave"], name: "index_hlp_tutoriales_on_clave"
+  end
+
+  create_table "registros", force: :cascade do |t|
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "fecha"
+    t.string "tipo"
+    t.string "detalle"
+    t.text "nota"
+    t.time "duracion"
+    t.time "descuento"
+    t.string "razon_descuento"
+    t.string "estado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estado"], name: "index_registros_on_estado"
+    t.index ["fecha"], name: "index_registros_on_fecha"
+    t.index ["owner_class"], name: "index_registros_on_owner_class"
+    t.index ["owner_id"], name: "index_registros_on_owner_id"
+    t.index ["tipo"], name: "index_registros_on_tipo"
   end
 
   create_table "sb_elementos", force: :cascade do |t|

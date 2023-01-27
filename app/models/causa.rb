@@ -35,4 +35,8 @@ class Causa < ApplicationRecord
     	AppRepo.where(owner_class: 'Causa').find_by(owner_id: self.id)
 	end
 
+	def registros
+    	Registro.where(owner_class: 'Causa', owner_id: self.id)
+	end
+
 end

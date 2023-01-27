@@ -11,12 +11,15 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab(['Documentos y enlaces', 'Facturación'], params[:tab])
+    init_tab(['Registro', 'Documentos y enlaces', 'Facturación'], params[:tab])
     @options = { 'tab' => @tab }
 
     @coleccion = {}
 
-    if @tab == 'Documentos y enlaces'
+    if @tab == 'Registro'
+      @coleccion['registros'] = @objeto.registros
+      @coleccion['registros'] = @coleccion['registros'].order(:fecha) unless @coleccion['registros'].blank?
+    elsif @tab == 'Documentos y enlaces'
       AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 
       @coleccion['app_directorios'] = @objeto.repo.directorios

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :registros
   resources :tipo_causas
   resources :consultorias do
     match :cambio_estado, via: :get, on: :member

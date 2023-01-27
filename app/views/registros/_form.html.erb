@@ -1,0 +1,67 @@
+<%= form_with(model: registro, local: true) do |form| %>
+  <% if registro.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(registro.errors.count, "error") %> prohibited this registro from being saved:</h2>
+
+      <ul>
+      <% registro.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :owner_class %>
+    <%= form.text_field :owner_class %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_id %>
+    <%= form.number_field :owner_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha %>
+    <%= form.datetime_select :fecha %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tipo %>
+    <%= form.text_field :tipo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :detalle %>
+    <%= form.text_field :detalle %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nota %>
+    <%= form.text_area :nota %>
+  </div>
+
+  <div class="field">
+    <%= form.label :duracion.time %>
+    <%= form.text_field :duracion.time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descuento %>
+    <%= form.time_select :descuento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :razon_descuento %>
+    <%= form.text_field :razon_descuento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estado %>
+    <%= form.text_field :estado %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

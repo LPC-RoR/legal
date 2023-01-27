@@ -2,20 +2,22 @@
 <!-- SOLO controladores con botón nuevo -->
 <% if new_button_conditions(c) and a != 'seleccion' %>
   <!-- que NO son inline_form -->
-  <% unless inline_form?(c) %>
-    <% if @coleccion[c].count > 15 %>
-      <%= render partial: '0p/general/btn_turbolink', locals: {texto: cristiano(c, 'controller', 'singular'), gly: 'plus-circle', link: get_new_link(c), clr: color(c), delete: false} %>
+  <% unless @coleccion[c].blank? %>
+    <% unless inline_form?(c) %>
+      <% if @coleccion[c].count > 15 %>
+        <%= render partial: '0p/general/btn_turbolink', locals: {texto: cristiano(c, 'controller', 'singular'), gly: 'plus-circle', link: get_new_link(c), clr: color(c), delete: false} %>
 
-      </br></br>
-      
+        </br></br>
+        
+      <% end %>
+    <% else %>
+      <%= render partial: "#{c}/inline_nuevo", locals: {c: c, a: a} %>
     <% end %>
-  <% else %>
-    <%= render partial: "#{c}/inline_nuevo", locals: {c: c, a: a} %>
   <% end %>
 <% end %>
 
 <% if @paginate %>
-  <%= paginate @coleccion[c] %>
+  <%= paginate @coleccion[c] unless @coleccion[c].blank? %>
   <small><small><%= page_entries_info(@coleccion[c]) %></small></small>
 <% end %>
 
@@ -34,9 +36,11 @@
   </tbody>
 </table>
 
-<% if @paginate and @coleccion[c].count > 15 %>
-  <small><small><%= page_entries_info(@coleccion[c]) %></small></small>
-  <%= paginate @coleccion[c] %>
+<% unless @coleccion[c].blank? %>
+  <% if @paginate and @coleccion[c].count > 15 %>
+    <small><small><%= page_entries_info(@coleccion[c]) %></small></small>
+    <%= paginate @coleccion[c] %>
+  <% end %>
 <% end %>
 
 <!-- SOLO controladores con botón nuevo -->
