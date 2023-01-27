@@ -51,10 +51,11 @@ module CapitanRecursosHelper
 	end
 
 	def app_bandeja_controllers
-		StModelo.all.order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize}
+		['app_directorios', 'app_documentos', 'app_enlaces', 'tar_tarifas', 'tar_detalles', 'tar_facturas', 'app_repos', 'registros']
 	end
 
 	## ------------------------------------------------------- FORM SCOPES & PARTIALS
+	# Maneja los controladores que tienen SCOPE para que las funciones puedan encontrar los partials
 
 	def app_controllers_scope
 		{

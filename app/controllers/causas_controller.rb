@@ -18,7 +18,7 @@ class CausasController < ApplicationController
 
     if @tab == 'Registro'
       @coleccion['registros'] = @objeto.registros
-      @coleccion['registros'] = @coleccion['registros'].order(:fecha) unless @coleccion['registros'].blank?
+      @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
     elsif @tab == 'Documentos y enlaces'
       AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 

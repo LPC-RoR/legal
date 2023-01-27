@@ -1,7 +1,8 @@
 module CapitanCristianoHelper
 
 	## ------------------------------------------------------- CRISTIANO BASE
-	def cristiano(text, origen, destino)
+	def cristiano(text_input, origen, destino)
+		text = text_input.split(':').last
 		if ['AppAdministrador', 'app_administradores'].include?(text)
 			'Administrador'
 		elsif ['AppNomina', 'app_nominas'].include?(text)
@@ -51,7 +52,8 @@ module CapitanCristianoHelper
 		end
 	end
 
-	def cristiano_app(text, origen, destino)
+	def cristiano_app(text_input, origen, destino)
+		text = text_input.split(':').last
 		if ['TarElemento', 'tar_elementos'].include?(text)
 			'Elemento'
 		elsif ['TarTarifa', 'tar_tarifas'].include?(text)
