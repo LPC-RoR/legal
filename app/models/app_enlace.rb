@@ -1,7 +1,7 @@
 class AppEnlace < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['descripcion', 'link']
+		'l#descripcion'
 #		['enlace',      'link']
 	]
 

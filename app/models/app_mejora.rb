@@ -3,7 +3,7 @@ class AppMejora < ApplicationRecord
 	belongs_to :app_perfil
 
 	TABLA_FIELDS = [
-		['detalle', 'normal']
+		'detalle'
 	]
 
 	def padre

@@ -1,8 +1,8 @@
 class AppNomina < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['nombre', 'normal'],
-		['email',  'show']
+		'nombre',
+		's#email'
 	]
 
 	has_many :st_perfil_modelos

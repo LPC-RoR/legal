@@ -3,7 +3,7 @@ class SbLista < ApplicationRecord
 	ACCESOS = ['dog', 'admin', 'usuario']
 
 	TABLA_FIELDS = [
-		['lista', 'show']
+		's#lista'
 	]
 
 	has_many :sb_elementos

@@ -297,21 +297,37 @@ module ApplicationHelper
 
 	## -------------------------------------------------------- TABLA & SHOW
 
+	# obtiene el nombre del campo puro desde la descripción de TABLA_FIELDS
+	def get_field_name(label)
+		label.split(':').last.split('#').last
+	end
+
 	# Obtiene el campo para despleagar en una TABLA
+	# Acepta los sigueintes labels:
+	# 1.- archivo:campo : archivo es un campo has_one o belongs_to y campo es el nombre del campo de esa relación
+	# 2.- campo : campo es el campo del objeto
+	# 3.- i#campo : es un campo que va antecedido de un ícono
 	# Resuelve BT_FIELDS y d_<campo> si es necesario 
 	def get_field(label, objeto)
+		#Debe resolver archivo:k*#campo
+		# [archivo, archivo, campo]
 
-		success = true
-		label.split(':').each do |field_name|
-			puts "field_name"
-			puts field_name
-			if success
-				objeto = objeto.send(field_name)
-				success = false if objeto.blank?
-			end
+		# Variables de la función
+		v = label.split(':')               # vector de palabras en label
+		archivos = v.slice(0, v.length-1)  # vector que tienen todos los archivos
+		nombre = v.last                    # nombre del campo
+
+		# se avanza por los archivos hasta el último
+		archivo = objeto
+		archivos.each do |arch|
+			archivo = archivo.send(arch)
 		end
 
-		success ? objeto : 'Objeto NO Encontrado'
+		v_nombre = nombre.split('#')
+		campo = v_nombre.last
+		prefijos = v_nombre - [v_nombre.last]
+
+		[(['DateTime', 'Time'].include?(archivo.send(campo).class.name) ? archivo.send(campo).strftime("%d-%m-%Y") : archivo.send(campo)), prefijos]
 
 	end
 

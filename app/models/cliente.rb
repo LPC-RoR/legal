@@ -3,7 +3,7 @@ class Cliente < ApplicationRecord
 	# 1.- Evaluar has_many tar_facturas
 
 	TABLA_FIELDS = 	[
-		['razon_social', 'show']
+		's#razon_social'
 	]
 
 	has_many :causas

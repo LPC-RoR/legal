@@ -1,8 +1,8 @@
 class TarElemento < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['codigo',   'normal'],
-		['elemento', 'normal']
+		'codigo',
+		'elemento'
 	]
 
 end

@@ -17,11 +17,11 @@ class SbElemento < ApplicationRecord
 	]
 
 	TABLA_FIELDS = [
-		['orden',      'normal'],
-		['nivel',      'normal'],
-		['elemento',   'show'],
-		['tipo',       'normal'],
-		['despliegue', 'normal']
+		'orden',
+		'nivel',
+		's#elemento',
+		'tipo',
+		'despliegue'
 	]
 
 end

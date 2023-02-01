@@ -1,8 +1,8 @@
 class StEstado < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['orden',     'normal'],
-		['st_estado', 'normal']
+		'orden',
+		'st_estado'
 	]
 
 	belongs_to :st_modelo

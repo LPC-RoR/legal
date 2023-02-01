@@ -1,7 +1,7 @@
 class AppContacto < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['nombre', 'normal']
+		'nombre'
 	]
 
 end

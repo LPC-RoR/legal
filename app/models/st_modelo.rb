@@ -1,6 +1,6 @@
 class StModelo < ApplicationRecord
 	TABLA_FIELDS = [
-		['st_modelo', 'show']
+		's#st_modelo'
 	]
 
 	has_many :st_estados

@@ -3,8 +3,8 @@ class TarTarifa < ApplicationRecord
 	# tiene tar_detalles
 
 	TABLA_FIELDS = [
-		['tarifa',   'show'],
-		['estado',   'normal']
+		's#tarifa',
+		'estado',
 	]
 
 	has_many :tar_detalles

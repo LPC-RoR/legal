@@ -3,8 +3,8 @@ class AppArchivo < ApplicationRecord
 	require 'carrierwave/orm/activerecord'
 
 	TABLA_FIELDS = [
-		['archivo',    'link_file'],
-		['created_at', 'diahora']
+		'f#archivo',
+		'created_at'
 	]
 
 	mount_uploader :archivo, ArchivoUploader

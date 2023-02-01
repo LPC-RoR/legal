@@ -2,11 +2,9 @@
 
 	<% case objeto.class.name %>
 	<% when 'AppDirectorio' %>
-		<td><i class="bi bi-folder2"></i></td>
-		<td colspan='2'><small><%= link_to( objeto.directorio, objeto) %></small></td>
+		<td colspan='2'><i class="bi bi-folder2"></i><small><%= link_to( objeto.directorio, objeto) %></small></td>
 	<% when 'AppDocumento'  %>
-		<td><i class="bi bi-journals"></i></td>
-		<td><small><%= link_to( objeto.documento, objeto) %></small></td>
+		<td><i class="bi bi-journals"></i><small><%= link_to( objeto.documento, objeto) %></small></td>
 		<td><small>
 			<% if objeto.d_version.present? %>
 				<%= render partial: '0p/general/btn_blank', locals: {texto: nil, gly: 'download', link: objeto.d_version.send('url'), delete: false, clr: color(objeto.class.name.tableize)} if objeto.d_version.present? %>

@@ -1,10 +1,10 @@
 class TarValor < ApplicationRecord
 	
 	TABLA_FIELDS = [
-		['codigo',   'show'],
-		['d_detalle',   'normal'],
-		['valor_uf', 'uf'],
-		['valor', 'pesos']
+		's#codigo',
+		'd_detalle',
+		'uf#valor_uf',
+		'$#valor'
 	]
 
 	def padre

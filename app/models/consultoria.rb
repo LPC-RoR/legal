@@ -1,7 +1,7 @@
 class Consultoria < ApplicationRecord
 
 	TABLA_FIELDS = 	[
-		['consultoria', 'show']
+		's#consultoria'
 	]
 
 	belongs_to :cliente

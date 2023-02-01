@@ -1,7 +1,7 @@
 class HTema < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['tema', 'show']
+		's#tema'
 	]
 
 	def imagenes

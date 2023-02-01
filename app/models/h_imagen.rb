@@ -1,7 +1,7 @@
 class HImagen < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['nombre', 'show']
+		's#nombre'
 	]
 
 	def imagenes

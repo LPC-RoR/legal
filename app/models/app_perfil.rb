@@ -1,7 +1,7 @@
 class AppPerfil < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['email', 'normal'], 
+		'email'
 	]
 
 

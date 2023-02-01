@@ -1,8 +1,8 @@
 class AppAdministrador < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['administrador', 'normal'], 
-		['email',         'normal']
+		'administrador', 
+		'email'
 	]
 
 	has_one :app_perfil

@@ -1,8 +1,8 @@
 class HlpTutorial < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['tutorial', 'show'],
-		['clave',    'normal']
+		's#tutorial',
+		'clave'
 	]
 
 	has_many :hlp_pasos

@@ -1,11 +1,13 @@
 class Registro < ApplicationRecord
 	# Tabla de REGISTROS
 
+	TIPO_REGISTRO = ['Informe', 'Documento', 'Llamada telefónica', 'Mail', 'Reporte']
+
 	TABLA_FIELDS = [
-		['fecha',   'diahora'],
-		['tipo',    'normal'],
-		['detalle', 'show'],
-		['estado',  'normal']
+		'i#fecha',
+		'tipo',
+		's#detalle',
+		'estado'
 	]
 
 	def padre

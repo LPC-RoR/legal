@@ -1,0 +1,6 @@
+<% if v[1].include?('i') %>
+	<%= o.class.name %>
+	<i class='<%=icon_fields(campo, o)%>'></i><%= show_link_condition(o) ? link_to(v[0], o) : v[0] %>
+<% else %>
+	<%= show_link_condition(o) ? link_to(v[0], o) : v[0] %>
+<% end %>

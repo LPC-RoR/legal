@@ -2,7 +2,8 @@
 <%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %>
 
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tipo } %>
+<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: Registro::TIPO_REGISTRO, label: 'Tipo de Registro' } %>
+
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Detalle', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :detalle } %>
 

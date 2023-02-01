@@ -1,7 +1,7 @@
 class HLink < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['texto', 'show']
+		's#texto'
 	]
 
 	def padre

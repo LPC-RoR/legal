@@ -5,9 +5,9 @@ class Causa < ApplicationRecord
 	TIPOS=['Juicio', 'Demanda']
 
 	TABLA_FIELDS = 	[
-		['identificador', 'normal'],
-		['tipo_causa:tipo_causa', 'normal'],
-		['causa', 'show']
+		'identificador',
+		's#causa',
+		'tipo_causa:tipo_causa'
 	]
 
 	belongs_to :cliente

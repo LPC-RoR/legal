@@ -1,7 +1,7 @@
 class AppDirectorio < ApplicationRecord
 
 	TABLA_FIELDS = [
-		['directorio', 'show'], 
+		's#directorio'
 	]
 
 #	has_many :app_archivos

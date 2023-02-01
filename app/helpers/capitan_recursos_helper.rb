@@ -59,7 +59,7 @@ module CapitanRecursosHelper
 
 	def app_controllers_scope
 		{
-			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores']
+			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios']
 		}
 	end
 
@@ -70,6 +70,25 @@ module CapitanRecursosHelper
 	end
 
 	## ------------------------------------------------------- TABLA | BTNS
+
+	def icon_fields(campo, objeto)
+		if objeto.class.name == 'Registro'
+			if campo == 'fecha'
+				case objeto.tipo
+				when 'Informe'
+				"bi bi-file-earmark-check"
+				when 'Documento'+
+				"bi bi-file-earmark-pdf"
+				when 'Llamada telefónica'
+				"bi bi-telephone"
+				when 'Mail'
+				"bi bi-envelope-at"
+				when 'Reporte'
+				"bi bi-file-earmark-ruled"
+				end
+			end
+		end
+	end
 
 	def sortable_fields
 		{
@@ -149,8 +168,9 @@ module CapitanRecursosHelper
 		end		
 	end
 
+	# usado en _modelo para condicionar despliegue de campos show en tablas
+	# true se muestra
 	def show_link_condition(objeto)
-		# usado para condicionar el uso de campos show en tablas
 		true
 	end
 

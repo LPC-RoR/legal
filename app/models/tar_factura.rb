@@ -3,9 +3,9 @@ class TarFactura < ApplicationRecord
 	# Tiene tar_facturaciones
 
 	TABLA_FIELDS = [
-		['concepto', 'show'],
-		['documento',   'normal'],
-		['created_at',  'normal']
+		's#concepto',
+		'documento',
+		'created_at'
 	]
 
 	has_many :tar_facturaciones

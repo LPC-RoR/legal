@@ -5,11 +5,11 @@ class TarDetalle < ApplicationRecord
 	TIPOS = ['valor', 'suma', 'producto', 'condicional', 'piso_tope', 'ahorro', 'máximo', 'otros']
 
 	TABLA_FIELDS = [
-		['orden',   'normal'],
-		['codigo',  'normal'],
-		['detalle', 'show'],
-		['tipo',    'normal'],
-		['formula', 'normal']
+		'orden',
+		'codigo',
+		's#detalle',
+		'tipo',
+		'formula'
 	]
 
 	belongs_to :tar_tarifa
