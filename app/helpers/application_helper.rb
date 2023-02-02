@@ -329,6 +329,8 @@ module ApplicationHelper
 
 		unless archivo.send(campo).blank?
 			[(['DateTime', 'Time'].include?(archivo.send(campo).class.name) ? archivo.send(campo).strftime("%d-%m-%Y") : archivo.send(campo)), prefijos]
+		else
+			nil
 		end
 
 	end

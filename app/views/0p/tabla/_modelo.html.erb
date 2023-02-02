@@ -21,8 +21,10 @@
 		<!-- normal : campo sin prefijo -->
 		<% v_field = get_field(f, objeto) %>
 		<td align="<%='right' if ['Decimal', 'Integer'].include?(objeto.send(get_field_name(f)).class.name) %>" ><small>
+			<% if f.blank? %>
+				Campo no encontrado
 			<!-- SHOW -->
-			<% if v_field[1].include?('s') %>
+			<% elsif v_field[1].include?('s') %>
 				<%= render partial: '0p/tabla/tb_fields/show', locals: {v: v_field, campo: get_field_name(f), o: objeto} %>
 			<!-- SHOW LINK -->
 			<% elsif v_field[1].include?('sl') %>
