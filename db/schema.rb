@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_26_152146) do
+ActiveRecord::Schema.define(version: 2023_02_02_130301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -263,6 +263,23 @@ ActiveRecord::Schema.define(version: 2023_01_26_152146) do
     t.index ["clave"], name: "index_hlp_tutoriales_on_clave"
   end
 
+  create_table "reg_reportes", force: :cascade do |t|
+    t.string "clave"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "annio"
+    t.integer "mes"
+    t.integer "cliente_id"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.index ["annio"], name: "index_reg_reportes_on_annio"
+    t.index ["clave"], name: "index_reg_reportes_on_clave"
+    t.index ["cliente_id"], name: "index_reg_reportes_on_cliente_id"
+    t.index ["mes"], name: "index_reg_reportes_on_mes"
+    t.index ["owner_class"], name: "index_reg_reportes_on_owner_class"
+    t.index ["owner_id"], name: "index_reg_reportes_on_owner_id"
+  end
+
   create_table "registros", force: :cascade do |t|
     t.string "owner_class"
     t.integer "owner_id"
@@ -276,10 +293,20 @@ ActiveRecord::Schema.define(version: 2023_01_26_152146) do
     t.string "estado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "reporte_id"
+    t.integer "RegReporteId"
+    t.integer "annio"
+    t.integer "mes"
+    t.integer "reg_reporte_id"
+    t.index ["RegReporteId"], name: "index_registros_on_RegReporteId"
+    t.index ["annio"], name: "index_registros_on_annio"
     t.index ["estado"], name: "index_registros_on_estado"
     t.index ["fecha"], name: "index_registros_on_fecha"
+    t.index ["mes"], name: "index_registros_on_mes"
     t.index ["owner_class"], name: "index_registros_on_owner_class"
     t.index ["owner_id"], name: "index_registros_on_owner_id"
+    t.index ["reg_reporte_id"], name: "index_registros_on_reg_reporte_id"
+    t.index ["reporte_id"], name: "index_registros_on_reporte_id"
     t.index ["tipo"], name: "index_registros_on_tipo"
   end
 

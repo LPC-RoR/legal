@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
 
+  resources :reg_reportes
   resources :registros
   resources :tipo_causas
   resources :consultorias do
     match :cambio_estado, via: :get, on: :member
+    match :procesa_registros, via: :get, on: :member
   end
   resources :causas do
     match :cambio_estado, via: :get, on: :member
+    match :procesa_registros, via: :get, on: :member
   end
   resources :clientes do
     match :cambio_estado, via: :get, on: :member

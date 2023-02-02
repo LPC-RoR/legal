@@ -1,5 +1,5 @@
 class ConsultoriasController < ApplicationController
-  before_action :set_consultoria, only: %i[ show edit update destroy cambio_estado ]
+  before_action :set_consultoria, only: %i[ show edit update destroy cambio_estado procesa_registros ]
 
   include Tarifas
 
@@ -11,7 +11,7 @@ class ConsultoriasController < ApplicationController
   # GET /consultorias/1 or /consultorias/1.json
   def show
 
-    init_tab(['Registro', 'Documentos y enlaces', 'Facturación'], params[:tab])
+    init_tab(['Registro', 'Reportes', 'Documentos y enlaces', 'Facturación'], params[:tab])
     @options = { 'tab' => @tab }
 
     @coleccion = {}
@@ -19,6 +19,9 @@ class ConsultoriasController < ApplicationController
     if @tab == 'Registro'
       @coleccion['registros'] = @objeto.registros
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
+    elsif @tab == 'Reportes'
+      @coleccion['reg_reportes'] = @objeto.reportes
+      @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
     elsif @tab == 'Documentos y enlaces'
       AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 
@@ -82,6 +85,24 @@ class ConsultoriasController < ApplicationController
     @objeto.save
 
     redirect_to "/consultorias/#{@objeto.id}"
+  end
+
+  def procesa_registros
+    registros_proceso = @objeto.registros.where(estado: 'ingreso')
+    unless registros_proceso.empty?
+      registros_proceso.each do |registro|
+        reporte_mes = @objeto.reportes.where(annio: registro.fecha.year).find_by(mes: registro.fecha.month) unless @objeto.reportes.blank?
+        reporte_mes = RegReporte.new(owner_class: 'Consultoria', owner_id: @objeto.id, annio: registro.fecha.year, mes: registro.fecha.month) if (reporte_mes.blank? or @objeto.reportes.empty?)
+        reporte_mes.save
+
+        registro.estado = 'reportado'
+        registro.reg_reporte_id = reporte_mes.id
+        registro.save
+      end
+    end
+
+    redirect_to "/consultorias/#{@objeto.id}?html_options[tab]=Reportes"
+    
   end
 
   # DELETE /consultorias/1 or /consultorias/1.json
