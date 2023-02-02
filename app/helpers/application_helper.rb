@@ -327,7 +327,9 @@ module ApplicationHelper
 		campo = v_nombre.last
 		prefijos = v_nombre - [v_nombre.last]
 
-		[(['DateTime', 'Time'].include?(archivo.send(campo).class.name) ? archivo.send(campo).strftime("%d-%m-%Y") : archivo.send(campo)), prefijos]
+		unless archivo.send(campo).blank?
+			[(['DateTime', 'Time'].include?(archivo.send(campo).class.name) ? archivo.send(campo).strftime("%d-%m-%Y") : archivo.send(campo)), prefijos]
+		end
 
 	end
 
