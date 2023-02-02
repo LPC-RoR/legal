@@ -6,8 +6,8 @@ class Causa < ApplicationRecord
 
 	TABLA_FIELDS = 	[
 		'identificador',
-		's#causa',
-		'tipo_causa:tipo_causa'
+		's#causa'
+#		'tipo_causa:tipo_causa'
 	]
 
 	belongs_to :cliente
