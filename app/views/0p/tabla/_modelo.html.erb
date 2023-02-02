@@ -21,7 +21,7 @@
 		<!-- normal : campo sin prefijo -->
 		<% v_field = get_field(f, objeto) %>
 		<td align="<%='right' if ['Decimal', 'Integer'].include?(objeto.send(get_field_name(f)).class.name) %>" ><small>
-			<% if f.blank? %>
+			<% if f.blank? or v_field.blank? %>
 				Campo no encontrado
 			<!-- SHOW -->
 			<% elsif v_field[1].include?('s') %>
