@@ -134,8 +134,8 @@ module CapitanRecursosHelper
 			admin?
 		else
 			case objeto.class.name
-			when 'Clase'
-				admin?
+			when 'Registro'
+				admin? and objeto.estado == 'ingreso'
 			else
 				true
 			end
@@ -158,9 +158,9 @@ module CapitanRecursosHelper
 
 	def x_btns(objeto)
 		case objeto.class.name
-		when 'Clase'
+		when 'Registro'
 			[
-				['Boton1', '/boton1', true],
+				[nil, '/reporta_registro', true],
 				['Boton2', '/boton2', true]
 			]
         else

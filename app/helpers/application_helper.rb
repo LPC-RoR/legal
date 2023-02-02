@@ -253,6 +253,10 @@ module ApplicationHelper
 		end
 	end
 
+	# Link de un x_btn del modelo de una tabla
+	# objeto : objeto del detalle de la tabla
+	# accion : url al que hay que sumarle los parámetros}
+	# objeto_ref : true => se incluyen parámetros de @objeto
 	def link_x_btn(objeto, accion, objeto_ref)
 		ruta_raiz = "/#{objeto.class.name.tableize}/#{objeto.id}#{accion}"
 		ruta_objeto = (objeto_ref and @objeto.present?) ? "#{(!!accion.match(/\?+/) ? '&' : '?')}class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}" : ''
