@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :reg_reportes
+  resources :reg_reportes do
+    match :cambia_estado, via: :get, on: :member
+  end
   resources :registros do
     match :reporta_registro, via: :get, on: :member
     match :excluye_registro, via: :get, on: :member
@@ -105,6 +107,10 @@ Rails.application.routes.draw do
     resources :tar_elementos
     resources :tar_tarifas do 
       resources :tar_detalles
+      match :asigna, via: :get, on: :member
+      match :desasigna, via: :get, on: :member
+    end
+    resources :tar_horas do
       match :asigna, via: :get, on: :member
       match :desasigna, via: :get, on: :member
     end

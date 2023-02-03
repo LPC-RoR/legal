@@ -6,9 +6,14 @@ class Consultoria < ApplicationRecord
 
 	belongs_to :cliente
 	belongs_to :tar_tarifa, optional: true
+	belongs_to :tar_hora, optional: true
 
 	def tarifas_cliente
 		self.cliente.tarifas
+	end
+
+	def tarifas_hora_cliente
+		self.cliente.tarifas_hora
 	end
 
 	def valores

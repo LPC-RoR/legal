@@ -12,9 +12,15 @@
 		</br>
 
 		<% if @tab == 'Tarifas y servicios' %>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas del cliente', clr: app_color[:app]} %></h5>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas Generales', clr: app_color[:app]} %></h5>
 			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_tarifas', a: 'index'} %>
 			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_tarifas', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
+
+			<hr>
+
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas por Hora', clr: app_color[:app]} %></h5>
+			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_horas', a: 'index'} %>
+			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_horas', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
 
 			<hr>
 

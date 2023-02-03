@@ -15,6 +15,7 @@ class ClientesController < ApplicationController
     @coleccion = {}
     if @tab == 'Tarifas y servicios'
       @coleccion['tar_tarifas'] = @objeto.tarifas.order(:created_at)
+      @coleccion['tar_horas'] = @objeto.tarifas_hora.order(:created_at)
       @coleccion['tar_servicios'] = @objeto.servicios.order(:created_at)
     elsif @tab == 'Causas'
       @coleccion['causas'] = @objeto.causas.order(:created_at)

@@ -56,7 +56,8 @@ class RegistrosController < ApplicationController
     reportes_periodo = reportes.blank? ? nil : reportes.where(annio: @objeto.fecha.year, mes: @objeto.fecha.month)
     reporte = reportes_periodo.blank? ? nil : reportes_periodo.last
 
-    reporte = RegReporte.build(owner_class: @objeto.owner_class, owner_id: @objeto_id, annio: @objeto.fecha.annio, mes: @objeto.fecha.month) if reporte.blank?
+    reporte = RegReporte.new(owner_class: @objeto.owner_class, owner_id: @objeto.owner_id, annio: @objeto.fecha.year, mes: @objeto.fecha.month, estado: 'ingreso') if reporte.blank?
+    reporte.save
 
     reporte.registros << @objeto
     @objeto.estado = 'reportado'

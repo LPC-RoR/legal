@@ -1,5 +1,5 @@
 class RegReportesController < ApplicationController
-  before_action :set_reg_reporte, only: %i[ show edit update destroy ]
+  before_action :set_reg_reporte, only: %i[ show edit update destroy cambia_estado]
 
   # GET /reg_reportes or /reg_reportes.json
   def index
@@ -47,6 +47,13 @@ class RegReportesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def cambia_estado
+    @objeto.estado = params[:estado]
+    @objeto.save
+
+    redirect_to "/#{@objeto.owner.class.name.downcase.pluralize}/#{@objeto.owner.id}?html_options[tab]=Reportes"
   end
 
   # DELETE /reg_reportes/1 or /reg_reportes/1.json

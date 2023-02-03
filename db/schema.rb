@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_02_130301) do
+ActiveRecord::Schema.define(version: 2023_02_03_182503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,7 +195,9 @@ ActiveRecord::Schema.define(version: 2023_02_02_130301) do
     t.integer "tar_tarifa_id"
     t.string "tipo"
     t.integer "tipo_causa_id"
+    t.integer "tar_hora_id"
     t.index ["estado"], name: "index_causas_on_estado"
+    t.index ["tar_hora_id"], name: "index_causas_on_tar_hora_id"
     t.index ["tar_tarifa_id"], name: "index_causas_on_tar_tarifa_id"
     t.index ["tipo"], name: "index_causas_on_tipo"
     t.index ["tipo_causa_id"], name: "index_causas_on_tipo_causa_id"
@@ -217,7 +219,9 @@ ActiveRecord::Schema.define(version: 2023_02_02_130301) do
     t.integer "tar_tarifa_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tar_hora_id"
     t.index ["cliente_id"], name: "index_consultorias_on_cliente_id"
+    t.index ["tar_hora_id"], name: "index_consultorias_on_tar_hora_id"
     t.index ["tar_tarifa_id"], name: "index_consultorias_on_tar_tarifa_id"
   end
 
@@ -272,9 +276,11 @@ ActiveRecord::Schema.define(version: 2023_02_02_130301) do
     t.integer "cliente_id"
     t.string "owner_class"
     t.integer "owner_id"
+    t.string "estado"
     t.index ["annio"], name: "index_reg_reportes_on_annio"
     t.index ["clave"], name: "index_reg_reportes_on_clave"
     t.index ["cliente_id"], name: "index_reg_reportes_on_cliente_id"
+    t.index ["estado"], name: "index_reg_reportes_on_estado"
     t.index ["mes"], name: "index_reg_reportes_on_mes"
     t.index ["owner_class"], name: "index_reg_reportes_on_owner_class"
     t.index ["owner_id"], name: "index_reg_reportes_on_owner_id"
@@ -474,6 +480,19 @@ ActiveRecord::Schema.define(version: 2023_02_02_130301) do
     t.index ["estado"], name: "index_tar_facturas_on_estado"
     t.index ["owner_class"], name: "index_tar_facturas_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"
+  end
+
+  create_table "tar_horas", force: :cascade do |t|
+    t.string "tar_hora"
+    t.string "moneda"
+    t.decimal "valor"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_class"], name: "index_tar_horas_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_horas_on_owner_id"
+    t.index ["tar_hora"], name: "index_tar_horas_on_tar_hora"
   end
 
   create_table "tar_liquidaciones", force: :cascade do |t|

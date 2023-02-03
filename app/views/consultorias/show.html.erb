@@ -33,7 +33,16 @@
 			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
 
 			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
+		</div>
+		<div class='col-md-6'>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa Hora', clr: app_color[:app]} %></h5>
 
+			<%= render partial: 'tarifas/partials/asigna_tarifa_hora', locals: {objeto: @objeto} %>
+		</div>
+	</div>
+
+	<div class='row'>
+		<div class='col-md-6'>
 			<% if @objeto.tar_tarifa.present? %>
 
 				<%= render partial: 'tarifas/partials/valores', locals: {objeto: @objeto, array_tarifa: @array_tarifa} %>

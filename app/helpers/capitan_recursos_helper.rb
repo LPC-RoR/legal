@@ -51,7 +51,7 @@ module CapitanRecursosHelper
 	end
 
 	def app_bandeja_controllers
-		['app_directorios', 'app_documentos', 'app_enlaces', 'tar_tarifas', 'tar_detalles', 'tar_facturas', 'app_repos', 'registros', 'reg_reportes']
+		['app_directorios', 'app_documentos', 'app_enlaces', 'tar_tarifas', 'tar_detalles', 'tar_facturas', 'app_repos', 'registros', 'reg_reportes', 'tar_horas']
 	end
 
 	## ------------------------------------------------------- FORM SCOPES & PARTIALS
@@ -59,7 +59,7 @@ module CapitanRecursosHelper
 
 	def app_controllers_scope
 		{
-			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios']
+			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios', 'tar_horas']
 		}
 	end
 
@@ -118,7 +118,7 @@ module CapitanRecursosHelper
 	def app_new_button_conditions(controller)
 		if ['contacto_personas', 'contacto_empresas'].include?(controller)
 			@e == 'ingreso'
-		elsif ['medicamentos', 'diagnosticos', 'antecedente_formaciones', 'fichas', 'tar_tarifas', 'tar_servicios', 'tar_valores', 'registros', 'reg_reportes'].include?(controller)
+		elsif ['medicamentos', 'diagnosticos', 'antecedente_formaciones', 'fichas', 'tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes'].include?(controller)
 			false
 		elsif ['pcds'].include?(controller)
 			['st_bandejas'].include?(controller_name)
@@ -136,6 +136,8 @@ module CapitanRecursosHelper
 			case objeto.class.name
 			when 'Registro'
 				admin? and objeto.estado == 'ingreso'
+			when 'RegReporte'
+				false
 			else
 				true
 			end
