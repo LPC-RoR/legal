@@ -1,0 +1,6 @@
+<small>
+<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación Tarifa Horas', clr: app_color[:app]} %></h5>
+
+<%= render partial: '0p/general/btn_turbolink', locals: {texto: "Reporte #{@objeto.nombre_padre} (#{@objeto.periodo})", gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{"Reporte #{@objeto.nombre_padre} (#{@objeto.periodo})"}", clr: app_color[:app], delete: false} %>
+
+<%#= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>

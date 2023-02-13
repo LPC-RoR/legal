@@ -44,16 +44,12 @@
 	<div class='row'>
 		<div class='col-md-6'>
 			<% if @objeto.tar_tarifa.present? %>
-
 				<%= render partial: 'tarifas/partials/valores', locals: {objeto: @objeto, array_tarifa: @array_tarifa} %>
-
 			<% end %>
 		</div>
 		<div class='col-md-6'>
 			<% if @objeto.tar_tarifa.present? %>
-
 				<%= render partial: 'tarifas/partials/facturacion', locals: {objeto: @objeto, array_tarifa: @array_tarifa} %>
-
 			<% end %>
 		</div>
 	</div>

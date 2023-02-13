@@ -1,15 +1,22 @@
 module Tarifas
 
-	def get_tar_valor(causa, codigo)
-		causa.valores.empty? ? nil : causa.valores.find_by(codigo: codigo)
+	# Encuentra el detalle de trifaa de un CÓDIGO particular
+	# owner = CAUSA/CONSULTORIA
+	def get_tar_detalle(owner, codigo)
+		owner.tar_tarifa.tar_detalles.find_by(codigo: codigo)
 	end
 
-	def get_tar_detalle(causa, codigo)
-		causa.tar_tarifa.tar_detalles.find_by(codigo: codigo)
+	# Encuaantra el valor ingresado para un DETALLE DE TARIFA correspondiente a un CÓDIGO
+	# owner = CAUSA/CONSULTORIA
+	def get_tar_valor(owner, codigo)
+		owner.valores.empty? ? nil : owner.valores.find_by(codigo: codigo)
 	end
 
-	def get_otros(causa)
-		causa.valores.empty? ? causa.valores : causa.valores.where(codigo: '')
+	# Obtiene lista de OTROS
+	# Son los valores en los que el código es ''
+	# owner = CAUSA/CONSULTORIA
+	def get_otros(owner)
+		owner.valores.empty? ? owner.valores : owner.valores.where(codigo: '')
 	end
 
 	def get_suma(formula)
@@ -45,39 +52,47 @@ module Tarifas
 		send(formula)
 	end
 
-	def eval_suma(causa, formula)
+	# Evalua una SUMA
+	# owner = CAUSA/CONSULTORIA
+	def eval_suma(owner, formula)
 		suma = 0
 		formula.split(' ').each do |termino|
 			if number?(termino)
 				suma += termino.to_f
 			else
-				suma += do_eval(causa, termino)
+				suma += do_eval(owner, termino)
 			end
 		end
 		suma
 	end
 
-	def eval_producto(causa, formula)
+	# Evalua un PRODUCTO
+	# owner = CAUSA/CONSULTORIA
+	def eval_producto(owner, formula)
 		producto = 1
 		formula.split(' ').each do |termino|
 			if number?(termino)
 				producto *= termino.to_f
 			else
-				producto *= do_eval(causa, termino)
+				producto *= do_eval(owner, termino)
 			end
 		end
 		producto
 	end
 
-	def eval_maximo(causa, formula)
+	# Evalua un MÁXIMO
+	# owner = CAUSA/CONSULTORIA
+	def eval_maximo(owner, formula)
 		valores = formula.split(' ')
-		valor1 = number?(valores[0]) ? valores[0].to_f : do_eval(causa, valores[0])
-		valor2 = number?(valores[1]) ? valores[1].to_f : do_eval(causa, valores[1])
+		valor1 = number?(valores[0]) ? valores[0].to_f : do_eval(owner, valores[0])
+		valor2 = number?(valores[1]) ? valores[1].to_f : do_eval(owner, valores[1])
 
 		valor1 > valor2 ? valor1 : valor2
 	end
 
-	def eval_condicional(causa, formula)
+	# Evalua un CONDICIONAL
+	# owner = CAUSA/CONSULTORIA
+	def eval_condicional(owner, formula)
 		cond_opciones = formula.split('?')
 		condicion = cond_opciones[0].split(' ')
 		opciones = cond_opciones[1].split(':')
@@ -86,38 +101,44 @@ module Tarifas
 
 		case condicion[0].strip
 		when 'menor_igual'
-			valor1 = number?(condicion[1].strip) ? condicion[1].to_f : do_eval(causa, condicion[1])
-			valor2 = number?(condicion[2].strip) ? condicion[2].to_f : do_eval(causa, condicion[2])
+			valor1 = number?(condicion[1].strip) ? condicion[1].to_f : do_eval(owner, condicion[1])
+			valor2 = number?(condicion[2].strip) ? condicion[2].to_f : do_eval(owner, condicion[2])
 			test_condicion = valor1 <= valor2
 		end
-		test_condicion ? (number?(opcion_v.strip) ? opcion_v.to_f : do_eval(causa, opcion_v.strip)) : (number?(opcion_f.strip) ? opcion_f.to_f : do_eval(causa, opcion_f.strip))
+		test_condicion ? (number?(opcion_v.strip) ? opcion_v.to_f : do_eval(owner, opcion_v.strip)) : (number?(opcion_f.strip) ? opcion_f.to_f : do_eval(owner, opcion_f.strip))
 	end
 
-	def eval_piso_tope(causa, formula)
+	# Evalua un PISO TOPE
+	# owner = CAUSA/CONSULTORIA
+	def eval_piso_tope(owner, formula)
 		elementos = formula.split(' ')
-		valor = number?(elementos[0]) ? elementos[0].to_f : do_eval(causa, elementos[0])
-		piso = number?(elementos[1]) ? elementos[1].to_f : do_eval(causa, elementos[1])
-		tope = number?(elementos[2]) ? elementos[2].to_f : do_eval(causa, elementos[2])
+		valor = number?(elementos[0]) ? elementos[0].to_f : do_eval(owner, elementos[0])
+		piso = number?(elementos[1]) ? elementos[1].to_f : do_eval(owner, elementos[1])
+		tope = number?(elementos[2]) ? elementos[2].to_f : do_eval(owner, elementos[2])
 		aplica_piso = (valor < piso ? piso : valor)
 		aplica_piso > tope ? tope : aplica_piso
 	end
 
-	def eval_ahorro(causa, formula)
+	# Evalua AHORRO
+	# owner = CAUSA/CONSULTORIA
+	def eval_ahorro(owner, formula)
 		elementos = formula.split(' ')
-		demandado = number?(elementos[0]) ? elementos[0].to_f : do_eval(causa, elementos[0])
-		pagado = number?(elementos[1]) ? elementos[1].to_f : do_eval(causa, elementos[1])
+		demandado = number?(elementos[0]) ? elementos[0].to_f : do_eval(owner, elementos[0])
+		pagado = number?(elementos[1]) ? elementos[1].to_f : do_eval(owner, elementos[1])
 		demandado > pagado ? demandado - pagado : 0
 	end
 
-	def do_eval(causa, codigo)
-		tar_detalle = get_tar_detalle(causa, codigo)
+	# Evalua el valor de una tarifa normal de CAUSA/COONSULTORIA
+	# owner = CAUSA/CONSULTORIA
+	def do_eval(owner, codigo)
+		tar_detalle = get_tar_detalle(owner, codigo)
 		case tar_detalle.tipo
 		when 'valor'
-			tar_valor = get_tar_valor(causa, codigo)
+			tar_valor = get_tar_valor(owner, codigo)
 			tar_valor.blank? ? 0 : tar_valor.d_valor
 		when 'otros'
 			otros = 0
-			detalle_otros = get_otros(causa)
+			detalle_otros = get_otros(owner)
 			unless detalle_otros.empty?
 				detalle_otros.each do |detalle_otro|
 					otros += detalle_otro.d_valor
@@ -125,19 +146,17 @@ module Tarifas
 			end
 			otros
 		when 'suma'
-#			tar_detalle = get_tar_detalle(causa, codigo)
-			eval_suma(causa, tar_detalle.formula)
+			eval_suma(owner, tar_detalle.formula)
 		when 'producto'
-#			tar_detalle = get_tar_detalle(causa, codigo)
-			eval_producto(causa, tar_detalle.formula)
+			eval_producto(owner, tar_detalle.formula)
 		when 'máximo'
-			eval_maximo(causa, tar_detalle.formula)
+			eval_maximo(owner, tar_detalle.formula)
 		when 'condicional'
-			eval_condicional(causa, tar_detalle.formula)
+			eval_condicional(owner, tar_detalle.formula)
 		when 'piso_tope'
-			eval_piso_tope(causa, tar_detalle.formula)
+			eval_piso_tope(owner, tar_detalle.formula)
 		when 'ahorro'
-			eval_ahorro(causa, tar_detalle.formula)
+			eval_ahorro(owner, tar_detalle.formula)
 		end
 	end
 

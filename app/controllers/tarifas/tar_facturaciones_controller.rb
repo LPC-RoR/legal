@@ -17,15 +17,23 @@ class Tarifas::TarFacturacionesController < ApplicationController
     @objeto = TarFacturacion.new
   end
 
+  # Crea DETALLE DE FACTURA, que será heredado por un factura luego
+  # 1.- El detalle puede pertenecer a una CAUSA/CONSULTORIA
+  # owner = CAUSA/CONSULTORIA
   def crea_facturacion
-    causa = params[:owner_class].constantize.find(params[:owner_id])
-    
-    unless do_eval(causa, params[:facturable]) == 0
-      tar_detalle = causa.tar_tarifa.tar_detalles.find_by(codigo: params[:facturable])
-      TarFacturacion.create(owner_class: 'Causa', owner_id: causa.id, facturable: params[:facturable], glosa: "#{tar_detalle.detalle} : #{causa.identificador} #{causa.causa}", estado: 'ingreso', monto: do_eval(causa, params[:facturable]))
+    if params[:owner_class] == 'RegReporte'
+      TarFacturacion.create(owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: params[:facturable], estado: 'ingreso', monto: do_eval(owner, params[:facturable]))
+    else
+      owner = params[:owner_class].constantize.find(params[:owner_id])
+      
+      # do_eval funciona para CAUSA/CONSULTORIA
+      unless do_eval(owner, params[:facturable]) == 0
+        tar_detalle = owner.tar_tarifa.tar_detalles.find_by(codigo: params[:facturable])
+        TarFacturacion.create(owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: "#{tar_detalle.detalle} : #{owner.identificador} #{owner.send(owner.class.name.downcase)}", estado: 'ingreso', monto: do_eval(owner, params[:facturable]))
+      end
     end
 
-    redirect_to "/causas/#{causa.id}?html_options[tab]=Facturación"
+    redirect_to "/#{owner.class.name.pluralize.downcase}/#{causa.id}?html_options[tab]=Facturación"
   end
 
   # GET /tar_facturaciones/1/edit
