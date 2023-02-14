@@ -8,6 +8,10 @@ class RegReporte < ApplicationRecord
 
 	has_many :registros
 
+	def facturaciones
+		TarFacturacion.where(owner_class: 'RegReporte', owner_id: self.id)
+	end
+
 	def owner
 		self.owner_class.constantize.find(self.owner_id)
 	end

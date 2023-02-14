@@ -10,6 +10,7 @@ class RegReportesController < ApplicationController
   def show
     @coleccion = {}
     @coleccion['registros'] = @objeto.registros
+    @coleccion['tar_facturaciones'] = @objeto.facturaciones
   end
 
   # GET /reg_reportes/new

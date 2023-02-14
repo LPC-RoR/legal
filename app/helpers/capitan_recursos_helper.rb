@@ -118,7 +118,7 @@ module CapitanRecursosHelper
 	def app_new_button_conditions(controller)
 		if ['contacto_personas', 'contacto_empresas'].include?(controller)
 			@e == 'ingreso'
-		elsif ['medicamentos', 'diagnosticos', 'antecedente_formaciones', 'fichas', 'tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes'].include?(controller)
+		elsif ['medicamentos', 'diagnosticos', 'antecedente_formaciones', 'fichas', 'tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_facturaciones'].include?(controller)
 			false
 		elsif ['pcds'].include?(controller)
 			['st_bandejas'].include?(controller_name)
