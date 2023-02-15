@@ -96,12 +96,12 @@ class Tarifas::TarFacturacionesController < ApplicationController
     end
   end
 
+  # Elimina TarFactura de CAUSA/REG_REPORTE
   def elimina
-    causa = params[:class_name].constantize.find(params[:objeto_id])
-
+    owner = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.delete
 
-    redirect_to causa
+    redirect_to owner
   end
 
   private

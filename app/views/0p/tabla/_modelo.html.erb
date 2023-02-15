@@ -1,12 +1,4 @@
 <tr class="table-<%=table_row_type(objeto)%>">
-	<!-- DEPRECATED -->
-	<!-- Recorre los campos a desplegar en la table -->
-	<!-- f : [campo, tipo_delpliegue] -->
-	<!-- Esta versión incluye en 'normal' los antiguos campos 'display'--> 
-	<!-- Hay que usar el nombre del campos display en TABLA_FIELDS -->
-
-	<!-- NUEVO -->
-
 	<!-- ICONO al comienzo de instancias del REPOSITORIO -->
 	<% case objeto.class.name %>
 	<% when 'Archivo'  %>
@@ -23,7 +15,7 @@
 		<% if f.blank? or v_field.blank? %>
 			<td>-</td>
 		<% else %>
-			<td align="<%='right' if ['BigDecimal', 'Decimal', 'Integer'].include?(v_field[0].class.name) or v_field[0].split(' ')[0] == 'UF' or v_field[0].split(' ')[0] == '$' %>" ><small>
+			<td align="<%='right' if ['BigDecimal', 'Decimal', 'Integer'].include?(v_field[0].class.name) or v_field[1].include?('uf') or v_field[1].include?('$') %>" ><small>
 				<!-- SHOW -->
 				<% if v_field[1].include?('s') %>
 					<%= render partial: '0p/tabla/tb_fields/show', locals: {v: v_field, campo: get_field_name(f), o: objeto} %>
@@ -54,43 +46,6 @@
 		<% end %>
 
 
-		<%# case f[1] %>
-		<%# when 'show' %>
-			<!-- show : prefijo s_ -->
-			<%# if show_link_condition(objeto) %>
-				<!--td><small><%#= (a == 'seleccion' ? get_field(f, objeto) : link_to( get_field(f, objeto), objeto)) %></small></td-->
-			<%# else %>
-				<!--td><small> <%#= get_field(f, objeto) %> </small></td-->
-			<%# end %>
-		<%# when 'show_link' %>
-			<%# if show_link_condition(objeto) %>
-				<!--td><small><%#= (a == 'seleccion' ? get_field(f, objeto) : link_to( get_field(f, objeto), objeto)) %></small><small><%#= (objeto.link.blank? ? '(link no encontrado)' :link_to( "( link )", objeto.link)) %></small></td-->
-			<%# else %>
-				<!--td><small> <%#= get_field(f, objeto) %> </small><%#= (objeto.link.blank? ? '(link no encontrado)' :link_to( "( link )", objeto.link)) %></td-->
-			<%# end %>
-		<%# when 'normal' %>
-			<!--td><small> <%#= get_field(f, objeto) %> </small></td-->
-		<%# when 'texto' %>
-			<!--td><small> <%#= get_field(f, objeto) %> </small></td-->
-		<%# when 'valor' %>
-			<!--td align='right'><small> <%#= get_field(f, objeto) %> </small></td-->
-		<%# when 'diahora' %>
-			<!--td><small> <%#= objeto.send(f).strftime("%d-%m-%Y") %> </small></td-->
-		<%# when 'show_diahora' %>
-			<!--td><small> <%#= link_to objeto.send(f).strftime("%d-%m-%Y"), objeto %> </small></td-->
-		<%# when 'link'  %>
-				<!--td><small><%#= (get_field(f, objeto).blank? ? '[ link no disponible ]' : link_to( "[ #{get_field(f, objeto)} ]", get_field(f, objeto), target: :_blank)) %></small></td-->
-		<%# when 'url'  %>
-			<!--td><small> <%#= (objeto.send(f).send('url').present? ? objeto.d_nombre : '[ sin archivo carga ]') %> </small></td-->
-		<%# when 'link_file' %>
-			<!--td>
-				<%# if ['Documento', 'Archivo', 'Imagen'].include?(objeto.class.name) %>
-					<%#= render partial: '0p/general/btn_turbolink', locals: {texto: nil, gly: 'download', link: objeto.send(f).send('url'), delete: false, clr: color(objeto.class.name.tableize)} if objeto.send(f).present? %>
-				<%# else %>
-				<small><%#= (objeto.send(f).present? ? link_to( objeto.d_nombre, objeto.send(f).send('url')) : '[ Sin archivo cargado ]') %></small>
-				<%# end %>
-			</td-->
-		<%# end %>
 	<% end %>
 
 	<td><%= render partial: '0p/tabla/btns', locals: {a: a, objeto: objeto} %></td>

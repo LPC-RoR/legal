@@ -1,6 +1,6 @@
 class TarHora < ApplicationRecord
 	TABLA_FIELDS = [
-		's#tar_hora',
+		'tar_hora',
 		'valor_tarifa',
 	]
 

@@ -59,7 +59,7 @@ module CapitanRecursosHelper
 
 	def app_controllers_scope
 		{
-			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios', 'tar_horas']
+			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios', 'tar_horas', 'tar_facturaciones']
 		}
 	end
 
@@ -132,6 +132,8 @@ module CapitanRecursosHelper
 	def app_crud_conditions(objeto, btn)
 		if [].include?(objeto.class.name)
 			admin?
+		elsif ['TarFacturacion'].include?(objeto.class.name)
+			false
 		else
 			case objeto.class.name
 			when 'Registro'

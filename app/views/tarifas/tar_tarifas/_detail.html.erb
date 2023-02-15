@@ -1,6 +1,9 @@
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :tarifa, label: 'Tarifa', v: true } %>
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :facturables, label: 'Detalles Facturables', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tarifa', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tarifa } %>
 
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :estado, label: nil, v: false } %>
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :owner_class, label: nil, v: false } %>
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :owner_id, label: nil, v: false } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: ' Elementos Facturables', v: false } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :facturables } %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>

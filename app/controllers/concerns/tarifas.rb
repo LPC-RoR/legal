@@ -93,6 +93,7 @@ module Tarifas
 	# Evalua un CONDICIONAL
 	# owner = CAUSA/CONSULTORIA
 	def eval_condicional(owner, formula)
+		# condicion ? verdadero : falso
 		cond_opciones = formula.split('?')
 		condicion = cond_opciones[0].split(' ')
 		opciones = cond_opciones[1].split(':')
@@ -100,6 +101,7 @@ module Tarifas
 		opcion_f = opciones[1]
 
 		case condicion[0].strip
+		# condicion: operador op1 op2
 		when 'menor_igual'
 			valor1 = number?(condicion[1].strip) ? condicion[1].to_f : do_eval(owner, condicion[1])
 			valor2 = number?(condicion[2].strip) ? condicion[2].to_f : do_eval(owner, condicion[2])
@@ -111,6 +113,9 @@ module Tarifas
 	# Evalua un PISO TOPE
 	# owner = CAUSA/CONSULTORIA
 	def eval_piso_tope(owner, formula)
+		# valor piso tope
+		# valor menor que piso, aplica piso
+		# valor mayor que tope, aplica tope
 		elementos = formula.split(' ')
 		valor = number?(elementos[0]) ? elementos[0].to_f : do_eval(owner, elementos[0])
 		piso = number?(elementos[1]) ? elementos[1].to_f : do_eval(owner, elementos[1])
@@ -122,6 +127,7 @@ module Tarifas
 	# Evalua AHORRO
 	# owner = CAUSA/CONSULTORIA
 	def eval_ahorro(owner, formula)
+		# demandado pagado
 		elementos = formula.split(' ')
 		demandado = number?(elementos[0]) ? elementos[0].to_f : do_eval(owner, elementos[0])
 		pagado = number?(elementos[1]) ? elementos[1].to_f : do_eval(owner, elementos[1])
@@ -157,6 +163,10 @@ module Tarifas
 			eval_piso_tope(owner, tar_detalle.formula)
 		when 'ahorro'
 			eval_ahorro(owner, tar_detalle.formula)
+		when 'pesos'
+			tar_detalle.formula.to_f
+		when 'uf'
+			tar_detalle.formula.to_f
 		end
 	end
 
