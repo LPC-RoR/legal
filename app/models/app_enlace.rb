@@ -5,6 +5,8 @@ class AppEnlace < ApplicationRecord
 #		['enlace',      'link']
 	]
 
+    validates_presence_of :descripcion, :enlace
+
 	def padre
 		self.owner_class.constantize.find(self.owner_id)
 	end

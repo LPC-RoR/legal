@@ -59,7 +59,7 @@ module CapitanRecursosHelper
 
 	def app_controllers_scope
 		{
-			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios', 'tar_horas', 'tar_facturaciones']
+			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios', 'tar_horas', 'tar_facturaciones', 'tar_uf_sistemas']
 		}
 	end
 

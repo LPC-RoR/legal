@@ -57,7 +57,7 @@ class Tarifas::TarHorasController < ApplicationController
     objeto = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.send(params[:class_name].tableize) << objeto
 
-    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[tab]=Facturación"
+    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Facturacion"
 
   end
 
@@ -67,7 +67,7 @@ class Tarifas::TarHorasController < ApplicationController
     objeto = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.send(params[:class_name].tableize).delete(objeto)
 
-    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[tab]=Facturación"
+    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Facturacion"
 
   end
 
@@ -88,7 +88,7 @@ class Tarifas::TarHorasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.padre.blank? ? tar_tarifas_path : "/clientes/#{@objeto.padre.id}?html_options[tab]=Tarifas+y+servicios"
+      @redireccion = @objeto.padre.blank? ? tar_tarifas_path : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas+y+servicios"
     end
 
     # Only allow a list of trusted parameters through.

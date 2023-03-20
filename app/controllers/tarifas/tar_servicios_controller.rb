@@ -66,7 +66,7 @@ class Tarifas::TarServiciosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.padre
+      @redireccion = @objeto.padre.blank? ? tar_tarifas_path : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas+y+servicios"
     end
 
     # Only allow a list of trusted parameters through.

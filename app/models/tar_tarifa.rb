@@ -11,6 +11,8 @@ class TarTarifa < ApplicationRecord
 	has_many :causas
 	has_many :consultorias
 
+    validates_presence_of :tarifa
+
 	def padre
 		self.owner_class.blank? ? nil : self.owner_class.constantize.find(self.owner_id)
 	end

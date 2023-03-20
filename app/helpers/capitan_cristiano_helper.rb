@@ -45,6 +45,8 @@ module CapitanCristianoHelper
 			'Modelo'
 		elsif ['st_estado', 'StEstado', 'st_estados'].include?(text)
 			'Estado'
+		elsif ['tar_uf_sistemas', 'TarUfSistema', 'tar_uf_sistemas'].include?(text)
+			'UF del Sistema'
 		elsif ['created_at'].include?(text)
 			'Fecha'
 		else

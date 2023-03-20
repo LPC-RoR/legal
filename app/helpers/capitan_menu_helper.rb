@@ -9,7 +9,7 @@ module CapitanMenuHelper
 
 	def menu_base
 	    [
-	        ['',        app_enlaces_path,     'nomina', 'nut'],
+	        ['',        app_recursos_path,     'nomina', 'nut'],
 	        ['',           '/app_recursos/administracion', 'admin', 'person-rolodex'],
 #	        ["Contenido",  "/tema_ayudas",                 'admin', 'stack'],
 	        ["Procesos",   "/app_recursos/procesos",       'dog',   'radioactive']

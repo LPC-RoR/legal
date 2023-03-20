@@ -31,7 +31,7 @@
   	<% unless @coleccion[c].blank? %>
 	  	<% @coleccion[c].each do |objeto| %>
 		  	<%= render partial: "/0p/tabla/modelo", locals: {a: a, objeto: objeto} %>
-		<% end  %>
+  		<% end  %>
   	<% end %>
   </tbody>
 </table>

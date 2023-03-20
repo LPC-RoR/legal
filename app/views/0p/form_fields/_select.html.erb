@@ -1,1 +1,1 @@
-<small><%= form.select token, sel_list, prompt: "#{label}?" %></small></br>
+<small><%= form.select token, sel_list, prompt: "#{label.blank? ? token.to_s.capitalize : label}?" %></small></br>

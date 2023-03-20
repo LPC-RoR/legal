@@ -3,11 +3,6 @@ class Aplicacion::AppEnlacesController < ApplicationController
 
   # GET /app_enlaces or /app_enlaces.json
   def index
-    init_tab( { menu: ['Público', 'Perfil'] }, true )
-
-    @coleccion = {}
-    @coleccion['app_enlaces'] = AppEnlace.where(owner_id: nil).order(:descripcion) if @options[:menu] == 'Público'
-    @coleccion['app_enlaces'] = AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion) if @options[:menu] == 'Perfil'
   end
 
   # GET /app_enlaces/1 or /app_enlaces/1.json
@@ -73,9 +68,9 @@ class Aplicacion::AppEnlacesController < ApplicationController
 
     def set_redireccion
       if @objeto.owner_id.blank?
-        @redireccion = app_enlaces_path
+        @redireccion = app_recursos_path
       elsif @objeto.owner_class == 'AppPerfil'
-        @redireccion = '/app_enlaces?html_options[tab]=Perfil'
+        @redireccion = '/app_recursos?html_options[menu]=Enlaces&html_options[enlaces]=Perfil'
       else
         @redireccion = @objeto.padre
       end

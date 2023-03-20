@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_03_182503) do
+ActiveRecord::Schema.define(version: 2023_03_20_184956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -536,6 +536,14 @@ ActiveRecord::Schema.define(version: 2023_02_03_182503) do
     t.index ["facturables"], name: "index_tar_tarifas_on_facturables"
     t.index ["owner_class"], name: "index_tar_tarifas_on_owner_class"
     t.index ["owner_id"], name: "index_tar_tarifas_on_owner_id"
+  end
+
+  create_table "tar_uf_sistemas", force: :cascade do |t|
+    t.date "fecha"
+    t.decimal "valor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fecha"], name: "index_tar_uf_sistemas_on_fecha"
   end
 
   create_table "tar_valores", force: :cascade do |t|

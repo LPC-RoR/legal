@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   end
 
   scope module: 'tarifas' do
+    resources :tar_uf_sistemas
     resources :tar_elementos
     resources :tar_tarifas do 
       resources :tar_detalles

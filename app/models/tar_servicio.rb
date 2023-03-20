@@ -1,8 +1,8 @@
 class TarServicio < ApplicationRecord
 
-	TIPOS = ['único', 'mensual', 'horas']
+	TIPOS = ['único', 'mensual']
 
-	MONEDAS = ['pesos', 'uf']
+	MONEDAS = ['Pesos', 'UF']
 
 	TABLA_FIELDS = [
 		'codigo',
@@ -12,6 +12,8 @@ class TarServicio < ApplicationRecord
 		'v#monto',
 		'estado'
 	]
+
+    validates_presence_of :codigo, :descripcion, :tipo, :moneda, :monto
 
 	def padre
 		self.owner_class.constantize.find(self.owner_id)
