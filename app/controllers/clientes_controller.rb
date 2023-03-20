@@ -9,15 +9,15 @@ class ClientesController < ApplicationController
 
   # GET /clientes/1 or /clientes/1.json
   def show
-    init_tab(['Causas', 'Consultorías', 'Tarifas y servicios'], params[:tab])
-    @options = {'tab' => @tab}
+
+    init_tab( { menu: ['Causas', 'Consultorías', 'Tarifas y servicios'] }, true )
 
     @coleccion = {}
-    if @tab == 'Tarifas y servicios'
+    if @options[:menu] == 'Tarifas y servicios'
       @coleccion['tar_tarifas'] = @objeto.tarifas.order(:created_at)
       @coleccion['tar_horas'] = @objeto.tarifas_hora.order(:created_at)
       @coleccion['tar_servicios'] = @objeto.servicios.order(:created_at)
-    elsif @tab == 'Causas'
+    elsif @options[:menu] == 'Causas'
       @coleccion['causas'] = @objeto.causas.order(:created_at)
     else
       @coleccion['consultorias'] = @objeto.consultorias.order(:created_at)

@@ -5,14 +5,14 @@
 	<%= form_with(model: @objeto, local: true) do |form| %>
 		<% if @objeto.errors.any? %>
 		<div id="error_explanation">
-			<h2><%= pluralize(@objeto.errors.count, "error") %> evitan que este registro sea grabado:</h2>
+			<h4 class='text-info'><%= pluralize(@objeto.errors.count, "error") %> evitan que este registro sea grabado:</h4>
 
 			<ul>
 			<% @objeto.errors.full_messages.each do |message| %>
-			<li><%= message %></li>
+			<li class='text-info'><%= message %></li>
 			<% end %>
 			</ul>
-		  
+  
 		</div>
 		<% end %>
 

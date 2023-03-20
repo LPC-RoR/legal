@@ -7,14 +7,16 @@ class Causa < ApplicationRecord
 	TABLA_FIELDS = 	[
 		'identificador',
 		's#causa',
-		'tipo_causa:tipo_causa'
+#		'tipo_causa:tipo_causa'
 	]
 
 	belongs_to :cliente
 	belongs_to :tar_tarifa, optional: true
 	belongs_to :tar_hora, optional: true
 
-	belongs_to :tipo_causa
+	belongs_to :tipo_causa, optional: true
+
+    validates_presence_of :identificador, :causa
 
 	def tarifas_cliente
 		self.cliente.tarifas

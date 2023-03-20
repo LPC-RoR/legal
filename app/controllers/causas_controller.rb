@@ -11,8 +11,7 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab(['Registro', 'Reportes', 'Documentos y enlaces', 'Facturación'], params[:tab])
-    @options = { 'tab' => @tab }
+    init_tab( { menu: ['Registro', 'Reportes', 'Documentos y enlaces', 'Facturacion'] }, true )
 
     @coleccion = {}
 

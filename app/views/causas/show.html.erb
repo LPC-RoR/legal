@@ -3,15 +3,15 @@
 <%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 </br></br>
 
-<%= render partial: '0p/tabs/tabs', locals: {tabs: @tabs, tag: 'tab', active: @tab } %></br>
+<%= render partial: '0p/tabs/tabs', locals: { tabs: @tabs, options: @options, token: :menu } %>
 
-<% if @tab == 'Registro' %>
+<% if @options[:menu] == 'Registro' %>
 	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'registros', a: 'index'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'registros', gly: 'plus-circle', clr: color('causas')} %>
-<% elsif @tab == 'Reportes' %>
+<% elsif @options[:menu] == 'Reportes' %>
 	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'reg_reportes', a: 'index'} %>
 	<%= render partial: '0p/general/btn_proceso', locals: {texto: 'Proceso Registros', link: "/causas/#{@objeto.id}/procesa_registros", gly: 'clipboard-check' , clr: color(@objeto.class.name.tableize), delete: false} %>
-<% elsif @tab == 'Documentos y enlaces' %>
+<% elsif @options[:menu] == 'Documentos y enlaces' %>
 
 	<div class='row'>
 		<div class='col-md-6'>
@@ -26,7 +26,7 @@
 		</div>
 	</div>
 
-<% elsif @tab == 'Facturación' %>
+<% elsif @options[:menu] == 'Facturacion' %>
 
 	<div class='row'>
 		<div class='col-md-6'>

@@ -2,15 +2,14 @@ module CapitanMenuHelper
 
 	def optional_menu_item
 		{
-			recursos: false,
 			contacto: true,
 			ayuda: true,
-			enlaces: true
 		}
 	end
 
 	def menu_base
 	    [
+	        ['',        app_enlaces_path,     'nomina', 'nut'],
 	        ['',           '/app_recursos/administracion', 'admin', 'person-rolodex'],
 #	        ["Contenido",  "/tema_ayudas",                 'admin', 'stack'],
 	        ["Procesos",   "/app_recursos/procesos",       'dog',   'radioactive']
@@ -22,26 +21,28 @@ module CapitanMenuHelper
 	    # [ 'Item del menú', 'link', 'accesso', 'gly' ]
 	    [
 	        ['',        "/st_bandejas",       'nomina', 'inboxes'],
-#	        ['Público', '/app_repos/publico', 'nomina', 'archive'],
-#	        ['Perfil',  '/app_repos/perfil',  'nomina', 'archive'],
-#	        ['',        "/tar_facturas",      'nomina', 'currency-dollar'],
-#	        ['',        "/tar_bases",         'admin',  'receipt'],
-	        ['',        app_enlaces_path,     'nomina', 'link']
+	        ['',        "/app_repos/1",       'nomina', 'file-earmark-text'],
+	        ['',        "/app_repos/perfil",  'nomina', 'file-earmark-person'],
+	        ['',        "/tar_tarifas",       'nomina', 'cash-coin'],
+	        ['',        "/tar_facturas",      'nomina', 'currency-dollar']
 	    ]
 
 	end
 
-	def dropdown_items(item)
+	def dd_items(item)
 		case item
-		when 'Investigación'
+		when 'Valores'
 			[
-#				['Líneas de Investigación', root_path],
-#				['Investigadores Centro', root_path],
-#				['Actividades Científicas Organizadas', root_path],
-#				['Publicaciones', root_path],
-#				['Propiedad Intelectual', root_path],
-#				['Presentaciones Congresos', root_path],
-#				['Premios y Honores', root_path]
+				['Tarifas Base', '/tar_tarifas'],
+				['Facturas', 'tar_facturas']
+			]
+		when 'Documentos'
+			[
+				['Compartidos', '/app_repos/publico'],
+				['Personales', '/app_repos/perfil']
+			]
+		when 'Enlaces'
+			[
 			]
 		end
 	end

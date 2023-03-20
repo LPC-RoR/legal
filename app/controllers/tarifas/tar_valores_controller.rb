@@ -66,7 +66,7 @@ class Tarifas::TarValoresController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/#{@objeto.padre.class.name.downcase.pluralize}/#{@objeto.padre.id}?html_options[tab]=Facturación"
+      @redireccion = "/#{@objeto.padre.class.name.downcase.pluralize}/#{@objeto.padre.id}?html_options[menu]=Facturacion"
     end
 
     # Only allow a list of trusted parameters through.

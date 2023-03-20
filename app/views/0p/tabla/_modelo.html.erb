@@ -29,6 +29,9 @@
 				<!-- LINK -->
 				<% elsif v_field[1].include?('l') %>
 					<%= (v_field[0].blank? ? '[ link no disponible ]' : link_to( "[ #{v_field[0]} ]", v_field[0], target: :_blank)) %>
+				<!-- ENLACE: usado para app_eenlaces -->
+				<% elsif v_field[1].include?('e') %>
+					<%= render partial: '0p/tabla/tb_fields/enlace', locals: {v: v_field, campo: get_field_name(f), o: objeto} %>
 				<!-- FILE -->
 				<% elsif v_field[1].include?('f') %>
 					<% if ['Documento', 'Archivo', 'Imagen'].include?(objeto.class.name) %>

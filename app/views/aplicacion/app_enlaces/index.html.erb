@@ -1,6 +1,6 @@
 <h4><%= render partial: '0p/general/icon_text', locals: {gly: 'link', text: "Enlaces", clr: app_color[:app]} %></h4>
 
-<%= render partial: '0p/tabs/tabs', locals: {tabs: @tabs, tag: 'tab', active: @tab } %>
+<%= render partial: '0p/tabs/tabs', locals: { tabs: @tabs, options: @options, token: :menu } %>
 
 <%= render partial: '0p/tabla/solo_tabla', locals: {c: 'app_enlaces', a: 'index'} %>
 <%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: (@tab == 'Público' ? nil : perfil_activo) ,c: 'app_enlaces', gly: 'plus-circle', clr: color('app_enlaces')} %>

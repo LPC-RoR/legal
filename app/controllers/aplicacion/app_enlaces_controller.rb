@@ -3,12 +3,11 @@ class Aplicacion::AppEnlacesController < ApplicationController
 
   # GET /app_enlaces or /app_enlaces.json
   def index
-    init_tab(['Público', 'Perfil'], params[:tab])
-    @options = { 'tab' => @tab }
+    init_tab( { menu: ['Público', 'Perfil'] }, true )
 
     @coleccion = {}
-    @coleccion['app_enlaces'] = AppEnlace.where(owner_id: nil).order(:descripcion) if @tab == 'Público'
-    @coleccion['app_enlaces'] = AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion) if @tab == 'Perfil'
+    @coleccion['app_enlaces'] = AppEnlace.where(owner_id: nil).order(:descripcion) if @options[:menu] == 'Público'
+    @coleccion['app_enlaces'] = AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion) if @options[:menu] == 'Perfil'
   end
 
   # GET /app_enlaces/1 or /app_enlaces/1.json

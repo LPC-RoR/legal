@@ -99,13 +99,18 @@ class ApplicationController < ActionController::Base
 	end
 
 	# ************************************************************************** INICIALIZA TAB
-	def init_tab(tabs, tab_id)
-		@tabs = tabs[0].class.name == 'String' ? tabs : tabs.map {|item| item[0] if item[1] }.compact
-		if params[:html_options].blank?
-		  @tab = @tabs[0]
-		else
-		  @tab = params[:html_options][:tab].blank? ? @tabs[0] : params[:html_options][:tab]
-		end
+	def init_tab(tabs, options_init)
+
+		@tabs = tabs
+		@options = {} if options_init
+
+	    @tabs.keys.each do |key|
+	      if params[:html_options].blank?
+	        @options[key] = @tabs[key][0]
+	      else
+	        @options[key] = params[:html_options][key.to_s].blank? ? @tabs[key][0] : params[:html_options][key.to_s]
+	      end
+	    end
 	end
 
 	def dog_name

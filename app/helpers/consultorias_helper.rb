@@ -1,2 +1,0 @@
-module ConsultoriasHelper
-end

@@ -100,10 +100,10 @@ module Tarifas
 		opcion_v = opciones[0]
 		opcion_f = opciones[1]
 
-		case condicion[0].strip
+		case condicion[1].strip
 		# condicion: operador op1 op2
-		when 'menor_igual'
-			valor1 = number?(condicion[1].strip) ? condicion[1].to_f : do_eval(owner, condicion[1])
+		when '<='
+			valor1 = number?(condicion[0].strip) ? condicion[0].to_f : do_eval(owner, condicion[0])
 			valor2 = number?(condicion[2].strip) ? condicion[2].to_f : do_eval(owner, condicion[2])
 			test_condicion = valor1 <= valor2
 		end

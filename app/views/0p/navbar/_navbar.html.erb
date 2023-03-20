@@ -1,8 +1,10 @@
+<!-- LOGO SOBRE EL MENÚ -->
 <%= image_tag("logo.jpg", class: "img-responsive", id: "logo") if  File.exist?("app/assets/images/logo.jpg") %>
-<!--nav class="navbar navbar-expand-lg navbar-light bg-light"-->
+
+<!--NAVBAR-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-<%=app_color[:navbar]%>">
   <div class="container-fluid">
-
+    <!-- LOGO NAVBAR -->
     <% if File.exist?("app/assets/images/#{app_setup[:logo_navbar]}") %>
       <a class="navbar-brand" href="<%=app_setup[:home_link]%>">
         <%= image_tag(app_setup[:logo_navbar], height: "40", class: "img-responsive", id: "navbar-logo") %>
@@ -15,26 +17,22 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+      <!-- MENU PRINCIPAL -->
       <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+        <!-- MENU CAPITAN -->
         <% unless nomenu?(controller_name) %>
-            <% menu.each do |item| %>
-              <% if item[1] == 'pull_down_item' %>
-                <%= render partial: '0p/navbar/dropdown', locals: {nombre: item[0], drop_items: dropdown_items(item[0])} %>
-              <% else %>
-                <%= render partial: '0p/navbar/btn', locals: {nombre: item[0].capitalize, link: item[1], active: item_active(item[1]), delete: false, gly: item[3]} if display_item_menu?(item[0], item[2]) %>
-              <% end %>
+          <% menu.each do |item| %>
+            <% if item[1] == 'pull_down_item' %>
+              <%= render partial: '0p/navbar/dropdown', locals: {nombre: item[0], drop_items: dropdown_items(item[0])} %>
+            <% else %>
+              <%= render partial: '0p/navbar/btn', locals: {nombre: item[0].capitalize, link: item[1], active: item_active(item[1]), delete: false, gly: item[3]} if display_item_menu?(item[0], item[2]) %>
             <% end %>
+          <% end %>
+
+          <%= render partial: 'capitan/drop_down/ddown_principal' %>
+          <%= render partial: '0p/navbar/dd_enlaces' if usuario_signed_in? %>
         <% end %>
         
-        <% if usuario_signed_in? %>
-          <!-- DROPDOWN MENU DE DOCUMENTOS -->
-          <%= render partial: '0p/navbar/d_down_documentos', locals: {nombre: 'Documentos', drop_items: nil} %>
-          <!-- DROPDOWN MENU DE VALORES -->
-          <%= render partial: '0p/navbar/d_down_pesos', locals: {nombre: 'Valores', drop_items: nil} %>
-        <% end %>
-
-        <!-- Recursos -->
-        <%= render partial: 'aplicacion/parciales/recursos_dropdown_menu' if usuario_signed_in? and optional_menu_item[:recursos] %>
       </ul>
 
       <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
@@ -49,18 +47,23 @@
         <% end %>
       </ul>
 
+      <!-- OPERACION GENERAL -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+        <!-- AYUDA -->
         <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: ayuda_app_recursos_path, active: (controller_name == 'app_recursos' and action_name == 'ayuda'), delete: false, gly: 'question-square'} %>
 
         <% if usuario_signed_in? %>
 
+          <!-- MENSAJE REGISTRADO -->
           <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: app_mensajes_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
 
-          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Salir', link: destroy_usuario_session_path, active: false, delete: true, gly: nil} %>
+          <!-- SALIR -->
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: destroy_usuario_session_path, active: false, delete: true, gly: 'door-open'} %>
 
         <% else %>
 
+          <!-- MENSAJE ANONIMO -->
           <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_app_mensaje_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
 
           <!-- INGRESO -->

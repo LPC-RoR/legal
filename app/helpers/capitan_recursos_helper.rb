@@ -4,8 +4,8 @@ module CapitanRecursosHelper
 	def app_setup
 		{
 			nombre: 'Legal',
-			home_link: 'http://www.appname.cl',
-			logo_navbar: 'logo_navbar.png'
+			home_link: 'http://www.abogadosderechodeltrabajo.cl',
+			logo_navbar: 'logo_menu.png'
 		}
 	end
 

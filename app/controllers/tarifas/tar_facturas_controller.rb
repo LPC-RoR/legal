@@ -3,13 +3,11 @@ class Tarifas::TarFacturasController < ApplicationController
 
   # GET /tar_facturas or /tar_facturas.json
   def index
-    init_tab(['ingreso', 'facturada', 'pagada'], params[:tab])
-    @options = { 'tab' => @tab }
-
+    init_tab( { menu: ['ingreso', 'facturada', 'pagada'] }, true )
 
     @coleccion = {}
     @coleccion['clientes'] = Cliente.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.padre.cliente.id unless tarf.tar_factura.present?}.compact.uniq)
-    @coleccion['tar_facturas'] = TarFactura.where(estado: @tab).order(created_at: :desc)
+    @coleccion['tar_facturas'] = TarFactura.where(estado: @options[:menu]).order(created_at: :desc)
   end
 
   # GET /tar_facturas/1 or /tar_facturas/1.json

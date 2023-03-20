@@ -76,6 +76,8 @@ module CapitanCristianoHelper
 			'Fórmula'
 		elsif ['descripcion'].include?(text)
 			'Descripción'
+		elsif ['Facturacion'].include?(text)
+			'Facturación'
 		else
 			case origen
 			when 'field'

@@ -8,6 +8,8 @@ class Consultoria < ApplicationRecord
 	belongs_to :tar_tarifa, optional: true
 	belongs_to :tar_hora, optional: true
 
+    validates_presence_of :consultoria
+
 	def tarifas_cliente
 		self.cliente.tarifas
 	end

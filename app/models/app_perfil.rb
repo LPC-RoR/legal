@@ -14,4 +14,8 @@ class AppPerfil < ApplicationRecord
 	has_many :contacto_personas
 	has_many :contacto_empresas
 
+	def app_enlaces
+		AppEnlace.where(owner_class: 'AppPerfil', owner_id: self.id)
+	end
+
 end

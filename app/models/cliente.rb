@@ -9,6 +9,9 @@ class Cliente < ApplicationRecord
 	has_many :causas
 	has_many :consultorias
 
+	validates :rut, valida_rut: true
+    validates_presence_of :razon_social
+
 	def tarifas
 		TarTarifa.where(owner_class: 'Cliente').where(owner_id: self.id)
 	end
