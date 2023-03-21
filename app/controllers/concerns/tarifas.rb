@@ -138,6 +138,7 @@ module Tarifas
 	# owner = CAUSA/CONSULTORIA
 	def do_eval(owner, codigo)
 		tar_detalle = get_tar_detalle(owner, codigo)
+		unless tar_detalle.blank?
 		case tar_detalle.tipo
 		when 'valor'
 			tar_valor = get_tar_valor(owner, codigo)
@@ -167,6 +168,9 @@ module Tarifas
 			tar_detalle.formula.to_f
 		when 'uf'
 			tar_detalle.formula.to_f
+		end
+		else
+			0
 		end
 	end
 

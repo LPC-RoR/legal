@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_20_184956) do
+ActiveRecord::Schema.define(version: 2023_03_21_201024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -422,6 +422,14 @@ ActiveRecord::Schema.define(version: 2023_03_20_184956) do
     t.index ["tar_facturacion_id"], name: "index_tar_convenios_on_tar_facturacion_id"
   end
 
+  create_table "tar_detalle_cuantias", force: :cascade do |t|
+    t.string "tar_detalle_cuantia"
+    t.string "descripcion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tar_detalle_cuantia"], name: "index_tar_detalle_cuantias_on_tar_detalle_cuantia"
+  end
+
   create_table "tar_detalles", force: :cascade do |t|
     t.integer "orden"
     t.string "codigo"
@@ -544,6 +552,20 @@ ActiveRecord::Schema.define(version: 2023_03_20_184956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fecha"], name: "index_tar_uf_sistemas_on_fecha"
+  end
+
+  create_table "tar_valor_cuantias", force: :cascade do |t|
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.integer "tar_detalle_cuantia_id"
+    t.string "otro_detalle"
+    t.decimal "valor"
+    t.decimal "valor_uf"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_class"], name: "index_tar_valor_cuantias_on_owner_class"
+    t.index ["owner_id"], name: "index_tar_valor_cuantias_on_owner_id"
+    t.index ["tar_detalle_cuantia_id"], name: "index_tar_valor_cuantias_on_tar_detalle_cuantia_id"
   end
 
   create_table "tar_valores", force: :cascade do |t|

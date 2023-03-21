@@ -1,6 +1,6 @@
 <div class='row'>
 	<div class='col-md-1'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Orden', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Órden', v: true } %>
 		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :orden } %>
 	</div>
 	<div class='col-md-2'>
@@ -19,7 +19,7 @@
 		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: TarDetalle::TIPOS, label: 'Tipo' } %>
 	</div>
 	<div class='col-md-10'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Formula', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fórmula', v: false } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :formula } %>
 	</div>
 </div>
@@ -31,18 +31,18 @@
 
 
 </br></br>
-<h6>Tipos de detalles</h6>
+<h6 class='text-info'>Tipos de detalles</h6>
 <table class="table table-sm  thead-dark">
 	<tbody>
-		<tr><td><small>valor</small></td><td><small>ingreso de un valor para utilizar en el cálculo</small></td></tr>
-		<tr><td><small>suma</small></td><td><small>suma de dos elementos, valores o fórmulas</small></td></tr>
-		<tr><td><small>producto</small></td><td><small>producto de dos elementos, valores o fórmulas</small></td></tr>
-		<tr><td><small>condicional</small></td><td><small>condicion ? verdadero : falso || condicion: operador op1 op2</small></td></tr>
-		<tr><td><small>piso_tope</small></td><td><small>piso <= valor <= tope</small></td></tr>
-		<tr><td><small>ahorro</small></td><td><small>demandado pagado</small></td></tr>
-		<tr><td><small>máximo</small></td><td><small>entrega el máximo de dos valores</small></td></tr>
-		<tr><td><small>otros</small></td><td><small>entrega la suma de los valores etiquetados como otros</small></td></tr>
-		<tr><td><small>pesos</small></td><td><small>valor en pesos</small></td></tr>
-		<tr><td><small>uf</small></td><td><small>valor en uf</small></td></tr>
+		<tr><td class='text-info'><small>valor</small></td><td class='text-info'><small>ingreso de un valor para utilizar en el cálculo</small></td></tr>
+		<tr><td class='text-info'><small>suma</small></td><td class='text-info'><small>suma de dos elementos, valores o fórmulas</small></td></tr>
+		<tr><td class='text-info'><small>producto</small></td><td class='text-info'><small>producto de dos elementos, valores o fórmulas</small></td></tr>
+		<tr><td class='text-info'><small>condicional</small></td><td class='text-info'><small>condicion ? verdadero : falso || condicion: operador op1 op2</small></td></tr>
+		<tr><td class='text-info'><small>piso_tope</small></td><td class='text-info'><small>piso <= valor <= tope</small></td></tr>
+		<tr><td class='text-info'><small>ahorro</small></td><td class='text-info'><small>demandado pagado</small></td></tr>
+		<tr><td class='text-info'><small>máximo</small></td><td class='text-info'><small>entrega el máximo de dos valores</small></td></tr>
+		<tr><td class='text-info'><small>otros</small></td><td class='text-info'><small>entrega la suma de los valores etiquetados como otros</small></td></tr>
+		<tr><td class='text-info'><small>pesos</small></td><td class='text-info'><small>valor en pesos</small></td></tr>
+		<tr><td class='text-info'><small>uf</small></td><td class='text-info'><small>valor en uf</small></td></tr>
 	</tbody>
 </table>

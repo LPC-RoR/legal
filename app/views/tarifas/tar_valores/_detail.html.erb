@@ -1,13 +1,13 @@
-<%#= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'select', token: :codigo, label: 'Código', sel_list: @objeto.padre.tar_tarifa.tar_detalles.where(tipo: 'valor').map {|det| det.codigo}, v: true } %>
+<small><%= form.select :codigo, @objeto.padre.tar_tarifa.tar_detalles.order(:detalle).where(tipo: 'valor').collect { |detalle| [detalle.detalle, detalle.codigo] }, include_blank: false, prompt: "otro" %></small>
 
-<small><%= form.select :codigo, @objeto.padre.tar_tarifa.tar_detalles.where(tipo: 'valor').collect { |detalle| [detalle.detalle, detalle.codigo] }, include_blank: false, prompt: "otro" %></small>
+</br>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Detalle', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :detalle } %>
 
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Valor UF', v: true } %>
+<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor_uf } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Valor', v: true } %>
+<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor } %>
 
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :detalle, label: 'Detalle', v: true } %>
-
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'number', token: :valor_uf, label: 'Valor UF', v: true } %>
-
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'number', token: :valor, label: 'Valor', v: true } %>
-
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :owner_class, label: nil, v: false } %>
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :owner_id, label: nil, v: false } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>

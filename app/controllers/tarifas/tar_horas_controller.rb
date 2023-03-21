@@ -57,7 +57,7 @@ class Tarifas::TarHorasController < ApplicationController
     objeto = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.send(params[:class_name].tableize) << objeto
 
-    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Facturacion"
+    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Tarifas"
 
   end
 
@@ -67,7 +67,7 @@ class Tarifas::TarHorasController < ApplicationController
     objeto = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.send(params[:class_name].tableize).delete(objeto)
 
-    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Facturacion"
+    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Tarifas"
 
   end
 

@@ -51,4 +51,12 @@ class Causa < ApplicationRecord
     	Registro.where(owner_class: 'Causa', owner_id: self.id)
 	end
 
+	def valores_cuantia
+		TarValorCuantia.where(owner_class: 'Causa', owner_id: self.id)
+	end
+
+	def v_cuantia
+		[self.valores_cuantia.map {|vc| vc.valor}.sum, self.valores_cuantia.map {|vc| vc.valor_uf}.sum]
+	end
+
 end

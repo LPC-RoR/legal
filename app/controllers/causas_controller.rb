@@ -11,28 +11,32 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab( { menu: ['Registro', 'Reportes', 'Documentos y enlaces', 'Facturacion'] }, true )
+    init_tab( { menu: ['Facturacion', 'Documentos y enlaces', 'Registro', 'Reportes', 'Tarifas', 'Cuantía'] }, true )
 
     @coleccion = {}
 
-    if @tab == 'Registro'
+    if @options[:menu] == 'Registro'
       @coleccion['registros'] = @objeto.registros
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
-    elsif @tab == 'Reportes'
+    elsif @options[:menu] == 'Reportes'
       @coleccion['reg_reportes'] = @objeto.reportes
       @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
-    elsif @tab == 'Documentos y enlaces'
+    elsif @options[:menu] == 'Documentos y enlaces'
       AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 
       @coleccion['app_directorios'] = @objeto.repo.directorios
       @coleccion['app_documentos'] = @objeto.repo.documentos
 
       @coleccion['app_enlaces'] = @objeto.enlaces.order(:descripcion)
-    elsif @tab == 'Facturación'
-      @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
+    elsif @options[:menu] == 'Facturacion'
+      @uf_del_dia = TarUfSistema.find_by(fecha: DateTime.current.to_date)
 
       @coleccion['tar_valores'] = @objeto.valores
       @coleccion['tar_facturaciones'] = @objeto.facturaciones
+    elsif @options[:menu] == 'Tarifas'
+      @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
+    elsif @options[:menu] == 'Cuantía'
+      @coleccion['tar_valor_cuantias'] = @objeto.valores_cuantia
     end
 
   end
