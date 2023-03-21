@@ -13,7 +13,7 @@ class Aplicacion::AppRecursosController < ApplicationController
     @coleccion = {}
     @coleccion['app_enlaces'] = AppEnlace.where(owner_id: nil).order(:descripcion) if @options[:enlaces] == 'Público'
     @coleccion['app_enlaces'] = AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion) if @options[:enlaces] == 'Perfil'
-    @coleccion['tar_uf_sistemas'] = TarUfSistema.order(fecha: :desc)
+    @coleccion['tar_uf_sistemas'] = TarUfSistema.all.order(fecha: :desc)
 
   end
 
