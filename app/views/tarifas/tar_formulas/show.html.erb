@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Orden:</strong>
+  <%= @tar_formula.orden %>
+</p>
+
+<p>
+  <strong>Tar pago:</strong>
+  <%= @tar_formula.tar_pago_id %>
+</p>
+
+<p>
+  <strong>Tar formula:</strong>
+  <%= @tar_formula.tar_formula %>
+</p>
+
+<p>
+  <strong>Mensaje:</strong>
+  <%= @tar_formula.mensaje %>
+</p>
+
+<p>
+  <strong>Error:</strong>
+  <%= @tar_formula.error %>
+</p>
+
+<%= link_to 'Edit', edit_tar_formula_path(@tar_formula) %> |
+<%= link_to 'Back', tar_formulas_path %>

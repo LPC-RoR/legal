@@ -59,7 +59,7 @@ module CapitanRecursosHelper
 
 	def app_controllers_scope
 		{
-			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios', 'tar_horas', 'tar_facturaciones', 'tar_uf_sistemas', 'tar_detalle_cuantias', 'tar_valor_cuantias']
+			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios', 'tar_horas', 'tar_facturaciones', 'tar_uf_sistemas', 'tar_detalle_cuantias', 'tar_valor_cuantias', 'tar_pagos', 'tar_formulas', 'tar_comentarios']
 		}
 	end
 
@@ -140,6 +140,8 @@ module CapitanRecursosHelper
 				admin? and objeto.estado == 'ingreso'
 			when 'RegReporte'
 				false
+			when 'TarPago'
+				controller_name == 'tar_tarifas'
 			else
 				true
 			end

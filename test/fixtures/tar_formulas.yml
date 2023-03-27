@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: 1
+  tar_pago_id: 1
+  tar_formula: MyString
+  mensaje: MyString
+  error: MyString
+
+two:
+  orden: 1
+  tar_pago_id: 1
+  tar_formula: MyString
+  mensaje: MyString
+  error: MyString

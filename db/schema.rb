@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_21_201024) do
+ActiveRecord::Schema.define(version: 2023_03_24_133309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -408,6 +408,18 @@ ActiveRecord::Schema.define(version: 2023_03_21_201024) do
     t.index ["perfil_id"], name: "index_tar_bases_on_perfil_id"
   end
 
+  create_table "tar_comentarios", force: :cascade do |t|
+    t.integer "tar_pago_id"
+    t.integer "orden"
+    t.string "tipo"
+    t.string "formula"
+    t.text "comentario"
+    t.text "opcional"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tar_pago_id"], name: "index_tar_comentarios_on_tar_pago_id"
+  end
+
   create_table "tar_convenios", force: :cascade do |t|
     t.datetime "fecha"
     t.decimal "monto"
@@ -490,6 +502,20 @@ ActiveRecord::Schema.define(version: 2023_03_21_201024) do
     t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"
   end
 
+  create_table "tar_formulas", force: :cascade do |t|
+    t.integer "orden"
+    t.integer "tar_pago_id"
+    t.string "tar_formula"
+    t.string "mensaje"
+    t.string "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "codigo"
+    t.index ["codigo"], name: "index_tar_formulas_on_codigo"
+    t.index ["tar_formula"], name: "index_tar_formulas_on_tar_formula"
+    t.index ["tar_pago_id"], name: "index_tar_formulas_on_tar_pago_id"
+  end
+
   create_table "tar_horas", force: :cascade do |t|
     t.string "tar_hora"
     t.string "moneda"
@@ -511,6 +537,20 @@ ActiveRecord::Schema.define(version: 2023_03_21_201024) do
     t.datetime "updated_at", null: false
     t.index ["owner_class"], name: "index_tar_liquidaciones_on_owner_class"
     t.index ["owner_id"], name: "index_tar_liquidaciones_on_owner_id"
+  end
+
+  create_table "tar_pagos", force: :cascade do |t|
+    t.integer "tar_tarifa_id"
+    t.string "tar_pago"
+    t.string "estado"
+    t.string "moneda"
+    t.decimal "valor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "orden"
+    t.index ["orden"], name: "index_tar_pagos_on_orden"
+    t.index ["tar_pago"], name: "index_tar_pagos_on_tar_pago"
+    t.index ["tar_tarifa_id"], name: "index_tar_pagos_on_tar_tarifa_id"
   end
 
   create_table "tar_servicios", force: :cascade do |t|
@@ -563,6 +603,7 @@ ActiveRecord::Schema.define(version: 2023_03_21_201024) do
     t.decimal "valor_uf"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "moneda"
     t.index ["owner_class"], name: "index_tar_valor_cuantias_on_owner_class"
     t.index ["owner_id"], name: "index_tar_valor_cuantias_on_owner_id"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_valor_cuantias_on_tar_detalle_cuantia_id"

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tar_pago_id: 1
+  orden: 1
+  tipo: MyString
+  formula: MyString
+  comentario: MyString
+  opcional: MyString
+
+two:
+  tar_pago_id: 1
+  orden: 1
+  tipo: MyString
+  formula: MyString
+  comentario: MyString
+  opcional: MyString

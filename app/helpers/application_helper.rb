@@ -338,10 +338,12 @@ module ApplicationHelper
 				texto_campo = number_to_currency(archivo.send(campo), unit: 'UF', precision: 2, format: '%u %n')
 			elsif prefijos.include?('$')
 				texto_campo = number_to_currency(archivo.send(campo), precision: 0, unit: '$', format: '%u %n')
+			elsif prefijos.include?('m')
+				texto_campo = number_to_currency(archivo.send(campo), precision: 0, unit: "#{archivo.send('moneda') == 'Pesos' ? '$' : 'UF'}", format: '%u %n')
 			else
 				texto_campo = archivo.send(campo)
 			end
-			[texto_campo, prefijos]
+			[texto_campo, prefijos, archivo.send(campo).class.name]
 #			[(['DateTime', 'Time'].include?(archivo.send(campo).class.name) ? archivo.send(campo).strftime("%d-%m-%Y") : archivo.send(campo)), prefijos]
 		else
 			nil

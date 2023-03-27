@@ -1,4 +1,4 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Causa #{@objeto.causa	} (#{@objeto.tipo})", clr: app_color[:app]} %></h4>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Causa : #{@objeto.causa}", clr: app_color[:app]} %></h4>
 
 <%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 </br></br>
@@ -28,13 +28,15 @@
 
 <% elsif @options[:menu] == 'Facturacion' %>
 
-	UF del Día: <%= number_to_currency(@uf_del_dia.valor, locale: :en) unless @uf_del_dia.blank? %>
 	<div class='row'>
 		<div class='col-md-6'>
 
-			<% if @objeto.tar_tarifa.present? %>
-				<%= render partial: 'tarifas/partials/valores', locals: {objeto: @objeto, array_tarifa: @array_tarifa} %>
-			<% end %>
+			<small>UF del Día: <%= uf_del_dia %></small></br>
+			Cuantía : <%=number_to_currency(@objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(@objeto.cuantia_uf, unit: 'UF') %>
+			</br></br>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Detalle Cuantía', clr: app_color[:app]} %></h5>
+			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_valor_cuantias', a: 'index'} %>
+
 		</div>
 		<div class='col-md-6'>
 			<% if @objeto.tar_tarifa.present? %>
@@ -59,8 +61,10 @@
 	</div>
 
 <% elsif @options[:menu] == 'Cuantía' %>
-	<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'currency-dollar', text: 'Cuantía', clr: app_color[:app]} %></h5>
+	<!--h5><%#= render partial: '0p/general/icon_text', locals: {gly: 'currency-dollar', text: 'Cuantía', clr: app_color[:app]} %></h5-->
 
+	<small>UF del Día: <%= uf_del_dia %></small></br>
+	Cuantía : <%=number_to_currency(@objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(@objeto.cuantia_uf, unit: 'UF') %>
 	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_valor_cuantias', a: 'index'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'tar_valor_cuantias', gly: 'plus-circle', clr: color('tar_valor_cuantias')} %>
 <% end %>

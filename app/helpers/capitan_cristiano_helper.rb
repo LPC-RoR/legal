@@ -49,6 +49,10 @@ module CapitanCristianoHelper
 			'UF del Sistema'
 		elsif ['tar_detalle_cuantia', 'TarDetalleCuantia', 'tar_detalle_cuantias'].include?(text)
 			'Detalle Cuantía'
+		elsif ['tar_valor_cuantia', 'TarValorCuantia', 'tar_valor_cuantias'].include?(text)
+			'Valor Cuantía'
+		elsif ['tar_formula', 'TarFormula', 'tar_formulas'].include?(text)
+			'Formula'
 		elsif ['created_at'].include?(text)
 			'Fecha'
 		else

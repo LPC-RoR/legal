@@ -29,12 +29,10 @@ class CausasController < ApplicationController
 
       @coleccion['app_enlaces'] = @objeto.enlaces.order(:descripcion)
     elsif @options[:menu] == 'Facturacion'
-      @uf_del_dia = TarUfSistema.find_by(fecha: DateTime.current.to_date)
-
+      @coleccion['tar_valor_cuantias'] = @objeto.valores_cuantia
       @coleccion['tar_valores'] = @objeto.valores
       @coleccion['tar_facturaciones'] = @objeto.facturaciones
     elsif @options[:menu] == 'Tarifas'
-      @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
     elsif @options[:menu] == 'Cuantía'
       @coleccion['tar_valor_cuantias'] = @objeto.valores_cuantia
     end

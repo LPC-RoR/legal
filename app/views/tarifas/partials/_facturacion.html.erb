@@ -1,31 +1,29 @@
 <!-- DESPLIEGUE DEL TAB FACTURACION DE UNA CAUSA/CONSULTORIA-->
 <h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Despliegue Tarifa', clr: app_color[:app]} %></h5>
 
-<% if array_tarifa.blank? %>
-Detalle Tarifa no encontrado
-<% else %>
-	<small>
-	<table class='table'>
-		<tbody>
-			<% array_tarifa.each do |d_elem| %>
-				<tr>
-					<td><<%=(d_elem[2] == true) ? 'b' : 'i'%>><%= d_elem[0] %></<<%=(d_elem[2] == true) ? 'b' : 'i'%>></td>
-					<td align='right'><%= number_to_currency(d_elem[1], locale: :en, precision: 0) %></td>
-					<% if d_elem[2] == true %>
-						</b>
-					<% end %>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
-	</small>
-
-	<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: app_color[:app]} %></h5>
-
-	<% objeto.tar_tarifa.facturables.split(' ').each do |facturable| %>
-		<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(facturable) %>
-	    	<%= render partial: '0p/general/btn_turbolink', locals: {texto: objeto.tar_tarifa.tar_detalles.find_by(codigo: facturable).detalle, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{facturable}", clr: app_color[:app], delete: false} %>
+<% objeto.tar_tarifa.tar_pagos.each do |pago| %>
+	<% unless pago.tar_formulas.empty? %>
+		<%= pago.tar_pago %> : Tarifa en UF : <%= calcula(pago.tar_formulas.order(:orden).first.tar_formula, pago.tar_formulas, objeto) %></br>
+	<!-- BOTON FFACTURACION -->
+		<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.tar_pago) %>
+	    	<%= render partial: '0p/general/btn_turbolink', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.tar_pago}", clr: app_color[:app], delete: false} %>
 	    <% end %>
 	<% end %>
-	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>
+
+	<ul>
+		<% pago.tar_comentarios.order(:orden).each do |comentario| %>
+			<% if comentario.tipo == 'Siempre' %>
+				<li><small><%= comentario.comentario %></small></li>
+			<% elsif comentario.tipo == 'Condición' %>
+				<% if eval_condicion(comentario.formula, pago.tar_formulas, objeto) %>
+					<li><small><%= comentario.comentario %></small></li>
+				<% end %>
+			<% end %>
+		<% end %>
+	</ul>
+
 <% end %>
+
+<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: app_color[:app]} %></h5>
+
+<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tar_tarifa_id: 1
+  tar_pago: MyString
+  estado: MyString
+  moneda: MyString
+  valor: 9.99
+
+two:
+  tar_tarifa_id: 1
+  tar_pago: MyString
+  estado: MyString
+  moneda: MyString
+  valor: 9.99

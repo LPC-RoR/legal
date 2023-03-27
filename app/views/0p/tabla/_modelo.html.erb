@@ -15,10 +15,12 @@
 		<% if f.blank? or v_field.blank? %>
 			<td>-</td>
 		<% else %>
-			<td align="<%='right' if ['BigDecimal', 'Decimal', 'Integer'].include?(v_field[0].class.name) or v_field[1].include?('uf') or v_field[1].include?('$') %>" ><small>
+			<td align="<%='right' if ['BigDecimal', 'Decimal', 'Integer'].include?(v_field[2]) or v_field[1].include?('uf') or v_field[1].include?('$') %>" ><small>
+
 				<!-- SHOW -->
 				<% if v_field[1].include?('s') %>
 					<%= render partial: '0p/tabla/tb_fields/show', locals: {v: v_field, campo: get_field_name(f), o: objeto} %>
+
 				<!-- SHOW LINK -->
 				<% elsif v_field[1].include?('sl') %>
 					<% if show_link_condition(objeto) %>
@@ -26,12 +28,15 @@
 					<% else %>
 						<%= v_field[0] %> </small><%= (objeto.link.blank? ? '(link no encontrado)' : link_to( "( link )", objeto.link)) %>
 					<% end %>
+
 				<!-- LINK -->
 				<% elsif v_field[1].include?('l') %>
 					<%= (v_field[0].blank? ? '[ link no disponible ]' : link_to( "[ #{v_field[0]} ]", v_field[0], target: :_blank)) %>
+
 				<!-- ENLACE: usado para app_eenlaces -->
 				<% elsif v_field[1].include?('e') %>
 					<%= render partial: '0p/tabla/tb_fields/enlace', locals: {v: v_field, campo: get_field_name(f), o: objeto} %>
+
 				<!-- FILE -->
 				<% elsif v_field[1].include?('f') %>
 					<% if ['Documento', 'Archivo', 'Imagen'].include?(objeto.class.name) %>
@@ -39,12 +44,14 @@
 					<% else %>
 					<small><%= (objeto.send(f).present? ? link_to( objeto.d_nombre, objeto.send(f).send('url')) : '[ Sin archivo cargado ]') %></small>
 					<% end %>
+
 				<!-- URL -->
 				<% elsif v_field[1].include?('u') %>
 					<%= (objeto.send(f).send('url').present? ? objeto.d_nombre : '[ sin archivo carga ]') %>
 				<% else %>
 					<%= render partial: '0p/tabla/tb_fields/normal', locals: {v: v_field, campo: get_field_name(f), o: objeto} %>
 				<% end %>
+
 			</small></td>
 		<% end %>
 

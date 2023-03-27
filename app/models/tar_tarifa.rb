@@ -7,6 +7,7 @@ class TarTarifa < ApplicationRecord
 		'estado',
 	]
 
+	has_many :tar_pagos
 	has_many :tar_detalles
 	has_many :causas
 	has_many :consultorias

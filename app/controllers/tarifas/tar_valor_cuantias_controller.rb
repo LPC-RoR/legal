@@ -12,7 +12,7 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
   # GET /tar_valor_cuantias/new
   def new
-    @objeto = TarValorCuantia.new
+    @objeto = TarValorCuantia.new(owner_class: params[:class_name], owner_id: params[:objeto_id])
   end
 
   # GET /tar_valor_cuantias/1/edit
@@ -25,7 +25,8 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Tar valor cuantia was successfully created." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Tar valor cuantia was successfully created." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,8 @@ class Tarifas::TarValorCuantiasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tar_valor_cuantia_params)
-        format.html { redirect_to @objeto, notice: "Tar valor cuantia was successfully updated." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Tar valor cuantia was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -50,8 +52,9 @@ class Tarifas::TarValorCuantiasController < ApplicationController
   # DELETE /tar_valor_cuantias/1 or /tar_valor_cuantias/1.json
   def destroy
     @objeto.destroy
+    set_redireccion
     respond_to do |format|
-      format.html { redirect_to tar_valor_cuantias_url, notice: "Tar valor cuantia was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Tar valor cuantia was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -62,8 +65,12 @@ class Tarifas::TarValorCuantiasController < ApplicationController
       @objeto = TarValorCuantia.find(params[:id])
     end
 
+    def set_redireccion
+      @redireccion = "/#{@objeto.owner.class.name.tableize}/#{@objeto.owner.id}?html_options[menu]=Cuantía"
+    end
+
     # Only allow a list of trusted parameters through.
     def tar_valor_cuantia_params
-      params.require(:tar_valor_cuantia).permit(:owner_class, :owner_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf)
+      params.require(:tar_valor_cuantia).permit(:owner_class, :owner_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda)
     end
 end

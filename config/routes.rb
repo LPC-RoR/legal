@@ -109,10 +109,17 @@ Rails.application.routes.draw do
     resources :tar_uf_sistemas
     resources :tar_elementos
     resources :tar_tarifas do 
+      resources :tar_pagos
       resources :tar_detalles
       match :asigna, via: :get, on: :member
       match :desasigna, via: :get, on: :member
     end
+    resources :tar_comentarios
+    resources :tar_pagos do
+      resources :tar_formulas
+      resources :tar_comentarios
+    end
+    resources :tar_formulas
     resources :tar_horas do
       match :asigna, via: :get, on: :member
       match :desasigna, via: :get, on: :member
