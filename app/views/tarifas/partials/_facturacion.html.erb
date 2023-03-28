@@ -5,6 +5,7 @@
 	<% objeto.tar_tarifa.tar_pagos.each do |pago| %>
 		<% unless pago.tar_formulas.empty? %>
 			<%= pago.tar_pago %> : Tarifa en UF : <%= calcula(pago.tar_formulas.order(:orden).first.tar_formula, pago.tar_formulas, objeto) %></br>
+			<small><%= number_to_currency(calcula(pago.tar_formulas.order(:orden).first.tar_formula, pago.tar_formulas, objeto).to_f * TarUfSistema.find_by(fecha: DateTime.now.to_date).valor, locale: :en, precision: 0) %></small></br>
 		<!-- BOTON FFACTURACION -->
 			<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.tar_pago) %>
 		    	<%= render partial: '0p/general/btn_turbolink', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.tar_pago}", clr: app_color[:app], delete: false} %>
