@@ -3,6 +3,15 @@ class Aplicacion::AppEnlacesController < ApplicationController
 
   # GET /app_enlaces or /app_enlaces.json
   def index
+    #utilizado para actualizar recuersos en general
+    init_tab( { enlaces: ['Público', 'Perfil'] }, true )
+
+    @coleccion = {}
+    @coleccion['app_enlaces'] = AppEnlace.where(owner_id: nil).order(:descripcion) if @options[:enlaces] == 'Público'
+    @coleccion['app_enlaces'] = AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion) if @options[:enlaces] == 'Perfil'
+    @coleccion['tar_uf_sistemas'] = TarUfSistema.all.order(fecha: :desc)
+    @coleccion['tar_detalle_cuantias'] = TarDetalleCuantia.all.order(:tar_detalle_cuantia)
+
   end
 
   # GET /app_enlaces/1 or /app_enlaces/1.json
@@ -68,11 +77,11 @@ class Aplicacion::AppEnlacesController < ApplicationController
 
     def set_redireccion
       if @objeto.owner_id.blank?
-        @redireccion = app_recursos_path
+        @redireccion = app_enlaces_path
       elsif @objeto.owner_class == 'AppPerfil'
-        @redireccion = '/app_recursos?html_options[menu]=Enlaces&html_options[enlaces]=Perfil'
+        @redireccion = '/app_enlaces?html_options[menu]=Enlaces&html_options[enlaces]=Perfil'
       else
-        @redireccion = @objeto.padre
+        @redireccion = @objeto.owner
       end
     end
 

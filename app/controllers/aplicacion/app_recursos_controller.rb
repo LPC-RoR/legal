@@ -7,15 +7,6 @@ class Aplicacion::AppRecursosController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    #utilizado para actualizar recuersos en general
-    init_tab( { enlaces: ['Público', 'Perfil'] }, true )
-
-    @coleccion = {}
-    @coleccion['app_enlaces'] = AppEnlace.where(owner_id: nil).order(:descripcion) if @options[:enlaces] == 'Público'
-    @coleccion['app_enlaces'] = AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion) if @options[:enlaces] == 'Perfil'
-    @coleccion['tar_uf_sistemas'] = TarUfSistema.all.order(fecha: :desc)
-    @coleccion['tar_detalle_cuantias'] = TarDetalleCuantia.all.order(:tar_detalle_cuantia)
-
   end
 
   def home
