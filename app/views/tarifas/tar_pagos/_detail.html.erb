@@ -3,9 +3,13 @@
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Órden', v: true } %>
 		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :orden } %>
 	</div>
-	<div class='col-md-11'>
+	<div class='col-md-6'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Pago', v: true } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tar_pago } %>
+	</div>
+	<div class='col-md-5'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Código Fórmula', v: true } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :codigo_formula } %>
 	</div>
 </div>
 

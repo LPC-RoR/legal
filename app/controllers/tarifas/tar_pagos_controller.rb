@@ -9,7 +9,6 @@ class Tarifas::TarPagosController < ApplicationController
   # GET /tar_pagos/1 or /tar_pagos/1.json
   def show
     @coleccion = {}
-    @coleccion['tar_formulas'] = @objeto.tar_formulas.order(:orden)
     @coleccion['tar_comentarios'] = @objeto.tar_comentarios.order(:orden)
   end
 
@@ -74,6 +73,6 @@ class Tarifas::TarPagosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_pago_params
-      params.require(:tar_pago).permit(:tar_tarifa_id, :tar_pago, :estado, :moneda, :valor, :orden)
+      params.require(:tar_pago).permit(:tar_tarifa_id, :tar_pago, :estado, :moneda, :valor, :orden, :codigo_formula)
     end
 end

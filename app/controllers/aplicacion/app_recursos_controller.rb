@@ -23,6 +23,11 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
+    TarFormula.all.each do |tar_formula|
+      tar_formula.tar_tarifa_id = tar_formula.tar_pago.tar_tarifa_id
+      tar_formula.save
+    end
+
     redirect_to root_path
   end
 

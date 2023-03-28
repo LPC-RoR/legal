@@ -12,7 +12,9 @@ class Tarifas::TarTarifasController < ApplicationController
   # GET /tar_tarifas/1 or /tar_tarifas/1.json
   def show
     @coleccion = {}
-    @coleccion['tar_pagos'] = TarPago.all.order(:orden)
+    @coleccion['tar_pagos'] = @objeto.tar_pagos.all.order(:orden)
+    @coleccion['tar_formulas'] = @objeto.tar_formulas.all.order(:orden)
+
     @coleccion['tar_elementos'] = TarElemento.all.order(:elemento)
     @coleccion['tar_detalles'] = @objeto.tar_detalles.order(:orden)
   end

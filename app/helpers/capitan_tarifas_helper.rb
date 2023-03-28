@@ -110,7 +110,7 @@ module CapitanTarifasHelper
 			when '#cuantia_uf'
 				causa.cuantia_uf
 			when '#monto_sentencia'
-				0
+				causa.cuantia_uf
 			end
 		elsif (elemento.split(' ').length == 1) and elemento.match(/\d+\.*\d*/)	# número ya evaluado
 			elemento.to_f

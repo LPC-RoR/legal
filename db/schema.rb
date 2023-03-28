@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_24_133309) do
+ActiveRecord::Schema.define(version: 2023_03_28_214928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -511,9 +511,11 @@ ActiveRecord::Schema.define(version: 2023_03_24_133309) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "codigo"
+    t.integer "tar_tarifa_id"
     t.index ["codigo"], name: "index_tar_formulas_on_codigo"
     t.index ["tar_formula"], name: "index_tar_formulas_on_tar_formula"
     t.index ["tar_pago_id"], name: "index_tar_formulas_on_tar_pago_id"
+    t.index ["tar_tarifa_id"], name: "index_tar_formulas_on_tar_tarifa_id"
   end
 
   create_table "tar_horas", force: :cascade do |t|
@@ -548,6 +550,8 @@ ActiveRecord::Schema.define(version: 2023_03_24_133309) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "orden"
+    t.string "codigo_formula"
+    t.index ["codigo_formula"], name: "index_tar_pagos_on_codigo_formula"
     t.index ["orden"], name: "index_tar_pagos_on_orden"
     t.index ["tar_pago"], name: "index_tar_pagos_on_tar_pago"
     t.index ["tar_tarifa_id"], name: "index_tar_pagos_on_tar_tarifa_id"

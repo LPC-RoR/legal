@@ -134,14 +134,14 @@ module CapitanRecursosHelper
 			admin?
 		elsif ['TarFacturacion'].include?(objeto.class.name)
 			false
+		elsif ['TarPago', 'TarFormula'].include?(objeto.class.name)
+			controller_name == 'tar_tarifas'
 		else
 			case objeto.class.name
 			when 'Registro'
 				admin? and objeto.estado == 'ingreso'
 			when 'RegReporte'
 				false
-			when 'TarPago'
-				controller_name == 'tar_tarifas'
 			else
 				true
 			end

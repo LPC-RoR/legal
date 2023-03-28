@@ -21,18 +21,20 @@ class Tarifas::TarFacturacionesController < ApplicationController
   # 1.- El detalle puede pertenecer a una CAUSA/CONSULTORIA
   # owner = CAUSA/CONSULTORIA
   def crea_facturacion
+    # owner : CAUSA | CONSULTORIA
     owner = params[:owner_class].constantize.find(params[:owner_id])
 
     if params[:owner_class] == 'RegReporte'
+      # fACTURACION DEL REPORTE DE HORAS
       monto = owner.moneda_reporte == 'UF' ? 0 : owner.monto_reporte
       monto_uf = owner.moneda_reporte == 'UF' ? owner.monto_reporte : 0
       TarFacturacion.create(owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: params[:facturable], estado: 'ingreso', monto: monto, monto_uf: monto_uf )
     else
-    
+      # FACTURACION DE TARIFAS CON FORMULAS | VALORES
       # do_eval funciona para CAUSA/CONSULTORIA
-      unless do_eval(owner, params[:facturable]) == 0
-        tar_detalle = owner.tar_tarifa.tar_detalles.find_by(codigo: params[:facturable])
-        TarFacturacion.create(owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: "#{tar_detalle.detalle} : #{owner.identificador} #{owner.send(owner.class.name.downcase)}", estado: 'ingreso', monto: do_eval(owner, params[:facturable]))
+      pago = owner.tar_tarifa.tar_pagos.find_by(codigo_formula: params[:facturable])
+      unless calcula(TarFormula.find_by(codigo: params[:facturable])) == 0
+        TarFacturacion.create(owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: "#{pago.tar_pago} : #{owner.identificador} #{owner.send(owner.class.name.downcase)}", estado: 'ingreso', monto: do_eval(owner, params[:facturable]))
       end
     end
 

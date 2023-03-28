@@ -6,7 +6,7 @@ class TarFormula < ApplicationRecord
 		'tar_formula'
 	]
 
-	belongs_to :tar_pago
+	belongs_to :tar_tarifa
 
     validates_presence_of :orden, :tar_formula
 end

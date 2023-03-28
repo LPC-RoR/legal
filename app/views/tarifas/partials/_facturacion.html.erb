@@ -3,29 +3,55 @@
 
 <% unless uf_del_dia.blank? %>
 	<% objeto.tar_tarifa.tar_pagos.each do |pago| %>
-		<% unless pago.tar_formulas.empty? %>
-			<%= pago.tar_pago %> : <%= number_to_currency(calcula(pago.tar_formulas.order(:orden).first.tar_formula, pago.tar_formulas, objeto), precision: 2, unit: '') %></br>
-			<small><%= number_to_currency(calcula(pago.tar_formulas.order(:orden).first.tar_formula, pago.tar_formulas, objeto).to_f * TarUfSistema.find_by(fecha: DateTime.now.to_date).valor, locale: :en, precision: 0) %></small></br>
-		<!-- BOTON FFACTURACION -->
-			<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.tar_pago) %>
-		    	<%= render partial: '0p/general/btn_turbolink', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.tar_pago}", clr: app_color[:app], delete: false} %>
-		    <% end %>
+		<% if pago.valor.blank? %>
+			<% unless pago.codigo_formula.blank? %>
+				<%= pago.tar_pago %> : <%= pago.moneda == 'Pesos' ? '$' : 'UF' %> <%= number_to_currency(calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto), precision: (pago.moneda == 'Pesos' ? 0 : 2), unit: '') %></br>
+				<small>
+					<% if pago.moneda == 'Pesos' %>
+						<%= number_to_currency(calcula(pago.tar_tarifa.tar_formulas.order(:orden).first.tar_formula, pago.tar_tarifa.tar_formulas, objeto).to_f / TarUfSistema.find_by(fecha: DateTime.now.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+					<% else %>
+						<%= number_to_currency(calcula(pago.tar_tarifa.tar_formulas.order(:orden).first.tar_formula, pago.tar_tarifa.tar_formulas, objeto).to_f * TarUfSistema.find_by(fecha: DateTime.now.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+					<% end %>
+				</small></br>
+			<% else %>
+				Pago sin código de fórmula
+			<% end %>
+		<% else %>
+			<%= pago.tar_pago %> : <%= pago.moneda == 'Pesos' ? '$' : 'UF' %> <%= number_to_currency(pago.valor, precision: (pago.moneda == 'Pesos' ? 0 : 2), unit: '') %></br>
+			<small>
+				<% if pago.moneda == 'Pesos' %>
+					<%= number_to_currency(pago.valor / TarUfSistema.find_by(fecha: DateTime.now.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+				<% else %>
+					<%= number_to_currency(pago.valor * TarUfSistema.find_by(fecha: DateTime.now.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+				<% end %>
+			</small></br>
 		<% end %>
+
+		<!-- BOTON FFACTURACION -->
+		<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.tar_pago) %>
+	    	<%= render partial: '0p/general/btn_turbolink', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.codigo_formula}", clr: app_color[:app], delete: false} unless pago.codigo_formula.blank? %>
+	    <% end %>
+
+		<% unless pago.tar_comentarios.empty? %>
 
 		<ul>
 			<% pago.tar_comentarios.order(:orden).each do |comentario| %>
 				<% if comentario.tipo == 'Siempre' %>
 					<li><small><%= comentario.comentario %></small></li>
 				<% elsif comentario.tipo == 'Condición' %>
-					<% if eval_condicion(comentario.formula, pago.tar_formulas, objeto) %>
+					<% if eval_condicion(comentario.formula, pago.tar_tarifa.tar_formulas, objeto) %>
 						<li><small><%= comentario.comentario %></small></li>
 					<% end %>
 				<% end %>
 			<% end %>
 		</ul>
 
+		<% end %>	
+
 	<% end %>
 <% end %>
+
+</br></br>
 
 <h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: app_color[:app]} %></h5>
 

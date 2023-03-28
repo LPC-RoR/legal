@@ -12,7 +12,7 @@ class Tarifas::TarFormulasController < ApplicationController
 
   # GET /tar_formulas/new
   def new
-    @objeto = TarFormula.new(tar_pago_id: params[:tar_pago_id])
+    @objeto = TarFormula.new(tar_tarifa_id: params[:tar_tarifa_id])
   end
 
   # GET /tar_formulas/1/edit
@@ -66,11 +66,11 @@ class Tarifas::TarFormulasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.tar_pago
+      @redireccion = @objeto.tar_tarifa
     end
 
     # Only allow a list of trusted parameters through.
     def tar_formula_params
-      params.require(:tar_formula).permit(:orden, :codigo, :tar_pago_id, :tar_formula, :mensaje, :error)
+      params.require(:tar_formula).permit(:orden, :codigo, :tar_tarifa_id, :tar_formula, :mensaje, :error)
     end
 end

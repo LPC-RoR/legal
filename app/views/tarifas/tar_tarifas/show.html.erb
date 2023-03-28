@@ -1,4 +1,12 @@
 <h4><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: "Tarifa #{@objeto.tarifa	}", clr: app_color[:app]} %></h4>
 
-<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: "Pagos", clr: app_color[:app]} %></h5>
-<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_pagos', a: 'index'} %>
+<div class="row">
+	<div class="col-md-4">
+		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: "Pagos", clr: app_color[:app]} %></h5>
+		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_pagos', a: 'index'} %>
+	</div>
+	<div class="col-md-8">
+		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'boxes', text: "Fórmulas", clr: app_color[:app]} %></h5>
+		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_formulas', a: 'index'} %>
+	</div>
+</div>
