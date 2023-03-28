@@ -8,7 +8,8 @@ module CapitanTarifasHelper
 		puts "********************** formula antes"
 		puts formula
 		while formula.match(/\([^()]*\)/) do
-			formula = formula.gsub(/\([^()]*\)/, calcula(formula.match(/\([^()]*\)/)[0].gsub(/\(/, '').gsub(/\)/, '').strip, libreria, causa).to_s)
+			segmento = formula.match(/\([^()]*\)/)[0]
+			formula = formula.gsub(segmento, calcula(segmento.gsub(/\(/, '').gsub(/\)/, '').strip, libreria, causa).to_s)
 		end
 		puts "********************* formula despues"
 		puts formula
