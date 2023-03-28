@@ -30,7 +30,7 @@ class CausasController < ApplicationController
       @coleccion['app_enlaces'] = @objeto.enlaces.order(:descripcion)
     elsif @options[:menu] == 'Facturacion'
       @coleccion['tar_valor_cuantias'] = @objeto.valores_cuantia
-      @coleccion['tar_valores'] = @objeto.valores
+#      @coleccion['tar_valores'] = @objeto.valores
       @coleccion['tar_facturaciones'] = @objeto.facturaciones
     elsif @options[:menu] == 'Tarifas'
     elsif @options[:menu] == 'Cuantía'

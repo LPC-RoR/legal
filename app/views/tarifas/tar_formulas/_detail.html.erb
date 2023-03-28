@@ -12,10 +12,5 @@
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tar_formula } %>
 	</div>
 </div>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Mensaje', v: true } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :mensaje } %>
-
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Error', v: true } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :error } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: {form: form, token: :tar_pago_id} %>
