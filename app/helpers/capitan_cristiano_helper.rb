@@ -53,6 +53,10 @@ module CapitanCristianoHelper
 			'Valor Cuantía'
 		elsif ['tar_formula', 'TarFormula', 'tar_formulas'].include?(text)
 			'Formula'
+		elsif ['tar_pago', 'TarPago', 'tar_pagos'].include?(text)
+			'Pago'
+		elsif ['tar_comentario', 'TarComentario', 'tar_comentarios'].include?(text)
+			'Comentario'
 		elsif ['created_at'].include?(text)
 			'Fecha'
 		else

@@ -4,7 +4,7 @@
 <% unless uf_del_dia.blank? %>
 	<% objeto.tar_tarifa.tar_pagos.each do |pago| %>
 		<% unless pago.tar_formulas.empty? %>
-			<%= pago.tar_pago %> : Tarifa en UF : <%= calcula(pago.tar_formulas.order(:orden).first.tar_formula, pago.tar_formulas, objeto) %></br>
+			<%= pago.tar_pago %> : <%= number_to_currency(calcula(pago.tar_formulas.order(:orden).first.tar_formula, pago.tar_formulas, objeto), precision: 2, unit: '') %></br>
 			<small><%= number_to_currency(calcula(pago.tar_formulas.order(:orden).first.tar_formula, pago.tar_formulas, objeto).to_f * TarUfSistema.find_by(fecha: DateTime.now.to_date).valor, locale: :en, precision: 0) %></small></br>
 		<!-- BOTON FFACTURACION -->
 			<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.tar_pago) %>

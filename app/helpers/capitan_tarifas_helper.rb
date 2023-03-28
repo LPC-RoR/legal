@@ -5,16 +5,11 @@ module CapitanTarifasHelper
 	end
 
 	def calcula(formula, libreria, causa)
-		puts "********************** formula antes"
-		puts formula
+
 		while formula.match(/\([^()]*\)/) do
 			segmento = formula.match(/\([^()]*\)/)[0]
-			puts "********************** seegmento"
-			puts segmento
 			formula = formula.gsub(segmento, calcula(segmento.gsub(/\(/, '').gsub(/\)/, '').strip, libreria, causa).to_s)
 		end
-		puts "********************* formula despues"
-		puts formula
 
 		# aqui tengo fórmulas sin parentesis
 		# hay que reconocer operaciones por pioridad = complejidad
@@ -47,12 +42,6 @@ module CapitanTarifasHelper
 		elsif formula.match(/[^\+]+\*[^\+]+/)
 			# PRODUCTO
 			exp = formula.match(/([^\+]+)\*([^\+]+)/)
-			puts "*********************************************++ producto"
-			puts eval_elemento(exp[1], libreria, causa) * eval_elemento(exp[2], libreria, causa)
-			puts exp[1]
-			puts eval_elemento(exp[1], libreria, causa)
-			puts exp[2]
-			puts eval_elemento(exp[2], libreria, causa)
 			eval_elemento(exp[1], libreria, causa) * eval_elemento(exp[2], libreria, causa)
 		elsif formula.match(/[^\+]+\/[^\+]+/)
 			# DIVISION
@@ -65,6 +54,7 @@ module CapitanTarifasHelper
 
 		# Manejo de paréntesis
 		# del resultado de esto puede salir un true, false
+
 		while condicion.match(/\([^()]*\)/) do
 			segmento = condicion.match(/\([^()]*\)/)[0]
 			condicion = condicion.gsub(segmento, eval_condicion(segmento.gsub(/\(/, '').gsub(/\)/, '').strip, libreria, causa).to_s)
@@ -72,11 +62,19 @@ module CapitanTarifasHelper
 
 		# manejo de & u |
 		if condicion.match(/[^&]+\&[^&]+/)
-			exp = condicion.match(/(?<exp1>[^&]+)\&(?<exp2>[^&]+)/)
-			(['true', 'false'].include?(exp[:exp1]) ? eval_elemento(exp[:exp1], libreria, causa) : eval_condicion(exp[:exp1], libreria, causa)) and (['true', 'false'].include?(exp[:exp2]) ? eval_elemento(exp[:exp2], libreria, causa) : eval_condicion(exp[:exp2], libreria, causa))
+			exps = condicion.split('&')
+			cond = true
+			exps.each do |e_cond|
+				cond = (cond and eval_condicion(e_cond, libreria, causa))
+			end
+			cond
 		elsif condicion.match(/[^|]+\|[^|]+/)
-			exp = condicion.match(/(?<exp1>[^|]+)\|(?<exp2>[^|]+)/)
-			(['true', 'false'].include?(exp[:exp1]) ? eval_elemento(exp[:exp1], libreria, causa) : eval_condicion(exp[:exp1], libreria, causa)) or (['true', 'false'].include?(exp[:exp2]) ? eval_elemento(exp[:exp2], libreria, causa) : eval_condicion(exp[:exp2], libreria, causa))
+			exps = condicion.split('|')
+			cond = false
+			exps.each do |e_cond|
+				cond = (cond or eval_condicion(e_cond, libreria, causa))
+			end
+			cond
 		elsif condicion.match(/[^<=]+<=[^<=]+/)
 			# <=
 			exp = condicion.match(/(?<menor>[^<=]+)<=(?<mayor>[^<=]+)/)
@@ -112,9 +110,9 @@ module CapitanTarifasHelper
 			when '#cuantia_uf'
 				causa.cuantia_uf
 			when '#monto_sentencia'
-				100000000
+				0
 			end
-		elsif elemento.match(/\d+\.*\d*/)	# número ya evaluado
+		elsif (elemento.split(' ').length == 1) and elemento.match(/\d+\.*\d*/)	# número ya evaluado
 			elemento.to_f
 		elsif elemento.strip == 'true'	# condicion ya evaluda
 			true
@@ -124,7 +122,7 @@ module CapitanTarifasHelper
 			formula = libreria.find_by(codigo: elemento.strip)
 			formula.blank? ? 0 : calcula(formula.tar_formula, libreria, causa)
 		else # fórmula
-			calcula(elemento[0], libreria, causa)
+			calcula(elemento, libreria, causa)
 		end
 	end
 
