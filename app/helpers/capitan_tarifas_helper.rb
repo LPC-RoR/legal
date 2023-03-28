@@ -5,9 +5,13 @@ module CapitanTarifasHelper
 	end
 
 	def calcula(formula, libreria, causa)
+		puts "********************** formula antes"
+		puts formula
 		while formula.match(/\([^()]*\)/) do
 			formula = formula.gsub(/\([^()]*\)/, calcula(formula.match(/\([^()]*\)/)[0].gsub(/\(/, '').gsub(/\)/, '').strip, libreria, causa).to_s)
 		end
+		puts "********************* formula despues"
+		puts formula
 
 		# aqui tengo fórmulas sin parentesis
 		# hay que reconocer operaciones por pioridad = complejidad
@@ -22,7 +26,7 @@ module CapitanTarifasHelper
 			e_2 = eval_elemento(exp[2], libreria, causa)
 			e_1 <= e_2 ? e_2 : e_1
 		elsif formula.match(/rango\[[^\[\]]+,[^\[\]]+/)
-			# RRANGO
+			# RANGO
 			exp = formula.match(/rango\[([^\[\]]+),([^\[\]]+),([^\[\]]+)/)
 			valor = eval_elemento(exp[1], libreria, causa)
 			inferior = eval_elemento(exp[2], libreria, causa)
@@ -53,7 +57,8 @@ module CapitanTarifasHelper
 		# Manejo de paréntesis
 		# del resultado de esto puede salir un true, false
 		while condicion.match(/\([^()]*\)/) do
-			condicion = condicion.gsub(/\([^()]*\)/, eval_condicion(condicion.match(/\([^()]*\)/)[0].gsub(/\(/, '').gsub(/\)/, '').strip, libreria, causa).to_s)
+			segmento = condicion.match(/\([^()]*\)/)[0]
+			condicion = condicion.gsub(segmento, eval_condicion(segmento.gsub(/\(/, '').gsub(/\)/, '').strip, libreria, causa).to_s)
 		end
 
 		# manejo de & u |
