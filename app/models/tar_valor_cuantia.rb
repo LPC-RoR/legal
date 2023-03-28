@@ -16,7 +16,7 @@ class TarValorCuantia < ApplicationRecord
 	end
 
 	def detalle
-		self.tar_detalle_cuantia.tar_detalle_cuantia
+		self.tar_detalle_cuantia.tar_detalle_cuantia == 'Otro' ? self.otro_detalle : self.tar_detalle_cuantia.tar_detalle_cuantia
 	end
 
 end
