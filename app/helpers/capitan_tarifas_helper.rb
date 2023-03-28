@@ -9,6 +9,8 @@ module CapitanTarifasHelper
 		puts formula
 		while formula.match(/\([^()]*\)/) do
 			segmento = formula.match(/\([^()]*\)/)[0]
+			puts "********************** seegmento"
+			puts segmento
 			formula = formula.gsub(segmento, calcula(segmento.gsub(/\(/, '').gsub(/\)/, '').strip, libreria, causa).to_s)
 		end
 		puts "********************* formula despues"
@@ -45,6 +47,12 @@ module CapitanTarifasHelper
 		elsif formula.match(/[^\+]+\*[^\+]+/)
 			# PRODUCTO
 			exp = formula.match(/([^\+]+)\*([^\+]+)/)
+			puts "*********************************************++ producto"
+			puts eval_elemento(exp[1], libreria, causa) * eval_elemento(exp[2], libreria, causa)
+			puts exp[1]
+			puts eval_elemento(exp[1], libreria, causa)
+			puts exp[2]
+			puts eval_elemento(exp[2], libreria, causa)
 			eval_elemento(exp[1], libreria, causa) * eval_elemento(exp[2], libreria, causa)
 		elsif formula.match(/[^\+]+\/[^\+]+/)
 			# DIVISION
@@ -95,14 +103,16 @@ module CapitanTarifasHelper
 	end
 
 	def eval_elemento(elemento, libreria, causa)
-		if elemento[0] == '#' #Valor de la causa
+		if elemento.strip[0] == '#' #Valor de la causa
 			case elemento.strip
 			when '#uf'
-				uf_del_dia
+				TarUfSistema.find_by(fecha: DateTime.now.to_date).valor
 			when '#cuantia_pesos'
 				causa.cuantia_pesos
 			when '#cuantia_uf'
 				causa.cuantia_uf
+			when '#monto_sentencia'
+				100000000
 			end
 		elsif elemento.match(/\d+\.*\d*/)	# número ya evaluado
 			elemento.to_f
