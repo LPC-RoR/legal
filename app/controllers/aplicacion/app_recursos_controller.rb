@@ -24,7 +24,7 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
     TarFormula.all.each do |tar_formula|
-      tar_formula.tar_tarifa_id = tar_formula.tar_pago.tar_tarifa_id
+      tar_formula.tar_tarifa_id = TarPago.find(tar_formula.tar_pago_id).tar_tarifa_id
       tar_formula.save
     end
 
