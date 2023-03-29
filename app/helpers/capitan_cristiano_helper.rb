@@ -1,119 +1,60 @@
 module CapitanCristianoHelper
 
-	## ------------------------------------------------------- CRISTIANO BASE
-	def cristiano(text_input, origen, destino)
-		text = text_input.split(':').last
-		if ['AppAdministrador', 'app_administradores'].include?(text)
-			'Administrador'
-		elsif ['AppNomina', 'app_nominas'].include?(text)
-			'Nómina'
-		elsif ['AppPerfil', 'app_perfiles'].include?(text)
-			'Perfil'
-		elsif ['AppObservacion', 'app_observaciones'].include?(text)
-			'Observación'
-		elsif ['AppMejora', 'app_mejoras'].include?(text)
-			'Mejora'
-		elsif ['AppImagen', 'app_imagenes'].include?(text)
-			'Imagen'
-		elsif ['AppContacto', 'app_contactos'].include?(text)
-			'Contacto'
-		elsif ['AppMensaje', 'app_mensajes'].include?(text)
-			'Mensaje'
-		elsif ['AppDirectorio', 'app_directorios'].include?(text)
-			'Directorio'
-		elsif ['AppDocumento', 'app_documentos'].include?(text)
-			'Documento'
-		elsif ['AppArchivo', 'app_archivos'].include?(text)
-			'Archivo'
-		elsif ['AppEnlace', 'app_enlaces'].include?(text)
-			'Enlace'
-		elsif ['HTema', 'h_temas'].include?(text)
-			'Tema'
-		elsif ['HLink', 'h_links'].include?(text)
-			'Enlace'
-		elsif ['HImagen', 'h_imagenes'].include?(text)
-			'Imagen'
-		elsif ['SbLista', 'sb_listas'].include?(text)
-			'Menú lateral'
-		elsif ['SbElemento', 'sb_elementos'].include?(text)
-			'Elemento menú lateral'
-		elsif ['HlpTutorial', 'hlp_tutoriales'].include?(text)
-			'Tutorial'
-		elsif ['HlpPaso', 'hlp_pasos'].include?(text)
-			'Paso'
-		elsif ['st_modelo', 'StModelo', 'st_modelos'].include?(text)
-			'Modelo'
-		elsif ['st_estado', 'StEstado', 'st_estados'].include?(text)
-			'Estado'
-		elsif ['tar_uf_sistema', 'TarUfSistema', 'tar_uf_sistemas'].include?(text)
-			'UF del Sistema'
-		elsif ['tar_detalle_cuantia', 'TarDetalleCuantia', 'tar_detalle_cuantias'].include?(text)
-			'Detalle Cuantía'
-		elsif ['tar_valor_cuantia', 'TarValorCuantia', 'tar_valor_cuantias'].include?(text)
-			'Valor Cuantía'
-		elsif ['tar_formula', 'TarFormula', 'tar_formulas'].include?(text)
-			'Formula'
-		elsif ['tar_pago', 'TarPago', 'tar_pagos'].include?(text)
-			'Pago'
-		elsif ['tar_comentario', 'TarComentario', 'tar_comentarios'].include?(text)
-			'Comentario'
-		elsif ['created_at'].include?(text)
-			'Fecha'
+	def x_scope(string)
+		if string.tableize.match(/^tar_|^app_|^ĥ_|^st_/)
+			string.classify.gsub(/^Tar|^App|^H|^St/, '')
 		else
-			cristiano_app(text, origen, destino)
+			string.classify
 		end
 	end
 
-	def cristiano_app(text_input, origen, destino)
-		text = text_input.split(':').last
-		if ['TarElemento', 'tar_elementos'].include?(text)
-			'Elemento'
-		elsif ['TarTarifa', 'tar_tarifas'].include?(text)
-			'Tarifa'
-		elsif ['TarServicio', 'tar_servicios'].include?(text)
-			'Servicio'
-		elsif ['TarDetalle', 'tar_detalles'].include?(text)
-			'Detalle Tarifa'
-		elsif ['TarValor', 'tar_valores'].include?(text)
-			'Valor Tarifa'
-		elsif ['TarFactura', 'tar_facturas'].include?(text)
-			'Factura'
-		elsif ['TarHora', 'tar_horas', 'tar_hora'].include?(text)
+	## ------------------------------------------------------- CRISTIANO BASE
+	## Actualización : SIEMPRE ENTREGA SINGULAR CAPITALIZADO
+	def cristiano(text_input)
+		clase = text_input.split(':').last.classify
+
+		# EXCEPCIONES AL MANEJO GENERAL
+		if clase == 'TarUfSistema'
+			'UF del sistema'
+		elsif clase == 'SbLista'
+			'Menú lateral'
+		elsif clase == 'SbElemento'
+			'Elemento del menú lateral'
+		elsif clase == 'TarHora'
 			'Tarifa Hora'
-		elsif ['consultoria', 'Consultoria', 'consultorias'].include?(text)
-			'Consultoría'
-		elsif ['codigo'].include?(text)
-			'Código'
-		elsif ['formula'].include?(text)
+		else
+			text = x_scope(clase)
+			if ['created_at'].include?(text)
+				'Fecha'
+			elsif text == 'DetalleCuantia'
+				'Detalle Cuantía'
+			elsif text == 'ValorCuantia'
+				'Valor Cuantía'
+			else
+				cword(text)
+			end
+		end
+			
+	end
+
+	def cword(string)
+		text = string.capitalize
+		if text == 'Nomina'
+			'Nómina'
+		elsif text == 'Observacion'
+			'Observación'
+		elsif text == 'Formula'
 			'Fórmula'
-		elsif ['descripcion'].include?(text)
+		elsif text == 'Consultoria'
+			'Consultoría'
+		elsif text == 'Codigo'
+			'Código'
+		elsif text == 'Descripcion'
 			'Descripción'
-		elsif ['Facturacion'].include?(text)
+		elsif text == 'Facturacion'
 			'Facturación'
 		else
-			case origen
-			when 'field'
-				case destino
-				when 'singular'
-					text.humanize
-				when 'plural'
-				end
-			when 'class'
-				case destino
-				when 'singular'
-					text.tableize.humanize.singularize
-				when 'plural'
-					text.pluralize
-				end
-			when 'controller'
-				case destino
-				when 'singular'
-					text.humanize.singularize
-				when 'plural'
-				end
-			else
-				text
-			end
+			text
 		end
 	end
 

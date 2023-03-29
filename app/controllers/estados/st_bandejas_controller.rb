@@ -4,29 +4,43 @@ class Estados::StBandejasController < ApplicationController
   # GET /st_bandejas or /st_bandejas.json
   def index
     # Manejo del sidebar
-    unless StModelo.all.empty?
-      primer_modelo = StModelo.all.order(:st_modelo).first
-      @m = params[:m].blank? ? primer_modelo.st_modelo : params[:m]
-      if StModelo.find_by(st_modelo: @m).blank?
-        @e = nil
+    if perfil_activo.present?
+
+      unless StModelo.all.empty?
+        primer_modelo = StModelo.all.order(:st_modelo).first
+        @m = params[:m].blank? ? primer_modelo.st_modelo : params[:m]
+        if StModelo.find_by(st_modelo: @m).blank?
+          @e = nil
+        else
+          @e = (params[:e].blank? ? primer_modelo.primer_estado.st_estado : params[:e])
+        end
       else
-        @e = (params[:e].blank? ? primer_modelo.primer_estado.st_estado : params[:e])
+        @m = nil
+        @e = nil
       end
-    else
-      @m = nil
-      @e = nil
+
+      # Despliegue
+      @coleccion = {}
+      @coleccion[@m.tableize] = @m.constantize.where(estado: @e).order(:created_at)
+
+      if @coleccion[@m.tableize].count > 25
+        @coleccion[@m.tableize] = @coleccion[@m.tableize].page(params[:page])
+        @paginate = true
+      end
+
+#      @nomina = AppNomina.find_by(email: perfil_activo.email)
+      @bandejas = (seguridad_desde('admin') ? StModelo.all.order(:st_modelo) : AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.order(:st_perfil_modelo))
+
+      #inicializa despliegue
+      unless @bandejas.empty?
+        @m = params[:m].blank? ? @bandejas.first.modelo : params[:m]
+        @e = (params[:e].blank? ? @bandejas.first.estados.first.estado : params[:e])
+      else
+        @m = nil
+        @e = nil
+      end
+
     end
-
-    # Despliegue
-    @coleccion = {}
-    @coleccion[@m.tableize] = @m.constantize.where(estado: @e).order(:created_at)
-
-    if @coleccion[@m.tableize].count > 25
-      @coleccion[@m.tableize] = @coleccion[@m.tableize].page(params[:page])
-      @paginate = true
-    end
-
-    @nomina = AppNomina.find_by(email: perfil_activo.email) unless seguridad_desde('admin')
 
   end
 

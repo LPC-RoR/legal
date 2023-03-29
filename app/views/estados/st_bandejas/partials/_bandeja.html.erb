@@ -1,0 +1,27 @@
+<% if @bandejas.empty? %>
+	<p class='text-muted'><small>Sin bandejas activas</small></p>
+<% else %>
+
+	<% @bandejas.each do |modelo| %>
+		<i class="bi bi-inbox"></i> <small><%= modelo.modelo %></small></br>
+
+		<% modelo.estados.each do |estado| %>
+			<i class="bi bi-arrow-right"></i>
+			<i class="bi bi-#{estado.orden == 1 ? 'plus' : 'tag'}"></i> 
+			<% if estado.orden == 1 %>
+				<i class="bi bi-plus"></i> 
+			<% else %>
+				<i class="bi bi-tag"></i> 
+			<% end %>
+			<small>
+				<% if @m == modelo.modelo and @e == estado.estado %>
+					<b><%= "#{estado.estado} #{count_modelo_estado(modelo.modelo, estado.estado) unless count_modelo_estado(modelo.modelo, estado.estado) == 0 }" %></b>
+				<% else %>
+					<%= link_to "#{estado.estado} #{count_modelo_estado(modelo.modelo, estado.estado) unless count_modelo_estado(modelo.modelo, estado.estado) == 0 }", "/st_bandejas?m=#{modelo.modelo}&e=#{estado.estado}" %>
+				<% end %>
+			</small></br>
+		<% end %>
+		<hr>
+	<% end %>
+
+<% end %>

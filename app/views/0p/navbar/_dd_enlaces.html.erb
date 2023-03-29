@@ -9,10 +9,12 @@
         <small><%= link_to enlace.descripcion, enlace.enlace, target: :_blank, class: "dropdown-item" %></small>
       <% end %>
     <% end %>
-    <% unless perfil_activo.app_enlaces.empty? %>
-      <div class="dropdown-divider"></div>
-      <% perfil_activo.app_enlaces.each do |enlace| %>
-        <small><%= link_to enlace.descripcion, enlace.enlace, target: :_blank, class: "dropdown-item" %></small>
+    <% if usuario_signed_in? and perfil_activo.present? %>
+      <% unless perfil_activo.app_enlaces.empty? %>
+        <div class="dropdown-divider"></div>
+        <% perfil_activo.app_enlaces.each do |enlace| %>
+          <small><%= link_to enlace.descripcion, enlace.enlace, target: :_blank, class: "dropdown-item" %></small>
+        <% end %>
       <% end %>
     <% end %>
 

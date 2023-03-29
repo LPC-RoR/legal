@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_29_124917) do
+ActiveRecord::Schema.define(version: 2023_03_29_224751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -381,6 +381,8 @@ ActiveRecord::Schema.define(version: 2023_03_29_124917) do
     t.integer "st_perfil_modelo_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "orden"
+    t.index ["orden"], name: "index_st_perfil_estados_on_orden"
     t.index ["st_perfil_modelo_id"], name: "index_st_perfil_estados_on_st_perfil_modelo_id"
   end
 

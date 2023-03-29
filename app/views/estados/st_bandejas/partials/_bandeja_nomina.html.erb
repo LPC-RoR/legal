@@ -1,5 +1,3 @@
-<%= @nomina.email %>
-<%= @nomina.st_perfil_modelos.count %>
 <% if @nomina.st_perfil_modelos.empty? %>
 	<p class='text-muted'><small>Sin bandejas activas</small></p>
 <% else %>
@@ -34,7 +32,7 @@
 			<% st_perfil_modelo.st_perfil_estados.each do |st_perfil_estado| %>
 
 				<i class="bi bi-arrow-right"></i>
-				<% if st_perfil_estado.st_perfil_estado == StModelo.find_by(st_modelo: st_perfil_modelo).primer_estado.st_estado %>
+				<% if st_perfil_estado.st_perfil_estado == StModelo.find_by(st_modelo: st_perfil_modelo.st_perfil_modelo).estados.order(:orden).first.st_estado %>
 					<i class="bi bi-plus"></i> 
 				<% else %>
 					<i class="bi bi-tag"></i> 

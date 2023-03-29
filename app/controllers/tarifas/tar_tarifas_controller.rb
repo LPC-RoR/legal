@@ -1,8 +1,12 @@
 class Tarifas::TarTarifasController < ApplicationController
   before_action :set_tar_tarifa, only: %i[ show edit update destroy asigna desasigna ]
 
+  include Bandejas
+
   # GET /tar_tarifas or /tar_tarifas.json
   def index
+    init_bandejas
+    
     @coleccion = {}
     @coleccion['tar_tarifas'] = TarTarifa.where(owner_class: '')
 

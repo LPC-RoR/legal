@@ -8,4 +8,12 @@ class StModelo < ApplicationRecord
 	def primer_estado
 		self.st_estados.empty? ? nil : self.st_estados.order(:orden).first
 	end
+
+	def modelo
+		self.st_modelo
+	end
+
+	def estados
+		self.st_estados.order(:orden)
+	end
 end

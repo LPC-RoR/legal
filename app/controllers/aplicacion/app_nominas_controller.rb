@@ -14,7 +14,7 @@ class Aplicacion::AppNominasController < ApplicationController
   # GET /app_nominas/1 or /app_nominas/1.json
   def show
     @coleccion = {}
-    @coleccion['tar_bases'] = @objeto.tar_nominas
+    @coleccion['tar_bases'] = @objeto.tar_bases
     @coleccion['tar_variables'] = @objeto.tar_variables
 
     carga_sidebar('Administración', 'Nómina')

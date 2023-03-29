@@ -4,92 +4,43 @@ class ApplicationController < ActionController::Base
 
 	helper_method :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id
 
+	def verifica_primer_acceso
+		if ActiveRecord::Base.connection.table_exists? 'app_administradores'
+			@dog = AppAdministrador.find_by(email: dog_email)
+			@dog = AppAdministrador.create(administrador: dog_name, email: dog_email) if @dog.blank?
+		else
+			@dog = Administrador.find_by(email: dog_email)
+			@dog = Administrador.create(administrador: dog_name, email: dog_email) if @dog.blank?
+		end
+	end
+
 	def inicia_sesion
 
-		set_tablas_base if dog?
+		# Proceso para migrar tablas a formato AppTbla: activar si corresponde
+		# set_tablas_base if dog?
 
-		if usuario_signed_in? and perfil_activo.blank?
+		# se hace para no llamar a cada rato a la base de datos
+		perfil = perfil_activo
 
-			# Perro furioso
-			if ActiveRecord::Base.connection.table_exists? 'app_administradores'
-				@dog = AppAdministrador.find_by(email: dog_email)
-				@dog = AppAdministrador.create(administrador: dog_name, email: dog_email) if @dog.blank?
-			else
-				@dog = Administrador.find_by(email: dog_email)
-				@dog = Administrador.create(administrador: dog_name, email: dog_email) if @dog.blank?
-			end
+		# si hay USUARIO AUTENTICADO pero el usuario NO TIENE PERFIL}
+		# ocurre si es el primer acceso a la aplicación o si el usuario recién se creo
+		if usuario_signed_in? and perfil.blank?
 
-			@perfil = perfil_activo
+			# INICIALIZA VARIBLES EN PRIMER ACCESO
+			verifica_primer_acceso
 
-			if @perfil.blank?
-				# TODAS las aplicaciones en Capitan tienen una tabla 'administradores'
-				if ActiveRecord::Base.connection.table_exists? 'app_administradores'
-					administrador = AppAdministrador.find_by(email: current_usuario.email)
-				else
-					administrador = Administrador.find_by(email: current_usuario.email)
-				end
+			# crea perfil si está en archivo de administradores o en nómina o aplicación es de libre registro
+			administrador = AppAdministrador.find_by(email: current_usuario.email)
+			nomina = AppNomina.find_by(email: current_usuario.email)
 
-				if administrador.present?
-					if ActiveRecord::Base.connection.table_exists? 'app_perfiles'
-						@perfil = AppPerfil.create(email: current_usuario.email, app_administrador_id: administrador.id)
-					else 
-						@perfil = Perfil.create(email: current_usuario.email, administrador_id: administrador.id)
-					end
-				end
-
-				if @perfil.blank?
-					# Las aplicaciones con Capitan que NO tienen tabla 'nominas' se asume que tienen LIBRE REGISTRO
-					if ActiveRecord::Base.connection.table_exists? 'app_nominas'
-						nomina = AppNomina.find_by(email: current_usuario.email)
-					else
-						nomina = Nomina.find_by(email: current_usuario.email)
-					end
-
-					# Hay Aplicaciones que tienen libre registro de usuarios, otros no!
-					if nomina.present?
-						if ActiveRecord::Base.connection.table_exists? 'app_perfiles'
-							@perfil = AppPerfil.create(email: current_usuario.email)
-						else 
-							@perfil = Perfil.create(email: current_usuario.email)
-						end
-					end
-				end
-
-				if @perfil.blank? and libre_registro
-					# LIBRE REGISTRO
-					if ActiveRecord::Base.connection.table_exists? 'app_perfiles'
-						@perfil = AppPerfil.create(email: current_usuario.email)
-					else 
-						@perfil = Perfil.create(email: current_usuario.email)
-					end
-				end
-
-			end
-
-			# Reparar perfiles si fuera necesario
-			if @perfil.present?
-				if ActiveRecord::Base.connection.table_exists? 'app_perfiles'
-					if @perfil.app_administrador.blank?
-						adm = AppAdministrador.find_by(email: @perfil.email)
-						if adm.present?
-							@perfil.app_administrador_id = adm.id
-							@perfil.save
-						end
-					end
-				else
-					if @perfil.app_administrador.blank?
-						adm = Administrador.find_by(email: @perfil.email)
-						if adm.present?
-							@perfil.administrador_id = adm.id
-							@perfil.save
-						end
-					end
-				end
+			if nomina.present? or administrador.present or libre_registro?
+				perfil = AppPerfil.create(email: current_usuario.email)
 			end
 
 		end
 
-		inicia_app if perfil_activo.present?
+		# si hay perfil_activo ? hay usuarios se inicia applicacion : se despliega home SIN perfil_activo
+		inicia_app if perfil.present?
 
 	end
 

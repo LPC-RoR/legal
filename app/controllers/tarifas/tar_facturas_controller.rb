@@ -1,8 +1,11 @@
 class Tarifas::TarFacturasController < ApplicationController
   before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento back_estado set_pago set_facturada]
 
+  include Bandejas
+
   # GET /tar_facturas or /tar_facturas.json
   def index
+    init_bandejas
     init_tab( { menu: ['ingreso', 'facturada', 'pagada'] }, true )
 
     @coleccion = {}

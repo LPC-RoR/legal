@@ -1,6 +1,8 @@
 class Aplicacion::AppReposController < ApplicationController
   before_action :set_app_repo, only: %i[ show edit update destroy ]
 
+  include Bandejas
+
   # GET /app_repos or /app_repos.json
   def index
     @coleccion = AppRepo.all
@@ -8,6 +10,8 @@ class Aplicacion::AppReposController < ApplicationController
 
   # GET /app_repos/1 or /app_repos/1.json
   def show
+    init_bandejas
+
     if ['Cliente', 'Causa'].include?(@objeto.owner_class)
       redirect_to @objeto.owner_class.constantize.find(@objeto.owner_id)
     else

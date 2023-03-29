@@ -6,4 +6,8 @@ class StEstado < ApplicationRecord
 	]
 
 	belongs_to :st_modelo
+
+	def estado
+		self.st_estado
+	end
 end
