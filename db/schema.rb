@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_28_214928) do
+ActiveRecord::Schema.define(version: 2023_03_29_124917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -479,8 +479,10 @@ ActiveRecord::Schema.define(version: 2023_03_28_214928) do
     t.string "glosa"
     t.integer "tar_factura_id"
     t.decimal "monto_uf"
+    t.string "moneda"
     t.index ["estado"], name: "index_tar_facturaciones_on_estado"
     t.index ["facturable"], name: "index_tar_facturaciones_on_facturable"
+    t.index ["moneda"], name: "index_tar_facturaciones_on_moneda"
     t.index ["owner_class"], name: "index_tar_facturaciones_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturaciones_on_owner_id"
     t.index ["tar_factura_id"], name: "index_tar_facturaciones_on_tar_factura_id"

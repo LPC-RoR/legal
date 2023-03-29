@@ -33,8 +33,15 @@ class Tarifas::TarFacturacionesController < ApplicationController
       # FACTURACION DE TARIFAS CON FORMULAS | VALORES
       # do_eval funciona para CAUSA/CONSULTORIA
       pago = owner.tar_tarifa.tar_pagos.find_by(codigo_formula: params[:facturable])
-      unless calcula(TarFormula.find_by(codigo: params[:facturable])) == 0
-        TarFacturacion.create(owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: "#{pago.tar_pago} : #{owner.identificador} #{owner.send(owner.class.name.downcase)}", estado: 'ingreso', monto: do_eval(owner, params[:facturable]))
+      formula = TarFormula.find_by(codigo: params[:facturable]).tar_formula
+      libreria = owner.tar_tarifa.tar_formulas
+      #----------------------------------------
+      owner_class = owner.class.name
+      moneda = (pago.moneda.blank? ? 'UF' : pago.moneda)
+      glosa = "#{pago.tar_pago} : #{owner.identificador} #{owner.send(owner.class.name.downcase)}"
+      monto = calcula( formula, libreria, owner) 
+      unless monto == 0
+        TarFacturacion.create(owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'ingreso', moneda: moneda, monto: monto)
       end
     end
 
