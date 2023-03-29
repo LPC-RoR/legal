@@ -138,6 +138,8 @@ module CapitanRecursosHelper
 			controller_name == 'tar_tarifas'
 		else
 			case objeto.class.name
+			when 'TarValorCuantia'
+				controller_name == 'causas' and @options[:menu] == 'Cuantía'
 			when 'Registro'
 				admin? and objeto.estado == 'ingreso'
 			when 'RegReporte'
