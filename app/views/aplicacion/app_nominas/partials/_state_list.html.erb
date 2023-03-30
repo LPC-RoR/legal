@@ -4,7 +4,7 @@
 	</div>
 	<div class='col-md-6'>
 		<% if seguridad_desde('admin') %>
-			<%= render partial: '0p/list/action_list', locals: {nombre: 'Estados Disponibles', gly: 'card-list', clr: 'info', coleccion: StEstado.where(st_estado: StModelo.find_by(st_modelo: modelo.st_perfil_modelo).st_estados.map {|st_estado| st_estado.st_estado } - modelo.st_perfil_estados.map {|st_perfil_estado| st_perfil_estado.st_perfil_estado}), field: 'st_estado', link: '/asigna', gly_link: 'plus-circle', base: true, action: true} %>
+			<%= render partial: '0p/list/action_list', locals: {nombre: 'Estados Disponibles', gly: 'card-list', clr: 'info', coleccion: modelo.st_estados_disponibles, field: 'st_estado', link: '/asigna', gly_link: 'plus-circle', base: true, action: true} %>
 		<% end %>
 	</div>
 </div>

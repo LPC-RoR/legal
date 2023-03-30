@@ -18,7 +18,7 @@ class Aplicacion::AppNominasController < ApplicationController
     @coleccion['tar_variables'] = @objeto.tar_variables
 
     carga_sidebar('Administración', 'Nómina')
-    @modelos_disponibles = StModelo.where(st_modelo: (StModelo.all.map {|st_mod| st_mod.st_modelo} - @objeto.st_perfil_modelos.map {|st_mod| st_mod.st_perfil_modelo}))
+    @modelos_disponibles = StModelo.where(st_modelo: (StModelo.all.map {|st_modelo| st_modelo.st_modelo} - @objeto.st_perfil_modelos.map {|st_perfil_modelo| st_perfil_modelo.st_perfil_modelo})).order(:st_modelo)
   end
 
   # GET /app_nominas/new
