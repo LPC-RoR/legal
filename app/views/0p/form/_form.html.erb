@@ -5,7 +5,7 @@
 	<%= form_with(model: @objeto, local: true) do |form| %>
 		<% if @objeto.errors.any? %>
 		<div id="error_explanation">
-			<h4 class='text-info'><%= pluralize(@objeto.errors.count, "error") %> evitan que este registro sea grabado:</h4>
+			<h4 class='text-info'><%= @objeto.errors.count %> <%= @objeto.errors.count == 1 ? 'error' : 'errores' %> evitan que este registro sea grabado:</h4>
 
 			<ul>
 			<% @objeto.errors.full_messages.each do |message| %>
@@ -21,7 +21,7 @@
 		</br>
 
 		<div class="actions">
-		<%= form.submit "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{cristiano(@objeto.class.name)}" %>
+		<%= form.submit "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{cristiano(controller_name)}" %>
 		</div>
 	<% end %>
 </div>

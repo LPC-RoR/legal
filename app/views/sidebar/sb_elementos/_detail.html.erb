@@ -1,16 +1,38 @@
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :orden, label: 'Orden', v: true } %>
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :nivel, label: 'Nivel', v: true } %>
+<small><small>item : ruta | list : nombre de una lista de items</small></small></br>
+<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :tipo, radio_list: ['item', 'list'] } %>
 
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'select', token: :tipo, label: 'Tipo', sel_list: SbElemento::TIPOS, v: true } %>
+<div class="row">
+	<div class="col-md-6">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Seguridad', v: false } %>
+		<small><small>Determina quienes podrán acceder</small></small></br>
+		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :acceso, sel_list: SbLista::ACCESOS[mi_seguridad?], label: 'Seguridad' } %>
+	</div>
+	<div class="col-md-6">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Despliegue', v: false } %>
+		<small><small>Tipo de despliegue</small></small></br>
+		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :despliegue, sel_list: SbElemento::DESPLIEGUES, label: 'Despliegue' } %>
+	</div>
+</div>
 
-<%#= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :tipo, label: 'Tipo', v: true } %>
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :elemento, label: 'Elemento', v: true } %>
 
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'select', token: :acceso, label: 'Acceso', sel_list: SbElemento::ACCESOS, v: true } %>
+<div class="row">
+	<div class="col-md-1">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: '#', v: true } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :orden } %>
+	</div>
+	<div class="col-md-1">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: '>', v: true } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :nivel } %>
+	</div>
+	<div class="col-md-10">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Item', v: true } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :elemento } %>
+	</div>
+</div>
 
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'select', token: :despliegue, label: 'Despliegue', sel_list: SbElemento::DESPLIEGUES, v: false } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Controlador', v: false } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :controlador } %>
 
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :controlador, label: 'Controlador', v: false } %>
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'check_box', token: :activo, label: 'Activo?', v: false } %>
+<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :activo, label: 'Activo?' } %>
 
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :sb_lista_id, label: nil, v: false } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :sb_lista_id } %>

@@ -236,17 +236,18 @@ module ApplicationHelper
 	end
 	
 	def crud_conditions(objeto, btn)
-		if ['AppAdministrador', 'AppNomina', 'HlpTutorial', 'HlpPaso'].include?(objeto.class.name)
+		clase = objeto.class.name
+		if ['AppAdministrador', 'AppNomina', 'HlpTutorial', 'HlpPaso'].include?(clase)
 				seguridad_desde('admin')
-		elsif ['AppPerfil', 'Usuario', 'AppMensaje' ].include?(objeto.class.name)
+		elsif ['AppPerfil', 'Usuario', 'AppMensaje' ].include?(clase)
 			false
-		elsif ['SbLista', 'SbElemento'].include?(objeto.class.name)
-			(usuario_signed_in? and seguridad_desde(objeto.acceso))
-		elsif ['st_modelos'].include?(controller)
+		elsif ['SbLista', 'SbElemento'].include?(clase)
+			(usuario_signed_in? and seguridad_desde('admin'))
+		elsif ['StModelo'].include?(clase)
 				dog?
-		elsif ['st_estados'].include?(controller)
+		elsif ['StEstado'].include?(clase)
 				seguridad_desde('admin')
-		elsif ['AppObservacion', 'AppMejora'].include?(objeto.class.name)
+		elsif ['AppObservacion', 'AppMejora'].include?(clase)
 			(usuario_signed_in? and objeto.perfil.id == current_usuario.id)
 		else
 			app_crud_conditions(objeto, btn)

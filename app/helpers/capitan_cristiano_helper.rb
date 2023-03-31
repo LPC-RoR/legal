@@ -38,7 +38,7 @@ module CapitanCristianoHelper
 	end
 
 	def cword(string)
-		text = string.capitalize
+		text = string.gsub(/^tar_|^app_|^h_|^st_/, '').humanize.capitalize
 		if text == 'Nomina'
 			'Nómina'
 		elsif text == 'Observacion'
@@ -53,6 +53,8 @@ module CapitanCristianoHelper
 			'Descripción'
 		elsif text == 'Facturacion'
 			'Facturación'
+		elsif text == 'Detalle cuantia'
+			'Detalle cuantía'
 		else
 			text
 		end

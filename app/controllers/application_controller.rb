@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
 	include IniciaAplicacion
 
-	helper_method :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id
+	helper_method :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id, :mi_seguridad?
 
 	def verifica_primer_acceso
 		if ActiveRecord::Base.connection.table_exists? 'app_administradores'
@@ -105,11 +105,25 @@ class ApplicationController < ActionController::Base
 	end
 
 	def general?
-		not admin? and not nomina?
+		usuario_signed_in? and not admin? and not nomina?
 	end
 
 	def anonimo?
 		not usuario_signed_in?
+	end
+
+	def mi_seguridad?
+		if current_usuario.email == dog_email
+			:dog
+		elsif AppAdministrador.find_by(email: current_usuario.email).present?
+			:admin
+		elsif AppNomina.find_by(email: current_usuario.email).present?
+			:nomina
+		elsif usuario_signed_in?
+			:general
+		else
+			:anonimo
+		end
 	end
 
 	def seguridad_desde(tipo_usuario)

@@ -23,11 +23,11 @@ module Sidebar
 	def carga_sidebar_base(nombre, param_id)
 	    @sb_name = nombre
 
-	    lista = get_lista(nombre)
-	    @tipo_lista = (lista.lista == 'Ayuda' ? 'ayuda' : 'item')
+	    @lista = get_lista(nombre)
+	    @tipo_lista = (@lista.lista == 'Ayuda' ? 'ayuda' : 'item')
 
-    	@sb_link = (lista.blank? ? nil : lista.link)
-	    @sb_elementos = get_elementos(lista)
+    	@sb_link = (@lista.blank? ? nil : @lista.link)
+	    @sb_elementos = get_elementos(@lista)
 
 	    unless ['new', 'edit', 'create', 'show', 'update'].include?(action_name)
 	    	@id = get_id(@sb_elementos, param_id)
