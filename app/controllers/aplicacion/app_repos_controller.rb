@@ -5,7 +5,6 @@ class Aplicacion::AppReposController < ApplicationController
 
   # GET /app_repos or /app_repos.json
   def index
-    @coleccion = AppRepo.all
   end
 
   # GET /app_repos/1 or /app_repos/1.json
@@ -15,9 +14,11 @@ class Aplicacion::AppReposController < ApplicationController
     if ['Cliente', 'Causa'].include?(@objeto.owner_class)
       redirect_to @objeto.owner_class.constantize.find(@objeto.owner_id)
     else
-      @coleccion = {}
-      @coleccion['app_documentos'] = @objeto.documentos.order(:documento)
-      @coleccion['app_directorios'] = @objeto.directorios.order(:directorio)
+#      @coleccion = {}
+#      @coleccion['app_documentos'] = @objeto.documentos.order(:documento)
+#      @coleccion['app_directorios'] = @objeto.directorios.order(:directorio)
+      init_tabla('app_documentos', @objeto.documentos.order(:documento), false)
+      add_tabla('app_directorios', @objeto.directorios.order(:directorio), false)
     end
   end
 

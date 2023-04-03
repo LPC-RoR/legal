@@ -4,7 +4,6 @@ class Aplicacion::AppObservacionesController < ApplicationController
   # GET /app_observaciones
   # GET /app_observaciones.json
   def index
-    @coleccion = AppObservacion.all
   end
 
   # GET /app_observaciones/1

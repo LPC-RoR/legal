@@ -5,7 +5,6 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
   # GET /tar_facturaciones or /tar_facturaciones.json
   def index
-    @coleccion = TarFacturacion.all
   end
 
   # GET /tar_facturaciones/1 or /tar_facturaciones/1.json

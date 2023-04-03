@@ -9,7 +9,6 @@ class Home::HLinksController < ApplicationController
   # GET /h_links
   # GET /h_links.json
   def index
-    @coleccion = HLink.all
   end
 
   # GET /h_links/1

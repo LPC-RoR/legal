@@ -4,7 +4,6 @@ class Aplicacion::AppMejorasController < ApplicationController
   # GET /app_mejoras
   # GET /app_mejoras.json
   def index
-    @coleccion = AppMejora.all
   end
 
   # GET /app_mejoras/1

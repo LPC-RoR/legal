@@ -8,13 +8,13 @@ class Sidebar::SbListasController < ApplicationController
 
   # GET /sb_listas or /sb_listas.json
   def index
-    @coleccion = SbLista.all
   end
 
   # GET /sb_listas/1 or /sb_listas/1.json
   def show
-    @coleccion = {}
-    @coleccion['sb_elementos'] = @objeto.sb_elementos.order(:orden)
+#    @coleccion = {}
+#    @coleccion['sb_elementos'] = @objeto.sb_elementos.order(:orden)
+    init_tabla('sb_elementos', @objeto.sb_elementos.order(:orden), false)
   end
 
   # GET /sb_listas/new

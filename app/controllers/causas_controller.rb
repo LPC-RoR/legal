@@ -5,7 +5,6 @@ class CausasController < ApplicationController
 
   # GET /causas or /causas.json
   def index
-    @coleccion = Causa.all
   end
 
   # GET /causas/1 or /causas/1.json
@@ -13,28 +12,26 @@ class CausasController < ApplicationController
 
     init_tab( { menu: ['Facturacion', 'Documentos y enlaces', 'Registro', 'Reportes', 'Tarifas', 'Cuantía'] }, true )
 
-    @coleccion = {}
+#    @coleccion = {}
 
     if @options[:menu] == 'Registro'
-      @coleccion['registros'] = @objeto.registros
+      init_tabla('registros', @objeto.registros, false)
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
     elsif @options[:menu] == 'Reportes'
-      @coleccion['reg_reportes'] = @objeto.reportes
+      init_tabla('reg_reportes', @objeto.reportes, false)
       @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
     elsif @options[:menu] == 'Documentos y enlaces'
       AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 
-      @coleccion['app_directorios'] = @objeto.repo.directorios
-      @coleccion['app_documentos'] = @objeto.repo.documentos
-
-      @coleccion['app_enlaces'] = @objeto.enlaces.order(:descripcion)
+      init_tabla('app_directorios', @objeto.repo.directorios, false)
+      add_tabla('app_documentos', @objeto.repo.documentos, false)
+      add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
     elsif @options[:menu] == 'Facturacion'
-      @coleccion['tar_valor_cuantias'] = @objeto.valores_cuantia
-#      @coleccion['tar_valores'] = @objeto.valores
-      @coleccion['tar_facturaciones'] = @objeto.facturaciones
+      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+      add_tabla('tar_facturaciones', @objeto.facturaciones, false)
     elsif @options[:menu] == 'Tarifas'
     elsif @options[:menu] == 'Cuantía'
-      @coleccion['tar_valor_cuantias'] = @objeto.valores_cuantia
+      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
     end
 
   end

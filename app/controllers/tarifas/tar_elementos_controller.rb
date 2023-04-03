@@ -6,7 +6,6 @@ class Tarifas::TarElementosController < ApplicationController
 
   # GET /tar_elementos or /tar_elementos.json
   def index
-    @coleccion = TarElemento.all
   end
 
   # GET /tar_elementos/1 or /tar_elementos/1.json

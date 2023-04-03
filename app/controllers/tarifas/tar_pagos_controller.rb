@@ -3,13 +3,13 @@ class Tarifas::TarPagosController < ApplicationController
 
   # GET /tar_pagos or /tar_pagos.json
   def index
-    @coleccion = TarPago.all
   end
 
   # GET /tar_pagos/1 or /tar_pagos/1.json
   def show
-    @coleccion = {}
-    @coleccion['tar_comentarios'] = @objeto.tar_comentarios.order(:orden)
+#    @coleccion = {}
+#    @coleccion['tar_comentarios'] = @objeto.tar_comentarios.order(:orden)
+    init_tabla('tar_comentarios', @objeto.tar_comentarios.order(:orden), false)
   end
 
   # GET /tar_pagos/new

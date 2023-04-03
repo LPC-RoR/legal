@@ -2,9 +2,10 @@ class ClientesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura ]
 
+  include Bandejas
+
   # GET /clientes or /clientes.json
   def index
-    @coleccion = Cliente.all
   end
 
   # GET /clientes/1 or /clientes/1.json
@@ -14,20 +15,22 @@ class ClientesController < ApplicationController
 
     @coleccion = {}
     if @options[:menu] == 'Tarifas y servicios'
-      @coleccion['tar_tarifas'] = @objeto.tarifas.order(:created_at)
-      @coleccion['tar_horas'] = @objeto.tarifas_hora.order(:created_at)
-      @coleccion['tar_servicios'] = @objeto.servicios.order(:created_at)
+      init_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
+      add_tabla('tar_horas', @objeto.tarifas_hora.order(:created_at), false)
+      add_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
     elsif @options[:menu] == 'Causas'
-      @coleccion['causas'] = @objeto.causas.order(:created_at)
+      init_tabla('causas', @objeto.causas.order(:created_at), false)
     else
-      @coleccion['consultorias'] = @objeto.consultorias.order(:created_at)
+      init_tabla('consultorias', @objeto.consultorias.order(:created_at), false)
     end
 
     @repo = AppRepo.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)
     @repo = AppRepo.create(repositorio: @objeto.razon_social, owner_class: 'Cliente', owner_id: @objeto.id) if @repo.blank?
 
-    @coleccion['app_directorios'] = @repo.directorios
-    @coleccion['app_documentos'] = @repo.documentos
+#    @coleccion['app_directorios'] = @repo.directorios
+#    @coleccion['app_documentos'] = @repo.documentos
+    add_tabla('app_directorios', @repo.directorios, false)
+    add_tabla('app_documentos', @repo.documentos, false)
   end
 
   # GET /clientes/new

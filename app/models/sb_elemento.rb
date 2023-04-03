@@ -19,7 +19,7 @@ class SbElemento < ApplicationRecord
 	TABLA_FIELDS = [
 		'orden',
 		'nivel',
-		's#elemento',
+		'elemento',
 		'tipo',
 		'despliegue'
 	]

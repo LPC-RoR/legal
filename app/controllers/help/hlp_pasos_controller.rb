@@ -7,7 +7,6 @@ class Help::HlpPasosController < ApplicationController
 
   # GET /hlp_pasos or /hlp_pasos.json
   def index
-    @coleccion = HlpPaso.all
   end
 
   # GET /hlp_pasos/1 or /hlp_pasos/1.json

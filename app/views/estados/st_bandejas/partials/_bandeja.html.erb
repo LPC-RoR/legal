@@ -1,9 +1,12 @@
 <% if @bandejas.empty? %>
+
 	<p class='text-muted'><small>Sin bandejas activas</small></p>
+
 <% else %>
 
+	<% unless @bandejas.empty? %>
 	<% @bandejas.each do |modelo| %>
-		<i class="bi bi-inbox"></i> <small><%= modelo.modelo %></small></br>
+		<i class="bi bi-inbox"></i> <small><%= modelo.modelo.tableize.match(/^tar_|^app_|^ĥ_|^st_/) ? modelo.modelo.classify.gsub(/^Tar|^App|^H|^St/, '') : modelo.modelo %></small></br>
 
 		<% modelo.estados.each do |estado| %>
 			<i class="bi bi-arrow-right"></i>
@@ -22,6 +25,7 @@
 			</small></br>
 		<% end %>
 		<hr>
+	<% end %>
 	<% end %>
 
 <% end %>

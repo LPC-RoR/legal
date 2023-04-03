@@ -63,18 +63,22 @@ module Sidebar
 	    		@objeto = @elemento.controlador.classify.constantize.first
 		    elsif @elemento.despliegue == 'ayuda'
 			    @objeto = HlpTutorial.find_by(clave: @elemento.controlador)
-			    @coleccion = {}
-			    @coleccion['hlp_pasos'] = @objeto.hlp_pasos.order(:orden) unless @objeto.blank?
+#			    @coleccion = {}
+#			    @coleccion['hlp_pasos'] = @objeto.hlp_pasos.order(:orden) unless @objeto.blank?
+			    init_tabla('hlp_pasos', @objeto.hlp_pasos.order(:orden), false) unless @objeto.blank?
 		    elsif ['list', 'ulist'].include?(@elemento.despliegue)
-		    	@coleccion = {}
+#		    	@coleccion = {}
 
-				if @controlador.classify.constantize.all.count < 26 or @elemento.despliegue == 'ulist'
-					@coleccion[@elemento.controlador] = @elemento.controlador.classify.constantize.all.order(:created_at)
-					@paginate = false
-				else
-					@coleccion[@elemento.controlador] = @elemento.controlador.classify.constantize.all.order(:created_at).page(params[:page])
-					@paginate = true
-				end
+#				if @controlador.classify.constantize.all.count < 26 or @elemento.despliegue == 'ulist'
+#					@coleccion[@elemento.controlador] = @elemento.controlador.classify.constantize.all.order(:created_at)
+#					@paginate = false
+#					init_tabla(@elemento.controlador, @elemento.controlador.classify.constantize.all.order(:created_at), false)
+#				else
+#					@coleccion[@elemento.controlador] = @elemento.controlador.classify.constantize.all.order(:created_at).page(params[:page])
+#					@paginate = true
+#					init_tabla(@elemento.controlador, @elemento.controlador.classify.constantize.all.order(:created_at).page(params[:page]), true)
+#				end
+				init_tabla(@elemento.controlador, @elemento.controlador.classify.constantize.all.order(:created_at), not (@controlador.classify.constantize.all.count < 26 or @elemento.despliegue == 'ulist'))
 
 		    end
 		end

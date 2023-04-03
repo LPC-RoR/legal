@@ -9,7 +9,6 @@ class Aplicacion::AppImagenesController < ApplicationController
   # GET /app_imagenes
   # GET /app_imagenes.json
   def index
-    @coleccion = AppImagen.all
   end
 
   # GET /app_imagenes/1

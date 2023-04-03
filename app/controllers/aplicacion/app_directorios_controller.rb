@@ -1,19 +1,24 @@
 class Aplicacion::AppDirectoriosController < ApplicationController
   before_action :set_app_directorio, only: %i[ show edit update destroy ]
 
+  include Bandejas
+
   # GET /app_directorios or /app_directorios.json
   def index
-    @coleccion = AppDirectorio.all
   end
 
   # GET /app_directorios/1 or /app_directorios/1.json
   def show
     @padres = AppDirectorio.where(id: @objeto.padres_ids)
-    @coleccion = {}
-    @coleccion['app_directorios'] = @objeto.children
-    @coleccion['app_documentos'] = @objeto.documentos
-    @coleccion['app_archivos'] = @objeto.archivos
-#    @coleccion['imagenes'] = @objeto.imagenes.page(params[:page]) 
+#    init_tabla('controller_name', Tabla, init, paginate)
+    init_tabla('app_directorios', @objeto.children, true, false)
+    init_tabla('app_documentos', @objeto.documentos, false, false)
+    init_tabla('app_archivos', @objeto.archivos, false, false)
+#    @coleccion = {}
+#    @coleccion['app_directorios'] = @objeto.children
+#    @coleccion['app_documentos'] = @objeto.documentos
+#    @coleccion['app_archivos'] = @objeto.archivos
+##    @coleccion['imagenes'] = @objeto.imagenes.page(params[:page]) 
   end
 
   # GET /app_directorios/new

@@ -5,7 +5,6 @@ class TipoCausasController < ApplicationController
 
   # GET /tipo_causas or /tipo_causas.json
   def index
-    @coleccion = TipoCausa.all
   end
 
   # GET /tipo_causas/1 or /tipo_causas/1.json

@@ -10,9 +10,9 @@
 	<% when 'seleccion' %>
 		<%= "? Selecciona #{c.humanize.singularize}" %>
 	<% when 'new' %>
-		<i class="bi bi-plus-square"></i> <%= cristiano(c) %>
+		<i class="bi bi-plus-square"></i> <%= c_to_name(c) %>
 	<% when 'edit' %>
-		<i class="bi bi-pencil-square"></i> <%= cristiano(c) %>
+		<i class="bi bi-pencil-square"></i> <%= c_to_name(c) %>
 	<% else %>
 		<%= titulo %>
 	<% end %>

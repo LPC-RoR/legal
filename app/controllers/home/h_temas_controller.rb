@@ -9,7 +9,6 @@ class Home::HTemasController < ApplicationController
   # GET /h_temas
   # GET /h_temas.json
   def index
-    @coleccion = HTema.all
   end
 
   # GET /h_temas/1

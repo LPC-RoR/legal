@@ -1,9 +1,10 @@
 class RegistrosController < ApplicationController
   before_action :set_registro, only: %i[ show edit update destroy reporta_registro excluye_registro]
 
+  include Bandejas
+
   # GET /registros or /registros.json
   def index
-    @coleccion = Registro.all
   end
 
   # GET /registros/1 or /registros/1.json

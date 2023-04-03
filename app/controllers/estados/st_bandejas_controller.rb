@@ -20,13 +20,14 @@ class Estados::StBandejasController < ApplicationController
       end
 
       # Despliegue
-      @coleccion = {}
-      @coleccion[@m.tableize] = @m.constantize.where(estado: @e).order(:created_at)
+#      @coleccion = {}
+#      @coleccion[@m.tableize] = @m.constantize.where(estado: @e).order(:created_at)
 
-      if @coleccion[@m.tableize].count > 25
-        @coleccion[@m.tableize] = @coleccion[@m.tableize].page(params[:page])
-        @paginate = true
-      end
+#      if @coleccion[@m.tableize].count > 25
+#        @coleccion[@m.tableize] = @coleccion[@m.tableize].page(params[:page])
+#        @paginate = true
+#      end
+      init_tabla(@m.tableize, @m.constantize.where(estado: @e).order(:created_at), @m.constantize.where(estado: @e).count > 25)
 
 #      @nomina = AppNomina.find_by(email: perfil_activo.email)
       @bandejas = (seguridad_desde('admin') ? StModelo.all.order(:st_modelo) : AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.order(:st_perfil_modelo))

@@ -5,7 +5,7 @@
   <% unless @coleccion[c].blank? %>
     <% unless inline_form?(c) %>
       <% if @coleccion[c].count > 15 %>
-        <%= render partial: '0p/general/btn_turbolink', locals: {texto: cristiano(c), gly: 'plus-circle', link: get_new_link(c), clr: color(c), delete: false} %>
+        <%= render partial: '0p/general/btn_turbolink', locals: {texto: c_to_name(c), gly: 'plus-circle', link: get_new_link(c), clr: color(c), delete: false} %>
 
         </br></br>
         
@@ -16,7 +16,7 @@
   <% end %>
 <% end %>
 
-<% if @paginate %>
+<% if @paginate[c] %>
   <%= paginate @coleccion[c] unless @coleccion[c].blank? %>
   <small><small><%= page_entries_info(@coleccion[c]) %></small></small>
 <% end %>
@@ -37,7 +37,7 @@
 </table>
 
 <% unless @coleccion[c].blank? %>
-  <% if @paginate and @coleccion[c].count > 15 %>
+  <% if @paginate[c] and @coleccion[c].count > 15 %>
     <small><small><%= page_entries_info(@coleccion[c]) %></small></small>
     <%= paginate @coleccion[c] %>
   <% end %>
@@ -48,7 +48,7 @@
   <!-- que NO son inline_form -->
   <% unless inline_form?(c) %>
 
-    <%= render partial: '0p/general/btn_turbolink', locals: {texto: cristiano(c), gly: 'plus-circle', link: get_new_link(c), clr: color(c), delete: false} %>
+    <%= render partial: '0p/general/btn_turbolink', locals: {texto: c_to_name(c), gly: 'plus-circle', link: get_new_link(c), clr: color(c), delete: false} %>
 
   <% end %>
 <% end %>

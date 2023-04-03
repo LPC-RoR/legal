@@ -3,7 +3,6 @@ class Tarifas::TarFormulasController < ApplicationController
 
   # GET /tar_formulas or /tar_formulas.json
   def index
-    @coleccion = TarFormula.all
   end
 
   # GET /tar_formulas/1 or /tar_formulas/1.json

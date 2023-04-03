@@ -5,7 +5,6 @@ class Aplicacion::AppPerfilesController < ApplicationController
 
   # GET /app_perfiles or /app_perfiles.json
   def index
-    @coleccion = AppPerfil.all
   end
 
   # GET /app_perfiles/1 or /app_perfiles/1.json

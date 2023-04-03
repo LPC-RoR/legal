@@ -8,8 +8,7 @@ class TarServicio < ApplicationRecord
 		'codigo',
 		's#descripcion',
 		'tipo',
-		'moneda',
-		'v#monto',
+		'm#monto',
 		'estado'
 	]
 

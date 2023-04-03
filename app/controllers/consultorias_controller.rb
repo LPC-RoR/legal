@@ -2,37 +2,45 @@ class ConsultoriasController < ApplicationController
   before_action :set_consultoria, only: %i[ show edit update destroy cambio_estado procesa_registros ]
 
   include Tarifas
+  include Bandejas
 
   # GET /consultorias or /consultorias.json
   def index
-    @coleccion = Consultoria.all
   end
 
   # GET /consultorias/1 or /consultorias/1.json
   def show
 
+    init_bandejas
     init_tab( { menu: ['Registro', 'Reportes', 'Documentos y enlaces', 'Facturación'] }, true )
 
-    @coleccion = {}
+#    @coleccion = {}
 
     if @options[:menu] == 'Registro'
-      @coleccion['registros'] = @objeto.registros
+#      @coleccion['registros'] = @objeto.registros
+      init_tabla('registros', @objeto.registros, false)
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
     elsif @tab == 'Reportes'
-      @coleccion['reg_reportes'] = @objeto.reportes
+#      @coleccion['reg_reportes'] = @objeto.reportes
+      init_tabla('reg_reportes', @objeto.reportes, false)
       @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
     elsif @options[:menu] == 'Documentos y enlaces'
       AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 
-      @coleccion['app_directorios'] = @objeto.repo.directorios
-      @coleccion['app_documentos'] = @objeto.repo.documentos
+#      @coleccion['app_directorios'] = @objeto.repo.directorios
+#      @coleccion['app_documentos'] = @objeto.repo.documentos
 
-      @coleccion['app_enlaces'] = @objeto.enlaces.order(:descripcion)
+#      @coleccion['app_enlaces'] = @objeto.enlaces.order(:descripcion)
+      init_tabla('app_directorios', @objeto.repo.directorios, false)
+      add_tabla('app_documentos', @objeto.repo.documentos, false)
+      add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
     elsif @options[:menu] == 'Facturación'
       @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
 
-      @coleccion['tar_valores'] = @objeto.valores
-      @coleccion['tar_facturaciones'] = @objeto.facturaciones
+#      @coleccion['tar_valores'] = @objeto.valores
+#      @coleccion['tar_facturaciones'] = @objeto.facturaciones
+      init_tabla('tar_valores', @objeto.valores, false)
+      add_tabla('tar_facturaciones', @objeto.facturaciones, false)
     end
 
   end

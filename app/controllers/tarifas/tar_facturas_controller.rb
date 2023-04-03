@@ -8,15 +8,18 @@ class Tarifas::TarFacturasController < ApplicationController
     init_bandejas
     init_tab( { menu: ['ingreso', 'facturada', 'pagada'] }, true )
 
-    @coleccion = {}
-    @coleccion['clientes'] = Cliente.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.padre.cliente.id unless tarf.tar_factura.present?}.compact.uniq)
-    @coleccion['tar_facturas'] = TarFactura.where(estado: @options[:menu]).order(created_at: :desc)
+#    @coleccion = {}
+#    @coleccion['clientes'] = Cliente.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.padre.cliente.id unless tarf.tar_factura.present?}.compact.uniq)
+#    @coleccion['tar_facturas'] = TarFactura.where(estado: @options[:menu]).order(created_at: :desc)
+    init_tabla('clientes', Cliente.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.padre.cliente.id unless tarf.tar_factura.present?}.compact.uniq), false)
+    add_tabla('tar_facturas', TarFactura.where(estado: @options[:menu]).order(created_at: :desc), false)
   end
 
   # GET /tar_facturas/1 or /tar_facturas/1.json
   def show
-    @coleccion = {}
-    @coleccion['tar_facturaciones'] = @objeto.tar_facturaciones
+#    @coleccion = {}
+#    @coleccion['tar_facturaciones'] = @objeto.tar_facturaciones
+    init_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
   end
 
   # GET /tar_facturas/new

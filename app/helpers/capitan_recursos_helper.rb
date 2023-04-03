@@ -123,7 +123,7 @@ module CapitanRecursosHelper
 		elsif ['pcds'].include?(controller)
 			['st_bandejas'].include?(controller_name)
 		elsif ['causas', 'consultorias'].include?(controller)
-			controller_name != 'clientes'
+			controller_name == 'st_bandejas'
 		else
 			true
 		end

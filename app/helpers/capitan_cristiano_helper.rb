@@ -1,62 +1,67 @@
 module CapitanCristianoHelper
 
-	def x_scope(string)
-		if string.tableize.match(/^tar_|^app_|^ĥ_|^st_/)
-			string.classify.gsub(/^Tar|^App|^H|^St/, '')
+	def m_excepciones
+		{
+			'TarUfSistema' => 'Uf del sistema',
+			'SbLista' => 'Menú lateral',
+			'SbElemento' => 'Elemento del menú lateral',
+			'TarHora' => 'Tarifa en Horas'
+		}
+	end
+
+	def f_excepciones 
+		{
+			'created_at' => 'fecha'
+		}
+	end
+
+	def correcciones 
+		{
+			'cuantia' => 'cuantía',
+			'nomina' => 'nómina',
+			'observacion' => 'observación',
+			'formula' => 'fórmula',
+			'consultoria' => 'consultoría',
+			'codigo' => 'código',
+			'descripcion' => 'descripción',
+			'facturacion' => 'facturación'
+		}
+	end
+
+	def scopes
+		/^tar_|^app_|^h_|^st_/
+	end
+
+	def c_to_name(controller)
+		if m_excepciones.keys.include?(controller.classify)
+			# Manejo de excepciones
+			m_excepciones[controller.classify]
 		else
-			string.classify
+			# Manejo de scopes
+			text = controller.match(scopes) ? controller.gsub(scopes, '') : controller
+			# corrige acentos
+			text.humanize.split.map {|word| corrige(word.downcase)}.join(' ').capitalize
 		end
 	end
 
-	## ------------------------------------------------------- CRISTIANO BASE
-	## Actualización : SIEMPRE ENTREGA SINGULAR CAPITALIZADO
-	def cristiano(text_input)
-		clase = text_input.split(':').last.classify
-
-		# EXCEPCIONES AL MANEJO GENERAL
-		if clase == 'TarUfSistema'
-			'UF del sistema'
-		elsif clase == 'SbLista'
-			'Menú lateral'
-		elsif clase == 'SbElemento'
-			'Elemento del menú lateral'
-		elsif clase == 'TarHora'
-			'Tarifa Hora'
+	def m_to_name(modelo)
+		if m_excepciones.keys.include?(modelo)
+			m_excepciones[modelo]
 		else
-			text = x_scope(clase)
-			if ['created_at'].include?(text)
-				'Fecha'
-			elsif text == 'DetalleCuantia'
-				'Detalle Cuantía'
-			elsif text == 'ValorCuantia'
-				'Valor Cuantía'
-			else
-				cword(text)
-			end
+			c_to_name(modelo.tableize)
 		end
-			
 	end
 
-	def cword(string)
-		text = string.gsub(/^tar_|^app_|^h_|^st_/, '').humanize.capitalize
-		if text == 'Nomina'
-			'Nómina'
-		elsif text == 'Observacion'
-			'Observación'
-		elsif text == 'Formula'
-			'Fórmula'
-		elsif text == 'Consultoria'
-			'Consultoría'
-		elsif text == 'Codigo'
-			'Código'
-		elsif text == 'Descripcion'
-			'Descripción'
-		elsif text == 'Facturacion'
-			'Facturación'
-		elsif text == 'Detalle cuantia'
-			'Detalle cuantía'
+	def corrige(word)
+		correcciones.keys.include?(word) ? correcciones[word] : word
+	end
+
+	def corrige_campo(field)
+		if f_excepciones.keys.include?(field)		
+			f_excepciones[field]
 		else
-			text
+			text = field.match(scopes) ? field.gsub(scopes, '') : field
+			text.humanize.split.map {|word| corrige(word.downcase)}.join(' ').capitalize
 		end
 	end
 

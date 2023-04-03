@@ -3,7 +3,6 @@ class Aplicacion::AppContactosController < ApplicationController
 
   # GET /app_contactos or /app_contactos.json
   def index
-    @coleccion = AppContacto.all
   end
 
   # GET /app_contactos/1 or /app_contactos/1.json

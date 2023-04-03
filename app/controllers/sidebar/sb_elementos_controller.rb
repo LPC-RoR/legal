@@ -8,7 +8,6 @@ class Sidebar::SbElementosController < ApplicationController
 
   # GET /sb_elementos or /sb_elementos.json
   def index
-    @coleccion = SbElemento.all
   end
 
   # GET /sb_elementos/1 or /sb_elementos/1.json

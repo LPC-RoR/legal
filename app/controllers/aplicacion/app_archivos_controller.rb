@@ -3,7 +3,6 @@ class Aplicacion::AppArchivosController < ApplicationController
 
   # GET /app_archivos or /app_archivos.json
   def index
-    @coleccion = AppArchivo.all
   end
 
   # GET /app_archivos/1 or /app_archivos/1.json

@@ -6,7 +6,6 @@ class Estados::StPerfilEstadosController < ApplicationController
 
   # GET /st_perfil_estados or /st_perfil_estados.json
   def index
-    @coleccion = StPerfilEstado.all
   end
 
   # GET /st_perfil_estados/1 or /st_perfil_estados/1.json

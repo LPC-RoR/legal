@@ -3,7 +3,6 @@ class Tarifas::TarVariablesController < ApplicationController
 
   # GET /tar_variables or /tar_variables.json
   def index
-    @coleccion = TarVariable.all
   end
 
   # GET /tar_variables/1 or /tar_variables/1.json

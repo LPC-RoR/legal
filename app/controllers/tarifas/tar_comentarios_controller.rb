@@ -3,7 +3,6 @@ class Tarifas::TarComentariosController < ApplicationController
 
   # GET /tar_comentarios or /tar_comentarios.json
   def index
-    @coleccion = TarComentario.all
   end
 
   # GET /tar_comentarios/1 or /tar_comentarios/1.json

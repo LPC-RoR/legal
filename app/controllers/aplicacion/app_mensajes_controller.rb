@@ -16,9 +16,11 @@ class Aplicacion::AppMensajesController < ApplicationController
     # Despliegue
     @coleccion = {}
     if @e == 'ingreso' and admin?
-      @coleccion['app_mensajes'] = coleccion_base.where(id: ids_administrativos).where(estado: 'ingreso').order(fecha_envio: :desc)
+#      @coleccion['app_mensajes'] = coleccion_base.where(id: ids_administrativos).where(estado: 'ingreso').order(fecha_envio: :desc)
+      init_tabla('app_mensajes', coleccion_base.where(id: ids_administrativos).where(estado: 'ingreso').order(fecha_envio: :desc), false)
     elsif @e == 'cerrado'
-      @coleccion['app_mensajes'] = encabezados.where(estado: 'cerrado')
+#      @coleccion['app_mensajes'] = encabezados.where(estado: 'cerrado')
+      init_tabla('app_mensajes', encabezados.where(estado: 'cerrado'), false)
     else
       enviados = encabezados.where(estado: 'enviado')
 
@@ -26,7 +28,8 @@ class Aplicacion::AppMensajesController < ApplicationController
       ids_sin_respuesta = enviados.map {|pend| pend.id if pend.children.empty?}.compact
 
       if @e == 'enviado'
-        @coleccion['app_mensajes'] = enviados.where(id: ids_administrativos).order(fecha_envio: :desc)
+#        @coleccion['app_mensajes'] = enviados.where(id: ids_administrativos).order(fecha_envio: :desc)
+        init_tabla('app_mensajes', enviados.where(id: ids_administrativos).order(fecha_envio: :desc), false)
       elsif @e == 'recibido'
         ids_usuario_sin_respuesta = (ids_sin_respuesta - ids_administrativos)
         ids_usuario_con_respuesta = (ids_con_respuesta - ids_administrativos)
@@ -46,7 +49,8 @@ class Aplicacion::AppMensajesController < ApplicationController
         @coleccion[controller_name] = coleccion_base.where(id: ids_coleccion).order(fecha_envio: :desc)
       end
 
-      @coleccion['app_mensajes'] = AppMensaje.where(estado: @e).order(:created_at)
+#      @coleccion['app_mensajes'] = AppMensaje.where(estado: @e).order(:created_at)
+      init_tabla('app_mensajes', AppMensaje.where(estado: @e).order(:created_at), false)
     end
 
     @nomina = AppNomina.find_by(email: perfil_activo.email) unless seguridad_desde('admin')

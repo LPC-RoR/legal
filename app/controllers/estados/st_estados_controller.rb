@@ -6,7 +6,6 @@ class Estados::StEstadosController < ApplicationController
 
   # GET /st_estados or /st_estados.json
   def index
-    @coleccion = StEstado.all
   end
 
   # GET /st_estados/1 or /st_estados/1.json

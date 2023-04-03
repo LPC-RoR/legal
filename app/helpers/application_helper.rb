@@ -247,7 +247,7 @@ module ApplicationHelper
 				dog?
 		elsif ['StEstado'].include?(clase)
 				seguridad_desde('admin')
-		elsif ['AppObservacion', 'AppMejora'].include?(clase)
+		elsif ['AppObservacion', 'AppMejora'].include?(clase)	
 			(usuario_signed_in? and objeto.perfil.id == current_usuario.id)
 		else
 			app_crud_conditions(objeto, btn)

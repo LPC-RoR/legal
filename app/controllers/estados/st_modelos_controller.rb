@@ -10,9 +10,10 @@ class Estados::StModelosController < ApplicationController
 
   # GET /st_modelos/1 or /st_modelos/1.json
   def show
-    @coleccion = {}
-    @coleccion['st_estados'] = @objeto.st_estados.order(:orden)
-    @paginate = false
+#    @coleccion = {}
+#    @coleccion['st_estados'] = @objeto.st_estados.order(:orden)
+#    @paginate = false
+    init_tabla('st_modelos', @objeto.st_estados.order(:orden), false)
   end
 
   # GET /st_modelos/new

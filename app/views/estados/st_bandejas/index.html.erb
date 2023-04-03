@@ -1,6 +1,6 @@
 <% if seguridad_desde('nomina') %>
 	<% unless @m.blank? or @e.blank? %>
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'table', text: cristiano(@m).pluralize, clr: app_color[:app]} %></h5>
+		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'table', text: m_to_name(@m), clr: app_color[:app]} %></h5>
 
 		<%= render partial: '0p/tabla/solo_tabla', locals: {c: @m.tableize, a: 'index'} %>
 	<% else %>

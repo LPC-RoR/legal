@@ -8,8 +8,8 @@ class Aplicacion::AppAdministradoresController < ApplicationController
 
   # GET /app_administradores or /app_administradores.json
   def index
-    @coleccion = {}
-    @coleccion['app_administradores'] = AppAdministrador.all
+#    init_tabla('controller_name', Tabla, init, paginate)
+    init_tabla('app_administradores', AppAdministrador.all, true, false)
   end
 
   # GET /app_administradores/1 or /app_administradores/1.json

@@ -3,7 +3,6 @@ class Tarifas::TarValoresController < ApplicationController
 
   # GET /tar_valores or /tar_valores.json
   def index
-    @coleccion = TarValor.all
   end
 
   # GET /tar_valores/1 or /tar_valores/1.json

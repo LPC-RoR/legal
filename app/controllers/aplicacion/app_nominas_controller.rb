@@ -8,14 +8,15 @@ class Aplicacion::AppNominasController < ApplicationController
 
   # GET /app_nominas or /app_nominas.json
   def index
-    @coleccion = AppNomina.all
   end
 
   # GET /app_nominas/1 or /app_nominas/1.json
   def show
-    @coleccion = {}
-    @coleccion['tar_bases'] = @objeto.tar_bases
-    @coleccion['tar_variables'] = @objeto.tar_variables
+#    @coleccion = {}
+#    @coleccion['tar_bases'] = @objeto.tar_bases
+#    @coleccion['tar_variables'] = @objeto.tar_variables
+    init_tabla('tar_bases', @objeto.tar_bases, false)
+    add_tabla('tar_variables', @objeto.tar_variables, false)
 
     carga_sidebar('Administración', 'Nómina')
     @modelos_disponibles = StModelo.where(st_modelo: (StModelo.all.map {|st_modelo| st_modelo.st_modelo} - @objeto.st_perfil_modelos.map {|st_perfil_modelo| st_perfil_modelo.st_perfil_modelo})).order(:st_modelo)

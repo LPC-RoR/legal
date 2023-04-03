@@ -1,15 +1,18 @@
 class Aplicacion::AppDocumentosController < ApplicationController
   before_action :set_app_documento, only: %i[ show edit update destroy ]
 
+  include Bandejas
+
   # GET /app_documentos or /app_documentos.json
   def index
-    @coleccion = AppDocumento.all
   end
 
   # GET /app_documentos/1 or /app_documentos/1.json
   def show
-    @coleccion = {}
-    @coleccion['app_archivos'] = @objeto.archivos.order(created_at: :desc)
+#    init_tabla('controller_name', Tabla, init, paginate)
+    init_tabla('app_archivos', @objeto.archivos.order(created_at: :desc), true, false)
+#    @coleccion = {}
+#    @coleccion['app_archivos'] = @objeto.archivos.order(created_at: :desc)
   end
 
   # GET /app_documentos/new

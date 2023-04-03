@@ -3,7 +3,6 @@ class Tarifas::TarHorasController < ApplicationController
 
   # GET /tar_horas or /tar_horas.json
   def index
-    @coleccion = TarHora.all
   end
 
   # GET /tar_horas/1 or /tar_horas/1.json

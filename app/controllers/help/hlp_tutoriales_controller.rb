@@ -6,13 +6,13 @@ class Help::HlpTutorialesController < ApplicationController
 
   # GET /hlp_tutoriales or /hlp_tutoriales.json
   def index
-    @coleccion = HlpTutorial.all
   end
 
   # GET /hlp_tutoriales/1 or /hlp_tutoriales/1.json
   def show
-    @coleccion = {}
-    @coleccion['hlp_pasos'] = @objeto.hlp_pasos.order(:orden)
+#    @coleccion = {}
+#    @coleccion['hlp_pasos'] = @objeto.hlp_pasos.order(:orden)
+    init_tabla('hlp_pasos', @objeto.hlp_pasos.order(:orden), false)
   end
 
   # GET /hlp_tutoriales/new

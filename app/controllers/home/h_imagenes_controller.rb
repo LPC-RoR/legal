@@ -9,7 +9,6 @@ class Home::HImagenesController < ApplicationController
   # GET /h_imagenes
   # GET /h_imagenes.json
   def index
-    @coleccion = HImagen.all
   end
 
   # GET /h_imagenes/1

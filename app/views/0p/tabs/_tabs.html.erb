@@ -13,10 +13,10 @@
         <li class="nav-item">
           <!-- Construye el TAB y destaca el que está activo -->
           <% if t.class.name == 'String' %>
-            <%= link_to cword(t), {controller: controller_name, action: action_name, html_options: get_html_opts(options, token, t)}, class: "nav-link #{(t == options[token] ? 'active' : '')}" %>
+            <%= link_to corrige(t), {controller: controller_name, action: action_name, html_options: get_html_opts(options, token, t)}, class: "nav-link #{(t == options[token] ? 'active' : '')}" %>
           <% else %>
             <% if t[1] %>
-              <%= link_to cword(t[0]), {controller: controller_name, action: action_name, html_options: get_html_opts(options, token, t[0])}, class: "nav-link #{(t[0] == options[token] ? 'active' : '')}" %>
+              <%= link_to corrige(t[0]), {controller: controller_name, action: action_name, html_options: get_html_opts(options, token, t[0])}, class: "nav-link #{(t[0] == options[token] ? 'active' : '')}" %>
             <% end %>
           <% end %>
         </li>
