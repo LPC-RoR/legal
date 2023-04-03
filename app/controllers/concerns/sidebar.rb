@@ -78,7 +78,7 @@ module Sidebar
 #					@paginate = true
 #					init_tabla(@elemento.controlador, @elemento.controlador.classify.constantize.all.order(:created_at).page(params[:page]), true)
 #				end
-				init_tabla(@elemento.controlador, @elemento.controlador.classify.constantize.all.order(:created_at), not (@controlador.classify.constantize.all.count < 26 or @elemento.despliegue == 'ulist'))
+				init_tabla(@elemento.controlador, @elemento.controlador.classify.constantize.all.order(:created_at), (not (@controlador.classify.constantize.all.count < 26 or @elemento.despliegue == 'ulist')))
 
 		    end
 		end
