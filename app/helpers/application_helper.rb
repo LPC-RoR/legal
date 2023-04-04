@@ -387,6 +387,11 @@ module ApplicationHelper
 	    return text
 	end
 
+	## ------------------------------------------------------- GENERAL
+	def perfiles_operativos
+		AppNomina.all.map {|nomina| nomina.nombre}.union(AppAdministrador.all.map {|admin| admin.administrador unless admin.email == 'hugo.chinga.g@gmail.com'}.compact)
+	end
+
 	## ------------------------------------------------------- PUBLICACION
 
 	def get_evaluacion_publicacion(publicacion, item)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_04_140706) do
+ActiveRecord::Schema.define(version: 2023_04_04_153238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,6 +304,9 @@ ActiveRecord::Schema.define(version: 2023_04_04_140706) do
     t.integer "annio"
     t.integer "mes"
     t.integer "reg_reporte_id"
+    t.integer "horas"
+    t.integer "minutos"
+    t.string "abogado"
     t.index ["RegReporteId"], name: "index_registros_on_RegReporteId"
     t.index ["annio"], name: "index_registros_on_annio"
     t.index ["estado"], name: "index_registros_on_estado"

@@ -12,7 +12,9 @@ class Registro < ApplicationRecord
 		'estado'
 	]
 
-	def padre
+    validates_presence_of :fecha, :abogado, :detalle
+
+ 	def padre
 		if self.owner_class.blank?
 			nil
 		else

@@ -1,19 +1,30 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha', v: true } %>
-<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %>
+<div class="row">
+	<div class="col-md-4">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha', v: true } %>
+		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %>
+	</div>
+	<div class="col-md-4">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Abogado', v: true } %>
+		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :abogado, sel_list: perfiles_operativos, label: 'Abogado' } %>
+	</div>
+	<div class="col-md-2">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Horas', v: false } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :horas } %>
+	</div>
+	<div class="col-md-2">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Minutos', v: false } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :minutos } %>
+	</div>
+</div>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
-<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: Registro::TIPO_REGISTRO, label: 'Tipo de Registro' } %>
+
+
 
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Detalle', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :detalle } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nota', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nota', v: false } %>
 <%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :nota } %>
-
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Duración', v: true } %>
-<%= render partial: '0p/form_fields/time', locals: { form: form, token: :duracion } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descuento', v: true } %>
-<%= render partial: '0p/form_fields/time', locals: { form: form, token: :descuento } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
