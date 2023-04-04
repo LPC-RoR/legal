@@ -69,11 +69,13 @@ class RegistrosController < ApplicationController
 
   def excluye_registro
     objeto_base = params[:class_name].constantize.find(params[:objeto_id])
-    @objeto.estado = 'ingreso'
-    @objeto.reg_reporte_id = nil
-    @objeto.save
+    unless @reg_reporte_id.blank?
+      @objeto.estado = 'ingreso'
+      @objeto.reg_reporte_id = nil
+      @objeto.save
+    end
 
-    redirect_to objeto_base
+    redirect_to "/#{objeto_base.class.name.tableize}/#{objeto_base.id}?html_options[menu]=Registro"
   end
 
   # DELETE /registros/1 or /registros/1.json
@@ -93,11 +95,11 @@ class RegistrosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/#{@objeto.padre.class.name.downcase.pluralize}/#{@objeto.padre.id}?html_options[tab]=Registro"
+      @redireccion = "/#{@objeto.padre.class.name.tableize}/#{@objeto.padre.id}?html_options[menu]=Registro"
     end
 
     # Only allow a list of trusted parameters through.
     def registro_params
-      params.require(:registro).permit(:owner_class, :owner_id, :fecha, :tipo, :detalle, :nota, :duracion, :descuento, :razon_descuento, :estado)
+      params.require(:registro).permit(:owner_class, :owner_id, :fecha, :tipo, :detalle, :nota, :duracion, :descuento, :razon_descuento, :estado, :abogado, :horas, :minutos)
     end
 end
