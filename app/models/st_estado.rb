@@ -7,7 +7,7 @@ class StEstado < ApplicationRecord
 
 	belongs_to :st_modelo
 
-    validates_presence_of :orden, :estado, :destinos
+    validates_presence_of :orden, :estado
 
   	def estado
 		self.st_estado

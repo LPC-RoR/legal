@@ -28,22 +28,26 @@
 
 <% elsif @options[:menu] == 'Facturacion' %>
 
-	<%#= DateTime.current.to_date %>
-	<%#= DateTime.now.to_date %>
-
 	<div class='row'>
 		<div class='col-md-6'>
 
-			<% unless uf_del_dia.blank? %>
-				<small>UF del Día: <%= uf_del_dia %></small></br>
-				Cuantía : <%=number_to_currency(@objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(@objeto.cuantia_uf, unit: 'UF') %>
-			<% else %>
-				No se ha ingresado la UF del dia de hoy
-			<% end %>
-			</br></br>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Detalle Cuantía', clr: app_color[:app]} %></h5>
-			<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_valor_cuantias', a: 'index'} %>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
+			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
 
+			<% unless @objeto.tar_tarifa.blank? %>
+				<% unless uf_del_dia.blank? %>
+					<small>UF del Día: <%= s_pesos2(uf_del_dia) %></small></br>
+					Cuantía : <%=number_to_currency(@objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(@objeto.cuantia_uf, unit: 'UF') %>
+				<% else %>
+					No se ha ingresado la UF del dia de hoy
+				<% end %>
+				</br></br>
+				<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Detalle Cuantía', clr: app_color[:app]} %></h5>
+				<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_valor_cuantias', a: 'index'} %>
+
+				<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: app_color[:app]} %></h5>
+				<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>
+			<% end %>
 		</div>
 		<div class='col-md-6'>
 			<% if @objeto.tar_tarifa.present? %>
@@ -52,25 +56,10 @@
 		</div>
 	</div>
 
-<% elsif @options[:menu] == 'Tarifas' %>
-
-	<div class='row'>
-		<div class='col-md-6'>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
-
-			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
-		</div>
-		<div class='col-md-6'>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa Hora', clr: app_color[:app]} %></h5>
-
-			<%= render partial: 'tarifas/partials/asigna_tarifa_hora', locals: {objeto: @objeto} %>
-		</div>
-	</div>
-
 <% elsif @options[:menu] == 'Cuantía' %>
 	<!--h5><%#= render partial: '0p/general/icon_text', locals: {gly: 'currency-dollar', text: 'Cuantía', clr: app_color[:app]} %></h5-->
 
-	<small>UF del Día: <%= uf_del_dia %></small></br>
+	<small>UF del Día: <%= s_pesos2(uf_del_dia) %></small></br>
 	Cuantía : <%=number_to_currency(@objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(@objeto.cuantia_uf, unit: 'UF') %>
 	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_valor_cuantias', a: 'index'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'tar_valor_cuantias', gly: 'plus-circle', clr: color('tar_valor_cuantias')} %>

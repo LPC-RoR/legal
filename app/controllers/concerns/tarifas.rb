@@ -1,11 +1,6 @@
 module Tarifas
 	extend ActiveSupport::Concern
 
-	def uf_del_dia
-		uf = TarUfSistema.find_by(fecha: DateTime.now.to_date)
-		uf.blank? ? nil : number_to_currency(uf.valor, locale: :en)
-	end
-
 	def calcula(formula, libreria, causa)
 
 		while formula.match(/\([^()]*\)/) do

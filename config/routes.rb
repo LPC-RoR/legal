@@ -130,6 +130,7 @@ Rails.application.routes.draw do
       match :crea_facturacion, via: :get, on: :collection
       match :elimina, via: :get, on: :member
       match :facturable, via: :get, on: :member
+      match :facturar, via: :get, on: :member
     end
     resources :tar_servicios
 
@@ -140,6 +141,8 @@ Rails.application.routes.draw do
       match :back_estado, via: :get, on: :member
       match :set_pago, via: :post, on: :member
       match :set_facturada, via: :get, on: :member
+      match :crea_factura, via: :get, on: :collection
+      match :cambio_estado, via: :get, on: :member
     end
 
     resources :tar_variables

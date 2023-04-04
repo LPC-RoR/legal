@@ -18,5 +18,8 @@ module Legal
 
     # +++ HCH activa locala :es
     config.i18n.default_locale = :es
+
+    config.time_zone = 'Santiago'
+    config.active_record.default_timezone = :local
   end
 end

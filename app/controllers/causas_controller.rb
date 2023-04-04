@@ -10,26 +10,23 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab( { menu: ['Facturacion', 'Documentos y enlaces', 'Registro', 'Reportes', 'Tarifas', 'Cuantía'] }, true )
+    init_tab( { menu: ['Facturacion', 'Documentos y enlaces', 'Registro', 'Reportes', 'Cuantía'] }, true )
 
-#    @coleccion = {}
-
-    if @options[:menu] == 'Registro'
-      init_tabla('registros', @objeto.registros, false)
-      @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
-    elsif @options[:menu] == 'Reportes'
-      init_tabla('reg_reportes', @objeto.reportes, false)
-      @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
+    if @options[:menu] == 'Facturacion'
+      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+      add_tabla('tar_facturaciones', @objeto.facturaciones, false)
     elsif @options[:menu] == 'Documentos y enlaces'
       AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 
       init_tabla('app_directorios', @objeto.repo.directorios, false)
       add_tabla('app_documentos', @objeto.repo.documentos, false)
       add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-    elsif @options[:menu] == 'Facturacion'
-      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
-      add_tabla('tar_facturaciones', @objeto.facturaciones, false)
-    elsif @options[:menu] == 'Tarifas'
+    elsif @options[:menu] == 'Registro'
+      init_tabla('registros', @objeto.registros, false)
+      @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
+    elsif @options[:menu] == 'Reportes'
+      init_tabla('reg_reportes', @objeto.reportes, false)
+      @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
     elsif @options[:menu] == 'Cuantía'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
     end

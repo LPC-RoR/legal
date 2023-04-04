@@ -1,5 +1,5 @@
 class Tarifas::TarFacturasController < ApplicationController
-  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento back_estado set_pago set_facturada]
+  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago set_facturada]
 
   include Bandejas
 
@@ -24,7 +24,18 @@ class Tarifas::TarFacturasController < ApplicationController
 
   # GET /tar_facturas/new
   def new
-    @objeto = TarFactura.new
+    @objeto = TarFactura.new(owner_class: params[:class_name], owner_id: params[:objeto_id], estado: 'ingreso')
+  end
+
+  def crea_factura
+    factura = TarFactura.create(owner_class: params[:class_name], owner_id: params[:objeto_id], estado: 'ingreso')
+
+    facturaciones = TarFacturacion.where(cliente_class: params[:class_name], cliente_id: params[:objeto_id], estado: 'ingreso')
+    facturaciones.each do |facturacion|
+      factura.tar_facturaciones << facturacion
+    end
+
+    redirect_to factura
   end
 
   # GET /tar_facturas/1/edit
@@ -60,53 +71,47 @@ class Tarifas::TarFacturasController < ApplicationController
   end
 
   def set_documento
-    parametro = false
+    modificado = false
     unless params[:set_documento][:documento].blank?
       @objeto.documento = params[:set_documento][:documento].to_i
       @objeto.estado = 'facturada'
-      @objeto.tar_facturaciones.each do |fact|
-        fact.estado = 'facturada'
-        fact.save
+      modificado = true
+    else
+      if params[:set_documento][:fecha_del_dia] == '1'
+        @objeto.fecha_uf = nil
+        modificado = true
       end
-      parametro = true
     end
 
-    unless params[:set_documento][:fecha_uf].blank? and params[:set_documento][:uf_factura].blank?
-      @objeto.fecha_uf = params[:set_documento][:fecha_uf]
-      @objeto.uf_factura = params[:set_documento][:uf_factura]
-      @objeto.tar_facturaciones.each do |fact|
-        if fact.monto_uf.present?
-          if fact.monto_uf > 0
-            uf_factura = params[:set_documento][:uf_factura].to_f
-            fact.monto = (fact.monto_uf * uf_factura)
-            fact.save
-          end
-        end
+    unless params[:set_documento]['fecha_uf(1i)'].blank? or params[:set_documento]['fecha_uf(2i)'].blank? or params[:set_documento]['fecha_uf(3i)'].blank?
+      @objeto.fecha_uf = DateTime.new(params[:set_documento]['fecha_uf(1i)'].to_i, params[:set_documento]['fecha_uf(2i)'].to_i, params[:set_documento]['fecha_uf(3i)'].to_i)
+      modificado = true
+    else 
+      if params[:set_documento][:documento].present?
+        @objeto.fecha_uf = DateTime.now
+        modificado = true
       end
-      parametro = true
     end
 
-    @objeto.save if parametro
+    @objeto.save if modificado
 
     redirect_to @objeto
   end
 
-  def back_estado
+  def cambio_estado
+    StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
 
-    case @objeto.estado
-    when 'facturada'
-      prev_estado = 'ingreso'
-    when 'pagada'
-      prev_estado = 'facturada'
+    if params[:st] == 'ingreso'
+      @objeto.documento = nil
+      @objeto.fecha_uf = nil 
+    elsif params[:st] == 'facturada'
+        @objeto.detalle_pago = nil
     end
 
-    @objeto.estado = prev_estado
-    @objeto.tar_facturaciones.each do |fact|
-      fact.estado = prev_estado
-      fact.save
-    end
+    @objeto.estado = params[:st]
     @objeto.save
 
+#    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
     redirect_to @objeto
   end
 
@@ -114,12 +119,25 @@ class Tarifas::TarFacturasController < ApplicationController
     unless params[:set_pago][:detalle_pago].blank?
       @objeto.detalle_pago = params[:set_pago][:detalle_pago]
       @objeto.estado = 'pagada'
-      @objeto.tar_facturaciones.each do |fact|
-        fact.estado = 'pagada'
-        fact.save
+      modificado = true
+    else
+      if params[:set_pago][:fecha_del_dia] == '1'
+        @objeto.fecha_pago = nil
+        modificado = true
       end
-      @objeto.save
     end
+
+    unless params[:set_pago]['fecha_pago(1i)'].blank? or params[:set_pago]['fecha_pago(2i)'].blank? or params[:set_pago]['fecha_pago(3i)'].blank?
+      @objeto.fecha_pago = DateTime.new(params[:set_pago]['fecha_pago(1i)'].to_i, params[:set_pago]['fecha_pago(2i)'].to_i, params[:set_pago]['fecha_pago(3i)'].to_i)
+      modificado = true
+    else 
+      if params[:set_pago][:detalle_pago].present?
+        @objeto.fecha_pago = DateTime.now
+        modificado = true
+      end
+    end
+
+    @objeto.save if modificado
 
     redirect_to @objeto
   end

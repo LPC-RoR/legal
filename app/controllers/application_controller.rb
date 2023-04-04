@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
 
 	helper_method :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id, :mi_seguridad?
 	helper_method :bandeja_controller?, :admin_controller?
+	helper_method :uf_del_dia
 
 	# Este método se usa para construir un nombre de directorio a partir de un correo electrónico.
 	def archivo_usuario(email, params)

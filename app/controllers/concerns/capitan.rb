@@ -47,4 +47,10 @@ module Capitan
 	    end
 	end
 
+	# **************************************************************************** GENERAL
+	def uf_del_dia
+		uf = TarUfSistema.find_by(fecha: DateTime.now.to_date)
+		uf.blank? ? nil : uf.valor
+	end
+
 end

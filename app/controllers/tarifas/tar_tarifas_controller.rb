@@ -76,7 +76,7 @@ class Tarifas::TarTarifasController < ApplicationController
     objeto = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.send(params[:class_name].tableize) << objeto
 
-    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Tarifas"
+    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Facturacion"
 
   end
 
@@ -86,7 +86,7 @@ class Tarifas::TarTarifasController < ApplicationController
     objeto = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.send(params[:class_name].tableize).delete(objeto)
 
-    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Tarifas"
+    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Facturacion"
 
   end
 
@@ -112,6 +112,6 @@ class Tarifas::TarTarifasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_tarifa_params
-      params.require(:tar_tarifa).permit(:tarifa, :estado, :facturables, :owner_class, :owner_id)
+      params.require(:tar_tarifa).permit(:tarifa, :estado, :facturables, :owner_class, :owner_id, :moneda, :valor, :valor_hora)
     end
 end

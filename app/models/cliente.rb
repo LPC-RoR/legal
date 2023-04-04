@@ -24,7 +24,11 @@ class Cliente < ApplicationRecord
 		TarServicio.where(owner_class: 'Cliente').where(owner_id: self.id)
 	end
 
-	def facturacion_pendiente
-    	TarFacturacion.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.id if tarf.padre.cliente.id == self.id})
+	def facturas
+		TarFactura.where(owner_class: 'Cliente', owner_id: self.id)
+	end
+
+	def facturaciones
+    	TarFacturacion.where(cliente_class: 'Cliente', cliente_id: self.id)
 	end
 end

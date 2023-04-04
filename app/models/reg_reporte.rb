@@ -29,11 +29,11 @@ class RegReporte < ApplicationRecord
 	end
 
 	def tarifa_reporte
-		self.owner.tar_hora.blank? ? 0 : self.owner.tar_hora.valor
+		self.owner.tar_tarifa.blank? ? 0 : (self.owner.tar_tarifa.valor_hora.blank? ? 0 : self.owner.tar_tarifa.valor_hora)
 	end
 
 	def moneda_reporte
-		self.owner.tar_hora.blank? ? nil : self.owner.tar_hora.moneda
+		self.owner.tar_tarifa.blank? ? nil : (self.owner.tar_tarifa.moneda.blank? ? 'UF' : self.owner.tar_tarifa.moneda)
 	end
 
 	def monto_reporte

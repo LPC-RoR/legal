@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_29_224751) do
+ActiveRecord::Schema.define(version: 2023_04_04_140706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -482,6 +482,10 @@ ActiveRecord::Schema.define(version: 2023_03_29_224751) do
     t.integer "tar_factura_id"
     t.decimal "monto_uf"
     t.string "moneda"
+    t.string "cliente_class"
+    t.integer "cliente_id"
+    t.index ["cliente_class"], name: "index_tar_facturaciones_on_cliente_class"
+    t.index ["cliente_id"], name: "index_tar_facturaciones_on_cliente_id"
     t.index ["estado"], name: "index_tar_facturaciones_on_estado"
     t.index ["facturable"], name: "index_tar_facturaciones_on_facturable"
     t.index ["moneda"], name: "index_tar_facturaciones_on_moneda"
@@ -501,7 +505,9 @@ ActiveRecord::Schema.define(version: 2023_03_29_224751) do
     t.datetime "fecha_uf"
     t.decimal "uf_factura"
     t.string "concepto"
+    t.datetime "fecha_pago"
     t.index ["estado"], name: "index_tar_facturas_on_estado"
+    t.index ["fecha_pago"], name: "index_tar_facturas_on_fecha_pago"
     t.index ["owner_class"], name: "index_tar_facturas_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"
   end
@@ -588,8 +594,12 @@ ActiveRecord::Schema.define(version: 2023_03_29_224751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "facturables"
+    t.string "moneda"
+    t.decimal "valor"
+    t.decimal "valor_hora"
     t.index ["estado"], name: "index_tar_tarifas_on_estado"
     t.index ["facturables"], name: "index_tar_tarifas_on_facturables"
+    t.index ["moneda"], name: "index_tar_tarifas_on_moneda"
     t.index ["owner_class"], name: "index_tar_tarifas_on_owner_class"
     t.index ["owner_id"], name: "index_tar_tarifas_on_owner_id"
   end

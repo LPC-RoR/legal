@@ -13,7 +13,7 @@ class Estados::StModelosController < ApplicationController
 #    @coleccion = {}
 #    @coleccion['st_estados'] = @objeto.st_estados.order(:orden)
 #    @paginate = false
-    init_tabla('st_modelos', @objeto.st_estados.order(:orden), false)
+    init_tabla('st_estados', @objeto.st_estados.order(:orden), false)
   end
 
   # GET /st_modelos/new

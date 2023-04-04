@@ -1,42 +1,88 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: "Factura de cliente: #{@objeto.padre.razon_social	}", clr: app_color[:app]} %></h4>
+		<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: "Factura de cliente: #{@objeto.padre.razon_social	}", clr: app_color[:app]} %></h4>
 
-<small>
-Estado: <%= @objeto.estado %></br>
-Número factura: <%= @objeto.documento %></br>
-Detalle del pago: <%= @objeto.detalle_pago %></br>
-UF del dia <%= @objeto.fecha_uf %> : <%= number_to_currency(@objeto.uf_factura, locale: :en, precision: 2) %>
-</small>
-
-<% if @objeto.estado == 'ingreso' %>
-	<%= form_for :set_documento, url: "/tar_facturas/#{@objeto.id}/set_documento" do |form| %>
-		<div class='form-inline'>
-		<small>
-			<%= form.text_field(:documento, size: 20, class: 'form-control', placeholder: 'Número Factura' ) %></br>
-		Día UF | UF</br>
-			<%= form.date_select :fecha_uf , {order: [:day, :month, :year], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?' }, start_year: Date.today.year + 10, end_year: Date.today.year - 100}, {required: false} %>
+		<%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
+		</br>
 
 
+<div class="row">
+	<div class='col-md-6'>
 
+ 		<small>
+		Estado: <%= @objeto.estado %></br>
+		Número factura: <%= @objeto.documento %></br>
+		Detalle del pago: <%= l_fecha(@objeto.fecha_pago) %> <%= @objeto.detalle_pago %></br>
 
-			<%= form.text_field(:uf_factura, size: 20, class: 'form-control', placeholder: 'UF Factura' ) %>
-			<button type="submit" class="btn btn-info">
-			  <i class="bi bi-check-all"></i>
-			</button>
+		UF del día <%= l_fecha(@objeto.fecha) %> : <%= @objeto.uf.blank? ? 'No hay UF del sistema para este día' : number_to_currency(@objeto.uf, locale: :en, precision: 2) %>
 		</small>
+		<hr>
+		<% if @objeto.estado == 'ingreso' %>
+			<%= form_for :set_documento, url: "/tar_facturas/#{@objeto.id}/set_documento" do |form| %>
 
-		</div>
-	<% end  %>
-<% elsif @objeto.estado == 'facturada' %>
-	<%= form_for :set_pago, url: "/tar_facturas/#{@objeto.id}/set_pago" do |form| %>
-		<div class='form-inline'>
-			<%= form.text_field(:detalle_pago, size: 60, class: 'form-control', placeholder: 'Detalle del pago' ) %>
+				<small>
+					<% unless @objeto.uf.blank? %>
+						
+					Número de la factura</br>
+					<%= form.text_field(:documento, class: 'form-control', placeholder: 'Número Factura' ) %></br>
+					<!--/br-->
+					<% if @objeto.fecha_uf.blank? %>
+						Fecha UF <small>(Si no se ingresa fecha, utilizará la fecha del día)</small></br>
+						<%= form.date_select :fecha_uf , {order: [:day, :month, :year], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?' }, start_year: Date.today.year + 10, end_year: Date.today.year - 100}, {required: false} %>
+					<% else %>
+						<label>
+						  <%= form.check_box :fecha_del_dia %>
+						  Usar fecha del día
+						</label>
+					<% end %>
+					<button type="submit" class="btn btn-info">
+					  <i class="bi bi-check-all"></i>
+					</button>
+					<% end %>
+				</small>
 
-			<button type="submit" class="btn btn-info">
-			  <i class="bi bi-check-all"></i>
-			</button>
-		</div>
-	<% end  %>
-<% end %>
-</br>
+			<% end  %>
+		<% elsif @objeto.estado == 'facturada' %>
+			<%= form_for :set_pago, url: "/tar_facturas/#{@objeto.id}/set_pago" do |form| %>
+				<small>
+					<% if @objeto.fecha_pago.blank? %>
+						<%= form.date_select :fecha_pago , {order: [:day, :month, :year], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?' }, start_year: Date.today.year + 10, end_year: Date.today.year - 100}, {required: false} %></br></br>
+					<% else %>
+						<label>
+						  <%= form.check_box :fecha_del_dia %>
+						  Usar fecha del día
+						</label>
+					<% end %>
+					<%= form.text_field(:detalle_pago, class: 'form-control', placeholder: 'Detalle del pago' ) %>
 
-<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} %>
+					<button type="submit" class="btn btn-info">
+					  <i class="bi bi-check-all"></i>
+					</button>
+				</small>
+			<% end  %>
+		<% end %>
+		</br>
+
+		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>
+	</div>
+	<div class='col-md-6'>
+		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: " Facturación pendiente", clr: app_color[:app]} %></h5>
+
+		<% unless @objeto.padre.facturaciones.where(tar_factura_id: nil).empty? %>
+		<table class='table'>
+			<tbody>
+				<% @objeto.padre.facturaciones.where(tar_factura_id: nil).each do |pendiente| %>
+					<tr>
+						<td><small><%= pendiente.glosa %></small></td>
+						<% if @objeto.estado == 'ingreso' %>
+							<td><%= render partial: '0p/general/btn_proceso', locals: {texto: nil, link: link_x_btn(pendiente, '/facturar', true), clr: color(pendiente.class.name.tableize), delete: false, gly: 'x-circle'} %></td>
+						<% end %>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% else %>
+			No hay facturaciones pendientes
+		<% end %>
+	</div>
+</div>
+
+<h4><%= "#{number_to_currency(@objeto.monto_pesos, locale: :en, precision: 0)} | #{number_to_currency(@objeto.monto_uf, unit: 'UF', precision: 2)}" %></h4>

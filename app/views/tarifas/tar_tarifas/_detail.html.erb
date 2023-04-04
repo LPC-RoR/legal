@@ -4,6 +4,11 @@
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: ' Elementos Facturables', v: false } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :facturables } %>
 
+<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['UF', 'Pesos'] } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Valor hora', v: false } %>
+<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor_hora } %>
+
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>

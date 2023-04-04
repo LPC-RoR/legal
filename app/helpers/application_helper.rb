@@ -334,7 +334,7 @@ module ApplicationHelper
 
 		unless archivo.send(campo).blank?
 			if ['DateTime', 'Time'].include?(archivo.send(campo).class.name)
-				texto_campo = archivo.send(campo).strftime("%d-%m-%Y")
+				texto_campo = l_fecha(archivo.send(campo))
 			elsif prefijos.include?('uf') 
 				texto_campo = number_to_currency(archivo.send(campo), unit: 'UF', precision: 2, format: '%u %n')
 			elsif prefijos.include?('$')
@@ -345,7 +345,6 @@ module ApplicationHelper
 				texto_campo = archivo.send(campo)
 			end
 			[texto_campo, prefijos, archivo.send(campo).class.name]
-#			[(['DateTime', 'Time'].include?(archivo.send(campo).class.name) ? archivo.send(campo).strftime("%d-%m-%Y") : archivo.send(campo)), prefijos]
 		else
 			nil
 		end

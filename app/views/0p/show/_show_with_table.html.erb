@@ -23,7 +23,7 @@
 			<% elsif field[2] == 'datetime' %>
 				<tr>
 					<td><small><b><%=field[1]%></b></small></td>
-					<td><small><%=( objeto.send(field[0]).strftime("%d-%m-%Y") unless objeto.send(field[0]).blank? )%></small></td>
+					<td><small><%=( l_fecha(objeto.send(field[0])) unless objeto.send(field[0]).blank? )%></small></td>
 				</tr>
 			<% elsif field[2] == 'asociation' %>
 				<tr>

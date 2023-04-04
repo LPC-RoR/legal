@@ -3,7 +3,7 @@
 
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Estado', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :st_estado } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Destinos', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Destinos', v: false } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :destinos } %>
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Destinos para Administradores', v: false } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :destinos_admin } %>

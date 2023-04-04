@@ -25,7 +25,7 @@
         <small>
           <i class="bi bi-tag"></i> <%= resp.tipo %> - 
           <i class="bi bi-mailbox"></i> <%= resp.app_perfil.email %> - 
-          <i class="bi bi-calendar-event"></i> <%= resp.fecha_envio.strftime("%d-%m-%Y") %>
+          <i class="bi bi-calendar-event"></i> <%= l_fecha(resp.fecha_envio) %>
         </small>
         <h6>
           <%= sanitize simple_format(resp.detalle) %>

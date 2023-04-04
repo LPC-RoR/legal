@@ -7,9 +7,6 @@ class RegReportesController < ApplicationController
 
   # GET /reg_reportes/1 or /reg_reportes/1.json
   def show
-#    @coleccion = {}
-#    @coleccion['registros'] = @objeto.registros
-#    @coleccion['tar_facturaciones'] = @objeto.facturaciones
     init_tabla('registros', @objeto.registros, false)
     add_tabla('tar_facturaciones', @objeto.facturaciones, false)
   end

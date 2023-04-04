@@ -11,17 +11,19 @@ class ClientesController < ApplicationController
   # GET /clientes/1 or /clientes/1.json
   def show
 
-    init_tab( { menu: ['Causas', 'Consultorías', 'Tarifas y servicios'] }, true )
+    init_tab( { menu: ['Facturas', 'Causas', 'Consultorías', 'Tarifas y servicios'] }, true )
 
-    @coleccion = {}
-    if @options[:menu] == 'Tarifas y servicios'
+#    @coleccion = {}
+    if @options[:menu] == 'Facturas'
+      init_tabla('tar_facturas', @objeto.facturas, false)
+    elsif @options[:menu] == 'Causas'
+      init_tabla('causas', @objeto.causas.order(:created_at), false)
+    elsif @options[:menu] == 'Consultorías'
+      init_tabla('consultorias', @objeto.consultorias.order(:created_at), false)
+    elsif @options[:menu] == 'Tarifas y servicios'
       init_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       add_tabla('tar_horas', @objeto.tarifas_hora.order(:created_at), false)
       add_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
-    elsif @options[:menu] == 'Causas'
-      init_tabla('causas', @objeto.causas.order(:created_at), false)
-    else
-      init_tabla('consultorias', @objeto.consultorias.order(:created_at), false)
     end
 
     @repo = AppRepo.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)

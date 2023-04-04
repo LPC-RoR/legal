@@ -11,36 +11,23 @@ class ConsultoriasController < ApplicationController
   # GET /consultorias/1 or /consultorias/1.json
   def show
 
-    init_bandejas
-    init_tab( { menu: ['Registro', 'Reportes', 'Documentos y enlaces', 'Facturación'] }, true )
+    init_tab( { menu: ['Facturacion', 'Documentos y enlaces', 'Registro', 'Reportes'] }, true )
 
-#    @coleccion = {}
-
-    if @options[:menu] == 'Registro'
-#      @coleccion['registros'] = @objeto.registros
-      init_tabla('registros', @objeto.registros, false)
-      @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
-    elsif @tab == 'Reportes'
-#      @coleccion['reg_reportes'] = @objeto.reportes
-      init_tabla('reg_reportes', @objeto.reportes, false)
-      @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
+    if @options[:menu] == 'Facturacion'
+#      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+      init_tabla('tar_facturaciones', @objeto.facturaciones, false)
     elsif @options[:menu] == 'Documentos y enlaces'
-      AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
+      AppRepo.create(repositorio: @objeto.consultoria, owner_class: 'Consultoria', owner_id: @objeto.id) if @objeto.repo.blank?
 
-#      @coleccion['app_directorios'] = @objeto.repo.directorios
-#      @coleccion['app_documentos'] = @objeto.repo.documentos
-
-#      @coleccion['app_enlaces'] = @objeto.enlaces.order(:descripcion)
       init_tabla('app_directorios', @objeto.repo.directorios, false)
       add_tabla('app_documentos', @objeto.repo.documentos, false)
       add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-    elsif @options[:menu] == 'Facturación'
-      @array_tarifa = tarifa_array(@objeto) if @objeto.tar_tarifa.present?
-
-#      @coleccion['tar_valores'] = @objeto.valores
-#      @coleccion['tar_facturaciones'] = @objeto.facturaciones
-      init_tabla('tar_valores', @objeto.valores, false)
-      add_tabla('tar_facturaciones', @objeto.facturaciones, false)
+    elsif @options[:menu] == 'Registro'
+      init_tabla('registros', @objeto.registros, false)
+      @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
+    elsif @options[:menu] == 'Reportes'
+      init_tabla('reg_reportes', @objeto.reportes, false)
+      @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
     end
 
   end

@@ -1,5 +1,5 @@
 class Tarifas::TarFacturacionesController < ApplicationController
-  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable ]
+  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar ]
 
   include Tarifas
 
@@ -25,22 +25,20 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
     if params[:owner_class] == 'RegReporte'
       # fACTURACION DEL REPORTE DE HORAS
-      monto = owner.moneda_reporte == 'UF' ? 0 : owner.monto_reporte
-      monto_uf = owner.moneda_reporte == 'UF' ? owner.monto_reporte : 0
-      TarFacturacion.create(owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: params[:facturable], estado: 'ingreso', monto: monto, monto_uf: monto_uf )
+      TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: params[:facturable], estado: 'ingreso', moneda: owner.moneda_reporte, monto: owner.monto_reporte )
     else
       # FACTURACION DE TARIFAS CON FORMULAS | VALORES
       # do_eval funciona para CAUSA/CONSULTORIA
       pago = owner.tar_tarifa.tar_pagos.find_by(codigo_formula: params[:facturable])
-      formula = TarFormula.find_by(codigo: params[:facturable]).tar_formula
+      formula = TarFormula.find_by(codigo: params[:facturable]).tar_formula if pago.valor.blank?
       libreria = owner.tar_tarifa.tar_formulas
       #----------------------------------------
       owner_class = owner.class.name
       moneda = (pago.moneda.blank? ? 'UF' : pago.moneda)
-      glosa = "#{pago.tar_pago} : #{owner.identificador} #{owner.send(owner.class.name.downcase)}"
-      monto = calcula( formula, libreria, owner) 
+      glosa = "#{pago.tar_pago} : #{owner.identificador if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
+      monto = pago.valor.blank? ? calcula( formula, libreria, owner) : pago.valor
       unless monto == 0
-        TarFacturacion.create(owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'ingreso', moneda: moneda, monto: monto)
+        TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'ingreso', moneda: moneda, monto: monto)
       end
     end
 
@@ -79,19 +77,23 @@ class Tarifas::TarFacturacionesController < ApplicationController
     end
   end
 
+  def facturar
+    factura = params[:class_name].constantize.find(params[:objeto_id])
+
+    factura.tar_facturaciones << @objeto
+
+    redirect_to factura
+  end
+
   def facturable
+
     tar_factura = @objeto.tar_factura
     tar_factura.tar_facturaciones.delete(@objeto)
 
-    if tar_factura.tar_facturaciones.empty?
-      tar_factura.delete
-      redirect_to tar_facturas_path
-    else
-      concepto = (tar_factura.tar_facturaciones.count == 1 ? tar_factura.tar_facturaciones.first.glosa : "Varios de cliente #{tar_factura.padre.razon_social}")
-      tar_factura.concepto = concepto
-      tar_factura.save
-      redirect_to tar_factura
-    end
+    concepto = (tar_factura.tar_facturaciones.count == 1 ? tar_factura.tar_facturaciones.first.glosa : "Varios de cliente #{tar_factura.padre.razon_social}")
+    tar_factura.concepto = concepto
+    tar_factura.save
+    redirect_to tar_factura
 
   end
 
