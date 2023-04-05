@@ -1,0 +1,4 @@
+	<% unless uf_del_dia.blank? %>
+		<small>UF del Día: <%= s_pesos2(uf_del_dia) %></small></br>
+		Cuantía : <%=number_to_currency(objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(objeto.cuantia_uf, unit: 'UF') %>
+	<% end %>

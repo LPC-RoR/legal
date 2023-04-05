@@ -25,7 +25,7 @@ class RegReporte < ApplicationRecord
 	end
 
 	def horas_reporte
-		self.registros.map {|r| r.duracion - r.descuento}.sum / 3600
+		self.registros.map {|r| r.horas.to_f + r.minutos.to_f/60}.sum
 	end
 
 	def tarifa_reporte
@@ -38,6 +38,10 @@ class RegReporte < ApplicationRecord
 
 	def monto_reporte
 		self.tarifa_reporte.blank? ? 0 : self.horas_reporte * self.tarifa_reporte
+	end
+
+	def as_owner
+		self.padre.as_owner
 	end
 
 end

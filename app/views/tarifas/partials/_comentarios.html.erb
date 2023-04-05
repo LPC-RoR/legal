@@ -1,0 +1,17 @@
+<% unless pago.blank? %>
+	<% unless pago.tar_comentarios.empty? %>
+
+		<ul>
+			<% pago.tar_comentarios.order(:orden).each do |comentario| %>
+				<% if comentario.tipo == 'Siempre' %>
+					<li><small><%= comentario.comentario %></small></li>
+				<% elsif comentario.tipo == 'Condición' %>
+					<% if eval_condicion(comentario.formula, pago.tar_tarifa.tar_formulas, objeto) %>
+						<li><small><%= comentario.comentario %></small></li>
+					<% end %>
+				<% end %>
+			<% end %>
+		</ul>
+
+	<% end %>	
+<% end %>

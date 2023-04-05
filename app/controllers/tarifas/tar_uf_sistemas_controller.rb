@@ -66,7 +66,7 @@ class Tarifas::TarUfSistemasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = app_enlaces_path
+      @redireccion = tar_tarifas_path
     end
 
     # Only allow a list of trusted parameters through.

@@ -22,7 +22,6 @@ class ClientesController < ApplicationController
       init_tabla('consultorias', @objeto.consultorias.order(:created_at), false)
     elsif @options[:menu] == 'Tarifas y servicios'
       init_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
-      add_tabla('tar_horas', @objeto.tarifas_hora.order(:created_at), false)
       add_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
     end
 

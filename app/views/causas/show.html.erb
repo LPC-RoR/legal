@@ -34,17 +34,10 @@
 			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
 			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
 
-			<% unless @objeto.tar_tarifa.blank? %>
-				<% unless uf_del_dia.blank? %>
-					<small>UF del Día: <%= s_pesos2(uf_del_dia) %></small></br>
-					Cuantía : <%=number_to_currency(@objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(@objeto.cuantia_uf, unit: 'UF') %>
-				<% else %>
-					No se ha ingresado la UF del dia de hoy
-				<% end %>
-				</br></br>
-				<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Detalle Cuantía', clr: app_color[:app]} %></h5>
-				<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_valor_cuantias', a: 'index'} %>
+			<%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: @objeto} if @objeto.class.name == 'Causa' %>
+			<%#= render partial: 'tarifas/partials/cuantia', locals: {objeto: @objeto, pago: pago} %>
 
+			<% unless @objeto.tar_tarifa.blank? %>
 				<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: app_color[:app]} %></h5>
 				<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>
 			<% end %>

@@ -12,7 +12,6 @@ class Causa < ApplicationRecord
 
 	belongs_to :cliente
 	belongs_to :tar_tarifa, optional: true
-	belongs_to :tar_hora, optional: true
 
 	belongs_to :tipo_causa, optional: true
 
@@ -69,6 +68,10 @@ class Causa < ApplicationRecord
 
 	def v_cuantia
 		[self.valores_cuantia.map {|vc| vc.valor}.sum, self.valores_cuantia.map {|vc| vc.valor_uf}.sum]
+	end
+
+	def as_owner
+		self.causa
 	end
 
 end

@@ -6,7 +6,6 @@ class Consultoria < ApplicationRecord
 
 	belongs_to :cliente
 	belongs_to :tar_tarifa, optional: true
-	belongs_to :tar_hora, optional: true
 
     validates_presence_of :consultoria
 
@@ -41,5 +40,9 @@ class Consultoria < ApplicationRecord
 
 	def registros
     	Registro.where(owner_class: 'Consultoria', owner_id: self.id)
+	end
+
+	def as_owner
+		self.consultoria
 	end
 end

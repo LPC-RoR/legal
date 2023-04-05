@@ -5,24 +5,12 @@ class Tarifas::TarTarifasController < ApplicationController
 
   # GET /tar_tarifas or /tar_tarifas.json
   def index
-    init_bandejas
-    
-#    @coleccion = {}
-#    @coleccion['tar_tarifas'] = TarTarifa.where(owner_class: '')
-
-#    @coleccion['tar_horas'] = TarHora.where(owner_class: '')
     init_tabla('tar_tarifas', TarTarifa.where(owner_class: ''), false)
-    add_tabla('tar_horas', TarHora.where(owner_class: ''), false)
+    add_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
   end
 
   # GET /tar_tarifas/1 or /tar_tarifas/1.json
   def show
-#    @coleccion = {}
-#    @coleccion['tar_pagos'] = @objeto.tar_pagos.all.order(:orden)
-#    @coleccion['tar_formulas'] = @objeto.tar_formulas.all.order(:orden)
-
-#    @coleccion['tar_elementos'] = TarElemento.all.order(:elemento)
-#    @coleccion['tar_detalles'] = @objeto.tar_detalles.order(:orden)
     init_tabla('tar_pagos', @objeto.tar_pagos.all.order(:orden), false)
     add_tabla('tar_formulas', @objeto.tar_formulas.all.order(:orden), false)
     add_tabla('tar_elementos', TarElemento.all.order(:elemento), false)

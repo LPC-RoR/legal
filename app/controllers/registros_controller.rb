@@ -54,11 +54,9 @@ class RegistrosController < ApplicationController
 
   def reporta_registro
     reportes = @objeto.padre.reportes
-    reportes_periodo = reportes.blank? ? nil : reportes.where(annio: @objeto.fecha.year, mes: @objeto.fecha.month)
-    reporte = reportes_periodo.blank? ? nil : reportes_periodo.last
+    reporte = reportes.blank? ? nil : reportes.find_by(annio: @objeto.fecha.year, mes: @objeto.fecha.month)
 
-    reporte = RegReporte.new(owner_class: @objeto.owner_class, owner_id: @objeto.owner_id, annio: @objeto.fecha.year, mes: @objeto.fecha.month, estado: 'ingreso') if reporte.blank?
-    reporte.save
+    reporte = RegReporte.create(owner_class: @objeto.owner_class, owner_id: @objeto.owner_id, annio: @objeto.fecha.year, mes: @objeto.fecha.month, estado: 'ingreso') if reporte.blank?
 
     reporte.registros << @objeto
     @objeto.estado = 'reportado'
@@ -69,13 +67,13 @@ class RegistrosController < ApplicationController
 
   def excluye_registro
     objeto_base = params[:class_name].constantize.find(params[:objeto_id])
-    unless @reg_reporte_id.blank?
+    unless @objeto.reg_reporte_id.blank?
       @objeto.estado = 'ingreso'
       @objeto.reg_reporte_id = nil
       @objeto.save
     end
 
-    redirect_to "/#{objeto_base.class.name.tableize}/#{objeto_base.id}?html_options[menu]=Registro"
+    redirect_to "/#{objeto_base.owner.class.name.tableize}/#{objeto_base.owner.id}?html_options[menu]=Registro"
   end
 
   # DELETE /registros/1 or /registros/1.json

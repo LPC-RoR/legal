@@ -23,8 +23,8 @@ module CapitanMenuHelper
 	        ['',        "/st_bandejas",       'nomina', 'inboxes'],
 	        ['',        "/app_repos/1",       'nomina', 'file-earmark-text'],
 	        ['',        "/app_repos/perfil",  'nomina', 'file-earmark-person'],
-	        ['',        "/tar_tarifas",       'nomina', 'cash-coin'],
-	        ['',        "/tar_facturas",      'nomina', 'currency-dollar']
+	        ['',        "/tar_tarifas",       'nomina', 'currency-dollar'],
+	        ['',        "/tar_facturas",      'nomina', 'check-all']
 	    ]
 
 	end

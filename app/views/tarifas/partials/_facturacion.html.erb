@@ -27,7 +27,7 @@
 			</small></br>
 		<% end %>
 
-		<!-- BOTON FFACTURACION -->
+		<!-- BOTON FACTURACION -->
 		<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.codigo_formula) %>
 	    	<%= render partial: '0p/general/btn_proceso', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.codigo_formula}", clr: app_color[:app], delete: false} unless pago.codigo_formula.blank? %>
 			</br></br>

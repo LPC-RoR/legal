@@ -11,14 +11,8 @@ class Aplicacion::AppEnlacesController < ApplicationController
 #    init_tabla('controller_name', Tabla, init, paginate)
     init_tabla('app_enlaces', AppEnlace.where(owner_id: nil).order(:descripcion), false) if @options[:enlaces] == 'Público'
     add_tabla('app_enlaces', AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion), false) if @options[:enlaces] == 'Perfil'
-    add_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
+#    add_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
     add_tabla('tar_detalle_cuantias', TarDetalleCuantia.all.order(:tar_detalle_cuantia), false)
-#    @coleccion = {}
-#    @coleccion['app_enlaces'] = AppEnlace.where(owner_id: nil).order(:descripcion) if @options[:enlaces] == 'Público'
-#    @coleccion['app_enlaces'] = AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion) if @options[:enlaces] == 'Perfil'
-#    @coleccion['tar_uf_sistemas'] = TarUfSistema.all.order(fecha: :desc)
-#    @coleccion['tar_detalle_cuantias'] = TarDetalleCuantia.all.order(:tar_detalle_cuantia)
-
   end
 
   # GET /app_enlaces/1 or /app_enlaces/1.json
