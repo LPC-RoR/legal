@@ -30,7 +30,7 @@ module Inicia
 			administrador = AppAdministrador.find_by(email: current_usuario.email)
 			nomina = AppNomina.find_by(email: current_usuario.email)
 
-			if nomina.present? or administrador.present or libre_registro?
+			if nomina.present? or administrador.present? or libre_registro?
 				perfil = AppPerfil.create(email: current_usuario.email)
 			end
 
