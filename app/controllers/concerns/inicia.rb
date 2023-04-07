@@ -10,7 +10,6 @@ module Inicia
 			@dog = Administrador.create(administrador: dog_name, email: dog_email) if @dog.blank?
 		end
 
-		set_tablas_base if SbLista.all.empty?
 	end
 
 	def inicia_sesion
@@ -37,6 +36,9 @@ module Inicia
 			end
 
 		end
+
+		# lo puse aqui porque dog ya estaba creado
+		set_tablas_base if SbLista.all.empty?
 
 		# si hay perfil_activo ? hay usuarios se inicia applicacion : se despliega home SIN perfil_activo
 		inicia_app if perfil.present?
