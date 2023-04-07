@@ -9,6 +9,8 @@ module Inicia
 			@dog = Administrador.find_by(email: dog_email)
 			@dog = Administrador.create(administrador: dog_name, email: dog_email) if @dog.blank?
 		end
+
+		set_tablas_base if SbLista.all.empty?
 	end
 
 	def inicia_sesion

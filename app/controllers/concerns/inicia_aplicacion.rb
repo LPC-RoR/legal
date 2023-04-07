@@ -29,10 +29,6 @@ module IniciaAplicacion
 					lista.sb_elementos.create(orden: 2, nivel: 1, tipo: 'item', elemento: 'Nómina', acceso: 'admin', activo: true, despliegue: 'list', controlador: 'app_nominas')
 				end
 
-				e_3 = elementos.find_by(elemento: 'Perfiles')
-				if e_3.blank?
-					lista.sb_elementos.create(orden: 3, nivel: 1, tipo: 'item', elemento: 'Perfiles', acceso: 'admin', activo: true, despliegue: 'list', controlador: 'app_perfiles')
-				end
 
 				e_4 = elementos.find_by(elemento: 'Menús Laterales')
 				if e_4.blank?
@@ -76,86 +72,6 @@ module IniciaAplicacion
 				ayuda = SbLista.create(lista: 'Ayuda', acceso: 'admin', link: '/recursos/ayuda')
 			end
 		end		
-
-		# APP_ADMINISTRADORES SIN _IDS QUE MIGRAR
-
-		if ActiveRecord::Base.connection.table_exists? 'app_administradores'
-			# DOG
-			dog = AppAdministrador.find_by(email: dog_email)
-			if dog.blank?
-				AppAdministrador.create(administrador: dog_name, email: dog_email)
-			end
-
-			if AppAdministrador.all.empty?
-				if ActiveRecord::Base.connection.table_exists? 'administradores'
-					Administrador.all.each do |adm|
-						app_adm = AppAdministrador.find_by(email: adm.email)
-						if app_adm.blank?
-							AppAdministrador.create(administrador: adm.administrador, email: adm.email)
-						end
-					end
-				end
-			end
-		end
-		
-		# APP_NOMINAS SIN _IDS QUE MIGRAR
-
-		if ActiveRecord::Base.connection.table_exists? 'app_nominas'
-			if AppNomina.all.empty?
-				if ActiveRecord::Base.connection.table_exists? 'nominas'
-					Nomina.all.each do |nom|
-						app_nom = AppNomina.find_by(email: nom.email)
-						if app_nom.blank?
-							AppNomina.create(nombre: nom.nombre, email: nom.email, tipo: nom.tipo)
-						end
-					end
-				end
-			end
-		end
-
-		# APP_PERFILES
-
-		if ActiveRecord::Base.connection.table_exists? 'app_perfiles'
-			if AppPerfil.all.empty?
-				if ActiveRecord::Base.connection.table_exists? 'perfiles'
-					Perfil.all.each do |per|
-						app_perfil = AppPerfil.find_by(email: per.email)
-						if app_perfil.blank?
-							app_perfil = AppPerfil.create(usuario_id: current_usuario.id, email: per.email)
-							administrador = AppAdministrador.find_by(email: per.email)
-							if administrador.present?
-								app_perfil.app_administrador = administrador
-								app_perfil.save
-							end
-						end
-						# se migran las CARPETAS
-#						per.carpetas.each do |car|
-#							car.app_perfil_id = app_perfil.id
-#							car.save
-#						end
-					end
-				end
-			end
-		end
-
-		# HLP_TUTORIALES
-
-		if ActiveRecord::Base.connection.table_exists? 'hlp_tutoriales'
-			if HlpTutorial.all.empty?
-				if ActiveRecord::Base.connection.table_exists? 'tutoriales'
-					Tutorial.all.each do |tut|
-						app_tut = HlpTutorial.find_by(tutorial: tut.tutorial)
-						if app_tut.blank?
-							app_tut = HlpTutorial.create(tutorial: tut.tutorial, detalle: tut.detalle)
-						end
-
-						tut.pasos.each do |paso|
-							app_tut.hlp_pasos.create(orden: paso.orden, paso: paso.paso, detalle: paso.detalle)
-						end
-					end
-				end
-			end
-		end
 
 	end
 
