@@ -339,6 +339,8 @@ module ApplicationHelper
 				texto_campo = number_to_currency(archivo.send(campo), unit: 'UF', precision: 2, format: '%u %n')
 			elsif prefijos.include?('$')
 				texto_campo = number_to_currency(archivo.send(campo), precision: 0, unit: '$', format: '%u %n')
+			elsif prefijos.include?('$2')
+				texto_campo = number_to_currency(archivo.send(campo), precision: 2, unit: '$', format: '%u %n')
 			elsif prefijos.include?('m')
 				texto_campo = number_to_currency(archivo.send(campo), precision: "#{archivo.send('moneda') == 'Pesos' ? '0' : '2'}}".to_i, unit: "#{archivo.send('moneda') == 'Pesos' ? '$' : 'UF'}", format: '%u %n')
 			else
