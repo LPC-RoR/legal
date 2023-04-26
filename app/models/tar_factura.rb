@@ -38,4 +38,8 @@ class TarFactura < ApplicationRecord
 		self.fecha_uf.blank? ? (TarUfSistema.find_by(fecha: DateTime.now.to_date).blank? ? nil : TarUfSistema.find_by(fecha: DateTime.now.to_date).valor) : (TarUfSistema.find_by(fecha: self.fecha_uf.to_date).blank? ? nil : TarUfSistema.find_by(fecha: self.fecha_uf.to_date).valor)
 	end
 
+	def d_concepto
+		self.concepto.blank? ? 'concepto no ingresado' : self.concepto
+	end
+
 end
