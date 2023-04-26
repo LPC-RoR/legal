@@ -3,8 +3,8 @@ class TarFactura < ApplicationRecord
 	# Tiene tar_facturaciones
 
 	TABLA_FIELDS = [
-		's#d_concepto',
 		'documento',
+		's#d_concepto',
 		'created_at'
 	]
 
