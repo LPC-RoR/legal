@@ -1,4 +1,4 @@
-		<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: "Factura de cliente: #{@objeto.padre.razon_social	}", clr: app_color[:app]} %></h4>
+		<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: "Factura de cliente: #{@objeto.padre.razon_social	}", clr: config[:color][:app]} %></h4>
 
 		<%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 		</br>
@@ -10,9 +10,9 @@
  		<small>
 		Estado: <%= @objeto.estado %></br>
 		Número factura: <%= @objeto.documento %></br>
-		Detalle del pago: <%= l_fecha(@objeto.fecha_pago) %> <%= @objeto.detalle_pago %></br>
+		Detalle del pago: <%= dma(@objeto.fecha_pago) %> <%= @objeto.detalle_pago %></br>
 
-		UF del día <%= l_fecha(@objeto.fecha) %> : <%= @objeto.uf.blank? ? 'No hay UF del sistema para este día' : number_to_currency(@objeto.uf, locale: :en, precision: 2) %>
+		UF del día <%= dma(@objeto.fecha) %> : <%= @objeto.uf.blank? ? 'No hay UF del sistema para este día' : number_to_currency(@objeto.uf, locale: :en, precision: 2) %>
 		</small>
 		<hr>
 		<% if @objeto.estado == 'ingreso' %>
@@ -61,10 +61,10 @@
 		<% end %>
 		</br>
 
-		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} unless @coleccion['tar_facturaciones'].empty? %>
 	</div>
 	<div class='col-md-6'>
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: " Facturación pendiente", clr: app_color[:app]} %></h5>
+		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: " Facturación pendiente", clr: config[:color][:app]} %></h5>
 
 		<% unless @objeto.padre.facturaciones.where(tar_factura_id: nil).empty? %>
 		<table class='table'>

@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-	<%= render partial: '0p/general/form_icon_text', locals: {text: m_to_name(@objeto.class.name), size: font_size[:title]} %>
+	<%= render partial: '0p/general/form_icon_text', locals: {text: m_to_name(@objeto.class.name), size: config[:font_size][:title]} %>
 
 	<%= form_with(model: @objeto, local: true) do |form| %>
 		<% if @objeto.errors.any? %>

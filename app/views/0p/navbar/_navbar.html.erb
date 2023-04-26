@@ -2,12 +2,12 @@
 <%= image_tag("logo.jpg", class: "img-responsive", id: "logo") if  File.exist?("app/assets/images/logo.jpg") %>
 
 <!--NAVBAR-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-<%=app_color[:navbar]%>">
+<nav class="navbar navbar-expand-lg navbar-dark bg-<%=config[:color][:navbar]%>">
   <div class="container-fluid">
     <!-- LOGO NAVBAR -->
-    <% if File.exist?("app/assets/images/#{app_setup[:logo_navbar]}") %>
-      <a class="navbar-brand" href="<%=app_setup[:home_link]%>">
-        <%= image_tag(app_setup[:logo_navbar], height: "40", class: "img-responsive", id: "navbar-logo") %>
+    <% if File.exist?("app/assets/images/#{config[:app][:logo_navbar]}") %>
+      <a class="navbar-brand" href="<%=config[:app][:home]%>">
+        <%= image_tag(config[:app][:logo_navbar], height: "40", class: "img-responsive", id: "navbar-logo") %>
       </a>
     <% end %>
 
@@ -30,7 +30,7 @@
           <% end %>
 
           <%= render partial: 'capitan/drop_down/ddown_principal' %>
-          <%= render partial: '0p/navbar/dd_enlaces' if usuario_signed_in? %>
+          <%= render partial: '0p/navbar/dd_enlaces' if usuario_signed_in? and config[:menu][:dd_enlaces] %>
         <% end %>
         
       </ul>
@@ -51,12 +51,12 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
         <!-- AYUDA -->
-        <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: ayuda_app_recursos_path, active: (controller_name == 'app_recursos' and action_name == 'ayuda'), delete: false, gly: 'question-square'} %>
+        <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: ayuda_app_recursos_path, active: (controller_name == 'app_recursos' and action_name == 'ayuda'), delete: false, gly: 'question-square'} if config[:menu][:ayuda] %>
 
         <% if usuario_signed_in? %>
 
           <!-- MENSAJE REGISTRADO -->
-          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: app_mensajes_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: app_mensajes_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if config[:menu][:contacto] %>
 
           <!-- SALIR -->
           <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: destroy_usuario_session_path, active: false, delete: true, gly: 'door-open'} %>
@@ -64,7 +64,7 @@
         <% else %>
 
           <!-- MENSAJE ANONIMO -->
-          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_app_mensaje_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if optional_menu_item[:contacto] %>
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_app_mensaje_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if config[:menu][:contacto] %>
 
           <!-- INGRESO -->
           <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_usuario_session_path, active: (controller_name == 'sessions'), delete: false, gly: 'person'} %>

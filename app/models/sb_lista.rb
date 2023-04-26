@@ -14,4 +14,5 @@ class SbLista < ApplicationRecord
 	has_many :sb_elementos
 
     validates_presence_of :lista
+
 end

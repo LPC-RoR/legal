@@ -69,7 +69,7 @@ module IniciaAplicacion
 			# LISTA AYUDA
 			ayuda = SbLista.find_by(lista: 'Ayuda')
 			if ayuda.blank?
-				ayuda = SbLista.create(lista: 'Ayuda', acceso: 'admin', link: '/recursos/ayuda')
+				ayuda = SbLista.create(lista: 'Ayuda', acceso: 'admin', link: '/app_recursos/ayuda')
 			end
 		end		
 

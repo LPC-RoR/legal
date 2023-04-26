@@ -1,13 +1,13 @@
 <div class='row'>
 	<div class='col-md-6'>
 		<!-- TARIFAS GENERALES -->
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas Generales', clr: app_color[:app]} %></h5>
-		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_tarifas', a: 'index'} %>
+		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas Generales', clr: config[:color][:app]} %></h5>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
 		<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: nil, c: 'tar_tarifas', a: 'index', gly: 'plus-circle'} %>
 	</div>
 	<div class='col-md-6'>
-		<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'calendar3', text: 'UF del Sistema', clr: app_color[:app]} %></h4>
-		<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_uf_sistemas', a: 'index'} %>
+		<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'calendar3', text: 'UF del Sistema', clr: config[:color][:app]} %></h4>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_uf_sistemas'} %>
 	</div>
 </div>
 

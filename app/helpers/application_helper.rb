@@ -9,11 +9,11 @@ module ApplicationHelper
 
 	def color(ref)
 		if [:app, :navbar].include?(ref)
-			app_color[ref]
+			config[:color][ref]
 		elsif ['hlp_tutoriales', 'hlp_pasos'].include?(ref)
-			app_color[:help]
+			config[:color][:help]
 		else
-			app_color[:app]
+			config[:color][:app]
 		end
 	end
 
@@ -56,40 +56,6 @@ module ApplicationHelper
 #			nil
 #		end
 #	end
-
-	## ------------------------------------------------------- SCOPES & PARTIALS
-
-	def controllers_scope
-		{
-			aplicacion: ['app_administradores', 'app_nominas', 'app_perfiles', 'app_observaciones', 'app_mejoras', 'app_imagenes', 'app_contactos', 'app_mensajes', 'app_repos', 'app_directorios', 'app_documentos', 'app_archivos', 'app_enlaces', 'app_recursos'],
-			home:       ['h_temas', 'h_links', 'h_imagenes'],
-			help:       ['conversaciones', 'mensajes', 'hlp_pasos', 'temaf_ayudas', 'hlp_tutoriales'],
-			sidebar:    ['sb_listas', 'sb_elementos'],
-			busqueda:   ['b_clave_facetas', 'b_claves', 'b_indice_facetas', 'b_indices', 'b_palabras', 'b_reglas'],
-			estados:    ['st_modelos', 'st_estados'],
-			data:       ['caracteristicas', 'caracterizaciones', 'columnas', 'datos', 'encabezados', 'etapas', 'lineas', 'opciones', 'tablas']
-		}
-	end
-
-	def scope_controller(controller)
-		if controllers_scope[:aplicacion].include?(controller)
-			'aplicacion'
-		elsif controllers_scope[:home].include?(controller)
-			'home'
-		elsif controllers_scope[:help].include?(controller)
-			'help'
-		elsif controllers_scope[:sidebar].include?(controller)
-			'sidebar'
-		elsif controllers_scope[:busqueda].include?(controller)
-			'busqueda'
-		elsif controllers_scope[:estados].include?(controller)
-			'estados'
-		elsif controllers_scope[:data].include?(controller)
-			'data'
-		else
-			app_scope_controller(controller)
-		end
-	end
 
 	## ------------------------------------------------------- MENU
 
@@ -163,7 +129,7 @@ module ApplicationHelper
 		st_modelo.blank? ? nil : st_modelo.primer_estado.st_estado
 	end
 
-	def count_modelo_estado(modelo, estado)
+	def count_modelo_estado(modelo, estado)0
 		modelo.constantize.where(estado: estado).count == 0 ? '' : "(#{modelo.constantize.where(estado: estado).count})"
 	end
 
@@ -180,22 +146,6 @@ module ApplicationHelper
 	# Obtiene los campos a desplegar en la tabla desde el objeto
 	def m_tabla_fields(objeto)
 		objeto.class::TABLA_FIELDS
-	end
-
-	def inline_form?(controller)
-		partial?(app_alias_tabla(controller), 'inline_nuevo')
-	end
-
-	# Objtiene LINK DEL BOTON NEW
-	def get_new_link(controller)
-		if inline_form?(controller)
-			tipo_new = 'inline_form'
-		else
-			tipo_new = 'normal'
-		end
-		if tipo_new == 'normal'
-			(app_alias_tabla(controller_name) == controller or @objeto.blank?) ? "/#{controller}/new" : "/#{@objeto.class.name.tableize}/#{@objeto.id}/#{controller}/new"
-		end
 	end
 
 	def sortable?(controller, field)
@@ -215,45 +165,6 @@ module ApplicationHelper
 
 	## ------------------------------------------------------- TABLA | BTNS
 	
-	def new_button_conditions(controller)
-		if ['app_administradores', 'app_nominas', 'hlp_tutoriales', 'hlp_pasos'].include?(controller)
-				seguridad_desde('admin')
-		elsif ['app_perfiles', 'usuarios', 'ind_palabras', 'app_contactos', 'app_directorios', 'app_documentos', 'app_archivos', 'app_enlaces'].include?(controller)
-			false
-		elsif ['app_mensajes'].include?(controller)
-			action_name == 'index' and @e == 'ingreso'
-		elsif ['sb_listas'].include?(controller)
-				seguridad_desde('admin')
-		elsif ['sb_elementos'].include?(controller)
-				(@objeto.acceso == 'dog' ? dog? : seguridad_desde('admin'))
-		elsif ['st_modelos'].include?(controller)
-				dog?
-		elsif ['st_estados'].include?(controller)
-				seguridad_desde('admin')
-		else
-			app_new_button_conditions(controller)
-		end
-	end
-	
-	def crud_conditions(objeto, btn)
-		clase = objeto.class.name
-		if ['AppAdministrador', 'AppNomina', 'HlpTutorial', 'HlpPaso'].include?(clase)
-				seguridad_desde('admin')
-		elsif ['AppPerfil', 'Usuario', 'AppMensaje' ].include?(clase)
-			false
-		elsif ['SbLista', 'SbElemento'].include?(clase)
-			(usuario_signed_in? and seguridad_desde('admin'))
-		elsif ['StModelo'].include?(clase)
-				dog?
-		elsif ['StEstado'].include?(clase)
-				seguridad_desde('admin')
-		elsif ['AppObservacion', 'AppMejora'].include?(clase)	
-			(usuario_signed_in? and objeto.perfil.id == current_usuario.id)
-		else
-			app_crud_conditions(objeto, btn)
-		end
-	end
-
 	# Link de un x_btn del modelo de una tabla
 	# objeto : objeto del detalle de la tabla
 	# accion : url al que hay que sumarle los parámetros}
@@ -334,7 +245,7 @@ module ApplicationHelper
 
 		unless archivo.send(campo).blank?
 			if ['DateTime', 'Time'].include?(archivo.send(campo).class.name)
-				texto_campo = l_fecha(archivo.send(campo))
+				texto_campo = dma(archivo.send(campo))
 			elsif prefijos.include?('uf') 
 				texto_campo = number_to_currency(archivo.send(campo), unit: 'UF', precision: 2, format: '%u %n')
 			elsif prefijos.include?('$')
@@ -374,7 +285,7 @@ module ApplicationHelper
 
 	## ------------------------------------------------------- GENERAL
 
-	# Manejode options para selectors múltiples
+	# Manejode options para selectors múltiples (VERSION PARA MULTI TABS SIN CAMBIOS)
 	def get_html_opts(options, label, value)
 		opts = options.clone
 		opts[label] = value

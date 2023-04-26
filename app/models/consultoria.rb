@@ -1,8 +1,9 @@
 class Consultoria < ApplicationRecord
 
 	TABLA_FIELDS = 	[
-		's#consultoria'
-	]
+		's#consultoria',
+		'cliente:razon_social'
+]
 
 	belongs_to :cliente
 	belongs_to :tar_tarifa, optional: true

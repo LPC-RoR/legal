@@ -1,0 +1,30 @@
+<p class='text-<%=clr%>'>
+	<i class="bi bi-<%=gly%>"></i></i><small> <%= nombre %></small>
+</p>
+<hr>
+<% if coleccion.empty? %>
+	<h6 class='text-muted'><small><small>Lista Vacía</small></small></h6>
+<% else %>
+
+	<% unless coleccion.blank? %>
+	  	<% coleccion.each do |objeto| %>
+			<div class='row'>
+				<div class='col-md-4'>
+					<small><small><p class='text-<%=clr%>'><%=objeto.send(field) %></p></small></small>
+				</div>
+				<div class='col-md-4'>
+					<%= link_to link_x_btn(objeto, '/cambia_rol', base) do %>
+						<i class="bi bi-<%=objeto.rol == 'admin' ? 'person-rolodex' : 'person'%>"></i>
+					<% end %>
+				</div>
+				<div class='col-md-4'>
+					<%= link_to link_x_btn(objeto, link, base) do %>
+						<i class="bi bi-<%=gly_link%>"></i>
+					<% end %>
+				</div>
+			</div>
+			<hr>
+		<% end %>
+	<% end %>
+
+<% end %>

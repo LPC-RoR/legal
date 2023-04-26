@@ -6,4 +6,4 @@
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Consultoría', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :consultoria } %>
 
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'hidden', token: :estado, label: nil, v: false } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>

@@ -14,9 +14,6 @@ module Inicia
 
 	def inicia_sesion
 
-		# Proceso para migrar tablas a formato AppTbla: activar si corresponde
-		# set_tablas_base if dog?
-
 		# se hace para no llamar a cada rato a la base de datos
 		perfil = perfil_activo
 

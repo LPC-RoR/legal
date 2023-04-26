@@ -20,17 +20,44 @@ Rails.application.routes.draw do
     match :cambio_estado, via: :get, on: :member
     match :crea_factura, via: :get, on: :member
   end
-  scope module: 'aplicacion' do
+
+# SCOPES *********************************************************
+  scope module: 'autenticacion' do
     resources :app_administradores
     resources :app_nominas
     resources :app_perfiles do
       # recurso SOLO si hay manejo de ESTADOS
       resources :st_perfil_modelos
-      match :desvincular, via: :get, on: :member
     end
-    resources :app_observaciones
-    resources :app_mejoras
+  end
 
+  scope module: 'recursos' do
+    resources :app_contactos
+    resources :app_enlaces
+    resources :app_mejoras
+    resources :app_mensajes do
+      match :respuesta, via: :post, on: :collection
+      match :estado, via: :get, on: :member
+    end
+    resources :app_msg_msgs
+    resources :app_observaciones
+  end
+
+  scope module: 'repositorios' do
+    resources :app_repos do
+      match :publico, via: :get, on: :collection
+      match :perfil, via: :get, on: :collection
+    end
+    resources :app_directorios do
+      match :nuevo, via: :post, on: :collection
+    end
+    resources :app_dir_dires
+    resources :app_documentos
+    resources :app_archivos
+    resources :app_imagenes
+  end
+
+  scope module: 'aplicacion' do
     resources :app_recursos do
       collection do
         match :ayuda, via: :get
@@ -39,27 +66,6 @@ Rails.application.routes.draw do
         match :procesos, via: :get
       end
     end
-
-    resources :app_imagenes
-    resources :app_contactos
-    resources :app_mensajes do
-      match :respuesta, via: :post, on: :collection
-      match :estado, via: :get, on: :member
-    end
-    resources :app_msg_msgs
-
-    resources :app_documentos
-    resources :app_dir_dires
-    resources :app_directorios do
-      match :nuevo, via: :post, on: :collection
-    end
-    resources :app_repos do
-      match :publico, via: :get, on: :collection
-      match :perfil, via: :get, on: :collection
-    end
-    resources :app_archivos
-
-    resources :app_enlaces
   end
 
   scope module: 'home' do

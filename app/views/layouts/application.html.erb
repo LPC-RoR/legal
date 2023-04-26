@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%=app_setup[:nombre]%></title>
+    <title><%=config[:app][:nombre]%></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -19,7 +19,7 @@
         <%= render partial: 'layouts/base_layout' %>
       <% else %>
 
-        <% if bandeja_controller?(controller_name) %>
+        <% if controller_name == 'st_bandejas' or bandeja_controllers.include?(controller_name) %>
             <%= render partial: 'layouts/bandejas' %>
         <% elsif controller_name == 'app_mensajes' and usuario_signed_in? %>
             <%= render partial: 'layouts/mensajes' %>
@@ -37,6 +37,6 @@
     <%# if objeto_tema_ayuda('foot').present? %>
       <%#= render partial: 'help/tema_ayudas/partials/elem_foot', locals: {elem: objeto_tema_ayuda('foot')} %>
     <%# end %>
-    <%= render partial: 'home/h_imagenes/partials/imagen', locals: {nombre: 'Foot', size: image_size[:foot]} if foot? %>
+    <%= render partial: 'home/h_imagenes/partials/imagen', locals: {nombre: 'Foot', size: config[:image][:foot][:size]} if foot? %>
   </body>
 </html>

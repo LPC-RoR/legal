@@ -1,6 +1,6 @@
 <div class='row'>
 	<div class='col-md-6'>
-		<!--p class='text-<%=app_color[:app]%>'>
+		<!--p class='text-<%=config[:color][:app]%>'>
 			<i class="bi bi-cash-coin"></i></i><small> Asignada</small>
 		</p-->
 		<% if objeto.tar_hora.blank? %>
@@ -10,7 +10,7 @@
 			<table class="table">
 				<tbody>
 			  		<tr>
-			  			<td><small><small><p class='text-<%=app_color[:app]%>'><%=objeto.tar_hora.tar_hora %></p></small></small></td>
+			  			<td><small><small><p class='text-<%=config[:color][:app]%>'><%=objeto.tar_hora.tar_hora %></p></small></small></td>
 			  			<td>
 			  				<%= link_to link_x_btn(objeto.tar_hora, '/desasigna', true) do %>
 			  					<i class="bi bi-x-circle"></i>

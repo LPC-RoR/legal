@@ -1,4 +1,4 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Causa : #{@objeto.causa}", clr: app_color[:app]} %></h4>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Causa : #{@objeto.causa}", clr: config[:color][:app]} %></h4>
 
 <%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 </br></br>
@@ -6,23 +6,22 @@
 <%= render partial: '0p/tabs/tabs', locals: { tabs: @tabs, options: @options, token: :menu } %>
 
 <% if @options[:menu] == 'Registro' %>
-	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'registros', a: 'index'} %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'registros', gly: 'plus-circle', clr: color('causas')} %>
 <% elsif @options[:menu] == 'Reportes' %>
-	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'reg_reportes', a: 'index'} %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'reg_reportes'} %>
 	<%= render partial: '0p/general/btn_proceso', locals: {texto: 'Proceso Registros', link: "/causas/#{@objeto.id}/procesa_registros", gly: 'clipboard-check' , clr: color(@objeto.class.name.tableize), delete: false} %>
 <% elsif @options[:menu] == 'Documentos y enlaces' %>
 
 	<div class='row'>
 		<div class='col-md-6'>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Repositorio de la causa', clr: app_color[:app]} %></h5>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Repositorio de la causa', clr: config[:color][:app]} %></h5>
 
-		    <%= render partial: 'aplicacion/app_directorios/partials/directorio', locals: {objeto: @objeto.repo} %>
+		    <%= render partial: 'repositorios/app_directorios/partials/directorio', locals: {objeto: @objeto.repo} %>
 		</div>
 		<div class='col-md-6'>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Enlaces de la causa', clr: app_color[:app]} %></h5>
-
-			<%= render partial: 'aplicacion/app_enlaces/partials/enlaces' %>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Enlaces de la causa', clr: config[:color][:app]} %></h5>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'app_enlaces'} %>
 		</div>
 	</div>
 
@@ -31,15 +30,14 @@
 	<div class='row'>
 		<div class='col-md-6'>
 
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: config[:color][:app]} %></h5>
 			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
 
 			<%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: @objeto} if @objeto.class.name == 'Causa' %>
-			<%#= render partial: 'tarifas/partials/cuantia', locals: {objeto: @objeto, pago: pago} %>
 
 			<% unless @objeto.tar_tarifa.blank? %>
-				<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: app_color[:app]} %></h5>
-				<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>
+				<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: config[:color][:app]} %></h5>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} unless @coleccion['tar_facturaciones'].empty? %>
 			<% end %>
 		</div>
 		<div class='col-md-6'>
@@ -50,10 +48,10 @@
 	</div>
 
 <% elsif @options[:menu] == 'Cuantía' %>
-	<!--h5><%#= render partial: '0p/general/icon_text', locals: {gly: 'currency-dollar', text: 'Cuantía', clr: app_color[:app]} %></h5-->
+	<!--h5><%#= render partial: '0p/general/icon_text', locals: {gly: 'currency-dollar', text: 'Cuantía', clr: config[:color][:app]} %></h5-->
 
 	<small>UF del Día: <%= s_pesos2(uf_del_dia) %></small></br>
 	Cuantía : <%=number_to_currency(@objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(@objeto.cuantia_uf, unit: 'UF') %>
-	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_valor_cuantias', a: 'index'} %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_valor_cuantias'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'tar_valor_cuantias', gly: 'plus-circle', clr: color('tar_valor_cuantias')} %>
 <% end %>

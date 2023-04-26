@@ -1,5 +1,5 @@
 class Aplicacion::AppRecursosController < ApplicationController
-  before_action :authenticate_usuario!, only: [:administracion, :procesos, :bandeja]
+  before_action :authenticate_usuario!, only: [:administracion, :procesos]
   before_action :inicia_sesion, only: [:administracion, :procesos, :home]
 
   include Sidebar

@@ -25,4 +25,5 @@ class SbElemento < ApplicationRecord
 	]
 
     validates_presence_of :tipo, :elemento
+
 end

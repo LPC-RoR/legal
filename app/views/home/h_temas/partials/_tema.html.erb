@@ -4,26 +4,26 @@
 		<% if img_side == 'izq'%>
 			<% unless HTema.find_by(tema: nombre).blank? %>
 			<% unless HTema.find_by(tema: nombre).imagenes.empty? %>
-			<%= render partial: '0p/imagenes/imagen', locals: {objeto: HTema.find_by(tema: nombre).imagenes.first ,field: 'imagen', size: image_size[:tema], img_class: img_class[:centrada]} %>
+			<%= render partial: '0p/imagenes/imagen', locals: {objeto: HTema.find_by(tema: nombre).imagenes.first ,field: 'imagen', size: config[:image][:tema][:size], img_class: ctes[:image][:centrada]} %>
 			<% end %>
 			<% end %>
 		<% else %>
-			<h<%=font_size[:title_tema]%> class="text-<%=app_color[:title_tema]%>"><%= nombre %></h<%=font_size[:title_tema]%>>
-			<h<%=font_size[:detalle_tema]%> class='text-<%=app_color[:detalle_tema]%>'>
+			<h<%=config[:font_size][:title_tema]%> class="text-<%=config[:color][:title_tema]%>"><%= nombre %></h<%=config[:font_size][:title_tema]%>>
+			<h<%=config[:font_size][:detalle_tema]%> class='text-<%=config[:color][:detalle_tema]%>'>
 				<%= sanitize simple_format(HTema.find_by(tema: nombre).detalle) unless HTema.find_by(tema: nombre).blank? %>
-			</h<%=font_size[:detalle_tema]%>>
+			</h<%=config[:font_size][:detalle_tema]%>>
 		<% end %>
 	</dir>
 	<dir class="col-md-<%=12-first_col%>">
 		<% if img_side == 'izq'%>
-			<h<%=font_size[:title_tema]%> class="text-<%=app_color[:title_tema]%>"><%= nombre %></h<%=font_size[:title_tema]%>>
-			<h<%=font_size[:detalle_tema]%> class='text-<%=app_color[:detalle_tema]%>'>
+			<h<%=config[:font_size][:title_tema]%> class="text-<%=config[:color][:title_tema]%>"><%= nombre %></h<%=config[:font_size][:title_tema]%>>
+			<h<%=config[:font_size][:detalle_tema]%> class='text-<%=config[:color][:detalle_tema]%>'>
 				<%= sanitize simple_format(HTema.find_by(tema: nombre).detalle) unless HTema.find_by(tema: nombre).blank? %>
-			</h<%=font_size[:detalle_tema]%>>
+			</h<%=config[:font_size][:detalle_tema]%>>
 		<% else %>
 			<% unless HTema.find_by(tema: nombre).blank? %>
 			<% unless HTema.find_by(tema: nombre).imagenes.empty? %>
-			<%= render partial: '0p/imagenes/imagen', locals: {objeto: HTema.find_by(tema: nombre).imagenes.first ,field: 'imagen', size: image_size[:tema], img_class: img_class[:centrada]} %>
+			<%= render partial: '0p/imagenes/imagen', locals: {objeto: HTema.find_by(tema: nombre).imagenes.first ,field: 'imagen', size: config[:image][:tema][:size], img_class: ctes[:image][:centrada]} %>
 			<% end %>
 			<% end %>
 		<% end %>

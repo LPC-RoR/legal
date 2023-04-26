@@ -1,0 +1,49 @@
+<!-- ULTIMA VERSION -->
+<% if @coleccion[c].blank? %>
+  <h6 class="text-info">Tabla sin llenar</h6>
+<% elsif @coleccion[c].empty? %>
+  <h6 class="text-info">Tabla vacía!</h6>
+<% else %>
+  <!-- BOTON NUEVO si hay MAS de 15 registros -->
+  <!-- SOLO controladores con botón nuevo que tengan más de 15 registros (para no tener que ir al final de la lista) -->
+  <% if new_button_conditions(c) and @coleccion[c].count > 15 %>
+    <!-- c_to_name actualizado en capitan_cristiano_helper coon manejo de excepciones -->
+    <!-- partial btn actualizado, NO TURBOLINK, no usa parámetro delete: -->
+    <%= render partial: '0p/general/btn', locals: {texto: c_to_name(get_controller(c)), gly: 'plus-circle', link: get_new_link(get_controller(c)), clr: color(get_controller(c))} %>
+
+    </br></br>
+  <% end %>
+
+  <!-- PAGINACION -->
+  <% if @paginate[c] %>
+    <%= paginate @coleccion[c] %>
+    <small><small><%= page_entries_info(@coleccion[c]) %></small></small>
+  <% end %>
+
+  <!-- TABLA -->
+
+  <table class="table table-striped table-sm  thead-dark">
+    <thead>
+      <%= render partial: '0p/tabla/th', locals: {c: get_controller(c)} unless no_th_controllers.include?(get_controller(c)) %>
+    </thead>
+
+    <tbody>
+      <!-- Opción para evitar escribir el parcial _modelo.html.erb en cada controlador-->
+      <% unless @coleccion[c].blank? %>
+        <% @coleccion[c].each do |objeto| %>
+          <%= render partial: "/0p/tabla/modelo", locals: {objeto: objeto} %>
+        <% end  %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @paginate[c] and @coleccion[c].count > 15 %>
+    <small><small><%= page_entries_info(@coleccion[c]) %></small></small>
+    <%= paginate @coleccion[c] %>
+  <% end %>
+
+  <% if new_button_conditions(c) %>
+    <%= render partial: '0p/general/btn', locals: {texto: c_to_name(get_controller(c)), gly: 'plus-circle', link: get_new_link(get_controller(c)), clr: color(get_controller(c))} %>
+  <% end %>
+
+<% end %>

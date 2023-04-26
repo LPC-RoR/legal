@@ -1,6 +1,6 @@
 <div class='row'>
 	<div class='col-md-6'>
-		<!--p class='text-<%=app_color[:app]%>'>
+		<!--p class='text-<%=config[:color][:app]%>'>
 			<i class="bi bi-cash-coin"></i></i><small> Asignada</small>
 		</p-->
 		<% if objeto.tar_tarifa.blank? %>
@@ -10,7 +10,7 @@
 			<table class="table">
 				<tbody>
 			  		<tr>
-			  			<td><small><small><p class='text-<%=app_color[:app]%>'><%=objeto.tar_tarifa.tarifa %></p></small></small></td>
+			  			<td><small><small><p class='text-<%=config[:color][:app]%>'><%=objeto.tar_tarifa.tarifa %></p></small></small></td>
 			  			<td>
 			  				<% unless objeto.valores.any? %>
 			  				<%= link_to link_x_btn(objeto.tar_tarifa, '/desasigna', true) do %>

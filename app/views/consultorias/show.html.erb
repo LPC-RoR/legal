@@ -1,4 +1,4 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Consultoría : #{@objeto.consultoria	}", clr: app_color[:app]} %></h4>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Consultoría : #{@objeto.consultoria	}", clr: config[:color][:app]} %></h4>
 
 <%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 </br></br>
@@ -6,23 +6,23 @@
 <%= render partial: '0p/tabs/tabs', locals: { tabs: @tabs, options: @options, token: :menu } %>
 
 <% if @options[:menu] == 'Registro' %>
-	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'registros', a: 'index'} %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'registros', gly: 'plus-circle', clr: color('consultorias')} %>
 <% elsif @options[:menu] == 'Reportes' %>
-	<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'reg_reportes', a: 'index'} %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'reg_reportes'} %>
 	<%= render partial: '0p/general/btn_proceso', locals: {texto: 'Proceso Registros', link: "/consultorias/#{@objeto.id}/procesa_registros", gly: 'clipboard-check' , clr: color(@objeto.class.name.tableize), delete: false} %>
 <% elsif @options[:menu] == 'Documentos y enlaces' %>
 
 	<div class='row'>
 		<div class='col-md-6'>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Repositorio de la consultoría', clr: app_color[:app]} %></h5>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Repositorio de la consultoría', clr: config[:color][:app]} %></h5>
 
-		    <%= render partial: 'aplicacion/app_directorios/partials/directorio', locals: {objeto: @objeto.repo} %>
+		    <%= render partial: 'repositorios/app_directorios/partials/directorio', locals: {objeto: @objeto.repo} %>
 		</div>
 		<div class='col-md-6'>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Enlaces de la consultoría', clr: app_color[:app]} %></h5>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Enlaces de la consultoría', clr: config[:color][:app]} %></h5>
 
-			<%= render partial: 'aplicacion/app_enlaces/partials/enlaces' %>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'app_enlaces'} %>
 		</div>
 	</div>
 
@@ -31,7 +31,7 @@
 	<div class='row'>
 		<div class='col-md-6'>
 
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: config[:color][:app]} %></h5>
 			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
 
 			<% unless @objeto.tar_tarifa.blank? %>
@@ -41,8 +41,8 @@
 					No se ha ingresado la UF del dia de hoy
 				<% end %>
 
-				<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: app_color[:app]} %></h5>
-				<%= render partial: '0p/tabla/solo_tabla', locals: {c: 'tar_facturaciones', a: 'index'} unless @coleccion['tar_facturaciones'].empty? %>
+				<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: config[:color][:app]} %></h5>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} unless @coleccion['tar_facturaciones'].empty? %>
 			<% end %>
 
 		</div>
@@ -57,15 +57,16 @@
 
 	<div class='row'>
 		<div class='col-md-6'>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: app_color[:app]} %></h5>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: config[:color][:app]} %></h5>
 
 			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
 		</div>
 		<div class='col-md-6'>
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa Hora', clr: app_color[:app]} %></h5>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa Hora', clr: config[:color][:app]} %></h5>
 
 			<%= render partial: 'tarifas/partials/asigna_tarifa_hora', locals: {objeto: @objeto} %>
 		</div>
 	</div>
 
 <% end %>
+

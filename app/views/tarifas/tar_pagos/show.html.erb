@@ -1,4 +1,4 @@
-<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: "Pago : #{@objeto.tar_pago}", clr: app_color[:app]} %></h5>
+<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: "Pago : #{@objeto.tar_pago}", clr: config[:color][:app]} %></h5>
 
-<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'chat', text: 'Detalle Facturación', clr: app_color[:app]} %></h5>
-<%= render partial: '0p/tabla/solo_tabla', locals: {a: 'index', c: 'tar_comentarios'} %>    
+<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'chat', text: 'Detalle Facturación', clr: config[:color][:app]} %></h5>
+<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_comentarios'} %>    

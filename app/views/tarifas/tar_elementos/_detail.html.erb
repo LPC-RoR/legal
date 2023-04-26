@@ -1,2 +1,4 @@
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :codigo, label: 'Código', v: true } %>
-<%= render partial: '0p/display/form_fields', locals: {form: form, helper_name: 'text', token: :elemento, label: 'Elemento', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Código', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :codigo } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Elemento', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :elemento } %>

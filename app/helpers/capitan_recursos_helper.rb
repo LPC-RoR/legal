@@ -1,49 +1,4 @@
 module CapitanRecursosHelper
-	## ------------------------------------------------------- GENERAL
-
-	def app_setup
-		{
-			nombre: 'Legal',
-			home_link: 'http://www.abogadosderechodeltrabajo.cl',
-			logo_navbar: 'logo_menu.png'
-		}
-	end
-
-	def image_size
-		{
-			portada: nil,
-			tema: 'half',
-			foot: 'quarter'
-		}
-	end
-
-	def font_size
-		{
-			title: 4,
-			title_tema: 1,
-			detalle_tema: 6
-		}
-	end
-
-	def app_color
-		{
-			app: 'dark',
-			navbar: 'dark',
-			help: 'dark',
-			data: 'success',
-			title_tema: 'primary',
-			detalle_tema: 'primary'
-		}
-	end
-
-	def image_class
-		{
-			portada: img_class[:centrada],
-			image_tema: img_class[:centrada],
-			foot: img_class[:centrada]
-		}
-	end
-
 	## ------------------------------------------------------- LAYOUTS CONTROLLERS
 
 	def app_sidebar_controllers
@@ -108,45 +63,6 @@ module CapitanRecursosHelper
 			end
 		else
 			'default'
-		end
-	end
-
-	def app_alias_tabla(controller)
-		controller
-	end
-
-	def app_new_button_conditions(controller)
-		if ['contacto_personas', 'contacto_empresas'].include?(controller)
-			@e == 'ingreso'
-		elsif ['medicamentos', 'diagnosticos', 'antecedente_formaciones', 'fichas', 'tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_facturaciones', 'tar_valor_cuantias', 'tar_facturas'].include?(controller)
-			false
-		elsif ['pcds'].include?(controller)
-			['st_bandejas'].include?(controller_name)
-		elsif ['causas', 'consultorias'].include?(controller)
-			controller_name == 'st_bandejas'
-		else
-			true
-		end
-	end
-
-	def app_crud_conditions(objeto, btn)
-		if [].include?(objeto.class.name)
-			admin?
-		elsif ['TarFacturacion', 'TarFactura'].include?(objeto.class.name)
-			false
-		elsif ['TarPago', 'TarFormula'].include?(objeto.class.name)
-			controller_name == 'tar_tarifas'
-		else
-			case objeto.class.name
-			when 'TarValorCuantia'
-				controller_name == 'causas' and @options[:menu] == 'Cuantía'
-			when 'Registro'
-				admin? and objeto.estado == 'ingreso'
-			when 'RegReporte'
-				false
-			else
-				true
-			end
 		end
 	end
 

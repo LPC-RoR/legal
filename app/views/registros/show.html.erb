@@ -1,4 +1,4 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Registro de #{@objeto.tipo} : #{@objeto.detalle}", clr: app_color[:app]} %></h4>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Registro de #{@objeto.tipo} : #{@objeto.detalle}", clr: config[:color][:app]} %></h4>
 
 <!-- BOTON para ir a REGISTROS -->
 <%= render partial: '0p/general/btn_proceso', locals: {texto: 'Registros', link: "/#{@objeto.reg_reporte.owner.class.name.downcase.pluralize}/#{@objeto.reg_reporte.owner.id}?html_options[tab]=Registro", gly: 'arrow-left', clr: color(@objeto.class.name.tableize), delete: false} %>

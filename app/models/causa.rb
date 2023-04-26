@@ -7,6 +7,7 @@ class Causa < ApplicationRecord
 	TABLA_FIELDS = 	[
 		'identificador',
 		's#causa',
+		'cliente:razon_social'
 #		'tipo_causa:tipo_causa'
 	]
 

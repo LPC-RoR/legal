@@ -1,0 +1,12 @@
+<table class="table <%= table_types_base[:borderless] %> table-sm">
+  <tbody>
+
+  	<!-- Archivos-->
+  	<% unless @coleccion['app_archivos'].blank? %>
+	  	<% @coleccion['app_archivos'].each do |objeto| %>
+		  	<%= render partial: "/repositorios/app_documentos/partials/modelo", locals: {a: 'index', objeto: objeto} %>
+  		<% end  %>
+  	<% end %>
+
+  </tbody>
+</table>

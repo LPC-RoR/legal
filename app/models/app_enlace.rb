@@ -2,7 +2,6 @@ class AppEnlace < ApplicationRecord
 
 	TABLA_FIELDS = [
 		'e#enlace'
-#		['enlace',      'link']
 	]
 
     validates_presence_of :descripcion, :enlace

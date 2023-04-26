@@ -15,15 +15,13 @@ module Capitan
 		admin_controllers.include?(controller)
 	end
 
-	# ************************************************************************** INICIALIZA TAB
+	# ************************************************************************** INICIALIZA TABLA
 	def init_tabla(controller, tabla, paginate)
 
 		# INIT siempre inicializa hash
 		@coleccion = {}
 		@paginate = {}
 
-#		@coleccion[controller] = tabla
-#		@paginate[controller] = paginate
 		add_tabla(controller, tabla, paginate)
 	end
 
@@ -39,10 +37,11 @@ module Capitan
 		@options = {} if options_init
 
 	    @tabs.keys.each do |key|
+	    	primer_tab = @tabs[key][0].class.name == 'String' ? @tabs[key][0] : @tabs[key][0][0]
 	      if params[:html_options].blank?
-	        @options[key] = @tabs[key][0]
+	        @options[key] = primer_tab
 	      else
-	        @options[key] = params[:html_options][key.to_s].blank? ? @tabs[key][0] : params[:html_options][key.to_s]
+	        @options[key] = params[:html_options][key.to_s].blank? ? primer_tab : params[:html_options][key.to_s]
 	      end
 	    end
 	end
