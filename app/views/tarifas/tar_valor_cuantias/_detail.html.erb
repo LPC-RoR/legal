@@ -3,7 +3,7 @@
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Detalle (Otro)', v: false } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :otro_detalle } %>
 
-<%= render partial: '0p/form_fields/select', locals: { form: form, token: :moneda, sel_list: ['Pesos', 'UF'], label: '(*) Moneda' } %>
+<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['UF', 'Pesos'] } %>
 
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Valor', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :valor } %>

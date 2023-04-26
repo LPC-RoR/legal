@@ -5,6 +5,7 @@ class TarFactura < ApplicationRecord
 	TABLA_FIELDS = [
 		'documento',
 		's#d_concepto',
+		'padre:razon_social',
 		'created_at'
 	]
 
