@@ -90,7 +90,7 @@ class Tarifas::TarFacturasController < ApplicationController
       modificado = true
     else 
       if params[:set_documento][:documento].present?
-        @objeto.fecha_uf = DateTime.now.to_date
+        @objeto.fecha_uf = @objeto.fecha_factura.blank? ? DateTime.now.to_date : @objeto.fecha_factura
         modificado = true
       end
     end
