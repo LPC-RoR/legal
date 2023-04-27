@@ -10,4 +10,5 @@ module CptnGeneralHelper
 	def dma(date)
 		date.blank? ? '' : date.strftime("%d-%m-%Y")
 	end
+
 end

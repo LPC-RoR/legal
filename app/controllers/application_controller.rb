@@ -23,4 +23,9 @@ class ApplicationController < ActionController::Base
 	def number? string
 	  true if Float(string) rescue false
 	end
+
+	def params_to_date(prms, date_field)
+		DateTime.new(prms["#{date_field}(1i)"].to_i, prms["#{date_field}(2i)"].to_i, prms["#{date_field}(3i)"].to_i, 0, 0, 0, "#{Time.zone.utc_offset/3600}")
+	end
+
 end

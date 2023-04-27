@@ -71,7 +71,7 @@ class Tarifas::TarFacturasController < ApplicationController
     unless params[:set_documento][:documento].blank?
       @objeto.documento = params[:set_documento][:documento].to_i
       unless params[:set_documento]['fecha_factura(1i)'].blank? or params[:set_documento]['fecha_factura(2i)'].blank? or params[:set_documento]['fecha_factura(3i)'].blank?
-        @objeto.fecha_factura = DateTime.new(params[:set_documento]['fecha_factura(1i)'].to_i, params[:set_documento]['fecha_factura(2i)'].to_i, params[:set_documento]['fecha_factura(3i)'].to_i)
+        @objeto.fecha_factura = params_to_date(params[:set_documento], 'fecha_factura')
       else
         @objeto.fecha_factura = DateTime.now.to_date
       end
@@ -85,11 +85,12 @@ class Tarifas::TarFacturasController < ApplicationController
     end
 
     unless params[:set_documento]['fecha_uf(1i)'].blank? or params[:set_documento]['fecha_uf(2i)'].blank? or params[:set_documento]['fecha_uf(3i)'].blank?
-      @objeto.fecha_uf = DateTime.new(params[:set_documento]['fecha_uf(1i)'].to_i, params[:set_documento]['fecha_uf(2i)'].to_i, params[:set_documento]['fecha_uf(3i)'].to_i)
+#      @objeto.fecha_uf = DateTime.new(params[:set_documento]['fecha_uf(1i)'].to_i, params[:set_documento]['fecha_uf(2i)'].to_i, params[:set_documento]['fecha_uf(3i)'].to_i)
+      @objeto.fecha_uf = params_to_date(params[:set_documento], 'fecha_uf')
       modificado = true
     else 
       if params[:set_documento][:documento].present?
-        @objeto.fecha_uf = DateTime.now
+        @objeto.fecha_uf = DateTime.now.to_date
         modificado = true
       end
     end
