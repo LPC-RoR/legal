@@ -123,6 +123,6 @@ class CausasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def causa_params
-      params.require(:causa).permit(:causa, :identificador, :cliente_id, :estado, :tipo_causa_id)
+      params.require(:causa).permit(:causa, :identificador, :cliente_id, :estado, :juzgado_id)
     end
 end

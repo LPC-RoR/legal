@@ -24,7 +24,7 @@ class Tarifas::TarFacturasController < ApplicationController
   end
 
   def crea_factura
-    factura = TarFactura.create(owner_class: params[:class_name], owner_id: params[:objeto_id], estado: 'ingreso')
+    factura = TarFactura.create(owner_class: params[:class_name], owner_id: params[:objeto_id], fecha_factura: DateTime.now.to_date, estado: 'ingreso')
 
     facturaciones = TarFacturacion.where(cliente_class: params[:class_name], cliente_id: params[:objeto_id], estado: 'ingreso', tar_factura_id: nil)
     facturaciones.each do |facturacion|
@@ -70,6 +70,11 @@ class Tarifas::TarFacturasController < ApplicationController
     modificado = false
     unless params[:set_documento][:documento].blank?
       @objeto.documento = params[:set_documento][:documento].to_i
+      unless params[:set_documento]['fecha_factura(1i)'].blank? or params[:set_documento]['fecha_factura(2i)'].blank? or params[:set_documento]['fecha_factura(3i)'].blank?
+        @objeto.fecha_factura = DateTime.new(params[:set_documento]['fecha_factura(1i)'].to_i, params[:set_documento]['fecha_factura(2i)'].to_i, params[:set_documento]['fecha_factura(3i)'].to_i)
+      else
+        @objeto.fecha_factura = DateTime.now.to_date
+      end
       @objeto.estado = 'facturada'
       modificado = true
     else

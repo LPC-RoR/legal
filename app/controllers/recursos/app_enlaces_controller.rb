@@ -5,14 +5,6 @@ class Recursos::AppEnlacesController < ApplicationController
 
   # GET /app_enlaces or /app_enlaces.json
   def index
-    #utilizado para actualizar recuersos en general
-    init_tab( { enlaces: ['Público', 'Perfil'] }, true )
-
-#    init_tabla('controller_name', Tabla, init, paginate)
-    init_tabla('app_enlaces', AppEnlace.where(owner_id: nil).order(:descripcion), false) if @options[:enlaces] == 'Público'
-    add_tabla('app_enlaces', AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion), false) if @options[:enlaces] == 'Perfil'
-#    add_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
-    add_tabla('tar_detalle_cuantias', TarDetalleCuantia.all.order(:tar_detalle_cuantia), false)
   end
 
   # GET /app_enlaces/1 or /app_enlaces/1.json
@@ -80,7 +72,7 @@ class Recursos::AppEnlacesController < ApplicationController
       if @objeto.owner_id.blank?
         @redireccion = app_enlaces_path
       elsif @objeto.owner_class == 'AppPerfil'
-        @redireccion = '/app_enlaces?html_options[menu]=Enlaces&html_options[enlaces]=Perfil'
+        @redireccion = '/app_recursos/tablas?html_options[tablas]=Enlaces'
       else
         @redireccion = @objeto.owner
       end

@@ -12,6 +12,7 @@ class Causa < ApplicationRecord
 	]
 
 	belongs_to :cliente
+	belongs_to :juzgado
 	belongs_to :tar_tarifa, optional: true
 
 	belongs_to :tipo_causa, optional: true

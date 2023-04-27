@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_04_153238) do
+ActiveRecord::Schema.define(version: 2023_04_26_210222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,7 +196,9 @@ ActiveRecord::Schema.define(version: 2023_04_04_153238) do
     t.string "tipo"
     t.integer "tipo_causa_id"
     t.integer "tar_hora_id"
+    t.integer "juzgado_id"
     t.index ["estado"], name: "index_causas_on_estado"
+    t.index ["juzgado_id"], name: "index_causas_on_juzgado_id"
     t.index ["tar_hora_id"], name: "index_causas_on_tar_hora_id"
     t.index ["tar_tarifa_id"], name: "index_causas_on_tar_tarifa_id"
     t.index ["tipo"], name: "index_causas_on_tipo"
@@ -265,6 +267,12 @@ ActiveRecord::Schema.define(version: 2023_04_04_153238) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["clave"], name: "index_hlp_tutoriales_on_clave"
+  end
+
+  create_table "juzgados", force: :cascade do |t|
+    t.string "juzgado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reg_reportes", force: :cascade do |t|
@@ -509,6 +517,7 @@ ActiveRecord::Schema.define(version: 2023_04_04_153238) do
     t.decimal "uf_factura"
     t.string "concepto"
     t.datetime "fecha_pago"
+    t.datetime "fecha_factura"
     t.index ["estado"], name: "index_tar_facturas_on_estado"
     t.index ["fecha_pago"], name: "index_tar_facturas_on_fecha_pago"
     t.index ["owner_class"], name: "index_tar_facturas_on_owner_class"

@@ -5,8 +5,6 @@ class Tarifas::TarTarifasController < ApplicationController
 
   # GET /tar_tarifas or /tar_tarifas.json
   def index
-    init_tabla('tar_tarifas', TarTarifa.where(owner_class: ''), false)
-    add_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
   end
 
   # GET /tar_tarifas/1 or /tar_tarifas/1.json
@@ -95,7 +93,7 @@ class Tarifas::TarTarifasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.padre.blank? ? tar_tarifas_path : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas+y+servicios"
+      @redireccion = @objeto.padre.blank? ? '/app_recursos/tablas?html_options[tablas]=Tarifas+Generales+%26+UF' : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas+y+servicios"
     end
 
     # Only allow a list of trusted parameters through.

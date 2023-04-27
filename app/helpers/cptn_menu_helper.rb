@@ -2,7 +2,7 @@ module CptnMenuHelper
 
 	def menu_base
 	    [
-	        ['',        app_enlaces_path,     'nomina', 'nut'],
+#	        ['',        app_enlaces_path,     'nomina', 'nut'],
 	        ['',           '/app_recursos/administracion', 'admin', 'person-rolodex'],
 #	        ["Contenido",  "/tema_ayudas",                 'admin', 'stack'],
 	        ["Procesos",   "/app_recursos/procesos",       'dog',   'radioactive']
@@ -13,11 +13,11 @@ module CptnMenuHelper
 	    ## Menu principal de la aplicación
 	    # [ 'Item del menú', 'link', 'accesso', 'gly' ]
 	    [
-	        ['',        "/st_bandejas",       'nomina', 'inboxes'],
-	        ['',        "/app_repos/1",       'nomina', 'file-earmark-text'],
-	        ['',        "/app_repos/perfil",  'nomina', 'file-earmark-person'],
-	        ['',        "/tar_tarifas",       'nomina', 'currency-dollar'],
-	        ['',        "/tar_facturas",      'nomina', 'check-all']
+	        ['',        "/st_bandejas",         'nomina', 'inboxes'],
+	        ['',        "/app_repos/1",         'nomina', 'file-earmark-text'],
+	        ['',        "/app_repos/perfil",    'nomina', 'file-earmark-person'],
+	        ['',        "/app_recursos/tablas", 'nomina', 'table'],
+	        ['',        "/tar_facturas",        'nomina', 'check-all']
 	    ]
 
 	end

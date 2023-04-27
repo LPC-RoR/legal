@@ -4,8 +4,8 @@
 		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: 'Cliente' } %>
 	</div>
 	<div class='col-md-9'>
-		<%#= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo de Causa', v: true } %>
-		<%#= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.collect {|tc| [tc.tipo_causa, tc.id]}, display_field: 'tipo_causa', prompt: 'Tipo de Causa' } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Juzgado', v: true } %>
+		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :juzgado_id, colection: Juzgado.all.order(:juzgado).collect { |juzgado| [juzgado.juzgado, juzgado.id] }, display_field: 'juzgado', prompt: 'Juzgado' } %>
 	</div>
 </div>
 

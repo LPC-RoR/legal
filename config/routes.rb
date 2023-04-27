@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :juzgados
   resources :reg_reportes do
     match :cambia_estado, via: :get, on: :member
   end
@@ -64,6 +65,7 @@ Rails.application.routes.draw do
         match :home, via: :get
         match :administracion, via: :get
         match :procesos, via: :get
+        match :tablas, via: :get
       end
     end
   end

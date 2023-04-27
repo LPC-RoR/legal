@@ -6,7 +6,7 @@ class TarFactura < ApplicationRecord
 		'documento',
 		's#d_concepto',
 		'padre:razon_social',
-		'created_at'
+		'fecha_factura'
 	]
 
 	has_many :tar_facturaciones

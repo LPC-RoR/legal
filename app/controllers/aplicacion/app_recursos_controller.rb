@@ -10,8 +10,6 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def home
-#    @coleccion = {}
-#    @coleccion['clientes'] = Cliente.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.padre.cliente.id unless tarf.tar_factura.present?}.compact.uniq)
     init_tabla('clientes', Cliente.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.padre.cliente.id unless tarf.tar_factura.present?}.compact.uniq), false)
   end
 
@@ -21,6 +19,21 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def administracion
     carga_sidebar('Administración', params[:id])
+  end
+
+  def tablas
+    init_tab( { tablas: ['Tarifas Generales & UF', 'Cuantías & Juzgados', 'Enlaces'] }, true )
+
+    if @options[:tablas] == 'Tarifas Generales & UF'
+      init_tabla('tar_tarifas', TarTarifa.where(owner_class: ''), false)
+      add_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
+    elsif @options[:tablas] == 'Cuantías & Juzgados'
+      init_tabla('tar_detalle_cuantias', TarDetalleCuantia.all.order(:tar_detalle_cuantia), false)
+      add_tabla('juzgados', Juzgado.all.order(:juzgado), false)
+    elsif @options[:tablas] == 'Enlaces'
+      init_tabla('app_enlaces', AppEnlace.where(owner_id: nil).order(:descripcion), false)
+      init_tabla('perfil-app_enlaces', AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion), false)
+    end
   end
 
   def procesos

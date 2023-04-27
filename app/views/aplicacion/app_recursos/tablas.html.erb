@@ -1,0 +1,43 @@
+<%= render partial: '0p/tabs/tabs', locals: { tabs: @tabs, options: @options, token: :tablas } %>
+<% if @options[:tablas] == 'Tarifas Generales & UF' %>
+	<div class='row'>
+		<div class='col-md-6'>
+			<!-- TARIFAS GENERALES -->
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas Generales', clr: config[:color][:app]} %></h5>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
+			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: nil, c: 'tar_tarifas', a: 'index', gly: 'plus-circle'} %>
+		</div>
+		<div class='col-md-6'>
+			<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'calendar3', text: 'UF del Sistema', clr: config[:color][:app]} %></h4>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_uf_sistemas'} %>
+		</div>
+	</div>
+<% elsif @options[:tablas] == 'Cuantías & Juzgados' %>
+	<div class='row'>
+		<div class='col-md-6'>
+			<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'check2', text: 'Detalles de Cuantía', clr: config[:color][:app]} %></h4>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_detalle_cuantias'} %>
+		</div>
+		<div class='col-md-6'>
+			<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: 'Juzgados', clr: config[:color][:app]} %></h4>
+
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'juzgados'} %>
+			<%#= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: (@options[:enlaces] == 'Público' ? nil : perfil_activo) ,c: 'app_enlaces', gly: 'plus-circle', clr: color('app_enlaces')} %>
+		</div>
+	</div>
+<% elsif @options[:tablas] == 'Enlaces' %>
+	<div class='row'>
+		<div class='col-md-6'>
+			<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'link-45deg', text: 'Enlaces Publicos', clr: config[:color][:app]} %></h4>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'app_enlaces'} %>
+			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: nil ,c: 'app_enlaces', gly: 'plus-circle', clr: color('app_enlaces')} %>
+		</div>
+		<div class='col-md-6'>
+			<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'link-45deg', text: 'Enlaces Perfil', clr: config[:color][:app]} %></h4>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'perfil-app_enlaces'} %>
+			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: perfil_activo ,c: 'app_enlaces', gly: 'plus-circle', clr: color('app_enlaces')} %>
+		</div>
+
+	</div>
+<% end %>
+

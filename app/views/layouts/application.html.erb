@@ -23,7 +23,7 @@
             <%= render partial: 'layouts/bandejas' %>
         <% elsif controller_name == 'app_mensajes' and usuario_signed_in? %>
             <%= render partial: 'layouts/mensajes' %>
-        <% elsif sidebar_controllers.include?(controller_name) and action_name != 'home' %>
+        <% elsif sidebar_controllers.include?(controller_name) and ['home', 'tablas'].exclude?(action_name) %>
             <%= render partial: 'layouts/sidebar' %>
         <% else %>
           <%= yield %>

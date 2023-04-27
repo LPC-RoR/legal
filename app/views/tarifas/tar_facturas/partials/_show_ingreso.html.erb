@@ -1,0 +1,41 @@
+<%= form_for :set_documento, url: "/tar_facturas/#{@objeto.id}/set_documento" do |form| %>
+
+	<small>
+		<% unless @objeto.uf.blank? %>
+			<!-- FECHAS -->
+			<div class='row'>
+				<div class='col-md-6'>
+					<%= render partial: '0p/form_fields/label', locals: {label: 'Fecha de facturación', v: true} %>
+					<%= render partial: '0p/form_fields/date', locals: {form: form, token: :fecha_factura} %>
+				</div>
+				<div class='col-md-6'>
+					<%= render partial: '0p/form_fields/label', locals: {label: 'Fecha UF', v: false} %>
+					<% if @objeto.fecha_uf.blank? %>
+						<%= render partial: '0p/form_fields/date', locals: {form: form, token: :fecha_uf} %>
+					<% else %>
+						<label>
+						  <%= form.check_box :fecha_del_dia %>
+						  Usar fecha del día
+						</label>
+					<% end %>
+				</div>
+			</div>
+			<!-- NUMERO Y CONCEPTO -->
+			<div class='row'>
+				<div class='col-md-2'>
+					<%= render partial: '0p/form_fields/label', locals: {label: 'N° factura', v: true} %>
+					<%= render partial: '0p/form_fields/text', locals: {form: form, token: :documento} %>
+				</div>
+				<div class='col-md-10'>
+					<%= render partial: '0p/form_fields/label', locals: {label: 'Concepto', v: false} %>
+					<%= render partial: '0p/form_fields/text', locals: {form: form, token: :concepto} %>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-info">
+			  <i class="bi bi-check-all"></i>
+			  Facturar
+			</button>
+		<% end %>
+	</small>
+
+<% end  %>
