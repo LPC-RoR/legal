@@ -75,6 +75,9 @@ class Tarifas::TarFacturasController < ApplicationController
       else
         @objeto.fecha_factura = DateTime.now.to_date
       end
+      unless params[:set_documento][:concepto].blank?
+        @objeto.concepto = params[:set_documento][:concepto]
+      end
       @objeto.estado = 'facturada'
       modificado = true
     else
