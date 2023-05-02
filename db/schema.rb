@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_26_210222) do
+ActiveRecord::Schema.define(version: 2023_05_02_183519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,12 +197,26 @@ ActiveRecord::Schema.define(version: 2023_04_26_210222) do
     t.integer "tipo_causa_id"
     t.integer "tar_hora_id"
     t.integer "juzgado_id"
+    t.string "rol"
+    t.integer "era"
+    t.datetime "fecha_ingreso"
+    t.string "caratulado"
+    t.string "ubicacion"
+    t.datetime "fecha_ubicacion"
+    t.integer "tribunal_corte_id"
+    t.string "rit"
+    t.string "estado_causa"
+    t.index ["era"], name: "index_causas_on_era"
     t.index ["estado"], name: "index_causas_on_estado"
+    t.index ["estado_causa"], name: "index_causas_on_estado_causa"
+    t.index ["fecha_ingreso"], name: "index_causas_on_fecha_ingreso"
     t.index ["juzgado_id"], name: "index_causas_on_juzgado_id"
+    t.index ["rol"], name: "index_causas_on_rol"
     t.index ["tar_hora_id"], name: "index_causas_on_tar_hora_id"
     t.index ["tar_tarifa_id"], name: "index_causas_on_tar_tarifa_id"
     t.index ["tipo"], name: "index_causas_on_tipo"
     t.index ["tipo_causa_id"], name: "index_causas_on_tipo_causa_id"
+    t.index ["tribunal_corte_id"], name: "index_causas_on_tribunal_corte_id"
   end
 
   create_table "clientes", force: :cascade do |t|
@@ -669,6 +683,13 @@ ActiveRecord::Schema.define(version: 2023_04_26_210222) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tipo_causa"], name: "index_tipo_causas_on_tipo_causa"
+  end
+
+  create_table "tribunal_cortes", force: :cascade do |t|
+    t.string "tribunal_corte"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tribunal_corte"], name: "index_tribunal_cortes_on_tribunal_corte"
   end
 
   create_table "usuarios", force: :cascade do |t|

@@ -1,23 +1,45 @@
 <div class='row'>
 	<div class='col-md-3'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo Causa', v: true } %>
+		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, display_field: 'tipo_causa', prompt: 'Tipo Causa' } %>
+	</div>
+	<div class='col-md-3'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Cliente', v: true } %>
 		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: 'Cliente' } %>
 	</div>
-	<div class='col-md-9'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Juzgado', v: true } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :juzgado_id, colection: Juzgado.all.order(:juzgado).collect { |juzgado| [juzgado.juzgado, juzgado.id] }, display_field: 'juzgado', prompt: 'Juzgado' } %>
+	<div class='col-md-6'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tribunal/Corte', v: true } %>
+		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tribunal_corte_id, colection: TribunalCorte.all.order(:tribunal_corte).collect { |tc| [tc.tribunal_corte, tc.id] }, display_field: 'tribunal_corte', prompt: 'Tribunal/Corte' } %>
 	</div>
 </div>
 
 <div class='row'>
 	<div class='col-md-3'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Identificador', v: true } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :identificador } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'RIT', v: false } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rit } %>
 	</div>
 	<div class='col-md-9'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Causa', v: true } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :causa } %>
+
 	</div>
 </div>
+<div class='row'>
+	<div class='col-md-3'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Rol', v: false } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rol } %>
+	</div>
+	<div class='col-md-3'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Era', v: false } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :era } %>
+	</div>
+	<div class='col-md-6'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha de Ingreso', v: true } %>
+		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_ingreso } %>
+	</div>
+</div>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Caratulado', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :caratulado } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>

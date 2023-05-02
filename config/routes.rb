@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :tribunal_cortes
   resources :juzgados
   resources :reg_reportes do
     match :cambia_estado, via: :get, on: :member

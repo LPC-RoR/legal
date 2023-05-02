@@ -65,7 +65,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = '/app_recursos/tablas?html_options[tablas]=Cuantías+%26+Juzgados'
+      @redireccion = '/app_recursos/tablas?html_options[tablas]=Cuantías+%26+Tribunales+o+Cortes'
     end
 
     # Only allow a list of trusted parameters through.

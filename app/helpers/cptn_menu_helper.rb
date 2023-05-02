@@ -1,47 +1,39 @@
 module CptnMenuHelper
+	## ------------------------------------------------------- MENU
 
-	def menu_base
-	    [
-#	        ['',        app_enlaces_path,     'nomina', 'nut'],
-	        ['',           '/app_recursos/administracion', 'admin', 'person-rolodex'],
-#	        ["Contenido",  "/tema_ayudas",                 'admin', 'stack'],
-	        ["Procesos",   "/app_recursos/procesos",       'dog',   'radioactive']
-	    ]
+	# Obtiene los controladores que no despliegan menu
+	def nomenu?(controller)
+		nomenu_controllers = ['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']
+		nomenu_controllers.include?(controller)
 	end
 
-	def menu
-	    ## Menu principal de la aplicación
-	    # [ 'Item del menú', 'link', 'accesso', 'gly' ]
-	    [
-	        ['',        "/st_bandejas",         'nomina', 'inboxes'],
-	        ['',        "/app_repos/1",         'nomina', 'file-earmark-text'],
-	        ['',        "/app_repos/perfil",    'nomina', 'file-earmark-person'],
-	        ['',        "/app_recursos/tablas", 'nomina', 'table'],
-	        ['',        "/tar_facturas",        'nomina', 'check-all']
-	    ]
-
+	def item_active(link)
+		detalle_link = link.split('/')
+		nombre_accion = (detalle_link.length == 2 ? 'index' : detalle_link[2])
+		detalle_link[1] == controller_name and nombre_accion == action_name
 	end
 
-	def dd_items(item)
-		case item
-		when 'Valores'
-			[
-				['Tarifas Base', '/tar_tarifas'],
-				['Facturas', 'tar_facturas']
-			]
-		when 'Documentos'
-			[
-				['Compartidos', '/app_repos/publico'],
-				['Personales', '/app_repos/perfil']
-			]
-		when 'Enlaces'
-			[
-			]
+	def display_item_menu?(item, tipo_item)
+		# SEGURIDADA PARA IEMS DE MENÚS
+		if perfil? == true
+			if ['dog', 'admin', 'anonimo'].include?(tipo_item)
+				(usuario_signed_in? and seguridad_desde(tipo_item))
+			elsif ['nomina', 'general'].include?(tipo_item)
+				(usuario_signed_in? and seguridad_desde(tipo_item) and display_item_app(item, tipo_item))
+			elsif tipo_item == 'excluir'
+				false
+			end
+		else
+			tipo_item == 'anonimo'
 		end
 	end
 
-	def display_item_app(item, tipo_item)
-		true
+	def enlaces_generales
+		AppEnlace.where(owner_id: nil).order(:descripcion)
+	end
+
+	def enlaces_perfil
+		AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion)
 	end
 
 end

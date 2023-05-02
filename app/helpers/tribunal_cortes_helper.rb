@@ -1,0 +1,2 @@
+module TribunalCortesHelper
+end

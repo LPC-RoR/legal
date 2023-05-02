@@ -12,19 +12,21 @@
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_uf_sistemas'} %>
 		</div>
 	</div>
-<% elsif @options[:tablas] == 'Cuantías & Juzgados' %>
+<% elsif @options[:tablas] == 'Cuantías & Tribunales o Cortes' %>
 	<div class='row'>
 		<div class='col-md-6'>
 			<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'check2', text: 'Detalles de Cuantía', clr: config[:color][:app]} %></h4>
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_detalle_cuantias'} %>
 		</div>
 		<div class='col-md-6'>
-			<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: 'Juzgados', clr: config[:color][:app]} %></h4>
+			<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: 'Tribunales/Cortes', clr: config[:color][:app]} %></h4>
 
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'juzgados'} %>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'tribunal_cortes'} %>
 			<%#= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: (@options[:enlaces] == 'Público' ? nil : perfil_activo) ,c: 'app_enlaces', gly: 'plus-circle', clr: color('app_enlaces')} %>
 		</div>
 	</div>
+<% elsif @options[:tablas] == 'Tipos de Causa' %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_causas'} %>
 <% elsif @options[:tablas] == 'Enlaces' %>
 	<div class='row'>
 		<div class='col-md-6'>

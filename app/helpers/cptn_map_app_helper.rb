@@ -1,4 +1,4 @@
-module CptnAppMapHelper
+module CptnMapAppHelper
 
 	## ------------------------------------------------------- GENERAL
 	# desde controllers/concern/map

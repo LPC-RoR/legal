@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 	before_action :init_bandejas, only: %i[ new edit show index create tablas]
 
 	helper_method :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id, :mi_seguridad?
-	helper_method :bandeja_controllers, :app_bandeja_controllers, :bandeja_display?
+	helper_method :bandeja_display?
 	helper_method :uf_del_dia
 
 	# Este método se usa para construir un nombre de directorio a partir de un correo electrónico.

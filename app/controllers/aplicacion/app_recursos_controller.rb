@@ -22,14 +22,16 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def tablas
-    init_tab( { tablas: ['Tarifas Generales & UF', 'Cuantías & Juzgados', 'Enlaces'] }, true )
+    init_tab( { tablas: ['Tarifas Generales & UF', 'Cuantías & Tribunales o Cortes', 'Tipos de Causa', 'Enlaces'] }, true )
 
     if @options[:tablas] == 'Tarifas Generales & UF'
       init_tabla('tar_tarifas', TarTarifa.where(owner_class: ''), false)
       add_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
-    elsif @options[:tablas] == 'Cuantías & Juzgados'
+    elsif @options[:tablas] == 'Cuantías & Tribunales o Cortes'
       init_tabla('tar_detalle_cuantias', TarDetalleCuantia.all.order(:tar_detalle_cuantia), false)
-      add_tabla('juzgados', Juzgado.all.order(:juzgado), false)
+      add_tabla('tribunal_cortes', TribunalCorte.all.order(:tribunal_corte), false)
+    elsif @options[:tablas] == 'Tipos de Causa'
+      init_tabla('tipo_causas', TipoCausa.all.order(:tipo_causa), false)
     elsif @options[:tablas] == 'Enlaces'
       init_tabla('app_enlaces', AppEnlace.where(owner_id: nil).order(:descripcion), false)
       init_tabla('perfil-app_enlaces', AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion), false)

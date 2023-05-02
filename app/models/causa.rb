@@ -5,19 +5,20 @@ class Causa < ApplicationRecord
 	TIPOS=['Juicio', 'Demanda']
 
 	TABLA_FIELDS = 	[
-		'identificador',
+		'fecha_ingreso',
+		'd_id',
 		's#causa',
 		'cliente:razon_social'
 #		'tipo_causa:tipo_causa'
 	]
 
 	belongs_to :cliente
-	belongs_to :juzgado
+	belongs_to :tribunal_corte
 	belongs_to :tar_tarifa, optional: true
 
-	belongs_to :tipo_causa, optional: true
+	belongs_to :tipo_causa
 
-    validates_presence_of :identificador, :causa
+    validates_presence_of :causa, :fecha_ingreso, :caratulado
 
 	def tarifas_cliente
 		self.cliente.tarifas
@@ -74,6 +75,10 @@ class Causa < ApplicationRecord
 
 	def as_owner
 		self.causa
+	end
+
+	def d_id
+		self.rit.blank? ? ( self.rol.blank? ? self.identificador : "#{self.rol} : #{self.era}") : self.rit
 	end
 
 end
