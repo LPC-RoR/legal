@@ -2,7 +2,7 @@ class ClientesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura ]
 
-  include Bandejas
+#  include Bandejas
 
   # GET /clientes or /clientes.json
   def index
