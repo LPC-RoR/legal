@@ -1,7 +1,7 @@
 class Repositorios::AppDocumentosController < ApplicationController
   before_action :set_app_documento, only: %i[ show edit update destroy ]
 
-  include Bandejas
+#  include Bandejas
 
   # GET /app_documentos or /app_documentos.json
   def index

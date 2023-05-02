@@ -1,7 +1,7 @@
 class Repositorios::AppReposController < ApplicationController
   before_action :set_app_repo, only: %i[ show edit update destroy ]
 
-  include Bandejas
+#  include Bandejas
 
   # GET /app_repos or /app_repos.json
   def index

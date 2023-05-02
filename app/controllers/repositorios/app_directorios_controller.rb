@@ -1,7 +1,7 @@
 class Repositorios::AppDirectoriosController < ApplicationController
   before_action :set_app_directorio, only: %i[ show edit update destroy ]
 
-  include Bandejas
+#  include Bandejas
 
   # GET /app_directorios or /app_directorios.json
   def index
