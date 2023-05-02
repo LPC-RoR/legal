@@ -1,0 +1,11 @@
+<!-- LAYOUT me permite generalizar divs de despliegue-->
+<div class='row'>
+	<div class='col-md-<%=left%>'>
+	</div>
+	<div class='col-md-<%=center%>'>
+	</div>
+	<% unless right > 0 %>
+	<div class='col-md-<%=right%>'>
+	</div>
+	<% end %>
+</div>

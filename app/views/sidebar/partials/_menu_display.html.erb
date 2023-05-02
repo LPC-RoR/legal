@@ -1,0 +1,30 @@
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'list-nested', text: name_list, clr: config[:color][:app]} %></h4>
+
+<% if seguridad_desde(@lista.acceso) and (@lista.activa or seguridad_desde(@lista.acceso)) %>
+	<% sb_list.each do |elemento| %>
+		<!-- NO DESPLIEGE ELEMENTOS QUE NO PUEDED VER -->
+		<% if seguridad_desde(elemento.acceso) %>
+			<small>
+				<div style="padding-left:<%="#{(elemento.nivel-1)*10}"%>px">
+						<% case elemento.tipo %>
+						<% when 'item' %>
+							<% if @id.to_i == elemento.id %>
+								<b class='text-primary'><%= elemento.elemento %></b>
+							<% elsif elemento.activo == false %>
+								<i class='text-muted'><%= elemento.elemento %></i>
+							<% else %>
+								<%#= link_to elemento.elemento, "#{sb_link}?t=#{elemento.elemento}" %>
+								<%= link_to elemento.elemento, "#{sb_link}?id=#{elemento.id}" %>
+							<% end %>
+						<% when 'list' %>
+							<b class='text-muted'><%= elemento.elemento %></b>
+						<% end %>
+				</div>
+			</small>
+		<% end %>
+	<% end %>
+<% else %>
+	No cuenta con permisos para desplegar este menú o el menú fue desactivado
+<% end %>
+
+

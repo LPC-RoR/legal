@@ -100,39 +100,6 @@ module ApplicationHelper
 		AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion)
 	end
 
-	## ------------------------------------------------------- SIDEBAR + BANDEJA
-
-	def base_sidebar_controllers
-		[
-			'sb_listas', 'sb_elementos',
-			'app_administradores', 'app_nominas', 'app_perfiles', 'app_imagenes', 'app_recursos',
-			'h_portadas', 'h_temas', 'h_links', 'h_imagenes',
-			'hlp_tutoriales', 'hlp_pasos',
-			'st_modelos', 'st_estados'
-		]
-	end
-
-	def sidebar_controllers
-		base_sidebar_controllers.union(app_sidebar_controllers)
-	end
-
-	def base_bandeja_controllers
-		StModelo.all.order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize}
-	end
-
-	def bandeja_controllers
-		base_bandeja_controllers.union(app_bandeja_controllers)
-	end
-
-	def primer_estado(controller)
-		st_modelo = StModelo.find_by(st_modelo: controller.classify)
-		st_modelo.blank? ? nil : st_modelo.primer_estado.st_estado
-	end
-
-	def count_modelo_estado(modelo, estado)0
-		modelo.constantize.where(estado: estado).count == 0 ? '' : "(#{modelo.constantize.where(estado: estado).count})"
-	end
-
 	## ------------------------------------------------------- TABLA
 
 	def table_types(controller)
@@ -183,21 +150,13 @@ module ApplicationHelper
 	end
 
 	## ------------------------------------------------------- FORM
-	# Este helper pergunta si hay un partial con un nombre particular en el directorio del controlador
-	def partial?(controller, partial)
-		File.exist?("app/views/#{(scope_controller(controller).blank? ? '' : "#{scope_controller(controller)}/")}#{controller}/_#{partial}.html.erb")
-	end
-
-	def get_partial(controller, partial)
-		"#{(scope_controller(controller).blank? ? '' : "#{scope_controller(controller)}/")}#{controller}/#{partial}"
-	end
-
 	# Este helper encuentra el partial que se debe desplegar como form
 	# originalmente todos llegaban a _form
 	# ahora pregunta si hay un partial llamado _datail en el directorio de las vistas del modelo
 	def detail_partial(controller)
-		if partial?(controller, 'detail')
-			get_partial(controller, 'detail')
+		# partial?(controlller, dir, partial)
+		if partial?(controller, nil, 'detail')
+			get_partial(controller, nil, 'detail')
 		else
 			'0p/form/detail'
 		end
@@ -280,7 +239,8 @@ module ApplicationHelper
 	end
 
 	def status?(objeto)
-		partial?(controller, 'status')
+		# partial?(controlller, dir, partial)
+		partial?(controller, nil, 'status')
 	end
 
 	## ------------------------------------------------------- GENERAL

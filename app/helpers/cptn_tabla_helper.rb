@@ -8,27 +8,33 @@ module CptnTablaHelper
 	# ADMIN AREA
 	# condiciones bajo las cuales se despliega una tabla
 	def new_button_conditions(controller)
-		case controller
-		when 'perfil-app_enlaces'
+		if controller_name == 'st_bandejas'
+			# en las bandejas sólo se dedspliega para el primer estado del modelo
 			false
 		else
-			aliasness = get_controller(controller)
-			if ['app_administradores', 'app_nominas', 'hlp_tutoriales', 'hlp_pasos'].include?(aliasness)
-					seguridad_desde('admin')
-			elsif ['app_perfiles', 'usuarios', 'ind_palabras', 'app_contactos', 'app_directorios', 'app_documentos', 'app_archivos', 'app_enlaces'].include?(controller)
+			case controller
+
+			when 'perfil-app_enlaces'
 				false
-			elsif ['app_mensajes'].include?(aliasness)
-				action_name == 'index' and @e == 'ingreso'
-			elsif ['sb_listas'].include?(aliasness)
-					seguridad_desde('admin')
-			elsif ['sb_elementos'].include?(aliasness)
-					(@objeto.acceso == 'dog' ? dog? : seguridad_desde('admin'))
-			elsif ['st_modelos'].include?(aliasness)
-					dog?
-			elsif ['st_estados'].include?(aliasness)
-					seguridad_desde('admin')
 			else
-				app_new_button_conditions(controller)
+				aliasness = get_controller(controller)
+				if ['app_administradores', 'app_nominas', 'hlp_tutoriales', 'hlp_pasos'].include?(aliasness)
+						seguridad_desde('admin')
+				elsif ['app_perfiles', 'usuarios', 'ind_palabras', 'app_contactos', 'app_directorios', 'app_documentos', 'app_archivos', 'app_enlaces'].include?(controller)
+					false
+				elsif ['app_mensajes'].include?(aliasness)
+					action_name == 'index' and @e == 'ingreso'
+				elsif ['sb_listas'].include?(aliasness)
+						seguridad_desde('admin')
+				elsif ['sb_elementos'].include?(aliasness)
+						(@objeto.acceso == 'dog' ? dog? : seguridad_desde('admin'))
+				elsif ['st_modelos'].include?(aliasness)
+						dog?
+				elsif ['st_estados'].include?(aliasness)
+						seguridad_desde('admin')
+				else
+					app_new_button_conditions(controller)
+				end
 			end
 		end
 	end

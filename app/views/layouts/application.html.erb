@@ -11,25 +11,9 @@
   </head>
 
   <body>
-    <!--            NAVBAR                     -->
     <%= render partial: '0p/navbar/navbar' %>
-    <!--            CONTENIDO + MENU DERECHA   -->
     <div class="container-fluid">
-      <% if File.exist?("app/views/layouts/_base_layout.html.erb") %>
-        <%= render partial: 'layouts/base_layout' %>
-      <% else %>
-
-        <% if controller_name == 'st_bandejas' or bandeja_controllers.include?(controller_name) %>
-            <%= render partial: 'layouts/bandejas' %>
-        <% elsif controller_name == 'app_mensajes' and usuario_signed_in? %>
-            <%= render partial: 'layouts/mensajes' %>
-        <% elsif sidebar_controllers.include?(controller_name) and ['home', 'tablas'].exclude?(action_name) %>
-            <%= render partial: 'layouts/sidebar' %>
-        <% else %>
-          <%= yield %>
-        <% end %>
-
-      <% end %>
+      <%= render partial: 'layouts/app' %>
     </div>
     <!------------------------------------------->
     <hr>

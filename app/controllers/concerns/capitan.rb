@@ -1,20 +1,6 @@
 module Capitan
 	extend ActiveSupport::Concern
 
-	def devise_controllers
-		['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']
-	end
-
-	def admin_controllers
-		['app_recursos', 'app_administradores', 'app_nominas', 
-			'sb_listas', 'sb_elementos', 
-			'st_modelos', 'st_estados', 'st_perfil_modelos', 'st_perfil_estados']
-	end
-
-	def admin_controller?(controller)
-		admin_controllers.include?(controller)
-	end
-
 	# ************************************************************************** INICIALIZA TABLA
 	def init_tabla(controller, tabla, paginate)
 

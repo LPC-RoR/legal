@@ -5,10 +5,6 @@ module CapitanRecursosHelper
 		[]
 	end
 
-	def app_bandeja_controllers
-		['app_directorios', 'app_documentos', 'app_enlaces', 'tar_tarifas', 'tar_detalles', 'tar_facturas', 'app_repos', 'registros', 'reg_reportes', 'tar_horas']
-	end
-
 	## ------------------------------------------------------- FORM SCOPES & PARTIALS
 	# Maneja los controladores que tienen SCOPE para que las funciones puedan encontrar los partials
 
@@ -16,12 +12,6 @@ module CapitanRecursosHelper
 		{
 			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios', 'tar_horas', 'tar_facturaciones', 'tar_uf_sistemas', 'tar_detalle_cuantias', 'tar_valor_cuantias', 'tar_pagos', 'tar_formulas', 'tar_comentarios']
 		}
-	end
-
-	def app_scope_controller(controller)
-		if app_controllers_scope[:tarifas].include?(controller)
-			'tarifas'
-		end
 	end
 
 	## ------------------------------------------------------- TABLA | BTNS
