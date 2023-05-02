@@ -1,7 +1,7 @@
 class Recursos::AppEnlacesController < ApplicationController
   before_action :set_app_enlace, only: %i[ show edit update destroy ]
 
-  include Bandejas
+#  include Bandejas
 
   # GET /app_enlaces or /app_enlaces.json
   def index
