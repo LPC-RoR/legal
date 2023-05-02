@@ -1,7 +1,7 @@
 class Tarifas::TarTarifasController < ApplicationController
   before_action :set_tar_tarifa, only: %i[ show edit update destroy asigna desasigna ]
 
-  include Bandejas
+#  include Bandejas
 
   # GET /tar_tarifas or /tar_tarifas.json
   def index
