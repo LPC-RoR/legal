@@ -25,17 +25,21 @@
 	</div>
 </div>
 <div class='row'>
-	<div class='col-md-3'>
+	<div class='col-md-2'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Rol', v: false } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rol } %>
 	</div>
-	<div class='col-md-3'>
+	<div class='col-md-2'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Era', v: false } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :era } %>
 	</div>
-	<div class='col-md-6'>
+	<div class='col-md-4'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha de Ingreso', v: true } %>
 		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_ingreso } %>
+	</div>
+	<div class='col-md-2'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Estado Causa', v: false } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :estado_causa } %>
 	</div>
 </div>
 
