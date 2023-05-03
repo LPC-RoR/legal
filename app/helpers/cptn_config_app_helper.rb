@@ -1,4 +1,4 @@
-module CptnAppConfigHelper
+module CptnConfigAppHelper
 	def config
 		{
 			app: {
@@ -21,9 +21,9 @@ module CptnAppConfigHelper
 				recursos: false	# está en capitan/drop_down/_ddown_principal.html.erb REVISAR
 			},
 			image: {
-				portada: {clase: ctes[:image][:centrada], size: nil},
-				tema: {clase: ctes[:image][:centrada], size: 'half'},
-				foot: {clase: ctes[:image][:centrada], size: 'quarter'}
+				portada: {clase: img_class[:centrada], size: nil},
+				tema: {clase: img_class[:centrada], size: 'half'},
+				foot: {clase: img_class[:centrada], size: 'quarter'}
 			},
 			font_size: {
 				title: 4,

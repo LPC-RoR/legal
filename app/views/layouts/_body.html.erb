@@ -1,6 +1,6 @@
 <% if ['Bandejas', 'Menu', 'Mensajes'].include?(get_layout) %>
 	<div class='row'>
-		<div class='col-md-3'>
+		<div class='col-md-2'>
 			<% case get_layout %>
 			<% when 'Bandejas' %>
 				<%= render partial: get_partial('st_bandejas', 'partials', 'bandeja') %>
@@ -10,7 +10,7 @@
 				<%= render partial: get_partial('app_mensajes', 'partials', 'bandeja') %>
 			<% end %>
 		</div>
-		<div class='col-md-9'>
+		<div class='col-md-10'>
 			<%= yield %>
 		</div>
 	</div>

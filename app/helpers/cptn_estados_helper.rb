@@ -1,4 +1,4 @@
-module CapitanEstadosHelper
+module CptnEstadosHelper
 
 	def get_st_modelo(objeto)
 		StModelo.find_by(st_modelo: objeto.class.name)

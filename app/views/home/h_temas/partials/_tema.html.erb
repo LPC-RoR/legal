@@ -4,7 +4,7 @@
 		<% if img_side == 'izq'%>
 			<% unless HTema.find_by(tema: nombre).blank? %>
 			<% unless HTema.find_by(tema: nombre).imagenes.empty? %>
-			<%= render partial: '0p/imagenes/imagen', locals: {objeto: HTema.find_by(tema: nombre).imagenes.first ,field: 'imagen', size: config[:image][:tema][:size], img_class: ctes[:image][:centrada]} %>
+			<%= render partial: '0p/imagenes/imagen', locals: {objeto: HTema.find_by(tema: nombre).imagenes.first ,field: 'imagen', size: config[:image][:tema][:size], img_class: img_class[:centrada]} %>
 			<% end %>
 			<% end %>
 		<% else %>
@@ -23,7 +23,7 @@
 		<% else %>
 			<% unless HTema.find_by(tema: nombre).blank? %>
 			<% unless HTema.find_by(tema: nombre).imagenes.empty? %>
-			<%= render partial: '0p/imagenes/imagen', locals: {objeto: HTema.find_by(tema: nombre).imagenes.first ,field: 'imagen', size: config[:image][:tema][:size], img_class: ctes[:image][:centrada]} %>
+			<%= render partial: '0p/imagenes/imagen', locals: {objeto: HTema.find_by(tema: nombre).imagenes.first ,field: 'imagen', size: config[:image][:tema][:size], img_class: img_class[:centrada]} %>
 			<% end %>
 			<% end %>
 		<% end %>

@@ -1,4 +1,4 @@
-module CapitanTarifasHelper
+module CptnTarifasHelper
 
 	def calcula(formula, libreria, causa)
 
