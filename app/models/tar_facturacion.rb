@@ -2,7 +2,7 @@ class TarFacturacion < ApplicationRecord
 
 	TABLA_FIELDS = [
 		'glosa',
-		'm#monto',
+		'm#monto_suma',
 		'estado'
 	]
 
@@ -22,6 +22,10 @@ class TarFacturacion < ApplicationRecord
 		else
 			nil
 		end
+	end
+
+	def monto_suma
+		self.monto.blank? ? 0 : self.monto
 	end
 
 end

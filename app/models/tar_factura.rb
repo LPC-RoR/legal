@@ -31,10 +31,6 @@ class TarFactura < ApplicationRecord
 		end
 	end
 
-	def monto_suma
-		self.monto.blank? ? 0 : self.monto
-	end
-
 	def fecha
 		self.fecha_uf.blank? ? DateTime.now.to_date : self.fecha_uf
 	end
