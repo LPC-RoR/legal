@@ -38,7 +38,7 @@
 		<% end %>
 		</br>
 
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} unless @coleccion['tar_facturaciones'].empty? %>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} %>
 	</div>
 	<div class='col-md-6'>
 		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: " Facturación pendiente", clr: config[:color][:app]} %></h5>

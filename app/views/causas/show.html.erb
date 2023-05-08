@@ -51,7 +51,7 @@
 	<!--h5><%#= render partial: '0p/general/icon_text', locals: {gly: 'currency-dollar', text: 'Cuantía', clr: config[:color][:app]} %></h5-->
 
 	<small>UF del Día: <%= s_pesos2(uf_del_dia) %></small></br>
-	Cuantía : <%=number_to_currency(@objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(@objeto.cuantia_uf, unit: 'UF') %>
+	Cuantía : <%=number_to_currency(@objeto.cuantia_pesos, locale: :en, precision: 0) %> / <%= number_to_currency(@objeto.cuantia_uf, unit: 'UF') %></br>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_valor_cuantias'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'tar_valor_cuantias', gly: 'plus-circle', clr: color('tar_valor_cuantias')} %>
 <% end %>

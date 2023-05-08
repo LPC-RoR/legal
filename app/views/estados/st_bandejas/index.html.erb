@@ -3,7 +3,7 @@
 		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'table', text: "#{m_to_name(@m)} : #{@e}", clr: config[:color][:app]} %></h5>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: @m.tableize} %>
-		<%= render partial: '0p/tabla/btn_nuevo', locals: {c: @m.tableize} if estado_ingreso?(@m, @e) %>
+		<%= render partial: '0p/tabla/btn_nuevo', locals: {c: @m.tableize} if estado_ingreso?(@m, @e) and @m != 'TarFactura' %>
 	<% else %>
 		Sin información pare desplegar
 	<% end %>

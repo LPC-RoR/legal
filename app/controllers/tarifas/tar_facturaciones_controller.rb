@@ -13,7 +13,8 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
   # GET /tar_facturaciones/new
   def new
-    @objeto = TarFacturacion.new
+    factura = TarFactura.find(params[:tar_factura_id])
+    @objeto = TarFacturacion.new(tar_factura_id: params[:tar_factura_id], cliente_class: 'Cliente', cliente_id: factura.padre.id)
   end
 
   # Crea DETALLE DE FACTURA, que será heredado por un factura luego
@@ -55,7 +56,8 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Tar facturacion was successfully created." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Tar facturacion was successfully created." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -68,7 +70,8 @@ class Tarifas::TarFacturacionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tar_facturacion_params)
-        format.html { redirect_to @objeto, notice: "Tar facturacion was successfully updated." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Tar facturacion was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -99,9 +102,10 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
   # DELETE /tar_facturaciones/1 or /tar_facturaciones/1.json
   def destroy
+    set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to tar_facturaciones_url, notice: "Tar facturacion was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Tar facturacion was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -120,8 +124,12 @@ class Tarifas::TarFacturacionesController < ApplicationController
       @objeto = TarFacturacion.find(params[:id])
     end
 
+    def set_redireccion
+      @redireccion = @objeto.tar_factura
+    end
+
     # Only allow a list of trusted parameters through.
     def tar_facturacion_params
-      params.require(:tar_facturacion).permit(:facturable, :glosa, :monto, :estado, :owner_class, :owner_id)
+      params.require(:tar_facturacion).permit(:facturable, :glosa, :monto, :estado, :owner_class, :owner_id, :tar_factura_id, :moneda)
     end
 end

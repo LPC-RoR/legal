@@ -145,6 +145,7 @@ Rails.application.routes.draw do
 
     resources :tar_convenios
     resources :tar_facturas do 
+      resources :tar_facturaciones
       match :set_documento, via: :post, on: :member
       match :elimina, via: :get, on: :member
       match :back_estado, via: :get, on: :member

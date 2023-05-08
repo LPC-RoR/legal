@@ -8,12 +8,6 @@ module CptnMapAppHelper
 		'General'
 	end
 
-	def app_scope_controller(controller)
-		if app_controllers_scope[:tarifas].include?(controller)
-			'tarifas'
-		end
-	end
-
 	def app_sidebar_controllers
 		[]
 	end
@@ -22,6 +16,12 @@ module CptnMapAppHelper
 		{
 			tarifas: ['tar_tarifas', 'tar_detalles', 'tar_valores', 'tar_servicios', 'tar_horas', 'tar_facturaciones', 'tar_uf_sistemas', 'tar_detalle_cuantias', 'tar_valor_cuantias', 'tar_pagos', 'tar_formulas', 'tar_comentarios']
 		}
+	end
+
+	def app_scope_controller(controller)
+		if app_controllers_scope[:tarifas].include?(controller)
+			'tarifas'
+		end
 	end
 
 end

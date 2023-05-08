@@ -6,8 +6,10 @@ module CptnTablaAppHelper
 	end
 
 	def app_new_button_conditions(controller)
-		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_facturaciones', 'tar_valor_cuantias', 'tar_facturas'].include?(controller)
+		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_valor_cuantias', 'tar_facturas'].include?(controller)
 			false
+		elsif ['tar_facturaciones'].include?(controller)
+			dog? and controller_name == 'tar_facturas'
 		elsif ['causas', 'consultorias'].include?(controller)
 			controller_name == 'st_bandejas'
 		else
@@ -18,7 +20,9 @@ module CptnTablaAppHelper
 	def app_crud_conditions(objeto, btn)
 		if [].include?(objeto.class.name)
 			admin?
-		elsif ['TarFacturacion', 'TarFactura'].include?(objeto.class.name)
+		elsif ['TarFacturacion'].include?(objeto.class.name)
+			dog? and controller_name == 'tar_facturas'
+		elsif ['TarFactura'].include?(objeto.class.name)
 			false
 		elsif ['TarPago', 'TarFormula'].include?(objeto.class.name)
 			controller_name == 'tar_tarifas'
