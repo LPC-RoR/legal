@@ -17,7 +17,7 @@ class TarFactura < ApplicationRecord
 
 	def monto_pesos
 		unless self.uf.blank?
-			self.tar_facturaciones.map {|facturacion| facturacion.moneda == 'Pesos' ? facturacion.monto : (facturacion.monto * self.uf)}.compact.sum
+			self.tar_facturaciones.map {|facturacion| facturacion.moneda == 'Pesos' ? facturacion.monto_suma : (facturacion.monto_suma * self.uf)}.compact.sum
 		else
 			0
 		end
@@ -25,10 +25,14 @@ class TarFactura < ApplicationRecord
 
 	def monto_uf
 		unless self.uf.blank?
-			self.tar_facturaciones.map {|facturacion| facturacion.moneda == 'Pesos' ? (facturacion.monto/self.uf) : (facturacion.monto)}.compact.sum
+			self.tar_facturaciones.map {|facturacion| facturacion.moneda == 'Pesos' ? (facturacion.monto_suma/self.uf) : (facturacion.monto_suma)}.compact.sum
 		else
 			0
 		end
+	end
+
+	def monto_suma
+		self.monto.blank? ? 0 : self.monto
 	end
 
 	def fecha
