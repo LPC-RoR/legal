@@ -75,7 +75,7 @@ module IniciaAplicacion
 
 	end
 
-	def libre_registro
+	def libre_registro?
 		false
 	end
 
