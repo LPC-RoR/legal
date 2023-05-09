@@ -41,7 +41,7 @@ class Causa < ApplicationRecord
 		monto = 0
 		unless uf.blank?
 			self.facturaciones.each do |factnes|
-				monto += factnes.moneda == 'Pesos' ? factnes.monto : (factnes.monto * uf)
+				monto += factnes.moneda == 'Pesos' ? factnes.monto : (factnes.monto * uf.valor)
 			end
 		end
 		monto
@@ -52,7 +52,7 @@ class Causa < ApplicationRecord
 		monto = 0
 		unless uf.blank?
 			self.facturaciones.each do |factnes|
-				monto += factnes.moneda == 'Pesos' ? (factnes.monto / uf) : factnes.monto
+				monto += factnes.moneda == 'Pesos' ? (factnes.monto / uf.valor) : factnes.monto
 			end
 		end
 		monto

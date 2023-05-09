@@ -113,7 +113,7 @@ module Tarifas
 			when '#facturado_pesos'
 				causa.facturado_pesos
 			when '#facturado_uf'
-				causa.facturado_uf
+				causa.facturado_uf	
 			end
 		elsif (elemento.split(' ').length == 1) and elemento.match(/\d+\.*\d*/)	# número ya evaluado
 			elemento.to_f
