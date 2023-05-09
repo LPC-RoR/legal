@@ -38,4 +38,9 @@ module Capitan
 		uf.blank? ? nil : uf.valor
 	end
 
+	def uf_fecha(fecha)
+		uf = TarUfSistema.find_by(fecha: fecha.to_date)
+		uf.blank? ? nil : uf.valor
+	end
+
 end

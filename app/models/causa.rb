@@ -57,14 +57,20 @@ class Causa < ApplicationRecord
 		TarValorCuantia.where(owner_class: 'Causa', owner_id: self.id)
 	end
 
+	def fecha_calculo
+		self.fecha_uf.blank? ? DateTime.now : self.fecha_uf
+	end
+
 	def cuantia_pesos
-		uf = TarUfSistema.find_by(fecha: DateTime.now.to_date)
+#		uf = self.fecha_uf.blank? ? TarUfSistema.find_by(fecha: DateTime.now.to_date) : TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
+		uf = TarUfSistema.find_by(fecha: self.fecha_calculo)
 		v = self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? vc.valor : (uf.blank? ? 'Sin UF' : vc.valor * uf.valor)) }
 		v.include?('Sin UF') ? 'No hay UF del Día' : v.sum
 	end
 
 	def cuantia_uf
-		uf = TarUfSistema.find_by(fecha: DateTime.now.to_date)
+#		uf = self.fecha_uf.blank? ? TarUfSistema.find_by(fecha: DateTime.now.to_date) : TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
+		uf = TarUfSistema.find_by(fecha: self.fecha_calculo)
 		v = self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? (uf.blank? ? 'Sin UF' : vc.valor / uf.valor) : vc.valor) }
 		v.include?('Sin UF') ? 'No hay UF del Día' : v.sum
 	end

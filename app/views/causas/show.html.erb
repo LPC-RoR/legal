@@ -27,25 +27,7 @@
 
 <% elsif @options[:menu] == 'Facturacion' %>
 
-	<div class='row'>
-		<div class='col-md-6'>
-
-			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifa', clr: config[:color][:app]} %></h5>
-			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
-
-			<%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: @objeto} if @objeto.class.name == 'Causa' %>
-
-			<% unless @objeto.tar_tarifa.blank? %>
-				<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: config[:color][:app]} %></h5>
-				<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} unless @coleccion['tar_facturaciones'].empty? %>
-			<% end %>
-		</div>
-		<div class='col-md-6'>
-			<% if @objeto.tar_tarifa.present? %>
-				<%= render partial: 'tarifas/partials/facturacion', locals: {objeto: @objeto} %>
-			<% end %>
-		</div>
-	</div>
+	<%= render partial: 'causas/partials/facturacion' %>
 
 <% elsif @options[:menu] == 'Cuantía' %>
 	<!--h5><%#= render partial: '0p/general/icon_text', locals: {gly: 'currency-dollar', text: 'Cuantía', clr: config[:color][:app]} %></h5-->
