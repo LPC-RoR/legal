@@ -8,9 +8,9 @@
 				<%= pago.tar_pago %> : <%= pago.moneda == 'Pesos' ? '$' : 'UF' %> <%= number_to_currency(calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto), precision: (pago.moneda == 'Pesos' ? 0 : 2), unit: '') %></br>
 				<small>
 					<% if pago.moneda == 'Pesos' %>
-						<%= number_to_currency(calcula(pago.tar_tarifa.tar_formulas.order(:orden).first.tar_formula, pago.tar_tarifa.tar_formulas, objeto).to_f / TarUfSistema.find_by(fecha: objeto.fecha_calculo.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+						<%= number_to_currency(calcula(pago.codigo_formula, pago.tar_tarifa.tar_formulas, objeto).to_f / TarUfSistema.find_by(fecha: objeto.fecha_calculo.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
 					<% else %>
-						<%= number_to_currency(calcula(pago.tar_tarifa.tar_formulas.order(:orden).first.tar_formula, pago.tar_tarifa.tar_formulas, objeto).to_f * TarUfSistema.find_by(fecha: objeto.fecha_calculo.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+						<%= number_to_currency(calcula(pago.codigo_formula, pago.tar_tarifa.tar_formulas, objeto).to_f * TarUfSistema.find_by(fecha: objeto.fecha_calculo.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
 					<% end %>
 				</small></br>
 			<% else %>
