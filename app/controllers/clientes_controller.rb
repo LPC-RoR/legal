@@ -15,7 +15,7 @@ class ClientesController < ApplicationController
 
 #    @coleccion = {}
     if @options[:menu] == 'Facturas'
-      init_tabla('tar_facturas', @objeto.facturas, false)
+      init_tabla('tar_facturas', @objeto.facturas.order(documento: :desc), false)
     elsif @options[:menu] == 'Causas'
       init_tabla('causas', @objeto.causas.order(:created_at), false)
     elsif @options[:menu] == 'Consultorías'

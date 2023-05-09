@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_08_234253) do
+ActiveRecord::Schema.define(version: 2023_05_09_192016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(version: 2023_05_08_234253) do
     t.string "rit"
     t.string "estado_causa"
     t.datetime "fecha_uf"
+    t.decimal "monto_pagado"
     t.index ["era"], name: "index_causas_on_era"
     t.index ["estado"], name: "index_causas_on_estado"
     t.index ["estado_causa"], name: "index_causas_on_estado_causa"

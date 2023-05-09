@@ -107,7 +107,7 @@ module Tarifas
 			when '#cuantia_uf'
 				causa.cuantia_uf
 			when '#monto_sentencia'
-				causa.cuantia_uf
+				causa.monto_pagado.blank? ? 0 : causa.monto_pagado
 			end
 		elsif (elemento.split(' ').length == 1) and elemento.match(/\d+\.*\d*/)	# número ya evaluado
 			elemento.to_f
