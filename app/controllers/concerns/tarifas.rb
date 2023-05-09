@@ -106,8 +106,14 @@ module Tarifas
 				causa.cuantia_pesos
 			when '#cuantia_uf'
 				causa.cuantia_uf
-			when '#monto_sentencia'
+			when '#monto_pagado'
 				causa.monto_pagado.blank? ? 0 : causa.monto_pagado
+			when '#monto_pagado_uf'
+				causa.monto_pagado.blank? ? 0 : causa.monto_pagado / uf_del_dia
+			when '#facturado_pesos'
+				causa.facturado_pesos
+			when '#facturado_uf'
+				causa.facturado_uf
 			end
 		elsif (elemento.split(' ').length == 1) and elemento.match(/\d+\.*\d*/)	# número ya evaluado
 			elemento.to_f

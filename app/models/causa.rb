@@ -36,6 +36,28 @@ class Causa < ApplicationRecord
 		TarFacturacion.where(owner_class: 'Causa', owner_id: self.id)
 	end
 
+	def facturado_pesos
+		uf = TarUfSistema.find_by(fecha: DateTime.now)
+		monto = 0
+		unless uf.blank?
+			self.facturaciones.each do |factnes|
+				monto += factnes.moneda == 'Pesos' ? factnes.monto : (factnes.monto * uf)
+			end
+		end
+		monto
+	end
+
+	def facturado_uf
+		uf = TarUfSistema.find_by(fecha: DateTime.now)
+		monto = 0
+		unless uf.blank?
+			self.facturaciones.each do |factnes|
+				monto += factnes.moneda == 'Pesos' ? (factnes.monto / uf) : factnes.monto
+			end
+		end
+		monto
+	end
+
 	def enlaces
 		AppEnlace.where(owner_class: 'Causa', owner_id: self.id)
 	end
