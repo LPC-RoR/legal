@@ -2,8 +2,9 @@ class TarFacturacion < ApplicationRecord
 
 	TABLA_FIELDS = [
 		'glosa',
-		'm#monto_suma',
-		'estado'
+		'm#monto_ingreso',
+		'$#monto_pesos'
+#		'estado'
 	]
 
 	belongs_to :tar_factura, optional: true
@@ -24,8 +25,33 @@ class TarFacturacion < ApplicationRecord
 		end
 	end
 
-	def monto_suma
+	def monto_ingreso
 		self.monto.blank? ? 0 : self.monto
+	end
+
+	# métodos para la correcto uso de la UF
+
+	def fecha_uf
+		if self.tar_factura.blank?
+			DateTime.now
+		elsif self.tar_factura.estado == 'ingreso'
+			DateTime.now
+		elsif self.tar_factura.fecha_uf.present?
+			self.tar_factura.fecha_uf
+		elsif self.tar_factura.fecha_factura.present?
+			self.tar_factura.fecha_factura
+		else
+			DateTime.now
+		end
+	end
+
+	def uf_to_pesos(monto)
+		uf = TarUfSistema.find_by(fecha: self.fecha_uf)
+		uf.blank? ? 0 : monto / uf.valor
+	end
+
+	def monto_pesos
+		self.moneda == 'Pesos' ? self.monto_ingreso : uf_to_pesos(self.monto_ingreso)
 	end
 
 end

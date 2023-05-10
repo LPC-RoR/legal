@@ -1,17 +1,20 @@
-		<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: "Factura de cliente: #{@objeto.padre.razon_social	}", clr: config[:color][:app]} %></h4>
+<h4><i class="bi bi-building"></i> Factura de cliente <%= link_to @objeto.padre.razon_social, @objeto.padre %></h4>
 
+<div class='row'>
+	<div class='col-md-6'>
+		Estado: <b><%= @objeto.estado %></b>
+	</div>
+	<div class='col-md-6'>
 		<%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
-		</br>
-
+	</div>
+</div>
 
 <div class="row">
-	<div class='col-md-6'>
+	<div class='col-md-8'>
+		Factura: <%= "#{@objeto.documento} | #{dma(@objeto.fecha_factura)} | #{@objeto.concepto}" %></br>
 
  		<small>
-		Estado: <%= @objeto.estado %></br>
-		Factura: <%= "#{@objeto.documento} | #{dma(@objeto.fecha_factura)} | #{@objeto.concepto}" %></br>
 		Detalle del pago: <%= dma(@objeto.fecha_pago) %> <%= @objeto.detalle_pago %></br>
-
 		UF del día <%= dma(@objeto.fecha) %> : <%= @objeto.uf.blank? ? 'No hay UF del sistema para este día' : number_to_currency(@objeto.uf, locale: :en, precision: 2) %>
 		</small>
 		<hr>
@@ -40,7 +43,7 @@
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} %>
 	</div>
-	<div class='col-md-6'>
+	<div class='col-md-4'>
 		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: " Facturación pendiente", clr: config[:color][:app]} %></h5>
 
 		<% unless @objeto.padre.facturaciones.where(tar_factura_id: nil).empty? %>
