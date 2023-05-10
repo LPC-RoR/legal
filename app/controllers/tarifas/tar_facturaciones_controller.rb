@@ -36,7 +36,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
       #----------------------------------------
       owner_class = owner.class.name
       moneda = (pago.moneda.blank? ? 'UF' : pago.moneda)
-      glosa = "#{pago.tar_pago} : #{owner.identificador if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
+      glosa = "#{pago.tar_pago} : #{owner.rit if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
       monto = pago.valor.blank? ? calcula( formula, libreria, owner) : pago.valor
       unless monto == 0
         TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'ingreso', moneda: moneda, monto: monto)
