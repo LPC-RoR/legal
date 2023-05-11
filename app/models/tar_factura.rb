@@ -36,7 +36,7 @@ class TarFactura < ApplicationRecord
 	end
 
 	def uf
-		TarUfSistema.find_by(fecha: self.fecha)
+		TarUfSistema.find_by(fecha: self.fecha).valor
 	end
 
 	def d_concepto
