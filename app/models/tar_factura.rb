@@ -32,11 +32,11 @@ class TarFactura < ApplicationRecord
 	end
 
 	def fecha
-		self.fecha_uf.blank? ? DateTime.now.to_date : self.fecha_uf
+		self.estado == 'ingreso' ? DateTime.now.in_time_zone('Santiago') : (self.fecha_uf.blank? ? self.fecha_factura : self.fecha_uf)
 	end
 
 	def uf
-		self.fecha_uf.blank? ? (TarUfSistema.find_by(fecha: DateTime.now.to_date).blank? ? nil : TarUfSistema.find_by(fecha: DateTime.now.to_date).valor) : (TarUfSistema.find_by(fecha: self.fecha_uf.to_date).blank? ? nil : TarUfSistema.find_by(fecha: self.fecha_uf.to_date).valor)
+		TarUfSistema.find_by(fecha: self.fecha)
 	end
 
 	def d_concepto

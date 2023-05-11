@@ -32,17 +32,7 @@ class TarFacturacion < ApplicationRecord
 	# métodos para la correcto uso de la UF
 
 	def fecha_uf
-		if self.tar_factura.blank?
-			DateTime.now
-		elsif self.tar_factura.estado == 'ingreso'
-			DateTime.now
-		elsif self.tar_factura.fecha_uf.present?
-			self.tar_factura.fecha_uf
-		elsif self.tar_factura.fecha_factura.present?
-			self.tar_factura.fecha_factura
-		else
-			DateTime.now
-		end
+		self.tar_factura.blank? ? DateTime.now.in_time_zone('Santiago') : self.tar_factura.fecha
 	end
 
 	def uf_to_pesos(monto)
