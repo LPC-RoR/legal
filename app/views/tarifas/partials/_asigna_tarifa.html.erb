@@ -1,33 +1,40 @@
 <div class='row'>
 	<div class='col-md-6'>
-		<!--p class='text-<%=config[:color][:app]%>'>
-			<i class="bi bi-cash-coin"></i></i><small> Asignada</small>
-		</p-->
 		<% if objeto.tar_tarifa.blank? %>
-			<h6 class='text-muted'><small>Sin tarifa asignada</small></h6>
+			<small><i class="bi bi-cash-coin"></i> Tarifa : Sin tarifa asignada</small>
 		<% else %>
 
-			<table class="table">
-				<tbody>
-			  		<tr>
-			  			<td><small><small><p class='text-<%=config[:color][:app]%>'><%=objeto.tar_tarifa.tarifa %></p></small></small></td>
-			  			<td>
-			  				<% unless objeto.valores.any? %>
-			  				<%= link_to link_x_btn(objeto.tar_tarifa, '/desasigna', true) do %>
-			  					<i class="bi bi-x-circle"></i>
-			  				<% end %>
-			  				<% end %>
-			  			</td>
-				  	</tr>
-				</tbody>
-			</table>
+			<small><i class="bi bi-cash-coin"></i> Tarifa : <%= objeto.tar_tarifa.tarifa %></small>
+			<% unless objeto.valores.any? %>
+				<small>
+				<%= link_to link_x_btn(objeto.tar_tarifa, '/desasigna', true) do %>
+					<i class="bi bi-x-circle"></i>
+				<% end %>
+				</small>
+			<% end %>
 
-		<% end %>
+			<% end %>
 	</div>
 	<div class='col-md-6'>
 		<% unless objeto.tar_tarifa.present? %>
-			<%= render partial: '0p/list/action_list', locals: {nombre: 'Tarifas Base', gly: 'cash-coin', clr: 'info', coleccion: TarTarifa.where(owner_class: ''), field: 'tarifa', link: '/asigna', gly_link: 'plus-circle', base: true, action: true} %>
-			<%= render partial: '0p/list/action_list', locals: {nombre: 'Tarifas Cliente', gly: 'cash-coin', clr: 'info', coleccion: objeto.tarifas_cliente, field: 'tarifa', link: '/asigna', gly_link: 'plus-circle', base: true, action: true} %>
+			<% TarTarifa.where(owner_class: '').each do |tarifa_base| %>
+				<small><i class="bi bi-house"></i>
+				<%= link_to link_x_btn(tarifa_base, '/asigna', true) do %>
+					<i class="bi bi-arrow-left"></i>	
+					<%= tarifa_base.tarifa %>
+				<% end %>
+				</small></br>
+			<% end %>
+
+			<% objeto.tarifas_cliente.each do |tarifa_cliente| %>
+				<small><i class="bi bi-building"></i>
+				<%= link_to link_x_btn(tarifa_cliente, '/asigna', true) do %>
+					<i class="bi bi-arrow-left"></i>	
+					<%= tarifa_cliente.tarifa %>
+				<% end %>
+				</small></br>
+			<% end %>
 		<% end %>
+
 	</div>
 </div>

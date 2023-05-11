@@ -1,29 +1,32 @@
 <!-- DESPLIEGUE DEL TAB FACTURACION DE UNA CAUSA/CONSULTORIA-->
-<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Despliegue Tarifa', clr: config[:color][:app]} %></h5>
+<h6><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Despliegue Tarifa', clr: config[:color][:app]} %></h6>
 
-<% unless uf_del_dia.blank? %>
+<%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: @objeto} if @objeto.class.name == 'Causa' %>
+<hr>
+<% unless objeto.uf_calculo.blank? %>
 	<% objeto.tar_tarifa.tar_pagos.each do |pago| %>
 		<% if pago.valor.blank? %>
+			<!-- TARIFA CON FORMULAS -->
 			<% unless pago.codigo_formula.blank? %>
 				<%= pago.tar_pago %> : <%= pago.moneda == 'Pesos' ? '$' : 'UF' %> <%= number_to_currency(calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto), precision: (pago.moneda == 'Pesos' ? 0 : 2), unit: '') %></br>
-				<%= calcula(pago.codigo_formula, pago.tar_tarifa.tar_formulas, objeto) %>
 				<small>
 					<% if pago.moneda == 'Pesos' %>
-						<%= number_to_currency(calcula(pago.formula_tarifa, pago.tar_tarifa.tar_formulas, objeto).to_f / TarUfSistema.find_by(fecha: objeto.fecha_calculo.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+						<%= number_to_currency(calcula(pago.formula_tarifa, pago.tar_tarifa.tar_formulas, objeto).to_f / objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
 					<% else %>
-						<%= number_to_currency(calcula(pago.formula_tarifa, pago.tar_tarifa.tar_formulas, objeto).to_f * TarUfSistema.find_by(fecha: objeto.fecha_calculo.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+						<%= number_to_currency(calcula(pago.formula_tarifa, pago.tar_tarifa.tar_formulas, objeto).to_f * objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
 					<% end %>
 				</small></br>
 			<% else %>
 				Pago sin código de fórmula
 			<% end %>
 		<% else %>
+			<!-- TARIFA CON CUOTAS -->
 			<%= pago.tar_pago %> : <%= pago.moneda == 'Pesos' ? '$' : 'UF' %> <%= number_to_currency(pago.valor, precision: (pago.moneda == 'Pesos' ? 0 : 2), unit: '') %></br>
 			<small>
 				<% if pago.moneda == 'Pesos' %>
-					<%= number_to_currency(pago.valor / TarUfSistema.find_by(fecha: objeto.fecha_calculo.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+					<%= number_to_currency(pago.valor / objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
 				<% else %>
-					<%= number_to_currency(pago.valor * TarUfSistema.find_by(fecha: objeto.fecha_calculo.to_date).valor, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+					<%= number_to_currency(pago.valor * objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
 				<% end %>
 			</small></br>
 		<% end %>
@@ -51,6 +54,8 @@
 		<% end %>	
 
 	<% end %>
+<% else %>
+	Valor UF no encontrado	
 <% end %>
 
 </br></br>

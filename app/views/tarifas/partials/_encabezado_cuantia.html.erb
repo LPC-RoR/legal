@@ -1,12 +1,8 @@
-	<% unless objeto.fecha_uf.blank? %>
-		<p><small>
-			<%= "Fecha UF cálculo : #{dma(objeto.fecha_uf)}" %></br>
-			<%= "UF de cálculo : #{uf_fecha(objeto.fecha_uf).blank? ? 'No hay UF ingresada para esa fecha' : s_pesos2(uf_fecha(objeto.fecha_uf))}" %>
-		</small></p>
-	<% else %>
-		<% unless uf_del_dia.blank? %>
-			<p><small>UF del Día: <%= s_pesos2(uf_del_dia) %></small></br>
-			Cuantía : <%=number_to_currency(objeto.cuantia_pesos, locale: :en, precision: 0) %> | <%= number_to_currency(objeto.cuantia_uf, unit: 'UF') %></p>
-		<% end %>
-	<% end  %> 
+<p><small>
+<i class="bi bi-coin"></i> UF <%= objeto.fecha_uf.blank? ? "(del día) : " : '(asignada) : ' %>
+
+<%= "#{dma(objeto.fecha_calculo)} | #{objeto.uf_calculo.blank? ? 'No encontrada' : s_pesos2(objeto.uf_calculo)}" %>
+</small></br>
+Cuantía : <%= s_pesos(objeto.cuantia_pesos) %> | <%= s_uf(objeto.cuantia_uf) %>
+</p>
 

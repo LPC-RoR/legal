@@ -100,7 +100,7 @@ module CptnTarifasHelper
 		if elemento.strip[0] == '#' #Valor de la causa
 			case elemento.strip
 			when '#uf'
-				TarUfSistema.find_by(fecha: DateTime.now.to_date).valor
+				causa.uf_calculo
 			when '#cuantia_pesos'
 				causa.cuantia_pesos
 			when '#cuantia_uf'
@@ -108,7 +108,7 @@ module CptnTarifasHelper
 			when '#monto_pagado'
 				causa.monto_pagado.blank? ? 0 : causa.monto_pagado
 			when '#monto_pagado_uf'
-				causa.monto_pagado.blank? ? 0 : causa.monto_pagado / uf_del_dia
+				causa.monto_pagado.blank? ? 0 : causa.monto_pagado / causa.uf_calculo
 			when '#facturado_pesos'
 				causa.facturado_pesos
 			when '#facturado_uf'

@@ -71,6 +71,10 @@ module CptnHelper
 		number_to_currency(valor, locale: :en, precision: 2)
 	end
 
+	def s_uf(valor)
+		number_to_currency(valor, unit: 'UF', precision: 2)
+	end
+
 	def dma(date)
 		date.blank? ? '' : date.strftime("%d-%m-%Y")
 	end

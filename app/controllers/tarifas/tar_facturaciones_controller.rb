@@ -43,7 +43,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
       end
     end
 
-    redirect_to "/#{owner.class.name.tableize}/#{owner.id}?html_options[tab]=Facturación"
+    redirect_to "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Facturacion"
   end
 
   # GET /tar_facturaciones/1/edit
