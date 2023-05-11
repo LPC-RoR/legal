@@ -37,7 +37,7 @@ class TarFacturacion < ApplicationRecord
 	end
 
 	def uf_to_pesos(monto)
-		uf = TarUfSistema.find_by(fecha: self.fecha_uf)
+		uf = TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
 		uf.blank? ? 0 : (self.monto_ingreso / uf.valor)
 	end
 
