@@ -36,14 +36,13 @@ class TarFacturacion < ApplicationRecord
 		self.tar_factura.blank? ? DateTime.now.in_time_zone('Santiago') : self.tar_factura.fecha
 	end
 
-	def to_pesos(monto)
+	def to_pesos
 		uf = TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
-		uf.valor
-#		uf.blank? ? 0 : (self.monto_ingreso / uf.valor)
-	end
+		uf.blank? ? 0 : (self.monto_ingreso / uf.valor)
+	end	
 
 	def monto_pesos
-		self.moneda == 'Pesos' ? self.monto_ingreso : to_pesos(self.monto_ingreso)
+		self.moneda == 'Pesos' ? self.monto_ingreso : self.to_pesos
 	end
 
 end
