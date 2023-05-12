@@ -3,7 +3,8 @@ class TarComentario < ApplicationRecord
 	TABLA_FIELDS = [
 		'orden',
 		'tipo',
-		'formula'
+		'formula',
+		'despliegue'
 	]
 
 	belongs_to :tar_pago

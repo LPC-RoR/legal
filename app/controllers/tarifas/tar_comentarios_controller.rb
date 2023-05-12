@@ -70,6 +70,6 @@ class Tarifas::TarComentariosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_comentario_params
-      params.require(:tar_comentario).permit(:tar_pago_id, :orden, :tipo, :formula, :comentario, :opcional)
+      params.require(:tar_comentario).permit(:tar_pago_id, :orden, :tipo, :formula, :comentario, :opcional, :despliegue)
     end
 end

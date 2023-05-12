@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_09_192016) do
+ActiveRecord::Schema.define(version: 2023_05_12_140940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -447,6 +447,7 @@ ActiveRecord::Schema.define(version: 2023_05_09_192016) do
     t.text "opcional"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "despliegue"
     t.index ["tar_pago_id"], name: "index_tar_comentarios_on_tar_pago_id"
   end
 
