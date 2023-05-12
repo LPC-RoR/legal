@@ -4,7 +4,7 @@
 			<small><i class="bi bi-cash-coin"></i> Tarifa : Sin tarifa asignada</small>
 		<% else %>
 
-			<small><i class="bi bi-cash-coin"></i> Tarifa : <%= objeto.tar_tarifa.tarifa %></small>
+			<small><i class="bi bi-cash-coin"></i> Tarifa : <%= link_to objeto.tar_tarifa.tarifa, objeto.tar_tarifa %></small>
 			<% unless objeto.valores.any? %>
 				<small>
 				<%= link_to link_x_btn(objeto.tar_tarifa, '/desasigna', true) do %>
