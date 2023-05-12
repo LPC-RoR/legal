@@ -102,6 +102,9 @@ module Tarifas
 			case elemento.strip
 			when '#uf'
 				causa.uf_calculo
+			when '#uf_dia'
+				uf = TarUfSistema.find_by(fecha: Time.zone.today)
+				uf.blank? ? 0 : uf.valor
 			when '#cuantia_pesos'
 				causa.cuantia_pesos
 			when '#cuantia_uf'
