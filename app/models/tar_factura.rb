@@ -32,7 +32,7 @@ class TarFactura < ApplicationRecord
 	end
 
 	def fecha
-		self.estado == 'ingreso' ? DateTime.now.in_time_zone('Santiago') : (self.fecha_uf.blank? ? self.fecha_factura : self.fecha_uf)
+		self.estado == 'ingreso' ? Time.zone.today : (self.fecha_uf.blank? ? self.fecha_factura : self.fecha_uf)
 	end
 
 	def uf

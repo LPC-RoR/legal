@@ -61,9 +61,11 @@ class CausasController < ApplicationController
 
   # PATCH/PUT /causas/1 or /causas/1.json
   def update
+    puts "***************************************************** ENTRO"
     respond_to do |format|
       if @objeto.update(causa_params)
         set_redireccion
+    puts "***************************************************** ACTUALIZO"
         format.html { redirect_to @redireccion, notice: "Causa was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else

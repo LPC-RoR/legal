@@ -16,6 +16,8 @@
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Despliegue', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :despliegue } %>
 
+<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['UF', 'Pesos'] } %>
+
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Comentario', v: true } %>
 <%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :comentario } %>
 <%#= render partial: '0p/form_fields/label', locals: { form: form, label: 'Opcional', v: true } %>

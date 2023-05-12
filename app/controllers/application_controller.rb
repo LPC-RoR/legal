@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
 	include Map	
 
-	before_action :init_bandejas, only: %i[ new edit show index create tablas]
+	before_action :init_bandejas, only: %i[ new edit show index create tablas update]
 
 	helper_method :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id, :mi_seguridad?
 	helper_method :bandeja_display?

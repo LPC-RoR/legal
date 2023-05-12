@@ -34,7 +34,7 @@
 		<!-- BOTON FACTURACION -->
 		<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.codigo_formula) %>
 	    	<%= render partial: '0p/general/btn_proceso', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.codigo_formula}", clr: config[:color][:app], delete: false} unless pago.codigo_formula.blank? %>
-			</br></br>
+			</br>
 	    <% end %>
 
 		<% unless pago.tar_comentarios.empty? %>
@@ -49,7 +49,13 @@
 						<li>
 							<%= comentario.comentario %>
 							<!-- DESPLIEGUE DE VALORES -->
-							<%= s_uf(calcula(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto)) unless comentario.despliegue.blank? %>
+							<% unless comentario.despliegue.blank? %>
+								<% if comentario.moneda == 'Pesos' %>
+									<%= s_pesos(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto)) %>
+								<% else %>
+									<%= s_uf(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto)) %>
+								<% end %>
+							<% end %>
 						</li>
 					<% end %>
 				<% end %>
