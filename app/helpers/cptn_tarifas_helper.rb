@@ -1,6 +1,6 @@
 module CptnTarifasHelper
 
-	def calcula(formula, libreria, causa)
+	def calcula2(formula, libreria, causa)
 
 		while formula.match(/\([^()]*\)/) do
 			segmento = formula.match(/\([^()]*\)/)[0]
@@ -46,7 +46,7 @@ module CptnTarifasHelper
 		end
 	end
 
-	def eval_condicion(condicion, libreria, causa)
+	def eval_condicion2(condicion, libreria, causa)
 
 		# Manejo de paréntesis
 		# del resultado de esto puede salir un true, false
@@ -96,7 +96,7 @@ module CptnTarifasHelper
 		end
 	end
 
-	def eval_elemento(elemento, libreria, causa)
+	def eval_elemento2(elemento, libreria, causa)
 		if elemento.strip[0] == '#' #Valor de la causa
 			case elemento.strip
 			when '#uf'
@@ -114,6 +114,7 @@ module CptnTarifasHelper
 			when '#facturado_uf'
 				causa.facturado_uf	
 			end
+		elsif elemento.strip[0] == '@'
 		elsif (elemento.split(' ').length == 1) and elemento.match(/\d+\.*\d*/)	# número ya evaluado
 			elemento.to_f
 		elsif elemento.strip == 'true'	# condicion ya evaluda

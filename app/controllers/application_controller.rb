@@ -14,6 +14,22 @@ class ApplicationController < ActionController::Base
 	helper_method :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id, :mi_seguridad?
 	helper_method :bandeja_display?
 	helper_method :uf_del_dia, :uf_fecha
+	helper_method :calcula, :eval_condicion, :eval_elemento
+
+	# ************************************************************************** COLECCINES DE ESTADOS
+ 
+ 	def st_colecciones(modelo, estado)
+		case modelo
+		when 'Causa'
+			modelo.constantize.where(estado: estado).order(fecha_ingreso: :desc)
+		when 'Cliente'
+			modelo.constantize.where(estado: estado).order(:razon_social)
+		when 'Consultoria'
+			modelo.constantize.where(estado: estado).order(created_at: :desc)
+		when 'TarFactura'
+			modelo.constantize.where(estado: estado).order(documento: :desc)
+		end
+	end
 
 	# Este método se usa para construir un nombre de directorio a partir de un correo electrónico.
 	def archivo_usuario(email, params)

@@ -3,6 +3,7 @@
 
 <%= "#{dma(objeto.fecha_calculo)} | #{objeto.uf_calculo.blank? ? 'No encontrada' : s_pesos2(objeto.uf_calculo)}" %>
 </small></br>
-Cuantía : <%= s_pesos(objeto.cuantia_pesos) %> | <%= s_uf(objeto.cuantia_uf) %>
+Cuantía : <%= s_pesos(objeto.cuantia_pesos) %> | <%= s_uf(objeto.cuantia_uf) %></br>
+Monto sentencia : <%= objeto.monto_pagado.blank? ? 'No ingresado' : s_pesos(objeto.monto_pagado) %>
 </p>
 

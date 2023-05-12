@@ -20,7 +20,7 @@ class Estados::StBandejasController < ApplicationController
       end
 
       # Despliegue
-      init_tabla(@m.tableize, @m.constantize.where(estado: @e).order(:created_at), @m.constantize.where(estado: @e).count > 25)
+      init_tabla(@m.tableize, st_colecciones(@m, @e), @m.constantize.where(estado: @e).count > 25)
 
       @bandejas = (seguridad_desde('admin') ? StModelo.all.order(:st_modelo) : AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.order(:st_perfil_modelo))
 
