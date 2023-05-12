@@ -41,18 +41,19 @@
 
 		<ul>
 			<% pago.tar_comentarios.order(:orden).each do |comentario| %>
-				<!-- DESPLIEGUE DE VALORES -->
-				<% unless comentario.despliegue.blank? %>
-					<li><small><%= calcula(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto) %></small></li>
-				<% end %>
-
+				<small>
 				<% if comentario.tipo == 'Siempre' %>
-					<li><small><%= comentario.comentario %></small></li>
+					<li><%= comentario.comentario %></li>
 				<% elsif comentario.tipo == 'Condición' %>
 					<% if eval_condicion(comentario.formula, pago.tar_tarifa.tar_formulas, objeto) %>
-						<li><small><%= comentario.comentario %></small></li>
+						<!-- DESPLIEGUE DE VALORES -->
+						<% unless comentario.despliegue.blank? %>
+							<li><%= calcula(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto) %></li>
+						<% end %>
+						<li><%= comentario.comentario %></li>
 					<% end %>
 				<% end %>
+				</small>
 			<% end %>
 		</ul>
 
