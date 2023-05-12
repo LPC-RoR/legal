@@ -5,7 +5,7 @@
 		<% else %>
 
 			<small><i class="bi bi-cash-coin"></i> Tarifa : <%= link_to objeto.tar_tarifa.tarifa, objeto.tar_tarifa %></small>
-			<% unless objeto.valores.any? %>
+			<% unless objeto.facturaciones.any? %>
 				<small>
 				<%= link_to link_x_btn(objeto.tar_tarifa, '/desasigna', true) do %>
 					<i class="bi bi-x-circle"></i>
