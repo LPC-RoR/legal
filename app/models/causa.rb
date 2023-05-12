@@ -80,7 +80,8 @@ class Causa < ApplicationRecord
 	end
 
 	def fecha_calculo
-		self.fecha_uf.blank? ? DateTime.now.to_date : self.fecha_uf.to_date
+#		self.fecha_uf.blank? ? DateTime.now.to_date : self.fecha_uf.to_date
+		self.fecha_uf.blank? ? Date.current : self.fecha_uf.to_date
 	end
 
 	def uf_calculo
