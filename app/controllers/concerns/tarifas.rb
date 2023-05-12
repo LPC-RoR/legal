@@ -117,7 +117,8 @@ module Tarifas
 			end
 		elsif elemento.strip[0] == '@'
 			fyc = elemento.strip.match(/^@(?<facturable>.+):(?<campo>.+)/)
-			causa.facturaciones.find_by(facturable: fyc[:facturable]).send(fyc[:campo])
+			facturacion = causa.facturaciones.find_by(facturable: fyc[:facturable])
+			facturacion.blank? ? 0 : (facturacion.send(fyc[:campo]).blank? ? 0 : facturacion.send(fyc[:campo]))
 		elsif (elemento.split(' ').length == 1) and elemento.match(/\d+\.*\d*/)	# número ya evaluado
 			elemento.to_f
 		elsif elemento.strip == 'true'	# condicion ya evaluda
