@@ -14,8 +14,9 @@ class Consultoria < ApplicationRecord
 		self.cliente.tarifas
 	end
 
-	def tarifas_hora_cliente
-		self.cliente.tarifas_hora
+	def uf_calculo
+		uf = TarUfSistema.find_by(fecha: Time.zone.now)
+		uf.blank? ? 0 : uf.valor
 	end
 
 	def valores

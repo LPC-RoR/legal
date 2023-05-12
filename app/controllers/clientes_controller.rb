@@ -11,7 +11,7 @@ class ClientesController < ApplicationController
   # GET /clientes/1 or /clientes/1.json
   def show
 
-    init_tab( { menu: ['Facturas', 'Causas', 'Consultorías', 'Tarifas y servicios'] }, true )
+    init_tab( { menu: ['Facturas', 'Causas', 'Consultorías', 'Documentos y enlaces', 'Tarifas y servicios'] }, true )
 
 #    @coleccion = {}
     if @options[:menu] == 'Facturas'
@@ -23,15 +23,13 @@ class ClientesController < ApplicationController
     elsif @options[:menu] == 'Tarifas y servicios'
       init_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       add_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
+    elsif @options[:menu] == 'Documentos y enlaces'
+      @repo = AppRepo.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)
+      @repo = AppRepo.create(repositorio: @objeto.razon_social, owner_class: 'Cliente', owner_id: @objeto.id) if @repo.blank?
+      init_tabla('app_directorios', @repo.directorios, false)
+      add_tabla('app_documentos', @repo.documentos, false)
     end
 
-    @repo = AppRepo.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)
-    @repo = AppRepo.create(repositorio: @objeto.razon_social, owner_class: 'Cliente', owner_id: @objeto.id) if @repo.blank?
-
-#    @coleccion['app_directorios'] = @repo.directorios
-#    @coleccion['app_documentos'] = @repo.documentos
-    add_tabla('app_directorios', @repo.directorios, false)
-    add_tabla('app_documentos', @repo.documentos, false)
   end
 
   # GET /clientes/new

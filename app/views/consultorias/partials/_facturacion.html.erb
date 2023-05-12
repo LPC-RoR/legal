@@ -4,7 +4,7 @@
 		<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
 
 		<% unless @objeto.tar_tarifa.blank? %>
-			<h6><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: config[:color][:app]} %></h6>
+			<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Facturación', clr: config[:color][:app]} %></h5>
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} %>
 		<% end %>
 

@@ -2,7 +2,6 @@ class ConsultoriasController < ApplicationController
   before_action :set_consultoria, only: %i[ show edit update destroy cambio_estado procesa_registros ]
 
   include Tarifas
-#  include Bandejas
 
   # GET /consultorias or /consultorias.json
   def index
