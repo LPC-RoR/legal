@@ -46,11 +46,11 @@
 					<li><%= comentario.comentario %></li>
 				<% elsif comentario.tipo == 'Condición' %>
 					<% if eval_condicion(comentario.formula, pago.tar_tarifa.tar_formulas, objeto) %>
-						<!-- DESPLIEGUE DE VALORES -->
-						<% unless comentario.despliegue.blank? %>
-							<li><%= calcula(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto) %></li>
-						<% end %>
-						<li><%= comentario.comentario %></li>
+						<li>
+							<!-- DESPLIEGUE DE VALORES -->
+							<%= calcula(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto) comentario.despliegue.blank? %> 
+							<%= comentario.comentario %>
+						</li>
 					<% end %>
 				<% end %>
 				</small>
