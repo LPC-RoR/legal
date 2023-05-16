@@ -67,6 +67,7 @@ Rails.application.routes.draw do
         match :administracion, via: :get
         match :procesos, via: :get
         match :tablas, via: :get
+        match :aprobaciones, via: :get
       end
     end
   end

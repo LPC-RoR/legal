@@ -17,7 +17,7 @@ module CptnMenuAppHelper
 	        ['',        "/app_repos/1",         'nomina', 'file-earmark-text'],
 	        ['',        "/app_repos/perfil",    'nomina', 'file-earmark-person'],
 	        ['',        "/app_recursos/tablas", 'nomina', 'table'],
-	        ['',        "/tar_facturas",        'nomina', 'check-all']
+	        ['',        "/app_recursos/aprobaciones",        'nomina', 'check-all']
 	    ]
 
 	end

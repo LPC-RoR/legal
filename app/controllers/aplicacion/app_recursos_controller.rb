@@ -3,6 +3,7 @@ class Aplicacion::AppRecursosController < ApplicationController
   before_action :inicia_sesion, only: [:administracion, :procesos, :home]
 
   include Sidebar
+  include Tarifas
 
   helper_method :sort_column, :sort_direction
 
@@ -36,6 +37,17 @@ class Aplicacion::AppRecursosController < ApplicationController
       init_tabla('app_enlaces', AppEnlace.where(owner_id: nil).order(:descripcion), false)
       init_tabla('perfil-app_enlaces', AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion), false)
     end
+  end
+
+  def aprobaciones
+    facturaciones = TarFacturacion.where(tar_factura_id: nil)
+    clientes_ids = facturaciones.map {|factn| factn.cliente_id}.uniq
+    clientes = Cliente.where(id: clientes_ids)
+
+
+#    init_tabla('tar_facturaciones', TarFactura.where(tar_factura_id: nil), false)
+
+    init_tabla('clientes', clientes, false)
   end
 
   def procesos
