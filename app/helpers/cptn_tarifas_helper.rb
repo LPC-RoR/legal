@@ -96,11 +96,14 @@ module CptnTarifasHelper
 		end
 	end
 
-	def eval_elemento2(elemento, libreria, causa)
+	def eval_elemento(elemento, libreria, causa)
 		if elemento.strip[0] == '#' #Valor de la causa
 			case elemento.strip
 			when '#uf'
 				causa.uf_calculo
+			when '#uf_dia'
+				uf = TarUfSistema.find_by(fecha: Time.zone.today)
+				uf.blank? ? 0 : uf.valor
 			when '#cuantia_pesos'
 				causa.cuantia_pesos
 			when '#cuantia_uf'
@@ -115,6 +118,9 @@ module CptnTarifasHelper
 				causa.facturado_uf	
 			end
 		elsif elemento.strip[0] == '@'
+			fyc = elemento.strip.match(/^@(?<facturable>.+):(?<campo>.+)/)
+			facturacion = causa.facturaciones.find_by(facturable: fyc[:facturable])
+			facturacion.blank? ? 0 : (facturacion.send(fyc[:campo]).blank? ? 0 : facturacion.send(fyc[:campo]))
 		elsif (elemento.split(' ').length == 1) and elemento.match(/\d+\.*\d*/)	# número ya evaluado
 			elemento.to_f
 		elsif elemento.strip == 'true'	# condicion ya evaluda
