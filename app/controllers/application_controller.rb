@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
 	include Map	
 
-	include Tarifas
+#	include Tarifas
 
 	before_action :init_bandejas, only: %i[ new edit show index create tablas update]
 

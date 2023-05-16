@@ -1,6 +1,8 @@
 class Tarifas::TarFacturasController < ApplicationController
   before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago set_facturada]
 
+  include Tarifas
+
   # GET /tar_facturas or /tar_facturas.json
   def index
     facturaciones = TarFacturacion.where(tar_factura_id: nil)
