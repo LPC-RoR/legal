@@ -1,17 +1,29 @@
 <% unless pago.blank? %>
-	<% unless pago.tar_comentarios.empty? %>
+		<% unless pago.tar_comentarios.empty? %>
 
 		<ul>
 			<% pago.tar_comentarios.order(:orden).each do |comentario| %>
+				<small>
 				<% if comentario.tipo == 'Siempre' %>
-					<li><small><%= comentario.comentario %></small></li>
+					<li><%= comentario.comentario %></li>
 				<% elsif comentario.tipo == 'Condición' %>
 					<% if eval_condicion(comentario.formula, pago.tar_tarifa.tar_formulas, objeto) %>
-						<li><small><%= comentario.comentario %></small></li>
+						<li>
+							<%= comentario.comentario %>
+							<!-- DESPLIEGUE DE VALORES -->
+							<% unless comentario.despliegue.blank? %>
+								<% if comentario.moneda == 'Pesos' %>
+									<%= s_pesos(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto)) %>
+								<% else %>
+									<%= s_uf(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto)) %>
+								<% end %>
+							<% end %>
+						</li>
 					<% end %>
 				<% end %>
+				</small>
 			<% end %>
 		</ul>
 
-	<% end %>	
+		<% end %>	
 <% end %>
