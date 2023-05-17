@@ -11,7 +11,7 @@
 				<!--small-->
 					<b>
 						<% unless uf_del_dia.blank? %>
-						<%= "#{facturacion.padre.class.name} : #{facturacion.padre.as_owner} : #{facturacion.moneda == 'Pesos' ? number_to_currency(facturacion.monto, locale: :en, precision: 0) : number_to_currency(facturacion.monto, unit: 'UF', precision: 2)}" %>
+						<%= "#{facturacion.padre.class.name} : #{facturacion.padre.rit if facturacion.padre.class.name == 'Causa'} #{'|' if facturacion.padre.class.name == 'Causa'} #{facturacion.padre.as_owner} : #{facturacion.moneda == 'Pesos' ? number_to_currency(facturacion.monto, locale: :en, precision: 0) : number_to_currency(facturacion.monto, unit: 'UF', precision: 2)}" %> | <%=  "#{facturacion.moneda == 'Pesos' ? number_to_currency(facturacion.monto / uf_del_dia, unit: 'UF', precision: 2) : number_to_currency(facturacion.monto * uf_del_dia, locale: :en, precision: 0)}" %>
 						<% else %>
 							UF del día no ingresada!
 						<% end %>
