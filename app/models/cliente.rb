@@ -31,4 +31,17 @@ class Cliente < ApplicationRecord
 	def facturaciones
     	TarFacturacion.where(cliente_class: 'Cliente', cliente_id: self.id)
 	end
+
+	def uf_dia
+		uf = TarUfSistema.find_by(fecha: Time.zone.today.to_date)
+		uf.blank? ? 0 : uf.valor
+	end
+
+	def monto_factura_aprobacion_pesos
+		self.facturaciones.where(tar_factura_id: nil).map {|fctrcn| fctrcn.moneda == 'Pesos' ? fctrcn.monto : fctrcn.monto * self.uf_dia }.sum
+	end
+
+	def monto_factura_aprobacion_uf
+		self.facturaciones.where(tar_factura_id: nil).map {|fctrcn| fctrcn.moneda == 'Pesos' ? fctrcn.monto / self.uf_dia : fctrcn.monto }.sum
+	end
 end
