@@ -59,7 +59,7 @@ class Aplicacion::AppRecursosController < ApplicationController
         unless ids.empty?
           @status = true
           @facturaciones = TarFacturacion.where(id: ids)
-          clientes_ids = facturaciones.map {|factn| factn.cliente_id}.uniq
+          clientes_ids = @facturaciones.map {|factn| factn.cliente_id}.uniq
           clientes = Cliente.where(id: clientes_ids)
 
           init_tabla('clientes', clientes, false)
