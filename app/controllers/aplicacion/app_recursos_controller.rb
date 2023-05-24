@@ -46,7 +46,7 @@ class Aplicacion::AppRecursosController < ApplicationController
       unless causas_aprobacion.empty?
         ids = []
         causas_aprobacion.each do |causa|
-          ids_causa = causa.tar_facturaciones.where(tar_factura: nil)
+          ids_causa = causa.facturaciones.where(tar_factura: nil)
           ids = ids | ids_causa
         end
 
