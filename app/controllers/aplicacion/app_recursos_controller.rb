@@ -41,6 +41,9 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def aprobaciones
     estados_aprobacion = StModelo.find_by(st_modelo: 'Causa').st_estados.where(aprobacion: true)
+    puts "*****************************++aprobaciones"
+    puts estados_aprobacion.empty?
+    puts estados_aprobacion.map {|estado| estado.st_estado}
     unless estados_aprobacion.empty?
       causas_aprobacion = Causa.where(estado: estados_aprobacion.map {|estado| estado.st_estado})
       unless causas_aprobacion.empty?
