@@ -27,7 +27,7 @@
 
 		<hr>
 	<% end %>
-	<h4><%= "TOTAL FACTURA : #{s_uf(cliente.monto_factura_aprobacion_uf)} | #{s_pesos(cliente.monto_factura_aprobacion_pesos)}" %></h5>
+	<h4><%= "TOTAL FACTURA : #{s_uf(@total_uf)} | #{s_pesos(@total_pesos)}" %></h5>
 
 <% end %>
 <% else %>

@@ -41,14 +41,8 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def aprobaciones
     estados_aprobacion = StModelo.find_by(st_modelo: 'Causa').st_estados.where(aprobacion: true)
-    puts "*****************************++aprobaciones"
-    puts estados_aprobacion.empty?
-    puts estados_aprobacion.map {|estado| estado.st_estado}   
     unless estados_aprobacion.empty?
       causas_aprobacion = Causa.where(estado: estados_aprobacion.map {|estado| estado.st_estado})
-      puts "********************************* causas_aprobacion"
-      puts causas_aprobacion.empty?
-      puts causas_aprobacion        
       unless causas_aprobacion.empty?
         ids = []
         causas_aprobacion.each do |causa|
@@ -61,6 +55,8 @@ class Aplicacion::AppRecursosController < ApplicationController
           @facturaciones = TarFacturacion.where(id: ids)
           clientes_ids = @facturaciones.map {|factn| factn.cliente_id}.uniq
           clientes = Cliente.where(id: clientes_ids)
+          @total_uf = @facturaciones.map {|facts| facts.moneda == 'Pesos' ? facts.monto / uf_del_dia : facts.monto}.sum
+          @total_pesos = @facturaciones.map {|facts| facts.moneda == 'Pesos' ? facts.monto : facts.monto * uf_del_dia}.sum
 
           init_tabla('clientes', clientes, false)
         else
