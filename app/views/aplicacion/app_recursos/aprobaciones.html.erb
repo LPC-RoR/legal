@@ -1,5 +1,7 @@
+<p><%= image_tag 'logo_tyc.png' %></p>
 <h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: "Facturaciones por aprobar", clr: config[:color][:app]} %></h5>
 
+<% if @status %>
 <% @coleccion['clientes'].each do |cliente| %>
 	<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: cliente.razon_social, clr: config[:color][:app]} %></h4>
 
@@ -27,4 +29,7 @@
 	<% end %>
 	<h4><%= "TOTAL FACTURA : #{s_uf(cliente.monto_factura_aprobacion_uf)} | #{s_pesos(cliente.monto_factura_aprobacion_pesos)}" %></h5>
 
+<% end %>
+<% else %>
+	Sin causas en estado de aprobación
 <% end %>

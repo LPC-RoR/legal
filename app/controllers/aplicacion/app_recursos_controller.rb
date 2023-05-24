@@ -40,14 +40,17 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def aprobaciones
-    facturaciones = TarFacturacion.where(tar_factura_id: nil)
-    clientes_ids = facturaciones.map {|factn| factn.cliente_id}.uniq
-    clientes = Cliente.where(id: clientes_ids)
+    estados_aprobacion = StModelo.find_by(st_modelo: 'TarFactura').st_estados.where(aprobacion: true)
+    unless estados_aprobacion.empty?
+      @status = true
+      facturaciones = TarFacturacion.where(estado: estados_aprobacion)
+      clientes_ids = facturaciones.map {|factn| factn.cliente_id}.uniq
+      clientes = Cliente.where(id: clientes_ids)
 
-
-#    init_tabla('tar_facturaciones', TarFactura.where(tar_factura_id: nil), false)
-
-    init_tabla('clientes', clientes, false)
+      init_tabla('clientes', clientes, false)
+    else
+      @status = false
+    end
   end
 
   def procesos
