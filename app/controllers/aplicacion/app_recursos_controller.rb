@@ -40,14 +40,29 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def aprobaciones
-    estados_aprobacion = StModelo.find_by(st_modelo: 'TarFactura').st_estados.where(aprobacion: true)
+    estados_aprobacion = StModelo.find_by(st_modelo: 'Causa').st_estados.where(aprobacion: true)
     unless estados_aprobacion.empty?
-      @status = true
-      facturaciones = TarFacturacion.where(estado: estados_aprobacion)
-      clientes_ids = facturaciones.map {|factn| factn.cliente_id}.uniq
-      clientes = Cliente.where(id: clientes_ids)
+      causas_aprobacion = Causa.where(estado: estados_aprobacion.map {|estado| estado.st_estado})
+      unless causas_aprobacion.empty?
+        ids = []
+        causas_aprobacion.each do |causa|
+          ids_causa = causa.tar_facturaciones.where(tar_factura: nil)
+          ids = ids | ids_causa
+        end
 
-      init_tabla('clientes', clientes, false)
+        unless ids.empty?
+          @status = true
+          facturaciones = TarFacturacion.where(id: ids)
+          clientes_ids = facturaciones.map {|factn| factn.cliente_id}.uniq
+          clientes = Cliente.where(id: clientes_ids)
+
+          init_tabla('clientes', clientes, false)
+        else
+          @status = false
+        end
+      else
+        @status = false
+      end
     else
       @status = false
     end
