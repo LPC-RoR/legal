@@ -7,15 +7,15 @@
 				<% if comentario.tipo == 'Siempre' %>
 					<li><%= comentario.comentario %></li>
 				<% elsif comentario.tipo == 'Condición' %>
-					<% if eval_condicion(comentario.formula, pago.tar_tarifa.tar_formulas, objeto) %>
+					<% if eval_condicion(comentario.formula, pago.tar_tarifa.tar_formulas, objeto, pago) %>
 						<li>
 							<%= comentario.comentario %>
 							<!-- DESPLIEGUE DE VALORES -->
 							<% unless comentario.despliegue.blank? %>
 								<% if comentario.moneda == 'Pesos' %>
-									<%= s_pesos(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto)) %>
+									<%= s_pesos(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto, pago)) %>
 								<% else %>
-									<%= s_uf(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto)) %>
+									<%= s_uf(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto, pago)) %>
 								<% end %>
 							<% end %>
 						</li>

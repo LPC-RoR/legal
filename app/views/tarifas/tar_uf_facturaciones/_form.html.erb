@@ -1,0 +1,37 @@
+<%= form_with(model: tar_uf_facturacion, local: true) do |form| %>
+  <% if tar_uf_facturacion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tar_uf_facturacion.errors.count, "error") %> prohibited this tar_uf_facturacion from being saved:</h2>
+
+      <ul>
+      <% tar_uf_facturacion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :owner_class %>
+    <%= form.text_field :owner_class %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_id %>
+    <%= form.number_field :owner_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pago %>
+    <%= form.text_field :pago %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_uf %>
+    <%= form.datetime_select :fecha_uf %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

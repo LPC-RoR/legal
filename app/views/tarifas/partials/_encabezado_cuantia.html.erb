@@ -1,9 +1,14 @@
 <p><small>
-<i class="bi bi-coin"></i> UF <%= objeto.fecha_uf.blank? ? "(del día) : " : '(asignada) : ' %>
-
-<%= "#{dma(objeto.fecha_calculo)} | #{objeto.uf_calculo.blank? ? 'No encontrada' : s_pesos2(objeto.uf_calculo)}" %>
-</small></br>
-Cuantía : <%= s_pesos(objeto.cuantia_pesos) %> | <%= s_uf(objeto.cuantia_uf) %></br>
+<i class="bi bi-coin"></i> UF del día <%= dma(Time.zone.today.to_date) %> | <%= "#{uf_del_dia.blank? ? 'No encontrada' : s_pesos2(uf_del_dia)}" %>
+</small>
+</br>
+Cuantía : 
+	<% unless uf_del_dia.blank? %>
+		<%= s_pesos(objeto.cuantia_pesos) %> | <%= s_uf(objeto.cuantia_uf) %>
+	<% else %>
+		UF del día no encontrada
+	<% end %>
+	</br>
 Monto sentencia : <%= objeto.monto_pagado.blank? ? 'No ingresado' : s_pesos(objeto.monto_pagado) %>
 </p>
 

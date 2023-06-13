@@ -12,7 +12,8 @@ module CptnCristianoHelper
 			'TarUfSistema' => 'Uf del sistema',
 			'SbLista' => 'Menú lateral',
 			'SbElemento' => 'Elemento del menú lateral',
-			'TarHora' => 'Tarifa en Horas'
+			'TarHora' => 'Tarifa en Horas',
+			'TarUfFacturacion' => 'UF de facturación'
 		}
 	end
 

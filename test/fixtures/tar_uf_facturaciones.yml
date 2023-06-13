@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  owner_class: MyString
+  owner_id: 1
+  pago: MyString
+  fecha_uf: 2023-06-12 16:25:18
+
+two:
+  owner_class: MyString
+  owner_id: 1
+  pago: MyString
+  fecha_uf: 2023-06-12 16:25:18

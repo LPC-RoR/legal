@@ -1,45 +1,59 @@
 <!-- DESPLIEGUE DEL TAB FACTURACION DE UNA CAUSA/CONSULTORIA-->
-<h6><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: 'Despliegue Tarifa', clr: config[:color][:app]} %></h6>
+<%= render partial: '0p/general/gly_title_size', locals: {gly: 'coin', title: 'Despliegue Tarifa', size: 6} %>
 
 <%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: @objeto} if @objeto.class.name == 'Causa' %>
+
 <hr>
-<% unless objeto.uf_calculo.blank? %>
-	<% objeto.tar_tarifa.tar_pagos.each do |pago| %>
-		<% if pago.valor.blank? %>
-			<!-- TARIFA CON FORMULAS -->
-			<% unless pago.codigo_formula.blank? %>
-				<%= pago.tar_pago %> : <%= pago.moneda == 'Pesos' ? '$' : 'UF' %> <%= number_to_currency(calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto), precision: (pago.moneda == 'Pesos' ? 0 : 2), unit: '') %> | 
+
+<% objeto.tar_tarifa.tar_pagos.each do |pago| %>
+
+	<% if pago.valor.blank? %>
+
+		<!-- TARIFA CON FORMULAS -->
+		<% unless pago.codigo_formula.blank? %>
+
+			<p><%= pago.tar_pago %> : 
+
+			<% unless objeto.uf_pago(pago.tar_pago).blank? %>
+				<%= s_moneda(pago.moneda, calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago)) %> <%= '|' %>
+
 				<% if pago.moneda == 'Pesos' %>
-					<%= number_to_currency(calcula(pago.formula_tarifa, pago.tar_tarifa.tar_formulas, objeto).to_f / objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+					<%= s_moneda('UF', calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago) / objeto.uf_pago(pago.tar_pago.valor)) %>
 				<% else %>
-					<%= number_to_currency(calcula(pago.formula_tarifa, pago.tar_tarifa.tar_formulas, objeto).to_f * objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
-				<% end %></br>
-			<% else %>
-				Pago sin código de fórmula
-			<% end %>
-		<% else %>
-			<!-- TARIFA CON CUOTAS -->
-			<%= pago.tar_pago %> : <%= pago.moneda == 'Pesos' ? '$' : 'UF' %> <%= number_to_currency(pago.valor, precision: (pago.moneda == 'Pesos' ? 0 : 2), unit: '') %></br>
-			<small>
-				<% if pago.moneda == 'Pesos' %>
-					<%= number_to_currency(pago.valor / objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
-				<% else %>
-					<%= number_to_currency(pago.valor * objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+					<%= s_moneda('Pesos', calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago) * objeto.uf_pago(pago.tar_pago).valor) %>
 				<% end %>
-			</small></br>
+			<% end %></br>
+
+			<small>
+				UF de cálculo : <%= dma(objeto.fecha_uf_pago(pago.tar_pago)) %> | <%= objeto.uf_pago(pago.tar_pago).blank? ? 'UF no encontrada' : s_pesos2(objeto.uf_pago(pago.tar_pago).valor) %>
+			</small></p>
+
+		<% else %>
+			Pago sin código de fórmula
 		<% end %>
 
-		<!-- BOTON FACTURACION -->
-		<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.codigo_formula) %>
-	    	<%= render partial: '0p/general/btn_proceso', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.codigo_formula}", clr: config[:color][:app], delete: false} unless pago.codigo_formula.blank? %>
-			</br>
-	    <% end %>
+	<% else %>
 
-	    <%= render partial: 'tarifas/partials/comentarios', locals: {pago: pago, objeto: objeto} %>
+		<!-- TARIFA CON CUOTAS -->
+		<%= pago.tar_pago %> : <%= pago.moneda == 'Pesos' ? '$' : 'UF' %> <%= number_to_currency(pago.valor, precision: (pago.moneda == 'Pesos' ? 0 : 2), unit: '') %></br>
+		<small>
+			<% if pago.moneda == 'Pesos' %>
+				<%= number_to_currency(pago.valor / objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+			<% else %>
+				<%= number_to_currency(pago.valor * objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+			<% end %>
+		</small></br>
 
 	<% end %>
-<% else %>
-	Valor UF no encontrado	
+
+	<!-- BOTON FACTURACION -->
+	<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.codigo_formula) %>
+    	<%= render partial: '0p/general/btn_proceso', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.codigo_formula}", clr: config[:color][:app], delete: false} unless pago.codigo_formula.blank? %>
+		</br>
+    <% end %>
+
+    <%= render partial: 'tarifas/partials/comentarios', locals: {pago: pago, objeto: objeto} unless objeto.uf_pago(pago.tar_pago).blank? %>
+
 <% end %>
 
 </br></br>

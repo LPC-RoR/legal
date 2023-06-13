@@ -63,6 +63,10 @@ module CptnHelper
 
 # ******************************************************************** DESPLIEGUE DE CAMPOS
 
+	def s_moneda(moneda, valor)
+		moneda == 'Pesos' ? s_pesos(valor) : s_uf(valor)
+	end
+
 	def s_pesos(valor)
 		number_to_currency(valor, locale: :en, precision: 0)
 	end

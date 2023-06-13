@@ -15,6 +15,7 @@ class CausasController < ApplicationController
     if @options[:menu] == 'Facturacion'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       add_tabla('tar_facturaciones', @objeto.facturaciones, false)
+      add_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
     elsif @options[:menu] == 'Documentos y enlaces'
       AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
 

@@ -89,16 +89,14 @@ class Causa < ApplicationRecord
 		uf.blank? ? nil : uf.valor
 	end
 
-	def cuantia_pesos
-#		uf = self.fecha_uf.blank? ? TarUfSistema.find_by(fecha: DateTime.now.to_date) : TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
-		uf = TarUfSistema.find_by(fecha: self.fecha_calculo)
+	def cuantia_pesos(pago)
++		uf = self.uf_pago(pago.tar_pago)
 		v = self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? vc.valor : (uf.blank? ? 'Sin UF' : vc.valor * uf.valor)) }
 		v.include?('Sin UF') ? 'No hay UF del Día' : v.sum
 	end
 
-	def cuantia_uf
-#		uf = self.fecha_uf.blank? ? TarUfSistema.find_by(fecha: DateTime.now.to_date) : TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
-		uf = TarUfSistema.find_by(fecha: self.fecha_calculo)
+	def cuantia_uf(pago)
+		uf = self.uf_pago(pago.tar_pago)
 		v = self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? (uf.blank? ? 'Sin UF' : vc.valor / uf.valor) : vc.valor) }
 		v.include?('Sin UF') ? 'No hay UF del Día' : v.sum
 	end
@@ -113,6 +111,19 @@ class Causa < ApplicationRecord
 
 	def d_id
 		self.rit.blank? ? ( self.rol.blank? ? self.identificador : "#{self.rol} : #{self.era}") : self.rit
+	end
+
+	def uf_facturaciones
+		TarUfFacturacion.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def fecha_uf_pago(nombre_pago)
+		uf_facturacion = self.uf_facturaciones.find_by(pago: nombre_pago)
+		uf_facturacion.blank? ? Time.zone.today : uf_facturacion.fecha_uf
+	end
+
+	def uf_pago(nombre_pago)
+		TarUfSistema.find_by(fecha: self.fecha_uf_pago(nombre_pago).to_date)
 	end
 
 end

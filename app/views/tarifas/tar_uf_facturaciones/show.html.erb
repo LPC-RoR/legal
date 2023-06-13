@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Owner class:</strong>
+  <%= @tar_uf_facturacion.owner_class %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @tar_uf_facturacion.owner_id %>
+</p>
+
+<p>
+  <strong>Pago:</strong>
+  <%= @tar_uf_facturacion.pago %>
+</p>
+
+<p>
+  <strong>Fecha uf:</strong>
+  <%= @tar_uf_facturacion.fecha_uf %>
+</p>
+
+<%= link_to 'Edit', edit_tar_uf_facturacion_path(@tar_uf_facturacion) %> |
+<%= link_to 'Back', tar_uf_facturaciones_path %>

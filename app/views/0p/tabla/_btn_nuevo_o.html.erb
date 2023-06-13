@@ -1,0 +1,13 @@
+<%= link_to  "/#{c}/new?class_name=#{o.blank? ? nil : o.class.name}&objeto_id=#{o.blank? ? nil : o.id}", class: "btn btn-outline-#{color(c)} btn-sm" do %>
+	<%# unless controller_icon[c].present? %>
+		<% case c %>
+		<% when 'app_directorios' %>
+			<i class="bi bi-folder-plus"></i>
+		<% when 'app_documentos' %>
+			<i class="bi bi-journal-plus"></i>
+		<% else %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+	<%# end %>
+    <%= c_to_name(c) %>
+<% end %>
