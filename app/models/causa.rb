@@ -90,7 +90,7 @@ class Causa < ApplicationRecord
 	end
 
 	def cuantia_pesos(pago)
-+		uf = self.uf_pago(pago.tar_pago)
+		uf = self.uf_pago(pago.tar_pago)
 		v = self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? vc.valor : (uf.blank? ? 'Sin UF' : vc.valor * uf.valor)) }
 		v.include?('Sin UF') ? 'No hay UF del Día' : v.sum
 	end
