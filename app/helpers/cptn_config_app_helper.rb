@@ -29,7 +29,9 @@ module CptnConfigAppHelper
 				title: 4,
 				title_tema: 1,
 				detalle_tema: 6
-			}
+			},
+			dec_uf: 5,
+			dec_pesos: 0
 		}
 	end
 end
