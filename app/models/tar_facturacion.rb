@@ -42,11 +42,6 @@ class TarFacturacion < ApplicationRecord
 		else
 			self.tar_factura.fecha
 		end
-
-		if self.owner_class == 'Causa'{}
-		else
-			self.tar_factura.blank? ? Time.zone.today.to_date : self.tar_factura.fecha
-		end
 	end
 
 	def to_pesos
