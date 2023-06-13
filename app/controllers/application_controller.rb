@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
  	def st_colecciones(modelo, estado)
 		case modelo
 		when 'Causa'
-			modelo.constantize.where(estado: estado).order(fecha_ingreso: :desc)
+			modelo.constantize.where(estado: estado).order(created_at: :desc)
 		when 'Cliente'
 			modelo.constantize.where(estado: estado).order(:razon_social)
 		when 'Consultoria'

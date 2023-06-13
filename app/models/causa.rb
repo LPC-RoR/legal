@@ -5,7 +5,7 @@ class Causa < ApplicationRecord
 	TIPOS=['Juicio', 'Demanda']
 
 	TABLA_FIELDS = 	[
-		'fecha_ingreso',
+		'created_at',
 		'd_id',
 		's#causa',
 		'cliente:razon_social'
