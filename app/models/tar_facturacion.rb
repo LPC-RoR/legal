@@ -35,7 +35,8 @@ class TarFacturacion < ApplicationRecord
 	def fecha_uf
 		if self.tar_factura.blank?
 			if self.owner_class == 'Causa'
-				uf_facturacion = self.owner.uf_facturaciones.find_by(pago: self.facturable)
+				pago = self.owner.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
+				uf_facturacion = self.owner.uf_facturaciones.find_by(pago: pago.tar_pago)
 				uf_facturacion.blank? ? Time.zone.today.to_date : uf_facturacion.fecha_uf
 			else
 				Time.zone.today.to_date
