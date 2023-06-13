@@ -4,8 +4,17 @@
 		<ul>
 			<% pago.tar_comentarios.order(:orden).each do |comentario| %>
 				<small>
-				<% if comentario.tipo == 'Siempre' %>
-					<li><%= comentario.comentario %></li>
+				<% if comentario.tipo == 'Siempre' %>	
+					<li>
+						<%= comentario.comentario %>
+						<% unless comentario.despliegue.blank? %>
+							<% if comentario.moneda == 'Pesos' %>
+								<%= s_pesos(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto, pago)) %>
+							<% else %>
+								<%= s_uf(eval_elemento(comentario.despliegue, objeto.tar_tarifa.tar_formulas, objeto, pago)) %>
+							<% end %>
+						<% end %>
+					</li>
 				<% elsif comentario.tipo == 'Condición' %>
 					<% if eval_condicion(comentario.formula, pago.tar_tarifa.tar_formulas, objeto, pago) %>
 						<li>
