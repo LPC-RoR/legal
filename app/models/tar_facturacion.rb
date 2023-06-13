@@ -3,7 +3,8 @@ class TarFacturacion < ApplicationRecord
 	TABLA_FIELDS = [
 		'glosa',
 		'm#monto_ingreso',
-		'$#monto_pesos'
+		'$#monto_pesos',
+		'fecha_uf'
 #		'estado'
 	]
 
