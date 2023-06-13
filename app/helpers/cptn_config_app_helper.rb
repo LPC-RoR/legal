@@ -30,8 +30,10 @@ module CptnConfigAppHelper
 				title_tema: 1,
 				detalle_tema: 6
 			},
-			dec_uf: 5,
-			dec_pesos: 0
+			decimales: {
+				'Pesos' => 0,
+				'UF' => 5
+			}
 		}
 	end
 end
