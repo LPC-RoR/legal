@@ -18,7 +18,7 @@ class Causa < ApplicationRecord
 
 	belongs_to :tipo_causa
 
-    validates_presence_of :causa, :fecha_ingreso, :caratulado
+    validates_presence_of :causa, :rit
 
 	def tarifas_cliente
 		self.cliente.tarifas
