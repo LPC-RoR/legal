@@ -4,7 +4,7 @@ class TarFacturacion < ApplicationRecord
 		'glosa',
 		'm#monto_ingreso',
 		'$#monto_pesos',
-		'fecha_uf'
+		'owner_class'
 #		'estado'
 	]
 
