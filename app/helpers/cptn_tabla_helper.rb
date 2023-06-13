@@ -127,13 +127,13 @@ module CptnTablaHelper
 			if ['DateTime', 'Time'].include?(archivo.send(campo).class.name)
 				texto_campo = dma(archivo.send(campo))
 			elsif prefijos.include?('uf') 
-				texto_campo = number_to_currency(archivo.send(campo), unit: 'UF', precision: 2, format: '%u %n')
+				texto_campo = number_to_currency(archivo.send(campo), unit: 'UF', precision: config[:decimales]['UF'], format: '%u %n')
 			elsif prefijos.include?('$')
-				texto_campo = number_to_currency(archivo.send(campo), precision: 0, unit: '$', format: '%u %n')
+				texto_campo = number_to_currency(archivo.send(campo), precision: config[:decimales]['Pesos'], unit: '$', format: '%u %n')
 			elsif prefijos.include?('$2')
 				texto_campo = number_to_currency(archivo.send(campo), precision: 2, unit: '$', format: '%u %n')
 			elsif prefijos.include?('m')
-				texto_campo = number_to_currency(archivo.send(campo), precision: "#{archivo.send('moneda') == 'Pesos' ? '0' : '2'}}".to_i, unit: "#{archivo.send('moneda') == 'Pesos' ? '$' : 'UF'}", format: '%u %n')
+				texto_campo = number_to_currency(archivo.send(campo), precision: "#{archivo.send('moneda') == 'Pesos' ? '0' : '5'}}".to_i, unit: "#{archivo.send('moneda') == 'Pesos' ? '$' : 'UF'}", format: '%u %n')
 			else
 				texto_campo = archivo.send(campo)
 			end
