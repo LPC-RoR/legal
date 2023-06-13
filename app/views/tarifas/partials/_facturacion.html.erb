@@ -15,12 +15,12 @@
 			<p><%= pago.tar_pago %> : 
 
 			<% unless objeto.uf_pago(pago.tar_pago).blank? %>
-				<%= s_moneda(pago.moneda, calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago)) %> <%= '|' %>
+				<%= s_moneda(pago.moneda, calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago).round(pago.moneda == 'Pesos' ? 0 : 2)) %> <%= '|' %>
 
 				<% if pago.moneda == 'Pesos' %>
-					<%= s_moneda('UF', calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago) / objeto.uf_pago(pago.tar_pago.valor)) %>
+					<%= s_moneda('UF', (calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago) / objeto.uf_pago(pago.tar_pago.valor)).round(2)) %>
 				<% else %>
-					<%= s_moneda('Pesos', calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago) * objeto.uf_pago(pago.tar_pago).valor) %>
+					<%= s_moneda('Pesos', (calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago) * objeto.uf_pago(pago.tar_pago).valor).round(0)) %>
 				<% end %>
 			<% end %></br>
 
