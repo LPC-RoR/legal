@@ -68,7 +68,7 @@ module CptnHelper
 	end
 
 	def s_pesos(valor)
-		number_to_currency(valor, locale: :en, precision: config[:dec_pesos])
+		number_to_currency(valor, locale: :en, precision: config[:decimales]['Pesos'])
 	end
 
 	def s_pesos2(valor)
@@ -76,7 +76,7 @@ module CptnHelper
 	end
 
 	def s_uf(valor)
-		number_to_currency(valor, unit: 'UF', precision: config[:dec_uf])
+		number_to_currency(valor, unit: 'UF', precision: config[:decimales]['UF'])
 	end
 
 	def dma(date)
