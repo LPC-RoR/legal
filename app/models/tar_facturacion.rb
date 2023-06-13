@@ -32,7 +32,21 @@ class TarFacturacion < ApplicationRecord
 	# métodos para la correcto uso de la UF
 
 	def fecha_uf
-		self.tar_factura.blank? ? DateTime.now.in_time_zone('Santiago') : self.tar_factura.fecha
+		if self.tar_factura.blank?
+			if self.owner_class == 'Causa'
+				uf_facturacion = self.owner.uf_facturaciones.find_by(pago: self.facturable)
+				uf_facturacion.blank? ? Time.zone.today.to_date : uf_facturacion.fecha_uf
+			else
+				Time.zone.today.to_date
+			end
+		else
+			self.tar_factura.fecha
+		end
+
+		if self.owner_class == 'Causa'{}
+		else
+			self.tar_factura.blank? ? Time.zone.today.to_date : self.tar_factura.fecha
+		end
 	end
 
 	def to_pesos
