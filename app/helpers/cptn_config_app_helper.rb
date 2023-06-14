@@ -31,9 +31,16 @@ module CptnConfigAppHelper
 				detalle_tema: 6
 			},
 			decimales: {
-				'Pesos' => 0,
-				'UF' => 5
+				'Pesos' => Rails.configuration.decimales_pesos,
+				'UF' => Rails.configuration.decimales_uf
 			}
 		}
 	end
+
+	def img_class 
+		{
+			centrada: 'mx-auto d-block'
+		}
+	end
+
 end

@@ -1,5 +1,5 @@
 <div class='row'>
-	<div class='col-md-6'>
+	<div class='col-md-7'>
 
 		<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
 
@@ -15,7 +15,7 @@
 		<% end %>
 
 	</div>
-	<div class='col-md-6'>
+	<div class='col-md-5'>
 		<% if @objeto.tar_tarifa.present? %>
 			<%= render partial: 'tarifas/partials/facturacion', locals: {objeto: @objeto} %>
 		<% end %>

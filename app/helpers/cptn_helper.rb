@@ -13,12 +13,6 @@ module CptnHelper
 #	end
 
 	# opcion elegida poor ser de escritura mas simple
-	def img_class 
-		{
-			centrada: 'mx-auto d-block'
-		}
-	end
-
 	def image_sizes
 		['entire', 'half', 'quarter', 'thumb']
 	end

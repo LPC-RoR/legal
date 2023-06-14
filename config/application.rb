@@ -21,5 +21,9 @@ module Legal
 
     config.time_zone = 'Santiago'
     config.active_record.default_timezone = :local
+
+    config.decimales_pesos = 0
+    config.decimales_uf = 5
+
   end
 end

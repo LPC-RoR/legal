@@ -68,6 +68,7 @@ Rails.application.routes.draw do
         match :procesos, via: :get
         match :tablas, via: :get
         match :aprobaciones, via: :get
+        match :aprobacion, via: :get
       end
     end
   end
@@ -142,6 +143,7 @@ Rails.application.routes.draw do
       match :elimina, via: :get, on: :member
       match :facturable, via: :get, on: :member
       match :facturar, via: :get, on: :member
+      match :estado, via: :get, on: :member
     end
     resources :tar_servicios
 

@@ -1,5 +1,5 @@
 class Tarifas::TarFacturacionesController < ApplicationController
-  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar ]
+  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado ]
 
   include Tarifas
 
@@ -39,7 +39,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
       glosa = "#{pago.tar_pago} : #{owner.rit if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
       monto = pago.valor.blank? ? calcula( formula, libreria, owner, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5)) : pago.valor
       unless monto == 0
-        TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'ingreso', moneda: moneda, monto: monto)
+        TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto)
       end
     end
 
@@ -98,6 +98,14 @@ class Tarifas::TarFacturacionesController < ApplicationController
     tar_factura.save
     redirect_to tar_factura
 
+  end
+
+  def estado
+    causa = params[:class_name].constantize.find(params[:objeto_id])
+    @objeto.estado = params[:e]
+    @objeto.save
+
+    redirect_to causa
   end
 
   # DELETE /tar_facturaciones/1 or /tar_facturaciones/1.json

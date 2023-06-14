@@ -40,34 +40,22 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def aprobaciones
-    estados_aprobacion = StModelo.find_by(st_modelo: 'Causa').st_estados.where(aprobacion: true)
-    unless estados_aprobacion.empty?
-      causas_aprobacion = Causa.where(estado: estados_aprobacion.map {|estado| estado.st_estado})
-      unless causas_aprobacion.empty?
-        ids = []
-        causas_aprobacion.each do |causa|
-          ids_causa = causa.facturaciones.where(tar_factura: nil)
-          ids = ids | ids_causa
-        end
 
-        unless ids.empty?
-          @status = true
-          @facturaciones = TarFacturacion.where(id: ids)
-          clientes_ids = @facturaciones.map {|factn| factn.cliente_id}.uniq
-          clientes = Cliente.where(id: clientes_ids)
-          @total_uf = @facturaciones.map {|facts| facts.moneda == 'Pesos' ? facts.monto / uf_del_dia : facts.monto}.sum
-          @total_pesos = @facturaciones.map {|facts| facts.moneda == 'Pesos' ? facts.monto : facts.monto * uf_del_dia}.sum
+    aprobaciones_todas = TarFacturacion.where(estado: 'aprobación')
+    unless aprobaciones_todas.empty?
+      clientes_ids = aprobaciones_todas.map {|aprob| aprob.cliente_id}.uniq
+      clientes = Cliente.where(id: clientes_ids)
 
-          init_tabla('clientes', clientes, false)
-        else
-          @status = false
-        end
-      else
-        @status = false
-      end
+      init_tabla('clientes', clientes, false)
+      @status = true
     else
       @status = false
     end
+
+  end
+
+  def aprobacion
+    @cliente = Cliente.find(params[:id])
   end
 
   def procesos

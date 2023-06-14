@@ -13,23 +13,35 @@ class Cliente < ApplicationRecord
     validates_presence_of :razon_social
 
 	def tarifas
-		TarTarifa.where(owner_class: 'Cliente').where(owner_id: self.id)
+		TarTarifa.where(owner_class: self.class.name).where(owner_id: self.id)
 	end
 
 	def tarifas_hora
-		TarHora.where(owner_class: 'Cliente').where(owner_id: self.id)
+		TarHora.where(owner_class: self.class.name).where(owner_id: self.id)
 	end
 
 	def servicios
-		TarServicio.where(owner_class: 'Cliente').where(owner_id: self.id)
+		TarServicio.where(owner_class: self.class.name).where(owner_id: self.id)
 	end
 
 	def facturas
-		TarFactura.where(owner_class: 'Cliente', owner_id: self.id)
+		TarFactura.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
 	def facturaciones
-    	TarFacturacion.where(cliente_class: 'Cliente', cliente_id: self.id)
+    	TarFacturacion.where(cliente_class: self.class.name, cliente_id: self.id)
+	end
+
+	def aprobaciones
+		self.facturaciones.where(estado: 'aprobación').order(created_at: :desc)
+	end
+
+	def aprob_total_uf
+		self.aprobaciones.map {|facturacion| facturacion.monto_uf}.sum
+	end
+
+	def aprob_total_pesos
+		self.aprobaciones.map {|facturacion| facturacion.monto_pesos}.sum
 	end
 
 	def uf_dia
