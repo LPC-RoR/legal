@@ -25,7 +25,5 @@ module Legal
     config.decimales_pesos = 0
     config.decimales_uf = 5
 
-    config.cambio_para_probar = true
-
   end
 end
