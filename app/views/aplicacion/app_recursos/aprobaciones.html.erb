@@ -5,6 +5,11 @@
 	<% @coleccion['clientes'].each do |cliente| %>
 
 		<h5><i class="bi bi-building"></i> <%= link_to cliente.razon_social, "/app_recursos/aprobacion?id=#{cliente.id}" %></h5>
+		<small>
+		<%= link_to "/clientes/#{cliente.id}/aprueba_factura" do %>
+			<i class="bi bi-receipt"></i> Aprueba y factura
+		<% end %>
+		</small>
 
 		<% cliente.aprobaciones.each do |facturacion| %>
 
@@ -14,12 +19,11 @@
 					<!--small-->
 						<b>
 							<% unless uf_del_dia.blank? %>
-							<%= facturacion.padre.class.name %> : 
-							<% if facturacion.padre.class.name == 'Causa' %>
-								<%= link_to facturacion.padre.rit, facturacion.padre  %> <%= '|' %> 
-								<%= "#{facturacion.padre.as_owner} : #{s_moneda(facturacion.moneda, facturacion.monto)}" %>
-							<% end %>
-							<%= "#{facturacion.padre.class.name} : #{facturacion.padre.rit if facturacion.padre.class.name == 'Causa'} #{'|' if facturacion.padre.class.name == 'Causa'} #{facturacion.padre.as_owner} : #{facturacion.moneda == 'Pesos' ? number_to_currency(facturacion.monto, locale: :en, precision: 0) : number_to_currency(facturacion.monto, unit: 'UF', precision: 5)}" %> | <%=  "#{facturacion.moneda == 'Pesos' ? number_to_currency(facturacion.monto / uf_del_dia, unit: 'UF', precision: 5) : number_to_currency(facturacion.monto * uf_del_dia, locale: :en, precision: 0)}" %>
+								<%= facturacion.padre.class.name %> : 
+								<% if facturacion.padre.class.name == 'Causa' %>
+									<%= link_to facturacion.padre.rit, facturacion.padre  %> <%= '|' %> 
+								<% end %>
+								<%= "#{facturacion.padre.as_owner} : #{s_uf(facturacion.monto_uf)} | #{s_pesos(facturacion.monto_pesos)}" %> 
 							<% else %>
 								UF del día no ingresada!
 							<% end %>
@@ -32,6 +36,7 @@
 			</div>
 
 			<hr>
+
 		<% end %>
 		<h4><%= "TOTAL FACTURA : #{s_uf(cliente.aprob_total_uf)} | #{s_pesos(cliente.aprob_total_pesos)}" %></h5>
 

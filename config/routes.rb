@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :clientes do
     match :cambio_estado, via: :get, on: :member
     match :crea_factura, via: :get, on: :member
+    match :aprueba_factura, via: :get, on: :member
   end
 
 # SCOPES *********************************************************

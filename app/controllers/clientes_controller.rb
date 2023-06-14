@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura ]
+  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura ]
 
 #  include Bandejas
 
@@ -90,6 +90,18 @@ class ClientesController < ApplicationController
     end
 
     redirect_to tar_facturas_path
+  end
+
+  def aprueba_factura
+    factura = TarFactura.create(owner_class: @objeto.class.name, owner_id: @objeto.id, concepto: "Varios #{@objeto.razon_social}", fecha_factura: Time.zone.today.to_date, estado: 'ingreso')
+    
+    @objeto.aprobaciones.each do |aprobacion|
+      aprobacion.estado = 'aprobado'
+      aprobacion.save
+      factura.tar_facturaciones << aprobacion
+    end
+
+    redirect_to factura
   end
 
   # DELETE /clientes/1 or /clientes/1.json

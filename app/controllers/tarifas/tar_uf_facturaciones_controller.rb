@@ -23,6 +23,11 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
 
   # GET /tar_uf_facturaciones/1/edit
   def edit
+    if @objeto.owner.class.name == 'Causa'
+      pagos_tarifa = @objeto.owner.tar_tarifa.tar_pagos.map {|pago| pago.tar_pago}
+      pagos_causa = @objeto.owner.uf_facturaciones.map {|uf_pago| uf_pago.pago }
+      @pagos_disponibles = pagos_tarifa - pagos_causa
+    end
   end
 
   # POST /tar_uf_facturaciones or /tar_uf_facturaciones.json
