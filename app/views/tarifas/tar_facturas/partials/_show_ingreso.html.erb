@@ -1,3 +1,4 @@
+<p><small><b>REGISTRO DE FACTURA</b></br>Ingrese información en virtud de la factura emitida original.</small></p>
 <%= form_for :set_documento, url: "/tar_facturas/#{@objeto.id}/set_documento" do |form| %>
 
 	<% unless @objeto.uf.blank? %>
@@ -6,6 +7,7 @@
 			<div class='col-md-6'>
 				<%= render partial: '0p/form_fields/label', locals: {label: 'Fecha de facturación', v: true} %>
 				<%= render partial: '0p/form_fields/date', locals: {form: form, token: :fecha_factura} %>
+				<small><small>Si desea cambiar la fecha de la factura, ingresar aquí la fecha.</small></small></br>
 			</div>
 			<div class='col-md-6'>
 				<%= render partial: '0p/form_fields/label', locals: {label: 'Fecha UF', v: false} %>
@@ -17,6 +19,7 @@
 					  Usar fecha del día
 					</label>
 				<% end %>
+				<small><small>Si la UF utilizada para esta factura tiene una fecha distinta a la de la factura, ingresar aquí la fecha</small></small></br>
 			</div>
 		</div>
 		<!-- NUMERO Y CONCEPTO -->

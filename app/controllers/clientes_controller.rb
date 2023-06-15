@@ -83,7 +83,7 @@ class ClientesController < ApplicationController
 
   def crea_factura
     concepto = (@objeto.facturacion_pendiente.count == 1 ? @objeto.facturacion_pendiente.first.glosa : "Varios de cliente #{@objeto.razon_social}")
-    factura = TarFactura.create(concepto: concepto, owner_class: 'Cliente', owner_id: @objeto.id, estado: 'ingreso')
+    factura = TarFactura.create(concepto: concepto, owner_class: 'Cliente', owner_id: @objeto.id, estado: 'ingreso',fecha_factura: Time.zone.today.to_date)
 
     @objeto.facturacion_pendiente.each do |facturacion|
       factura.tar_facturaciones << facturacion

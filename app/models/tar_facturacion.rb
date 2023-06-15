@@ -9,7 +9,7 @@ class TarFacturacion < ApplicationRecord
 	belongs_to :tar_factura, optional: true
 
 	def padre
-		self.owner_class == 'RegReporte' ? self.owner_class.constantize.find(self.owner_id).owner : self.owner_class.constantize.find(self.owner_id)
+		self.owner_id.blank? ? nil : (self.owner_class == 'RegReporte' ? self.owner_class.constantize.find(self.owner_id).owner : self.owner_class.constantize.find(self.owner_id))
 	end
 
 	def owner

@@ -21,7 +21,7 @@ module CptnTablaAppHelper
 		if [].include?(objeto.class.name)
 			admin?
 		elsif ['TarFacturacion'].include?(objeto.class.name)
-			dog? and controller_name == 'tar_facturas'
+			(controller_name == 'tar_facturas') and objeto.facturable.blank?
 		elsif ['TarFactura'].include?(objeto.class.name)
 			false
 		elsif ['TarPago', 'TarFormula'].include?(objeto.class.name)

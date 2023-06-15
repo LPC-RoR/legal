@@ -36,6 +36,10 @@ class Cliente < ApplicationRecord
 		self.facturaciones.where(estado: 'aprobación').order(created_at: :desc)
 	end
 
+	def facturaciones_pendientes
+		self.facturaciones.where(estado: 'aprobado', tar_factura_id: nil)
+	end
+
 	def aprob_total_uf
 		self.aprobaciones.map {|facturacion| facturacion.monto_uf}.sum
 	end

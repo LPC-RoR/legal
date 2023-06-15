@@ -11,7 +11,12 @@ class TarFactura < ApplicationRecord
 
 	has_many :tar_facturaciones
 
+	# DEPRECATED : se reemplaza con owner
 	def padre
+		self.owner_class.constantize.find(self.owner_id)
+	end
+
+	def owner
 		self.owner_class.constantize.find(self.owner_id)
 	end
 
@@ -32,7 +37,7 @@ class TarFactura < ApplicationRecord
 	end
 
 	def fecha
-		self.estado == 'ingreso' ? Time.zone.today : (self.fecha_uf.blank? ? self.fecha_factura : self.fecha_uf)
+		self.fecha_uf.blank? ? self.fecha_factura : self.fecha_uf
 	end
 
 	def uf

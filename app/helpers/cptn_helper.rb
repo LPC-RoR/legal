@@ -55,6 +55,24 @@ module CptnHelper
 		opts
 	end
 
+def controller_icon
+		{
+			'sb_listas' => 'list-nested',
+			'app_empresas' => 'buildings',
+			'app_administradores' => 'person-square',
+			'app_nominas' => 'person-vcard',
+			'app_repositorios' => 'archive',
+			'app_directorios' => 'folder',
+			'app_documentos' => 'journal',
+			'app_escaneos' => 'images',
+			'causas' => 'file-text',
+			'tar_facturas' => 'receipt',
+#			'control_documentos' => 'file-earmark-check',
+#			'ld_formatos' => 'body-text',
+#			'ld_parrafos' => 'blockquote-left'
+		}
+	end
+
 # ******************************************************************** DESPLIEGUE DE CAMPOS
 
 	def s_moneda(moneda, valor)

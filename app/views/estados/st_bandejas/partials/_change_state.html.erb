@@ -1,4 +1,4 @@
-<i class="bi bi-tag">
+<i class="bi bi-tag"></i>
 <small><b><%= objeto.estado %></b></small>
 <% if get_st_modelo(objeto).st_estados.empty? %>
 	<h6 class='text-muted'><small><small>Lista de estados vacía</small></small></h6>
@@ -7,7 +7,9 @@
 		<h6 class='text-muted'><small><small>Estados no encontrado</small></small></h6>
 	<% else %>
 		<% if seguridad_desde('admin') or AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.find_by(st_perfil_modelo: objeto.class.name).rol == 'admin' %>
-			<i class="bi bi-person-square"></i>
+			<% unless get_st_estado(objeto).destinos_admin.blank? %>
+				<i class="bi bi-person-square"></i>
+			<% end %>
 			<% get_st_estado(objeto).destinos_admin.split(' ').each do |destino_admin| %>
 
 				<small>
