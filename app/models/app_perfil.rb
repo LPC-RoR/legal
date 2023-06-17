@@ -16,4 +16,8 @@ class AppPerfil < ApplicationRecord
 		AppAdministrador.find_by(email: self.email).present?
 	end
 
+	def repositorio
+		AppRepo.where(owner_class: self.class.name).find_by(owner_id: self.id)
+	end
+
 end

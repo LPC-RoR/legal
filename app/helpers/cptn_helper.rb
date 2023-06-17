@@ -61,7 +61,7 @@ def controller_icon
 			'app_empresas' => 'buildings',
 			'app_administradores' => 'person-square',
 			'app_nominas' => 'person-vcard',
-			'app_repositorios' => 'archive',
+			'app_repos' => 'archive',
 			'app_directorios' => 'folder',
 			'app_documentos' => 'journal',
 			'app_escaneos' => 'images',

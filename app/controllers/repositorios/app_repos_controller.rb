@@ -5,6 +5,24 @@ class Repositorios::AppReposController < ApplicationController
 
   # GET /app_repos or /app_repos.json
   def index
+    if usuario_signed_in?
+      # Repositorio de la plataforma
+      general_sha1 = Digest::SHA1.hexdigest("Repositorio General")
+      @repositorio_general = AppRepo.find_by(repositorio: general_sha1)
+      @repositorio_general = AppRepo.create(repositorio: general_sha1) if @repositorio_general.blank?
+
+      # Repositorio_perfil
+      if perfil_activo.repositorio.blank?
+        @repositorio_perfil = AppRepocreate(repositorio: perfil_activo.email, owner_class: 'AppPerfil', owner_id: perfil_activo.id)
+      else
+        @repositorio_perfil = perfil_activo.repositorio
+      end
+
+      init_tabla('general-app_directorios', @repositorio_general.directorios.order(:app_directorio), false)
+      add_tabla('general-app_documentos', @repositorio_general.documentos.order(:app_documento), false) 
+      add_tabla('perfil-app_directorios', @repositorio_perfil.directorios.order(:app_directorio), false)
+      add_tabla('perfil-app_documentos', @repositorio_perfil.documentos.order(:app_documento), false)
+    end
   end
 
   # GET /app_repos/1 or /app_repos/1.json
@@ -14,9 +32,6 @@ class Repositorios::AppReposController < ApplicationController
     if ['Cliente', 'Causa'].include?(@objeto.owner_class)
       redirect_to @objeto.owner_class.constantize.find(@objeto.owner_id)
     else
-#      @coleccion = {}
-#      @coleccion['app_documentos'] = @objeto.documentos.order(:documento)
-#      @coleccion['app_directorios'] = @objeto.directorios.order(:directorio)
       init_tabla('app_documentos', @objeto.documentos.order(:documento), false)
       add_tabla('app_directorios', @objeto.directorios.order(:directorio), false)
     end
