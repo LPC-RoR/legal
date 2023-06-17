@@ -59,11 +59,11 @@ class Causa < ApplicationRecord
 	end
 
 	def enlaces
-		AppEnlace.where(owner_class: 'Causa', owner_id: self.id)
+		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
 	def repo
-    	AppRepo.where(owner_class: 'Causa').find_by(owner_id: self.id)
+    	AppRepo.where(owner_class: self.class.name).find_by(owner_id: self.id)
 	end
 
 	def reportes
@@ -72,11 +72,11 @@ class Causa < ApplicationRecord
 	end
 
 	def registros
-    	Registro.where(owner_class: 'Causa', owner_id: self.id)
+    	Registro.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
 	def valores_cuantia
-		TarValorCuantia.where(owner_class: 'Causa', owner_id: self.id)
+		TarValorCuantia.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
 	def fecha_calculo

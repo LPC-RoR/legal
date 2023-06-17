@@ -28,8 +28,9 @@ class Tarifas::TarFacturasController < ApplicationController
   def crea_factura
     factura = TarFactura.create(owner_class: params[:class_name], owner_id: params[:objeto_id], fecha_factura: DateTime.now.to_date, estado: 'ingreso')
 
-    facturaciones = TarFacturacion.where(cliente_class: params[:class_name], cliente_id: params[:objeto_id], estado: 'ingreso', tar_factura_id: nil)
-    facturaciones.each do |facturacion|
+    cliente = params[:class_name].constantize.find(params[:objeto_id])
+
+    cliente.facturaciones_pendientes.each do |facturacion|
       factura.tar_facturaciones << facturacion
     end
 

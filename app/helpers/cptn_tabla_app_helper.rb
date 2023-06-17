@@ -23,7 +23,7 @@ module CptnTablaAppHelper
 		elsif ['TarFacturacion'].include?(objeto.class.name)
 			(controller_name == 'tar_facturas') and objeto.facturable.blank?
 		elsif ['TarFactura'].include?(objeto.class.name)
-			false
+			btn == 'Eliminar' and objeto.tar_facturaciones.empty?
 		elsif ['TarPago', 'TarFormula'].include?(objeto.class.name)
 			controller_name == 'tar_tarifas'
 		else

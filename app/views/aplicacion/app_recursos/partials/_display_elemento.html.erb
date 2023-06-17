@@ -1,0 +1,30 @@
+<% unless coleccion.empty? %>
+	<b><%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon[c], title: title , size: 6} %></b>
+
+	<small>
+	<table class='table'>
+		<tr><td>
+			<% case c %>
+			<% when 'causas' %>
+				RIT | Causa
+			<% when 'tar_facturaciones' %>
+				Glosa
+			<% when 'tar_facturas' %>
+				Documento | Cliente | Cargos
+			<% end %>
+		</td></tr>
+		<% coleccion.each do |objeto| %>
+			<tr><td>
+				<% case c %>
+				<% when 'causas' %>
+					<%= link_to "#{objeto.rit} | #{objeto.causa}", objeto %>
+				<% when 'tar_facturaciones' %>
+					<%= link_to objeto.glosa, objeto.padre %>
+				<% when 'tar_facturas' %>
+					<%= link_to "#{objeto.documento.blank? ? 'sin emitir' : objeto.documento} | #{objeto.owner.razon_social} | #{objeto.tar_facturaciones.count}", objeto %>
+				<% end %>
+			</td></tr>
+		<% end %>
+	</table>
+	</small>
+<% end %>

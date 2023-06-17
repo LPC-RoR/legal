@@ -8,7 +8,7 @@
 	<% else %>
 		<% if seguridad_desde('admin') or AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.find_by(st_perfil_modelo: objeto.class.name).rol == 'admin' %>
 			<% unless get_st_estado(objeto).destinos_admin.blank? %>
-				<i class="bi bi-person-square"></i>
+				<i class="bi bi-person-fill"></i>
 			<% end %>
 			<% get_st_estado(objeto).destinos_admin.split(' ').each do |destino_admin| %>
 
@@ -22,7 +22,9 @@
 		<% end %>
 	<% end %>
 
-	<i class="bi bi-person-vcard"></i>
+	<% unless get_st_estado(objeto).destinos_admin.blank? %>
+		<i class="bi bi-person"></i>
+	<% end %>
 	<% get_st_estado(objeto).destinos.split(' ').each do |destino| %>
 
 		<small>

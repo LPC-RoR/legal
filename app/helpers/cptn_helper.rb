@@ -67,8 +67,8 @@ def controller_icon
 			'app_escaneos' => 'images',
 			'causas' => 'file-text',
 			'tar_facturas' => 'receipt',
-#			'control_documentos' => 'file-earmark-check',
-#			'ld_formatos' => 'body-text',
+			'tar_facturaciones' => 'coin',
+			'clientes' => 'building',
 #			'ld_parrafos' => 'blockquote-left'
 		}
 	end
