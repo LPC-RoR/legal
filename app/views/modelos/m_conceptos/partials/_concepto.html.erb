@@ -1,0 +1,48 @@
+<tr class="table-sm">
+
+	<td colspan='2'>
+		<i class="bi bi-<%= controller_icon['m_conceptos'] %>"></i> <small>
+			<%#= link_to( objeto.m_concepto, objeto, class: 'sb-link') %>
+			<b><%= objeto.m_concepto %></b>
+		</small>
+	</td>
+
+	<td>
+		<%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %>
+	</td>
+
+	<td>
+		<%= link_to "m_items/new?owner=#{objeto.id}", class: "btn btn-outline-#{color(objeto.class.name.tableize)} btn-sm"  do %>
+			<i class="bi bi-plus-square"></i>
+		<% end %>
+		<%= render partial: '0p/tabla/btn_editar', locals: {objeto: objeto} %>
+		<% if not has_child?(objeto) %>
+			<%= render partial: '0p/tabla/btn_eliminar', locals: {objeto: objeto} %>
+		<% end %>
+	</td>
+
+</tr>
+
+<% objeto.m_items.order(:orden).each do |item| %>
+	<tr class="table-sm">
+
+		<td colspan='2' style="padding-left:20px">
+			<i class="bi bi-<%= controller_icon['m_items'] %>"></i> <small>
+				<%#= link_to( item.m_item, item, class: 'sb-link') %>
+				<%= item.m_item %>
+			</small>
+		</td>
+
+		<td>
+			<%= render partial: '0p/tabla/btns_orden', locals: {objeto: item} %>
+		</td>
+
+		<td>
+			<%= render partial: '0p/tabla/btn_editar', locals: {objeto: item} %>
+			<% if not has_child?(item) %>
+				<%= render partial: '0p/tabla/btn_eliminar', locals: {objeto: item} %>
+			<% end %>
+		</td>
+
+	</tr>
+<% end %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>M concepto:</strong>
+  <%= @objeto.m_concepto %>
+</p>
+
+<p>
+  <strong>M modelo:</strong>
+  <%= @objeto.m_modelo_id %>
+</p>
+
+<%= link_to 'Edit', edit_m_concepto_path(@objeto) %> |
+<%= link_to 'Back', m_conceptos_path %>

@@ -17,7 +17,11 @@ class AppPerfil < ApplicationRecord
 	end
 
 	def repositorio
-		AppRepo.where(owner_class: self.class.name).find_by(owner_id: self.id)
+		AppRepositorio.where(owner_class: self.class.name).find_by(owner_id: self.id)
+	end
+
+	def modelo_perfil
+		MModelo.find_by(ownr_class: self.class.name, ownr_id: self.id)
 	end
 
 end

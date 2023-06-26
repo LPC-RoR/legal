@@ -1,0 +1,67 @@
+<%= form_with(model: m_registro, local: true) do |form| %>
+  <% if m_registro.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(m_registro.errors.count, "error") %> prohibited this m_registro from being saved:</h2>
+
+      <ul>
+      <% m_registro.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :m_registro %>
+    <%= form.text_field :m_registro %>
+  </div>
+
+  <div class="field">
+    <%= form.label :orden %>
+    <%= form.number_field :orden %>
+  </div>
+
+  <div class="field">
+    <%= form.label :m_conciliacion_id %>
+    <%= form.number_field :m_conciliacion_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha %>
+    <%= form.datetime_select :fecha %>
+  </div>
+
+  <div class="field">
+    <%= form.label :glosa_banco %>
+    <%= form.text_field :glosa_banco %>
+  </div>
+
+  <div class="field">
+    <%= form.label :glosa %>
+    <%= form.text_field :glosa %>
+  </div>
+
+  <div class="field">
+    <%= form.label :documento %>
+    <%= form.text_field :documento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :monto %>
+    <%= form.text_field :monto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cargo_abono %>
+    <%= form.text_field :cargo_abono %>
+  </div>
+
+  <div class="field">
+    <%= form.label :saldo %>
+    <%= form.text_field :saldo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

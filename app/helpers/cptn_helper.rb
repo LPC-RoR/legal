@@ -44,6 +44,10 @@ module CptnHelper
 
 # ******************************************************************** HELPERS DE USO GENERAL
 
+	def nombre(objeto)
+		objeto.send(objeto.class.name.tableize.singularize)
+	end
+
 	def perfiles_operativos
 		AppNomina.all.map {|nomina| nomina.nombre}.union(AppAdministrador.all.map {|admin| admin.administrador unless admin.email == 'hugo.chinga.g@gmail.com'}.compact)
 	end
@@ -65,6 +69,7 @@ def controller_icon
 			'app_directorios' => 'folder',
 			'app_documentos' => 'journal',
 			'app_escaneos' => 'images',
+			'm_modelos' => 'piggy-bank',
 			'causas' => 'file-text',
 			'tar_facturas' => 'receipt',
 			'tar_facturaciones' => 'coin',

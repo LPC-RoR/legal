@@ -1,0 +1,42 @@
+<%= form_with(model: app_control_documento, local: true) do |form| %>
+  <% if app_control_documento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(app_control_documento.errors.count, "error") %> prohibited this app_control_documento from being saved:</h2>
+
+      <ul>
+      <% app_control_documento.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :app_control_documento %>
+    <%= form.text_field :app_control_documento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :existencia %>
+    <%= form.text_field :existencia %>
+  </div>
+
+  <div class="field">
+    <%= form.label :vencimiento %>
+    <%= form.text_field :vencimiento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ownr_class %>
+    <%= form.text_field :ownr_class %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_id %>
+    <%= form.number_field :owner_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

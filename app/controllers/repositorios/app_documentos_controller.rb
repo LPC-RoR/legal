@@ -11,6 +11,7 @@ class Repositorios::AppDocumentosController < ApplicationController
   def show
 #    init_tabla('controller_name', Tabla, paginate)
     init_tabla('app_archivos', @objeto.archivos.order(created_at: :desc), false)
+    add_tabla('app_escaneos', @objeto.escaneos.order(created_at: :desc), false)
   end
 
   # GET /app_documentos/new
@@ -29,11 +30,12 @@ class Repositorios::AppDocumentosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "App documento was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Documento fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
+        format.turbo_stream { render "0p/form/form_update", status: :unprocessable_entity }
       end
     end
   end
@@ -43,7 +45,7 @@ class Repositorios::AppDocumentosController < ApplicationController
     respond_to do |format|
       if @objeto.update(app_documento_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "App documento was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Documento fue exitósamente modificado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +59,7 @@ class Repositorios::AppDocumentosController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "App documento was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Documento fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -69,11 +71,17 @@ class Repositorios::AppDocumentosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.padre
+      if @objeto.owner.class.name == 'AppDirectorio'
+        @redireccion = @objeto.owner
+      elsif @objeto.objeto_destino.class.name == 'Empleado'
+        @redireccion = "/empleados/#{@objeto.objeto_destino.id}?html_options[tab]=Documentos"
+      else
+        @redireccion = app_repositorios_path
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def app_documento_params
-      params.require(:app_documento).permit(:documento, :publico, :owner_class, :owner_id)
+      params.require(:app_documento).permit(:app_documento, :publico, :owner_class, :owner_id, :existencia, :vencimiento)
     end
 end

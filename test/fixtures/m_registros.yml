@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  m_registro: MyString
+  orden: 1
+  m_conciliacion_id: 1
+  fecha: 2023-06-22 12:03:56
+  glosa_banco: MyString
+  glosa: MyString
+  documento: MyString
+  monto: 9.99
+  cargo_abono: MyString
+  saldo: 9.99
+
+two:
+  m_registro: MyString
+  orden: 1
+  m_conciliacion_id: 1
+  fecha: 2023-06-22 12:03:56
+  glosa_banco: MyString
+  glosa: MyString
+  documento: MyString
+  monto: 9.99
+  cargo_abono: MyString
+  saldo: 9.99

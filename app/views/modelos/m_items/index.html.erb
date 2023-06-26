@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>M Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Orden</th>
+      <th>M item</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @m_items.each do |m_item| %>
+      <tr>
+        <td><%= m_item.orden %></td>
+        <td><%= m_item.m_item %></td>
+        <td><%= link_to 'Show', m_item %></td>
+        <td><%= link_to 'Edit', edit_m_item_path(m_item) %></td>
+        <td><%= link_to 'Destroy', m_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New M Item', new_m_item_path %>

@@ -1,0 +1,8 @@
+<p>
+<% if @objeto.owner.present? %>
+	<%= link_to @objeto.owner, class: 'sb-link' do %>
+		<i class="bi bi-arrow-up-short"></i>
+		<%= "#{m_to_name(@objeto.owner.class.name)} : #{nombre(@objeto.owner)}" %>
+	<% end %>
+<% end %>
+</p>

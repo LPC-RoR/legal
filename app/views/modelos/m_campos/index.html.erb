@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>M Campos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>M campo</th>
+      <th>Valor</th>
+      <th>M conciliacion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @m_campos.each do |m_campo| %>
+      <tr>
+        <td><%= m_campo.m_campo %></td>
+        <td><%= m_campo.valor %></td>
+        <td><%= m_campo.m_conciliacion_id %></td>
+        <td><%= link_to 'Show', m_campo %></td>
+        <td><%= link_to 'Edit', edit_m_campo_path(m_campo) %></td>
+        <td><%= link_to 'Destroy', m_campo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New M Campo', new_m_campo_path %>

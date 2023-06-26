@@ -24,10 +24,10 @@ class ClientesController < ApplicationController
       init_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       add_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
     elsif @options[:menu] == 'Documentos y enlaces'
-      @repo = AppRepo.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)
-      @repo = AppRepo.create(repositorio: @objeto.razon_social, owner_class: 'Cliente', owner_id: @objeto.id) if @repo.blank?
-      init_tabla('app_directorios', @repo.directorios, false)
-      add_tabla('app_documentos', @repo.documentos, false)
+      @repositorio = AppRepositorio.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)
+      @repositorio = AppRepositorio.create(app_repositorio: @objeto.razon_social, owner_class: 'Cliente', owner_id: @objeto.id) if @repositorio.blank?
+      init_tabla('app_directorios', @repositorio.directorios, false)
+      add_tabla('app_documentos', @repositorio.documentos, false)
     end
 
   end

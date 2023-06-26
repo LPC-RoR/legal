@@ -13,10 +13,11 @@ module CptnMenuAppHelper
 	    ## Menu principal de la aplicación
 	    # [ 'Item del menú', 'link', 'accesso', 'gly' ]
 	    [
-	        ['',        "/st_bandejas",         'nomina', 'inboxes'],
-	        ['',        "/app_repos",           'nomina', controller_icon['app_repos'], 'Repositorios de documentos'],
-	        ['',        "/app_recursos/tablas", 'nomina', 'table'],
-	        ['',        "/app_recursos/aprobaciones",        'nomina', 'check-all']
+	        ['',        "/st_bandejas",               'nomina', 'inboxes'],
+	        ['',        "/app_repositorios",          'nomina', controller_icon['app_repos'], 'Repositorios de documentos'],
+	        ['',        "/m_modelos",                 'nomina', controller_icon['m_modelos'], 'Modelo de negocios'],
+	        ['',        "/app_recursos/tablas",       'nomina', 'table'],
+	        ['',        "/app_recursos/aprobaciones", 'nomina', 'check-all']
 	    ]
 
 	end

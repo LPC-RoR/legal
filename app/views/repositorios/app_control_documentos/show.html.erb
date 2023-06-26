@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App control documento:</strong>
+  <%= @app_control_documento.app_control_documento %>
+</p>
+
+<p>
+  <strong>Existencia:</strong>
+  <%= @app_control_documento.existencia %>
+</p>
+
+<p>
+  <strong>Vencimiento:</strong>
+  <%= @app_control_documento.vencimiento %>
+</p>
+
+<p>
+  <strong>Ownr class:</strong>
+  <%= @app_control_documento.ownr_class %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @app_control_documento.owner_id %>
+</p>
+
+<%= link_to 'Edit', edit_app_control_documento_path(@app_control_documento) %> |
+<%= link_to 'Back', app_control_documentos_path %>

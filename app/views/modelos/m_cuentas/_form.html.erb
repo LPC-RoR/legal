@@ -1,0 +1,27 @@
+<%= form_with(model: m_cuenta, local: true) do |form| %>
+  <% if m_cuenta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(m_cuenta.errors.count, "error") %> prohibited this m_cuenta from being saved:</h2>
+
+      <ul>
+      <% m_cuenta.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :m_cuenta %>
+    <%= form.text_field :m_cuenta %>
+  </div>
+
+  <div class="field">
+    <%= form.label :m_banco_id %>
+    <%= form.number_field :m_banco_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

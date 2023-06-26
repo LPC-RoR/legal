@@ -13,7 +13,16 @@
   <body>
     <%= render partial: '0p/navbar/navbar' %>
     <div class="container-fluid">
+
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+
       <%= render partial: 'layouts/app' %>
+
     </div>
     <!------------------------------------------->
     <hr>

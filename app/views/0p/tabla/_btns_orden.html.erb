@@ -1,0 +1,11 @@
+<small><%= objeto.orden %></small>
+<% unless objeto.orden == 1 %>
+	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/arriba", class: 'sb-link' do %>
+		<i class="bi bi-arrow-up-short"></i>
+	<% end %>
+<% end %>
+<% unless objeto.orden == objeto.n_list %>
+	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/abajo", class: 'sb-link' do %>
+		<i class="bi bi-arrow-down-short"></i>
+	<% end %>
+<% end %>

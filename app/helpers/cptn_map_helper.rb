@@ -41,13 +41,14 @@ module CptnMapHelper
 			aplicacion:    ['app_recursos'],
 			autenticacion: ['app_administradores', 'app_nominas', 'app_perfiles'],
 			recursos:      ['app_contactos', 'app_enlaces', 'app_mejoras', 'app_mensajes', 'app_observaciones'],
-			repositorios:  ['app_repos', 'app_directorios', 'app_documentos', 'app_archivos', 'app_imagenes'],
+			repositorios:  ['app_repositorios', 'app_directorios', 'app_documentos', 'app_archivos', 'app_imagenes'],
 			home:          ['h_temas', 'h_links', 'h_imagenes'],
 			help:          ['conversaciones', 'mensajes', 'hlp_pasos', 'temaf_ayudas', 'hlp_tutoriales'],
 			sidebar:       ['sb_listas', 'sb_elementos'],
 			busqueda:      ['ind_clave_facetas', 'ind_claves', 'ind_indice_facetas', 'ind_indices', 'ind_palabras', 'ind_reglas', 'ind_sets'],
 			estados:       ['st_bandejas', 'st_modelos', 'st_estados'],
-			data:          ['caracteristicas', 'caracterizaciones', 'columnas', 'datos', 'encabezados', 'etapas', 'lineas', 'opciones', 'tablas']
+			data:          ['caracteristicas', 'caracterizaciones', 'columnas', 'datos', 'encabezados', 'etapas', 'lineas', 'opciones', 'tablas'],
+			modelos:       ['m_modelos', 'm_conceptos', 'm_bancos', 'm_items', 'm_cuentas', 'm_conciliaciones']
 		}
 	end
 

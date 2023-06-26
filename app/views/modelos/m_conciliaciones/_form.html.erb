@@ -1,0 +1,22 @@
+<%= form_with(model: m_conciliacion, local: true) do |form| %>
+  <% if m_conciliacion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(m_conciliacion.errors.count, "error") %> prohibited this m_conciliacion from being saved:</h2>
+
+      <ul>
+      <% m_conciliacion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :m_conciliacion %>
+    <%= form.text_field :m_conciliacion %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>M Movimientos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Glosa</th>
+      <th>M item</th>
+      <th>Monto</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @m_movimientos.each do |m_movimiento| %>
+      <tr>
+        <td><%= m_movimiento.fecha %></td>
+        <td><%= m_movimiento.glosa %></td>
+        <td><%= m_movimiento.m_item_id %></td>
+        <td><%= m_movimiento.monto %></td>
+        <td><%= link_to 'Show', m_movimiento %></td>
+        <td><%= link_to 'Edit', edit_m_movimiento_path(m_movimiento) %></td>
+        <td><%= link_to 'Destroy', m_movimiento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New M Movimiento', new_m_movimiento_path %>

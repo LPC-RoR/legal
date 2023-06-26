@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :app_control_documentos
   resources :tribunal_cortes
   resources :juzgados
   resources :reg_reportes do
@@ -47,6 +48,8 @@ Rails.application.routes.draw do
   end
 
   scope module: 'repositorios' do
+    resources :app_repositorios
+    # DEPECATED : reemplazado por app_repositorios
     resources :app_repos do
       match :publico, via: :get, on: :collection
       match :perfil, via: :get, on: :collection
@@ -58,6 +61,9 @@ Rails.application.routes.draw do
     resources :app_documentos
     resources :app_archivos
     resources :app_imagenes
+    resources :app_escaneos do
+      match :crea_escaneo, via: :get, on: :collection
+    end
   end
 
   scope module: 'aplicacion' do
@@ -164,6 +170,29 @@ Rails.application.routes.draw do
     resources :tar_bases
     resources :tar_liquidaciones
   end
+
+  scope module: 'modelos' do
+    resources :m_modelos
+    resources :m_conceptos do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
+    resources :m_items do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
+
+    resources :m_bancos
+    resources :m_cuentas do
+      resources :m_conciliaciones
+    end
+    resources :m_conciliaciones do
+      match :conciliacion, via: :get, on: :member
+    end
+    resources :m_registros
+    resources :m_campos
+    resources :m_movimientos
+    end
 
   devise_for :usuarios
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

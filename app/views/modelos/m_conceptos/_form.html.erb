@@ -1,0 +1,27 @@
+<%= form_with(model: m_concepto, local: true) do |form| %>
+  <% if m_concepto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(m_concepto.errors.count, "error") %> prohibited this m_concepto from being saved:</h2>
+
+      <ul>
+      <% m_concepto.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :m_concepto %>
+    <%= form.text_field :m_concepto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :m_modelo_id %>
+    <%= form.number_field :m_modelo_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

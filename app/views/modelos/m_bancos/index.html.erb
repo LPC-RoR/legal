@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>M Bancos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>M banco</th>
+      <th>M modelo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @m_bancos.each do |m_banco| %>
+      <tr>
+        <td><%= m_banco.m_banco %></td>
+        <td><%= m_banco.m_modelo_id %></td>
+        <td><%= link_to 'Show', m_banco %></td>
+        <td><%= link_to 'Edit', edit_m_banco_path(m_banco) %></td>
+        <td><%= link_to 'Destroy', m_banco, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New M Banco', new_m_banco_path %>

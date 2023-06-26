@@ -1,0 +1,2 @@
+class MRegistro < ApplicationRecord
+end

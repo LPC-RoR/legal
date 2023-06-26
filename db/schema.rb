@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_12_202518) do
+ActiveRecord::Schema.define(version: 2023_06_23_153616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,21 @@ ActiveRecord::Schema.define(version: 2023_06_12_202518) do
     t.index ["owner_id"], name: "index_app_contactos_on_owner_id"
   end
 
+  create_table "app_control_documentos", force: :cascade do |t|
+    t.string "app_control_documento"
+    t.string "existencia"
+    t.string "vencimiento"
+    t.string "ownr_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_control_documento"], name: "index_app_control_documentos_on_app_control_documento"
+    t.index ["existencia"], name: "index_app_control_documentos_on_existencia"
+    t.index ["owner_id"], name: "index_app_control_documentos_on_owner_id"
+    t.index ["ownr_class"], name: "index_app_control_documentos_on_ownr_class"
+    t.index ["vencimiento"], name: "index_app_control_documentos_on_vencimiento"
+  end
+
   create_table "app_dir_dires", force: :cascade do |t|
     t.integer "parent_id"
     t.integer "child_id"
@@ -62,6 +77,9 @@ ActiveRecord::Schema.define(version: 2023_06_12_202518) do
     t.datetime "updated_at", null: false
     t.string "owner_class"
     t.integer "owner_id"
+    t.string "app_directorio"
+    t.boolean "directorio_control"
+    t.index ["app_directorio"], name: "index_app_directorios_on_app_directorio"
     t.index ["directorio"], name: "index_app_directorios_on_directorio"
     t.index ["owner_class"], name: "index_app_directorios_on_owner_class"
     t.index ["owner_id"], name: "index_app_directorios_on_owner_id"
@@ -74,6 +92,12 @@ ActiveRecord::Schema.define(version: 2023_06_12_202518) do
     t.datetime "updated_at", null: false
     t.string "owner_class"
     t.integer "owner_id"
+    t.string "app_documento"
+    t.string "existencia"
+    t.string "vencimiento"
+    t.boolean "documento_control"
+    t.string "referencia"
+    t.index ["app_documento"], name: "index_app_documentos_on_app_documento"
     t.index ["owner_class"], name: "index_app_documentos_on_owner_class"
     t.index ["owner_id"], name: "index_app_documentos_on_owner_id"
   end
@@ -87,6 +111,15 @@ ActiveRecord::Schema.define(version: 2023_06_12_202518) do
     t.datetime "updated_at", null: false
     t.index ["owner_class"], name: "index_app_enlaces_on_owner_class"
     t.index ["owner_id"], name: "index_app_enlaces_on_owner_id"
+  end
+
+  create_table "app_escaneos", force: :cascade do |t|
+    t.string "ownr_class"
+    t.integer "ownr_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ownr_class"], name: "index_app_escaneos_on_ownr_class"
+    t.index ["ownr_id"], name: "index_app_escaneos_on_ownr_id"
   end
 
   create_table "app_imagenes", force: :cascade do |t|
@@ -183,6 +216,17 @@ ActiveRecord::Schema.define(version: 2023_06_12_202518) do
     t.index ["owner_class"], name: "index_app_repos_on_owner_class"
     t.index ["owner_id"], name: "index_app_repos_on_owner_id"
     t.index ["repositorio"], name: "index_app_repos_on_repositorio"
+  end
+
+  create_table "app_repositorios", force: :cascade do |t|
+    t.string "app_repositorio"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_repositorio"], name: "index_app_repositorios_on_app_repositorio"
+    t.index ["owner_class"], name: "index_app_repositorios_on_owner_class"
+    t.index ["owner_id"], name: "index_app_repositorios_on_owner_id"
   end
 
   create_table "causas", force: :cascade do |t|
@@ -290,6 +334,102 @@ ActiveRecord::Schema.define(version: 2023_06_12_202518) do
     t.string "juzgado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "m_bancos", force: :cascade do |t|
+    t.string "m_banco"
+    t.integer "m_modelo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["m_banco"], name: "index_m_bancos_on_m_banco"
+    t.index ["m_modelo_id"], name: "index_m_bancos_on_m_modelo_id"
+  end
+
+  create_table "m_campos", force: :cascade do |t|
+    t.string "m_campo"
+    t.string "valor"
+    t.integer "m_conciliacion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["m_campo"], name: "index_m_campos_on_m_campo"
+    t.index ["m_conciliacion_id"], name: "index_m_campos_on_m_conciliacion_id"
+  end
+
+  create_table "m_conceptos", force: :cascade do |t|
+    t.string "m_concepto"
+    t.integer "m_modelo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "orden"
+    t.index ["m_concepto"], name: "index_m_conceptos_on_m_concepto"
+    t.index ["m_modelo_id"], name: "index_m_conceptos_on_m_modelo_id"
+    t.index ["orden"], name: "index_m_conceptos_on_orden"
+  end
+
+  create_table "m_conciliaciones", force: :cascade do |t|
+    t.string "m_conciliacion"
+    t.integer "m_cuenta_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["m_cuenta_id"], name: "index_m_conciliaciones_on_m_cuenta_id"
+  end
+
+  create_table "m_cuentas", force: :cascade do |t|
+    t.string "m_cuenta"
+    t.integer "m_banco_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["m_banco_id"], name: "index_m_cuentas_on_m_banco_id"
+  end
+
+  create_table "m_items", force: :cascade do |t|
+    t.integer "orden"
+    t.string "m_item"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "m_concepto_id"
+    t.index ["m_concepto_id"], name: "index_m_items_on_m_concepto_id"
+    t.index ["m_item"], name: "index_m_items_on_m_item"
+  end
+
+  create_table "m_modelos", force: :cascade do |t|
+    t.string "m_modelo"
+    t.string "ownr_class"
+    t.integer "ownr_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ownr_class"], name: "index_m_modelos_on_ownr_class"
+    t.index ["ownr_id"], name: "index_m_modelos_on_ownr_id"
+  end
+
+  create_table "m_movimientos", force: :cascade do |t|
+    t.datetime "fecha"
+    t.string "glosa"
+    t.integer "m_item_id"
+    t.decimal "monto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["m_item_id"], name: "index_m_movimientos_on_m_item_id"
+  end
+
+  create_table "m_registros", force: :cascade do |t|
+    t.string "m_registro"
+    t.integer "orden"
+    t.integer "m_conciliacion_id"
+    t.datetime "fecha"
+    t.string "glosa_banco"
+    t.string "glosa"
+    t.string "documento"
+    t.decimal "monto"
+    t.string "cargo_abono"
+    t.decimal "saldo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cargo_abono"], name: "index_m_registros_on_cargo_abono"
+    t.index ["fecha"], name: "index_m_registros_on_fecha"
+    t.index ["m_conciliacion_id"], name: "index_m_registros_on_m_conciliacion_id"
+    t.index ["m_registro"], name: "index_m_registros_on_m_registro"
+    t.index ["orden"], name: "index_m_registros_on_orden"
   end
 
   create_table "reg_reportes", force: :cascade do |t|

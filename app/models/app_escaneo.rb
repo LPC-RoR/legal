@@ -1,0 +1,2 @@
+class AppEscaneo < ApplicationRecord
+end

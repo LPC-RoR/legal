@@ -35,13 +35,14 @@ module CptnCristianoHelper
 			'consultoria' => 'consultoría',
 			'codigo' => 'código',
 			'descripcion' => 'descripción',
-			'facturacion' => 'facturación'
+			'facturacion' => 'facturación',
+			'conciliacion' => 'conciliación'
 		}
 	end
 
 	# prefijos de modelos con scope
 	def scopes
-		/^tar_|^app_|^h_|^st_|^ind_/
+		/^tar_|^app_|^h_|^st_|^ind_|^m/
 	end
 
 	# nombre que se desplega de un controlador
@@ -53,7 +54,7 @@ module CptnCristianoHelper
 			# Manejo de scopes
 			text = controller.match(scopes) ? controller.gsub(scopes, '') : controller
 			# corrige acentos
-			text.humanize.split.map {|word| corrige(word.downcase)}.join(' ').capitalize
+			text.singularize.humanize.split.map {|word| corrige(word.downcase)}.join(' ').capitalize
 		end
 	end
 

@@ -62,8 +62,8 @@ class Causa < ApplicationRecord
 		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
-	def repo
-    	AppRepo.where(owner_class: self.class.name).find_by(owner_id: self.id)
+	def repositorio
+    	AppRepositorio.where(owner_class: self.class.name).find_by(owner_id: self.id)
 	end
 
 	def reportes

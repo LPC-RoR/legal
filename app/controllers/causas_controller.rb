@@ -17,10 +17,10 @@ class CausasController < ApplicationController
       add_tabla('tar_facturaciones', @objeto.facturaciones, false)
       add_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
     elsif @options[:menu] == 'Documentos y enlaces'
-      AppRepo.create(repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repo.blank?
+      AppRepositorio.create(app_repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repositorio.blank?
 
-      init_tabla('app_directorios', @objeto.repo.directorios, false)
-      add_tabla('app_documentos', @objeto.repo.documentos, false)
+      init_tabla('app_directorios', @objeto.repositorio.directorios, false)
+      add_tabla('app_documentos', @objeto.repositorio.documentos, false)
       add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
     elsif @options[:menu] == 'Registro'
       init_tabla('registros', @objeto.registros, false)

@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-6">
+    <table class="table <%= table_types_base[:borderless] %> table-sm">
+      <tbody>
+
+        <!-- Conceptos-->
+        <% unless @coleccion["#{tag unless tag.blank?}m_conceptos"].blank? %>
+          <% @coleccion["#{tag unless tag.blank?}m_conceptos"].each do |concepto| %>
+            <%= render partial: "/modelos/m_conceptos/partials/concepto", locals: {objeto: concepto} %>
+          <% end  %>
+        <% end %>
+
+      </tbody>
+    </table>
+
+    <%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'm_conceptos', o: objeto} %>
+  </div>
+  <div class="col-md-6">
+    <table class="table <%= table_types_base[:borderless] %> table-sm">
+      <tbody>
+
+        <!-- Bancos-->
+        <% unless @coleccion["#{tag unless tag.blank?}m_bancos"].blank? %>
+          <% @coleccion["#{tag unless tag.blank?}m_bancos"].each do |banco| %>
+            <%= render partial: "/modelos/m_bancos/partials/banco", locals: {objeto: banco} %>
+          <% end  %>
+        <% end %>
+
+      </tbody>
+    </table>
+
+    <%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'm_bancos', o: objeto} %>
+  </div>
+</div>
+
+

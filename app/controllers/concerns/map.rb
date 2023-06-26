@@ -3,8 +3,16 @@ module Map
 
 	## -------------------------------------------------------- BANDEJAS
 
+	def bandeja_prefixs
+		['tar', 'm']
+	end
+
+	def bandeja_prefixs?(controller)
+		bandeja_prefixs.include?(controller.split('_')[0])
+	end
+
 	def app_bandeja_controllers
-		['app_directorios', 'app_documentos', 'app_enlaces', 'tar_tarifas', 'tar_detalles', 'tar_facturas', 'app_repos', 'registros', 'reg_reportes', 'tar_horas']
+		['app_directorios', 'app_documentos', 'app_enlaces', 'tar_tarifas', 'tar_detalles', 'tar_facturas', 'app_repositorios', 'registros', 'reg_reportes', 'tar_horas']
 	end
 
 	def bandeja_controllers
@@ -13,7 +21,7 @@ module Map
 	end
 
 	def bandeja_display?
-		(controller_name == 'app_recursos' and action_name == 'tablas') or bandeja_controllers.include?(controller_name)
+		bandeja_prefixs?(controller_name) or (controller_name == 'app_recursos' and action_name == 'tablas') or bandeja_controllers.include?(controller_name)
 	end
 
 	def init_bandejas
