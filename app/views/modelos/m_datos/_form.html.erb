@@ -1,0 +1,42 @@
+<%= form_with(model: m_dato, local: true) do |form| %>
+  <% if m_dato.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(m_dato.errors.count, "error") %> prohibited this m_dato from being saved:</h2>
+
+      <ul>
+      <% m_dato.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :m_dato %>
+    <%= form.text_field :m_dato %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tipo %>
+    <%= form.text_field :tipo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :formula %>
+    <%= form.text_field :formula %>
+  </div>
+
+  <div class="field">
+    <%= form.label :split_tag %>
+    <%= form.text_field :split_tag %>
+  </div>
+
+  <div class="field">
+    <%= form.label :m_formato_id %>
+    <%= form.number_field :m_formato_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: 1
+  m_elemento: MyString
+  tipo: MyString
+  m_formato_id: 1
+
+two:
+  orden: 1
+  m_elemento: MyString
+  tipo: MyString
+  m_formato_id: 1

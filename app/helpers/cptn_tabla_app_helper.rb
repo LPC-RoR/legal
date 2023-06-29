@@ -6,7 +6,7 @@ module CptnTablaAppHelper
 	end
 
 	def app_new_button_conditions(controller)
-		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_valor_cuantias', 'tar_facturas', 'tar_uf_facturaciones'].include?(controller)
+		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_valor_cuantias', 'tar_facturas', 'tar_uf_facturaciones', 'm_registros'].include?(controller)
 			false
 		elsif ['tar_facturaciones'].include?(controller)
 			dog? and controller_name == 'tar_facturas'
@@ -18,7 +18,9 @@ module CptnTablaAppHelper
 	end
 
 	def app_crud_conditions(objeto, btn)
-		if [].include?(objeto.class.name)
+		if ['RegReporte', 'MRegistro'].include?(objeto.class.name)
+			false
+		elsif [].include?(objeto.class.name)
 			admin?
 		elsif ['TarFacturacion'].include?(objeto.class.name)
 			(controller_name == 'tar_facturas') and objeto.facturable.blank?
@@ -32,8 +34,6 @@ module CptnTablaAppHelper
 				controller_name == 'causas' and @options[:menu] == 'Cuantía'
 			when 'Registro'
 				admin? and objeto.estado == 'ingreso'
-			when 'RegReporte'
-				false
 			else
 				true
 			end

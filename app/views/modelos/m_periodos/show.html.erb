@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>M periodo:</strong>
+  <%= @m_periodo.m_periodo %>
+</p>
+
+<p>
+  <strong>Clave:</strong>
+  <%= @m_periodo.clave %>
+</p>
+
+<p>
+  <strong>M modelo:</strong>
+  <%= @m_periodo.m_modelo_id %>
+</p>
+
+<%= link_to 'Edit', edit_m_periodo_path(@m_periodo) %> |
+<%= link_to 'Back', m_periodos_path %>

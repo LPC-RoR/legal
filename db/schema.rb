@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_27_002224) do
+ActiveRecord::Schema.define(version: 2023_06_28_215303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -379,7 +379,50 @@ ActiveRecord::Schema.define(version: 2023_06_27_002224) do
     t.integer "m_banco_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "m_formato_id"
     t.index ["m_banco_id"], name: "index_m_cuentas_on_m_banco_id"
+    t.index ["m_formato_id"], name: "index_m_cuentas_on_m_formato_id"
+  end
+
+  create_table "m_datos", force: :cascade do |t|
+    t.string "m_dato"
+    t.string "tipo"
+    t.string "formula"
+    t.string "split_tag"
+    t.integer "m_formato_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "orden"
+    t.index ["m_dato"], name: "index_m_datos_on_m_dato"
+    t.index ["m_formato_id"], name: "index_m_datos_on_m_formato_id"
+    t.index ["orden"], name: "index_m_datos_on_orden"
+    t.index ["tipo"], name: "index_m_datos_on_tipo"
+  end
+
+  create_table "m_elementos", force: :cascade do |t|
+    t.integer "orden"
+    t.string "m_elemento"
+    t.string "tipo"
+    t.integer "m_formato_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "registro"
+    t.string "columna"
+    t.index ["m_elemento"], name: "index_m_elementos_on_m_elemento"
+    t.index ["m_formato_id"], name: "index_m_elementos_on_m_formato_id"
+    t.index ["orden"], name: "index_m_elementos_on_orden"
+    t.index ["tipo"], name: "index_m_elementos_on_tipo"
+  end
+
+  create_table "m_formatos", force: :cascade do |t|
+    t.string "m_formato"
+    t.integer "m_banco_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "inicio"
+    t.string "termino"
+    t.index ["m_banco_id"], name: "index_m_formatos_on_m_banco_id"
+    t.index ["m_formato"], name: "index_m_formatos_on_m_formato"
   end
 
   create_table "m_items", force: :cascade do |t|
@@ -410,6 +453,16 @@ ActiveRecord::Schema.define(version: 2023_06_27_002224) do
     t.index ["m_item_id"], name: "index_m_movimientos_on_m_item_id"
   end
 
+  create_table "m_periodos", force: :cascade do |t|
+    t.string "m_periodo"
+    t.integer "clave"
+    t.integer "m_modelo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clave"], name: "index_m_periodos_on_clave"
+    t.index ["m_modelo_id"], name: "index_m_periodos_on_m_modelo_id"
+  end
+
   create_table "m_registros", force: :cascade do |t|
     t.string "m_registro"
     t.integer "orden"
@@ -423,11 +476,25 @@ ActiveRecord::Schema.define(version: 2023_06_27_002224) do
     t.decimal "saldo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "m_periodo_id"
     t.index ["cargo_abono"], name: "index_m_registros_on_cargo_abono"
     t.index ["fecha"], name: "index_m_registros_on_fecha"
     t.index ["m_conciliacion_id"], name: "index_m_registros_on_m_conciliacion_id"
+    t.index ["m_periodo_id"], name: "index_m_registros_on_m_periodo_id"
     t.index ["m_registro"], name: "index_m_registros_on_m_registro"
     t.index ["orden"], name: "index_m_registros_on_orden"
+  end
+
+  create_table "m_valores", force: :cascade do |t|
+    t.integer "orden"
+    t.string "m_valor"
+    t.string "tipo"
+    t.string "valor"
+    t.integer "m_conciliacion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["m_conciliacion_id"], name: "index_m_valores_on_m_conciliacion_id"
+    t.index ["orden"], name: "index_m_valores_on_orden"
   end
 
   create_table "reg_reportes", force: :cascade do |t|

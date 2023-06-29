@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  m_dato: MyString
+  tipo: MyString
+  formula: MyString
+  split_tag: MyString
+  m_formato_id: 1
+
+two:
+  m_dato: MyString
+  tipo: MyString
+  formula: MyString
+  split_tag: MyString
+  m_formato_id: 1

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>M Elementos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Orden</th>
+      <th>M elemento</th>
+      <th>Tipo</th>
+      <th>M formato</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @m_elementos.each do |m_elemento| %>
+      <tr>
+        <td><%= m_elemento.orden %></td>
+        <td><%= m_elemento.m_elemento %></td>
+        <td><%= m_elemento.tipo %></td>
+        <td><%= m_elemento.m_formato_id %></td>
+        <td><%= link_to 'Show', m_elemento %></td>
+        <td><%= link_to 'Edit', edit_m_elemento_path(m_elemento) %></td>
+        <td><%= link_to 'Destroy', m_elemento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New M Elemento', new_m_elemento_path %>

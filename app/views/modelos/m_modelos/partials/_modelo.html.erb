@@ -1,5 +1,7 @@
 <div class="row">
   <div class="col-md-6">
+
+    <!-- MODELO DE NEGOCIOS -->
     <table class="table <%= table_types_base[:borderless] %> table-sm">
       <tbody>
 
@@ -14,12 +16,15 @@
     </table>
 
     <%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'm_conceptos', o: objeto} %>
+
   </div>
   <div class="col-md-6">
+
+    <!-- BANCOS-->
+    <%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_bancos'], title: 'Bancos', size: 5} %>
     <table class="table <%= table_types_base[:borderless] %> table-sm">
       <tbody>
 
-        <!-- Bancos-->
         <% unless @coleccion["#{tag unless tag.blank?}m_bancos"].blank? %>
           <% @coleccion["#{tag unless tag.blank?}m_bancos"].each do |banco| %>
             <%= render partial: "/modelos/m_bancos/partials/banco", locals: {objeto: banco} %>
@@ -30,6 +35,7 @@
     </table>
 
     <%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'm_bancos', o: objeto} %>
+
   </div>
 </div>
 

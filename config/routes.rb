@@ -173,6 +173,7 @@ Rails.application.routes.draw do
 
   scope module: 'modelos' do
     resources :m_modelos
+    resources :m_periodos
     resources :m_conceptos do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
@@ -182,17 +183,28 @@ Rails.application.routes.draw do
       match :abajo, via: :get, on: :member
     end
 
-    resources :m_bancos
+    resources :m_bancos do
+      resources :m_cuentas
+      resources :m_formatos
+    end
     resources :m_cuentas do
       resources :m_conciliaciones
     end
+    resources :m_formatos do
+      resources :m_elementos
+      resources :m_datos
+    end
+    resources :m_elementos
+    resources :m_datos
     resources :m_conciliaciones do
       match :conciliacion, via: :get, on: :member
     end
+    resources :m_valores
     resources :m_registros
     resources :m_campos
     resources :m_movimientos
-    end
+
+  end
 
   devise_for :usuarios
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -1,0 +1,14 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Elemento', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :m_elemento } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tipo } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Registro', v: true } %>
+<%= render partial: '0p/form_fields/select', locals: { form: form, token: :registro, sel_list: MRegistro::CAMPOS, label: 'Registro' } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Columna', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :columna } %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :m_formato_id } %>

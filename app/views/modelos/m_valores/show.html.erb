@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Orden:</strong>
+  <%= @m_valor.orden %>
+</p>
+
+<p>
+  <strong>M valor:</strong>
+  <%= @m_valor.m_valor %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @m_valor.tipo %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @m_valor.valor %>
+</p>
+
+<p>
+  <strong>M conciliacion:</strong>
+  <%= @m_valor.m_conciliacion_id %>
+</p>
+
+<%= link_to 'Edit', edit_m_valor_path(@m_valor) %> |
+<%= link_to 'Back', m_valores_path %>

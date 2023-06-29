@@ -1,4 +1,8 @@
 <tr>
+	<% if ordered_controller?(c) %>
+		<td><small><i>Orden</i></small></td>
+	<% end %>
+
 	<% c.classify.constantize::TABLA_FIELDS.each do |field| %>
 		<% if sortable?(c, get_field_name(field)) %>
 			<td><small><i><%= sortable corrige_campo(get_field_name(field).delete_prefix('d_')) %></i><small></td>

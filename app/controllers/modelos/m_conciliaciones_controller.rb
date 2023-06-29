@@ -1,6 +1,8 @@
 class Modelos::MConciliacionesController < ApplicationController
   before_action :set_m_conciliacion, only: %i[ show edit update destroy conciliacion ]
 
+  include Conciliacion
+
   # GET /m_conciliaciones or /m_conciliaciones.json
   def index
     @coleccion = MConciliacion.all
@@ -8,6 +10,7 @@ class Modelos::MConciliacionesController < ApplicationController
 
   # GET /m_conciliaciones/1 or /m_conciliaciones/1.json
   def show
+    init_tabla('m_registros', @objeto.m_registros.order(:orden), false)
   end
 
   # GET /m_conciliaciones/new
@@ -26,7 +29,7 @@ class Modelos::MConciliacionesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "M conciliacion was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Conciliacion fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +43,7 @@ class Modelos::MConciliacionesController < ApplicationController
     respond_to do |format|
       if @objeto.update(m_conciliacion_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "M conciliacion was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Conciliacion fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,9 +55,12 @@ class Modelos::MConciliacionesController < ApplicationController
   def conciliacion
     # cargar modelo de negocios
     modelo = @objeto.m_cuenta.m_banco.m_modelo
+    carga_cartola(@objeto)
     # cargar modelo de conciliacion
     # verificar existencia de cargas antriores
     # CONCILIAR
+
+    redirect_to @objeto.m_cuenta
   end
 
   # DELETE /m_conciliaciones/1 or /m_conciliaciones/1.json
@@ -62,7 +68,7 @@ class Modelos::MConciliacionesController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "M conciliacion was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Conciliacion fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end

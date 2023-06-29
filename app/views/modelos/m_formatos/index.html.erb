@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>M Formatos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>M formato</th>
+      <th>M banco</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @m_formatos.each do |m_formato| %>
+      <tr>
+        <td><%= m_formato.m_formato %></td>
+        <td><%= m_formato.m_banco_id %></td>
+        <td><%= link_to 'Show', m_formato %></td>
+        <td><%= link_to 'Edit', edit_m_formato_path(m_formato) %></td>
+        <td><%= link_to 'Destroy', m_formato, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New M Formato', new_m_formato_path %>

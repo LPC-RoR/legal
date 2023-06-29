@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>M dato:</strong>
+  <%= @m_dato.m_dato %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @m_dato.tipo %>
+</p>
+
+<p>
+  <strong>Formula:</strong>
+  <%= @m_dato.formula %>
+</p>
+
+<p>
+  <strong>Split tag:</strong>
+  <%= @m_dato.split_tag %>
+</p>
+
+<p>
+  <strong>M formato:</strong>
+  <%= @m_dato.m_formato_id %>
+</p>
+
+<%= link_to 'Edit', edit_m_dato_path(@m_dato) %> |
+<%= link_to 'Back', m_datos_path %>

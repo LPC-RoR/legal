@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>M Periodos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>M periodo</th>
+      <th>Clave</th>
+      <th>M modelo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @m_periodos.each do |m_periodo| %>
+      <tr>
+        <td><%= m_periodo.m_periodo %></td>
+        <td><%= m_periodo.clave %></td>
+        <td><%= m_periodo.m_modelo_id %></td>
+        <td><%= link_to 'Show', m_periodo %></td>
+        <td><%= link_to 'Edit', edit_m_periodo_path(m_periodo) %></td>
+        <td><%= link_to 'Destroy', m_periodo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New M Periodo', new_m_periodo_path %>

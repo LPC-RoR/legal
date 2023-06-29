@@ -8,6 +8,8 @@ class Modelos::MBancosController < ApplicationController
 
   # GET /m_bancos/1 or /m_bancos/1.json
   def show
+    init_tabla('m_cuentas', @objeto.m_cuentas.order(:m_cuenta), false)
+    add_tabla('m_formatos', @objeto.m_formatos.order(:m_formato), false)
   end
 
   # GET /m_bancos/new

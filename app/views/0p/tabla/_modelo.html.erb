@@ -7,6 +7,12 @@
 		<td><i class="bi bi-file-richtext"></i></td>
 	<% end %>
 
+	<% if ordered_controller?(objeto.class.name.tableize) %>
+		<td>
+			<%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %>
+		</td>
+	<% end %>
+
 	<% m_tabla_fields(objeto).each do |f| %>
 		<!-- En esta versión usamos prefijos -->
 		<!-- 1.- archivo1:archuvo2:s#i#campo -->

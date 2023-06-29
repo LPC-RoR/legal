@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>M Valores</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Orden</th>
+      <th>M valor</th>
+      <th>Tipo</th>
+      <th>Valor</th>
+      <th>M conciliacion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @m_valores.each do |m_valor| %>
+      <tr>
+        <td><%= m_valor.orden %></td>
+        <td><%= m_valor.m_valor %></td>
+        <td><%= m_valor.tipo %></td>
+        <td><%= m_valor.valor %></td>
+        <td><%= m_valor.m_conciliacion_id %></td>
+        <td><%= link_to 'Show', m_valor %></td>
+        <td><%= link_to 'Edit', edit_m_valor_path(m_valor) %></td>
+        <td><%= link_to 'Destroy', m_valor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New M Valor', new_m_valor_path %>

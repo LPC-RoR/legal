@@ -1,14 +1,13 @@
-<p id="notice"><%= notice %></p>
+<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_bancos'], title: "Banco : #{@objeto.m_banco}", size: 4} %>
+<div class="row">
+	<div class="col-md-6">
+		<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_cuentas'], title: "Cuentas", size: 5} %>
 
-<p>
-  <strong>M banco:</strong>
-  <%= @m_banco.m_banco %>
-</p>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'm_cuentas'} %>
+	</div>
+	<div class="col-md-6">
+		<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_formatos'], title: "Formatos de conciliación", size: 5} %>
 
-<p>
-  <strong>M modelo:</strong>
-  <%= @m_banco.m_modelo_id %>
-</p>
-
-<%= link_to 'Edit', edit_m_banco_path(@m_banco) %> |
-<%= link_to 'Back', m_bancos_path %>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'm_formatos'} %>
+	</div>
+</div>

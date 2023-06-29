@@ -48,7 +48,7 @@ module CptnMapHelper
 			busqueda:      ['ind_clave_facetas', 'ind_claves', 'ind_indice_facetas', 'ind_indices', 'ind_palabras', 'ind_reglas', 'ind_sets'],
 			estados:       ['st_bandejas', 'st_modelos', 'st_estados'],
 			data:          ['caracteristicas', 'caracterizaciones', 'columnas', 'datos', 'encabezados', 'etapas', 'lineas', 'opciones', 'tablas'],
-			modelos:       ['m_modelos', 'm_conceptos', 'm_bancos', 'm_items', 'm_cuentas', 'm_conciliaciones']
+			modelos:       ['m_modelos', 'm_conceptos', 'm_bancos', 'm_items', 'm_cuentas', 'm_conciliaciones', 'm_formatos', 'm_datos', 'm_elementos', 'm_valores']
 		}
 	end
 
@@ -95,6 +95,16 @@ module CptnMapHelper
 
 	def sidebar_display?
 		(controller_name == 'app_recursos' and action_name == 'administracion') or sidebar_controllers.include?(controller_name)
+	end
+
+	## -------------------------------------------------------- TABLAS ORDENADAS
+
+	def ordered_controllers
+		['m_datos', 'm_elementos']
+	end
+
+	def ordered_controller?(controller)
+		ordered_controllers.include?(controller)
 	end
 
 end
