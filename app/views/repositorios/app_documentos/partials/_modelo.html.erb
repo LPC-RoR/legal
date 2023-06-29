@@ -1,14 +1,18 @@
 <tr>
 	<td><i class="bi bi-journals"></i> <small>
-		<%= link_to( objeto.app_documento, objeto, class: 'sb-link') %>
+		<%= link_to objeto.d_version.send('url'), class: 'sb-link', target: :_blank do %>
+			<i class="bi bi-download"></i>
+			<%= objeto.app_documento %>
+		<% end %>
+
 		</small> <% if objeto.documento_control %>
 			<i class="bi bi-lock"></i>
 		<% end %>
 	</td>
 	<td><small>
 		<% if objeto.d_version.present? %>
-			<%= link_to objeto.d_version.send('url'), class: 'sb-link', target: :_blank do %>
-				<i class="bi bi-download"></i>
+			<%= link_to objeto, class: 'sb-link' do %>
+				<i class="bi bi-list-task"></i>
 			<% end %>
 		<% end %>
 		<%= link_to "/app_archivos/new?class_name=AppDocumento&objeto_id=#{objeto.id}", class: 'sb-link' do %>
