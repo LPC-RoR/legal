@@ -24,7 +24,7 @@ class AppDocumento < ApplicationRecord
 	end
 
 	def d_version
-		self.archivos.empty? ? nil : self.archivos.order(created_at: :desc).first.app_archivo
+		self.archivos.empty? ? nil : self.archivos.order(created_at: :desc).first.archivo
 	end
 
 	def control?

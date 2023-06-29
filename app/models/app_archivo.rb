@@ -3,11 +3,11 @@ class AppArchivo < ApplicationRecord
 	require 'carrierwave/orm/activerecord'
 
 	TABLA_FIELDS = [
-		'f#app_archivo',
+		'f#archivo',
 		'created_at'
 	]
 
-	mount_uploader :app_archivo, ArchivoUploader
+	mount_uploader :archivo, ArchivoUploader
 
 #	belongs_to :linea, optional: true
 #	belongs_to :directorio, optional: true
@@ -18,7 +18,7 @@ class AppArchivo < ApplicationRecord
 	end
 
 	def d_nombre
-		(self.nombre.blank? ? (self.documento.present? ? self.documento.documento : self.app_archivo.url.split('/').last) : self.nombre)
+		(self.nombre.blank? ? (self.documento.present? ? self.documento.documento : self.archivo.url.split('/').last) : self.nombre)
 	end
 
 end
