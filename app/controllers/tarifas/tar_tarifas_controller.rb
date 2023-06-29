@@ -33,7 +33,7 @@ class Tarifas::TarTarifasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar tarifa was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Tarifa fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +47,7 @@ class Tarifas::TarTarifasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_tarifa_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar tarifa was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Tarifa fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -81,7 +81,7 @@ class Tarifas::TarTarifasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tar tarifa was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Tarifa fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end

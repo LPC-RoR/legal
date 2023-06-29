@@ -26,7 +26,7 @@ class Tarifas::TarUfSistemasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar uf sistema was successfully created." }
+        format.html { redirect_to @redireccion, notice: "UF fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class Tarifas::TarUfSistemasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_uf_sistema_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar uf sistema was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "UF fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class Tarifas::TarUfSistemasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tar uf sistema was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "UF fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end

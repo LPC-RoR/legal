@@ -51,7 +51,7 @@ class CausasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Causa was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Causa fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -62,12 +62,10 @@ class CausasController < ApplicationController
 
   # PATCH/PUT /causas/1 or /causas/1.json
   def update
-    puts "***************************************************** ENTRO"
     respond_to do |format|
       if @objeto.update(causa_params)
         set_redireccion
-    puts "***************************************************** ACTUALIZO"
-        format.html { redirect_to @redireccion, notice: "Causa was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Causa fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -109,7 +107,7 @@ class CausasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Causa was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Causa fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end

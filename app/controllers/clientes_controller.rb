@@ -49,7 +49,7 @@ class ClientesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Cliente was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Cliente fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -63,7 +63,7 @@ class ClientesController < ApplicationController
     respond_to do |format|
       if @objeto.update(cliente_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Cliente was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Cliente fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -78,7 +78,7 @@ class ClientesController < ApplicationController
     @objeto.estado = params[:st]
     @objeto.save
 
-    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
+    redirect_to "/clientes/#{@objeto.id}"
   end
 
   def crea_factura
@@ -109,7 +109,7 @@ class ClientesController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Cliente was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Cliente fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
