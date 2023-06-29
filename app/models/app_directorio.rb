@@ -16,7 +16,7 @@ class AppDirectorio < ApplicationRecord
 	has_many :children, :through => :child_relations, :source => :child
 
 	def documentos
-		AppDocumento.where(owner_class: 'AppDirectorio').where(owner_id: self.id)
+		AppDocumento.where(owner_class: self.class.name).where(owner_id: self.id)
 	end
 
 	def directorios
@@ -24,7 +24,7 @@ class AppDirectorio < ApplicationRecord
 	end
 
 	def archivos
-		AppArchivo.where(owner_class: 'AppDirectorio').where(owner_id: self.id)
+		AppArchivo.where(owner_class: self.class.name).where(owner_id: self.id)
 	end
 
 	def owner

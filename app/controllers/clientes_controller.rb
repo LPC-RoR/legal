@@ -28,6 +28,7 @@ class ClientesController < ApplicationController
       @repositorio = AppRepositorio.create(app_repositorio: @objeto.razon_social, owner_class: 'Cliente', owner_id: @objeto.id) if @repositorio.blank?
       init_tabla('app_directorios', @repositorio.directorios, false)
       add_tabla('app_documentos', @repositorio.documentos, false)
+      add_tabla('app_archivos', @repositorio.archivos, false)
     end
 
   end

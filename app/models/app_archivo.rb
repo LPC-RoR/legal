@@ -13,8 +13,12 @@ class AppArchivo < ApplicationRecord
 #	belongs_to :directorio, optional: true
 #	belongs_to :documento, optional: true
 
-	def padre
+	def owner
 		self.owner_class.constantize.find(self.owner_id)
+	end
+
+	def objeto_destino
+		['AppDirectorio', 'AppRepositorio'].include?(self.owner_class) ? self.owner.objeto_destino : self.owner
 	end
 
 	def d_nombre

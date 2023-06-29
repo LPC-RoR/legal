@@ -15,8 +15,16 @@
       <% end  %>
     <% end %>
 
+    <!-- Archivos-->
+    <% unless @coleccion["#{tag unless tag.blank?}app_archivos"].blank? %>
+      <% @coleccion["#{tag unless tag.blank?}app_archivos"].each do |archivo| %>
+        <%= render partial: "/repositorios/app_archivos/partials/modelo", locals: {a: 'index', objeto: archivo} %>
+      <% end  %>
+    <% end %>
+
   </tbody>
 </table>
 
 <%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'app_directorios', o: objeto} %>
 <%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'app_documentos', o: objeto} %>
+<%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'app_archivos', o: objeto} %>

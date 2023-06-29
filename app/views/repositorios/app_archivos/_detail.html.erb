@@ -1,4 +1,6 @@
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Archivo', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :app_archivo, label: 'file documento' } %>
+
 <%= render partial: '0p/form_fields/file', locals: { form: form, token: :archivo } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>

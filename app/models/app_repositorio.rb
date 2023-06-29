@@ -8,6 +8,10 @@ class AppRepositorio < ApplicationRecord
 		AppDocumento.where(owner_class: self.class.name).where(owner_id: self.id)
 	end
 
+	def archivos
+		AppArchivo.where(owner_class: self.class.name).where(owner_id: self.id)
+	end
+
 	def owner
 		self.owner_id.blank? ? nil : self.owner_class.constantize.find(self.owner_id)
 	end

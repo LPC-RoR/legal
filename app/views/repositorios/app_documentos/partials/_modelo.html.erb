@@ -1,7 +1,11 @@
 <tr>
 	<td><i class="bi bi-journals"></i> <small>
-		<%= link_to objeto.d_version.send('url'), class: 'sb-link', target: :_blank do %>
-			<i class="bi bi-download"></i>
+		<% if objeto.d_version.present? %>
+			<%= link_to objeto.d_version.send('url'), class: 'sb-link', target: :_blank do %>
+				<i class="bi bi-download"></i>
+				<%= objeto.app_documento %>
+			<% end %>
+		<% else %>
 			<%= objeto.app_documento %>
 		<% end %>
 
@@ -21,4 +25,12 @@
 		<% end %>
 		</small>
 	</td>
+
+	<td>
+		<%= render partial: '0p/tabla/btn_editar', locals: {objeto: objeto} unless objeto.control? %>
+		<% if not has_child?(objeto) %>
+			<%= render partial: '0p/tabla/btn_eliminar', locals: {objeto: objeto} if (objeto.archivos.empty? and objeto.escaneos.empty?) %>
+		<% end %>
+	</td>
+
 </tr>

@@ -21,6 +21,7 @@ class CausasController < ApplicationController
 
       init_tabla('app_directorios', @objeto.repositorio.directorios, false)
       add_tabla('app_documentos', @objeto.repositorio.documentos, false)
+      add_tabla('app_archivos', @objeto.repositorio.archivos, false)
       add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
     elsif @options[:menu] == 'Registro'
       init_tabla('registros', @objeto.registros, false)

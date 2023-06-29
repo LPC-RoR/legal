@@ -20,8 +20,10 @@ class Repositorios::AppRepositoriosController < ApplicationController
 
       init_tabla('general-app_directorios', @repositorio_general.directorios.order(:app_directorio), false)
       add_tabla('general-app_documentos', @repositorio_general.documentos.order(:app_documento), false) 
+      add_tabla('general-app_archivos', @repositorio_general.archivos.order(:app_archivo), false) 
       add_tabla('perfil-app_directorios', @repositorio_perfil.directorios.order(:app_directorio), false)
       add_tabla('perfil-app_documentos', @repositorio_perfil.documentos.order(:app_documento), false)
+      add_tabla('perfil-app_archivos', @repositorio_perfil.archivos.order(:app_archivo), false) 
     end
   end
 

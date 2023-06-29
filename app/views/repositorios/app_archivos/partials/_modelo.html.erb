@@ -2,15 +2,19 @@
 
 	<td>
 		<i class="bi bi-file-text"></i>
-		<small> <%= dma(objeto.created_at) %> </small>
+		<% if objeto.archivo.present? %>
+			<%= link_to objeto.archivo.url, class: 'sb-link', target: :_blank do %>
+				<small>
+				<i class="bi bi-download"></i>
+				<%= objeto.app_archivo %> </small>
+			<% end %>
+		<% else %>
+			<small><%= objeto.app_archivo %> </small>
+		<% end %>
 	</td>
 
 	<td>
-		<% if objeto.archivo.present? %>
-			<%= link_to objeto.archivo.url, class: 'sb-link', target: :_blank do %>
-				<i class="bi bi-download"></i>
-			<% end %>
-		<% end %>
+		<small> <%= dma(objeto.created_at) %> </small>
 	</td>
 
 	<td>

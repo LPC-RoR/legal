@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_28_215303) do
+ActiveRecord::Schema.define(version: 2023_06_29_191015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2023_06_28_215303) do
     t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "app_archivo"
     t.index ["owner_class"], name: "index_app_archivos_on_owner_class"
     t.index ["owner_id"], name: "index_app_archivos_on_owner_id"
   end
