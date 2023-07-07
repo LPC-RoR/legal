@@ -2,7 +2,8 @@
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :m_dato } %>
 
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tipo } %>
+<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: MFormato::TIPOS_DATO, label: 'Tipo' } %>
+
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fórmula', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :formula } %>
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Marcador', v: true } %>

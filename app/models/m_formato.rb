@@ -1,5 +1,7 @@
 class MFormato < ApplicationRecord
 
+	TIPOS_DATO = ['string', 'fecha', 'hora', 'número', 'pesos', 'UF']
+
 	TABLA_FIELDS  = [
 		's#m_formato',
 		'inicio',
