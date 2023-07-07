@@ -15,7 +15,8 @@ class Estados::StEstadosController < ApplicationController
 
   # GET /st_estados/new
   def new
-    @objeto = StEstado.new(st_modelo_id: params[:st_modelo_id])
+    owner = StModelo.find(params:st_modelo_id)
+    @objeto = owner.st_estados.new(orden: owner.st_estados.count + 1)
   end
 
   # GET /st_estados/1/edit

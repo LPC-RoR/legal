@@ -1,6 +1,3 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Órden', v: true } %>
-<%= render partial: '0p/form_fields/number', locals: { form: form, token: :orden } %>
-
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Estado', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :st_estado } %>
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Destinos', v: false } %>
@@ -11,3 +8,4 @@
 <%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :aprobacion, label: 'Aprobación' } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :st_modelo_id} %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden} %>
