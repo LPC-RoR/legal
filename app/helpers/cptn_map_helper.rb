@@ -100,7 +100,7 @@ module CptnMapHelper
 	## -------------------------------------------------------- TABLAS ORDENADAS
 
 	def ordered_controllers
-		['m_datos', 'm_elementos']
+		['m_datos', 'm_elementos', 'sb_elementos', 'st_estados']
 	end
 
 	def ordered_controller?(controller)

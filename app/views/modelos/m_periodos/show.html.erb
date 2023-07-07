@@ -1,19 +1,14 @@
-<p id="notice"><%= notice %></p>
+<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_periodos'], title: "Periodo : #{@objeto.m_periodo}", size: 5} %>
 
-<p>
-  <strong>M periodo:</strong>
-  <%= @m_periodo.m_periodo %>
-</p>
+<div class="row">
+	<div class="col-md-5">
+		<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_modelos'], title: "Modelo del periodo", size: 6} %>
 
-<p>
-  <strong>Clave:</strong>
-  <%= @m_periodo.clave %>
-</p>
-
-<p>
-  <strong>M modelo:</strong>
-  <%= @m_periodo.m_modelo_id %>
-</p>
-
-<%= link_to 'Edit', edit_m_periodo_path(@m_periodo) %> |
-<%= link_to 'Back', m_periodos_path %>
+		<%= render partial: 'modelos/m_modelos/partials/display_modelo_periodo' %>
+		
+	</div>
+	<div class="col-md-7">
+		<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_registros'], title: "Registros no clasificados", size: 6} %>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'm_registros'} %>
+	</div>
+</div>

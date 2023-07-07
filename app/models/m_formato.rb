@@ -6,7 +6,6 @@ class MFormato < ApplicationRecord
 		'termino'
 	]
 
-
 	belongs_to :m_banco
 
 	has_many :m_datos

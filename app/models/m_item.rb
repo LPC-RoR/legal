@@ -1,6 +1,8 @@
 class MItem < ApplicationRecord
 	belongs_to :m_concepto
 
+	has_many :m_registros
+
 	# ------------------------------------ ORDER LIST
 
 	def owner

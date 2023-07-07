@@ -87,7 +87,10 @@ Rails.application.routes.draw do
   end
   
   scope module: 'sidebar' do
-    resources :sb_elementos
+    resources :sb_elementos do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
     resources :sb_listas do
       resources :sb_elementos
     end
@@ -103,6 +106,8 @@ Rails.application.routes.draw do
   scope module: 'estados' do
     resources :st_estados do
       match :asigna, via: :get, on: :member
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
     end
     resources :st_modelos do 
       resources :st_estados

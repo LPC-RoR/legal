@@ -1,0 +1,23 @@
+<tr class="table-sm">
+
+	<td colspan='2'>
+		<i class="bi bi-<%= controller_icon['m_conceptos'] %>"></i> <small>
+			<%#= link_to( objeto.m_concepto, objeto, class: 'sb-link') %>
+			<b><%= objeto.m_concepto %></b>
+		</small>
+	</td>
+
+</tr>
+
+<% objeto.m_items.order(:orden).each do |item| %>
+	<tr class="table-sm">
+
+		<td colspan='2' style="padding-left:20px">
+			<i class="bi bi-<%= controller_icon['m_items'] %>"></i> <small>
+				<%#= link_to( item.m_item, item, class: 'sb-link') %>
+				<%= link_to item.m_item, "/m_items/#{item.id}?oid=#{@objeto.id}" %>
+			</small>
+		</td>
+
+	</tr>
+<% end %>

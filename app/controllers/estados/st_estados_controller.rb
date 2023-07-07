@@ -1,6 +1,7 @@
 class Estados::StEstadosController < ApplicationController
-  before_action :set_st_estado, only: %i[ show edit update destroy asigna ]
+  before_action :set_st_estado, only: %i[ show edit update destroy asigna arriba abajo ]
   before_action :carga_solo_sidebar, only: %i[ show new edit create update ]
+  after_action :reordenar, only: :destroy
 
   include Sidebar
 
@@ -47,6 +48,37 @@ class Estados::StEstadosController < ApplicationController
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def arriba
+    owner = @objeto.owner
+    anterior = @objeto.anterior
+    @objeto.orden -= 1
+    @objeto.save
+    anterior.orden += 1
+    anterior.save
+
+    redirect_to @objeto.redireccion
+  end
+
+  def abajo
+    owner = @objeto.owner
+    siguiente = @objeto.siguiente
+    @objeto.orden += 1
+    @objeto.save
+    siguiente.orden -= 1
+    siguiente.save
+
+    redirect_to @objeto.redireccion
+  end
+
+  def reordenar
+    @objeto.list.each_with_index do |val, index|
+      unless val.orden == index + 1
+        val.orden = index + 1
+        val.save
       end
     end
   end

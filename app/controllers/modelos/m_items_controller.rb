@@ -9,6 +9,9 @@ class Modelos::MItemsController < ApplicationController
 
   # GET /m_items/1 or /m_items/1.json
   def show
+    periodo = MPeriodo.find(params[:oid])
+    init_tabla('item-m_registros', @objeto.m_registros.where(m_periodo_id: params[:oid]).order(:orden), false)
+    add_tabla('periodo-m_registros', periodo.m_registros.where(m_item_id: nil).order(:orden), false)
   end
 
   # GET /m_items/new

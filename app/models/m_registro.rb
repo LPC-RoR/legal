@@ -8,10 +8,11 @@ class MRegistro < ApplicationRecord
 		'fecha',
 		'documento',
 		'cargo_abono',
-		'saldo'
+#		'saldo'
 	]
 
 	belongs_to :m_conciliacion
 	belongs_to :m_periodo, optional:true
+	belongs_to :m_item, optional: true
 	
 end

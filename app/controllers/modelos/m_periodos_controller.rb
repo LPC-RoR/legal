@@ -8,6 +8,9 @@ class Modelos::MPeriodosController < ApplicationController
 
   # GET /m_periodos/1 or /m_periodos/1.json
   def show
+    modelo = @objeto.m_modelo
+    init_tabla('m_registros', @objeto.m_registros.where(m_item_id: nil).order(:orden), false)
+    add_tabla('m_conceptos', modelo.m_conceptos.order(:orden), false)
   end
 
   # GET /m_periodos/new

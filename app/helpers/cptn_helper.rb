@@ -71,6 +71,7 @@ def controller_icon
 			'app_escaneos' => 'images',
 			'm_modelos' => 'piggy-bank',
 			'm_bancos' => 'bank',
+			'm_periodos' => 'calendar3',
 			'causas' => 'file-text',
 			'tar_facturas' => 'receipt',
 			'tar_facturaciones' => 'coin',

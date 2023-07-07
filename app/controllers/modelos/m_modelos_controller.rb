@@ -18,8 +18,10 @@ class Modelos::MModelosController < ApplicationController
 
       init_tabla('general-m_conceptos', @modelo_general.m_conceptos.order(:orden), false)
       add_tabla('general-m_bancos', @modelo_general.m_bancos.order(:m_banco), false) 
+      add_tabla('general-m_periodos', @modelo_general.m_periodos.order(clave: :desc), false) 
       add_tabla('perfil-m_conceptos', @modelo_perfil.m_conceptos.order(:orden), false)
       add_tabla('perfil-m_bancos', @modelo_perfil.m_bancos.order(:m_banco), false)
+      add_tabla('perfil-m_periodos', @modelo_perfil.m_periodos.order(clave: :desc), false)
     end
   end
 
@@ -42,7 +44,7 @@ class Modelos::MModelosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "M modelo was successfully created." }
+        format.html { redirect_to @objeto, notice: "Modelo fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -55,7 +57,7 @@ class Modelos::MModelosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(m_modelo_params)
-        format.html { redirect_to @objeto, notice: "M modelo was successfully updated." }
+        format.html { redirect_to @objeto, notice: "Modelo fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -68,7 +70,7 @@ class Modelos::MModelosController < ApplicationController
   def destroy
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to m_modelos_url, notice: "M modelo was successfully destroyed." }
+      format.html { redirect_to m_modelos_url, notice: "Modelo fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end

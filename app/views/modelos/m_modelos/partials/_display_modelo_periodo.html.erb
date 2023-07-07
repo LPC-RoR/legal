@@ -1,0 +1,13 @@
+<!-- MODELO DE NEGOCIOS -->
+<table class="table <%= table_types_base[:borderless] %> table-sm">
+  <tbody>
+
+    <!-- Conceptos-->
+    <% unless @coleccion["#{tag unless tag.blank?}m_conceptos"].blank? %>
+      <% @coleccion["#{tag unless tag.blank?}m_conceptos"].each do |concepto| %>
+        <%= render partial: "/modelos/m_conceptos/partials/display_concepto", locals: {objeto: concepto} %>
+      <% end  %>
+    <% end %>
+
+  </tbody>
+</table>
