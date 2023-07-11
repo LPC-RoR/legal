@@ -139,11 +139,19 @@ Rails.application.routes.draw do
       match :asigna, via: :get, on: :member
       match :desasigna, via: :get, on: :member
     end
-    resources :tar_comentarios
+    resources :tar_comentarios do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
     resources :tar_pagos do
       resources :tar_comentarios
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
     end
-    resources :tar_formulas
+    resources :tar_formulas do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
     resources :tar_horas do
       match :asigna, via: :get, on: :member
       match :desasigna, via: :get, on: :member
@@ -199,8 +207,14 @@ Rails.application.routes.draw do
       resources :m_elementos
       resources :m_datos
     end
-    resources :m_elementos
-    resources :m_datos
+    resources :m_elementos do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
+    resources :m_datos do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
     resources :m_conciliaciones do
       match :conciliacion, via: :get, on: :member
     end
