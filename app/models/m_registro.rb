@@ -4,9 +4,8 @@ class MRegistro < ApplicationRecord
 
 	TABLA_FIELDS = [
 		'$#monto',
-		'glosa_banco',
+		'descripcion',
 		'fecha',
-		'documento',
 		'cargo_abono',
 #		'saldo'
 	]
@@ -14,5 +13,13 @@ class MRegistro < ApplicationRecord
 	belongs_to :m_conciliacion
 	belongs_to :m_periodo, optional:true
 	belongs_to :m_item, optional: true
-	
+
+	def periodo
+		MPeriodo.find_by(clave: clave = self.fecha.year * 100 + self.fecha.month)
+	end	
+
+	def descripcion
+		self.glosa.present? ? self.glosa : self.glosa_banco
+	end
+
 end

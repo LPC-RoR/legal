@@ -3,6 +3,10 @@ class MItem < ApplicationRecord
 
 	has_many :m_registros
 
+	def total(periodo_id)
+		self.m_registros.where(m_periodo_id: periodo_id).map {|r| r.monto}.sum
+	end
+
 	# ------------------------------------ ORDER LIST
 
 	def owner

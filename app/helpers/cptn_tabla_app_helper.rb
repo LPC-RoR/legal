@@ -18,7 +18,7 @@ module CptnTablaAppHelper
 	end
 
 	def app_crud_conditions(objeto, btn)
-		if ['RegReporte', 'MRegistro'].include?(objeto.class.name)
+		if ['RegReporte'].include?(objeto.class.name)
 			false
 		elsif [].include?(objeto.class.name)
 			admin?
@@ -34,6 +34,8 @@ module CptnTablaAppHelper
 				controller_name == 'causas' and @options[:menu] == 'Cuantía'
 			when 'Registro'
 				admin? and objeto.estado == 'ingreso'
+			when 'MRegistro'
+				btn == 'Editar' and ['m_periodos', 'm_items'].include?(controller_name)
 			else
 				true
 			end

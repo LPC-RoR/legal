@@ -8,6 +8,10 @@ class MConcepto < ApplicationRecord
 
 	has_many :m_items
 
+	def total(periodo_id)
+		self.m_items.map {|item| item.total(periodo_id)}.sum
+	end
+
 	# ------------------------------------ ORDER LIST
 
 	def owner

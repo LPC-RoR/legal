@@ -5,9 +5,6 @@ module Conciliacion
 
 		# PROVISIONAL : Toma el primer formato, quizá en prósima versión se pueda elegir formato.
 		formato = conciliacion.m_cuenta.m_formato
-		puts "****************************** formato"
-		puts formato.class.name
-		puts formato.m_formato
 		cuenta = conciliacion.m_cuenta
 
 		estado = 'encabezado'
@@ -17,7 +14,6 @@ module Conciliacion
 
 		xlsx.each_with_index do |linea, index|
 			# linea[0] : columna A; linea[1] : columna B ...
-			puts "-------------------------- Línea #{index + 1}"
 
 			case estado
 			when 'encabezado'
@@ -39,9 +35,7 @@ module Conciliacion
 				end
 
 			when 'cartola'
-				puts " Cartola linea #{index + 1}"
 				unless condicion_cartola?(index, linea, formato.termino)
-					puts " Cartola linea #{index + 1}"
 					crea_m_registro(conciliacion, linea, index, formato)
 				else
 					estado = 'termino'

@@ -1,13 +1,66 @@
-<!-- MODELO DE NEGOCIOS -->
-<table class="table <%= table_types_base[:borderless] %> table-sm">
-  <tbody>
-
-    <!-- Conceptos-->
+<div class="row">
     <% unless @coleccion["#{tag unless tag.blank?}m_conceptos"].blank? %>
-      <% @coleccion["#{tag unless tag.blank?}m_conceptos"].each do |concepto| %>
-        <%= render partial: "/modelos/m_conceptos/partials/display_concepto", locals: {objeto: concepto} %>
-      <% end  %>
-    <% end %>
+    	<% @coleccion["#{tag unless tag.blank?}m_conceptos"].each do |concepto| %>
+			<div class="col-md-8">
+				<small>
+				<i class="bi bi-<%= controller_icon['m_conceptos'] %>"></i> 
+				<b><%= concepto.m_concepto %></b>
+				</small>
+			</div>
+			<div class="col-md-4" align='right'>
+				<small><b><%= s_pesos(concepto.total(@objeto.id)) %></b></small>
+			</div>
 
-  </tbody>
-</table>
+			<% concepto.m_items.order(:orden).each do |item| %>
+				<div class="col-md-8" style="padding-left:20px">
+					<small>
+					<i class="bi bi-<%= controller_icon['m_conceptos'] %>"></i> 
+					<%= item.m_item %>
+
+
+
+
+
+					</small>
+				</div>
+				<div class="col-md-4" align='right'>
+					<small><%#= s_pesos(item.total(@objeto.id)) %></small>
+
+
+<p>
+   <a data-toggle="collapse" href="#collItem<%= item.id %>" role="button" aria-expanded="false" aria-controls="collItem<%= item.id %>">
+   <small><%= s_pesos(item.total(@objeto.id)) %></small>
+  </a>
+</p>
+
+
+				</div>
+
+<div class="collapse" id="collItem<%= item.id %>">
+  <div class="card card-body">
+
+  	<table class="table table-borderless table-sm">
+  		<tbody>
+		  	<% item.m_registros.where(m_periodo_id: @objeto.id).each do |registro| %>
+
+		  			<tr>
+		  				<td><small><%= registro.descripcion %></small></td>
+		  				<td align='right'><small><%= s_pesos(registro.monto) %></small></td>
+		  				<td><%= render partial: '0p/tabla/btn_editar', locals: {objeto: registro} %></td>
+		  			</tr>
+
+		  	<% end %>
+  		</tbody>
+  	</table>
+
+
+  </div>
+</div>
+
+
+			<% end %>
+
+		<% end %>
+	<% end %>
+
+</div>
