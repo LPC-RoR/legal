@@ -4,7 +4,7 @@ module CptnConfigAppHelper
 			app: {
 				nombre: 'Legal',
 				home: 'http://www.abogadosderechodeltrabajo.cl',
-				logo_navbar: 'logo_menu.png'
+				logo_navbar: 'logo.png'
 			},
 			color: {
 				app: 'dark',

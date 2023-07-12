@@ -52,9 +52,6 @@ module Tarifas
 
 	def eval_condicion(condicion, libreria, causa, pago)
 
-		puts "********************************+ eval_condicion"
-		puts condicion
-
 		# Manejo de paréntesis
 		# del resultado de esto puede salir un true, false
 

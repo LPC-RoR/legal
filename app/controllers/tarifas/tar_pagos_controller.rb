@@ -15,7 +15,8 @@ class Tarifas::TarPagosController < ApplicationController
 
   # GET /tar_pagos/new
   def new
-    @objeto = TarPago.new(tar_tarifa_id: params[:tar_tarifa_id], estado: 'ingreso')
+    owner = TarTarifa.find(params[:tar_tarifa_id])
+    @objeto = TarPago.new(tar_tarifa_id: params[:tar_tarifa_id], estado: 'ingreso', orden: owner.tar_pagos.count + 1)
   end
 
   # GET /tar_pagos/1/edit
@@ -29,7 +30,7 @@ class Tarifas::TarPagosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar pago was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Pago fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +44,7 @@ class Tarifas::TarPagosController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_pago_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar pago was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Pago fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -88,7 +89,7 @@ class Tarifas::TarPagosController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tar pago was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Pago fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end

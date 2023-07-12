@@ -25,7 +25,7 @@ class Tarifas::TarValorCuantiasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar valor cuantia was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Valor de Cuantía fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class Tarifas::TarValorCuantiasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_valor_cuantia_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar valor cuantia was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Valor de Cuantía fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class Tarifas::TarValorCuantiasController < ApplicationController
     @objeto.destroy
     set_redireccion
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tar valor cuantia was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Valor de Cuantía fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end

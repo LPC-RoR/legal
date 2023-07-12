@@ -12,7 +12,8 @@ class Tarifas::TarFormulasController < ApplicationController
 
   # GET /tar_formulas/new
   def new
-    @objeto = TarFormula.new(tar_tarifa_id: params[:tar_tarifa_id])
+    owner = TarTarifa.find(params[:tar_tarifa_id])
+    @objeto = TarFormula.new(tar_tarifa_id: params[:tar_tarifa_id], orden: owner.tar_formulas.count + 1)
   end
 
   # GET /tar_formulas/1/edit
@@ -26,7 +27,7 @@ class Tarifas::TarFormulasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar formula was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Fórmula fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +41,7 @@ class Tarifas::TarFormulasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_formula_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar formula was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Fórmula fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -85,7 +86,7 @@ class Tarifas::TarFormulasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tar formula was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Fórmula fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end

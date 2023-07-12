@@ -107,4 +107,12 @@ module CptnMapHelper
 		ordered_controllers.include?(controller)
 	end
 
+	def footless_controllers
+		['app_recursos']
+	end
+
+	def footless_controller?(controller)
+		footless_controllers.include?(controller)
+	end
+
 end
