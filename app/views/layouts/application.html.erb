@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag asset_path('favicon.ico') if File.exist?("app/assets/images/favicon.ico") %>
   </head>
@@ -24,8 +24,8 @@
       <%= render partial: 'layouts/app' %>
 
     </div>
-    <!------------------------------------------->
-    <hr>
+
+    <%= render partial: 'layouts/footer' %>
     <!-- TEMA_AYUDA -->
     <%# if objeto_tema_ayuda('foot').present? %>
       <%#= render partial: 'help/tema_ayudas/partials/elem_foot', locals: {elem: objeto_tema_ayuda('foot')} %>

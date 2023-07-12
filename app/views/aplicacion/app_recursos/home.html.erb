@@ -24,6 +24,63 @@
 			<%= render partial: 'aplicacion/app_recursos/partials/display_elemento', locals: {c: 'tar_facturas', title: 'Facturas en cobranza', coleccion: @facturas_en_cobranza} %>
 		</div>
 	</div>
+<% else %>
+
+<div class="row">
+	<%= image_tag HImagen.find_by(nombre: 'Portada').imagen(nil).imagen.url, class: "mx-auto d-block" %>
+</div>
+<hr>
+<div class="row">
+	<div class="col-md-4" align='center'>
+		<div class="card" style="width: 22rem;" >
+		<%= image_tag HImagen.find_by(nombre: 'Trabajador').imagen(nil).imagen.url, size: "350x180" unless HImagen.find_by(nombre: 'Trabajador').blank? %>
+		  <div class="card-body">
+		    <h5 class="card-title">Trabajadores</h5>
+		    <p class="card-text">
+		    	Texto trabajadores
+			</p>
+		    <a href="#" class="btn btn-dark">Subir antecedentes</a>
+		  </div>
+		  <ul class="list-group list-group-flush">
+		    <li class="list-group-item">Juicios laborales</li>
+		    <li class="list-group-item">contratos</li>
+		    <li class="list-group-item">Finiquitos</li>
+		  </ul>
+		</div>
+	</div>
+	<div class="col-md-4" align='center'>
+		<div class="card" style="width: 22rem;">
+		<%= image_tag HImagen.find_by(nombre: 'Sindicato').imagen(nil).imagen.url, size: "350x180" unless HImagen.find_by(nombre: 'Sindicato').blank? %>
+		  <div class="card-body">
+		    <h5 class="card-title">Sindicatos</h5>
+		    <p class="card-text">
+		    	Texto sindicatos
+		    </p>
+		    <a href="#" class="btn btn-dark">Subir antecedentes</a>
+		  </div>
+		  <ul class="list-group list-group-flush">
+		    <li class="list-group-item">Negociación colectiva</li>
+		    <li class="list-group-item">Asesoría en gestión sindical</li>
+		    <li class="list-group-item">Capacitación a líderes sindicales</li>
+		  </ul>
+		</div>
+	</div>
+	<div class="col-md-4" align='center'>
+		<div class="card" style="width: 22rem;">
+		<%= image_tag HImagen.find_by(nombre: 'Documentos').imagen(nil).imagen.url, size: "350x180" unless HImagen.find_by(nombre: 'Documentos').blank? %>
+		  <div class="card-body">
+		    <h5 class="card-title">Documentación</h5>
+		    <p class="card-text">Texto documentación.</p>
+		    <a href="#" class="btn btn-dark">Subir antecedentes</a>
+		  </div>
+		  <ul class="list-group list-group-flush">
+		    <li class="list-group-item">Contratos y anexos</li>
+		    <li class="list-group-item">Reglamento interno</li>
+		    <li class="list-group-item">Cartas</li>
+		  </ul>
+		</div>
+	</div>
+</div>
 
 <% end %>
 <%#= render partial: 'home/h_imagenes/partials/imagen', locals: {nombre: 'Portada', size: config[:image][:portada][:size]} %>

@@ -1,4 +1,5 @@
 <!-- TITULO -->
+<% if ['Bandejas', 'Menu', 'Mensajes'].include?(get_layout) %>
 <h4>
 <% case get_layout %>
 <% when 'Bandejas' %>
@@ -18,3 +19,4 @@
 	<% end %>
 <% end %>
 </h4>
+<% end %>
