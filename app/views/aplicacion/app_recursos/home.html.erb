@@ -27,7 +27,7 @@
 <% else %>
 
 <div class="row">
-	<%= image_tag HImagen.find_by(nombre: 'Portada').imagen(nil).imagen.url, class: "mx-auto d-block" %>
+	<%= image_tag HImagen.find_by(nombre: 'Portada').imagen(nil).imagen.url, class: "mx-auto d-block", unless HImagen.find_by(nombre: 'Portada').blank? %>
 </div>
 <hr>
 <div class="row">
