@@ -6,9 +6,14 @@ module CptnConfigAppHelper
 				home: 'http://www.abogadosderechodeltrabajo.cl',
 				logo_navbar: 'logo.png'
 			},
+			layout: {
+				menu_over: (not usuario_signed_in?),
+				menu: usuario_signed_in?,
+			},
 			color: {
+				navbar: 'light',
+				navbar_bg: 'muted',
 				app: 'dark',
-				navbar: 'dark',
 				help: 'dark',
 				data: 'success',
 				title_tema: 'primary',

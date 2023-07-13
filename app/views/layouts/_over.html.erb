@@ -1,0 +1,5 @@
+<!-- OVER MENU -->
+<%= render partial: 'layouts/over/menu_over' if (partial?('layouts', 'over', 'menu_over') and config[:layout][:menu_over]) %>
+
+<!-- BANNER -->
+<%= render partial: 'layouts/over/banner' if partial?('layouts', 'over', 'banner') %>

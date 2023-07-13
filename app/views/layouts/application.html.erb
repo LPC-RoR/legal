@@ -6,12 +6,28 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "link_styles" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= favicon_link_tag asset_path('favicon.ico') if File.exist?("app/assets/images/favicon.ico") %>
   </head>
 
   <body>
-    <%= render partial: '0p/navbar/navbar' %>
+
+    <!-- OVER -->
+    <% if partial?('layouts', nil, 'over') %>
+      <%= render partial: 'layouts/over' %>
+    <% end %>
+
+    <!-- NAVBAR+ -->
+    <% if config[:layout][:menu] %>
+      <% if partial?('layouts', nil, 'navbar') %>
+        <%= render partial: 'layouts/navbar' %>
+      <% else %>
+        <%= render partial: '0p/navbar/navbar' %>
+      <% end %>
+    <% end %>
+
+
     <div class="container-fluid">
 
       <% if notice %>
