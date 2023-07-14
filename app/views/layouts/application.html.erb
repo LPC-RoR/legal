@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "link_styles" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag('util.js') %>
     <%= favicon_link_tag asset_path('favicon.ico') if File.exist?("app/assets/images/favicon.ico") %>
   </head>
 
@@ -15,31 +16,26 @@
 
     <!-- OVER -->
     <% if partial?('layouts', nil, 'over') %>
-      <%= render partial: 'layouts/over' %>
+
+      <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][(publico? ? :public_over : :user_over)], style_str: 'margin-top: .5em; margin-bottom: .5em' }) do %>
+        <%= render partial: 'layouts/over' %>
+      <% end %>
+
     <% end %>
 
     <!-- NAVBAR+ -->
     <% if config[:layout][:menu] %>
-      <% if partial?('layouts', nil, 'navbar') %>
-        <%= render partial: 'layouts/navbar' %>
-      <% else %>
+
+      <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][(publico? ? :public_menu : :user_menu)], style_str: 'margin-top: .5em; margin-bottom: .5em' }) do %>
         <%= render partial: '0p/navbar/navbar' %>
       <% end %>
+
     <% end %>
 
-
-    <div class="container-fluid">
-
-      <% if notice %>
-        <p class="alert alert-success"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-        <p class="alert alert-danger"><%= alert %></p>
-      <% end %>
-
+    <!-- BODY -->
+    <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][(publico? ? :public_body : :user_body)], style_str: 'margin-top: .5em; margin-bottom: .5em' }) do %>
       <%= render partial: 'layouts/app' %>
-
-    </div>
+    <% end %>
 
     <%= render partial: 'layouts/footer' %>
     <!-- TEMA_AYUDA -->

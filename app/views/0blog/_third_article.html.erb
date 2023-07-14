@@ -1,0 +1,9 @@
+<div class="card text-white">
+	<%= link_to root_path do %>
+	<%= image_tag HImagen.find_by(nombre: 'Beneficios').imagen(nil).imagen.half.url, class: "card-img img-fluid" unless HImagen.find_by(nombre: 'Beneficios').blank? %>
+	<% end %>
+  <div class="card-img-overlay">
+  	Beneficios Laborales
+	<!--a href="#" class="btn btn-primary">Beneficios laborales</a-->
+  </div>
+</div>

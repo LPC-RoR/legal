@@ -1,0 +1,11 @@
+<div class="card">
+	<%= image_tag HImagen.find_by(nombre: img_name).imagen(nil).imagen.half.url, class: "card-img img-fluid" unless HImagen.find_by(nombre: img_name).blank? %>
+  <div class="card-img-overlay">
+	<small><a href="#" class="btn btn-primary">Leer</a></small>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">¿Cuáles son los principales elementos de un contrato?</h5>
+    <p class="card-text">Guía práctica para revisar/revisar un contrato.</p>
+    <small><i><p class="text-muted">- Solange Mena</p></i></small>
+  </div>
+</div>

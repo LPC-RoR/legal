@@ -1,52 +1,49 @@
-<div class="container-fluid">
-	<div class="row  justify-content-center"  style='margin-top: .5em; margin-bottom: .5em'>
-		<div class="col-10 col-md-5">
-			<small>
-				<%= render partial: 'layouts/over/item', locals: {text: 'AYUDA', link: ayuda_app_recursos_path, gly: 'question-square'} %>  ·  
-				<%= render partial: 'layouts/over/item', locals: {text: 'CONTACTO', link: ayuda_app_recursos_path, gly: 'envelope'} %>  ·  
-				<%= render partial: 'layouts/over/item', locals: {text: 'ACERCA', link: ayuda_app_recursos_path, gly: 'file-person'} %>  ·  
-			</small>
+<div class="row">
+	<div class="col-10 col-md-6">
+		<small>
+			<%= render partial: 'layouts/over/item', locals: {text: 'AYUDA', link: ayuda_app_recursos_path, gly: nil} %>  ·  
+			<%= render partial: 'layouts/over/item', locals: {text: 'CONTACTO', link: ayuda_app_recursos_path, gly: nil} %>  ·  
+			<%= render partial: 'layouts/over/item', locals: {text: 'ACERCA', link: ayuda_app_recursos_path, gly: nil} %>  ·  
+		</small>
 
-			<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'instagram'} %>
-		</div>
-		<div class="col-md-5" align='right'>
-
-	        <!-- AYUDA -->
-			<%= render partial: 'layouts/over/item', locals: {text: nil, link: ayuda_app_recursos_path, gly: 'question-square'} %>
-
-	        <% if usuario_signed_in? %>
-
-				<%= render partial: 'layouts/over/item', locals: {text: nil, link: app_mensajes_path, gly: 'envelope'} if config[:menu][:contacto] %>
-
-				<%= render partial: 'layouts/over/item', locals: {text: nil, link: destroy_usuario_session_path, method: :delete, gly: 'door-open'} %>
-
-	          <!-- MENSAJE REGISTRADO -->
-	          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: app_mensajes_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if config[:menu][:contacto] %>
-
-	          <!-- SALIR -->
-	          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: destroy_usuario_session_path, active: false, delete: true, gly: 'door-open'} %>
-
-	        <% else %>
-
-				<%= render partial: 'layouts/over/item', locals: {text: nil, link: new_app_mensaje_path, gly: 'envelope'} if config[:menu][:contacto] if config[:menu][:contacto] %>
-
-				<%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_session_path, method: :delete, gly: 'person'} %>
-
-				<%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_registration_path, method: :delete, gly: 'person-plus'} %>
-
-	          <!-- MENSAJE ANONIMO -->
-	          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_app_mensaje_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if config[:menu][:contacto] %>
-
-	          <!-- INGRESO -->
-	          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_usuario_session_path, active: (controller_name == 'sessions'), delete: false, gly: 'person'} %>
-	          <!-- REGISTRO -->
-	          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_usuario_registration_path, active: (controller_name == 'registrations'), delete: false, gly: 'person-plus'} %>
-          
-	        <% end %>
-		
-		</div>
+		<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'instagram'} %>
 	</div>
+	<div class="col-md-6" align='right'>
 
+        <!-- AYUDA -->
+		<%= render partial: 'layouts/over/item', locals: {text: nil, link: ayuda_app_recursos_path, gly: 'question-square'} %>
+
+        <% if usuario_signed_in? %>
+
+			<%= render partial: 'layouts/over/item', locals: {text: nil, link: app_mensajes_path, gly: 'envelope'} if config[:menu][:contacto] %>
+
+			<%= render partial: 'layouts/over/item', locals: {text: nil, link: destroy_usuario_session_path, method: :delete, gly: 'door-open'} %>
+
+          <!-- MENSAJE REGISTRADO -->
+          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: app_mensajes_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if config[:menu][:contacto] %>
+
+          <!-- SALIR -->
+          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: destroy_usuario_session_path, active: false, delete: true, gly: 'door-open'} %>
+
+        <% else %>
+
+			<%= render partial: 'layouts/over/item', locals: {text: nil, link: new_app_mensaje_path, gly: 'envelope'} if config[:menu][:contacto] if config[:menu][:contacto] %>
+
+			<%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_session_path, method: :delete, gly: 'person'} %>
+
+			<%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_registration_path, method: :delete, gly: 'person-plus'} %>
+
+          <!-- MENSAJE ANONIMO -->
+          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_app_mensaje_path, active: controller_name == 'contactos', delete: false, gly: 'envelope'} if config[:menu][:contacto] %>
+
+          <!-- INGRESO -->
+          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_usuario_session_path, active: (controller_name == 'sessions'), delete: false, gly: 'person'} %>
+          <!-- REGISTRO -->
+          <%#= render partial: '0p/navbar/btn', locals: {nombre: nil, link: new_usuario_registration_path, active: (controller_name == 'registrations'), delete: false, gly: 'person-plus'} %>
+      
+        <% end %>
+	
+	</div>
 </div>
 
-<hr style='margin-top: 0em'>
+<hr style='margin-top: 0em; margin-bottom: 0em'>

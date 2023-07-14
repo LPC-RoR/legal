@@ -49,6 +49,10 @@ module Seguridad
 		not usuario_signed_in?
 	end
 
+	def publico?
+		action_name == 'home' ? ( not usuario_signed_in?) : ['publicos'].include?(controller_name)
+	end
+
 	def mi_seguridad?
 		if current_usuario.email == dog_email
 			:dog

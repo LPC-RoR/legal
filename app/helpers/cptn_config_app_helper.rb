@@ -10,6 +10,14 @@ module CptnConfigAppHelper
 				menu_over: (not usuario_signed_in?),
 				menu: usuario_signed_in?,
 			},
+			margen: {
+				public_over: 1,
+				public_menu: 1,
+				public_body: 1,
+				user_over: 0,
+				user_menu: 0,
+				user_body: 0
+			},
 			color: {
 				navbar: 'light',
 				navbar_bg: 'muted',

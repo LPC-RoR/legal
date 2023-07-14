@@ -67,10 +67,12 @@ Rails.application.routes.draw do
   end
 
   scope module: 'aplicacion' do
+    resources :publicos do
+      match :home, via: :get
+    end
     resources :app_recursos do
       collection do
         match :ayuda, via: :get
-        match :home, via: :get
         match :administracion, via: :get
         match :procesos, via: :get
         match :tablas, via: :get
@@ -228,6 +230,6 @@ Rails.application.routes.draw do
   devise_for :usuarios
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'aplicacion/app_recursos#home'
+  root 'aplicacion/publicos#home'
 
 end

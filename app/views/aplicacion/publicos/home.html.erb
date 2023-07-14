@@ -26,43 +26,32 @@
 	</div>
 <% else %>
 
-<div class="row justify-content-center g-0">
-	<div class="col-12 col-md-5">
-		<div class="card bg-dark text-white">
-			<%= image_tag HImagen.find_by(nombre: 'Portada').imagen(nil).imagen.half.url, class: "card-img img-fluid" unless HImagen.find_by(nombre: 'Portada').blank? %>
-		  <div class="card-img-overlay">
-		    <h5 class="card-title"><b>¿Cuáles son los principales elementos de un contrato?</b></h5>
-		    <p class="card-text">Guía práctica para revisar un contrato.</p>
-		    <p class="card-text"><%= link_to 'leer más...', root_path %></p>
-		  </div>
+<div class="row">
+	<div class="col-12 col-md-9">
+		<div class="row">
+			<div class="col-md-9">
+				<%= render partial: '0blog/last_article', locals: {img_name: 'Contrato'} %>
+			</div>
+			<div class="col-md-3">
+				<%= render partial: '0blog/second_article', locals: {img_name: 'Acoso'} %>
+				<hr>
+				<%= render partial: '0blog/second_article', locals: {img_name: 'Sindicato'} %>
+			</div>
 		</div>
 	</div>
-	<div class="col-12 col-md-5">
-		<div class="card bg-dark text-white">
-			<%= image_tag HImagen.find_by(nombre: 'Trabajador').imagen(nil).imagen.url, class: 'card-img', size: "350x175" unless HImagen.find_by(nombre: 'Trabajador').blank? %>
-		  <div class="card-img-overlay">
-		    <h5 class="card-title"><b>¿Qué hacer si me despiden?</b></h5>
-		    <p class="card-text">¿Cuáles son mis derechos? ¿Cuáles mis responsabilidades?</p>
-		    <p class="card-text"><%= link_to 'leer mas..', root_path %></p>
-		  </div>
-		</div>
-		<div class="card bg-dark text-white">
-			<%= image_tag HImagen.find_by(nombre: 'Documentos').imagen(nil).imagen.url, class: 'card-img', size: "350x175" unless HImagen.find_by(nombre: 'Documentos').blank? %>
-		  <div class="card-img-overlay">
-		    <h5 class="card-title"><b>¿Acoso laboral? como actuar ante un probable acoso.</b></h5>
-		    <p class="card-text">Guía práctica para enfrentar la situación..</p>
-		    <p class="card-text"><%= link_to 'leer mas...', root_path %></p>
-		  </div>
-		</div>
+	<div class="col-md-3">
+		<small><%= render partial: '0blog/title', locals: {title: 'TEMAS'} %></small>
+		<%= render partial: '0blog/third_article' %>
 	</div>
 </div>
 
 
+
 <hr>
-<div class="row justify-content-center">
-	<div class="col-12 col-md-10">
+<div class="row">
+	<div class="col-12 col-md-12">
 		<div class="row">
-	<div class="col-md-4">
+	<div class="col-12 col-md-4">
 		<div class="card" style="width: 22rem;" >
 		<%= image_tag HImagen.find_by(nombre: 'Trabajador').imagen(nil).imagen.url, class: 'card-img', size: "350x180" unless HImagen.find_by(nombre: 'Trabajador').blank? %>
 		  <div class="card-body">
@@ -102,11 +91,3 @@
 
 <% end %>
 <hr>
-<%#= render partial: 'home/h_imagenes/partials/imagen', locals: {nombre: 'Portada', size: config[:image][:portada][:size]} %>
-<%#= render partial: 'home/h_imagenes/partials/imagen', locals: {nombre: 'Foot', size: config[:image][:foot][:size]} %>
-
-
-<%#= render partial: 'home/h_temas/partials/tema', locals: {nombre: 'Muestra de un tema cualquiera', first_col: 4, img_side: 'izq'} %>
-<%#= render partial: 'home/h_temas/partials/tema', locals: {nombre: 'Muestra de un tema cualquiera', first_col: 4, img_side: 'der'} %>
-
-<%#= render partial: 'home/h_links/partials/link', locals: {texto: 'Prueba'} %>
