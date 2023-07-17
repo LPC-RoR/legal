@@ -10,14 +10,23 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag('util.js') %>
     <%= favicon_link_tag asset_path('favicon.ico') if File.exist?("app/assets/images/favicon.ico") %>
-  </head>
+
+
+    <!-- font-family: 'Barlow', sans-serif; -->
+    <!-- font-family: 'Lexend', sans-serif; -->
+    <!-- font-family: 'Raleway', sans-serif; -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&family=Lexend:wght@100;200;300;400;500;600;700;800;900&family=Raleway:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap" rel="stylesheet">
+
+</head>
 
   <body>
 
     <!-- OVER -->
     <% if partial?('layouts', nil, 'over') %>
 
-      <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][(publico? ? :public_over : :user_over)], style_str: 'margin-top: .5em; margin-bottom: .5em' }) do %>
+      <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][(publico? ? :public_over : :user_over)], style_str: 'margin-top: .5em; margin-bottom: .5em', container_class: 'app_over' }) do %>
         <%= render partial: 'layouts/over' %>
       <% end %>
 
@@ -26,14 +35,14 @@
     <!-- NAVBAR+ -->
     <% if config[:layout][:menu] %>
 
-      <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][(publico? ? :public_menu : :user_menu)], style_str: 'margin-top: .5em; margin-bottom: .5em' }) do %>
+      <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][(publico? ? :public_menu : :user_menu)], style_str: 'margin-top: .5em; margin-bottom: .5em', container_class: 'app_menu' }) do %>
         <%= render partial: '0p/navbar/navbar' %>
       <% end %>
 
     <% end %>
 
     <!-- BODY -->
-    <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][(publico? ? :public_body : :user_body)], style_str: 'margin-top: .5em; margin-bottom: .5em' }) do %>
+    <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][(publico? ? :public_body : :user_body)], style_str: 'margin-top: .5em; margin-bottom: .5em', container_class: 'app_body' }) do %>
       <%= render partial: 'layouts/app' %>
     <% end %>
 

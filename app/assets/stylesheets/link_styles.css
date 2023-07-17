@@ -1,3 +1,55 @@
 .link-text {
   text-decoration: none;
 }
+
+.app_body {
+    background-color:  #f8f9fa;
+}
+
+.menu_over {
+	font-family: 'Raleway', sans-serif;
+}
+
+.card-title {
+	font-family: 'Lexend', sans-serif;
+}
+
+.card-title a {
+	text-decoration: none;
+	color: black;
+}
+
+.card-img-overlay a {
+    text-decoration: none;
+    color: white;
+}
+
+.titulo-seccion {
+    font-family: 'Lexend', sans-serif;
+    background-color:  white;
+}
+
+.card-sec-title {
+	font-size: 14px;
+}
+
+span + span {
+    margin-left: 10px;
+}
+
+a.link_item {
+	text-decoration: none;
+	color: red;
+}
+
+.link-invisible::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: auto;
+    content: "";
+    background-color: rgba(0,0,0,0);
+}

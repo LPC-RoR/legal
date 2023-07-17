@@ -1,3 +1,4 @@
+</br></br>
 <% if usuario_signed_in? %>
 
 	<div class='row no-gutters'>
@@ -29,19 +30,21 @@
 <div class="row">
 	<div class="col-12 col-md-9">
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-8">
 				<%= render partial: '0blog/last_article', locals: {img_name: 'Contrato'} %>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<%= render partial: '0blog/second_article', locals: {img_name: 'Acoso'} %>
 				<hr>
 				<%= render partial: '0blog/second_article', locals: {img_name: 'Sindicato'} %>
 			</div>
 		</div>
 	</div>
-	<div class="col-md-3">
-		<small><%= render partial: '0blog/title', locals: {title: 'TEMAS'} %></small>
-		<%= render partial: '0blog/third_article' %>
+	<div class="col-md-3"'>
+		<div class='titulo-seccion' style='padding: 1em;'>
+			<small><%= render partial: '0blog/title', locals: {title: 'TEMAS'} %></small>
+			<%= render partial: '0blog/third_article' %>
+		</div>
 	</div>
 </div>
 
