@@ -227,6 +227,12 @@ Rails.application.routes.draw do
 
   end
 
+  scope module: 'blog' do
+    resources :blg_articulos
+    resources :blg_temas
+    resources :blg_imagenes
+  end
+
   devise_for :usuarios
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

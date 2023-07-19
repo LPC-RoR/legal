@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  blg_imagen: MyString
+  imagen: MyString
+  blg_credito: MyString
+  ownr_class: MyString
+  ownr_id: 1
+
+two:
+  blg_imagen: MyString
+  imagen: MyString
+  blg_credito: MyString
+  ownr_class: MyString
+  ownr_id: 1

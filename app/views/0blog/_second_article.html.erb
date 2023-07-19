@@ -1,11 +1,11 @@
 <div class="card">
-	<%= image_tag HImagen.find_by(nombre: img_name).imagen(nil).imagen.half.url, class: "card-img img-fluid rounded-0" unless HImagen.find_by(nombre: img_name).blank? %>
+	<%= image_tag articulo.imagen.quarter.url, class: "card-img img-fluid rounded-0" unless articulo.imagen.blank? %>
   <div class="card-img-overlay">
 	<a href="#" class="btn btn-primary">Leer</a>
   </div>
   <div class="card-body">
     <h6 class="card-title card-sec-title">
-       <%= link_to '¿Cuáles son los principales elementos de un contrato?', root_path, class: 'link-invisible' %></h6>
-    <small><i><p class="text-muted">- Solange Mena</p></i></small>
+       <%= link_to articulo.blg_articulo, articulo, class: 'link-invisible' %></h6>
+    <small><i><p class="text-muted"><%= articulo.autor%></br><%= dma(articulo.created_at) %></p></i></small>
   </div>
 </div>

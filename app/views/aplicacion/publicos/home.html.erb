@@ -1,7 +1,7 @@
-</br></br>
+
 <% if usuario_signed_in? %>
 
-	<div class='row no-gutters'>
+	<div class='row'>
 		<div class="col-md-4">
 			<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['causas'], title: 'Causas', size: 4} %>
 
@@ -31,65 +31,25 @@
 	<div class="col-12 col-md-9">
 		<div class="row">
 			<div class="col-md-8">
-				<%= render partial: '0blog/last_article', locals: {img_name: 'Contrato'} %>
+				<%= render partial: '0blog/last_article' %>
 			</div>
 			<div class="col-md-4">
-				<%= render partial: '0blog/second_article', locals: {img_name: 'Acoso'} %>
+				<%= render partial: '0blog/second_article', locals: {articulo: @segundo} unless @segundo.blank? %>
 				<hr>
-				<%= render partial: '0blog/second_article', locals: {img_name: 'Sindicato'} %>
+				<%= render partial: '0blog/second_article', locals: {articulo: @tercero} unless @tercero.blank? %>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-3"'>
 		<div class='titulo-seccion' style='padding: 1em;'>
-			<small><%= render partial: '0blog/title', locals: {title: 'TEMAS'} %></small>
-			<%= render partial: '0blog/third_article' %>
+			Temas</br>
+		</div>
+		<div class="tema">
+			<% BlgTema.all.order(:blg_tema).each do |tema| %>
+				<%= render partial: '0blog/show_tema', locals: {tema: tema} %>
+			<% end %>
 		</div>
 	</div>
-</div>
-
-
-
-<hr>
-<div class="row">
-	<div class="col-12 col-md-12">
-		<div class="row">
-	<div class="col-12 col-md-4">
-		<div class="card" style="width: 22rem;" >
-		<%= image_tag HImagen.find_by(nombre: 'Trabajador').imagen(nil).imagen.url, class: 'card-img', size: "350x180" unless HImagen.find_by(nombre: 'Trabajador').blank? %>
-		  <div class="card-body">
-		    <h5 class="card-title">Título de este artículo acerca de los derechos de los trabajadores</h5>
-		    <p class="card-text">
-		    	Breve reseña del artículo...
-			</p>
-		    <%= link_to 'leer mas...', root_path %>
-		  </div>
-		</div>
-	</div>
-	<div class="col-12 col-md-4" align='center'>
-		<div class="card" style="width: 22rem;">
-		<%= image_tag HImagen.find_by(nombre: 'Sindicato').imagen(nil).imagen.url, class: 'card-img', size: "350x180" unless HImagen.find_by(nombre: 'Sindicato').blank? %>
-		  <div class="card-body">
-		    <h5 class="card-title">Título de este artículo acerca de los derechos de los sindicatos</h5>
-		    <p class="card-text">
-		    	Breve reseña del artículo...
-		    </p>
-		    <%= link_to 'leer mas...', root_path %>
-		  </div>
-		</div>
-	</div>
-	<div class="col-12 col-md-4" align='center'>
-		<div class="card" style="width: 22rem;">
-		<%= image_tag HImagen.find_by(nombre: 'Documentos').imagen(nil).imagen.url, class: 'card-img', size: "350x180" unless HImagen.find_by(nombre: 'Documentos').blank? %>
-		  <div class="card-body">
-		    <h5 class="card-title">Título de este artículo acerca de Documentación</h5>
-		    <p class="card-text">Breve reseña del artículo...</p>
-		    <%= link_to 'leer mas...', root_path %>
-		  </div>
-		</div>
-	</div>
-		</div>
-	</div> 
 </div>
 
 <% end %>

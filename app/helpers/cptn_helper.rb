@@ -76,6 +76,8 @@ def controller_icon
 			'tar_facturas' => 'receipt',
 			'tar_facturaciones' => 'coin',
 			'clientes' => 'building',
+			'blg_articulos' => 'file-earmark-richtext',
+			'blg_temas' => 'list-stars'
 #			'ld_parrafos' => 'blockquote-left'
 		}
 	end

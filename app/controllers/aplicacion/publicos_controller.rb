@@ -23,6 +23,11 @@ class Aplicacion::PublicosController < ApplicationController
       # Facturas
       @facturas_sin_emitir = TarFactura.where(estado: 'ingreso').order(fecha_factura: :desc)
       @facturas_en_cobranza = TarFactura.where(estado: 'facturada').order(fecha_factura: :desc)
+    else
+      articulos = BlgArticulo.all.order(created_at: :desc)
+      @principal = articulos.first
+      @segundo = articulos.second
+      @tercero = articulos.third
     end
 
     init_tabla('clientes', Cliente.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.padre.cliente.id unless tarf.tar_factura.present?}.compact.uniq), false)

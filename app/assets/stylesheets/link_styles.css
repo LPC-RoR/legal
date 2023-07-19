@@ -10,13 +10,22 @@
 	font-family: 'Raleway', sans-serif;
 }
 
-.card-title {
+.card-title .card-text {
 	font-family: 'Lexend', sans-serif;
 }
 
 .card-title a {
 	text-decoration: none;
 	color: black;
+}
+
+.encabezado-articulo {
+    font-family: 'Lexend', sans-serif;
+}
+
+.cuerpo-articulo {
+    font-family: 'Lexend', sans-serif;
+    padding-top: 1em;
 }
 
 .card-img-overlay a {
@@ -27,6 +36,31 @@
 .titulo-seccion {
     font-family: 'Lexend', sans-serif;
     background-color:  white;
+
+    position: relative;
+    z-index: 1;
+    
+    &:before {
+        border-top: 2px solid #dfdfdf;
+        content:"";
+        margin: 0 auto; /* this centers the line to the full width specified */
+        position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+        top: 50%; left: 0; right: 0; bottom: 0;
+        width: 95%;
+        z-index: -1;
+    }
+
+    p { 
+        /* to hide the lines from behind the text, you have to set the background color the same as the container */ 
+        background: #fff; 
+        padding: 0 15px; 
+    }
+}
+
+.tema {
+    font-family: 'Lexend', sans-serif;
+    background-color:  white;
+    padding: 1em;
 }
 
 .card-sec-title {
@@ -37,9 +71,12 @@ span + span {
     margin-left: 10px;
 }
 
-a.link_item {
-	text-decoration: none;
-	color: red;
+.link_item span a {
+    text-decoration: none;
+    &:hover{
+        text-decoration: none;
+        color: red;
+    }
 }
 
 .link-invisible::after {
@@ -52,4 +89,34 @@ a.link_item {
     pointer-events: auto;
     content: "";
     background-color: rgba(0,0,0,0);
+}
+
+h2.background {
+    position: relative;
+    z-index: 1;
+    
+    &:before {
+        border-top: 2px solid #dfdfdf;
+        content:"";
+        margin: 0 auto; /* this centers the line to the full width specified */
+        position: absolute; /* positioning must be absolute here, and relative positioning must be applied to the parent */
+        top: 50%; left: 0; right: 0; bottom: 0;
+        width: 95%;
+        z-index: -1;
+    }
+
+    span { 
+        /* to hide the lines from behind the text, you have to set the background color the same as the container */ 
+        background: #fff; 
+        padding: 0 15px; 
+    }
+}
+
+.lista-icono {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.footer {
+    font-family: 'Raleway', sans-serif;
 }

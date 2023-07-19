@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_29_202336) do
+ActiveRecord::Schema.define(version: 2023_07_18_163808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,6 +228,43 @@ ActiveRecord::Schema.define(version: 2023_06_29_202336) do
     t.index ["app_repositorio"], name: "index_app_repositorios_on_app_repositorio"
     t.index ["owner_class"], name: "index_app_repositorios_on_owner_class"
     t.index ["owner_id"], name: "index_app_repositorios_on_owner_id"
+  end
+
+  create_table "blg_articulos", force: :cascade do |t|
+    t.string "blg_articulo"
+    t.integer "app_perfil_id"
+    t.integer "blg_tema_id"
+    t.string "estado"
+    t.text "articulo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "imagen"
+    t.text "descripcion"
+    t.string "autor"
+    t.index ["app_perfil_id"], name: "index_blg_articulos_on_app_perfil_id"
+    t.index ["blg_tema_id"], name: "index_blg_articulos_on_blg_tema_id"
+    t.index ["estado"], name: "index_blg_articulos_on_estado"
+  end
+
+  create_table "blg_imagenes", force: :cascade do |t|
+    t.string "blg_imagen"
+    t.string "imagen"
+    t.string "blg_credito"
+    t.string "ownr_class"
+    t.integer "ownr_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blg_imagen"], name: "index_blg_imagenes_on_blg_imagen"
+    t.index ["ownr_class"], name: "index_blg_imagenes_on_ownr_class"
+    t.index ["ownr_id"], name: "index_blg_imagenes_on_ownr_id"
+  end
+
+  create_table "blg_temas", force: :cascade do |t|
+    t.string "blg_tema"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "imagen"
+    t.text "descripcion"
   end
 
   create_table "causas", force: :cascade do |t|

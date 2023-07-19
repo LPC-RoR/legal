@@ -1,0 +1,20 @@
+<% if admin? %>
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['blg_articulos'], title: 'Mis artículos', size: 5} %>
+
+      <%= render partial: '0blog/list', locals: {coleccion: @coleccion['perfil-blg_articulos']} %>
+      <%= render partial: '0p/tabla/btn_nuevo', locals: {c: 'blg_articulos'} %>
+    </div>
+    <div class="col-md-6">
+      <%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['blg_temas'], title: 'Temas', size: 5} %>
+
+      <%= render partial: '0blog/temas', locals: {coleccion: @coleccion['blg_temas']} %>
+      <%= render partial: '0p/tabla/btn_nuevo', locals: {c: 'blg_temas'} %>
+
+    </div>
+  </div>
+<% else %>
+  <%= render partial: '0blog/list', locals: {coleccion: @coleccion['perfil-blg_articulos']} %>
+  <%= render partial: '0p/tabla/btn_nuevo', locals: {c: 'blg_articulos'} %>
+<% end %>

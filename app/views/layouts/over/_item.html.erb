@@ -1,7 +1,15 @@
-<%= link_to link, class: 'text-secondary link_item' do %>
+<span>
+<% unless text.blank? %>
+	<small>
+<% end %>
+<%= link_to link, class: 'text-secondary' do %>
 	<% unless gly.blank? %>
 		<i class="bi bi-<%= gly %>"></i>
 	<% end %>
 
 	<small><%= text unless text.blank? %></small>
 <% end %>
+<% unless text.blank? %>
+</small>
+<% end %>
+</span>

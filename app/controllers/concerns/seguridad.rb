@@ -50,7 +50,7 @@ module Seguridad
 	end
 
 	def publico?
-		action_name == 'home' ? ( not usuario_signed_in?) : ['publicos'].include?(controller_name)
+		action_name == 'home' ? ( not usuario_signed_in?) : (['publicos'].include?(controller_name) or controller_name.match(/^blg_*/))
 	end
 
 	def mi_seguridad?

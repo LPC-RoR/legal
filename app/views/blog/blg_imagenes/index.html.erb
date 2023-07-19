@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Blg Imagenes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Blg imagen</th>
+      <th>Imagen</th>
+      <th>Blg credito</th>
+      <th>Ownr class</th>
+      <th>Ownr</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @blg_imagenes.each do |blg_imagen| %>
+      <tr>
+        <td><%= blg_imagen.blg_imagen %></td>
+        <td><%= blg_imagen.imagen %></td>
+        <td><%= blg_imagen.blg_credito %></td>
+        <td><%= blg_imagen.ownr_class %></td>
+        <td><%= blg_imagen.ownr_id %></td>
+        <td><%= link_to 'Show', blg_imagen %></td>
+        <td><%= link_to 'Edit', edit_blg_imagen_path(blg_imagen) %></td>
+        <td><%= link_to 'Destroy', blg_imagen, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Blg Imagen', new_blg_imagen_path %>

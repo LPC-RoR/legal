@@ -8,6 +8,8 @@ class AppPerfil < ApplicationRecord
 	has_many :app_mejoras
 	has_many :app_mensajes
 
+	has_many :blg_articulos
+
 	def app_enlaces
 		AppEnlace.where(owner_class: 'AppPerfil', owner_id: self.id)
 	end
