@@ -1,6 +1,10 @@
+<% if publico? %><div class='container'><% end %>
 <div class="row">
-	<div class="col-12 col-md-6">
-		<p><%= image_tag 'addt.png', class: 'img-fluid' %></p>
+	<div class="imagen-banner">
+		<%= render partial: '0p/home/over_card', locals: {nombre: 'OverCard'} %>
 	</div>
-	<div class="col-md-6"></div>
+	<div class="texto-banner">
+		<h6>Abogados</h6><h3>Derecho del trabajo</h3>
+	</div>
 </div>
+<% if publico? %></div><% end %>

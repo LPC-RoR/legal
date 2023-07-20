@@ -37,6 +37,9 @@ class BlogUploader < CarrierWave::Uploader::Base
   version :quarter do
     process resize_to_fill: [200, 200]
   end
+  version :over do
+    process resize_to_fill: [400, 100]
+  end
   version :tema do
     process resize_to_fill: [200, 100]
   end

@@ -2,7 +2,7 @@ module CptnConfigAppHelper
 	def config
 		{
 			app: {
-				nombre: 'Legal',
+				nombre: 'ADdT',
 				home: 'http://www.abogadosderechodeltrabajo.cl',
 				logo_navbar: 'logo.png'
 			},
@@ -11,17 +11,19 @@ module CptnConfigAppHelper
 				menu: usuario_signed_in?,
 			},
 			margen: {
-				public_over: 1,
-				public_menu: 1,
-				public_body: 1,
-				user_over: 0,
-				user_menu: 0,
-				user_body: 0
+				over: publico? ? 1 : 0,
+				menu: publico? ? 1 : 0,
+				body: publico? ? 1 : 0
+			},
+			container: {
+				over: publico?,
+				menu: publico?,
+				body: true
 			},
 			color: {
+				app: 'dark',
 				navbar: 'light',
 				navbar_bg: 'muted',
-				app: 'dark',
 				help: 'dark',
 				data: 'success',
 				title_tema: 'primary',

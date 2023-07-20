@@ -1,3 +1,4 @@
+<% unless @coleccion['blg_articulos'].blank? or @coleccion['blg_articulos'].empty? %>
 <%= paginate @coleccion['blg_articulos'] %>
 <small><small><%= page_entries_info(@coleccion['blg_articulos']) %></small></small>
 
@@ -18,4 +19,5 @@
 <% if @coleccion['blg_articulos'].count > 15 %>
 <small><small><%= page_entries_info(@coleccion['blg_articulos']) %></small></small>
 <%= paginate @coleccion['blg_articulos'] %>
+<% end %>
 <% end %>

@@ -1,7 +1,11 @@
+<% if container %>
 <div class="<%= container_class %> container-fluid">
+<% end %>
 	<div class="row justify-content-center" style=<%= style_str %>>
 		<div class="col-12 col-md-<%= 12 - (cols * 2) %>">
 			<%= yield %>
 		</div>
 	</div>
+<% if container %>
 </div>
+<% end %>

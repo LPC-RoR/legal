@@ -36,6 +36,9 @@ class IlustracionUploader < CarrierWave::Uploader::Base
   version :quarter do
     process resize_to_fit: [200, 200]
   end
+  version :over do
+    process resize_to_fill: [400, 100]
+  end
   version :thumb do
     process resize_to_fill: [50, 50]
   end

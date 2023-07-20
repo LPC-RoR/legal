@@ -1,0 +1,12 @@
+<% unless HImagen.find_by(nombre: nombre).blank? %>
+	<% unless HImagen.find_by(nombre: nombre).imagenes.empty? %>
+		
+	<div class="card text-white">
+		<%= image_tag HImagen.find_by(nombre: nombre).imagenes.order(created_at: :desc).first.imagen.over.url %>
+	  <div class="card-img-overlay">
+	  	<h1 class="display-4"><%=config[:app][:nombre]%></h1>
+	  </div>
+	</div>
+
+	<% end %>
+<% end %>

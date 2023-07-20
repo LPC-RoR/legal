@@ -1,3 +1,10 @@
+.texto-banner {
+    font-family: 'Raleway', sans-serif;
+    padding-left: 1em;
+    padding-top: 2em;
+    color: black;
+}
+
 .link-text {
   text-decoration: none;
 }
@@ -6,8 +13,13 @@
     background-color:  #f8f9fa;
 }
 
-.menu_over {
-	font-family: 'Raleway', sans-serif;
+.link_item span a {
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    &:hover{
+        text-decoration: none;
+        color: red;
+    }
 }
 
 .card-title .card-text {
@@ -71,14 +83,6 @@ span + span {
     margin-left: 10px;
 }
 
-.link_item span a {
-    text-decoration: none;
-    &:hover{
-        text-decoration: none;
-        color: red;
-    }
-}
-
 .link-invisible::after {
     position: absolute;
     top: 0;
@@ -115,8 +119,4 @@ h2.background {
 .lista-icono {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-}
-
-.footer {
-    font-family: 'Raleway', sans-serif;
 }
