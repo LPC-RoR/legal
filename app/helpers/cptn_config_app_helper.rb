@@ -2,7 +2,7 @@ module CptnConfigAppHelper
 	def config
 		{
 			app: {
-				nombre: 'ADdT',
+				nombre: 'addt',
 				home: 'http://www.abogadosderechodeltrabajo.cl',
 				logo_navbar: 'logo.png'
 			},
