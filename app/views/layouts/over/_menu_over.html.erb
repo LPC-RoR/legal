@@ -1,6 +1,6 @@
 <% if publico? %>
 <div class="row">
-	<div class="col-12 col-md-3">
+	<div class="col-md-3 col-xs-12">
 		<div class='link_item'>
 				<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'house'} %>
 				<%= render partial: 'layouts/over/item', locals: {text: 'AYUDA', link: 'publicos/ayuda', gly: nil} %>
@@ -8,7 +8,7 @@
 				<%= render partial: 'layouts/over/item', locals: {text: 'ACERCA', link: 'publicos/acerca', gly: nil} %>
 		</div>
 	</div>
-	<div class="col-12 col-md-6" align='center'>
+	<div class="col-md-6 col-xs-12" align='center'>
 		<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'instagram'} %>
 	</div>
 	<div class="col-md-3" align='right'>
