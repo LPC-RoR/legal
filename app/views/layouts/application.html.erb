@@ -26,6 +26,8 @@
     <!-- OVER -->
     <% if partial?('layouts', nil, 'over') %>
 
+        <%= render partial: 'layouts/over' %>
+
       <%= render(layout: "0p/general/margen_div", locals: { cols: config[:margen][:over], style_str: nil, container: config[:container][:over], container_class: 'app_over' }) do %>
         <%= render partial: 'layouts/over' %>
       <% end %>
