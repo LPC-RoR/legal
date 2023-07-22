@@ -1,9 +1,9 @@
 <% if publico? %>
-<div class="row" style='margin-left: 5em; margin-right: 5em;'>
+	<div class="row" style='margin-left: 5em; margin-right: 5em;'>
 <% else %>
-<div class='row'>
+	<div class='row'>
 <% end %>
-	<div class="col-xs-12 col-md-4 imagen-banner" style='padding-left: 0em;'>
+	<div class="col-xs-12 col-md-4 imagen-banner" style='padding-left: 0em; padding-right: 0em;'>
 		<%= render partial: '0p/home/over_card', locals: {nombre: 'OverCard'} %>
 	</div>
 	<div class="col-md-8 texto-banner">
