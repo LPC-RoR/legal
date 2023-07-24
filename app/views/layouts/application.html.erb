@@ -23,11 +23,11 @@
 
   <body>
 
-    <% if publico? %>
-    <div class='pl-5 pr-5 container-fluid'>
-    <% else %>
-    <div class='container-fluid'>
-    <% end %>
+    <%# if publico? %>
+    <!--div class='pl-5 pr-5 container-fluid'-->
+    <%# else %>
+    <!--div class='container-fluid'-->
+    <%# end %>
 
     <!-- OVER -->
     <%= render partial: 'layouts/over' if partial?('layouts', nil, 'over') %>
@@ -37,7 +37,8 @@
 
     <!-- BODY -->
     <%= render partial: 'layouts/app' %>
-    </div>
+
+    <!--/div-->
 
     <%= render partial: 'layouts/footer' %>
 

@@ -1,41 +1,46 @@
-<% if publico? %>
-<!--div class="row" style='margin-left: 5em; margin-right: 5em;'-->
-<div class="row">
-	<div class="col-md-3 col-xs-12">
-		<div class='link_item'>
-				<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'house'} %>
-				<%= render partial: 'layouts/over/item', locals: {text: 'AYUDA', link: 'publicos/ayuda', gly: nil} %>
-				<%= render partial: 'layouts/over/item', locals: {text: 'CONTACTO', link: 'publicos/contacto', gly: nil} %>
-				<%= render partial: 'layouts/over/item', locals: {text: 'ACERCA', link: 'publicos/acerca', gly: nil} %>
+<div class="menu_over">
+	<% if publico? %><div class="container"><% end %>
+
+
+
+		<div class="row">
+			<div class="col-md-3 col-xs-12">
+				<div class='link_item'>
+						<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'house'} %>
+						<%= render partial: 'layouts/over/item', locals: {text: 'AYUDA', link: 'publicos/ayuda', gly: nil} %>
+						<%= render partial: 'layouts/over/item', locals: {text: 'CONTACTO', link: 'publicos/contacto', gly: nil} %>
+						<%= render partial: 'layouts/over/item', locals: {text: 'ACERCA', link: 'publicos/acerca', gly: nil} %>
+				</div>
+			</div>
+			<div class="col-md-6 col-xs-12" align='center'>
+				<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'instagram'} %>
+			</div>
+			<div class="col-md-3" align='right'>
+
+		        <!-- AYUDA -->
+				<!--span><%#= render partial: 'layouts/over/item', locals: {text: nil, link: ayuda_app_recursos_path, gly: 'question-square'} %></span-->
+
+		        <% if usuario_signed_in? %>
+
+					<!--span><%#= render partial: 'layouts/over/item', locals: {text: nil, link: app_mensajes_path, gly: 'envelope'} if config[:menu][:contacto] %></span-->
+
+					<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: destroy_usuario_session_path, method: :delete, gly: 'door-open'} %></span>
+
+		        <% else %>
+
+					<!--span><%#= render partial: 'layouts/over/item', locals: {text: nil, link: new_app_mensaje_path, gly: 'envelope'} if config[:menu][:contacto] if config[:menu][:contacto] %></span-->
+
+					<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_session_path, method: :delete, gly: 'person'} %></span>
+
+					<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_registration_path, method: :delete, gly: 'person-plus'} %></span>
+
+		      
+		        <% end %>
+			
+			</div>
 		</div>
-	</div>
-	<div class="col-md-6 col-xs-12" align='center'>
-		<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'instagram'} %>
-	</div>
-	<div class="col-md-3" align='right'>
+		<div class="row"><div class='col'><hr style='margin-top: 0em; margin-bottom: 0em;'></div></div>
 
-        <!-- AYUDA -->
-		<!--span><%#= render partial: 'layouts/over/item', locals: {text: nil, link: ayuda_app_recursos_path, gly: 'question-square'} %></span-->
-
-        <% if usuario_signed_in? %>
-
-			<!--span><%#= render partial: 'layouts/over/item', locals: {text: nil, link: app_mensajes_path, gly: 'envelope'} if config[:menu][:contacto] %></span-->
-
-			<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: destroy_usuario_session_path, method: :delete, gly: 'door-open'} %></span>
-
-        <% else %>
-
-			<!--span><%#= render partial: 'layouts/over/item', locals: {text: nil, link: new_app_mensaje_path, gly: 'envelope'} if config[:menu][:contacto] if config[:menu][:contacto] %></span-->
-
-			<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_session_path, method: :delete, gly: 'person'} %></span>
-
-			<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_registration_path, method: :delete, gly: 'person-plus'} %></span>
-
-      
-        <% end %>
-	
-	</div>
+		
+	<% if publico? %></div><% end %>
 </div>
-<div class="row"><div class='col'><hr style='margin-top: 0em; margin-bottom: 0em; margin-left: 5em; margin-right: 5em;'></div></div>
-
-<% end %>

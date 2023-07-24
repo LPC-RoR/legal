@@ -1,3 +1,7 @@
+<div class="app_body">
+	<% if publico? %><div class="container"><% end %>
+
+
 <% if notice %>
 <p class="alert alert-primary"><%= notice %></p>
 <% end %>
@@ -8,4 +12,9 @@
 <div style='padding-top: 1em; padding-bottom: 1em;'>
 <%= render partial: 'layouts/title' %>
 <%= render partial: 'layouts/body' %>
+</div>
+
+
+		
+	<% if publico? %></div><% end %>
 </div>
