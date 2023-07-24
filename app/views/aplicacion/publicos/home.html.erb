@@ -30,10 +30,10 @@
 <div class="row">
 	<div class="col-lg-9 col-xs-12">
 		<div class="row">
-			<div class="col-md-8 col-xs-12">
+			<div class="col-lg-8 col-xs-12">
 				<%= render partial: '0blog/last_article' unless @principal.blank? %>
 			</div>
-			<div class="col-md-4">
+			<div class="col-lg-4">
 				<%= render partial: '0blog/second_article', locals: {articulo: @segundo} unless @segundo.blank? %>
 				<hr>
 				<%= render partial: '0blog/second_article', locals: {articulo: @tercero} unless @tercero.blank? %>
