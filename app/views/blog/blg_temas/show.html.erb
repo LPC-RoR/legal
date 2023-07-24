@@ -1,14 +1,14 @@
 <div class='blg-articulo'>
   <div class="row">
-    <div class="col-12 col-md-4 foto-tema">
-      <%= image_tag @objeto.imagen.quarter.url, class: "card-img img-fluid rounded-0" unless @objeto.imagen.blank? %>
+    <div class="col-12 col-lg-4 foto-tema">
+      <%= image_tag @objeto.imagen.half.url, class: "card-img img-fluid rounded-0" unless @objeto.imagen.blank? %>
     </div>
-    <div class="col-md-8 encabezado-articulo">
+    <div class="col-lg-8 encabezado-articulo">
       <div class='nombre-tema' align='center'><p><h4><%= @objeto.blg_tema %></h4></p></div>
     </div>
   </div>
     <div class="cuerpo-articulo">
-    	<%= render partial: '0blog/list' %>
+    	<%= render partial: '0blog/list' unless @coleccion['blg_temas'].blank? %>
       <%#= @objeto.blg_articulos.order(created_at: :desc) %>
     </div>
 </div>
