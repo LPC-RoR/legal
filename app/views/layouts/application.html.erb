@@ -23,23 +23,16 @@
 
   <body>
 
-    <%# if publico? %>
-    <!--div class='pl-5 pr-5 container-fluid'-->
-    <%# else %>
-    <!--div class='container-fluid'-->
-    <%# end %>
-
     <!-- OVER -->
     <%= render partial: 'layouts/over' if partial?('layouts', nil, 'over') %>
 
     <!-- NAVBAR+ -->
-    <%= render partial: '0p/navbar/navbar' if config[:layout][:menu] %>
+    <%= render partial: 'layouts/navbar' if config[:layout][:menu] %>
 
     <!-- BODY -->
     <%= render partial: 'layouts/app' %>
 
-    <!--/div-->
-
+    <!-- FOOTER -->
     <%= render partial: 'layouts/footer' %>
 
   </body>

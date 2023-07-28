@@ -11,7 +11,9 @@ class AppNomina < ApplicationRecord
 	validates :nombre, :email, presence: true
 	validates :nombre, :email, uniqueness: true
 
-	def tar_bases
+	scope :ordered, -> { order(:app_nomina) }
+
+ 	def tar_bases
 		TarBase.where(owner_class: 'AppNomina', owner_id: self.id)
 	end
 

@@ -15,4 +15,6 @@ class SbLista < ApplicationRecord
 
     validates_presence_of :lista
 
+	scope :ordered, -> { order(:sb_lista) }
+
 end

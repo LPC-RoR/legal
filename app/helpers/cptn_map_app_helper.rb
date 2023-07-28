@@ -4,6 +4,10 @@ module CptnMapAppHelper
 	# desde controllers/concern/map
 	# def app_bandeja_controllers
 
+	def no_banner_display?
+		controller_name == 'app_recursos' and action_name == 'aprobacion'
+	end
+
 	def app_get_layout
 		'General'
 	end
