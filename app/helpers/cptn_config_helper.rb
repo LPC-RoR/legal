@@ -1,4 +1,4 @@
-module CptnConfigAppHelper
+module CptnConfigHelper
 	def config
 		{
 			app: {
@@ -8,16 +8,12 @@ module CptnConfigAppHelper
 			},
 			layout: {
 				menu_over: (not usuario_signed_in?),
+				banner: true,
 				menu: usuario_signed_in?,
 			},
-			margen: {
-				over: publico? ? 1 : 0,
-				menu: publico? ? 1 : 0,
-				body: publico? ? 1 : 0
-			},
 			container: {
-				over: publico?,
-				menu: publico?,
+				over: true,
+				menu: true,
 				body: true
 			},
 			color: {

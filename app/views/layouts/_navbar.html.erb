@@ -1,9 +1,7 @@
-<div class="app_navbar">
-	<% if publico? %><div class="container"><% end %>
-
-
-		<%= render partial: '0p/navbar/navbar' if config[:layout][:menu] %>
-
-
-	<% if publico? %></div><% end %>
-</div>
+<% if config[:layout][:menu] %>
+	<div class="app_navbar">
+		<% if config[:container][:menu] %><div class="container"><% end %>
+			<%= render partial: '0p/navbar/navbar'  %>
+		<% if config[:container][:menu] %></div><% end %>
+	</div>
+<% end %>

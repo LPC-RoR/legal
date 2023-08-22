@@ -24,15 +24,16 @@
   <body>
 
     <!-- OVER -->
-    <%= render partial: 'layouts/over' if partial?('layouts', nil, 'over') %>
+    <%= render partial: 'layouts/over' %>
 
     <!-- NAVBAR+ -->
-    <%= render partial: 'layouts/navbar' if config[:layout][:menu] %>
+    <%= render partial: 'layouts/navbar' %>
 
     <!-- BODY -->
     <%= render partial: 'layouts/app' %>
 
     <!-- FOOTER -->
+    <!-- Administrar con subdirectorios -->
     <%= render partial: 'layouts/footer' %>
 
   </body>

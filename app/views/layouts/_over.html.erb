@@ -1,5 +1,19 @@
 <!-- OVER MENU -->
-<%= render partial: 'layouts/over/menu_over' if (partial?('layouts', 'over', 'menu_over') and config[:layout][:menu_over]) %>
+<% if (partial?('layouts', 'over', 'menu_over') and config[:layout][:menu_over]) %>
+	<div class="menu_over">
+		<% if config[:container][:over] %><div class="container"><% end %>
+			<%= render partial: 'layouts/over/menu_over' %>
+		<% if config[:container][:over] %></div><% end %>
+	</div>
+<% end %>
 
 <!-- BANNER -->
-<%= render partial: 'layouts/over/banner' if partial?('layouts', 'over', 'banner') %>
+<% if (partial?('layouts', 'over', 'banner') and config[:layout][:banner]) %>
+	<% unless no_banner_display? %>
+		<div class="banner">
+			<% if config[:container][:over] %><div class="container"><% end %>
+				<%= render partial: 'layouts/over/banner' %>
+			<% if config[:container][:over] %></div><% end %>
+		</div>
+	<% end %>
+<% end %>

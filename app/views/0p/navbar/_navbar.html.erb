@@ -1,8 +1,6 @@
 <!-- LOGO SOBRE EL MENÚ -->
 <% if config[:layout][:menu] %>
 
-<%= image_tag("logo.jpg", class: "img-responsive", id: "logo") if  File.exist?("app/assets/images/logo.jpg") %>
-
 <!--NAVBAR-->
 <nav class="navbar navbar-expand-lg navbar-<%= config[:color][:navbar] %> bg2-<%=config[:color][:navbar_bg]%>" style="background-color: #e3f2fd;">
   <div class="container-fluid">

@@ -1,20 +1,8 @@
-<% unless no_banner_display? %>
-<div class="banner">
-	<% if publico? %><div class="container"><% end %>
-
-
-
-		<div class='row'>
-			<div class="col-lg-4 col-xs-12 imagen-banner">
-				<%= render partial: '0p/home/over_card', locals: {nombre: 'OverCard'} %>
-			</div>
-			<div class="col-lg-8 texto-banner">
-				<h2>Abogados</h2><h6>Derecho del trabajo</h6>
-			</div>
-		</div>
-
-
-
-	<% if publico? %></div><% end %>
+<div class='row'>
+	<div class="col-lg-4 col-xs-12 imagen-banner">
+		<%= render partial: '0p/home/over_card', locals: {nombre: 'OverCard'} %>
+	</div>
+	<div class="col-lg-8 texto-banner">
+		<h2>Abogados</h2><h6>Derecho del trabajo</h6>
+	</div>
 </div>
-<% end %>

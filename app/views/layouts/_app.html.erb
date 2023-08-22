@@ -1,10 +1,5 @@
 <div class="app_body">
-	<% if publico? %>
-		<div class="container">
-	<% else %>
-		<div style='padding-left: 1em; padding-right: 1em;'>
-	<% end %>
-
+	<% if config[:container][:body] %><div class="container"><% end %>
 
 		<% if notice %>
 		<p class="alert alert-primary"><%= notice %></p>
@@ -18,7 +13,5 @@
 		<%= render partial: 'layouts/body' %>
 		</div>
 
-
-		
-	</div>
+	<% if config[:container][:body] %></div><% end %>
 </div>
