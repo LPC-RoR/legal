@@ -2,6 +2,7 @@
 		<% unless pago.tar_comentarios.empty? %>
 
 		<ul>
+			<small>
 			<% pago.tar_comentarios.order(:orden).each do |comentario| %>
 				<small>
 				<% if comentario.tipo == 'Siempre' %>	
@@ -32,6 +33,7 @@
 				<% end %>
 				</small>
 			<% end %>
+			</small>
 		</ul>
 
 		<% end %>	
