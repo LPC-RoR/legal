@@ -12,7 +12,7 @@
 		<!-- TARIFA CON FORMULAS -->
 		<% unless pago.codigo_formula.blank? %>
 
-			<p><%= pago.tar_pago %> : 
+			<p class="text-info"><%= pago.tar_pago %> : 
 
 			<% unless objeto.uf_pago(pago.tar_pago).blank? %>
 				<%= s_moneda(pago.moneda, calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago).round(pago.moneda.blank? ? config[:decimales]['UF'] : config[:decimales][pago.moneda])) %> <%= '|' %>
@@ -54,6 +54,8 @@
     	<%= render partial: '0p/general/btn_proceso', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.codigo_formula}", clr: config[:color][:app], delete: false} unless pago.codigo_formula.blank? %>
 		</br>
     <% end %>
+
+    <hr>
 
 <% end %>
 
