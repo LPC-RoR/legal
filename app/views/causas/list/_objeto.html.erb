@@ -3,7 +3,13 @@
 	<div class="row">
 		<div class="col-10">
 			<small><%= dma(objeto.created_at) %> | <%= objeto.estado %> | <i><%= objeto.cliente.razon_social %></i></small></br>
-			<b><%= link_to objeto.rit, objeto %> | <%= objeto.causa %></b></br>
+			<b><%= link_to objeto.rit, objeto %> | <%= objeto.causa %></b>
+			<% if objeto.demanda? %>
+				<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank do %>
+					<i class="bi bi-box-arrow-up-right"></i>
+				<% end %>
+			<% end %>
+			</br>
 			<small>
 			<%= s_pesos(objeto.detalle_cuantia('Pesos')) %> | <%= s_pesos(objeto.monto_pagado) %> |
 

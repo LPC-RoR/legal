@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_07_18_163808) do
+ActiveRecord::Schema.define(version: 2023_08_23_031230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "antecedentes", force: :cascade do |t|
+    t.string "hecho"
+    t.string "riesgo"
+    t.string "ventaja"
+    t.text "cita"
+    t.integer "orden"
+    t.integer "causa_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["causa_id"], name: "index_antecedentes_on_causa_id"
+    t.index ["orden"], name: "index_antecedentes_on_orden"
+  end
 
   create_table "app_administradores", force: :cascade do |t|
     t.string "administrador"
@@ -290,6 +303,10 @@ ActiveRecord::Schema.define(version: 2023_07_18_163808) do
     t.string "estado_causa"
     t.datetime "fecha_uf"
     t.decimal "monto_pagado"
+    t.string "demandante"
+    t.string "abogados"
+    t.string "cargo"
+    t.string "sucursal"
     t.index ["era"], name: "index_causas_on_era"
     t.index ["estado"], name: "index_causas_on_estado"
     t.index ["estado_causa"], name: "index_causas_on_estado_causa"

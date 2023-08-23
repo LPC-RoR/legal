@@ -18,6 +18,8 @@ class Causa < ApplicationRecord
 
 	belongs_to :tipo_causa
 
+	has_many :antecedentes
+
     validates_presence_of :causa, :rit
 
 	def tarifas_cliente
@@ -64,6 +66,14 @@ class Causa < ApplicationRecord
 
 	def repositorio
     	AppRepositorio.where(owner_class: self.class.name).find_by(owner_id: self.id)
+	end
+
+	def demanda?
+		self.repositorio.blank? ? false : self.repositorio.archivos.where(app_archivo: 'Demanda').present?
+	end
+
+	def demanda
+		self.repositorio.archivos.find_by(app_archivo: 'Demanda')
 	end
 
 	def reportes

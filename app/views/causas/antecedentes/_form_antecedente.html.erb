@@ -1,0 +1,12 @@
+<%= form_for :form_antecedente, url: "/causas/#{objeto.id}/actualiza_antecedente?tag=#{tag}" do |form| %>
+	<%= render partial: '0p/form_fields/label', locals: { form: form, label: tag, v: true } %>
+	<div class='form-inline'>
+
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: tag.to_sym } %>
+
+		<button type="submit" class="btn btn-info">
+		  <i class="bi bi-plus-circle icon-white"></i>
+		  <i class="bi bi-tag icon-white"></i>
+		</button>
+	</div>
+<% end  %>

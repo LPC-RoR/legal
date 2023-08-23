@@ -8,6 +8,29 @@
 
 	<%= render partial: 'causas/partials/facturacion' %>
 
+<% elsif @options[:menu] == 'Cuantía' %>
+	<%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: @objeto} if @objeto.class.name == 'Causa' %>
+
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_valor_cuantias'} %>
+	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'tar_valor_cuantias', gly: 'plus-circle', clr: color('tar_valor_cuantias')} %>
+
+<% elsif @options[:menu] == 'Antecedentes' %>
+	<div class="row">
+		<div class="col-lg-3 col-xs-12">
+			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: @objeto, tag: 'demandante'} %>
+		</div>
+		<div class="col-lg-3 col-xs-12">
+			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: @objeto, tag: 'cargo'} %>
+		</div>
+		<div class="col-lg-3 col-xs-12">
+			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: @objeto, tag: 'sucursal'} %>
+		</div>
+		<div class="col-lg-3">
+			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: @objeto, tag: 'abogados'} %>
+		</div>
+	</div>
+	<p class="text-info">Hechos</p>
+	<%#= render partial: '0p/tabla/tabla', locals: {c: 'antecedentes'} %>
 <% elsif @options[:menu] == 'Registro' %>
 
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>
@@ -32,9 +55,4 @@
 		</div>
 	</div>
 
-<% elsif @options[:menu] == 'Cuantía' %>
-	<%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: @objeto} if @objeto.class.name == 'Causa' %>
-
-	<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_valor_cuantias'} %>
-	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'tar_valor_cuantias', gly: 'plus-circle', clr: color('tar_valor_cuantias')} %>
 <% end %>

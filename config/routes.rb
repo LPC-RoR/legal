@@ -16,10 +16,13 @@ Rails.application.routes.draw do
     match :procesa_registros, via: :get, on: :member
   end
   resources :causas do
+    resources :antecedentes
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
     match :actualiza_pago, via: :post, on: :member
+    match :actualiza_antecedente, via: :post, on: :member
   end
+  resources :antecedentes
   resources :clientes do
     match :cambio_estado, via: :get, on: :member
     match :crea_factura, via: :get, on: :member

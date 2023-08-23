@@ -4,7 +4,7 @@ module CptnConfigHelper
 			app: {
 				nombre: 'addt',
 				home: 'http://www.abogadosderechodeltrabajo.cl',
-				logo_navbar: 'logo_legal.png'
+				logo_navbar: nil
 			},
 			layout: {
 				menu_over: (not usuario_signed_in?),

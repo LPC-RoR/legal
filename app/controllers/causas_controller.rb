@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente ]
 
   include Tarifas
 
@@ -10,12 +10,16 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab( { menu: ['Facturacion', 'Documentos y enlaces', 'Registro', 'Reportes', 'Cuantía'] }, true )
+    init_tab( { menu: ['Facturacion', 'Cuantía', 'Antecedentes', 'Documentos y enlaces', 'Registro', 'Reportes'] }, true )
 
     if @options[:menu] == 'Facturacion'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       add_tabla('tar_facturaciones', @objeto.facturaciones, false)
       add_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
+    elsif @options[:menu] == 'Cuantía'
+      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+    elsif @options[:menu] == 'Antecedentes'
+      init_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)
     elsif @options[:menu] == 'Documentos y enlaces'
       AppRepositorio.create(app_repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repositorio.blank?
 
@@ -29,8 +33,6 @@ class CausasController < ApplicationController
     elsif @options[:menu] == 'Reportes'
       init_tabla('reg_reportes', @objeto.reportes, false)
       @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
-    elsif @options[:menu] == 'Cuantía'
-      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
     end
 
   end
@@ -110,6 +112,24 @@ class CausasController < ApplicationController
     end
 
     redirect_to "/st_bandejas?m=Causa&e=#{@objeto.estado}"
+  end
+
+  def actualiza_antecedente
+    unless params[:tag].blank?
+      case params[:tag]
+      when 'demandante'
+        @objeto.demandante = params[:form_antecedente][params[:tag].to_sym]
+      when 'cargo'
+        @objeto.cargo = params[:form_antecedente][params[:tag].to_sym]
+      when 'sucursal'
+        @objeto.sucursal = params[:form_antecedente][params[:tag].to_sym]
+      when 'abogados'
+        @objeto.abogados = params[:form_antecedente][params[:tag].to_sym]
+      end
+      @objeto.save
+    end
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Antecedentes"
   end
 
   # DELETE /causas/1 or /causas/1.json

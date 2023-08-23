@@ -1,0 +1,47 @@
+<%= form_with(model: antecedente, local: true) do |form| %>
+  <% if antecedente.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(antecedente.errors.count, "error") %> prohibited this antecedente from being saved:</h2>
+
+      <ul>
+      <% antecedente.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :hecho %>
+    <%= form.text_field :hecho %>
+  </div>
+
+  <div class="field">
+    <%= form.label :riesgo %>
+    <%= form.text_field :riesgo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ventaja %>
+    <%= form.text_field :ventaja %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cita %>
+    <%= form.text_area :cita %>
+  </div>
+
+  <div class="field">
+    <%= form.label :orden %>
+    <%= form.number_field :orden %>
+  </div>
+
+  <div class="field">
+    <%= form.label :causa_id %>
+    <%= form.number_field :causa_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

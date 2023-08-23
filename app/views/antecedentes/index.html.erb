@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Antecedentes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hecho</th>
+      <th>Riesgo</th>
+      <th>Ventaja</th>
+      <th>Cita</th>
+      <th>Orden</th>
+      <th>Causa</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @antecedentes.each do |antecedente| %>
+      <tr>
+        <td><%= antecedente.hecho %></td>
+        <td><%= antecedente.riesgo %></td>
+        <td><%= antecedente.ventaja %></td>
+        <td><%= antecedente.cita %></td>
+        <td><%= antecedente.orden %></td>
+        <td><%= antecedente.causa_id %></td>
+        <td><%= link_to 'Show', antecedente %></td>
+        <td><%= link_to 'Edit', edit_antecedente_path(antecedente) %></td>
+        <td><%= link_to 'Destroy', antecedente, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Antecedente', new_antecedente_path %>

@@ -7,7 +7,7 @@
     <!-- LOGO NAVBAR -->
     <% if File.exist?("app/assets/images/#{config[:app][:logo_navbar]}") %>
       <a class="navbar-brand" href="<%=config[:app][:home]%>">
-        <%= image_tag(config[:app][:logo_navbar], height: '30', class: "img-responsive", id: "navbar-logo") %>
+        <%= image_tag(config[:app][:logo_navbar], height: '30', class: "img-responsive", id: "navbar-logo") unless config[:app][:logo_navbar].blank? %>ADdT
       </a>
     <% end %>
 
