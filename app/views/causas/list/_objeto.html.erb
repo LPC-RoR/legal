@@ -1,0 +1,30 @@
+<small>
+<div class="list-item" style='padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
+	<div class="row">
+		<div class="col-10">
+			<small><%= dma(objeto.created_at) %> | <%= objeto.estado %> | <i><%= objeto.cliente.razon_social %></i></small></br>
+			<b><%= link_to objeto.rit, objeto %> | <%= objeto.causa %></b></br>
+			<small>
+			<%= s_pesos(objeto.detalle_cuantia('Pesos')) %> | <%= s_pesos(objeto.monto_pagado) %> |
+
+			<% if objeto.estado != 'ingreso' %>
+				<a data-toggle="collapse" href="#collapsePago<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapsePago<%=objeto.id%>">
+					<%= objeto.monto_pagado.blank? ? 'Ingresar' : 'Actualizar' %> Monto pagado al trabajador
+				</a>
+
+				<div class="collapse" id="collapsePago<%=objeto.id%>">
+				  <div class="card card-body">
+				  	<%= render partial: 'causas/list/form_monto_pagado', locals: {objeto: objeto} %>
+				  </div>
+				</div>
+			<% end %>
+
+			</br>
+			</small>
+		</div>
+		<div class="col-2">
+			<%= render partial: '0p/tabla/btns', locals: {objeto: objeto} %>
+		</div>
+	</div>
+</div>
+</small>

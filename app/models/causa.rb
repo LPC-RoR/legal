@@ -126,4 +126,9 @@ class Causa < ApplicationRecord
 		TarUfSistema.find_by(fecha: self.fecha_uf_pago(nombre_pago).to_date)
 	end
 
+	def detalle_cuantia(moneda)
+		valor = self.valores_cuantia.map { |vc| vc.valor if vc.moneda == moneda }.compact.sum
+		valor.blank? ? 0 : valor
+	end
+
 end

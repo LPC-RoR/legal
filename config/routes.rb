@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :causas do
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
+    match :actualiza_pago, via: :post, on: :member
   end
   resources :clientes do
     match :cambio_estado, via: :get, on: :member

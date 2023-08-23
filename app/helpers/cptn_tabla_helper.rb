@@ -10,7 +10,7 @@ module CptnTablaHelper
 	def new_button_conditions(controller)
 		if controller_name == 'st_bandejas'
 			# en las bandejas sólo se dedspliega para el primer estado del modelo
-			false
+			estado_ingreso?(@m, @e) and @m != 'TarFactura'
 		else
 			case controller
 

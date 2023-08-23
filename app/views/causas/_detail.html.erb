@@ -8,37 +8,15 @@
 		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: 'Cliente' } %>
 	</div>
 	<div class='col-md-4'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tribunal/Corte', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tribunal / Corte', v: true } %>
 		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tribunal_corte_id, colection: TribunalCorte.all.order(:tribunal_corte).collect { |tc| [tc.tribunal_corte, tc.id] }, display_field: 'tribunal_corte', prompt: 'Tribunal/Corte' } %>
 	</div>
 </div>
 
-<div class='row'>
-	<div class='col-md-3'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'RIT', v: true } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rit } %>
-	</div>
-	<div class='col-md-3'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Rol', v: false } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rol } %>
-	</div>
-	<div class='col-md-3'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Era', v: false } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :era } %>
-	</div>
-	<div class='col-md-3	'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Estado Causa', v: false } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :estado_causa } %>
-	</div>
-</div>
-
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'RIT / Rol : Era', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rit } %>
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Causa', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :causa } %>
-
-<hr>
-
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Monto Sentencia', v: false } %>
-<%= render partial: '0p/form_fields/number', locals: { form: form, token: :monto_pagado } %>
 
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>

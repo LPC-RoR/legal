@@ -1,0 +1,12 @@
+<%= form_for :monto_pagado, url: "/causas/#{objeto.id}/actualiza_pago" do |form| %>
+	<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Monto pagado al trabajador', v: true } %>
+	<div class='form-inline'>
+
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :monto } %>
+
+		<button type="submit" class="btn btn-info">
+		  <i class="bi bi-plus-circle icon-white"></i>
+		  <i class="bi bi-coin icon-white"></i>
+		</button>
+	</div>
+<% end  %>

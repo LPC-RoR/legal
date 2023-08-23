@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago ]
 
   include Tarifas
 
@@ -101,6 +101,15 @@ class CausasController < ApplicationController
 
     redirect_to "/causas/#{@objeto.id}?html_options[tab]=Reportes"
     
+  end
+
+  def actualiza_pago
+    unless params[:monto_pagado][:monto].blank?
+      @objeto.monto_pagado = params[:monto_pagado][:monto]
+      @objeto.save
+    end
+
+    redirect_to "/st_bandejas?m=Causa&e=#{@objeto.estado}"
   end
 
   # DELETE /causas/1 or /causas/1.json
