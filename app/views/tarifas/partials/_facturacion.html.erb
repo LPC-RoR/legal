@@ -46,13 +46,14 @@
 
 	<% end %>
 
+    <small><p class="text-info">Aplicación de tarifa</p></small>
+    <%= render partial: 'tarifas/partials/comentarios', locals: {pago: pago, objeto: objeto} unless objeto.uf_pago(pago.tar_pago).blank? %>
+
 	<!-- BOTON FACTURACION -->
 	<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.codigo_formula) %>
     	<%= render partial: '0p/general/btn_proceso', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.codigo_formula}", clr: config[:color][:app], delete: false} unless pago.codigo_formula.blank? %>
 		</br>
     <% end %>
-
-    <%= render partial: 'tarifas/partials/comentarios', locals: {pago: pago, objeto: objeto} unless objeto.uf_pago(pago.tar_pago).blank? %>
 
 <% end %>
 
