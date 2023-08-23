@@ -22,7 +22,7 @@
 				<% else %>
 					<%= s_moneda('Pesos', (calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago).round(config[:decimales]['UF']) * objeto.uf_pago(pago.tar_pago).valor).round(config[:decimales]['Pesos'])) %>
 				<% end %>
-			<% end %></p>
+			<% end %>
 
 			<small>
 				UF de cálculo : <%= dma(objeto.fecha_uf_pago(pago.tar_pago)) %> | <%= objeto.uf_pago(pago.tar_pago).blank? ? 'UF no encontrada' : s_pesos2(objeto.uf_pago(pago.tar_pago).valor) %>
