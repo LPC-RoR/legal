@@ -7,6 +7,8 @@ class AppArchivo < ApplicationRecord
 		'created_at'
 	]
 
+	before_save { self.app_archivo.capitalize! }
+
 	mount_uploader :archivo, ArchivoUploader
 
 #	belongs_to :linea, optional: true

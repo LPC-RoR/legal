@@ -1,6 +1,6 @@
 <p class="text-muted">
   <a data-toggle="collapse" href="#collapse<%=tag.capitalize%>" role="button" aria-expanded="false" aria-controls="collapse<%=tag.capitalize%>">
-    <small><%= tag.capitalize %></small>
+    <small><%= tag.capitalize %><i class="bi bi-caret-down"></i></small>
   </a></br>
   <small><%= render partial: 'causas/antecedentes/display_antecedente', locals: {antecedente: objeto.send(tag)} unless objeto.send(tag).blank? %></small>
 </p>

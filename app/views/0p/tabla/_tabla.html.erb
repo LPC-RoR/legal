@@ -8,8 +8,8 @@
   <%= render partial: '0p/tabla/paginate', locals: {c: c, location: 'arriba'} %>
 
   <!-- TABLA -->
-  <% if partial?(c, 'list', 'list') %>
-    <%= render partial: "#{c}/list/list", locals: {coleccion: @coleccion[c]} %>
+  <% if partial?(c, 'list', 'objeto') %>
+    <%= render partial: "0p/tabla/list", locals: {coleccion: @coleccion[c]} %>
   <% else %>
     <%= render partial: '0p/tabla/display_tabla', locals: {c: c} %>
   <% end %>

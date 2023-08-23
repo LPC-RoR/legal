@@ -16,21 +16,25 @@
 
 <% elsif @options[:menu] == 'Antecedentes' %>
 	<div class="row">
-		<div class="col-lg-3 col-xs-12">
+		<div class="col-lg-4 col-xs-12">
 			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: @objeto, tag: 'demandante'} %>
 		</div>
-		<div class="col-lg-3 col-xs-12">
+		<div class="col-lg-4 col-xs-12">
 			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: @objeto, tag: 'cargo'} %>
 		</div>
-		<div class="col-lg-3 col-xs-12">
+		<div class="col-lg-4">
 			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: @objeto, tag: 'sucursal'} %>
 		</div>
-		<div class="col-lg-3">
+	</div>
+	<div class="row">
+		<div class="col-lg-4 col-xs-12">
 			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: @objeto, tag: 'abogados'} %>
 		</div>
+		<div class="col-lg-8">
+			<p class="text-info">Antecedentes</p>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'antecedentes'} %>
+		</div>
 	</div>
-	<p class="text-info">Hechos</p>
-	<%#= render partial: '0p/tabla/tabla', locals: {c: 'antecedentes'} %>
 <% elsif @options[:menu] == 'Registro' %>
 
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>

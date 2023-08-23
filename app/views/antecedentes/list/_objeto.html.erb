@@ -1,0 +1,33 @@
+<small>
+<div class="list-item" style='padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
+	<div class="row">
+		<div class="col-10">
+
+			<a data-toggle="collapse" href="#collapsePago<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapsePago<%=objeto.id%>">
+				<%= objeto.hecho %>
+			</a>
+			</br>
+
+			<small>
+
+			<div class="collapse" id="collapsePago<%=objeto.id%>">
+			  <div class="card card-body">
+			  	<%= objeto.cita %>
+			  </div>
+			</div>
+
+			<% unless objeto.riesgo.blank? %>
+				<div class="text-danger"><i class="bi bi-exclamation-diamond"></i> <%= objeto.riesgo %></div>
+			<% end %>
+			<% unless objeto.ventaja.blank? %>
+				<div class="text-success"><i class="bi bi-bell"> </i><%= objeto.ventaja %></div>
+			<% end %>
+			</small>
+
+		</div>
+		<div class="col-2">
+			<%= render partial: '0p/tabla/btns', locals: {objeto: objeto} %>
+		</div>
+	</div>
+</div>
+</small>

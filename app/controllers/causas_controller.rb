@@ -10,7 +10,7 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab( { menu: ['Facturacion', 'Cuantía', 'Antecedentes', 'Documentos y enlaces', 'Registro', 'Reportes'] }, true )
+    init_tab( { menu: ['Antecedentes', 'Cuantía', 'Facturacion', 'Documentos y enlaces', 'Registro', 'Reportes'] }, true )
 
     if @options[:menu] == 'Facturacion'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
