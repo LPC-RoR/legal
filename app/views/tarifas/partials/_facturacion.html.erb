@@ -12,7 +12,7 @@
 		<!-- TARIFA CON FORMULAS -->
 		<% unless pago.codigo_formula.blank? %>
 
-			<p class="text-info"><%= pago.tar_pago %> : 
+			<p class="text-muted"><%= pago.tar_pago %> : 
 
 			<% unless objeto.uf_pago(pago.tar_pago).blank? %>
 				<%= s_moneda(pago.moneda, calcula(pago.formula_tarifa, objeto.tar_tarifa.tar_formulas, objeto, pago).round(pago.moneda.blank? ? config[:decimales]['UF'] : config[:decimales][pago.moneda])) %> <%= '|' %>
@@ -24,7 +24,7 @@
 				<% end %>
 			<% end %></p>
 
-			<p class="text-muted"><small>
+			<small>
 				UF de cálculo : <%= dma(objeto.fecha_uf_pago(pago.tar_pago)) %> | <%= objeto.uf_pago(pago.tar_pago).blank? ? 'UF no encontrada' : s_pesos2(objeto.uf_pago(pago.tar_pago).valor) %>
 			</small></p>
 
