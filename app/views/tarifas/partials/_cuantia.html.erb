@@ -4,14 +4,17 @@
 	<%= render partial: 'tarifas/partials/comentarios', locals: {objeto: objeto, pago: pago} unless uf_del_dia.blank? %>
 
 	Detalle Cuantía
-	<table class='table table-sm table-borderless'>
-		<tbody>
-			<% objeto.valores_cuantia.each do |vc| %>
-				<tr>
-					<td><small><%= vc.detalle %></small></td>
-					<td align="right"><small><%= "#{vc.moneda == 'Pesos' ? number_to_currency(vc.valor, locale: :en, precision: 0) : number_to_currency(vc.valor, unit: 'UF', precision: 2)}" %></small></td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
+	<small>
+	<div class="row">
+		<% objeto.valores_cuantia.each do |vc| %>
+			<div class="col-8">
+				<%= vc.detalle %>
+			</div>
+			<div class="col-4" align='right'>
+				<%= "#{vc.moneda == 'Pesos' ? number_to_currency(vc.valor, locale: :en, precision: 0) : number_to_currency(vc.valor, unit: 'UF', precision: 2)}" %>
+			</div>
+		<% end %>
+	</div>
+	</small>
+
 <% end %>
