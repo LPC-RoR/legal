@@ -3,7 +3,7 @@
 <!--/br-->
 	<%= render partial: 'tarifas/partials/comentarios', locals: {objeto: objeto, pago: pago} unless uf_del_dia.blank? %>
 
-	Detalle Cuantía
+	<small>Detalle Cuantía
 	<small>
 	<div class="row">
 		<% objeto.valores_cuantia.each do |vc| %>
@@ -15,6 +15,6 @@
 			</div>
 		<% end %>
 	</div>
-	</small>
+	</small></small>
 
 <% end %>
