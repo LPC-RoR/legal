@@ -2,7 +2,7 @@ module CptnTablaAppHelper
 #**********************************************************************   APP   *************************************************************
 
 	def app_no_th_controllers
-		[]
+		['tar_uf_facturaciones']
 	end
 
 	def app_new_button_conditions(controller)

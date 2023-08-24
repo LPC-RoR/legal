@@ -97,4 +97,14 @@ class TarFacturacion < ApplicationRecord
 		end
 	end
 
+	def control_estado
+		if self.tar_aprobacion.blank? and self.tar_factura.blank?
+			'ingreso'
+		elsif self.tar_factura.present?
+			'aprobado'
+		else
+			'aprobacion'
+		end
+	end
+
 end

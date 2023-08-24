@@ -6,15 +6,21 @@
 			<% end %>
 		<% end %>
 	<% elsif action_name == 'show' %>
-		<% if objeto.tar_aprobacion.blank? and objeto.tar_factura.blank? %>
-			<%= link_to "/tar_facturaciones/#{objeto.id}/a_aprobacion?indice=#{@objeto.id}" do %>
-				<i class="bi bi-arrow-bar-left"></i></small>
-			<% end %>
-		<% elsif objeto.tar_factura.blank? %>
-			<%= link_to "/tar_facturaciones/#{objeto.id}/a_pendiente?indice=#{@objeto.id}" do %>
-				<i class="bi bi-arrow-bar-right"></i></small>
-			<% end %>
+	<% end %>
+<% elsif controller_name == 'causas' %>	
+	<% if objeto.tar_aprobacion.blank? and objeto.tar_factura.blank? %>
+		<%= link_to link_x_btn(objeto, '/elimina', true) do %>
+			<small><i class="bi bi-file-plus"></i> Crea aprobación</small>
 		<% end %>
 	<% end %>
-<% else %>	
+	<% if objeto.tar_aprobacion.present? %>
+		<%= link_to objeto.tar_aprobacion do %>
+			<small><i class="bi bi-check-all"></i> <%= dma(objeto.tar_aprobacion.fecha) %></small>
+		<% end %>
+	<% end %>
+	<% if objeto.tar_factura.present? %>
+		<%= link_to "tar_facturaciones/#{objeto.id}/crea_aprobacion" do %>
+			<small><i class="bi bi-receipt"></i></small>
+		<% end %>
+	<% end %>
 <% end %>

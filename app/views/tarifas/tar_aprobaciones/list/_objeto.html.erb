@@ -1,6 +1,6 @@
 <small>
 <div class="list-item" style='padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
-	<%= link_to objeto.cliente.razon_social, "/servicios/aprobacion?indice=#{objeto.id}" %> <%= link_to objeto.cliente.razon_social, objeto %> | <%= dma(objeto.fecha) %></br>
+	<%= objeto.cliente.razon_social %> | <%= link_to dma(objeto.fecha), objeto %></br>
 	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
 </div>
 </small>
