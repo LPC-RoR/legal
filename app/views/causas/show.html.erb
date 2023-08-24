@@ -9,7 +9,7 @@
 	<%= render partial: 'causas/partials/facturacion' %>
 
 <% elsif @options[:menu] == 'Cuantía' %>
-	<%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: @objeto} if @objeto.class.name == 'Causa' %>
+	<%= render partial: 'tarifas/partials/uf_del_dia' %>
 
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_valor_cuantias'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'tar_valor_cuantias', gly: 'plus-circle', clr: color('tar_valor_cuantias')} %>
