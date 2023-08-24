@@ -2,16 +2,17 @@
 <div class="list-item" style='padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
 	<div class="row">
 		<div class="col-10">
-			<small><%= objeto.padre.cliente.razon_social %></small> | 
+			<small><%= objeto.padre.cliente.razon_social %> | 
 			<% unless ['TarServicio', 'RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
 				<%= objeto.pago.tar_pago %> | 
 			<% end %>
-			<%= s_pesos(objeto.monto_pesos) %>
+			<%= s_uf(objeto.monto_uf) %> : <%= s_pesos(objeto.monto_pesos) %>
 			<% if objeto.tar_factura.present? %>
 				<%= link_to objeto.tar_factura do %>
 					<i class="bi bi-box-arrow-up-right"></i>
 				<% end %>
 			<% end %>
+			</small>
 			</br>
 
 			<%= objeto.tipo_owner %> : 

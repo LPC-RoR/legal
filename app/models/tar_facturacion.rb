@@ -28,6 +28,17 @@ class TarFacturacion < ApplicationRecord
 		end
 	end
 
+	def owner_description
+		case self.owner.class.name
+		when 'TarServicio'
+			self.owner.descripcion
+		when 'RegReporte'
+			self.owner.reg_reporte
+		else
+			self.owner.send(self.owner.class.name.downcase)
+		end
+	end
+
 	def pago
 		unless self.padre.tar_tarifa.tar_pagos.empty?
 			self.padre.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
@@ -43,7 +54,7 @@ class TarFacturacion < ApplicationRecord
 	# métodos para la correcto uso de la UF
 
 	def fecha_uf
-		if self.tar_factura.blank?
+		if self.tar_factura.blank? and self.tar_aprobacion.blank?
 			if self.owner_class == 'Causa'
 				pago = self.owner.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
 				uf_facturacion = self.owner.uf_facturaciones.find_by(pago: pago.tar_pago)
@@ -52,8 +63,12 @@ class TarFacturacion < ApplicationRecord
 				Time.zone.today.to_date
 			end
 		else
-			self.tar_factura.fecha
+			self.tar_factura.present? ? self.tar_factura.fecha : self.tar_aprobacion.fecha
 		end
+	end
+
+	def uf_calculo
+		TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
 	end
 
 	def to_pesos

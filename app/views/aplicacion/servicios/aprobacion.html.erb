@@ -1,5 +1,5 @@
 <p><%= image_tag 'logo_tyc.png' %></p>
-<%= render partial: '0p/general/gly_title_size', locals: {gly: 'cash-coin', title: "Factura por aprobar", size: 4} %>
+<%= render partial: '0p/general/gly_title_size', locals: {gly: 'cash-coin', title: "Aprobación de pagos para facturar", size: 4} %>
 
 <%= render partial: '0p/general/gly_title_size', locals: {gly: 'building', title: @objeto.cliente.razon_social, size: 5} %>
 
@@ -8,19 +8,21 @@
 
 	<div class='row'>
 		<div class="col-md-6">
-			<b><%= facturacion.pago_tarifa.tar_pago unless facturacion.pago_tarifa.blank? %></b></br>
+			<% if facturacion.uf_calculo.blank? %>
+				<p class='text-danger'><i class="bi bi-cone-striped"></i> 
+				No se encontró UF para la fecha de este reporte, los pagos en UF no desplegarán su volor en pesos!</p>
+			<% end %>
+			<% unless facturacion.pago_tarifa.blank? %>
+				<p><b><%= facturacion.pago_tarifa.tar_pago %></b></p>
+			<% end %>
 			<!--small-->
-				<b>
-					<% unless uf_del_dia.blank? %>
-						<%= facturacion.padre.class.name %> : 
-						<% if facturacion.padre.class.name == 'Causa' %>
-							<%= link_to facturacion.padre.rit, facturacion.padre  %> <%= '|' %> 
-						<% end %>
-						<%= "#{facturacion.padre.as_owner} : #{s_uf(facturacion.monto_uf)} | #{s_pesos(facturacion.monto_pesos)}" %> 
-					<% else %>
-						UF del día no ingresada!
+				<p><b>
+					<%= facturacion.tipo_owner %> : 
+					<% if facturacion.padre.class.name == 'Causa' %>
+						<%= link_to facturacion.padre.rit, facturacion.padre  %> <%= '|' %> 
 					<% end %>
-				</b></br>
+					<%= "#{facturacion.owner_description} : #{s_uf(facturacion.monto_uf)} | #{s_pesos(facturacion.monto_pesos)}" %> 
+				</b></p>
 				<small><%= link_to 'Ver reporte', facturacion.owner, target: :_blank if facturacion.owner.class.name == 'RegReporte' %></small>
 				<%= render partial: 'tarifas/partials/cuantia', locals: {objeto: facturacion.padre, pago: facturacion.pago} if facturacion.owner.class.name == 'Causa'%>
 			<!--/small-->
