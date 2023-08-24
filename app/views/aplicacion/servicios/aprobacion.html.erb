@@ -25,7 +25,7 @@
 				</b></p>
 				<small><%= link_to 'Ver reporte', facturacion.owner, target: :_blank if facturacion.owner.class.name == 'RegReporte' %></small>
 				<% if facturacion.owner.class.name == 'Causa' %>
-					<%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {facturacion: facturacion} %>
+					<%= render partial: 'tarifas/partials/uf_facturacion', locals: {facturacion: facturacion} %>
 					<%= render partial: 'tarifas/partials/cuantia', locals: {objeto: facturacion.padre, pago: facturacion.pago} %>
 				<% end %>
 			<!--/small-->

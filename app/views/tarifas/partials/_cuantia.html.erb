@@ -1,8 +1,6 @@
 <% unless objeto.tar_tarifa.blank? %>
-	<%#= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: objeto} unless uf_del_dia.blank? %>
-<!--/br-->
 	<small><p class='text-info'>Aplicación de tarifa</p></small>
-	<%#= render partial: 'tarifas/partials/comentarios', locals: {objeto: objeto, pago: pago} unless uf_del_dia.blank? %>
+	<%= render partial: 'tarifas/partials/comentarios', locals: {objeto: objeto, pago: pago} %>
 
 	<small><p class='text-info'>Detalle Cuantía</p>
 	<small>
