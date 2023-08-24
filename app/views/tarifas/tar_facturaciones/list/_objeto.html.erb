@@ -2,7 +2,7 @@
 <div class="list-item" style='padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
 	<div class="row">
 		<div class="col-10">
-			<small><%= objeto.padre.cliente.razon_social %> | 
+			<small><%= objeto.padre.cliente.razon_social %></br>
 			<% unless ['TarServicio', 'RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
 				<%= objeto.pago.tar_pago %> | 
 			<% end %>
