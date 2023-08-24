@@ -24,7 +24,7 @@
 					<%= "#{facturacion.owner_description} : #{s_uf(facturacion.monto_uf)} | #{s_pesos(facturacion.monto_pesos)}" %> 
 				</b></p>
 				<small><%= link_to 'Ver reporte', facturacion.owner, target: :_blank if facturacion.owner.class.name == 'RegReporte' %></small>
-				<% facturacion.owner.class.name == 'Causa' %>
+				<% if facturacion.owner.class.name == 'Causa' %>
 					<%= render partial: 'tarifas/partials/cuantia', locals: {objeto: facturacion.padre, pago: facturacion.pago} %>
 				<% end %>
 			<!--/small-->
