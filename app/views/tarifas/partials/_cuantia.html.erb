@@ -2,6 +2,7 @@
 	<%= render partial: 'tarifas/partials/encabezado_cuantia', locals: {objeto: objeto} unless uf_del_dia.blank? %>
 <!--/br-->
 	<small><p class='text-info'>Aplicación de tarifa</p></small>
+	<%= pago.class.name %> <%= pago.tar_pago %>
 	<%#= render partial: 'tarifas/partials/comentarios', locals: {objeto: objeto, pago: pago} unless uf_del_dia.blank? %>
 
 	<small><p class='text-info'>Detalle Cuantía</p>
