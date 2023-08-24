@@ -1,5 +1,5 @@
 class Tarifas::TarFacturacionesController < ApplicationController
-  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado crea_aprobacion ]
+  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado crea_aprobacion a_aprobacion a_pendiente ]
 
   include Tarifas
 
@@ -92,6 +92,20 @@ class Tarifas::TarFacturacionesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def a_aprobacion
+    aprobacion = TarAprobacion.find(params[:indice])
+    aprobacion.tar_facturaciones << @objeto
+
+    redirect_to aprobacion
+  end
+
+  def a_pendiente
+    aprobacion = TarAprobacion.find(params[:indice])
+    aprobacion.tar_facturaciones.delete(@objeto)
+
+    redirect_to aprobacion
   end
 
   def facturar

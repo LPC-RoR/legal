@@ -175,6 +175,8 @@ Rails.application.routes.draw do
       match :estado, via: :get, on: :member
       # nueva lógica
       match :crea_aprobacion, via: :get, on: :member
+      match :a_aprobacion, via: :get, on: :member
+      match :a_pendiente, via: :get, on: :member
     end
     resources :tar_servicios
 
