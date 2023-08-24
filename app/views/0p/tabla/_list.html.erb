@@ -1,4 +1,4 @@
 <hr>
 <% coleccion.each do |objeto| %>
-	<%= render partial: "#{objeto.class.name.tableize}/list/objeto", locals: {objeto: objeto} %>
+	<%= render partial: get_partial(objeto.class.name.tableize, 'list', 'objeto') , locals: {objeto: objeto} %>
 <% end %>

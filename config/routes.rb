@@ -72,7 +72,7 @@ Rails.application.routes.draw do
 
   scope module: 'aplicacion' do
     resources :publicos do
-      match :home, via: :get
+      match :home, via: :get, on: :collection
     end
     resources :app_recursos do
       collection do
@@ -83,6 +83,9 @@ Rails.application.routes.draw do
         match :aprobaciones, via: :get
         match :aprobacion, via: :get
       end
+    end
+    resources :servicios do
+      match :aprobacion, via: :get, on: :collection
     end
   end
 
@@ -170,6 +173,8 @@ Rails.application.routes.draw do
       match :facturable, via: :get, on: :member
       match :facturar, via: :get, on: :member
       match :estado, via: :get, on: :member
+      # nueva lógica
+      match :crea_aprobacion, via: :get, on: :member
     end
     resources :tar_servicios
 
@@ -184,6 +189,8 @@ Rails.application.routes.draw do
       match :crea_factura, via: :get, on: :collection
       match :cambio_estado, via: :get, on: :member
     end
+
+    resources :tar_aprobaciones
 
     resources :tar_variables
     resources :tar_bases

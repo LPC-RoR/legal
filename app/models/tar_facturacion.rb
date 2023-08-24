@@ -7,6 +7,7 @@ class TarFacturacion < ApplicationRecord
 	]
 
 	belongs_to :tar_factura, optional: true
+	belongs_to :tar_aprobacion, optional: true
 
 	def padre
 		self.owner_id.blank? ? nil : (self.owner_class == 'RegReporte' ? self.owner_class.constantize.find(self.owner_id).owner : self.owner_class.constantize.find(self.owner_id))
@@ -63,7 +64,7 @@ class TarFacturacion < ApplicationRecord
 	end
 
 	def pago_tarifa
-		if self.padre.class == 'RegReporte'
+		if ['RegReporte', 'TarServicio'].include?(self.padre.class.name)
 			nil
 		else
 			self.padre.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)

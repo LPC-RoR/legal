@@ -1,5 +1,5 @@
 class Tarifas::TarFacturacionesController < ApplicationController
-  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado ]
+  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado crea_aprobacion ]
 
   include Tarifas
 
@@ -44,6 +44,20 @@ class Tarifas::TarFacturacionesController < ApplicationController
     end
 
     redirect_to "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Facturacion"
+  end
+
+  def crea_aprobacion
+    cliente = @objeto.padre.cliente
+    # crea aprobacion
+    aprobacion = cliente.tar_aprobaciones.create(cliente_id: cliente.id, fecha: Time.zone.today.to_date)
+    aprobacion.tar_facturaciones << @objeto
+    # asocia todas las facturaciones del cliente disponibles
+    disponibles = TarFacturacion.where(tar_aprobacion_id: nil, tar_factura_id: nil)
+    disponibles.each do |factn|
+      aprobacion.tar_facturaciones << factn if factn.padre.cliente.id == cliente.id
+    end
+
+    redirect_to aprobacion, notice: 'Aprobación fue exitósamente creada'
   end
 
   # GET /tar_facturaciones/1/edit

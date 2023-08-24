@@ -26,7 +26,6 @@ module CptnMapHelper
 	# Este helper pergunta si hay un partial con un nombre particular en el directorio del controlador
 	# tipo: {nil='controlador', 'partials', (ruta-adicional)}
 	def partial?(controller, dir, partial)
-#		File.exist?("app/views/#{(scope_controller(controller).blank? ? '' : "#{scope_controller(controller)}/")}#{controller}/_#{partial}.html.erb")
 		File.exist?("app/views/#{get_partial_dir(controller, dir)}_#{partial}.html.erb")
 	end
 

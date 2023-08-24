@@ -9,6 +9,8 @@ class Cliente < ApplicationRecord
 	has_many :causas
 	has_many :consultorias
 
+	has_many :tar_aprobaciones
+
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social
 
@@ -40,10 +42,12 @@ class Cliente < ApplicationRecord
 		self.facturaciones.where(estado: 'aprobado', tar_factura_id: nil)
 	end
 
+	# DEPRECATED
 	def aprob_total_uf
 		self.aprobaciones.map {|facturacion| facturacion.monto_uf}.sum
 	end
 
+	# DEPRECATED
 	def aprob_total_pesos
 		self.aprobaciones.map {|facturacion| facturacion.monto_pesos}.sum
 	end

@@ -6,7 +6,7 @@ module CptnTablaAppHelper
 	end
 
 	def app_new_button_conditions(controller)
-		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_valor_cuantias', 'tar_facturas', 'tar_uf_facturaciones', 'item-m_registros', 'periodo-m_registros', 'm_registros', 'general-m_periodos', 'perfil-m_periodos'].include?(controller)
+		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_valor_cuantias', 'tar_facturas', 'tar_uf_facturaciones', 'item-m_registros', 'periodo-m_registros', 'm_registros', 'general-m_periodos', 'perfil-m_periodos', 'tar_aprobaciones'].include?(controller)
 			false
 		elsif ['tar_facturaciones'].include?(controller)
 			dog? and controller_name == 'tar_facturas'

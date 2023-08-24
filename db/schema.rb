@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_23_031230) do
+ActiveRecord::Schema.define(version: 2023_08_23_225644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -687,6 +687,15 @@ ActiveRecord::Schema.define(version: 2023_08_23_031230) do
     t.index ["app_nomina_id"], name: "index_st_perfil_modelos_on_app_nomina_id"
   end
 
+  create_table "tar_aprobaciones", force: :cascade do |t|
+    t.integer "cliente_id"
+    t.datetime "fecha"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_tar_aprobaciones_on_cliente_id"
+    t.index ["fecha"], name: "index_tar_aprobaciones_on_fecha"
+  end
+
   create_table "tar_bases", force: :cascade do |t|
     t.string "base"
     t.decimal "monto_uf"
@@ -777,6 +786,7 @@ ActiveRecord::Schema.define(version: 2023_08_23_031230) do
     t.string "moneda"
     t.string "cliente_class"
     t.integer "cliente_id"
+    t.integer "tar_aprobacion_id"
     t.index ["cliente_class"], name: "index_tar_facturaciones_on_cliente_class"
     t.index ["cliente_id"], name: "index_tar_facturaciones_on_cliente_id"
     t.index ["estado"], name: "index_tar_facturaciones_on_estado"
@@ -784,6 +794,7 @@ ActiveRecord::Schema.define(version: 2023_08_23_031230) do
     t.index ["moneda"], name: "index_tar_facturaciones_on_moneda"
     t.index ["owner_class"], name: "index_tar_facturaciones_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturaciones_on_owner_id"
+    t.index ["tar_aprobacion_id"], name: "index_tar_facturaciones_on_tar_aprobacion_id"
     t.index ["tar_factura_id"], name: "index_tar_facturaciones_on_tar_factura_id"
   end
 
