@@ -17,6 +17,17 @@ class TarFacturacion < ApplicationRecord
 		self.owner_class.constantize.find(self.owner_id)
 	end
 
+	def tipo_owner
+		case self.owner.class.name
+		when 'TarServicio'
+			'Servicio'
+		when 'RegReporte'
+			'Reporte Tareas'
+		else
+			self.owner.class.name
+		end
+	end
+
 	def pago
 		unless self.padre.tar_tarifa.tar_pagos.empty?
 			self.padre.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)

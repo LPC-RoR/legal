@@ -2,8 +2,10 @@
 <div class="list-item" style='padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
 	<div class="row">
 		<div class="col-10">
-			<%= objeto.glosa %></br>
 			<small><%= objeto.padre.cliente.razon_social %></small> | 
+			<% unless ['TarServicio', 'RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
+				<%= objeto.pago.tar_pago %> | 
+			<% end %>
 			<%= s_pesos(objeto.monto_pesos) %>
 			<% if objeto.tar_factura.present? %>
 				<%= link_to objeto.tar_factura do %>
@@ -11,6 +13,20 @@
 				<% end %>
 			<% end %>
 			</br>
+
+			<%= objeto.tipo_owner %> : 
+			<% case objeto.owner.class.name %>
+			<% when 'Causa' %>
+				<%= link_to objeto.owner.rit, "/causas/#{objeto.owner.id}?html_options[menu]=Facturacion" %> <%= objeto.owner.causa %>
+			<% when 'TarServicio' %>
+				<%= link_to objeto.owner.codigo, objeto.owner %> <%= objeto.owner.descripcion %>
+			<% when 'RegReporte' %>
+				<%= link_to objeto.owner.reg_reporte, objeto.owner %>
+			<% when 'Consultoria' %>
+				<%= link_to objeto.owner.consultoria, objeto.owner %>
+			<% end %>
+			</br>
+
 			<% if objeto.tar_aprobacion.blank? and objeto.tar_factura.blank? %>
 				<%= link_to "tar_facturaciones/#{objeto.id}/crea_aprobacion" do %>
 					<small><i class="bi bi-file-plus"></i> Crea aprobación</small>
