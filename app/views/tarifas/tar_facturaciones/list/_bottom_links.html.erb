@@ -10,7 +10,7 @@
 <% elsif controller_name == 'causas' %>	
 	<% if objeto.tar_aprobacion.blank? and objeto.tar_factura.blank? %>
 		<%= link_to link_x_btn(objeto, '/elimina', true) do %>
-			<small><i class="bi bi-file-plus"></i> Crea aprobación</small>
+			<small><i class="bi bi-trash"></i></small>
 		<% end %>
 	<% end %>
 	<% if objeto.tar_aprobacion.present? %>
