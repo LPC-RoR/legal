@@ -32,12 +32,11 @@ class Tarifas::TarFacturacionesController < ApplicationController
       # do_eval funciona para CAUSA/CONSULTORIA
       pago = owner.tar_tarifa.tar_pagos.find_by(codigo_formula: params[:facturable])
       formula = TarFormula.find_by(codigo: params[:facturable]).tar_formula if pago.valor.blank?
-      libreria = owner.tar_tarifa.tar_formulas
       #----------------------------------------
       owner_class = owner.class.name
       moneda = (pago.moneda.blank? ? 'UF' : pago.moneda)
       glosa = "#{pago.tar_pago} : #{owner.rit if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
-      monto = pago.valor.blank? ? calcula( formula, libreria, owner, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5)) : pago.valor
+      monto = pago.valor.blank? ? calcula2( formula, owner, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5)) : pago.valor
       unless monto == 0
         TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto)
       end

@@ -17,15 +17,15 @@
 						<% end %>
 					</li>
 				<% elsif comentario.tipo == 'Condición' %>
-					<% if eval_condicion(comentario.formula, pago.tar_tarifa.tar_formulas, objeto, pago) %>
+					<% if calcula2(comentario.formula.strip, objeto, pago) %>
 						<li>
 							<%= comentario.comentario %>
 							<!-- DESPLIEGUE DE VALORES -->
 							<% unless comentario.despliegue.blank? %>
 								<% if comentario.moneda == 'Pesos' %>
-									<%= s_pesos(calcula2(comentario.despliegue, objeto, pago)) %>
+									<%#= s_pesos(calcula2(comentario.despliegue, objeto, pago)) %>
 								<% else %>
-									<%= s_uf(calcula2(comentario.despliegue, objeto, pago)) %>
+									<%#= s_uf(calcula2(comentario.despliegue, objeto, pago)) %>
 								<% end %>
 							<% end %>
 						</li>
