@@ -1,0 +1,37 @@
+	<% if pago.valor.blank? %>
+		<!-- TARIFA CON FORMULAS -->
+		<% unless pago.codigo_formula.blank? %>
+			<!-- Verifica que la fórmula del pago haya sido ingresada -->
+
+			<% unless objeto.uf_pago(pago.tar_pago).blank? %>
+				<%= s_moneda(pago.moneda, calcula2(pago.formula_tarifa, objeto, pago).round(pago.moneda.blank? ? config[:decimales]['UF'] : config[:decimales][pago.moneda])) %> <%= '|' %>
+
+				<% if pago.moneda == 'Pesos' %>
+					<%= s_moneda('UF', (calcula2(pago.formula_tarifa, objeto, pago).round(config[:decimales]['Pesos']) / objeto.uf_pago(pago.tar_pago).valor).round(config[:decimales]['UF'])) %>
+				<% else %>
+					<%= s_moneda('Pesos', (calcula2(pago.formula_tarifa, objeto, pago).round(config[:decimales]['UF']) * objeto.uf_pago(pago.tar_pago).valor).round(config[:decimales]['Pesos'])) %>
+				<% end %>
+			<% end %>
+
+			</br>
+			<small>
+				UF de cálculo : <%= dma(objeto.fecha_uf_pago(pago.tar_pago)) %> | <%= objeto.uf_pago(pago.tar_pago).blank? ? 'UF no encontrada' : s_pesos2(objeto.uf_pago(pago.tar_pago).valor) %>
+			</small>
+
+		<% else %>
+			<!-- Pago no contiene su fórmula -->
+			Pago sin código de fórmula
+		<% end %>
+
+	<% else %>
+		<!-- TARIFA CON CUOTAS -->
+		<%= pago.moneda == 'Pesos' ? '$' : 'UF' %> <%= number_to_currency(pago.valor, precision: (pago.moneda == 'Pesos' ? 0 : 2), unit: '') %></br>
+		<small>
+			<% if pago.moneda == 'Pesos' %>
+				<%= number_to_currency(pago.valor / objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+			<% else %>
+				<%= number_to_currency(pago.valor * objeto.uf_calculo, locale: :en, precision: (pago.moneda == 'Pesos' ? 2 : 0)) %>
+			<% end %>
+		</small></br>
+
+	<% end %>

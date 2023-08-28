@@ -38,26 +38,36 @@ class Causa < ApplicationRecord
 		TarFacturacion.where(owner_class: 'Causa', owner_id: self.id)
 	end
 
-	def facturado_pesos
-		uf = TarUfSistema.find_by(fecha: DateTime.now)
-		monto = 0
-		unless uf.blank?
-			self.facturaciones.each do |factnes|
-				monto += factnes.moneda == 'Pesos' ? factnes.monto : (factnes.monto * uf.valor)
-			end
+	# Encuentra el PAGO (TarFacturacion) asociado al pago
+	def pago_generado(pago)
+		self.facturaciones.find_by(facturable: pago.codigo_formula)
+	end
+
+	# Encuentra la UF de Cálculo (TarUfFacturacion) asociado al pago
+	def tar_uf_facturacion(pago)
+		self.uf_facturaciones.find_by(pago: pago.tar_pago)
+	end
+
+	def fecha_calculo_pago(pago)
+		if self.tar_uf_facturacion(pago).present?
+			self.tar_uf_facturacion(pago).fecha_uf
+		elsif self.pago_generado(pago).present?
+			self.pago_generado(pago).created_at
+		else
+			Time.zone.today.to_date
 		end
-		monto
+	end
+
+	def uf_calculo_pago(pago)
+		TarUfSistema.find_by(fecha: fecha_calculo_pago(pago))
+	end
+
+	def facturado_pesos
+		self.facturaciones.map {|factn| factn.monto_pesos}.sum
 	end
 
 	def facturado_uf
-		uf = TarUfSistema.find_by(fecha: DateTime.now)
-		monto = 0
-		unless uf.blank?
-			self.facturaciones.each do |factnes|
-				monto += factnes.moneda == 'Pesos' ? (factnes.monto / uf.valor) : factnes.monto
-			end
-		end
-		monto
+		self.facturaciones.map {|factn| factn.monto_uf}.sum
 	end
 
 	def enlaces
@@ -100,15 +110,20 @@ class Causa < ApplicationRecord
 	end
 
 	def cuantia_pesos(pago)
-		uf = self.uf_pago(pago.tar_pago)
-		v = self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? vc.valor : (uf.blank? ? 'Sin UF' : vc.valor * uf.valor)) }
-		v.include?('Sin UF') ? 'No hay UF del Día' : v.sum
+		uf = self.uf_calculo_pago(pago)
+		c_uf = self.valores_cuantia.where.not(moneda: 'Pesos')
+		(c_uf.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? vc.valor : (uf.blank? ? 0 : vc.valor * uf.valor)) }.sum
 	end
 
 	def cuantia_uf(pago)
-		uf = self.uf_pago(pago.tar_pago)
-		v = self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? (uf.blank? ? 'Sin UF' : vc.valor / uf.valor) : vc.valor) }
-		v.include?('Sin UF') ? 'No hay UF del Día' : v.sum
+		uf = self.uf_calculo_pago(pago)
+		c_pesos = self.valores_cuantia.where(moneda: 'Pesos')
+		(c_pesos.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? (uf.blank? ? 0 : vc.valor / uf.valor) : vc.valor) }.sum
+	end
+
+	def monto_pagado_uf(pago)
+		uf = self.uf_calculo_pago(pago)
+		(uf.blank? or self.monto_pagado.blank?) ? 0 : self.monto_pagado / uf.valor
 	end
 
 	def v_cuantia

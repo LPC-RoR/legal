@@ -1,36 +1,31 @@
 <p><%= image_tag 'logo_tyc.png' %></p>
-<%= render partial: '0p/general/gly_title_size', locals: {gly: 'cash-coin', title: "Aprobación de pagos para facturar", size: 4} %>
-
-<%= render partial: '0p/general/gly_title_size', locals: {gly: 'building', title: @objeto.cliente.razon_social, size: 5} %>
+<h4>
+	<i class="bi bi-cash-coin"></i>
+	Aprobación de pagos para facturar 
+</h4>
+<h5>
+	<i class="bi bi-building"></i>
+	<%= "#{@objeto.cliente.razon_social} : "%><%= link_to dma(@objeto.fecha), @objeto %>
+</h5>
 
 <% @objeto.tar_facturaciones.each do |facturacion| %>
 
 
 	<div class='row'>
-		<div class="col-md-6">
-			<% if facturacion.uf_calculo.blank? %>
-				<p class='text-danger'><i class="bi bi-cone-striped"></i> 
-				No se encontró UF para la fecha de este reporte, los pagos en UF no desplegarán su volor en pesos!</p>
-			<% end %>
-			<% unless facturacion.pago_tarifa.blank? %>
-				<p><b><%= facturacion.pago_tarifa.tar_pago %></b></p>
-			<% end %>
-			<!--small-->
-				<p><b>
-					<%= facturacion.tipo_owner %> : 
-					<% if facturacion.padre.class.name == 'Causa' %>
-						<%= link_to facturacion.padre.rit, facturacion.padre  %> <%= '|' %> 
-					<% end %>
-					<%= "#{facturacion.owner_description} : #{s_uf(facturacion.monto_uf)} | #{s_pesos(facturacion.monto_pesos)}" %> 
-				</b></p>
-				<small><%= link_to 'Ver reporte', facturacion.owner, target: :_blank if facturacion.owner.class.name == 'RegReporte' %></small>
-				<% if facturacion.owner.class.name == 'Causa' %>
-					<%= render partial: 'tarifas/partials/uf_facturacion', locals: {facturacion: facturacion} %>
-					<%= render partial: 'tarifas/partials/cuantia', locals: {objeto: facturacion.padre, pago: facturacion.pago} %>
+		<div class="col-md-8">
+
+			<p><b>
+				<%= facturacion.tipo_owner %> : 
+				<% if facturacion.padre.class.name == 'Causa' %>
+					<%= link_to facturacion.padre.rit, "/causas/#{facturacion.padre.id}?html_options[menu]=Facturacion" %> <%= '|' %> 
 				<% end %>
-			<!--/small-->
+				<%= facturacion.owner_description %> 
+			</b></p>
+			<small><%= link_to 'Ver reporte', facturacion.owner, target: :_blank if facturacion.owner.class.name == 'RegReporte' %></small>
+			<%= render partial: 'tarifas/partials/despliegue_tarifa', locals: {objeto: facturacion.padre, pago: facturacion.pago} %>
+			<%= render partial: 'tarifas/partials/detalle_cuantia', locals: {objeto: facturacion.padre} if facturacion.owner.class.name == 'Causa' %>
 		</div>
-		<div class="col-md-6"></div>
+		<div class="col-md-4"></div>
 	</div>
 
 	<hr>

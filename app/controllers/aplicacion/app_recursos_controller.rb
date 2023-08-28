@@ -35,25 +35,6 @@ class Aplicacion::AppRecursosController < ApplicationController
     end
   end
 
-  def aprobaciones
-
-    aprobaciones_todas = TarFacturacion.where(estado: 'aprobación')
-    unless aprobaciones_todas.empty?
-      clientes_ids = aprobaciones_todas.map {|aprob| aprob.cliente_id}.uniq
-      clientes = Cliente.where(id: clientes_ids)
-
-      init_tabla('clientes', clientes, false)
-      @status = true
-    else
-      @status = false
-    end
-
-  end
-
-  def aprobacion
-    @cliente = Cliente.find(params[:id])
-  end
-
   def procesos
     TarFormula.all.each do |tar_formula|
       tar_formula.tar_tarifa_id = TarPago.find(tar_formula.tar_pago_id).tar_tarifa_id

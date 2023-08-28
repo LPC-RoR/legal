@@ -151,7 +151,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
     owner = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.delete
 
-    redirect_to owner
+    redirect_to "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Facturacion"
   end
 
   private

@@ -52,7 +52,7 @@ class TarFacturacion < ApplicationRecord
 	end
 
 	# métodos para la correcto uso de la UF
-
+	# DEPRECATED
 	def fecha_uf
 		if self.tar_factura.blank? and self.tar_aprobacion.blank?
 			if self.owner_class == 'Causa'
@@ -67,18 +67,28 @@ class TarFacturacion < ApplicationRecord
 		end
 	end
 
+	# esta fecha establece el día en el que se realizó el cálculo de la tarifa
+	# verifica si hay fecha de cálculo en la causa, si no, es la fecha de creación del tar_facturacion
+	def fecha_calculo
+		if self.owner.class.name == 'Causa'
+			pago = self.owner.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
+			uf_facturacion = self.owner.uf_facturaciones.find_by(pago: pago.tar_pago)
+			uf_facturacion.blank? ? self.created_at : uf_facturacion.fecha_uf
+		else
+			self.created_at
+		end
+	end
+
 	def uf_calculo
-		TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
+		TarUfSistema.find_by(fecha: self.fecha_calculo.to_date)
 	end
 
 	def to_pesos
-		uf = TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
-		uf.blank? ? 0 : (self.monto_ingreso * uf.valor)
+		self.uf_calculo.blank? ? 0 : (self.monto_ingreso * self.uf_calculo.valor)
 	end	
 
 	def to_uf
-		uf = TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
-		uf.blank? ? 0 : (self.monto_ingreso.to_d.truncate(0) / uf.valor)
+		self.uf_calculo.blank? ? 0 : (self.monto_ingreso.to_d.truncate(0) / self.uf_calculo.valor)
 	end
 
 	def monto_pesos
@@ -103,7 +113,7 @@ class TarFacturacion < ApplicationRecord
 		elsif self.tar_factura.present?
 			'aprobado'
 		else
-			'aprobacion'
+			'aprobación'
 		end
 	end
 

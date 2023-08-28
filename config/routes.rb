@@ -80,8 +80,6 @@ Rails.application.routes.draw do
         match :administracion, via: :get
         match :procesos, via: :get
         match :tablas, via: :get
-        match :aprobaciones, via: :get
-        match :aprobacion, via: :get
       end
     end
     resources :servicios do

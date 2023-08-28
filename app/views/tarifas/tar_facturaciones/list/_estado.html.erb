@@ -1,7 +1,0 @@
-<% if objeto.tar_aprobacion.blank? and objeto.tar_factura.blank? %>
-	ingreso
-<% elsif objeto.tar_factura.present? %>
-	aprobado
-<% else %>
-	aprobacion
-<% end %>

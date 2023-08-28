@@ -100,6 +100,10 @@ def controller_icon
 		number_to_currency(valor, unit: 'UF', precision: config[:decimales]['UF'])
 	end
 
+	def s_uf5(valor)
+		number_to_currency(valor, unit: 'UF', precision: 5)
+	end
+
 	def dma(date)
 		date.blank? ? '' : date.strftime("%d-%m-%Y")
 	end
