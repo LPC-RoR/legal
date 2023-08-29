@@ -167,11 +167,10 @@ Rails.application.routes.draw do
     resources :tar_valores
     resources :tar_facturaciones do
       match :crea_facturacion, via: :get, on: :collection
-      match :elimina, via: :get, on: :member
       match :facturable, via: :get, on: :member
       match :facturar, via: :get, on: :member
-      match :estado, via: :get, on: :member
       # nueva lógica
+      match :elimina, via: :get, on: :member
       match :crea_aprobacion, via: :get, on: :member
       match :a_aprobacion, via: :get, on: :member
       match :a_pendiente, via: :get, on: :member

@@ -19,8 +19,8 @@
 		<% end %>
 	<% end %>
 	<% if objeto.tar_factura.present? %>
-		<%= link_to "tar_facturaciones/#{objeto.id}/crea_aprobacion" do %>
-			<small><i class="bi bi-receipt"></i></small>
+		<%= link_to objeto.tar_factura do %>
+			<small><i class="bi bi-receipt"> <%= dma(objeto.tar_factura.fecha) %></i></small>
 		<% end %>
 	<% end %>
 <% end %>

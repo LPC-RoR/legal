@@ -108,7 +108,7 @@ module CptnMapHelper
 	end
 
 	def footless_controllers
-		['app_recursos']
+		['servicios']
 	end
 
 	def footless_controller?(controller)

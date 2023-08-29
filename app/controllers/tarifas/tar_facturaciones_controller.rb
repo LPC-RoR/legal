@@ -127,14 +127,6 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
   end
 
-  def estado
-    causa = params[:class_name].constantize.find(params[:objeto_id])
-    @objeto.estado = params[:e]
-    @objeto.save
-
-    redirect_to causa
-  end
-
   # DELETE /tar_facturaciones/1 or /tar_facturaciones/1.json
   def destroy
     set_redireccion

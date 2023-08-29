@@ -110,10 +110,16 @@ class TarFacturacion < ApplicationRecord
 	def control_estado
 		if self.tar_aprobacion.blank? and self.tar_factura.blank?
 			'ingreso'
-		elsif self.tar_factura.present?
-			'aprobado'
-		else
+		elsif self.tar_aprobacion.present? and self.tar_factura.blank?
 			'aprobación'
+		elsif self.tar_factura.present?
+			if self.tar_factura.documento.blank?
+				'aprobado'
+			elsif self.tar_factura.documento.present? and self.tar_factura.fecha_pago.blank?
+				'facturado'
+			elsif self.tar_factura.documento.present? and self.tar_factura.fecha_pago.present?
+				'pagado'
+			end
 		end
 	end
 
