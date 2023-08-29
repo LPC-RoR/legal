@@ -1,6 +1,12 @@
 <small>
 <div class="list-item" style='padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
 	<%= objeto.cliente.razon_social %> | <%= link_to dma(objeto.fecha), objeto %></br>
+	<small><small>
+	<% objeto.tar_facturaciones.each do |facturacion| %>
+		<%= facturacion.glosa %> | 
+		<%= s_pesos(facturacion.monto_pesos) %></br>
+	<% end %>
+	</small></small>
 	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
 </div>
 </small>

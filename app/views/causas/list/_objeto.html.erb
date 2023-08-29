@@ -26,36 +26,11 @@
 			<% end %>
 
 			</br>
-			<% if objeto.facturaciones.empty? %>
-				Sin facturar
-			<% else %>
-				<a data-toggle="collapse" href="#collapseFacturaciones<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseFacturaciones<%=objeto.id%>">
-					Estado Facturación
-				</a>
-
-				<div class="collapse" id="collapseFacturaciones<%=objeto.id%>">
-				  <div class="card card-body">
-				  	<ul>
-				  	<% objeto.facturaciones.order(:created_at).each do |facturacion| %>
-				  		<li>
-				  			<%= facturacion.glosa %> <b><%= s_pesos(facturacion.monto_pesos) %></b>
-				  			<% if facturacion.tar_factura.present? %>
-				  				<%= link_to facturacion.tar_factura do %>
-				  					<i class="bi bi-box-arrow-up-right"></i> 
-				  					facturacion.tar_factura.estado
-				  				<% end %>
-				  			<% end %>
-				  		</li>
-				  	<% end %>
-				  	</ul>
-				  </div>
-				</div>
-			<% end %>
-			</br>
+			<%= render partial: 'causas/list/bottom_links', locals: {objeto: objeto} %>
 			</small>
 		</div>
 		<div class="col-2">
-			<%= render partial: '0p/tabla/btns', locals: {objeto: objeto} %>
+			<%#= render partial: '0p/tabla/btns', locals: {objeto: objeto} %>
 		</div>
 	</div>
 </div>
