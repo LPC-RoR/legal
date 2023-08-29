@@ -4,7 +4,8 @@
 		<div class="col-10">
 			<small><i class="bi bi-tag"></i> <%= objeto.control_estado %></small></br>
 			<%= render partial: 'tarifas/tar_facturaciones/list/move_btn', locals: {objeto: objeto} %> 
-			<%= objeto.tipo_owner %> : 
+			<%= objeto.owner.class.name unless objeto.owner_id.blank? %> : 
+			<% if false %>
 			<% case objeto.owner.class.name %>
 			<% when 'Causa' %>
 				<%= link_to objeto.owner.rit, "/causas/#{objeto.owner.id}?html_options[menu]=Facturacion" %> <%= objeto.owner.causa %>
@@ -15,13 +16,14 @@
 			<% when 'Consultoria' %>
 				<%= link_to objeto.owner.consultoria, objeto.owner %>
 			<% end %>
+			<% end %>
 			</br>
 
 			<small>
-			<% unless ['TarServicio', 'RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
+			<% unless objeto.owner_id.blank? or ['TarServicio', 'RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
 				<%= objeto.pago.tar_pago %> | 
 			<% end %>
-			<%= s_uf(objeto.monto_uf) %> : <%= s_pesos(objeto.monto_pesos) %>
+			<%#= s_uf(objeto.monto_uf) %> : <%#= s_pesos(objeto.monto_pesos) %>
 			</br>
 			</small>
 			<%= render partial: 'tarifas/tar_facturaciones/list/bottom_links', locals: {objeto: objeto} %>

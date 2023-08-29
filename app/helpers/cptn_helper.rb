@@ -73,8 +73,10 @@ def controller_icon
 			'm_bancos' => 'bank',
 			'm_periodos' => 'calendar3',
 			'causas' => 'file-text',
+			'consultorias' => 'file-earmark',
 			'tar_facturas' => 'receipt',
 			'tar_facturaciones' => 'coin',
+			'tar_servicios' => 'arrow-repeat',
 			'clientes' => 'building',
 			'blg_articulos' => 'file-earmark-richtext',
 			'blg_temas' => 'list-stars'

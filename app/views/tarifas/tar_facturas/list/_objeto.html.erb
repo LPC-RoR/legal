@@ -1,0 +1,12 @@
+<small>
+<div class="list-item" style='padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
+
+	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
+	<%= link_to (objeto.estado == 'ingreso' ? 'no emitida' : objeto.documento), objeto %> | <%= objeto.owner.razon_social %>
+	</br>
+	<%= objeto.estado == 'ingreso' ? 'no emitida' : dma(objeto.fecha_factura) %> | <%= objeto.tar_facturaciones.count %> : <%= s_pesos(objeto.monto_pesos) %>
+	</br>
+	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
+	<%#= render partial: 'tarifas/tar_facturas/list/bottom_links', locals: {objeto: objeto} %>
+</div>
+</small>

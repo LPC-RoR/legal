@@ -5,14 +5,9 @@ class Tarifas::TarFacturasController < ApplicationController
 
   # GET /tar_facturas or /tar_facturas.json
   def index
-    facturaciones = TarFacturacion.where(tar_factura_id: nil)
-    clientes_ids = facturaciones.map {|factn| factn.cliente_id}.uniq
-    clientes = Cliente.where(id: clientes_ids)
-
-
-#    init_tabla('tar_facturaciones', TarFactura.where(tar_factura_id: nil), false)
-
-    init_tabla('clientes', clientes, false)
+    init_tabla('ingreso-tar_facturas', TarFactura.where(estado: 'ingreso').order(created_at: :desc), false)
+    add_tabla('facturada-tar_facturas', TarFactura.where(estado: 'facturada').order(fecha_factura: :desc), false)
+    add_tabla('pagada-tar_facturas', TarFactura.where(estado: 'facturada').order(fecha_factura: :desc), true)
   end
 
   # GET /tar_facturas/1 or /tar_facturas/1.json

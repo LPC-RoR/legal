@@ -189,7 +189,9 @@ Rails.application.routes.draw do
       match :cambio_estado, via: :get, on: :member
     end
 
-    resources :tar_aprobaciones
+    resources :tar_aprobaciones do
+      match :facturar, via: :get, on: :member
+    end
 
     resources :tar_variables
     resources :tar_bases

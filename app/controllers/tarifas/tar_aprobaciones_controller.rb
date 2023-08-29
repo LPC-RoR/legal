@@ -1,5 +1,5 @@
 class Tarifas::TarAprobacionesController < ApplicationController
-  before_action :set_tar_aprobacion, only: %i[ show edit update destroy ]
+  before_action :set_tar_aprobacion, only: %i[ show edit update destroy facturar ]
 
   # GET /tar_aprobaciones or /tar_aprobaciones.json
   def index
@@ -50,6 +50,24 @@ class Tarifas::TarAprobacionesController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def facturar
+    if @objeto.tar_facturaciones.where(tar_factura_id: nil).any?
+      factura = TarFactura.create(owner_class: 'Cliente', owner_id: @objeto.cliente.id, estado: 'ingreso')
+      unless factura.blank?
+        @objeto.tar_facturaciones.where(tar_factura_id: nil).each do |facturacion|
+          factura.tar_facturaciones << facturacion
+        end
+      end
+      if factura.blank?
+        redirect_to @objeto, notice: 'No se pudo crear la factura'
+      else
+        redirect_to factura, notice: 'Factura ha sido exitósamente creada'
+      end
+    else
+      redirect_to @objeto, notice: 'No hay pagos que facturables'
     end
   end
 

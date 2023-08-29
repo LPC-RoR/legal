@@ -1,0 +1,20 @@
+<!-- Pago -->
+<small>
+<p>
+	<% if objeto.estado == 'facturada' %>
+	<a data-toggle="collapse" href="#collapsePagar" role="button" aria-expanded="false" aria-controls="collapsePagar">
+    	Detalle del pago
+	</a>
+	<% else %>
+		Detalle del pago
+	<% end %>: 
+	<%= @objeto.fecha_pago.blank? ? 'Impaga' : "#{dma(@objeto.fecha_pago)} : #{@objeto.detalle_pago}" %>
+</p>
+<% if objeto.estado == 'facturada' %>
+	<div class="collapse" id="collapsePagar">
+	  <div class="card card-body">
+		<%= render partial: 'tarifas/tar_facturas/partials/form_pago', locals: {objeto: objeto} %>
+	  </div>
+	</div>
+<% end %>
+</small>

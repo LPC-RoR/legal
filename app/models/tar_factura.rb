@@ -21,27 +21,15 @@ class TarFactura < ApplicationRecord
 	end
 
 	def monto_pesos
-		unless self.uf.blank?
-			self.tar_facturaciones.map {|facturacion| facturacion.monto_pesos}.compact.sum
-		else
-			0
-		end
+		self.tar_facturaciones.map {|facturacion| facturacion.monto_pesos}.compact.sum
 	end
 
 	def monto_uf
-		unless self.uf.blank?
-			self.monto_pesos / self.uf
-		else
-			0
-		end
+		self.tar_facturaciones.map {|facturacion| facturacion.monto_uf}.compact.sum
 	end
 
 	def fecha
 		self.fecha_uf.blank? ? self.fecha_factura : self.fecha_uf
-	end
-
-	def uf
-		TarUfSistema.find_by(fecha: self.fecha.to_date).valor
 	end
 
 	def d_concepto

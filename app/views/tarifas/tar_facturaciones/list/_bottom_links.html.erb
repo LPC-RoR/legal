@@ -13,14 +13,18 @@
 			<small><i class="bi bi-trash"></i></small>
 		<% end %>
 	<% end %>
+<% end %>
+<% unless controller_name == 'tar_aprobaciones' %>
 	<% if objeto.tar_aprobacion.present? %>
 		<%= link_to objeto.tar_aprobacion do %>
 			<small><i class="bi bi-check-all"></i> <%= dma(objeto.tar_aprobacion.fecha) %></small>
 		<% end %>
 	<% end %>
+<% end %>
+<% unless controller_name == 'tar_facturas'	 %>
 	<% if objeto.tar_factura.present? %>
 		<%= link_to objeto.tar_factura do %>
-			<small><i class="bi bi-receipt"> <%= dma(objeto.tar_factura.fecha) %></i></small>
+			<small><i class="bi bi-receipt"> <%= objeto.tar_factura.estado %></i></small>
 		<% end %>
 	<% end %>
 <% end %>
