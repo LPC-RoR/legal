@@ -8,21 +8,19 @@ class Aplicacion::PublicosController < ApplicationController
   def home
     if usuario_signed_in?
       # Causas
-      csc_ids = Causa.all.map {|causa| causa.id if causa.valores_cuantia.empty?}.compact
-      @causas_sin_cuantia = Causa.where(id: csc_ids)
-
       csf_ids = Causa.all.map {|causa| causa.id if causa.facturaciones.empty?}.compact
-      @causas_sin_facturar = Causa.where(id: csf_ids)
+      init_tabla('sin_facturar-causas', Causa.where(id: csf_ids), false)
 
+      add_tabla('en_proceso-causas', Causa.where(estado: 'fijo'), false)
       @causas_en_proceso = Causa.where(estado: 'fijo')
 
       # Cargos o facturaciones
-      @cargos_sin_aprobar = TarFacturacion.where(tar_factura_id: nil).where.not(estado: 'aprobado')
-      @cargos_sin_facturar = TarFacturacion.where(tar_factura_id: nil, estado: 'aprobado')
+      add_tabla('sin_aprobacion-tar_facturaciones', TarFacturacion.where(tar_aprobacion_id: nil), false)
+      add_tabla('sin_facturar-tar_facturaciones', TarFacturacion.where(tar_factura_id: nil), false)
 
       # Facturas
-      @facturas_sin_emitir = TarFactura.where(estado: 'ingreso').order(fecha_factura: :desc)
-      @facturas_en_cobranza = TarFactura.where(estado: 'facturada').order(fecha_factura: :desc)
+      add_tabla('por_emitir-tar_facturas', TarFactura.where(estado: 'ingreso').order(fecha_factura: :desc), false)
+      add_tabla('en_cobranza-tar_facturas', TarFactura.where(estado: 'facturada').order(fecha_factura: :desc), false)
     else
       articulos = BlgArticulo.all.order(created_at: :desc)
       @principal = articulos.first
@@ -30,7 +28,7 @@ class Aplicacion::PublicosController < ApplicationController
       @tercero = articulos.third
     end
 
-    init_tabla('clientes', Cliente.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.padre.cliente.id unless tarf.tar_factura.present?}.compact.uniq), false)
+    add_tabla('clientes', Cliente.where(id: TarFacturacion.where(estado: 'ingreso').map {|tarf| tarf.padre.cliente.id unless tarf.tar_factura.present?}.compact.uniq), false)
   end
 
   private

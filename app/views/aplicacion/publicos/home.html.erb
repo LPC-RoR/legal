@@ -5,24 +5,40 @@
 		<div class="col-lg-4 col-xs-12">
 			<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['causas'], title: 'Causas', size: 4} %>
 
-			<%= render partial: 'aplicacion/app_recursos/partials/display_elemento', locals: {c: 'causas', title: 'Causas sin cuantia', coleccion: @causas_sin_cuantia} %>
+			<% unless @coleccion['sin_facturar-causas'].empty? %>
+				<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['causas'], title: 'Causas sin facturar' , size: 6} %>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'sin_facturar-causas'} %>
+			<% end %>
 
-			<%= render partial: 'aplicacion/app_recursos/partials/display_elemento', locals: {c: 'causas', title: 'Causas sin facturar', coleccion: @causas_sin_facturar} %>
-
-			<%= render partial: 'aplicacion/app_recursos/partials/display_elemento', locals: {c: 'causas', title: 'Causas en proceso', coleccion: @causas_en_proceso} %>
+			<% unless @coleccion['en_proceso-causas'].empty? %>
+				<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['causas'], title: 'Causas en proceso' , size: 6} %>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'en_proceso-causas'} %>
+			<% end %>
 		</div>
 		<div class="col-lg-4 col-xs-12-">
-			<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['tar_facturaciones'], title: 'Cargos', size: 4} %>
+			<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['tar_facturaciones'], title: 'Pagos', size: 4} %>
 
-			<%= render partial: 'aplicacion/app_recursos/partials/display_elemento', locals: {c: 'tar_facturaciones', title: 'Cargos en aprobación', coleccion: @cargos_sin_aprobar} %>
+			<% unless @coleccion['sin_aprobacion-tar_facturaciones'].empty? %>
+				<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['tar_facturaciones'], title: 'Pagos sin aprobación' , size: 6} %>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'sin_aprobacion-tar_facturaciones'} %>
+			<% end %>
 
-			<%= render partial: 'aplicacion/app_recursos/partials/display_elemento', locals: {c: 'tar_facturaciones', title: 'Cargos sin facturar', coleccion: @cargos_sin_facturar} %>
+			<% unless @coleccion['sin_facturar-tar_facturaciones'].empty? %>
+				<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['tar_facturaciones'], title: 'Pagos sin facturar' , size: 6} %>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'sin_facturar-tar_facturaciones'} %>
+			<% end %>
 		</div>
 		<div class="col-lg-4">
 			<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['tar_facturas'], title: 'Facturas', size: 4} %>
 
-			<%= render partial: 'aplicacion/app_recursos/partials/display_elemento', locals: {c: 'tar_facturas', title: 'Facturas por emitir', coleccion: @facturas_sin_emitir} %>
-			<%= render partial: 'aplicacion/app_recursos/partials/display_elemento', locals: {c: 'tar_facturas', title: 'Facturas en cobranza', coleccion: @facturas_en_cobranza} %>
+			<% unless @coleccion['por_emitir-tar_facturas'].empty? %>
+				<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['tar_facturas'], title: 'Facturas por emitir' , size: 6} %>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'por_emitir-tar_facturas'} %>
+			<% end %>
+			<% unless @coleccion['en_cobranza-tar_facturas'].empty? %>
+				<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['tar_facturas'], title: 'Facturas en cobranza' , size: 6} %>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'en_cobranza-tar_facturas'} %>
+			<% end %>
 		</div>
 	</div>
 <% else %>

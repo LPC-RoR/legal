@@ -1,4 +1,4 @@
-<% unless @coleccion[c].blank? or @coleccion[c].empty? %>
+<% unless @coleccion[c].empty? %>
 
   <% if @coleccion[c].count > 10 %>
     <p><%= render partial: '0p/tabla/btn_nuevo', locals: {c: c} %></p>
