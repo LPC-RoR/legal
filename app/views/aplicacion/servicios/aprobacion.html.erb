@@ -5,7 +5,10 @@
 </h4>
 <h5>
 	<i class="bi bi-building"></i>
-	<%= "#{@objeto.cliente.razon_social} : "%><%= link_to dma(@objeto.fecha), @objeto %>
+	<%= "#{@objeto.cliente.razon_social} : #{dma(@objeto.fecha)}"%> 
+	<%= link_to @objeto do %>
+		<i class="bi bi-box-arrow-up-right"></i>
+	<% end %>
 </h5>
 
 <% @objeto.tar_facturaciones.each do |facturacion| %>
@@ -17,13 +20,18 @@
 			<p><b>
 				<%= facturacion.tipo_owner %> : 
 				<% if facturacion.padre.class.name == 'Causa' %>
-					<%= link_to facturacion.padre.rit, "/causas/#{facturacion.padre.id}?html_options[menu]=Facturacion" %> <%= '|' %> 
+					<%= facturacion.padre.rit %> 
+					<%= link_to "/causas/#{facturacion.padre.id}?html_options[menu]=Facturacion" do %>
+						<i class="bi bi-box-arrow-up-right"></i> | 
+					<% end %>
 				<% end %>
 				<%= facturacion.owner_description %> 
 			</b></p>
 			<small><%= link_to 'Ver reporte', facturacion.owner, target: :_blank if facturacion.owner.class.name == 'RegReporte' %></small>
-			<%= render partial: 'tarifas/partials/despliegue_tarifa', locals: {objeto: facturacion.padre, pago: facturacion.pago} %>
-			<%= render partial: 'tarifas/partials/detalle_cuantia', locals: {objeto: facturacion.padre} if facturacion.owner.class.name == 'Causa' %>
+			<% if ['Causa', 'Consultoria'].include?(facturacion.padre.class.name) %>
+				<%= render partial: 'tarifas/partials/despliegue_tarifa', locals: {objeto: facturacion.padre, pago: facturacion.pago} %>
+				<%= render partial: 'tarifas/partials/detalle_cuantia', locals: {objeto: facturacion.padre} if facturacion.owner.class.name == 'Causa' %>
+			<% end %>
 		</div>
 		<div class="col-md-4"></div>
 	</div>

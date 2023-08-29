@@ -40,7 +40,7 @@ class TarFacturacion < ApplicationRecord
 	end
 
 	def pago
-		unless self.padre.tar_tarifa.tar_pagos.empty?
+		if (['Causa', 'Consultoria'].include?(self.padre.class.name) and self.padre.tar_tarifa.tar_pagos.any?)
 			self.padre.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
 		else
 			nil
