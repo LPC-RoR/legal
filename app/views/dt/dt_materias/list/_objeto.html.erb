@@ -1,6 +1,6 @@
 <small>
 	<%= link_to objeto do %>
 	Capitulo <%= objeto.capitulo %>
-<% end %> | <%= objeto.dt_materia %> 
-<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+<% end %> | <small><%= objeto.dt_materia %> 
+<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
 </small></br>
