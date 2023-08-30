@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dt Multas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Orden</th>
+      <th>Tamanio</th>
+      <th>Leve</th>
+      <th>Grave</th>
+      <th>Gravisima</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dt_multas.each do |dt_multa| %>
+      <tr>
+        <td><%= dt_multa.orden %></td>
+        <td><%= dt_multa.tamanio %></td>
+        <td><%= dt_multa.leve %></td>
+        <td><%= dt_multa.grave %></td>
+        <td><%= dt_multa.gravisima %></td>
+        <td><%= link_to 'Show', dt_multa %></td>
+        <td><%= link_to 'Edit', edit_dt_multa_path(dt_multa) %></td>
+        <td><%= link_to 'Destroy', dt_multa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dt Multa', new_dt_multa_path %>

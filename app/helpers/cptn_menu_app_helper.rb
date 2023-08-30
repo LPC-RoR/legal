@@ -18,7 +18,8 @@ module CptnMenuAppHelper
 	        [nil,       "/m_modelos",                 'nomina', controller_icon['m_modelos'],     'Modelo de negocios'],
 	        [nil,       "/app_recursos/tablas",       'nomina', 'table',                          'Tablas'],
 	        [nil,       "/tar_aprobaciones",          'nomina', 'check-all',                      'Aprobaciones'],
-	        [nil,       "/tar_facturas",              'nomina', 'receipt',                        'Facturas']
+	        [nil,       "/tar_facturas",              'nomina', 'receipt',                        'Facturas'],
+	        [nil,       "/dt_materias",               'nomina', 'bank',                           'Materias']
 	    ]
 
 	end

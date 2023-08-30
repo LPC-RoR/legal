@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_23_225644) do
+ActiveRecord::Schema.define(version: 2023_08_30_145302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,6 +341,37 @@ ActiveRecord::Schema.define(version: 2023_08_23_225644) do
     t.index ["cliente_id"], name: "index_consultorias_on_cliente_id"
     t.index ["tar_hora_id"], name: "index_consultorias_on_tar_hora_id"
     t.index ["tar_tarifa_id"], name: "index_consultorias_on_tar_tarifa_id"
+  end
+
+  create_table "dt_infracciones", force: :cascade do |t|
+    t.string "codigo"
+    t.string "normas"
+    t.string "dt_infraccion"
+    t.text "tipificacion"
+    t.string "criterios"
+    t.integer "dt_materia_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dt_materia_id"], name: "index_dt_infracciones_on_dt_materia_id"
+  end
+
+  create_table "dt_materias", force: :cascade do |t|
+    t.string "dt_materia"
+    t.integer "capitulo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["capitulo"], name: "index_dt_materias_on_capitulo"
+  end
+
+  create_table "dt_multas", force: :cascade do |t|
+    t.integer "orden"
+    t.string "tamanio"
+    t.decimal "leve"
+    t.decimal "grave"
+    t.decimal "gravisima"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_dt_multas_on_orden"
   end
 
   create_table "h_imagenes", force: :cascade do |t|

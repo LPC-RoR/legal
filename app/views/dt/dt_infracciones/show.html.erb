@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @dt_infraccion.codigo %>
+</p>
+
+<p>
+  <strong>Normas:</strong>
+  <%= @dt_infraccion.normas %>
+</p>
+
+<p>
+  <strong>Dt infraccion:</strong>
+  <%= @dt_infraccion.dt_infraccion %>
+</p>
+
+<p>
+  <strong>Tipificacion:</strong>
+  <%= @dt_infraccion.tipificacion %>
+</p>
+
+<p>
+  <strong>Criterios:</strong>
+  <%= @dt_infraccion.criterios %>
+</p>
+
+<p>
+  <strong>Dt materia:</strong>
+  <%= @dt_infraccion.dt_materia_id %>
+</p>
+
+<%= link_to 'Edit', edit_dt_infraccion_path(@dt_infraccion) %> |
+<%= link_to 'Back', dt_infracciones_path %>

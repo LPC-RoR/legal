@@ -1,0 +1,47 @@
+<%= form_with(model: dt_infraccion, local: true) do |form| %>
+  <% if dt_infraccion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(dt_infraccion.errors.count, "error") %> prohibited this dt_infraccion from being saved:</h2>
+
+      <ul>
+      <% dt_infraccion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :codigo %>
+    <%= form.text_field :codigo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :normas %>
+    <%= form.text_field :normas %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dt_infraccion %>
+    <%= form.text_field :dt_infraccion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tipificacion %>
+    <%= form.text_area :tipificacion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :criterios %>
+    <%= form.text_field :criterios %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dt_materia_id %>
+    <%= form.number_field :dt_materia_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<%= form_with(model: dt_materia, local: true) do |form| %>
+  <% if dt_materia.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(dt_materia.errors.count, "error") %> prohibited this dt_materia from being saved:</h2>
+
+      <ul>
+      <% dt_materia.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :dt_materia %>
+    <%= form.text_field :dt_materia %>
+  </div>
+
+  <div class="field">
+    <%= form.label :capitulo %>
+    <%= form.number_field :capitulo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

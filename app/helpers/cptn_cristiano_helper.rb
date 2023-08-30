@@ -44,7 +44,7 @@ module CptnCristianoHelper
 
 	# prefijos de modelos con scope
 	def scopes
-		/^tar_|^app_|^h_|^st_|^ind_|^m_|^blg_/
+		/^tar_|^app_|^h_|^st_|^ind_|^m_|^blg_|^dt_/
 	end
 
 	# nombre que se desplega de un controlador

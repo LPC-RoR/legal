@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: 1
+  tamanio: MyString
+  leve: 9.99
+  grave: 9.99
+  gravisima: 9.99
+
+two:
+  orden: 1
+  tamanio: MyString
+  leve: 9.99
+  grave: 9.99
+  gravisima: 9.99

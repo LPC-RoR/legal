@@ -1,0 +1,2 @@
+class DtMulta < ApplicationRecord
+end

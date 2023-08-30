@@ -245,6 +245,12 @@ Rails.application.routes.draw do
     resources :blg_imagenes
   end
 
+  scope module: 'dt' do
+    resources :dt_multas
+    resources :dt_infracciones
+    resources :dt_materias
+  end
+
   devise_for :usuarios
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

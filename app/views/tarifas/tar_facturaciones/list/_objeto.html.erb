@@ -11,7 +11,7 @@
 			<% when 'TarServicio' %>
 				<%= link_to objeto.owner.codigo, objeto.owner %> <%= objeto.owner.descripcion %>
 			<% when 'RegReporte' %>
-				<%= link_to objeto.owner.reg_reporte, objeto.owner %>
+				<%= link_to objeto.owner.nombre_padre, objeto.owner %>
 			<% when 'Consultoria' %>
 				<%= link_to objeto.owner.consultoria, objeto.owner %>
 			<% end %>
