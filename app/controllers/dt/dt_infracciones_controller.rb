@@ -8,11 +8,12 @@ class Dt::DtInfraccionesController < ApplicationController
 
   # GET /dt_infracciones/1 or /dt_infracciones/1.json
   def show
+    init_tabla('dt_multas', @objeto.dt_multas.order(:orden), false)
   end
 
   # GET /dt_infracciones/new
   def new
-    @objeto = DtInfraccion.new
+    @objeto = DtInfraccion.new(dt_materia_id: params[:dt_materia_id])
   end
 
   # GET /dt_infracciones/1/edit
@@ -25,7 +26,8 @@ class Dt::DtInfraccionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Dt infraccion was successfully created." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Infracción fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,8 @@ class Dt::DtInfraccionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(dt_infraccion_params)
-        format.html { redirect_to @objeto, notice: "Dt infraccion was successfully updated." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Infracción fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,9 +52,10 @@ class Dt::DtInfraccionesController < ApplicationController
 
   # DELETE /dt_infracciones/1 or /dt_infracciones/1.json
   def destroy
+    set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to dt_infracciones_url, notice: "Dt infraccion was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Infracción fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -60,6 +64,10 @@ class Dt::DtInfraccionesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_dt_infraccion
       @objeto = DtInfraccion.find(params[:id])
+    end
+
+    def set_redireccion
+      @redireccion = @objeto.dt_materia
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,0 +1,25 @@
+<div class="row">
+	<div class="col-lg-2 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Orden', v: true } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :orden } %>
+	</div>
+	<div class="col-lg-4 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tamaño', v: true } %>
+		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tamanio, sel_list: ['Micro 1 a 9', 'Pequeña 10 a 49', 'Mediana 50 a 199', 'Grandes 200 y más'], label: 'Tamaño de la empresa' } %>
+	</div>
+	<div class="col-lg-2 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Leve', v: true } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :leve } %>
+	</div>
+	<div class="col-lg-2 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Grave', v: true } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :grave } %>
+	</div>
+	<div class="col-lg-2">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Gravisima', v: true } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :gravisima } %>
+	</div>
+</div>
+
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :dt_infraccion_id } %>

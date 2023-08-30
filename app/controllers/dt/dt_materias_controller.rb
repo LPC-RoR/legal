@@ -8,6 +8,7 @@ class Dt::DtMateriasController < ApplicationController
 
   # GET /dt_materias/1 or /dt_materias/1.json
   def show
+    init_tabla('dt_infracciones', @objeto.dt_infracciones.order(:codigo), false)
   end
 
   # GET /dt_materias/new

@@ -12,7 +12,7 @@ class Dt::DtMultasController < ApplicationController
 
   # GET /dt_multas/new
   def new
-    @objeto = DtMulta.new
+    @objeto = DtMulta.new(dt_infraccion_id: params[:dt_infraccion_id])
   end
 
   # GET /dt_multas/1/edit
@@ -25,7 +25,8 @@ class Dt::DtMultasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Dt multa was successfully created." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Multa fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,8 @@ class Dt::DtMultasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(dt_multa_params)
-        format.html { redirect_to @objeto, notice: "Dt multa was successfully updated." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Multa fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,9 +51,10 @@ class Dt::DtMultasController < ApplicationController
 
   # DELETE /dt_multas/1 or /dt_multas/1.json
   def destroy
+    set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to dt_multas_url, notice: "Dt multa was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Multa fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -62,8 +65,12 @@ class Dt::DtMultasController < ApplicationController
       @objeto = DtMulta.find(params[:id])
     end
 
+    def set_redireccion
+      @redireccion = @objeto.dt_infraccion
+    end
+
     # Only allow a list of trusted parameters through.
     def dt_multa_params
-      params.require(:dt_multa).permit(:orden, :tamanio, :leve, :grave, :gravisima)
+      params.require(:dt_multa).permit(:orden, :tamanio, :leve, :grave, :gravisima, :dt_infraccion_id)
     end
 end

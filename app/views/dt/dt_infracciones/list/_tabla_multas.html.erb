@@ -1,0 +1,20 @@
+<table class="table table-striped table-sm  thead-dark">
+  <thead>
+    <tr>
+      <td><i><small>Tamaño Empresa</small></i></td>
+      <td><i><small>Leve</small></i></td>
+      <td><i><small>Grave</small></i></td>
+      <td><i><small>Gravísima</small></i></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- Opción para evitar escribir el parcial _modelo.html.erb en cada controlador-->
+      <% objeto.dt_multas.order(:orden).each do |multa| %>
+        <td><i><small><%= multa.tamanio %></small></i></td>
+        <td><i><small><%= multa.leve %></small></i></td>
+        <td><i><small><%= multa.grave %></small></i></td>
+        <td><i><small><%= multa.gravisima %></small></i></td>
+      <% end  %>
+  </tbody>
+</table>

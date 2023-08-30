@@ -1,0 +1,17 @@
+<small>
+	<%= link_to objeto do %>
+	Código <%= objeto.codigo %>
+<% end %> | <small>
+
+  <a data-toggle="collapse" href="#collapseInfraccion" role="button" aria-expanded="false" aria-controls="collapseInfraccion">
+    <%= objeto.dt_infraccion %> 
+  </a>
+
+<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
+</small></br>
+
+<div class="collapse" id="collapseInfraccion">
+  <div class="card card-body">
+  	<%= render partial: 'dt/dt_infracciones/list/show_infraccion', locals: {objeto: objeto} %>
+  </div>
+</div> 
