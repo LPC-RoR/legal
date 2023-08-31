@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_30_190709) do
+ActiveRecord::Schema.define(version: 2023_08_30_235601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -352,7 +352,9 @@ ActiveRecord::Schema.define(version: 2023_08_30_190709) do
     t.integer "dt_materia_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "dt_tabla_multa_id"
     t.index ["dt_materia_id"], name: "index_dt_infracciones_on_dt_materia_id"
+    t.index ["dt_tabla_multa_id"], name: "index_dt_infracciones_on_dt_tabla_multa_id"
   end
 
   create_table "dt_materias", force: :cascade do |t|
@@ -372,8 +374,17 @@ ActiveRecord::Schema.define(version: 2023_08_30_190709) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "dt_infraccion_id"
+    t.integer "dt_tabla_multa_id"
     t.index ["dt_infraccion_id"], name: "index_dt_multas_on_dt_infraccion_id"
+    t.index ["dt_tabla_multa_id"], name: "index_dt_multas_on_dt_tabla_multa_id"
     t.index ["orden"], name: "index_dt_multas_on_orden"
+  end
+
+  create_table "dt_tabla_multas", force: :cascade do |t|
+    t.string "dt_tabla_multa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dt_tabla_multa"], name: "index_dt_tabla_multas_on_dt_tabla_multa"
   end
 
   create_table "h_imagenes", force: :cascade do |t|

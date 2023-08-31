@@ -246,9 +246,12 @@ Rails.application.routes.draw do
   end
 
   scope module: 'dt' do
+
+    resources :dt_tabla_multas do
+      resources :dt_multas
+    end
     resources :dt_multas
     resources :dt_infracciones do
-      resources :dt_multas
     end
     resources :dt_materias do
       resources :dt_infracciones

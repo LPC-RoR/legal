@@ -12,7 +12,7 @@ class Dt::DtMultasController < ApplicationController
 
   # GET /dt_multas/new
   def new
-    @objeto = DtMulta.new(dt_infraccion_id: params[:dt_infraccion_id])
+    @objeto = DtMulta.new(dt_tabla_multa_id: params[:dt_tabla_multa_id])
   end
 
   # GET /dt_multas/1/edit
@@ -66,11 +66,11 @@ class Dt::DtMultasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.dt_infraccion
+      @redireccion = @objeto.dt_tabla_multa
     end
 
     # Only allow a list of trusted parameters through.
     def dt_multa_params
-      params.require(:dt_multa).permit(:orden, :tamanio, :leve, :grave, :gravisima, :dt_infraccion_id)
+      params.require(:dt_multa).permit(:orden, :tamanio, :leve, :grave, :gravisima, :dt_tabla_multa_id)
     end
 end

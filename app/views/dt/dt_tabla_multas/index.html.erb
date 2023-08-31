@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dt Tabla Multas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dt tabla multa</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dt_tabla_multas.each do |dt_tabla_multa| %>
+      <tr>
+        <td><%= dt_tabla_multa.dt_tabla_multa %></td>
+        <td><%= link_to 'Show', dt_tabla_multa %></td>
+        <td><%= link_to 'Edit', edit_dt_tabla_multa_path(dt_tabla_multa) %></td>
+        <td><%= link_to 'Destroy', dt_tabla_multa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dt Tabla Multa', new_dt_tabla_multa_path %>

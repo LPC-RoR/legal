@@ -1,0 +1,22 @@
+<%= form_with(model: dt_tabla_multa, local: true) do |form| %>
+  <% if dt_tabla_multa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(dt_tabla_multa.errors.count, "error") %> prohibited this dt_tabla_multa from being saved:</h2>
+
+      <ul>
+      <% dt_tabla_multa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :dt_tabla_multa %>
+    <%= form.text_field :dt_tabla_multa %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

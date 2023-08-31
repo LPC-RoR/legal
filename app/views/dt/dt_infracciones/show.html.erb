@@ -1,6 +1,6 @@
 <h5>Código <%= @objeto.codigo %>: 
 <%= @objeto.dt_infraccion %></h5>
-
+<hr>
 <small>
 <div class="row">
   <div class="col-lg-4 col-xs-12">
@@ -15,7 +15,7 @@
   </div>
   <div class="col-lg-4">
       <b>DETERMINACIÓN DEL MONTO DE LA MULTA (UTM)</b>: </br>
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'dt_multas'} %>
+      <%= render partial: 'dt/dt_tabla_multas/list/tabla_multas', locals: {objeto: @objeto.dt_tabla_multa} unless @objeto.dt_tabla_multa.blank? %>
   </div>
 </div>
 </small>

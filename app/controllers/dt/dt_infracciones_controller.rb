@@ -8,7 +8,6 @@ class Dt::DtInfraccionesController < ApplicationController
 
   # GET /dt_infracciones/1 or /dt_infracciones/1.json
   def show
-    init_tabla('dt_multas', @objeto.dt_multas.order(:orden), false)
   end
 
   # GET /dt_infracciones/new
@@ -72,6 +71,6 @@ class Dt::DtInfraccionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dt_infraccion_params
-      params.require(:dt_infraccion).permit(:codigo, :normas, :dt_infraccion, :tipificacion, :criterios, :dt_materia_id)
+      params.require(:dt_infraccion).permit(:codigo, :normas, :dt_infraccion, :tipificacion, :criterios, :dt_materia_id, :dt_tabla_multa_id)
     end
 end
