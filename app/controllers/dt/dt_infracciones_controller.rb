@@ -71,6 +71,6 @@ class Dt::DtInfraccionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dt_infraccion_params
-      params.require(:dt_infraccion).permit(:codigo, :normas, :dt_infraccion, :tipificacion, :criterios, :dt_materia_id, :dt_tabla_multa_id)
+      params.require(:dt_infraccion).permit(:codigo, :normas, :dt_infraccion, :tipificacion, :criterios, :dt_materia_id, :dt_tabla_multa_id, :nota_multa)
     end
 end
