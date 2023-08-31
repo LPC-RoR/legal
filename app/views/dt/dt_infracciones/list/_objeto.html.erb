@@ -1,8 +1,8 @@
 <small>
-	Código <%= objeto.codigo %>
-  <a data-toggle="collapse" href="#collapseInfraccion<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseInfraccion<%=objeto.id%>">
-    <%= objeto.dt_infraccion %> 
-  </a>
+	Código <%= objeto.codigo %> | 
+	<a data-toggle="collapse" href="#collapseInfraccion<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseInfraccion<%=objeto.id%>">
+		<%= objeto.dt_infraccion %> 
+	</a>
 
 	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
 </small></br>
