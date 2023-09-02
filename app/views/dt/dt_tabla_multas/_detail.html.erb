@@ -1,2 +1,4 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Moneda', v: true } %>
+<%= render partial: '0p/form_fields/select', locals: { form: form, token: :moneda, sel_list: ['UTM', 'UF', 'IMM'], label: 'Moneda' } %>
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tabla multa', v: true } %>
 <%= render partial: '0p/form_fields/number', locals: { form: form, token: :dt_tabla_multa } %>
