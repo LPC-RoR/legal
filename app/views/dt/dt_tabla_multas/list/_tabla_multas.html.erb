@@ -13,9 +13,9 @@
       <% objeto.dt_multas.order(:orden).each do |multa| %>
         <tr>
           <td><i><small><%= multa.tamanio %></small></i></td>
-          <td><i><small><%= multa.leve %></small></i></td>
-          <td><i><small><%= multa.grave %></small></i></td>
-          <td><i><small><%= multa.gravisima %></small></i></td>
+          <td align="right"><i><small><%= multa.leve %></small></i></td>
+          <td align="right"><i><small><%= multa.grave %></small></i></td>
+          <td align="right"><i><small><%= multa.gravisima %></small></i></td>
         </tr>
       <% end  %>
   </tbody>
