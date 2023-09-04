@@ -72,6 +72,6 @@ class Dt::DtTablaMultasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dt_tabla_multa_params
-      params.require(:dt_tabla_multa).permit(:dt_tabla_multa, :moneda)
+      params.require(:dt_tabla_multa).permit(:dt_tabla_multa, :moneda, :p100_leve, :p100_grave, :p100_gravisima)
     end
 end

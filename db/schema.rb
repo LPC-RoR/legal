@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_02_163616) do
+ActiveRecord::Schema.define(version: 2023_09_04_164945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -386,6 +386,9 @@ ActiveRecord::Schema.define(version: 2023_09_02_163616) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "moneda"
+    t.decimal "p100_leve"
+    t.decimal "p100_grave"
+    t.decimal "p100_gravisima"
     t.index ["dt_tabla_multa"], name: "index_dt_tabla_multas_on_dt_tabla_multa"
   end
 

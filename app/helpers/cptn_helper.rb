@@ -106,6 +106,10 @@ def controller_icon
 		number_to_currency(valor, unit: 'UF', precision: 5)
 	end
 
+	def s_p100(valor, decimales)
+		number_to_currency(valor, unit: '%', precision: decimales)
+	end
+
 	def dma(date)
 		date.blank? ? '' : date.strftime("%d-%m-%Y")
 	end
