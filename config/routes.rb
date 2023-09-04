@@ -247,8 +247,10 @@ Rails.application.routes.draw do
 
   scope module: 'dt' do
 
+    resources :dt_criterio_multas
     resources :dt_tabla_multas do
       resources :dt_multas
+      resources :dt_criterio_multas
     end
     resources :dt_multas
     resources :dt_infracciones do

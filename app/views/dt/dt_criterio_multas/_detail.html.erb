@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col-lg-2 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Orden', v: true } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :orden } %>
+	</div>
+	<div class="col-lg-2 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Monto', v: true } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :monto } %>
+	</div>
+	<div class="col-lg-2 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'unidad', v: true } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :unidad } %>
+	</div>
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Criterio', v: true } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :dt_criterio_multa } %>
+	</div>
+</div>
+
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :dt_tabla_multa_id } %>

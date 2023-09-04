@@ -9,6 +9,7 @@ class Dt::DtTablaMultasController < ApplicationController
   # GET /dt_tabla_multas/1 or /dt_tabla_multas/1.json
   def show
     init_tabla('dt_multas', @objeto.dt_multas.order(:orden), false)
+    add_tabla('dt_criterio_multas', @objeto.dt_criterio_multas.order(:orden), false)
   end
 
   # GET /dt_tabla_multas/new

@@ -1,3 +1,4 @@
+<% unless objeto.dt_multas.empty? %>
 <table class="table table-striped table-sm  thead-dark">
   <thead>
     <tr>
@@ -28,3 +29,10 @@
       <% end  %>
   </tbody>
 </table>
+<% end %>
+
+<% unless objeto.dt_criterio_multas.empty? %>
+  <% objeto.dt_criterio_multas.order(:orden).each do |criterio| %>
+    <%= render partial: 'dt/dt_criterio_multas/list/objeto', locals: {objeto: criterio} %>
+  <% end %>
+<% end %>
