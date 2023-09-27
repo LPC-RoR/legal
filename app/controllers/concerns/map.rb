@@ -4,7 +4,7 @@ module Map
 	## -------------------------------------------------------- BANDEJAS
 
 	def bandeja_prefixs
-		['tar', 'm']
+		[]
 	end
 
 	def bandeja_prefixs?(controller)
@@ -12,11 +12,11 @@ module Map
 	end
 
 	def app_bandeja_controllers
-		['app_directorios', 'app_documentos', 'app_enlaces', 'tar_tarifas', 'tar_detalles', 'tar_facturas', 'app_repositorios', 'registros', 'reg_reportes', 'tar_horas']
+		['app_directorios', 'app_documentos', 'tar_tarifas', 'tar_detalles', 'tar_horas']
 	end
 
 	def bandeja_controllers
-		base_bandeja_controllers = ['st_bandejas'].union(StModelo.all.order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize})
+		base_bandeja_controllers = ['st_bandejas'].union(StModelo.where(bandeja: true).order(:st_modelo).map {|st_modelo| st_modelo.st_modelo.tableize}.compact)
 		base_bandeja_controllers.union(app_bandeja_controllers)
 	end
 

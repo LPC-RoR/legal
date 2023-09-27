@@ -13,13 +13,15 @@ module CptnMenuAppHelper
 	    ## Menu principal de la aplicación
 	    # [ 'Item del menú', 'link', 'accesso', 'gly' ]
 	    [
-	        [nil,       "/st_bandejas",               'nomina', 'inboxes',                        'Gestión por estados'],
-	        [nil,       "/app_repositorios",          'nomina', controller_icon['app_repos'],     'Repositorios de documentos'],
-	        [nil,       "/m_modelos",                 'nomina', controller_icon['m_modelos'],     'Modelo de negocios'],
-	        [nil,       "/app_recursos/tablas",       'nomina', 'table',                          'Tablas'],
-	        [nil,       "/tar_aprobaciones",          'nomina', 'check-all',                      'Aprobaciones'],
-	        [nil,       "/tar_facturas",              'nomina', 'receipt',                        'Facturas'],
-	        [nil,       "/dt_materias",               'nomina', 'bank',                           'Materias']
+	        [nil,       "/clientes",             'nomina', 'building',                       'Clientes'],
+	        [nil,       "/causas",               'nomina', 'journal-text',                   'Causas'],
+	        [nil,       "/asesorias",            'nomina', 'briefcase',                      'Asesorías'],
+	        [nil,       "/tar_aprobaciones",     'nomina', 'check-all',                      'Aprobaciones'],
+	        [nil,       "/tar_facturas",         'nomina', 'receipt',                        'Facturas'],
+	        [nil,       "/app_repositorios",     'nomina', controller_icon['app_repos'],     'Repositorios de documentos'],
+	        [nil,       "/m_modelos",            'nomina', controller_icon['m_modelos'],     'Modelo de negocios'],
+	        [nil,       "/tablas",               'nomina', 'table',                          'Tablas'],
+	        [nil,       "/dt_materias",          'nomina', 'bank',                           'Materias']
 	    ]
 
 	end

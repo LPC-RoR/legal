@@ -66,7 +66,7 @@ class TribunalCortesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = '/app_recursos/tablas?html_options[tablas]=Cuantías+%26+Tribunales+o+Cortes'
+      @redireccion = '/tablas?html_options[tablas]=Tablas+de+Causas'
     end
 
     # Only allow a list of trusted parameters through.

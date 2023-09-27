@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_04_191952) do
+ActiveRecord::Schema.define(version: 2023_09_26_212402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,6 +241,21 @@ ActiveRecord::Schema.define(version: 2023_09_04_191952) do
     t.index ["app_repositorio"], name: "index_app_repositorios_on_app_repositorio"
     t.index ["owner_class"], name: "index_app_repositorios_on_owner_class"
     t.index ["owner_id"], name: "index_app_repositorios_on_owner_id"
+  end
+
+  create_table "asesorias", force: :cascade do |t|
+    t.integer "cliente_id"
+    t.integer "tar_servicio_id"
+    t.string "descripcion"
+    t.text "detalle"
+    t.datetime "fecha"
+    t.datetime "plazo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "estado"
+    t.index ["cliente_id"], name: "index_asesorias_on_cliente_id"
+    t.index ["estado"], name: "index_asesorias_on_estado"
+    t.index ["tar_servicio_id"], name: "index_asesorias_on_tar_servicio_id"
   end
 
   create_table "blg_articulos", force: :cascade do |t|
@@ -724,6 +739,8 @@ ActiveRecord::Schema.define(version: 2023_09_04_191952) do
     t.string "st_modelo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "bandeja"
+    t.index ["bandeja"], name: "index_st_modelos_on_bandeja"
     t.index ["st_modelo"], name: "index_st_modelos_on_st_modelo"
   end
 

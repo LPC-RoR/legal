@@ -6,21 +6,33 @@ class ClientesController < ApplicationController
 
   # GET /clientes or /clientes.json
   def index
+      init_tabla('ingreso-clientes', Cliente.where(estado: 'ingreso').order(created_at: :desc), false)
+      add_tabla('activo-clientes', Cliente.where(estado: 'activo').order(created_at: :desc), false)
+      add_tabla('baja-clientes', Cliente.where(estado: 'baja').order(created_at: :desc), true)
   end
 
   # GET /clientes/1 or /clientes/1.json
   def show
 
-    init_tab( { menu: ['Facturas', 'Causas', 'Consultorías', 'Documentos y enlaces', 'Tarifas y servicios'] }, true )
+    init_tab( { menu: ['Causas', 'Asesorias', 'Facturas', 'Tarifas'] }, true )
 
 #    @coleccion = {}
-    if @options[:menu] == 'Facturas'
-      init_tabla('tar_facturas', @objeto.facturas.order(documento: :desc), false)
-    elsif @options[:menu] == 'Causas'
-      init_tabla('causas', @objeto.causas.order(:created_at), false)
-    elsif @options[:menu] == 'Consultorías'
-      init_tabla('consultorias', @objeto.consultorias.order(:created_at), false)
-    elsif @options[:menu] == 'Tarifas y servicios'
+    if @options[:menu] == 'Causas'
+      causas_cliente = @objeto.causas
+      init_tabla('ingreso-causas', causas_cliente.where(estado: 'ingreso').order(:created_at), false)
+      add_tabla('proceso-causas', causas_cliente.where(estado: 'proceso').order(:created_at), false)
+      add_tabla('terminada-causas', causas_cliente.where(estado: 'terminada').order(:created_at), true)
+    elsif @options[:menu] == 'Asesorias'
+      asesorias_cliente = @objeto.asesorias
+      init_tabla('ingreso-asesorias', asesorias_cliente.where(estado: 'ingreso').order(:created_at), false)
+      add_tabla('proceso-asesorias', asesorias_cliente.where(estado: 'proceso').order(:created_at), false)
+      add_tabla('terminada-asesorias', asesorias_cliente.where(estado: 'terminada').order(:created_at), true)
+    elsif @options[:menu] == 'Facturas'
+      facturas_cliente = @objeto.facturas
+      init_tabla('ingreso-tar_facturas', facturas_cliente.where(estado: 'ingreso').order(documento: :desc), false)
+      add_tabla('facturada-tar_facturas', facturas_cliente.where(estado: 'facturada').order(documento: :desc), false)
+      add_tabla('pagada-tar_facturas', facturas_cliente.where(estado: 'pagada').order(documento: :desc), true)
+    elsif @options[:menu] == 'Tarifas'
       init_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       add_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
     elsif @options[:menu] == 'Documentos y enlaces'

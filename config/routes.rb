@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :asesorias
   resources :app_control_documentos
   resources :tribunal_cortes
   resources :juzgados
@@ -79,12 +80,12 @@ Rails.application.routes.draw do
         match :ayuda, via: :get
         match :administracion, via: :get
         match :procesos, via: :get
-        match :tablas, via: :get
       end
     end
     resources :servicios do
       match :aprobacion, via: :get, on: :collection
     end
+    resources :tablas
   end
 
   scope module: 'home' do

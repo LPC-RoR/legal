@@ -1,0 +1,12 @@
+<div style="background-color:#FFFFFF; padding-left: 1em; margin-bottom: .5em;">
+<small>
+	<%= objeto.tar_detalle_cuantia %></br>
+
+	<small>	
+	<% unless objeto.descripcion.blank? %>
+		<%= objeto.descripcion %></br>
+	<% end %>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</small>
+</small>
+</div>

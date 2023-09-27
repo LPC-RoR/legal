@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cliente_id: 1
+  tar_servicio_id: 1
+  descripcion: MyString
+  detalle: MyText
+  fecha: 2023-09-25 22:39:50
+  plazo: 2023-09-25 22:39:50
+
+two:
+  cliente_id: 1
+  tar_servicio_id: 1
+  descripcion: MyString
+  detalle: MyText
+  fecha: 2023-09-25 22:39:50
+  plazo: 2023-09-25 22:39:50

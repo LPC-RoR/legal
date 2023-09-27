@@ -5,21 +5,24 @@ class CausasController < ApplicationController
 
   # GET /causas or /causas.json
   def index
+      # Causas
+      init_tabla('ingreso-causas', Causa.where(estado: 'ingreso').order(created_at: :desc), false)
+      add_tabla('proceso-causas', Causa.where(estado: 'proceso').order(created_at: :desc), false)
+      add_tabla('terminada-causas', Causa.where(estado: 'terminada').order(created_at: :desc), true)
   end
 
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab( { menu: ['Antecedentes', 'Cuantía', 'Facturacion', 'Documentos y enlaces', 'Registro', 'Reportes'] }, true )
+    init_tab( { menu: ['Antecedentes', 'Facturacion', 'Registro', 'Reportes'] }, true )
 
-    if @options[:menu] == 'Facturacion'
+    if @options[:menu] == 'Antecedentes'
+      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+      add_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)
+    elsif @options[:menu] == 'Facturacion'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       add_tabla('tar_facturaciones', @objeto.facturaciones, false)
       add_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
-    elsif @options[:menu] == 'Cuantía'
-      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
-    elsif @options[:menu] == 'Antecedentes'
-      init_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)
     elsif @options[:menu] == 'Documentos y enlaces'
       AppRepositorio.create(app_repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repositorio.blank?
 
@@ -149,7 +152,7 @@ class CausasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/st_bandejas?m=Causa&e=#{@objeto.estado}"
+      @redireccion = causas_path
     end
 
     # Only allow a list of trusted parameters through.

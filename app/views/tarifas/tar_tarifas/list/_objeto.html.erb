@@ -1,0 +1,17 @@
+<small>
+	<b><%= objeto.tarifa %> | <%= objeto.moneda %></b></br>
+	<% unless objeto.tar_pagos.empty? %>
+		<ul>
+			<% objeto.tar_pagos.order(:orden).each do |pago| %>
+				<li><%= pago.tar_pago %> <%= pago.codigo_formula.blank? ? '( valor )' : '( fórmula )' %></li>
+			<% end %>
+		</ul>
+	<% end %>
+
+	<% unless objeto.valor_hora.blank? %>
+		<i class="bi bi-alarm"></i> <%= s_moneda(objeto.moneda, objeto.valor_hora) %>
+	<% end %></br>
+
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></br>
+	<hr>
+</small>

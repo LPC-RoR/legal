@@ -27,7 +27,7 @@ class TipoCausasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tipo causa was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Tipo de Causa fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class TipoCausasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tipo_causa_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tipo causa was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Tipo de Causa fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class TipoCausasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tipo causa was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Tipo de Causa fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -67,7 +67,7 @@ class TipoCausasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/app_recursos/tablas?html_options[tablas]=Tipos+de+Causa" 
+      @redireccion = '/tablas?html_options[tablas]=Tablas+de+Causas'
     end
 
     # Only allow a list of trusted parameters through.

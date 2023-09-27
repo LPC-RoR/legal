@@ -1,21 +1,15 @@
 class TarServicio < ApplicationRecord
 
-	TIPOS = ['único', 'mensual']
+	TIPOS = ['requerimiento', 'mensual', 'horas']
 
 	MONEDAS = ['Pesos', 'UF']
 
-	TABLA_FIELDS = [
-		'codigo',
-		's#descripcion',
-		'tipo',
-		'm#monto',
-		'estado'
-	]
+	has_many :asesorias
 
-    validates_presence_of :codigo, :descripcion, :tipo, :moneda, :monto
+    validates_presence_of :descripcion, :tipo, :moneda, :monto
 
 	def padre
-		self.owner_class.constantize.find(self.owner_id)
+		owner_id.blank? ? nil : self.owner_class.constantize.find(self.owner_id)
 	end
 
 	def cliente

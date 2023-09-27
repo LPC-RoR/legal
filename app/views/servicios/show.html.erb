@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cliente:</strong>
+  <%= @servicio.cliente_id %>
+</p>
+
+<p>
+  <strong>Tar servicio:</strong>
+  <%= @servicio.tar_servicio_id %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @servicio.descripcion %>
+</p>
+
+<p>
+  <strong>Detalle:</strong>
+  <%= @servicio.detalle %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @servicio.fecha %>
+</p>
+
+<p>
+  <strong>Plazo:</strong>
+  <%= @servicio.plazo %>
+</p>
+
+<%= link_to 'Edit', edit_servicio_path(@servicio) %> |
+<%= link_to 'Back', servicios_path %>

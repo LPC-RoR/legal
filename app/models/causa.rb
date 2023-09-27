@@ -22,20 +22,34 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
+	def valores_cuantia
+		TarValorCuantia.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def facturaciones
+		TarFacturacion.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def enlaces
+		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def archivos
+		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	# Hasta aqui revisado!
+
+	def valores
+		TarValor.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
 	def tarifas_cliente
 		self.cliente.tarifas
 	end
 
 	def tarifas_hora_cliente
 		self.cliente.tarifas_hora
-	end
-
-	def valores
-		TarValor.where(owner_class: 'Causa', owner_id: self.id)
-	end
-
-	def facturaciones
-		TarFacturacion.where(owner_class: 'Causa', owner_id: self.id)
 	end
 
 	# Encuentra el PAGO (TarFacturacion) asociado al pago
@@ -70,10 +84,6 @@ class Causa < ApplicationRecord
 		self.facturaciones.map {|factn| factn.monto_uf}.sum
 	end
 
-	def enlaces
-		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
 	def repositorio
     	AppRepositorio.where(owner_class: self.class.name).find_by(owner_id: self.id)
 	end
@@ -93,10 +103,6 @@ class Causa < ApplicationRecord
 
 	def registros
     	Registro.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def valores_cuantia
-		TarValorCuantia.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
 	def fecha_calculo

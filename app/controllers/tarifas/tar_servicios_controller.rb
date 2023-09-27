@@ -25,7 +25,7 @@ class Tarifas::TarServiciosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar servicio was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Tarifa fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class Tarifas::TarServiciosController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_servicio_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar servicio was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Tarifa fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class Tarifas::TarServiciosController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tar servicio was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Tarifa fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -65,7 +65,7 @@ class Tarifas::TarServiciosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.padre.blank? ? tar_tarifas_path : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas+y+servicios"
+      @redireccion = @objeto.padre.blank? ? '/tablas?html_options[tablas]=Tarifas+Generales' : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas"
     end
 
     # Only allow a list of trusted parameters through.

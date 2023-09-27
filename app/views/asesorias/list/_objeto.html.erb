@@ -1,0 +1,16 @@
+<small>
+<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
+
+	<small><%= dma(objeto.created_at) %> | <%= objeto.estado %> | <i><%= objeto.cliente.razon_social %></i></small></br>
+	<b><%= link_to objeto.descripcion, objeto %></b></br>
+	<small>
+	<%= objeto.fecha.blank? ? 'sin fecha' : dma(objeto.fecha) %>
+	<% unless objeto.plazo.blank? %>
+		 | <i class="bi bi-alarm"></i> <%= dma(objeto.plazo) %>
+	<% end %>
+	</br>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</small></small>
+
+</div>
+</small>

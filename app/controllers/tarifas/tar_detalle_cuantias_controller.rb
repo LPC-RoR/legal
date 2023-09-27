@@ -25,7 +25,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar detalle cuantia was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Detalle de Cuantía fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_detalle_cuantia_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar detalle cuantia was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Detalle de Cuantía fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tar detalle cuantia was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Detalle de Cuantía fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -65,7 +65,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = '/app_recursos/tablas?html_options[tablas]=Cuantías+%26+Tribunales+o+Cortes'
+      @redireccion = '/tablas?html_options[tablas]=Tablas+de+Causas'
     end
 
     # Only allow a list of trusted parameters through.

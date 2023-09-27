@@ -25,7 +25,8 @@ class AntecedentesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Antecedente fue exitósamente creado." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Antecedente fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,8 @@ class AntecedentesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(antecedente_params)
-        format.html { redirect_to @objeto, notice: "Antecedente fue exitósamente actualizado." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Antecedente fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,9 +51,10 @@ class AntecedentesController < ApplicationController
 
   # DELETE /antecedentes/1 or /antecedentes/1.json
   def destroy
+    set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to antecedentes_url, notice: "Antecedente fue exitósamente eliminado." }
+      format.html { redirect_to @redireccion, notice: "Antecedente fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -60,6 +63,10 @@ class AntecedentesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_antecedente
       @objeto = Antecedente.find(params[:id])
+    end
+
+    def set_redireccion
+      @redireccion = "/causas/#{@objeto.causa.id}?html_options[menu]=Antecedentes"
     end
 
     # Only allow a list of trusted parameters through.

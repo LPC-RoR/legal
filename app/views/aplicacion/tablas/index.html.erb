@@ -1,0 +1,57 @@
+<!-- ['UF', 'Tarifas Generales', 'Tablas de Causas', 'Enlaces'] -->
+<%= render partial: '0p/tabs/tabs', locals: { tabs: @tabs, options: @options, token: :tablas } %>
+
+<% case @options[:tablas] %>
+<% when 'UF' %>
+
+    <h4><%= render partial: '0p/general/icon_text', locals: {gly: 'calendar3', text: 'UF del Sistema', clr: config[:color][:app]} %></h4>
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'tar_uf_sistemas'} %>
+
+<% when 'Tarifas Generales' %>
+
+  <div class='row'>
+    <div class='col-lg-6 col-xs-12'>
+      <h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas Generales de Causas', clr: config[:color][:app]} %></h5>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
+      <%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: nil, c: 'tar_tarifas', a: 'index', gly: 'plus-circle'} %>
+    </div>
+    <div class='col-lg-6'>
+      <h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas Generales de Asesorías', clr: config[:color][:app]} %></h5>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
+      <%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: nil, c: 'tar_servicios', a: 'index', gly: 'plus-circle'} %>
+    </div>
+  </div>
+
+<% when 'Tablas de Causas' %>
+
+  <div class='row'>
+    <div class='col-lg-4 col-xs-12'>
+      <h4><%= render partial: '0p/general/icon_text', locals: {gly: 'check2', text: 'Detalles de Cuantía', clr: config[:color][:app]} %></h4>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'tar_detalle_cuantias'} %>
+    </div>
+    <div class='col-lg-4 col-xs-12'>
+      <h4><%= render partial: '0p/general/icon_text', locals: {gly: 'building', text: 'Tribunales/Cortes', clr: config[:color][:app]} %></h4>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'tribunal_cortes'} %>
+    </div>
+    <div class='col-lg-4'>
+      <h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-check', text: 'Tipos de Causas', clr: config[:color][:app]} %></h4>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_causas'} %>
+    </div>
+  </div>
+
+<% when 'Enlaces' %>
+
+  <div class='row'>
+    <div class='col-md-6'>
+      <h4><%= render partial: '0p/general/icon_text', locals: {gly: 'link-45deg', text: 'Enlaces Publicos', clr: config[:color][:app]} %></h4>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'app_enlaces'} %>
+      <%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: nil ,c: 'app_enlaces', gly: 'plus-circle', clr: color('app_enlaces')} %>
+    </div>
+    <div class='col-md-6'>
+      <h4><%= render partial: '0p/general/icon_text', locals: {gly: 'link-45deg', text: 'Enlaces Perfil', clr: config[:color][:app]} %></h4>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'perfil-app_enlaces'} %>
+      <%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: perfil_activo ,c: 'app_enlaces', gly: 'plus-circle', clr: color('app_enlaces')} %>
+    </div>
+  </div>
+
+<% end %>

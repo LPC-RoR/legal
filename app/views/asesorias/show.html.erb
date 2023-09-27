@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cliente:</strong>
+  <%= @asesoria.cliente_id %>
+</p>
+
+<p>
+  <strong>Tar servicio:</strong>
+  <%= @asesoria.tar_servicio_id %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @asesoria.descripcion %>
+</p>
+
+<p>
+  <strong>Detalle:</strong>
+  <%= @asesoria.detalle %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @asesoria.fecha %>
+</p>
+
+<p>
+  <strong>Plazo:</strong>
+  <%= @asesoria.plazo %>
+</p>
+
+<%= link_to 'Edit', edit_asesoria_path(@asesoria) %> |
+<%= link_to 'Back', asesorias_path %>

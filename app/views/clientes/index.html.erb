@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="col-lg-4 col-xs-12">
+		<p class="text-info">
+		<i class="bi bi-building"></i> Clientes ingresados
+		</p>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-clientes'} %>
+	</div>
+	<div class="col-lg-4 col-xs-12">
+		<p class="text-info">
+		<i class="bi bi-building"></i> Cliente activos
+		</p>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'activo-clientes'} %>
+	</div>
+	<div class="col-lg-4">
+		<p class="text-info">
+		<i class="bi bi-building"></i> Clientes de baja
+		</p>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'baja-clientes'} %>
+	</div>
+</div>

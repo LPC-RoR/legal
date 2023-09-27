@@ -14,6 +14,8 @@ module CptnCristianoHelper
 			'SbElemento' => 'Elemento del menú lateral',
 			'TarHora' => 'Tarifa en Horas',
 			'TarUfFacturacion' => 'UF de cálculo',
+			'TarTarifa' => 'Tarifa de Causa',
+			'TarServicio' => 'Tarifa de Asesoría'
 		}
 	end
 

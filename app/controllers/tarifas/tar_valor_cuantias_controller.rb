@@ -65,7 +65,7 @@ class Tarifas::TarValorCuantiasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/#{@objeto.owner.class.name.tableize}/#{@objeto.owner.id}?html_options[menu]=Cuantía"
+      @redireccion = "/#{@objeto.owner.class.name.tableize}/#{@objeto.owner.id}?html_options[menu]=Antecedentes"
     end
 
     # Only allow a list of trusted parameters through.

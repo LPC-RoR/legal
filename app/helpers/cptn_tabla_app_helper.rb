@@ -12,8 +12,12 @@ module CptnTablaAppHelper
 			false
 		elsif ['tar_facturaciones', 'sin_aprobacion-tar_facturaciones', 'sin_facturar-tar_facturaciones'].include?(controller)
 			false
-		elsif ['causas', 'sin_cuantia-causas', 'sin_facturar-causas', 'en_proceso-causas', 'consultorias'].include?(controller)
-			controller_name == 'st_bandejas'
+		elsif ['clientes', 'activo-clientes', 'baja-clientes'].include?(controller)
+			false
+		elsif ['causas', 'proceso-causas', 'terminada-causas', 'sin_cuantia-causas', 'sin_facturar-causas', 'en_proceso-causas', 'consultorias'].include?(controller)
+			false
+		elsif ['asesorias', 'proceso-asesorias', 'terminada-asesorias'].include?(controller)
+			false
 		else
 			true
 		end
@@ -35,7 +39,7 @@ module CptnTablaAppHelper
 		else
 			case objeto.class.name
 			when 'TarValorCuantia'
-				controller_name == 'causas' and @options[:menu] == 'Cuantía'
+				controller_name == 'causas' and @options[:menu] == 'Antecedentes'
 			when 'Registro'
 				admin? and objeto.estado == 'ingreso'
 			when 'MRegistro'

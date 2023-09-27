@@ -7,12 +7,28 @@ class Cliente < ApplicationRecord
 	]
 
 	has_many :causas
+	has_many :asesorias
 	has_many :consultorias
 
 	has_many :tar_aprobaciones
 
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social
+
+	def enlaces
+		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def archivos
+		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	#Solo para que funcione ser_redireccion
+	def repositorio
+    	AppRepositorio.where(owner_class: self.class.name).find_by(owner_id: self.id)
+	end
+
+	# Hasta aqui revisado!
 
 	def tarifas
 		TarTarifa.where(owner_class: self.class.name).where(owner_id: self.id)
