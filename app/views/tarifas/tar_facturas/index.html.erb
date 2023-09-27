@@ -1,18 +1,3 @@
 <h5><%= render partial: '0p/general/icon_text', locals: {gly: 'receipt', text: "Facturas", clr: config[:color][:app]} %></h5>
 
 <%= render partial: 'tarifas/tar_facturas/partials/monitor' %>
-
-<div class="row">
-	<div class="col-lg-4 col-xs-12">
-		<%= render partial: '0p/general/gly_title_size', locals: {gly: 'receipt', title: 'Facturas : ingreso', size: 6} %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-tar_facturas'} %>
-	</div>
-	<div class="col-lg-4 col-xs-12">
-		<%= render partial: '0p/general/gly_title_size', locals: {gly: 'receipt', title: 'Facturas : facturada', size: 6} %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'facturada-tar_facturas'} %>
-	</div>
-	<div class="col-lg-4">
-		<%= render partial: '0p/general/gly_title_size', locals: {gly: 'receipt', title: 'Facturas : pagada', size: 6} %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'pagada-tar_facturas'} %>
-	</div>
-</div>
