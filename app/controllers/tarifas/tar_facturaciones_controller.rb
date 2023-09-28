@@ -28,7 +28,9 @@ class Tarifas::TarFacturacionesController < ApplicationController
       # fACTURACION DEL REPORTE DE HORAS
       TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: params[:facturable], estado: 'ingreso', moneda: owner.moneda_reporte, monto: owner.monto_reporte )
     elsif params[:owner_class] == 'Asesoria'
-      tf=TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: nil, glosa: owner.descripcion, estado: 'ingreso', moneda: owner.tar_servicio.moneda, monto: owner.tar_servicio.monto )
+      moneda = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.moneda : owner.moneda
+      monto = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.monto : owner.monto
+      tf=TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: nil, glosa: owner.descripcion, estado: 'ingreso', moneda: moneda, monto: monto )
       unless tf.blank?
         owner.estado = 'proceso'
         owner.save

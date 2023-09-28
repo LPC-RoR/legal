@@ -1,12 +1,16 @@
 <small>
 <% if objeto.facturacion.blank? %>
-	<a data-toggle="collapse" href="#collapseAsesoria<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseAsesoria<%=objeto.id%>">
-		<%= objeto.tar_servicio.blank? ? 'asignar tarifa' : 'cambiar tarifa' %>
-	</a>
+	<% if objeto.moneda.blank? or objeto.monto.blank? %>
+		<a data-toggle="collapse" href="#collapseAsesoria<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseAsesoria<%=objeto.id%>">
+			<%= objeto.tar_servicio.blank? ? 'asignar tarifa' : 'cambiar tarifa' %>
+		</a>
+	<% else %>
+		asesoría única
+	<% end %>
 <% end %>
 
 <% if objeto.facturacion.blank? %>
-	<%= link_to 'generar cobro', "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}" unless objeto.tar_servicio.blank? %>
+	<%= link_to 'generar cobro', "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}" unless ( objeto.tar_servicio.blank? and ( objeto.moneda.blank? or objeto.monto.blank? ) ) %>
 <% else %>
 	<% if objeto.facturacion.tar_aprobacion.blank? and objeto.facturacion.tar_factura.blank? %>
 		<%= link_to 'eliminar cobro', "/tar_facturaciones/#{objeto.facturacion.id}/elimina_facturacion" %>
@@ -36,9 +40,11 @@
 </small>
 
 <% if objeto.facturacion.blank? %>
+	<% if objeto.moneda.blank? or objeto.monto.blank? %>
 	<div class="collapse" id="collapseAsesoria<%=objeto.id%>">
 		<div class="card card-body">
 			<%= render partial: 'asesorias/list/form_tar_servicio', locals: {objeto: objeto} %>
 		</div>
 	</div>
+	<% end %>
 <% end %>

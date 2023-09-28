@@ -6,9 +6,14 @@
 	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %></br>
 
 	<small>
-	<% unless objeto.tar_servicio.blank? %>
-		<b><i class="bi bi-coin"></i> <%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) %></b> | 
-	<% end %> 
+	<b><i class="bi bi-coin"></i> 
+	<% if objeto.moneda.blank? or objeto.monto.blank? %>
+		<%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) unless objeto.tar_servicio.blank? %>
+	<% else %>
+		<%= s_moneda(objeto.moneda, objeto.monto) %>
+	<% end %>
+	</b> | 
+
 	<%= objeto.fecha.blank? ? 'sin fecha' : dma(objeto.fecha) %>
 	<% unless objeto.fecha_uf.blank? %>
 		 | <i class="bi bi-arrow-down-up"></i> <%= dma(objeto.fecha_uf) %>

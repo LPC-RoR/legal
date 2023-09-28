@@ -111,6 +111,6 @@ class AsesoriasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def asesoria_params
-      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf)
+      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf, :moneda, :monto)
     end
 end

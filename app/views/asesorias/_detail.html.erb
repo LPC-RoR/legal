@@ -27,5 +27,18 @@
 		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :plazo } %>
 	</div>
 </div>
+<hr>
+<small><small><i>Si se trata de una asesoría única, llené directamente estos campos para no asignar tarifa.</i></small></small></br>
+
+<div class="row">
+	<div class="col-lg-2 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Moneda', v: false } %>
+		<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'] } %>
+	</div>
+	<div class="col-lg-2">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Monto', v: false } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :monto } %>
+	</div>
+</div>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
