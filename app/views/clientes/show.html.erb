@@ -22,12 +22,12 @@
 				<div class="col-md-6">
 					<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas de Causas', clr: config[:color][:app]} %></h5>
 					<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
-					<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_tarifas', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
+					<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_tarifas', a: 'index', gly: 'plus-circle'} %>
 				</div>
 				<div class="col-md-6">
 					<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: 'Tarifas de Asesorías', clr: config[:color][:app]} %></h5>
 					<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
-					<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_servicios', a: 'index', gly: 'plus-circle'} if @objeto.estado == 'activo' %>
+					<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto, c: 'tar_servicios', a: 'index', gly: 'plus-circle'}%>
 				</div>
 			</div>
 
