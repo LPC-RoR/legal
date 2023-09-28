@@ -6,7 +6,7 @@
 <% end %>
 
 <% if objeto.facturacion.blank? %>
-	<%= link_to 'generar cobro', "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}" %>
+	<%= link_to 'generar cobro', "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}" unless objeto.tar_servicio.blank? %>
 <% else %>
 	<% if objeto.facturacion.tar_aprobacion.blank? and objeto.facturacion.tar_factura.blank? %>
 		<%= link_to 'eliminar cobro', "/tar_facturaciones/#{objeto.facturacion.id}/elimina_facturacion" %>
