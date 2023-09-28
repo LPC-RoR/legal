@@ -1,5 +1,5 @@
 <% if (controller_name == 'tar_facturas') and objeto.padre.present? %>
-	<%= render partial: '0p/general/btn_proceso', locals: {texto: nil, link: objeto.padre, clr: color(objeto.class.name.tableize), delete: false, gly: controller_icon[objeto.padre.class.name.tableize]} %>
+	<%= render partial: '0p/general/btn_proceso', locals: {texto: nil, link: ( objeto.padre.class.name == 'Asesoria' ? asesorias_path : objeto.padre ), clr: color(objeto.class.name.tableize), delete: false, gly: controller_icon[objeto.padre.class.name.tableize]} %>
 <% end %>
 
 <% if controller_name == 'causas' and objeto.tar_factura.present? %>

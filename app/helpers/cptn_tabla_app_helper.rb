@@ -24,14 +24,12 @@ module CptnTablaAppHelper
 	end
 
 	def app_crud_conditions(objeto, btn)
-		if ['RegReporte'].include?(objeto.class.name)
+		if ['RegReporte', 'TarFacturacion'].include?(objeto.class.name)
 			false
 		elsif ['Causa'].include?(objeto.class.name)
 			objeto.estado == 'ingreso'
 		elsif [].include?(objeto.class.name)
 			admin?
-		elsif ['TarFacturacion'].include?(objeto.class.name)
-			(controller_name == 'tar_facturas') and objeto.facturable.blank?
 		elsif ['TarFactura'].include?(objeto.class.name)
 			btn == 'Eliminar' and objeto.tar_facturaciones.empty?
 		elsif ['TarPago', 'TarFormula'].include?(objeto.class.name)

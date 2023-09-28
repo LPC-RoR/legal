@@ -6,18 +6,6 @@
 	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %></br>
 
 	<small>
-	<% unless objeto.facturacion.blank? %>
-		<% unless objeto.facturacion.tar_aprobacion.blank? %>
-			<% link_to objeto.facturacion.tar_aprobacion do %>
-				<i class="bi bi-check-all"></i>
-			<% end %>
-		<% end %>
-		<% unless objeto.facturacion.tar_factura.blank? %>
-			<% link_to objeto.facturacion.tar_factura do %>
-				<i class="bi bi-receipt"></i>
-			<% end %>
-		<% end %>
-	<% end %>
 	<% unless objeto.tar_servicio.blank? %>
 		<b><i class="bi bi-coin"></i> <%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) %></b> | 
 	<% end %> 

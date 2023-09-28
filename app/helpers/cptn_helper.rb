@@ -79,8 +79,8 @@ def controller_icon
 			'tar_servicios' => 'arrow-repeat',
 			'clientes' => 'building',
 			'blg_articulos' => 'file-earmark-richtext',
-			'blg_temas' => 'list-stars'
-#			'ld_parrafos' => 'blockquote-left'
+			'blg_temas' => 'list-stars',
+			'asesorias' => 'briefcase'
 		}
 	end
 

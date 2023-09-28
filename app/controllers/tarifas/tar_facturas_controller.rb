@@ -42,7 +42,7 @@ class Tarifas::TarFacturasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Tar factura was successfully created." }
+        format.html { redirect_to @objeto, notice: "Factura fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class Tarifas::TarFacturasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tar_factura_params)
-        format.html { redirect_to @objeto, notice: "Tar factura was successfully updated." }
+        format.html { redirect_to @objeto, notice: "Factura fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -149,7 +149,7 @@ class Tarifas::TarFacturasController < ApplicationController
   def destroy
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to tar_facturas_url, notice: "Tar factura was successfully destroyed." }
+      format.html { redirect_to tar_facturas_url, notice: "Factura fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end

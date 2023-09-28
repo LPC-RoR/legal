@@ -74,6 +74,8 @@ class TarFacturacion < ApplicationRecord
 			pago = self.owner.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
 			uf_facturacion = self.owner.uf_facturaciones.find_by(pago: pago.tar_pago)
 			uf_facturacion.blank? ? self.created_at : uf_facturacion.fecha_uf
+		elsif self.owner.class.name == 'Asesoria'
+			self.owner.fecha_uf.blank? ? self.created_at : self.owner.fecha_uf
 		else
 			self.created_at
 		end

@@ -54,7 +54,17 @@ class AsesoriasController < ApplicationController
   end
 
   def facturar
-    
+    unless @objeto.facturacion.blank?
+      factura = TarFactura.create(owner_class: 'Cliente', owner_id: @objeto.cliente.id, estado: 'ingreso')
+      factura.tar_facturaciones << @objeto.facturacion unless factura.blank?
+      if factura.blank?
+        redirect_to asesorias_path, notice: 'No se pudo crear la factura'
+      else
+        redirect_to factura, notice: 'Factura ha sido exitósamente creada'
+      end
+    else
+      redirect_to asesorias_path, notice: 'Asesoría sin cobro asociado'
+    end
   end
 
   def set_tar_servicio
