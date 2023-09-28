@@ -1,5 +1,5 @@
 class AsesoriasController < ApplicationController
-  before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar ]
+  before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar liberar_factura ]
 
   # GET /asesorias or /asesorias.json
   def index
@@ -60,6 +60,8 @@ class AsesoriasController < ApplicationController
       if factura.blank?
         redirect_to asesorias_path, notice: 'No se pudo crear la factura'
       else
+        @objeto.estado = 'terminada'
+        @objeto.save
         redirect_to factura, notice: 'Factura ha sido exitósamente creada'
       end
     else
@@ -84,6 +86,17 @@ class AsesoriasController < ApplicationController
       format.html { redirect_to @redireccion, notice: "Asesoria fue exitósamente eliminada." }
       format.json { head :no_content }
     end
+  end
+
+  def liberar_factura
+    facturacion = @objeto.facturacion
+    facturacion.tar_factura_id = nil
+    facturacion.save
+
+    @objeto.estado = 'proceso'
+    @objeto.save
+
+    redirect_to asesorias_path
   end
 
   private

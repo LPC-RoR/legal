@@ -13,8 +13,9 @@
 	<% end %>
 
 	<% if objeto.facturacion.tar_factura.blank? %>
-		<%#= link_to 'aprobar', "/asesorias/#{objeto.id}/aprobar" if objeto.facturacion.tar_aprobacion.blank? %>
 		<%= link_to 'facturar', "/asesorias/#{objeto.id}/facturar" %>
+	<% elsif objeto.facturacion.tar_factura.estado == 'ingreso' %>
+		<%= link_to 'liberar factura', "/asesorias/#{objeto.id}/liberar_factura" %>
 	<% end %>
 <% end %>
 

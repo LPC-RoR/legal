@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     match :set_tar_servicio, via: :post, on: :member
     match :generar_cobro, via: :get, on: :member
     match :facturar, via: :get, on: :member
+    match :liberar_factura, via: :get, on: :member
   end
   resources :app_control_documentos
   resources :tribunal_cortes

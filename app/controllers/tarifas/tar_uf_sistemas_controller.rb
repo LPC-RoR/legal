@@ -66,7 +66,7 @@ class Tarifas::TarUfSistemasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = '/app_recursos/tablas?html_options[tablas]=Tarifas+Generales+%26+UF'
+      @redireccion = tablas_path
     end
 
     # Only allow a list of trusted parameters through.
