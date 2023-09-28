@@ -7,7 +7,23 @@
 	<% else %>
 		Factura
 	<% end %>: 
-	<%= "#{objeto.documento.blank? ? '(no emitida)' : objeto.documento} | #{dma(objeto.fecha_factura)} | #{objeto.concepto}" %>
+	<%= objeto.documento.blank? ? '(no emitida)' : objeto.documento %> 
+	<% if objeto.factura.blank? %>
+		<small>
+		<%= link_to "/app_archivos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
+			 <i class="bi bi-upload"></i>
+		<% end %>
+		</small>
+	<% else %>
+		<small>
+		<%= link_to objeto.factura.archivo.url, class: 'sb-link', target: :_blank do %>
+			<i class="bi bi-download"></i> 
+		<% end %>
+		<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto.factura} %>
+		</small>
+	<% end %>
+
+	<%= " | #{dma(objeto.fecha_factura)} | #{objeto.concepto}" %>
 </p>
 <% if objeto.estado == 'ingreso' %>
 	<div class="collapse" id="collapseEmitir">

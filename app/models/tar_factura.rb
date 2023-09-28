@@ -11,6 +11,11 @@ class TarFactura < ApplicationRecord
 
 	has_many :tar_facturaciones
 
+	# Para respaldar archivo factura
+	def factura
+		AppArchivo.where(owner_class: self.class.name).find_by(owner_id: self.id)
+	end
+
 	# DEPRECATED : se reemplaza con owner
 	def padre
 		self.owner_class.constantize.find(self.owner_id)

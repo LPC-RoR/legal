@@ -134,7 +134,7 @@ class ClientesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/st_bandejas?m=Cliente&e=ingreso" 
+      @redireccion = clientes_path
     end
 
     # Only allow a list of trusted parameters through.
