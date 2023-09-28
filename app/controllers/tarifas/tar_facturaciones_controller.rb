@@ -1,5 +1,5 @@
 class Tarifas::TarFacturacionesController < ApplicationController
-  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado crea_aprobacion a_aprobacion a_pendiente ]
+  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado crea_aprobacion a_aprobacion a_pendiente elimina_facturacion ]
 
   include Tarifas
 
@@ -27,6 +27,12 @@ class Tarifas::TarFacturacionesController < ApplicationController
     if params[:owner_class] == 'RegReporte'
       # fACTURACION DEL REPORTE DE HORAS
       TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: params[:facturable], estado: 'ingreso', moneda: owner.moneda_reporte, monto: owner.monto_reporte )
+    elsif params[:owner_class] == 'Asesoria'
+      tf=TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: nil, glosa: owner.descripcion, estado: 'ingreso', moneda: owner.tar_servicio.moneda, monto: owner.tar_servicio.monto )
+      unless tf.blank?
+        owner.estado = 'proceso'
+        owner.save
+      end
     else
       # FACTURACION DE TARIFAS CON FORMULAS | VALORES
       # do_eval funciona para CAUSA/CONSULTORIA
@@ -42,7 +48,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
       end
     end
 
-    redirect_to "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Facturacion"
+    redirect_to ( params[:owner_class] == 'Asesoria' ? asesorias_path : "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Facturacion" )
   end
 
   def crea_aprobacion
@@ -91,6 +97,17 @@ class Tarifas::TarFacturacionesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def elimina_facturacion
+    owner = @objeto.owner_class.constantize.find(@objeto.owner_id)
+    unless owner.blank?
+      @objeto.delete
+      owner.estado = 'ingreso'
+      owner.save
+    end
+
+    redirect_to asesorias_path
   end
 
   def a_aprobacion
@@ -152,7 +169,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.tar_factura
+      @redireccion = ( @objeto.owner.class.name == 'Asesoria' ? asesorias_path : "/#{@objeto.owner.class.name.tableize}/#{@objeto.owner.id}?html_options[menu]=Facturacion" )
     end
 
     # Only allow a list of trusted parameters through.

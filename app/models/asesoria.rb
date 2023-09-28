@@ -10,5 +10,9 @@ class Asesoria < ApplicationRecord
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	def facturacion
+		TarFacturacion.where(owner_class: self.class.name).find_by(owner_id: self.id)
+	end
+
 	# Hasta aqui revisado!
 end

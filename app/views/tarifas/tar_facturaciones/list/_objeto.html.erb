@@ -12,13 +12,13 @@
 				<%= link_to objeto.owner.codigo, objeto.owner %> <%= objeto.owner.descripcion %>
 			<% when 'RegReporte' %>
 				<%= link_to objeto.owner.nombre_padre, objeto.owner %>
-			<% when 'Consultoria' %>
-				<%= link_to objeto.owner.consultoria, objeto.owner %>
+			<% when 'Asesoria' %>
+				<%= link_to objeto.owner.descripcion, objeto.owner %>
 			<% end %>
 			</br>
 
 			<small>
-			<% unless objeto.owner_id.blank? or ['TarServicio', 'RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
+			<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
 				<%= objeto.pago.tar_pago %> | 
 			<% end %>
 			<%= s_uf(objeto.monto_uf) %> : <%= s_pesos(objeto.monto_pesos) %>

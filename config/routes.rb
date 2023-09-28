@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :asesorias
+  resources :asesorias do
+    match :set_tar_servicio, via: :post, on: :member
+    match :generar_cobro, via: :get, on: :member
+    match :facturar, via: :get, on: :member
+  end
   resources :app_control_documentos
   resources :tribunal_cortes
   resources :juzgados
@@ -168,6 +172,7 @@ Rails.application.routes.draw do
     resources :tar_valores
     resources :tar_facturaciones do
       match :crea_facturacion, via: :get, on: :collection
+      match :elimina_facturacion, via: :get, on: :member
       match :facturable, via: :get, on: :member
       match :facturar, via: :get, on: :member
       # nueva lógica

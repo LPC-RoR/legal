@@ -1,0 +1,30 @@
+<small>
+<% if objeto.facturacion.blank? %>
+	<a data-toggle="collapse" href="#collapseAsesoria<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseAsesoria<%=objeto.id%>">
+		<%= objeto.tar_servicio.blank? ? 'asignar tarifa' : 'cambiar tarifa' %>
+	</a>
+<% end %>
+
+<% if objeto.facturacion.blank? %>
+	<%= link_to 'generar cobro', "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}" %>
+<% else %>
+	<% if objeto.facturacion.tar_aprobacion.blank? and objeto.facturacion.tar_factura.blank? %>
+		<%= link_to 'eliminar cobro', "/tar_facturaciones/#{objeto.facturacion.id}/elimina_facturacion" %>
+	<% end %>
+
+	<% if objeto.facturacion.tar_factura.blank? %>
+		<%#= link_to 'aprobar', "/asesorias/#{objeto.id}/aprobar" if objeto.facturacion.tar_aprobacion.blank? %>
+		<%= link_to 'facturar', "/asesorias/#{objeto.id}/facturar" %>
+	<% end %>
+<% end %>
+
+<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if objeto.estado == 'ingreso' %>
+</small>
+
+<% if objeto.facturacion.blank? %>
+	<div class="collapse" id="collapseAsesoria<%=objeto.id%>">
+		<div class="card card-body">
+			<%= render partial: 'asesorias/list/form_tar_servicio', locals: {objeto: objeto} %>
+		</div>
+	</div>
+<% end %>

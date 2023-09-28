@@ -1,15 +1,35 @@
 <small>
-<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
+<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: .5em; padding-bottom: .5em; margin-bottom: 1em;'>
 
 	<small><%= dma(objeto.created_at) %> | <%= objeto.estado %> | <i><%= objeto.cliente.razon_social %></i></small></br>
-	<b><%= link_to objeto.descripcion, objeto %></b></br>
+	<b><%= objeto.descripcion %></b></br>
+	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %></br>
+
 	<small>
+	<% unless objeto.facturacion.blank? %>
+		<% unless objeto.facturacion.tar_aprobacion.blank? %>
+			<% link_to objeto.facturacion.tar_aprobacion do %>
+				<i class="bi bi-check-all"></i>
+			<% end %>
+		<% end %>
+		<% unless objeto.facturacion.tar_factura.blank? %>
+			<% link_to objeto.facturacion.tar_factura do %>
+				<i class="bi bi-receipt"></i>
+			<% end %>
+		<% end %>
+	<% end %>
+	<% unless objeto.tar_servicio.blank? %>
+		<b><i class="bi bi-coin"></i> <%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) %></b> | 
+	<% end %> 
 	<%= objeto.fecha.blank? ? 'sin fecha' : dma(objeto.fecha) %>
+	<% unless objeto.fecha_uf.blank? %>
+		 | <i class="bi bi-arrow-down-up"></i> <%= dma(objeto.fecha_uf) %>
+	<% end %>
 	<% unless objeto.plazo.blank? %>
 		 | <i class="bi bi-alarm"></i> <%= dma(objeto.plazo) %>
 	<% end %>
 	</br>
-	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	
 	</small></small>
 
 </div>

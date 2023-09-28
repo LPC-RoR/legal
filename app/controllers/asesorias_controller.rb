@@ -1,5 +1,5 @@
 class AsesoriasController < ApplicationController
-  before_action :set_asesoria, only: %i[ show edit update destroy ]
+  before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar ]
 
   # GET /asesorias or /asesorias.json
   def index
@@ -53,6 +53,19 @@ class AsesoriasController < ApplicationController
     end
   end
 
+  def facturar
+    
+  end
+
+  def set_tar_servicio
+    unless params[:tar_servicio][:tar_servicio_id].blank?
+      @objeto.tar_servicio_id = params[:tar_servicio][:tar_servicio_id]
+      @objeto.save
+    end
+    
+    redirect_to asesorias_path
+  end
+
   # DELETE /asesorias/1 or /asesorias/1.json
   def destroy
     set_redireccion
@@ -75,6 +88,6 @@ class AsesoriasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def asesoria_params
-      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado)
+      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf)
     end
 end
