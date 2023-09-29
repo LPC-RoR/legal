@@ -57,7 +57,7 @@ class Tarifas::TarAprobacionesController < ApplicationController
     if @objeto.tar_facturaciones.where(tar_factura_id: nil).any?
       factura = TarFactura.create(owner_class: 'Cliente', owner_id: @objeto.cliente.id, estado: 'ingreso')
       unless factura.blank?
-        @objeto.tar_facturaciones.where(tar_factura_id: nil).each do |facturacion|
+        @objeto.tar_facturaciones.each do |facturacion|
           factura.tar_facturaciones << facturacion
         end
       end
