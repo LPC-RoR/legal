@@ -48,6 +48,14 @@ class Tarifas::TarFacturacionesController < ApplicationController
       unless monto == 0
         TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto)
       end
+      if owner.class.name == 'Causa'
+        if owner.facturaciones.count == owner.tar_tarifa.tar_pagos.count
+          owner.estado = 'terminada'
+        elsif owner.facturaciones.count > 0
+          owner.estado = 'proceso'
+        end
+        owner.save
+      end
     end
 
     redirect_to ( params[:owner_class] == 'Asesoria' ? asesorias_path : "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Facturacion" )
@@ -160,6 +168,17 @@ class Tarifas::TarFacturacionesController < ApplicationController
   def elimina
     owner = params[:class_name].constantize.find(params[:objeto_id])
     @objeto.delete
+
+    if owner.class.name == 'Causa'
+      if owner.facturaciones.count == owner.tar_tarifa.tar_pagos.count
+        owner.estado = 'terminada'
+      elsif owner.facturaciones.count > 0
+        owner.estado = 'proceso'
+      else
+        owner.estado = 'ingreso'
+      end
+      owner.save
+    end
 
     redirect_to "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Facturacion"
   end

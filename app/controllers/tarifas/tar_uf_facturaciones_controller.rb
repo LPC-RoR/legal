@@ -14,9 +14,7 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
   def new
     owner = params[:class_name].constantize.find(params[:objeto_id])
     if owner.class.name == 'Causa'
-      pagos_tarifa = owner.tar_tarifa.tar_pagos.map {|pago| pago.tar_pago}
-      pagos_causa = owner.uf_facturaciones.map {|uf_pago| uf_pago.pago }
-      @pagos_disponibles = pagos_tarifa - pagos_causa
+      @pagos_disponibles = owner.tar_tarifa.tar_pagos.map {|pago| pago.tar_pago}
     end
     @objeto = TarUfFacturacion.new(owner_class: params[:class_name], owner_id: owner.id)
   end
@@ -77,7 +75,7 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.owner
+      @redireccion = "/causas/#{@objeto.owner.id}?html_options[menu]=Facturacion"
     end
 
     # Only allow a list of trusted parameters through.
