@@ -194,6 +194,8 @@ Rails.application.routes.draw do
       match :set_facturada, via: :get, on: :member
       match :crea_factura, via: :get, on: :collection
       match :cambio_estado, via: :get, on: :member
+      # nueva lógica
+      match :libera_factura, via: :get, on: :member
     end
 
     resources :tar_aprobaciones do

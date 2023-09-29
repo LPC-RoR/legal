@@ -1,5 +1,5 @@
 class Tarifas::TarFacturasController < ApplicationController
-  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago set_facturada]
+  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago set_facturada libera_factura]
 
   include Tarifas
 
@@ -143,6 +143,15 @@ class Tarifas::TarFacturasController < ApplicationController
     @objeto.save if modificado
 
     redirect_to @objeto
+  end
+
+  def libera_factura
+    @objeto.tar_facturaciones.each do |facturacion|
+      @objeto.tar_facturaciones.delete(facturacion)
+    end
+    @objeto.delete
+
+    redirect_to tar_facturas_path
   end
 
   # DELETE /tar_facturas/1 or /tar_facturas/1.json

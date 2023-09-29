@@ -1,35 +1,27 @@
 <small>
-<div class="list-item" style='padding-left: 1em; padding-top: 1em; margin-bottom: 1em;'>
-	<div class="row">
-		<div class="col-10">
-			<small><i class="bi bi-tag"></i> <%= objeto.control_estado %></small></br>
-			<%= render partial: 'tarifas/tar_facturaciones/list/move_btn', locals: {objeto: objeto} %> 
-			<%= objeto.owner.class.name unless objeto.owner_id.blank? %> : 
-			<% case objeto.owner.class.name %>
-			<% when 'Causa' %>
-				<%= link_to objeto.owner.rit, "/causas/#{objeto.owner.id}?html_options[menu]=Facturacion" %> <%= objeto.owner.causa %>
-			<% when 'TarServicio' %>
-				<%= link_to objeto.owner.codigo, objeto.owner %> <%= objeto.owner.descripcion %>
-			<% when 'RegReporte' %>
-				<%= link_to objeto.owner.nombre_padre, objeto.owner %>
-			<% when 'Asesoria' %>
-				<%= link_to objeto.owner.descripcion, objeto.owner %>
-			<% end %>
-			</br>
+<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: .5em; padding-bottom: .5em; margin-bottom: 1em;'>
+	<small><i class="bi bi-tag"></i> <%= objeto.control_estado %></small></br>
+	<%= render partial: 'tarifas/tar_facturaciones/list/move_btn', locals: {objeto: objeto} %> 
+	<%= objeto.owner.class.name unless objeto.owner_id.blank? %> : 
+	<% case objeto.owner.class.name %>
+	<% when 'Causa' %>
+		<%= link_to objeto.owner.rit, "/causas/#{objeto.owner.id}?html_options[menu]=Facturacion" %> <%= objeto.owner.causa %>
+	<% when 'TarServicio' %>
+		<%= link_to objeto.owner.codigo, objeto.owner %> <%= objeto.owner.descripcion %>
+	<% when 'RegReporte' %>
+		<%= link_to objeto.owner.nombre_padre, objeto.owner %>
+	<% when 'Asesoria' %>
+		<%= link_to objeto.owner.descripcion, objeto.owner %>
+	<% end %>
+	</br>
 
-			<small>
-			<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
-				<%= objeto.pago.tar_pago %> | 
-			<% end %>
-			<%= s_uf(objeto.monto_uf) %> : <%= s_pesos(objeto.monto_pesos) %>
-			</br>
-			</small>
-			<%= render partial: 'tarifas/tar_facturaciones/list/bottom_links', locals: {objeto: objeto} %>
-
-		</div>
-		<div class="col-2">
-			<%#= render partial: '0p/tabla/btns', locals: {objeto: objeto} %>
-		</div>
-	</div>
+	<small>
+	<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
+		<%= objeto.pago.tar_pago %> | 
+	<% end %>
+	<%= s_uf(objeto.monto_uf) %> : <%= s_pesos(objeto.monto_pesos) %>
+	</br>
+	</small>
+	<%= render partial: 'tarifas/tar_facturaciones/list/bottom_links', locals: {objeto: objeto} %>
 </div>
 </small>

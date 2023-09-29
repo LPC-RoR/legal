@@ -62,12 +62,12 @@ class Tarifas::TarAprobacionesController < ApplicationController
         end
       end
       if factura.blank?
-        redirect_to @objeto, notice: 'No se pudo crear la factura'
+        redirect_to tar_aprobaciones_path, notice: 'No se pudo crear la factura'
       else
         redirect_to factura, notice: 'Factura ha sido exitósamente creada'
       end
     else
-      redirect_to @objeto, notice: 'No hay pagos que facturables'
+      redirect_to tar_aprobaciones_path, notice: 'No hay pagos que facturables'
     end
   end
 
