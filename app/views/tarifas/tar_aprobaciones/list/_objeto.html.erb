@@ -8,7 +8,7 @@
 	<% end %>
 	</small></small>
 	<small>
-		<%= link_to 'facturar', "/tar_aprobaciones/#{objeto.id}/aprobar" if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
+		<%= link_to 'facturar', "/tar_aprobaciones/#{objeto.id}/facturar" if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
 		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 	</small>
 </div>
