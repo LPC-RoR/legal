@@ -148,6 +148,21 @@ class Tarifas::TarFacturasController < ApplicationController
   def libera_factura
     @objeto.tar_facturaciones.each do |facturacion|
       @objeto.tar_facturaciones.delete(facturacion)
+
+      owner = facturacion.owner
+      case owner.class.name
+      when 'Causa'
+        if owner.facturaciones.where.not(tar_factura_id: nil).count == owner.tar_tarifa.tar_pagos.count
+          owner.estado = 'terminada'
+        else
+          owner.estado = 'proceso'
+        end
+        owner.save
+      when 'Asesoria'
+        owner.estado = 'terminada'
+        owner.save
+      end
+
     end
     @objeto.delete
 

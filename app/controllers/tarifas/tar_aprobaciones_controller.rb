@@ -54,11 +54,26 @@ class Tarifas::TarAprobacionesController < ApplicationController
   end
 
   def facturar
-    if @objeto.tar_facturaciones.where(tar_factura_id: nil).any?
+    if @objeto.tar_facturaciones.any?
       factura = TarFactura.create(owner_class: 'Cliente', owner_id: @objeto.cliente.id, estado: 'ingreso')
       unless factura.blank?
         @objeto.tar_facturaciones.each do |facturacion|
           factura.tar_facturaciones << facturacion
+
+          # cmabio de estado de Causas y Asesorías
+          owner = facturacion.owner
+          case owner.class.name
+          when 'Causa'
+            if owner.facturaciones.where.not(tar_factura_id: nil).count == owner.tar_tarifa.tar_pagos.count
+              owner.estado = 'terminada'
+            else
+              owner.estado = 'proceso'
+            end
+            owner.save
+          when 'Asesoria'
+            owner.estado = 'terminada'
+            owner.save
+          end
         end
       end
       if factura.blank?
