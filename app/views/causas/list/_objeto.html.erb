@@ -14,7 +14,7 @@
 	| <b><%= s_pesos(objeto.monto_pagado) %></b> |
 	<% end %>
 
-	<% if objeto.estado != 'ingreso' %>
+	<% if objeto.estado == 'proceso' %>
 		<a data-toggle="collapse" href="#collapsePago<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapsePago<%=objeto.id%>">
 			<%= objeto.monto_pagado.blank? ? 'Ingresar' : 'Actualizar' %> Monto pagado al trabajador
 		</a>
