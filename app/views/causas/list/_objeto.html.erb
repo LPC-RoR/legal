@@ -9,7 +9,10 @@
 	<% end %>
 	</br>
 	<small>
-	<%= s_pesos(objeto.detalle_cuantia('Pesos')) %> | <%= s_pesos(objeto.monto_pagado) %> |
+	<%= s_pesos(objeto.detalle_cuantia('Pesos')) %> 
+	<% unless objeto.monto_pagado.blank? %>
+	| <b><%= s_pesos(objeto.monto_pagado) %></b> |
+	<% end %>
 
 	<% if objeto.estado != 'ingreso' %>
 		<a data-toggle="collapse" href="#collapsePago<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapsePago<%=objeto.id%>">
