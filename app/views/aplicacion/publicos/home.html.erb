@@ -1,7 +1,7 @@
 
 <% if usuario_signed_in? %>
 
-	<%= column_chart @facturacion %>
+	<%= column_chart @facturacion, prefix: '$', thousands: ".", precision: 3 %>
 	</br>
 
 	<div class='row'>
