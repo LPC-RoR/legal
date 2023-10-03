@@ -6,9 +6,9 @@ class ClientesController < ApplicationController
 
   # GET /clientes or /clientes.json
   def index
-      init_tabla('ingreso-clientes', Cliente.where(estado: 'ingreso').order(created_at: :desc), false)
-      add_tabla('activo-clientes', Cliente.where(estado: 'activo').order(created_at: :desc), false)
-      add_tabla('baja-clientes', Cliente.where(estado: 'baja').order(created_at: :desc), true)
+      init_tabla('ingreso-clientes', Cliente.where(estado: 'ingreso').order(:razon_social), false)
+      add_tabla('activo-clientes', Cliente.where(estado: 'activo').order(:razon_social), false)
+      add_tabla('baja-clientes', Cliente.where(estado: 'baja').order(:razon_social), true)
   end
 
   # GET /clientes/1 or /clientes/1.json
