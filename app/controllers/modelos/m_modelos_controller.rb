@@ -10,18 +10,18 @@ class Modelos::MModelosController < ApplicationController
       @modelo_general = MModelo.create(m_modelo: general_sha1) if @modelo_general.blank?
 
       # Repositorio_perfil
-      if perfil_activo.modelo_perfil.blank?
-        @modelo_perfil = MModelo.create(m_modelo: perfil_activo.email, ownr_class: 'AppPerfil', ownr_id: perfil_activo.id)
-      else
-        @modelo_perfil = perfil_activo.modelo_perfil
-      end
+#      if perfil_activo.modelo_perfil.blank?
+#        @modelo_perfil = MModelo.create(m_modelo: perfil_activo.email, ownr_class: 'AppPerfil', ownr_id: perfil_activo.id)
+#      else
+#        @modelo_perfil = perfil_activo.modelo_perfil
+#      end
 
       init_tabla('general-m_conceptos', @modelo_general.m_conceptos.order(:orden), false)
       add_tabla('general-m_bancos', @modelo_general.m_bancos.order(:m_banco), false) 
       add_tabla('general-m_periodos', @modelo_general.m_periodos.order(clave: :desc), false) 
-      add_tabla('perfil-m_conceptos', @modelo_perfil.m_conceptos.order(:orden), false)
-      add_tabla('perfil-m_bancos', @modelo_perfil.m_bancos.order(:m_banco), false)
-      add_tabla('perfil-m_periodos', @modelo_perfil.m_periodos.order(clave: :desc), false)
+#      add_tabla('perfil-m_conceptos', @modelo_perfil.m_conceptos.order(:orden), false)
+#      add_tabla('perfil-m_bancos', @modelo_perfil.m_bancos.order(:m_banco), false)
+#      add_tabla('perfil-m_periodos', @modelo_perfil.m_periodos.order(clave: :desc), false)
     end
   end
 

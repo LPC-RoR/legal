@@ -21,6 +21,53 @@ class Aplicacion::PublicosController < ApplicationController
       # Facturas
       add_tabla('por_emitir-tar_facturas', TarFactura.where(estado: 'ingreso').order(fecha_factura: :desc), false)
       add_tabla('en_cobranza-tar_facturas', TarFactura.where(estado: 'facturada').order(fecha_factura: :desc), false)
+
+      # chartkick de facturación
+      @facturacion = {
+        'ene 2023' => 0,
+        'feb 2023' => 0,
+        'mar 2023' => 0,
+        'abr 2023' => 0,
+        'may 2023' => 0,
+        'jun 2023' => 0,
+        'jul 2023' => 0,
+        'ago 2023' => 0,
+        'sep 2023' => 0,
+        'oct 2023' => 0,
+        'nov 2023' => 0,
+        'dic 2023' => 0
+      }
+
+      facturas = TarFactura.where.not(estado: 'ingreso')
+      facturas.each do |factura|
+        case factura.fecha_factura.month
+        when 1
+          @facturacion['ene 2023'] += factura.monto_pesos
+        when 2
+          @facturacion['feb 2023'] += factura.monto_pesos
+        when 3
+          @facturacion['mar 2023'] += factura.monto_pesos
+        when 4
+          @facturacion['abr 2023'] += factura.monto_pesos
+        when 5
+          @facturacion['may 2023'] += factura.monto_pesos
+        when 6
+          @facturacion['jun 2023'] += factura.monto_pesos
+        when 7
+          @facturacion['jul 2023'] += factura.monto_pesos
+        when 8
+          @facturacion['ago 2023'] += factura.monto_pesos
+        when 9
+          @facturacion['sep 2023'] += factura.monto_pesos
+        when 10
+          @facturacion['oct 2023'] += factura.monto_pesos
+        when 11
+          @facturacion['nov 2023'] += factura.monto_pesos
+        when 12
+          @facturacion['dic 2023'] += factura.monto_pesos
+        end
+      end
+
     else
       articulos = BlgArticulo.all.order(created_at: :desc)
       @principal = articulos.first
