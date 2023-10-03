@@ -81,17 +81,17 @@ module IniciaAplicacion
 
 	def inicia_app
 
-		servicios_mensuales = TarServicio.where(tipo: 'mensual')
-		servicios_mensuales.each do |sm|
+#		servicios_mensuales = TarServicio.where(tipo: 'mensual')
+#		servicios_mensuales.each do |sm|
 
-			dia = sm.facturaciones.empty? ? nil : sm.facturaciones.order(created_at: :desc).first.created_at
-			hoy = DateTime.now
-			if dia.blank? or (dia.year != hoy.year or dia.month != hoy.month)
-				monto_uf = sm.moneda == 'uf' ? sm.monto : 0
-				monto = sm.moneda == 'pesos' ? sm.monto : 0
-			    TarFacturacion.create(owner_class: 'TarServicio', owner_id: sm.id, facturable: 'servicio mensual', glosa: sm.descripcion, estado: 'ingreso', monto_uf: monto_uf, monto: monto)
-			end
-		end
+#			dia = sm.facturaciones.empty? ? nil : sm.facturaciones.order(created_at: :desc).first.created_at
+#			hoy = DateTime.now
+#			if dia.blank? or (dia.year != hoy.year or dia.month != hoy.month)
+#				monto_uf = sm.moneda == 'uf' ? sm.monto : 0
+#				monto = sm.moneda == 'pesos' ? sm.monto : 0
+#			    TarFacturacion.create(owner_class: 'TarServicio', owner_id: sm.id, facturable: 'servicio mensual', glosa: sm.descripcion, estado: 'ingreso', monto_uf: monto_uf, monto: monto)
+#			end
+#		end
 	end
 
 end
