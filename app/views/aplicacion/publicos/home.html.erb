@@ -1,6 +1,7 @@
 
 <% if usuario_signed_in? %>
 
+	<h5 class="text-info">Facturación</h5>
 	<%= column_chart @facturacion, prefix: '$', thousands: ".", precision: 3 %>
 	</br>
 
