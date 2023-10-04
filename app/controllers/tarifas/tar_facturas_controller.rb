@@ -1,5 +1,5 @@
 class Tarifas::TarFacturasController < ApplicationController
-  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago set_facturada libera_factura]
+  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago set_facturada libera_factura crea_nota_credito elimina_nota_credito]
 
   include Tarifas
 
@@ -167,6 +167,40 @@ class Tarifas::TarFacturasController < ApplicationController
     @objeto.delete
 
     redirect_to tar_facturas_path
+  end
+
+  def crea_nota_credito
+    numero = params[:tar_nota_credito][:numero]
+    annio = params[:tar_nota_credito]['fecha(1i)'].to_i
+    mes = params[:tar_nota_credito]['fecha(2i)'].to_i
+    dia = params[:tar_nota_credito]['fecha(3i)'].to_i
+    fecha = DateTime.new(annio, mes, dia, 0, 0)
+    monto = params[:tar_nota_credito][:monto]
+    monto_total = params[:tar_nota_credito][:monto_total]
+    unless numero.blank? or fecha.blank? or (monto.blank? and monto_total == false)
+      nc=TarNotaCredito.create(numero: numero, fecha: fecha, monto: monto, monto_total: monto_total, tar_factura_id: @objeto.id)
+      if nc.blank?
+        noticia = 'No se pudo crear Nota de crédito'
+      else
+        @objeto.tar_nota_credito = nc
+        @objeto.estado = 'pagada'
+        @objeto.save
+        noticia = 'Nota de crédito fue exitósamente creada'
+      end
+    else
+        noticia = 'Error al crear Nota de crédito: Información incompleta'
+    end
+    
+    redirect_to @objeto, notice: noticia
+  end
+
+  def elimina_nota_credito
+    nc = @objeto.tar_nota_credito
+    nc.delete
+    @objeto.estado = 'facturada'
+    @objeto.save
+    
+    redirect_to @objeto, notice: 'Nota de crédito fue exitósamente eliminada'
   end
 
   # DELETE /tar_facturas/1 or /tar_facturas/1.json

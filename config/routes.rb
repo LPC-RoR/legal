@@ -196,7 +196,10 @@ Rails.application.routes.draw do
       match :cambio_estado, via: :get, on: :member
       # nueva lógica
       match :libera_factura, via: :get, on: :member
+      match :crea_nota_credito, via: :post, on: :member
+      match :elimina_nota_credito, via: :get, on: :member
     end
+    resources :tar_nota_creditos
 
     resources :tar_aprobaciones do
       match :facturar, via: :get, on: :member

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @tar_nota_credito.numero %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @tar_nota_credito.fecha %>
+</p>
+
+<p>
+  <strong>Monto:</strong>
+  <%= @tar_nota_credito.monto %>
+</p>
+
+<p>
+  <strong>Monto total:</strong>
+  <%= @tar_nota_credito.monto_total %>
+</p>
+
+<p>
+  <strong>Tar factura:</strong>
+  <%= @tar_nota_credito.tar_factura_id %>
+</p>
+
+<%= link_to 'Edit', edit_tar_nota_credito_path(@tar_nota_credito) %> |
+<%= link_to 'Back', tar_nota_creditos_path %>

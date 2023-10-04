@@ -3,6 +3,9 @@
 
 	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
 	<%= link_to (objeto.estado == 'ingreso' ? 'no emitida' : objeto.documento), objeto %> | <%= objeto.owner.razon_social %>
+	<% unless objeto.tar_nota_credito.blank? %>
+		<b class="text-danger">Nota de crédito asociada</b>
+	<% end %>
 	</br>
 	<%= objeto.estado == 'ingreso' ? 'no emitida' : dma(objeto.fecha_factura) %> | <%= objeto.tar_facturaciones.count %> : 
 	<% if objeto.monto_pesos == 0 %>
@@ -11,7 +14,11 @@
 		<a data-toggle="collapse" href="#collapseFactura<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseFactura<%=objeto.id%>">
 			<%= s_pesos(objeto.monto_pesos) %>
 		</a>
-	<% end %></br>
+	<% end %>
+	<% unless objeto.tar_nota_credito.blank? %>
+		 | <b class="text-danger"><%= objeto.tar_nota_credito.monto_total ? s_pesos(objeto.monto_pesos) : s_pesos(objeto.tar_nota_credito.monto) %></b>
+	<% end %>
+	</br>
 	
 	<small>
 		<%= link_to 'libera factura', "/tar_facturas/#{objeto.id}/libera_factura" if objeto.estado == 'ingreso' %>
@@ -29,5 +36,6 @@
 		  </div>
 		</div>
 	<% end %>
+
 </div>
 </small>

@@ -14,3 +14,6 @@
 </div>
 
 <h4>TOTAL <%= "#{s_pesos(@objeto.monto_pesos)} | #{s_uf(@objeto.monto_uf)}" %></h4>
+<% unless @objeto.tar_nota_credito.blank? %>
+	 <%= "Nota de crédito N° #{@objeto.tar_nota_credito.numero}, emitida el #{dma(@objeto.tar_nota_credito.fecha)} por #{@objeto.tar_nota_credito.monto_total ? s_pesos(@objeto.monto_pesos) : s_pesos(@objeto.tar_nota_credito.monto)}" %>
+<% end %>

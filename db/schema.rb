@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_28_193624) do
+ActiveRecord::Schema.define(version: 2023_10_04_153224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -935,6 +935,19 @@ ActiveRecord::Schema.define(version: 2023_09_28_193624) do
     t.datetime "updated_at", null: false
     t.index ["owner_class"], name: "index_tar_liquidaciones_on_owner_class"
     t.index ["owner_id"], name: "index_tar_liquidaciones_on_owner_id"
+  end
+
+  create_table "tar_nota_creditos", force: :cascade do |t|
+    t.integer "numero"
+    t.datetime "fecha"
+    t.decimal "monto"
+    t.boolean "monto_total"
+    t.integer "tar_factura_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fecha"], name: "index_tar_nota_creditos_on_fecha"
+    t.index ["numero"], name: "index_tar_nota_creditos_on_numero"
+    t.index ["tar_factura_id"], name: "index_tar_nota_creditos_on_tar_factura_id"
   end
 
   create_table "tar_pagos", force: :cascade do |t|

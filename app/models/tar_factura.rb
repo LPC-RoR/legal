@@ -9,6 +9,7 @@ class TarFactura < ApplicationRecord
 		'fecha_factura'
 	]
 
+	has_one :tar_nota_credito
 	has_many :tar_facturaciones
 
 	# Para respaldar archivo factura

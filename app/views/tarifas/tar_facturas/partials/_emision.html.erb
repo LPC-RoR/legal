@@ -24,6 +24,22 @@
 	<% end %>
 
 	<%= " | #{dma(objeto.fecha_factura)} | #{objeto.concepto}" %>
+
+	<% if objeto.estado == 'facturada' and objeto.tar_nota_credito.blank? %>
+	 | 
+		<a data-toggle="collapse" href="#collapseNotaCredito" role="button" aria-expanded="false" aria-controls="collapseNotaCredito">
+		    crea nota de crédito
+		</a>
+
+		<div class="collapse" id="collapseNotaCredito">
+		  <div class="card card-body">
+	  		<%= render partial: 'tarifas/tar_facturas/list/form_nota_credito', locals: {objeto: objeto} %>
+		  </div>
+		</div>
+	<% end %>
+	<% if objeto.estado=='pagada' and objeto.tar_nota_credito.present? %>
+		<%= link_to 'elimina_nota_credito', "/tar_facturas/#{objeto.id}/elimina_nota_credito" %>
+	<% end %>
 </p>
 <% if objeto.estado == 'ingreso' %>
 	<div class="collapse" id="collapseEmitir">

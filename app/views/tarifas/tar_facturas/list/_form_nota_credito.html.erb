@@ -1,0 +1,18 @@
+<%= form_for :tar_nota_credito, url: "/tar_facturas/#{objeto.id}/crea_nota_credito" do |form| %>
+	<%#= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tarifa de Asesoría', v: true } %>
+	<div>
+
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Número', v: true } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :numero } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha', v: true } %>
+		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %></br>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Monto', v: false } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :monto } %>
+
+		<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :monto_total, label: 'Monto total' } %></br>
+
+		<button type="submit" class="btn btn-info">
+		   <i class="bi bi-arrow-right-circle"></i>
+		</button>
+	</div>
+<% end  %>

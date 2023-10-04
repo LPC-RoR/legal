@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tar Nota Creditos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Numero</th>
+      <th>Fecha</th>
+      <th>Monto</th>
+      <th>Monto total</th>
+      <th>Tar factura</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tar_nota_creditos.each do |tar_nota_credito| %>
+      <tr>
+        <td><%= tar_nota_credito.numero %></td>
+        <td><%= tar_nota_credito.fecha %></td>
+        <td><%= tar_nota_credito.monto %></td>
+        <td><%= tar_nota_credito.monto_total %></td>
+        <td><%= tar_nota_credito.tar_factura_id %></td>
+        <td><%= link_to 'Show', tar_nota_credito %></td>
+        <td><%= link_to 'Edit', edit_tar_nota_credito_path(tar_nota_credito) %></td>
+        <td><%= link_to 'Destroy', tar_nota_credito, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tar Nota Credito', new_tar_nota_credito_path %>
