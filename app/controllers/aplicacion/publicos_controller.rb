@@ -42,29 +42,29 @@ class Aplicacion::PublicosController < ApplicationController
       facturas.each do |factura|
         case factura.fecha_factura.month
         when 1
-          @facturacion['ene 2023'] += factura.monto_pesos
+          @facturacion['ene 2023'] += factura.monto_corregido
         when 2
-          @facturacion['feb 2023'] += factura.monto_pesos
+          @facturacion['feb 2023'] += factura.monto_corregido
         when 3
-          @facturacion['mar 2023'] += factura.monto_pesos
+          @facturacion['mar 2023'] += factura.monto_corregido
         when 4
-          @facturacion['abr 2023'] += factura.monto_pesos
+          @facturacion['abr 2023'] += factura.monto_corregido
         when 5
-          @facturacion['may 2023'] += factura.monto_pesos
+          @facturacion['may 2023'] += factura.monto_corregido
         when 6
-          @facturacion['jun 2023'] += factura.monto_pesos
+          @facturacion['jun 2023'] += factura.monto_corregido
         when 7
-          @facturacion['jul 2023'] += factura.monto_pesos
+          @facturacion['jul 2023'] += factura.monto_corregido
         when 8
-          @facturacion['ago 2023'] += factura.monto_pesos
+          @facturacion['ago 2023'] += factura.monto_corregido
         when 9
-          @facturacion['sep 2023'] += factura.monto_pesos
+          @facturacion['sep 2023'] += factura.monto_corregido
         when 10
-          @facturacion['oct 2023'] += factura.monto_pesos
+          @facturacion['oct 2023'] += factura.monto_corregido
         when 11
-          @facturacion['nov 2023'] += factura.monto_pesos
+          @facturacion['nov 2023'] += factura.monto_corregido
         when 12
-          @facturacion['dic 2023'] += factura.monto_pesos
+          @facturacion['dic 2023'] += factura.monto_corregido
         end
       end
 

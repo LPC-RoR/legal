@@ -30,6 +30,10 @@ class TarFactura < ApplicationRecord
 		self.tar_facturaciones.map {|facturacion| facturacion.monto_pesos}.compact.sum
 	end
 
+	def monto_corregido
+		self.tar_nota_credito.blank? ? self.monto_pesos : (self.tar_nota_credito.monto_total ? 0 : self.monto_pesos - self.tar_nota_credito.monto)
+	end
+
 	def monto_uf
 		self.tar_facturaciones.map {|facturacion| facturacion.monto_uf}.compact.sum
 	end
