@@ -1,5 +1,5 @@
 <small>
-	<b><%= objeto.descripcion %></b></br>
+	<b><%= link_to objeto.descripcion, objeto %></b></br>
 	<%= objeto.tipo %> : <%= s_moneda(objeto.moneda, objeto.monto) %></br>
 	<% unless objeto.detalle.blank? %>
 		<small><%= objeto.detalle %></small></br>
