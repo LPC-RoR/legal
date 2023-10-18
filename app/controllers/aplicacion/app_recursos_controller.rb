@@ -19,9 +19,13 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-    TarFormula.all.each do |tar_formula|
-      tar_formula.tar_tarifa_id = TarPago.find(tar_formula.tar_pago_id).tar_tarifa_id
-      tar_formula.save
+    MCuenta.all.each do |cuenta|
+      cuenta.m_modelo_id = cuenta.m_banco.m_modelo_id
+      cuenta.save
+    end
+    MRegistro.all.each do |registro|
+      registro.m_modelo_id = registro.m_conciliacion.m_cuenta.m_banco.m_modelo_id
+      registro.save
     end
 
     redirect_to root_path

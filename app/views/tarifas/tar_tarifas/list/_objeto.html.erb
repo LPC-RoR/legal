@@ -1,17 +1,23 @@
 <small>
-	<b><%= objeto.tarifa %> | <%= objeto.moneda %></b></br>
-	<% unless objeto.tar_pagos.empty? %>
+	<i class="bi bi-cash-coin"></i> 
+	<b><%= link_to objeto.tarifa, objeto %></b> | 
+	<%= objeto.moneda %> | 
+	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
+
+
+	<% unless objeto.tar_pagos.empty? and objeto.valor_hora.blank? %>
 		<ul>
-			<% objeto.tar_pagos.order(:orden).each do |pago| %>
-				<li><%= pago.tar_pago %> <%= pago.codigo_formula.blank? ? '( valor )' : '( fórmula )' %></li>
+			<% unless objeto.tar_pagos.empty? %>
+				<% objeto.tar_pagos.order(:orden).each do |pago| %>
+					<li><%= pago.tar_pago %> <%= pago.codigo_formula.blank? ? '( valor )' : '( fórmula )' %></li>
+				<% end %>
+			<% end %>
+
+			<% unless objeto.valor_hora.blank? %>
+				<li><i class="bi bi-alarm"></i> <%= s_moneda(objeto.moneda, objeto.valor_hora) %></li>
 			<% end %>
 		</ul>
 	<% end %>
 
-	<% unless objeto.valor_hora.blank? %>
-		<i class="bi bi-alarm"></i> <%= s_moneda(objeto.moneda, objeto.valor_hora) %>
-	<% end %></br>
 
-	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></br>
-	<hr>
 </small>

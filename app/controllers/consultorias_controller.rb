@@ -9,32 +9,10 @@ class ConsultoriasController < ApplicationController
 
   # GET /consultorias/1 or /consultorias/1.json
   def show
-
-    init_tab( { menu: ['Facturacion', 'Documentos y enlaces', 'Registro', 'Reportes'] }, true )
-
-    if @options[:menu] == 'Facturacion'
-#      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
-      init_tabla('tar_facturaciones', @objeto.facturaciones, false)
-    elsif @options[:menu] == 'Documentos y enlaces'
-      AppRepo.create(repositorio: @objeto.consultoria, owner_class: 'Consultoria', owner_id: @objeto.id) if @objeto.repo.blank?
-
-      init_tabla('app_directorios', @objeto.repo.directorios, false)
-      add_tabla('app_documentos', @objeto.repo.documentos, false)
-      add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-    elsif @options[:menu] == 'Registro'
-      init_tabla('registros', @objeto.registros, false)
-      @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
-    elsif @options[:menu] == 'Reportes'
-      init_tabla('reg_reportes', @objeto.reportes, false)
-      @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
-    end
-
   end
 
   # GET /consultorias/new
   def new
-    modelo_causa = StModelo.find_by(st_modelo: 'Causa')
-    @objeto = Consultoria.new(estado: modelo_causa.primer_estado.st_estado)
   end
 
   # GET /consultorias/1/edit
@@ -69,33 +47,6 @@ class ConsultoriasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def cambio_estado
-    StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
-
-    @objeto.estado = params[:st]
-    @objeto.save
-
-    redirect_to "/consultorias/#{@objeto.id}"
-  end
-
-  def procesa_registros
-    registros_proceso = @objeto.registros.where(estado: 'ingreso')
-    unless registros_proceso.empty?
-      registros_proceso.each do |registro|
-        reporte_mes = @objeto.reportes.where(annio: registro.fecha.year).find_by(mes: registro.fecha.month) unless @objeto.reportes.blank?
-        reporte_mes = RegReporte.new(owner_class: 'Consultoria', owner_id: @objeto.id, annio: registro.fecha.year, mes: registro.fecha.month) if (reporte_mes.blank? or @objeto.reportes.empty?)
-        reporte_mes.save
-
-        registro.estado = 'reportado'
-        registro.reg_reporte_id = reporte_mes.id
-        registro.save
-      end
-    end
-
-    redirect_to "/consultorias/#{@objeto.id}?html_options[tab]=Reportes"
-    
   end
 
   # DELETE /consultorias/1 or /consultorias/1.json

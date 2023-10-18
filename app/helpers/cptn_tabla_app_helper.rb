@@ -6,15 +6,19 @@ module CptnTablaAppHelper
 	end
 
 	def app_new_button_conditions(controller)
-		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_valor_cuantias', 'ingreso-tar_facturas', 'facturada-tar_facturas', 'pagada-tar_facturas', 'tar_uf_facturaciones', 'item-m_registros', 'periodo-m_registros', 'm_registros', 'general-m_periodos', 'perfil-m_periodos', 'tar_aprobaciones'].include?(controller)
+		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_valor_cuantias', 'ingreso-tar_facturas', 'facturada-tar_facturas', 'pagada-tar_facturas', 'tar_uf_facturaciones', 'tar_aprobaciones', 'tar_uf_sistemas', 'tar_detalle_cuantias'].include?(controller)
 			false
 		elsif ['tar_facturas', 'por_emitir-tar_facturas', 'en_cobranza-tar_facturas'].include?(controller)
 			false
 		elsif ['tar_facturaciones', 'sin_aprobacion-tar_facturaciones', 'sin_facturar-tar_facturaciones'].include?(controller)
 			false
+		elsif ['item-m_registros', 'periodo-m_registros', 'm_registros', 'm_cuentas', 'm_periodos', 'm_bancos'].include?(controller)
+			false
 		elsif ['clientes', 'activo-clientes', 'baja-clientes'].include?(controller)
 			false
-		elsif ['causas', 'proceso-causas', 'terminada-causas', 'sin_cuantia-causas', 'sin_facturar-causas', 'en_proceso-causas', 'consultorias'].include?(controller)
+		elsif ['causas', 'proceso-causas', 'terminada-causas', 'sin_cuantia-causas', 'sin_facturar-causas', 'en_proceso-causas'].include?(controller)
+			false
+		elsif ['tribunal_cortes', 'tipo_causas'].include?(controller)
 			false
 		elsif ['asesorias', 'proceso-asesorias', 'terminada-asesorias'].include?(controller)
 			false

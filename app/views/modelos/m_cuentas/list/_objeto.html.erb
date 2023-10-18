@@ -1,0 +1,5 @@
+<small>
+	<i class="bi bi-safe2"></i> 
+	<b><%= link_to objeto.m_cuenta, objeto %></b> | <%= objeto.m_formato.blank? ? 'sin formato' : objeto.m_formato.m_formato%> |   
+	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
+</small>

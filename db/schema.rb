@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_04_153224) do
+ActiveRecord::Schema.define(version: 2023_10_18_182200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -514,8 +514,10 @@ ActiveRecord::Schema.define(version: 2023_10_04_153224) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "m_formato_id"
+    t.integer "m_modelo_id"
     t.index ["m_banco_id"], name: "index_m_cuentas_on_m_banco_id"
     t.index ["m_formato_id"], name: "index_m_cuentas_on_m_formato_id"
+    t.index ["m_modelo_id"], name: "index_m_cuentas_on_m_modelo_id"
   end
 
   create_table "m_datos", force: :cascade do |t|
@@ -612,10 +614,12 @@ ActiveRecord::Schema.define(version: 2023_10_04_153224) do
     t.datetime "updated_at", null: false
     t.integer "m_periodo_id"
     t.integer "m_item_id"
+    t.integer "m_modelo_id"
     t.index ["cargo_abono"], name: "index_m_registros_on_cargo_abono"
     t.index ["fecha"], name: "index_m_registros_on_fecha"
     t.index ["m_conciliacion_id"], name: "index_m_registros_on_m_conciliacion_id"
     t.index ["m_item_id"], name: "index_m_registros_on_m_item_id"
+    t.index ["m_modelo_id"], name: "index_m_registros_on_m_modelo_id"
     t.index ["m_periodo_id"], name: "index_m_registros_on_m_periodo_id"
     t.index ["m_registro"], name: "index_m_registros_on_m_registro"
     t.index ["orden"], name: "index_m_registros_on_orden"

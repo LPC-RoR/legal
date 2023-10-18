@@ -12,7 +12,7 @@ module Map
 	end
 
 	def app_bandeja_controllers
-		['app_directorios', 'app_documentos', 'tar_tarifas', 'tar_detalles', 'tar_horas']
+		['app_directorios', 'app_documentos', 'tar_detalles', 'tar_horas']
 	end
 
 	def bandeja_controllers

@@ -69,13 +69,7 @@ class Recursos::AppEnlacesController < ApplicationController
     end
 
     def set_redireccion
-      if @objeto.owner_id.blank?
-        @redireccion = app_enlaces_path
-      elsif @objeto.owner_class == 'AppPerfil'
-        @redireccion = '/app_recursos/tablas?html_options[tablas]=Enlaces'
-      else
-        @redireccion = @objeto.owner
-      end
+      @redireccion = tablas_path
     end
 
     # Only allow a list of trusted parameters through.

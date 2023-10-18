@@ -68,7 +68,7 @@ class Modelos::MBancosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = m_modelos_path
+      @redireccion = "/tablas?tb=#{tb_index('secundarias_modelo')}"
     end
 
     # Only allow a list of trusted parameters through.

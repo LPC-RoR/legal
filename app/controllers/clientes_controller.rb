@@ -85,6 +85,7 @@ class ClientesController < ApplicationController
     end
   end
 
+  # se utiliza para Clases que manejan estados porque se declaró el modelo
   def cambio_estado
     StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
 
@@ -94,6 +95,7 @@ class ClientesController < ApplicationController
     redirect_to "/clientes/#{@objeto.id}"
   end
 
+  # deprecated
   def crea_factura
     concepto = (@objeto.facturacion_pendiente.count == 1 ? @objeto.facturacion_pendiente.first.glosa : "Varios de cliente #{@objeto.razon_social}")
     factura = TarFactura.create(concepto: concepto, owner_class: 'Cliente', owner_id: @objeto.id, estado: 'ingreso',fecha_factura: Time.zone.today.to_date)
@@ -105,6 +107,7 @@ class ClientesController < ApplicationController
     redirect_to tar_facturas_path
   end
 
+  #deprecated
   def aprueba_factura
     factura = TarFactura.create(owner_class: @objeto.class.name, owner_id: @objeto.id, concepto: "Varios #{@objeto.razon_social}", fecha_factura: Time.zone.today.to_date, estado: 'ingreso')
     

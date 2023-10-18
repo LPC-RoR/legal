@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-lg-6 col-xs-12">
+		<h5 class="text-info">
+			<i class="bi bi-cash-coin"></i> 
+			Tarifas generales de Causas 
+			<%= link_to '/tar_tarifas/new' do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
+	</div>
+	<div class="col-lg-6">
+		<h5 class="text-info">
+			<i class="bi bi-cash-coin"></i> 
+			Tarifas generales de Asesorías 
+			<%= link_to '/tar_servicios/new' do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
+	</div>
+</div>

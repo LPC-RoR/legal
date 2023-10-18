@@ -1,0 +1,56 @@
+<div class="row">
+	<div class="col-lg-6 col-xs-12">
+		<h5 class="text-info">
+			<i class="bi bi-piggy-bank"></i> 
+			Modelo de negocios 
+			<%= link_to '/tribunal_cortes/new' do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+		<div class="row">
+			<% @modelo.m_conceptos.order(:orden).each do |concepto| %>
+				<div class="col-lg-4">
+					<small><%= concepto.m_concepto %></small>
+				</div>
+				<div class="col-lg-4">
+					<small><%= render partial: '0p/tabla/btns_orden', locals: {objeto: concepto} %></small>
+				</div>
+				<div class="col-lg-4" align='right'>
+					<small><small>
+						<%= link_to "m_items/new?owner=#{concepto.id}"  do %>
+							<i class="bi bi-plus-square"></i>
+						<% end %>
+						<%= render partial: '0p/tabla/links_e', locals: {objeto: concepto} %>
+					</small></small>
+				</div>
+
+				<% concepto.m_items.order(:orden).each do |item| %>
+					<div class="col-lg-4">
+						<small><i class="bi bi-dot"></i> <%= item.m_item %></small>
+					</div>
+					<div class="col-lg-4">
+						<small><i class="bi bi-dot"></i> <%= render partial: '0p/tabla/btns_orden', locals: {objeto: item} %></small>
+					</div>
+					<div class="col-lg-4" align='right'>
+						<small><small>
+							<%= render partial: '0p/tabla/links_e', locals: {objeto: item} %>
+						</small></small>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<h5 class="text-info">
+			<i class="bi bi-safe2"></i> 
+			Cuentas corriente 
+			<%= link_to "/m_cuentas/new?oid=#{@modelo.id}" do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+	    <%= render partial: '0p/tabla/tabla', locals: {c: "m_cuentas"} %>
+	</div>
+</div>
+
+<%#= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_modelos'], title: "Modelo de negocios Empresa", size: 4 } %>
+<%#= render partial: 'modelos/m_modelos/partials/modelo', locals: {objeto: @modelo_general, tag: 'general-'} %>

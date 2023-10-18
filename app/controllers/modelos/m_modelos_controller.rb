@@ -16,9 +16,7 @@ class Modelos::MModelosController < ApplicationController
 #        @modelo_perfil = perfil_activo.modelo_perfil
 #      end
 
-      init_tabla('general-m_conceptos', @modelo_general.m_conceptos.order(:orden), false)
-      add_tabla('general-m_bancos', @modelo_general.m_bancos.order(:m_banco), false) 
-      add_tabla('general-m_periodos', @modelo_general.m_periodos.order(clave: :desc), false) 
+      init_tabla('m_conceptos', @modelo_general.m_conceptos.order(:orden), false)
 #      add_tabla('perfil-m_conceptos', @modelo_perfil.m_conceptos.order(:orden), false)
 #      add_tabla('perfil-m_bancos', @modelo_perfil.m_bancos.order(:m_banco), false)
 #      add_tabla('perfil-m_periodos', @modelo_perfil.m_periodos.order(clave: :desc), false)

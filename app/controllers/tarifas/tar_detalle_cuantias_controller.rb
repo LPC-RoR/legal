@@ -65,7 +65,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = '/tablas?html_options[tablas]=Tablas+de+Causas'
+      @redireccion = "/tablas?tb=#{tb_index('tablas_secundarias')}"
     end
 
     # Only allow a list of trusted parameters through.

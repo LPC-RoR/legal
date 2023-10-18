@@ -93,7 +93,7 @@ class Tarifas::TarTarifasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.padre.blank? ? '/tablas?html_options[tablas]=Tarifas+Generales' : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas"
+      @redireccion = @objeto.padre.blank? ? "/tablas?tb=#{tb_index('tarifas_generales')}" : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas"
     end
 
     # Only allow a list of trusted parameters through.

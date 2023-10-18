@@ -1,9 +1,8 @@
 <small>
-	<b><%= link_to objeto.descripcion, objeto %></b></br>
-	<%= objeto.tipo %> : <%= s_moneda(objeto.moneda, objeto.monto) %></br>
+	<i class="bi bi-cash-coin"></i> 
+	<b><%= objeto.descripcion %></b> | <small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
+	<i class="bi bi-dot"></i> <%= objeto.tipo %> : <%= s_moneda(objeto.moneda, objeto.monto) %></br>
 	<% unless objeto.detalle.blank? %>
 		<small><%= objeto.detalle %></small></br>
 	<% end %>
-	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></br>
-	<hr>
 </small>

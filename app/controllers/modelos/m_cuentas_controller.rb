@@ -14,7 +14,7 @@ class Modelos::MCuentasController < ApplicationController
   # GET /m_cuentas/new
   def new
 #    owner = MBanco.find(params[:m_banco_id])
-    @objeto = MCuenta.new(m_banco_id: params[:m_banco_id])
+    @objeto = MCuenta.new(m_modelo_id: params[:oid])
   end
 
   # GET /m_cuentas/1/edit
@@ -68,11 +68,11 @@ class Modelos::MCuentasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.m_banco
+      @redireccion = "/tablas?tb=#{tb_index('modelo')}"
     end
 
     # Only allow a list of trusted parameters through.
     def m_cuenta_params
-      params.require(:m_cuenta).permit(:m_cuenta, :m_banco_id, :m_formato_id)
+      params.require(:m_cuenta).permit(:m_cuenta, :m_banco_id, :m_formato_id, :m_modelo_id)
     end
 end

@@ -10,6 +10,7 @@ class MRegistro < ApplicationRecord
 #		'saldo'
 	]
 
+	belongs_to :m_modelo
 	belongs_to :m_conciliacion
 	belongs_to :m_periodo, optional:true
 	belongs_to :m_item, optional: true

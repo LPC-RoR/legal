@@ -47,7 +47,7 @@ module CptnMapHelper
 			busqueda:      ['ind_clave_facetas', 'ind_claves', 'ind_indice_facetas', 'ind_indices', 'ind_palabras', 'ind_reglas', 'ind_sets'],
 			estados:       ['st_bandejas', 'st_modelos', 'st_estados'],
 			data:          ['caracteristicas', 'caracterizaciones', 'columnas', 'datos', 'encabezados', 'etapas', 'lineas', 'opciones', 'tablas'],
-			modelos:       ['m_modelos', 'm_conceptos', 'm_bancos', 'm_items', 'm_cuentas', 'm_conciliaciones', 'm_formatos', 'm_datos', 'm_elementos', 'm_valores', 'm_registros'],
+			modelos:       ['m_modelos', 'm_conceptos', 'm_bancos', 'm_items', 'm_cuentas', 'm_conciliaciones', 'm_formatos', 'm_datos', 'm_elementos', 'm_valores', 'm_registros', 'm_periodos'],
 			blog:          ['blg_temas', 'blg_articulos']
 		}
 	end

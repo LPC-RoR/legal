@@ -4,8 +4,6 @@ class MPeriodo < ApplicationRecord
 		's#m_periodo'
 	]
 
-	belongs_to :m_modelo
-
 	has_many :m_registros
 
 	def items
