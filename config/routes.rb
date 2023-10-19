@@ -228,6 +228,7 @@ Rails.application.routes.draw do
     end
     resources :m_cuentas do
       resources :m_conciliaciones
+      match :set_formato, via: :post, on: :member
     end
     resources :m_formatos do
       resources :m_elementos

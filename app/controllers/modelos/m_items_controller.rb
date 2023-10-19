@@ -16,8 +16,8 @@ class Modelos::MItemsController < ApplicationController
 
   # GET /m_items/new
   def new
-    owner = MConcepto.find(params[:owner])
-    @objeto = MItem.new(m_concepto_id: params[:owner], orden: owner.m_items.count + 1)
+    owner = MConcepto.find(params[:oid])
+    @objeto = MItem.new(m_concepto_id: params[:oid], orden: owner.m_items.count + 1)
   end
 
   # GET /m_items/1/edit
@@ -102,7 +102,7 @@ class Modelos::MItemsController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = m_modelos_path
+      @redireccion = "/tablas?tb=#{tb_index('modelo')}"
     end
 
     # Only allow a list of trusted parameters through.

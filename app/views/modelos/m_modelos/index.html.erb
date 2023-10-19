@@ -1,7 +1,43 @@
-<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_modelos'], title: "Modelo de negocios Empresa", size: 4 } %>
-<%= render partial: 'modelos/m_modelos/partials/modelo', locals: {objeto: @modelo_general, tag: 'general-'} %>
+<div class="row">
+	<div class="col-3">
+		<small class="text-info">Cuentas</small></br>
+		<% @coleccion['m_cuentas'].each do |cuenta| %>
+			<i class="bi bi-dot"></i> 
+			<small>
+				<% if cuenta == @objeto %>
+					<%= cuenta.m_cuenta %> <i class="bi bi-check-all"></i>
+				<% else %>
+					<%= link_to cuenta.m_cuenta, "m_modelos?id=c_#{cuenta.id}" %>
+				<% end %>
+			</small></br>
+		<% end %>
+		<small class="text-info">Periodos</small></br>
+		<% @coleccion['m_periodos'].each do |periodo| %>
+			<i class="bi bi-dot"></i> 
+			<small>
+				<% if periodo == @objeto %>
+					<%= periodo.m_periodo %> <i class="bi bi-check-all"></i>
+				<% else %>
+					<%= link_to periodo.m_periodo, "m_modelos?id=p_#{periodo.id}" %>
+				<% end %>
+			</small></br>
+		<% end %>
+	</div>
+	<div class="col-9">
+		<% if @objeto.class.name == 'MCuenta' %>
+			<h5 class="text-info">
+				<i class="bi bi-safe2"></i> Cuenta : <%= @objeto.m_cuenta %>
+			</h5>
+			<h6 class="text-info">Conciliaciones de la cuenta</h6>
 
-<!--hr-->
+			<%=render partial: '0p/tabla/tabla', locals: {c: 'm_conciliaciones'} %>
+		<% else %>
+			<h5 class="text-info">
+				<i class="bi bi-safe2"></i> Periodo : <%= @objeto.m_periodo %>
+			</h5>
+			<h6 class="text-info">Detalle del preiodo</h6>
 
-<%#= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_modelos'], title: "Modelo de negocios : #{perfil_activo.email}", size: 4 } %>
-<%#= render partial: 'modelos/m_modelos/partials/modelo', locals: {objeto: @modelo_perfil, tag: 'perfil-'} %>
+			<%= column_chart @totales, prefix: '$', thousands: ".", precision: 3 %>
+		<% end %>
+	</div>
+</div>

@@ -6,20 +6,30 @@ class Modelos::MModelosController < ApplicationController
     if usuario_signed_in?
       # Repositorio de la plataforma
       general_sha1 = Digest::SHA1.hexdigest("Modelo de Negocios General")
-      @modelo_general = MModelo.find_by(m_modelo: general_sha1)
-      @modelo_general = MModelo.create(m_modelo: general_sha1) if @modelo_general.blank?
+      @modelo = MModelo.find_by(m_modelo: general_sha1)
+      @modelo = MModelo.create(m_modelo: general_sha1) if @modelo.blank?
 
-      # Repositorio_perfil
-#      if perfil_activo.modelo_perfil.blank?
-#        @modelo_perfil = MModelo.create(m_modelo: perfil_activo.email, ownr_class: 'AppPerfil', ownr_id: perfil_activo.id)
-#      else
-#        @modelo_perfil = perfil_activo.modelo_perfil
-#      end
+      init_tabla('m_cuentas', @modelo.m_cuentas.order(:m_cuentas), false)
+      add_tabla('m_periodos', MPeriodo.all.order(clave: :desc), false)
 
-      init_tabla('m_conceptos', @modelo_general.m_conceptos.order(:orden), false)
-#      add_tabla('perfil-m_conceptos', @modelo_perfil.m_conceptos.order(:orden), false)
-#      add_tabla('perfil-m_bancos', @modelo_perfil.m_bancos.order(:m_banco), false)
-#      add_tabla('perfil-m_periodos', @modelo_perfil.m_periodos.order(clave: :desc), false)
+      clase = params[:id].blank? ? 'p' : params[:id].split('_')[0]
+      if clase == 'c'
+        oid = params[:id].blank? ? @coleccion['m_cuentas'].first.id : params[:id].split('_')[1].to_i
+        @objeto = MCuenta.find(oid)
+        add_tabla('m_conciliaciones', @objeto.m_conciliaciones.order(created_at: :desc), false)
+      else
+        oid = params[:id].blank? ? @coleccion['m_periodos'].first.id : params[:id].split('_')[1].to_i
+        @objeto = MPeriodo.find(oid)
+        add_tabla('m_registros', @objeto.m_registros.order(fecha: :desc), false)
+
+        facturas_ids = TarFactura.where.not(estado: 'ingreso').map {|fac| fac.id if fac.fecha_factura.month == @objeto.clave%100 and fac.fecha_factura.year == @objeto.clave/100}.compact
+        facturas = TarFactura.where(id: facturas_ids)
+        facturado = facturas.map { |fac| fac.monto_corregido }.sum
+        abonos = @objeto.m_registros.any? ? @objeto.m_registros.where(cargo_abono: 'Abono').map {|reg| reg.monto}.sum : 0
+        cargos = @objeto.m_registros.any? ? @objeto.m_registros.where(cargo_abono: 'Cargo').map {|reg| reg.monto}.sum : 0
+        @totales = [['Facturado', facturado], ['Abonos', abonos], ['Cargos', -cargos]]
+      end
+
     end
   end
 

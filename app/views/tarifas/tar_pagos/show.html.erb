@@ -1,4 +1,16 @@
-<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: "Pago : #{@objeto.tar_pago}", clr: config[:color][:app]} %></h5>
+<h4 class="text-info">
+	<i class="bi bi-coin"></i> 
+	Pago <%= @objeto.orden %> : <%= @objeto.tar_pago %>
+</h4>
 
-<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'chat', text: 'Detalle Facturación', clr: config[:color][:app]} %></h5>
-<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_comentarios'} %>    
+<h5 class="text-info">
+	<i class="bi bi-chat"></i> 
+	Comentarios despliegue cobro 
+	<%= link_to "/tar_pagos/#{@objeto.id}/tar_comentarios/new" do %>
+		<i class="bi bi-plus-circle"></i>
+	<% end %>
+</h5>
+
+<div class="row">
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_comentarios'} %>    
+</div>

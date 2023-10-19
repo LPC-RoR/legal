@@ -3,7 +3,7 @@
 		<h5 class="text-info">
 			<i class="bi bi-piggy-bank"></i> 
 			Modelo de negocios 
-			<%= link_to '/tribunal_cortes/new' do %>
+			<%= link_to "/m_conceptos/new?oid=#{@modelo.id}" do %>
 				<i class="bi bi-plus-circle"></i>
 			<% end %>
 		</h5>
@@ -17,7 +17,7 @@
 				</div>
 				<div class="col-lg-4" align='right'>
 					<small><small>
-						<%= link_to "m_items/new?owner=#{concepto.id}"  do %>
+						<%= link_to "m_items/new?oid=#{concepto.id}"  do %>
 							<i class="bi bi-plus-square"></i>
 						<% end %>
 						<%= render partial: '0p/tabla/links_e', locals: {objeto: concepto} %>

@@ -1,0 +1,23 @@
+<div class="col-lg-2">
+	<small><%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %></small>
+</div>
+<div class="col-lg-10">
+	<small>
+	<i class="bi bi-chat"></i> 
+	<b><%= objeto.tipo %></b> | 
+	<% unless objeto.despliegue.blank? %>
+		<%= objeto.despliegue %> | 
+	<% end %>
+	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
+	<% unless objeto.formula.blank? %>
+		<small>
+			<i class="bi bi-dot"></i><i class="bi bi-question-circle"></i> <%= objeto.formula %></br>
+		</small>
+	<% end %>
+	<% unless objeto.comentario.blank? %>
+		<small>
+			<i class="bi bi-dot"></i><i class="bi bi-chat-quote"></i> <i><%= objeto.comentario %></i>
+		</small>
+	<% end %>
+	</small>
+</div>

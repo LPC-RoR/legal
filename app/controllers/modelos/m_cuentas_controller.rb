@@ -1,5 +1,5 @@
 class Modelos::MCuentasController < ApplicationController
-  before_action :set_m_cuenta, only: %i[ show edit update destroy ]
+  before_action :set_m_cuenta, only: %i[ show edit update destroy set_formato ]
 
   # GET /m_cuentas or /m_cuentas.json
   def index
@@ -49,6 +49,15 @@ class Modelos::MCuentasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def set_formato
+    unless params[:set_formato][:m_formato_id].blank?
+      @objeto.m_formato_id = params[:set_formato][:m_formato_id]
+      @objeto.save
+    end
+
+    redirect_to "/tablas?tb=#{tb_index('modelo')}"
   end
 
   # DELETE /m_cuentas/1 or /m_cuentas/1.json
