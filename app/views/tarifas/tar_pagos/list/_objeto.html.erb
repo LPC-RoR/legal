@@ -1,0 +1,12 @@
+
+<div class="col-lg-2">
+	<small><%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %></small>
+</div>
+<div class="col-lg-10">
+	<small>
+	<i class="bi bi-coin"></i> 
+	<b><%= link_to objeto.tar_pago, objeto %></b> | 
+	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
+	<small><i class="bi bi-dot"></i> <%= objeto.codigo_formula%> : <%= s_moneda(objeto.moneda, objeto.valor) %></small>
+	</small>
+</div>

@@ -1,12 +1,31 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'cash-coin', text: "Tarifa #{@objeto.tarifa	}", clr: config[:color][:app]} %></h4>
+<h4 class="text-info">
+	<i class="bi bi-cash-coin"></i> 
+	Tarifa <%= @objeto.tarifa %>
+</h4>
 
 <div class="row">
-	<div class="col-md-4">
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'coin', text: "Pagos", clr: config[:color][:app]} %></h5>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_pagos'} %>
+	<div class="col-md-5">
+		<h5 class="text-info">
+			<i class="bi bi-coin"></i> 
+			Pagos 
+			<%= link_to "/tar_pagos/new?oid=#{@objeto.id}" do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+		<div class="row">
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_pagos'} %>
+		</div>
 	</div>
-	<div class="col-md-8">
-		<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'boxes', text: "Fórmulas", clr: config[:color][:app]} %></h5>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formulas'} %>
+	<div class="col-md-7">
+		<h5 class="text-info">
+			<i class="bi bi-lightbulb"></i> 
+			Fórmulas 
+			<%= link_to "/tar_formulas/new?oid=#{@objeto.id}" do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+		<div class="row">
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formulas'} %>
+		</div>
 	</div>
 </div>

@@ -12,8 +12,8 @@ class Tarifas::TarFormulasController < ApplicationController
 
   # GET /tar_formulas/new
   def new
-    owner = TarTarifa.find(params[:tar_tarifa_id])
-    @objeto = TarFormula.new(tar_tarifa_id: params[:tar_tarifa_id], orden: owner.tar_formulas.count + 1)
+    owner = TarTarifa.find(params[:oid])
+    @objeto = TarFormula.new(tar_tarifa_id: params[:oid], orden: owner.tar_formulas.count + 1)
   end
 
   # GET /tar_formulas/1/edit
