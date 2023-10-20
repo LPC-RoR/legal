@@ -56,7 +56,9 @@
 
 						<% concepto.m_items.order(:orden).each do |item| %>
 							<div class="col-lg-6" style='padding-left: 1em'>
-								<small><i class="bi bi-dot"></i> <%= item.m_item %></small>
+								<a data-toggle="collapse" href="#collapseItem<%=item.id%>" role="button" aria-expanded="false" aria-controls="collapseItem<%=item.id%>">
+									<small><i class="bi bi-dot"></i> <%= item.m_item %></small>
+								</a>
 							</div>
 							<div class="col-lg-3 text-right">
 								<small><%= item.total_periodo(@objeto) == 0 ? '-' : s_pesos(item.total_periodo(@objeto)) %></small>
@@ -64,6 +66,25 @@
 							<div class="col-lg-3 text-right text-info">
 								<small><%= item.presupuesto_seguro == 0 ? '-' : s_pesos(item.presupuesto) %></small>
 							</div>
+
+							<div class="collapse" id="collapseItem<%=item.id%>">
+							  <div class="card card-body">
+							  	<% @objeto.m_registros.where(m_item_id: item.id).order(fecha: :desc).each do |reg| %>
+							  		<small><small>
+							  			<b><%= s_pesos(reg.monto) %></b></br>
+							  			<%= reg.glosa_banco %></br>
+							  		</small></small>
+								  	<div class="row">
+								  		<div class="col-6">
+								  			
+								  		</div>
+								  		<div class="col-6 text-right">
+								  			
+								  		</div>
+								  	</div>
+							  	<% end %>
+							  </div>
+							</div>							
 						<% end %>
 					<% end %>
 					</div>
@@ -77,3 +98,4 @@
 
 	</div>
 </div>
+
