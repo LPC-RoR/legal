@@ -9,13 +9,13 @@
 		</h5>
 		<div class="row">
 			<% @modelo.m_conceptos.order(:orden).each do |concepto| %>
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 					<small><%= concepto.m_concepto %></small>
 				</div>
-				<div class="col-lg-4">
+				<div class="col-lg-3">
 					<small><%= render partial: '0p/tabla/btns_orden', locals: {objeto: concepto} %></small>
 				</div>
-				<div class="col-lg-4" align='right'>
+				<div class="col-lg-3" align='right'>
 					<small><small>
 						<%= link_to "m_items/new?oid=#{concepto.id}"  do %>
 							<i class="bi bi-plus-square"></i>
@@ -25,13 +25,13 @@
 				</div>
 
 				<% concepto.m_items.order(:orden).each do |item| %>
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<small><i class="bi bi-dot"></i> <%= item.m_item %></small>
 					</div>
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 						<small><i class="bi bi-dot"></i> <%= render partial: '0p/tabla/btns_orden', locals: {objeto: item} %></small>
 					</div>
-					<div class="col-lg-4" align='right'>
+					<div class="col-lg-3" align='right'>
 						<small><small>
 							<%= render partial: '0p/tabla/links_e', locals: {objeto: item} %>
 						</small></small>
