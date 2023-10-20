@@ -30,7 +30,7 @@ class MItem < ApplicationRecord
 	end
 
 	def redireccion
-		'/m_modelos'
+		"/tablas?tb=5"
 	end
 
 	# -----------------------------------------------
