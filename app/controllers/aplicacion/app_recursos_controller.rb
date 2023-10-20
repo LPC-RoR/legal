@@ -19,13 +19,9 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-    MCuenta.all.each do |cuenta|
-      cuenta.m_modelo_id = cuenta.m_banco.m_modelo_id
-      cuenta.save
-    end
-    MRegistro.all.each do |registro|
-      registro.m_modelo_id = registro.m_conciliacion.m_cuenta.m_banco.m_modelo_id
-      registro.save
+    TarFactura.where.not(estado: 'ingreso').each do |factura|
+      factura.clave = factura.fecha_factura.year * 100 + factura.fecha_factura.month
+      factura.save
     end
 
     redirect_to root_path

@@ -22,8 +22,7 @@ class Modelos::MModelosController < ApplicationController
         @objeto = MPeriodo.find(oid)
         add_tabla('m_registros', @objeto.m_registros.order(fecha: :desc), false)
 
-        facturas_ids = TarFactura.where.not(estado: 'ingreso').map {|fac| fac.id if fac.fecha_factura.month == @objeto.clave%100 and fac.fecha_factura.year == @objeto.clave/100}.compact
-        facturas = TarFactura.where(id: facturas_ids)
+        facturas = TarFactura.where(clave: @objeto.clave)
         facturado = facturas.map { |fac| fac.monto_corregido }.sum
         abonos = @objeto.m_registros.any? ? @objeto.m_registros.where(cargo_abono: 'Abono').map {|reg| reg.monto}.sum : 0
         cargos = @objeto.m_registros.any? ? @objeto.m_registros.where(cargo_abono: 'Cargo').map {|reg| reg.monto}.sum : 0
