@@ -4,7 +4,8 @@ class MRegistro < ApplicationRecord
 
 	TABLA_FIELDS = [
 		'$#monto',
-		'descripcion',
+		's#descripcion',
+		'item',
 		'fecha',
 		'cargo_abono',
 #		'saldo'
@@ -21,6 +22,10 @@ class MRegistro < ApplicationRecord
 
 	def descripcion
 		self.glosa.present? ? self.glosa : self.glosa_banco
+	end
+
+	def item
+		self.m_item.blank? ? '-' : 'ok'
 	end
 
 end

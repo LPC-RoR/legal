@@ -116,14 +116,14 @@ module CptnTablaHelper
 		# se avanza por los archivos hasta el último
 		archivo = objeto
 		archivos.each do |arch|
-			archivo = archivo.send(arch)
+			archivo = archivo.send(arch) unless archivo.blank?
 		end
 
 		v_nombre = nombre.split('#')
 		campo = v_nombre.last
 		prefijos = v_nombre - [v_nombre.last]
 
-		unless archivo.send(campo).blank?
+		unless archivo.blank? or archivo.send(campo).blank?
 			if ['DateTime', 'Time'].include?(archivo.send(campo).class.name)
 				texto_campo = dma(archivo.send(campo))
 			elsif prefijos.include?('uf') 

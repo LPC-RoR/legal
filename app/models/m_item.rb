@@ -39,4 +39,8 @@ class MItem < ApplicationRecord
 		self.presupuesto.blank? ? 0 : self.presupuesto
 	end
 
+	def total_periodo(periodo)
+		periodo.m_registros.where(m_item_id: self.id).map {|reg| reg.monto}.sum
+	end
+
 end

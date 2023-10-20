@@ -246,7 +246,9 @@ Rails.application.routes.draw do
       match :conciliacion, via: :get, on: :member
     end
     resources :m_valores
-    resources :m_registros
+    resources :m_registros do
+      match :asigna, via: :get, on: :member
+    end
     resources :m_campos
     resources :m_movimientos
 

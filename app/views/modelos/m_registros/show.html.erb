@@ -1,0 +1,26 @@
+<h5 class="text-info">
+	Clasificación de registro
+</h5>
+
+<div class="row">
+	<div class="col-3">
+		<small>
+		<b>Fecha:</b></br>
+		<%= dma(@objeto.fecha) %></br>
+		<b>Glosa:</b></br>
+		<%= @objeto.descripcion %></br>
+		<b>Tipo:</b></br>
+		<%= @objeto.cargo_abono %></br>
+		<b>Monto:</b></br>
+		<%= s_pesos(@objeto.monto) %></br>
+		</small>
+	</div>
+	<div class="col-9">
+		<% @objeto.m_modelo.m_conceptos.order(:orden).each do |concepto| %>
+			<small><b><%= concepto.m_concepto %></b></small></br>
+			<% concepto.m_items.order(:orden).each do |item| %>
+				<small><i class="bi bi-dot"></i> <%= link_to item.m_item, "/m_registros/#{@objeto.id}/asigna?iid=#{item.id}" %></small></br>
+			<% end %>
+		<% end %>
+	</div>
+</div>

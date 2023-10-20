@@ -41,8 +41,38 @@
 				<div class="col-lg-5 col-xs-12">
 					<%= column_chart @totales, prefix: '$', thousands: ".", precision: 3 %>
 				</div>
-				<div class="col-lg-7"></div>
+				<div class="col-lg-7">
+					<div class="row">
+					<% @modelo.m_conceptos.order(:orden).each do |concepto| %>
+						<div class="col-lg-6">
+							<small><b><%= concepto.m_concepto %></b></small>
+						</div>
+						<div class="col-lg-3 text-right">
+							<small><b><%= concepto.total_periodo(@objeto) == 0 ? '-' : s_pesos(concepto.total_periodo(@objeto)) %></b></small>
+						</div>
+						<div class="col-lg-3 text-right">
+							<small><b><%= concepto.presupuesto == 0 ? '-' : s_pesos(concepto.presupuesto) %></b></small>
+						</div>
+
+						<% concepto.m_items.order(:orden).each do |item| %>
+							<div class="col-lg-6" style='padding-left: 1em'>
+								<small><i class="bi bi-dot"></i> <%= item.m_item %></small>
+							</div>
+							<div class="col-lg-3 text-right">
+								<small><%= item.total_periodo(@objeto) == 0 ? '-' : s_pesos(item.total_periodo(@objeto)) %></small>
+							</div>
+							<div class="col-lg-3 text-right text-info">
+								<small><%= item.presupuesto_seguro == 0 ? '-' : s_pesos(item.presupuesto) %></small>
+							</div>
+						<% end %>
+					<% end %>
+					</div>
+				</div>
 			</div>
 		<% end %>
+
+		<!-- Detalle Registros del periodo -->
+		<h6 class="text-info">Registros del periodo</h6>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'm_registros'} %>
 	</div>
 </div>

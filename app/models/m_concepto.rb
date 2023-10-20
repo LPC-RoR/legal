@@ -44,4 +44,8 @@ class MConcepto < ApplicationRecord
 		self.m_items.any? ? self.m_items.map {|item| item.presupuesto_seguro}.sum : 0
 	end
 
+	def total_periodo(periodo)
+		self.m_items.map { |item| item.total_periodo(periodo) }.sum
+	end
+
 end

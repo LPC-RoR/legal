@@ -1,5 +1,5 @@
 class Modelos::MRegistrosController < ApplicationController
-  before_action :set_m_registro, only: %i[ show edit update destroy ]
+  before_action :set_m_registro, only: %i[ show edit update destroy asigna ]
 
   # GET /m_registros or /m_registros.json
   def index
@@ -47,6 +47,13 @@ class Modelos::MRegistrosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def asigna
+    @objeto.m_item_id = params[:iid]
+    @objeto.save
+
+    redirect_to "/m_modelos?id=p_#{@objeto.m_periodo.id}"
   end
 
   # DELETE /m_registros/1 or /m_registros/1.json
