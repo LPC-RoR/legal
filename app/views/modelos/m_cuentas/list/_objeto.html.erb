@@ -1,6 +1,6 @@
 <small>
 	<i class="bi bi-safe2"></i> 
-	<b><%= link_to objeto.m_cuenta, objeto %></b> | 
+	<b><%= link_to objeto.m_cuenta, "/m_modelos?id=c_#{objeto.id}" %></b> | 
 	<% if objeto.m_formato.blank? %>
 		<a data-toggle="collapse" href="#collapseCuenta<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseCuenta<%=objeto.id%>">
 		sin formato

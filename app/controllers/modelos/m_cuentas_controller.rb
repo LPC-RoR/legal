@@ -8,7 +8,6 @@ class Modelos::MCuentasController < ApplicationController
 
   # GET /m_cuentas/1 or /m_cuentas/1.json
   def show
-    init_tabla('m_conciliaciones', @objeto.m_conciliaciones.order(created_at: :desc), false)
   end
 
   # GET /m_cuentas/new
