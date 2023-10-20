@@ -35,4 +35,8 @@ class MItem < ApplicationRecord
 
 	# -----------------------------------------------
 
+	def presupuesto_seguro
+		self.presupuesto.blank? ? 0 : self.presupuesto
+	end
+
 end

@@ -40,4 +40,8 @@ class MConcepto < ApplicationRecord
 
 	# -----------------------------------------------
 
+	def presupuesto
+		self.m_items.any? ? self.m_items.map {|item| item.presupuesto_seguro}.sum : 0
+	end
+
 end

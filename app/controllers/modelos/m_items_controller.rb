@@ -107,6 +107,6 @@ class Modelos::MItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def m_item_params
-      params.require(:m_item).permit(:orden, :m_item, :m_concepto_id)
+      params.require(:m_item).permit(:orden, :m_item, :m_concepto_id, :presupuesto)
     end
 end
