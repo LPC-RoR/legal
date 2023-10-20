@@ -67,24 +67,18 @@
 								<small><%= item.presupuesto_seguro == 0 ? '-' : s_pesos(item.presupuesto) %></small>
 							</div>
 
-							<div class="collapse" id="collapseItem<%=item.id%>">
-							  <div class="card card-body">
-							  	<% @objeto.m_registros.where(m_item_id: item.id).order(fecha: :desc).each do |reg| %>
-							  		<small><small>
-							  			<b><%= s_pesos(reg.monto) %></b></br>
-							  			<%= reg.glosa_banco %></br>
-							  		</small></small>
-								  	<div class="row">
-								  		<div class="col-6">
-								  			
-								  		</div>
-								  		<div class="col-6 text-right">
-								  			
-								  		</div>
-								  	</div>
-							  	<% end %>
-							  </div>
-							</div>							
+							<div class="col-lg-12">
+								<div class="collapse" id="collapseItem<%=item.id%>">
+								  <div class="card card-body">
+								  	<% @objeto.m_registros.where(m_item_id: item.id).order(fecha: :desc).each do |reg| %>
+								  		<small><small>
+								  			<%= reg.glosa_banco %> | 
+								  			<b><%= s_pesos(reg.monto) %></b></br>
+								  		</small></small>
+								  	<% end %>
+								  </div>
+								</div>							
+							</div>
 						<% end %>
 					<% end %>
 					</div>
