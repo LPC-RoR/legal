@@ -60,7 +60,7 @@ class Modelos::MConciliacionesController < ApplicationController
     # verificar existencia de cargas antriores
     # CONCILIAR
 
-    redirect_to @objeto.m_cuenta
+    redirect_to "/m_modelos?id=c_#{@objeto.m_cuenta.id}"
   end
 
   # DELETE /m_conciliaciones/1 or /m_conciliaciones/1.json
