@@ -73,6 +73,7 @@ class Tarifas::TarFacturasController < ApplicationController
       else
         @objeto.fecha_factura = DateTime.now.to_date
       end
+      @objeto.clave = @objeto.fecha_factura.year * 100 + @objeto.fecha_factura.month
       unless params[:set_documento][:concepto].blank?
         @objeto.concepto = params[:set_documento][:concepto]
       end

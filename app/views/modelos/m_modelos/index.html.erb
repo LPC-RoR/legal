@@ -69,10 +69,11 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- Detalle Registros del periodo -->
+			<h6 class="text-info">Registros del periodo</h6>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'm_registros'} %>
 		<% end %>
 
-		<!-- Detalle Registros del periodo -->
-		<h6 class="text-info">Registros del periodo</h6>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'm_registros'} %>
 	</div>
 </div>

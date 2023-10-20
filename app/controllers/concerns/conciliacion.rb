@@ -70,6 +70,7 @@ module Conciliacion
 	end
 
 	def crea_m_registro(conciliacion, linea, indice, formato)
+		modelo = conciliacion.m_cuenta.m_modelo
 		elementos = formato.m_elementos
 
 		orden = indice
@@ -80,20 +81,26 @@ module Conciliacion
 		monto = get_elemento_lista(elementos, linea, 'monto')
 		cargo_abono = traduce_abono_cargo(get_elemento_lista(elementos, linea, 'cargo_abono'))
 		saldo = get_elemento_lista(elementos, linea, 'saldo')
-		reg = conciliacion.m_registros.create(orden: orden, fecha: fecha, glosa_banco: glosa_banco, documento: documento, monto: monto, cargo_abono: cargo_abono, saldo: saldo)
-
-		modelo = conciliacion.m_cuenta.m_banco.m_modelo
+		reg = conciliacion.m_registros.create(orden: orden, fecha: fecha, glosa_banco: glosa_banco, documento: documento, monto: monto, cargo_abono: cargo_abono, saldo: saldo, m_modelo_id: modelo.id)
 
 		unless reg.fecha.blank?
 			clave = reg.fecha.year * 100 + reg.fecha.month
 			nombre_periodo = "#{reg.fecha.year} #{nombre_mes(reg.fecha.month)}"
 
-			periodo = modelo.m_periodos.find_by(clave: clave)
+			periodo = MPeriodo.find_by(clave: clave)
 
-			periodo = modelo.m_periodos.create(m_periodo: nombre_periodo, clave: clave) if periodo.blank?
+			periodo = MPeriodo.create(m_periodo: nombre_periodo, clave: clave) if periodo.blank?
 
 			periodo.m_registros << reg
 		end
+
+		# asignación automática de registros
+		items_ids = modelo.m_registros.where(glosa_banco: reg.glosa_banco).where.not(m_item_id: nil).map {|reg| reg.m_item.id}.uniq
+		if items_ids.length == 1
+			item = MItem.find(items_ids[0]) 
+			item.m_registros << reg
+		end
+		#-----------------------------------------------------------------
 
 	end
 

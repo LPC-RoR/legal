@@ -54,7 +54,7 @@ class Modelos::MConciliacionesController < ApplicationController
 
   def conciliacion
     # cargar modelo de negocios
-    modelo = @objeto.m_cuenta.m_banco.m_modelo
+    modelo = @objeto.m_cuenta.m_modelo
     carga_cartola(@objeto)
     # cargar modelo de conciliacion
     # verificar existencia de cargas antriores

@@ -16,6 +16,7 @@ class Modelos::MModelosController < ApplicationController
       if clase == 'c'
         oid = params[:id].blank? ? @coleccion['m_cuentas'].first.id : params[:id].split('_')[1].to_i
         @objeto = MCuenta.find(oid)
+        puts @objeto.blank?
         add_tabla('m_conciliaciones', @objeto.m_conciliaciones.order(created_at: :desc), false)
       else
         oid = params[:id].blank? ? @coleccion['m_periodos'].first.id : params[:id].split('_')[1].to_i
