@@ -1,0 +1,30 @@
+<h4 class="text-info">
+	<i class="bi bi-building"></i> 
+	<%= "Cliente : #{@objeto.razon_social} | #{@objeto.rut}" %>
+	<% if admin? %>
+		<%= link_to "/servicios/organizacion?oid=#{@objeto.id}" do %>
+			 | <i class="bi bi-building"></i>
+		<% end %>
+	<% end %>
+</h4>
+<h5 class="text-info">
+	<i class="bi bi-diagram-3"></i> 
+	Estructura organizacional 
+	<%= link_to "/org_areas/new?oid=#{@objeto.id}", title: 'Nueva área base', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		 | <i class="bi bi-plus-circle"></i>
+	<% end %>
+</h5>
+
+<div class="row">
+	<div class="col-lg-6 col-xs-12">
+
+		<%#= render partial: 'organizacion/org_areas/partials/menu_area', locals: {objeto: @objeto, area: @area} if admin? %>
+		
+
+		<% @coleccion['org_areas'].each do |area| %>
+			<%= render partial: 'organizacion/org_areas/partials/display_area', locals: {objeto: area, indent: 2} %>
+		<% end %>
+
+	</div>
+	<div class="col-lg-6 col-xs-12"></div>
+</div>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rut: MyString
+  nombres: MyString
+  apellido_paterno: MyString
+  apellido_materno: MyString
+  org_cargo_id: 1
+  fecha_nacimiento: 2023-11-09 15:14:58
+
+two:
+  rut: MyString
+  nombres: MyString
+  apellido_paterno: MyString
+  apellido_materno: MyString
+  org_cargo_id: 1
+  fecha_nacimiento: 2023-11-09 15:14:58

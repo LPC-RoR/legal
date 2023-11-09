@@ -1,0 +1,15 @@
+<div class="area" style="padding-left: <%=indent%>em">
+	<%= render partial: 'organizacion/org_areas/partials/line_area', locals: {objeto: objeto} %>
+
+	<% unless objeto.children.empty? %>
+		<% objeto.children.order(:org_area).each do |sub_area| %>
+			<%= render partial: 'organizacion/org_areas/partials/display_area', locals: {objeto: sub_area, indent: indent + 1} %>
+		<% end %>
+	<% end %>
+
+	<% unless objeto.org_cargos.empty? %>
+		<% objeto.org_cargos.order(:org_cargo).each do |cargo| %>
+			<%= render partial: 'organizacion/org_cargos/partials/display_cargo', locals: {objeto: cargo, indent: indent + 1} %>
+		<% end %>
+	<% end %>
+</div>

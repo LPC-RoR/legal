@@ -87,12 +87,22 @@ Rails.application.routes.draw do
         match :procesos, via: :get
       end
     end
-    resources :servicios do
-      match :aprobacion, via: :get, on: :collection
-    end
     resources :tablas
   end
 
+  scope module: 'organizacion' do
+    resources :servicios do
+      match :aprobacion, via: :get, on: :collection
+      match :organizacion, via: :get, on: :collection
+    end
+    resources :org_areas do
+      match :nuevo_hijo, via: :post, on: :member
+    end
+    resources :org_area_areas
+    resources :org_cargos
+    resources :org_empleados
+  end
+  
   scope module: 'home' do
     resources :h_imagenes
     resources :h_links

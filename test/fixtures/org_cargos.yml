@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  org_cargo: MyString
+  dotacion: 1
+  org_area_id: 1
+
+two:
+  org_cargo: MyString
+  dotacion: 1
+  org_area_id: 1

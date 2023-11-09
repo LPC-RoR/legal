@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_20_132051) do
+ActiveRecord::Schema.define(version: 2023_11_09_181458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -636,6 +636,44 @@ ActiveRecord::Schema.define(version: 2023_10_20_132051) do
     t.datetime "updated_at", null: false
     t.index ["m_conciliacion_id"], name: "index_m_valores_on_m_conciliacion_id"
     t.index ["orden"], name: "index_m_valores_on_orden"
+  end
+
+  create_table "org_area_areas", force: :cascade do |t|
+    t.integer "parent_id"
+    t.integer "child_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_org_area_areas_on_child_id"
+    t.index ["parent_id"], name: "index_org_area_areas_on_parent_id"
+  end
+
+  create_table "org_areas", force: :cascade do |t|
+    t.string "org_area"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "cliente_id"
+    t.index ["cliente_id"], name: "index_org_areas_on_cliente_id"
+  end
+
+  create_table "org_cargos", force: :cascade do |t|
+    t.string "org_cargo"
+    t.integer "dotacion"
+    t.integer "org_area_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_area_id"], name: "index_org_cargos_on_org_area_id"
+  end
+
+  create_table "org_empleados", force: :cascade do |t|
+    t.string "rut"
+    t.string "nombres"
+    t.string "apellido_paterno"
+    t.string "apellido_materno"
+    t.integer "org_cargo_id"
+    t.datetime "fecha_nacimiento"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_cargo_id"], name: "index_org_empleados_on_org_cargo_id"
   end
 
   create_table "reg_reportes", force: :cascade do |t|

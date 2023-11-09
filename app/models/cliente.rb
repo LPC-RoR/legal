@@ -12,6 +12,8 @@ class Cliente < ApplicationRecord
 
 	has_many :tar_aprobaciones
 
+	has_many :org_areas
+
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social
 

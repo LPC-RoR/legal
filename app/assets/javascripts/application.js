@@ -18,3 +18,7 @@
 //= require bootstrap-sprockets
 //= require chartkick
 //= require Chart.bundle
+
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip(); 
+});
