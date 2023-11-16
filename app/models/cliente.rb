@@ -15,7 +15,11 @@ class Cliente < ApplicationRecord
 	has_many :org_areas
 
 	validates :rut, valida_rut: true
-    validates_presence_of :razon_social
+    validates_presence_of :razon_social, :tipo_cliente
+
+    def d_rut
+    	self.rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
+    end
 
 	def enlaces
 		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
@@ -82,4 +86,5 @@ class Cliente < ApplicationRecord
 	def monto_factura_aprobacion_uf
 		self.facturaciones.where(tar_factura_id: nil).map {|fctrcn| fctrcn.moneda == 'Pesos' ? fctrcn.monto / self.uf_dia : fctrcn.monto }.sum
 	end
+
 end

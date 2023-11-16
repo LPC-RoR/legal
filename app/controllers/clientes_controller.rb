@@ -1,6 +1,7 @@
 class ClientesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura ]
+  after_action :rut_puro, only: %i[ create update ]
 
 #  include Bandejas
 
@@ -131,6 +132,11 @@ class ClientesController < ApplicationController
   end
 
   private
+    def rut_puro
+      @objeto.rut = @objeto.rut.gsub(' ', '').gsub('.', '').gsub('-', '')
+      @objeto.save
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_cliente
       @objeto = Cliente.find(params[:id])
@@ -142,6 +148,6 @@ class ClientesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cliente_params
-      params.require(:cliente).permit(:razon_social, :rut, :estado)
+      params.require(:cliente).permit(:razon_social, :rut, :estado, :tipo_cliente)
     end
 end
