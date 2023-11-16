@@ -14,7 +14,7 @@ module CptnTablaAppHelper
 			false
 		elsif ['item-m_registros', 'periodo-m_registros', 'm_registros', 'm_cuentas', 'm_periodos', 'm_bancos'].include?(controller)
 			false
-		elsif ['clientes', 'activo-clientes', 'baja-clientes'].include?(controller)
+		elsif ['clientes', 'activo_empresa-clientes', 'activo_sindicato-clientes', 'activo_trabajador-clientes', 'baja-clientes'].include?(controller)
 			false
 		elsif ['causas', 'proceso-causas', 'terminada-causas', 'sin_cuantia-causas', 'sin_facturar-causas', 'en_proceso-causas'].include?(controller)
 			false

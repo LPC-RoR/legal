@@ -7,11 +7,30 @@
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-clientes'} %>
 	</div>
 	<div class="col-lg-4 col-xs-12">
-		<p class="text-info">
-		<i class="bi bi-building"></i> Cliente activos
-		</p>
+		<% unless @coleccion['activo_empresa-clientes'].empty? %>
+			<p class="text-info">
+			<i class="bi bi-building"></i> Cliente activos : Empresas
+			</p>
 
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'activo-clientes'} %>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_empresa-clientes'} %>
+		<% end %>
+		</br>
+		<% unless @coleccion['activo_sindicato-clientes'].empty? %>
+			<p class="text-info">
+			<i class="bi bi-building"></i> Cliente activos : Sindicatos
+			</p>
+
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_sindicato-clientes'} %>
+
+		<% end %>
+		</br>
+		<% unless @coleccion['activo_trabajador-clientes'].empty? %>
+			<p class="text-info">
+			<i class="bi bi-building"></i> Cliente activos : Trabajadores
+			</p>
+
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_trabajador-clientes'} %>
+		<% end %>
 	</div>
 	<div class="col-lg-4">
 		<p class="text-info">
