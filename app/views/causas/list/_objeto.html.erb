@@ -1,9 +1,9 @@
 <small>
 <div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: .5em; padding-bottom: .5em; margin-bottom: 1em;'>
 	<small><%= dma(objeto.created_at) %> | <%= objeto.estado %> | <i><%= objeto.cliente.razon_social %></i></small></br>
-	<b><%= link_to objeto.rit, objeto %> | <%= objeto.causa %></b>
+	<b><%= link_to objeto.rit, objeto, title: 'Detalle Causa', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> | <%= objeto.causa %></b>
 	<% if objeto.demanda? %>
-		<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank do %>
+		<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 			<i class="bi bi-box-arrow-up-right"></i>
 		<% end %>
 	<% end %>
@@ -28,6 +28,7 @@
 
 	</br>
 	<%= render partial: 'causas/list/bottom_links', locals: {objeto: objeto} %>
+
 	</small>
 </div>
 </small>
