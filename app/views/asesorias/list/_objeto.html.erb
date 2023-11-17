@@ -1,7 +1,8 @@
 <small>
 <div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: .5em; padding-bottom: .5em; margin-bottom: 1em;'>
 
-	<small><%= dma(objeto.created_at) %> | <%= objeto.estado %> | <i><%= objeto.cliente.razon_social %></i></small></br>
+	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
+	<small><%= dma(objeto.created_at) %> | <i><%= objeto.cliente.razon_social %></i></small></br>
 	<b><%= objeto.descripcion %></b></br>
 	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %></br>
 
