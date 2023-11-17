@@ -15,7 +15,7 @@
 	  	<ul>
 	  	<% objeto.facturaciones.order(:created_at).each do |facturacion| %>
 	  		<li>
-	  			<%= facturacion.glosa %> <b><%= s_pesos(facturacion.monto_pesos) %></b>
+	  			<%= facturacion.pago.tar_pago %> <b><%= s_pesos(facturacion.monto_pesos) %></b>
 	  			<% if facturacion.tar_aprobacion.present? %>
 	  				<%= link_to facturacion.tar_aprobacion do %>
 	  					<i class="bi bi-check-all"></i> 
