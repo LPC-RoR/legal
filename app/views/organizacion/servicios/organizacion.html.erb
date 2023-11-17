@@ -2,7 +2,7 @@
 	<i class="bi bi-building"></i> 
 	<%= "Cliente : #{@objeto.razon_social} | #{@objeto.rut}" %>
 	<% if admin? %>
-		<%= link_to "/servicios/organizacion?oid=#{@objeto.id}" do %>
+		<%= link_to "/clientes/#{@objeto.id}" do %>
 			 | <i class="bi bi-building"></i>
 		<% end %>
 	<% end %>
