@@ -9,14 +9,18 @@
 	<% end %>
 	</br>
 	<small>
-	<%= s_pesos(objeto.detalle_cuantia('Pesos')) %> 
+
+	<i class="bi bi-cash-coin"></i> 
+	<b>
+	<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
 	<% unless objeto.monto_pagado.blank? %>
-	| <b><%= s_pesos(objeto.monto_pagado) %></b> |
+		 - <span class='text-info'><%= s_pesos(objeto.monto_pagado) %></span>
 	<% end %>
+	</b>
 
 	<% if objeto.estado == 'proceso' %>
 		<a data-toggle="collapse" href="#collapsePago<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapsePago<%=objeto.id%>">
-			<%= objeto.monto_pagado.blank? ? 'Ingresar' : 'Actualizar' %> Monto pagado al trabajador
+			 - <%= objeto.monto_pagado.blank? ? 'Ingresar' : 'Actualizar' %> Monto pagado al trabajador
 		</a>
 
 		<div class="collapse" id="collapsePago<%=objeto.id%>">
@@ -24,7 +28,7 @@
 		  	<%= render partial: 'causas/list/form_monto_pagado', locals: {objeto: objeto} %>
 		  </div>
 		</div>
-	<% end %>
+	<% end %> |
 
 	</br>
 	<%= render partial: 'causas/list/bottom_links', locals: {objeto: objeto} %>
