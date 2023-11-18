@@ -1,30 +1,79 @@
 <small>
-<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: .5em; padding-bottom: .5em; margin-bottom: 1em;'>
+<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-right: 1em; padding-top: .5em; padding-bottom: .5em; margin-bottom: 1em;'>
 
 	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
-	<small><%= dma(objeto.created_at) %> | <i><%= objeto.cliente.razon_social %></i></small></br>
+	<small>
+
+	<i class="bi bi-calendar-check"> 
+	<% if objeto.fecha.blank? %>
+		</i> <%= dma(objeto.created_at) %>
+	<% else %>
+		</i> <%= dma(objeto.fecha) %>
+	<% end %> | 
+
+	<i><%= objeto.cliente.razon_social %></i></small></br>
 	<b><%= objeto.descripcion %></b></br>
-	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %></br>
 
 	<small>
+
+	<% if objeto.facturacion.blank? %>
+		<% if objeto.moneda.blank? or objeto.monto.blank? %>
+			Tarifa : <%= objeto.tar_servicio.descripcion unless objeto.tar_servicio.blank? %> 
+			<a data-toggle="collapse" href="#collapseAsesoria<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseAsesoria<%=objeto.id%>">
+				<% if  objeto.tar_servicio.blank? %>
+					<i class="bi bi-plus-lg"></i>
+				<% else %>
+					<i class="bi bi-pencil"></i>
+				<% end %>
+			</a> | 
+		<% end %>
+	<% end %>
+
 	<b><i class="bi bi-coin"></i> 
 	<% if objeto.moneda.blank? or objeto.monto.blank? %>
 		<%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) unless objeto.tar_servicio.blank? %>
 	<% else %>
 		<%= s_moneda(objeto.moneda, objeto.monto) %>
 	<% end %>
-	</b> | 
+	</b> 
 
-	<%= objeto.fecha.blank? ? 'sin fecha' : dma(objeto.fecha) %>
 	<% unless objeto.fecha_uf.blank? %>
-		 | <i class="bi bi-arrow-down-up"></i> <%= dma(objeto.fecha_uf) %>
+		  ( UF del <%= dma(objeto.fecha_uf) %> ) 
 	<% end %>
 	<% unless objeto.plazo.blank? %>
 		 | <i class="bi bi-alarm"></i> <%= dma(objeto.plazo) %>
 	<% end %>
 	</br>
+
+	<% unless objeto.facturacion.blank? %>
+		<% unless objeto.facturacion.tar_aprobacion.blank? %>
+			<%= link_to objeto.facturacion.tar_aprobacion do %>
+				<i class="bi bi-check-all"></i> <%= dma(objeto.facturacion.tar_aprobacion.fecha) %>
+			<% end %>
+		<% end %>
+		<% unless objeto.facturacion.tar_factura.blank? %>
+			<%= link_to objeto.facturacion.tar_factura do %>
+				<i class="bi bi-receipt"></i> <%= dma(objeto.facturacion.tar_factura.fecha_factura) %> <%= objeto.facturacion.tar_factura.estado %>
+			<% end %>
+		<% end %>
+		<% unless objeto.facturacion.tar_aprobacion.blank? and objeto.facturacion.tar_factura.blank? %>
+		</br>
+		<% end %>
+	<% end %>
+
+	<% if objeto.facturacion.blank? %>
+		<% if objeto.moneda.blank? or objeto.monto.blank? %>
+		<div class="collapse" id="collapseAsesoria<%=objeto.id%>">
+			<div class="card card-body">
+				<%= render partial: 'asesorias/list/form_tar_servicio', locals: {objeto: objeto} %>
+			</div>
+		</div>
+		<% end %>
+	<% end %>
 	
-	</small></small>
+	</small>
+
+	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %></br>
 
 </div>
 </small>

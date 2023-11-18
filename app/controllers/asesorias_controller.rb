@@ -70,7 +70,10 @@ class AsesoriasController < ApplicationController
   end
 
   def set_tar_servicio
+    puts "*************************+ set_tar_servicio"
     unless params[:tar_servicio][:tar_servicio_id].blank?
+      puts "*************** ENTRO"
+      puts params[:tar_servicio][:tar_servicio_id]
       @objeto.tar_servicio_id = params[:tar_servicio][:tar_servicio_id]
       @objeto.save
     end

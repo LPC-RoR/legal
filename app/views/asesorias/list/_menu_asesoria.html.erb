@@ -1,15 +1,5 @@
 <small>
 <% if objeto.facturacion.blank? %>
-	<% if objeto.moneda.blank? or objeto.monto.blank? %>
-		<a data-toggle="collapse" href="#collapseAsesoria<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseAsesoria<%=objeto.id%>">
-			<%= objeto.tar_servicio.blank? ? 'asignar tarifa' : 'cambiar tarifa' %>
-		</a>
-	<% else %>
-		asesoría única
-	<% end %>
-<% end %>
-
-<% if objeto.facturacion.blank? %>
 	<%= link_to 'generar cobro', "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}" unless ( objeto.tar_servicio.blank? and ( objeto.moneda.blank? or objeto.monto.blank? ) ) %>
 <% else %>
 	<% if objeto.facturacion.tar_aprobacion.blank? and objeto.facturacion.tar_factura.blank? %>
@@ -17,34 +7,11 @@
 	<% end %>
 
 	<% if objeto.facturacion.tar_factura.blank? %>
-		<%= link_to 'facturar', "/asesorias/#{objeto.id}/facturar" %>
+		 | <%= link_to 'facturar', "/asesorias/#{objeto.id}/facturar" %>
 	<% elsif objeto.facturacion.tar_factura.estado == 'ingreso' %>
 		<%= link_to 'liberar factura', "/asesorias/#{objeto.id}/liberar_factura" %>
 	<% end %>
 <% end %>
 
-<% unless objeto.facturacion.blank? %>
-	<% unless objeto.facturacion.tar_aprobacion.blank? %>
-		<%= link_to objeto.facturacion.tar_aprobacion do %>
-			<i class="bi bi-check-all"></i> <%= dma(objeto.facturacion.tar_aprobacion.fecha) %>
-		<% end %>
-	<% end %>
-	<% unless objeto.facturacion.tar_factura.blank? %>
-		<%= link_to objeto.facturacion.tar_factura do %>
-			<i class="bi bi-receipt"></i> <%= dma(objeto.facturacion.tar_factura.fecha_factura) %>
-		<% end %>
-	<% end %>
-<% end %>
-
 <%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if objeto.estado == 'ingreso' %>
 </small>
-
-<% if objeto.facturacion.blank? %>
-	<% if objeto.moneda.blank? or objeto.monto.blank? %>
-	<div class="collapse" id="collapseAsesoria<%=objeto.id%>">
-		<div class="card card-body">
-			<%= render partial: 'asesorias/list/form_tar_servicio', locals: {objeto: objeto} %>
-		</div>
-	</div>
-	<% end %>
-<% end %>
