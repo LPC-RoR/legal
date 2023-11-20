@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-3">
+	<div class="col-2">
 		<small class="text-info">Cuentas</small></br>
 		<% @coleccion['m_cuentas'].each do |cuenta| %>
 			<i class="bi bi-dot"></i> 
@@ -23,7 +23,7 @@
 			</small></br>
 		<% end %>
 	</div>
-	<div class="col-9">
+	<div class="col-10">
 		<% if @objeto.class.name == 'MCuenta' %>
 			<h5 class="text-info">
 				<i class="bi bi-safe2"></i> Cuenta : <%= @objeto.m_cuenta %>
