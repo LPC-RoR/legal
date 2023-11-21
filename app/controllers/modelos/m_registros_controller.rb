@@ -8,7 +8,7 @@ class Modelos::MRegistrosController < ApplicationController
 
   # GET /m_registros/1 or /m_registros/1.json
   def show
-    init_tabla('tar_facturas', @objeto.tar_facturas.order(:documento, false)
+    init_tabla('tar_facturas', @objeto.tar_facturas.order(:documento), false)
   end
 
   # GET /m_registros/new
