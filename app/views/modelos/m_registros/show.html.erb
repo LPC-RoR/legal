@@ -15,12 +15,18 @@
 		<%= s_pesos(@objeto.monto) %></br>
 		</small>
 	</div>
-	<div class="col-9">
+	<div class="col-6">
 		<% @objeto.m_modelo.m_conceptos.order(:orden).each do |concepto| %>
 			<small><b><%= concepto.m_concepto %></b></small></br>
 			<% concepto.m_items.order(:orden).each do |item| %>
 				<small><i class="bi bi-dot"></i> <%= link_to item.m_item, "/m_registros/#{@objeto.id}/asigna?iid=#{item.id}" %></small></br>
 			<% end %>
+		<% end %>
+	</div>
+	<div class="col-3">
+		<% if @objeto.cargo_abono == 'Abono' %>
+			<p class="text-info">Facturas pagadas</p>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturas'} %>
 		<% end %>
 	</div>
 </div>

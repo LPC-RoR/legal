@@ -16,6 +16,8 @@ class MRegistro < ApplicationRecord
 	belongs_to :m_periodo, optional:true
 	belongs_to :m_item, optional: true
 
+	has_many :tar_facturas
+
 	def periodo
 		MPeriodo.find_by(clave: clave = self.fecha.year * 100 + self.fecha.month)
 	end	

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_16_223802) do
+ActiveRecord::Schema.define(version: 2023_11_21_205033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -938,9 +938,11 @@ ActiveRecord::Schema.define(version: 2023_11_16_223802) do
     t.datetime "fecha_pago"
     t.datetime "fecha_factura"
     t.integer "clave"
+    t.integer "m_registro_id"
     t.index ["clave"], name: "index_tar_facturas_on_clave"
     t.index ["estado"], name: "index_tar_facturas_on_estado"
     t.index ["fecha_pago"], name: "index_tar_facturas_on_fecha_pago"
+    t.index ["m_registro_id"], name: "index_tar_facturas_on_m_registro_id"
     t.index ["owner_class"], name: "index_tar_facturas_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"
   end

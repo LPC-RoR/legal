@@ -9,6 +9,8 @@ class TarFactura < ApplicationRecord
 		'fecha_factura'
 	]
 
+	belongs_to :m_registro, optional: true
+
 	has_one :tar_nota_credito
 	has_many :tar_facturaciones
 

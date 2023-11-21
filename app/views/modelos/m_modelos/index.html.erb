@@ -1,27 +1,6 @@
 <div class="row">
 	<div class="col-2">
-		<small class="text-info">Cuentas</small></br>
-		<% @coleccion['m_cuentas'].each do |cuenta| %>
-			<i class="bi bi-dot"></i> 
-			<small>
-				<% if cuenta == @objeto %>
-					<%= cuenta.m_cuenta %> <i class="bi bi-check-all"></i>
-				<% else %>
-					<%= link_to cuenta.m_cuenta, "m_modelos?id=c_#{cuenta.id}" %>
-				<% end %>
-			</small></br>
-		<% end %>
-		<small class="text-info">Periodos</small></br>
-		<% @coleccion['m_periodos'].each do |periodo| %>
-			<i class="bi bi-dot"></i> 
-			<small>
-				<% if periodo == @objeto %>
-					<%= periodo.m_periodo %> <i class="bi bi-check-all"></i>
-				<% else %>
-					<%= link_to periodo.m_periodo, "m_modelos?id=p_#{periodo.id}" %>
-				<% end %>
-			</small></br>
-		<% end %>
+		<%= render partial: 'modelos/m_modelos/partials/cuentas_periodos', locals: {objeto: @objeto, cuentas: @coleccion['m_cuentas'], periodos: @coleccion['m_periodos'] } %>
 	</div>
 	<div class="col-10">
 		<% if @objeto.class.name == 'MCuenta' %>
@@ -42,46 +21,7 @@
 					<%= column_chart @totales, prefix: '$', thousands: ".", precision: 3 %>
 				</div>
 				<div class="col-lg-7">
-					<div class="row">
-					<% @modelo.m_conceptos.order(:orden).each do |concepto| %>
-						<div class="col-lg-6">
-							<small><b><%= concepto.m_concepto %></b></small>
-						</div>
-						<div class="col-lg-3 text-right">
-							<small><b><%= concepto.total_periodo(@objeto) == 0 ? '-' : s_pesos(concepto.total_periodo(@objeto)) %></b></small>
-						</div>
-						<div class="col-lg-3 text-right">
-							<small><b><%= concepto.presupuesto == 0 ? '-' : s_pesos(concepto.presupuesto) %></b></small>
-						</div>
-
-						<% concepto.m_items.order(:orden).each do |item| %>
-							<div class="col-lg-6" style='padding-left: 1em'>
-								<a data-toggle="collapse" href="#collapseItem<%=item.id%>" role="button" aria-expanded="false" aria-controls="collapseItem<%=item.id%>">
-									<small><i class="bi bi-dot"></i> <%= item.m_item %></small>
-								</a>
-							</div>
-							<div class="col-lg-3 text-right">
-								<small><%= item.total_periodo(@objeto) == 0 ? '-' : s_pesos(item.total_periodo(@objeto)) %></small>
-							</div>
-							<div class="col-lg-3 text-right text-info">
-								<small><%= item.presupuesto_seguro == 0 ? '-' : s_pesos(item.presupuesto) %></small>
-							</div>
-
-							<div class="col-lg-12">
-								<div class="collapse" id="collapseItem<%=item.id%>">
-								  <div class="card card-body">
-								  	<% @objeto.m_registros.where(m_item_id: item.id).order(fecha: :desc).each do |reg| %>
-								  		<small><small>
-								  			<%= reg.glosa_banco %> | 
-								  			<b><%= s_pesos(reg.monto) %></b></br>
-								  		</small></small>
-								  	<% end %>
-								  </div>
-								</div>							
-							</div>
-						<% end %>
-					<% end %>
-					</div>
+					<%= render partial: 'modelos/m_modelos/partials/modelo_periodo', locals: {objeto: @objeto} %>
 				</div>
 			</div>
 

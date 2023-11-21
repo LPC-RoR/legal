@@ -1,0 +1,22 @@
+<small class="text-info">Cuentas</small></br>
+<% cuentas.each do |cuenta| %>
+	<i class="bi bi-dot"></i> 
+	<small>
+		<% if cuenta == objeto %>
+			<%= cuenta.m_cuenta %> <i class="bi bi-check-all"></i>
+		<% else %>
+			<%= link_to cuenta.m_cuenta, "m_modelos?id=c_#{cuenta.id}" %>
+		<% end %>
+	</small></br>
+<% end %>
+<small class="text-info">Periodos</small></br>
+<% periodos.each do |periodo| %>
+	<i class="bi bi-dot"></i> 
+	<small>
+		<% if periodo == objeto %>
+			<%= periodo.m_periodo %> <i class="bi bi-check-all"></i>
+		<% else %>
+			<%= link_to periodo.m_periodo, "m_modelos?id=p_#{periodo.id}" %>
+		<% end %>
+	</small></br>
+<% end %>
