@@ -1,0 +1,13 @@
+<%= form_for :asigna_factura, url: "/m_registros/#{objeto.id}/asigna_factura" do |form| %>
+	<div class='form-inline'>
+
+		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tar_factura_id, colection: facturadas.collect { |fac| ["#{fac.documento} : #{s_pesos(fac.monto_pesos)}", fac.id] }, display_field: 'documento', prompt: 'Factura?' } %>
+
+		<button type="submit" class="btn btn-info">
+		  <i class="bi bi-receipt icon-white"></i>
+		  <i class="bi bi-arrow-right icon-white"></i>
+		</button>
+	</div>
+		<%= render partial: '0p/form_fields/radio', locals: {form: form, token: :tipo_monto, radio_list: ['Factura', 'Disponible', 'Monto']}  %>
+		<%= render partial: '0p/form_fields/number', locals: {form: form, token: :monto} %>
+<% end  %>

@@ -42,5 +42,22 @@
 		</div>
 	<% end %>
 
+	<% if controller_name == 'm_registros' %>
+	<% unless objeto.m_registros.empty? %>
+		<%= link_to "/tar_facturas/#{objeto.id}/a_facturada?oid=#{@objeto.id}" do %>
+			<i class="bi bi-arrow-left"></i><i class="bi bi-tag"></i> 
+			desasignar
+		<% end %>
+	<% end %>
+	<% end %>
+
+	<% unless objeto.m_registros.empty? %>
+		<ul>
+			<% objeto.m_reg_facts.each do |mrf| %>
+				<li><%= dma(mrf.tar_factura.fecha_factura) %> | <%= s_pesos(mrf.monto) %></li>
+			<% end %>
+		</ul>
+	<% end %>
+
 </div>
 </small>

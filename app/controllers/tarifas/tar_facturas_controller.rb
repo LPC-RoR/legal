@@ -1,5 +1,5 @@
 class Tarifas::TarFacturasController < ApplicationController
-  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago set_facturada libera_factura crea_nota_credito elimina_nota_credito]
+  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago set_facturada libera_factura crea_nota_credito elimina_nota_credito a_facturada]
 
   include Tarifas
 
@@ -202,6 +202,15 @@ class Tarifas::TarFacturasController < ApplicationController
     @objeto.save
     
     redirect_to @objeto, notice: 'Nota de crédito fue exitósamente eliminada'
+  end
+
+  def a_facturada
+    registro = MRegistro.find(params[:oid])
+    registro.tar_facturas.delete(@objeto)
+    @objeto.estado = 'facturada'
+    @objeto.save
+
+    redirect_to registro, notice: 'factura liberada'
   end
 
   # DELETE /tar_facturas/1 or /tar_facturas/1.json

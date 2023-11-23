@@ -9,10 +9,11 @@ class TarFactura < ApplicationRecord
 		'fecha_factura'
 	]
 
-	belongs_to :m_registro, optional: true
-
 	has_one :tar_nota_credito
 	has_many :tar_facturaciones
+
+	has_many :m_reg_facts
+	has_many :m_registros, through: :m_reg_facts
 
 	# Para respaldar archivo factura
 	def factura
@@ -46,6 +47,18 @@ class TarFactura < ApplicationRecord
 
 	def d_concepto
 		self.concepto.blank? ? 'concepto no ingresado' : self.concepto
+	end
+
+	def pagado
+		self.m_reg_facts.map {|mef| mrf.monto}.sum
+	end
+
+	def pagada?
+		self.monto_pesos == self.pagado
+	end
+
+	def disponible
+		self.monto_pesos - self.pagado
 	end
 
 end

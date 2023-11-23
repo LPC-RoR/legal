@@ -208,6 +208,7 @@ Rails.application.routes.draw do
       match :libera_factura, via: :get, on: :member
       match :crea_nota_credito, via: :post, on: :member
       match :elimina_nota_credito, via: :get, on: :member
+      match :a_facturada, via: :get, on: :member
     end
     resources :tar_nota_creditos
 
@@ -258,10 +259,13 @@ Rails.application.routes.draw do
     resources :m_valores
     resources :m_registros do
       match :asigna, via: :get, on: :member
+      match :asigna_factura, via: :post, on: :member
     end
     resources :m_campos
     resources :m_movimientos
 
+    # tabla de relación para resolver pagos
+    resources :m_reg_facts
   end
 
   scope module: 'blog' do

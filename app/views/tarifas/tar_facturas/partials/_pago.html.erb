@@ -1,15 +1,23 @@
-<!-- Pago -->
+<!-- Pago Collapse DESACTIVADO por cambio a asignación de registros -->
 <small>
-<p>
-	<% if objeto.estado == 'facturada' %>
-	<a data-toggle="collapse" href="#collapsePagar" role="button" aria-expanded="false" aria-controls="collapsePagar">
-    	Detalle del pago
-	</a>
-	<% else %>
-		Detalle del pago
-	<% end %>: 
-	<%= @objeto.fecha_pago.blank? ? 'Impaga' : "#{dma(@objeto.fecha_pago)} : #{@objeto.detalle_pago}" %>
-</p>
+<% if objeto.estado == 'DESACTIVADA' %>
+	<p>
+		<a data-toggle="collapse" href="#collapsePagar" role="button" aria-expanded="false" aria-controls="collapsePagar">
+	    	Detalle del pago
+		</a>
+	</p>
+<% end %>
+
+<% unless objeto.m_registros.empty? %>
+	Detalle de pago :
+	<ul>
+		<% objeto.m_reg_facts.each do |mrf| %>
+			<li><%= dma(mrf.tar_factura.fecha_factura) %> | <%= s_pesos(mrf.monto) %></li>
+		<% end %>
+	</ul>
+<% end %>
+
+
 <% if objeto.estado == 'facturada' %>
 	<div class="collapse" id="collapsePagar">
 	  <div class="card card-body">
