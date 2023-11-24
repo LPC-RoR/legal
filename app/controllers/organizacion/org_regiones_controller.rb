@@ -66,7 +66,7 @@ class Organizacion::OrgRegionesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/servicios/organizacion?oid=#{@objeto.org_region.cliente.id}"
+      @redireccion = "/servicios/organizacion?oid=#{@objeto.cliente.id}"
     end
 
     # Only allow a list of trusted parameters through.
