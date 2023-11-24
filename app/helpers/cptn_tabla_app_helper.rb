@@ -22,6 +22,8 @@ module CptnTablaAppHelper
 			false
 		elsif ['asesorias', 'proceso-asesorias', 'terminada-asesorias'].include?(controller)
 			false
+		elsif ['regiones', 'comunas', 'org_regiones', 'org_empleados'].include?(controller)
+			false
 		else
 			true
 		end

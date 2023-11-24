@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :regiones do
+    resources :comunas
+  end
+  resources :comunas
   resources :asesorias do
     match :set_tar_servicio, via: :post, on: :member
     match :generar_cobro, via: :get, on: :member
@@ -94,6 +98,8 @@ Rails.application.routes.draw do
     resources :servicios do
       match :aprobacion, via: :get, on: :collection
       match :organizacion, via: :get, on: :collection
+      match :sucursales, via: :get, on: :collection
+      match :empleados, via: :get, on: :collection
     end
     resources :org_areas do
       match :nuevo_hijo, via: :post, on: :member
@@ -101,6 +107,11 @@ Rails.application.routes.draw do
     resources :org_area_areas
     resources :org_cargos
     resources :org_empleados
+
+    resources :org_regiones do 
+      resources :org_sucursales
+    end
+    resources :org_sucursales
   end
   
   scope module: 'home' do

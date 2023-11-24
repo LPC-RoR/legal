@@ -69,7 +69,7 @@ class Recursos::AppEnlacesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = tablas_path
+      @redireccion = "/tablas?tb=2"
     end
 
     # Only allow a list of trusted parameters through.

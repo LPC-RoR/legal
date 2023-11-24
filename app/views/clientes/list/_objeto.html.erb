@@ -3,6 +3,9 @@
 
 	<%= objeto.d_rut %> | <%= link_to objeto.razon_social, objeto, title: 'Detalle Cliente', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> | 
 	<small>
+	<%= link_to "/servicios/organizacion?oid=#{objeto.id}" do %>
+		<i class="bi bi-diagram-3"></i>
+	<% end %>
 	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 	</small>
 </div>

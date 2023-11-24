@@ -1,0 +1,4 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Region', v: true } %>
+<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :region_id, colection: Region.all.order(:orden).collect { |reg| [reg.region, reg.id] }, display_field: 'region', prompt: 'Región' } %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :cliente_id } %>

@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-lg-6 col-xs-12">
+		<h5 class="text-info">
+			<i class="bi bi-calendar3"></i> 
+			UF del sistema 
+			<%= link_to '/tar_uf_sistemas/new' do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_uf_sistemas'} %>
+	</div>
+	<div class="col-lg-6">
+		<h5 class="text-info">
+			<i class="bi bi-geo-alt"></i> 
+			Regiones 
+			<%= link_to "/regiones/new" do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'regiones'} %>
+	</div>
+</div>

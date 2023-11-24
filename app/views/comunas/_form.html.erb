@@ -1,0 +1,27 @@
+<%= form_with(model: comuna, local: true) do |form| %>
+  <% if comuna.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comuna.errors.count, "error") %> prohibited this comuna from being saved:</h2>
+
+      <ul>
+      <% comuna.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :comuna %>
+    <%= form.text_field :comuna %>
+  </div>
+
+  <div class="field">
+    <%= form.label :region_id %>
+    <%= form.number_field :region_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

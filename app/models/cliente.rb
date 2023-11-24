@@ -13,6 +13,7 @@ class Cliente < ApplicationRecord
 	has_many :tar_aprobaciones
 
 	has_many :org_areas
+	has_many :org_regiones
 
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :tipo_cliente
@@ -62,6 +63,14 @@ class Cliente < ApplicationRecord
 
 	def facturaciones_pendientes
 		self.facturaciones.where(estado: 'aprobado', tar_factura_id: nil)
+	end
+
+	def sucursales
+		sucursales_ids = []
+		self.org_regiones.each do |reg|
+			sucursales_ids = sucursales_ids.union(reg.org_sucursales.ids)
+		end
+		OrgSucursal.where(id: sucursales_ids)
 	end
 
 	# DEPRECATED

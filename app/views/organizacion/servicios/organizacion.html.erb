@@ -1,30 +1,42 @@
 <h4 class="text-info">
 	<i class="bi bi-building"></i> 
-	<%= "Cliente : #{@objeto.razon_social} | #{@objeto.rut}" %>
+	Cliente : 
 	<% if admin? %>
-		<%= link_to "/clientes/#{@objeto.id}" do %>
-			 | <i class="bi bi-building"></i>
-		<% end %>
-	<% end %>
+		<%= link_to @objeto.razon_social, @objeto %>
+	<% else %>
+		<%= @objeto.razon_social %>
+	<% end %> | 
+	<%= @objeto.d_rut %>
+	<%#= "Cliente : #{@objeto.razon_social} | #{@objeto.rut}" %>
 </h4>
-<h5 class="text-info">
-	<i class="bi bi-diagram-3"></i> 
-	Estructura organizacional 
-	<%= link_to "/org_areas/new?oid=#{@objeto.id}", title: 'Nueva área base', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-		 | <i class="bi bi-plus-circle"></i>
-	<% end %>
-</h5>
 
 <div class="row">
 	<div class="col-lg-6 col-xs-12">
 
-		<%#= render partial: 'organizacion/org_areas/partials/menu_area', locals: {objeto: @objeto, area: @area} if admin? %>
-		
+		<h5 class="text-info">
+			<i class="bi bi-diagram-3"></i> 
+			Estructura organizacional | 
+			<%= link_to "/org_areas/new?oid=#{@objeto.id}", title: 'Nueva área base', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+
 
 		<% @coleccion['org_areas'].each do |area| %>
 			<%= render partial: 'organizacion/org_areas/partials/display_area', locals: {objeto: area, indent: 2} %>
 		<% end %>
 
 	</div>
-	<div class="col-lg-6 col-xs-12"></div>
+	<div class="col-lg-6 col-xs-12">
+		<h5 class="text-info">
+			<i class="bi bi-geo-alt"></i>
+			Regiones & sucursales | 
+			<%= link_to "/org_regiones/new?oid=#{@objeto.id}", title: 'Nueva región', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</h5>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'org_regiones'} %>
+
+	</div>
 </div>

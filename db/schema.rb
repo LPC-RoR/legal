@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_23_160152) do
+ActiveRecord::Schema.define(version: 2023_11_24_140755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -350,6 +350,14 @@ ActiveRecord::Schema.define(version: 2023_11_23_160152) do
     t.index ["tipo_cliente"], name: "index_clientes_on_tipo_cliente"
   end
 
+  create_table "comunas", force: :cascade do |t|
+    t.string "comuna"
+    t.integer "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_comunas_on_region_id"
+  end
+
   create_table "consultorias", force: :cascade do |t|
     t.string "consultoria"
     t.integer "cliente_id"
@@ -685,7 +693,32 @@ ActiveRecord::Schema.define(version: 2023_11_23_160152) do
     t.datetime "fecha_nacimiento"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "org_sucursal_id"
     t.index ["org_cargo_id"], name: "index_org_empleados_on_org_cargo_id"
+    t.index ["org_sucursal_id"], name: "index_org_empleados_on_org_sucursal_id"
+  end
+
+  create_table "org_regiones", force: :cascade do |t|
+    t.string "org_region"
+    t.integer "cliente_id"
+    t.integer "region_id"
+    t.integer "orden"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_org_regiones_on_cliente_id"
+    t.index ["orden"], name: "index_org_regiones_on_orden"
+    t.index ["org_region"], name: "index_org_regiones_on_org_region"
+    t.index ["region_id"], name: "index_org_regiones_on_region_id"
+  end
+
+  create_table "org_sucursales", force: :cascade do |t|
+    t.string "org_sucursal"
+    t.string "direccion"
+    t.integer "org_region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_region_id"], name: "index_org_sucursales_on_org_region_id"
+    t.index ["org_sucursal"], name: "index_org_sucursales_on_org_sucursal"
   end
 
   create_table "reg_reportes", force: :cascade do |t|
@@ -705,6 +738,14 @@ ActiveRecord::Schema.define(version: 2023_11_23_160152) do
     t.index ["mes"], name: "index_reg_reportes_on_mes"
     t.index ["owner_class"], name: "index_reg_reportes_on_owner_class"
     t.index ["owner_id"], name: "index_reg_reportes_on_owner_id"
+  end
+
+  create_table "regiones", force: :cascade do |t|
+    t.string "region"
+    t.integer "orden"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_regiones_on_orden"
   end
 
   create_table "registros", force: :cascade do |t|

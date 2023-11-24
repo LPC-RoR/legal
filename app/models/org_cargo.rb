@@ -7,4 +7,5 @@ class OrgCargo < ApplicationRecord
 	def padre_cliente
 		self.org_area.padre_cliente
 	end
+
 end

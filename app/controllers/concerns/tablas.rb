@@ -4,13 +4,15 @@ module Tablas
 	def menu_tablas
 		[
 			#['Título', 'partial', indent, despliegue]
-			['General', 'general', 1, true],
+			['General', nil, 1, true],
+			['UF & Regiones', 'uf_regiones', 1, true],
+			['Enlaces', 'enlaces', 1, true],
 			['Causas & asesorías', nil, 1, true],
 			['Tarifas generales', 'tarifas_generales', 2, true],
 			['Tablas secundarias', 'tablas_secundarias', 2, true],
 			['Modelo de Negocios', nil, 1, true],
 			['Modelo', 'modelo', 2, true],
-			['Tablas secundarias', 'secundarias_modelo', 2, true],
+			['Tablas secundarias', 'secundarias_modelo', 2, true]
 		]
 	end
 

@@ -11,4 +11,7 @@
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha Nacimiento', v: true } %>
 <%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_nacimiento } %>
 
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Sucursal', v: true } %>
+<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :org_sucursal_id, colection: @objeto.padre_cliente.sucursales.order(:org_sucursal).collect { |sucursal| [sucursal.org_sucursal, sucursal.id] }, display_field: 'org_sucursal', prompt: 'Sucursal?' } %>
+
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :org_cargo_id } %>

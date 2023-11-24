@@ -1,0 +1,13 @@
+<h4 class="text-info">
+	<i class="bi bi-pin-map"></i> 
+	Sucursal : <%= @objeto.org_sucursal %>
+</h4>
+<small>
+	<%= link_to "/servicios/organizacion?oid=#{@objeto.org_region.cliente.id}" do %>
+		<i class="bi bi-arrow-left"></i><i class="bi bi-diagram-3"></i> <%= @objeto.org_region.cliente.razon_social %>
+	<% end %>
+</small>
+
+<p class="text-info"><i class="bi bi-person"></i> Empleados de la sucursal</p>
+
+<%= render partial: '0p/tabla/tabla', locals: {c: 'org_empleados'} %>

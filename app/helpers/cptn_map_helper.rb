@@ -49,7 +49,7 @@ module CptnMapHelper
 			data:          ['caracteristicas', 'caracterizaciones', 'columnas', 'datos', 'encabezados', 'etapas', 'lineas', 'opciones', 'tablas'],
 			modelos:       ['m_modelos', 'm_conceptos', 'm_bancos', 'm_items', 'm_cuentas', 'm_conciliaciones', 'm_formatos', 'm_datos', 'm_elementos', 'm_valores', 'm_registros', 'm_periodos'],
 			blog:          ['blg_temas', 'blg_articulos'],
-			organizacion:  ['servicios', 'org_areas', 'org_cargos', 'org_empleados']
+			organizacion:  ['servicios', 'org_areas', 'org_cargos', 'org_empleados', 'org_regiones', 'org_sucursales']
 		}
 	end
 

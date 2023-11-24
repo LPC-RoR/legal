@@ -1,5 +1,6 @@
 class Organizacion::OrgEmpleadosController < ApplicationController
   before_action :set_org_empleado, only: %i[ show edit update destroy ]
+  after_action :rut_puro, only: %i[ create update ]
 
   # GET /org_empleados or /org_empleados.json
   def index
@@ -63,6 +64,11 @@ class Organizacion::OrgEmpleadosController < ApplicationController
   end
 
   private
+    def rut_puro
+      @objeto.rut = @objeto.rut.gsub(' ', '').gsub('.', '').gsub('-', '')
+      @objeto.save
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_org_empleado
       @objeto = OrgEmpleado.find(params[:id])
@@ -74,6 +80,6 @@ class Organizacion::OrgEmpleadosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def org_empleado_params
-      params.require(:org_empleado).permit(:rut, :nombres, :apellido_paterno, :apellido_materno, :org_cargo_id, :fecha_nacimiento)
+      params.require(:org_empleado).permit(:rut, :nombres, :apellido_paterno, :apellido_materno, :org_cargo_id, :fecha_nacimiento, :org_sucursal_id)
     end
 end

@@ -1,0 +1,20 @@
+<small>
+	<i class="bi bi-geo-alt"></i> 
+	<%= objeto.region.region unless objeto.region.blank? %> 
+	<% if admin? %>
+		<%= link_to "/org_regiones/#{objeto.id}/org_sucursales/new", title: 'Nueva sucursal', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+			<i class="bi bi-pin-map"></i>
+		<% end %> 
+
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	<% end %></br>
+	<div class="regiones" style="padding-left: 1em; padding-right: 1em; padding-bottom: 1em;">
+		<small>
+	<% objeto.org_sucursales.order(:org_sucursal).each do |sucursal| %>
+		<i class="bi bi-pin-map"></i> Sucursal 
+		<b><%= link_to sucursal.org_sucursal, "/servicios/sucursales?sid=#{sucursal.id}" %></b></br>
+		<%= sucursal.direccion %></br>
+	<% end %>
+		</small>
+	</div>
+</small></br>
