@@ -1,6 +1,8 @@
 <small>
-<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: .5em; padding-bottom: .5em; margin-bottom: 1em;'>
+<div class="list-item">
+
 	<small><i class="bi bi-tag"></i> <%= objeto.control_estado %></small></br>
+
 	<%= render partial: 'tarifas/tar_facturaciones/list/move_btn', locals: {objeto: objeto} %> 
 	<%= objeto.owner.class.name unless objeto.owner_id.blank? %> : 
 	<% case objeto.owner.class.name %>
@@ -23,5 +25,6 @@
 	</br>
 	</small>
 	<%= render partial: 'tarifas/tar_facturaciones/list/bottom_links', locals: {objeto: objeto} %>
+
 </div>
 </small>

@@ -14,13 +14,13 @@ module CptnTablaAppHelper
 			false
 		elsif ['item-m_registros', 'periodo-m_registros', 'm_registros', 'm_cuentas', 'm_periodos', 'm_bancos'].include?(controller)
 			false
-		elsif ['clientes', 'activo_empresa-clientes', 'activo_sindicato-clientes', 'activo_trabajador-clientes', 'baja-clientes'].include?(controller)
+		elsif ['clientes', 'ingreso-clientes', 'activo_empresa-clientes', 'activo_sindicato-clientes', 'activo_trabajador-clientes', 'baja-clientes'].include?(controller)
 			false
-		elsif ['causas', 'proceso-causas', 'terminada-causas', 'sin_cuantia-causas', 'sin_facturar-causas', 'en_proceso-causas'].include?(controller)
+		elsif ['causas', 'ingreso-causas', 'proceso-causas', 'terminada-causas', 'sin_cuantia-causas', 'sin_facturar-causas', 'en_proceso-causas'].include?(controller)
 			false
 		elsif ['tribunal_cortes', 'tipo_causas'].include?(controller)
 			false
-		elsif ['asesorias', 'proceso-asesorias', 'terminada-asesorias'].include?(controller)
+		elsif ['asesorias', 'ingreso-asesorias', 'proceso-asesorias', 'terminada-asesorias'].include?(controller)
 			false
 		elsif ['regiones', 'comunas', 'org_regiones', 'org_empleados'].include?(controller)
 			false

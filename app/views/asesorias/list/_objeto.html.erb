@@ -1,7 +1,10 @@
 <small>
-<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-right: 1em; padding-top: .5em; padding-bottom: .5em; margin-bottom: 1em;'>
+<div class="list-item">
 
 	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
+
+	<b><%= objeto.descripcion %></b></br>
+
 	<small>
 
 	<i class="bi bi-calendar-check"> 
@@ -10,11 +13,7 @@
 	<% else %>
 		</i> <%= dma(objeto.fecha) %>
 	<% end %> | 
-
-	<i><%= objeto.cliente.razon_social %></i></small></br>
-	<b><%= objeto.descripcion %></b></br>
-
-	<small>
+	<i><%= objeto.cliente.razon_social %></i></br>
 
 	<% if objeto.facturacion.blank? %>
 		<% if objeto.moneda.blank? or objeto.monto.blank? %>
@@ -28,7 +27,6 @@
 			</a> | 
 		<% end %>
 	<% end %>
-
 	<b><i class="bi bi-coin"></i> 
 	<% if objeto.moneda.blank? or objeto.monto.blank? %>
 		<%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) unless objeto.tar_servicio.blank? %>
@@ -36,7 +34,6 @@
 		<%= s_moneda(objeto.moneda, objeto.monto) %>
 	<% end %>
 	</b> 
-
 	<% unless objeto.fecha_uf.blank? %>
 		  ( UF del <%= dma(objeto.fecha_uf) %> ) 
 	<% end %>
@@ -70,10 +67,9 @@
 		</div>
 		<% end %>
 	<% end %>
+	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
 	
 	</small>
-
-	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %></br>
 
 </div>
 </small>

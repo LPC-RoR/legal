@@ -1,10 +1,12 @@
 <div class="row">
   <div class="col-lg-6 col-xs-12">
-    <%= render partial: '0p/general/gly_title_size', locals: {gly: 'check-all', title: 'Aprobaciones', size: 5} %>
+    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_aprobaciones', title: 'Aprobaciones', link_new: nil} %>
+
     <%= render partial: '0p/tabla/tabla', locals: {c: 'tar_aprobaciones'} %>
   </div>
   <div class="col-lg-6">
-    <%= render partial: '0p/general/gly_title_size', locals: {gly: 'coin', title: 'Pagos pendientes', size: 5} %>
+    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos pendientes', link_new: nil} %>
+
     <%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} %>
   </div>
 </div>

@@ -1,0 +1,10 @@
+<%= render '0p/general/title_box' do %>
+	<div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
+	<i class="bi bi-<%=controller_icon[c]%>"></i> <%=title%>
+	<% unless link_new.blank? %>
+		<%= link_to link_new do %>
+			 | <i class="bi bi-plus-circle"></i>
+		<% end %>
+	<% end %>
+	</div>
+<% end %>

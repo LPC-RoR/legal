@@ -1,12 +1,14 @@
 <small>
-<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: 1em; padding-right: 1em; margin-bottom: 1em;'>
+<div class="list-item">
 
+	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
 	<%= objeto.d_rut %> | <%= link_to objeto.razon_social, objeto, title: 'Detalle Cliente', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> | 
 	<small>
-	<%= link_to "/servicios/organizacion?oid=#{objeto.id}" do %>
+	<%= link_to "/servicios/organizacion?oid=#{objeto.id}", title: 'Organización', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 		<i class="bi bi-diagram-3"></i>
 	<% end %>
 	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 	</small>
+
 </div>
 </small>

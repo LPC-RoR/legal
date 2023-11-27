@@ -1,39 +1,39 @@
 <small>
 <div class="list-item">
+
 	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
-	<small><%= dma(objeto.created_at) %> | <i><%= objeto.cliente.razon_social %></i></small></br>
+
 	<b><%= link_to objeto.rit, objeto, title: 'Detalle Causa', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> | <%= objeto.causa %></b>
 	<% if objeto.demanda? %>
 		<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 			<i class="bi bi-box-arrow-up-right"></i>
 		<% end %>
-	<% end %>
-	</br>
+	<% end %></br>
+
 	<small>
+		<%= dma(objeto.created_at) %> | <i><%= objeto.cliente.razon_social %></i></br>
 
-	<i class="bi bi-cash-coin"></i> 
-	<b>
-	<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
-	<% unless objeto.monto_pagado.blank? %>
-		 - <span class='text-info'><%= s_pesos(objeto.monto_pagado) %></span>
-	<% end %>
-	</b>
+		<i class="bi bi-cash-coin"></i> 
+		<b>
+		<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
+		<% unless objeto.monto_pagado.blank? %>
+			 - <span class='text-info'><%= s_pesos(objeto.monto_pagado) %></span>
+		<% end %>
+		</b>
+		<% if objeto.estado == 'proceso' %>
+			<a data-toggle="collapse" href="#collapsePago<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapsePago<%=objeto.id%>">
+				 - <%= objeto.monto_pagado.blank? ? 'Ingresar' : 'Actualizar' %> Monto acuerdo/sentencia
+			</a>
 
-	<% if objeto.estado == 'proceso' %>
-		<a data-toggle="collapse" href="#collapsePago<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapsePago<%=objeto.id%>">
-			 - <%= objeto.monto_pagado.blank? ? 'Ingresar' : 'Actualizar' %> Monto pagado al trabajador
-		</a>
+			<div class="collapse" id="collapsePago<%=objeto.id%>">
+			  <div class="card card-body">
+			  	<%= render partial: 'causas/list/form_monto_pagado', locals: {objeto: objeto} %>
+			  </div>
+			</div>
+		<% end %></br>
 
-		<div class="collapse" id="collapsePago<%=objeto.id%>">
-		  <div class="card card-body">
-		  	<%= render partial: 'causas/list/form_monto_pagado', locals: {objeto: objeto} %>
-		  </div>
-		</div>
-	<% end %> |
-
-	</br>
-	<%= render partial: 'causas/list/bottom_links', locals: {objeto: objeto} %>
-
+		<%= render partial: 'causas/list/bottom_links', locals: {objeto: objeto} %>
 	</small>
+
 </div>
 </small>

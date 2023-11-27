@@ -1,34 +1,33 @@
 <small>
-<div class="list-item" style='background-color:#FFFFFF; padding-left: 1em; padding-top: .5em; padding-bottom: .5em; margin-bottom: 1em;'>
+<div class="list-item">
 
 	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
+
 	<%= link_to (objeto.estado == 'ingreso' ? 'no emitida' : objeto.documento), objeto, title: 'Detalle Factura', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> | <%= objeto.owner.razon_social %>
 	<% unless objeto.tar_nota_credito.blank? %>
 		<b class="text-danger">Nota de crédito asociada</b>
 	<% end %>
 	</br>
+
+	<small>
+		
 	<i class="bi bi-calendar-check"></i> 
 	<%= objeto.estado == 'ingreso' ? '--/--/--' : dma(objeto.fecha_factura) %> | <%= objeto.tar_facturaciones.count %> : 
-
-
-
 	<% if objeto.monto_pesos == 0 %>
 	-
 	<% else %>
 		<a data-toggle="collapse" href="#collapseFactura<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseFactura<%=objeto.id%>">
 			<i class="bi bi-box-arrow-down"></i> 
-			<%= s_pesos(objeto.monto_pesos) %>
+			<b><%= s_pesos(objeto.monto_pesos) %></b>
 		</a>
 	<% end %>
 	<% unless objeto.tar_nota_credito.blank? %>
 		 | <b class="text-danger"><%= objeto.tar_nota_credito.monto_total ? s_pesos(objeto.monto_pesos) : s_pesos(objeto.tar_nota_credito.monto) %></b>
 	<% end %>
 	</br>
-	
-	<small>
-		<%= link_to 'libera factura', "/tar_facturas/#{objeto.id}/libera_factura" if objeto.estado == 'ingreso' %>
-		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
-	</small>
+
+	<%= link_to 'libera factura', "/tar_facturas/#{objeto.id}/libera_factura" if objeto.estado == 'ingreso' %>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 
 	<% unless objeto.monto_pesos == 0 %>
 		<div class="collapse" id="collapseFactura<%=objeto.id%>">
@@ -58,6 +57,8 @@
 			<% end %>
 		</ul>
 	<% end %>
+
+	</small>
 
 </div>
 </small>

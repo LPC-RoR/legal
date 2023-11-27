@@ -59,8 +59,14 @@ module CptnHelper
 		opts
 	end
 
-def controller_icon
+	def controller_icon
 		{
+			'clientes' => 'building',
+			'causas' => 'journal-text',
+			'asesorias' => 'briefcase',
+			'tar_aprobaciones' => 'check-all',
+			'tar_facturaciones' => 'coin',
+			'tar_facturas' => 'receipt',
 			'sb_listas' => 'list-nested',
 			'app_empresas' => 'buildings',
 			'app_administradores' => 'person-square',
@@ -72,15 +78,9 @@ def controller_icon
 			'm_modelos' => 'piggy-bank',
 			'm_bancos' => 'bank',
 			'm_periodos' => 'calendar3',
-			'causas' => 'file-text',
-			'consultorias' => 'file-earmark',
-			'tar_facturas' => 'receipt',
-			'tar_facturaciones' => 'coin',
 			'tar_servicios' => 'arrow-repeat',
-			'clientes' => 'building',
 			'blg_articulos' => 'file-earmark-richtext',
 			'blg_temas' => 'list-stars',
-			'asesorias' => 'briefcase'
 		}
 	end
 

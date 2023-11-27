@@ -1,41 +1,31 @@
 <div class="row">
 	<div class="col-lg-4 col-xs-12">
-		<p class="text-info">
-		<i class="bi bi-building"></i> Clientes ingresados
-		</p>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes en ingreso', link_new: 'clientes/new'} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-clientes'} %>
 	</div>
 	<div class="col-lg-4 col-xs-12">
 		<% unless @coleccion['activo_empresa-clientes'].empty? %>
-			<p class="text-info">
-			<i class="bi bi-building"></i> Cliente activos : Empresas
-			</p>
+			<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Empresas', link_new: nil} %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_empresa-clientes'} %>
 		<% end %>
-		</br>
+		<hr>
 		<% unless @coleccion['activo_sindicato-clientes'].empty? %>
-			<p class="text-info">
-			<i class="bi bi-building"></i> Cliente activos : Sindicatos
-			</p>
+			<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Sindicatos', link_new: nil} %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_sindicato-clientes'} %>
 
 		<% end %>
-		</br>
+		</hr>
 		<% unless @coleccion['activo_trabajador-clientes'].empty? %>
-			<p class="text-info">
-			<i class="bi bi-building"></i> Cliente activos : Trabajadores
-			</p>
+			<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Trabajadores', link_new: nil} %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_trabajador-clientes'} %>
 		<% end %>
 	</div>
 	<div class="col-lg-4">
-		<p class="text-info">
-		<i class="bi bi-building"></i> Clientes de baja
-		</p>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes de baja', link_new: nil} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'baja-clientes'} %>
 	</div>
