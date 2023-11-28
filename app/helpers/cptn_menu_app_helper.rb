@@ -5,7 +5,7 @@ module CptnMenuAppHelper
 	        [nil,        "/blg_articulos",               'nomina', controller_icon['blg_articulos'], 'Blogs'],
 	        [nil,         '/app_recursos/administracion', 'admin', 'person-rolodex', 'Administración'],
 #	        ["Contenido",  "/tema_ayudas",                 'admin', 'stack'],
-	        ["Procesos", "/app_recursos/procesos",       'dog',   'radioactive']
+	        [nil, "/app_recursos/procesos",       'dog',   'radioactive']
 	    ]
 	end
 
