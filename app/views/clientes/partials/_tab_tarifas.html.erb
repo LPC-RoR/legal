@@ -1,0 +1,12 @@
+<div class='row'>
+	<div class="col-md-6">
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_tarifas', title: 'Tarifas de causas', link_new: "/tar_tarifas/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}"} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
+	</div>
+	<div class="col-md-6">
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_tarifas', title: 'Tarifas de asesorías', link_new: "/tar_servicios/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}"} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
+	</div>
+</div>

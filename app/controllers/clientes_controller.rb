@@ -17,10 +17,11 @@ class ClientesController < ApplicationController
   # GET /clientes/1 or /clientes/1.json
   def show
 
-    init_tab( { menu: ['Causas', 'Asesorias', 'Facturas', 'Tarifas'] }, true )
+    init_tab( { menu: ['Seguimiento', 'Causas', 'Asesorias', 'Facturas', 'Tarifas'] }, true )
 
 #    @coleccion = {}
-    if @options[:menu] == 'Causas'
+    if @options[:menu] == 'Seguimiento'
+    elsif @options[:menu] == 'Causas'
       causas_cliente = @objeto.causas
       init_tabla('ingreso-causas', causas_cliente.where(estado: 'ingreso').order(:created_at), false)
       add_tabla('proceso-causas', causas_cliente.where(estado: 'proceso').order(:created_at), false)

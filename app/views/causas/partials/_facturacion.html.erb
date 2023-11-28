@@ -10,7 +10,7 @@
 
 	</div>
 	<div class='col-md-5'>
-		<%= render partial: 'causas/partials/uf_de_calculo' %>
+		<%#= render partial: 'causas/partials/uf_de_calculo' %>
 		<% if @objeto.tar_tarifa.present? %>
 			<%= render partial: 'tarifas/partials/facturacion', locals: {objeto: @objeto} %>
 		<% end %>

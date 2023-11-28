@@ -1,10 +1,12 @@
 <small>
-	<i class="bi bi-cash-coin"></i> 
+<div class="list-item">
+
+	<i class="bi bi-journal-text"></i> 
 	<b><%= link_to objeto.tarifa, objeto %></b> | 
 	<%= objeto.moneda %> | 
 	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
 
-
+	<small>
 	<% unless objeto.tar_pagos.empty? and objeto.valor_hora.blank? %>
 		<ul>
 			<% unless objeto.tar_pagos.empty? %>
@@ -18,6 +20,7 @@
 			<% end %>
 		</ul>
 	<% end %>
+	</small>
 
-
+</div>
 </small>

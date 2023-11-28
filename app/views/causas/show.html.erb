@@ -1,47 +1,35 @@
-<h4 class="text-info"><i class="bi bi-journal-text"></i> <%= "Causa : #{@objeto.rit unless @objeto.rit.blank?} | #{@objeto.causa}" %></h4>
-<div class="row">
-	<div class="col-lg-3 col-xs-12">
-		<p class="text-info"><i class="bi bi-list-check"></i> Datos</p>
-		<% ['demandante', 'cargo', 'sucursal', 'abogados'].each do |antecedente| %>
-			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: @objeto, tag: antecedente} %>
-		<% end %>
-		<hr>
-		<%= render partial: 'causas/partials/show_archivos', locals: {objeto: @objeto} %>
-		<hr>
-		<%= render partial: 'causas/partials/show_enlaces', locals: {objeto: @objeto} %>
+<%= render '0p/general/title_box' do %>
+	<div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
+		<h5 class="text-info">
+			<i class="bi bi-journal-text"></i> 
+			<%= "Causa : #{@objeto.rit unless @objeto.rit.blank?} | #{@objeto.causa}" %>
+		</h5>
+		<%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 	</div>
-	<div class="col-lg-9">
-		<p><%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %></p>
-		<%= render partial: '0p/tabs/tabs', locals: { tabs: @tabs, options: @options, token: :menu } %>
+<% end %>
 
-		<% if @options[:menu] == 'Antecedentes' %>
-			<%= render partial: 'causas/partials/show_antecedentes', locals: {objeto: @objeto} %>
-		<% elsif @options[:menu] == 'Facturacion' %>
-			<%= render partial: 'causas/partials/facturacion' %>
-		<% elsif @options[:menu] == 'Registro' %>
+<%= render partial: '0p/tabs/tabs', locals: { tabs: @tabs, options: @options, token: :menu } %>
 
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>
-			<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'registros', gly: 'plus-circle', clr: color('causas')} %>
+<% if @options[:menu] == 'Seguimiento' %>
 
-		<% elsif @options[:menu] == 'Reportes' %>
+	<%= render partial: 'causas/partials/tab_seguimiento', locals: {objeto: @objeto} %>
 
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'reg_reportes'} %>
-			<%= render partial: '0p/general/btn_proceso', locals: {texto: 'Proceso Registros', link: "/causas/#{@objeto.id}/procesa_registros", gly: 'clipboard-check' , clr: color(@objeto.class.name.tableize), delete: false} %>
-			
-		<% elsif @options[:menu] == 'Documentos y enlaces' %>
+<% elsif @options[:menu] == 'Tarifa & Cuantía' %>
 
-			<div class='row'>
-				<div class='col-md-6'>
-					<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Repositorio de la causa', clr: config[:color][:app]} %></h5>
+	<%= render partial: 'causas/partials/tab_tarifa_cuantia', locals: {objeto: @objeto} %>
 
-				    <%= render partial: 'repositorios/app_directorios/partials/directorio', locals: {objeto: @objeto.repositorio} %>
-				</div>
-				<div class='col-md-6'>
-					<h5><%= render partial: '0p/general/icon_text', locals: {gly: 'archive', text: 'Enlaces de la causa', clr: config[:color][:app]} %></h5>
-					<%= render partial: '0p/tabla/tabla', locals: {c: 'app_enlaces'} %>
-				</div>
-			</div>
+<% elsif @options[:menu] == 'Pagos' %>
 
-		<% end %>
-	</div>
-</div>
+	<%= render partial: 'causas/partials/tab_pagos', locals: {objeto: @objeto} %>
+
+<% elsif @options[:menu] == 'Registro' %>
+
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>
+	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'registros', gly: 'plus-circle', clr: color('causas')} %>
+
+<% elsif @options[:menu] == 'Reportes' %>
+
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'reg_reportes'} %>
+	<%= render partial: '0p/general/btn_proceso', locals: {texto: 'Proceso Registros', link: "/causas/#{@objeto.id}/procesa_registros", gly: 'clipboard-check' , clr: color(@objeto.class.name.tableize), delete: false} %>
+
+<% end %>

@@ -14,15 +14,17 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab( { menu: ['Antecedentes', 'Facturacion', 'Registro', 'Reportes'] }, true )
+    init_tab( { menu: ['Seguimiento', 'Tarifa & Cuantía', 'Pagos', 'Registro', 'Reportes'] }, true )
 
-    if @options[:menu] == 'Antecedentes'
+    if @options[:menu] == 'Seguimiento'
+      init_tabla('tar_facturaciones', @objeto.facturaciones, false)
+    elsif @options[:menu] == 'Tarifa & Cuantía'
+      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+    elsif @options[:menu] == 'Pagos'
+      init_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
+    elsif @options[:menu] == 'Antecedentes'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       add_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)
-    elsif @options[:menu] == 'Facturacion'
-      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
-      add_tabla('tar_facturaciones', @objeto.facturaciones, false)
-      add_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
     elsif @options[:menu] == 'Documentos y enlaces'
       AppRepositorio.create(app_repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repositorio.blank?
 

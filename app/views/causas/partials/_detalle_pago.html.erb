@@ -1,0 +1,12 @@
+<% if objeto.pago_generado(pago).blank? %>
+	<!-- Cálculo -->
+	<small>
+		UF de cálculo: <%= objeto.uf_calculo_pago(pago).blank? ? 'UF no encontrada' : s_pesos2(objeto.uf_calculo_pago(pago).valor) %> ( <%= dma(objeto.fecha_calculo_pago(pago)) %> )</br>
+	</small>
+<% else %>
+	<!-- TarFacturacion -->
+	<small>
+		Pago generado el <%= dma(objeto.pago_generado(pago).created_at) %></br>	
+		UF de cálculo: <%= objeto.uf_calculo_pago(pago).blank? ? 'UF no encontrada' : s_pesos2(objeto.uf_calculo_pago(pago).valor) %> ( <%= dma(objeto.fecha_calculo_pago(pago)) %> )</br>
+	</small>
+<% end %>

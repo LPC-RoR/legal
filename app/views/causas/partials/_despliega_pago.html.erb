@@ -1,0 +1,30 @@
+<% if pago.valor.blank? %>
+
+	<% unless pago.codigo_formula.blank? %>
+		<p class="text-muted">
+			<%= pago.tar_pago %> : 
+			<%= render partial: 'tarifas/partials/despliega_pago_uf', locals: {objeto: objeto, pago: pago} %> | <%= render partial: 'tarifas/partials/despliega_pago_pesos', locals: {objeto: objeto, pago: pago} %></br>
+			<%= render partial: 'causas/partials/detalle_pago', locals: {objeto: objeto, pago: pago} %>
+		</p>
+		<small><p class="text-info">Aplicación de tarifa</p></small>
+
+		<%= render partial: 'tarifas/partials/comentarios2', locals: {pago: pago, objeto: objeto} unless objeto.uf_calculo_pago(pago).blank? %>
+	<% else %>
+		Pago sin código de fórmula!
+	<% end %>
+
+<% else %>
+
+	<%= pago.tar_pago %> : 
+	<% if pago.moneda == 'Pesos' %>
+		<%= s_pesos(valor) %>
+	<% else %>
+		<%= objeto.uf_calculo_pago(pago).blank? ? 'UF de cálculo no ingresada' : s_pesos(valor * objeto.uf_calculo_pago(pago).valor) %>
+	<% end %> | 
+	<% if pago.moneda == 'Pesos' %>
+		<%= objeto.uf_calculo_pago(pago).blank? ? 'UF de cálculo no ingresada' : s_uf5(valor / objeto.uf_calculo_pago(pago).valor) %>
+	<% else %>
+		<%= s_uf5(valor) %>
+	<% end %>
+
+<% end %>
