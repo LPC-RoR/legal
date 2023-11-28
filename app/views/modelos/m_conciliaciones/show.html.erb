@@ -1,3 +1,6 @@
+<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_conciliaciones', title: "Detalle Cartola", link_new: nil} %>
+
+<div class="shadow p-3 mb-3 bg-white rounded">
 <h5>Total cartola : <%= s_pesos(@objeto.total_cartola) %></h5>
 
 <small>
@@ -20,4 +23,5 @@ Cuenta : <%= link_to @objeto.m_cuenta.m_cuenta, @objeto.m_cuenta %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'm_registros'} %>
 	</div>
+</div>
 </div>
