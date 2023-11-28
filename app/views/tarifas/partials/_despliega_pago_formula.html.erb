@@ -5,7 +5,7 @@
 		<%= render partial: 'tarifas/partials/despliega_pago_uf', locals: {objeto: objeto, pago: pago} %> | <%= render partial: 'tarifas/partials/despliega_pago_pesos', locals: {objeto: objeto, pago: pago} %>
 	</p>
 	<small><p class="text-info">Aplicación de tarifa</p></small>
-	<%= render partial: 'tarifas/partials/comentarios2', locals: {pago: pago, objeto: objeto} unless objeto.uf_pago(pago.tar_pago).blank? %>
+	<%= render partial: 'tarifas/partials/comentarios2', locals: {pago: pago, objeto: objeto} unless objeto.uf_calculo_pago(pago).blank? %>
 <% else %>
 	Pago sin código de fórmula!
 <% end %>
