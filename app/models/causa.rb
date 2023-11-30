@@ -127,6 +127,10 @@ class Causa < ApplicationRecord
 		(c_pesos.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? (uf.blank? ? 0 : vc.valor / uf.valor) : vc.valor) }.sum
 	end
 
+	def d_cuantia
+#		"#{self.valores_cuantia.where(moneda: 'Pesos').map {|val| val.valor}.sum} #{self.valores_cuantia.where(moneda: 'UF').map {|val| val.valor}.sum}"
+	end
+
 	def monto_pagado_uf(pago)
 		uf = self.uf_calculo_pago(pago)
 		(uf.blank? or self.monto_pagado.blank?) ? 0 : self.monto_pagado / uf.valor

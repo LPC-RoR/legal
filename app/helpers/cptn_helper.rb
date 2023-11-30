@@ -71,6 +71,8 @@ module CptnHelper
 			'tar_valor_cuantias' => 'currency-dollar',
 			'tar_uf_facturaciones' => 'currency-dollar',
 			'tar_pagos' => 'currency-dollar',
+			'tar_formulas' => 'lightbulb',
+			'tar_comentarios' => 'chat',
 			'm_periodos' => 'safe2',
 			'm_modelos' => 'piggy-bank',
 			'sb_listas' => 'list-nested',

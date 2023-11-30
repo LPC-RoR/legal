@@ -59,20 +59,24 @@ class Tarifas::TarTarifasController < ApplicationController
   def asigna
     # Asigna una tarifa a una CAUSA o COONSULTORÍA
 
-    objeto = params[:class_name].constantize.find(params[:objeto_id])
-    @objeto.send(params[:class_name].tableize) << objeto
+    unless params[:cid].blank?
+      objeto = Causa.find(params[:cid])
+      @objeto.causas << objeto
+    end
 
-    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Facturacion"
+    redirect_to "/causas/#{objeto.id}?html_options[menu]=Tarifa+%26+Cuantía"
 
   end
 
   def desasigna
     # DesAsigna una tarifa a una CAUSA o COONSULTORÍA
 
-    objeto = params[:class_name].constantize.find(params[:objeto_id])
-    @objeto.send(params[:class_name].tableize).delete(objeto)
+    unless params[:cid].blank?
+      objeto = Causa.find(params[:cid])
+      @objeto.causas.delete(objeto)
+    end
 
-    redirect_to "/#{params[:class_name].downcase.pluralize}/#{objeto.id}?html_options[menu]=Facturacion"
+    redirect_to "/causas/#{objeto.id}?html_options[menu]=Tarifa+%26+Cuantía"
 
   end
 

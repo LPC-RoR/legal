@@ -3,7 +3,7 @@
 		<%= s_pesos( calcula2(pago.formula_tarifa, objeto, pago) ) %>
 	<% else %>
 		<% if objeto.uf_calculo_pago(pago).blank? %>
-			Uf no encontrada
+			UF no encontrada
 		<% else %>
 			<%= s_pesos( calcula2(pago.formula_tarifa, objeto, pago) * objeto.uf_calculo_pago(pago).valor ) %>
 		<% end %>

@@ -4,6 +4,16 @@
 	<small><i class="bi bi-tag"></i> <%= objeto.control_estado %></small></br>
 
 	<%= render partial: 'tarifas/tar_facturaciones/list/move_btn', locals: {objeto: objeto} %> 
+
+	<b>
+	<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
+		<%= objeto.pago.tar_pago %> | 
+	<% end %>
+	<%= s_uf(objeto.monto_uf) %> : <%= s_pesos(objeto.monto_pesos) %>
+	</b>
+	</br>
+
+	<small>
 	<%= objeto.owner.class.name unless objeto.owner_id.blank? %> : 
 	<% case objeto.owner.class.name %>
 	<% when 'Causa' %>
@@ -15,15 +25,9 @@
 	<% when 'Asesoria' %>
 		<%= link_to objeto.owner.descripcion, objeto.owner %>
 	<% end %>
+	</small>
 	</br>
 
-	<small>
-	<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
-		<%= objeto.pago.tar_pago %> | 
-	<% end %>
-	<%= s_uf(objeto.monto_uf) %> : <%= s_pesos(objeto.monto_pesos) %>
-	</br>
-	</small>
 	<%= render partial: 'tarifas/tar_facturaciones/list/bottom_links', locals: {objeto: objeto} %>
 
 </div>

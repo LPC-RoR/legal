@@ -6,21 +6,7 @@
 	<%= objeto.moneda %> | 
 	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
 
-	<small>
-	<% unless objeto.tar_pagos.empty? and objeto.valor_hora.blank? %>
-		<ul>
-			<% unless objeto.tar_pagos.empty? %>
-				<% objeto.tar_pagos.order(:orden).each do |pago| %>
-					<li><%= pago.tar_pago %> <%= pago.codigo_formula.blank? ? '( valor )' : '( fórmula )' %></li>
-				<% end %>
-			<% end %>
-
-			<% unless objeto.valor_hora.blank? %>
-				<li><i class="bi bi-alarm"></i> <%= s_moneda(objeto.moneda, objeto.valor_hora) %></li>
-			<% end %>
-		</ul>
-	<% end %>
-	</small>
+	<%= render partial: 'tarifas/tar_tarifas/list/detalle_tarifa', locals: {objeto: objeto} %>
 
 </div>
 </small>

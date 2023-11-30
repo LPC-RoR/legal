@@ -8,7 +8,7 @@ module CptnTablaAppHelper
 	def app_new_button_conditions(controller)
 		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_valor_cuantias', 'ingreso-tar_facturas', 'facturada-tar_facturas', 'pagada-tar_facturas', 'tar_uf_facturaciones', 'tar_aprobaciones', 'tar_uf_sistemas', 'tar_detalle_cuantias'].include?(controller)
 			false
-		elsif ['tar_facturas', 'por_emitir-tar_facturas', 'en_cobranza-tar_facturas', 'tar_pagos', 'tar_formulas'].include?(controller)
+		elsif ['tar_facturas', 'por_emitir-tar_facturas', 'en_cobranza-tar_facturas', 'tar_pagos', 'tar_formulas', 'tar_comentarios'].include?(controller)
 			false
 		elsif ['tar_facturaciones', 'pend-tar_facturaciones', 'sin_aprobacion-tar_facturaciones', 'sin_facturar-tar_facturaciones'].include?(controller)
 			false

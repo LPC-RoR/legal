@@ -20,6 +20,9 @@ class CausasController < ApplicationController
       init_tabla('tar_facturaciones', @objeto.facturaciones, false)
     elsif @options[:menu] == 'Tarifa & Cuantía'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+      # Tarifas para seleccionar
+      @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
+      @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
     elsif @options[:menu] == 'Pagos'
       init_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
     elsif @options[:menu] == 'Antecedentes'

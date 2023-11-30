@@ -1,31 +1,14 @@
-<h4 class="text-info">
-	<i class="bi bi-cash-coin"></i> 
-	Tarifa <%= @objeto.tarifa %>
-</h4>
+<b><%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_tarifas', title: "Tarifa : #{@objeto.tarifa}", link_new: nil} %></b>
 
 <div class="row">
 	<div class="col-md-5">
-		<h5 class="text-info">
-			<i class="bi bi-coin"></i> 
-			Pagos 
-			<%= link_to "/tar_pagos/new?oid=#{@objeto.id}" do %>
-				<i class="bi bi-plus-circle"></i>
-			<% end %>
-		</h5>
-		<div class="row">
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_pagos'} %>
-		</div>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_pagos', title: "Pagos", link_new: "/tar_pagos/new?oid=#{@objeto.id}"} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_pagos'} %>
 	</div>
 	<div class="col-md-7">
-		<h5 class="text-info">
-			<i class="bi bi-lightbulb"></i> 
-			Fórmulas 
-			<%= link_to "/tar_formulas/new?oid=#{@objeto.id}" do %>
-				<i class="bi bi-plus-circle"></i>
-			<% end %>
-		</h5>
-		<div class="row">
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formulas'} %>
-		</div>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_formulas', title: "Formulas", link_new: "/tar_formulas/new?oid=#{@objeto.id}"} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formulas'} %>
 	</div>
 </div>

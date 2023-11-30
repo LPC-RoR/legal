@@ -3,7 +3,59 @@
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_tarifas', title: 'Tarifa', link_new: nil} %>
 
 		<div class="shadow p-3 mb-3 bg-white rounded">
-			<%= render partial: 'tarifas/partials/asigna_tarifa', locals: {objeto: @objeto} %>
+		<div class="row">
+			<div class="col-lg-6 col-xs-12">
+				<p class="text-info">Tarifa Asignada</p>
+				<p class="text-muted">
+					<small>
+					<% if @objeto.tar_tarifa.present? %>
+						<%= link_to @objeto.tar_tarifa.tarifa, @objeto.tar_tarifa %> 
+						<% if objeto.facturaciones.empty? %>
+							<%= link_to "/tar_tarifas/#{@objeto.tar_tarifa.id}/desasigna?cid=#{objeto.id}" do %>
+								<i class="bi bi-x-circle"></i>
+							<% end %>
+						<% end %>
+						<%= render partial: 'tarifas/tar_tarifas/list/detalle_tarifa', locals: {objeto: @objeto.tar_tarifa} %>
+					<% else %>
+						Sin asignar
+					<% end %>
+					</small>
+				</p>
+			</div>
+			<div class="col-lg-6">
+				<% if @objeto.tar_tarifa.blank? %>
+					<% unless @tar_cliente.empty? %>
+						<p class="text-info">Tarifas del cliente</p>
+						<small>
+						<% @tar_cliente.each do |tar| %>
+							<%= link_to "/tar_tarifas/#{tar.id}/asigna?cid=#{objeto.id}" do %>
+								<i class="bi bi-arrow-bar-left"></i>
+							<% end %>  
+							<%= tar.tarifa %>
+							<%= link_to tar do %>
+								<i class="bi bi-box-arrow-right"></i>
+							<% end %></br>
+						<% end %>
+						</small>
+					<% end %>
+					<hr>
+					<% unless @tar_generales.empty? %>
+						<p class="text-info">Tarifas generales</p>
+						<small>
+						<% @tar_generales.each do |tar| %>
+							<%= link_to "/tar_tarifas/#{tar.id}/asigna?cid=#{objeto.id}" do %>
+								<i class="bi bi-arrow-bar-left"></i>
+							<% end %>  
+							<%= tar.tarifa %>
+							<%= link_to tar do %>
+								<i class="bi bi-box-arrow-right"></i>
+							<% end %></br>
+						<% end %>
+						</small>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
 		</div>
 	</div>
 	<div class="col-lg-6">

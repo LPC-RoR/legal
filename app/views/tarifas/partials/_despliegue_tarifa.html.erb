@@ -1,5 +1,0 @@
-<% if pago.valor.blank? %>
-	<%= render partial: 'tarifas/partials/despliega_pago_formula', locals: {objeto: objeto, pago: pago} %>
-<% else %>
-	<%= render partial: 'tarifas/partials/despliega_pago_cuotas', locals: {objeto: objeto, pago: pago, valor: (objeto.pago_generado(pago).blank? ? pago.valor : objeto.pago_generado(pago).valor)} %>
-<% end %>
