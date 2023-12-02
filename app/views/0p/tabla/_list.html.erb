@@ -1,6 +1,20 @@
 <hr>
-<% coleccion.each do |objeto| %>
+<% if tipo == 'list' %>
 	<div class="shadow p-3 mb-3 bg-white rounded">
-		<%= render partial: get_partial(objeto.class.name.tableize, 'list', 'objeto') , locals: {objeto: objeto} %>
+<% end %>
+
+<% coleccion.each do |objeto| %>
+	<% if tipo == 'objeto' %>
+		<div class="shadow p-3 mb-3 bg-white rounded">
+	<% end %>
+
+		<%= render partial: get_partial(objeto.class.name.tableize, 'list', "#{tipo == 'list' ? 'lobjeto' : 'objeto'}") , locals: {objeto: objeto} %>
+
+	<% if tipo == 'objeto' %>
+		</div>
+	<% end %>
+<% end %>
+
+<% if tipo == 'list' %>
 	</div>
 <% end %>

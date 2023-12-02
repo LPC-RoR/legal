@@ -1,32 +1,17 @@
 <div class="row">
 	<div class="col-lg-4 col-xs-12">
-		<h5 class="text-info">
-			<i class="bi bi-check2-square"></i> 
-			Detalles de Cuantías 
-			<%= link_to '/tar_detalle_cuantias/new' do %>
-				<i class="bi bi-plus-circle"></i>
-			<% end %>
-		</h5>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_detalle_cuantias', title: 'Detalles de cuantía', link_new: "/tar_detalle_cuantias/new"} %>
+
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_detalle_cuantias'} %>
 	</div>
 	<div class="col-lg-4 col-xs-12">
-		<h5 class="text-info">
-			<i class="bi bi-bank"></i> 
-			Tribunales/Cortes 
-			<%= link_to '/tribunal_cortes/new' do %>
-				<i class="bi bi-plus-circle"></i>
-			<% end %>
-		</h5>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tribunal_cortes', title: 'Tribunal/Cortes', link_new: "/tribunal_cortes/new"} %>
+
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tribunal_cortes'} %>
 	</div>
 	<div class="col-lg-4">
-		<h5 class="text-info">
-			<i class="bi bi-file-check"></i> 
-			Tipos de Causa 
-			<%= link_to '/tipo_causas/new' do %>
-				<i class="bi bi-plus-circle"></i>
-			<% end %>
-		</h5>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tipo_causas', title: 'Tipo causas', link_new: "/tipo_causas/new"} %>
+
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_causas'} %>
 	</div>
 </div>

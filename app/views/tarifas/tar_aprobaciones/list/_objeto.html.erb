@@ -5,9 +5,11 @@
 
 	<small>
 
-	<% objeto.tar_facturaciones.each do |facturacion| %>
-		<%= facturacion.glosa %> | 
-		<%= s_pesos(facturacion.monto_pesos) %></br>
+	<% unless objeto.tar_facturaciones.empty? %>
+		<% objeto.tar_facturaciones.each do |facturacion| %>
+			<i class="bi bi-dot"></i> <%= facturacion.glosa %> | 
+			<%= s_pesos(facturacion.monto_pesos) %></br>
+		<% end %>
 	<% end %>
 
 	<%= link_to 'facturar', "/tar_aprobaciones/#{objeto.id}/facturar" if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>

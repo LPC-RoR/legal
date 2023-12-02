@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_24_140755) do
+ActiveRecord::Schema.define(version: 2023_12_01_193347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -369,6 +369,21 @@ ActiveRecord::Schema.define(version: 2023_11_24_140755) do
     t.index ["cliente_id"], name: "index_consultorias_on_cliente_id"
     t.index ["tar_hora_id"], name: "index_consultorias_on_tar_hora_id"
     t.index ["tar_tarifa_id"], name: "index_consultorias_on_tar_tarifa_id"
+  end
+
+  create_table "control_documentos", force: :cascade do |t|
+    t.string "nombre"
+    t.string "descripcion"
+    t.string "tipo"
+    t.string "control"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "orden"
+    t.index ["orden"], name: "index_control_documentos_on_orden"
+    t.index ["owner_class"], name: "index_control_documentos_on_owner_class"
+    t.index ["owner_id"], name: "index_control_documentos_on_owner_id"
   end
 
   create_table "dt_criterio_multas", force: :cascade do |t|

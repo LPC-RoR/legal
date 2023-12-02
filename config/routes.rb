@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     resources :app_escaneos do
       match :crea_escaneo, via: :get, on: :collection
     end
+    resources :control_documentos
   end
 
   scope module: 'aplicacion' do

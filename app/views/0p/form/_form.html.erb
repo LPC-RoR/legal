@@ -1,27 +1,31 @@
 <div class="container-fluid">
 
-	<%= render partial: '0p/general/form_icon_text', locals: {text: m_to_name(@objeto.class.name), size: config[:font_size][:title]} %>
+  	<div class="shadow p-3 mb-3 bg-white rounded">
+		<%= render partial: '0p/general/form_icon_text', locals: {text: m_to_name(@objeto.class.name), size: config[:font_size][:title]} %>
+	</div>
 
-	<%= form_with(model: @objeto, local: true) do |form| %>
-		<% if @objeto.errors.any? %>
-		<div id="error_explanation">
-			<h4 class='text-info'><%= @objeto.errors.count %> <%= @objeto.errors.count == 1 ? 'error' : 'errores' %> evitan que este registro sea grabado:</h4>
+  	<div class="shadow p-3 mb-3 bg-white rounded">
+		<%= form_with(model: @objeto, local: true) do |form| %>
+			<% if @objeto.errors.any? %>
+			<div id="error_explanation">
+				<h4 class='text-info'><%= @objeto.errors.count %> <%= @objeto.errors.count == 1 ? 'error' : 'errores' %> evitan que este registro sea grabado:</h4>
 
-			<ul>
-			<% @objeto.errors.full_messages.each do |message| %>
-			<li class='text-info'><%= message %></li>
+				<ul>
+				<% @objeto.errors.full_messages.each do |message| %>
+				<li class='text-info'><%= message %></li>
+				<% end %>
+				</ul>
+	  
+			</div>
 			<% end %>
-			</ul>
-  
-		</div>
+
+			<p>
+				<%= render partial: detail_partial(controller_name), locals: {c: controller_name, form: form} %>	
+			</p>
+
+			<div class="actions">
+			<%= form.submit "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{m_to_name(@objeto.class.name)}" %>
+			</div>
 		<% end %>
-
-		<p>
-			<%= render partial: detail_partial(controller_name), locals: {c: controller_name, form: form} %>	
-		</p>
-
-		<div class="actions">
-		<%= form.submit "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{m_to_name(@objeto.class.name)}" %>
-		</div>
-	<% end %>
+	</div>
 </div>

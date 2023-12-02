@@ -36,6 +36,8 @@ class Aplicacion::TablasController < ApplicationController
     when 8 # Tablas secundarias Modelo
       init_tabla('m_bancos', MBanco.all.order(:m_banco), false) 
       add_tabla('m_periodos', MPeriodo.order(clave: :desc), false) 
+    when 10 # Documentos controlados
+      init_tabla('st_modelos', StModelo.order(:st_modelo), false)
     end
   end
 

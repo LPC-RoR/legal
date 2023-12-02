@@ -1,12 +1,8 @@
 <div class="row">
 	<div class="col-lg-8 col-xs-12">
-		<h5 class="text-info">
-			<i class="bi bi-piggy-bank"></i> 
-			Modelo de negocios 
-			<%= link_to "/m_conceptos/new?oid=#{@modelo.id}" do %>
-				<i class="bi bi-plus-circle"></i>
-			<% end %>
-		</h5>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_modelos', title: 'Modelo de negocios', link_new: "/m_conceptos/new?oid=#{@modelo.id}"} %>
+
+	  	<div class="shadow p-3 mb-3 bg-white rounded">
 		<div class="row">
 			<% @modelo.m_conceptos.order(:orden).each do |concepto| %>
 				<div class="col-lg-2">
@@ -45,15 +41,11 @@
 				<% end %>
 			<% end %>
 		</div>
+		</div>
 	</div>
 	<div class="col-lg-4">
-		<h5 class="text-info">
-			<i class="bi bi-safe2"></i> 
-			Cuentas corriente 
-			<%= link_to "/m_cuentas/new?oid=#{@modelo.id}" do %>
-				<i class="bi bi-plus-circle"></i>
-			<% end %>
-		</h5>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_cuentas', title: 'Cuentas corriente', link_new: "/m_cuentas/new?oid=#{@modelo.id}"} %>
+ 
 	    <%= render partial: '0p/tabla/tabla', locals: {c: "m_cuentas"} %>
 	</div>
 </div>

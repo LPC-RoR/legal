@@ -26,20 +26,18 @@
 	<% end %>
 	</br>
 
-	<%= link_to 'libera factura', "/tar_facturas/#{objeto.id}/libera_factura" if objeto.estado == 'ingreso' %>
-	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
-
 	<% unless objeto.monto_pesos == 0 %>
 		<div class="collapse" id="collapseFactura<%=objeto.id%>">
-		  <div class="card card-body">
-			<ul>
+		  <div style="padding-left: 2em; padding-right: 1em;">
 			<% objeto.tar_facturaciones.each do |facturacion| %>
-				<li><%= facturacion.glosa %></br><b><%= s_pesos(facturacion.monto_pesos) %></b></li>
+				<i class="bi bi-dot"></i> <%= facturacion.glosa %></br><b><%= s_pesos(facturacion.monto_pesos) %></b></br>
 			<% end %>
-			</ul>
 		  </div>
 		</div>
 	<% end %>
+
+	<%= link_to 'libera factura', "/tar_facturas/#{objeto.id}/libera_factura" if objeto.estado == 'ingreso' %>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 
 	<% if controller_name == 'm_registros' %>
 	<% unless objeto.m_registros.empty? %>

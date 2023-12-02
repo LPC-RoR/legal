@@ -61,8 +61,10 @@
 	<div class="col-lg-6">
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_valor_cuantias', title: 'Cuantía', link_new: "/tar_valor_cuantias/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}"} %>
 
+		<% unless @coleccion['tar_valor_cuantias'].empty? %>
 		<div class="shadow p-3 mb-3 bg-white rounded">
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_valor_cuantias'} %>
 		</div>
+		<% end %>
 	</div>
 </div>

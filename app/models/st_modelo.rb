@@ -18,4 +18,8 @@ class StModelo < ApplicationRecord
 	def estados
 		self.st_estados.order(:orden)
 	end
+
+	def control_documentos
+		ControlDocumento.where(owner_class: self.class.name, owner_id: self.id).order(:orden)
+	end
 end

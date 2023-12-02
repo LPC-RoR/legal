@@ -1,0 +1,64 @@
+<small>
+	<i class="bi bi-box"></i> <%= objeto.st_modelo %> | <%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	<hr>
+	<div class="row">
+		<div class="col-lg-6 col-xs-12">
+			<p class="text-info">
+				<i class="bi bi-tag"></i> Estados | 
+				<%= link_to "/st_modelos/#{objeto.id}/st_estados/new" do %>
+					<i class="bi bi-plus-circle"></i>
+				<% end %>
+			</p>
+			<div class="row">
+				<% objeto.st_estados.order(:orden).each do |estado| %>
+					<div class="col-lg-2">
+						<%= render partial: '0p/tabla/btns_orden', locals: {objeto: estado} %> 
+					</div>
+					<div class="col-lg-8">
+						<%= estado.st_estado %>
+					</div>
+					<div class="col-lg-2" align='right'>
+						<small><%= render partial: '0p/tabla/links_e', locals: {objeto: estado} %></small>
+					</div>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<p class="text-info">
+				<i class="bi bi-tag"></i> Control Documentos | 
+				<%= link_to "/control_documentos//new?clss=#{objeto.class.name}&oid=#{objeto.id}" do %>
+					<i class="bi bi-plus-circle"></i>
+				<% end %>
+			</p>
+			<% objeto.control_documentos.order(:orden).each do |control| %>
+				<div class="row">
+					<div class="col-lg-2">
+						<%= render partial: '0p/tabla/btns_orden', locals: {objeto: control} %> 
+					</div>
+					<div class="col-lg-8">
+						<b>
+						<% if control.tipo == 'Documento' %>
+							<i class="bi bi-files"></i>
+						<% elsif control.tipo == 'Archivo' %>
+							<i class="bi bi-file"></i>
+						<% end %> 
+						<%= control.nombre %> 
+						<% if control.control == 'Requerido' %>
+							<i class="bi bi-check2-square"></i>
+						<% end %>
+						</b>
+					</div>
+					<div class="col-lg-2" align='right'>
+						<small><%= render partial: '0p/tabla/links_e', locals: {objeto: control} %></small>
+					</div>
+				</div>
+				<div style="padding-left: 2em; padding-right: 1em;">
+					<small>
+						<i class="bi bi-arrow-right"></i> <%= control.descripcion %>
+					</small>
+				</div>
+			<% end %>
+		</div>
+	</div>
+	</br>
+</small>

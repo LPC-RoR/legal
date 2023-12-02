@@ -5,9 +5,9 @@
 			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: objeto, tag: antecedente} %>
 		<% end %>
 		<hr>
-		<%= render partial: 'causas/partials/show_archivos', locals: {objeto: objeto} %>
+		<%= render partial: 'repositorios/app_archivos/partials/show_archivos', locals: {objeto: objeto} %>
 		<hr>
-		<%= render partial: 'causas/partials/show_enlaces', locals: {objeto: objeto} %>
+		<%= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: objeto} %>
 	</div>
 	<div class="col-lg-6 col-xs-12">
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos de la causa', link_new: nil} %>

@@ -1,19 +1,19 @@
-<p class="text-info">
-	<i class="bi bi-link-45deg"></i> Enlaces 
-	<%= link_to "/app_enlaces/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
-		<i class="bi bi-plus-circle"></i>
-	<% end %>
-</p>
-<% objeto.enlaces.order(:descripcion).each do |enlace| %>
-	<small>
-		<i class="bi bi-link-45deg"></i> 
-		<% if enlace.enlace.present? %>
-			<%= link_to enlace.enlace, class: 'sb-link', target: :_blank do %>
+<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_enlaces', title: 'Enlaces', link_new: "/app_enlaces/new?class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
+
+<% unless objeto.enlaces.empty? %>
+<div class="shadow p-3 mb-3 bg-white rounded">
+	<% objeto.enlaces.order(:descripcion).each do |enlace| %>
+		<small>
+			<i class="bi bi-dot"></i> 
+			<% if enlace.enlace.present? %>
+				<%= link_to enlace.enlace, class: 'sb-link', target: :_blank do %>
+					<%= enlace.descripcion %> 
+				<% end %>
+			<% else %>
 				<%= enlace.descripcion %> 
 			<% end %>
-		<% else %>
-			<%= enlace.descripcion %> 
-		<% end %>
-		<%= render partial: '0p/tabla/links_e', locals: {objeto: enlace} %>
-	</small>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: enlace} %>
+		</small>
+	<% end %>
+</div>
 <% end %>
