@@ -1,0 +1,21 @@
+<small>
+	<i class="bi bi-file"></i> 
+	<% if objeto.archivo.present? %>
+		<%= link_to objeto.archivo.url, class: 'sb-link', target: :_blank do %>
+			<%= objeto.app_archivo %>
+		<% end %>
+	<% else %>
+		<%= objeto.app_archivo %>
+	<% end %>
+	<% if objeto.documento_control %>
+		<i class="bi bi-bookmark-check"></i>
+	<% end %> | 
+	<small>
+		<% unless objeto.documento_control == true %>
+			<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto} %>
+		<% end %>
+		<% if objeto.archivo.blank? %>
+			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
+		<% end %>
+		</small>
+</small></br>

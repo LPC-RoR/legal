@@ -1,14 +1,4 @@
 <div class="row">
-	<div class="col-lg-3 col-xs-12">
-		<p class="text-info"><i class="bi bi-list-check"></i> Datos</p>
-		<% ['demandante', 'cargo', 'sucursal', 'abogados'].each do |antecedente| %>
-			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: objeto, tag: antecedente} %>
-		<% end %>
-		<hr>
-		<%= render partial: 'repositorios/app_archivos/partials/show_archivos', locals: {objeto: objeto} %>
-		<hr>
-		<%= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: objeto} %>
-	</div>
 	<div class="col-lg-6 col-xs-12">
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos de la causa', link_new: nil} %>
 
@@ -17,7 +7,29 @@
 				<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} %>
 			<% end %>
 		<% end %>
+
+		<hr>
+
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_documentos', title: 'Documentos', link_new: "/app_documentos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}"} %>
+
+		<%= render partial: 'repositorios/app_documentos/partials/control_documentos', locals: {pendientes: @docs_pendientes} %>
+
+		<hr>
+
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_archivos', title: 'Archivos', link_new: "/app_archivos/new?class_name=#{@objeto.class.name}&objeto_id=#{objeto.id}"} %>
+
+		<%= render partial: 'repositorios/app_archivos/partials/control_archivos', locals: {pendientes: @archivos_pendientes} %>
+
+		<hr>
+
+		<%= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: objeto} %>
 	</div>
-	<div class="col-lg-3">
+	<div class="col-lg-6">
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'Causas', title: 'Datos', link_new: nil} %>
+
+		<% ['demandante', 'cargo', 'sucursal', 'abogados'].each do |antecedente| %>
+			<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: objeto, tag: antecedente} %>
+		<% end %>
+
 	</div>
 </div>

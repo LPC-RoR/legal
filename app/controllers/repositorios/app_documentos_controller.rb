@@ -74,7 +74,7 @@ class Repositorios::AppDocumentosController < ApplicationController
       if @objeto.owner.class.name == 'AppDirectorio'
         @redireccion = @objeto.owner
       elsif ['Causa', 'Cliente'].include?(@objeto.objeto_destino.class.name)
-        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos+y+enlaces"
+        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Seguimiento"
       else
         @redireccion = app_repositorios_path
       end

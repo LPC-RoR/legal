@@ -22,12 +22,28 @@ class Cliente < ApplicationRecord
     	self.rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
     end
 
+    def st_modelo
+    	StModelo.find_by(st_modelo: self.class.name)
+    end
+
 	def enlaces
 		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
 	def archivos
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def exclude_files
+		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
+	end
+
+	def documentos
+		AppDocumento.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def exclude_docs
+		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Documento').order(:nombre).map {|cd| cd.nombre}
 	end
 
 	#Solo para que funcione ser_redireccion

@@ -1,0 +1,50 @@
+<small>
+	<i class="bi bi-files"></i> 
+	<% if objeto.d_version.present? %>
+		<%= link_to objeto.d_version.send('url'), class: 'sb-link', target: :_blank do %>
+			<%= objeto.app_documento %>
+		<% end %>
+	<% else %>
+		<%= objeto.app_documento %>
+	<% end %>
+
+	<% if objeto.documento_control %>
+		<i class="bi bi-bookmark-check"></i>
+	<% end %>
+	<% if objeto.d_version.present? %>
+
+		<a data-toggle="collapse" href="#collapseArchivos<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseArchivos<%=objeto.id%>">
+			<i class="bi bi-box-arrow-down"></i>
+		</a>
+
+	<% end %>
+	<%= link_to "/app_archivos/new?class_name=AppDocumento&objeto_id=#{objeto.id}", class: 'sb-link', title: 'Nuevo archivo', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<% if objeto.archivos.empty? %>
+			<i class="bi bi-plus-circle text-danger"></i>
+		<% else %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+	<% end %> | 
+	<small>
+		<% unless objeto.documento_control == true %>
+			<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto} %>
+		<% end %>
+		<% if objeto.archivos.empty? %>
+			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
+		<% end %>
+	</small>
+</small>
+<% if objeto.d_version.present? %>
+	<div class="collapse" id="collapseArchivos<%=objeto.id%>">
+	  <div class="card card-body">
+  		<small class="text-info">
+  			<b>Archivos</b></br>
+	  	<% objeto.archivos.order(created_at: :desc).each do |archivo| %>
+	  		<i class="bi bi-files"></i> 
+	  		<%= archivo.app_archivo %> | 
+	  		<small><%= render partial: '0p/tabla/links_e', locals: {objeto: archivo} %></small></br>
+	  	<% end %>
+	  	</small>
+	  </div>
+	</div>
+<% end %>

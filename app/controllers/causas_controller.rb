@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente crea_documento_controlado crea_archivo_controlado]
 
   include Tarifas
 
@@ -18,6 +18,12 @@ class CausasController < ApplicationController
 
     if @options[:menu] == 'Seguimiento'
       init_tabla('tar_facturaciones', @objeto.facturaciones, false)
+
+      add_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      add_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+
+      @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
+      @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
     elsif @options[:menu] == 'Tarifa & Cuantía'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       # Tarifas para seleccionar
@@ -139,6 +145,30 @@ class CausasController < ApplicationController
     end
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=Antecedentes"
+  end
+
+  def crea_documento_controlado
+    st_modelo = StModelo.find_by(st_modelo: @objeto.class.name)
+    unless st_modelo.blank?
+      control = st_modelo.control_documentos.find_by(nombre: params[:indice])
+      unless control.blank? 
+        AppDocumento.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_documento: control.nombre, existencia: control.control, documento_control: true)
+      end
+    end
+
+    redirect_to @objeto
+  end
+
+  def crea_archivo_controlado
+    st_modelo = StModelo.find_by(st_modelo: @objeto.class.name)
+    unless st_modelo.blank?
+      control = st_modelo.control_documentos.find_by(nombre: params[:indice])
+      unless control.blank? 
+        AppArchivo.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_archivo: control.nombre, control: control.control, documento_control: true)
+      end
+    end
+
+    redirect_to @objeto
   end
 
   # DELETE /causas/1 or /causas/1.json

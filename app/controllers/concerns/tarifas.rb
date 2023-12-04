@@ -2,8 +2,6 @@ module Tarifas
 	extend ActiveSupport::Concern
 
 	def calcula2(formula, objeto, pago)
-		puts "***********************calcula2"
-		puts formula
 		# objeto: causa en primer caso
 		libreria = objeto.tar_tarifa.tar_formulas
 

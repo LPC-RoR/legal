@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_01_193347) do
+ActiveRecord::Schema.define(version: 2023_12_04_151250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,10 @@ ActiveRecord::Schema.define(version: 2023_12_01_193347) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "app_archivo"
+    t.boolean "documento_control"
+    t.string "control"
+    t.index ["control"], name: "index_app_archivos_on_control"
+    t.index ["documento_control"], name: "index_app_archivos_on_documento_control"
     t.index ["owner_class"], name: "index_app_archivos_on_owner_class"
     t.index ["owner_id"], name: "index_app_archivos_on_owner_id"
   end

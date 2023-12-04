@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura ]
+  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura crea_documento_controlado crea_archivo_controlado ]
   after_action :rut_puro, only: %i[ create update ]
 
 #  include Bandejas
@@ -21,11 +21,17 @@ class ClientesController < ApplicationController
 
 #    @coleccion = {}
     if @options[:menu] == 'Seguimiento'
+      init_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      add_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+
+      @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
+      @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
     elsif @options[:menu] == 'Causas'
       causas_cliente = @objeto.causas
       init_tabla('ingreso-causas', causas_cliente.where(estado: 'ingreso').order(:created_at), false)
       add_tabla('proceso-causas', causas_cliente.where(estado: 'proceso').order(:created_at), false)
       add_tabla('terminada-causas', causas_cliente.where(estado: 'terminada').order(:created_at), true)
+
     elsif @options[:menu] == 'Asesorias'
       asesorias_cliente = @objeto.asesorias
       init_tabla('ingreso-asesorias', asesorias_cliente.where(estado: 'ingreso').order(:created_at), false)
@@ -99,7 +105,7 @@ class ClientesController < ApplicationController
     redirect_to "/clientes/#{@objeto.id}"
   end
 
-  # deprecated
+  # DEPRECATED
   def crea_factura
     concepto = (@objeto.facturacion_pendiente.count == 1 ? @objeto.facturacion_pendiente.first.glosa : "Varios de cliente #{@objeto.razon_social}")
     factura = TarFactura.create(concepto: concepto, owner_class: 'Cliente', owner_id: @objeto.id, estado: 'ingreso',fecha_factura: Time.zone.today.to_date)
@@ -111,7 +117,7 @@ class ClientesController < ApplicationController
     redirect_to tar_facturas_path
   end
 
-  #deprecated
+  #DEPRECATED
   def aprueba_factura
     factura = TarFactura.create(owner_class: @objeto.class.name, owner_id: @objeto.id, concepto: "Varios #{@objeto.razon_social}", fecha_factura: Time.zone.today.to_date, estado: 'ingreso')
     
@@ -122,6 +128,30 @@ class ClientesController < ApplicationController
     end
 
     redirect_to factura
+  end
+
+  def crea_documento_controlado
+    st_modelo = StModelo.find_by(st_modelo: 'Cliente')
+    unless st_modelo.blank?
+      control = st_modelo.control_documentos.find_by(nombre: params[:indice])
+      unless control.blank? 
+        AppDocumento.create(owner_class: 'Cliente', owner_id: @objeto.id, app_documento: control.nombre, existencia: control.control, documento_control: true)
+      end
+    end
+
+    redirect_to @objeto
+  end
+
+  def crea_archivo_controlado
+    st_modelo = StModelo.find_by(st_modelo: 'Cliente')
+    unless st_modelo.blank?
+      control = st_modelo.control_documentos.find_by(nombre: params[:indice])
+      unless control.blank? 
+        AppArchivo.create(owner_class: 'Cliente', owner_id: @objeto.id, app_archivo: control.nombre, control: control.control, documento_control: true)
+      end
+    end
+
+    redirect_to @objeto
   end
 
   # DELETE /clientes/1 or /clientes/1.json
