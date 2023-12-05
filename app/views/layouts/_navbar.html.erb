@@ -1,7 +1,9 @@
 <% if config[:layout][:menu] %>
 	<div class="app_navbar">
 		<% if config[:container][:menu] %><div class="container"><% end %>
+			<div class="shadow bg-white rounded">
 			<%= render partial: '0p/navbar/navbar'  %>
+			</div>
 		<% if config[:container][:menu] %></div><% end %>
 	</div>
 <% end %>
