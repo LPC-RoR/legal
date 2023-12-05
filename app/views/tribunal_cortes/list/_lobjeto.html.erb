@@ -1,4 +1,6 @@
-<small>
-	<i class="bi bi-bank"></i> 
-	<%= objeto.tribunal_corte %> | <small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
-</small>
+<div class="col-9">
+	<small><%= objeto.tribunal_corte %></small>
+</div>
+<div class="col-3" align='right'>
+	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
+</div>

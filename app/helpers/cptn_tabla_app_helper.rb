@@ -24,6 +24,8 @@ module CptnTablaAppHelper
 			false
 		elsif ['regiones', 'comunas', 'org_regiones', 'org_empleados'].include?(controller)
 			false
+		elsif ['audiencias', 'variables'].include?(controller)
+			false
 		else
 			true
 		end

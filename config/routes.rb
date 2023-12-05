@@ -20,7 +20,12 @@ Rails.application.routes.draw do
     match :reporta_registro, via: :get, on: :member
     match :excluye_registro, via: :get, on: :member
   end
-  resources :tipo_causas
+  resources :tipo_causas do
+    resources :audiencias
+    resources :variables
+  end
+  resources :audiencias
+  resources :variables
   resources :consultorias do
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member

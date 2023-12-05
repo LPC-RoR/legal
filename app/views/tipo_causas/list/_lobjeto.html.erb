@@ -1,4 +1,6 @@
-<small>
-	<i class="bi bi-file-check"></i> 
-	<%= objeto.tipo_causa %> | <small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
-</small>
+<div class="col-9">
+	<small><%= link_to objeto.tipo_causa, objeto %></small>
+</div>
+<div class="col-3" align='right'>
+	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
+</div>

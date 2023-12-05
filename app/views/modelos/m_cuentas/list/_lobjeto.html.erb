@@ -1,15 +1,18 @@
-<small>
-	<i class="bi bi-safe2"></i> 
-	<b><%= link_to objeto.m_cuenta, "/m_modelos?id=c_#{objeto.id}" %></b> | 
+<div class="col-9">
+	<small>
+	<b><%= link_to objeto.m_cuenta, "/m_modelos?id=c_#{objeto.id}" %></b> : 
 	<% if objeto.m_formato.blank? %>
 		<a data-toggle="collapse" href="#collapseCuenta<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseCuenta<%=objeto.id%>">
 		sin formato
 		</a>
 	<% else %>
 		<%= objeto.m_formato.m_formato %>
-	<% end %> | 
-	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
-</small>
+	<% end %>
+	</small>
+</div>
+<div class="col-3" align='right'>
+	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
+</div>
 
 <div class="collapse" id="collapseCuenta<%=objeto.id%>">
   <div class="card card-body">

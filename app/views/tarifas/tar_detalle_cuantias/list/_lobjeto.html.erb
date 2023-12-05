@@ -1,11 +1,12 @@
-<small>
-	<i class="bi bi-check2-square"></i> 
-	<%= objeto.tar_detalle_cuantia %> | 
-	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
-
-	<small>	
+<div class="col-9">
+	<small>
+	<%= objeto.tar_detalle_cuantia %>
 	<% unless objeto.descripcion.blank? %>
-		<i class="bi bi-dot"></i> <%= objeto.descripcion %></br>
+	</br>
+	<small><i class="bi bi-dot"></i> <%= objeto.descripcion %></small>
 	<% end %>
 	</small>
-</small>
+</div>
+<div class="col-3" align='right'>
+	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
+</div>

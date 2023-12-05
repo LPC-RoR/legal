@@ -1,0 +1,9 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
+<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :tipo, radio_list: ['Única', 'Multiple'], label: 'Tipo' } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Audiencia', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :audiencia } %>
+
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tipo_causa_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>

@@ -39,7 +39,7 @@ class Causa < ApplicationRecord
 	end
 
 	def exclude_files
-		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
+		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
 	end
 
 	def documentos
@@ -47,7 +47,7 @@ class Causa < ApplicationRecord
 	end
 
 	def exclude_docs
-		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Documento').order(:nombre).map {|cd| cd.nombre}
+		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Documento').order(:nombre).map {|cd| cd.nombre}
 	end
 
 	def enlaces

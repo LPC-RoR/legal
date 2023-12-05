@@ -2,14 +2,13 @@
   <a data-toggle="collapse" href="#collapse<%=tag.capitalize%>" role="button" aria-expanded="false" aria-controls="collapse<%=tag.capitalize%>">
     <small><%= tag.capitalize %><i class="bi bi-caret-down"></i></small>
   </a>
+
+  <div class="collapse" id="collapse<%=tag.capitalize%>">
+      <%= render partial: 'causas/antecedentes/form_antecedente', locals: {objeto: objeto, tag: tag} %>
+  </div>
+
   <% unless objeto.send(tag).blank? %>
-	</br>
-  	<small><%= render partial: 'causas/antecedentes/display_antecedente', locals: {antecedente: objeto.send(tag)} unless objeto.send(tag).blank? %></small>
+   	<small><%= render partial: 'causas/antecedentes/display_antecedente', locals: {antecedente: objeto.send(tag)} unless objeto.send(tag).blank? %></small>
   <% end %>
 </p>
 
-<div class="collapse" id="collapse<%=tag.capitalize%>">
-  <div class="card card-body">
-  	<%= render partial: 'causas/antecedentes/form_antecedente', locals: {objeto: objeto, tag: tag} %>
-  </div>
-</div>

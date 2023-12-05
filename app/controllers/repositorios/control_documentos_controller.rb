@@ -13,9 +13,6 @@ class Repositorios::ControlDocumentosController < ApplicationController
   # GET /control_documentos/new
   def new
     owner = params[:clss].constantize.find(params[:oid])
-    puts "************************************ new"
-    puts owner.control_documentos.count + 1
-    puts "-----------------------------------------"
     @objeto = ControlDocumento.new(owner_class: params[:clss], owner_id: params[:oid], orden: owner.control_documentos.count + 1)
   end
 
@@ -70,7 +67,7 @@ class Repositorios::ControlDocumentosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=10"
+      @redireccion = (@objeto.owner.class.name == 'TipoCausa' ? @objeto.owner : "/tablas?tb=10")
     end
 
     # Only allow a list of trusted parameters through.

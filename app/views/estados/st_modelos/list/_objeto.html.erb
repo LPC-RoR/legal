@@ -25,9 +25,12 @@
 		</div>
 		<div class="col-lg-6">
 			<p class="text-info">
-				<i class="bi bi-tag"></i> Control Documentos | 
+				<i class="bi bi-tag"></i> Control Documentos
+				<% unless objeto.st_modelo == 'Causa' %>
+				 | 
 				<%= link_to "/control_documentos//new?clss=#{objeto.class.name}&oid=#{objeto.id}" do %>
 					<i class="bi bi-plus-circle"></i>
+				<% end %>
 				<% end %>
 			</p>
 			<% objeto.control_documentos.order(:orden).each do |control| %>
@@ -42,10 +45,10 @@
 						<% elsif control.tipo == 'Archivo' %>
 							<i class="bi bi-file"></i>
 						<% end %> 
-						<%= control.nombre %> 
 						<% if control.control == 'Requerido' %>
 							<i class="bi bi-check2-square"></i>
 						<% end %>
+						<%= control.nombre %> 
 						</b>
 					</div>
 					<div class="col-lg-2" align='right'>

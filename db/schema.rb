@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_04_151250) do
+ActiveRecord::Schema.define(version: 2023_12_04_212454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -263,6 +263,17 @@ ActiveRecord::Schema.define(version: 2023_12_04_151250) do
     t.index ["cliente_id"], name: "index_asesorias_on_cliente_id"
     t.index ["estado"], name: "index_asesorias_on_estado"
     t.index ["tar_servicio_id"], name: "index_asesorias_on_tar_servicio_id"
+  end
+
+  create_table "audiencias", force: :cascade do |t|
+    t.integer "tipo_causa_id"
+    t.string "audiencia"
+    t.string "tipo"
+    t.integer "orden"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_audiencias_on_orden"
+    t.index ["tipo_causa_id"], name: "index_audiencias_on_tipo_causa_id"
   end
 
   create_table "blg_articulos", force: :cascade do |t|
@@ -1207,6 +1218,18 @@ ActiveRecord::Schema.define(version: 2023_12_04_151250) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_usuarios_on_email", unique: true
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true
+  end
+
+  create_table "variables", force: :cascade do |t|
+    t.integer "tipo_causa_id"
+    t.string "tipo"
+    t.string "variable"
+    t.string "control"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["control"], name: "index_variables_on_control"
+    t.index ["tipo"], name: "index_variables_on_tipo"
+    t.index ["tipo_causa_id"], name: "index_variables_on_tipo_causa_id"
   end
 
 end
