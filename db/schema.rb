@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_04_212454) do
+ActiveRecord::Schema.define(version: 2023_12_05_185947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "age_actividades", force: :cascade do |t|
+    t.string "age_actividad"
+    t.string "tipo"
+    t.integer "app_perfil_id"
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.string "estado"
+    t.datetime "fecha"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_perfil_id"], name: "index_age_actividades_on_app_perfil_id"
+    t.index ["estado"], name: "index_age_actividades_on_estado"
+    t.index ["fecha"], name: "index_age_actividades_on_fecha"
+    t.index ["owner_class"], name: "index_age_actividades_on_owner_class"
+    t.index ["owner_id"], name: "index_age_actividades_on_owner_id"
+  end
 
   create_table "antecedentes", force: :cascade do |t|
     t.string "hecho"

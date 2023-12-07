@@ -1,0 +1,3 @@
+<small>
+<%= form.datetime_select token , {order: [:day, :month, :year, :hour, :minute], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?', hour: 'Hora', minute: 'Minutos' }, start_year: Date.today.year + 10, end_year: Date.today.year - 100}, {required: false} %>
+</small></br>

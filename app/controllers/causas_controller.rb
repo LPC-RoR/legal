@@ -21,9 +21,15 @@ class CausasController < ApplicationController
 
       add_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       add_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      add_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
+      add_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
+      add_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
 
       @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
       @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
+
+      actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
+      @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
     elsif @options[:menu] == 'Tarifa & Cuantía'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       # Tarifas para seleccionar

@@ -54,6 +54,10 @@ class Causa < ApplicationRecord
 		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	def actividades
+		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
+	end
+
 	# Hasta aqui revisado!
 
 	def valores

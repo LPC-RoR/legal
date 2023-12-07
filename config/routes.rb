@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :age_actividades do
+    match :crea_audiencia, via: :get, on: :collection
+  end
   resources :regiones do
     resources :comunas
   end

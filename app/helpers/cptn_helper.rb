@@ -97,6 +97,7 @@ module CptnHelper
 			'm_bancos' => 'bank',
 			'blg_articulos' => 'file-earmark-richtext',
 			'blg_temas' => 'list-stars',
+			'age_actividades' => 'calendar4-event'
 		}
 	end
 

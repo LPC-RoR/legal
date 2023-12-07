@@ -1,0 +1,26 @@
+<% unless @coleccion['audiencia-age_actividades'].empty? and pendientes.empty? %>
+	
+<div class="shadow p-3 mb-3 bg-white rounded">
+<div class="row">
+	<div class="col-lg-6">
+		<% @coleccion['audiencia-age_actividades'].each do |actividad| %>
+			<%= render partial: get_partial(actividad.class.name.tableize, 'list', "lobjeto") , locals: {objeto: actividad} %></br>
+		<% end %>
+	</div>
+	<div class="col-lg-6">
+		<% unless pendientes.empty? %>
+				<small><p class="text-info">Audiencias</p></small>
+			<% pendientes.each do |doc_pendiente| %>
+				<small class="text-muted">
+				<%= link_to "/age_actividades/crea_audiencia?class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}&label=#{doc_pendiente}", title: "Crea #{doc_pendiente}", 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+					<i class="bi bi-arrow-bar-left"></i>
+				<% end %> 
+				<%= doc_pendiente %></br>
+				</small>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+</div>
+
+<% end %>

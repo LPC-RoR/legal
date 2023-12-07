@@ -1,0 +1,14 @@
+<p class="text-info">
+	<%= @objeto.tipo %>
+</p>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha - Hora', v: true } %>
+<%= render partial: '0p/form_fields/datetime', locals: { form: form, token: :fecha } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Actividad', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :age_actividad } %>
+
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tipo } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :app_perfil_id } %>

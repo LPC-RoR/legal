@@ -1,0 +1,15 @@
+<div style="padding-left: 1em; padding-right: 1em;">
+<small>
+	<% if objeto.tipo == 'Audiencia' %>
+		<i class="bi bi-bank2"></i>
+	<% elsif objeto.tipo == 'Reunión' %>
+		<i class="bi bi-people"></i>
+	<% elsif objeto.tipo == 'Tarea' %>
+		<i class="bi bi-list-check"></i>
+	<% end %> 
+	<%= objeto.age_actividad %>
+	<small>
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</small>
+</small>
+</div>

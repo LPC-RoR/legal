@@ -15,5 +15,8 @@
 		<%= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: objeto} %>
 	</div>
 	<div class="col-lg-6">
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Reuniones', link_new: "/age_actividades/new?t=R&class_name=#{@objeto.class.name}&objeto_id=#{objeto.id}"} %>
+
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Tareas', link_new: "/age_actividades/new?t=T&class_name=#{@objeto.class.name}&objeto_id=#{objeto.id}"} %>
 	</div>
 </div>

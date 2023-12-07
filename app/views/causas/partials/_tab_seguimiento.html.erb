@@ -40,5 +40,18 @@
 		</div>
 		</div>
 
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Audiencias', link_new: nil} %>
+
+		<%= render partial: 'audiencias/partials/control_audiencias', locals: {pendientes: @audiencias_pendientes} %>
+
+		<hr>
+
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Reuniones', link_new: "/age_actividades/new?t=R&class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'reunion-age_actividades'} %>
+
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Tareas', link_new: "/age_actividades/new?t=T&class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tarea-age_actividades'} %>
 	</div>
 </div>

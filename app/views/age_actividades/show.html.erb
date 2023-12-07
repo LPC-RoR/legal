@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Age actividad:</strong>
+  <%= @age_actividad.age_actividad %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @age_actividad.tipo %>
+</p>
+
+<p>
+  <strong>App perfil:</strong>
+  <%= @age_actividad.app_perfil_id %>
+</p>
+
+<p>
+  <strong>Owner class:</strong>
+  <%= @age_actividad.owner_class %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @age_actividad.owner_id %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @age_actividad.estado %>
+</p>
+
+<%= link_to 'Edit', edit_age_actividad_path(@age_actividad) %> |
+<%= link_to 'Back', age_actividades_path %>
