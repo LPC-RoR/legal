@@ -1,17 +1,12 @@
-<div class="app_body">
-	<% if config[:container][:body] %><div class="container"><% end %>
+<div class="container-fluid">
+<div class="app_body" style="padding-left: <%=padd%>%; padding-right: <%=padd%>%; margin-bottom: 1px;">
 
-		<% if notice %>
-		<p class="alert alert-primary"><%= notice %></p>
-		<% end %>
-		<% if alert %>
-		<p class="alert alert-danger"><%= alert %></p>
-		<% end %>
+	<%= render partial: 'layouts/partials/notice_alert' %>
 
-		<div style='padding-top: 1em; padding-bottom: 1em;'>
+		<!--div style='padding-top: 1em; padding-bottom: 1em;'-->
 		<%= render partial: 'layouts/title' %>
 		<%= render partial: 'layouts/body' %>
-		</div>
+		<!--/div-->
 
-	<% if config[:container][:body] %></div><% end %>
+</div>
 </div>

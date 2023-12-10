@@ -7,6 +7,7 @@
 
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "link_styles" %>
+    <%= stylesheet_link_tag "capitan" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag('util.js') %>
     <%= favicon_link_tag asset_path('favicon.ico') if File.exist?("app/assets/images/favicon.ico") %>
@@ -22,19 +23,17 @@
 </head>
 
   <body>
-
     <!-- OVER -->
-    <%= render partial: 'layouts/over' %>
+    <%= render partial: 'layouts/over', locals: {padd_menu: 3, padd_bann: 3} %>
 
     <!-- NAVBAR+ -->
-    <%= render partial: 'layouts/navbar' %>
+    <%= render partial: 'layouts/navbar', locals: {padd: 3} %>
 
     <!-- BODY -->
-    <%= render partial: 'layouts/app' %>
+    <%= render partial: 'layouts/app', locals: {padd: 3} %>
 
     <!-- FOOTER -->
     <!-- Administrar con subdirectorios -->
     <%= render partial: 'layouts/footer' %>
-
   </body>
 </html>

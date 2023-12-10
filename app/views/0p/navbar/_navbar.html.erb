@@ -59,7 +59,7 @@
           <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: app_mensajes_path, active: controller_name == 'contactos', delete: false, gly: 'envelope', tooltip: 'Contacto'} if config[:menu][:contacto] %>
 
           <!-- SALIR -->
-          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: destroy_usuario_session_path, active: false, delete: true, gly: 'door-open', tooltip: 'Salir'} %>
+          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Salir', link: destroy_usuario_session_path, active: false, delete: true, gly: 'door-open', tooltip: 'Salir'} %>
 
         <% else %>
 

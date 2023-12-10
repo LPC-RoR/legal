@@ -1,24 +1,23 @@
 <!-- OVER MENU -->
-<% if (partial?('layouts', 'over', 'menu_over') and config[:layout][:menu_over]) %>
-	<div class="menu_over">
-		<% if config[:container][:over] %><div class="container"><% end %>
-			<div class="shadow bg-white rounded" style="padding-left: 1em; padding-right: 1em;">
-			<%= render partial: 'layouts/over/menu_over' %>
+<div class="container-fluid">
+	<% if (partial?('layouts', 'over', 'menu_over') and config[:layout][:menu_over]) %>
+		<div class="menu_over" style="padding-left: <%=padd_menu%>%; padding-right: <%=padd_menu%>%; margin-top: 2px; margin-bottom: 4px;">
+			<div class="shadow bg-white rounded">
+				<%= render partial: 'layouts/over/menu_over' %>
 			</div>
-		<% if config[:container][:over] %></div><% end %>
-	</div>
-<% end %>
-
-<!-- BANNER -->
-<% if (partial?('layouts', 'over', 'banner') and config[:layout][:banner]) %>
-	<% unless no_banner_display? %>
-		<div class="banner">
-			<% if config[:container][:over] %><div class="container"><% end %>
-				<!--div class="shadow p-3 mb-3 bg-white rounded"-->
-				<div class="shadow bg-white rounded">
-				<%= render partial: 'layouts/over/banner' %>
-				</div>
-			<% if config[:container][:over] %></div><% end %>
 		</div>
 	<% end %>
-<% end %>
+</div>
+
+<!-- BANNER -->
+<div class="container-fluid">
+	<% if (partial?('layouts', 'over', 'banner') and config[:layout][:banner]) %>
+		<% unless no_banner_display? %>
+			<div class="banner" style="padding-left: <%=padd_bann%>%; padding-right: <%=padd_bann%>%; margin-bottom: 4px;">
+				<div class="shadow bg-white rounded">
+					<%= render partial: 'layouts/over/banner' %>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+</div>

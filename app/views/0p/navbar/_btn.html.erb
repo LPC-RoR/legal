@@ -4,16 +4,16 @@
 	<% if delete %>
 		<%= link_to link, method: :delete, class: 'nav-link', data_toggle: "tooltip", data_placement: "bottom", title: tooltip do %>
 			<% unless gly.blank? %>
-				<i class=<%="bi-#{gly}"%>></i>
+				<div class="d-md-none"><i class=<%="bi-#{gly}"%>></i></div>
 			<% end %>
-		    <%= nombre.capitalize unless nombre.blank? %>
+		    <div class="d-none d-md-block"><%= nombre.capitalize unless nombre.blank? %></div>
 		<% end %>
 	<% else %>
 		<%= link_to link, class: "nav-link", data_toggle: "tooltip", data_placement: "bottom", title: tooltip do %>
 			<% unless gly.blank? %>
-				<i class=<%="bi-#{gly}"%>></i>
+				<div class="d-md-none"><i class=<%="bi-#{gly}"%>></i></div>
 			<% end %>
-			<%= nombre.capitalize unless nombre.blank? %>
+			<div class="d-none d-md-block"><%= nombre.capitalize unless nombre.blank? %></div>
 		<% end %>
 	<% end %>
 </li>
