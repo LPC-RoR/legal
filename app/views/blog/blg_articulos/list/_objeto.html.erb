@@ -1,0 +1,11 @@
+<div class="row lista-icono">
+	<div class="col-md-3">
+		<%= image_tag objeto.imagen.thumb.url, class: "img-fluid rounded-0" unless objeto.imagen.blank? %>
+	</div>
+	<div class="col-md-7">
+		<small><%= link_to objeto.blg_articulo, objeto %></small>
+	</div>
+	<div class="col-md-2">
+		<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if admin? %></small>
+	</div>
+</div>

@@ -2,7 +2,7 @@ module CptnMenuAppHelper
 
 	def menu_base
 	    [
-#	        [nil,        "/blg_articulos",               'nomina', controller_icon['blg_articulos'], 'Blogs'],
+	        [nil,        "/blg_articulos",               'nomina', controller_icon['blg_articulos'], 'Blogs'],
 	        [nil,         '/app_recursos/administracion', 'admin', 'person-rolodex', 'Administración'],
 #	        ["Contenido",  "/tema_ayudas",                 'admin', 'stack'],
 #	        [nil, "/app_recursos/procesos",       'dog',   'radioactive']

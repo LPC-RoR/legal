@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo_asesoria: MyString
+  facturable: false
+  documento: false
+  archivos: false
+
+two:
+  tipo_asesoria: MyString
+  facturable: false
+  documento: false
+  archivos: false

@@ -8,6 +8,7 @@ class Autenticacion::AppNominasController < ApplicationController
 
   # GET /app_nominas or /app_nominas.json
   def index
+    init_tabla('app_nominas', AppNomina.all, false)
   end
 
   # GET /app_nominas/1 or /app_nominas/1.json

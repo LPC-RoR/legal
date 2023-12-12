@@ -1,0 +1,22 @@
+<div class="shadow p-3 mb-3 bg-white rounded">
+
+	<%= link_to root_path do %>
+		<h3 class="text-info" align="center"><%=config[:app][:nombre]%></h3>
+	<% end %>
+	<hr>
+
+	<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: menu_left?(controller)} %>
+
+	</br>
+
+
+	<div class="text-info"><i class="bi bi-dot"></i> Tablas</div>
+
+	<%= render partial: 'aplicacion/tablas/menu_tablas' %>
+
+	</br>
+	<div class="text-info"><i class="bi bi-dot"></i> Administración</div>
+
+	<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: :admin} %>
+
+</div>

@@ -10,7 +10,9 @@ module CptnConfigHelper
 #				menu_over: (not usuario_signed_in?),
 				menu_over: true,
 				banner: true,
-				menu: usuario_signed_in?,
+#				menu: usuario_signed_in?,
+				menu: false,
+				menu_left: true
 			},
 			color: {
 				app: 'dark',

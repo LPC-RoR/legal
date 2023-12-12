@@ -86,10 +86,9 @@ module CptnMapHelper
 	def sidebar_controllers
 		base_sidebar_controllers = [
 			'sb_listas', 'sb_elementos',
-			'app_administradores', 'app_nominas', 'app_perfiles',
+			'app_perfiles',
 			'h_portadas', 'h_temas', 'h_links', 'h_imagenes',
-			'hlp_tutoriales', 'hlp_pasos',
-			'st_modelos', 'st_estados'
+			'hlp_tutoriales', 'hlp_pasos'
 		]
 		base_sidebar_controllers.union(app_sidebar_controllers)
 	end

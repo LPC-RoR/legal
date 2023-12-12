@@ -13,8 +13,6 @@ module Tablas
 			['Modelo de Negocios', nil, 1, true],
 			['Modelo', 'modelo', 2, true],
 			['Tablas secundarias', 'secundarias_modelo', 2, true],
-			['Estados & documentos', nil, 1, true],
-			['Gestión Modelos', 'gestion_modelos', 2, true]
 		]
 	end
 

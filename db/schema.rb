@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_05_185947) do
+ActiveRecord::Schema.define(version: 2023_12_12_172442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1209,6 +1209,16 @@ ActiveRecord::Schema.define(version: 2023_12_05_185947) do
     t.datetime "updated_at", null: false
     t.index ["owner_class"], name: "index_tar_variables_on_owner_class"
     t.index ["owner_id"], name: "index_tar_variables_on_owner_id"
+  end
+
+  create_table "tipo_asesorias", force: :cascade do |t|
+    t.string "tipo_asesoria"
+    t.boolean "facturable"
+    t.boolean "documento"
+    t.boolean "archivos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tipo_asesoria"], name: "index_tipo_asesorias_on_tipo_asesoria"
   end
 
   create_table "tipo_causas", force: :cascade do |t|

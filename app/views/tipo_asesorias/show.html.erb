@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tipo asesoria:</strong>
+  <%= @tipo_asesoria.tipo_asesoria %>
+</p>
+
+<p>
+  <strong>Facturable:</strong>
+  <%= @tipo_asesoria.facturable %>
+</p>
+
+<p>
+  <strong>Documento:</strong>
+  <%= @tipo_asesoria.documento %>
+</p>
+
+<p>
+  <strong>Archivos:</strong>
+  <%= @tipo_asesoria.archivos %>
+</p>
+
+<%= link_to 'Edit', edit_tipo_asesoria_path(@tipo_asesoria) %> |
+<%= link_to 'Back', tipo_asesorias_path %>

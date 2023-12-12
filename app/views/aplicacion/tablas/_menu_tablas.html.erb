@@ -1,10 +1,9 @@
 <small>
 <% menu_tablas.each_with_index do |elem, indice| %>
-	<div class="menu_tablas_elemento" style= 'padding-left: <%=elem[2]%>em;'>
+	<div class="menu_tablas_elemento" style= 'padding-left: <%=elem[2]-1%>em;'>
 		<% unless elem[1].blank? %>
-			<i class="bi bi-box-arrow-right"></i>
 			<% if indice == @indice %>
-				<i class="text-info"><%= elem[0] %></i>
+				<i class="bi bi-arrow-right"></i> <i class="text-info"><%= elem[0] %></i>
 			<% else %>
 				<%= link_to elem[0], "/tablas?tb=#{tb_index(elem[1])}" %></br>
 			<% end %>

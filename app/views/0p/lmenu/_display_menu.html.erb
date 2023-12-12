@@ -1,0 +1,23 @@
+<% menu_left[menu_sym].each do |modelo| %>
+	<% if link_model(controller_name) == modelo %>
+		<div style="padding-left: 1em;">
+	<% end %>
+
+	<small>
+	<% unless controller_icon[modelo.tableize].blank? %>
+		<i class="bi bi-<%=controller_icon[modelo.tableize]%>"></i>
+	<% end %>
+	<% if link_model(controller_name) == modelo %>
+		<b><%= modelo_item(modelo) %></b>
+	<% else %>
+		<%= link_to model_link(modelo) do %>
+			<b class="text-muted"><%= modelo_item(modelo) %></b>
+		<% end %>
+	<% end %>
+	</small>
+	</br>
+
+	<% if link_model(controller_name) == modelo %>
+		</div>
+	<% end %>
+<% end %>

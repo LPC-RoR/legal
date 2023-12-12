@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :tipo_asesorias
   resources :age_actividades do
     match :crea_audiencia, via: :get, on: :collection
   end
@@ -103,6 +104,7 @@ Rails.application.routes.draw do
         match :ayuda, via: :get
         match :administracion, via: :get
         match :procesos, via: :get
+        match :usuarios, via: :get
       end
     end
     resources :tablas

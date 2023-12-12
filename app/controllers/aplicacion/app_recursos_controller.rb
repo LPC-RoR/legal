@@ -14,6 +14,10 @@ class Aplicacion::AppRecursosController < ApplicationController
     carga_sidebar('Ayuda', params[:id])
   end
 
+  def usuarios
+    init_tabla('usuarios', Usuario.all, true)
+  end
+
   def administracion
     carga_sidebar('Administración', params[:id])
   end

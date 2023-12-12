@@ -1,0 +1,2 @@
+class TipoAsesoria < ApplicationRecord
+end
