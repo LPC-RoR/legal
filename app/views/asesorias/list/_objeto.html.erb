@@ -3,7 +3,20 @@
 
 	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
 
-	<b><%= objeto.descripcion %></b></br>
+	<b>
+		<% unless objeto.tipo_asesoria.blank? %>
+			<% if objeto.tipo_asesoria.tipo_asesoria == 'Cargo' %>
+				<i class="bi bi-currency-dollar"></i> 
+			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Multa' %>
+				<i class="bi bi-wallet2"></i> 
+			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Redacción' %>
+				<i class="bi bi-pencil-square"></i> 
+			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Mensual' %>
+				<i class="bi bi-calendar-check"></i> 
+			<% end %>
+		<% end %>
+		<%= objeto.descripcion %>
+	</b></br>
 
 	<small>
 
