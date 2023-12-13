@@ -5,10 +5,14 @@ class CausasController < ApplicationController
 
   # GET /causas or /causas.json
   def index
-      # Causas
+    set_tab( :monitor,  ['Proceso', 'Terminadas'] )
+
+    if @moptions[:monitor] == 'Proceso'
       init_tabla('ingreso-causas', Causa.where(estado: 'ingreso').order(created_at: :desc), false)
       add_tabla('proceso-causas', Causa.where(estado: 'proceso').order(created_at: :desc), false)
-      add_tabla('terminada-causas', Causa.where(estado: 'terminada').order(created_at: :desc), true)
+    elsif @moptions[:monitor] == 'Terminadas'
+      init_tabla('terminada-causas', Causa.where(estado: 'terminada').order(created_at: :desc), true)
+    end
   end
 
   # GET /causas/1 or /causas/1.json

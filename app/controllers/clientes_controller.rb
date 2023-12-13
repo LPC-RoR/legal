@@ -7,17 +7,23 @@ class ClientesController < ApplicationController
 
   # GET /clientes or /clientes.json
   def index
+
+    init_tab( { menu: ['Proceso', 'Baja'] }, true )
+
+    if @options[:menu] == 'Proceso'
       init_tabla('ingreso-clientes', Cliente.where(estado: 'ingreso').order(:razon_social), false)
       add_tabla('activo_empresa-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Empresa').order(:razon_social), false)
       add_tabla('activo_sindicato-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Sindicato').order(:razon_social), false)
       add_tabla('activo_trabajador-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Trabajador').order(:razon_social), false)
-      add_tabla('baja-clientes', Cliente.where(estado: 'baja').order(:razon_social), true)
+    elsif @options[:menu] == 'Baja'
+      init_tabla('baja-clientes', Cliente.where(estado: 'baja').order(:razon_social), true)
+    end
   end
 
   # GET /clientes/1 or /clientes/1.json
   def show
 
-    init_tab( { menu: ['Seguimiento', 'Causas', 'Asesorias', 'Facturas', 'Tarifas'] }, true )
+    set_tab( :menu, ['Seguimiento', 'Causas', 'Asesorias', 'Facturas', 'Tarifas'] )
 
 #    @coleccion = {}
     if @options[:menu] == 'Seguimiento'
@@ -27,17 +33,20 @@ class ClientesController < ApplicationController
       @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
       @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
     elsif @options[:menu] == 'Causas'
+      set_tab( :monitor,  ['Proceso', 'Terminadas'] )
       causas_cliente = @objeto.causas
       init_tabla('ingreso-causas', causas_cliente.where(estado: 'ingreso').order(:created_at), false)
       add_tabla('proceso-causas', causas_cliente.where(estado: 'proceso').order(:created_at), false)
       add_tabla('terminada-causas', causas_cliente.where(estado: 'terminada').order(:created_at), true)
 
     elsif @options[:menu] == 'Asesorias'
+      set_tab( :monitor,  ['Proceso', 'Terminadas'] )
       asesorias_cliente = @objeto.asesorias
       init_tabla('ingreso-asesorias', asesorias_cliente.where(estado: 'ingreso').order(:created_at), false)
       add_tabla('proceso-asesorias', asesorias_cliente.where(estado: 'proceso').order(:created_at), false)
       add_tabla('terminada-asesorias', asesorias_cliente.where(estado: 'terminada').order(:created_at), true)
     elsif @options[:menu] == 'Facturas'
+      set_tab( :monitor,  ['Proceso', 'Pagadas'] )
       facturas_cliente = @objeto.facturas
       init_tabla('ingreso-tar_facturas', facturas_cliente.where(estado: 'ingreso').order(documento: :desc), false)
       add_tabla('facturada-tar_facturas', facturas_cliente.where(estado: 'facturada').order(documento: :desc), false)

@@ -6,7 +6,7 @@
 	<b>
 		<% unless objeto.tipo_asesoria.blank? %>
 			<% if objeto.tipo_asesoria.tipo_asesoria == 'Cargo' %>
-				<i class="bi bi-currency-dollar"></i> 
+				<i class="bi bi-coin"></i> 
 			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Multa' %>
 				<i class="bi bi-wallet2"></i> 
 			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Redacción' %>
@@ -20,7 +20,7 @@
 
 	<small>
 
-	<i class="bi bi-calendar-check"> 
+	<i class="bi bi-dot"> 
 	<% if objeto.fecha.blank? %>
 		</i> <%= dma(objeto.created_at) %>
 	<% else %>
@@ -28,6 +28,7 @@
 	<% end %> | 
 	<i><%= objeto.cliente.razon_social %></i></br>
 
+	<i class="bi bi-dot"></i> 
 	<% if objeto.facturacion.blank? %>
 		<% if objeto.moneda.blank? or objeto.monto.blank? %>
 			Tarifa : <%= objeto.tar_servicio.descripcion unless objeto.tar_servicio.blank? %> 

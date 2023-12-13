@@ -1,17 +1,21 @@
-<div class="row">
-	<div class="col-lg-4 col-xs-12">
-	    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas : ingreso', link_new: nil} %>
+<%= render partial: '0p/tabs/tabs', locals: { token: :monitor } %>
 
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-tar_facturas'} %>
-	</div>
-	<div class="col-lg-4 col-xs-12">
-	    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas : facturada', link_new: nil} %>
+<% if @options[:monitor] == 'Proceso' %>
+	<div class="row">
+		<div class="col-lg-6 col-xs-12">
+		    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas : ingreso', link_new: nil} %>
 
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'facturada-tar_facturas'} %>
-	</div>
-	<div class="col-lg-4">
-	    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas : pagada', link_new: nil} %>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-tar_facturas'} %>
+		</div>
+		<div class="col-lg-6 col-xs-12">
+		    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas : facturada', link_new: nil} %>
 
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'pagada-tar_facturas'} %>
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'facturada-tar_facturas'} %>
+		</div>
 	</div>
-</div>
+<% elsif @options[:monitor] == 'Pagadas' %>
+    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas : pagada', link_new: nil} %>
+
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'pagada-tar_facturas'} %>
+<% end %>
+

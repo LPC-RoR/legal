@@ -3,10 +3,14 @@ class AsesoriasController < ApplicationController
 
   # GET /asesorias or /asesorias.json
   def index
-      # Asesorias
+    set_tab( monitor:,  ['Proceso', 'Terminadas'] )
+
+    if @options[:monitor] == 'Proceso'
       init_tabla('ingreso-asesorias', Asesoria.where(estado: 'ingreso').order(created_at: :desc), false)
       add_tabla('proceso-asesorias', Asesoria.where(estado: 'proceso').order(created_at: :desc), false)
-      add_tabla('terminada-asesorias', Asesoria.where(estado: 'terminada').order(created_at: :desc), true)
+    elsif @options[:monitor] == 'Terminadas'
+      init_tabla('terminada-asesorias', Asesoria.where(estado: 'terminada').order(created_at: :desc), true)
+    end
   end
 
   # GET /asesorias/1 or /asesorias/1.json

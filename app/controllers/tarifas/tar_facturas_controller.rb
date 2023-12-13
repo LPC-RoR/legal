@@ -5,9 +5,17 @@ class Tarifas::TarFacturasController < ApplicationController
 
   # GET /tar_facturas or /tar_facturas.json
   def index
-    init_tabla('ingreso-tar_facturas', TarFactura.where(estado: 'ingreso').order(documento: :desc), false)
-    add_tabla('facturada-tar_facturas', TarFactura.where(estado: 'facturada').order(documento: :desc), false)
-    add_tabla('pagada-tar_facturas', TarFactura.where(estado: 'pagada').order(documento: :desc), true)
+
+    set_tab( :monitor,  ['Proceso', 'Pagadas'] )
+
+
+    if @options[:monitor] == 'Proceso'
+      init_tabla('ingreso-tar_facturas', TarFactura.where(estado: 'ingreso').order(documento: :desc), false)
+      add_tabla('facturada-tar_facturas', TarFactura.where(estado: 'facturada').order(documento: :desc), false)
+    elsif @options[:monitor] == 'Pagadas'
+      init_tabla('pagada-tar_facturas', TarFactura.where(estado: 'pagada').order(documento: :desc), true)
+    end
+
   end
 
   # GET /tar_facturas/1 or /tar_facturas/1.json

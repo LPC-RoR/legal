@@ -17,8 +17,25 @@ module Capitan
 	end
 
 	# ************************************************************************** INICIALIZA TAB
-	def init_tab(tabs, options_init)
+	def set_tab(token, tabs)
 
+		@tabs = {} if @tabs.blank?
+		@options = {} if @options.blank?
+
+		@tabs[token] = tabs
+	    @tabs.keys.each do |key|
+	    	primer_tab = @tabs[key][0].class.name == 'String' ? @tabs[key][0] : @tabs[key][0][0]
+	      if params[:html_options].blank?
+	        @options[key] = primer_tab
+	      else
+	        @options[key] = params[:html_options][key.to_s].blank? ? primer_tab : params[:html_options][key.to_s]
+	      end
+	    end
+	end
+
+
+	# DEPRECATED
+	def init_tab(tabs, options_init)
 		@tabs = tabs
 		@options = {} if options_init
 
