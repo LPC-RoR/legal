@@ -20,7 +20,7 @@ module CptnTablaAppHelper
 			false
 		elsif ['tribunal_cortes', 'tipo_causas', 'tipo_asesorias'].include?(controller)
 			false
-		elsif ['asesorias', 'ingreso-asesorias', 'proceso-asesorias', 'terminada-asesorias'].include?(controller)
+		elsif ['asesorias', 'ingreso-asesorias', 'proceso-asesorias', 'multas-asesorias', 'redacciones-asesorias', 'mensuales-asesorias', 'cargos-asesorias', 'terminada-asesorias'].include?(controller)
 			false
 		elsif ['regiones', 'comunas', 'org_regiones', 'org_empleados'].include?(controller)
 			false

@@ -3,13 +3,25 @@ class AsesoriasController < ApplicationController
 
   # GET /asesorias or /asesorias.json
   def index
-    set_tab( :monitor,  ['Proceso', 'Terminadas'] )
+    set_tab( :monitor,  ['Proceso', 'Terminadas', 'Multas & Redacciones', 'Mensuales & Cargos'] )
 
     if @options[:monitor] == 'Proceso'
       init_tabla('ingreso-asesorias', Asesoria.where(estado: 'ingreso').order(created_at: :desc), false)
       add_tabla('proceso-asesorias', Asesoria.where(estado: 'proceso').order(created_at: :desc), false)
     elsif @options[:monitor] == 'Terminadas'
       init_tabla('terminada-asesorias', Asesoria.where(estado: 'terminada').order(created_at: :desc), true)
+    elsif @options[:monitor] == 'Multas & Redacciones'
+      ta_multas = TipoAsesoria.find_by(tipo_asesoria: 'Multa')
+      ta_redacciones = TipoAsesoria.find_by(tipo_asesoria: 'Redacción')
+
+      init_tabla('multas-asesorias', ta_multas.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
+      add_tabla('redacciones-asesorias', ta_redacciones.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
+    elsif @options[:monitor] == 'Mensuales & Cargos'
+      ta_mensuales = TipoAsesoria.find_by(tipo_asesoria: 'Mensual')
+      ta_cargos = TipoAsesoria.find_by(tipo_asesoria: 'Cargo')
+
+      init_tabla('mensuales-asesorias', ta_mensuales.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
+      add_tabla('cargos-asesorias', ta_cargos.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
     end
   end
 

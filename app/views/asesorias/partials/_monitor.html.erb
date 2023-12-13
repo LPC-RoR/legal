@@ -17,5 +17,31 @@
   <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas', link_new: nil} %>
 
   <%= render partial: '0p/tabla/tabla', locals: {c: 'terminada-asesorias'} %>
+<% elsif @options[:monitor] == 'Multas & Redacciones' %>
+  <div class="row">
+    <div class="col-lg-6 col-xs-12">
+      <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas: Multas', link_new: nil} %>
+
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'multas-asesorias'} %>
+    </div>
+    <div class="col-lg-6 col-xs-12">
+      <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas: Redacciones', link_new: nil} %>
+
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'redacciones-asesorias'} %>
+    </div>
+  </div>
+<% elsif @options[:monitor] == 'Mensuales & Cargos' %>
+  <div class="row">
+    <div class="col-lg-6 col-xs-12">
+      <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas: Mensuales', link_new: nil} %>
+
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'mensuales-asesorias'} %>
+    </div>
+    <div class="col-lg-6 col-xs-12">
+      <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas: Cargos', link_new: nil} %>
+
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'cargos-asesorias'} %>
+    </div>
+  </div>
 <% end %>
 

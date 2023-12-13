@@ -66,6 +66,10 @@ module CptnMenuLeftHelper
 			'Nómina'
 		elsif modelo == 'StModelo'
 			'Personalización'
+		elsif modelo == 'TarAprobacion'
+			'Aprobaciones'
+		elsif modelo == 'Asesoria'
+			'Asesorías'
 		else
 			m_to_name(modelo).tableize.capitalize
 		end
