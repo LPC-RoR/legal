@@ -40,11 +40,28 @@ class ClientesController < ApplicationController
       add_tabla('terminada-causas', causas_cliente.where(estado: 'terminada').order(:created_at), true)
 
     elsif @options[:menu] == 'Asesorias'
-      set_tab( :monitor,  ['Proceso', 'Terminadas'] )
+      set_tab( :monitor,  ['Proceso', 'Terminadas', 'Multas & Redacciones', 'Mensuales & Cargos'] )
       asesorias_cliente = @objeto.asesorias
-      init_tabla('ingreso-asesorias', asesorias_cliente.where(estado: 'ingreso').order(:created_at), false)
-      add_tabla('proceso-asesorias', asesorias_cliente.where(estado: 'proceso').order(:created_at), false)
-      add_tabla('terminada-asesorias', asesorias_cliente.where(estado: 'terminada').order(:created_at), true)
+
+      if @options[:monitor] == 'Proceso'
+        init_tabla('ingreso-asesorias', asesorias_cliente.where(estado: 'ingreso').order(created_at: :desc), false)
+        add_tabla('proceso-asesorias', asesorias_cliente.where(estado: 'proceso').order(created_at: :desc), false)
+      elsif @options[:monitor] == 'Terminadas'
+        init_tabla('terminada-asesorias', asesorias_cliente.where(estado: 'terminada').order(created_at: :desc), true)
+      elsif @options[:monitor] == 'Multas & Redacciones'
+        ta_multas = TipoAsesoria.find_by(tipo_asesoria: 'Multa')
+        ta_redacciones = TipoAsesoria.find_by(tipo_asesoria: 'Redacción')
+
+        init_tabla('multas-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_multas.id ,estado: 'terminada').order(created_at: :desc), false)
+        add_tabla('redacciones-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_redacciones.id ,estado: 'terminada').order(created_at: :desc), false)
+      elsif @options[:monitor] == 'Mensuales & Cargos'
+        ta_mensuales = TipoAsesoria.find_by(tipo_asesoria: 'Mensual')
+        ta_cargos = TipoAsesoria.find_by(tipo_asesoria: 'Cargo')
+
+        init_tabla('mensuales-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_mensuales.id ,estado: 'terminada').order(created_at: :desc), false)
+        add_tabla('cargos-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_cargos.id ,estado: 'terminada').order(created_at: :desc), false)
+      end
+
     elsif @options[:menu] == 'Facturas'
       set_tab( :monitor,  ['Proceso', 'Pagadas'] )
       facturas_cliente = @objeto.facturas
