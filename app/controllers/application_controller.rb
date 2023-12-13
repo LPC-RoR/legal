@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
 
 	include Tablas
 
+	include Modelos
+
 #	include Tarifas
 
 	before_action :init_bandejas, only: %i[ new edit show index create tablas update]
@@ -20,6 +22,7 @@ class ApplicationController < ActionController::Base
 	helper_method :uf_del_dia, :uf_fecha
 	helper_method :calcula2
 	helper_method :menu_tablas, :tb_index, :first_tabla_index
+	helper_method :modelo_negocios_general, :cuentas_corrientes, :periodos
 
 	# ************************************************************************** COLECCINES DE ESTADOS
  

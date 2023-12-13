@@ -7,10 +7,10 @@ class CausasController < ApplicationController
   def index
     set_tab( :monitor,  ['Proceso', 'Terminadas'] )
 
-    if @moptions[:monitor] == 'Proceso'
+    if @options[:monitor] == 'Proceso'
       init_tabla('ingreso-causas', Causa.where(estado: 'ingreso').order(created_at: :desc), false)
       add_tabla('proceso-causas', Causa.where(estado: 'proceso').order(created_at: :desc), false)
-    elsif @moptions[:monitor] == 'Terminadas'
+    elsif @options[:monitor] == 'Terminadas'
       init_tabla('terminada-causas', Causa.where(estado: 'terminada').order(created_at: :desc), true)
     end
   end

@@ -12,6 +12,12 @@
 	<i class="bi bi-<%=controller_icon['Tabla'.tableize]%>"></i> 
 	<b class="text-muted"><%= modelo_item('Tabla') %></b>
 	<%= render partial: 'aplicacion/tablas/menu_tablas' %>
+
+	<i class="bi bi-<%=controller_icon['MModelo'.tableize]%>"></i> 
+	<b class="text-muted"><%= modelo_item('MModelo') %></b>
+
+	</br>
+	<%= render partial: 'modelos/m_modelos/partials/cuentas_periodos', locals: {objeto: @objeto } %>
 	</small>
 
 	<% if admin? %>

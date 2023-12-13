@@ -1,5 +1,5 @@
 <div class="row">
-<% @modelo.m_conceptos.order(:orden).each do |concepto| %>
+<% modelo_negocios_general.m_conceptos.order(:orden).each do |concepto| %>
 	<div class="col-lg-6">
 		<small><b><%= concepto.m_concepto %></b></small>
 	</div>

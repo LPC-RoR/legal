@@ -13,7 +13,6 @@ module CptnMenuLeftHelper
 				'Asesoria',
 				'TarAprobacion',
 				'TarFactura',
-				'MModelo',
 				'DtMateria'
 			],
 			admin: [

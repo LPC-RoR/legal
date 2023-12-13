@@ -1,22 +1,29 @@
-<small class="text-info">Cuentas</small></br>
-<% cuentas.each do |cuenta| %>
-	<i class="bi bi-dot"></i> 
-	<small>
+<i class="bi bi-arrow-return-right"></i>
+<b class='text-muted'><%= 'Cuentas corrientes' %></b></br>
+
+<% cuentas_corrientes.each do |cuenta| %>
+	<div class="cuentas_elemento" style= 'padding-left: 1em;'>
 		<% if cuenta == objeto %>
-			<%= cuenta.m_cuenta %> <i class="bi bi-check-all"></i>
+			<b><i class="bi bi-arrow-right"></i>  <%= cuenta.m_cuenta %></b>
 		<% else %>
-			<%= link_to cuenta.m_cuenta, "m_modelos?id=c_#{cuenta.id}" %>
+			<%= link_to "m_modelos?id=c_#{cuenta.id}" do %>
+				<div class="text-muted"><%= cuenta.m_cuenta %></div>
+			<% end %>
 		<% end %>
-	</small></br>
+	</div>
 <% end %>
-<small class="text-info">Periodos</small></br>
+
+<i class="bi bi-arrow-return-right"></i>
+<b class='text-muted'><%= 'Períodos' %></b></br>
+
 <% periodos.each do |periodo| %>
-	<i class="bi bi-dot"></i> 
-	<small>
+	<div class="periodo_elemento" style= 'padding-left: 1em;'>
 		<% if periodo == objeto %>
-			<%= periodo.m_periodo %> <i class="bi bi-check-all"></i>
+			<b><i class="bi bi-arrow-right"></i>  <%= periodo.m_periodo %></b>
 		<% else %>
-			<%= link_to periodo.m_periodo, "m_modelos?id=p_#{periodo.id}" %>
+			<%= link_to "m_modelos?id=p_#{periodo.id}" do %>
+				<div class="text-muted"><%= periodo.m_periodo %></div>
+			<% end %>
 		<% end %>
-	</small></br>
+	</div>
 <% end %>
