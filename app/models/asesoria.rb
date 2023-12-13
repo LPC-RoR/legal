@@ -1,5 +1,6 @@
 class Asesoria < ApplicationRecord
 	belongs_to :cliente
+	belongs_to :tipo_asesoria
 	belongs_to :tar_servicio, optional: true
 
 	def enlaces
