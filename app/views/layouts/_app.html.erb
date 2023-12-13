@@ -5,10 +5,10 @@
 
 		<% if config[:layout][:menu_left] and menu_left?(controller_name).present? %>
 			<div class="row">
-				<div class="col-2">
+				<div class="col-3">
 					<%= render partial: '0p/lmenu/lmenu' %>
 				</div>
-				<div class="col-10">
+				<div class="col-9">
 					<%= render partial: 'layouts/title' %>
 					<%= render partial: 'layouts/body' %>
 				</div>

@@ -3,7 +3,7 @@ class TipoAsesoriasController < ApplicationController
 
   # GET /tipo_asesorias or /tipo_asesorias.json
   def index
-    @tipo_asesorias = TipoAsesoria.all
+    @coleccion = TipoAsesoria.all
   end
 
   # GET /tipo_asesorias/1 or /tipo_asesorias/1.json
@@ -12,7 +12,7 @@ class TipoAsesoriasController < ApplicationController
 
   # GET /tipo_asesorias/new
   def new
-    @tipo_asesoria = TipoAsesoria.new
+    @objeto = TipoAsesoria.new
   end
 
   # GET /tipo_asesorias/1/edit
@@ -21,15 +21,16 @@ class TipoAsesoriasController < ApplicationController
 
   # POST /tipo_asesorias or /tipo_asesorias.json
   def create
-    @tipo_asesoria = TipoAsesoria.new(tipo_asesoria_params)
+    @objeto = TipoAsesoria.new(tipo_asesoria_params)
 
     respond_to do |format|
-      if @tipo_asesoria.save
-        format.html { redirect_to @tipo_asesoria, notice: "Tipo asesoria was successfully created." }
-        format.json { render :show, status: :created, location: @tipo_asesoria }
+      if @objeto.save
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Tipo asesoria was successfully created." }
+        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tipo_asesoria.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -37,21 +38,23 @@ class TipoAsesoriasController < ApplicationController
   # PATCH/PUT /tipo_asesorias/1 or /tipo_asesorias/1.json
   def update
     respond_to do |format|
-      if @tipo_asesoria.update(tipo_asesoria_params)
-        format.html { redirect_to @tipo_asesoria, notice: "Tipo asesoria was successfully updated." }
-        format.json { render :show, status: :ok, location: @tipo_asesoria }
+      if @objeto.update(tipo_asesoria_params)
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Tipo asesoria was successfully updated." }
+        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tipo_asesoria.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /tipo_asesorias/1 or /tipo_asesorias/1.json
   def destroy
-    @tipo_asesoria.destroy
+    set_redireccion
+    @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to tipo_asesorias_url, notice: "Tipo asesoria was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Tipo asesoria was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -59,7 +62,11 @@ class TipoAsesoriasController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tipo_asesoria
-      @tipo_asesoria = TipoAsesoria.find(params[:id])
+      @objeto = TipoAsesoria.find(params[:id])
+    end
+
+    def set_redireccion
+      @redireccion = "/tablas?tb=#{tb_index('tablas_secundarias')}"
     end
 
     # Only allow a list of trusted parameters through.

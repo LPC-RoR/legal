@@ -7,16 +7,18 @@
 
 	<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: menu_left?(controller)} %>
 
-	</br>
 
-
-	<div class="text-info"><i class="bi bi-dot"></i> Tablas</div>
-
+	<small>
+	<i class="bi bi-<%=controller_icon['Tabla'.tableize]%>"></i> 
+	<b class="text-muted"><%= modelo_item('Tabla') %></b>
 	<%= render partial: 'aplicacion/tablas/menu_tablas' %>
+	</small>
 
-	</br>
-	<div class="text-info"><i class="bi bi-dot"></i> Administración</div>
+	<% if admin? %>
+		<hr>
+		<div class="text-info text-center">Administración</div>
 
-	<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: :admin} %>
+		<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: :admin} %>
+	<% end %>
 
 </div>

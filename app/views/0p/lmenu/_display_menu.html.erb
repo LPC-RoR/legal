@@ -5,6 +5,9 @@
 
 	<small>
 	<% unless controller_icon[modelo.tableize].blank? %>
+		<% if link_model(controller_name) == modelo %>
+			<i class="bi bi-arrow-right"></i> 
+		<% end %>
 		<i class="bi bi-<%=controller_icon[modelo.tableize]%>"></i>
 	<% end %>
 	<% if link_model(controller_name) == modelo %>

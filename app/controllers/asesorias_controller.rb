@@ -70,10 +70,7 @@ class AsesoriasController < ApplicationController
   end
 
   def set_tar_servicio
-    puts "*************************+ set_tar_servicio"
     unless params[:tar_servicio][:tar_servicio_id].blank?
-      puts "*************** ENTRO"
-      puts params[:tar_servicio][:tar_servicio_id]
       @objeto.tar_servicio_id = params[:tar_servicio][:tar_servicio_id]
       @objeto.save
     end
@@ -114,6 +111,6 @@ class AsesoriasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def asesoria_params
-      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf, :moneda, :monto)
+      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf, :moneda, :monto, :tipo_asesoria_id)
     end
 end

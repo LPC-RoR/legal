@@ -13,7 +13,7 @@
 <div class="container-fluid">
 	<% if (partial?('layouts', 'over', 'banner') and config[:layout][:banner]) %>
 		<% unless no_banner_display? %>
-			<div class="banner" style="padding-left: <%=padd_bann%>%; padding-right: <%=padd_bann%>%; margin-bottom: 4px;">
+			<div class="banner" style="padding-left: <%=padd_bann%>%; padding-right: <%=padd_bann%>%; margin-bottom: 8px;">
 				<div class="shadow bg-white rounded">
 					<%= render partial: 'layouts/over/banner' %>
 				</div>

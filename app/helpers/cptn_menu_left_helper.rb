@@ -14,7 +14,6 @@ module CptnMenuLeftHelper
 				'TarAprobacion',
 				'TarFactura',
 				'MModelo',
-				'Tabla',
 				'DtMateria'
 			],
 			admin: [

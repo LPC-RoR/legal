@@ -18,7 +18,7 @@ module CptnTablaAppHelper
 			false
 		elsif ['causas', 'ingreso-causas', 'proceso-causas', 'terminada-causas', 'sin_cuantia-causas', 'sin_facturar-causas', 'en_proceso-causas'].include?(controller)
 			false
-		elsif ['tribunal_cortes', 'tipo_causas'].include?(controller)
+		elsif ['tribunal_cortes', 'tipo_causas', 'tipo_asesorias'].include?(controller)
 			false
 		elsif ['asesorias', 'ingreso-asesorias', 'proceso-asesorias', 'terminada-asesorias'].include?(controller)
 			false

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_12_172442) do
+ActiveRecord::Schema.define(version: 2023_12_12_235711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -277,9 +277,11 @@ ActiveRecord::Schema.define(version: 2023_12_12_172442) do
     t.datetime "fecha_uf"
     t.string "moneda"
     t.decimal "monto"
+    t.integer "tipo_asesoria_id"
     t.index ["cliente_id"], name: "index_asesorias_on_cliente_id"
     t.index ["estado"], name: "index_asesorias_on_estado"
     t.index ["tar_servicio_id"], name: "index_asesorias_on_tar_servicio_id"
+    t.index ["tipo_asesoria_id"], name: "index_asesorias_on_tipo_asesoria_id"
   end
 
   create_table "audiencias", force: :cascade do |t|

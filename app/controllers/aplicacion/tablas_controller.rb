@@ -20,6 +20,7 @@ class Aplicacion::TablasController < ApplicationController
       init_tabla('tar_detalle_cuantias', TarDetalleCuantia.all.order(:tar_detalle_cuantia), false)
       add_tabla('tribunal_cortes', TribunalCorte.all.order(:tribunal_corte), false)
       add_tabla('tipo_causas', TipoCausa.all.order(:tipo_causa), false)
+      add_tabla('tipo_asesorias', TipoAsesoria.all.order(:tipo_asesoria), false)
     when 7
       if usuario_signed_in?
         # Repositorio de la plataforma
