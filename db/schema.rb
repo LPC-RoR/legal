@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_12_235711) do
+ActiveRecord::Schema.define(version: 2023_12_14_143119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "age_act_perfiles", force: :cascade do |t|
+    t.integer "app_perfil_id"
+    t.integer "age_actividad_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_actividad_id"], name: "index_age_act_perfiles_on_age_actividad_id"
+    t.index ["app_perfil_id"], name: "index_age_act_perfiles_on_app_perfil_id"
+  end
 
   create_table "age_actividades", force: :cascade do |t|
     t.string "age_actividad"

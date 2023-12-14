@@ -8,6 +8,7 @@ module CptnMenuLeftHelper
 	def menu_left
 		{
 			activo: [
+				'AgeActividad',
 				'Cliente',
 				'Causa',
 				'Asesoria',

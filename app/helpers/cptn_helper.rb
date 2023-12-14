@@ -130,9 +130,12 @@ module CptnHelper
 	end
 
 	def dma(date)
-		date.blank? ? '' : date.strftime("%d-%m-%Y")
+		date.blank? ? '__-__-__' : date.strftime("%d-%m-%Y")
 	end
 
+	def dma_hm(date)
+		date.blank? ? '__-__-__ __:__' : date.strftime("%d-%m-%Y  %I:%M%p")
+	end
 # ******************************************************************** HOME
 
 	def foot?

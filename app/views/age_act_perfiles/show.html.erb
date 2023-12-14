@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App perfil:</strong>
+  <%= @age_act_perfil.app_perfil_id %>
+</p>
+
+<p>
+  <strong>Age actividad:</strong>
+  <%= @age_act_perfil.age_actividad_id %>
+</p>
+
+<%= link_to 'Edit', edit_age_act_perfil_path(@age_act_perfil) %> |
+<%= link_to 'Back', age_act_perfiles_path %>

@@ -1,0 +1,45 @@
+<%= render '0p/general/title_box' do %>
+	<div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
+		<h5 class="text-info">
+			<i class="bi bi-journal-text"></i> 
+			<%= "#{@objeto.tipo_asesoria.tipo_asesoria} : #{@objeto.descripcion unless @objeto.descripcion.blank?}" %>
+		</h5>
+		<%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
+	</div>
+<% end %>
+<div class="row">
+	<div class="col-lg-5 col-xs-12">
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pago', link_new: nil} %>
+
+		<% unless @objeto.tar_servicio.blank? %>
+			<% unless @objeto.facturacion.blank? %>
+				<%= render partial: 'tarifas/tar_facturaciones/list/objeto', locals: {objeto: @objeto.facturacion} %>
+			<% end %>
+		<% end %>
+
+		<hr>
+
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_documentos', title: 'Documentos', link_new: "/app_documentos/new?class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
+
+		<%#= render partial: 'repositorios/app_documentos/partials/control_documentos', locals: {pendientes: @docs_pendientes} %>
+
+		<hr>
+
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_archivos', title: 'Archivos', link_new: "/app_archivos/new?class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
+
+		<%#= render partial: 'repositorios/app_archivos/partials/control_archivos', locals: {pendientes: @archivos_pendientes} %>
+
+		<hr>
+
+		<%= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: @objeto} %>
+	</div>
+	<div class="col-lg-7">
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Reuniones', link_new: "/age_actividades/new?t=R&class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'reunion-age_actividades'} %>
+
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Tareas', link_new: "/age_actividades/new?t=T&class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tarea-age_actividades'} %>
+	</div>
+</div>

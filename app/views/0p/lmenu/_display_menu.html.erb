@@ -10,7 +10,7 @@
 		<% end %>
 		<i class="bi bi-<%=controller_icon[modelo.tableize]%>"></i>
 	<% end %>
-	<% if link_model(controller_name) == modelo %>
+	<% if model_link(modelo) == request.fullpath %>
 		<b><%= modelo_item(modelo) %></b>
 	<% else %>
 		<%= link_to model_link(modelo) do %>

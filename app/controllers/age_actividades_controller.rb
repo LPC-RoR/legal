@@ -1,9 +1,15 @@
 class AgeActividadesController < ApplicationController
-  before_action :set_age_actividad, only: %i[ show edit update destroy ]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante]
 
   # GET /age_actividades or /age_actividades.json
   def index
-    @coleccion = AgeActividad.all
+    set_tab(:menu, ['Pendientes', 'Realizadas'])
+
+    if @options[:menu] == 'Pendientes'
+      init_tabla('age_actividades', AgeActividad.where(estado: 'ingreso').order(fecha: :desc), false)
+    elsif @options[:menu] == 'Realizadas'
+      init_tabla('age_actividades', AgeActividad.where(estado: 'realizada').order(fecha: :desc), false)
+    end
   end
 
   # GET /age_actividades/1 or /age_actividades/1.json
@@ -62,6 +68,14 @@ class AgeActividadesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def suma_participante
+    
+  end
+
+  def resta_participante
+    
   end
 
   # DELETE /age_actividades/1 or /age_actividades/1.json

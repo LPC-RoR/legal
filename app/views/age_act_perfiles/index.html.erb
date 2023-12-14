@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Age Act Perfiles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>App perfil</th>
+      <th>Age actividad</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @age_act_perfiles.each do |age_act_perfil| %>
+      <tr>
+        <td><%= age_act_perfil.app_perfil_id %></td>
+        <td><%= age_act_perfil.age_actividad_id %></td>
+        <td><%= link_to 'Show', age_act_perfil %></td>
+        <td><%= link_to 'Edit', edit_age_act_perfil_path(age_act_perfil) %></td>
+        <td><%= link_to 'Destroy', age_act_perfil, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Age Act Perfil', new_age_act_perfil_path %>

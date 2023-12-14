@@ -8,7 +8,22 @@ class AppPerfil < ApplicationRecord
 	has_many :app_mejoras
 	has_many :app_mensajes
 
+#	has_many :app_actividades
+
 	has_many :blg_articulos
+
+	has_many :age_act_perfiles
+	has_many :age_actividades, through: :age_act_perfiles
+
+	def nombre_perfil
+		administrador = AppAdministrador.find_by(email: self.email)
+		if administrador.blank?
+			nomina = AppNomina.find_by(email: self.email)
+			nomina.blank? ? 'no encontrado' : nomina.nombre
+		else
+			administrador.administrador
+		end
+	end
 
 	def app_enlaces
 		AppEnlace.where(owner_class: 'AppPerfil', owner_id: self.id)

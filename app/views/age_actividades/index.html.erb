@@ -1,37 +1,9 @@
-<p id="notice"><%= notice %></p>
+<%= render partial: '0p/tabs/tabs', locals: {token: :menu} %>
 
-<h1>Age Actividades</h1>
+<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: "Actividades #{@options[:menu]}", link_new: nil} %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Age actividad</th>
-      <th>Tipo</th>
-      <th>App perfil</th>
-      <th>Owner class</th>
-      <th>Owner</th>
-      <th>Estado</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @age_actividades.each do |age_actividad| %>
-      <tr>
-        <td><%= age_actividad.age_actividad %></td>
-        <td><%= age_actividad.tipo %></td>
-        <td><%= age_actividad.app_perfil_id %></td>
-        <td><%= age_actividad.owner_class %></td>
-        <td><%= age_actividad.owner_id %></td>
-        <td><%= age_actividad.estado %></td>
-        <td><%= link_to 'Show', age_actividad %></td>
-        <td><%= link_to 'Edit', edit_age_actividad_path(age_actividad) %></td>
-        <td><%= link_to 'Destroy', age_actividad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Age Actividad', new_age_actividad_path %>
+<div class="shadow p-3 mb-3 bg-white rounded">
+  <% @coleccion['age_actividades'].each do |actividad| %>
+    <%= render partial: 'age_actividades/list/lobjeto', locals: {objeto: actividad} %>
+  <% end %>
+</div>

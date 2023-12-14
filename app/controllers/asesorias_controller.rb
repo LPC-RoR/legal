@@ -27,6 +27,14 @@ class AsesoriasController < ApplicationController
 
   # GET /asesorias/1 or /asesorias/1.json
   def show
+      init_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      add_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      add_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
+      add_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
+      add_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
+
+      puts "***************************************+ show"
+      puts @coleccion['app_documentos'].empty?
   end
 
   # GET /asesorias/new

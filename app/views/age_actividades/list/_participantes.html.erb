@@ -1,0 +1,17 @@
+<small><small>
+	<% objeto.app_perfiles.each do |perfil| %>
+		<%= link_to "/age_actividades/#{objeto.id}/resta_participante?pid=#{perfil.id}" do %>
+			<i class="bi bi-box-arrow-down"></i> <%= perfil.nombre_perfil %>
+		<% end %>
+		</br>
+	<% end %>
+<hr>
+	<% AppPerfil.all.each do |perfil_base| %>
+		<% unless objeto.app_perfiles.ids.include?(perfil_base.id) %>
+			<%= link_to "/age_actividades/#{objeto.id}/suma_participante?pid=#{perfil_base.id}" do %>
+				<i class="bi bi-box-arrow-up"></i> <%= perfil_base.nombre_perfil %>
+			<% end %>
+		<% end %>
+		</br>
+	<% end %>
+</small></small>

@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :age_act_perfiles
   resources :tipo_asesorias
   resources :age_actividades do
     match :crea_audiencia, via: :get, on: :collection
+    match :suma_participante, via: :get, on: :member
+    match :resta_participante, via: :get, on: :member
   end
   resources :regiones do
     resources :comunas
