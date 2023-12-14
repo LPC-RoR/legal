@@ -27,15 +27,17 @@
 
 		<small>
 
-		<% if objeto.owner.present? %>
-			<i class="bi bi-<%=controller_icon[objeto.owner.class.name.tableize]%>"></i> 
+		<% if objeto.owner.present? and controller_name == 'age_actividades' %>
+			<%= link_to objeto.owner do %>
+				<i class="bi bi-<%=controller_icon[objeto.owner.class.name.tableize]%>"></i> 
+			<% end %>
 		<% end %>
 
 		<% if objeto.app_perfil_id == perfil_activo.id %>
 			<i class="bi bi-person-circle"></i> 
 		<% end %>
 
-		<%= objeto.age_actividad %>
+		<%= link_to objeto.age_actividad, objeto %>
 		</small>
 
 	<% if controller_name == 'age_actividades' %>
@@ -84,7 +86,16 @@
 
 	<div class="collapse" id="collapseAntecedentes<%=objeto.id%>">
 	  <div class="card card-body">
-	    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+	  	<small>
+	  	<% objeto.age_antecedentes.order(:orden).each do |antecedente| %>
+	  		<div class="row">
+	  			<div class="col-1">
+	  				<%= render partial: '0p/tabla/orderer', locals: {objeto: antecedente} %>
+	  			</div>
+	  			<div class="col-11"><%= antecedente.age_antecedente %></div>
+	  		</div>
+	  	<% end %>
+	  	</small>
 	  </div>
 	</div>
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_14_143119) do
+ActiveRecord::Schema.define(version: 2023_12_14_200110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,16 @@ ActiveRecord::Schema.define(version: 2023_12_14_143119) do
     t.index ["fecha"], name: "index_age_actividades_on_fecha"
     t.index ["owner_class"], name: "index_age_actividades_on_owner_class"
     t.index ["owner_id"], name: "index_age_actividades_on_owner_id"
+  end
+
+  create_table "age_antecedentes", force: :cascade do |t|
+    t.integer "orden"
+    t.text "age_antecedente"
+    t.integer "age_actividad_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_actividad_id"], name: "index_age_antecedentes_on_age_actividad_id"
+    t.index ["orden"], name: "index_age_antecedentes_on_orden"
   end
 
   create_table "antecedentes", force: :cascade do |t|

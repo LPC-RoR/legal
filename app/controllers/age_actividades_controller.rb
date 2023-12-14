@@ -14,6 +14,7 @@ class AgeActividadesController < ApplicationController
 
   # GET /age_actividades/1 or /age_actividades/1.json
   def show
+    init_tabla('age_antecedentes', @objeto.age_antecedentes.order(:orden), false)
   end
 
   # GET /age_actividades/new
@@ -71,11 +72,27 @@ class AgeActividadesController < ApplicationController
   end
 
   def suma_participante
-    
+    perfil = AppPerfil.find(params[:pid])
+    @objeto.app_perfiles << perfil
+
+    case params[:loc]
+    when 'age_actividades'
+      redirect_to "/age_actividades"
+    else
+      redirect_to @objeto.owner
+    end
   end
 
   def resta_participante
-    
+    perfil = AppPerfil.find(params[:pid])
+    @objeto.app_perfiles.delete(perfil)
+
+    case params[:loc]
+    when 'age_actividades'
+      redirect_to "/age_actividades"
+    else
+      redirect_to @objeto.owner
+    end
   end
 
   # DELETE /age_actividades/1 or /age_actividades/1.json

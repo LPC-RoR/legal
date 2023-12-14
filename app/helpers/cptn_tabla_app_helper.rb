@@ -24,7 +24,7 @@ module CptnTablaAppHelper
 			false
 		elsif ['regiones', 'comunas', 'org_regiones', 'org_empleados'].include?(controller)
 			false
-		elsif ['audiencias', 'variables', 'age_actividades', 'reunion-age_actividades', 'tarea-age_actividades'].include?(controller)
+		elsif ['audiencias', 'variables', 'age_actividades', 'reunion-age_actividades', 'tarea-age_actividades', 'age_antecedentes'].include?(controller)
 			false
 		else
 			true
@@ -44,12 +44,14 @@ module CptnTablaAppHelper
 			controller_name == 'tar_tarifas'
 		else
 			case objeto.class.name
+			when 'AgeActividad'
+				btn == 'Editar' ? objeto.tipo != 'Audiencia' : true
 			when 'TarValorCuantia'
 				controller_name == 'causas' and @options[:menu] == 'Tarifa & Cuantía'
 			when 'Registro'
 				admin? and objeto.estado == 'ingreso'
 			when 'MRegistro'
-				btn == 'Editar' and ['m_periodos', 'm_items'].include?(controller_name)
+				btn == 'Editar' and  ['m_periodos', 'm_items'].include?(controller_name)
 			else
 				true
 			end

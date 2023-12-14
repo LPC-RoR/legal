@@ -1,15 +1,17 @@
 <small><small>
+	<b class="text-info">Participantes</b></br>
 	<% objeto.app_perfiles.each do |perfil| %>
-		<%= link_to "/age_actividades/#{objeto.id}/resta_participante?pid=#{perfil.id}" do %>
-			<i class="bi bi-box-arrow-down"></i> <%= perfil.nombre_perfil %>
+		<%= link_to "/age_actividades/#{objeto.id}/resta_participante?pid=#{perfil.id}&loc=#{controller_name}" do %>
+			<i class="bi bi-arrow-bar-down"></i> <%= perfil.nombre_perfil %>
 		<% end %>
 		</br>
 	<% end %>
 <hr>
+	<b class="text-info">Disponibles</b>
 	<% AppPerfil.all.each do |perfil_base| %>
 		<% unless objeto.app_perfiles.ids.include?(perfil_base.id) %>
-			<%= link_to "/age_actividades/#{objeto.id}/suma_participante?pid=#{perfil_base.id}" do %>
-				<i class="bi bi-box-arrow-up"></i> <%= perfil_base.nombre_perfil %>
+			<%= link_to "/age_actividades/#{objeto.id}/suma_participante?pid=#{perfil_base.id}&loc=#{controller_name}" do %>
+				<i class="bi bi-arrow-bar-up"></i> <%= perfil_base.nombre_perfil %>
 			<% end %>
 		<% end %>
 		</br>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :age_antecedentes
   resources :age_act_perfiles
   resources :tipo_asesorias
   resources :age_actividades do

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: 1
+  age_antecedente: MyText
+  age_actividad_id: 1
+
+two:
+  orden: 1
+  age_antecedente: MyText
+  age_actividad_id: 1
