@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Owner class:</strong>
+  <%= @valor.owner_class %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @valor.owner_id %>
+</p>
+
+<p>
+  <strong>Variable:</strong>
+  <%= @valor.variable_id %>
+</p>
+
+<p>
+  <strong>C string:</strong>
+  <%= @valor.c_string %>
+</p>
+
+<p>
+  <strong>C text:</strong>
+  <%= @valor.c_text %>
+</p>
+
+<p>
+  <strong>C fecha:</strong>
+  <%= @valor.c_fecha %>
+</p>
+
+<p>
+  <strong>C numero:</strong>
+  <%= @valor.c_numero %>
+</p>
+
+<%= link_to 'Edit', edit_valor_path(@valor) %> |
+<%= link_to 'Back', valores_path %>

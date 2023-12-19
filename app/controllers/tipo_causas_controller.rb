@@ -10,7 +10,7 @@ class TipoCausasController < ApplicationController
   # GET /tipo_causas/1 or /tipo_causas/1.json
   def show
     init_tabla('audiencias', @objeto.audiencias.order(:orden), false)
-    add_tabla('variables', @objeto.variables.order(:variable), false)
+    add_tabla('variables', @objeto.variables.order(:orden), false)
     add_tabla('control_documentos', @objeto.control_documentos.order(:variable), false)
   end
 

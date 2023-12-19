@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_14_200110) do
+ActiveRecord::Schema.define(version: 2023_12_18_210746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -351,6 +351,15 @@ ActiveRecord::Schema.define(version: 2023_12_14_200110) do
     t.text "descripcion"
   end
 
+  create_table "causa_docs", force: :cascade do |t|
+    t.integer "causa_id"
+    t.integer "app_documento_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_documento_id"], name: "index_causa_docs_on_app_documento_id"
+    t.index ["causa_id"], name: "index_causa_docs_on_causa_id"
+  end
+
   create_table "causas", force: :cascade do |t|
     t.string "causa"
     t.string "identificador"
@@ -520,6 +529,31 @@ ActiveRecord::Schema.define(version: 2023_12_14_200110) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tema"], name: "index_h_temas_on_tema"
+  end
+
+  create_table "hecho_docs", force: :cascade do |t|
+    t.integer "hecho_id"
+    t.integer "app_documento_id"
+    t.string "establece"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_documento_id"], name: "index_hecho_docs_on_app_documento_id"
+    t.index ["establece"], name: "index_hecho_docs_on_establece"
+    t.index ["hecho_id"], name: "index_hecho_docs_on_hecho_id"
+  end
+
+  create_table "hechos", force: :cascade do |t|
+    t.integer "tema_id"
+    t.integer "orden"
+    t.string "hecho"
+    t.text "cita"
+    t.string "archivo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "documento"
+    t.string "paginas"
+    t.index ["orden"], name: "index_hechos_on_orden"
+    t.index ["tema_id"], name: "index_hechos_on_tema_id"
   end
 
   create_table "hlp_pasos", force: :cascade do |t|
@@ -1232,6 +1266,17 @@ ActiveRecord::Schema.define(version: 2023_12_14_200110) do
     t.index ["owner_id"], name: "index_tar_variables_on_owner_id"
   end
 
+  create_table "temas", force: :cascade do |t|
+    t.integer "causa_id"
+    t.integer "orden"
+    t.string "tema"
+    t.text "descripcion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["causa_id"], name: "index_temas_on_causa_id"
+    t.index ["orden"], name: "index_temas_on_orden"
+  end
+
   create_table "tipo_asesorias", force: :cascade do |t|
     t.string "tipo_asesoria"
     t.boolean "facturable"
@@ -1268,6 +1313,21 @@ ActiveRecord::Schema.define(version: 2023_12_14_200110) do
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true
   end
 
+  create_table "valores", force: :cascade do |t|
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.integer "variable_id"
+    t.string "c_string"
+    t.text "c_text"
+    t.datetime "c_fecha"
+    t.decimal "c_numero"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_class"], name: "index_valores_on_owner_class"
+    t.index ["owner_id"], name: "index_valores_on_owner_id"
+    t.index ["variable_id"], name: "index_valores_on_variable_id"
+  end
+
   create_table "variables", force: :cascade do |t|
     t.integer "tipo_causa_id"
     t.string "tipo"
@@ -1275,7 +1335,9 @@ ActiveRecord::Schema.define(version: 2023_12_14_200110) do
     t.string "control"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "orden"
     t.index ["control"], name: "index_variables_on_control"
+    t.index ["orden"], name: "index_variables_on_orden"
     t.index ["tipo"], name: "index_variables_on_tipo"
     t.index ["tipo_causa_id"], name: "index_variables_on_tipo_causa_id"
   end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tema_id: 1
+  orden: 1
+  hecho: MyString
+  cita: MyText
+  archivo: MyString
+
+two:
+  tema_id: 1
+  orden: 1
+  hecho: MyString
+  cita: MyText
+  archivo: MyString

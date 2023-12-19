@@ -26,10 +26,10 @@
 		<% end %>
 	<% end %> | 
 	<small>
-		<% unless objeto.documento_control == true %>
+		<% unless objeto.documento_control and crud_conditions(objeto, 'Editar') == true %>
 			<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto} %>
 		<% end %>
-		<% if objeto.archivos.empty? %>
+		<% if objeto.archivos.empty? and crud_conditions(objeto, 'Eliminar') %>
 			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
 		<% end %>
 	</small>
@@ -42,7 +42,9 @@
 	  	<% objeto.archivos.order(created_at: :desc).each do |archivo| %>
 	  		<i class="bi bi-files"></i> 
 	  		<%= archivo.app_archivo %> | 
-	  		<small><%= render partial: '0p/tabla/links_e', locals: {objeto: archivo} %></small></br>
+	  		<small>
+	  			<%= render partial: '0p/tabla/links_e', locals: {objeto: archivo} %>
+	  		</small></br>
 	  	<% end %>
 	  	</small>
 	  </div>

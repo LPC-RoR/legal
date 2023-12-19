@@ -1,0 +1,2 @@
+module HechoDocsHelper
+end

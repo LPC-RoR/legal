@@ -1,0 +1,12 @@
+<%= render partial: 'repositorios/app_documentos/list/lobjeto', locals: {objeto: objeto.app_documento} %> 
+
+<small>
+<%= link_to "/hechos/#{objeto.hecho.id}/remueve_documento?did=#{objeto.app_documento.id}" do %>
+	<i class="bi bi-trash"></i>
+<% end %>
+
+<%= link_to "/hecho_docs/#{objeto.id}/cambia_tag" do %>
+	<i class="bi bi-bookmark-check"></i> 
+<% end %>
+<b><%= objeto.establece.blank? ? '?' : objeto.establece %></b>
+</small>

@@ -10,6 +10,12 @@ class AppDocumento < ApplicationRecord
 
 #	has_many :archivos
 
+	has_many :causa_docs
+	has_many :causas, through: :causa_docs
+
+	has_many :hecho_docs
+	has_many :hechos, through: :hecho_docs
+
     validates_presence_of :app_documento
 	def archivos
 		AppArchivo.where(owner_class: self.class.name).where(owner_id: self.id)

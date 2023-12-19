@@ -19,6 +19,10 @@ class Causa < ApplicationRecord
 	belongs_to :tipo_causa
 
 	has_many :antecedentes
+	has_many :temas
+
+	has_many :causa_docs
+	has_many :app_documentos, through: :causa_docs
 
     validates_presence_of :causa, :rit
 
@@ -52,6 +56,10 @@ class Causa < ApplicationRecord
 
 	def enlaces
 		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def valores_datos
+		Valor.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
 	def actividades

@@ -1,5 +1,5 @@
 class RegionesController < ApplicationController
-  before_action :set_region, only: %i[ show edit update destroy ]
+  before_action :set_region, only: %i[ show edit update destroy arriba abajo ]
   after_action :reordenar, only: :destroy
 
   # GET /regiones or /regiones.json
@@ -49,6 +49,28 @@ class RegionesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def arriba
+    owner = @objeto.owner
+    anterior = @objeto.anterior
+    @objeto.orden -= 1
+    @objeto.save
+    anterior.orden += 1
+    anterior.save
+
+    redirect_to @objeto.redireccion
+  end
+
+  def abajo
+    owner = @objeto.owner
+    siguiente = @objeto.siguiente
+    @objeto.orden += 1
+    @objeto.save
+    siguiente.orden -= 1
+    siguiente.save
+
+    redirect_to @objeto.redireccion
   end
 
   # DELETE /regiones/1 or /regiones/1.json

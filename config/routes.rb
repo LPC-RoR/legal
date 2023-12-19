@@ -1,5 +1,21 @@
 Rails.application.routes.draw do
 
+  resources :valores
+  resources :causa_docs
+  resources :hecho_docs do
+    match :cambia_tag, via: :get, on: :member
+  end
+  resources :hechos do
+    match :arriba, via: :get, on: :member
+    match :abajo, via: :get, on: :member
+    match :nuevo_documento, via: :post, on: :member
+    match :sel_documento, via: :get, on: :member
+    match :remueve_documento, via: :get, on: :member
+  end
+  resources :temas do
+    match :arriba, via: :get, on: :member
+    match :abajo, via: :get, on: :member
+  end
   resources :age_antecedentes
   resources :age_act_perfiles
   resources :tipo_asesorias
@@ -10,6 +26,8 @@ Rails.application.routes.draw do
   end
   resources :regiones do
     resources :comunas
+    match :arriba, via: :get, on: :member
+    match :abajo, via: :get, on: :member
   end
   resources :comunas
   resources :asesorias do
@@ -47,6 +65,7 @@ Rails.application.routes.draw do
     # ultima version
     match :crea_documento_controlado, via: :get, on: :member
     match :crea_archivo_controlado, via: :get, on: :member
+    match :agrega_valor, via: :post, on: :member
   end
   resources :antecedentes
   resources :clientes do

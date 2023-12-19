@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente crea_documento_controlado crea_archivo_controlado]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente crea_documento_controlado crea_archivo_controlado agrega_valor]
 
   include Tarifas
 
@@ -18,7 +18,7 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab( { menu: ['Seguimiento', 'Tarifa & Cuantía', 'Pagos', 'Registro', 'Reportes'] }, true )
+    init_tab( { menu: ['Seguimiento', 'Hechos', 'Tarifa & Cuantía', 'Pagos', 'Registro', 'Reportes'] }, true )
 
     if @options[:menu] == 'Seguimiento'
       init_tabla('tar_facturaciones', @objeto.facturaciones, false)
@@ -32,8 +32,15 @@ class CausasController < ApplicationController
       @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
       @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
 
+      @variables = @objeto.tipo_causa.variables.order(:orden)
+      puts @variables.map {|v| v.tipo}
+      @valores = @objeto.valores_datos
+
       actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
+    elsif @options[:menu] == 'Hechos'
+      init_tabla('temas', @objeto.temas.order(:orden), true)
+      add_tabla('app_documentos', @objeto.app_documentos.order(:app_documento), false)
     elsif @options[:menu] == 'Tarifa & Cuantía'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       # Tarifas para seleccionar
@@ -177,6 +184,39 @@ class CausasController < ApplicationController
         AppArchivo.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_archivo: control.nombre, control: control.control, documento_control: true)
       end
     end
+
+    redirect_to @objeto
+  end
+
+  def agrega_valor
+    variable = Variable.find(params[:vid])
+
+    valor = @objeto.valores_datos.find_by(variable_id: variable.id)
+
+    case variable.tipo
+    when 'Texto'
+      if valor.blank?
+        Valor.create(owner_class: 'Causa', owner_id: @objeto.id, variable_id: variable.id, c_string: params[:form_valor][:c_texto])
+      else
+        valor.c_string = params[:form_valor][:c_texto]
+      end
+    when 'Párrafo'
+      if valor.blank?
+        Valor.create(owner_class: 'Causa', owner_id: @objeto.id, variable_id: variable.id, c_parrafo: params[:form_valor][:c_parrafo])
+      else
+        valor.c_parrafo = params[:form_valor][:c_parrafo]
+      end
+    else
+      if ['Número', 'Monto pesos', 'Monto UF'].include?(variable.tipo)
+        if valor.blank?
+          Valor.create(owner_class: 'Causa', owner_id: @objeto.id, variable_id: variable.id, c_numero: params[:form_valor][:c_numero])
+        else
+          valor.c_numero = params[:form_valor][:c_numero].to_f 
+        end
+      end
+    end
+
+    valor.save unless valor.blank?
 
     redirect_to @objeto
   end

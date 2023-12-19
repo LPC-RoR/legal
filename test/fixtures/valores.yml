@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  owner_class: MyString
+  owner_id: 1
+  variable_id: 1
+  c_string: MyString
+  c_text: MyText
+  c_fecha: 2023-12-18 18:07:46
+  c_numero: 9.99
+
+two:
+  owner_class: MyString
+  owner_id: 1
+  variable_id: 1
+  c_string: MyString
+  c_text: MyText
+  c_fecha: 2023-12-18 18:07:46
+  c_numero: 9.99

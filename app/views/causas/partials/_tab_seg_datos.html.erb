@@ -1,0 +1,27 @@
+<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'Causas', title: 'Datos', link_new: nil} %>
+
+<div class="shadow p-3 mb-3 bg-white rounded">
+	<% @variables.each do |variable| %>
+		<div class="row">
+			<div class="col-lg-6 col-xs-12">
+
+				<i class="bi bi-dot"></i> 
+
+				<%= render layout: '0p/collapse/link', locals: {label: 'FormValor', objeto: variable} do %>
+					<small><%= variable.variable %></small>
+				<% end %>
+
+			</div>
+
+			<div class="col-lg-6" align="<%=['Número', 'Monto pesos', 'Monto UF'].include?(variable.tipo) ? 'right' : 'left' %>">
+				<%= render partial: 'variables/list/valor_variable', locals: {objeto: variable, causa: objeto} %>
+			</div>
+		</div>
+
+		<%= render layout: '0p/collapse/display', locals: {label: 'FormValor', objeto: variable} do %> 
+		  	<%= render partial: 'causas/datos/form_valor', locals: {causa: objeto, variable: variable} %>
+		<% end %>
+
+	<% end %>
+
+</div>

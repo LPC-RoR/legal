@@ -2,7 +2,7 @@
 	<div class="col-lg-5 col-xs-12">
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos de la causa', link_new: nil} %>
 
-		<% unless @objeto.tar_tarifa.blank? %>
+		<% unless objeto.tar_tarifa.blank? %>
 			<% unless @coleccion['tar_facturaciones'].empty? %>
 				<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} %>
 			<% end %>
@@ -16,7 +16,7 @@
 
 		<hr>
 
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_archivos', title: 'Archivos', link_new: "/app_archivos/new?class_name=#{@objeto.class.name}&objeto_id=#{objeto.id}"} %>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_archivos', title: 'Archivos', link_new: "/app_archivos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}"} %>
 
 		<%= render partial: 'repositorios/app_archivos/partials/control_archivos', locals: {pendientes: @archivos_pendientes} %>
 
@@ -25,20 +25,8 @@
 		<%= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: objeto} %>
 	</div>
 	<div class="col-lg-7">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'Causas', title: 'Datos', link_new: nil} %>
 
-		<div class="shadow p-3 mb-3 bg-white rounded">
-		<div class="row">
-			<div class="col-lg-6 col-xs-12">
-				<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: objeto, tag: 'demandante'} %>
-				<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: objeto, tag: 'cargo'} %>	
-			</div>
-			<div class="col-lg-6">
-				<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: objeto, tag: 'sucursal'} %>
-				<%= render partial: 'causas/antecedentes/antecedente', locals: {objeto: objeto, tag: 'abogados'} %>	
-			</div>
-		</div>
-		</div>
+		<%= render partial: 'causas/partials/tab_seg_datos', locals: {objeto: objeto} %>
 
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Audiencias', link_new: nil} %>
 

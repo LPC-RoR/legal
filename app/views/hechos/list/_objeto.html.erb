@@ -1,0 +1,77 @@
+<div class="row">
+	<div class="col-lg-7 col-xs-12">
+		<div style="padding-left: 2em;">
+		<small>
+			<i class="bi bi-arrow-return-right"></i> 
+			<!--span class='text-muted'--><%= objeto.hecho %><!--/span--> 
+
+			<% unless objeto.cita.blank? %>
+			<a data-toggle="collapse" href="#collapseCita<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseCita<%=objeto.id%>">
+				<i class="bi bi-box-arrow-down"></i> 
+			</a>
+			<% end %>
+
+			<%= render partial: '0p/tabla/orderer', locals: {objeto: objeto } %> 
+
+			<i class="bi bi-dot"></i> 
+
+			<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
+
+			<% unless objeto.cita.blank? %>
+			<div class="collapse" id="collapseCita<%=objeto.id%>">
+			  <div class="card card-body">
+				</br>
+				<i class="text-muted">
+				<small>- <%= objeto.documento %> -</small></br>
+			    <%= objeto.cita %>
+			    </i>
+			  </div>
+			</div>
+			<% end %>
+
+		</small>
+		</div>
+	</div>
+	<div class="col-lg-5">
+		<small>
+			<span class="text-info"><i class="bi bi-files"></i> Documentos prueba</span> 
+
+
+			<a data-toggle="collapse" href="#collapseMasDocumento<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseMasDocumento<%=objeto.id%>">
+				<i class="bi bi-plus-circle"></i> 
+			</a> 
+
+			<a data-toggle="collapse" href="#collapseSelDocumento<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseSelDocumento<%=objeto.id%>">
+				<i class="bi bi-list-task"></i> 
+			</a></br> 
+
+			<div style="padding-left: 2em;">
+
+			<% objeto.hecho_docs.each do |hecho_doc| %>
+				<%= render partial: 'hecho_docs/list/lobjeto', locals: {objeto: hecho_doc} %></br>
+			<% end %>
+
+			</div>
+
+			<div class="collapse" id="collapseMasDocumento<%=objeto.id%>">
+			  <div class="card card-body">
+			  	<%= render partial: 'hechos/list/form_documento', locals: {objeto: objeto} %>
+			  </div>
+			</div>
+
+			<div class="collapse" id="collapseSelDocumento<%=objeto.id%>">
+			  <div class="card card-body">
+			  	<% objeto.tema.causa.app_documentos.order(:app_documento).each do |doc| %>
+			  		<small>
+			  			<i class="bi bi-dot"></i> 
+			  			<%= link_to "/hechos/#{objeto.id}/sel_documento?did=#{doc.id}" do %>
+				  			<%= doc.app_documento %>
+			  			<% end %>
+			  		</small></br>
+			  	<% end %>
+			  </div>
+			</div>
+
+		</small>
+	</div>
+</div>

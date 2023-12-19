@@ -24,7 +24,7 @@ module CptnTablaAppHelper
 			false
 		elsif ['regiones', 'comunas', 'org_regiones', 'org_empleados'].include?(controller)
 			false
-		elsif ['audiencias', 'variables', 'age_actividades', 'reunion-age_actividades', 'tarea-age_actividades', 'age_antecedentes'].include?(controller)
+		elsif ['audiencias', 'variables', 'age_actividades', 'reunion-age_actividades', 'tarea-age_actividades', 'age_antecedentes', 'temas', 'hechos'].include?(controller)
 			false
 		else
 			true
@@ -52,6 +52,8 @@ module CptnTablaAppHelper
 				admin? and objeto.estado == 'ingreso'
 			when 'MRegistro'
 				btn == 'Editar' and  ['m_periodos', 'm_items'].include?(controller_name)
+			when 'AppDocumento'
+				btn == 'Editar' ? true : false
 			else
 				true
 			end
