@@ -26,6 +26,8 @@ module CptnTablaAppHelper
 			false
 		elsif ['audiencias', 'variables', 'age_actividades', 'reunion-age_actividades', 'tarea-age_actividades', 'age_antecedentes', 'temas', 'hechos'].include?(controller)
 			false
+		elsif ['m_formatos', 'm_datos', 'm_elementos', 'm_conciliaciones'].include?(controller)
+			false
 		else
 			true
 		end
@@ -45,7 +47,7 @@ module CptnTablaAppHelper
 		else
 			case objeto.class.name
 			when 'AgeActividad'
-				btn == 'Editar' ? objeto.tipo != 'Audiencia' : true
+				true
 			when 'TarValorCuantia'
 				controller_name == 'causas' and @options[:menu] == 'Tarifa & Cuantía'
 			when 'Registro'

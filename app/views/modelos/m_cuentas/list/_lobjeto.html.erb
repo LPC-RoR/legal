@@ -1,13 +1,15 @@
 <div class="col-9">
 	<small>
 	<b><%= link_to objeto.m_cuenta, "/m_modelos?id=c_#{objeto.id}" %></b> : 
-	<% if objeto.m_formato.blank? %>
-		<a data-toggle="collapse" href="#collapseCuenta<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseCuenta<%=objeto.id%>">
-		sin formato
-		</a>
-	<% else %>
-		<%= objeto.m_formato.m_formato %>
-	<% end %>
+
+	<a data-toggle="collapse" href="#collapseCuenta<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseCuenta<%=objeto.id%>">
+		<% if objeto.m_formato.blank? %>
+			sin formato
+		<% else %>
+			<%= objeto.m_formato.m_formato %>
+		<% end %>
+	</a>
+
 	</small>
 </div>
 <div class="col-3" align='right'>

@@ -4,6 +4,7 @@
 
 <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_documentos', title: 'Documentos requeridos', link_new: nil } %>
 
+<% unless @coleccion['app_documentos'].empty? %>
 <div class="shadow p-3 mb-3 bg-white rounded">
 	<small>
 		<% @coleccion['app_documentos'].each do |doc| %>
@@ -11,3 +12,4 @@
 		<% end %>
 	</small>
 </div>
+<% end %>

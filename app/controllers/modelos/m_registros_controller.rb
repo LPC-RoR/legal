@@ -1,5 +1,5 @@
 class Modelos::MRegistrosController < ApplicationController
-  before_action :set_m_registro, only: %i[ show edit update destroy asigna asigna_factura]
+  before_action :set_m_registro, only: %i[ show edit update destroy asigna asigna_factura libera_factura ]
 
   # GET /m_registros or /m_registros.json
   def index
@@ -119,7 +119,15 @@ class Modelos::MRegistrosController < ApplicationController
       noticia = 'Error en la asignación: No se seleccionó factura'
     end
 
-    redirect_to @objeto, notice: noticia
+    redirect_to "/m_modelos?id=p_#{@objeto.m_periodo.id}", notice: noticia
+  end
+
+  def libera_factura
+    factura = TarFactura.find(params[:fid])
+
+    @objeto.tar_facturas.delete(factura)
+
+    redirect_to "/m_modelos?id=p_#{@objeto.m_periodo.id}", notice: 'Factura fue liberada exitósamente'
   end
 
   # DELETE /m_registros/1 or /m_registros/1.json

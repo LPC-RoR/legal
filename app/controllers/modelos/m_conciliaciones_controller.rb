@@ -80,7 +80,7 @@ class Modelos::MConciliacionesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.m_cuenta
+      @redireccion = "/m_modelos?id=c_#{@objeto.m_cuenta.id}"
     end
 
     # Only allow a list of trusted parameters through.

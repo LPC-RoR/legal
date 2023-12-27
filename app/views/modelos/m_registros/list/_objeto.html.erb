@@ -1,0 +1,69 @@
+<div class="row">
+<div class="col-2" align="right">
+	<small><b><%= s_pesos(objeto.monto) %></b></br><%= objeto.cargo_abono %></small>
+</div>
+<div class="col-5">
+	<small>
+		<b><%= dma(objeto.fecha) %></b></br><%= objeto.glosa_banco %>
+	</small>
+</div>
+<div class="col-5">
+
+	<small>
+	<a data-toggle="collapse" href="#collRegistro<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collRegistro<%=objeto.id%>">
+		<i class="bi bi-hand-index"></i>
+	</a>
+	<% if objeto.m_item.present? %>
+		<b class="text-info"><%= objeto.m_item.m_item %></b>
+	<% end %></br>
+
+	<% if objeto.cargo_abono == 'Abono' %>
+		<small>
+		<span class="text-info">
+			<% unless objeto.disponible == 0 %>
+				<%= "Disponible : #{s_pesos(objeto.disponible)}" %></br>
+			<% end %>
+		Facturas pagadas 
+		<% unless objeto.disponible == 0 %>
+			<a data-toggle="collapse" href="#collapseAsignaFactura" role="button" aria-expanded="false" aria-controls="collapseAsignaFactura">
+				<i class="bi bi-plus-circle"></i>
+			</a>
+		<% end %>
+		</span>
+		</small>
+
+		<div class="collapse" id="collapseAsignaFactura">
+		  <div class="card card-body">
+		  	<%= render partial: 'modelos/m_registros/partials/form_asigna_factura', locals: {objeto: objeto, facturadas: @facturadas} %>
+		  </div>
+		</div>
+
+		<%#= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturas'} %>
+		<% objeto.tar_facturas.order(:documento).each do |factura| %>
+			</br><small>
+				<i class="bi bi-dot"></i> <b><%= factura.documento %></b> : <%= dma(factura.fecha_factura) %> 
+				<%= link_to "/m_registros/#{objeto.id}/libera_factura?fid=#{factura.id}" do %>
+					<i class="bi bi-trash"></i>
+				<% end %>
+			</small>
+		<% end %>
+
+		
+	<% end %>
+
+	<div class="collapse" id="collRegistro<%=objeto.id%>">
+	  <div class="card card-body">
+
+			<% objeto.m_modelo.m_conceptos.order(:orden).each do |concepto| %>
+				<small><b><%= concepto.m_concepto %></b></small></br>
+				<% concepto.m_items.order(:orden).each do |item| %>
+					<small><i class="bi bi-dot"></i> <%= link_to item.m_item, "/m_registros/#{@objeto.id}/asigna?iid=#{item.id}" %></small></br>
+				<% end %>
+			<% end %>
+
+	  </div>
+	</div>
+	</small>
+	
+</div>
+</div>

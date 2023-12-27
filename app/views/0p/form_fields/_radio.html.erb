@@ -1,5 +1,5 @@
 <% radio_list.each_with_index do |radio, indice| %>
-	<small><%= form.label token, radio  %></small>
+	<small><%= form.label token, radio, value: radio %></small>
 	<% if indice == 0 %>
 		<%= form.radio_button token, radio, checked: true %>
 	<% else %>

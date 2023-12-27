@@ -2,9 +2,8 @@
 
 	<% if controller_name == 'age_actividades' %>
 	<div class="row">
-		<div class="col-lg-3 col-xs-12">
+		<div class="col-lg-6 col-xs-12">
 	<% end %>
-
 
 		<small>
 		<% if objeto.tipo == 'Audiencia' %>
@@ -16,16 +15,6 @@
 		<% end %> 
 		
 		<small><b><%= dma_hm(objeto.fecha) %></b></small>
-		</small>
-
-	<% if controller_name == 'age_actividades' %>
-		</div>
-		<div class="col-lg-3 col-xs-12">
-	<% else %>
-		</br>
-	<% end %>
-
-		<small>
 
 		<% if objeto.owner.present? and controller_name == 'age_actividades' %>
 			<%= link_to objeto.owner do %>
@@ -53,9 +42,13 @@
 			<i class="bi bi-box-arrow-down"></i> Participantes
 		</a>
 
-		<a data-toggle="collapse" href="#collapseAntecedentes<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseAntecedentes<%=objeto.id%>">
-			<i class="bi bi-box-arrow-down"></i> Antecedentes
-		</a>
+		<% if objeto.age_antecedentes.empty? %>
+			<i class="bi bi-exclamation-circle text-warning"></i> Sin antecedentes
+		<% else %>
+			<a data-toggle="collapse" href="#collapseAntecedentes<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseAntecedentes<%=objeto.id%>">
+				<i class="bi bi-box-arrow-down"></i> Antecedentes
+			</a>
+		<% end %>
 
 		</small></small>
 
@@ -84,19 +77,21 @@
 	  </div>
 	</div>
 
+	<% unless objeto.age_antecedentes.empty? %>
 	<div class="collapse" id="collapseAntecedentes<%=objeto.id%>">
 	  <div class="card card-body">
 	  	<small>
 	  	<% objeto.age_antecedentes.order(:orden).each do |antecedente| %>
 	  		<div class="row">
-	  			<div class="col-1">
+	  			<div class="col-2">
 	  				<%= render partial: '0p/tabla/orderer', locals: {objeto: antecedente} %>
 	  			</div>
-	  			<div class="col-11"><%= antecedente.age_antecedente %></div>
+	  			<div class="col-10"><i class="bi bi-dot"></i> <%= antecedente.age_antecedente %></div>
 	  		</div>
 	  	<% end %>
 	  	</small>
 	  </div>
 	</div>
+	<% end %>
 
 </div>

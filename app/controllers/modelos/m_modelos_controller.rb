@@ -27,6 +27,8 @@ class Modelos::MModelosController < ApplicationController
         abonos = @objeto.m_registros.any? ? @objeto.m_registros.where(cargo_abono: 'Abono').map {|reg| reg.monto}.sum : 0
         cargos = @objeto.m_registros.any? ? @objeto.m_registros.where(cargo_abono: 'Cargo').map {|reg| reg.monto}.sum : 0
         @totales = [['Facturado', facturado], ['Abonos', abonos], ['Cargos', -cargos]]
+
+        @facturadas = TarFactura.where(estado: 'facturada').order(:documento)
       end
 
     end

@@ -18,21 +18,6 @@
 
 	<%= render partial: 'causas/partials/tab_hechos', locals: {objeto: @objeto} %>
 
-	<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'temas', title: 'Temas', link_new: "/temas/new?cid=#{@objeto.id}" } %>
-
-	<%= render partial: '0p/tabla/tabla', locals: {c: 'temas'} %>
-
-	<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_documentos', title: 'Documentos requeridos', link_new: nil } %>
-
-	<div class="shadow p-3 mb-3 bg-white rounded">
-
-	<small>
-	<% @coleccion['app_documentos'].each do |doc| %>
-		<span class='text-muted'><%= render partial: 'repositorios/app_documentos/list/lobjeto', locals: {objeto: doc} %></span></br>
-	<% end %>
-	</small>
-	</div>
-
 <% elsif @options[:menu] == 'Tarifa & Cuantía' %>
 
 	<%= render partial: 'causas/partials/tab_tarifa_cuantia', locals: {objeto: @objeto} %>

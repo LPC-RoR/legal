@@ -88,6 +88,7 @@ module CptnHelper
 			'm_periodos' => 'calendar3',
 			'm_modelos' => 'piggy-bank',
 			'm_cuentas' => 'safe2',
+			'm_formatos' => 'file-spreadsheet',
 			'sb_listas' => 'list-nested',
 			'app_empresas' => 'buildings',
 			'app_administradores' => 'person-badge',

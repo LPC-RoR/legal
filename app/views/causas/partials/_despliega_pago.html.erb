@@ -17,14 +17,14 @@
 
 	<%= pago.tar_pago %> : 
 	<% if pago.moneda == 'Pesos' %>
-		<%= s_pesos(valor) %>
+		<%= s_pesos(pago.valor) %>
 	<% else %>
-		<%= objeto.uf_calculo_pago(pago).blank? ? 'UF de cálculo no ingresada' : s_pesos(valor * objeto.uf_calculo_pago(pago).valor) %>
+		<%= objeto.uf_calculo_pago(pago).blank? ? 'UF de cálculo no ingresada' : s_pesos(pago.valor * objeto.uf_calculo_pago(pago).valor) %>
 	<% end %> | 
 	<% if pago.moneda == 'Pesos' %>
-		<%= objeto.uf_calculo_pago(pago).blank? ? 'UF de cálculo no ingresada' : s_uf5(valor / objeto.uf_calculo_pago(pago).valor) %>
+		<%= objeto.uf_calculo_pago(pago).blank? ? 'UF de cálculo no ingresada' : s_uf5(pago.valor / objeto.uf_calculo_pago(pago).valor) %>
 	<% else %>
-		<%= s_uf5(valor) %>
+		<%= s_uf5(pago.valor) %>
 	<% end %>
 
 <% end %>

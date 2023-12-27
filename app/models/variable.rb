@@ -34,9 +34,13 @@ class Variable < ApplicationRecord
 
 	def valor_variable(causa)
 		valor = causa.valores_datos.find_by(variable_id: self.id)
-		campo = valor.c_string if self.tipo == 'Texto'
-		campo = valor.c_text if self.tipo == 'Párrafo'
-		campo = valor.c_numero if ['Número', 'Monto pesos', 'Monto UF'].include?(self.tipo)
+		unless valor.blank?
+			campo = valor.c_string if self.tipo == 'Texto'
+			campo = valor.c_text if self.tipo == 'Párrafo'
+			campo = valor.c_numero if ['Número', 'Monto pesos', 'Monto UF'].include?(self.tipo)
+		else
+			campo = nil
+		end
 		campo
 	end
 end

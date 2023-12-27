@@ -310,6 +310,7 @@ Rails.application.routes.draw do
     resources :m_registros do
       match :asigna, via: :get, on: :member
       match :asigna_factura, via: :post, on: :member
+      match :libera_factura, via: :get, on: :member
     end
     resources :m_campos
     resources :m_movimientos
