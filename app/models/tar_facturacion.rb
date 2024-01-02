@@ -34,6 +34,8 @@ class TarFacturacion < ApplicationRecord
 			self.owner.descripcion
 		when 'RegReporte'
 			self.owner.reg_reporte
+		when 'Asesoria'
+			self.owner.descripcion
 		else
 			self.owner.send(self.owner.class.name.downcase)
 		end
