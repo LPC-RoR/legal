@@ -14,4 +14,8 @@ class AppEnlace < ApplicationRecord
 		self.descripcion
 	end
 
+	def objeto_destino
+		self.owner
+	end
+
 end

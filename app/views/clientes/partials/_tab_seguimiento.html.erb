@@ -1,22 +1,18 @@
 <div class="row">
 	<div class="col-lg-6 col-xs-12">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_documentos', title: 'Documentos', link_new: "/app_documentos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}"} %>
 
-		<%= render partial: 'repositorios/app_documentos/partials/control_documentos', locals: {pendientes: @docs_pendientes} %>
 
-		<hr>
 
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_archivos', title: 'Archivos', link_new: "/app_archivos/new?class_name=#{@objeto.class.name}&objeto_id=#{objeto.id}"} %>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_repos', title: 'Documentos & archivos', link_new: nil} %>
 
-		<%= render partial: 'repositorios/app_archivos/partials/control_archivos', locals: {pendientes: @archivos_pendientes} %>
+		<%= render partial: 'clientes/partials/tab_seg_repositorio', locals: {objeto: objeto} %>
 
-		<hr>
 
-		<%= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: objeto} %>
+		<%#= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: objeto} %>
 	</div>
 	<div class="col-lg-6">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Reuniones', link_new: "/age_actividades/new?t=R&class_name=#{@objeto.class.name}&objeto_id=#{objeto.id}"} %>
 
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Tareas', link_new: "/age_actividades/new?t=T&class_name=#{@objeto.class.name}&objeto_id=#{objeto.id}"} %>
+		<%= render partial: 'clientes/partials/tab_seg_actividades', locals: {objeto: objeto} %>
+
 	</div>
 </div>

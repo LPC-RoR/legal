@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   resources :valores
-  resources :causa_docs
+  resources :causa_docs do
+    match :arriba, via: :get, on: :member
+    match :abajo, via: :get, on: :member
+    match :cambia_seleccion, via: :get, on: :member
+  end
   resources :hecho_docs do
     match :cambia_tag, via: :get, on: :member
   end

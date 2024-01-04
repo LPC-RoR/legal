@@ -1,10 +1,11 @@
-<div class="col-lg-9">
-	<small>
-		<i class="bi bi-box-arrow-up-right"></i> 
-		<b><%= link_to objeto.descripcion, objeto.enlace, target: '_blank' %></b>  
-	</small>
-</div>
-<div class="col-lg-3" align='right'>
-	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
-</div>
-
+<small>
+	<i class="bi bi-dot"></i> 
+	<% if objeto.enlace.present? %>
+		<%= link_to objeto.enlace, class: 'sb-link', target: :_blank do %>
+			<%= objeto.descripcion %> 
+		<% end %>
+	<% else %>
+		<%= objeto.descripcion %> 
+	<% end %>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+</small>

@@ -1,5 +1,11 @@
 <small>
-	<i class="bi bi-files"></i> 
+	<!-- Icono de AppDocumento: si es Documento Controlado cambia el Icono -->
+	<% if objeto.documento_control %>
+		<i class="bi bi-bookmark-check"></i>
+	<% else %>
+		<i class="bi bi-files"></i> 
+	<% end %>
+	<!-- Nombbre de AppDocumento: si hay archivos es link al más reciente -->
 	<% if objeto.d_version.present? %>
 		<%= link_to objeto.d_version.send('url'), class: 'sb-link', target: :_blank do %>
 			<%= objeto.app_documento %>
@@ -8,9 +14,7 @@
 		<%= objeto.app_documento %>
 	<% end %>
 
-	<% if objeto.documento_control %>
-		<i class="bi bi-bookmark-check"></i>
-	<% end %>
+	<!-- Despliege de Archivos del documento -->
 	<% if objeto.d_version.present? %>
 
 		<a data-toggle="collapse" href="#collapseArchivos<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseArchivos<%=objeto.id%>">
@@ -18,6 +22,8 @@
 		</a>
 
 	<% end %>
+
+	<!-- Agrega nuevo Archivo al documento -->
 	<%= link_to "/app_archivos/new?class_name=AppDocumento&objeto_id=#{objeto.id}", class: 'sb-link', title: 'Nuevo archivo', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 		<% if objeto.archivos.empty? %>
 			<i class="bi bi-plus-circle text-danger"></i>
@@ -25,6 +31,8 @@
 			<i class="bi bi-plus-circle"></i>
 		<% end %>
 	<% end %> | 
+
+	<!-- Botones crud del AppDocumento -->
 	<small>
 		<% unless objeto.documento_control and crud_conditions(objeto, 'Editar') == true %>
 			<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto} %>
@@ -34,6 +42,7 @@
 		<% end %>
 	</small>
 </small>
+
 <% if objeto.d_version.present? %>
 	<div class="collapse" id="collapseArchivos<%=objeto.id%>">
 	  <div class="card card-body">

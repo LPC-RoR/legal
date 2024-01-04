@@ -8,8 +8,8 @@
 </p>
 
 
-<% unless @coleccion['tarea-age_actividades'].empty?  %>
-	<% @coleccion['tarea-age_actividades'].each do |tarea| %>
+<% unless coleccion.empty?  %>
+	<% coleccion.each do |tarea| %>
 		<%= render partial: get_partial(tarea.class.name.tableize, 'list', "lobjeto") , locals: {objeto: tarea} %></br>
 	<% end %>
 <% end %>

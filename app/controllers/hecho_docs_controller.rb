@@ -1,5 +1,6 @@
 class HechoDocsController < ApplicationController
-  before_action :set_hecho_doc, only: %i[ cambia_tag ]
+  before_action :set_hecho_doc, only: %i[ cambia_tag arriba abajo ]
+  after_action :reordenar, only: :destroy
 
   def cambia_tag
     case @objeto.establece
@@ -16,6 +17,7 @@ class HechoDocsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_hecho_doc
       @objeto = HechoDoc.find(params[:id])

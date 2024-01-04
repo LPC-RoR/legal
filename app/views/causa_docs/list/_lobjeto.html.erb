@@ -1,0 +1,17 @@
+	<div class="col-2">
+		<small class="text-muted">
+			<%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %>
+		</small>
+	</div>
+	<div class="col-10">
+		<small class="text-muted">
+			<%= link_to "/causa_docs/#{objeto.id}/cambia_seleccion" do %>
+				<% if objeto.seleccionado %>
+					<i class="bi bi-check-circle"></i>
+				<% else %>
+					<i class="bi bi-x-circle text-danger"></i>
+				<% end %>
+			<% end %> 
+			<%= render partial: 'repositorios/app_documentos/list/lobjeto', locals: {objeto: objeto.app_documento} %>
+		</small>
+	</div>

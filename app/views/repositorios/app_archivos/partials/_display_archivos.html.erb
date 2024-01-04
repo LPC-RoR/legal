@@ -1,0 +1,37 @@
+<p class="text-info">
+	<small>
+		Archivos 
+		<% unless pendientes.empty? %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'ControlArchivos', objeto: nil} do %>
+				<i class="bi bi-arrow-bar-down"></i>
+			<% end %> 
+		<% end %> 
+
+		<%= link_to "/app_archivos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+	</small>
+</p>
+
+<% unless pendientes.empty? %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'ControlArchivos', objeto: nil} do %>
+
+		<small><p class="text-info">Control documentos</p></small>
+		<% pendientes.each do |pendiente| %>
+			<small class="text-muted">
+			<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/crea_documento_controlado?indice=#{pendiente}", title: 'Crea archivo', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<i class="bi bi-arrow-bar-left"></i>
+			<% end %> 
+			<%= pendiente %></br>
+			</small>
+		<% end %>
+
+	<% end %>
+<% end %>
+
+<% unless coleccion.empty? %>
+	<% coleccion.each do |archivo| %>
+		<%= render partial: get_partial(archivo.class.name.tableize, 'list', "lobjeto") , locals: {objeto: archivo} %></br>
+	<% end %>
+<% end %>
+</br>

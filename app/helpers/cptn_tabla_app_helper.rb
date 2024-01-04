@@ -55,7 +55,7 @@ module CptnTablaAppHelper
 			when 'MRegistro'
 				btn == 'Editar' and  ['m_periodos', 'm_items'].include?(controller_name)
 			when 'AppDocumento'
-				btn == 'Editar' ? true : false
+				btn == 'Editar' ? true : objeto.hechos.empty?
 			else
 				true
 			end

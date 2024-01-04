@@ -1,0 +1,27 @@
+<p class="text-info">
+<small>
+	Audiencias
+	<%= render layout: '0p/collapse/link', locals: {label: 'Audiencia', objeto: nil} do %>
+		<i class="bi bi-arrow-bar-down"></i>
+	<% end %>
+</small>
+</p>
+
+<% unless pendientes.empty? %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'Audiencia', objeto: nil} do %>
+		<% pendientes.each do |pendiente| %>
+			<small class="text-muted">
+			<%= link_to "/age_actividades/crea_audiencia?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}&label=#{pendiente}", title: "Crea #{pendiente}", 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<i class="bi bi-arrow-bar-down"></i>
+			<% end %> 
+			<%= pendiente %></br>
+			</small>
+		<% end %>
+	<% end %>
+<% end %>
+
+<% unless coleccion.empty? and pendientes.empty? %>
+	<% coleccion.each do |actividad| %>
+		<%= render partial: get_partial(actividad.class.name.tableize, 'list', "lobjeto") , locals: {objeto: actividad} %></br>
+	<% end %>
+<% end %>

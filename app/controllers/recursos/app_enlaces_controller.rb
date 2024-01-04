@@ -69,7 +69,13 @@ class Recursos::AppEnlacesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=2"
+      if @objeto.owner_id.blank?
+          @redireccion = "/tablas?tb=2"
+      elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.owner.class.name)
+        @redireccion = @objeto.owner
+      elsif ['Causa', 'Cliente'].include?(@objeto.objeto_destino.class.name)
+        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Seguimiento"
+      end
     end
 
     # Only allow a list of trusted parameters through.

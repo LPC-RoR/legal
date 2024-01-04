@@ -25,6 +25,7 @@ class CausasController < ApplicationController
 
       add_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       add_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
       add_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
       add_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
       add_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
@@ -40,6 +41,8 @@ class CausasController < ApplicationController
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
     elsif @options[:menu] == 'Hechos'
       init_tabla('temas', @objeto.temas.order(:orden), true)
+
+#      add_tabla('hecho_docs', @objeto.hecho_docs.order(:orden), false)
       add_tabla('app_documentos', @objeto.app_documentos.order(:app_documento), false)
     elsif @options[:menu] == 'Tarifa & Cuantía'
       init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
@@ -165,24 +168,18 @@ class CausasController < ApplicationController
   end
 
   def crea_documento_controlado
-    st_modelo = StModelo.find_by(st_modelo: @objeto.class.name)
-    unless st_modelo.blank?
-      control = st_modelo.control_documentos.find_by(nombre: params[:indice])
-      unless control.blank? 
-        AppDocumento.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_documento: control.nombre, existencia: control.control, documento_control: true)
-      end
+    control = @objeto.tipo_causa.control_documentos.find_by(nombre: params[:indice])
+    unless control.blank? 
+      AppDocumento.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_documento: control.nombre, existencia: control.control, documento_control: true)
     end
 
     redirect_to @objeto
   end
 
   def crea_archivo_controlado
-    st_modelo = StModelo.find_by(st_modelo: @objeto.class.name)
-    unless st_modelo.blank?
-      control = st_modelo.control_documentos.find_by(nombre: params[:indice])
-      unless control.blank? 
-        AppArchivo.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_archivo: control.nombre, control: control.control, documento_control: true)
-      end
+    control = @objeto.tipo_causa.control_documentos.find_by(nombre: params[:indice])
+    unless control.blank? 
+      AppArchivo.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_archivo: control.nombre, control: control.control, documento_control: true)
     end
 
     redirect_to @objeto

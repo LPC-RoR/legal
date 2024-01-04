@@ -57,8 +57,8 @@ class Cliente < ApplicationRecord
 		TarTarifa.where(owner_class: self.class.name).where(owner_id: self.id)
 	end
 
-	def tarifas_hora
-		TarHora.where(owner_class: self.class.name).where(owner_id: self.id)
+	def actividades
+		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
 	end
 
 	def servicios

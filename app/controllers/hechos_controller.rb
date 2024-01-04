@@ -73,11 +73,13 @@ class HechosController < ApplicationController
     redirect_to @objeto.redireccion
   end
 
+  # via: :post, on: :member Se usa desde un collapse en despliegue de Hechos
   def nuevo_documento
     unless params[:add_documento][:nombre].blank?
       documento = AppDocumento.create(app_documento: params[:add_documento][:nombre])
       causa = @objeto.tema.causa
-      causa.app_documentos << documento
+
+      causa.causa_docs.create(orden: causa.causa_docs.count + 1, app_documento_id: documento.id)
       @objeto.app_documentos << documento
     end
 
@@ -94,15 +96,18 @@ class HechosController < ApplicationController
     redirect_to "/causas/#{causa.id}?html_options[menu]=Hechos"
   end
 
+  # via: :get, on: :member Remueve un documeto de un hecho, y verifica si el documento es requerido en otro hecho antes de borrarlo
   def remueve_documento
     unless params[:did].blank?
       documento = AppDocumento.find(params[:did])
       causa = @objeto.tema.causa
-      if documento.hechos.count < 2
+
+      @objeto.app_documentos.delete(documento)
+
+      if documento.hechos.count == 0
         causa.app_documentos.delete(documento)
         documento.delete
       end
-      @objeto.app_documentos.delete(documento)
     end
 
     redirect_to "/causas/#{causa.id}?html_options[menu]=Hechos"

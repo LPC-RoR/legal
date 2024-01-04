@@ -10,19 +10,9 @@
 
 		<hr>
 
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_documentos', title: 'Documentos', link_new: "/app_documentos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}"} %>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_repos', title: 'Documentos, archivos & enlaces', link_new: nil} %>
 
-		<%= render partial: 'repositorios/app_documentos/partials/control_documentos', locals: {pendientes: @docs_pendientes} %>
-
-		<hr>
-
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_archivos', title: 'Archivos', link_new: "/app_archivos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}"} %>
-
-		<%= render partial: 'repositorios/app_archivos/partials/control_archivos', locals: {pendientes: @archivos_pendientes} %>
-
-		<hr>
-
-		<%= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: objeto} %>
+		<%= render partial: 'causas/partials/tab_seg_repositorio', locals: {objeto: objeto} %>
 	</div>
 	<div class="col-lg-7">
 

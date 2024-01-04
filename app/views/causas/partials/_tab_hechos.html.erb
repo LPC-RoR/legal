@@ -5,11 +5,11 @@
 <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_documentos', title: 'Documentos requeridos', link_new: nil } %>
 
 <% unless @coleccion['app_documentos'].empty? %>
-<div class="shadow p-3 mb-3 bg-white rounded">
-	<small>
-		<% @coleccion['app_documentos'].each do |doc| %>
-			<span class='text-muted'><%= render partial: 'repositorios/app_documentos/list/lobjeto', locals: {objeto: doc} %></span></br>
+	<div class="shadow p-3 mb-3 bg-white rounded">
+		<div class="row">
+		<% @objeto.causa_docs.order(:orden).each do |rel| %>
+				<%= render partial: 'causa_docs/list/lobjeto', locals: {objeto: rel} %>
 		<% end %>
-	</small>
-</div>
+		</div>
+	</div>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_18_210746) do
+ActiveRecord::Schema.define(version: 2024_01_04_142457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -356,8 +356,12 @@ ActiveRecord::Schema.define(version: 2023_12_18_210746) do
     t.integer "app_documento_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "orden"
+    t.boolean "seleccionado"
     t.index ["app_documento_id"], name: "index_causa_docs_on_app_documento_id"
     t.index ["causa_id"], name: "index_causa_docs_on_causa_id"
+    t.index ["orden"], name: "index_causa_docs_on_orden"
+    t.index ["seleccionado"], name: "index_causa_docs_on_seleccionado"
   end
 
   create_table "causas", force: :cascade do |t|
@@ -537,9 +541,11 @@ ActiveRecord::Schema.define(version: 2023_12_18_210746) do
     t.string "establece"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "orden"
     t.index ["app_documento_id"], name: "index_hecho_docs_on_app_documento_id"
     t.index ["establece"], name: "index_hecho_docs_on_establece"
     t.index ["hecho_id"], name: "index_hecho_docs_on_hecho_id"
+    t.index ["orden"], name: "index_hecho_docs_on_orden"
   end
 
   create_table "hechos", force: :cascade do |t|
