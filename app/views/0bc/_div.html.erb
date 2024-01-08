@@ -1,8 +1,0 @@
-<!-- DIV, me evita poner los div de boostrap cada vez-->
-<div class='row'>
-	<% hdiv.keys.each do |key_name| %>
-		<div class='col-md-<%=hdiv[key_name][0]%>'>
-			<%= render partial: hdiv[key_name][1] %>
-		</div>
-	<% end %>
-</div>

@@ -3,12 +3,12 @@
 		<div style="padding-left: 2em;">
 		<small class="text-muted">
 			<i class="bi bi-arrow-return-right"></i> 
-			<!--span class='text-muted'--><%= objeto.hecho %><!--/span--> 
+			<%= objeto.hecho %>
 
 			<% unless objeto.cita.blank? %>
-			<a data-toggle="collapse" href="#collapseCita<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseCita<%=objeto.id%>">
+			<%= render layout: '0p/collapse/link', locals: {label: 'Cita', objeto: objeto} do %>
 				<i class="bi bi-box-arrow-down"></i> 
-			</a>
+			<% end %>
 			<% end %>
 
 			<%= render partial: '0p/tabla/orderer', locals: {objeto: objeto } %> 
@@ -18,15 +18,12 @@
 			<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
 
 			<% unless objeto.cita.blank? %>
-			<div class="collapse" id="collapseCita<%=objeto.id%>">
-			  <div class="card card-body">
-				</br>
-				<i class="text-muted">
-				<small>- <%= objeto.documento %> -</small></br>
-			    <%= objeto.cita %>
-			    </i>
-			  </div>
-			</div>
+				<%= render layout: '0p/collapse/display', locals: {label: 'Cita', objeto: objeto} do %>
+					<i class="text-muted">
+					<small>- <%= objeto.documento %> -</small></br>
+				    <%= objeto.cita %>
+				    </i>
+				<% end %>
 			<% end %>
 
 		</small>
@@ -37,13 +34,13 @@
 			<span class="text-info"><i class="bi bi-files"></i> Documentos prueba</span> 
 
 
-			<a data-toggle="collapse" href="#collapseMasDocumento<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseMasDocumento<%=objeto.id%>">
+			<%= render layout: '0p/collapse/link', locals: {label: 'MasDocumento', objeto: objeto} do %>
 				<i class="bi bi-plus-circle"></i> 
-			</a> 
+			<% end %>
 
-			<a data-toggle="collapse" href="#collapseSelDocumento<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseSelDocumento<%=objeto.id%>">
+			<%= render layout: '0p/collapse/link', locals: {label: 'SelDocumento', objeto: objeto} do %>
 				<i class="bi bi-list-task"></i> 
-			</a></br> 
+			<% end %></br> 
 
 			<div style="padding-left: 2em;">
 
@@ -53,14 +50,11 @@
 
 			</div>
 
-			<div class="collapse" id="collapseMasDocumento<%=objeto.id%>">
-			  <div class="card card-body">
-			  	<%= render partial: 'hechos/list/form_documento', locals: {objeto: objeto} %>
-			  </div>
-			</div>
+			<%= render layout: '0p/collapse/display', locals: {label: 'MasDocumento', objeto: objeto} do %>
+				<%= render partial: 'hechos/list/form_documento', locals: {objeto: objeto} %>
+			<% end %>
 
-			<div class="collapse" id="collapseSelDocumento<%=objeto.id%>">
-			  <div class="card card-body">
+			<%= render layout: '0p/collapse/display', locals: {label: 'SelDocumento', objeto: objeto} do %>
 			  	<% objeto.tema.causa.app_documentos.order(:app_documento).each do |doc| %>
 			  		<small>
 			  			<i class="bi bi-dot"></i> 
@@ -69,8 +63,7 @@
 			  			<% end %>
 			  		</small></br>
 			  	<% end %>
-			  </div>
-			</div>
+			<% end %>
 
 		</small>
 	</div>

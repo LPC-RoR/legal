@@ -28,17 +28,15 @@
 			<p class="text-info">
 			Facturas pagadas 
 			<% unless @objeto.disponible == 0 %>
-				<a data-toggle="collapse" href="#collapseAsignaFactura" role="button" aria-expanded="false" aria-controls="collapseAsignaFactura">
+				<%= render layout: '0p/collapse/link', locals: {label: 'AsignaFactura', objeto: nil} do %>
 					<i class="bi bi-plus-circle"></i>
-				</a>
+				<% end %>
 			<% end %>
 			</p>
 
-			<div class="collapse" id="collapseAsignaFactura">
-			  <div class="card card-body">
-			  	<%= render partial: 'modelos/m_registros/partials/form_asigna_factura', locals: {objeto: @objeto, facturadas: @facturadas} %>
-			  </div>
-			</div>
+			<%= render layout: '0p/collapse/display', locals: {label: 'AsignaFactura', objeto: nil} do %>
+				<%= render partial: 'modelos/m_registros/partials/form_asigna_factura', locals: {objeto: @objeto, facturadas: @facturadas} %>
+			<% end %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturas'} %>
 

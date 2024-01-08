@@ -2,6 +2,7 @@ module CptnMapHelper
 
 	## ------------------------------------------------------- LAYOUTS
 
+	## DEPRECATED	 Ya NO usaré Lyouts distintos
 	def get_layout
 		if bandeja_display?
 			'Bandejas'
@@ -62,6 +63,7 @@ module CptnMapHelper
 	end
 
 	## -------------------------------------------------------- BANDEJAS
+	## EN REVISIÓN, se eliminó el uso de layouts, hay que revisar manejo de estados
 
 	# desde controller/concern/map
 	# def bandeja_controllers

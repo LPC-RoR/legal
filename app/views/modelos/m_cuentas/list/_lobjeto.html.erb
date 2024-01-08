@@ -2,13 +2,13 @@
 	<small>
 	<b><%= link_to objeto.m_cuenta, "/m_modelos?id=c_#{objeto.id}" %></b> : 
 
-	<a data-toggle="collapse" href="#collapseCuenta<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseCuenta<%=objeto.id%>">
+	<%= render layout: '0p/collapse/link', locals: {label: 'Cuenta', objeto: objeto} do %>
 		<% if objeto.m_formato.blank? %>
 			sin formato
 		<% else %>
 			<%= objeto.m_formato.m_formato %>
 		<% end %>
-	</a>
+	<% end %>
 
 	</small>
 </div>
@@ -16,8 +16,6 @@
 	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
 </div>
 
-<div class="collapse" id="collapseCuenta<%=objeto.id%>">
-  <div class="card card-body">
-  	<%= render partial: 'modelos/m_cuentas/partials/form_formato', locals: {objeto: objeto} %>
-  </div>
-</div>
+<%= render layout: '0p/collapse/display', locals: {label: 'Cuenta', objeto: objeto} do %>
+	<%= render partial: 'modelos/m_cuentas/partials/form_formato', locals: {objeto: objeto} %>
+<% end %>

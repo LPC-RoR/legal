@@ -1,9 +1,0 @@
-<% if antecedente.split(';').length == 1 %>
-	<%= antecedente %>
-<% else %>
-	<ul class='text-muted'>
-		<% antecedente.split(';').each do |elemento| %>
-			<li><%= elemento.strip %></li>
-		<% end %>
-	</ul>
-<% end %>

@@ -2,6 +2,7 @@ module Map
 	extend ActiveSupport::Concern
 
 	## -------------------------------------------------------- BANDEJAS
+	## EN REVISION, Se eliminó el usi de templates, hay que reformular Manejo de estados
 
 	def bandeja_prefixs
 		[]

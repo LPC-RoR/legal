@@ -1,3 +1,7 @@
+<%#= render layout: '0p/collapse/link', locals: {label: 'label', objeto: nil} do %>
+	<!-- ... -->
+<%# end %>
+
 <a data-toggle="collapse" href="#<%=label%><%= objeto.blank? ? nil : objeto.id%>" role="button" aria-expanded="false" aria-controls="<%=label%><%= objeto.blank? ? nil : objeto.id%>%>">
 	<%= yield %>  
 </a>

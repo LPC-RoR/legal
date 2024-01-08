@@ -1,20 +1,20 @@
-<% if ['Bandejas', 'Menu', 'Mensajes'].include?(get_layout) %>
-	<div class='row'>
-		<div class='col-md-2'>
-			<% case get_layout %>
-			<% when 'Bandejas' %>
-				<%= render partial: get_partial('st_bandejas', 'partials', 'bandeja') %>
-			<% when 'Menu' %>
-				<%= render partial: get_partial('sidebar', 'partials', 'menu_display'), locals: {sb_list: @sb_elementos, name_list: @sb_name, sb_link: @sb_link } %>
-			<% when 'Mensajes' %>
-				<%= render partial: get_partial('app_mensajes', 'partials', 'bandeja') %>
-			<% end %>
-		</div>
-		<div class='col-md-10'>
-			<%= yield %>
-		</div>
-	</div>
+<div class="container-fluid">
+	<div class="app_body" style="padding-left: <%=padd%>%; padding-right: <%=padd%>%; margin-bottom: 1px;">
 
-<% else %>
-    <%= yield %>
-<% end %>
+		<%= render partial: 'layouts/partials/notice_alert' %>
+
+		<% if config[:layout][:menu_left] and menu_left?(controller_name).present? and controller_name != 'servicios' %>
+			<div class="row">
+				<div class="col-3">
+					<%= render partial: '0p/lmenu/lmenu' %>
+				</div>
+				<div class="col-9">
+					<%= yield %>
+				</div>
+			</div>
+		<% else %>
+			<%= yield %>
+		<% end %>
+
+	</div>
+</div>

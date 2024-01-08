@@ -38,16 +38,16 @@
 
 		<small><small>
 
-		<a data-toggle="collapse" href="#collapseParticipantes<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseParticipantes<%=objeto.id%>">
+		<%= render layout: '0p/collapse/link', locals: {label: 'Participantes', objeto: objeto} do %>
 			<i class="bi bi-box-arrow-down"></i> Participantes
-		</a>
+		<% end %>
 
 		<% if objeto.age_antecedentes.empty? %>
 			<i class="bi bi-exclamation-circle text-warning"></i> Sin antecedentes
 		<% else %>
-			<a data-toggle="collapse" href="#collapseAntecedentes<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseAntecedentes<%=objeto.id%>">
+			<%= render layout: '0p/collapse/link', locals: {label: 'Antecedentes', objeto: objeto} do %>
 				<i class="bi bi-box-arrow-down"></i> Antecedentes
-			</a>
+			<% end %>
 		<% end %>
 
 		</small></small>
@@ -71,27 +71,14 @@
 	</div>
 	<% end %>
 
-	<div class="collapse" id="collapseParticipantes<%=objeto.id%>">
-	  <div class="card card-body">
+	<%= render layout: '0p/collapse/display', locals: {label: 'Participantes', objeto: objeto} do %>
 	  	<%= render partial: 'age_actividades/list/participantes', locals: {objeto: objeto} %>
-	  </div>
-	</div>
+	<% end %>
 
 	<% unless objeto.age_antecedentes.empty? %>
-	<div class="collapse" id="collapseAntecedentes<%=objeto.id%>">
-	  <div class="card card-body">
-	  	<small>
-	  	<% objeto.age_antecedentes.order(:orden).each do |antecedente| %>
-	  		<div class="row">
-	  			<div class="col-2">
-	  				<%= render partial: '0p/tabla/orderer', locals: {objeto: antecedente} %>
-	  			</div>
-	  			<div class="col-10"><i class="bi bi-dot"></i> <small><%= antecedente.age_antecedente %></small></div>
-	  		</div>
-	  	<% end %>
-	  	</small>
-	  </div>
-	</div>
+		<%= render layout: '0p/collapse/display', locals: {label: 'Antecedentes', objeto: objeto} do %>
+			<%= render partial: 'age_actividades/list/display_antecedentes', locals: {objeto: objeto} %>
+		<% end %>
 	<% end %>
 
 </div>

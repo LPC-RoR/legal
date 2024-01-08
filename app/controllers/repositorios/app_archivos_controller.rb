@@ -67,7 +67,7 @@ class Repositorios::AppArchivosController < ApplicationController
     def set_redireccion
       if ['AppDirectorio', 'TarFactura'].include?(@objeto.owner.class.name)
         @redireccion = @objeto.owner
-      elsif ['app_documento'].include?(@objeto.owner.class.name)
+      elsif ['AppDocumento'].include?(@objeto.owner.class.name)
         @redireccion = "/#{@objeto.owner.objeto_destino.class.name.tableize.downcase}/#{@objeto.owner.objeto_destino.id}?html_options[menu]=Seguimiento"
       elsif ['Causa', 'Cliente'].include?(@objeto.objeto_destino.class.name)
         @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Seguimiento"

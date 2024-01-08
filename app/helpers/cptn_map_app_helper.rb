@@ -8,6 +8,7 @@ module CptnMapAppHelper
 		controller_name == 'servicios' and action_name == 'aprobacion'
 	end
 
+	# DEPRECATED 	Ya NO usaré layouts, la idea es explorar pneles removibles
 	def app_get_layout
 		'General'
 	end

@@ -1,6 +1,6 @@
 <p class="text-info">
 	<small>
-		Documentos 
+		<b>Documentos</b>
 		<% unless pendientes.empty? %>
 			<%= render layout: '0p/collapse/link', locals: {label: 'ControlDocumento', objeto: nil} do %>
 				<i class="bi bi-arrow-bar-down"></i>
@@ -28,9 +28,13 @@
 	<% end %>
 <% end %>
 
-<% unless coleccion.empty? %>
-	<% coleccion.each do |documento| %>
-		<%= render partial: get_partial(documento.class.name.tableize, 'list', "lobjeto") , locals: {objeto: documento} %></br>
+<div style="padding-left: 1em">
+	<% unless coleccion.empty? %>
+		<div class="row">
+			<% coleccion.each do |documento| %>
+				<%= render partial: get_partial(documento.class.name.tableize, 'list', "lobjeto") , locals: {objeto: documento} %></br>
+			<% end %>
+		</div>
 	<% end %>
-<% end %>
+</div> 
 </br>

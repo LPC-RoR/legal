@@ -1,14 +1,19 @@
 <small>
 <div class="list-item">
-
-	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
-	<%= objeto.d_rut %> | <%= link_to objeto.razon_social, objeto, title: 'Detalle Cliente', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> | 
-	<small>
-	<%= link_to "/servicios/organizacion?oid=#{objeto.id}", title: 'Organización', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-		<i class="bi bi-diagram-3"></i>
-	<% end %>
-	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
-	</small>
-
+	<div class="row">
+		<div class="col-10">
+			<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
+			<%= objeto.d_rut %></br>
+			<%= link_to objeto.razon_social, objeto, title: 'Detalle Cliente', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> 
+			<small>
+			<%= link_to "/servicios/organizacion?oid=#{objeto.id}", title: 'Organización', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<i class="bi bi-diagram-3"></i>
+			<% end %>
+			</small>
+		</div>
+		<div class="col-2" align="right">
+			<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
+		</div>
+	</div>
 </div>
 </small>

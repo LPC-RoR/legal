@@ -1,13 +1,4 @@
-<!-- Pago Collapse DESACTIVADO por cambio a asignación de registros -->
 <small>
-<% if objeto.estado == 'DESACTIVADA' %>
-	<p>
-		<a data-toggle="collapse" href="#collapsePagar" role="button" aria-expanded="false" aria-controls="collapsePagar">
-	    	Detalle del pago
-		</a>
-	</p>
-<% end %>
-
 <% unless objeto.m_registros.empty? %>
 	Detalle de pago :
 	<ul>
@@ -15,14 +6,5 @@
 			<li><%= dma(mrf.tar_factura.fecha_factura) %> | <%= s_pesos(mrf.monto) %></li>
 		<% end %>
 	</ul>
-<% end %>
-
-
-<% if objeto.estado == 'facturada' %>
-	<div class="collapse" id="collapsePagar">
-	  <div class="card card-body">
-		<%= render partial: 'tarifas/tar_facturas/partials/form_pago', locals: {objeto: objeto} %>
-	  </div>
-	</div>
 <% end %>
 </small>

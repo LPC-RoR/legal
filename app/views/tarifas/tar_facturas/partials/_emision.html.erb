@@ -1,9 +1,9 @@
 <!-- Facturación -->
 <p>
 	<% if objeto.estado == 'ingreso' %>
-	<a data-toggle="collapse" href="#collapseEmitir" role="button" aria-expanded="false" aria-controls="collapseEmitir">
-    	Factura
-	</a>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Emitir', objeto: nil} do %>
+			Factura
+		<% end %>
 	<% else %>
 		Factura
 	<% end %>: 
@@ -27,24 +27,20 @@
 
 	<% if objeto.estado == 'facturada' and objeto.tar_nota_credito.blank? %>
 	 | 
-		<a data-toggle="collapse" href="#collapseNotaCredito" role="button" aria-expanded="false" aria-controls="collapseNotaCredito">
-		    crea nota de crédito
-		</a>
+		<%= render layout: '0p/collapse/link', locals: {label: 'NotaCredito', objeto: nil} do %>
+			crea nota de crédito
+		<% end %>
 
-		<div class="collapse" id="collapseNotaCredito">
-		  <div class="card card-body">
-	  		<%= render partial: 'tarifas/tar_facturas/list/form_nota_credito', locals: {objeto: objeto} %>
-		  </div>
-		</div>
+		<%= render layout: '0p/collapse/display', locals: {label: 'NotaCredito', objeto: nil} do %>
+			<%= render partial: 'tarifas/tar_facturas/list/form_nota_credito', locals: {objeto: objeto} %>
+		<% end %>
 	<% end %>
 	<% if objeto.estado=='pagada' and objeto.tar_nota_credito.present? %>
 		<%= link_to 'elimina_nota_credito', "/tar_facturas/#{objeto.id}/elimina_nota_credito" %>
 	<% end %>
 </p>
 <% if objeto.estado == 'ingreso' %>
-	<div class="collapse" id="collapseEmitir">
-	  <div class="card card-body">
+	<%= render layout: '0p/collapse/display', locals: {label: 'Emitir', objeto: nil} do %>
 		<%= render partial: 'tarifas/tar_facturas/partials/form_emision', locals: {objeto: objeto} %>
-	  </div>
-	</div>
+	<% end %>
 <% end %>

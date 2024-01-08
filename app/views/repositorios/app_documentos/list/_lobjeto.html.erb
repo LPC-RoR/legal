@@ -1,61 +1,53 @@
-<small>
-	<!-- Icono de AppDocumento: si es Documento Controlado cambia el Icono -->
-	<% if objeto.documento_control %>
-		<i class="bi bi-bookmark-check"></i>
-	<% else %>
-		<i class="bi bi-files"></i> 
-	<% end %>
-	<!-- Nombbre de AppDocumento: si hay archivos es link al más reciente -->
-	<% if objeto.d_version.present? %>
-		<%= link_to objeto.d_version.send('url'), class: 'sb-link', target: :_blank do %>
+<div class="col-10">
+	<small class="text-muted">
+		<!-- Icono de AppDocumento: si es Documento Controlado cambia el Icono -->
+		<% if objeto.documento_control %>
+			<i class="bi bi-file-check"></i>
+		<% else %>
+			<i class="bi bi-files"></i> 
+		<% end %> 
+		<!-- Nombbre de AppDocumento: si hay archivos es link al más reciente -->
+		<% if objeto.d_version.present? %>
+			<%= link_to objeto.d_version.send('url'), class: 'sb-link', target: :_blank do %>
+				<%= objeto.app_documento %>
+			<% end %>
+		<% else %>
 			<%= objeto.app_documento %>
 		<% end %>
-	<% else %>
-		<%= objeto.app_documento %>
-	<% end %>
 
-	<!-- Despliege de Archivos del documento -->
-	<% if objeto.d_version.present? %>
+		<!-- Despliege de Archivos del documento -->
+		<% if objeto.d_version.present? %>
 
-		<a data-toggle="collapse" href="#collapseArchivos<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseArchivos<%=objeto.id%>">
-			<i class="bi bi-box-arrow-down"></i>
-		</a>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Archivos', objeto: objeto} do %>
+				<i class="bi bi-box-arrow-down"></i>
+			<% end %>
 
-	<% end %>
-
-	<!-- Agrega nuevo Archivo al documento -->
-	<%= link_to "/app_archivos/new?class_name=AppDocumento&objeto_id=#{objeto.id}", class: 'sb-link', title: 'Nuevo archivo', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-		<% if objeto.archivos.empty? %>
-			<i class="bi bi-plus-circle text-danger"></i>
-		<% else %>
-			<i class="bi bi-plus-circle"></i>
 		<% end %>
-	<% end %> | 
 
-	<!-- Botones crud del AppDocumento -->
-	<small>
+		<!-- Agrega nuevo Archivo al documento -->
+		<%= link_to "/app_archivos/new?class_name=AppDocumento&objeto_id=#{objeto.id}", class: 'sb-link', title: 'Nuevo archivo', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+			<% if objeto.archivos.empty? %>
+				<i class="bi bi-plus-circle text-danger"></i>
+			<% else %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		<% end %>
+	</small>
+
+	<% if objeto.d_version.present? %>
+		</br>
+		<%= render layout: '0p/collapse/display', locals: {label: 'Archivos', objeto: objeto} do %>
+			<%= render partial: 'repositorios/app_documentos/list/display_archivos', locals: {objeto: objeto} %>
+		<% end %>
+	<% end %>
+</div>
+<div class="col-2" align="right">
+	<small><small>
 		<% unless objeto.documento_control and crud_conditions(objeto, 'Editar') == true %>
 			<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto} %>
 		<% end %>
 		<% if objeto.archivos.empty? and crud_conditions(objeto, 'Eliminar') %>
 			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
 		<% end %>
-	</small>
-</small>
-
-<% if objeto.d_version.present? %>
-	<div class="collapse" id="collapseArchivos<%=objeto.id%>">
-	  <div class="card card-body">
-  		<small class="text-info">
-  			<b>Archivos</b></br>
-	  	<% objeto.archivos.order(created_at: :desc).each do |archivo| %>
-	  		<i class="bi bi-files"></i> 
-	  		<%= archivo.app_archivo %> | 
-	  		<small>
-	  			<%= render partial: '0p/tabla/links_e', locals: {objeto: archivo} %>
-	  		</small></br>
-	  	<% end %>
-	  	</small>
-	  </div>
-	</div>
-<% end %>
+	</small></small>		
+</div>

@@ -1,0 +1,19 @@
+<div class="pago" style="padding-left: 2em; padding-right: 1em;">
+	<% objeto.facturaciones.order(:created_at).each do |facturacion| %>
+		<i class="bi bi-dot"></i> 
+		<b><%= facturacion.pago.blank? ? '-' : facturacion.pago.tar_pago %> : <%= s_pesos(facturacion.monto_pesos) %></b></br>
+		<% if facturacion.tar_aprobacion.present? %>
+			<%= link_to facturacion.tar_aprobacion do %>
+				<i class="bi bi-check-all"></i> 
+				<%= dma(facturacion.tar_aprobacion.fecha) %>
+			<% end %>
+		<% end %>
+		<% if facturacion.tar_factura.present? %>
+			<%= link_to facturacion.tar_factura do %>
+				<i class="bi bi-receipt"></i> 
+				<%= dma(facturacion.tar_factura.fecha_factura) %> 
+				<%= facturacion.tar_factura.estado %>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>

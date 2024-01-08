@@ -16,10 +16,10 @@
 	<% if objeto.monto_pesos == 0 %>
 	-
 	<% else %>
-		<a data-toggle="collapse" href="#collapseFactura<%=objeto.id%>" role="button" aria-expanded="false" aria-controls="collapseFactura<%=objeto.id%>">
+		<%= render layout: '0p/collapse/link', locals: {label: 'Factura', objeto: objeto} do %>
 			<i class="bi bi-box-arrow-down"></i> 
 			<b><%= s_pesos(objeto.monto_pesos) %></b>
-		</a>
+		<% end %>
 	<% end %>
 	<% unless objeto.tar_nota_credito.blank? %>
 		 | <b class="text-danger"><%= objeto.tar_nota_credito.monto_total ? s_pesos(objeto.monto_pesos) : s_pesos(objeto.tar_nota_credito.monto) %></b>
@@ -27,13 +27,13 @@
 	</br>
 
 	<% unless objeto.monto_pesos == 0 %>
-		<div class="collapse" id="collapseFactura<%=objeto.id%>">
+		<%= render layout: '0p/collapse/display', locals: {label: 'Factura', objeto: objeto} do %>
 		  <div style="padding-left: 2em; padding-right: 1em;">
 			<% objeto.tar_facturaciones.each do |facturacion| %>
 				<i class="bi bi-dot"></i> <%= facturacion.glosa %></br><b><%= s_pesos(facturacion.monto_pesos) %></b></br>
 			<% end %>
 		  </div>
-		</div>
+		<% end %>
 	<% end %>
 
 	<%= link_to 'libera factura', "/tar_facturas/#{objeto.id}/libera_factura" if objeto.estado == 'ingreso' %>

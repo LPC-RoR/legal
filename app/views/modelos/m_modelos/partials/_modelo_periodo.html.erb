@@ -12,9 +12,9 @@
 
 	<% concepto.m_items.order(:orden).each do |item| %>
 		<div class="col-lg-6" style='padding-left: 1em'>
-			<a data-toggle="collapse" href="#collapseItem<%=item.id%>" role="button" aria-expanded="false" aria-controls="collapseItem<%=item.id%>">
+			<%= render layout: '0p/collapse/link', locals: {label: 'Item', objeto: item} do %>
 				<small><i class="bi bi-dot"></i> <%= item.m_item %></small>
-			</a>
+			<% end %>
 		</div>
 		<div class="col-lg-3 text-right">
 			<small><%= item.total_periodo(objeto) == 0 ? '-' : s_pesos(item.total_periodo(objeto)) %></small>
@@ -24,16 +24,14 @@
 		</div>
 
 		<div class="col-lg-12">
-			<div class="collapse" id="collapseItem<%=item.id%>">
-			  <div class="card card-body">
+			<%= render layout: '0p/collapse/display', locals: {label: 'Item', objeto: item} do %>
 			  	<% objeto.m_registros.where(m_item_id: item.id).order(fecha: :desc).each do |reg| %>
 			  		<small><small>
 			  			<%= reg.glosa_banco %> | 
 			  			<b><%= s_pesos(reg.monto) %></b></br>
 			  		</small></small>
 			  	<% end %>
-			  </div>
-			</div>							
+			<% end %>
 		</div>
 	<% end %>
 <% end %>
