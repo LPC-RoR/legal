@@ -5,7 +5,7 @@
 <% unless @coleccion['age_actividades'].empty? %>
 <div class="shadow p-3 mb-3 bg-white rounded">
   <% @coleccion['age_actividades'].each do |actividad| %>
-    <%= render partial: 'age_actividades/list/lobjeto', locals: {objeto: actividad} %>
+    <%= render partial: 'age_actividades/list/tbobjeto', locals: {objeto: actividad} %>
   <% end %>
 </div>
 <% end %>

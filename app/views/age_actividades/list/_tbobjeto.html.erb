@@ -1,0 +1,96 @@
+<div style="padding-left: 1em; padding-right: 1em;">
+
+	<div class="row">
+		<div class="col-lg-7 col-xs-12">
+
+			<small>
+
+				<i class="bi bi-calendar-check"></i> 
+				<small><b><%= dma_hm(objeto.fecha) %></b></small>
+
+				<i class="bi bi-arrow-right"></i>
+
+				<% if objeto.tipo == 'Audiencia' %>
+					<i class="bi bi-bank2"></i>
+				<% elsif objeto.tipo == 'Reunión' %>
+					<i class="bi bi-people"></i>
+				<% elsif objeto.tipo == 'Tarea' %>
+					<i class="bi bi-list-check"></i>
+				<% end %> 
+				<%= objeto.age_actividad %>
+			
+				</br>
+
+				<div style="padding-left: 1em">
+					<small class="text-info">
+					<% if objeto.owner.present? and controller_name == 'age_actividades' %>
+						<%= link_to objeto.owner do %>
+							<i class="bi bi-<%=controller_icon[objeto.owner.class.name.tableize]%>"></i> 
+							<% case objeto.owner.class.name %>
+							<% when 'Causa' %>
+								<%= objeto.owner.rit %>
+							<% when 'Cliente' %>
+								<%= objeto.razon_social %>
+							<% end %>
+						<% end %>
+					<% end %>
+
+					<%# if objeto.app_perfil_id == perfil_activo.id %>
+						<!--i class="bi bi-person-circle"></i--> 
+					<%# end %>
+					</small>
+				</div>
+
+			</small>
+
+		</div>
+		<div class="col-lg-5 col-xs-12">
+
+			<small><small class="text-info">
+
+				Participantes 
+
+				<%= render layout: '0p/collapse/link', locals: {label: 'Participantes', objeto: objeto} do %>
+					<i class="bi bi-box-arrow-down"></i>
+				<% end %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'NuevoParticipante', objeto: objeto} do %>
+					<i class="bi bi-plus-circle"></i> 
+				<% end %>
+
+
+
+				<% if objeto.age_antecedentes.empty? %>
+					<i class="bi bi-exclamation-circle text-danger"></i> Sin antecedentes
+				<% else %>
+					Antecedentes 
+					<%= render layout: '0p/collapse/link', locals: {label: 'Antecedentes', objeto: objeto} do %>
+						<i class="bi bi-box-arrow-down"></i>
+					<% end %>
+				<% end %>
+
+				<%= render layout: '0p/collapse/link', locals: {label: 'NuevoAntecedente', objeto: objeto} do %>
+					<i class="bi bi-plus-circle"></i> 
+				<% end %>
+			</small></small>
+
+		</div>
+	</div>
+
+	<%= render layout: '0p/collapse/display', locals: {label: 'Participantes', objeto: objeto} do %>
+	  	<%= render partial: 'age_actividades/list/participantes', locals: {objeto: objeto} %>
+	<% end %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'NuevoParticipante', objeto: objeto} do %>
+	  	<%= render partial: 'age_actividades/list/nuevo_participante', locals: {objeto: objeto} %>
+	<% end %>
+
+	<% unless objeto.age_antecedentes.empty? %>
+		<%= render layout: '0p/collapse/display', locals: {label: 'Antecedentes', objeto: objeto} do %>
+			<%= render partial: 'age_actividades/list/display_antecedentes', locals: {objeto: objeto} %>
+		<% end %>
+	<% end %>
+
+	<%= render layout: '0p/collapse/display', locals: {label: 'NuevoAntecedente', objeto: objeto} do %>
+	  	<%= render partial: 'age_actividades/list/form_antecedente', locals: {objeto: objeto} %>
+	<% end %>
+
+</div>

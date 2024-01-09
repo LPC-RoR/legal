@@ -1,5 +1,5 @@
 class AgeAntecedentesController < ApplicationController
-  before_action :set_age_antecedente, only: %i[ show edit update destroy ]
+  before_action :set_age_antecedente, only: %i[ show edit update destroy arriba abajo elimina_antecedente ]
   after_action :reordenar, only: :destroy
 
   # GET /age_antecedentes or /age_antecedentes.json
@@ -51,6 +51,35 @@ class AgeAntecedentesController < ApplicationController
     end
   end
 
+  def arriba
+    owner = @objeto.owner
+    anterior = @objeto.anterior
+    @objeto.orden -= 1
+    @objeto.save
+    anterior.orden += 1
+    anterior.save
+
+    redirect_to @objeto.redireccion
+  end
+
+  def abajo
+    owner = @objeto.owner
+    siguiente = @objeto.siguiente
+    @objeto.orden += 1
+    @objeto.save
+    siguiente.orden -= 1
+    siguiente.save
+
+    redirect_to @objeto.redireccion
+  end
+
+  def elimina_antecedente
+    causa = @objeto.age_actividad.owner
+    @objeto.delete
+
+    redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : causa )
+  end
+
   # DELETE /age_antecedentes/1 or /age_antecedentes/1.json
   def destroy
     set_redireccion
@@ -77,7 +106,7 @@ class AgeAntecedentesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.age_actividad
+      @redireccion = @objeto.age_actividad.owner
     end
 
     # Only allow a list of trusted parameters through.

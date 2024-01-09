@@ -20,13 +20,18 @@ Rails.application.routes.draw do
     match :arriba, via: :get, on: :member
     match :abajo, via: :get, on: :member
   end
-  resources :age_antecedentes
+  resources :age_antecedentes do
+    match :arriba, via: :get, on: :member
+    match :abajo, via: :get, on: :member
+    match :elimina_antecedente, via: :get, on: :member
+  end
   resources :age_act_perfiles
   resources :tipo_asesorias
   resources :age_actividades do
     match :crea_audiencia, via: :get, on: :collection
     match :suma_participante, via: :get, on: :member
     match :resta_participante, via: :get, on: :member
+    match :agrega_antecedente, via: :post, on: :member
   end
   resources :regiones do
     resources :comunas

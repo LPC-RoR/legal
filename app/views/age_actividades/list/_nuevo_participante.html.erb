@@ -1,0 +1,11 @@
+<small><small>
+	<b class="text-info">Disponibles</b></br>
+	<% AppPerfil.all.each do |perfil_base| %>
+		<% unless objeto.app_perfiles.ids.include?(perfil_base.id) %>
+			<%= link_to "/age_actividades/#{objeto.id}/suma_participante?pid=#{perfil_base.id}&loc=#{controller_name}" do %>
+				<i class="bi bi-plus-circle"></i> <%= perfil_base.nombre_perfil %>
+			<% end %>
+		</br>
+		<% end %>
+	<% end %>
+</small></small>

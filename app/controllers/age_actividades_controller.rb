@@ -1,5 +1,5 @@
 class AgeActividadesController < ApplicationController
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente]
 
   # GET /age_actividades or /age_actividades.json
   def index
@@ -75,24 +75,22 @@ class AgeActividadesController < ApplicationController
     perfil = AppPerfil.find(params[:pid])
     @objeto.app_perfiles << perfil
 
-    case params[:loc]
-    when 'age_actividades'
-      redirect_to "/age_actividades"
-    else
-      redirect_to @objeto.owner
-    end
+    redirect_to ( params[:loc] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
   end
 
   def resta_participante
     perfil = AppPerfil.find(params[:pid])
     @objeto.app_perfiles.delete(perfil)
 
-    case params[:loc]
-    when 'age_actividades'
-      redirect_to "/age_actividades"
-    else
-      redirect_to @objeto.owner
+    redirect_to ( params[:loc] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
+  end
+
+  def agrega_antecedente
+    unless params[:form_antecedente][:age_antecedente].blank? 
+      @objeto.age_antecedentes.create(age_antecedente: params[:form_antecedente][:age_antecedente], orden: @objeto.age_antecedentes.count + 1)
     end
+
+    redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
   end
 
   # DELETE /age_actividades/1 or /age_actividades/1.json

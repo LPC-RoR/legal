@@ -2,8 +2,8 @@ module CptnConfigHelper
 	def config
 		{
 			app: {
-				nombre: 'app',
-				titulo: 'Aplicación de prueba',
+				nombre: 'addt',
+				titulo: 'Abogados derecho del trabajo',
 				home: 'http://www.abogadosderechodeltrabajo.cl',
 				logo_navbar: nil
 			},

@@ -2,22 +2,16 @@
 
 <% @variables.each do |variable| %>
 	<div class="shadow mb-1 bg-white rounded">
-		<div class="row">
-			<div class="col-lg-6 col-xs-12" style="padding-left: 2em;">
 
-				<i class="bi bi-dot"></i> 
+		<div style="padding-left: 1em; padding-bottom: 1em">
+			<%= render layout: '0p/collapse/link', locals: {label: 'FormValor', objeto: variable} do %>
+				<small><%= variable.variable %></small>
+			<% end %> </br>
 
-				<%= render layout: '0p/collapse/link', locals: {label: 'FormValor', objeto: variable} do %>
-					<small><%= variable.variable %></small>
-				<% end %>
 
-			</div>
+			<small><%= render partial: 'variables/list/valor_variable', locals: {objeto: variable, causa: objeto} %></small>
 
-			<div class="col-lg-6" style="padding-right: 2em;" align="<%=['Número', 'Monto pesos', 'Monto UF'].include?(variable.tipo) ? 'right' : 'left' %>">
-				<%= render partial: 'variables/list/valor_variable', locals: {objeto: variable, causa: objeto} %>
-			</div>
 		</div>
-
 		<%= render layout: '0p/collapse/display', locals: {label: 'FormValor', objeto: variable} do %> 
 		  	<%= render partial: 'causas/datos/form_valor', locals: {causa: objeto, variable: variable} %>
 		<% end %>
