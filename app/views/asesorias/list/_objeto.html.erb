@@ -36,7 +36,7 @@
 	<% if objeto.facturacion.blank? %>
 		<% if objeto.moneda.blank? or objeto.monto.blank? %>
 			Tarifa : <%= objeto.tar_servicio.descripcion unless objeto.tar_servicio.blank? %> 
-			<%= render layout: '0p/collapse/link', locals: {label: 'Asesoria', objeto: objeto} do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Asesoria', objeto: objeto, tooltip: "#{objeto.tar_servicio.blank? ? 'Nuevo' : 'Modifica'}" } do %>
 				<% if  objeto.tar_servicio.blank? %>
 					<i class="bi bi-plus-lg"></i>
 				<% else %>

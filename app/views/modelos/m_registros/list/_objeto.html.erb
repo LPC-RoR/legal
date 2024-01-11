@@ -10,7 +10,7 @@
 <div class="col-5">
 
 	<small>
-	<%= render layout: '0p/collapse/link', locals: {label: 'Registro', objeto: objeto} do %>
+	<%= render layout: '0p/collapse/link', locals: {label: 'Registro', objeto: objeto, tooltip: 'Asigna'} do %>
 		<i class="bi bi-hand-index"></i>
 	<% end %>
 	<% if objeto.m_item.present? %>
@@ -25,7 +25,7 @@
 			<% end %>
 		Facturas pagadas 
 		<% unless objeto.disponible == 0 %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'AsignaFactura', objeto: nil} do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'AsignaFactura', objeto: nil, tooltip: 'Asigna'} do %>
 				<i class="bi bi-plus-circle"></i>
 			<% end %>
 			<a data-toggle="collapse" href="#collapseAsignaFactura" role="button" aria-expanded="false" aria-controls="collapseAsignaFactura">

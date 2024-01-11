@@ -2,11 +2,7 @@
 
 	<div class="row">
 		<div class="col-10">
-			<small>
-				<i class="bi bi-calendar-check"></i> 
-				<small><b><%= dma_hm(objeto.fecha) %></b></small>
-
-			</small>			
+			<%= render partial: 'age_actividades/list/elems/fecha', locals: {objeto: objeto} %>
 		</div>
 		<div class="col-2">
 			<small><small>
@@ -18,59 +14,14 @@
 	</div>
 
 	<div style="padding-left: 1em;">
-	<small class="text-muted">
-		<% if objeto.tipo == 'Audiencia' %>
-			<i class="bi bi-bank2"></i>
-		<% elsif objeto.tipo == 'Reunión' %>
-			<i class="bi bi-people"></i>
-		<% elsif objeto.tipo == 'Tarea' %>
-			<i class="bi bi-list-check"></i>
-		<% end %> 
-		<%= objeto.age_actividad %></br>
+		<%= render partial: 'age_actividades/list/elems/actividad', locals: {objeto: objeto} %>
 		
-		<small class="text-info">
-		Participantes 
+		</br>
 
-		<%= render layout: '0p/collapse/link', locals: {label: 'Participantes', objeto: objeto} do %>
-			<i class="bi bi-box-arrow-down"></i>
-		<% end %>
-		<%= render layout: '0p/collapse/link', locals: {label: 'NuevoParticipante', objeto: objeto} do %>
-			<i class="bi bi-plus-circle"></i> 
-		<% end %>
+		<%= render partial: 'age_actividades/list/elems/cllp_links_recursos', locals: {objeto: objeto} %>
 
+		<%= render partial: 'age_actividades/list/elems/cllp_display_recursos', locals: {objeto: objeto} %>
 
-
-		<% if objeto.age_antecedentes.empty? %>
-			<i class="bi bi-exclamation-circle text-danger"></i> Sin antecedentes
-		<% else %>
-			Antecedentes 
-			<%= render layout: '0p/collapse/link', locals: {label: 'Antecedentes', objeto: objeto} do %>
-				<i class="bi bi-box-arrow-down"></i>
-			<% end %>
-		<% end %>
-
-		<%= render layout: '0p/collapse/link', locals: {label: 'NuevoAntecedente', objeto: objeto} do %>
-			<i class="bi bi-plus-circle"></i> 
-		<% end %>
-
-	</small></small>
-
-	<%= render layout: '0p/collapse/display', locals: {label: 'Participantes', objeto: objeto} do %>
-	  	<%= render partial: 'age_actividades/list/participantes', locals: {objeto: objeto} %>
-	<% end %>
-	<%= render layout: '0p/collapse/display', locals: {label: 'NuevoParticipante', objeto: objeto} do %>
-	  	<%= render partial: 'age_actividades/list/nuevo_participante', locals: {objeto: objeto} %>
-	<% end %>
-
-	<% unless objeto.age_antecedentes.empty? %>
-		<%= render layout: '0p/collapse/display', locals: {label: 'Antecedentes', objeto: objeto} do %>
-			<%= render partial: 'age_actividades/list/display_antecedentes', locals: {objeto: objeto} %>
-		<% end %>
-	<% end %>
-
-	<%= render layout: '0p/collapse/display', locals: {label: 'NuevoAntecedente', objeto: objeto} do %>
-	  	<%= render partial: 'age_actividades/list/form_antecedente', locals: {objeto: objeto} %>
-	<% end %>
 	</div>
 
 </div>

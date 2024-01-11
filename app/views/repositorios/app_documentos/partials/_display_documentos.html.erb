@@ -2,7 +2,7 @@
 	<small>
 		<b>Documentos</b>
 		<% unless pendientes.empty? %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'ControlDocumento', objeto: nil} do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'ControlDocumento', objeto: nil, tooltip: 'Selecciona'} do %>
 				<i class="bi bi-arrow-bar-down"></i>
 			<% end %> 
 		<% end %> 

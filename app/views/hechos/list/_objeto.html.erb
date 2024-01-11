@@ -6,7 +6,7 @@
 			<%= objeto.hecho %>
 
 			<% unless objeto.cita.blank? %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'Cita', objeto: objeto} do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Cita', objeto: objeto, tooltip: 'Cita' } do %>
 				<i class="bi bi-box-arrow-down"></i> 
 			<% end %>
 			<% end %>
@@ -34,11 +34,11 @@
 			<span class="text-info"><i class="bi bi-files"></i> Documentos prueba</span> 
 
 
-			<%= render layout: '0p/collapse/link', locals: {label: 'MasDocumento', objeto: objeto} do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'MasDocumento', objeto: objeto, tooltip: 'Agrega' } do %>
 				<i class="bi bi-plus-circle"></i> 
 			<% end %>
 
-			<%= render layout: '0p/collapse/link', locals: {label: 'SelDocumento', objeto: objeto} do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'SelDocumento', objeto: objeto, tooltip: 'Selecciona' } do %>
 				<i class="bi bi-list-task"></i> 
 			<% end %></br> 
 

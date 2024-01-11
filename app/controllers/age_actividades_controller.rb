@@ -1,12 +1,12 @@
 class AgeActividadesController < ApplicationController
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente]
 
   # GET /age_actividades or /age_actividades.json
   def index
     set_tab(:menu, ['Pendientes', 'Realizadas'])
 
     if @options[:menu] == 'Pendientes'
-      init_tabla('age_actividades', AgeActividad.where(estado: 'ingreso').order(fecha: :desc), false)
+      init_tabla('age_actividades', AgeActividad.where(estado: 'pendiente').order(fecha: :desc), false)
     elsif @options[:menu] == 'Realizadas'
       init_tabla('age_actividades', AgeActividad.where(estado: 'realizada').order(fecha: :desc), false)
     end
@@ -27,7 +27,7 @@ class AgeActividadesController < ApplicationController
     when 'T'
       tipo = 'Tarea'
     end
-    @objeto = AgeActividad.new(owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo.id, estado: 'ingreso', tipo: tipo)
+    @objeto = AgeActividad.new(owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo.id, estado: 'pendiente', tipo: tipo)
   end
 
   def crea_audiencia
@@ -89,6 +89,13 @@ class AgeActividadesController < ApplicationController
     unless params[:form_antecedente][:age_antecedente].blank? 
       @objeto.age_antecedentes.create(age_antecedente: params[:form_antecedente][:age_antecedente], orden: @objeto.age_antecedentes.count + 1)
     end
+
+    redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
+  end
+
+  def realizada_pendiente
+    @objeto.estado = ( @objeto.estado == 'pendiente' ? 'realizada' : 'pendiente' )
+    @objeto.save
 
     redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
   end

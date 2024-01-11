@@ -1,7 +1,7 @@
 <!-- Facturación -->
 <p>
 	<% if objeto.estado == 'ingreso' %>
-		<%= render layout: '0p/collapse/link', locals: {label: 'Emitir', objeto: nil} do %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Emitir', objeto: nil, tooltip: 'Emitir'} do %>
 			Factura
 		<% end %>
 	<% else %>
@@ -27,7 +27,7 @@
 
 	<% if objeto.estado == 'facturada' and objeto.tar_nota_credito.blank? %>
 	 | 
-		<%= render layout: '0p/collapse/link', locals: {label: 'NotaCredito', objeto: nil} do %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'NotaCredito', objeto: nil, tooltip: 'Crédito'} do %>
 			crea nota de crédito
 		<% end %>
 

@@ -28,7 +28,7 @@
 			<p class="text-info">
 			Facturas pagadas 
 			<% unless @objeto.disponible == 0 %>
-				<%= render layout: '0p/collapse/link', locals: {label: 'AsignaFactura', objeto: nil} do %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'AsignaFactura', objeto: nil, tooltip: 'Asigna'} do %>
 					<i class="bi bi-plus-circle"></i>
 				<% end %>
 			<% end %>

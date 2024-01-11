@@ -1,6 +1,6 @@
 <%= form_for :form_valor, url: "/causas/#{causa.id}/agrega_valor?vid=#{variable.id}" do |form| %>
 
-	<small>[ <%= variable.tipo %> : <%= variable.control %> ]</small></br>
+	<small><small>[ <%= variable.tipo %> : <%= variable.control %> ]</small></small></br>
 	<div class='form-inline'>
 
 		<% case variable.tipo %>

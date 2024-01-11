@@ -1,7 +1,7 @@
 <% if objeto.facturaciones.empty? %>
 	Sin facturar
 <% else %>
-	<%= render layout: '0p/collapse/link', locals: {label: 'Facturaciones', objeto: objeto} do %>
+	<%= render layout: '0p/collapse/link', locals: {label: 'Facturaciones', objeto: objeto, tooltip: 'Despliega'} do %>
 		<i class="bi bi-box-arrow-down"></i> 
 		Pagos
 	<% end %>

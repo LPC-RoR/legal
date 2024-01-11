@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     match :suma_participante, via: :get, on: :member
     match :resta_participante, via: :get, on: :member
     match :agrega_antecedente, via: :post, on: :member
+    match :realizada_pendiente, via: :get, on: :member
   end
   resources :regiones do
     resources :comunas
@@ -75,6 +76,7 @@ Rails.application.routes.draw do
     match :crea_documento_controlado, via: :get, on: :member
     match :crea_archivo_controlado, via: :get, on: :member
     match :agrega_valor, via: :post, on: :member
+    match :elimina_valor, via: :get, on: :member
   end
   resources :antecedentes
   resources :clientes do

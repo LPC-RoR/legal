@@ -16,7 +16,7 @@
 	<% if objeto.monto_pesos == 0 %>
 	-
 	<% else %>
-		<%= render layout: '0p/collapse/link', locals: {label: 'Factura', objeto: objeto} do %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Factura', objeto: objeto, tooltip: 'Detalle'} do %>
 			<i class="bi bi-box-arrow-down"></i> 
 			<b><%= s_pesos(objeto.monto_pesos) %></b>
 		<% end %>

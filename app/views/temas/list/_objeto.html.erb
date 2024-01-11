@@ -3,7 +3,7 @@
 	<span class='text-info'><%= objeto.tema %></span> 
 
 	<% unless objeto.descripcion.blank? %>
-		<%= render layout: '0p/collapse/link', locals: {label: 'Descripcion', objeto: objeto} do %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Descripcion', objeto: objeto, tooltip: 'Descripción'} do %>
 			<i class="bi bi-box-arrow-down"></i> 
 		<% end %>
 	<% end %>

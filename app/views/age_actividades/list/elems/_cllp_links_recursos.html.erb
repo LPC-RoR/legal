@@ -1,0 +1,34 @@
+<small>
+
+	<small class="text-<%=objeto.estado == 'realizada' ? 'muted' : ( objeto.app_perfiles.empty? ? 'danger' : 'info' ) %>" >
+
+	Participantes 
+
+	<% unless objeto.app_perfiles.empty? %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Participantes', objeto: objeto, tooltip: 'Despliega participantes' } do %>
+			<i class="bi bi-box-arrow-down"></i>
+		<% end %>
+	<% end %>
+	<%= render layout: '0p/collapse/link', locals: {label: 'NuevoParticipante', objeto: objeto, tooltip: 'Nuevo participante' } do %>
+		<i class="bi bi-plus-circle"></i> 
+	<% end %>
+
+	</small>
+
+	<i class="bi bi-dash-lg"></i>
+
+	<small class="text-<%=objeto.estado == 'realizada' ? 'muted' : ( objeto.age_antecedentes.empty? ? 'danger' : 'info' ) %>" >
+
+	Antecedentes 
+
+	<% unless objeto.age_antecedentes.empty? %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Antecedentes', objeto: objeto, tooltip: 'Despliega antecedentes' } do %>
+			<i class="bi bi-box-arrow-down"></i>
+		<% end %>
+	<% end %>
+	<%= render layout: '0p/collapse/link', locals: {label: 'NuevoAntecedente', objeto: objeto, tooltip: 'Nuevo antecedente'} do %>
+		<i class="bi bi-plus-circle"></i> 
+	<% end %>
+
+	</small>
+</small>

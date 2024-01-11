@@ -12,7 +12,7 @@
 
 	<% concepto.m_items.order(:orden).each do |item| %>
 		<div class="col-lg-6" style='padding-left: 1em'>
-			<%= render layout: '0p/collapse/link', locals: {label: 'Item', objeto: item} do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Item', objeto: item, tooltip: 'Registros'} do %>
 				<small><i class="bi bi-dot"></i> <%= item.m_item %></small>
 			<% end %>
 		</div>

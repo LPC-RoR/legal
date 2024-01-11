@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente crea_documento_controlado crea_archivo_controlado agrega_valor]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente crea_documento_controlado crea_archivo_controlado agrega_valor elimina_valor]
 
   include Tarifas
 
@@ -214,6 +214,16 @@ class CausasController < ApplicationController
     end
 
     valor.save unless valor.blank?
+
+    redirect_to @objeto
+  end
+
+  def elimina_valor
+    variable = Variable.find(params[:vid])
+    unless variable.blank?
+      valor = @objeto.valores_datos.find_by(variable_id: variable.id)
+      valor.delete unless valor.blank?
+    end
 
     redirect_to @objeto
   end

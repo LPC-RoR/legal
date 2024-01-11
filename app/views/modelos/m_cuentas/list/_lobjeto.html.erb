@@ -2,7 +2,7 @@
 	<small>
 	<b><%= link_to objeto.m_cuenta, "/m_modelos?id=c_#{objeto.id}" %></b> : 
 
-	<%= render layout: '0p/collapse/link', locals: {label: 'Cuenta', objeto: objeto} do %>
+	<%= render layout: '0p/collapse/link', locals: {label: 'Cuenta', objeto: objeto, tooltip: 'input'} do %>
 		<% if objeto.m_formato.blank? %>
 			sin formato
 		<% else %>

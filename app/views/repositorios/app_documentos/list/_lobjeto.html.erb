@@ -18,7 +18,7 @@
 		<!-- Despliege de Archivos del documento -->
 		<% if objeto.d_version.present? %>
 
-			<%= render layout: '0p/collapse/link', locals: {label: 'Archivos', objeto: objeto} do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Archivos', objeto: objeto, tooltip: 'Archivos'} do %>
 				<i class="bi bi-box-arrow-down"></i>
 			<% end %>
 

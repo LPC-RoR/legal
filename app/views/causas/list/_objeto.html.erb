@@ -24,7 +24,7 @@
 				</b>
 				<% if objeto.estado == 'proceso' %>
 					 - 
-					<%= render layout: '0p/collapse/link', locals: {label: 'Pago', objeto: objeto} do %>
+					<%= render layout: '0p/collapse/link', locals: {label: 'Pago', objeto: objeto, tooltip: "#{objeto.monto_pagado.blank? ? 'Nuevo' : 'Modificar' }"} do %>
 						 <% if  objeto.monto_pagado.blank? %>
 						 	<i class="bi bi-plus"></i>
 						 <% else %>

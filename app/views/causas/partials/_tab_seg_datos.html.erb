@@ -4,8 +4,15 @@
 	<div class="shadow mb-1 bg-white rounded">
 
 		<div style="padding-left: 1em; padding-bottom: 1em">
-			<%= render layout: '0p/collapse/link', locals: {label: 'FormValor', objeto: variable} do %>
-				<small><%= variable.variable %></small>
+			<%= render layout: '0p/collapse/link', locals: {label: 'FormValor', objeto: variable, tooltip: 'ingresa/modifica'} do %>
+				<small>
+					<%= variable.variable %> 
+					<% unless variable.valor_variable(objeto).blank? %>
+						<%= link_to "/causas/#{objeto.id}/elimina_valor?vid=#{variable.id}", title: "Eliminar #{variable.variable}", 'data-toggle' => 'tooltip', 'data-placement' => 'right'	do %>
+							<small><i class="bi bi-trash"></i></small> 
+						<% end %>
+					<% end %>
+				</small>
 			<% end %> </br>
 
 
