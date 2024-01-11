@@ -1,0 +1,24 @@
+<div class="row">
+	<div class="col-lg-9 col-xs-12">
+		<div class="row no-gutters">
+			<div class="col-lg-8 col-xs-12">
+				<%= render partial: '0blog/last_article' unless @principal.blank? %>
+			</div>
+			<div class="col-lg-4">
+				<%= render partial: '0blog/second_article', locals: {articulo: @segundo} unless @segundo.blank? %>
+
+				<%= render partial: '0blog/second_article', locals: {articulo: @tercero} unless @tercero.blank? %>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3">
+		<!--div class='titulo-seccion' style='padding: 1em;'-->
+			<!--Temas-->
+		<!--/div-->
+		<div>
+			<% BlgTema.all.order(:blg_tema).each do |tema| %>
+				<%= render partial: '0blog/show_tema', locals: {tema: tema} %>
+			<% end %>
+		</div>
+	</div>
+</div>

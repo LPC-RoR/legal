@@ -1,8 +1,10 @@
-<div class="card text-white">
-	<%= link_to "blg_temas/#{tema.id}" do %>
-	<%= image_tag tema.imagen.tema.url, class: "card-img img-fluid rounded-0" unless tema.imagen.blank? %>
-	<% end %>
-  <div class="card-img-overlay">
-  	<%= link_to tema.blg_tema, tema, class: 'link-invisible' %>
-  </div>
+<div class="shadow mb-3 bg-white rounded">
+	<div class="card text-white">
+		<%= link_to "blg_temas/#{tema.id}" do %>
+		<%= image_tag tema.imagen.tema.url, class: "card-img img-fluid rounded-0" unless tema.imagen.blank? %>
+		<% end %>
+	  <div class="card-img-overlay">
+	  	<h4 class='text-white'><%= link_to tema.blg_tema, tema, class: 'link-invisible text-white' %></h4>
+	  </div>
+	</div>
 </div>

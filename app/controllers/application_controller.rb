@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
 	helper_method :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id, :mi_seguridad?, :publico?
 	helper_method :bandeja_display?
-	helper_method :uf_del_dia, :uf_fecha
+	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :enlaces_perfil
 	helper_method :calcula2
 	helper_method :menu_tablas, :tb_index, :first_tabla_index
 	helper_method :modelo_negocios_general, :cuentas_corrientes, :periodos

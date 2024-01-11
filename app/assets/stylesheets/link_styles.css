@@ -36,10 +36,6 @@
 .card-img-overlay {
     font-family: 'Raleway', sans-serif;
     padding-left: 2em;
-    a {
-        text-decoration: none;
-        color: white;
-    }
 }
 
 .titulo-seccion {

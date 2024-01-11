@@ -60,4 +60,12 @@ module Capitan
 		uf.blank? ? nil : uf.valor
 	end
 
+	def enlaces_general
+		AppEnlace.where(owner_id: nil).order(:descripcion)
+	end
+
+	def enlaces_perfil
+		perfil_activo.blank? ? perfil_activo.app_enlaces.order(:descripcion) : nil
+	end
+
 end

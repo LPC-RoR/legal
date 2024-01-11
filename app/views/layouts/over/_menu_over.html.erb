@@ -1,14 +1,14 @@
 <div class="row" style="padding-left: 10px; padding-right: 10px;">
 	<div class="col-lg-3 col-xs-12">
 		<div class='link_item'>
-				<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'house'} %>
-				<%= render partial: 'layouts/over/item', locals: {text: 'AYUDA', link: 'publicos/ayuda', gly: nil} %>
-				<%= render partial: 'layouts/over/item', locals: {text: 'CONTACTO', link: 'publicos/contacto', gly: nil} %>
-				<%= render partial: 'layouts/over/item', locals: {text: 'ACERCA', link: 'publicos/acerca', gly: nil} %>
+				<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'house', metodo: nil} %>
+				<%= render partial: 'layouts/over/item', locals: {text: 'AYUDA', link: 'publicos/ayuda', gly: nil, metodo: nil} %>
+				<%= render partial: 'layouts/over/item', locals: {text: 'CONTACTO', link: 'publicos/contacto', gly: nil, metodo: nil} %>
+				<%= render partial: 'layouts/over/item', locals: {text: 'ACERCA', link: 'publicos/acerca', gly: nil, metodo: nil} %>
 		</div>
 	</div>
 	<div class="col-lg-6 col-xs-12" align='center'>
-		<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'instagram'} %>
+		<%= render partial: 'layouts/over/item', locals: {text: nil, link: root_path, gly: 'instagram', metodo: nil} %>
 	</div>
 	<div class="col-lg-3" align='right'>
 
@@ -19,15 +19,15 @@
 
 			<!--span><%#= render partial: 'layouts/over/item', locals: {text: nil, link: app_mensajes_path, gly: 'envelope'} if config[:menu][:contacto] %></span-->
 
-			<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: destroy_usuario_session_path, method: :delete, gly: 'door-open'} %></span>
+			<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: destroy_usuario_session_path, metodo: :delete, gly: 'door-open'} %></span>
 
         <% else %>
 
 			<!--span><%#= render partial: 'layouts/over/item', locals: {text: nil, link: new_app_mensaje_path, gly: 'envelope'} if config[:menu][:contacto] if config[:menu][:contacto] %></span-->
 
-			<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_session_path, method: :delete, gly: 'person'} %></span>
+			<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_session_path, metodo: :get, gly: 'person'} %></span>
 
-			<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_registration_path, method: :delete, gly: 'person-plus'} %></span>
+			<span><%= render partial: 'layouts/over/item', locals: {text: nil, link: new_usuario_registration_path, metodo: :get, gly: 'person-plus'} %></span>
 
       
         <% end %>
