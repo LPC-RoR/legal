@@ -16,7 +16,11 @@
 			<% end %> </br>
 
 
-			<small><%= render partial: 'variables/list/valor_variable', locals: {objeto: variable, causa: objeto} %></small>
+			<small>
+				<div style='padding-left: 1em;'>
+				<%= render partial: 'variables/list/valor_variable', locals: {objeto: variable, causa: objeto} %>
+				</div>
+			</small>
 
 		</div>
 		<%= render layout: '0p/collapse/display', locals: {label: 'FormValor', objeto: variable} do %> 
