@@ -5,7 +5,7 @@ class Tarifas::TarBasesController < ApplicationController
   def index
 #    @coleccion = {}
 #    @coleccion['tar_bases'] = TarBase.all
-    init_tabla('tar_bases', TarBase.all, false)
+    set_tabla('tar_bases', TarBase.all, false)
   end
 
   # GET /tar_bases/1 or /tar_bases/1.json

@@ -1,11 +1,5 @@
 class AppAdministrador < ApplicationRecord
 
-	TABLA_FIELDS = [
-		'administrador', 
-		'email',
-		'perfil'
-	]
-
 	has_one :app_perfil
 
 	validates :administrador, :email, presence: true
@@ -15,7 +9,6 @@ class AppAdministrador < ApplicationRecord
 
 	def perfil
 		perfil = AppPerfil.find_by(email: self.email)
-		perfil.blank? ? 'Sin perfil' : 'Perfil activo'
 	end
 
 end

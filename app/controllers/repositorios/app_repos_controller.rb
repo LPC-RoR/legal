@@ -18,10 +18,10 @@ class Repositorios::AppReposController < ApplicationController
         @repositorio_perfil = perfil_activo.repositorio
       end
 
-      init_tabla('general-app_directorios', @repositorio_general.directorios.order(:app_directorio), false)
-      add_tabla('general-app_documentos', @repositorio_general.documentos.order(:app_documento), false) 
-      add_tabla('perfil-app_directorios', @repositorio_perfil.directorios.order(:app_directorio), false)
-      add_tabla('perfil-app_documentos', @repositorio_perfil.documentos.order(:app_documento), false)
+      set_tabla('general-app_directorios', @repositorio_general.directorios.order(:app_directorio), false)
+      set_tabla('general-app_documentos', @repositorio_general.documentos.order(:app_documento), false) 
+      set_tabla('perfil-app_directorios', @repositorio_perfil.directorios.order(:app_directorio), false)
+      set_tabla('perfil-app_documentos', @repositorio_perfil.documentos.order(:app_documento), false)
     end
   end
 
@@ -32,8 +32,8 @@ class Repositorios::AppReposController < ApplicationController
     if ['Cliente', 'Causa'].include?(@objeto.owner_class)
       redirect_to @objeto.owner_class.constantize.find(@objeto.owner_id)
     else
-      init_tabla('app_documentos', @objeto.documentos.order(:documento), false)
-      add_tabla('app_directorios', @objeto.directorios.order(:directorio), false)
+      set_tabla('app_documentos', @objeto.documentos.order(:documento), false)
+      set_tabla('app_directorios', @objeto.directorios.order(:directorio), false)
     end
   end
 

@@ -15,7 +15,7 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def usuarios
-    init_tabla('usuarios', Usuario.all, true)
+    set_tabla('usuarios', Usuario.all, true)
   end
 
   def administracion

@@ -8,7 +8,7 @@ class Repositorios::AppEscaneosController < ApplicationController
 
   # GET /app_escaneos/1 or /app_escaneos/1.json
   def show
-    init_tabla('app_imagenes', @objeto.imagenes.order(:orden), false)
+    set_tabla('app_imagenes', @objeto.imagenes.order(:orden), false)
   end
 
   # GET /app_escaneos/new

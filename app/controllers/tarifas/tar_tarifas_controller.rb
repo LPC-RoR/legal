@@ -9,10 +9,10 @@ class Tarifas::TarTarifasController < ApplicationController
 
   # GET /tar_tarifas/1 or /tar_tarifas/1.json
   def show
-    init_tabla('tar_pagos', @objeto.tar_pagos.all.order(:orden), false)
-    add_tabla('tar_formulas', @objeto.tar_formulas.all.order(:orden), false)
-    add_tabla('tar_elementos', TarElemento.all.order(:elemento), false)
-    add_tabla('tar_detalles', @objeto.tar_detalles.order(:orden), false)
+    set_tabla('tar_pagos', @objeto.tar_pagos.all.order(:orden), false)
+    set_tabla('tar_formulas', @objeto.tar_formulas.all.order(:orden), false)
+    set_tabla('tar_elementos', TarElemento.all.order(:elemento), false)
+    set_tabla('tar_detalles', @objeto.tar_detalles.order(:orden), false)
   end
 
   # GET /tar_tarifas/new

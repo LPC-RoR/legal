@@ -3,17 +3,17 @@ class Tarifas::TarAprobacionesController < ApplicationController
 
   # GET /tar_aprobaciones or /tar_aprobaciones.json
   def index
-    init_tabla('tar_aprobaciones', TarAprobacion.all.order(fecha: :desc), true)
-    add_tabla('tar_facturaciones', TarFacturacion.where(tar_aprobacion_id: nil, tar_factura_id: nil), false)
+    set_tabla('tar_aprobaciones', TarAprobacion.all.order(fecha: :desc), true)
+    set_tabla('tar_facturaciones', TarFacturacion.where(tar_aprobacion_id: nil, tar_factura_id: nil), false)
   end
 
   # GET /tar_aprobaciones/1 or /tar_aprobaciones/1.json
   def show
-    init_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
+    set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
 
     sin_asignar = TarFacturacion.where(tar_aprobacion_id: nil, tar_factura_id: nil)
     ids_cliente = sin_asignar.map {|sa| sa.id if sa.padre.cliente.id == @objeto.cliente.id}.compact
-    add_tabla('pend-tar_facturaciones', TarFacturacion.where(id: ids_cliente), false)
+    set_tabla('pend-tar_facturaciones', TarFacturacion.where(id: ids_cliente), false)
   end
 
   # GET /tar_aprobaciones/new

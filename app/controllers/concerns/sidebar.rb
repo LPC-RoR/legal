@@ -63,9 +63,9 @@ module Sidebar
 	    		@objeto = @elemento.controlador.classify.constantize.first
 		    elsif @elemento.despliegue == 'ayuda'
 			    @objeto = HlpTutorial.find_by(clave: @elemento.controlador)
-			    init_tabla('hlp_pasos', @objeto.hlp_pasos.order(:orden), false) unless @objeto.blank?
+			    set_tabla('hlp_pasos', @objeto.hlp_pasos.order(:orden), false) unless @objeto.blank?
 		    elsif ['list', 'ulist'].include?(@elemento.despliegue)
-				init_tabla(@elemento.controlador, @elemento.controlador.classify.constantize.all.order(:created_at), (not (@controlador.classify.constantize.all.count < 26 or @elemento.despliegue == 'ulist')))
+				set_tabla(@elemento.controlador, @elemento.controlador.classify.constantize.all.order(:created_at), (not (@controlador.classify.constantize.all.count < 26 or @elemento.despliegue == 'ulist')))
 		    end
 		end
 	end

@@ -5,22 +5,15 @@ class Modelos::MModelosController < ApplicationController
   def index
     if usuario_signed_in?
       # Repositorio de la plataforma
-#      general_sha1 = Digest::SHA1.hexdigest("Modelo de Negocios General")
-#      @modelo = MModelo.find_by(m_modelo: general_sha1)
-#      @modelo = MModelo.create(m_modelo: general_sha1) if @modelo.blank?
-
-#      init_tabla('m_cuentas', @modelo.m_cuentas.order(:m_cuentas), false)
-#      add_tabla('m_periodos', MPeriodo.all.order(clave: :desc), false)
-
       clase = params[:id].blank? ? 'p' : params[:id].split('_')[0]
       if clase == 'c'
         oid = params[:id].blank? ? @coleccion['m_cuentas'].first.id : params[:id].split('_')[1].to_i
         @objeto = MCuenta.find(oid)
-        init_tabla('m_conciliaciones', @objeto.m_conciliaciones.order(created_at: :desc), false)
+        set_tabla('m_conciliaciones', @objeto.m_conciliaciones.order(created_at: :desc), false)
       else
         oid = params[:id].blank? ? periodos.first.id : params[:id].split('_')[1].to_i
         @objeto = MPeriodo.find(oid)
-        init_tabla('m_registros', @objeto.m_registros.order(fecha: :desc), false)
+        set_tabla('m_registros', @objeto.m_registros.order(fecha: :desc), false)
 
         facturas = TarFactura.where(clave: @objeto.clave)
         facturado = facturas.map { |fac| fac.monto_corregido }.sum

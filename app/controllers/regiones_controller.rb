@@ -9,7 +9,7 @@ class RegionesController < ApplicationController
 
   # GET /regiones/1 or /regiones/1.json
   def show
-    init_tabla('comunas', @objeto.comunas.order(:comuna), false)
+    set_tabla('comunas', @objeto.comunas.order(:comuna), false)
   end
 
   # GET /regiones/new

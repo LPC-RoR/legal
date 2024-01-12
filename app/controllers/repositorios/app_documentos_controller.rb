@@ -9,9 +9,8 @@ class Repositorios::AppDocumentosController < ApplicationController
 
   # GET /app_documentos/1 or /app_documentos/1.json
   def show
-#    init_tabla('controller_name', Tabla, paginate)
-    init_tabla('app_archivos', @objeto.archivos.order(created_at: :desc), false)
-    add_tabla('app_escaneos', @objeto.escaneos.order(created_at: :desc), false)
+    set_tabla('app_archivos', @objeto.archivos.order(created_at: :desc), false)
+    set_tabla('app_escaneos', @objeto.escaneos.order(created_at: :desc), false)
   end
 
   # GET /app_documentos/new

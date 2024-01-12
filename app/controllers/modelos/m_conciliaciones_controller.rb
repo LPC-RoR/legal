@@ -10,7 +10,7 @@ class Modelos::MConciliacionesController < ApplicationController
 
   # GET /m_conciliaciones/1 or /m_conciliaciones/1.json
   def show
-    init_tabla('m_registros', @objeto.m_registros.order(:orden), false)
+    set_tabla('m_registros', @objeto.m_registros.order(:orden), false)
   end
 
   # GET /m_conciliaciones/new

@@ -1,11 +1,5 @@
 class AppNomina < ApplicationRecord
 
-	TABLA_FIELDS = [
-		'nombre',
-		's#email',
-		'perfil'
-	]
-
 	has_many :st_perfil_modelos
 
 	validates :nombre, :email, presence: true
@@ -23,7 +17,6 @@ class AppNomina < ApplicationRecord
 
 	def perfil
 		perfil = AppPerfil.find_by(email: self.email)
-		perfil.blank? ? 'Sin perfil' : 'Perfil activo'
 	end
 
 end

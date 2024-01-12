@@ -4,11 +4,11 @@ class Blog::BlgArticulosController < ApplicationController
   # GET /blg_articulos or /blg_articulos.json
   def index
     if admin?
-      init_tabla('perfil-blg_articulos', perfil_activo.blg_articulos.order(created_at: :desc), true)
-      add_tabla('general-blg_articulos', BlgArticulo.all.order(created_at: :desc), true)
-      add_tabla('blg_temas', BlgTema.all.order(created_at: :desc), true)
+      set_tabla('perfil-blg_articulos', perfil_activo.blg_articulos.order(created_at: :desc), true)
+      set_tabla('general-blg_articulos', BlgArticulo.all.order(created_at: :desc), true)
+      set_tabla('blg_temas', BlgTema.all.order(created_at: :desc), true)
     else
-      init_tabla('perfil-blg_articulos', perfil_activo.blg_articulos.order(created_at: :desc), true)
+      set_tabla('perfil-blg_articulos', perfil_activo.blg_articulos.order(created_at: :desc), true)
     end
   end
 

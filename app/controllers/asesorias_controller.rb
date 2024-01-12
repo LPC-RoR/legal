@@ -6,32 +6,32 @@ class AsesoriasController < ApplicationController
     set_tab( :monitor,  ['Proceso', 'Terminadas', 'Multas & Redacciones', 'Mensuales & Cargos'] )
 
     if @options[:monitor] == 'Proceso'
-      init_tabla('ingreso-asesorias', Asesoria.where(estado: 'ingreso').order(created_at: :desc), false)
-      add_tabla('proceso-asesorias', Asesoria.where(estado: 'proceso').order(created_at: :desc), false)
+      set_tabla('ingreso-asesorias', Asesoria.where(estado: 'ingreso').order(created_at: :desc), false)
+      set_tabla('proceso-asesorias', Asesoria.where(estado: 'proceso').order(created_at: :desc), false)
     elsif @options[:monitor] == 'Terminadas'
-      init_tabla('terminada-asesorias', Asesoria.where(estado: 'terminada').order(created_at: :desc), true)
+      set_tabla('terminada-asesorias', Asesoria.where(estado: 'terminada').order(created_at: :desc), true)
     elsif @options[:monitor] == 'Multas & Redacciones'
       ta_multas = TipoAsesoria.find_by(tipo_asesoria: 'Multa')
       ta_redacciones = TipoAsesoria.find_by(tipo_asesoria: 'Redacción')
 
-      init_tabla('multas-asesorias', ta_multas.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
-      add_tabla('redacciones-asesorias', ta_redacciones.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
+      set_tabla('multas-asesorias', ta_multas.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
+      set_tabla('redacciones-asesorias', ta_redacciones.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
     elsif @options[:monitor] == 'Mensuales & Cargos'
       ta_mensuales = TipoAsesoria.find_by(tipo_asesoria: 'Mensual')
       ta_cargos = TipoAsesoria.find_by(tipo_asesoria: 'Cargo')
 
-      init_tabla('mensuales-asesorias', ta_mensuales.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
-      add_tabla('cargos-asesorias', ta_cargos.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
+      set_tabla('mensuales-asesorias', ta_mensuales.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
+      set_tabla('cargos-asesorias', ta_cargos.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
     end
   end
 
   # GET /asesorias/1 or /asesorias/1.json
   def show
-      init_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      add_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      add_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
-      add_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
-      add_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
+      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      set_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
+      set_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
+      set_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
 
       puts "***************************************+ show"
       puts @coleccion['app_documentos'].empty?

@@ -8,7 +8,7 @@ class Blog::BlgTemasController < ApplicationController
 
   # GET /blg_temas/1 or /blg_temas/1.json
   def show
-    init_tabla('blg_articulos', @objeto.blg_articulos.order(created_at: :desc), true)
+    set_tabla('blg_articulos', @objeto.blg_articulos.order(created_at: :desc), true)
   end
 
   # GET /blg_temas/new

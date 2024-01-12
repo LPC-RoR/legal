@@ -6,15 +6,15 @@ class AgeActividadesController < ApplicationController
     set_tab(:menu, ['Pendientes', 'Realizadas'])
 
     if @options[:menu] == 'Pendientes'
-      init_tabla('age_actividades', AgeActividad.where(estado: 'pendiente').order(fecha: :desc), false)
+      set_tabla('age_actividades', AgeActividad.where(estado: 'pendiente').order(fecha: :desc), false)
     elsif @options[:menu] == 'Realizadas'
-      init_tabla('age_actividades', AgeActividad.where(estado: 'realizada').order(fecha: :desc), false)
+      set_tabla('age_actividades', AgeActividad.where(estado: 'realizada').order(fecha: :desc), false)
     end
   end
 
   # GET /age_actividades/1 or /age_actividades/1.json
   def show
-    init_tabla('age_antecedentes', @objeto.age_antecedentes.order(:orden), false)
+    set_tabla('age_antecedentes', @objeto.age_antecedentes.order(:orden), false)
   end
 
   # GET /age_actividades/new

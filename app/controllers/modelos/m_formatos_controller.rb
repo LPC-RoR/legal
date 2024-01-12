@@ -8,8 +8,8 @@ class Modelos::MFormatosController < ApplicationController
 
   # GET /m_formatos/1 or /m_formatos/1.json
   def show
-    init_tabla('m_datos', @objeto.m_datos.order(:orden), false)
-    add_tabla('m_elementos', @objeto.m_elementos.order(:orden), false)
+    set_tabla('m_datos', @objeto.m_datos.order(:orden), false)
+    set_tabla('m_elementos', @objeto.m_elementos.order(:orden), false)
   end
 
   # GET /m_formatos/new

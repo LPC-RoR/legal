@@ -8,7 +8,7 @@ class Autenticacion::AppAdministradoresController < ApplicationController
 
   # GET /app_administradores or /app_administradores.json
   def index
-    init_tabla('app_administradores', AppAdministrador.all, false)
+    set_tabla('app_administradores', AppAdministrador.all, false)
   end
 
   # GET /app_administradores/1 or /app_administradores/1.json

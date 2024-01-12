@@ -7,8 +7,8 @@ class RegReportesController < ApplicationController
 
   # GET /reg_reportes/1 or /reg_reportes/1.json
   def show
-    init_tabla('registros', @objeto.registros, false)
-    add_tabla('tar_facturaciones', @objeto.facturaciones, false)
+    set_tabla('registros', @objeto.registros, false)
+    set_tabla('tar_facturaciones', @objeto.facturaciones, false)
   end
 
   # GET /reg_reportes/new

@@ -8,27 +8,27 @@ class CausasController < ApplicationController
     set_tab( :monitor,  ['Proceso', 'Terminadas'] )
 
     if @options[:monitor] == 'Proceso'
-      init_tabla('ingreso-causas', Causa.where(estado: 'ingreso').order(created_at: :desc), false)
-      add_tabla('proceso-causas', Causa.where(estado: 'proceso').order(created_at: :desc), false)
+      set_tabla('ingreso-causas', Causa.where(estado: 'ingreso').order(created_at: :desc), false)
+      set_tabla('proceso-causas', Causa.where(estado: 'proceso').order(created_at: :desc), false)
     elsif @options[:monitor] == 'Terminadas'
-      init_tabla('terminada-causas', Causa.where(estado: 'terminada').order(created_at: :desc), true)
+      set_tabla('terminada-causas', Causa.where(estado: 'terminada').order(created_at: :desc), true)
     end
   end
 
   # GET /causas/1 or /causas/1.json
   def show
 
-    init_tab( { menu: ['Seguimiento', 'Hechos', 'Tarifa & Cuantía', 'Pagos', 'Registro', 'Reportes'] }, true )
+    set_tab( :menu, ['Seguimiento', 'Hechos', 'Tarifa & Cuantía', 'Pagos', 'Registro', 'Reportes'] )
 
     if @options[:menu] == 'Seguimiento'
-      init_tabla('tar_facturaciones', @objeto.facturaciones, false)
+      set_tabla('tar_facturaciones', @objeto.facturaciones, false)
 
-      add_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      add_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-      add_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
-      add_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
-      add_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
+      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
+      set_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
+      set_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
+      set_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
 
       @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
       @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
@@ -40,32 +40,31 @@ class CausasController < ApplicationController
       actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
     elsif @options[:menu] == 'Hechos'
-      init_tabla('temas', @objeto.temas.order(:orden), true)
+      set_tabla('temas', @objeto.temas.order(:orden), true)
 
-#      add_tabla('hecho_docs', @objeto.hecho_docs.order(:orden), false)
-      add_tabla('app_documentos', @objeto.app_documentos.order(:app_documento), false)
+      set_tabla('app_documentos', @objeto.app_documentos.order(:app_documento), false)
     elsif @options[:menu] == 'Tarifa & Cuantía'
-      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+      set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
     elsif @options[:menu] == 'Pagos'
-      init_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
+      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
     elsif @options[:menu] == 'Antecedentes'
-      init_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
-      add_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)
+      set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+      set_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)
     elsif @options[:menu] == 'Documentos y enlaces'
       AppRepositorio.create(app_repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repositorio.blank?
 
-      init_tabla('app_directorios', @objeto.repositorio.directorios, false)
-      add_tabla('app_documentos', @objeto.repositorio.documentos, false)
-      add_tabla('app_archivos', @objeto.repositorio.archivos, false)
-      add_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
+      set_tabla('app_directorios', @objeto.repositorio.directorios, false)
+      set_tabla('app_documentos', @objeto.repositorio.documentos, false)
+      set_tabla('app_archivos', @objeto.repositorio.archivos, false)
+      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
     elsif @options[:menu] == 'Registro'
-      init_tabla('registros', @objeto.registros, false)
+      set_tabla('registros', @objeto.registros, false)
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
     elsif @options[:menu] == 'Reportes'
-      init_tabla('reg_reportes', @objeto.reportes, false)
+      set_tabla('reg_reportes', @objeto.reportes, false)
       @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
     end
 

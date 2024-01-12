@@ -10,10 +10,9 @@ class Repositorios::AppDirectoriosController < ApplicationController
   # GET /app_directorios/1 or /app_directorios/1.json
   def show
     @padres = AppDirectorio.where(id: @objeto.padres_ids)
-#    init_tabla('controller_name', Tabla, init, paginate)
-    init_tabla('app_directorios', @objeto.directorios, false)
-    add_tabla('app_documentos', @objeto.documentos, false)
-    add_tabla('app_archivos', @objeto.archivos, false)
+    set_tabla('app_directorios', @objeto.directorios, false)
+    set_tabla('app_documentos', @objeto.documentos, false)
+    set_tabla('app_archivos', @objeto.archivos, false)
   end
 
   # GET /app_directorios/new

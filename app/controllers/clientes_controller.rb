@@ -8,15 +8,15 @@ class ClientesController < ApplicationController
   # GET /clientes or /clientes.json
   def index
 
-    init_tab( { menu: ['Proceso', 'Baja'] }, true )
+    set_tab( :menu, ['Proceso', 'Baja'] )
 
     if @options[:menu] == 'Proceso'
-      init_tabla('ingreso-clientes', Cliente.where(estado: 'ingreso').order(:razon_social), false)
-      add_tabla('activo_empresa-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Empresa').order(:razon_social), false)
-      add_tabla('activo_sindicato-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Sindicato').order(:razon_social), false)
-      add_tabla('activo_trabajador-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Trabajador').order(:razon_social), false)
+      set_tabla('ingreso-clientes', Cliente.where(estado: 'ingreso').order(:razon_social), false)
+      set_tabla('activo_empresa-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Empresa').order(:razon_social), false)
+      set_tabla('activo_sindicato-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Sindicato').order(:razon_social), false)
+      set_tabla('activo_trabajador-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Trabajador').order(:razon_social), false)
     elsif @options[:menu] == 'Baja'
-      init_tabla('baja-clientes', Cliente.where(estado: 'baja').order(:razon_social), true)
+      set_tabla('baja-clientes', Cliente.where(estado: 'baja').order(:razon_social), true)
     end
   end
 
@@ -27,58 +27,58 @@ class ClientesController < ApplicationController
 
 #    @coleccion = {}
     if @options[:menu] == 'Seguimiento'
-      init_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      add_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      add_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
-      add_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
+      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      set_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
+      set_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
 
       @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
       @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
     elsif @options[:menu] == 'Causas'
       set_tab( :monitor,  ['Proceso', 'Terminadas'] )
       causas_cliente = @objeto.causas
-      init_tabla('ingreso-causas', causas_cliente.where(estado: 'ingreso').order(:created_at), false)
-      add_tabla('proceso-causas', causas_cliente.where(estado: 'proceso').order(:created_at), false)
-      add_tabla('terminada-causas', causas_cliente.where(estado: 'terminada').order(:created_at), true)
+      set_tabla('ingreso-causas', causas_cliente.where(estado: 'ingreso').order(:created_at), false)
+      set_tabla('proceso-causas', causas_cliente.where(estado: 'proceso').order(:created_at), false)
+      set_tabla('terminada-causas', causas_cliente.where(estado: 'terminada').order(:created_at), true)
 
     elsif @options[:menu] == 'Asesorias'
       set_tab( :monitor,  ['Proceso', 'Terminadas', 'Multas & Redacciones', 'Mensuales & Cargos'] )
       asesorias_cliente = @objeto.asesorias
 
       if @options[:monitor] == 'Proceso'
-        init_tabla('ingreso-asesorias', asesorias_cliente.where(estado: 'ingreso').order(created_at: :desc), false)
-        add_tabla('proceso-asesorias', asesorias_cliente.where(estado: 'proceso').order(created_at: :desc), false)
+        set_tabla('ingreso-asesorias', asesorias_cliente.where(estado: 'ingreso').order(created_at: :desc), false)
+        set_tabla('proceso-asesorias', asesorias_cliente.where(estado: 'proceso').order(created_at: :desc), false)
       elsif @options[:monitor] == 'Terminadas'
-        init_tabla('terminada-asesorias', asesorias_cliente.where(estado: 'terminada').order(created_at: :desc), true)
+        set_tabla('terminada-asesorias', asesorias_cliente.where(estado: 'terminada').order(created_at: :desc), true)
       elsif @options[:monitor] == 'Multas & Redacciones'
         ta_multas = TipoAsesoria.find_by(tipo_asesoria: 'Multa')
         ta_redacciones = TipoAsesoria.find_by(tipo_asesoria: 'Redacción')
 
-        init_tabla('multas-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_multas.id ,estado: 'terminada').order(created_at: :desc), false)
-        add_tabla('redacciones-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_redacciones.id ,estado: 'terminada').order(created_at: :desc), false)
+        set_tabla('multas-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_multas.id ,estado: 'terminada').order(created_at: :desc), false)
+        set_tabla('redacciones-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_redacciones.id ,estado: 'terminada').order(created_at: :desc), false)
       elsif @options[:monitor] == 'Mensuales & Cargos'
         ta_mensuales = TipoAsesoria.find_by(tipo_asesoria: 'Mensual')
         ta_cargos = TipoAsesoria.find_by(tipo_asesoria: 'Cargo')
 
-        init_tabla('mensuales-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_mensuales.id ,estado: 'terminada').order(created_at: :desc), false)
-        add_tabla('cargos-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_cargos.id ,estado: 'terminada').order(created_at: :desc), false)
+        set_tabla('mensuales-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_mensuales.id ,estado: 'terminada').order(created_at: :desc), false)
+        set_tabla('cargos-asesorias', asesorias_cliente.where(tipo_asesoria_id: ta_cargos.id ,estado: 'terminada').order(created_at: :desc), false)
       end
 
     elsif @options[:menu] == 'Facturas'
       set_tab( :monitor,  ['Proceso', 'Pagadas'] )
       facturas_cliente = @objeto.facturas
-      init_tabla('ingreso-tar_facturas', facturas_cliente.where(estado: 'ingreso').order(documento: :desc), false)
-      add_tabla('facturada-tar_facturas', facturas_cliente.where(estado: 'facturada').order(documento: :desc), false)
-      add_tabla('pagada-tar_facturas', facturas_cliente.where(estado: 'pagada').order(documento: :desc), true)
+      set_tabla('ingreso-tar_facturas', facturas_cliente.where(estado: 'ingreso').order(documento: :desc), false)
+      set_tabla('facturada-tar_facturas', facturas_cliente.where(estado: 'facturada').order(documento: :desc), false)
+      set_tabla('pagada-tar_facturas', facturas_cliente.where(estado: 'pagada').order(documento: :desc), true)
     elsif @options[:menu] == 'Tarifas'
-      init_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
-      add_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
+      set_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
+      set_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
     elsif @options[:menu] == 'Documentos y enlaces'
       @repositorio = AppRepositorio.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)
       @repositorio = AppRepositorio.create(app_repositorio: @objeto.razon_social, owner_class: 'Cliente', owner_id: @objeto.id) if @repositorio.blank?
-      init_tabla('app_directorios', @repositorio.directorios, false)
-      add_tabla('app_documentos', @repositorio.documentos, false)
-      add_tabla('app_archivos', @repositorio.archivos, false)
+      set_tabla('app_directorios', @repositorio.directorios, false)
+      set_tabla('app_documentos', @repositorio.documentos, false)
+      set_tabla('app_archivos', @repositorio.archivos, false)
     end
 
   end

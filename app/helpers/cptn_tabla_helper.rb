@@ -18,8 +18,8 @@ module CptnTablaHelper
 				false
 			else
 				aliasness = get_controller(controller)
-				if ['app_administradores', 'app_nominas', 'hlp_tutoriales', 'hlp_pasos'].include?(aliasness)
-						seguridad_desde('admin')
+				if ['app_administradores', 'app_nominas', 'blg_articulos', 'blg_temas'].include?(aliasness)
+						false
 				elsif ['app_perfiles', 'usuarios', 'ind_palabras', 'app_contactos', 'app_directorios', 'app_documentos', 'app_archivos', 'app_enlaces'].include?(controller)
 					false
 				elsif ['app_mensajes'].include?(aliasness)
@@ -46,7 +46,7 @@ module CptnTablaHelper
 	end
 
 	def crud_conditions(objeto, btn)
-		if ['AppAdministrador', 'AppNomina', 'HlpTutorial', 'HlpPaso'].include?(objeto.class.name)
+		if ['AppNomina', 'BlgArticulo', 'BlgTema'].include?(objeto.class.name)
 				seguridad_desde('admin')
 		elsif ['AppPerfil', 'Usuario', 'AppMensaje' ].include?(objeto.class.name)
 			false
@@ -59,7 +59,12 @@ module CptnTablaHelper
 		elsif ['AppObservacion', 'AppMejora'].include?(objeto.class.name)
 			(usuario_signed_in? and objeto.app_perfil.id == current_usuario.id)
 		else
-			app_crud_conditions(objeto, btn)
+			case objeto.class.name
+			when 'AppAdministrador'
+				seguridad_desde('admin') and objeto.email != dog_email
+			else
+				app_crud_conditions(objeto, btn)
+			end
 		end
 	end
 

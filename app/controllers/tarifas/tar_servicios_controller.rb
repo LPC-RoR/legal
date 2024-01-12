@@ -7,7 +7,7 @@ class Tarifas::TarServiciosController < ApplicationController
 
   # GET /tar_servicios/1 or /tar_servicios/1.json
   def show
-    init_tabla('asesorias', @objeto.asesorias.order(created_at: :desc), false)
+    set_tabla('asesorias', @objeto.asesorias.order(created_at: :desc), false)
   end
 
   # GET /tar_servicios/new

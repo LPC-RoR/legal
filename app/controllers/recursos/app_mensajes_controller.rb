@@ -15,9 +15,9 @@ class Recursos::AppMensajesController < ApplicationController
 
     # Despliegue
     if @e == 'ingreso' and admin?
-      init_tabla('app_mensajes', coleccion_base.where(id: ids_administrativos).where(estado: 'ingreso').order(fecha_envio: :desc), true)
+      set_tabla('app_mensajes', coleccion_base.where(id: ids_administrativos).where(estado: 'ingreso').order(fecha_envio: :desc), true)
     elsif @e == 'cerrado'
-      init_tabla('app_mensajes', encabezados.where(estado: 'cerrado'), true)
+      set_tabla('app_mensajes', encabezados.where(estado: 'cerrado'), true)
     else
       enviados = encabezados.where(estado: 'enviado')
 
@@ -25,7 +25,7 @@ class Recursos::AppMensajesController < ApplicationController
       ids_sin_respuesta = enviados.map {|pend| pend.id if pend.children.empty?}.compact
 
       if @e == 'enviado'
-        init_tabla('app_mensajes', enviados.where(id: ids_administrativos).order(fecha_envio: :desc), true)
+        set_tabla('app_mensajes', enviados.where(id: ids_administrativos).order(fecha_envio: :desc), true)
       elsif @e == 'recibido'
         ids_usuario_sin_respuesta = (ids_sin_respuesta - ids_administrativos)
         ids_usuario_con_respuesta = (ids_con_respuesta - ids_administrativos)
@@ -42,10 +42,10 @@ class Recursos::AppMensajesController < ApplicationController
           ids_usuario_con_respuesta_admin = usuario_con_respuesta.map {|msg| msg.id if msg.children.order(fecha_envio: :desc).first.perfil.administrador.present?}.compact
           ids_coleccion = (ids_enviados_adm | ids_usuario_con_respuesta_admin)
         end
-        init_tabla('app_mensajes', coleccion_base.where(id: ids_coleccion).order(fecha_envio: :desc), true)
+        set_tabla('app_mensajes', coleccion_base.where(id: ids_coleccion).order(fecha_envio: :desc), true)
       end
 
-      init_tabla('app_mensajes', AppMensaje.where(estado: @e).order(:created_at), false)
+      set_tabla('app_mensajes', AppMensaje.where(estado: @e).order(:created_at), false)
     end
 
     # No me queda clara su función, lo dejo para revisión más detallada

@@ -6,15 +6,12 @@ class Estados::StModelosController < ApplicationController
 
   # GET /st_modelos or /st_modelos.json
   def index
-    init_tabla('st_modelos', StModelo.all.order(:st_modelo), false)
+    set_tabla('st_modelos', StModelo.all.order(:st_modelo), false)
   end
 
   # GET /st_modelos/1 or /st_modelos/1.json
   def show
-#    @coleccion = {}
-#    @coleccion['st_estados'] = @objeto.st_estados.order(:orden)
-#    @paginate = false
-    init_tabla('st_estados', @objeto.st_estados.order(:orden), false)
+    set_tabla('st_estados', @objeto.st_estados.order(:orden), false)
   end
 
   # GET /st_modelos/new
