@@ -3,7 +3,8 @@
 		<%if objeto.uf_calculo_pago(pago).blank? %>
 			UF de cálculo no encontrada
 		<% else %>
-			<%= s_uf5( calcula2(pago.formula_tarifa, objeto, pago) / objeto.uf_calculo_pago(pago).valor ) %>
+			<%= pago.formula_tarifa %>
+			<%#= s_uf5( calcula2(pago.formula_tarifa, objeto, pago) / objeto.uf_calculo_pago(pago).valor ) %>
 		<% end %>
 	<% else %>
 		<%= s_uf5( calcula2(pago.formula_tarifa, objeto, pago) ) %>

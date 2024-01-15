@@ -65,10 +65,6 @@ module CptnMapHelper
 	## -------------------------------------------------------- BANDEJAS
 	## EN REVISIÓN, se eliminó el uso de layouts, hay que revisar manejo de estados
 
-	# desde controller/concern/map
-	# def bandeja_controllers
-	# def bandeja_display?
-
 	def primer_estado(controller)
 		st_modelo = StModelo.find_by(st_modelo: controller.classify)
 		st_modelo.blank? ? nil : st_modelo.primer_estado.st_estado

@@ -1,8 +1,6 @@
 module CptnMapAppHelper
 
 	## ------------------------------------------------------- GENERAL
-	# desde controllers/concern/map
-	# def app_bandeja_controllers
 
 	def no_banner_display?
 		controller_name == 'servicios' and action_name == 'aprobacion'
