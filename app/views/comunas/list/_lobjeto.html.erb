@@ -1,5 +1,9 @@
 <small>
 <i class="bi bi-geo-alt"></i> 
 <%= objeto.comuna %> 
-<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if admin? %></br>
+	<small>
+		<% if admin? %>
+			<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+		<% end %>
+	</small></br>
 </small>

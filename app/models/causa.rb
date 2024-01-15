@@ -26,6 +26,15 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
+    def child_records?
+    	valores_cuantia.any? or
+    	facturaciones.any? or
+    	archivos.any? or 
+    	documentos.any? or
+    	enlaces.any? or
+    	valores_datos.any?
+    end
+
 	def valores_cuantia
 		TarValorCuantia.where(owner_class: self.class.name, owner_id: self.id)
 	end

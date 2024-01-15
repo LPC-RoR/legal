@@ -2,5 +2,7 @@
 	<%= link_to objeto.m_formato, objeto %></br>
 	<i class="bi bi-arrow-bar-down"></i> <%= objeto.inicio %></br>
 	<i class="bi bi-arrow-bar-up"></i> <%= objeto.termino %></br>
-	<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
+	<small>
+		<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+	</small>
 </small>

@@ -46,7 +46,7 @@ module CptnTablaHelper
 	end
 
 	def crud_conditions(objeto, btn)
-		if ['AppNomina', 'BlgArticulo', 'BlgTema'].include?(objeto.class.name)
+		if ['BlgTema'].include?(objeto.class.name)
 				seguridad_desde('admin')
 		elsif ['AppPerfil', 'Usuario', 'AppMensaje' ].include?(objeto.class.name)
 			false
@@ -59,12 +59,7 @@ module CptnTablaHelper
 		elsif ['AppObservacion', 'AppMejora'].include?(objeto.class.name)
 			(usuario_signed_in? and objeto.app_perfil.id == current_usuario.id)
 		else
-			case objeto.class.name
-			when 'AppAdministrador'
-				seguridad_desde('admin') and objeto.email != dog_email
-			else
-				app_crud_conditions(objeto, btn)
-			end
+			app_crud_conditions(objeto, btn)
 		end
 	end
 

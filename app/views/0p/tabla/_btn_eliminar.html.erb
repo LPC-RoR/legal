@@ -1,3 +1,5 @@
-<%= link_to objeto, method: :delete, data: { confirm: 'Está seguro?'}, class: "btn btn-outline-#{color(objeto.class.name.tableize)} btn-sm" do %>
-	<i class=<%="bi-trash"%>></i>
+<% if not has_child?(objeto) %>
+	<%= link_to objeto, method: :delete, data: { confirm: 'Está seguro?'}, class: "btn btn-outline-#{color(objeto.class.name.tableize)} btn-sm" do %>
+		<i class=<%="bi-trash"%>></i>
+	<% end %>
 <% end %>

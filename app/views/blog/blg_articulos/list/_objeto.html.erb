@@ -6,6 +6,10 @@
 		<small><%= link_to objeto.blg_articulo, objeto %></small>
 	</div>
 	<div class="col-md-2">
-		<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if admin? %></small>
+		<small><small>
+			<% if admin? %>
+				<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+			<% end %>
+		</small></small>
 	</div>
 </div>

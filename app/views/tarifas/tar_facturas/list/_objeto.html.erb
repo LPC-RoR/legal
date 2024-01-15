@@ -37,7 +37,7 @@
 	<% end %>
 
 	<%= link_to 'libera factura', "/tar_facturas/#{objeto.id}/libera_factura" if objeto.estado == 'ingreso' %>
-	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
 
 	<% if controller_name == 'm_registros' %>
 	<% unless objeto.m_registros.empty? %>

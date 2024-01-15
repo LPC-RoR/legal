@@ -1,3 +1,5 @@
-<%= link_to objeto, method: :delete, data: { confirm: 'Está seguro?'}, title: 'Eliminar', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-	<i class=<%="bi-trash"%>></i>
+<% if not has_child?(objeto) %>
+	<%= link_to objeto, method: :delete, data: { confirm: 'Está seguro?'}, title: 'Eliminar', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class=<%="bi-trash"%>></i>
+	<% end %>
 <% end %>

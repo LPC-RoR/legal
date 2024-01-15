@@ -1,0 +1,12 @@
+<small><small class="text-muted">
+<div class="row">
+	<div class="col-10">
+		<i class="bi bi-tag"></i> <%= objeto.estado %>
+	</div>
+	<div class="col-2" align='right'>
+		<% unless restriccion %>
+			<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+		<% end %>
+	</div>
+</div>
+</small></small>

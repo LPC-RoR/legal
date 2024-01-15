@@ -1,5 +1,5 @@
 <small>
-	<i class="bi bi-box"></i> <%= objeto.st_modelo %> | <%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	<i class="bi bi-box"></i> <%= objeto.st_modelo %> | <%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
 	<hr>
 	<div class="row">
 		<div class="col-lg-6 col-xs-12">
@@ -18,7 +18,7 @@
 						<%= estado.st_estado %>
 					</div>
 					<div class="col-lg-2" align='right'>
-						<small><%= render partial: '0p/tabla/links_e', locals: {objeto: estado} %></small>
+						<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: estado} %></small>
 					</div>
 				<% end %>
 			</div>
@@ -52,7 +52,7 @@
 						</b>
 					</div>
 					<div class="col-lg-2" align='right'>
-						<small><%= render partial: '0p/tabla/links_e', locals: {objeto: control} %></small>
+						<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: control} %></small>
 					</div>
 				</div>
 				<div style="padding-left: 2em; padding-right: 1em;">

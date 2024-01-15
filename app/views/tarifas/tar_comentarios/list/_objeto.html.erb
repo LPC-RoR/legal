@@ -12,7 +12,7 @@
 		<% unless objeto.formula.blank? %>
 			<%= objeto.formula %>
 		<% end %> | 
-		<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></br>
+		<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small></br>
 		<% unless objeto.comentario.blank? %>
 			<i class="bi bi-dot"></i><i class="bi bi-chat-quote"></i> <i><%= objeto.comentario %></i>
 		<% end %>

@@ -19,7 +19,7 @@
 						<%= link_to "m_items/new?oid=#{concepto.id}"  do %>
 							<i class="bi bi-plus-square"></i>
 						<% end %>
-						<%= render partial: '0p/tabla/links_e', locals: {objeto: concepto} %>
+						<%= render partial: '0p/tabla/lnks_e', locals: {objeto: concepto} %>
 					</small></small>
 				</div>
 
@@ -35,7 +35,7 @@
 					</div>
 					<div class="col-lg-2" align='right'>
 						<small><small>
-							<%= render partial: '0p/tabla/links_e', locals: {objeto: item} %>
+							<%= render partial: '0p/tabla/lnks_e', locals: {objeto: item} %>
 						</small></small>
 					</div>
 				<% end %>

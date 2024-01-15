@@ -1,57 +1,6 @@
-<small>
-<div class="list-item">
+<%= render partial: 'capitan/objeto/estado_crud', locals: {objeto: objeto, restriccion: false} %>
 
-	<div class="row">
-		<div class="col-10">
-			<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
-
-			<b><%= link_to objeto.rit, objeto, title: 'Detalle Causa', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> | <%= objeto.causa %></b>
-			<% if objeto.demanda? %>
-				<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-					<i class="bi bi-box-arrow-up-right"></i>
-				<% end %>
-			<% end %></br>
-
-			<small>
-				<%= dma(objeto.created_at) %> | <i><%= objeto.cliente.razon_social %></i></br>
-
-				<i class="bi bi-cash-coin"></i> 
-				<b>
-				<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
-				<% unless objeto.monto_pagado.blank? %>
-					 - <span class='text-info'><%= s_pesos(objeto.monto_pagado) %></span>
-				<% end %>
-				</b>
-				<% if objeto.estado == 'proceso' %>
-					 - 
-					<%= render layout: '0p/collapse/link', locals: {label: 'Pago', objeto: objeto, tooltip: "#{objeto.monto_pagado.blank? ? 'Nuevo' : 'Modificar' }"} do %>
-						 <% if  objeto.monto_pagado.blank? %>
-						 	<i class="bi bi-plus"></i>
-						 <% else %>
-						 	<i class="bi bi-pencil"></i>
-						 <% end %>
-						 Monto acuerdo/sentencia
-					<% end %>
-
-					<%= render layout: '0p/collapse/display', locals: {label: 'Pago', objeto: objeto} do %>
-						<div style="padding-left: 2em; padding-right: 1em;">
-						  	<%= render partial: 'causas/list/form_monto_pagado', locals: {objeto: objeto} %>
-					  	</div>
-					<% end %>
-				<% end %></br>
-
-				<%= render partial: 'causas/list/bottom_links', locals: {objeto: objeto} %>
-			</small>
-		</div>
-		<div class="col-2" align="right">
-			<small>
-				<% if (objeto.estado == 'ingreso' or dog?) %>
-					<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
-				<% end %>
-			</small>
-		</div>
-	</div>
-
-
-</div>
-</small>
+<%= render partial: 'causas/list/line_demanda', locals: {objeto: objeto} %>
+<%= render partial: 'causas/list/line_info', locals: {objeto: objeto} %>
+<%= render partial: 'causas/list/line_monto', locals: {objeto: objeto} %>
+<%= render partial: 'causas/list/bottom_links', locals: {objeto: objeto} %>

@@ -1,0 +1,16 @@
+<small>
+<div class="row text-info">
+	<div class="col-10">
+		<b><%= link_to objeto.rit, objeto, title: 'Detalle Causa', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> 
+			<i class="bi bi-dot"></i> 
+			<%= objeto.causa %></b></br>
+	</div>
+	<div class="col-2">
+		<% if objeto.demanda? %>
+			<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<i class="bi bi-box-arrow-up-right"></i>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+</small>
