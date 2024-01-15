@@ -1,6 +1,7 @@
 <% if objeto.pago_generado(pago).blank? %>
 	<% if  pago.moneda == 'Pesos' %>
-		<%= s_pesos( calcula2(pago.formula_tarifa, objeto, pago) ) %>
+		<%= pago.formula_tarifa %>
+		<%#= s_pesos( calcula2(pago.formula_tarifa, objeto, pago) ) %>
 	<% else %>
 		<% if objeto.uf_calculo_pago(pago).blank? %>
 			UF no encontrada
