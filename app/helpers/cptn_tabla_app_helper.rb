@@ -37,7 +37,7 @@ module CptnTablaAppHelper
 		if ['RegReporte', 'TarFacturacion'].include?(objeto.class.name)
 			false
 		elsif ['Causa'].include?(objeto.class.name)
-			objeto.estado == 'ingreso'
+			objeto.estado == 'ingreso' or dog?
 		elsif [].include?(objeto.class.name)
 			admin?
 		elsif ['TarFactura'].include?(objeto.class.name)

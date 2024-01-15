@@ -45,7 +45,7 @@
 		</div>
 		<div class="col-2" align="right">
 			<small>
-				<% if objeto.estado == 'ingreso' or dog? %>
+				<% if (objeto.estado == 'ingreso' or dog?) %>
 					<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 				<% end %>
 			</small>
