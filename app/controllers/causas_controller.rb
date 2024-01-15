@@ -145,7 +145,7 @@ class CausasController < ApplicationController
       @objeto.save
     end
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Facturacion"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Pagos"
   end
 
   def actualiza_antecedente
