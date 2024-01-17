@@ -1,0 +1,42 @@
+<%= form_with(model: app_version, local: true) do |form| %>
+  <% if app_version.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(app_version.errors.count, "error") %> prohibited this app_version from being saved:</h2>
+
+      <ul>
+      <% app_version.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :app_nombre %>
+    <%= form.text_field :app_nombre %>
+  </div>
+
+  <div class="field">
+    <%= form.label :app_sigla %>
+    <%= form.text_field :app_sigla %>
+  </div>
+
+  <div class="field">
+    <%= form.label :app_logo %>
+    <%= form.text_field :app_logo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :app_banner %>
+    <%= form.text_field :app_banner %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dog_email %>
+    <%= form.text_field :dog_email %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

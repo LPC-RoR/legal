@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app_nombre: MyString
+  app_sigla: MyString
+  app_logo: MyString
+  app_banner: MyString
+  dog_email: MyString
+
+two:
+  app_nombre: MyString
+  app_sigla: MyString
+  app_logo: MyString
+  app_banner: MyString
+  dog_email: MyString

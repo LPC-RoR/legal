@@ -22,6 +22,9 @@ module CptnMenuLeftHelper
 				'Usuario',
 				'StModelo',
 				'BlgArticulo'
+			],
+			dog: [
+				'AppVersion'
 			]
 		}
 	end

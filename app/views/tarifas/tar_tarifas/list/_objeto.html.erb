@@ -1,10 +1,8 @@
+<%= render partial: 'tarifas/tar_tarifas/list/line_tarifa', locals: {objeto: objeto} %>
+
 <small>
 <div class="list-item">
 
-	<i class="bi bi-journal-text"></i> 
-	<b><%= link_to objeto.tarifa, objeto %></b> | 
-	<%= objeto.moneda %> | 
-	<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small></br>
 
 	<%= render partial: 'tarifas/tar_tarifas/list/detalle_tarifa', locals: {objeto: objeto} %>
 

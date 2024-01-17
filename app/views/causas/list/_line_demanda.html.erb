@@ -5,7 +5,12 @@
 			<i class="bi bi-dot"></i> 
 			<%= objeto.causa %></b></br>
 	</div>
-	<div class="col-2">
+	<div class="col-2" align='right'>
+		<% unless objeto.facturaciones.empty? %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Facturaciones', objeto: objeto, tooltip: 'Pagos'} do %>
+				<i class="bi bi-currency-dollar"></i>
+			<% end %>
+		<% end %>
 		<% if objeto.demanda? %>
 			<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 				<i class="bi bi-box-arrow-up-right"></i>
@@ -14,3 +19,9 @@
 	</div>
 </div>
 </small>
+
+<% unless objeto.facturaciones.empty? %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'Facturaciones', objeto: objeto} do %>
+		<%= render partial: 'causas/list/display_facturaciones', locals: {objeto: objeto} %>
+	<% end %>
+<% end %>

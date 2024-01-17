@@ -95,6 +95,7 @@ Rails.application.routes.draw do
       # recurso SOLO si hay manejo de ESTADOS
       resources :st_perfil_modelos
     end
+    resources :app_versiones
   end
 
   scope module: 'recursos' do

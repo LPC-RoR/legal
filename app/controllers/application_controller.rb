@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
 #	include Tarifas
 
-	helper_method :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id, :mi_seguridad?, :publico?
+	helper_method :version_activa, :dog?, :admin?, :nomina?, :general?, :anonimo?, :seguridad_desde, :dog_email, :dog_name, :perfil?, :perfil_activo, :perfil_activo_id, :mi_seguridad?, :publico?
 	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :enlaces_perfil
 	helper_method :calcula2
 	helper_method :menu_tablas, :tb_index, :first_tabla_index

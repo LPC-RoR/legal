@@ -1,0 +1,43 @@
+<small><small>
+	<div class="row">
+		<div class="col-10">
+			<% if objeto.facturacion.blank? %>
+				<% if objeto.moneda.blank? or objeto.monto.blank? %>
+					Tarifa : <%= objeto.tar_servicio.descripcion unless objeto.tar_servicio.blank? %> 
+				<% end %>
+			<% end %>
+		</div>
+		<div class="col-2" ALIGN='right'>
+			<% if objeto.facturacion.blank? %>
+				<% if objeto.moneda.blank? or objeto.monto.blank? %>
+					<%= render layout: '0p/collapse/link', locals: {label: 'Asesoria', objeto: objeto, tooltip: "#{objeto.tar_servicio.blank? ? 'Nueva' : 'Modifica'}" } do %>
+						<% if  objeto.tar_servicio.blank? %>
+							<i class="bi bi-plus-circle"></i>
+						<% else %>
+							<i class="bi bi-pencil"></i>
+						<% end %>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<b><i class="bi bi-coin"></i> 
+	<% if objeto.moneda.blank? or objeto.monto.blank? %>
+		<%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) unless objeto.tar_servicio.blank? %>
+	<% else %>
+		<%= s_moneda(objeto.moneda, objeto.monto) %>
+	<% end %>
+	</b> 
+	<% unless objeto.fecha_uf.blank? %>
+		  ( UF del <%= dma(objeto.fecha_uf) %> ) 
+	<% end %>
+</small></small>	
+</br>
+
+<% if objeto.facturacion.blank? %>
+	<% if objeto.moneda.blank? or objeto.monto.blank? %>
+		<%= render layout: '0p/collapse/display', locals: {label: 'Asesoria', objeto: objeto} do %>
+			<%= render partial: 'asesorias/list/form_tar_servicio', locals: {objeto: objeto} %>
+		<% end %>
+	<% end %>
+<% end %>

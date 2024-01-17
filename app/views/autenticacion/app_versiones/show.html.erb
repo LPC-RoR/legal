@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App nombre:</strong>
+  <%= @app_version.app_nombre %>
+</p>
+
+<p>
+  <strong>App sigla:</strong>
+  <%= @app_version.app_sigla %>
+</p>
+
+<p>
+  <strong>App logo:</strong>
+  <%= @app_version.app_logo %>
+</p>
+
+<p>
+  <strong>App banner:</strong>
+  <%= @app_version.app_banner %>
+</p>
+
+<p>
+  <strong>Dog email:</strong>
+  <%= @app_version.dog_email %>
+</p>
+
+<%= link_to 'Edit', edit_app_version_path(@app_version) %> |
+<%= link_to 'Back', app_versiones_path %>

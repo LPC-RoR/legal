@@ -9,6 +9,19 @@
 <% end %>
 <div class="row">
 	<div class="col-lg-5 col-xs-12">
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_repos', title: 'Documentos, archivos & enlaces', link_new: nil} %>
+
+		<div class="shadow p-3 mb-3 bg-white rounded">
+
+			<%= render partial: 'repositorios/app_documentos/partials/display_documentos', locals: {objeto: @objeto, pendientes: [], coleccion: @coleccion['app_documentos']} %>
+			<%= render partial: 'repositorios/app_archivos/partials/display_archivos', locals: {objeto: @objeto, pendientes: [], coleccion: @coleccion['app_archivos']} %>
+
+			<%= render partial: 'recursos/app_enlaces/partials/display_enlaces', locals: {objeto: @objeto} %>
+
+		</div>
+
+		<hr>
+
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pago', link_new: nil} %>
 
 		<% unless @objeto.tar_servicio.blank? %>
@@ -17,29 +30,17 @@
 			<% end %>
 		<% end %>
 
-		<hr>
-
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_documentos', title: 'Documentos', link_new: "/app_documentos/new?class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
-
-		<%#= render partial: 'repositorios/app_documentos/partials/control_documentos', locals: {pendientes: @docs_pendientes} %>
-
-		<hr>
-
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_archivos', title: 'Archivos', link_new: "/app_archivos/new?class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
-
-		<%#= render partial: 'repositorios/app_archivos/partials/control_archivos', locals: {pendientes: @archivos_pendientes} %>
-
-		<hr>
-
-		<%= render partial: 'recursos/app_enlaces/partials/show_enlaces', locals: {objeto: @objeto} %>
 	</div>
 	<div class="col-lg-7">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Reuniones', link_new: "/age_actividades/new?t=R&class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
 
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'reunion-age_actividades'} %>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Actividades', link_new: nil} %>
 
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Tareas', link_new: "/age_actividades/new?t=T&class_name=#{@objeto.class.name}&objeto_id=#{@objeto.id}"} %>
+		<div class="shadow p-3 mb-3 bg-white rounded">
 
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tarea-age_actividades'} %>
+			<%= render partial: 'age_actividades/partials/display_reuniones_tareas', locals: {objeto: @objeto, actividad: 'Reuniones', coleccion: @coleccion['reunion-age_actividades']} %>
+			<%= render partial: 'age_actividades/partials/display_reuniones_tareas', locals: {objeto: @objeto, actividad: 'Tareas', coleccion: @coleccion['tarea-age_actividades']} %>
+
+		</div>
+
 	</div>
 </div>

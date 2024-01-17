@@ -73,7 +73,7 @@ class Modelos::MRegistrosController < ApplicationController
       if factura.pagada?
         factura.estado = 'pagada'
         factura.save
-        noticia = 'Error en la asignación: Factura ya está pagada pagada'
+        noticia = 'Error en la asignación: Factura ya está pagada'
       else
         case tipo_monto
         when 'Factura'

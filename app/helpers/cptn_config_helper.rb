@@ -3,7 +3,6 @@ module CptnConfigHelper
 		{
 			app: {
 				nombre: 'addt',
-				titulo: 'Abogados derecho del trabajo',
 				home: 'http://www.abogadosderechodeltrabajo.cl',
 				logo_navbar: nil
 			},

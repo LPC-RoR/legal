@@ -39,7 +39,7 @@ module CptnMapHelper
 	def controllers_scope
 		{
 			aplicacion:    ['app_recursos'],
-			autenticacion: ['app_administradores', 'app_nominas', 'app_perfiles'],
+			autenticacion: ['app_administradores', 'app_nominas', 'app_perfiles', 'app_versiones'],
 			recursos:      ['app_contactos', 'app_enlaces', 'app_mejoras', 'app_mensajes', 'app_observaciones'],
 			repositorios:  ['app_repositorios', 'app_directorios', 'app_documentos', 'app_archivos', 'app_imagenes', 'control_documentos'],
 			home:          ['h_temas', 'h_links', 'h_imagenes'],

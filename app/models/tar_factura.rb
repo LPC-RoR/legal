@@ -50,7 +50,7 @@ class TarFactura < ApplicationRecord
 	end
 
 	def pagado
-		self.m_reg_facts.map {|mef| mrf.monto}.sum
+		self.m_reg_facts.map {|mrf| mrf.monto}.sum
 	end
 
 	def pagada?

@@ -1,21 +1,8 @@
-<small>
-<div class="list-item">
-
-	<%= objeto.cliente.razon_social %> | <%= link_to dma(objeto.fecha), objeto %></br>
-
-	<small>
-
-	<% unless objeto.tar_facturaciones.empty? %>
-		<% objeto.tar_facturaciones.each do |facturacion| %>
-			<i class="bi bi-dot"></i> <%= facturacion.glosa %> | 
-			<%= s_pesos(facturacion.monto_pesos) %></br>
-		<% end %>
-	<% end %>
-
+<%= render partial: 'tarifas/tar_aprobaciones/list/line_aprobacion', locals: {objeto: objeto} %>
+<div style='line-height: 13px; padding-left: 1em;'>
+	<%= render partial: 'tarifas/tar_aprobaciones/list/line_facturaciones', locals: {objeto: objeto} %>
+	<small><small>
 	<%= link_to 'facturar', "/tar_aprobaciones/#{objeto.id}/facturar" if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
-	<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
-
-	</small>
-
+	</small></small>
 </div>
-</small>
+

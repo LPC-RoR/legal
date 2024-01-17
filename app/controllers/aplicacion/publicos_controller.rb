@@ -1,5 +1,6 @@
 class Aplicacion::PublicosController < ApplicationController
   before_action :set_publico, only: %i[ show edit update destroy ]
+  before_action :inicia_sesion, only: [:home]
 
   # GET /publicos or /publicos.json
   def index

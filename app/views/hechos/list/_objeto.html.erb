@@ -1,21 +1,16 @@
-<div class="row">
-	<div class="col-lg-7 col-xs-12">
-		<div style="padding-left: 2em;">
-		<small class="text-muted">
-			<i class="bi bi-arrow-return-right"></i> 
+<small>
+<div class="row text-muted">
+	<div class="col-9">
+		<div style="padding-left: 1em;">
+			<i class="bi bi-arrow-return-right"></i>
+			<%= render partial: '0p/tabla/orderer', locals: {objeto: objeto } %>
 			<%= objeto.hecho %>
-
 			<% unless objeto.cita.blank? %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'Cita', objeto: objeto, tooltip: 'Cita' } do %>
-				<i class="bi bi-box-arrow-down"></i> 
+				<%= render layout: '0p/collapse/link', locals: {label: 'Cita', objeto: objeto, tooltip: 'Cita' } do %>
+					<i class="bi bi-box-arrow-down"></i> 
+				<% end %>
 			<% end %>
-			<% end %>
-
-			<%= render partial: '0p/tabla/orderer', locals: {objeto: objeto } %> 
-
-			<i class="bi bi-dot"></i> 
-
-			<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small>
+			</br>
 
 			<% unless objeto.cita.blank? %>
 				<%= render layout: '0p/collapse/display', locals: {label: 'Cita', objeto: objeto} do %>
@@ -26,27 +21,11 @@
 				<% end %>
 			<% end %>
 
-		</small>
-		</div>
-	</div>
-	<div class="col-lg-5">
-		<small class="text-muted">
-			<span class="text-info"><i class="bi bi-files"></i> Documentos prueba</span> 
+			<div class="text-info" style="padding-left: 2em;">
 
-
-			<%= render layout: '0p/collapse/link', locals: {label: 'MasDocumento', objeto: objeto, tooltip: 'Agrega' } do %>
-				<i class="bi bi-plus-circle"></i> 
-			<% end %>
-
-			<%= render layout: '0p/collapse/link', locals: {label: 'SelDocumento', objeto: objeto, tooltip: 'Selecciona' } do %>
-				<i class="bi bi-list-task"></i> 
-			<% end %></br> 
-
-			<div style="padding-left: 2em;">
-
-			<% objeto.hecho_docs.each do |hecho_doc| %>
-				<%= render partial: 'hecho_docs/list/lobjeto', locals: {objeto: hecho_doc} %></br>
-			<% end %>
+				<% objeto.hecho_docs.each do |hecho_doc| %>
+					<%= render partial: 'hecho_docs/list/lobjeto', locals: {objeto: hecho_doc} %>
+				<% end %>
 
 			</div>
 
@@ -65,6 +44,19 @@
 			  	<% end %>
 			<% end %>
 
-		</small>
+		</div>
+	</div>
+	<div class="col-3" align='right'>
+		<div style="padding-right: 2em;">
+			<%= render layout: '0p/collapse/link', locals: {label: 'MasDocumento', objeto: objeto, tooltip: 'Agrega' } do %>
+				<i class="bi bi-plus-circle"></i> 
+			<% end %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'SelDocumento', objeto: objeto, tooltip: 'Selecciona' } do %>
+				<i class="bi bi-list-task"></i> 
+			<% end %>
+
+			<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small>
+		</div>
 	</div>
 </div>
+</small>

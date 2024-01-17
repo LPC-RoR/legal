@@ -1,91 +1,9 @@
-<small>
-<div class="list-item">
+<%= render partial: 'capitan/objeto/estado_crud', locals: {objeto: objeto, restriccion: (objeto.estado != 'ingreso')} %>
+<%= render partial: 'asesorias/list/line_asesoria', locals: {objeto: objeto} %>
 
-	<small><i class="bi bi-tag"></i> <%= objeto.estado %></small></br>
-
-	<b>
-		<% unless objeto.tipo_asesoria.blank? %>
-			<% if objeto.tipo_asesoria.tipo_asesoria == 'Cargo' %>
-				<i class="bi bi-coin"></i> 
-			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Multa' %>
-				<i class="bi bi-wallet2"></i> 
-			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Redacción' %>
-				<i class="bi bi-pencil-square"></i> 
-			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Mensual' %>
-				<i class="bi bi-calendar-check"></i> 
-			<% end %>
-		<% end %>
-		<% if ['Multa', 'Redacción'].include?(objeto.tipo_asesoria.tipo_asesoria) %>
-			<%= link_to objeto.descripcion, objeto %>
-		<% else %>
-			<%= objeto.descripcion %>
-		<% end %>
-	</b></br>
-
-	<small>
-
-	<i class="bi bi-dot"> 
-	<% if objeto.fecha.blank? %>
-		</i> <%= dma(objeto.created_at) %>
-	<% else %>
-		</i> <%= dma(objeto.fecha) %>
-	<% end %> | 
-	<i><%= objeto.cliente.razon_social %></i></br>
-
-	<i class="bi bi-dot"></i> 
-	<% if objeto.facturacion.blank? %>
-		<% if objeto.moneda.blank? or objeto.monto.blank? %>
-			Tarifa : <%= objeto.tar_servicio.descripcion unless objeto.tar_servicio.blank? %> 
-			<%= render layout: '0p/collapse/link', locals: {label: 'Asesoria', objeto: objeto, tooltip: "#{objeto.tar_servicio.blank? ? 'Nuevo' : 'Modifica'}" } do %>
-				<% if  objeto.tar_servicio.blank? %>
-					<i class="bi bi-plus-lg"></i>
-				<% else %>
-					<i class="bi bi-pencil"></i>
-				<% end %>
-			<% end %> | 
-		<% end %>
-	<% end %>
-	<b><i class="bi bi-coin"></i> 
-	<% if objeto.moneda.blank? or objeto.monto.blank? %>
-		<%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) unless objeto.tar_servicio.blank? %>
-	<% else %>
-		<%= s_moneda(objeto.moneda, objeto.monto) %>
-	<% end %>
-	</b> 
-	<% unless objeto.fecha_uf.blank? %>
-		  ( UF del <%= dma(objeto.fecha_uf) %> ) 
-	<% end %>
-	<% unless objeto.plazo.blank? %>
-		 | <i class="bi bi-alarm"></i> <%= dma(objeto.plazo) %>
-	<% end %>
-	</br>
-
-	<% unless objeto.facturacion.blank? %>
-		<% unless objeto.facturacion.tar_aprobacion.blank? %>
-			<%= link_to objeto.facturacion.tar_aprobacion do %>
-				<i class="bi bi-check-all"></i> <%= dma(objeto.facturacion.tar_aprobacion.fecha) %>
-			<% end %>
-		<% end %>
-		<% unless objeto.facturacion.tar_factura.blank? %>
-			<%= link_to objeto.facturacion.tar_factura do %>
-				<i class="bi bi-receipt"></i> <%= dma(objeto.facturacion.tar_factura.fecha_factura) %> <%= objeto.facturacion.tar_factura.estado %>
-			<% end %>
-		<% end %>
-		<% unless objeto.facturacion.tar_aprobacion.blank? and objeto.facturacion.tar_factura.blank? %>
-		</br>
-		<% end %>
-	<% end %>
-
-	<% if objeto.facturacion.blank? %>
-		<% if objeto.moneda.blank? or objeto.monto.blank? %>
-			<%= render layout: '0p/collapse/display', locals: {label: 'Asesoria', objeto: objeto} do %>
-				<%= render partial: 'asesorias/list/form_tar_servicio', locals: {objeto: objeto} %>
-			<% end %>
-		<% end %>
-	<% end %>
+<div style='line-height: 13px; padding-left: 1em;'>
+	<%= render partial: 'asesorias/list/line_info', locals: {objeto: objeto} %>
+	<%= render partial: 'asesorias/list/line_tarifa', locals: {objeto: objeto} %>
+	<%= render partial: 'asesorias/list/line_aprobacion_factura', locals: {objeto: objeto} %>
 	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
-	
-	</small>
-
 </div>
-</small>

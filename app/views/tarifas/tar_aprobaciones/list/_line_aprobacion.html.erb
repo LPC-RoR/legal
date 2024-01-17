@@ -1,0 +1,12 @@
+<small>
+<div class="row">
+	<div class="col-10">
+		<%= link_to dma(objeto.fecha), objeto %>
+		<i class="bi bi-dot"></i>
+		<%= objeto.cliente.razon_social %>
+	</div>
+	<div class="col-2" align='right'>
+		<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small>
+	</div>
+</div>
+</small>

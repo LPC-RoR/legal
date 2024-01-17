@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_04_142457) do
+ActiveRecord::Schema.define(version: 2024_01_17_130451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,6 +281,16 @@ ActiveRecord::Schema.define(version: 2024_01_04_142457) do
     t.index ["app_repositorio"], name: "index_app_repositorios_on_app_repositorio"
     t.index ["owner_class"], name: "index_app_repositorios_on_owner_class"
     t.index ["owner_id"], name: "index_app_repositorios_on_owner_id"
+  end
+
+  create_table "app_versiones", force: :cascade do |t|
+    t.string "app_nombre"
+    t.string "app_sigla"
+    t.string "app_logo"
+    t.string "app_banner"
+    t.string "dog_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "asesorias", force: :cascade do |t|
@@ -686,6 +696,8 @@ ActiveRecord::Schema.define(version: 2024_01_04_142457) do
     t.datetime "updated_at", null: false
     t.integer "m_concepto_id"
     t.decimal "presupuesto"
+    t.string "abono_cargo"
+    t.index ["abono_cargo"], name: "index_m_items_on_abono_cargo"
     t.index ["m_concepto_id"], name: "index_m_items_on_m_concepto_id"
     t.index ["m_item"], name: "index_m_items_on_m_item"
   end

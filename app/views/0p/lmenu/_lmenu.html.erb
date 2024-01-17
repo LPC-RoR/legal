@@ -1,7 +1,7 @@
 <div class="shadow p-3 mb-3 bg-white rounded">
 
 	<%= link_to root_path do %>
-		<h3 class="text-info" align="center"><%=config[:app][:nombre]%></h3>
+		<h3 class="text-info" align="center"><%= version_activa.blank? ? 'app' : version_activa.app_sigla %></h3>
 	<% end %>
 
 	<hr>
@@ -38,4 +38,10 @@
 		<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: :admin} %>
 	<% end %>
 
+	<% if dog? %>
+		<hr>
+		<div class="text-info text-center">App</div>
+
+		<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: :dog} %>
+	<% end %>
 </div>

@@ -4,12 +4,12 @@
 		  <div class="img-text-container">
 			<%= image_tag HImagen.find_by(nombre: 'OverCard').imagenes.order(created_at: :desc).first.imagen.over.url, class: 'img-fluid' %>
 		    <div class="text-center bg-text inner">
-				<h1><%=config[:app][:nombre]%></h1>
+				<h1><%= version_activa.blank? ? 'app' : version_activa.app_sigla %></h1>
 		   	 </div>
 		  </div>
 	
 	</div>
 	<div class="col-lg-8 texto-banner" style="padding-left: 10%">
-		<h2><%= config[:app][:titulo] %></h2>
+		<h2><%= version_activa.blank? ? 'Aplicación en desarrollo' : version_activa.app_nombre %></h2>
 	</div>
 </div>	

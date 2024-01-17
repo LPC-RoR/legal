@@ -1,4 +1,5 @@
-<div class="pago text-info" style="padding-left: 2em; padding-right: 1em;">
+<small><small>
+<div class="pago text-muted" style="padding-left: 2em; padding-right: 1em;">
 	<% objeto.facturaciones.order(:created_at).each do |facturacion| %>
 		<b><%= facturacion.pago.blank? ? '-' : facturacion.pago.tar_pago %> : <%= s_pesos(facturacion.monto_pesos) %></b></br>
 		<% if facturacion.tar_aprobacion.present? %>
@@ -17,3 +18,4 @@
 		<% end %>
 	<% end %>
 </div>
+</small></small>

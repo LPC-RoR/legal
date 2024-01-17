@@ -28,7 +28,7 @@
 						<small><i class="bi bi-dot"></i> <%= render partial: '0p/tabla/btns_orden', locals: {objeto: item} %></small>
 					</div>
 					<div class="col-lg-5" style='padding-left: 1em'>
-						<small><i class="bi bi-dot"></i> <%= item.m_item %></small>
+						<small><i class="bi bi-<%=item.abono_cargo == 'Abono' ? 'plus' : 'dash'%>"></i> <%= item.m_item %></small>
 					</div>
 					<div class="col-lg-3 text-right text-info">
 						<small><%= item.presupuesto_seguro == 0 ? '-' : s_pesos(item.presupuesto) %></small>

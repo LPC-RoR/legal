@@ -1,0 +1,43 @@
+<small><small>
+	<div class="row">
+		<div class="col-8">
+			<i class="bi bi-calendar-check"></i>
+			<%= objeto.estado == 'ingreso' ? '--/--/--' : dma(objeto.fecha_factura) %>
+		</div>
+		<div class="col-4" align='right'>
+			<b><%= objeto.monto_pesos == 0 ? '-' : s_pesos(objeto.monto_pesos) %></b>
+			<% unless objeto.tar_nota_credito.blank? %>
+				<i class="bi bi-dot"></i>
+				<b class="text-danger"><%= objeto.tar_nota_credito.monto_total ? s_pesos(objeto.monto_pesos) : s_pesos(objeto.tar_nota_credito.monto) %></b>
+			<% end %>
+		</div>
+	</div>
+
+	<div style="padding-left: 2em;">
+		<div class="row text-muted">
+			<% objeto.tar_facturaciones.each do |facturacion| %>
+				<div class="col-8">
+					<i class="bi bi-dot"></i><%= facturacion.glosa %>
+				</div>
+				<div class="col-4" align='right'>
+					<%= s_pesos(facturacion.monto_pesos) %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+
+	<% unless objeto.m_registros.empty? %>
+	<div style="padding-left: 2em;">
+		<div class="row text-info">
+			<% objeto.m_reg_facts.each do |mrf| %>
+				<div class="col-8">
+					<i class="bi bi-arrow-right"></i><%= dma(mrf.tar_factura.fecha_factura) %>
+				</div>
+				<div class="col-4" align='right'>
+					<%= s_pesos(mrf.monto) %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+	<% end %>
+</small></small>

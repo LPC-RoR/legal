@@ -1,33 +1,31 @@
 module Seguridad
 	extend ActiveSupport::Concern
 
+	def version_activa
+		AppVersion.last
+	end
+
 	def dog_name
-		'Hugo Chinga G.'
+		AppVersion::DOG_NAME
 	end
 
 	def dog_email
-		'hugo.chinga.g@gmail.com'
+		AppVersion::DOG_EMAIL
 	end
 
 	def perfil?
-		if ActiveRecord::Base.connection.table_exists? 'app_perfiles'
-			usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email).present? : false
-		else
-			usuario_signed_in? ? Perfil.find_by(email: current_usuario.email).present? : false
-		end
+		usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email).present? : false
 	end
 
 	def perfil_activo
-		if ActiveRecord::Base.connection.table_exists? 'app_perfiles'
-			usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email) : nil
-		else
-			usuario_signed_in? ? Perfil.find_by(email: current_usuario.email) : nil
-		end
+		usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email) : nil
 	end
 
 	def perfil_activo_id
-		usuario_signed_in? ? (perfil_activo.blank? ? nil : perfil_activo.id) : nil
+		perfil_activo.blank? ? nil : perfil_activo.id
 	end
+
+	# HASTA AQUI REVISADO
 
 	def dog?
 		usuario_signed_in? ? (current_usuario.email == dog_email) : false
