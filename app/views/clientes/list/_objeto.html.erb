@@ -1,12 +1,14 @@
 <%= render partial: 'capitan/objeto/estado_crud', locals: {objeto: objeto, restriccion: false} %>
 
 <div style='line-height: 13px;'>
-<small class="text-info"><%= objeto.d_rut %></small></br>
-
+<small class="text-info">
+	<%= objeto.d_rut %></small></br>
 <small>
 <div class="row">
 	<div class="col-10">
+		<small><b>
 		<%= link_to objeto.razon_social, objeto, title: 'Detalle Cliente', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> 
+		</b></small>
 	</div>
 	<div class="col-2" align="right">
 		<small>

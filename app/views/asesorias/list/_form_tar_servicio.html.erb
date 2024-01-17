@@ -4,8 +4,8 @@
 
 		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tar_servicio_id, colection: objeto.cliente.servicios.order(:descripcion).collect { |ts| [ts.descripcion, ts.id] }, display_field: 'descripcion', prompt: 'Tarifa de Asesoría' } %> 
 
-		<button type="submit" class="btn btn-info">
-		   <i class="bi bi-arrow-right-circle"></i>
+		<button type="submit" class="btn btn-info btn-xs">
+		   <i class="bi bi-caret-right"></i>
 		</button>
 	</div>
 <% end  %>
