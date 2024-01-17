@@ -1,5 +1,5 @@
 class Autenticacion::AppVersionesController < ApplicationController
-  before_action :set_app_version, only: %i[ update ]
+  before_action :set_app_version, only: %i[ edit update ]
 
   # GET /app_versiones or /app_versiones.json
   def index

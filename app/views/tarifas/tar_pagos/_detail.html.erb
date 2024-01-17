@@ -1,18 +1,20 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Pago', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tar_pago } %>
+
+<hr>
+
 <div class='row'>
-	<div class='col-md-6'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Pago', v: true } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tar_pago } %>
-	</div>
-	<div class='col-md-6'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Código Fórmula', v: true } %>
+	<div class='col-lg-6 col-xs-12'>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Código Fórmula', v: false } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :codigo_formula } %>
 	</div>
+	<div class='col-lg-6'>
+		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :moneda, sel_list: ['Pesos', 'UF'], label: 'Moneda' } %>
+
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Valor', v: false } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor } %>
+	</div>
 </div>
-
-<%= render partial: '0p/form_fields/select', locals: { form: form, token: :moneda, sel_list: ['Pesos', 'UF'], label: 'Moneda' } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Valor', v: false } %>
-<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor } %>
-
 <%= render partial: '0p/form_fields/hidden', locals: {form: form, token: :tar_tarifa_id} %>
 <%= render partial: '0p/form_fields/hidden', locals: {form: form, token: :estado} %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
