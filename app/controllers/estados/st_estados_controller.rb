@@ -109,7 +109,7 @@ class Estados::StEstadosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=10" 
+      @redireccion = "/st_modelos" 
 
     end
 
