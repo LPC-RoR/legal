@@ -1,0 +1,9 @@
+<div class="col-7">
+	<small><%= objeto.detalle %></small>
+</div>
+<div class="col-3">
+	<small><%= s_moneda(objeto.moneda, objeto.valor) %></small>
+</div>
+<div class="col-2" align='right'>
+	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
+</div>
