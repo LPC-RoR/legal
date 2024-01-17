@@ -1,8 +1,5 @@
 <%= render partial: 'tarifas/tar_aprobaciones/list/line_aprobacion', locals: {objeto: objeto} %>
 <div style='line-height: 13px; padding-left: 1em;'>
 	<%= render partial: 'tarifas/tar_aprobaciones/list/line_facturaciones', locals: {objeto: objeto} %>
-	<small><small>
-	<%= link_to 'facturar', "/tar_aprobaciones/#{objeto.id}/facturar" if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
-	</small></small>
 </div>
 

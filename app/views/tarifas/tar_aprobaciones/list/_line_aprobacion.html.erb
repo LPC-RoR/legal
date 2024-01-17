@@ -1,12 +1,15 @@
 <small>
 <div class="row">
-	<div class="col-10">
+	<div class="col-8">
 		<%= link_to dma(objeto.fecha), objeto %>
-		<i class="bi bi-dot"></i>
-		<%= objeto.cliente.razon_social %>
+		</br>
+		<small><b class="text-info"><%= objeto.cliente.razon_social %></b></small>
 	</div>
-	<div class="col-2" align='right'>
-		<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small>
+	<div class="col-4" align='right'>
+		<small>
+		<%= link_to 'facturar', "/tar_aprobaciones/#{objeto.id}/facturar" if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
+		<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+		</small>
 	</div>
 </div>
 </small>
