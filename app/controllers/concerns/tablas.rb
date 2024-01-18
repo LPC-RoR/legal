@@ -8,16 +8,21 @@ module Tablas
 			['UF & Regiones', 'uf_regiones', 2, true],
 			['Enlaces', 'enlaces', 2, true],
 			['Causas & asesorías', nil, 1, true],
-			['Tarifas generales', 'tarifas_generales', 2, true],
+			['Tipos', 'tipos_causas_asesorias', 2, true],
 			['Tablas secundarias', 'tablas_secundarias', 2, true],
+			['Tarifas generales', 'tarifas_generales', 2, true],
 			['Modelo de Negocios', nil, 1, true],
 			['Modelo', 'modelo', 2, true],
-			['Tablas secundarias', 'secundarias_modelo', 2, true],
+			['Periodos & Bancos', 'secundarias_modelo', 2, true],
 		]
 	end
 
 	def tb_index(clave)
 		menu_tablas.map {|e| e[1]}.index(clave)
+	end
+
+	def tb_item(indice)
+		menu_tablas[indice][0]
 	end
 
 	def first_tabla_index

@@ -67,7 +67,12 @@ class Repositorios::ControlDocumentosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = (@objeto.owner.class.name == 'TipoCausa' ? @objeto.owner : "/tablas?tb=10")
+      case @objeto.owner.class.name
+      when 'TipoCausa'
+        @redireccion = "/tablas?tb=#{tb_index('tipos_causas_asesorias')}"
+      when 'StModelo'
+        @redireccion = '/st_modelos'
+      end
     end
 
     # Only allow a list of trusted parameters through.

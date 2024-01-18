@@ -152,6 +152,14 @@ class Causa < ApplicationRecord
 		uf.blank? ? nil : uf.valor
 	end
 
+	def total_cuantia
+		v_pesos = self.valores_cuantia.map {|vc| vc.valor if vc.moneda == 'Pesos'}.compact
+		v_uf = self.valores_cuantia.map {|vc| vc.valor if vc.moneda != 'Pesos'}.compact
+		cuantia_pesos = v_pesos.empty? ? 0 : v_pesos.sum
+		cuantia_uf = v_uf.empty? ? 0 : v_uf.sum
+		[cuantia_pesos, cuantia_uf]
+	end
+
 	def cuantia_pesos(pago)
 		uf = self.uf_calculo_pago(pago)
 		c_uf = self.valores_cuantia.where.not(moneda: 'Pesos')

@@ -77,7 +77,7 @@ class Estados::StModelosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=10" 
+      @redireccion = "/st_modelos" 
     end
 
     # Only allow a list of trusted parameters through.

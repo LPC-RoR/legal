@@ -1,10 +1,21 @@
 <small>
-	<i class="bi bi-box"></i> <%= objeto.st_modelo %> | <%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+	<div class="row">
+		<div class="col-10">
+			<i class="bi bi-box"></i> <%= objeto.st_modelo %>
+		</div>
+		<div class="col-2" align='right'>
+			<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+		</div>
+	</div>
+
 	<hr>
+
 	<div class="row">
 		<div class="col-lg-6 col-xs-12">
 			<p class="text-info">
-				<i class="bi bi-tag"></i> Estados | 
+				<i class="bi bi-tag"></i> 
+				Estados 
+				<i class="bi bi-dot"></i> 
 				<%= link_to "/st_modelos/#{objeto.id}/st_estados/new" do %>
 					<i class="bi bi-plus-circle"></i>
 				<% end %>
@@ -23,11 +34,12 @@
 				<% end %>
 			</div>
 		</div>
+
 		<div class="col-lg-6">
 			<p class="text-info">
 				<i class="bi bi-tag"></i> Control Documentos
 				<% unless objeto.st_modelo == 'Causa' %>
-				 | 
+					<i class="bi bi-dot"></i> 
 				<%= link_to "/control_documentos//new?clss=#{objeto.class.name}&oid=#{objeto.id}" do %>
 					<i class="bi bi-plus-circle"></i>
 				<% end %>
@@ -50,15 +62,16 @@
 						<% end %>
 						<%= control.nombre %> 
 						</b>
+						</br>
+						<div style="padding-left: 1em; padding-right: 1em;">
+							<small>
+								<i class="bi bi-arrow-right"></i> <%= control.descripcion %>
+							</small>
+						</div>
 					</div>
 					<div class="col-lg-2" align='right'>
 						<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: control} %></small>
 					</div>
-				</div>
-				<div style="padding-left: 2em; padding-right: 1em;">
-					<small>
-						<i class="bi bi-arrow-right"></i> <%= control.descripcion %>
-					</small>
 				</div>
 			<% end %>
 		</div>

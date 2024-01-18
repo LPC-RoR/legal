@@ -35,7 +35,7 @@ class StEstado < ApplicationRecord
 	end
 
 	def redireccion
-		"/st_modelos/#{self.owner.id}"
+		"/st_modelos"
 	end
 
 	# -----------------------------------------------

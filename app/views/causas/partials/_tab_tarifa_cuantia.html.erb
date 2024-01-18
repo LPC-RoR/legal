@@ -44,6 +44,18 @@
 
 		<% unless @coleccion['tar_valor_cuantias'].empty? %>
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_valor_cuantias'} %>
+			<div class="shadow p-3 mb-3 bg-white rounded">
+				<div class="row">
+					<div class="col-6">
+						<b>Total cuantía</b>
+					</div>
+					<div class="col-6" align='right'>
+						<b>
+							<%= "#{s_uf(objeto.total_cuantia[1]) unless objeto.total_cuantia[1] == 0}#{' + ' unless objeto.total_cuantia[0]*objeto.total_cuantia[1] == 0}#{s_pesos(objeto.total_cuantia[0]) unless objeto.total_cuantia[0] == 0}" %>
+						</b>
+					</div>
+				</div>
+			</div>
 		<% end %>
 	</div>
 </div>
