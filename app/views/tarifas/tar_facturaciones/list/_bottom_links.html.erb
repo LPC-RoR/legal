@@ -14,6 +14,7 @@
 		<% end %>
 	<% end %>
 <% end %>
+<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: objeto} %>
 <% unless controller_name == 'tar_aprobaciones' %>
 	<% if objeto.tar_aprobacion.present? %>
 		<%= link_to objeto.tar_aprobacion do %>

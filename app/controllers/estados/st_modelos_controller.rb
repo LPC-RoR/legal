@@ -1,8 +1,5 @@
 class Estados::StModelosController < ApplicationController
   before_action :set_st_modelo, only: %i[ show edit update destroy asigna ]
-  before_action :carga_solo_sidebar, only: %i[ show new edit create update ]
-
-  include Sidebar
 
   # GET /st_modelos or /st_modelos.json
   def index

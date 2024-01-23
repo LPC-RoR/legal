@@ -2,7 +2,6 @@ class Aplicacion::AppRecursosController < ApplicationController
   before_action :authenticate_usuario!, only: [:administracion, :procesos]
   before_action :inicia_sesion, only: [:administracion, :procesos, :home]
 
-  include Sidebar
   include Tarifas
 
   helper_method :sort_column, :sort_direction
@@ -11,7 +10,6 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def ayuda
-    carga_sidebar('Ayuda', params[:id])
   end
 
   def usuarios
@@ -19,13 +17,27 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def administracion
-    carga_sidebar('Administración', params[:id])
   end
 
   def procesos
-    TarFactura.where.not(estado: 'ingreso').each do |factura|
-      factura.clave = factura.fecha_factura.year * 100 + factura.fecha_factura.month
-      factura.save
+    TarFacturacion.all.each do |pago|
+      if pago.owner.present? and pago.owner.class.name == 'Causa'
+        tar_pago = pago.owner.tar_tarifa.tar_pagos.find_by(codigo_formula: pago.facturable)
+        unless tar_pago.blank?
+          pago.tar_pago_id = tar_pago.id 
+          pago.save
+        end
+      end
+    end
+
+    TarUfFacturacion.all.each do |uf_pago|
+      if uf_pago.owner.present? and uf_pago.owner.class.name == 'Causa'
+        tar_pago = uf_pago.owner.tar_tarifa.tar_pagos.find_by(tar_pago: uf_pago.pago)
+        unless tar_pago.blank?
+          uf_pago.tar_pago_id = tar_pago.id 
+          uf_pago.save
+        end
+      end
     end
 
     redirect_to root_path

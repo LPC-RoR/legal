@@ -13,8 +13,6 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
   # GET /tar_facturaciones/new
   def new
-    factura = TarFactura.find(params[:tar_factura_id])
-    @objeto = TarFacturacion.new(tar_factura_id: params[:tar_factura_id], cliente_class: 'Cliente', cliente_id: factura.padre.id)
   end
 
   # Crea DETALLE DE FACTURA, que será heredado por un factura luego
@@ -36,7 +34,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
         owner.save
       end
     else
-      # FACTURACION DE TARIFAS CON FORMULAS | VALORES
+      # FACTURACION DE TARIFAS CON PAGOS
       # do_eval funciona para CAUSA/CONSULTORIA
       pago = owner.tar_tarifa.tar_pagos.find_by(codigo_formula: params[:facturable])
       formula = TarFormula.find_by(codigo: params[:facturable]).tar_formula if pago.valor.blank?

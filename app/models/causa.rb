@@ -26,27 +26,19 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
-    def child_records?
-    	valores_cuantia.any? or
-    	facturaciones.any? or
-    	archivos.any? or 
-    	documentos.any? or
-    	enlaces.any? or
-    	valores_datos.any?
-    end
+    # OWN CHILDS
 
+    # Valores de la cuantía de la causa
 	def valores_cuantia
 		TarValorCuantia.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	# Pagos de la causa
 	def facturaciones
 		TarFacturacion.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
-    def st_modelo
-    	StModelo.find_by(st_modelo: self.class.name)
-    end
-
+	# >archivos y control de archivos
 	def archivos
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
 	end
@@ -55,6 +47,7 @@ class Causa < ApplicationRecord
 		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
 	end
 
+	# Documentos y control de documentos
 	def documentos
 		AppDocumento.where(owner_class: self.class.name, owner_id: self.id)
 	end
@@ -63,40 +56,67 @@ class Causa < ApplicationRecord
 		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Documento').order(:nombre).map {|cd| cd.nombre}
 	end
 
+	# enlaces
 	def enlaces
 		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	# Valores asignados a las variables
 	def valores_datos
 		Valor.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	# Actividades
 	def actividades
 		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
 	end
 
-	# Hasta aqui revisado!
-
-	def valores
-		TarValor.where(owner_class: self.class.name, owner_id: self.id)
+	def reportes
+		RegReporte.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
-	def tarifas_cliente
-		self.cliente.tarifas
+	def registros
+    	Registro.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
-	def tarifas_hora_cliente
-		self.cliente.tarifas_hora
+	def uf_facturaciones
+		TarUfFacturacion.where(owner_class: self.class.name, owner_id: self.id)
 	end
+
+    def child_records?
+    	valores_cuantia.any? or
+    	facturaciones.any? or
+    	archivos.any? or 
+    	documentos.any? or
+    	enlaces.any? or
+    	valores_datos.any? or
+    	actividades.any? or
+    	reportes.any? or 
+    	registros.any? or
+    	uf_facturaciones.any?
+    end
+
+    # **************************************************** CÁLCULO DE TARIFA [PAGOS]
 
 	# Encuentra el PAGO (TarFacturacion) asociado al pago
 	def pago_generado(pago)
-		self.facturaciones.find_by(facturable: pago.codigo_formula)
+#		self.facturaciones.find_by(facturable: pago.codigo_formula)
+		self.facturaciones.find_by(tar_pago_id: pago.id)
 	end
 
 	# Encuentra la UF de Cálculo (TarUfFacturacion) asociado al pago
 	def tar_uf_facturacion(pago)
-		self.uf_facturaciones.find_by(pago: pago.tar_pago)
+		self.uf_facturaciones.find_by(tar_pago_id: pago.id)
+	end
+
+	def origen_fecha_pago(pago)
+		if self.tar_uf_facturacion(pago).present?
+			'TarUfFacturacion'
+		elsif self.pago_generado(pago).present?
+			'TarPago'
+		else
+			'Today'
+		end
 	end
 
 	def fecha_calculo_pago(pago)
@@ -111,6 +131,23 @@ class Causa < ApplicationRecord
 
 	def uf_calculo_pago(pago)
 		TarUfSistema.find_by(fecha: fecha_calculo_pago(pago))
+	end
+
+    # ****************************************************
+
+    def st_modelo
+    	StModelo.find_by(st_modelo: self.class.name)
+    end
+
+	# Hasta aqui revisado!
+
+	# DEPRECATED
+	def valores
+		TarValor.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def tarifas_cliente
+		self.cliente.tarifas
 	end
 
 	def facturado_pesos
@@ -133,25 +170,6 @@ class Causa < ApplicationRecord
 		self.repositorio.archivos.find_by(app_archivo: 'Demanda')
 	end
 
-	def reportes
-		reportes_clase = RegReporte.where(owner_class: self.class.name)
-		reportes_clase.blank? ? nil : reportes_clase.where(owner_id: self.id)
-	end
-
-	def registros
-    	Registro.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def fecha_calculo
-#		self.fecha_uf.blank? ? DateTime.now.to_date : self.fecha_uf.to_date
-		self.fecha_uf.blank? ? Time.zone.today : self.fecha_uf.to_date
-	end
-
-	def uf_calculo
-		uf = TarUfSistema.find_by(fecha: self.fecha_calculo)
-		uf.blank? ? nil : uf.valor
-	end
-
 	def total_cuantia
 		v_pesos = self.valores_cuantia.map {|vc| vc.valor if vc.moneda == 'Pesos'}.compact
 		v_uf = self.valores_cuantia.map {|vc| vc.valor if vc.moneda != 'Pesos'}.compact
@@ -172,10 +190,6 @@ class Causa < ApplicationRecord
 		(c_pesos.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? (uf.blank? ? 0 : vc.valor / uf.valor) : vc.valor) }.sum
 	end
 
-	def d_cuantia
-#		"#{self.valores_cuantia.where(moneda: 'Pesos').map {|val| val.valor}.sum} #{self.valores_cuantia.where(moneda: 'UF').map {|val| val.valor}.sum}"
-	end
-
 	def monto_pagado_uf(pago)
 		uf = self.uf_calculo_pago(pago)
 		(uf.blank? or self.monto_pagado.blank?) ? 0 : self.monto_pagado / uf.valor
@@ -191,19 +205,6 @@ class Causa < ApplicationRecord
 
 	def d_id
 		self.rit.blank? ? ( self.rol.blank? ? self.identificador : "#{self.rol} : #{self.era}") : self.rit
-	end
-
-	def uf_facturaciones
-		TarUfFacturacion.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def fecha_uf_pago(nombre_pago)
-		uf_facturacion = self.uf_facturaciones.find_by(pago: nombre_pago)
-		uf_facturacion.blank? ? Time.zone.today : uf_facturacion.fecha_uf
-	end
-
-	def uf_pago(nombre_pago)
-		TarUfSistema.find_by(fecha: self.fecha_uf_pago(nombre_pago).to_date)
 	end
 
 	def detalle_cuantia(moneda)

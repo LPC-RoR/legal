@@ -1,65 +1,6 @@
 module CptnTablaAppHelper
 #**********************************************************************   APP   *************************************************************
 
-	def app_no_th_controllers
-		['tar_uf_facturaciones']
-	end
-
-	def app_new_button_conditions(controller)
-		if ['tar_tarifas', 'tar_servicios', 'tar_valores', 'tar_horas', 'registros', 'reg_reportes', 'tar_valor_cuantias', 'ingreso-tar_facturas', 'facturada-tar_facturas', 'pagada-tar_facturas', 'tar_uf_facturaciones', 'tar_aprobaciones', 'tar_uf_sistemas', 'tar_detalle_cuantias'].include?(controller)
-			false
-		elsif ['tar_facturas', 'por_emitir-tar_facturas', 'en_cobranza-tar_facturas', 'tar_pagos', 'tar_formulas', 'tar_comentarios'].include?(controller)
-			false
-		elsif ['tar_facturaciones', 'pend-tar_facturaciones', 'sin_aprobacion-tar_facturaciones', 'sin_facturar-tar_facturaciones'].include?(controller)
-			false
-		elsif ['item-m_registros', 'periodo-m_registros', 'm_registros', 'm_cuentas', 'm_periodos', 'm_bancos'].include?(controller)
-			false
-		elsif ['clientes', 'ingreso-clientes', 'activo_empresa-clientes', 'activo_sindicato-clientes', 'activo_trabajador-clientes', 'baja-clientes'].include?(controller)
-			false
-		elsif ['causas', 'ingreso-causas', 'proceso-causas', 'terminada-causas', 'sin_cuantia-causas', 'sin_facturar-causas', 'en_proceso-causas'].include?(controller)
-			false
-		elsif ['tribunal_cortes', 'tipo_causas', 'tipo_asesorias'].include?(controller)
-			false
-		elsif ['asesorias', 'ingreso-asesorias', 'proceso-asesorias', 'multas-asesorias', 'redacciones-asesorias', 'mensuales-asesorias', 'cargos-asesorias', 'terminada-asesorias'].include?(controller)
-			false
-		elsif ['regiones', 'comunas', 'org_regiones', 'org_empleados'].include?(controller)
-			false
-		elsif ['audiencias', 'variables', 'age_actividades', 'reunion-age_actividades', 'tarea-age_actividades', 'age_antecedentes', 'temas', 'hechos'].include?(controller)
-			false
-		elsif ['m_formatos', 'm_datos', 'm_elementos', 'm_conciliaciones'].include?(controller)
-			false
-		else
-			true
-		end
-	end
-
-	def app_crud_conditions(objeto, btn)
-		if ['RegReporte', 'TarFacturacion'].include?(objeto.class.name)
-			false
-		elsif [].include?(objeto.class.name)
-			admin?
-		elsif ['TarFactura'].include?(objeto.class.name)
-			btn == 'Eliminar' and objeto.tar_facturaciones.empty?
-		elsif ['TarPago', 'TarFormula'].include?(objeto.class.name)
-			controller_name == 'tar_tarifas'
-		else
-			case objeto.class.name
-			when 'AgeActividad'
-				true
-			when 'TarValorCuantia'
-				controller_name == 'causas' and @options[:menu] == 'Tarifa & Cuantía'
-			when 'Registro'
-				admin? and objeto.estado == 'ingreso'
-			when 'MRegistro'
-				btn == 'Editar' and  ['m_periodos', 'm_items'].include?(controller_name)
-			when 'AppDocumento'
-				btn == 'Editar' ? true : objeto.hechos.empty?
-			else
-				true
-			end
-		end
-	end
-
 	def sortable_fields
 		{
 			'controller' => ['campo1', 'campo2']

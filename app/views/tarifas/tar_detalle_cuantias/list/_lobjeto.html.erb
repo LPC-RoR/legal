@@ -1,10 +1,19 @@
 <div class="col-9">
 	<small>
-	<%= objeto.tar_detalle_cuantia %>
-	<% unless objeto.descripcion.blank? %>
-	</br>
-	<small><i class="bi bi-dot"></i> <%= objeto.descripcion %></small>
-	<% end %>
+		<%= objeto.tar_detalle_cuantia %>
+		<% unless objeto.descripcion.blank? %>
+			</br>
+			<small><i class="bi bi-dot"></i> <%= objeto.descripcion %></small>
+		<% end %>
+		<% unless objeto.formula_cuantia.blank? and objeto.formula_honorarios.blank? %>
+			<div style="padding-left: 1em;">
+				<small class="text-muted">
+			<%= objeto.formula_cuantia.blank? ? 'valor' : objeto.formula_cuantia %>
+			<i class="bi bi-dot"></i>
+			<%= objeto.formula_honorarios.blank? ? 'valor' : objeto.formula_honorarios %>
+				</small>
+			</div>
+		<% end %>
 	</small>
 </div>
 <div class="col-3" align='right'>

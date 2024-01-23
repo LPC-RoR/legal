@@ -1,8 +1,5 @@
 class Estados::StPerfilEstadosController < ApplicationController
   before_action :set_st_perfil_estado, only: %i[ show edit update destroy desasignar cambia_rol ]
-  before_action :carga_solo_sidebar, only: %i[ show new edit create update ]
-
-  include Sidebar
 
   # GET /st_perfil_estados or /st_perfil_estados.json
   def index

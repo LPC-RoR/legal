@@ -1,0 +1,10 @@
+<i class="bi bi-journal-text"></i> 
+Causa : 
+<%= objeto.rit unless objeto.rit.blank? %>
+<% if controller_name == 'servicios' and action_name == 'aprobacion' %>
+	<%= link_to "/causas/#{objeto.id}?html_options[menu]=Pagos" do %>
+		<i class="bi bi-box-arrow-up-right"></i>
+	<% end %>
+<% end %>
+<i class="bi bi-dot"></i>
+<%= objeto.causa %>

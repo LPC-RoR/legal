@@ -1,6 +1,6 @@
 <div class='row'>
 	<div class='col-md-6'>
-		<%= render partial: get_partial('app_nominas', 'partials', 'estados_action_list'), locals: {nombre: 'Estados Activados', gly: 'card-checklist', clr: 'info', coleccion: modelo.st_perfil_estados.order(:st_perfil_estado), field: 'st_perfil_estado', link: '/desasignar', gly_link: 'x-circle', base: true, action: seguridad_desde('admin')} %>
+		<%= render partial: partial_name('app_nominas', 'partials', 'estados_action_list'), locals: {nombre: 'Estados Activados', gly: 'card-checklist', clr: 'info', coleccion: modelo.st_perfil_estados.order(:st_perfil_estado), field: 'st_perfil_estado', link: '/desasignar', gly_link: 'x-circle', base: true, action: seguridad_desde('admin')} %>
 	</div>
 	<div class='col-md-6'>
 		<% if seguridad_desde('admin') %>

@@ -5,7 +5,7 @@
 	</div>
 	<div class="col-lg-8">
 		<i class="bi bi-coin"></i> 
-		<b><%= link_to objeto.tar_pago, objeto %></b>
+		<b><%= link_to objeto.tar_pago, objeto %></b> <small class="text-muted">[ <%= objeto.moneda %> ]</small>
 		</br>
 		<% unless objeto.codigo_formula.blank? %>
 			<i class="bi bi-arrow-right"></i> <i><%= objeto.codigo_formula %></i>

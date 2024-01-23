@@ -2,9 +2,6 @@ class Home::HTemasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :inicia_sesion
   before_action :set_h_tema, only: [:show, :edit, :update, :destroy]
-  before_action :carga_solo_sidebar, only: %i[ show new edit create update ]
-
-  include Sidebar
 
   # GET /h_temas
   # GET /h_temas.json
@@ -75,7 +72,6 @@ class Home::HTemasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/app_recursos/administracion?id=#{get_elemento_id(controller_name, 'Temas')}" 
     end
 
     # Only allow a list of trusted parameters through.

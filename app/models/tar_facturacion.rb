@@ -8,6 +8,9 @@ class TarFacturacion < ApplicationRecord
 
 	belongs_to :tar_factura, optional: true
 	belongs_to :tar_aprobacion, optional: true
+	belongs_to :tar_pago, optional: true
+
+	# MAP del pago
 
 	def padre
 		self.owner_id.blank? ? nil : (self.owner_class == 'RegReporte' ? self.owner_class.constantize.find(self.owner_id).owner : self.owner_class.constantize.find(self.owner_id))
@@ -41,6 +44,41 @@ class TarFacturacion < ApplicationRecord
 		end
 	end
 
+	# ******************************************************************************** Manejo de Tarifas
+
+	# esta fecha establece el día en el que se realizó el cálculo de la tarifa
+	# verifica si hay fecha de cálculo en la causa, si no, es la fecha de creación del tar_facturacion
+	def fecha_calculo
+		if self.owner.class.name == 'Causa'
+			tar_pago = self.tar_pago
+			tar_uf_facturacion = self.owner.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
+			tar_uf_facturacion.blank? ? self.created_at : tar_uf_facturacion.fecha_uf
+		elsif self.owner.class.name == 'Asesoria'
+			self.owner.fecha_uf.blank? ? self.created_at : self.owner.fecha_uf
+		else
+			self.created_at
+		end
+	end
+
+	def origen_fecha_uf
+		if self.owner.class.name == 'Causa'
+			tar_pago = self.tar_pago
+			tar_uf_facturacion = self.owner.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
+			tar_uf_facturacion.blank? ? 'TarFacturacion' : 'TarUfFacturacion'
+		elsif self.owner.class.name == 'Asesoria'
+			self.owner.fecha_uf.blank? ? 'TarFacturacion' : 'Asesoria'
+		else
+			'TarFacturacion'
+		end
+	end
+
+	def uf_calculo
+		TarUfSistema.find_by(fecha: self.fecha_calculo.to_date)
+	end
+
+	# *************************************************************************************************
+
+
 	def pago
 		if (['Causa', 'Consultoria'].include?(self.padre.class.name) and self.padre.tar_tarifa.tar_pagos.any?)
 			self.padre.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
@@ -67,24 +105,6 @@ class TarFacturacion < ApplicationRecord
 		else
 			self.tar_factura.present? ? self.tar_factura.fecha : self.tar_aprobacion.fecha
 		end
-	end
-
-	# esta fecha establece el día en el que se realizó el cálculo de la tarifa
-	# verifica si hay fecha de cálculo en la causa, si no, es la fecha de creación del tar_facturacion
-	def fecha_calculo
-		if self.owner.class.name == 'Causa'
-			pago = self.owner.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
-			uf_facturacion = self.owner.uf_facturaciones.find_by(pago: pago.tar_pago)
-			uf_facturacion.blank? ? self.created_at : uf_facturacion.fecha_uf
-		elsif self.owner.class.name == 'Asesoria'
-			self.owner.fecha_uf.blank? ? self.created_at : self.owner.fecha_uf
-		else
-			self.created_at
-		end
-	end
-
-	def uf_calculo
-		TarUfSistema.find_by(fecha: self.fecha_calculo.to_date)
 	end
 
 	def to_pesos

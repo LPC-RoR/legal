@@ -9,7 +9,7 @@
 		<div class="shadow p-3 mb-1 bg-white rounded">
 	<% end %>
 
-		<%= render partial: get_partial(objeto.class.name.tableize, 'list', "#{tipo == 'list' ? 'lobjeto' : 'objeto'}") , locals: {objeto: objeto} %>
+		<%= render partial: partial_name(objeto.class.name.tableize, 'list', "#{tipo == 'list' ? 'lobjeto' : 'objeto'}") , locals: {objeto: objeto} %>
 
 	<% if tipo == 'objeto' %>
 		</div>

@@ -5,6 +5,8 @@ class Organizacion::ServiciosController < ApplicationController
   def aprobacion
     @objeto = TarAprobacion.find(params[:indice])
     set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
+
+    @h_pagos = get_h_pagos(@objeto)
   end
 
   def organizacion
@@ -28,5 +30,24 @@ class Organizacion::ServiciosController < ApplicationController
   end
 
   private
+
+  # crea el array con el cálculo del pago
+    def array_pago(tar_facturacion)
+      {
+        pago: tar_facturacion,
+        origen_fecha_pago: tar_facturacion.origen_fecha_uf,
+        monto_pesos: tar_facturacion.monto_pesos,
+        monto_uf: tar_facturacion.monto_uf
+      }
+    end
+
+    # crea un hash con el cálculo de los pagos
+    def get_h_pagos(aprobacion)
+      h_pagos = {}      
+      aprobacion.tar_facturaciones.each do |tar_facturacion|
+        h_pagos[tar_facturacion.id] = array_pago(tar_facturacion)
+      end
+      h_pagos
+    end
 
 end

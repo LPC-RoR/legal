@@ -1,26 +1,22 @@
 module CptnHelper
 
+# ******************************************************************** LAYOUTS 
+
+	def no_banner_display?
+		controller_name == 'servicios' and action_name == 'aprobacion'
+	end
+
+	def footless_controllers
+		['servicios']
+	end
+
+	def footless_controller?(controller)
+		footless_controllers.include?(controller)
+	end
+
 # ******************************************************************** CONSTANTES 
 
-	# DEPRECATED
-	# ctes[:image][:centrada]
-#	def ctes
-#		{
-#			image: {
-#				centrada: 'mx-auto d-block'
-#			}
-#		}
-#	end
-
 	# opcion elegida poor ser de escritura mas simple
-	def image_sizes
-		['entire', 'half', 'quarter', 'thumb']
-	end
-
-	def colors
-		['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'muted', 'white']
-	end
-
 	def color(ref)
 		if [:app, :navbar].include?(ref)
 			config[:color][ref]
@@ -138,11 +134,4 @@ module CptnHelper
 	def dma_hm(date)
 		date.blank? ? '__-__-__ __:__' : date.strftime("%d-%m-%Y  %I:%M%p")
 	end
-# ******************************************************************** HOME
-
-	def foot?
-		h_imagen = HImagen.find_by(nombre: 'Foot')
-		h_imagen.blank? ? false : (h_imagen.imagenes.empty? ? false : h_imagen.imagenes.first.present?)
-	end
-
 end

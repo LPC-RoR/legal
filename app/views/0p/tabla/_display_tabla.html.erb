@@ -1,6 +1,6 @@
 <table class="table table-striped table-sm  thead-dark">
   <thead>
-    <%= render partial: '0p/tabla/th', locals: {c: get_controller(c)} unless no_th_controllers.include?(get_controller(c)) %>
+    <%= render partial: '0p/tabla/th', locals: {c: get_controller(c)} %>
   </thead>
 
   <tbody>

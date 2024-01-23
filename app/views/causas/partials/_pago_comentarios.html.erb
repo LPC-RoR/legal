@@ -1,0 +1,24 @@
+<% unless pago.tar_comentarios.empty? %>
+	<small><small>
+	<% pago.tar_comentarios.order(:orden).each do |comentario| %>
+		
+		<% if comentario.tipo == 'Siempre' %>	
+			<div class="row">
+				<div class="col-10">
+					<i class="bi bi-dot"></i> <%= comentario.comentario %>
+				</div>
+				<div class="col-2" align='right'>
+					<% unless comentario.despliegue.blank? %>
+						<b><%= s_moneda(comentario.moneda, calcula2(comentario.despliegue, objeto, pago)) %></b>
+					<% end %>
+				</div>
+			</div>
+		<% elsif comentario.tipo == 'Condición' %>
+			<% if calcula2(comentario.formula.strip, objeto, pago) %>
+				<i class="bi bi-lightbulb"></i> <%= comentario.comentario %></br>
+			<% end %>
+		<% end %>
+		
+	<% end %>
+	</small></small>
+<% end %>

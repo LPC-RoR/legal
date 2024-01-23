@@ -1,8 +1,7 @@
 <%= render '0p/general/title_box' do %>
 	<div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
 		<h5 class="text-info">
-			<i class="bi bi-journal-text"></i> 
-			<%= "Causa : #{@objeto.rit unless @objeto.rit.blank?} | #{@objeto.causa}" %>
+			<%= render partial: 'causas/partials/encabezado', locals: {objeto: @objeto} %>
 		</h5>
 		<%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 	</div>

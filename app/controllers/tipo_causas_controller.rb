@@ -1,8 +1,6 @@
 class TipoCausasController < ApplicationController
   before_action :set_tipo_causa, only: %i[ show edit update destroy ]
 
-  include Sidebar
-
   # GET /tipo_causas or /tipo_causas.json
   def index
   end

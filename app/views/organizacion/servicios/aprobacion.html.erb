@@ -1,42 +1,32 @@
-<p><%= image_tag 'logo_tyc.png' %></p>
-<h4>
-	<i class="bi bi-cash-coin"></i>
-	Aprobación de pagos para facturar 
-</h4>
-<h5>
-	<i class="bi bi-building"></i>
-	<%= "#{@objeto.cliente.razon_social} : #{dma(@objeto.fecha)}"%> 
-	<%= link_to @objeto do %>
-		<i class="bi bi-box-arrow-up-right"></i>
-	<% end %>
-</h5>
+<div class="shadow p-3 mb-3 bg-white rounded">
+	<%= render partial: 'organizacion/servicios/aprobacion/encabezado_aprobacion', locals: {objeto: @objeto} %>
+</div>
 
-<% @objeto.tar_facturaciones.each do |facturacion| %>
-
-
-	<div class='row'>
-		<div class="col-md-8">
-
-			<p><b>
-				<%= facturacion.tipo_owner %> : 
-				<% if facturacion.padre.class.name == 'Causa' %>
-					<%= facturacion.padre.rit %> 
-					<%= link_to "/causas/#{facturacion.padre.id}?html_options[menu]=Facturacion" do %>
-						<i class="bi bi-box-arrow-up-right"></i> | 
-					<% end %>
-				<% end %>
-				<%= facturacion.owner_description %> 
-			</b></p>
-			<small><%= link_to 'Ver reporte', facturacion.owner, target: :_blank if facturacion.owner.class.name == 'RegReporte' %></small>
-			<% if ['Causa', 'Consultoria'].include?(facturacion.padre.class.name) %>
-				<%= render partial: 'causas/partials/despliega_pago', locals: {objeto: facturacion.padre, pago: facturacion.pago} %>
-				<%= render partial: 'tarifas/partials/detalle_cuantia', locals: {objeto: facturacion.padre} if facturacion.owner.class.name == 'Causa' %>
-			<% end %>
+<% @coleccion['tar_facturaciones'].each do |tar_facturacion| %>
+	<div class="shadow p-3 mb-1 bg-white rounded">
+		<div style="padding-left: 1em">
+			<%= render partial: "#{tar_facturacion.owner.class.name.tableize}/partials/encabezado", locals: {objeto: tar_facturacion.owner} %>
 		</div>
-		<div class="col-md-4"></div>
 	</div>
-
-	<hr>
-			
+	<div class="shadow p-3 mb-3 bg-white rounded">
+	<div class="row">
+		<div class="col-lg-6 col-xs-12">
+			<div style='padding-left: 1em;'>
+				<%= render partial: "#{tar_facturacion.owner.class.name.tableize}/partials/detalle_aprobacion", locals: {objeto: tar_facturacion.owner, facturacion: tar_facturacion} %>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<%= render partial: 'causas/partials/detalle_cuantia', locals: {objeto: tar_facturacion.owner} if tar_facturacion.owner.class.name == 'Causa'%>
+		</div>
+	</div>
+	</div>
 <% end %>
-<h4><%= "TOTAL FACTURA : #{s_uf(@objeto.aprob_total_uf)} | #{s_pesos(@objeto.aprob_total_pesos)}" %></h5>
+
+<div class="shadow p-3 mb-3 bg-white rounded">
+	<h4>
+		TOTAL APROBACIÓN : 
+		<%= s_uf(@objeto.aprob_total_uf) %>
+		<i class="bi bi-arrow-left-right"></i>
+		<%= s_pesos(@objeto.aprob_total_pesos) %>
+	</h4>
+</div>

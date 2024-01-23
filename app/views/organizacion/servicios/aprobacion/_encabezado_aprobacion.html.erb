@@ -1,0 +1,15 @@
+<p><%= image_tag 'logo_tyc.png' %></p>
+
+<h4>
+	Aprobación de pagos
+</h4>
+
+<div style="padding-left: 1em; padding-right: 1em,">
+	<h5>
+		<i class="bi bi-building"></i>
+		<%= "#{objeto.cliente.razon_social} : #{dma(objeto.fecha)}"%> 
+		<%= link_to objeto do %>
+			<i class="bi bi-box-arrow-up-right"></i>
+		<% end %>
+	</h5>
+</div>

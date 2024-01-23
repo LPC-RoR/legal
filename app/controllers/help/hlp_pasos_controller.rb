@@ -1,9 +1,6 @@
 class Help::HlpPasosController < ApplicationController
   before_action :inicia_sesion
   before_action :set_hlp_paso, only: %i[ show edit update destroy ]
-  before_action :carga_solo_sidebar, only: %i[ show new edit create update ]
-
-  include Sidebar
 
   # GET /hlp_pasos or /hlp_pasos.json
   def index

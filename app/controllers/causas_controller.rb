@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente crea_documento_controlado crea_archivo_controlado agrega_valor elimina_valor]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente crea_documento_controlado crea_archivo_controlado agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion]
 
   include Tarifas
 
@@ -34,7 +34,6 @@ class CausasController < ApplicationController
       @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
 
       @variables = @objeto.tipo_causa.variables.order(:orden)
-      puts @variables.map {|v| v.tipo}
       @valores = @objeto.valores_datos
 
       actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
@@ -50,6 +49,8 @@ class CausasController < ApplicationController
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
     elsif @options[:menu] == 'Pagos'
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
+
+      @h_pagos = get_h_pagos(@objeto)
     elsif @options[:menu] == 'Antecedentes'
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       set_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)
@@ -227,6 +228,35 @@ class CausasController < ApplicationController
     redirect_to @objeto
   end
 
+  # Manegos de TarUfFacturacion
+  def input_tar_facturacion
+    unless params[:form_tar_facturacion]['fecha_uf(1i)'].blank? or params[:form_tar_facturacion]['fecha_uf(2i)'].blank? or params[:form_tar_facturacion]['fecha_uf(3i)'].blank?
+      tar_pago = TarPago.find(params[:pid])
+      unless tar_pago.blank?
+        tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
+        annio = params[:form_tar_facturacion]['fecha_uf(1i)'].to_i
+        mes = params[:form_tar_facturacion]['fecha_uf(2i)'].to_i
+        dia = params[:form_tar_facturacion]['fecha_uf(3i)'].to_i
+
+        if tar_uf_facturacion.blank?
+          tar_uf_facturacion = TarUfFacturacion.create( owner_class: 'Causa', owner_id: @objeto.id, tar_pago_id: tar_pago.id )
+        end
+        tar_uf_facturacion.fecha_uf = Time.zone.parse("#{annio}-#{mes}-#{dia}")
+        tar_uf_facturacion.save
+      end
+    end
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Pagos"
+  end
+
+  def elimina_uf_facturacion
+    tar_pago = TarPago.find(params[:pid])
+    tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
+    tar_uf_facturacion.delete
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Pagos"
+  end
+
   # DELETE /causas/1 or /causas/1.json
   def destroy
     set_redireccion
@@ -238,6 +268,36 @@ class CausasController < ApplicationController
   end
 
   private
+
+  # crea el array con el cálculo del pago
+    def array_pago(causa, pago)
+      pago_generado = causa.pago_generado(pago)
+      uf_pago = causa.uf_calculo_pago(pago)
+      if pago_generado.blank?
+        monto = pago.valor.blank? ? calcula2(pago.formula_tarifa, causa, pago) : pago.valor
+        monto_pesos = pago.moneda == 'Pesos' ? monto : ( uf_pago.blank? ? 0 : monto * uf_pago.valor )
+        monto_uf = pago.moneda == 'UF' ? monto : ( uf_pago.blank? ? 0 : monto / uf_pago.valor )
+      else
+        monto_pesos = pago_generado.monto_pesos
+        monto_uf = pago_generado.monto_uf
+      end
+      {
+        pago: pago_generado,
+        origen_fecha_pago: causa.origen_fecha_pago(pago),
+        monto_pesos: monto_pesos,
+        monto_uf: monto_uf
+      }
+    end
+
+    # crea un hash con el cálculo de los pagos
+    def get_h_pagos(causa)
+      h_pagos = {}      
+      causa.tar_tarifa.tar_pagos.order(:orden).each do |pago|
+        h_pagos[pago.id] = array_pago(causa, pago)
+      end
+      h_pagos
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_causa
       @objeto = Causa.find(params[:id])

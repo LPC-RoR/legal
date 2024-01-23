@@ -2,9 +2,6 @@ class Autenticacion::AppAdministradoresController < ApplicationController
   before_action :authenticate_usuario!
   before_action :inicia_sesion
   before_action :set_app_administrador, only: %i[ show edit update destroy ]
-  before_action :carga_solo_sidebar, only: %i[ show new edit create update ]
-
-  include Sidebar
 
   # GET /app_administradores or /app_administradores.json
   def index

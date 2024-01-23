@@ -2,15 +2,12 @@ module CptnConfigHelper
 	def config
 		{
 			app: {
-				nombre: 'addt',
 				home: 'http://www.abogadosderechodeltrabajo.cl',
 				logo_navbar: nil
 			},
 			layout: {
-#				menu_over: (not usuario_signed_in?),
 				menu_over: true,
 				banner: true,
-#				menu: usuario_signed_in?,
 				menu: false,
 				menu_left: true
 			},

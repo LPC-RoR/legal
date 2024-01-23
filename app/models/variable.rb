@@ -4,6 +4,8 @@ class Variable < ApplicationRecord
 
 	belongs_to :tipo_causa
 
+	has_many :valores
+
 	# ------------------------------------ ORDER LIST
 
 	def owner
@@ -30,17 +32,14 @@ class Variable < ApplicationRecord
 		"/tipo_causas/#{self.owner.id}"
 	end
 
-	# -----------------------------------------------
+	# ----------------------------------------------- Causa -> Valor <- Variable
+
+	def valor_campo(valor)
+		['Número', 'Monto pesos', 'Monto UF'].include?(self.tipo) ? valor.c_numero : ( self.tipo == 'Texto' ? valor.c_string : ( self.tipo == 'Parrafo' ? valor.c_text : nil ) )
+	end
 
 	def valor_variable(causa)
-		valor = causa.valores_datos.find_by(variable_id: self.id)
-		unless valor.blank?
-			campo = valor.c_string if self.tipo == 'Texto'
-			campo = valor.c_text if self.tipo == 'Párrafo'
-			campo = valor.c_numero if ['Número', 'Monto pesos', 'Monto UF'].include?(self.tipo)
-		else
-			campo = nil
-		end
-		campo
+		valor = self.valores.find_by(owner_class: 'Causa', owner_id: causa.id)
+		valor.blank? ? nil : self.valor_campo(valor)
 	end
 end

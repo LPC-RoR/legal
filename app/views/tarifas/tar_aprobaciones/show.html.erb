@@ -1,16 +1,22 @@
 <div class="row">
 	<div class="col-lg-7 col-xs-12">
-		<h5>
-		<i class="bi bi-check-all"></i>
-		<%= "Aprobacion del día #{dma(@objeto.fecha)}" %>
-		<%= link_to "/servicios/aprobacion?indice=#{@objeto.id}" do %>
-			<i class="bi bi-eyeglasses"></i>
+
+		<%= render '0p/general/title_box' do %>
+
+			<div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
+				<i class="bi bi-<%=controller_icon['tar_aprobaciones']%>"></i> <%= "Aprobacion emitida el día #{dma(@objeto.fecha)}" %>
+				<i class="bi bi-dot"></i>
+				<%= link_to "/servicios/aprobacion?indice=#{@objeto.id}" do %>
+					<i class="bi bi-eyeglasses"></i>
+				<% end %>
+			</div>
+
 		<% end %>
-		</h5>
+
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturaciones'} %>
 	</div>
 	<div class="col-lg-5">
-		<%= render partial: '0p/general/gly_title_size', locals: {gly: 'coin', title: "Pagos pendientes", size: 5} %>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos aprobados', link_new: nil} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'pend-tar_facturaciones'} %>
 	</div>
 </div>

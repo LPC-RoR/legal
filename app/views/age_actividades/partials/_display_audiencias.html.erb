@@ -22,6 +22,6 @@
 
 <% unless coleccion.empty? and pendientes.empty? %>
 	<% coleccion.each do |actividad| %>
-		<%= render partial: get_partial(actividad.class.name.tableize, 'list', "lobjeto") , locals: {objeto: actividad} %></br>
+		<%= render partial: partial_name(actividad.class.name.tableize, 'list', "lobjeto") , locals: {objeto: actividad} %></br>
 	<% end %>
 <% end %>

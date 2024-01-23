@@ -7,18 +7,12 @@
 	</div>
 	<div class="col-lg-8">
 
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_pagos', title: 'Despliegue tarifa', link_new: nil } %>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_pagos', title: 'Aprobación de pagos', link_new: nil } %>
 
-		<% objeto.tar_tarifa.tar_pagos.each do |pago| %>
+		<% objeto.tar_tarifa.tar_pagos.order(:orden).each do |pago| %>
 
 			<div class="shadow p-3 mb-3 bg-white rounded">
-				<%= render partial: 'causas/partials/despliega_pago', locals: {objeto: objeto, pago: pago} %>
-
-				<!-- BOTON FACTURACION -->
-				<% unless objeto.facturaciones.map {|facts| facts.facturable}.include?(pago.codigo_formula) %>
-			    	<p><%= render partial: '0p/general/btn_proceso', locals: {texto: pago.tar_pago, gly: 'coin', link: "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}&facturable=#{pago.codigo_formula}", clr: config[:color][:app], delete: false} unless pago.codigo_formula.blank? %>
-					</p>
-			    <% end %>
+				<%= render partial: 'causas/partials/pago', locals: {objeto: objeto, pago: pago} %>
 			</div>
 
 		<% end %>

@@ -32,7 +32,7 @@
 	<% unless coleccion.empty? %>
 		<div class="row">
 			<% coleccion.each do |documento| %>
-				<%= render partial: get_partial(documento.class.name.tableize, 'list', "lobjeto") , locals: {objeto: documento} %></br>
+				<%= render partial: partial_name(documento.class.name.tableize, 'list', "lobjeto") , locals: {objeto: documento} %></br>
 			<% end %>
 		</div>
 	<% end %>

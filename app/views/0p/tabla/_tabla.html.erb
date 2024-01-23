@@ -1,10 +1,6 @@
 <% unless @coleccion[c].empty? %>
 
-  <% if @coleccion[c].count > 10 %>
-    <p><%= render partial: '0p/tabla/btn_nuevo', locals: {c: c} %></p>
-  <% end %>
-
-  <!-- PAGINACION -->
+   <!-- PAGINACION -->
   <%= render partial: '0p/tabla/paginate', locals: {c: c, location: 'arriba'} %>
 
   <!-- TABLA -->
@@ -19,6 +15,3 @@
   <%= render partial: '0p/tabla/paginate', locals: {c: c, location: 'abajo'} if @coleccion[c].count > 15 %>
 
 <% end %>
-
-<!-- DEPRECATED -->
-<%#= render partial: '0p/tabla/btn_nuevo', locals: {c: c} %>

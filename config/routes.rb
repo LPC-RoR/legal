@@ -77,6 +77,8 @@ Rails.application.routes.draw do
     match :crea_archivo_controlado, via: :get, on: :member
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member
+    match :input_tar_facturacion, via: :post, on: :member
+    match :elimina_uf_facturacion, via: :get, on: :member
   end
   resources :antecedentes
   resources :clientes do
@@ -171,16 +173,6 @@ Rails.application.routes.draw do
     resources :h_temas
   end
   
-  scope module: 'sidebar' do
-    resources :sb_elementos do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
-    end
-    resources :sb_listas do
-      resources :sb_elementos
-    end
-  end
-
   scope module: 'help' do
     resources :hlp_pasos
     resources :hlp_tutoriales do

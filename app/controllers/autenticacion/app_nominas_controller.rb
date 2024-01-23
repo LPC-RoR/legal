@@ -2,9 +2,6 @@ class Autenticacion::AppNominasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :inicia_sesion
   before_action :set_app_nomina, only: %i[ show edit update destroy ]
-  before_action :carga_solo_sidebar, only: %i[ show new edit create update ]
-
-  include Sidebar
 
   # GET /app_nominas or /app_nominas.json
   def index
@@ -13,19 +10,16 @@ class Autenticacion::AppNominasController < ApplicationController
 
   # GET /app_nominas/1 or /app_nominas/1.json
   def show
-    carga_sidebar('Administración', 'Nómina')
     @modelos_disponibles = StModelo.where(st_modelo: (StModelo.all.map {|st_modelo| st_modelo.st_modelo} - @objeto.st_perfil_modelos.map {|st_perfil_modelo| st_perfil_modelo.st_perfil_modelo})).order(:st_modelo)
   end
 
   # GET /app_nominas/new
   def new
-    carga_sidebar('Administración', 'Nómina')
     @objeto = AppNomina.new
   end
 
   # GET /app_nominas/1/edit
   def edit
-    carga_sidebar('Administración', 'Nómina')
   end
 
   # POST /app_nominas or /app_nominas.json

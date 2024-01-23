@@ -10,6 +10,6 @@
 
 <% unless coleccion.empty?  %>
 	<% coleccion.each do |act| %>
-		<%= render partial: get_partial(act.class.name.tableize, 'list', "lobjeto") , locals: {objeto: act} %></br>
+		<%= render partial: partial_name(act.class.name.tableize, 'list', "lobjeto") , locals: {objeto: act} %></br>
 	<% end %>
 <% end %>

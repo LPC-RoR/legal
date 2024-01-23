@@ -1,9 +1,6 @@
 class Estados::StEstadosController < ApplicationController
   before_action :set_st_estado, only: %i[ show edit update destroy asigna arriba abajo ]
-  before_action :carga_solo_sidebar, only: %i[ show new edit create update ]
   after_action :reordenar, only: :destroy
-
-  include Sidebar
 
   # GET /st_estados or /st_estados.json
   def index

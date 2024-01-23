@@ -1,0 +1,11 @@
+<%= pago.tar_pago %> : 
+<%= render partial: 'causas/partials/pago_encabezado', locals: {objeto: objeto, pago: pago} %>
+
+<% if pago.valor.blank? %>
+	<% unless objeto.uf_calculo_pago(pago).blank? %>
+		<small class="text-info">Aplicación de tarifa</small>
+		<div style='padding-left: 1em; padding-right: 1em; padding-bottom: .5em; line-height: 13px;'>
+			<%= render partial: 'causas/partials/pago_comentarios', locals: {pago: pago, objeto: objeto} %>
+		</div>
+	<% end %>
+<% end %>

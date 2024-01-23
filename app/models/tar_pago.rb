@@ -8,6 +8,8 @@ class TarPago < ApplicationRecord
 	belongs_to :tar_tarifa
 
 	has_many :tar_comentarios
+	has_many :tar_facturaciones
+	has_many :tar_uf_facturaciones
 
     validates_presence_of :orden, :tar_pago
 

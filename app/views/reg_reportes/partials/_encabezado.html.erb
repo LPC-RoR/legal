@@ -1,0 +1,6 @@
+Reporte de horas del la causa <%= objeto.owner.rit %> : <%= objeto.causa %>
+<% if controller_name == 'servicios' and action_name == 'aprobacion' %>
+	<%= link_to objeto do %>
+		<i class="bi bi-box-arrow-up-right"></i>
+	<% end %>
+<% end %>

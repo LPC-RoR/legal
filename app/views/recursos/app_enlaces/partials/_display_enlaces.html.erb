@@ -12,7 +12,7 @@
 	<% unless @coleccion['app_enlaces'].empty? %>
 		<div class="row">
 			<% @coleccion['app_enlaces'].each do |enlace| %>
-				<%= render partial: get_partial(enlace.class.name.tableize, 'list', "lobjeto") , locals: {objeto: enlace} %></br>
+				<%= render partial: partial_name(enlace.class.name.tableize, 'list', "lobjeto") , locals: {objeto: enlace} %></br>
 			<% end %>
 		</div>
 	<% end %>

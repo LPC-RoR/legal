@@ -3,7 +3,7 @@
 </br>
 <div class='row'>
 	<div class='col-md-6'>
-		<%= render partial: get_partial('app_nominas', 'partials', 'modelos_action_list'), locals: {nombre: 'Modelos Activados', gly: 'card-checklist', clr: 'info', coleccion: @objeto.st_perfil_modelos.order(:st_perfil_modelo), field: 'st_perfil_modelo', link: '/desasignar', gly_link: 'x-circle', base: true, action: seguridad_desde('admin')} %>
+		<%= render partial: partial_name('app_nominas', 'partials', 'modelos_action_list'), locals: {nombre: 'Modelos Activados', gly: 'card-checklist', clr: 'info', coleccion: @objeto.st_perfil_modelos.order(:st_perfil_modelo), field: 'st_perfil_modelo', link: '/desasignar', gly_link: 'x-circle', base: true, action: seguridad_desde('admin')} %>
 	</div>
 	<div class='col-md-6'>
 		<% if seguridad_desde('admin') %>

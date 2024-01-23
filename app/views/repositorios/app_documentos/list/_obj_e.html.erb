@@ -1,8 +1,8 @@
 	<small><small>
-		<% unless objeto.documento_control and crud_conditions(objeto, 'Editar') == true %>
+		<% unless objeto.documento_control %>
 			<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto} %>
 		<% end %>
-		<% if objeto.archivos.empty? and crud_conditions(objeto, 'Eliminar') %>
+		<% if objeto.archivos.empty? %>
 			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
 		<% end %>
 	</small></small>		

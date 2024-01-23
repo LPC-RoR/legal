@@ -1,8 +1,5 @@
 class Tarifas::TarElementosController < ApplicationController
   before_action :set_tar_elemento, only: %i[ show edit update destroy ]
-  before_action :carga_solo_sidebar, only: %i[ show new edit create update ]
-
-  include Sidebar
 
   # GET /tar_elementos or /tar_elementos.json
   def index
@@ -68,7 +65,6 @@ class Tarifas::TarElementosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/app_recursos/administracion?id=#{get_elemento_id(controller_name, 'Elementos de Tarifa')}" 
     end
 
     # Only allow a list of trusted parameters through.
