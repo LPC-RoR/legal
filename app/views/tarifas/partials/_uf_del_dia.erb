@@ -1,5 +1,0 @@
-<p><small>
-<i class="bi bi-coin"></i> UF del día <%= dma(Time.zone.today.to_date) %> | <%= "#{uf_del_dia.blank? ? 'No encontrada' : s_pesos2(TarUfSistema.find_by(fecha:Time.zone.today.to_date).valor)}" %>
-</small>
-</p>
-

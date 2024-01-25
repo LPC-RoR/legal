@@ -1,9 +1,10 @@
-<small class='text-info'>Detalle Cuantía</br>
-<small class="text-muted">
+Detalle Cuantía</br>
+<small>
+<small class="text-info">
 <div class="row">
 	<% objeto.valores_cuantia.each do |vc| %>
 		<div class="col-8">
-			<%= vc.detalle %>
+			<div style='padding-left: 1em;'><%= vc.detalle %></div>
 		</div>
 		<div class="col-4" align='right'>
 			<b><%= "#{vc.moneda == 'Pesos' ? number_to_currency(vc.valor, locale: :en, precision: 0) : number_to_currency(vc.valor, unit: 'UF', precision: 2)}" %></b>

@@ -76,44 +76,19 @@ class TarFacturacion < ApplicationRecord
 		TarUfSistema.find_by(fecha: self.fecha_calculo.to_date)
 	end
 
-	# *************************************************************************************************
-
-
-	def pago
-		if (['Causa', 'Consultoria'].include?(self.padre.class.name) and self.padre.tar_tarifa.tar_pagos.any?)
-			self.padre.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
-		else
-			nil
-		end
-	end
+	# -------------------------------------------------------------------------------------------------
 
 	def monto_ingreso
 		self.monto.blank? ? 0 : self.monto
 	end
 
-	# métodos para la correcto uso de la UF
-	# DEPRECATED
-	def fecha_uf
-		if self.tar_factura.blank? and self.tar_aprobacion.blank?
-			if self.owner_class == 'Causa'
-				pago = self.owner.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
-				uf_facturacion = self.owner.uf_facturaciones.find_by(pago: pago.tar_pago)
-				uf_facturacion.blank? ? Time.zone.today.to_date : uf_facturacion.fecha_uf
-			else
-				Time.zone.today.to_date
-			end
-		else
-			self.tar_factura.present? ? self.tar_factura.fecha : self.tar_aprobacion.fecha
-		end
+	def to_uf
+		self.uf_calculo.blank? ? 0 : (self.monto_ingreso.to_d.truncate(0) / self.uf_calculo.valor)
 	end
 
 	def to_pesos
 		self.uf_calculo.blank? ? 0 : (self.monto_ingreso * self.uf_calculo.valor)
 	end	
-
-	def to_uf
-		self.uf_calculo.blank? ? 0 : (self.monto_ingreso.to_d.truncate(0) / self.uf_calculo.valor)
-	end
 
 	def monto_pesos
 		self.moneda == 'Pesos' ? self.monto_ingreso : self.to_pesos
@@ -123,6 +98,7 @@ class TarFacturacion < ApplicationRecord
 		self.moneda == 'Pesos' ? self.to_uf : self.monto_ingreso
 	end
 
+	# *************************************************************************************************
 	def pago_tarifa
 		if ['RegReporte', 'TarServicio'].include?(self.padre.class.name)
 			nil

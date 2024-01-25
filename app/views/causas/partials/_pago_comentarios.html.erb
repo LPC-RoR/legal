@@ -1,24 +1,34 @@
-<% unless pago.tar_comentarios.empty? %>
-	<small><small>
-	<% pago.tar_comentarios.order(:orden).each do |comentario| %>
-		
-		<% if comentario.tipo == 'Siempre' %>	
-			<div class="row">
-				<div class="col-10">
-					<i class="bi bi-dot"></i> <%= comentario.comentario %>
-				</div>
-				<div class="col-2" align='right'>
-					<% unless comentario.despliegue.blank? %>
-						<b><%= s_moneda(comentario.moneda, calcula2(comentario.despliegue, objeto, pago)) %></b>
+<% if pago.valor.blank? %>
+	<% unless causa.uf_calculo_pago(pago).blank? %>
+		<small class="text-info">Aplicación de tarifa</small>
+		<div style='padding-left: 1em; padding-right: 1em; padding-bottom: .5em; line-height: 13px;'>
+
+			<% unless pago.tar_comentarios.empty? %>
+				<small><small>
+				<% pago.tar_comentarios.order(:orden).each do |comentario| %>
+					
+					<% if comentario.tipo == 'Siempre' %>	
+						<div class="row">
+							<div class="col-10">
+								<i class="bi bi-dot"></i> <%= comentario.comentario %>
+							</div>
+							<div class="col-2" align='right'>
+								<% unless comentario.despliegue.blank? %>
+									<b><%= s_moneda(comentario.moneda, calcula2(comentario.despliegue, causa, pago)) %></b>
+								<% end %>
+							</div>
+						</div>
+					<% elsif comentario.tipo == 'Condición' %>
+						<% if calcula2(comentario.formula.strip, causa, pago) %>
+							<i class="bi bi-lightbulb"></i> <%= comentario.comentario %></br>
+						<% end %>
 					<% end %>
-				</div>
-			</div>
-		<% elsif comentario.tipo == 'Condición' %>
-			<% if calcula2(comentario.formula.strip, objeto, pago) %>
-				<i class="bi bi-lightbulb"></i> <%= comentario.comentario %></br>
+					
+				<% end %>
+				</small></small>
 			<% end %>
-		<% end %>
-		
+
+		</div>
 	<% end %>
-	</small></small>
 <% end %>
+

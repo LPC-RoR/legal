@@ -1,0 +1,50 @@
+<div style='padding-left: 1em; padding-right: 1em; line-height: 13px;'>
+
+	<small><small>
+		<div class="row">
+			<div class="col-10">
+				<i class="bi bi-arrow-right"></i> 
+				<% case @h_pagos[objeto.id][:origen_fecha_pago] %>
+				<% when 'TarUfFacturacion' %>
+					UF definida para este pago.
+				<% when 'TarPago' %>
+					UF definida por la fecha de aprobación.
+				<% when 'Today' %>
+					Cálculo realizado con la UF del día.
+				<% end %> 
+				( <%= dma( objeto.class.name == 'TarPago' ? owner.fecha_calculo_pago(objeto) : objeto.fecha_calculo ) %> )
+
+				<% if objeto.class.name == 'TarPago' %>
+					<% unless owner.pago_generado(objeto).present? %>
+						</br>
+						<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: objeto, tooltip: owner.tar_uf_facturacion(objeto).blank? ? 'agrega ' : 'modifica ' } do %>
+							<%= owner.tar_uf_facturacion(objeto).blank? ? 'agrega ' : 'modifica ' %> fecha de la uf
+						<% end %>
+						<% unless owner.tar_uf_facturacion(objeto).blank? %>
+							<i class="bi bi-dot"></i>
+							<%= link_to "/causas/#{owner.id}/elimina_uf_facturacion?pid=#{objeto.id}" do %>
+								<small><i class="bi bi-trash"></i></small>
+							<% end %>
+						<% end %>
+					<% end %>
+				<% end %>
+			</div>
+			<div class="col-2" align='right'>
+				<b class="text-info">
+				<% if objeto.class.name == 'TarPago' %>
+					<%= owner.uf_calculo_pago(objeto).blank? ? 'UF no encontrada' : s_pesos2(owner.uf_calculo_pago(objeto).valor) %>
+				<% else %>
+					<%= objeto.uf_calculo.blank? ? 'UF no encontrada' : s_pesos2(objeto.uf_calculo.valor) %>
+				<% end %>
+				</b>
+			</div>
+		</div>
+
+	<%= render layout: '0p/collapse/display', locals: {label: 'AgregaModifica', objeto: objeto} do %>
+		<%= render partial: "causas/partials/form_uf_facturacion", locals: {objeto: owner, pago: objeto} %>
+	<% end %>
+	</small></small>
+
+</div>
+
+<%= render partial: 'causas/partials/pago_comentarios', locals: {pago: objeto.class.name == 'TarPago' ? objeto : objeto.tar_pago, causa: owner } %>

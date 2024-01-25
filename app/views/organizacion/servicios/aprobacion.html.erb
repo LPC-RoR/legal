@@ -3,30 +3,39 @@
 </div>
 
 <% @coleccion['tar_facturaciones'].each do |tar_facturacion| %>
-	<div class="shadow p-3 mb-1 bg-white rounded">
-		<div style="padding-left: 1em">
+
+	<%= render '0p/general/title_box' do %>
+		<div style='padding-left: 1em;'>
 			<%= render partial: "#{tar_facturacion.owner.class.name.tableize}/partials/encabezado", locals: {objeto: tar_facturacion.owner} %>
 		</div>
-	</div>
+	<% end %>
+
 	<div class="shadow p-3 mb-3 bg-white rounded">
-	<div class="row">
-		<div class="col-lg-6 col-xs-12">
-			<div style='padding-left: 1em;'>
-				<%= render partial: "#{tar_facturacion.owner.class.name.tableize}/partials/detalle_aprobacion", locals: {objeto: tar_facturacion.owner, facturacion: tar_facturacion} %>
+		<div class="row">
+			<div class="col-lg-6 col-xs-12">
+				<%= render partial: 'causas/partials/detalle_cuantia', locals: {objeto: tar_facturacion.owner} if tar_facturacion.owner.class.name == 'Causa'%>
+			</div>
+			<div class="col-lg-6">
+				<div style='padding-left: 1em;'>
+					<%= render partial: 'organizacion/servicios/aprobacion/encabezado_pago', locals: {objeto: tar_facturacion, owner: tar_facturacion.owner} %>
+					<%= render partial: 'causas/partials/pago_comentarios', locals: {pago: tar_facturacion.tar_pago, causa: tar_facturacion.owner } if tar_facturacion.owner.class.name == 'Causa' %>
+				</div>
 			</div>
 		</div>
-		<div class="col-lg-6">
-			<%= render partial: 'causas/partials/detalle_cuantia', locals: {objeto: tar_facturacion.owner} if tar_facturacion.owner.class.name == 'Causa'%>
-		</div>
-	</div>
 	</div>
 <% end %>
 
-<div class="shadow p-3 mb-3 bg-white rounded">
+<%= render '0p/general/title_box' do %>
 	<h4>
-		TOTAL APROBACIÓN : 
-		<%= s_uf(@objeto.aprob_total_uf) %>
-		<i class="bi bi-arrow-left-right"></i>
-		<%= s_pesos(@objeto.aprob_total_pesos) %>
+	<div class="row">
+		<div class="col-8">
+			TOTAL APROBACIÓN
+		</div>
+		<div class="col-4" align='right'>
+			<%= s_uf(@objeto.aprob_total_uf) %>
+			<i class="bi bi-arrow-left-right"></i>
+			<%= s_pesos(@objeto.aprob_total_pesos) %>
+		</div>
+	</div>
 	</h4>
-</div>
+<% end %>

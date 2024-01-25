@@ -65,7 +65,7 @@ class Tarifas::TarValorCuantiasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/causas/#{@objeto.owner.id}?html_options[menu]=Tarifa+%26+Cuantía"
+      @redireccion = "/causas/#{@objeto.owner.id}?html_options[menu]=Datos+%26+Cuantía"
     end
 
     # Only allow a list of trusted parameters through.

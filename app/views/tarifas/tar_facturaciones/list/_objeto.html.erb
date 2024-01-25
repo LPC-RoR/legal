@@ -6,8 +6,8 @@
 	<%= render partial: 'tarifas/tar_facturaciones/list/move_btn', locals: {objeto: objeto} %> 
 
 	<b>
-	<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.pago.blank? %>
-		<%= objeto.pago.tar_pago %> | 
+	<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.tar_pago.blank? %>
+		<%= objeto.tar_pago.tar_pago %> | 
 	<% end %>
 	<%= s_uf(objeto.monto_uf) %> : <%= s_pesos(objeto.monto_pesos) %>
 	</b>

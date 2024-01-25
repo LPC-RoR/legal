@@ -14,21 +14,8 @@
 		<% end %>
 	<% end %>
 <% end %>
+
 <%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: objeto} %>
-<% unless controller_name == 'tar_aprobaciones' %>
-	<% if objeto.tar_aprobacion.present? %>
-		<%= link_to objeto.tar_aprobacion do %>
-			<small><i class="bi bi-check-all"></i> <%= dma(objeto.tar_aprobacion.fecha) %></small>
-		<% end %>
-	<% end %>
-<% end %>
-<% unless controller_name == 'tar_facturas'	 %>
-	<% if objeto.tar_factura.present? %>
-		<%= link_to objeto.tar_factura do %>
-			<small><i class="bi bi-receipt"> <%= objeto.tar_factura.estado %></i></small>
-		<% end %>
-	<% end %>
-<% end %>
 
 <% if objeto.owner.class.name == 'TarServicio' %>
 	<small><%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %></small>

@@ -17,13 +17,13 @@
 
 	<%= render partial: 'causas/partials/tab_hechos', locals: {objeto: @objeto} %>
 
-<% elsif @options[:menu] == 'Tarifa & Cuantía' %>
+<% elsif @options[:menu] == 'Datos & Cuantía' %>
 
-	<%= render partial: 'causas/partials/tab_tarifa_cuantia', locals: {objeto: @objeto} %>
+	<%= render partial: 'causas/partials/tab_datos_cuantia', locals: {objeto: @objeto} %>
 
-<% elsif @options[:menu] == 'Pagos' %>
+<% elsif @options[:menu] == 'Tarifa & Pagos' %>
 
-	<%= render partial: 'causas/partials/tab_pagos', locals: {objeto: @objeto} %>
+	<%= render partial: 'causas/partials/tab_tarifa_pagos', locals: {objeto: @objeto} %>
 
 <% elsif @options[:menu] == 'Registro' %>
 

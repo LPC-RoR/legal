@@ -11,7 +11,7 @@ class TarPago < ApplicationRecord
 	has_many :tar_facturaciones
 	has_many :tar_uf_facturaciones
 
-    validates_presence_of :orden, :tar_pago
+    validates_presence_of :orden, :tar_pago, :moneda
 
     def formula_tarifa
     	TarFormula.find_by(codigo: self.codigo_formula).tar_formula

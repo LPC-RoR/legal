@@ -56,7 +56,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
       end
     end
 
-    redirect_to ( params[:owner_class] == 'Asesoria' ? asesorias_path : "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Pagos" )
+    redirect_to ( params[:owner_class] == 'Asesoria' ? asesorias_path : "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Tarifa+%26+Pagos" )
   end
 
   def crea_aprobacion

@@ -18,11 +18,9 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    set_tab( :menu, ['Seguimiento', 'Hechos', 'Tarifa & Cuantía', 'Pagos', 'Registro', 'Reportes'] )
+    set_tab( :menu, ['Seguimiento', 'Hechos', 'Tarifa & Pagos', 'Datos & Cuantía', 'Registro', 'Reportes'] )
 
     if @options[:menu] == 'Seguimiento'
-      set_tabla('tar_facturaciones', @objeto.facturaciones, false)
-
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
       set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
@@ -33,24 +31,33 @@ class CausasController < ApplicationController
       @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
       @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
 
-      @variables = @objeto.tipo_causa.variables.order(:orden)
-      @valores = @objeto.valores_datos
-
       actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
     elsif @options[:menu] == 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), true)
 
       set_tabla('app_documentos', @objeto.app_documentos.order(:app_documento), false)
-    elsif @options[:menu] == 'Tarifa & Cuantía'
+    elsif @options[:menu] == 'Datos & Cuantía'
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+
+      @variables = @objeto.tipo_causa.variables.order(:orden)
+      @valores = @objeto.valores_datos
+    elsif @options[:menu] == 'Tarifa & Pagos'
+      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
+      set_tabla('tar_facturaciones', @objeto.facturaciones, false)
+
+      @h_pagos = get_h_pagos(@objeto)
+
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
-    elsif @options[:menu] == 'Pagos'
-      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
 
-      @h_pagos = get_h_pagos(@objeto)
+      set_formulas(@objeto)
+      @calc_valores = @objeto.set_valores
+      puts "*************************************** show"
+      puts @calc_formulas
+      puts @calc_valores
+      puts "*************************************++"
     elsif @options[:menu] == 'Antecedentes'
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       set_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)
@@ -215,7 +222,7 @@ class CausasController < ApplicationController
 
     valor.save unless valor.blank?
 
-    redirect_to @objeto
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Datos+%26+Cuantía"
   end
 
   def elimina_valor
@@ -225,7 +232,7 @@ class CausasController < ApplicationController
       valor.delete unless valor.blank?
     end
 
-    redirect_to @objeto
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Datos+%26+Cuantía"
   end
 
   # Manegos de TarUfFacturacion
@@ -246,7 +253,7 @@ class CausasController < ApplicationController
       end
     end
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Pagos"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Tarifa+%26+Pagos"
   end
 
   def elimina_uf_facturacion
@@ -254,7 +261,7 @@ class CausasController < ApplicationController
     tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
     tar_uf_facturacion.delete
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Pagos"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Tarifa+%26+Pagos"
   end
 
   # DELETE /causas/1 or /causas/1.json

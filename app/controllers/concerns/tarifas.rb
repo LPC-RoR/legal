@@ -1,6 +1,14 @@
 module Tarifas
 	extend ActiveSupport::Concern
 
+	def set_formulas(objeto)
+		@calc_formulas = {} if @calc_formulas.blank?
+
+		objeto.tar_tarifa.tar_formulas.each do |tar_formula|
+			@calc_formulas[tar_formula.codigo] = tar_formula.tar_formula
+		end
+	end
+
 	def calcula2(formula, objeto, pago)
 		# objeto: causa en primer caso
 
@@ -86,45 +94,6 @@ module Tarifas
 		# ELEMENTOS
 		elsif formula.split(' ').length == 1
 			get_token_value(formula, objeto, pago)
-#			if formula.strip[0] == '#' #Valor de la causa
-#				case formula.strip
-#				when '#uf'
-#					objeto.uf_calculo_pago(pago).valor
-#				when '#uf_dia'
-#					# Hay que revisar el uso de este valor
-#					uf = TarUfSistema.find_by(fecha: Time.zone.today)
-#					uf.blank? ? 0 : uf.valor
-#				when '#cuantia_pesos'
-#					objeto.cuantia_pesos(pago)
-#				when '#cuantia_uf'
-#					objeto.cuantia_uf(pago)
-#				when '#monto_pagado'
-#					objeto.monto_pagado.blank? ? 0 : objeto.monto_pagado
-#				when '#monto_pagado_uf'
-#					objeto.monto_pagado_uf(pago)
-#				when '#facturado_pesos'
-#					objeto.facturado_pesos
-#				when '#facturado_uf'
-#					objeto.facturado_uf	
-#				end
-#			elsif formula.strip[0] == '@'
-#				fyc = formula.strip.match(/^@(?<facturable>.+):(?<campo>.+)/)
-#				facturacion = objeto.facturaciones.find_by(facturable: fyc[:facturable])
-#				facturacion.blank? ? 0 : (facturacion.send(fyc[:campo]).blank? ? 0 : facturacion.send(fyc[:campo]))
-#			elsif formula.strip[0] == '$'
-#				variable = Variable.find_by(variable: formula.gsub('$', ''))
-#				valor = variable.valores.find_by(owner_id: objeto.id)
-#				variable.valor_campo(valor)
-#			elsif (formula.split(' ').length == 1) and formula.match(/\d+\.*\d*/)	# número cte
-#				formula.strip.to_f
-#			elsif formula.strip == 'true'	# condicion ya evaluda
-#				true
-#			elsif formula.strip == 'false'	# condición ya evaluaada
-#				false
-#			else # elemento de la librería
-#				tar_formula = libreria.find_by(codigo: formula.strip)
-#				tar_formula.blank? ? 0 : calcula2(tar_formula.tar_formula, objeto, pago)
-#			end
 		end
 	end
 
@@ -132,12 +101,6 @@ module Tarifas
 		libreria = objeto.tar_tarifa.tar_formulas
 		if token.strip[0] == '#' #Valor de la causa
 			case token.strip
-			when '#uf'
-				objeto.uf_calculo_pago(pago).valor
-			when '#uf_dia'
-				# Hay que revisar el uso de este valor
-				uf = TarUfSistema.find_by(fecha: Time.zone.today)
-				uf.blank? ? 0 : uf.valor
 			when '#cuantia_pesos'
 				objeto.cuantia_pesos(pago)
 			when '#cuantia_uf'

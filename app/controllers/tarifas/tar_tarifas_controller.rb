@@ -64,19 +64,20 @@ class Tarifas::TarTarifasController < ApplicationController
       @objeto.causas << objeto
     end
 
-    redirect_to "/causas/#{objeto.id}?html_options[menu]=Tarifa+%26+Cuantía"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Tarifa+%26+Pagos"
 
   end
 
   def desasigna
     # DesAsigna una tarifa a una CAUSA o COONSULTORÍA
+    # quiza DEPRECATED
 
     unless params[:cid].blank?
       objeto = Causa.find(params[:cid])
       @objeto.causas.delete(objeto)
     end
 
-    redirect_to "/causas/#{objeto.id}?html_options[menu]=Tarifa+%26+Cuantía"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Pagos"
 
   end
 

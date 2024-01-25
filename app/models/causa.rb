@@ -1,15 +1,8 @@
 class Causa < ApplicationRecord
-	# Tabla de CAUSAS
-	# pertenece a tar_tarifa
 
-	TIPOS=['Juicio', 'Demanda']
-
-	TABLA_FIELDS = 	[
-		'created_at',
-		'd_id',
-		's#causa',
-		'cliente:razon_social'
-#		'tipo_causa:tipo_causa'
+	CALC_VALORES = [ 
+		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
+		'$Remuneración'
 	]
 
 	belongs_to :cliente
@@ -98,9 +91,34 @@ class Causa < ApplicationRecord
 
     # **************************************************** CÁLCULO DE TARIFA [PAGOS]
 
+	def set_valores
+		calc_valores = {}
+
+		self.class::CALC_VALORES.each do |class_valor|
+			case class_valor[0]
+			when '#'
+				calc_valores[class_valor] = {}
+				self.tar_tarifa.tar_pagos.each do |tar_pago|
+					if ['#monto_pagado', '#facturado_pesos', '#facturado_uf'].include?(class_valor)
+						calc_valores[class_valor][tar_pago.id] = self.send(class_valor.gsub('#', ''))
+					else
+						calc_valores[class_valor][tar_pago.id] = self.send(class_valor.gsub('#', ''), tar_pago)
+					end
+				end 
+			when '$'
+				valor = self.valor(class_valor.gsub('$', ''))
+				calc_valores[class_valor] = valor.blank? ? 0 : valor
+			when '@'
+				fyc = class_valor.match(/^@(?<facturable>.+):(?<campo>.+)/)
+				tar_facturacion = objeto.facturaciones.find_by(facturable: fyc[:facturable])
+				calc_valores[class_valor] = tar_facturacion.blank? ? 0 : (tar_facturacion.send(fyc[:campo]).blank? ? 0 : tar_facturacion.send(fyc[:campo]))
+			end
+		end
+		calc_valores
+	end
+
 	# Encuentra el PAGO (TarFacturacion) asociado al pago
 	def pago_generado(pago)
-#		self.facturaciones.find_by(facturable: pago.codigo_formula)
 		self.facturaciones.find_by(tar_pago_id: pago.id)
 	end
 
@@ -133,6 +151,46 @@ class Causa < ApplicationRecord
 		TarUfSistema.find_by(fecha: fecha_calculo_pago(pago))
 	end
 
+	def valor(variable_name)
+		variable = self.tipo_causa.variables.find_by(variable: variable_name)
+		valor = self.valores_datos.find_by(variable_id: variable.id)
+		valor
+	end
+
+	def facturado_pesos
+		self.facturaciones.map {|factn| factn.monto_pesos}.sum
+	end
+
+	def facturado_uf
+		self.facturaciones.map {|factn| factn.monto_uf}.sum
+	end
+
+	def total_cuantia
+		v_pesos = self.valores_cuantia.map {|vc| vc.valor if vc.moneda == 'Pesos'}.compact
+		v_uf = self.valores_cuantia.map {|vc| vc.valor if vc.moneda != 'Pesos'}.compact
+#		cuantia_pesos = v_pesos.empty? ? 0 : v_pesos.sum
+#		cuantia_uf = v_uf.empty? ? 0 : v_uf.sum
+		[v_pesos.empty? ? 0 : v_pesos.sum, v_uf.empty? ? 0 : v_uf.sum]
+	end
+
+	def cuantia_pesos(pago)
+		tc = self.total_cuantia
+		uf = self.uf_calculo_pago(pago)
+		valor_uf = uf.blank? ? 0 : uf.valor
+#		c_uf = self.valores_cuantia.where.not(moneda: 'Pesos')
+#		(c_uf.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? vc.valor : (uf.blank? ? 0 : vc.valor * uf.valor)) }.sum
+		tc[0] + tc[1] * valor_uf
+	end
+
+	def cuantia_uf(pago)
+		tc = self.total_cuantia
+		uf = self.uf_calculo_pago(pago)
+		valor_uf = uf.blank? ? 0 : uf.valor
+#		c_pesos = self.valores_cuantia.where(moneda: 'Pesos')
+#		(c_pesos.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? (uf.blank? ? 0 : vc.valor / uf.valor) : vc.valor) }.sum
+		valor_uf == 0 ? 0 : tc[0] / valor_uf + tc[1]
+	end
+
     # ****************************************************
 
     def st_modelo
@@ -150,14 +208,6 @@ class Causa < ApplicationRecord
 		self.cliente.tarifas
 	end
 
-	def facturado_pesos
-		self.facturaciones.map {|factn| factn.monto_pesos}.sum
-	end
-
-	def facturado_uf
-		self.facturaciones.map {|factn| factn.monto_uf}.sum
-	end
-
 	def repositorio
     	AppRepositorio.where(owner_class: self.class.name).find_by(owner_id: self.id)
 	end
@@ -170,24 +220,8 @@ class Causa < ApplicationRecord
 		self.repositorio.archivos.find_by(app_archivo: 'Demanda')
 	end
 
-	def total_cuantia
-		v_pesos = self.valores_cuantia.map {|vc| vc.valor if vc.moneda == 'Pesos'}.compact
-		v_uf = self.valores_cuantia.map {|vc| vc.valor if vc.moneda != 'Pesos'}.compact
-		cuantia_pesos = v_pesos.empty? ? 0 : v_pesos.sum
-		cuantia_uf = v_uf.empty? ? 0 : v_uf.sum
-		[cuantia_pesos, cuantia_uf]
-	end
-
-	def cuantia_pesos(pago)
-		uf = self.uf_calculo_pago(pago)
-		c_uf = self.valores_cuantia.where.not(moneda: 'Pesos')
-		(c_uf.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? vc.valor : (uf.blank? ? 0 : vc.valor * uf.valor)) }.sum
-	end
-
-	def cuantia_uf(pago)
-		uf = self.uf_calculo_pago(pago)
-		c_pesos = self.valores_cuantia.where(moneda: 'Pesos')
-		(c_pesos.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? (uf.blank? ? 0 : vc.valor / uf.valor) : vc.valor) }.sum
+	def monto_pagado_pesos(pago)
+		self.monto_pagado
 	end
 
 	def monto_pagado_uf(pago)
