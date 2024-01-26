@@ -1,17 +1,22 @@
 <%= render '0p/general/title_box' do %>
 
-	<div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
-	<i class="bi bi-<%=controller_icon['tar_tarifas']%>"></i> <%= objeto.tar_tarifa.blank? ? 'Tarifa' : 'Tarifa asignada' %>
-	<i class="bi bi-dot"></i>
-	<%= render layout: '0p/collapse/link', locals: {label: 'AsignaTarifa', objeto: nil, tooltip: 'asigna'} do %>
-		<small>
-		<% if objeto.tar_tarifa.blank? %>
-			<i class="bi bi-plus-circle"></i>
-		<% else %>
-			<i class="bi bi-pencil"></i>
-		<% end %>
-		</small>
-	<% end %>
+	<div class="text-info">
+		<div class="row">
+			<div class="col-10">
+				<i class="bi bi-<%=controller_icon['tar_tarifas']%>"></i> <%= objeto.tar_tarifa.blank? ? 'Tarifa' : 'Tarifa asignada' %>
+			</div>
+			<div class="col-2">
+				<%= render layout: '0p/collapse/link', locals: {label: 'AsignaTarifa', objeto: nil, tooltip: 'asigna'} do %>
+					<small>
+					<% if objeto.tar_tarifa.blank? %>
+						<i class="bi bi-plus-circle"></i>
+					<% else %>
+						<i class="bi bi-pencil"></i>
+					<% end %>
+					</small>
+				<% end %>
+			</div>
+		</div>
 	</div>
 
 <% end %>
