@@ -38,10 +38,13 @@ class CausasController < ApplicationController
 
       set_tabla('app_documentos', @objeto.app_documentos.order(:app_documento), false)
     elsif @options[:menu] == 'Datos & Cuantía'
+      # no se usa esta tabla, quizá luego se use para evitar proceso en vista
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
 
       @variables = @objeto.tipo_causa.variables.order(:orden)
       @valores = @objeto.valores_datos
+
+      set_detalle_cuantia(@objeto)
     elsif @options[:menu] == 'Tarifa & Pagos'
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
       set_tabla('tar_facturaciones', @objeto.facturaciones, false)
@@ -52,12 +55,9 @@ class CausasController < ApplicationController
       @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
 
+      # PRUEBA, aún no se usan
       set_formulas(@objeto)
       @calc_valores = @objeto.set_valores
-      puts "*************************************** show"
-      puts @calc_formulas
-      puts @calc_valores
-      puts "*************************************++"
     elsif @options[:menu] == 'Antecedentes'
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
       set_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)

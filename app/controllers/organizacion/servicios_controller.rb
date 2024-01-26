@@ -7,6 +7,10 @@ class Organizacion::ServiciosController < ApplicationController
     set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
 
     @h_pagos = get_h_pagos(@objeto)
+
+    @coleccion['tar_facturaciones'].each do |tar_facturacion|
+        set_detalle_cuantia(tar_facturacion.owner) if tar_facturacion.owner.class.name == 'Causa'
+    end
   end
 
   def organizacion

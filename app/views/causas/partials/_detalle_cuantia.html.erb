@@ -1,14 +1,30 @@
-Detalle Cuantía</br>
-<small>
-<small class="text-info">
-<div class="row">
+<% if controller_name == 'servicios' %>
+	Detalle Cuantía</br>
+<% end %>
+
+<small><small>
+
+<div class="row text-info">
+	
+	<div class="col-6"><div style='padding-left: 1em;'><i>Item</i></div></div>
+	<div class="col-3" align='right'><i>Honorarios</i></div>
+	<div class="col-3" align='right'><i>Cuantía</i></div>
+</div>
+<div class="row text-muted">
 	<% objeto.valores_cuantia.each do |vc| %>
-		<div class="col-8">
-			<div style='padding-left: 1em;'><%= vc.detalle %></div>
+		<div class="col-6">
+			<div style='padding-left: 1em;'>
+				<%= @valores_cuantia[objeto.id][vc.id][:nombre] %>
+				<%= render partial: '0p/tabla/links_e', locals: {objeto: vc} %>
+			</div>
 		</div>
-		<div class="col-4" align='right'>
-			<b><%= "#{vc.moneda == 'Pesos' ? number_to_currency(vc.valor, locale: :en, precision: 0) : number_to_currency(vc.valor, unit: 'UF', precision: 2)}" %></b>
+		<div class="col-3" align='right'>
+			<%= s_moneda( vc.moneda, @valores_cuantia[objeto.id][vc.id][:honorarios] ) %>
+		</div>
+		<div class="col-3" align='right'>
+			<%= s_moneda( vc.moneda, @valores_cuantia[objeto.id][vc.id][:cuantia] ) %>
 		</div>
 	<% end %>
 </div>
+
 </small></small>

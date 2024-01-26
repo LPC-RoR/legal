@@ -165,6 +165,7 @@ class Causa < ApplicationRecord
 		self.facturaciones.map {|factn| factn.monto_uf}.sum
 	end
 
+	# DEPRECATED
 	def total_cuantia
 		v_pesos = self.valores_cuantia.map {|vc| vc.valor if vc.moneda == 'Pesos'}.compact
 		v_uf = self.valores_cuantia.map {|vc| vc.valor if vc.moneda != 'Pesos'}.compact
@@ -173,21 +174,19 @@ class Causa < ApplicationRecord
 		[v_pesos.empty? ? 0 : v_pesos.sum, v_uf.empty? ? 0 : v_uf.sum]
 	end
 
+	# DEPRECATED
 	def cuantia_pesos(pago)
 		tc = self.total_cuantia
 		uf = self.uf_calculo_pago(pago)
 		valor_uf = uf.blank? ? 0 : uf.valor
-#		c_uf = self.valores_cuantia.where.not(moneda: 'Pesos')
-#		(c_uf.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? vc.valor : (uf.blank? ? 0 : vc.valor * uf.valor)) }.sum
 		tc[0] + tc[1] * valor_uf
 	end
 
+	# DEPRECATED
 	def cuantia_uf(pago)
 		tc = self.total_cuantia
 		uf = self.uf_calculo_pago(pago)
 		valor_uf = uf.blank? ? 0 : uf.valor
-#		c_pesos = self.valores_cuantia.where(moneda: 'Pesos')
-#		(c_pesos.any? and uf.blank?) ? 0 : self.valores_cuantia.map { |vc| (vc.moneda == 'Pesos' ? (uf.blank? ? 0 : vc.valor / uf.valor) : vc.valor) }.sum
 		valor_uf == 0 ? 0 : tc[0] / valor_uf + tc[1]
 	end
 
