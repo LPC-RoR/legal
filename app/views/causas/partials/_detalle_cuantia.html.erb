@@ -14,6 +14,9 @@
 	<% objeto.valores_cuantia.each do |vc| %>
 		<div class="col-6">
 			<div style='padding-left: 1em;'>
+				<% if vc.tar_detalle_cuantia.tar_detalle_cuantia == 'Otro' %>
+					<i class="bi bi-asterisk"></i>
+				<% end %>
 				<%= @valores_cuantia[objeto.id][vc.id][:nombre] %>
 				<%= render partial: '0p/tabla/links_e', locals: {objeto: vc} %>
 			</div>
