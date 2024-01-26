@@ -299,8 +299,10 @@ class CausasController < ApplicationController
     # crea un hash con el cálculo de los pagos
     def get_h_pagos(causa)
       h_pagos = {}      
-      causa.tar_tarifa.tar_pagos.order(:orden).each do |pago|
-        h_pagos[pago.id] = array_pago(causa, pago)
+      unless causa.tar_tarifa.blank? or causa.tar_tarifa.tar_pagos.empty?
+        causa.tar_tarifa.tar_pagos.order(:orden).each do |pago|
+          h_pagos[pago.id] = array_pago(causa, pago)
+        end
       end
       h_pagos
     end

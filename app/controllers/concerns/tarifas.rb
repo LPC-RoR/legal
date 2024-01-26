@@ -4,8 +4,10 @@ module Tarifas
 	def set_formulas(objeto)
 		@calc_formulas = {} if @calc_formulas.blank?
 
-		objeto.tar_tarifa.tar_formulas.each do |tar_formula|
-			@calc_formulas[tar_formula.codigo] = tar_formula.tar_formula
+		unless objeto.tar_tarifa.blank? or objeto.tar_tarifa.tar_formulas.empty?
+			objeto.tar_tarifa.tar_formulas.each do |tar_formula|
+				@calc_formulas[tar_formula.codigo] = tar_formula.tar_formula
+			end
 		end
 	end
 

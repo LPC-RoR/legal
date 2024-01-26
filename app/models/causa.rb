@@ -98,12 +98,14 @@ class Causa < ApplicationRecord
 			case class_valor[0]
 			when '#'
 				calc_valores[class_valor] = {}
-				self.tar_tarifa.tar_pagos.each do |tar_pago|
-					if ['#monto_pagado', '#facturado_pesos', '#facturado_uf'].include?(class_valor)
-						calc_valores[class_valor][tar_pago.id] = self.send(class_valor.gsub('#', ''))
-					else
-						calc_valores[class_valor][tar_pago.id] = self.send(class_valor.gsub('#', ''), tar_pago)
-					end
+				unless self.tar_tarifa.blank? or self.tar_tarifa.tar_pagos.empty?
+					self.tar_tarifa.tar_pagos.each do |tar_pago|
+						if ['#monto_pagado', '#facturado_pesos', '#facturado_uf'].include?(class_valor)
+							calc_valores[class_valor][tar_pago.id] = self.send(class_valor.gsub('#', ''))
+						else
+							calc_valores[class_valor][tar_pago.id] = self.send(class_valor.gsub('#', ''), tar_pago)
+						end
+					end 
 				end 
 			when '$'
 				valor = self.valor(class_valor.gsub('$', ''))
@@ -169,8 +171,6 @@ class Causa < ApplicationRecord
 	def total_cuantia
 		v_pesos = self.valores_cuantia.map {|vc| vc.valor if vc.moneda == 'Pesos'}.compact
 		v_uf = self.valores_cuantia.map {|vc| vc.valor if vc.moneda != 'Pesos'}.compact
-#		cuantia_pesos = v_pesos.empty? ? 0 : v_pesos.sum
-#		cuantia_uf = v_uf.empty? ? 0 : v_uf.sum
 		[v_pesos.empty? ? 0 : v_pesos.sum, v_uf.empty? ? 0 : v_uf.sum]
 	end
 

@@ -15,13 +15,15 @@
 
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_pagos', title: 'Aprobación de pagos', link_new: nil } %>
 
-		<% objeto.tar_tarifa.tar_pagos.order(:orden).each do |pago| %>
+		<% unless objeto.tar_tarifa.blank? or objeto.tar_tarifa.tar_pagos.empty? %>
+			<% objeto.tar_tarifa.tar_pagos.order(:orden).each do |pago| %>
 
-			<div class="shadow p-3 mb-3 bg-white rounded">
-				<%= render partial: 'organizacion/servicios/aprobacion/encabezado_pago', locals: {objeto: pago, owner: objeto} %>
-				<%= render partial: 'causas/partials/pago_comentarios', locals: {pago: pago, causa: objeto } %>
-			</div>
+				<div class="shadow p-3 mb-3 bg-white rounded">
+					<%= render partial: 'organizacion/servicios/aprobacion/encabezado_pago', locals: {objeto: pago, owner: objeto} %>
+					<%= render partial: 'causas/partials/pago_comentarios', locals: {pago: pago, causa: objeto } %>
+				</div>
 
+			<% end %>
 		<% end %>
 
 	</div>
