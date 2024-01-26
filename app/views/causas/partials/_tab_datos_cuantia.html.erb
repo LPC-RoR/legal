@@ -2,7 +2,7 @@
 	<div class="col-lg-4 col-xs-12">
 		<%= render partial: 'causas/partials/tab_seg_datos', locals: {objeto: objeto} %>
 	</div>
-	<div class="col-lg-6">
+	<div class="col-lg-8">
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_valor_cuantias', title: 'Cuantía', link_new: "/tar_valor_cuantias/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}"} %>
 
 		<% unless objeto.valores_cuantia.empty? %>
