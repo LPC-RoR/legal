@@ -20,23 +20,11 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-    TarFacturacion.all.each do |pago|
-      if pago.owner.present? and pago.owner.class.name == 'Causa'
-        tar_pago = pago.owner.tar_tarifa.tar_pagos.find_by(codigo_formula: pago.facturable)
-        unless tar_pago.blank?
-          pago.tar_pago_id = tar_pago.id 
-          pago.save
-        end
-      end
-    end
 
-    TarUfFacturacion.all.each do |uf_pago|
-      if uf_pago.owner.present? and uf_pago.owner.class.name == 'Causa'
-        tar_pago = uf_pago.owner.tar_tarifa.tar_pagos.find_by(tar_pago: uf_pago.pago)
-        unless tar_pago.blank?
-          uf_pago.tar_pago_id = tar_pago.id 
-          uf_pago.save
-        end
+    TarValorCuantia.all.each do |valor_cuantia|
+      if valor_cuantia.owner_id.present? 
+        owner = Causa.find_by(id: valor_cuantia.owner_id.to_i)
+        valor_cuantia.delete if owner.blank?
       end
     end
 
