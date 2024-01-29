@@ -38,9 +38,11 @@
 			TOTAL APROBACIÓN
 		</div>
 		<div class="col-6" align='right'>
-			<%= s_uf(@objeto.aprob_total_uf) %>
-			<i class="bi bi-arrow-left-right"></i>
-			<%= s_pesos(@objeto.aprob_total_pesos) %>
+			<small>
+				<%= s_uf(@objeto.aprob_total_uf) %>
+				<i class="bi bi-arrow-left-right"></i>
+			</small>
+			<b><%= s_pesos(@objeto.aprob_total_pesos) %></b>
 		</div>
 	</div>
 	</h4>

@@ -8,8 +8,10 @@
 		<% end %>
 	</div>
 	<div class="col-6" align='right'>
+		<small>
 		<%= s_uf5(@h_pagos[objeto.id][:monto_uf]) %>
 		<i class="bi bi-arrow-left-right"></i>
+		</small>
 		<b><%= s_pesos(@h_pagos[objeto.id][:monto_pesos]) %></b>
 	</div>
 </div>
@@ -29,7 +31,7 @@
 	</br>
 
 	<small><small>
-	<div class="row">
+	<div class="row text-primary">
 		<div class="col-10">
 			<i class="bi bi-arrow-right"></i> 
 			<% case @h_pagos[objeto.id][:origen_fecha_pago] %>
@@ -69,7 +71,7 @@
 			<% end %>
 		</div>
 		<div class="col-2" align='right'>
-			<b class="text-info">
+			<b class="text-primary">
 			<% if owner.class.name == 'Causa' %>
 				<% if objeto.class.name == 'TarPago' %>
 					<%= owner.uf_calculo_pago(objeto).blank? ? 'UF no encontrada' : s_pesos2(owner.uf_calculo_pago(objeto).valor) %>
