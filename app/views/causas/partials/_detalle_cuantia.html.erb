@@ -22,7 +22,7 @@
 	<% objeto.valores_cuantia.each do |vc| %>
 		<div class="col-<%= controller_name == 'causas' ? '6' : '9' %>">
 			<div style='padding-left: 1em;'>
-				<% if vc.tar_detalle_cuantia.tar_detalle_cuantia == 'Otro' %>
+				<% if vc.tar_detalle_cuantia.tar_detalle_cuantia == 'Otro' and controller_name == 'causas' %>
 					<i class="bi bi-asterisk"></i>
 				<% end %>
 				<%= @valores_cuantia[objeto.id][vc.id][:nombre] %>
