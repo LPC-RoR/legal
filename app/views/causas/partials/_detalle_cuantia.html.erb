@@ -6,24 +6,34 @@
 
 <div class="row text-info">
 	
-	<div class="col-6"><div style='padding-left: 1em;'><i>Item</i></div></div>
-	<div class="col-3" align='right'><i><%= 'Cuantía' if controller_name == 'causas' %></i></div>
-	<div class="col-3" align='right'><i><%= controller_name == 'causas' ? 'Honorarios' : 'Cuantía' %></i></div>
+	<div class="col-<%= controller_name == 'causas' ? '6' : '9' %>">
+		<div style='padding-left: 1em;'><i>Item</i></div>
+	</div>
+	<% if controller_name == 'cuasas' %>
+		<div class="col-3" align='right'>
+			<i><%= 'Cuantía' %></i>
+		</div>
+	<% end %>
+	<div class="col-3" align='right'><i>
+		<%= controller_name == 'causas' ? 'Honorarios' : 'Cuantía' %></i>
+	</div>
 </div>
 <div class="row text-muted">
 	<% objeto.valores_cuantia.each do |vc| %>
-		<div class="col-6">
+		<div class="col-<%= controller_name == 'causas' ? '6' : '9' %>">
 			<div style='padding-left: 1em;'>
 				<% if vc.tar_detalle_cuantia.tar_detalle_cuantia == 'Otro' %>
 					<i class="bi bi-asterisk"></i>
 				<% end %>
 				<%= @valores_cuantia[objeto.id][vc.id][:nombre] %>
-				<%= render partial: '0p/tabla/links_e', locals: {objeto: vc} %>
+				<%= render partial: '0p/tabla/links_e', locals: {objeto: vc} if controller_name == 'causas' %>
 			</div>
 		</div>
-		<div class="col-3" align='right'>
-			<%= s_moneda( vc.moneda, @valores_cuantia[objeto.id][vc.id][:cuantia] ) if controller_name == 'causas' %>
-		</div>
+		<% if controller_name == 'cuasas' %>
+			<div class="col-3" align='right'>
+				<%= s_moneda( vc.moneda, @valores_cuantia[objeto.id][vc.id][:cuantia] ) if controller_name == 'causas' %>
+			</div>
+		<% end %>
 		<div class="col-3" align='right'>
 			<%= s_moneda( vc.moneda, @valores_cuantia[objeto.id][vc.id][:honorarios] ) %>
 		</div>
