@@ -29,7 +29,7 @@ class Variable < ApplicationRecord
 	end
 
 	def redireccion
-		"/tipo_causas/#{self.owner.id}"
+		"/tablas?tb=4"
 	end
 
 	# ----------------------------------------------- Causa -> Valor <- Variable

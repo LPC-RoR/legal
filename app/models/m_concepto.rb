@@ -35,7 +35,7 @@ class MConcepto < ApplicationRecord
 	end
 
 	def redireccion
-		"/tablas?tb=5"
+		"/tablas?tb=8"
 	end
 
 	# -----------------------------------------------

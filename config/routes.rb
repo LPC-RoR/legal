@@ -61,7 +61,10 @@ Rails.application.routes.draw do
     resources :variables
   end
   resources :audiencias
-  resources :variables
+  resources :variables do
+    match :arriba, via: :get, on: :member
+    match :abajo, via: :get, on: :member
+  end
   resources :consultorias do
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member

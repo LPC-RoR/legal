@@ -1,5 +1,5 @@
 class VariablesController < ApplicationController
-  before_action :set_variable, only: %i[ show edit update destroy ]
+  before_action :set_variable, only: %i[ show edit update destroy arriba abajo ]
   after_action :reordenar, only: :destroy
 
   # GET /variables or /variables.json
