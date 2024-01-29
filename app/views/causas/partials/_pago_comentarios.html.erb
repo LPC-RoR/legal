@@ -14,7 +14,7 @@
 							</div>
 							<div class="col-4" align='right'>
 								<% unless comentario.despliegue.blank? %>
-									<b><%= s_moneda(comentario.moneda, calcula2(comentario.despliegue, causa, pago)) %></b>
+									<%= s_moneda(comentario.moneda, calcula2(comentario.despliegue, causa, pago)) %>
 								<% end %>
 							</div>
 						</div>
