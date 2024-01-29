@@ -1,5 +1,5 @@
 class Tarifas::TarTarifasController < ApplicationController
-  before_action :set_tar_tarifa, only: %i[ show edit update destroy asigna desasigna ]
+  before_action :set_tar_tarifa, only: %i[ show edit update destroy asigna ]
 
 #  include Bandejas
 
@@ -63,11 +63,6 @@ class Tarifas::TarTarifasController < ApplicationController
       causa = Causa.find(params[:cid])
       @objeto.causas << causa
     end
-
-    puts "****************************** asigna"
-    puts params[:cid]
-    puts causa.id
-    puts "******************************"
 
     redirect_to "/causas/#{params[:cid]}?html_options[menu]=Tarifa+%26+Pagos"
 

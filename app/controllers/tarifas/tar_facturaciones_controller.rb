@@ -15,9 +15,8 @@ class Tarifas::TarFacturacionesController < ApplicationController
   def new
   end
 
-  # Crea DETALLE DE FACTURA, que será heredado por un factura luego
-  # 1.- El detalle puede pertenecer a una CAUSA/CONSULTORIA
-  # owner = CAUSA/CONSULTORIA
+  # Crea PAGO que será trasformado en el detalle de la factura
+  # 1.- owner.class.name : {'RegReporte', 'Asesoria', 'Causa'}
   def crea_facturacion
     # owner : CAUSA | CONSULTORIA
     owner = params[:owner_class].constantize.find(params[:owner_id])
@@ -33,18 +32,18 @@ class Tarifas::TarFacturacionesController < ApplicationController
         owner.estado = 'proceso'
         owner.save
       end
-    else
-      # FACTURACION DE TARIFAS CON PAGOS
-      # do_eval funciona para CAUSA/CONSULTORIA
-      pago = owner.tar_tarifa.tar_pagos.find_by(codigo_formula: params[:facturable])
-      formula = TarFormula.find_by(codigo: params[:facturable]).tar_formula if pago.valor.blank?
+    elsif params[:owner_class] == 'Causa'
+      #   CAUSA
+      pago = owner.tar_tarifa.tar_pagos.find(params[:pid])
+      formula = pago.codigo_formula if pago.valor.blank?
       #----------------------------------------
       owner_class = owner.class.name
       moneda = (pago.moneda.blank? ? 'UF' : pago.moneda)
       glosa = "#{pago.tar_pago} : #{owner.rit if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
+      pago_id = pago.id
       monto = pago.valor.blank? ? calcula2( formula, owner, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5)) : pago.valor
       unless monto == 0
-        TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto)
+        TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto, tar_pago_id: pago.id)
       end
       if owner.class.name == 'Causa'
         if owner.facturaciones.count == owner.tar_tarifa.tar_pagos.count

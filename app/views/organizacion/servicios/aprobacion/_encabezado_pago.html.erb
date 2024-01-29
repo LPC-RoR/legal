@@ -88,4 +88,8 @@
 	<% end %>
 	</small></small>
 
+	<% if owner.pago_generado(objeto).blank? %>
+		<p><%= link_to 'Generar pago', "/tar_facturaciones/crea_facturacion?owner_class=#{owner.class.name}&owner_id=#{owner.id}&pid=#{objeto.id}", class: 'btn btn-primary btn-sm' %></p>
+    <% end %>
+
 </div>

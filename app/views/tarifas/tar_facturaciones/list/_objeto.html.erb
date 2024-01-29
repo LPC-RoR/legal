@@ -7,9 +7,12 @@
 
 	<b>
 	<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.tar_pago.blank? %>
-		<%= objeto.tar_pago.tar_pago %> | 
+		<%= objeto.tar_pago.tar_pago %>
+		<i class="bi bi-dot"></i>
 	<% end %>
-	<%= s_uf(objeto.monto_uf) %> : <%= s_pesos(objeto.monto_pesos) %>
+	<%= s_uf(objeto.monto_uf) %>
+	<i class="bi bi-arrow-left-right"></i>
+	<%= s_pesos(objeto.monto_pesos) %>
 	</b>
 	</br>
 
