@@ -7,8 +7,8 @@
 <div class="row text-info">
 	
 	<div class="col-6"><div style='padding-left: 1em;'><i>Item</i></div></div>
-	<div class="col-3" align='right'><i>Cuantía</i></div>
-	<div class="col-3" align='right'><i><%= controller_name == 'causas' ? 'Cauntía' : 'Honorarios' %></i></div>
+	<div class="col-3" align='right'><i><%= 'Cuantía' if controller_name == 'causas' %></i></div>
+	<div class="col-3" align='right'><i><%= controller_name == 'causas' ? 'Honorarios' : 'Cuantía' %></i></div>
 </div>
 <div class="row text-muted">
 	<% objeto.valores_cuantia.each do |vc| %>
