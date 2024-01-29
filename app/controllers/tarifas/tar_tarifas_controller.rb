@@ -60,24 +60,16 @@ class Tarifas::TarTarifasController < ApplicationController
     # Asigna una tarifa a una CAUSA o COONSULTORÍA
 
     unless params[:cid].blank?
-      objeto = Causa.find(params[:cid])
-      @objeto.causas << objeto
+      causa = Causa.find(params[:cid])
+      @objeto.causas << causa
     end
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Tarifa+%26+Pagos"
+    puts "****************************** asigna"
+    puts params[:cid]
+    puts causa.id
+    puts "******************************"
 
-  end
-
-  def desasigna
-    # DesAsigna una tarifa a una CAUSA o COONSULTORÍA
-    # quiza DEPRECATED
-
-    unless params[:cid].blank?
-      objeto = Causa.find(params[:cid])
-      @objeto.causas.delete(objeto)
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Pagos"
+    redirect_to "/causas/#{params[:cid]}?html_options[menu]=Tarifa+%26+Pagos"
 
   end
 
