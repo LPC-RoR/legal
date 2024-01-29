@@ -12,11 +12,13 @@
 
 	<div class="row">
 		<div class="col-lg-6 col-xs-12">
+			<% if tar_facturacion.owner.class.name == 'Causa' %>
 			<div class="shadow p-3 mb-1 bg-white rounded">
 				<div style='padding-left: 1em; padding-right: 1em;'>
 					<%= render partial: 'causas/partials/detalle_cuantia', locals: {objeto: tar_facturacion.owner} if tar_facturacion.owner.class.name == 'Causa'%>
 				</div>
 			</div>
+			<% end %>
 		</div>
 		<div class="col-lg-6">
 			<div class="shadow p-3 mb-3 bg-white rounded">

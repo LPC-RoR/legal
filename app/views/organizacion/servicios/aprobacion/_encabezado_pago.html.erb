@@ -10,7 +10,7 @@
 	<div class="col-6" align='right'>
 		<%= s_uf5(@h_pagos[objeto.id][:monto_uf]) %>
 		<i class="bi bi-arrow-left-right"></i>
-		<%= s_pesos(@h_pagos[objeto.id][:monto_pesos]) %>
+		<b><%= s_pesos(@h_pagos[objeto.id][:monto_pesos]) %></b>
 	</div>
 </div>
 
@@ -18,7 +18,7 @@
 	<% if @h_pagos[objeto.id][:pago].present? %>
 		<small>
 		<small>
-		Pago generado el <%= dma(@h_pagos[objeto.id][:pago].created_at) %>
+		Generado el <%= dma(@h_pagos[objeto.id][:pago].created_at) %>
 		</small>
 
 		<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: @h_pagos[objeto.id][:pago]} %>
@@ -31,6 +31,7 @@
 	<small><small>
 	<div class="row">
 		<div class="col-10">
+			<%= @h_pagos[objeto.id][:origen_fecha_pago] %>
 			<i class="bi bi-arrow-right"></i> 
 			<% case @h_pagos[objeto.id][:origen_fecha_pago] %>
 			<% when 'TarUfFacturacion' %>
@@ -88,8 +89,10 @@
 	<% end %>
 	</small></small>
 
-	<% if owner.pago_generado(objeto).blank? and controller_name == 'causas' %>
-		<p><%= link_to 'Generar pago', "/tar_facturaciones/crea_facturacion?owner_class=#{owner.class.name}&owner_id=#{owner.id}&pid=#{objeto.id}", class: 'btn btn-primary btn-sm' %></p>
+	<% if owner.class.name == 'Causa' %>
+		<% if owner.pago_generado(objeto).blank? and controller_name == 'causas' %>
+			<p><%= link_to 'Generar pago', "/tar_facturaciones/crea_facturacion?owner_class=#{owner.class.name}&owner_id=#{owner.id}&pid=#{objeto.id}", class: 'btn btn-primary btn-sm' %></p>
+	    <% end %>
     <% end %>
 
 </div>

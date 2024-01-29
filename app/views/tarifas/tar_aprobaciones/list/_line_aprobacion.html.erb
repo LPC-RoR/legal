@@ -7,6 +7,9 @@
 	</div>
 	<div class="col-4" align='right'>
 		<small>
+		<%= link_to "/servicios/aprobacion?indice=#{objeto.id}" do %>
+			<i class="bi bi-eye"></i>
+		<% end %>
 		<%= link_to 'facturar', "/tar_aprobaciones/#{objeto.id}/facturar" if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
 		<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
 		</small>
