@@ -31,12 +31,13 @@
 	<small><small>
 	<div class="row">
 		<div class="col-10">
-			<%= @h_pagos[objeto.id][:origen_fecha_pago] %>
 			<i class="bi bi-arrow-right"></i> 
 			<% case @h_pagos[objeto.id][:origen_fecha_pago] %>
 			<% when 'TarUfFacturacion' %>
 				UF definida para este pago.
 			<% when 'TarPago' %>
+				UF definida por la fecha de aprobación.
+			<% when 'TarFacturacion' %>
 				UF definida por la fecha de aprobación.
 			<% when 'Asesoria' %>
 				UF definida en la asesoría.
