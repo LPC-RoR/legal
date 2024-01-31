@@ -141,6 +141,17 @@ module Tarifas
 		end
 	end
 
+	def get_valores_cuantia(formula, campo, objeto)
+		if campo.blank?
+			valor = formula.blank? ? 0 : calcula2(formula, objeto, nil)
+			check = 'formula'
+		else
+			valor = campo
+			check = formula.blank? ? 'campo' : campo == calcula2(formula, objeto, nil) ? 'ok' : 'fail'
+		end
+		{ valor: valor, check: check}
+	end
+
 	def set_detalle_cuantia(objeto)
 		@valores_cuantia = {} if @valores_cuantia.blank?
         @valores_cuantia[objeto.id] = {}
@@ -156,17 +167,18 @@ module Tarifas
 			end
 
 			cuantia[:moneda] = valor_cuantia.moneda
-			if valor_cuantia.tar_detalle_cuantia.formula_cuantia.present?
-				cuantia[:cuantia] = calcula2(valor_cuantia.tar_detalle_cuantia.formula_cuantia, objeto, nil)
-				if valor_cuantia.tar_detalle_cuantia.formula_honorarios.present?
-					cuantia[:honorarios] = calcula2(valor_cuantia.tar_detalle_cuantia.formula_honorarios, objeto, nil)
-				else
-				 	cuantia[:honorarios] = cuantia[:cuantia]
-				end
-			else
-				cuantia[:cuantia] = valor_cuantia.valor
-				cuantia[:honorarios] = valor_cuantia.valor
-			end
+			# versión de @valores cuantía sin fórmular. Solo mira lo ingresado como datos de la demanda
+			h_cuantia = get_valores_cuantia(detalle_cuantia.formula_cuantia, valor_cuantia.valor, objeto)
+			h_honorarios = get_valores_cuantia(detalle_cuantia.formula_honorarios, valor_cuantia.valor_tarifa, objeto)
+
+			puts "*******************************************************"
+			puts h_cuantia
+			puts h_honorarios
+
+			cuantia[:cuantia] = h_cuantia[:valor]
+			cuantia[:check_cuantia] = h_cuantia[:check]
+			cuantia[:honorarios] = h_honorarios[:valor] == 0 ? h_cuantia[:valor] : h_honorarios[:valor]
+			cuantia[:check_honorarios] = h_honorarios[:check]
 
 	        @valores_cuantia[objeto.id][valor_cuantia.id] = cuantia
 	        cuantia = {}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_22_204252) do
+ActiveRecord::Schema.define(version: 2024_01_31_164109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1260,6 +1260,7 @@ ActiveRecord::Schema.define(version: 2024_01_22_204252) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "moneda"
+    t.decimal "valor_tarifa"
     t.index ["owner_class"], name: "index_tar_valor_cuantias_on_owner_class"
     t.index ["owner_id"], name: "index_tar_valor_cuantias_on_owner_id"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_valor_cuantias_on_tar_detalle_cuantia_id"

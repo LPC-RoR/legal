@@ -24,6 +24,7 @@
 		</small>
 
 		<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: @h_pagos[objeto.id][:pago]} if controller_name == 'causas' %>
+
 		</small>
 	<% else %>
 		<small><small>Pago sin aprobación</small></small>

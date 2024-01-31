@@ -70,6 +70,6 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_valor_cuantia_params
-      params.require(:tar_valor_cuantia).permit(:owner_class, :owner_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda)
+      params.require(:tar_valor_cuantia).permit(:owner_class, :owner_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda, :valor_tarifa)
     end
 end
