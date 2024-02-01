@@ -1,20 +1,15 @@
 <div class="col-9">
 	<small>
 		<%= objeto.tar_detalle_cuantia %>
-		<% unless objeto.descripcion.blank? %>
-			</br>
-			<small><i class="bi bi-dot"></i> <%= objeto.descripcion %></small>
-		<% end %>
 		<i class="bi bi-dot"></i>
 		<small><%= objeto.tar_valor_cuantias.count %></small>
-		<% unless objeto.formula_cuantia.blank? and objeto.formula_honorarios.blank? %>
-			<div style="padding-left: 1em;">
-				<small class="text-muted">
-			<%= objeto.formula_cuantia.blank? ? 'valor' : objeto.formula_cuantia %>
+		<% unless objeto.formula_cuantia.blank? %>
+		<div style='padding-left: 1em;'>
 			<i class="bi bi-dot"></i>
-			<%= objeto.formula_honorarios.blank? ? 'valor' : objeto.formula_honorarios %>
-				</small>
-			</div>
+			<small class="text-muted">
+				<%= objeto.formula_cuantia   %>
+			</small>
+		</div>
 		<% end %>
 	</small>
 </div>

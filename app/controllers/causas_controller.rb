@@ -45,6 +45,8 @@ class CausasController < ApplicationController
       @valores = @objeto.valores_datos
 
       set_detalle_cuantia(@objeto)
+
+      @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
     elsif @options[:menu] == 'Tarifa & Pagos'
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
       set_tabla('tar_facturaciones', @objeto.facturaciones, false)

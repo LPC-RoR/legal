@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_31_164109) do
+ActiveRecord::Schema.define(version: 2024_02_01_030836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1122,6 +1122,16 @@ ActiveRecord::Schema.define(version: 2024_01_31_164109) do
     t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"
   end
 
+  create_table "tar_formula_cuantias", force: :cascade do |t|
+    t.integer "tar_tarifa_id"
+    t.integer "tar_detalle_cuantia_id"
+    t.string "tar_formula_cuantia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tar_detalle_cuantia_id"], name: "index_tar_formula_cuantias_on_tar_detalle_cuantia_id"
+    t.index ["tar_tarifa_id"], name: "index_tar_formula_cuantias_on_tar_tarifa_id"
+  end
+
   create_table "tar_formulas", force: :cascade do |t|
     t.integer "orden"
     t.integer "tar_pago_id"
@@ -1220,6 +1230,7 @@ ActiveRecord::Schema.define(version: 2024_01_31_164109) do
     t.string "moneda"
     t.decimal "valor"
     t.decimal "valor_hora"
+    t.boolean "cuantia_tarifa"
     t.index ["estado"], name: "index_tar_tarifas_on_estado"
     t.index ["facturables"], name: "index_tar_tarifas_on_facturables"
     t.index ["moneda"], name: "index_tar_tarifas_on_moneda"

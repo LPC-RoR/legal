@@ -13,11 +13,11 @@
 	</div>
 	<% if controller_name == 'causas' %>
 		<div class="col-3" align='right'>
-			<i>Cuantía</i>
+			<i>Tarifa</i>
 		</div>
 	<% end %>
-	<div class="col-3" align='right'><i>
-		<%= controller_name == 'causas' ? 'Honorarios' : 'Cuantía' %></i>
+	<div class="col-3" align='right'>
+		<i>Cuantía</i>
 	</div>
 </div>
 
@@ -33,14 +33,16 @@
 				<%= render partial: '0p/tabla/links_e', locals: {objeto: vc} if controller_name == 'causas' %>
 			</div>
 		</div>
-		<% if controller_name == 'causas' %>
-			<div class="col-3" align='right'>
-				<%= s_moneda( vc.moneda, @valores_cuantia[objeto.id][vc.id][:cuantia] ) if controller_name == 'causas' %>
-			</div>
-		<% end %>
 		<div class="col-3" align='right'>
+			<%= render partial: 'causas/partials/icono_check_valor', locals: {check_valor: @valores_cuantia[objeto.id][vc.id][:check_honorarios]} %>
 			<%= s_moneda( vc.moneda, @valores_cuantia[objeto.id][vc.id][:honorarios] ) %>
 		</div>
+		<% if controller_name == 'causas' %>
+			<div class="col-3" align='right'>
+				<%= render partial: 'causas/partials/icono_check_valor', locals: {check_valor: @valores_cuantia[objeto.id][vc.id][:check_cuantia]} %>
+				<%= s_moneda( vc.moneda, @valores_cuantia[objeto.id][vc.id][:cuantia] ) %>
+			</div>
+		<% end %>
 	<% end %>
 </div>
 

@@ -4,14 +4,13 @@
 		<%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %>
 	</div>
 	<div class="col-lg-10">
-		<b><%= objeto.tipo %></b> : 
-		<% if objeto.tipo == 'Siempre' %>
-			<i class="bi bi-lightbulb"></i> 
-			<%= objeto.despliegue %>
-		<% end %>
-		<% if objeto.tipo == 'Condición' %>
+		<% if objeto.formula.present? %>
 			<i class="bi bi-question-circle"></i> 
 			<%= objeto.formula %>
+		<% end %>
+		<% if objeto.despliegue.present? %>
+			<i class="bi bi-arrow-right"></i> 
+			<%= objeto.despliegue %>
 		<% end %>
 		</br>
 		<% unless objeto.comentario.blank? %>

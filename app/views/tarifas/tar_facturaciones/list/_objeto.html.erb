@@ -20,7 +20,7 @@
 	<%= objeto.owner.class.name unless objeto.owner_id.blank? %> : 
 	<% case objeto.owner.class.name %>
 	<% when 'Causa' %>
-		<%= link_to objeto.owner.rit, "/causas/#{objeto.owner.id}?html_options[menu]=Pagos" %> <%= objeto.owner.causa %>
+		<%= link_to objeto.owner.rit, "/causas/#{objeto.owner.id}?html_options[menu]=Tarifa+%26+Pagos" %> <%= objeto.owner.causa %>
 	<% when 'TarServicio' %>
 		<%= link_to objeto.owner.codigo, objeto.owner %> <%= objeto.owner.descripcion %>
 	<% when 'RegReporte' %>

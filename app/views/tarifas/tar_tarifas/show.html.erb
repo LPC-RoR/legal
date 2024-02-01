@@ -5,9 +5,16 @@
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_pagos', title: "Pagos", link_new: "/tar_pagos/new?oid=#{@objeto.id}"} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_pagos'} %>
+
+		<% if @objeto.cuantia_tarifa %>
+			<hr>
+			<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_formula_cuantias', title: "Fórmulas de cuantías", link_new: "/tar_formula_cuantias/new?tid=#{@objeto.id}"} %>
+
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formula_cuantias'} %>
+		<% end %>
 	</div>
 	<div class="col-md-7">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_formulas', title: "Formulas", link_new: "/tar_formulas/new?oid=#{@objeto.id}"} %>
+		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_formulas', title: "Fórmulas", link_new: "/tar_formulas/new?oid=#{@objeto.id}"} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formulas'} %>
 	</div>

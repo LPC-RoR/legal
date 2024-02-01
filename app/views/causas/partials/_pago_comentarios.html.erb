@@ -6,23 +6,14 @@
 			<% unless pago.tar_comentarios.empty? %>
 				<small><small>
 				<% pago.tar_comentarios.order(:orden).each do |comentario| %>
-					
-					<% if comentario.tipo == 'Siempre' %>	
-						<div class="row">
-							<div class="col-8">
-								<i class="bi bi-dot"></i> <%= comentario.comentario %>
-							</div>
-							<div class="col-4" align='right'>
-								<% unless comentario.despliegue.blank? %>
-									<%= s_moneda(comentario.moneda, calcula2(comentario.despliegue, causa, pago)) %>
-								<% end %>
-							</div>
-						</div>
-					<% elsif comentario.tipo == 'Condición' %>
+
+					<% if comentario.formula.blank? %>
+						<%= render partial: 'causas/partials/display_comentario', locals: {comentario: comentario, causa:causa, pago: pago} %>
+					<% else %>
 						<% if calcula2(comentario.formula.strip, causa, pago) %>
-							<i class="bi bi-lightbulb"></i> <%= comentario.comentario %></br>
+							<%= render partial: 'causas/partials/display_comentario', locals: {comentario: comentario, causa:causa, pago: pago} %>
 						<% end %>
-					<% end %>
+					<% end  %>
 					
 				<% end %>
 				</small></small>

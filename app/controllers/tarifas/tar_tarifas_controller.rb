@@ -9,9 +9,12 @@ class Tarifas::TarTarifasController < ApplicationController
 
   # GET /tar_tarifas/1 or /tar_tarifas/1.json
   def show
-    set_tabla('tar_pagos', @objeto.tar_pagos.all.order(:orden), false)
-    set_tabla('tar_formulas', @objeto.tar_formulas.all.order(:orden), false)
-    set_tabla('tar_elementos', TarElemento.all.order(:elemento), false)
+    set_tabla('tar_pagos', @objeto.tar_pagos.order(:orden), false)
+    set_tabla('tar_formulas', @objeto.tar_formulas.order(:orden), false)
+
+    set_tabla('tar_formula_cuantias', @objeto.tar_formula_cuantias, false)
+
+    set_tabla('tar_elementos', TarElemento.order(:elemento), false)
     set_tabla('tar_detalles', @objeto.tar_detalles.order(:orden), false)
   end
 
@@ -90,6 +93,6 @@ class Tarifas::TarTarifasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_tarifa_params
-      params.require(:tar_tarifa).permit(:tarifa, :estado, :facturables, :owner_class, :owner_id, :moneda, :valor, :valor_hora)
+      params.require(:tar_tarifa).permit(:tarifa, :estado, :facturables, :owner_class, :owner_id, :moneda, :valor, :valor_hora, :cuantia_tarifa)
     end
 end

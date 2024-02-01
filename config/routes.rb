@@ -210,6 +210,7 @@ Rails.application.routes.draw do
     resources :tar_uf_facturaciones
     resources :tar_valor_cuantias
     resources :tar_detalle_cuantias
+    resources :tar_formula_cuantias
     resources :tar_uf_sistemas
     resources :tar_elementos
     resources :tar_tarifas do 

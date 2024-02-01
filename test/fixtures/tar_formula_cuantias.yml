@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tar_tarifa_id: 1
+  tar_detalle_cuantia: 1
+  tar_formula_cuantia: MyString
+
+two:
+  tar_tarifa_id: 1
+  tar_detalle_cuantia: 1
+  tar_formula_cuantia: MyString

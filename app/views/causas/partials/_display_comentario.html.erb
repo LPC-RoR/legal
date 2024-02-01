@@ -1,0 +1,16 @@
+<% if comentario.despliegue.blank? %>
+	<div style='padding-left: 1em;'>
+		<small><i class="bi bi-lightbulb"></i> <%= comentario.comentario %></small>
+	</div>
+<% else %>
+	<div class="row">
+		<div class="col-8">
+			<i class="bi bi-dot"></i> <%= comentario.comentario %>
+		</div>
+		<div class="col-4" align='right'>
+			<% unless comentario.despliegue.blank? %>
+				<%= s_moneda(comentario.moneda, calcula2(comentario.despliegue, causa, pago)) %>
+			<% end %>
+		</div>
+	</div>
+<% end %>

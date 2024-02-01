@@ -152,6 +152,20 @@ module Tarifas
 		{ valor: valor, check: check}
 	end
 
+	def get_formula_honorarios(objeto, detalle_cuantia)
+		if objeto.tar_tarifa.blank?
+			nil
+		else
+			tarifa = objeto.tar_tarifa
+			if tarifa.cuantia_tarifa
+				formula = tarifa.tar_formula_cuantias.find_by(tar_detalle_cuantia_id: detalle_cuantia.id)
+				formula.blank? ? nil : formula.tar_formula_cuantia
+			else
+				nil
+			end
+		end
+	end
+
 	def set_detalle_cuantia(objeto)
 		@valores_cuantia = {} if @valores_cuantia.blank?
         @valores_cuantia[objeto.id] = {}
@@ -169,16 +183,12 @@ module Tarifas
 			cuantia[:moneda] = valor_cuantia.moneda
 			# versión de @valores cuantía sin fórmular. Solo mira lo ingresado como datos de la demanda
 			h_cuantia = get_valores_cuantia(detalle_cuantia.formula_cuantia, valor_cuantia.valor, objeto)
-			h_honorarios = get_valores_cuantia(detalle_cuantia.formula_honorarios, valor_cuantia.valor_tarifa, objeto)
-
-			puts "*******************************************************"
-			puts h_cuantia
-			puts h_honorarios
+			h_honorarios = get_valores_cuantia(get_formula_honorarios(objeto, detalle_cuantia), valor_cuantia.valor_tarifa, objeto)
 
 			cuantia[:cuantia] = h_cuantia[:valor]
 			cuantia[:check_cuantia] = h_cuantia[:check]
 			cuantia[:honorarios] = h_honorarios[:valor] == 0 ? h_cuantia[:valor] : h_honorarios[:valor]
-			cuantia[:check_honorarios] = h_honorarios[:check]
+			cuantia[:check_honorarios] = h_honorarios[:valor] == 0 ? h_cuantia[:check] : h_honorarios[:check]
 
 	        @valores_cuantia[objeto.id][valor_cuantia.id] = cuantia
 	        cuantia = {}
@@ -202,20 +212,16 @@ module Tarifas
 	# Anejo de TarValorCuantia con FORMULAS
 
 	def tar_valor_cuantia_valor(causa, tvc, etiqueta)
-		tdc = tvc.tar_detalle_cuantia
-		if tdc.formula_cuantia.present?
-			if etiqueta == 'cuantia'
-				calcula2(tdc.formula_cuantia, causa, nil)
-			else
-				if tdc.formula_honorarios.present?
-					calcula2(tdc.formula_honorarios, causa, nil)
-				else
-				 	calcula2(tdc.formula_cuantia, causa, nil)
-				end
-			end
-		else
-			tvc.valor
-		end
+
+      	detalle_cuantia = tvc.tar_detalle_cuantia
+		h_valor_cuantia = get_valores_cuantia(detalle_cuantia.formula_cuantia, tvc.valor, causa)
+		h_valor_honorarios = get_valores_cuantia(get_formula_honorarios(causa, detalle_cuantia), tvc.valor_tarifa, causa)
+
+		v_cuantia = h_valor_cuantia[:valor]
+		v_honorarios = h_valor_honorarios[:valor] == 0 ? h_valor_cuantia[:valor] : h_valor_honorarios[:valor]
+
+		etiqueta == 'honorarios' ? v_honorarios : v_cuantia
+
 	end
 
 	# DEPRECATED

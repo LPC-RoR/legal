@@ -1,17 +1,12 @@
 class TarTarifa < ApplicationRecord
-	# Tabla de TARIFAS
-	# tiene tar_detalles
-
-	TABLA_FIELDS = [
-		's#tarifa',
-		'estado',
-	]
 
 	has_many :tar_pagos
 	has_many :tar_formulas
 	has_many :tar_detalles
 	has_many :causas
-	has_many :consultorias
+#	has_many :consultorias
+
+	has_many :tar_formula_cuantias
 
     validates_presence_of :tarifa
 
