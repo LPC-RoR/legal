@@ -1,0 +1,22 @@
+<%= form_with(model: cal_dia, local: true) do |form| %>
+  <% if cal_dia.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cal_dia.errors.count, "error") %> prohibited this cal_dia from being saved:</h2>
+
+      <ul>
+      <% cal_dia.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :cal_dia %>
+    <%= form.number_field :cal_dia %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -2,8 +2,8 @@
 
 <div class="shadow p-3 mb-3 bg-white rounded">
 
-	<%= render partial: 'age_actividades/partials/display_audiencias', locals: {objeto: objeto, pendientes: @audiencias_pendientes, coleccion: @coleccion['audiencia-age_actividades']} %>
-	<%= render partial: 'age_actividades/partials/display_reuniones_tareas', locals: {objeto: objeto, actividad: 'Reuniones', coleccion: @coleccion['reunion-age_actividades']} %>
-	<%= render partial: 'age_actividades/partials/display_reuniones_tareas', locals: {objeto: objeto, actividad: 'Tareas', coleccion: @coleccion['tarea-age_actividades']} %>
+	<%= render partial: 'actividades/age_actividades/partials/display_audiencias', locals: {objeto: objeto, pendientes: @audiencias_pendientes, coleccion: @coleccion['audiencia-age_actividades']} %>
+	<%= render partial: 'actividades/age_actividades/partials/display_reuniones_tareas', locals: {objeto: objeto, actividad: 'Reuniones', coleccion: @coleccion['reunion-age_actividades']} %>
+	<%= render partial: 'actividades/age_actividades/partials/display_reuniones_tareas', locals: {objeto: objeto, actividad: 'Tareas', coleccion: @coleccion['tarea-age_actividades']} %>
 
 </div>

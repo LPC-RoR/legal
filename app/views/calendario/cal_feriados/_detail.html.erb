@@ -1,0 +1,6 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha feriado', v: true } %>
+<%= render partial: '0p/form_fields/date', locals: { form: form, token: :cal_fecha } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :cal_annio_id } %>

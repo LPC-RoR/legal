@@ -1,0 +1,46 @@
+<div style="padding-left: 1em; padding-right: 1em;">
+
+	<div class="row">
+		<div class="col-lg-7 col-xs-12">
+
+			<%= render partial: 'actividades/age_actividades/list/elems/fecha', locals: {objeto: objeto} %> 
+			<small><i class="bi bi-arrow-right"></i></small> 
+			<%= render partial: 'actividades/age_actividades/list/elems/actividad', locals: {objeto: objeto} %>
+		
+			</br>
+
+			<small>
+
+				<div style="padding-left: 1em">
+					<small class="text-info">
+					<% if objeto.owner.present? and controller_name == 'age_actividades' %>
+						<%= link_to objeto.owner do %>
+							<i class="bi bi-<%=controller_icon[objeto.owner.class.name.tableize]%>"></i> 
+							<% case objeto.owner.class.name %>
+							<% when 'Causa' %>
+								<%= objeto.owner.rit %>
+							<% when 'Cliente' %>
+								<%= objeto.razon_social %>
+							<% end %>
+						<% end %>
+					<% end %>
+
+					<%# if objeto.app_perfil_id == perfil_activo.id %>
+						<!--i class="bi bi-person-circle"></i--> 
+					<%# end %>
+					</small>
+				</div>
+
+			</small>
+
+		</div>
+		<div class="col-lg-5 col-xs-12">
+
+			<%= render partial: 'actividades/age_actividades/list/elems/cllp_links_recursos', locals: {objeto: objeto} %>
+
+		</div>
+	</div>
+
+	<%= render partial: 'actividades/age_actividades/list/elems/cllp_display_recursos', locals: {objeto: objeto} %>
+
+</div>

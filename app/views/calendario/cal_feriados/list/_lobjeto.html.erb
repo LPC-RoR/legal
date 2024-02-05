@@ -1,0 +1,12 @@
+<div class="col-2">
+	<small><%= nombre_dia(objeto.cal_fecha) %></small>
+</div>
+<div class="col-2">
+	<small><b><%= dma(objeto.cal_fecha) %></b></small>
+</div>
+<div class="col-7">
+	<small class="text-muted"><%= objeto.descripcion %></small>
+</div>
+<div class="col-1" align='right'>
+	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
+</div>

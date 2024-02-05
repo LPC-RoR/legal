@@ -1,0 +1,28 @@
+<%= render partial: '0p/tabs/tabs', locals: {token: :menu} %>
+
+<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: "Actividades #{@options[:menu]}", link_new: nil} %>
+
+
+<div class="shadow p-3 mb-3 bg-white rounded">
+	<% @agenda_15.each do |dia_semana| %>
+		<div class="row">
+			<div class="col-lg-6 col-xs-10 border text-<%=dia_semana[0][:dyf]%>">
+				<%= render partial: 'actividades/age_actividades/partials/agenda_dia', locals: {dia_semana: dia_semana[0]} %>
+			</div>
+			<div class="col-lg-6 border text-<%=dia_semana[1][:dyf]%>">
+				<%= render partial: 'actividades/age_actividades/partials/agenda_dia', locals: {dia_semana: dia_semana[1]} %>
+			</div>
+		</div>
+	<% end %>
+</div>
+
+
+
+
+<% unless @coleccion['age_actividades'].empty? %>
+<div class="shadow p-3 mb-3 bg-white rounded">
+  <% @coleccion['age_actividades'].each do |actividad| %>
+    <%= render partial: 'actividades/age_actividades/list/tbobjeto', locals: {objeto: actividad} %>
+  <% end %>
+</div>
+<% end %>

@@ -1,0 +1,13 @@
+<div class="row no-gutters">
+	<% @h_semanas[objeto.cal_semana].each do |h_dia| %>
+		<% if h_dia[:dia].blank? %>
+			<div class="col-<%= h_dia[:col_size] %> border" align='center'></div>
+		<% else %>
+			<div class="col-<%= h_dia[:col_size] %> border" align='center'>
+				<div class="text-<%= h_dia[:dyf] %>" style='padding-left: : 1em;'>
+					<small><b><%= h_dia[:dia] %></b></small>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+</div>

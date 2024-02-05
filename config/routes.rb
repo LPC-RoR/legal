@@ -20,20 +20,7 @@ Rails.application.routes.draw do
     match :arriba, via: :get, on: :member
     match :abajo, via: :get, on: :member
   end
-  resources :age_antecedentes do
-    match :arriba, via: :get, on: :member
-    match :abajo, via: :get, on: :member
-    match :elimina_antecedente, via: :get, on: :member
-  end
-  resources :age_act_perfiles
   resources :tipo_asesorias
-  resources :age_actividades do
-    match :crea_audiencia, via: :get, on: :collection
-    match :suma_participante, via: :get, on: :member
-    match :resta_participante, via: :get, on: :member
-    match :agrega_antecedente, via: :post, on: :member
-    match :realizada_pendiente, via: :get, on: :member
-  end
   resources :regiones do
     resources :comunas
     match :arriba, via: :get, on: :member
@@ -93,6 +80,30 @@ Rails.application.routes.draw do
   end
 
 # SCOPES *********************************************************
+  scope module: 'calendario' do
+    resources :cal_annios
+    resources :cal_meses
+    resources :cal_semanas
+    resources :cal_dias
+    resources :cal_feriados
+  
+    resources :cal_mes_sems
+  end
+  scope module: 'actividades' do 
+    resources :age_actividades do
+      match :crea_audiencia, via: :get, on: :collection
+      match :suma_participante, via: :get, on: :member
+      match :resta_participante, via: :get, on: :member
+      match :agrega_antecedente, via: :post, on: :member
+      match :realizada_pendiente, via: :get, on: :member
+    end
+    resources :age_antecedentes do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+      match :elimina_antecedente, via: :get, on: :member
+    end
+    resources :age_act_perfiles
+  end
   scope module: 'autenticacion' do
     resources :app_administradores
     resources :app_nominas

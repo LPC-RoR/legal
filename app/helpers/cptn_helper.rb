@@ -97,7 +97,11 @@ module CptnHelper
 			'blg_articulos' => 'file-earmark-richtext',
 			'blg_temas' => 'list-stars',
 			'age_actividades' => 'calendar4-event',
-			'app_versiones' => 'gear'
+			'app_versiones' => 'gear',
+			'cal_annios' => 'calendar',
+			'cal_meses' => 'calendar3',
+			'cal_semanas' => 'calendar2-week',
+			'cal_feriados' => 'calendar2-check'
 		}
 	end
 
@@ -131,7 +135,15 @@ module CptnHelper
 		date.blank? ? '__-__-__' : date.strftime("%d-%m-%Y")
 	end
 
+	def hm(datetime)
+		datetime.blank? ? '__:__' : datetime.strftime("%I:%M%p")
+	end
+
 	def dma_hm(date)
 		date.blank? ? '__-__-__ __:__' : date.strftime("%d-%m-%Y  %I:%M%p")
+	end
+
+	def s_mes(datetime)
+		"#{datetime.year} #{nombre_mes[datetime.month]}"
 	end
 end

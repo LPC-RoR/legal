@@ -5,10 +5,6 @@ class Aplicacion::TablasController < ApplicationController
 
     @indice = params[:tb].blank? ? first_tabla_index : params[:tb].to_i
 
-    puts "********************************** index"
-    puts @indice
-    puts tb_item(@indice)
-
     case tb_item(@indice)
     when 'UF & Regiones' #UF & Regiones
       set_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
@@ -16,6 +12,16 @@ class Aplicacion::TablasController < ApplicationController
     when 'Enlaces' #Enlaces
       set_tabla('app_enlaces', AppEnlace.where(owner_id: nil).order(:descripcion), false)
       set_tabla('perfil-app_enlaces', AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion), false)
+    when 'Calendario' #Variables del calendario
+      # verifica calendarios activos
+      verifica_annio_activo
+
+      @primer_annio = CalAnnio.all.order(:cal_annio).first.cal_annio
+      @ultimo_annio = CalAnnio.all.order(:cal_annio).last.cal_annio
+      @annio_activo = params[:a].blank? ? CalAnnio.find_by(cal_annio: Time.zone.today.year) : CalAnnio.find_by(cal_annio: params[:a])
+
+      set_tabla('cal_meses', @annio_activo.cal_meses.order(:cal_mes), false)
+      set_tabla('cal_feriados', @annio_activo.cal_feriados.order(:cal_fecha), false)
     when 'Tarifas generales' #Tarifas Generales
       set_tabla('tar_tarifas', TarTarifa.where(owner_class: ''), false)
       set_tabla('tar_servicios', TarServicio.where(owner_class: ''), false)

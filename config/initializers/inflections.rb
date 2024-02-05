@@ -9,14 +9,14 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
 
-    # palabras terminadas en 'or' {'investigador', 'autor'} y en 'en' {origen}
-    inflect.plural /(.[aeiou][drnsl])$/i, '\1es'
-    inflect.singular /(.[aeiou][drnsl])es$/i, '\1'
-
     # palabras terminadas en 'a', no agregue las otras vocales porque no hay problema
     inflect.plural /([ti]a)$/i, '\1s'
 
     inflect.singular /([icvs]e)s$/i, '\1'
+
+    # palabras terminadas en 'or' {'investigador', 'autor'} y en 'en' {origen}
+    inflect.plural /(.[aeiou][drnsl])$/i, '\1es'
+    inflect.singular /(.[aeiou][drnsl])es$/i, '\1'
 
     # raiz
     inflect.plural /(rai)z$/i, '\1ces'
