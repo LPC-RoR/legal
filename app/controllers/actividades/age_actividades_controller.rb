@@ -4,6 +4,9 @@ class Actividades::AgeActividadesController < ApplicationController
   # GET /age_actividades or /age_actividades.json
   def index
     verifica_annio_activo
+    @annio_activo.cal_meses.each do |cal_mes|
+      verifica_mes(cal_mes)
+    end
 
     set_tab(:menu, ['Pendientes', 'Realizadas'])
 
