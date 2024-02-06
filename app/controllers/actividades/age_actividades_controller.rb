@@ -4,9 +4,6 @@ class Actividades::AgeActividadesController < ApplicationController
   # GET /age_actividades or /age_actividades.json
   def index
     verifica_annio_activo
-    @annio_activo.cal_meses.each do |cal_mes|
-      verifica_mes(cal_mes)
-    end
 
     set_tab(:menu, ['Pendientes', 'Realizadas'])
 
@@ -15,6 +12,7 @@ class Actividades::AgeActividadesController < ApplicationController
       hoy = Time.zone.today
       cal_annio = CalAnnio.find_by(cal_annio: hoy.year)
       cal_mes = cal_annio.cal_meses.find_by(cal_mes: hoy.month)
+      verifica_mes(cal_mes)
       n_semana = get_n_semana(hoy)
       @semana = cal_mes.cal_semanas.find_by(cal_semana: n_semana).cal_dias.order(:dt_fecha)
       @siguiente = cal_mes.cal_semanas.find_by(cal_semana: n_semana + 1).cal_dias.order(:dt_fecha)
