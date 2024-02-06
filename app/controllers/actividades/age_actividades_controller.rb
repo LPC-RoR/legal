@@ -3,6 +3,8 @@ class Actividades::AgeActividadesController < ApplicationController
 
   # GET /age_actividades or /age_actividades.json
   def index
+    verifica_annio_activo
+
     set_tab(:menu, ['Pendientes', 'Realizadas'])
 
     if @options[:menu] == 'Pendientes'
