@@ -55,6 +55,8 @@ class Actividades::AgeActividadesController < ApplicationController
       tipo = 'Reunión'
     when 'T'
       tipo = 'Tarea'
+    when 'H'
+      tipo = 'Hito'
     end
     @objeto = AgeActividad.new(owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo.id, estado: 'pendiente', tipo: tipo)
   end

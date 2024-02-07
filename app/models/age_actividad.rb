@@ -10,4 +10,8 @@ class AgeActividad < ApplicationRecord
 	def owner
 		self.owner_class.constantize.find(self.owner_id)
 	end
+
+	def text_color
+		self.tipo == 'Audiencia' ? 'primary' : ( self.tipo == 'Reunión' ? 'info' : ( self.tipo == 'Hito' ? 'warning' : 'muted' ) )
+	end
 end

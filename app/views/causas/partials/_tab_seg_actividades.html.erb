@@ -1,9 +1,70 @@
 <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Actividades', link_new: nil} %>
 
-<div class="shadow p-3 mb-3 bg-white rounded">
+<% unless @audiencias_pendientes.empty? %>
+	<% @audiencias_pendientes.each do |pendiente| %>
+		<%= render layout: '0p/collapse/display', locals: {label: pendiente.split(' ').join('_'), objeto: nil} do %>
+			<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: 'A', cn: controller_name, causa_id: objeto.id, cu: 'c' } %>
+		<% end %>
+	<% end %>
+<% end %>
 
-	<%= render partial: 'actividades/age_actividades/partials/display_audiencias', locals: {objeto: objeto, pendientes: @audiencias_pendientes, coleccion: @coleccion['audiencia-age_actividades']} %>
-	<%= render partial: 'actividades/age_actividades/partials/display_reuniones_tareas', locals: {objeto: objeto, actividad: 'Reuniones', coleccion: @coleccion['reunion-age_actividades']} %>
-	<%= render partial: 'actividades/age_actividades/partials/display_reuniones_tareas', locals: {objeto: objeto, actividad: 'Tareas', coleccion: @coleccion['tarea-age_actividades']} %>
+<% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
+	<%= render layout: '0p/collapse/display', locals: {label: tipo, objeto: nil} do %>
+		<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: tipo[0], cn: controller_name, causa_id: objeto.id, cu: 'c' } %>
+	<% end %>
+<% end %>
 
+<div class="row">
+	<div class="col-8">
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'age_actividades'} %>
+	</div>
+	<div class="col-4">
+
+		<hr>
+
+		<div class="shadow p-3 mb-1 bg-white rounded">
+			<h6 class="text-info" align="center"><i class="bi bi-plus-circle"></i></h6>
+			<hr>
+
+			<% unless @audiencias_pendientes.empty? %>
+				<% @audiencias_pendientes.each do |pendiente| %>
+					<small class="text-muted">
+					<%= link_to "/age_actividades/crea_audiencia?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}&label=#{pendiente}", title: "Crea #{pendiente}", 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+						<i class="bi bi-plus-circle"></i>
+						<%= pendiente %></br>
+					<% end %> 
+
+					<%= render layout: '0p/collapse/link', locals: {label: pendiente.split(' ').join('_'), objeto: nil, tooltip: 'agregar'} do %>
+						<i class="bi bi-plus-circle"></i>
+						<%= pendiente %></br>
+					<% end %>
+
+
+					</small>
+				<% end %>
+			<% end %>
+			<hr>
+
+			<small>
+			<%= link_to "/age_actividades/new?t=R&class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
+				<i class="bi bi-plus-circle"></i> Hito
+			<% end %></br>
+			<%= link_to "/age_actividades/new?t=R&class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
+				<i class="bi bi-plus-circle"></i> Reunión
+			<% end %></br>
+			<%= link_to "/age_actividades/new?t=T&class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
+				<i class="bi bi-plus-circle"></i> Tarea
+			<% end %>
+
+			<% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
+				<%= render layout: '0p/collapse/link', locals: {label: tipo, objeto: nil, tooltip: 'agregar'} do %>
+					<i class="bi bi-plus-circle"></i>
+					<%= tipo %></br>
+				<% end %>
+			<% end %>
+
+			</small>
+		</div>
+
+	</div>
 </div>

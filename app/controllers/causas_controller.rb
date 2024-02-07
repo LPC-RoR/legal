@@ -21,6 +21,9 @@ class CausasController < ApplicationController
     set_tab( :menu, ['Seguimiento', 'Hechos', 'Tarifa & Pagos', 'Datos & Cuantía', 'Registro', 'Reportes'] )
 
     if @options[:menu] == 'Seguimiento'
+
+      set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
+
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
       set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
@@ -46,7 +49,9 @@ class CausasController < ApplicationController
 
       set_detalle_cuantia(@objeto)
 
+      # @cuantia_tarifa {treu, false} señala cuando la tarifa requiere la cuantía para su cálculo
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
+      @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
     elsif @options[:menu] == 'Tarifa & Pagos'
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
       set_tabla('tar_facturaciones', @objeto.facturaciones, false)
@@ -155,9 +160,10 @@ class CausasController < ApplicationController
       @objeto.save
     end
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Pagos"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Tarifa+%26+Pagos"
   end
 
+  # DEPRECATED ???
   def actualiza_antecedente
     unless params[:tag].blank?
       case params[:tag]
