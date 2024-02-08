@@ -100,7 +100,7 @@ module Tarifas
 	end
 
 	def get_token_value(token, objeto, pago)
-		libreria = objeto.tar_tarifa.tar_formulas
+		libreria = objeto.tar_tarifa.blank? ? [] : objeto.tar_tarifa.tar_formulas
 		if token.strip[0] == '#' #Valor de la causa
 			case token.strip
 			when '#cuantia_pesos'
@@ -183,7 +183,7 @@ module Tarifas
 			cuantia[:moneda] = valor_cuantia.moneda
 			# versión de @valores cuantía sin fórmular. Solo mira lo ingresado como datos de la demanda
 			h_cuantia = get_valores_cuantia(detalle_cuantia.formula_cuantia, valor_cuantia.valor, objeto)
-			h_honorarios = get_valores_cuantia(get_formula_honorarios(objeto, detalle_cuantia), valor_cuantia.valor_tarifa, objeto)
+			h_honorarios =  get_valores_cuantia(get_formula_honorarios(objeto, detalle_cuantia), valor_cuantia.valor_tarifa, objeto)
 
 			cuantia[:cuantia] = h_cuantia[:valor]
 			cuantia[:check_cuantia] = h_cuantia[:check]

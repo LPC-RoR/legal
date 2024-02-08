@@ -29,6 +29,8 @@ class ClientesController < ApplicationController
     if @options[:menu] == 'Seguimiento'
       set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
 
+      @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)
+
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
 
