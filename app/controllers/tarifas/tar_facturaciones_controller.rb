@@ -177,7 +177,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
       owner.save
     end
 
-    redirect_to "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Facturacion"
+    redirect_to "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Tarifa+%26+Pagos"
   end
 
   private
@@ -187,7 +187,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = ( @objeto.owner.class.name == 'Asesoria' ? asesorias_path : "/#{@objeto.owner.class.name.tableize}/#{@objeto.owner.id}?html_options[menu]=Facturacion" )
+      @redireccion = ( @objeto.owner.class.name == 'Asesoria' ? asesorias_path : "/#{@objeto.owner.class.name.tableize}/#{@objeto.owner.id}?html_options[menu]=Tarifa+%26+Pagos" )
     end
 
     # Only allow a list of trusted parameters through.

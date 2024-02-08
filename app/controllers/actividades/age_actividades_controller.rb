@@ -1,5 +1,5 @@
 class Actividades::AgeActividadesController < ApplicationController
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad]
 
   # GET /age_actividades or /age_actividades.json
   def index
@@ -61,6 +61,35 @@ class Actividades::AgeActividadesController < ApplicationController
     @objeto = AgeActividad.new(owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo.id, estado: 'pendiente', tipo: tipo)
   end
 
+  def cu_actividad
+    f_params = params[:form_actividad]
+
+    # defauls datetime fields
+    hoy = Time.zone.today
+    annio = f_params['fecha(1i)'].blank? ? hoy.year : f_params['fecha(1i)']
+    mes = f_params['fecha(2i)'].blank? ? hoy.month : f_params['fecha(2i)']
+    hora = f_params['fecha(4i)']
+    minutos = f_params['fecha(5i)']
+
+    age_actividad = params[:t] == 'A' ? params[:aud] : f_params[:age_actividad]
+
+    unless age_actividad.blank? or f_params['fecha(3i)'].blank?
+      tipo = params[:t] == 'A' ? 'Audiencia' : ( params[:t] == 'H' ? 'Hito' : ( params[:t] == 'R' ? 'Reunión' : 'Tarea' ) )
+      app_perfil_id = perfil_activo.id
+      owner_id = params[:oid]
+      owner_class = params[:cn].classify
+      fecha = Time.zone.parse("#{f_params['fecha(3i)']}-#{mes}-#{annio} #{hora}:#{minutos}")
+
+      AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha)
+      mensaje = 'Actividad fue creada exitósamente'
+    else
+      mensaje = 'Error de ingreso Actividad: Fecha y Descripción son campos obligatorios'
+    end
+
+    redirect_to "/#{params[:cn]}/#{params[:oid]}", notice: mensaje
+  end
+
+  # DEPRECATED
   def crea_audiencia
     causa = params[:class_name].constantize.find(params[:objeto_id])
     AgeActividad.create(age_actividad: params[:label] ,owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo.id, estado: 'ingreso', tipo: 'Audiencia')
@@ -100,6 +129,14 @@ class Actividades::AgeActividadesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def cambia_prioridad
+    # {negro, verde, amarillo, rojo}
+    @objeto.prioridad = @objeto.prioridad.blank? ? 'success' : ( @objeto.prioridad == 'success' ? 'warning' : ( @objeto.prioridad == 'warning' ? 'danger' : nil ) )
+    @objeto.save
+
+    redirect_to "/#{@objeto.owner_class.tableize}/#{@objeto.owner_id}"
   end
 
   def suma_participante

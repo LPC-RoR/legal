@@ -27,10 +27,10 @@ class ClientesController < ApplicationController
 
 #    @coleccion = {}
     if @options[:menu] == 'Seguimiento'
+      set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
+
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      set_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
-      set_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
 
       @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
       @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}

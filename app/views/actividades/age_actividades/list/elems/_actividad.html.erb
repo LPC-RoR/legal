@@ -1,6 +1,8 @@
 <small class="text-<%=objeto.text_color %>">
 	<% if objeto.tipo == 'Audiencia' %>
 		<i class="bi bi-bank2"></i>
+	<% elsif objeto.tipo == 'Hito' %>
+		<i class="bi bi-alarm"></i>
 	<% elsif objeto.tipo == 'Reunión' %>
 		<i class="bi bi-people"></i>
 	<% elsif objeto.tipo == 'Tarea' %>
@@ -10,13 +12,5 @@
 
 	<% if objeto.estado == 'realizada' %>
 		<i class="bi bi-check2-all"></i> 
-	<% end %>
-
-	<%= link_to "/age_actividades/#{objeto.id}/realizada_pendiente?c=#{controller_name}", title: "#{objeto.estado == 'pendiente' ? 'Marcar como realizada' : 'Marcar como pendiente' }", 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-		<% if objeto.estado == 'realizada' %>
-			<i class="bi bi-arrow-left-square"></i> 
-		<% else objeto.estado == 'pendiente' %>
-			<i class="bi bi-check2-square"></i> 
-		<% end %>
 	<% end %>
 </small>

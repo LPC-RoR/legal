@@ -11,7 +11,11 @@ class AgeActividad < ApplicationRecord
 		self.owner_class.constantize.find(self.owner_id)
 	end
 
+	def nombre_creador
+		AppPerfil.find(self.app_perfil_id).nombre_perfil
+	end
+
 	def text_color
-		self.tipo == 'Audiencia' ? 'primary' : ( self.tipo == 'Reunión' ? 'info' : ( self.tipo == 'Hito' ? 'warning' : 'muted' ) )
+		['Audiencia', 'Hito'].include?(self.tipo) ? 'primary' : self.prioridad
 	end
 end

@@ -1,4 +1,4 @@
-<div style="padding-left: 1em; padding-right: 1em;">
+<div style="padding: .5em 1em; margin: -.5em;">
 
 	<div class="row">
 		<div class="col-9">
@@ -13,9 +13,49 @@
 		</div>
 	</div>
 
-		<%= render partial: 'actividades/age_actividades/list/elems/actividad', locals: {objeto: objeto} %>
-		
-		</br>
+	<div class="row">
+		<div class="col-9">
+			<%= render partial: 'actividades/age_actividades/list/elems/actividad', locals: {objeto: objeto} %>
+		</div>
+		<div class="col-3" align='right'>
+			<small><small>
+			<% unless ['Audiencia', 'Hito'].include?(objeto.tipo) %>
+				<%= link_to "/age_actividades/#{objeto.id}/cambia_prioridad?cn=#{controller_name}", title: 'prioridad', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+					<i class="bi bi-arrow-clockwise"></i>
+				<% end %>
+			<% end %>
+
+			<%= link_to "/age_actividades/#{objeto.id}/realizada_pendiente?c=#{controller_name}", title: "#{objeto.estado == 'pendiente' ? 'Marcar como realizada' : 'Marcar como pendiente' }", 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<% if objeto.estado == 'realizada' %>
+					<i class="bi bi-arrow-left-square"></i> 
+				<% else objeto.estado == 'pendiente' %>
+					<i class="bi bi-check2-square"></i> 
+				<% end %>
+			<% end %>
+
+			<%= render layout: '0p/collapse/link', locals: {label: 'Objeto', objeto: objeto, tooltip: 'info'} do %>
+				<i class="bi bi-info-circle"></i>
+			<% end %>
+			</small></small>
+		</div>
+	</div>
+
+	<%= render layout: '0p/collapse/display', locals: {label: 'Objeto', objeto: objeto} do %>
+		<hr>
+		<small><small class="text-muted">
+			Creado por <b><%= objeto.nombre_creador %></b>
+			<% if objeto.owner_id.present? %>
+				</br>
+					<i class="bi bi-<%= controller_icon[objeto.owner_class.tableize]%>"></i>
+					<% case objeto.owner_class %>
+					<% when 'Causa' %>
+						<b><%= objeto.owner.rit %><i class="bi bi-dot"></i><%= objeto.owner.causa %></b>
+					<% when 'Cliente' %>
+						<b><%= objeto.owner.rut %><i class="bi bi-dot"></i><%= objeto.owner.razon_social %></b>
+					<% end %></br>
+			<% end %>
+		</small></small>
+	<% end %>
 
 		<%#= render partial: 'actividades/age_actividades/list/elems/cllp_links_recursos', locals: {objeto: objeto} %>
 

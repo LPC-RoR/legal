@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_05_030424) do
+ActiveRecord::Schema.define(version: 2024_02_08_012842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2024_02_05_030424) do
     t.datetime "fecha"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "prioridad"
     t.index ["app_perfil_id"], name: "index_age_actividades_on_app_perfil_id"
     t.index ["estado"], name: "index_age_actividades_on_estado"
     t.index ["fecha"], name: "index_age_actividades_on_fecha"

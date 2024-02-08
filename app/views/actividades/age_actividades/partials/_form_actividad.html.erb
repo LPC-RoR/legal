@@ -1,8 +1,9 @@
 <div class="shadow p-3 mb-1 bg-white rounded">
-	<%= form_for :form_actividad, url: "/age_actividades/cu_actividad?c=#{controller_name}&t=#{tipo}&caid=#{causa_id}&cu=#{cu}" do |form| %>
+	<%= form_for :form_actividad, url: "/age_actividades/cu_actividad?cn=#{controller_name}&t=#{tipo}&oid=#{causa_id}&cu=#{cu}&aud=#{audiencia}" do |form| %>
 
 		<div class="row">
 			<div class="col-10 text-info">
+				<%= cu == 'c' ? 'Crea' : 'Modifica' %>
 				<%= tipo == 'A' ? 'Audiencia' : ( tipo == 'H' ? 'Hito' : ( tipo == 'R' ? 'Reunión' : 'Tarea' ) ) %>	
 			</div>
 			<div class="col-2">
@@ -12,6 +13,10 @@
 			</div>
 		</div>
 
+		<% if tipo == 'A' %>
+			<small class="text-info"><%= audiencia %></small>
+		<% end %>
+
 		<p class="text-info">
 			
 		</p>
@@ -20,7 +25,7 @@
 		<%= render partial: '0p/form_fields/datetime', locals: { form: form, token: :fecha } %>
 
 		<% unless tipo == 'A' %>
-			<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Actividad', v: true } %>
+			<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
 			<%= render partial: '0p/form_fields/text', locals: { form: form, token: :age_actividad } %>
 		<% end %>
 		</small>

@@ -3,14 +3,14 @@
 <% unless @audiencias_pendientes.empty? %>
 	<% @audiencias_pendientes.each do |pendiente| %>
 		<%= render layout: '0p/collapse/display', locals: {label: pendiente.split(' ').join('_'), objeto: nil} do %>
-			<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: 'A', cn: controller_name, causa_id: objeto.id, cu: 'c' } %>
+			<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: 'A', causa_id: objeto.id, cu: 'c', audiencia: pendiente } %>
 		<% end %>
 	<% end %>
 <% end %>
 
 <% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
 	<%= render layout: '0p/collapse/display', locals: {label: tipo, objeto: nil} do %>
-		<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: tipo[0], cn: controller_name, causa_id: objeto.id, cu: 'c' } %>
+		<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: tipo[0], causa_id: objeto.id, cu: 'c', audiencia: nil } %>
 	<% end %>
 <% end %>
 
@@ -29,16 +29,10 @@
 			<% unless @audiencias_pendientes.empty? %>
 				<% @audiencias_pendientes.each do |pendiente| %>
 					<small class="text-muted">
-					<%= link_to "/age_actividades/crea_audiencia?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}&label=#{pendiente}", title: "Crea #{pendiente}", 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-						<i class="bi bi-plus-circle"></i>
-						<%= pendiente %></br>
-					<% end %> 
-
 					<%= render layout: '0p/collapse/link', locals: {label: pendiente.split(' ').join('_'), objeto: nil, tooltip: 'agregar'} do %>
 						<i class="bi bi-plus-circle"></i>
 						<%= pendiente %></br>
 					<% end %>
-
 
 					</small>
 				<% end %>
@@ -46,24 +40,14 @@
 			<hr>
 
 			<small>
-			<%= link_to "/age_actividades/new?t=R&class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
-				<i class="bi bi-plus-circle"></i> Hito
-			<% end %></br>
-			<%= link_to "/age_actividades/new?t=R&class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
-				<i class="bi bi-plus-circle"></i> Reunión
-			<% end %></br>
-			<%= link_to "/age_actividades/new?t=T&class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
-				<i class="bi bi-plus-circle"></i> Tarea
-			<% end %>
-
 			<% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
 				<%= render layout: '0p/collapse/link', locals: {label: tipo, objeto: nil, tooltip: 'agregar'} do %>
 					<i class="bi bi-plus-circle"></i>
 					<%= tipo %></br>
 				<% end %>
 			<% end %>
-
 			</small>
+
 		</div>
 
 	</div>

@@ -1,8 +1,33 @@
 <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Actividades', link_new: nil} %>
 
-<div class="shadow p-3 mb-3 bg-white rounded">
+<% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
+	<%= render layout: '0p/collapse/display', locals: {label: tipo, objeto: nil} do %>
+		<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: tipo[0], causa_id: objeto.id, cu: 'c', audiencia: nil } %>
+	<% end %>
+<% end %>
 
-	<%#= render partial: 'age_actividades/partials/display_reuniones_tareas', locals: {objeto: objeto, actividad: 'Reuniones', coleccion: @coleccion['reunion-age_actividades']} %>
-	<%#= render partial: 'age_actividades/partials/display_reuniones_tareas', locals: {objeto: objeto, actividad: 'Tareas', coleccion: @coleccion['tarea-age_actividades']} %>
+<div class="row">
+	<div class="col-8">
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'age_actividades'} %>
+	</div>
+	<div class="col-4">
 
+		<hr>
+
+		<div class="shadow p-3 mb-1 bg-white rounded">
+			<h6 class="text-info" align="center"><i class="bi bi-plus-circle"></i></h6>
+			<hr>
+
+			<small>
+			<% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
+				<%= render layout: '0p/collapse/link', locals: {label: tipo, objeto: nil, tooltip: 'agregar'} do %>
+					<i class="bi bi-plus-circle"></i>
+					<%= tipo %></br>
+				<% end %>
+			<% end %>
+			</small>
+
+		</div>
+
+	</div>
 </div>

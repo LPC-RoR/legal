@@ -91,6 +91,9 @@ Rails.application.routes.draw do
   end
   scope module: 'actividades' do 
     resources :age_actividades do
+      match :cu_actividad, via: :post, on: :collection
+      match :cambia_prioridad, via: :get, on: :member
+      # desde aqui revisar
       match :crea_audiencia, via: :get, on: :collection
       match :suma_participante, via: :get, on: :member
       match :resta_participante, via: :get, on: :member
