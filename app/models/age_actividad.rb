@@ -4,6 +4,10 @@ class AgeActividad < ApplicationRecord
 
 	has_many :age_antecedentes
 
+	has_many :age_usu_acts
+	has_many :age_usuarios, through: :age_usu_acts
+
+	# Revisar DEPRECATED
 	has_many :age_act_perfiles
 	has_many :app_perfiles, through: :age_act_perfiles
 
@@ -17,5 +21,10 @@ class AgeActividad < ApplicationRecord
 
 	def text_color
 		['Audiencia', 'Hito'].include?(self.tipo) ? 'primary' : self.prioridad
+	end
+
+	def abr_encargados
+		usuarios = self.age_usuarios
+		usuarios.empty? ? 'Sin encargados' : ( usuarios.count == 1 ? usuarios.first.age_usuario : "#{usuarios.first.age_usuario} + #{usuarios.count - 1}" )
 	end
 end

@@ -22,6 +22,8 @@ class Aplicacion::TablasController < ApplicationController
 
       set_tabla('cal_meses', @annio_activo.cal_meses.order(:cal_mes), false)
       set_tabla('cal_feriados', @annio_activo.cal_feriados.order(:cal_fecha), false)
+    when 'Agenda' #Variables del calendario
+      set_tabla('age_usuarios', AgeUsuario.where(owner_class: '', owner_id: nil), true)
     when 'Tarifas generales' #Tarifas Generales
       set_tabla('tar_tarifas', TarTarifa.where(owner_class: ''), false)
       set_tabla('tar_servicios', TarServicio.where(owner_class: ''), false)

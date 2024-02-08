@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_08_012842) do
+ActiveRecord::Schema.define(version: 2024_02_08_150126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,35 @@ ActiveRecord::Schema.define(version: 2024_02_08_012842) do
     t.datetime "updated_at", null: false
     t.index ["age_actividad_id"], name: "index_age_antecedentes_on_age_actividad_id"
     t.index ["orden"], name: "index_age_antecedentes_on_orden"
+  end
+
+  create_table "age_usu_acts", force: :cascade do |t|
+    t.integer "age_usuario_id"
+    t.integer "age_actividad_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_actividad_id"], name: "index_age_usu_acts_on_age_actividad_id"
+    t.index ["age_usuario_id"], name: "index_age_usu_acts_on_age_usuario_id"
+  end
+
+  create_table "age_usu_perfiles", force: :cascade do |t|
+    t.integer "age_usuario_id"
+    t.integer "app_perfil_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_usuario_id"], name: "index_age_usu_perfiles_on_age_usuario_id"
+    t.index ["app_perfil_id"], name: "index_age_usu_perfiles_on_app_perfil_id"
+  end
+
+  create_table "age_usuarios", force: :cascade do |t|
+    t.string "owner_class"
+    t.integer "owner_id"
+    t.string "age_usuario"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_usuario"], name: "index_age_usuarios_on_age_usuario"
+    t.index ["owner_class"], name: "index_age_usuarios_on_owner_class"
+    t.index ["owner_id"], name: "index_age_usuarios_on_owner_id"
   end
 
   create_table "antecedentes", force: :cascade do |t|
@@ -462,6 +491,8 @@ ActiveRecord::Schema.define(version: 2024_02_08_012842) do
     t.string "abogados"
     t.string "cargo"
     t.string "sucursal"
+    t.boolean "causa_ganada"
+    t.index ["causa_ganada"], name: "index_causas_on_causa_ganada"
     t.index ["era"], name: "index_causas_on_era"
     t.index ["estado"], name: "index_causas_on_estado"
     t.index ["estado_causa"], name: "index_causas_on_estado_causa"

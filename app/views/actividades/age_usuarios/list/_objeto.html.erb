@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="col-9">
+		<small>
+			<%= objeto.age_usuario %>
+			<% unless objeto.app_perfiles.empty? %>
+				</br>
+				<small>
+					<i class="bi bi-arrow-right"></i>
+					<%= objeto.app_perfiles.first.nombre_perfil %>
+					<% if objeto.app_perfiles.first == perfil_activo %>
+						<%= link_to "/age_usuarios/#{objeto.id}/desasigna_perfil" do %>
+							<i class="bi bi-trash"></i>
+						<% end %>
+					<% end %>
+				</small>
+			<% end %>
+		</small>
+	</div>
+	<div class="col-3" align='right'>
+		<small><small>
+			<% if objeto.app_perfiles.empty? %>
+				<%= link_to "/age_usuarios/#{objeto.id}/asigna_perfil" do %>
+					<i class="bi bi-person-plus"></i>
+				<% end %>
+			<% end %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		</small></small>
+	</div>
+</div>

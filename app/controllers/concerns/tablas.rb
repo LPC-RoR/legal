@@ -8,6 +8,7 @@ module Tablas
 			['UF & Regiones', 'uf_regiones', 2, true],
 			['Enlaces', 'enlaces', 2, true],
 			['Calendario', 'calendario', 2, true],
+			['Agenda', 'agenda', 2, true],
 			['Causas & asesorías', nil, 1, true],
 			['Tipos', 'tipos_causas_asesorias', 2, true],
 			['Tablas secundarias', 'tablas_secundarias', 2, true],

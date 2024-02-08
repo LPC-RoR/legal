@@ -97,6 +97,7 @@ module CptnHelper
 			'blg_articulos' => 'file-earmark-richtext',
 			'blg_temas' => 'list-stars',
 			'age_actividades' => 'calendar4-event',
+			'age_usuarios' => 'person-workspace',
 			'app_versiones' => 'gear',
 			'cal_annios' => 'calendar',
 			'cal_meses' => 'calendar3',
@@ -145,5 +146,9 @@ module CptnHelper
 
 	def s_mes(datetime)
 		"#{datetime.year} #{nombre_mes[datetime.month]}"
+	end
+
+	def s_rut(rut)
+		rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
 	end
 end

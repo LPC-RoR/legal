@@ -93,6 +93,8 @@ Rails.application.routes.draw do
     resources :age_actividades do
       match :cu_actividad, via: :post, on: :collection
       match :cambia_prioridad, via: :get, on: :member
+      match :asigna_usuario, via: :get, on: :member
+      match :desasigna_usuario, via: :get, on: :member
       # desde aqui revisar
       match :crea_audiencia, via: :get, on: :collection
       match :suma_participante, via: :get, on: :member
@@ -105,6 +107,13 @@ Rails.application.routes.draw do
       match :abajo, via: :get, on: :member
       match :elimina_antecedente, via: :get, on: :member
     end
+    resources :age_usu_perfiles
+    resources :age_usu_acts
+    resources :age_usuarios do
+      match :asigna_perfil, via: :get, on: :member
+      match :desasigna_perfil, via: :get, on: :member
+    end
+    # Revisar DEPRECATED
     resources :age_act_perfiles
   end
   scope module: 'autenticacion' do

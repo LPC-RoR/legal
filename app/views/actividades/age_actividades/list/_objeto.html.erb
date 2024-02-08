@@ -51,10 +51,38 @@
 					<% when 'Causa' %>
 						<b><%= objeto.owner.rit %><i class="bi bi-dot"></i><%= objeto.owner.causa %></b>
 					<% when 'Cliente' %>
-						<b><%= objeto.owner.rut %><i class="bi bi-dot"></i><%= objeto.owner.razon_social %></b>
+						<b><%= s_rut(objeto.owner.rut) %><i class="bi bi-dot"></i><%= objeto.owner.razon_social %></b>
 					<% end %></br>
 			<% end %>
 		</small></small>
+	<% end %>
+
+	<%= render layout: '0p/collapse/display', locals: {label: 'Encargados', objeto: objeto} do %>
+		<hr>
+		<div class="row">
+			<div class="col-lg-6 col-xs-12">
+				<small><small>
+					<b>Encargado(s)</b></br>
+				<% objeto.age_usuarios.each do |age_usuario| %>
+					<%= link_to "/age_actividades/#{objeto.id}/desasigna_usuario?uid=#{age_usuario.id}" do %>
+						<i class="bi bi-dot"></i> <%= age_usuario.age_usuario %></br>
+					<% end %>
+				<% end %>
+				</small></small>
+			</div>
+			<div class="col-lg-6">
+				<small><small>
+					<b>Disponible(s)</b></br>
+				<% @age_usuarios.each do |age_usuario| %>
+					<% unless objeto.age_usuarios.ids.include?(age_usuario.id) %>
+						<%= link_to "/age_actividades/#{objeto.id}/asigna_usuario?uid=#{age_usuario.id}" do %>
+							<i class="bi bi-dot"></i> <%= age_usuario.age_usuario %></br>
+						<% end %>
+					<% end %>
+				<% end %>
+				</small></small>
+			</div>
+		</div>
 	<% end %>
 
 		<%#= render partial: 'actividades/age_actividades/list/elems/cllp_links_recursos', locals: {objeto: objeto} %>

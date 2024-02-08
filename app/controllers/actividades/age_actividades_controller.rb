@@ -1,5 +1,5 @@
 class Actividades::AgeActividadesController < ApplicationController
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad asigna_usuario desasigna_usuario]
 
   # GET /age_actividades or /age_actividades.json
   def index
@@ -129,6 +129,20 @@ class Actividades::AgeActividadesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def asigna_usuario
+    usuario = AgeUsuario.find(params[:uid])
+    @objeto.age_usuarios << usuario unless usuario.blank?
+    
+    redirect_to @objeto.owner
+  end
+
+  def desasigna_usuario
+    usuario = AgeUsuario.find(params[:uid])
+    @objeto.age_usuarios.delete(usuario) unless usuario.blank?
+    
+    redirect_to @objeto.owner
   end
 
   def cambia_prioridad

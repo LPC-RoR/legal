@@ -45,6 +45,10 @@ class Tarifas::TarFacturacionesController < ApplicationController
       unless monto == 0
         TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto, tar_pago_id: pago.id)
       end
+
+      owner.causa_ganada = owner.monto_pagado == 0
+      owner.save
+
       if owner.class.name == 'Causa'
         if owner.facturaciones.count == owner.tar_tarifa.tar_pagos.count
           owner.estado = 'terminada'
