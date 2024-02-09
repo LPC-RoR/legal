@@ -4,8 +4,8 @@
 		<b><%= link_to objeto.rit, objeto, title: 'Detalle Causa', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> 
 			<i class="bi bi-dot"></i> 
 			<%= objeto.causa %></b>
-			<% if objeto.causa_ganada %>
-				<i class="bi bi-award text-primary"></i>ggg
+			<% if objeto.monto_pagado == 0 and objeto.estado == 'terminada' %>
+				<i class="bi bi-award text-primary"></i>
 			<% end %>
 	</div>
 	<div class="col-2" align='right'>
