@@ -30,31 +30,6 @@ class Actividades::AgeActividadesController < ApplicationController
 
       @v_semana << dia
     end
-    #------------------------------------------------------------------------------------------------
-
-    set_tab(:menu, ['Pendientes', 'Realizadas'])
-
-    @siguiente = CalSemana.find_by(cal_semana: n_semana + 1).cal_dias.order(:dt_fecha)
-
-    @agenda_15 = []
-    @semana.each_with_index do |cal_dia, indice|
-      dia = {}
-      dia[:dia] = cal_dia.dt_fecha
-      dia[:dyf] = cal_dia.dyf? ? 'danger' : 'info'
-      dia[:actividades] = AgeActividad.where(fecha: cal_dia.dt_fecha.all_day)
-
-      @agenda_15[indice] = [dia]
-    end
-    @siguiente.each_with_index do |cal_dia, indice|
-      dia = {}
-      dia[:dia] = cal_dia.dt_fecha
-      dia[:dyf] = cal_dia.dyf? ? 'danger' : 'info'
-      dia[:actividades] = AgeActividad.where(fecha: cal_dia.dt_fecha.all_day)
-
-      @agenda_15[indice] << dia
-    end
-
-#      set_tabla('age_actividades', AgeActividad.where(estado: 'pendiente').order(fecha: :desc), false)
   end
 
   # GET /age_actividades/1 or /age_actividades/1.json
