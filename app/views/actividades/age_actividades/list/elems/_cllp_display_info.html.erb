@@ -5,9 +5,10 @@
 		<% if objeto.owner_id.present? %>
 			</br>
 				<i class="bi bi-<%= controller_icon[objeto.owner_class.tableize]%>"></i>
+				<%= objeto.owner_class %>
 				<% case objeto.owner_class %>
 				<% when 'Causa' %>
-					<b><%#= objeto.owner.rit %><i class="bi bi-dot"></i><%#= objeto.owner.causa %></b>
+					<b><%= objeto.owner.rit %><i class="bi bi-dot"></i><%= objeto.owner.causa %></b>
 				<% when 'Cliente' %>
 					<b><%#= s_rut(objeto.owner.rut) %><i class="bi bi-dot"></i><%#= objeto.owner.razon_social %></b>
 				<% end %></br>
