@@ -4,7 +4,7 @@
 		<%#= render partial: 'actividades/age_actividades/partials/semana_nav' %>
 
 		<% @v_semana.each do |dia_semana| %>
-			<%#= render partial: 'actividades/age_actividades/list/objeto_dia', locals: {objeto: dia_semana} %>
+			<%= render partial: 'actividades/age_actividades/list/objeto_dia', locals: {objeto: dia_semana} %>
 		<% end %>
 		
 	</div>
