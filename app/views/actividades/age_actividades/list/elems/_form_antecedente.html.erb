@@ -1,7 +1,7 @@
 <%= form_for :form_antecedente, url: "/age_actividades/#{objeto.id}/agrega_antecedente?c=#{controller_name}" do |form| %>
 
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Antecedente', v: true } %>
-		<%= render partial: '0p/form_fields/w_text_area', locals: { form: form, w: 52, token: :age_antecedente } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nuevo antecedente', v: true } %>
+		<%= render partial: '0p/form_fields/w_text_area', locals: { form: form, w: 35, token: :age_antecedente } %>
 
 		<button type="submit" class="btn btn-info">
 		  <i class="bi bi-caret-right icon-white"></i>

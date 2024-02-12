@@ -1,0 +1,27 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'Encargados', objeto: objeto} do %>
+	<hr>
+	<div class="row">
+		<div class="col-lg-6 col-xs-12">
+			<small><small>
+				<b class="text-info">Encargado(s)</b></br>
+			<% objeto.age_usuarios.each do |age_usuario| %>
+				<%= link_to "/age_actividades/#{objeto.id}/desasigna_usuario?uid=#{age_usuario.id}" do %>
+					<%= age_usuario.age_usuario %> <i class="bi bi-trash"></i></br>
+				<% end %>
+			<% end %>
+			</small></small>
+		</div>
+		<div class="col-lg-6">
+			<small><small>
+				<b class="text-info">Disponible(s)</b></br>
+			<% @age_usuarios.each do |age_usuario| %>
+				<% unless objeto.age_usuarios.ids.include?(age_usuario.id) %>
+					<%= link_to "/age_actividades/#{objeto.id}/asigna_usuario?uid=#{age_usuario.id}" do %>
+						<i class="bi bi-plus-circle"></i> <%= age_usuario.age_usuario %></br>
+					<% end %>
+				<% end %>
+			<% end %>
+			</small></small>
+		</div>
+	</div>
+<% end %>

@@ -1,0 +1,20 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'Info', objeto: objeto} do %>
+	<hr>
+	<small><small class="text-muted">
+		Creado por <b><%= objeto.nombre_creador %></b>
+		<% if objeto.owner_id.present? %>
+			</br>
+				<i class="bi bi-<%= controller_icon[objeto.owner_class.tableize]%>"></i>
+				<% case objeto.owner_class %>
+				<% when 'Causa' %>
+					<b><%= objeto.owner.rit %><i class="bi bi-dot"></i><%= objeto.owner.causa %></b>
+				<% when 'Cliente' %>
+					<b><%= s_rut(objeto.owner.rut) %><i class="bi bi-dot"></i><%= objeto.owner.razon_social %></b>
+				<% end %></br>
+		<% end %>
+	</small></small>
+	<hr>
+
+	<%= render partial: 'actividades/age_actividades/list/elems/display_antecedentes', locals: {objeto: objeto} %>
+
+<% end %>

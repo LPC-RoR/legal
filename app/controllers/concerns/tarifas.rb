@@ -122,7 +122,8 @@ module Tarifas
 			end
 		elsif token.strip[0] == '@'
 			fyc = token.strip.match(/^@(?<facturable>.+):(?<campo>.+)/)
-			facturacion = objeto.facturaciones.find_by(facturable: fyc[:facturable])
+			tar_pago = TarPago.find_by(formula: fyc[:facturable])
+			facturacion = objeto.facturaciones.find_by(tar_pago_id: tar_pago.id)
 			facturacion.blank? ? 0 : (facturacion.send(fyc[:campo]).blank? ? 0 : facturacion.send(fyc[:campo]))
 		elsif token.strip[0] == '$'
 			# en token.gsub('$', '').strip es necesario el strip

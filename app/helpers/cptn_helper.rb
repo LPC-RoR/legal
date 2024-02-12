@@ -144,6 +144,10 @@ module CptnHelper
 		date.blank? ? '__-__-__ __:__' : date.strftime("%d-%m-%Y  %I:%M%p")
 	end
 
+	def hm(date)
+		date.blank? ? '__:__' : date.strftime("%I:%M%p")
+	end
+
 	def s_mes(datetime)
 		"#{datetime.year} #{nombre_mes[datetime.month]}"
 	end

@@ -1,8 +1,0 @@
-<small><small class="text-<%= objeto.text_color %>">
-	<i class="bi bi-circle-fill"></i> 
-	<b><%= dma_hm(objeto.fecha) %></b>
-	<i class="bi bi-dot"></i>
-	<%= render layout: '0p/collapse/link', locals: {label: 'Encargados', objeto: objeto, tooltip: 'encargado(s)'} do %>
-		<%= objeto.abr_encargados %>
-	<% end %>
-</small></small>

@@ -1,0 +1,13 @@
+<div class="shadow p-1 mb-1 bg-white rounded">
+	<div align='center'>
+		<small>
+			<b class="text-<%=objeto[:dyf]%>"><%= dma(objeto[:dia]) %></b>
+		</small>
+	</div>
+</div>
+
+<% objeto[:actividades].each do |actividad| %>
+	<div class="shadow p-1 mb-1 bg-white rounded">
+		<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: actividad} %>
+	</div>
+<% end %>

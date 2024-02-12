@@ -1,3 +1,20 @@
+<div class="row">
+	<div class="col-lg-6 col-xs-12">
+
+		<%= render partial: 'actividades/age_actividades/partials/semana_nav' %>
+
+		<% @v_semana.each do |dia_semana| %>
+			<%= render partial: 'actividades/age_actividades/list/objeto_dia', locals: {objeto: dia_semana} %>
+		<% end %>
+		
+	</div>
+	<div class="col-lg-6"></div>
+</div>
+
+
+
+
+
 <%= render partial: '0p/tabs/tabs', locals: {token: :menu} %>
 
 <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: "Actividades #{@options[:menu]}", link_new: nil} %>

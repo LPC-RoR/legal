@@ -27,6 +27,9 @@ class ClientesController < ApplicationController
 
 #    @coleccion = {}
     if @options[:menu] == 'Seguimiento'
+
+      @hoy = Time.zone.today
+
       set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
 
       @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)

@@ -1,4 +1,6 @@
-<!-- TAB -->
+
+<!-- set_tab( :monitor,  ['Proceso', 'Terminadas', 'Multas & Redacciones', 'Mensuales & Cargos'] )-->
+
 <% if @tabs[token].count == 1 %>
 
   <%= render partial: '0p/general/icon_text', locals: {text: @tabs[token][0], gly: 'arrow-right', clr: config[:color][:app]} %>

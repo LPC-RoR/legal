@@ -22,6 +22,8 @@ class CausasController < ApplicationController
 
     if @options[:menu] == 'Seguimiento'
 
+      @hoy = Time.zone.today
+
       set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
 
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)

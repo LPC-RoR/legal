@@ -1,9 +1,0 @@
-<small><small>
-	<b class="text-info">Participantes</b></br>
-	<% objeto.app_perfiles.each do |perfil| %>
-		<%= link_to "/age_actividades/#{objeto.id}/resta_participante?pid=#{perfil.id}&loc=#{controller_name}" do %>
-			<i class="bi bi-trash"></i> <%= perfil.nombre_perfil %>
-		<% end %>
-		</br>
-	<% end %>
-</small></small>

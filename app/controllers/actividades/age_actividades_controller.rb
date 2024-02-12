@@ -3,42 +3,58 @@ class Actividades::AgeActividadesController < ApplicationController
 
   # GET /age_actividades or /age_actividades.json
   def index
-    verifica_annio_activo
+    @hoy = Time.zone.today
+
+    n_annio = params[:annio_sem].blank? ? @hoy.year : params[:annio_sem].split('_')[0].to_i
+    @cal_annio = busca_y_puebla_annio(n_annio)
+
+    n_semana = params[:annio_sem].blank? ? get_n_semana(@hoy) : params[:annio_sem].split('_')[1].to_i
+    @cal_semana = busca_y_puebla_semana(@cal_annio, n_semana, nil)
+
+    @dias_semana = @cal_semana.cal_dias.order(:dt_fecha)
+    @lunes = @dias_semana.first
+    @domingo = @dias_semana.last
+
+    @params_anterior = params_semana_anterior(@cal_semana)
+    @params_siguiente = params_semana_siguiente(@cal_semana)
+
+    @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)
+
+    @semana = @cal_semana.cal_dias.order(:dt_fecha)
+    @v_semana = []
+    @semana.each do |cal_dia|
+      dia = {}
+      dia[:dia] = cal_dia.dt_fecha
+      dia[:dyf] = cal_dia.dyf? ? 'danger' : 'info'
+      dia[:actividades] = AgeActividad.where(fecha: cal_dia.dt_fecha.all_day).order(:fecha)
+
+      @v_semana << dia
+    end
+    #------------------------------------------------------------------------------------------------
 
     set_tab(:menu, ['Pendientes', 'Realizadas'])
 
-    if @options[:menu] == 'Pendientes'
+    @siguiente = CalSemana.find_by(cal_semana: n_semana + 1).cal_dias.order(:dt_fecha)
 
-      hoy = Time.zone.today
-      cal_annio = CalAnnio.find_by(cal_annio: hoy.year)
-      cal_mes = cal_annio.cal_meses.find_by(cal_mes: hoy.month)
-      verifica_mes(cal_mes)
-      n_semana = get_n_semana(hoy)
-      @semana = cal_mes.cal_semanas.find_by(cal_semana: n_semana).cal_dias.order(:dt_fecha)
-      @siguiente = cal_mes.cal_semanas.find_by(cal_semana: n_semana + 1).cal_dias.order(:dt_fecha)
+    @agenda_15 = []
+    @semana.each_with_index do |cal_dia, indice|
+      dia = {}
+      dia[:dia] = cal_dia.dt_fecha
+      dia[:dyf] = cal_dia.dyf? ? 'danger' : 'info'
+      dia[:actividades] = AgeActividad.where(fecha: cal_dia.dt_fecha.all_day)
 
-      @agenda_15 = []
-      @semana.each_with_index do |cal_dia, indice|
-        dia = {}
-        dia[:dia] = cal_dia.dt_fecha
-        dia[:dyf] = cal_dia.dyf? ? 'danger' : 'info'
-        dia[:actividades] = AgeActividad.where(fecha: cal_dia.dt_fecha.all_day)
-
-        @agenda_15[indice] = [dia]
-      end
-      @siguiente.each_with_index do |cal_dia, indice|
-        dia = {}
-        dia[:dia] = cal_dia.dt_fecha
-        dia[:dyf] = cal_dia.dyf? ? 'danger' : 'info'
-        dia[:actividades] = AgeActividad.where(fecha: cal_dia.dt_fecha.all_day)
-
-        @agenda_15[indice] << dia
-      end
-
-      set_tabla('age_actividades', AgeActividad.where(estado: 'pendiente').order(fecha: :desc), false)
-    elsif @options[:menu] == 'Realizadas'
-      set_tabla('age_actividades', AgeActividad.where(estado: 'realizada').order(fecha: :desc), false)
+      @agenda_15[indice] = [dia]
     end
+    @siguiente.each_with_index do |cal_dia, indice|
+      dia = {}
+      dia[:dia] = cal_dia.dt_fecha
+      dia[:dyf] = cal_dia.dyf? ? 'danger' : 'info'
+      dia[:actividades] = AgeActividad.where(fecha: cal_dia.dt_fecha.all_day)
+
+      @agenda_15[indice] << dia
+    end
+
+#      set_tabla('age_actividades', AgeActividad.where(estado: 'pendiente').order(fecha: :desc), false)
   end
 
   # GET /age_actividades/1 or /age_actividades/1.json
@@ -80,7 +96,7 @@ class Actividades::AgeActividadesController < ApplicationController
       owner_class = params[:cn].classify
       fecha = Time.zone.parse("#{f_params['fecha(3i)']}-#{mes}-#{annio} #{hora}:#{minutos}")
 
-      AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha)
+      AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente')
       mensaje = 'Actividad fue creada exitósamente'
     else
       mensaje = 'Error de ingreso Actividad: Fecha y Descripción son campos obligatorios'
@@ -147,7 +163,7 @@ class Actividades::AgeActividadesController < ApplicationController
 
   def cambia_prioridad
     # {negro, verde, amarillo, rojo}
-    @objeto.prioridad = @objeto.prioridad.blank? ? 'success' : ( @objeto.prioridad == 'success' ? 'warning' : ( @objeto.prioridad == 'warning' ? 'danger' : nil ) )
+    @objeto.prioridad = params[:prioridad]
     @objeto.save
 
     redirect_to "/#{@objeto.owner_class.tableize}/#{@objeto.owner_id}"
