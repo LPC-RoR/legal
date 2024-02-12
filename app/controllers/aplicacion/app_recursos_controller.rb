@@ -21,12 +21,7 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    TarValorCuantia.all.each do |valor_cuantia|
-      if valor_cuantia.owner_id.present? 
-        owner = Causa.find_by(id: valor_cuantia.owner_id.to_i)
-        valor_cuantia.delete if owner.blank?
-      end
-    end
+    AgeActividad.delete_all
 
     redirect_to root_path
   end
