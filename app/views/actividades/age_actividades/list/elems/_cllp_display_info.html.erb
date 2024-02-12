@@ -2,7 +2,7 @@
 	<hr>
 	<small><small class="text-muted">
 		Creado por <b><%= objeto.nombre_creador %></b>
-		<% if objeto.owner_id.present? %>
+		<% unless objeto.owner.blank? %>
 			</br>
 				<i class="bi bi-<%= controller_icon[objeto.owner_class.tableize]%>"></i>
 				<%= objeto.owner_class %>
