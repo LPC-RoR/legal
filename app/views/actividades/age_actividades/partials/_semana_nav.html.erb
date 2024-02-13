@@ -1,18 +1,18 @@
 <%= render '0p/general/title_box' do %>
 
 	<div class=" row text-info">
-		<div class="col-2" align='center'>
+		<div class="col-1" align='left'>
 			<%= link_to "/age_actividades?annio_sem=#{@params_anterior}" do %>
 				<i class="bi bi-chevron-double-left"></i>
 			<% end %>
 		</div>
-		<div class="col-8" align='center'>
+		<div class="col-10" align='center'>
 			sem <%= @cal_semana.cal_semana %>: 
 			<%= dma(@lunes.dt_fecha) %>
 			<i class="bi bi-arrow-right"></i>
 			<%= dma(@domingo.dt_fecha) %>
 		</div>
-		<div class="col-2" align='center'>
+		<div class="col-1" align='right'>
 			<%= link_to "/age_actividades?annio_sem=#{@params_siguiente}" do %>
 				<i class="bi bi-chevron-double-right"></i>
 			<% end %>

@@ -25,7 +25,7 @@ class Actividades::AgeActividadesController < ApplicationController
     @semana.each do |cal_dia|
       dia = {}
       dia[:dia] = cal_dia.dt_fecha
-      dia[:dyf] = cal_dia.dyf? ? 'danger' : 'info'
+      dia[:dyf] = cal_dia.dyf? ? 'danger' : 'primary'
       dia[:actividades] = AgeActividad.where(fecha: cal_dia.dt_fecha.all_day).order(:fecha)
 
       @v_semana << dia
@@ -126,14 +126,22 @@ class Actividades::AgeActividadesController < ApplicationController
     usuario = AgeUsuario.find(params[:uid])
     @objeto.age_usuarios << usuario unless usuario.blank?
     
-    redirect_to @objeto.owner
+    if params[:cn] == 'age_actividades'
+      redirect_to "/age_actividades"
+    else
+      redirect_to @objeto.owner
+    end
   end
 
   def desasigna_usuario
     usuario = AgeUsuario.find(params[:uid])
     @objeto.age_usuarios.delete(usuario) unless usuario.blank?
     
-    redirect_to @objeto.owner
+    if params[:cn] == 'age_actividades'
+      redirect_to "/age_actividades"
+    else
+      redirect_to @objeto.owner
+    end
   end
 
   def cambia_prioridad
@@ -141,7 +149,7 @@ class Actividades::AgeActividadesController < ApplicationController
     @objeto.prioridad = params[:prioridad]
     @objeto.save
 
-    redirect_to "/#{@objeto.owner_class.tableize}/#{@objeto.owner_id}"
+    redirect_to ( params[:cn] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
   end
 
   def suma_participante

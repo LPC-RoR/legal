@@ -5,7 +5,7 @@
 			<small><small>
 				<b class="text-info">Encargado(s)</b></br>
 			<% objeto.age_usuarios.each do |age_usuario| %>
-				<%= link_to "/age_actividades/#{objeto.id}/desasigna_usuario?uid=#{age_usuario.id}" do %>
+				<%= link_to "/age_actividades/#{objeto.id}/desasigna_usuario?uid=#{age_usuario.id}&cn=#{controller_name}" do %>
 					<%= age_usuario.age_usuario %> <i class="bi bi-trash"></i></br>
 				<% end %>
 			<% end %>
@@ -16,7 +16,7 @@
 				<b class="text-info">Disponible(s)</b></br>
 			<% @age_usuarios.each do |age_usuario| %>
 				<% unless objeto.age_usuarios.ids.include?(age_usuario.id) %>
-					<%= link_to "/age_actividades/#{objeto.id}/asigna_usuario?uid=#{age_usuario.id}" do %>
+					<%= link_to "/age_actividades/#{objeto.id}/asigna_usuario?uid=#{age_usuario.id}&cn=#{controller_name}" do %>
 						<i class="bi bi-plus-circle"></i> <%= age_usuario.age_usuario %></br>
 					<% end %>
 				<% end %>

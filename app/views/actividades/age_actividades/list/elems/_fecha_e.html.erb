@@ -8,7 +8,9 @@
 			<% else %>
 				<i class="bi bi-circle-fill text-<%=objeto.text_color%>"></i> 
 			<% end %>
-			<b class="text-<%= objeto.text_color %>"><%= dma_hm(objeto.fecha) %></b>
+			<b class="text-<%= objeto.text_color %>">
+				<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) %>
+			</b>
 			<i class="bi bi-dot"></i>
 			<%= render layout: '0p/collapse/link', locals: {label: 'Encargados', objeto: objeto, tooltip: 'encargado(s)'} do %>
 				<%= objeto.abr_encargados %>
