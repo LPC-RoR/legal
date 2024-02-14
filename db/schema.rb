@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_08_150126) do
+ActiveRecord::Schema.define(version: 2024_02_14_140456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 2024_02_08_150126) do
     t.index ["orden"], name: "index_age_antecedentes_on_orden"
   end
 
+  create_table "age_pendientes", force: :cascade do |t|
+    t.integer "age_usuario_id"
+    t.string "age_pendiente"
+    t.string "estado"
+    t.string "prioridad"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_usuario_id"], name: "index_age_pendientes_on_age_usuario_id"
+  end
+
   create_table "age_usu_acts", force: :cascade do |t|
     t.integer "age_usuario_id"
     t.integer "age_actividad_id"
@@ -76,7 +86,9 @@ ActiveRecord::Schema.define(version: 2024_02_08_150126) do
     t.string "age_usuario"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "app_perfil_id"
     t.index ["age_usuario"], name: "index_age_usuarios_on_age_usuario"
+    t.index ["app_perfil_id"], name: "index_age_usuarios_on_app_perfil_id"
     t.index ["owner_class"], name: "index_age_usuarios_on_owner_class"
     t.index ["owner_id"], name: "index_age_usuarios_on_owner_id"
   end

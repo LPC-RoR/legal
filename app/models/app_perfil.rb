@@ -13,8 +13,7 @@ class AppPerfil < ApplicationRecord
 	has_many :blg_articulos
 
 
-	has_many :age_usu_perfiles
-	has_many :age_usuarios, through: :age_usu_perfiles
+	has_many :age_usuarios
 
 	# Revisar DEPRECATED
 	has_many :age_act_perfiles

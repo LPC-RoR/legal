@@ -50,15 +50,22 @@ class Actividades::AgeUsuariosController < ApplicationController
   end
 
   def asigna_perfil
-    @objeto.app_perfiles << perfil_activo
+    if perfil_activo.age_usuarios.empty?
+      @objeto.app_perfil_id = perfil_activo.id
+      @objeto.save
+      noticia = "Perfil asignado exitósamente al usuario de agenda"
+    else
+      noticia = "Error de asignación: Este perfil ya tiene un usuario asignado"
+    end
 
-    redirect_to "/tablas?tb=#{tb_index('agenda')}"
+    redirect_to "/tablas?tb=#{tb_index('agenda')}", notice: noticia
   end
 
   def desasigna_perfil
-    @objeto.app_perfiles.delete(perfil_activo)
+    @objeto.app_perfil_id = nil
+    @objeto.save
 
-    redirect_to "/tablas?tb=#{tb_index('agenda')}"
+    redirect_to "/tablas?tb=#{tb_index('agenda')}", notice: "Perfil desasignado exitósamente"
   end
 
   # DELETE /age_usuarios/1 or /age_usuarios/1.json

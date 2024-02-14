@@ -4,6 +4,16 @@ class Actividades::AgeActividadesController < ApplicationController
   # GET /age_actividades or /age_actividades.json
   def index
     @hoy = Time.zone.today
+    @usuario = perfil_activo.age_usuarios.empty? ? nil : perfil_activo.age_usuarios.first
+
+    set_tab( :tab, ['Pendientes', 'Realizados'])
+    estado = @options[:tab] == 'Pendientes' ? 'pendiente' : 'realizado'
+    unless @usuario.blank?
+      set_tabla('d-age_pendientes', @usuario.age_pendientes.where(estado: estado, prioridad: 'danger'), false)
+      set_tabla('w-age_pendientes', @usuario.age_pendientes.where(estado: estado, prioridad: 'warning'), false)
+      set_tabla('s-age_pendientes', @usuario.age_pendientes.where(estado: estado, prioridad: 'success'), false)
+      set_tabla('n-age_pendientes', @usuario.age_pendientes.where(estado: estado, prioridad: nil), false)
+    end
 
     n_annio = params[:annio_sem].blank? ? @hoy.year : params[:annio_sem].split('_')[0].to_i
     @cal_annio = busca_y_puebla_annio(n_annio)
@@ -22,6 +32,7 @@ class Actividades::AgeActividadesController < ApplicationController
 
     @semana = @cal_semana.cal_dias.order(:dt_fecha)
     @v_semana = []
+
     @semana.each do |cal_dia|
       dia = {}
       dia[:dia] = cal_dia.dt_fecha
@@ -144,6 +155,13 @@ class Actividades::AgeActividadesController < ApplicationController
     end
   end
 
+  def realizada_pendiente
+    @objeto.estado = ( @objeto.estado == 'pendiente' ? 'realizada' : 'pendiente' )
+    @objeto.save
+
+    redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
+  end
+
   def cambia_prioridad
     # {negro, verde, amarillo, rojo}
     @objeto.prioridad = params[:prioridad]
@@ -170,13 +188,6 @@ class Actividades::AgeActividadesController < ApplicationController
     unless params[:form_antecedente][:age_antecedente].blank? 
       @objeto.age_antecedentes.create(age_antecedente: params[:form_antecedente][:age_antecedente], orden: @objeto.age_antecedentes.count + 1)
     end
-
-    redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
-  end
-
-  def realizada_pendiente
-    @objeto.estado = ( @objeto.estado == 'pendiente' ? 'realizada' : 'pendiente' )
-    @objeto.save
 
     redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
   end
