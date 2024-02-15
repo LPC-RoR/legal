@@ -1,35 +1,18 @@
 <small>
 <div class="list-item">
 
-	<small><i class="bi bi-tag"></i> <%= objeto.control_estado %></small></br>
+	<div class="row">
+		<div class="col-6">
+			<small><i class="bi bi-tag"></i> <%= objeto.control_estado %></small>
+		</div>
+		<div class="col-6" align="right">
+			<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: objeto} %>
+		</div>
+	</div>
 
-	<%= render partial: 'tarifas/tar_facturaciones/list/move_btn', locals: {objeto: objeto} %> 
+	<%= render partial: 'tarifas/tar_facturaciones/list/pago', locals: {objeto: objeto} %>
 
-	<b>
-	<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.tar_pago.blank? %>
-		<%= objeto.tar_pago.tar_pago %>
-		<i class="bi bi-dot"></i>
-	<% end %>
-	<%= s_uf(objeto.monto_uf) %>
-	<i class="bi bi-arrow-left-right"></i>
-	<%= s_pesos(objeto.monto_pesos) %>
-	</b>
-	</br>
-
-	<small>
-	<%= objeto.owner.class.name unless objeto.owner_id.blank? %> : 
-	<% case objeto.owner.class.name %>
-	<% when 'Causa' %>
-		<%= link_to objeto.owner.rit, "/causas/#{objeto.owner.id}?html_options[menu]=Tarifa+%26+Pagos" %> <%= objeto.owner.causa %>
-	<% when 'TarServicio' %>
-		<%= link_to objeto.owner.codigo, objeto.owner %> <%= objeto.owner.descripcion %>
-	<% when 'RegReporte' %>
-		<%= link_to objeto.owner.nombre_padre, objeto.owner %>
-	<% when 'Asesoria' %>
-		<%= link_to objeto.owner.descripcion, objeto.owner %>
-	<% end %>
-	</small>
-	</br>
+	<%= render partial: 'tarifas/tar_facturaciones/list/owner', locals: {objeto: objeto} %>
 
 	<%= render partial: 'tarifas/tar_facturaciones/list/bottom_links', locals: {objeto: objeto} %>
 

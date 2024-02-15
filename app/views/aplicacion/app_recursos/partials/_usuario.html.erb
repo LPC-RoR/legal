@@ -1,0 +1,11 @@
+<small>
+<% if dog? %>
+	<%= link_to "/app_recursos/password_recovery?uid=#{objeto.id}" do %>
+		<i class="bi bi-person"></i>
+	<% end %>
+<% else %>
+	<i class="bi bi-person"></i>
+<% end %>
+<%= objeto.email %>
+</small>
+</br>

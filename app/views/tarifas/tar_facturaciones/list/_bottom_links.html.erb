@@ -1,11 +1,21 @@
+<div align='center'>
 <% if controller_name == 'tar_aprobaciones' %>
 	<% if action_name == 'index' %>
 		<% if objeto.tar_aprobacion.blank? and objeto.tar_factura.blank? %>
 			<%= link_to "tar_facturaciones/#{objeto.id}/crea_aprobacion" do %>
-				<small><i class="bi bi-file-plus"></i> Crea aprobación</small>
+				<small><i class="bi bi-plus-circle"></i> Crea aprobación</small>
 			<% end %>
 		<% end %>
 	<% elsif action_name == 'show' %>
+		<% if objeto.tar_aprobacion.blank? and objeto.tar_factura.blank? %>
+			<%= link_to "/tar_facturaciones/#{objeto.id}/a_aprobacion?indice=#{@objeto.id}", title: 'Agrega a la aprobación', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<small><i class="bi bi-arrow-bar-left"></i> Agregar pago a la aprobación</small>
+			<% end %>
+		<% elsif objeto.tar_factura.blank? %>
+			<%= link_to "/tar_facturaciones/#{objeto.id}/a_pendiente?indice=#{@objeto.id}", title: 'Saca de la aprobación', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<small>Sacar pago de la aprobación <i class="bi bi-arrow-bar-right"></i></small>
+			<% end %>
+		<% end %>
 	<% end %>
 <% elsif controller_name == 'causas' %>	
 	<% if objeto.tar_aprobacion.blank? and objeto.tar_factura.blank? %>
@@ -15,8 +25,7 @@
 	<% end %>
 <% end %>
 
-<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: objeto} %>
-
 <% if objeto.owner.class.name == 'TarServicio' %>
 	<small><%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %></small>
 <% end %>
+</div>

@@ -1,33 +1,35 @@
 <div class='row justify-content-center'>
   <div class='col-md-4'>
     <!--h2>Ingreso</h2-->
-    <h4><%= render partial: '0p/general/icon_text', locals: {text: 'Ingreso', gly: 'person-check', clr: 'info'} %></h4>
+    <div class="shadow p-3 mb-3 bg-white rounded">
+      <h4><%= render partial: '0p/general/icon_text', locals: {text: 'Ingreso', gly: 'person-check', clr: 'info'} %></h4>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="field">
-        <small><%= f.label :email %><br /></small>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-      </div>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field">
+          <small><%= f.label :email %><br /></small>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
 
-      <div class="field">
-        <small><%= f.label 'contraseña' %><br /></small>
-        <%= f.password_field :password, autocomplete: "current-password" %>
-      </div>
+        <div class="field">
+          <small><%= f.label 'contraseña' %><br /></small>
+          <%= f.password_field :password, autocomplete: "current-password" %>
+        </div>
 
-      <%# if devise_mapping.rememberable? %>
-        <!--div class="field"-->
-          <%#= f.check_box :remember_me %>
-          <!--small><%#= f.label 'recuerdame' %></small-->
-        <!--/div-->
-      <%# end %>
-      </br>
+        <%# if devise_mapping.rememberable? %>
+          <!--div class="field"-->
+            <%#= f.check_box :remember_me %>
+            <!--small><%#= f.label 'recuerdame' %></small-->
+          <!--/div-->
+        <%# end %>
+        </br>
 
-      <div class="actions">
-        <%= f.submit "Ingresar" %>
-      </div>
-    <% end %>
+        <div class="actions">
+          <%= f.submit "Ingresar" %>
+        </div>
+      <% end %>
 
-    <p id="notice"><%= notice %></p>
-    <%= render "devise/shared/links" %>
+      <p id="notice"><%= notice %></p>
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
 </div>

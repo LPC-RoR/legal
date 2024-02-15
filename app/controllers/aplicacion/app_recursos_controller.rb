@@ -26,6 +26,15 @@ class Aplicacion::AppRecursosController < ApplicationController
     redirect_to root_path
   end
 
+  def password_recovery
+    @raw, hashed = Devise.token_generator.generate(Usuario, :reset_password_token)
+
+    @user = Usuario.find(params[:uid])
+    @user.reset_password_token = hashed
+    @user.reset_password_sent_at = Time.now.utc
+    @user.save    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
 

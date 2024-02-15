@@ -48,7 +48,7 @@ module Capitan
 	end
 
 	def enlaces_perfil
-		AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion)
+		perfil_activo.blank? ? [] : AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion)
 	end
 
 end

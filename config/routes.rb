@@ -173,6 +173,7 @@ Rails.application.routes.draw do
         match :administracion, via: :get
         match :procesos, via: :get
         match :usuarios, via: :get
+        match :password_recovery, via: :get
       end
     end
     resources :tablas

@@ -1,0 +1,14 @@
+<div class="row">
+	<div class="col-6">
+		<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.tar_pago.blank? %>
+			<%= objeto.tar_pago.tar_pago %>
+		<% end %>
+	</div>
+	<div class="col-6" align="right">
+		<b>
+		<%= s_uf(objeto.monto_uf) %>
+		<i class="bi bi-arrow-left-right"></i>
+		<%= s_pesos(objeto.monto_pesos) %>
+		</b>
+	</div>
+</div>

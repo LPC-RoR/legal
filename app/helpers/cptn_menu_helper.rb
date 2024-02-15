@@ -28,12 +28,4 @@ module CptnMenuHelper
 		end
 	end
 
-	def enlaces_generales
-		AppEnlace.where(owner_id: nil).order(:descripcion)
-	end
-
-	def enlaces_perfil
-		AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion)
-	end
-
 end
