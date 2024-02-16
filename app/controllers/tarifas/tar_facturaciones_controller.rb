@@ -42,8 +42,9 @@ class Tarifas::TarFacturacionesController < ApplicationController
       glosa = "#{pago.tar_pago} : #{owner.rit if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
       pago_id = pago.id
       monto = pago.valor.blank? ? calcula2( formula, owner, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5)) : pago.valor
+      cuantia_calculo = t_cuantia_pesos(owner, pago, 'honorarios')
       unless monto == 0
-        TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto, tar_pago_id: pago.id)
+        TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto, tar_pago_id: pago.id, cuantia_calculo: cuantia_calculo)
       end
 
       owner.causa_ganada = owner.monto_pagado == 0

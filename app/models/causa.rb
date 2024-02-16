@@ -26,6 +26,10 @@ class Causa < ApplicationRecord
 		TarValorCuantia.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	def cuantia_modificada?
+		self.valores_cuantia.map {|vc| vc.activado?}.include?(false)
+	end
+
 	# Pagos de la causa
 	def facturaciones
 		TarFacturacion.where(owner_class: self.class.name, owner_id: self.id)

@@ -238,7 +238,9 @@ Rails.application.routes.draw do
 
   scope module: 'tarifas' do
     resources :tar_uf_facturaciones
-    resources :tar_valor_cuantias
+    resources :tar_valor_cuantias do
+      match :switch_desactivado, via: :get, on: :member
+    end
     resources :tar_detalle_cuantias
     resources :tar_formula_cuantias
     resources :tar_uf_sistemas

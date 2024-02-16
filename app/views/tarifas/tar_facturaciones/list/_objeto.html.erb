@@ -1,19 +1,11 @@
 <small>
 <div class="list-item">
 
-	<div class="row">
-		<div class="col-6">
-			<small><i class="bi bi-tag"></i> <%= objeto.control_estado %></small>
-		</div>
-		<div class="col-6" align="right">
-			<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: objeto} %>
-		</div>
-	</div>
-
 	<%= render partial: 'tarifas/tar_facturaciones/list/pago', locals: {objeto: objeto} %>
 
 	<%= render partial: 'tarifas/tar_facturaciones/list/owner', locals: {objeto: objeto} %>
 
+	<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: objeto} %>
 	<%= render partial: 'tarifas/tar_facturaciones/list/bottom_links', locals: {objeto: objeto} %>
 
 </div>

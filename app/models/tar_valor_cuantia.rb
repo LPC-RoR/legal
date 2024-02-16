@@ -14,4 +14,8 @@ class TarValorCuantia < ApplicationRecord
 		self.tar_detalle_cuantia.tar_detalle_cuantia == 'Otro' ? self.otro_detalle : self.tar_detalle_cuantia.tar_detalle_cuantia
 	end
 
+	def activado?
+		self.desactivado.blank? ? true : (self.desactivado == false)
+	end
+
 end

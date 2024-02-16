@@ -123,8 +123,12 @@ module Tarifas
 		elsif token.strip[0] == '@'
 			fyc = token.strip.match(/^@(?<facturable>.+):(?<campo>.+)/)
 			tar_pago = TarPago.find_by(codigo_formula: fyc[:facturable])
-			facturacion = objeto.facturaciones.find_by(tar_pago_id: tar_pago.id)
-			facturacion.blank? ? 0 : (facturacion.send(fyc[:campo]).blank? ? 0 : facturacion.send(fyc[:campo]))
+			if tar_pago.blank?
+				0
+			else
+				facturacion = objeto.facturaciones.find_by(tar_pago_id: tar_pago.id)
+				facturacion.blank? ? 0 : (facturacion.send(fyc[:campo]).blank? ? 0 : facturacion.send(fyc[:campo]))
+			end
 		elsif token.strip[0] == '$'
 			# en token.gsub('$', '').strip es necesario el strip
 			variable = Variable.find_by(variable: token.gsub('$', '').strip)
@@ -181,6 +185,9 @@ module Tarifas
 				cuantia[:nombre] = detalle_cuantia.tar_detalle_cuantia
 			end
 
+			cuantia[:activado] = valor_cuantia.activado?
+			cuantia[:nota] = valor_cuantia.nota
+
 			cuantia[:moneda] = valor_cuantia.moneda
 			# versión de @valores cuantía sin fórmular. Solo mira lo ingresado como datos de la demanda
 			h_cuantia = get_valores_cuantia(detalle_cuantia.formula_cuantia, valor_cuantia.valor, objeto)
@@ -199,10 +206,10 @@ module Tarifas
 		@totales_cuantia = {} if @totales_cuantia.blank?
 		@totales_cuantia[objeto.id] = {}
 
-		v_total_cuantia_uf =       objeto.valores_cuantia.map {|vc| @valores_cuantia[objeto.id][vc.id][:cuantia] if vc.moneda == 'UF' }.compact
-		v_total_cuantia_pesos =    objeto.valores_cuantia.map {|vc| @valores_cuantia[objeto.id][vc.id][:cuantia] if vc.moneda == 'Pesos' }.compact
-		v_total_honorarios_uf =    objeto.valores_cuantia.map {|vc| @valores_cuantia[objeto.id][vc.id][:honorarios] if vc.moneda == 'UF' }.compact
-		v_total_honorarios_pesos = objeto.valores_cuantia.map {|vc| @valores_cuantia[objeto.id][vc.id][:honorarios] if vc.moneda == 'Pesos' }.compact
+		v_total_cuantia_uf =       objeto.valores_cuantia.map {|vc| @valores_cuantia[objeto.id][vc.id][:cuantia] if (vc.activado? and vc.moneda == 'UF') }.compact
+		v_total_cuantia_pesos =    objeto.valores_cuantia.map {|vc| @valores_cuantia[objeto.id][vc.id][:cuantia] if (vc.activado? and vc.moneda == 'Pesos') }.compact
+		v_total_honorarios_uf =    objeto.valores_cuantia.map {|vc| @valores_cuantia[objeto.id][vc.id][:honorarios] if (vc.activado? and vc.moneda == 'UF') }.compact
+		v_total_honorarios_pesos = objeto.valores_cuantia.map {|vc| @valores_cuantia[objeto.id][vc.id][:honorarios] if (vc.activado? and vc.moneda == 'Pesos') }.compact
 
 		@totales_cuantia[objeto.id][:cuantia_uf] = v_total_cuantia_uf.empty? ? 0 : v_total_cuantia_uf.sum
 		@totales_cuantia[objeto.id][:cuantia_pesos] = v_total_cuantia_pesos.empty? ? 0 : v_total_cuantia_pesos.sum
@@ -227,8 +234,8 @@ module Tarifas
 
 	# DEPRECATED
 	def t_total_cuantia(causa, pago, etiqueta)
-		v_pesos = causa.valores_cuantia.map {|vc| tar_valor_cuantia_valor(causa, vc, etiqueta) if vc.moneda == 'Pesos'}.compact
-		v_uf    = causa.valores_cuantia.map {|vc| tar_valor_cuantia_valor(causa, vc, etiqueta) if vc.moneda != 'Pesos'}.compact
+		v_pesos = causa.valores_cuantia.map {|vc| tar_valor_cuantia_valor(causa, vc, etiqueta) if (vc.activado? and vc.moneda == 'Pesos')}.compact
+		v_uf    = causa.valores_cuantia.map {|vc| tar_valor_cuantia_valor(causa, vc, etiqueta) if (vc.activado? and vc.moneda != 'Pesos')}.compact
 		pesos = v_pesos.empty? ? 0 : v_pesos.sum
 		uf    = v_uf.empty? ? 0 : v_uf.sum
 		[uf, pesos]

@@ -18,18 +18,27 @@
 
 <div style='padding-left: 1em; padding-right: 1em; line-height: 13px;'>
 	<% if @h_pagos[objeto.id][:pago].present? %>
-		<small>
-		<small>
+		<small><small>
 		Generado el <%= dma(@h_pagos[objeto.id][:pago].created_at) %>
+		<% unless @h_pagos[objeto.id][:pago].cuantia_calculo.blank? %>
+			<div class="row">
+				<div class="col-10">
+					Cuantía de cálculo
+				</div>
+				<div class="col-2" align="right">
+					<%= s_pesos( @h_pagos[objeto.id][:pago].cuantia_calculo ) %>
+				</div>
+			</div>
+		<% end %>
 		</small>
 
-		<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: @h_pagos[objeto.id][:pago]} if controller_name == 'causas' %>
-
+		<% unless @h_pagos[objeto.id][:pago].tar_aprobacion.blank? and @h_pagos[objeto.id][:pago].tar_factura.blank? %>
+			<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: @h_pagos[objeto.id][:pago]} if controller_name == 'causas' %>
+		<% end %>
 		</small>
 	<% else %>
 		<small><small>Pago sin aprobación</small></small>
 	<% end %>
-	</br>
 
 	<small><small>
 	<div class="row text-primary">
