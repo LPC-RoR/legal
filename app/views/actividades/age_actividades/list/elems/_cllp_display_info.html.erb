@@ -2,20 +2,16 @@
 	<hr>
 	<small><small class="text-muted">
 		Creado por <b><%= objeto.nombre_creador %></b>
-		<% unless objeto.owner_id.blank? %>
-			</br>
-				<i class="bi bi-<%= controller_icon[objeto.owner_class.tableize]%>"></i>
-				<%= AgeActividad.all.count %>
-				<% case objeto.owner_class %>
-				<% when 'Causa' %>
-					<b><%= objeto.owner.rit %><i class="bi bi-dot"></i><%= objeto.owner.causa %></b>
-				<% when 'Cliente' %>
-					<b><%= s_rut(objeto.owner.rut) %><i class="bi bi-dot"></i><%= objeto.owner.razon_social %></b>
-				<% end %></br>
-		<% end %>
 	</small></small>
 	<hr>
 
 	<%= render partial: 'actividades/age_actividades/list/elems/display_antecedentes', locals: {objeto: objeto} %>
+
+	<% unless objeto.age_logs.empty? %>
+		<hr>
+		<% objeto.age_logs.order(created_at: :desc).each do |log| %>
+			<small><small><%= dma_hm(log.fecha) %> : <%=log.actividad%></small></small></br>
+		<% end %>
+	<% end %>
 
 <% end %>

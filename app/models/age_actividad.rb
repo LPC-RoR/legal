@@ -11,6 +11,8 @@ class AgeActividad < ApplicationRecord
 	has_many :age_act_perfiles
 	has_many :app_perfiles, through: :age_act_perfiles
 
+	has_many :age_logs
+
 	def owner
 		self.owner_class.constantize.find(self.owner_id)
 	end
@@ -20,7 +22,7 @@ class AgeActividad < ApplicationRecord
 	end
 
 	def text_color
-		['Audiencia', 'Hito'].include?(self.tipo) ? 'primary' : ( (self.estado == 'realizada' or self.fecha < Time.zone.today) ? 'muted' : self.prioridad )
+		['Audiencia', 'Hito'].include?(self.tipo) ? 'primary' : ( (['realizada', 'cancelada'].include?(self.estado) or self.fecha < Time.zone.today) ? 'muted' : self.prioridad )
 	end
 
 	def abr_encargados

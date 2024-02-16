@@ -92,7 +92,7 @@ Rails.application.routes.draw do
   scope module: 'actividades' do 
     resources :age_actividades do
       match :cu_actividad, via: :post, on: :collection
-      match :realizada_pendiente, via: :get, on: :member
+      match :cambia_estado, via: :get, on: :member
       match :cambia_prioridad, via: :get, on: :member
       match :asigna_usuario, via: :get, on: :member
       match :desasigna_usuario, via: :get, on: :member
@@ -111,6 +111,7 @@ Rails.application.routes.draw do
       match :realizado_pendiente, via: :get, on: :member
       match :cambia_prioridad, via: :get, on: :member
     end
+    resources :age_logs
     
     resources :age_usu_perfiles
     resources :age_usu_acts

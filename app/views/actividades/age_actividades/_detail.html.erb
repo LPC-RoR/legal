@@ -1,6 +1,12 @@
-<p class="text-info">
-	<%= @objeto.tipo %>
-</p>
+<% if @objeto.owner_id.blank? %>
+	<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
+	<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :tipo, radio_list: ['Reunión', 'Tarea'] } %>
+<% else %>
+	<p class="text-info">
+		<%= @objeto.tipo %>
+	</p>
+<% end %>
+
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha - Hora', v: true } %>
 <%= render partial: '0p/form_fields/datetime', locals: { form: form, token: :fecha } %>
 
@@ -9,9 +15,12 @@
 	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :age_actividad } %>
 <% end %>
 
+<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :privada, label: 'privada!' } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tipo } %>
+<% unless @objeto.owner_id.blank? %>
+	<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tipo } %>
+<% end %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :app_perfil_id } %>

@@ -1,0 +1,13 @@
+<small>
+<% if objeto.privada %>
+	<%= link_to "/age_actividades/#{objeto.id}/cambia_privada?cn=#{controller_name}&p=e", title: 'equipo', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class="bi bi-people-fill"></i>
+	<% end %>
+<% else %>
+	<% if objeto.age_usuarios.empty? %>
+		<%= link_to "/age_actividades/#{objeto.id}/cambia_privada?cn=#{controller_name}&p=p", title: 'privada', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+			<i class="bi bi-person-fill"></i>
+		<% end %>
+	<% end %>
+<% end %>
+</small>

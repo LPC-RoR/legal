@@ -1,5 +1,5 @@
 class Actividades::AgeActividadesController < ApplicationController
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad asigna_usuario desasigna_usuario]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad cambia_estado asigna_usuario desasigna_usuario]
 
   # GET /age_actividades or /age_actividades.json
   def index
@@ -76,13 +76,14 @@ class Actividades::AgeActividadesController < ApplicationController
     age_actividad = params[:t] == 'A' ? params[:aud] : f_params[:age_actividad]
 
     unless age_actividad.blank? or f_params['fecha(3i)'].blank?
-      tipo = params[:t] == 'A' ? 'Audiencia' : ( params[:t] == 'H' ? 'Hito' : ( params[:t] == 'R' ? 'Reunión' : 'Tarea' ) )
+      tipo = params[:t].blank? ? f_params[:tipo] : (params[:t] == 'A' ? 'Audiencia' : ( params[:t] == 'H' ? 'Hito' : ( params[:t] == 'R' ? 'Reunión' : 'Tarea' ) ))
       app_perfil_id = perfil_activo.id
       owner_id = params[:oid]
-      owner_class = params[:cn].classify
+      owner_class = owner_id.blank? ? nil : params[:cn].classify
       fecha = Time.zone.parse("#{f_params['fecha(3i)']}-#{mes}-#{annio} #{hora}:#{minutos}")
+      privada = f_params[:privada]
 
-      AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente')
+      AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente', privada: privada)
       mensaje = 'Actividad fue creada exitósamente'
     else
       mensaje = 'Error de ingreso Actividad: Fecha y Descripción son campos obligatorios'
@@ -155,16 +156,17 @@ class Actividades::AgeActividadesController < ApplicationController
     end
   end
 
-  def realizada_pendiente
-    @objeto.estado = ( @objeto.estado == 'pendiente' ? 'realizada' : 'pendiente' )
-    @objeto.save
-
-    redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
-  end
-
   def cambia_prioridad
     # {negro, verde, amarillo, rojo}
     @objeto.prioridad = params[:prioridad]
+    @objeto.save
+
+    redirect_to ( params[:cn] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
+  end
+
+  def cambia_estado
+    # {negro, verde, amarillo, rojo}
+    @objeto.estado = params[:e]
     @objeto.save
 
     redirect_to ( params[:cn] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
@@ -209,11 +211,11 @@ class Actividades::AgeActividadesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.owner
+      @redireccion = @objeto.owner_id.blank? ? "/age_actividades" : @objeto.owner
     end
 
     # Only allow a list of trusted parameters through.
     def age_actividad_params
-      params.require(:age_actividad).permit(:age_actividad, :tipo, :app_perfil_id, :owner_class, :owner_id, :estado, :fecha)
+      params.require(:age_actividad).permit(:age_actividad, :tipo, :app_perfil_id, :owner_class, :owner_id, :estado, :fecha, :privada)
     end
 end

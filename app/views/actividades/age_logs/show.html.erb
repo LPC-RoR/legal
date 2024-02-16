@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @age_log.fecha %>
+</p>
+
+<p>
+  <strong>Age actividad:</strong>
+  <%= @age_log.age_actividad %>
+</p>
+
+<p>
+  <strong>Age actividad:</strong>
+  <%= @age_log.age_actividad_id %>
+</p>
+
+<%= link_to 'Edit', edit_age_log_path(@age_log) %> |
+<%= link_to 'Back', age_logs_path %>

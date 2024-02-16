@@ -3,6 +3,8 @@
 		<small><small>
 			<% if objeto.estado == 'realizada' %>
 				<i class="bi bi-check-lg text-primary"></i>
+			<% elsif objeto.estado == 'cancelada' %>
+				<i class="bi bi-x-lg text-primary"></i>
 			<% elsif objeto.fecha < @hoy %>
 				<i class="bi bi-calendar-check"></i>
 			<% else %>
@@ -12,15 +14,46 @@
 				<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) %>
 			</b>
 			<i class="bi bi-dot"></i>
-			<%= render layout: '0p/collapse/link', locals: {label: 'Encargados', objeto: objeto, tooltip: 'encargado(s)'} do %>
-				<%= objeto.abr_encargados %>
+			<% if objeto.privada %>
+				<i class="bi bi-person-fill"></i>
+			<% else %>
+				<i class="bi bi-people-fill"></i>
+				<%= render layout: '0p/collapse/link', locals: {label: 'Encargados', objeto: objeto, tooltip: 'encargado(s)'} do %>
+					<%= objeto.abr_encargados %>
+				<% end %>
+			<% end %>
+			<i class="bi bi-dot"></i>
+			<% if objeto.owner_id.blank? %>
+				<i class="bi bi-flower1"></i>
+			<% else %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'Owner', objeto: objeto, tooltip: objeto.owner_class} do %>
+					<i class="bi bi-<%=controller_icon[objeto.owner_class.tableize]%>"></i>
+				<% end %>
+			<% end %>
+
+			<%= render layout: '0p/collapse/display', locals: {label: 'Owner', objeto: objeto} do %>
+				<% case objeto.owner_class %>
+				<% when 'Causa' %>
+					<b><%= link_to objeto.owner.rit, objeto.owner %><i class="bi bi-dot"></i><%= objeto.owner.causa %></b>
+				<% when 'Cliente' %>
+					<b><%= link_to s_rut(objeto.owner.rut), objeto.owner %><i class="bi bi-dot"></i><%= objeto.owner.razon_social %></b>
+				<% end %>				
 			<% end %>
 		</small></small>
 	</div>
 	<div class="col-3" align="right">
 		<small><small>
-			<% if objeto.app_perfil_id == perfil_activo.id or admin? %>
-				<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+			<% if controller_name == 'age_actividades' %>
+				<%= link_to "/age_logs/new?aid=#{objeto.id}" do %>
+					<i class="bi bi-pencil-square"></i>
+				<% end %>
+				<% if objeto.owner_id.blank? %>
+					<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
+				<% end %>
+			<% else %>
+				<% if objeto.app_perfil_id == perfil_activo.id or admin? %>
+					<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+				<% end %>
 			<% end %>
 		</small></small>
 	</div>

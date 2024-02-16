@@ -10,7 +10,9 @@
 </div>
 
 <% objeto[:actividades].each do |actividad| %>
-	<div class="shadow p-1 mb-1 bg-white rounded">
-		<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: actividad} %>
-	</div>
+	<% unless actividad.privada and actividad.app_perfil_id != perfil_activo.id %>
+		<div class="shadow p-1 mb-1 bg-white rounded">
+			<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: actividad} %>
+		</div>
+	<% end %>
 <% end %>

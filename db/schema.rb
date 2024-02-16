@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_14_140456) do
+ActiveRecord::Schema.define(version: 2024_02_16_031628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,11 +35,13 @@ ActiveRecord::Schema.define(version: 2024_02_14_140456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "prioridad"
+    t.boolean "privada"
     t.index ["app_perfil_id"], name: "index_age_actividades_on_app_perfil_id"
     t.index ["estado"], name: "index_age_actividades_on_estado"
     t.index ["fecha"], name: "index_age_actividades_on_fecha"
     t.index ["owner_class"], name: "index_age_actividades_on_owner_class"
     t.index ["owner_id"], name: "index_age_actividades_on_owner_id"
+    t.index ["privada"], name: "index_age_actividades_on_privada"
   end
 
   create_table "age_antecedentes", force: :cascade do |t|
@@ -50,6 +52,15 @@ ActiveRecord::Schema.define(version: 2024_02_14_140456) do
     t.datetime "updated_at", null: false
     t.index ["age_actividad_id"], name: "index_age_antecedentes_on_age_actividad_id"
     t.index ["orden"], name: "index_age_antecedentes_on_orden"
+  end
+
+  create_table "age_logs", force: :cascade do |t|
+    t.datetime "fecha"
+    t.string "actividad"
+    t.integer "age_actividad_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_actividad_id"], name: "index_age_logs_on_age_actividad_id"
   end
 
   create_table "age_pendientes", force: :cascade do |t|

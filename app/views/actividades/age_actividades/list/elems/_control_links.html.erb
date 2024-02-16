@@ -5,13 +5,9 @@
 				<% unless objeto.estado == 'realizada' or objeto.fecha < @hoy %>
 					<%= render partial: 'actividades/age_actividades/list/elems/set_prioridad', locals: {objeto: objeto} %>
 				<% end %>
-				<%= link_to "/age_actividades/#{objeto.id}/realizada_pendiente?c=#{controller_name}", title: "#{objeto.estado == 'pendiente' ? 'Marcar como realizada' : 'Marcar como pendiente' }", 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-					<% if objeto.estado == 'realizada' %>
-						<i class="bi bi-arrow-left"></i> 
-					<% else %>
-						<i class="bi bi-check-lg"></i>
-					<% end %>
-				<% end %>
+
+				<%= render partial: 'actividades/age_actividades/list/elems/set_estado', locals: {objeto: objeto} %>
+				<%= render partial: 'actividades/age_actividades/list/elems/set_privada', locals: {objeto: objeto} %>
 			<% end %>
 			</small></small>
 		</div>

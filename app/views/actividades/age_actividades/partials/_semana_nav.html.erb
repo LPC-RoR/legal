@@ -10,7 +10,10 @@
 			sem <%= @cal_semana.cal_semana %>: 
 			<%= dma(@lunes.dt_fecha) %>
 			<i class="bi bi-arrow-right"></i>
-			<%= dma(@domingo.dt_fecha) %>
+			<%= dma(@domingo.dt_fecha) %> 
+			<%= render layout: '0p/collapse/link', locals: {label: 'NuevaActividad', objeto: nil, tooltip: 'Nueva'} do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
 		</div>
 		<div class="col-1" align='right'>
 			<%= link_to "/age_actividades?annio_sem=#{@params_siguiente}" do %>
@@ -19,4 +22,8 @@
 		</div>
 	</div>
 
+<% end %>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevaActividad', objeto: nil} do %>
+	<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {cn: controller_name, tipo: nil, causa_id: nil, cu: 'c', audiencia: nil} %>
 <% end %>
