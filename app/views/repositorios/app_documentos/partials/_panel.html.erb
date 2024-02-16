@@ -1,0 +1,16 @@
+<h6 class="text-info" align="center"><i class="bi bi-<%=controller_icon['app_documentos']%>"></i></h6>
+<small>
+<% unless pendientes.empty? %>
+	<% pendientes.each do |pendiente| %>
+		<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/crea_documento_controlado?indice=#{pendiente}", title: 'Crea documento vacío', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+			<i class="bi bi-arrow-left"></i>
+			<%= pendiente %>
+		<% end %> 
+		</br>
+	<% end %>
+<% end %> 
+<%= link_to "/app_documentos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
+	<i class="bi bi-plus-circle"></i> 
+	documento
+<% end %>
+</small>

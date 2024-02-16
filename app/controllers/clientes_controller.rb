@@ -23,10 +23,10 @@ class ClientesController < ApplicationController
   # GET /clientes/1 or /clientes/1.json
   def show
 
-    set_tab( :menu, ['Seguimiento', 'Causas', 'Asesorias', 'Facturas', 'Tarifas'] )
+    set_tab( :menu, ['Agenda', 'Documentos y enlaces', 'Causas', 'Asesorias', 'Facturas', 'Tarifas'] )
 
 #    @coleccion = {}
-    if @options[:menu] == 'Seguimiento'
+    if @options[:menu] == 'Agenda'
 
       @hoy = Time.zone.today
 
@@ -34,8 +34,10 @@ class ClientesController < ApplicationController
 
       @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)
 
+    elsif @options[:menu] == 'Documentos y enlaces'
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
 
       @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
       @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}

@@ -18,22 +18,15 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-    set_tab( :menu, ['Seguimiento', 'Hechos', 'Tarifa & Pagos', 'Datos & Cuantía', 'Registro', 'Reportes'] )
+    set_tab( :menu, ['Agenda', 'Hechos', 'Tarifa & Pagos', 'Datos & Cuantía', 'Documentos y enlaces', 'Registro', 'Reportes'] )
 
-    if @options[:menu] == 'Seguimiento'
+    if @options[:menu] == 'Agenda'
 
       @hoy = Time.zone.today
 
       set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
 
-      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-
       @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)
-
-      @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
-      @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
 
       actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
@@ -66,16 +59,13 @@ class CausasController < ApplicationController
       # PRUEBA, aún no se usan
       set_formulas(@objeto)
       @calc_valores = @objeto.set_valores
-    elsif @options[:menu] == 'Antecedentes'
-      set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
-      set_tabla('antecedentes', @objeto.antecedentes.order(:orden), false)
     elsif @options[:menu] == 'Documentos y enlaces'
-      AppRepositorio.create(app_repositorio: @objeto.causa, owner_class: 'Causa', owner_id: @objeto.id) if @objeto.repositorio.blank?
-
-      set_tabla('app_directorios', @objeto.repositorio.directorios, false)
-      set_tabla('app_documentos', @objeto.repositorio.documentos, false)
-      set_tabla('app_archivos', @objeto.repositorio.archivos, false)
+      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
       set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
+
+      @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
+      @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
     elsif @options[:menu] == 'Registro'
       set_tabla('registros', @objeto.registros, false)
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
@@ -189,7 +179,7 @@ class CausasController < ApplicationController
       AppDocumento.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_documento: control.nombre, existencia: control.control, documento_control: true)
     end
 
-    redirect_to @objeto
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Documentos+y+enlaces"
   end
 
   def crea_archivo_controlado

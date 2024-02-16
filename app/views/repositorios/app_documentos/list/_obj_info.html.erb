@@ -15,7 +15,7 @@
 		<% end %>
 
 		<!-- Despliege de Archivos del documento -->
-		<% if objeto.d_version.present? %>
+		<% unless objeto.archivos.empty? %>
 
 			<%= render layout: '0p/collapse/link', locals: {label: 'Archivos', objeto: objeto, tooltip: 'Archivos'} do %>
 				<i class="bi bi-box-arrow-down"></i>
@@ -33,9 +33,9 @@
 		<% end %>
 	</small>
 
-	<% if objeto.d_version.present? %>
+	<% unless objeto.archivos.empty? %>
 		</br>
 		<%= render layout: '0p/collapse/display', locals: {label: 'Archivos', objeto: objeto} do %>
-			<%= render partial: 'repositorios/app_documentos/list/display_archivos', locals: {objeto: objeto} %>
+			<%= render partial: 'repositorios/app_documentos/partials/list', locals: {coleccion: objeto.archivos.order(created_at: :desc)} %>
 		<% end %>
 	<% end %>

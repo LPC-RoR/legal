@@ -1,10 +1,5 @@
 class AppDocumento < ApplicationRecord
 
-	TABLA_FIELDS = [
-		's#app_documento',
-		'f#d_version'
-	]
-
 #	belongs_to :app_repo, optional: true
 #	belongs_to :app_directorio, optional: true
 

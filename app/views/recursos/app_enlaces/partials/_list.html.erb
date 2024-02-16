@@ -1,0 +1,7 @@
+<% unless coleccion.empty? %>
+	<div class="row">
+		<% coleccion.each do |enlace| %>
+			<%= render partial: partial_name(enlace.class.name.tableize, 'list', "lobjeto") , locals: {objeto: enlace} %></br>
+		<% end %>
+	</div>
+<% end %>

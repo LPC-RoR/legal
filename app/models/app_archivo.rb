@@ -2,11 +2,6 @@ class AppArchivo < ApplicationRecord
 
 	require 'carrierwave/orm/activerecord'
 
-	TABLA_FIELDS = [
-		'f#archivo',
-		'created_at'
-	]
-
 	before_save { self.app_archivo.capitalize! }
 
 	mount_uploader :archivo, ArchivoUploader

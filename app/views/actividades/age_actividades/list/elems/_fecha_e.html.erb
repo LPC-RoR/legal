@@ -22,22 +22,28 @@
 					<%= objeto.abr_encargados %>
 				<% end %>
 			<% end %>
-			<i class="bi bi-dot"></i>
+			<% if controller_name == 'age_actividades' %>
+				<i class="bi bi-dot"></i>
+			<% end %>
 			<% if objeto.owner_id.blank? %>
 				<i class="bi bi-flower1"></i>
 			<% else %>
-				<%= render layout: '0p/collapse/link', locals: {label: 'Owner', objeto: objeto, tooltip: objeto.owner_class} do %>
-					<i class="bi bi-<%=controller_icon[objeto.owner_class.tableize]%>"></i>
+				<% if controller_name == 'age_actividades' %>
+					<%= render layout: '0p/collapse/link', locals: {label: 'Owner', objeto: objeto, tooltip: objeto.owner_class} do %>
+						<i class="bi bi-<%=controller_icon[objeto.owner_class.tableize]%>"></i>
+					<% end %>
 				<% end %>
 			<% end %>
 
-			<%= render layout: '0p/collapse/display', locals: {label: 'Owner', objeto: objeto} do %>
-				<% case objeto.owner_class %>
-				<% when 'Causa' %>
-					<b><%= link_to objeto.owner.rit, objeto.owner %><i class="bi bi-dot"></i><%= objeto.owner.causa %></b>
-				<% when 'Cliente' %>
-					<b><%= link_to s_rut(objeto.owner.rut), objeto.owner %><i class="bi bi-dot"></i><%= objeto.owner.razon_social %></b>
-				<% end %>				
+			<% if controller_name == 'age_actividades' %>
+				<%= render layout: '0p/collapse/display', locals: {label: 'Owner', objeto: objeto} do %>
+					<% case objeto.owner_class %>
+					<% when 'Causa' %>
+						<b><%= link_to objeto.owner.rit, objeto.owner %><i class="bi bi-dot"></i><%= objeto.owner.causa %></b>
+					<% when 'Cliente' %>
+						<b><%= link_to s_rut(objeto.owner.rut), objeto.owner %><i class="bi bi-dot"></i><%= objeto.owner.razon_social %></b>
+					<% end %>				
+				<% end %>
 			<% end %>
 		</small></small>
 	</div>

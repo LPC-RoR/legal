@@ -74,7 +74,7 @@ class Recursos::AppEnlacesController < ApplicationController
       elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.owner.class.name)
         @redireccion = @objeto.owner
       elsif ['Causa', 'Cliente'].include?(@objeto.objeto_destino.class.name)
-        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Seguimiento"
+        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos+y+enlaces"
       end
     end
 

@@ -9,21 +9,25 @@
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 
-<% if @options[:menu] == 'Seguimiento' %>
+<% if @options[:menu] == 'Agenda' %>
 
-	<%= render partial: 'causas/partials/tab_seguimiento', locals: {objeto: @objeto} %>
+	<%= render partial: 'causas/partials/tab_agenda', locals: {objeto: @objeto} %>
 
 <% elsif @options[:menu] == 'Hechos' %>
 
 	<%= render partial: 'causas/partials/tab_hechos', locals: {objeto: @objeto} %>
 
+<% elsif @options[:menu] == 'Tarifa & Pagos' %>
+
+	<%= render partial: 'causas/partials/tab_tarifa_pagos', locals: {objeto: @objeto} %>
+
 <% elsif @options[:menu] == 'Datos & Cuantía' %>
 
 	<%= render partial: 'causas/partials/tab_datos_cuantia', locals: {objeto: @objeto} %>
 
-<% elsif @options[:menu] == 'Tarifa & Pagos' %>
+<% elsif @options[:menu] == 'Documentos y enlaces' %>
 
-	<%= render partial: 'causas/partials/tab_tarifa_pagos', locals: {objeto: @objeto} %>
+	<%= render partial: 'causas/partials/tab_documentos_enlaces', locals: {objeto: @objeto} %>
 
 <% elsif @options[:menu] == 'Registro' %>
 

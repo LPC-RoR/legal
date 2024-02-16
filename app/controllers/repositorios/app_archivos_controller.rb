@@ -68,9 +68,9 @@ class Repositorios::AppArchivosController < ApplicationController
       if ['AppDirectorio', 'TarFactura'].include?(@objeto.owner.class.name)
         @redireccion = @objeto.owner
       elsif ['AppDocumento'].include?(@objeto.owner.class.name)
-        @redireccion = "/#{@objeto.owner.objeto_destino.class.name.tableize.downcase}/#{@objeto.owner.objeto_destino.id}?html_options[menu]=Seguimiento"
+        @redireccion = "/#{@objeto.owner.objeto_destino.class.name.tableize.downcase}/#{@objeto.owner.objeto_destino.id}?html_options[menu]=Documentos+y+enlaces"
       elsif ['Causa', 'Cliente'].include?(@objeto.objeto_destino.class.name)
-        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Seguimiento"
+        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos+y+enlaces"
       else
         @redireccion = app_repositorios_path
       end
@@ -78,6 +78,6 @@ class Repositorios::AppArchivosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def app_archivo_params
-      params.require(:app_archivo).permit(:app_archivo, :archivo, :owner_class, :owner_id)
+      params.require(:app_archivo).permit(:app_archivo, :archivo, :owner_class, :owner_id, :remove_archivo)
     end
 end
