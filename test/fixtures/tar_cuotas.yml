@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tar_pago_id: 1
+  orden: 1
+  tar_cuota: MyString
+  moneda: MyString
+  monto: 9.99
+  porcentaje: 9.99
+  ultima_cuota: false
+
+two:
+  tar_pago_id: 1
+  orden: 1
+  tar_cuota: MyString
+  moneda: MyString
+  monto: 9.99
+  porcentaje: 9.99
+  ultima_cuota: false

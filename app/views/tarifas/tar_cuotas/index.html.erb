@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tar Cuotas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tar pago</th>
+      <th>Orden</th>
+      <th>Tar cuota</th>
+      <th>Moneda</th>
+      <th>Monto</th>
+      <th>Porcentaje</th>
+      <th>Ultima cuota</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tar_cuotas.each do |tar_cuota| %>
+      <tr>
+        <td><%= tar_cuota.tar_pago_id %></td>
+        <td><%= tar_cuota.orden %></td>
+        <td><%= tar_cuota.tar_cuota %></td>
+        <td><%= tar_cuota.moneda %></td>
+        <td><%= tar_cuota.monto %></td>
+        <td><%= tar_cuota.porcentaje %></td>
+        <td><%= tar_cuota.ultima_cuota %></td>
+        <td><%= link_to 'Show', tar_cuota %></td>
+        <td><%= link_to 'Edit', edit_tar_cuota_path(tar_cuota) %></td>
+        <td><%= link_to 'Destroy', tar_cuota, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tar Cuota', new_tar_cuota_path %>

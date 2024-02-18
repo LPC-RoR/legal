@@ -1,9 +1,9 @@
 <small>
 <div class="row">
-	<div class="col-lg-1">
+	<div class="col-lg-2">
 		<%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %>
 	</div>
-	<div class="col-lg-10">
+	<div class="col-lg-8">
 		<% if objeto.formula.present? %>
 			<i class="bi bi-question-circle"></i> 
 			<%= objeto.formula %>
@@ -17,7 +17,7 @@
 			<i class="bi bi-dot"></i><i class="bi bi-chat-quote"></i> <i><%= objeto.comentario %></i>
 		<% end %>
 	</div>
-	<div class="col-lg-1" align='right'>
+	<div class="col-lg-2" align='right'>
 		<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small>
 	</div>	
 </div>

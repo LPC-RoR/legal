@@ -1,35 +1,34 @@
-class Tarifas::TarPagosController < ApplicationController
-  before_action :set_tar_pago, only: %i[ show edit update destroy arriba abajo ]
+class Tarifas::TarCuotasController < ApplicationController
+  before_action :set_tar_cuota, only: %i[ show edit update destroy arriba abajo]
   after_action :reordenar, only: :destroy
 
-  # GET /tar_pagos or /tar_pagos.json
+  # GET /tar_cuotas or /tar_cuotas.json
   def index
+    @coleccion = TarCuota.all
   end
 
-  # GET /tar_pagos/1 or /tar_pagos/1.json
+  # GET /tar_cuotas/1 or /tar_cuotas/1.json
   def show
-    set_tabla('tar_comentarios', @objeto.tar_comentarios.order(:orden), false)
-    set_tabla('tar_cuotas', @objeto.tar_cuotas.order(:orden), false)
   end
 
-  # GET /tar_pagos/new
+  # GET /tar_cuotas/new
   def new
-    owner = TarTarifa.find(params[:oid])
-    @objeto = TarPago.new(tar_tarifa_id: params[:oid], estado: 'ingreso', orden: owner.tar_pagos.count + 1)
+    owner = TarPago.find(params[:tar_pago_id])
+    @objeto = TarCuota.new(tar_pago_id: params[:tar_pago_id], orden: owner.tar_cuotas.count + 1)
   end
 
-  # GET /tar_pagos/1/edit
+  # GET /tar_cuotas/1/edit
   def edit
   end
 
-  # POST /tar_pagos or /tar_pagos.json
+  # POST /tar_cuotas or /tar_cuotas.json
   def create
-    @objeto = TarPago.new(tar_pago_params)
+    @objeto = TarCuota.new(tar_cuota_params)
 
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Pago fue exitósamente creado." }
+        format.html { redirect_to @redireccion, notice: "Cuota del pago ha sido exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,12 +37,12 @@ class Tarifas::TarPagosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tar_pagos/1 or /tar_pagos/1.json
+  # PATCH/PUT /tar_cuotas/1 or /tar_cuotas/1.json
   def update
     respond_to do |format|
-      if @objeto.update(tar_pago_params)
+      if @objeto.update(tar_cuota_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Pago fue exitósamente actualizado." }
+        format.html { redirect_to @redireccion, notice: "Cuota del pago ha sido exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,37 +73,37 @@ class Tarifas::TarPagosController < ApplicationController
     redirect_to @objeto.redireccion
   end
 
-  def reordenar
-    @objeto.list.each_with_index do |val, index|
-      unless val.orden == index + 1
-        val.orden = index + 1
-        val.save
-      end
-    end
-  end
-
-  # DELETE /tar_pagos/1 or /tar_pagos/1.json
+  # DELETE /tar_cuotas/1 or /tar_cuotas/1.json
   def destroy
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Pago fue exitósamente eliminado." }
+      format.html { redirect_to @redireccion, notice: "Cuota del pago ha sido exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
 
   private
+    def reordenar
+      @objeto.list.each_with_index do |val, index|
+        unless val.orden == index + 1
+          val.orden = index + 1
+          val.save
+        end
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_tar_pago
-      @objeto = TarPago.find(params[:id])
+    def set_tar_cuota
+      @objeto = TarCuota.find(params[:id])
     end
 
     def set_redireccion
-      @redireccion = @objeto.tar_tarifa
+      @redireccion = @objeto.tar_pago
     end
 
     # Only allow a list of trusted parameters through.
-    def tar_pago_params
-      params.require(:tar_pago).permit(:tar_tarifa_id, :tar_pago, :estado, :moneda, :valor, :orden, :codigo_formula)
+    def tar_cuota_params
+      params.require(:tar_cuota).permit(:tar_pago_id, :orden, :tar_cuota, :moneda, :monto, :porcentaje, :ultima_cuota)
     end
 end

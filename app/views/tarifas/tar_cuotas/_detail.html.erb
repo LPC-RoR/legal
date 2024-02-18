@@ -1,0 +1,23 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Cuota', v: true } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tar_cuota } %>
+
+<hr>
+
+<div class="row">
+	<div class="col-lg-4 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Moneda', v: true } %>
+		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :moneda, sel_list: ['Pesos', 'UF'], label: 'Moneda' } %>
+	</div>
+	<div class="col-lg-4 col-xs-12">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Monto', v: false } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :monto } %>
+	</div>
+	<div class="col-lg-4">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Porcentaje', v: false } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :porcentaje } %>
+	</div>
+</div>
+
+<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :ultima_cuota, label: 'Última cuota' } %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tar_pago_id} %>

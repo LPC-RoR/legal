@@ -258,6 +258,7 @@ Rails.application.routes.draw do
     end
     resources :tar_pagos do
       resources :tar_comentarios
+      resources :tar_cuotas
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
@@ -305,6 +306,7 @@ Rails.application.routes.draw do
     resources :tar_aprobaciones do
       match :facturar, via: :get, on: :member
     end
+    resources :tar_cuotas
 
     resources :tar_variables
     resources :tar_bases

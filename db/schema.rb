@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_16_223339) do
+ActiveRecord::Schema.define(version: 2024_02_18_163405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1148,6 +1148,20 @@ ActiveRecord::Schema.define(version: 2024_02_16_223339) do
     t.index ["fecha"], name: "index_tar_convenios_on_fecha"
     t.index ["tar_factura_id"], name: "index_tar_convenios_on_tar_factura_id"
     t.index ["tar_facturacion_id"], name: "index_tar_convenios_on_tar_facturacion_id"
+  end
+
+  create_table "tar_cuotas", force: :cascade do |t|
+    t.integer "tar_pago_id"
+    t.integer "orden"
+    t.string "tar_cuota"
+    t.string "moneda"
+    t.decimal "monto"
+    t.decimal "porcentaje"
+    t.boolean "ultima_cuota"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_tar_cuotas_on_orden"
+    t.index ["tar_pago_id"], name: "index_tar_cuotas_on_tar_pago_id"
   end
 
   create_table "tar_detalle_cuantias", force: :cascade do |t|

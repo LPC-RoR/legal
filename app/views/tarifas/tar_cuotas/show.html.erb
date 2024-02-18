@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tar pago:</strong>
+  <%= @tar_cuota.tar_pago_id %>
+</p>
+
+<p>
+  <strong>Orden:</strong>
+  <%= @tar_cuota.orden %>
+</p>
+
+<p>
+  <strong>Tar cuota:</strong>
+  <%= @tar_cuota.tar_cuota %>
+</p>
+
+<p>
+  <strong>Moneda:</strong>
+  <%= @tar_cuota.moneda %>
+</p>
+
+<p>
+  <strong>Monto:</strong>
+  <%= @tar_cuota.monto %>
+</p>
+
+<p>
+  <strong>Porcentaje:</strong>
+  <%= @tar_cuota.porcentaje %>
+</p>
+
+<p>
+  <strong>Ultima cuota:</strong>
+  <%= @tar_cuota.ultima_cuota %>
+</p>
+
+<%= link_to 'Edit', edit_tar_cuota_path(@tar_cuota) %> |
+<%= link_to 'Back', tar_cuotas_path %>
