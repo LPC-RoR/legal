@@ -11,7 +11,7 @@ module Tablas
 			['Agenda', 'agenda', 2, true],
 			['Causas & asesorías', nil, 1, true],
 			['Tipos', 'tipos_causas_asesorias', 2, true],
-			['Tablas secundarias', 'tablas_secundarias', 2, true],
+			['Cuantías & Tribunales', 'cuantias_tribunales', 2, true],
 			['Tarifas generales', 'tarifas_generales', 2, true],
 			['Modelo de Negocios', nil, 1, true],
 			['Modelo', 'modelo', 2, true],

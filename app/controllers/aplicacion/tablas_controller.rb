@@ -30,7 +30,7 @@ class Aplicacion::TablasController < ApplicationController
     when 'Tipos' # Tipos
       set_tabla('tipo_causas', TipoCausa.all.order(:tipo_causa), false)
       set_tabla('tipo_asesorias', TipoAsesoria.all.order(:tipo_asesoria), false)
-    when 'Tablas secundarias' #Tablas secundarias
+    when 'Cuantías & Tribunales' #Tablas secundarias
       set_tabla('tar_detalle_cuantias', TarDetalleCuantia.all.order(:tar_detalle_cuantia), false)
       set_tabla('tribunal_cortes', TribunalCorte.all.order(:tribunal_corte), false)
     when 'Modelo'

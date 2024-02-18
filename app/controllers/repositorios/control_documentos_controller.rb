@@ -68,6 +68,8 @@ class Repositorios::ControlDocumentosController < ApplicationController
 
     def set_redireccion
       case @objeto.owner.class.name
+      when 'TarDetalleCuantia'
+        @redireccion = "/tablas?tb=#{tb_index('cuantias_tribunales')}"
       when 'TipoCausa'
         @redireccion = "/tablas?tb=#{tb_index('tipos_causas_asesorias')}"
       when 'StModelo'

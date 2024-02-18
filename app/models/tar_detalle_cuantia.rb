@@ -5,4 +5,8 @@ class TarDetalleCuantia < ApplicationRecord
 
     validates_presence_of :tar_detalle_cuantia
 
+    def control_documentos
+    	ControlDocumento.where(owner_class: self.class.name, owner_id: self.id)
+    end
+
 end

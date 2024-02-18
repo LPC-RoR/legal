@@ -66,7 +66,7 @@ class TribunalCortesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=#{tb_index('tablas_secundarias')}"
+      @redireccion = "/tablas?tb=#{tb_index('cuantias_tribunales')}"
     end
 
     # Only allow a list of trusted parameters through.
