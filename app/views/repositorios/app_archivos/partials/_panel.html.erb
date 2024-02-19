@@ -1,14 +1,13 @@
 <h6 class="text-info" align="center"><i class="bi bi-<%=controller_icon['app_archivos']%>"></i></h6>
 <small>
-<% unless pendientes.empty? %>
-	<% pendientes.each do |pendiente| %>
-		<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/crea_archivo_controlado?indice=#{pendiente}", title: 'Crea archivo', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-			<i class="bi bi-arrow-left"></i> 
-			<%= pendiente %>
-		<% end %> 
-		</br>
-	<% end %>
-<% end %> 
+<% pendientes.each do |a_pendiente| %>
+	<!-- Prueba de cambio de base a Contro DOcumento -->
+	<%= link_to "/control_documentos/#{a_pendiente.id}/crea_documento_controlado?oclss=#{objeto.class.name}&oid=#{objeto.id}", title: 'Crea documento vacío', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class="bi bi-arrow-left"></i>
+		<%= a_pendiente.nombre %>
+	<% end %> 
+	</br>
+<% end %>
 
 <%= link_to "/app_archivos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}" do %>
 	<i class="bi bi-plus-circle"></i> 

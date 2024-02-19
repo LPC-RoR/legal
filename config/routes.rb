@@ -63,8 +63,6 @@ Rails.application.routes.draw do
     match :actualiza_pago, via: :post, on: :member
     match :actualiza_antecedente, via: :post, on: :member
     # ultima version
-    match :crea_documento_controlado, via: :get, on: :member
-    match :crea_archivo_controlado, via: :get, on: :member
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member
     match :input_tar_facturacion, via: :post, on: :member
@@ -73,10 +71,6 @@ Rails.application.routes.draw do
   resources :antecedentes
   resources :clientes do
     match :cambio_estado, via: :get, on: :member
-#    match :crea_factura, via: :get, on: :member
-#    match :aprueba_factura, via: :get, on: :member
-    match :crea_documento_controlado, via: :get, on: :member
-    match :crea_archivo_controlado, via: :get, on: :member
   end
 
 # SCOPES *********************************************************
@@ -161,7 +155,9 @@ Rails.application.routes.draw do
     resources :app_escaneos do
       match :crea_escaneo, via: :get, on: :collection
     end
-    resources :control_documentos
+    resources :control_documentos do
+      match :crea_documento_controlado, via: :get, on: :member
+    end
   end
 
   scope module: 'aplicacion' do

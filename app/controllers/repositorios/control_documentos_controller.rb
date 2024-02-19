@@ -1,5 +1,5 @@
 class Repositorios::ControlDocumentosController < ApplicationController
-  before_action :set_control_documento, only: %i[ show edit update destroy ]
+  before_action :set_control_documento, only: %i[ show edit update destroy crea_documento_controlado ]
 
   # GET /control_documentos or /control_documentos.json
   def index
@@ -27,7 +27,7 @@ class Repositorios::ControlDocumentosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Control de documento fue exitósamente creado." }
+        format.html { redirect_to @redireccion, notice: "Documento controlado fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,12 +36,30 @@ class Repositorios::ControlDocumentosController < ApplicationController
     end
   end
 
+  # Crea Documentos y Archivos controlados
+  def crea_documento_controlado
+    owner = params[:oclss].constantize.find(params[:oid])
+    unless owner.blank? 
+      if @objeto.tipo == 'Documento'
+        AppDocumento.create(owner_class: owner.class.name, owner_id: owner.id, app_documento: @objeto.nombre, existencia: @objeto.control, documento_control: true)
+      else
+        AppArchivo.create(owner_class: owner.class.name, owner_id: owner.id, app_archivo: @objeto.nombre, control: @objeto.control, documento_control: true)
+      end  
+    end
+
+    if params[:oclss] == 'Causa'
+      redirect_to "/causas/#{owner.id}?html_options[menu]=Documentos+y+enlaces"
+    elsif params[:oclss] == 'Cliente'
+      redirect_to "/clientes/#{owner.id}?html_options[menu]=Documentos+y+enlaces"
+    end
+  end
+
   # PATCH/PUT /control_documentos/1 or /control_documentos/1.json
   def update
     respond_to do |format|
       if @objeto.update(control_documento_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Control de documento fue exitósamente actualizado." }
+        format.html { redirect_to @redireccion, notice: "Documento controlado fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +73,7 @@ class Repositorios::ControlDocumentosController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Control de documento fue exitósamente eliminado." }
+      format.html { redirect_to @redireccion, notice: "Documento controlado fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end

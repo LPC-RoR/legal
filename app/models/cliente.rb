@@ -30,9 +30,25 @@ class Cliente < ApplicationRecord
 		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	# Archivos y control de archivos
+
+	def nombres_usados
+		archivos_names = self.archivos.map {|archivo| archivo.app_archivo}.union(docs_names = self.documentos.map {|doc| doc.app_documento})
+	end
+
 	def archivos
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
 	end
+
+	def archivos_controlados
+		self.st_modelo.control_documentos.where(tipo: 'Archivo').order(:nombre)
+	end
+
+	def archivos_pendientes
+		ids = self.archivos_controlados.map {|control| control.id unless self.nombres_usados.include?(control.nombre) }.compact
+		ControlDocumento.where(id: ids)
+	end
+	# ------------------------------------------------------------
 
 	def exclude_files
 		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
@@ -41,6 +57,16 @@ class Cliente < ApplicationRecord
 	def documentos
 		AppDocumento.where(owner_class: self.class.name, owner_id: self.id)
 	end
+
+	def documentos_controlados
+		self.st_modelo.control_documentos.where(tipo: 'Documento').order(:nombre)
+	end
+
+	def documentos_pendientes
+		ids = self.documentos_controlados.map {|doc| doc.id unless self.nombres_usados.include?(doc.nombre) }.compact
+		ControlDocumento.where(id: ids)
+	end
+	# ----------------------------------------------------------
 
 	def exclude_docs
 		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Documento').order(:nombre).map {|cd| cd.nombre}

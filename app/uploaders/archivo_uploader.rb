@@ -44,4 +44,7 @@ class ArchivoUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+  def filename
+    "#{model.app_archivo}.#{file.extension}" # If you upload 'file.jpg', you'll get 'image.jpg'
+  end
 end

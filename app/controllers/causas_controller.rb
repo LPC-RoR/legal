@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente crea_documento_controlado crea_archivo_controlado agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion]
 
   include Tarifas
 
@@ -64,8 +64,8 @@ class CausasController < ApplicationController
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
       set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
 
-      @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
-      @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
+      @d_pendientes = @objeto.documentos_pendientes
+      @a_pendientes = @objeto.archivos_pendientes
     elsif @options[:menu] == 'Registro'
       set_tabla('registros', @objeto.registros, false)
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
@@ -171,24 +171,6 @@ class CausasController < ApplicationController
     end
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=Antecedentes"
-  end
-
-  def crea_documento_controlado
-    control = @objeto.tipo_causa.control_documentos.find_by(nombre: params[:indice])
-    unless control.blank? 
-      AppDocumento.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_documento: control.nombre, existencia: control.control, documento_control: true)
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Documentos+y+enlaces"
-  end
-
-  def crea_archivo_controlado
-    control = @objeto.tipo_causa.control_documentos.find_by(nombre: params[:indice])
-    unless control.blank? 
-      AppArchivo.create(owner_class: @objeto.class.name, owner_id: @objeto.id, app_archivo: control.nombre, control: control.control, documento_control: true)
-    end
-
-    redirect_to @objeto
   end
 
   def agrega_valor

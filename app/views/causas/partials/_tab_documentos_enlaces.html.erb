@@ -15,8 +15,8 @@
 			<h6 class="text-info" align="center"><i class="bi bi-plus-circle"></i></h6>
 			<hr>
 
-			<%= render partial: 'repositorios/app_documentos/partials/panel', locals: {objeto: objeto, pendientes: @docs_pendientes} %>
-			<%= render partial: 'repositorios/app_archivos/partials/panel', locals: {objeto: objeto, pendientes: @archivos_pendientes} %>
+			<%= render partial: 'repositorios/app_documentos/partials/panel', locals: {objeto: objeto, pendientes: @d_pendientes} %>
+			<%= render partial: 'repositorios/app_archivos/partials/panel', locals: {objeto: objeto, pendientes: @a_pendientes} %>
 			<%= render partial: 'recursos/app_enlaces/partials/panel', locals: {objeto: objeto} %>
 
 		</div>

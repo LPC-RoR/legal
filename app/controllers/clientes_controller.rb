@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura crea_documento_controlado crea_archivo_controlado ]
+  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura ]
   after_action :rut_puro, only: %i[ create update ]
 
 #  include Bandejas
@@ -39,8 +39,8 @@ class ClientesController < ApplicationController
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
       set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
 
-      @docs_pendientes =  @objeto.exclude_docs - @objeto.documentos.map {|doc| doc.app_documento}
-      @archivos_pendientes =  @objeto.exclude_files - @objeto.archivos.map {|archivo| archivo.app_archivo}
+      @d_pendientes = @objeto.documentos_pendientes
+      @a_pendientes = @objeto.archivos_pendientes
     elsif @options[:menu] == 'Causas'
       set_tab( :monitor,  ['Proceso', 'Terminadas'] )
       causas_cliente = @objeto.causas
@@ -163,30 +163,6 @@ class ClientesController < ApplicationController
     end
 
     redirect_to factura
-  end
-
-  def crea_documento_controlado
-    st_modelo = StModelo.find_by(st_modelo: 'Cliente')
-    unless st_modelo.blank?
-      control = st_modelo.control_documentos.find_by(nombre: params[:indice])
-      unless control.blank? 
-        AppDocumento.create(owner_class: 'Cliente', owner_id: @objeto.id, app_documento: control.nombre, existencia: control.control, documento_control: true)
-      end
-    end
-
-    redirect_to @objeto
-  end
-
-  def crea_archivo_controlado
-    st_modelo = StModelo.find_by(st_modelo: 'Cliente')
-    unless st_modelo.blank?
-      control = st_modelo.control_documentos.find_by(nombre: params[:indice])
-      unless control.blank? 
-        AppArchivo.create(owner_class: 'Cliente', owner_id: @objeto.id, app_archivo: control.nombre, control: control.control, documento_control: true)
-      end
-    end
-
-    redirect_to @objeto
   end
 
   # DELETE /clientes/1 or /clientes/1.json
