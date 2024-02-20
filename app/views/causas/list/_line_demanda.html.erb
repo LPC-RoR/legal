@@ -1,4 +1,4 @@
-<small>
+<small><small>
 <div class="row text-info">
 	<div class="col-10">
 		<b><%= link_to objeto.rit, objeto, title: 'Detalle Causa', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> 
@@ -21,7 +21,7 @@
 		<% end %>
 	</div>
 </div>
-</small>
+</small></small>
 
 <% unless objeto.facturaciones.empty? %>
 	<%= render layout: '0p/collapse/display', locals: {label: 'Facturaciones', objeto: objeto} do %>
