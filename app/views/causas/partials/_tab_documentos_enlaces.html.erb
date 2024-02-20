@@ -2,6 +2,7 @@
 	<div class="col-8">
 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_repos', title: 'Documentos, archivos y enlaces', link_new: nil} %>
 
+		<% unless @coleccion['app_documentos'].empty? and @coleccion['app_archivos'].empty? and @coleccion['app_enlaces'].empty? %>
 		<div class="shadow p-3 mb-3 bg-white rounded">
 
 			<%= render partial: 'repositorios/app_documentos/partials/list', locals: {coleccion: @coleccion['app_documentos']} %>
@@ -9,6 +10,7 @@
 			<%= render partial: 'recursos/app_enlaces/partials/list', locals: {coleccion: @coleccion['app_enlaces']} %>
 
 		</div>
+		<% end %>
 	</div>
 	<div class="col-4">
 		<div class="shadow p-3 mb-1 bg-white rounded">
