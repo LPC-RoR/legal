@@ -1,6 +1,8 @@
-<small><small>
-<b class='text-info'><%= objeto.causa %></b>
+<div style="line-height: 13px">
+<small><small class="text-info">
+<%= objeto.causa %>
 </small></small>
+</div>
 
 <% unless objeto.facturaciones.empty? %>
 	<%= render layout: '0p/collapse/display', locals: {label: 'Facturaciones', objeto: objeto} do %>
