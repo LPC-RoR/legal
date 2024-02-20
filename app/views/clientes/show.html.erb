@@ -1,16 +1,6 @@
 <%= render '0p/general/title_box' do %>
 	<div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
-		<h5 class="text-info">
-			<i class="bi bi-building"></i> 
-			Cliente : 
-			<%= @objeto.razon_social %>
-			<i class="bi bi-dot"></i>
-			<%= @objeto.d_rut %>
-			<i class="bi bi-dot"></i>
-			<%= link_to "/servicios/organizacion?oid=#{@objeto.id}", title: 'Organización', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-				<i class="bi bi-diagram-3"></i>
-			<% end %>
-		</h5>
+		<%= render partial: 'clientes/partials/titulo_show', locals: {objeto: @objeto} %>
 		<%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 	</div>
 <% end %>
