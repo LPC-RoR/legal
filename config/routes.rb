@@ -1,20 +1,31 @@
 Rails.application.routes.draw do
 
-  resources :valores
-  resources :causa_docs do
+  resources :causa_archivos do 
     match :arriba, via: :get, on: :member
     match :abajo, via: :get, on: :member
-    match :cambia_seleccion, via: :get, on: :member
+    match :eliminar, via: :get, on: :member
+    match :set_seleccionado, via: :get, on: :member
+  end 
+  resources :hecho_archivos do 
+    match :eliminar, via: :get, on: :member
+    match :set_establece, via: :get, on: :member
   end
-  resources :hecho_docs do
-    match :cambia_tag, via: :get, on: :member
-  end
+  resources :valores
+
+  # DEPRECATED
+#  resources :causa_docs do
+#    match :arriba, via: :get, on: :member
+#    match :abajo, via: :get, on: :member
+#    match :cambia_seleccion, via: :get, on: :member
+#  end
+#  resources :hecho_docs do
+#    match :cambia_tag, via: :get, on: :member
+#  end
   resources :hechos do
     match :arriba, via: :get, on: :member
     match :abajo, via: :get, on: :member
-    match :nuevo_documento, via: :post, on: :member
-    match :sel_documento, via: :get, on: :member
-    match :remueve_documento, via: :get, on: :member
+    match :nuevo_archivo, via: :post, on: :member
+    match :sel_archivo, via: :get, on: :member
   end
   resources :temas do
     match :arriba, via: :get, on: :member
@@ -62,6 +73,7 @@ Rails.application.routes.draw do
     match :procesa_registros, via: :get, on: :member
     match :actualiza_pago, via: :post, on: :member
     match :actualiza_antecedente, via: :post, on: :member
+    match :traer_archivos_cuantia, via: :get, on: :member
     # ultima version
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member
@@ -157,6 +169,8 @@ Rails.application.routes.draw do
     end
     resources :control_documentos do
       match :crea_documento_controlado, via: :get, on: :member
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
     end
   end
 

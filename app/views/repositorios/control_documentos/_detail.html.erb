@@ -1,5 +1,9 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
-<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: ControlDocumento::TIPOS, label: 'Tipo' } %>
+<% if @objeto.tipo.blank? %>
+	<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
+	<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: ControlDocumento::TIPOS, label: 'Tipo' } %>
+<% else %>
+	<div class='text-info'>Tipo : <%= @objeto.tipo %></div>
+<% end %>
 
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Control', v: true } %>
 <%= render partial: '0p/form_fields/select', locals: { form: form, token: :control, sel_list: ControlDocumento::CONTROLES, label: 'Control' } %>
@@ -10,6 +14,9 @@
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %>
 
+<% unless @objeto.tipo.blank? %>
+	<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tipo } %>
+<% end %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>

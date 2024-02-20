@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Hecho:</strong>
+  <%= @hecho_archivo.hecho_id %>
+</p>
+
+<p>
+  <strong>App archivo:</strong>
+  <%= @hecho_archivo.app_archivo_id %>
+</p>
+
+<p>
+  <strong>Establece:</strong>
+  <%= @hecho_archivo.establece %>
+</p>
+
+<p>
+  <strong>Orden:</strong>
+  <%= @hecho_archivo.orden %>
+</p>
+
+<%= link_to 'Edit', edit_hecho_archivo_path(@hecho_archivo) %> |
+<%= link_to 'Back', hecho_archivos_path %>

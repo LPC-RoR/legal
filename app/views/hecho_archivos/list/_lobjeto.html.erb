@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="col-10">
+		<small><i class="bi bi-circle-fill text-<%=objeto.text_color%>"></i></small> 
+		<%= render partial: 'repositorios/app_archivos/list/obj_info', locals: {objeto: objeto.app_archivo} %>
+	</div>
+	<div class="col-2" align='right'>
+		<%= render partial: "hecho_archivos/list/set_establece", locals: {objeto: objeto} %>
+		<i class="bi bi-dot"></i>
+		<%= render partial: 'hecho_archivos/list/obj_e', locals: {objeto: objeto} %>
+	</div>
+</div>

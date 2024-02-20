@@ -25,7 +25,12 @@ class ControlDocumento < ApplicationRecord
 	end
 
 	def redireccion
-		"/tablas?tb=10"
+		case self.owner_class
+		when 'TarDetalleCuantia'
+			"/tablas?tb=7"
+		when 'StModelo'
+			"/st_modelos"
+		end
 	end
 
 	# -----------------------------------------------

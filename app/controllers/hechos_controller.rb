@@ -1,5 +1,5 @@
 class HechosController < ApplicationController
-  before_action :set_hecho, only: %i[ show edit update destroy nuevo_documento sel_documento remueve_documento arriba abajo ]
+  before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo remueve_documento arriba abajo ]
   after_action :reordenar, only: :destroy
 
   # GET /hechos or /hechos.json
@@ -74,40 +74,23 @@ class HechosController < ApplicationController
   end
 
   # via: :post, on: :member Se usa desde un collapse en despliegue de Hechos
-  def nuevo_documento
-    unless params[:add_documento][:nombre].blank?
-      documento = AppDocumento.create(app_documento: params[:add_documento][:nombre])
+  def nuevo_archivo
+    unless params[:nuevo_archivo][:nombre].blank?
+      archivo = AppArchivo.create(app_archivo: params[:nuevo_archivo][:nombre])
       causa = @objeto.tema.causa
 
-      causa.causa_docs.create(orden: causa.causa_docs.count + 1, app_documento_id: documento.id)
-      @objeto.app_documentos << documento
+      causa.causa_archivos.create(orden: causa.causa_archivos.count + 1, app_archivo_id: archivo.id)
+      @objeto.app_archivos << archivo
     end
 
     redirect_to "/causas/#{causa.id}?html_options[menu]=Hechos"
   end
 
-  def sel_documento
-    unless params[:did].blank?
-      documento = AppDocumento.find(params[:did])
+  def sel_archivo
+    unless params[:aid].blank?
+      archivo = AppArchivo.find(params[:aid])
       causa = @objeto.tema.causa
-      @objeto.app_documentos << documento unless @objeto.app_documentos.ids.include?(documento.id)
-    end
-
-    redirect_to "/causas/#{causa.id}?html_options[menu]=Hechos"
-  end
-
-  # via: :get, on: :member Remueve un documeto de un hecho, y verifica si el documento es requerido en otro hecho antes de borrarlo
-  def remueve_documento
-    unless params[:did].blank?
-      documento = AppDocumento.find(params[:did])
-      causa = @objeto.tema.causa
-
-      @objeto.app_documentos.delete(documento)
-
-      if documento.hechos.count == 0
-        causa.app_documentos.delete(documento)
-        documento.delete
-      end
+      @objeto.app_archivos << archivo unless @objeto.app_archivos.ids.include?(archivo.id)
     end
 
     redirect_to "/causas/#{causa.id}?html_options[menu]=Hechos"

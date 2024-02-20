@@ -1,14 +1,16 @@
 class AppArchivo < ApplicationRecord
 
+	has_many :causa_archivos
+	has_many :causas, through: :causa_archivos
+
+	has_many :hecho_archivos
+	has_many :hechos, through: :hecho_archivos
+
 	require 'carrierwave/orm/activerecord'
 
-	before_save { self.app_archivo.capitalize! }
+#	before_save { self.app_archivo.capitalize! }
 
 	mount_uploader :archivo, ArchivoUploader
-
-#	belongs_to :linea, optional: true
-#	belongs_to :directorio, optional: true
-#	belongs_to :documento, optional: true
 
 	def owner
 		self.owner_class.constantize.find(self.owner_id)

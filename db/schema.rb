@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_18_163405) do
+ActiveRecord::Schema.define(version: 2024_02_20_115425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -474,6 +474,19 @@ ActiveRecord::Schema.define(version: 2024_02_18_163405) do
     t.index ["cal_semana"], name: "index_cal_semanas_on_cal_semana"
   end
 
+  create_table "causa_archivos", force: :cascade do |t|
+    t.integer "causa_id"
+    t.integer "app_archivo_id"
+    t.integer "orden"
+    t.boolean "seleccionado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_archivo_id"], name: "index_causa_archivos_on_app_archivo_id"
+    t.index ["causa_id"], name: "index_causa_archivos_on_causa_id"
+    t.index ["orden"], name: "index_causa_archivos_on_orden"
+    t.index ["seleccionado"], name: "index_causa_archivos_on_seleccionado"
+  end
+
   create_table "causa_docs", force: :cascade do |t|
     t.integer "causa_id"
     t.integer "app_documento_id"
@@ -658,6 +671,19 @@ ActiveRecord::Schema.define(version: 2024_02_18_163405) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tema"], name: "index_h_temas_on_tema"
+  end
+
+  create_table "hecho_archivos", force: :cascade do |t|
+    t.integer "hecho_id"
+    t.integer "app_archivo_id"
+    t.string "establece"
+    t.integer "orden"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_archivo_id"], name: "index_hecho_archivos_on_app_archivo_id"
+    t.index ["establece"], name: "index_hecho_archivos_on_establece"
+    t.index ["hecho_id"], name: "index_hecho_archivos_on_hecho_id"
+    t.index ["orden"], name: "index_hecho_archivos_on_orden"
   end
 
   create_table "hecho_docs", force: :cascade do |t|

@@ -1,5 +1,6 @@
 class Repositorios::ControlDocumentosController < ApplicationController
-  before_action :set_control_documento, only: %i[ show edit update destroy crea_documento_controlado ]
+  before_action :set_control_documento, only: %i[ show edit update destroy crea_documento_controlado arriba abajo ]
+  after_action :reordenar, only: :destroy
 
   # GET /control_documentos or /control_documentos.json
   def index
@@ -13,7 +14,8 @@ class Repositorios::ControlDocumentosController < ApplicationController
   # GET /control_documentos/new
   def new
     owner = params[:clss].constantize.find(params[:oid])
-    @objeto = ControlDocumento.new(owner_class: params[:clss], owner_id: params[:oid], orden: owner.control_documentos.count + 1)
+    tipo = params[:clss] == 'TarDetalleCuantia' ? 'Archivo' : nil
+    @objeto = ControlDocumento.new(owner_class: params[:clss], owner_id: params[:oid], tipo: tipo, orden: owner.control_documentos.count + 1)
   end
 
   # GET /control_documentos/1/edit
@@ -68,6 +70,28 @@ class Repositorios::ControlDocumentosController < ApplicationController
     end
   end
 
+  def arriba
+    owner = @objeto.owner
+    anterior = @objeto.anterior
+    @objeto.orden -= 1
+    @objeto.save
+    anterior.orden += 1
+    anterior.save
+
+    redirect_to @objeto.redireccion
+  end
+
+  def abajo
+    owner = @objeto.owner
+    siguiente = @objeto.siguiente
+    @objeto.orden += 1
+    @objeto.save
+    siguiente.orden -= 1
+    siguiente.save
+
+    redirect_to @objeto.redireccion
+  end
+
   # DELETE /control_documentos/1 or /control_documentos/1.json
   def destroy
     set_redireccion
@@ -79,6 +103,16 @@ class Repositorios::ControlDocumentosController < ApplicationController
   end
 
   private
+
+    def reordenar
+      @objeto.list.each_with_index do |val, index|
+        unless val.orden == index + 1
+          val.orden = index + 1
+          val.save
+        end
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_control_documento
       @objeto = ControlDocumento.find(params[:id])

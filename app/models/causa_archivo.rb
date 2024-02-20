@@ -1,21 +1,19 @@
-class Hecho < ApplicationRecord
+class CausaArchivo < ApplicationRecord
+	belongs_to :causa
+	belongs_to :app_archivo
 
-	belongs_to :tema
-
-#	has_many :hecho_docs
-#	has_many :app_documentos, through: :hecho_docs
-
-	has_many :hecho_archivos
-	has_many :app_archivos, through: :hecho_archivos
+	def text_color
+		self.seleccionado == nil ? 'dark' : ( self.seleccionado == true ? 'info' : 'danger' )
+	end
 
 	# ------------------------------------ ORDER LIST
 
 	def owner
-		self.tema
+		self.causa
 	end
 
 	def list
-		owner.hechos.order(:orden)
+		owner.causa_archivos.order(:orden)
 	end
 
 	def n_list
@@ -31,7 +29,7 @@ class Hecho < ApplicationRecord
 	end
 
 	def redireccion
-		"/causas/#{self.tema.causa.id}?html_options[menu]=Hechos"
+		"/causas/#{self.causa.id}?html_options[menu]=Hechos"
 	end
 
 	# -----------------------------------------------

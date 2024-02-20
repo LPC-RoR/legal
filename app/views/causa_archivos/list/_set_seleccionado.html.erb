@@ -1,0 +1,17 @@
+<small><small><small>
+<% unless objeto.seleccionado == nil %>
+	<%= link_to "/causa_archivos/#{objeto.id}/set_seleccionado?seleccionado=nil", title: 'sin', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class="bi bi-circle-fill text-dark"></i>
+	<% end %>
+<% end %>
+<% unless objeto.seleccionado %>
+	<%= link_to "/causa_archivos/#{objeto.id}/set_seleccionado?seleccionado=true", title: 'selecciona', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class="bi bi-circle-fill text-success"></i>
+	<% end %>
+<% end %>
+<% if objeto.seleccionado == nil or objeto.seleccionado == true %>
+	<%= link_to "/causa_archivos/#{objeto.id}/set_seleccionado?seleccionado=false", title: 'excluye', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class="bi bi-circle-fill text-danger"></i>
+	<% end %>
+<% end %>
+</small></small></small>

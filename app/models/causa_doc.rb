@@ -1,4 +1,7 @@
 class CausaDoc < ApplicationRecord
+	# DEPRECATED
+
+
 	belongs_to :causa
 	belongs_to :app_documento
 

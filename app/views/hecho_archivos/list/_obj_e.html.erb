@@ -1,0 +1,7 @@
+<small><small>
+	<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto.app_archivo} %>
+	<!-- Cómo se trata de elimnar sólo  la relación con un hecho, no hace falta verificar restricciones al borrado -->
+	<%= link_to "/hecho_archivos/#{objeto.id}/eliminar" do %>
+		<i class="bi bi-trash"></i>
+	<% end %>
+</small></small>

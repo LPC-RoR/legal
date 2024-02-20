@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hecho_id: 1
+  app_archivo_id: 1
+  establece: false
+  orden: 1
+
+two:
+  hecho_id: 1
+  app_archivo_id: 1
+  establece: false
+  orden: 1

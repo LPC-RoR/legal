@@ -14,8 +14,11 @@ class Causa < ApplicationRecord
 	has_many :antecedentes
 	has_many :temas
 
-	has_many :causa_docs
-	has_many :app_documentos, through: :causa_docs
+#	has_many :causa_docs
+#	has_many :app_documentos, through: :causa_docs
+
+	has_many :causa_archivos
+	has_many :app_archivos, through: :causa_archivos
 
     validates_presence_of :causa, :rit
 

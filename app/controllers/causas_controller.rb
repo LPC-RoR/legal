@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia]
 
   include Tarifas
 
@@ -30,10 +30,14 @@ class CausasController < ApplicationController
 
       actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
+
     elsif @options[:menu] == 'Hechos'
+
       set_tabla('temas', @objeto.temas.order(:orden), true)
 
-      set_tabla('app_documentos', @objeto.app_documentos.order(:app_documento), false)
+      # set_tabla('app_documentos', @objeto.app_documentos.order(:app_documento), false)
+      set_tabla('app_archivos', @objeto.app_archivos.order(:app_archivo), false)
+
     elsif @options[:menu] == 'Datos & Cuantía'
       # no se usa esta tabla, quizá luego se use para evitar proceso en vista
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
@@ -114,6 +118,22 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def traer_archivos_cuantia
+    controlados = @objeto.app_archivos.map { |app_a| app_a.app_archivo }
+    @objeto.valores_cuantia.each do |valor_cuantia|
+      valor_cuantia.tar_detalle_cuantia.control_documentos.each do |control|
+        nombres_usados = @objeto.causa_archivos.map {|ca| ca.app_archivo.app_archivo}
+        unless controlados.include?(control.nombre)
+          controlados << control.nombre
+          app_archivo = AppArchivo.create(owner_class: nil, owner_id: nil, app_archivo: control.nombre, control: control.control, documento_control: true)
+          @objeto.causa_archivos.create(app_archivo_id: app_archivo.id, orden: @objeto.causa_archivos.count + 1)
+        end
+      end
+    end
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
   end
 
   # se utiliza para Clases que manejan estados porque se declaró el modelo

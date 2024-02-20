@@ -23,24 +23,27 @@
 
 			<div class="text-info" style="padding-left: 2em;">
 
-				<% objeto.hecho_docs.each do |hecho_doc| %>
-					<%= render partial: 'hecho_docs/list/lobjeto', locals: {objeto: hecho_doc} %>
+				<% objeto.hecho_archivos.each do |hecho_archivo| %>
+					<%= render partial: 'hecho_archivos/list/lobjeto', locals: {objeto: hecho_archivo} %>
 				<% end %>
 
 			</div>
 
-			<%= render layout: '0p/collapse/display', locals: {label: 'MasDocumento', objeto: objeto} do %>
-				<%= render partial: 'hechos/list/form_documento', locals: {objeto: objeto} %>
+			<%= render layout: '0p/collapse/display', locals: {label: 'NuevoArchivo', objeto: objeto} do %>
+				<%= render partial: 'hechos/list/form_archivo', locals: {objeto: objeto} %>
 			<% end %>
 
-			<%= render layout: '0p/collapse/display', locals: {label: 'SelDocumento', objeto: objeto} do %>
-			  	<% objeto.tema.causa.app_documentos.order(:app_documento).each do |doc| %>
+			<%= render layout: '0p/collapse/display', locals: {label: 'SelArchivo', objeto: objeto} do %>
+			  	<% objeto.tema.causa.app_archivos.order(:app_archivos).each do |archivo| %>
+			  		<% unless objeto.app_archivos.ids.include?(archivo.id) %>
 			  		<small>
 			  			<i class="bi bi-dot"></i> 
-			  			<%= link_to "/hechos/#{objeto.id}/sel_documento?did=#{doc.id}" do %>
-				  			<%= doc.app_documento %>
+			  			<%= link_to "/hechos/#{objeto.id}/sel_archivo?aid=#{archivo.id}" do %>
+				  			<%= archivo.app_archivo %>
 			  			<% end %>
-			  		</small></br>
+			  		</small>
+			  		<% end %>
+			  		</br>
 			  	<% end %>
 			<% end %>
 
@@ -48,10 +51,10 @@
 	</div>
 	<div class="col-3" align='right'>
 		<div style="padding-right: 2em;">
-			<%= render layout: '0p/collapse/link', locals: {label: 'MasDocumento', objeto: objeto, tooltip: 'Agrega' } do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoArchivo', objeto: objeto, tooltip: 'Agrega' } do %>
 				<i class="bi bi-plus-circle"></i> 
 			<% end %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'SelDocumento', objeto: objeto, tooltip: 'Selecciona' } do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: objeto, tooltip: 'Selecciona' } do %>
 				<i class="bi bi-list-task"></i> 
 			<% end %>
 
