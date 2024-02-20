@@ -172,6 +172,7 @@ module Tarifas
 	end
 
 	def set_detalle_cuantia(objeto)
+		
 		@valores_cuantia = {} if @valores_cuantia.blank?
         @valores_cuantia[objeto.id] = {}
 		cuantia = {}

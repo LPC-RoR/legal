@@ -35,9 +35,6 @@
 				<% end %>
 				<% if controller_name == 'causas' %>
 					<%= render partial: '0p/tabla/links_e', locals: {objeto: vc} %>
-					<%= link_to "/tar_valor_cuantias/#{vc.id}/switch_desactivado" do %>
-						<i class="bi bi-eye<%='-slash' unless @valores_cuantia[objeto.id][:activado]%>"></i>
-					<% end %>
 				<% end %>
 			</div>
 		</div>

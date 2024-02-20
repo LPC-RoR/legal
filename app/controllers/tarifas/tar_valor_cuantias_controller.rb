@@ -1,5 +1,5 @@
 class Tarifas::TarValorCuantiasController < ApplicationController
-  before_action :set_tar_valor_cuantia, only: %i[ show edit update destroy switch_desactivado ]
+  before_action :set_tar_valor_cuantia, only: %i[ show edit update destroy ]
 
   # GET /tar_valor_cuantias or /tar_valor_cuantias.json
   def index
@@ -48,14 +48,6 @@ class Tarifas::TarValorCuantiasController < ApplicationController
     end
   end
 
-  def switch_desactivado
-    @objeto.desactivado = (not @objeto.desactivado)
-    @objeto.save
-
-    set_redireccion
-    redirect_to @redireccion
-  end
-
   # DELETE /tar_valor_cuantias/1 or /tar_valor_cuantias/1.json
   def destroy
     @objeto.destroy
@@ -78,6 +70,6 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_valor_cuantia_params
-      params.require(:tar_valor_cuantia).permit(:owner_class, :owner_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda, :valor_tarifa, :nota)
+      params.require(:tar_valor_cuantia).permit(:owner_class, :owner_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda, :valor_tarifa, :nota, :desactivado)
     end
 end

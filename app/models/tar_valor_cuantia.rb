@@ -15,7 +15,7 @@ class TarValorCuantia < ApplicationRecord
 	end
 
 	def activado?
-		self.desactivado.blank? ? true : (self.desactivado == false)
+		self.desactivado.blank? ? true : false
 	end
 
 end
