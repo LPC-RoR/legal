@@ -1,0 +1,16 @@
+<small><small class="text-muted">
+<div class="row">
+	<div class="col-9">
+		<b><%= link_to objeto.d_rut, objeto, title: 'Detalle Cliente', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> </b>
+	</div>
+	<div class="col-3" align='right'>
+		<%= link_to "/servicios/organizacion?oid=#{objeto.id}", title: 'Organización', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+			<i class="bi bi-diagram-3"></i>
+		<% end %>
+		<i class="bi bi-dot"></i>
+		<% unless restriccion %>
+			<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+		<% end %>
+	</div>
+</div>
+</small></small>
