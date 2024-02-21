@@ -1,5 +1,6 @@
-<i class="bi bi-dot"></i>
 <small>
+<i class="bi bi-dot"></i>
+<%= render partial: 'tarifas/tar_facturaciones/list/aprobacion_factura', locals: {objeto: objeto} %>
 <%= objeto.owner.class.name unless objeto.owner_id.blank? %> : 
 <% case objeto.owner.class.name %>
 <% when 'Causa' %>

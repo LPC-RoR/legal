@@ -1,0 +1,10 @@
+<% unless objeto.tar_aprobacion.blank? or controller_name == 'tar_aprobaciones' %>
+	<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto.tar_aprobacion, tooltip: "Ver aprobacion #{objeto.tar_aprobacion.id}" } do %>
+		<i class="bi bi-check2-all"></i>
+	<% end %>
+<% end %>
+<% unless objeto.tar_factura.blank? or controller_name == 'tar_facturas' %>
+	<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto.tar_factura, tooltip: "Ver factura #{objeto.tar_factura.documento}" } do %>
+		<i class="bi bi-receipt"></i>
+	<% end %>
+<% end %>

@@ -1,14 +1,16 @@
 <% unless objeto.tar_facturaciones.empty? %>
-<small><small>
+<small><small><small>
 	<div class="row">
 		<% objeto.tar_facturaciones.each do |facturacion| %>
 			<div class="col-8">
-				<i class="bi bi-dot"></i><%= facturacion.glosa %>	
+				<i class="bi bi-dot"></i>
+				<%= render partial: 'tarifas/tar_facturaciones/list/aprobacion_factura', locals: {objeto: facturacion} %>
+				<%= facturacion.glosa %>	
 			</div>
 			<div class="col-4" align='right'>
 				<%= s_pesos(facturacion.monto_pesos) %>	
 			</div>
 		<% end %>
 	</div>
-</small></small>
+</small></small></small>
 <% end %>

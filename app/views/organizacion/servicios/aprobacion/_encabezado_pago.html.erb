@@ -33,7 +33,7 @@
 		</small>
 
 		<% unless @h_pagos[objeto.id][:pago].tar_aprobacion.blank? and @h_pagos[objeto.id][:pago].tar_factura.blank? %>
-			<%= render partial: 'tarifas/tar_facturaciones/list/aprobaciones_facturas', locals: {objeto: @h_pagos[objeto.id][:pago]} if controller_name == 'causas' %>
+			<small><%= render partial: 'tarifas/tar_facturaciones/list/aprobacion_factura', locals: {objeto: @h_pagos[objeto.id][:pago]} if controller_name == 'causas' %></small>
 		<% end %>
 		</small>
 	<% else %>

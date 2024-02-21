@@ -1,10 +1,13 @@
 <div class="row">
 	<div class="col-6">
-		<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.find_pago.blank? %>
+		<% case objeto.owner.class.name %>
+		<% when 'Causa' %>
 			<%= objeto.find_pago.tar_pago %> 
 			<% unless objeto.tar_cuota_id.blank? %>
 				( <%= objeto.tar_cuota.orden %> )
 			<% end %>
+		<% when 'Asesoria' %>
+			<%= "Asesoría #{objeto.owner.tipo_asesoria.tipo_asesoria}" %>
 		<% end %>
 	</div>
 	<div class="col-6" align="right">

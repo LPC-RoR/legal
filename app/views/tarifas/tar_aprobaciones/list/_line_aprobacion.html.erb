@@ -1,16 +1,21 @@
 <small>
 <div class="row">
 	<div class="col-8">
-		<%= link_to dma(objeto.fecha), objeto %>
+		<b class="text-info"><%= objeto.id %><i class="bi bi-dot"></i></b> <%= link_to dma(objeto.fecha), objeto %>
 		</br>
-		<small><b class="text-info"><%= objeto.cliente.razon_social %></b></small>
+		<small class="text-info"><%= objeto.cliente.razon_social %></small>
 	</div>
 	<div class="col-4" align='right'>
 		<small>
-		<%= link_to "/servicios/aprobacion?indice=#{objeto.id}" do %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/aprobacion?indice=#{objeto.id}", tooltip: 'Ver aprobacion'} do %>
 			<i class="bi bi-eye"></i>
 		<% end %>
-		<%= link_to 'facturar', "/tar_aprobaciones/#{objeto.id}/facturar" if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
+		<% if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_aprobaciones/#{objeto.id}/facturar", tooltip: 'Facturar'} do %>
+				<i class="bi bi-receipt-cutoff"></i>
+			<% end %>
+		<% end %>
+		<i class="bi bi-dot"></i>
 		<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
 		</small>
 	</div>
