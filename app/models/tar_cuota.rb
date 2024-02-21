@@ -19,7 +19,7 @@ class TarCuota < ApplicationRecord
 			if self.monto.present?
 				((monto - self.monto_pagado) >= self.monto) ? self.monto : 0
 			elsif self.porcentaje.present?
-				((monto - self.monto_pagado) >= (monto * self.porcentaje * .01)) ? (monto * self.porcentaje * .01) : 0
+				((monto - self.monto_pagado) >= ((monto * self.porcentaje) / 100)) ? ((monto * self.porcentaje) / 100) : 0
 			else
 				0
 			end
