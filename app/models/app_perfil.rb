@@ -20,7 +20,7 @@ class AppPerfil < ApplicationRecord
 	has_many :age_actividades, through: :age_act_perfiles
 
 	def nombre_perfil
-		self.email == dog_email ? dog_name : AppNomina.find_by(email: self.email).nombre
+		self.email == AppVersion::DOG_EMAIL ? AppVersion::DOG_NAME : AppNomina.find_by(email: self.email).nombre
 	end
 
 	def app_enlaces
