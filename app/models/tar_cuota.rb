@@ -13,7 +13,7 @@ class TarCuota < ApplicationRecord
 	end
 
 	def monto_cuota(owner, monto)
-		if self.ultima
+		if self.ultima_cuota
 			monto - self.monto_pagado
 		else
 			if self.monto.present?
