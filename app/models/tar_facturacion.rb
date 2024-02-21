@@ -9,6 +9,7 @@ class TarFacturacion < ApplicationRecord
 	belongs_to :tar_factura, optional: true
 	belongs_to :tar_aprobacion, optional: true
 	belongs_to :tar_pago, optional: true
+	belongs_to :tar_cuota, optional: true
 
 	# MAP del pago
 

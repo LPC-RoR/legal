@@ -104,12 +104,6 @@
 
 	<% if owner.class.name == 'Causa' and controller_name == 'causas' %>
 		<%= render partial: 'organizacion/servicios/aprobacion/btn_pagos_causa', locals: {owner: owner, objeto: objeto} %>
-		<% if owner.pago_generado(objeto).blank? %>
-			<div style="line-height: 13px">
-			</br>
-			<p><%= link_to 'Generar pago', "/tar_facturaciones/crea_facturacion?owner_class=#{owner.class.name}&owner_id=#{owner.id}&pid=#{objeto.id}", class: 'btn btn-primary btn-sm' %></p>
-			</div>
-	    <% end %>
     <% end %>
 
 </div>

@@ -1,6 +1,8 @@
 class TarCuota < ApplicationRecord
 	belongs_to :tar_pago
 
+	has_many :tar_facturaciones
+
 	# ------------------------------------ ORDER LIST
 
 	def owner
