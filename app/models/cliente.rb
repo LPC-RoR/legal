@@ -48,6 +48,15 @@ class Cliente < ApplicationRecord
 		ids = self.archivos_controlados.map {|control| control.id unless self.nombres_usados.include?(control.nombre) }.compact
 		ControlDocumento.where(id: ids)
 	end
+
+	def archivos_faltantes
+		self.archivos_pendientes.where(control: 'Requerido')
+	end
+
+	def archivos_vacios
+		nombres_controlados = self.archivos_controlados.where(control: 'Requerido').map {|ac| ac.nombre}
+		self.archivos.where(app_archivo: nombres_controlados, archivo: nil)
+	end
 	# ------------------------------------------------------------
 
 	def exclude_files

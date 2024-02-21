@@ -51,6 +51,7 @@
 						<%= render partial: '0p/tabla/btns_orden', locals: {objeto: control} %> 
 					</div>
 					<div class="col-lg-8">
+						<small>
 						<b>
 						<% if control.tipo == 'Documento' %>
 							<i class="bi bi-files"></i>
@@ -62,12 +63,14 @@
 						<% end %>
 						<%= control.nombre %> 
 						</b>
-						</br>
+						</small>
+						<% unless control.descripcion.blank? %>
 						<div style="padding-left: 1em; padding-right: 1em;">
 							<small>
 								<i class="bi bi-arrow-right"></i> <%= control.descripcion %>
 							</small>
 						</div>
+						<% end %>
 					</div>
 					<div class="col-lg-2" align='right'>
 						<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: control} %></small>

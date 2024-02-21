@@ -1,9 +1,14 @@
 <small><small class="text-muted">
 <div class="row">
-	<div class="col-9">
+	<div class="col-8">
 		<b><%= link_to objeto.d_rut, objeto, title: 'Detalle Cliente', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> </b>
 	</div>
-	<div class="col-3" align='right'>
+	<div class="col-4" align='right'>
+		<% unless objeto.archivos_faltantes.empty? and objeto.archivos_vacios.empty? %>
+			<i class="bi bi-file-check text-danger"></i>
+			<small class='text-danger'><%= objeto.archivos_faltantes.count + objeto.archivos_vacios.count %></small>
+			<i class="bi bi-dot"></i>
+		<% end %>
 		<%= link_to "/servicios/organizacion?oid=#{objeto.id}", title: 'Organización', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 			<i class="bi bi-diagram-3"></i>
 		<% end %>
