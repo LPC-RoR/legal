@@ -14,7 +14,7 @@ module Inicia
 	def inicia_sesion
 
 		# Crea AppVersión si no tiene registros y crea perfil del DOG
-		verifica_version
+#		verifica_version
 
 		# si hay USUARIO AUTENTICADO pero el usuario NO TIENE PERFIL}
 		# ocurre si es el primer acceso a la aplicación o si el usuario recién se creo
