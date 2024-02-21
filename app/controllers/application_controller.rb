@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
 
 #	include Seguridad
 
-	include Inicia
-	include IniciaAplicacion
+#	include Inicia
+#	include IniciaAplicacion
 
 	include Capitan
 
