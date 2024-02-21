@@ -15,7 +15,7 @@
 			<p><%= link_to "Generar pago cuota #{cuota.orden}", "/tar_facturaciones/crea_facturacion?owner_class=#{owner.class.name}&owner_id=#{owner.id}&cid=#{cuota.id}", class: 'btn btn-primary btn-sm' %></p>
 			</div>
 		<% else %>
-			<small><p>Pago cuota <%= couta.orden %> generado el <%= dma(owner.pago_generado(cuota).created_at) %></p></small></br>
+			<small><p>Pago cuota <%= cuota.orden %> generado el <%= dma(owner.pago_generado(cuota).created_at) %></p></small></br>
 	    <% end %>
 	<% end %>
 <% end %>
