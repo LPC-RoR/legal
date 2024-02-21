@@ -13,4 +13,8 @@ class TarTarifa < ApplicationRecord
 	def padre
 		self.owner_class.blank? ? nil : self.owner_class.constantize.find(self.owner_id)
 	end
+
+	def n_pagos
+		self.tar_pagos.map {|pago| pago.n_pagos}.sum
+	end
 end

@@ -14,6 +14,10 @@ class TarPago < ApplicationRecord
     	TarFormula.find_by(codigo: self.codigo_formula).tar_formula
     end
 
+    def n_pagos
+    	self.tar_cuotas.empty? ? 1 : self.tar_cuotas.count
+    end
+
 	# ------------------------------------ ORDER LIST
 
 	def owner

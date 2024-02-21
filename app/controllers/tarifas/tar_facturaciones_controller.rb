@@ -23,30 +23,45 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
     case params[:owner_class]
     when 'Causa'
-      pago = owner.tar_tarifa.tar_pagos.find(params[:pid])
+      
+      clase = params[:pid].present? ? 'Pago' : 'Cuota'
+      case clase
+      when 'Pago'
+        pago = TarPago.find(params[:pid]) unless params[:pid].blank?
+      when 'Cuota'
+        cuota = TarCuota.find(params[:cui])
+        pago = cuota.tar_pago
+      end
       formula = pago.codigo_formula if pago.valor.blank?
-      #----------------------------------------
-      owner_class = owner.class.name
-      moneda = (pago.moneda.blank? ? 'UF' : pago.moneda)
-      glosa = "#{pago.tar_pago} : #{owner.rit if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
-      pago_id = pago.id
+      moneda  = (pago.moneda.blank? ? 'UF' : pago.moneda)
       monto = pago.valor.blank? ? calcula2( formula, owner, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5)) : pago.valor
       cuantia_calculo = t_cuantia_pesos(owner, pago, 'honorarios')
-      unless monto == 0
-        TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner_class, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto, tar_pago_id: pago.id, cuantia_calculo: cuantia_calculo)
+      case clase
+      when 'Pago'
+        glosa = "#{pago.tar_pago} : #{owner.rit if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
+        unless monto == 0
+          TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto, tar_pago_id: pago.id, cuantia_calculo: cuantia_calculo, pago_calculo: monto)
+        end
+      when 'Cuota'
+        monto_cuota = cuota.monto_cuota(owner, monto)
+        glosa = "#{pago.tar_pago}:#{cuota.orden} : #{owner.rit if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
+        unless monto_cuota == 0
+          TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: glosa, estado: 'aprobación', moneda: moneda, monto: monto_cuota, tar_cuota_id: cuota.id, cuantia_calculo: cuantia_calculo, pago_calculo: monto)
+        end
       end
 
       owner.causa_ganada = owner.monto_pagado == 0
       owner.save
 
-      if owner.class.name == 'Causa'
-        if owner.facturaciones.count == owner.tar_tarifa.tar_pagos.count
-          owner.estado = 'terminada'
-        elsif owner.facturaciones.count > 0
-          owner.estado = 'proceso'
-        end
-        owner.save
+      if owner.facturaciones.count == owner.tar_tarifa.n_pagos
+        owner.estado = 'terminada'
+      elsif owner.facturaciones.count > 0
+        owner.estado = 'proceso'
+      else
+        owner.estado = 'ingreso'
       end
+      owner.save
+
     when 'Asesoria'
       moneda = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.moneda : owner.moneda
       monto = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.monto : owner.monto
