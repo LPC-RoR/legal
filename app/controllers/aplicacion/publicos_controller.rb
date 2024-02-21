@@ -7,7 +7,7 @@ class Aplicacion::PublicosController < ApplicationController
   end
 
   def home
-    if usuario_signed_in?
+    if false #usuario_signed_in?
       # Causas
       csf_ids = Causa.all.map {|causa| causa.id if causa.facturaciones.empty?}.compact
       set_tabla('sin_facturar-causas', Causa.where(id: csf_ids), false)
