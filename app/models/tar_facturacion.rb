@@ -47,11 +47,16 @@ class TarFacturacion < ApplicationRecord
 
 	# ******************************************************************************** Manejo de Tarifas
 
+	# TarFacturacion puede estar relacionado con TarPago o TarCuota cuando se trata de una causa
+	def find_pago
+		self.tar_pago_id.present? ? self.tar_pago : self.tar_cuota.tar_pago
+	end
+
 	# esta fecha establece el día en el que se realizó el cálculo de la tarifa
 	# verifica si hay fecha de cálculo en la causa, si no, es la fecha de creación del tar_facturacion
 	def fecha_calculo
 		if self.owner.class.name == 'Causa'
-			tar_pago = self.tar_pago
+			tar_pago = self.find_pago
 			tar_uf_facturacion = self.owner.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
 			tar_uf_facturacion.blank? ? self.created_at : tar_uf_facturacion.fecha_uf
 		elsif self.owner.class.name == 'Asesoria'
@@ -63,7 +68,7 @@ class TarFacturacion < ApplicationRecord
 
 	def origen_fecha_uf
 		if self.owner.class.name == 'Causa'
-			tar_pago = self.tar_pago
+			tar_pago = self.find_pago
 			tar_uf_facturacion = self.owner.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
 			tar_uf_facturacion.blank? ? 'TarFacturacion' : 'TarUfFacturacion'
 		elsif self.owner.class.name == 'Asesoria'
