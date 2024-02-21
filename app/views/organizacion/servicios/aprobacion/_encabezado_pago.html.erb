@@ -103,6 +103,7 @@
 	</small></small>
 
 	<% if owner.class.name == 'Causa' and controller_name == 'causas' %>
+		<%= render partial: 'organizacion/servicios/aprobacion/btn_pagos_causa', locals: {owner: owner, objeto: objeto} %>
 		<% if owner.pago_generado(objeto).blank? %>
 			<div style="line-height: 13px">
 			</br>
