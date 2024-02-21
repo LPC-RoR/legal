@@ -8,6 +8,7 @@
     <% end %>
 <% else %>
 	<!-- Boton para CUOTAS -->
+	</br>
 	<% objeto.tar_cuotas.order(:orden).each do |cuota| %>
 		<% if owner.pago_generado(cuota).blank? %>
 			<div style="line-height: 13px">
