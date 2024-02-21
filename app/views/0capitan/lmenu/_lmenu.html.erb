@@ -3,7 +3,7 @@
 	<%= link_to root_path do %>
 		<h3 class="text-info" align="center"><%= version_activa.blank? ? 'app' : version_activa.app_sigla %></h3>
 	<% end %>
-	<%= render partial: '0p/lmenu/usuario_activo' %>
+	<%= render partial: '0capitan/lmenu/usuario_activo' %>
 
 	<div align='right' style="line-height: 13px;">
 		<%= render layout: '0p/collapse/link', locals: {label: 'Links', objeto: nil, tooltip: 'Despliega'} do %>
@@ -12,10 +12,10 @@
 	</div>
 
 	<%= render layout: '0p/collapse/display', locals: {label: 'Links', objeto: nil} do %>
-		<%= render partial: '0p/lmenu/despliega_enlaces' %>
+		<%= render partial: '0capitan/lmenu/despliega_enlaces' %>
 	<% end %>
 
-	<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: menu_left?(controller)} %>
+	<%= render partial: '0capitan/lmenu/display_menu', locals: {menu_sym: menu_left?(controller)} %>
 
 
 	<small>
@@ -34,13 +34,13 @@
 		<hr>
 		<div class="text-info text-center">Administración</div>
 
-		<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: :admin} %>
+		<%= render partial: '0capitan/lmenu/display_menu', locals: {menu_sym: :admin} %>
 	<% end %>
 
 	<% if dog? %>
 		<hr>
 		<div class="text-info text-center">App</div>
 
-		<%= render partial: '0p/lmenu/display_menu', locals: {menu_sym: :dog} %>
+		<%= render partial: '0capitan/lmenu/display_menu', locals: {menu_sym: :dog} %>
 	<% end %>
 </div>
