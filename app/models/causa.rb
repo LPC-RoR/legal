@@ -152,8 +152,9 @@ class Causa < ApplicationRecord
 	end
 
 	# Encuentra el PAGO (TarFacturacion) asociado al pago
-	def pago_generado(pago)
-		self.facturaciones.find_by(tar_pago_id: pago.id)
+	def pago_generado(objeto)
+		# objeto.class.name {TarPago, TarCuota}
+		objeto.class.name == 'TarPago' ? self.facturaciones.find_by(tar_pago_id: objeto.id) : self.facturaciones.find_by(tar_cuota_id: objeto.id)
 	end
 
 	# Encuentra la UF de Cálculo (TarUfFacturacion) asociado al pago

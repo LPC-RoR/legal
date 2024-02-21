@@ -21,19 +21,8 @@ class Tarifas::TarFacturacionesController < ApplicationController
     # owner : CAUSA | CONSULTORIA
     owner = params[:owner_class].constantize.find(params[:owner_id])
 
-    if params[:owner_class] == 'RegReporte'
-      # fACTURACION DEL REPORTE DE HORAS
-      TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: params[:facturable], estado: 'ingreso', moneda: owner.moneda_reporte, monto: owner.monto_reporte )
-    elsif params[:owner_class] == 'Asesoria'
-      moneda = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.moneda : owner.moneda
-      monto = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.monto : owner.monto
-      tf=TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: nil, glosa: owner.descripcion, estado: 'ingreso', moneda: moneda, monto: monto )
-      unless tf.blank?
-        owner.estado = 'proceso'
-        owner.save
-      end
-    elsif params[:owner_class] == 'Causa'
-      #   CAUSA
+    case params[:owner_class]
+    when 'Causa'
       pago = owner.tar_tarifa.tar_pagos.find(params[:pid])
       formula = pago.codigo_formula if pago.valor.blank?
       #----------------------------------------
@@ -58,6 +47,16 @@ class Tarifas::TarFacturacionesController < ApplicationController
         end
         owner.save
       end
+    when 'Asesoria'
+      moneda = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.moneda : owner.moneda
+      monto = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.monto : owner.monto
+      tf=TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: nil, glosa: owner.descripcion, estado: 'ingreso', moneda: moneda, monto: monto )
+      unless tf.blank?
+        owner.estado = 'proceso'
+        owner.save
+      end
+    when 'RegReporte'
+      TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: params[:facturable], estado: 'ingreso', moneda: owner.moneda_reporte, monto: owner.monto_reporte )
     end
 
     redirect_to ( params[:owner_class] == 'Asesoria' ? asesorias_path : "/#{owner.class.name.tableize}/#{owner.id}?html_options[menu]=Tarifa+%26+Pagos" )

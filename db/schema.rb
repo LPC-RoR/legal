@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_20_212051) do
+ActiveRecord::Schema.define(version: 2024_02_21_144422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1247,6 +1247,7 @@ ActiveRecord::Schema.define(version: 2024_02_20_212051) do
     t.integer "tar_aprobacion_id"
     t.integer "tar_pago_id"
     t.decimal "cuantia_calculo"
+    t.integer "tar_cuota_id"
     t.index ["cliente_class"], name: "index_tar_facturaciones_on_cliente_class"
     t.index ["cliente_id"], name: "index_tar_facturaciones_on_cliente_id"
     t.index ["estado"], name: "index_tar_facturaciones_on_estado"
@@ -1255,6 +1256,7 @@ ActiveRecord::Schema.define(version: 2024_02_20_212051) do
     t.index ["owner_class"], name: "index_tar_facturaciones_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturaciones_on_owner_id"
     t.index ["tar_aprobacion_id"], name: "index_tar_facturaciones_on_tar_aprobacion_id"
+    t.index ["tar_cuota_id"], name: "index_tar_facturaciones_on_tar_cuota_id"
     t.index ["tar_factura_id"], name: "index_tar_facturaciones_on_tar_factura_id"
     t.index ["tar_pago_id"], name: "index_tar_facturaciones_on_tar_pago_id"
   end

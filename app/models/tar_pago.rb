@@ -1,10 +1,5 @@
 class TarPago < ApplicationRecord
 
-	TABLA_FIELDS = [
-		's#tar_pago',
-#		'estado',
-	]
-
 	belongs_to :tar_tarifa
 
 	has_many :tar_comentarios
