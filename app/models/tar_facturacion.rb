@@ -49,7 +49,7 @@ class TarFacturacion < ApplicationRecord
 
 	# TarFacturacion puede estar relacionado con TarPago o TarCuota cuando se trata de una causa
 	def find_pago
-		self.tar_pago_id.present? ? self.tar_pago : self.tar_cuota.tar_pago
+		self.tar_pago_id.present? ? self.tar_pago : (self.tar_cuota_id.present? ? self.tar_cuota.tar_pago : nil)
 	end
 
 	# esta fecha establece el día en el que se realizó el cálculo de la tarifa

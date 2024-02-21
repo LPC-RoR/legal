@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-6">
-		<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.tar_pago.blank? %>
-			<%= objeto.tar_pago.tar_pago %>
+		<% unless objeto.owner_id.blank? or ['RegReporte'].include?(objeto.owner.class.name) or objeto.find_pago.blank? %>
+			<%= objeto.find_pago.tar_pago %>
 		<% end %>
 	</div>
 	<div class="col-6" align="right">
