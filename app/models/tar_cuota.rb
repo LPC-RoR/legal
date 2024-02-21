@@ -14,12 +14,12 @@ class TarCuota < ApplicationRecord
 
 	def monto_cuota(owner, monto)
 		if self.ultima_cuota
-			monto - self.monto_pagado
+			monto - self.monto_pagado(owner, monto)
 		else
 			if self.monto.present?
-				((monto - self.monto_pagado) >= self.monto) ? self.monto : 0
+				((monto - self.monto_pagado(owner, monto)) >= self.monto) ? self.monto : 0
 			elsif self.porcentaje.present?
-				((monto - self.monto_pagado) >= ((monto * self.porcentaje) / 100)) ? ((monto * self.porcentaje) / 100) : 0
+				((monto - self.monto_pagado(owner, monto)) >= ((monto * self.porcentaje) / 100)) ? ((monto * self.porcentaje) / 100) : 0
 			else
 				0
 			end
