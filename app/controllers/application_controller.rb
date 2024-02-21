@@ -1,11 +1,12 @@
 class ApplicationController < ActionController::Base
 
+	include Seguridad
+
 	include Inicia
 	include IniciaAplicacion
 
 	include Capitan
 
-	include Seguridad
 
 	include Tablas
 
