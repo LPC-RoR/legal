@@ -15,14 +15,8 @@ module CptnMenuHelper
 
 	def display_item_menu?(item, tipo_item)
 		# SEGURIDADA PARA IEMS DE MENÚS
-		if perfil? == true
-			if ['dog', 'admin', 'anonimo'].include?(tipo_item)
-				(usuario_signed_in? and seguridad_desde(tipo_item))
-			elsif ['nomina', 'general'].include?(tipo_item)
-				(usuario_signed_in? and seguridad_desde(tipo_item) and display_item_app(item, tipo_item))
-			elsif tipo_item == 'excluir'
-				false
-			end
+		if perfil_activo? == true
+			seguridad(tipo_item)
 		else
 			tipo_item == 'anonimo'
 		end

@@ -1,11 +1,11 @@
 class Autenticacion::AppNominasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :inicia_sesion
-  before_action :set_app_nomina, only: %i[ show edit update destroy ]
+  before_action :set_app_nomina, only: %i[ show edit update destroy set_admin ]
 
   # GET /app_nominas or /app_nominas.json
   def index
-    set_tabla('app_nominas', AppNomina.all, false)
+    set_tabla('app_nominas', AppNomina.where.not(email: dog_email).order(:nombre), false)
   end
 
   # GET /app_nominas/1 or /app_nominas/1.json
@@ -15,7 +15,7 @@ class Autenticacion::AppNominasController < ApplicationController
 
   # GET /app_nominas/new
   def new
-    @objeto = AppNomina.new
+    @objeto = AppNomina.new(tipo: 'Usuario')
   end
 
   # GET /app_nominas/1/edit
@@ -50,6 +50,13 @@ class Autenticacion::AppNominasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def set_admin
+    @objeto.tipo = @objeto.tipo == 'Usuario' ? 'Admin' : 'Usuario'
+    @objeto.save
+
+    redirect_to "/app_nominas", notice: "Se ha cambiado el tipo de usuario a #{@objeto.tipo}"
   end
 
   # DELETE /app_nominas/1 or /app_nominas/1.json

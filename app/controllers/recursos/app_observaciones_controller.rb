@@ -13,7 +13,7 @@ class Recursos::AppObservacionesController < ApplicationController
 
   # GET /app_observaciones/new
   def new
-    @objeto = AppObservacion.new(owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo_id)
+    @objeto = AppObservacion.new(owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo.id)
   end
 
   # GET /app_observaciones/1/edit

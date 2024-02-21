@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_20_115425) do
+ActiveRecord::Schema.define(version: 2024_02_20_212051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -309,8 +309,12 @@ ActiveRecord::Schema.define(version: 2024_02_20_115425) do
     t.integer "app_administrador_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "o_clss"
+    t.integer "o_id"
     t.index ["app_administrador_id"], name: "index_app_perfiles_on_app_administrador_id"
     t.index ["email"], name: "index_app_perfiles_on_email"
+    t.index ["o_clss"], name: "index_app_perfiles_on_o_clss"
+    t.index ["o_id"], name: "index_app_perfiles_on_o_id"
     t.index ["usuario_id"], name: "index_app_perfiles_on_usuario_id"
   end
 

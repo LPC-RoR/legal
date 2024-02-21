@@ -130,7 +130,9 @@ Rails.application.routes.draw do
   end
   scope module: 'autenticacion' do
     resources :app_administradores
-    resources :app_nominas
+    resources :app_nominas do
+      match :set_admin, via: :get, on: :member
+    end
     resources :app_perfiles do
       # recurso SOLO si hay manejo de ESTADOS
       resources :st_perfil_modelos

@@ -13,7 +13,11 @@ module Seguridad
 		AppVersion::DOG_EMAIL
 	end
 
-	def perfil?
+	def nomina_activa
+		usuario_signed_in? ? AppNomina.find_by(email: current_usuario.email) : nil
+	end
+
+	def perfil_activo?
 		usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email).present? : false
 	end
 
@@ -21,64 +25,45 @@ module Seguridad
 		usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email) : nil
 	end
 
-	def perfil_activo_id
-		perfil_activo.blank? ? nil : perfil_activo.id
-	end
-
-	# HASTA AQUI REVISADO
-
 	def dog?
 		usuario_signed_in? ? (current_usuario.email == dog_email) : false
 	end
 
 	def admin?
-		usuario_signed_in? ? AppAdministrador.find_by(email: current_usuario.email).present? : false
+		es_admin = usuario_signed_in? ? ( nomina_activa.blank? ? false : ( nomina_activa.tipo == 'Admin' ) ) : false
+		es_admin or dog?
 	end
 
+	def usuario?
+		es_usuario = usuario_signed_in? ? ( nomina_activa.blank? ? false : ( nomina_activa.tipo == 'Usuario' ) ) : false
+		es_usuario or dog?
+	end
+
+	# DEPRECATED : A futuro se introduce la categoría 'servicio para regular el acceco a los controladores de servicios.'
 	def nomina?
 		usuario_signed_in? ? AppNomina.find_by(email: current_usuario.email).present? : false
-	end
-
-	def general?
-		usuario_signed_in? and not admin? and not nomina?
-	end
-
-	def anonimo?
-		not usuario_signed_in?
 	end
 
 	def publico?
 		action_name == 'home' ? ( not usuario_signed_in?) : (['publicos'].include?(controller_name) or controller_name.match(/^blg_*/))
 	end
 
-	def mi_seguridad?
-		if current_usuario.email == dog_email
-			:dog
-		elsif AppAdministrador.find_by(email: current_usuario.email).present?
-			:admin
-		elsif AppNomina.find_by(email: current_usuario.email).present?
-			:nomina
-		elsif usuario_signed_in?
-			:general
+	def seguridad(nivel)
+		if nivel.blank?
+			admin?
 		else
-			:anonimo
-		end
-	end
-
-	def seguridad_desde(tipo_usuario)
-		if tipo_usuario.blank?
-			dog? or admin?
-		else
-			case tipo_usuario
+			case nivel
 			when 'dog'
 				dog?
 			when 'admin'
-				dog? or admin?
+				admin?
+			when 'usuario'
+				usuario?
 			when 'nomina'
-				dog? or admin? or nomina?
-			when 'general'
-				dog? or admin? or nomina? or general?
-			when 'anonimo'
+				admin? or nomina?
+			when 'excluir'
+				false
+			else
 				true
 			end
 		end

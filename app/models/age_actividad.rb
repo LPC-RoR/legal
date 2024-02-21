@@ -18,7 +18,8 @@ class AgeActividad < ApplicationRecord
 	end
 
 	def nombre_creador
-		AppPerfil.find(self.app_perfil_id).nombre_perfil
+		perfil = AppPerfil.find_by(id: self.app_perfil_id)
+		perfil.blank? ? 'no encontrado' : perfil.nombre_perfil
 	end
 
 	def text_color

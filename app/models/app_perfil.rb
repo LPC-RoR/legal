@@ -20,13 +20,7 @@ class AppPerfil < ApplicationRecord
 	has_many :age_actividades, through: :age_act_perfiles
 
 	def nombre_perfil
-		administrador = AppAdministrador.find_by(email: self.email)
-		if administrador.blank?
-			nomina = AppNomina.find_by(email: self.email)
-			nomina.blank? ? 'no encontrado' : nomina.nombre
-		else
-			administrador.administrador
-		end
+		self.email = dog_email ? dog_name : AppNomina.find_by(email: self.email).nombre
 	end
 
 	def app_enlaces

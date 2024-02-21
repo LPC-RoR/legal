@@ -49,7 +49,7 @@ class Recursos::AppMensajesController < ApplicationController
     end
 
     # No me queda clara su función, lo dejo para revisión más detallada
-    @nomina = AppNomina.find_by(email: perfil_activo.email) unless seguridad_desde('admin')
+    @nomina = AppNomina.find_by(email: perfil_activo.email) unless admin?
 
   end
 
@@ -60,7 +60,7 @@ class Recursos::AppMensajesController < ApplicationController
   # GET /app_mensajes/new
   def new
     if usuario_signed_in?
-      perfil_id = perfil_activo_id
+      perfil_id = perfil_activo.id
       tipo      = admin? ? 'administrador' : 'usuario'
       estado    = 'ingreso'
     else
@@ -69,7 +69,7 @@ class Recursos::AppMensajesController < ApplicationController
       estado    = 'enviado'
     end
 
-    perfil_id = (usuario_signed_in? ? perfil_activo_id : nil)
+    perfil_id = (usuario_signed_in? ? perfil_activo.id : nil)
     tipo = (usuario_signed_in? ? ( admin? ? 'administrador' : 'usuario') : 'anónimo')
     estado = (usuario_signed_in? ? 'ingreso' : 'enviado')
     
@@ -98,7 +98,7 @@ class Recursos::AppMensajesController < ApplicationController
 
   def respuesta
     @padre = AppMensaje.find(params[:padre_id])
-    perfil_id = perfil_activo_id
+    perfil_id = perfil_activo.id
     tipo      = admin? ? 'administrador' : 'usuario'
     estado    = 'enviado'
     mensaje = params[:mensaje_base][:mensaje]

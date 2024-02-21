@@ -1,12 +1,12 @@
 <small><small class="text-muted">
 <div class="row">
-	<div class="col-9">
+	<div class="col-7">
 		<b><%= link_to objeto.rit, objeto, title: 'Detalle Causa', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> </b>
 		<% if (objeto.monto_pagado.blank? or objeto.monto_pagado == 0) and objeto.estado == 'terminada' %>
 			<i class="bi bi-award text-primary"></i>
 		<% end %>
 	</div>
-	<div class="col-3" align='right'>
+	<div class="col-5" align='right'>
 		<% unless objeto.facturaciones.empty? %>
 			<%= render layout: '0p/collapse/link', locals: {label: 'Facturaciones', objeto: objeto, tooltip: 'Pagos'} do %>
 				<i class="bi bi-currency-dollar"></i>
