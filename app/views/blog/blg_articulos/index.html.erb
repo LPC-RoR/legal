@@ -1,18 +1,18 @@
 <% if admin? %>
   <div class="row">
     <div class="col-12 col-lg-6">
-      <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'blg_articulos', title: 'Artículos', link_new: 'blg_articulos/new'} %>
+      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'blg_articulos', title: 'Artículos', link_new: 'blg_articulos/new'} %>
 
       <%= render partial: '0p/tabla/tabla', locals: {c: 'general-blg_articulos'} %>
     </div>
     <div class="col-lg-6">
-      <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'causas', title: 'Temas', link_new: 'blg_temas/new'} %>
+      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Temas', link_new: 'blg_temas/new'} %>
 
       <%= render partial: '0p/tabla/tabla', locals: {c: 'blg_temas'} %>
     </div>
   </div>
 <% else %>
-  <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'blg_articulos', title: 'Mis artículos', link_new: 'blg_articulos/new'} %>
+  <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'blg_articulos', title: 'Mis artículos', link_new: 'blg_articulos/new'} %>
 
   <%= render partial: '0p/tabla/tabla', locals: {c: 'perfil-blg_articulos'} %>
 <% end %>

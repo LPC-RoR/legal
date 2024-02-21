@@ -1,12 +1,12 @@
-<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_bancos', title: @objeto.m_banco, link_new: nil} %>
+<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_bancos', title: @objeto.m_banco, link_new: nil} %>
 <div class="row">
 	<div class="col-md-6">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_cuentas', title: 'Cuentas', link_new: "/m_bancos/#{@objeto.id}/m_cuentas/new"} %>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_cuentas', title: 'Cuentas', link_new: "/m_bancos/#{@objeto.id}/m_cuentas/new"} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'm_cuentas'} %>
 	</div>
 	<div class="col-md-6">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_formatos', title: 'Formatos', link_new: "/m_bancos/#{@objeto.id}/m_formatos/new"} %>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_formatos', title: 'Formatos', link_new: "/m_bancos/#{@objeto.id}/m_formatos/new"} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'm_formatos'} %>
 	</div>

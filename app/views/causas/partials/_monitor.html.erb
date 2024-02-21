@@ -2,18 +2,18 @@
 <% if @options[:monitor] == 'Proceso' %>
 	<div class="row">
 		<div class="col-lg-6 col-xs-12">
-			<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'causas', title: 'Causas en ingreso', link_new: '/causas/new'} %>
+			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Causas en ingreso', link_new: '/causas/new'} %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-causas'} %>
 		</div>
 		<div class="col-lg-6 col-xs-12">
-			<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'causas', title: 'Causas en cobro', link_new: nil} %>
+			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Causas en cobro', link_new: nil} %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'proceso-causas'} %>
 		</div>
 	</div>
 <% elsif @options[:monitor] == 'Terminadas' %>
-	<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'causas', title: 'Causas terminadas', link_new: nil} %>
+	<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Causas terminadas', link_new: nil} %>
 
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'terminada-causas'} %>
 <% end %>

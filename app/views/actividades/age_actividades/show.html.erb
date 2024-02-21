@@ -1,4 +1,4 @@
-<%= render '0p/general/title_box' do %>
+<%= render '0capitan/layouts/title_box' do %>
   <div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
     <h5 class="text-info">
 
@@ -18,12 +18,12 @@
 
 <div class="row">
   <div class="col-lg-3 col-xs-12">
-    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'app_perfiles', title: 'Participantes', link_new: nil} %>
+    <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'app_perfiles', title: 'Participantes', link_new: nil} %>
 
     <%= render partial: 'actividades/age_actividades/list/participantes', locals: {objeto: @objeto} %>
   </div>
   <div class="col-lg-9">
-    <%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_antecedentes', title: 'Antecedentes', link_new: "/age_antecedentes/new?aid=#{@objeto.id}"} %>
+    <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'age_antecedentes', title: 'Antecedentes', link_new: "/age_antecedentes/new?aid=#{@objeto.id}"} %>
 
     <%= render partial: '0p/tabla/tabla', locals: {c: 'age_antecedentes'} %>
   </div>

@@ -3,7 +3,7 @@
 
 		<%= render partial: 'causas/partials/display_tarifa', locals: {objeto: objeto} %>
 
- 		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos de la causa', link_new: nil} %>
+ 		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos de la causa', link_new: nil} %>
 
 		<% unless objeto.tar_tarifa.blank? %>
 			<% unless @coleccion['tar_facturaciones'].empty? %>
@@ -13,7 +13,7 @@
 	</div>
 	<div class="col-lg-8">
 
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_pagos', title: 'Aprobación de pagos', link_new: nil } %>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_pagos', title: 'Aprobación de pagos', link_new: nil } %>
 
 		<% unless objeto.tar_tarifa.blank? or objeto.tar_tarifa.tar_pagos.empty? %>
 			<% objeto.tar_tarifa.tar_pagos.order(:orden).each do |pago| %>

@@ -1,4 +1,4 @@
-<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'age_actividades', title: 'Actividades', link_new: nil} %>
+<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'age_actividades', title: 'Actividades', link_new: nil} %>
 
 <% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
 	<%= render layout: '0p/collapse/display', locals: {label: tipo, objeto: nil} do %>

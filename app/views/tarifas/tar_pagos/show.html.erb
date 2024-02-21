@@ -1,13 +1,13 @@
-<b><%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_pagos', title: "Pago #{@objeto.orden} : #{@objeto.tar_pago}", link_new: nil} %></b>
+<b><%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_pagos', title: "Pago #{@objeto.orden} : #{@objeto.tar_pago}", link_new: nil} %></b>
 
 <div class="row">
 	<div class="col-lg-4 col-xs-12">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_cuotas', title: "Cuotas", link_new: "/tar_pagos/#{@objeto.id}/tar_cuotas/new" } %>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_cuotas', title: "Cuotas", link_new: "/tar_pagos/#{@objeto.id}/tar_cuotas/new" } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_cuotas'} %>    
 	</div>
 	<div class="col-lg-8">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_comentarios', title: "Comentarios", link_new: "/tar_pagos/#{@objeto.id}/tar_comentarios/new" } %>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_comentarios', title: "Comentarios", link_new: "/tar_pagos/#{@objeto.id}/tar_comentarios/new" } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_comentarios'} %>    
 	</div>

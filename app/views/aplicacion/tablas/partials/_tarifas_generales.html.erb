@@ -1,11 +1,11 @@
 <div class="row">
 	<div class="col-lg-6 col-xs-12">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_tarifas', title: 'Tarifas generales : Causas', link_new: "/tar_tarifas/new"} %>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_tarifas', title: 'Tarifas generales : Causas', link_new: "/tar_tarifas/new"} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
 	</div>
 	<div class="col-lg-6">
-		<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'tar_servicios', title: 'Tarifas generales : Asesorias', link_new: "/tar_servicios/new"} %>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_servicios', title: 'Tarifas generales : Asesorias', link_new: "/tar_servicios/new"} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
 	</div>

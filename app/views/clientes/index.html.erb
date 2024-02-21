@@ -3,33 +3,33 @@
 <% if @options[:menu] == 'Proceso' %>
 	<div class="row">
 		<div class="col-lg-6 col-xs-12">
-			<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes en ingreso', link_new: 'clientes/new'} %>
+			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes en ingreso', link_new: 'clientes/new'} %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-clientes'} %>
 		</div>
 		<div class="col-lg-6 col-xs-12">
 			<% unless @coleccion['activo_empresa-clientes'].empty? %>
-				<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Empresas', link_new: nil} %>
+				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Empresas', link_new: nil} %>
 
 				<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_empresa-clientes'} %>
 			<% end %>
 			<hr>
 			<% unless @coleccion['activo_sindicato-clientes'].empty? %>
-				<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Sindicatos', link_new: nil} %>
+				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Sindicatos', link_new: nil} %>
 
 				<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_sindicato-clientes'} %>
 
 			<% end %>
 			</hr>
 			<% unless @coleccion['activo_trabajador-clientes'].empty? %>
-				<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Trabajadores', link_new: nil} %>
+				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Trabajadores', link_new: nil} %>
 
 				<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_trabajador-clientes'} %>
 			<% end %>
 		</div>
 	</div>
 <% elsif @options[:menu] == 'Baja' %>
-	<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'clientes', title: 'Clientes de baja', link_new: nil} %>
+	<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes de baja', link_new: nil} %>
 
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'baja-clientes'} %>
 <% end %>

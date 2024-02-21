@@ -1,7 +1,7 @@
 <% if @objeto.class.name == 'MCuenta' %>
-	<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_periodos', title: "Cuenta : #{@objeto.m_cuenta}", link_new: nil} %>
+	<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_periodos', title: "Cuenta : #{@objeto.m_cuenta}", link_new: nil} %>
 
-	<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_conciliaciones', title: "Conciliaciones de la cuenta", link_new: "/m_cuentas/#{@objeto.id}/m_conciliaciones/new"
+	<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_conciliaciones', title: "Conciliaciones de la cuenta", link_new: "/m_cuentas/#{@objeto.id}/m_conciliaciones/new"
 } %>
 	<% unless @coleccion['m_conciliaciones'].empty? %>
 		<div class="shadow p-3 mb-3 bg-white rounded">
@@ -9,7 +9,7 @@
 		</div>
 	<% end %>
 <% else %>
-	<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_periodos', title: "Periodo : #{@objeto.m_periodo}", link_new: nil} %>
+	<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_periodos', title: "Periodo : #{@objeto.m_periodo}", link_new: nil} %>
 
 	<div class="row">
 		<div class="col-lg-5 col-xs-12">
@@ -26,7 +26,7 @@
 		</div>
 	</div>
 
-	<%= render partial: 'capitan/layout/titulo_tabla', locals: {c: 'm_registros', title: "Cartola del período", link_new: nil} %>
+	<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_registros', title: "Cartola del período", link_new: nil} %>
 
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'm_registros'} %>
 
