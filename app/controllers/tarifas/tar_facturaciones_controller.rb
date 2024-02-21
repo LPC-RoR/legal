@@ -23,13 +23,13 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
     case params[:owner_class]
     when 'Causa'
-      
+
       clase = params[:pid].present? ? 'Pago' : 'Cuota'
       case clase
       when 'Pago'
         pago = TarPago.find(params[:pid]) unless params[:pid].blank?
       when 'Cuota'
-        cuota = TarCuota.find(params[:cui])
+        cuota = TarCuota.find(params[:cid])
         pago = cuota.tar_pago
       end
       formula = pago.codigo_formula if pago.valor.blank?
