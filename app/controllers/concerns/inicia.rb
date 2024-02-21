@@ -2,13 +2,13 @@ module Inicia
 	extend ActiveSupport::Concern
 
 	def verifica_version
-		AppVersion.create(dog_email: AppVersion::DOG_EMAIL) if version_activa.blank?
-
-		limpia_perfil = AppPerfil.where(email: dog_email, o_id: nil).first
-		limpia_perfil.delete unless limpia_perfil.blank?
-
+		AppVersion.create(dog_email: dog_email) if version_activa.blank?
 		dog_perfil = version_activa.dog_perfil
-		AppPerfil.create(o_clss: 'AppVersion', o_id: version_activa.id, email: AppVersion::DOG_EMAIL) if dog_perfil.blank?
+		AppPerfil.create(o_clss: 'AppVersion', o_id: version_activa.id, email: dog_email) if dog_perfil.blank?
+
+		perfiles = AppPerfil.where(email: dog_email, o_id: nil)
+		limpia_perfil = perfiles.empty? ? nil : perfiles.first
+		limpia_perfil.delete unless limpia_perfil.blank?
 	end
 
 	def inicia_sesion

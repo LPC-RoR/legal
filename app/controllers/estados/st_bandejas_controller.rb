@@ -4,7 +4,7 @@ class Estados::StBandejasController < ApplicationController
   # GET /st_bandejas or /st_bandejas.json
   def index
     # Manejo del sidebar
-    if perfil_activo.present?
+    if perfil_activo?
 
       unless StModelo.all.empty?
         primer_modelo = StModelo.all.order(:st_modelo).first
