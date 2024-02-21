@@ -22,8 +22,7 @@ class Estados::StBandejasController < ApplicationController
       # Despliegue
       set_tabla(@m.tableize, st_colecciones(@m, @e), @m.constantize.where(estado: @e).count > 25)
 
-#      @bandejas = admin? ? StModelo.all.order(:st_modelo) : AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.order(:st_perfil_modelo))
-      @bandejas = StModelo.all.order(:st_modelo)
+      @bandejas = admin? ? StModelo.all.order(:st_modelo) : AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.order(:st_perfil_modelo)
 
       #inicializa despliegue
       unless @bandejas.empty?
