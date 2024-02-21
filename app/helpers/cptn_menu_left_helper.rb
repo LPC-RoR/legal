@@ -17,7 +17,6 @@ module CptnMenuLeftHelper
 				'DtMateria'
 			],
 			admin: [
-				'AppAdministrador',
 				'AppNomina',
 				'Usuario',
 				'StModelo',
