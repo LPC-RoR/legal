@@ -1,5 +1,5 @@
 class Actividades::AgeActividadesController < ApplicationController
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad cambia_estado asigna_usuario desasigna_usuario]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad cambia_estado cambia_privada asigna_usuario desasigna_usuario]
 
   # GET /age_actividades or /age_actividades.json
   def index
@@ -90,6 +90,13 @@ class Actividades::AgeActividadesController < ApplicationController
     end
 
     redirect_to "/#{params[:cn]}/#{params[:oid]}", notice: mensaje
+  end
+
+  def cambia_privada
+    @objeto.privada = ( not @objeto.privada )
+    @objeto.save    
+
+    redirect_to params[:cn] == 'age_actividades' ? "/age_actividades" : @objeto.owner
   end
 
   # DEPRECATED

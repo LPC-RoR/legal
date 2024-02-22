@@ -100,6 +100,7 @@ Rails.application.routes.draw do
       match :cu_actividad, via: :post, on: :collection
       match :cambia_estado, via: :get, on: :member
       match :cambia_prioridad, via: :get, on: :member
+      match :cambia_privada, via: :get, on: :member
       match :asigna_usuario, via: :get, on: :member
       match :desasigna_usuario, via: :get, on: :member
       # desde aqui revisar
