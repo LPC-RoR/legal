@@ -13,7 +13,7 @@ class Recursos::AppMejorasController < ApplicationController
 
   # GET /app_mejoras/new
   def new
-    @objeto = AppMejora.new(owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo_id, estado: 'ingreso')
+    @objeto = AppMejora.new(owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo.id, estado: 'ingreso')
   end
 
   # GET /app_mejoras/1/edit

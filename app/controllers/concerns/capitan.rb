@@ -1,7 +1,7 @@
 module Capitan
 	extend ActiveSupport::Concern
 
-	# ************************************************************************** INICIALIZA TABLA
+	# ************************************************************************** TABLA
 	def set_tabla(controller, tabla, paginate)
 		
 		@coleccion = {} if @coleccion.blank?

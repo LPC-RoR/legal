@@ -1,20 +1,22 @@
 module Inicia
 	extend ActiveSupport::Concern
 
-	def verifica_version
-		AppVersion.create(dog_email: dog_email) if version_activa.blank?
-		dog_perfil = version_activa.dog_perfil
-		AppPerfil.create(o_clss: 'AppVersion', o_id: version_activa.id, email: dog_email) if dog_perfil.blank?
-
-		perfiles = AppPerfil.where(email: dog_email, o_id: nil)
-		limpia_perfil = perfiles.empty? ? nil : perfiles.first
-		limpia_perfil.delete unless limpia_perfil.blank?
+	def dog_wanted
+		dog_forgoted = AppPerfil.find_by(email: dog_email)
+		if dog_forgoted.blank?
+			AppPerfil.create(o_clss: 'AppVersion', o_id: version_activa.id, email: dog_email)
+		else
+			dog_forgoted.o_clss = 'AppVersion'
+			dog_forgoted.o_id = version_activa.id
+			dog_forgoted.save
+		end
 	end
 
 	def inicia_sesion
 
-		# Crea AppVersión si no tiene registros y crea perfil del DOG
-		verifica_version
+		# Verifica registros BASE
+		AppVersion.create(dog_email: dog_email) if version_activa.blank?
+		dog_wanted if version_activa.dog_perfil.blank?
 
 		# si hay USUARIO AUTENTICADO pero el usuario NO TIENE PERFIL}
 		# ocurre si es el primer acceso a la aplicación o si el usuario recién se creo
