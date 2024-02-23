@@ -1,13 +1,11 @@
 <div class='row'>
-	<div class='col-md-2'>
+	<div class='col-md-3'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Etapa', v: true } %>
 		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, display_field: 'tipo_causa', prompt: 'Etapa' } %>
 	</div>
-	<div class='col-md-6'>
+	<div class='col-md-9'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Cliente', v: true } %>
 		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: 'Cliente' } %>
-	</div>
-	<div class='col-md-4'>
 	</div>
 </div>
 
