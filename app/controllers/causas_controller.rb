@@ -1,5 +1,6 @@
 class CausasController < ApplicationController
   before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia]
+  after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
 
@@ -19,10 +20,10 @@ class CausasController < ApplicationController
   def show
 
 #    set_tab( :menu, ['Agenda', 'Hechos', 'Tarifa & Pagos', 'Datos & Cuantía', 'Documentos y enlaces', 'Registro', 'Reportes'] )
-    set_tab( :menu, ['Agenda', 'Hechos', 'Tarifa & Pagos', 'Datos & Cuantía', 'Documentos y enlaces'] )
+    set_tab( :menu, ['Agenda', 'Hechos', ['Tarifa & Pagos', admin?], 'Datos & Cuantía', 'Documentos y enlaces'] )
 
-    if @options[:menu] == 'Agenda'
-
+    case @options[:menu]
+    when 'Agenda'
       @hoy = Time.zone.today
 
       set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
@@ -31,15 +32,10 @@ class CausasController < ApplicationController
 
       actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
-
-    elsif @options[:menu] == 'Hechos'
-
+    when 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), true)
-
-      # set_tabla('app_documentos', @objeto.app_documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.app_archivos.order(:app_archivo), false)
-
-    elsif @options[:menu] == 'Datos & Cuantía'
+    when 'Datos & Cuantía'
       # no se usa esta tabla, quizá luego se use para evitar proceso en vista
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
 
@@ -48,10 +44,10 @@ class CausasController < ApplicationController
 
       set_detalle_cuantia(@objeto)
 
-      # @cuantia_tarifa {treu, false} señala cuando la tarifa requiere la cuantía para su cálculo
+      # @cuantia_tarifa {true, false} señala cuando la tarifa requiere la cuantía para su cálculo
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
       @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
-    elsif @options[:menu] == 'Tarifa & Pagos'
+    when 'Tarifa & Pagos'
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
       set_tabla('tar_facturaciones', @objeto.facturaciones, false)
 
@@ -63,20 +59,29 @@ class CausasController < ApplicationController
 
       # PRUEBA, aún no se usan
       set_formulas(@objeto)
-      @calc_valores = @objeto.set_valores
-    elsif @options[:menu] == 'Documentos y enlaces'
+#      @calc_valores = @objeto.set_valores
+    when 'Documentos y enlaces'
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
       set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
 
       @d_pendientes = @objeto.documentos_pendientes
       @a_pendientes = @objeto.archivos_pendientes
-    elsif @options[:menu] == 'Registro'
+    when 'Registro'
       set_tabla('registros', @objeto.registros, false)
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?
-    elsif @options[:menu] == 'Reportes'
+    when 'Reportes'
       set_tabla('reg_reportes', @objeto.reportes, false)
       @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
+    end
+
+    if @options[:menu] == 'Agenda'
+    elsif @options[:menu] == 'Hechos'
+    elsif @options[:menu] == 'Datos & Cuantía'
+    elsif @options[:menu] == 'Tarifa & Pagos'
+    elsif @options[:menu] == 'Documentos y enlaces'
+    elsif @options[:menu] == 'Registro'
+    elsif @options[:menu] == 'Reportes'
     end
 
   end
@@ -278,7 +283,18 @@ class CausasController < ApplicationController
 
   private
 
-  # crea el array con el cálculo del pago
+    def asigna_tarifa_defecto
+      etapa = @objeto.tipo_causa
+      tarifas = @objeto.cliente.tarifas.where(tipo_causa_id: etapa.id)
+      tarifa = tarifas.empty? ? nil : tarifas.first
+
+      unless tarifa.blank?
+        @objeto.tar_tarifa_id = tarifa.id
+        @objeto.save
+      end
+    end
+
+    # crea el array con el cálculo del pago
     def array_pago(causa, pago)
       pago_generado = causa.pago_generado(pago)
       uf_pago = causa.uf_calculo_pago(pago)

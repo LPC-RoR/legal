@@ -3,14 +3,26 @@
 		<div class="col-10">
 			<i class="bi bi-journal-text"></i>
 			<b><%= link_to objeto.tarifa, objeto %></b>
-			<% if objeto.cuantia_tarifa %>
-				<small class="text-muted">
-				( Diferencia cuantía para la tarifa )
-				</small>
-			<% end %>
 		</div>
 		<div class="col-2" align='right'>
 			<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small>
 		</div>
 	</div>
+
+	<% if objeto.cuantia_tarifa %>
+		<div style="line-height: 13px;">
+		<small class="text-muted">
+		<i class="bi bi-dot"></i> Diferencia cuantía para cálculo de honorarios.</br>
+		</small>
+		</div>
+	<% end %>
+
+	<% unless objeto.tipo_causa.blank? %>
+		<div style="line-height: 13px;">
+		<small class="text-muted">
+		<i class="bi bi-dot"></i> Tarifa por defecto de la etapa <%= objeto.tipo_causa.tipo_causa %>
+		</small>
+		</div>
+	<% end %>
+
 </small>

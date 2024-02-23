@@ -1,5 +1,7 @@
 class TarTarifa < ApplicationRecord
 
+	belongs_to :tipo_causa, optional: true
+
 	has_many :tar_pagos
 	has_many :tar_formulas
 	has_many :tar_detalles
@@ -10,7 +12,7 @@ class TarTarifa < ApplicationRecord
 
     validates_presence_of :tarifa
 
-	def padre
+	def owner
 		self.owner_class.blank? ? nil : self.owner_class.constantize.find(self.owner_id)
 	end
 

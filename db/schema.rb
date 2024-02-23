@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_21_183725) do
+ActiveRecord::Schema.define(version: 2024_02_23_160301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1394,11 +1394,13 @@ ActiveRecord::Schema.define(version: 2024_02_21_183725) do
     t.decimal "valor"
     t.decimal "valor_hora"
     t.boolean "cuantia_tarifa"
+    t.integer "tipo_causa_id"
     t.index ["estado"], name: "index_tar_tarifas_on_estado"
     t.index ["facturables"], name: "index_tar_tarifas_on_facturables"
     t.index ["moneda"], name: "index_tar_tarifas_on_moneda"
     t.index ["owner_class"], name: "index_tar_tarifas_on_owner_class"
     t.index ["owner_id"], name: "index_tar_tarifas_on_owner_id"
+    t.index ["tipo_causa_id"], name: "index_tar_tarifas_on_tipo_causa_id"
   end
 
   create_table "tar_uf_facturaciones", force: :cascade do |t|
@@ -1493,6 +1495,8 @@ ActiveRecord::Schema.define(version: 2024_02_21_183725) do
     t.string "tipo_causa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tar_tarifa_id"
+    t.index ["tar_tarifa_id"], name: "index_tipo_causas_on_tar_tarifa_id"
     t.index ["tipo_causa"], name: "index_tipo_causas_on_tipo_causa"
   end
 

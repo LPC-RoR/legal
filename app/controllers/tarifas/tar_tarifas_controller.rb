@@ -88,11 +88,11 @@ class Tarifas::TarTarifasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.padre.blank? ? "/tablas?tb=#{tb_index('tarifas_generales')}" : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas"
+      @redireccion = @objeto.owner.blank? ? "/tablas?tb=#{tb_index('tarifas_generales')}" : "/clientes/#{@objeto.owner.id}?html_options[menu]=Tarifas"
     end
 
     # Only allow a list of trusted parameters through.
     def tar_tarifa_params
-      params.require(:tar_tarifa).permit(:tarifa, :estado, :facturables, :owner_class, :owner_id, :moneda, :valor, :valor_hora, :cuantia_tarifa)
+      params.require(:tar_tarifa).permit(:tarifa, :estado, :facturables, :owner_class, :owner_id, :moneda, :valor, :valor_hora, :cuantia_tarifa, :tipo_causa_id)
     end
 end

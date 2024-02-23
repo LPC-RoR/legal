@@ -1,9 +1,19 @@
+<% unless @objeto.owner_id.blank? %>
+	<% if @objeto.owner.class.name == 'Cliente' %>
+		<p class="text-info">Tarifa del cliente : <%= @objeto.owner.razon_social %></p>
+	<% end %>
+<% end %>
+
 <div class="row">
 	<div class="col-lg-6 col-xs-12">
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nombre Tarifa', v: true } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tarifa } %>
-		<hr>
 		<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :cuantia_tarifa, label: 'Diferencia cuantia para la tarifa' } %>
+		<% unless @objeto.owner_id.blank? %>
+			</br>
+			<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Definir como tarifa por defecto', v: true } %>
+			<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, display_field: 'tipo_causa', prompt: 'Etapa' } %>
+		<% end %>
 	</div>
 	<div class="col-lg-6">
 		<small class="text-info">Tarifa horas</small></br>
@@ -14,7 +24,7 @@
 		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor_hora } %>
 	</div>
 </div>
-
+<hr>
 <!--  DEPRECATED -->
 <%#= render partial: '0p/form_fields/label', locals: { form: form, label: ' Elementos Facturables', v: false } %>
 <%#= render partial: '0p/form_fields/text', locals: { form: form, token: :facturables } %>
