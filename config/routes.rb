@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :causa_hechos
   resources :causa_archivos do 
     match :arriba, via: :get, on: :member
     match :abajo, via: :get, on: :member
@@ -76,6 +77,7 @@ Rails.application.routes.draw do
     match :traer_archivos_cuantia, via: :get, on: :member
     match :crea_archivo_controlado, via: :get, on: :member
     match :input_nuevo_archivo, via: :post, on: :member
+    match :crea_hecho, via: :post, on: :member
     # ultima version
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member

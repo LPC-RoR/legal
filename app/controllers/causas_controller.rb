@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo crea_hecho ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -35,6 +35,7 @@ class CausasController < ApplicationController
     when 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), true)
       set_tabla('app_archivos', @objeto.app_archivos.order(:app_archivo), false)
+      set_tabla('causa_hechos', @objeto.causa_hechos.order(:orden), false)
     when 'Datos & Cuantía'
       # no se usa esta tabla, quizá luego se use para evitar proceso en vista
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
@@ -73,15 +74,6 @@ class CausasController < ApplicationController
     when 'Reportes'
       set_tabla('reg_reportes', @objeto.reportes, false)
       @coleccion['reg_reportes'] = @coleccion['reg_reportes'].order(annio: :desc, mes: :desc) unless @coleccion['reg_reportes'].blank?
-    end
-
-    if @options[:menu] == 'Agenda'
-    elsif @options[:menu] == 'Hechos'
-    elsif @options[:menu] == 'Datos & Cuantía'
-    elsif @options[:menu] == 'Tarifa & Pagos'
-    elsif @options[:menu] == 'Documentos y enlaces'
-    elsif @options[:menu] == 'Registro'
-    elsif @options[:menu] == 'Reportes'
     end
 
   end
@@ -124,6 +116,16 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def crea_hecho
+    t_params = params[:form_nuevo_hecho]
+    unless t_params[:descripcion].blank?
+      hecho = Hecho.create(descripcion: t_params[:descripcion])
+      CausaHecho.create(causa_id: @objeto.id, hecho_id: hecho.id, orden: @objeto.causa_hechos.count + 1 )
+    end
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
   end
 
   def traer_archivos_cuantia

@@ -1,12 +1,15 @@
 class Hecho < ApplicationRecord
 
-	belongs_to :tema
+	belongs_to :tema, optional: true
 
 #	has_many :hecho_docs
 #	has_many :app_documentos, through: :hecho_docs
 
 	has_many :hecho_archivos
 	has_many :app_archivos, through: :hecho_archivos
+
+	has_many :causa_hechos
+	has_many :causas, through: :causa_hechos
 
 	# ------------------------------------ ORDER LIST
 

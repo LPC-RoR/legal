@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_23_233913) do
+ActiveRecord::Schema.define(version: 2024_02_25_025048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -504,6 +504,20 @@ ActiveRecord::Schema.define(version: 2024_02_23_233913) do
     t.index ["seleccionado"], name: "index_causa_docs_on_seleccionado"
   end
 
+  create_table "causa_hechos", force: :cascade do |t|
+    t.integer "causa_id"
+    t.integer "hecho_id"
+    t.integer "orden"
+    t.string "st_contestación"
+    t.string "st_preparatoria"
+    t.string "st_juicio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["causa_id"], name: "index_causa_hechos_on_causa_id"
+    t.index ["hecho_id"], name: "index_causa_hechos_on_hecho_id"
+    t.index ["orden"], name: "index_causa_hechos_on_orden"
+  end
+
   create_table "causas", force: :cascade do |t|
     t.string "causa"
     t.string "identificador"
@@ -713,6 +727,7 @@ ActiveRecord::Schema.define(version: 2024_02_23_233913) do
     t.datetime "updated_at", null: false
     t.string "documento"
     t.string "paginas"
+    t.text "descripcion"
     t.index ["orden"], name: "index_hechos_on_orden"
     t.index ["tema_id"], name: "index_hechos_on_tema_id"
   end

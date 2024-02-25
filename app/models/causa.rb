@@ -20,6 +20,9 @@ class Causa < ApplicationRecord
 	has_many :causa_archivos
 	has_many :app_archivos, through: :causa_archivos
 
+	has_many :causa_hechos
+	has_many :hechos, through: :causa_hechos
+
     validates_presence_of :causa, :rit
 
     # OWN CHILDS

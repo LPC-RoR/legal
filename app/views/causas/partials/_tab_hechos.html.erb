@@ -1,6 +1,11 @@
 <%= render partial: 'causas/partials/hechos/titulo_hechos', locals: {objeto: objeto} %>
 
-<%= render partial: '0p/tabla/tabla', locals: {c: 'temas'} %>
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevoHecho', objeto: nil} do %>
+	<%= render partial: 'causas/partials/hechos/form_nuevo_hecho', locals: {objeto: objeto} %>
+<% end %>
+
+
+<%= render partial: '0p/tabla/tabla', locals: {c: 'causa_hechos'} %>
 <hr>
 
 <%= render partial: 'causas/partials/hechos/titulo_archivos', locals: {objeto: objeto} %>

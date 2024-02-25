@@ -6,14 +6,8 @@
 			Tabla de hechos
 		</div>
 		<div class="col-4" align="right">
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/temas/new?cid=#{objeto.id}", tooltip: 'Nueva Materia'} do  %>
-				<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %> 
-				Materia
-				<%= render partial: '0p/general/gly', locals: {gly: 'dot'} %>
-			<% end %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/temas/new?cid=#{objeto.id}", tooltip: 'Nueva Hecho'} do  %>
-				<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %> 
-				Hecho
+			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoHecho', objeto: nil, tooltip: 'Nuevo'} do %>
+				<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
 			<% end %>
 		</div>
 	</div>

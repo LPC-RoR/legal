@@ -1,0 +1,17 @@
+<%= form_for :form_nuevo_hecho, url: "/causas/#{objeto.id}/crea_hecho" do |form| %>
+	<div class="row">
+		<div class="col-10">
+
+			<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
+			</br>
+			<div class='form-inline'>
+				<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :descripcion } %>
+			</div>
+		</div>
+		<div class="col-2">
+			<button type="submit" class="btn btn-info">
+			  <i class="bi bi-caret-right icon-white"></i>
+			</button>
+		</div>
+	</div>
+<% end  %>
