@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_25_025048) do
+ActiveRecord::Schema.define(version: 2024_02_25_194129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -728,6 +728,8 @@ ActiveRecord::Schema.define(version: 2024_02_25_025048) do
     t.string "documento"
     t.string "paginas"
     t.text "descripcion"
+    t.integer "causa_id"
+    t.index ["causa_id"], name: "index_hechos_on_causa_id"
     t.index ["orden"], name: "index_hechos_on_orden"
     t.index ["tema_id"], name: "index_hechos_on_tema_id"
   end

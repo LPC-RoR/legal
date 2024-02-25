@@ -21,7 +21,8 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    AgeActividad.delete_all
+    Hecho.delete_all
+    CausaHecho.delete_all
 
     redirect_to root_path
   end
