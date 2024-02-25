@@ -1,0 +1,9 @@
+<% if objeto.tipo == 'Documento' %>
+	<i class="bi bi-files"></i>
+<% elsif objeto.tipo == 'Archivo' %>
+	<i class="bi bi-file"></i>
+<% end %> 
+<% if objeto.control == 'Requerido' %>
+	<i class="bi bi-check2-square"></i>
+<% end %>
+<%= objeto.nombre %> 

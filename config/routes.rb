@@ -74,6 +74,8 @@ Rails.application.routes.draw do
     match :actualiza_pago, via: :post, on: :member
     match :actualiza_antecedente, via: :post, on: :member
     match :traer_archivos_cuantia, via: :get, on: :member
+    match :crea_archivo_controlado, via: :get, on: :member
+    match :input_nuevo_archivo, via: :post, on: :member
     # ultima version
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member
@@ -252,7 +254,10 @@ Rails.application.routes.draw do
   scope module: 'tarifas' do
     resources :tar_uf_facturaciones
     resources :tar_valor_cuantias
-    resources :tar_detalle_cuantias
+    resources :tar_detalle_cuantias do
+      match :agrega_control_documento, via: :get, on: :member
+      match :elimina_control_documento, via: :get, on: :member
+    end
     resources :tar_formula_cuantias
     resources :tar_uf_sistemas
     resources :tar_elementos
@@ -322,6 +327,8 @@ Rails.application.routes.draw do
     resources :tar_variables
     resources :tar_bases
     resources :tar_liquidaciones
+
+    resources :tar_det_cuantia_controles
   end
 
   scope module: 'modelos' do

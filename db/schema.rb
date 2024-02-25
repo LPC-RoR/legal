@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_23_160301) do
+ActiveRecord::Schema.define(version: 2024_02_23_233913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1192,6 +1192,15 @@ ActiveRecord::Schema.define(version: 2024_02_23_160301) do
     t.datetime "updated_at", null: false
     t.index ["orden"], name: "index_tar_cuotas_on_orden"
     t.index ["tar_pago_id"], name: "index_tar_cuotas_on_tar_pago_id"
+  end
+
+  create_table "tar_det_cuantia_controles", force: :cascade do |t|
+    t.integer "tar_detalle_cuantia_id"
+    t.integer "control_documento_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["control_documento_id"], name: "index_tar_det_cuantia_controles_on_control_documento_id"
+    t.index ["tar_detalle_cuantia_id"], name: "index_tar_det_cuantia_controles_on_tar_detalle_cuantia_id"
   end
 
   create_table "tar_detalle_cuantias", force: :cascade do |t|

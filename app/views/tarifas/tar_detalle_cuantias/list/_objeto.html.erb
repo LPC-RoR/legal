@@ -3,23 +3,37 @@
 		<small>
 			<%= objeto.tar_detalle_cuantia %> 
 			<% unless objeto.formula_cuantia.blank? %>
-				<small class="text-muted">( <%= objeto.formula_cuantia %> )</small>
+				<div style="line-height: 13px; padding-left: 1em;">
+				<small class="text-muted"><i class="bi bi-lightbulb"></i> <%= objeto.formula_cuantia %></small>
+				</div>
 			<% end %>
 		</small>
 	</div>
 	<div class="col-3" align='right'>
+		<%= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: objeto, tooltip: 'Archivos'} do %>
+			<i class="bi bi-list-check"></i>
+		<% end %>
 		<%= link_to "/control_documentos/new?clss=#{objeto.class.name}&oid=#{objeto.id}" do %>
 			<small><i class="bi bi-plus-circle"></i></small>
 		<% end %>
-		<small><small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small></small>
+		<small><small><i class="bi bi-dot"></i><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small></small>
 	</div>
 </div>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'SelArchivo', objeto: objeto} do %>
+	<%= render partial: 'tarifas/tar_detalle_cuantias/partials/sel_archivo', locals: {objeto: objeto} %>
+<% end %>
 
 <% unless objeto.control_documentos.empty? %>
 	<small><small>
 		<% objeto.control_documentos.order(:orden).each do |control_documento| %>
 			<div class="row">
-			<%= render partial: 'repositorios/control_documentos/list/lobjeto', locals: {objeto: control_documento} %>
+				<div style="padding-left: 2em;">
+					<%= render partial: 'repositorios/control_documentos/list/line_descripcion', locals: {objeto: control_documento} %>
+					<%= link_to "/tar_detalle_cuantias/#{objeto.id}/elimina_control_documento?cid=#{control_documento.id}" do %>
+						<i class="bi bi-trash"></i>
+					<% end %>
+				</div>
 			</div>
 		<% end %>
 	</small></small>

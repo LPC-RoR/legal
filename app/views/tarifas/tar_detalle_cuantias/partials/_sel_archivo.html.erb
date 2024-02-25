@@ -1,0 +1,13 @@
+<div style="padding-left: 2em;">
+	<small><small>
+		<% archivos_controlados_disponibles.each do |control| %>
+			<% unless objeto.control_documentos.ids.include?(control.id) %>
+				<%= link_to "/tar_detalle_cuantias/#{objeto.id}/agrega_control_documento?cid=#{control.id}" do %>
+				<div class="row">
+					<%= render partial: 'repositorios/control_documentos/list/line_descripcion', locals: {objeto: control} %>
+				</div>
+				<% end %>
+			<% end %>
+		<% end %>
+	</small></small>	
+</div>

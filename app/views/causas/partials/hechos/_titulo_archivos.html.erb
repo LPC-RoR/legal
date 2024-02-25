@@ -1,0 +1,21 @@
+<%= render '0capitan/layouts/box_title' do %>
+	<div class="text-info">
+	<div class="row">
+		<div class="col-8">
+			<%= render partial: '0p/general/gly', locals: {gly: controller_icon['app_archivos']} %>
+			Archivos requeridos
+		</div>
+		<div class="col-4" align="right">
+			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoArchivo', objeto: nil, tooltip: 'Nuevo_Archivo'} do %>
+				<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
+			<% end %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: nil, tooltip: 'Selecciona_Archivos'} do %>
+				<i class="bi bi-list-check"></i>
+			<% end %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/traer_archivos_cuantia", tooltip: 'Trae Archivos desde cuantias'} do  %>
+				<%= render partial: '0p/general/gly', locals: {gly: 'arrow-clockwise'} %>
+			<% end %>
+		</div>
+	</div>
+	</div>
+<% end %>

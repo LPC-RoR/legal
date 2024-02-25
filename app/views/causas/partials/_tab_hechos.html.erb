@@ -1,8 +1,12 @@
-<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'temas', title: 'Temas', link_new: "/temas/new?cid=#{objeto.id}" } %>
+<%= render partial: 'causas/partials/hechos/titulo_hechos', locals: {objeto: objeto} %>
 
 <%= render partial: '0p/tabla/tabla', locals: {c: 'temas'} %>
 <hr>
-<%= render partial: '0capitan/general/gly_title_gly_link', locals: {gly: controller_icon['app_archivos'], title: 'Archivos requeridos', link_gly: "arrow-clockwise", link: "/causas/#{objeto.id}/traer_archivos_cuantia"} %>
+
+<%= render partial: 'causas/partials/hechos/titulo_archivos', locals: {objeto: objeto} %>
+
+<%= render partial: 'causas/partials/hechos/cllps_nuevo_archivo', locals: {objeto: objeto} %>
+<%= render partial: 'causas/partials/hechos/cllps_sel_archivos', locals: {objeto: objeto} %>
 
 <% unless @coleccion['app_archivos'].empty? %>
 	<div class="shadow p-3 mb-3 bg-white rounded">

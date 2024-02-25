@@ -1,0 +1,18 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevoArchivo', objeto: nil} do %>
+	<div style="padding-left: 3em; line-height: 13px;">
+		<%= form_for :nuevo_archivo, url: "/causas/#{objeto.id}/input_nuevo_archivo" do |form| %>
+
+			<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nombre del archivo', v: true } %>
+			</br>
+			<div class='form-inline'>
+
+				<%= render partial: '0p/form_fields/text', locals: { form: form, token: :app_archivo } %>
+
+				<button type="submit" class="btn btn-info">
+				  <i class="bi bi-caret-right icon-white"></i>
+				</button>
+
+			</div>
+		<% end  %>
+	</div>
+<% end %>

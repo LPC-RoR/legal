@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tar Det Cuantia Controles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tar detalle cuantia</th>
+      <th>Control documento</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tar_det_cuantia_controles.each do |tar_det_cuantia_control| %>
+      <tr>
+        <td><%= tar_det_cuantia_control.tar_detalle_cuantia_id %></td>
+        <td><%= tar_det_cuantia_control.control_documento_id %></td>
+        <td><%= link_to 'Show', tar_det_cuantia_control %></td>
+        <td><%= link_to 'Edit', edit_tar_det_cuantia_control_path(tar_det_cuantia_control) %></td>
+        <td><%= link_to 'Destroy', tar_det_cuantia_control, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tar Det Cuantia Control', new_tar_det_cuantia_control_path %>

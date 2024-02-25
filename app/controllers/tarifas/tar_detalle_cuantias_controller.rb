@@ -1,5 +1,5 @@
 class Tarifas::TarDetalleCuantiasController < ApplicationController
-  before_action :set_tar_detalle_cuantia, only: %i[ show edit update destroy ]
+  before_action :set_tar_detalle_cuantia, only: %i[ show edit update destroy agrega_control_documento elimina_control_documento ]
 
   # GET /tar_detalle_cuantias or /tar_detalle_cuantias.json
   def index
@@ -46,6 +46,26 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def agrega_control_documento
+    control_documento = ControlDocumento.find(params[:cid])
+    unless control_documento.blank?
+      @objeto.control_documentos << control_documento
+    end
+    
+    set_redireccion
+    redirect_to @redireccion, notice: "Control documental agregado exitósamente al detalle de cuantía"
+  end
+
+  def elimina_control_documento
+    control_documento = ControlDocumento.find(params[:cid])
+    unless control_documento.blank?
+      @objeto.control_documentos.delete(control_documento)
+    end
+    
+    set_redireccion
+    redirect_to @redireccion, notice: "Control documental eliminado exitósamente al detalle de cuantía"
   end
 
   # DELETE /tar_detalle_cuantias/1 or /tar_detalle_cuantias/1.json

@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -130,13 +130,33 @@ class CausasController < ApplicationController
     controlados = @objeto.app_archivos.map { |app_a| app_a.app_archivo }
     @objeto.valores_cuantia.each do |valor_cuantia|
       valor_cuantia.tar_detalle_cuantia.control_documentos.each do |control|
-        nombres_usados = @objeto.causa_archivos.map {|ca| ca.app_archivo.app_archivo}
         unless controlados.include?(control.nombre)
           controlados << control.nombre
           app_archivo = AppArchivo.create(owner_class: nil, owner_id: nil, app_archivo: control.nombre, control: control.control, documento_control: true)
           @objeto.causa_archivos.create(app_archivo_id: app_archivo.id, orden: @objeto.causa_archivos.count + 1)
         end
       end
+    end
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
+  end
+
+  def crea_archivo_controlado
+    control = ControlDocumento.find(params[:cid])
+    controlados = @objeto.app_archivos.map { |app_a| app_a.app_archivo }
+    unless controlados.include?(control.nombre)
+      app_archivo = AppArchivo.create(owner_class: nil, owner_id: nil, app_archivo: control.nombre, control: control.control, documento_control: true)
+      @objeto.causa_archivos.create(app_archivo_id: app_archivo.id, orden: @objeto.causa_archivos.count + 1)
+    end
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
+  end
+
+  def input_nuevo_archivo
+    f_params = params[:nuevo_archivo]
+    unless f_params[:app_archivo].blank?
+      app_archivo = AppArchivo.create(owner_class: nil, owner_id: nil, app_archivo: f_params[:app_archivo], control: nil, documento_control: false)
+      @objeto.causa_archivos.create(app_archivo_id: app_archivo.id, orden: @objeto.causa_archivos.count + 1)
     end
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"

@@ -40,6 +40,11 @@ module CptnHelper
 
 # ******************************************************************** HELPERS DE USO GENERAL
 
+    def archivos_controlados_disponibles
+    	st_modelo = StModelo.find_by(st_modelo: 'Hecho')
+    	st_modelo.blank? ? [] : st_modelo.control_documentos.order(:orden)
+    end
+
 	def nombre(objeto)
 		objeto.send(objeto.class.name.tableize.singularize)
 	end
@@ -64,6 +69,7 @@ module CptnHelper
 			'regiones' => 'geo-alt',
 			'tipo_causas' => 'file-check',
 			'tribunal_cortes' => 'bank',
+			'hechos' => 'check2-circle',
 			'tar_aprobaciones' => 'check-all',
 			'tar_facturaciones' => 'coin',
 			'tar_facturas' => 'receipt',

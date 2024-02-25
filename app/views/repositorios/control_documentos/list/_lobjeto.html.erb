@@ -2,15 +2,7 @@
 	<%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %>
 </div>
 <div class="col-lg-8">
-	<% if objeto.tipo == 'Documento' %>
-		<i class="bi bi-files"></i>
-	<% elsif objeto.tipo == 'Archivo' %>
-		<i class="bi bi-file"></i>
-	<% end %> 
-	<% if objeto.control == 'Requerido' %>
-		<i class="bi bi-check2-square"></i>
-	<% end %>
-	<%= objeto.nombre %> 
+	<%= render partial: 'repositorios/control_documentos/list/line_descripcion', locals: {objeto: objeto} %>
 </div>
 <div class="col-lg-2" align='right'>
 	<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small>
