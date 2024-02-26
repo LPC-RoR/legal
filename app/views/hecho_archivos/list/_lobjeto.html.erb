@@ -5,7 +5,9 @@
 	</div>
 	<div class="col-3" align='right'>
 		<%= render partial: "hecho_archivos/list/set_establece", locals: {objeto: objeto} %>
-		<i class="bi bi-dot"></i>
-		<%= render partial: 'hecho_archivos/list/obj_e', locals: {objeto: objeto} %>
+		<% unless objeto.hecho.causa.archivos_registrados %>
+			<i class="bi bi-dot"></i>
+			<%= render partial: 'hecho_archivos/list/obj_e', locals: {objeto: objeto} %>
+		<% end %>
 	</div>
 </div>

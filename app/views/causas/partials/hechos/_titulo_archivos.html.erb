@@ -6,14 +6,20 @@
 			Archivos requeridos
 		</div>
 		<div class="col-4" align="right">
-			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoArchivo', objeto: nil, tooltip: 'Nuevo_Archivo'} do %>
-				<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/set_archivos_registrados", tooltip: "#{objeto.archivos_registrados ? 'Desbloquea archivos' : 'Bloquea archivos' }"} do  %>
+				<%= render partial: '0p/general/gly', locals: {gly: "#{'check-' if objeto.archivos_registrados}square"} %>
 			<% end %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: nil, tooltip: 'Selecciona_Archivos'} do %>
-				<i class="bi bi-list-check"></i>
-			<% end %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/traer_archivos_cuantia", tooltip: 'Trae Archivos desde cuantias'} do  %>
-				<%= render partial: '0p/general/gly', locals: {gly: 'arrow-clockwise'} %>
+			<% unless objeto.archivos_registrados %>
+				<i class="bi bi-dot"></i>
+				<%= render layout: '0p/collapse/link', locals: {label: 'NuevoArchivo', objeto: nil, tooltip: 'Nuevo_Archivo'} do %>
+					<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
+				<% end %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: nil, tooltip: 'Selecciona_Archivos'} do %>
+					<i class="bi bi-list-check"></i>
+				<% end %>
+				<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/traer_archivos_cuantia", tooltip: 'Trae Archivos desde cuantias'} do  %>
+					<%= render partial: '0p/general/gly', locals: {gly: 'arrow-clockwise'} %>
+				<% end %>
 			<% end %>
 		</div>
 	</div>

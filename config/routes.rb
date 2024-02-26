@@ -70,6 +70,8 @@ Rails.application.routes.draw do
     match :traer_archivos_cuantia, via: :get, on: :member
     match :crea_archivo_controlado, via: :get, on: :member
     match :input_nuevo_archivo, via: :post, on: :member
+    match :set_hechos_registrados, via: :get, on: :member
+    match :set_archivos_registrados, via: :get, on: :member
     # ultima version
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member

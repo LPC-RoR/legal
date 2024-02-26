@@ -100,7 +100,7 @@ class HechosController < ApplicationController
   def nuevo_archivo
     unless params[:nuevo_archivo][:nombre].blank?
       archivo = AppArchivo.create(app_archivo: params[:nuevo_archivo][:nombre])
-      causa = @objeto.tema.causa
+      causa = @objeto.causa
 
       causa.causa_archivos.create(orden: causa.causa_archivos.count + 1, app_archivo_id: archivo.id)
       @objeto.app_archivos << archivo
@@ -112,7 +112,7 @@ class HechosController < ApplicationController
   def sel_archivo
     unless params[:aid].blank?
       archivo = AppArchivo.find(params[:aid])
-      causa = @objeto.tema.causa
+      causa = @objeto.causa
       @objeto.app_archivos << archivo unless @objeto.app_archivos.ids.include?(archivo.id)
     end
 

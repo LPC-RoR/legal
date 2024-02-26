@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_26_143556) do
+ActiveRecord::Schema.define(version: 2024_02_26_183505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -546,12 +546,16 @@ ActiveRecord::Schema.define(version: 2024_02_26_143556) do
     t.string "cargo"
     t.string "sucursal"
     t.boolean "causa_ganada"
+    t.boolean "hechos_registrados"
+    t.boolean "archivos_registrados"
+    t.index ["archivos_registrados"], name: "index_causas_on_archivos_registrados"
     t.index ["causa_ganada"], name: "index_causas_on_causa_ganada"
     t.index ["era"], name: "index_causas_on_era"
     t.index ["estado"], name: "index_causas_on_estado"
     t.index ["estado_causa"], name: "index_causas_on_estado_causa"
     t.index ["fecha_ingreso"], name: "index_causas_on_fecha_ingreso"
     t.index ["fecha_uf"], name: "index_causas_on_fecha_uf"
+    t.index ["hechos_registrados"], name: "index_causas_on_hechos_registrados"
     t.index ["juzgado_id"], name: "index_causas_on_juzgado_id"
     t.index ["rol"], name: "index_causas_on_rol"
     t.index ["tar_hora_id"], name: "index_causas_on_tar_hora_id"

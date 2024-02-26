@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_hechos_registrados set_archivos_registrados ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -116,6 +116,20 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def set_hechos_registrados
+    @objeto.hechos_registrados = @objeto.hechos_registrados ? false : true
+    @objeto.save
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
+  end
+
+  def set_archivos_registrados
+    @objeto.archivos_registrados = @objeto.archivos_registrados ? false : true
+    @objeto.save
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
   end
 
   def traer_archivos_cuantia

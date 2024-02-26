@@ -1,21 +1,21 @@
 <small><small>
 <% unless objeto.establece.blank? %>
-	<%= link_to "/hecho_archivos/#{objeto.id}/set_establece?establece=nil", title: 'sin', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+	<%= link_to "/hecho_archivos/#{objeto.id}/set_establece?establece=nil", title: 'archivo no revisado', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 		<i class="bi bi-circle-fill text-dark"></i>
 	<% end %>
 <% end %>
 <% unless objeto.establece == 'success' %>
-	<%= link_to "/hecho_archivos/#{objeto.id}/set_establece?establece=success", title: 'establece', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+	<%= link_to "/hecho_archivos/#{objeto.id}/set_establece?establece=success", title: 'archivo confirma hecho', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 		<i class="bi bi-circle-fill text-success"></i>
 	<% end %>
 <% end %>
 <% unless objeto.establece == 'warning' %>
-	<%= link_to "/hecho_archivos/#{objeto.id}/set_establece?establece=warning", title: 'no-establece', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+	<%= link_to "/hecho_archivos/#{objeto.id}/set_establece?establece=warning", title: 'archivo no aporta información concluyente', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 		<i class="bi bi-circle-fill text-warning"></i>
 	<% end %>
 <% end %>
 <% unless objeto.establece == 'danger' %>
-	<%= link_to "/hecho_archivos/#{objeto.id}/set_establece?establece=danger", title: 'refuta', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+	<%= link_to "/hecho_archivos/#{objeto.id}/set_establece?establece=danger", title: 'archivo niega el hecho', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 		<i class="bi bi-circle-fill text-danger"></i>
 	<% end %>
 <% end %>

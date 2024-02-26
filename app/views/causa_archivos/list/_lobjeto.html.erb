@@ -1,6 +1,10 @@
 <div class="col-2">
 	<small class="text-muted">
-		<%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %>
+		<% if objeto.causa.archivos_registrados %>
+			<b><%= objeto.orden %></b>
+		<% else %>
+			<%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto} %>
+		<% end %>
 	</small>
 </div>
 <div class="col-8">
@@ -12,6 +16,8 @@
 </div>
 <div class="col-2" align='right'>
 	<%= render partial: "causa_archivos/list/set_seleccionado", locals: {objeto: objeto} %>
-	<i class="bi bi-dot"></i>
-	<%= render partial: "causa_archivos/list/obj_e", locals: {objeto: objeto} %>
+	<% unless objeto.causa.archivos_registrados %>
+		<i class="bi bi-dot"></i>
+		<%= render partial: "causa_archivos/list/obj_e", locals: {objeto: objeto} %>
+	<% end %>
 </div>
