@@ -1,5 +1,5 @@
 class HechosController < ApplicationController
-  before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo remueve_documento arriba abajo ]
+  before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo remueve_documento arriba abajo set_evaluacion ]
   after_action :ordena_hechos, only: %i[ create destroy ]
 
   # GET /hechos or /hechos.json
@@ -50,6 +50,18 @@ class HechosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def set_evaluacion
+    case params[:c]
+    when 'c'
+      @objeto.st_contestacion = params[:e] == 'nil' ? nil : params[:e]
+    when 'p'
+      @objeto.st_preparatoria = params[:e] == 'nil' ? nil : params[:e]
+    end
+    @objeto.save
+
+    redirect_to "/causas/#{@objeto.causa.id}?html_options[menu]=Hechos"
   end
 
   def arriba
@@ -146,6 +158,6 @@ class HechosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hecho_params
-      params.require(:hecho).permit(:tema_id, :causa_id, :orden, :hecho, :cita, :archivo, :documento, :paginas)
+      params.require(:hecho).permit(:tema_id, :causa_id, :orden, :hecho, :cita, :archivo, :documento, :paginas, :descripcion)
     end
 end

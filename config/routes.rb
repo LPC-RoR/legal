@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     match :abajo, via: :get, on: :member
     match :nuevo_archivo, via: :post, on: :member
     match :sel_archivo, via: :get, on: :member
+    match :set_evaluacion, via: :get, on: :member
   end
   resources :temas do
     resources :hechos

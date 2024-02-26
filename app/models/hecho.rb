@@ -9,6 +9,14 @@ class Hecho < ApplicationRecord
 	has_many :hecho_archivos
 	has_many :app_archivos, through: :hecho_archivos
 
+	def color_c
+		self.st_contestacion.blank? ? 'dark' : self.st_contestacion
+	end
+
+	def color_p
+		self.st_preparatoria.blank? ? 'dark' : self.st_preparatoria
+	end
+
 	# ------------------------------------ ORDER LIST
 
 	def owner
