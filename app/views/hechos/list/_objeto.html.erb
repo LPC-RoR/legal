@@ -44,7 +44,7 @@
 
 			<div class="text-info" style="padding-left: 2em;">
 
-				<% objeto.hecho_archivos.each do |hecho_archivo| %>
+				<% objeto.hecho_archivos.order(:created_at).each do |hecho_archivo| %>
 					<%= render partial: 'hecho_archivos/list/lobjeto', locals: {objeto: hecho_archivo} %>
 				<% end %>
 

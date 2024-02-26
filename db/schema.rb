@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_26_183505) do
+ActiveRecord::Schema.define(version: 2024_02_26_192317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -702,6 +702,7 @@ ActiveRecord::Schema.define(version: 2024_02_26_183505) do
     t.integer "orden"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "aprobado_por"
     t.index ["app_archivo_id"], name: "index_hecho_archivos_on_app_archivo_id"
     t.index ["establece"], name: "index_hecho_archivos_on_establece"
     t.index ["hecho_id"], name: "index_hecho_archivos_on_hecho_id"

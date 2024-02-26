@@ -49,9 +49,11 @@ class HechoArchivosController < ApplicationController
 
   def set_establece
     @objeto.establece = params[:establece] == 'nil' ? nil : params[:establece]
+    age_usuario = perfil_activo.age_usuarios.first
+    @objeto.aprobado_por = age_usuario.blank? ? perfil_activo.nombre_perfil : age_usuario.age_usuario
     @objeto.save
     
-    redirect_to "/causas/#{@objeto.hecho.tema.causa.id}?html_options[menu]=Hechos"
+    redirect_to "/causas/#{@objeto.hecho.causa.id}?html_options[menu]=Hechos"
   end
 
   # DELETE /hecho_archivos/1 or /hecho_archivos/1.json

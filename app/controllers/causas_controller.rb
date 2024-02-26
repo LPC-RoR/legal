@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_hechos_registrados set_archivos_registrados ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -118,15 +118,13 @@ class CausasController < ApplicationController
     end
   end
 
-  def set_hechos_registrados
-    @objeto.hechos_registrados = @objeto.hechos_registrados ? false : true
-    @objeto.save
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
-  end
-
-  def set_archivos_registrados
-    @objeto.archivos_registrados = @objeto.archivos_registrados ? false : true
+  def set_flags
+    case params[:f]
+    when 'hreg'
+      @objeto.hechos_registrados = @objeto.hechos_registrados ? false : true
+    when 'areg'
+      @objeto.archivos_registrados = @objeto.archivos_registrados ? false : true
+    end
     @objeto.save
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"

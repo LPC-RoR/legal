@@ -4,6 +4,12 @@
 		<%= render partial: 'repositorios/app_archivos/list/obj_info', locals: {objeto: objeto.app_archivo} %>
 	</div>
 	<div class="col-3" align='right'>
+		<% unless objeto.establece.blank? %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'InfoAprobacion', objeto: objeto, tooltip: 'Info Aprobación'} do %>
+				<i class="bi bi-person-fill"></i>
+			<% end %>
+		<% end %>
+
 		<%= render partial: "hecho_archivos/list/set_establece", locals: {objeto: objeto} %>
 		<% unless objeto.hecho.causa.archivos_registrados %>
 			<i class="bi bi-dot"></i>
@@ -11,3 +17,9 @@
 		<% end %>
 	</div>
 </div>
+
+<% unless objeto.aprobado_por.blank? %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'InfoAprobacion', objeto: objeto} do %>
+		<small><i class="bi bi-person-fill"></i> Revisado por : <%= objeto.aprobado_por %></small>
+	<% end %>
+<% end %>
