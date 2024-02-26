@@ -1,9 +1,12 @@
 <small>
 <div class="row text-muted">
-	<div class="col-9">
+	<div class="col-2">
 		<div style="padding-left: 1em;">
 			<i class="bi bi-arrow-return-right"></i>
-			<%= render partial: '0p/tabla/orderer', locals: {objeto: objeto } %>
+			<b><%= render partial: '0p/tabla/btns_orden', locals: {objeto: objeto } %></b>
+		</div>
+	</div>
+	<div class="col-7">
 			<%= objeto.hecho %>
 			<% unless objeto.cita.blank? %>
 				<%= render layout: '0p/collapse/link', locals: {label: 'Cita', objeto: objeto, tooltip: 'Cita' } do %>
@@ -34,7 +37,7 @@
 			<% end %>
 
 			<%= render layout: '0p/collapse/display', locals: {label: 'SelArchivo', objeto: objeto} do %>
-			  	<% objeto.tema.causa.app_archivos.order(:app_archivos).each do |archivo| %>
+			  	<% objeto.causa.app_archivos.order(:app_archivos).each do |archivo| %>
 			  		<% unless objeto.app_archivos.ids.include?(archivo.id) %>
 			  		<small>
 			  			<i class="bi bi-dot"></i> 
@@ -47,7 +50,6 @@
 			  	<% end %>
 			<% end %>
 
-		</div>
 	</div>
 	<div class="col-3" align='right'>
 		<div style="padding-right: 2em;">
@@ -57,7 +59,7 @@
 			<%= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: objeto, tooltip: 'Selecciona' } do %>
 				<i class="bi bi-list-task"></i> 
 			<% end %>
-
+			<i class="bi bi-dot"></i> 
 			<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small>
 		</div>
 	</div>

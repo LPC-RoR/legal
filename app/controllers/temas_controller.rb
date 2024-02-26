@@ -13,8 +13,8 @@ class TemasController < ApplicationController
 
   # GET /temas/new
   def new
-    causa = Causa.find(params[:cid])
-    @objeto = Tema.new(causa_id: params[:cid], orden: causa.temas.count + 1)
+    causa = Causa.find(params[:causa_id])
+    @objeto = Tema.new(causa_id: params[:causa_id], orden: causa.temas.count + 1)
   end
 
   # GET /temas/1/edit
@@ -59,6 +59,8 @@ class TemasController < ApplicationController
     anterior.orden += 1
     anterior.save
 
+    ordena_hechos
+
     redirect_to @objeto.redireccion
   end
 
@@ -69,6 +71,8 @@ class TemasController < ApplicationController
     @objeto.save
     siguiente.orden -= 1
     siguiente.save
+
+    ordena_hechos
 
     redirect_to @objeto.redireccion
   end
@@ -84,6 +88,23 @@ class TemasController < ApplicationController
   end
 
   private
+    def ordena_hechos
+      causa = @objeto.causa
+      ultimo_hecho = 0
+      causa.temas.order(:orden).each do |tema|
+        tema.hechos.order(:orden).each do |hecho|
+          hecho.orden = ultimo_hecho + 1
+          hecho.save
+          ultimo_hecho += 1
+        end
+      end
+      causa.hechos.where(tema_id: nil).order(:orden).each do |hecho|
+          hecho.orden = ultimo_hecho + 1
+          hecho.save
+          ultimo_hecho += 1
+      end 
+    end
+
     def reordenar
       @objeto.list.each_with_index do |val, index|
         unless val.orden == index + 1
@@ -91,6 +112,8 @@ class TemasController < ApplicationController
           val.save
         end
       end
+
+      ordena_hechos
     end
 
     # Use callbacks to share common setup or constraints between actions.

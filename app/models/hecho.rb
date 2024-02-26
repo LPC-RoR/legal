@@ -1,6 +1,7 @@
 class Hecho < ApplicationRecord
 
 	belongs_to :tema, optional: true
+	belongs_to :causa
 
 #	has_many :hecho_docs
 #	has_many :app_documentos, through: :hecho_docs
@@ -8,13 +9,10 @@ class Hecho < ApplicationRecord
 	has_many :hecho_archivos
 	has_many :app_archivos, through: :hecho_archivos
 
-	has_many :causa_hechos
-	has_many :causas, through: :causa_hechos
-
 	# ------------------------------------ ORDER LIST
 
 	def owner
-		self.tema
+		self.causa
 	end
 
 	def list
@@ -34,7 +32,7 @@ class Hecho < ApplicationRecord
 	end
 
 	def redireccion
-		"/causas/#{self.tema.causa.id}?html_options[menu]=Hechos"
+		"/causas/#{self.causa.id}?html_options[menu]=Hechos"
 	end
 
 	# -----------------------------------------------

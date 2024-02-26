@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :causa_hechos
   resources :causa_archivos do 
     match :arriba, via: :get, on: :member
     match :abajo, via: :get, on: :member
@@ -12,16 +11,6 @@ Rails.application.routes.draw do
     match :set_establece, via: :get, on: :member
   end
   resources :valores
-
-  # DEPRECATED
-#  resources :causa_docs do
-#    match :arriba, via: :get, on: :member
-#    match :abajo, via: :get, on: :member
-#    match :cambia_seleccion, via: :get, on: :member
-#  end
-#  resources :hecho_docs do
-#    match :cambia_tag, via: :get, on: :member
-#  end
   resources :hechos do
     match :arriba, via: :get, on: :member
     match :abajo, via: :get, on: :member
@@ -29,6 +18,7 @@ Rails.application.routes.draw do
     match :sel_archivo, via: :get, on: :member
   end
   resources :temas do
+    resources :hechos
     match :arriba, via: :get, on: :member
     match :abajo, via: :get, on: :member
   end
@@ -70,6 +60,8 @@ Rails.application.routes.draw do
   end
   resources :causas do
     resources :antecedentes
+    resources :temas
+    resources :hechos
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
     match :actualiza_pago, via: :post, on: :member
@@ -77,7 +69,6 @@ Rails.application.routes.draw do
     match :traer_archivos_cuantia, via: :get, on: :member
     match :crea_archivo_controlado, via: :get, on: :member
     match :input_nuevo_archivo, via: :post, on: :member
-    match :crea_hecho, via: :post, on: :member
     # ultima version
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member

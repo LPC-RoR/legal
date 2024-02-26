@@ -1,11 +1,14 @@
 <%= render partial: 'causas/partials/hechos/titulo_hechos', locals: {objeto: objeto} %>
 
-<%= render layout: '0p/collapse/display', locals: {label: 'NuevoHecho', objeto: nil} do %>
-	<%= render partial: 'causas/partials/hechos/form_nuevo_hecho', locals: {objeto: objeto} %>
+<%= render partial: '0p/tabla/tabla', locals: {c: 'temas'} %>
+
+<% unless @coleccion['hechos'].empty? %>
+	<div class="shadow p-3 mb-3 bg-white rounded">
+		<% @coleccion['hechos'].each do |hecho| %>
+				<%= render partial: 'hechos/list/objeto', locals: {objeto: hecho} %>
+		<% end %>
+	</div>
 <% end %>
-
-
-<%= render partial: '0p/tabla/tabla', locals: {c: 'causa_hechos'} %>
 <hr>
 
 <%= render partial: 'causas/partials/hechos/titulo_archivos', locals: {objeto: objeto} %>

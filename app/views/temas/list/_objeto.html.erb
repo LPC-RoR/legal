@@ -11,9 +11,10 @@
 			<% end %>
 		</div>
 		<div class="col-2" align='right'>
-			<%= link_to "/hechos/new?tid=#{objeto.id}" do %>
-				<i class="bi bi-plus-circle"></i> 
+			<%= render layout: '0p/layout/tooltip_link', locals: { link: "/temas/#{objeto.id}/hechos/new", tooltip: 'Nuevo Hecho'} do %>
+				<i class="bi bi-plus-circle"></i>
 			<% end %>
+			<i class="bi bi-dot"></i>
 			<small><%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %></small>
 		</div>
 	</div>
