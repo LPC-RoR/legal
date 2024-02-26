@@ -1,6 +1,6 @@
 class HechosController < ApplicationController
   before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo remueve_documento arriba abajo set_evaluacion ]
-  after_action :ordena_hechos, only: %i[ create destroy ]
+  after_action :ordena_hechos, only: %i[ create destroy update ]
 
   # GET /hechos or /hechos.json
   def index
