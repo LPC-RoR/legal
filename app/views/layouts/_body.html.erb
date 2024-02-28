@@ -3,11 +3,12 @@
 
 		<%= render partial: 'layouts/partials/notice_alert' %>
 
+		<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, ES UNA PÁGINA PÚBLICA O DE DEVISE -->
 		<% if perfil_activo.present? or controller_name == 'publicos' or devise_controllers.include?(controller_name)  %>
 			<% if config[:layout][:menu_left] and menu_left?(controller_name).present? and controller_name != 'servicios' %>
 				<div class="row">
 					<div class="col-3">
-						<%= render partial: '0capitan/lmenu/lmenu' %>
+						<%= render partial: '0capitan/lmenu/lmenu', locals: { sym: controller_menu_left(controller_name) } %>
 					</div>
 					<div class="col-9">
 						<%= yield %>

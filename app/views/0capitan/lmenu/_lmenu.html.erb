@@ -15,7 +15,7 @@
 		<%= render partial: '0capitan/lmenu/despliega_enlaces' %>
 	<% end %>
 
-	<%= render partial: '0capitan/lmenu/display_menu', locals: {menu_sym: menu_left?(controller)} %>
+	<%= render partial: '0capitan/lmenu/display_menu', locals: {sym: sym, menu_sym: menu_left?(controller)} %>
 
 
 	<small>
@@ -34,13 +34,13 @@
 		<hr>
 		<div class="text-info text-center">Administración</div>
 
-		<%= render partial: '0capitan/lmenu/display_menu', locals: {menu_sym: :admin} %>
+		<%= render partial: '0capitan/lmenu/display_menu', locals: {sym: sym, menu_sym: :admin} %>
 	<% end %>
 
 	<% if dog? %>
 		<hr>
 		<div class="text-info text-center">App</div>
 
-		<%= render partial: '0capitan/lmenu/display_menu', locals: {menu_sym: :dog} %>
+		<%= render partial: '0capitan/lmenu/display_menu', locals: {sym: sym, menu_sym: :dog} %>
 	<% end %>
 <% end %>

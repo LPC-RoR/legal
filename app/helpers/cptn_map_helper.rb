@@ -1,6 +1,11 @@
 module CptnMapHelper
 
-	## ------------------------------------------------------- PARTIALS
+	def devise_controllers
+		['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']
+	end
+
+
+## ------------------------------------------------------- PARTIALS
 
 	def controller_match(controller, scope)
 		controller == scope or ( scope.split('/').length == 2 and controller == scope.split('/')[1] )

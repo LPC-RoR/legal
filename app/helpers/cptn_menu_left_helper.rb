@@ -1,31 +1,43 @@
 module CptnMenuLeftHelper
 	## ------------------------------------------------------- MENU
 
-	def devise_controllers
-		['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']
-	end
-
 	def menu_left
 		{
-			activo: [
-				'AgeActividad',
-				'Cliente',
-				'Causa',
-				'Asesoria',
-				'TarAprobacion',
-				'TarFactura',
-				'DtMateria'
-			],
-			admin: [
-				'AppNomina',
-				'Usuario',
-				'StModelo',
-				'BlgArticulo'
-			],
-			dog: [
-				'AppVersion'
-			]
+			admin: {
+				activo: [
+					'AgeActividad',
+					'Cliente',
+					'Causa',
+					'Asesoria',
+					'TarAprobacion',
+					'TarFactura',
+					'DtMateria'
+				],
+				admin: [
+					'AppNomina',
+					'Usuario',
+					'StModelo',
+					'BlgArticulo'
+				],
+				dog: [
+					'AppVersion'
+				]
+			}
 		}
+	end
+
+	def admin_controllers
+		['app_nominas', 'usuarios', 'st_modelos', 'blg_articulos', 'app_versiones']
+	end
+
+	def controller_menu_left(controller)
+		if controller == 'app_recursos'
+			action_name == 'administracion' ? :admin : nil
+		elsif admin_controllers.include?(controller)
+			:admin
+		else
+			nil
+		end
 	end
 
 	def exception_menu_controllers(controller)
