@@ -33,7 +33,7 @@ module CptnMenuLeftHelper
 	def controller_menu_left(controller)
 		if controller == 'app_recursos'
 			action_name == 'administracion' ? :admin : nil
-		elsif admin_controllers.include?(controller)
+		elsif controller != 'servicios' and devise_controllers.exclude?(controller)
 			:admin
 		else
 			nil
