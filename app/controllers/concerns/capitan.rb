@@ -12,7 +12,7 @@ module Capitan
 
 	end
 
-	# ************************************************************************** TAB
+	# ************************************************************************** INICIALIZA TAB
 	# set_tab(:menu, ['Pendientes', 'Realizadas'])
 	# <%= render partial: '0p/tabs/tabs', locals: { token: :monitor } %>
 	def set_tab(token, tabs)
@@ -31,7 +31,6 @@ module Capitan
 	    end
 	end
 
-
 	# **************************************************************************** GENERAL
 	def uf_del_dia
 		uf = TarUfSistema.find_by(fecha:Time.zone.today.to_date)
@@ -49,6 +48,10 @@ module Capitan
 
 	def enlaces_perfil
 		perfil_activo.blank? ? [] : AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion)
+	end
+
+	def limpia_nombre(string)
+		string.gsub(/\t|\r|\n/, ' ').strip.downcase
 	end
 
 end

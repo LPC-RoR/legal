@@ -1,4 +1,3 @@
-<small><%= objeto.orden %></small>
 <% unless objeto.orden == 1 %>
 	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/arriba", class: 'sb-link' do %>
 		<i class="bi bi-arrow-up-short"></i>

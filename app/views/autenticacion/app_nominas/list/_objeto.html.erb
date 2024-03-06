@@ -1,28 +1,28 @@
 <div class="row">
-<div class="col-10">
-	<div style='padding-left: 1em; padding-right: 1em'>
-	<small>
-		<i class="bi bi-person-square text-<%=objeto.perfil.blank? ? 'danger' : 'info' %>"></i> 
-
-		<b><%= objeto.nombre %></b></br>
-		<div style='padding-left: 1em; padding-right: 1em; line-height: 13px;'>
+	<div class="col-10">
+		<div style='padding-left: 1em; padding-right: 1em'>
 		<small>
-			<i class="bi bi-person<%='-circle' if objeto.tipo == 'Admin'%>"></i>
-			<%= objeto.email %> 
+			<i class="bi bi-person-square text-<%=objeto.perfil.blank? ? 'danger' : 'info' %>"></i> 
+
+			<b><%= objeto.nombre %></b></br>
+			<div style='padding-left: 1em; padding-right: 1em; line-height: 13px;'>
+			<small>
+				<i class="bi bi-person<%='-circle' if objeto.tipo == 'Admin'%>"></i>
+				<%= objeto.email %> 
+			</small>
+			</div>
 		</small>
 		</div>
-	</small>
 	</div>
-</div>
-<div class="col-2" align="right">
-	<small>
+	<div class="col-2" align="right">
 		<small>
-			<% if admin? %>
-				<%= render partial: 'autenticacion/app_nominas/list/set_admin', locals: {objeto: objeto} %>
-				<i class="bi bi-dot"></i>
-				<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
-			<% end %>
+			<small>
+				<% if admin? %>
+					<%= render partial: 'autenticacion/app_nominas/list/set_admin', locals: {objeto: objeto} %>
+					<i class="bi bi-dot"></i>
+					<%= render partial: '0p/tabla/lnks_e', locals: {objeto: objeto} %>
+				<% end %>
+			</small>
 		</small>
-	</small>
-</div>
+	</div>
 </div>

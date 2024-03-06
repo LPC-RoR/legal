@@ -1,3 +1,3 @@
-<%= link_to [:edit, objeto], class: "btn btn-outline-#{color(objeto.class.name.tableize)} btn-sm" do %>
+<%= link_to [:edit, objeto], class: "btn btn-outline-#{color(objeto.class.name.tableize)} btn-sm", title: 'editar', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
     <i class="bi bi-pencil"></i>
 <% end %>

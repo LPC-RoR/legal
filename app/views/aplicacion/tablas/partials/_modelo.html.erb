@@ -6,7 +6,7 @@
 		<div class="row">
 			<% @modelo.m_conceptos.order(:orden).each do |concepto| %>
 				<div class="col-lg-2">
-					<small><%= render partial: '0p/tabla/btns_orden', locals: {objeto: concepto} %></small>
+					<small><%= render partial: '0p/tabla/links_orden', locals: {objeto: concepto} %></small>
 				</div>
 				<div class="col-lg-5">
 					<small><b><%= concepto.m_concepto %></b></small>
@@ -25,7 +25,7 @@
 
 				<% concepto.m_items.order(:orden).each do |item| %>
 					<div class="col-lg-2">
-						<small><i class="bi bi-dot"></i> <%= render partial: '0p/tabla/btns_orden', locals: {objeto: item} %></small>
+						<small><i class="bi bi-dot"></i> <%= render partial: '0p/tabla/links_orden', locals: {objeto: item} %></small>
 					</div>
 					<div class="col-lg-5" style='padding-left: 1em'>
 						<small><i class="bi bi-<%=item.abono_cargo == 'Abono' ? 'plus' : 'dash'%>"></i> <%= item.m_item %></small>

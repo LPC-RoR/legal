@@ -11,7 +11,7 @@ module CptnMapHelper
 		controller == scope or ( scope.split('/').length == 2 and controller == scope.split('/')[1] )
 	end
 
-	def whith_scope(controller)
+	def with_scope(controller)
 		if ['layouts'].include?(controller)
 			controller
 		else
@@ -23,7 +23,7 @@ module CptnMapHelper
 
 	# actual, se usa para no repetir código del subdirectorio
 	def partial_dir(controller, subdir)
-		"#{whith_scope(controller)}#{"/"+subdir unless subdir.blank?}/"
+		"#{with_scope(controller)}#{"/"+subdir unless subdir.blank?}/"
 	end
 
 	# nombre del patial SIN underscore
