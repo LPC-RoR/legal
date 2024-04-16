@@ -6,6 +6,7 @@ class AppPerfil < ApplicationRecord
 
 	has_many :blg_articulos
 
+	# Aplicacion
 	has_many :age_usuarios
 
 	# Revisar DEPRECATED
@@ -18,16 +19,6 @@ class AppPerfil < ApplicationRecord
 
 	def app_enlaces
 		AppEnlace.where(owner_class: 'AppPerfil', owner_id: self.id)
-	end
-
-	# DEPRECATED Revisar
-	def repositorio
-		AppRepositorio.where(owner_class: self.class.name).find_by(owner_id: self.id)
-	end
-
-	# DEPRECATED Revisar
-	def modelo_perfil
-		MModelo.find_by(ownr_class: self.class.name, ownr_id: self.id)
 	end
 
 end

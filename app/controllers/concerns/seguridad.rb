@@ -1,6 +1,14 @@
 module Seguridad
 	extend ActiveSupport::Concern
 
+	# CONFIG
+
+	def public_controllers
+		['publicos']
+	end
+
+	# METHODS
+
 	def version_activa
 		AppVersion.last
 	end
@@ -39,13 +47,13 @@ module Seguridad
 		es_usuario or dog?
 	end
 
-	# DEPRECATED : A futuro se introduce la categoría 'servicio para regular el acceco a los controladores de servicios.'
+	# DEPRECATED : A futuro se introduce la categoría 'servicio para regular el acceso a los controladores de servicios.'
 	def nomina?
 		usuario_signed_in? ? AppNomina.find_by(email: current_usuario.email).present? : false
 	end
 
 	def publico?
-		action_name == 'home' ? ( not usuario_signed_in?) : (['publicos'].include?(controller_name) or controller_name.match(/^blg_*/))
+		action_name == 'home' ? ( not usuario_signed_in?) : (public_controllers.include?(controller_name) or controller_name.match(/^blg_*/))
 	end
 
 	def seguridad(nivel)

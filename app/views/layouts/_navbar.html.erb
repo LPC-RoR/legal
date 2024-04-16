@@ -1,9 +1,9 @@
-<% if config[:layout][:menu] %>
-	<div class="container-fluid">
-		<div class="app_navbar" style="padding-left: <%=padd%>%; padding-right: <%=padd%>%; margin-bottom: 3px;">
-				<div class="shadow bg-white rounded">
+<% if lyt_navbar %>
+	<div style="padding-left: <%=lyt_navbar_padd%>%; padding-right: <%=lyt_navbar_padd%>%; margin-bottom: 4px;">
+		<div class="container-fluid">
+			<div class="navbar-box">
 				<%= render partial: '0p/navbar/navbar'  %>
-				</div>
+			</div>
 		</div>
 	</div>
 <% end %>

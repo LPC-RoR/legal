@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cfg_valor: MyString
+  tipo: MyString
+  numero: 9.99
+  palabra: MyString
+  texto: MyText
+  fecha: 2024-04-12
+  fecha_hora: 2024-04-12 22:11:13
+  check_box: false
+  app_version_id: 1
+
+two:
+  cfg_valor: MyString
+  tipo: MyString
+  numero: 9.99
+  palabra: MyString
+  texto: MyText
+  fecha: 2024-04-12
+  fecha_hora: 2024-04-12 22:11:13
+  check_box: false
+  app_version_id: 1

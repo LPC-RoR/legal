@@ -1,22 +1,28 @@
 <div class="container-fluid">
-	<div class="app_body" style="padding-left: <%=padd%>%; padding-right: <%=padd%>%; margin-bottom: 1px;">
+	<div class="app_body" style="padding-left: <%=lyt_body_padd%>%; padding-right: <%=lyt_body_padd%>%; margin-bottom: 1px;">
 
 		<%= render partial: 'layouts/partials/notice_alert' %>
 
 		<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, ES UNA PÁGINA PÚBLICA O DE DEVISE -->
-		<% if perfil_activo.present? or controller_name == 'publicos' or devise_controllers.include?(controller_name)  %>
-			<% if config[:layout][:menu_left] and menu_left?(controller_name).present? and controller_name != 'servicios' %>
+		<% if perfil_activo.present? or public_controllers.include?(controller_name) or devise_controllers.include?(controller_name)  %>
+
+			<!-- Valida despliegue de menu_left -->
+			<!-- Tiene que estar activado en la aplicación -->
+			<!-- El controlador debe estar en la lista de despliegue -->
+			<% unless left_menu_sym.blank? %>
 				<div class="row">
 					<div class="col-3">
-						<%= render partial: '0capitan/lmenu/lmenu', locals: { sym: controller_menu_left(controller_name) } %>
+						<%= render partial: '0capitan/lmenu/lmenu', locals: { sym: left_menu_sym } %>
 					</div>
 					<div class="col-9">
 						<%= yield %>
 					</div>
 				</div>
+				
 			<% else %>
 				<%= yield %>
 			<% end %>
+
 		<% else %>
 			Usuario sin perfil activo, comuniquese con el administrador de la plataforma.
 		<% end %>

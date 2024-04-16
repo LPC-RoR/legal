@@ -1,25 +1,33 @@
-<% unless controller_name == 'servicios' %>
-	<!-- OVER MENU -->
-	<div class="container-fluid">
-		<% if (partial?('layouts', 'over', 'menu_over') and config[:layout][:menu_over]) %>
-			<div class="menu_over" style="padding-left: <%=padd_menu%>%; padding-right: <%=padd_menu%>%; margin-top: 2px; margin-bottom: 4px;">
-				<div class="shadow bg-white rounded">
-					<%= render partial: 'layouts/over/menu_over' %>
-				</div>
-			</div>
-		<% end %>
-	</div>
-
-	<!-- BANNER -->
-	<div class="container-fluid">
-		<% if (partial?('layouts', 'over', 'banner') and config[:layout][:banner]) %>
-			<% unless no_banner_display? %>
-				<div class="banner" style="padding-left: <%=padd_bann%>%; padding-right: <%=padd_bann%>%; margin-bottom: 8px;">
-					<div class="shadow bg-white rounded">
-						<%= render partial: 'layouts/over/banner' %>
+<% unless no_over_layout? %>
+	<% if lyt_o_menu %>
+		<!-- OVER MENU -->
+		<% if partial?('0capitan', 'app/over', 'menu_over') %>
+			<% unless no_over_menu_layout? %>
+				<div class="container-fluid">
+					<div class="menu_over" style="padding-left: <%=lyt_o_menu_padd%>%; padding-right: <%=lyt_o_menu_padd%>%; margin-top: 2px; margin-bottom: 4px;">
+						<div class="menu-over-box">
+							<div class="menu-over-items">
+								<%= render partial: '0capitan/app/over/menu_over' %>
+							</div>
+						</div>
 					</div>
 				</div>
 			<% end %>
 		<% end %>
-	</div>
+	<% end %>
+
+	<% if lyt_o_bann %>
+		<!-- BANNER -->
+		<% if partial?('0capitan', 'app/over', 'banner') %>
+			<% unless no_banner_layout? %>
+				<div class="container-fluid">
+					<div class="banner" style="padding-left: <%=lyt_o_bann_padd%>%; padding-right: <%=lyt_o_bann_padd%>%; margin-bottom: 8px;">
+						<div class="banner-box">
+							<%= render partial: '0capitan/app/over/banner' %>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+	<% end %>
 <% end %>

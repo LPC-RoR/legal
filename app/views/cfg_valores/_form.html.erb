@@ -1,0 +1,62 @@
+<%= form_with(model: cfg_valor, local: true) do |form| %>
+  <% if cfg_valor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cfg_valor.errors.count, "error") %> prohibited this cfg_valor from being saved:</h2>
+
+      <ul>
+      <% cfg_valor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :cfg_valor %>
+    <%= form.text_field :cfg_valor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tipo %>
+    <%= form.text_field :tipo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :numero %>
+    <%= form.text_field :numero %>
+  </div>
+
+  <div class="field">
+    <%= form.label :palabra %>
+    <%= form.text_field :palabra %>
+  </div>
+
+  <div class="field">
+    <%= form.label :texto %>
+    <%= form.text_area :texto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha %>
+    <%= form.date_select :fecha %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_hora %>
+    <%= form.datetime_select :fecha_hora %>
+  </div>
+
+  <div class="field">
+    <%= form.label :check_box %>
+    <%= form.check_box :check_box %>
+  </div>
+
+  <div class="field">
+    <%= form.label :app_version_id %>
+    <%= form.number_field :app_version_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

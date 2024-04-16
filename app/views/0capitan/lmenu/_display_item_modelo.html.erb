@@ -1,0 +1,24 @@
+<% if link_model(controller_name) == modelo %>
+	<div style="padding-left: 1em;">
+<% end %>
+
+<small>
+<% unless controller_icon[modelo.tableize].blank? %>
+	<% if link_model(controller_name) == modelo %>
+		<i class="bi bi-arrow-right"></i> 
+	<% end %>
+	<i class="bi bi-<%=controller_icon[modelo.tableize]%>"></i>
+<% end %>
+<% if model_link(modelo) == request.fullpath %>
+	<b><%= modelo_item(modelo) %></b>
+<% else %>
+	<%= link_to model_link(modelo) do %>
+		<span class="text-muted"><%= modelo_item(modelo) %></span>
+	<% end %>
+<% end %>
+</small>
+</br>
+
+<% if link_model(controller_name) == modelo %>
+	</div>
+<% end %>

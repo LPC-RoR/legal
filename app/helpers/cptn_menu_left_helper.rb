@@ -3,49 +3,63 @@ module CptnMenuLeftHelper
 
 	def menu_left
 		{
-			admin: {
-				activo: [
-					'AgeActividad',
-					'Cliente',
-					'Causa',
-					'Asesoria',
-					'TarAprobacion',
-					'TarFactura',
-					'DtMateria'
-				],
-				admin: [
-					'AppNomina',
-					'Usuario',
-					'StModelo',
-					'BlgArticulo'
-				],
-				dog: [
-					'AppVersion'
-				]
-			}
+			admin: [
+				{
+					titulo: nil,
+					condicion: usuario?,
+					items: [
+						'AgeActividad',
+						'Cliente',
+						'Causa',
+						'Asesoria',
+						'TarAprobacion',
+						'TarFactura',
+						'DtMateria'
+					]
+				},
+				{
+					titulo: 'Tablas', 
+					condicion: admin? 
+				},
+				{
+					titulo: 'Administracion', 
+					condicion: admin?, 
+					items: [
+						'AppNomina',
+						'StModelo',
+						'BlgArticulo',
+						'HImagen'
+					]
+				},
+				{
+					titulo: 'App', 
+					condicion: dog?, 
+					items: [
+						'AppVersion'
+					]
+				}
+			]
 		}
 	end
 
 	def admin_controllers
-		['app_nominas', 'usuarios', 'st_modelos', 'blg_articulos', 'app_versiones']
+		['app_nominas', 'usuarios', 'st_modelos', 'blg_articulos', 'app_versiones', 'h_imagenes']
 	end
 
-	def controller_menu_left(controller)
-		if controller == 'app_recursos'
-			action_name == 'administracion' ? :admin : nil
-		elsif controller != 'servicios' and devise_controllers.exclude?(controller)
-			:admin
-		else
-			nil
-		end
+	def tablas_controllers
+		[]
 	end
 
-	def exception_menu_controllers(controller)
-		if controller == 'publicos'
-			usuario_signed_in? ? :activo : ( action_name == 'home' ? nil : :publico)
-		else
-			:activo
-		end
+	def left_menu_actions?
+		controller_name == 'publicos' and action_name == 'home' and usuario_signed_in?
+	end
+
+	def left_menu_controllers?
+		admin_controllers.include?(controller_name) or tablas_controllers.include?(controller_name)
+	end
+
+	def left_menu_sym
+		( left_menu_actions? or left_menu_controllers?) ? :admin : nil
 	end
 
 	# determina el menú PRIMARIO usándo como parámetro el controlador de lo desplegado

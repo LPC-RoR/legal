@@ -6,6 +6,7 @@ class Home::HImagenesController < ApplicationController
   # GET /h_imagenes
   # GET /h_imagenes.json
   def index
+    set_tabla('h_imagenes', HImagen.all.order(:h_imagen), false)
   end
 
   # GET /h_imagenes/1

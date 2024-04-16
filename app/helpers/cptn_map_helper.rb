@@ -12,7 +12,7 @@ module CptnMapHelper
 	end
 
 	def with_scope(controller)
-		if ['layouts'].include?(controller)
+		if ['layouts', '0capitan', '0p'].include?(controller)
 			controller
 		else
 			coincidencias = Rails.application.routes.routes.map do |route|

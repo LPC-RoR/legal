@@ -6,6 +6,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "app_layout" %>
     <%= stylesheet_link_tag "link_styles" %>
     <%= stylesheet_link_tag "capitan" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -23,14 +24,15 @@
 </head>
 
   <body>
+
     <!-- OVER -->
-    <%= render partial: 'layouts/over', locals: {padd_menu: 3, padd_bann: 3} %>
+    <%= render partial: 'layouts/over' %>
 
     <!-- NAVBAR+ -->
-    <%= render partial: 'layouts/navbar', locals: {padd: 3} %>
+    <%= render partial: 'layouts/navbar' %>
 
     <!-- BODY -->
-    <%= render partial: 'layouts/body', locals: {padd: 3} %>
+    <%= render partial: 'layouts/body' %>
 
     <!-- FOOTER -->
     <!-- Administrar con subdirectorios -->

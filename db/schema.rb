@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_26_192317) do
+ActiveRecord::Schema.define(version: 2024_04_13_021113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -471,9 +471,9 @@ ActiveRecord::Schema.define(version: 2024_02_26_192317) do
 
   create_table "cal_semanas", force: :cascade do |t|
     t.integer "cal_semana"
+    t.integer "cal_mes_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "cal_mes_id"
     t.index ["cal_mes_id"], name: "index_cal_semanas_on_cal_mes_id"
     t.index ["cal_semana"], name: "index_cal_semanas_on_cal_semana"
   end
@@ -563,6 +563,23 @@ ActiveRecord::Schema.define(version: 2024_02_26_192317) do
     t.index ["tipo"], name: "index_causas_on_tipo"
     t.index ["tipo_causa_id"], name: "index_causas_on_tipo_causa_id"
     t.index ["tribunal_corte_id"], name: "index_causas_on_tribunal_corte_id"
+  end
+
+  create_table "cfg_valores", force: :cascade do |t|
+    t.string "cfg_valor"
+    t.string "tipo"
+    t.decimal "numero"
+    t.string "palabra"
+    t.text "texto"
+    t.date "fecha"
+    t.datetime "fecha_hora"
+    t.boolean "check_box"
+    t.integer "app_version_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_version_id"], name: "index_cfg_valores_on_app_version_id"
+    t.index ["cfg_valor"], name: "index_cfg_valores_on_cfg_valor"
+    t.index ["tipo"], name: "index_cfg_valores_on_tipo"
   end
 
   create_table "clientes", force: :cascade do |t|

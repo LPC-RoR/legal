@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :cfg_valores
   resources :causa_archivos do 
     match :arriba, via: :get, on: :member
     match :abajo, via: :get, on: :member

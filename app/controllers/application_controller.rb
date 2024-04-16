@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 	include Tarifas
 
 	# Seguridad
-	helper_method :version_activa, :dog_name, :dog_email, :nomina_activa, :perfil_activo?, :perfil_activo, :dog?, :admin?, :usuario?, :nomina?, :publico?, :seguridad
+	helper_method :version_activa, :dog_name, :dog_email, :nomina_activa, :perfil_activo?, :perfil_activo, :dog?, :admin?, :usuario?, :nomina?, :publico?, :seguridad, :public_controllers
 	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :enlaces_perfil
 	helper_method :calcula2, :set_formulas, :set_valores, :set_detalle_cuantia
 	helper_method :menu_tablas, :tb_index, :tb_item, :first_tabla_index

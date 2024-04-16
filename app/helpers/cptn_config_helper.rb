@@ -49,4 +49,93 @@ module CptnConfigHelper
 		}
 	end
 
+	# CONFIG con MANEJO DE DEFAULT VALUES
+
+	def cfg_defaults
+		{
+			app_nombre: 'Aplicación nueva',
+			app_sigla: 'app',
+			app_home: nil,
+			lyt_o_menu: true,
+			lyt_o_bann: true,
+			lyt_navbar: false,
+			lyt_o_menu_padd: 3,
+			lyt_o_bann_padd: 3,
+			lyt_navbar_padd: 3,
+			lyt_body_padd: 3
+		}
+	end
+
+	def cfg_navbar
+		{
+			color: 'info',
+			logo_navbar: nil,
+#			logo_navbar: 'logo_navbar.gif',
+			bg_color: '#45b39d'
+		}
+	end
+
+
+	def get_cfg(cfg_nombre)
+		cfg = version_activa.cfg_valores.find_by(cfg_valor: cfg_nombre)
+		if cfg.blank?
+			cfg_defaults[cfg_nombre.to_sym]
+		else
+			case cfg.tipo
+			when 'palabra'
+				cfg.palabra
+			when 'numero'
+				cfg.numero
+			when 'texto'
+				cfg.texto
+			when 'fecha'
+				cfg.fecha
+			when 'fecha_hora'
+				cfg.fecha_hora
+			when 'condicion'
+				cfg.condicion
+			end
+		end
+	end
+
+	def app_nombre
+		get_cfg('app_nombre')
+	end
+
+	def app_sigla
+		get_cfg('app_sigla')
+	end
+
+	def app_home
+		get_cfg('app_home')
+	end
+
+	def lyt_o_menu
+		get_cfg('lyt_o_menu')
+	end
+
+	def lyt_o_bann
+		get_cfg('lyt_o_bann')
+	end
+
+	def lyt_navbar
+		get_cfg('lyt_navbar')
+	end
+
+	def lyt_o_menu_padd
+		get_cfg('lyt_o_menu_padd')
+	end
+
+	def lyt_o_bann_padd
+		get_cfg('lyt_o_bann_padd')
+	end
+
+	def lyt_navbar_padd
+		get_cfg('lyt_navbar_padd')
+	end
+
+	def lyt_body_padd
+		get_cfg('lyt_body_padd')
+	end
+
 end

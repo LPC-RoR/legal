@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Cfg Valores</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cfg valor</th>
+      <th>Tipo</th>
+      <th>Numero</th>
+      <th>Palabra</th>
+      <th>Texto</th>
+      <th>Fecha</th>
+      <th>Fecha hora</th>
+      <th>Check box</th>
+      <th>App version</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cfg_valores.each do |cfg_valor| %>
+      <tr>
+        <td><%= cfg_valor.cfg_valor %></td>
+        <td><%= cfg_valor.tipo %></td>
+        <td><%= cfg_valor.numero %></td>
+        <td><%= cfg_valor.palabra %></td>
+        <td><%= cfg_valor.texto %></td>
+        <td><%= cfg_valor.fecha %></td>
+        <td><%= cfg_valor.fecha_hora %></td>
+        <td><%= cfg_valor.check_box %></td>
+        <td><%= cfg_valor.app_version_id %></td>
+        <td><%= link_to 'Show', cfg_valor %></td>
+        <td><%= link_to 'Edit', edit_cfg_valor_path(cfg_valor) %></td>
+        <td><%= link_to 'Destroy', cfg_valor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cfg Valor', new_cfg_valor_path %>

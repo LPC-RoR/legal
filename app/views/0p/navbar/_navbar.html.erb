@@ -1,13 +1,15 @@
-<!-- LOGO SOBRE EL MENÚ -->
-<% if config[:layout][:menu] %>
-
 <!--NAVBAR-->
-<nav class="navbar navbar-expand-lg navbar-<%= config[:color][:navbar] %> bg2-<%=config[:color][:navbar_bg]%>" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-dark%>" style="background-color: <%=cfg_navbar[:bg_color]%>;">
   <div class="container-fluid">
+
     <!-- LOGO NAVBAR -->
-    <% if File.exist?("app/assets/images/#{config[:app][:logo_navbar]}") %>
-      <a class="navbar-brand" href="<%=config[:app][:home]%>">
-        <%= image_tag(config[:app][:logo_navbar], height: '30', class: "img-responsive", id: "navbar-logo") unless config[:app][:logo_navbar].blank? %>ADdT
+    <% if File.exist?("app/assets/images/#{cfg_navbar[:logo_navbar]}") %>
+      <a class="navbar-brand" href="<%=app_home%>">
+        <% if cfg_navbar[:logo_navbar].blank? %>
+          <div class='text-white'><b><%= app_sigla %></b></div>
+        <% else %>
+          <%= image_tag(cfg_navbar[:logo_navbar], height: "40", class: "img-responsive", id: "navbar-logo") %>
+        <% end %>
       </a>
     <% end %>
 
@@ -59,7 +61,7 @@
           <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: app_mensajes_path, active: controller_name == 'contactos', delete: false, gly: 'envelope', tooltip: 'Contacto'} if config[:menu][:contacto] %>
 
           <!-- SALIR -->
-          <%= render partial: '0p/navbar/btn', locals: {nombre: 'Salir', link: destroy_usuario_session_path, active: false, delete: true, gly: 'door-open', tooltip: 'Salir'} %>
+          <%= render partial: '0p/navbar/btn', locals: {nombre: nil, link: destroy_usuario_session_path, active: false, delete: true, gly: 'door-open', tooltip: 'Salir'} %>
 
         <% else %>
 
@@ -77,5 +79,3 @@
     </div>
   </div>
 </nav>
-
-<% end %>
