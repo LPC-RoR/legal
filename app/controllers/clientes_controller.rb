@@ -81,11 +81,12 @@ class ClientesController < ApplicationController
       set_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       set_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
     elsif @options[:menu] == 'Documentos y enlaces'
-      @repositorio = AppRepositorio.where(owner_class: 'Cliente').find_by(owner_id: @objeto.id)
-      @repositorio = AppRepositorio.create(app_repositorio: @objeto.razon_social, owner_class: 'Cliente', owner_id: @objeto.id) if @repositorio.blank?
-      set_tabla('app_directorios', @repositorio.directorios, false)
-      set_tabla('app_documentos', @repositorio.documentos, false)
-      set_tabla('app_archivos', @repositorio.archivos, false)
+      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
+
+      @d_pendientes = @objeto.documentos_pendientes
+      @a_pendientes = @objeto.archivos_pendientes
     end
 
   end

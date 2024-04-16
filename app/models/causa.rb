@@ -239,18 +239,6 @@ class Causa < ApplicationRecord
 		self.cliente.tarifas
 	end
 
-	def repositorio
-    	AppRepositorio.where(owner_class: self.class.name).find_by(owner_id: self.id)
-	end
-
-	def demanda?
-		self.repositorio.blank? ? false : self.repositorio.archivos.where(app_archivo: 'Demanda').present?
-	end
-
-	def demanda
-		self.repositorio.archivos.find_by(app_archivo: 'Demanda')
-	end
-
 	def monto_pagado_pesos(pago)
 		self.monto_pagado
 	end

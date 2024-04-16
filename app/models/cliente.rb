@@ -81,11 +81,6 @@ class Cliente < ApplicationRecord
 		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Documento').order(:nombre).map {|cd| cd.nombre}
 	end
 
-	#Solo para que funcione ser_redireccion
-	def repositorio
-    	AppRepositorio.where(owner_class: self.class.name).find_by(owner_id: self.id)
-	end
-
 	# Hasta aqui revisado!
 
 	def tarifas
