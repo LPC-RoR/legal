@@ -73,6 +73,7 @@ class Home::HImagenesController < ApplicationController
     end
 
     def set_redireccion
+      @redireccion = h_imagenes_path
     end
 
     # Only allow a list of trusted parameters through.
