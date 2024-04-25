@@ -55,6 +55,10 @@ class Causa < ApplicationRecord
 		ids = self.archivos_controlados.map {|control| control.id unless self.nombres_usados.include?(control.nombre) }.compact
 		ControlDocumento.where(id: ids)
 	end
+
+	def demanda
+		self.archivos.find_by(app_archivo: 'Demanda')
+	end
 	# ------------------------------------------------------------
 
 	def exclude_files
