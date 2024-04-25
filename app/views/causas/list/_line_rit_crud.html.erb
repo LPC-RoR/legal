@@ -12,12 +12,12 @@
 				<i class="bi bi-currency-dollar"></i>
 			<% end %>
 		<% end %>
-		<% if objeto.demanda? %>
+		<% if objeto.demanda.archivo.present? %>
 			<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 				<i class="bi bi-box-arrow-up-right"></i>
 			<% end %>
 		<% end %>
-		<% if objeto.facturaciones.any? or objeto.demanda? %>
+		<% if objeto.facturaciones.any? or objeto.demanda.archivo.present? %>
 			<i class="bi bi-dot"></i>
 		<% end %>
 		<% unless restriccion %>
