@@ -59,6 +59,12 @@ class Causa < ApplicationRecord
 	def demanda
 		self.archivos.find_by(app_archivo: 'Demanda')
 	end
+
+	def demanda?
+		archivo = self.demanda
+
+		archivo.blank? ? false : archivo.archivo.present?
+	end
 	# ------------------------------------------------------------
 
 	def exclude_files
