@@ -1,5 +1,9 @@
 module CptnTablaHelper
 
+	def no_th_controllers
+		['directorios', 'documentos', 'archivos', 'imagenes']
+	end
+
 #********************************************************************** GENERAL *************************************************************
 	# Objtiene LINK DEL BOTON NEW
 	def get_new_link(controller)
