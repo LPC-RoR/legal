@@ -53,8 +53,8 @@ module CptnConfigHelper
 
 	def cfg_defaults
 		{
-			app_nombre: 'Aplicación nueva',
-			app_sigla: 'app',
+			app_nombre: 'Abogados Derecho del Trabajo',
+			app_sigla: 'addt',
 			app_home: nil,
 			lyt_o_menu: true,
 			lyt_o_bann: true,
