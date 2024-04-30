@@ -1,4 +1,4 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'envelope', text: @objeto.author, clr: config[:color][:app]} %></h4>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'envelope', text: @objeto.author, clr: cfg_color[:app]} %></h4>
 
 <%= render partial: '0p/general/btn_turbolink', locals: {texto: (@objeto.estado = 'ingreso' ? 'Enviar' : 'Enviado'), gly: (@objeto.estado = 'ingreso' ? 'envelope' : 'mailbox'), link: "/app_mensajes/#{@objeto.id}/estado?estado=enviado", delete: false, style: 'btn-outline-dark', clr: color(controller_name)} if ['ingreso', 'cerrado'].include?(@objeto.estado) %>
 
@@ -9,7 +9,7 @@
 <!-- Despliegue del Mensaje -->
 <h6>
   <b><%= @objeto.mensaje %></b>
-  <%= render partial: '0p/general/icon_text', locals: {gly: 'chat-square-text', text: 'Detalle mensaje', clr: config[:color][:app]} %>
+  <%= render partial: '0p/general/icon_text', locals: {gly: 'chat-square-text', text: 'Detalle mensaje', clr: cfg_color[:app]} %>
   <%= sanitize simple_format(@objeto.detalle) %>
 </h6>
 
@@ -18,7 +18,7 @@
   <div class='row'>
     <div class='col-md-1'></div>
     <div class='col-md-11'>
-      <%= render partial: '0p/general/icon_text', locals: {gly: 'list-nested', text: 'Respuestas', clr: config[:color][:app]} %>
+      <%= render partial: '0p/general/icon_text', locals: {gly: 'list-nested', text: 'Respuestas', clr: cfg_color[:app]} %>
 
       <% @objeto.children.order(fecha_envio: :desc).each do |resp| %>
         <small>
@@ -37,7 +37,7 @@
 <!--Form RESPUESTA -->
 <div class='row'>
   <div class='col-md-6'>
-    <%= render partial: '0p/general/icon_text', locals: {gly: 'pencil', text: 'Respuesta', clr: config[:color][:app]} %>
+    <%= render partial: '0p/general/icon_text', locals: {gly: 'pencil', text: 'Respuesta', clr: cfg_color[:app]} %>
     <%= form_for :mensaje_base, url: "/app_mensajes/respuesta?padre_id=#{@objeto.id}" do |form| %>
  
       <%= form.text_field(:mensaje, size: 30, class: 'form-control' ) %>

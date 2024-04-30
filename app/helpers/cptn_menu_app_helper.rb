@@ -44,8 +44,4 @@ module CptnMenuAppHelper
 		end
 	end
 
-	def display_item_app(item, tipo_item)
-		true
-	end
-
 end

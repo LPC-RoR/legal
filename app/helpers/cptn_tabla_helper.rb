@@ -4,14 +4,16 @@ module CptnTablaHelper
 		['directorios', 'documentos', 'archivos', 'imagenes']
 	end
 
-#********************************************************************** GENERAL *************************************************************
-	# Objtiene LINK DEL BOTON NEW
-	def get_new_link(controller)
-		# distingue cuando la tabla está en un index o en un show
-		(controller_name == get_controller(controller) or @objeto.blank?) ? "/#{get_controller(controller)}/new" : "/#{@objeto.class.name.tableize}/#{@objeto.id}/#{get_controller(controller)}/new"
+	def table_types_base
+		{
+			simple: '',
+			striped: 'table-striped',
+			bordered: 'table-bordered',
+			borderless: 'table-borderless',
+			hover: 'table-hover',
+			small: 'table-small'
+		}
 	end
-
-	## ------------------------------------------------------- TABLA
 
 	def table_types(controller)
 		if ['app_directorios', 'app_documentos', 'app_archivos'].include?(controller)
@@ -24,6 +26,12 @@ module CptnTablaHelper
 	# Obtiene los campos a desplegar en la tabla desde el objeto
 	def m_tabla_fields(objeto)
 		objeto.class::TABLA_FIELDS
+	end
+
+	# Objtiene LINK DEL BOTON NEW
+	def get_new_link(controller)
+		# distingue cuando la tabla está en un index o en un show
+		(controller_name == get_controller(controller) or @objeto.blank?) ? "/#{get_controller(controller)}/new" : "/#{@objeto.class.name.tableize}/#{@objeto.id}/#{get_controller(controller)}/new"
 	end
 
 	def sortable?(controller, field)
@@ -47,7 +55,7 @@ module CptnTablaHelper
 	end
 
 	# Obtiene el campo para despleagar en una TABLA
-	# Acepta los sigueintes labels:
+	# Acepta los siguientes labels:
 	# 1.- archivo:campo : archivo es un campo has_one o belongs_to y campo es el nombre del campo de esa relación
 	# 2.- campo : campo es el campo del objeto
 	# 3.- i#campo : es un campo que va antecedido de un ícono
@@ -92,6 +100,20 @@ module CptnTablaHelper
 
 	end
 
+	# -------------------------------------------------------- FORM
+
+	# Este helper encuentra el partial que se debe desplegar como form
+	# originalmente todos llegaban a _form
+	# ahora pregunta si hay un partial llamado _datail en el directorio de las vistas del modelo
+	def detail_partial(controller)
+		# partial?(controlller, dir, partial)
+		if partial?(controller, nil, 'detail')
+			partial_name(controller, nil, 'detail')
+		else
+			'0p/form/detail'
+		end
+	end
+
 	## ------------------------------------------------------- TABLA | BTNS
 	
 	# Link de un x_btn del modelo de una tabla
@@ -112,16 +134,4 @@ module CptnTablaHelper
 	end
 
 	## ------------------------------------------------------- FORM
-	# Este helper encuentra el partial que se debe desplegar como form
-	# originalmente todos llegaban a _form
-	# ahora pregunta si hay un partial llamado _datail en el directorio de las vistas del modelo
-	def detail_partial(controller)
-		# partial?(controlller, dir, partial)
-		if partial?(controller, nil, 'detail')
-			partial_name(controller, nil, 'detail')
-		else
-			'0p/form/detail'
-		end
-	end
-
 end

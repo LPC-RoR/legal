@@ -211,3 +211,14 @@
     border-radius: 3px 3px 3px 3px;
     font-family: 'Raleway', sans-serif;
 }
+
+/* DIA */
+
+.dia-box {
+    padding: 1em;
+    margin-bottom: 4px;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    background-color: #e1f5fe;
+    border-radius: 3px 3px 3px 3px;
+    font-family: 'Raleway', sans-serif;
+}

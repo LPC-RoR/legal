@@ -1,25 +1,6 @@
 module CptnConfigHelper
 	def config
 		{
-			app: {
-				home: 'http://www.abogadosderechodeltrabajo.cl',
-				logo_navbar: nil
-			},
-			layout: {
-				menu_over: true,
-				banner: true,
-				menu: false,
-				menu_left: true
-			},
-			color: {
-				app: 'dark',
-				navbar: 'light',
-				navbar_bg: 'muted',
-				help: 'dark',
-				data: 'success',
-				title_tema: 'primary',
-				detalle_tema: 'primary'
-			},	
 			menu: {
 				dd_enlaces: true,
 				contacto: true,
@@ -75,6 +56,15 @@ module CptnConfigHelper
 		}
 	end
 
+	def cfg_color
+		{
+			app: 'dark',
+			navbar: 'light',
+			navbar_bg: 'muted',
+			help: 'dark',
+			data: 'success',
+		}
+	end
 
 	def get_cfg(cfg_nombre)
 		cfg = version_activa.cfg_valores.find_by(cfg_valor: cfg_nombre)

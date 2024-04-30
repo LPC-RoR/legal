@@ -1,4 +1,4 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'folder', text: " #{@objeto.directorio}", clr: config[:color][:app]} %></h4>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'folder', text: " #{@objeto.directorio}", clr: cfg_color[:app]} %></h4>
 
 <% @padres.each do |padre| %>
 	<%= render partial: '0p/general/btn_turbolink', locals: {texto: padre.directorio, gly: 'folder', link: padre, delete: false, style: 'btn-outline-dark', clr: color(controller_name)} %>

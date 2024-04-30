@@ -8,16 +8,16 @@
 			<% end %>
 			<% end %>
 		<% else %>
-			<h<%=config[:font_size][:title_tema]%> class="text-<%=config[:color][:title_tema]%>"><%= nombre %></h<%=config[:font_size][:title_tema]%>>
-			<h<%=config[:font_size][:detalle_tema]%> class='text-<%=config[:color][:detalle_tema]%>'>
+			<h<%=config[:font_size][:title_tema]%> class="text-<%=cfg_color[:title_tema]%>"><%= nombre %></h<%=config[:font_size][:title_tema]%>>
+			<h<%=config[:font_size][:detalle_tema]%> class='text-<%=cfg_color[:detalle_tema]%>'>
 				<%= sanitize simple_format(HTema.find_by(tema: nombre).detalle) unless HTema.find_by(tema: nombre).blank? %>
 			</h<%=config[:font_size][:detalle_tema]%>>
 		<% end %>
 	</dir>
 	<dir class="col-md-<%=12-first_col%>">
 		<% if img_side == 'izq'%>
-			<h<%=config[:font_size][:title_tema]%> class="text-<%=config[:color][:title_tema]%>"><%= nombre %></h<%=config[:font_size][:title_tema]%>>
-			<h<%=config[:font_size][:detalle_tema]%> class='text-<%=config[:color][:detalle_tema]%>'>
+			<h<%=config[:font_size][:title_tema]%> class="text-<%=cfg_color[:title_tema]%>"><%= nombre %></h<%=config[:font_size][:title_tema]%>>
+			<h<%=config[:font_size][:detalle_tema]%> class='text-<%=cfg_color[:detalle_tema]%>'>
 				<%= sanitize simple_format(HTema.find_by(tema: nombre).detalle) unless HTema.find_by(tema: nombre).blank? %>
 			</h<%=config[:font_size][:detalle_tema]%>>
 		<% else %>

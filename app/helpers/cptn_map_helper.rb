@@ -4,8 +4,7 @@ module CptnMapHelper
 		['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']
 	end
 
-
-## ------------------------------------------------------- PARTIALS
+	## ------------------------------------------------------- PARTIALS
 
 	def controller_match(controller, scope)
 		controller == scope or ( scope.split('/').length == 2 and controller == scope.split('/')[1] )

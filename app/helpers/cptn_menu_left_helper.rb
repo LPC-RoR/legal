@@ -47,7 +47,7 @@ module CptnMenuLeftHelper
 	end
 
 	def tablas_controllers
-		[]
+		['clientes', 'causas', 'asesorias', 'tar_aprobaciones', 'tar_facturas', 'tablas']
 	end
 
 	def left_menu_actions?
@@ -60,15 +60,6 @@ module CptnMenuLeftHelper
 
 	def left_menu_sym
 		( left_menu_actions? or left_menu_controllers?) ? :admin : nil
-	end
-
-	# determina el menú PRIMARIO usándo como parámetro el controlador de lo desplegado
-	def menu_left?(controller)
-		if devise_controllers.include?(controller)
-			nil
-		else
-			exception_menu_controllers(controller)
-		end
 	end
 
 	# Determina la RUTA DESTINO usándo como parámetro el modelo del ítem

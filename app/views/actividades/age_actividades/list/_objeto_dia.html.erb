@@ -1,4 +1,4 @@
-<%= render layout: '0capitan/layouts/box_dia' do %>
+<div class="dia-box">
 	<div class="row">
 		<div class="col-6" style="padding-left: 2em;">
 			<small><i class="text-<%=objeto[:dyf]%>"><%= dma(objeto[:dia]) %></i></small>
@@ -7,11 +7,11 @@
 			<small><i class="text-<%=objeto[:dyf]%>"><%= nombre_dia(objeto[:dia]) %></i></small>
 		</div>
 	</div>
-<% end %>
+<dia>
 
 <% objeto[:actividades].each do |actividad| %>
 	<% unless actividad.privada and actividad.app_perfil_id != perfil_activo.id %>
-		<div class="shadow p-1 mb-1 bg-white rounded">
+		<div class="objeto-box">
 			<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: actividad} %>
 		</div>
 	<% end %>

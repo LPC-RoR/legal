@@ -1,9 +1,9 @@
-<%= render '0capitan/layouts/box_title' do %>
+<div class="titulo">
 	<div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
 		<%= render partial: 'clientes/partials/titulo_show', locals: {objeto: @objeto} %>
 		<%= render partial: 'estados/st_bandejas/partials/change_state', locals: {objeto: @objeto} %>
 	</div>
-<% end %>
+</div>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 

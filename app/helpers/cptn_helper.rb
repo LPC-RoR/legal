@@ -45,52 +45,41 @@ module CptnHelper
 
 # ******************************************************************** CONSTANTES 
 
-	# opcion elegida poor ser de escritura mas simple
+	#Cambiar paulatinamente por cfg_color
 	def color(ref)
-		if [:app, :navbar].include?(ref)
-			config[:color][ref]
-		elsif ['hlp_tutoriales', 'hlp_pasos'].include?(ref)
-			config[:color][:help]
-		else
-			config[:color][:app]
-		end
-	end
-
-	def table_types_base
-		{
-			simple: '',
-			striped: 'table-striped',
-			bordered: 'table-bordered',
-			borderless: 'table-borderless',
-			hover: 'table-hover',
-			small: 'table-small'
-		}
+		cfg_color[ref]
 	end
 
 # ******************************************************************** HELPERS DE USO GENERAL
-
-    def archivos_controlados_disponibles
-    	st_modelo = StModelo.find_by(st_modelo: 'Hecho')
-    	st_modelo.blank? ? [] : st_modelo.control_documentos.order(:orden)
-    end
 
 	def nombre(objeto)
 		objeto.send(objeto.class.name.tableize.singularize)
 	end
 
 	def perfiles_operativos
-		AppNomina.all.map {|nomina| nomina.nombre}.union(AppAdministrador.all.map {|admin| admin.administrador unless admin.email == 'hugo.chinga.g@gmail.com'}.compact)
+		AppNomina.all.map {|nomina| nomina.nombre}.compact
 	end
 
-	# Manejode options para selectors múltiples (VERSION PARA MULTI TABS SIN CAMBIOS)
+	# Manejo de options para selectors múltiples (VERSION PARA MULTI TABS SIN CAMBIOS)
 	def get_html_opts(options, label, value)
 		opts = options.clone
 		opts[label] = value
 		opts
 	end
 
+    def archivos_controlados_disponibles
+    	st_modelo = StModelo.find_by(st_modelo: 'Hecho')
+    	st_modelo.blank? ? [] : st_modelo.control_documentos.order(:orden)
+    end
+
 	def controller_icon
 		{
+			'usuarios' => 'person',
+			'app_versiones' => 'gear',
+			'app_nominas' => 'person-workspace',
+			'app_documentos' => 'files',
+			'app_archivos' => 'file',
+			'app_enlaces' => 'box-arrow-up-right',
 			'h_imagenes' => 'image',
 			'clientes' => 'building',
 			'causas' => 'journal-text',
@@ -114,18 +103,12 @@ module CptnHelper
 			'tar_comentarios' => 'chat',
 			'st_modelos' => 'box',
 			'dt_materias' => 'bank',
-			'app_documentos' => 'files',
-			'app_archivos' => 'file',
-			'app_enlaces' => 'box-arrow-up-right',
 			'm_periodos' => 'calendar3',
 			'm_modelos' => 'piggy-bank',
 			'm_cuentas' => 'safe2',
 			'm_formatos' => 'file-spreadsheet',
 			'sb_listas' => 'list-nested',
 			'app_empresas' => 'buildings',
-			'app_administradores' => 'person-badge',
-			'app_nominas' => 'person-workspace',
-			'usuarios' => 'person',
 			'app_repos' => 'archive',
 			'app_directorios' => 'folder',
 			'app_escaneos' => 'images',
@@ -134,7 +117,6 @@ module CptnHelper
 			'blg_temas' => 'list-stars',
 			'age_actividades' => 'calendar4-event',
 			'age_usuarios' => 'person-workspace',
-			'app_versiones' => 'gear',
 			'cal_annios' => 'calendar',
 			'cal_meses' => 'calendar3',
 			'cal_semanas' => 'calendar2-week',
@@ -191,4 +173,21 @@ module CptnHelper
 	def s_rut(rut)
 		rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
 	end
+# ******************************************************************** HOME
+
+	def img_portada
+		h_imagen = HImagen.find_by(nombre: 'Portada')
+		h_imagen.blank? ? nil : (h_imagen.imagenes.empty? ? nil : h_imagen.imagenes.order(created_at: :desc).first)
+	end
+
+	def img_foot
+		h_imagen = HImagen.find_by(nombre: 'Foot')
+		h_imagen.blank? ? nil : (h_imagen.imagenes.empty? ? nil : h_imagen.imagenes.order(created_at: :desc).first)
+	end
+
+	def foot?
+		h_imagen = HImagen.find_by(nombre: 'Foot')
+		h_imagen.blank? ? false : (h_imagen.imagenes.empty? ? false : h_imagen.imagenes.first.present?)
+	end
+
 end

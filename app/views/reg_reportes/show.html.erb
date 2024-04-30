@@ -1,4 +1,4 @@
-<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Reporte #{@objeto.nombre_padre} (#{@objeto.periodo})", clr: config[:color][:app]} %></h4>
+<h4><%= render partial: '0p/general/icon_text', locals: {gly: 'file-text', text: "Reporte #{@objeto.nombre_padre} (#{@objeto.periodo})", clr: cfg_color[:app]} %></h4>
 <h5><%= "Total Reporte : #{@objeto.moneda_reporte == 'Pesos' ? '$' : 'UF'} #{"%06.2f" % @objeto.monto_reporte if @objeto.moneda_reporte == 'UF'}#{"%06.0f" % @objeto.monto_reporte if @objeto.moneda_reporte == 'Pesos'}" %></h5>
 
 <!-- BOTON para ir a OWNER -->

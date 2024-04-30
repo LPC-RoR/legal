@@ -1,17 +1,13 @@
-<%= render '0capitan/layouts/box_title' do %>
-
-	<div class=" row text-info">
-		<div class="col-10">
-			<i class="bi bi-<%=gly%>"></i> 
-			<%=title%>
-		</div>
-		<div class="col-2" align='right'>
-			<% unless link.blank? %>
-				<%= link_to link do %>
-					<i class="bi bi-<%=link_gly%>"></i>
-				<% end %>
-			<% end %>
-		</div>
+<div class=" row text-info">
+	<div class="col-10">
+		<i class="bi bi-<%=gly%>"></i> 
+		<%=title%>
 	</div>
-
-<% end %>
+	<div class="col-2" align='right'>
+		<% unless link.blank? %>
+			<%= link_to link do %>
+				<i class="bi bi-<%=link_gly%>"></i>
+			<% end %>
+		<% end %>
+	</div>
+</div>
