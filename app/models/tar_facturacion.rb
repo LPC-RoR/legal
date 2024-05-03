@@ -1,11 +1,5 @@
 class TarFacturacion < ApplicationRecord
 
-	TABLA_FIELDS = [
-		'glosa',
-		'm#monto_ingreso',
-		'$#monto_pesos'
-	]
-
 	belongs_to :tar_factura, optional: true
 	belongs_to :tar_aprobacion, optional: true
 	belongs_to :tar_pago, optional: true

@@ -121,11 +121,12 @@ module Tarifas
 			when '#facturado_pesos'
 				objeto.facturado_pesos
 			when '#facturado_uf'
-				objeto.facturado_uf	
+				objeto.facturado_uf
 			end
 		elsif token.strip[0] == '@'
 			fyc = token.strip.match(/^@(?<facturable>.+):(?<campo>.+)/)
-			tar_pago = TarPago.find_by(codigo_formula: fyc[:facturable])
+			# se debe buscar en los TarPago de la tarifa de la causa, puede ser que exista otra tarifa con el mismo codigo_formula
+			tar_pago = objeto.tar_tarifa.tar_pagos.find_by(codigo_formula: fyc[:facturable])
 			if tar_pago.blank?
 				0
 			else
