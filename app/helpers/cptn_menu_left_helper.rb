@@ -47,7 +47,7 @@ module CptnMenuLeftHelper
 	end
 
 	def tablas_controllers
-		['clientes', 'causas', 'asesorias', 'tar_aprobaciones', 'tar_facturas', 'tablas']
+		['clientes', 'causas', 'asesorias', 'tar_aprobaciones', 'tar_facturas', 'tablas', 'tar_tarifas', 'tar_pagos', 'tar_formula_cuantias', 'tar_formulas', 'tar_variable_bases']
 	end
 
 	def left_menu_actions?

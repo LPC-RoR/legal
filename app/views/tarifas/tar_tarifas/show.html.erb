@@ -12,6 +12,11 @@
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formula_cuantias'} %>
 		<% end %>
+		<hr>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_variable_bases', title: "Variable base ( % )", link_new: "/tar_variable_bases/new?tid=#{@objeto.id}"} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_variable_bases'} %>
+
 	</div>
 	<div class="col-md-7">
 		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_formulas', title: "Fórmulas", link_new: "/tar_formulas/new?oid=#{@objeto.id}"} %>

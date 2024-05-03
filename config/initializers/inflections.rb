@@ -21,6 +21,13 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     # raiz
     inflect.plural /(rai)z$/i, '\1ces'
     inflect.singular /(rai)ces$/i, '\1z'
+
+    # Agregado porque la regla sigueinte no sirve para "base"    
+    inflect.plural 'base', 'bases'
+    inflect.plural 'Base', 'Bases'
+    inflect.singular 'bases', 'base'
+    inflect.singular 'Bases', 'Base'
+
 end
 
 # These inflection rules are supported but not enabled by default:

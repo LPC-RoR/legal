@@ -9,6 +9,7 @@ class TarTarifa < ApplicationRecord
 #	has_many :consultorias
 
 	has_many :tar_formula_cuantias
+	has_many :tar_variable_bases
 
     validates_presence_of :tarifa
 
@@ -19,4 +20,6 @@ class TarTarifa < ApplicationRecord
 	def n_pagos
 		self.tar_pagos.map {|pago| pago.n_pagos}.sum
 	end
+
+	# Métodos para el cálculo de tarifas
 end

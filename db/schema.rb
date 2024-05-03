@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_13_021113) do
+ActiveRecord::Schema.define(version: 2024_05_02_160001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1343,6 +1343,7 @@ ActiveRecord::Schema.define(version: 2024_04_13_021113) do
     t.string "tar_formula_cuantia"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "porcentaje_base"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_formula_cuantias_on_tar_detalle_cuantia_id"
     t.index ["tar_tarifa_id"], name: "index_tar_formula_cuantias_on_tar_tarifa_id"
   end
@@ -1509,6 +1510,16 @@ ActiveRecord::Schema.define(version: 2024_04_13_021113) do
     t.index ["codigo"], name: "index_tar_valores_on_codigo"
     t.index ["owner_class"], name: "index_tar_valores_on_owner_class"
     t.index ["owner_id"], name: "index_tar_valores_on_owner_id"
+  end
+
+  create_table "tar_variable_bases", force: :cascade do |t|
+    t.integer "tar_tarifa_id"
+    t.integer "tipo_causa_id"
+    t.decimal "tar_base_variable"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tar_tarifa_id"], name: "index_tar_variable_bases_on_tar_tarifa_id"
+    t.index ["tipo_causa_id"], name: "index_tar_variable_bases_on_tipo_causa_id"
   end
 
   create_table "tar_variables", force: :cascade do |t|

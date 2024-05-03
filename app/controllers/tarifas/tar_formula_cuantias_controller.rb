@@ -70,6 +70,6 @@ class Tarifas::TarFormulaCuantiasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_formula_cuantia_params
-      params.require(:tar_formula_cuantia).permit(:tar_tarifa_id, :tar_detalle_cuantia_id, :tar_formula_cuantia)
+      params.require(:tar_formula_cuantia).permit(:tar_tarifa_id, :tar_detalle_cuantia_id, :tar_formula_cuantia, :porcentaje_base)
     end
 end

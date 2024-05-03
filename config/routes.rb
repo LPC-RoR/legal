@@ -325,6 +325,8 @@ Rails.application.routes.draw do
     resources :tar_liquidaciones
 
     resources :tar_det_cuantia_controles
+    # agregada para diferenciar porcentajes de tarifa según tipo de causa
+    resources :tar_variable_bases
   end
 
   scope module: 'modelos' do

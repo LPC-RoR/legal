@@ -1,8 +1,15 @@
 <div class="row">
 	<div class="col-10">
 		<small>
-			<b><%= objeto.tar_detalle_cuantia.tar_detalle_cuantia %></b></br>
-			<small class="text-muted"><%= objeto.tar_formula_cuantia %></small>
+			<b><%= objeto.tar_detalle_cuantia.tar_detalle_cuantia %></b>
+			<% unless objeto.tar_formula_cuantia.blank? %>
+				</br>
+				<small class="text-muted">Fórmula tarifa : <%= objeto.tar_formula_cuantia %></small>
+			<% end %>
+			<% unless objeto.porcentaje_base.blank? %>
+				</br>
+				<small class="text-muted">Porcentaje cuantía : <%= s_p100(objeto.porcentaje_base, 2) %></small>
+			<% end %>
 		</small>		
 	</div>
 	<div class="col-2" align='right'>

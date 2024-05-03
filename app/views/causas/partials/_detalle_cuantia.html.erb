@@ -33,6 +33,7 @@
 				<% unless @valores_cuantia[objeto.id][vc.id][:nota].blank? %>
 					 ( <%= @valores_cuantia[objeto.id][vc.id][:nota] %> )
 				<% end %>
+				<%= "( #{@valores_cuantia[objeto.id][vc.id][:p100]}% )" %>
 				<% if controller_name == 'causas' %>
 					<%= render partial: '0p/tabla/links_e', locals: {objeto: vc} %>
 				<% end %>

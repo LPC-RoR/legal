@@ -103,6 +103,9 @@ module Tarifas
 		libreria = objeto.tar_tarifa.blank? ? [] : objeto.tar_tarifa.tar_formulas
 		if token.strip[0] == '#' #Valor de la causa
 			case token.strip
+			when '#tarifa_variable'
+				#no agrego 'honorarios' porque se entiende que es lo que aplica
+				t_tarifa_variable(objeto, pago)
 			when '#cuantia_pesos'
 				t_cuantia_pesos(objeto, pago, 'cuantia')
 			when '#cuantia_pesos_honorarios'
@@ -146,64 +149,66 @@ module Tarifas
 		end
 	end
 
-	def get_valores_cuantia(formula, campo, objeto)
-		if campo.blank?
-			valor = formula.blank? ? 0 : calcula2(formula, objeto, nil)
+	# Pago es siempre nil => asume que siempre valor cuantía será en pesos
+	# set_detalle_cuantia
+	def get_valores_cuantia(formula, valor_campo, causa)
+		if valor_campo.blank?
+			valor = formula.blank? ? 0 : calcula2(formula, causa, nil)
 			check = 'formula'
 		else
-			valor = campo
-			check = formula.blank? ? 'campo' : campo == calcula2(formula, objeto, nil) ? 'ok' : 'fail'
+			valor = valor_campo
+			check = formula.blank? ? 'campo' : valor_campo == calcula2(formula, causa, nil) ? 'ok' : 'fail'
 		end
 		{ valor: valor, check: check}
 	end
 
-	def get_formula_honorarios(objeto, detalle_cuantia)
-		if objeto.tar_tarifa.blank?
-			nil
-		else
-			tarifa = objeto.tar_tarifa
-			if tarifa.cuantia_tarifa
-				formula = tarifa.tar_formula_cuantias.find_by(tar_detalle_cuantia_id: detalle_cuantia.id)
-				formula.blank? ? nil : formula.tar_formula_cuantia
-			else
-				nil
-			end
-		end
+	# Genera el h_cuantias con los valores y chequeos de las cuantías
+	# [{valor: valor_r, check: check_r}, {valor: valor_h. check: check_h}]
+	def get_h_cuantia(tar_valor_cuantia)
+		campo_r = tar_valor_cuantia.valor
+		campo_h = tar_valor_cuantia.valor_tarifa
+		formula_r= tar_valor_cuantia.tar_detalle_cuantia.formula_cuantia
+		formula_h = tar_valor_cuantia.formula_honorarios
+		causa = tar_valor_cuantia.owner_class = 'Causa' ? tar_valor_cuantia.owner : nil
+		valor_r = get_valores_cuantia(formula_r, campo_r, causa)
+		valor_h = get_valores_cuantia(formula_h, campo_h, causa)
+		valor_h[:valor] = valor_r[:valor] if valor_h[:valor] == 0
+		[valor_r, valor_h]
 	end
 
+	# Genera un hash con elementos tipo @valores_cuantia[id], que permite desplegar las cuantías de diferentes objetos
+	# Tambien genera un hash @totales_cuantia de al misma naturaleza
+	# objeto = {Causa, Asesoría}
+	# causas_controller servicios_controller
 	def set_detalle_cuantia(objeto)
 		
+		# VERIFICAR necesidad del if siguiente
 		@valores_cuantia = {} if @valores_cuantia.blank?
         @valores_cuantia[objeto.id] = {}
 		cuantia = {}
-		objeto.valores_cuantia.each do |valor_cuantia|
+		objeto.valores_cuantia.each do |tar_valor_cuantia|
 
-	      	detalle_cuantia = valor_cuantia.tar_detalle_cuantia
+	      	detalle_cuantia = tar_valor_cuantia.tar_detalle_cuantia
 
-			if cuantia[:nombre] = detalle_cuantia.tar_detalle_cuantia == 'Otro'
-				cuantia[:nombre] = valor_cuantia.otro_detalle
-			else
-				cuantia[:nombre] = detalle_cuantia.tar_detalle_cuantia
-			end
+	      	cuantia[:nombre] = tar_valor_cuantia.detalle
+			cuantia[:activado] = tar_valor_cuantia.activado?
+			cuantia[:nota] = tar_valor_cuantia.nota
+			cuantia[:moneda] = tar_valor_cuantia.moneda
+			cuantia[:p100] = tar_valor_cuantia.porcentaje_variable
 
-			cuantia[:activado] = valor_cuantia.activado?
-			cuantia[:nota] = valor_cuantia.nota
+			v_cuantia = get_h_cuantia(tar_valor_cuantia)
 
-			cuantia[:moneda] = valor_cuantia.moneda
-			# versión de @valores cuantía sin fórmular. Solo mira lo ingresado como datos de la demanda
-			h_cuantia = get_valores_cuantia(detalle_cuantia.formula_cuantia, valor_cuantia.valor, objeto)
-			h_honorarios =  get_valores_cuantia(get_formula_honorarios(objeto, detalle_cuantia), valor_cuantia.valor_tarifa, objeto)
+			cuantia[:cuantia] = v_cuantia[0][:valor]
+			cuantia[:check_cuantia] = v_cuantia[0][:check]
+			cuantia[:honorarios] = v_cuantia[1][:valor]
+			cuantia[:check_honorarios] = v_cuantia[0][:check]
 
-			cuantia[:cuantia] = h_cuantia[:valor]
-			cuantia[:check_cuantia] = h_cuantia[:check]
-			cuantia[:honorarios] = h_honorarios[:valor] == 0 ? h_cuantia[:valor] : h_honorarios[:valor]
-			cuantia[:check_honorarios] = h_honorarios[:valor] == 0 ? h_cuantia[:check] : h_honorarios[:check]
-
-	        @valores_cuantia[objeto.id][valor_cuantia.id] = cuantia
+	        @valores_cuantia[objeto.id][tar_valor_cuantia.id] = cuantia
 	        cuantia = {}
 
 		end
 
+		# Los totales se calculan usando la estructura anterior
 		@totales_cuantia = {} if @totales_cuantia.blank?
 		@totales_cuantia[objeto.id] = {}
 
@@ -218,13 +223,28 @@ module Tarifas
 		@totales_cuantia[objeto.id][:honorarios_pesos] = v_total_honorarios_pesos.empty? ? 0 : v_total_honorarios_pesos.sum
 	end
 
-	# Anejo de TarValorCuantia con FORMULAS
+	# Calcula el valor de Cuantía de Honorarios de un tar_valor_cuantia
+	def variable_base_valor(tar_valor_cuantia)
+		v_cuantia = get_h_cuantia(tar_valor_cuantia)
+		v_cuantia[1][:valor] * (tar_valor_cuantia.porcentaje_variable / 100)
+	end
+
+	# Monto Variable completo
+	def t_tarifa_variable(causa, pago)
+		causa.valores_cuantia.map {|vc| variable_base_valor(vc) }.sum
+	end
+
+	def valor_cuantia(tar_valor_cuantia, tipo_cuantia)
+		get_h_cuantia(tar_valor_cuantia)[(tipo_cuantia == 'honorarios' ? 1 : 0)][:valor]
+	end
 
 	def tar_valor_cuantia_valor(causa, tvc, etiqueta)
+		v_cuantia = get_h_cuantia(tar_valor_cuantia)
+
 
       	detalle_cuantia = tvc.tar_detalle_cuantia
 		h_valor_cuantia = get_valores_cuantia(detalle_cuantia.formula_cuantia, tvc.valor, causa)
-		h_valor_honorarios = get_valores_cuantia(get_formula_honorarios(causa, detalle_cuantia), tvc.valor_tarifa, causa)
+		h_valor_honorarios = get_valores_cuantia(tvc.formula_honorarios, tvc.valor_tarifa, causa)
 
 		v_cuantia = h_valor_cuantia[:valor]
 		v_honorarios = h_valor_honorarios[:valor] == 0 ? h_valor_cuantia[:valor] : h_valor_honorarios[:valor]
@@ -233,28 +253,28 @@ module Tarifas
 
 	end
 
-	# DEPRECATED
-	def t_total_cuantia(causa, pago, etiqueta)
-		v_pesos = causa.valores_cuantia.map {|vc| tar_valor_cuantia_valor(causa, vc, etiqueta) if (vc.activado? and vc.moneda == 'Pesos')}.compact
-		v_uf    = causa.valores_cuantia.map {|vc| tar_valor_cuantia_valor(causa, vc, etiqueta) if (vc.activado? and vc.moneda != 'Pesos')}.compact
-		pesos = v_pesos.empty? ? 0 : v_pesos.sum
-		uf    = v_uf.empty? ? 0 : v_uf.sum
-		[uf, pesos]
+	def v_total_cuantia(causa, tipo_cuantia)
+		valores_pesos = causa.valores_cuantia.where(desactivado: false, moneda: 'Pesos')
+		valores_uf = causa.valores_cuantia.where(desactivado: false, moneda: 'UF')
+		v_pesos = valores_pesos.map {|tvc| valor_cuantia(tvc, tipo_cuantia)}
+		v_uf = valores_uf.map {|tvc| valor_cuantia(tvc, tipo_cuantia)}
+		[v_uf.empty? ? 0 : v_uf.sum, v_pesos.empty? ? 0 : v_pesos.sum]
 	end
 
-	def t_cuantia_pesos(causa, pago, etiqueta)
-		tc = t_total_cuantia(causa, pago, etiqueta)
+	def t_cuantia_pesos(causa, pago, tipo_cuantia)
+		v_tc = v_total_cuantia(causa, tipo_cuantia)
 		uf = causa.uf_calculo_pago(pago)
+		puts "----------------------------- t_cuantia_pesos"
+		puts v_tc
 		valor_uf = uf.blank? ? 0 : uf.valor
-		tc[0] * valor_uf + tc[1]
+		v_tc[0] * valor_uf + v_tc[1]
 	end
 
-	# DEPRECATED
-	def t_cuantia_uf(causa, pago, etiqueta)
-		tc = t_total_cuantia(causa, pago, etiqueta)
+	def t_cuantia_uf(causa, pago, tipo_cuantia)
+		v_tc = v_total_cuantia(causa, tipo_cuantia)
 		uf = causa.uf_calculo_pago(pago)
 		valor_uf = uf.blank? ? 0 : uf.valor
-		valor_uf == 0 ? 0 : tc[0] + tc[1] / valor_uf
+		v_tc[0] + ( valor_uf == 0 ? 0 : v_tc[1] / valor_uf )
 	end
 
 
