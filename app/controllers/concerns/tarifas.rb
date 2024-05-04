@@ -265,8 +265,6 @@ module Tarifas
 	def t_cuantia_pesos(causa, pago, tipo_cuantia)
 		v_tc = v_total_cuantia(causa, tipo_cuantia)
 		uf = causa.uf_calculo_pago(pago)
-		puts "----------------------------- t_cuantia_pesos"
-		puts v_tc
 		valor_uf = uf.blank? ? 0 : uf.valor
 		v_tc[0] * valor_uf + v_tc[1]
 	end

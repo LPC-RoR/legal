@@ -49,6 +49,7 @@ class CausasController < ApplicationController
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
       @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
     when 'Tarifa & Pagos'
+
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
       set_tabla('tar_facturaciones', @objeto.facturaciones, false)
 
@@ -60,7 +61,7 @@ class CausasController < ApplicationController
 
       # PRUEBA, aún no se usan
       set_formulas(@objeto)
-#      @calc_valores = @objeto.set_valores
+
     when 'Documentos y enlaces'
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
