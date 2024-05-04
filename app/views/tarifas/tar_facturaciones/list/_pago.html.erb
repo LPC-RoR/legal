@@ -1,6 +1,6 @@
 <% case objeto.owner.class.name %>
 <% when 'Causa' %>
-	<%= objeto.find_pago.tar_pago %> <%= objeto.find_pago.id %>
+	<%= objeto.find_pago.tar_pago %> 
 	<% unless objeto.tar_cuota_id.blank? %>
 		( <%= objeto.tar_cuota.orden %> )
 	<% end %>
