@@ -48,7 +48,7 @@ class TarFacturacion < ApplicationRecord
 
 	# true : Establece cuando el detalle de cuantía asociado debe mostrar, porcentajes utilizado para calcular tarifa variable TOTAL
 	def porcentaje_cuantia?
-		self.tar_pago.blank? ? false : (self.tar_pago.porcentaje_cuantia.blank? ? false : (self.tar_pago.porcentaje_cuantia.blank? ? false : self.tar_pago.porcentaje_cuantia.blank?))
+		self.tar_pago.blank? ? false : (self.tar_pago.porcentaje_cuantia.blank? ? false : self.tar_pago.porcentaje_cuantia)
 	end
 
 	# esta fecha establece el día en el que se realizó el cálculo de la tarifa
