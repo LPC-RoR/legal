@@ -195,7 +195,7 @@ module Tarifas
 			cuantia[:activado] = tar_valor_cuantia.activado?
 			cuantia[:nota] = tar_valor_cuantia.nota
 			cuantia[:moneda] = tar_valor_cuantia.moneda
-			cuantia[:p100] = tar_valor_cuantia.porcentaje_variable if porcentaje_cuantia
+			cuantia[:p100] = porcentaje_cuantia.blank? ? nil : tar_valor_cuantia.porcentaje_variable
 
 			v_cuantia = get_h_cuantia(tar_valor_cuantia)
 
