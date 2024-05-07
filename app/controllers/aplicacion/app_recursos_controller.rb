@@ -22,11 +22,13 @@ class Aplicacion::AppRecursosController < ApplicationController
   def procesos
     TarFacturacion.all.each do |tar_facturacion|
       tar_pago_ids = tar_facturacion.owner.class.name == 'Causa' ? tar_facturacion.owner.tar_tarifa.tar_pagos.ids: []
-      unless tar_pago_ids.include?(tar_facturacion.tar_pago.id)
-        nuevo_tar_pago = tar_facturacion.owner.tar_tarifa.tar_pagos.find_by(tar_pago: tar_facturacion.tar_pago.tar_pago)
-        unless nuevo_tar_pago.blank?
-          tar_facturacion.tar_pago_id = nuevo_tar_pago.id
-          tar_facturacion.save
+      unless tar_facturacion.tar_pago.blank?
+        unless tar_pago_ids.include?(tar_facturacion.tar_pago.id)
+          nuevo_tar_pago = tar_facturacion.owner.tar_tarifa.tar_pagos.find_by(tar_pago: tar_facturacion.tar_pago.tar_pago)
+          unless nuevo_tar_pago.blank?
+            tar_facturacion.tar_pago_id = nuevo_tar_pago.id
+            tar_facturacion.save
+          end
         end
       end
     end
