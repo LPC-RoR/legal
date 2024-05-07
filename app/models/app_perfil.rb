@@ -17,6 +17,10 @@ class AppPerfil < ApplicationRecord
 		self.email == AppVersion::DOG_EMAIL ? AppVersion::DOG_NAME : AppNomina.find_by(email: self.email).nombre
 	end
 
+	def tipo_usuario
+		self.email == AppVersion::DOG_EMAIL ? 'general' : AppNomina.find_by(email: self.email).tipo
+	end
+
 	def app_enlaces
 		AppEnlace.where(owner_class: 'AppPerfil', owner_id: self.id)
 	end

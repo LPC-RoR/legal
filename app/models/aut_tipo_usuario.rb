@@ -1,0 +1,2 @@
+class AutTipoUsuario < ApplicationRecord
+end

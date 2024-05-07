@@ -3,23 +3,26 @@ module Inicia
 
 	# @concern.seguridad.rb : version_activa, dog_email
 
+	def crea_primera_version
+		AppVersion.create(dog_email: dog_email)
+	end
+
 	def dog_wanted
+		# Si hay una versión anterio puede que dog_perfil ya exista
 		# Busca el perfil de DOG
 		dog_perfil = AppPerfil.find_by(email: dog_email)
 		# Lo crea si no existe
-		if dog_perfil.blank?		
-			AppPerfil.create(o_clss: 'AppVersion', o_id: version_activa.id, email: dog_email)
-		else
-			dog_perfil.o_clss = 'AppVersion'
-			dog_perfil.o_id = version_activa.id
-			dog_perfil.save
-		end
+		dog_perfil = AppPerfil.create(o_clss: 'AppVersion', o_id: version_activa.id, email: dog_email) if dog_perfil.blank?
+
+		dog_perfil.o_clss = 'AppVersion'
+		dog_perfil.o_id = version_activa.id
+		dog_perfil.save
 	end
 
 	def inicia_sesion
 
 		# crea Version con informaciòn mínima si no la encuentra
-		AppVersion.create(dog_email: dog_email) if version_activa.blank?
+		crea_primera_version if version_activa.blank?
 		dog_wanted if version_activa.dog_perfil.blank?
 
 		# si hay USUARIO AUTENTICADO pero el usuario NO TIENE PERFIL}

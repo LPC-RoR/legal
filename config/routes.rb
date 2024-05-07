@@ -137,6 +137,7 @@ Rails.application.routes.draw do
       resources :st_perfil_modelos
     end
     resources :app_versiones
+    resources :aut_tipo_usuarios
   end
 
   scope module: 'recursos' do

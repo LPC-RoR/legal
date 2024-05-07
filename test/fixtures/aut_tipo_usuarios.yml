@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aut_tipo_usuario: MyString
+
+two:
+  aut_tipo_usuario: MyString

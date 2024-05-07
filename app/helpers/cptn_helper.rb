@@ -77,6 +77,7 @@ module CptnHelper
 			'usuarios' => 'person',
 			'app_versiones' => 'gear',
 			'app_nominas' => 'person-workspace',
+			'aut_tipo_usuarios' => 'file-person',
 			'app_documentos' => 'files',
 			'app_archivos' => 'file',
 			'app_enlaces' => 'box-arrow-up-right',

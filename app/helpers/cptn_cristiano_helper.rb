@@ -17,7 +17,8 @@ module CptnCristianoHelper
 			'TarTarifa' => 'Tarifa de Causa',
 			'TarServicio' => 'Tarifa de Asesoría',
 			'TipoCausa' => 'Etapa',
-			'Tema' => 'Materia'
+			'Tema' => 'Materia',
+			'AutTipoUsuario' => 'Tipo de Usuario'
 		}
 	end
 
