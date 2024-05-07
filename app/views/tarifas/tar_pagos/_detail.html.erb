@@ -22,8 +22,7 @@
 	</div>
 </div>
 
-<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :esconder, label: 'Detalla porcentajes en detalle de cuantía' } %>
-<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :total, label: 'porcentaje_cuantia' } %>
+<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :porcentaje_cuantia, label: 'Detalla porcentajes en detalle de cuantía' } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: {form: form, token: :tar_tarifa_id} %>
 <%= render partial: '0p/form_fields/hidden', locals: {form: form, token: :estado} %>
