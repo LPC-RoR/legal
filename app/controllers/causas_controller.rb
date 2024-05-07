@@ -43,7 +43,7 @@ class CausasController < ApplicationController
       @variables = @objeto.tipo_causa.variables.order(:orden)
       @valores = @objeto.valores_datos
 
-      set_detalle_cuantia(@objeto)
+      set_detalle_cuantia(@objeto, porcentaje_cuantia: false)
 
       # @cuantia_tarifa {true, false} señala cuando la tarifa requiere la cuantía para su cálculo
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
