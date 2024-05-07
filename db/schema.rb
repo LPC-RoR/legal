@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_02_160001) do
+ActiveRecord::Schema.define(version: 2024_05_07_191915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1410,6 +1410,8 @@ ActiveRecord::Schema.define(version: 2024_05_02_160001) do
     t.datetime "updated_at", null: false
     t.integer "orden"
     t.string "codigo_formula"
+    t.string "porcentaje_cuantia"
+    t.string "boolean"
     t.index ["codigo_formula"], name: "index_tar_pagos_on_codigo_formula"
     t.index ["orden"], name: "index_tar_pagos_on_orden"
     t.index ["tar_pago"], name: "index_tar_pagos_on_tar_pago"

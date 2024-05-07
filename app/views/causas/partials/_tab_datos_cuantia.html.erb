@@ -7,7 +7,7 @@
 
 		<% unless objeto.valores_cuantia.empty? %>
 			<div class="shadow p-3 mb-1 bg-white rounded">
-				<%= render partial: 'causas/partials/detalle_cuantia', locals: {objeto: objeto} %>
+				<%= render partial: 'causas/partials/detalle_cuantia', locals: {objeto: objeto, porcentaje_cuantia: false} %>
 			</div>
 			
 			<div class="shadow p-3 mb-1 bg-white rounded">

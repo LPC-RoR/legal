@@ -165,7 +165,7 @@ module Tarifas
 
 	# Genera el h_cuantias con los valores y chequeos de las cuantías
 	# [{valor: valor_r, check: check_r}, {valor: valor_h. check: check_h}]
-	def get_h_cuantia(tar_valor_cuantia)
+	def get_h_cuantia(tar_valor_cuantia, porcentaje_cuantia)
 		campo_r = tar_valor_cuantia.valor
 		campo_h = tar_valor_cuantia.valor_tarifa
 		formula_r= tar_valor_cuantia.tar_detalle_cuantia.formula_cuantia
@@ -195,7 +195,7 @@ module Tarifas
 			cuantia[:activado] = tar_valor_cuantia.activado?
 			cuantia[:nota] = tar_valor_cuantia.nota
 			cuantia[:moneda] = tar_valor_cuantia.moneda
-			cuantia[:p100] = tar_valor_cuantia.porcentaje_variable
+			cuantia[:p100] = tar_valor_cuantia.porcentaje_variable if porcentaje_cuantia
 
 			v_cuantia = get_h_cuantia(tar_valor_cuantia)
 

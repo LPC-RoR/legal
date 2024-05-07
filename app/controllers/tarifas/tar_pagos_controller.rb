@@ -105,6 +105,6 @@ class Tarifas::TarPagosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_pago_params
-      params.require(:tar_pago).permit(:tar_tarifa_id, :tar_pago, :estado, :moneda, :valor, :orden, :codigo_formula)
+      params.require(:tar_pago).permit(:tar_tarifa_id, :tar_pago, :estado, :moneda, :valor, :orden, :codigo_formula, :porcentaje_cuantia)
     end
 end
