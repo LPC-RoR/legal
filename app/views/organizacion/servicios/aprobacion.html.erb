@@ -13,6 +13,7 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<% if tar_facturacion.owner.class.name == 'Causa' %>
+			<%= tar_facturacion.tar_pago.blank? %>
 			<%= tar_facturacion.porcentaje_cuantia %>
 			<div class="shadow p-3 mb-1 bg-white rounded">
 				<div style='padding-left: 1em; padding-right: 1em;'>
