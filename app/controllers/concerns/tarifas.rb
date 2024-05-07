@@ -165,7 +165,7 @@ module Tarifas
 
 	# Genera el h_cuantias con los valores y chequeos de las cuantías
 	# [{valor: valor_r, check: check_r}, {valor: valor_h. check: check_h}]
-	def get_h_cuantia(tar_valor_cuantia, porcentaje_cuantia)
+	def get_h_cuantia(tar_valor_cuantia)
 		campo_r = tar_valor_cuantia.valor
 		campo_h = tar_valor_cuantia.valor_tarifa
 		formula_r= tar_valor_cuantia.tar_detalle_cuantia.formula_cuantia
@@ -181,7 +181,7 @@ module Tarifas
 	# Tambien genera un hash @totales_cuantia de al misma naturaleza
 	# objeto = {Causa, Asesoría}
 	# causas_controller servicios_controller
-	def set_detalle_cuantia(objeto)
+	def set_detalle_cuantia(objeto, porcentaje_cuantia)
 		
 		# VERIFICAR necesidad del if siguiente
 		@valores_cuantia = {} if @valores_cuantia.blank?
