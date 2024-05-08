@@ -5,6 +5,12 @@
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/app_recursos/password_recovery?uid=#{current_usuario.id}", tooltip: 'Cambio de contraseña'} do %>
 			<%= perfil_activo.email %>
 		<% end %>
+		<% if dog? %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/app_recursos/usuarios", tooltip: "Lista de usuarios"} do %>
+				<i class="bi bi-people"></i>
+				Usuarios
+			<% end %>
+		<% end %>
 	</small></small></small>
 </div>
 <div style="margin-bottom: -1em;"><hr></div>

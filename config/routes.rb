@@ -128,7 +128,6 @@ Rails.application.routes.draw do
     resources :age_act_perfiles
   end
   scope module: 'autenticacion' do
-    resources :app_administradores
     resources :app_nominas do
       match :set_admin, via: :get, on: :member
     end

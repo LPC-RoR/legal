@@ -83,9 +83,9 @@ module CptnTablaHelper
 			if ['DateTime', 'Time'].include?(archivo.send(campo).class.name)
 				texto_campo = dma(archivo.send(campo))
 			elsif prefijos.include?('uf') 
-				texto_campo = number_to_currency(archivo.send(campo), unit: 'UF', precision: config[:decimales]['UF'], format: '%u %n')
+				texto_campo = number_to_currency(archivo.send(campo), unit: 'UF', precision: cfg_defaults[:uf], format: '%u %n')
 			elsif prefijos.include?('$')
-				texto_campo = number_to_currency(archivo.send(campo), precision: config[:decimales]['Pesos'], unit: '$', format: '%u %n')
+				texto_campo = number_to_currency(archivo.send(campo), precision: cfg_defaults[:pesos], unit: '$', format: '%u %n')
 			elsif prefijos.include?('$2')
 				texto_campo = number_to_currency(archivo.send(campo), precision: 2, unit: '$', format: '%u %n')
 			elsif prefijos.include?('m')
@@ -133,5 +133,4 @@ module CptnTablaHelper
 		objeto.class.reflect_on_all_associations(:has_many).map { |a| objeto.send(a.name).any? }.include?(true)
 	end
 
-	## ------------------------------------------------------- FORM
 end

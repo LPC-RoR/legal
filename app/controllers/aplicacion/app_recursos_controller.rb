@@ -37,12 +37,14 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def password_recovery
-    @raw, hashed = Devise.token_generator.generate(Usuario, :reset_password_token)
+    if usuario_signed_in? or dog?
+      @raw, hashed = Devise.token_generator.generate(Usuario, :reset_password_token)
 
-    @user = Usuario.find(params[:uid])
-    @user.reset_password_token = hashed
-    @user.reset_password_sent_at = Time.now.utc
-    @user.save    
+      @user = Usuario.find(params[:uid])
+      @user.reset_password_token = hashed
+      @user.reset_password_sent_at = Time.now.utc
+      @user.save
+    end
   end
 
   private

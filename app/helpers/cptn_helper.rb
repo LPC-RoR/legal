@@ -132,7 +132,7 @@ module CptnHelper
 	end
 
 	def s_pesos(valor)
-		number_to_currency(valor, locale: :en, precision: config[:decimales]['Pesos'])
+		number_to_currency(valor, locale: :en, precision: cfg_defaults[:pesos])
 	end
 
 	def s_pesos2(valor)
@@ -140,11 +140,11 @@ module CptnHelper
 	end
 
 	def s_uf(valor)
-		number_to_currency(valor, unit: 'UF', precision: config[:decimales]['UF'])
+		number_to_currency(valor, unit: 'UF', precision: cfg_defaults[:uf])
 	end
 
 	def s_uf5(valor)
-		number_to_currency(valor, unit: 'UF', precision: 5)
+		number_to_currency(valor, unit: 'UF', precision: cfg_defaults[:uf_calculo])
 	end
 
 	def s_p100(valor, decimales)

@@ -7,6 +7,7 @@ class AppPerfil < ApplicationRecord
 	has_many :blg_articulos
 
 	# Aplicacion
+	# Si cfg_defaults[:activa_tipos_usuario] = true
 	has_many :age_usuarios
 
 	# Revisar DEPRECATED
@@ -18,7 +19,7 @@ class AppPerfil < ApplicationRecord
 	end
 
 	def tipo_usuario
-		self.email == AppVersion::DOG_EMAIL ? 'general' : AppNomina.find_by(email: self.email).tipo
+		( self.email == AppVersion::DOG_EMAIL or cfg_defaults[:activa_tipos_usuario] == false ) ? 'general' : AppNomina.find_by(email: self.email).tipo
 	end
 
 	def app_enlaces
