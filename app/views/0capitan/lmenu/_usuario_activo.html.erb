@@ -2,7 +2,9 @@
 	<small><small><small class="text-muted">
 		<i class="bi bi-person-fill"></i> 
 		<%= dog? ? 'dog' : ( admin? ? 'admin' : 'usuario' ) %> : 
-		<%= perfil_activo.email %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/app_recursos/password_recovery?uid=#{current_usuario.id}", tooltip: 'Cambio de contraseña'} do %>
+			<%= perfil_activo.email %>
+		<% end %>
 	</small></small></small>
 </div>
 <div style="margin-bottom: -1em;"><hr></div>
