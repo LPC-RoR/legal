@@ -33,6 +33,12 @@ module Seguridad
 		usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email) : nil
 	end
 
+	# Depnde de los tipos definidos en la aplicación
+	# Quizá deba estar en otro lado
+	def check_tipo_usuario(tipo)
+		perfil_activo.tipo_usuario == 'general' ? true : perfil_activo.tipo_usuario == tipo
+	end
+
 	def dog?
 		usuario_signed_in? ? (current_usuario.email == dog_email) : false
 	end

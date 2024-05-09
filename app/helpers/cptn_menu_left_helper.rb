@@ -7,13 +7,14 @@ module CptnMenuLeftHelper
 				{
 					titulo: nil,
 					condicion: usuario?,
+
 					items: [
 						'AgeActividad',
-						'Cliente',
+						['Cliente', 'operación'],
 						'Causa',
 						'Asesoria',
-						'TarAprobacion',
-						'TarFactura',
+						['TarAprobacion', 'finanzas'],
+						['TarFactura', 'finanzas'],
 						'DtMateria'
 					]
 				},
@@ -49,6 +50,10 @@ module CptnMenuLeftHelper
 
 	def tablas_controllers
 		['aut_tipo_usuarios', 'app_recursos', 'clientes', 'causas', 'asesorias', 'tar_aprobaciones', 'tar_facturas', 'tablas', 'tar_tarifas', 'tar_pagos', 'tar_formula_cuantias', 'tar_formulas', 'tar_variable_bases']
+	end
+
+	def lm_check_tipo_usuario(modelo)
+		modelo.class.name == 'Array' ? check_tipo_usuario(modelo[1]) : true
 	end
 
 	def left_menu_actions?

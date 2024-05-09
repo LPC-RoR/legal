@@ -1,16 +1,22 @@
+<!-- elem[0] = Item -->
+<!-- elem[1] = partial, si es nil, se trata de un Título -->
+<!-- elem[2] = Indent -->
+<!-- elem[3] = Despliegue -->
 <% menu_tablas.each_with_index do |elem, indice| %>
-	<div class="menu_tablas_elemento" style= 'padding-left: <%=elem[2]-1%>em;'>
-		<% unless elem[1].blank? %>
-			<% if indice == @indice %>
-				<i class="bi bi-arrow-right"></i> <b><%= elem[0] %></b>
-			<% else %>
-				<%= link_to "/tablas?tb=#{tb_index(elem[1])}" do %>
-					<div class='text-muted'><%= elem[0] %></div>
+	<% if check_tipo_usuario( elem[3] ) %>
+		<div class="menu_tablas_elemento" style= 'padding-left: <%=elem[2]-1%>em;'>
+			<% unless elem[1].blank? %>
+				<% if indice == @indice %>
+					<i class="bi bi-arrow-right"></i> <b><%= elem[0] %></b>
+				<% else %>
+					<%= link_to "/tablas?tb=#{tb_index(elem[1])}" do %>
+						<div class='text-muted'><%= elem[0] %></div>
+					<% end %>
 				<% end %>
+			<% else %>
+				<i class="bi bi-arrow-return-right"></i>
+				<b class='text-muted'><%= elem[0] %></b></br>
 			<% end %>
-		<% else %>
-			<i class="bi bi-arrow-return-right"></i>
-			<b class='text-muted'><%= elem[0] %></b></br>
-		<% end %>
-	</div>
+		</div>
+	<% end %>
 <% end %>

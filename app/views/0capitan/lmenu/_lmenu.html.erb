@@ -7,7 +7,9 @@
 			<% unless area_menu[:titulo] == 'Tablas' %>
 				<div class="text-info text-center"><%=area_menu[:titulo] %></div>
 				<% area_menu[:items].each do |modelo| %>
-					<%= render partial: '0capitan/lmenu/display_item_modelo', locals: {modelo: modelo} %>
+					<% unless cfg_defaults[:activa_tipos_usuario] and lm_check_tipo_usuario(modelo) == false %>
+						<%= render partial: '0capitan/lmenu/display_item_modelo', locals: {modelo: (modelo.class.name == 'Array' ? modelo[0] : modelo)} %>
+					<% end %>
 				<% end %>
 			<% else %>
 				<small>
