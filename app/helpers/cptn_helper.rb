@@ -1,16 +1,5 @@
 module CptnHelper
 
-	# Depnde de los tipos definidos en la aplicación
-	# Quizá deba estar en otro lado
-	def check_tipo_usuario(tipo)
-		perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]) == 'general' ? true : perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]) == tipo
-	end
-
-	# Se usa en lmenu
-	def lm_check_tipo_usuario(modelo)
-		modelo.class.name == 'Array' ? check_tipo_usuario(modelo[1]) : true
-	end
-
 # ******************************************************************** LAYOUTS 
 
 	def no_over_controllers

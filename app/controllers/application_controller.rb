@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+	include Config
 	include Seguridad
 
 	include Inicia
@@ -23,6 +24,8 @@ class ApplicationController < ActionController::Base
 	helper_method :menu_tablas, :tb_index, :tb_item, :first_tabla_index
 	helper_method :modelo_negocios_general, :cuentas_corrientes, :periodos
 	helper_method :nombre_dia, :nombre3_dia
+	helper_method :check_tipo_usuario, :lm_check_tipo_usuario
+	helper_method :cfg_defaults, :cfg_navbar, :cfg_color
 
 	# ************************************************************************** COLECCINES DE ESTADOS
  
