@@ -10,6 +10,8 @@
 				<i class="bi bi-people"></i>
 				Usuarios
 			<% end %>
+		<% else %>
+			<%= perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]) %>
 		<% end %>
 	</small></small></small>
 </div>

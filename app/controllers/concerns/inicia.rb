@@ -1,3 +1,4 @@
+
 module Inicia
 	extend ActiveSupport::Concern
 
@@ -31,6 +32,8 @@ module Inicia
 
 			if nomina_activa.present? or libre_registro?
 				AppPerfil.create(email: current_usuario.email)
+			else
+				sign_out_and_redirect(current_usuario)
 			end
 
 		end

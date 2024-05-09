@@ -18,8 +18,8 @@ class AppPerfil < ApplicationRecord
 		self.email == AppVersion::DOG_EMAIL ? AppVersion::DOG_NAME : AppNomina.find_by(email: self.email).nombre
 	end
 
-	def tipo_usuario
-		( self.email == AppVersion::DOG_EMAIL or cfg_defaults[:activa_tipos_usuario] == false ) ? 'general' : AppNomina.find_by(email: self.email).tipo
+	def tipo_usuario(activa)
+		( self.email == AppVersion::DOG_EMAIL or activa == false ) ? 'general' : AppNomina.find_by(email: self.email).tipo
 	end
 
 	def app_enlaces

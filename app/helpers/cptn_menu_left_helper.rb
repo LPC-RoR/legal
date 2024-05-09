@@ -57,7 +57,7 @@ module CptnMenuLeftHelper
 	end
 
 	def left_menu_actions?
-		controller_name == 'publicos' and action_name == 'home' and usuario_signed_in?
+		controller_name == 'publicos' and action_name == 'home' and usuario_signed_in? and perfil_activo.present?
 	end
 
 	def left_menu_controllers?
