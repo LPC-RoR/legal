@@ -52,10 +52,6 @@ module CptnMenuLeftHelper
 		['aut_tipo_usuarios', 'app_recursos', 'clientes', 'causas', 'asesorias', 'tar_aprobaciones', 'tar_facturas', 'tablas', 'tar_tarifas', 'tar_pagos', 'tar_formula_cuantias', 'tar_formulas', 'tar_variable_bases']
 	end
 
-	def lm_check_tipo_usuario(modelo)
-		modelo.class.name == 'Array' ? check_tipo_usuario(modelo[1]) : true
-	end
-
 	def left_menu_actions?
 		controller_name == 'publicos' and action_name == 'home' and usuario_signed_in? and perfil_activo.present?
 	end
