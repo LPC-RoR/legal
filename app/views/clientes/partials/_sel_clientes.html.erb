@@ -1,0 +1,23 @@
+<small>
+<div class="objeto-box">
+	<h6 class="text-info" align="center"><i class="bi bi-hand-index"></i></i></h6>
+	<hr>
+
+	<% unless sel_tipo.blank? %>	
+		<div style="padding-left: 1em;">
+
+			<% Cliente::SELECTORS.each do |selector| %>
+				<% if sel_tipo == selector %>
+					<i class="bi bi-arrow-right"></i>
+					<b class="text-muted"><%= selector %></b>
+				<% else %>
+					<%= link_to "/clientes?s=#{selector}" do %>
+						<span class="text-muted"><%= selector %></span>
+					<% end %>
+				<% end %></br>
+			<% end %>
+
+		</div>
+	<% end %>
+</div>
+</small>

@@ -1,35 +1,12 @@
-<%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
-
-<% if @options[:menu] == 'Proceso' %>
-	<div class="row">
-		<div class="col-lg-6 col-xs-12">
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes en ingreso', link_new: (operacion? ? 'clientes/new' : nil)} %>
-
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-clientes'} %>
-		</div>
-		<div class="col-lg-6 col-xs-12">
-			<% unless @coleccion['activo_empresa-clientes'].empty? %>
-				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Empresas', link_new: nil} %>
-
-				<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_empresa-clientes'} %>
-			<% end %>
-			<hr>
-			<% unless @coleccion['activo_sindicato-clientes'].empty? %>
-				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Sindicatos', link_new: nil} %>
-
-				<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_sindicato-clientes'} %>
-
-			<% end %>
-			</hr>
-			<% unless @coleccion['activo_trabajador-clientes'].empty? %>
-				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes activos : Trabajadores', link_new: nil} %>
-
-				<%= render partial: '0p/tabla/tabla', locals: {c: 'activo_trabajador-clientes'} %>
-			<% end %>
-		</div>
-	</div>
-<% elsif @options[:menu] == 'Baja' %>
-	<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes de baja', link_new: nil} %>
-
-	<%= render partial: '0p/tabla/tabla', locals: {c: 'baja-clientes'} %>
-<% end %>
+<div class="titulo text-info">
+  Asesorías <%= @asesoria.blank? ? "en Proceso" : "Terminadas" %>
+</div>
+<div class="row text_muted">
+  <div class="col-lg-3">
+    <%= render partial: 'clientes/partials/sel_clientes', locals: {sel_tipo: @sel_tipo} %>
+  </div>
+  <div class="col-lg-9">
+	  <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: (['Ingreso', 'Baja'].include?(@sel_tipo) ? "Clientes en estado #{@sel_tipo}" : "Clientes activos del tipo #{@sel_tipo}"), link_new: ((operacion? and @sel_tipo == 'Ingreso') ? '/clientes/new' : nil) } %>
+	  <%= render partial: '0p/tabla/tabla', locals: {c: 'clientes'} %>
+  </div>
+</div>

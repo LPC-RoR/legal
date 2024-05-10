@@ -8,8 +8,8 @@ class AsesoriasController < ApplicationController
     @path = "/asesorias?"
 
     if @asesoria.blank?
-      set_tabla('ingreso-asesorias', Asesoria.where(estado: 'ingreso').order(created_at: :desc), false)
-      set_tabla('proceso-asesorias', Asesoria.where(estado: 'proceso').order(created_at: :desc), false)
+      set_tabla('ingreso-asesorias', Asesoria.where(estado: 'ingreso').order(created_at: :desc), true)
+      set_tabla('proceso-asesorias', Asesoria.where(estado: 'proceso').order(created_at: :desc), true)
     else
       asesorias = @asesoria.asesorias.where(estado: 'terminada')
       set_tabla('asesorias', asesorias, true)

@@ -1,10 +1,9 @@
 class Cliente < ApplicationRecord
-	# tabla de CLINTES
-	# 1.- Evaluar has_many tar_facturas
 
-	TABLA_FIELDS = 	[
-		's#razon_social'
-	]
+	SELECTORS = ['Empresas', 'Sindicatos', 'Trabajadores', 'Ingreso', 'Baja']
+
+	# tabla de CLIENTES
+	# 1.- Evaluar has_many tar_facturas
 
 	has_many :causas
 	has_many :asesorias

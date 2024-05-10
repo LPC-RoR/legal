@@ -7,17 +7,21 @@ class ClientesController < ApplicationController
 
   # GET /clientes or /clientes.json
   def index
+    @sel_tipo = params[:s].blank? ? Cliente::SELECTORS[0] : params[:s]
 
-    set_tab( :menu, ['Proceso', 'Baja'] )
-
-    if @options[:menu] == 'Proceso'
-      set_tabla('ingreso-clientes', Cliente.where(estado: 'ingreso').order(:razon_social), false)
-      set_tabla('activo_empresa-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Empresa').order(:razon_social), false)
-      set_tabla('activo_sindicato-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Sindicato').order(:razon_social), false)
-      set_tabla('activo_trabajador-clientes', Cliente.where(estado: 'activo', tipo_cliente: 'Trabajador').order(:razon_social), false)
-    elsif @options[:menu] == 'Baja'
-      set_tabla('baja-clientes', Cliente.where(estado: 'baja').order(:razon_social), true)
+    case @sel_tipo
+    when 'Ingreso'
+      clientes = Cliente.where(estado: 'ingreso')
+    when 'Empresas'
+      clientes = Cliente.where(estado: 'activo', tipo_cliente: 'Empresa')
+    when 'Sindicatos'
+      clientes = Cliente.where(estado: 'activo', tipo_cliente: 'Sindicato')
+    when 'Trabajadores'
+      clientes = Cliente.where(estado: 'activo', tipo_cliente: 'Trabajador')
+    when 'Baja'
+      clientes = Cliente.where(estado: 'baja')
     end
+    set_tabla('clientes', clientes, true)
   end
 
   # GET /clientes/1 or /clientes/1.json
@@ -29,9 +33,7 @@ class ClientesController < ApplicationController
     if @options[:menu] == 'Agenda'
 
       @hoy = Time.zone.today
-
       set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
-
       @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)
 
     elsif @options[:menu] == 'Documentos y enlaces'
@@ -55,8 +57,8 @@ class ClientesController < ApplicationController
       @path = "/clientes/#{@objeto.id}?html_options[menu]=Asesorias&"
 
       if @asesoria.blank?
-        set_tabla('ingreso-asesorias', @objeto.asesorias.where(estado: 'ingreso').order(created_at: :desc), false)
-        set_tabla('proceso-asesorias', @objeto.asesorias.where(estado: 'proceso').order(created_at: :desc), false)
+        set_tabla('ingreso-asesorias', @objeto.asesorias.where(estado: 'ingreso').order(created_at: :desc), true)
+        set_tabla('proceso-asesorias', @objeto.asesorias.where(estado: 'proceso').order(created_at: :desc), true)
       else
         asesorias = @asesoria.asesorias.where(cliente_id: @objeto.id, estado: 'terminada')
         set_tabla('asesorias', asesorias, true)
