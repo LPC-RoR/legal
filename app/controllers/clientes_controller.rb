@@ -21,7 +21,7 @@ class ClientesController < ApplicationController
     when 'Baja'
       clientes = Cliente.where(estado: 'baja')
     end
-    set_tabla('clientes', clientes, true)
+    set_tabla('clientes', clientes.order(:razon_social), true)
   end
 
   # GET /clientes/1 or /clientes/1.json
