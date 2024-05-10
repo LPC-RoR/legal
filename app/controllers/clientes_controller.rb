@@ -52,6 +52,7 @@ class ClientesController < ApplicationController
 
       @tipos_asesoria = TipoAsesoria.all.order(:tipo_asesoria)
       @asesoria = params[:tcid].blank? ? nil : TipoAsesoria.find(params[:tcid])
+      @path = "/clientes/#{@objeto.id}?html_options[menu]=Asesorias&"
 
       if @asesoria.blank?
         set_tabla('ingreso-asesorias', @objeto.asesorias.where(estado: 'ingreso').order(created_at: :desc), false)

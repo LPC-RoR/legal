@@ -3,7 +3,7 @@
 </div>
 <div class="row text_muted">
   <div class="col-lg-2">
-    <%= render partial: 'asesorias/partials/sel_asesorias', locals: {tipos_asesoria: @tipos_asesoria, objeto: @asesoria} %>
+    <%= render partial: 'asesorias/partials/sel_asesorias', locals: {tipos_asesoria: @tipos_asesoria, objeto: @asesoria, path: path} %>
   </div>
   <div class="col-lg-10">
     <% if @asesoria.blank? %>

@@ -5,6 +5,7 @@ class AsesoriasController < ApplicationController
   def index
     @tipos_asesoria = TipoAsesoria.all.order(:tipo_asesoria)
     @asesoria = params[:tcid].blank? ? nil : TipoAsesoria.find(params[:tcid])
+    @path = "/asesorias?"
 
     if @asesoria.blank?
       set_tabla('ingreso-asesorias', Asesoria.where(estado: 'ingreso').order(created_at: :desc), false)

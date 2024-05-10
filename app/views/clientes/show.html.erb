@@ -16,7 +16,7 @@
 <% elsif @options[:menu] == 'Causas' %>
 	<%= render partial: 'causas/partials/monitor' %>
 <% elsif @options[:menu] == 'Asesorias' %>
-	<%= render partial: 'asesorias/partials/monitor' %>
+	<%= render partial: 'asesorias/partials/monitor', path: @path %>
 <% elsif @options[:menu] == 'Facturas' %>
 	<%= render partial: 'tarifas/tar_facturas/partials/monitor' %>
 <% elsif @options[:menu] == 'Tarifas' %>
