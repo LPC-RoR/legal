@@ -4,7 +4,7 @@
 	<hr>
 	
 	<div style="padding-left: 1em;">
-		<% if @objeto.blank? %>
+		<% if asesoria.blank? %>
 			<i class="bi bi-arrow-right"></i>
 			<b class="text-muted">Proceso</b>
 		<% else %>
@@ -14,8 +14,8 @@
 		<% end %></br>
 
 		<% tipos_asesoria.each do |tipo_asesoria| %>
-			<% unless @objeto.blank? %>
-				<% if @objeto.id == tipo_asesoria.id %>
+			<% unless asesoria.blank? %>
+				<% if asesoria.id == tipo_asesoria.id %>
 					<i class="bi bi-arrow-right"></i>
 					<b class="text-muted"><%= tipo_asesoria.tipo_asesoria %></b>
 				<% else %>
