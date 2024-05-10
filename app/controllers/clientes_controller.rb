@@ -49,6 +49,18 @@ class ClientesController < ApplicationController
       set_tabla('terminada-causas', causas_cliente.where(estado: 'terminada').order(:created_at), true)
 
     elsif @options[:menu] == 'Asesorias'
+
+      @tipos_asesoria = TipoAsesoria.all.order(:tipo_asesoria)
+      @asesoria = params[:tcid].blank? ? nil : TipoAsesoria.find(params[:tcid])
+
+      if @asesoria.blank?
+        set_tabla('ingreso-asesorias', @objeto.asesorias.where(estado: 'ingreso').order(created_at: :desc), false)
+        set_tabla('proceso-asesorias', @objeto.asesorias.where(estado: 'proceso').order(created_at: :desc), false)
+      else
+        asesorias = @asesoria.asesorias.where(cliente_id: @objeto.id, estado: 'terminada')
+        set_tabla('asesorias', asesorias, true)
+      end
+
       set_tab( :monitor,  ['Proceso', 'Terminadas', 'Multas & Redacciones', 'Mensuales & Cargos'] )
       asesorias_cliente = @objeto.asesorias
 
