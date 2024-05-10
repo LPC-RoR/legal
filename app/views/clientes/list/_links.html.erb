@@ -1,0 +1,14 @@
+<% unless objeto.archivos_faltantes.empty? and objeto.archivos_vacios.empty? %>
+	<i class="bi bi-file-check text-danger"></i>
+	<small class='text-danger'><%= objeto.archivos_faltantes.count + objeto.archivos_vacios.count %></small>
+<% end %>
+<% if false %>
+	<i class="bi bi-dot"></i>
+	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/organizacion?oid=#{objeto.id}", tooltip: 'Ver Organización' } do %>
+		<i class="bi bi-diagram-3"></i>
+	<% end %>
+<% end %>
+<% if operacion? %>
+	<i class="bi bi-dot"></i>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+<% end %>

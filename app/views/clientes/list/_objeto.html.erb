@@ -1,2 +1,10 @@
-<%= render partial: 'clientes/list/line_rut_crud', locals: {objeto: objeto} %>
-<%= render partial: 'clientes/list/line_cliente', locals: {objeto: objeto} %>
+<small class="text-muted">
+<div class="row">
+	<div class="col-8 text-info"  style="line-height: 13px;">
+		<%= render partial: 'clientes/list/nombre_cliente', locals: {objeto: objeto} %>
+	</div>
+	<div class="col-4" align='right'>
+		<%= render partial: 'clientes/list/links', locals: {objeto: objeto} %>
+	</div>
+</div>
+</small>
