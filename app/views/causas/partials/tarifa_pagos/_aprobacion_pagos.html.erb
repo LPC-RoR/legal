@@ -1,0 +1,12 @@
+<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_pagos', title: 'Aprobación de pagos', link_new: nil } %>
+
+<% unless objeto.tar_tarifa.blank? or objeto.tar_tarifa.tar_pagos.empty? %>
+	<% objeto.tar_tarifa.tar_pagos.order(:orden).each do |pago| %>
+
+		<div class="objeto-box">
+			<%= render partial: 'organizacion/servicios/aprobacion/encabezado_pago', locals: {objeto: pago, owner: objeto} %>
+			<%= render partial: 'causas/partials/tarifa_pagos/pago_comentarios', locals: {pago: pago, causa: objeto } %>
+		</div>
+
+	<% end %>
+<% end %>

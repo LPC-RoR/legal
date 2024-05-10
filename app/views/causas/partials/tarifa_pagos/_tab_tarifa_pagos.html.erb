@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="col-lg-4 col-xs-12">
+
+		<%= render partial: 'causas/partials/tarifa_pagos/display_tarifa', locals: {objeto: objeto, tar_cliente: tar_cliente, tar_generales: tar_generales} %>
+
+		<%= render partial: 'causas/partials/tarifa_pagos/pagos', locals: {objeto: objeto} %>
+	</div>
+	<div class="col-lg-8">
+
+		<%= render partial: 'causas/partials/tarifa_pagos/aprobacion_pagos', locals: {objeto: objeto} %>
+
+	</div>
+</div>

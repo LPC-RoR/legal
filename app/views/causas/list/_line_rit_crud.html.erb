@@ -1,26 +1,30 @@
 <small><small class="text-muted">
 <div class="row">
 	<div class="col-7">
-		<b><%= link_to objeto.rit, objeto, title: 'Detalle Causa', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %> </b>
+		<b> <%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver Detalle Causa'} do %>
+				<%= objeto.rit %>
+			<% end %> 
+		</b>
 		<% if (objeto.monto_pagado.blank? or objeto.monto_pagado == 0) and objeto.estado == 'terminada' %>
-			<i class="bi bi-award text-primary"></i>
+			<i class="bi bi-award text-primary"></i> Causa Ganada
 		<% end %>
 	</div>
 	<div class="col-5" align='right'>
-		<% unless objeto.facturaciones.empty? %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'Facturaciones', objeto: objeto, tooltip: 'Pagos'} do %>
+		<% if finanzas? and objeto.facturaciones.any? %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Facturaciones', objeto: objeto, tooltip: 'Detalle de Pagos'} do %>
 				<i class="bi bi-currency-dollar"></i>
 			<% end %>
 		<% end %>
-		<% if objeto.demanda? %>
+		<% if objeto.demanda? and operacion? %>
 			<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 				<i class="bi bi-box-arrow-up-right"></i>
 			<% end %>
 		<% end %>
-		<% if objeto.facturaciones.any? or objeto.demanda? %>
-			<i class="bi bi-dot"></i>
-		<% end %>
-		<% unless restriccion %>
+		<% if operacion? %>
+			<!-- Lo siguiente se puso DENTRO del if porque si no se despliega el crud no tiene sentido el punto -->
+			<% if (finanzas? and objeto.facturaciones.any?) or (objeto.demanda? and operacion?) %>
+				<i class="bi bi-dot"></i>
+			<% end %>
 			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 		<% end %>
 	</div>

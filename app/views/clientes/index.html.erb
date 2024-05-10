@@ -3,7 +3,7 @@
 <% if @options[:menu] == 'Proceso' %>
 	<div class="row">
 		<div class="col-lg-6 col-xs-12">
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes en ingreso', link_new: 'clientes/new'} %>
+			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: 'Clientes en ingreso', link_new: (operacion? ? 'clientes/new' : nil)} %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-clientes'} %>
 		</div>

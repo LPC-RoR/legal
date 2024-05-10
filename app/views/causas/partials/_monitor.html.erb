@@ -2,7 +2,7 @@
 <% if @options[:monitor] == 'Proceso' %>
 	<div class="row">
 		<div class="col-lg-6 col-xs-12">
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Causas en ingreso', link_new: '/causas/new'} %>
+			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Causas en ingreso', link_new: (operacion? ? '/causas/new' : nil) } %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-causas'} %>
 		</div>

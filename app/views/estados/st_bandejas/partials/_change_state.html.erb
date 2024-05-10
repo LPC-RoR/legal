@@ -7,7 +7,8 @@
 	<% unless get_st_estado(objeto).present? %>
 		<h6 class='text-muted'><small><small>Estados no encontrado</small></small></h6>
 	<% else %>
-		<% if admin? or AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.find_by(st_perfil_modelo: objeto.class.name).rol == 'admin' %>
+		<%# if admin? or AppNomina.find_by(email: perfil_activo.email).st_perfil_modelos.find_by(st_perfil_modelo: objeto.class.name).rol == 'admin' %>
+		<% if admin? %>
 			<% unless get_st_estado(objeto).destinos_admin.blank? %>
 				<i class="bi bi-person-fill"></i>
 			<% end %>

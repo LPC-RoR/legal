@@ -43,4 +43,10 @@ module Config
 		}
 	end
 
+	def cfg_fonts
+		{
+			size_title: 4
+		}
+	end
+
 end

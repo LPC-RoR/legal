@@ -1,0 +1,31 @@
+<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'age_actividades', title: 'Actividades', link_new: nil} %>
+
+<% if objeto.class.name == 'Causa' and operacion? %>
+	<% unless @audiencias_pendientes.empty? %>
+		<% @audiencias_pendientes.each do |pendiente| %>
+			<%= render layout: '0p/collapse/display', locals: {label: pendiente.split(' ').join('_'), objeto: nil} do %>
+				<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: 'A', causa_id: objeto.id, cu: 'c', audiencia: pendiente } %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
+	<% unless ['Reunión', 'Tarea'].include?(tipo) and finanzas? %>
+		<%= render layout: '0p/collapse/display', locals: {label: tipo, objeto: nil} do %>
+			<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: tipo[0], causa_id: objeto.id, cu: 'c', audiencia: nil } %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<div class="row">
+	<div class="col-8">
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'age_actividades'} %>
+	</div>
+	<div class="col-4">
+
+		<hr>
+		<%= render partial: 'actividades/partials/add_box', locals: {objeto: objeto} %>
+
+	</div>
+</div>

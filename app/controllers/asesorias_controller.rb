@@ -3,25 +3,15 @@ class AsesoriasController < ApplicationController
 
   # GET /asesorias or /asesorias.json
   def index
-    set_tab( :monitor,  ['Proceso', 'Terminadas', 'Multas & Redacciones', 'Mensuales & Cargos'] )
+    @tipos_asesoria = TipoAsesoria.all.order(:tipo_asesoria)
+    @asesoria = params[:tcid].blank? ? nil : TipoAsesoria.find(params[:tcid])
 
-    if @options[:monitor] == 'Proceso'
+    if @asesoria.blank?
       set_tabla('ingreso-asesorias', Asesoria.where(estado: 'ingreso').order(created_at: :desc), false)
       set_tabla('proceso-asesorias', Asesoria.where(estado: 'proceso').order(created_at: :desc), false)
-    elsif @options[:monitor] == 'Terminadas'
-      set_tabla('terminada-asesorias', Asesoria.where(estado: 'terminada').order(created_at: :desc), true)
-    elsif @options[:monitor] == 'Multas & Redacciones'
-      ta_multas = TipoAsesoria.find_by(tipo_asesoria: 'Multa')
-      ta_redacciones = TipoAsesoria.find_by(tipo_asesoria: 'Redacción')
-
-      set_tabla('multas-asesorias', ta_multas.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
-      set_tabla('redacciones-asesorias', ta_redacciones.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
-    elsif @options[:monitor] == 'Mensuales & Cargos'
-      ta_mensuales = TipoAsesoria.find_by(tipo_asesoria: 'Mensual')
-      ta_cargos = TipoAsesoria.find_by(tipo_asesoria: 'Cargo')
-
-      set_tabla('mensuales-asesorias', ta_mensuales.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
-      set_tabla('cargos-asesorias', ta_cargos.asesorias.where(estado: 'terminada').order(created_at: :desc), false)
+    else
+      asesorias = @asesoria.asesorias.where(estado: 'terminada')
+      set_tabla('asesorias', asesorias, true)
     end
   end
 

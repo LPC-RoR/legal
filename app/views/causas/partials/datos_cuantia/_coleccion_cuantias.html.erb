@@ -1,31 +1,10 @@
-<% if controller_name == 'servicios' %>
-	Detalle Cuantía</br>
-<% end %>
-
-<small><small>
-
-<!-- Encabezado -->
-<div class="row text-info">
-	<div class="col-<%= controller_name == 'causas' ? '6' : '9' %>">
-		<div style='padding-left: 1em;'>
-			<i>Item</i>
-		</div>
-	</div>
-	<% if controller_name == 'causas' %>
-		<div class="col-3" align='right'>
-			<i>Tarifa</i>
-		</div>
-	<% end %>
-	<div class="col-3" align='right'>
-		<i>Cuantía</i>
-	</div>
-</div>
-
 <!-- Detalles de cuantía -->
 <div class="row text-muted">
+
 	<% objeto.valores_cuantia.each do |vc| %>
 		<div class="col-<%= controller_name == 'causas' ? '6' : '9' %>">
 			<div style='padding-left: 1em;'>
+				<%= render partial: 'causas/partials/datos_cuantia/nombre_cuantia', locals: {vc: vc, valores_cuantia: valores_cuantia}
 				<% if vc.tar_detalle_cuantia.tar_detalle_cuantia == 'Otro' and controller_name == 'causas' %>
 					<i class="bi bi-asterisk"></i>
 				<% end %>
@@ -56,8 +35,3 @@
 	<% end %>
 
 </div>
-
-<% if objeto.cuantia_modificada? %>
-	<i class="bi bi-cone-striped"></i> Esta cuantía ha sido modificada!
-<% end %>
-</small></small>

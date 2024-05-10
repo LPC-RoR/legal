@@ -1,0 +1,14 @@
+<div style="padding-left: 1em">
+	<small class="text-muted">
+	<% list_tarifas.each do |tar| %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_tarifas/#{tar.id}/asigna?cid=#{objeto.id}", tooltip: 'Asignar Tarifa' } do %>
+			<i class="bi bi-arrow-bar-left"></i>
+		<% end %> 
+		<%= tar.tarifa %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: tar, tooltip: 'Ver Tarifa' } do %>
+			<i class="bi bi-box-arrow-right"></i>
+		<% end %> 
+		</br>
+	<% end %>
+	</small>
+</div>

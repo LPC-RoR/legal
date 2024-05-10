@@ -1,0 +1,8 @@
+<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto.tar_tarifa, tooltip: 'Ver Tarifa'} do %>
+	<%= objeto.tar_tarifa.tarifa %>
+<% end %>
+<% if objeto.facturaciones.empty? %>
+	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_tarifas/#{objeto.tar_tarifa.id}/desasigna?cid=#{objeto.id}", tooltip: 'Desasignar Tarifa'} do %>
+		<i class="bi bi-x-circle"></i>
+	<% end %>
+<% end %>

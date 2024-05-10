@@ -1,47 +1,20 @@
-<%= render partial: '0p/tabs/tabs', locals: { token: :monitor } %>
-
-<% if @options[:monitor] == 'Proceso' %>
-  <div class="row">
-    <div class="col-lg-6 col-xs-12">
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías en ingreso', link_new: '/asesorias/new'} %>
-
+<div class="titulo text-info">
+  Asesorías <%= @asesoria.blank? ? "en Proceso" : "Terminadas" %>
+</div>
+<div class="row text_muted">
+  <div class="col-lg-2">
+    <%= render partial: 'asesorias/partials/sel_asesorias', locals: {tipos_asesoria: @tipos_asesoria, objeto: @asesoria} %>
+  </div>
+  <div class="col-lg-10">
+    <% if @asesoria.blank? %>
+      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías en ingreso', link_new: (operacion? ? '/asesorias/new' : nil) } %>
       <%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-asesorias'} %>
-    </div>
-    <div class="col-lg-6 col-xs-12">
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías en cobro', link_new: nil} %>
 
+      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: "Asesorías en cobro", link_new: nil} %>
       <%= render partial: '0p/tabla/tabla', locals: {c: 'proceso-asesorias'} %>
-    </div>
+    <% else %>
+      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: "Asesorias del tipo #{@asesoria.tipo_asesoria}", link_new: nil} %>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'asesorias'} %>
+    <% end %>
   </div>
-<% elsif @options[:monitor] == 'Terminadas' %>
-  <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas', link_new: nil} %>
-
-  <%= render partial: '0p/tabla/tabla', locals: {c: 'terminada-asesorias'} %>
-<% elsif @options[:monitor] == 'Multas & Redacciones' %>
-  <div class="row">
-    <div class="col-lg-6 col-xs-12">
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas: Multas', link_new: nil} %>
-
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'multas-asesorias'} %>
-    </div>
-    <div class="col-lg-6 col-xs-12">
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas: Redacciones', link_new: nil} %>
-
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'redacciones-asesorias'} %>
-    </div>
-  </div>
-<% elsif @options[:monitor] == 'Mensuales & Cargos' %>
-  <div class="row">
-    <div class="col-lg-6 col-xs-12">
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas: Mensuales', link_new: nil} %>
-
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'mensuales-asesorias'} %>
-    </div>
-    <div class="col-lg-6 col-xs-12">
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías terminadas: Cargos', link_new: nil} %>
-
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'cargos-asesorias'} %>
-    </div>
-  </div>
-<% end %>
-
+</div>

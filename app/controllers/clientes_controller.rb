@@ -23,7 +23,7 @@ class ClientesController < ApplicationController
   # GET /clientes/1 or /clientes/1.json
   def show
 
-    set_tab( :menu, ['Agenda', 'Documentos y enlaces', 'Causas', 'Asesorias', 'Facturas', 'Tarifas'] )
+    set_tab( :menu, [['Agenda', operacion?], ['Documentos y enlaces', operacion?], 'Causas', 'Asesorias', ['Facturas', finanzas?], ['Tarifas', operacion?]] )
 
 #    @coleccion = {}
     if @options[:menu] == 'Agenda'

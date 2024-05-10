@@ -13,6 +13,16 @@ module Capitan
 	end
 
 	# ************************************************************************** INICIALIZA TAB
+	def get_primer_tab(key)
+		primer = nil
+		@tabs[key].each do |tab|
+			if primer.blank?
+				primer = tab.class.name == 'String' ? tab : (tab[1] ? tab[0] : nil)
+			end
+		end
+		primer
+	end
+
 	# set_tab(:menu, ['Pendientes', 'Realizadas'])
 	# <%= render partial: '0p/tabs/tabs', locals: { token: :monitor } %>
 	def set_tab(token, tabs)
@@ -22,7 +32,7 @@ module Capitan
 
 		@tabs[token] = tabs
 	    @tabs.keys.each do |key|
-	    	primer_tab = @tabs[key][0].class.name == 'String' ? @tabs[key][0] : @tabs[key][0][0]
+	    	primer_tab = get_primer_tab(key)
 			if params[:html_options].blank?
 				@options[key] = primer_tab
 			else

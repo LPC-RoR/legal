@@ -19,8 +19,7 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
-#    set_tab( :menu, ['Agenda', 'Hechos', 'Tarifa & Pagos', 'Datos & Cuantía', 'Documentos y enlaces', 'Registro', 'Reportes'] )
-    set_tab( :menu, ['Agenda', 'Hechos', ['Tarifa & Pagos', admin?], 'Datos & Cuantía', 'Documentos y enlaces'] )
+    set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos y enlaces', operacion?]] )
 
     case @options[:menu]
     when 'Agenda'

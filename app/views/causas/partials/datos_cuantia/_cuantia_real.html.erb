@@ -1,0 +1,4 @@
+<%= render partial: 'causas/partials/datos_cuantia/icono_check_valor', locals: {check_valor: valores_cuantia[objeto.id][vc.id][:check_cuantia]} %>
+<% unless valores_cuantia[objeto.id][vc.id][:activado] %><del><% end %>
+<%= s_moneda( vc.moneda, valores_cuantia[objeto.id][vc.id][:cuantia] ) %>
+<% unless valores_cuantia[objeto.id][vc.id][:activado] %></del><% end %>

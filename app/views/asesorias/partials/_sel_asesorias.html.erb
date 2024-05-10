@@ -1,0 +1,34 @@
+<small>
+<div class="objeto-box">
+	<h6 class="text-info" align="center"><i class="bi bi-hand-index"></i></i></h6>
+	<hr>
+	
+	<div style="padding-left: 1em;">
+		<% if @objeto.blank? %>
+			<i class="bi bi-arrow-right"></i>
+			<b class="text-muted">Proceso</b>
+		<% else %>
+			<%= link_to "/asesorias" do %>
+				<span class="text-muted">Proceso</span>
+			<% end %>
+		<% end %></br>
+
+		<% tipos_asesoria.each do |tipo_asesoria| %>
+			<% unless @objeto.blank? %>
+				<% if @objeto.id == tipo_asesoria.id %>
+					<i class="bi bi-arrow-right"></i>
+					<b class="text-muted"><%= tipo_asesoria.tipo_asesoria %></b>
+				<% else %>
+					<%= link_to "/asesorias?tcid=#{tipo_asesoria.id}" do %>
+						<span class="text-muted"><%= tipo_asesoria.tipo_asesoria %></span>
+					<% end %>
+				<% end %>
+			<% else %>
+				<%= link_to "/asesorias?tcid=#{tipo_asesoria.id}" do %>
+					<span class="text-muted"><%= tipo_asesoria.tipo_asesoria %></span>
+				<% end %>
+			<% end %></br>
+		<% end %>
+	</div>
+</div>
+</small>

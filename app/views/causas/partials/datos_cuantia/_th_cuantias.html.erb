@@ -1,0 +1,16 @@
+<!-- TH -->
+<div class="row text-info">
+	<div class="col-<%= controller_name == 'causas' ? '6' : '9' %>">
+		<div style='padding-left: 1em;'>
+			<i>Item</i>
+		</div>
+	</div>
+	<% if controller_name == 'causas' %>
+		<div class="col-3" align='right'>
+			<i>Tarifa</i>
+		</div>
+	<% end %>
+	<div class="col-3" align='right'>
+		<i>Cuantía</i>
+	</div>
+</div>

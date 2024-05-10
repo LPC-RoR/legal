@@ -7,7 +7,7 @@ class Calendario::CalMesesController < ApplicationController
 
   # GET /cal_meses/1 or /cal_meses/1.json
   def show
-    verifica_mes(@objeto) if @objeto.cal_dias.empty?
+    poblar_cal_mes(@objeto) if @objeto.cal_dias.empty?
 
     @semanas_mes = @objeto.cal_semanas.order(:cal_semana)
 

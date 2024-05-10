@@ -7,7 +7,7 @@
 			<small><i class="text-<%=objeto[:dyf]%>"><%= nombre_dia(objeto[:dia]) %></i></small>
 		</div>
 	</div>
-<dia>
+</div>
 
 <% objeto[:actividades].each do |actividad| %>
 	<% unless actividad.privada and actividad.app_perfil_id != perfil_activo.id %>

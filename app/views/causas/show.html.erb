@@ -9,15 +9,17 @@
 
 <% case @options[:menu] %>
 <% when 'Agenda' %>
-	<%= render partial: 'causas/partials/tab_agenda', locals: {objeto: @objeto} %>
+	<!-- Se utiliza para Causa y Cliente -->
+	<%= render partial: 'actividades/partials/tab_agenda', locals: {objeto: @objeto} %>
 <% when 'Hechos' %>
-	<%= render partial: 'causas/partials/tab_hechos', locals: {objeto: @objeto} %>
+	<%= render partial: 'causas/partials/hechos/tab_hechos', locals: {objeto: @objeto} %>
 <% when 'Tarifa & Pagos' %>
-	<%= render partial: 'causas/partials/tab_tarifa_pagos', locals: {objeto: @objeto} %>
+	<%= render partial: 'causas/partials/tarifa_pagos/tab_tarifa_pagos', locals: {objeto: @objeto, tar_cliente: @tar_cliente, tar_generales: @tar_generales } %>
 <% when 'Datos & Cuantía' %>
-	<%= render partial: 'causas/partials/tab_datos_cuantia', locals: {objeto: @objeto} %>
+	<%= render partial: 'causas/partials/datos_cuantia/tab_datos_cuantia', locals: {objeto: @objeto, variables: @variables, valores_cuantia: @valores_cuantia} %>
 <% when 'Documentos y enlaces' %>
-	<%= render partial: 'causas/partials/tab_documentos_enlaces', locals: {objeto: @objeto} %>
+	<!-- Se utiliza para Causa y Cliente -->
+	<%= render partial: '0capitan/repositorios/tab_documentos_enlaces', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
 <% when 'Registro' %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'registros', gly: 'plus-circle', clr: color('causas')} %>
