@@ -42,23 +42,36 @@ class ClientesController < ApplicationController
       @d_pendientes = @objeto.documentos_pendientes
       @a_pendientes = @objeto.archivos_pendientes
     elsif @options[:menu] == 'Causas'
-      set_tab( :monitor,  ['Proceso', 'Terminadas'] )
-      causas_cliente = @objeto.causas
-      set_tabla('ingreso-causas', causas_cliente.where(estado: 'ingreso').order(:created_at), false)
-      set_tabla('proceso-causas', causas_cliente.where(estado: 'proceso').order(:created_at), false)
-      set_tabla('terminada-causas', causas_cliente.where(estado: 'terminada').order(:created_at), true)
+
+      @estados = StModelo.find_by(st_modelo: 'Causa').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
+      @tipos = nil
+      @tipo = nil
+      @estado = params[:e].blank? ? @estados[0] : params[:e]
+      @path = "clientes/1?html_options[menu]=Causas"
+
+  #    if @tipo.blank?
+        coleccion = @objeto.causas.where(estado: @estado).order(created_at: :desc)
+        set_tabla('causas', coleccion, true)
+  #    else
+  #      tipo = TipoAsesoria.find_by(tipo_asesoria: @tipo)
+  #      asesorias = tipo.asesorias.where(estado: ['terminada', 'cerrada'])
+  #      set_tabla('asesorias', asesorias, true)
+  #    end
 
     elsif @options[:menu] == 'Asesorias'
 
-      @tipos_asesoria = TipoAsesoria.all.order(:tipo_asesoria)
-      @asesoria = params[:tcid].blank? ? nil : TipoAsesoria.find(params[:tcid])
-      @path = "/clientes/#{@objeto.id}?html_options[menu]=Asesorias&"
+      @estados = StModelo.find_by(st_modelo: 'Asesoria').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
+      @tipos = TipoAsesoria.all.order(:tipo_asesoria).map {|ta| ta.tipo_asesoria}
+      @tipo = params[:t].blank? ? nil : params[:t]
+      @estado = params[:e].blank? ? @estados[0] : params[:e]
+      @path = "/clientes/2?html_options[menu]=Asesorias"
 
-      if @asesoria.blank?
-        set_tabla('ingreso-asesorias', @objeto.asesorias.where(estado: 'ingreso').order(created_at: :desc), true)
-        set_tabla('proceso-asesorias', @objeto.asesorias.where(estado: 'proceso').order(created_at: :desc), true)
+      if @tipo.blank?
+        asesorias = @objeto.asesorias.where(estado: @estado).order(created_at: :desc)
+        set_tabla('asesorias', asesorias, true)
       else
-        asesorias = @asesoria.asesorias.where(cliente_id: @objeto.id, estado: 'terminada')
+        tipo = TipoAsesoria.find_by(tipo_asesoria: @tipo)
+        asesorias = @objeto.asesorias.where(tipo_asesoria_id: tipo.id ,estado: ['terminada', 'cerrada'])
         set_tabla('asesorias', asesorias, true)
       end
 
