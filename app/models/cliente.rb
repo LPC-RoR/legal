@@ -1,6 +1,6 @@
 class Cliente < ApplicationRecord
 
-	TIPOS = ['Empresas', 'Sindicatos', 'Trabajadores']
+	TIPOS = ['Empresa', 'Sindicato', 'Trabajador']
 
 	# tabla de CLIENTES
 	# 1.- Evaluar has_many tar_facturas

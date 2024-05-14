@@ -28,7 +28,7 @@ class Aplicacion::AppRecursosController < ApplicationController
     end
 
     Asesoria.all.each do |asesoria|
-      asesoria.estado = asesoria.facturaciones.empty? ? 'tramitacion' : (asesoria.facturaciones.map {|tf| tf.tar_factura.present?}.include?(true) ? 'cierre' : 'terminada' )
+      asesoria.estado = asesoria.facturacion.empty? ? 'tramitacion' : (asesoria.facturacion.map {|tf| tf.tar_factura.present?}.include?(true) ? 'cierre' : 'terminada' )
       asesoria.save
     end
 
