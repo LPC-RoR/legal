@@ -110,7 +110,7 @@ class AsesoriasController < ApplicationController
     facturacion.tar_factura_id = nil
     facturacion.save
 
-    @objeto.estado = 'proceso'
+    @objeto.estado = 'tramitación'
     @objeto.save
 
     redirect_to asesorias_path

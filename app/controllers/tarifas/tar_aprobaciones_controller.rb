@@ -67,7 +67,7 @@ class Tarifas::TarAprobacionesController < ApplicationController
             if owner.facturaciones.where.not(tar_factura_id: nil).count == owner.tar_tarifa.tar_pagos.count
               owner.estado = 'terminada'
             else
-              owner.estado = 'proceso'
+              owner.estado = 'tramitación'
             end
             owner.save
           when 'Asesoria'

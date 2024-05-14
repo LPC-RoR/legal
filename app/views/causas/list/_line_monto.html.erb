@@ -14,7 +14,7 @@
 		</b>
 	</div>
 	<div class="col-2" align='right'>
-		<% if objeto.estado == 'proceso' %>
+		<% if objeto.estado == 'tramitación' %>
 			<%= render layout: '0p/collapse/link', locals: {label: 'Pago', objeto: objeto, tooltip: "#{objeto.monto_pagado.blank? ? 'Nuevo' : 'Modificar' }"} do %>
 				 <% if  objeto.monto_pagado.blank? %>
 				 	<i class="bi bi-plus-circle"></i>
@@ -26,7 +26,7 @@
 	</div>
 </div>
 
-<% if objeto.estado == 'proceso' %>
+<% if objeto.estado == 'tramitación' %>
 	<%= render layout: '0p/collapse/display', locals: {label: 'Pago', objeto: objeto} do %>
 		<div style="padding-left: 2em; padding-right: 1em;">
 		  	<%= render partial: 'causas/list/form_monto_pagado', locals: {objeto: objeto} %>

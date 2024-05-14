@@ -24,7 +24,9 @@ class Tarifas::TarFacturacionesController < ApplicationController
     case params[:owner_class]
     when 'Causa'
 
+      # clase determina si se procesa tarifa con/sin pagos
       clase = params[:pid].present? ? 'Pago' : 'Cuota'
+      # se llena pago y cuota si corresponde
       case clase
       when 'Pago'
         pago = TarPago.find(params[:pid]) unless params[:pid].blank?
@@ -32,10 +34,14 @@ class Tarifas::TarFacturacionesController < ApplicationController
         cuota = TarCuota.find(params[:cid])
         pago = cuota.tar_pago
       end
+
+      # Cálculo de tarifa
       formula = pago.codigo_formula if pago.valor.blank?
       moneda  = (pago.moneda.blank? ? 'UF' : pago.moneda)
       monto = pago.valor.blank? ? calcula2( formula, owner, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5)) : pago.valor
       cuantia_calculo = t_cuantia_pesos(owner, pago, 'honorarios')
+
+      # Se crea el pago
       case clase
       when 'Pago'
         glosa = "#{pago.tar_pago} : #{owner.rit if owner.class.name == 'Causa'} #{owner.send(owner.class.name.downcase)}"
@@ -55,10 +61,8 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
       if owner.facturaciones.count == owner.tar_tarifa.n_pagos
         owner.estado = 'terminada'
-      elsif owner.facturaciones.count > 0
-        owner.estado = 'proceso'
       else
-        owner.estado = 'ingreso'
+        owner.estado = 'tramitación'
       end
       owner.save
 
@@ -67,7 +71,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
       monto = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.monto : owner.monto
       tf=TarFacturacion.create(cliente_class: 'Cliente', cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: nil, glosa: owner.descripcion, estado: 'ingreso', moneda: moneda, monto: monto )
       unless tf.blank?
-        owner.estado = 'proceso'
+        owner.estado = 'terminada'
         owner.save
       end
     when 'RegReporte'
@@ -188,10 +192,8 @@ class Tarifas::TarFacturacionesController < ApplicationController
     if owner.class.name == 'Causa'
       if owner.facturaciones.count == owner.tar_tarifa.tar_pagos.count
         owner.estado = 'terminada'
-      elsif owner.facturaciones.count > 0
-        owner.estado = 'proceso'
       else
-        owner.estado = 'ingreso'
+        owner.estado = 'tramitación'
       end
       owner.save
     end
