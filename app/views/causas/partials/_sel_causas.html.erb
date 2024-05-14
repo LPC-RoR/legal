@@ -12,7 +12,7 @@
 					<i class="bi bi-arrow-right"></i>
 					<b class="text-muted"><%= std %></b>
 				<% else %>
-					<%= link_to "#{path}#{"?e=#{std}" }" do %>
+					<%= link_to "#{path}#{"#{controller_name == 'causas' ? '?' : '&'}e=#{std}" }" do %>
 						<span class="text-muted"><%= std %></span>
 					<% end %>
 				<% end %></br>
