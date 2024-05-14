@@ -14,7 +14,7 @@ class Aplicacion::PublicosController < ApplicationController
         csf_ids = Causa.all.map {|causa| causa.id if causa.facturaciones.empty?}.compact
         set_tabla('sin_facturar-causas', Causa.where(id: csf_ids), false)
 
-        set_tabla('tramitacion-causas', Causa.where(estado: 'proceso'), false)
+        set_tabla('tramitacion-causas', Causa.where(estado: 'tramitación'), false)
         @causas_en_proceso = Causa.where(estado: 'tramitación')
       end
 
