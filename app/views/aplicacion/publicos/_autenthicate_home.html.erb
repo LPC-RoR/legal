@@ -1,46 +1,61 @@
-<div class="shadow p-3 mb-3 bg-white rounded">
-	<h5 class="text-info">Facturación</h5>
-		<%= column_chart @facturacion, prefix: '$', thousands: ".", precision: 3 %>
-</div>
+<% if finanzas? %>
+	<div class="foto-box">
+		<h5 class="text-info">Facturación</h5>
+			<%= column_chart @facturacion, prefix: '$', thousands: ".", precision: 3 %>
+	</div>
+<% end %>
+
+<% if operacion? %>
+<% end %>
+
 </br>
 
-<div class='row'>
-	<div class="col-lg-4 col-xs-12">
-		<% unless @coleccion['sin_facturar-causas'].empty? %>
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Causas en ingreso', link_new: nil} %>
+<% if operacion? %>
+	<div class="row">
+		<div class="col-lg-6 col-xs-12">
+			<% unless @coleccion['sin_facturar-causas'].empty? %>
+				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Causas sin facturar', link_new: nil} %>
 
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'sin_facturar-causas'} %>
-		<% end %>
-		<!--hr-->
-		<% unless @coleccion['en_proceso-causas'].empty? %>
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Causas en cobro', link_new: nil} %>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'sin_facturar-causas'} %>
+			<% end %>
+			<!--hr-->
+		</div>
+		<div class="col-lg-6">
+			<% unless @coleccion['tramitacion-causas'].empty? %>
+				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Causas en tramitación', link_new: nil} %>
 
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'en_proceso-causas'} %>
-		<% end %>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'tramitacion-causas'} %>
+			<% end %>
+		</div>
 	</div>
-	<div class="col-lg-4 col-xs-12-">
-		<% unless @coleccion['sin_aprobacion-tar_facturaciones'].empty? %>
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos sin aprobación', link_new: nil} %>
+<% end %>
 
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'sin_aprobacion-tar_facturaciones'} %>
-		<% end %>
+<% if finanzas? %>
+	<div class="row">
+		<div class="col-lg-6 col-xs-12">
+			<% unless @coleccion['sin_aprobacion-tar_facturaciones'].empty? %>
+				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos sin aprobación', link_new: nil} %>
 
-		<% unless @coleccion['sin_facturar-tar_facturaciones'].empty? %>
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos sin facturar', link_new: nil} %>
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'sin_aprobacion-tar_facturaciones'} %>
+			<% end %>
 
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'sin_facturar-tar_facturaciones'} %>
-		<% end %>
+			<% unless @coleccion['sin_facturar-tar_facturaciones'].empty? %>
+				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos sin facturar', link_new: nil} %>
+
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'sin_facturar-tar_facturaciones'} %>
+			<% end %>
+		</div>
+		<div class="col-lg-6">
+			<% unless @coleccion['por_emitir-tar_facturas'].empty? %>
+				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas por emitir', link_new: nil} %>
+
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'por_emitir-tar_facturas'} %>
+			<% end %>
+			<% unless @coleccion['en_cobranza-tar_facturas'].empty? %>
+				<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas en cobranza', link_new: nil} %>
+
+				<%= render partial: '0p/tabla/tabla', locals: {c: 'en_cobranza-tar_facturas'} %>
+			<% end %>
+		</div>
 	</div>
-	<div class="col-lg-4">
-		<% unless @coleccion['por_emitir-tar_facturas'].empty? %>
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas por emitir', link_new: nil} %>
-
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'por_emitir-tar_facturas'} %>
-		<% end %>
-		<% unless @coleccion['en_cobranza-tar_facturas'].empty? %>
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas en cobranza', link_new: nil} %>
-
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'en_cobranza-tar_facturas'} %>
-		<% end %>
-	</div>
-</div>
+<% end %>
