@@ -47,7 +47,7 @@ class ClientesController < ApplicationController
       @tipos = nil
       @tipo = nil
       @estado = params[:e].blank? ? @estados[0] : params[:e]
-      @path = "clientes/#{@objeto.id}?html_options[menu]=Causas"
+      @path = "/clientes/#{@objeto.id}?html_options[menu]=Causas"
 
   #    if @tipo.blank?
         coleccion = @objeto.causas.where(estado: @estado).order(created_at: :desc)
