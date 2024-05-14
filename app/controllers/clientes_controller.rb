@@ -47,7 +47,7 @@ class ClientesController < ApplicationController
       @tipos = nil
       @tipo = nil
       @estado = params[:e].blank? ? @estados[0] : params[:e]
-      @path = "clientes/1?html_options[menu]=Causas"
+      @path = "clientes/#{@objeto.id}?html_options[menu]=Causas"
 
   #    if @tipo.blank?
         coleccion = @objeto.causas.where(estado: @estado).order(created_at: :desc)
@@ -64,7 +64,7 @@ class ClientesController < ApplicationController
       @tipos = TipoAsesoria.all.order(:tipo_asesoria).map {|ta| ta.tipo_asesoria}
       @tipo = params[:t].blank? ? nil : params[:t]
       @estado = params[:e].blank? ? @estados[0] : params[:e]
-      @path = "/clientes/2?html_options[menu]=Asesorias"
+      @path = "/clientes/#{@objeto.id}?html_options[menu]=Asesorias"
 
       if @tipo.blank?
         asesorias = @objeto.asesorias.where(estado: @estado).order(created_at: :desc)
