@@ -20,20 +20,14 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-    Cliente.all.each do |cliente|
-      if cliente.estado == 'ingreso'
-        cliente.estado = 'activo'
-        cliente.save
-      end
-    end
 
     Asesoria.all.each do |asesoria|
-      asesoria.estado = asesoria.facturacion.blank? ? 'tramitacion' : (asesoria.facturacion.tar_factura.present? ? 'cerrada' : 'terminada' )
+      asesoria.estado = 'tramitación' if asesoria.estado == 'tramitacion'
       asesoria.save
     end
 
     Causa.all.each do |causa|
-      causa.estado = causa.monto_pagado.blank? ? 'tramitacion' : 'cerrada'
+      causa.estado = 'tramitación' if causa.estado == 'tramitacion'
       causa.save
     end
 
