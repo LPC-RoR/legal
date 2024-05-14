@@ -33,7 +33,7 @@ class Aplicacion::AppRecursosController < ApplicationController
     end
 
     Causa.all.each do |causa|
-      causa.estado = ['ingreso', 'proceso'].include?(causa.estado) ? 'tramitacion' : 'cerrada'
+      causa.estado = causa.monto_pagado.blank? ? 'tramitacion' : 'cerrada'
       causa.save
     end
 
