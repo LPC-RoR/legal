@@ -20,17 +20,21 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-    TarFacturacion.all.each do |tar_facturacion|
-      tar_pago_ids = tar_facturacion.owner.class.name == 'Causa' ? tar_facturacion.owner.tar_tarifa.tar_pagos.ids: []
-      unless tar_facturacion.tar_pago.blank?
-        unless tar_pago_ids.include?(tar_facturacion.tar_pago.id)
-          nuevo_tar_pago = tar_facturacion.owner.tar_tarifa.tar_pagos.find_by(tar_pago: tar_facturacion.tar_pago.tar_pago)
-          unless nuevo_tar_pago.blank?
-            tar_facturacion.tar_pago_id = nuevo_tar_pago.id
-            tar_facturacion.save
-          end
-        end
+    Cliente.all.each do |cliente|
+      if cliente.estado == 'ingreso'
+        cliente.estado = 'activo'
+        cliente.save
       end
+    end
+
+    Asesoria.all.each do |asesoria|
+      asesoria.estado = asesoria.facturaciones.empty? ? 'tramitacion' : (asesoria.facturaciones.map {|tf| tf.tar_factura.present?}.include?(true) ? 'cierre' : 'terminada' )
+      asesoria.save
+    end
+
+    Causa.all.each do |causa|
+      causa.estado = ['ingreso', 'proceso'].include?(causa.estado) ? 'tramitacion' : 'cierre'
+      causa.save
     end
 
     redirect_to root_path

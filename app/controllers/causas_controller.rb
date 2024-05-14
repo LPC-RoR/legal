@@ -6,14 +6,21 @@ class CausasController < ApplicationController
 
   # GET /causas or /causas.json
   def index
-    set_tab( :monitor,  ['Proceso', 'Terminadas'] )
+    @estados = StModelo.find_by(st_modelo: 'Causa').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
+    @tipos = nil
+    @tipo = nil
+    @estado = params[:e].blank? ? @estados[0] : params[:e]
+    @path = "/causas"
 
-    if @options[:monitor] == 'Proceso'
-      set_tabla('ingreso-causas', Causa.where(estado: 'ingreso').order(created_at: :desc), false)
-      set_tabla('proceso-causas', Causa.where(estado: 'proceso').order(created_at: :desc), false)
-    elsif @options[:monitor] == 'Terminadas'
-      set_tabla('terminada-causas', Causa.where(estado: 'terminada').order(created_at: :desc), true)
-    end
+#    if @tipo.blank?
+      coleccion = Causa.where(estado: @estado).order(created_at: :desc)
+      set_tabla('causas', coleccion, true)
+#    else
+#      tipo = TipoAsesoria.find_by(tipo_asesoria: @tipo)
+#      asesorias = tipo.asesorias.where(estado: ['terminada', 'cerrada'])
+#      set_tabla('asesorias', asesorias, true)
+#    end
+
   end
 
   # GET /causas/1 or /causas/1.json

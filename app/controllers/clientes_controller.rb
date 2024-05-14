@@ -7,21 +7,19 @@ class ClientesController < ApplicationController
 
   # GET /clientes or /clientes.json
   def index
-    @sel_tipo = params[:s].blank? ? Cliente::SELECTORS[0] : params[:s]
 
-    case @sel_tipo
-    when 'Ingreso'
-      clientes = Cliente.where(estado: 'ingreso')
-    when 'Empresas'
-      clientes = Cliente.where(estado: 'activo', tipo_cliente: 'Empresa')
-    when 'Sindicatos'
-      clientes = Cliente.where(estado: 'activo', tipo_cliente: 'Sindicato')
-    when 'Trabajadores'
-      clientes = Cliente.where(estado: 'activo', tipo_cliente: 'Trabajador')
-    when 'Baja'
-      clientes = Cliente.where(estado: 'baja')
+    @estados = StModelo.find_by(st_modelo: 'Cliente').st_estados.order(:orden).map {|e_cli| e_cli.st_estado}
+    @tipos = Cliente::TIPOS
+    @tipo = params[:t]
+    @estado = (params[:e].blank? and params[:t].blank?) ? @estados[0] : params[:e]
+    @path = '/clientes'
+
+    if @tipo.blank?
+      set_tabla('clientes', Cliente.where(estado: @estado).order(:razon_social), true)
+    else
+      set_tabla('clientes', Cliente.where(estado: 'activo', tipo_cliente: @tipo).order(:razon_social), true)
     end
-    set_tabla('clientes', clientes.order(:razon_social), true)
+
   end
 
   # GET /clientes/1 or /clientes/1.json

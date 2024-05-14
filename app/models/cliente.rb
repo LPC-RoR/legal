@@ -1,6 +1,6 @@
 class Cliente < ApplicationRecord
 
-	SELECTORS = ['Empresas', 'Sindicatos', 'Trabajadores', 'Ingreso', 'Baja']
+	TIPOS = ['Empresas', 'Sindicatos', 'Trabajadores']
 
 	# tabla de CLIENTES
 	# 1.- Evaluar has_many tar_facturas

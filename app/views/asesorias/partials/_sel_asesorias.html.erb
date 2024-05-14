@@ -4,31 +4,40 @@
 	<hr>
 	
 	<div style="padding-left: 1em;">
-		<% if asesoria.blank? %>
-			<i class="bi bi-arrow-right"></i>
-			<b class="text-muted">Proceso</b>
-		<% else %>
-			<%= link_to path do %>
-				<span class="text-muted">Proceso</span>
-			<% end %>
-		<% end %></br>
+		<% estados.each do |std| %>
 
-		<% tipos_asesoria.each do |tipo_asesoria| %>
-			<% unless asesoria.blank? %>
-				<% if asesoria.id == tipo_asesoria.id %>
+			<i class="bi bi-tag"></i>
+			<% if tipo.blank? and estado == std %>
+				<i class="bi bi-arrow-right"></i>
+				<b class="text-muted"><%= std %></b>
+			<% else %>
+				<%= link_to "#{path}#{"?e=#{std}" }" do %>
+					<span class="text-muted"><%= std %></span>
+				<% end %>
+			<% end %></br>
+
+		<% end %>
+		
+		<hr>
+
+		<% tipos.each do |tp| %>
+			<i class="bi bi-bookmark"></i>
+			<% unless tipo.blank? %>
+				<% if tipo == tp %>
 					<i class="bi bi-arrow-right"></i>
-					<b class="text-muted"><%= tipo_asesoria.tipo_asesoria %></b>
+					<b class="text-muted"><%= tp %></b>
 				<% else %>
-					<%= link_to "#{path}tcid=#{tipo_asesoria.id}" do %>
-						<span class="text-muted"><%= tipo_asesoria.tipo_asesoria %></span>
+					<%= link_to "#{path}?t=#{tp}" do %>
+						<span class="text-muted"><%= tp %></span>
 					<% end %>
 				<% end %>
 			<% else %>
-				<%= link_to "#{path}tcid=#{tipo_asesoria.id}" do %>
-					<span class="text-muted"><%= tipo_asesoria.tipo_asesoria %></span>
+				<%= link_to "#{path}?t=#{tp}" do %>
+					<span class="text-muted"><%= tp %></span>
 				<% end %>
 			<% end %></br>
 		<% end %>
 	</div>
+
 </div>
 </small>

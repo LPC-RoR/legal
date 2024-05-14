@@ -1,19 +1,16 @@
 <div class="titulo text-info">
-  Asesorías <%= @asesoria.blank? ? "en Proceso" : "Terminadas" %>
+  Asesorías <%= 'Terminadas / Cerradas' if tipo.present? %>
 </div>
 <div class="row text_muted">
-  <div class="col-lg-2">
-    <%= render partial: 'asesorias/partials/sel_asesorias', locals: {tipos_asesoria: @tipos_asesoria, asesoria: @asesoria, path: path} %>
+  <div class="col-lg-3">
+    <%= render partial: 'asesorias/partials/sel_asesorias', locals: {estados: estados, tipos: tipos, tipo: tipo, estado: estado, path: path} %>
   </div>
-  <div class="col-lg-10">
-    <% if @asesoria.blank? %>
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: 'Asesorías en ingreso', link_new: (operacion? ? '/asesorias/new' : nil) } %>
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'ingreso-asesorias'} %>
-
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: "Asesorías en cobro", link_new: nil} %>
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'proceso-asesorias'} %>
+  <div class="col-lg-9">
+    <% if @tipo.blank? %>
+      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: "Asesorias en estado #{estado}", link_new: nil} %>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'asesorias'} %>
     <% else %>
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: "Asesorias del tipo #{@asesoria.tipo_asesoria}", link_new: nil} %>
+      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: "Asesorias del tipo #{tipo}", link_new: nil} %>
       <%= render partial: '0p/tabla/tabla', locals: {c: 'asesorias'} %>
     <% end %>
   </div>

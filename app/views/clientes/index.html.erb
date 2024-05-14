@@ -1,12 +1,12 @@
 <div class="titulo text-info">
-  Asesorías <%= @asesoria.blank? ? "en Proceso" : "Terminadas" %>
+  Clientes  <%= 'Activos' if @tipo.present? %>
 </div>
 <div class="row text_muted">
   <div class="col-lg-3">
-    <%= render partial: 'clientes/partials/sel_clientes', locals: {sel_tipo: @sel_tipo} %>
+    <%= render partial: 'clientes/partials/sel_clientes', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
   </div>
   <div class="col-lg-9">
-	  <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: (['Ingreso', 'Baja'].include?(@sel_tipo) ? "Clientes en estado #{@sel_tipo}" : "Clientes activos del tipo #{@sel_tipo}"), link_new: ((operacion? and @sel_tipo == 'Ingreso') ? '/clientes/new' : nil) } %>
+	  <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: ( @tipo.present? ? "Clientes #{@tipo}" : "Clientes en estado #{@estado}"), link_new: ((operacion? and @sel_tipo == 'Ingreso') ? '/clientes/new' : nil) } %>
 	  <%= render partial: '0p/tabla/tabla', locals: {c: 'clientes'} %>
   </div>
 </div>
