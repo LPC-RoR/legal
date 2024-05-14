@@ -28,12 +28,12 @@ class Aplicacion::AppRecursosController < ApplicationController
     end
 
     Asesoria.all.each do |asesoria|
-      asesoria.estado = asesoria.facturacion.blank? ? 'tramitacion' : (asesoria.facturacion.tar_factura.present? ? 'cierre' : 'terminada' )
+      asesoria.estado = asesoria.facturacion.blank? ? 'tramitacion' : (asesoria.facturacion.tar_factura.present? ? 'cerrada' : 'terminada' )
       asesoria.save
     end
 
     Causa.all.each do |causa|
-      causa.estado = ['ingreso', 'proceso'].include?(causa.estado) ? 'tramitacion' : 'cierre'
+      causa.estado = ['ingreso', 'proceso'].include?(causa.estado) ? 'tramitacion' : 'cerrada'
       causa.save
     end
 
