@@ -9,6 +9,10 @@
 			<small>
 				<i class="bi bi-person<%='-circle' if objeto.tipo == 'Admin'%>"></i>
 				<%= objeto.email %> 
+				<% unless objeto.tipo.blank? %>
+					<i class="bi bi-bookmark"></i>
+					<%= objeto.tipo %>
+				<% end %>
 			</small>
 			</div>
 		</small>
