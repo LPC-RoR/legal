@@ -99,15 +99,23 @@ module Seguridad
 		['finanzas', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]))
 	end
 
-	def check_crud(class_name)
+	def check_crud(objeto)
+		class_name = objeto.class.name == 'String' ? objeto : objeto.class.name
 		model = StModelo.find_by(st_modelo: class_name)
-		model.blank? ? false : ( model.crud.blank? ? false : (model.crud == 'operación' ? operacion? : finanzas?) )
+		model.blank? ? true : ( model.crud.blank? ? false : (model.crud == 'operación' ? operacion? : finanzas?) )
 	end
 
-	def check_obj_crud(objeto)
-		model = StModelo.find_by(st_modelo: objeto.class.name)
-		primer_estado = model.st_estados.order(:orden).first.st_estado
-		model.blank? ? false : ( (model.crud.blank? or objeto.estado != primer_estado) ? false : (model.crud == 'operación' ? operacion? : finanzas?) )
+	def check_k_estados(objeto)
+		class_name = objeto.class.name == 'String' ? objeto : objeto.class.name
+		model = StModelo.find_by(st_modelo: class_name)
+		model.blank? ? true : ( model.k_estados.blank? ? false : (model.k_estados == 'operación' ? operacion? : finanzas?) )
+	end
+
+	def check_st_estado(objeto, estado)
+		class_name = objeto.class.name == 'String' ? objeto : objeto.class.name
+		model = StModelo.find_by(st_modelo: class_name)
+		estado = model.st_estados.find_by(st_estado: estado)
+		(model.blank? or estado.blank?) ? true : ( estado.check.blank? ? true : (estado.check == 'operación' ? operacion? : finanzas?) )
 	end
 
 end

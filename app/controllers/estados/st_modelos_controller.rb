@@ -79,6 +79,6 @@ class Estados::StModelosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def st_modelo_params
-      params.require(:st_modelo).permit(:st_modelo, :bandeja, :crud)
+      params.require(:st_modelo).permit(:st_modelo, :bandeja, :crud, :k_estados)
     end
 end

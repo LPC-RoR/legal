@@ -10,9 +10,9 @@ module CptnMenuLeftHelper
 
 					items: [
 						'AgeActividad',
-						'Cliente',
-						'Causa',
-						'Asesoria',
+						['Cliente', 'operación'],
+						['Causa', 'operación'],
+						['Asesoria', 'operación'],
 						['TarAprobacion', 'finanzas'],
 						['TarFactura', 'finanzas'],
 						'DtMateria'

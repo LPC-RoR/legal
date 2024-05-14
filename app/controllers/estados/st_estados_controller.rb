@@ -112,6 +112,6 @@ class Estados::StEstadosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def st_estado_params
-      params.require(:st_estado).permit(:orden, :st_estado, :destinos, :destinos_admin, :st_modelo_id, :aprobacion)
+      params.require(:st_estado).permit(:orden, :st_estado, :destinos, :destinos_admin, :st_modelo_id, :aprobacion, :check)
     end
 end

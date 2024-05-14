@@ -1,6 +1,14 @@
 module Capitan
 	extend ActiveSupport::Concern
 
+	# ************************************************************************** INICIALIZA VARIALES PARA CHANGE_STATE
+    def set_st_estado(objeto)
+    	st_modelo = StModelo.find_by(st_modelo: objeto.class.name)
+    	@st_estado = st_modelo.blank? ? nil : st_modelo.st_estados.find_by(st_estado: objeto.estado)
+    	@st_usuario = @st_estado.blank? ? [] : @st_estado.destinos.split(' ').map {|std| std if check_st_estado(objeto, std)}.compact
+    	@st_admin = @st_estado.blank? ? [] : @st_estado.destinos_admin.split(' ').map {|std| std if check_st_estado(objeto, std)}.compact
+    end
+
 	# ************************************************************************** TABLA
 	def set_tabla(controller, tabla, paginate)
 		

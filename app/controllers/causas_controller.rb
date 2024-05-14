@@ -27,6 +27,8 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
+    set_st_estado(@objeto)
+
     set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos y enlaces', operacion?]] )
 
     case @options[:menu]

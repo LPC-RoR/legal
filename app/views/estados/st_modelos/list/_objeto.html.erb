@@ -1,7 +1,15 @@
 <small>
 	<div class="row">
 		<div class="col-10">
-			<i class="bi bi-box"></i> <b><%= objeto.st_modelo %></b> <i class="bi bi-person-badge"></i> <%= objeto.crud %>
+			<i class="bi bi-box"></i> <b><%= objeto.st_modelo %></b>
+			<% unless objeto.crud.blank? %>
+				<i class="bi bi-dot"></i>
+				<i class="bi bi-person-badge"></i> <%= objeto.crud %>
+			<% end %>
+			<% unless objeto.k_estados.blank? %>
+				<i class="bi bi-dot"></i>
+				<i class="bi bi-tags"></i> <%= objeto.k_estados %>
+			<% end %>
 		</div>
 		<div class="col-2" align='right'>
 			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
@@ -26,7 +34,10 @@
 						<%= render partial: '0p/tabla/links_orden', locals: {objeto: estado} %> 
 					</div>
 					<div class="col-lg-7">
-						<%= estado.st_estado %>
+						<%= estado.st_estado %> 
+						<% unless estado.check.blank? %>
+							<i class="bi bi-key"></i> <%= estado.check %>
+						<% end %>
 					</div>
 					<div class="col-lg-2" align='right'>
 						<small><%= render partial: '0p/tabla/links_e', locals: {objeto: estado} %></small>
