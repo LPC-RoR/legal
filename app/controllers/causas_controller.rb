@@ -319,7 +319,7 @@ class CausasController < ApplicationController
 
     def asigna_tarifa_defecto
       etapa = @objeto.tipo_causa
-      tarifas = @objeto.cliente.tarifas.where(tipo_causa_id: etapa.id)
+      tarifas = etapa.blank? ? [] : @objeto.cliente.tarifas.where(tipo_causa_id: etapa.id)
       tarifa = tarifas.empty? ? nil : tarifas.first
 
       unless tarifa.blank?
