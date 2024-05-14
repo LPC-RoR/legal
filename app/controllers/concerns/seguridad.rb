@@ -99,4 +99,15 @@ module Seguridad
 		['finanzas', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]))
 	end
 
+	def check_crud(class_name)
+		model = StModelo.find_by(st_modelo: class_name)
+		model.blank? ? false : ( model.crud.blank? ? false : (model.crud == 'operación' ? operacion? : finanzas?) )
+	end
+
+	def check_obj_crud(objeto)
+		model = StModelo.find_by(st_modelo: objeto.class.name)
+		primer_estado = model.st_estados.order(:orden).first.st_estado
+		model.blank? ? false : ( (model.crud.blank? or objeto.estado != primer_estado) ? false : (model.crud == 'operación' ? operacion? : finanzas?) )
+	end
+
 end

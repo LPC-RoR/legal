@@ -6,7 +6,8 @@ class CausasController < ApplicationController
 
   # GET /causas or /causas.json
   def index
-    @estados = StModelo.find_by(st_modelo: 'Causa').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
+    @modelo = StModelo.find_by(st_modelo: 'Causa')
+    @estados = @modelo.blank? ? [] : @modelo.st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
     @tipos = nil
     @tipo = nil
     @estado = params[:e].blank? ? @estados[0] : params[:e]

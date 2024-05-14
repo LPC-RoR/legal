@@ -8,7 +8,8 @@ class ClientesController < ApplicationController
   # GET /clientes or /clientes.json
   def index
 
-    @estados = StModelo.find_by(st_modelo: 'Cliente').st_estados.order(:orden).map {|e_cli| e_cli.st_estado}
+    @modelo = StModelo.find_by(st_modelo: 'Cliente')
+    @estados = @modelo.blank? ? [] : @modelo.st_estados.order(:orden).map {|e_cli| e_cli.st_estado}
     @tipos = Cliente::TIPOS
     @tipo = params[:t]
     @estado = (params[:e].blank? and params[:t].blank?) ? @estados[0] : params[:e]
