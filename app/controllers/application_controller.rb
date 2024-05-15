@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 	# Seguridad
 	helper_method :version_activa, :dog_name, :dog_email, :nomina_activa, :perfil_activo?, :perfil_activo, :dog?, :admin?, :usuario?, :nomina?, :publico?, :seguridad, :public_controllers 
 	helper_method :check_tipo_usuario, :operacion?, :finanzas?
-	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :enlaces_perfil, :set_st_estado
+	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :v_enlaces_general, :enlaces_perfil, :v_enlaces_perfil, :v_enlaces, :set_st_estado
 	helper_method :calcula2, :set_formulas, :set_valores, :set_detalle_cuantia
 	helper_method :menu_tablas, :tb_index, :tb_item, :first_tabla_index
 	helper_method :modelo_negocios_general, :cuentas_corrientes, :periodos

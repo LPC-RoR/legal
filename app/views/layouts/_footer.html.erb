@@ -13,21 +13,26 @@
     </div>
     <div class="col-lg-3 col-xs-12 links">
       <h4 class="mt-lg-0 mt-sm-3">Enlaces</h4>
-        <ul class="m-0 p-0">
-          <li>- <a href="#">Lorem ipsum</a></li>
-          <li>- <a href="#">Nam mauris velit</a></li>
-          <li>- <a href="#">Etiam vitae mauris</a></li>
-          <li>- <a href="#">Fusce scelerisque</a></li>
-          <li>- <a href="#">Sed faucibus</a></li>
-          <li>- <a href="#">Mauris efficitur nulla</a></li>
-        </ul>
+
+        <% unless enlaces_general.empty? %>
+          <% enlaces_general.each do |general| %>
+            
+            <i class="bi bi-box-arrow-up-right"></i> 
+            <%= link_to general.enlace, target: '_blank' do %>
+              <span class="text-dark"><%= general.descripcion %></span>
+            <% end %>
+            </br>
+            
+          <% end %>
+        <% end %>
+
     </div>
     <div class="col-lg-4 col-xs-12 location">
       
       <h5 class="mt-lg-0 mt-sm-4"><i class="bi bi-chat-right-text"></i> Consultas</h5>
       <p>22, Lorem ipsum dolor, consectetur adipiscing</p>
       <p class="mb-0"><i class="bi bi-telephone"></i> +569 1234-5678</p>
-      <p class="mb-0"><i class="bi bi-whatsapp"></i> +569 9876-5432</p>
+      <p class="mb-0"><i class="bi bi-whatsapp"></i> +569 1234-5678</p>
       <p><i class="bi bi-envelope"></i> consultas@abogadosderechodeltrabajo.cl</p>
       <h5 class="mt-lg-0 mt-sm-4">www.abogadosderechodeltrabajo.cl</h5>
     </div>

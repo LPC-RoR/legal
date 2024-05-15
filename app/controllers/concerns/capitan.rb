@@ -60,6 +60,10 @@ module Capitan
 		uf.blank? ? nil : uf.valor
 	end
 
+	def limpia_nombre(string)
+		string.gsub(/\t|\r|\n/, ' ').strip.downcase
+	end
+
 	def enlaces_general
 		AppEnlace.where(owner_id: nil).order(:descripcion)
 	end
@@ -68,8 +72,16 @@ module Capitan
 		perfil_activo.blank? ? [] : AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion)
 	end
 
-	def limpia_nombre(string)
-		string.gsub(/\t|\r|\n/, ' ').strip.downcase
+	def v_enlaces_general
+		enlaces_general.empty? ? nil : enlaces_general.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace}}
+	end
+
+	def v_enlaces_perfil
+		enlaces_perfil.empty? ? nil : enlaces_perfil.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace}}
+	end
+
+	def v_enlaces
+		[v_enlaces_perfil, v_enlaces_general].compact
 	end
 
 end

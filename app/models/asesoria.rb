@@ -3,6 +3,8 @@ class Asesoria < ApplicationRecord
 	belongs_to :tipo_asesoria
 	belongs_to :tar_servicio, optional: true
 
+    validates_presence_of :descripcion
+
 	def archivos
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
 	end

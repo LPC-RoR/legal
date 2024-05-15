@@ -3,12 +3,4 @@
 <% end %>
 <%= render partial: '0capitan/lmenu/usuario_activo' %>
 
-<div align='right' style="line-height: 13px;">
-	<%= render layout: '0p/collapse/link', locals: {label: 'Links', objeto: nil, tooltip: 'Despliega'} do %>
-		<small><small><i class="bi bi-arrow-bar-down"></i> Enlaces</small></small>
-	<% end %>
-</div>
-
-<%= render layout: '0p/collapse/display', locals: {label: 'Links', objeto: nil} do %>
-	<%= render partial: '0capitan/lmenu/despliega_enlaces' %>
-<% end %>
+<%= render partial: '0capitan/app/drpdwns/enlaces_drpdwn', locals: {toggle: 'Enlaces', menus: v_enlaces} %>

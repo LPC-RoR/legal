@@ -1,18 +1,20 @@
 <div style="line-height: 13px; margin-bottom: -1em;">
-	<small><small><small class="text-muted">
+	<!--small--><small><small class="text-muted">
 		<i class="bi bi-person-fill"></i> 
 		<%= dog? ? 'dog' : ( admin? ? 'admin' : 'usuario' ) %> : 
-		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/app_recursos/password_recovery?uid=#{current_usuario.id}", tooltip: 'Cambio de contraseña'} do %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: edit_usuario_registration_path, tooltip: 'Editar Usuario'} do %>
 			<%= perfil_activo.email %>
 		<% end %>
+		</br>
 		<% if dog? %>
 			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/app_recursos/usuarios", tooltip: "Lista de usuarios"} do %>
 				<i class="bi bi-people"></i>
 				Usuarios
 			<% end %>
 		<% else %>
+			<i class="bi bi-bookmark-check"></i>
 			<%= perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]) %>
 		<% end %>
-	</small></small></small>
+	<!--/small--></small></small>
 </div>
 <div style="margin-bottom: -1em;"><hr></div>

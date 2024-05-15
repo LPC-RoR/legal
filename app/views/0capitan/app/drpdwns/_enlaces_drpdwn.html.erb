@@ -1,0 +1,21 @@
+<div class="enlaces-drpdwn">
+    <small>
+    <span>
+        <i class="bi bi-box-arrow-up-right"></i>
+        <%= toggle %>
+    </span>
+    <div class="enlaces-drpdwn-content">
+        <% menus.each do |menu| %>
+            <% unless menu == menus[0] %>
+                <hr>
+            <% end %>
+
+            <% menu.each do |enlace| %>
+                <%= link_to enlace[:link] do %>
+                    <%= enlace[:texto] %>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+    </small>
+</div>

@@ -1,0 +1,19 @@
+<div class="dropdown">
+    <span>
+        <i class="bi bi-box-arrow-up-right"></i>
+        <%= toggle %>
+    </span>
+    <div class="dropdown-content">
+        <% menus.each do |menu| %>
+            <% unless menu == menus[0] %>
+                <hr>
+            <% end %>
+
+            <% menu.each do |enlace| %>
+                <%= link_to enlace[:link] do %>
+                    <%= enlace[:texto] %>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+</div>
