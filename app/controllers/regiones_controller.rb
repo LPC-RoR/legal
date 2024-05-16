@@ -100,7 +100,7 @@ class RegionesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=1"
+      @redireccion = "/tablas/ug_regiones"
     end
 
     # Only allow a list of trusted parameters through.

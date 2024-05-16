@@ -66,7 +66,7 @@ class Tarifas::TarUfSistemasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=1"
+      @redireccion = "/tablas/uf_regiones"
     end
 
     # Only allow a list of trusted parameters through.

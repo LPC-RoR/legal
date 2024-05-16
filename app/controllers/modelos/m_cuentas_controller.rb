@@ -56,7 +56,7 @@ class Modelos::MCuentasController < ApplicationController
       @objeto.save
     end
 
-    redirect_to "/tablas?tb=#{tb_index('modelo')}"
+    redirect_to "/tablas/modelo"
   end
 
   # DELETE /m_cuentas/1 or /m_cuentas/1.json
@@ -76,7 +76,7 @@ class Modelos::MCuentasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=#{tb_index('modelo')}"
+      @redireccion = "/tablas/modelo"
     end
 
     # Only allow a list of trusted parameters through.

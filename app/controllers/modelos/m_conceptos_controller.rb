@@ -99,7 +99,7 @@ class Modelos::MConceptosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=#{tb_index('modelo')}"
+      @redireccion = "/tablas/modelo"
     end
 
     # Only allow a list of trusted parameters through.

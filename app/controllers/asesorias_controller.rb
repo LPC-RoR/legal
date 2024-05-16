@@ -123,7 +123,7 @@ class AsesoriasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/asesorias"
+      @redireccion = asesorias_path
     end
 
     # Only allow a list of trusted parameters through.

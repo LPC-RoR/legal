@@ -70,7 +70,7 @@ class Recursos::AppEnlacesController < ApplicationController
 
     def set_redireccion
       if @objeto.owner_id.blank? or @objeto.owner.class.name == 'AppPerfil'
-          @redireccion = "/tablas?tb=2"
+          @redireccion = "/tablas/enlaces"
       elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.owner.class.name)
         @redireccion = @objeto.owner
       elsif ['Causa', 'Cliente'].include?(@objeto.objeto_destino.class.name)

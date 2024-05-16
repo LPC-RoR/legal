@@ -67,7 +67,7 @@ class Calendario::CalFeriadosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=3"
+      @redireccion = "/tablas/calendario"
     end
 
     # Only allow a list of trusted parameters through.

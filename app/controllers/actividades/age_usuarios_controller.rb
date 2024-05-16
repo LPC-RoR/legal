@@ -58,14 +58,14 @@ class Actividades::AgeUsuariosController < ApplicationController
       noticia = "Error de asignación: Este perfil ya tiene un usuario asignado"
     end
 
-    redirect_to "/tablas?tb=#{tb_index('agenda')}", notice: noticia
+    redirect_to "/tablas/agenda", notice: noticia
   end
 
   def desasigna_perfil
     @objeto.app_perfil_id = nil
     @objeto.save
 
-    redirect_to "/tablas?tb=#{tb_index('agenda')}", notice: "Perfil desasignado exitósamente"
+    redirect_to "/tablas/agenda", notice: "Perfil desasignado exitósamente"
   end
 
   # DELETE /age_usuarios/1 or /age_usuarios/1.json
@@ -85,7 +85,7 @@ class Actividades::AgeUsuariosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=#{tb_index('agenda')}"
+      @redireccion = "/tablas/agenda"
     end
 
     # Only allow a list of trusted parameters through.

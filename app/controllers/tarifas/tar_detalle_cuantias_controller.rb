@@ -85,7 +85,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas?tb=#{tb_index('cuantias_tribunales')}"
+      @redireccion = "/tablas/cuantias_tribunales"
     end
 
     # Only allow a list of trusted parameters through.

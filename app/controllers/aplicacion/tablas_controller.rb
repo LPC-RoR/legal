@@ -60,22 +60,6 @@ class Aplicacion::TablasController < ApplicationController
 
   # GET /tablas or /tablas.json
   def index
-
-    @indice = params[:tb].blank? ? first_tabla_index : params[:tb].to_i
-
-    case tb_item(@indice)
-    when 'UF & Regiones' #UF & Regiones
-    when 'Enlaces' #Enlaces
-    when 'Calendario' #Variables del calendario
-    when 'Agenda' #Variables del calendario
-    when 'Tarifas generales' #Tarifas Generales
-    when 'Tipos' # Tipos
-    when 'Cuantías & Tribunales' #Tablas secundarias
-    when 'Modelo'
-    when 'Periodos & Bancos' # Tablas secundarias Modelo
-    when 10 # Documentos controlados
-      set_tabla('st_modelos', StModelo.order(:st_modelo), false)
-    end
   end
 
   private
