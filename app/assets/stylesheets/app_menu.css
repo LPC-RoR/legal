@@ -1,10 +1,23 @@
+/* CAJA MENU */
+
+.appMenuBox {
+    border: 1px solid #d1f2eb;
+    border-radius: 3px 3px 3px 3px;
+    /* background-color: #e8f8f5; */
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    margin-bottom: 2px;
+    padding: 0em;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+}
+
 /* ENCABEZADO MENU */
 
 .appMenuHeader {
-    padding-top: 5%;
-    padding-bottom: 0;
-    color: white;
-    font-size: 13px;
+  padding-top: 5%;
+  padding-bottom: 0;
+  font-size: 13px;
 }
 
 .appMenuTitle {
@@ -14,7 +27,7 @@
 }
 
 .appMenuTitle a {
-  color: black;
+  color: #3498db;
   text-decoration: none;
 }
 
@@ -40,12 +53,11 @@
 
 /* Título tabla */
 .appMenuTitulo {
-  padding-left: 1em;
-  padding-top: .5em;
-  height: 2em;
+  padding-left: 2em;
+  margin-top: 1em;
   display: block; 
   text-align: left;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
 }
 
@@ -86,92 +98,102 @@
 /* MANEJO MENU */
 
 .appMenu {
-    margin: 0;
-    padding-bottom: 2em;
-    /* padding: 0, 0, 2em, 0; */
-    display: block;	
-    font-size: 13px;    
-    overflow: hidden;
-    background-color: white;    
-    /* font-family: Arial, Helvetica, sans-serif;     */
-    font-family: 'Raleway', sans-serif;
-  }
-  /* Contenedores <ul> */
-  .appMenu ul {
-    margin: 0;
-    padding: 0;
-    display: block;	    
-    list-style: none;
-  }  
-  /* Enlaces */
-  .appMenu a {
-    color: black;	
-    display: block;	    
-    padding: 0.6em 0.8em;	
-    text-decoration: none;
-  }
-  /* Enlaces hover */
-  .appMenu a:hover {
-    background-color: #d5d8dc;
-  }
-  /* Distribución horizontal */
-  .menuHoriz li {
-    float: left;    
-    display: block;	
-  }  
-  /* Distribución vertical */
-  .menuVerti li {
-    /* Tenía un ancho determinado para que no fuera necesario usar div */
-    /* width: 10em; */
-    height: 2em;
-    display: block;	
-    text-align: left;
-  }
+  margin: 0;
+  padding-bottom: 2em;
+  /* padding: 0, 0, 2em, 0; */
+  display: block;	
+  font-size: 13px;    
+  overflow: hidden;
+  background-color: white;    
+  /* font-family: Arial, Helvetica, sans-serif;     */
+  font-family: 'Raleway', sans-serif;
+}
 
-  /* Submenú infinito */
-  .appSubMenu {
-    position: fixed;
-    display: none !important;    
-    background-color: white;
-    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.55);
+/* Contenedores <ul> */
+.appMenu ul {
+  margin: 0;
+  padding: 0;
+  display: block;	    
+  list-style: none;
+}  
+
+/* Enlaces */
+.appMenu a {
+  color: black;	
+  display: block;	    
+  padding: 0.6em 0.8em;	
+  text-decoration: none;
+}
+
+/* Enlaces hover */
+.appMenu a:hover {
+  background-color: #d5d8dc;
+}
+
+/* Distribución horizontal */
+.menuHoriz li {
+  float: left;    
+  display: block;	
+}  
+
+/* Distribución vertical */
+.menuVerti li {
+  /* Tenía un ancho determinado para que no fuera necesario usar div */
+  /* width: 10em; */
+  height: 2em;
+  display: block;	
+  text-align: left;
+}
+
+/* Submenú infinito */
+.appSubMenu {
+  position: fixed;
+  display: none !important;    
+  background-color: white;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.55);
+}
+
+/* Submenú infinito hover */
+li:hover > .appSubMenu {
+  display: block !important;    
+}
+
+/* Submenú infinito enlaces hover  */
+.appSubMenu a:hover {
+  background-color: #d5d8dc;
+}
+
+/* Submenú infinito posicionamiento vertical */
+.menuVerti .appSubMenu {
+  left: 8em;
+  position: absolute !important;
+}  
+
+/* Botón tipo hamburguesa en pantallas pequeñas */
+#hMenuBtn {
+  display: none;	
+}
+
+/* Menú hamburguesa */
+@media (max-width: 768px) {
+  #hMenu {
+    display: none;
   }
-  /* Submenú infinito hover */
-  li:hover > .appSubMenu {
-    display: block !important;    
+  #hMenuBtn + label {	
+    color: white;		    
+    cursor: pointer;		
+    padding: 0 0.5em;	
+    display: inline-block;	
   }
-  /* Submenú infinito enlaces hover  */
-  .appSubMenu a:hover {
-    background-color: #d5d8dc;
+  #hMenuBtn + label:hover {
+    background-color: green;
+  }	
+  #hMenuBtn + label::before {
+    content: "☰";
+    font-size: 2rem;
+    line-height: 1em;    
   }
-  /* Submenú infinito posicionamiento vertical */
-  .menuVerti .appSubMenu {
-    left: 8em;
-    position: absolute !important;
-  }  
-  /* Botón tipo hamburguesa en pantallas pequeñas */
-  #hMenuBtn {
-    display: none;	
+  #hMenuBtn:checked ~ #hMenu {
+    display: block;	
   }
-  /* Menú hamburguesa */
-  @media (max-width: 768px) {
-    #hMenu {
-      display: none;
-    }
-    #hMenuBtn + label {	
-      color: white;		    
-      cursor: pointer;		
-      padding: 0 0.5em;	
-      display: inline-block;	
-    }
-    #hMenuBtn + label:hover {
-      background-color: green;
-    }	
-    #hMenuBtn + label::before {
-      content: "☰";
-      font-size: 2rem;
-      line-height: 1em;    
-    }
-    #hMenuBtn:checked ~ #hMenu {
-      display: block;	
-    }
-  }  
+}  

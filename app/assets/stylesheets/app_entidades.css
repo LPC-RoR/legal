@@ -1,17 +1,5 @@
 /* LMENU */
 
-.lmenu-box {
-    border: 1px solid #d1f2eb;
-    border-radius: 3px 3px 3px 3px;
-    /* background-color: #e8f8f5; */
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-    margin-bottom: 2px;
-    padding: 0em;
-    font-family: 'Raleway', sans-serif;
-    font-size: 20px;
-    line-height: 20px;
-}
-
 .lmenu-list {
     margin-top: 0em;
     padding-left: 1em;

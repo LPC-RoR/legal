@@ -68,7 +68,7 @@ class Modelos::MBancosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas/periodos_bancos"
+      @redireccion = tabla_path(@objeto)
     end
 
     # Only allow a list of trusted parameters through.

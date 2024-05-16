@@ -34,11 +34,12 @@
 						</div>
 						<% grupo[:items].each do |tabla| %>
 							<ul id="hMenu" class="menuVerti">
-							<%# unless cfg_defaults[:activa_tipos_usuario] and lm_check_tipo_usuario(modelo) == false %>
+							<!-- Si NO se controle el tipo de usuarios o item NO tiene condicion o SI la tiene y es true -->
+							<% if (cfg_defaults[:activa_tipos_usuario] == false) or (tabla.length == 2) or (tabla.length == 3 and tabla[2]) %>
 								<li>
 									<%= render partial: '0capitan/lmenu/item_tabla', locals: {tabla: tabla} %>
 								</li>
-							<%# end %>
+							<% end %>
 							</ul>
 						<% end %>
 					<% end %>

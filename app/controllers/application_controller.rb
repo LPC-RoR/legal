@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 	include IniciaAplicacion
 
 	include Capitan
+	include Tablas
 
 
 	include Modelos

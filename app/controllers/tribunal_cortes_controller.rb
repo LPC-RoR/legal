@@ -66,7 +66,7 @@ class TribunalCortesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas/cuantias_tribunales"
+      @redireccion = tabla_path(@objeto)
     end
 
     # Only allow a list of trusted parameters through.

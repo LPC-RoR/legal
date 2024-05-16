@@ -41,7 +41,7 @@ module Calendario
 
   # Traduce al español nombre del día obtenido de la fecha
   def nombre_dia(datetime)
-    cal_nombre_dias[datetime.strftime('%A')]
+    datetime.blank? ? 'error' : cal_nombre_dias[datetime.strftime('%A')]
   end
 
   def nombre3_dia(datetime)

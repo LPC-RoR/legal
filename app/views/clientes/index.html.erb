@@ -1,11 +1,11 @@
 <div class="titulo text-info">
   Clientes  <%= 'Activos' if @tipo.present? %>
 </div>
-<div class="row text_muted">
-  <div class="col-lg-3">
+<div class="row text_muted no-gutters">
+  <div class="col-lg-3" style="padding-right: 2px;">
     <%= render partial: 'clientes/partials/sel_clientes', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
   </div>
-  <div class="col-lg-9">
+  <div class="col-lg-9" style="padding-left: 2px">
 	  <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'clientes', title: ( @tipo.present? ? "Clientes #{@tipo}" : "Clientes en estado #{@estado}"), link_new: ((check_crud('Cliente') and @estado == @estados[0]) ? '/clientes/new' : nil) } %>
 	  <%= render partial: '0p/tabla/tabla', locals: {c: 'clientes'} %>
   </div>

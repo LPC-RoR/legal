@@ -85,7 +85,7 @@ class Actividades::AgeUsuariosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas/agenda"
+      @redireccion = tabla_path(@objeto)
     end
 
     # Only allow a list of trusted parameters through.

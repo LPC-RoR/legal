@@ -84,6 +84,11 @@ Rails.application.routes.draw do
   end
 
 # SCOPES *********************************************************
+
+  # Usado para poner las entidades necesarias para mantener Causa
+  scope module: 'mdl_causa' do
+  end
+
   scope module: 'calendario' do
     resources :cal_annios
     resources :cal_meses

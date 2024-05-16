@@ -99,7 +99,7 @@ class VariablesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/tablas/tipos"
+      @redireccion = tabla_path(@objeto)
     end
 
     # Only allow a list of trusted parameters through.
