@@ -1,0 +1,12 @@
+<div style="padding-left: 2em;">
+	<% if action_name == tabla[1] %>
+		<div class="appMuenuTextTabla">
+			<i class="bi bi-arrow-right"></i> 
+			<b><%= tabla[0] %></b>
+		</div>
+	<% else %>
+		<%= link_to "/tablas/#{tabla[1]}" do %>
+			<%= tabla[0] %>
+		<% end %>
+	<% end %>
+</div>

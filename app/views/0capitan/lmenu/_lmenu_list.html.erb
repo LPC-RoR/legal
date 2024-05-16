@@ -1,0 +1,51 @@
+<nav class="appMenu">
+  <input id="hMenuBtn" type="checkbox" /> 
+  <label for="hMenuBtn"></label>
+
+	<% menu_left[sym].each do |area_menu| %>
+		<% if area_menu[:condicion] %>
+			<% unless area_menu[:titulo] == 'Tablas' %>
+
+				<% unless area_menu[:titulo].blank? %>
+					<div class="appMenuTitulo">
+						<i class="bi bi-caret-down-fill"></i> <%=area_menu[:titulo] %>
+					</div>
+				<% end %>
+				<% area_menu[:items].each do |modelo| %>
+					<ul id="hMenu" class="menuVerti">
+					<% unless cfg_defaults[:activa_tipos_usuario] and lm_check_tipo_usuario(modelo) == false %>
+						<li>
+							<%= render partial: '0capitan/lmenu/item', locals: {modelo: (modelo.class.name == 'Array' ? modelo[0] : modelo)} %>
+						</li>
+					<% end %>
+					</ul>
+				<% end %>
+
+			<% else %>
+
+				<div class="appMuenuTablaTitulo">
+					<i class="bi bi-<%=controller_icon['tablas']%>"></i> Tablas
+				</div>
+
+				<% area_menu[:items].each do |grupo| %>
+					<% if grupo[:condicion] %>
+						<div class="appMuenuTablaTitulo">
+							<i class="bi bi-arrow-return-right"></i> <%= grupo[:titulo] %>
+						</div>
+						<% grupo[:items].each do |tabla| %>
+							<ul id="hMenu" class="menuVerti">
+							<%# unless cfg_defaults[:activa_tipos_usuario] and lm_check_tipo_usuario(modelo) == false %>
+								<li>
+									<%= render partial: '0capitan/lmenu/item_tabla', locals: {tabla: tabla} %>
+								</li>
+							<%# end %>
+							</ul>
+						<% end %>
+					<% end %>
+				<% end %>
+
+			<% end %>
+		<% end %>
+	<% end %>
+
+</nav>

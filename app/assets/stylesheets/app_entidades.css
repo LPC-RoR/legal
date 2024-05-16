@@ -1,3 +1,64 @@
+/* LMENU */
+
+.lmenu-box {
+    border: 1px solid #d1f2eb;
+    border-radius: 3px 3px 3px 3px;
+    /* background-color: #e8f8f5; */
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    margin-bottom: 2px;
+    padding: 0em;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.lmenu-list {
+    margin-top: 0em;
+    padding-left: 1em;
+    padding-right: 1em;
+    background-color: white;
+    font-size: 16px;
+}
+
+.lmenu-box:hover .lmenu-list {
+    display: block;
+}
+
+.lmenu-list a {
+    /* padding: 12px 16px; */
+    color: black;
+    text-decoration: none;
+}
+
+.lmenu-list a:hover {
+    color: white;
+    background-color: gray;
+}
+
+.lmenu-secondary-box {
+    border: 1px solid #d1f2eb;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    margin-bottom: 2px;
+    padding: 1em;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+}
+
+.lmenu-usuario {
+    margin-bottom: -5px;
+    padding-left: 10%;
+    line-height: 16px;
+}
+.lmenu-usuario a {
+    color: white;
+    text-decoration: none;
+}
+
+.lmenu-usuario a:hover {
+    color: #85c1e9;
+}
+
 /* DROPDOWN ENLACES */
 
 .enlaces-drpdwn {

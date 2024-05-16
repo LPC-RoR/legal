@@ -19,11 +19,40 @@ module CptnMenuLeftHelper
 					]
 				},
 				{
-					titulo: 'Tablas', 
-					condicion: usuario? 
+					titulo: 'Tablas',
+					condicion: admin?,
+					items: [
+						{
+							titulo: 'Generales',
+							condicion: admin?,
+							items: [
+								['UF & Regiones', 'uf_regiones'],
+								['Enlaces', 'enlaces'],
+								['Calendario', 'calendario'],
+								['Agenda', 'agenda']
+							]
+						},
+						{
+							titulo: 'Causas & Asesorias',
+							condicion: admin?,
+							items:  [
+								['Etapas & Tipos', 'tipos'],
+								['Cuantías & Tribunales', 'cuantias_tribunales'],
+								['Tarifas generales', 'tarifas_generales'],
+							]
+						},
+						{
+							titulo: 'Modelo de Negocios',
+							condicion: admin?,
+							items: [
+								['Modelo', 'modelo'],
+								['Períodos & Bancos', 'periodos_bancos']
+							]
+						}
+					]
 				},
 				{
-					titulo: 'Administracion', 
+					titulo: 'Administración', 
 					condicion: admin?, 
 					items: [
 						'AppNomina',

@@ -1,25 +1,24 @@
 <div class="lmenu-box">
 
-	<%= render partial: '0capitan/lmenu/app_header' %>
+  <%= render partial: '0capitan/lmenu/header' %>
 
-	<% menu_left[sym].each do |area_menu| %>
-		<% if area_menu[:condicion] %>
-			<% unless area_menu[:titulo] == 'Tablas' %>
-				<div class="text-info text-center"><%=area_menu[:titulo] %></div>
-				<% area_menu[:items].each do |modelo| %>
-					<% unless cfg_defaults[:activa_tipos_usuario] and lm_check_tipo_usuario(modelo) == false %>
-						<%= render partial: '0capitan/lmenu/display_item_modelo', locals: {modelo: (modelo.class.name == 'Array' ? modelo[0] : modelo)} %>
-					<% end %>
-				<% end %>
-			<% else %>
-				<small>
-				<i class="bi bi-<%=controller_icon['tablas']%>"></i> 
-				<b class="text-muted"><%= modelo_item('Tabla') %></b>
-				<%= render partial: 'aplicacion/tablas/menu_tablas', locals: {sym: sym} %>
-				</small>
-				</br>
-			<% end %>
-		<% end %>
-	<% end %>
+  <%= render partial: '0capitan/lmenu/lmenu_list', locals: {menu_left: menu_left, sym: sym} %>
+
+    <!--ul class="appSubMenu">
+      <li><a href="#">Noticias</a></li>
+      <li><a href="#">Favoritos ►</a>
+        <ul class="appSubMenu">
+          <li><a href="#">Favorito 1</a></li>
+          <li><a href="#">Favorito 2</a>
+            <ul class="appSubMenu">
+              <li><a href="#">Favorito 3</a></li>
+              <li><a href="#">Favorito 4</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#">Promotores</a></li>
+      <li><a href="#">Geolocalizador</a></li>
+    </ul-->
 
 </div>

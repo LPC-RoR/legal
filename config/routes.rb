@@ -188,7 +188,17 @@ Rails.application.routes.draw do
         match :password_recovery, via: :get
       end
     end
-    resources :tablas
+    resources :tablas do
+      match :uf_regiones, via: :get, on: :collection
+      match :enlaces, via: :get, on: :collection
+      match :calendario, via: :get, on: :collection
+      match :agenda, via: :get, on: :collection
+      match :tipos, via: :get, on: :collection
+      match :cuantias_tribunales, via: :get, on: :collection
+      match :tarifas_generales, via: :get, on: :collection
+      match :modelo, via: :get, on: :collection
+      match :periodos_bancos, via: :get, on: :collection
+    end
   end
 
   scope module: 'organizacion' do

@@ -1,20 +1,24 @@
-<div style="line-height: 13px; margin-bottom: -1em;">
-	<!--small--><small><small class="text-muted">
-		<i class="bi bi-person-fill"></i> 
-		<%= dog? ? 'dog' : ( admin? ? 'admin' : 'usuario' ) %> : 
+<div class="appMenuCredenciales" ">
+	<small>
+		<b>
+		<i class="bi bi-at"></i>
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: edit_usuario_registration_path, tooltip: 'Editar Usuario'} do %>
 			<%= perfil_activo.email %>
 		<% end %>
-		</br>
+		</b>
+	</br>
+		<i class="bi bi-person-fill"></i> 
+		<%= dog? ? 'dog' : ( admin? ? 'admin' : 'usuario' ) %>
+		<i class="bi bi-dot"></i> 
 		<% if dog? %>
 			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/app_recursos/usuarios", tooltip: "Lista de usuarios"} do %>
 				<i class="bi bi-people"></i>
 				Usuarios
 			<% end %>
 		<% else %>
-			<i class="bi bi-bookmark-check"></i>
 			<%= perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]) %>
 		<% end %>
-	<!--/small--></small></small>
+	</br>
+		<%= render partial: '0capitan/app/drpdwns/enlaces_drpdwn', locals: {toggle: 'Enlaces', menus: v_enlaces} %>
+	</small>
 </div>
-<div style="margin-bottom: -1em;"><hr></div>
