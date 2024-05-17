@@ -1,10 +1,13 @@
 class AgeUsuario < ApplicationRecord
 
-	belongs_to :app_perfil, optional: true
+	belongs_to :app_perfil
 
 	has_many :age_usu_acts
 	has_many :age_actividades, through: :age_usu_acts
 
 	has_many :age_pendientes
+
+	validates :age_usuario, presence: true
+	validates :age_usuario, uniqueness: true
 
 end

@@ -77,8 +77,12 @@ module CptnMenuLeftHelper
 		['app_nominas', 'usuarios', 'st_modelos', 'blg_articulos', 'app_versiones', 'h_imagenes']
 	end
 
+	def tar_controller
+		['tar_aprobaciones', 'tar_facturas', 'tar_tarifas', 'tar_pagos', 'tar_formula_cuantias', 'tar_formulas', 'tar_variable_bases', ]
+	end
+
 	def tablas_controllers
-		['aut_tipo_usuarios', 'app_recursos', 'clientes', 'causas', 'asesorias', 'tar_aprobaciones', 'tar_facturas', 'tablas', 'tar_tarifas', 'tar_pagos', 'tar_formula_cuantias', 'tar_formulas', 'tar_variable_bases', 'age_actividades']
+		['aut_tipo_usuarios', 'app_recursos', 'clientes', 'causas', 'asesorias', 'tablas', 'age_actividades', 'age_usuarios', 'age_pendientes']
 	end
 
 	def left_menu_actions?
@@ -86,7 +90,7 @@ module CptnMenuLeftHelper
 	end
 
 	def left_menu_controllers?
-		admin_controllers.include?(controller_name) or tablas_controllers.include?(controller_name)
+		admin_controllers.include?(controller_name) or tablas_controllers.include?(controller_name) or tar_controller.include?(controller_name)
 	end
 
 	def left_menu_sym

@@ -3,7 +3,7 @@
 .appMenuBox {
     border: 1px solid #d1f2eb;
     border-radius: 3px 3px 3px 3px;
-    /* background-color: #e8f8f5; */
+    background-color: #e8f8f5;
     box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
     margin-bottom: 2px;
     padding: 0em;
@@ -104,7 +104,7 @@
   display: block;	
   font-size: 13px;    
   overflow: hidden;
-  background-color: white;    
+  /*background-color: white;    */
   /* font-family: Arial, Helvetica, sans-serif;     */
   font-family: 'Raleway', sans-serif;
 }
@@ -127,7 +127,8 @@
 
 /* Enlaces hover */
 .appMenu a:hover {
-  background-color: #d5d8dc;
+  color: white; 
+  background-color: #85c1e9;
 }
 
 /* Distribución horizontal */

@@ -17,12 +17,13 @@ class ApplicationController < ActionController::Base
 	include Tarifas
 
 	# Seguridad
-	helper_method :version_activa, :dog_name, :dog_email, :nomina_activa, :perfil_activo?, :perfil_activo, :dog?, :admin?, :usuario?, :nomina?, :publico?, :seguridad, :public_controllers 
+	helper_method :version_activa, :nomina_activa, :perfil_activo?, :perfil_activo, :nomina?
+	helper_method :dog_name, :dog_email, :dog?, :admin?, :usuario?, :publico?, :seguridad, :public_controllers 
 	helper_method :check_tipo_usuario, :operacion?, :finanzas?
 	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :v_enlaces_general, :enlaces_perfil, :v_enlaces_perfil, :v_enlaces, :set_st_estado
 	helper_method :calcula2, :set_formulas, :set_valores, :set_detalle_cuantia
 	helper_method :modelo_negocios_general, :cuentas_corrientes, :periodos
-	helper_method :nombre_dia, :nombre3_dia
+	helper_method :nombre_dia, :nombre3_dia, :load_calendario
 	helper_method :check_tipo_usuario, :lm_check_tipo_usuario, :check_crud, :check_k_estados, :check_st_estado
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
 

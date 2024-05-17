@@ -5,46 +5,15 @@ class Actividades::AgeActividadesController < ApplicationController
   def index
     @hoy = Time.zone.today
     @usuario = perfil_activo.age_usuarios.empty? ? nil : perfil_activo.age_usuarios.first
+    @usuario = perfil_activo.age_usuarios.create(age_usuario: perfil_activo.email) if @usuario.blank?
 
     set_tab( :tab, ['Pendientes', 'Realizados'])
-    estado = @options[:tab].singularize.downcase
+    @estado = @options[:tab].singularize.downcase
 #    estado = @options[:tab] == 'Pendientes' ? 'pendiente' : 'realizado'
-    unless @usuario.blank?
-      set_tabla('d-age_pendientes', @usuario.age_pendientes.where(estado: estado, prioridad: 'danger'), false)
-      set_tabla('w-age_pendientes', @usuario.age_pendientes.where(estado: estado, prioridad: 'warning'), false)
-      set_tabla('s-age_pendientes', @usuario.age_pendientes.where(estado: estado, prioridad: 'success'), false)
-      set_tabla('n-age_pendientes', @usuario.age_pendientes.where(estado: estado, prioridad: nil), false)
-    end
- 
-    n_annio = params[:annio_sem].blank? ? @hoy.year : params[:annio_sem].split('_')[0].to_i
-    @cal_annio = busca_y_puebla_annio(n_annio)
 
-    n_semana = params[:annio_sem].blank? ? get_n_semana(@hoy) : params[:annio_sem].split('_')[1].to_i
-    # se usa @hoy.month para n_mes
-    @cal_semana = busca_y_puebla_semana(@cal_annio, n_semana, @hoy.month)
+    # concerns/calendario#load_calendario
+    load_calendario
 
-    @dias_semana = @cal_semana.cal_dias.order(:dt_fecha)
-    @lunes = @dias_semana.first
-    @domingo = @dias_semana.last
-
-    @params_anterior = params_semana_anterior(@cal_semana)
-    @params_siguiente = params_semana_siguiente(@cal_semana)
-
-    @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)
-
-    @dias_semana = @cal_semana.cal_dias.order(:dt_fecha)
-    @vector_dias = @dias_semana.map {|ds| {dia: ds.dt_fecha, dyf: ds.dyf? ? 'danger' : 'primary', actividades: AgeActividad.where(fecha: ds.dt_fecha.all_day).order(:fecha) } }
-
-    @v_semana = []
-
-    @dias_semana.each do |cal_dia|
-      dia = {}
-      dia[:dia] = cal_dia.dt_fecha
-      dia[:dyf] = cal_dia.dyf? ? 'danger' : 'primary'
-      dia[:actividades] = AgeActividad.where(fecha: cal_dia.dt_fecha.all_day).order(:fecha)
-
-      @v_semana << dia
-    end
   end
 
   # GET /age_actividades/1 or /age_actividades/1.json
