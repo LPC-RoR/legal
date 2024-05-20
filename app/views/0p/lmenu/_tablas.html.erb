@@ -1,0 +1,17 @@
+<% area_menu[:items].each do |grupo| %>
+	<% if grupo[:condicion] %>
+		<div class="itm_ttl">
+			<i class="bi bi-arrow-return-right"></i> <%= grupo[:titulo] %>
+		</div>
+		<% grupo[:items].each do |tabla| %>
+			<ul id="hMenu" class="lmn_verti">
+			<!-- Si NO se controle el tipo de usuarios o item NO tiene condicion o SI la tiene y es true -->
+			<% if (cfg_defaults[:activa_tipos_usuario] == false) or (tabla.length == 2) or (tabla.length == 3 and tabla[2]) %>
+				<li>
+					<%= render partial: '0capitan/lmenu/item_tabla', locals: {tabla: tabla} %>
+				</li>
+			<% end %>
+			</ul>
+		<% end %>
+	<% end %>
+<% end %>

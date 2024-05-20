@@ -50,6 +50,10 @@ module Capitan
 	end
 
 	# **************************************************************************** GENERAL
+	def object_class_sym(objeto)
+		objeto.class.name.tableize.to_sym
+	end
+
 	def uf_del_dia
 		uf = TarUfSistema.find_by(fecha:Time.zone.today.to_date)
 		uf.blank? ? nil : uf.valor

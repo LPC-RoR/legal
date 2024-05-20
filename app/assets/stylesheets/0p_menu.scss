@@ -1,0 +1,149 @@
+/* LMENU */
+
+.lmn {
+    margin: 0;
+    border: 1px solid #d7dbdd;
+    border-radius: 3px 3px 3px 3px;
+    background-color: #e5e7e9;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    margin-bottom: 2px;
+    font-family: 'Raleway', sans-serif;
+
+    /* TITULO */
+    .lmn_ttl {
+        background-color: white;
+        padding: 10px;
+        font-size: 45px;
+        text-align: center;
+
+        a {
+            text-decoration: none;
+            color: #7fb3d5;
+
+            &:hover {
+                color: #1a5276;
+            }
+        }
+    }
+
+    /* PERFIL */
+    .lmn_prfl {
+        background-color: white;
+        padding: 0 20px 10px 20px;
+        line-height: 16px;
+        color: #515a5a;
+        font-size: 14px;
+    }
+
+    .lmn_lst {
+        line-height: 18px;
+        color: #839192;
+        font-size: 13px;
+
+        .itm_ttl {
+            padding: 5px 20px;
+            background-color: white;
+            color: black;
+            font-weight: bold;
+        }
+
+        .itm_slctd {
+            padding: 3px 30px;
+            background-color: gray;
+            color: white;
+            font-weight: bold;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            display: block;       
+            list-style: none;
+
+            a {
+                padding: 3px 20px;
+                display: block;       
+                text-decoration: none;
+                color: black; 
+            }
+
+            a:hover {
+                color: white;
+                background-color: gray;
+            }
+        }
+    }
+
+
+}
+
+/* DISTRIBUCION DEL MENU */
+
+/* Distribución horizontal */
+.menuHoriz li {
+  float: left;    
+  display: block;   
+}  
+
+/* Distribución vertical */
+.lmn_verti li {
+  /* Tenía un ancho determinado para que no fuera necesario usar div */
+  /* width: 10em; */
+  height: 2em;
+  display: block;   
+  text-align: left;
+}
+
+/* Submenú infinito */
+.appSubMenu {
+  position: fixed;
+  display: none !important;    
+  background-color: white;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.55);
+}
+
+/* Submenú infinito hover */
+li:hover > .appSubMenu {
+  display: block !important;    
+}
+
+/* Submenú infinito enlaces hover  */
+.appSubMenu a:hover {
+  background-color: #d5d8dc;
+}
+
+/* Submenú infinito posicionamiento vertical */
+.lmn_verti .appSubMenu {
+  left: 8em;
+  position: absolute !important;
+}  
+
+/* BOTON HAMBURGUESA */
+/* Botón tipo hamburguesa en pantallas pequeñas */
+#hMenuBtn {
+  display: none;    
+}
+
+/* Menú hamburguesa */
+@media (max-width: 768px) {
+  #hMenu {
+    display: none;
+  }
+  #hMenuBtn + label {   
+    color: white;           
+    cursor: pointer;        
+    padding: 0 0.5em;   
+    display: inline-block;  
+  }
+  #hMenuBtn + label:hover {
+    background-color: green;
+  } 
+  #hMenuBtn + label::before {
+    content: "☰";
+    font-size: 2rem;
+    line-height: 1em;    
+  }
+  #hMenuBtn:checked ~ #hMenu {
+    display: block; 
+  }
+}  

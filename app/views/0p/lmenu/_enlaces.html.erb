@@ -1,0 +1,17 @@
+<% unless enlaces_general.empty? %>
+	<% enlaces_general.each do |general| %>
+		<small><small>
+		<i class="bi bi-box-arrow-up-right"></i> 
+		<%= link_to general.descripcion, general.enlace, target: '_blank' %></br>
+		</small></small>
+	<% end %>
+<% end %>
+<% unless enlaces_perfil.empty? %>
+	<% enlaces_perfil.each do |perfil| %>
+		<small><small>
+		<i class="bi bi-box-arrow-up-right"></i>  
+		<%= link_to perfil.descripcion, perfil.enlace, target: '_blank' %></br>
+		</small></small>
+	<% end %>
+	<hr>
+<% end %>

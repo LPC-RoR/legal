@@ -1,0 +1,15 @@
+<% unless area_menu[:titulo].blank? %>
+	<div class="itm_ttl">
+		<i class="bi bi-caret-down-fill"></i> <%=area_menu[:titulo] %>
+	</div>
+<% end %>
+
+<% area_menu[:items].each do |modelo| %>
+	<ul id="hMenu" class="lmn_verti">
+	<% unless cfg_defaults[:activa_tipos_usuario] and lm_check_tipo_usuario(modelo) == false %>
+		<li>
+			<%= render partial: '0capitan/lmenu/item', locals: {modelo: (modelo.class.name == 'Array' ? modelo[0] : modelo)} %>
+		</li>
+	<% end %>
+	</ul>
+<% end %>

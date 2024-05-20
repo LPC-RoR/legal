@@ -1,12 +1,14 @@
 <% if link_model(controller_name) == modelo %>
-	<div class="appMuenuTextItem">
+	<div class="itm_slctd">
 		<i class="bi bi-arrow-right"></i> 
 		<i class="bi bi-<%=controller_icon[modelo.tableize]%>"></i>
 		<%= modelo_item(modelo) %>
 	</div>
 <% else %>
-	<%= link_to model_link(modelo) do %>
-		<i class="bi bi-<%=controller_icon[modelo.tableize]%>"></i>
-		<%= modelo_item(modelo) %>
-	<% end %>
+	<div class="itm">
+		<%= link_to model_link(modelo) do %>
+			<i class="bi bi-<%=controller_icon[modelo.tableize]%>"></i>
+			<%= modelo_item(modelo) %>
+		<% end %>
+	</div>
 <% end %>

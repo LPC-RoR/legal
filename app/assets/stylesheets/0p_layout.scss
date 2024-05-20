@@ -1,0 +1,117 @@
+/* OVER  */
+.lyt_over  {
+	margin-left: $lyt_ovr_mrgn;
+	margin-right: $lyt_ovr_mrgn;
+    background-color: #ffffff;
+    font-family: 'Raleway', sans-serif;
+
+    /* OVER MENU */
+	.lyt_ovr_menu {
+		margin-top: 2px;
+		margin-bottom: 4px;
+	    border: 1px solid #eaecee;
+	    border-radius: 3px 3px 3px 3px;
+	    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+
+	    display: grid;
+  		grid-template-columns: 1fr 1fr 1fr;
+  	    grid-gap: 1em;
+  	    justify-items: center;
+
+	    .menu_left {
+	    	padding-left: 10px;
+		    grid-column-start: 1;
+		    grid-column-end: 2;
+	    	justify-self: start;
+	    }
+
+	    .menu_center {
+		    grid-column-start: 2;
+		    grid-column-end: 3;
+	    }
+
+	    .menu_right {
+	    	padding-right: 10px;
+		    grid-column-start: 3;
+		    grid-column-end: 4;
+	    	justify-self: end;
+	    }
+
+
+	    a {
+	    	text-decoration: none;
+		    color: black;
+
+	    	&:hover {
+	    		color: $clr_6;
+	    	}
+	    }
+	}
+
+    /* BANNER */
+	.bnnr {
+		margin-bottom: 10px;
+	    border: 1px solid #eaecee;
+	    border-radius: 3px 3px 3px 3px;
+	    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+
+	    display: grid;
+  		grid-template-columns: auto 1fr;
+  	    grid-gap: 1em;
+  	    position: relative;
+  	    justify-items: center;
+
+	    .bnnr_img {
+		    grid-column-start: 1;
+		    grid-column-end: 2;
+	    	justify-self: start;
+	    }
+
+	    .bnnr_text {
+		    grid-column-start: 2;
+		    grid-column-end: 3;
+		    position: relative;
+		    top: 25%;
+	    }
+
+	}
+}
+
+/* NAVBAR */
+
+.lty_navbar {
+	margin-left: $lyt_nvbr_mrgn;
+	margin-right: $lyt_nvbr_mrgn;
+	margin-bottom: 4px;
+}
+
+/* BODY */
+.lyt_body {
+	margin-left: $lyt_bdy_mrgn;
+	margin-right: $lyt_bdy_mrgn;
+	margin-bottom: 4px;
+}
+
+/* NOTICE & ALERT */
+
+.lyt_notice {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: .5em;
+    border: 1px solid blue;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    background-color: blue;
+    color: white;
+}
+
+.lyt_error {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: .5em;
+    border: 1px solid red;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    background-color: red;
+    color: white
+}

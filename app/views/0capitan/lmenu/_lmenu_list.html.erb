@@ -1,16 +1,21 @@
-<nav class="appMenu">
+<nav>
+
   <input id="hMenuBtn" type="checkbox" /> 
   <label for="hMenuBtn"></label>
 
 	<% menu_left[sym].each do |area_menu| %>
+		<!-- VERIFICA QUE LA CONDICION PARA DESPLEGAR EL AREA SE CUMPLA -->
 		<% if area_menu[:condicion] %>
+
+			<!-- DESPLIEGA UN MODELO -->
 			<% unless area_menu[:titulo] == 'Tablas' %>
 
 				<% unless area_menu[:titulo].blank? %>
-					<div class="appMenuTitulo">
+					<div class="itm_ttl">
 						<i class="bi bi-caret-down-fill"></i> <%=area_menu[:titulo] %>
 					</div>
 				<% end %>
+
 				<% area_menu[:items].each do |modelo| %>
 					<ul id="hMenu" class="menuVerti">
 					<% unless cfg_defaults[:activa_tipos_usuario] and lm_check_tipo_usuario(modelo) == false %>
@@ -21,15 +26,16 @@
 					</ul>
 				<% end %>
 
+			<!-- DESPLIEGA TABLAS -->
 			<% else %>
 
-				<div class="appMuenuTablaTitulo">
+				<div class="itm_ttl">
 					<i class="bi bi-<%=controller_icon['tablas']%>"></i> Tablas
 				</div>
 
 				<% area_menu[:items].each do |grupo| %>
 					<% if grupo[:condicion] %>
-						<div class="appMuenuTablaTitulo">
+						<div class="itm_ttl">
 							<i class="bi bi-arrow-return-right"></i> <%= grupo[:titulo] %>
 						</div>
 						<% grupo[:items].each do |tabla| %>
@@ -46,6 +52,7 @@
 				<% end %>
 
 			<% end %>
+
 		<% end %>
 	<% end %>
 

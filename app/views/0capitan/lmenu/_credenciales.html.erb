@@ -1,8 +1,7 @@
-<div class="appMenuCredenciales" ">
 	<small>
 		<b>
 		<i class="bi bi-at"></i>
-		<%= render layout: '0p/layout/tooltip_link', locals: {link: edit_usuario_registration_path, tooltip: 'Editar Usuario'} do %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: edit_usuario_registration_path, tooltip: 'Editar mi usuario'} do %>
 			<%= perfil_activo.email %>
 		<% end %>
 		</b>
@@ -21,4 +20,3 @@
 	</br>
 		<%= render partial: '0capitan/app/drpdwns/enlaces_drpdwn', locals: {toggle: 'Enlaces', menus: v_enlaces} %>
 	</small>
-</div>

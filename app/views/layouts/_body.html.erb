@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<div class="app_body" style="padding-left: <%=lyt_body_padd%>%; padding-right: <%=lyt_body_padd%>%; margin-bottom: 1px;">
+	<div class="lyt_body">
 
 		<%= render partial: 'layouts/partials/notice_alert' %>
 
@@ -11,8 +11,8 @@
 			<!-- El controlador debe estar en la lista de despliegue -->
 			<% unless left_menu_sym.blank? %>
 				<div class="row no-gutters">
-					<div class="col-3" style="padding-right: 2px;">
-						<%= render partial: '0capitan/lmenu/lmenu', locals: { sym: left_menu_sym } %>
+					<div class="col-3">
+						<%= render partial: '0p/lmenu/lmenu', locals: { sym: left_menu_sym } %>
 					</div>
 					<div class="col-9" style="padding-left: 2px;">
 						<%= yield %>
@@ -24,7 +24,7 @@
 			<% end %>
 
 		<% else %>
-			<div class="objeto-box text-danger">
+			<div  class="lyt_error">
 				<i class="bi bi-cone-striped"></i> Usuario sin perfil activo, comuniquese con el administrador de la plataforma.
 			</div>
 		<% end %>
