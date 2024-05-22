@@ -5,16 +5,14 @@ class Tarifas::TarFacturasController < ApplicationController
 
   # GET /tar_facturas or /tar_facturas.json
   def index
+    @estados = StModelo.find_by(st_modelo: 'TarFactura').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
+    @tipos = nil
+    @tipo = nil
+    @estado = params[:e].blank? ? @estados[0] : params[:e]
+    @path = "/tar_facturas?"
 
-    set_tab( :monitor,  ['Proceso', 'Pagadas'] )
-
-
-    if @options[:monitor] == 'Proceso'
-      set_tabla('ingreso-tar_facturas', TarFactura.where(estado: 'ingreso').order(documento: :desc), false)
-      set_tabla('facturada-tar_facturas', TarFactura.where(estado: 'facturada').order(documento: :desc), false)
-    elsif @options[:monitor] == 'Pagadas'
-      set_tabla('pagada-tar_facturas', TarFactura.where(estado: 'pagada').order(documento: :desc), true)
-    end
+    coleccion = TarFactura.where(estado: @estado).order(created_at: :desc)
+    set_tabla('tar_facturas', coleccion, true)
 
   end
 

@@ -11,7 +11,7 @@ class CausasController < ApplicationController
     @tipos = nil
     @tipo = nil
     @estado = params[:e].blank? ? @estados[0] : params[:e]
-    @path = "/causas"
+    @path = "/causas?"
     @link_new = @estado == 'tramitación' ? causas_path : nil
 
 #    if @tipo.blank?

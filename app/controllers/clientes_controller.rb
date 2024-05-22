@@ -17,7 +17,7 @@ class ClientesController < ApplicationController
 
     @estado = (params[:e].blank? and params[:t].blank?) ? frst_e : params[:e]
     @tipo = (params[:t].blank? and @estado.blank?) ? frst_s : params[:t]
-    @path = '/clientes'
+    @path = '/clientes?'
 
     set_tabla('clientes', Cliente.where(estado: @estado).order(:razon_social), true) if @estado.present?
     set_tabla('clientes', Cliente.where(estado: 'activo', tipo_cliente: @tipo.singularize).order(:razon_social), true) if @tipo.present? and @estado.blank?
@@ -29,9 +29,8 @@ class ClientesController < ApplicationController
 
     set_st_estado(@objeto)
 
-    set_tab( :menu, [['Agenda', operacion?], ['Documentos', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))]] )
+    set_tab( :menu, [['Agenda', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Documentos', operacion?]] )
 
-#    @coleccion = {}
     if @options[:menu] == 'Agenda'
 
       @hoy = Time.zone.today
@@ -51,50 +50,49 @@ class ClientesController < ApplicationController
       @tipos = nil
       @tipo = nil
       @estado = params[:e].blank? ? @estados[0] : params[:e]
-      @path = "/clientes/#{@objeto.id}?html_options[menu]=Causas"
+      @path = "/clientes/#{@objeto.id}?html_options[menu]=Causas&"
 
-  #    if @tipo.blank?
-        coleccion = @objeto.causas.where(estado: @estado).order(created_at: :desc)
-        set_tabla('causas', coleccion, true)
-  #    else
-  #      tipo = TipoAsesoria.find_by(tipo_asesoria: @tipo)
-  #      asesorias = tipo.asesorias.where(estado: ['terminada', 'cerrada'])
-  #      set_tabla('asesorias', asesorias, true)
-  #    end
+      coleccion = @objeto.causas.where(estado: @estado).order(created_at: :desc)
+      set_tabla('causas', coleccion, true)
 
     elsif @options[:menu] == 'Asesorias'
 
       @estados = StModelo.find_by(st_modelo: 'Asesoria').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
-      @tipos = TipoAsesoria.all.order(:tipo_asesoria).map {|ta| ta.tipo_asesoria}
+      @tipos = ['Multas', 'Redacciones']
       @tipo = params[:t].blank? ? nil : params[:t]
       @estado = params[:e].blank? ? @estados[0] : params[:e]
-      @path = "/clientes/#{@objeto.id}?html_options[menu]=Asesorias"
+      @path = "/clientes/#{@objeto.id}?html_options[menu]=Asesorias&"
 
-      if @tipo.blank?
-        asesorias = @objeto.asesorias.where(estado: @estado).order(created_at: :desc)
-        set_tabla('asesorias', asesorias, true)
-      else
-        tipo = TipoAsesoria.find_by(tipo_asesoria: @tipo)
-        asesorias = @objeto.asesorias.where(tipo_asesoria_id: tipo.id ,estado: ['terminada', 'cerrada'])
-        set_tabla('asesorias', asesorias, true)
+      unless @tipo.blank?
+        corregido = @tipo.singularize == 'Redaccion' ? 'Redacción' : @tipo.singularize
+        tipo = TipoAsesoria.find_by(tipo_asesoria: corregido)
+        tipo = 'Redacción' if (tipo == 'Redaccion')
+        coleccion = @objeto.asesorias.where(tipo_asesoria_id: tipo.id).order(created_at: :desc)
       end
+      unless @estado.blank?
+        coleccion = @objeto.asesorias.where(estado: @estado).order(created_at: :desc)
+      end
+      set_tabla('asesorias', coleccion, true)
 
     elsif @options[:menu] == 'Facturas'
-      set_tab( :monitor,  ['Proceso', 'Pagadas'] )
-      facturas_cliente = @objeto.facturas
-      set_tabla('ingreso-tar_facturas', facturas_cliente.where(estado: 'ingreso').order(documento: :desc), false)
-      set_tabla('facturada-tar_facturas', facturas_cliente.where(estado: 'facturada').order(documento: :desc), false)
-      set_tabla('pagada-tar_facturas', facturas_cliente.where(estado: 'pagada').order(documento: :desc), true)
+      @estados = StModelo.find_by(st_modelo: 'TarFactura').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
+      @tipos = nil
+      @tipo = nil
+      @estado = params[:e].blank? ? @estados[0] : params[:e]
+      @path = "/clientes/#{@objeto.id}?html_options[menu]=Facturas&"
+
+      coleccion = @objeto.facturas.where(estado: @estado).order(created_at: :desc)
+      set_tabla('tar_facturas', coleccion, true)
+
     elsif @options[:menu] == 'Tarifas'
+      @estados = []
+      @tipos = ['causas', 'asesorias']
+      @tipo = params[:t].blank? ? @tipos[0] : params[:t]
+      @estado = params[:e].blank? ? @estados[0] : params[:e]
+      @path = "/clientes/#{@objeto.id}?html_options[menu]=Tarifas&"
+
       set_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       set_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
-    elsif @options[:menu] == 'Documentos y enlaces'
-      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-
-      @d_pendientes = @objeto.documentos_pendientes
-      @a_pendientes = @objeto.archivos_pendientes
     end
 
   end

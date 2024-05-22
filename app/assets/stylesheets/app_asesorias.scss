@@ -1,14 +1,14 @@
 /* --clr-[fr sc th ob]-cs */
 
-$cl_fr: #627254;
-$cl_sc: #76885b;
-$cl_th: #dddddd;
-$cl_ob: #eeeeee;
+$as_fr: #952323;
+$as_sc: #a73121;
+$as_th: #dad4b5;
+$as_ob: #f2e8c6;
 
 /* TITULO */
-.cl_ttl {
+.as_ttl {
 	margin-bottom: 10px;
-	background-color: $cl_fr;
+	background-color: $as_fr;
 	line-height: 40px;
 	color: white;
     font-family: 'Raleway', sans-serif;
@@ -17,14 +17,14 @@ $cl_ob: #eeeeee;
     grid-gap: 1em;
 
     .ttl_ttl {
-    	padding-left: 2em;
+    	padding-left: 1em;
 	    grid-column-start: 1;
 	    grid-column-end: 2;
     	justify-self: start;
     }
 
     .ttl_lnks {
-    	padding-right: 10px;
+    	padding-right: 1em;
 	    grid-column-start: 2;
 	    grid-column-end: 3;
     	justify-self: end;
@@ -38,41 +38,17 @@ $cl_ob: #eeeeee;
     		color: gray;
     	}
     }
-}
-
-/* LAYOUT INDEX */
-
-.cl_lyt_ndx {
-	margin: 10px 0;
-	background-color: white;
-	color: $cl_fr;
-    font-family: 'Raleway', sans-serif;
-	display: grid;
-	grid-template-columns: 200px auto;
-    grid-gap: 2px;
-    justify-items: stretch;
-
-    .mn {
-    	margin: 0;
-	    grid-column-start: 1;
-	    grid-column-end: 2;
-    }
-
-    .dsply {
-	    grid-column-start: 2;
-	    grid-column-end: 3;
-    }
 
 }
 
 /* LAYOUT OBJETO */
 
-.cl {
+.as {
 	padding: 10px;
-    border: 1px solid $cl_th;
+    border: 1px solid $cs_th;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-	background-color: $cl_ob;
+	background-color: $as_ob;
 	font-size: 13px;
 
 	.ttl {
@@ -89,7 +65,7 @@ $cl_ob: #eeeeee;
 
 	    }
 
-	    .ttl_links {
+	    .ttl_lnks {
 			font-size: 10px;
 		    grid-column-start: 2;
 		    grid-column-end: 3;
@@ -112,34 +88,4 @@ $cl_ob: #eeeeee;
 		font-size: 10px;
 	}
 
-	.cnts_pg {
-		color: blue;
-    	font-weight: bold;
-		display: grid;
-		grid-template-columns: auto 100px;
-	    grid-gap: 10px;
-	    justify-items: stretch;
-
-	    .mnts {
-		    grid-column-start: 1;
-		    grid-column-end: 2;
-	    	justify-self: start;
-
-	    }
-
-	    .lnks {
-			font-size: 10px;
-		    grid-column-start: 2;
-		    grid-column-end: 3;
-	    	justify-self: end;
-	    }
-
-    	a {
-            text-decoration: none;
-    	}
-
-    	a:hover {
-    		color: gray;
-    	}
-	}
 }

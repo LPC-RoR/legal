@@ -1,17 +1,36 @@
-<div class="titulo text-info">
-  Asesorías <%= 'Terminadas / Cerradas' if tipo.present? %>
-</div>
-<div class="row text_muted no-gutters">
-  <div class="col-lg-3" style="padding-right: 2px;">
-    <%= render partial: 'asesorias/partials/sel_asesorias', locals: {estados: estados, tipos: tipos, tipo: tipo, estado: estado, path: path} %>
+<div class="as_ttl">
+  <div class="ttl_ttl">
+    <%= render partial: '0p/general/gly', locals: {gly: controller_icon['asesorias']} %>
+    Asesorías
   </div>
-  <div class="col-lg-9" style="padding-left: 2px;">
-    <% if @tipo.blank? %>
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: "Asesorias en estado #{estado}", link_new: ((check_crud('Asesoria') and estado == @estados[0]) ? "/asesorias/new" : nil)} %>
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'asesorias'} %>
-    <% else %>
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'asesorias', title: "Asesorias del tipo #{tipo}", link_new: nil} %>
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'asesorias'} %>
-    <% end %>
+  <div class="ttl_lnks">
   </div>
 </div>
+
+<div class="doscpx_w">
+  <div class="lft">
+    <%= render partial: '0p/cmenu/cmenu', locals: { c: 'asesorias', tipo: tipo, estado: estado, path: path} %>
+  </div>
+  <div class="rght">
+
+    <div class="as_ttl">
+      <div class="ttl_ttl">
+        <%= render partial: '0p/general/gly', locals: {gly: controller_icon['asesorias']} %>
+        <% if tipo.blank? %>
+          <%= "Asesorias #{cmenu_clss['asesorias'][:items][estado]}" %>
+        <% else %>
+          <%= tipo %>
+        <% end %>
+      </div>
+      <div class="ttl_lnks">
+        <%= render layout: '0p/layout/tooltip_link', locals: {link: ((check_crud('Asesoria') and estado == @estados[0]) ? "/asesorias/new" : nil), tooltip: 'Agregar Asesoría'} do %>
+          <i class="bi bi-plus-circle"></i>
+        <% end %>
+      </div>
+    </div>
+
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'asesorias'} %>
+  </div>
+</div>
+
+

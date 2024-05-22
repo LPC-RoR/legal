@@ -4,19 +4,21 @@ class AsesoriasController < ApplicationController
   # GET /asesorias or /asesorias.json
   def index
     @estados = StModelo.find_by(st_modelo: 'Asesoria').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
-    @tipos = TipoAsesoria.all.order(:tipo_asesoria).map {|ta| ta.tipo_asesoria}
+    @tipos = ['Multas', 'Redacciones']
     @tipo = params[:t].blank? ? nil : params[:t]
     @estado = params[:e].blank? ? @estados[0] : params[:e]
-    @path = "/asesorias"
+    @path = "/asesorias?"
 
-    if @tipo.blank?
-      asesorias = Asesoria.where(estado: @estado).order(created_at: :desc)
-      set_tabla('asesorias', asesorias, true)
-    else
-      tipo = TipoAsesoria.find_by(tipo_asesoria: @tipo)
-      asesorias = tipo.asesorias.where(estado: ['terminada', 'cerrada'])
-      set_tabla('asesorias', asesorias, true)
+    unless @tipo.blank?
+      corregido = @tipo.singularize == 'Redaccion' ? 'Redacción' : @tipo.singularize
+      tipo = TipoAsesoria.find_by(tipo_asesoria: corregido)
+      tipo = 'Redacción' if (tipo == 'Redaccion')
+      coleccion = Asesoria.where(tipo_asesoria_id: tipo.id).order(created_at: :desc)
     end
+    unless @estado.blank?
+      coleccion = Asesoria.where(estado: @estado).order(created_at: :desc)
+    end
+    set_tabla('asesorias', coleccion, true)
 
   end
 

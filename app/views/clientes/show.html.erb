@@ -14,7 +14,7 @@
 <% elsif @options[:menu] == 'Asesorias' %>
 	<%= render partial: 'asesorias/partials/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 <% elsif @options[:menu] == 'Facturas' %>
-	<%= render partial: 'tarifas/tar_facturas/partials/monitor' %>
+	<%= render partial: 'tarifas/tar_facturas/partials/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 <% elsif @options[:menu] == 'Tarifas' %>
-	<%= render partial: 'clientes/partials/tab_tarifas', locals: {objeto: @objeto} %>
+	<%= render partial: 'clientes/partials/tab_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
 <% end %>

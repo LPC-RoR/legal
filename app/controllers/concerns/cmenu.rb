@@ -1,6 +1,28 @@
 module Cmenu
 	def cmenu_clss
 		{
+			'clientes' => {
+				estados: [
+					{
+						std: 'activo',
+						cndcn: admin?
+					},
+					{
+						std: 'baja',
+						cndcn: admin?
+					}
+				],
+				items: {
+					'activo' => 'Activos',
+					'baja' => 'Dados de baja'
+				},
+				selectors: [
+					['Empresas', admin?],
+					['Sindicatos', admin?],
+					['Trabajadores', operacion?]
+				]
+
+			},
 			'causas' => {
 				estados: [
 					{
@@ -23,27 +45,63 @@ module Cmenu
 				},
 				selectors: nil
 			},
-			'clientes' => {
+			'asesorias' => {
 				estados: [
 					{
-						std: 'activo',
-						cndcn: admin?
+						std: 'tramitación',
+						cndcn: operacion?
 					},
 					{
-						std: 'baja',
-						cndcn: admin?
+						std: 'terminada',
+						cndcn: operacion?
+					},
+					{
+						std: 'cerrada',
+						cndcn: finanzas?
 					}
 				],
 				items: {
-					'activo' => 'Activos',
-					'baja' => 'Dados de baja'
+					'tramitación' => 'En Tramitación',
+					'terminada' => 'Terminadas',
+					'cerrada' => 'Cerradas'
 				},
 				selectors: [
-					['Empresas', admin?],
-					['Sindicatos', admin?],
-					['Trabajadores', operacion?]
+					['Multas', admin?],
+					['Redacciones', admin?]
 				]
-
+			},
+			'tar_facturas' => {
+				estados: [
+					{
+						std: 'ingreso',
+						cndcn: operacion?
+					},
+					{
+						std: 'facturada',
+						cndcn: operacion?
+					},
+					{
+						std: 'pagada',
+						cndcn: finanzas?
+					}
+				],
+				items: {
+					'ingreso' => 'Por facturar',
+					'facturada' => 'Facturadas',
+					'pagada' => 'Pagadas'
+				},
+				selectors: nil
+			},
+			'tar_tarifas' => {
+				estados: nil,
+				items: {
+					'causas' => 'Tarifas de Causas',
+					'asesorias' => 'Tarifas de asesorías'
+				},
+				selectors: [
+					['causas', operacion?],
+					['asesorias', operacion?]
+				]
 			}
 		}
 	end

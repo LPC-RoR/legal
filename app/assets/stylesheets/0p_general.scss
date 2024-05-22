@@ -45,7 +45,6 @@
 }
 
 .mn_rght_w {
-	margin: 10px 0;
 	background-color: white;
 	display: grid;
 	grid-template-columns: auto 200px;
@@ -66,7 +65,7 @@
 }
 
 .m_rght_w {
-	margin: 10px 0;
+/*	margin: 10px 0; */
 	background-color: white;
 	display: grid;
 	grid-template-columns: auto auto;
@@ -84,6 +83,34 @@
 	    grid-column-end: 3;
     }
 
+}
+
+.add_box {
+	background-color: white;
+	color: #2980b9;
+
+	.hd {
+		background-color: #eaecee;
+		margin-bottom: 4px;
+		padding: 1em;
+	    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+		text-align: center;
+	}
+
+	.lnks {
+		background-color: #eaecee;
+	    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+		padding: 1em;
+
+    	a {
+    		color: d5d8dc;
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+	}
 }
 
 .chng_st {

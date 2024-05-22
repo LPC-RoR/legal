@@ -43,7 +43,8 @@ module CptnCristianoHelper
 			'facturacion' => 'facturación',
 			'conciliacion' => 'conciliación',
 			'articulo' => 'artículo',
-			'aprobacion' => 'aprobación'
+			'aprobacion' => 'aprobación',
+			'asesorias' => 'asesoría'
 		}
 	end
 

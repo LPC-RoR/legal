@@ -12,7 +12,7 @@
 					</div>
 				<% else %>
 					<li>
-						<%= link_to "#{path}#{"#{controller_name == c ? '?' : '&'}e=#{std[:std]}" }" do %>
+						<%= link_to "#{path}e=#{std[:std]}" do %>
 							<i class="bi bi-tag"></i>
 							<%= cmenu_clss[c][:items][std[:std]] %>
 						<% end %>
@@ -35,7 +35,7 @@
 						<i class="bi bi-bookmark"></i>
 						<%= selector.class.name == 'String' ? selector : selector[0] %>
 					<% else %>
-						<%= link_to "#{path}?t=#{selector.class.name == 'String' ? selector : selector[0]}" do %>
+						<%= link_to "#{path}t=#{selector.class.name == 'String' ? selector : selector[0]}" do %>
 							<i class="bi bi-bookmark"></i>
 							<%= selector.class.name == 'String' ? selector : selector[0] %>
 						<% end %>
@@ -43,7 +43,7 @@
 					</li>
 				<% else %>
 					<li>
-					<%= link_to "#{path}?t=#{selector.class.name == 'String' ? selector : selector[0]}" do %>
+					<%= link_to "#{path}t=#{selector.class.name == 'String' ? selector : selector[0]}" do %>
 						<i class="bi bi-bookmark"></i>
 						<%= selector.class.name == 'String' ? selector : selector[0] %>
 					<% end %>
