@@ -65,6 +65,27 @@
 
 }
 
+.m_rght_w {
+	margin: 10px 0;
+	background-color: white;
+	display: grid;
+	grid-template-columns: auto auto;
+    grid-gap: 2px;
+    justify-items: stretch;
+
+    .lft {
+    	margin: 0;
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+    }
+
+    .right {
+	    grid-column-start: 2;
+	    grid-column-end: 3;
+    }
+
+}
+
 .chng_st {
 	margin-bottom: 10px;
 	background-color: #abb2b9;

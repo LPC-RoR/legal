@@ -1,11 +1,11 @@
-<div class="<%=c_ndx_clss['age_actividades']%>">
-	<div class="agnd">
+<div class="m_rght_w">
+	<div class="lft">
 		<%= render partial: 'actividades/age_actividades/partials/semana_nav' %>
 		<% @vector_dias.each do |dia_semana| %>
 			<%= render partial: 'actividades/age_actividades/list/objeto_dia', locals: {objeto: dia_semana} %>
 		<% end %>
 	</div>
-	<div class="pndnts">
+	<div class="rght">
 		<% unless @usuario.blank? %>
 			<div class="ac_ttl">
 					<div class="ttl_ttl">

@@ -1,9 +1,9 @@
 /* --clr-[fr sc th ob]-cs */
 
-$ac_fr: #b0578d;
-$ac_sc: #d988b9;
-$ac_th: #facbea;
-$ac_ob: #ffe4d6;
+$ac_fr: #6499e9;
+$ac_sc: #9eddff;
+$ac_th: #a6f6ff;
+$ac_ob: #befff7;
 
 /* TITULO */
 .ac_ttl {
@@ -13,7 +13,7 @@ $ac_ob: #ffe4d6;
 	color: white;
     font-family: 'Raleway', sans-serif;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: auto 100px;
     grid-gap: 1em;
 
     .ttl_ttl {

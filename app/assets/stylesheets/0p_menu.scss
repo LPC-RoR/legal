@@ -39,6 +39,7 @@
         line-height: 18px;
         color: #839192;
         font-size: 13px;
+        padding: 3px 0px 3px;
 
         .itm_ttl {
             padding: 5px 20px;
@@ -48,10 +49,23 @@
         }
 
         .itm_slctd {
-            padding: 3px 30px;
+            padding-left: 30px;
             background-color: gray;
             color: white;
             font-weight: bold;
+
+            a {
+                padding: 3px 20px;
+                display: block;       
+                text-decoration: none;
+                color: white; 
+            }
+
+            a:hover {
+                color: white;
+                background-color: gray;
+            }
+
         }
 
         ul {

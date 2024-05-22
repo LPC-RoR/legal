@@ -1,4 +1,5 @@
-<div class="mnts">
+<div class="ttl">
+<div class="ttl_ttl">
 	<i class="bi bi-cash-coin"></i> 
 
 	<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
@@ -9,7 +10,7 @@
 		???
 	<% end %>
 </div>
-<div class="lnks">
+<div class="ttl_lnks">
 	<% if objeto.estado == 'tramitación' %>
 		<%= render layout: '0p/collapse/link', locals: {label: 'Pago', objeto: objeto, tooltip: "#{objeto.monto_pagado.blank? ? 'Nuevo' : 'Modificar' }"} do %>
 			 <% if  objeto.monto_pagado.blank? %>
@@ -28,3 +29,4 @@
 	  	</div>
 	<% end %>
 <% end %>
+</div>

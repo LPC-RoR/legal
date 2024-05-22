@@ -5,7 +5,7 @@
 	<div class="ttl_lnks">
 		<% if dog?%>
 			<i class="bi bi-dot"></i>
-			<%= link_to "/servicios/organizacion?oid=#{objeto.id}", title: 'Organización', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+			<%= link_to "/servicios/organizacion?oid=#{@objeto.id}", title: 'Organización', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 				<i class="bi bi-diagram-3"></i>
 			<% end %>
 		<% end %>
