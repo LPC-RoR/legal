@@ -1,25 +1,23 @@
-<div class="age-titulo">
+<div class="ac_nav">
 
-	<div class=" row">
-		<div class="col-1" align='left'>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades?annio_sem=#{@params_anterior}", tooltip: 'Semana anterior'} do %>
-				<i class="bi bi-chevron-double-left"></i>
-			<% end %>
-		</div>
-		<div class="col-10" align='center'>
-			sem <%= @cal_semana.cal_semana %>: 
-			<%= dma(@lunes.dt_fecha) %>
-			<i class="bi bi-arrow-right"></i>
-			<%= dma(@domingo.dt_fecha) %> 
-			<%= render layout: '0p/collapse/link', locals: {label: 'NuevaActividad', objeto: nil, tooltip: 'Nueva Actividad'} do %>
-				<i class="bi bi-plus-circle"></i>
-			<% end %>
-		</div>
-		<div class="col-1" align='right'>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades?annio_sem=#{@params_siguiente}", tooltip: 'Semana siguiente'} do %>
-				<i class="bi bi-chevron-double-right"></i>
-			<% end %>
-		</div>
+	<div class="arrw_lft">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades?annio_sem=#{@params_anterior}", tooltip: 'Semana anterior'} do %>
+			<i class="bi bi-chevron-double-left"></i>
+		<% end %>
+	</div>
+	<div class="smn">
+		sem <%= @cal_semana.cal_semana %>: 
+		<%= dma(@lunes.dt_fecha) %>
+		<i class="bi bi-arrow-right"></i>
+		<%= dma(@domingo.dt_fecha) %> 
+		<%= render layout: '0p/collapse/link', locals: {label: 'NuevaActividad', objeto: nil, tooltip: 'Nueva Actividad'} do %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+	</div>
+	<div class="arrw_rght">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades?annio_sem=#{@params_siguiente}", tooltip: 'Semana siguiente'} do %>
+			<i class="bi bi-chevron-double-right"></i>
+		<% end %>
 	</div>
 
 </div>

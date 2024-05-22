@@ -12,10 +12,10 @@ module CptnMenuLeftHelper
 						'AgeActividad',
 						['Cliente', 'operación'],
 						['Causa', 'operación'],
-						['Asesoria', 'operación'],
+						['Asesoria', 'admin'],
 						['TarAprobacion', 'finanzas'],
 						['TarFactura', 'finanzas'],
-						'DtMateria'
+						['DtMateria', 'admin']
 					]
 				},
 				{

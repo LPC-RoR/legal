@@ -1,0 +1,4 @@
+<%= objeto.causa %>
+<%= render layout: '0p/collapse/display', locals: {label: 'Detalle', objeto: objeto} do %>
+	<%= render partial: 'causas/list/display_detalle', locals: {objeto: objeto} %>
+<% end %>

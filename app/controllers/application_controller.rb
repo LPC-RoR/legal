@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
 	include Capitan
 	include Tablas
+	include Cmenu
 
 
 	include Modelos
@@ -26,6 +27,7 @@ class ApplicationController < ActionController::Base
 	helper_method :nombre_dia, :nombre3_dia, :load_calendario
 	helper_method :check_tipo_usuario, :lm_check_tipo_usuario, :check_crud, :check_k_estados, :check_st_estado
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
+	helper_method :cmenu_clss, :first_estado, :first_selector
 
 	# ************************************************************************** COLECCINES DE ESTADOS
  

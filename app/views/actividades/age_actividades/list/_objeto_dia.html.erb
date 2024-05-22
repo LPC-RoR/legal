@@ -1,19 +1,16 @@
-<div class="dia-box">
-
-	<div class="dia-titulo">
-		<div class="row">
-			<div class="col-6">
-				<small><b class="text-<%=objeto[:dyf]%>"><%= dma(objeto[:dia]) %></b></small>
-			</div>
-			<div class="col-6" align="right">
-				<small><b class="text-<%=objeto[:dyf]%>"><%= nombre_dia(objeto[:dia]) %></b></small>
-			</div>
+<div class="ac_dia">
+	<div class="ttl">
+		<div class="lft">
+			<%= dma(objeto[:dia]) %>
+		</div>
+		<div class="rght">
+			<%= nombre_dia(objeto[:dia]) %>
 		</div>
 	</div>
-
-	<% objeto[:actividades].each do |actividad| %>
-		<% unless actividad.privada and actividad.app_perfil_id != perfil_activo.id %>
-			<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: actividad} %>
-		<% end %>
-	<% end %>
 </div>
+
+<% objeto[:actividades].each do |actividad| %>
+	<% unless actividad.privada and actividad.app_perfil_id != perfil_activo.id %>
+		<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: actividad} %>
+	<% end %>
+<% end %>

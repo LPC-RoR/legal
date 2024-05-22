@@ -1,16 +1,12 @@
-<div class="titulo">
-	<div class="text-info" style='padding-left: 1em; padding-right: 1em;'>
-		<%= render partial: 'clientes/partials/titulo_show', locals: {objeto: @objeto} %>
-		<%= render partial: 'estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
-	</div>
-</div>
+<%= render partial: 'clientes/show/shw_title', locals: {c: 'clientes', objeto: @objeto} %>
+<%= render partial: 'estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 
 <% if @options[:menu] == 'Agenda' %>
 	<!-- Se utiliza para Causa y Cliente -->
 	<%= render partial: 'actividades/partials/tab_agenda', locals: {objeto: @objeto} %>
-<% elsif @options[:menu] == 'Documentos y enlaces' %>
+<% elsif @options[:menu] == 'Documentos' %>
 	<!-- Se utiliza para Causa y Cliente -->
 	<%= render partial: '0capitan/repositorios/tab_documentos_enlaces', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
 <% elsif @options[:menu] == 'Causas' %>
@@ -20,7 +16,5 @@
 <% elsif @options[:menu] == 'Facturas' %>
 	<%= render partial: 'tarifas/tar_facturas/partials/monitor' %>
 <% elsif @options[:menu] == 'Tarifas' %>
-
 	<%= render partial: 'clientes/partials/tab_tarifas', locals: {objeto: @objeto} %>
-
 <% end %>

@@ -12,6 +12,7 @@ class CausasController < ApplicationController
     @tipo = nil
     @estado = params[:e].blank? ? @estados[0] : params[:e]
     @path = "/causas"
+    @link_new = @estado == 'tramitación' ? causas_path : nil
 
 #    if @tipo.blank?
       coleccion = Causa.where(estado: @estado).order(created_at: :desc)
@@ -29,7 +30,7 @@ class CausasController < ApplicationController
 
     set_st_estado(@objeto)
 
-    set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos y enlaces', operacion?]] )
+    set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos', operacion?]] )
 
     case @options[:menu]
     when 'Agenda'
@@ -71,7 +72,7 @@ class CausasController < ApplicationController
       # PRUEBA, aún no se usan
       set_formulas(@objeto)
 
-    when 'Documentos y enlaces'
+    when 'Documentos'
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
       set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)

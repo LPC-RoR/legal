@@ -1,19 +1,15 @@
-<small><small class="text-muted">
-<div class="row">
-	<div class="col-7">
-		<b> <%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver Detalle Causa'} do %>
+<div class="ttl">
+	<div class="ttl_ttl">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver Detalle Causa'} do %>
 				<%= objeto.rit %>
 			<% end %> 
-		</b>
 		<% if (objeto.monto_pagado.blank? or objeto.monto_pagado == 0) and objeto.estado == 'terminada' %>
 			<i class="bi bi-award text-primary"></i> Causa Ganada
 		<% end %>
 	</div>
-	<div class="col-5" align='right'>
-		<% if finanzas? and objeto.facturaciones.any? %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'Facturaciones', objeto: objeto, tooltip: 'Detalle de Pagos'} do %>
-				<i class="bi bi-currency-dollar"></i>
-			<% end %>
+	<div class="ttl_links">
+		<%= render layout: '0p/collapse/link', locals: {label: 'Detalle', objeto: objeto, tooltip: 'Más información'} do %>
+			<i class="bi bi-plus"></i>
 		<% end %>
 		<% if objeto.demanda? and operacion? %>
 			<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
@@ -29,4 +25,3 @@
 		<% end %>
 	</div>
 </div>
-</small></small>

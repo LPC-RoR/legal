@@ -1,31 +1,30 @@
 <% if check_k_estados(objeto) %>
 	<% unless objeto.estado.blank? %>
 
-		<small>
-		<i class="bi bi-tag"></i>
-		<small><b><%= objeto.estado %></b></small>
-
-		<% unless @st_usuario.empty? %>
-			<% @st_usuario.each do |st_estado| %>
-				<i class="bi bi-person"></i>
-				<small>
-  				<%= link_to link_x_btn(objeto, "/cambio_estado?st=#{st_estado}", false) do %>
-					<i class="bi bi-box-arrow-in-right"></i></i> <%= st_estado %>
-  				<% end %>
-  				</small>
-			<% end %>
-		<% end %>
-		<% unless @st_admin.empty? %>
-			<% @st_admin.each do |st_estado| %>
-				<i class="bi bi-person-fill"></i>
-				<small>
-  				<%= link_to link_x_btn(objeto, "/cambio_estado?st=#{st_estado}", false) do %>
-					<i class="bi bi-box-arrow-in-right"></i></i> <%= st_estado %>
-  				<% end %>
-  				</small>
-			<% end %>
-		<% end %>
-		</small>
+		<div class="chng_st">
+			<div class="st">
+				<i class="bi bi-tag"></i>
+				<%= objeto.estado %>
+			</div>
+			<div class="lnks">
+				<% unless @st_usuario.empty? %>
+					<% @st_usuario.each do |st_estado| %>
+						<i class="bi bi-person"></i>
+		  				<%= link_to link_x_btn(objeto, "/cambio_estado?st=#{st_estado}", false) do %>
+							<i class="bi bi-box-arrow-in-right"></i></i> <%= st_estado %>
+		  				<% end %>
+					<% end %>
+				<% end %>
+				<% unless @st_admin.empty? %>
+					<% @st_admin.each do |st_estado| %>
+						<i class="bi bi-person-fill"></i>
+		  				<%= link_to link_x_btn(objeto, "/cambio_estado?st=#{st_estado}", false) do %>
+							<i class="bi bi-box-arrow-in-right"></i></i> <%= st_estado %>
+		  				<% end %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
 
 	<% end %>
 <% end %>

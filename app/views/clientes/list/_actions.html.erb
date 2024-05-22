@@ -1,0 +1,8 @@
+<div class="ttl">
+	<div class="ttl_ttl">
+		<%= render partial: 'clientes/list/nombre_cliente', locals: {objeto: objeto} %>
+	</div>
+	<div class="ttl_links">
+		<%= render partial: 'clientes/list/links', locals: {objeto: objeto} if check_crud(objeto) %>
+	</div>
+</div>

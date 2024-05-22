@@ -11,15 +11,16 @@ class ClientesController < ApplicationController
     @modelo = StModelo.find_by(st_modelo: 'Cliente')
     @estados = @modelo.blank? ? [] : @modelo.st_estados.order(:orden).map {|e_cli| e_cli.st_estado}
     @tipos = Cliente::TIPOS
-    @tipo = params[:t]
-    @estado = (params[:e].blank? and params[:t].blank?) ? @estados[0] : params[:e]
+    v_first = get_first_es('clientes')
+    frst_e = (v_first[0] == 'estado') ? v_first[1] : nil
+    frst_s = (v_first[0] == 'selector') ? v_first[1] : nil
+
+    @estado = (params[:e].blank? and params[:t].blank?) ? frst_e : params[:e]
+    @tipo = (params[:t].blank? and @estado.blank?) ? frst_s : params[:t]
     @path = '/clientes'
 
-    if @tipo.blank?
-      set_tabla('clientes', Cliente.where(estado: @estado).order(:razon_social), true)
-    else
-      set_tabla('clientes', Cliente.where(estado: 'activo', tipo_cliente: @tipo).order(:razon_social), true)
-    end
+    set_tabla('clientes', Cliente.where(estado: @estado).order(:razon_social), true) if @estado.present?
+    set_tabla('clientes', Cliente.where(estado: 'activo', tipo_cliente: @tipo.singularize).order(:razon_social), true) if @tipo.present? and @estado.blank?
 
   end
 
@@ -28,7 +29,7 @@ class ClientesController < ApplicationController
 
     set_st_estado(@objeto)
 
-    set_tab( :menu, [['Agenda', operacion?], ['Documentos y enlaces', operacion?], 'Causas', 'Asesorias', ['Facturas', finanzas?], ['Tarifas', operacion?]] )
+    set_tab( :menu, [['Agenda', operacion?], ['Documentos', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))]] )
 
 #    @coleccion = {}
     if @options[:menu] == 'Agenda'
@@ -37,10 +38,10 @@ class ClientesController < ApplicationController
       set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
       @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)
 
-    elsif @options[:menu] == 'Documentos y enlaces'
+    elsif @options[:menu] == 'Documentos'
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
+#      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
 
       @d_pendientes = @objeto.documentos_pendientes
       @a_pendientes = @objeto.archivos_pendientes

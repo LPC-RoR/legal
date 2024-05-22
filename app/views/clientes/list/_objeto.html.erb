@@ -1,10 +1,4 @@
-<small class="text-muted">
-<div class="row">
-	<div class="col-8 text-info"  style="line-height: 15px;">
-		<%= render partial: 'clientes/list/nombre_cliente', locals: {objeto: objeto} %>
-	</div>
-	<div class="col-4" align='right'>
-		<%= render partial: 'clientes/list/links', locals: {objeto: objeto} if check_crud(objeto) %>
-	</div>
+<div class="cl">
+	<%= render partial: 'clientes/list/actions', locals: {objeto: objeto} %>
+	<%= objeto.razon_social %>
 </div>
-</small>

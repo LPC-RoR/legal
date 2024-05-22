@@ -1,7 +1,5 @@
 <% ['d-age_pendientes', 'w-age_pendientes', 's-age_pendientes', 'n-age_pendientes'].each do |tabla_id| %>
 	<% @coleccion[tabla_id].each do |age_pendiente| %>
-		<div class="shadow p-2 mb-1 rounded">
-			<%= render partial: 'actividades/age_pendientes/list/objeto', locals: {objeto: age_pendiente} %>
-		</div>
+		<%= render partial: 'actividades/age_pendientes/list/objeto', locals: {objeto: age_pendiente} %>
 	<% end %>
 <% end %>

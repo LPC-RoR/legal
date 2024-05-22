@@ -1,4 +1,9 @@
-<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'Causas', title: 'Datos', link_new: nil} %>
+<div class="cs_ttl">
+	<div class="ttl_ttl">
+		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['causas']} %>
+		Datos
+	</div>
+</div>
 
 <% variables.each do |variable| %>
 	<div class="shadow mb-1 bg-white rounded">

@@ -1,0 +1,55 @@
+<% unless cmenu_clss[c][:estados].blank? %>
+	<% cmenu_clss[c][:estados].each do |std| %>
+		<ul>
+			<% if std[:cndcn]%>
+				<% if tipo.blank? and estado == std[:std] %>
+					<div class="itm_slctd">
+						<li>
+							<i class="bi bi-arrow-right"></i>
+							<i class="bi bi-tag"></i>
+							<%= cmenu_clss[c][:items][std[:std]] %>
+						</li>
+					</div>
+				<% else %>
+					<li>
+						<%= link_to "#{path}#{"#{controller_name == c ? '?' : '&'}e=#{std[:std]}" }" do %>
+							<i class="bi bi-tag"></i>
+							<%= cmenu_clss[c][:items][std[:std]] %>
+						<% end %>
+					</li>
+				<% end %>
+			<% end %>
+		</ul>
+	<% end %>
+<% end %>
+
+<% unless cmenu_clss[c][:selectors].blank? %>
+	<% cmenu_clss[c][:selectors].each do |selector| %>
+		<ul>
+			<% if selector.class.name == 'String' or (selector.class.name == 'Array' and selector[1]) %>
+				<% unless tipo.blank? %>
+					<li>
+					<% if (selector.class.name == 'String' and tipo == selector) or (selector.class.name == 'Array' and tipo == selector[0] and selector[1]) %>
+						<div class="itm_slctd">
+						<i class="bi bi-arrow-right"></i>
+						<i class="bi bi-bookmark"></i>
+						<%= selector.class.name == 'String' ? selector : selector[0] %>
+					<% else %>
+						<%= link_to "#{path}?t=#{selector.class.name == 'String' ? selector : selector[0]}" do %>
+							<i class="bi bi-bookmark"></i>
+							<%= selector.class.name == 'String' ? selector : selector[0] %>
+						<% end %>
+					<% end %>
+					</li>
+				<% else %>
+					<li>
+					<%= link_to "#{path}?t=#{selector.class.name == 'String' ? selector : selector[0]}" do %>
+						<i class="bi bi-bookmark"></i>
+						<%= selector.class.name == 'String' ? selector : selector[0] %>
+					<% end %>
+					</li>
+				<% end %>
+			<% end %>
+		</ul>
+	<% end %>	
+<% end %>	

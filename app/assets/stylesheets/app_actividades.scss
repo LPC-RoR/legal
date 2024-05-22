@@ -1,0 +1,265 @@
+/* --clr-[fr sc th ob]-cs */
+
+$ac_fr: #b0578d;
+$ac_sc: #d988b9;
+$ac_th: #facbea;
+$ac_ob: #ffe4d6;
+
+/* TITULO */
+.ac_ttl {
+	margin-bottom: 10px;
+	background-color: $ac_fr;
+	line-height: 40px;
+	color: white;
+    font-family: 'Raleway', sans-serif;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+
+    .ttl_ttl {
+    	padding-left: 2em;
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+    	justify-self: start;
+    }
+
+    .ttl_lnks {
+    	padding-right: 10px;
+	    grid-column-start: 2;
+	    grid-column-end: 3;
+    	justify-self: end;
+
+    	a {
+    		color: white;
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+    }
+}
+
+.ac_nav {
+	margin-bottom: 10px;
+	background-color: $ac_fr;
+	line-height: 40px;
+	color: white;
+    font-family: 'Raleway', sans-serif;
+	display: grid;
+	grid-template-columns: 50px auto 50px;
+    grid-gap: 1em;
+
+    .arrw_lft {
+    	padding-left: 1em;
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+    	justify-self: start;
+    }
+
+    .smn {
+    	padding-right: 10px;
+	    grid-column-start: 2;
+	    grid-column-end: 3;
+    }
+
+    .arrw_rght {
+    	padding-right: 1em;
+	    grid-column-start: 3;
+	    grid-column-end: 4;
+    	justify-self: end;
+    }
+    .arrw_lft,
+    .smn,
+    .arrw_rght {
+    	a {
+    		color: white;
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+    }
+}
+
+/* LAYOUT INDEX */
+
+.ac_lyt_ndx {
+	margin: 10px 0;
+	background-color: white;
+	color: $ac_fr;
+    font-family: 'Raleway', sans-serif;
+	display: grid;
+	grid-template-columns: auto auto;
+    grid-gap: 2px;
+    justify-items: stretch;
+
+    .agnd {
+    	margin: 0;
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+    }
+
+    .pndnts {
+	    grid-column-start: 2;
+	    grid-column-end: 3;
+    }
+
+}
+
+/* LAYOUT OBJETO */
+
+.ac_dia {
+	margin-bottom: 2px;
+	padding: 10px;
+    border: 1px solid $ac_th;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+	background-color: $ac_sc;
+	font-size: 13px;
+
+	.ttl {
+    	font-weight: bold;
+		display: grid;
+		grid-template-columns: auto 100px;
+	    grid-gap: 10px;
+	    justify-items: stretch;
+
+	    .lft {
+		    grid-column-start: 1;
+		    grid-column-end: 2;
+	    	justify-self: start;
+
+	    }
+
+		.rght {
+		    grid-column-start: 2;
+		    grid-column-end: 3;
+	    	justify-self: end;
+	    }
+
+    	a {
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+	}
+
+	.cllps {
+		padding: 14px;
+    	background-color: white;
+    	color: black;
+		font-size: 10px;
+	}
+
+	.cnts_pg {
+		color: blue;
+    	font-weight: bold;
+		display: grid;
+		grid-template-columns: auto 100px;
+	    grid-gap: 10px;
+	    justify-items: stretch;
+
+	    .mnts {
+		    grid-column-start: 1;
+		    grid-column-end: 2;
+	    	justify-self: start;
+
+	    }
+
+	    .lnks {
+			font-size: 10px;
+		    grid-column-start: 2;
+		    grid-column-end: 3;
+	    	justify-self: end;
+	    }
+
+    	a {
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+	}
+}
+
+.ac_bjt {
+	padding: 10px;
+    border: 1px solid $ac_th;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+	background-color: $ac_ob;
+	font-size: 13px;
+
+	.ttl {
+		color: $ac_fr;
+    	font-weight: bold;
+		display: grid;
+		grid-template-columns: auto 100px;
+	    grid-gap: 10px;
+	    justify-items: stretch;
+
+	    .lft {
+		    grid-column-start: 1;
+		    grid-column-end: 2;
+	    	justify-self: start;
+
+	    }
+
+		.rght {
+		    grid-column-start: 2;
+		    grid-column-end: 3;
+	    	justify-self: end;
+	    }
+
+    	a {
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+	}
+
+	.cllps {
+		padding: 14px;
+    	background-color: white;
+    	color: black;
+		font-size: 10px;
+	}
+
+	.cnts_pg {
+		color: blue;
+    	font-weight: bold;
+		display: grid;
+		grid-template-columns: auto 100px;
+	    grid-gap: 10px;
+	    justify-items: stretch;
+
+	    .mnts {
+		    grid-column-start: 1;
+		    grid-column-end: 2;
+	    	justify-self: start;
+
+	    }
+
+	    .lnks {
+			font-size: 10px;
+		    grid-column-start: 2;
+		    grid-column-end: 3;
+	    	justify-self: end;
+	    }
+
+    	a {
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+	}
+}

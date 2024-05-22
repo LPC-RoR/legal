@@ -1,29 +1,24 @@
-<small><small>
-<div class="row text-muted">
-	<div class="col-10">
-		<b>
-		<i class="bi bi-cash-coin"></i> 
+<div class="mnts">
+	<i class="bi bi-cash-coin"></i> 
 
-		<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
-		<i class="bi bi-arrow-right"></i>
-		<% unless objeto.monto_pagado.blank? %>
-			<%= s_pesos(objeto.monto_pagado) %>
-		<% else %> 
-			???
+	<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
+	<i class="bi bi-arrow-right"></i>
+	<% unless objeto.monto_pagado.blank? %>
+		<%= s_pesos(objeto.monto_pagado) %>
+	<% else %> 
+		???
+	<% end %>
+</div>
+<div class="lnks">
+	<% if objeto.estado == 'tramitación' %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Pago', objeto: objeto, tooltip: "#{objeto.monto_pagado.blank? ? 'Nuevo' : 'Modificar' }"} do %>
+			 <% if  objeto.monto_pagado.blank? %>
+			 	<i class="bi bi-plus-circle"></i>
+			 <% else %>
+			 	<i class="bi bi-pencil"></i>
+			 <% end %>
 		<% end %>
-		</b>
-	</div>
-	<div class="col-2" align='right'>
-		<% if objeto.estado == 'tramitación' %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'Pago', objeto: objeto, tooltip: "#{objeto.monto_pagado.blank? ? 'Nuevo' : 'Modificar' }"} do %>
-				 <% if  objeto.monto_pagado.blank? %>
-				 	<i class="bi bi-plus-circle"></i>
-				 <% else %>
-				 	<i class="bi bi-pencil"></i>
-				 <% end %>
-			<% end %>
-		<% end %>
-	</div>
+	<% end %>
 </div>
 
 <% if objeto.estado == 'tramitación' %>
@@ -33,5 +28,3 @@
 	  	</div>
 	<% end %>
 <% end %>
-
-</small></small>

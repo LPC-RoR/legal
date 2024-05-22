@@ -1,0 +1,144 @@
+$rp_bg: black;
+$rp_brd: #d5d8dc;
+$rp_text: #5b2c6f;
+$rp_obj: #f9ebea;
+$rp_dia: #e8daef;
+
+/* TITULO */
+.rp_ttl {
+	margin-bottom: 10px;
+	background-color: $rp_bg;
+	line-height: 40px;
+	color: white;
+    font-family: 'Raleway', sans-serif;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+
+    .ttl_ttl {
+    	padding-left: 2em;
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+    	justify-self: start;
+    }
+
+    .ttl_lnks {
+    	padding-right: 10px;
+	    grid-column-start: 2;
+	    grid-column-end: 3;
+    	justify-self: end;
+
+    	a {
+    		color: white;
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+    }
+}
+
+/* LAYOUT INDEX */
+
+.rp_lyt_ndx {
+	margin: 10px 0;
+	background-color: white;
+	color: $rp_text;
+    font-family: 'Raleway', sans-serif;
+	display: grid;
+	grid-template-columns: auto auto;
+    grid-gap: 2px;
+    justify-items: stretch;
+
+    .bjts {
+    	margin: 0;
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+    }
+
+    .menu {
+	    grid-column-start: 2;
+	    grid-column-end: 3;
+    }
+
+}
+
+/* LAYOUT OBJETO */
+
+.ac_bjt {
+	padding: 10px;
+    border: 1px solid $rp_brd;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+	background-color: $rp_obj;
+	font-size: 13px;
+
+	.ttl {
+		color: $rp_text;
+    	font-weight: bold;
+		display: grid;
+		grid-template-columns: auto 100px;
+	    grid-gap: 10px;
+	    justify-items: stretch;
+
+	    .lft {
+		    grid-column-start: 1;
+		    grid-column-end: 2;
+	    	justify-self: start;
+
+	    }
+
+		.rght {
+		    grid-column-start: 2;
+		    grid-column-end: 3;
+	    	justify-self: end;
+	    }
+
+    	a {
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+	}
+
+	.cllps {
+		padding: 14px;
+    	background-color: white;
+    	color: black;
+		font-size: 10px;
+	}
+
+	.cnts_pg {
+		color: blue;
+    	font-weight: bold;
+		display: grid;
+		grid-template-columns: auto 100px;
+	    grid-gap: 10px;
+	    justify-items: stretch;
+
+	    .mnts {
+		    grid-column-start: 1;
+		    grid-column-end: 2;
+	    	justify-self: start;
+
+	    }
+
+	    .lnks {
+			font-size: 10px;
+		    grid-column-start: 2;
+		    grid-column-end: 3;
+	    	justify-self: end;
+	    }
+
+    	a {
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+	}
+}

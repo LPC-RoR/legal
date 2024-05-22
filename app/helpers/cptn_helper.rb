@@ -43,6 +43,29 @@ module CptnHelper
 		end
 	end
 
+# ******************************************************************** ENTIDADES
+
+	# CLASE para c_ttl desde un CONTROLADOR
+	def c_ttl_clss
+		{
+			'causas' => {
+				ttl: 'cs_ttl'
+			},
+			'clientes' => {
+				ttl: 'cl_ttl'
+			}
+		}
+	end 
+
+	# CLASE para INDEX de un controlador
+	def c_ndx_clss
+		{
+			'causas' => 'cs_lyt_ndx',
+			'clientes' => 'cl_lyt_ndx',
+			'age_actividades' => 'ac_lyt_ndx'
+		}
+	end
+
 # ******************************************************************** CONSTANTES 
 
 	#Cambiar paulatinamente por cfg_color

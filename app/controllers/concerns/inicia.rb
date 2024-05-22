@@ -1,4 +1,3 @@
-
 module Inicia
 	extend ActiveSupport::Concern
 

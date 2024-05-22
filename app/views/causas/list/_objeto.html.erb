@@ -1,9 +1,11 @@
-<%= render partial: 'causas/list/line_rit_crud', locals: {objeto: objeto} %>
+<div class="cs">
+	<%= render partial: 'causas/list/actions', locals: {objeto: objeto} %>
 
-<div style='line-height: 15px;'>
-	<%= render partial: 'causas/list/line_demanda', locals: {objeto: objeto} %>
-</div>
-<div style='line-height: 13px; padding-left: 1em;'>
-	<%= render partial: 'causas/list/line_info', locals: {objeto: objeto} %>
-	<%= render partial: 'causas/list/line_monto', locals: {objeto: objeto} %>
+	<div class="dtll">
+		<%= render partial: 'causas/list/detalle', locals: {objeto: objeto} %>
+	</div>
+
+	<div class="cnts_pg">
+		<%= render partial: 'causas/list/line_monto', locals: {objeto: objeto} %>
+	</div>
 </div>

@@ -1,0 +1,3 @@
+<% coleccion.each do |objeto| %>
+	<%= render partial: partial_name(objeto.class.name.tableize, 'list', "#{tipo == 'list' ? 'lobjeto' : 'objeto'}") , locals: {objeto: objeto} %>
+<% end %>
