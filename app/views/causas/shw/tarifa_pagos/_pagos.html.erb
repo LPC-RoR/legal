@@ -1,4 +1,13 @@
-<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturaciones', title: 'Pagos de la causa', link_new: nil} %>
+<div class="cs_ttl">
+
+	<div class="ttl_ttl">
+		<i class="bi bi-<%=controller_icon['tar_facturaciones']%>"></i> 
+		Pagos de la causa
+	</div>
+	<div class="ttl_lnks">
+	</div>
+
+</div>
 
 <% unless objeto.tar_tarifa.blank? %>
 	<% unless @coleccion['tar_facturaciones'].empty? %>

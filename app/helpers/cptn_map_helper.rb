@@ -27,11 +27,8 @@ module CptnMapHelper
 		else
 			rutas = Rails.application.routes.routes.map {|route| route.defaults[:controller]}.uniq.compact
 			scopes = rutas.map {|scope| scope if scope.split('/').include?(controller)}.compact
-			#coincidencias = Rails.application.routes.routes.map do |route|
-			#  route.defaults[:controller]
-			#end.uniq.compact.map {|scope| scope if scope.split('/').include?(controller)}.compact
+			pick_scope(scopes)
 		end
-		pick_scope(scopes)
 	end
 
 	# actual, se usa para no repetir código del subdirectorio

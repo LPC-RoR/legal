@@ -11,11 +11,6 @@ module Config
 			lyt_o_menu: true,
 			lyt_o_bann: true,
 			lyt_navbar: false,
-			# Padding de los elementos del layout
-			lyt_o_menu_padd: 3,
-			lyt_o_bann_padd: 3,
-			lyt_navbar_padd: 3,
-			lyt_body_padd: 3,
 			# Número de decimales
 			pesos: 0,
 			uf: 2,

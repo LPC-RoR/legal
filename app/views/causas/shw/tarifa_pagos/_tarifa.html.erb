@@ -1,4 +1,21 @@
-<%= render partial: 'causas/partials/tarifa_pagos/titulo_tarifa', locals: {objeto: objeto} %>
+<div class="cs_ttl">
+
+	<div class="ttl_ttl">
+		<i class="bi bi-<%=controller_icon['tar_tarifas']%>"></i> <%= objeto.tar_tarifa.blank? ? 'Tarifa' : 'Tarifa asignada' %>
+	</div>
+	<div class="ttl_lnks">
+		<%= render layout: '0p/collapse/link', locals: {label: 'AsignaTarifa', objeto: nil, tooltip: 'Asigna tarifa'} do %>
+			<small>
+			<% if objeto.tar_tarifa.blank? %>
+				<i class="bi bi-plus-circle"></i>
+			<% else %>
+				<i class="bi bi-pencil"></i>
+			<% end %>
+			</small>
+		<% end %>
+	</div>
+
+</div>
 
 <%= render layout: '0p/collapse/display', locals: {label: 'AsignaTarifa', objeto: nil, tooltip: 'Tarifas'} do %>
 	<div class="objeto-box">

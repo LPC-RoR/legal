@@ -1,4 +1,13 @@
-<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_pagos', title: 'Aprobación de pagos', link_new: nil } %>
+<div class="cs_ttl">
+
+	<div class="ttl_ttl">
+		<i class="bi bi-<%=controller_icon['tar_pagos']%>"></i> 
+		Aprobación de pagos
+	</div>
+	<div class="ttl_lnks">
+	</div>
+
+</div>
 
 <% unless objeto.tar_tarifa.blank? or objeto.tar_tarifa.tar_pagos.empty? %>
 	<% objeto.tar_tarifa.tar_pagos.order(:orden).each do |pago| %>
