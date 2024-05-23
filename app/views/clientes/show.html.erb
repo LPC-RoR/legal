@@ -1,20 +1,19 @@
-<%= render partial: 'clientes/show/shw_title', locals: {c: 'clientes', objeto: @objeto} %>
+<%= render partial: 'clientes/shw/ttl_cl', locals: {c: 'clientes', objeto: @objeto} %>
 <%= render partial: 'estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 
-<% if @options[:menu] == 'Agenda' %>
-	<!-- Se utiliza para Causa y Cliente -->
-	<%= render partial: 'actividades/partials/tab_agenda', locals: {objeto: @objeto} %>
-<% elsif @options[:menu] == 'Documentos' %>
-	<!-- Se utiliza para Causa y Cliente -->
-	<%= render partial: '0capitan/repositorios/tab_documentos_enlaces', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
-<% elsif @options[:menu] == 'Causas' %>
-	<%= render partial: 'causas/partials/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
-<% elsif @options[:menu] == 'Asesorias' %>
-	<%= render partial: 'asesorias/partials/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
-<% elsif @options[:menu] == 'Facturas' %>
-	<%= render partial: 'tarifas/tar_facturas/partials/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
-<% elsif @options[:menu] == 'Tarifas' %>
-	<%= render partial: 'clientes/partials/tab_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
+<% case @options[:menu] %>
+<% when 'Agenda' %>
+	<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto} %>
+<% when 'Causas' %>
+	<%= render partial: 'causas/ndx/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+<% when 'Asesorias' %>
+	<%= render partial: 'asesorias/ndx/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+<% when 'Facturas' %>
+	<%= render partial: 'tarifas/tar_facturas/ndx/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+<% when 'Tarifas' %>
+	<%= render partial: 'clientes/shw/ndx_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
+<% when 'Documentos' %>
+	<%= render partial: 'repositorios/shr/ndx_docs', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
 <% end %>

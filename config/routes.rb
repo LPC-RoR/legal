@@ -1,29 +1,7 @@
 Rails.application.routes.draw do
 
   resources :cfg_valores
-  resources :causa_archivos do 
-    match :arriba, via: :get, on: :member
-    match :abajo, via: :get, on: :member
-    match :eliminar, via: :get, on: :member
-    match :set_seleccionado, via: :get, on: :member
-  end 
-  resources :hecho_archivos do 
-    match :eliminar, via: :get, on: :member
-    match :set_establece, via: :get, on: :member
-  end
   resources :valores
-  resources :hechos do
-    match :arriba, via: :get, on: :member
-    match :abajo, via: :get, on: :member
-    match :nuevo_archivo, via: :post, on: :member
-    match :sel_archivo, via: :get, on: :member
-    match :set_evaluacion, via: :get, on: :member
-  end
-  resources :temas do
-    resources :hechos
-    match :arriba, via: :get, on: :member
-    match :abajo, via: :get, on: :member
-  end
   resources :tipo_asesorias
   resources :regiones do
     resources :comunas
@@ -86,7 +64,29 @@ Rails.application.routes.draw do
 # SCOPES *********************************************************
 
   # Usado para poner las entidades necesarias para mantener Causa
-  scope module: 'mdl_causa' do
+  scope module: 'csc'   do
+    resources :temas do
+      resources :hechos
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
+    resources :hechos do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+      match :nuevo_archivo, via: :post, on: :member
+      match :sel_archivo, via: :get, on: :member
+      match :set_evaluacion, via: :get, on: :member
+    end
+    resources :hecho_archivos do 
+      match :eliminar, via: :get, on: :member
+      match :set_establece, via: :get, on: :member
+    end
+    resources :causa_archivos do 
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+      match :eliminar, via: :get, on: :member
+      match :set_seleccionado, via: :get, on: :member
+    end 
   end
 
   scope module: 'calendario' do

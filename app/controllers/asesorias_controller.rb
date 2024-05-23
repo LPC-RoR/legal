@@ -6,7 +6,7 @@ class AsesoriasController < ApplicationController
     @estados = StModelo.find_by(st_modelo: 'Asesoria').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
     @tipos = ['Multas', 'Redacciones']
     @tipo = params[:t].blank? ? nil : params[:t]
-    @estado = params[:e].blank? ? @estados[0] : params[:e]
+    @estado = params[:e].blank? ? (@tipo.blank? ? @estados[0] : nil) : params[:e]
     @path = "/asesorias?"
 
     unless @tipo.blank?
@@ -24,12 +24,12 @@ class AsesoriasController < ApplicationController
 
   # GET /asesorias/1 or /asesorias/1.json
   def show
-      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-      set_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
-      set_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
-      set_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
+    set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+    set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+    set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
+    set_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
+    set_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
+    set_tabla('tarea-age_actividades', @objeto.actividades.where(tipo: 'Tarea').order(fecha: :desc), false)
   end
 
   # GET /asesorias/new

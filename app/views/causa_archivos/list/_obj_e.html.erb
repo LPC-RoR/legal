@@ -1,8 +1,0 @@
-<small><small>
-	<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto.app_archivo} %>
-	<% if objeto.app_archivo.archivo.blank? and objeto.app_archivo.hechos.empty? %>
-		<%= link_to "/causa_archivos/#{objeto.id}/eliminar" do %>
-			<i class="bi bi-trash"></i>
-		<% end %>
-	<% end %>
-</small></small>

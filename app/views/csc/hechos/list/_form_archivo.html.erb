@@ -1,0 +1,16 @@
+<div class="g_cllps">
+	<h6>Agregar archivo</h6>
+	<%= form_for :nuevo_archivo, url: "/hechos/#{objeto.id}/nuevo_archivo" do |form| %>
+
+		<%= render partial: '0p/form_fields/label', locals: {label: 'Nombre del archivo', v: true} %>
+		<div class="form-inline">
+		<%= render partial: '0p/form_fields/text', locals: {form: form, token: :nombre} %>
+		
+		<button type="submit" class="btn btn-info">
+		  <i class="bi bi-caret-right"></i>
+		</button>
+		</div>
+		<small><small>Nombre debe ser único para la causa.</br>Si no está seguro que el archivo existe para esta causa verifique en seleccionar.</small></small></br>
+
+	<% end  %>
+</div>

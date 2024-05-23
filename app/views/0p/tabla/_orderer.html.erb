@@ -1,10 +1,10 @@
 <% unless objeto.orden == 1 %>
-	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/arriba", class: 'sb-link' do %>
+	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/#{objeto.class.name.tableize}/#{objeto.id}/arriba", tooltip: 'Mover arriba'} do %>
 		<i class="bi bi-arrow-up-short"></i>
 	<% end %>
 <% end %>
 <% unless objeto.orden == objeto.n_list %>
-	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/abajo", class: 'sb-link' do %>
+	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/#{objeto.class.name.tableize}/#{objeto.id}/abajo", tooltip: 'Mover abajo'} do %>
 		<i class="bi bi-arrow-down-short"></i>
 	<% end %>
 <% end %>

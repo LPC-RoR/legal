@@ -3,7 +3,7 @@ class CausaArchivo < ApplicationRecord
 	belongs_to :app_archivo
 
 	def text_color
-		self.seleccionado == nil ? 'dark' : ( self.seleccionado == true ? 'info' : 'danger' )
+		[nil, 'nil'].include?(self.seleccionado) ? 'dark' : ( self.seleccionado == true ? 'info' : 'danger' )
 	end
 
 	# ------------------------------------ ORDER LIST

@@ -1,0 +1,16 @@
+<%= render partial: 'asesorias/ndx/ttl_as' %>
+
+<div class="doscpx_w">
+  <div class="lft">
+
+    <%= render partial: '0p/cmenu/cmenu', locals: { c: 'asesorias', tipo: tipo, estado: estado, path: path} %>
+
+  </div>
+  <div class="rght">
+
+    <%= render partial: 'asesorias/ndx/ttl_tb', locals: {tipo: tipo, estado: estado} %>
+
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'asesorias'} %>
+
+  </div>
+</div>

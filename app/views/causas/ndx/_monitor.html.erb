@@ -1,0 +1,11 @@
+<%= render partial: 'causas/ndx/ttl_cs' %>
+
+<div class="doscpx_w">
+  <div class="lft">
+    <%= render partial: '0p/cmenu/cmenu', locals: { c: 'causas', tipo: tipo, estado: estado, path: path} %>
+  </div>
+  <div class="rght">
+    <%= render partial: 'causas/ndx/ttl_tb', locals: {estado: estado, first_st: estados[0]} %>
+    <%= render partial: '0p/tabla/tabla2', locals: {c: 'causas'} %>
+  </div>
+</div>

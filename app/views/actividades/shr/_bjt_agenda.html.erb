@@ -1,0 +1,28 @@
+<%= render partial: 'actividades/shr/ttl_ac' %>
+
+<% if objeto.class.name == 'Causa' and operacion? %>
+	<% unless @audiencias_pendientes.empty? %>
+		<% @audiencias_pendientes.each do |pendiente| %>
+			<%= render layout: '0p/collapse/display', locals: {label: pendiente.split(' ').join('_'), objeto: nil} do %>
+				<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: 'A', causa_id: objeto.id, cu: 'c', audiencia: pendiente } %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
+	<% unless ['Reunión', 'Tarea'].include?(tipo) and finanzas? %>
+		<%= render layout: '0p/collapse/display', locals: {label: tipo, objeto: nil} do %>
+			<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: tipo[0], causa_id: objeto.id, cu: 'c', audiencia: nil } %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<div class="mn_rght_w">
+	<div class="lft">
+		<%= render partial: '0p/tabla/tabla2', locals: {c: 'age_actividades'} %>
+	</div>
+	<div class="rght">
+		<%= render partial: 'actividades/shr/add_box', locals: {objeto: objeto} %>
+	</div>
+</div>

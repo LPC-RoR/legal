@@ -1,0 +1,25 @@
+<div class="rp_ttl">
+	<div class="ttl_ttl">
+		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['app_documentos']} %>
+		Documentos y archivos
+	</div>
+	<div class="ttl_links"></div>
+</div>
+
+<div class="mn_rght_w">
+	<div class="lft">
+
+		<% unless @coleccion['app_documentos'].empty? and @coleccion['app_archivos'].empty? %>
+			<div class="shadow p-3 mb-3 bg-white rounded">
+
+				<%= render partial: 'repositorios/app_documentos/partials/list', locals: {coleccion: @coleccion['app_documentos']} %>
+				<%= render partial: 'repositorios/app_archivos/partials/list', locals: {coleccion: @coleccion['app_archivos']} %>
+				<%#= render partial: 'recursos/app_enlaces/partials/list', locals: {coleccion: @coleccion['app_enlaces']} %>
+
+			</div>
+		<% end %>
+	</div>
+	<div class="rght">
+		<%= render partial: 'repositorios/shr/add_box', locals: {objeto: objeto, d_pendientes: d_pendientes, a_pendientes: a_pendientes} %>
+	</div>
+</div>

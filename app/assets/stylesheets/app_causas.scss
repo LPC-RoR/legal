@@ -9,6 +9,7 @@ $cs_ob: #e1f7f5;
 .cs_ttl {
 	margin-bottom: 10px;
 	background-color: $cs_fr;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
 	line-height: 40px;
 	color: white;
     font-family: 'Raleway', sans-serif;
@@ -39,6 +40,111 @@ $cs_ob: #e1f7f5;
     	}
     }
 
+}
+
+.tm {
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+	.tm_ttl {
+		background-color: $cs_sc;
+		line-height: 40px;
+		color: white;
+	    font-family: 'Raleway', sans-serif;
+	    font-size: 15px;
+		display: grid;
+		grid-template-columns: auto auto;
+	    grid-gap: 1em;
+
+	    .ttl_ttl {
+	    	padding-left: 1em;
+		    grid-column-start: 1;
+		    grid-column-end: 2;
+	    	justify-self: start;
+	    }
+
+	    .ttl_lnks {
+	    	padding-right: 1em;
+		    grid-column-start: 2;
+		    grid-column-end: 3;
+	    	justify-self: end;
+
+	    	a {
+	    		color: white;
+	            text-decoration: none;
+	    	}
+
+	    	a:hover {
+	    		color: gray;
+	    	}
+	    }
+	}
+}
+
+.innr_hc {
+	background-color: $cs_th;
+	line-height: 30px;
+	color: $cs_sc;
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+	display: grid;
+	grid-template-columns: auto auto;
+    grid-gap: 1em;
+
+    .ttl_ttl {
+    	padding-left: 2em;
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+    	justify-self: start;
+    }
+
+    .ttl_lnks {
+    	padding-right: 1em;
+	    grid-column-start: 2;
+	    grid-column-end: 3;
+    	justify-self: end;
+
+    	a {
+    		color: $cs_sc;
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+    }
+}
+
+.innr_rchv {
+	background-color: $cs_ob;
+	line-height: 20px;
+	color: $cs_sc;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+	display: grid;
+	grid-template-columns: auto auto;
+    grid-gap: 1em;
+
+    .ttl_ttl {
+    	padding-left: 3em;
+	    grid-column-start: 1;
+	    grid-column-end: 2;
+    	justify-self: start;
+    }
+
+    .ttl_lnks {
+    	padding-right: 1em;
+	    grid-column-start: 2;
+	    grid-column-end: 3;
+    	justify-self: end;
+
+    	a {
+    		color: $cs_sc;
+            text-decoration: none;
+    	}
+
+    	a:hover {
+    		color: gray;
+    	}
+    }
 }
 
 /* LAYOUT OBJETO */

@@ -60,7 +60,7 @@ class ClientesController < ApplicationController
       @estados = StModelo.find_by(st_modelo: 'Asesoria').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
       @tipos = ['Multas', 'Redacciones']
       @tipo = params[:t].blank? ? nil : params[:t]
-      @estado = params[:e].blank? ? @estados[0] : params[:e]
+      @estado = params[:e].blank? ? (@tipo.blank? ? @estados[0] : nil) : params[:e]
       @path = "/clientes/#{@objeto.id}?html_options[menu]=Asesorias&"
 
       unless @tipo.blank?

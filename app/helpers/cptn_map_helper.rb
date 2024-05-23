@@ -6,18 +6,32 @@ module CptnMapHelper
 
 	## ------------------------------------------------------- PARTIALS
 
-	def controller_match(controller, scope)
-		controller == scope or ( scope.split('/').length == 2 and controller == scope.split('/')[1] )
+	def pick_scope(v_scope)
+		if v_scope.blank?
+			nil
+		else
+			case v_scope.length
+			when 0
+				nil
+			when 1
+				v_scope[0]
+			else
+				v_scope[0].split('/').length == 2 ? v_scope[0] : v_scope[1]
+			end
+		end
 	end
 
 	def with_scope(controller)
 		if ['layouts', '0capitan', '0p'].include?(controller)
 			controller
 		else
-			coincidencias = Rails.application.routes.routes.map do |route|
-			  route.defaults[:controller]
-			end.uniq.compact.map {|scope| scope if controller_match(controller, scope)}.compact[0]
+			rutas = Rails.application.routes.routes.map {|route| route.defaults[:controller]}.uniq.compact
+			scopes = rutas.map {|scope| scope if scope.split('/').include?(controller)}.compact
+			#coincidencias = Rails.application.routes.routes.map do |route|
+			#  route.defaults[:controller]
+			#end.uniq.compact.map {|scope| scope if scope.split('/').include?(controller)}.compact
 		end
+		pick_scope(scopes)
 	end
 
 	# actual, se usa para no repetir código del subdirectorio

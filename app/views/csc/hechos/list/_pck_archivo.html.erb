@@ -1,0 +1,12 @@
+<div class="g_cllps">
+	<h6>Archivos disponibles para este hecho</h6>
+	<% objeto.causa.app_archivos.order(:app_archivos).each do |archivo| %>
+		<% unless objeto.app_archivos.ids.include?(archivo.id) %>
+			<i class="bi bi-dot"></i> 
+			<%= link_to "/hechos/#{objeto.id}/sel_archivo?aid=#{archivo.id}" do %>
+				<%= archivo.app_archivo %>
+			<% end %>
+		<% end %>
+		</br>
+	<% end %>
+</div>

@@ -11,13 +11,14 @@ class Causa < ApplicationRecord
 
 	belongs_to :tipo_causa
 
-	has_many :antecedentes
 	has_many :temas
+	has_many :hechos
 
 	has_many :causa_archivos
 	has_many :app_archivos, through: :causa_archivos
 
-	has_many :hechos
+
+	has_many :antecedentes
 
     validates_presence_of :causa, :rit
 
