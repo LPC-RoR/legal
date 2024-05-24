@@ -1,0 +1,36 @@
+<div class="cs_ttl">
+	<div class="ttl_ttl">
+		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['causas']} %>
+		Datos
+	</div>
+</div>
+
+<!-- DATOS -->
+<div class="mid_w">
+
+	<% variables.each do |variable| %>
+
+			<div class="lbjt_box">
+				<%= render layout: '0p/collapse/link', locals: {label: 'FormValor', objeto: variable, tooltip: 'ingresa/modifica'} do %>
+						<%= variable.variable %> 
+						<% unless variable.valor_variable(objeto).blank? %>
+							<%= link_to "/causas/#{objeto.id}/elimina_valor?vid=#{variable.id}", title: "Eliminar #{variable.variable}", 'data-toggle' => 'tooltip', 'data-placement' => 'right'	do %>
+								<small><i class="bi bi-trash"></i></small> 
+							<% end %>
+						<% end %>
+				<% end %> </br>
+
+
+				<small>
+					<div style='padding-left: 1em;'>
+					<%= render partial: 'variables/list/valor_variable', locals: {objeto: variable, causa: objeto} %>
+					</div>
+				</small>
+
+				<%= render layout: '0p/collapse/display', locals: {label: 'FormValor', objeto: variable} do %> 
+				  	<%= render partial: 'causas/partials/datos_cuantia/form_valor', locals: {causa: objeto, variable: variable} %>
+				<% end %>
+			</div>
+
+	<% end %>
+</div>
