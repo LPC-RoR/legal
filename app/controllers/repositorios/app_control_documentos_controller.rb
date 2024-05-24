@@ -26,7 +26,7 @@ class Repositorios::AppAppControlDocumentosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Control documento was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Documento controlado ha sido exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class Repositorios::AppAppControlDocumentosController < ApplicationController
     respond_to do |format|
       if @objeto.update(control_documento_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Control documento was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Documento controlado ha sido exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class Repositorios::AppAppControlDocumentosController < ApplicationController
     @objeto.destroy
 
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Control documento was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Documento controlado ha sido exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

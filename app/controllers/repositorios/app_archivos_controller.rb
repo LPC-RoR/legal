@@ -70,9 +70,9 @@ class Repositorios::AppArchivosController < ApplicationController
       elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.owner.class.name)
         @redireccion = @objeto.owner
       elsif ['AppDocumento'].include?(@objeto.owner.class.name)
-        @redireccion = "/#{@objeto.owner.objeto_destino.class.name.tableize.downcase}/#{@objeto.owner.objeto_destino.id}?html_options[menu]=Documentos+y+enlaces"
+        @redireccion = "/#{@objeto.owner.objeto_destino.class.name.tableize.downcase}/#{@objeto.owner.objeto_destino.id}?html_options[menu]=Documentos"
       elsif ['Causa', 'Cliente'].include?(@objeto.objeto_destino.class.name)
-        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos+y+enlaces"
+        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos"
       else
         @redireccion = app_repositorios_path
       end
