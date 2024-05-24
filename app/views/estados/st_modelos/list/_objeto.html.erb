@@ -48,7 +48,7 @@
 
 		<div class="col-lg-6">
 			<p class="text-info">
-				<i class="bi bi-tag"></i> Control Documentos
+				<i class="bi bi-tag"></i> Documentos controlados
 				<% unless objeto.st_modelo == 'Causa' %>
 					<i class="bi bi-dot"></i> 
 				<%= link_to "/control_documentos//new?clss=#{objeto.class.name}&oid=#{objeto.id}" do %>

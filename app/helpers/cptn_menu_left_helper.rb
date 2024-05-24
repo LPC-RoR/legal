@@ -82,7 +82,7 @@ module CptnMenuLeftHelper
 	end
 
 	def tablas_controllers
-		['aut_tipo_usuarios', 'app_recursos', 'app_archivos', 'clientes', 'causas', 'asesorias', 'tablas', 'age_actividades', 'age_usuarios', 'age_pendientes', 'hechos', 'temas', 'hecho_archivos']
+		['aut_tipo_usuarios', 'app_recursos', 'app_archivos', 'control_documentos', 'clientes', 'causas', 'asesorias', 'tablas', 'age_actividades', 'age_usuarios', 'age_pendientes', 'hechos', 'temas', 'hecho_archivos', 'tar_valor_cuantias']
 	end
 
 	def left_menu_actions?

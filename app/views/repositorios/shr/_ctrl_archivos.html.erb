@@ -1,0 +1,19 @@
+<h6 class="text-info" align="center"><i class="bi bi-<%=controller_icon['app_archivos']%>"></i></h6>
+<small>
+
+<% pendientes.each do |a_pendiente| %>
+	<!-- Prueba de cambio de base a Contro DOcumento -->
+	<% if check_tipo_usuario(a_pendiente.visible_para) %>
+		<i class="bi bi-arrow-left"></i>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/control_documentos/#{a_pendiente.id}/crea_documento_controlado?oclss=#{objeto.class.name}&oid=#{objeto.id}", tooltip: "Crea #{a_pendiente.nombre} (vacío)"} do %>
+			<%= a_pendiente.nombre %>
+		<% end %>
+		</br>
+	<% end %>
+<% end %>
+
+<i class="bi bi-plus-circle"></i>
+<%= render layout: '0p/layout/tooltip_link', locals: {link: "/app_archivos/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}", tooltip: 'Crea archivo vacío'} do %>
+	archivo
+<% end %>
+</small>

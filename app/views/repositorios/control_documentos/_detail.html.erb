@@ -8,6 +8,9 @@
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Control', v: true } %>
 <%= render partial: '0p/form_fields/select', locals: { form: form, token: :control, sel_list: ControlDocumento::CONTROLES, label: 'Control' } %>
 
+<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Visible para:', v: true } %>
+<%= render partial: '0p/form_fields/select', locals: { form: form, token: :visible_para, sel_list: tipos_usuario, label: 'Visible' } %>
+
 <%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nombre', v: true } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :nombre } %>
 

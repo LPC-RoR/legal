@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_14_175112) do
+ActiveRecord::Schema.define(version: 2024_05_23_231759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -631,9 +631,11 @@ ActiveRecord::Schema.define(version: 2024_05_14_175112) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "orden"
+    t.string "visible_para"
     t.index ["orden"], name: "index_control_documentos_on_orden"
     t.index ["owner_class"], name: "index_control_documentos_on_owner_class"
     t.index ["owner_id"], name: "index_control_documentos_on_owner_id"
+    t.index ["visible_para"], name: "index_control_documentos_on_visible_para"
   end
 
   create_table "dt_criterio_multas", force: :cascade do |t|

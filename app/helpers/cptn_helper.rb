@@ -90,6 +90,10 @@ module CptnHelper
 		opts
 	end
 
+	def tipos_usuario
+		AutTipoUsuario.all.order(:aut_tipo_usuario).map {|atu| atu.aut_tipo_usuario}
+	end
+
     def archivos_controlados_disponibles
     	st_modelo = StModelo.find_by(st_modelo: 'Hecho')
     	st_modelo.blank? ? [] : st_modelo.control_documentos.order(:orden)
