@@ -1,3 +1,13 @@
-<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'st_modelos', title: 'Personalización', link_new: '/st_modelos/new'} %>
+<div class="rp_ttl">
+	<div class="ttl_ttl">
+		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['st_modelos']} %>
+		Personalización de modelos
+	</div>
+	<div class="ttl_lnks">
+		<%=  render layout: '0p/layout/tooltip_link', locals: {link: '/st_modelos/new', tooltip: 'Agrega modelo'} do %>
+			<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
+		<% end %>
+	</div>
+</div>
 
 <%= render partial: '0p/tabla/tabla', locals: {c: 'st_modelos'} %>

@@ -43,16 +43,16 @@ class Repositorios::ControlDocumentosController < ApplicationController
     owner = params[:oclss].constantize.find(params[:oid])
     unless owner.blank? 
       if @objeto.tipo == 'Documento'
-        AppDocumento.create(owner_class: owner.class.name, owner_id: owner.id, app_documento: @objeto.nombre, existencia: @objeto.control, documento_control: true)
+        AppDocumento.create(owner_class: owner.class.name, owner_id: owner.id, app_documento: @objeto.nombre, existencia: @objeto.control, documento_control: true, visible_para: @objeto.visible_para)
       else
-        AppArchivo.create(owner_class: owner.class.name, owner_id: owner.id, app_archivo: @objeto.nombre, control: @objeto.control, documento_control: true)
+        AppArchivo.create(owner_class: owner.class.name, owner_id: owner.id, app_archivo: @objeto.nombre, control: @objeto.control, documento_control: true, visible_para: @objeto.visible_para)
       end  
     end
 
     if params[:oclss] == 'Causa'
-      redirect_to "/causas/#{owner.id}?html_options[menu]=Documentos+y+enlaces"
+      redirect_to "/causas/#{owner.id}?html_options[menu]=Documentos"
     elsif params[:oclss] == 'Cliente'
-      redirect_to "/clientes/#{owner.id}?html_options[menu]=Documentos+y+enlaces"
+      redirect_to "/clientes/#{owner.id}?html_options[menu]=Documentos"
     end
   end
 

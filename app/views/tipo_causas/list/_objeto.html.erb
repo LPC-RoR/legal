@@ -38,9 +38,7 @@
 	<small>
 	<div style='padding-left: 1em;'>
 		<% objeto.control_documentos.order(:orden).each do |c_doc| %>
-			<div class="row">
-			<%= render partial: 'repositorios/control_documentos/list/lobjeto', locals: {objeto: c_doc} %>
-			</div>
+				<%= render partial: 'repositorios/control_documentos/list/bjt', locals: {objeto: c_doc} %>
 		<% end %>
 	</div>
 	</small>

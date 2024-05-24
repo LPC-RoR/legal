@@ -57,36 +57,7 @@
 				<% end %>
 			</p>
 			<% objeto.control_documentos.order(:orden).each do |control| %>
-				<div class="row">
-					<div class="col-lg-2">
-						<%= render partial: '0p/tabla/links_orden', locals: {objeto: control} %> 
-					</div>
-					<div class="col-lg-8">
-						<small>
-						<b>
-						<% if control.tipo == 'Documento' %>
-							<i class="bi bi-files"></i>
-						<% elsif control.tipo == 'Archivo' %>
-							<i class="bi bi-file"></i>
-						<% end %> 
-						<% if control.control == 'Requerido' %>
-							<i class="bi bi-check2-square"></i>
-						<% end %>
-						<%= control.nombre %> 
-						</b>
-						</small>
-						<% unless control.descripcion.blank? %>
-						<div style="padding-left: 1em; padding-right: 1em;">
-							<small>
-								<i class="bi bi-arrow-right"></i> <%= control.descripcion %>
-							</small>
-						</div>
-						<% end %>
-					</div>
-					<div class="col-lg-2" align='right'>
-						<small><%= render partial: '0p/tabla/links_e', locals: {objeto: control} %></small>
-					</div>
-				</div>
+				<small><%= render partial: 'repositorios/control_documentos/list/bjt', locals: {objeto: control} %></small>
 			<% end %>
 		</div>
 	</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_23_231759) do
+ActiveRecord::Schema.define(version: 2024_05_24_150118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,10 +136,12 @@ ActiveRecord::Schema.define(version: 2024_05_23_231759) do
     t.string "app_archivo"
     t.boolean "documento_control"
     t.string "control"
+    t.string "visible_para"
     t.index ["control"], name: "index_app_archivos_on_control"
     t.index ["documento_control"], name: "index_app_archivos_on_documento_control"
     t.index ["owner_class"], name: "index_app_archivos_on_owner_class"
     t.index ["owner_id"], name: "index_app_archivos_on_owner_id"
+    t.index ["visible_para"], name: "index_app_archivos_on_visible_para"
   end
 
   create_table "app_contactos", force: :cascade do |t|
@@ -204,9 +206,11 @@ ActiveRecord::Schema.define(version: 2024_05_23_231759) do
     t.string "vencimiento"
     t.boolean "documento_control"
     t.string "referencia"
+    t.string "visible_para"
     t.index ["app_documento"], name: "index_app_documentos_on_app_documento"
     t.index ["owner_class"], name: "index_app_documentos_on_owner_class"
     t.index ["owner_id"], name: "index_app_documentos_on_owner_id"
+    t.index ["visible_para"], name: "index_app_documentos_on_visible_para"
   end
 
   create_table "app_enlaces", force: :cascade do |t|

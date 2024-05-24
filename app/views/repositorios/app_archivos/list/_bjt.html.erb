@@ -1,0 +1,24 @@
+<div class="rp">
+	<div class="ttl">
+		<div class="ttl_ttl">
+			<% if objeto.documento_control %>
+				<i class="bi bi-file-check"></i>
+			<% else %>
+				<i class="bi bi-file"></i> 
+			<% end %> 
+			<% if objeto.archivo.present? %>
+				<%= link_to objeto.archivo.url, class: 'sb-link', target: :_blank do %>
+					<%= objeto.app_archivo %>
+				<% end %>
+			<% else %>
+				<%= objeto.app_archivo %>
+			<% end %>
+		</div>
+		<div class="ttl_lnks">
+			<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto} %>
+			<% if objeto.archivo.blank? %>
+				<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
+			<% end %>
+		</div>
+	</div>
+</div>

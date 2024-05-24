@@ -1,0 +1,16 @@
+<div class="rp">
+	<div class="ttl">
+		<div class="ttl_ttl">
+			<%= render partial: 'repositorios/control_documentos/list/line_descripcion', locals: {objeto: objeto} %>
+		</div>
+		<div class="ttl_lnks">
+			<% unless objeto.visible_para.blank? %>
+				<%= objeto.visible_para %>
+				<i class="bi bi-dot"></i>
+			<% end %>
+			<%= render partial: '0p/tabla/links_orden', locals: {objeto: objeto} %>
+			<i class="bi bi-dot"></i>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		</div>
+	</div>
+</div>
