@@ -40,7 +40,7 @@ class ClientesController < ApplicationController
     elsif @options[:menu] == 'Documentos'
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-#      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
+      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
 
       @d_pendientes = @objeto.documentos_pendientes
       @a_pendientes = @objeto.archivos_pendientes
