@@ -22,8 +22,6 @@ module Calendario
     @params_anterior = params_semana_anterior(@cal_semana)
     @params_siguiente = params_semana_siguiente(@cal_semana)
 
-    @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)
-
     @dias_semana = @cal_semana.cal_dias.order(:dt_fecha)
     @vector_dias = @dias_semana.map {|ds| {dia: ds.dt_fecha, dyf: ds.dyf? ? 'danger' : 'primary', actividades: AgeActividad.where(fecha: ds.dt_fecha.all_day).order(:fecha) } }
 

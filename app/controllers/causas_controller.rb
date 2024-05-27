@@ -38,7 +38,7 @@ class CausasController < ApplicationController
 
       set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
 
-      @age_usuarios = AgeUsuario.where(owner_class: '', owner_id: nil)
+      @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
       actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact

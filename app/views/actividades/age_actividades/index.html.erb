@@ -2,7 +2,7 @@
 	<div class="lft">
 		<%= render partial: 'actividades/age_actividades/partials/semana_nav' %>
 		<% @vector_dias.each do |dia_semana| %>
-			<%= render partial: 'actividades/shr/bjt_dia', locals: {objeto: dia_semana} %>
+			<%= render partial: 'actividades/shr/bjt_dia', locals: {objeto: dia_semana, usuarios: @age_usuarios} %>
 		<% end %>
 	</div>
 	<div class="rght">

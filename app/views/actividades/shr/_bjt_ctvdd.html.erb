@@ -1,6 +1,6 @@
 <div class="ac">
 
-	<%= render partial: 'actividades/shr/ctvdd/fecha', locals: {objeto: objeto} %>
+	<%= render partial: 'actividades/shr/ctvdd/fecha', locals: {objeto: objeto, usuarios: usuarios} %>
 
 	<%= render partial: 'actividades/shr/ctvdd/ctvdd', locals: {objeto: objeto} %>
 
@@ -38,7 +38,7 @@
 		</div>
 	<% end %>
 
-	<% if @age_usuarios.empty? %>
+	<% if usuarios.empty? %>
 		<div class="nt bg-warning">
 			<div class="ttl">
 				<div class="ttl_ttl">

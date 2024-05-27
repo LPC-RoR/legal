@@ -21,7 +21,7 @@
 <div class="f_250rght_col">
 	<div class="lft">
 		<% @coleccion['age_actividades'].each do |age_actividad| %>
-			<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: age_actividad} %>
+			<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: age_actividad, usuarios: usuarios} %>
 		<% end %>
 		<%#= render partial: '0p/tabla/tabla2', locals: {c: 'age_actividades'} %>
 	</div>

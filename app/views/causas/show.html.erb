@@ -5,7 +5,7 @@
 
 <% case @options[:menu] %>
 <% when 'Agenda' %>
-	<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto} %>
+	<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto, usuarios: @age_usuarios} %>
 <% when 'Hechos' %>
 	<%= render partial: 'causas/shw/hechos/ndx_hechos', locals: {objeto: @objeto} %>
 <% when 'Tarifa & Pagos' %>

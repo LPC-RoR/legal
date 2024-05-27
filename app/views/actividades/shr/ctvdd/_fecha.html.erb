@@ -56,8 +56,8 @@
 
 		<% unless ['realizada', 'cancelada'].include?(objeto.estado) or (objeto.fecha < @hoy) %>
 
-			<% unless objeto.age_usuarios.empty? and @age_usuarios.empty? %>
-				<%= render partial: 'actividades/shr/ctvdd/encargados', locals: {objeto: objeto} %>
+			<% unless usuarios.empty? %>
+				<%= render partial: 'actividades/shr/ctvdd/encargados', locals: {objeto: objeto, usuarios: usuarios} %>
 			<% end %>
 
 			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoAntecedente', objeto: objeto, tooltip: 'Agregar nota'} do %>

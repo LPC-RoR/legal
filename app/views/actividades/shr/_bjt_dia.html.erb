@@ -11,6 +11,6 @@
 
 <% objeto[:actividades].each do |actividad| %>
 	<% unless actividad.privada and actividad.app_perfil_id != perfil_activo.id %>
-		<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: actividad} %>
+		<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: actividad, usuarios: usuarios} %>
 	<% end %>
 <% end %>

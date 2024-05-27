@@ -5,7 +5,7 @@
     <div class="enlaces-drpdwn-content">
         <% objeto.age_usuarios.each do |age_usuario| %>
             <%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades/#{objeto.id}/desasigna_usuario?uid=#{age_usuario.id}&cn=#{controller_name}", tooltip: "Sacar usuario"} do %>
-                <%= age_usuario.age_usuario %> <i class="bi bi-x-lg"></i>
+                <%= age_usuario.age_usuario %>
             <% end %>
         <% end %>
 
@@ -13,10 +13,10 @@
             <hr>
         <% end %>
 
-        <% @age_usuarios.each do |age_usuario| %>
+        <% usuarios.each do |age_usuario| %>
             <% unless objeto.age_usuarios.ids.include?(age_usuario.id) %>
                 <%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades/#{objeto.id}/asigna_usuario?uid=#{age_usuario.id}&cn=#{controller_name}", tooltip: 'Agrega usuario'} do %>
-                    <%= age_usuario.age_usuario %> <i class="bi bi-plus-lg"></i>
+                    <%= age_usuario.age_usuario %>
                 <% end %>
             <% end %>
         <% end %>
