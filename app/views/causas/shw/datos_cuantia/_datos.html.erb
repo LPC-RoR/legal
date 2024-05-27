@@ -1,4 +1,6 @@
-<div class="cs_ttl">
+<%#= render partial: '0capitan/general/app_ttl', locals: {c: 'variables', title: "Datos", link: nil, tooltip: nil } %>
+
+<div class="ttl_app">
 	<div class="ttl_ttl">
 		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['causas']} %>
 		Datos
@@ -6,7 +8,7 @@
 </div>
 
 <!-- DATOS -->
-<div class="mid_w">
+<div class="f_50lft_col">
 
 	<% variables.each do |variable| %>
 

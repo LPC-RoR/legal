@@ -1,11 +1,11 @@
-<div class="row">
-	<div class="col-lg-6 col-xs-12">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_tarifas', title: 'Tarifas generales : Causas', link_new: "/tar_tarifas/new"} %>
+<div class="f_50lft_col">
+	<div class="lft">
+		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'tar_tarifas', title: 'Tarifas causas', tooltip: 'Agrega tarifa ', link: nil} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
 	</div>
-	<div class="col-lg-6">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_servicios', title: 'Tarifas generales : Asesorias', link_new: "/tar_servicios/new"} %>
+	<div class="rght">
+		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'tar_servicios', title: 'Tarifas asesorías', tooltip: 'Agrega tarifa ', link: nil} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
 	</div>

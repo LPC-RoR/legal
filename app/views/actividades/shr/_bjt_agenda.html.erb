@@ -1,4 +1,4 @@
-<%= render partial: 'actividades/shr/ttl_ac' %>
+<%= render partial: '0capitan/general/app_ttl', locals: {c: 'age_actividades', title: "Actividades", link: nil, tooltip: nil } %>
 
 <% if objeto.class.name == 'Causa' and operacion? %>
 	<% unless @audiencias_pendientes.empty? %>
@@ -18,9 +18,12 @@
 	<% end %>
 <% end %>
 
-<div class="mn_rght_w">
+<div class="f_250rght_col">
 	<div class="lft">
-		<%= render partial: '0p/tabla/tabla2', locals: {c: 'age_actividades'} %>
+		<% @coleccion['age_actividades'].each do |age_actividad| %>
+			<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: age_actividad} %>
+		<% end %>
+		<%#= render partial: '0p/tabla/tabla2', locals: {c: 'age_actividades'} %>
 	</div>
 	<div class="rght">
 		<%= render partial: 'actividades/shr/add_box', locals: {objeto: objeto} %>

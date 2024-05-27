@@ -8,6 +8,13 @@ class Aplicacion::PublicosController < ApplicationController
 
   def home
     if usuario_signed_in?
+
+      @estados = nil
+      @tipos = ['Causas', 'Pagos', 'Facturas']
+      @tipo = params[:t].blank? ? @tipos[0] : params[:t]
+      @estado = nil
+      @path = "/?"
+
       inicia_sesion if perfil_activo.blank?
       if operacion?
         # Causas

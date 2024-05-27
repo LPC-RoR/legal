@@ -1,0 +1,15 @@
+<div class="ttl_app">
+
+	<div class="ttl_ttl">
+		<i class="bi bi-<%=controller_icon[c]%>"></i> 
+		<%=title%>
+	</div>
+	<div class="ttl_lnks">
+		<% unless link.blank? %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: link == 'new' ? "/#{c}/new" : link, tooltip: tooltip } do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		<% end %>
+	</div>
+
+</div>

@@ -23,11 +23,9 @@
 
 		<small>
 		<% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
-			<% unless ['Reunión', 'Tarea'].include?(tipo) and finanzas? %>
-				<%= render layout: '0p/collapse/link', locals: {label: tipo, objeto: nil, tooltip: "Agregar #{tipo}"} do %>
-					<i class="bi bi-plus-circle"></i>
-					<%= tipo %></br>
-				<% end %>
+			<%= render layout: '0p/collapse/link', locals: {label: tipo, objeto: nil, tooltip: "Agregar #{tipo}"} do %>
+				<i class="bi bi-plus-circle"></i>
+				<%= tipo %></br>
 			<% end %>
 		<% end %>
 		</small>

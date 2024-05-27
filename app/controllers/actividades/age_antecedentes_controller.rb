@@ -106,11 +106,11 @@ class Actividades::AgeAntecedentesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.age_actividad.owner
+      @redireccion = @objeto.age_actividad.owner_id.blank? ? age_actividades_path : @objeto.age_actividad.owner
     end
 
     # Only allow a list of trusted parameters through.
     def age_antecedente_params
-      params.require(:age_antecedente).permit(:orden, :age_antecedente, :age_actividad_id)
+      params.require(:age_antecedente).permit(:orden, :age_antecedente, :age_actividad_id, :nota, :tipo)
     end
 end

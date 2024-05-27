@@ -1,0 +1,18 @@
+<% if finanzas? %>
+	<div class="img_frm">
+		<h5 class="text-info">Facturación</h5>
+		<%= column_chart @facturacion, prefix: '$', thousands: ".", precision: 3 %>
+	</div>
+<% end %>
+<% if finanzas? %>
+	<% unless @coleccion['por_emitir-tar_facturas'].empty? %>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas por emitir', link_new: nil} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'por_emitir-tar_facturas'} %>
+	<% end %>
+	<% unless @coleccion['en_cobranza-tar_facturas'].empty? %>
+		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_facturas', title: 'Facturas en cobranza', link_new: nil} %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'en_cobranza-tar_facturas'} %>
+	<% end %>
+<% end %>

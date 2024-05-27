@@ -1,9 +1,15 @@
-<div class="ac">
+<div class="pdt">
 
 	<%= render partial: 'actividades/age_pendientes/list/elems/fecha_e', locals: {objeto: objeto} %>
 
-	<%= render partial: 'actividades/age_pendientes/list/elems/pendiente', locals: {objeto: objeto} %>
+<div class="pdt_pdt">
+	<span class="text-<%=objeto.text_color %>">
+		<%= objeto.age_pendiente %>
 
-	<%= render partial: 'actividades/age_pendientes/list/elems/control_links', locals: {objeto: objeto} %>
+		<% if objeto.estado == 'realizado' %>
+			<i class="bi bi-check2-all"></i> 
+		<% end %>
+	</span>
+</div>
 
 </div>

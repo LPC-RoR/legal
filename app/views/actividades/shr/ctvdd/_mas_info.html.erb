@@ -1,0 +1,25 @@
+<div class="cllps">
+	<i class="bi bi-dot"></i>
+	Actividad creada por <b><%= objeto.nombre_creador %></b></br>
+
+	<% if objeto.privada %>
+		<i class="bi bi-dot"></i>
+		Actividad privada</br>
+	<% end %>
+
+	<% if controller_name == 'age_actividades' and objeto.owner_id.present? %>
+		<i class="bi bi-dot"></i>
+		Actividad generada en <%= objeto.owner_class == "Causa" ? "la causa" : 'el cliente' %>
+		<%= link_to objeto.owner do %>
+			<%= render partial: '0p/general/gly', locals: {gly: controller_icon[objeto.owner.class.name.tableize]} %>
+			<%= objeto.owner_class == 'Causa' ? objeto.owner.rit : objeto.owner.razon_social %>
+		<% end %>
+	<% end %>
+
+	<% unless objeto.age_logs.empty? %>
+		<hr>
+		<% objeto.age_logs.order(created_at: :desc).each do |log| %>
+			<small><small><%= dma_hm(log.fecha) %> : <%=log.actividad%></small></small></br>
+		<% end %>
+	<% end %>
+</div>

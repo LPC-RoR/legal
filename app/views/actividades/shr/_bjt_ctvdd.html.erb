@@ -1,0 +1,71 @@
+<div class="ac">
+
+	<%= render partial: 'actividades/shr/ctvdd/fecha', locals: {objeto: objeto} %>
+
+	<%= render partial: 'actividades/shr/ctvdd/ctvdd', locals: {objeto: objeto} %>
+
+	<%#= render partial: 'actividades/age_actividades/list/elems/cllp_display_encargados', locals: {objeto: objeto} %>
+
+
+</div>
+
+<% unless objeto.age_logs.empty? %>
+	<% objeto.age_logs.order(:created_at).each do |log| %>
+		<div class="nt bg-info">
+			<div class="ttl">
+				<div class="ttl_ttl">
+					<i class="bi bi-dot"></i>
+					<%= "Cambio de fecha desde el #{dma(log.fecha)}" %>
+				</div>
+				<div class="ttl_lnks">
+				</div>
+			</div>
+		</div>
+	<% end %>
+<% end %>
+
+<% unless objeto.privada %>
+	<% if objeto.age_usuarios.empty? %>
+		<div class="nt bg-warning">
+			<div class="ttl">
+				<div class="ttl_ttl">
+					<i class="bi bi-exclamation-lg"></i>
+					Actividad sin encargados
+				</div>
+				<div class="ttl_lnks">
+				</div>
+			</div>
+		</div>
+	<% end %>
+
+	<% if @age_usuarios.empty? %>
+		<div class="nt bg-warning">
+			<div class="ttl">
+				<div class="ttl_ttl">
+					<i class="bi bi-exclamation-lg"></i>
+					No hay usuarios disponibles
+				</div>
+				<div class="ttl_lnks">
+				</div>
+			</div>
+		</div>
+	<% end %>
+<% end %>
+
+<% unless objeto.age_antecedentes.blank? %>
+	<% objeto.age_antecedentes.each do |ntcdt| %>
+		<div class="nt bg-<%=ntcdt.color%>">
+			<div class="ttl">
+				<div class="ttl_ttl">
+					<i class="bi bi-<%=ntcdt.gly%>"></i>
+					<%= ntcdt.nota %>
+				</div>
+				<div class="ttl_lnks">
+					<% if ntcdt.email == perfil_activo.email %>
+						<%= render partial: '0p/tabla/links_e', locals: {objeto: ntcdt} %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+<% end %>

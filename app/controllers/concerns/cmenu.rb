@@ -102,6 +102,15 @@ module Cmenu
 					['causas', operacion?],
 					['asesorias', operacion?]
 				]
+			},
+			'home' => {
+				estados: nil,
+				items: nil,
+				selectors: [
+					['Causas', operacion?],
+					['Pagos', admin?],
+					['Facturas', finanzas?]
+				]
 			}
 		}
 	end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_24_150118) do
+ActiveRecord::Schema.define(version: 2024_05_25_054609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(version: 2024_05_24_150118) do
     t.integer "age_actividad_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nota"
+    t.string "tipo"
+    t.string "email"
     t.index ["age_actividad_id"], name: "index_age_antecedentes_on_age_actividad_id"
     t.index ["orden"], name: "index_age_antecedentes_on_orden"
   end

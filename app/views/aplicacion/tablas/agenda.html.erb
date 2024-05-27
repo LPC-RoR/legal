@@ -1,8 +1,9 @@
-<div class="row">
-	<div class="col-lg-6 col-xs-12">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'age_usuarios', title: 'Usuarios de la agenda', link_new: "/age_usuarios/new"} %>
+<div class="f_50lft_col">
+	<div class="lft">
+		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'age_usuarios', title: 'Usuarios de la agenda', tooltip: 'Agrega usuario', link: nil} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'age_usuarios'} %>
 	</div>
-	<div class="col-lg-6"></div>
+	<div class="rght">
+	</div>
 </div>

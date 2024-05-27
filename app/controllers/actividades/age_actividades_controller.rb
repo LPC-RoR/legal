@@ -1,5 +1,5 @@
 class Actividades::AgeActividadesController < ApplicationController
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad cambia_estado cambia_privada asigna_usuario desasigna_usuario]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad cambia_estado cambia_privada asigna_usuario desasigna_usuario, cambio_fecha]
 
   # GET /age_actividades or /age_actividades.json
   def index
@@ -9,8 +9,14 @@ class Actividades::AgeActividadesController < ApplicationController
 
     set_tab( :tab, ['Pendientes', 'Realizados'])
     @estado = @options[:tab].singularize.downcase
-#    estado = @options[:tab] == 'Pendientes' ? 'pendiente' : 'realizado'
 
+    unless @usuario.blank?
+      set_tabla('d-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: 'danger'), false)
+      set_tabla('w-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: 'warning'), false)
+      set_tabla('s-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: 'success'), false)
+      set_tabla('n-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: nil), false)
+    end
+ 
     # concerns/calendario#load_calendario
     load_calendario
 
@@ -138,7 +144,7 @@ class Actividades::AgeActividadesController < ApplicationController
 
   def cambia_prioridad
     # {negro, verde, amarillo, rojo}
-    @objeto.prioridad = params[:prioridad]
+    @objeto.prioridad = params[:prioridad] == 'nil' ? nil : params[:prioridad]
     @objeto.save
 
     redirect_to ( params[:cn] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
@@ -166,12 +172,31 @@ class Actividades::AgeActividadesController < ApplicationController
     redirect_to ( params[:loc] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
   end
 
+  # Ahora se llama agregar nota 25 mayo 2024
   def agrega_antecedente
-    unless params[:form_antecedente][:age_antecedente].blank? 
-      @objeto.age_antecedentes.create(age_antecedente: params[:form_antecedente][:age_antecedente], orden: @objeto.age_antecedentes.count + 1)
+    prms = params[:form_antecedente]
+    unless prms[:nota].blank? 
+      @objeto.age_antecedentes.create(nota: prms[:nota], tipo: prms[:tipo], email: perfil_activo.email, orden: @objeto.age_antecedentes.count + 1)
     end
 
     redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
+  end
+
+  def cambio_fecha
+    prms = params[:form_cambio_fecha]
+    unless prms['nueva_fecha(3i)'].blank? or prms['nueva_fecha(2i)'].blank? or prms['nueva_fecha(1i)'].blank?
+      # crea LOG
+      # Agregar email del usuario que cambió la fecha
+      log = @objeto.age_logs.create(fecha: @objeto.fecha, actividad: @objeto.age_actividad)
+      unless log.blank?
+        @objeto.fecha = params_to_date(prms, 'nueva_fecha')
+        @objeto.save
+      end
+    end
+
+    set_redireccion
+    redirect_to @redireccion
+  
   end
 
   # DELETE /age_actividades/1 or /age_actividades/1.json

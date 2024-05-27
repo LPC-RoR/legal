@@ -3,19 +3,17 @@ module Calendario
 
   def load_calendario
 
-    unless @usuario.blank?
-      set_tabla('d-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: 'danger'), false)
-      set_tabla('w-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: 'warning'), false)
-      set_tabla('s-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: 'success'), false)
-      set_tabla('n-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: nil), false)
-    end
- 
+    # objtiene @cal_annio, si no viene en el parámetro, usa el del día de hoy
     n_annio = params[:annio_sem].blank? ? @hoy.year : params[:annio_sem].split('_')[0].to_i
+    # si el annio no existe lo crea, si no tiene meses los crea
     @cal_annio = busca_y_puebla_annio(n_annio)
 
+    # Hasta aquí tenemos el año y sus meses
+
+    # obtiene @cal_semana, si no hay parámetro busca la del dia de hoy
     n_semana = params[:annio_sem].blank? ? get_n_semana(@hoy) : params[:annio_sem].split('_')[1].to_i
-    # se usa @hoy.month para n_mes
-    @cal_semana = busca_y_puebla_semana(@cal_annio, n_semana, @hoy.month)
+    # WARNING : revisar si @hoy.month sirve para este método
+    @cal_semana = busca_y_puebla_semana(@cal_annio, n_semana)
 
     @dias_semana = @cal_semana.cal_dias.order(:dt_fecha)
     @lunes = @dias_semana.first
@@ -56,6 +54,20 @@ module Calendario
     }
   end
 
+  def get_cal_dia(fecha)
+    annio = CalAnnio.find_by(cal_annio: fecha.year)
+     if annio.blank?
+      nil
+    else
+      mes = annio.cal_meses.find_by(cal_mes: fecha.month)
+      if mes.blank?
+        nil
+      else
+        mes.cal_dias.find_by(cal_dia: fecha.day)
+      end
+    end
+  end
+
   # obtiene el último día del mes
   # Se obtiene buscado el dia siguiente (primer día del mes siguiente)
   # y restándole un día
@@ -63,7 +75,7 @@ module Calendario
     n_year_mes = cal_mes.cal_annio.cal_annio
     n_year_first = cal_mes.cal_mes == 12 ? n_year_mes + 1 : n_year_mes
     n_month_first = cal_mes.cal_mes == 12 ? 1 : cal_mes.cal_mes + 1
-    siguiente_dia = DateTime.new(year_first, month_first,1)
+    siguiente_dia = DateTime.new(n_year_first, n_month_first,1)
     ultimo = siguiente_dia -1
     ultimo.day
   end
@@ -131,14 +143,13 @@ module Calendario
   # Busca el numero de la semana en el año
   # cal_annio = @annio
   # se llama después de llamar busca_y_puebla_annio, lo que garantiza que cal_annio y cal_mes existen
-  def busca_y_puebla_semana(cal_annio, n_semana, n_mes)
-    cal_mes = cal_annio.cal_meses.find_by(cal_mes: n_mes)
-    if cal_mes.cal_semanas.empty?
-      # no necesito pasar cal_annio como parámetro porque cal_mes está relacionado con él.
-      poblar_cal_mes(cal_mes)
+  def busca_y_puebla_semana(cal_annio, n_semana)
+    busca_semana = nil
+    cal_annio.cal_meses.order(:cal_mes).each do |cal_mes|
+      poblar_cal_mes(cal_mes) if cal_mes.cal_semanas.empty?
+      busca_semana = cal_mes.cal_semanas.find_by(cal_semana: n_semana) if busca_semana.blank?
     end
-    # la semana debe existir porque lo garantiza poblar_cal_mes
-    cal_mes.cal_semanas.find_by(cal_semana: n_semana)
+    busca_semana
   end
 
   def params_semana_anterior(cal_semana)
@@ -148,7 +159,7 @@ module Calendario
     if cal_domingo.blank?
       n_annio = fecha_domingo_anterior.year
       cal_annio = busca_y_puebla_annio(n_annio)
-      cal_semana = busca_y_puebla_semana(cal_annio, get_n_semana(fecha_domingo_anterior), cal_domingo.month )
+      cal_semana = busca_y_puebla_semana(cal_annio, get_n_semana(fecha_domingo_anterior) )
       "#{cal_annio.cal_annio}_#{cal_semana.cal_semana}"
     else
       "#{cal_domingo.cal_mes.cal_annio.cal_annio}_#{cal_domingo.cal_semana.cal_semana}"
@@ -162,7 +173,7 @@ module Calendario
     if cal_lunes.blank?
         n_annio = fecha_lunes_siguiente.year
         cal_annio = busca_y_puebla_annio(n_annio)
-        cal_semana = busca_y_puebla_semana(cal_annio, get_n_semana(fecha_lunes_siguiente), fecha_lunes_siguiente.month )
+        cal_semana = busca_y_puebla_semana(cal_annio, get_n_semana(fecha_lunes_siguiente) )
         "#{cal_annio.cal_annio}_#{cal_semana.cal_semana + 1}"
     else
         "#{cal_lunes.cal_mes.cal_annio.cal_annio}_#{cal_lunes.cal_semana.cal_semana}"

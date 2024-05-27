@@ -6,10 +6,19 @@
 
 <% area_menu[:items].each do |modelo| %>
 	<ul id="hMenu" class="lmn_verti">
-	<% unless cfg_defaults[:activa_tipos_usuario] and lm_check_tipo_usuario(modelo) == false %>
+	<% if modelo.class.name == 'Hash' %>
 		<li>
-			<%= render partial: '0capitan/lmenu/item', locals: {modelo: (modelo.class.name == 'Array' ? modelo[0] : modelo)} %>
+			<div class="itm_ttl">
+				<i class="bi bi-arrow-return-right"></i>
+				<%= modelo[:ttl] %>
+			</div>
 		</li>
+	<% else %>
+		<% unless cfg_defaults[:activa_tipos_usuario] and lm_check_tipo_usuario(modelo) == false %>
+			<li>
+				<%= render partial: '0capitan/lmenu/item', locals: {modelo: (modelo.class.name == 'Array' ? modelo[0] : modelo)} %>
+			</li>
+		<% end %>
 	<% end %>
 	</ul>
 <% end %>

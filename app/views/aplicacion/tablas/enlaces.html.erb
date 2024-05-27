@@ -1,11 +1,11 @@
-<div class="row">
-	<div class="col-lg-6 col-xs-12">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'app_enlaces', title: 'Enlaces generales', link_new: "/app_enlaces/new"} %>
+<div class="f_50lft_col">
+	<div class="lft">
+		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'app_enlaces', title: 'Enlaces generales', tooltip: 'Agrega enlace general', link: nil} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'app_enlaces'} %>
 	</div>
-	<div class="col-lg-6">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'app_enlaces', title: 'Enlaces perfil', link_new: "/app_enlaces/new?class_name=#{AppPerfil}&objeto_id=#{perfil_activo.id}"} %>
+	<div class="rght">
+		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'app_enlaces', title: 'Enlaces del perfil', tooltip: 'Agrega enlace del perfil', link: "/app_enlaces/new?class_name=#{AppPerfil}&objeto_id=#{perfil_activo.id}"} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'perfil-app_enlaces'} %>
 	</div>

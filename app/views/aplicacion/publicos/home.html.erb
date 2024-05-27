@@ -1,5 +1,5 @@
 <% if usuario_signed_in? %>
-	<%= render partial: 'aplicacion/publicos/autenthicate_home' %>
+	<%= render partial: 'aplicacion/publicos/autenthicate_home', locals: {estados: @estados, estado: @estado, tipos: @tipos, tipo: @tipo, path: @path} %>
 <% else %>
 	<%= render partial: 'aplicacion/publicos/public_home' %>
 <% end %>

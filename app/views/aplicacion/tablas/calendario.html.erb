@@ -1,11 +1,11 @@
-<%= render partial: 'calendario/cal_annios/annio_nav' %>
-<div class="row">
-	<div class="col-lg-3 col.xs-12">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'cal_meses', title: 'Meses activos', link_new: nil} %>
+<%= render partial: 'calendario/shr/annio_nav' %>
+<div class="f_300pxlft_col">
+	<div class="lft">
+		<%= render partial: 'causas/shr/ttl_cs', locals: {c: 'cal_meses', title: 'Meses Activos', link: 'no_link', tooltip: ''} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'cal_meses'} %>
 	</div>
-	<div class="col-lg-9">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'cal_feriados', title: 'Feriados del año', link_new: "/cal_feriados/new?aid=#{@annio_activo.id}"} %>
+	<div class="rght">
+		<%= render partial: 'causas/shr/ttl_cs', locals: {c: 'cal_feriados', title: 'Feriados del año', link: "/cal_feriados/new?aid=#{@annio_activo.id}", tooltip: 'Agrega feriado'} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'cal_feriados'} %>
 	</div>
 </div>

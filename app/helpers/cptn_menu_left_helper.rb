@@ -74,7 +74,7 @@ module CptnMenuLeftHelper
 	end
 
 	def admin_controllers
-		['app_nominas', 'usuarios', 'st_modelos', 'blg_articulos', 'app_versiones', 'h_imagenes']
+		['app_nominas', 'app_enlaces', 'usuarios', 'st_modelos', 'blg_articulos', 'app_versiones', 'h_imagenes', 'app_recursos', 'app_archivos', 'control_documentos', 'tablas']
 	end
 
 	def tar_controller
@@ -82,7 +82,7 @@ module CptnMenuLeftHelper
 	end
 
 	def tablas_controllers
-		['aut_tipo_usuarios', 'app_recursos', 'app_archivos', 'control_documentos', 'clientes', 'causas', 'asesorias', 'tablas', 'age_actividades', 'age_usuarios', 'age_pendientes', 'hechos', 'temas', 'hecho_archivos', 'tar_valor_cuantias']
+		['aut_tipo_usuarios', 'clientes', 'causas', 'asesorias', 'age_actividades', 'age_usuarios', 'age_pendientes', 'hechos', 'temas', 'hecho_archivos', 'tar_valor_cuantias', 'tar_uf_sistemas', 'regiones', 'cal_meses', 'cal_feriados', 'dt_materias']
 	end
 
 	def left_menu_actions?
@@ -116,18 +116,28 @@ module CptnMenuLeftHelper
 	end
 
 	# Determina el ÍTEM dado el mdoelo del item
+	def h_modelo_item
+		{
+			'AppNomina' => 'Nomina',
+			'StModelo' => 'Personalización',
+			'TarAprobacion' => 'Aprobaciones',
+			'Asesoria' => 'Asesorías',
+			'TarUfSistema' => 'UF del día',
+			'Region' => 'Región',
+			'AppEnlace' => 'Enlaces',
+			'CalAnnio' => 'Calendario',
+			'AgeUsuario' => 'Usuarios de agenda',
+			'TipoCausa' => 'Etapas de Causas',
+			'TipoServicio' => 'Tipos de Servicios',
+			'TarDetalleCuantia' => 'Ítems de cuantía',
+			'TribunalCorte' => 'Juzgados / Cortes',
+			'TarTarifa' => 'Tarifas Generales',
+			'MModelo' => 'Modelo de Negocios'
+		}
+	end
+
 	def modelo_item(modelo)
-		if modelo == 'AppNomina'
-			'Nómina'
-		elsif modelo == 'StModelo'
-			'Personalización'
-		elsif modelo == 'TarAprobacion'
-			'Aprobaciones'
-		elsif modelo == 'Asesoria'
-			'Asesorías'
-		else
-			m_to_name(modelo).tableize.capitalize
-		end
+		h_modelo_item[modelo].blank? ? m_to_name(modelo).tableize.capitalize : h_modelo_item[modelo]
 	end
 
 end

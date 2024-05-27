@@ -1,21 +1,29 @@
-<div class="row">
-	<div class="col-9">
-		<small><small>
-			<% if objeto.estado == 'realizado' %>
-				<i class="bi bi-check-lg text-primary"></i>
-			<% else %>
-				<i class="bi bi-circle-fill text-<%=objeto.text_color%>"></i> 
-			<% end %>
-			<b class="text-<%= objeto.text_color %>">
-				<%= dma_hm(objeto.created_at) %>
-			</b>
-		</small></small>
+<div class="fch">
+	<div class="fch_fch">
+		<% if objeto.estado == 'realizado' %>
+			<i class="bi bi-check-lg text-primary"></i>
+		<% else %>
+			<i class="bi bi-circle-fill text-<%=objeto.text_color%>"></i> 
+		<% end %>
+		<span class="text-<%= objeto.text_color %>">
+			<%= dma_hm(objeto.created_at) %>
+		</span>
 	</div>
-	<div class="col-3" align="right">
-		<small><small>
-			<% unless objeto.estado == 'realizado' %>
-				<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	<div class="fch_lnks">
+		<% unless objeto.estado == 'realizado' %>
+			<%= render partial: 'actividades/age_pendientes/list/elems/set_prioridad', locals: {objeto: objeto} %>
+		<% end %>
+
+		<%= link_to "/age_pendientes/#{objeto.id}/realizado_pendiente", title: "#{objeto.estado == 'pendiente' ? 'Marcar como realizada' : 'Marcar como pendiente' }", 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+			<% if objeto.estado == 'realizado' %>
+				<i class="bi bi-arrow-left"></i> 
+			<% else %>
+				<i class="bi bi-check-lg"></i>
 			<% end %>
-		</small></small>
+		<% end %>
+
+		<% unless objeto.estado == 'realizado' %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		<% end %>
 	</div>
 </div>

@@ -1,0 +1,11 @@
+<div class="rp_ttl">
+	<div class="ttl_ttl">
+		<%= render partial: '0p/general/gly', locals: {gly: controller_icon[c]} %>
+		<%= title %>
+	</div>
+	<div class="ttl_lnks">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: (link.blank? ? "/#{c}/new" : link), tooltip: tooltip} do %>
+			<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
+		<% end %>
+	</div>
+</div>

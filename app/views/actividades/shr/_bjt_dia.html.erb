@@ -1,4 +1,4 @@
-<div class="ac_dia">
+<div class="<%= clss_dia(objeto[:dia]) %>">
 	<div class="ttl">
 		<div class="lft">
 			<%= dma(objeto[:dia]) %>
@@ -11,6 +11,6 @@
 
 <% objeto[:actividades].each do |actividad| %>
 	<% unless actividad.privada and actividad.app_perfil_id != perfil_activo.id %>
-		<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: actividad} %>
+		<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: actividad} %>
 	<% end %>
 <% end %>

@@ -1,13 +1,13 @@
-<div class="m_rght_w">
+<div class="f_50lft_col">
 	<div class="lft">
 		<%= render partial: 'actividades/age_actividades/partials/semana_nav' %>
 		<% @vector_dias.each do |dia_semana| %>
-			<%= render partial: 'actividades/age_actividades/list/objeto_dia', locals: {objeto: dia_semana} %>
+			<%= render partial: 'actividades/shr/bjt_dia', locals: {objeto: dia_semana} %>
 		<% end %>
 	</div>
 	<div class="rght">
 		<% unless @usuario.blank? %>
-			<div class="ac_ttl">
+			<div class="ttl_app">
 					<div class="ttl_ttl">
 						<i class="bi bi-list-check"></i> 
 						<%= @usuario.age_usuario %>

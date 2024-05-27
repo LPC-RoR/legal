@@ -1,12 +1,6 @@
-<div class="rp_ttl">
-	<div class="ttl_ttl">
-		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['app_documentos']} %>
-		Documentos y archivos
-	</div>
-	<div class="ttl_links"></div>
-</div>
+<%= render partial: '0capitan/general/app_ttl', locals: {c: 'app_documentos', title: "Documentos", link: nil, tooltip: nil } %>
 
-<div class="mn_rght_w">
+<div class="f_250rght_col">
 	<div class="lft">
 
 		<% unless @coleccion['app_documentos'].empty? and @coleccion['app_archivos'].empty? %>

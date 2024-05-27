@@ -1,11 +1,12 @@
-<%= render partial: '0p/general/c_ttl', locals: {c: 'clientes', title: "Clientes#{' Activos' if @tipo.present?}", link: nil, link_gly: nil} %>
+<%= render partial: '0capitan/general/app_ttl', locals: {c: 'clientes', title: "Clientes", link: nil, tooltip: nil } %>
 
-<div class="doscpx_w">
+<div class="f_200pxlft_col">
   <div class="lft">
     <%= render partial: '0p/cmenu/cmenu', locals: { c: 'clientes', tipo: @tipo, estado: @estado, path: @path} %>
   </div>
   <div class="right">
-      <%= render partial: '0p/general/c_ttl', locals: {c: 'clientes', title: "Clientes #{@tipo.present? ? @tipo : cmenu_clss['clientes'][:items][@estado] }", link: ((check_crud('Cliente') and @estado == @estados[0]) ? "/clientes/new" : nil), link_gly: 'plus-circle'} %>
+      <%= render partial: '0capitan/general/app_ttl', locals: {c: 'clientes', title: "Clientes #{@tipo.present? ? @tipo : cmenu_clss['clientes'][:items][@estado] }", link: ((check_crud('Cliente') and @estado == @estados[0]) ? "/clientes/new" : nil), tooltip: 'Agrega cliente' } %>
+
       <%= render partial: '0p/tabla/tabla2', locals: {c: 'clientes'} if @tipo.present? or @estado.present? %>
   </div>
 </div>

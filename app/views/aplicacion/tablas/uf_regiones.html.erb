@@ -1,11 +1,11 @@
-<div class="row">
-	<div class="col-lg-5 col-xs-12">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_uf_sistemas', title: 'UF del sistema', link_new: "/tar_uf_sistemas/new"} %>
+<div class="f_50lft_col">
+	<div class="lft">
+		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'tar_uf_sistemas', title: 'UF del día', tooltip: 'Agrega UF del día', link: nil} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_uf_sistemas'} %>
 	</div>
-	<div class="col-lg-7">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'regiones', title: 'Regiones', link_new: "/regiones/new"} %>
+	<div class="rght">
+		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'regiones', title: 'Regiones', tooltip: 'Agrega región', link: nil} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'regiones'} %>
 	</div>

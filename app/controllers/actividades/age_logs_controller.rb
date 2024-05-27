@@ -1,6 +1,5 @@
 class Actividades::AgeLogsController < ApplicationController
   before_action :set_age_log, only: %i[ show edit update destroy ]
-  after_action :crea_log, only: %i[ create ]
 
   # GET /age_logs or /age_logs.json
   def index
@@ -61,23 +60,6 @@ class Actividades::AgeLogsController < ApplicationController
   end
 
   private
-    def crea_log
-      age_actividad = @objeto.age_actividad
-
-      unless age_actividad.blank?
-        p_fecha = age_actividad.fecha
-        p_actividad = age_actividad.age_actividad
-        
-        age_actividad.fecha = @objeto.fecha unless @objeto.fecha.blank?
-        age_actividad.age_actividad = @objeto.actividad unless @objeto.actividad.blank?
-        age_actividad.save
-
-        @objeto.fecha = p_fecha
-        @objeto.actividad = p_actividad
-        @objeto.save
-      end
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_age_log
       @objeto = AgeLog.find(params[:id])

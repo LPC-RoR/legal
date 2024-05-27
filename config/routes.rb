@@ -106,6 +106,7 @@ Rails.application.routes.draw do
       match :cambia_privada, via: :get, on: :member
       match :asigna_usuario, via: :get, on: :member
       match :desasigna_usuario, via: :get, on: :member
+      match :cambio_fecha, via: :post, on: :member
       # desde aqui revisar
       match :crea_audiencia, via: :get, on: :collection
       match :suma_participante, via: :get, on: :member
