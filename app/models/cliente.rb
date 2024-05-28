@@ -39,7 +39,7 @@ class Cliente < ApplicationRecord
 	end
 
 	def archivos
-		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
+		AppArchivo.where(owner_class: 'Cliente', owner_id: self.id)
 	end
 
 	def archivos_controlados
@@ -66,7 +66,7 @@ class Cliente < ApplicationRecord
 	end
 
 	def documentos
-		AppDocumento.where(owner_class: self.class.name, owner_id: self.id)
+		AppDocumento.where(owner_class: 'Clientes', owner_id: self.id)
 	end
 
 	def documentos_controlados
