@@ -116,6 +116,8 @@ module Seguridad
 			operacion?
 		when 'usuario'
 			usuario?
+		else
+			usuario?
 		end
 	end
 
