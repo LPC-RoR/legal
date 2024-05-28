@@ -1,0 +1,68 @@
+<small>
+	<div class="ttl_clear">
+		<div class="ttl_ttl">
+			<i class="bi bi-bookmark-check"></i> 
+			<%= objeto.tipo_causa %>
+		</div>
+		<div class="ttl_lnks">
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		</div>
+	</div>
+
+	<hr>
+
+	<!-- AUDIENCIAS -->
+	<div class="ttl_sub">
+		<div class="ttl_ttl">
+			Audiencias
+		</div>
+		<div class="ttl_lnks">
+			<%= link_to "/tipo_causas/#{objeto.id}/audiencias/new" do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</div>
+	</div>
+
+	<small>
+	<div style='padding-left: 1em;'>
+		<% objeto.audiencias.order(:orden).each do |audiencia| %>
+			<div class="row">
+			<%= render partial: 'audiencias/list/lobjeto', locals: {objeto: audiencia} %>
+			</div>
+		<% end %>
+	</div>
+	</small>
+
+	<!-- DOCUMENTOS CONTROLADOS -->
+	<div class="ttl_sub">
+		<div class="ttl_ttl">
+			Documentos controlados
+		</div>
+		<div class="ttl_lnks">
+			<%= link_to "/control_documentos/new?clss=#{objeto.class.name}&oid=#{objeto.id}" do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		</div>
+	</div>
+
+	<% objeto.control_documentos.order(:orden).each do |c_doc| %>
+			<%= render partial: 'repositorios/control_documentos/list/bjt', locals: {objeto: c_doc} %>
+	<% end %>
+
+	<!-- VARIABLES -->
+	<div class="ttl_sub">
+		<div class="ttl_ttl">
+			Variables
+		</div>
+		<% unless objeto.variables.count == @vrbls.count %>
+			<div class="ttl_lnks">
+				<%= render partial: "0p/add_lst/add_lst", locals: {id: objeto.id, lst: objeto.variables.map {|bjt_var| bjt_var.variable}, cmplt: @vrbls.map {|vrbl| vrbl.variable}, path: "/tipo_causas/#{objeto.id}/add_rcrd?v_nm="} %>
+			</div>
+		<% end %>
+	</div>
+
+	<% objeto.var_tp_causas.each do |rel| %>
+		<%= render partial: 'dts/var_tp_causas/list/var_child', locals: {objeto: rel} %>
+	<% end %>
+
+</small>

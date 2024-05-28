@@ -1,0 +1,8 @@
+<div class="cttl_sub">
+		Variables del Cliente
+</div>
+<div class="app_box">
+	<% @objeto.var_clis.each do |rel| %>
+		<%= render partial: 'dts/var_clis/list/var_child', locals: {objeto: rel} %>
+	<% end %>
+</div>

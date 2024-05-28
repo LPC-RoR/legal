@@ -1,4 +1,4 @@
-class ValoresController < ApplicationController
+class Dts::ValoresController < ApplicationController
   before_action :set_valor, only: %i[ show edit update destroy ]
 
   # GET /valores or /valores.json

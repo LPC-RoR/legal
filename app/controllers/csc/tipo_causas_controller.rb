@@ -1,5 +1,5 @@
-class TipoCausasController < ApplicationController
-  before_action :set_tipo_causa, only: %i[ show edit update destroy ]
+class Csc::TipoCausasController < ApplicationController
+  before_action :set_tipo_causa, only: %i[ show edit update destroy add_rcrd ]
 
   # GET /tipo_causas or /tipo_causas.json
   def index
@@ -46,6 +46,17 @@ class TipoCausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def add_rcrd
+    if params[:v_nm].present?
+      chld = Variable.find_by(variable: params[:v_nm].split('_').join(' '))
+      unless chld.blank?
+        @objeto.variables << chld
+      end
+    end
+
+    redirect_to '/tablas/tipos'
   end
 
   # DELETE /tipo_causas/1 or /tipo_causas/1.json

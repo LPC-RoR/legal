@@ -1,0 +1,16 @@
+// @include grids;
+// grd_frm($bg_color, $grap);
+// grd_ncol($nth);
+
+/* característica básicas de una grid */
+@mixin grd_frm($grd_mrgn, $grd_bg, $grd_gap) {
+	margin: $grd_mrgn;
+	background-color: $grd_bg;
+	display: grid;
+	grid-gap: $grd_gap;
+}
+
+@mixin grd_ncol($nth) {
+    grid-column-start: $nth;
+    grid-column-end: $nth + 1;
+}

@@ -1,0 +1,13 @@
+// a_hover($clr, $hvr_clr);
+// @import "a_hover";
+
+@mixin a_hover($clr, $hvr_clr) {
+	a {
+		color: $clr;
+        text-decoration: none;
+	}
+
+	a:hover {
+		color: $hvr_clr;
+	}
+}

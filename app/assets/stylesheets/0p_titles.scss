@@ -1,0 +1,62 @@
+$ttl_mrgn: 0 0 10px 0;
+$ttl_gap: 0;
+
+/* PARTIALS */
+
+// grd_frm($mrgn, $bg_color, $grap);
+// grd_ncol($nth);
+@import "grids";
+
+// a_hover($clr, $hvr_clr);
+@import "a_hover";
+
+/* TITULOS */
+
+@mixin ttl_bsc($lnks_wdth) {
+	@include grd_frm($ttl_mrgn, $app_bg, ttl_gap);
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+	color: white;
+    font-family: $app_fnt;
+	grid-template-columns: auto $lnks_wdth;
+}
+
+@mixin ttl_fill($bg_color, $lnks_wdth, $ln_hght, $a_clr, $hvr_clr) {
+	@include ttl_bsc($lnks_wdth, );
+	background-color: $bg_color;
+	line-height: $ln_hght;
+
+    .ttl_ttl {
+    	@include grd_ncol(1);
+    	padding-left: 1em;
+    	justify-self: start;
+    }
+
+    .ttl_lnks {
+    	@include grd_ncol(2);
+    	padding-right: 1em;
+    	justify-self: end;
+
+	   	@include a_hover($a_clr, $hvr_clr)
+    }
+}
+
+.ttl_app {
+	@include ttl_fill($app_bg, 100px, 40px, white, gray);
+}
+.ttl_clear {
+	@include ttl_fill($app_clear, 100px, 40px, white, gray);
+}
+.ttl_wdth {
+	@include ttl_fill($app_bg, 300px, 40px, white, gray);
+}
+
+.ttl_sub {
+	@include ttl_fill($app_bg, 50px, 25px, white, gray);
+}
+
+.cttl_sub {
+	padding: 5px 0 5px 0;
+	text-align: center;
+	background-color: $app_clear;
+	color: white;
+}

@@ -1,0 +1,48 @@
+$f_bg: white;
+$f_gap: 4px;
+$f_mrgn: 0;
+$auto: auto;
+
+/* GRID */
+
+
+// grd_frm($mrgn, $bg_color, $grap);
+// grd_ncol($nth);
+@import "grids";
+
+@mixin f_2_col ($lft, $rght) {
+	@include grd_frm($f_mrgn, $f_bg, $f_gap);
+	grid-template-columns: $lft $rght;
+    justify-items: stretch;
+
+    .lft {
+    	@include grd_ncol(1);
+    }
+    .rght {
+    	@include grd_ncol(2);
+    }
+}
+
+.f_50lft_col {
+	@include f_2_col(50%, $auto);
+}
+
+.f_200pxlft_col {
+	@include f_2_col(200px, $auto);
+}
+
+.f_250pxlft_col {
+	@include f_2_col(250px, $auto);
+}
+
+.f_300pxlft_col {
+	@include f_2_col(300px, $auto);
+}
+
+.f_400rght_col {
+	@include f_2_col($auto, 400px);
+}
+
+.f_250rght_col {
+	@include f_2_col($auto, 250px);
+}

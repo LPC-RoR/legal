@@ -75,6 +75,10 @@ module CptnHelper
 
 # ******************************************************************** HELPERS DE USO GENERAL
 
+	def s_as_prms(string)
+		string.split(' ').join('_')
+	end
+
 	def nombre(objeto)
 		objeto.send(objeto.class.name.tableize.singularize)
 	end
@@ -129,6 +133,7 @@ module CptnHelper
 			'tar_pagos' => 'currency-dollar',
 			'tar_formulas' => 'lightbulb',
 			'tar_comentarios' => 'chat',
+			'variables' => 'signpost',
 			'st_modelos' => 'box',
 			'dt_materias' => 'bank',
 			'm_periodos' => 'calendar3',

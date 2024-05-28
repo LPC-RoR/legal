@@ -1,3 +1,5 @@
+/* LAYOUT */
+
 $lyt_mrgn: 3%;
 $lyt_ovr_mrgn: $lyt_mrgn;
 $lyt_nvbr_mrgn: $lyt_mrgn;
@@ -9,8 +11,12 @@ $clr_4: #eaecee;
 $clr_5: #d5d8dc;
 $clr_6: #abb2b9;
 
-/* Variables que comienzan con app, son los valores por defecto */
+/* APP */
+
 $app_bg: #003285;
+$app_clear: #615EFC;
+$sub_bg: #5C88C4;
+$app_fnt: 'Raleway', sans-serif;
 
 *{
   margin: 0px;

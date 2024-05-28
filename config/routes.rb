@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   resources :cfg_valores
-  resources :valores
   resources :tipo_asesorias
   resources :regiones do
     resources :comunas
@@ -25,15 +24,7 @@ Rails.application.routes.draw do
     match :reporta_registro, via: :get, on: :member
     match :excluye_registro, via: :get, on: :member
   end
-  resources :tipo_causas do
-    resources :audiencias
-    resources :variables
-  end
   resources :audiencias
-  resources :variables do
-    match :arriba, via: :get, on: :member
-    match :abajo, via: :get, on: :member
-  end
   resources :consultorias do
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
@@ -58,13 +49,18 @@ Rails.application.routes.draw do
   end
   resources :antecedentes
   resources :clientes do
+    match :add_rcrd, via: :get, on: :member
     match :cambio_estado, via: :get, on: :member
   end
 
 # SCOPES *********************************************************
 
   # Usado para poner las entidades necesarias para mantener Causa
-  scope module: 'csc'   do
+  scope module: 'csc' do
+    resources :tipo_causas do
+      resources :audiencias
+      match :add_rcrd, via: :get, on: :member
+    end
     resources :temas do
       resources :hechos
       match :arriba, via: :get, on: :member
@@ -87,6 +83,17 @@ Rails.application.routes.draw do
       match :eliminar, via: :get, on: :member
       match :set_seleccionado, via: :get, on: :member
     end 
+  end
+
+  # Usado para poner las entidades necesarias para mantener Variables y su relación con causas y clientes
+  scope module: 'dts' do
+    resources :variables do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
+    resources :valores
+    resources :var_tp_causas
+    resources :var_clis
   end
 
   scope module: 'calendario' do

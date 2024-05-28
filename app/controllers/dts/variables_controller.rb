@@ -1,10 +1,10 @@
-class VariablesController < ApplicationController
+class Dts::VariablesController < ApplicationController
   before_action :set_variable, only: %i[ show edit update destroy arriba abajo ]
   after_action :reordenar, only: :destroy
 
   # GET /variables or /variables.json
   def index
-    @coleccion = Variable.all
+    set_tabla('variables', Variable.all.order(:orden), true)
   end
 
   # GET /variables/1 or /variables/1.json
@@ -99,7 +99,7 @@ class VariablesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = tabla_path(@objeto)
+      @redireccion = variables_path
     end
 
     # Only allow a list of trusted parameters through.

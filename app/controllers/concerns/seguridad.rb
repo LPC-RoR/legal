@@ -33,18 +33,39 @@ module Seguridad
 		usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email) : nil
 	end
 
+	# es verdadero SOLO para dog
 	def dog?
+		# Se usa el usuario porque dog no requiere nómina para funcionar
 		usuario_signed_in? ? (current_usuario.email == dog_email) : false
 	end
 
+	# es verdadero para admin y dog
 	def admin?
-		es_admin = usuario_signed_in? ? ( nomina_activa.blank? ? false : ( nomina_activa.tipo == 'admin' ) ) : false
-		es_admin or dog?
+		( usuario? and perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa) == 'admin' ) or dog?
+		#['operación', 'finanzas', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) or dog?
 	end
 
+	# es verdadero para operación, admin y dog
+	def operacion?
+		( usuario? and perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa) == 'operación' ) or admin? or dog?
+		#['operación', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) or dog?
+	end
+
+	# es verdadero para finanzas, admin y dog
+	def finanzas?
+		( usuario? and perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa) == 'finanzas' ) or admin? or dog?
+		['finanzas', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) or dog?
+	end
+
+	# es verdadero para operación, finanzas, admin y dog
+	def general?
+		( usuario? and ['operación', 'finanzas'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) ) or admin? or dog?
+	end
+
+	# es verdadero para usuario activo con ( nómina activa o dog )
+	# debemos agregar dog porque, al no tener nómina no tendría acceso
 	def usuario?
-		es_usuario = usuario_signed_in? ? ( nomina_activa.blank? ? false : ( nomina_activa.tipo != 'admin' ) ) : false
-		es_usuario or dog?
+		usuario_signed_in? ? (nomina_activa.present? or dog?) : false
 	end
 
 	# DEPRECATED : A futuro se introduce la categoría 'servicio para regular el acceso a los controladores de servicios.'
@@ -82,21 +103,25 @@ module Seguridad
 	# Depnde de los tipos definidos en la aplicación
 	# Quizá deba estar en otro lado
 	def check_tipo_usuario(tipo)
-		chk = [perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]), tipo].include?('general') ? true : perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]) == tipo
-		chk
+		case tipo
+		when 'dog'
+			dog?
+		when 'admin'
+			admin?
+		when 'general'
+			general?
+		when 'finanzas'
+			finanzas?
+		when 'operación'
+			operacion?
+		when 'usuario'
+			usuario?
+		end
 	end
 
 	# Se usa en lmenu
 	def lm_check_tipo_usuario(modelo)
 		modelo.class.name == 'Array' ? check_tipo_usuario(modelo[1]) : true
-	end
-
-	def operacion?
-		['operación', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]))
-	end
-
-	def finanzas?
-		['finanzas', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario]))
 	end
 
 	def check_crud(objeto)

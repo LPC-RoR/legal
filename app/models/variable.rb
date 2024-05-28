@@ -2,34 +2,20 @@ class Variable < ApplicationRecord
 
 	TIPOS_VARIABLE = ['Texto', 'Párrafo', 'Número', 'Monto pesos', 'Monto UF']
 
-	belongs_to :tipo_causa
+	# DEPRECATED lo cambiamos a many to many
+	#belongs_to :tipo_causa, optional: true
+	#belongs_to :cliente, optional: true
+
+	has_many :var_tp_causas
+	has_many :tipo_causas, through: :var_tp_causas
+
+	has_many :var_clis
+	has_many :clientes, through: :var_clis
 
 	has_many :valores
 
-	# ------------------------------------ ORDER LIST
-
-	def owner
-		self.tipo_causa
-	end
-
-	def list
-		owner.variables.order(:orden)
-	end
-
-	def n_list
-		self.list.count
-	end
-
-	def siguiente
-		self.list.find_by(orden: self.orden + 1)
-	end
-
-	def anterior
-		self.list.find_by(orden: self.orden - 1)
-	end
-
-	def redireccion
-		"/tablas?tb=4"
+	def as_prms
+		self.variable.split(' ').join('!')
 	end
 
 	# ----------------------------------------------- Causa -> Valor <- Variable

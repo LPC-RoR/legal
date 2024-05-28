@@ -50,7 +50,8 @@ class CausasController < ApplicationController
       # no se usa esta tabla, quizá luego se use para evitar proceso en vista
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
 
-      @variables = @objeto.tipo_causa.variables.order(:orden)
+      vrbls_ids = @objeto.cliente.variables.ids.intersection(@objeto.tipo_causa.variables.ids)
+      @variables = Variable.where(id: vrbls_ids)
       @valores = @objeto.valores_datos
 
       set_detalle_cuantia(@objeto, porcentaje_cuantia: false)

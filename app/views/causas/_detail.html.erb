@@ -11,7 +11,7 @@
 
 <div class="row">
 	<div class="col-lg-6 col.xs-12">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tribunal / Corte', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tribunal', v: true } %>
 		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tribunal_corte_id, colection: TribunalCorte.all.order(:tribunal_corte).collect { |tc| [tc.tribunal_corte, tc.id] }, display_field: 'tribunal_corte', prompt: 'Tribunal/Corte' } %>
 	</div>
 	<div class="col-lg-6">

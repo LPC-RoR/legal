@@ -2,7 +2,10 @@ class TipoCausa < ApplicationRecord
 
 	has_many :causas
 	has_many :audiencias
-	has_many :variables
+
+
+	has_many :var_tp_causas
+	has_many :variables, through: :var_tp_causas
 
 	has_many :tar_tarifas
 	has_many :tar_variable_bases

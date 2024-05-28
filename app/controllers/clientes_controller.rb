@@ -1,6 +1,6 @@
 class ClientesController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura ]
+  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura add_rcrd ]
   after_action :rut_puro, only: %i[ create update ]
 
 #  include Bandejas
@@ -18,6 +18,8 @@ class ClientesController < ApplicationController
     @estado = (params[:e].blank? and params[:t].blank?) ? frst_e : params[:e]
     @tipo = (params[:t].blank? and @estado.blank?) ? frst_s : params[:t]
     @path = '/clientes?'
+
+    @vrbls = Variable.all.order(:variable)
 
     set_tabla('clientes', Cliente.where(estado: @estado).order(:razon_social), true) if @estado.present?
     set_tabla('clientes', Cliente.where(estado: 'activo', tipo_cliente: @tipo.singularize).order(:razon_social), true) if @tipo.present? and @estado.blank?
@@ -135,6 +137,17 @@ class ClientesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def add_rcrd
+    if params[:v_nm].present?
+      chld = Variable.find_by(variable: params[:v_nm].split('_').join(' '))
+      unless chld.blank?
+        @objeto.variables << chld
+      end
+    end
+
+    redirect_to '/clientes'
   end
 
   # se utiliza para Clases que manejan estados porque se declaró el modelo

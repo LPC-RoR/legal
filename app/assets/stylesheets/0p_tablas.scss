@@ -1,0 +1,79 @@
+/* ELEMENTOS BASE PARA EL MANEJO DE TABLAS */
+
+$app_ln_bg: white;
+$app_ln_gp: 0;
+$app_font: 'Raleway', sans-serif;
+$app_ln_hght: 18px;
+$app_ln_txt_hght: 13px;
+$app_ln_padd: 0 10px 0 10px;
+
+@mixin ln_bsc($ln_bg) {
+	margin: 0;
+	padding: $app_ln_padd;
+	background-color: $ln_bg;
+	line-height: $app_ln_hght;
+	font-size: $app_ln_txt_hght;;
+    font-family: $app_font;
+	display: grid;
+	grid-gap: $app_ln_gp;
+	color: black;
+}
+
+@mixin ln_ncol($nth) {
+    grid-column-start: $nth;
+    grid-column-end: $nth + 1;
+}
+
+@mixin bx_shdw {
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+}
+
+@mixin a_hover($clr) {
+	a {
+		color: $clr;
+        text-decoration: none;
+	}
+
+	a:hover {
+		color: gray;
+	}
+}
+
+@mixin ln_2_col($lft, $rght) {
+	@include ln_bsc($app_ln_bg);
+	grid-template-columns: $lft $rght;
+    justify-items: stretch;
+
+    .ln_lft {
+    	@include ln_ncol(1);
+    	justify-self: start;
+    }
+    .ln_rght {
+    	@include ln_ncol(2);
+    	justify-self: end;
+    }
+    @include a_hover(black);
+}
+
+@mixin ln_3_col($lft, $mddl, $rght) {
+	@include ln_bsc($app_ln_bg);
+	grid-template-columns: $lft $mddl $rght;
+    justify-items: stretch;
+
+    .ln_lft {
+    	@include ln_ncol(1);
+    	justify-self: start;
+    }
+    .ln_mddl {
+    	@include ln_ncol(2);
+    }
+    .ln_rght {
+    	@include ln_ncol(3);
+    	justify-self: end;
+    }
+    @include a_hover(black);
+}
+
+.ln_app {
+	@include ln_2_col(auto, 50px);
+}

@@ -7,7 +7,6 @@ module CptnMenuLeftHelper
 				{
 					titulo: nil,
 					condicion: usuario?,
-
 					items: [
 						'AgeActividad',
 						['Cliente', 'operación'],
@@ -56,9 +55,10 @@ module CptnMenuLeftHelper
 					condicion: admin?, 
 					items: [
 						'AppNomina',
-						'StModelo',
 						'BlgArticulo',
-						'HImagen'
+						'HImagen',
+						'StModelo',
+						'Variable'
 					]
 				},
 				{
@@ -82,7 +82,7 @@ module CptnMenuLeftHelper
 	end
 
 	def tablas_controllers
-		['aut_tipo_usuarios', 'clientes', 'causas', 'asesorias', 'age_actividades', 'age_usuarios', 'age_pendientes', 'hechos', 'temas', 'hecho_archivos', 'tar_valor_cuantias', 'tar_uf_sistemas', 'regiones', 'cal_meses', 'cal_feriados', 'dt_materias']
+		['aut_tipo_usuarios', 'clientes', 'causas', 'asesorias', 'age_actividades', 'age_usuarios', 'age_pendientes', 'hechos', 'temas', 'hecho_archivos', 'tar_valor_cuantias', 'tar_uf_sistemas', 'regiones', 'cal_meses', 'cal_feriados', 'dt_materias', 'variables']
 	end
 
 	def left_menu_actions?

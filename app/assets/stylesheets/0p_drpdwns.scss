@@ -1,0 +1,65 @@
+/* LIST DROPDOWN */
+
+[class^=lst-drpdwn] {
+    /* desplazamiento desde la izquierda */
+    /* left: 10%; */
+    /* text-align: center; */
+    position: relative;
+    display: inline-block;
+}
+
+[class^=lst-drpdwn-content] {
+    display: none;
+    position: absolute;
+    background-color: $app_clear;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 160px;
+    z-index: 1;
+    @include a_hover(white, yellow);
+}
+
+[class^=lst-drpdwn]:hover [class^=lst-drpdwn-content] {
+    display: block;
+}
+
+[class^=lst-drpdwn-content] a {
+    /*color: black;*/
+    padding: 5px 14px;
+    text-decoration: none;
+    display: block;
+}
+
+/* DROPDOWN ENLACES */
+
+.enlaces-drpdwn {
+    /* desplazamiento desde la izquierda */
+    /* left: 10%; */
+    /* text-align: center; */
+    position: relative;
+    display: inline-block;
+}
+
+.enlaces-drpdwn-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 160px;
+    z-index: 1;
+}
+
+.enlaces-drpdwn:hover .enlaces-drpdwn-content {
+    display: block;
+}
+
+.enlaces-drpdwn-content a {
+    color: black;
+    padding: 5px 14px;
+    text-decoration: none;
+    display: block;
+}
+
+.enlaces-drpdwn-content a:hover {
+    color: blue;
+    background-color: #f1f1f1;
+}

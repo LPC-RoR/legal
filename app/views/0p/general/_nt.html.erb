@@ -1,0 +1,19 @@
+<div class="nt bg-<%=tipo%>">
+	<div class="ttl">
+		<div class="ttl_ttl">
+			<span class="text-white">
+				<% case tipo %>
+				<% when 'warning' %>
+					<i class="bi bi-exclamation-lg"></i>
+				<% when 'info' %>
+					<i class="bi bi-dot"></i>
+				<% when 'danger' %>
+					<i class="bi bi-cone-striped"></i>
+				<% end %>
+				<%= nota %>
+			</span>
+		</div>
+		<div class="ttl_lnks">
+		</div>
+	</div>
+</div>

@@ -136,8 +136,12 @@ module Tarifas
 		elsif token.strip[0] == '$'
 			# en token.gsub('$', '').strip es necesario el strip
 			variable = Variable.find_by(variable: token.gsub('$', '').strip)
-			valor = variable.valores.find_by(owner_id: objeto.id)
-			valor.blank? ? 0 : variable.valor_campo(valor)
+			if variable.blank?
+				0
+			else
+				valor = variable.valores.find_by(owner_id: objeto.id)
+				valor.blank? ? 0 : variable.valor_campo(valor)
+			end
 		elsif (token.split(' ').length == 1) and token.match(/\d+\.*\d*/)	# número cte
 			token.strip.to_f
 		elsif token.strip == 'true'	# condicion ya evaluda

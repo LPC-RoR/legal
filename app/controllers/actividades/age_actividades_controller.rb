@@ -4,8 +4,9 @@ class Actividades::AgeActividadesController < ApplicationController
   # GET /age_actividades or /age_actividades.json
   def index
     @hoy = Time.zone.today
-    @usuario = perfil_activo.age_usuarios.empty? ? nil : perfil_activo.age_usuarios.first
-    @usuario = perfil_activo.age_usuarios.create(age_usuario: perfil_activo.email) if @usuario.blank?
+
+    # Manejo actual de age_usuarios
+    @usuario = perfil_activo.age_usuario
 
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 

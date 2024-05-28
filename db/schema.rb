@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_25_054609) do
+ActiveRecord::Schema.define(version: 2024_05_27_202901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1618,6 +1618,24 @@ ActiveRecord::Schema.define(version: 2024_05_25_054609) do
     t.index ["owner_class"], name: "index_valores_on_owner_class"
     t.index ["owner_id"], name: "index_valores_on_owner_id"
     t.index ["variable_id"], name: "index_valores_on_variable_id"
+  end
+
+  create_table "var_clis", force: :cascade do |t|
+    t.integer "variable_id"
+    t.integer "cliente_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_var_clis_on_cliente_id"
+    t.index ["variable_id"], name: "index_var_clis_on_variable_id"
+  end
+
+  create_table "var_tp_causas", force: :cascade do |t|
+    t.integer "variable_id"
+    t.integer "tipo_causa_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tipo_causa_id"], name: "index_var_tp_causas_on_tipo_causa_id"
+    t.index ["variable_id"], name: "index_var_tp_causas_on_variable_id"
   end
 
   create_table "variables", force: :cascade do |t|
