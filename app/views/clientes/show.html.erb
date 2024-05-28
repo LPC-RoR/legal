@@ -2,7 +2,6 @@
 <%= render partial: 'estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
-<%= @d_pendientes.class.name %> <%= @a_pendientes.class.name %>
 <% case @options[:menu] %>
 <% when 'Agenda' %>
 	<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto, usuarios: @age_usuarios} %>
@@ -15,5 +14,6 @@
 <% when 'Tarifas' %>
 	<%= render partial: 'clientes/shw/ndx_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
 <% when 'Documentos' %>
+	<%= @d_pendientes.count %> <%= @a_pendientes.count %>
 	<%= render partial: 'repositorios/shr/ndx_docs', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
 <% end %>
