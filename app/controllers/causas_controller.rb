@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -14,14 +14,8 @@ class CausasController < ApplicationController
     @path = "/causas?"
     @link_new = @estado == 'tramitación' ? causas_path : nil
 
-#    if @tipo.blank?
-      coleccion = Causa.where(estado: @estado).order(created_at: :desc)
-      set_tabla('causas', coleccion, true)
-#    else
-#      tipo = TipoAsesoria.find_by(tipo_asesoria: @tipo)
-#      asesorias = tipo.asesorias.where(estado: ['terminada', 'cerrada'])
-#      set_tabla('asesorias', asesorias, true)
-#    end
+    coleccion = Causa.where(estado: @estado).order(created_at: :desc)
+    set_tabla('causas', coleccion, true)
 
   end
 
@@ -55,6 +49,7 @@ class CausasController < ApplicationController
       @valores = @objeto.valores_datos
 
       set_detalle_cuantia(@objeto, porcentaje_cuantia: false)
+      @arry_cnt = array_cuantia(@objeto, @valores_cuantia)
 
       # @cuantia_tarifa {true, false} señala cuando la tarifa requiere la cuantía para su cálculo
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
@@ -114,6 +109,27 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def cuantia_to_xlsx
+    require 'axlsx'
+
+    set_detalle_cuantia(@objeto, porcentaje_cuantia: false)
+    arry_cnt = array_cuantia(@objeto, @valores_cuantia)
+
+    planilla = Axlsx::Package.new
+    wb = planilla.workbook
+
+    wb.add_worksheet(name: 'Cuantía') do |sheet|
+      sheet.add_row ['Item', 'Honorarios', 'Real']
+      arry_cnt.each do |vctr|
+        sheet.add_row vctr
+      end
+    end
+
+    planilla.serialize 'cuantia.xlsx'
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Datos+%26+Cuantía"    
   end
 
   # PATCH/PUT /causas/1 or /causas/1.json

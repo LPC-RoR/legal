@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     match :crea_archivo_controlado, via: :get, on: :member
     match :input_nuevo_archivo, via: :post, on: :member
     match :set_flags, via: :get, on: :member
+    match :cuantia_to_xlsx, via: :get, on: :member
     # ultima version
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member

@@ -228,6 +228,15 @@ module Tarifas
 		@totales_cuantia[objeto.id][:honorarios_pesos] = v_total_honorarios_pesos.empty? ? 0 : v_total_honorarios_pesos.sum
 	end
 
+	def array_cuantia(objeto, valores_cuantia)
+		array = []
+		objeto.valores_cuantia.each do |vc|
+			elem = [valores_cuantia[objeto.id][vc.id][:nombre], valores_cuantia[objeto.id][vc.id][:honorarios], valores_cuantia[objeto.id][vc.id][:cuantia]]
+			array << elem
+		end
+		array
+	end
+
 	# Calcula el valor de Cuantía de Honorarios de un tar_valor_cuantia
 	def variable_base_valor(tar_valor_cuantia)
 		v_cuantia = get_h_cuantia(tar_valor_cuantia)

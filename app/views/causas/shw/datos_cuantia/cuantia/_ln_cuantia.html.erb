@@ -4,10 +4,10 @@
 	</div>
 	<div class="ln_mddl" align='right'>
 		<% if controller_name == 'causas' %>
-			<%= render partial: 'causas/partials/datos_cuantia/cuantia_honorarios', locals: {objeto: objeto, vc: vc, valores_cuantia: valores_cuantia} %>
+			<%= render partial: 'causas/shw/datos_cuantia/cuantia/honorarios', locals: {objeto: objeto, vc: vc, valores_cuantia: valores_cuantia} %>
 		<% end %>
 	</div>
 	<div class="ln_rght">
-		<%= render partial: 'causas/partials/datos_cuantia/cuantia_real', locals: {objeto: objeto, vc: vc, valores_cuantia: valores_cuantia} %>
+		<%= render partial: 'causas/shw/datos_cuantia/cuantia/real', locals: {objeto: objeto, vc: vc, valores_cuantia: valores_cuantia} %>
 	</div>
 </div>
