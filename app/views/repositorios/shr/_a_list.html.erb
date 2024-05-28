@@ -1,8 +1,5 @@
-<%= "1111 #{coleccion.empty?}" %>
 <% unless coleccion.empty? %>
 	<% coleccion.each do |archivo| %>
-		<%= archivo.visible_para %>
-		<%= "2222 #{check_tipo_usuario(archivo.visible_para)}" %>
 		<% if check_tipo_usuario(archivo.visible_para) %>
 			<%= render partial: partial_name(archivo.class.name.tableize, 'list', "bjt") , locals: {objeto: archivo} %>
 		<% end %>

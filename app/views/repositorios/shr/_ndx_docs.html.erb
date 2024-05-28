@@ -3,7 +3,6 @@
 <div class="f_250rght_col">
 	<div class="lft">
 
-<%= "a #{@coleccion['app_archivos'].count}" %><%= "d #{@coleccion['app_documentos'].count}" %>
 		<% unless @coleccion['app_documentos'].empty? and @coleccion['app_archivos'].empty? %>
 
 			<%= render partial: 'repositorios/shr/d_list', locals: {coleccion: @coleccion['app_documentos']} %>
@@ -11,6 +10,7 @@
 			<%= render partial: 'recursos/app_enlaces/partials/list', locals: {coleccion: @coleccion['app_enlaces']} %>
 
 		<% end %>
+
 	</div>
 	<div class="rght">
 		<%= d_pendientes.count %><%= a_pendientes.count %>
