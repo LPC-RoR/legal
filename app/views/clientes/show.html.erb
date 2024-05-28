@@ -2,7 +2,7 @@
 <%= render partial: 'estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
-<%= @d_pendientes.count %> <%= @a_pendientes %>
+<%= @d_pendientes.count %> <%= @a_pendientes.count %>
 <% case @options[:menu] %>
 <% when 'Agenda' %>
 	<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto, usuarios: @age_usuarios} %>
