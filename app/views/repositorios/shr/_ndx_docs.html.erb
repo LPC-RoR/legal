@@ -3,6 +3,7 @@
 <div class="f_250rght_col">
 	<div class="lft">
 
+<%= "a #{@coleccion['app_archivos'].count}" %><%= "d #{@coleccion['app_documentos'].count}" %>
 		<% unless @coleccion['app_documentos'].empty? and @coleccion['app_archivos'].empty? %>
 
 			<%= render partial: 'repositorios/shr/d_list', locals: {coleccion: @coleccion['app_documentos']} %>
