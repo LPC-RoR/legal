@@ -5,28 +5,12 @@ $auto: auto;
 /* BOXS */
 
 .app_box {
+    margin-bottom: 4px;
     box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-    padding: 5px 0 5px 0;
+    padding: 5px;
     background-color: white;
     color: black;
 }
-
-.app_box_dprctd {
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-
-    .box_ttl {
-    	padding: 5px 0 5px 0;
-    	background-color: $app_clear;
-    	text-align: center;
-    	color: white;
-    }
-    .box_cntnt {
-    	padding: 5px 0 5px 0;
-    	background-color: white;
-    	color: black;
-    }
-}
-
 
 /* ELEMENTOS */
 

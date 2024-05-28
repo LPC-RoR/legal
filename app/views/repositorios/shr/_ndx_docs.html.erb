@@ -5,13 +5,14 @@
 
 		<% unless @coleccion['app_documentos'].empty? and @coleccion['app_archivos'].empty? %>
 
-				<%= render partial: 'repositorios/shr/d_list', locals: {coleccion: @coleccion['app_documentos']} %>
-				<%= render partial: 'repositorios/shr/a_list', locals: {coleccion: @coleccion['app_archivos']} %>
-				<%= render partial: 'recursos/app_enlaces/partials/list', locals: {coleccion: @coleccion['app_enlaces']} %>
+			<%= render partial: 'repositorios/shr/d_list', locals: {coleccion: @coleccion['app_documentos']} %>
+			<%= render partial: 'repositorios/shr/a_list', locals: {coleccion: @coleccion['app_archivos']} %>
+			<%= render partial: 'recursos/app_enlaces/partials/list', locals: {coleccion: @coleccion['app_enlaces']} %>
 
 		<% end %>
 	</div>
 	<div class="rght">
+		<%= d_pendientes.count %><%= a_pendientes.count %>
 		<%= render partial: 'repositorios/shr/add_box', locals: {objeto: objeto, d_pendientes: d_pendientes, a_pendientes: a_pendientes} %>
 	</div>
 </div>

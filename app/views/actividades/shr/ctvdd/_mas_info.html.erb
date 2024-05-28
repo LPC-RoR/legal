@@ -1,20 +1,27 @@
 <div class="cllps">
-	<i class="bi bi-dot"></i>
-	Actividad creada por <b><%= objeto.nombre_creador %></b></br>
-
 	<% if objeto.privada %>
 		<i class="bi bi-dot"></i>
 		Actividad privada</br>
+	<% else %>
+		<% unless objeto.age_usuarios.empty? %>
+			<b>Encargados / Participantes</b></br>
+			<% objeto.age_usuarios.each do |age_usr| %>
+				<i class="bi bi-dot"></i>
+				<%= age_usr.age_usuario %>
+			<% end %>
+		<% end %></br>
 	<% end %>
+<hr>
+	Actividad creada por <b><%= objeto.nombre_creador %></b></br>
 
 	<% if controller_name == 'age_actividades' and objeto.owner_id.present? %>
-		<i class="bi bi-dot"></i>
 		Actividad generada en <%= objeto.owner_class == "Causa" ? "la causa" : 'el cliente' %>
 		<%= link_to objeto.owner do %>
 			<%= render partial: '0p/general/gly', locals: {gly: controller_icon[objeto.owner.class.name.tableize]} %>
 			<%= objeto.owner_class == 'Causa' ? objeto.owner.rit : objeto.owner.razon_social %>
 		<% end %>
 	<% end %>
+
 
 	<% unless objeto.age_logs.empty? %>
 		<hr>

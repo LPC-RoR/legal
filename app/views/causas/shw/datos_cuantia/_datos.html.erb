@@ -1,16 +1,12 @@
-<%#= render partial: '0capitan/general/app_ttl', locals: {c: 'variables', title: "Datos", link: nil, tooltip: nil } %>
+<%= render partial: '0capitan/general/app_ttl', locals: {c: 'variables', title: "Datos", link: nil, tooltip: nil } %>
 
-<div class="ttl_app">
-	<div class="ttl_ttl">
-		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['causas']} %>
-		Datos
-	</div>
-</div>
-
+<% unless variables.empty? %>
 <!-- DATOS -->
-<div class="f_50lft_col">
+<div class="app_box">
 
-	<% variables.each do |variable| %>
+	<div class="f_50lft_col">
+
+		<% variables.each do |variable| %>
 
 			<div class="lbjt_box">
 				<%= render layout: '0p/collapse/link', locals: {label: 'FormValor', objeto: variable, tooltip: 'ingresa/modifica'} do %>
@@ -34,5 +30,8 @@
 				<% end %>
 			</div>
 
-	<% end %>
+		<% end %>
+	</div>
 </div>
+
+<% end %>

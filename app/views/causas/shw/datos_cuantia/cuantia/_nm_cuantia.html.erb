@@ -1,0 +1,11 @@
+<% if vc.tar_detalle_cuantia.tar_detalle_cuantia == 'Otro' and controller_name == 'causas' %>
+	<i class="bi bi-asterisk"></i>
+<% end %>
+<%= valores_cuantia[objeto.id][vc.id][:nombre] %>
+<% unless valores_cuantia[objeto.id][vc.id][:nota].blank? %>
+	 ( <%= valores_cuantia[objeto.id][vc.id][:nota] %> )
+<% end %>
+<%= "( #{valores_cuantia[objeto.id][vc.id][:p100]}% )" unless valores_cuantia[objeto.id][vc.id][:p100].blank? %>
+<% if controller_name == 'causas' %>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: vc} %>
+<% end %>
