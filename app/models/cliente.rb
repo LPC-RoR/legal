@@ -25,7 +25,7 @@ class Cliente < ApplicationRecord
     end
 
     def st_modelo
-    	StModelo.find_by(st_modelo: self.class.name)
+    	StModelo.find_by(st_modelo: 'Cliente')
     end
 
 	def enlaces
