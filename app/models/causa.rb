@@ -41,7 +41,7 @@ class Causa < ApplicationRecord
 	# Archivos y control de archivos
 
 	def nombres_usados
-		archivos_names = self.archivos.map {|archivo| archivo.app_archivo}.union(docs_names = self.documentos.map {|doc| doc.app_documento})
+		self.archivos.map {|archivo| archivo.app_archivo}.union(self.documentos.map {|doc| doc.app_documento})
 	end
 
 	def archivos
