@@ -14,7 +14,7 @@
 <% when 'Tarifas' %>
 	<%= render partial: 'clientes/shw/ndx_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
 <% when 'Documentos' %>
-<%= "a #{@objeto.archivos.count}" %><%= "d #{@objeto.documentos.count}" %>
+<%= "a #{@coleccion['app_archivos'].count}" %><%= "d #{@coleccion['app_documentos'].count}" %>
 	<%= @d_pendientes.count %> <%= @a_pendientes.count %>
 	<%= render partial: 'repositorios/shr/ndx_docs', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
 <% end %>
