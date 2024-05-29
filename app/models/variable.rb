@@ -18,6 +18,10 @@ class Variable < ApplicationRecord
 		self.variable.split(' ').join('!')
 	end
 
+	def detalle
+		self.descripcion.present? ? self.descripcion : self.variable
+	end
+
 	# ----------------------------------------------- Causa -> Valor <- Variable
 
 	def valor_campo(valor)

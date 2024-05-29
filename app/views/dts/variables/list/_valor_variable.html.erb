@@ -1,23 +1,20 @@
-<small class="text-muted">
-	<% case objeto.tipo %>
-	<% when 'Texto' %>
-		<% unless objeto.valor_variable(causa).blank? %>
-			<% if objeto.valor_variable(causa).split(';').length > 1 %>
-				<% objeto.valor_variable(causa).split(';').each do |elem| %>
-					<i class="bi bi-dot"></i> <%= elem %></br>
-				<% end %>
-			<% else %>
-				<%= objeto.valor_variable(causa) %>
+<% case objeto.tipo %>
+<% when 'Texto' %>
+	<% unless objeto.valor_variable(causa).blank? %>
+		<% if objeto.valor_variable(causa).split(';').length > 1 %>
+			<% objeto.valor_variable(causa).split(';').each do |elem| %>
+				<i class="bi bi-dot"></i> <%= elem %></br>
 			<% end %>
+		<% else %>
+			<%= objeto.valor_variable(causa) %>
 		<% end %>
-	<% when 'Párrafo' %>
-		<%= objeto.valor_variable(causa) %>
-	<% when 'Número' %>
-		<%= objeto.valor_variable(causa).to_i %>
-	<% when 'Monto pesos' %>
-		<%= s_pesos(objeto.valor_variable(causa).to_f) %>
-	<% when 'Monto UF' %>
-		<%= s_uf(objeto.valor_variable(causa).to_f) %>
 	<% end %>
-
-</small>
+<% when 'Párrafo' %>
+	<%= objeto.valor_variable(causa) %>
+<% when 'Número' %>
+	<%= objeto.valor_variable(causa).to_i %>
+<% when 'Monto pesos' %>
+	<%= s_pesos(objeto.valor_variable(causa).to_f) %>
+<% when 'Monto UF' %>
+	<%= s_uf(objeto.valor_variable(causa).to_f) %>
+<% end %>

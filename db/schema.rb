@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_27_202901) do
+ActiveRecord::Schema.define(version: 2024_05_29_134436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1646,7 +1646,9 @@ ActiveRecord::Schema.define(version: 2024_05_27_202901) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "orden"
+    t.string "descripcion"
     t.index ["control"], name: "index_variables_on_control"
+    t.index ["descripcion"], name: "index_variables_on_descripcion"
     t.index ["orden"], name: "index_variables_on_orden"
     t.index ["tipo"], name: "index_variables_on_tipo"
     t.index ["tipo_causa_id"], name: "index_variables_on_tipo_causa_id"

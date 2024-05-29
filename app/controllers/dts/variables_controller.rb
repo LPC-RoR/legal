@@ -104,6 +104,6 @@ class Dts::VariablesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def variable_params
-      params.require(:variable).permit(:tipo, :variable, :tipo_causa_id, :control, :orden)
+      params.require(:variable).permit(:tipo, :variable, :tipo_causa_id, :control, :orden, :descripcion)
     end
 end
