@@ -54,9 +54,17 @@ $ttl_gap: 0;
 	@include ttl_fill($app_bg, 50px, 25px, white, gray);
 }
 
+.ttl_prnt {
+	@include ttl_fill(white, 300px, 40px, black, gray);
+    border: 1px solid $app_brd_clr;
+    border-radius: 3px 3px 3px 3px;
+    color: black;
+}
+
 .cttl_sub {
 	padding: 5px 0 5px 0;
 	text-align: center;
 	background-color: $app_clear;
 	color: white;
+	font-weight: bold;
 }

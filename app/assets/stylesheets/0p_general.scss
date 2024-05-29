@@ -2,6 +2,8 @@ $w_bg: white;
 $w_grp_gap: 4px;
 $auto: auto;
 
+
+
 /* BOXS */
 
 @mixin box_bsc($brd_clr, $bg_clr, $padd) {
@@ -14,12 +16,12 @@ $auto: auto;
 }
 
 .app_box {
-	@include box_bsc(#e5e8e8, white, 5px);
+	@include box_bsc($app_brd_clr, white, 5px);
     color: black;
 }
 
 .cntnt_box {
-	@include box_bsc(#e5e8e8, white, 10px);
+	@include box_bsc($app_brd_clr, white, 10px);
     color: black;
 }
 
