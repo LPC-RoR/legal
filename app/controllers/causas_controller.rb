@@ -54,6 +54,8 @@ class CausasController < ApplicationController
       # @cuantia_tarifa {true, false} señala cuando la tarifa requiere la cuantía para su cálculo
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
       @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
+
+      @audiencia_preparatoria = @objeto.actividades.find_by(age_actividad: 'Audiencia preparatoria')
     when 'Tarifa & Pagos'
 
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)

@@ -11,17 +11,17 @@
 
     /* TITULO */
     .lmn_ttl {
-        background-color: white;
+        background-color: $app_clear;
         padding: 10px;
         font-size: 45px;
         text-align: center;
 
         a {
             text-decoration: none;
-            color: #7fb3d5;
+            color: white;
 
             &:hover {
-                color: #1a5276;
+                color: gray;
             }
         }
     }
@@ -29,7 +29,7 @@
     /* PERFIL */
     .lmn_prfl {
         background-color: white;
-        padding: 0 20px 10px 20px;
+        padding: 10px 20px 10px 20px;
         line-height: 16px;
         color: #515a5a;
         font-size: 14px;

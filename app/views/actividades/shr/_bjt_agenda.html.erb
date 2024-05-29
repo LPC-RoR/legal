@@ -4,7 +4,7 @@
 	<% unless @audiencias_pendientes.empty? %>
 		<% @audiencias_pendientes.each do |pendiente| %>
 			<%= render layout: '0p/collapse/display', locals: {label: pendiente.split(' ').join('_'), objeto: nil} do %>
-				<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: 'A', causa_id: objeto.id, cu: 'c', audiencia: pendiente } %>
+				<%= render partial: 'actividades/shr/form_actividad', locals: {tipo: 'A', causa_id: objeto.id, cu: 'c', audiencia: pendiente } %>
 			<% end %>
 		<% end %>
 	<% end %>
@@ -13,7 +13,7 @@
 <% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
 	<% unless ['Reunión', 'Tarea'].include?(tipo) and finanzas? and not admin? %>
 		<%= render layout: '0p/collapse/display', locals: {label: tipo, objeto: nil} do %>
-			<%= render partial: 'actividades/age_actividades/partials/form_actividad', locals: {tipo: tipo[0], causa_id: objeto.id, cu: 'c', audiencia: nil } %>
+			<%= render partial: 'actividades/shr/form_actividad', locals: {tipo: tipo[0], causa_id: objeto.id, cu: 'c', audiencia: nil } %>
 		<% end %>
 	<% end %>
 <% end %>

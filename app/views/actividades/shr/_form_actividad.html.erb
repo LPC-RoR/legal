@@ -1,8 +1,8 @@
-<div class="shadow p-3 mb-1 bg-white rounded">
+<div class="g_cllps">
 	<%= form_for :form_actividad, url: "/age_actividades/cu_actividad?cn=#{controller_name}&t=#{tipo}&oid=#{causa_id}&cu=#{cu}&aud=#{audiencia}" do |form| %>
 
 		<div class="row">
-			<div class="col-10 text-info">
+			<div class="col-10">
 
 				<% if tipo.blank? %>
 					<%= cu == 'c' ? 'Crea actividad' : 'Modifica actividad' %></br>
@@ -10,35 +10,34 @@
 					<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :tipo, radio_list: ['Reunión', 'Tarea'] } %>
 				<% else %>
 					<%= cu == 'c' ? 'Crea' : 'Modifica' %>
-					<%= tipo == 'A' ? 'Audiencia' : ( tipo == 'H' ? 'Hito' : ( tipo == 'R' ? 'Reunión' : 'Tarea' ) ) %>	
+					<%= tipo == 'A' ? '' : ( tipo == 'H' ? 'Hito' : ( tipo == 'R' ? 'Reunión' : 'Tarea' ) ) %>	
 				<% end %>
 
+				<% if tipo == 'A' %>
+					<%= audiencia %>
+				<% end %>
 			</div>
-			<div class="col-2">
+			<div class="col-2" align='right'>
 				<button type="submit" class="btn btn-info">
 				  <i class="bi bi-caret-right icon-white"></i>
 				</button>
 			</div>
 		</div>
 
-		<% if tipo == 'A' %>
-			<small class="text-info"><%= audiencia %></small>
-		<% end %>
-
-		<p class="text-info">
-			
-		</p>
-		<small>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha - Hora', v: true } %>
 		<%= render partial: '0p/form_fields/datetime', locals: { form: form, token: :fecha } %>
 
 		<% unless tipo == 'A' %>
 			<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
 			<%= render partial: '0p/form_fields/text', locals: { form: form, token: :age_actividad } %>
+		<% else %>
+			<% unless audiencia == 'Audiencia preparatoria' %>
+				<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Audiencia especial', v: true } %>
+				<%= render partial: '0p/form_fields/text', locals: { form: form, token: :audiencia_especial } %>
+			<% end %>
 		<% end %>
+		</br>
 		<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :privada, label: 'privada!' } %>
-		</small>
-
 
 	<% end  %>
 </div>

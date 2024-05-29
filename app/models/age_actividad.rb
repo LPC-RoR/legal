@@ -30,4 +30,12 @@ class AgeActividad < ApplicationRecord
 		usuarios = self.age_usuarios
 		usuarios.empty? ? 'Sin encargados' : ( usuarios.count == 1 ? usuarios.first.age_usuario : "#{usuarios.first.age_usuario} + #{usuarios.count - 1}" )
 	end
+
+	def nm_especial(audiencia_especial)
+		audiencia_especial.split(' ')[0] == 'Audiencia' ? audiencia_especial : "Audiencia #{audiencia_especial}"
+	end
+
+	def descripcion
+		self.audiencia_especial.blank? ? self.age_actividad : nm_especial(self.audiencia_especial)
+	end
 end

@@ -14,10 +14,14 @@ class Actividades::AgeActividadesController < ApplicationController
     @estado = @options[:tab].singularize.downcase
 
     unless @usuario.blank?
-      set_tabla('d-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: 'danger'), false)
-      set_tabla('w-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: 'warning'), false)
-      set_tabla('s-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: 'success'), false)
-      set_tabla('n-age_pendientes', @usuario.age_pendientes.where(estado: @estado, prioridad: nil), false)
+      if @options[:tab] == 'Pendientes'
+        set_tabla('d-age_pendientes', @usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'danger').order(:created_at), false)
+        set_tabla('w-age_pendientes', @usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'warning').order(:created_at), false)
+        set_tabla('s-age_pendientes', @usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'success').order(:created_at), false)
+        set_tabla('n-age_pendientes', @usuario.age_pendientes.where(estado: 'pendiente', prioridad: nil).order(:created_at), false)
+      else
+        set_tabla('r-age_pendientes', @usuario.age_pendientes.where(estado: 'realizado', prioridad: nil).order(updated_at: :desc), false)
+      end
     end
  
     # concerns/calendario#load_calendario
@@ -63,9 +67,10 @@ class Actividades::AgeActividadesController < ApplicationController
       owner_id = params[:oid]
       owner_class = owner_id.blank? ? nil : params[:cn].classify
       fecha = Time.zone.parse("#{f_params['fecha(3i)']}-#{mes}-#{annio} #{hora}:#{minutos}")
+      audiencia_especial = f_params[:audiencia_especial]
       privada = f_params[:privada]
 
-      AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente', privada: privada)
+      AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente', privada: privada, audiencia_especial: audiencia_especial)
       mensaje = 'Actividad fue creada exitósamente'
     else
       mensaje = 'Error de ingreso Actividad: Fecha y Descripción son campos obligatorios'
@@ -224,6 +229,6 @@ class Actividades::AgeActividadesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def age_actividad_params
-      params.require(:age_actividad).permit(:age_actividad, :tipo, :app_perfil_id, :owner_class, :owner_id, :estado, :fecha, :privada)
+      params.require(:age_actividad).permit(:age_actividad, :tipo, :app_perfil_id, :owner_class, :owner_id, :estado, :fecha, :privada, :audiencia_especial)
     end
 end

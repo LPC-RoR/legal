@@ -1,4 +1,31 @@
-<%= render partial: '0capitan/general/app_ttl', locals: {c: 'variables', title: "Datos", link: nil, tooltip: nil } %>
+<div class="ttl_app">
+	<div class="ttl_ttl">
+		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['variables']} %>
+		Datos
+	</div>
+	<div class="ttl_lnks">
+		<% if @audiencia_preparatoria.blank? %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'AudienciaPreparatoria', objeto: nil, tooltip: 'Fecha AudienciaPreparatoria'} do %>
+				<i class="bi bi-calendar-check"></i>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+
+<% if @audiencia_preparatoria.blank? %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'AudienciaPreparatoria', objeto: nil} do %>
+		<%= render partial: 'actividades/shr/form_actividad', locals: {tipo: 'A', causa_id: objeto.id, cu: 'c', audiencia: 'Audiencia preparatoria' } %>
+	<% end %>
+<% end %>
+
+<% if @audiencia_preparatoria.present? %>
+	<div class="ttl_clear">
+		<div class="ttl_ttl">
+			Fecha audiencia preparatoria : 
+			<%= dma_hm(@audiencia_preparatoria.fecha) %>
+		</div>
+	</div>
+<% end %>
 
 <% unless variables.empty? %>
 <!-- DATOS -->
