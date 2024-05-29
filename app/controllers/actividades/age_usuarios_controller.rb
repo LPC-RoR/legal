@@ -1,5 +1,5 @@
 class Actividades::AgeUsuariosController < ApplicationController
-  before_action :set_age_usuario, only: %i[ show edit update destroy asigna_perfil desasigna_perfil personaliza ]
+  before_action :set_age_usuario, only: %i[ show edit update destroy personaliza ]
 
   # GET /age_usuarios or /age_usuarios.json
   def index
@@ -58,25 +58,6 @@ class Actividades::AgeUsuariosController < ApplicationController
     end
 
     redirect_to age_actividades_path
-  end
-
-  def asigna_perfil
-    if perfil_activo.age_usuarios.empty?
-      @objeto.app_perfil_id = perfil_activo.id
-      @objeto.save
-      noticia = "Perfil asignado exitósamente al usuario de agenda"
-    else
-      noticia = "Error de asignación: Este perfil ya tiene un usuario asignado"
-    end
-
-    redirect_to "/tablas/agenda", notice: noticia
-  end
-
-  def desasigna_perfil
-    @objeto.app_perfil_id = nil
-    @objeto.save
-
-    redirect_to "/tablas/agenda", notice: "Perfil desasignado exitósamente"
   end
 
   # DELETE /age_usuarios/1 or /age_usuarios/1.json

@@ -23,7 +23,8 @@ class Aplicacion::TablasController < ApplicationController
   end
 
   def agenda
-      set_tabla('age_usuarios', AgeUsuario.all.order(:age_usuario), true)
+      usuarios_ids = AgeUsuario.all.map {|age_u| age_u.id unless (age_u.app_perfil.email == dog_email) }.compact
+      set_tabla('age_usuarios', AgeUsuario.where(id: usuarios_ids).order(:age_usuario), true)
   end
 
   def tipos

@@ -134,9 +134,6 @@ Rails.application.routes.draw do
     resources :age_usu_perfiles
     resources :age_usu_acts
     resources :age_usuarios do
-      match :asigna_perfil, via: :get, on: :member
-      match :desasigna_perfil, via: :get, on: :member
-      # nuevo
       match :personaliza, via: :post, on: :member
     end
     # Revisar DEPRECATED

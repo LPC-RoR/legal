@@ -3,26 +3,15 @@
 		<small>
 			<%= objeto.age_usuario %>
 			<% unless objeto.app_perfil.blank? %>
-				</br>
 				<small>
 					<i class="bi bi-arrow-right"></i>
 					<%= objeto.app_perfil.nombre_perfil %>
-					<% if objeto.app_perfil == perfil_activo %>
-						<%= link_to "/age_usuarios/#{objeto.id}/desasigna_perfil" do %>
-							<i class="bi bi-trash"></i>
-						<% end %>
-					<% end %>
 				</small>
 			<% end %>
 		</small>
 	</div>
 	<div class="col-3" align='right'>
 		<small><small>
-			<% if objeto.app_perfil.blank? %>
-				<%= link_to "/age_usuarios/#{objeto.id}/asigna_perfil" do %>
-					<i class="bi bi-person-plus"></i>
-				<% end %>
-			<% end %>
 			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 		</small></small>
 	</div>
