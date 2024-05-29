@@ -127,9 +127,10 @@ class CausasController < ApplicationController
       end
     end
 
-    planilla.serialize 'cuantia.xlsx'
+#    planilla.serialize 'cuantia.xlsx'
+    send_data planilla.to_stream.read, type: "application/xlsx", filename: "cuantia.xlsx"
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Datos+%26+Cuantía"    
+    #redirect_to "/causas/#{@objeto.id}"    
   end
 
   # PATCH/PUT /causas/1 or /causas/1.json

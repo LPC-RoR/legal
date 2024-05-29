@@ -17,6 +17,7 @@ gem 'kaminari'
 gem "roo", "~> 2.8.0"
 #crear planillas excel
 gem 'caxlsx'
+gem 'caxlsx_rails'
 
 gem "chartkick"
 
