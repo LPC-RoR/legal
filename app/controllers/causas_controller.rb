@@ -127,6 +127,11 @@ class CausasController < ApplicationController
       end
     end
 
+    outstrio = StringIO.new
+    planilla.use_shared_strings = true # Otherwise strings don't display in iWork Numbers
+    outstrio.write(planilla.to_stream.read)
+    outstrio.string
+
     planilla.serialize 'cuantia.xlsx'
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=Datos+%26+Cuantía"    
