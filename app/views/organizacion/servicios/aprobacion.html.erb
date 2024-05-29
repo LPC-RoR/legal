@@ -1,27 +1,23 @@
-<div class="shadow p-3 mb-3 bg-white rounded">
+<div class="cntnt_box">
 	<%= render partial: 'organizacion/servicios/aprobacion/encabezado_aprobacion', locals: {objeto: @objeto} %>
 </div>
 
 <% @coleccion['tar_facturaciones'].each do |tar_facturacion| %>
 
-	<div class="titulo">
-		<div style='padding-left: 1em;'>
-			<%= render partial: "#{tar_facturacion.owner.class.name.tableize}/partials/titulo_show", locals: {objeto: tar_facturacion.owner} %>
-		</div>
-	</div>
+	<%= render partial: "tarifas/tar_facturaciones/shr/titulo_aprobacion", locals: {objeto: tar_facturacion} %>
 
-	<div class="row">
-		<div class="col-lg-6">
+	<div class="f_50lft_col">
+		<div class="lft">
 			<% if tar_facturacion.owner.class.name == 'Causa' %>
-			<div class="shadow p-3 mb-1 bg-white rounded">
-				<div style='padding-left: 1em; padding-right: 1em;'>
-					<%= render partial: 'causas/partials/datos_cuantia/detalle_cuantia', locals: {objeto: tar_facturacion.owner, porcentaje_cuantia: tar_facturacion.porcentaje_cuantia?, valores_cuantia: @valores_cuantia} if tar_facturacion.owner.class.name == 'Causa'%>
+				<div class="app_box">
+					<div style='padding-left: 1em; padding-right: 1em;'>
+						<%= render partial: 'causas/shr/detalle_cuantia', locals: {objeto: tar_facturacion.owner, porcentaje_cuantia: tar_facturacion.porcentaje_cuantia?, valores_cuantia: @valores_cuantia, clss: 'nl_vlr_cnt_smll'} %>
+					</div>
 				</div>
-			</div>
 			<% end %>
 		</div>
-		<div class="col-lg-6">
-			<div class="shadow p-3 mb-3 bg-white rounded">
+		<div class="rght">
+			<div class="cntnt_box">
 				<div style='padding-left: 1em;'>
 					<%= render partial: 'organizacion/servicios/aprobacion/encabezado_pago', locals: {objeto: tar_facturacion, owner: tar_facturacion.owner} %>
 					<%= render partial: 'causas/partials/tarifa_pagos/pago_comentarios', locals: {pago: tar_facturacion.tar_pago, causa: tar_facturacion.owner } if tar_facturacion.owner.class.name == 'Causa' %>
@@ -29,21 +25,18 @@
 			</div>
 		</div>
 	</div>
+
 <% end %>
 
-<div class="titulo">
-	<h4>
-	<div class="row">
-		<div class="col-6">
-			TOTAL APROBACIÓN
-		</div>
-		<div class="col-6" align='right'>
-			<small>
-				<%= s_uf(@objeto.aprob_total_uf) %>
-				<i class="bi bi-arrow-left-right"></i>
-			</small>
-			<b><%= s_pesos(@objeto.aprob_total_pesos) %></b>
-		</div>
+<div class="ttl_wdth">
+	<div class="ttl_ttl">
+		TOTAL APROBACIÓN
 	</div>
-	</h4>
+	<div class="ttl_lnks">
+		<small>
+			<%= s_uf(@objeto.aprob_total_uf) %>
+			<i class="bi bi-arrow-left-right"></i>
+		</small>
+		<b><%= s_pesos(@objeto.aprob_total_pesos) %></b>
+	</div>
 </div>

@@ -6,7 +6,7 @@
 
 <!-- Detalles de cuantía -->
 <% objeto.valores_cuantia.each do |vc| %>
-	<%= render partial: 'causas/shw/datos_cuantia/cuantia/ln_cuantia', locals: {objeto: objeto, vc: vc, valores_cuantia: valores_cuantia} %>
+	<%= render partial: 'causas/shw/datos_cuantia/cuantia/ln_cuantia', locals: {objeto: objeto, vc: vc, valores_cuantia: valores_cuantia, clss: clss} %>
 <% end %>
 
 <hr>

@@ -16,6 +16,6 @@
 
 <% unless objeto.valores_cuantia.empty? %>
 	<div class="app_box">
-		<%= render partial: 'causas/shr/detalle_cuantia', locals: {objeto: objeto, porcentaje_cuantia: false, valores_cuantia: valores_cuantia} %>
+		<%= render partial: 'causas/shr/detalle_cuantia', locals: {objeto: objeto, porcentaje_cuantia: false, valores_cuantia: valores_cuantia, clss: 'ln_vlr_cnt'} %>
 	</div>
 <% end %>

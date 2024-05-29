@@ -4,11 +4,22 @@ $auto: auto;
 
 /* BOXS */
 
-.app_box {
+@mixin box_bsc($brd_clr, $bg_clr, $padd) {
     margin-bottom: 4px;
+    border: 1px solid $brd_clr;
+    border-radius: 3px 3px 3px 3px;
     box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-    padding: 5px;
-    background-color: white;
+    padding: $padd;
+    background-color: $bg_clr;
+}
+
+.app_box {
+	@include box_bsc(#e5e8e8, white, 5px);
+    color: black;
+}
+
+.cntnt_box {
+	@include box_bsc(#e5e8e8, white, 10px);
     color: black;
 }
 

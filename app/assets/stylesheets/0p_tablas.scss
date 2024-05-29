@@ -6,18 +6,19 @@ $app_font: 'Raleway', sans-serif;
 $app_ln_hght: 18px;
 $app_ln_txt_hght: 13px;
 $app_ln_padd: 0 10px 0 10px;
+$app_fnt_size: 12;
 
 $tb_font: Arial;
 $ln_vlr_cnt_gtc: auto 150px 150px;
 
 @import "a_hover";
 
-@mixin ln_bsc($ln_bg, $font_family) {
+@mixin ln_bsc($ln_bg, $font_family, $font_size) {
 	margin: 0;
 	padding: $app_ln_padd;
 	background-color: $ln_bg;
 	line-height: $app_ln_hght;
-	font-size: $app_ln_txt_hght;;
+	font-size: $font_size;
     font-family: $font_family;
 	display: grid;
 	grid-gap: $app_ln_gp;
@@ -33,8 +34,8 @@ $ln_vlr_cnt_gtc: auto 150px 150px;
     box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
 }
 
-@mixin ln_2_col($lft, $rght) {
-	@include ln_bsc($app_ln_bg, $app_font);
+@mixin ln_2_col($lft, $rght, $fnt_size) {
+    @include ln_bsc($app_ln_bg, $app_font, $fnt_size);
 	grid-template-columns: $lft $rght;
     justify-items: stretch;
 
@@ -49,8 +50,8 @@ $ln_vlr_cnt_gtc: auto 150px 150px;
     @include a_hover(black, gray);
 }
 
-@mixin ln_3_col($lft, $mddl, $rght) {
-	@include ln_bsc($app_ln_bg, $app_font);
+@mixin ln_3_col($lft, $mddl, $rght, $fnt_size) {
+	@include ln_bsc($app_ln_bg, $app_font, $fnt_size);
 	grid-template-columns: $lft $mddl $rght;
     justify-items: stretch;
 
@@ -83,8 +84,8 @@ $ln_vlr_cnt_gtc: auto 150px 150px;
     @include a_hover(black, gray);
 }
 
-@mixin ln_3_cols($gtc) {
-	@include ln_bsc($app_ln_bg, $tb_font);
+@mixin ln_3_cols($gtc, $fnt_size) {
+	@include ln_bsc($app_ln_bg, $tb_font, $fnt_size);
 	grid-template-columns: $gtc;
     justify-items: stretch;
 
@@ -92,10 +93,14 @@ $ln_vlr_cnt_gtc: auto 150px 150px;
 }
 
 .ln_app {
-	@include ln_2_col(auto, 50px);
+	@include ln_2_col(auto, 50px, $app_fnt_size);
 }
 
 /* ln de TarValorCuantia */
 .ln_vlr_cnt {
-	@include ln_3_cols($ln_vlr_cnt_gtc);
+	@include ln_3_cols($ln_vlr_cnt_gtc, 13px);
+}
+
+.nl_vlr_cnt_smll {
+    @include ln_3_cols($ln_vlr_cnt_gtc, 11px);
 }

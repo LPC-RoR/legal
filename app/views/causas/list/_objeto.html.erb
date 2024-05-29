@@ -4,4 +4,8 @@
 	<%= render partial: 'causas/list/detalle', locals: {objeto: objeto} %>
 
 	<%= render partial: 'causas/list/line_monto', locals: {objeto: objeto} %>
+
+	<% if objeto.tar_tarifa.blank? %>
+		<%= render partial: '0p/general/nt', locals: {tipo: 'warning', nota: "Causa sin tarifa asignada" } %>
+	<% end %>
 </div>

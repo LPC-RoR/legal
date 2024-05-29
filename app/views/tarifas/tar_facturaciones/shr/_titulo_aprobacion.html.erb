@@ -1,0 +1,18 @@
+<div class="ttl_clear">
+	<div class="ttl_ttl">
+		<% if objeto.owner.class.name == 'Causa' %>
+			Causa : <%= objeto.owner.rit %>
+			<i class="bi bi-dot"></i>
+			<%= objeto.owner.causa %>
+		<% else %>
+			Asesoria : <%= objeto.owner.descrpcion %>
+		<% end %>
+	</div>
+	<div class="ttl_lnks">
+		<% if objeto.owner.class.name == 'Causa' %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto.owner, tooltip: objeto.owner.class.name} do %>
+				<i class="bi bi-box-arrow-up-right"></i>
+			<% end %>
+		<% end %>
+	</div>
+</div>
