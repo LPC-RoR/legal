@@ -1,0 +1,12 @@
+<div class="g_cllps">
+<%= form_for :form_nombre, url: "/age_usuarios/#{@usuario.id}/personaliza" do |form| %>
+
+	Nuevo nombre:
+	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :nombre } %>
+
+	<button type="submit" class="btn btn-info">
+	  <i class="bi bi-caret-right icon-white"></i>
+	</button>
+
+<% end  %>
+</div>

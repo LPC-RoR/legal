@@ -1,5 +1,5 @@
 class Actividades::AgeUsuariosController < ApplicationController
-  before_action :set_age_usuario, only: %i[ show edit update destroy asigna_perfil desasigna_perfil ]
+  before_action :set_age_usuario, only: %i[ show edit update destroy asigna_perfil desasigna_perfil personaliza ]
 
   # GET /age_usuarios or /age_usuarios.json
   def index
@@ -47,6 +47,17 @@ class Actividades::AgeUsuariosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def personaliza
+    prms = params[:form_nombre]
+    nombre = prms.blank? ? nil : prms[:nombre]
+    unless nombre.blank?
+      @objeto.age_usuario = nombre
+      @objeto.save
+    end
+
+    redirect_to age_actividades_path
   end
 
   def asigna_perfil

@@ -23,7 +23,7 @@ class Aplicacion::TablasController < ApplicationController
   end
 
   def agenda
-      set_tabla('age_usuarios', AgeUsuario.where(owner_class: '', owner_id: nil), true)
+      set_tabla('age_usuarios', AgeUsuario.all.order(:age_usuario), true)
   end
 
   def tipos

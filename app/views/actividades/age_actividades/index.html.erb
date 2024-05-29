@@ -11,6 +11,9 @@
 					<div class="ttl_ttl">
 						<i class="bi bi-list-check"></i> 
 						<%= @usuario.age_usuario %>
+						<%= render layout: '0p/collapse/link', locals: {label: 'Personaliza', objeto: nil, tooltip: 'Personalizar usuario'} do %>
+							<i class="bi bi-pencil-square"></i>
+						<% end %>
 					</div>
 					<div class="ttl_lnks">
 						<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_pendientes/new?uid=#{@usuario.id}", tooltip: 'Nuevo pendiente'} do %>
@@ -19,8 +22,13 @@
 					</div>
 			</div>
 
+			<%= render layout: '0p/collapse/display', locals: {label: 'Personaliza', objeto: nil} do %>
+				<%= render partial: 'actividades/age_actividades/partials/form_nombre' %>
+			<% end %>
+
 			<%= render partial: '0p/tabs/tabs', locals: {token: :tab} %>
 			<%= render partial: "/actividades/age_pendientes/display", locals: {owner: @usuario} %>
 		<% end %>
 	</div>
 </div>
+
