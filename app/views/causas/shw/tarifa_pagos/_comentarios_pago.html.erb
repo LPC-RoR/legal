@@ -8,7 +8,7 @@
 				<% pago.tar_comentarios.order(:orden).each do |comentario| %>
 
 					<% if comentario.formula.blank? or calcula2(comentario.formula.strip, causa, pago) %>
-						<%= render partial: 'causas/partials/tarifa_pagos/display_comentario', locals: {comentario: comentario, causa:causa, pago: pago} %>
+						<%= render partial: 'causas/shw/tarifa_pagos/display_comentario', locals: {comentario: comentario, causa:causa, pago: pago} %>
 					<%# else %>
 						<%# if calcula2(comentario.formula.strip, causa, pago) %>
 							<%#= render partial: 'causas/partials/tarifa_pagos/display_comentario', locals: {comentario: comentario, causa:causa, pago: pago} %>

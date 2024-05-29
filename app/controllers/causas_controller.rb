@@ -1,5 +1,5 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago actualiza_antecedente agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -231,25 +231,6 @@ class CausasController < ApplicationController
     end
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=Tarifa+%26+Pagos"
-  end
-
-  # DEPRECATED ???
-  def actualiza_antecedente
-    unless params[:tag].blank?
-      case params[:tag]
-      when 'demandante'
-        @objeto.demandante = params[:form_antecedente][params[:tag].to_sym]
-      when 'cargo'
-        @objeto.cargo = params[:form_antecedente][params[:tag].to_sym]
-      when 'sucursal'
-        @objeto.sucursal = params[:form_antecedente][params[:tag].to_sym]
-      when 'abogados'
-        @objeto.abogados = params[:form_antecedente][params[:tag].to_sym]
-      end
-      @objeto.save
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Antecedentes"
   end
 
   def agrega_valor

@@ -36,7 +36,6 @@ Rails.application.routes.draw do
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
     match :actualiza_pago, via: :post, on: :member
-    match :actualiza_antecedente, via: :post, on: :member
     match :traer_archivos_cuantia, via: :get, on: :member
     match :crea_archivo_controlado, via: :get, on: :member
     match :input_nuevo_archivo, via: :post, on: :member

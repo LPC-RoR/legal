@@ -14,7 +14,7 @@
 
 		<div class="objeto-box">
 			<%= render partial: 'organizacion/servicios/aprobacion/encabezado_pago', locals: {objeto: pago, owner: objeto} %>
-			<%= render partial: 'causas/partials/tarifa_pagos/pago_comentarios', locals: {pago: pago, causa: objeto } %>
+			<%= render partial: 'causas/shw/tarifa_pagos/comentarios_pago', locals: {pago: pago, causa: objeto } %>
 		</div>
 
 	<% end %>

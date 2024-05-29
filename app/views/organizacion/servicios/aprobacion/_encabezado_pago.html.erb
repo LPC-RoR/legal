@@ -97,7 +97,7 @@
 
 	<% if owner.class.name == 'Causa' %>
 		<%= render layout: '0p/collapse/display', locals: {label: 'AgregaModifica', objeto: objeto} do %>
-			<%= render partial: "causas/partials/form_uf_facturacion", locals: {objeto: owner, pago: objeto} %>
+			<%= render partial: "causas/shw/tarifa_pagos/form_uf_facturacion", locals: {objeto: owner, pago: objeto} %>
 		<% end %>
 	<% end %>
 	</small></small>

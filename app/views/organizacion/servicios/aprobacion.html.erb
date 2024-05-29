@@ -20,7 +20,7 @@
 			<div class="cntnt_box">
 				<div style='padding-left: 1em;'>
 					<%= render partial: 'organizacion/servicios/aprobacion/encabezado_pago', locals: {objeto: tar_facturacion, owner: tar_facturacion.owner} %>
-					<%= render partial: 'causas/partials/tarifa_pagos/pago_comentarios', locals: {pago: tar_facturacion.tar_pago, causa: tar_facturacion.owner } if tar_facturacion.owner.class.name == 'Causa' %>
+					<%= render partial: 'causas/shw/tarifa_pagos/comentarios_pago', locals: {pago: tar_facturacion.tar_pago, causa: tar_facturacion.owner } if tar_facturacion.owner.class.name == 'Causa' %>
 				</div>
 			</div>
 		</div>

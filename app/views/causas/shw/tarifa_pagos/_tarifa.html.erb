@@ -20,7 +20,7 @@
 <%= render layout: '0p/collapse/display', locals: {label: 'AsignaTarifa', objeto: nil, tooltip: 'Tarifas'} do %>
 	<div class="objeto-box">
 		<div class="text-info">
-				<%= render partial: 'causas/partials/tarifa_pagos/sel_tarifas', locals: {objeto: objeto, tar_cliente: tar_cliente, tar_generales: tar_generales} %>
+				<%= render partial: 'causas/shw/tarifa_pagos/sel_tarifas', locals: {objeto: objeto, tar_cliente: tar_cliente, tar_generales: tar_generales} %>
 		</div>
 	</div>	
 <% end %>
@@ -29,7 +29,7 @@
 
 	<small class="text-muted">
 	<% if @objeto.tar_tarifa.present? %>
-		<%= render partial: 'causas/partials/tarifa_pagos/nombre_tarifa', locals: {objeto: objeto} %>
+		<%= render partial: 'causas/shw/tarifa_pagos/nombre_tarifa', locals: {objeto: objeto} %>
 		<%= render partial: 'tarifas/tar_tarifas/list/detalle_tarifa', locals: {objeto: objeto.tar_tarifa} %>
 	<% else %>
 		<p class="text-danger"><i class="bi bi-cone-striped"></i> Sin tarifa asignada</p>
