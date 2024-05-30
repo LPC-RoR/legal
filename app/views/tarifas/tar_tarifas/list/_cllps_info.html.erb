@@ -1,0 +1,22 @@
+	<div class="g_cllps">
+		<% if objeto.cuantia_tarifa %>
+			<i class="bi bi-dot"></i> Diferencia cuantía para cálculo de honorarios.</br>
+		<% end %>
+
+		<% unless objeto.tipo_causa.blank? %>
+			<i class="bi bi-dot"></i> Tarifa por defecto de la etapa <%= objeto.tipo_causa.tipo_causa %>
+		<% end %>
+		<% unless objeto.tar_pagos.empty? and objeto.valor_hora.blank? %>
+			<% unless objeto.tar_pagos.empty? %>
+				<% objeto.tar_pagos.order(:orden).each do |pago| %>
+					<i class="bi bi-dot"></i>
+					<%= pago.orden %> : <%= pago.tar_pago %> <%= pago.codigo_formula.blank? ? '( valor )' : '( fórmula )' %></br>
+				<% end %>
+			<% end %>
+
+			<% unless objeto.valor_hora.blank? %>
+				<i class="bi bi-dot"></i>
+				<i class="bi bi-alarm"></i> <%= s_moneda(objeto.moneda, objeto.valor_hora) %>
+			<% end %>
+		<% end %>
+	</div>

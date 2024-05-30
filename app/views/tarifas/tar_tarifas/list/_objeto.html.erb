@@ -1,10 +1,17 @@
-<%= render partial: 'tarifas/tar_tarifas/list/line_tarifa', locals: {objeto: objeto} %>
-
-<small>
-<div class="list-item">
-
-
-	<%= render partial: 'tarifas/tar_tarifas/list/detalle_tarifa', locals: {objeto: objeto} %>
-
+<div class="ln_app">
+	<div class="lft">
+		<i class="bi bi-journal-text"></i>
+		<b><%= link_to objeto.tarifa, objeto %></b>
+	</div>
+	<div class="rght">
+		<%= render layout: '0p/collapse/link', locals: {label: 'Info', objeto: nil, tooltip: 'Detalle Tarifa'} do %>
+			<i class="bi bi-plus-lg"></i>
+		<% end %>
+		<i class="bi bi-dot"></i>
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</div>
 </div>
-</small>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'Info', objeto: nil} do %>
+	<%= render partial: 'tarifas/tar_tarifas/list/cllps_info', locals: {objeto: objeto} %>
+<% end %>

@@ -1,25 +1,25 @@
-<b><%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_tarifas', title: "Tarifa : #{@objeto.tarifa}", link_new: nil} %></b>
+<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_tarifas', title: "Tarifa : #{@objeto.tarifa}", link: nil, tooltip: nil } %>
 
-<div class="row">
-	<div class="col-md-5">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_pagos', title: "Pagos", link_new: "/tar_pagos/new?oid=#{@objeto.id}"} %>
+<div class="f_50lft_col">
+	<div class="lft">
+		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_pagos', title: "Pagos", link: "/tar_pagos/new?oid=#{@objeto.id}", tooltip: 'Agrega pago' } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_pagos'} %>
 
 		<% if @objeto.cuantia_tarifa %>
 			<hr>
-			<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_formula_cuantias', title: "Fórmulas de cuantías", link_new: "/tar_formula_cuantias/new?tid=#{@objeto.id}"} %>
+			<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_formula_cuantias', title: "Fórmulas de cuantías", link: "/tar_formula_cuantias/new?tid=#{@objeto.id}", tooltip: 'Agrega fómila de cuantía' } %>
 
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formula_cuantias'} %>
 		<% end %>
 		<hr>
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_variable_bases', title: "Variable base ( % )", link_new: "/tar_variable_bases/new?tid=#{@objeto.id}"} %>
+		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_variable_bases', title: "Variable base ( % )", link: "/tar_variable_bases/new?tid=#{@objeto.id}", tooltip: 'Agrega variable base' } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_variable_bases'} %>
 
 	</div>
-	<div class="col-md-7">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_formulas', title: "Fórmulas", link_new: "/tar_formulas/new?oid=#{@objeto.id}"} %>
+	<div class="rght">
+		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_formulas', title: "Fórmulas", link: "/tar_formulas/new?oid=#{@objeto.id}", tooltip: 'Agrega fórmula' } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formulas'} %>
 	</div>

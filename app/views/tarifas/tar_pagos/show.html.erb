@@ -1,13 +1,13 @@
-<b><%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_pagos', title: "Pago #{@objeto.orden} : #{@objeto.tar_pago}", link_new: nil} %></b>
+<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_pagos', title: "Pago #{@objeto.orden} : #{@objeto.tar_pago}", link: nil, tooltip: nil } %>
 
 <div class="row">
 	<div class="col-lg-4 col-xs-12">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_cuotas', title: "Cuotas", link_new: "/tar_pagos/#{@objeto.id}/tar_cuotas/new" } %>
+		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_cuotas', title: "Cuotas", link: "/tar_pagos/#{@objeto.id}/tar_cuotas/new", tooltip: 'Agregar cuota' } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_cuotas'} %>    
 	</div>
 	<div class="col-lg-8">
-		<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'tar_comentarios', title: "Comentarios", link_new: "/tar_pagos/#{@objeto.id}/tar_comentarios/new" } %>
+		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_comentarios', title: "Comentarios", link: "/tar_pagos/#{@objeto.id}/tar_comentarios/new", tooltip: 'Agregar comentario' } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_comentarios'} %>    
 	</div>

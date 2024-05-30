@@ -21,9 +21,9 @@ class Tarifas::TarTarifasController < ApplicationController
 
   # GET /tar_tarifas/new
   def new
-    owner_class = (params[:class_name].blank? ? nil : params[:class_name])
-    owner_id    = (params[:objeto_id].blank? ? nil : params[:objeto_id])
-    @objeto = TarTarifa.new(owner_class: owner_class, owner_id: owner_id, estado: 'ingreso')
+    ownr_clss = params[:ownr_clss] == '' ? nil : params[:ownr_clss]
+    ownr_id = params[:ownr_id]
+    @objeto = TarTarifa.new(owner_class: ownr_clss, owner_id: ownr_id, estado: 'ingreso')
   end
 
   # GET /tar_tarifas/1/edit
@@ -89,7 +89,7 @@ class Tarifas::TarTarifasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.owner.blank? ? tabla_path(@objeto) : "/clientes/#{@objeto.owner.id}?html_options[menu]=Tarifas"
+      @redireccion = @objeto.owner_class.blank? ? tabla_path(@objeto) : "/clientes/#{@objeto.owner_id}?html_options[menu]=Tarifas"
     end
 
     # Only allow a list of trusted parameters through.

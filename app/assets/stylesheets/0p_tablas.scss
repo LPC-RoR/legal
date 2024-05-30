@@ -3,7 +3,7 @@
 $app_ln_bg: white;
 $app_ln_gp: 0;
 $app_font: 'Raleway', sans-serif;
-$app_ln_hght: 18px;
+$app_ln_hght: 10px;
 $app_ln_txt_hght: 13px;
 $app_ln_padd: 0 10px 0 10px;
 $app_fnt_size: 12;
@@ -93,7 +93,7 @@ $ln_vlr_cnt_gtc: auto 150px 150px;
 }
 
 .ln_app {
-	@include ln_2_col(auto, 50px, $app_fnt_size);
+	@include ln_2_col(auto, 50px, 13px);
 }
 
 /* ln de TarValorCuantia */

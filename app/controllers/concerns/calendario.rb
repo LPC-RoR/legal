@@ -150,9 +150,32 @@ module Calendario
     busca_semana
   end
 
+  def lunes_dt(dt_fecha)
+    case nombre_dia(dt_fecha)
+    when 'lunes'
+      dt_fecha
+    when 'martes'
+      dt_fecha - 1.day
+    when 'miercoles'
+      dt_fecha - 2.day
+    when 'jueves'
+      dt_fecha - 3.day
+    when 'viernes'
+      dt_fecha - 4.day
+    when 'sábado'
+      dt_fecha - 5.day
+    when 'domingo'
+      dt_fecha - 6.day
+    end
+  end
+
+  def lunes_smn(cal_semana)
+    dt_fecha = cal_semana.cal_dias.order(:dt_fecha).first.dt_fecha
+    lunes_dt(dt_fecha)
+  end
+
   def params_semana_anterior(cal_semana)
-    fecha_lunes = cal_semana.cal_dias.order(:dt_fecha).first.dt_fecha
-    fecha_domingo_anterior = fecha_lunes - 1.day
+    fecha_domingo_anterior = lunes_smn(cal_semana) - 1.day
     cal_domingo = CalDia.find_by(dt_fecha: fecha_domingo_anterior)
     if cal_domingo.blank?
       n_annio = fecha_domingo_anterior.year
@@ -165,8 +188,7 @@ module Calendario
   end
 
   def params_semana_siguiente(cal_semana)
-    fecha_domingo = cal_semana.cal_dias.order(:dt_fecha).last.dt_fecha
-    fecha_lunes_siguiente = fecha_domingo + 1.day
+    fecha_lunes_siguiente = lunes_smn(cal_semana) + 7.day
     cal_lunes = CalDia.find_by(dt_fecha: fecha_lunes_siguiente)
     if cal_lunes.blank?
         n_annio = fecha_lunes_siguiente.year

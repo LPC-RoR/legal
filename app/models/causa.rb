@@ -24,7 +24,8 @@ class Causa < ApplicationRecord
 
     # OWN CHILDS
 
-    # Valores de la cuantía de la causa
+    # CUANTIA
+
 	def valores_cuantia
 		TarValorCuantia.where(owner_class: self.class.name, owner_id: self.id)
 	end
@@ -33,7 +34,8 @@ class Causa < ApplicationRecord
 		self.valores_cuantia.map {|vc| vc.activado?}.include?(false)
 	end
 
-	# Pagos de la causa
+	# PAGOS
+
 	def facturaciones
 		TarFacturacion.where(owner_class: self.class.name, owner_id: self.id)
 	end

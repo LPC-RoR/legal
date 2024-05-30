@@ -20,6 +20,30 @@ class Cliente < ApplicationRecord
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :tipo_cliente
 
+    # CHILDS
+
+	def tarifas
+		TarTarifa.where(owner_class: self.class.name).where(owner_id: self.id)
+	end
+
+	def actividades
+		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
+	end
+
+	def servicios
+		TarServicio.where(owner_class: self.class.name).where(owner_id: self.id)
+	end
+
+	def facturas
+		TarFactura.where(owner_class: self.class.name, owner_id: self.id)
+	end
+
+	def facturaciones
+    	TarFacturacion.where(cliente_class: self.class.name, cliente_id: self.id)
+	end
+
+	# OBJETO
+
     def d_rut
     	self.rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
     end
@@ -84,26 +108,6 @@ class Cliente < ApplicationRecord
 	end
 
 	# Hasta aqui revisado!
-
-	def tarifas
-		TarTarifa.where(owner_class: self.class.name).where(owner_id: self.id)
-	end
-
-	def actividades
-		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
-	end
-
-	def servicios
-		TarServicio.where(owner_class: self.class.name).where(owner_id: self.id)
-	end
-
-	def facturas
-		TarFactura.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def facturaciones
-    	TarFacturacion.where(cliente_class: self.class.name, cliente_id: self.id)
-	end
 
 	def aprobaciones
 		self.facturaciones.where(estado: 'aprobación').order(created_at: :desc)
