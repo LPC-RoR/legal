@@ -1,18 +1,18 @@
 <% if admin? %>
-  <div class="row">
-    <div class="col-12 col-lg-6">
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'blg_articulos', title: 'Artículos', link_new: 'blg_articulos/new'} %>
+  <div class="f_50lft_col">
+    <div class="lft">
+      <%= render partial: '0capitan/general/app_ttl', locals: {c: 'blg_articulos', title: "Artículos", link: 'new', tooltip: 'Agrega artículo' } %>
 
       <%= render partial: '0p/tabla/tabla', locals: {c: 'general-blg_articulos'} %>
     </div>
-    <div class="col-lg-6">
-      <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'causas', title: 'Temas', link_new: 'blg_temas/new'} %>
+    <div class="rght">
+      <%= render partial: '0capitan/general/app_ttl', locals: {c: 'blg_temas', title: "Temas", link: 'new', tooltip: 'Agrega tema' } %>
 
       <%= render partial: '0p/tabla/tabla', locals: {c: 'blg_temas'} %>
     </div>
   </div>
 <% else %>
-  <%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'blg_articulos', title: 'Mis artículos', link_new: 'blg_articulos/new'} %>
+  <%= render partial: '0capitan/general/app_ttl', locals: {c: 'blg_articulos', title: "Mis artículos", link: 'new', tooltip: 'Agrega artículo' } %>
 
   <%= render partial: '0p/tabla/tabla', locals: {c: 'perfil-blg_articulos'} %>
 <% end %>

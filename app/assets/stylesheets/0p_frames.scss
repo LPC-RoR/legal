@@ -39,6 +39,10 @@ $auto: auto;
 	@include f_2_col(300px, $auto);
 }
 
+.f_300rght_col {
+	@include f_2_col($auto, 300px);
+}
+
 .f_400rght_col {
 	@include f_2_col($auto, 400px);
 }

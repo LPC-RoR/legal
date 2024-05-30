@@ -1,6 +1,6 @@
 <div class="f_400rght_col">
 	<div class="lft">
-		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'm_modelos', title: 'Modelo de Negocios', tooltip: 'Agrega concepto ', link: "/m_conceptos/new?oid=#{@modelo.id}"} %>
+    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'm_modelos', title: "Modelo de Negocios", link: "/m_conceptos/new?oid=#{@modelo.id}", tooltip: 'Agrega modelo de negocios' } %>
 
 	  	<div class="shadow p-3 mb-3 bg-white rounded">
 		<div class="row">
@@ -44,7 +44,7 @@
 		</div>
 	</div>
 	<div class="rght">
-		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'm_cuentas', title: 'Cuentas corriente', tooltip: 'Agrega cuenta', link: "/m_cuentas/new?oid=#{@modelo.id}"} %>
+    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'm_cuentas', title: "Cuentas corriente", link: "/m_cuentas/new?oid=#{@modelo.id}", tooltip: 'Agrega cuenta corriente' } %>
  
 	    <%= render partial: '0p/tabla/tabla', locals: {c: "m_cuentas"} %>
 	</div>

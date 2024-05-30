@@ -1,11 +1,11 @@
 <div class="f_50lft_col">
 	<div class="lft">
-		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'tar_detalle_cuantias', title: 'Items de cuantía', tooltip: 'Agrega ítem ', link: nil} %>
+    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_detalle_cuantias', title: "Items de cuantía", link: '/tar_detalle_cuantias/new', tooltip: 'Agrega ítem de cuantía' } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_detalle_cuantias'} %>
 	</div>
 	<div class="rght">
-		<%= render partial: 'aplicacion/tablas/shr/ttl_new', locals: {c: 'tribunal_cortes', title: 'Juzgados / Cortes', tooltip: 'Agrega juzgado/corte ', link: nil} %>
+    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tribunal_cortes', title: "Juzgados", link: '/tribunal_cortes/new', tooltip: 'Agrega tribunal' } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tribunal_cortes'} %>
 	</div>
