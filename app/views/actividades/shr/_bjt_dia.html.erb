@@ -1,16 +1,17 @@
-<div class="<%= clss_dia(objeto[:dia]) %>">
+<div class="<%= clss_dia(objeto) %>">
 	<div class="ttl">
 		<div class="lft">
-			<%= dma(objeto[:dia]) %>
+			<%= dma(objeto) %>
 		</div>
 		<div class="rght">
-			<%= nombre_dia(objeto[:dia]) %>
+			<%= nombre_dia(objeto) %>
 		</div>
 	</div>
 </div>
 
-<% objeto[:actividades].each do |actividad| %>
-	<% unless actividad.privada and actividad.app_perfil_id != perfil_activo.id %>
-		<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: actividad, usuarios: usuarios} %>
+<% @coleccion["#{prfx_dia(objeto)}-age_actividades"].each do |age_actividad| %>
+<%# objeto[:actividades].each do |actividad| %>
+	<% unless age_actividad.privada and age_actividad.app_perfil_id != perfil_activo.id %>
+		<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: age_actividad, usuarios: usuarios} %>
 	<% end %>
 <% end %>

@@ -10,21 +10,15 @@ class Aplicacion::TablasController < ApplicationController
       set_tabla('perfil-app_enlaces', AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion), false)
   end
 
-  def calendario
-      # verifica calendarios activos
-      verifica_annio_activo
-
+  def agenda
       @primer_annio = CalAnnio.all.order(:cal_annio).first.cal_annio
       @ultimo_annio = CalAnnio.all.order(:cal_annio).last.cal_annio
       @annio_activo = params[:a].blank? ? CalAnnio.find_by(cal_annio: Time.zone.today.year) : CalAnnio.find_by(cal_annio: params[:a])
 
-      set_tabla('cal_meses', @annio_activo.cal_meses.order(:cal_mes), false)
-      set_tabla('cal_feriados', @annio_activo.cal_feriados.order(:cal_fecha), false)
-  end
-
-  def agenda
       usuarios_ids = AgeUsuario.all.map {|age_u| age_u.id unless (age_u.app_perfil.email == dog_email) }.compact
       set_tabla('age_usuarios', AgeUsuario.where(id: usuarios_ids).order(:age_usuario), true)
+
+      set_tabla('cal_feriados', @annio_activo.cal_feriados.order(:cal_fecha), false)
   end
 
   def tipos

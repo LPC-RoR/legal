@@ -27,7 +27,6 @@ module CptnMenuLeftHelper
 							items: [
 								['UF & Regiones', 'uf_regiones'],
 								['Enlaces', 'enlaces'],
-								['Calendario', 'calendario'],
 								['Agenda', 'agenda']
 							]
 						},

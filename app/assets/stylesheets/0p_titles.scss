@@ -1,8 +1,14 @@
 $ttl_mrgn: 0 0 10px 0;
 $ttl_gap: 0;
+$ttl_ln_hght: 40px;
+
+$nav_grd_tc: 50px auto 50px;
+$nav_gap: 0;
+
 
 /* PARTIALS */
 
+// grd($grd_tc, $grd_gap);
 // grd_frm($mrgn, $bg_color, $grap);
 // grd_ncol($nth);
 @import "grids";
@@ -10,13 +16,55 @@ $ttl_gap: 0;
 // a_hover($clr, $hvr_clr);
 @import "a_hover";
 
+/* BASES */
+@mixin ttl_nav($bg_clr, $txt_clr, $ln_hght) {
+	line-height: $ln_hght;
+	margin: $ttl_mrgn;
+	background-color: $bg_clr;
+	color: $txt_clr;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    font-weight: bold;
+}
+
+@mixin nav_fill($bg_clr, $grd_tc, $grd_gap, $a_clr, $hvr_clr) {
+	@include ttl_nav($bg_clr, $app_ttl_clr, $ttl_ln_hght);
+	@include grd($grd_tc, $grd_gap);
+    justify-items: center;
+
+    .bck {
+    	@include grd_ncol(1);
+    	padding-left: 10px;
+    	justify-self: start;
+    }
+
+    .info {
+    	@include grd_ncol(2);
+    }
+
+    .nxt {
+    	@include grd_ncol(3);
+    	padding-right: 10px;
+    	justify-self: end;
+    }
+   	@include a_hover($a_clr, $hvr_clr);
+}
+
 /* TITULOS */
+@mixin bsc($grd_tc) {
+	@include grd_frm($ttl_mrgn, $app_bg, ttl_gap);
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+	color: white;
+    font-family: $app_fnt;
+    font-weight: bold;
+	grid-template-columns: auto $lnks_wdth;
+}
 
 @mixin ttl_bsc($lnks_wdth) {
 	@include grd_frm($ttl_mrgn, $app_bg, ttl_gap);
     box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
 	color: white;
     font-family: $app_fnt;
+    font-weight: bold;
 	grid-template-columns: auto $lnks_wdth;
 }
 
@@ -38,6 +86,10 @@ $ttl_gap: 0;
 
 	   	@include a_hover($a_clr, $hvr_clr)
     }
+}
+
+.app_nav {
+	@include nav_fill($app_bg, $nav_grd_tc, $ttl_gap, white, gray);
 }
 
 .ttl_app {

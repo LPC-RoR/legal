@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 	helper_method :params_to_date, :dt_hoy, :s_hoy
 	helper_method :calcula2, :set_formulas, :set_valores, :set_detalle_cuantia
 	helper_method :modelo_negocios_general, :cuentas_corrientes, :periodos
-	helper_method :nombre_dia, :nombre3_dia, :load_calendario, :get_cal_dia
+	helper_method :nombre_dia, :nombre3_dia, :load_calendario, :get_cal_dia, :dyf, :prfx_dia
 	helper_method :check_tipo_usuario, :lm_check_tipo_usuario, :check_crud, :check_k_estados, :check_st_estado
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
 	helper_method :cmenu_clss, :first_estado, :first_selector

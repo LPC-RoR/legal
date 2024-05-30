@@ -21,15 +21,11 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    Asesoria.all.each do |asesoria|
-      asesoria.estado = 'tramitación' if asesoria.estado == 'tramitacion'
-      asesoria.save
-    end
+    CalMes.delete_all
+    CalSemana.delete_all
+    CalDia.delete_all
+    CalMesSem.delete_all 
 
-    Causa.all.each do |causa|
-      causa.estado = 'tramitación' if causa.estado == 'tramitacion'
-      causa.save
-    end
 
     redirect_to root_path
   end

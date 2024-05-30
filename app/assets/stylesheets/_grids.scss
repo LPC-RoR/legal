@@ -1,6 +1,13 @@
 // @include grids;
+// grd($grd_tc, $grd_gap);
 // grd_frm($bg_color, $grap);
 // grd_ncol($nth);
+
+@mixin grd($grd_tc, $grd_gap) {
+	display: grid;
+	grid-template-columns: $grd_tc;
+	grid-gap: $grd_gap;
+}
 
 /* característica básicas de una grid */
 @mixin grd_frm($grd_mrgn, $grd_bg, $grd_gap) {

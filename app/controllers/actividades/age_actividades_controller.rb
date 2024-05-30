@@ -3,8 +3,6 @@ class Actividades::AgeActividadesController < ApplicationController
 
   # GET /age_actividades or /age_actividades.json
   def index
-    @hoy = Time.zone.today
-
     # Manejo actual de age_usuarios
     @usuario = perfil_activo.age_usuario
 

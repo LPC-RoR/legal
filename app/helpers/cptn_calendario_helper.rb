@@ -22,10 +22,9 @@ module CptnCalendarioHelper
 	end
 
 	def clss_dia(fecha)
-		cal_dia = get_cal_dia(fecha)
-		if cal_dia.dyf?
+		if dyf(fecha)
 			'd_dyf'
-		elsif cal_dia.dia_semana == 'sábado'
+		elsif nombre_dia(fecha) == 'sábado'
 			'd_s'
 		else
 			'd_h'

@@ -1,9 +1,12 @@
-<div class="f_50lft_col">
+<div class="f_300pxlft_col">
 	<div class="lft">
 		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'age_usuarios', title: "Usuarios de la agenda", link: nil, tooltip: nil } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'age_usuarios'} %>
 	</div>
 	<div class="rght">
+		<%= render partial: 'calendario/shr/annio_nav' %>
+		<%= render partial: 'causas/shr/ttl_cs', locals: {c: 'cal_feriados', title: 'Feriados del año', link: "/cal_feriados/new?aid=#{@annio_activo.id}", tooltip: 'Agrega feriado'} %>
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'cal_feriados'} %>
 	</div>
 </div>
