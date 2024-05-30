@@ -270,25 +270,12 @@ Rails.application.routes.draw do
   end
 
   scope module: 'tarifas' do
-    resources :tar_uf_facturaciones
-    resources :tar_valor_cuantias
-    resources :tar_detalle_cuantias do
-      match :agrega_control_documento, via: :get, on: :member
-      match :elimina_control_documento, via: :get, on: :member
-    end
-    resources :tar_formula_cuantias
-    resources :tar_uf_sistemas
-    resources :tar_elementos
     resources :tar_tarifas do 
       resources :tar_pagos
       resources :tar_formulas
       resources :tar_detalles
       match :asigna, via: :get, on: :member
       match :desasigna, via: :get, on: :member
-    end
-    resources :tar_comentarios do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
     end
     resources :tar_pagos do
       resources :tar_comentarios
@@ -297,6 +284,21 @@ Rails.application.routes.draw do
       match :abajo, via: :get, on: :member
     end
     resources :tar_formulas do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
+    resources :tar_calculos
+    resources :tar_uf_facturaciones
+    resources :tar_detalle_cuantias do
+      match :agrega_control_documento, via: :get, on: :member
+      match :elimina_control_documento, via: :get, on: :member
+    end
+    resources :tar_valor_cuantias
+    # REVISAR de aquí en adelante
+    resources :tar_formula_cuantias
+    resources :tar_uf_sistemas
+    resources :tar_elementos
+    resources :tar_comentarios do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end

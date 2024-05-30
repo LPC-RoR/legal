@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tar Calculos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Clnt</th>
+      <th>Ownr clss</th>
+      <th>Ownr</th>
+      <th>Tar pago</th>
+      <th>Moneda</th>
+      <th>Monto</th>
+      <th>Glosa</th>
+      <th>Cuantia</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tar_calculos.each do |tar_calculo| %>
+      <tr>
+        <td><%= tar_calculo.clnt_id %></td>
+        <td><%= tar_calculo.ownr_clss %></td>
+        <td><%= tar_calculo.ownr_id %></td>
+        <td><%= tar_calculo.tar_pago_id %></td>
+        <td><%= tar_calculo.moneda %></td>
+        <td><%= tar_calculo.monto %></td>
+        <td><%= tar_calculo.glosa %></td>
+        <td><%= tar_calculo.cuantia %></td>
+        <td><%= link_to 'Show', tar_calculo %></td>
+        <td><%= link_to 'Edit', edit_tar_calculo_path(tar_calculo) %></td>
+        <td><%= link_to 'Destroy', tar_calculo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tar Calculo', new_tar_calculo_path %>

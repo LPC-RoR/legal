@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_29_192532) do
+ActiveRecord::Schema.define(version: 2024_05_30_221604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1215,6 +1215,23 @@ ActiveRecord::Schema.define(version: 2024_05_29_192532) do
     t.index ["owner_class"], name: "index_tar_bases_on_owner_class"
     t.index ["owner_id"], name: "index_tar_bases_on_owner_id"
     t.index ["perfil_id"], name: "index_tar_bases_on_perfil_id"
+  end
+
+  create_table "tar_calculos", force: :cascade do |t|
+    t.integer "clnt_id"
+    t.string "ownr_clss"
+    t.integer "ownr_id"
+    t.integer "tar_pago_id"
+    t.string "moneda"
+    t.decimal "monto"
+    t.string "glosa"
+    t.decimal "cuantia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clnt_id"], name: "index_tar_calculos_on_clnt_id"
+    t.index ["ownr_clss"], name: "index_tar_calculos_on_ownr_clss"
+    t.index ["ownr_id"], name: "index_tar_calculos_on_ownr_id"
+    t.index ["tar_pago_id"], name: "index_tar_calculos_on_tar_pago_id"
   end
 
   create_table "tar_comentarios", force: :cascade do |t|

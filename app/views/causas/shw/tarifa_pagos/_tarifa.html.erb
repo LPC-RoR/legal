@@ -27,13 +27,10 @@
 
 <div class="objeto-box">
 
-	<small class="text-muted">
 	<% if @objeto.tar_tarifa.present? %>
 		<%= render partial: 'causas/shw/tarifa_pagos/nombre_tarifa', locals: {objeto: objeto} %>
-		<%= render partial: 'tarifas/tar_tarifas/list/detalle_tarifa', locals: {objeto: objeto.tar_tarifa} %>
 	<% else %>
 		<p class="text-danger"><i class="bi bi-cone-striped"></i> Sin tarifa asignada</p>
 	<% end %>
-	</small>
 
 </div>

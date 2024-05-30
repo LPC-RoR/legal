@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  clnt_id: 1
+  ownr_clss: MyString
+  ownr_id: 1
+  tar_pago_id: 1
+  moneda: MyString
+  monto: 9.99
+  glosa: MyString
+  cuantia: 9.99
+
+two:
+  clnt_id: 1
+  ownr_clss: MyString
+  ownr_id: 1
+  tar_pago_id: 1
+  moneda: MyString
+  monto: 9.99
+  glosa: MyString
+  cuantia: 9.99

@@ -39,7 +39,7 @@ class Cliente < ApplicationRecord
 	end
 
 	def facturaciones
-    	TarFacturacion.where(cliente_class: self.class.name, cliente_id: self.id)
+    	TarFacturacion.where(cliente_id: self.id)
 	end
 
 	# OBJETO

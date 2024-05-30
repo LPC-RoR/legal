@@ -1,0 +1,57 @@
+<%= form_with(model: tar_calculo, local: true) do |form| %>
+  <% if tar_calculo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tar_calculo.errors.count, "error") %> prohibited this tar_calculo from being saved:</h2>
+
+      <ul>
+      <% tar_calculo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :clnt_id %>
+    <%= form.number_field :clnt_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ownr_clss %>
+    <%= form.text_field :ownr_clss %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ownr_id %>
+    <%= form.number_field :ownr_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tar_pago_id %>
+    <%= form.number_field :tar_pago_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :moneda %>
+    <%= form.text_field :moneda %>
+  </div>
+
+  <div class="field">
+    <%= form.label :monto %>
+    <%= form.text_field :monto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :glosa %>
+    <%= form.text_field :glosa %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cuantia %>
+    <%= form.text_field :cuantia %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
