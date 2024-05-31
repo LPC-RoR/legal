@@ -38,6 +38,10 @@ class Cliente < ApplicationRecord
 		TarFactura.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	def calculos
+		TarCalculo.where(cliente_id: self.id)
+	end
+
 	def facturaciones
     	TarFacturacion.where(cliente_id: self.id)
 	end

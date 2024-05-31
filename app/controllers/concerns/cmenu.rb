@@ -35,7 +35,7 @@ module Cmenu
 					},
 					{
 						std: 'cerrada',
-						cndcn: finanzas?
+						cndcn: general?
 					}
 				],
 				items: {

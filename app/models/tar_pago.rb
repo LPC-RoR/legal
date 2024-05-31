@@ -6,6 +6,7 @@ class TarPago < ApplicationRecord
 	has_many :tar_facturaciones
 	has_many :tar_uf_facturaciones
 
+	has_many :tar_calculos
 	has_many :tar_cuotas
 
     validates_presence_of :orden, :tar_pago, :moneda

@@ -1,14 +1,17 @@
-<!-- TH -->
 <div class="ln_vlr_cnt">
 	<div class="ln_lft">
-		<b>Item</b>
+		<b>Totales</b>
 	</div>
 	<div class="ln_mddl" align='right'>
 		<% if controller_name == 'causas' %>
-			<b>Tarifa</b>
+		<b>
+			<%= s_pesos(total_cuantia(objeto, 'tarifa')) %>
+		</b>
 		<% end %>
 	</div>
 	<div class="ln_rght">
-		<b>Cuantía</b>
+		<b>
+			<%= s_pesos(total_cuantia(objeto, 'real')) %>
+		</b>
 	</div>
 </div>

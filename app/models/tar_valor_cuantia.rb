@@ -20,6 +20,10 @@ class TarValorCuantia < ApplicationRecord
 
 	# ------------------------------------------------- Métodos para el cálculo de tarifas
 
+	def formula
+		self.tar_detalle_cuantia.formula_cuantia
+	end
+
 	# Busca fórmula de honorarios
 	def formula_honorarios
 		causa = self.owner_class == 'Causa' ? self.owner : nil

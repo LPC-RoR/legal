@@ -119,18 +119,28 @@ class CausasController < ApplicationController
     set_detalle_cuantia(@objeto, porcentaje_cuantia: false)
     arry_cnt = array_cuantia(@objeto, @valores_cuantia)
 
+    caratula = "#{@objeto.rit} #{@objeto.causa}"
+    remuneracion = @objeto.get_valor('Remuneración')
+    audiencia_preparatoria = @objeto.get_age_actividad('Audiencia preparatoria')
+    fecha_ap = audiencia_preparatoria.fecha
+
     planilla = Axlsx::Package.new
     wb = planilla.workbook
 
     wb.add_worksheet(name: 'Cuantía') do |sheet|
+      sheet.add_row ['Causa', caratula]
+      sheet.add_row ['Remuneración', remuneracion]
+      sheet.add_row ['Audiencia preparatoria', fecha_ap]
+      sheet.add_row ['Detalle de la cuantía']
       sheet.add_row ['Item', 'Honorarios', 'Real']
-      arry_cnt.each do |vctr|
-        sheet.add_row vctr
+      @objeto.valores_cuantia.each do |vc|
+        sheet.add_row [vc.detalle, vlr_tarifa(vc), vlr_cuantia(vc, 'real')]
       end
+      sheet.add_row ['Total', total_cuantia(@objeto, 'tarifa'), total_cuantia(@objeto, 'real')]
     end
 
 #    planilla.serialize 'cuantia.xlsx'
-    send_data planilla.to_stream.read, type: "application/xlsx", filename: "cuantia.xlsx"
+    send_data planilla.to_stream.read, type: "application/xlsx", filename: "#{caratula}.xlsx"
 
     #redirect_to "/causas/#{@objeto.id}"    
   end

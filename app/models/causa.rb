@@ -36,6 +36,10 @@ class Causa < ApplicationRecord
 
 	# PAGOS
 
+	def calculos
+		TarCalculo.where(ownr_class: self.class.name, ownr_id: self.id)
+	end
+
 	def facturaciones
 		TarFacturacion.where(owner_class: self.class.name, owner_id: self.id)
 	end
@@ -134,6 +138,16 @@ class Causa < ApplicationRecord
     end
 
     # **************************************************** CÁLCULO DE TARIFA [PAGOS]
+
+    def get_valor(variable)
+    	variable = Variable.find_by(variable: variable)
+	    valor = self.valores_datos.find_by(variable_id: variable.id)
+	    variable.tipo == 'Texto' ? valor.c_string : ( variable.tipo == 'Párrafo' ? valor.c_parrafo : valor.c_numero )
+    end
+
+    def get_age_actividad(nombre)
+    	self.actividades.find_by(age_actividad: nombre)
+    end
 
 	def set_valores
 		calc_valores = {}

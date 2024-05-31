@@ -1,9 +1,9 @@
-class TarCalculosController < ApplicationController
+class Tarifas::TarCalculosController < ApplicationController
   before_action :set_tar_calculo, only: %i[ show edit update destroy ]
 
   # GET /tar_calculos or /tar_calculos.json
   def index
-    @tar_calculos = TarCalculo.all
+    @coleccion = TarCalculo.all
   end
 
   # GET /tar_calculos/1 or /tar_calculos/1.json
@@ -12,7 +12,7 @@ class TarCalculosController < ApplicationController
 
   # GET /tar_calculos/new
   def new
-    @tar_calculo = TarCalculo.new
+    @objeto = TarCalculo.new
   end
 
   # GET /tar_calculos/1/edit
@@ -21,15 +21,15 @@ class TarCalculosController < ApplicationController
 
   # POST /tar_calculos or /tar_calculos.json
   def create
-    @tar_calculo = TarCalculo.new(tar_calculo_params)
+    @objeto = TarCalculo.new(tar_calculo_params)
 
     respond_to do |format|
-      if @tar_calculo.save
-        format.html { redirect_to @tar_calculo, notice: "Tar calculo was successfully created." }
-        format.json { render :show, status: :created, location: @tar_calculo }
+      if @objeto.save
+        format.html { redirect_to @objeto, notice: "Tar calculo was successfully created." }
+        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tar_calculo.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -37,19 +37,19 @@ class TarCalculosController < ApplicationController
   # PATCH/PUT /tar_calculos/1 or /tar_calculos/1.json
   def update
     respond_to do |format|
-      if @tar_calculo.update(tar_calculo_params)
-        format.html { redirect_to @tar_calculo, notice: "Tar calculo was successfully updated." }
-        format.json { render :show, status: :ok, location: @tar_calculo }
+      if @objeto.update(tar_calculo_params)
+        format.html { redirect_to @objeto, notice: "Tar calculo was successfully updated." }
+        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tar_calculo.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /tar_calculos/1 or /tar_calculos/1.json
   def destroy
-    @tar_calculo.destroy
+    @objeto.destroy
     respond_to do |format|
       format.html { redirect_to tar_calculos_url, notice: "Tar calculo was successfully destroyed." }
       format.json { head :no_content }
@@ -59,7 +59,7 @@ class TarCalculosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tar_calculo
-      @tar_calculo = TarCalculo.find(params[:id])
+      @objeto = TarCalculo.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

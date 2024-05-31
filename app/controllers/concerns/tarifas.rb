@@ -167,15 +167,47 @@ module Tarifas
 		{ valor: valor, check: check}
 	end
 
+	# VALORES de tar_valor cuantia que sirven para despliegue sin necesidad de otras variables
+	# tipo : { 'real', 'tarifa'}
+	def vlr_cuantia(tar_valor_cuantia, tipo)
+		formula = tipo == 'real' ? tar_valor_cuantia.formula : tar_valor_cuantia.formula_honorarios
+		valor = tipo == 'real' ? tar_valor_cuantia.valor : tar_valor_cuantia.valor_tarifa
+		valor.blank? ? ( formula.blank? ? 0 : calcula2(formula, tar_valor_cuantia.owner, nil) ) : valor
+	end
+
+	def chck_cuantia(tar_valor_cuantia, tipo)
+		formula = tipo == 'real' ? tar_valor_cuantia.formula : tar_valor_cuantia.formula_honorarios
+		valor = tipo == 'real' ? tar_valor_cuantia.valor : tar_valor_cuantia.valor_tarifa
+		valor.blank? ? 'formula' : ( formula.blank? ? 'campo' : valor == calcula2(formula, tar_valor_cuantia.owner, nil) ? 'ok' : 'fail' )
+	end
+
+	def vlr_tarifa(tar_valor_cuantia)
+		tarifa = vlr_cuantia(tar_valor_cuantia, 'tarifa')
+		tarifa == 0 ? vlr_cuantia(tar_valor_cuantia, 'real') : tarifa
+	end
+
+	def chck_tarifa(tar_valor_cuantia)
+		tarifa = vlr_tarifa(tar_valor_cuantia)
+		tarifa == 0 ? chck_cuantia(tar_valor_cuantia, 'real') : chck_cuantia(tar_valor_cuantia, 'tarifa')
+	end
+
+	def total_cuantia(ownr, tipo)
+		tipo == 'real' ? ownr.valores_cuantia.map {|vlr_cnt| vlr_cuantia(vlr_cnt, 'real')}.sum : ownr.valores_cuantia.map {|vlr_cnt| vlr_tarifa(vlr_cnt)}.sum
+	end
+
+	# ******************************************************************
+
 	# Genera el h_cuantias con los valores y chequeos de las cuantías
 	# [{valor: valor_r, check: check_r}, {valor: valor_h. check: check_h}]
 	def get_h_cuantia(tar_valor_cuantia)
-		campo_r = tar_valor_cuantia.valor
-		campo_h = tar_valor_cuantia.valor_tarifa
-		formula_r= tar_valor_cuantia.tar_detalle_cuantia.formula_cuantia
-		formula_h = tar_valor_cuantia.formula_honorarios
 		causa = tar_valor_cuantia.owner_class = 'Causa' ? tar_valor_cuantia.owner : nil
+
+		campo_r = tar_valor_cuantia.valor
+		formula_r= tar_valor_cuantia.formula
 		valor_r = get_valores_cuantia(formula_r, campo_r, causa)
+
+		campo_h = tar_valor_cuantia.valor_tarifa
+		formula_h = tar_valor_cuantia.formula_honorarios
 		valor_h = get_valores_cuantia(formula_h, campo_h, causa)
 		valor_h[:valor] = valor_r[:valor] if valor_h[:valor] == 0
 		[valor_r, valor_h]
