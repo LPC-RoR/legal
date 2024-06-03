@@ -3,8 +3,8 @@ class Hecho < ApplicationRecord
 	belongs_to :tema, optional: true
 	belongs_to :causa
 
-#	has_many :hecho_docs
-#	has_many :app_documentos, through: :hecho_docs
+	# se usa para manejar el formato enviado a clientes
+	has_many :antecedentes
 
 	has_many :hecho_archivos
 	has_many :app_archivos, through: :hecho_archivos

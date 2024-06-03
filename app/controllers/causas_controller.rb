@@ -1,8 +1,10 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
+
+  respond_to :docx
 
   # GET /causas or /causas.json
   def index
@@ -17,6 +19,14 @@ class CausasController < ApplicationController
     coleccion = Causa.where(estado: @estado).order(created_at: :desc)
     set_tabla('causas', coleccion, true)
 
+  end
+
+  def hchstowrd
+    respond_with(@object, filename: 'hechos.docx', word_template: 'hchstowrd.docx')
+  end
+
+  def ntcdntstowrd
+    respond_with(@object, filename: 'antecedentes.docx', word_template: 'ntcdntstowrd.docx')
   end
 
   # GET /causas/1 or /causas/1.json
@@ -139,7 +149,7 @@ class CausasController < ApplicationController
       sheet.add_row ['Total', total_cuantia(@objeto, 'tarifa'), total_cuantia(@objeto, 'real')]
     end
 
-#    planilla.serialize 'cuantia.xlsx'
+    #    planilla.serialize 'cuantia.xlsx'
     send_data planilla.to_stream.read, type: "application/xlsx", filename: "#{caratula}.xlsx"
 
     #redirect_to "/causas/#{@objeto.id}"    
@@ -157,6 +167,26 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def nueva_materia
+    f_prms = params[:nueva_materia]
+    unless f_prms[:tema].blank?
+      n_materias = @objeto.temas.count
+      @objeto.temas.create(tema: f_prms[:tema], orden: n_materias + 1)
+    end
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
+  end
+
+  def nuevo_hecho
+    f_prms = params[:nuevo_hecho]
+    unless f_prms[:descripcion].blank?
+      n_hechos = @objeto.hechos.count
+      @objeto.hechos.create(hecho: f_prms[:hecho], descripcion: f_prms[:descripcion], orden: n_hechos + 1)
+    end
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
   end
 
   def set_flags

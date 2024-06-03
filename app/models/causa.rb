@@ -18,6 +18,7 @@ class Causa < ApplicationRecord
 	has_many :app_archivos, through: :causa_archivos
 
 
+	# antecedentes de los hechos de la tabla
 	has_many :antecedentes
 
     validates_presence_of :causa, :rit

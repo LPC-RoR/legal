@@ -1,0 +1,15 @@
+<h3>Solicitud de antecedentes</h3>
+<h4><%= @objeto.cliente.razon_social %></h4>
+<h4><%= "#{@objeto.rit} : #{@objeto.causa}" %></h4>
+<br>
+<small>La siguiente lista de antecedentes son los necesarios para... </small>
+<% @objeto.hechos.order(:orden).each do |hchs| %>
+	<br>
+	<p><b><%= hchs.hecho.blank? ? "Hecho Nº #{hchs.orden}" : hchs.hecho %></b></p>
+	<br>
+	<div style="padding-left 4em;">
+	<% hchs.antecedentes.each do |ntcdnt| %>
+		<p>- <b><%= "[#{hchs.orden}]" %></b> <%= ntcdnt.solicitud %></p>
+	<% end %>
+	</div>
+<% end %>

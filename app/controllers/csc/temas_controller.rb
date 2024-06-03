@@ -1,6 +1,6 @@
 class Csc::TemasController < ApplicationController
-  before_action :set_tema, only: %i[ show edit update destroy arriba abajo ]
-  after_action :reordenar, only: :destroy
+  before_action :set_tema, only: %i[ show edit update destroy arriba abajo nuevo_hecho ]
+  after_action :ordena_temas, only: %i[ destroy nuevo_hecho ]
 
   # GET /temas or /temas.json
   def index
@@ -51,6 +51,16 @@ class Csc::TemasController < ApplicationController
     end
   end
 
+  def nuevo_hecho
+    f_prms = params[:nuevo_hecho]
+    unless f_prms[:descripcion].blank?
+      n_hechos = @objeto.causa.hechos.count
+      @objeto.hechos.create(causa_id: @objeto.causa.id, tema_id: @objeto.id, hecho: f_prms[:hecho], descripcion: f_prms[:descripcion], orden: n_hechos + 1)
+    end
+
+    redirect_to "/causas/#{@objeto.causa.id}?html_options[menu]=Hechos"
+  end
+
   def arriba
     owner = @objeto.owner
     anterior = @objeto.anterior
@@ -88,6 +98,22 @@ class Csc::TemasController < ApplicationController
   end
 
   private
+    def ordena_temas
+      causa = @objeto.causa
+      ultimo_tema = 0
+      # ordena temas
+      causa.temas.order(:orden).each do |tema|
+        tema.hechos.order(:orden).each do |hecho|
+          hecho.orden = ultimo_tema + 1
+          hecho.save
+          ultimo_tema += 1
+        end
+      end
+
+      ordena_hechos
+
+    end
+
     def ordena_hechos
       causa = @objeto.causa
       ultimo_hecho = 0
@@ -103,17 +129,6 @@ class Csc::TemasController < ApplicationController
           hecho.save
           ultimo_hecho += 1
       end 
-    end
-
-    def reordenar
-      @objeto.list.each_with_index do |val, index|
-        unless val.orden == index + 1
-          val.orden = index + 1
-          val.save
-        end
-      end
-
-      ordena_hechos
     end
 
     # Use callbacks to share common setup or constraints between actions.

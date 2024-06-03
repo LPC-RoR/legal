@@ -1,5 +1,5 @@
 class Csc::HechosController < ApplicationController
-  before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo remueve_documento arriba abajo set_evaluacion ]
+  before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo remueve_documento arriba abajo set_evaluacion nuevo_antecedente ]
   after_action :ordena_hechos, only: %i[ create destroy update ]
 
   # GET /hechos or /hechos.json
@@ -51,6 +51,15 @@ class Csc::HechosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def nuevo_antecedente
+    f_prms = params[:nuevo_antecedente]
+    unless f_prms[:solicitud].blank?
+      @objeto.antecedentes.create(causa_id: @objeto.causa.id, hecho_id: @objeto.id, solicitud: f_prms[:solicitud])
+    end
+
+    redirect_to "/causas/#{@objeto.causa.id}?html_options[menu]=Hechos"
   end
 
   def set_evaluacion

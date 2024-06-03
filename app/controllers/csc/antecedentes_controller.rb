@@ -1,4 +1,4 @@
-class AntecedentesController < ApplicationController
+class Csc::AntecedentesController < ApplicationController
   before_action :set_antecedente, only: %i[ show edit update destroy ]
 
   # GET /antecedentes or /antecedentes.json
@@ -66,7 +66,7 @@ class AntecedentesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/causas/#{@objeto.causa.id}?html_options[menu]=Antecedentes"
+      @redireccion = "/causas/#{@objeto.causa.id}?html_options[menu]=Hechos"
     end
 
     # Only allow a list of trusted parameters through.

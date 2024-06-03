@@ -4,17 +4,32 @@
 		Tabla de hechos
 	</div>
 	<div class="ttl_lnks">
+
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/set_flags?f=hreg", tooltip: "#{objeto.hechos_registrados ? 'Desbloquea hechos' : 'Bloquea hechos' }"} do  %>
 			<%= render partial: '0p/general/gly', locals: {gly: "#{'check-' if objeto.hechos_registrados}square"} %>
 		<% end %>
+
+		<i class="bi bi-dot"></i>
+		<%= render partial: "0p/dropdown/drpdwn_lst", locals: {gly: 'file-word', lst: [['Revisión de hechos', "/causas/#{objeto.id}/hchstowrd"], ['Solicitud de antecedentes', "/causas/#{objeto.id}/ntcdntstowrd"]] } %>
+
 		<% unless objeto.hechos_registrados %>
-			<i class="bi bi-dot"></i>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/temas/new?cid=#{objeto.id}", tooltip: 'Nueva Materia'} do  %>
+
+			<%= render layout: '0p/collapse/link', locals: {label: 'NuevaMateria', objeto: nil, tooltip: 'Agrega materia'} do %>
 				<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %> Materia
 			<% end %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/hechos/new?cid=#{objeto.id}", tooltip: 'Nuevo Hecho'} do  %>
+
+			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoHecho', objeto: nil, tooltip: 'Agrega materia'} do %>
 				<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %> Hecho
 			<% end %>
+
 		<% end %>
 	</div>
 </div>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevaMateria', objeto: nil} do %>
+	<%= render partial: 'causas/shw/hechos/form_nueva_materia', locals: {objeto: objeto} %>
+<% end %>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevoHecho', objeto: nil} do %>
+	<%= render partial: 'causas/shw/hechos/form_nuevo_hecho', locals: {objeto: objeto} %>
+<% end %>

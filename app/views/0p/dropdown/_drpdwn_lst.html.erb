@@ -1,0 +1,12 @@
+<div class="lst-drpdwn">
+    <span>
+        <i class="bi bi-<%=gly%>"></i>
+    </span>
+    <div class="lst-drpdwn-content">
+        <% lst.each do |item| %>
+            <%= link_to item[1] do %>
+                <%= item[0] %>
+            <% end %>
+        <% end %>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="innr_hc">
+<div class="hc">
 	<div class="ttl_ttl">
 		<!-- FLECHA -->
 		<i class="bi bi-arrow<%=objeto.tema.blank? ? nil : '-return'%>-right"></i>
@@ -9,17 +9,7 @@
 			<i class="bi bi-circle-fill text-<%=objeto.color_p%>"></i>
 		<% end %>
 
-		<!-- CLLPS CITA -->
-		<% unless objeto.cita.blank? %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'Cita', objeto: objeto, tooltip: 'Cita de la demanda' } do %>
-				<i class="bi bi-box-arrow-down"></i>
-			<% end %>
-		<% else %>
-			<!-- MUESTRA QUE LA CITA NO HA SIDO INGRESADA -->
-			<i class="bi bi-box-arrow-down text-danger"></i>
-		<% end %>
-		
-		<%= objeto.descripcion %>
+		<%= objeto.hecho.blank? ? "Hecho Nº #{objeto.orden}" : objeto.hecho %>
 	</div>
 	<div class="ttl_lnks">
 		<!-- ORDEN -->
@@ -30,17 +20,23 @@
 		<% end %>
 
 		<!-- BOTON PARA EVALUAR -->
-		<i class="bi bi-dot"></i>
-		<%= render layout: '0p/collapse/link', locals: {label: 'Evaluacion', objeto: objeto, tooltip: 'Evaluación del hecho' } do %>
-			<i class="bi bi-check-circle-fill"></i>
-		<% end %>
+		<!--i class="bi bi-dot"></i-->
+		<%#= render layout: '0p/collapse/link', locals: {label: 'Evaluacion', objeto: objeto, tooltip: 'Evaluación del hecho' } do %>
+			<!--i class="bi bi-check-circle-fill"></i-->
+		<%# end %>
 
 		<!-- LINKS -->
 		<% unless objeto.causa.archivos_registrados %>
+
 			<i class="bi bi-dot"></i> 
 			<!-- LINKS ARCHIVOS -->
+			<% unless objeto.causa.hechos_registrados %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'NuevoAntecedente', objeto: objeto, tooltip: 'Agrega antecedente solicitado' } do %>
+					<i class="bi bi-plus-circle"></i> Antecedente
+				<% end %>
+			<% end %>
 			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoArchivo', objeto: objeto, tooltip: 'Agrega archivo' } do %>
-				<i class="bi bi-plus-circle"></i> 
+				<i class="bi bi-plus-circle"></i> Archivo
 			<% end %>
 			<%= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: objeto, tooltip: 'Selecciona archivo' } do %>
 				<i class="bi bi-list-task"></i> 
@@ -48,18 +44,18 @@
 			<!-- links_e -->
 			<% unless objeto.causa.hechos_registrados %>
 				<i class="bi bi-dot"></i> 
-				<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
+				<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 			<% end %>
 		<% end %>
 	</div>
 
 </div>
 
+<div class="innr_dscpcn"><%= objeto.descripcion %></div>
+
 <!-- COLLAPSES -->
-<% unless objeto.cita.blank? %>
-	<%= render layout: '0p/collapse/display', locals: {label: 'Cita', objeto: objeto} do %>
-		<%= render partial: 'csc/hechos/list/dsply_cita', locals: {objeto: objeto} %>
-	<% end %>
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevoAntecedente', objeto: objeto} do %>
+	<%= render partial: 'csc/hechos/list/form_antecedente', locals: {objeto: objeto} %>
 <% end %>
 
 <%= render layout: '0p/collapse/display', locals: {label: 'NuevoArchivo', objeto: objeto} do %>
@@ -72,6 +68,11 @@
 
 <%= render layout: '0p/collapse/display', locals: {label: 'Evaluacion', objeto: objeto} do %>
 	<%= render partial: 'csc/hechos/list/evaluaciones', locals: {objeto: objeto} %>
+<% end %>
+
+<!-- ANTECEDENTES -->
+<% objeto.antecedentes.order(:created_at).each do |antecedente| %>
+	<%= render partial: 'csc/antecedentes/list/objeto', locals: {objeto: antecedente} %>
 <% end %>
 
 <!-- ARCHIVOS -->

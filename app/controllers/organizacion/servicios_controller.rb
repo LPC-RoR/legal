@@ -11,6 +11,7 @@ class Organizacion::ServiciosController < ApplicationController
     @coleccion['tar_facturaciones'].each do |tar_facturacion|
         set_detalle_cuantia(tar_facturacion.owner, porcentaje_cuantia: tar_facturacion.porcentaje_cuantia?) if tar_facturacion.owner.class.name == 'Causa'
     end
+
   end
 
   def organizacion

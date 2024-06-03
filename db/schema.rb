@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_30_224900) do
+ActiveRecord::Schema.define(version: 2024_05_31_153815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,7 +117,10 @@ ActiveRecord::Schema.define(version: 2024_05_30_224900) do
     t.integer "causa_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "solicitud"
+    t.integer "hecho_id"
     t.index ["causa_id"], name: "index_antecedentes_on_causa_id"
+    t.index ["hecho_id"], name: "index_antecedentes_on_hecho_id"
     t.index ["orden"], name: "index_antecedentes_on_orden"
   end
 

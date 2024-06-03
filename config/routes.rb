@@ -29,8 +29,10 @@ Rails.application.routes.draw do
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
   end
+
+#  get 'dwnldwrd' => 'causas/dwnldwrd', format: :docx
+
   resources :causas do
-    resources :antecedentes
     resources :temas
     resources :hechos
     match :cambio_estado, via: :get, on: :member
@@ -41,13 +43,16 @@ Rails.application.routes.draw do
     match :input_nuevo_archivo, via: :post, on: :member
     match :set_flags, via: :get, on: :member
     match :cuantia_to_xlsx, via: :get, on: :member
+    match :nueva_materia, via: :post, on: :member
+    match :nuevo_hecho, via: :post, on: :member
+    match :hchstowrd, via: :get, on: :member, format: 'docx'
+    match :ntcdntstowrd, via: :get, on: :member, format: 'docx'
     # ultima version
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member
     match :input_tar_facturacion, via: :post, on: :member
     match :elimina_uf_facturacion, via: :get, on: :member
   end
-  resources :antecedentes
   resources :clientes do
     match :add_rcrd, via: :get, on: :member
     match :cambio_estado, via: :get, on: :member
@@ -65,6 +70,7 @@ Rails.application.routes.draw do
       resources :hechos
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
+      match :nuevo_hecho, via: :post, on: :member
     end
     resources :hechos do
       match :arriba, via: :get, on: :member
@@ -72,6 +78,7 @@ Rails.application.routes.draw do
       match :nuevo_archivo, via: :post, on: :member
       match :sel_archivo, via: :get, on: :member
       match :set_evaluacion, via: :get, on: :member
+      match :nuevo_antecedente, via: :post, on: :member
     end
     resources :hecho_archivos do 
       match :eliminar, via: :get, on: :member
@@ -83,6 +90,8 @@ Rails.application.routes.draw do
       match :eliminar, via: :get, on: :member
       match :set_seleccionado, via: :get, on: :member
     end 
+    # se reutlizó tabla para almacenar los antecedentes de un hecho
+    resources :antecedentes
   end
 
   # Usado para poner las entidades necesarias para mantener Variables y su relación con causas y clientes
@@ -98,9 +107,9 @@ Rails.application.routes.draw do
 
   scope module: 'calendario' do
     resources :cal_annios
-    resources :cal_meses
-    resources :cal_semanas
-    resources :cal_dias
+#    resources :cal_meses
+#    resources :cal_semanas
+#    resources :cal_dias
     resources :cal_feriados
   
     resources :cal_mes_sems
