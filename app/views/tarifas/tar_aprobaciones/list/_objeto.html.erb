@@ -36,20 +36,20 @@
 	<% end %>
 <% end %>
 
-<% unless objeto.tar_facturaciones.empty? %>
-	<hr>
-	<% objeto.tar_facturaciones.order(:created_at).each do |fcn| %>
+<%# unless objeto.tar_facturaciones.empty? %>
+	<!--hr>
+	<%# objeto.tar_facturaciones.order(:created_at).each do |fcn| %>
 		<div class="ln_dtll">
 			<div class="ln_lft">
-				<%= render partial:'0p/general/gly', locals: {gly: controller_icon['tar_facturaciones']} %>
-				<%= fcn.glosa %>
-				<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_facturaciones/#{fcn.id}/libera_facturacion", tooltip: 'Libera facturacion'} do %>
+				<%#= render partial:'0p/general/gly', locals: {gly: controller_icon['tar_facturaciones']} %>
+				<%#= fcn.glosa %>
+				<%#= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_facturaciones/#{fcn.id}/libera_facturacion", tooltip: 'Libera facturacion'} do %>
 					<i class="bi bi-trash"></i>
-				<% end %>
+				<%# end %>
 			</div>
 			<div class="ln_rght">
-				<%= s_pesos(monto_pesos(fcn, fcn.owner, fcn.tar_pago)) %>
+				<%#= s_pesos(monto_pesos(fcn, fcn.owner, fcn.tar_pago)) %>
 			</div>
-		</div>
-	<% end %>
-<% end %>
+		</div-->
+	<%# end %>
+<%# end %>
