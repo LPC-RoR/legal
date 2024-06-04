@@ -231,7 +231,7 @@ module Tarifas
 
 	# este método debe aplicar a Causa y Asesoría
 	def fecha_calculo(causa, pago)
-		if causa.class.name == 'causa'
+		if causa.class.name == 'Causa'
 			tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
 			fecha1 = tar_uf_facturacion.blank? ? nil : tar_uf_facturacion.fecha_uf
 
