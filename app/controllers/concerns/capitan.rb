@@ -61,7 +61,7 @@ module Capitan
 
 	# usado en el cálculo de tarifas y despliegue de pagos
 	def uf_fecha(fecha)
-		uf = TarUfSistema.find_by(fecha: fecha.to_date)
+		uf = fecha.blank? ? nil : TarUfSistema.find_by(fecha: fecha.to_date)
 		uf.blank? ? nil : uf.valor
 	end
 
