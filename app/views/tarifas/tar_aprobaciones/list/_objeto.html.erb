@@ -30,7 +30,7 @@
 				<% end %>
 			</div>
 			<div class="ln_rght">
-				<%= fecha_calculo(ccl.owner, ccl.tar_pago) %>
+				<%= dma(fecha_calculo(ccl.owner, ccl.tar_pago)) %>
 				<%= s_pesos(monto_pesos(ccl, ccl.owner, ccl.tar_pago)) %>
 			</div>
 		</div>
@@ -49,7 +49,8 @@
 				<% end %>
 			</div>
 			<div class="ln_rght">
-				<%= fecha_calculo(fcn.owner, fcn.tar_pago) %>
+				<%= dma(fcn.created_at) %>
+				<%= dma(fecha_calculo(fcn.owner, fcn.tar_pago)) %>
 				<%= s_pesos(monto_pesos(fcn, fcn.owner, fcn.tar_pago)) %>
 			</div>
 		</div>
