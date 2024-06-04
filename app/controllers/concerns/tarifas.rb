@@ -228,17 +228,22 @@ module Tarifas
 		h_status
 	end
 
+	# este método debe aplicar a Causa y Asesoría
 	def fecha_calculo(causa, pago)
-		tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
-		fecha1 = tar_uf_facturacion.blank? ? nil : tar_uf_facturacion.fecha_uf
+		if causa.class.name == 'causa'
+			tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
+			fecha1 = tar_uf_facturacion.blank? ? nil : tar_uf_facturacion.fecha_uf
 
-		tar_calculo = get_tar_calculo(causa, pago)
-		fecha2 = tar_calculo.blank? ? nil : tar_calculo.fecha_uf
+			tar_calculo = get_tar_calculo(causa, pago)
+			fecha2 = tar_calculo.blank? ? nil : tar_calculo.fecha_uf
 
-		tar_facturacion = get_tar_facturacion(causa, pago)
-		fecha3 = tar_facturacion.blank? ? nil : tar_facturacion.fecha_uf
+			tar_facturacion = get_tar_facturacion(causa, pago)
+			fecha3 = tar_facturacion.blank? ? nil : tar_facturacion.fecha_uf
 
-		fecha1.present? ? fecha1 : ( fecha2.present? ? fecha2 : (fecha3.present? ? fecha3 : (tar_facturacion.present? ? tar_facturacion.created_at : Timme.zone.today)) )
+			fecha1.present? ? fecha1 : ( fecha2.present? ? fecha2 : (fecha3.present? ? fecha3 : (tar_facturacion.present? ? tar_facturacion.created_at : Timme.zone.today)) )
+		elsif causa.class.name == 'Asesoria'
+			causa.fecha_uf.present? ? causa.fecha_uf : causa.facturacion.created_at
+		end
 	end
 
 	def uf_calculo(causa, pago)
