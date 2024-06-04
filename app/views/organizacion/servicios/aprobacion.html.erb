@@ -25,32 +25,6 @@
 
 <% end %>
 
-<% @coleccion['tar_facturaciones'].each do |tar_facturacion| %>
-
-	<%= render partial: "tarifas/tar_facturaciones/shr/titulo_aprobacion", locals: {objeto: tar_facturacion} %>
-
-	<div class="f_50lft_col">
-		<div class="lft">
-			<% if tar_facturacion.owner.class.name == 'Causa' %>
-				<div class="app_box">
-					<div style='padding-left: 1em; padding-right: 1em;'>
-						<%= render partial: 'causas/shr/detalle_cuantia', locals: {objeto: tar_facturacion.owner, porcentaje_cuantia: tar_facturacion.porcentaje_cuantia?, valores_cuantia: @valores_cuantia, clss: 'nl_vlr_cnt_smll'} %>
-					</div>
-				</div>
-			<% end %>
-		</div>
-		<div class="rght">
-			<div class="cntnt_box">
-				<div style='padding-left: 1em;'>
-					<%= render partial: 'organizacion/servicios/aprobacion/encabezado_pago', locals: {objeto: tar_facturacion, owner: tar_facturacion.owner} %>
-					<%= render partial: 'causas/shw/tarifa_pagos/comentarios_pago', locals: {pago: tar_facturacion.tar_pago, causa: tar_facturacion.owner } if tar_facturacion.owner.class.name == 'Causa' %>
-				</div>
-			</div>
-		</div>
-	</div>
-
-<% end %>
-
 <b>
 <div class="ttl_prnt">
 	<div class="ttl_ttl">
