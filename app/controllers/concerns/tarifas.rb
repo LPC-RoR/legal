@@ -241,7 +241,7 @@ module Tarifas
 			tar_facturacion = get_tar_facturacion(causa, pago)
 			fecha3 = tar_facturacion.blank? ? nil : tar_facturacion.fecha_uf
 
-			fecha1.present? ? fecha1 : ( fecha2.present? ? fecha2 : (fecha3.present? ? fecha3 : (tar_facturacion.present? ? tar_facturacion.created_at : Timme.zone.today)) )
+			fecha1.present? ? fecha1 : ( fecha2.present? ? fecha2 : (fecha3.present? ? fecha3 : (tar_facturacion.present? ? tar_facturacion.created_at : Time.zone.today)) )
 		elsif causa.class.name == 'Asesoria'
 			causa.fecha_uf.present? ? causa.fecha_uf : causa.facturacion.created_at
 		end
