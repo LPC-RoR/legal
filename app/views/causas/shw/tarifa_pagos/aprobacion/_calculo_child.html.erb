@@ -1,9 +1,3 @@
-<!-- objeto: tar_pago, owner: causa -->
-<% unless uf_fecha(fecha_calculo(owner, pago)).blank? and pago.requiere_uf %>
-	<hr>
-
-	<%= render partial: 'causas/shw/tarifa_pagos/comentarios_pago', locals: {pago: pago, causa: owner } %>
-
 	<hr>
 	<% unless @pgs_stts[pago.id].blank? %>
 		<div class="ln_dtll">
@@ -67,4 +61,3 @@
 	    <% end %>
 		
 	<% end %>
-<% end %>

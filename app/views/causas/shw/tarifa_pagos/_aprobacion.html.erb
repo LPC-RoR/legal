@@ -5,7 +5,13 @@
 
 		<div class="cntnt_box">
 			<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: pago, owner: objeto} %>
-			<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/detalle', locals: {pago: pago, owner: objeto} %>
+
+			<% if pago.requiere_uf == true and uf_fecha(fecha_calculo(objeto, pago)).blank? %>
+				<small><b class="text-danger">UF del dia <%= dma(fecha_calculo(objeto, pago)) %> no encontrada</b></small>
+			<% else %>
+				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: pago, causa: objeto } %>
+				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/calculo_child', locals: {pago: pago, owner: objeto } %>
+			<% end %>
 		</div>
 
 	<% end %>
