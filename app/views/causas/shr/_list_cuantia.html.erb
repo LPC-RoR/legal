@@ -6,9 +6,9 @@
 
 <!-- Detalles de cuantía -->
 <% objeto.valores_cuantia.each do |vc| %>
-	<%= render partial: 'causas/shw/datos_cuantia/cuantia/ln2_cuantia', locals: {objeto: objeto, vc: vc, valores_cuantia: valores_cuantia, clss: clss} %>
+	<%= render partial: 'causas/shw/datos_cuantia/cuantia/ln2_cuantia', locals: {objeto: objeto, vc: vc, clss: clss} %>
 <% end %>
 
 <hr>
 
-<%= render partial: 'causas/shw/datos_cuantia/cuantia/ttls2_cuantia', locals: {objeto: objeto, valores_cuantia: valores_cuantia} %>
+<%= render partial: 'causas/shw/datos_cuantia/cuantia/ttls2_cuantia', locals: {objeto: objeto} %>

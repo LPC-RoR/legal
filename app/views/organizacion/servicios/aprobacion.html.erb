@@ -2,6 +2,29 @@
 	<%= render partial: 'organizacion/servicios/aprobacion/encabezado_aprobacion', locals: {objeto: @objeto} %>
 </div>
 
+<% @coleccion['tar_calculos'].each do |tar_calculo| %>
+	<%= render partial: "tarifas/tar_calculos/shr/titulo_aprobacion", locals: {objeto: tar_calculo} %>
+
+	<div class="f_50lft_col">
+		<div class="lft">
+			<% if tar_calculo.owner.class.name == 'Causa' %>
+						<% unless tar_calculo.owner.valores_cuantia.empty? %>
+							<div class="app_box">
+								<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: tar_calculo.owner, porcentaje_cuantia: false, clss: 'ln_vlr_cnt'} %>
+							</div>
+						<% end %>
+			<% end %>
+		</div>
+		<div class="rght">
+			<div class="cntnt_box">
+			<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: tar_calculo.tar_pago, owner: tar_calculo.owner} %>
+			<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/detalle2', locals: {tar_calculo: tar_calculo} %>
+			</div>
+		</div>
+	</div>
+
+<% end %>
+
 <% @coleccion['tar_facturaciones'].each do |tar_facturacion| %>
 
 	<%= render partial: "tarifas/tar_facturaciones/shr/titulo_aprobacion", locals: {objeto: tar_facturacion} %>
@@ -35,10 +58,10 @@
 	</div>
 	<div class="ttl_lnks">
 		<small>
-			<%= s_uf(@objeto.aprob_total_uf) %>
+			<%= s_uf(@total_uf) %>
 			<i class="bi bi-arrow-left-right"></i>
 		</small>
-		<b><%= s_pesos(@objeto.aprob_total_pesos) %></b>
+		<b><%= s_pesos(@total_pesos) %></b>
 	</div>
 </div>
 </b>

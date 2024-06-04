@@ -5,6 +5,10 @@ class Organizacion::ServiciosController < ApplicationController
   def aprobacion
     @objeto = TarAprobacion.find(params[:indice])
     set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
+    set_tabla('tar_calculos', @objeto.tar_calculos, false)
+
+    @total_uf = @objeto.tar_calculos.map {|ccl| monto_uf(ccl, ccl.owner, ccl.tar_pago)}.sum
+    @total_pesos = @objeto.tar_calculos.map {|ccl| monto_pesos(ccl, ccl.owner, ccl.tar_pago)}.sum
 
     @h_pagos = get_h_pagos(@objeto)
 

@@ -1,19 +1,19 @@
 <div class="<%=clss%>">
 	<div class="ln_lft">
-		<%= render partial: 'causas/shw/datos_cuantia/cuantia/nm_cuantia', locals: {objeto: objeto, vc: vc, valores_cuantia: valores_cuantia} %>
+		<%= render partial: 'causas/shw/datos_cuantia/cuantia/nm_cuantia', locals: {objeto: objeto, vc: vc} %>
 	</div>
-	<div class="ln_mddl" align='right'>
-		<% if controller_name == 'causas' %>
+	<div class="<%= controller_name == 'causas' ? 'ln_mddl' : 'ln_rght'  %>" align='right'>
 			<%= render partial: 'causas/shw/datos_cuantia/cuantia/icono_check', locals: {check_valor: chck_tarifa(vc)} %>
 			<% unless vc.activado? %><del><% end %>
 			<%= s_moneda( vc.moneda, vlr_tarifa(vc) ) %>
 			<% unless vc.activado? %></del><% end %>
-		<% end %>
 	</div>
-	<div class="ln_rght">
+	<div class="<%= controller_name == 'causas' ? 'ln_rght' : 'ln_mddl'  %>">
+		<% if controller_name == 'causas' %>
 		<%= render partial: 'causas/shw/datos_cuantia/cuantia/icono_check', locals: {check_valor: chck_cuantia(vc, 'real')} %>
 		<% unless vc.activado? %><del><% end %>
 		<%= s_moneda( vc.moneda, vlr_cuantia(vc, 'real') ) %>
 		<% unless vc.activado? %></del><% end %>
+		<% end %>
 	</div>
 </div>

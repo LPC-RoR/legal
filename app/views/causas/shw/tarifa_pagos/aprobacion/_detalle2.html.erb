@@ -1,0 +1,72 @@
+<!-- objeto: tar_pago, owner: causa -->
+<% unless uf_fecha(fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)).blank? and tar_calculo.tar_pago.requiere_uf %>
+	<hr>
+
+	<%= render partial: 'causas/shw/tarifa_pagos/comentarios_pago', locals: {pago: tar_calculo.tar_pago, causa: tar_calculo.owner } %>
+
+	<% if controller_name == 'causas' %>
+		<hr>
+		<% unless tar_calculo.blank? %>
+			<div class="ln_dtll">
+				<div class="ln_lft">
+					<b>Autorización</b>
+					<% if tar_calculo.class.name == 'TarCalculo' and tar_calculo.tar_aprobacion_id.blank? %>
+						<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_calculos/#{@pgs_stts[tar_calculo.tar_pago.id].id}/elimina_calculo", tooltip: 'Eliminar autorización'} do %>
+							<i class="bi bi-trash"></i>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+			<div class="ln_dtll">
+				<div class="ln_lft">
+					<i class="bi bi-dot"></i>Fecha autorización
+				</div>
+				<div class="ln_rght">
+					<%= dma( tar_calculo.created_at ) %>
+				</div>
+			</div>
+			<div class="ln_dtll">
+				<div class="ln_lft">
+					<i class="bi bi-dot"></i>Cuantía utilizada para el cálculo
+				</div>
+				<div class="ln_rght">
+					<%= s_pesos( tar_calculo.cuantia_calculo ) %>
+				</div>
+			</div>
+
+			<div class="ln_dtll">
+				<div class="ln_lft">
+					<b>Pago(s)</b>
+				</div>
+			</div>
+			<% unless tar_calculo.tar_facturaciones.empty? %>
+				<% tar_calculo.tar_facturaciones.order(:created_at).each do |fctn| %>
+					<div class="ln_dtll">
+						<div class="ln_lft">
+							<i class="bi bi-dot"></i><%= fctn.glosa %>
+							<% unless get_tar_facturacion(tar_calculo.owner, tar_calculo.tar_pago).tar_aprobacion.blank? and get_tar_facturacion(tar_calculo.owner, tar_calculo.tar_pago).tar_factura.blank? %>
+								<%= render partial: 'tarifas/tar_facturaciones/list/aprobacion_factura', locals: {objeto: get_tar_facturacion(tar_calculo.owner, tar_calculo.tar_pago)} %>
+							<% end %>
+						</div>
+						<div class="ln_rght">
+							<%= s_pesos(fctn.monto_pesos) %>
+						</div>
+					</div>
+				<% end %>
+			<% end %>
+
+		<% else %>
+
+			<div class="ln_dtll">
+				<div class="ln_lft">
+					Pago sin autorizar!
+				</div>
+			</div>
+			<% if tar_calculo.owner.class.name == 'Causa' and controller_name == 'causas' %>
+				</br>
+				<%= link_to 'Autorizar pago', "/tar_facturaciones/crea_facturacion?owner_class=#{tar_calculo.owner.class.name}&owner_id=#{tar_calculo.owner.id}&pid=#{tar_calculo.tar_pago.id}", class: 'btn btn-primary btn-sm' %>
+		    <% end %>
+			
+		<% end %>
+	<% end %>
+<% end %>

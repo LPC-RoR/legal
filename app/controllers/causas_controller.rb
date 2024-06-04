@@ -77,9 +77,6 @@ class CausasController < ApplicationController
       @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
 
-      # PRUEBA, aún no se usan
-      set_formulas(@objeto)
-
     when 'Documentos'
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
       set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)

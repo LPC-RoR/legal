@@ -1,5 +1,5 @@
 
 <!-- CUANTIA -->
-<%= render partial: 'causas/shw/datos_cuantia/cuantia', locals: {objeto: objeto, variables: variables, valores_cuantia: valores_cuantia} %>
+<%= render partial: 'causas/shw/datos_cuantia/cuantia', locals: {objeto: objeto, variables: variables} %>
 
-<%= render partial: 'causas/shw/datos_cuantia/datos', locals: {objeto: objeto, variables: variables, valores_cuantia: valores_cuantia} unless variables.empty? %>
+<%= render partial: 'causas/shw/datos_cuantia/datos', locals: {objeto: objeto, variables: variables} unless variables.empty? %>
