@@ -247,7 +247,8 @@ module Tarifas
 	end
 
 	def uf_calculo(causa, pago)
-		uf_fecha( fecha_calculo(causa, pago) )
+		fecha_uf = fecha_calculo(causa, pago)
+		fecha_uf.blank? ? nil : uf_fecha( fecha_uf )
 	end
 
 	def origen_fecha_calculo(causa, pago)
