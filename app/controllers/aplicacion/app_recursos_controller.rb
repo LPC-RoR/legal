@@ -27,15 +27,15 @@ class Aplicacion::AppRecursosController < ApplicationController
       pago = fcn.tar_pago
       unless causa.blank? or pago.blank?
         tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
-        fcn.fecha_uf = tar_uf_facturacion.blank? ? Time.zone.today : tar_uf_facturacion.fecha_uf
+        fcn.fecha_uf = tar_uf_facturacion.blank? ? fcn.created_at : tar_uf_facturacion.fecha_uf
         fcn.save
       end
 
-      if fcn.tar_calculo_id.blank?
-        ccl = TarCalculo.create(ownr_clss: fcn.owner_class, ownr_id: fcn.owner_id, tar_pago_id: fcn.tar_pago_id, tar_aprobacion_id: fcn.tar_aprobacion_id, moneda: fcn.moneda, monto: fcn.monto, glosa: fcn.glosa, cuantia: fcn.cuantia_calculo, fecha_uf: fcn.fecha_uf)
+      if fcn.tar_calculo_id.present?
+        ccl = fcn.tar_calculo
         unless ccl.blank?
-          fcn.tar_calculo_id = ccl.id
-          fcn.save
+          ccl.fecha_uf = fcn.fecha_uf
+          ccl.save
         end
       end
     end
