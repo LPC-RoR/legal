@@ -251,7 +251,7 @@ module Tarifas
 	end
 
 	def monto_uf(objeto, causa, pago)
-		objeto.moneda != 'Pesos' ? objeto.monto : (uf_calculo(causa, pago).blank? ? 0 : objeto.monto / uf_calculo(causa, pago))
+		['UF', '', nil].include?(objeto.moneda) ? objeto.monto : (uf_calculo(causa, pago).blank? ? 0 : objeto.monto / uf_calculo(causa, pago))
 	end
 
     # crea el array con el cálculo del pago
