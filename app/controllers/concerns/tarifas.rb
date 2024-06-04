@@ -247,7 +247,7 @@ module Tarifas
 	end
 
 	def monto_pesos(objeto, causa, pago)
-		objeto.moneda == 'Pesos' ? objeto.monto : (uf_calculo(causa, pago).blank? = 0 : objeto.monto * uf_calculo(causa, pago))
+		objeto.moneda == 'Pesos' ? objeto.monto : (uf_calculo(causa, pago).blank? ? 0 : objeto.monto * uf_calculo(causa, pago))
 	end
 
 	def monto_uf(objeto, causa, pago)
