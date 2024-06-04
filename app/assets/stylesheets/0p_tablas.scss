@@ -96,6 +96,15 @@ $ln_vlr_cnt_gtc: auto 150px 150px;
 	@include ln_2_col(auto, 50px, 13px);
 }
 
+// Usados en despliegue de un pago
+.ln_hd {
+    @include ln_2_col(auto, auto, 16px);
+}
+.ln_dtll {
+    @include ln_2_col(auto, auto, 12px);
+}
+
+
 /* ln de TarValorCuantia */
 .ln_vlr_cnt {
 	@include ln_3_cols($ln_vlr_cnt_gtc, 13px);

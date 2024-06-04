@@ -1,5 +1,5 @@
 class Tarifas::TarCalculosController < ApplicationController
-  before_action :set_tar_calculo, only: %i[ show edit update destroy ]
+  before_action :set_tar_calculo, only: %i[ show edit update destroy elimina_calculo liberar_calculo crea_aprobacion ]
 
   # GET /tar_calculos or /tar_calculos.json
   def index
@@ -45,6 +45,38 @@ class Tarifas::TarCalculosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def elimina_calculo
+    causa = @objeto.owner
+    @objeto.tar_facturaciones.each do |fctn|
+      fctn.delete
+    end
+    @objeto.delete
+
+    redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
+  end
+
+  def crea_aprobacion
+    cliente = @objeto.owner.cliente
+    # crea aprobacion
+    aprobacion = cliente.tar_aprobaciones.create(cliente_id: cliente.id, fecha: Time.zone.today.to_date)
+    aprobacion.tar_calculos << @objeto
+    # asocia todas las facturaciones del cliente disponibles
+    disponibles = TarCalculo.where(tar_aprobacion_id: nil)
+    disponibles.each do |ccl|
+      aprobacion.tar_calculos << ccl if factn.owner.cliente.id == cliente.id
+    end
+
+    redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
+  end
+
+  def libera_calculo
+    causa = @objeto.owner
+    @objeto.tar_aprobacion_id = nil
+    @objeto.save
+
+    redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
   end
 
   # DELETE /tar_calculos/1 or /tar_calculos/1.json

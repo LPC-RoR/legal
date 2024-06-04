@@ -1,5 +1,55 @@
-<%= render partial: 'tarifas/tar_aprobaciones/list/line_aprobacion', locals: {objeto: objeto} %>
-<div style='line-height: 13px; padding-left: 1em;'>
-	<%= render partial: 'tarifas/tar_aprobaciones/list/line_facturaciones', locals: {objeto: objeto} %>
+<div class="ln_hd">
+	<div class="ln_lft">
+		<b><%= objeto.id %><i class="bi bi-dot"></i><%= link_to dma(objeto.fecha), objeto %></b>
+		</br>
+		<small><%= objeto.cliente.razon_social %></small>
+	</div>
+	<div class="ln_rght">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/aprobacion?indice=#{objeto.id}", tooltip: 'Ver aprobacion'} do %>
+			<i class="bi bi-eye"></i>
+		<% end %>
+		<% if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_aprobaciones/#{objeto.id}/facturar", tooltip: 'Facturar'} do %>
+				<i class="bi bi-receipt-cutoff"></i>
+			<% end %>
+		<% end %>
+		<i class="bi bi-dot"></i>
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</div>
 </div>
 
+<% unless objeto.tar_calculos.empty? %>
+	<hr>
+	<% objeto.tar_calculos.order(:created_at).each do |ccl| %>
+		<div class="ln_dtll">
+			<div class="ln_lft">
+				<%= render partial:'0p/general/gly', locals: {gly: controller_icon['tar_calculos']} %>
+				<%= ccl.glosa %>
+				<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_calculos/#{ccl.id}/liberar_calculo", tooltip: 'Libera cálculo'} do %>
+					<i class="bi bi-trash"></i>
+				<% end %>
+			</div>
+			<div class="ln_rght">
+				<%= s_pesos(monto_pesos(ccl, ccl.owner, ccl.tar_pago)) %>
+			</div>
+		</div>
+	<% end %>
+<% end %>
+
+<% unless objeto.tar_facturaciones.empty? %>
+	<hr>
+	<% objeto.tar_facturaciones.order(:created_at).each do |fcn| %>
+		<div class="ln_dtll">
+			<div class="ln_lft">
+				<%= render partial:'0p/general/gly', locals: {gly: controller_icon['tar_facturaciones']} %>
+				<%= fcn.glosa %>
+				<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_facturaciones/#{fcn.id}/libera_facturacion", tooltip: 'Libera facturacion'} do %>
+					<i class="bi bi-trash"></i>
+				<% end %>
+			</div>
+			<div class="ln_rght">
+				<%= s_pesos(monto_pesos(fcn, fcn.owner, fcn.tar_pago)) %>
+			</div>
+		</div>
+	<% end %>
+<% end %>

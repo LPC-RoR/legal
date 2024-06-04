@@ -296,7 +296,11 @@ Rails.application.routes.draw do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
-    resources :tar_calculos
+    resources :tar_calculos do
+      match :elimina_calculo, via: :get, on: :member
+      match :liberar_calculo, via: :get, on: :member
+      match :crea_aprobacion, via: :get, on: :member
+    end
     resources :tar_uf_facturaciones
     resources :tar_detalle_cuantias do
       match :agrega_control_documento, via: :get, on: :member
@@ -326,7 +330,7 @@ Rails.application.routes.draw do
       match :elimina, via: :get, on: :member
       match :crea_aprobacion, via: :get, on: :member
       match :a_aprobacion, via: :get, on: :member
-      match :a_pendiente, via: :get, on: :member
+      match :libera_facturacion, via: :get, on: :member
     end
     resources :tar_servicios
 

@@ -38,7 +38,7 @@ class Causa < ApplicationRecord
 	# PAGOS
 
 	def calculos
-		TarCalculo.where(ownr_class: self.class.name, ownr_id: self.id)
+		TarCalculo.where(ownr_clss: self.class.name, ownr_id: self.id)
 	end
 
 	def facturaciones
@@ -184,6 +184,7 @@ class Causa < ApplicationRecord
 		objeto.class.name == 'TarPago' ? self.facturaciones.find_by(tar_pago_id: objeto.id) : self.facturaciones.find_by(tar_cuota_id: objeto.id)
 	end
 
+	# REVISAR --> DEPRECATED : Se remplaza por uf_tacturacion en concerns::tarifas
 	# Encuentra la UF de Cálculo (TarUfFacturacion) asociado al pago
 	def tar_uf_facturacion(pago)
 		self.uf_facturaciones.find_by(tar_pago_id: pago.id)
@@ -199,6 +200,8 @@ class Causa < ApplicationRecord
 		end
 	end
 
+	# REVISAR --> DEPRECATED, se agregó fecha_uf a TarFacturacion, en ella se almacenará la fecha de cálculo
+	# Ya sea que esta provenga de TarUfFacturacion o sea la fecha de la creación de TarFacturacion
 	def fecha_calculo_pago(pago)
 		if self.tar_uf_facturacion(pago).present?
 			self.tar_uf_facturacion(pago).fecha_uf

@@ -14,7 +14,7 @@
 <%= render partial: 'causas/shw/hechos/ttl_rchvs', locals: {objeto: objeto} %>
 
 <% unless @coleccion['app_archivos'].empty? %>
-		<% @objeto.causa_archivos.order(:orden).each do |rel| %>
-				<%= render partial: 'csc/causa_archivos/list/lobjeto', locals: {objeto: rel} %>
-		<% end %>
+	<% @objeto.causa_archivos.order(:orden).each do |rel| %>
+			<%= render partial: 'csc/causa_archivos/list/lobjeto', locals: {objeto: rel} %>
+	<% end %>
 <% end %>

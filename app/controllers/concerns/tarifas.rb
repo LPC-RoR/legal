@@ -106,14 +106,19 @@ module Tarifas
 			when '#tarifa_variable'
 				#no agrego 'honorarios' porque se entiende que es lo que aplica
 				t_tarifa_variable(objeto, pago)
+
 			when '#cuantia_pesos'
-				t_cuantia_pesos(objeto, pago, 'cuantia')
+				total_cuantia(objeto, 'real')
+
 			when '#cuantia_pesos_honorarios'
-				t_cuantia_pesos(objeto, pago, 'honorarios')
+				total_cuantia(objeto, 'tarifa')
+
 			when '#cuantia_uf'
-				t_cuantia_uf(objeto, pago, 'cuantia')
+				total_cuantia_uf(objeto, pago, 'real')
+
 			when '#cuantia_uf_honorarios'
-				t_cuantia_uf(objeto, pago, 'honorarios')
+				total_cuantia_uf(objeto, pago, 'tarifa')
+
 			when '#monto_pagado'
 				objeto.monto_pagado.blank? ? 0 : objeto.monto_pagado
 			when '#monto_pagado_uf'
@@ -167,6 +172,7 @@ module Tarifas
 		{ valor: valor, check: check}
 	end
 
+	# ****************************************************************** Métodos usados para la evaluación y el despliegue de pagos
 	# VALORES de tar_valor cuantia que sirven para despliegue sin necesidad de otras variables
 	# tipo : { 'real', 'tarifa'}
 	def vlr_cuantia(tar_valor_cuantia, tipo)
@@ -191,10 +197,92 @@ module Tarifas
 		tarifa == 0 ? chck_cuantia(tar_valor_cuantia, 'real') : chck_cuantia(tar_valor_cuantia, 'tarifa')
 	end
 
-	def total_cuantia(ownr, tipo)
-		tipo == 'real' ? ownr.valores_cuantia.map {|vlr_cnt| vlr_cuantia(vlr_cnt, 'real')}.sum : ownr.valores_cuantia.map {|vlr_cnt| vlr_tarifa(vlr_cnt)}.sum
+	def total_cuantia(causa, tipo)
+		tipo == 'real' ? causa.valores_cuantia.map {|vlr_cnt| vlr_cuantia(vlr_cnt, 'real')}.sum : causa.valores_cuantia.map {|vlr_cnt| vlr_tarifa(vlr_cnt)}.sum
 	end
 
+	def total_cuantia_uf(causa, pago, tipo)
+		total_cuantia(causa, tipo) / uf_calculo(causa, pago)
+	end
+
+	def get_tar_calculo(causa, pago)
+		causa.calculos.where(tar_pago_id: pago.id).first
+	end
+
+	def get_tar_facturacion(causa, pago)
+		causa.facturaciones.where(tar_pago_id: pago.id).first
+	end
+
+	def get_tar_uf_facturacion(causa, pago)
+		causa.uf_facturaciones.where(tar_pago_id: pago.id).first
+	end
+
+	# es un Array que contiene los cálculos, pagos o nil (si no hay ninguno de los anteriores)
+	def pgs_stts(causa, tarifa)
+		h_status = {}
+		tarifa.tar_pagos.order(:orden).each do |pago|
+			tar_calculo = get_tar_calculo(causa, pago)
+			tar_facturacion = get_tar_facturacion(causa, pago)
+			h_status[pago.id] = tar_calculo.present? ? tar_calculo : ( tar_facturacion.present? ? tar_facturacion : nil )
+		end
+		h_status
+	end
+
+	def fecha_calculo(causa, pago)
+		tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
+		tar_calculo = get_tar_calculo(causa, pago)
+		tar_facturacion = get_tar_facturacion(causa, pago)
+		tar_uf_facturacion.present? ? tar_uf_facturacion.fecha_uf : ( tar_calculo.present? ? tar_calculo.fecha_uf : ( tar_facturacion.present? ? (tar_facturacion.fecha_uf.blank? ? tar_facturacion.created_at : tar_facturacion.fecha_uf) : Time.zone.today ) )
+	end
+
+	def uf_calculo(causa, pago)
+		uf_fecha( fecha_calculo(causa, pago) )
+	end
+
+	def origen_fecha_calculo(causa, pago)
+		tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
+		tar_calculo = get_tar_calculo(causa, pago)
+		tar_facturacion = get_tar_facturacion(causa, pago)
+		tar_uf_facturacion.present? ? 'TarUfFacturacion' : ( tar_calculo.present? ? 'TarCalculo' : ( tar_facturacion.present? ? 'TarFacturacion' : 'Today' ) )
+	end
+
+	def monto_pesos(objeto, causa, pago)
+		objeto.moneda == 'Pesos' ? objeto.monto : objeto.monto * uf_calculo(causa, pago)
+	end
+
+	def monto_uf(objeto, causa, pago)
+		objeto.moneda == 'UF' ? objeto.monto : objeto.monto / uf_calculo(causa, pago)
+	end
+
+    # crea el array con el cálculo del pago
+    def v_monto_calculo(causa, pago)
+    	tar_facturacion = get_tar_facturacion(causa, pago)
+    	tar_calculo = get_tar_calculo(causa, pago)
+    	uf_calculo = uf_calculo(causa, pago)
+    	if tar_calculo.blank? and tar_facturacion.blank?
+    		monto = pago.valor.blank? ? calcula2(pago.formula_tarifa, causa, pago) : pago.valor
+	        monto_pesos = pago.moneda == 'Pesos' ? monto : ( uf_calculo.blank? ? 0 : monto * uf_calculo )
+	        monto_uf = pago.moneda == 'UF' ? monto : ( uf_calculo.blank? ? 0 : monto / uf_calculo )
+    	else
+    		objeto = tar_calculo.present? ? tar_calculo : tar_facturacion
+    		monto_pesos = monto_pesos(objeto, causa, pago)
+    		monto_uf = monto_uf(objeto, causa, pago)
+    	end
+    	[monto_uf, monto_pesos]
+    end
+
+	def leyenda_origen_fecha_calculo(causa, pago)
+		case origen_fecha_calculo(causa, pago)
+		when 'TarUfFacturacion'
+			'UF definida para este pago.'
+		when 'TarCalculo'
+			'UF de la fecha de cálculo.'
+		when 'TarFacturacion'
+			'UF de la fecha de aprobación.'
+		when 'Today'
+			'UF del día de hoy.'
+		end
+	end
 	# ******************************************************************
 
 	# Genera el h_cuantias con los valores y chequeos de las cuantías

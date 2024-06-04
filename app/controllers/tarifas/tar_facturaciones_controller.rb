@@ -1,5 +1,5 @@
 class Tarifas::TarFacturacionesController < ApplicationController
-  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado crea_aprobacion a_aprobacion a_pendiente elimina_facturacion ]
+  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado crea_aprobacion a_aprobacion elimina_facturacion libera_facturacion ]
 
   include Tarifas
 
@@ -18,7 +18,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
   # Crea PAGO que será trasformado en el detalle de la factura
   # 1.- owner.class.name : {'RegReporte', 'Asesoria', 'Causa'}
   def crea_facturacion
-    # owner : CAUSA | RegREPORTE? | ASESORIA?
+    # owner : Causa | RegReporte? | Asesoria?
     owner = params[:owner_class].constantize.find(params[:owner_id])
 
     case params[:owner_class]
@@ -28,8 +28,9 @@ class Tarifas::TarFacturacionesController < ApplicationController
       # En esta versión sólo procesaremos pagos,
       # no sirve generar facturaciones desde cuuotas porque nos impide manejar aprobaciones.
       pago = TarPago.find(params[:pid]) unless params[:pid].blank?
+      cuotas = pago.tar_cuotas.order(:orden)
       moneda  = (pago.moneda.blank? ? 'UF' : pago.moneda)
-      cuantia_calculo = t_cuantia_pesos(owner, pago, 'honorarios')
+      cuantia_calculo = total_cuantia(owner, 'tarifa')
 
       # monto = pago.valor.blank? ? calcula2( formula, owner, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5)) : pago.valor
       if pago.valor.blank?
@@ -38,25 +39,37 @@ class Tarifas::TarFacturacionesController < ApplicationController
       else
         monto = pago.valor
       end
-      
 
+      tar_uf_facturacion = get_tar_uf_facturacion(owner, pago)
+      fecha_uf = tar_uf_facturacion.blank? ? Time.zone.today : tar_uf_facturacion.fecha_uf
       glosa = "#{pago.tar_pago} : #{owner.rit} #{owner.causa}"
+
+      # Creación de TarCalculo y TarFacturacion, según tarifa con o sin cuotas
       unless monto == 0
-        # en esta version le sacamos cliente_class porque no tiene sentido, no hay otro modelo que pueda ser el cliente Cliente
-        TarFacturacion.create(cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, tar_pago_id: pago.id, moneda: moneda, monto: monto, glosa: glosa, estado: 'aprobación', cuantia_calculo: cuantia_calculo, pago_calculo: monto)
+        # en esta version le sacamos la relación con Cliente. No tiene sentido ver lso cálculos de un cliente
+        cll = TarCalculo.create(ownr_clss: owner.class.name, ownr_id: owner.id, tar_pago_id: pago.id, fecha_uf: fecha_uf, moneda: moneda, monto: monto, glosa: glosa, cuantia: cuantia_calculo)
+        unless cll.blank?
+          if cuotas.empty?
+            TarFacturacion.create(cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, tar_pago_id: pago.id, tar_calculo_id: cll.id, fecha_uf: fecha_uf, moneda: moneda, monto: monto, glosa: glosa, estado: 'aprobación', cuantia_calculo: cuantia_calculo, pago_calculo: monto)
+          else
+            monto_procesado = 0
+            total_cuotas = cuotas.count
+            cuotas.each do |cuota|
+                c_glosa = "#{glosa} #{cuota.orden} de #{total_cuotas}"
+              if cuota.ultima_cuota
+                TarFacturacion.create(cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, tar_pago_id: pago.id, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_uf, moneda: moneda, monto: monto - monto_procesado, glosa: c_glosa, estado: 'aprobación', cuantia_calculo: cuantia_calculo, pago_calculo: monto - monto_procesado)
+              else
+                monto_cuota = cuota.monto.blank? ? ( [monto * cuota.porcentaje / 100, monto - monto_procesado] ) : [cuota.monto, monto - monto_procesado].min
+                TarFacturacion.create(cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, tar_pago_id: pago.id, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_uf, moneda: moneda, monto: monto_cuota, glosa: c_glosa, estado: 'aprobación', cuantia_calculo: cuantia_calculo, pago_calculo: monto_cuota)
+              end
+            end
+          end
+        end
       end
 
+      # CAUSA GANADA !!
       owner.causa_ganada = owner.monto_pagado == 0
       owner.save
-
-      # En esta nueva versión 'terminada' es aquella que ya no tiene gestiones pendientes
-#      if owner.facturaciones.count == owner.tar_tarifa.n_pagos
-#        owner.estado = 'terminada'
-#      else
-#        owner.estado = 'tramitación'
-#      end
-
-#      owner.save
 
     when 'Asesoria'
       moneda = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.moneda : owner.moneda
@@ -139,11 +152,11 @@ class Tarifas::TarFacturacionesController < ApplicationController
     redirect_to aprobacion
   end
 
-  def a_pendiente
-    aprobacion = TarAprobacion.find(params[:indice])
-    aprobacion.tar_facturaciones.delete(@objeto)
+  def libera_facturacion
+    @objeto.tar_aprobacion_id = nil
+    @objeto.save
 
-    redirect_to aprobacion
+    redirect_to tar_aprobaciones_path
   end
 
   def facturar

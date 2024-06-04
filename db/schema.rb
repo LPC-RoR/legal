@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_31_153815) do
+ActiveRecord::Schema.define(version: 2024_06_04_020012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1231,9 +1231,12 @@ ActiveRecord::Schema.define(version: 2024_05_31_153815) do
     t.decimal "cuantia"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "fecha_uf"
+    t.integer "tar_aprobacion_id"
     t.index ["clnt_id"], name: "index_tar_calculos_on_clnt_id"
     t.index ["ownr_clss"], name: "index_tar_calculos_on_ownr_clss"
     t.index ["ownr_id"], name: "index_tar_calculos_on_ownr_id"
+    t.index ["tar_aprobacion_id"], name: "index_tar_calculos_on_tar_aprobacion_id"
     t.index ["tar_pago_id"], name: "index_tar_calculos_on_tar_pago_id"
   end
 
@@ -1344,6 +1347,7 @@ ActiveRecord::Schema.define(version: 2024_05_31_153815) do
     t.integer "tar_cuota_id"
     t.decimal "pago_calculo"
     t.integer "tar_calculo_id"
+    t.datetime "fecha_uf"
     t.index ["cliente_class"], name: "index_tar_facturaciones_on_cliente_class"
     t.index ["cliente_id"], name: "index_tar_facturaciones_on_cliente_id"
     t.index ["estado"], name: "index_tar_facturaciones_on_estado"
@@ -1456,6 +1460,8 @@ ActiveRecord::Schema.define(version: 2024_05_31_153815) do
     t.string "codigo_formula"
     t.string "porcentaje_cuantia"
     t.string "boolean"
+    t.boolean "requiere_uf"
+    t.boolean "detalla_porcentaje_cuantia"
     t.index ["codigo_formula"], name: "index_tar_pagos_on_codigo_formula"
     t.index ["orden"], name: "index_tar_pagos_on_orden"
     t.index ["tar_pago"], name: "index_tar_pagos_on_tar_pago"

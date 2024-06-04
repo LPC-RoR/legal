@@ -1,7 +1,7 @@
 <div class="ttl_app">
 
 	<div class="ttl_ttl">
-		<i class="bi bi-<%=controller_icon['tar_tarifas']%>"></i> <%= objeto.tar_tarifa.blank? ? 'Tarifa' : 'Tarifa asignada' %>
+		<i class="bi bi-<%=controller_icon['tar_tarifas']%>"></i> Tarifa
 	</div>
 	<div class="ttl_lnks">
 		<%= render layout: '0p/collapse/link', locals: {label: 'AsignaTarifa', objeto: nil, tooltip: 'Asigna tarifa'} do %>

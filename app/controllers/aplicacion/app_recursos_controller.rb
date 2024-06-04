@@ -21,11 +21,24 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    CalMes.delete_all
-    CalSemana.delete_all
-    CalDia.delete_all
-    CalMesSem.delete_all 
+    TarFacturacion.where(owner_class: 'Causa').each do |fcn|
+      # Puede ser una asesoría
+      causa = fcn.owner
+      pago = fcn.tar_pago
+      unless causa.blank? or pago.blank?
+        tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
+        fcn.fecha_uf = tar_uf_facturacion.blank? ? Time.zone.today : tar_uf_facturacion.fecha_uf
+        fcn.save
+      end
 
+      if fcn.tar_calculo_id.blank?
+        ccl = TarCalculo.create(ownr_clss: fcn.owner_class, ownr_id: fcn.owner_id, tar_pago_id: fcn.tar_pago_id, tar_aprobacion_id: fcn.tar_aprobacion_id, moneda: fcn.moneda, monto: fcn.monto, glosa: fcn.glosa, cuantia: fcn.cuantia_calculo, fecha_uf: fcn.fecha_uf)
+        unless ccl.blank?
+          fcn.tar_calculo_id = ccl.id
+          fcn.save
+        end
+      end
+    end
 
     redirect_to root_path
   end

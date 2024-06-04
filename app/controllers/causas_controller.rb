@@ -68,10 +68,10 @@ class CausasController < ApplicationController
       @audiencia_preparatoria = @objeto.actividades.find_by(age_actividad: 'Audiencia preparatoria')
     when 'Tarifa & Pagos'
 
-      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
-      set_tabla('tar_facturaciones', @objeto.facturaciones, false)
+#      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
+#      set_tabla('tar_facturaciones', @objeto.facturaciones, false)
 
-      @h_pagos = get_h_pagos(@objeto)
+      @pgs_stts = pgs_stts(@objeto, @objeto.tar_tarifa)
 
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
@@ -368,37 +368,6 @@ class CausasController < ApplicationController
         @objeto.tar_tarifa_id = tarifa.id
         @objeto.save
       end
-    end
-
-    # crea el array con el cálculo del pago
-    def array_pago(causa, pago)
-      pago_generado = causa.pago_generado(pago)
-      uf_pago = causa.uf_calculo_pago(pago)
-      if pago_generado.blank?
-        monto = pago.valor.blank? ? calcula2(pago.formula_tarifa, causa, pago) : pago.valor
-        monto_pesos = pago.moneda == 'Pesos' ? monto : ( uf_pago.blank? ? 0 : monto * uf_pago.valor )
-        monto_uf = pago.moneda == 'UF' ? monto : ( uf_pago.blank? ? 0 : monto / uf_pago.valor )
-      else
-        monto_pesos = pago_generado.monto_pesos
-        monto_uf = pago_generado.monto_uf
-      end
-      {
-        pago: pago_generado,
-        origen_fecha_pago: causa.origen_fecha_pago(pago),
-        monto_pesos: monto_pesos,
-        monto_uf: monto_uf
-      }
-    end
-
-    # crea un hash con el cálculo de los pagos
-    def get_h_pagos(causa)
-      h_pagos = {}      
-      unless causa.tar_tarifa.blank? or causa.tar_tarifa.tar_pagos.empty?
-        causa.tar_tarifa.tar_pagos.order(:orden).each do |pago|
-          h_pagos[pago.id] = array_pago(causa, pago)
-        end
-      end
-      h_pagos
     end
 
     # Use callbacks to share common setup or constraints between actions.

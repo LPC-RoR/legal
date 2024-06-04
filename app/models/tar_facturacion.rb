@@ -40,6 +40,8 @@ class TarFacturacion < ApplicationRecord
 		end
 	end
 
+	# ******************************************************************************** NUEVO manejo de tarifa (despliegue de pagos)
+
 	# ******************************************************************************** Manejo de Tarifas
 
 	# TarFacturacion puede estar relacionado con TarPago o TarCuota cuando se trata de una causa

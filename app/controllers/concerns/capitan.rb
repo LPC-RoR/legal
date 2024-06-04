@@ -59,6 +59,7 @@ module Capitan
 		uf.blank? ? nil : uf.valor
 	end
 
+	# usado en el cálculo de tarifas y despliegue de pagos
 	def uf_fecha(fecha)
 		uf = TarUfSistema.find_by(fecha: fecha.to_date)
 		uf.blank? ? nil : uf.valor
