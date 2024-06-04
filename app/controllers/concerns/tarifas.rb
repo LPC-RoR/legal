@@ -202,7 +202,8 @@ module Tarifas
 	end
 
 	def total_cuantia_uf(causa, pago, tipo)
-		total_cuantia(causa, tipo) / uf_calculo(causa, pago)
+		uf = uf_calculo(causa, pago)
+		uf.blank? ? 0 : total_cuantia(causa, tipo) / uf
 	end
 
 	def get_tar_calculo(causa, pago)
