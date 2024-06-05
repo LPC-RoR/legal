@@ -1,12 +1,12 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nombre Usuario Nómina', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :nombre, label: 'Nombre Usuario Nómina', token: :nombre } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :nombre } %>
 <div class="row">
 	<div class="col-lg-6 col-xs-12">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'e-mail', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :email, label: 'e-mail' } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :email } %>
 	</div>
 	<div class="col-lg-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo Usuario', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo Usuario' } %>
 		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: AutTipoUsuario.all.order(:aut_tipo_usuario).map {|atu| atu.aut_tipo_usuario}, label: nil } %>
 	</div>
 </div>

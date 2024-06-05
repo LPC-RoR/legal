@@ -32,7 +32,7 @@
 
 <%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :m_item_id, colection: @objeto.periodo.items.collect {|item| [item.m_item, item.id]}, prompt: ' Item' } %></br>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Glosa personalizada', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :glosa, label: 'Glosa personalizada' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :glosa } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>

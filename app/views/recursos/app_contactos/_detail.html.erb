@@ -1,8 +1,8 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nombre Contacto', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :nombre, label: 'Nombre Contacto' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :nombre } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Teléfono', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :telefono, label: 'Teléfono' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :telefono } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'E-mail', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :email, label: 'E-mail' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :email } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>

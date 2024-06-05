@@ -2,7 +2,7 @@
 	<h6>Agrega archivo</h6>
 	<%= form_for :nuevo_archivo, url: "/causas/#{objeto.id}/input_nuevo_archivo" do |form| %>
 
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nombre del archivo', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :app_archivo, label: 'Nombre del archivo' } %>
 		</br>
 		<div class='form-inline'>
 

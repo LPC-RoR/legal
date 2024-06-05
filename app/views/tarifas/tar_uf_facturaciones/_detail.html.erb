@@ -1,7 +1,7 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descriptor del pago', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :pago, label: 'Descriptor del pago' } %>
 <%= render partial: '0p/form_fields/select', locals: { form: form, token: :pago, sel_list: @pagos_disponibles, label: 'Pagos disponibles' } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha UF', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha_uf, label: 'Fecha UF' } %>
 <%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_uf } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>

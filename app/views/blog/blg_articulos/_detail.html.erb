@@ -1,17 +1,17 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tema', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :blg_tema_id, label: 'Tema' } %>
 <%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :blg_tema_id, colection: BlgTema.all.order(:blg_tema).collect { |tema| [tema.blg_tema, tema.id] }, display_field: 'blg_tema', prompt: 'Tema' } %></br>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Título', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :blg_articulo, label: 'Título' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :blg_articulo } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Autor', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :autor, label: 'Autor' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :autor } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Imagen', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :imagen, label: 'Imagen' } %>
 <%= render partial: '0p/form_fields/file', locals: { form: form, token: :imagen } %></br>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
 <%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :descripcion } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Articulo', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :articulo, label: 'Articulo' } %>
 <%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :articulo } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :app_perfil_id } %>

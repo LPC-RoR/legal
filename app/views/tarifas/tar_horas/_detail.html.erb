@@ -1,13 +1,13 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tarifa Hora', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tar_hora, label: 'Tarifa Hora' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :tar_hora } %>
 
 <div class='row'>
 	<div class='col-md-2'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: nil, v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :moneda, label: nil } %>
 		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :moneda, sel_list: ['UF', 'Pesos'], label: 'Moneda' } %>
 	</div>
 	<div class='col-md-10'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Valor', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :valor, label: 'Valor' } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :valor } %>
 	</div>
 </div>

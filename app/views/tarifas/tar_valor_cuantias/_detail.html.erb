@@ -2,11 +2,11 @@
 </br>
 <div class="row">
 	<div class="col-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Detalle (Otro)', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :otro_detalle, label: 'Detalle (Otro)' } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :otro_detalle } %>
 	</div>
 	<div class="col-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nota', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :nota, label: 'Nota' } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :nota } %>
 	</div>
 </div>
@@ -16,12 +16,12 @@
 <div class="row">
 	<div class="col-lg-6 col-xs-12">
 		<p class="text-info">Demanda</p>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Valor en la demanda', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :valor, label: 'Valor en la demanda' } %>
 		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor } %>
 	</div>
 	<div class="col-lg-6">
 		<p class="text-info">Tarifa</p>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Valor para el cálculo de la tarifa', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :valor_tarifa, label: 'Valor para el cálculo de la tarifa' } %>
 		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor_tarifa } %>
 	</div>
 </div>

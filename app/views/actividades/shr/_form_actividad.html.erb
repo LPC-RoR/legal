@@ -6,7 +6,7 @@
 
 				<% if tipo.blank? %>
 					<h5><%= cu == 'c' ? 'Crea actividad' : 'Modifica actividad' %></h5>
-					<%#= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
+					<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
 					<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :tipo, radio_list: ['Reunión', 'Tarea'] } %>
 				<% else %>
 					<h5>

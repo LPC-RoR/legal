@@ -1,9 +1,9 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Formato', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :m_formato, label: 'Formato' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :m_formato } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Inicio', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :inicio, label: 'Inicio' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :inicio } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Término', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :termino, label: 'Término' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :termino } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :m_banco_id } %>

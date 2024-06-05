@@ -1,4 +1,4 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nombre Administrador', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :administrador, label: 'Nombre Administrador' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :administrador } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'e-mail', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :email, label: 'e-mail' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :email } %>

@@ -1,4 +1,4 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Condición', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :formula, label: 'Condición' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :formula } %>
 
 <div class='row'>
@@ -6,14 +6,14 @@
 		<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['UF', 'Pesos'] } %>
 	</div>
 	<div class='col-md-10'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Despliegue', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :despliegue, label: 'Despliegue' } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :despliegue } %>
 	</div>
 </div>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Comentario', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :comentario, label: 'Comentario' } %>
 <%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :comentario } %>
-<%#= render partial: '0p/form_fields/label', locals: { form: form, label: 'Opcional', v: true } %>
+<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :opcional, label: 'Opcional' } %>
 <%#= render partial: '0p/form_fields/text_area', locals: { form: form, token: :opcional } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tar_pago_id} %>

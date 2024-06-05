@@ -1,8 +1,8 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tema', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :blg_tema, label: 'Tema' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :blg_tema } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Imagen', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :imagen, label: 'Imagen' } %>
 <%= render partial: '0p/form_fields/file', locals: { form: form, token: :imagen } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
 <%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :descripcion } %>

@@ -1,14 +1,14 @@
 <div class='row'>
 	<div class='col-md-4'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'RUT', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :rut, label: 'RUT' } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rut } %>
 	</div>
 	<div class='col-md-8'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Razon Social', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :razon_social, label: 'Razon Social' } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :razon_social } %>
 	</div>
 </div>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_cliente, label: 'Tipo' } %>
 <%= render partial: '0p/form_fields/radio', locals: { form: form, token: :tipo_cliente, radio_list: ['Empresa', 'Sindicato', 'Trabajador'] } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>

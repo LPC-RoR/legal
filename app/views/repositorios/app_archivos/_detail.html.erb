@@ -1,8 +1,8 @@
 <% if @objeto.documento_control %>
 	<div class="text-info"><i class="bi bi-file"></i> <%= @objeto.app_archivo %></div>
 <% else %>
-	<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Archivo', v: true } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :app_archivo, label: 'archivo' } %>
+	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :app_archivo, label: 'Archivo' } %>
+	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :app_archivo, label: 'archivo' } %>
 <% end %>
 </br>
 

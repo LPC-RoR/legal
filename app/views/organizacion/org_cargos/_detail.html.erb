@@ -1,7 +1,7 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Cargo', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :org_cargo, label: 'Cargo' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :org_cargo } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Dotación', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :dotacion, label: 'Dotación' } %>
 <%= render partial: '0p/form_fields/number', locals: { form: form, token: :dotacion } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :org_area_id } %>

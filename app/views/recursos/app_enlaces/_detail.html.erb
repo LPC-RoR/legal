@@ -1,6 +1,6 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Enlace', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :enlace, label: 'Enlace' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :enlace } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>

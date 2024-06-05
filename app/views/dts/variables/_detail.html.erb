@@ -1,17 +1,17 @@
 <div class="row">
 	<div class="col-lg-6 col-xs-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
 		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: Variable::TIPOS_VARIABLE, label: 'Tipo' } %>
 	</div>
 	<div class="col-lg-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Existencia', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :control, label: 'Existencia' } %>
 		<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :control, radio_list: ['Opcional', 'Requerida'], label: 'Existencia' } %>
 	</div>
 </div>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Variable', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :variable, label: 'Variable' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :variable } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %>
 
 

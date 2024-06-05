@@ -1,9 +1,9 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Glosa', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :glosa, label: 'Glosa' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :glosa } %>
 
 <%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'] } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Monto', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :monto, label: 'Monto' } %>
 <%= render partial: '0p/form_fields/number', locals: { form: form, token: :monto } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tar_factura_id } %>

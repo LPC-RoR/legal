@@ -1,26 +1,26 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo asesoría', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_asesoria_id, label: 'Tipo asesoría' } %>
 <%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_asesoria_id, colection: TipoAsesoria.all.order(:tipo_asesoria).collect { |ta| [ta.tipo_asesoria, ta.id] }, display_field: 'tipo_asesoria', prompt: 'Tipo Asesoria' } %></br>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Cliente', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :cliente_id, label: 'Cliente' } %>
 <%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.all.order(:razon_social).collect { |cli| [cli.razon_social, cli.id] }, display_field: 'razon_social', prompt: 'Cliente' } %></br>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Detalle', v: false } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :detalle, label: 'Detalle' } %>
 <%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :detalle } %>
 
 <div class='row'>
 	<div class='col-lg-4 col-xs-12'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha, label: 'Fecha' } %>
 		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %>
 	</div>
 	<div class='col-lg-4 col-xs-12'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha UF', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha_uf, label: 'Fecha UF' } %>
 		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_uf } %>
 	</div>
 	<div class='col-md-4'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Plazo', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :plazo, label: 'Plazo' } %>
 		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :plazo } %>
 	</div>
 </div>
@@ -29,11 +29,11 @@
 
 <div class="row">
 	<div class="col-lg-2 col-xs-12">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Moneda', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :moneda, label: 'Moneda' } %>
 		<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'] } %>
 	</div>
 	<div class="col-lg-2">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Monto', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :monto, label: 'Monto' } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :monto } %>
 	</div>
 </div>

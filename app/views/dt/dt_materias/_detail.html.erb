@@ -1,10 +1,10 @@
 <div class='row'>
 	<div class='col-md-2'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Capítulo', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :capitulo, label: 'Capítulo' } %>
 		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :capitulo } %>
 	</div>
 	<div class='col-md-10'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Materia', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :dt_materia, label: 'Materia' } %>
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :dt_materia } %>
 	</div>
 </div>

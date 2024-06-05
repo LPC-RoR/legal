@@ -1,29 +1,26 @@
 <div class="row">
 	<div class="col-md-4">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha, label: 'Fecha' } %>
 		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %>
 	</div>
 	<div class="col-md-4">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Abogado', v: true } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :abogado, label: 'Abogado' } %>
 		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :abogado, sel_list: perfiles_operativos, label: 'Abogado' } %>
 	</div>
 	<div class="col-md-2">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Horas', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :horas, label: 'Horas' } %>
 		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :horas } %>
 	</div>
 	<div class="col-md-2">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Minutos', v: false } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :minutos, label: 'Minutos' } %>
 		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :minutos } %>
 	</div>
 </div>
 
-
-
-
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Detalle', v: true } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :detalle, label: 'Detalle' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :detalle } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Nota', v: false } %>
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :nota, label: 'Nota' } %>
 <%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :nota } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
