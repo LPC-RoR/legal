@@ -352,9 +352,7 @@ Rails.application.routes.draw do
     end
     resources :tar_nota_creditos
 
-    resources :tar_aprobaciones do
-      match :facturar, via: :get, on: :member
-    end
+    resources :tar_aprobaciones
     resources :tar_cuotas
 
     resources :tar_variables

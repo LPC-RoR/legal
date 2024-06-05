@@ -1,0 +1,18 @@
+:root {
+  box-sizing: border-box;
+}
+
+* {
+  &,
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+// CAMBIOS : Agregué 'Raleway' y baje line--height a 120%
+body {
+  font: 1em/120% 'Raleway', sans-serif;
+  background-color: var(--co-body-bg);
+  color: var(--co-body-text);
+}

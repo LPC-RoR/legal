@@ -8,11 +8,6 @@
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/aprobacion?indice=#{objeto.id}", tooltip: 'Ver aprobacion'} do %>
 			<i class="bi bi-eye"></i>
 		<% end %>
-		<% if objeto.tar_facturaciones.where(tar_factura_id: nil).any? %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_aprobaciones/#{objeto.id}/facturar", tooltip: 'Facturar'} do %>
-				<i class="bi bi-receipt-cutoff"></i>
-			<% end %>
-		<% end %>
 		<i class="bi bi-dot"></i>
 		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 	</div>

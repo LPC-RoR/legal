@@ -5,16 +5,18 @@
 			<div class="col-10">
 
 				<% if tipo.blank? %>
-					<%= cu == 'c' ? 'Crea actividad' : 'Modifica actividad' %></br>
-					<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
+					<h5><%= cu == 'c' ? 'Crea actividad' : 'Modifica actividad' %></h5>
+					<%#= render partial: '0p/form_fields/label', locals: { form: form, label: 'Tipo', v: true } %>
 					<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :tipo, radio_list: ['Reunión', 'Tarea'] } %>
 				<% else %>
+					<h5>
 					<%= cu == 'c' ? 'Crea' : 'Modifica' %>
 					<%= tipo == 'A' ? '' : ( tipo == 'H' ? 'Hito' : ( tipo == 'R' ? 'Reunión' : 'Tarea' ) ) %>	
+					</h5>
 				<% end %>
 
 				<% if tipo == 'A' %>
-					<%= audiencia %>
+					<h5><%= audiencia %></h5>
 				<% end %>
 			</div>
 			<div class="col-2" align='right'>
@@ -24,15 +26,15 @@
 			</div>
 		</div>
 
-		<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Fecha - Hora', v: true } %>
-		<%= render partial: '0p/form_fields/datetime', locals: { form: form, token: :fecha } %>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha, label: 'Fecha - Hora' } %>
+		<small><%= render partial: '0p/form_fields/datetime', locals: { form: form, token: :fecha } %></small>
 
 		<% unless tipo == 'A' %>
-			<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Descripción', v: true } %>
+			<%= render partial: '0p/form_fields/label', locals: { form: form, token: :age_actividad, label: 'Descripción' } %>
 			<%= render partial: '0p/form_fields/text', locals: { form: form, token: :age_actividad } %>
 		<% else %>
 			<% unless audiencia == 'Audiencia preparatoria' %>
-				<%= render partial: '0p/form_fields/label', locals: { form: form, label: 'Audiencia especial', v: true } %>
+				<%= render partial: '0p/form_fields/label', locals: { form: form, token: :audiencia_especial, label: 'Audiencia especial' } %>
 				<%= render partial: '0p/form_fields/text', locals: { form: form, token: :audiencia_especial } %>
 			<% end %>
 		<% end %>
