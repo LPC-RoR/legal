@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_04_020012) do
+ActiveRecord::Schema.define(version: 2024_06_05_235122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -494,6 +494,24 @@ ActiveRecord::Schema.define(version: 2024_06_04_020012) do
     t.datetime "updated_at", null: false
     t.index ["cal_mes_id"], name: "index_cal_semanas_on_cal_mes_id"
     t.index ["cal_semana"], name: "index_cal_semanas_on_cal_semana"
+  end
+
+  create_table "cargos", force: :cascade do |t|
+    t.integer "tipo_cargo_id"
+    t.integer "cliente_id"
+    t.string "cargo"
+    t.text "detalle"
+    t.datetime "fecha"
+    t.datetime "fecha_uf"
+    t.string "moneda"
+    t.integer "dia_cargo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "estado"
+    t.decimal "monto"
+    t.index ["cliente_id"], name: "index_cargos_on_cliente_id"
+    t.index ["estado"], name: "index_cargos_on_estado"
+    t.index ["tipo_cargo_id"], name: "index_cargos_on_tipo_cargo_id"
   end
 
   create_table "causa_archivos", force: :cascade do |t|
@@ -1604,6 +1622,13 @@ ActiveRecord::Schema.define(version: 2024_06_04_020012) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tipo_asesoria"], name: "index_tipo_asesorias_on_tipo_asesoria"
+  end
+
+  create_table "tipo_cargos", force: :cascade do |t|
+    t.string "tipo_cargo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tipo_cargo"], name: "index_tipo_cargos_on_tipo_cargo"
   end
 
   create_table "tipo_causas", force: :cascade do |t|

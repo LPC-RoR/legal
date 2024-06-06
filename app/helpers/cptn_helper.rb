@@ -93,6 +93,7 @@ module CptnHelper
 			'clientes' => 'building',
 			'causas' => 'journal-text',
 			'asesorias' => 'briefcase',
+			'cargos' => 'currency-dollar',
 			'tablas' => 'table',
 			'regiones' => 'geo-alt',
 			'tipo_causas' => 'file-check',

@@ -7,7 +7,7 @@ class Cliente < ApplicationRecord
 
 	has_many :causas
 	has_many :asesorias
-	has_many :consultorias
+	has_many :cargos
 
 	has_many :tar_aprobaciones
 

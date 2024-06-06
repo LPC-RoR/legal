@@ -12,6 +12,7 @@ module CptnMenuLeftHelper
 						['Cliente', 'operación'],
 						['Causa', 'operación'],
 						['Asesoria', 'admin'],
+						['Cargo', 'finanzas'],
 						['TarAprobacion', 'finanzas'],
 						['TarFactura', 'finanzas'],
 						['DtMateria', 'admin']
@@ -81,7 +82,7 @@ module CptnMenuLeftHelper
 	end
 
 	def tablas_controllers
-		['aut_tipo_usuarios', 'clientes', 'causas', 'asesorias', 'age_actividades', 'age_usuarios', 'age_pendientes', 'hechos', 'temas', 'hecho_archivos', 'tar_valor_cuantias', 'tar_uf_sistemas', 'regiones', 'cal_meses', 'cal_feriados', 'dt_materias', 'variables']
+		['aut_tipo_usuarios', 'clientes', 'causas', 'asesorias', 'age_actividades', 'age_usuarios', 'age_pendientes', 'hechos', 'temas', 'hecho_archivos', 'tar_valor_cuantias', 'tar_uf_sistemas', 'regiones', 'cal_meses', 'cal_feriados', 'dt_materias', 'variables', 'tipo_cargos', 'cargos']
 	end
 
 	def left_menu_actions?

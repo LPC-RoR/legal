@@ -60,6 +60,11 @@ Rails.application.routes.draw do
 
 # SCOPES *********************************************************
 
+  scope module: 'srvcs' do
+    resources :tipo_cargos
+    resources :cargos
+  end
+
   # Usado para poner las entidades necesarias para mantener Causa
   scope module: 'csc' do
     resources :tipo_causas do

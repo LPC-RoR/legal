@@ -1,0 +1,15 @@
+<small><small>
+	<i><%= objeto.cliente.razon_social %></i></br>
+	<% if objeto.fecha.blank? %>
+		</i> <%= dma(objeto.created_at) %>
+	<% else %>
+		</i> <%= dma(objeto.fecha) %>
+	<% end %></br>
+	<i class="bi bi-arrow-right"></i>
+	<% unless objeto.tipo_cargo.tipo_cargo == 'Mensual' %>
+		<%= s_moneda(objeto.moneda, objeto.monto) %>
+	<% else %>
+		Facturar el <%= objeto.dia_cargo %> de cada mes.
+	<% end %>
+</small></small>
+</br>

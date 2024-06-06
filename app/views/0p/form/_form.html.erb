@@ -19,8 +19,8 @@
 
 		<%= render partial: detail_partial(controller_name), locals: {c: controller_name, form: form} %>	
 
-		<div class="actions">
-		<%= form.submit "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{m_to_name(@objeto.class.name)}" %>
+		<div class="formCell">
+			<%= form.submit "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{m_to_name(@objeto.class.name)}" %>
 		</div>
 	<% end %>
 </div>

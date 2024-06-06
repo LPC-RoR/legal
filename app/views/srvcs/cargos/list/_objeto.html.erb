@@ -1,0 +1,9 @@
+<%= render partial: '0capitan/objeto/estado_crud', locals: {objeto: objeto, restriccion: check_crud(objeto) } %>
+<%= render partial: 'srvcs/cargos/list/line_cargo', locals: {objeto: objeto} %>
+
+<div style='line-height: 13px; padding-left: 1em;'>
+	<%= render partial: 'srvcs/cargos/list/line_info', locals: {objeto: objeto} %>
+	<%#= render partial: 'asesorias/list/line_tarifa', locals: {objeto: objeto} %>
+	<%#= render partial: 'asesorias/list/line_aprobacion_factura', locals: {objeto: objeto} %>
+	<%#= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
+</div>

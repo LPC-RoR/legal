@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo_cargo_id: 1
+  cliente_id: 1
+  cargo: MyString
+  detalle: MyText
+  fecha: 2024-06-05 17:14:40
+  fecha_uf: 2024-06-05 17:14:40
+  moneda: MyString
+  dia_cargo: 1
+
+two:
+  tipo_cargo_id: 1
+  cliente_id: 1
+  cargo: MyString
+  detalle: MyText
+  fecha: 2024-06-05 17:14:40
+  fecha_uf: 2024-06-05 17:14:40
+  moneda: MyString
+  dia_cargo: 1

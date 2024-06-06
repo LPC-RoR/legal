@@ -70,6 +70,31 @@ module Cmenu
 					['Redacciones', admin?]
 				]
 			},
+			'cargos' => {
+				estados: [
+					{
+						std: 'tramitación',
+						cndcn: operacion?
+					},
+					{
+						std: 'terminada',
+						cndcn: operacion?
+					},
+					{
+						std: 'cerrada',
+						cndcn: finanzas?
+					}
+				],
+				items: {
+					'tramitación' => 'En Tramitación',
+					'terminada' => 'Terminadas',
+					'cerrada' => 'Cerradas'
+				},
+				selectors: [
+					['Cargos', admin?],
+					['Mensuales', admin?]
+				]
+			},
 			'tar_facturas' => {
 				estados: [
 					{

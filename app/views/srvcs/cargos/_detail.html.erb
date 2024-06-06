@@ -1,17 +1,17 @@
 <div class='form-row'>
 	<div class='form-cell'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_asesoria_id, label: 'Tipo asesoría' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_asesoria_id, colection: TipoAsesoria.all.order(:tipo_asesoria).collect { |ta| [ta.tipo_asesoria, ta.id] }, display_field: 'tipo_asesoria', prompt: 'Tipo Asesoria' } %></br>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_cargo_id, label: 'Tipo asesoría' } %>
+		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_cargo_id, colection: TipoCargo.all.order(:tipo_cargo).collect { |tc| [tc.tipo_cargo, tc.id] }, display_field: 'tipo_cargo', prompt: 'Tipo Cargo' } %>
 	</div>
 	<div class='form-cell'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :cliente_id, label: 'Cliente' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.all.order(:razon_social).collect { |cli| [cli.razon_social, cli.id] }, display_field: 'razon_social', prompt: 'Cliente' } %></br>
+		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.all.order(:razon_social).collect { |cli| [cli.razon_social, cli.id] }, display_field: 'razon_social', prompt: 'Cliente' } %>
 	</div>
 </div>
 
 <div class="formCell">
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
-	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %>
+	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :cargo, label: 'Cargo' } %>
+	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :cargo } %>
 </div>
 
 <div class="formCell">
@@ -29,12 +29,10 @@
 		<small><%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_uf } %></small>
 	</div>
 	<div class='form-cell'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :plazo, label: 'Plazo' } %>
-		<small><%= render partial: '0p/form_fields/date', locals: { form: form, token: :plazo } %></small>
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :dia_cargo, label: 'Día cargo' } %>
+		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :dia_cargo } %>
 	</div>
 </div>
-<hr>
-<small><i>Si se trata de una asesoría única, llené directamente estos campos para no asignar tarifa.</i></small></br>
 
 <div class="row">
 	<div class="col-lg-2 col-xs-12">

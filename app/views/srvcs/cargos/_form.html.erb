@@ -1,0 +1,57 @@
+<%= form_with(model: cargo, local: true) do |form| %>
+  <% if cargo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cargo.errors.count, "error") %> prohibited this cargo from being saved:</h2>
+
+      <ul>
+      <% cargo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :tipo_cargo_id %>
+    <%= form.number_field :tipo_cargo_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cliente_id %>
+    <%= form.number_field :cliente_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cargo %>
+    <%= form.text_field :cargo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :detalle %>
+    <%= form.text_area :detalle %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha %>
+    <%= form.datetime_select :fecha %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_uf %>
+    <%= form.datetime_select :fecha_uf %>
+  </div>
+
+  <div class="field">
+    <%= form.label :moneda %>
+    <%= form.text_field :moneda %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dia_cargo %>
+    <%= form.number_field :dia_cargo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
