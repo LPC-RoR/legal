@@ -26,6 +26,10 @@ gem 'carrierwave', '~> 2.0'
 # Export to word
 gem 'htmltoword'
 
+# Vamos por un buscador
+gem "searchkick"
+gem "elasticsearch"   # select one
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.6'
 # Use sqlite3 as the database for Active Record

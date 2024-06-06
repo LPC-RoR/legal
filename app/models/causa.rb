@@ -1,5 +1,7 @@
 class Causa < ApplicationRecord
 
+	searchkick
+
 	CALC_VALORES = [ 
 		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
 		'$Remuneración'
