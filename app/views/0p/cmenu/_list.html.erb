@@ -5,9 +5,14 @@
 				<% if tipo.blank? and estado == std[:std] %>
 					<div class="itm_slctd">
 						<li>
-							<i class="bi bi-arrow-right"></i>
-							<i class="bi bi-tag"></i>
-							<%= cmenu_clss[c][:items][std[:std]] %>
+							<!--i class="bi bi-arrow-right"></i>
+							<i class="bi bi-tag"></i-->
+							<%#= cmenu_clss[c][:items][std[:std]] %>
+							<%= link_to "#{path}e=#{std[:std]}" do %>
+								<i class="bi bi-arrow-right"></i>
+								<i class="bi bi-tag"></i>
+								<%= cmenu_clss[c][:items][std[:std]] %>
+							<% end %>
 						</li>
 					</div>
 				<% else %>

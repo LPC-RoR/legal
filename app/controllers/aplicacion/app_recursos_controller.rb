@@ -21,24 +21,7 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    TarFacturacion.where(owner_class: 'Causa').each do |fcn|
-      # Puede ser una asesoría
-      causa = fcn.owner
-      pago = fcn.tar_pago
-      unless causa.blank? or pago.blank?
-        tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
-        fcn.fecha_uf = tar_uf_facturacion.blank? ? fcn.created_at : tar_uf_facturacion.fecha_uf
-        fcn.save
-      end
-
-      if fcn.tar_calculo_id.present?
-        ccl = fcn.tar_calculo
-        unless ccl.blank?
-          ccl.fecha_uf = fcn.fecha_uf
-          ccl.save
-        end
-      end
-    end
+    Causa.reindex
 
     redirect_to root_path
   end

@@ -23,6 +23,11 @@ $auto: auto;
     }
 }
 
+.f_search {
+	@include f_2_col(auto, 42px);
+	margin-bottom: 4px;
+}
+
 .f_50lft_col {
 	@include f_2_col(50%, $auto);
 }

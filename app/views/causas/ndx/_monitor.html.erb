@@ -1,8 +1,24 @@
 <%= render partial: '0capitan/general/app_ttl', locals: {c: 'causas', title: "Causas", link: nil, tooltip: nil } %>
 
+<%= form_with url: "/causas", method: :get, local: true do |form| %>
+  <div class="f_search">
+    <div class="lft">
+      <%= form.text_field :query %>
+    </div>
+    <div class="right" align='right'>
+      <%#= form.submit "Buscar" %>
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-search icon-white"></i>
+      </button>
+    </div>
+  </div>
+<% end %>
+
 <div class="f_200pxlft_col">
   <div class="lft">
     <%= render partial: '0p/cmenu/cmenu', locals: { c: 'causas', tipo: tipo, estado: estado, path: path} %>
+
+    <!-- Lo siguiente sólo funciona en clientes/show, muestra las variables que se definieron para ese cliente -->
     <% if controller_name == 'clientes' and admin? %>
       <% unless @objeto.variables.empty? %>
         <hr>
@@ -12,7 +28,16 @@
   </div>
   <div class="rght">
     <%= render partial: '0capitan/general/app_ttl', locals: {c: 'causas', title: "Causas #{cmenu_clss['causas'][:items][estado].downcase}", link: '/causas/new', tooltip: 'Agregar causa' } %>
+    <%#= @cs_array.blank? %>
     
-    <%= render partial: '0p/tabla/tabla2', locals: {c: 'causas'} %>
+    <% unless @srch %>
+      <%= render partial: '0p/tabla/tabla2', locals: {c: 'causas'} %>
+    <%# elsif @cs_array.class.name == 'Causa' %>
+      <%#= render partial: 'causas/list/objeto', locals: {objeto: @cs_array} %>
+    <% else %>
+      <% @cs_array.each do |fnd| %>
+        <%= render partial: 'causas/list/objeto', locals: {objeto: fnd} %>
+      <% end %>
+    <% end %>
   </div>
 </div>

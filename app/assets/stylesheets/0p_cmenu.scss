@@ -11,13 +11,14 @@
 
     /* TITULO */
     .cmn_ttl {
-        background-color: white;
-        padding: 10px;
+        background-color: $app_clear;
+        padding: 1em .5em .5em .5em;
         text-align: center;
+        color: white;
 
         a {
             text-decoration: none;
-            color: #7fb3d5;
+            color: white;
 
             &:hover {
                 color: #1a5276;
@@ -37,8 +38,8 @@
         }
 
         .itm_slctd {
-            padding: 3px 30px;
-            background-color: gray;
+            padding-left: 20px;
+            background-color: #abc4ff;
             color: white;
             font-weight: bold;
         }
@@ -58,7 +59,7 @@
 
             a:hover {
                 color: white;
-                background-color: gray;
+                background-color: #abc4ff;
             }
         }
     }
