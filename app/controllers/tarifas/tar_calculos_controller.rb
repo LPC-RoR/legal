@@ -71,7 +71,7 @@ class Tarifas::TarCalculosController < ApplicationController
     redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
   end
 
-  def libera_calculo
+  def liberar_calculo
     causa = @objeto.owner
     @objeto.tar_aprobacion_id = nil
     @objeto.save
