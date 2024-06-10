@@ -65,7 +65,7 @@ class Tarifas::TarCalculosController < ApplicationController
     # asocia todas las facturaciones del cliente disponibles
     disponibles = TarCalculo.where(tar_aprobacion_id: nil)
     disponibles.each do |ccl|
-      aprobacion.tar_calculos << ccl if factn.owner.cliente.id == cliente.id
+      aprobacion.tar_calculos << ccl if ccl.owner.cliente.id == cliente.id
     end
 
     redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
@@ -76,7 +76,7 @@ class Tarifas::TarCalculosController < ApplicationController
     @objeto.tar_aprobacion_id = nil
     @objeto.save
 
-    redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
+    redirect_to tar_aprobaciones_path
   end
 
   # DELETE /tar_calculos/1 or /tar_calculos/1.json
