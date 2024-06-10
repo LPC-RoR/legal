@@ -77,7 +77,7 @@ class CausasController < ApplicationController
 #      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
 #      set_tabla('tar_facturaciones', @objeto.facturaciones, false)
 
-      @pgs_stts = pgs_stts(@objeto, @objeto.tar_tarifa)
+      @pgs_stts = @objeto.tar_tarifa.blank? ? [] : pgs_stts(@objeto, @objeto.tar_tarifa)
 
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
