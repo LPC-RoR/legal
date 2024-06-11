@@ -21,7 +21,7 @@ class CausasController < ApplicationController
       set_tabla('causas', coleccion, true)
       @srch = false
     else
-      @cs_array = Causa.search(params[:query],  fields: [:causa]).results
+      @cs_array = Causa.search_for(params[:query])
       @srch = true
     end
 

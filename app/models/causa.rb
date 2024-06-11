@@ -1,6 +1,11 @@
 class Causa < ApplicationRecord
 
-	searchkick word_start: %i[causa rit], suggest: [:causa], highlight: [:causa]
+	include PgSearch
+
+	pg_search_scope :search_for, against: {
+		causa: 'A',
+		rit: 'B'
+	}
 
 	CALC_VALORES = [ 
 		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
