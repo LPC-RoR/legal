@@ -17,6 +17,10 @@ class Hecho < ApplicationRecord
 		self.st_preparatoria.blank? ? 'dark' : self.st_preparatoria
 	end
 
+	def s_hecho
+		"Hecho Nº #{self.orden} #{self.hecho}"
+	end
+
 	# ------------------------------------ ORDER LIST
 
 	def owner
