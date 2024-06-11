@@ -1,5 +1,5 @@
 class Csc::AntecedentesController < ApplicationController
-  before_action :set_antecedente, only: %i[ show edit update destroy ]
+  before_action :set_antecedente, only: %i[ show edit update destroy arriba abajo ]
 
   # GET /antecedentes or /antecedentes.json
   def index
@@ -47,6 +47,38 @@ class Csc::AntecedentesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def arriba
+    owner = @objeto.owner
+    anterior = @objeto.anterior
+    if @objeto.hecho_id == anterior.hecho_id
+      @objeto.orden -= 1
+      @objeto.save
+      anterior.orden += 1
+      anterior.save
+    else
+      @objeto.hecho_id = anterior.hecho_id
+      @objeto.save
+    end
+
+    redirect_to @objeto.redireccion
+  end
+
+  def abajo
+    owner = @objeto.owner
+    siguiente = @objeto.siguiente
+    if @objeto.hecho_id == siguiente.hecho_id
+      @objeto.orden += 1
+      @objeto.save
+      siguiente.orden -= 1
+      siguiente.save
+    else
+      @objeto.hecho_id = siguiente.hecho_id
+      @objeto.save
+    end
+
+    redirect_to @objeto.redireccion
   end
 
   # DELETE /antecedentes/1 or /antecedentes/1.json

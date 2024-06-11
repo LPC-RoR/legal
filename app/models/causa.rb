@@ -5,7 +5,7 @@ class Causa < ApplicationRecord
 	pg_search_scope :search_for, against: {
 		causa: 'A',
 		rit: 'B'
-	}
+	}, using: { tsearch: {prefix: true, any_word: true} }
 
 	CALC_VALORES = [ 
 		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
@@ -40,6 +40,10 @@ class Causa < ApplicationRecord
 
 	def cuantia_modificada?
 		self.valores_cuantia.map {|vc| vc.activado?}.include?(false)
+	end
+
+	def text_cuantia
+		self.valores_cuantia.map {|vc| vc.detalle}.join(' ')
 	end
 
 	# PAGOS

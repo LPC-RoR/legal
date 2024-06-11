@@ -1,6 +1,6 @@
 class Csc::HechosController < ApplicationController
   before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo remueve_documento arriba abajo set_evaluacion nuevo_antecedente ]
-  after_action :ordena_hechos, only: %i[ create destroy update ]
+  after_action :ordena_hechos, only: %i[ create destroy update nuevo_antecedente ]
 
   # GET /hechos or /hechos.json
   def index
@@ -56,7 +56,7 @@ class Csc::HechosController < ApplicationController
   def nuevo_antecedente
     f_prms = params[:nuevo_antecedente]
     unless f_prms[:solicitud].blank?
-      @objeto.antecedentes.create(causa_id: @objeto.causa.id, hecho_id: @objeto.id, solicitud: f_prms[:solicitud])
+      @objeto.antecedentes.create(causa_id: @objeto.causa.id, hecho_id: @objeto.id, solicitud: f_prms[:solicitud], orden: @objeto.antecedentes.count + 1)
     end
 
     redirect_to "/causas/#{@objeto.causa.id}?html_options[menu]=Hechos"
@@ -143,17 +143,28 @@ class Csc::HechosController < ApplicationController
     def ordena_hechos
       causa = @objeto.causa
       ultimo_hecho = 0
+      ultimo_antecedente = 0
       causa.temas.order(:orden).each do |tema|
         tema.hechos.order(:orden).each do |hecho|
           hecho.orden = ultimo_hecho + 1
           hecho.save
           ultimo_hecho += 1
+          hecho.antecedentes.order(:orden).each do |antec|
+            antec.orden = ultimo_antecedente + 1
+            antec.save
+            ultimo_antecedente += 1
+          end
         end
       end
       causa.hechos.where(tema_id: nil).order(:orden).each do |hecho|
           hecho.orden = ultimo_hecho + 1
           hecho.save
           ultimo_hecho += 1
+          hecho.antecedentes.order(:orden).each do |antec|
+            antec.orden = ultimo_antecedente + 1
+            antec.save
+            ultimo_antecedente += 1
+          end
       end 
     end
 

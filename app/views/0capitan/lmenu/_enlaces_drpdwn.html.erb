@@ -10,7 +10,7 @@
             <% end %>
 
             <% menu.each do |enlace| %>
-                <%= link_to enlace[:link] do %>
+                <%= link_to enlace[:link], target: '_blank' do %>
                     <%= enlace[:texto] %>
                 <% end %>
             <% end %>

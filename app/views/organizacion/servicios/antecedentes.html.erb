@@ -1,0 +1,55 @@
+<div class="f_200pxlft_col">
+	<div class="lft">
+		<%= image_tag 'logo_tyc.png', size: "50x50" %>	
+	</div>
+</div>
+
+<div style="padding-left: 1em; padding-right: 1em,">
+	<h3>
+		Solicitud de antecedentes
+	</h3>
+
+	<h5>
+		<i class="bi bi-building"></i>
+		<%= "#{@objeto.cliente.razon_social}"%> 
+		<%= link_to @objeto.cliente do %>
+			<i class="bi bi-box-arrow-up-right"></i>
+		<% end %>
+	</h5>
+</div>
+
+<div class="ttl_prnt">
+	<div class="ttl_ttl">
+		Causa : <%= @objeto.rit %>
+		<i class="bi bi-dot"></i>
+		<%= @objeto.causa %>
+	</div>
+	<div class="ttl_lnks">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: @objeto, tooltip: @objeto.class.name} do %>
+			<i class="bi bi-box-arrow-up-right"></i>
+		<% end %>
+	</div>
+</div>
+</b>
+
+<% @objeto.hechos.order(:orden).each do |hecho| %>
+
+	<div class="f_50lft_col">
+		<div class="lft">
+			<div class="app_box">
+				<b>Hecho Nº <%=hecho.orden%></b></br>
+				<i><%= hecho.descripcion %></i>
+			</div>
+		</div>
+		<div class="rght">
+			<div class="cntnt_box">
+				<b>Antecedentes requeridos</b></br>
+				<% hecho.antecedentes.order(:orden).each do |antec| %>
+					<b>Nº <%=antec.orden%></b>
+					<%= antec.solicitud %></br>
+				<% end %>
+			</div>
+		</div>
+	</div>
+<hr>
+<% end %>

@@ -6,13 +6,13 @@
       <h4><%= render partial: '0p/general/icon_text', locals: {text: 'Ingreso', gly: 'person-check', clr: 'info'} %></h4>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="field">
-          <small><%= f.label :email %><br /></small>
+        <div class="formCell">
+          <%= f.label :email %>
           <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
         </div>
 
-        <div class="field">
-          <small><%= f.label 'contraseña' %><br /></small>
+        <div class="formCell">
+          <%= f.label 'contraseña' %>
           <%= f.password_field :password, autocomplete: "current-password" %>
         </div>
 

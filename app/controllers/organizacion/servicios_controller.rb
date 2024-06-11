@@ -18,6 +18,10 @@ class Organizacion::ServiciosController < ApplicationController
 
   end
 
+  def antecedentes
+    @objeto = Causa.find(params[:cid])
+  end
+
   def organizacion
     unless params[:oid].blank?
       @objeto = Cliente.find(params[:oid])

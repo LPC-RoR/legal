@@ -10,7 +10,10 @@
 		<% end %>
 
 		<i class="bi bi-dot"></i>
-		<%= render partial: "0p/dropdown/drpdwn_lst", locals: {gly: 'file-word', lst: [['Revisión de hechos', "/causas/#{objeto.id}/hchstowrd"], ['Solicitud de antecedentes', "/causas/#{objeto.id}/ntcdntstowrd"]] } %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/antecedentes?cid=#{objeto.id}", tooltip: 'Solicitud de antecedentes'} do %>
+			<i class="bi bi-file-pdf"></i>
+		<% end %>
+		<%= render partial: "0p/dropdown/drpdwn_lst", locals: {gly: 'file-word', lst: [['Revisión de hechos', "/causas/#{objeto.id}/hchstowrd"], ['Solicitud antecedentes', "/causas/#{objeto.id}/ntcdntstowrd"]] } %>
 
 		<% unless objeto.hechos_registrados %>
 

@@ -68,7 +68,7 @@ class Tarifas::TarCalculosController < ApplicationController
       aprobacion.tar_calculos << ccl if ccl.owner.cliente.id == cliente.id
     end
 
-    redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
+    redirect_to "/causas/#{@objeto.owner.id}?html_options[menu]=Tarifa+%26+Pagos"
   end
 
   def liberar_calculo
