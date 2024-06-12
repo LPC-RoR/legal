@@ -373,7 +373,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   listen (~> 3.5)
-  mini_racer (< 0.5.0)
+  mini_racer
   pg
   pg_search
   puma (~> 3.11)
