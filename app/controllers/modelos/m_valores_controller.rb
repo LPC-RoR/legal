@@ -1,4 +1,4 @@
-class MValoresController < ApplicationController
+class Modelos::MValoresController < ApplicationController
   before_action :set_m_valor, only: %i[ show edit update destroy ]
 
   # GET /m_valores or /m_valores.json
