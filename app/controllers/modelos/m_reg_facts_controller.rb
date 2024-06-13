@@ -1,4 +1,4 @@
-class MRegFactsController < ApplicationController
+class Modelos::MRegFactsController < ApplicationController
   before_action :set_m_reg_fact, only: %i[ show edit update destroy ]
 
   # GET /m_reg_facts or /m_reg_facts.json
