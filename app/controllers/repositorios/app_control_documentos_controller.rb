@@ -1,4 +1,4 @@
-class Repositorios::AppAppControlDocumentosController < ApplicationController
+class Repositorios::AppControlDocumentosController < ApplicationController
   before_action :set_control_documento, only: %i[ show edit update destroy ]
 
   # GET /control_documentos or /control_documentos.json
