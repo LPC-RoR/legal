@@ -1,4 +1,4 @@
-class BlgImagenesController < ApplicationController
+class Blog::BlgImagenesController < ApplicationController
   before_action :set_blg_imagen, only: %i[ show edit update destroy ]
 
   # GET /blg_imagenes or /blg_imagenes.json
