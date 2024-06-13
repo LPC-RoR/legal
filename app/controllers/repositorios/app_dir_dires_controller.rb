@@ -1,4 +1,4 @@
-class AppDirDiresController < ApplicationController
+class Repositorios::AppDirDiresController < ApplicationController
   before_action :set_app_dir_dir, only: %i[ show edit update destroy ]
 
   # GET /app_dir_dires or /app_dir_dires.json

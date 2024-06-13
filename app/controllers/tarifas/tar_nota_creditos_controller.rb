@@ -1,4 +1,4 @@
-class TarNotaCreditosController < ApplicationController
+class Tarifas::TarNotaCreditosController < ApplicationController
   before_action :set_tar_nota_credito, only: %i[ show edit update destroy ]
 
   # GET /tar_nota_creditos or /tar_nota_creditos.json

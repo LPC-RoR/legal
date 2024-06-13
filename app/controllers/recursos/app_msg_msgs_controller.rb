@@ -1,4 +1,4 @@
-class AppMsgMsgsController < ApplicationController
+class Recursos::AppMsgMsgsController < ApplicationController
   before_action :set_app_msg_msg, only: %i[ show edit update destroy ]
 
   # GET /app_msg_msgs or /app_msg_msgs.json

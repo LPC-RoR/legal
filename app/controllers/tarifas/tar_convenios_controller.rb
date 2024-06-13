@@ -1,4 +1,4 @@
-class TarConveniosController < ApplicationController
+class Tarifas::TarConveniosController < ApplicationController
   before_action :set_tar_convenio, only: %i[ show edit update destroy ]
 
   # GET /tar_convenios or /tar_convenios.json

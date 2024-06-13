@@ -1,4 +1,4 @@
-class TarDetCuantiaControlesController < ApplicationController
+class Tarifas::TarDetCuantiaControlesController < ApplicationController
   before_action :set_tar_det_cuantia_control, only: %i[ show edit update destroy ]
 
   # GET /tar_det_cuantia_controles or /tar_det_cuantia_controles.json
