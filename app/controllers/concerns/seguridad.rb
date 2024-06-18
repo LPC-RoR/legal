@@ -53,8 +53,12 @@ module Seguridad
 
 	# es verdadero para finanzas, admin y dog
 	def finanzas?
-		( usuario? and perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa) == 'finanzas' ) or admin? or dog?
-		['finanzas', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) or dog?
+		if perfil_activo.blank?
+			false
+		else
+			( usuario? and perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa) == 'finanzas' ) or admin? or dog?
+			['finanzas', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) or dog?
+		end
 	end
 
 	# es verdadero para operación, finanzas, admin y dog
