@@ -3,14 +3,14 @@
 		<%= render partial: 'causas/shw/datos_cuantia/cuantia/nm_cuantia', locals: {objeto: objeto, vc: vc} %>
 	</div>
 	<div class="<%= controller_name == 'causas' ? 'ln_mddl' : 'ln_rght'  %>" align='right'>
-			<%= render partial: 'causas/shw/datos_cuantia/cuantia/icono_check', locals: {check_valor: chck_tarifa(vc)} %>
+			<%= render partial: 'causas/shw/datos_cuantia/cuantia/icono_check', locals: {check_valor: chck_tarifa(vc)} if controller_name != 'servicios' %>
 			<% unless vc.activado? %><del><% end %>
 			<%= s_moneda( vc.moneda, vlr_tarifa(vc) ) %>
 			<% unless vc.activado? %></del><% end %>
 	</div>
 	<div class="<%= controller_name == 'causas' ? 'ln_rght' : 'ln_mddl'  %>">
 		<% if controller_name == 'causas' %>
-		<%= render partial: 'causas/shw/datos_cuantia/cuantia/icono_check', locals: {check_valor: chck_cuantia(vc, 'real')} %>
+		<%= render partial: 'causas/shw/datos_cuantia/cuantia/icono_check', locals: {check_valor: chck_cuantia(vc, 'real')} if controller_name != 'servicios' %>
 		<% unless vc.activado? %><del><% end %>
 		<%= s_moneda( vc.moneda, vlr_cuantia(vc, 'real') ) %>
 		<% unless vc.activado? %></del><% end %>
