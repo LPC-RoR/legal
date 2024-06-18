@@ -145,7 +145,7 @@ module Cmenu
 
 	def display_name(c, item)
 		k_name = item.class.name == 'String' ? item : item[0]
-		d_name = cmenu_clss[c][:items][k_name]
+		d_name = cmenu_clss[c][:items].blank? ? nil : cmenu_clss[c][:items][k_name]
 		d_name.blank? ? k_name : d_name
 	end
 
