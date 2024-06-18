@@ -1,9 +1,8 @@
-<div class="cl">
+<div class="cl_bjt">
 	<%= render partial: 'clientes/list/actions', locals: {objeto: objeto} %>
 	<%= objeto.razon_social %>
 
 	<% unless objeto.archivos_faltantes.empty? and objeto.archivos_vacios.empty? %>
-		<%= render partial: '0p/general/nt', locals: {tipo: 'warning', nota: "Faltan #{objeto.archivos_faltantes.count + objeto.archivos_vacios.count} documentos controlados" } %>
+		<%= render partial: '0p/nota/nota', locals: {nota: "Faltan #{objeto.archivos_faltantes.count + objeto.archivos_vacios.count} documentos controlados", clr: 'y', objeto: nil } %>
 	<% end %>
-
 </div>

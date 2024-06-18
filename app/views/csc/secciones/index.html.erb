@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Secciones</h1>
+
+<div id="secciones">
+  <% @secciones.each do |seccion| %>
+    <%= render seccion %>
+    <p>
+      <%= link_to "Show this seccion", seccion %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New seccion", new_seccion_path %>

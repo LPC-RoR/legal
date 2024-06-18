@@ -1,7 +1,7 @@
-// @import grids;
 // grd($grd_tc, $grd_gap);
 // grd_frm($bg_color, $grap);
 // grd_ncol($nth);
+// @import "grids";
 
 @mixin grd($grd_tc, $grd_gap) {
 	display: grid;

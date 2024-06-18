@@ -1,5 +1,6 @@
 class Repositorios::AppArchivosController < ApplicationController
   before_action :set_app_archivo, only: %i[ show edit update destroy ]
+  after_action :read_demanda, only: :update
 
   # GET /app_archivos or /app_archivos.json
   def index
@@ -59,6 +60,57 @@ class Repositorios::AppArchivosController < ApplicationController
   end
 
   private
+    # Prepara la página sacada del PDF para ser procesada
+    def parse_page(page_text)
+      # Sacamos el caracter de comienzo de página y reemplazamos los dobles \n por </br>
+      line_array = page_text.gsub(/\f/, '').gsub(/\n\n/, '</br>' ).split('</br>')
+      #sacamos el número de página
+      line_array.pop
+      # lo volvemos a hacer texto; reemplazamos los dobles </br> por uno sólo y sacamos el exceso de espacios
+      line_array.join('</br>').gsub(/<\/br><\/br>/, '</br>').split(' ').join(' ')
+    end
+
+    # Obtiene un vectos de largo 3 con las 3 primeras palabras de la línea, si no hay palabra se pone nil
+    def chk_wrds_3(line, prfx)
+      v_prfx = prfx.blank? ? [] : prfx.split
+      v_prfx_lngth = v_prfx.length
+      wrds_3 = line.blank? ? '' : line.strip.split[0..(v_prfx_lngth-1)].join(' ')
+      v_ln = prfx.match(/[\:\,\;\.]$/) ? wrds_3.split : wrds_3.gsub(/[\:\,\;\.]$/, '').split
+
+      v_prfx & v_ln == v_prfx
+    end
+
+    def read_demanda
+      if @objeto.app_archivo == 'Demanda' and @objeto.archivo.present?
+        path_pdf = File.join(Rails.root, 'public', @objeto.archivo.url)
+        reader = PDF::Reader.new(path_pdf)
+
+        # Unificamos las páginas en un sólo texto
+        texto = ''
+        reader.pages.each_with_index do |page, indx|
+          texto << parse_page(page.text)
+        end
+
+        # Procesamos línea a línea
+        s_names = ['Datos', 'En lo principal', 'Cuerpo', 'Por tanto', 'Otrosís']
+        s_breaks = ['EN LO PRINCIPAL', 'S.J.L.', 'POR TANTO', '__FIN__']
+        s_id = 0
+        sub_txt = ''
+
+        # Recorremos línea a línea
+        texto.split('</br>').each do |line|
+          if chk_wrds_3(line, s_breaks[s_id])
+            Seccion.create(causa_id: @objeto.owner.id, orden: s_id + 1, seccion: s_names[s_id], texto: sub_txt )
+            s_id += 1
+            sub_txt = line
+          else
+            sub_txt << "#{line}</br>"
+          end
+        end
+        Seccion.create(causa_id: @objeto.owner.id, orden: s_id + 1, seccion: s_names[s_id], texto: sub_txt )
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_app_archivo
       @objeto = AppArchivo.find(params[:id])

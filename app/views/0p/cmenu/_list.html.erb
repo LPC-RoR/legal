@@ -42,7 +42,8 @@
 					<% else %>
 						<%= link_to "#{path}t=#{selector.class.name == 'String' ? selector : selector[0]}" do %>
 							<i class="bi bi-bookmark"></i>
-							<%= selector.class.name == 'String' ? selector : selector[0] %>
+							<%#= selector.class.name == 'String' ? selector : selector[0] %>
+							<%= display_name(c, selector) %>
 						<% end %>
 					<% end %>
 					</li>
@@ -50,7 +51,8 @@
 					<li>
 					<%= link_to "#{path}t=#{selector.class.name == 'String' ? selector : selector[0]}" do %>
 						<i class="bi bi-bookmark"></i>
-						<%= selector.class.name == 'String' ? selector : selector[0] %>
+						<%#= selector.class.name == 'String' ? selector : selector[0] %>
+						<%= display_name(c, selector) %>
 					<% end %>
 					</li>
 				<% end %>

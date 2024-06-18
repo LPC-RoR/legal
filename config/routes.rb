@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  resources :notas do
+    match :agrega_nota, via: :post, on: :collection
+  end
 
   resources :cfg_valores
-  resources :tipo_asesorias
   resources :regiones do
     resources :comunas
     match :arriba, via: :get, on: :member
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
     match :generar_cobro, via: :get, on: :member
     match :facturar, via: :get, on: :member
     match :liberar_factura, via: :get, on: :member
+    match :swtch_pendiente, via: :get, on: :member
   end
   resources :app_control_documentos
   resources :tribunal_cortes
@@ -100,6 +103,9 @@ Rails.application.routes.draw do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
+    # Para almacenar los pedazos de Demanda de la Causa
+    resources :secciones
+    resources :tipo_asesorias
   end
 
   # Usado para poner las entidades necesarias para mantener Variables y su relación con causas y clientes

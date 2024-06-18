@@ -1,3 +1,4 @@
+<% unless objeto.sin_cargo? %>
 <small><small>
 	<% unless objeto.facturacion.blank? %>
 		<% unless objeto.facturacion.tar_aprobacion.blank? %>
@@ -15,3 +16,4 @@
 		<% end %>
 	<% end %>
 </small></small>
+<% end %>

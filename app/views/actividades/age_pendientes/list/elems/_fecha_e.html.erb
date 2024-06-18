@@ -1,15 +1,15 @@
-<div class="fch">
-	<div class="fch_fch">
+<div class="ttl_lnks">
+	<div class="ttl">
 		<% if objeto.estado == 'realizado' %>
 			<i class="bi bi-check-lg text-primary"></i>
 		<% else %>
-			<i class="bi bi-circle-fill text-<%=objeto.text_color%>"></i> 
+			<i class="bi bi-circle-fill text-<%=objeto.prioridad%>"></i> 
 		<% end %>
-		<span class="text-<%= objeto.text_color %>">
+		<span class="text-<%=objeto.text_color %>">
 			<%= dma_hm(objeto.created_at) %>
 		</span>
 	</div>
-	<div class="fch_lnks">
+	<div class="lnks">
 		<% unless objeto.estado == 'realizado' %>
 			<%= render partial: 'actividades/age_pendientes/list/elems/set_prioridad', locals: {objeto: objeto} %>
 		<% end %>

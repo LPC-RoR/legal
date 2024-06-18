@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ownr_clss: MyString
+  ownr_id: 1
+  perfil_id: 1
+  nota: MyString
+  prioridad: MyString
+  realizado: false
+
+two:
+  ownr_clss: MyString
+  ownr_id: 1
+  perfil_id: 1
+  nota: MyString
+  prioridad: MyString
+  realizado: false

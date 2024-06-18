@@ -1,9 +1,18 @@
-<%= render partial: '0capitan/objeto/estado_crud', locals: {objeto: objeto, restriccion: check_crud(objeto) } %>
-<%= render partial: 'asesorias/list/line_asesoria', locals: {objeto: objeto} %>
-
-<div style='line-height: 13px; padding-left: 1em;'>
+<div class="as_bjt">
+	<%= render partial: 'asesorias/list/line_asesoria', locals: {objeto: objeto} %>
 	<%= render partial: 'asesorias/list/line_info', locals: {objeto: objeto} %>
-	<%= render partial: 'asesorias/list/line_tarifa', locals: {objeto: objeto} %>
-	<%= render partial: 'asesorias/list/line_aprobacion_factura', locals: {objeto: objeto} %>
-	<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
+	<% unless objeto.sin_cargo? %>
+		<%= render partial: 'asesorias/list/line_tarifa', locals: {objeto: objeto} %>
+	<% end %>
+
+	<div style='line-height: 13px; padding-left: 1em;'>
+		<%= render partial: 'asesorias/list/line_aprobacion_factura', locals: {objeto: objeto} %>
+		<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
+	</div>
+
+	<% unless objeto.notas.empty? %>
+		<% objeto.notas.order(:created_at).each do |nota| %>
+			<%= render partial: 'notas/list/objeto', locals: {objeto: nota} %>
+		<% end %>
+	<% end %>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_05_235122) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_18_162541) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -374,6 +374,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_235122) do
     t.string "moneda"
     t.decimal "monto"
     t.integer "tipo_asesoria_id"
+    t.boolean "pendiente"
     t.index ["cliente_id"], name: "index_asesorias_on_cliente_id"
     t.index ["estado"], name: "index_asesorias_on_estado"
     t.index ["tar_servicio_id"], name: "index_asesorias_on_tar_servicio_id"
@@ -1003,6 +1004,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_235122) do
     t.index ["orden"], name: "index_m_valores_on_orden"
   end
 
+  create_table "notas", force: :cascade do |t|
+    t.string "ownr_clss"
+    t.integer "ownr_id"
+    t.integer "perfil_id"
+    t.string "nota"
+    t.string "prioridad"
+    t.boolean "realizado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ownr_clss"], name: "index_notas_on_ownr_clss"
+    t.index ["ownr_id"], name: "index_notas_on_ownr_id"
+    t.index ["perfil_id"], name: "index_notas_on_perfil_id"
+  end
+
   create_table "org_area_areas", force: :cascade do |t|
     t.integer "parent_id"
     t.integer "child_id"
@@ -1149,6 +1164,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_235122) do
     t.boolean "activa"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "secciones", force: :cascade do |t|
+    t.integer "causa_id"
+    t.integer "orden"
+    t.string "seccion"
+    t.text "texto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["causa_id"], name: "index_secciones_on_causa_id"
+    t.index ["orden"], name: "index_secciones_on_orden"
   end
 
   create_table "st_estados", force: :cascade do |t|
@@ -1620,6 +1646,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_05_235122) do
     t.boolean "archivos"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "descripcion"
     t.index ["tipo_asesoria"], name: "index_tipo_asesorias_on_tipo_asesoria"
   end
 

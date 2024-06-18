@@ -1,25 +1,41 @@
-<small>
-<div class="row">
-	<div class="col-10">
-		<b>
-			<% unless objeto.tipo_asesoria.blank? %>
-				<% if objeto.tipo_asesoria.tipo_asesoria == 'Cargo' %>
-					<i class="bi bi-coin"></i> 
-				<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Multa' %>
-					<i class="bi bi-wallet2"></i> 
-				<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Redacción' %>
-					<i class="bi bi-pencil-square"></i> 
-				<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Mensual' %>
-					<i class="bi bi-calendar-check"></i> 
-				<% end %>
+<div class="ttl_lnks">
+	<div class="ttl">
+		<% unless objeto.tipo_asesoria.blank? %>
+			<% if objeto.tipo_asesoria.tipo_asesoria == 'Cargo' %>
+				<i class="bi bi-coin"></i> 
+			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Multa' %>
+				<i class="bi bi-wallet2"></i> 
+			<% elsif ['Redaccion', 'CartaDespido'].include?(objeto.tipo_asesoria.tipo_asesoria) %>
+				<i class="bi bi-pencil-square"></i> 
+			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Mensual' %>
+				<i class="bi bi-calendar-check"></i> 
+			<% elsif objeto.tipo_asesoria.tipo_asesoria == 'Consulta' %>
+				<i class="bi bi-question-square"></i>
 			<% end %>
-			<% if ['Multa', 'Redacción'].include?(objeto.tipo_asesoria.tipo_asesoria) %>
-				<%= link_to objeto.descripcion, objeto %>
-			<% else %>
-				<%= objeto.descripcion %>
-			<% end %>
-		</b>
+		<% end %>
+		<% if objeto.pendiente %>
+			<b>PENDIENTE</b>
+		<% end %>
+		<% if ['Multa', 'Redacción'].include?(objeto.tipo_asesoria.tipo_asesoria) %>
+			<%= link_to objeto.descripcion, objeto %>
+		<% else %>
+			<%= objeto.descripcion %>
+		<% end %>
 	</div>
-	<div class="col-2"></div>
+	<div class="lnks">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/asesorias/#{objeto.id}/swtch_pendiente", tooltip: 'Cambia responsabilidad'} do %>
+			<i class="bi bi-arrow-repeat"></i>
+		<% end %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'NuevaNota', objeto: objeto, tooltip: 'Agregar nota'} do %>
+			<i class="bi bi-chat-left-text"></i>
+		<% end %>
+		<i class="bi bi-dot"></i>
+		<% if operacion? %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if check_crud(objeto) %>
+		<% end %>
+	</div>
 </div>
-</small>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevaNota', objeto: objeto} do %>
+	<%= render partial: 'notas/shr/form_nota', locals: {objeto: objeto, clss: objeto.class.name, oid: objeto.id} %>
+<% end %>

@@ -5,6 +5,10 @@ class Asesoria < ApplicationRecord
 
     validates_presence_of :descripcion
 
+    def notas
+    	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
+    end
+
 	def archivos
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
 	end
@@ -35,6 +39,10 @@ class Asesoria < ApplicationRecord
 
 	def actividades
 		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
+	end
+
+	def sin_cargo?
+		self.tar_servicio_id.blank? and self.monto.blank?
 	end
 
 	# Hasta aqui revisado!

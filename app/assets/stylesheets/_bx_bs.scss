@@ -1,0 +1,14 @@
+// @include bx_bs($c_bg, $c_brd, $fnt_sz);
+// @import "bx_bs";
+
+
+// CAJA BASE
+@mixin bx_bs($c_bg, $c_brd, $fnt_sz) {
+	padding: 10px;
+	margin-bottom: 4px;
+    border: 1px solid $c_brd;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+	background-color: $c_bg;
+	font-size: $fnt_sz;
+}

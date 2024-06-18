@@ -1,4 +1,4 @@
-class TipoAsesoriasController < ApplicationController
+class Csc::TipoAsesoriasController < ApplicationController
   before_action :set_tipo_asesoria, only: %i[ show edit update destroy ]
 
   # GET /tipo_asesorias or /tipo_asesorias.json
@@ -26,7 +26,7 @@ class TipoAsesoriasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tipo asesoria was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Tipo de asesoria fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class TipoAsesoriasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tipo_asesoria_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tipo asesoria was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Tipo de asesoria fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class TipoAsesoriasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tipo asesoria was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Tipo de asesoria fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -71,6 +71,6 @@ class TipoAsesoriasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tipo_asesoria_params
-      params.require(:tipo_asesoria).permit(:tipo_asesoria, :facturable, :documento, :archivos)
+      params.require(:tipo_asesoria).permit(:tipo_asesoria, :descripcion, :facturable, :documento, :archivos)
     end
 end

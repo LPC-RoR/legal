@@ -1,17 +1,17 @@
-<div class="ac_nav">
+<div class="ttl_nav">
 
-	<div class="arrw_lft">
+	<div class="bck">
 			<% unless @annio_activo == @primer_annio %>
 				<%= link_to "/tablas?tb=3&a=#{@annio_activo.cal_annio - 1}" do %>
 					<i class="bi bi-chevron-double-left"></i>
 				<% end %>
 			<% end %>
 	</div>
-	<div class="smn">
+	<div class="info">
 			<i class="bi bi-calendar"></i>
 			Año <%= @annio_activo.cal_annio %>
 	</div>
-	<div class="arrw_rght">
+	<div class="nxt">
 			<% unless @annio_activo == @ultimo_annio %>
 				<%= link_to "/tablas?tb=3&a=#{@annio_activo.cal_annio + 1}" do %>
 					<i class="bi bi-chevron-double-right"></i>

@@ -1,4 +1,4 @@
-<div class="hc">
+<div class="hc_bjt">
 	<div class="ttl_ttl">
 		<!-- FLECHA -->
 		<i class="bi bi-arrow<%=objeto.tema.blank? ? nil : '-return'%>-right"></i>
@@ -35,12 +35,12 @@
 					<i class="bi bi-plus-circle"></i> Antecedente
 				<% end %>
 			<% end %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoArchivo', objeto: objeto, tooltip: 'Agrega archivo' } do %>
-				<i class="bi bi-plus-circle"></i> Archivo
-			<% end %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: objeto, tooltip: 'Selecciona archivo' } do %>
-				<i class="bi bi-list-task"></i> 
-			<% end %>
+			<%#= render layout: '0p/collapse/link', locals: {label: 'NuevoArchivo', objeto: objeto, tooltip: 'Agrega archivo' } do %>
+				<!--i class="bi bi-plus-circle"></i> Archivo-->
+			<%# end %>
+			<%#= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: objeto, tooltip: 'Selecciona archivo' } do %>
+				<!--i class="bi bi-list-task"></i--> 
+			<%# end %>
 			<!-- links_e -->
 			<% unless objeto.causa.hechos_registrados %>
 				<i class="bi bi-dot"></i> 

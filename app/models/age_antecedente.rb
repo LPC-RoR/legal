@@ -2,11 +2,7 @@ class AgeAntecedente < ApplicationRecord
 	belongs_to :age_actividad
 
 	def color
-		self.tipo == 'Información' ? 'info' : ( self.tipo == 'Advertencia' ? 'warning' : 'danger' )
-	end
-
-	def gly
-		self.tipo == 'Información' ? 'dot' : ( self.tipo == 'Advertencia' ? 'exclamation-lg' : 'cone-striped' )
+		self.tipo == 'Información' ? 'g' : ( self.tipo == 'Advertencia' ? 'y' : 'r' )
 	end
 
 	# ------------------------------------ ORDER LIST

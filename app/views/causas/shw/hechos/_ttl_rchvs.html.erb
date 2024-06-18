@@ -2,19 +2,19 @@
 	<div class="ttl_ttl">
 		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['app_archivos']} %>
 		Archivos requeridos
-	</div>
-	<div class="ttl_lnks">
+		<i class="bi bi-dot"></i>
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/set_flags?f=areg", tooltip: "#{objeto.archivos_registrados ? 'Desbloquea archivos' : 'Bloquea archivos' }"} do  %>
 			<%= render partial: '0p/general/gly', locals: {gly: "#{'check-' if objeto.archivos_registrados}square"} %>
 		<% end %>
+	</div>
+	<div class="ttl_lnks">
 		<% unless objeto.archivos_registrados %>
-			<i class="bi bi-dot"></i>
 			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoArchivo', objeto: nil, tooltip: 'Agrega archivo'} do %>
 				<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
 			<% end %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: nil, tooltip: 'Crea archivo usual'} do %>
-				<i class="bi bi-list-check"></i>
-			<% end %>
+			<%#= render layout: '0p/collapse/link', locals: {label: 'SelArchivo', objeto: nil, tooltip: 'Crea archivo usual'} do %>
+				<!--i class="bi bi-list-check"></i-->
+			<%# end %>
 
 			<!-- desactivado por mu avanzado jajaja -->
 			<%#= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/traer_archivos_cuantia", tooltip: 'Trae Archivos desde cuantias'} do  %>

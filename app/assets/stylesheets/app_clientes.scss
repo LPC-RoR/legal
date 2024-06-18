@@ -1,43 +1,33 @@
-/* --clr-[fr sc th ob]-cs */
 
 $cl_fr: #627254;
-$cl_sc: #76885b;
-$cl_th: #dddddd;
-$cl_ob: #eeeeee;
 
-/* TITULO */
-.cl_ttl {
-	margin-bottom: 10px;
-	background-color: $app_bg;
-	line-height: 40px;
-	color: white;
-    font-family: 'Raleway', sans-serif;
-	display: grid;
-	grid-template-columns: auto auto;
-    grid-gap: 1em;
+@mixin cl_bjt_bs($c_bg, $c_brd) {
+	padding: 10px;
+	margin-bottom: 4px;
+    border: 1px solid $c_brd;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+	background-color: $c_bg;
+	font-size: 13px;
+}
 
-    .ttl_ttl {
-    	padding-left: 2em;
-	    grid-column-start: 1;
-	    grid-column-end: 2;
-    	justify-self: start;
-    }
+@mixin cl_dtll($c_lnks, $c_hvr) {
+	@include ln_ttl_lnks($c_lnks, $c_hvr);
+	.dscrpcn {
+		font-weight: bold;
+	}
 
-    .ttl_lnks {
-    	padding-right: 10px;
-	    grid-column-start: 2;
-	    grid-column-end: 3;
-    	justify-self: end;
+	.cllps {
+		padding: 14px;
+    	background-color: white;
+    	color: black;
+		font-size: 10px;
+	}
+}
 
-    	a {
-    		color: white;
-            text-decoration: none;
-    	}
-
-    	a:hover {
-    		color: gray;
-    	}
-    }
+.cl_bjt {
+	@include cl_bjt_bs($c_cl_bg, $c_cl_brd);
+	@include cl_dtll(black, gray);
 }
 
 /* LAYOUT INDEX */
@@ -63,83 +53,4 @@ $cl_ob: #eeeeee;
 	    grid-column-end: 3;
     }
 
-}
-
-/* LAYOUT OBJETO */
-
-.cl {
-	padding: 10px;
-    border: 1px solid $cl_th;
-    border-radius: 3px 3px 3px 3px;
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-	background-color: $cl_ob;
-	font-size: 13px;
-
-	.ttl {
-    	font-weight: bold;
-		display: grid;
-		grid-template-columns: auto 100px;
-	    grid-gap: 10px;
-	    justify-items: stretch;
-
-	    .ttl_ttl {
-		    grid-column-start: 1;
-		    grid-column-end: 2;
-	    	justify-self: start;
-
-	    }
-
-	    .ttl_links {
-			font-size: 10px;
-		    grid-column-start: 2;
-		    grid-column-end: 3;
-	    	justify-self: end;
-	    }
-
-    	a {
-            text-decoration: none;
-    	}
-
-    	a:hover {
-    		color: gray;
-    	}
-	}
-
-	.cllps {
-		padding: 14px;
-    	background-color: white;
-    	color: black;
-		font-size: 10px;
-	}
-
-	.cnts_pg {
-		color: blue;
-    	font-weight: bold;
-		display: grid;
-		grid-template-columns: auto 100px;
-	    grid-gap: 10px;
-	    justify-items: stretch;
-
-	    .mnts {
-		    grid-column-start: 1;
-		    grid-column-end: 2;
-	    	justify-self: start;
-
-	    }
-
-	    .lnks {
-			font-size: 10px;
-		    grid-column-start: 2;
-		    grid-column-end: 3;
-	    	justify-self: end;
-	    }
-
-    	a {
-            text-decoration: none;
-    	}
-
-    	a:hover {
-    		color: gray;
-    	}
-	}
 }

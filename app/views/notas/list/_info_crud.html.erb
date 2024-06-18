@@ -1,0 +1,16 @@
+<div class="ttl_lnks">
+	<div class="ttl">
+
+		<i class="bi bi-cone-striped text-<%=objeto.color_text%>"></i>
+		<%= dma_hm(objeto.created_at) %>
+		<i class="bi bi-dot"></i>
+		<%= objeto.perfil.nombre_perfil %>
+
+	</div>
+	<div class="lnks">
+		<% if objeto.perfil.id == perfil_activo.id or admin? %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		<% end %>
+
+	</div>
+</div>

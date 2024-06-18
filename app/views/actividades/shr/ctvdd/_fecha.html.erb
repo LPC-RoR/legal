@@ -1,5 +1,5 @@
-<div class="fch text-<%= ['realizada', 'cancelada'].include?(objeto.estado) or  (objeto.fecha < @hoy) ? 'muted' : 'primary' %>">
-	<div class="fch_fch">
+<div class="ttl_lnks text-<%= ['realizada', 'cancelada'].include?(objeto.estado) or  (objeto.fecha < @hoy) ? 'muted' : 'primary' %>">
+	<div class="ttl">
 
 		<!-- ICONO SEGÚN TIPO DE ACTIVIDAD -->
 		<% if objeto.tipo == 'Audiencia' %>
@@ -24,7 +24,7 @@
 		<% end %>
 
 	</div>
-	<div class="fch_lnks">
+	<div class="lnks">
 
 		<!-- CAMBIO DE ESTADO -->
 		<% unless ['Audiencia', 'Hito'].include?(objeto.tipo)  or (objeto.fecha < @hoy) %>

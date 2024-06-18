@@ -42,6 +42,8 @@ class CausasController < ApplicationController
 
     set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos', operacion?]] )
 
+    # Prueba de Docsplit
+
     case @options[:menu]
     when 'Agenda'
       @hoy = Time.zone.today

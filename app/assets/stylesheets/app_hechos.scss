@@ -1,0 +1,6 @@
+// @include bx_bs($c_bg, $c_brd, $fnt_sz);
+@import "bx_bs";
+
+.hc_box {
+	@include bx_bs($c_hc_bg, $c_hc_brd, 14px);
+}

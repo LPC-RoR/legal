@@ -3,46 +3,16 @@
 .cmn {
     margin: 0;
     padding-bottom: 10px;
-    border: 1px solid #d7dbdd;
+    background-color: $c_mn_bg;
+    border: 1px solid $c_mn_brd;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     font-family: 'Raleway', sans-serif;
-
-    /* TITULO */
-    .cmn_ttl {
-        background-color: $app_clear;
-        padding: 1em .5em .5em .5em;
-        text-align: center;
-        color: white;
-
-        a {
-            text-decoration: none;
-            color: white;
-
-            &:hover {
-                color: #1a5276;
-            }
-        }
-    }
 
     .cmn_lst {
         line-height: 18px;
         font-size: 13px;
-
-        .itm_ttl {
-            padding: 5px 20px;
-            background-color: white;
-            color: black;
-            font-weight: bold;
-        }
-
-        .itm_slctd {
-            padding-left: 20px;
-            background-color: #abc4ff;
-            color: white;
-            font-weight: bold;
-        }
 
         ul {
             margin: 0;
@@ -54,17 +24,34 @@
                 padding: 3px 20px;
                 display: block;       
                 text-decoration: none;
-                color: black; 
+                color: $c_mn_itm_lnk; 
             }
 
             a:hover {
                 color: white;
-                background-color: #abc4ff;
+                background-color: $c_mn_itm_hvr;
+            }
+        }
+
+        .itm_slctd {
+            padding-left: 20px;
+            background-color: $c_mn_sltd_bg;
+            color: $c_mn_sltd_fnt;
+            font-weight: bold;
+
+            a {
+                padding: 3px 20px;
+                display: block;       
+                text-decoration: none;
+                color: $c_mn_sltd_lnk; 
+            }
+
+            a:hover {
+                color: white;
+                background-color: $c_mn_sltd_hvr;
             }
         }
     }
-
-
 }
 
 /* DISTRIBUCION DEL MENU */

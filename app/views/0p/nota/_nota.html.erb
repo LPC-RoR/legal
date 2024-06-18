@@ -1,0 +1,19 @@
+<div class="app_nt_<%=clr%>">
+	<div class="ttl_lnks">
+		<div class="ttl">
+			<% if clr =='g' %>
+				<i class="bi bi-dot text-info"></i>
+			<% elsif clr == 'y' %>
+				<i class="bi bi-exclamation-lg text-warning"></i>
+			<% elsif  clr == 'r' %>
+				<i class="bi bi-cone-striped text-danger"></i>
+			<% end %>
+			<%= nota %>
+		</div>
+		<% unless objeto.blank? %>
+			<div class="lnks">
+				<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+			</div>
+		<% end %>
+	</div>
+</div>

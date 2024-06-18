@@ -1,3 +1,4 @@
+<% unless objeto.sin_cargo? %>
 <small><small>
 	<% if objeto.facturacion.blank? %>
 		<% unless ( objeto.tar_servicio.blank? and ( objeto.moneda.blank? or objeto.monto.blank? ) ) %>
@@ -15,3 +16,4 @@
 		<% end %>
 	<% end %>
 </small></small>
+<% end %>

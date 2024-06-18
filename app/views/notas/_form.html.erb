@@ -1,0 +1,47 @@
+<%= form_with(model: nota) do |form| %>
+  <% if nota.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(nota.errors.count, "error") %> prohibited this nota from being saved:</h2>
+
+      <ul>
+        <% nota.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :ownr_clss, style: "display: block" %>
+    <%= form.text_field :ownr_clss %>
+  </div>
+
+  <div>
+    <%= form.label :ownr_id, style: "display: block" %>
+    <%= form.number_field :ownr_id %>
+  </div>
+
+  <div>
+    <%= form.label :perfil_id, style: "display: block" %>
+    <%= form.number_field :perfil_id %>
+  </div>
+
+  <div>
+    <%= form.label :nota, style: "display: block" %>
+    <%= form.text_field :nota %>
+  </div>
+
+  <div>
+    <%= form.label :prioridad, style: "display: block" %>
+    <%= form.text_field :prioridad %>
+  </div>
+
+  <div>
+    <%= form.label :realizado, style: "display: block" %>
+    <%= form.check_box :realizado %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

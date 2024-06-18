@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @seccion %>
+
+<div>
+  <%= link_to "Edit this seccion", edit_seccion_path(@seccion) %> |
+  <%= link_to "Back to secciones", secciones_path %>
+
+  <%= button_to "Destroy this seccion", @seccion, method: :delete %>
+</div>

@@ -1,5 +1,5 @@
-<div class="ttl">
-	<div class="ttl_ttl">
+<div class="ttl_lnks">
+	<div class="ttl">
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver Detalle Causa'} do %>
 				<%= objeto.rit %>
 			<% end %> 
@@ -7,7 +7,7 @@
 			<i class="bi bi-award text-primary"></i> Causa Ganada
 		<% end %>
 	</div>
-	<div class="ttl_lnks">
+	<div class="lnks">
 		<%= render layout: '0p/collapse/link', locals: {label: 'Detalle', objeto: objeto, tooltip: 'Más información'} do %>
 			<i class="bi bi-plus"></i>
 		<% end %>

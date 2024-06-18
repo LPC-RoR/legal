@@ -1,11 +1,12 @@
-<%= form_for :tar_servicio, url: "/asesorias/#{objeto.id}/set_tar_servicio" do |form| %>
-	<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :tar_servicio_id, label: 'Tarifa de Asesoría' } %>
-	<div class='form-inline'>
+<div class="cllps">
+	<%= form_for :tar_servicio, url: "/asesorias/#{objeto.id}/set_tar_servicio" do |form| %>
+		<div class='form-inline'>
 
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tar_servicio_id, colection: objeto.cliente.servicios.order(:descripcion).collect { |ts| [ts.descripcion, ts.id] }, display_field: 'descripcion', prompt: 'Tarifa de Asesoría' } %> 
+			<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tar_servicio_id, colection: objeto.cliente.servicios.order(:descripcion).collect { |ts| [ts.descripcion, ts.id] }, display_field: 'descripcion', prompt: 'Tarifa de Asesoría' } %> 
 
-		<button type="submit" class="btn btn-info btn-xs">
-		   <i class="bi bi-caret-right"></i>
-		</button>
-	</div>
-<% end  %>
+			<button type="submit" class="btn btn-info btn-xs">
+			   <i class="bi bi-caret-right"></i>
+			</button>
+		</div>
+	<% end  %>
+</div>

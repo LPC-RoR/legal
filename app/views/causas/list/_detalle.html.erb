@@ -1,4 +1,8 @@
-<%= objeto.causa %>
+<div class="'dscrpcn">
+	<%= objeto.causa %>
+</div>
 <%= render layout: '0p/collapse/display', locals: {label: 'Detalle', objeto: objeto} do %>
-	<%= render partial: 'causas/list/display_detalle', locals: {objeto: objeto} %>
+	<div class="cllps">
+		<%= render partial: 'causas/list/display_detalle', locals: {objeto: objeto} %>
+	</div>
 <% end %>

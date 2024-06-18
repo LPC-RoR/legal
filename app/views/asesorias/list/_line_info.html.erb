@@ -1,5 +1,4 @@
-<small><small>
-	<i><%= objeto.cliente.razon_social %></i></br>
+<div class="dscrpcn">
 	<% if objeto.fecha.blank? %>
 		</i> <%= dma(objeto.created_at) %>
 	<% else %>
@@ -9,5 +8,5 @@
 		<i class="bi bi-dot"></i>
 		<i class="bi bi-alarm"></i> <%= dma(objeto.plazo) %>
 	<% end %>
-</small></small>
-</br>
+	<%= objeto.cliente.razon_social %>
+</div>

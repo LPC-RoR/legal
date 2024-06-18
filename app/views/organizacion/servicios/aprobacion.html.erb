@@ -5,18 +5,16 @@
 <% @coleccion['tar_calculos'].each do |tar_calculo| %>
 	<%= render partial: "tarifas/tar_calculos/shr/titulo_aprobacion", locals: {objeto: tar_calculo} %>
 
-	<div class="f_50lft_col">
-		<div class="lft">
-			<% if tar_calculo.owner.class.name == 'Causa' %>
-						<% unless tar_calculo.owner.valores_cuantia.empty? %>
-							<div class="app_box">
+	<div class="cs_box">
+		<div class="f_50lft_col">
+			<div class="lft">
+				<% if tar_calculo.owner.class.name == 'Causa' %>
+							<% unless tar_calculo.owner.valores_cuantia.empty? %>
 								<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: tar_calculo.owner, porcentaje_cuantia: false, clss: 'ln_vlr_cnt'} %>
-							</div>
-						<% end %>
-			<% end %>
-		</div>
-		<div class="rght">
-			<div class="cntnt_box">
+							<% end %>
+				<% end %>
+			</div>
+			<div class="rght">
 				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: tar_calculo.tar_pago, owner: tar_calculo.owner} %>
 
 				<% if tar_calculo.tar_pago.requiere_uf == true and uf_fecha(fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)).blank? %>

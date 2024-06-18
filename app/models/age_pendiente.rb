@@ -3,7 +3,7 @@ class AgePendiente < ApplicationRecord
 
 
 	def text_color
-		self.estado == 'realizado' ? 'muted' : self.prioridad
+		self.estado == 'realizado' ? 'muted' : 'dark'
 	end
 
 end

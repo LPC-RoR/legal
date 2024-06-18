@@ -63,11 +63,14 @@ module Cmenu
 				items: {
 					'tramitación' => 'En Tramitación',
 					'terminada' => 'Terminadas',
-					'cerrada' => 'Cerradas'
+					'cerrada' => 'Cerradas',
+					'CartaDespido' => 'Carta de despido'
 				},
 				selectors: [
 					['Multas', admin?],
-					['Redacciones', admin?]
+					['CartaDespido', admin?],
+					['Redacciones', admin?],
+					['Consultas', admin?]
 				]
 			},
 			'cargos' => {
@@ -138,6 +141,12 @@ module Cmenu
 				]
 			}
 		}
+	end
+
+	def display_name(c, item)
+		k_name = item.class.name == 'String' ? item : item[0]
+		d_name = cmenu_clss[c][:items][k_name]
+		d_name.blank? ? k_name : d_name
 	end
 
 	def first_estado(controller)

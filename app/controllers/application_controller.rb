@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 	helper_method :nombre_dia, :nombre3_dia, :load_calendario, :get_cal_dia, :dyf, :prfx_dia
 	helper_method :check_tipo_usuario, :lm_check_tipo_usuario, :check_crud, :check_k_estados, :check_st_estado
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
-	helper_method :cmenu_clss, :first_estado, :first_selector
+	helper_method :cmenu_clss, :first_estado, :first_selector, :display_name
 
 	# ************************************************************************** COLECCINES DE ESTADOS
  

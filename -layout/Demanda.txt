@@ -1,0 +1,1679 @@
+PROCEDIMIENTO:
+
+ORDINARIO
+
+MATERIA:
+
+UNIDAD ECONOMICA, SUBTERFUGIO
+LABORAL,
+SUBCONTRATACION
+LABORAL, DESPIDO INJUSTIFICADO,
+NULIDAD DEL DESPIDO, COBRO DE
+INDEMNIZACIONES
+LEGALES
+Y
+PRESTACIONES LABORALES.
+
+DEMANDANTE:
+
+LUISA DEL PILAR NABALON VALDES
+
+RUN:
+
+11.109.355-5
+
+DOMICILIO:
+
+MIRAFLORES
+SANTIAGO
+
+ABOGADO PATROCINANTE (1):
+
+PABLO JAVIER HUANEL GALLARDO
+
+RUN:
+
+17.292.010-1
+
+ABOGADO PATROCINANTE (2):
+
+ÁLVARO GUERRA GUTIÉRREZ
+
+RUN:
+
+17.677.189-5
+
+ABOGADO PATROCINANTE (3):
+
+JAVIERA IGNACIA BRAVO CARO
+
+RUN:
+
+19.186.482-4
+
+ABOGADO PATROCINANTE (4):
+
+EMELLY ROXANA NARVÁEZ VALDÉS
+
+RUN:
+
+15.755.511-1
+
+ABOGADO PATROCINANTE (5):
+
+MAXIMILIANO CARRION SOTELO
+
+RUN:
+
+19.743.211-K
+
+DOMICILIO TODOS:
+
+MIRAFLORES
+SANTIAGO
+
+CORREO ELECTRÓNICO:
+
+notificacionesderecholaboral@gmail.com
+
+DEMANDADO (1):
+
+INVERSIONES
+LATAM SPA
+
+RUT:
+
+77.528.365-3
+
+REPRESENTANTE LEGAL:
+
+MARIA ELENA SUAREZ VIDAL
+
+RUN:
+
+14.130.350-3
+
+1
+
+113,
+
+N°113,
+
+OFICINA
+
+OFICINA
+
+51,
+
+51,
+
+CYBERCONNECTED
+
+DOMICILIO AMBOS:
+
+AV CARLOS VALDOVINOS
+MIGUEL
+
+856, SAN
+
+DEMANDADO (2):
+
+SOCIEDAD
+LTDA
+
+SYNERGO
+
+RUT:
+
+76.226.749-7
+
+REPRESENTANTE LEGAL:
+
+MARIA ELENA SUAREZ VIDAL
+
+RUN:
+
+14.130.350-3
+
+DEMANDADO (3)
+
+SOCIEDAD COMERCIAL SYNERGO SPA
+
+RUT
+
+77.690.843-6
+
+REPRESENTANTE LEGAL:
+
+CECILIA DEL
+HERNÁNDEZ
+
+RUN:
+
+12.282.728-3
+
+DOMICILIO AMBOS:
+
+AV CARLOS VALDOVINOS
+MIGUEL
+
+DEMANDADO (4)
+
+INVERSIONES JEBEN SPA
+
+RUT:
+
+76.134.395-5
+
+REPRESENTANTE LEGAL:
+
+MARIA ELENA SUAREZ VIDAL
+
+RUN:
+
+14.130.350-3
+
+DOMICILIO AMBOS:
+
+AV CARLOS VALDOVINOS
+MIGUEL
+
+DEMANDADO (5)
+
+PROMOCIONES Y EVENTOS ISHA SPA
+
+RUT:
+
+76.412.394-8
+
+REPRESENTANTE LEGAL:
+
+CECILIA DEL ROSARIO GONZÁLEZ
+HERNÁNDEZ
+
+RUN:
+
+12.282.728-3
+
+DOMICILIO AMBOS:
+
+AV CARLOS VALDOVINOS
+MIGUEL
+
+2
+
+COMERCIAL
+
+ROSARIO
+
+GONZÁLEZ
+
+856, SAN
+
+856, SAN
+
+856, SAN
+
+DEMANDADO (6)
+
+COMERCIAL
+LIMITADA
+
+RUT:
+
+76.138.239-K
+
+REPRESENTANTE LEGAL:
+
+CECILIA DEL ROSARIO GONZÁLEZ
+HERNÁNDEZ
+
+RUN:
+
+12.282.728-3
+
+DOMICILIO AMBOS:
+
+AV CARLOS VALDOVINOS
+MIGUEL
+
+DEMANDADO (7)
+
+INMOBILIARIA S&G HEBRON SPA
+
+RUT:
+
+77.073.914-4
+
+REPRESENTANTE LEGAL:
+
+CECILIA DEL ROSARIO GONZÁLEZ
+HERNÁNDEZ
+
+RUN:
+
+12.282.728-3
+
+DOMICILIO AMBOS:
+
+AV CARLOS VALDOVINOS
+MIGUEL
+
+856, SAN
+
+DEMANDADO (8)
+
+SOCIEDAD COMERCIAL
+CENTER SPA
+
+BUSINESS
+
+RUT:
+
+77.261.705-4
+
+REPRESENTANTE LEGAL:
+
+MARIA ELENA SUÁREZ VIDAL
+
+RUN:
+
+14.130.350-3
+
+DOMICILIO AMBOS:
+
+CARLOS
+MIGUEL
+
+DEMANDADO (9)
+
+SOCIEDAD
+LIMITADA
+
+RUT:
+
+76.291.977-K
+3
+
+SERVIEXPRESS
+
+VALDOVINOS
+
+COMERCIAL
+
+856, SAN
+
+856,
+
+SAN
+
+KAIZEN
+
+REPRESENTANTE LEGAL:
+
+CECILIA DEL ROSARIO GONZÁLEZ
+HERNÁNDEZ
+
+RUN:
+
+12.282.728-3
+
+DOMICILIO AMBOS:
+
+AV CARLOS VALDOVINOS 856, SAN
+MIGUEL
+
+DEMANDADO (10)
+
+CECILIA DEL ROSARIO GONZALEZ
+HERNANDEZ
+
+RUT:
+
+12.282.728-3
+
+DOMICILIO:
+
+AV CARLOS VALDOVINOS
+MIGUEL
+
+DEMANDADO (11)
+
+MOISES ELISEO SALAZAR CONA
+
+RUT:
+
+12.690.011-2
+
+DOMICILIO:
+
+AV CARLOS VALDOVINOS 856, SAN
+MIGUEL
+
+DEMANDADO (12)
+
+MARIA ELENA SUAREZ VIDAL
+
+RUT:
+
+14.130.350-3
+
+DOMICILIO:
+
+AV CARLOS VALDOVINOS 856, SAN
+MIGUEL
+
+DEMANDADO SOLIDARIO (1):
+
+COMPAÑÍA DE SEGUROS VIDA CAMARA
+S.A
+
+RUT:
+
+99.003.000-6
+
+856, SAN
+
+REPRESENTANTE LEGAL:
+
+ANDREA FLOODY UGARTE
+
+RUN:
+
+14.553.917-K
+
+DOMICILIO AMBOS:
+
+AV APOQUINDO 6750, PISO 10, LAS CONDES
+
+DEMANDADO SOLIDARIO (2):
+
+BANCO FALABELLA
+
+RUT:
+
+96.509.660-4
+
+REPRESENTANTE LEGAL:
+
+RODRIGO IGNACIO PINO GONZÁLEZ
+4
+
+RUN:
+
+14.123.291-6
+
+DOMICILIO AMBOS:
+
+MONEDA 970, SANTIAGO
+
+DEMANDADO SOLIDARIO (3):
+
+WOM S.A.
+
+RUT:
+
+78.921.690-8
+
+REPRESENTANTE LEGAL:
+
+MARCELO FRANCISCO FICA ARÁNGUIZ
+
+RUN:
+
+13.953.586-3
+
+DOMICILIO AMBOS:
+
+GENERAL MACKENNA 1369, SANTIAGO
+
+DEMANDADO SOLIDARIO (4):
+
+CENCOSUD S.A
+
+RUT:
+
+93.834.000-5
+
+REPRESENTANTE LEGAL:
+
+ANDREAS GEBHARDT STROBEL
+
+RUN:
+
+7.033.726-6
+
+DOMICILIO AMBOS:
+
+AV KENNEDY 9001, LAS CONDES
+
+DEMANDADO SOLIDARIO (5):
+
+BANCO SANTANDER CHILE
+
+RUT:
+
+97.036.000-K
+
+REPRESENTANTE LEGAL:
+
+JORGE ARTURO PEÑA COLLAO
+
+RUN:
+
+8.190.497-9
+
+DOMICILIO AMBOS:
+
+BANDERA 140, SANTIAGO
+
+DEMANDADO SOLIDARIO (6):
+
+RENDIC HERMANOS S.A. (UNIMARC)
+
+RUT:
+
+81.537.600-5
+
+REPRESENTANTE LEGAL:
+
+TATIANA ANDREA RIESLE RUDOLPHY
+
+RUN:
+
+13.633.842-0
+
+DOMICILIO AMBOS:
+
+CERRO EL PLOMO 5680, PISO 7, LAS
+CONDES
+
+DEMANDADO SOLIDARIO (7):
+
+BANCO ESTADO
+
+RUT:
+
+99.578.880-2
+
+REPRESENTANTE LEGAL:
+
+DENIS ALFREDO DAROCH GUTIÉRREZ
+
+RUN:
+
+9.537.295-3
+
+DOMICILIO AMBOS:
+
+NUEVA YORK 9, PISO 12, SANTIAGO
+5
+
+DEMANDADO SOLIDARIO (8):
+
+CLARO CHILE S.A.
+
+RUT:
+
+96.799.250-K
+
+REPRESENTANTE LEGAL:
+
+JORGE PIZARRO ACEVEDO
+
+RUN:
+
+8.541.351-1
+
+DOMICILIO AMBOS:
+
+AV EL SALTO 5450, HUECHURABA
+
+EN LO PRINCIPAL: DEMANDA POR DECLARACIÓN UNIDAD ECONOMICA,
+SUBTERFUGIO
+LABORAL,
+SUBCONTRATACION
+LABORAL,
+DESPIDO
+INJUSTIFICADO, NULIDAD DEL DESPIDO, COBRO DE INDEMNIZACIONES
+LEGALES Y PRESTACIONES LABORALES; EN EL PRIMER OTROSÍ: FORMA DE
+NOTIFICACIÓN; EN EL SEGUNDO OTROSÍ: PATROCINIO Y PODER.
+
+S.J.L. DEL TRABAJO DE SAN MIGUEL
+
+LUISA DEL PILAR NABALON VALDES, ejecutiva de telemarketing,
+domiciliada para estos efectos, en Miraflores 113, oficina 51, comuna y ciudad de Santiago,
+a US., respetuosamente, digo:
+Que, por este acto, y en virtud de lo dispuesto, entre otros, en los artículos 3, 161,
+162, 168, 183-A , 183-B, 168, 507 y siguientes del Código del Trabajo, vengo en interponer
+demanda en procedimiento ordinario laboral por declaración de unidad económica ,
+subterfugio laboral, subcontratación laboral, despido injustificado, nulidad del despido,
+cobro de indemnizaciones legales y prestaciones laborales, en su calidad de unidad
+económica, en contra de a) INVERSIONES CYBERCONNECTED LATAM SPA, RUT
+77.528.365-3, representada legalmente por MARIA ELENA SUAREZ VIDAL, cédula de
+identidad 14.130.350-3, b) SOCIEDAD COMERCIAL SYNERGO LTDA, RUT
+76.226.749-7, representada legalmente por MARIA ELENA SUAREZ VIDAL, cédula de
+identidad 14.130.350-3; c) SOCIEDAD COMERCIAL SYNERGO SPA, RUT
+77.690.843-6; representada legalmente por CECILIA DEL ROSARIO GONZÁLEZ
+HERNÁNDEZ, cédula de identidad 12.282.728-3; d) INVERSIONES JEBEN SPA, RUT
+76.134.395-5; representada legalmente por MARIA ELENA SUAREZ VIDAL, cédula de
+identidad 14.130.350-3 e) PROMOCIONES Y EVENTOS ISHA SPA, RUT 76.412.3948; representada legalmente por CECILIA DEL ROSARIO GONZÁLEZ HERNÁNDEZ,
+6
+
+cédula de identidad 12.282.728-3 f) COMERCIAL SERVIEXPRESS LIMITADA, RUT
+76.138.239-K representada legalmente por CECILIA DEL ROSARIO GONZÁLEZ
+HERNÁNDEZ, cédula de identidad 12.282.728-3; g) INMOBILIARIA S&G HEBRON
+SPA, RUT 77.073.914-4; representada legalmente por CECILIA DEL ROSARIO
+GONZÁLEZ HERNÁNDEZ, cédula de identidad 12.282.728-3 h) SOCIEDAD
+COMERCIAL BUSINESS CENTER SPA, RUT 77.261.705-4; representada legalme nte
+por MARIA ELENA SUAREZ VIDAL, cédula de identidad 14.130.350-3, i) SOCIEDAD
+COMERCIAL KAIZEN LIMITADA, RUT 76.291.977-k, representada legalmente por
+CECILIA DEL ROSARIO GONZÁLEZ HERNÁNDEZ, cédula de identidad 12.282.728-3;
+j) CECILIA DEL ROSARIO GONZALEZ HERNANDEZ, cédula de identidad
+12.282.728-3; k) MOISES ELISEO SALAZAR CONA, cédula de identidad 12.690.0112; k) MARIA ELENA SUAREZ VIDAL, cédula de identidad 14.130.350-3; TODOS CON
+DOMICILIO PARA ESTOS EFECTOS EN CARLOS VALDOVINOS 856, SAN
+MIGUEL, REGIÓN METROPOLITANA, en adelante el “ ex empleador”, “el
+demandado” o “SYNERGO”; y además interpongo demanda por su responsabilidad
+solidaria o subsidiaria, conforme a los artículos 183-A y siguientes del Código del Trabajo,
+en contra de: a) COMPAÑÍA DE SEGUROS VIDA CAMARA S.A., rol único tributario
+99.003.000-6 sociedad del giro de su denominación, representada legalmente por don
+ANDREA FLOODY UGARTE, cédula de identidad N°14.553.917-K, ambos domiciliados
+en AV APOQUINDO 6750, PISO 10, LAS CONDES, en adelante “VIDA CAMARA”; b)
+BANCO FALABELLA , rol único tributario N°96.509.660-4 , sociedad del giro de su
+denominación, representada legalmente por RODRIGO IGNACIO PINO GONZÁLEZ,
+cédula de identidad Nº14.123.291-6, ambos domiciliados en MONEDA 970, PISO 17,
+SANTIAGO; en adelante “BANCO FALABELLA; C) WOM S.A., rol único tributario
+Nº78.921.690-8, sociedad del giro de su denominación, representada legalmente por
+MARCELO FRANCISCO FICA ARÁNGUIZ, cedula de identidad Nº13.953.586-3, ambos
+domiciliados en GENERAL MACKENNA 1369, SANTIAGO, en adelante “WOM”; D)
+CENCOSUD S.A, rol único tributario Nº93.834.000-5, sociedad del giro de su
+denominación, representada legalmente por ANDREAS GEBHARDT STROBEL, cédula de
+identidad Nº7.033.726-6, ambos domiciliados en AV KENNEDY 9001, LAS CONDES; E)
+BANCO SANTANDER CHILE, rol único tributario Nº97.036.000-K, sociedad del giro de
+su denominación, representada legalmente por JORGE ARTURO PEÑA COLLAO, cédula
+de identidad Nº8.190.497-9, ambos domiciliados en BANDERA 140, SANTIAGO; F)
+RENDIC HERMANOS S.A. (UNIMARC), rol único tributario Nº81.537.600-5, sociedad
+del giro de su denominación, representada legalmente por TATIANA ANDREA RIESLE
+RUDOLPHY, cédula de identidad Nº13.633.842-0, ambos domiciliados en CERRO EL
+PLOMO 5680, PISO 7, LAS CONDES; G) BANCO ESTADO, rol único tributario
+Nº99.578.880-2, sociedad del giro de su denominación, representada legalmente por DENIS
+ALFREDO DAROCH GUTIÉRREZ, cédula de identidad Nº9.537.295-3, ambos
+domiciliados en NUEVA YORK 9, PISO 12, SANTIAGO; H) CLARO CHILE S.A., rol
+único tributario Nº96.799.250-K, sociedad del giro de su denominación, representada
+7
+
+legalmente por JORGE PIZARRO ACEVEDO, cédula de identidad Nº8.541.351-1, ambos
+domiciliados en AV EL SALTO 5450, HUECHURABA , conforme a la relación
+circunstanciada de los hechos y al amparo de las normas de derecho que los sustentan, las
+que a continuación paso a exponer:
+
+I.
+
+CADUCIDAD,
+COMPETENCIA,
+LEGITIMACIÓN
+ADMISIBILIDAD Y PROCEDIMIENTO:
+
+ACTIVA,
+
+1. Caducidad: Fui despedida con fecha 27 de marzo 2024, por lo que acorde al mandato
+contenido en el artículo 168 del Código del Trabajo, me encuentro dentro del plazo
+legal para interponer la presente acción.
+2. Competencia: Conforme lo dispone el artículo 423 del Código del Ramo, en
+concordancia con el artículo 420, letra a) del mismo cuerpo legal, US. detenta la
+competencia territorial y debido a la materia para conocer de la cuestión que se
+plantea a través de la presente demanda.
+3. Legitimación Activa: De acuerdo con lo establecido en el artículo 168 del Código del
+Trabajo, nos corresponde exclusivamente la legitimación activa para requerir la
+correspondiente acción.
+4. Admisibilidad: La presente demanda resulta plenamente admisible, en atención a que
+su interposición se ha llevado a cabo dentro del término legal que para ello ordena el
+artículo 168 del Código del Trabajo.
+5. Procedimiento: Conforme lo dispone el artículo 3 y 507 del Código del Trabajo en
+cuanto al procedimiento que rige la declaración de unidad económica, se debe aplicar
+el procedimiento ordinario.
+
+II.
+
+RELACIÓN DE LOS HECHOS:
+
+1. ANTECEDENTES DE LA RELACIÓN LABORAL:
+1.1) Comencé a prestar servicios para SYNERGO, ejerciendo mis labores en sus
+dependencias ubicadas en Carlos Valdovinos 856, San Miguel, a contar del 04 de
+septiembre de 2013 en calidad de “Operadora de Telemarketing”, para los distintos
+clientes que tenía mi ex empleador, a los cuales les prestaba el servicio de “Call
+Center”, existiendo en la especie régimen de subcontratación con las empresas
+mandantes demandadas tal como se explicará más adelante.
+1.2) La naturaleza de mi contrato era INDEFINIDO.
+1.3) Remuneración: La última remuneración para los efectos del artículo 172 del
+Código del Trabajo, ascendía a la suma de $623.375.8
+
+1.4) Deuda de cotizaciones previsionales: es del caso destacar que mi ex empleador
+no pagó sendos períodos de cotizaciones previsionales en AFP, SALUD y AFC, entre
+otros, en los siguientes meses: enero a marzo de 2024, septiembre a diciembre 2023,
+enero y febrero 2023, noviembre y diciembre 2022, mayo y junio 2021, enero febrero
+y marzo 2021, agosto a noviembre 2020. Incluso algunos períodos no figuran ni
+declarados, razón por la cual vengo en exigir el pago de tales cotizacio nes
+previsionales y solicitar la aplicación de la nulidad del despido o ley bustos.
+1.5) Despido causal 161 del CDT y no pago de finiquito e indemnizaciones : fui
+despedida el 27 de marzo de 2024 por la causal necesidades de la empresa, y
+SYNERGO, al día de hoy, de mala fe, no ha puesto a mi disposición finiquito laboral
+para el pago de las indemnizaciones legales, lo que sumado al no pago de las
+cotizaciones previsionales, evidencian el ardid y fraude laboral que está cometiendo.
+1.6) Feriado pendiente: 21 días de feriado legal más 11.5 días de feriado proporcional,
+para un total de 32.5 días, equivalentes a $675.322.2. DEL DESARROLLO Y TÉRMINO DE LA RELACIÓN LABORAL:
+2.1) Existencia de un régimen de subcontratación: Mi ex empleador dedica su giro al
+servicio de “Call Center”, prestando sus servicios de televenta, cobranza y soporte comercial,
+a las empresas principales o mandantes que les encargan estas funciones.
+El demandado es contratado por diferentes empresas mandantes para poder
+diligenciar los servicios referidos a los procesos de telemarketing, televenta, cobranza y
+soporte comercial en general, que estas empresas resuelven tercerizar.
+Para estos efectos, tenía un incentivo que constituía una remuneración variable, del
+tipo comisión, cuyos valores eran determinados en una tabla especial aplicada a la cartera o
+campaña correspondiente. En este sentido mis funciones implicaban seguir un protocolo en
+las llamadas y transcribir en la plataforma el resultado de las gestiones.
+En este sentido, la circunstancia anterior constituye materialmente un régimen de
+subcontratación entre mi ex empleador y cada uno de sus clientes, empresas principale s ,
+por cuanto existe un contrato comercial entre ambas empresas en donde mi ex
+empleador se obliga a prestar los servicios referidos, lo cual ejecuta por medio de los/las
+trabajadores/as que prestábamos servicios para la empresa contratista, en beneficio de
+la empresa principal y los servicios prestados eran continuos y no esporádicos.
+En efecto, durante mi relación laboral trabajé para las campañas/carteras de las siguie ntes
+empresas principales:
+1.- VIDA CAMARA, ejerciendo labores de venta de seguros de salud para los clientes de tal
+empresa.9
+
+2.- BANCO FALABELLA, ejerciendo labores de venta de cuentas corrientes, créditos de
+consumo y migración, solicitud de superavances.2.- WOM, ejerciendo labores de ventas de planes de teléfonos.
+3.- CENCOSUD, ejerciendo labores de comercializar super avances tarjetas de crédito para
+sus clientes.
+4.- SANTANDER, ejerciendo labores de entrega de información de créditos de consumo
+para los clientes.
+5.- UNIMARC, ejerciendo labores de entrega de superavance de clientes Unimarc tarjeta de
+Unimarc.
+6.- BANCO ESTADO, ejerciendo labores de entrega de información de tarjeta de banco
+estado,
+7.- CLARO, ejerciendo labores de venta de equipos de CLARO.
+
+2.2) Despido injustificado por la causal del artículo 161 inciso primero del Código
+del Trabajo sin el pago de las indemnizaciones: Respecto del despido y tras haber prestado
+servicios permanentes para la demandada por 11 años, mi ex empleador decide poner término
+a mi contrato de trabajo, por medio de una carta de despido de fecha 27 de marzo de 2024,
+fundada en la causal del artículo 161 inciso primero del Código del Trabajo, cuyo tenor era
+el siguiente: “por medio del presente documento, comunicamos a usted que el día 27-032024, nuestra empresa ha decidido poner término a su contrato de trabajo celebrado con
+fecha 01 de julio de 2016, según lo dispuesto en el artículo N° 161 inciso 1 del Código del
+Trabajo, esto es, “Necesidades de la Empresa”, lo hechos en los que se fundamenta la causal
+invocada consisten en la necesidad que enfrenta la empresa de iniciar un complejo proceso
+de racionalización y reorganización interna. Este proceso ha incluido la readecuación de
+cargos y funciones, especialmente en el área donde usted presta servicios, con el objetivo de
+lograr el máximo rendimiento personal y colectivo. Esta necesidad surge a raíz de una baja
+considerable en la nómina de clientes proporcionada por nuestro mandante a partir del mes
+de octubre de 2023, Falabella, lo que no nos da espacio como empresa para reubicar los
+puestos de trabajo, toda vez que la cantidad de clientes por bases enviadas por el mandante,
+ha sido reducida a una cuarta parte, lo que se traduce en una baja significativa de ingresos
+para esta empresa y, a pesar de los esfuerzos por mantener los puestos de trabajo, nos ha
+sido imposible sostener en el tiempo. Por lo expuesto, lamentablemente, nos vemos en la
+necesidad de prescindir de sus servicios.”
+Como SS, podrá apreciar, el despido del cual fui objeto adolece de importante s
+vicios, tanto en la forma, como en el fondo:
+
+10
+
+a) Desde el punto de vista formal, la comunicación del despido, derechamente, no
+contiene hechos que sustenten la causal de despido aplicada, simplemente se limita a
+indicar en forma escueta y genérica, que la determinación de despedirme se fundame nta
+en un proceso de racionalización y reorganización interna, producto de la baja de la
+nómina de clientes entregadas por uno de sus clientes, Falabella, lo que generaría baja
+en los ingresos. En este sentido, la carta de aviso de término no señala los
+fundamentos de la resolución adoptada, basándose en forma genérica en un
+supuesto proceso de racionalización y reorganización, en cuya explicación, se
+advierte que invoca hechos totalmente carentes de contenidos, sin indicación de fechas
+ni explicación detallada de la causal, del supuesto proceso de racionalización, y como
+es que mi despido, además, ayuda a solventar el supuesto estado de necesidad.
+Como SS, podrá advertir, la carta carece de la necesaria motivación, lo que genera
+que la misiva sea defectuosa en términos insubsanables, lo que me permite concluir,
+entonces, que no cumple con el mandato del artículo 162 inciso primero, en relación
+al artículo 454 N°1 del Código del Trabajo, en cuanto a la explicación clara de los
+hechos en los que se funda la causal, provocándome así una situación de completa
+indefensión e incertidumbre. Además, la carta de despido no señala los montos de las
+indemnizaciones legales lo que también constituye una infracción.
+Como puede apreciar US. es imposible para esta parte siquiera presentar prue ba
+en contrario, por cuanto desconozco cuál o cuáles son las conclusiones y
+evaluaciones realizadas, respecto de qué materias propiamente tal y como se
+produciría la racionalización, a que alude mi ex empleador en la carta de despido.
+b) Desde el punto de vista del fondo, la causal de despido se encuentra fundada en
+hechos, falsos, arbitrarios y que no se condicen para nada con lo que ocurre en la
+realidad, pues, se funda en un proceso de reestructuración absolutamente inexistente :
+la empresa carece de algún problema económico, que la ponga en la necesidad de
+reestructurar el área y por ende, despedirme.
+Cabe destacar, además SS., que este empleador utiliza los mismos argumentos sin
+fundamento ni base, incluso yo en el último período me desempeñaba para VIDA
+CAMARA, y no FALABELLA, lo que demuestra el uso injustificado, indebido e
+improcedente y por lo demás, bastante arbitrario, para despedir al personal de manera
+antojadiza, considerando que la empresa tiene múltiples clientes con contratos vigente s
+tales como FALABELLA, CLÍNICA BUPA, SOLVENTA (CRUZ VERDE), RED
+SALUD, FASHIONS PARK, entre otros. Lo anterior hace que la causal imputada a
+mi persona para dar por terminada la relación laboral, deba ser necesariame nte
+declarada improcedente.
+Que cabe tener en consideración que la causal de necesidades de la empresa está
+referida a una causal de término de contrato de trabajo objetiva, por lo que, para que
+pueda ser invocada por el empleador es necesaria la concurrencia de ciertos hechos o
+situaciones que la hagan procedente, no dependiendo de su mera voluntad; así también
+11
+
+la misma se encuentra referida a circunstancias graves o irremediables en que se
+encuentra el empleador, pudiendo tener su origen en motivos derivados del
+funcionamiento de la empresa, como modernización o racionalización de ella, o en
+circunstancias de carácter económico, como las bajas en la productividad, cambio en
+las condiciones de mercado o de la economía, debiendo estos problemas económicos
+no ser transitorios o subsanables y aquí el carácter de necesario del despido,
+constituye un requisito sine qua non de la causal invocada, lo que en mi caso no se
+configura.
+2.3) Del no pago de las indemnizaciones del despido: luego de verificado el despido
+y trascurrido el plazo legal de 10 días hábiles, mi ex empleador no puso a mi
+disposición el finiquito respectivo con el pago de las indemnizaciones legales, las
+cuales se encuentran impagas al día de hoy, lo que evidencia la mala fe del demandado,
+razón por la cual vengo en demandar tales indemnizaciones en estos autos, a saber:
+a) indemnización sustitutiva aviso previo: $623.375.b) indemnización por años de servicios (11): $6.857.125.c) feriado legal y proporcional: 21 días de feriado legal más 11.5 días de feriado
+proporcional, para un total de 32.5 días, equivalentes a $675.322.-
+
+2.4) Existencia de unidad económica y subterfugio laboral: Las demandadas
+INVERSIONES
+CYBERCONNECTED
+LATAM
+SPA,
+SOCIEDAD
+COMERCIAL SYNERGO LTDA, SOCIEDAD COMERCIAL SYNERGO
+SPA, INVERSIONES JEBEN SPA, PROMOCIONES Y EVENTOS ISHA SPA,
+COMERCIAL SERVIEXPRESS LIMITADA, INMOBILIARIA S&G
+HEBRON SPA, SOCIEDAD COMERCIAL BUSINESS CENTER SPA,
+SOCIEDAD COMERCIAL KAIZEN LIMITADA, CECILIA DEL ROSARIO
+GONZALEZ HERNANDEZ, MARIA ELENA SUAREZ VIDAL, MOISES
+ELISEO SALAZAR CONA, constituyen una unidad económica para efectos
+laborales, cumpliendo con los supuestos citados en el artículo 3° del Código del
+Trabajo, en cuanto:
+“Dos o más empresas serán consideradas como un solo empleador para efectos
+laborales y previsionales, cuando tengan una dirección laboral común, y concurran a
+su respecto condiciones tales como la similitud o necesaria complementariedad de los
+productos o servicios que elaboren o presten, o la existencia entre ellas de un
+controlador común.”
+No solo existe entre ellas una confusión de mandos, sino que todas ellas están
+coordinadas y relacionadas por una autoridad común que las organiza y las hace
+funcionar en forma conjunta, quienes son finalmente CECILIA DEL ROSARIO
+12
+
+GONZALEZ HERNANDEZ, MARIA ELENA SUAREZ VIDAL, MOISES
+ELISEO SALAZAR CONA, quienes crearon el grupo de empresas.
+Como puede apreciar US. las sociedades referidas no son más que un disfraz, un
+intento de ocultar la realidad laboral, debido a que él único y verdadero empleador
+son las personas naturales CECILIA DEL ROSARIO GONZALEZ
+HERNANDEZ, MARIA ELENA SUAREZ VIDAL, MOISES ELISEO
+SALAZAR CONA, quienes, por medio de las distintas sociedades señaladas, han
+ejercido una dirección laboral común, actuando como una sola en el ámbito
+empresarial y laboral.
+CECILIA DEL ROSARIO GONZALEZ HERNANDEZ, MARIA ELENA
+SUAREZ VIDAL, MOISES ELISEO SALAZAR CONA, no solo tienen el
+dominio de todas las sociedades demandadas, sino que ejercen todas las funciones de
+administración empresarial y ejercicio directo del giro, lo que implica en las ordenes
+e instrucciones que este daba a sus trabajadores.
+En virtud del principio de la primacía de la realidad, y de la buena fe laboral, es
+posible en este caso notar que las personas naturales son el empleador y el
+empresario, por lo que se concluye que, el como persona natural y las sociedades,
+se confunden entre ellos como el empleador real, por lo que son materialmente
+una unidad económica.
+A propósito de la unidad económica, y el ardid societario podemos señalar o
+siguiente:
+a) INVERSIONES CYBERCONNECTED LATAM SPA: su única o principa l
+accionista es MARIA ELENA SUAREZ VIDAL.
+b) SOCIEDAD COMERCIAL SYNERGO LTDA: los socios son INVERSIONES
+JEBEN SPA y PROMOCIONES Y EVENTOS SHA SPA.
+c) INVERSIONES JEBEN SPA: sus únicos o principales accionistas son CECILIA
+DEL ROSARIO GONZALEZ HERNANDEZ y PROMOCIONES Y EVENTOS
+SHA SPA.
+d) PROMOCIONES Y EVENTOS SHA SPA: su única o principal accionista es
+CECILIA DEL ROSARIO GONZALEZ HERNANDEZ.
+e) COMERCIAL SERVIEXPRESS LIMITADA: sus socios son INVERSIONES
+JEBEN SPA y MOISES ELISEO SALAZAR CONA.
+f) INMOBILIARIA S&G HEBRON SPA: sus únicos o principales socios son
+INVERSIONES JEBEN SPA y PROMOCIONES Y EVENTOS SHA SPA.
+g) SOCIEDAD COMERCIAL BUSINESS CENTER SPA: su única o principa l
+socia es CECILIA DEL ROSARIO GONZALEZ HERNANDEZ.
+h) SOCIEDAD COMERCIAL KAIZEN LIMITADA: sus socios son MARIA
+ELENA SUAREZ VIDAL, e INVERSIONES JEBEN SPA.
+
+13
+
+En este sentido, podemos señalar que detrás de todo el aparataje social, encontramos
+a las tres personas naturales demandadas, quienes son los que dirigen todo.
+Tan evidente es lo anterior, que incluso las cotizaciones previsionales de los
+trabajadores eran pagadas indistintamente por las diferente s sociedades que
+utilizaban, lo que evidencia que todas ellas deben ser consideradas como único
+empleador, teniendo presente además que al igual que en mi caso, existen más
+de 20 trabajadores despedidos en la misma fecha que yo y que tampoco
+recibieron el pago de sus indemnizaciones ni finiquito alguno.
+Respecto a este punto, el inciso segundo del artículo 507 del Código del Trabajo
+sanciona al que utilice cualquier subterfugio, ocultando, disfrazando o alterando su
+individualización o patrimonio y que tenga como resultado eludir el cumplimiento de
+las obligaciones laborales y previsionales que establece la ley o convención.
+El sujeto activo aquí es nuevamente el empleador y los bienes jurídicos protegidos
+son también el crédito laboral y el crédito de la seguridad social y el objeto
+material, la identidad del empleador como sujeto de imputación de tales créditos
+añadiéndose en esta figura la identidad o integridad del patrimonio del empleador en
+donde el trabajador ha de hacer efectivos esos créditos.
+A diferencia de la simulación, el subterfugio es un ilícito de resultado puesto que
+el tipo objetivo exige una consecuencia más allá de la acción y, además, es un tipo
+de lesión ya que se requiere de la afectación del bien jurídico protegido.
+El subterfugio es el medio de comisión del ilícito. De acuerdo con el Diccionario de
+la RAE, subterfugio significa “efugio, escapatoria, excusa artificiosa”. Por su parte,
+el inciso tercero del artículo 507 del Código del Trabajo explica que “Quedan
+comprendidos dentro del concepto de subterfugio referido en el párrafo anterior,
+cualquier alteración de mala fe realizada a través del establecimiento de razones
+sociales distintas, la creación de identidades legales, la división de la empresa, u
+otras que signifiquen para los trabajadores disminución o pérdida de derechos
+laborales individuales o colectivos”
+Para que se consume el ilícito, como consecuencia de la ocultación, disfraz o
+alteración de haberse generado necesariamente una elusión de obligaciones legales o
+convencionales o mirado desde la perspectiva del trabajador, debe efectivamente
+causarse una disminución o pérdida de los derechos laborales individuales o
+colectivos, en especial entre los primeros las gratificaciones o las
+indemnizaciones por años de servicio, por lo que necesariamente debe probarse el
+nexo causal entre la acción de ocultamiento, disfraz o alteración y el perjuicio
+irrogado al trabajador.
+Como ha observado la Excma. Corte Suprema “a la luz del tenor de la norma en
+estudio, resulta evidente que su objeto es desincentivar la realización de actividades
+o actos jurídicos que impliquen afección de derechos laborales por parte de los
+14
+
+empleadores, asociando precisas y determinadas sanciones a las formas comisivas
+que el precepto en estudio se encarga de describir” (Corte Suprema Rol Nº5.8792010)
+En consecuencia, el actuar de las demandadas basado principalmente en el
+ocultamiento de los bienes de la empresa que en apariencia es la responsable
+laboralmente de las obligaciones de sus trabajadores, y que si bien son las
+mismas, actúan bajo una razón social distinta, demostrándose así la intención de
+lesionar los derechos de los trabajadores, lo que hace que los trabajadores, al
+momento de ser desvinculados, se vea en la obligación de incurrir en un gasto
+monetario y de tiempo al interponer las acciones legales correspondientes a fin de que
+sean los Tribunales de Justicia quienes, con el mérito de los antecedentes, declaren
+que aquellas constituyen o no un único empleador y que por tanto, sus
+indemnizaciones por término de contrato no se vean alteradas por la maquinac ió n
+fraudulenta creada por estos.
+Por tanto, queda en evidencia la intencionalidad de las demandadas de afectar o
+lesionar los derechos de los trabajadores, el cual en el caso de autos se manifiesta en
+la ocultación, desviación de los bienes de la empresa llamada a responder de las
+obligaciones laborales y previsionales, a fin de evitar el pago íntegro de las
+indemnizaciones que corresponden, y no pagar las cotizaciones previsiona les,
+eludiendo que estos puedan de forma pura y simple, acceder al momento del término
+de la relación laboral, a las indemnizaciones que le corresponden.
+El artículo 507 N°3 del Código del Trabajo señala que:
+“La determinación acerca de si la alteración de la individualidad del empleador se
+debe o no a la simulación de contratación de trabajadores a través de terceros, o
+bien a la utilización de cualquier subterfugio, ocultando, disfrazando o alterando su
+individualización o patrimonio, y si ello ha tenido como resultado eludir el
+cumplimiento de las obligaciones laborales y previsionales que establece la ley o la
+convención. Si así lo determina, deberá señalar de manera precisa las conductas que
+constituyen dicha simulación o subterfugio y los derechos laborales y previsionales
+que por esta vía se hubieren vulnerado, debiendo aplicar al infractor una multa de
+20 a 300 unidades tributarias mensuales. En estos casos, será aplicable a las multas
+señaladas lo dispuesto en el inciso quinto del artículo 506 de este Código.
+Quedan comprendidos dentro del concepto de subterfugio referido en el párrafo
+anterior, cualquier alteración de mala fe realizada a través del establecimiento de
+razones sociales distintas, la creación de identidades legales, la división de la
+empresa, u otras que signifiquen para los trabajadores disminución o pérdida de
+derechos laborales individuales o colectivos, en especial entre los primeros las
+gratificaciones o las indemnizaciones por años de servicios y entre los segundos el
+derecho a sindicalización o a negociar colectivamente.”
+
+15
+
+La norma es una manifestación del fraude a la ley, regulado expresamente en la ley
+laboral respecto del subterfugio o simulación laboral. El fraude laboral es el
+incumplimiento de una norma o principio laboral imperativo, mediante una conducta
+externa formalmente acorde a otra norma legal que oculta o disimula la elusión de
+aquella.
+Puede concluirse que el fraude a la ley laboral constituye una conducta humana
+tendiente a impedir la eficacia práctica de la ley laboral frustrando, con ello, el
+importante componente social y económico que esta rama del derecho posee y
+que se traduce en un interés general comprometido.
+El fraude a la ley laboral contiene cuatro elementos característicos:
+a) El primero de ellos es la norma cuya eficacia práctica se elude mediante la
+conducta fraudulenta. Esta norma puede ser bien una norma jurídica positiva, bien
+un principio de derecho laboral, en el caso de autos, se intenta eludir los artículos
+162 y 163 del Código del Trabajo, en el sentido de no pagar íntegramente las
+indemnizaciones que por término de contrato corresponden, ni tampoco las
+cotizaciones previsionales.
+b) El segundo elemento del fraude a la ley laboral consiste en el medio que se utiliza
+para obtener el resultado fraudulento. Tal medio consiste en la realización de uno
+o más actos jurídicos de carácter lícito en tal sentido, así, la demandada, en la
+apariencia de sociedades distintas e independientes entre sí, simula una deuda, y en
+base a la misma solicita la declaración de la liquidación forzosa, por medio de la
+empresa relacionada que forma parte del mismo holding empresarial.
+c) En tercer lugar, es posible considerar el resultado producido por dichos actos, el
+cual no necesariamente debe haber sido deseado o buscado por el sujeto infractor de
+ley. Esto, pues el fundamento de la sanción al fraude a la ley laboral está en la
+mantención del ordenamiento jurídico laboral, y la vulneración radica en el caso
+concreto, en el efecto propio de la liquidación, extinguir de pleno Derecho las
+deudas que no hayan sido pagadas con el producto de la liquidación realizada.
+d) Finalmente, el cuarto elemento del fraude a la ley laboral consiste en la sanción a ser
+irrogada al agente por la conducta desplegada. Esta sanción ha de implicar un
+efecto positivo y uno negativo correlativo. El efecto positivo consiste en la aplicación
+efectiva de la norma cuya vigencia práctica era procedente en el caso y que fue
+frustrada por la conducta de fraude. Correlativamente, se niega vigencia a la norma
+cuya aplicación fue eludida por el agente al realizar el o los actos en cuestión, es
+decir, se debe aplicar, en el caso concreto, los artículos 162 y 163, obligando al
+pago de la indemnización sustitutiva del aviso previo e indemnización por años
+de servicio de los trabajadores, y negar aplicación al artículo 255 de la ley N°20.720
+que extingue por el solo ministerio de la ley los saldos insolutos de las obligacio nes
+contraídas por el deudor, el cual es el objetivo perseguido por las demandadas.
+
+16
+
+En consecuencia, según las normas legales estudiadas, y de conformidad a todo lo
+latamente expuesto, al estar en presencia de un evidente, patente, y grosero caso de
+fraude laboral, la demandada debe responder por las indemnizaciones reclamadas,
+además, debe ser multada conforme al artículo 507 del Código del Trabajo, por el
+patente fraude laboral que ha realizado.
+Es por ello que, esta parte, se reserva todas las acciones civiles, penales y
+administrativas, las que serán ejercidas en paralelo, y que deriven de los ilícitos
+cometidos por la apropiación indebida de las cotizaciones de seguridad social,
+entre otros, que puedan resultar de los antecedentes del presente juicio laboral.
+
+III.
+
+CONSIDERACIONES DE DERECHO:
+
+Respecto a las normas constitucionales, legales y reglamentarias que regulan esta
+materia, referiremos a ellas y para el sólo efecto de ilustrar a US., la perspectiva legal de la
+pretensión procesal que sustentamos en este libelo.
+
+1. EN CUANTO AL DESPIDO IMPROCEDENTE:
+El artículo 168 del Código del Trabajo establece que cuando el contrato de trabajo
+termine por aplicación de alguna de las causales del artículo 159, 160 y 161 y considere que
+dicha aplicación es injustificada, indebida o improcedente, o que no se haya invocado
+ninguna causal legal podrá recurrir al juzgado laboral a fin de que este así lo declare. En este
+caso, el juez ordenará el pago de la indemnización a que se refiere el inciso cuarto del artículo
+162. En esta norma, artículo 162 inciso segundo del Código del Trabajo, se señala que “Esta
+comunicación se entregará o deberá enviarse, dentro de los tres días hábiles siguientes al de
+la separación del trabajador”. Agrega el mismo artículo en su inciso 5°: “Para proceder al
+despido de un trabajador por alguna de las causales a que se refieren los incisos precedentes
+o el artículo anterior, el empleador le deberá informar por escrito (al trabajador) el estado de
+pago de las cotizaciones previsionales devengadas hasta el último día del mes anterior del
+despido”.
+A mayor abundamiento, la segunda parte del artículo 168 del Código del Trabajo
+señala que una vez que el juez declare injustificado, indebido o improcedente el despido,
+ordenará el pago de la indemnización a que se refiere el inciso cuarto del artículo 162 del
+mismo Código, esto es, la sustitutiva del aviso previo, y además será obligado a pagar la
+indemnización del inciso segundo del artículo 163, esto es, la indemnización por años de
+servicios, aumentada esta última, en un 30% cuando se hubiere dado término por la
+aplicación indebida de la causal del artículo 161 del Código del Trabajo.
+
+17
+
+2. EN CUANTO A LA ESPECIFICIDAD DE LA CAUSAL INVOCADA:
+Para proceder al despido de un trabajador por la causal del artículo 161 del Código del
+Trabajo, no basta con incluir sólo una descripción general del hecho que suscita el
+término de la relación laboral del trabajador, sino que es menester efectuar una
+descripción pormenorizada de cada uno de los elementos que llevan al empleador a
+tomar la decisión específica, es decir, que genera la necesidad de poner término al
+contrato del trabajador y cómo afecta las diversas áreas de la empresa e impacta en
+específico el área en que el trabajador afectado se desempeña, que fue lo que no ocurrió
+en este caso, pues el empleador en la carta de despido no indica ningún hecho que pueda
+fundamentar la causa legal que invocó para despedirme, limitándose solo a enunciar la
+causal necesidades de la empresa, sin indicar explicación alguna.
+Respecto a este punto, existe abundante jurisprudencia, dentro de la cual podemos citar
+fallos de primera instancia, como el de fecha 19 de mayo de 2021, en causa Rit O-6908-2020
+del 1° Juzgado de Letras del Trabajo de Santiago, el cual, indica en su considerando décimo
+quinto, párrafos 3 y 4, lo siguiente:
+“(…) La causal de necesidades de la empresa, establecimiento o servicio se debe indicar
+en la carta de aviso previo y en los hechos en que se funda, los que deben ser específicos y
+no genéricos. El empleador, debe pues indicar en qué consiste el motivo que hace que sea ineludible disponer la separación del trabajador y, además, de la descripción o relación de
+los hechos debe surgir la necesidad de adoptarla, de lo contrario, pasa a ser un despido libre
+lo cual no se encuentra regulado en nuestro ordenamiento jurídico, sino que más bien, el
+legislador exige un despido debidamente justificado, en una causal objetiva, la cual debe ser
+suficientemente acreditada, en virtud de la protección de la parte más débil de la relación
+laboral, el derecho al trabajo y principio de estabilidad en el empleo.
+Es por ello que al empleador le asiste la carga probatoria de acreditar la
+concurrencia de la causal de despido invocada, los hechos en que se funda, sin poder incluir
+otros hechos no señalados en la carta aviso de despido según lo dispuesto por el legislador
+en el artículo 454 N° 1 inciso 2 del Código del Trabajo, es decir, debe acreditar, que la carta
+de despido contiene los hechos que la justifican, y en tal contexto se debe analizar la prueba,
+rendida por la demandada con el fin de demostrar la existencia de los hechos que acreditan
+a su juicio la existencia de la causal (…).”
+
+3. DEL REQUISITO DE LA OBJETIVIDAD DE LA CAUSAL NECESIDADES
+DE LA EMPRESA
+La Corte Suprema ha establecido las bases de la doctrina jurisprudencial, sujetando la
+configuración de la causa de necesidades de la empresa a la concurrencia de tres exigenc ias
+18
+
+que emanan del mismo precepto legal: que la necesidad se funde en un supuesto técnico o
+económico, que la necesidad sea de sea de carácter objetivo y que haya una relación
+causal entre ésta y la necesaria separación de uno o más trabajadores , y es así, como
+respecto a este requisito específico de la objetividad, existe también abundante
+jurisprudencia, siendo el criterio más reciente, aquel establecido en los siguientes Fallos:
+Unificación de jurisprudencia, causa Rol N°119.179-2020, que en sentencia de fecha
+22 de marzo de 2022, indica en su considerando sexto, lo siguiente:
+“Sexto: Que, para dilucidar lo anterior, se debe tener presente que esta Corte ya se ha
+pronunciado sobre el asunto, inclinándose de manera consistente por la postura expresada
+en el fallo de contraste, por cuanto la interpretación de la norma en examen, a la luz de los
+principios que informan el Derecho del Trabajo y de la historia del mensaje de la ley que la
+introdujo en la legislación y la respectiva discusión parlamentaria, conduce a concluir que
+el empleador sólo puede invocar la causal de que se trata aludiendo a aspectos de carácter
+técnico o económico referidos a la empresa, establecimiento o servicio, y es una de tipo
+objetiva, por ende, no se relaciona con la conducta desplegada por el trabajador, y excede
+la mera voluntad del empleador; razón por la que debe probar los supuestos de hecho que
+den cuenta de la configuración de aquellas situaciones que lo forzaron a adoptar procesos
+de modernización o racionalización en el funcionamiento de la empresa, o de eventos
+económicos, como son las bajas en la productividad o cambio en las condiciones de
+mercado, señalados, a título ejemplar.”
+Otro fallo reciente que confirma el mismo criterio es aquel contemplado en Recurso
+de Unificación de Jurisprudencia de fecha 08 de noviembre de 2021, dictado en causa Rol
+N°76.715-2020, el cual, en su considerando décimo lo siguiente:
+“Décimo: Que, de lo expuesto, se debe concluir que la correcta interpretación del artículo
+161 del Código del Trabajo, en torno a la cual se debe unificar la jurisprudencia, es aquella
+que postula que el empleador puede invocarla para poner término al contrato siempre que
+la desvinculación del trabajador se relacione con aspectos de carácter técnico o económico
+de la empresa, establecimiento o servicio, y que al ser objetiva, no puede fundarse en su
+mera voluntad, sino que en situaciones graves que den cuenta que forzosamente debió
+adoptar procesos de modernización o de racionalización en el funcionamiento de la
+empresa, en circunstancias económicas, como son las bajas en la productividad o el cambio
+en las condiciones de mercado; tal como se sostuvo en las sentencias dictadas por esta Corte
+y que fueron acompañadas a modo de contraste por los recurrentes, postura refrendada en
+las pronunciadas en los autos Rol N°35.742- 2017, de 8 de enero de 2018, y más
+recientemente en el N°1.073-2018, de 20 de marzo de 2019, por lo que no basta la sola
+decisión patronal para justificar la desvinculación del dependiente, ya que requiere de una
+razón adicional, grave y exterior a su intención para sostenerla, exigencia que en este caso
+no concurre.”
+19
+
+Que cabe tener en consideración que la causal de necesidades de la empresa al ser una
+causal de carácter objetiva, ello implica, a su vez, que debe estar referida a circunstancias
+graves o irremediables en que se encuentra el empleador, y en este punto es clave la
+reciente sentencia definitiva de fecha 14 de junio de 2022, dictada en causa rit O-7132-2021,
+del 2° Juzgado de Letras del Trabajo de Santiago, el cual indica en su considerando séptimo,
+lo siguiente:
+“SÉPTIMO: Que, en cuanto a la justificación del despido el tribunal tiene presente la carta
+del mismo, carta que consigna literalmente “La decisión de poner término a su contrato por
+la causal antes señalada se fundamenta en que se ha decidido realizar un proceso de
+racionalización, consistente en la reestructuración de la unidad de operaciones de Buin, en
+la que usted labora, lo que ha implicado la supresión del puesto, en el que usted presta
+servicios hasta la fecha.” a continuación se detallan los ítems que se deben pagar a la parte
+demandante. En relación a esto cabe señalar que el articulo 454 N°1 del Código del Trabajo
+establece que es carga del empleador acreditar los fundamentos facticos consignados en la
+carta de despido no pudiendo añadir otros hechos y en ese orden de ideas debemos dejar
+fuera todo lo explicado por el empleador respecto a que tuvo que despedir a cerca de 1.480
+trabajadores producto del cambio en la modalidad de prestación de los servicios bancarios.
+A ello le añadimos en que no está suficientemente explicada en qué consiste la necesidad del
+servicio, si bien la racionalización es una hipótesis que el legislador contempla dentro del
+artículo 161 no hay que olvidar que lo que se debe analizar es que el despido sea necesario
+para la empresa y en ese orden de ideas, el último libro del profesor Gamonal “El Derecho
+del Trabajo: Doctrina, materiales y casos” en su página 398 y siguientes explica cuáles son
+los elementos que configuran las necesidades de la empresa; para nosotros es sumamente
+relevante destacar que la opinión del autor citado de necesidades de la empresa no
+necesariamente implican reducir perdidas, maximizar utilidades; las necesidades de la
+empresa deben revestir cierta gravedad y en ese orden de ideas el autor señala que debe
+estar en peligro la subsistencia de la empresa, como criterio cuantitativo en cuanto a
+intensidad para estimar que esta causal está justificada, nada de eso hay en la carta de
+despido, no se explica por qué es tan necesario, tampoco se explica en qué modo esto pone
+en peligro la subsistencia de la empresa así que desde ya vamos a estimar que el despido del
+actor es improcedente al tenor del artículo 161 del Código del Trabajo.”
+
+4. DEL RÉGIMEN DE SUBCONTRATACIÓN:
+Presté servicios, como Operadora de Telemarketing, bajo vínculo de subordinación de
+SYNERGO quien, a su vez, es/era contratista de VIDA CAMARA, BANCO FALABELLA,
+WOM, CENCOSUD, SANTANDER, UNIMARC, BANCO ESTADO, CLARO., quienes
+deberán responder solidariamente de las prestaciones que se demandan.
+
+20
+
+Mi ex empleador dedica su giro servicio de Call Center, de telemarketing y cobranza
+encomendadas por las empresas principales o mandantes.
+Es por tal, que nos encontramos en presencia de trabajo en régimen de
+subcontratación, según lo prescrito en el artículo 183-A y siguientes del Código del
+Trabajo, la cual plantea que la empresa principal contrata a través de un acuerdo civil
+o mercantil un determinado servicio a un contratista o subcontratista, en base a un
+precio, plazo y modalidad de ejecución. En síntesis, se externaliza la función que en
+principio le corresponde a la empresa interesada.
+En consecuencia, las empresas principales y mandantes son las demandadas
+solidarias, dado que mi ex empleador operó como simple contratista, a fin de poner a
+disposición de las solidarias, los trabajadores requeridos, por lo que quien finalmente se hizo
+dueña de los servicios prestados y beneficiados con mi trabajo, fueron las demandadas
+solidarias debiendo por ello hacerse responsables de las obligaciones que por la presente
+acción reclamo.
+Según nuestra legislación la empresa principal responde de manera solidaria de
+las obligaciones laborales y previsionales respecto a sus contratistas y s ubcontratistas
+salvo que aquella haya hecho valer sus derechos relativos a información y retención de las
+prestaciones pecuniarias que deba a favor de éstas últimas. Por último, sus requisitos son:
+1. Que el dependiente labore para una persona natural o jurídica denominada contratista
+o subcontratista que ejecute labores habituales.
+2. Que la empresa principal sea la dueña de la obra, empresa o faena en que se
+desarrollen los servicios o se ejecutan las obras. En lo que respecta a este punto, la
+Dirección de Trabajo establece que existirá subcontratación, tantos en aquellas obras
+que se realizan en las instalaciones del dueño de la obra empresa o faena, como fuera
+de ellas, vale decir, independiente del lugar físico en que éstas se realicen.
+En el mismo sentido falló la Corte de Apelaciones de Santiago en la causa rol
+779-2019, considerando que dependiendo de las funciones del trabajador, puede
+llegar a ser irrelevante el elemento locativo.
+En efecto, el análisis de la historia fidedigna del establecimiento de la ley Nº20.123,
+norma de interpretación legal prevista en el artículo 19, inciso 2º, del Código Civil, permite
+sostener que carece de incidencia para los señalados efectos, el lugar en que deban
+desempeñarse los trabajadores del contratista.
+En efecto, no existe fundamento legal ni jurisprudencial para circunscribir la empresa
+o la faena a un ámbito espacial o físico determinado. Lo anterior resulta evidente de aplicar
+el concepto legal de empresa, ya sea aquel considerado en el artículo 3º del Código del
+Trabajo o aquél incorporado, específicamente a propósito del trabajo en régimen de
+subcontratación, en el texto legal aprobado por la Honorable Cámara de Diputados. En
+aplicación de ambos conceptos resulta plenamente posible que las labores desarrolladas
+por un trabajador en régimen de subcontratación se ejecuten en instalaciones ajenas al
+dueño de la obra o faena o empresa mandante, no obstante, lo cual tales actividades
+laborativas deben ser consideradas como desarrolladas en régimen de subcontratación
+
+21
+
+para este último, en tanto se trata de actividades que pertenecen a su organización y
+que se encuentran sometidas a su dirección".
+De ello fluye entonces, que lo verdaderamente sustancial en este aspecto es que la
+empresa principal sea la dueña de las respectivas obras o faenas en las que deban desarrollarse
+los servicios o ejecutarse las labores subcontratadas, independientemente del lugar físico en
+que éstas se realicen.
+En otros términos, estaremos en presencia de trabajo subcontratado, en tanto se
+trate de actividades pertenecientes a la organización de la empresa principal, aún
+cuando los trabajos, tareas o labores que implique la ejecución de la o las obras o
+servicios, se desarrollen en recintos o instalaciones ajenos a la empresa principal, dueña
+de la respectiva obra, empresa o faena.
+Asimismo, en relación con el mismo requisito, cabe señalar que la exigencia de que
+la empresa principal deba ser dueña de la obra o faena que debe realizar el persona l
+subcontratado, significa que éstas deben corresponder a actividades que pertenezcan a la
+organización de la empresa principal y que estén sometidas a su dirección. En tal sentido, la
+Dirección del Trabajo señala que no podrían considerarse trabajo en régimen de
+subcontratación todas aquellas asesorías jurídicas o contables, en la medida que exista
+autonomía funcional respecto del cliente y oficinas.
+0.
+Que exista un acuerdo contractual entre el contratista y la empresa principal dueña de
+la obra o faena, conforme al cual aquél se obliga a ejecutar, por su cuenta y riesgo obras o
+servicios para esta última.
+Este requisito exige la existencia de un acuerdo contractual entre contratista y
+empresa principal, en virtud del cual la primera se obliga a ejecutar para le segunda, obras o
+servicios en las condiciones analizadas en los puntos anteriores.
+0.
+Que las señaladas obras o servicios sean ejecutadas por el contratista con trabajadores
+de su dependencia, vale decir, la prestación de los servicios de los trabajadores del contratista
+debe ejecutarse bajo vínculo de subordinación y dependencia respecto de éste.
+En estos autos se cumplen cabalmente los requisitos de la subcontratación al existir un:
+1. Acuerdo civil entre la empresa subcontratista, contratista y las empresas
+principales.
+2. Las obras se ejecutaban a cuenta y riesgo de mi ex empleador.
+3. Quien demanda fue trabajador del demandado.
+El artículo 183–B del Código del Trabajo, señala que “La empresa principal será
+solidariamente responsable de las obligaciones laborales y previsionales de dar que
+afecten a los contratistas a favor de los trabajadores de éstos, incluidas las eventuales
+indemnizaciones legales que correspondan por término de la relación laboral. Tal
+responsabilidad estará limitada al tiempo o periodo durante el cual el o los trabajadores
+prestaron servicios en régimen de subcontratación para la empresa principal. En los mismos
+términos, el contratista será solidariamente responsable de las obligaciones que afecten a sus
+subcontratistas, a favor de los trabajadores de éstos. La empresa principal responderá de
+iguales obligaciones que afecten a los subcontratistas cuando no pudiere hacerse efectiva la
+responsabilidad a que se refiere el inciso siguiente. El trabajador, al entablar la demanda
+22
+
+en contra de su empleador directo, podrá hacerlo en contra de todos aquellos que
+puedan responder de sus derechos, en conformidad a las normas de este Párrafo. En los
+casos de construcción de edificaciones por un precio único prefijado, no procederán estas
+responsabilidades cuando quien encargue la obra sea una persona natural”.
+Como se puede apreciar, se cumplen los requisitos para determinar la responsabilidad
+solidaria de las empresas mandantes a saber: VIDA CAMARA, BANCO FALABELLA,
+WOM, CENCOSUD, SANTANDER, UNIMARC, BANCO ESTADO, CLARO , lo cual,
+deberá ser declarado por US., de manera que pueda responder frente a las pretensiones
+demandadas.
+
+5. DEL FRAUDE A LA LEY Y SUBTERFUGIO LABORAL.
+Por su parte, el artículo 507 del mismo cuerpo legal, en lo atingente señala que:
+“La determinación acerca de si la alteración de la individualidad del empleador se
+debe o no a la simulación de contratación de trabajadores a través de terceros, o bien a la
+utilización de cualquier subterfugio, ocultando, disfrazando o alterando su individualización
+o patrimonio, y si ello ha tenido como resultado eludir el cumplimiento de las obligaciones
+laborales y previsionales que establece la ley o la convención. Si así lo determina, deberá
+señalar de manera precisa las conductas que constituyen dicha simulación o subterfugio y
+los derechos laborales y previsionales que por esta vía se hubieren vulnerado, debiendo
+aplicar al infractor una multa de 20 a 300 unidades tributarias mensuales.”
+En este caso, la unidad económica constituye una elusión a la ley laboral, porque la
+emrpesa continúa operando por medio distintas razones sociales, sin haber pagado mis
+cotizaciones previsionales ni tampoco las indemnizaciones por término de contrato de
+trabajo. En la actualidad la unidad económica sigue generando ingresos, por lo cual, esta
+simulación de ser más de una persona o sociedad tiene como objeto simplemente, eludir el
+cumplimiento de los artículos 162 y 163, es decir, evitar pagar las indemnizaciones que por
+término de contrato corresponden a los trabajadores.
+En consecuencia, según las normas legales estudiadas, y de conformidad a todo lo
+latamente expuesto, al estar en presencia de un evidente, patente, y grosero caso de fraude
+laboral, quien debe responder directamente en calidad de empleador de todas las
+prestaciones, indemnizaciones, sanciones y multas que por el presente libelo se reclaman son
+INVERSIONES CYBERCONNECTED LATAM SPA, SOCIEDAD COMERCIAL
+SYNERGO LTDA, SOCIEDAD COMERCIAL SYNERGO SPA, INVERSIONES
+JEBEN SPA, PROMOCIONES Y EVENTOS ISHA SPA, COMERCIAL
+SERVIEXPRESS LIMITADA, INMOBILIARIA S&G HEBRON SPA, SOCIEDAD
+COMERCIAL BUSINESS CENTER SPA, SOCIEDAD COMERCIAL KAIZEN
+LIMITADA, CECILIA DEL ROSARIO GONZALEZ HERNANDEZ, MARIA
+ELENA SUAREZ VIDAL, MOISES ELISEO SALAZAR CONA.
+
+23
+
+6. DE LA EXISTENCIA DE UNIDAD ECONÓMICA:
+Los artículos que regulan la materia son el artículo 3° y 507 del Código del Trabajo:
+Artículo 3 incisos 4° al 7°: “Dos o más empresas serán consideradas como un solo
+empleador para efectos laborales y previsionales, cuando tengan una dirección laboral
+común, y concurran a su respecto condiciones tales como la similitud o necesaria
+complementariedad de los productos o servicios que elaboren o presten, o la existencia
+entre ellas de un controlador común.
+La mera circunstancia de participación en la propiedad de las empresas no
+configura por sí sola alguno de los elementos o condiciones señalados en el inciso anterior.
+Las empresas que cumplan lo dispuesto en el inciso cuarto serán solidariamente
+responsables del cumplimiento de las obligaciones laborales y previsionales emanadas de
+la ley, de los contratos individuales o de instrumentos colectivos.
+Las cuestiones suscitadas por la aplicación de los incisos anteriores se sustanciarán
+por el juez del trabajo, conforme al Párrafo 3° del Capítulo II del Título I del Libro V de este
+Código, quien resolverá el asunto, previo informe de la Dirección del Trabajo, pudiendo
+requerir además informes de otros órganos de la Administración del Estado. El ejercicio de
+las acciones judiciales derivadas de la aplicación del inciso cuarto, así como la sentencia
+definitiva respectiva, deberán, además, considerar lo dispuesto en el artículo 507 de este
+Código.”
+Es muy probable US. que las demandadas intenten señalar que la sola participació n
+en la propiedad de las empresas no configura por sí sola la existencia de la unidad económica,
+lo cual es correcto, pero no debemos olvidar que la ley habla de la “mera circunstancia”
+entendiendo la palabra “mera” de acuerdo a su sentido natural y obvio como “puro,
+simple y que no tiene mezcla de otra cosa” por lo que es necesario, conforme señala el
+artículo 3° que, además de la dirección laboral común exista alguno de los otros requisitos
+señalados, tales como la similitud o necesaria complementariedad de los productos o
+servicios que elaboren o presten, o la existencia entre ellas de un controlador común.
+En este caso en particular el giro que ejerce la unidad económica es publicida d
+y captación de socios para la organizaciones no gubernamentales, entre otras afines.
+En conclusión, se configura respecto de todas las demandadas INVERSIONES
+CYBERCONNECTED LATAM SPA, SOCIEDAD COMERCIAL SYNERGO LTDA,
+SOCIEDAD COMERCIAL SYNERGO SPA, INVERSIONES JEBEN SPA,
+PROMOCIONES Y EVENTOS ISHA SPA, COMERCIAL SERVIEXPRESS
+LIMITADA, INMOBILIARIA S&G HEBRON SPA, SOCIEDAD COMERCIAL
+BUSINESS CENTER SPA, SOCIEDAD COMERCIAL KAIZEN LIMITADA,
+CECILIA DEL ROSARIO GONZALEZ HERNANDEZ, MARIA ELENA SUAREZ
+VIDAL, MOISES ELISEO SALAZAR CONA, cumplen los requisitos exigidos por la ley
+para que sea declarada la existencia de la unidad económica, debiendo así declararlo US.
+
+24
+
+Artículo 507: “Las acciones judiciales derivadas de la aplicación del inciso cuarto
+del artículo 3° de este Código podrán ser ejercidas por las organizaciones sindicales o
+trabajadores de las respectivas empresas que consideren que sus derechos laborales o
+previsionales han sido afectados.
+Estas acciones podrán interponerse en cualquier momento, salvo durante el período
+de negociación colectiva a que se refiere el Capítulo I del Título II del Libro IV de este
+Código; si el procedimiento judicial iniciado sobrepasa la fecha de presentación del
+proyecto de contrato colectivo, los plazos y efectos del proceso de negociación deberán
+suspenderse mientras se resuelve, entendiéndose para todos los efectos legales prorrogada
+la vigencia del instrumento colectivo vigente hasta 30 días después de ejecutoriada la
+sentencia, día en que se reanudará la negociación en la forma que determine el tribunal, de
+acuerdo con lo dispuesto en la ley.
+La sentencia definitiva que dé lugar total o parcialmente a las acciones entabladas
+deberá contener en su parte resolutiva:
+1. El pronunciamiento e individualización de las empresas que son consideradas
+como un solo empleador para efectos laborales y previsionales, conforme a lo señalado en
+el inciso cuarto del artículo 3° de este Código.
+2. La indicación concreta de las medidas a que se encuentra obligado el empleador
+dirigidas a materializar su calidad de tal, así como aquellas destinadas al cumplimiento de
+todas las obligaciones laborales y previsionales y al pago de todas las prestaciones que
+correspondieren; bajo apercibimiento de multa de 50 a 100 unidades tributarias
+mensuales, la que podrá repetirse hasta obtener el debido cumplimiento de lo ordenado.
+3. La determinación acerca de si la alteración de la individualidad del empleador se
+debe o no a la simulación de contratación de trabajadores a través de terceros, o bien a la
+utilización de cualquier subterfugio, ocultando, disfrazando o alterando su individualización
+o patrimonio, y si ello ha tenido como resultado eludir el cumplimiento de las obligaciones
+laborales y previsionales que establece la ley o la convención. Si así lo determina, deberá
+señalar de manera precisa las conductas que constituyen dicha simulación o subterfugio
+y los derechos laborales y previsionales que por esta vía se hubieren vulnerado, debiendo
+aplicar al infractor una multa de 20 a 300 unidades tributarias mensuales. En estos casos,
+será aplicable a las multas señaladas lo dispuesto en el inciso quinto del artículo 506 de este
+Código.
+Quedan comprendidos dentro del concepto de subterfugio referido en el párrafo
+anterior, cualquier alteración de mala fe realizada a través del establecimiento de razones
+sociales distintas, la creación de identidades legales, la división de la empresa, u otras que
+signifiquen para los trabajadores disminución o pérdida de derechos laborales
+individuales o colectivos, en especial entre los primeros las gratificaciones o las
+indemnizaciones por años de servicios y entre los segundos el derecho a sindicalización o a
+negociar colectivamente.
+
+25
+
+La sentencia definitiva se aplicará respecto de todos los trabajadores de las empresas
+que son consideradas como un solo empleador para efectos laborales y previsionales.
+Las acciones a que se refieren los incisos precedentes podrán ejercerse mientras
+perdure la situación descrita en el inciso cuarto del artículo 3° de este Código, sin perjuicio
+de lo dispuesto en el inciso segundo del presente artículo.”
+Es así US. que, la presente acción es completamente admisible, debido a que fue
+incoada mientras perdura la situación descrita en el inciso cuarto del artículo 3°.
+En cuanto al criterio de nuestros Tribunales de Justicia, la Corte de Apelaciones de
+Santiago, en causa Rol 904-2016, señaló que “acorde a los antecedentes previame nte
+descritos, no cabe sino concluir que existe una dirección laboral común ejercida por Pablo
+Varela Varas quien además detenta el control de todas las sociedades demandadas, respecto
+de las cuales concurren además condiciones tales como la similitud y complementariedad de
+los productos o servicios que elaboran o prestan, razón por la cual esta Corte estima que se
+dan en la especie las condiciones que el artículo 3 del Código del Trabajo establece para
+considerar que existe una unidad económica”.
+En definitiva, estamos frente a un grupo de empresas, cuando la relación de
+dependencia directa o indirecta de una o varias sociedades (dependientes) con respeto de otra
+(dominante) y el ejercicio de una dirección económica única de manera tal que “a pesar de la
+personalidad jurídica propia de cada una de las sociedades, todas ellas actúan en el mercado
+con la lógica de una sola empresa.” (Boldó Roda; p. 329). De esta lógica es finalmente el
+elemento que caracteriza típicamente a los grupos y permite distinguirlo de otras uniones de
+sociedades, de modo que “el ejercicio de la dirección económica unificada revela el propósito
+de constituir una nueva unidad empresarial por debajo de la diversidad de las formas
+jurídicas. Estimado demasiado rígido el criterio de la dirección unitaria- se postula por buena
+parte de la doctrina el criterio del interés común del grupo, en el que sin que ocurra la
+constatación de la dependencia presidida por la dirección unitaria superior, basta la
+integración colaborativa de las sociedades, como los llamados conglomerados “grupos estos
+últimos basados en el control o denominación financiera pero con la adopción de métodos de
+gestión descentralizada, o más concretamente, son sistemas de dirección por objetivos. De
+otro modo, es el llamado interés del grupo el que permite individualizar la noción de grupo
+y justificar su regulación.”
+En reciente sentencia de fecha 13 de marzo de 2019, en causa RIT O-1588-2019 ante
+el 1° Juzgado de Letras del Trabajo de Santiago, se declaró que:
+“VIGESIMO SEGUNDO: Que, en cuanto a la declaración de unidad económica, lo
+primero que debe decirse es que la trabajadora aparece contratada por la demandada al
+Actilux SPA, de la confesional de don Pablo Ponce representante de Actilux y Metalúrgica,
+se tiene que éste reconoce que los primeros cinco meses la empresa metalúrgica y luminarias
+pagó la remuneración de la actora, porque la empresa contratante era nueva y no tenía
+cuenta corriente, sin aclarar el vínculo existente entre ambas empresas.
+
+26
+
+También señaló doña Marsella Ponce en su confesional como dueña de inversiones
+y Ingermarket, indica que la empresa no está en funcionamiento desde 2016, que sus únicos
+ingresos son por el arriendo que hay cinco trabajadores que no ha podido de pedir porque
+no tiene recursos para finiquitarlo y que le prestan servicios activos, pero que registran
+asistencia por separado, reconoce que doña Rosa Guzmán es su cuñada y que giró cheques
+en la causa de doña Denisse Jara por qué activo no tiene documentos, afirma que solo
+artículo tiene domicilio y las otras dos no registra movimientos. Reconoce que metalúrgica
+le pagó a la actora porque en los primeros tiempos no tenía cheques que artilugios no tiene
+patrimonio y que el dueño de las maquinarias es inversiones y Ingermarket.
+VIGESIMO TERCERO: Que, del informe de fiscalización de la inspección del
+trabajo, se tiene que Actilux SPA e Ingermarket S.A. poseen un domicilio común, que el
+inmueble y las maquinarias en dicho domicilio son entregadas en arriendo a la primera por
+la segunda de las nombradas, que Pablo Ponce es el administrador de ambas, accionista
+mayoritario de la primera y posee la mitad de las acciones de la segunda. Metalúrgica y
+luminarias se creó en el año 2012 siendo dueño del 60% Pablo Ponce, quien además tiene
+la administración.
+En el propio informe se advierte que Pablo Ponce presentó término de giro en 2003
+luego las últimas facturas y Timbradas a IngerMarket son del año 2014 a metalúrgica 2015
+y Actilux 2018. Además el sistema utilizado por las empresas Actilux e Ingermarket es de
+softand ingeniería, dando cuenta la inspección que la segunda también utiliza el sistema sin
+un costo para esta empresa.
+VIGESIMO CUARTO: que con todo lo relacionado, se tiene que efectivamente y de
+conformidad a lo señalado en el artículo 3 del Código del Trabajo, se tiene un vínculo entre
+las empresas que no parece justificado, comportándose en diversas oportunidades como
+una sola empresa o como otro empleador. Si se considera que la empresa contratante de la
+actora es precisamente la que no posee bienes, y que sus empresas relacionadas poseen las
+maquinarias y el inmueble; asimismo que sus representantes concurren al pago como
+personas naturales en las causas judiciales que se han tenido a la vista, y considerando
+además, que las demandadas ninguna explicación aportaron en relación a estos puntos,
+limitándose a alegar la falta de legitimación pasiva, que las más antiguas aparecen con
+personal contratado para servicios que no se prestan, o sin ingresos y sin timbraje de
+facturas a la fecha. De lo que sólo resta concluir que lo señalado por la actora en su
+demanda en cuanto a que efectivamente constituyen un sólo empleador, toda vez que además
+no se comprende el nexo existente, debiendo en consecuencia concurrir todas las
+demandadas en forma solidaria al pago de lo que se dirá, y rechazándose en consecuencia
+la excepción opuestas por las demandadas Pablo Ponce Aguilera, Inger-Market S.A.,
+Metalúrgica Y Luminarias Ltda Y Rosa Guzmán Troncoso.”
+Es decir, la participación en la propiedad y la no justificación del nexo existente
+entre las demandadas da pie para, por lo menos, cuestionar si efectivamente esta
+apariencia de distintas identidades legales es efectiva, y de no serlo, entender que su objeto
+es perjudicar el cumplimiento de la norma laboral.
+27
+
+En fallo del 30 de enero de 2019, Rol Ingreso Corte 1613-2018, la Corte de
+Apelaciones de Santiago señaló que empresas que mantienen relaciones propietarias y
+una dirección laboral, control y administración comunes, dirigidos al logro de fines
+económicos, sociales y culturales tienen unidad económica.
+La sentencia indicó que “junto a los antecedentes probatorios que se han analizado
+en los motivos sexto, séptimo y octavo de la sentencia de nulidad (reproducidos), cabe tener
+presente, además, el reconocimiento efectuado en causa del Juzgado de Letras del Trabajo
+de Antofagasta, en que, en avenimiento al que llegaron tres de las cinco demandadas, se
+estableció que las empresas: “Logística L S.A.”, “Renta Equipos T S.A.” y “Reparación y
+Servicios Varios S.A.”, conforman una unidad económica, lo que a su vez, fue declarado en
+el fallo actualmente recurrido y en cuya parte no fue cuestionado por las partes.
+Además, unido a los anteriores antecedentes probatorios, procede tener en cuenta lo
+reconocido por las propias demandadas “Transportes L S.A.” y “Transportes L Express”,
+al contestar respectivamente la demanda, en cuanto a que “solo existe una vinculación real
+y efectiva porque los socios que la conforman (con las demás empresas demandadas) son
+los mismos (contestación por Transporte L S.A) o que “ más allá de la vinculación o
+relación en cuanto a la propiedad accionaria en todo o parte, directa o indirectamente con
+las otras demandadas” (contestación por Transporte L Express)”.
+Argumentó de esta forma el fallo que “apreciadas las referidas pruebas rendidas en
+autos, conforme a las reglas de la sana crítica y especialmente, valorando el testimonio del
+trabajador de L (Sr. Mora Navea) de acuerdo a criterios de coincidencia, concordancia y
+conexión junto a los informes de fiscalización de los inspectores del Trabajo de Chacabuco
+y de Iquique, ya referidos y que se encuentran revestidos de la eficacia probatoria que le
+confiere el artículo 23 inciso segundo del DFL N°2 de 1967, Ley Orgánica de la Dirección
+del Trabajo, como una presunción legal de veracidad de los hechos constatados por esos
+fiscalizadores, unido a los hechos que se declararon como probados y verdaderos en la causa
+del Juzgado de Letras del Trabajo de Antofagasta, que deben tener el alcance de una
+presunción, porque emanan de un proceso legalmente tramitado, seguido en contra de las
+mismas demandadas y con el mismo objeto que el de autos, todo ello importa, junto a la
+documental ya anotada oportunamente y los reconocimientos indicados de las propias
+demandadas “Transportes L S.A.” y “Transportes L Express S.A” al contestar la demanda,
+constituyen prueba suficiente en cuanto a determinar la existencia de una unidad económica
+o empresas única o un solo empleador entre todas las empresas demandadas de autos:
+“Logistica L S.A.”, “Transportes L Express S.A.”, “Transportes L S.A.”, “Renta Equipos T
+S.A.” y “Reparación y Servicios Varios S.A.”, toda vez, que se trata de empresas que
+mantienen relaciones propietarias y una dirección laboral, control y administración
+comunes, dirigidos al logro de fines económicos, sociales y culturales”.
+Concluye, asimismo, que “la dirección laboral común de las referidas empresas es
+ejercida por don González Medina quien, además, aparece detentando el control de todas
+las sociedades demandadas, respecto de las cuales concurren, también, condiciones de
+similitud y complementariedad de los productos o servicios que elaboran o prestan e
+28
+
+incluso de sus trabajadores, todo lo cual revela la existencia de las condiciones que el inciso
+cuarto del artículo 3 del Código del Trabajo determina para considerar que existe una
+unidad económica, o una sola empresa o un solo empleador, como se ha dejado establecido
+(artículo 3 inciso 4° Código del Trabajo: “Dos o más empresas serán consideradas como
+un solo empleador para efectos laborales y previsionales, cuando tengan una dirección
+laboral común, y concurran a su respecto condiciones tales como la similitud o necesaria
+complementariedad de los productos o servicios que elaboren o presten, o la existencia entre
+ellas de un controlador común”)”.
+Así, por aplicación del principio de la supremacía de la realidad se reconoce que
+el grupo de empresas constituye una sola entidad empresa para los efectos jurídicos
+laborales.
+De esta manera la jurisprudencia levanta el velo de la personalidad jurídica de
+empresa para definir como responsables a todas y cada una de las sociedades integrantes del
+grupo.
+En el presente caso claramente estamos bajo un grupo económico o unidad
+económica, toda vez que las demandadas conforman un “holding” de empresas con un interés
+común. Por consiguiente, cada una de las sociedades que integran el grupo de empresas o
+unidad económica son solidariamente responsables de las responsabilidades empresaria les,
+tal como lo han firmado las diversas sentencias, entre ellas las dictadas por la Corte Suprema
+Rol 6603-1998 y 1933-2001.
+Con lo que vengo relatando, es que en este caso se da la situación prevista en el
+artículo 3° del Código de Trabajo, en cuanto a que todas las empresas referidas presentan la
+existencia entre ellas de un controlador común correspondiente a las 3 personas naturale s
+demandadas, razón que me lleva a solicitar que a todas las demandadas se les califique así,
+para los efectos del pago en forma solidaria de mis obligaciones laborales y previsionales, de
+acuerdo a lo expuesto y conforme lo dispone el artículo 3° del Código del Trabajo, en relación
+con el artículo 507 del mismo cuerpo legal. En consecuencia, US., deberá declarar la
+existencia de unidad económica de INVERSIONES CYBERCONNECTED LATAM
+SPA, SOCIEDAD COMERCIAL SYNERGO LTDA, SOCIEDAD COMERCIAL
+SYNERGO SPA, INVERSIONES JEBEN SPA, PROMOCIONES Y EVENTOS ISHA
+SPA, COMERCIAL SERVIEXPRESS LIMITADA, INMOBILIARIA S&G HEBRON
+SPA, SOCIEDAD COMERCIAL BUSINESS CENTER SPA,
+SOCIEDAD
+COMERCIAL KAIZEN LIMITADA, CECILIA DEL ROSARIO GONZALEZ
+HERNANDEZ, MARIA ELENA SUAREZ VIDAL, MOISES ELISEO SALAZAR
+CONA, por tratarse de un único y real empleador.
+
+7. DE LA NULIDAD DEL DESPIDO. RESPONSABILIDAD DEL MANDANTE:
+
+29
+
+El art. 162 inciso 5º del Código del Trabajo señala expresamente: “Para proceder al
+despido de un trabajador por alguna de las causales a que se refieren los incisos precedentes
+o el artículo anterior, el empleador le deberá informar por escrito el estado de pago de las
+cotizaciones previsionales devengadas hasta el último día del mes anterior al del despido,
+adjuntando los comprobantes que lo justifiquen. Si el empleador no hubiere efectuado el
+integro de dichas cotizaciones previsionales al momento del despido, éste no producirá el
+efecto de poner término al contrato de trabajo”
+En cuanto a la responsabilidad de la empresa mandante en la sanción de nulidad
+del despido, el régimen de subcontratación ayuda a aumentar las garantías de pago en el
+caso en que el acreedor principal no responda de sus obligaciones, ya que en la práctica las
+empresas mandantes tienen más recursos económicos que las empresas contratistas y
+subcontratistas, esto asegura una tutela judicial efectiva respecto a los intereses
+patrimoniales derivadas del término del contrato de trabajo y del pago de cotizaciones de
+seguridad social.
+Respecto a la sanción prevista en el artículo 162 del Código del Trabajo radica en la
+protección efectiva de un punto particularmente sensible para el trabajador que son las
+cotizaciones de seguridad social. Aquellas cotizaciones se refieren a la protección de
+situaciones en donde el trabajador se ve particularmente desprotegido, que corresponden al
+seguro de salud en caso de enfermedad, el seguro de cesantía en el caso de desempleo, y el
+fondo de pensiones de AFP para la protección de la vejez. El pago de las cotizaciones tiene
+como objeto asegurar la sobrevivencia de un trabajador en aquellas situaciones delicadas.
+En este sentido, el pago de cotizaciones de seguridad social se asegura con la sanción
+contenida en la Ley Bustos, en cuanto a que esta tiene la entidad suficiente para persuadir
+a los empleadores y empresas mandantes de cumplir con la obligación de pagar las
+cotizaciones de seguridad social.
+Lo anterior es tan real, que la ley le da la facultad a la empresa mandante o contratista
+de pagar por subrogación las cotizaciones de seguridad social de los trabajadores de las
+empresas contratistas o subcontratistas en virtud del artículo 183-C inciso 5° del Código del
+Trabajo.
+Entonces si la empresa mandante tiene un contrato civil o comercial con el empleador
+durante la relación laboral con el trabajador, este tiene la facultad de ejercer el derecho de
+información, de retención y también el pago por subrogación para poder tutelar el
+ejercicio efectivo de las normas tendientes a proteger al trabajador. El artículo 183-A y
+siguientes del Código del Trabajo amplían la responsabilidad y las obligaciones laborales
+hacia la empresa mandante, incluido el pago de cotizaciones.
+Por tanto, la sanción laboral del artículo 162 también constriñe a la empresa
+mandante a asegurarse del cumplimiento del pago de cotizaciones apremiando al
+empleador principal a hacerlo a través del derecho de información y retención y en caso en
+que esto no tenga efectos, a pagar por subrogación dichos montos.
+El 162 del Código del Trabajo no excluye a las empresas mandantes ni contratistas y
+tampoco fue una materia que se haya tratado en la discusión parlamentaria destinada a
+entender el alcance de dicha sanción.
+30
+
+Esta materia ha sido objeto de reiteradas unificaciones de jurisprudencia de nuestra
+Excma. Corte Suprema, en las causas Rol N°41.062-2016, Nº65.312-2016 y en particular la
+N°22.408-2019.
+
+POR TANTO, en virtud de lo expuesto, lo dispuesto en los artículos 159, 168, 183-A, 183B, 507 y siguientes del Código del Trabajo y demás normas pertinentes;
+RUEGO A US., tener por interpuesta demanda en procedimiento ordinario laboral por
+declaración unidad económica, subterfugio laboral, subcontratación laboral, despido
+injustificado, nulidad del despido, cobro de indemnizaciones legales y prestaciones laborales,
+en su calidad de unidad económica, en contra de a) INVERSIONES
+CYBERCONNECTED LATAM SPA, RUT 77.528.365-3, representada legalmente por
+MARIA ELENA SUAREZ VIDAL, cédula de identidad 14.130.350-3, b) SOCIEDAD
+COMERCIAL SYNERGO LTDA, RUT 76.226.749-7, representada legalmente por
+MARIA ELENA SUAREZ VIDAL, cédula de identidad 14.130.350-3; c) SOCIEDAD
+COMERCIAL SYNERGO SPA, RUT 77.690.843-6; representada legalmente por
+CECILIA DEL ROSARIO GONZÁLEZ HERNÁNDEZ, cédula de identidad 12.282.728-3;
+d) INVERSIONES JEBEN SPA, RUT 76.134.395-5; representada legalmente por MARIA
+ELENA SUAREZ VIDAL, cédula de identidad 14.130.350-3 e) PROMOCIONES Y
+EVENTOS ISHA SPA, RUT 76.412.394-8; representada legalmente por CECILIA DEL
+ROSARIO GONZÁLEZ HERNÁNDEZ, cédula de identidad 12.282.728-3 f)
+COMERCIAL SERVIEXPRESS LIMITADA, RUT 76.138.239-K representada
+legalmente por CECILIA DEL ROSARIO GONZÁLEZ HERNÁNDEZ, cédula de identidad
+12.282.728-3; g) INMOBILIARIA S&G HEBRON SPA, RUT 77.073.914-4;
+representada legalmente por CECILIA DEL ROSARIO GONZÁLEZ HERNÁNDEZ,
+cédula de identidad 12.282.728-3 h) SOCIEDAD COMERCIAL BUSINESS CENTER
+SPA, RUT 77.261.705-4; representada legalmente por MARIA ELENA SUAREZ
+VIDAL, cédula de identidad 14.130.350-3i) SOCIEDAD COMERCIAL KAIZEN
+LIMITADA, RUT 76.291.977-k, representada legalmente por CECILIA DEL ROSARIO
+GONZÁLEZ HERNÁNDEZ, cédula de identidad 12.282.728-3; j) CECILIA DEL
+ROSARIO GONZALEZ HERNANDEZ, cédula de identidad 12.282.728-3; k) MOISES
+ELISEO SALAZAR CONA, cédula de identidad 12.690.011-2; k) MARIA ELENA
+SUAREZ VIDAL, cédula de identidad 14.130.350-3; TODOS CON DOMICILIO PARA
+ESTOS EFECTOS EN CARLOS VALDOVINOS 856, SAN MIGUEL, REGIÓN
+METROPOLITANA, en adelante el “ ex empleador”, “el demandado” o “SYNERGO”; y
+además interpongo demanda por su responsabilidad solidaria o subsidiaria, conforme a los
+artículos 183-A y siguientes del Código del Trabajo, en contra de: a) COMPAÑÍA DE
+SEGUROS VIDA CAMARA S.A., rol único tributario 99.003.000-6 sociedad del giro de su
+denominación, representada legalmente por don ANDREA FLOODY UGARTE, cédula de
+31
+
+identidad N°14.553.917-K, ambos domiciliados en AV APOQUINDO 6750, PISO 10, LAS
+CONDES, en adelante “VIDA CAMARA”; b) BANCO FALABELLA , rol único tributario
+N°96.509.660-4 , sociedad del giro de su denominación, representada legalmente por
+RODRIGO IGNACIO PINO GONZÁLEZ, cédula de identidad Nº14.123.291-6, ambos
+domiciliados en MONEDA 970, PISO 17, SANTIAGO; en adelante “BANCO
+FALABELLA; C) WOM S.A., rol único tributario Nº78.921.690-8, sociedad del giro de su
+denominación, representada legalmente por MARCELO FRANCISCO FICA ARÁNGUIZ,
+cedula de identidad Nº13.953.586-3, ambos domiciliados en GENERAL MACKENNA
+1369, SANTIAGO, en adelante “WOM”; D) CENCOSUD S.A, rol único tributario
+Nº93.834.000-5, sociedad del giro de su denominación, representada legalmente por
+ANDREAS GEBHARDT STROBEL, cédula de identidad Nº7.033.726-6, ambos
+domiciliados en AV KENNEDY 9001, LAS CONDES; E) BANCO SANTANDER CHILE,
+rol único tributario Nº97.036.000-K, sociedad del giro de su denominación, representada
+legalmente por JORGE ARTURO PEÑA COLLAO, cédula de identidad Nº8.190.497-9,
+ambos domiciliados en BANDERA 140, SANTIAGO; F) RENDIC HERMANOS S.A.
+(UNIMARC), rol único tributario Nº81.537.600-5, sociedad del giro de su denominac ió n,
+representada legalmente por TATIANA ANDREA RIESLE RUDOLPHY, cédula de
+identidad Nº13.633.842-0, ambos domiciliados en CERRO EL PLOMO 5680, PISO 7, LAS
+CONDES; G) BANCO ESTADO, rol único tributario Nº99.578.880-2, sociedad del giro de
+su denominación, representada legalmente por DENIS ALFREDO DAROCH GUTIÉRREZ,
+cédula de identidad Nº9.537.295-3, ambos domiciliados en NUEVA YORK 9, PISO 12,
+SANTIAGO; H) CLARO CHILE S.A., rol único tributario Nº96.799.250-K, sociedad del
+giro de su denominación, representada legalmente por JORGE PIZARRO ACEVEDO,
+cédula de identidad Nº8.541.351-1, ambos domiciliados en AV EL SALTO 5450,
+HUECHURABA, someterla a tramitación y acogerla en todas con cada una de las peticiones
+concretas formuladas en el presente escrito de demanda, y declarar en definitiva que:
+A) Declarar la existencia de unidad económica o único empleador respecto de
+INVERSIONES CYBERCONNECTED LATAM SPA, SOCIEDAD COMERCIAL
+SYNERGO LTDA, SOCIEDAD COMERCIAL SYNERGO SPA, INVERSIONES
+JEBEN SPA, PROMOCIONES Y EVENTOS ISHA SPA, COMERCIAL
+SERVIEXPRESS LIMITADA, INMOBILIARIA S&G HEBRON SPA,
+SOCIEDAD COMERCIAL BUSINESS CENTER SPA,
+SOCIEDAD
+COMERCIAL KAIZEN LIMITADA, CECILIA DEL ROSARIO GONZALEZ
+HERNANDEZ, MARIA ELENA SUAREZ VIDAL, MOISES ELISEO SALAZAR
+CONA, debiendo responder todos de forma solidaria de las indemnizaciones y
+prestaciones demandadas.
+B) Declarar que entre las demandadas en calidad de unidad económica o único empleador,
+y que conforman grupo SYNERGO, y las demandadas solidarias en calidad de
+mandantes, existe régimen de subcontratación, de conformidad al artículo 183-A y
+siguientes del Código del Trabajo, debiendo responder solidaria o subsidiariamente de
+32
+
+todas las prestaciones e indemnizaciones que se reclaman por los montos y períodos que
+SS., determine conforme a derecho.
+C) Declarar que existiendo cotizaciones previsionales pendientes de pago, se debe aplicar la
+sanción de nulidad del despido o ley bustos y condenar por tanto a las demandadas al
+pago de todas las remuneraciones que se devenguen desde la fecha del despido hasta su
+convalidación, a razón de $623.375., o lo que SS., determine conforme a derecho.
+D) Declarar que el despido del cual fui objeto, con fecha 27 de marzo de 2024, ha sido
+improcedente, condenando a las demandadas, al pago de cada una de las prestacione s
+reclamadas en el presente libelo, y que son:
+
+a) indemnización sustitutiva aviso previo: $623.375.- o lo que SS. determine conforme
+a derecho.
+b) indemnización por años de servicios (11): $6.857.125.- o lo que SS. determine
+conforme a derecho.
+c) feriado legal y proporcional: 21 días de feriado legal más 11.5 días de feriado
+proporcional, para un total de 32.5 días, equivalentes a $675.322.- o lo que SS.
+determine conforme a derecho.
+d) Recargo legal del 30% según lo dispuesto en el artículo 168 del CDT, por la suma de
+$2.057.137.- o lo que SS. determine conforme a derecho.
+e) Pago y declaración en su caso de las cotizaciones previsionales adeudadas en AFP
+PROVIDA, FONASA y AFC, entre otros, en los siguientes meses: enero a marzo de
+2024, septiembre a diciembre 2023, enero y febrero 2023, noviembre y diciembre
+2022, mayo y junio 2021, enero febrero y marzo 2021, agosto a noviembre 2020
+f) Todo lo anterior con reajustes e intereses de acuerdo con lo señalado en los artículos
+63 y 173 del Código del Trabajo, y costas de la causa.
+
+PRIMER OTROSÍ: Rogamos a US. que, de conformidad con lo dispuesto en el artículo
+442 del Código del Trabajo, se sirva autorizar que las notificaciones en el presente proceso
+se
+efectúen
+a
+través
+de
+la
+cuenta
+de
+correo
+electrónico :
+notificacionesderecholaboral@gmail.com.
+
+33
+
+
