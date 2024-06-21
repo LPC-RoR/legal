@@ -320,7 +320,7 @@ class CausasController < ApplicationController
       valor.delete unless valor.blank?
     end
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Datos+%26+Cuantía"
+    redirect_to "/causas/#{@objeto.owner.id}?html_options[menu]=#{CGI.escape('Datos & Cuantía')}"
   end
 
   # Manegos de TarUfFacturacion
