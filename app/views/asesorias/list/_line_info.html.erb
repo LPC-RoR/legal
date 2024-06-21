@@ -1,12 +1,12 @@
 <div class="dscrpcn">
-	<% if objeto.fecha.blank? %>
-		</i> <%= dma(objeto.created_at) %>
-	<% else %>
-		</i> <%= dma(objeto.fecha) %>
-	<% end %>
-	<% unless objeto.plazo.blank? %>
+	<% unless objeto.plazo == objeto.fecha %>
 		<i class="bi bi-dot"></i>
 		<i class="bi bi-alarm"></i> <%= dma(objeto.plazo) %>
 	<% end %>
-	<%= objeto.cliente.razon_social %>
+	<%= objeto.cliente.razon_social %></br>
+	<% if ['Multa', 'Redacción'].include?(objeto.tipo_asesoria.tipo_asesoria) %>
+		<%= link_to objeto.descripcion, objeto %>
+	<% else %>
+		<%= objeto.descripcion %>
+	<% end %>
 </div>

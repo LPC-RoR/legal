@@ -1,5 +1,6 @@
 <div class="ttl_lnks">
 	<div class="ttl">
+		<b>
 		<% unless objeto.tipo_asesoria.blank? %>
 			<% if objeto.tipo_asesoria.tipo_asesoria == 'Cargo' %>
 				<i class="bi bi-coin"></i> 
@@ -13,14 +14,18 @@
 				<i class="bi bi-question-square"></i>
 			<% end %>
 		<% end %>
-		<% if objeto.pendiente %>
-			<b>PENDIENTE</b>
-		<% end %>
-		<% if ['Multa', 'Redacción'].include?(objeto.tipo_asesoria.tipo_asesoria) %>
-			<%= link_to objeto.descripcion, objeto %>
+		<% if objeto.fecha.blank? %>
+			</i> <%= dma(objeto.created_at) %>
 		<% else %>
-			<%= objeto.descripcion %>
+			</i> <%= dma(objeto.fecha) %>
 		<% end %>
+		<i class="bi bi-dot"></i>
+		<%= objeto.tipo_asesoria.tipo_asesoria %>
+		<% if objeto.pendiente %>
+			<i class="bi bi-dot"></i>
+			PENDIENTE
+		<% end %>
+		</b>
 	</div>
 	<div class="lnks">
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/asesorias/#{objeto.id}/swtch_pendiente", tooltip: 'Cambia responsabilidad'} do %>
