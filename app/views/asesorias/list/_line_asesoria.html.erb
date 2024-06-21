@@ -19,6 +19,10 @@
 		<% else %>
 			</i> <%= dma(objeto.fecha) %>
 		<% end %>
+		<% unless objeto.plazo == objeto.fecha %>
+			<i class="bi bi-dot"></i>
+			<i class="bi bi-alarm"></i> <%= dma(objeto.plazo) %>
+		<% end %>
 		<i class="bi bi-dot"></i>
 		<%= objeto.tipo_asesoria.tipo_asesoria %>
 		<% if objeto.pendiente %>
@@ -40,6 +44,7 @@
 		<% end %>
 	</div>
 </div>
+<%= objeto.cliente.razon_social %></br>
 
 <%= render layout: '0p/collapse/display', locals: {label: 'NuevaNota', objeto: objeto} do %>
 	<%= render partial: 'notas/shr/form_nota', locals: {objeto: objeto, clss: objeto.class.name, oid: objeto.id} %>
