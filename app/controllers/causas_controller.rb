@@ -310,7 +310,7 @@ class CausasController < ApplicationController
 
     valor.save unless valor.blank?
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Datos+%26+Cuantía"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Datos & Cuantía')}"
   end
 
   def elimina_valor
