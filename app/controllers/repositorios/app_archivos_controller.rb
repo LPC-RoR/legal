@@ -60,14 +60,10 @@ class Repositorios::AppArchivosController < ApplicationController
   end
 
   private
-    # Prepara la página sacada del PDF para ser procesada
-    def parse_page(page_text)
-      # Sacamos el caracter de comienzo de página y reemplazamos los dobles \n por </br>
-      line_array = page_text.gsub(/\f/, '').gsub(/\n\n/, '</br>' ).split('</br>')
-      #sacamos el número de página
-      line_array.pop
-      # lo volvemos a hacer texto; reemplazamos los dobles </br> por uno sólo y sacamos el exceso de espacios
-      line_array.join('</br>').gsub(/<\/br><\/br>/, '</br>').split(' ').join(' ')
+
+    def sin_f_pgn(page_text)
+      # Saca el número de página y el caracter de inicio de página y el exceso de espacios
+      page_text.gsub(/\n/, '__n__').gsub(/__n__\s+\d+\s*$/, "__n__" ).gsub(/\f/, '__n__').gsub(/\s{2,}/, " ").gsub(/__n__/, "\n")
     end
 
     # Obtiene un vectos de largo 3 con las 3 primeras palabras de la línea, si no hay palabra se pone nil
@@ -80,34 +76,67 @@ class Repositorios::AppArchivosController < ApplicationController
       v_prfx & v_ln == v_prfx
     end
 
+    def chk_line(line, st)
+      v_rex = []
+      fin = '(\s|\:)+'
+      num = '(\s*\(?\s*\d+\s*\)?)?'
+      rex1 = "^procedimiento#{fin}" # "verifica el término de la palabra o :
+      rex2 = "^materia#{fin}"
+      rex3 = "^demandante#{num}#{fin}"
+      rex4 = "^ru[nt]#{fin}"
+      rex5 = "^domicilio\s*(ambos)?(todos)?#{fin}"
+      rex6 = "^abogado\s+patrocinante#{num}#{fin}"
+      rex7 = "^((correo\s+electr[oó]nico)|(e?\-?mail))+#{fin}"
+      rex8 = "^demandado\s+(solidario)?#{num}#{fin}"
+      rex9 = "^representante\s*legal#{fin}"
+      v_rex[0] = /#{rex1}|#{rex2}|#{rex3}|#{rex4}|#{rex5}|#{rex6}|#{rex7}|#{rex8}|#{rex9}/i
+      v_rex[1] = /^EN\s*LO\s*PRINCIPAL\,*#{fin}/
+      v_rex[2] = /^\s*S.J.L.\s+/
+      v_rex[3] = /^POR\s*TANTO(\,|\s|\:)+/
+      st == v_rex.length ? false : line.match(v_rex[st])
+    end
+
     def read_demanda
       if @objeto.app_archivo == 'Demanda' and @objeto.archivo.present?
         path_pdf = File.join(Rails.root, 'public', @objeto.archivo.url)
         reader = PDF::Reader.new(path_pdf)
 
         # Unificamos las páginas en un sólo texto
+        original = ''
         texto = ''
         reader.pages.each_with_index do |page, indx|
-          texto << parse_page(page.text)
+          sin_frmt_pgn = sin_f_pgn(page.text)
+          original << sin_frmt_pgn
         end
 
         # Procesamos línea a línea
         s_names = ['Datos', 'En lo principal', 'Cuerpo', 'Por tanto', 'Otrosís']
-        s_breaks = ['EN LO PRINCIPAL', 'S.J.L.', 'POR TANTO', '__FIN__']
         s_id = 0
         sub_txt = ''
 
-        # Recorremos línea a línea
-        texto.split('</br>').each do |line|
-          if chk_wrds_3(line, s_breaks[s_id])
-            Seccion.create(causa_id: @objeto.owner.id, orden: s_id + 1, seccion: s_names[s_id], texto: sub_txt )
-            s_id += 1
-            sub_txt = line
+        original.split("\n").each do |line|
+          if s_id == 0
+            if chk_line(line.strip, s_id + 1)
+              Seccion.create(causa_id: @objeto.owner.id, orden: s_id + 1, seccion: s_names[s_id], texto: "#{sub_txt}</br>" )
+              s_id += 1
+              sub_txt = "#{line}"
+            elsif chk_line(line, s_id)
+              sub_txt << (sub_txt == '' ? line.strip : "</br>#{line.strip}" )
+            else
+              sub_txt << " #{line}"
+            end
           else
-            sub_txt << "#{line}</br>"
+            if chk_line(line, s_id + 1)
+              Seccion.create(causa_id: @objeto.owner.id, orden: s_id + 1, seccion: s_names[s_id], texto: "#{sub_txt}</br>" )
+              s_id += 1
+              sub_txt = "#{line}"
+            else
+              sub_txt << "</br>#{line}"
+            end
           end
         end
         Seccion.create(causa_id: @objeto.owner.id, orden: s_id + 1, seccion: s_names[s_id], texto: sub_txt )
+        Seccion.create(causa_id: @objeto.owner.id, orden: s_id + 2, seccion: 'Origen', texto: original )
       end
     end
 
