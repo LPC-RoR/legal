@@ -5,10 +5,10 @@
 		<%= render partial: 'asesorias/list/line_tarifa', locals: {objeto: objeto} %>
 	<% end %>
 
-	<div style='line-height: 13px; padding-left: 1em;'>
+	<% if admin? %>
 		<%= render partial: 'asesorias/list/line_aprobacion_factura', locals: {objeto: objeto} %>
 		<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
-	</div>
+	<% end %>
 
 	<% unless objeto.notas.empty? %>
 		<% objeto.notas.order(:created_at).each do |nota| %>

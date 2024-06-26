@@ -4,6 +4,8 @@ class TarServicio < ApplicationRecord
 
 	MONEDAS = ['Pesos', 'UF']
 
+	belongs_to :tipo_asesoria, optional: true
+
 	has_many :asesorias
 
     validates_presence_of :descripcion, :tipo, :moneda, :monto

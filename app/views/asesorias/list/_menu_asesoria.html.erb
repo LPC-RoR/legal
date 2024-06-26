@@ -1,5 +1,4 @@
 <% unless objeto.sin_cargo? %>
-<small><small>
 	<% if objeto.facturacion.blank? %>
 		<% unless ( objeto.tar_servicio.blank? and ( objeto.moneda.blank? or objeto.monto.blank? ) ) %>
 			<%= link_to 'generar cobro', "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}" %>
@@ -15,5 +14,4 @@
 			<%= link_to 'liberar factura', "/asesorias/#{objeto.id}/liberar_factura" %>
 		<% end %>
 	<% end %>
-</small></small>
 <% end %>

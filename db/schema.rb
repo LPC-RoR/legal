@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_25_210616) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_132507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1536,11 +1536,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_210616) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "estado"
+    t.integer "tipo_asesoria_id"
     t.index ["codigo"], name: "index_tar_servicios_on_codigo"
     t.index ["estado"], name: "index_tar_servicios_on_estado"
     t.index ["owner_class"], name: "index_tar_servicios_on_owner_class"
     t.index ["owner_id"], name: "index_tar_servicios_on_owner_id"
     t.index ["tipo"], name: "index_tar_servicios_on_tipo"
+    t.index ["tipo_asesoria_id"], name: "index_tar_servicios_on_tipo_asesoria_id"
   end
 
   create_table "tar_tarifas", force: :cascade do |t|

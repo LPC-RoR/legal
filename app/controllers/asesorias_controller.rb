@@ -1,5 +1,6 @@
 class AsesoriasController < ApplicationController
   before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar liberar_factura swtch_pendiente ]
+  after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   # GET /asesorias or /asesorias.json
   def index
@@ -126,6 +127,18 @@ class AsesoriasController < ApplicationController
   end
 
   private
+
+    def asigna_tarifa_defecto
+      tipo_asesoria = @objeto.tipo_asesoria
+      servicios = tipo_asesoria.blank? ? [] : @objeto.cliente.servicios.where(tipo_asesoria_id: tipo_asesoria.id)
+      servicio = servicios.empty? ? nil : servicios.first
+
+      unless servicio.blank?
+        @objeto.tar_servicio_id = servicio.id
+        @objeto.save
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_asesoria
       @objeto = Asesoria.find(params[:id])

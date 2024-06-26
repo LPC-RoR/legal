@@ -18,7 +18,7 @@
 					<%= cmenu_clss['tar_tarifas'][:items][tipo] %>
 				</div>
 				<div class="ttl_lnks">
-					<%= render layout: '0p/layout/tooltip_link', locals: {link: ( admin? ? "/tar_tarifas/new?ownr_clss=#{objeto.class.name}&ownr_id=#{objeto.id}" : nil), tooltip: 'Agregar tarifa'} do %>
+					<%= render layout: '0p/layout/tooltip_link', locals: {link: ( admin? ? "/#{tipo == 'causas' ? 'tar_tarifas' : 'tar_servicios'}/new?ownr_clss=#{objeto.class.name}&ownr_id=#{objeto.id}" : nil), tooltip: 'Agregar tarifa'} do %>
 						<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
 					<% end %>
 				</div>

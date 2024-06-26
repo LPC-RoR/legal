@@ -1,5 +1,4 @@
 <% unless objeto.sin_cargo? %>
-<small><small>
 	<% unless objeto.facturacion.blank? %>
 		<% unless objeto.facturacion.tar_aprobacion.blank? %>
 			<%= link_to objeto.facturacion.tar_aprobacion do %>
@@ -15,5 +14,4 @@
 		</br>
 		<% end %>
 	<% end %>
-</small></small>
 <% end %>

@@ -61,7 +61,7 @@ class Tarifas::TarTarifasController < ApplicationController
   end
 
   def asigna
-    # Asigna una tarifa a una CAUSA o COONSULTORÍA
+    # Asigna una tarifa a una CAUSA o CONSULTORÍA
 
     unless params[:cid].blank?
       causa = Causa.find(params[:cid])

@@ -12,7 +12,7 @@ class Tarifas::TarServiciosController < ApplicationController
 
   # GET /tar_servicios/new
   def new
-    @objeto = TarServicio.new(owner_class: params[:class_name], owner_id: params[:objeto_id], estado: 'ingreso')
+    @objeto = TarServicio.new(owner_class: params[:ownr_clss], owner_id: params[:ownr_id], estado: 'ingreso')
   end
 
   # GET /tar_servicios/1/edit
@@ -71,6 +71,6 @@ class Tarifas::TarServiciosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_servicio_params
-      params.require(:tar_servicio).permit(:codigo, :descripcion, :detalle, :tipo, :moneda, :monto, :owner_class, :owner_id, :estado)
+      params.require(:tar_servicio).permit(:codigo, :descripcion, :detalle, :tipo, :moneda, :monto, :owner_class, :owner_id, :tipo_asesoria_id, :estado)
     end
 end
