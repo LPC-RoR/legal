@@ -31,7 +31,7 @@ class Home::HImagenesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: 'H imagen was successfully created.' }
+        format.html { redirect_to @redireccion, notice: 'Imagen fue exitósamente creada.' }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class Home::HImagenesController < ApplicationController
     respond_to do |format|
       if @objeto.update(h_imagen_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: 'H imagen was successfully updated.' }
+        format.html { redirect_to @redireccion, notice: 'Imagen fue exitósamente actualizada.' }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit }
@@ -61,7 +61,7 @@ class Home::HImagenesController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: 'H imagen was successfully destroyed.' }
+      format.html { redirect_to @redireccion, notice: 'Imagen fue exitósamente eliminada.' }
       format.json { head :no_content }
     end
   end

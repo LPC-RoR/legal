@@ -40,7 +40,7 @@ class CausasController < ApplicationController
 
     set_st_estado(@objeto)
 
-    set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos', operacion?]] )
+    set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos', operacion?], ['Demanda', operacion?]] )
 
     # Prueba de Docsplit
 
@@ -92,6 +92,8 @@ class CausasController < ApplicationController
 
       @d_pendientes = @objeto.documentos_pendientes
       @a_pendientes = @objeto.archivos_pendientes
+    when 'Demanda'
+      set_tabla('parrafos', @objeto.parrafos.order(:orden), false)
     when 'Registro'
       set_tabla('registros', @objeto.registros, false)
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?

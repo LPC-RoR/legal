@@ -25,6 +25,7 @@ class Causa < ApplicationRecord
 	has_many :app_archivos, through: :causa_archivos
 
 	has_many :secciones
+	has_many :parrafos
 
 
 	# antecedentes de los hechos de la tabla

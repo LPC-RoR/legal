@@ -15,6 +15,14 @@
 <% when 'Documentos' %>
 	<!-- Se utiliza para Causa y Cliente -->
 	<%= render partial: 'repositorios/shr/ndx_docs', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
+<% when 'Demanda' %>
+	<div class="prrf_box">
+		<% @coleccion['parrafos'].each do |parrafo| %>
+			<b>[<%= parrafo.orden %>]</b>
+			<%= parrafo.texto.html_safe%>
+			<hr>
+		<% end %>
+	</div>
 <% when 'Registro' %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'registros', gly: 'plus-circle', clr: color('causas')} %>
@@ -22,10 +30,3 @@
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'reg_reportes'} %>
 	<%= render partial: '0p/general/btn_proceso', locals: {texto: 'Proceso Registros', link: "/causas/#{@objeto.id}/procesa_registros", gly: 'clipboard-check' , clr: color(@objeto.class.name.tableize), delete: false} %>
 <% end %>
-
-<%# @objeto.secciones.each do |seccion| %>
-	<%# seccion.texto.gsub(/\n\n/, '-nl-').split('-nl-').each do |line| %>
-		<%#= seccion.texto.html_safe%><%#= line %><!--/br-->
-	<%# end %>
-	<!--hr-->
-<%# end %>

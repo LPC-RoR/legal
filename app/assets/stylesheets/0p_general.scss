@@ -35,6 +35,12 @@ $auto: auto;
     color: black;
 }
 
+.prrf_box {
+	@include box_bsc($app_brd_clr, white, 10px);
+    color: black;
+	font-size: 13px;
+}
+
 /* ELEMENTOS */
 
 .add_box {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_18_162541) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_25_210616) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1079,6 +1079,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_18_162541) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["org_region_id"], name: "index_org_sucursales_on_org_region_id"
     t.index ["org_sucursal"], name: "index_org_sucursales_on_org_sucursal"
+  end
+
+  create_table "parrafos", force: :cascade do |t|
+    t.integer "causa_id"
+    t.integer "seccion_id"
+    t.integer "orden"
+    t.text "texto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "oculto"
+    t.index ["causa_id"], name: "index_parrafos_on_causa_id"
+    t.index ["orden"], name: "index_parrafos_on_orden"
+    t.index ["seccion_id"], name: "index_parrafos_on_seccion_id"
   end
 
   create_table "reg_reportes", force: :cascade do |t|
