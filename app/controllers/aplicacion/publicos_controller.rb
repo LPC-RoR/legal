@@ -1,4 +1,5 @@
 class Aplicacion::PublicosController < ApplicationController
+  before_action :authenticate_usuario!, only: :home
   before_action :set_publico, only: %i[ show edit update destroy ]
   before_action :inicia_sesion, only: [:home]
 
