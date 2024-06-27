@@ -6,3 +6,11 @@
 		<%= render partial: 'clientes/list/links', locals: {objeto: objeto} if check_crud(objeto) %>
 	</div>
 </div>
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevaNota', objeto: objeto} do %>
+	<%= render partial: 'notas/shr/form_nota', locals: {objeto: objeto, clss: objeto.class.name, oid: objeto.id} %>
+<% end %>
+<%= render layout: '0p/collapse/display', locals: {label: 'Detalle', objeto: objeto} do %>
+	<div class="cllps">
+		<%= render partial: 'clientes/list/display_detalle', locals: {objeto: objeto} %>
+	</div>
+<% end %>

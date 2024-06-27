@@ -22,6 +22,10 @@ class Cliente < ApplicationRecord
 
     # CHILDS
 
+    def notas
+    	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
+    end
+
 	def tarifas
 		TarTarifa.where(owner_class: self.class.name).where(owner_id: self.id)
 	end

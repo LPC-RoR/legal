@@ -27,6 +27,12 @@
 	</div>
 	<div class="lnks">
 
+		<!-- MAS INFORMACION -->
+		<%= render layout: '0p/collapse/link', locals: {label: 'Info', objeto: objeto, tooltip: 'Ver información adicional'} do %>
+			<i class="bi bi-plus-lg"></i>
+		<% end %>
+
+		<i class="bi bi-dot"></i>
 		<!-- CAMBIO DE ESTADO -->
 		<% unless ['Audiencia', 'Hito'].include?(objeto.tipo)  or (objeto.fecha < @hoy) %>
 
@@ -48,11 +54,6 @@
 
 		<% end %>
 
-		<!-- MAS INFORMACION -->
-		<%= render layout: '0p/collapse/link', locals: {label: 'Info', objeto: objeto, tooltip: 'Ver información adicional'} do %>
-			<i class="bi bi-plus-lg"></i>
-		<% end %>
-
 		<!-- BOTONES PARA ACTIVIDADES ACTIVAS -->
 
 		<% unless ['realizada', 'cancelada'].include?(objeto.estado) %>
@@ -69,7 +70,7 @@
 			<%= render layout: '0p/collapse/link', locals: {label: 'CambioFecha', objeto: objeto, tooltip: 'Cambiar fecha de la actividad'} do %>
 				<i class="bi bi-calendar-x"></i>
 			<% end %>
-
+			<i class="bi bi-dot"></i>
 			<!-- LINKS_E -->
 			<% if (controller_name == 'age_actividades' and objeto.owner_id.blank?) or (controller_name != 'age_actividades' and (objeto.app_perfil_id == perfil_activo.id or admin?) ) %>
 					<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>

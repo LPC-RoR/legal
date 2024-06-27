@@ -17,14 +17,6 @@
 <div class="f_200pxlft_col">
   <div class="lft">
     <%= render partial: '0p/cmenu/cmenu', locals: { c: 'causas', tipo: tipo, estado: estado, path: path} %>
-
-    <!-- Lo siguiente sólo funciona en clientes/show, muestra las variables que se definieron para ese cliente -->
-    <% if controller_name == 'clientes' and admin? %>
-      <% unless @objeto.variables.empty? %>
-        <hr>
-        <%= render partial: 'clientes/shw/variables' %>
-      <% end %>
-    <% end %>
   </div>
   <div class="rght">
     <%= render partial: '0capitan/general/app_ttl', locals: {c: 'causas', title: "Causas #{cmenu_clss['causas'][:items][estado].downcase}", link: '/causas/new', tooltip: 'Agregar causa' } %>

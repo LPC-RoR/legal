@@ -31,7 +31,7 @@ class ClientesController < ApplicationController
 
     set_st_estado(@objeto)
 
-    set_tab( :menu, [['Agenda', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Documentos', operacion?]] )
+    set_tab( :menu, [['Agenda', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Documentos', operacion?], ['Configuración', dog?]] )
 
     if @options[:menu] == 'Agenda'
 
@@ -95,8 +95,9 @@ class ClientesController < ApplicationController
 
       set_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       set_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
+    elsif @options[:menu] == 'Configuración'
+      @vrbls = Variable.all.order(:variable)
     end
-
   end
 
   # GET /clientes/new

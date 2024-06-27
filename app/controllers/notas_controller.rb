@@ -93,6 +93,8 @@ class NotasController < ApplicationController
         @redireccion  = asesorias_path
       when 'Causa'
         @redireccion  = causas_path
+      when 'Cliente'
+        @redireccion  = clientes_path
       end
     end
 

@@ -5,4 +5,10 @@
 	<% unless objeto.archivos_faltantes.empty? and objeto.archivos_vacios.empty? %>
 		<%= render partial: '0p/nota/nota', locals: {nota: "Faltan #{objeto.archivos_faltantes.count + objeto.archivos_vacios.count} documentos controlados", clr: 'y', objeto: nil } %>
 	<% end %>
+
+	<% unless objeto.notas.empty? %>
+		<% objeto.notas.order(:created_at).each do |nota| %>
+			<%= render partial: 'notas/list/objeto', locals: {objeto: nota} unless nota.realizado %>
+		<% end %>
+	<% end %>
 </div>

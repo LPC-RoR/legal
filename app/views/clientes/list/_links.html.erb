@@ -1,15 +1,15 @@
 <% if dog? %>
 	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/organizacion?oid=#{objeto.id}", tooltip: 'Ver Organización' } do %>
-		<i class="bi bi-diagram-3"></i>
+		<!--i class="bi bi-diagram-3"></i-->
 	<% end %>
 <% end %>
-
-<% if admin? %>
-	<i class="bi bi-dot"></i>
-	<%= render partial: "0p/add_lst/add_lst", locals: {id: objeto.id, lst: objeto.variables.map {|bjt_var| bjt_var.variable}, cmplt: @vrbls.map {|vrbl| vrbl.variable}, path: "/clientes/#{objeto.id}/add_rcrd?v_nm="} %>
+<%= render layout: '0p/collapse/link', locals: {label: 'Detalle', objeto: objeto, tooltip: 'Más información'} do %>
+	<i class="bi bi-plus-lg"></i>
 <% end %>
-
 <% if operacion? %>
+	<%= render layout: '0p/collapse/link', locals: {label: 'NuevaNota', objeto: objeto, tooltip: 'Agregar nota'} do %>
+		<i class="bi bi-chat-left-text"></i>
+	<% end %>
 	<i class="bi bi-dot"></i>
 	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 <% end %>
