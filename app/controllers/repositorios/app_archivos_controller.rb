@@ -119,86 +119,88 @@ class Repositorios::AppArchivosController < ApplicationController
     end
 
     def read_demanda
-      if @objeto.app_archivo == 'Demanda' and @objeto.archivo.present?
-        path_pdf = File.join(Rails.root, 'public', @objeto.archivo.url)
-        reader = PDF::Reader.new(path_pdf)
+      if @objeto.owner.class.name == 'Causa'
+        if @objeto.app_archivo == 'Demanda' and @objeto.archivo.present?
+          path_pdf = File.join(Rails.root, 'public', @objeto.archivo.url)
+          reader = PDF::Reader.new(path_pdf)
 
-        causa = @objeto.owner
-        if causa.parrafos.any?
-          causa.secciones.delete_all
-          causa.parrafos.delete_all
-        end
+          causa = @objeto.owner
+          if causa.parrafos.any?
+            causa.secciones.delete_all
+            causa.parrafos.delete_all
+          end
 
-        # Unimos las páginas en un sólo texto
-        original = ''
-        reader.pages.each_with_index do |page, indx|
-          original << "#{sin_f_pgn(page.text)}\n"
-        end
+          # Unimos las páginas en un sólo texto
+          original = ''
+          reader.pages.each_with_index do |page, indx|
+            original << "#{sin_f_pgn(page.text)}\n"
+          end
 
-        # Procesamos línea a línea
-        s_names = ['Datos', 'En lo principal', 'Cuerpo', 'Por tanto', 'Otrosís']
-        s_ord = 0
-        p_ord = 0
-        txt_sccn = ''
-        txt_prrf = ''
-        final = nil
+          # Procesamos línea a línea
+          s_names = ['Datos', 'En lo principal', 'Cuerpo', 'Por tanto', 'Otrosís']
+          s_ord = 0
+          p_ord = 0
+          txt_sccn = ''
+          txt_prrf = ''
+          final = nil
 
-        seccion = Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: nil )
-        s_ord += 1
+          seccion = Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: nil )
+          s_ord += 1
 
-        original.split("\n").each do |raw_line|
-          line = raw_line.split(' ').join(' ').strip
-          if s_ord == 1
-            if chk_line(line.strip, s_ord + 1)
-              Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
-
-              seccion = Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: nil )
-              s_ord += 1
-              p_ord += 1
-              txt_prrf = line
-              final = line
-
-            elsif chk_line(line, s_ord)
-              if chk_dt_scdr(line)
-                # Si es Ru(tn) / Direccion : Se guarda con el campo anterior
-                txt_prrf << (txt_prrf == '' ? line.strip : "</br>#{line.strip}" )
-              else
-                # Se crea nuevo campo
+          original.split("\n").each do |raw_line|
+            line = raw_line.split(' ').join(' ').strip
+            if s_ord == 1
+              if chk_line(line.strip, s_ord + 1)
                 Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
-                p_ord += 1
-                txt_prrf = "#{line}"
-              end
-            else
-              txt_prrf << " #{line}"
-            end
-          else
-            if chk_line(line, s_ord + 1)
-              # Primera línea de la siguiente sección
-              Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
-              seccion = Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: "#{txt_sccn}</br>" )
-              p_ord += 1
-              s_ord += 1
-              txt_prrf = line
-              final = line
-            else
-              # No es primera línea de la siguiente seccion y no es un campo => Debe ser la continuación de un campo.
-              if chK_dot(line, final) or chk_br(line, final)
-                Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+
+                seccion = Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: nil )
+                s_ord += 1
                 p_ord += 1
                 txt_prrf = line
+                final = line
+
+              elsif chk_line(line, s_ord)
+                if chk_dt_scdr(line)
+                  # Si es Ru(tn) / Direccion : Se guarda con el campo anterior
+                  txt_prrf << (txt_prrf == '' ? line.strip : "</br>#{line.strip}" )
+                else
+                  # Se crea nuevo campo
+                  Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+                  p_ord += 1
+                  txt_prrf = "#{line}"
+                end
               else
                 txt_prrf << " #{line}"
               end
-              final = line unless (line == '' or line.blank?)
+            else
+              if chk_line(line, s_ord + 1)
+                # Primera línea de la siguiente sección
+                Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+                seccion = Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: "#{txt_sccn}</br>" )
+                p_ord += 1
+                s_ord += 1
+                txt_prrf = line
+                final = line
+              else
+                # No es primera línea de la siguiente seccion y no es un campo => Debe ser la continuación de un campo.
+                if chK_dot(line, final) or chk_br(line, final)
+                  Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+                  p_ord += 1
+                  txt_prrf = line
+                else
+                  txt_prrf << " #{line}"
+                end
+                final = line unless (line == '' or line.blank?)
+              end
             end
           end
+          Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: nil )
         end
-        Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: nil )
-      end
 
-      @objeto.owner.parrafos.each do |prrf|
-        prrf.oculto = chk_shw(prrf) ? false : true
-        prrf.save
+        @objeto.owner.parrafos.each do |prrf|
+          prrf.oculto = chk_shw(prrf) ? false : true
+          prrf.save
+        end
       end
     end
 
