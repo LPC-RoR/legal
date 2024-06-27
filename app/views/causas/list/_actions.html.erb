@@ -9,14 +9,18 @@
 	</div>
 	<div class="lnks">
 		<%= render layout: '0p/collapse/link', locals: {label: 'Detalle', objeto: objeto, tooltip: 'Más información'} do %>
-			<i class="bi bi-plus"></i>
+			<i class="bi bi-plus-lg"></i>
 		<% end %>
 		<% if objeto.demanda? and operacion? %>
 			<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 				<i class="bi bi-box-arrow-up-right"></i>
 			<% end %>
 		<% end %>
+		<i class="bi bi-dot"></i>
 		<% if operacion? %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'NuevaNota', objeto: objeto, tooltip: 'Agregar nota'} do %>
+				<i class="bi bi-chat-left-text"></i>
+			<% end %>
 			<!-- Lo siguiente se puso DENTRO del if porque si no se despliega el crud no tiene sentido el punto -->
 			<% if (finanzas? and objeto.facturaciones.any?) or (objeto.demanda? and operacion?) %>
 				<i class="bi bi-dot"></i>
@@ -25,3 +29,6 @@
 		<% end %>
 	</div>
 </div>
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevaNota', objeto: objeto} do %>
+	<%= render partial: 'notas/shr/form_nota', locals: {objeto: objeto, clss: objeto.class.name, oid: objeto.id} %>
+<% end %>

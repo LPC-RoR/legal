@@ -37,6 +37,10 @@ class Causa < ApplicationRecord
 
     # CUANTIA
 
+    def notas
+    	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
+    end
+
 	def valores_cuantia
 		TarValorCuantia.where(owner_class: self.class.name, owner_id: self.id)
 	end

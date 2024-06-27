@@ -9,7 +9,7 @@ class Nota < ApplicationRecord
 	end
 
 	def color_text
-		self.prioridad == 'Urgente' ? 'danger' : ( self.prioridad == 'Advertencia' ? 'warning' : 'info' )
+		(self.realizado == true) ? 'muted' : (self.prioridad == 'Urgente' ? 'danger' : ( self.prioridad == 'Advertencia' ? 'warning' : 'info' ))
 	end
 	
 	def color

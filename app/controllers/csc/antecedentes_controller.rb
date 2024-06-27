@@ -103,6 +103,6 @@ class Csc::AntecedentesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def antecedente_params
-      params.require(:antecedente).permit(:hecho, :riesgo, :ventaja, :cita, :orden, :causa_id)
+      params.require(:antecedente).permit(:hecho, :riesgo, :ventaja, :cita, :orden, :causa_id, :solicitud)
     end
 end

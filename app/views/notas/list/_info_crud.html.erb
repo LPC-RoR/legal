@@ -8,6 +8,10 @@
 
 	</div>
 	<div class="lnks">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/notas/#{objeto.id}/swtch_realizada", tooltip: "Marcar como #{objeto.realizado ? 'Pendiente' : 'Realizada'}"} do %>
+		<i class="bi bi-<%=objeto.realizado ? 'x' : 'check'%>-lg"></i>
+		<% end %>
+		<i class="bi bi-dot"></i>
 		<% if objeto.perfil.id == perfil_activo.id or admin? %>
 			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 		<% end %>

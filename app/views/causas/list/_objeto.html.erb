@@ -8,4 +8,10 @@
 	<% if objeto.tar_tarifa.blank? %>
 		<%= render partial: '0p/general/nt', locals: {tipo: 'warning', nota: "Causa sin tarifa asignada" } %>
 	<% end %>
+
+	<% unless objeto.notas.empty? %>
+		<% objeto.notas.order(:created_at).each do |nota| %>
+			<%= render partial: 'notas/list/objeto', locals: {objeto: nota} unless nota.realizado %>
+		<% end %>
+	<% end %>
 </div>

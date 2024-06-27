@@ -1,5 +1,5 @@
 class NotasController < ApplicationController
-  before_action :set_nota, only: %i[ show edit update destroy ]
+  before_action :set_nota, only: %i[ show edit update destroy swtch_realizada ]
 
   # GET /notas or /notas.json
   def index
@@ -18,13 +18,14 @@ class NotasController < ApplicationController
   def agrega_nota
     f_prms = params[:form_nota]    
     unless f_prms[:nota].blank?
-      Nota.create(ownr_clss: params[:clss], ownr_id: params[:oid], perfil_id: perfil_activo.id, nota: f_prms[:nota], prioridad: f_prms[:prioridad])
+      @objeto =Nota.create(ownr_clss: params[:clss], ownr_id: params[:oid], perfil_id: perfil_activo.id, nota: f_prms[:nota], prioridad: f_prms[:prioridad])
       noticia = 'Nota fue exitósamente creada'
     else
       noticia = 'Error de ingreso: Nota vacía'
     end
 
-    redirect_to asesorias_path, notice: noticia
+    set_redireccion
+    redirect_to @redireccion, notice: noticia
   end
 
   # GET /notas/1/edit
@@ -61,6 +62,14 @@ class NotasController < ApplicationController
     end
   end
 
+  def swtch_realizada
+    @objeto.realizado = @objeto.realizado ? false : true
+    @objeto.save
+
+    set_redireccion
+    redirect_to @redireccion
+  end
+
   # DELETE /notas/1 or /notas/1.json
   def destroy
     set_redireccion
@@ -82,6 +91,8 @@ class NotasController < ApplicationController
       case @objeto.owner.class.name
       when 'Asesoria'
         @redireccion  = asesorias_path
+      when 'Causa'
+        @redireccion  = causas_path
       end
     end
 

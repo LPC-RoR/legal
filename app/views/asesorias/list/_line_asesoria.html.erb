@@ -34,6 +34,10 @@
 		</b>
 	</div>
 	<div class="lnks">
+		<%= render layout: '0p/collapse/link', locals: {label: 'Info', objeto: objeto, tooltip: 'Ver información adicional'} do %>
+			<i class="bi bi-plus-lg"></i>
+		<% end %>
+		<i class="bi bi-dot"></i>
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/asesorias/#{objeto.id}/swtch_urgencia", tooltip: 'Cambia urgencia'} do %>
 			<i class="bi bi-cone-striped"></i>
 		<% end %>
@@ -53,4 +57,7 @@
 
 <%= render layout: '0p/collapse/display', locals: {label: 'NuevaNota', objeto: objeto} do %>
 	<%= render partial: 'notas/shr/form_nota', locals: {objeto: objeto, clss: objeto.class.name, oid: objeto.id} %>
+<% end %>
+<%= render layout: '0p/collapse/display', locals: {label: 'Info', objeto: objeto} do %>
+  	<%= render partial: 'asesorias/list/mas_info', locals: {objeto: objeto} %>
 <% end %>

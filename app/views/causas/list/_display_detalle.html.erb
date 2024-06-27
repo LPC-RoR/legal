@@ -26,4 +26,10 @@
 			<% end %>
 		</div>
 	<% end %>
+	<hr>
+	<% unless objeto.notas.empty? %>
+		<% objeto.notas.order(:created_at).each do |nota| %>
+			<%= render partial: 'notas/list/objeto', locals: {objeto: nota} if nota.realizado %>
+		<% end %>
+	<% end %>
 </div>
