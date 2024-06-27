@@ -48,7 +48,7 @@ class CausasController < ApplicationController
     when 'Agenda'
       @hoy = Time.zone.today
 
-      set_tabla('age_actividades', @objeto.actividades.order(fecha: :desc), false)
+      set_tabla('age_actividades', @objeto.actividades.order(:fecha), false)
 
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 

@@ -21,9 +21,16 @@
 <div class="f_250rght_col">
 	<div class="lft">
 		<% @coleccion['age_actividades'].each do |age_actividad| %>
-			<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: age_actividad, usuarios: usuarios} %>
+			<% unless (['realizada', 'cancelada'].include?(age_actividad.estado) or age_actividad.fecha < Time.zone.today) %>
+				<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: age_actividad, usuarios: usuarios} %>
+			<% end %>
 		<% end %>
-		<%#= render partial: '0p/tabla/tabla2', locals: {c: 'age_actividades'} %>
+		<hr>
+		<% @coleccion['age_actividades'].each do |age_actividad| %>
+			<% if (['realizada', 'cancelada'].include?(age_actividad.estado) or age_actividad.fecha < Time.zone.today) %>
+				<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: age_actividad, usuarios: usuarios} %>
+			<% end %>
+		<% end %>
 	</div>
 	<div class="rght">
 		<%= render partial: 'actividades/shr/add_box', locals: {objeto: objeto} %>
