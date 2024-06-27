@@ -48,19 +48,19 @@
 		<% end %>
 
 		<!-- MAS INFORMACION -->
-		<%= render layout: '0p/collapse/link', locals: {label: 'Info', objeto: objeto, tooltip: 'Mas información'} do %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Info', objeto: objeto, tooltip: 'Ver información adicional'} do %>
 			<i class="bi bi-plus-lg"></i>
 		<% end %>
 
 		<!-- BOTONES PARA ACTIVIDADES ACTIVAS -->
 
-		<% unless ['realizada', 'cancelada'].include?(objeto.estado) or (objeto.fecha < @hoy) %>
+		<% unless ['realizada', 'cancelada'].include?(objeto.estado) %>
 
-			<% unless usuarios.empty? %>
+			<% unless usuarios.empty? or (objeto.fecha < @hoy)  %>
 				<%= render partial: 'actividades/shr/ctvdd/encargados', locals: {objeto: objeto, usuarios: usuarios} %>
 			<% end %>
 
-			<%= render layout: '0p/collapse/link', locals: {label: 'NuevoAntecedente', objeto: objeto, tooltip: 'Agregar nota'} do %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'NuevaNota', objeto: objeto, tooltip: 'Agregar nota'} do %>
 				<i class="bi bi-chat-left-text"></i>
 			<% end %>
 
@@ -77,7 +77,7 @@
 	</div>
 </div>
 
-<%= render layout: '0p/collapse/display', locals: {label: 'NuevoAntecedente', objeto: objeto} do %>
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevaNota', objeto: objeto} do %>
   	<%= render partial: 'actividades/shr/ctvdd/frm_nota', locals: {objeto: objeto} %>
 <% end %>
 
