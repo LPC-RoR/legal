@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_132507) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_27_152418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -375,6 +375,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_132507) do
     t.decimal "monto"
     t.integer "tipo_asesoria_id"
     t.boolean "pendiente"
+    t.boolean "urgente"
     t.index ["cliente_id"], name: "index_asesorias_on_cliente_id"
     t.index ["estado"], name: "index_asesorias_on_estado"
     t.index ["tar_servicio_id"], name: "index_asesorias_on_tar_servicio_id"

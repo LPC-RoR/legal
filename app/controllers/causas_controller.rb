@@ -40,7 +40,7 @@ class CausasController < ApplicationController
 
     set_st_estado(@objeto)
 
-    set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos', operacion?], ['Demanda', operacion?]] )
+    set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos', operacion?], ['Demanda', dog?]] )
 
     # Prueba de Docsplit
 

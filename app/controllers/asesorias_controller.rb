@@ -1,5 +1,5 @@
 class AsesoriasController < ApplicationController
-  before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar liberar_factura swtch_pendiente ]
+  before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar liberar_factura swtch_pendiente swtch_urgencia ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   # GET /asesorias or /asesorias.json
@@ -100,6 +100,13 @@ class AsesoriasController < ApplicationController
 
   def swtch_pendiente
     @objeto.pendiente = @objeto.pendiente ? false : true
+    @objeto.save
+
+    redirect_to asesorias_path
+  end
+
+  def swtch_urgencia
+    @objeto.urgente = @objeto.urgente ? false : true
     @objeto.save
 
     redirect_to asesorias_path
