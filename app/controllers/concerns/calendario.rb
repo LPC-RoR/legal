@@ -68,7 +68,7 @@ module Calendario
   end
 
   def dyf(dt_fecha)
-    nombre_dia(dt_fecha) == 'domingo' or CalFeriado.find_by(cal_fecha: dt_fecha).present?
+    (nombre_dia(dt_fecha) == 'domingo') or CalFeriado.find_by(cal_fecha: dt_fecha.to_date).present?
   end
 
   #------------------------------------------------------------------------------------------------------------------------

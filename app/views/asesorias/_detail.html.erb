@@ -24,27 +24,27 @@
 		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha, label: 'Fecha' } %>
 		<small><%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %></small>
 	</div>
-	<div class='form-cell'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha_uf, label: 'Fecha UF' } %>
-		<small><%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_uf } %></small>
-	</div>
+	<!--div class='form-cell'>
+		<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha_uf, label: 'Fecha UF' } %>
+		<small><%#= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_uf } %></small>
+	</div-->
 	<div class='form-cell'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :plazo, label: 'Plazo' } %>
 		<small><%= render partial: '0p/form_fields/date', locals: { form: form, token: :plazo } %></small>
 	</div>
 </div>
 <hr>
-<small><i>Si se trata de una asesoría única, llené directamente estos campos para no asignar tarifa.</i></small></br>
+<!--small><i>Si se trata de una asesoría única, llené directamente estos campos para no asignar tarifa.</i></small></br-->
 
-<div class="row">
+<!--div class="row">
 	<div class="col-lg-2 col-xs-12">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :moneda, label: 'Moneda' } %>
-		<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'] } %>
+		<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :moneda, label: 'Moneda' } %>
+		<%#= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'] } %>
 	</div>
 	<div class="col-lg-2">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :monto, label: 'Monto' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :monto } %>
+		<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :monto, label: 'Monto' } %>
+		<%#= render partial: '0p/form_fields/text', locals: { form: form, token: :monto } %>
 	</div>
-</div>
+</div-->
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>

@@ -2,7 +2,7 @@
 <h4><%= @objeto.cliente.razon_social %></h4>
 <h4><%= "#{@objeto.rit} : #{@objeto.causa}" %></h4>
 <br>
-<small>Bajo la descripción de cada hecho, responda si el hecho es o no es efectivo. De no ser efectivo, detalle el hecho real. La documentación necesaria para respaldar cada afirmación es solicitada en an el documento adjunto : 'Documenttación solicitada'</small>
+<small>Bajo la descripción de cada hecho indique si es o no efectivo, redacte su propio relato y proporcione antecedentes adicionales sobre el mismo. Además, por favor envíenos la documentación que acredita su version.</small>
 <br>
 <% @objeto.hechos.order(:orden).each do |hchs| %>
 	<p><b><%= hchs.hecho.blank? ? "Hecho Nº #{hchs.orden}" : hchs.hecho %></b></p>
