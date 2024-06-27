@@ -1,3 +1,12 @@
+<% unless objeto.blank? %>
+<div class="ttl_lnks">
+	<div class="ttl">
+
+		<i class="bi bi-cone-striped text-<%=clr%>"></i>
+		<%= dma_hm(objeto.created_at) %>
+	</div>
+</div>
+<% end %>
 <div class="app_nt_<%=clr%>">
 	<div class="ttl_lnks">
 		<div class="ttl">

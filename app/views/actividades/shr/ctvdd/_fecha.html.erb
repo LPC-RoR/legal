@@ -1,6 +1,6 @@
 <div class="ttl_lnks text-<%= ['realizada', 'cancelada'].include?(objeto.estado) or  (objeto.fecha < @hoy) ? 'muted' : 'primary' %>">
 	<div class="ttl">
-
+		<span class="text-<%=objeto.text_color%>">
 		<!-- ICONO SEGÚN TIPO DE ACTIVIDAD -->
 		<% if objeto.tipo == 'Audiencia' %>
 			<i class="bi bi-bank2"></i>
@@ -22,6 +22,7 @@
 		<% elsif objeto.estado == 'cancelada' %>
 			<i class="bi bi-x-lg"></i>
 		<% end %>
+		</span>
 
 	</div>
 	<div class="lnks">

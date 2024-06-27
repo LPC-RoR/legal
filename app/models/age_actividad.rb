@@ -23,7 +23,20 @@ class AgeActividad < ApplicationRecord
 	end
 
 	def text_color
-		['Audiencia', 'Hito'].include?(self.tipo) ? 'primary' : ( (['realizada', 'cancelada'].include?(self.estado) or self.fecha < Time.zone.today) ? 'muted' : self.prioridad )
+		if (['realizada', 'cancelada'].include?(self.estado) or self.fecha < Time.zone.today)
+			'muted'
+		else
+			case self.tipo
+			when 'Audiencia'
+				'primary'
+			when 'Hito'
+				'dark'
+			when 'Reunión'
+				'success'
+			when 'Tarea'
+				'info'
+			end
+		end
 	end
 
 	def abr_encargados

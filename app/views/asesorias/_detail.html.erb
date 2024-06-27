@@ -5,7 +5,7 @@
 	</div>
 	<div class='form-cell'>
 		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :cliente_id, label: 'Cliente' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.all.order(:razon_social).collect { |cli| [cli.razon_social, cli.id] }, display_field: 'razon_social', prompt: 'Cliente' } %></br>
+		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cli| [cli.razon_social, cli.id] }, display_field: 'razon_social', prompt: 'Cliente' } %></br>
 	</div>
 </div>
 
