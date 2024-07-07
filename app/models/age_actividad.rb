@@ -11,7 +11,7 @@ class AgeActividad < ApplicationRecord
 	has_many :age_logs
 
 	def owner
-		self.owner_class.constantize.find(self.owner_id)
+		self.owner_id.blank? ? nil : self.owner_class.constantize.find(self.owner_id)
 	end
 
 	def ownr_name
