@@ -1,4 +1,6 @@
 class Repositorios::AppArchivosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_app_archivo, only: %i[ show edit update destroy ]
   after_action :read_demanda, only: :update
 
@@ -63,45 +65,41 @@ class Repositorios::AppArchivosController < ApplicationController
 
     def sin_f_pgn(page_text)
       # Saca el número de página y el caracter de inicio de página.
-      page_text.gsub(/\n/, '__n__').gsub(/__n__\s+\d+\s*$/, "__n__" ).gsub(/\f/, '__n__').gsub(/\s{2,}/, " ").gsub(/__n__/, "\n")
+      # No reemplazamos \s con espacios porque, \s arrastra con más que espacios
+      page_text.gsub(/\n/, '__n__').gsub(/__n__\s+\d+\s*$/, "__n__" ).gsub(/\f/, '__n__').gsub(/__n__/, "\n")
     end
 
-    def chk_line(line, st)
-      v_rex = []
-      fin = '(\s|\:)+'
+    def dts_rgx
       num = '(\s*\(?\s*\d+\s*\)?)?'
-      rex1 = "^procedimiento#{fin}" # "verifica el término de la palabra o :
-      rex2 = "^materia#{fin}"
-      rex3 = "^demandante#{num}#{fin}"
-      rex4 = "^ru[nt]#{fin}"
-      rex5 = "^domicilio\s*(ambos)?(todos)?(abogado)?s?#{fin}"
-      rex6 = "^abogado\s+(patrocinante)?(apoderado)?#{num}#{fin}"
-      rex7 = "^((correo\s+electr(o|ó)nico)|(e?\-?mail))+#{fin}"
-      rex8 = "^demandado\s+(solidario)?#{num}#{fin}"
-      rex9 = "^representante\s*legal#{fin}"
-      v_rex[0] = /#{rex1}|#{rex2}|#{rex3}|#{rex4}|#{rex5}|#{rex6}|#{rex7}|#{rex8}|#{rex9}/i
-      v_rex[1] = /^EN\s*LO\s*PRINCIPAL\,*#{fin}/
-      v_rex[2] = /^\s*S.\s?J.\s?(L.)?\s+/
-      v_rex[3] = /^POR\s*TANTO(\,|\s|\:)+/
-      st == v_rex.length+1 ? false : line.match(v_rex[st-1])
+      rex1 = "^procedimiento(\s|:)" # "verifica el término de la palabra o :
+      rex2 = "^materia(\s|:)"
+      rex3 = "^demandante#{num}(\s|:)"
+      rex4 = "^ru[nt](\s|:)"
+      rex5 = "^domicilio\s*(ambos)?(todos)?(abogado)?s?(\s|:)"
+      rex6 = "^abogado\s+(patrocinante)?(apoderado)?#{num}(\s|:)"
+      rex7 = "^((correo\s+electr(o|ó)nico)|(e?\-?mail))+(\s|:)"
+      rex8 = "^demandado\s+(solidario)?#{num}(\s|:)"
+      rex9 = "^representante\s*legal(\s|:)"
+      /#{rex1}|#{rex2}|#{rex3}|#{rex4}|#{rex5}|#{rex6}|#{rex7}|#{rex8}|#{rex9}/i
     end
 
-    def chk_dt_scdr(dato)
-      fin = '(\s|\:)+'
-      rex1 = "^ru[nt]#{fin}"
-      rex2 = "^domicilio#{fin}(?!todos)(?!ambos)"
-      rex3 = "^representante\s*legal#{fin}"
-      rex = /#{rex1}|#{rex2}|#{rex3}/i
-      
-      dato.match(rex)
+    def dts_rgx_nwln
+      rex1 = "^ru[nt](\s|:)"
+      rex2 = "^domicilio\s*(abogado|demandante)?(\s|:)"
+      rex3 = "^representante\s*legal(\s|:)"
+      /#{rex1}|#{rex2}|#{rex3}/i
     end
 
-    def chK_dot(line, final)
+    def new_line_rgx
       rex1 = "^[a-z]{1}\s?[\)\:\.]{1}"
       rex2 = "^[1-9]{1,2}\.?[0-2]{1,2}\s*[\)\:\.]{1}\s+"
       rex3 = "^[IVXLC]+[\s\:\.\)]{1}"
-      rex = /#{rex1}|#{rex2}|#{rex3}/i
-      line.match(rex) and [',', ';'].exclude?(final[-1])
+      rex4 = /^POR\s*TANTO(\,|\s|\:)+/
+      /#{rex1}|#{rex2}|#{rex3}|#{rex4}/i
+    end
+
+    def one_line_rgx
+      /^\s*S.\s?J.\s?(L.)?\s+/
     end
 
     def chk_br(line, final)
@@ -109,6 +107,13 @@ class Repositorios::AppArchivosController < ApplicationController
       chk_blank and ['.', ':'].include?(final.strip[-1])
     end
 
+    def demandante_rgx
+      fin = '(\s|\:)+'
+      num = '(\s*\(?\s*\d+\s*\)?)?'
+      /^demandante#{num}#{fin}/i
+    end
+
+    # NO se usa en esta versión pero puede volver, sobre todo por las cifras
     def chk_shw(prrf)
       fin = '(\s|\:)+'
       num = '(\s*\(?\s*\d+\s*\)?)?'
@@ -132,61 +137,76 @@ class Repositorios::AppArchivosController < ApplicationController
 
           # Unimos las páginas en un sólo texto
           original = ''
-          reader.pages.each_with_index do |page, indx|
+          reader.pages.each do |page|
             original << "#{sin_f_pgn(page.text)}\n"
           end
 
           # Procesamos línea a línea
-          s_names = ['Datos', 'En lo principal', 'Cuerpo', 'Por tanto', 'Otrosís']
-          s_ord = 0
+          estado = 'Datos'
           p_ord = 0
-          txt_sccn = ''
           txt_prrf = ''
           final = nil
 
-          seccion = Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: nil )
-          s_ord += 1
+          seccion = Seccion.create(causa_id: @objeto.owner.id, orden: 1, seccion: estado, texto: nil )
 
           original.split("\n").each do |raw_line|
-            line = raw_line.split(' ').join(' ').strip
-            if s_ord == 1
-              if chk_line(line.strip, s_ord + 1)
+            line = raw_line.strip
+            if estado == 'Datos'
+              if line.match?(/^EN\s*LO\s*PRINCIPAL\,*\b/)
+                estado = 'Cuerpo'
                 Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
-
-                seccion = Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: nil )
-                s_ord += 1
                 p_ord += 1
                 txt_prrf = line
                 final = line
 
-              elsif chk_line(line, s_ord)
-                if chk_dt_scdr(line)
-                  # Si es Ru(tn) / Direccion : Se guarda con el campo anterior
+                seccion = Seccion.create(causa_id: @objeto.owner.id, orden: 2, seccion: 'Cuerpo', texto: nil )
+
+              elsif line.match?(dts_rgx)
+                if line.match?(dts_rgx_nwln)
                   txt_prrf << (txt_prrf == '' ? line.strip : "</br>#{line.strip}" )
                 else
                   # Se crea nuevo campo
-                  Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
-                  p_ord += 1
+                  unless p_ord == 0 and txt_prrf == ''
+                    Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+                    p_ord += 1
+                  end
                   txt_prrf = "#{line}"
                 end
               else
-                txt_prrf << " #{line}"
+                txt_prrf << " #{line}" unless line.blank?
+              end
+              if line.match?(demandante_rgx)
+                puts "****************************** Demandante"
+                puts line
+                causa = @objeto.owner
+                n_orden = causa.demandantes.count + 1
+                nombre = line.split(':')[1].strip
+                wrds = nombre.split(' ')
+                lngth = wrds.length
+                nombres = lngth > 3 ? "#{wrds[0]} #{wrds[1]}" : wrds[0]
+                apellidos = lngth > 3 ? "#{wrds[2]} #{wrds[3]}" : "#{wrds[1]} #{wrds[2]}"
+                causa.demandantes.create(orden: n_orden, nombres: nombres, apellidos: apellidos)
               end
             else
-              if chk_line(line, s_ord + 1)
+              if line.match?(new_line_rgx)
                 # Primera línea de la siguiente sección
                 Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
-                seccion = Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: "#{txt_sccn}</br>" )
                 p_ord += 1
-                s_ord += 1
                 txt_prrf = line
                 final = line
+                if line.match?(one_line_rgx)
+                  Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{line}</br>")
+                  p_ord += 1
+                  txt_prrf = ''
+                  final = ''
+                end
               else
                 # No es primera línea de la siguiente seccion y no es un campo => Debe ser la continuación de un campo.
-                if chK_dot(line, final) or chk_br(line, final)
+                if chk_br(line, final)
                   Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
                   p_ord += 1
                   txt_prrf = line
+                  final = line
                 else
                   txt_prrf << " #{line}"
                 end
@@ -194,13 +214,9 @@ class Repositorios::AppArchivosController < ApplicationController
               end
             end
           end
-          Seccion.create(causa_id: @objeto.owner.id, orden: s_ord + 1, seccion: s_names[s_ord], texto: nil )
+          Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
         end
 
-        @objeto.owner.parrafos.each do |prrf|
-          prrf.oculto = chk_shw(prrf) ? false : true
-          prrf.save
-        end
       end
     end
 

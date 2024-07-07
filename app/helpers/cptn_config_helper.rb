@@ -29,7 +29,7 @@ module CptnConfigHelper
 	# CONFIG con MANEJO DE DEFAULT VALUES
 
 	def get_cfg(cfg_nombre)
-		cfg = version_activa.cfg_valores.find_by(cfg_valor: cfg_nombre)
+		cfg = get_version_activa.cfg_valores.find_by(cfg_valor: cfg_nombre)
 		if cfg.blank?
 			cfg_defaults[cfg_nombre.to_sym]
 		else

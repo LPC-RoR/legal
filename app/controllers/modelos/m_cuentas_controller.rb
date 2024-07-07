@@ -1,4 +1,6 @@
 class Modelos::MCuentasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_m_cuenta, only: %i[ show edit update destroy set_formato ]
 
   # GET /m_cuentas or /m_cuentas.json

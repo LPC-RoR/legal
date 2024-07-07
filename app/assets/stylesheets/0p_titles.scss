@@ -1,136 +1,132 @@
 $ttl_ln_hght: 40px;
 
-$nav_grd_tc: 50px auto 50px;
-$nav_gap: 0;
-
-
 /* PARTIALS */
 
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd_wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
 // grd($grd_tc, $grd_gap);
-// grd_frm($mrgn, $bg_color, $grap);
 // grd_ncol($nth);
-@import "grids";
-
-// a_hover($clr, $hvr_clr);
-@import "a_hover";
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
 
 /* TITULOS */
-@mixin ttl_hd($grd_tc) {
-	@include grd_frm($ttl_mrgn, $c_ttl_bg, $ttl_gap);
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-	color: $c_ttl_fnt;
-    font-family: $app_fnt;
+
+@mixin ttl_bsc2($grd_tc) {
+	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
+	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
+	@include bx($c_ttl_bg);
+	@include bx_shdw;
+	@include grd(auto auto, $ttl_gap);
+	@include ln_fnt($ttl_ln_hght, $app_fnt, 16px, $c_ttl_fnt);
     font-weight: bold;
-	grid-template-columns: $grd_tc;
 }
 
-@mixin ttl_cols($grd_tc) {
-	@include ttl_hd($grd_tc);
-	line-height: $ttl_ln_hght;
-
-    .ttl_ttl {
-    	@include grd_ncol(1);
+@mixin ttl_nm_lnks($grd_tc) {
+	@include ttl_bsc2($grd_tc);
+	.ttl_ttl {
+		@include grd_ncol(1);
     	padding-left: 1em;
     	justify-self: start;
-    }
-
-    .ttl_lnks {
-    	@include grd_ncol(2);
-    	padding-right: 1em;
+	}
+	.ttl_lnks {
+		@include grd_ncol(2);
     	justify-self: end;
-    }
+	}
    	@include a_hover($c_ttl_lnk, $c_ttl_hvr);
 }
 
-@mixin nav_cols($grd_tc) {
-	@include ttl_hd($grd_tc);
-	line-height: $ttl_ln_hght;
+//---------------------------------------------- LINE
+
+@mixin ttl_ln_bsc($grd_tc, $brd_rds, $ln_hght, $fnt_sz) {
+	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
+	@include brd(2px, $brd_rds, $pltt_6);
+	@include bx($pltt_9);
+	@include bx_shdw;
+	@include grd(auto auto, $ttl_gap);
+	@include ln_fnt($ln_hght, $app_fnt, $fnt_sz, $pltt_4);
+    font-weight: bold;
+	.ttl_ttl {
+		@include grd_ncol(1);
+    	justify-self: start;
+	}
+	.ttl_lnks {
+		@include grd_ncol(2);
+    	justify-self: end;
+	}
+   	@include a_hover($pltt_4, $pltt_6);
+}
+
+// ---------------------------------------------- NAV
+
+@mixin nav_cols2($grd_tc) {
+	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
+	@include ttl_bsc2($grd_tc);
     justify-items: center;
-
-    .bck {
-    	@include grd_ncol(1);
-    	padding-left: 10px;
-    	justify-self: start;
-    }
-
-    .info {
-    	@include grd_ncol(2);
-    }
-
-    .nxt {
-    	@include grd_ncol(3);
-    	padding-right: 10px;
-    	justify-self: end;
-    }
-   	@include a_hover($c_ttl_lnk, $c_ttl_hvr);
-}
-
-@mixin ttl_bsc($lnks_wdth) {
-	@include grd_frm($ttl_mrgn, $app_bg, ttl_gap);
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-	color: white;
-    font-family: $app_fnt;
-    font-weight: bold;
-	grid-template-columns: auto $lnks_wdth;
-}
-
-@mixin ttl_fill($bg_color, $lnks_wdth, $ln_hght, $a_clr, $hvr_clr) {
-	@include ttl_bsc($lnks_wdth, );
-	background-color: $bg_color;
-	line-height: $ln_hght;
-
-    .ttl_ttl {
-    	@include grd_ncol(1);
+	.bck {
+		@include grd_ncol(1);
     	padding-left: 1em;
     	justify-self: start;
-    }
-
-    .ttl_lnks {
-    	@include grd_ncol(2);
-    	padding-right: 1em;
+	}
+	.info {
+		@include grd_ncol(2);
+	}
+	.nxt {
+		@include grd_ncol(3);
     	justify-self: end;
+	}
+   	@include a_hover($c_ttl_lnk, $c_ttl_hvr);
+}
+// -------------------------------------------------- PRNT
 
-	   	@include a_hover($a_clr, $hvr_clr)
-    }
+@mixin ttl_prnt($grd_tc, $brd_rds, $ln_hght, $fnt_sz) {
+	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
+	@include brd(2px, $brd_rds, $pltt_6);
+	@include bx(white);
+	@include bx_shdw;
+	@include grd(auto auto, $ttl_gap);
+	@include ln_fnt($ln_hght, $app_fnt, $fnt_sz, $pltt_4);
+	color: black;
+    font-weight: bold;
+	.ttl_ttl {
+		@include grd_ncol(1);
+    	justify-self: start;
+	}
+	.ttl_lnks {
+		@include grd_ncol(2);
+    	justify-self: end;
+	}
+   	@include a_hover($pltt_4, $pltt_6);
 }
 
+// ------------------------------------------------------------------------------------
 
-/// Parametrizada con variables
 .ttl_nav {
-	@include nav_cols($app_nav_tc);
+	@include nav_cols2($app_nav_tc);
 }
 
 .ttl_app {
-	@include ttl_cols($app_ttl_tc);
+	@include ttl_nm_lnks($app_ttl_tc);
 }
 
-.ttl_auto {
-	@include ttl_cols(auto auto);
+.ttl_top {
+	@include ttl_ln_bsc(auto auto, 10px 10px 3px 3px, 30px, 14px)
 }
 
-
-.ttl_clear {
-	@include ttl_fill($app_clear, 100px, 40px, white, gray);
-}
-.ttl_wdth {
-	@include ttl_fill($app_bg, 300px, 40px, white, gray);
+.ttl_ln {
+	@include ttl_ln_bsc(auto auto, 10px 10px 10px 10px, 30px, 14px)
 }
 
-.ttl_sub {
-	@include ttl_fill($app_bg, 50px, 25px, white, gray);
+.ttl_smll_ln {
+	@include ttl_ln_bsc(auto auto, 10px 10px 10px 10px, 20px, 12px)
+}
+
+.ttl_bttn {
+	@include ttl_ln_bsc(auto auto, 3px 3px 10px 10px, 30px, 14px)
 }
 
 .ttl_prnt {
-	@include ttl_fill(white, 300px, 40px, black, gray);
-    border: 1px solid $app_brd_clr;
-    border-radius: 3px 3px 3px 3px;
-    color: black;
-}
-
-.cttl_sub {
-	padding: 5px 0 5px 0;
-	text-align: center;
-	background-color: $app_clear;
-	color: white;
-	font-weight: bold;
+	@include ttl_prnt(auto auto, 3px 3px 3px 3px, 40px, 14px)
 }

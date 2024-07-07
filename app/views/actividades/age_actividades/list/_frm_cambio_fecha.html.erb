@@ -1,0 +1,12 @@
+<div class="g_cllps">
+	<b>Cambiar fecha de la actividad</b>
+	<%= form_for :form_cambio_fecha, url: "/age_actividades/#{objeto.id}/cambio_fecha?c=#{controller_name}" do |form| %>
+
+		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :nueva_fecha } %>
+
+		<button type="submit" class="btn btn-info">
+		  <i class="bi bi-caret-right icon-white"></i>
+		</button>
+
+	<% end  %>
+</div>

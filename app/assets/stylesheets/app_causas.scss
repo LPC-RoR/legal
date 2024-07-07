@@ -11,16 +11,26 @@ $cs_tc: auto auto;
 $hc_bg: #00b4d8;
 $at_bg: #d2e9e9;
 
-@import "grids";
+// -------------------------------------------
+
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd_wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
 // grd($grd_tc, $grd_gap);
-// grd_frm($bg_color, $grap);
 // grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
 
-// a_hover($clr, $hvr_clr);
-@import "a_hover";
+// bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr)
+@import "bjt";
 
-// @include bx_bs($c_bg, $c_brd, $fnt_sz);
+
+// @include bx_bs($c_bg, $c_brd, $fnt_sz); CAJA BASE
 @import "bx_bs";
+
+
 
 @mixin cs_bjt_bs($c_bg, $c_brd) {
 	padding: 10px;
@@ -44,11 +54,6 @@ $at_bg: #d2e9e9;
     	color: black;
 		font-size: 10px;
 	}
-}
-
-.cs_bjt {
-	@include cs_bjt_bs($c_cs_bg, $c_cs_brd);
-	@include cs_dtll(black, gray);
 }
 
 .cs_box {

@@ -1,17 +1,11 @@
-<div class="cs_bjt">
-	<%= render partial: 'causas/list/actions', locals: {objeto: objeto} %>
+<div class="app_bjt">
+	<%= render partial: 'causas/list/bjt', locals: {objeto: objeto} %>
 
-	<%= render partial: 'causas/list/detalle', locals: {objeto: objeto} %>
-
-	<%= render partial: 'causas/list/line_monto', locals: {objeto: objeto} %>
+	<%= render partial: 'causas/list/monto_pagado', locals: {objeto: objeto} %>
 
 	<% if objeto.tar_tarifa.blank? %>
 		<%= render partial: '0p/general/nt', locals: {tipo: 'warning', nota: "Causa sin tarifa asignada" } %>
 	<% end %>
 
-	<% unless objeto.notas.empty? %>
-		<% objeto.notas.order(:created_at).each do |nota| %>
-			<%= render partial: 'notas/list/objeto', locals: {objeto: nota} unless nota.realizado %>
-		<% end %>
-	<% end %>
+	<%= render partial: 'notas/shr/notas_pendientes', locals: {objeto: objeto} %>
 </div>

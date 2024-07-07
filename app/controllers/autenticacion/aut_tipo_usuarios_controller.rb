@@ -1,4 +1,6 @@
 class Autenticacion::AutTipoUsuariosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_aut_tipo_usuario, only: %i[ show edit update destroy ]
 
   # GET /aut_tipo_usuarios or /aut_tipo_usuarios.json

@@ -6,7 +6,7 @@ $lyt_nvbr_mrgn: $lyt_mrgn;
 $lyt_bdy_mrgn: $lyt_mrgn;
 
 $app_fnt: 'Raleway', sans-serif;
-$app_ttl_tc: auto 100px;
+$app_ttl_tc: auto auto;
 $app_nav_tc: 50px auto 50px;
 $app_nt_green: #a5be00;
 $app_nt_yellow: #ffd500;
@@ -78,23 +78,25 @@ $c_mn_sltd_hvr: $pltt_5;
 /* TITULOS */
 
 $c_ttl_bg: $pltt_5;
+$c_ttl_brd: $pltt_4;
 $c_ttl_fnt: $pltt_9;
-$c_ttl_lnk: $pltt_7;
+$c_ttl_lnk: $pltt_9;
 $c_ttl_hvr: $pltt_3;
 $ttl_mrgn: 0 0 4px 0;
+$ttl_padd: 0 10px 0 10px;
 $ttl_gap: 0;
 $ttl_ln_hght: 40px;
 
 /* AGENDA */
 
 $d_dyf_bg: $red_4;
-$d_dyf_fnt: $red_2;
+$d_dyf_fnt: $red_1;
 $d_dyf_brd: $red_5;
 $d_s_bg: $red_5;
 $d_s_fnt: $red_2;
 $d_s_brd: $red_5;
 $d_h_bg: $blue_5;
-$d_h_fnt: $blue_2;
+$d_h_fnt: $blue_1;
 $d_h_brd: $blue_5;
 
 $c_ctvdd_bg: $pltt_9;

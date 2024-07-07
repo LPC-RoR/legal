@@ -1,7 +1,9 @@
-<%= render partial: '0capitan/objeto/estado_crud', locals: {objeto: objeto, restriccion: true} %>
-<%= render partial: 'tarifas/tar_facturas/list/line_factura', locals: {objeto: objeto} %>
-<%= render partial: 'tarifas/tar_facturas/list/line_detalle', locals: {objeto: objeto} %>
+<div class="app_bjt">
+	<%= render partial: '0capitan/objeto/estado_crud', locals: {objeto: objeto, restriccion: true} %>
+	<%= render partial: 'tarifas/tar_facturas/list/line_factura', locals: {objeto: objeto} %>
+	<%= render partial: 'tarifas/tar_facturas/list/line_detalle', locals: {objeto: objeto} %>
 
-<small><small>
-	<%= link_to 'libera factura', "/tar_facturas/#{objeto.id}/libera_factura" if objeto.estado == 'ingreso' %>
-</small></small>
+	<small><small>
+		<%= link_to 'libera factura', "/tar_facturas/#{objeto.id}/libera_factura" if objeto.estado == 'ingreso' %>
+	</small></small>
+</div>

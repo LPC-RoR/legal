@@ -1,4 +1,6 @@
 class Csc::TemasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tema, only: %i[ show edit update destroy arriba abajo nuevo_hecho ]
   after_action :ordena_temas, only: %i[ destroy nuevo_hecho ]
 

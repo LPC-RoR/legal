@@ -1,115 +1,142 @@
 /* ELEMENTOS BASE PARA EL MANEJO DE TABLAS */
 
+// DEPRECATED No se usan en este scss
 $app_ln_bg: white;
-$app_ln_gp: 0;
 $app_font: 'Raleway', sans-serif;
-$app_ln_hght: 14px;
 $app_ln_txt_hght: 13px;
-$app_ln_padd: 0 10px 0 10px;
 $app_fnt_size: 14;
 
-$tb_font: Arial;
-$ln_vlr_cnt_gtc: auto 150px 150px;
+//Usados
+$app_tb_fnt: Arial;
+$app_ln_padd: 2px 10px 2px 10px;    
+$app_ln_hght: 14px;
+$app_ln_gp: 0;
 
-@import "a_hover";
+// -------------------------------------------
 
-@mixin ln_bsc($ln_bg, $font_family, $font_size) {
-	margin: 0;
-	padding: $app_ln_padd;
-	background-color: $ln_bg;
-	line-height: $app_ln_hght;
-	font-size: $font_size;
-    font-family: $font_family;
-	display: grid;
-	grid-gap: $app_ln_gp;
-	color: black;
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd:wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
+// grd($grd_tc, $grd_gap);
+// grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
+
+@mixin ln_bsc_prprty($clr_bg, $fnt_fmly, $fnt_sz) {
+    @include mrgn_pddng(0, $app_ln_padd);
+    @include bx($clr_bg);
+    @include ln_fnt($app_ln_hght, $fnt_fmly, $fnt_sz, black)
 }
 
-@mixin ln_ncol($nth) {
-    grid-column-start: $nth;
-    grid-column-end: $nth + 1;
+@mixin ln_nm_lnks($lnk_clr, $hvr_clr) {
+    @include grd(auto 100px, $app_ln_gp);
+    .ln_nm {
+        @include grd_ncol(1);
+        justify-self: start;
+    }
+    .ln_lnks {
+        @include grd_ncol(2);
+        justify-self: end;
+    }
+    @include a_hover($lnk_clr, $hvr_clr);
 }
 
-@mixin bx_shdw {
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+@mixin ln_2auto($lnk_clr, $hvr_clr) {
+    @include grd(auto auto, $app_ln_gp);
+    .ln_nm {
+        @include grd_ncol(1);
+        justify-self: start;
+    }
+    .ln_lnks {
+        @include grd_ncol(2);
+        justify-self: end;
+    }
+    @include a_hover($lnk_clr, $hvr_clr);
 }
 
-@mixin ln_2_col($lft, $rght, $fnt_size) {
-    @include ln_bsc($app_ln_bg, $app_font, $fnt_size);
-	grid-template-columns: $lft $rght;
-    justify-items: stretch;
-
-    .ln_lft {
-    	@include ln_ncol(1);
-    	justify-self: start;
+@mixin ttl_2auto($lnk_clr, $hvr_clr) {
+    @include grd(auto auto, $app_ln_gp);
+    .ttl_lft {
+        @include grd_ncol(1);
+        justify-self: start;
     }
-    .ln_rght {
-    	@include ln_ncol(2);
-    	justify-self: end;
+    .ttl_rght {
+        @include grd_ncol(2);
+        justify-self: end;
     }
-    @include a_hover(black, gray);
+    @include a_hover($lnk_clr, $hvr_clr);
 }
 
-@mixin ln_3_col($lft, $mddl, $rght, $fnt_size) {
-	@include ln_bsc($app_ln_bg, $app_font, $fnt_size);
-	grid-template-columns: $lft $mddl $rght;
-    justify-items: stretch;
-
-    .ln_lft {
-    	@include ln_ncol(1);
-    	justify-self: start;
+@mixin ln_nm_mnt_lnks($lnk_clr, $hvr_clr) {
+    @include grd(auto 100px 50px, $app_ln_gp);
+    .ln_nm {
+        @include grd_ncol(1);
+        justify-self: start;
     }
-    .ln_mddl {
-    	@include ln_ncol(2);
+    .ln_mnt {
+        @include grd_ncol(2);
+        justify-self: end;
     }
-    .ln_rght {
-    	@include ln_ncol(3);
-    	justify-self: end;
+    .ln_lnks {
+        @include grd_ncol(3);
+        justify-self: end;
     }
-    @include a_hover(black, gray);
+    @include a_hover($lnk_clr, $hvr_clr);
 }
 
-@mixin ln_3_clss {
-    .ln_lft {
-    	@include ln_ncol(1);
-    	justify-self: start;
+@mixin ln_nm_2mnt_lnks ($lnk_clr, $hvr_clr) {
+    @include grd(auto 100px 100px 50px, $app_ln_gp);
+    .ln_nm {
+        @include grd_ncol(1);
+        justify-self: start;
     }
-    .ln_mddl {
-    	@include ln_ncol(2);
+    .ln_mnt1 {
+        @include grd_ncol(2);
+        justify-self: end;
     }
-    .ln_rght {
-    	@include ln_ncol(3);
-    	justify-self: end;
+    .ln_mnt2 {
+        @include grd_ncol(3);
+        justify-self: end;
     }
-    @include a_hover(black, gray);
+    .ln_lnks {
+        @include grd_ncol(4);
+        justify-self: end;
+    }
+    @include a_hover($lnk_clr, $hvr_clr);
 }
 
-@mixin ln_3_cols($gtc, $fnt_size) {
-	@include ln_bsc($app_ln_bg, $tb_font, $fnt_size);
-	grid-template-columns: $gtc;
-    justify-items: stretch;
-
-    @include ln_3_clss;
-}
+// -------------------------------------------
 
 .ln_app {
-	@include ln_2_col(auto, 50px, 13px);
+    @include ln_bsc_prprty(white, $app_fnt, 13px);
+    @include ln_nm_lnks(blue, gray);
 }
 
-// Usados en despliegue de un pago
-.ln_hd {
-    @include ln_2_col(auto, auto, 16px);
-}
-.ln_dtll {
-    @include ln_2_col(auto, auto, 12px);
+.ln_bjt_app {
+    @include ln_bsc_prprty($pltt_8, $app_fnt, 14px);
+    @include ln_2auto(blue, gray);
 }
 
+.ln_nt_crd {
+    @include ln_bsc_prprty($pltt_8, $app_fnt, 10px);
+    @include ln_2auto(blue, gray);
+}
 
-/* ln de TarValorCuantia */
+.ttl_bx {
+    @include ln_bsc_prprty(white, $app_fnt, 16px);
+    @include ttl_2auto(blue, gray);
+}
+
+/* Registro de TarValorCuantia */
 .ln_vlr_cnt {
-	@include ln_3_cols($ln_vlr_cnt_gtc, 13px);
+    @include ln_bsc_prprty(white, $app_tb_fnt, 13px);
+    @include ln_nm_2mnt_lnks(blue, gray);
 }
 
-.nl_vlr_cnt_smll {
-    @include ln_3_cols($ln_vlr_cnt_gtc, 11px);
+/* ln de Demandante */
+.ln_dmndnts {
+    @include ln_bsc_prprty($pltt_8, $app_tb_fnt, 11px);
+    @include ln_nm_mnt_lnks(blue, gray);
 }

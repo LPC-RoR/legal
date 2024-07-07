@@ -1,9 +1,9 @@
 <div class="ln_app">
-	<div class="lft">
+	<div class="ln_nm">
 		<i class="bi bi-journal-text"></i>
 		<b><%= link_to objeto.tarifa, objeto %></b>
 	</div>
-	<div class="rght">
+	<div class="ln_lnks">
 		<%= render layout: '0p/collapse/link', locals: {label: 'Info', objeto: nil, tooltip: 'Detalle Tarifa'} do %>
 			<i class="bi bi-plus-lg"></i>
 		<% end %>

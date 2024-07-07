@@ -1,4 +1,6 @@
 class Tarifas::TarDetalleCuantiasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tar_detalle_cuantia, only: %i[ show edit update destroy agrega_control_documento elimina_control_documento ]
 
   # GET /tar_detalle_cuantias or /tar_detalle_cuantias.json

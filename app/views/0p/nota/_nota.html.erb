@@ -1,28 +1,23 @@
-<% unless objeto.blank? %>
-<div class="ttl_lnks">
-	<div class="ttl">
-
-		<i class="bi bi-cone-striped text-<%=clr%>"></i>
-		<%= dma_hm(objeto.created_at) %>
-	</div>
-</div>
-<% end %>
 <div class="app_nt_<%=clr%>">
-	<div class="ttl_lnks">
-		<div class="ttl">
-			<% if clr =='g' %>
-				<i class="bi bi-dot text-info"></i>
-			<% elsif clr == 'y' %>
-				<i class="bi bi-exclamation-lg text-warning"></i>
-			<% elsif  clr == 'r' %>
-				<i class="bi bi-cone-striped text-danger"></i>
-			<% end %>
-			<%= nota %>
-		</div>
-		<% unless objeto.blank? %>
-			<div class="lnks">
+	<% unless objeto.blank? %>
+		<div class="ln_nt_crd">
+			<div class="ln_nm">
+				<i class="bi bi-cone-striped text-<%=clr%>"></i>
+				<%= dma_hm(objeto.created_at) %>
+			</div>
+			<div class="ln_lnks">
 				<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 			</div>
+		</div>
+	<% end %>
+	<div class="nt">
+		<% if clr =='g' %>
+			<i class="bi bi-dot text-info"></i>
+		<% elsif clr == 'y' %>
+			<i class="bi bi-exclamation-lg text-warning"></i>
+		<% elsif  clr == 'r' %>
+			<i class="bi bi-cone-striped text-danger"></i>
 		<% end %>
+		<%= nota %>
 	</div>
 </div>

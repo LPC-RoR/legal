@@ -14,7 +14,7 @@
 			</div>
 		</li>
 	<% else %>
-		<% unless cfg_defaults[:activa_tipos_usuario] and (lm_check_tipo_usuario(modelo) == false) %>
+		<% unless cfg_defaults[:activa_tipos_usuario] and (lm_seguridad(modelo) == false) %>
 			<li>
 				<%= render partial: '0capitan/lmenu/item', locals: {modelo: (modelo.class.name == 'Array' ? modelo[0] : modelo)} %>
 			</li>

@@ -1,4 +1,6 @@
 class Tarifas::TarUfSistemasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tar_uf_sistema, only: %i[ show edit update destroy ]
 
   # GET /tar_uf_sistemas or /tar_uf_sistemas.json

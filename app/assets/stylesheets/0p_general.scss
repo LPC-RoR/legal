@@ -2,20 +2,39 @@ $w_bg: white;
 $w_grp_gap: 4px;
 $auto: auto;
 
+// -------------------------------------------
+
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd_wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
+// grd($grd_tc, $grd_gap);
+// grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
+
+// bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr)
+@import "bjt";
+
+// NO sé porque lo pide, si lo saco, reclama!!
 // @include ln_ttl_lnks($c_lnks, $c_hvr);
 @import "ttl_lnks";
 
-@mixin app_nt_base {
-	padding-left: 10px;
-	padding-right: 10px;
-    border-radius: 3px 3px 3px 3px;
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-	font-size: 12px;
-	@include ln_ttl_lnks(black, white);
+// NOTA BASE
+@mixin nt_bsc {
+	@include mrgn_pddng(3px, 0 10px 0 10px);
+	@include bx_shdw;
+	.nt {
+		font-size: 12px;
+	}
+}
+
+.app_bjt {
+	@include bjt_bx(1px, 6px 6px 6px 6px, $pltt_5, white);
 }
 
 /* BOXS */
-
 @mixin box_bsc($brd_clr, $bg_clr, $padd) {
     margin-bottom: 4px;
     border: 1px solid $brd_clr;
@@ -119,12 +138,8 @@ $auto: auto;
 }
 
 .g_cllps {
-	margin-top: 1em;
-    border: 1px solid $pltt_7;
-    border-radius: 3px 3px 3px 3px;
-	padding: 14px;
-	background-color: white;
-	color: black;
+	@include mrgn_pddng(1em 0 1em 0, 14px);
+	@include brd(1px, 4px 4px 4px 4px, $pltt_6);
 	font-size: 13px;
 }
 
@@ -146,19 +161,31 @@ $auto: auto;
     font-size: 14px;
 }
 
-// NOTAS
+// NOTAS Y WARNINGS
 
 .app_nt_g {
-    border: 2px solid $app_nt_green;
-    @include app_nt_base;
+	@include brd(1px, 6px 6px 6px 6px, $app_nt_green);
+	@include nt_bsc;
 }
 
 .app_nt_y {
-    border: 2px solid $app_nt_yellow;
-    @include app_nt_base;
+	@include brd(1px, 6px 6px 6px 6px, $app_nt_yellow);
+	@include nt_bsc;
 }
 
 .app_nt_r {
-    border: 2px solid $app_nt_red;
-    @include app_nt_base;
+	@include brd(1px, 6px 6px 6px 6px, $app_nt_red);
+	@include nt_bsc;
+}
+
+.dv_scrll {
+  background-color: white;
+  box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+  width: auto;
+  height: 150px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: left;
+  font-size: 14px;
+  padding: 20px;
 }

@@ -1,5 +1,7 @@
 class NotasController < ApplicationController
-  before_action :set_nota, only: %i[ show edit update destroy swtch_realizada ]
+  before_action :authenticate_usuario!
+  before_action :scrty_on
+  before_action :set_nota, only: %i[ show edit update destroy swtch_realizada swtch_urgencia swtch_pendiente ]
 
   # GET /notas or /notas.json
   def index
@@ -95,6 +97,8 @@ class NotasController < ApplicationController
         @redireccion  = causas_path
       when 'Cliente'
         @redireccion  = clientes_path
+      when 'AgeActividad'
+        @redireccion  = age_actividades_path
       end
     end
 

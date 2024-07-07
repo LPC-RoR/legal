@@ -1,5 +1,10 @@
-<div class="cttl_sub">
-		Variables del Cliente
+<div class="ttl_app">
+		<div class="ttl_ttl">
+			Variables del Cliente
+		</div>
+		<div class="ttl_lnks">
+			<%= render partial: "0p/add_lst/add_lst", locals: {id: @objeto.id, lst: @objeto.variables.map {|bjt_var| bjt_var.variable}, cmplt: @vrbls.map {|vrbl| vrbl.variable}, path: "/clientes/#{@objeto.id}/add_rcrd?v_nm="} %>
+		</div>
 </div>
 <div class="app_box">
 	<% @objeto.var_clis.each do |rel| %>

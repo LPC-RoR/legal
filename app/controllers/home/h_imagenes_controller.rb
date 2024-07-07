@@ -1,5 +1,6 @@
 class Home::HImagenesController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :inicia_sesion
   before_action :set_h_imagen, only: [:show, :edit, :update, :destroy]
 

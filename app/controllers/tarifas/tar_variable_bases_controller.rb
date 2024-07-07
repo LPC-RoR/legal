@@ -1,4 +1,6 @@
 class Tarifas::TarVariableBasesController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tar_variable_bas, only: %i[ show edit update destroy ]
 
   # GET /tar_variable_bases or /tar_variable_bases.json

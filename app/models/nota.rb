@@ -1,5 +1,8 @@
 class Nota < ApplicationRecord
 
+	has_many :age_usu_notas
+	has_many :age_usuarios, through: :age_usu_notas
+
 	def owner
 		self.ownr_clss.constantize.find(self.ownr_id)
 	end

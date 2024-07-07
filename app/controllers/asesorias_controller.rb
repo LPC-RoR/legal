@@ -1,9 +1,13 @@
 class AsesoriasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar liberar_factura swtch_pendiente swtch_urgencia ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   # GET /asesorias or /asesorias.json
   def index
+    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+
     @estados = StModelo.find_by(st_modelo: 'Asesoria').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
     @tipos = ['Multas', 'Redacciones']
     @tipo = params[:t].blank? ? nil : params[:t]
@@ -14,10 +18,10 @@ class AsesoriasController < ApplicationController
       corregido = @tipo.singularize == 'Redaccion' ? 'Redacción' : @tipo.singularize
       tipo = TipoAsesoria.find_by(tipo_asesoria: corregido)
       tipo = 'Redacción' if (tipo == 'Redaccion')
-      coleccion = Asesoria.where(tipo_asesoria_id: tipo.id).order(created_at: :desc)
+      coleccion = Asesoria.where(tipo_asesoria_id: tipo.id).order(pendiente: :desc, urgente: :desc, created_at: :desc)
     end
     unless @estado.blank?
-      coleccion = Asesoria.where(estado: @estado).order(created_at: :desc)
+      coleccion = Asesoria.where(estado: @estado).order(pendiente: :desc, urgente: :desc, created_at: :desc)
     end
     set_tabla('asesorias', coleccion, true)
 
@@ -95,20 +99,6 @@ class AsesoriasController < ApplicationController
       @objeto.save
     end
     
-    redirect_to asesorias_path
-  end
-
-  def swtch_pendiente
-    @objeto.pendiente = @objeto.pendiente ? false : true
-    @objeto.save
-
-    redirect_to asesorias_path
-  end
-
-  def swtch_urgencia
-    @objeto.urgente = @objeto.urgente ? false : true
-    @objeto.save
-
     redirect_to asesorias_path
   end
 

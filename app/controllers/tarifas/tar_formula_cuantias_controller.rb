@@ -1,4 +1,6 @@
 class Tarifas::TarFormulaCuantiasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tar_formula_cuantia, only: %i[ show edit update destroy ]
 
   # GET /tar_formula_cuantias or /tar_formula_cuantias.json

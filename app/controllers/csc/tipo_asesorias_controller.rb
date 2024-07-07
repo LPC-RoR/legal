@@ -1,4 +1,6 @@
 class Csc::TipoAsesoriasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tipo_asesoria, only: %i[ show edit update destroy ]
 
   # GET /tipo_asesorias or /tipo_asesorias.json

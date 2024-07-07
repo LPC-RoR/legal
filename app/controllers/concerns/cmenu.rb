@@ -17,8 +17,8 @@ module Cmenu
 					'baja' => 'Dados de baja'
 				},
 				selectors: [
-					['Empresas', admin?],
-					['Sindicatos', admin?],
+					['Empresas', operacion?],
+					['Sindicatos', operacion?],
 					['Trabajadores', operacion?]
 				]
 
@@ -131,15 +131,6 @@ module Cmenu
 					['asesorias', operacion?]
 				]
 			},
-			'home' => {
-				estados: nil,
-				items: nil,
-				selectors: [
-					['Causas', operacion?],
-					['Pagos', admin?],
-					['Facturas', finanzas?]
-				]
-			}
 		}
 	end
 

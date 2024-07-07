@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :notas do
     match :agrega_nota, via: :post, on: :collection
     match :swtch_realizada, via: :get, on: :member
+    match :swtch_pendiente, via: :get, on: :member
+    match :swtch_urgencia, via: :get, on: :member
   end
 
   resources :cfg_valores
@@ -58,10 +60,14 @@ Rails.application.routes.draw do
     match :elimina_valor, via: :get, on: :member
     match :input_tar_facturacion, via: :post, on: :member
     match :elimina_uf_facturacion, via: :get, on: :member
+    match :swtch_pendiente, via: :get, on: :member
+    match :swtch_urgencia, via: :get, on: :member
   end
   resources :clientes do
     match :add_rcrd, via: :get, on: :member
     match :cambio_estado, via: :get, on: :member
+    match :swtch_pendiente, via: :get, on: :member
+    match :swtch_urgencia, via: :get, on: :member
   end
 
 # SCOPES *********************************************************
@@ -109,6 +115,8 @@ Rails.application.routes.draw do
     # Para almacenar los pedazos de Demanda de la Causa
     resources :secciones
     resources :tipo_asesorias
+
+    resources :demandantes
   end
 
   # Usado para poner las entidades necesarias para mantener Variables y su relación con causas y clientes
@@ -137,8 +145,6 @@ Rails.application.routes.draw do
       match :cambia_estado, via: :get, on: :member
       match :cambia_prioridad, via: :get, on: :member
       match :cambia_privada, via: :get, on: :member
-      match :asigna_usuario, via: :get, on: :member
-      match :desasigna_usuario, via: :get, on: :member
       match :cambio_fecha, via: :post, on: :member
       # desde aqui revisar
       match :crea_audiencia, via: :get, on: :collection
@@ -161,9 +167,10 @@ Rails.application.routes.draw do
     resources :age_usu_acts
     resources :age_usuarios do
       match :personaliza, via: :post, on: :member
+      match :asigna_usuario, via: :get, on: :member
+      match :desasigna_usuario, via: :get, on: :member
     end
-    # Revisar DEPRECATED
-    resources :age_act_perfiles
+    resources :age_usu_notas
   end
   scope module: 'autenticacion' do
     resources :app_nominas do
@@ -216,6 +223,7 @@ Rails.application.routes.draw do
   scope module: 'aplicacion' do
     resources :publicos do
       match :home, via: :get, on: :collection
+      match :ayuda, via: :get, on: :collection
     end
     resources :app_recursos do
       collection do

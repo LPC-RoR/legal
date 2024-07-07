@@ -1,4 +1,6 @@
 class Dt::DtTablaMultasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_dt_tabla_multa, only: %i[ show edit update destroy ]
 
   # GET /dt_tabla_multas or /dt_tabla_multas.json

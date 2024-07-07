@@ -1,12 +1,12 @@
-<div class="ln_dtll">
-	<div class="ln_lft">
+<div class="ln_app">
+	<div class="ln_nm">
 		<b><%= objeto.glosa %></b>
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_calculos/#{objeto.id}/crea_aprobacion", tooltip: 'Crea aprobación'} do %>
 			<i class="bi bi-plus-circle"></i>
 		<% end %>
 	</div>
-	<div class="ln_rght">
+	<div class="ln_lnks">
 		<%= objeto.moneda %>
-		<%= s_pesos(monto_pesos(objeto, objeto.owner, objeto.tar_pago)) %>
+		<%= s_pesos(get_monto_calculo_pesos(objeto, objeto.owner, objeto.tar_pago)) %>
 	</div>
 </div>

@@ -1,18 +1,16 @@
-<div class="as_bjt">
-	<%= render partial: 'asesorias/list/line_asesoria', locals: {objeto: objeto} %>
-	<%= render partial: 'asesorias/list/line_info', locals: {objeto: objeto} %>
+<div class="app_bjt">
+	<%= render partial: 'asesorias/list/bjt', locals: {objeto: objeto} %>
 	<% unless objeto.sin_cargo? %>
-		<%= render partial: 'asesorias/list/line_tarifa', locals: {objeto: objeto} %>
+		<%= render partial: 'asesorias/list/tarifa', locals: {objeto: objeto} %>
 	<% end %>
+	<%= render partial: 'asesorias/list/txt', locals: {objeto: objeto} %>
 
 	<% if admin? %>
-		<%= render partial: 'asesorias/list/line_aprobacion_factura', locals: {objeto: objeto} %>
-		<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
+		<!-- DEPRECATED : REVISAR No hemos definido comportamiento facturación -->
+		<%#= render partial: 'asesorias/list/line_aprobacion_factura', locals: {objeto: objeto} %>
+		<!-- REVISAR : Botones para gestión de facturación -->
+		<%#= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
 	<% end %>
 
-	<% unless objeto.notas.empty? %>
-		<% objeto.notas.order(:created_at).each do |nota| %>
-			<%= render partial: 'notas/list/objeto', locals: {objeto: nota} unless nota.realizado %>
-		<% end %>
-	<% end %>
+	<%= render partial: 'notas/shr/notas_pendientes', locals: {objeto: objeto} %>
 </div>

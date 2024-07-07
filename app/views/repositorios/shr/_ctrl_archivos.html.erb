@@ -3,7 +3,7 @@
 
 <% pendientes.each do |a_pendiente| %>
 	<!-- Prueba de cambio de base a Contro DOcumento -->
-	<% if check_tipo_usuario(a_pendiente.visible_para) %>
+	<% if seguridad(a_pendiente.visible_para) %>
 		<i class="bi bi-arrow-left"></i>
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/control_documentos/#{a_pendiente.id}/crea_documento_controlado?oclss=#{objeto.class.name}&oid=#{objeto.id}", tooltip: "Crea #{a_pendiente.nombre} (vacío)"} do %>
 			<%= a_pendiente.nombre %>

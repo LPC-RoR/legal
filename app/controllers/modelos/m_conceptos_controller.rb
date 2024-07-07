@@ -1,4 +1,6 @@
 class Modelos::MConceptosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_m_concepto, only: %i[ show edit update destroy arriba abajo]
   after_action :reordenar, only: :destroy
 

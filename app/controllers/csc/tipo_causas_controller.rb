@@ -1,4 +1,6 @@
 class Csc::TipoCausasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tipo_causa, only: %i[ show edit update destroy add_rcrd ]
 
   # GET /tipo_causas or /tipo_causas.json

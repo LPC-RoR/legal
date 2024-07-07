@@ -1,0 +1,23 @@
+<span class="text-<%=objeto.text_color%>">
+	<!-- ICONO SEGÚN TIPO DE ACTIVIDAD -->
+	<% if objeto.tipo == 'Audiencia' %>
+		<i class="bi bi-bank2"></i>
+	<% elsif objeto.tipo == 'Hito' %>
+		<i class="bi bi-alarm"></i>
+	<% elsif objeto.tipo == 'Reunión' %>
+		<i class="bi bi-people"></i>
+	<% elsif objeto.tipo == 'Tarea' %>
+		<i class="bi bi-check2-square"></i>
+	<% end %> 
+
+	<!-- FECHA / DIA FECHA -->
+	<b class="text-<%= objeto.text_color %>">
+		<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) %>
+	</b>
+
+	<% if objeto.estado == 'realizada' %>
+		<i class="bi bi-check-lg"></i>
+	<% elsif objeto.estado == 'cancelada' %>
+		<i class="bi bi-x-lg"></i>
+	<% end %>
+</span>

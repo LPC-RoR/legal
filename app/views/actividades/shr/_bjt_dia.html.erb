@@ -12,6 +12,6 @@
 <% @coleccion["#{prfx_dia(objeto)}-age_actividades"].each do |age_actividad| %>
 <%# objeto[:actividades].each do |actividad| %>
 	<% unless age_actividad.privada and age_actividad.app_perfil_id != perfil_activo.id %>
-		<%= render partial: 'actividades/shr/bjt_ctvdd', locals: {objeto: age_actividad, usuarios: usuarios} %>
+		<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: age_actividad, usuarios: usuarios} %>
 	<% end %>
 <% end %>

@@ -1,4 +1,6 @@
 class Calendario::CalFeriadosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_cal_feriado, only: %i[ show edit update destroy ]
 
   # GET /cal_feriados or /cal_feriados.json

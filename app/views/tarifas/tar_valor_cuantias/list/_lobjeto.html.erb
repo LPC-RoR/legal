@@ -1,9 +1,24 @@
-<div class="col-7">
-	<small><%= objeto.detalle %></small>
-</div>
-<div class="col-3" align='right'>
-	<small><%= s_moneda(objeto.moneda, objeto.valor) %></small>
-</div>
-<div class="col-2" align='right'>
-	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
+<div class="ln_vlr_cnt">
+	<div class="ln_nm">
+		<%= render partial: 'tarifas/tar_valor_cuantias/list/cnt', locals: {objeto: objeto} %>
+	</div>
+	<div class="<%= controller_name == 'causas' ? 'ln_mnt1' : 'ln_mnt2'  %>">
+			<%= render partial: 'tarifas/tar_valor_cuantias/list/icono_check', locals: {check_valor: chck_tarifa(objeto)} if controller_name != 'servicios' %>
+			<% unless objeto.activado? %><del><% end %>
+				<%= s_moneda( objeto.moneda, vlr_tarifa(objeto) ) %>
+			<% unless objeto.activado? %></del><% end %>
+	</div>
+	<div class="<%= controller_name == 'causas' ? 'ln_mnt2' : 'ln_mnt1'  %>">
+		<% if controller_name == 'causas' %>
+			<%= render partial: 'tarifas/tar_valor_cuantias/list/icono_check', locals: {check_valor: chck_cuantia(objeto, 'real')} if controller_name != 'servicios' %>
+			<% unless objeto.activado? %><del><% end %>
+				<%= s_moneda( objeto.moneda, vlr_cuantia(objeto, 'real') ) %>
+			<% unless objeto.activado? %></del><% end %>
+		<% end %>
+	</div>
+	<div class="ln_lnks">
+		<% if controller_name == 'causas' %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		<% end %>
+	</div>
 </div>

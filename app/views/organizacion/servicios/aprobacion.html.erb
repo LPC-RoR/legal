@@ -9,16 +9,23 @@
 		<div class="f_50lft_col">
 			<div class="lft">
 				<% if tar_calculo.owner.class.name == 'Causa' %>
-							<% unless tar_calculo.owner.valores_cuantia.empty? %>
-								<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: tar_calculo.owner, porcentaje_cuantia: false, clss: 'ln_vlr_cnt'} %>
-							<% end %>
+					<% if controller_name == 'servicios' %>
+						<h6><b>Detalle Cuantía</b></h6>
+					<% end %>
+
+					<% unless tar_calculo.owner.demandantes.empty? %>
+						<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: tar_calculo.owner} %>
+					<% end %>
+					<% unless tar_calculo.owner.valores_cuantia.empty? %>
+						<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: tar_calculo.owner, porcentaje_cuantia: false } %>
+					<% end %>
 				<% end %>
 			</div>
 			<div class="rght">
 				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: tar_calculo.tar_pago, owner: tar_calculo.owner} %>
 
-				<% if tar_calculo.tar_pago.requiere_uf == true and uf_fecha(fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)).blank? %>
-					<small><b class="text-danger">UF del dia <%= dma(fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)) %> no encontrada</b></small>
+				<% if tar_calculo.tar_pago.requiere_uf == true and uf_fecha(get_fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)).blank? %>
+					<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)) %> no encontrada</b></small>
 				<% else %>
 					<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: tar_calculo.tar_pago, causa: tar_calculo.owner } %>
 				<% end %>

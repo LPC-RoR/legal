@@ -1,0 +1,22 @@
+<div class="ln_nt_crd">
+	<div class="ln_nm">
+		<%= render partial: '0capitan/objeto/point_urgente_pendiente', locals: {objeto: objeto} %>
+		<i class="bi bi-cone-striped text-<%=objeto.color_text%>"></i>
+		<%= dma_hm(objeto.created_at) %>
+		<i class="bi bi-dot"></i>
+		<%= objeto.perfil.nombre %>
+
+	</div>
+	<div class="ln_lnks">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/notas/#{objeto.id}/swtch_realizada", tooltip: "Marcar como #{objeto.realizado ? 'Pendiente' : 'Realizada'}"} do %>
+			<i class="bi bi-<%=objeto.realizado ? 'x' : 'check'%>-lg"></i>
+		<% end %>
+		<%= render partial: '0capitan/objeto/swtch_urgente_pendiente', locals: {objeto: objeto} %>
+		<%= render partial: 'actividades/age_usuarios/shr/usrs_drpdwn', locals: {objeto: objeto} %>
+		<i class="bi bi-dot"></i>
+		<% if objeto.perfil.id == perfil_activo.id or admin? %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		<% end %>
+
+	</div>
+</div>

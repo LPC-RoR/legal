@@ -1,0 +1,31 @@
+<div class="ln_app">
+	<div class="ln_nm">
+		<i class="bi bi-cash-coin"></i> 
+
+		<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
+		<i class="bi bi-arrow-right"></i>
+		<% unless objeto.monto_pagado.blank? %>
+			<%= s_pesos(objeto.monto_pagado) %>
+		<% else %> 
+			???
+		<% end %>
+	</div>
+	<div class="ln_lnks">
+		<% if objeto.estado == 'tramitación' %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Pago', objeto: objeto, tooltip: "#{objeto.monto_pagado.blank? ? 'Nuevo' : 'Modificar' } monto pagado"} do %>
+				 <% if  objeto.monto_pagado.blank? %>
+				 	<i class="bi bi-plus-circle"></i>
+				 <% else %>
+				 	<i class="bi bi-pencil"></i>
+				 <% end %>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+<% if objeto.estado == 'tramitación' %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'Pago', objeto: objeto} do %>
+		<div style="padding-left: 2em; padding-right: 1em;">
+		  	<%= render partial: 'causas/list/form_monto_pagado', locals: {objeto: objeto} %>
+	  	</div>
+	<% end %>
+<% end %>

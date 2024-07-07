@@ -5,6 +5,9 @@ class AgeUsuario < ApplicationRecord
 	has_many :age_usu_acts
 	has_many :age_actividades, through: :age_usu_acts
 
+	has_many :age_usu_notas
+	has_many :notas, through: :age_usu_notas
+
 	has_many :age_pendientes
 
 	validates :age_usuario, presence: true

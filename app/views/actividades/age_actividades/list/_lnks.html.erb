@@ -1,0 +1,49 @@
+<!-- MAS INFORMACION -->
+<%= render partial: '0capitan/objeto/cllps_lnk_info', locals: {objeto: objeto} %>
+<% unless objeto.owner.blank? or controller_name != 'age_actividades' %>
+	<%= render partial: 'actividades/age_actividades/list/lnk_ownr', locals: {objeto: objeto} %>
+<% end %>
+<%= render partial: 'actividades/age_usuarios/shr/usrs_drpdwn', locals: {objeto: objeto} %>
+
+<i class="bi bi-dot"></i>
+<!-- CAMBIO DE ESTADO -->
+<% unless ['Audiencia', 'Hito'].include?(objeto.tipo)  or (objeto.fecha < @hoy) %>
+
+    <% unless objeto.estado == 'realizada' %>
+    	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=realizada", tooltip: 'Marcar como realizada'} do %>
+            <i class="bi bi-check-lg"></i>
+    	<% end %>
+    <% end %>
+    <% unless objeto.estado == 'cancelada' %>
+    	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=cancelada", tooltip: 'Marcar como cancelada'} do %>
+            <i class="bi bi-x-lg"></i>
+    	<% end %>
+    <% end %>
+    <% unless objeto.estado == 'pendiente' %>
+    	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=pendiente", tooltip: 'Marcar como pendiente'} do %>
+            <i class="bi bi-arrow-left"></i>
+    	<% end %>
+    <% end %>
+
+<% end %>
+
+<!-- BOTONES PARA ACTIVIDADES ACTIVAS -->
+
+<% unless ['realizada', 'cancelada'].include?(objeto.estado) %>
+
+	<% unless usuarios.empty? or (objeto.fecha < @hoy)  %>
+		<%= render partial: 'actividades/shr/ctvdd/encargados', locals: {objeto: objeto, usuarios: usuarios} %>
+	<% end %>
+
+	<%= render partial: 'notas/shr/cllps_lnk_nw_nt', locals: {objeto: objeto} %>
+
+	<!-- CAMBIO DE FECHA -->
+	<%= render layout: '0p/collapse/link', locals: {label: 'CambioFecha', objeto: objeto, tooltip: 'Cambiar fecha de la actividad'} do %>
+		<i class="bi bi-calendar-x"></i>
+	<% end %>
+	<!-- LINKS_E -->
+	<% if (controller_name == 'age_actividades' and objeto.owner_id.blank?) or (controller_name != 'age_actividades' and (objeto.app_perfil_id == perfil_activo.id or admin?) ) %>
+			<i class="bi bi-dot"></i>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	<% end %>
+<% end %>

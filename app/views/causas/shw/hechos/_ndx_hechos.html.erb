@@ -1,3 +1,10 @@
+<!-- Vista del PDF de la Demanda -->  
+<% if objeto.demanda? and operacion? %>
+	<iframe width="900" src=<%=objeto.demanda.archivo.url%>>
+	    <p>Placeholder text; only shows up if the page DOESN'T render!</p>
+	</iframe>
+<% end %>
+
 <%= render partial: 'causas/shw/hechos/ttl_hc', locals: {objeto: objeto} %>
 
 <%= render partial: '0p/tabla/tabla2', locals: {c: 'temas'} %>

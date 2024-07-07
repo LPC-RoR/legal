@@ -1,4 +1,6 @@
 class Dt::DtMateriasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_dt_materia, only: %i[ show edit update destroy ]
 
   # GET /dt_materias or /dt_materias.json

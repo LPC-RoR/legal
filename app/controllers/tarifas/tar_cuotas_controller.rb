@@ -1,4 +1,6 @@
 class Tarifas::TarCuotasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tar_cuota, only: %i[ show edit update destroy arriba abajo]
   after_action :reordenar, only: :destroy
 

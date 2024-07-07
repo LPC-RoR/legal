@@ -1,4 +1,6 @@
 class Modelos::MBancosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_m_banco, only: %i[ show edit update destroy ]
 
   # GET /m_bancos or /m_bancos.json

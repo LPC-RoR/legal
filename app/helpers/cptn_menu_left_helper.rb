@@ -6,7 +6,7 @@ module CptnMenuLeftHelper
 			admin: [
 				{
 					titulo: nil,
-					condicion: usuario?,
+					condicion: usuario_activo?,
 					items: [
 						'AgeActividad',
 						['Cliente', 'operación'],
@@ -73,28 +73,19 @@ module CptnMenuLeftHelper
 		}
 	end
 
-	def admin_controllers
-		['app_nominas', 'app_enlaces', 'usuarios', 'st_modelos', 'blg_articulos', 'app_versiones', 'h_imagenes', 'app_recursos', 'app_archivos', 'control_documentos', 'tablas']
+	def lm_exclude_action?
+		controller_name == 'publicos' and (
+				(action_name == 'home' and current_usuario.blank?) or
+				action_name == 'ayuda'
+			)
 	end
 
-	def tar_controller
-		['tar_aprobaciones', 'tar_facturas', 'tar_tarifas', 'tar_pagos', 'tar_formula_cuantias', 'tar_formulas', 'tar_variable_bases', ]
+	def lm_exclude_controller?
+		(['servicios'] + devise_controllers).include?(controller_name)
 	end
 
-	def tablas_controllers
-		['aut_tipo_usuarios', 'clientes', 'causas', 'asesorias', 'age_actividades', 'age_usuarios', 'age_pendientes', 'hechos', 'temas', 'hecho_archivos', 'tar_valor_cuantias', 'tar_uf_sistemas', 'regiones', 'cal_meses', 'cal_feriados', 'dt_materias', 'variables', 'tipo_cargos', 'cargos', 'notas']
-	end
-
-	def left_menu_actions?
-		controller_name == 'publicos' and action_name == 'home' and usuario_signed_in? and perfil_activo.present?
-	end
-
-	def left_menu_controllers?
-		admin_controllers.include?(controller_name) or tablas_controllers.include?(controller_name) or tar_controller.include?(controller_name)
-	end
-
-	def left_menu_sym
-		( left_menu_actions? or left_menu_controllers?) ? :admin : nil
+	def lm_sym
+		( lm_exclude_action? or lm_exclude_controller?) ? nil : :admin
 	end
 
 	# Determina la RUTA DESTINO usándo como parámetro el modelo del ítem

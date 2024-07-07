@@ -1,0 +1,3 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'Info', objeto: objeto} do %>
+  	<%= render partial: "#{with_scope(objeto.class.name.tableize)}/list/detalle", locals: {objeto: objeto} %>
+<% end %>

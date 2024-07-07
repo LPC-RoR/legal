@@ -1,8 +1,28 @@
-<div class="'dscrpcn">
-	<%= objeto.causa %>
+<div class="g_cllps">
+	<% if finanzas? and objeto.facturaciones.any? %>
+		<div class="pago">
+			<% objeto.facturaciones.order(:created_at).each do |facturacion| %>
+				<b><%= facturacion.tar_pago.blank? ? '-' : facturacion.tar_pago.tar_pago %> : <%= s_pesos(facturacion.monto_pesos) %></b>
+				<% if facturacion.tar_aprobacion.present? %>
+					<%= link_to facturacion.tar_aprobacion do %>
+						<i class="bi bi-check-all"></i> 
+						<%= dma(facturacion.tar_aprobacion.fecha) %>
+					<% end %>
+				<% end %>
+				<% if facturacion.tar_factura.present? %>
+					<i class="bi bi-arrow-right"></i>
+					<%= link_to facturacion.tar_factura do %>
+						<i class="bi bi-receipt"></i> 
+						<%= dma(facturacion.tar_factura.fecha_factura) %> 
+						<%= facturacion.tar_factura.estado %>
+					<% end %>
+				<% end %>
+				<% if facturacion.tar_aprobacion.present? or facturacion.tar_factura.present? %>
+			    	</br>
+			    <% end %>
+			<% end %>
+		</div>
+		<hr>
+	<% end %>
+	<%= render partial: 'notas/shr/notas_realizadas', locals: {objeto: objeto} %>
 </div>
-<%= render layout: '0p/collapse/display', locals: {label: 'Detalle', objeto: objeto} do %>
-	<div class="cllps">
-		<%= render partial: 'causas/list/display_detalle', locals: {objeto: objeto} %>
-	</div>
-<% end %>

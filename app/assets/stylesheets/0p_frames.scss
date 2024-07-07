@@ -3,16 +3,20 @@ $f_gap: 4px;
 $f_mrgn: 0;
 $auto: auto;
 
-/* GRID */
-
-
-// grd_frm($mrgn, $bg_color, $grap);
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd_wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
+// grd($grd_tc, $grd_gap);
 // grd_ncol($nth);
-@import "grids";
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
 
-@mixin f_2_col ($lft, $rght) {
-	@include grd_frm($f_mrgn, $f_bg, $f_gap);
-	grid-template-columns: $lft $rght;
+@mixin frm_bsc($grd_tc) {
+	@include mrgn_pddng(0, 0);
+	@include bx(white);
+	@include grd($grd_tc, 2px);
     justify-items: stretch;
 
     .lft {
@@ -24,34 +28,34 @@ $auto: auto;
 }
 
 .f_search {
-	@include f_2_col(auto, 42px);
+	@include frm_bsc(auto 42px);
 	margin-bottom: 4px;
 }
 
 .f_50lft_col {
-	@include f_2_col(50%, $auto);
+	@include frm_bsc(50% auto);
 }
 
 .f_200pxlft_col {
-	@include f_2_col(200px, $auto);
+	@include frm_bsc(200px auto);
 }
 
 .f_250pxlft_col {
-	@include f_2_col(250px, $auto);
+	@include frm_bsc(250px auto);
 }
 
 .f_300pxlft_col {
-	@include f_2_col(300px, $auto);
+	@include frm_bsc(300px auto);
 }
 
 .f_300rght_col {
-	@include f_2_col($auto, 300px);
+	@include frm_bsc(auto 300px);
 }
 
 .f_400rght_col {
-	@include f_2_col($auto, 400px);
+	@include frm_bsc(auto 400px);
 }
 
 .f_250rght_col {
-	@include f_2_col($auto, 250px);
+	@include frm_bsc(auto 250px);
 }

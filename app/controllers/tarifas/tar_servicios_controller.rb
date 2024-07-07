@@ -1,4 +1,6 @@
 class Tarifas::TarServiciosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tar_servicio, only: %i[ show edit update destroy ]
 
   # GET /tar_servicios or /tar_servicios.json

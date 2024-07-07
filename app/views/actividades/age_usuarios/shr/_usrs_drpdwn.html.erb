@@ -1,0 +1,14 @@
+<div class="enlaces-drpdwn">
+    <span>
+        <i class="bi bi-person-plus"></i>
+    </span>
+    <div class="enlaces-drpdwn-content">
+        <% @age_usuarios.each do |usr| %>
+            <% unless objeto.age_usuarios.ids.include?(usr.id) %>
+                <%= link_to "/age_usuarios/#{usr.id}/asigna_usuario?owclss=#{objeto.class.name}&owid=#{objeto.id}&cn=#{controller_name}" do %>
+                    <small><%= usr.age_usuario %></small>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+</div>

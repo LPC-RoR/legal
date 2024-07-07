@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Age usu notas</h1>
+
+<div id="age_usu_notas">
+  <% @age_usu_notas.each do |age_usu_nota| %>
+    <%= render age_usu_nota %>
+    <p>
+      <%= link_to "Show this age usu nota", age_usu_nota %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New age usu nota", new_age_usu_nota_path %>

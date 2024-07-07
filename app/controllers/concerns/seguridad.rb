@@ -1,84 +1,152 @@
 module Seguridad
 	extend ActiveSupport::Concern
 
-	# CONFIG
+	# SCRTY_ON
 
-	def public_controllers
+	def rcrds_ctvs 
+		perfil = get_perfil_activo
+		{
+			version: get_version_activa,
+			nomina: usuario_signed_in? ? AppNomina.find_by(email: current_usuario.email) : nil,
+			perfil: perfil,
+			dog_perfil: AppPerfil.find_by(email: AppVersion::DOG_EMAIL),
+			usuario_agenda: perfil.age_usuario
+		}
+	end
+
+	def scrty_vls
+		{
+			dog_name: AppVersion::DOG_NAME,
+			dog_email: AppVersion::DOG_EMAIL,
+			public_controllers: get_public_controllers,
+			activa_tipos_usuario: cfg_defaults[:activa_tipos_usuario]
+		}
+	end
+
+	def scrty_on
+		@rcrds_ctvs = rcrds_ctvs
+		@scrty_vls = scrty_vls
+	end
+
+	# VLS
+
+	def get_public_controllers
 		['publicos']
 	end
 
-	# METHODS
-
-	def version_activa
-		AppVersion.last
+	def public_controllers
+		@scrty_vls[:public_controllers]
 	end
 
 	def dog_name
-		AppVersion::DOG_NAME
+		@scrty_vls[:dog_name]
 	end
 
 	def dog_email
-		AppVersion::DOG_EMAIL
+		@scrty_vls[:dog_email]
+	end
+
+	# ACTIVOS
+
+	def dog_perfil
+		@rcrds_ctvs[:dog_perfil]
+	end
+
+	def dog_perfil?
+		dog_perfil.present? and dog_perfil.o_clss == 'AppVersion' and dog_perfil.o_id == version_activa.id
+	end
+
+	def usuario_agenda
+		@rcrds_ctvs[:usuario_agenda]
+	end
+
+	def usuario_agenda?
+		usuario_signed_in? ? usuario_agenda.present? : false
+	end
+
+	def get_version_activa
+		AppVersion.last
+	end
+
+	def version_activa
+		@rcrds_ctvs[:version]
+	end
+
+	def version_activa?
+		usuario_signed_in? ? version_activa.present? : false
 	end
 
 	def nomina_activa
-		usuario_signed_in? ? AppNomina.find_by(email: current_usuario.email) : nil
+		@rcrds_ctvs[:nomina]
 	end
 
-	def perfil_activo?
-		usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email).present? : false
+	def nomina_activa?
+		usuario_signed_in? ? nomina_activa.present? : false
 	end
 
-	def perfil_activo
+	def get_perfil_activo
 		usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email) : nil
 	end
 
-	# es verdadero SOLO para dog
+	def perfil_activo
+		@rcrds_ctvs[:perfil]
+	end
+
+	def perfil_activo?
+		usuario_signed_in? ? perfil_activo.present? : false
+	end
+
+	def usuario_activo?
+		usuario_signed_in? ? (nomina_activa.present? or dog?) : false
+	end
+
+	def nombre_perfil
+		dog? ? dog_name : ( nomina_activa? ? '' : nomina_activa.nombre)
+	end
+
+	def nombre_agenda
+		 nombre_perfil == '' ? '' : nombre_perfil.split(' ')[0]
+	end
+
+	# SCRTY
+
+	def tipo_usuario
+		scrty_vls[:activa_tipos_usuario] ? (nomina_activa.present? ? nomina_activa.tipo : nil) : 'general'
+	end
+
+	# Verdadero SOLO para DOG
 	def dog?
 		# Se usa el usuario porque dog no requiere nómina para funcionar
 		usuario_signed_in? ? (current_usuario.email == dog_email) : false
 	end
 
-	# es verdadero para admin y dog
+	# es verdadero para ADMIN y DOG
 	def admin?
-		( usuario? and perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa) == 'admin' ) or dog?
-		#['operación', 'finanzas', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) or dog?
+		( usuario_activo? and tipo_usuario == 'admin' ) or dog?
 	end
 
-	# es verdadero para operación, admin y dog
+	# es verdadero para OPERACIÓN, ADMIN y DOG
 	def operacion?
-		( usuario? and perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa) == 'operación' ) or admin? or dog?
-		#['operación', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) or dog?
+		( usuario_activo? and tipo_usuario == 'operación' ) or admin? or dog?
 	end
 
-	# es verdadero para finanzas, admin y dog
+	# es verdadero para FINANZAS, ADMIN y DOG
 	def finanzas?
-		if perfil_activo.blank?
-			false
-		else
-			( usuario? and perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa) == 'finanzas' ) or admin? or dog?
-			['finanzas', 'general', 'admin'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) or dog?
-		end
+		( usuario_activo? and tipo_usuario == 'finanzas' ) or admin? or dog?
 	end
 
-	# es verdadero para operación, finanzas, admin y dog
+	# es verdadero para OPERACIÓN, FINANZAS, ADMIN y DOG
 	def general?
-		( usuario? and ['operación', 'finanzas'].include?(perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa)) ) or admin? or dog?
+		operacion? or finanzas?
 	end
 
-	# es verdadero para usuario activo con ( nómina activa o dog )
-	# debemos agregar dog porque, al no tener nómina no tendría acceso
-	def usuario?
-		usuario_signed_in? ? (nomina_activa.present? or dog?) : false
+	def public_controllers?
+		public_controllers.include?(controller_name) or controller_name.match(/^blg_*/)		
 	end
 
-	# DEPRECATED : A futuro se introduce la categoría 'servicio para regular el acceso a los controladores de servicios.'
-	def nomina?
-		usuario_signed_in? ? AppNomina.find_by(email: current_usuario.email).present? : false
-	end
-
+	# Al parecer no es necesario, porque lo que no se restringe, siempre es público.	
 	def publico?
-		action_name == 'home' ? ( not usuario_signed_in?) : (public_controllers.include?(controller_name) or controller_name.match(/^blg_*/))
+		action_name == 'home' ? ( not usuario_signed_in?) : public_controllers?
 	end
 
 	def seguridad(nivel)
@@ -90,11 +158,17 @@ module Seguridad
 				dog?
 			when 'admin'
 				admin?
+			when 'general'
+				general?
+			when 'finanzas'
+				finanzas?
+			when 'operación'
+				operacion?
 			when 'usuario'
-				usuario?
-			when 'nomina'
-				admin? or nomina?
-			when 'excluir'
+				usuario_activo?
+			when 'nomina' # DEPRECATED
+				admin? or nomina_activa?
+			when 'excluir' # DEPRECATED
 				false
 			else
 				true
@@ -104,30 +178,9 @@ module Seguridad
 
 	# ***************************************************** MANEJO DE TIPOS DE USUARIO
 
-	# Depnde de los tipos definidos en la aplicación
-	# Quizá deba estar en otro lado
-	def check_tipo_usuario(tipo)
-		case tipo
-		when 'dog'
-			dog?
-		when 'admin'
-			admin?
-		when 'general'
-			general?
-		when 'finanzas'
-			finanzas?
-		when 'operación'
-			operacion?
-		when 'usuario'
-			usuario?
-		else
-			usuario?
-		end
-	end
-
-	# Se usa en lmenu
-	def lm_check_tipo_usuario(modelo)
-		modelo.class.name == 'Array' ? check_tipo_usuario(modelo[1]) : true
+	# Se usa en LMENU
+	def lm_seguridad(modelo)
+		modelo.class.name == 'Array' ? seguridad(modelo[1]) : true
 	end
 
 	def check_crud(objeto)

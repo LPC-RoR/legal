@@ -20,6 +20,7 @@ class Causa < ApplicationRecord
 
 	has_many :temas
 	has_many :hechos
+	has_many :demandantes
 
 	has_many :causa_archivos
 	has_many :app_archivos, through: :causa_archivos

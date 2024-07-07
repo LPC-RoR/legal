@@ -1,0 +1,29 @@
+// bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr)
+// @import "bjt"
+
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd:wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
+// grd($grd_tc, $grd_gap);
+// grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
+
+@mixin bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr) {
+	@include mrgn_pddng(0 0 4px 0, 10px);
+	@include brd($brd_wdth, $brd_rds, $brd_clr);
+	@include bx($bg_clr);
+	@include bx_shdw;
+	.txt {
+		font-size: 13px;
+		padding: 0 1em 0 2em;
+	}
+	.wrnngs {
+		margin: 2px 0 0 0;
+		padding-left: 2em;
+		font-size: 12px;
+		line-height: 14px;
+	}
+}

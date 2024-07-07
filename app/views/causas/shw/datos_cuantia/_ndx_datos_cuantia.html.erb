@@ -1,17 +1,12 @@
-
 <!-- CUANTIA -->
+
+<!-- Vista del PDF de la Demanda -->  
+<% if objeto.demanda? and operacion? %>
+	<iframe width="900" src=<%=objeto.demanda.archivo.url%>>
+	    <p>Placeholder text; only shows up if the page DOESN'T render!</p>
+	</iframe>
+<% end %>
+
 <%= render partial: 'causas/shw/datos_cuantia/cuantia', locals: {objeto: objeto, variables: variables} %>
 
 <%= render partial: 'causas/shw/datos_cuantia/datos', locals: {objeto: objeto, variables: variables} unless variables.empty? %>
-
-<div class="prrf_box">
-	<% @objeto.parrafos.order(:orden).each do |parrafo| %>
-		<% if parrafo.oculto %>
-			<%#= parrafo.orden %><!--i class="bi bi-dot"></i-->
-		<% else %>
-			<b>[<%= parrafo.orden %>]</b>
-			<%= parrafo.texto.html_safe%>
-			<hr>
-		<% end %>
-	<% end %>
-</div>

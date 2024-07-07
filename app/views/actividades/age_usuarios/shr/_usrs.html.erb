@@ -1,0 +1,7 @@
+<div class="ln_app">
+	<div class="ln_nm">
+		<% objeto.age_usuarios.each do |usr| %>
+			<%= render partial: 'actividades/age_usuarios/list/objeto', locals: {objeto: usr, owner: objeto} %>
+		<% end %>
+	</div>
+</div>

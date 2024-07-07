@@ -1,0 +1,17 @@
+<div class="ln_vlr_cnt">
+	<div class="ln_nm">
+		<b>Totales</b>
+	</div>
+	<div class="<%= controller_name == 'causas' ? 'ln_mnt1' : 'ln_mnt2'  %>">
+		<b>
+			<%= s_pesos(get_total_cuantia(objeto, 'tarifa')) %>
+		</b>
+	</div>
+	<div class="<%= controller_name == 'causas' ? 'ln_mnt2' : 'ln_mnt1'  %>">
+		<% if controller_name == 'causas' %>
+		<b>
+			<%= s_pesos(get_total_cuantia(objeto, 'real')) %>
+		</b>
+		<% end %>
+	</div>
+</div>

@@ -7,26 +7,21 @@ module Inicia
 		AppVersion.create(dog_email: dog_email)
 	end
 
-	def dog_wanted
-		# Si hay una versión anterio puede que dog_perfil ya exista
-		# Busca el perfil de DOG
-		dog_perfil = AppPerfil.find_by(email: dog_email)
-		# Lo crea si no existe
-		dog_perfil = AppPerfil.create(o_clss: 'AppVersion', o_id: version_activa.id, email: dog_email) if dog_perfil.blank?
+	def get_dog
+		# No se usa dog_perfil? porque dog_perfil.blank? considera que exista pero no esté ligado a version_activa
+		dog_prfl = dog_perfil.blank? ? AppPerfil.create(o_clss: 'AppVersion', o_id: version_activa.id, email: dog_email) : dog_perfil
 
-		dog_perfil.o_clss = 'AppVersion'
-		dog_perfil.o_id = version_activa.id
-		dog_perfil.save
+		dog_prfl.o_clss = 'AppVersion'
+		dog_prfl.o_id = version_activa.id
+		dog_prfl.save
 	end
 
 	def inicia_sesion
+		# Verifica version_activa y dog_perfil
+		crea_primera_version unless version_activa?
+		get_dog unless dog_perfil?
 
-		# crea Version con informaciòn mínima si no la encuentra
-		crea_primera_version if version_activa.blank?
-		dog_wanted if version_activa.dog_perfil.blank?
-
-		# si hay USUARIO AUTENTICADO pero el usuario NO TIENE PERFIL}
-		# ocurre si el usuario recién se creo, el perfil de DOG fue creado en dog_wanted
+		# USUARIO SIN PERFIL (Primer ingreso)
 		if usuario_signed_in? and perfil_activo.blank?
 
 			if nomina_activa.present? or libre_registro?

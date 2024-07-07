@@ -1,4 +1,6 @@
 class Actividades::AgePendientesController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_age_pendiente, only: %i[ show edit update destroy realizado_pendiente cambia_prioridad ]
 
   # GET /age_pendientes or /age_pendientes.json

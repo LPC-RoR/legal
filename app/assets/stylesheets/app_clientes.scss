@@ -1,6 +1,21 @@
 
 $cl_fr: #627254;
 
+// **********************************************************************
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd:wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
+// grd($grd_tc, $grd_gap);
+// grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
+
+// bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr)
+@import "bjt";
+
+
 @mixin cl_bjt_bs($c_bg, $c_brd) {
 	padding: 10px;
 	margin-bottom: 4px;
@@ -26,8 +41,7 @@ $cl_fr: #627254;
 }
 
 .cl_bjt {
-	@include cl_bjt_bs($c_cl_bg, $c_cl_brd);
-	@include cl_dtll(black, gray);
+	@include bjt_bx(1px, 6px 6px 6px 6px, $pltt_5, white);
 }
 
 /* LAYOUT INDEX */

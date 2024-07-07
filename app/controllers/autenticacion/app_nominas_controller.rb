@@ -1,5 +1,6 @@
 class Autenticacion::AppNominasController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :inicia_sesion
   before_action :set_app_nomina, only: %i[ show edit update destroy set_admin ]
 

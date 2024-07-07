@@ -1,0 +1,4 @@
+<%= render partial: '/csc/demandantes/list/th' %>
+<% objeto.demandantes.each do |dmndnt| %>
+	<%= render partial: '/csc/demandantes/list/objeto', locals: {objeto: dmndnt} %>
+<% end %>

@@ -1,4 +1,6 @@
 class TribunalCortesController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tribunal_corte, only: %i[ show edit update destroy ]
 
   # GET /tribunal_cortes or /tribunal_cortes.json

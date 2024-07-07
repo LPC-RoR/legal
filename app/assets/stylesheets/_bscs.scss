@@ -1,0 +1,58 @@
+// Elementos básicos para construir todo!!
+
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd_wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
+// grd($grd_tc, $grd_gap);
+// grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+// @import "bscs";
+
+@mixin mrgn_pddng($mrgn, $pddng) {
+	margin: $mrgn;
+	padding: $pddng;
+}
+
+@mixin brd($brd_wdth, $brd_rds, $brd_clr) {
+    border: $brd_wdth solid $brd_clr;
+    border-radius: $brd_rds;
+}
+
+@mixin bx($bg_clr) {
+    background-color: $bg_clr;
+}
+
+@mixin bx_shdw {
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+}
+
+@mixin ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr) {
+    line-height: $ln_hght;
+    font-family: $fnt_fmly;
+    font-size: $fnt_sz; 
+    color: $fnt_clr
+}
+
+@mixin grd($grd_tc, $grd_gap) {
+	display: grid;
+	grid-template-columns: $grd_tc;
+	grid-gap: $grd_gap;
+}
+
+@mixin grd_ncol($nth) {
+    grid-column-start: $nth;
+    grid-column-end: $nth + 1;
+}
+
+@mixin a_hover($lnk_clr, $hvr_clr) {
+	a {
+		color: $lnk_clr;
+        text-decoration: none;
+	}
+
+	a:hover {
+		color: $hvr_clr;
+	}
+}

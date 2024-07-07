@@ -1,4 +1,6 @@
 class Tarifas::TarAprobacionesController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tar_aprobacion, only: %i[ show edit update destroy ]
 
   # GET /tar_aprobaciones or /tar_aprobaciones.json

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_27_152418) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_06_213552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_152418) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["age_actividad_id"], name: "index_age_usu_acts_on_age_actividad_id"
     t.index ["age_usuario_id"], name: "index_age_usu_acts_on_age_usuario_id"
+  end
+
+  create_table "age_usu_notas", force: :cascade do |t|
+    t.integer "age_usuario_id"
+    t.integer "nota_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_usuario_id"], name: "index_age_usu_notas_on_age_usuario_id"
+    t.index ["nota_id"], name: "index_age_usu_notas_on_nota_id"
   end
 
   create_table "age_usu_perfiles", force: :cascade do |t|
@@ -585,6 +594,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_152418) do
     t.boolean "causa_ganada"
     t.boolean "hechos_registrados"
     t.boolean "archivos_registrados"
+    t.boolean "pendiente"
+    t.boolean "urgente"
     t.index ["archivos_registrados"], name: "index_causas_on_archivos_registrados"
     t.index ["causa_ganada"], name: "index_causas_on_causa_ganada"
     t.index ["era"], name: "index_causas_on_era"
@@ -626,6 +637,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_152418) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "estado"
     t.string "tipo_cliente"
+    t.boolean "pendiente"
+    t.boolean "urgente"
     t.index ["estado"], name: "index_clientes_on_estado"
     t.index ["tipo_cliente"], name: "index_clientes_on_tipo_cliente"
   end
@@ -666,6 +679,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_152418) do
     t.index ["owner_class"], name: "index_control_documentos_on_owner_class"
     t.index ["owner_id"], name: "index_control_documentos_on_owner_id"
     t.index ["visible_para"], name: "index_control_documentos_on_visible_para"
+  end
+
+  create_table "demandantes", force: :cascade do |t|
+    t.integer "causa_id"
+    t.integer "orden"
+    t.string "nombres"
+    t.string "apellidos"
+    t.decimal "remuneracion"
+    t.string "cargo"
+    t.string "lugar_trabajo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["causa_id"], name: "index_demandantes_on_causa_id"
+    t.index ["orden"], name: "index_demandantes_on_orden"
   end
 
   create_table "dt_criterio_multas", force: :cascade do |t|
@@ -1014,6 +1041,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_152418) do
     t.boolean "realizado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "pendiente"
+    t.boolean "urgente"
     t.index ["ownr_clss"], name: "index_notas_on_ownr_clss"
     t.index ["ownr_id"], name: "index_notas_on_ownr_id"
     t.index ["perfil_id"], name: "index_notas_on_perfil_id"
@@ -1603,6 +1632,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_152418) do
     t.decimal "valor_tarifa"
     t.boolean "desactivado"
     t.string "nota"
+    t.integer "demandante_id"
+    t.index ["demandante_id"], name: "index_tar_valor_cuantias_on_demandante_id"
     t.index ["desactivado"], name: "index_tar_valor_cuantias_on_desactivado"
     t.index ["owner_class"], name: "index_tar_valor_cuantias_on_owner_class"
     t.index ["owner_id"], name: "index_tar_valor_cuantias_on_owner_id"

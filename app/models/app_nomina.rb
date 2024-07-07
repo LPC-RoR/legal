@@ -1,7 +1,5 @@
 class AppNomina < ApplicationRecord
 
-	has_many :st_perfil_modelos
-
 	validates :nombre, :email, presence: true
 	validates :nombre, :email, uniqueness: true
 

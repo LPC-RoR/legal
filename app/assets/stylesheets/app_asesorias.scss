@@ -5,15 +5,22 @@ $as_sc: #a73121;
 $as_th: #dad4b5;
 $as_ob: #f2e8c6;
 
-/* LAYOUT OBJETO */
+// -------------------------------------------
 
-@import "grids";
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd_wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
 // grd($grd_tc, $grd_gap);
-// grd_frm($bg_color, $grap);
 // grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
 
-// a_hover($clr, $hvr_clr);
-@import "a_hover";
+// bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr)
+@import "bjt";
+
+/* LAYOUT OBJETO */
 
 @mixin as_bjt_bs($c_bg, $c_brd) {
 	padding: 10px;
@@ -40,53 +47,5 @@ $as_ob: #f2e8c6;
 }
 
 .as_bjt {
-	@include as_bjt_bs($c_as_bg, $c_as_brd);
-	@include as_dtll(black, gray);
-}
-
-.as {
-	padding: 10px;
-    border: 1px solid $cs_th;
-    border-radius: 3px 3px 3px 3px;
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-	background-color: $as_ob;
-	font-size: 13px;
-
-	.ttl {
-    	font-weight: bold;
-		display: grid;
-		grid-template-columns: auto 100px;
-	    grid-gap: 10px;
-	    justify-items: stretch;
-
-	    .ttl_ttl {
-		    grid-column-start: 1;
-		    grid-column-end: 2;
-	    	justify-self: start;
-
-	    }
-
-	    .ttl_lnks {
-			font-size: 10px;
-		    grid-column-start: 2;
-		    grid-column-end: 3;
-	    	justify-self: end;
-	    }
-
-    	a {
-            text-decoration: none;
-    	}
-
-    	a:hover {
-    		color: gray;
-    	}
-	}
-
-	.cllps {
-		padding: 14px;
-    	background-color: white;
-    	color: black;
-		font-size: 10px;
-	}
-
+	@include bjt_bx(1px, 6px 6px 6px 6px, $pltt_5, white);
 }

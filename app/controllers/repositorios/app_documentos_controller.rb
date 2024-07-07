@@ -1,4 +1,6 @@
 class Repositorios::AppDocumentosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_app_documento, only: %i[ show edit update destroy ]
 
 #  include Bandejas

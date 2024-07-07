@@ -1,4 +1,6 @@
 class Tarifas::TarValorCuantiasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tar_valor_cuantia, only: %i[ show edit update destroy ]
 
   # GET /tar_valor_cuantias or /tar_valor_cuantias.json
@@ -11,11 +13,13 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
   # GET /tar_valor_cuantias/new
   def new
+    @owner = params[:class_name].constantize.find(params[:objeto_id])
     @objeto = TarValorCuantia.new(owner_class: params[:class_name], owner_id: params[:objeto_id])
   end
 
   # GET /tar_valor_cuantias/1/edit
   def edit
+    @owner = @objeto.owner
   end
 
   # POST /tar_valor_cuantias or /tar_valor_cuantias.json
@@ -70,6 +74,6 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_valor_cuantia_params
-      params.require(:tar_valor_cuantia).permit(:owner_class, :owner_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda, :valor_tarifa, :nota, :desactivado)
+      params.require(:tar_valor_cuantia).permit(:owner_class, :owner_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda, :valor_tarifa, :nota, :desactivado, :demandante_id)
     end
 end

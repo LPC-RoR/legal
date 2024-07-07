@@ -1,0 +1,40 @@
+<div class="ln_bjt_app">
+	<div class="ln_nm">
+		<%= render partial: '0capitan/objeto/point_urgente_pendiente', locals: {objeto: objeto} %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver Causa'} do %>
+				<%= objeto.rit %>
+			<% end %> : 
+			<%= objeto.causa %>
+		<% if (objeto.monto_pagado.blank? or objeto.monto_pagado == 0) and objeto.estado == 'terminada' %>
+			<i class="bi bi-award text-primary"></i> Causa Ganada
+		<% end %>
+	</div>
+	<div class="ln_lnks">
+		<%= render layout: '0p/collapse/link', locals: {label: 'Detalle', objeto: objeto, tooltip: 'Más información'} do %>
+			<i class="bi bi-plus-lg"></i>
+		<% end %>
+		<%= render partial: '0capitan/objeto/swtch_urgente_pendiente', locals: {objeto: objeto} %>
+		<%= render partial: 'clientes/shr/lnk_cl', locals: {objeto: objeto} %>
+		<% if objeto.demanda? and operacion? %>
+			<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<i class="bi bi-paperclip"></i>
+			<% end %>
+		<% end %>
+		<i class="bi bi-dot"></i>
+		<% if operacion? %>
+			<%= render partial: 'notas/shr/cllps_lnk_nw_nt', locals: {objeto: objeto} %>
+			<!-- Lo siguiente se puso DENTRO del if porque si no se despliega el crud no tiene sentido el punto -->
+			<% if (finanzas? and objeto.facturaciones.any?) or (objeto.demanda? and operacion?) %>
+				<i class="bi bi-dot"></i>
+			<% end %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if check_crud(objeto) %>
+		<% end %>
+	</div>
+</div>
+
+<%= render partial: 'notas/shr/cllps_dsply_nw_nt', locals: {objeto: objeto} %>
+<%= render layout: '0p/collapse/display', locals: {label: 'Detalle', objeto: objeto} do %>
+	<div class="cllps">
+		<%= render partial: 'causas/list/detalle', locals: {objeto: objeto} %>
+	</div>
+<% end %>

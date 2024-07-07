@@ -30,7 +30,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
       pago = TarPago.find(params[:pid]) unless params[:pid].blank?
       cuotas = pago.tar_cuotas.order(:orden)
       moneda  = (pago.moneda.blank? ? 'UF' : pago.moneda)
-      cuantia_calculo = total_cuantia(owner, 'tarifa')
+      cuantia_calculo = get_total_cuantia(owner, 'tarifa')
 
       # monto = pago.valor.blank? ? calcula2( formula, owner, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5)) : pago.valor
       if pago.valor.blank?

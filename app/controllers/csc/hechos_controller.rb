@@ -1,4 +1,6 @@
 class Csc::HechosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo remueve_documento arriba abajo set_evaluacion nuevo_antecedente ]
   after_action :ordena_hechos, only: %i[ create destroy update nuevo_antecedente ]
 

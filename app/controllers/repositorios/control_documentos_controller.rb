@@ -1,4 +1,6 @@
 class Repositorios::ControlDocumentosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_control_documento, only: %i[ show edit update destroy crea_documento_controlado arriba abajo ]
   after_action :reordenar, only: :destroy
 

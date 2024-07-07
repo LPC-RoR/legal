@@ -1,4 +1,6 @@
 class Estados::StModelosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_st_modelo, only: %i[ show edit update destroy asigna ]
 
   # GET /st_modelos or /st_modelos.json

@@ -6,14 +6,11 @@
 
 <div style="padding-left: 1em; padding-right: 1em,">
 	<h3>
-		Aprobación de pagos
+		Aprobación de pagos : <%= dma(objeto.fecha) %>
 	</h3>
 
 	<h5>
 		<i class="bi bi-building"></i>
-		<%= "#{objeto.cliente.razon_social} : #{dma(objeto.fecha)}"%> 
-		<%= link_to objeto do %>
-			<i class="bi bi-box-arrow-up-right"></i>
-		<% end %>
+		<%= objeto.cliente.razon_social %> 
 	</h5>
 </div>

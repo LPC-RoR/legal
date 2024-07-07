@@ -1,4 +1,6 @@
 class Srvcs::CargosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_cargo, only: %i[ show edit update destroy ]
 
   # GET /cargos or /cargos.json

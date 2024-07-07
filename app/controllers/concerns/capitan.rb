@@ -49,6 +49,25 @@ module Capitan
 	    end
 	end
 
+	# **************************************************************************** WTCHS
+	# Aplicados en Causa, Asesoría y Cliente
+
+	def swtch_pendiente
+		@objeto.pendiente = @objeto.pendiente ? false : true
+		@objeto.save
+
+		red = @objeto.class.name == 'Nota' ? "/#{@objeto.owner.class.name.tableize}" : "/#{@objeto.class.name.tableize}"
+		redirect_to red
+	end
+
+	def swtch_urgencia
+		@objeto.urgente = @objeto.urgente ? false : true
+		@objeto.save
+
+		red = @objeto.class.name == 'Nota' ? "/#{@objeto.owner.class.name.tableize}" : "/#{@objeto.class.name.tableize}"
+		redirect_to red
+	end
+
 	# **************************************************************************** GENERAL
 	def object_class_sym(objeto)
 		objeto.class.name.tableize.to_sym

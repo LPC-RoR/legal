@@ -1,5 +1,7 @@
 class CausasController < ApplicationController
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd ]
+  before_action :authenticate_usuario!
+  before_action :scrty_on
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd swtch_urgencia swtch_pendiente ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -8,6 +10,8 @@ class CausasController < ApplicationController
 
   # GET /causas or /causas.json
   def index
+    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+
     @modelo = StModelo.find_by(st_modelo: 'Causa')
     @estados = @modelo.blank? ? [] : @modelo.st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
     @tipos = nil
@@ -17,7 +21,7 @@ class CausasController < ApplicationController
     @link_new = @estado == 'tramitación' ? causas_path : nil
 
     if params[:query].blank?
-      coleccion = Causa.where(estado: @estado).order(created_at: :desc)
+      coleccion = Causa.where(estado: @estado).order(pendiente: :desc, urgente: :desc, created_at: :desc)
       set_tabla('causas', coleccion, true)
       @srch = false
     else
@@ -65,9 +69,6 @@ class CausasController < ApplicationController
       vrbls_ids = @objeto.cliente.variables.ids.intersection(@objeto.tipo_causa.variables.ids)
       @variables = Variable.where(id: vrbls_ids)
       @valores = @objeto.valores_datos
-
-      set_detalle_cuantia(@objeto, porcentaje_cuantia: false)
-      @arry_cnt = array_cuantia(@objeto, @valores_cuantia)
 
       # @cuantia_tarifa {true, false} señala cuando la tarifa requiere la cuantía para su cálculo
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
@@ -133,13 +134,10 @@ class CausasController < ApplicationController
   def cuantia_to_xlsx
     require 'axlsx'
 
-    set_detalle_cuantia(@objeto, porcentaje_cuantia: false)
-    arry_cnt = array_cuantia(@objeto, @valores_cuantia)
-
     caratula = "#{@objeto.rit} #{@objeto.causa}"
     remuneracion = @objeto.get_valor('Remuneración')
     audiencia_preparatoria = @objeto.get_age_actividad('Audiencia preparatoria')
-    fecha_ap = audiencia_preparatoria.fecha
+    fecha_ap = audiencia_preparatoria.blank? ? 'sin fecha' : audiencia_preparatoria.fecha
 
     planilla = Axlsx::Package.new
     wb = planilla.workbook
@@ -153,7 +151,7 @@ class CausasController < ApplicationController
       @objeto.valores_cuantia.each do |vc|
         sheet.add_row [vc.detalle, vlr_tarifa(vc), vlr_cuantia(vc, 'real')]
       end
-      sheet.add_row ['Total', total_cuantia(@objeto, 'tarifa'), total_cuantia(@objeto, 'real')]
+      sheet.add_row ['Total', get_total_cuantia(@objeto, 'tarifa'), get_total_cuantia(@objeto, 'real')]
     end
 
     #    planilla.serialize 'cuantia.xlsx'

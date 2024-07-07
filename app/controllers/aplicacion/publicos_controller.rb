@@ -1,5 +1,6 @@
 class Aplicacion::PublicosController < ApplicationController
   before_action :authenticate_usuario!, only: :home
+  before_action :scrty_on, only: :home
   before_action :set_publico, only: %i[ show edit update destroy ]
   before_action :inicia_sesion, only: [:home]
 
@@ -9,6 +10,8 @@ class Aplicacion::PublicosController < ApplicationController
 
   def home
     if usuario_signed_in?
+
+      @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
       @estados = nil
       @tipos = ['Causas', 'Pagos', 'Facturas']
@@ -88,6 +91,10 @@ class Aplicacion::PublicosController < ApplicationController
       @principal = articulos.first
       @segundo = articulos.second
       @tercero = articulos.third
+    end
+
+    def ayuda
+      
     end
 
   end

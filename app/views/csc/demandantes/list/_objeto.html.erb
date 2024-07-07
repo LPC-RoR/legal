@@ -1,0 +1,13 @@
+<div class="ln_dmndnts">
+	<div class="ln_nm">
+		<%= "#{objeto.orden}.- #{objeto.nombres} #{objeto.apellidos}" %>
+	</div>
+	<div class="ln_mnt">
+		<%= s_pesos(objeto.remuneracion) %>
+	</div>
+	<div class="ln_lnks">
+		<% if controller_name == 'causas' %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		<% end %>
+	</div>
+</div>

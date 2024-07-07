@@ -1,42 +1,38 @@
 
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd:wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
 // grd($grd_tc, $grd_gap);
-// grd_frm($mrgn, $bg_color, $grap);
 // grd_ncol($nth);
-@import "grids";
+// a_hover($lnk_clr, $hvr_clr);
+// @import "bscs";
 
-// a_hover($clr, $hvr_clr);
-@import "a_hover";
 
 // @include ln_ttl_lnks($c_lnks, $c_hvr);
 @import "ttl_lnks";
 
 @mixin dia_hd($d_bg, $d_fnt, $d_brd) {
-	margin-bottom: 4px;
-	padding: 10px;
-    border: 1px solid $d_brd;
-    border-radius: 3px 3px 3px 3px;
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-	background-color: $d_bg;
+	@include mrgn_pddng(0 0 4px 0, 10px);
+	@include brd(1px, 3px 3px 3px 3px, $d_brd);
+	@include bx($d_bg);
+	@include bx_shdw;
 	font-size: 15px;
 	color: $d_fnt;
 
 	.ttl {
     	font-weight: bold;
-		display: grid;
-		grid-template-columns: auto 100px;
-	    grid-gap: 10px;
+    	@include grd(auto 100px, 0);
 	    justify-items: stretch;
 
 	    .lft {
-		    grid-column-start: 1;
-		    grid-column-end: 2;
+	    	@include grd_ncol(1);
 	    	justify-self: start;
-
 	    }
 
 		.rght {
-		    grid-column-start: 2;
-		    grid-column-end: 3;
+	    	@include grd_ncol(2);
 	    	justify-self: end;
 	    }
 	}
@@ -68,6 +64,8 @@
 }
 
 /* LAYOUT OBJETO */
+
+// dia_hd($d_bg, $d_fnt, $d_brd)
 
 .d_dyf {
 	@include dia_hd($d_dyf_bg, $d_dyf_fnt, $d_dyf_brd);

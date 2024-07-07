@@ -1,6 +1,6 @@
 <% unless coleccion.empty? %>
 	<% coleccion.each do |archivo| %>
-		<% if check_tipo_usuario(archivo.visible_para) %>
+		<% if seguridad(archivo.visible_para) %>
 			<%= render partial: partial_name(archivo.class.name.tableize, 'list', "bjt") , locals: {objeto: archivo} %>
 		<% end %>
 	<% end %>

@@ -1,0 +1,3 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevaNota', objeto: objeto} do %>
+	<%= render partial: 'notas/shr/form_nota', locals: {objeto: objeto, clss: objeto.class.name, oid: objeto.id} %>
+<% end %>

@@ -1,0 +1,5 @@
+<%= render partial: '0capitan/objeto/point_urgente_pendiente', locals: {objeto: objeto} %>
+<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver Cliente' } do %>
+	<%= objeto.d_rut %>
+<% end %> : 
+<%= objeto.razon_social %>

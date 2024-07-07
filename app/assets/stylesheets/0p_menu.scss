@@ -1,7 +1,14 @@
- /* LMENU */
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd_wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
+// grd($grd_tc, $grd_gap);
+// grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
 
-// a_hover($clr, $hvr_clr);
-@import "a_hover";
+ /* LMENU */
 
 @mixin mn_ttl($pdd, $fnt_sz) {
     margin-bottom: 4px;

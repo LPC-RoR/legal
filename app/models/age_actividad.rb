@@ -2,14 +2,11 @@ class AgeActividad < ApplicationRecord
 
 #	belongs_to :app_perfil
 
+	# DEPRECATED, Se cambió por notas para tener un sólo formato
 	has_many :age_antecedentes
 
 	has_many :age_usu_acts
 	has_many :age_usuarios, through: :age_usu_acts
-
-	# Revisar DEPRECATED
-	has_many :age_act_perfiles
-	has_many :app_perfiles, through: :age_act_perfiles
 
 	has_many :age_logs
 
@@ -17,9 +14,21 @@ class AgeActividad < ApplicationRecord
 		self.owner_class.constantize.find(self.owner_id)
 	end
 
+	def ownr_name
+		self.owner.class.name == 'Causa' ? self.owner.rit : self.owner.razon_social
+	end
+
+    def notas
+    	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
+    end
+
 	def nombre_creador
 		perfil = AppPerfil.find_by(id: self.app_perfil_id)
-		perfil.blank? ? 'no encontrado' : perfil.nombre_perfil
+		if perfil.blank?
+			'no encontrado'
+		else
+			perfil.email == AppVersion::DOG_EMAIL ? AppVersion::DOG_NAME : AppNomina.find_by(email: perfil.email).nombre
+		end
 	end
 
 	def text_color

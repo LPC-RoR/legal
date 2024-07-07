@@ -1,4 +1,6 @@
 class Srvcs::TipoCargosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tipo_cargo, only: %i[ show edit update destroy ]
 
   # GET /tipo_cargos or /tipo_cargos.json

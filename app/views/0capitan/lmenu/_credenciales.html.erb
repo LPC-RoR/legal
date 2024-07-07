@@ -1,6 +1,5 @@
 	<small>
 		<b>
-		<i class="bi bi-at"></i>
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: edit_usuario_registration_path, tooltip: 'Editar mi usuario'} do %>
 			<%= perfil_activo.email %>
 		<% end %>
@@ -15,7 +14,7 @@
 				Usuarios
 			<% end %>
 		<% else %>
-			<%= perfil_activo.tipo_usuario(cfg_defaults[:activa_tipos_usuario], nomina_activa) %>
+			<%= tipo_usuario %>
 		<% end %>
 	</br>
 		<%= render partial: '0capitan/lmenu/enlaces_drpdwn', locals: {toggle: 'Enlaces', menus: v_enlaces} %>

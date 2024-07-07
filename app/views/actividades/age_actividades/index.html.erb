@@ -8,18 +8,18 @@
 	<div class="rght">
 		<% unless @usuario.blank? %>
 			<div class="ttl_app">
-					<div class="ttl_ttl">
-						<i class="bi bi-list-check"></i> 
-						<%= @usuario.age_usuario %>
-						<%= render layout: '0p/collapse/link', locals: {label: 'Personaliza', objeto: nil, tooltip: 'Personalizar usuario'} do %>
-							<i class="bi bi-pencil-square"></i>
-						<% end %>
-					</div>
-					<div class="ttl_lnks">
-						<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_pendientes/new?uid=#{@usuario.id}", tooltip: 'Nuevo pendiente'} do %>
-							<i class="bi bi-plus-circle"></i>
-						<% end %>
-					</div>
+				<div class="ttl_ttl">
+					<i class="bi bi-list-check"></i> 
+					<%= @usuario.age_usuario %>
+					<%= render layout: '0p/collapse/link', locals: {label: 'Personaliza', objeto: nil, tooltip: 'Personalizar usuario'} do %>
+						<i class="bi bi-pencil-square"></i>
+					<% end %>
+				</div>
+				<div class="ttl_lnks">
+					<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_pendientes/new?uid=#{@usuario.id}", tooltip: 'Nuevo pendiente'} do %>
+						<i class="bi bi-plus-circle"></i>
+					<% end %>
+				</div>
 			</div>
 
 			<%= render layout: '0p/collapse/display', locals: {label: 'Personaliza', objeto: nil} do %>

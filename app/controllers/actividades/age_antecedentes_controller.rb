@@ -1,4 +1,6 @@
 class Actividades::AgeAntecedentesController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_age_antecedente, only: %i[ show edit update destroy arriba abajo elimina_antecedente ]
   after_action :reordenar, only: :destroy
 

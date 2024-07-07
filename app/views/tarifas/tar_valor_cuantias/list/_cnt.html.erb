@@ -1,0 +1,12 @@
+<% if objeto.demandante_id.present? %>
+	[ <%=objeto.demandante.orden %>* ]
+<% end %>
+
+<% if objeto.tar_detalle_cuantia.tar_detalle_cuantia == 'Otro' and controller_name == 'causas' %>
+	<i class="bi bi-asterisk"></i>
+<% end %>
+<%= objeto.detalle %>
+<% unless objeto.nota.blank? %>
+	 ( <%= objeto.nota %> )
+<% end %>
+<%= "( #{objeto.porcentaje_variable}% )" unless objeto.porcentaje_variable.blank? %>

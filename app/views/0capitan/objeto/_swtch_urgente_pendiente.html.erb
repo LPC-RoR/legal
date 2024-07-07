@@ -1,0 +1,8 @@
+<small>
+<%= render layout: '0p/layout/tooltip_link', locals: {link: "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_urgencia", tooltip: 'Cambia urgencia'} do %>
+	<i class="bi bi-circle-fill text-danger"></i>
+<% end %>
+<%= render layout: '0p/layout/tooltip_link', locals: {link: "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_pendiente", tooltip: 'Cambia responsabilidad'} do %>
+	<i class="bi bi-circle-fill text-primary"></i>
+<% end %>
+</small>

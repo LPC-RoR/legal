@@ -1,4 +1,6 @@
 class Blog::BlgTemasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_blg_tema, only: %i[ show edit update destroy ]
 
   # GET /blg_temas or /blg_temas.json

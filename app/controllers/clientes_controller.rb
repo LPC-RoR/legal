@@ -1,12 +1,14 @@
 class ClientesController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura add_rcrd ]
+  before_action :scrty_on
+  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura add_rcrd swtch_urgencia swtch_pendiente ]
   after_action :rut_puro, only: %i[ create update ]
 
 #  include Bandejas
 
   # GET /clientes or /clientes.json
   def index
+    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
     @modelo = StModelo.find_by(st_modelo: 'Cliente')
     @estados = @modelo.blank? ? [] : @modelo.st_estados.order(:orden).map {|e_cli| e_cli.st_estado}
@@ -21,8 +23,11 @@ class ClientesController < ApplicationController
 
     @vrbls = Variable.all.order(:variable)
 
-    set_tabla('clientes', Cliente.where(estado: @estado).order(:razon_social), true) if @estado.present?
-    set_tabla('clientes', Cliente.where(estado: 'activo', tipo_cliente: @tipo.singularize).order(:razon_social), true) if @tipo.present? and @estado.blank?
+    
+    cllcn = Cliente.where(estado: @estado) if @estado.present?
+    cllcn = Cliente.where(estado: 'activo', tipo_cliente: @tipo.singularize) if (@tipo.present? and @estado.blank?)
+
+    set_tabla('clientes', cllcn.order(:razon_social), true)
 
   end
 

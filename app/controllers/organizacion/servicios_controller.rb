@@ -1,4 +1,6 @@
 class Organizacion::ServiciosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
 
   include Tarifas
 
@@ -7,15 +9,10 @@ class Organizacion::ServiciosController < ApplicationController
     set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
     set_tabla('tar_calculos', @objeto.tar_calculos, false)
 
-    @total_uf = @objeto.tar_calculos.map {|ccl| monto_uf(ccl, ccl.owner, ccl.tar_pago)}.sum
-    @total_pesos = @objeto.tar_calculos.map {|ccl| monto_pesos(ccl, ccl.owner, ccl.tar_pago)}.sum
+    @total_uf = @objeto.tar_calculos.map {|ccl| get_monto_calculo_uf(ccl, ccl.owner, ccl.tar_pago)}.sum
+    @total_pesos = @objeto.tar_calculos.map {|ccl| get_monto_calculo_pesos(ccl, ccl.owner, ccl.tar_pago)}.sum
 
     @h_pagos = get_h_pagos(@objeto)
-
-    @coleccion['tar_facturaciones'].each do |tar_facturacion|
-        set_detalle_cuantia(tar_facturacion.owner, porcentaje_cuantia: tar_facturacion.porcentaje_cuantia?) if tar_facturacion.owner.class.name == 'Causa'
-    end
-
   end
 
   def antecedentes
