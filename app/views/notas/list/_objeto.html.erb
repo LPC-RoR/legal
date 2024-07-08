@@ -9,6 +9,11 @@
 		<% elsif  objeto.color == 'r' %>
 			<i class="bi bi-cone-striped text-danger"></i>
 		<% end %>
-		<b><%= objeto.nota %></b>
+		<b>
+		<% unless objeto.sin_fecha_gestion %>
+			<i class="bi bi-alarm"></i> <%= dma(objeto.fecha_gestion) %> 
+		<% end %>
+		<%= objeto.nota %>
+		</b>
 	</div>
 </div>

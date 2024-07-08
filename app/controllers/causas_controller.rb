@@ -21,7 +21,7 @@ class CausasController < ApplicationController
     @link_new = @estado == 'tramitación' ? causas_path : nil
 
     if params[:query].blank?
-      coleccion = Causa.where(estado: @estado).order(pendiente: :desc, urgente: :desc, created_at: :desc)
+      coleccion = Causa.where(estado: @estado).order(urgente: :desc, pendiente: :desc, created_at: :desc)
       set_tabla('causas', coleccion, true)
       @srch = false
     else
@@ -108,7 +108,7 @@ class CausasController < ApplicationController
   # GET /causas/new
   def new
     modelo_causa = StModelo.find_by(st_modelo: 'Causa')
-    @objeto = Causa.new(estado: modelo_causa.primer_estado.st_estado)
+    @objeto = Causa.new(estado: modelo_causa.primer_estado.st_estado, urgente: false, pendiente: false)
   end
 
   # GET /causas/1/edit
@@ -386,6 +386,6 @@ class CausasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def causa_params
-      params.require(:causa).permit(:causa, :identificador, :cliente_id, :estado, :juzgado_id, :rol, :era, :fecha_ingreso, :caratulado, :ubicacion, :fecha_ubicacion, :tribunal_corte_id, :rit, :estado_causa, :tipo_causa_id, :fecha_uf, :monto_pagado, :query)
+      params.require(:causa).permit(:causa, :identificador, :cliente_id, :estado, :juzgado_id, :rol, :era, :fecha_ingreso, :caratulado, :ubicacion, :fecha_ubicacion, :tribunal_corte_id, :rit, :estado_causa, :tipo_causa_id, :fecha_uf, :monto_pagado, :query, :urgente, :pendiente)
     end
 end

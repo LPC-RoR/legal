@@ -1,10 +1,24 @@
 <div class="lyt_notice">
-		Bienvenido(a) <%= nombre_perfil %>
+  Bienvenido(a) <%= nombre_perfil %>
 </div>
 
-<div class="f_200pxlft_col">
+<div class="f_50lft_col">
   <div class="lft">
   </div>
   <div class="rght">
+      <div class="ttl_app">
+        <div class="ttl_ttl">
+          <i class="bi bi-list-check"></i> 
+          <%= @usuario.age_usuario %>
+          <%= render layout: '0p/collapse/link', locals: {label: 'Personaliza', objeto: nil, tooltip: 'Personalizar usuario'} do %>
+            <i class="bi bi-pencil-square"></i>
+          <% end %>
+        </div>
+        <div class="ttl_lnks">
+        </div>
+      </div>
+    <%= render layout: '0p/collapse/display', locals: {label: 'Personaliza', objeto: nil} do %>
+      <%= render partial: 'actividades/age_actividades/partials/form_nombre' %>
+    <% end %>
   </div>
 </div>

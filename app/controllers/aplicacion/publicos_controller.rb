@@ -11,6 +11,7 @@ class Aplicacion::PublicosController < ApplicationController
   def home
     if usuario_signed_in?
 
+      @usuario = perfil_activo.age_usuario
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
       @estados = nil

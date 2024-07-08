@@ -18,10 +18,10 @@ class AsesoriasController < ApplicationController
       corregido = @tipo.singularize == 'Redaccion' ? 'Redacción' : @tipo.singularize
       tipo = TipoAsesoria.find_by(tipo_asesoria: corregido)
       tipo = 'Redacción' if (tipo == 'Redaccion')
-      coleccion = Asesoria.where(tipo_asesoria_id: tipo.id).order(pendiente: :desc, urgente: :desc, created_at: :desc)
+      coleccion = Asesoria.where(tipo_asesoria_id: tipo.id).order(urgente: :desc, pendiente: :desc, created_at: :desc)
     end
     unless @estado.blank?
-      coleccion = Asesoria.where(estado: @estado).order(pendiente: :desc, urgente: :desc, created_at: :desc)
+      coleccion = Asesoria.where(estado: @estado).order(urgente: :desc, pendiente: :desc, created_at: :desc)
     end
     set_tabla('asesorias', coleccion, true)
 
@@ -40,7 +40,7 @@ class AsesoriasController < ApplicationController
   # GET /asesorias/new
   def new
     modelo_asesoria = StModelo.find_by(st_modelo: 'Asesoria')
-    @objeto = Asesoria.new(estado: modelo_asesoria.primer_estado.st_estado)
+    @objeto = Asesoria.new(estado: modelo_asesoria.primer_estado.st_estado, urgente: false, pendiente: false)
   end
 
   # GET /asesorias/1/edit
@@ -147,6 +147,6 @@ class AsesoriasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def asesoria_params
-      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf, :moneda, :monto, :tipo_asesoria_id)
+      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf, :moneda, :monto, :tipo_asesoria_id, :urgente, :pendiente)
     end
 end

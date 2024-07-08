@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_06_213552) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_07_235926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1043,6 +1043,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_06_213552) do
     t.datetime "updated_at", null: false
     t.boolean "pendiente"
     t.boolean "urgente"
+    t.datetime "fecha_gestion"
+    t.boolean "sin_fecha_gestion"
     t.index ["ownr_clss"], name: "index_notas_on_ownr_clss"
     t.index ["ownr_id"], name: "index_notas_on_ownr_id"
     t.index ["perfil_id"], name: "index_notas_on_perfil_id"
