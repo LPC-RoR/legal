@@ -14,6 +14,10 @@ class Aplicacion::PublicosController < ApplicationController
       @usuario = perfil_activo.age_usuario
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
+      set_tabla('notas', @usuario.notas.order(urgente: :desc, pendiente: :desc, created_at: :desc))
+
+      # VERSIÖN ANTIGUA
+
       @estados = nil
       @tipos = ['Causas', 'Pagos', 'Facturas']
       @tipo = params[:t].blank? ? @tipos[0] : params[:t]

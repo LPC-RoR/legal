@@ -1,7 +1,7 @@
 class ClientesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura add_rcrd swtch_urgencia swtch_pendiente ]
+  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura add_rcrd swtch_urgencia swtch_pendiente swtch_prprty ]
   after_action :rut_puro, only: %i[ create update ]
 
 #  include Bandejas
@@ -27,7 +27,7 @@ class ClientesController < ApplicationController
     cllcn = Cliente.where(estado: @estado) if @estado.present?
     cllcn = Cliente.where(estado: 'activo', tipo_cliente: @tipo.singularize) if (@tipo.present? and @estado.blank?)
 
-    set_tabla('clientes', cllcn.order(:razon_social), true)
+    set_tabla('clientes', cllcn.order(preferente: :desc, razon_social: :asc), true)
 
   end
 
@@ -108,7 +108,7 @@ class ClientesController < ApplicationController
   # GET /clientes/new
   def new
     modelo_cliente = StModelo.find_by(st_modelo: 'Cliente')
-    @objeto = Cliente.new(estado: modelo_cliente.primer_estado.st_estado)
+    @objeto = Cliente.new(estado: modelo_cliente.primer_estado.st_estado, preferencial: false)
   end
 
   # GET /clientes/1/edit
@@ -218,6 +218,6 @@ class ClientesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cliente_params
-      params.require(:cliente).permit(:razon_social, :rut, :estado, :tipo_cliente)
+      params.require(:cliente).permit(:razon_social, :rut, :estado, :tipo_cliente, :preferente)
     end
 end

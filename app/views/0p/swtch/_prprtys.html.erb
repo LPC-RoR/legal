@@ -1,0 +1,5 @@
+<% ['preferente', 'urgente', 'pendiente'].each do |prprty| %>
+	<% if prprty_lst.include?(prprty) and objeto.send(prprty) %>
+		<%= render partial: '0p/swtch/prprty_icon', locals: {prprty: prprty} %>
+	<% end %>
+<% end %>

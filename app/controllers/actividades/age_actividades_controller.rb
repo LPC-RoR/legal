@@ -2,6 +2,7 @@ class Actividades::AgeActividadesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad cambia_estado cambia_privada cambio_fecha]
+  after_action :elimina_fecha_audiencia, only: :destroy
 
   # GET /age_actividades or /age_actividades.json
   def index
@@ -72,6 +73,15 @@ class Actividades::AgeActividadesController < ApplicationController
 
       AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente', privada: privada, audiencia_especial: audiencia_especial)
       mensaje = 'Actividad fue creada exitósamente'
+
+      if params[:t] = 'A'
+        causa = Causa.find(params[:oid])
+        unless causa.blank?
+          causa.fecha_audiencia = fecha
+          causa.audiencia = params[:aud]
+          causa.save
+        end
+      end
     else
       mensaje = 'Error de ingreso Actividad: Fecha y Descripción son campos obligatorios'
     end
@@ -177,6 +187,10 @@ class Actividades::AgeActividadesController < ApplicationController
       unless log.blank?
         @objeto.fecha = params_to_date(prms, 'nueva_fecha')
         @objeto.save
+
+        causa = Causa.find(@objeto.owner_id)
+        causa.fecha_audiencia = @objeto.fecha
+        causa.save
       end
     end
 
@@ -196,6 +210,24 @@ class Actividades::AgeActividadesController < ApplicationController
   end
 
   private
+
+    def elimina_fecha_audiencia
+      if @objeto.tipo == 'Audiencia'
+        causa = Causa.find(@objeto.owner_id)
+        unless causa.blank?
+          ultimo = causa.actividades.where(tipo: 'Audiencia').last
+          if ultimo.blank?
+            causa.fecha_audiencia = nil
+            causa.audiencia = nil
+          else
+            causa.fecha_audiencia = @objeto.fecha
+            causa.audiencia = @objeto.age_actividad
+          end
+          causa.save
+        end
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_age_actividad
       @objeto = AgeActividad.find(params[:id])

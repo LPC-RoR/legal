@@ -1,0 +1,19 @@
+<b>
+<% unless objeto.fecha_audiencia.blank? %>
+<div class="ln_app">
+	<div class="ln_nm">
+		<%= objeto.audiencia %>
+	</div>
+	<div class="ln_lnks">
+		<%= dma(objeto.fecha_audiencia) %>
+	</div>
+</div>
+<% else %>
+	<span class="text-danger" style="padding-left: 2em;">
+		<small>
+		<i class="bi bi-cone-striped"></i> 
+		Causa sin audiencias!
+		</small>
+	</span>
+<% end %>
+</b>

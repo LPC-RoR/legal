@@ -7,7 +7,7 @@
 	<i class="bi bi-plus-lg"></i>
 <% end %>
 <% if operacion? %>
-	<%#= render partial: '0capitan/objeto/swtch_urgente_pendiente', locals: {objeto: objeto} %>
+	<%= render partial: '0p/swtch/swtch_prprtys', locals: {objeto: objeto, prprty_lst: ['preferente']} %>
 	<%= render partial: 'notas/shr/cllps_lnk_nw_nt', locals: {objeto: objeto} %>
 	<i class="bi bi-dot"></i>
 	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>

@@ -1,0 +1,3 @@
+<%= render layout: '0p/layout/tooltip_link', locals: {link: "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_prprty?prprty=#{prprty}", tooltip: "Cambia #{prprty}"} do %>
+	<%= render partial: '0p/swtch/prprty_icon', locals: {prprty: prprty} %>
+<% end %>

@@ -21,7 +21,7 @@ class CausasController < ApplicationController
     @link_new = @estado == 'tramitación' ? causas_path : nil
 
     if params[:query].blank?
-      coleccion = Causa.where(estado: @estado).order(urgente: :desc, pendiente: :desc, created_at: :desc)
+      coleccion = Causa.where(estado: @estado).order(:fecha_audiencia)
       set_tabla('causas', coleccion, true)
       @srch = false
     else

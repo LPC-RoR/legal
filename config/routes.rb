@@ -68,6 +68,7 @@ Rails.application.routes.draw do
     match :cambio_estado, via: :get, on: :member
     match :swtch_pendiente, via: :get, on: :member
     match :swtch_urgencia, via: :get, on: :member
+    match :swtch_prprty, via: :get, on: :member
   end
 
 # SCOPES *********************************************************

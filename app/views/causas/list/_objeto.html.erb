@@ -1,6 +1,7 @@
 <div class="app_bjt">
 	<%= render partial: 'causas/list/bjt', locals: {objeto: objeto} %>
 
+	<%= render partial: 'causas/list/audiencia', locals: {objeto: objeto} %>
 	<%= render partial: 'causas/list/monto_pagado', locals: {objeto: objeto} %>
 
 	<% if objeto.tar_tarifa.blank? %>
