@@ -14,7 +14,7 @@ class Aplicacion::PublicosController < ApplicationController
       @usuario = perfil_activo.age_usuario
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
-      set_tabla('notas', @usuario.notas.order(urgente: :desc, pendiente: :desc, created_at: :desc))
+      set_tabla('notas', @usuario.notas.order(urgente: :desc, pendiente: :desc, created_at: :desc), false)
 
       # VERSIÖN ANTIGUA
 
