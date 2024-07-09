@@ -1,0 +1,19 @@
+<div class="g_cllps">
+	<h6>Nuevo Estado</h6>
+	<%= form_for :nuevo_estado, url: "/estados/nuevo?cid=#{objeto.id}" do |form| %>
+
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha, label: 'Fecha' } %>
+		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %>
+
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :link, label: 'Link' } %>
+		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :link } %>
+
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :estado, label: 'Estado' } %>
+		<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :estado } %>
+		
+		<button type="submit" class="btn btn-info">
+		  <i class="bi bi-caret-right"></i>
+		</button>
+
+	<% end  %>
+</div>

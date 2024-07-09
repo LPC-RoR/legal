@@ -13,6 +13,9 @@
 		<%= render layout: '0p/collapse/link', locals: {label: 'Detalle', objeto: objeto, tooltip: 'Más información'} do %>
 			<i class="bi bi-plus-lg"></i>
 		<% end %>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Estado', objeto: objeto, tooltip: 'Último estado'} do %>
+			<i class="bi bi-tag"></i>
+		<% end %>
 		<%#= render partial: '0capitan/objeto/swtch_urgente_pendiente', locals: {objeto: objeto} %>
 		<%= render partial: 'clientes/shr/lnk_cl', locals: {objeto: objeto} %>
 		<% if objeto.demanda? and operacion? %>
@@ -34,7 +37,9 @@
 
 <%= render partial: 'notas/shr/cllps_dsply_nw_nt', locals: {objeto: objeto} %>
 <%= render layout: '0p/collapse/display', locals: {label: 'Detalle', objeto: objeto} do %>
-	<div class="cllps">
-		<%= render partial: 'causas/list/detalle', locals: {objeto: objeto} %>
-	</div>
+	<%= render partial: 'causas/list/detalle', locals: {objeto: objeto} %>
+<% end %>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'Estado', objeto: objeto} do %>
+	<%= render partial: 'causas/list/ultimo_estado', locals: {objeto: objeto} %>
 <% end %>

@@ -1,0 +1,11 @@
+<% objeto.monto_conciliaciones.each do |monto| %>
+	<div class="ln_app">
+		<div class="ln_nm">
+			<%= dma(monto.fecha) %> : <%= monto.tipo %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: monto} %>
+		</div>
+		<div class="ln_lnks">
+			<%= s_pesos(monto.monto) %>
+		</div>
+	</div>
+<% end %>

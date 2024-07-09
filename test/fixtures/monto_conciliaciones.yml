@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  causa_id: 1
+  tipo: MyString
+  fecha: 2024-07-09 08:52:29
+  monto: 9.99
+
+two:
+  causa_id: 1
+  tipo: MyString
+  fecha: 2024-07-09 08:52:29
+  monto: 9.99

@@ -118,6 +118,12 @@ Rails.application.routes.draw do
     resources :tipo_asesorias
 
     resources :demandantes
+    resources :monto_conciliaciones do
+      match :nuevo, via: :post, on: :collection
+    end
+    resources :estados do
+      match :nuevo, via: :post, on: :collection
+    end
   end
 
   # Usado para poner las entidades necesarias para mantener Variables y su relación con causas y clientes
@@ -282,7 +288,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'estados' do
+  scope module: 'st_estados' do
     resources :st_estados do
       match :asigna, via: :get, on: :member
       match :arriba, via: :get, on: :member
@@ -291,16 +297,6 @@ Rails.application.routes.draw do
     resources :st_modelos do 
       resources :st_estados
       match :asigna, via: :get, on: :member
-    end
-    resources :st_perfil_estados do
-      match :desasignar, via: :get, on: :member
-      match :cambia_rol, via: :get, on: :member
-    end
-    resources :st_perfil_modelos do
-      resources :st_perfil_estados
-      match :desasignar, via: :get, on: :member
-      match :cambia_rol, via: :get, on: :member
-      match :cambia_ingreso, via: :get, on: :member
     end
     resources :st_bandejas
   end

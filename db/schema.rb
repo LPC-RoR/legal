@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_08_172934) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_09_181157) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -760,6 +760,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_172934) do
     t.index ["dt_tabla_multa"], name: "index_dt_tabla_multas_on_dt_tabla_multa"
   end
 
+  create_table "estados", force: :cascade do |t|
+    t.integer "causa_id"
+    t.string "link"
+    t.text "estado"
+    t.boolean "urgente"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "fecha"
+    t.index ["causa_id"], name: "index_estados_on_causa_id"
+    t.index ["fecha"], name: "index_estados_on_fecha"
+  end
+
   create_table "h_imagenes", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", precision: nil, null: false
@@ -1034,6 +1046,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_172934) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["m_conciliacion_id"], name: "index_m_valores_on_m_conciliacion_id"
     t.index ["orden"], name: "index_m_valores_on_orden"
+  end
+
+  create_table "monto_conciliaciones", force: :cascade do |t|
+    t.integer "causa_id"
+    t.string "tipo"
+    t.datetime "fecha"
+    t.decimal "monto"
+    t.string "nota"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["causa_id"], name: "index_monto_conciliaciones_on_causa_id"
   end
 
   create_table "notas", force: :cascade do |t|

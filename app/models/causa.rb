@@ -27,6 +27,8 @@ class Causa < ApplicationRecord
 
 	has_many :secciones
 	has_many :parrafos
+	has_many :estados
+	has_many :monto_conciliaciones
 
 
 	# antecedentes de los hechos de la tabla
@@ -40,6 +42,10 @@ class Causa < ApplicationRecord
 
     def notas
     	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
+    end
+
+    def agenda
+    	self.actividades.where(tipo: ['Audiencia', 'Hito']).order(fecha: :desc)
     end
 
 	def valores_cuantia

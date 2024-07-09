@@ -27,7 +27,6 @@
 
 		<!-- LINKS -->
 		<% unless objeto.causa.archivos_registrados %>
-
 			<i class="bi bi-dot"></i> 
 			<!-- LINKS ARCHIVOS -->
 			<% unless objeto.causa.hechos_registrados %>
@@ -51,7 +50,7 @@
 
 </div>
 
-<div class="innr_dscpcn"><%= objeto.descripcion %></div>
+<div class="innr_dscpcn"><%= objeto.descripcion.gsub(/\r\n/, '</br>').html_safe %></div>
 
 <!-- COLLAPSES -->
 <%= render layout: '0p/collapse/display', locals: {label: 'NuevoAntecedente', objeto: objeto} do %>
