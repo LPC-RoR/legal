@@ -1,5 +1,9 @@
 class Csc::MontoConciliacionesController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_monto_conciliacion, only: %i[ show edit update destroy ]
+
+  after_action :actualiza_monto, only: %i[ update create]
 
   # GET /monto_conciliaciones or /monto_conciliaciones.json
   def index
@@ -40,7 +44,8 @@ class Csc::MontoConciliacionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to monto_conciliacion_url(@objeto), notice: "Monto conciliacion was successfully created." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Monto conciliacion was successfully created." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +58,8 @@ class Csc::MontoConciliacionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(monto_conciliacion_params)
-        format.html { redirect_to monto_conciliacion_url(@objeto), notice: "Monto conciliacion was successfully updated." }
+        set_redireccion
+        format.html { redirect_to @redireccion, notice: "Monto conciliacion was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,18 +70,31 @@ class Csc::MontoConciliacionesController < ApplicationController
 
   # DELETE /monto_conciliaciones/1 or /monto_conciliaciones/1.json
   def destroy
+    set_redireccion
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to monto_conciliaciones_url, notice: "Monto conciliacion was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Monto conciliacion was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
+
+    def actualiza_monto
+      causa = @objeto.causa
+      ultimo = causa.monto_conciliaciones.last
+      causa.monto_pagado = ['Acuerdo', 'Sentencia'].include?(@objeto.tipo) ? @objeto.monto : nil
+      causa.save
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_monto_conciliacion
       @objeto = MontoConciliacion.find(params[:id])
+    end
+
+    def set_redireccion
+      @redireccion = causas_path
     end
 
     # Only allow a list of trusted parameters through.

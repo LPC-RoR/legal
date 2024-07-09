@@ -1,4 +1,6 @@
 class Csc::EstadosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_estado, only: %i[ show edit update destroy ]
 
   # GET /estados or /estados.json
@@ -40,7 +42,7 @@ class Csc::EstadosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Estado was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Estado fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +56,7 @@ class Csc::EstadosController < ApplicationController
     respond_to do |format|
       if @objeto.update(estado_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Estado was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Estado fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -69,7 +71,7 @@ class Csc::EstadosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Estado was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Estado fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
