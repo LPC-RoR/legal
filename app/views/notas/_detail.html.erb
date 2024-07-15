@@ -1,4 +1,4 @@
-<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :prioridad, radio_list: ['Información', 'Advertencia', 'Urgente'] } %>
+<%#= render partial: '0p/form_fields/radio', locals: { form: form, token: :prioridad, radio_list: ['Información', 'Advertencia', 'Urgente'] } %>
 
 <%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha_gestion, label: 'Fecha Gestion' } %>
 <%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_gestion } %>
@@ -6,3 +6,5 @@
 
 <%= render partial: '0p/form_fields/label', locals: { form: form, token: :nota, label: 'Nota' } %>
 <%= render partial: '0p/form_fields/text', locals: { form: form, token: :nota } %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :prioridad } %>

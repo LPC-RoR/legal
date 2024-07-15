@@ -1,0 +1,17 @@
+<small>
+<% unless objeto.prioridad == 'success' %>
+	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_prrdd?cn=#{controller_name}&prioridad=success", title: 'normal', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class="bi bi-circle-fill text-success"></i>
+	<% end %>
+<% end %>
+<% unless objeto.prioridad == 'warning' %>
+	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_prrdd?cn=#{controller_name}&prioridad=warning", title: 'mediana', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class="bi bi-circle-fill text-warning"></i>
+	<% end %>
+<% end %>
+<% unless objeto.prioridad == 'danger' %>
+	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_prrdd?cn=#{controller_name}&prioridad=danger", title: 'urgente', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class="bi bi-circle-fill text-danger"></i>
+	<% end %>
+<% end %>
+</small>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     match :swtch_realizada, via: :get, on: :member
     match :swtch_pendiente, via: :get, on: :member
     match :swtch_urgencia, via: :get, on: :member
+    match :swtch_prrdd, via: :get, on: :member
   end
 
   resources :cfg_valores
