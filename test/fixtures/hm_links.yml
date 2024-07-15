@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: 1
+  hm_parrafo_id: 1
+  hm_link: MyString
+  texto: MyString
+
+two:
+  orden: 1
+  hm_parrafo_id: 1
+  hm_link: MyString
+  texto: MyString

@@ -1,0 +1,12 @@
+<div class="app_box">
+	<%= form_for :sg_respuesta, url: "/respuestas/nueva?sg=#{sg}&sid=#{sid}" do |form| %>
+
+		<%=render partial: 'karin/respuestas/detail', locals: {form: form} %>
+
+		<div class='formCell'>
+			<button type="submit" class="btn btn-info">
+			  <i class="bi bi-caret-right icon-white"></i>
+			</button>
+		</div>
+	<% end  %>
+</div>

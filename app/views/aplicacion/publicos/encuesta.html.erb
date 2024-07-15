@@ -1,0 +1,19 @@
+Encuesta
+<%= @encuesta.sesion %></br>
+Número de Respuestas <%= @encuesta.respuestas.count %></br>
+<% unless @ultima_pregunta.blank? %>
+	Última pregunta</br>
+	<%= @ultima_pregunta.pregunta %>
+<% end %>
+
+<%= link_to 'Continuar encuesta', '/publicos/preguntas' %>
+<%= link_to 'Borrar encuesta', "/k_sesiones/#{@encuesta.id}/borrar_encuesta" %>
+
+<% @encuesta.respuestas.each do |resp| %>
+<%#= render partial: 'karin/respuestas/list/frm_respuesta', locals: {sg: @siguiente.id, sid: @encuesta.id} %>
+	<b><%= "Pregunta Nº #{}"%></b></br>
+	<%= resp.pregunta.pregunta %></br>
+	Respuesta</br>
+	<%= resp.respuesta %>
+	<%= resp.propuesta %>
+<% end %>

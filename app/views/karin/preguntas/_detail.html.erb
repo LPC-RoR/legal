@@ -1,0 +1,8 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :pregunta, label: 'Respuesta' } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :respuesta } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :propuesta, label: 'Propuesta' } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :propuesta } %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :k_sesion_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :pregunta_id } %>

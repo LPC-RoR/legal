@@ -2,6 +2,12 @@
   Bienvenido(a) <%= nombre_perfil %>
 </div>
 
+<% if dog? %>
+  <%= render layout: '0p/layout/tooltip_link', locals: {link: "/publicos/encuesta?sk=@#{@session_name}", tooltip: 'Deseo haecr la encuesta'} do %>
+    Encuesta
+  <% end %>
+<% end %>
+
 <div class="f_50lft_col">
   <div class="lft">
   </div>

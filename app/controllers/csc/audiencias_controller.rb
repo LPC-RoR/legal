@@ -1,4 +1,6 @@
-class AudienciasController < ApplicationController
+class Csc::AudienciasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_audiencia, only: %i[ show edit update destroy ]
 
   # GET /audiencias or /audiencias.json

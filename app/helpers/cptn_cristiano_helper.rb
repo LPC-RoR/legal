@@ -19,7 +19,9 @@ module CptnCristianoHelper
 			'TipoCausa' => 'Etapa',
 			'Tema' => 'Materia',
 			'AutTipoUsuario' => 'Tipo de Usuario',
-			'ControlDocumento' => 'Documento controlado'
+			'ControlDocumento' => 'Documento controlado',
+			'HmPagina' => 'Página',
+			'HmParrafo' => 'Párrafo'
 		}
 	end
 
@@ -51,7 +53,7 @@ module CptnCristianoHelper
 
 	# prefijos de modelos con scope
 	def scopes
-		/^tar_|^app_|^h_|^st_|^ind_|^m_|^blg_|^dt_|^org_|^age_/
+		/^tar_|^app_|^h_|^st_|^ind_|^m_|^blg_|^dt_|^org_|^age_|^hm_/
 	end
 
 	# nombre que se desplega de un controlador

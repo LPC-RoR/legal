@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>K sesiones</h1>
+
+<div id="k_sesiones">
+  <% @k_sesiones.each do |k_sesion| %>
+    <%= render k_sesion %>
+    <p>
+      <%= link_to "Show this k sesion", k_sesion %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New k sesion", new_k_sesion_path %>

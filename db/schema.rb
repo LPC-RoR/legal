@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_09_181157) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_11_145721) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -685,6 +685,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_181157) do
     t.index ["visible_para"], name: "index_control_documentos_on_visible_para"
   end
 
+  create_table "cuestionarios", force: :cascade do |t|
+    t.integer "orden"
+    t.integer "pauta_id"
+    t.string "cuestionario"
+    t.string "referencia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_cuestionarios_on_orden"
+    t.index ["pauta_id"], name: "index_cuestionarios_on_pauta_id"
+  end
+
   create_table "demandantes", force: :cascade do |t|
     t.integer "causa_id"
     t.integer "orden"
@@ -862,10 +873,62 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_181157) do
     t.index ["clave"], name: "index_hlp_tutoriales_on_clave"
   end
 
+  create_table "hm_links", force: :cascade do |t|
+    t.integer "orden"
+    t.integer "hm_parrafo_id"
+    t.string "hm_link"
+    t.string "texto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hm_parrafo_id"], name: "index_hm_links_on_hm_parrafo_id"
+    t.index ["orden"], name: "index_hm_links_on_orden"
+  end
+
+  create_table "hm_notas", force: :cascade do |t|
+    t.integer "hm_parrafo_id"
+    t.integer "orden"
+    t.string "hm_nota"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hm_parrafo_id"], name: "index_hm_notas_on_hm_parrafo_id"
+    t.index ["orden"], name: "index_hm_notas_on_orden"
+  end
+
+  create_table "hm_paginas", force: :cascade do |t|
+    t.string "codigo"
+    t.string "hm_pagina"
+    t.string "tooltip"
+    t.boolean "menu_lft"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo"], name: "index_hm_paginas_on_codigo"
+  end
+
+  create_table "hm_parrafos", force: :cascade do |t|
+    t.integer "hm_pagina_id"
+    t.integer "orden"
+    t.text "hm_parrafo"
+    t.string "tipo"
+    t.string "imagen"
+    t.string "img_lyt"
+    t.boolean "menu_lft"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hm_pagina_id"], name: "index_hm_parrafos_on_hm_pagina_id"
+    t.index ["orden"], name: "index_hm_parrafos_on_orden"
+  end
+
   create_table "juzgados", force: :cascade do |t|
     t.string "juzgado"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "k_sesiones", force: :cascade do |t|
+    t.datetime "fecha"
+    t.string "sesion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "m_bancos", force: :cascade do |t|
@@ -1153,6 +1216,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_181157) do
     t.index ["seccion_id"], name: "index_parrafos_on_seccion_id"
   end
 
+  create_table "pautas", force: :cascade do |t|
+    t.integer "orden"
+    t.string "pauta"
+    t.string "referencia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_pautas_on_orden"
+  end
+
+  create_table "preguntas", force: :cascade do |t|
+    t.integer "orden"
+    t.integer "cuestionario_id"
+    t.string "pregunta"
+    t.string "tipo"
+    t.string "referencia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cuestionario_id"], name: "index_preguntas_on_cuestionario_id"
+    t.index ["orden"], name: "index_preguntas_on_orden"
+  end
+
   create_table "reg_reportes", force: :cascade do |t|
     t.string "clave"
     t.datetime "created_at", precision: nil, null: false
@@ -1211,6 +1295,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_181157) do
     t.index ["reg_reporte_id"], name: "index_registros_on_reg_reporte_id"
     t.index ["reporte_id"], name: "index_registros_on_reporte_id"
     t.index ["tipo"], name: "index_registros_on_tipo"
+  end
+
+  create_table "respuestas", force: :cascade do |t|
+    t.integer "campania_id"
+    t.integer "k_sesion_id"
+    t.string "respuesta"
+    t.string "propuesta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "pregunta_id"
+    t.index ["campania_id"], name: "index_respuestas_on_campania_id"
+    t.index ["k_sesion_id"], name: "index_respuestas_on_k_sesion_id"
+    t.index ["pregunta_id"], name: "index_respuestas_on_pregunta_id"
   end
 
   create_table "sb_elementos", force: :cascade do |t|

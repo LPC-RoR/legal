@@ -29,6 +29,9 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.singular 'Bases', 'Base'
 
     inflect.irregular 'nota', 'notas'
+    inflect.irregular 'pauta', 'pautas'
+    inflect.irregular 'pregunta', 'preguntas'
+    inflect.irregular 'respuesta', 'respuestas'
 end
 
 # These inflection rules are supported but not enabled by default:

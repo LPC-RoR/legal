@@ -79,6 +79,49 @@ module Capitan
 		redirect_to red
 	end
 
+	# ORDEN
+
+	def arriba
+		owner = @objeto.owner
+		anterior = @objeto.anterior
+		if @objeto.tema_id == anterior.tema_id
+		  @objeto.orden -= 1
+		  @objeto.save
+		  anterior.orden += 1
+		  anterior.save
+		else
+		  @objeto.tema_id = anterior.tema_id
+		  @objeto.save
+		end
+
+		redirect_to @objeto.redireccion
+	end
+
+	def abajo
+		owner = @objeto.owner
+		siguiente = @objeto.siguiente
+		if @objeto.tema_id == siguiente.tema_id
+		  @objeto.orden += 1
+		  @objeto.save
+		  siguiente.orden -= 1
+		  siguiente.save
+		else
+		  @objeto.tema_id = siguiente.tema_id
+		  @objeto.save
+		end
+
+		redirect_to @objeto.redireccion
+	end
+
+    def reordenar
+      @objeto.list.each_with_index do |val, index|
+        unless val.orden == index + 1
+          val.orden = index + 1
+          val.save
+        end
+      end
+    end
+
 	# **************************************************************************** GENERAL
 	def object_class_sym(objeto)
 		objeto.class.name.tableize.to_sym

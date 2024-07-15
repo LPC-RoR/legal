@@ -25,7 +25,7 @@
 	<div style='padding-left: 1em;'>
 		<% objeto.audiencias.order(:orden).each do |audiencia| %>
 			<div class="row">
-			<%= render partial: 'audiencias/list/lobjeto', locals: {objeto: audiencia} %>
+			<%= render partial: 'csc/audiencias/list/lobjeto', locals: {objeto: audiencia} %>
 			</div>
 		<% end %>
 	</div>

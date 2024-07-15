@@ -1,0 +1,19 @@
+<hr>
+<div class="f_50lft_col">
+	<div class="lft">
+		<small><b><%= objeto.hm_notas.any? ? 'Notas' : 'No se han ingresado notas' %></b></small>
+		<% if objeto.hm_notas.any? %>
+			<% objeto.hm_notas.order(:orden).each do |nota| %>
+				<%= render partial: 'hm/hm_notas/list/objeto', locals: {objeto: nota} %>
+			<% end %>
+		<% end %>
+	</div>
+	<div class="rght">
+		<small><b><%= objeto.hm_notas.any? ? 'Enlaces' : 'No se han ingresado enlaces' %></b></small>
+		<% if objeto.hm_links.any? %>
+			<% objeto.hm_links.order(:orden).each do |link| %>
+				<%= render partial: 'hm/hm_links/list/objeto', locals: {objeto: link} %>
+			<% end %>
+		<% end %>
+	</div>
+</div>

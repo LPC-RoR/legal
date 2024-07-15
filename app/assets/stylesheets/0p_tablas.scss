@@ -43,6 +43,23 @@ $app_ln_gp: 0;
     @include a_hover($lnk_clr, $hvr_clr);
 }
 
+@mixin ln_ord_nm_lnks($lnk_clr, $hvr_clr) {
+    @include grd(50px auto 100px, $app_ln_gp);
+    .ln_order {
+        @include grd_ncol(1);
+        justify-self: start;
+    }
+    .ln_nm {
+        @include grd_ncol(2);
+        justify-self: start;
+    }
+    .ln_lnks {
+        @include grd_ncol(3);
+        justify-self: end;
+    }
+    @include a_hover($lnk_clr, $hvr_clr);
+}
+
 @mixin ln_2auto($lnk_clr, $hvr_clr) {
     @include grd(auto auto, $app_ln_gp);
     .ln_nm {
@@ -139,4 +156,9 @@ $app_ln_gp: 0;
 .ln_dmndnts {
     @include ln_bsc_prprty($pltt_8, $app_tb_fnt, 11px);
     @include ln_nm_mnt_lnks(blue, gray);
+}
+
+.ln_ordr {
+    @include ln_bsc_prprty(white, $app_tb_fnt, 13px);
+    @include ln_ord_nm_lnks(blue, gray);
 }

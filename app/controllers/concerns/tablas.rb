@@ -24,7 +24,7 @@ module Tablas
 			m_conceptos: 'modelo',
 			m_items: 'modelo',
 			m_cuentas: 'modelo',
-			m_bancos: 'periodos_bancos'
+			m_bancos: 'periodos_bancos',
 		}
 	end
 

@@ -32,7 +32,6 @@ Rails.application.routes.draw do
     match :reporta_registro, via: :get, on: :member
     match :excluye_registro, via: :get, on: :member
   end
-  resources :audiencias
   resources :consultorias do
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
@@ -73,6 +72,25 @@ Rails.application.routes.draw do
 
 # SCOPES *********************************************************
 
+  scope module: 'karin' do
+    resources :respuestas do
+      match :nueva, via: :post, on: :collection
+    end
+    resources :k_sesiones do 
+      match :borrar_encuesta, via: :get, on: :member
+    end
+    resources :cuestionarios
+    resources :preguntas
+    resources :pautas
+  end
+
+  scope module: 'hm' do
+    resources :hm_paginas
+    resources :hm_parrafos
+    resources :hm_links
+    resources :hm_notas
+  end
+
   scope module: 'srvcs' do
     resources :tipo_cargos
     resources :cargos
@@ -102,6 +120,7 @@ Rails.application.routes.draw do
       match :eliminar, via: :get, on: :member
       match :set_establece, via: :get, on: :member
     end
+    resources :audiencias
     resources :causa_archivos do 
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
@@ -230,6 +249,8 @@ Rails.application.routes.draw do
   scope module: 'aplicacion' do
     resources :publicos do
       match :home, via: :get, on: :collection
+      match :encuesta, via: :get, on: :collection
+      match :preguntas, via: :get, on: :collection
       match :ayuda, via: :get, on: :collection
     end
     resources :app_recursos do

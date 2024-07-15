@@ -1,0 +1,31 @@
+<div class="ln_ordr">
+	<div class="ln_order">
+		<%= render partial: '0p/tabla/links_orden', locals: {objeto: objeto} %>
+	</div>
+	<div class="ln_nm">
+		<%= objeto.tipo %> : 
+		<%= link_to truncate(objeto.hm_parrafo), objeto %>
+	</div>
+	<div class="ln_lnks">
+		<% if objeto.hm_links.any? or objeto.hm_notas.any? %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Recursos', objeto: objeto, tooltip: 'Despliega notas y enlaces'} do %>
+				<i class="bi bi-arrow-bar-down"></i>
+			<% end %>
+		<% end %>
+
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/hm_links/new?pid=#{objeto.id}", tooltip: 'Agrega enlace'} do %>
+    		<i class="bi bi-link-45deg"></i>
+    	<% end %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/hm_notas/new?pid=#{objeto.id}", tooltip: 'Agrega Nota'} do %>
+	    	<i class="bi bi-sticky"></i>
+    	<% end %>
+	   	<i class="bi bi-dot"></i>
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</div>
+</div>
+
+<% if objeto.hm_links.any? or objeto.hm_notas.any? %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'Recursos', objeto: objeto} do %>
+		<%= render partial: 'hm/hm_parrafos/list/recursos', locals: {objeto: objeto} %>
+	<% end %>
+<% end %>

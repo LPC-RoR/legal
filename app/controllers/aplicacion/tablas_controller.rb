@@ -70,7 +70,6 @@ class Aplicacion::TablasController < ApplicationController
       set_tabla('m_periodos', MPeriodo.order(clave: :desc), false) 
   end
 
-
   # GET /tablas or /tablas.json
   def index
   end

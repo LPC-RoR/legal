@@ -55,6 +55,8 @@ module CptnMenuLeftHelper
 					condicion: admin?, 
 					items: [
 						'AppNomina',
+						'Pautas',
+						'HmPagina',
 						'BlgArticulo',
 						'HImagen',
 						'StModelo',

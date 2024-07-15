@@ -131,7 +131,11 @@ module CptnHelper
 			'cal_annios' => 'calendar',
 			'cal_meses' => 'calendar3',
 			'cal_semanas' => 'calendar2-week',
-			'cal_feriados' => 'calendar2-check'
+			'cal_feriados' => 'calendar2-check',
+			'pautas' => 'bar-chart',
+			'cuestionarios' => 'question-square',
+			'preguntas' => 'question',
+			'hm_paginas' => 'file-earmark-richtext'
 		}
 	end
 

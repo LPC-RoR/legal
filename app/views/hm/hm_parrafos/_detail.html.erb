@@ -1,0 +1,16 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
+<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: ['Párrafo', 'Título,', 'Subtítulo', 'Lista'], label: nil } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :hm_parrafo, label: 'Texto' } %>
+<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :hm_parrafo } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :imagen, label: 'Imagen asociada' } %>
+<%= render partial: '0p/form_fields/file', locals: { form: form, token: :imagen } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :img_layout, label: 'Layout imagen' } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :img_layout } %>
+
+<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :menu_lft, label: 'Con menú separado?' } %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :hm_pagina_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>

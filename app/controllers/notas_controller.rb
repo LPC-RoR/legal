@@ -19,8 +19,9 @@ class NotasController < ApplicationController
 
   def agrega_nota
     f_prms = params[:form_nota]    
+    fecha_gestion = params_to_date(f_prms, 'fecha_gestion')
     unless f_prms[:nota].blank?
-      @objeto =Nota.create(ownr_clss: params[:clss], ownr_id: params[:oid], perfil_id: perfil_activo.id, nota: f_prms[:nota], prioridad: f_prms[:prioridad])
+      @objeto =Nota.create(ownr_clss: params[:clss], ownr_id: params[:oid], perfil_id: perfil_activo.id, fecha_gestion: fecha_gestion, nota: f_prms[:nota], prioridad: f_prms[:prioridad])
       noticia = 'Nota fue exitósamente creada'
     else
       noticia = 'Error de ingreso: Nota vacía'

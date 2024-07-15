@@ -17,12 +17,13 @@ class ApplicationController < ActionController::Base
 
 	include Tarifas
 
-	# Seguridad
+	# Seguridad tabla_path
 	helper_method :get_public_controllers, :get_version_activa, :get_perfil_activo
 	helper_method :dog_perfil, :dog_perfil?, :tipo_usuario, :version_activa, :version_activa?, :nomina_activa, :nomina_activa?, :perfil_activo, :perfil_activo?, :nombre_perfil, :nombre_agenda, :usuario_agenda, :usuario_agenda?
 	helper_method :dog_name, :dog_email, :dog?, :admin?, :usuario_activo?, :publico?, :seguridad, :public_controllers 
 	helper_method :operacion?, :finanzas?
 	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :v_enlaces_general, :enlaces_perfil, :v_enlaces_perfil, :v_enlaces, :set_st_estado, :object_class_sym
+	helper_method :arriba, :abajo, :reordenar
 	helper_method :params_to_date, :dt_hoy, :s_hoy
 	helper_method :swtch_urgencia, :swtch_pendiente
 	helper_method :calcula2, :set_formulas, :set_valores, :vlr_cuantia, :chck_cuantia, :vlr_tarifa, :chck_tarifa, :get_total_cuantia 
