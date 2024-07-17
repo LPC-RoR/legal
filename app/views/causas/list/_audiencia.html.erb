@@ -9,11 +9,6 @@
 		</div>
 	</div>
 <% else %>
-	<span class="text-danger" style="padding-left: 2em;">
-		<small>
-		<i class="bi bi-cone-striped"></i> 
-		Causa sin audiencias!
-		</small>
-	</span>
+	<%= render partial: '0p/nota/wrnng', locals: {wrnng: "Causa sin audiencias" } %>
 <% end %>
 </b>
