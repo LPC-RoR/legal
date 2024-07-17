@@ -28,7 +28,7 @@ class Csc::EstadosController < ApplicationController
       causa.estados.create(fecha: fecha, link: f_prms[:link], estado: f_prms[:estado])
     end
 
-    redirect_to causas_path    
+    redirect_to "/causas#cid_#{causa.id}"    
   end
 
   # GET /estados/1/edit
@@ -83,7 +83,7 @@ class Csc::EstadosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = causas_path
+      @redireccion = "/causas#cid_#{@objeto.causa.id}"
     end
 
     # Only allow a list of trusted parameters through.

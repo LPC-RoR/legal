@@ -95,7 +95,7 @@ class NotasController < ApplicationController
       when 'Asesoria'
         @redireccion  = asesorias_path
       when 'Causa'
-        @redireccion  = causas_path
+        @redireccion  = "/causas#cid_#{@objeto.owner.id}"
       when 'Cliente'
         @redireccion  = clientes_path
       when 'AgeActividad'

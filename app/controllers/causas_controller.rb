@@ -381,7 +381,7 @@ class CausasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = causas_path
+      @redireccion = "/causas#cid_#{@objeto.id}"
     end
 
     # Only allow a list of trusted parameters through.
