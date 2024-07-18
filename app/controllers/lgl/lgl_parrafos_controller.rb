@@ -77,15 +77,15 @@ class Lgl::LglParrafosController < ApplicationController
           abuelo.children.delete(@objeto)
           anterior.children << @objeto unless @objeto.parent == anterior
         else
-          padre.children.delete(@objeto)
-          abuelo.children << @objeto
+          padre.children.delete(@objeto) unless padre.blank?
+          abuelo.children << @objeto unless abuelo.blank?
         end
       end
     else
       abuelo = @objeto.parent.parent
       padre = @objeto.parent
 
-      padre.children.delete(@objeto)
+      padre.children.delete(@objeto) unless padre.blank?
       abuelo.children << @objeto unless abuelo.blank?
     end
 
