@@ -1,0 +1,27 @@
+<%= form_with(model: lgl_recurso) do |form| %>
+  <% if lgl_recurso.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(lgl_recurso.errors.count, "error") %> prohibited this lgl_recurso from being saved:</h2>
+
+      <ul>
+        <% lgl_recurso.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :lgl_recurso, style: "display: block" %>
+    <%= form.text_field :lgl_recurso %>
+  </div>
+
+  <div>
+    <%= form.label :tipo, style: "display: block" %>
+    <%= form.text_field :tipo %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

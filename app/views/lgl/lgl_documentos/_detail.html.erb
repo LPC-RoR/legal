@@ -1,0 +1,7 @@
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
+<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: ['Ley', 'Circular'], label: nil } %>
+
+<%= render partial: '0p/form_fields/label', locals: { form: form, token: :lgl_documento, label: 'Documento legal' } %>
+<%= render partial: '0p/form_fields/text', locals: { form: form, token: :lgl_documento } %>
+</br></br>
+<%= render partial: '0p/form_fields/file', locals: { form: form, token: :archivo } %>

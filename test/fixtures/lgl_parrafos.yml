@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lgl_documento_id: 1
+  orden: 1
+  lgl_parrafo: MyText
+  tipo: MyString
+
+two:
+  lgl_documento_id: 1
+  orden: 1
+  lgl_parrafo: MyText
+  tipo: MyString

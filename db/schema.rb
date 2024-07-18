@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_11_145721) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_18_222856) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -929,6 +929,65 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_11_145721) do
     t.string "sesion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "lgl_datos", force: :cascade do |t|
+    t.integer "lgl_parrafo_id"
+    t.integer "orden"
+    t.string "lgl_dato"
+    t.text "cita"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lgl_parrafo_id"], name: "index_lgl_datos_on_lgl_parrafo_id"
+    t.index ["orden"], name: "index_lgl_datos_on_orden"
+  end
+
+  create_table "lgl_documentos", force: :cascade do |t|
+    t.string "lgl_documento"
+    t.string "tipo"
+    t.string "archivo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tipo"], name: "index_lgl_documentos_on_tipo"
+  end
+
+  create_table "lgl_entidades", force: :cascade do |t|
+    t.string "lgl_entidad"
+    t.string "tipo"
+    t.string "dependencia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tipo"], name: "index_lgl_entidades_on_tipo"
+  end
+
+  create_table "lgl_parra_parras", force: :cascade do |t|
+    t.integer "child_id"
+    t.integer "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_lgl_parra_parras_on_child_id"
+    t.index ["parent_id"], name: "index_lgl_parra_parras_on_parent_id"
+  end
+
+  create_table "lgl_parrafos", force: :cascade do |t|
+    t.integer "lgl_documento_id"
+    t.integer "orden"
+    t.text "lgl_parrafo"
+    t.string "tipo"
+    t.integer "pdd_lft"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lgl_documento_id"], name: "index_lgl_parrafos_on_lgl_documento_id"
+    t.index ["orden"], name: "index_lgl_parrafos_on_orden"
+    t.index ["tipo"], name: "index_lgl_parrafos_on_tipo"
+  end
+
+  create_table "lgl_recursos", force: :cascade do |t|
+    t.string "lgl_recurso"
+    t.string "tipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tipo"], name: "index_lgl_recursos_on_tipo"
   end
 
   create_table "m_bancos", force: :cascade do |t|

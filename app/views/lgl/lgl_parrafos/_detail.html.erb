@@ -1,0 +1,9 @@
+<div class="formCell">
+	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :lgl_parrafo, label: 'Párrafo' } %>
+	<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :lgl_parrafo } %>
+</div>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :lgl_documento_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
+<!-- DEPRECATED : Padd según jerarquía -->
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :pdd_lft } %>

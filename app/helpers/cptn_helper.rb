@@ -135,7 +135,9 @@ module CptnHelper
 			'pautas' => 'bar-chart',
 			'cuestionarios' => 'question-square',
 			'preguntas' => 'question',
-			'hm_paginas' => 'file-earmark-richtext'
+			'hm_paginas' => 'file-earmark-richtext',
+			'lgl_documentos' => 'blockquote-left',
+			'lgl_parrafos' => 'blockquote-right'
 		}
 	end
 

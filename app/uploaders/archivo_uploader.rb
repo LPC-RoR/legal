@@ -45,6 +45,6 @@ class ArchivoUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
   def filename
-    "#{model.app_archivo}.#{file.extension}" unless file.blank? # If you upload 'file.jpg', you'll get 'image.jpg'
+    "#{model.app_archivo.split(' ').join('_')}.#{file.extension}" unless file.blank? # If you upload 'file.jpg', you'll get 'image.jpg'
   end
 end

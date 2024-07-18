@@ -176,8 +176,6 @@ class Repositorios::AppArchivosController < ApplicationController
                 txt_prrf << " #{line}" unless line.blank?
               end
               if line.match?(demandante_rgx)
-                puts "****************************** Demandante"
-                puts line
                 causa = @objeto.owner
                 n_orden = causa.demandantes.count + 1
                 nombre = line.split(':')[1].strip

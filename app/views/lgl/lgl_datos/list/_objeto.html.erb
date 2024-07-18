@@ -1,0 +1,20 @@
+<div class="ln_ordr">
+	<div class="ln_order">
+		<%= render partial: '0p/tabla/links_orden', locals: {objeto: objeto} %>
+	</div>
+	<div class="ln_nm">
+		<%= objeto.lgl_dato %>
+	</div>
+	<div class="ln_lnks">
+		<%= render layout: '0p/collapse/link', locals: {label: 'Cita', objeto: objeto, tooltip: 'Ver Cita'} do %>
+			<i class="bi bi-arrow-bar-down"></i>
+		<% end %>
+
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</div>
+</div>
+<%= render layout: '0p/collapse/display', locals: {label: 'Cita', objeto: objeto} do %>
+	<div class="g_cllps">
+		<%= objeto.cita %>
+	</div>
+<% end %>

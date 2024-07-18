@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @lgl_recurso %>
+
+<div>
+  <%= link_to "Edit this lgl recurso", edit_lgl_recurso_path(@lgl_recurso) %> |
+  <%= link_to "Back to lgl recursos", lgl_recursos_path %>
+
+  <%= button_to "Destroy this lgl recurso", @lgl_recurso, method: :delete %>
+</div>

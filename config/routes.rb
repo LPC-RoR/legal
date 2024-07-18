@@ -73,6 +73,20 @@ Rails.application.routes.draw do
 
 # SCOPES *********************************************************
 
+  scope module: 'lgl' do
+    resources :lgl_entidades
+    resources :lgl_recursos
+    resources :lgl_parrafos do
+      match :padd, via: :get, on: :member
+      match :cnct_up, via: :get, on: :member
+      match :chk_tgs, via: :get, on: :member
+      match :prnt, via: :get, on: :member
+    end
+    resources :lgl_documentos
+    resources :lgl_datos
+    resources :lgl_parra_parras
+  end 
+
   scope module: 'karin' do
     resources :respuestas do
       match :nueva, via: :post, on: :collection

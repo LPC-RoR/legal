@@ -32,6 +32,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.irregular 'pauta', 'pautas'
     inflect.irregular 'pregunta', 'preguntas'
     inflect.irregular 'respuesta', 'respuestas'
+    inflect.irregular 'lgl_cita', 'lgl_citas'
 end
 
 # These inflection rules are supported but not enabled by default:

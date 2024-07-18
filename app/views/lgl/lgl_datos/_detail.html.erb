@@ -1,0 +1,12 @@
+<div class="formCell">
+	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :lgl_dato, label: 'Dato' } %>
+	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :lgl_dato } %>
+</div>
+
+<div class="formCell">
+	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :cita, label: 'Cita' } %>
+	<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :cita } %>
+</div>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :lgl_parrafo_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>

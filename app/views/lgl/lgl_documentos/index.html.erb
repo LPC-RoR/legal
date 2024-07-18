@@ -1,0 +1,13 @@
+<div class="f_50lft_col">
+  <div class="lft">
+    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'lgl_documentos', title: "Documentos legales", link: '/lgl_documentos/new', tooltip: 'Agrega documento legal' } %>
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_documentos'} %>
+  </div>
+  <div class="rght">
+    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'lgl_entidades', title: "Entidades", link: '/lgl_entidades/new', tooltip: 'Agrega entidad' } %>
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_entidades'} %>
+
+    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'lgl_recursos', title: "Recursos", link: '/lgl_recursos/new', tooltip: 'Agrega recurso' } %>
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_recursos'} %>
+  </div>
+</div>

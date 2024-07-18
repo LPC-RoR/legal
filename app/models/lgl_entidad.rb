@@ -1,0 +1,2 @@
+class LglEntidad < ApplicationRecord
+end

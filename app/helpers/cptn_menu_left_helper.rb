@@ -56,6 +56,7 @@ module CptnMenuLeftHelper
 					items: [
 						'AppNomina',
 						'Pautas',
+						'LglDocumento',
 						'HmPagina',
 						'BlgArticulo',
 						'HImagen',
