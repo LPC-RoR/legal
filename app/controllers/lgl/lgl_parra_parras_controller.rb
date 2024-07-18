@@ -1,4 +1,4 @@
-class LglParraParrasController < ApplicationController
+class Lgl::LglParraParrasController < ApplicationController
   before_action :set_lgl_parra_parra, only: %i[ show edit update destroy ]
 
   # GET /lgl_parra_parras or /lgl_parra_parras.json
