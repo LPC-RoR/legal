@@ -74,10 +74,13 @@
 		<div style="padding-left: <%=objeto.n_parent * 2%>em;">
 			<div class="ln_ordr">
 				<div class="ln_orden">
-					<i class="bi bi-check-circle"></i>
 					<%= render partial: '0p/tabla/links_orden', locals: {objeto: punto} %>
 				</div>
 				<div class="ln_ln">
+					<i class="bi bi-check-circle"></i>
+					<%= render layout: '0p/collapse/link', locals: {label: 'VerCita', objeto: punto, tooltip: 'Ver cita'} do %>
+						<i class="bi bi-arrow-bar-down"></i>
+					<% end %>
 					<%= punto.lgl_punto %>
 				</div>
 				<div class="ln_lnks">
@@ -86,6 +89,11 @@
 					<% end %>
 				</div>
 			</div>
+			<%= render layout: '0p/collapse/display', locals: {label: 'VerCita', objeto: punto} do %>
+				<div class="g_cllps">
+					<%= punto.cita.gsub(/\n/, '</br>').html_safe %>
+				</div>
+			<% end %>
 		</div>
 	<% end %>
 <% end %>
