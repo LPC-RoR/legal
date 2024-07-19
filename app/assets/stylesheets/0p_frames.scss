@@ -36,6 +36,10 @@ $auto: auto;
 	@include frm_bsc(50% auto);
 }
 
+.f_lmn_lyt {
+	@include frm_bsc(20% 80%);
+}
+
 .f_200pxlft_col {
 	@include frm_bsc(200px auto);
 }
