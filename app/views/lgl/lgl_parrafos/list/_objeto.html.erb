@@ -2,6 +2,13 @@
 	<div class="lnks">
 		<%= link_to objeto.orden, objeto %>
 		<% if admin? %>
+			<% if objeto.resumen.present? or objeto.chk_ocultar %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'VerParrafo', objeto: objeto, tooltip: 'Ver texto'} do %>
+					<i class="bi bi-arrow-bar-down"></i>
+				<% end %>
+			<% end %>
+		<% end %>
+		<% if dog? %>
 			<i class="bi bi-dot"></i>
 			<%= render partial: '0p/tabla/links_e', locals: { objeto: objeto} %>
 			<i class="bi bi-dot"></i>
@@ -28,11 +35,57 @@
 			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/lgl_parrafos/#{objeto.id}/prnt?d=d", tooltip: "Hacia abajo"} do %>
 				<i class="bi bi-arrow-90deg-down"></i>
 			<% end %>
+			<i class="bi bi-dot"></i>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/lgl_puntos/new?oid=#{objeto.id}", tooltip: "Crea punto"} do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
 		<% end %>
 	</div>
 	<div class="prff">
 		<div style="padding-left: <%=objeto.n_parent * 2%>em;">
-			<%= objeto.lgl_parrafo.gsub(/\n/, '</br>').html_safe %>
+
+			<% if objeto.chk_ocultar %>
+				<small><i>Oculto</i></small>
+			<% else %>
+				<% if ['Encabezado', 'Punto', 'Artículo'].include?(objeto.tipo) %>
+					<b>
+				<% end %>
+
+					<%= objeto.resumen.blank? ? objeto.lgl_parrafo.gsub(/\n/, '</br>').html_safe : objeto.resumen.gsub(/\n/, '</br>').html_safe %>
+
+				<% if ['Encabezado', 'Punto', 'Artículo'].include?(objeto.tipo) %>
+					</b>
+				<% end %>
+			<% end %>
+
 		</div>
 	</div>
 </div>
+<% if objeto.resumen.present? or objeto.chk_ocultar %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'VerParrafo', objeto: objeto} do %>
+		<div class="g_cllps">
+			<%= objeto.lgl_parrafo.gsub(/\n/, '</br>').html_safe %>
+		</div>
+	<% end %>
+<% end %>
+
+<% unless objeto.lgl_puntos.empty? %>
+	<% objeto.lgl_puntos.order(:orden).each do |punto| %>
+		<div style="padding-left: <%=objeto.n_parent * 2%>em;">
+			<div class="ln_ordr">
+				<div class="ln_orden">
+					<i class="bi bi-check-circle"></i>
+					<%= render partial: '0p/tabla/links_orden', locals: {objeto: punto} %>
+				</div>
+				<div class="ln_ln">
+					<%= punto.lgl_punto %>
+				</div>
+				<div class="ln_lnks">
+					<% if admin? %>
+						<%= render partial: '0p/tabla/links_e', locals: {objeto: punto} %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+<% end %>

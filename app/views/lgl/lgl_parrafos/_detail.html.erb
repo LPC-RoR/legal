@@ -1,6 +1,25 @@
+<div class="form-row">
+	<div class="formCell">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
+		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: LglParrafo::TIPOS, label: nil } %>
+	</div>
+	<div class="formCell">
+		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :accion, label: 'Acción' } %>
+		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :accion, sel_list: LglParrafo::ACCIONES, label: nil } %>
+	</div>
+</div>
+
 <div class="formCell">
 	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :lgl_parrafo, label: 'Párrafo' } %>
 	<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :lgl_parrafo } %>
+</div>
+<div class="formCell">
+	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :resumen, label: 'Resumen' } %>
+	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :resumen } %>
+</div>
+
+<div class="formCell">
+	<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :ocultar, label: 'Ocultar' } %>
 </div>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :lgl_documento_id } %>

@@ -85,6 +85,10 @@ Rails.application.routes.draw do
     resources :lgl_documentos
     resources :lgl_datos
     resources :lgl_parra_parras
+    resources :lgl_puntos do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
   end 
 
   scope module: 'karin' do

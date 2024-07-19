@@ -2,7 +2,7 @@ class Lgl::LglParrafosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_lgl_parrafo, only: %i[ show edit update destroy padd cnct_up chk_tgs prnt ]
-  after_action :reordenar, only: %i[ destroy update ]
+  after_action :reordenar, only: %i[ destroy update cnct_up]
   after_action :chk_tgs, only: :update
 
   # GET /lgl_parrafos or /lgl_parrafos.json
@@ -94,14 +94,15 @@ class Lgl::LglParrafosController < ApplicationController
   end
 
   def cnct_up
-    anterior = LglParrafo.find_by(orden: @objeto.orden - 1)
+    documento = @objeto.lgl_documento
+    anterior = documento.lgl_parrafos.find_by(orden: @objeto.orden - 1)
     anterior.lgl_parrafo += @objeto.lgl_parrafo
     anterior.save
 
     @objeto.delete
-    reordenar
 
-    redirect_to "/lgl_documentos/#{@objeto.lgl_documento.id}#oid_#{anterior.id}"
+    get_rdrccn
+    redirect_to @rdrccn
   end
 
   # DELETE /lgl_parrafos/1 or /lgl_parrafos/1.json
@@ -131,9 +132,6 @@ class Lgl::LglParrafosController < ApplicationController
         end
       end
       reordenar
-
-#      get_rdrccn
-#      redirect_to @rdrccn
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -142,11 +140,13 @@ class Lgl::LglParrafosController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = "/lgl_documentos/#{@objeto.lgl_documento.id}#oid_#{@objeto.id}"
+      documento = @objeto.lgl_documento
+      anterior = documento.lgl_parrafos.find_by(orden: @objeto.orden - 1)
+      @rdrccn = "/lgl_documentos/#{@objeto.lgl_documento.id}#oid_#{anterior.id unless anterior.blank?}"
     end
 
     # Only allow a list of trusted parameters through.
     def lgl_parrafo_params
-      params.require(:lgl_parrafo).permit(:lgl_documento_id, :orden, :lgl_parrafo, :tipo)
+      params.require(:lgl_parrafo).permit(:lgl_documento_id, :orden, :lgl_parrafo, :tipo, :definicion, :accion, :resumen, :ocultar)
     end
 end

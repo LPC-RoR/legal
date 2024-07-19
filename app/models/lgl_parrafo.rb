@@ -1,6 +1,11 @@
 class LglParrafo < ApplicationRecord
+
+	TIPOS = ['Texto', 'Artículo', 'Punto', 'Definición', 'Encabezado', 'Resumen']
+	ACCIONES = ['Modificar', 'Agregar', 'Crear']
+
 	belongs_to :lgl_documento
 
+	has_many :lgl_puntos
 	has_many :lgl_datos
 
 	# **************************************** PARENT - CHILDREN
@@ -15,6 +20,10 @@ class LglParrafo < ApplicationRecord
 		self.parent.blank? ? 0 : self.parent.n_parent + 1
 	end
 
+	def chk_ocultar
+		self.ocultar ? true : (self.parent.blank? ? false : self.parent.chk_ocultar)
+	end
+
 	# ------------------------------------ ORDER LIST
 
 	def owner
@@ -22,7 +31,7 @@ class LglParrafo < ApplicationRecord
 	end
 
 	def list
-		self.owner.lgl_parrafos.order(:orden)
+		self.owner.lgl_parrafos.order(:orden, :created_at)
 	end
 
 	def n_list

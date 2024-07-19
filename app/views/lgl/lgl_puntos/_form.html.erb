@@ -1,0 +1,37 @@
+<%= form_with(model: lgl_punto) do |form| %>
+  <% if lgl_punto.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(lgl_punto.errors.count, "error") %> prohibited this lgl_punto from being saved:</h2>
+
+      <ul>
+        <% lgl_punto.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :orden, style: "display: block" %>
+    <%= form.number_field :orden %>
+  </div>
+
+  <div>
+    <%= form.label :lgl_parrafo_id, style: "display: block" %>
+    <%= form.number_field :lgl_parrafo_id %>
+  </div>
+
+  <div>
+    <%= form.label :lgl_punto, style: "display: block" %>
+    <%= form.text_field :lgl_punto %>
+  </div>
+
+  <div>
+    <%= form.label :cita, style: "display: block" %>
+    <%= form.text_area :cita %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_18_222856) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_19_152240) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -977,9 +977,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_222856) do
     t.integer "pdd_lft"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "definicion"
+    t.string "accion"
+    t.string "resumen"
+    t.boolean "ocultar"
     t.index ["lgl_documento_id"], name: "index_lgl_parrafos_on_lgl_documento_id"
     t.index ["orden"], name: "index_lgl_parrafos_on_orden"
     t.index ["tipo"], name: "index_lgl_parrafos_on_tipo"
+  end
+
+  create_table "lgl_puntos", force: :cascade do |t|
+    t.integer "orden"
+    t.integer "lgl_parrafo_id"
+    t.string "lgl_punto"
+    t.text "cita"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lgl_parrafo_id"], name: "index_lgl_puntos_on_lgl_parrafo_id"
+    t.index ["orden"], name: "index_lgl_puntos_on_orden"
   end
 
   create_table "lgl_recursos", force: :cascade do |t|
