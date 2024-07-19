@@ -65,9 +65,14 @@ class Lgl::LglParrafosController < ApplicationController
     redirect_to @rdrccn
   end
 
+  # PARENT
   def prnt
+
+    abuelo = @objeto.parent.parent
+    padre = @objeto.parent
+
     if params[:d] == 'u'
-      anterior = LglParrafo.find_by(orden: @objeto.orden - 1)
+      anterior = padre.lgl_parrafos.find_by(orden: @objeto.orden - 1)
       abuelo = anterior.parent
       if abuelo.blank?
         anterior.children << @objeto unless @objeto.parent == anterior
@@ -82,9 +87,6 @@ class Lgl::LglParrafosController < ApplicationController
         end
       end
     else
-      abuelo = @objeto.parent.parent
-      padre = @objeto.parent
-
       padre.children.delete(@objeto) unless padre.blank?
       abuelo.children << @objeto unless abuelo.blank?
     end
