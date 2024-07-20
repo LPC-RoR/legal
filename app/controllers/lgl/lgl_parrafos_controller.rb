@@ -71,8 +71,10 @@ class Lgl::LglParrafosController < ApplicationController
     padre = @objeto.parent
     abuelo = @objeto.parent.blank? ? nil : @objeto.parent.parent
 
+    documento = @objeto.lgl_documento
+
     if params[:d] == 'u'
-      anterior = padre.lgl_parrafos.find_by(orden: @objeto.orden - 1)
+      anterior = documento.lgl_parrafos.find_by(orden: @objeto.orden - 1)
       padre_anterior = anterior.parent
       if padre_anterior.blank?
         # Lo hacemos hijo de anterior, a menos que ya se encuentre ahí
