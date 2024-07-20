@@ -12,15 +12,6 @@
 			<i class="bi bi-dot"></i>
 			<%= render partial: '0p/tabla/links_e', locals: { objeto: objeto} %>
 			<i class="bi bi-dot"></i>
-			<% unless objeto.pdd_lft == 0 or objeto.pdd_lft.blank? %>
-				<%= render layout: '0p/layout/tooltip_link', locals: {link: "/lgl_parrafos/#{objeto.id}/padd?d=l", tooltip: "Hacia la izquierda"} do %>
-					<i class="bi bi-arrow-left"></i>
-				<% end %>
-			<% end %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/lgl_parrafos/#{objeto.id}/padd?d=r", tooltip: "Hacia la izquierda"} do %>
-				<i class="bi bi-arrow-right"></i>
-			<% end %>
-			<i class="bi bi-dot"></i>
 			<% unless objeto.orden == 1 %>
 				<%= render layout: '0p/layout/tooltip_link', locals: {link: "/lgl_parrafos/#{objeto.id}/cnct_up", tooltip: "Fundir arriba"} do %>
 					<i class="bi bi-arrow-up"></i>
