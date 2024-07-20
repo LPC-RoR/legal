@@ -23,7 +23,7 @@
 					<i class="bi bi-arrow-90deg-up"></i>
 				<% end %>
 			<% end %>
-			<% unless objeto.padre.blank? %>
+			<% unless objeto.parent.blank? %>
 				<%= render layout: '0p/layout/tooltip_link', locals: {link: "/lgl_parrafos/#{objeto.id}/prnt?d=d", tooltip: "Hacia abajo"} do %>
 					<i class="bi bi-arrow-90deg-down"></i>
 				<% end %>
