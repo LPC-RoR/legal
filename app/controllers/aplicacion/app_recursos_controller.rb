@@ -1,5 +1,6 @@
 class Aplicacion::AppRecursosController < ApplicationController
-  before_action :authenticate_usuario!, only: [:administracion, :procesos]
+  before_action :authenticate_usuario!, only: %i[ home encuesta preguntas ]
+  before_action :scrty_on, only: %i[ home encuesta preguntas ]
   before_action :inicia_sesion, only: [:administracion, :procesos, :home]
 
   include Tarifas
