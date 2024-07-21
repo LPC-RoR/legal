@@ -21,7 +21,21 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    Causa.reindex
+    circular = LglDocumento.find(2)
+    anexos = LglDocumento.create(lgl_documento: 'Anexos')
+    prrs_circular = circular.lgl_parrafos.order(:orden)
+    unless anexos.blank?
+      prrs_circular.each do |prrf|
+        if prrf.orden > 132
+          if prrf.lgl_parrafo == '\n'
+            prrf.delete
+          else
+            prrf.lgl_documento_id = anexos.id
+            prrf.save
+          end
+        end
+      end
+    end
 
     redirect_to root_path
   end

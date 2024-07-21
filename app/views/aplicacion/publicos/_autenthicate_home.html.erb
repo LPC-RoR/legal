@@ -3,6 +3,88 @@
 </div>
 
 <% if dog? %>
+
+
+
+
+
+
+
+
+
+<div class="container">
+<div class="row">
+  <div class="col-sm-12">
+    <h3 class="display-4 text-center my-5">Ley Karin</h3>
+  </div>
+</div>
+  <div class="row">
+    <div class="col-md-3 col-sm-6">
+      <div class="context">
+        <%= image_tag "lkarin300.png", alt: 'Acoso sexual', class: "img-fluid mx-auto d-block" %>
+        <div class="overlay green">
+          <div class="text text-white text-center">
+            <div>
+              <p><i class="fab fa-angellist fa-2x"></i></p>
+              <p>Ley Karin</p>
+            </div>
+          </div>
+      </div>  
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="context darkblue">
+        <%= image_tag "alaboral300.png", alt: 'Acoso laboral', class: "img-fluid mx-auto d-block" %>
+        <div class="overlay darkblue  ">
+          <div class="text text-white text-center">
+            <div>
+              <p><i class="fab fa-aws fa-2x"></i></p>
+              <p>Acoso laboral</p>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="context">
+        <%= image_tag "asexual300.png", alt: 'Acoso sexual', class: "img-fluid mx-auto d-block" %>
+        <div class="overlay gold">
+            <div class="text text-white text-center">
+              <div>
+                <p><i class="fas fa-building fa-2x"></i></p>
+                <p>Acoso sexual</p>
+              </div>
+            </div>
+        </div>
+      </div>  
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="context">
+        <%= image_tag "vterceros300.png", alt: 'Violencia ejercida por terceros', class: "img-fluid mx-auto d-block" %>
+        <div class="pink overlay">
+          <div class="text text-white text-center">
+            <div>
+              <p><i class="fas fa-chart-line fa-2x"></i></p>
+              <p>Violencia ejercida por terceros.</p>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
   <%= render layout: '0p/layout/tooltip_link', locals: {link: "/publicos/encuesta?sk=@#{@session_name}", tooltip: 'Deseo haecr la encuesta'} do %>
     Encuesta
   <% end %>
