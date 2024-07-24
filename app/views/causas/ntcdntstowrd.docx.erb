@@ -12,7 +12,7 @@
 	<div style="padding-left 4em;">
 	<i>Antecedentes requeridos</i>:</br>
 	<% hchs.antecedentes.each do |ntcdnt| %>
-		<p>- <b><%= "[#{hchs.orden}]" %></b> <%= ntcdnt.solicitud %></p>
+		<p>- <%= ntcdnt.solicitud %></p>
 	<% end %>
 	</div>
 	</br>
