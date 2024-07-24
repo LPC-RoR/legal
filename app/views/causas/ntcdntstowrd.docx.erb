@@ -7,8 +7,10 @@
 	<br>
 	<p><b><%= hchs.hecho.blank? ? "Hecho Nº #{hchs.orden}" : hchs.hecho %></b></p>
 	<br>
+	<p><%=hchs.descripcion%></p>
+	</br>
 	<div style="padding-left 4em;">
-	Antecedente:</br>
+	<i>Antecedentes requeridos</i>:</br>
 	<% hchs.antecedentes.each do |ntcdnt| %>
 		<p>- <b><%= "[#{hchs.orden}]" %></b> <%= ntcdnt.solicitud %></p>
 	<% end %>
