@@ -2,7 +2,7 @@
 <h4><%= @objeto.cliente.razon_social %></h4>
 <h4><%= "#{@objeto.rit} : #{@objeto.causa}" %></h4>
 <br>
-<small>A continuación los hechos de la causa con acompañado de los antecedentes requeridos para cado uno de ellos.</small>
+<small>A continuación una lista de los hechos de la causa con el detalle de los antecedentes requeridos para cada uno de ellos.</small>
 <% @objeto.hechos.order(:orden).each do |hchs| %>
 	<br>
 	<p><b><%= hchs.hecho.blank? ? "Hecho Nº #{hchs.orden}" : hchs.hecho %></b></p>
