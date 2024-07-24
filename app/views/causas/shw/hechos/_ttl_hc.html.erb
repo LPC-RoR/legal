@@ -11,6 +11,9 @@
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/antecedentes?cid=#{objeto.id}", tooltip: 'Solicitud de documentos'} do %>
 			<i class="bi bi-file-pdf"></i>
 		<% end %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/ntcdntstowrd", tooltip: 'Solicitud de Antecedentes'} do %>
+			<i class="bi bi-file-word"></i>
+		<% end %>
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/hchstowrd", tooltip: 'Revisión de hechos'} do %>
 			<i class="bi bi-file-word"></i>
 		<% end %>

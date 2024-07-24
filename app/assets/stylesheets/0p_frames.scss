@@ -15,7 +15,7 @@ $auto: auto;
 
 @mixin frm_bsc($grd_tc) {
 	@include mrgn_pddng(0, 0);
-	@include bx(white);
+//	@include bx(white);
 	@include grd($grd_tc, 2px);
     justify-items: stretch;
 

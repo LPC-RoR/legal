@@ -19,7 +19,7 @@ module CptnHelper
 	end
 
 	def no_banner_controllers
-		[]
+		['publicos']
 	end
 
 	def no_banner_layout?

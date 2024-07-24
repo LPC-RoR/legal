@@ -10,7 +10,7 @@ module Seguridad
 			nomina: usuario_signed_in? ? AppNomina.find_by(email: current_usuario.email) : nil,
 			perfil: perfil,
 			dog_perfil: AppPerfil.find_by(email: AppVersion::DOG_EMAIL),
-			usuario_agenda: perfil.age_usuario
+			usuario_agenda: usuario_signed_in? ? perfil.age_usuario : nil
 		}
 	end
 
@@ -39,11 +39,11 @@ module Seguridad
 	end
 
 	def dog_name
-		@scrty_vls[:dog_name]
+		usuario_signed_in? ? @scrty_vls[:dog_name] : get_version_activa.dog_name
 	end
 
 	def dog_email
-		@scrty_vls[:dog_email]
+		usuario_signed_in? ? @scrty_vls[:dog_email] : get_version_activa.dog_email
 	end
 
 	# ACTIVOS
