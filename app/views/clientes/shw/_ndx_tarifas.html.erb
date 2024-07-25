@@ -12,7 +12,7 @@
   <div class="rght">
 
 		<div class="ttl_app">
-			<% unless (tipo == 'asesorias' and objeto.tipo_cliente == 'Trabajador') %>
+			<%# unless (tipo == 'asesorias' and objeto.tipo_cliente == 'Trabajador') %>
 				<div class="ttl_ttl">
 					<%= render partial: '0p/general/gly', locals: {gly: controller_icon['tar_tarifas']} %>
 					<%= cmenu_clss['tar_tarifas'][:items][tipo] %>
@@ -22,7 +22,7 @@
 						<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
 					<% end %>
 				</div>
-			<% end %>
+			<%# end %>
 		</div>
 		<% if tipo == 'causas' %>
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>

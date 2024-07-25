@@ -32,6 +32,10 @@ $auto: auto;
 	margin-bottom: 4px;
 }
 
+.f_50_col {
+	@include frm_bsc(50% 50%);
+}
+
 .f_50lft_col {
 	@include frm_bsc(50% auto);
 }

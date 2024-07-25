@@ -193,9 +193,63 @@ $auto: auto;
 /* HOME BANNER */
 
 .homeBanner {
-	padding: 1em;
+	padding: 2em;
 	background-image: url('home_image.jpg');
 	background-size: cover;
+	.addt {
+		font-size: 60px;
+		color: white;
+	}
+	.text {
+		padding: 2em;
+		background-color: hsla(0, 100%, 100%, 0.5);
+		color: $pltt_1;
+	}
+}
+
+.homeText {
+	@include brd(2px, 3px 3px 3px 3px, $blue_3);
+	background-image: url('home_text.jpg');
+	background-size: cover;
+	.h_txt {
+			padding: 2em;
+		color: $pltt_1;
+		.txt_ttl {
+			padding: 2em;
+			background-color: hsla(0, 100%, 100%, 0.7);
+			font-size: 20px;
+		}
+		.txt_txt {
+			padding: 2em;
+			background-color: hsla(0, 100%, 100%, 0.7);
+			font-size: 14px;
+		}
+	}
+}
+
+.homeQuestion {
+	margin-top: 2px;
+	.prgnt {
+		border-radius: 10px 10px 0 0;
+		border-top: 2px solid $blue_4;
+		border-left: 2px solid $blue_4;
+		border-right: 2px solid $blue_4;
+		background-color: $blue_1;
+//		background-image: url('home_q.jpg');
+//		background-size: cover;
+		@include mrgn_pddng(0, 1em);
+		font-weight: bold;
+		font-size: 20px;
+		color: white;
+	}
+	.rspst {
+		border-radius: 0 0 10px 10px;
+		border-bottom: 2px solid $blue_4;
+		border-left: 2px solid $blue_4;
+		border-right: 2px solid $blue_4;
+		@include mrgn_pddng(0, 1em);
+		color: $pltt_2;
+	}
 }
 
 /* HOME */
