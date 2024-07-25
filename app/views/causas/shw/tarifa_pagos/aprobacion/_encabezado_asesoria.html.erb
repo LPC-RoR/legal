@@ -3,7 +3,7 @@
 <div class="ttl_bx">
 	<div class="ttl_lft">
 		<b>
-			<%= objeto.descripcion %>
+			<%= objeto.glosa %>
 		</b>
 	</div>
 	<div class="ttl_rght">
@@ -20,7 +20,7 @@
 			<% if objeto.tar_servicio.moneda == 'UF' %>
 				<b><%= s_pesos(objeto.tar_servicio.monto * uf_fecha(objeto.uf_facturacion.present? ? objeto.uf_facturacion.fecha : objeto.created_at)) %></b>
 			<% else %>
-				<b><%= objeto.tar_servicio.monto %></b>
+				<b><%= s_pesos(objeto.tar_servicio.monto) %></b>
 			<% end %>
 		<% end %>
 	</div>
