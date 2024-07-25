@@ -20,7 +20,7 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
   end
 
   # Llamado desde Causa / Asesoría indistintamente
-  \ oclss; oid
+  # oclss; oid
   def crea_uf_facturacion
     f_prms = params[:form_uf_facturacion]
     owner = params[:oclss].constantize.find(params[:oid])
