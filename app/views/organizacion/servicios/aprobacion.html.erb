@@ -22,12 +22,14 @@
 				<% end %>
 			</div>
 			<div class="rght">
-				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: tar_calculo.tar_pago, owner: tar_calculo.owner} %>
+				<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado#{'_asesoria' if tar_calculo.owner.class.name == 'Asesoria'}", locals: {objeto: tar_calculo.owner, pago: tar_calculo.tar_pago, owner: tar_calculo.owner} %>
 
-				<% if tar_calculo.tar_pago.requiere_uf == true and uf_fecha(get_fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)).blank? %>
-					<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)) %> no encontrada</b></small>
-				<% else %>
-					<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: tar_calculo.tar_pago, causa: tar_calculo.owner } %>
+				<% if tar_calculo.owner.class.name == 'Causa' %>
+					<% if tar_calculo.tar_pago.requiere_uf == true and uf_fecha(get_fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)).blank? %>
+						<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(tar_calculo.owner, tar_calculo.tar_pago)) %> no encontrada</b></small>
+					<% else %>
+						<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: tar_calculo.tar_pago, causa: tar_calculo.owner } %>
+					<% end %>
 				<% end %>
 			</div>
 		</div>

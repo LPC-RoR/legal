@@ -1,7 +1,7 @@
 class AsesoriasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar liberar_factura swtch_pendiente swtch_urgencia ]
+  before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar liberar_factura swtch_pendiente swtch_urgencia elimina_cobro ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   # GET /asesorias or /asesorias.json
@@ -75,6 +75,17 @@ class AsesoriasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def elimina_cobro
+    calculo = @objeto.calculo
+    facturacion = @objeto.facturacion
+    facturacion.delete
+    calculo.delete
+    @objeto.estado = 'tramitación'
+    @objeto.save
+
+    redirect_to asesorias_path
   end
 
   def facturar

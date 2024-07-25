@@ -5,11 +5,11 @@
 	<% end %>
 	<%= render partial: 'asesorias/list/txt', locals: {objeto: objeto} %>
 
-	<% if admin? %>
+	<% if dog? %>
 		<!-- DEPRECATED : REVISAR No hemos definido comportamiento facturación -->
 		<%#= render partial: 'asesorias/list/line_aprobacion_factura', locals: {objeto: objeto} %>
 		<!-- REVISAR : Botones para gestión de facturación -->
-		<%#= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
+		<%= render partial: 'asesorias/list/menu_asesoria', locals: {objeto: objeto} %>
 	<% end %>
 
 	<%= render partial: 'notas/shr/notas_pendientes', locals: {objeto: objeto} %>

@@ -1,0 +1,63 @@
+<!-- Se usa owner y no causa porque este código se podría accesar desde Asesoria -->
+<!-- pago: tar_pago, owner: causa -->
+<div class="ttl_bx">
+	<div class="ttl_lft">
+		<b>
+			<%= objeto.descripcion %>
+		</b>
+	</div>
+	<div class="ttl_rght">
+		<!-- No se ha realizado el cálculo y el pago requiere el valor de la UF -->
+		<% if objeto.tar_servicio.moneda == 'UF' and uf_fecha(objeto.created_at).blank? %>
+			<small><b class="text-danger">UF del dia <%= dma(objeto.created_at) %> no encontrada</b></small>
+		<% else %>
+			<% if objeto.tar_servicio.moneda == 'UF' %>
+				<small>
+				<%= s_uf5(get_v_calculo_tarifa(owner, pago)[0]) %>
+				<i class="bi bi-arrow-left-right"></i>
+				</small>
+			<% end %>
+			<% if objeto.tar_servicio.moneda == 'UF' %>
+				<b><%= s_pesos(objeto.tar_servicio.monto * uf_fecha(objeto.uf_facturacion.present? ? objeto.uf_facturacion.fecha : objeto.created_at)) %></b>
+			<% else %>
+				<b><%= objeto.tar_servicio.monto %></b>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+
+<% if objeto.tar_servicio.moneda == 'UF' %>             
+	<div class="ln_app">
+		<div class="ln_nm">
+			Fecha cálculo
+			<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: objeto, tooltip: "#{objeto.uf_facturacion.blank? ? 'Agrega' : 'Modiffica'} fecha UF de cálculo" } do %>
+				<i class="bi bi-pencil-square"></i>
+			<% end %>
+			<% if objeto.uf_facturacion.present? %>
+				<%= link_to "/asesorias/#{objeto.id}/elimina_uf_facturacion" do %>
+					<i class="bi bi-trash"></i>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="ln_lnks">
+			<%= dma(objeto.uf_facturacion.present? ? objeto.uf_facturacion.fecha : objeto.created_at ) %>
+		</div>
+	</div>
+
+	<%= render layout: '0p/collapse/display', locals: {label: 'AgregaModifica', objeto: objeto} do %>
+		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/form_uf_facturacion", locals: {causa: owner, pago: nil} %>
+	<% end %>
+
+	<% unless uf_fecha(objeto.uf_facturacion.present? ? objeto.uf_facturacion.fecha : objeto.created_at).blank? and objeto.tar_servicio.moneda == 'UF' %>
+		<b>
+		<div class="ln_app">
+			<div class="ln_nm">
+				<%= leyenda_origen_fecha_calculo(owner, pago) %>
+			</div>
+			<div class="ln_lnks">
+				<%= s_uf( uf_fecha(owner.uf_facturacion.present? ? owner.uf_facturacion.fecha : objeto.created_at) ) %>
+			</div>
+		</div>
+		</b>
+	<% end %>
+<% end %>

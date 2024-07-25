@@ -1,3 +1,4 @@
+<small>
 <% unless objeto.sin_cargo? %>
 	<% if objeto.facturacion.blank? %>
 		<% unless ( objeto.tar_servicio.blank? and ( objeto.moneda.blank? or objeto.monto.blank? ) ) %>
@@ -5,13 +6,14 @@
 		<% end %>
 	<% else %>
 		<% if objeto.facturacion.tar_aprobacion.blank? and objeto.facturacion.tar_factura.blank? %>
-			<%= link_to 'eliminar cobro', "/tar_facturaciones/#{objeto.facturacion.id}/elimina_facturacion" %>
+			<%= link_to 'eliminar cobro', "/asesorias/#{objeto.id}/elimina_cobro" %>
 		<% end %>
 
-		<% if objeto.facturacion.tar_factura.blank? %>
-			<%= link_to 'facturar', "/asesorias/#{objeto.id}/facturar" %>
-		<% elsif objeto.facturacion.tar_factura.estado == 'ingreso' %>
-			<%= link_to 'liberar factura', "/asesorias/#{objeto.id}/liberar_factura" %>
-		<% end %>
+		<%# if objeto.facturacion.tar_factura.blank? %>
+			<%#= link_to 'facturar', "/asesorias/#{objeto.id}/facturar" %>
+		<%# elsif objeto.facturacion.tar_factura.estado == 'ingreso' %>
+			<%#= link_to 'liberar factura', "/asesorias/#{objeto.id}/liberar_factura" %>
+		<%# end %>
 	<% end %>
 <% end %>
+</small>

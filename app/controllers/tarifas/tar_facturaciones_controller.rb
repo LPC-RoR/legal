@@ -22,6 +22,26 @@ class Tarifas::TarFacturacionesController < ApplicationController
     owner = params[:owner_class].constantize.find(params[:owner_id])
 
     case params[:owner_class]
+    when 'Asesoria'
+      # REVISAR : Resolveremos sólo lo que hay que resolver para el caso que estamos procesando.
+      tarifa = owner.tar_servicio
+      glosa = "#{owner.descripcion} : #{owner.detalle}"
+      moneda = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.moneda : owner.moneda
+      monto = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.monto : owner.monto
+      uf_calculo = uf_del_dia
+      fecha_uf = Time.zone.today.to_date
+#      monto = moneda == 'UF' ? (uf_calculo.blank? ? 0 : uf_calculo * monto_tarifa) : monto_tarifa
+      unless tarifa.blank?
+        cll = TarCalculo.create(ownr_clss: owner.class.name, ownr_id: owner.id, tar_pago_id: nil, fecha_uf: fecha_uf, moneda: moneda, monto: monto, glosa: glosa, cuantia: nil)
+        unless cll.blank?
+          tf = TarFacturacion.create(cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, tar_pago_id: nil, tar_calculo_id: cll.id, fecha_uf: fecha_uf, moneda: moneda, monto: monto, glosa: glosa, estado: 'ingreso', cuantia_calculo: nil, pago_calculo: monto)
+          unless tf.blank?
+            owner.estado = 'terminada'
+            owner.save
+          end
+        end
+      end
+
     when 'Causa'
 
       # Cálculo de tarifa
@@ -71,14 +91,6 @@ class Tarifas::TarFacturacionesController < ApplicationController
       owner.causa_ganada = owner.monto_pagado == 0
       owner.save
 
-    when 'Asesoria'
-      moneda = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.moneda : owner.moneda
-      monto = (owner.moneda.blank? or owner.monto.blank?) ? owner.tar_servicio.monto : owner.monto
-      tf=TarFacturacion.create(cliente_id: owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, glosa: owner.descripcion, estado: 'ingreso', moneda: moneda, monto: monto )
-      unless tf.blank?
-        owner.estado = 'terminada'
-        owner.save
-      end
     when 'RegReporte'
       TarFacturacion.create(cliente_id: owner.owner.cliente.id, owner_class: owner.class.name, owner_id: owner.id, facturable: params[:facturable], glosa: params[:facturable], estado: 'ingreso', moneda: owner.moneda_reporte, monto: owner.monto_reporte )
     end
@@ -134,6 +146,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
     end
   end
 
+  # REVISAR : ELiminado para Asesorias
   def elimina_facturacion
     owner = @objeto.owner_class.constantize.find(@objeto.owner_id)
     unless owner.blank?

@@ -341,7 +341,7 @@ class CausasController < ApplicationController
       end
     end
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Tarifa+%26+Pagos"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifas & Pagos')}"
   end
 
   def elimina_uf_facturacion
@@ -349,7 +349,7 @@ class CausasController < ApplicationController
     tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
     tar_uf_facturacion.delete
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Tarifa+%26+Pagos"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifas & Pagos')}"
   end
 
   # DELETE /causas/1 or /causas/1.json

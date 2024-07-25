@@ -1,5 +1,5 @@
 <div class="g_cllps">
-	<%= form_for :form_tar_facturacion, url: "/causas/#{causa.id}/input_tar_facturacion?pid=#{pago.id}" do |form| %>
+	<%= form_for :form_uf_facturacion, url: "/#{causa.class.name.tableize}/#{causa.id}/input_tar_facturacion?pid=#{pago.id unless pago.blank?}" do |form| %>
 
 		Fecha UF del pago:
 		</br>

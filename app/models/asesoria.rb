@@ -13,8 +13,16 @@ class Asesoria < ApplicationRecord
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	def calculo
+		TarCalculo.where(ownr_clss: self.class.name).find_by(ownr_id: self.id)
+	end
+
 	def facturacion
 		TarFacturacion.where(owner_class: self.class.name).find_by(owner_id: self.id)
+	end
+
+	def uf_facturacion
+		TarUfFacturacion.where(owner_class: self.class.name).find_by(owner_id: self.id)
 	end
 
 	def archivos

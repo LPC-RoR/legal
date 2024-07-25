@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :asesorias do
     match :set_tar_servicio, via: :post, on: :member
     match :generar_cobro, via: :get, on: :member
+    match :elimina_cobro, via: :get, on: :member
     match :facturar, via: :get, on: :member
     match :liberar_factura, via: :get, on: :member
     match :swtch_pendiente, via: :get, on: :member
@@ -364,7 +365,10 @@ Rails.application.routes.draw do
       match :liberar_calculo, via: :get, on: :member
       match :crea_aprobacion, via: :get, on: :member
     end
-    resources :tar_uf_facturaciones
+    resources :tar_uf_facturaciones do 
+      match :crea_uf_facturacion, via: :get, on: :collection
+      match :elimina_uf_facturacion, via: :get, on: :member
+    end
     resources :tar_detalle_cuantias do
       match :agrega_control_documento, via: :get, on: :member
       match :elimina_control_documento, via: :get, on: :member

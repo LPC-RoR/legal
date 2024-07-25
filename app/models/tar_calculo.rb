@@ -1,5 +1,5 @@
 class TarCalculo < ApplicationRecord
-	belongs_to :tar_pago
+	belongs_to :tar_pago, optional: :true
 	belongs_to :tar_aprobacion, optional: true
 
 	has_many :tar_facturaciones

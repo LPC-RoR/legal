@@ -19,6 +19,35 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
     @objeto = TarUfFacturacion.new(owner_class: params[:class_name], owner_id: owner.id)
   end
 
+  # Llamado desde Causa / Asesoría indistintamente
+  \ oclss; oid
+  def crea_uf_facturacion
+    f_prms = params[:form_uf_facturacion]
+    owner = params[:oclss].constantize.find(params[:oid])
+    unless owner.blank?
+      unless params[:form_tar_facturacion]['fecha_uf(1i)'].blank? or params[:form_tar_facturacion]['fecha_uf(2i)'].blank? or params[:form_tar_facturacion]['fecha_uf(3i)'].blank?
+        tar_pago = TarPago.find(params[:pid])
+        tar_pago_id = tar_pago.blank? ? nil : tar_pago.id
+
+        unless tar_pago.blank? and params[:oclss] == 'Causa'
+          tar_uf_facturacion = owner.class.name == 'Causa' ? owner.tar_uf_facturacion(tar_pago) : owner.uf_facturacion
+          tar_uf_facturacion = TarUfFacturacion.create( owner_class: params[:oclss], owner_id: params[:oid], tar_pago_id: tar_pago_id ) if tar_uf_facturacion.blank?
+
+          annio = params[:form_tar_facturacion]['fecha_uf(1i)'].to_i
+          mes = params[:form_tar_facturacion]['fecha_uf(2i)'].to_i
+          dia = params[:form_tar_facturacion]['fecha_uf(3i)'].to_i
+
+          tar_uf_facturacion.fecha_uf = Time.zone.parse("#{annio}-#{mes}-#{dia}")
+          tar_uf_facturacion.save
+        end
+      end
+    end
+
+    @objeto = owner
+    get_rdrccn
+    redirect_to @rdrccn, notice: "UF de facturación exitósamente creada"
+  end
+
   # GET /tar_uf_facturaciones/1/edit
   def edit
     if @objeto.owner.class.name == 'Causa'
@@ -34,8 +63,8 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "UF fue exitósamente creada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "UF fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,8 +77,8 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tar_uf_facturacion_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "UF fue exitósamente actualizada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "UF fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,10 +89,10 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
 
   # DELETE /tar_uf_facturaciones/1 or /tar_uf_facturaciones/1.json
   def destroy
-    set_redireccion
+    get_rdrccn
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "UF fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "UF fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -74,8 +103,8 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
       @objeto = TarUfFacturacion.find(params[:id])
     end
 
-    def set_redireccion
-      @redireccion = "/causas/#{@objeto.owner.id}?html_options[menu]=Pagos"
+    def get_rdrccn
+      @rdrccn = @objeto.class.name == 'Causa' ? "/causas/#{@objeto.owner.id}?html_options[menu]=Pagos" : asesorias_path
     end
 
     # Only allow a list of trusted parameters through.
