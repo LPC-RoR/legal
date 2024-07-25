@@ -2,9 +2,7 @@
 <!-- pago: tar_pago, owner: causa -->
 <div class="ttl_bx">
 	<div class="ttl_lft">
-		<b>
-			<%= objeto.calculo.glosa %>
-		</b>
+		<%= objeto.calculo.glosa.present? ? objeto.calculo.glosa : objeto.descripcion %>
 	</div>
 	<div class="ttl_rght">
 		<!-- No se ha realizado el cálculo y el pago requiere el valor de la UF -->
