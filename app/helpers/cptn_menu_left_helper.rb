@@ -78,7 +78,7 @@ module CptnMenuLeftHelper
 
 	def lm_exclude_action?
 		controller_name == 'publicos' and (
-				(action_name == 'home' and current_usuario.blank?) or
+				(['home', 'home_prueba'].include?(action_name) and current_usuario.blank?) or
 				action_name == 'ayuda'
 			)
 	end

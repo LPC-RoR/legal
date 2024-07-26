@@ -269,6 +269,7 @@ Rails.application.routes.draw do
   scope module: 'aplicacion' do
     resources :publicos do
       match :home, via: :get, on: :collection
+      match :home_prueba, via: :get, on: :collection
       match :encuesta, via: :get, on: :collection
       match :preguntas, via: :get, on: :collection
       match :ayuda, via: :get, on: :collection
