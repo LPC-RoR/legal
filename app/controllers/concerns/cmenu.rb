@@ -5,7 +5,7 @@ module Cmenu
 				estados: [
 					{
 						std: 'activo',
-						cndcn: admin?
+						cndcn: operacion?
 					},
 					{
 						std: 'baja',
