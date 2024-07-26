@@ -234,7 +234,7 @@ $auto: auto;
 		border-top: 2px solid $blue_4;
 		border-left: 2px solid $blue_4;
 		border-right: 2px solid $blue_4;
-		background-color: $blue_1;
+		background-color: $blue_2;
 //		background-image: url('home_q.jpg');
 //		background-size: cover;
 		@include mrgn_pddng(0, 1em);
@@ -249,6 +249,9 @@ $auto: auto;
 		border-right: 2px solid $blue_4;
 		@include mrgn_pddng(0, 1em);
 		color: $pltt_2;
+		ul {
+			margin: 15px 0 15px 0;
+		}
 	}
 }
 

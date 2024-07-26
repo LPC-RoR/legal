@@ -38,11 +38,12 @@ class ClientesController < ApplicationController
 
     set_tab( :menu, [['Agenda', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Documentos', operacion?], ['Configuración', dog?]] )
 
+    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+
     if @options[:menu] == 'Agenda'
 
       @hoy = Time.zone.today
       set_tabla('age_actividades', @objeto.actividades.order(:fecha), false)
-      @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
     elsif @options[:menu] == 'Documentos'
       set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
