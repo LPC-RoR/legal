@@ -109,7 +109,7 @@ class ClientesController < ApplicationController
   # GET /clientes/new
   def new
     modelo_cliente = StModelo.find_by(st_modelo: 'Cliente')
-    @objeto = Cliente.new(estado: modelo_cliente.primer_estado.st_estado, preferencial: false)
+    @objeto = Cliente.new(estado: modelo_cliente.primer_estado.st_estado, preferente: false)
   end
 
   # GET /clientes/1/edit
