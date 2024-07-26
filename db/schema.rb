@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_19_152240) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_26_151336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -598,6 +598,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_19_152240) do
     t.boolean "urgente"
     t.datetime "fecha_audiencia"
     t.string "audiencia"
+    t.boolean "en_cobranza"
     t.index ["archivos_registrados"], name: "index_causas_on_archivos_registrados"
     t.index ["causa_ganada"], name: "index_causas_on_causa_ganada"
     t.index ["era"], name: "index_causas_on_era"

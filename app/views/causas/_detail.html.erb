@@ -21,6 +21,10 @@
 		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :causa } %>
 </div>
 
+<div class="formCell">
+		<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :en_cobranza, label: 'En cobranza' } %>
+</div>
+
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :urgente } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :pendiente } %>

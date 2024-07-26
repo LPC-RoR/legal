@@ -1,4 +1,3 @@
-<b>
 <% unless objeto.fecha_audiencia.blank? %>
 	<div class="ln_app">
 		<div class="ln_nm">
@@ -8,7 +7,4 @@
 			<%= dma(objeto.fecha_audiencia) %>
 		</div>
 	</div>
-<% else %>
-	<%= render partial: '0p/nota/wrnng', locals: {wrnng: "Causa sin audiencias" } %>
 <% end %>
-</b>

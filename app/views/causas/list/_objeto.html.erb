@@ -1,13 +1,6 @@
 <div class="app_bjt" id="cid_<%=objeto.id%>">
 	<%= render partial: 'causas/list/bjt', locals: {objeto: objeto} %>
 
-	<% if objeto.tar_tarifa.blank? %>
-		<%= render partial: '0p/nota/wrnng', locals: {wrnng: "Causa sin tarifa asignada" } %>
-	<% end %>
-	<% if objeto.valores_cuantia.empty? %>
-		<%= render partial: '0p/nota/wrnng', locals: {wrnng: "Causa sin cuantía" } %>
-	<% end %>
-
 	<%= render partial: 'causas/list/audiencia', locals: {objeto: objeto} %>
 	<%= render partial: 'causas/list/monto_pagado', locals: {objeto: objeto} %>
 
