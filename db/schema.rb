@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_26_151336) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_27_010455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -798,12 +798,36 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_26_151336) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
+  create_table "h_preguntas", force: :cascade do |t|
+    t.string "codigo"
+    t.string "h_pregunta"
+    t.text "respuesta"
+    t.string "lnk_txt"
+    t.string "lnk"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo"], name: "index_h_preguntas_on_codigo"
+  end
+
   create_table "h_temas", force: :cascade do |t|
     t.string "tema"
     t.string "detalle"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["tema"], name: "index_h_temas_on_tema"
+  end
+
+  create_table "h_textos", force: :cascade do |t|
+    t.string "codigo"
+    t.string "h_texto"
+    t.text "texto"
+    t.string "imagen"
+    t.string "img_sz"
+    t.string "lnk_txt"
+    t.string "lnk"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo"], name: "index_h_textos_on_codigo"
   end
 
   create_table "hecho_archivos", force: :cascade do |t|

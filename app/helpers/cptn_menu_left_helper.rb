@@ -59,6 +59,8 @@ module CptnMenuLeftHelper
 						'LglDocumento',
 						'HmPagina',
 						'BlgArticulo',
+						'HPregunta',
+						'HTexto',
 						'HImagen',
 						'StModelo',
 						'Variable'

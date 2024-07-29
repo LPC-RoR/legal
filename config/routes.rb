@@ -105,6 +105,8 @@ Rails.application.routes.draw do
   end
 
   scope module: 'hm' do
+    resources :h_textos
+    resources :h_preguntas
     resources :hm_paginas
     resources :hm_parrafos
     resources :hm_links

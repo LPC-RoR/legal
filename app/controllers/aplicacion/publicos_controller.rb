@@ -104,7 +104,13 @@ class Aplicacion::PublicosController < ApplicationController
   end
 
   def home_prueba
-    
+    @txts = {}
+    ['rsmn_ly21643', 'cmplmnt_medio', 'cmplmnt_simple'].each do |cdg|
+      txt = HTexto.find_by(codigo: cdg)
+      @txts[cdg] = {}
+      @txts[cdg][:h_texto] = txt.h_texto
+      @txts[cdg][:texto] = txt.texto
+    end
   end
 
   def encuesta

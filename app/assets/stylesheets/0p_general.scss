@@ -196,14 +196,29 @@ $auto: auto;
 	padding: 2em;
 	background-image: url('home_image.jpg');
 	background-size: cover;
-	.addt {
-		font-size: 60px;
-		color: white;
-	}
-	.text {
+}
+
+.homeBanLogo {
+	font-size: 60px;
+	color: white;
+}
+
+.homeBanTxt {
+	.b_text {
 		padding: 2em;
-		background-color: hsla(0, 100%, 100%, 0.5);
+		background-color: hsla(0, 100%, 100%, 0.7);
 		color: $pltt_1;
+		text-align: center;
+	}
+	.b_box {
+		display: inline-block;
+		margin-top: 2em;
+		padding: 1em;
+		background-color: hsla(0, 100%, 100%, 0.7);
+		color: $pltt_1;
+		text-align: start;
+		width: 150px; 
+		max-width: 150px; 
 	}
 }
 

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @htexto %>
+
+<div>
+  <%= link_to "Edit this htexto", edit_htexto_path(@htexto) %> |
+  <%= link_to "Back to htextos", htextos_path %>
+
+  <%= button_to "Destroy this htexto", @htexto, method: :delete %>
+</div>

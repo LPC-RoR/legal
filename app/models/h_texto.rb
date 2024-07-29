@@ -1,0 +1,2 @@
+class HTexto < ApplicationRecord
+end

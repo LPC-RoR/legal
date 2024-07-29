@@ -1,93 +1,38 @@
-<% if true %>
 <div class="homeBanner">
 	<div class="f_lmn_lyt">
 		<div class="lft" align='center'>
-			<div class="addt">
+			<div class="homeBanLogo">
 				addt
 			</div>
 		</div>
-		<div class="rght" align='center'>
-			<div class="text">
-				<h1>Prevención, Investigación y Sanción </br>del Acoso laboral, sexual o de violencia en el trabajo.</h1>
-				<h2>Ley Nº 21.642, "Ley Karin"</h2>
-				<!--p>Establece diversas disposiciones que modifican e incorporan definiciones legales, añade medidas de prevención y resguardo en la materia y perfecciona los procedimientos de investigación, implementando y adecuando la normativa nacional a los parámetros establecidos en el recientemente ratificado Convenio N°190, Sobre la Violencia y el Acoso, de la Organización Internacional del Trabajo - OIT.</p-->
+		<div class="rght">
+			<div class="homeBanTxt">
+				<div class="b_text">
+					<h1>Prevención, Investigación y Sanción </br>del Acoso laboral, sexual o de violencia en el trabajo.</h1>
+					<h2>Ley Nº 21.643, "Ley Karin"</h2>
+				</div>
+
+				<div class="b_box">
+					<p>Producto 1</p>
+				</div>
+				<div class="b_box">
+					<p>Producto 2</p>
+				</div>
+				<div class="b_box">
+					<p>Producto 3</p>
+				</div>
 			</div>
 		</div>
 	</div>
-	<%#= image_tag 'home_image.jpg' %>
 </div>
-<% end %>
-
+		<%= render partial: '0p/home/txt', locals: {cdg: 'cmplmnt_simple'} %>
 <div class="f_50_col">
 	<div class="lft">
-		<div class="homeQuestion">
-			<div class="prgnt">
-				Resumen de la ley 21.642
-			</div>
-			<div class="rspst">
-				La Ley N°21.643, publicada en el Diario Oficial el 15 de enero del 2024, introduce diversas disposiciones contra la violencia y acoso en las relaciones
-				laborales, modificando e incorporando conceptos al Código del Trabajo. Sus aspectos más importantes son:
-				<ul>
-					<li>Establece los principios que deben fundar la relación laboral, en particular, la obligatoriedad de incluir la perpectiva de género.</li> 
-					<li>Declara como contrarias a dichos principios las conductas de acoso laboral, acoso sexual y la violencia en el trabajo ejercida por terceros a la relación laboral.</li>
-					<li>Establece como derecho de los trabajadores(as) la prevención de dichas conductas y de los comportamientos que propician la discriminación de cualquier tipo, en especial, la discriminación por motivo de género. Consecuentemente, la prevención de dichos comportamientos se establece como obligación para los empleadores.</li>
-					<li>Regula las medidas de prevención, estableciendo la obligatoriedad de un protocolo de prevención, el cual debe cumplir con estándares y contenidos mínimos:
-						<ul>
-							<li>Establece el caracter participativo de los trabajadores, estableciendo participaciones mínimas de los trabajadores, preferentemente a través del comité paritario o directamente de no existir éste.</li>
-							<li>Define responsabilidades para la empresa y para los trabajadores.</li>
-							<li>Politica de prevención del acoso laboral, sexual y violencia en el trabajo ejercida por terceros.</li>
-							<li>Establece estándares para el diagnóstico de factores de riesgo psicosocial, también para la definición, planificación e implementación de medidas de prevención y corrección, y para la evaluación del cumplimentos de los objetivos trazados, Los cuales se exige, deben ser medibles en el tiempo.</li>
-							<li>El protocolo debe garantizar la mejora continua basado en la evaluación de sus resultados y en los resultados de la investigación de casos.</li>
-							<li>El protocolo debe establecer en detalle, las responsabilidades (internas o externas) respecto del cumplimiento de cada obligación declarada.</li>
-						</ul>
-					</li>
-					<li>Fortalece el procedimiento de investigación de casos, estableciendo:
-						<ul>
-							<li>Su abligatoriedad</li>
-							<li>La persona encargada del procedimiento de investigación debe contar con las competencias necesarias para el cumplimiento de dicha labor.</li>
-							<li>La obligación de capacitar a los trabajadores en dicho procedimiento, específicamente en la confección de una denuncia bien fundada y en las conductas que son y las que no son motivo de denuncia.</li>
-							<li>La obligación de informar períodocamente los canales de denuncia al interior de la empresa y en los organismos estatales.</li>
-							<li>La incorporación de medidas de resguardo de la privacidad y la honra de los involucrados. Las que deben ser tomadas de inmediato al momento de recibir una denuncia.</li>
-							<li>Atención psicológica temprana para los denunciantes, la cual se entregará a través de los organismos administradores del Seguro de la Ley N°16.744.</li>
-						</ul>
-					</li>
-					<li>Establece estándares de capacitación e información respecto de los factores de riesgo diagnosticados, las medidas adoptadas y su planificación y evaluación anual.</li>
-					<li>Establece el rol de la dirección del trabajo en cuanto a la recepción de denuncias y la supervición del resultado de las investigaciones cursadas.</li>
-					<li>Establece el rol de los organismos administradores del Seguro de la Ley N°16.744, estableciendo obligaciones respecto a la asistencia técnica, capacitación y especialmente, respecto a su responsabilidad de otorgar atención psicológica temprana a las víctimas de acoso sexual, laboral o violencia en el trabajo a las víctimas.</li>
-				</ul>
-			</div>
-		</div>
+		<%#= render partial: '0p/home/txt', locals: {cdg: 'rsmn_ly21643'} %>
+		<%= render partial: '0p/home/txt', locals: {cdg: 'cmplmnt_medio'} %>
 	</div>
 	<div class="rght">
-		<div class="homeQuestion">
-			<div class="prgnt">
-				¿Con que debo cumplir al 1ro de agosto del 2024?
-			</div>
-			<div class="rspst">
-				<b>Contar con un Protocolo de prevencion del acoso sexual, laboral y la violencia laboral ejercida por terceros.</b>
-				<ul>
-					<li>Debe ser construido participativamente</li>
-					<li>Debe incluir una política de prevencion que cumpla con los contenidos mínimos.</li>
-					<li>Debe incluir un procedimiento de investigación de casos.</li>
-					<li>Debe describir los proceso de diagnóstico, definición de medidas, supervisión y evaluación del cumplimiento de las mismas.</li>
-					<li>Debe incluir una lista de los factores de riesgo psicosocial diagnísticados.</li>
-					<li>Debe detallar las responsabilidades (internas y externas) necesarias para el cumplimiento de cada aspecto incorporado.</li>
-					<li>El protocolo debe ser incorporado al RIOHS para empresas de más de 10 empleados.</li>
-				</ul>
-				<b>Contar con un plan de Capacitación e Información.</b>
-				<ul>
-					<li>Hay dos ámbitos de capacitación requeridos: las personas que gestionan los distintos aspectos del protocolo deben tener las competencias necesarias y, por otro lado, todos los trabajadores sin excepción, deben ser capacitados en el protocolo de prevención y en todos los conceptos necesarios para comprenderlo íntegramente.</li>
-					<li>La ley establece la infomación períodica de algunos aspectos, como canales de denuncia, medidas adoptadas, evaluaciones etc.</li>
-					<li>La naturaleza preventiva del protocolo de prevención obliga a las empresas a capacitar a sus empleados en los distintos factores de riesgo psicosocial, con independencia de la existencia de casos o la evaluación que se tenga de ellos.</li>
-				</ul>
-				<b>Una evaluación de los riesgos psicosociales presentes en la empresa, y de las actitudes incívicas y sexistas.</b>
-				<ul>
-					<li>Para las empresas con menos de 10 empleados, está disponible un formulario que permite realizar evaluaciones. Las empresas de más de 10 empleados, tienen la obligación de responder la encuesta CEAL-SM/SUSESO cada dos años, pero pueden usar el formulario u otra herramienta disponible para evaluar y definir medidas.</li>
-					<li>Complementariamente, la ley exige que se consideren variables como el núemro de denuncias presentadas u cualquier otra que aporte información significativa como herramienta de diagnóstico.</li>
-					<li>Las medidas adoptadas deben surgir de un proceso de evaluación</li>
-				</ul>
-			</div>
-		</div>
+		<%= render partial: '0p/home/txt', locals: {cdg: 'cmplmnt_simple'} %>
 		<div class="homeQuestion">
 			<div class="prgnt">
 				Nuestra propuesta de trabajo

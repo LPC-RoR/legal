@@ -1,0 +1,47 @@
+<%= form_with(model: htexto) do |form| %>
+  <% if htexto.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(htexto.errors.count, "error") %> prohibited this htexto from being saved:</h2>
+
+      <ul>
+        <% htexto.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :h_texto, style: "display: block" %>
+    <%= form.text_field :h_texto %>
+  </div>
+
+  <div>
+    <%= form.label :texto, style: "display: block" %>
+    <%= form.text_area :texto %>
+  </div>
+
+  <div>
+    <%= form.label :imagen, style: "display: block" %>
+    <%= form.text_field :imagen %>
+  </div>
+
+  <div>
+    <%= form.label :img_sz, style: "display: block" %>
+    <%= form.text_field :img_sz %>
+  </div>
+
+  <div>
+    <%= form.label :lnk_txt, style: "display: block" %>
+    <%= form.text_field :lnk_txt %>
+  </div>
+
+  <div>
+    <%= form.label :lnk, style: "display: block" %>
+    <%= form.text_field :lnk %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
