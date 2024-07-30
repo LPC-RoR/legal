@@ -14,6 +14,7 @@
 
 .homeBanner {
 	padding: 2em;
+	@include brd(0, 6px 6px 6px 6px, $pltt_9);
 	background-image: url('home_image.jpg');
 	background-size: cover;
 }
@@ -22,54 +23,41 @@
 	font-size: 60px;
 	color: white;
 	text-align: center;
+	.nm_addt {
+		margin-top: 3px;
+		font-size: 10px;
+	}
 }
 
 .homeBanTxt {
 	.b_text {
 		padding: 2em;
-		background-color: hsla(0, 100%, 100%, 0.8);
+		@include brd(0, 6px 6px 6px 6px, $pltt_9);
+		background-color: hsla(0, 100%, 100%, 0.7);
 		color: $blue_1;
 		text-align: center;
-	}
-	.b_box {
-		display: inline-block;
-		margin-top: 2em;
-		padding: .5em;
-		background-color: hsla(0, 100%, 100%, 0.8);
-		color: $pltt_1;
-		text-align: start;
-		width: 150px; 
-		max-width: 150px; 
 	}
 }
 
 .homeBBox {
 	margin: 1em 0 1em 0;
 	.info {
-		@include grd(1fr 1fr 1fr, 10px);
-		text-align: center;
+		@include grd(1fr 1fr, 10px);
+		text-align: left;
 		.pill_1 {
 			@include grd_ncol(1);
 		}
 		.pill_2 {
 			@include grd_ncol(2);
 		}
-		.pill_3 {
-			@include grd_ncol(3);
-		}
-		.pill_1,.pill_2, .pill_3 {
-			background-color: hsla(0, 100%, 100%, 0.8);
+		.pill_1,.pill_2, {
+			@include brd(0, 6px 6px 6px 6px, $pltt_9);
+			background-color: hsla(0, 100%, 100%, 0.7);
 			display: inline-block;
 			.pll_ttl {
-				padding: 20px 20px 0 20px;
-				font-size: 20px;
-				color: blue;
-			}
-			.pll_txt {
-				padding: 0 20px 0 20px;
-				text-align: right;
-				font-size: 12px;
-				color: $pltt_4;
+				padding: 15px;
+				font-size: 18px;
+				color: $blue_1;
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-class AgeUsuNotasController < ApplicationController
+class Actividades::AgeUsuNotasController < ApplicationController
   before_action :set_age_usu_nota, only: %i[ show edit update destroy ]
 
   # GET /age_usu_notas or /age_usu_notas.json
