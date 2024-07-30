@@ -1,0 +1,248 @@
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd_wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
+// grd($grd_tc, $grd_gap);
+// grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
+
+// HOME
+
+/* HOME BANNER */
+
+.homeBanner {
+	padding: 2em;
+	background-image: url('home_image.jpg');
+	background-size: cover;
+}
+
+.homeBanLogo {
+	font-size: 60px;
+	color: white;
+	text-align: center;
+}
+
+.homeBanTxt {
+	.b_text {
+		padding: 2em;
+		background-color: hsla(0, 100%, 100%, 0.8);
+		color: $blue_1;
+		text-align: center;
+	}
+	.b_box {
+		display: inline-block;
+		margin-top: 2em;
+		padding: .5em;
+		background-color: hsla(0, 100%, 100%, 0.8);
+		color: $pltt_1;
+		text-align: start;
+		width: 150px; 
+		max-width: 150px; 
+	}
+}
+
+.homeBBox {
+	margin: 1em 0 1em 0;
+	.info {
+		@include grd(1fr 1fr 1fr, 10px);
+		text-align: center;
+		.pill_1 {
+			@include grd_ncol(1);
+		}
+		.pill_2 {
+			@include grd_ncol(2);
+		}
+		.pill_3 {
+			@include grd_ncol(3);
+		}
+		.pill_1,.pill_2, .pill_3 {
+			background-color: hsla(0, 100%, 100%, 0.8);
+			display: inline-block;
+			.pll_ttl {
+				padding: 20px 20px 0 20px;
+				font-size: 20px;
+				color: blue;
+			}
+			.pll_txt {
+				padding: 0 20px 0 20px;
+				text-align: right;
+				font-size: 12px;
+				color: $pltt_4;
+			}
+		}
+	}
+}
+
+// HOME OBLIGACIONES 
+
+.homeOblgcns {
+	margin: 0 0 2em 0;
+	.ttl {
+		padding: 1em;
+		text-align: center;
+		color: $blue_2;
+		font-size: 30px;
+	}
+	.info {
+		margin: 0 10% 0 10%;
+		@include grd(1fr 1fr 1fr, 10px);
+		text-align: center;
+		.pill_1 {
+			@include grd_ncol(1);
+		}
+		.pill_2 {
+			@include grd_ncol(2);
+		}
+		.pill_3 {
+			@include grd_ncol(3);
+		}
+		.pill_1,.pill_2, .pill_3 {
+			background-color: $pltt_9;
+			@include brd(2px, 6px 6px 6px 6px, $blue_4);
+			display: inline-block;
+			.pll_ttl {
+				padding: 20px;
+				font-size: 20px;
+				color: $blue_2;
+			}
+			.pll_txt {
+				text-align: left;
+				padding: 1em;
+				font-size: 13px;
+				color: $pltt_4;
+				li {
+					margin: 5px 0 5px 0;
+				}
+			}
+		}
+	}
+}
+
+.homePyS {
+	margin: 0 0 2em 0;
+	.ttl {
+		padding: 1em;
+		text-align: center;
+		color: $blue_2;
+		font-size: 30px;
+	}
+	.info {
+		margin: 0 10% 0 10%;
+		@include grd(1fr 1fr 1fr, 10px);
+		text-align: center;
+		.pill_1 {
+			@include grd_ncol(1);
+		}
+		.pill_2 {
+			@include grd_ncol(2);
+		}
+		.pill_3 {
+			@include grd_ncol(3);
+		}
+		.pill_1,.pill_2, .pill_3 {
+			background-color: $pltt_9;
+			@include brd(2px, 6px 6px 6px 6px, $blue_4);
+			display: inline-block;
+			.pll_ttl {
+				padding: 20px;
+				font-size: 20px;
+				color: $blue_2;
+			}
+			.pll_txt {
+				text-align: left;
+				padding: 1em;
+				font-size: 13px;
+				color: $pltt_4;
+				li {
+					margin: 5px 0 5px 0;
+				}
+			}
+		}
+	}
+}
+
+.homeContent {
+	background-color: $pltt_9;
+	margin: 0 10% 10px 10%;
+	@include brd(2px, 6px 6px 6px 6px, $blue_4);
+	.cntnt_ttl {
+		padding: 10px;
+		font-size: 30px;
+		color: $blue_2;
+	}
+	.cntnt_txt {
+		text-align: left;
+		padding: 2em;
+		font-size: 14px;
+		color: $pltt_4;
+		li {
+			margin: 5px 0 5px 0;
+		}
+	}
+	
+}
+
+.homeText {
+	@include brd(2px, 3px 3px 3px 3px, $blue_3);
+	background-image: url('home_text.jpg');
+	background-size: cover;
+	.h_txt {
+			padding: 2em;
+		color: $pltt_1;
+		.txt_ttl {
+			padding: 2em;
+			background-color: hsla(0, 100%, 100%, 0.7);
+			font-size: 20px;
+		}
+		.txt_txt {
+			padding: 2em;
+			background-color: hsla(0, 100%, 100%, 0.7);
+			font-size: 14px;
+		}
+	}
+}
+
+.homeQuestion {
+	margin-top: 2px;
+	.prgnt {
+		border-radius: 10px 10px 0 0;
+		border-top: 2px solid $blue_4;
+		border-left: 2px solid $blue_4;
+		border-right: 2px solid $blue_4;
+		background-color: $blue_2;
+//		background-image: url('home_q.jpg');
+//		background-size: cover;
+		@include mrgn_pddng(0, 1em);
+		font-weight: bold;
+		font-size: 20px;
+		color: white;
+	}
+	.rspst {
+		border-radius: 0 0 10px 10px;
+		border-bottom: 2px solid $blue_4;
+		border-left: 2px solid $blue_4;
+		border-right: 2px solid $blue_4;
+		@include mrgn_pddng(0, 1em);
+		color: $pltt_2;
+		ul {
+			margin: 15px 0 15px 0;
+		}
+	}
+}
+
+/* HOME */
+.homeImage {
+    max-width: 100%;
+    max-height: 100%;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    -o-object-fit: contain;
+    object-fit: contain;
+}
