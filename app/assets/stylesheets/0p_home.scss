@@ -116,6 +116,14 @@
 		color: $blue_2;
 		font-size: 30px;
 	}
+	.w_info {
+		margin: 0 10% 4px 10%;
+		padding: 20px;
+		background-color: $pltt_9;
+		@include brd(2px, 6px 6px 6px 6px, $blue_4);
+		font-size: 20px;
+		color: $blue_2;
+	}
 	.info {
 		margin: 0 10% 0 10%;
 		@include grd(1fr 1fr 1fr, 10px);
@@ -154,15 +162,15 @@
 .homeContent {
 	background-color: $pltt_9;
 	margin: 0 10% 10px 10%;
+	padding: 1em;
 	@include brd(2px, 6px 6px 6px 6px, $blue_4);
 	.cntnt_ttl {
-		padding: 10px;
-		font-size: 30px;
+		font-size: 25px;
 		color: $blue_2;
 	}
 	.cntnt_txt {
+		margin-top: 1em;
 		text-align: left;
-		padding: 2em;
 		font-size: 14px;
 		color: $pltt_4;
 		li {
