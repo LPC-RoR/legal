@@ -18,10 +18,10 @@
 			<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(owner, pago)) %> no encontrada</b></small>
 		<% else %>
 			<small>
-			<%#= s_uf5(get_v_calculo_tarifa(owner, pago)[0]) %>
+			<%= s_uf5(get_v_calculo_tarifa(owner, pago)[0]) %>
 			<i class="bi bi-arrow-left-right"></i>
 			</small>
-			<b><%#= s_pesos(get_v_calculo_tarifa(owner, pago)[1]) %></b>
+			<b><%= s_pesos(get_v_calculo_tarifa(owner, pago)[1]) %></b>
 		<% end %>
 	</div>
 </div>
