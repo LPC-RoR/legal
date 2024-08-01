@@ -140,18 +140,22 @@ module Tarifas
 	end
 
 	def calcula2(formula, objeto, pago)
-		# reemplaza los paréntesis de dentro hacia afuera hasta que no queden
-		formula = parentesis_less(formula, objeto, pago)
-		formula = ternario_less(formula, objeto, pago)
-		formula = funciones_less(formula, objeto, pago)
-		formula = lookup_less(formula, objeto, pago)
-		formula = datos_less(formula, objeto, pago)
-		formula = operaciones_1_less(formula, objeto, pago)
-		formula = operaciones_2_less(formula, objeto, pago)
-		formula = logica_math_less(formula, objeto, pago)
+		if formula.blank?
+			0
+		else
+			# reemplaza los paréntesis de dentro hacia afuera hasta que no queden
+			formula = parentesis_less(formula, objeto, pago)
+			formula = ternario_less(formula, objeto, pago)
+			formula = funciones_less(formula, objeto, pago)
+			formula = lookup_less(formula, objeto, pago)
+			formula = datos_less(formula, objeto, pago)
+			formula = operaciones_1_less(formula, objeto, pago)
+			formula = operaciones_2_less(formula, objeto, pago)
+			formula = logica_math_less(formula, objeto, pago)
 
-		if formula.split(' ').length == 1
-			get_token_value(formula, objeto, pago)
+			if formula.split(' ').length == 1
+				get_token_value(formula, objeto, pago)
+			end
 		end
 	end
 
