@@ -135,7 +135,7 @@ class CausasController < ApplicationController
     require 'axlsx'
 
     caratula = "#{@objeto.rit} #{@objeto.causa}"
-    remuneracion = @objeto.get_valor('Remuneración')
+#    remuneracion = @objeto.get_valor('Remuneración')
     audiencia_preparatoria = @objeto.get_age_actividad('Audiencia preparatoria')
     fecha_ap = audiencia_preparatoria.blank? ? 'sin fecha' : audiencia_preparatoria.fecha
 
@@ -144,7 +144,7 @@ class CausasController < ApplicationController
 
     wb.add_worksheet(name: 'Cuantía') do |sheet|
       sheet.add_row ['Causa', caratula]
-      sheet.add_row ['Remuneración', remuneracion]
+#      sheet.add_row ['Remuneración', remuneracion]
       sheet.add_row ['Audiencia preparatoria', fecha_ap]
       sheet.add_row ['Detalle de la cuantía']
       sheet.add_row ['Item', 'Honorarios', 'Real']
