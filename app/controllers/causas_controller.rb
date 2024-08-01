@@ -135,7 +135,7 @@ class CausasController < ApplicationController
     require 'axlsx'
 
     caratula = "#{@objeto.rit} #{@objeto.causa}"
-#    remuneracion = @objeto.get_valor('Remuneración')
+    remuneracion = 0 # @objeto.get_valor('Remuneración')
     audiencia_preparatoria = @objeto.get_age_actividad('Audiencia preparatoria')
     fecha_ap = audiencia_preparatoria.blank? ? 'sin fecha' : audiencia_preparatoria.fecha
 
