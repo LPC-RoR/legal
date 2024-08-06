@@ -1,4 +1,4 @@
-class DenunciasController < ApplicationController
+class Investigacion::DenunciasController < ApplicationController
   before_action :set_denuncia, only: %i[ show edit update destroy ]
 
   # GET /denuncias or /denuncias.json
