@@ -1,4 +1,4 @@
-class ProEtapasController < ApplicationController
+class Producto::ProEtapasController < ApplicationController
   before_action :set_pro_etapa, only: %i[ show edit update destroy ]
 
   # GET /pro_etapas or /pro_etapas.json
