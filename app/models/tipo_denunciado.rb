@@ -1,0 +1,2 @@
+class TipoDenunciado < ApplicationRecord
+end

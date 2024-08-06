@@ -1,0 +1,2 @@
+module TipoDenunciasHelper
+end

@@ -1,2 +1,0 @@
-class TarLiquidacion < ApplicationRecord
-end

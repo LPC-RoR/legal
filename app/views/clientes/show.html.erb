@@ -16,9 +16,5 @@
 <% when 'Documentos' %>
 	<%= render partial: 'repositorios/shr/ndx_docs', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
 <% when 'Configuración' %>
-    <% if controller_name == 'clientes' and dog? %>
-      <% unless @objeto.variables.empty? %>
-        <%= render partial: 'clientes/shw/variables' %>
-      <% end %>
-    <% end %>
+	<%= render partial: 'clientes/shw/ndx_configuracion', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
 <% end %>

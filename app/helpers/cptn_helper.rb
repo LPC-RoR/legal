@@ -137,7 +137,10 @@ module CptnHelper
 			'preguntas' => 'question',
 			'hm_paginas' => 'file-earmark-richtext',
 			'lgl_documentos' => 'blockquote-left',
-			'lgl_parrafos' => 'blockquote-right'
+			'lgl_parrafos' => 'blockquote-right',
+			'h_textos' => 'blockquote-left',
+			'h_preguntas' => 'question-square',
+			'productos' => 'box-seam'
 		}
 	end
 

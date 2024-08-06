@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_27_010455) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_06_163530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -711,6 +711,43 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_27_010455) do
     t.index ["orden"], name: "index_demandantes_on_orden"
   end
 
+  create_table "denunciados", force: :cascade do |t|
+    t.integer "denuncia_id"
+    t.integer "tipo_denunciado_id"
+    t.string "denunciado"
+    t.string "vinculo"
+    t.string "rut"
+    t.string "cargo"
+    t.string "lugar_trabajo"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["denuncia_id"], name: "index_denunciados_on_denuncia_id"
+    t.index ["tipo_denunciado_id"], name: "index_denunciados_on_tipo_denunciado_id"
+  end
+
+  create_table "denuncias", force: :cascade do |t|
+    t.integer "empresa_id"
+    t.integer "tipo_denuncia_id"
+    t.datetime "fecha_hora"
+    t.string "denunciante"
+    t.string "rut"
+    t.string "cargo"
+    t.string "lugar_trabajo"
+    t.boolean "verbal_escrita"
+    t.boolean "empleador_dt_tercero"
+    t.boolean "presencial_electronica"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["empleador_dt_tercero"], name: "index_denuncias_on_empleador_dt_tercero"
+    t.index ["empresa_id"], name: "index_denuncias_on_empresa_id"
+    t.index ["fecha_hora"], name: "index_denuncias_on_fecha_hora"
+    t.index ["presencial_electronica"], name: "index_denuncias_on_presencial_electronica"
+    t.index ["tipo_denuncia_id"], name: "index_denuncias_on_tipo_denuncia_id"
+    t.index ["verbal_escrita"], name: "index_denuncias_on_verbal_escrita"
+  end
+
   create_table "dt_criterio_multas", force: :cascade do |t|
     t.integer "dt_tabla_multa_id"
     t.integer "orden"
@@ -1336,6 +1373,45 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_27_010455) do
     t.index ["orden"], name: "index_preguntas_on_orden"
   end
 
+  create_table "pro_clientes", force: :cascade do |t|
+    t.integer "cliente_id"
+    t.integer "producto_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_pro_clientes_on_cliente_id"
+    t.index ["producto_id"], name: "index_pro_clientes_on_producto_id"
+  end
+
+  create_table "pro_etapas", force: :cascade do |t|
+    t.integer "producto_id"
+    t.integer "orden"
+    t.string "code_descripcion"
+    t.string "pro_etapa"
+    t.string "estado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code_descripcion"], name: "index_pro_etapas_on_code_descripcion"
+    t.index ["orden"], name: "index_pro_etapas_on_orden"
+    t.index ["producto_id"], name: "index_pro_etapas_on_producto_id"
+  end
+
+  create_table "pro_nominas", force: :cascade do |t|
+    t.integer "app_nomina_id"
+    t.integer "producto_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_nomina_id"], name: "index_pro_nominas_on_app_nomina_id"
+    t.index ["producto_id"], name: "index_pro_nominas_on_producto_id"
+  end
+
+  create_table "productos", force: :cascade do |t|
+    t.string "producto"
+    t.string "code_descripcion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code_descripcion"], name: "index_productos_on_code_descripcion"
+  end
+
   create_table "reg_reportes", force: :cascade do |t|
     t.string "clave"
     t.datetime "created_at", precision: nil, null: false
@@ -1936,6 +2012,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_27_010455) do
     t.integer "tar_tarifa_id"
     t.index ["tar_tarifa_id"], name: "index_tipo_causas_on_tar_tarifa_id"
     t.index ["tipo_causa"], name: "index_tipo_causas_on_tipo_causa"
+  end
+
+  create_table "tipo_denunciados", force: :cascade do |t|
+    t.string "tipo_denunciado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tipo_denuncias", force: :cascade do |t|
+    t.string "tipo_denuncia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tribunal_cortes", force: :cascade do |t|

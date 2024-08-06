@@ -45,13 +45,6 @@ class ClientesController < ApplicationController
       @hoy = Time.zone.today
       set_tabla('age_actividades', @objeto.actividades.order(:fecha), false)
 
-    elsif @options[:menu] == 'Documentos'
-      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-
-      @d_pendientes = @objeto.documentos_pendientes
-      @a_pendientes = @objeto.archivos_pendientes
     elsif @options[:menu] == 'Causas'
 
       @estados = StModelo.find_by(st_modelo: 'Causa').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
@@ -101,7 +94,15 @@ class ClientesController < ApplicationController
 
       set_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       set_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
+    elsif @options[:menu] == 'Documentos'
+      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
+
+      @d_pendientes = @objeto.documentos_pendientes
+      @a_pendientes = @objeto.archivos_pendientes
     elsif @options[:menu] == 'Configuración'
+      set_tabla('productos', @objeto.productos.all.order(:producto), false)
       @vrbls = Variable.all.order(:variable)
     end
   end

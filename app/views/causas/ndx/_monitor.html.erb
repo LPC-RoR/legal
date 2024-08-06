@@ -19,7 +19,7 @@
     <%= render partial: '0p/cmenu/cmenu', locals: { c: 'causas', tipo: tipo, estado: estado, path: path} %>
   </div>
   <div class="rght">
-    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'causas', title: "Causas #{cmenu_clss['causas'][:items][estado].downcase}", link: '/causas/new', tooltip: 'Agregar causa' } %>
+    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'causas', title: "Causas #{estado.blank? ? 'en cobranza' : cmenu_clss['causas'][:items][estado].downcase}", link: '/causas/new', tooltip: 'Agregar causa' } %>
     <%#= @cs_array.blank? %>
     
     <% unless @srch %>

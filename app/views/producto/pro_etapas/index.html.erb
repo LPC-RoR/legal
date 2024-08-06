@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Pro etapas</h1>
+
+<div id="pro_etapas">
+  <% @pro_etapas.each do |pro_etapa| %>
+    <%= render pro_etapa %>
+    <p>
+      <%= link_to "Show this pro etapa", pro_etapa %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New pro etapa", new_pro_etapa_path %>

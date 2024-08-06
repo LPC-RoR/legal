@@ -74,6 +74,22 @@ Rails.application.routes.draw do
 
 # SCOPES *********************************************************
 
+  scope module: 'investigacion' do
+    resources :denunciados
+    resources :denuncias
+    resources :tipo_denunciados
+    resources :tipo_denuncias
+  end
+  scope module: 'producto' do
+    resources :pro_etapas
+    resources :pro_nominas
+    resources :pro_clientes
+    resources :productos do
+      match :agrega_producto, via: :get, on: :member
+      match :elimina_producto, via: :get, on: :member
+    end
+  end
+
   scope module: 'lgl' do
     resources :lgl_entidades
     resources :lgl_recursos
@@ -380,14 +396,9 @@ Rails.application.routes.draw do
     # REVISAR de aquí en adelante
     resources :tar_formula_cuantias
     resources :tar_uf_sistemas
-    resources :tar_elementos
     resources :tar_comentarios do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
-    end
-    resources :tar_horas do
-      match :asigna, via: :get, on: :member
-      match :desasigna, via: :get, on: :member
     end
     resources :tar_detalles
     resources :tar_valores
@@ -424,10 +435,6 @@ Rails.application.routes.draw do
 
     resources :tar_aprobaciones
     resources :tar_cuotas
-
-    resources :tar_variables
-    resources :tar_bases
-    resources :tar_liquidaciones
 
     resources :tar_det_cuantia_controles
     # agregada para diferenciar porcentajes de tarifa según tipo de causa

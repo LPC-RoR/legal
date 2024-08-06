@@ -1,0 +1,22 @@
+<%= form_with(model: tipo_denuncia) do |form| %>
+  <% if tipo_denuncia.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(tipo_denuncia.errors.count, "error") %> prohibited this tipo_denuncia from being saved:</h2>
+
+      <ul>
+        <% tipo_denuncia.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :tipo_denuncia, style: "display: block" %>
+    <%= form.text_field :tipo_denuncia %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

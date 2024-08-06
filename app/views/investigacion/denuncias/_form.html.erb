@@ -1,0 +1,67 @@
+<%= form_with(model: denuncia) do |form| %>
+  <% if denuncia.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(denuncia.errors.count, "error") %> prohibited this denuncia from being saved:</h2>
+
+      <ul>
+        <% denuncia.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :empresa_id, style: "display: block" %>
+    <%= form.number_field :empresa_id %>
+  </div>
+
+  <div>
+    <%= form.label :tipo_denuncia_id, style: "display: block" %>
+    <%= form.number_field :tipo_denuncia_id %>
+  </div>
+
+  <div>
+    <%= form.label :denunciante, style: "display: block" %>
+    <%= form.text_field :denunciante %>
+  </div>
+
+  <div>
+    <%= form.label :rut, style: "display: block" %>
+    <%= form.text_field :rut %>
+  </div>
+
+  <div>
+    <%= form.label :cargo, style: "display: block" %>
+    <%= form.text_field :cargo %>
+  </div>
+
+  <div>
+    <%= form.label :lugar_trabajo, style: "display: block" %>
+    <%= form.text_field :lugar_trabajo %>
+  </div>
+
+  <div>
+    <%= form.label :verbal_escrita, style: "display: block" %>
+    <%= form.check_box :verbal_escrita %>
+  </div>
+
+  <div>
+    <%= form.label :empleador_dt_tercero, style: "display: block" %>
+    <%= form.check_box :empleador_dt_tercero %>
+  </div>
+
+  <div>
+    <%= form.label :presencial_electronica, style: "display: block" %>
+    <%= form.check_box :presencial_electronica %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

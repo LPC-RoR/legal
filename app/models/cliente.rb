@@ -17,6 +17,9 @@ class Cliente < ApplicationRecord
 	has_many :var_clis
 	has_many :variables, through: :var_clis
 
+	has_many :pro_clientes
+	has_many :productos, through: :pro_clientes
+
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :tipo_cliente
 

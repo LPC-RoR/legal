@@ -41,9 +41,12 @@ module Cmenu
 				items: {
 					'tramitación' => 'En Tramitación',
 					'terminada' => 'Terminadas',
-					'cerrada' => 'Cerradas'
+					'cerrada' => 'Cerradas',
+					'cobranza' => 'En Cobranza'
 				},
-				selectors: nil
+				selectors: [
+					['cobranza', operacion?]
+				]
 			},
 			'asesorias' => {
 				estados: [
