@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dependencia_denunciante: MyString
+
+two:
+  dependencia_denunciante: MyString

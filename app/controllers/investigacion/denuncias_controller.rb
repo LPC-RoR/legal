@@ -1,9 +1,42 @@
 class Investigacion::DenunciasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_denuncia, only: %i[ show edit update destroy ]
 
   # GET /denuncias or /denuncias.json
   def index
-    @coleccion = Denuncia.all
+    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+
+    @modelo = StModelo.find_by(st_modelo: 'Denuncia')
+    @estados = @modelo.blank? ? [] : @modelo.st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
+    @tipos = nil
+
+    v_first = get_first_es('denuncias')
+    frst_e = (v_first[0] == 'estado') ? v_first[1] : nil
+    frst_s = (v_first[0] == 'selector') ? v_first[1] : nil
+
+    @estado = (params[:e].blank? and params[:t].blank?) ? frst_e : params[:e]
+    @tipo = (params[:t].blank? and @estado.blank?) ? frst_s : params[:t]
+    @path = "/denuncias?"
+    @link_new = @estado == 'recepcion' ? '/denuncias/new' : nil
+
+    puts "*********************************** index"
+    puts frst_e
+    puts frst_s
+    puts @estado
+    puts @tipo
+#    if params[:query].blank?
+
+      cllcn = Denuncia.where(estado: @estado) if @estado.present?
+#      cllcn = Denuncia.where(en_cobranza: true) if (@tipo.present? and @estado.blank?)
+
+      set_tabla('denuncias', cllcn, true)
+      @srch = false
+#    else
+#      @cs_array = Causa.search_for(params[:query])
+#      @srch = true
+#    end
+
   end
 
   # GET /denuncias/1 or /denuncias/1.json
@@ -65,6 +98,6 @@ class Investigacion::DenunciasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def denuncia_params
-      params.require(:denuncia).permit(:empresa_id, :tipo_denuncia_id, :denunciante, :rut, :cargo, :lugar_trabajo, :verbal_escrita, :empleador_dt_tercero, :presencial_electronica, :email)
+      params.require(:denuncia).permit(:empresa_id, :tipo_denuncia_id, :denunciante, :rut, :cargo, :lugar_trabajo, :verbal_escrita, :empleador_dt_tercero, :presencial_electronica, :email, :representante)
     end
 end

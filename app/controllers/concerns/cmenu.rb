@@ -134,6 +134,33 @@ module Cmenu
 					['asesorias', operacion?]
 				]
 			},
+			'denuncias' => {
+				estados: [
+					{
+						std: 'recepcion',
+						cndcn: admin?
+					},
+					{
+						std: 'diligencias',
+						cndcn: admin?
+					},
+					{
+						std: 'cierre',
+						cndcn: admin?
+					},
+					{
+						std: 'cerrada',
+						cndcn: admin?
+					}
+				],
+				items: {
+					'recepcion' => 'Recepcionadas',
+					'diligencias' => 'Etapa de diligencias',
+					'cierre' => 'Etapa de cierre',
+					'cerrada' => 'Cerradas'
+				},
+				selectors: nil
+			},
 		}
 	end
 

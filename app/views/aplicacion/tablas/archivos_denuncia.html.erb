@@ -1,0 +1,18 @@
+<div class="f_50lft_col">
+	<div class="lft">
+		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'receptor_denuncias', title: "Receptores de denuncia", link: 'new', tooltip: 'Agregar receptor de denuncia' } %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'receptor_denuncias'} %>
+		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'alcance_denuncias', title: "Alcences de denuncia", link: 'new', tooltip: 'Agregar alcance de denuncia' } %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'alcance_denuncias'} %>
+	</div>
+	<div class="rght">
+		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'motivo_denuncias', title: "Motivos de denuncia", link: 'new', tooltip: 'Agregar motivo de denuncia' } %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'motivo_denuncias'} %>
+		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'dependencia_denunciantes', title: "Dependencia de denunciantes", link: 'new', tooltip: 'Agregar dependencia de denunciante' } %>
+
+		<%= render partial: '0p/tabla/tabla', locals: {c: 'dependencia_denunciantes'} %>
+	</div>
+</div>

@@ -1,4 +1,6 @@
 class Investigacion::DenunciadosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_denunciado, only: %i[ show edit update destroy ]
 
   # GET /denunciados or /denunciados.json

@@ -1,0 +1,2 @@
+class ReceptorDenuncia < ApplicationRecord
+end

@@ -70,6 +70,18 @@ class Aplicacion::TablasController < ApplicationController
       set_tabla('m_periodos', MPeriodo.order(clave: :desc), false) 
   end
 
+  def tipos_investigacion
+    set_tabla('tipo_denuncias', TipoDenuncia.all.order(:tipo_denuncia), false)
+    set_tabla('tipo_denunciados', TipoDenunciado.all.order(:tipo_denunciado), false)
+  end
+
+  def archivos_denuncia
+    set_tabla('receptor_denuncias', ReceptorDenuncia.all.order(:receptor_denuncia), false)
+    set_tabla('alcance_denuncias', AlcanceDenuncia.all.order(:alcance_denuncia), false)
+    set_tabla('motivo_denuncias', MotivoDenuncia.all.order(:motivo_denuncia), false)
+    set_tabla('dependencia_denunciantes', DependenciaDenunciante.all.order(:dependencia_denunciante), false)
+  end
+
   # GET /tablas or /tablas.json
   def index
   end

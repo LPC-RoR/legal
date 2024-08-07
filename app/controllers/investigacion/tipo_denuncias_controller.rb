@@ -1,4 +1,6 @@
 class Investigacion::TipoDenunciasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_tipo_denuncia, only: %i[ show edit update destroy ]
 
   # GET /tipo_denuncias or /tipo_denuncias.json
@@ -25,7 +27,8 @@ class Investigacion::TipoDenunciasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to tipo_denuncia_url(@objeto), notice: "Tipo de denuncia fue exitósamente creado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Tipo de denuncia fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +41,8 @@ class Investigacion::TipoDenunciasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tipo_denuncia_params)
-        format.html { redirect_to tipo_denuncia_url(@objeto), notice: "Tipo de denuncia fue exitósamente actualizado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Tipo de denuncia fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,10 +53,11 @@ class Investigacion::TipoDenunciasController < ApplicationController
 
   # DELETE /tipo_denuncias/1 or /tipo_denuncias/1.json
   def destroy
+    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to tipo_denuncias_url, notice: "Tipo de denuncia fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Tipo de denuncia fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -61,6 +66,10 @@ class Investigacion::TipoDenunciasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_tipo_denuncia
       @objeto = TipoDenuncia.find(params[:id])
+    end
+
+    def get_rdrccn
+      @rdrccn = '/tablas/tipos_investigacion'
     end
 
     # Only allow a list of trusted parameters through.

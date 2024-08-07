@@ -1,0 +1,2 @@
+module MotivoDenunciasHelper
+end

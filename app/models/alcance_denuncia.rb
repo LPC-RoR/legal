@@ -1,0 +1,2 @@
+class AlcanceDenuncia < ApplicationRecord
+end

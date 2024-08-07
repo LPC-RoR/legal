@@ -1,14 +1,1 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Denuncias</h1>
-
-<div id="denuncias">
-  <% @denuncias.each do |denuncia| %>
-    <%= render denuncia %>
-    <p>
-      <%= link_to "Show this denuncia", denuncia %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New denuncia", new_denuncia_path %>
+<%= render partial: 'investigacion/denuncias/ndx/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path, link_new: @link_new } %>

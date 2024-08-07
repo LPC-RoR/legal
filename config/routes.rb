@@ -79,6 +79,10 @@ Rails.application.routes.draw do
     resources :denuncias
     resources :tipo_denunciados
     resources :tipo_denuncias
+    resources :alcance_denuncias
+    resources :receptor_denuncias
+    resources :motivo_denuncias
+    resources :dependencia_denunciantes
   end
   scope module: 'producto' do
     resources :pro_etapas
@@ -311,6 +315,8 @@ Rails.application.routes.draw do
       match :tarifas_generales, via: :get, on: :collection
       match :modelo, via: :get, on: :collection
       match :periodos_bancos, via: :get, on: :collection
+      match :tipos_investigacion, via: :get, on: :collection
+      match :archivos_denuncia, via: :get, on: :collection
     end
   end
 

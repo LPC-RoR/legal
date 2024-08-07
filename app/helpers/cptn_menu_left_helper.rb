@@ -15,6 +15,7 @@ module CptnMenuLeftHelper
 						['Cargo', 'finanzas'],
 						['TarAprobacion', 'finanzas'],
 						['TarFactura', 'finanzas'],
+						['Denuncias', 'operacion'],
 						['DtMateria', 'admin']
 					]
 				},
@@ -38,6 +39,14 @@ module CptnMenuLeftHelper
 								['Etapas & Tipos', 'tipos'],
 								['Cuantías & Tribunales', 'cuantias_tribunales'],
 								['Tarifas generales', 'tarifas_generales'],
+							]
+						},
+						{
+							titulo: 'Investigaciones',
+							condicion: admin?,
+							items: [
+								['Tipos', 'tipos_investigacion'],
+								['Archivos Denuncia', 'archivos_denuncia']
 							]
 						},
 						{

@@ -3,6 +3,8 @@ class CreateDenunciados < ActiveRecord::Migration[7.1]
     create_table :denunciados do |t|
       t.integer :denuncia_id
       t.integer :tipo_denunciado_id
+      t.string :empresa_denunciado
+      t.string :rut_empresa_denunciado
       t.string :denunciado
       t.string :vinculo
       t.string :rut

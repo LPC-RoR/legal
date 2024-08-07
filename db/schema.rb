@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_06_163530) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_07_023134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -114,6 +114,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_163530) do
     t.index ["app_perfil_id"], name: "index_age_usuarios_on_app_perfil_id"
     t.index ["owner_class"], name: "index_age_usuarios_on_owner_class"
     t.index ["owner_id"], name: "index_age_usuarios_on_owner_id"
+  end
+
+  create_table "alcance_denuncias", force: :cascade do |t|
+    t.string "alcance_denuncia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "antecedentes", force: :cascade do |t|
@@ -714,6 +720,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_163530) do
   create_table "denunciados", force: :cascade do |t|
     t.integer "denuncia_id"
     t.integer "tipo_denunciado_id"
+    t.string "empresa_denunciado"
+    t.string "rut_empresa_denunciado"
     t.string "denunciado"
     t.string "vinculo"
     t.string "rut"
@@ -728,24 +736,48 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_163530) do
 
   create_table "denuncias", force: :cascade do |t|
     t.integer "empresa_id"
-    t.integer "tipo_denuncia_id"
+    t.integer "alcance_denuncia_id"
+    t.integer "motivo_denuncia_id"
+    t.integer "receptor_denuncia_id"
+    t.integer "investigador_id"
     t.datetime "fecha_hora"
+    t.string "empresa_receptora"
+    t.string "empresa_denunciante"
+    t.string "rut_empresa_denunciante"
+    t.string "representante"
     t.string "denunciante"
     t.string "rut"
+    t.string "email"
     t.string "cargo"
     t.string "lugar_trabajo"
-    t.boolean "verbal_escrita"
-    t.boolean "empleador_dt_tercero"
-    t.boolean "presencial_electronica"
-    t.string "email"
+    t.boolean "denuncia_verbal"
+    t.boolean "denuncia_presencial"
+    t.boolean "denunciante_otra_empresa"
+    t.boolean "denuncia_derivada"
+    t.string "destino_derivacion"
+    t.string "causa_derivacion"
+    t.string "estado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["empleador_dt_tercero"], name: "index_denuncias_on_empleador_dt_tercero"
+    t.integer "dependencia_denunciante_id"
+    t.index ["alcance_denuncia_id"], name: "index_denuncias_on_alcance_denuncia_id"
+    t.index ["denuncia_derivada"], name: "index_denuncias_on_denuncia_derivada"
+    t.index ["denuncia_presencial"], name: "index_denuncias_on_denuncia_presencial"
+    t.index ["denuncia_verbal"], name: "index_denuncias_on_denuncia_verbal"
+    t.index ["denunciante_otra_empresa"], name: "index_denuncias_on_denunciante_otra_empresa"
+    t.index ["dependencia_denunciante_id"], name: "index_denuncias_on_dependencia_denunciante_id"
     t.index ["empresa_id"], name: "index_denuncias_on_empresa_id"
+    t.index ["estado"], name: "index_denuncias_on_estado"
     t.index ["fecha_hora"], name: "index_denuncias_on_fecha_hora"
-    t.index ["presencial_electronica"], name: "index_denuncias_on_presencial_electronica"
-    t.index ["tipo_denuncia_id"], name: "index_denuncias_on_tipo_denuncia_id"
-    t.index ["verbal_escrita"], name: "index_denuncias_on_verbal_escrita"
+    t.index ["investigador_id"], name: "index_denuncias_on_investigador_id"
+    t.index ["motivo_denuncia_id"], name: "index_denuncias_on_motivo_denuncia_id"
+    t.index ["receptor_denuncia_id"], name: "index_denuncias_on_receptor_denuncia_id"
+  end
+
+  create_table "dependencia_denunciantes", force: :cascade do |t|
+    t.string "dependencia_denunciante"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "dt_criterio_multas", force: :cascade do |t|
@@ -1258,6 +1290,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_163530) do
     t.index ["causa_id"], name: "index_monto_conciliaciones_on_causa_id"
   end
 
+  create_table "motivo_denuncias", force: :cascade do |t|
+    t.string "motivo_denuncia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notas", force: :cascade do |t|
     t.string "ownr_clss"
     t.integer "ownr_id"
@@ -1410,6 +1448,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_06_163530) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code_descripcion"], name: "index_productos_on_code_descripcion"
+  end
+
+  create_table "receptor_denuncias", force: :cascade do |t|
+    t.string "receptor_denuncia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reg_reportes", force: :cascade do |t|
