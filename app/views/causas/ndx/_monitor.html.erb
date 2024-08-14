@@ -23,7 +23,7 @@
     <%#= @cs_array.blank? %>
     
     <% unless @srch %>
-      <%= render partial: '0p/tabla/tabla2', locals: {c: 'causas'} %>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'causas'} %>
     <%# elsif @cs_array.class.name == 'Causa' %>
       <%#= render partial: 'causas/list/objeto', locals: {objeto: @cs_array} %>
     <% else %>

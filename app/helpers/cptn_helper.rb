@@ -10,22 +10,6 @@ module CptnHelper
 		no_over_controllers.include?(controller_name)
 	end
 
-	def no_over_menu_controllers
-		[]
-	end
-
-	def no_over_menu_layout?
-		no_over_menu_controllers.include?(controller_name)
-	end
-
-	def no_banner_controllers
-		['publicos']
-	end
-
-	def no_banner_layout?
-		no_banner_controllers.include?(controller_name)
-	end
-
 	def no_foot_controllers
 		['servicios']
 	end

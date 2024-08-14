@@ -2,6 +2,7 @@ module Calendario
   extend ActiveSupport::Concern
 
   def load_calendario
+    # age_actividades_controller#load_calendario
     @hoy = Time.zone.today
 
     @n_annio = params[:annio_sem].blank? ? @hoy.year : params[:annio_sem].split('_')[0].to_i
@@ -50,13 +51,13 @@ module Calendario
     ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].find_index(dt_fecha.strftime('%A'))
   end
 
+  def nombre_dia(dt_fecha)
+    ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'][day_index(dt_fecha)]
+  end
+
   # Si es lunes, es el mismo día, si no, el lunes pasado
   def lunes_dt(dt_fecha)
     dt_fecha - day_index(dt_fecha).day
-  end
-
-  def nombre_dia(dt_fecha)
-    ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'][day_index(dt_fecha)]
   end
 
   def prfx_dia(dt_fecha)

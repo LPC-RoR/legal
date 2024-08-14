@@ -14,7 +14,8 @@ class Investigacion::DenunciadosController < ApplicationController
 
   # GET /denunciados/new
   def new
-    @objeto = Denunciado.new
+    denuncia = Denuncia.find(params[:did])
+    @objeto = Denunciado.new(denuncia_id: denuncia.id)
   end
 
   # GET /denunciados/1/edit
@@ -27,7 +28,8 @@ class Investigacion::DenunciadosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to denunciado_url(@objeto), notice: "Denunciado fue exitósamente creado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Denunciado fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +42,8 @@ class Investigacion::DenunciadosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(denunciado_params)
-        format.html { redirect_to denunciado_url(@objeto), notice: "Denunciado fue exitósamente actualizado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Denunciado fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,10 +54,11 @@ class Investigacion::DenunciadosController < ApplicationController
 
   # DELETE /denunciados/1 or /denunciados/1.json
   def destroy
+    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to denunciados_url, notice: "Denunciado fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Denunciado fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -65,8 +69,12 @@ class Investigacion::DenunciadosController < ApplicationController
       @objeto = Denunciado.find(params[:id])
     end
 
+    def get_rdrccn
+      @rdrccn = "/denuncias/#{@objeto.denuncia.id}?html_options[menu]=Denunciados"
+    end
+
     # Only allow a list of trusted parameters through.
     def denunciado_params
-      params.require(:denunciado).permit(:denuncia_id, :tipo_denunciado_id, :denunciado, :vinculo, :rut, :cargo, :lugar_trabajo, :email)
+      params.require(:denunciado).permit(:denuncia_id, :tipo_denunciado_id, :rut_empresa_denunciado, :empresa_denunciado, :denunciado, :vinculo, :rut, :cargo, :lugar_trabajo, :email)
     end
 end

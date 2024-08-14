@@ -1,15 +1,19 @@
 <% unless @coleccion[c].empty? %>
 
-   <!-- PAGINACION -->
   <%= render partial: '0p/tabla/paginate', locals: {c: c, location: 'arriba'} %>
 
-  <!-- TABLA -->
-  <% if partial?(get_controller(c), 'list', 'objeto') %>
-    <%= render partial: "0p/tabla/list", locals: {coleccion: @coleccion[c], tipo: 'objeto'} %>
-  <% elsif partial?(get_controller(c), 'list', 'lobjeto') %>
-    <%= render partial: "0p/tabla/list", locals: {coleccion: @coleccion[c], tipo: 'list'} %>
+  <% unless objt_prtl(c).blank? %>
+
+    <% if objt_prtl(c) == 'lobjeto' %>
+      <%= render layout: '0capitan/objeto/tabla/wrp_tbl' do %>
+        <%= render partial: "0p/tabla/list", locals: {c: c, clccn: @coleccion[c]} %>
+      <% end %>
+    <% else %>
+      <%= render partial: "0p/tabla/list", locals: {c: c, clccn: @coleccion[c]} %>
+    <% end %>
+
   <% else %>
-    <%#= render partial: '0p/tabla/display_tabla', locals: {c: c} %>
+    <h3 class="text-danger">No se encontró partial de objeto.</h3>
   <% end %>
 
   <%= render partial: '0p/tabla/paginate', locals: {c: c, location: 'abajo'} if @coleccion[c].count > 15 %>

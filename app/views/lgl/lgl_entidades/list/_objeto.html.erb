@@ -1,0 +1,14 @@
+<div class="objeto-box">
+<div class="ln_bjt_app">
+	<div class="ln_nm">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver Causa'} do %>
+			<%= objeto.lgl_entidad %>
+		<% end %> : 
+	</div>
+	<div class="ln_lnks">
+		<% if operacion? %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if check_crud(objeto) %>
+		<% end %>
+	</div>
+</div>
+</div>

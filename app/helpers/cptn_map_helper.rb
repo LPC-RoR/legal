@@ -6,6 +6,7 @@ module CptnMapHelper
 
 	## ------------------------------------------------------- PARTIALS
 
+	## Manejo de SCOPE de archivos
 	def pick_scope(v_scope)
 		if v_scope.blank?
 			nil
@@ -31,22 +32,84 @@ module CptnMapHelper
 		end
 	end
 
-	# actual, se usa para no repetir código del subdirectorio
-	def partial_dir(controller, subdir)
+	def prtl_dir(controller, subdir)
 		"#{with_scope(controller)}#{"/"+subdir unless subdir.blank?}/"
 	end
 
-	# nombre del patial SIN underscore
-	# antiguo 'get_partial'
-	def partial_name(controller, subdir, partial)
-		"#{partial_dir(controller, subdir)}#{partial}"
+	def prtl_name(controller, subdir, partial)
+		"#{prtl_dir(controller, subdir)}#{partial}"
 	end
 
-	# Este helper pergunta si hay un partial con un nombre particular en el directorio del controlador
-	# tipo: {nil='controlador', 'partials', (ruta-adicional)}
-	def partial?(controller, subdir, partial)
-		File.exist?("app/views/#{partial_dir(controller, subdir)}_#{partial}.html.erb")
+	def prtl_to_file(prtl_nm)
+		v_prtl = prtl_nm.split('/')
+		v_prtl[v_prtl.length - 1] = "_#{v_prtl.last}"
+		"app/views/#{v_prtl.join('/')}.html.erb"
 	end
+
+	def prtl?(controller, subdir, partial)
+		File.exist?("app/views/#{prtl_dir(controller, subdir)}_#{partial}.html.erb")
+	end
+
+	def prtl_file?(file)
+		File.exist?(file)
+	end
+
+	# ----------------------------------------------------------------- LAYOUT PARTIALS
+
+	# alias de lyt partial
+	def prtl_als
+		{
+			'layouts/devise/over' => 'layouts/home/over',
+			'layouts/devise/main' => 'layouts/main',
+		}
+	end
+
+	def lyt_prtl_dir
+		if usuario_signed_in?
+			controller_name == 'servicios' ? 'servicios' : nil
+		else
+			devise_controllers.include?(controller_name) ? 'devise' : 'home'
+		end
+	end
+
+	def lyt_prtl(area)
+		prtl_nm = prtl_name('layouts', lyt_prtl_dir, area)
+		prtl_srch = prtl_als[prtl_nm].blank? ? prtl_nm : prtl_als[prtl_nm]
+		prtl_file?(prtl_to_file(prtl_srch)) ? prtl_srch : nil
+	end
+
+	# Se usa para diferenciar Clases de Sass
+	def lyts_prfx
+		usuario_signed_in? ? (controller_name == 'servicios' ? 's' : 'a') : 'h'
+	end
+
+	# ----------------------------------------------------------------- TABLE PARTIALS
+
+	# controlador SIN prefijo por alias
+	def tbl_cntrllr(controller)
+		simple = controller.split('-').last
+		# app_alias in helper Cristiano
+		app_alias[simple].blank? ? simple : app_alias[simple]
+	end
+
+	# source = {controller, objeto}
+	def cntrllr(source)
+		cntrllr = source.class.name == 'String' ? tbl_cntrllr(source) : source.class.name.tableize
+	end
+
+	# source = {controller, objeto}
+	def objt_prtl(source)
+		c = cntrllr(source)
+		prtl?(c, 'list', 'lobjeto') ? 'lobjeto' : ( prtl?(c, 'list', 'objeto') ? 'objeto' : nil )
+	end
+
+	def objt_prtl_name(source)
+		src_prtl = objt_prtl(source)
+		c = cntrllr(source)
+		src_prtl.blank? ? nil : prtl_name(c, 'list', src_prtl)
+	end
+
+	# ----------------------------------------------------------------- 
 
 	## -------------------------------------------------------- BANDEJAS
 	## EN REVISIÓN, se eliminó el uso de layouts, hay que revisar manejo de estados

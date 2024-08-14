@@ -4,7 +4,7 @@
 <div class="f_50lft_col">
 	<div class="lft">
 		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
-		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: TarServicio::TIPOS, label: 'Tipo' } %>
+		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: TarServicio::TIPOS, label: nil } %>
 		<% unless @objeto.owner_id.blank? %>
 			</br>
 			<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_causa_id, label: 'Definir como tarifa por defecto' } %>

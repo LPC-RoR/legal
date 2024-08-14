@@ -8,7 +8,6 @@ module Config
 			app_home: "http://www.abogadosderechodeltrabajo.cl/",
 			activa_tipos_usuario: true,
 			# Determinan la existencia de elementos del layout
-			lyt_o_menu: true,
 			lyt_o_bann: true,
 			lyt_navbar: false,
 			# Número de decimales
@@ -22,9 +21,9 @@ module Config
 	def cfg_navbar
 		{
 			color: 'info',
-			logo_navbar: nil,
+			logo_navbar: 'logo_navbar.png',
 #			logo_navbar: 'logo_navbar.gif',
-			bg_color: '#45b39d'
+			bg_color: '#023047'
 		}
 	end
 

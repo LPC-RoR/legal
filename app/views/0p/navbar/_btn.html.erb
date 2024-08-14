@@ -3,21 +3,11 @@
 <li class="nav-item <%= 'active' if active %>">
 	<% if delete %>
 		<%= link_to link, method: :delete, class: 'nav-link', data_toggle: "tooltip", data_placement: "bottom", title: tooltip do %>
-			<% unless gly.blank? %>
-				<% unless nombre.blank? %><div class="d-md-none"><% end %>
-					<i class=<%="bi-#{gly}"%>></i>
-				<% unless nombre.blank? %></div><% end %>
-			<% end %>
-		    <div class="d-none d-md-block"><%= nombre.capitalize unless nombre.blank? %></div>
+			<%= render partial: '0p/navbar/gly_nm', locals: {gly: gly, nombre: nombre} %>
 		<% end %>
 	<% else %>
 		<%= link_to link, class: "nav-link", data_toggle: "tooltip", data_placement: "bottom", title: tooltip do %>
-			<% unless gly.blank? %>
-				<% unless nombre.blank? %><div class="d-md-none"><% end %>
-					<i class=<%="bi-#{gly}"%>></i>
-				<% unless nombre.blank? %></div><% end %>
-			<% end %>
-			<div class="d-none d-md-block"><%= nombre.capitalize unless nombre.blank? %></div>
+			<%= render partial: '0p/navbar/gly_nm', locals: {gly: gly, nombre: nombre} %>
 		<% end %>
 	<% end %>
 </li>

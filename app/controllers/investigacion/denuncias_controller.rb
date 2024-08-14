@@ -3,6 +3,8 @@ class Investigacion::DenunciasController < ApplicationController
   before_action :scrty_on
   before_action :set_denuncia, only: %i[ show edit update destroy ]
 
+  include Plazos
+
   # GET /denuncias or /denuncias.json
   def index
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
@@ -20,11 +22,6 @@ class Investigacion::DenunciasController < ApplicationController
     @path = "/denuncias?"
     @link_new = @estado == 'recepcion' ? '/denuncias/new' : nil
 
-    puts "*********************************** index"
-    puts frst_e
-    puts frst_s
-    puts @estado
-    puts @tipo
 #    if params[:query].blank?
 
       cllcn = Denuncia.where(estado: @estado) if @estado.present?
@@ -41,11 +38,31 @@ class Investigacion::DenunciasController < ApplicationController
 
   # GET /denuncias/1 or /denuncias/1.json
   def show
+    set_st_estado(@objeto)
+    set_tab( :menu, ['Monitor', ['Denunciados', operacion?], ['Medidas', operacion?], ['Antecedentes', operacion?], ['Informe', operacion?], ['Denuncia', operacion?]] )
+
+    puts "******************************************************** show"
+    prueba = Date.today
+    p_15 = plz_lv(prueba, 6)
+    p2_15 = plz_c(prueba, 6)
+    puts p_15
+    puts p2_15
+
+    case @options[:menu]
+    when 'Monitor'
+    when 'Denunciados'
+      set_tabla('denunciados', @objeto.denunciados.order(:denunciados), false)
+    when 'Medidas'
+    when 'Antecedentes'
+    when 'Informe'
+    when 'Denuncia'
+    end
   end
 
   # GET /denuncias/new
   def new
-    @objeto = Denuncia.new
+    modelo_causa = StModelo.find_by(st_modelo: 'Denuncia')
+    @objeto = Denuncia.new(estado: modelo_causa.primer_estado.st_estado)
   end
 
   # GET /denuncias/1/edit
@@ -58,7 +75,8 @@ class Investigacion::DenunciasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to denuncia_url(@objeto), notice: "Denuncia fue exitósamente creada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Denuncia fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -71,7 +89,8 @@ class Investigacion::DenunciasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(denuncia_params)
-        format.html { redirect_to denuncia_url(@objeto), notice: "Denuncia fue exitósamente actualizada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Denuncia fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -82,10 +101,11 @@ class Investigacion::DenunciasController < ApplicationController
 
   # DELETE /denuncias/1 or /denuncias/1.json
   def destroy
+    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to denuncias_url, notice: "Denuncia fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Denuncia fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -96,8 +116,12 @@ class Investigacion::DenunciasController < ApplicationController
       @objeto = Denuncia.find(params[:id])
     end
 
+    def get_rdrccn
+      @rdrccn = denuncias_path
+    end
+
     # Only allow a list of trusted parameters through.
     def denuncia_params
-      params.require(:denuncia).permit(:empresa_id, :tipo_denuncia_id, :denunciante, :rut, :cargo, :lugar_trabajo, :verbal_escrita, :empleador_dt_tercero, :presencial_electronica, :email, :representante)
+      params.require(:denuncia).permit(:fecha_hora, :fecha_hora_dt, :empresa_id, :cliente_id, :receptor_denuncia_id, :alcance_denuncia_id, :motivo_denuncia_id, :dependencia_denunciante_id, :empresa_receptora, :denuncia_presencial, :denuncia_verbal, :rut_empresa_denunciante, :empresa_denunciante, :representante, :documento_representacion, :rut, :denunciante, :cargo, :lugar_trabajo, :email, :denunciante_otra_empresa, :destino_derivacion, :causa_derivacion, :estado)
     end
 end

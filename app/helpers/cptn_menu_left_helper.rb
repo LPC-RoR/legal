@@ -45,7 +45,7 @@ module CptnMenuLeftHelper
 							titulo: 'Investigaciones',
 							condicion: admin?,
 							items: [
-								['Tipos', 'tipos_investigacion'],
+								['General', 'general'],
 								['Archivos Denuncia', 'archivos_denuncia']
 							]
 						},

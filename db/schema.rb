@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_07_023134) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_07_224211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -760,7 +760,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_023134) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "dependencia_denunciante_id"
+    t.string "documento_representacion"
+    t.integer "cliente_id"
+    t.datetime "fecha_hora_dt"
     t.index ["alcance_denuncia_id"], name: "index_denuncias_on_alcance_denuncia_id"
+    t.index ["cliente_id"], name: "index_denuncias_on_cliente_id"
     t.index ["denuncia_derivada"], name: "index_denuncias_on_denuncia_derivada"
     t.index ["denuncia_presencial"], name: "index_denuncias_on_denuncia_presencial"
     t.index ["denuncia_verbal"], name: "index_denuncias_on_denuncia_verbal"
@@ -769,6 +773,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_023134) do
     t.index ["empresa_id"], name: "index_denuncias_on_empresa_id"
     t.index ["estado"], name: "index_denuncias_on_estado"
     t.index ["fecha_hora"], name: "index_denuncias_on_fecha_hora"
+    t.index ["fecha_hora_dt"], name: "index_denuncias_on_fecha_hora_dt"
     t.index ["investigador_id"], name: "index_denuncias_on_investigador_id"
     t.index ["motivo_denuncia_id"], name: "index_denuncias_on_motivo_denuncia_id"
     t.index ["receptor_denuncia_id"], name: "index_denuncias_on_receptor_denuncia_id"
@@ -2018,6 +2023,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_023134) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["owner_class"], name: "index_tar_variables_on_owner_class"
     t.index ["owner_id"], name: "index_tar_variables_on_owner_id"
+  end
+
+  create_table "tareas", force: :cascade do |t|
+    t.integer "orden"
+    t.string "codigo"
+    t.string "tarea"
+    t.string "plazo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo"], name: "index_tareas_on_codigo"
+    t.index ["orden"], name: "index_tareas_on_orden"
   end
 
   create_table "temas", force: :cascade do |t|

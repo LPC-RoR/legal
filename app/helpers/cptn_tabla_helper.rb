@@ -102,16 +102,13 @@ module CptnTablaHelper
 
 	# -------------------------------------------------------- FORM
 
-	# Este helper encuentra el partial que se debe desplegar como form
-	# originalmente todos llegaban a _form
-	# ahora pregunta si hay un partial llamado _datail en el directorio de las vistas del modelo
-	def detail_partial(controller)
-		# partial?(controlller, dir, partial)
-		if partial?(controller, nil, 'detail')
-			partial_name(controller, nil, 'detail')
-		else
-			'0p/form/detail'
-		end
+	# ULTIMA VERSION : Sólo se trabaja con '_detail.html.erb'
+	# source {controller, objeto}
+	def detail_partial(source)
+		c = cntrllr(source)
+		prtl_nm = prtl_name(c, nil, 'detail')
+		fl = prtl_to_file(prtl_nm)
+		prtl_file?(prtl_to_file(prtl_nm)) ? prtl_nm : nil
 	end
 
 	## ------------------------------------------------------- TABLA | BTNS

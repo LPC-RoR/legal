@@ -50,27 +50,6 @@
 
 /* TABLA - LIST - OBJETO */
 
-.list-box {
-    padding: 1em;
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-    background-color: #ffffff;
-    margin-bottom: -8px;
-    border: 1px solid #f2f4f4;
-    border-radius: 3px 3px 3px 3px;
-    font-family: 'Raleway', sans-serif;
-}
-
-.objeto-box {
-    padding: 1em;
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-    background-color: #f8f9f9;
-    margin-bottom: 2px;
-    border: 1px solid #f2f4f4;
-    border-radius: 3px 3px 3px 3px;
-    font-family: 'Raleway', sans-serif;
-}
-
-
 
 .paginate-box {
     padding-left: 1em; padding-right: 1em;

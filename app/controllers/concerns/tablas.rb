@@ -28,8 +28,8 @@ module Tablas
 			receptor_denuncias: 'archivos_denuncia',
 			alcance_denuncias: 'archivos_denuncia',
 			motivo_denuncias: 'archivos_denuncia',
-			tipo_denuncia: 'tipos_investigacion',
-			tipo_denunciados: 'tipos_investigacion'
+			tareas: 'general',
+			tipo_denunciados: 'general'
 		}
 	end
 

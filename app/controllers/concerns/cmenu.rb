@@ -137,7 +137,7 @@ module Cmenu
 			'denuncias' => {
 				estados: [
 					{
-						std: 'recepcion',
+						std: 'recepción',
 						cndcn: admin?
 					},
 					{
@@ -154,7 +154,7 @@ module Cmenu
 					}
 				],
 				items: {
-					'recepcion' => 'Recepcionadas',
+					'recepción' => 'Recepcionadas',
 					'diligencias' => 'Etapa de diligencias',
 					'cierre' => 'Etapa de cierre',
 					'cerrada' => 'Cerradas'

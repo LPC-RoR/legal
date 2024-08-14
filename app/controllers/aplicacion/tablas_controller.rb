@@ -70,8 +70,8 @@ class Aplicacion::TablasController < ApplicationController
       set_tabla('m_periodos', MPeriodo.order(clave: :desc), false) 
   end
 
-  def tipos_investigacion
-    set_tabla('tipo_denuncias', TipoDenuncia.all.order(:tipo_denuncia), false)
+  def general
+    set_tabla('tareas', Tarea.all.order(:orden), false)
     set_tabla('tipo_denunciados', TipoDenunciado.all.order(:tipo_denunciado), false)
   end
 

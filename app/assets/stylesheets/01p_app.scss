@@ -1,0 +1,170 @@
+$ovr_mn_mrgn: 2px 0 2px 0;
+$ovr_mn_pddng: 2px 0 0 0;
+$ovr_mn_brdr_wdth: 1px;
+$ovr_mn_brdr_ln: solid;
+$ovr_mn_brdr_rds: 3px 3px 3px 3px;
+$ovr_mn_brdr_clr: $pltt_6;
+$ovr_mn_bg_clr: white;
+$ovr_mn_fnt_fmly: $a_fnt_fmly;
+$ovr_mn_clr: $pltt_4;
+
+$ovr_mn_tc: 1fr 1fr 1fr;
+$ovr_mn_gp: 0;
+
+$ovr_mn_lnk_clr: $ovr_mn_clr;
+$ovr_mn_lnk_hvr: $pltt_5;
+
+$bnnr_mrgn: 0 0 4px 0;
+$bnnr_pddng: 0;
+$bnnr_brdr_wdth: $ovr_mn_brdr_wdth;
+$bnnr_brdr_ln: $ovr_mn_brdr_ln;
+$bnnr_brdr_rds: $ovr_mn_brdr_rds;
+$bnnr_brdr_clr: $ovr_mn_brdr_clr;
+$bnnr_bg_clr: $ovr_mn_bg_clr;
+$bnnr_fnt_fmly: $ovr_mn_fnt_fmly;
+$bnnr_clr: $ovr_mn_clr;
+
+$bnnr_tc: auto 1fr;
+$bnnr_gp: 0;
+
+$nvbr_mrgn: 0;
+$nvbr_pddng: 0;
+
+$main_mrgn: 0;
+$main_pddng: 0;
+$main_fnt_fmly: $a_fnt_fmly;
+
+// ERROR & NOTICE
+
+$ntc_rrr_mrgn: 0 0 4px 0;
+$ntc_rrr_pddng: .5rem;
+$ntc_rrr_brdr_wdth: 1px;
+$ntc_rrr_brdr_ln: solid;
+$ntc_rrr_brdr_rds: 3px 3px 3px 3px;
+$ntc_brdr_clr: $blue_5;
+$rrr_brdr_clr: $red_5;
+$ntc_fnt_clr: $blue_1;
+$rrr_fnt_clr: $red_1;
+
+/* OVER  */
+
+// mrgn_pddng($mrgn, $pddng);
+// brd($brd_wdth, $brd_rds, $brd_clr);
+// bx($bg_clr);
+// bx_shdw;
+// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
+// grd($grd_tc, $grd_gap);
+// grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+@import "bscs";
+
+.a_over  {
+	@include mrgn_pddng($a_area_mrgn, $a_area_pddng);
+	.ovr_mn {				                                                     // Over Menu
+		@include mrgn_pddng($ovr_mn_mrgn, $ovr_mn_pddng);
+		@include brd($ovr_mn_brdr_wdth, $ovr_mn_brdr_rds, $ovr_mn_brdr_clr);
+	    box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
+	    background-color: $ovr_mn_bg_clr;
+
+	   	font-family: $ovr_mn_fnt_fmly;
+	    color: $ovr_mn_clr;
+
+	    @include grd($ovr_mn_tc, $ovr_mn_gp);
+  	    justify-items: center;
+
+	    .menu_left {
+	    	padding-left: 10px;
+	    	@include grd_ncol(1);
+	    	justify-self: start;
+	    }
+
+	    .menu_center {
+	    	@include grd_ncol(2);
+	    }
+
+	    .menu_right {
+	    	padding-right: 10px;
+	    	@include grd_ncol(3);
+	    	justify-self: end;
+	    }
+
+	    @include a_hover($c_box_lnk, $c_box_hvr);
+
+	    a:hover {
+			position: relative;
+			left: 2px; /* adjust this value to move the title closer to the top */
+			bottom: 2px; /* adjust this value to move the title closer to the top */
+	    }
+	}
+
+    /* BANNER */
+	.bnnr {
+		@include mrgn_pddng($bnnr_mrgn, $bnnr_pddng);
+		@include brd($bnnr_brdr_wdth, $bnnr_brdr_rds, $bnnr_brdr_clr);
+	    box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
+
+	    background-color: $bnnr_bg_clr;
+	    color: $bnnr_clr;
+
+	    @include grd($bnnr_tc, $bnnr_gp);
+  	    position: relative;
+  	    justify-items: center;
+
+	    .bnnr_img {
+	    	@include grd_ncol(1);
+	    	justify-self: start;
+	    }
+
+	    .bnnr_text {
+	    	@include grd_ncol(2);
+		    position: relative;
+		    top: 25%;
+	    }
+
+	}
+}
+
+/* NAVBAR */
+
+#navbar-logo:hover {
+	position: relative;
+	left: 3px; /* adjust this value to move the title closer to the top */
+	bottom: 3px; /* adjust this value to move the title closer to the top */
+}
+
+.nav-item {
+	a:hover {
+		position: relative;
+		left: 3px; /* adjust this value to move the title closer to the top */
+		bottom: 3px; /* adjust this value to move the title closer to the top */
+	}
+}
+
+.a_nvbr {
+	@include mrgn_pddng($nvbr_mrgn, $nvbr_pddng);
+}
+
+/* BODY */
+
+.lyt_main {
+	@include mrgn_pddng($a_area_mrgn, $a_area_pddng);
+   	font-family: $main_fnt_fmly;
+}
+
+// NOTICE and ALERT
+
+.lyt_notice {
+	@include mrgn_pddng($ntc_rrr_mrgn, $ntc_rrr_pddng);
+	@include brd($ntc_rrr_brdr_wdth, $ntc_rrr_brdr_rds, $ntc_brdr_clr);
+    box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
+    background-color: $blue_5;
+    color: $ntc_fnt_clr;
+}
+
+.lyt_error {
+	@include mrgn_pddng($ntc_rrr_mrgn, $ntc_rrr_pddng);
+	@include brd($ntc_rrr_brdr_wdth, $ntc_rrr_brdr_rds, $rrr_brdr_clr);
+	box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
+    background-color: $red_5;
+    color: $rrr_fnt_clr;
+}

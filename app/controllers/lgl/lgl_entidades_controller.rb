@@ -27,7 +27,8 @@ class Lgl::LglEntidadesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to lgl_entidad_url(@objeto), notice: "Lgl entidad was successfully created." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Entidad fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +41,8 @@ class Lgl::LglEntidadesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(lgl_entidad_params)
-        format.html { redirect_to lgl_entidad_url(@objeto), notice: "Lgl entidad was successfully updated." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Entidad fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,10 +53,11 @@ class Lgl::LglEntidadesController < ApplicationController
 
   # DELETE /lgl_entidades/1 or /lgl_entidades/1.json
   def destroy
+    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to lgl_entidades_url, notice: "Lgl entidad was successfully destroyed." }
+      format.html { redirect_to @rdrccn, notice: "Entidad fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -63,6 +66,10 @@ class Lgl::LglEntidadesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lgl_entidad
       @objeto = LglEntidad.find(params[:id])
+    end
+
+    def get_rdrccn
+      @rdrccn = lgl_documentos_path
     end
 
     # Only allow a list of trusted parameters through.

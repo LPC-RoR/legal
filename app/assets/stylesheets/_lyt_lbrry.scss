@@ -1,0 +1,5 @@
+$mrgn_area: 0 5% 0 5% !default;
+
+@mixin set_area {
+	margin: $mrgn_area;
+}

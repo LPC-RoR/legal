@@ -1,0 +1,6 @@
+<% unless gly.blank? %>
+	<% unless nombre.blank? %><div class="d-md-none"><% end %>
+		<h5 class="text-white"><i class=<%="bi-#{gly}"%>></i></h5>
+	<% unless nombre.blank? %></div><% end %>
+<% end %>
+<div class="d-none d-md-block"><%= nombre.capitalize unless nombre.blank? %></div>

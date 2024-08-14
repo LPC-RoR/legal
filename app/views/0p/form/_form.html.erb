@@ -17,7 +17,11 @@
 		</div>
 		<% end %>
 
-		<%= render partial: detail_partial(controller_name), locals: {c: controller_name, form: form} %>	
+		<% unless detail_partial(@objeto).blank? %>
+			<%= render partial: detail_partial(@objeto), locals: {c: controller_name, form: form} %>
+		<% else %>
+			<h3>Ne se encontró archivo con el formulario</h3>
+		<% end %>
 
 		<div class="formCell">
 			<%= form.submit "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{m_to_name(@objeto.class.name)}" %>

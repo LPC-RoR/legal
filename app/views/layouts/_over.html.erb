@@ -1,30 +1,13 @@
-<% unless no_over_layout? %>
-	<div class="lyt_over">
-	<% if lyt_o_menu %>
-		<!-- OVER MENU -->
-		<% if partial?('0capitan', 'app/over', 'menu_over') %>
-			<% unless no_over_menu_layout? %>
-				<div class="container-fluid">
-					<div class="lyt_ovr_menu">
-						<%= render partial: '0capitan/app/over/menu_over' %>
-					</div>
-				</div>
-			<% end %>
-		<% end %>
+<div class="<%= lyts_prfx %>_over">
+	<% if prtl?('0capitan', 'app/over', 'menu_over') %>
+		<div class="ovr_mn">
+			<%= render partial: '0capitan/app/over/menu_over' %>
+		</div>
 	<% end %>
 
-						<%#= render partial: '0capitan/app/over/w_bnnr' %>
-	<% if lyt_o_bann %>
-		<!-- BANNER -->
-		<% if partial?('0capitan', 'app/over', 'banner') %>
-			<% unless no_banner_layout? %>
-				<div class="container-fluid">
-					<div class="bnnr">
-						<%= render partial: '0capitan/app/over/banner' %>
-					</div>
-				</div>
-			<% end %>
-		<% end %>
+	<% if prtl?('0capitan', 'app/over', 'banner') %>
+		<div class="bnnr">
+			<%= render partial: '0capitan/app/over/banner' %>
+		</div>
 	<% end %>
-	</div>
-<% end %>
+</div>

@@ -1,10 +1,14 @@
-<p style="color: green"><%= notice %></p>
+<%= render partial: 'investigacion/denuncias/shw/ttl', locals: {objeto: @objeto} %>
+<%= render partial: 'st_estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
 
-<%= render @denuncia %>
+<%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 
-<div>
-  <%= link_to "Edit this denuncia", edit_denuncia_path(@denuncia) %> |
-  <%= link_to "Back to denuncias", denuncias_path %>
-
-  <%= button_to "Destroy this denuncia", @denuncia, method: :delete %>
-</div>
+<% case @options[:menu] %>
+<% when 'Monitor' %>
+<% when 'Denunciados' %>
+	<%= render partial: 'investigacion/denunciados/ndx/ndx', locals: {objeto: @objeto} %>
+<% when 'Medidas' %>
+<% when 'Antecedentes' %>
+<% when 'Informes' %>
+<% when 'Denuncia' %>
+<% end %>

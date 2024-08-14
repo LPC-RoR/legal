@@ -83,6 +83,10 @@ Rails.application.routes.draw do
     resources :receptor_denuncias
     resources :motivo_denuncias
     resources :dependencia_denunciantes
+    resources :tareas do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
   end
   scope module: 'producto' do
     resources :pro_etapas
@@ -255,13 +259,11 @@ Rails.application.routes.draw do
   scope module: 'recursos' do
     resources :app_contactos
     resources :app_enlaces
-    resources :app_mejoras
     resources :app_mensajes do
       match :respuesta, via: :post, on: :collection
       match :estado, via: :get, on: :member
     end
     resources :app_msg_msgs
-    resources :app_observaciones
   end
 
   scope module: 'repositorios' do
@@ -315,7 +317,7 @@ Rails.application.routes.draw do
       match :tarifas_generales, via: :get, on: :collection
       match :modelo, via: :get, on: :collection
       match :periodos_bancos, via: :get, on: :collection
-      match :tipos_investigacion, via: :get, on: :collection
+      match :general, via: :get, on: :collection
       match :archivos_denuncia, via: :get, on: :collection
     end
   end
@@ -348,10 +350,6 @@ Rails.application.routes.draw do
   end
   
   scope module: 'help' do
-    resources :hlp_pasos
-    resources :hlp_tutoriales do
-      resources :hlp_pasos
-    end
   end
 
   scope module: 'st_estados' do

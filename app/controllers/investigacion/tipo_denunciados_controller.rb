@@ -69,7 +69,7 @@ class Investigacion::TipoDenunciadosController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = '/tablas/tipos_investigacion'
+      @rdrccn = '/tablas/general'
     end
 
     # Only allow a list of trusted parameters through.

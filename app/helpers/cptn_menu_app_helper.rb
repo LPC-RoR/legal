@@ -1,29 +1,35 @@
 module CptnMenuAppHelper
 
-	def menu_base
-	    [
-	        [nil,        "/blg_articulos",               'nomina', controller_icon['blg_articulos'], 'Blogs'],
-	        [nil,         '/app_recursos/administracion', 'admin', 'person-rolodex', 'Administración'],
-#	        ["Contenido",  "/tema_ayudas",                 'admin', 'stack'],
-#	        [nil, "/app_recursos/procesos",       'dog',   'radioactive']
-	    ]
+	def navbar?
+		{ a: false, s: false, h: true}
 	end
 
+	def menu_admn
+	    []
+	end
+
+	def h_menu_admn
+	    []
+	end
+
+	def s_menu_admn
+	    []
+	end
+
+	# MENU del USUARIO REGISTRADO
 	def menu
 	    ## Menu principal de la aplicación
-	    # [ 'Item del menú', 'link', 'accesso', 'gly' ]
+	    # [ 'Item del menú', 'link', {admin?, operacion?}, 'gly' ]
 	    [
-	        ['Clientes',       "/clientes",             'nomina', 'building',                       'Clientes'],
-	        ['Causas',       "/causas",               'nomina', 'journal-text',                   'Causas'],
-	        ['Asesorías',       "/asesorias",            'nomina', 'briefcase',                      'Asesorías'],
-	        ['Aprobaciones',       "/tar_aprobaciones",     'nomina', 'check-all',                      'Aprobaciones'],
-	        ['Facturas',       "/tar_facturas",         'nomina', 'receipt',                        'Facturas'],
-#	        [nil,       "/app_repositorios",     'nomina', controller_icon['app_repos'],     'Repositorios de documentos'],
-	        [nil,       "/m_modelos",            'nomina', controller_icon['m_modelos'],     'Modelo de negocios'],
-	        [nil,       "/tablas",               'nomina', 'table',                          'Tablas'],
-	        [nil,       "/dt_materias",          'nomina', 'bank',                           'Materias']
 	    ]
 
+	end
+
+	def s_menu
+	    []
+	end
+	def h_menu
+	    []
 	end
 
 	def dd_items(item)

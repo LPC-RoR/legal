@@ -1,24 +1,65 @@
 <div class='form-row'>
 	<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha_hora, label: 'Fecha y hora denuncia' } %>
+	<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha_hora_dt, label: 'Fecha y hora certificado DT' } %>
 	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: nil, label: 'Cliente' } %>
-	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :receptor_denuncia_id, colection: ReceptorDenuncia.all.order(:receptor_denuncia).collect { |rd| [rd.receptor_denuncia, rd.id] }, display_field: 'receptor_denuncia', prompt: nil, label: 'Receptor de denuncia' } %>
-	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :alcance_denuncia_id, colection: AlcanceDenuncia.all.order(:alcance_denuncia).collect { |ad| [ad.alcance_denuncia, ad.id] }, display_field: 'alcance_denuncia', prompt: nil, label: 'Alcance de denuncia' } %>
-	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :motivo_denuncia_id, colection: MotivoDenuncia.all.order(:motivo_denuncia).collect { |md| [md.motivo_denuncia, md.id] }, display_field: 'motivo_denuncia', prompt: nil, label: 'Motivo de denuncia' } %>
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :receptor_denuncia_id, colection: ReceptorDenuncia.all.order(:receptor_denuncia).collect { |rd| [rd.receptor_denuncia, rd.id] }, display_field: 'receptor_denuncia', prompt: nil, label: 'Receptor de la denuncia' } %>
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :alcance_denuncia_id, colection: AlcanceDenuncia.all.order(:alcance_denuncia).collect { |ad| [ad.alcance_denuncia, ad.id] }, display_field: 'alcance_denuncia', prompt: nil, label: 'Alcance de la denuncia' } %>
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :motivo_denuncia_id, colection: MotivoDenuncia.all.order(:motivo_denuncia).collect { |md| [md.motivo_denuncia, md.id] }, display_field: 'motivo_denuncia', prompt: nil, label: 'Motivo de la denuncia' } %>
 
 	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :dependencia_denunciante_id, colection: DependenciaDenunciante.all.order(:dependencia_denunciante).collect { |dd| [dd.dependencia_denunciante, dd.id] }, display_field: 'dependencia_denunciante', prompt: nil, label: 'Dependencia del denunciante' } %>
 </div>
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :empresa_receptora, label: 'Empresa receptora' } %>
 <div class='form-row'>
 	<%= render partial: '0p/frm_flds/check_box', locals: { form: form, token: :denuncia_presencial, label: 'Denuncia presencial' } %>
 	<%= render partial: '0p/frm_flds/check_box', locals: { form: form, token: :denuncia_verbal, label: 'Denuncia Verbal' } %>
 </div>
 <hr>
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :representante, label: 'Representante' } %>
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :rut, label: 'RUT Denunciante' } %>
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :denunciante, label: 'Denunciante' } %>
+
+<h5>Información del denunciante</h5>
+<div class="f_25_75_col">
+	<div class="lft">
+		<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :rut_empresa_denunciante, label: 'RUT empresa del denunciante' } %>
+	</div>
+	<div class="rght">
+		<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :empresa_denunciante, label: 'Empresa del denunciante' } %>
+	</div>
+</div>
+
+<div class="f_50_col">
+	<div class="lft">
+		<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :representante, label: 'Representante' } %>
+	</div>
+	<div class="rght">
+		<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :documento_representacion, label: 'Documento que acredita representación' } %>
+	</div>
+</div>
+
+<div class="f_25_75_col">
+	<div class="lft">
+		<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :rut, label: 'RUT del denunciante' } %>
+	</div>
+	<div class="rght">
+		<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :denunciante, label: 'Nombre del denunciante' } %>
+	</div>
+</div>
+
+<div class="f_50_col">
+	<div class="lft">
+		<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :cargo, label: 'Cargo' } %>
+	</div>
+	<div class="rght">
+		<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :lugar_trabajo, label: 'Lugar de trabajo' } %>
+	</div>
+</div>
+
 <%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email, label: 'email' } %>
 
-<div class="formCell">
-		<%#= render partial: '0p/form_fields/check_box', locals: { form: form, token: :en_cobranza, label: 'En cobranza' } %>
+<div class='form-row'>
+	<%= render partial: '0p/frm_flds/check_box', locals: { form: form, token: :denunciante_otra_empresa, label: 'Denunciante de empresa externa' } %>
 </div>
+<hr>
+<h5>Derivación de denuncia</h5>
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :destino_derivacion, label: 'Destino derivación' } %>
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :causa_derivacion, label: 'Causa derivación' } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>

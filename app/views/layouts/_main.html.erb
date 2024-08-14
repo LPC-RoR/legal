@@ -1,0 +1,33 @@
+<div class="lyt_main">
+
+	<%= render partial: 'layouts/partials/notice_alert' %>
+
+	<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, ES UNA PÁGINA PÚBLICA O DE DEVISE -->
+	<% if get_perfil_activo.present? or get_public_controllers.include?(controller_name) or devise_controllers.include?(controller_name)  %>
+
+		<!-- Valida despliegue de menu_left -->
+		<!-- Tiene que estar activado en la aplicación -->
+		<!-- El controlador debe estar en la lista de despliegue -->
+		<% unless lm_sym.blank? %>
+
+			<!--div class="f_250pxlft_col"-->
+			<div class="f_lmn_lyt">
+				<div class="lft">
+					<%= render partial: '0p/lmenu/lmenu', locals: { sym: lm_sym } %>
+				</div>
+				<div class="rgth">
+					<%= yield %>
+				</div>
+			</div>
+
+		<% else %>
+			<%= yield %>
+		<% end %>
+
+	<% else %>
+		<div  class="lyt_error">
+			<i class="bi bi-cone-striped"></i> Usuario sin perfil activo, comuniquese con el administrador de la plataforma.
+		</div>
+	<% end %>
+
+</div>

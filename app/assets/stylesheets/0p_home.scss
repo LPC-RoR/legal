@@ -14,25 +14,52 @@
 
 .homeBanner {
 	padding: 2em;
-	@include brd(0, 6px 6px 6px 6px, $pltt_9);
 	background-image: url('home_image.jpg');
 	background-size: cover;
-	@include bx_shdw;
 }
+
+.bnnBxs {
+	padding: 2em;
+//	background-image: url('home_image.jpg');
+//	background-size: cover;
+
+//  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+
+	.bnnBx {
+	  background-color: dodgerblue;
+	  color: white;
+	  padding: 1rem;
+	  height: 4rem;
+	}
+
+}
+
+
+
+
+
 
 .homeBanLogo {
 	font-size: 60px;
 	color: white;
 	text-align: center;
 	.nm_addt {
-		margin-top: 3px;
-		font-size: 10px;
+		font-size: 12px;
 	}
 }
 
 .homeBanTxt {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+//  font-weight: <weight>;
+  font-style: normal;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
 	.b_text {
-		padding: 2em;
+		padding: 1em;
 		@include brd(0, 6px 6px 6px 6px, $pltt_9);
 		background-color: hsla(0, 100%, 100%, 0.7);
 		@include bx_shdw;
@@ -75,6 +102,8 @@
 		}
 	}
 }
+
+// HOME PRINCIPAL
 
 
 // HOME OBLIGACIONES 
@@ -221,4 +250,12 @@
     top: 0;
     -o-object-fit: contain;
     object-fit: contain;
+}
+
+@media (min-width: 600px) {
+  .bnnBxs { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .bnnBxs { grid-template-columns: repeat(3, 1fr); }
 }

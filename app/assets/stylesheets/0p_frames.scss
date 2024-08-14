@@ -32,6 +32,14 @@ $auto: auto;
 	margin-bottom: 4px;
 }
 
+.f_25_75_col {
+	@include frm_bsc(25% 75%);
+}
+
+.f_30_70_col {
+	@include frm_bsc(30% 70%);
+}
+
 .f_50_col {
 	@include frm_bsc(50% 50%);
 }

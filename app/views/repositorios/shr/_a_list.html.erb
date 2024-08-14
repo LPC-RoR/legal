@@ -1,7 +1,7 @@
 <% unless coleccion.empty? %>
 	<% coleccion.each do |archivo| %>
 		<% if seguridad(archivo.visible_para) %>
-			<%= render partial: partial_name(archivo.class.name.tableize, 'list', "bjt") , locals: {objeto: archivo} %>
+			<%= render partial: prtl_name(archivo.class.name.tableize, 'list', "bjt") , locals: {objeto: archivo} %>
 		<% end %>
 	<% end %>
 <% end %>

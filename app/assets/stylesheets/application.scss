@@ -14,8 +14,11 @@
  */
 @import "bootstrap";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css");
-@import "footer";
-@import "0p_config";
+@import "00p_config";
+@import "01p_app";
+@import "02p_srvcs";
+@import "03p_hm";
+//@import "04p_grids";
 @import "0p_form-style";
 @import "0p_frames";
 @import "0p_titles";
@@ -23,8 +26,7 @@
 @import "0p_general";
 @import "0p_home";
 @import "0p_tablas";
-@import "0p_layout";
-@import "0p_menu";
+@import "0p_lmenu";
 @import "0p_cmenu";
 @import "0p_repositorios";
 @import "app_causas";
@@ -36,6 +38,8 @@
 @import "app_hechos";
 @import "app_lgl";
 @import "karin";
+@import "footer";
+@import "fx_menu";
 
 .sb-link {
   text-decoration: none;

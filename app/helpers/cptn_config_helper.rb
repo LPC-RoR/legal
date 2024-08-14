@@ -55,19 +55,11 @@ module CptnConfigHelper
 	end
 
 	def app_sigla
-		get_cfg('app_sigla')
+		AppVersion.all.empty? ? 'app' : get_version_activa.app_sigla
 	end
 
 	def app_home
 		get_cfg('app_home')
-	end
-
-	def lyt_o_menu
-		get_cfg('lyt_o_menu')
-	end
-
-	def lyt_o_bann
-		get_cfg('lyt_o_bann')
 	end
 
 	def lyt_navbar

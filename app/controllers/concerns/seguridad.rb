@@ -10,7 +10,7 @@ module Seguridad
 			nomina: usuario_signed_in? ? AppNomina.find_by(email: current_usuario.email) : nil,
 			perfil: perfil,
 			dog_perfil: AppPerfil.find_by(email: AppVersion::DOG_EMAIL),
-			usuario_agenda: usuario_signed_in? ? perfil.age_usuario : nil
+			usuario_agenda: usuario_signed_in? ? (perfil.blank? ? nil : perfil.age_usuario) : nil
 		}
 	end
 
@@ -30,6 +30,10 @@ module Seguridad
 
 	# VLS
 
+	def app_sigla
+		AppVersion.all.empty? ? 'app' : get_version_activa.app_sigla
+	end
+
 	def get_public_controllers
 		['publicos']
 	end
@@ -39,11 +43,11 @@ module Seguridad
 	end
 
 	def dog_name
-		usuario_signed_in? ? @scrty_vls[:dog_name] : get_version_activa.dog_name
+		usuario_signed_in? ? @scrty_vls[:dog_name] : (AppVersion.all.empty? ? AppVersion::DOG_NAME : get_version_activa.dog_email)
 	end
 
 	def dog_email
-		usuario_signed_in? ? @scrty_vls[:dog_email] : get_version_activa.dog_email
+		usuario_signed_in? ? @scrty_vls[:dog_email] : (AppVersion.all.empty? ? AppVersion::DOG_EMAIL : get_version_activa.dog_email)
 	end
 
 	# ACTIVOS
@@ -53,7 +57,7 @@ module Seguridad
 	end
 
 	def dog_perfil?
-		dog_perfil.present? and dog_perfil.o_clss == 'AppVersion' and dog_perfil.o_id == version_activa.id
+		AppVersion.all.empty? ? false : dog_perfil.present? and dog_perfil.o_clss == 'AppVersion' and dog_perfil.o_id == version_activa.id
 	end
 
 	def usuario_agenda

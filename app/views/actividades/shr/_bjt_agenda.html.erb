@@ -21,7 +21,7 @@
 <div class="f_250rght_col">
 	<div class="lft">
 		<% @coleccion['age_actividades'].each do |age_actividad| %>
-			<% unless (['realizada', 'cancelada'].include?(age_actividad.estado) or age_actividad.fecha < Time.zone.today) %>
+			<% unless (['realizada', 'cancelada'].include?(age_actividad.estado) or (age_actividad.fecha.present? and age_actividad.fecha < Time.zone.today)) %>
 				<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: age_actividad, usuarios: usuarios} %>
 			<% end %>
 		<% end %>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= get_version_activa.app_sigla%></title>
+    <title><%= app_sigla%></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -22,22 +22,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow&family=Lexend:wght@100;200;300;400;500;600;700;800;900&family=Raleway:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 
   </head>
 
   <body>
+    <%= render partial: lyt_prtl('over') unless lyt_prtl('over').blank? %>
 
-    <!-- OVER -->
-    <%= render partial: 'layouts/over' %>
+    <%= render partial: lyt_prtl('navbar') unless lyt_prtl('navbar').blank? %>
 
-    <!-- NAVBAR+ -->
-    <%= render partial: 'layouts/navbar' %>
+    <%= render partial: lyt_prtl('main') unless lyt_prtl('main').blank? %>
 
-    <!-- BODY -->
-    <%= render partial: 'layouts/body' %>
-
-    <!-- FOOTER -->
-    <!-- Administrar con subdirectorios -->
-    <%= render partial: 'layouts/footer' %>
+    <%= render partial: lyt_prtl('footer') unless lyt_prtl('footer').blank? %>
   </body>
 </html>

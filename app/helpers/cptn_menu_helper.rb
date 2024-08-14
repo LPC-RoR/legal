@@ -13,13 +13,4 @@ module CptnMenuHelper
 		detalle_link[1] == controller_name and nombre_accion == action_name
 	end
 
-	def display_item_menu?(item, tipo_item)
-		# SEGURIDADA PARA IEMS DE MENÚS
-		if perfil_activo? == true
-			seguridad(tipo_item)
-		else
-			tipo_item == 'anonimo'
-		end
-	end
-
 end

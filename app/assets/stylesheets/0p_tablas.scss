@@ -162,3 +162,25 @@ $app_ln_gp: 0;
     @include ln_bsc_prprty(white, $app_tb_fnt, 13px);
     @include ln_ord_nm_lnks(blue, gray);
 }
+
+
+// Cajas de tablas y objetos
+.tbl_bx {
+    padding: 1em;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    background-color: #ffffff;
+    margin-bottom: -8px;
+    border: 1px solid #f2f4f4;
+    border-radius: 3px 3px 3px 3px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.objeto-box {
+    padding: 1em;
+    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
+    background-color: #f8f9f9;
+    margin-bottom: 2px;
+    border: 1px solid #f2f4f4;
+    border-radius: 3px 3px 3px 3px;
+    font-family: 'Raleway', sans-serif;
+}
