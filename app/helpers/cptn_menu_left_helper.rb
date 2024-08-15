@@ -60,12 +60,25 @@ module CptnMenuLeftHelper
 					]
 				},
 				{
+					titulo: 'Ley Karin',
+					condicion: admin?,
+					items: [
+						'Procedimiento',
+						'Pautas'
+					]
+				},
+				{
+					titulo: 'Legal',
+					condicion: admin?,
+					items: [
+						'LglDocumento',
+					]
+				},
+				{
 					titulo: 'Administración', 
 					condicion: admin?, 
 					items: [
 						'AppNomina',
-						'Pautas',
-						'LglDocumento',
 						'Producto',
 						'HmPagina',
 						'BlgArticulo',

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lgl_n_empleados: MyString
+  n_min: 9.99
+  n_max: 9.99
+
+two:
+  lgl_n_empleados: MyString
+  n_min: 9.99
+  n_max: 9.99

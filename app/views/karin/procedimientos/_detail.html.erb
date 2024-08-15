@@ -1,0 +1,5 @@
+<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :tipo_procedimiento_id, colection: TipoProcedimiento.order(:tipo_procedimiento).collect { |tp| [tp.tipo_procedimiento, tp.id] }, display_field: 'tipo_procedimiento', prompt: nil, label: 'Tipo de Procedimiento' } %>
+
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :procedimiento, label: 'Procedimiento' } %>
+
+<%= render partial: '0p/frm_flds/text_area', locals: { form: form, token: :detalle, label: 'Detalle' } %>

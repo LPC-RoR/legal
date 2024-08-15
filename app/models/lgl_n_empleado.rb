@@ -1,0 +1,2 @@
+class LglNEmpleado < ApplicationRecord
+end

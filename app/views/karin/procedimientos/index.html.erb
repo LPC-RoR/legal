@@ -1,0 +1,13 @@
+<div class="f_50_col">
+  <div class="lft">
+    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'procedimientos', title: "Procedimientos", link: 'new', tooltip: 'Agregar procedimiento' } %>
+
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'procedimientos'} %>
+  </div>
+  <div class="rght">
+    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'tipo_procedimientos', title: "Tipos de Procedimiento", link: 'new', tooltip: 'Agregar tipo de procedimiento' } %>
+
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_procedimientos'} %>
+  </div>
+</div>
+

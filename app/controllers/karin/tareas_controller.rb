@@ -76,6 +76,6 @@ class Investigacion::TareasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tarea_params
-      params.require(:tarea).permit(:orden, :codigo, :tarea, :plazo)
+      params.require(:tarea).permit(:orden, :procedimiento_id, :detalle, :codigo, :tarea, :plazo)
     end
 end

@@ -1,0 +1,6 @@
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :lgl_n_empleados, label: 'Nº de empleados' } %>
+
+<div class="form-row">
+	<%= render partial: '0p/frm_flds/decimal', locals: { form: form, token: :n_min, label: 'Mínimo' } %>
+	<%= render partial: '0p/frm_flds/decimal', locals: { form: form, token: :n_max, label: 'Máximo' } %>
+</div>

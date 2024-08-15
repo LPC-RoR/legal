@@ -83,10 +83,6 @@ Rails.application.routes.draw do
     resources :receptor_denuncias
     resources :motivo_denuncias
     resources :dependencia_denunciantes
-    resources :tareas do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
-    end
   end
   scope module: 'producto' do
     resources :pro_etapas
@@ -114,6 +110,7 @@ Rails.application.routes.draw do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
+    resources :lgl_n_empleados
   end 
 
   scope module: 'karin' do
@@ -126,6 +123,12 @@ Rails.application.routes.draw do
     resources :cuestionarios
     resources :preguntas
     resources :pautas
+    resources :tipo_procedimientos
+    resources :procedimientos
+    resources :tareas do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
   end
 
   scope module: 'hm' do

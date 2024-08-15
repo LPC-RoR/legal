@@ -1,0 +1,27 @@
+<%= form_with(model: procedimiento) do |form| %>
+  <% if procedimiento.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(procedimiento.errors.count, "error") %> prohibited this procedimiento from being saved:</h2>
+
+      <ul>
+        <% procedimiento.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :procedimiento, style: "display: block" %>
+    <%= form.text_field :procedimiento %>
+  </div>
+
+  <div>
+    <%= form.label :tipo_procedimiento_id, style: "display: block" %>
+    <%= form.number_field :tipo_procedimiento_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

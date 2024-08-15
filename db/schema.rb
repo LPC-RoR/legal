@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_07_224211) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_15_000446) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1059,6 +1059,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_224211) do
     t.index ["tipo"], name: "index_lgl_entidades_on_tipo"
   end
 
+  create_table "lgl_n_empleados", force: :cascade do |t|
+    t.string "lgl_n_empleados"
+    t.decimal "n_min"
+    t.decimal "n_max"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "lgl_parra_parras", force: :cascade do |t|
     t.integer "child_id"
     t.integer "parent_id"
@@ -1445,6 +1453,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_224211) do
     t.datetime "updated_at", null: false
     t.index ["app_nomina_id"], name: "index_pro_nominas_on_app_nomina_id"
     t.index ["producto_id"], name: "index_pro_nominas_on_producto_id"
+  end
+
+  create_table "procedimientos", force: :cascade do |t|
+    t.string "procedimiento"
+    t.integer "tipo_procedimiento_id"
+    t.text "detalle"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tipo_procedimiento_id"], name: "index_procedimientos_on_tipo_procedimiento_id"
   end
 
   create_table "productos", force: :cascade do |t|
@@ -2032,8 +2049,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_224211) do
     t.string "plazo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "procedimiento_id"
+    t.text "detalle"
     t.index ["codigo"], name: "index_tareas_on_codigo"
     t.index ["orden"], name: "index_tareas_on_orden"
+    t.index ["procedimiento_id"], name: "index_tareas_on_procedimiento_id"
   end
 
   create_table "temas", force: :cascade do |t|
@@ -2082,6 +2102,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_07_224211) do
 
   create_table "tipo_denuncias", force: :cascade do |t|
     t.string "tipo_denuncia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tipo_procedimientos", force: :cascade do |t|
+    t.string "tipo_procedimiento"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
