@@ -12,7 +12,7 @@
 
 	<!-- FECHA / DIA FECHA -->
 	<b class="text-<%= objeto.text_color %>">
-		<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) %>
+		<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) unless objeto.fecha.blank? %>
 	</b>
 
 	<% if objeto.estado == 'realizada' %>
