@@ -1,4 +1,4 @@
-<div class="ln_bjt_app text-<%= ['realizada', 'cancelada'].include?(objeto.estado) or  (objeto.fecha < @hoy) ? 'muted' : 'primary' %>">
+<div class="ln_bjt_app text-<%= ['realizada', 'cancelada'].include?(objeto.estado) or  ( objeto.present? and objeto.fecha < @hoy) ? 'muted' : 'primary' %>">
 	<div class="ln_nm">
 		<%= render partial: 'actividades/age_actividades/list/nm', locals: {objeto: objeto} %>
 	</div>
