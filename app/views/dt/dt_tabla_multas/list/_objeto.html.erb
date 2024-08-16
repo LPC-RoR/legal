@@ -15,22 +15,22 @@
 
 		  <tbody>
 		    <!-- Opción para evitar escribir el parcial _modelo.html.erb en cada controlador-->
-		      <% unless objeto.p100_leve.blank? %>
+		      <%# unless objeto.p100_leve.blank? %>
+		        <!---tr>
+		          <td><i><small><%#= "-" %></small></i></td>
+		          <td><i><small><%#= s_p100(objeto.p100_leve, 0) %></small></i></td>
+		          <td><i><small><%#= s_p100(objeto.p100_grave, 0) %></small></i></td>
+		          <td><i><small><%#= s_p100(objeto.p100_gravisima, 0) %></small></i></td>
+		        </tr-->
+		      <%# end %>
+		      <%# objeto.dt_multas.order(:orden).each do |multa| %>
 		        <tr>
-		          <td><i><small><%= "-" %></small></i></td>
-		          <td><i><small><%= s_p100(objeto.p100_leve, 0) %></small></i></td>
-		          <td><i><small><%= s_p100(objeto.p100_grave, 0) %></small></i></td>
-		          <td><i><small><%= s_p100(objeto.p100_gravisima, 0) %></small></i></td>
+		          <td><i><small><%= objeto.tamanio %></small></i></td>
+		          <td><i><small><%= objeto.leve %></small></i></td>
+		          <td><i><small><%= objeto.grave %></small></i></td>
+		          <td><i><small><%= objeto.gravisima %></small></i></td>
 		        </tr>
-		      <% end %>
-		      <% objeto.dt_multas.order(:orden).each do |multa| %>
-		        <tr>
-		          <td><i><small><%= multa.tamanio %></small></i></td>
-		          <td><i><small><%= multa.leve %></small></i></td>
-		          <td><i><small><%= multa.grave %></small></i></td>
-		          <td><i><small><%= multa.gravisima %></small></i></td>
-		        </tr>
-		      <% end  %>
+		      <%#end  %>
 		  </tbody>
 		</table>
 
