@@ -1,10 +1,11 @@
-<p style="color: green"><%= notice %></p>
+<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: procedimientos_path } %>
 
-<%= render @procedimiento %>
-
-<div>
-  <%= link_to "Edit this procedimiento", edit_procedimiento_path(@procedimiento) %> |
-  <%= link_to "Back to procedimientos", procedimientos_path %>
-
-  <%= button_to "Destroy this procedimiento", @procedimiento, method: :delete %>
+<div class="f_50_col">
+  <div class="lft">
+        <%= render partial: '0capitan/general/app_ttl', locals: {c: 'tareas', title: "Tareas de #{@objeto.procedimiento}", link: "/tareas/new?pid=#{@objeto.id}", tooltip: 'Agregar tarea' } %>
+        <%= render partial: '0p/tabla/tabla', locals: {c: 'tareas'} %>
+  </div>
+  <div class="rght">
+    
+  </div>
 </div>

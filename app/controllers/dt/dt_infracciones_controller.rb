@@ -1,4 +1,6 @@
 class Dt::DtInfraccionesController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_dt_infraccion, only: %i[ show edit update destroy ]
 
   # GET /dt_infracciones or /dt_infracciones.json
@@ -12,7 +14,8 @@ class Dt::DtInfraccionesController < ApplicationController
 
   # GET /dt_infracciones/new
   def new
-    @objeto = DtInfraccion.new(dt_materia_id: params[:dt_materia_id])
+    dt_materia = DtMateria.find(params[:mid])
+    @objeto = DtInfraccion.new(dt_materia_id: dt_materia.id)
   end
 
   # GET /dt_infracciones/1/edit

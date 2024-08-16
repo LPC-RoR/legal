@@ -21,11 +21,9 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-
-    AgeActividad.all.each do |act|
-      if act.fecha.blank?
-        act.delete
-      end
+    p= Procedimiento.first
+    Tarea.all.each do |tr|
+      p.tareas << tr
     end
 
     redirect_to root_path

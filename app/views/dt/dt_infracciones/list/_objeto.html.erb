@@ -1,13 +1,16 @@
-<small>
-	<b><%= objeto.codigo %></b></br>
-	<%= render layout: '0p/collapse/link', locals: {label: 'Infraccion', objeto: objeto, tooltip: 'Detalle'} do %>
-		<%= objeto.dt_infraccion %> 
-	<% end %>
-
-	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small>
-</small></br>
-
+<div class="objeto-box">
+<div class="ln_bjt_app">
+	<div class="ln_nm">
+		<b><%= objeto.codigo %></b></br>
+		<%= render layout: '0p/collapse/link', locals: {label: 'Infraccion', objeto: objeto, tooltip: 'Detalle'} do %>
+			<%= objeto.dt_infraccion %> 
+		<% end %>
+		</div>
+	<div class="ln_lnks">
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</div>
+</div>
 <%= render layout: '0p/collapse/display', locals: {label: 'Infraccion', objeto: objeto} do %>
 	<%= render partial: 'dt/dt_infracciones/list/show_infraccion', locals: {objeto: objeto} %>
 <% end %>
-<hr>
+</div>

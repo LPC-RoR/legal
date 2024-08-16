@@ -1,4 +1,6 @@
 class Dt::DtCriterioMultasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_dt_criterio_multa, only: %i[ show edit update destroy ]
 
   # GET /dt_criterio_multas or /dt_criterio_multas.json

@@ -1,13 +1,14 @@
 class Tarea < ApplicationRecord
+	belongs_to :procedimiento
 
 	# ------------------------------------ ORDER LIST
 
 	def owner
-		nil
+		self.procedimiento
 	end
 
 	def list
-		Tarea.all.order(:orden)
+		owner.tareas.order(:orden)
 	end
 
 	def n_list

@@ -1,0 +1,17 @@
+<div class="ttl_app">
+	<div class="ttl_ttl">
+		<% if prtl?(objeto.class.name.tableize, 'shw', "objt") %>
+			<%= render partial: prtl_name(objeto.class.name.tableize, 'shw', "objt"), locals: {objeto: objeto} %>
+		<% end %>
+	</div>
+	<div class="ttl_lnks">
+		<% unless bk_lnk.blank? %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: bk_lnk, tooltip: 'Volver'} do %>
+				<i class="bi bi-arrow-left"></i>
+			<% end %>
+		<% end %>
+		<% if prtl?(objeto.class.name.tableize, 'shw', "lnks") %>
+			<%= render partial: prtl_name(objeto.class.name.tableize, 'shw', "lnks"), locals: {objeto: objeto} %>
+		<% end %>
+	</div>
+</div>

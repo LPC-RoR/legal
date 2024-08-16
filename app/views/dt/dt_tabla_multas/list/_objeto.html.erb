@@ -1,2 +1,10 @@
-<small><%= link_to objeto.dt_tabla_multa, objeto %> | <%= objeto.moneda %>
-<small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small></br>
+<div class="objeto-box">
+<div class="ln_bjt_app">
+	<div class="ln_nm">
+		<%= link_to objeto.dt_tabla_multa, objeto %> | <%= objeto.moneda %>
+	</div>
+	<div class="ln_lnks">
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</div>
+</div>
+</div>

@@ -19,6 +19,7 @@
 		<%= render partial: '0p/swtch/swtch_prrdd', locals: {objeto: objeto} %>
 		<%= render partial: 'actividades/age_usuarios/shr/usrs_drpdwn', locals: {objeto: objeto} %>
 		<i class="bi bi-dot"></i>
+
 		<% if objeto.perfil.id == perfil_activo.id or admin? %>
 			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 		<% end %>

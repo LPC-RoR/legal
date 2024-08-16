@@ -11,6 +11,7 @@ class Karin::ProcedimientosController < ApplicationController
 
   # GET /procedimientos/1 or /procedimientos/1.json
   def show
+    set_tabla('tareas', @objeto.tareas.order(:orden), false)
   end
 
   # GET /procedimientos/new
