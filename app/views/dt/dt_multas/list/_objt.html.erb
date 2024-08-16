@@ -1,0 +1,20 @@
+<table class="table table-striped table-sm  thead-dark">
+  <thead>
+    <tr>
+      <td><i><small>Tamaño Empresa</small></i></td>
+      <td><i><small>Leve</small></i></td>
+      <td><i><small>Grave</small></i></td>
+      <td><i><small>Gravísima</small></i></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- Opción para evitar escribir el parcial _modelo.html.erb en cada controlador-->
+        <tr>
+          <td><i><small><%= objeto.tamanio %></small></i></td>
+          <td align="right"><i><small><%= objeto.leve %></small></i></td>
+          <td align="right"><i><small><%= objeto.grave %></small></i></td>
+          <td align="right"><i><small><%= objeto.gravisima %></small></i></td>
+        </tr>
+  </tbody>
+</table>
