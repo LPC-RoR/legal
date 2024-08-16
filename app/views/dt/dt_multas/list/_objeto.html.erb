@@ -1,7 +1,12 @@
 <div class="objeto-box">
 <div class="ln_bjt_app">
 	<div class="ln_nm">
-		<b><%#= objeto.dt_multa %></b>
+		        <tr>
+		          <td><i><small><%= objeto.tamanio %></small></i></td>
+		          <td><i><small><%= objeto.leve %></small></i></td>
+		          <td><i><small><%= objeto.grave %></small></i></td>
+		          <td><i><small><%= objeto.gravisima %></small></i></td>
+		        </tr>
 	</div>
 	<div class="ln_lnks">
 		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
