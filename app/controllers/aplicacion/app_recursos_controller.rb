@@ -22,19 +22,9 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    circular = LglDocumento.find(3)
-    anexos = LglDocumento.create(lgl_documento: 'Anexo 54')
-    prrs_circular = circular.lgl_parrafos.order(:orden)
-    unless anexos.blank?
-      prrs_circular.each do |prrf|
-        if prrf.orden > 59
-          if prrf.lgl_parrafo == '\n'
-            prrf.delete
-          else
-            prrf.lgl_documento_id = anexos.id
-            prrf.save
-          end
-        end
+    AgeActividad.all.each do |act|
+      if act.fecha.blank?
+        act.delete
       end
     end
 
