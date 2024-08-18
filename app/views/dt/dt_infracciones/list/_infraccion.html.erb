@@ -9,7 +9,9 @@
     <div class="col-lg-4">
         <b>DETERMINACIÓN DEL MONTO DE LA MULTA (<%= objeto.dt_tabla_multa.moneda.blank? ? 'moneda no ingresada' : objeto.dt_tabla_multa.moneda%>)</b>: </br>
         <%= render partial: 'dt/dt_tabla_multas/list/tabla_multas', locals: {objeto: objeto.dt_tabla_multa} unless objeto.dt_tabla_multa.blank? %>
-        <small><b>Nota</b>: <%= objeto.nota_multa %></small>
+        <% unless objeto.nota_multa.blank? %>
+            <small><b>Nota</b>: <%= objeto.nota_multa %></small>
+        <% end %>
     </div>
   </div>
   </small>
