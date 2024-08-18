@@ -1,14 +1,10 @@
   <small>
   <div class="row">
-    <div class="col-lg-4 col-xs-12">
+    <div class="col-lg-8 col-xs-12">
+        <b>ENUNCIADO DE LA INFRACCIÓN</b>: </br>
+        <small><%= objeto.dt_infraccion %></small></br>
         <b>NORMA LEGAL INFRINGIDA Y SANCIONATORIA</b>: </br>
         <small><%= objeto.normas %></small></br>
-        <b>CRITERIOS (NATURALEZA+AFECTACIÓN)</b>: </br>
-        <small><%= objeto.criterios %></small></br>
-    </div>
-    <div class="col-lg-4 col-xs-12">
-        <b>HECHO INFRACCIONAL (TIPIFICACIÓN)</b>: </br>
-        <small><%= objeto.tipificacion %></small></br>
     </div>
     <div class="col-lg-4">
         <b>DETERMINACIÓN DEL MONTO DE LA MULTA (<%= objeto.dt_tabla_multa.moneda.blank? ? 'moneda no ingresada' : objeto.dt_tabla_multa.moneda%>)</b>: </br>
