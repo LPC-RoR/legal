@@ -14,7 +14,7 @@ class Karin::PreguntasController < ApplicationController
 
   # GET /preguntas/new
   def new
-    cuestionario = Cuestionario.find(params[:cid])
+    cuestionario = Cuestionario.find(params[:oid])
     orden = cuestionario.preguntas.count + 1
     @objeto = cuestionario.preguntas.new(orden: orden)
   end

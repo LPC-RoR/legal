@@ -4,7 +4,29 @@ module CptnMapHelper
 		['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']
 	end
 
-	## ------------------------------------------------------- PARTIALS
+	#------------------------------------------------------------------ PARTIALS
+
+	# Obtiene el cntrllr cuando tiene prefijo
+	def prfx_cntrllr(cntrllr)
+		cntrllr.match(/\-/) ? cntrllr.split('-').first : nil
+	end
+
+	# Obtiene el prefijo si lo hay
+	def prfx_prtl(cntrllr, prtl)
+		prfx = prfx_cntrllr(cntrllr)
+		"#{"#{prfx}-" unless prfx.blank?}#{prtl}"
+	end
+
+	# source = {controller, objeto}
+	def cntrllr(source)
+		if source.class.name == 'String'
+			prfx_cntrllr = source.split('-').last
+			# app_alias in helper Cristiano
+			app_alias[prfx_cntrllr].blank? ? prfx_cntrllr : app_alias[prfx_cntrllr]
+		else
+			source.class.name.tableize
+		end
+	end
 
 	## Manejo de SCOPE de archivos
 	def pick_scope(v_scope)
@@ -37,7 +59,7 @@ module CptnMapHelper
 	end
 
 	def prtl_name(controller, subdir, partial)
-		"#{prtl_dir(controller, subdir)}#{partial}"
+		"#{prtl_dir(cntrllr(controller), subdir)}#{prfx_prtl(controller, partial)}"
 	end
 
 	def prtl_to_file(prtl_nm)
@@ -47,7 +69,7 @@ module CptnMapHelper
 	end
 
 	def prtl?(controller, subdir, partial)
-		File.exist?("app/views/#{prtl_dir(controller, subdir)}_#{partial}.html.erb")
+		File.exist?("app/views/#{prtl_dir(cntrllr(controller), subdir)}_#{prfx_prtl(controller, partial)}.html.erb")
 	end
 
 	def prtl_file?(file)
@@ -86,16 +108,12 @@ module CptnMapHelper
 
 	# ----------------------------------------------------------------- TABLE PARTIALS
 
+	# DEPRECATED: Cambiado por cntrllr
 	# controlador SIN prefijo por alias
 	def tbl_cntrllr(controller)
 		simple = controller.split('-').last
 		# app_alias in helper Cristiano
 		app_alias[simple].blank? ? simple : app_alias[simple]
-	end
-
-	# source = {controller, objeto}
-	def cntrllr(source)
-		cntrllr = source.class.name == 'String' ? tbl_cntrllr(source) : source.class.name.tableize
 	end
 
 	# source = {controller, objeto}

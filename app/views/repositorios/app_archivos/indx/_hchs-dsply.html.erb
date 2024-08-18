@@ -1,0 +1,7 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevoArchivo', objeto: nil} do %>
+	<%= render partial: 'csc/hechos/list/cs_form_archivo', locals: {objeto: ownr} %>
+<% end %>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'SelArchivo', objeto: nil} do %>
+	<%= render partial: 'csc/hechos/list/cs_sel_usuales', locals: {objeto: ownr} %>
+<% end %>

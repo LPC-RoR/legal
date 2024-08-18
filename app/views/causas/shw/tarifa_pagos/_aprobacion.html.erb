@@ -1,4 +1,4 @@
-<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_pagos', title: 'Autorización de pagos', link: nil, tooltip: nil } %>
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_pagos', ttl: 'Autorización de pagos', ownr: objeto} %>
 
 <% unless objeto.tar_tarifa.blank? or objeto.tar_tarifa.tar_pagos.empty? %>
 	<% objeto.tar_tarifa.tar_pagos.order(:orden).each do |pago| %>

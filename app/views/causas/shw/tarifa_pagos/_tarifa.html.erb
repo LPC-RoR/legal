@@ -1,29 +1,4 @@
-<div class="ttl_app">
-
-	<div class="ttl_ttl">
-		<i class="bi bi-<%=controller_icon['tar_tarifas']%>"></i> Tarifa
-	</div>
-	<div class="ttl_lnks">
-		<%= render layout: '0p/collapse/link', locals: {label: 'AsignaTarifa', objeto: nil, tooltip: 'Asigna tarifa'} do %>
-			<small>
-			<% if objeto.tar_tarifa.blank? %>
-				<i class="bi bi-plus-circle"></i>
-			<% else %>
-				<i class="bi bi-pencil"></i>
-			<% end %>
-			</small>
-		<% end %>
-	</div>
-
-</div>
-
-<%= render layout: '0p/collapse/display', locals: {label: 'AsignaTarifa', objeto: nil, tooltip: 'Tarifas'} do %>
-	<div class="objeto-box">
-		<div class="text-info">
-				<%= render partial: 'causas/shw/tarifa_pagos/sel_tarifas', locals: {objeto: objeto, tar_cliente: tar_cliente, tar_generales: tar_generales} %>
-		</div>
-	</div>	
-<% end %>
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'css-tar_tarifas', ttl: 'Tarifa', ownr: objeto} %>
 
 <div class="objeto-box">
 

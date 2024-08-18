@@ -1,0 +1,13 @@
+<%= form_with url: "/causas", method: :get, local: true do |form| %>
+  <div class="f_search">
+    <div class="lft">
+      <%= form.text_field :query %>
+    </div>
+    <div class="right" align='right'>
+      <%#= form.submit "Buscar" %>
+      <button type="submit" class="btn btn-dark">
+        <i class="bi bi-search icon-white"></i>
+      </button>
+    </div>
+  </div>
+<% end %>

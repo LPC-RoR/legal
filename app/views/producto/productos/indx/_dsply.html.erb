@@ -1,0 +1,10 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'AgregaProducto', objeto: nil} do %>
+	<div class="g_cllps">
+		<p>Agrega Producto</p>
+		<% Producto.all.order(:producto).each do |prdct| %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/productos/#{prdct.id}/agrega_producto?cid=#{ownr.id}", tooltip: 'Agrega Producto'} do %>
+				<%= prdct.producto unless ownr.productos.ids.include?(prdct.id) %></br>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>

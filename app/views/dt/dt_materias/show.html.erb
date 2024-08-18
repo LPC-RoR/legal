@@ -1,5 +1,3 @@
 <%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: dt_materias_path } %>
 
-<%= render partial: '0capitan/general/app_ttl', locals: {c: 'dt_infracciones', title: "Infracciones de #{@objeto.dt_materia}", link: "/dt_infracciones/new?mid=#{@objeto.id}", tooltip: 'Agregar tarea' } %>
-
 <%= render partial: '0p/tabla/tabla', locals: {c: 'dt_infracciones'} %>

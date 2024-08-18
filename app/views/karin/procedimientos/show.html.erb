@@ -2,8 +2,8 @@
 
 <div class="f_50_col">
   <div class="lft">
-        <%= render partial: '0capitan/general/app_ttl', locals: {c: 'tareas', title: "Tareas de #{@objeto.procedimiento}", link: "/tareas/new?pid=#{@objeto.id}", tooltip: 'Agregar tarea' } %>
-        <%= render partial: '0p/tabla/tabla', locals: {c: 'tareas'} %>
+      <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tareas', ttl: "Tareas de #{@objeto.procedimiento}", ownr: @objeto } %>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'tareas'} %>
   </div>
   <div class="rght">
     

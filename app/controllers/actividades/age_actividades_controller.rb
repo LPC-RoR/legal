@@ -32,7 +32,6 @@ class Actividades::AgeActividadesController < ApplicationController
 
   # GET /age_actividades/1 or /age_actividades/1.json
   def show
-    set_tabla('age_antecedentes', @objeto.age_antecedentes.order(:orden), false)
   end
 
   # GET /age_actividades/new
@@ -74,7 +73,7 @@ class Actividades::AgeActividadesController < ApplicationController
       AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente', privada: privada, audiencia_especial: audiencia_especial)
       mensaje = 'Actividad fue creada exitósamente'
 
-      if params[:t] = 'A'
+      if params[:t] == 'A'
         causa = Causa.find(params[:oid])
         unless causa.blank?
           causa.fecha_audiencia = fecha

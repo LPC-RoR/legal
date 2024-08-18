@@ -1,11 +1,4 @@
-<div class="ttl_app">
-	<div class="ttl_ttl">
-		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['variables']} %>
-		Datos
-	</div>
-	<div class="ttl_lnks">
-	</div>
-</div>
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'variables', ttl: 'Datos', ownr: objeto} %>
 
 <% unless variables.empty? %>
 <!-- DATOS -->

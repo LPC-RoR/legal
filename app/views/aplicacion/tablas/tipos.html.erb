@@ -1,16 +1,13 @@
 <div class="f_50lft_col">
 	<div class="lft">
-		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tipo_causas', title: "Etapas de la causa", link: 'new', tooltip: 'Agregar etapa' } %>
-
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tipo_causas', ttl: 'Etapas de la causa', ownr: nil} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_causas'} %>
 	</div>
 	<div class="rght">
-		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tipo_asesorias', title: "Tipos de asesoría", link: 'new', tooltip: 'Agregar tipo de asesoría' } %>
-
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tipo_asesorias', ttl: "Tipos de asesoría", ownr: nil} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_asesorias'} %>
 		<hr>
-		<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tipo_cargos', title: "Tipos de cargo", link: 'new', tooltip: 'Agregar tipo de cargo' } %>
-
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tipo_cargos', ttl: "Tipos de cargo", ownr: nil} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_cargos'} %>
 	</div>
 </div>

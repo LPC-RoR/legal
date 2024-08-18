@@ -1,4 +1,4 @@
 <%= render partial: 'calendario/shr/annio_nav' %>
-<%= render partial: '0capitan/general/app_ttl', locals: {c: 'cal_feriados', title: "Feriados del año", link: "/cal_feriados/new?aid=#{@annio_activo.id}", tooltip: 'Agrega feriado' } %>
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'cal_feriados', ttl: "Feriados del año", ownr: nil} %>
 
 <%= render partial: '0p/tabla/tabla', locals: {c: 'cal_feriados'} %>

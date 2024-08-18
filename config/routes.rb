@@ -25,7 +25,6 @@ Rails.application.routes.draw do
     match :swtch_urgencia, via: :get, on: :member
   end
   resources :app_control_documentos
-  resources :tribunal_cortes
   resources :juzgados
   resources :reg_reportes do
     match :cambia_estado, via: :get, on: :member
@@ -77,12 +76,7 @@ Rails.application.routes.draw do
   scope module: 'investigacion' do
     resources :denunciados
     resources :denuncias
-    resources :tipo_denunciados
     resources :tipo_denuncias
-    resources :alcance_denuncias
-    resources :receptor_denuncias
-    resources :motivo_denuncias
-    resources :dependencia_denunciantes
   end
   scope module: 'producto' do
     resources :pro_etapas
@@ -129,6 +123,11 @@ Rails.application.routes.draw do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
+    resources :tipo_denunciados
+    resources :alcance_denuncias
+    resources :receptor_denuncias
+    resources :motivo_denuncias
+    resources :dependencia_denunciantes
   end
 
   scope module: 'hm' do
@@ -192,6 +191,7 @@ Rails.application.routes.draw do
     resources :estados do
       match :nuevo, via: :post, on: :collection
     end
+    resources :tribunal_cortes
   end
 
   # Usado para poner las entidades necesarias para mantener Variables y su relación con causas y clientes

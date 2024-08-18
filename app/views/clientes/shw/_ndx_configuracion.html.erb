@@ -1,38 +1,18 @@
 <div class="f_50lft_col">
 	<div class="lft">
 
-		<div class="ttl_app">
-			<div class="ttl_ttl">
-				<%= render partial: '0p/general/gly', locals: {gly: controller_icon['productos']} %>
-				Productos del Cliente
-			</div>
-			<div class="ttl_lnks">
-				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaProducto', objeto: nil, tooltip: 'Agrega Producto'} do %>
-					<i class="bi bi-plus-circle"></i>
-				<% end %>
-				<%#= render layout: '0p/layout/tooltip_link', locals: {link: } do %>
-			</div>
-		</div>
-
-		<%= render layout: '0p/collapse/display', locals: {label: 'AgregaProducto', objeto: nil} do %>
-			<div class="g_cllps">
-				<p>Agrega Producto</p>
-				<% Producto.all.order(:producto).each do |prdct| %>
-					<%= render layout: '0p/layout/tooltip_link', locals: {link: "/productos/#{prdct.id}/agrega_producto?cid=#{@objeto.id}", tooltip: 'Agrega Producto'} do %>
-						<%= prdct.producto unless @objeto.productos.ids.include?(prdct.id) %></br>
-					<% end %>
-				<% end %>
-			</div>
-		<% end %>
-
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'productos', ttl: 'Productos del cliente', ownr: objeto} %>
     <%= render partial: '0p/tabla/tabla', locals: {c: 'productos'} %>
+
 	</div>
 	<div class="rght">
+
     <% if controller_name == 'clientes' and dog? %>
       <% unless @objeto.variables.empty? %>
-        <%= render partial: 'clientes/shw/variables' %>
+        <%= render partial: 'clientes/shw/variables', locals: {objeto:objeto} %>
       <% end %>
     <% end %>
+
 	</div>
 </div>
 

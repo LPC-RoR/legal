@@ -1,11 +1,11 @@
 <div class="f_50lft_col">
   <div class="lft">
-    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'm_periodos', title: "Períodos", link: nil, tooltip: nil } %>
+    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'm_periodos', ttl: "Períodos", ownr: nil } %>
 
     <%= render partial: '0p/tabla/tabla', locals: {c: "m_periodos"} %>
   </div>
   <div class="rght">
-    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'm_bancos', title: "Bancos", link: 'new', tooltip: 'Agrega banco' } %>
+    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'm_bancos', ttl: "Bancos", ownr: nil } %>
 
     <%= render partial: '0p/tabla/tabla', locals: {c: "m_bancos"} %>
   </div>

@@ -1,10 +1,10 @@
 <div class="f_400rght_col">
 	<div class="lft">
-    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'dt_materias', title: "Materias", link: '/dt_materias/new', tooltip: 'Agregar materia' } %>
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_materias', ttl: "Materias", ownr: nil } %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'dt_materias'} %>
 	</div>
 	<div class="rght">
-    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'dt_tabla_multas', title: "Tablas de multas", link: '/dt_tabla_multas/new', tooltip: 'Agregar tabla de multa' } %>
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_tabla_multas', ttl: "Tablas de multas", ownr: nil } %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'dt_tabla_multas'} %>
 	</div>
 </div>

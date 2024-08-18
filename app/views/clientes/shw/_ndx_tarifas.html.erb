@@ -1,34 +1,15 @@
-<div class="ttl_app">
-	<div class="ttl_ttl">
-		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['tar_tarifas']} %>
-		Tarifas
-	</div>
-</div>
-
 <div class="f_200pxlft_col">
   <div class="lft">
     <%= render partial: '0p/cmenu/cmenu', locals: { c: 'tar_tarifas', tipo: tipo, estado: estado, path: path} %>
   </div>
   <div class="rght">
 
-		<div class="ttl_app">
-			<%# unless (tipo == 'asesorias' and objeto.tipo_cliente == 'Trabajador') %>
-				<div class="ttl_ttl">
-					<%= render partial: '0p/general/gly', locals: {gly: controller_icon['tar_tarifas']} %>
-					<%= cmenu_clss['tar_tarifas'][:items][tipo] %>
-				</div>
-				<div class="ttl_lnks">
-					<%= render layout: '0p/layout/tooltip_link', locals: {link: ( admin? ? "/#{tipo == 'causas' ? 'tar_tarifas' : 'tar_servicios'}/new?ownr_clss=#{objeto.class.name}&ownr_id=#{objeto.id}" : nil), tooltip: 'Agregar tarifa'} do %>
-						<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
-					<% end %>
-				</div>
-			<%# end %>
-		</div>
-		<% if tipo == 'causas' %>
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
-		<% else %>
-			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
-		<% end %>
+  	<% if tipo == 'causas' %>
+  		<%= render partial: prtl_name('tar_tarifas', 'indx', 'indx'), locals: {cntrllr: 'tar_tarifas', ownr: objeto, tipo: tipo} %>
+  	<% else %>
+  		<%= render partial: prtl_name('tar_servicios', 'indx', 'indx'), locals: {cntrllr: 'tar_servicios', ownr: objeto, tipo: tipo} %>
+  	<% end %>
+
   </div>
 
 </div>

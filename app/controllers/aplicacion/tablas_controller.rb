@@ -71,7 +71,6 @@ class Aplicacion::TablasController < ApplicationController
   end
 
   def general
-    set_tabla('tareas', Tarea.all.order(:orden), false)
     set_tabla('tipo_denunciados', TipoDenunciado.all.order(:tipo_denunciado), false)
   end
 

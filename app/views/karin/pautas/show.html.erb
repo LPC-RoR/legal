@@ -1,18 +1,3 @@
-<div class="ttl_app">
-  <div class="ttl_ttl">
-    <%= render partial: '0p/general/gly', locals: {gly: controller_icon['pautas']} %>
-    <%= @objeto.pauta %>
-  </div>
-  <div class="ttl_lnks">
-    <%= render layout: '0p/layout/tooltip_link', locals: {link: pautas_path, tooltip: 'Volver a pautas'} do %>
-      <i class="bi bi-arrow-left"></i>
-    <% end %>
-    <%= render partial: '0p/general/gly', locals: {gly: 'dot'} %>
-    <%= render layout: '0p/layout/tooltip_link', locals: {link: "/cuestionarios/new?pid=#{@objeto.id}", tooltip: 'Crea Cuestionario'} do %>
-      <i class="bi bi-plus-circle"></i>
-    <% end %>
-  </div>
-</div>
-
+<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: pautas_path } %>
 
 <%= render partial: '0p/tabla/tabla', locals: {c: 'cuestionarios'} %>

@@ -2,7 +2,7 @@
 
 <div class="f_50_col">
 	<div class="lft">
-    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'dt_multas', title: "Detalle multas", link: "/dt_multras/new?tmid=#{@objeto.id}", tooltip: 'Agregar detalle multa' } %>
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_multas', ttl: "Detalle de Multa", ownr: nil } %>
 
 		<div class="objeto-box">
 		<table class="table table-striped table-sm  thead-dark">
@@ -33,7 +33,7 @@
 
 	</div>
 	<div class="rght">
-    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'dt_criterio_multas', title: "Criterio multas", link: "/dt_criterio_multas/new?tmid=#{@objeto.id}", tooltip: 'Agregar criterio multa' } %>
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_criterio_multas', ttl: "Criterio multas", ownr: nil } %>
 		<%#= render partial: '0p/tabla/tabla', locals: {c: 'dt_criterio_multas'} %>
 	</div>
 </div>

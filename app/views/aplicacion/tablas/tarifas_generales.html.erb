@@ -1,11 +1,11 @@
 <div class="f_50lft_col">
 	<div class="lft">
-    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_tarifas', title: "Tarifas de causas", link: '/tar_tarifas/new', tooltip: 'Agrega tarifa de causas' } %>
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_tarifas', ttl: "Tarifas de causas", ownr: nil } %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
 	</div>
 	<div class="rght">
-    	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'tar_servicios', title: "Tarifas de asesorías", link: '/tar_servicios/new', tooltip: 'Agrega tarifa de asesorías' } %>
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_servicios', ttl: "Tarifas de asesorías", ownr: nil} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
 	</div>

@@ -14,7 +14,9 @@ class Tarifas::TarServiciosController < ApplicationController
 
   # GET /tar_servicios/new
   def new
-    @objeto = TarServicio.new(owner_class: params[:ownr_clss], owner_id: params[:ownr_id], estado: 'ingreso')
+    ownr_clss = params[:ownr_clss] == '' ? nil : params[:ownr_clss]
+    ownr_id = params[:ownr_id]
+    @objeto = TarServicio.new(owner_class: ownr_clss, owner_id: ownr_id, estado: 'ingreso')
   end
 
   # GET /tar_servicios/1/edit

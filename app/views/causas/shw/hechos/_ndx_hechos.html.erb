@@ -5,8 +5,7 @@
 	</iframe>
 <% end %>
 
-<%= render partial: 'causas/shw/hechos/ttl_hc', locals: {objeto: objeto} %>
-
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'hechos', ttl: nil, ownr: objeto} %>
 <%= render partial: '0p/tabla/tabla', locals: {c: 'temas'} %>
 
 <% unless @coleccion['hechos'].empty? %>
@@ -18,7 +17,7 @@
 
 <hr>
 
-<%= render partial: 'causas/shw/hechos/ttl_rchvs', locals: {objeto: objeto} %>
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'hchs-app_archivos', ttl: 'Archivos requeridos', ownr: objeto} %>
 
 <% unless @coleccion['app_archivos'].empty? %>
 	<% @objeto.causa_archivos.order(:orden).each do |rel| %>

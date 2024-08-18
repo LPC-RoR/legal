@@ -14,7 +14,7 @@ class Dt::DtInfraccionesController < ApplicationController
 
   # GET /dt_infracciones/new
   def new
-    dt_materia = DtMateria.find(params[:mid])
+    dt_materia = DtMateria.find(params[:oid])
     @objeto = DtInfraccion.new(dt_materia_id: dt_materia.id)
   end
 

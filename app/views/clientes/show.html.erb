@@ -1,4 +1,5 @@
-<%= render partial: '0capitan/general/app_prtl_ttl', locals: {prtl_ttl: 'clientes/shw/ttl_ttl', prtl_lnks: 'clientes/shw/ttl_lnks', objeto: @objeto} %>
+<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, bk_lnk: nil } %>
+
 <%= render partial: 'st_estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
@@ -6,11 +7,11 @@
 <% when 'Agenda' %>
 	<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto, usuarios: @age_usuarios} %>
 <% when 'Causas' %>
-	<%= render partial: 'causas/ndx/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+	<%= render partial: 'causas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 <% when 'Asesorias' %>
-	<%= render partial: 'asesorias/ndx/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+	<%= render partial: 'asesorias/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 <% when 'Facturas' %>
-	<%= render partial: 'tarifas/tar_facturas/ndx/monitor', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+	<%= render partial: 'tarifas/tar_facturas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 <% when 'Tarifas' %>
 	<%= render partial: 'clientes/shw/ndx_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
 <% when 'Documentos' %>

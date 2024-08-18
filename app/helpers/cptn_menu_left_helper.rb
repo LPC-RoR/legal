@@ -151,7 +151,8 @@ module CptnMenuLeftHelper
 			'TarDetalleCuantia' => 'Ítems de cuantía',
 			'TribunalCorte' => 'Juzgados / Cortes',
 			'TarTarifa' => 'Tarifas Generales',
-			'MModelo' => 'Modelo de Negocios'
+			'MModelo' => 'Modelo de Negocios',
+			'DtMateria' => 'Multas'
 		}
 	end
 
