@@ -1,7 +1,7 @@
 <%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: dt_materias_path } %>
 
-<div class="row">
-	<div class="col-lg-6 col-xs-12">
+<div class="f_50_col">
+	<div class="lft">
     	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'dt_multas', title: "Detalle multas", link: "/dt_multras/new?tmid=#{@objeto.id}", tooltip: 'Agregar detalle multa' } %>
 
 		<div class="objeto-box">
@@ -32,7 +32,7 @@
 		</div>
 
 	</div>
-	<div class="col-lg-6">
+	<div class="rght">
     	<%= render partial: '0capitan/general/app_ttl', locals: {c: 'dt_criterio_multas', title: "Criterio multas", link: "/dt_criterio_multas/new?tmid=#{@objeto.id}", tooltip: 'Agregar criterio multa' } %>
 		<%#= render partial: '0p/tabla/tabla', locals: {c: 'dt_criterio_multas'} %>
 	</div>

@@ -1,0 +1,16 @@
+<div class="objeto-box">
+	<%= render prtl_name('servicios', 'shr', 'logo_org') %>
+
+	<div style="padding-left: 1em; padding-right: 1em,">
+		<h3>
+			Multas administrativas ley Nº 21.643 (Ley Karin)
+		</h3>
+
+	</div>
+</div>
+
+<% @coleccion['dt_infracciones'].each do |mlt| %>
+<div class="objeto-box">
+	<%= render partial: prtl_name('dt_infracciones', 'list', 'infraccion'), locals: {objeto: mlt} %>
+</div>
+<% end %>

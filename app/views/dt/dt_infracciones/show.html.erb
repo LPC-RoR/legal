@@ -1,21 +1,21 @@
-<h5>Código <%= @objeto.codigo %>: 
-<%= @objeto.dt_infraccion %></h5>
+<h5>Código <%= objt.codigo %>: 
+<%= objt.dt_infraccion %></h5>
 <hr>
 <small>
 <div class="row">
   <div class="col-lg-4 col-xs-12">
       <b>NORMA LEGAL INFRINGIDA Y SANCIONATORIA</b>: </br>
-      <small><%= @objeto.normas %></small></br>
+      <small><%= objt.normas %></small></br>
       <b>CRITERIOS (NATURALEZA+AFECTACIÓN)</b>: </br>
-      <small><%= @objeto.criterios %></small></br>
+      <small><%= objt.criterios %></small></br>
   </div>
   <div class="col-lg-4 col-xs-12">
       <b>HECHO INFRACCIONAL (TIPIFICACIÓN)</b>: </br>
-      <small><%= @objeto.tipificacion %></small></br>
+      <small><%= objt.tipificacion %></small></br>
   </div>
   <div class="col-lg-4">
       <b>DETERMINACIÓN DEL MONTO DE LA MULTA (UTM)</b>: </br>
-      <%= render partial: 'dt/dt_tabla_multas/list/tabla_multas', locals: {objeto: @objeto.dt_tabla_multa} unless @objeto.dt_tabla_multa.blank? %>
+      <%= render partial: 'dt/dt_tabla_multas/list/tabla_multas', locals: {objeto: objt.dt_tabla_multa} unless objt.dt_tabla_multa.blank? %>
   </div>
 </div>
 </small>

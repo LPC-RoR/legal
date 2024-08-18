@@ -61,6 +61,7 @@ module CptnMapHelper
 		{
 			'layouts/devise/over' => 'layouts/home/over',
 			'layouts/devise/main' => 'layouts/main',
+			'layouts/servicios/main' => 'layouts/main',
 		}
 	end
 

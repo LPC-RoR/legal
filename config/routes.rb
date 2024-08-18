@@ -332,6 +332,7 @@ Rails.application.routes.draw do
       match :organizacion, via: :get, on: :collection
       match :sucursales, via: :get, on: :collection
       match :empleados, via: :get, on: :collection
+      match :multas, via: :get, on: :collection
     end
     resources :org_areas do
       match :nuevo_hijo, via: :post, on: :member

@@ -15,8 +15,7 @@ module CptnMenuLeftHelper
 						['Cargo', 'finanzas'],
 						['TarAprobacion', 'finanzas'],
 						['TarFactura', 'finanzas'],
-						['Denuncias', 'operacion'],
-						['DtMateria', 'admin']
+						['Denuncias', 'operacion']
 					]
 				},
 				{
@@ -72,6 +71,7 @@ module CptnMenuLeftHelper
 					condicion: admin?,
 					items: [
 						'LglDocumento',
+						'DtMateria'
 					]
 				},
 				{

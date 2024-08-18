@@ -39,6 +39,11 @@ class Organizacion::ServiciosController < ApplicationController
 #    set_tabla('org_empleados', @objeto.org_empleados.order(:apellido_paterno), false)
   end
 
+  def multas
+    @objt = DtMateria.find(params[:oid])
+    set_tabla('dt_infracciones', @objt.dt_infracciones.order(:codigo), false)
+  end
+
   private
 
   # crea el array con el cálculo del pago
