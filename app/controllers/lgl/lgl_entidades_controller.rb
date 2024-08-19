@@ -74,6 +74,6 @@ class Lgl::LglEntidadesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lgl_entidad_params
-      params.require(:lgl_entidad).permit(:lgl_entidad, :tipo, :dependencia)
+      params.require(:lgl_entidad).permit(:lgl_entidad, :tipo, :dependencia, :lgl_tipo_entidad_id)
     end
 end

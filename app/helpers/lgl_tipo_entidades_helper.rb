@@ -1,0 +1,2 @@
+module LglTipoEntidadesHelper
+end

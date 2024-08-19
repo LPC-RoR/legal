@@ -12,6 +12,7 @@ class Lgl::LglDocumentosController < ApplicationController
     set_tabla('lgl_recursos', LglRecurso.all.order(:lgl_recurso), false)
     set_tabla('lgl_entidades', LglEntidad.all.order(:lgl_entidad), false)
     set_tabla('lgl_n_empleados', LglNEmpleado.all.order(:lgl_n_empleados), false)
+    set_tabla('lgl_tipo_entidades', LglTipoEntidad.all.order(:lgl_tipo_entidad), false)
   end
 
   # GET /lgl_documentos/1 or /lgl_documentos/1.json

@@ -4,6 +4,9 @@
     <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_documentos'} %>
   </div>
   <div class="rght">
+    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'lgl_tipo_entidades', ttl: "Tipos de entidad", ownr: nil } %>
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_tipo_entidades'} %>
+
     <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'lgl_entidades', ttl: "Entidades", ownr: nil } %>
     <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_entidades'} %>
 

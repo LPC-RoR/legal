@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_15_000446) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_19_224048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1056,6 +1056,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_15_000446) do
     t.string "dependencia"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lgl_tipo_entidad_id"
+    t.index ["lgl_tipo_entidad_id"], name: "index_lgl_entidades_on_lgl_tipo_entidad_id"
     t.index ["tipo"], name: "index_lgl_entidades_on_tipo"
   end
 
@@ -1110,6 +1112,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_15_000446) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tipo"], name: "index_lgl_recursos_on_tipo"
+  end
+
+  create_table "lgl_tipo_entidades", force: :cascade do |t|
+    t.string "lgl_tipo_entidad"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "m_bancos", force: :cascade do |t|

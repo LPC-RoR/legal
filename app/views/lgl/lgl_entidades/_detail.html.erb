@@ -1,5 +1,7 @@
 <div class='form-row'>
-	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :tipo, sel_list: ['Documento legal', 'Documento operativo', 'Agrupación', 'Cargo'], prompt: nil, label: 'Tipo' } %>
+
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :lgl_tipo_entidad_id, colection: LglTipoEntidad.all.order(:lgl_tipo_entidad).collect { |te| [te.lgl_tipo_entidad, te.id] }, display_field: 'lgl_tipo_entidad', prompt: nil, label: 'Tipo de entidad' } %>
+
 	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :dependencia, sel_list: ['Empresa', 'Trabajadores', 'Mixta'], prompt: nil, label: 'Dependencia' } %>
 </div>
 

@@ -105,6 +105,7 @@ Rails.application.routes.draw do
       match :abajo, via: :get, on: :member
     end
     resources :lgl_n_empleados
+    resources :lgl_tipo_entidades
   end 
 
   scope module: 'karin' do
