@@ -1,0 +1,76 @@
+$objt_mrgn: 4px 0 0 0;
+$objt_pddng: 1rem;
+$objt_brd_wdth: 1px;
+$objt_brd_typ: solid;
+$objt_brd_clr: $pltt_8;
+$objt_brd_rds: 3px;
+
+$objt_fnt_fmly: $main_fnt_fmly;
+$objt_clr: black;
+$objt_ln_bg_clr: $pltt_9;
+$objt_ln_hght: 14px;
+
+$objt_oln_tc: 60px auto 100px;
+$objt_ln_gp: 0;
+$objt_ln_tc: auto 100px;
+
+@import "bscs";
+
+@mixin objt_bsc {
+	@include mrgn_pddng($objt_mrgn, $objt_pddng);
+	@include brd_ln($objt_brd_wdth, $objt_brd_typ, $objt_brd_clr, $objt_brd_clr, $objt_brd_rds);
+	background-color: white;
+}
+
+@mixin objt_ln_bsc {
+	background-color: $objt_ln_bg_clr;
+}
+
+.objt {
+	@include objt_bsc;
+	.ln {
+		font-size: 14px;
+	}
+	.dtl {
+		padding-left: 2rem;
+		font-size: 12px;
+	}
+	.dsply {
+		line-height: 14px;
+	}
+	.lst {
+		line-height: 12px;
+	}
+}
+
+.objt_ln {
+	@include objt_ln_bsc;
+	@include grd($objt_ln_tc, $objt_ln_gp);
+	.nm {
+		padding-left: 1rem;
+        @include grd_ncol(1);
+        justify-self: start;
+	}
+	.lnks {
+        @include grd_ncol(2);
+        justify-self: end;
+	}
+}
+
+.objt_oln {
+	@include objt_ln_bsc;
+	@include grd($objt_oln_tc, $objt_ln_gp);
+	.ord {
+		padding-left: 1rem;
+        @include grd_ncol(1);
+        justify-self: start;
+	}
+	.nm {
+        @include grd_ncol(2);
+        justify-self: start;
+	}
+	.lnks {
+        @include grd_ncol(3);
+        justify-self: end;
+	}
+}

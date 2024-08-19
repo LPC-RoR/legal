@@ -10,8 +10,8 @@
 	<div class="ttl_lnks">
 		<% if prtl?(cntrllr, 'indx', "lnks") %>
 			<%= render partial: prtl_name(cntrllr, 'indx', "lnks"), locals: {ownr: ownr} %>
-		<% elsif ownr.blank? %>
-			<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr(cntrllr)}/new", tltp: "Agrega #{c_to_name(cntrllr(cntrllr))}"} %>
+		<% else %>
+			<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr(cntrllr)}/new#{ownr_prms(ownr) unless ownr.blank?}", tltp: "Agrega #{c_to_name(cntrllr(cntrllr))}"} %>
 		<% end %>
 	</div>
 </div>

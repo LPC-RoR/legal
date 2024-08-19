@@ -1,5 +1,6 @@
 class Repositorios::AppImagenesController < ApplicationController
   before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :inicia_sesion
   before_action :set_app_imagen, only: [:show, :edit, :update, :destroy]
 

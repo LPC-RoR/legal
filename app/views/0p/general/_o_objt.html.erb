@@ -1,0 +1,11 @@
+<div class="objt_oln">
+	<div class="ord">
+		<%= render partial: '0p/tabla/links_orden', locals: {objeto: objeto} %>
+	</div>
+	<div class="objt_nm">
+		<%= render partial: prtl_name(objeto.class.name.tableize, 'list', 'o_objt'), locals: {objeto: objeto} %>
+	</div>
+	<div class="lnks">
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	</div>
+</div>

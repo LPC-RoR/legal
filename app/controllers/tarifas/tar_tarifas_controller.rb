@@ -17,7 +17,7 @@ class Tarifas::TarTarifasController < ApplicationController
     set_tabla('tar_formula_cuantias', @objeto.tar_formula_cuantias, false)
     set_tabla('tar_variable_bases', @objeto.tar_variable_bases, false)
 
-    set_tabla('tar_elementos', TarElemento.order(:elemento), false)
+#    set_tabla('tar_elementos', TarElemento.order(:elemento), false)
     set_tabla('tar_detalles', @objeto.tar_detalles.order(:orden), false)
   end
 

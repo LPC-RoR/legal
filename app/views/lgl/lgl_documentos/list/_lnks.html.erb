@@ -1,0 +1,6 @@
+<% if objeto.archivo.present? and operacion? %>
+	<%= link_to objeto.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<i class="bi bi-paperclip"></i>
+	<% end %>
+<% end %>
+<i class="bi bi-dot"></i>

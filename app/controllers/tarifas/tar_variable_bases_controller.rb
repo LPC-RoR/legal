@@ -14,7 +14,8 @@ class Tarifas::TarVariableBasesController < ApplicationController
 
   # GET /tar_variable_bases/new
   def new
-    @objeto = TarVariableBase.new(tar_tarifa_id: params[:tid])
+    ownr = params[:oclss].constantize.find(params[:oid])
+    @objeto = TarVariableBase.new(tar_tarifa_id: ownr.id)
   end
 
   # GET /tar_variable_bases/1/edit

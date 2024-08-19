@@ -12,15 +12,13 @@ Cuenta : <%= link_to @objeto.m_cuenta.m_cuenta, @objeto.m_cuenta %>
 
 <div class="row">
 	<div class="col-md-3">
-		<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_valores'], title: 'Encabezado de la cartola', size: 5} %>
-
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'm_valores', ttl: 'Encabezado de la cartola', ownr: @objeto} %>
 		<% @objeto.m_valores.order(:orden).each do |valor| %>
 			<small><i><%= valor.m_valor %> :</i></br><b><%= valor.tipo == 'pesos' ? s_pesos(valor.valor) : valor.valor %></b></br></small>
 		<% end %>
 	</div>
 	<div class="col-md-9">
-		<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon['m_registros'], title: 'Detalle de la cartola', size: 5} %>
-
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'm_registros', ttl: 'Detalle de la cartola', ownr: @objeto} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'm_registros'} %>
 	</div>
 </div>

@@ -1,7 +1,6 @@
 <% if nomina_activa? %>
 	<% unless @m.blank? or @e.blank? %>
-		<%= render partial: '0p/general/gly_title_size', locals: {gly: controller_icon[@m.tableize], title: "#{m_to_name(@m)} : #{@e}", size: 5} %>
-
+		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: @m.tableize, ttl: @m.tableize, ownr: nil} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: @m.tableize} %>
 	<% else %>
 		Sin información para desplegar

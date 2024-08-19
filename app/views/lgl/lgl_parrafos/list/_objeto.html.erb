@@ -53,40 +53,43 @@
 
 		</div>
 	</div>
-</div>
-<% if objeto.resumen.present? or objeto.chk_ocultar %>
-	<%= render layout: '0p/collapse/display', locals: {label: 'VerParrafo', objeto: objeto} do %>
-		<div class="g_cllps">
-			<%= objeto.lgl_parrafo.gsub(/\n/, '</br>').html_safe %>
-		</div>
-	<% end %>
-<% end %>
-
-<% unless objeto.lgl_puntos.empty? %>
-	<% objeto.lgl_puntos.order(:orden).each do |punto| %>
-		<div style="padding-left: <%=objeto.n_parent * 2%>em;">
-			<div class="ln_ordr">
-				<div class="ln_orden">
-					<%= render partial: '0p/tabla/links_orden', locals: {objeto: punto} %>
-				</div>
-				<div class="ln_ln">
-					<i class="bi bi-check-circle"></i>
-					<%= render layout: '0p/collapse/link', locals: {label: 'VerCita', objeto: punto, tooltip: 'Ver cita'} do %>
-						<i class="bi bi-arrow-bar-down"></i>
-					<% end %>
-					<%= punto.lgl_punto %>
-				</div>
-				<div class="ln_lnks">
-					<% if admin? %>
-						<%= render partial: '0p/tabla/links_e', locals: {objeto: punto} %>
-					<% end %>
-				</div>
-			</div>
-			<%= render layout: '0p/collapse/display', locals: {label: 'VerCita', objeto: punto} do %>
+	<div class="dsply">
+		<% if objeto.resumen.present? or objeto.chk_ocultar %>
+			<%= render layout: '0p/collapse/display', locals: {label: 'VerParrafo', objeto: objeto} do %>
 				<div class="g_cllps">
-					<%= punto.cita.gsub(/\n/, '</br>').html_safe %>
+					<%= objeto.lgl_parrafo.gsub(/\n/, '</br>').html_safe %>
 				</div>
 			<% end %>
-		</div>
-	<% end %>
-<% end %>
+		<% end %>
+	</div>
+	<div class="lst">
+		<% unless objeto.lgl_puntos.empty? %>
+			<% objeto.lgl_puntos.order(:orden).each do |punto| %>
+				<div style="padding-left: <%=objeto.n_parent * 2%>em;">
+					<div class="ln_ordr">
+						<div class="ln_orden">
+							<%= render partial: '0p/tabla/links_orden', locals: {objeto: punto} %>
+						</div>
+						<div class="ln_ln">
+							<i class="bi bi-check-circle"></i>
+							<%= render layout: '0p/collapse/link', locals: {label: 'VerCita', objeto: punto, tooltip: 'Ver cita'} do %>
+								<i class="bi bi-arrow-bar-down"></i>
+							<% end %>
+							<%= punto.lgl_punto %>
+						</div>
+						<div class="ln_lnks">
+							<% if admin? %>
+								<%= render partial: '0p/tabla/links_e', locals: {objeto: punto} %>
+							<% end %>
+						</div>
+					</div>
+					<%= render layout: '0p/collapse/display', locals: {label: 'VerCita', objeto: punto} do %>
+						<div class="g_cllps">
+							<%= punto.cita.gsub(/\n/, '</br>').html_safe %>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</div>

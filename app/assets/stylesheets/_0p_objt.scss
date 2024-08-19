@@ -1,4 +1,13 @@
+$objt_mrgn: 1rem;
+$objt_pddng: 1rem;
+$objt_brd_width: 1px;
+$objt_brd_typ: solid;
+$objt_brd_clr: $pltt_3;
+$objt_brd_rds: 3px;
+
+
 // mrgn_pddng($mrgn, $pddng);
+// @include brd_ln($brd_wdth, $brd_typ, $brd_clr, $brd_clr, $brd_rds);
 // brd($brd_wdth, $brd_rds, $brd_clr);
 // bx($bg_clr);
 // bx_shdw;

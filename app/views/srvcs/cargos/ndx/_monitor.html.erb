@@ -1,5 +1,3 @@
-<%= render partial: '0capitan/general/app_ttl', locals: {c: 'cargos', title: "Cargos", link: nil, tooltip: nil } %>
-
 <div class="f_200pxlft_col">
   <div class="lft">
 
@@ -8,7 +6,7 @@
   </div>
   <div class="rght">
 
-    <%= render partial: '0capitan/general/app_ttl', locals: {c: 'cargos', title: "Cargos #{cmenu_clss['cargos'][:items][estado]}", link: "/cargos/new", tooltip: 'Agregar cargo' } %>
+    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'cargos', ttl: "Cargos #{cmenu_clss['cargos'][:items][estado]}", ownr: nil} %>
 
     <%= render partial: '0p/tabla/tabla', locals: {c: 'cargos'} %>
 

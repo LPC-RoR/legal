@@ -108,6 +108,10 @@ module CptnMapHelper
 
 	# ----------------------------------------------------------------- TABLE PARTIALS
 
+	def ownr_prms(objeto)
+		"?oclss=#{objeto.class.name}&oid=#{objeto.id}"
+	end
+
 	# DEPRECATED: Cambiado por cntrllr
 	# controlador SIN prefijo por alias
 	def tbl_cntrllr(controller)

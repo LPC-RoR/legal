@@ -1,11 +1,7 @@
-<div align="center">
-	<%= render partial: '0p/tabla/links_orden', locals: {objeto: objeto} %>
-</div>
-<small>
-	<% if objeto.ultima_cuota %>
-		( última )
-	<% end %>
-	<%= objeto.tar_cuota %></small>
-<div align="center">
-	<small><small><%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %></small></small>
+<div class="objt">
+	<div class="ln">
+		<%= render partial: '0p/general/o_objt', locals: {objeto: objeto} %>
+	</div>
+	<div class="dtl">
+	</div>
 </div>

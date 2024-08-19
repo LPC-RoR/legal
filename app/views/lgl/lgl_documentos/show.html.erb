@@ -1,2 +1,2 @@
-<%= render partial: '0capitan/general/app_ttl', locals: {c: 'lgl_parrafos', title: "Detalle Documento #{@objeto.lgl_documento}", link: nil, tooltip: nil } %>
+<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, bk_lnk: lgl_documentos_path } %>
 <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_parrafos'} %>

@@ -10,6 +10,10 @@
 
 
 .lgl_prrf {
+	background-color: white;
+	@include bx_shdw;
+	margin-bottom: 3px;
+	padding: 1rem;
 	.lnks {
 		@include a_hover($pltt_3, gray);
 		@include ln_fnt(15px, $app_fnt, 10px, $pltt_3);

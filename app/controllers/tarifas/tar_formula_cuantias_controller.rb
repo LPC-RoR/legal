@@ -13,7 +13,8 @@ class Tarifas::TarFormulaCuantiasController < ApplicationController
 
   # GET /tar_formula_cuantias/new
   def new
-    @objeto = TarFormulaCuantia.new(tar_tarifa_id: params[:tid])
+    ownr = params[:oclss].constantize.find(params[:oid])
+    @objeto = TarFormulaCuantia.new(tar_tarifa_id: ownr.id)
   end
 
   # GET /tar_formula_cuantias/1/edit
