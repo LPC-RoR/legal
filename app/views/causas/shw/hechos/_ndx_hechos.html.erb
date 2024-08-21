@@ -6,6 +6,7 @@
 <% end %>
 
 <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'hechos', ttl: nil, ownr: objeto} %>
+<%= render partial: prtl_name('causas', 'shw/hechos', 'dsply'), locals: {objeto: objeto} %>
 <%= render partial: '0p/tabla/tabla', locals: {c: 'temas'} %>
 
 <% unless @coleccion['hechos'].empty? %>

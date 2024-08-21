@@ -1,0 +1,6 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevaMateria', objeto: nil} do %>
+	<%= render partial: prtl_name('causas', 'shw/hechos', 'form_nueva_materia'), locals: {objeto: objeto} %>
+<% end %>
+<%= render layout: '0p/collapse/display', locals: {label: 'NuevoHecho', objeto: nil} do %>
+	<%= render partial: prtl_name('causas', 'shw/hechos', 'form_nuevo_hecho'), locals: {objeto: objeto} %>
+<% end %>
