@@ -1,30 +1,5 @@
 <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_valor_cuantias', ttl: 'Cuantía', ownr: objeto} %>
 
-<div class="ttl_app">
-	<div class="ttl_ttl">
-		<%= render partial: '0p/general/gly', locals: {gly: controller_icon['tar_valor_cuantias']} %>
-		Cuantía
-	</div>
-	<div class="ttl_lnks">
-		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.id}/cuantia_to_xlsx", tooltip: 'Exportar a Excel'} do %>
-			<i class="bi bi-download"></i>
-		<% end %>
-		<i class="bi bi-dot"></i>
-		<% if @audiencia_preparatoria.blank? %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'AudienciaPreparatoria', objeto: nil, tooltip: 'Fecha AudienciaPreparatoria'} do %>
-				<i class="bi bi-calendar-check"></i>
-			<% end %>
-		<% end %>
-		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/demandantes/new?cid=#{objeto.id}", tooltip: 'Agregar demandante'} do %>
-			<%= render partial: '0p/general/gly', locals: {gly: 'person-lines-fill'} %>
-		<% end %>
-		<i class="bi bi-dot"></i>
-		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_valor_cuantias/new?class_name=#{objeto.class.name}&objeto_id=#{objeto.id}", tooltip: 'Agregar item a cuantía'} do %>
-			<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
-		<% end %>
-	</div>
-</div>
-
 <% if @audiencia_preparatoria.blank? %>
 	<%= render layout: '0p/collapse/display', locals: {label: 'AudienciaPreparatoria', objeto: nil} do %>
 		<%= render partial: 'actividades/shr/form_actividad', locals: {tipo: 'A', causa_id: objeto.id, cu: 'c', audiencia: 'Audiencia preparatoria' } %>
@@ -33,6 +8,10 @@
 <% unless objeto.demandantes.empty? %>
 	<div class="app_box">
 		<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: objeto} %>
+	</div>
+<% else %>
+	<div class="objt">
+		<small class="text-danger"><i class="bi bi-cone-striped"></i>No se pueden ingresar cuantías hasta tener al menos un demandante.</small>
 	</div>
 <% end %>
 <% unless objeto.valores_cuantia.empty? %>
