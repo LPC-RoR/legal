@@ -24,7 +24,7 @@ class Tarea < ApplicationRecord
 	end
 
 	def redireccion
-		"/tablas/general"
+		self.procedimiento
 	end
 
 	# -----------------------------------------------
