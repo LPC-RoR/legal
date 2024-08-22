@@ -15,8 +15,8 @@ class Karin::TareasController < ApplicationController
 
   # GET /tareas/new
   def new
-    procedimiento = Procedimiento.find(params[:pid])
-    orden = Tarea.all.count + 1
+    procedimiento = params[:oclss].find(params[:oid])
+    orden = procedimiento.tareas.count + 1
     @objeto = Tarea.new(orden: orden, procedimiento_id: procedimiento.id)
   end
 
