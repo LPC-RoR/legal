@@ -104,8 +104,8 @@ Rails.application.routes.draw do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
-    resources :lgl_n_empleados
     resources :lgl_tipo_entidades
+    resources :lgl_tramo_empresas
   end 
 
   scope module: 'karin' do
@@ -505,7 +505,6 @@ Rails.application.routes.draw do
   end
 
   scope module: 'dt' do
-
     resources :dt_criterio_multas
     resources :dt_tabla_multas do
       resources :dt_multas
@@ -517,6 +516,7 @@ Rails.application.routes.draw do
     resources :dt_materias do
       resources :dt_infracciones
     end
+    resources :dt_tramos
   end
 
   devise_for :usuarios

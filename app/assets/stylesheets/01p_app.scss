@@ -41,7 +41,8 @@ $ntc_rrr_pddng: .5rem;
 $ntc_rrr_brdr_wdth: 1px;
 $ntc_rrr_brdr_ln: solid;
 $ntc_rrr_brdr_rds: 3px 3px 3px 3px;
-$ntc_brdr_clr: $blue_5;
+$ntc_bg_clr: #ade8f4;
+$ntc_brdr_clr: $blue_3;
 $rrr_brdr_clr: $red_5;
 $ntc_fnt_clr: $blue_1;
 $rrr_fnt_clr: $red_1;
@@ -157,7 +158,7 @@ $rrr_fnt_clr: $red_1;
 	@include mrgn_pddng($ntc_rrr_mrgn, $ntc_rrr_pddng);
 	@include brd($ntc_rrr_brdr_wdth, $ntc_rrr_brdr_rds, $ntc_brdr_clr);
     box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
-    background-color: $blue_5;
+    background-color: $ntc_bg_clr;
     color: $ntc_fnt_clr;
 }
 

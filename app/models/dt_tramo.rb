@@ -1,16 +1,14 @@
-class DtMulta < ApplicationRecord
-	belongs_to :dt_tramo
-	belongs_to :dt_tabla_multa
-
-
+class DtTramo < ApplicationRecord
+	has_many :dt_multas
+	
 	# ------------------------------------ ORDER LIST
 
 	def owner
-		self.dt_tabla_multa
+		nil
 	end
 
 	def list
-		owner.dt_multas.order(:orden)
+		DtTramo.all.order(:orden)
 	end
 
 	def n_list
@@ -26,7 +24,7 @@ class DtMulta < ApplicationRecord
 	end
 
 	def redireccion
-		owner
+		lgl_documentos_path
 	end
 
 	# -----------------------------------------------

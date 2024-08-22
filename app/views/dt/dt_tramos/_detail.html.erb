@@ -1,0 +1,8 @@
+<div class='form-row'>
+	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :dt_tramo, label: 'Tramo de multa' } %>
+
+	<%= render partial: '0p/frm_flds/decimal', locals: { form: form, token: :min, label: 'Mínimo' } %>
+	<%= render partial: '0p/frm_flds/decimal', locals: { form: form, token: :max, label: 'Máximo' } %>
+
+	<%= render partial: '0p/frm_flds/hidden', locals: { form: form, token: :orden } %>
+</div>

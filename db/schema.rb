@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_19_224048) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_22_001436) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -830,8 +830,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_224048) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "dt_infraccion_id"
     t.integer "dt_tabla_multa_id"
+    t.integer "dt_tramo_id"
     t.index ["dt_infraccion_id"], name: "index_dt_multas_on_dt_infraccion_id"
     t.index ["dt_tabla_multa_id"], name: "index_dt_multas_on_dt_tabla_multa_id"
+    t.index ["dt_tramo_id"], name: "index_dt_multas_on_dt_tramo_id"
     t.index ["orden"], name: "index_dt_multas_on_orden"
   end
 
@@ -844,6 +846,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_224048) do
     t.decimal "p100_grave"
     t.decimal "p100_gravisima"
     t.index ["dt_tabla_multa"], name: "index_dt_tabla_multas_on_dt_tabla_multa"
+  end
+
+  create_table "dt_tramos", force: :cascade do |t|
+    t.string "dt_tramo"
+    t.integer "orden"
+    t.decimal "min"
+    t.decimal "max"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_dt_tramos_on_orden"
   end
 
   create_table "estados", force: :cascade do |t|
@@ -1118,6 +1130,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_19_224048) do
     t.string "lgl_tipo_entidad"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "lgl_tramo_empresas", force: :cascade do |t|
+    t.integer "orden"
+    t.string "lgl_tramo_empresa"
+    t.decimal "min"
+    t.decimal "max"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_lgl_tramo_empresas_on_orden"
   end
 
   create_table "m_bancos", force: :cascade do |t|

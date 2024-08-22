@@ -14,7 +14,9 @@ class Dt::DtMultasController < ApplicationController
 
   # GET /dt_multas/new
   def new
-    @objeto = DtMulta.new(dt_tabla_multa_id: params[:dt_tabla_multa_id])
+    owner = params[:oclss].constantize.find(params[:oid])
+    orden = owner.dt_multas.count + 1
+    @objeto = DtMulta.new(orden: orden, dt_tabla_multa_id: owner.id)
   end
 
   # GET /dt_multas/1/edit
@@ -73,6 +75,6 @@ class Dt::DtMultasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def dt_multa_params
-      params.require(:dt_multa).permit(:orden, :tamanio, :leve, :grave, :gravisima, :dt_tabla_multa_id)
+      params.require(:dt_multa).permit(:orden, :tamanio, :leve, :grave, :gravisima, :dt_tabla_multa_id, :min, :max, :dt_tramo_id)
     end
 end

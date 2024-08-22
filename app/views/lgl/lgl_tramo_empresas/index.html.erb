@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Lgl tramo empresas</h1>
+
+<div id="lgl_tramo_empresas">
+  <% @lgl_tramo_empresas.each do |lgl_tramo_empresa| %>
+    <%= render lgl_tramo_empresa %>
+    <p>
+      <%= link_to "Show this lgl tramo empresa", lgl_tramo_empresa %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New lgl tramo empresa", new_lgl_tramo_empresa_path %>

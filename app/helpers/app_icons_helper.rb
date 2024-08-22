@@ -51,6 +51,7 @@ module AppIconsHelper
 			'cal_meses' => 'calendar3',
 			'cal_semanas' => 'calendar2-week',
 			'cal_feriados' => 'calendar2-check',
+			'notas' => 'list-check',
 			'pautas' => 'bar-chart',
 			'cuestionarios' => 'question-square',
 			'preguntas' => 'question',

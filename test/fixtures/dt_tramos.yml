@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dt_tramo: MyString
+  orden: 1
+  min: 9.99
+  max: 9.99
+
+two:
+  dt_tramo: MyString
+  orden: 1
+  min: 9.99
+  max: 9.99

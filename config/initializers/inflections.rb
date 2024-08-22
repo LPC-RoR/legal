@@ -34,6 +34,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.irregular 'respuesta', 'respuestas'
     inflect.irregular 'lgl_cita', 'lgl_citas'
     inflect.irregular 'denuncia', 'denuncias'
+    inflect.irregular 'dt_tramo_multa', 'dt_tramo_multas'
 end
 
 # These inflection rules are supported but not enabled by default:

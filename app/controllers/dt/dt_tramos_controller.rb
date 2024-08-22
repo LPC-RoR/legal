@@ -1,34 +1,35 @@
-class Lgl::LglNEmpleadosController < ApplicationController
+class Dt::DtTramosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_lgl_n_empleado, only: %i[ show edit update destroy ]
+  before_action :set_dt_tramo, only: %i[ show edit update destroy ]
 
-  # GET /lgl_n_empleados or /lgl_n_empleados.json
+  # GET /dt_tramos or /dt_tramos.json
   def index
-    @coleccion = LglNEmpleado.all
+    @coleccion = DtTramo.all
   end
 
-  # GET /lgl_n_empleados/1 or /lgl_n_empleados/1.json
+  # GET /dt_tramos/1 or /dt_tramos/1.json
   def show
   end
 
-  # GET /lgl_n_empleados/new
+  # GET /dt_tramos/new
   def new
-    @objeto = LglNEmpleado.new
+    orden = DtTramo.all.count + 1
+    @objeto = DtTramo.new(orden: orden)
   end
 
-  # GET /lgl_n_empleados/1/edit
+  # GET /dt_tramos/1/edit
   def edit
   end
 
-  # POST /lgl_n_empleados or /lgl_n_empleados.json
+  # POST /dt_tramos or /dt_tramos.json
   def create
-    @objeto = LglNEmpleado.new(lgl_n_empleado_params)
+    @objeto = DtTramo.new(dt_tramo_params)
 
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Número de empleados ha sido exitósamente creado." }
+        format.html { redirect_to @rdrccn, notice: "Tramo de multas fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -37,12 +38,12 @@ class Lgl::LglNEmpleadosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /lgl_n_empleados/1 or /lgl_n_empleados/1.json
+  # PATCH/PUT /dt_tramos/1 or /dt_tramos/1.json
   def update
     respond_to do |format|
-      if @objeto.update(lgl_n_empleado_params)
+      if @objeto.update(dt_tramo_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Número de empleados ha sido exitósamente actualizado." }
+        format.html { redirect_to @rdrccn, notice: "Tramo de multas fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,21 +52,21 @@ class Lgl::LglNEmpleadosController < ApplicationController
     end
   end
 
-  # DELETE /lgl_n_empleados/1 or /lgl_n_empleados/1.json
+  # DELETE /dt_tramos/1 or /dt_tramos/1.json
   def destroy
     get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Número de empleados ha sido exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Tramo de multas fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_lgl_n_empleado
-      @objeto = LglNEmpleado.find(params[:id])
+    def set_dt_tramo
+      @objeto = DtTramo.find(params[:id])
     end
 
     def get_rdrccn
@@ -73,7 +74,7 @@ class Lgl::LglNEmpleadosController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def lgl_n_empleado_params
-      params.require(:lgl_n_empleado).permit(:lgl_n_empleados, :n_min, :n_max)
+    def dt_tramo_params
+      params.require(:dt_tramo).permit(:dt_tramo, :orden, :min, :max)
     end
 end

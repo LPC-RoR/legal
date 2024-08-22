@@ -9,10 +9,11 @@ class Lgl::LglDocumentosController < ApplicationController
   # GET /lgl_documentos or /lgl_documentos.json
   def index
     set_tabla('lgl_documentos', LglDocumento.all.order(:lgl_documento), true)
-    set_tabla('lgl_recursos', LglRecurso.all.order(:lgl_recurso), false)
-    set_tabla('lgl_entidades', LglEntidad.all.order(:lgl_entidad), false)
-    set_tabla('lgl_n_empleados', LglNEmpleado.all.order(:lgl_n_empleados), false)
     set_tabla('lgl_tipo_entidades', LglTipoEntidad.all.order(:lgl_tipo_entidad), false)
+    set_tabla('lgl_entidades', LglEntidad.all.order(:lgl_entidad), false)
+    set_tabla('lgl_tramo_empresas', LglTramoEmpresa.all.order(:orden), false)
+    set_tabla('dt_tramos', DtTramo.all.order(:orden), false)
+    set_tabla('lgl_recursos', LglRecurso.all.order(:lgl_recurso), false)
   end
 
   # GET /lgl_documentos/1 or /lgl_documentos/1.json
