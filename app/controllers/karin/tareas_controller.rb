@@ -72,7 +72,7 @@ class Karin::TareasController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = '/tablas/general'
+      @rdrccn = @objeto.procedimiento
     end
 
     # Only allow a list of trusted parameters through.
