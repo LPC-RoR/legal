@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rut: MyString
+  razon_social: MyString
+  email_administrador: MyString
+  email_verificado: MyString
+  sha1: MyString
+
+two:
+  rut: MyString
+  razon_social: MyString
+  email_administrador: MyString
+  email_verificado: MyString
+  sha1: MyString

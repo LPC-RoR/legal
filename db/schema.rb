@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_23_204257) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_23_213234) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -858,6 +858,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_204257) do
     t.index ["orden"], name: "index_dt_tramos_on_orden"
   end
 
+  create_table "empresas", force: :cascade do |t|
+    t.string "rut"
+    t.string "razon_social"
+    t.string "email_administrador"
+    t.string "email_verificado"
+    t.string "sha1"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rut"], name: "index_empresas_on_rut"
+    t.index ["sha1"], name: "index_empresas_on_sha1"
+  end
+
   create_table "estados", force: :cascade do |t|
     t.integer "causa_id"
     t.string "link"
@@ -1097,9 +1109,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_204257) do
     t.boolean "dnnte_derivacion"
     t.string "dnnte_entidad_investigacion"
     t.integer "dnnte_empresa_investigacion_id"
+    t.integer "empresa_id"
     t.index ["cliente_id"], name: "index_krn_denuncias_on_cliente_id"
     t.index ["dnnte_derivacion"], name: "index_krn_denuncias_on_dnnte_derivacion"
     t.index ["dnnte_empresa_investigacion_id"], name: "index_krn_denuncias_on_dnnte_empresa_investigacion_id"
+    t.index ["empresa_id"], name: "index_krn_denuncias_on_empresa_id"
     t.index ["empresa_receptora_id"], name: "index_krn_denuncias_on_empresa_receptora_id"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
@@ -1118,7 +1132,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_204257) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cliente_id"
+    t.integer "empresa_id"
     t.index ["cliente_id"], name: "index_krn_empresa_externas_on_cliente_id"
+    t.index ["empresa_id"], name: "index_krn_empresa_externas_on_empresa_id"
     t.index ["rut"], name: "index_krn_empresa_externas_on_rut"
     t.index ["tipo"], name: "index_krn_empresa_externas_on_tipo"
   end

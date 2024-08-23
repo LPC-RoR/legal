@@ -74,6 +74,6 @@ class Karin::KrnEmpresaExternasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_empresa_externa_params
-      params.require(:krn_empresa_externa).permit(:rut, :razon_social, :tipo, :contacto, :email_contacto)
+      params.require(:krn_empresa_externa).permit(:cliente_id, :rut, :razon_social, :tipo, :contacto, :email_contacto)
     end
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :empresas
   resources :parrafos
   resources :notas do
     match :agrega_nota, via: :post, on: :collection

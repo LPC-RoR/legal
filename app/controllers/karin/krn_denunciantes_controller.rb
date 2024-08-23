@@ -74,6 +74,6 @@ class Karin::KrnDenunciantesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denunciante_params
-      params.require(:krn_denunciante).permit(:denuncia_id, :empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1)
+      params.require(:krn_denunciante).permit(:denuncia_id, :empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :dnnte_info_reglamento, :dnnte_info_procedimiento, :dnnte_info_derechos)
     end
 end
