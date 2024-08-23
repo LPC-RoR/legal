@@ -1,0 +1,62 @@
+<%= form_with(model: krn_denunciado) do |form| %>
+  <% if krn_denunciado.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(krn_denunciado.errors.count, "error") %> prohibited this krn_denunciado from being saved:</h2>
+
+      <ul>
+        <% krn_denunciado.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :denuncia_id, style: "display: block" %>
+    <%= form.number_field :denuncia_id %>
+  </div>
+
+  <div>
+    <%= form.label :empresa_externa_id, style: "display: block" %>
+    <%= form.number_field :empresa_externa_id %>
+  </div>
+
+  <div>
+    <%= form.label :rut, style: "display: block" %>
+    <%= form.text_field :rut %>
+  </div>
+
+  <div>
+    <%= form.label :nombre, style: "display: block" %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div>
+    <%= form.label :cargo, style: "display: block" %>
+    <%= form.text_field :cargo %>
+  </div>
+
+  <div>
+    <%= form.label :lugar_trabajo, style: "display: block" %>
+    <%= form.text_field :lugar_trabajo %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :email_ok, style: "display: block" %>
+    <%= form.text_field :email_ok %>
+  </div>
+
+  <div>
+    <%= form.label :articulo_4_1, style: "display: block" %>
+    <%= form.check_box :articulo_4_1 %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

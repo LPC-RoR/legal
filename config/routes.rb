@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :krn_empresa_externas
+  resources :krn_denunciados
+  resources :krn_denunciantes
+  resources :krn_denuncias
   resources :parrafos
   resources :notas do
     match :agrega_nota, via: :post, on: :collection

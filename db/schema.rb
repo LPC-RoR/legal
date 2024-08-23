@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_22_001436) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_23_184735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1040,6 +1040,73 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_22_001436) do
     t.string "sesion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "krn_denunciados", force: :cascade do |t|
+    t.integer "denuncia_id"
+    t.integer "empresa_externa_id"
+    t.string "rut"
+    t.string "nombre"
+    t.string "cargo"
+    t.string "lugar_trabajo"
+    t.string "email"
+    t.string "email_ok"
+    t.boolean "articulo_4_1"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["denuncia_id"], name: "index_krn_denunciados_on_denuncia_id"
+    t.index ["empresa_externa_id"], name: "index_krn_denunciados_on_empresa_externa_id"
+    t.index ["rut"], name: "index_krn_denunciados_on_rut"
+  end
+
+  create_table "krn_denunciantes", force: :cascade do |t|
+    t.integer "denuncia_id"
+    t.integer "empresa_externa_id"
+    t.string "rut"
+    t.string "nombre"
+    t.string "cargo"
+    t.string "lugar_trabajo"
+    t.string "email"
+    t.string "email_ok"
+    t.boolean "articulo_4_1"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["denuncia_id"], name: "index_krn_denunciantes_on_denuncia_id"
+    t.index ["empresa_externa_id"], name: "index_krn_denunciantes_on_empresa_externa_id"
+    t.index ["rut"], name: "index_krn_denunciantes_on_rut"
+  end
+
+  create_table "krn_denuncias", force: :cascade do |t|
+    t.integer "cliente_id"
+    t.integer "receptor_denuncia_id"
+    t.integer "empresa_receptora_id"
+    t.integer "motivo_denuncia_id"
+    t.integer "investigador_id"
+    t.datetime "fecha_hora"
+    t.datetime "fecha_hora_dt"
+    t.datetime "fecha_hora_recepcion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_krn_denuncias_on_cliente_id"
+    t.index ["empresa_receptora_id"], name: "index_krn_denuncias_on_empresa_receptora_id"
+    t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
+    t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
+    t.index ["fecha_hora_recepcion"], name: "index_krn_denuncias_on_fecha_hora_recepcion"
+    t.index ["investigador_id"], name: "index_krn_denuncias_on_investigador_id"
+    t.index ["motivo_denuncia_id"], name: "index_krn_denuncias_on_motivo_denuncia_id"
+    t.index ["receptor_denuncia_id"], name: "index_krn_denuncias_on_receptor_denuncia_id"
+  end
+
+  create_table "krn_empresa_externas", force: :cascade do |t|
+    t.string "rut"
+    t.string "razon_social"
+    t.string "tipo"
+    t.string "contacto"
+    t.string "email_contacto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rut"], name: "index_krn_empresa_externas_on_rut"
+    t.index ["tipo"], name: "index_krn_empresa_externas_on_tipo"
   end
 
   create_table "lgl_datos", force: :cascade do |t|

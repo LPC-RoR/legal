@@ -1,0 +1,2 @@
+module KrnDenunciadosHelper
+end

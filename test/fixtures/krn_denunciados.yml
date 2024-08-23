@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  denuncia_id: 1
+  empresa_externa_id: 1
+  rut: MyString
+  nombre: MyString
+  cargo: MyString
+  lugar_trabajo: MyString
+  email: MyString
+  email_ok: MyString
+  articulo_4_1: false
+
+two:
+  denuncia_id: 1
+  empresa_externa_id: 1
+  rut: MyString
+  nombre: MyString
+  cargo: MyString
+  lugar_trabajo: MyString
+  email: MyString
+  email_ok: MyString
+  articulo_4_1: false

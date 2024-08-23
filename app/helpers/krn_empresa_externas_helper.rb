@@ -1,0 +1,2 @@
+module KrnEmpresaExternasHelper
+end

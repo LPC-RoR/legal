@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Krn empresa externas</h1>
+
+<div id="krn_empresa_externas">
+  <% @krn_empresa_externas.each do |krn_empresa_externa| %>
+    <%= render krn_empresa_externa %>
+    <p>
+      <%= link_to "Show this krn empresa externa", krn_empresa_externa %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New krn empresa externa", new_krn_empresa_externa_path %>

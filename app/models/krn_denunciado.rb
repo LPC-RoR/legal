@@ -1,0 +1,2 @@
+class KrnDenunciado < ApplicationRecord
+end

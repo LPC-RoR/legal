@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cliente_id: 1
+  receptor_denuncia_id: 1
+  empresa_receptora_id: 1
+  motivo_denuncia_id: 1
+  investigador_id: 1
+  fecha_hora: 2024-08-23 14:43:48
+  fecha_hora_dt: 2024-08-23 14:43:48
+  fecha_hora_recepcion: 2024-08-23 14:43:48
+
+two:
+  cliente_id: 1
+  receptor_denuncia_id: 1
+  empresa_receptora_id: 1
+  motivo_denuncia_id: 1
+  investigador_id: 1
+  fecha_hora: 2024-08-23 14:43:48
+  fecha_hora_dt: 2024-08-23 14:43:48
+  fecha_hora_recepcion: 2024-08-23 14:43:48

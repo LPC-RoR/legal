@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Krn denunciantes</h1>
+
+<div id="krn_denunciantes">
+  <% @krn_denunciantes.each do |krn_denunciante| %>
+    <%= render krn_denunciante %>
+    <p>
+      <%= link_to "Show this krn denunciante", krn_denunciante %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New krn denunciante", new_krn_denunciante_path %>
