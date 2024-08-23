@@ -21,10 +21,7 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-    p= Procedimiento.first
-    Tarea.all.each do |tr|
-      p.tareas << tr
-    end
+    Denuncia.delete_all
 
     redirect_to root_path
   end
