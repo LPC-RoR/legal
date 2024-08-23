@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  resources :krn_empresa_externas
-  resources :krn_denunciados
-  resources :krn_denunciantes
-  resources :krn_denuncias
   resources :parrafos
   resources :notas do
     match :agrega_nota, via: :post, on: :collection
@@ -133,6 +129,11 @@ Rails.application.routes.draw do
     resources :receptor_denuncias
     resources :motivo_denuncias
     resources :dependencia_denunciantes
+
+    resources :krn_empresa_externas
+    resources :krn_denunciados
+    resources :krn_denunciantes
+    resources :krn_denuncias
   end
 
   scope module: 'hm' do

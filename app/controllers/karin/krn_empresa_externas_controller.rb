@@ -1,4 +1,6 @@
-class KrnEmpresaExternasController < ApplicationController
+class Karin::KrnEmpresaExternasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_krn_empresa_externa, only: %i[ show edit update destroy ]
 
   # GET /krn_empresa_externas or /krn_empresa_externas.json
@@ -25,7 +27,8 @@ class KrnEmpresaExternasController < ApplicationController
 
     respond_to do |format|
       if @krn_empresa_externa.save
-        format.html { redirect_to krn_empresa_externa_url(@krn_empresa_externa), notice: "Krn empresa externa was successfully created." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Krn empresa externa was successfully created." }
         format.json { render :show, status: :created, location: @krn_empresa_externa }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +41,8 @@ class KrnEmpresaExternasController < ApplicationController
   def update
     respond_to do |format|
       if @krn_empresa_externa.update(krn_empresa_externa_params)
-        format.html { redirect_to krn_empresa_externa_url(@krn_empresa_externa), notice: "Krn empresa externa was successfully updated." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Krn empresa externa was successfully updated." }
         format.json { render :show, status: :ok, location: @krn_empresa_externa }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,10 +53,11 @@ class KrnEmpresaExternasController < ApplicationController
 
   # DELETE /krn_empresa_externas/1 or /krn_empresa_externas/1.json
   def destroy
+    get_rdrccn
     @krn_empresa_externa.destroy!
 
     respond_to do |format|
-      format.html { redirect_to krn_empresa_externas_url, notice: "Krn empresa externa was successfully destroyed." }
+      format.html { redirect_to @rdrccn, notice: "Krn empresa externa was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -61,6 +66,10 @@ class KrnEmpresaExternasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_empresa_externa
       @krn_empresa_externa = KrnEmpresaExterna.find(params[:id])
+    end
+
+    def get_rdrccn
+      @rdrccn = krn_empresa_externas_path
     end
 
     # Only allow a list of trusted parameters through.

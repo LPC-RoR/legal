@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_23_184735) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_23_204257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1054,6 +1054,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_184735) do
     t.boolean "articulo_4_1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "dnndo_info_reglamento"
+    t.boolean "dnndo_info_procedimiento"
+    t.boolean "dnndo_info_derechos"
     t.index ["denuncia_id"], name: "index_krn_denunciados_on_denuncia_id"
     t.index ["empresa_externa_id"], name: "index_krn_denunciados_on_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciados_on_rut"
@@ -1071,6 +1074,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_184735) do
     t.boolean "articulo_4_1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "dnnte_info_reglamento"
+    t.boolean "dnnte_info_procedimiento"
+    t.boolean "dnnte_info_derechos"
     t.index ["denuncia_id"], name: "index_krn_denunciantes_on_denuncia_id"
     t.index ["empresa_externa_id"], name: "index_krn_denunciantes_on_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
@@ -1087,7 +1093,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_184735) do
     t.datetime "fecha_hora_recepcion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "dnnte_info_derivacion"
+    t.boolean "dnnte_derivacion"
+    t.string "dnnte_entidad_investigacion"
+    t.integer "dnnte_empresa_investigacion_id"
     t.index ["cliente_id"], name: "index_krn_denuncias_on_cliente_id"
+    t.index ["dnnte_derivacion"], name: "index_krn_denuncias_on_dnnte_derivacion"
+    t.index ["dnnte_empresa_investigacion_id"], name: "index_krn_denuncias_on_dnnte_empresa_investigacion_id"
     t.index ["empresa_receptora_id"], name: "index_krn_denuncias_on_empresa_receptora_id"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
@@ -1105,6 +1117,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_184735) do
     t.string "email_contacto"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cliente_id"
+    t.index ["cliente_id"], name: "index_krn_empresa_externas_on_cliente_id"
     t.index ["rut"], name: "index_krn_empresa_externas_on_rut"
     t.index ["tipo"], name: "index_krn_empresa_externas_on_tipo"
   end

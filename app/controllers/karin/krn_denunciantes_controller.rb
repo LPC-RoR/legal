@@ -1,9 +1,11 @@
-class KrnDenunciantesController < ApplicationController
+class Karin::KrnDenunciantesController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_krn_denunciante, only: %i[ show edit update destroy ]
 
   # GET /krn_denunciantes or /krn_denunciantes.json
   def index
-    @krn_denunciantes = KrnDenunciante.all
+    @coleccion = KrnDenunciante.all
   end
 
   # GET /krn_denunciantes/1 or /krn_denunciantes/1.json
@@ -12,7 +14,7 @@ class KrnDenunciantesController < ApplicationController
 
   # GET /krn_denunciantes/new
   def new
-    @krn_denunciante = KrnDenunciante.new
+    @objeto = KrnDenunciante.new
   end
 
   # GET /krn_denunciantes/1/edit
@@ -21,15 +23,16 @@ class KrnDenunciantesController < ApplicationController
 
   # POST /krn_denunciantes or /krn_denunciantes.json
   def create
-    @krn_denunciante = KrnDenunciante.new(krn_denunciante_params)
+    @objeto = KrnDenunciante.new(krn_denunciante_params)
 
     respond_to do |format|
-      if @krn_denunciante.save
-        format.html { redirect_to krn_denunciante_url(@krn_denunciante), notice: "Krn denunciante was successfully created." }
-        format.json { render :show, status: :created, location: @krn_denunciante }
+      if @objeto.save
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Denunciante fue exitósamente creado." }
+        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @krn_denunciante.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -37,22 +40,24 @@ class KrnDenunciantesController < ApplicationController
   # PATCH/PUT /krn_denunciantes/1 or /krn_denunciantes/1.json
   def update
     respond_to do |format|
-      if @krn_denunciante.update(krn_denunciante_params)
-        format.html { redirect_to krn_denunciante_url(@krn_denunciante), notice: "Krn denunciante was successfully updated." }
-        format.json { render :show, status: :ok, location: @krn_denunciante }
+      if @objeto.update(krn_denunciante_params)
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Denunciante fue exitósamente actualizado." }
+        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @krn_denunciante.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /krn_denunciantes/1 or /krn_denunciantes/1.json
   def destroy
-    @krn_denunciante.destroy!
+    get_rdrccn
+    @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to krn_denunciantes_url, notice: "Krn denunciante was successfully destroyed." }
+      format.html { redirect_to @rdrccn, notice: "Denunciante fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -60,7 +65,11 @@ class KrnDenunciantesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denunciante
-      @krn_denunciante = KrnDenunciante.find(params[:id])
+      @objeto = KrnDenunciante.find(params[:id])
+    end
+
+    def get_rdrccn
+      @rdrccn = @objeto.krn_denuncia
     end
 
     # Only allow a list of trusted parameters through.
