@@ -30,6 +30,10 @@ module Cmenu
 						cndcn: operacion?
 					},
 					{
+						std: 'revisión',
+						cndcn: admin?
+					},
+					{
 						std: 'terminada',
 						cndcn: operacion?
 					},
@@ -41,7 +45,8 @@ module Cmenu
 				items: {
 					'tramitación' => 'En Tramitación',
 					'terminada' => 'Terminadas',
-					'cerrada' => 'Cerradas'
+					'cerrada' => 'Cerradas',
+					'revisión' => 'Revisión'
 				},
 				selectors: [
 				]

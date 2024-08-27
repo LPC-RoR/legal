@@ -5,7 +5,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
 
   # GET /krn_empresa_externas or /krn_empresa_externas.json
   def index
-    @krn_empresa_externas = KrnEmpresaExterna.all
+    @coleccion = KrnEmpresaExterna.all
   end
 
   # GET /krn_empresa_externas/1 or /krn_empresa_externas/1.json
@@ -14,7 +14,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
 
   # GET /krn_empresa_externas/new
   def new
-    @krn_empresa_externa = KrnEmpresaExterna.new
+    @objeto = KrnEmpresaExterna.new(cliente_id: params[:oid])
   end
 
   # GET /krn_empresa_externas/1/edit
@@ -23,16 +23,16 @@ class Karin::KrnEmpresaExternasController < ApplicationController
 
   # POST /krn_empresa_externas or /krn_empresa_externas.json
   def create
-    @krn_empresa_externa = KrnEmpresaExterna.new(krn_empresa_externa_params)
+    @objeto = KrnEmpresaExterna.new(krn_empresa_externa_params)
 
     respond_to do |format|
-      if @krn_empresa_externa.save
+      if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Krn empresa externa was successfully created." }
-        format.json { render :show, status: :created, location: @krn_empresa_externa }
+        format.html { redirect_to @rdrccn, notice: "Empresa externa fue exitósamente creada." }
+        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @krn_empresa_externa.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -40,13 +40,13 @@ class Karin::KrnEmpresaExternasController < ApplicationController
   # PATCH/PUT /krn_empresa_externas/1 or /krn_empresa_externas/1.json
   def update
     respond_to do |format|
-      if @krn_empresa_externa.update(krn_empresa_externa_params)
+      if @objeto.update(krn_empresa_externa_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Krn empresa externa was successfully updated." }
-        format.json { render :show, status: :ok, location: @krn_empresa_externa }
+        format.html { redirect_to @rdrccn, notice: "Empresa externa fue exitósamente actualizada." }
+        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @krn_empresa_externa.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,10 +54,10 @@ class Karin::KrnEmpresaExternasController < ApplicationController
   # DELETE /krn_empresa_externas/1 or /krn_empresa_externas/1.json
   def destroy
     get_rdrccn
-    @krn_empresa_externa.destroy!
+    @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Krn empresa externa was successfully destroyed." }
+      format.html { redirect_to @rdrccn, notice: "Empresa externa fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -65,15 +65,15 @@ class Karin::KrnEmpresaExternasController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_empresa_externa
-      @krn_empresa_externa = KrnEmpresaExterna.find(params[:id])
+      @objeto = KrnEmpresaExterna.find(params[:id])
     end
 
     def get_rdrccn
-      @rdrccn = krn_empresa_externas_path
+      @rdrccn = "/clientes/#{@objeto.cliente.id}?html_options[menu]=Investigaciones"
     end
 
     # Only allow a list of trusted parameters through.
     def krn_empresa_externa_params
-      params.require(:krn_empresa_externa).permit(:cliente_id, :rut, :razon_social, :tipo, :contacto, :email_contacto)
+      params.require(:krn_empresa_externa).permit(:cliente_id, :rut, :razon_social, :tipo, :contacto, :email_contacto, :empresa_id)
     end
 end

@@ -14,7 +14,7 @@ class Karin::KrnDenunciadosController < ApplicationController
 
   # GET /krn_denunciados/new
   def new
-    @objeto = KrnDenunciado.new
+    @objeto = KrnDenunciado.new(krn_denuncia_id: params[:oid])
   end
 
   # GET /krn_denunciados/1/edit

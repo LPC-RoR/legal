@@ -1,0 +1,8 @@
+<div class="formCell">
+  <% chck_bx_lst.each do |chck_lst| %>
+    <label>
+      <%= form.check_box chck_lst[0] %>
+      <span><%= chck_lst[1] %></span>
+    </label>
+  <% end %>
+</div>

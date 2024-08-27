@@ -26,7 +26,6 @@ module Plazos
 				ds += 1
 			end
 		end
-		puts "******************** término"
 		fch
 	end
 

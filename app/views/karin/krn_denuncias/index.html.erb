@@ -1,14 +1,1 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Krn denuncias</h1>
-
-<div id="krn_denuncias">
-  <% @krn_denuncias.each do |krn_denuncia| %>
-    <%= render krn_denuncia %>
-    <p>
-      <%= link_to "Show this krn denuncia", krn_denuncia %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New krn denuncia", new_krn_denuncia_path %>
+<%= render partial: prtl_name('krn_denuncias', 'indx', 'indx') %>

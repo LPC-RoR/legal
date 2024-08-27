@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_23_213234) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_27_152845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1055,7 +1055,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_213234) do
   end
 
   create_table "krn_denunciados", force: :cascade do |t|
-    t.integer "denuncia_id"
+    t.integer "krn_denuncia_id"
     t.integer "empresa_externa_id"
     t.string "rut"
     t.string "nombre"
@@ -1069,14 +1069,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_213234) do
     t.boolean "dnndo_info_reglamento"
     t.boolean "dnndo_info_procedimiento"
     t.boolean "dnndo_info_derechos"
-    t.index ["denuncia_id"], name: "index_krn_denunciados_on_denuncia_id"
+    t.integer "krn_empleado_id"
     t.index ["empresa_externa_id"], name: "index_krn_denunciados_on_empresa_externa_id"
+    t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
+    t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
     t.index ["rut"], name: "index_krn_denunciados_on_rut"
   end
 
   create_table "krn_denunciantes", force: :cascade do |t|
-    t.integer "denuncia_id"
-    t.integer "empresa_externa_id"
+    t.integer "krn_denuncia_id"
+    t.integer "krn_empresa_externa_id"
     t.string "rut"
     t.string "nombre"
     t.string "cargo"
@@ -1089,8 +1091,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_213234) do
     t.boolean "dnnte_info_reglamento"
     t.boolean "dnnte_info_procedimiento"
     t.boolean "dnnte_info_derechos"
-    t.index ["denuncia_id"], name: "index_krn_denunciantes_on_denuncia_id"
-    t.index ["empresa_externa_id"], name: "index_krn_denunciantes_on_empresa_externa_id"
+    t.integer "krn_empleado_id"
+    t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
+    t.index ["krn_empleado_id"], name: "index_krn_denunciantes_on_krn_empleado_id"
+    t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
   end
 
@@ -1110,7 +1114,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_213234) do
     t.string "dnnte_entidad_investigacion"
     t.integer "dnnte_empresa_investigacion_id"
     t.integer "empresa_id"
+    t.string "presentado_por"
+    t.string "via_declaracion"
+    t.string "tipo_declaracion"
+    t.integer "dependencia_denunciante_id"
+    t.string "representante"
+    t.string "documento_representacion"
     t.index ["cliente_id"], name: "index_krn_denuncias_on_cliente_id"
+    t.index ["dependencia_denunciante_id"], name: "index_krn_denuncias_on_dependencia_denunciante_id"
     t.index ["dnnte_derivacion"], name: "index_krn_denuncias_on_dnnte_derivacion"
     t.index ["dnnte_empresa_investigacion_id"], name: "index_krn_denuncias_on_dnnte_empresa_investigacion_id"
     t.index ["empresa_id"], name: "index_krn_denuncias_on_empresa_id"
@@ -1121,6 +1132,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_23_213234) do
     t.index ["investigador_id"], name: "index_krn_denuncias_on_investigador_id"
     t.index ["motivo_denuncia_id"], name: "index_krn_denuncias_on_motivo_denuncia_id"
     t.index ["receptor_denuncia_id"], name: "index_krn_denuncias_on_receptor_denuncia_id"
+  end
+
+  create_table "krn_empleados", force: :cascade do |t|
+    t.integer "cliente_id"
+    t.integer "empresa_id"
+    t.string "rut"
+    t.string "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_krn_empleados_on_cliente_id"
+    t.index ["empresa_id"], name: "index_krn_empleados_on_empresa_id"
+    t.index ["rut"], name: "index_krn_empleados_on_rut"
   end
 
   create_table "krn_empresa_externas", force: :cascade do |t|

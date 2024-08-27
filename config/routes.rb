@@ -135,6 +135,7 @@ Rails.application.routes.draw do
     resources :krn_denunciados
     resources :krn_denunciantes
     resources :krn_denuncias
+    resources :krn_empleados
   end
 
   scope module: 'hm' do

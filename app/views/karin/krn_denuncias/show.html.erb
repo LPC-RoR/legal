@@ -1,10 +1,30 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @krn_denuncia %>
-
-<div>
-  <%= link_to "Edit this krn denuncia", edit_krn_denuncia_path(@krn_denuncia) %> |
-  <%= link_to "Back to krn denuncias", krn_denuncias_path %>
-
-  <%= button_to "Destroy this krn denuncia", @krn_denuncia, method: :delete %>
+<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: nil } %>
+<div class="shw_flds_lst">
+	<b><%= render partial: '0p/shw/fld_ln', locals: {fld: 'Cliente', vl: @objeto.cliente.razon_social, algn: 'left'} %></b>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Receptor de la denuncia', vl: @objeto.receptor_denuncia.receptor_denuncia, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Motivo de la denuncia', vl: @objeto.motivo_denuncia.motivo_denuncia, algn: 'left'} %>
+	<b>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora denuncia', vl: dma_hm(@objeto.fecha_hora), algn: 'right'} if @objeto.receptor_denuncia.receptor_denuncia == 'Empresa' %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora certificado DT', vl: dma_hm(@objeto.fecha_hora_dt), algn: 'right'} if @objeto.receptor_denuncia.receptor_denuncia == 'Dirección del Trabajo' %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora Recepción', vl: dma_hm(@objeto.fecha_hora_recepcion), algn: 'right'} if @objeto.receptor_denuncia.receptor_denuncia == 'Empresa externa' %>
+	</b>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Presentada por', vl: @objeto.presentado_por, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Vía de la declaración', vl: @objeto.via_declaracion, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Tipo de declaración', vl: @objeto.tipo_declaracion, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Dependencia del denunciante', vl: @objeto.dependencia_denunciante.dependencia_denunciante, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Representante', vl: @objeto.representante, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Documento que acredita representación', vl: @objeto.documento_representacion, algn: 'left'} %>
+	<b class="text-info">
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo información a la DT', vl: dma_hm(plz_lv(@objeto.fecha_hora, 3)), algn: 'right'} %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo investigación', vl: dma_hm(plz_lv(@objeto.fecha_hora, 30)), algn: 'right'} %>
+	</b>
 </div>
+
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciantes', ttl: "Denunciante", ownr: @objeto} %>
+<% unless @objeto.krn_denunciante.blank? %>
+<div class="shw_flds_lst">
+	<% if @objeto.dependencia_denunciante.dependencia_denunciante == 'Empresa externa' %>
+		<b><%= render partial: '0p/shw/fld_ln', locals: {fld: 'Empresa', vl: @objeto.krn_denunciante.krn_empresa_externa.razon_social, algn: 'left'} %></b>
+	<% end %>
+</div>
+<% end %>

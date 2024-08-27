@@ -1,0 +1,16 @@
+
+<%# if @objeto.krn_denuncia.dependencia_denunciante.dependencia_denunciante == 'Empresa externa' %>
+	<div class='form-row'>
+		<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :krn_empresa_externa_id, colection: KrnEmpresaExterna.order(:razon_social).collect { |ee| [ee.razon_social, ee.id] }, display_field: 'razon_social', prompt: nil, label: 'Empresa externa' } %>
+	</div>
+<%# end %>
+
+<%= render partial: '0p/frm_flds/rut_pj', locals: {form: form, pj_tkn: :nombre, label: 'Nombre completo'} %>
+
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :cargo, label: 'Cargo' } %>
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :lugar_trabajo, label: 'Lugar de trabajo' } %>
+<%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email, label: 'Email' } %>
+
+<%= render partial: '0p/frm_flds/chck_bx_lst', locals: { form: form, chck_bx_lst: [[:articulo_4_1, 'Aplica artículo 4 inciso primero del Código del trabajo'], [:dnnte_info_regalamento, 'Recibió regalamento interno actualizado?'], [:dnnte_info_procedimientos, 'Capacitado en el Procedimiento de Investigación y sanción?'], [:dnnte_info_derechos, 'Conoces sus derechos como denunciante?']]} %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :krn_denuncia_id } %>

@@ -1,0 +1,5 @@
+<% if @objeto.krn_denunciante.blank? %>
+	<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/krn_denunciantes/new#{ownr_prms(@objeto)}", tltp: "Agrega Denunciante"} %>
+<% else %>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: @objeto.krn_denunciante} %>
+<% end %>

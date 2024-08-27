@@ -15,7 +15,7 @@ module CptnMenuLeftHelper
 						['Cargo', 'finanzas'],
 						['TarAprobacion', 'finanzas'],
 						['TarFactura', 'finanzas'],
-						['Denuncias', 'operacion']
+						['KrnDenuncia', 'operacion']
 					]
 				},
 				{

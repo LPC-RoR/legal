@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
 	include Modelos
 
 	include Calendario
+	include Plazos
 
 	include Tarifas
 
@@ -33,6 +34,7 @@ class ApplicationController < ActionController::Base
 	helper_method :lm_seguridad, :check_crud, :check_k_estados, :check_st_estado
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
 	helper_method :cmenu_clss, :first_estado, :first_selector, :display_name
+	helper_method :plz_lv, :plz_c
 
 	# ************************************************************************** COLECCINES DE ESTADOS
  

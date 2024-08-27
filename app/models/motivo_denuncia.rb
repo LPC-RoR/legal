@@ -1,3 +1,3 @@
 class MotivoDenuncia < ApplicationRecord
-	has_many :denuncias
+	has_many :krn_denuncias
 end

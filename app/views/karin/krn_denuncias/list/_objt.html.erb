@@ -1,0 +1,5 @@
+<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver denuncia'} do %>
+	<%= dma_hm(objeto.fecha_hora) %>
+<% end %>
+<i class="bi bi-dot"></i>
+<%= objeto.motivo_denuncia.motivo_denuncia %>

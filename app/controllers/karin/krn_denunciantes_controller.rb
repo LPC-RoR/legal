@@ -14,7 +14,8 @@ class Karin::KrnDenunciantesController < ApplicationController
 
   # GET /krn_denunciantes/new
   def new
-    @objeto = KrnDenunciante.new
+#    denuncia = params[:oclss].constantize.find(params[:oid])
+    @objeto = KrnDenunciante.new(krn_denuncia_id: params[:oid])
   end
 
   # GET /krn_denunciantes/1/edit
@@ -74,6 +75,6 @@ class Karin::KrnDenunciantesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denunciante_params
-      params.require(:krn_denunciante).permit(:denuncia_id, :empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :dnnte_info_reglamento, :dnnte_info_procedimiento, :dnnte_info_derechos)
+      params.require(:krn_denunciante).permit(:krn_denuncia_id, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :dnnte_info_reglamento, :dnnte_info_procedimiento, :dnnte_info_derechos)
     end
 end
