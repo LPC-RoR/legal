@@ -1,15 +1,14 @@
-<% if @objeto.documento_control %>
+<% if @objeto.control_documento_id.present? %>
 	<div class="text-info"><i class="bi bi-file"></i> <%= @objeto.app_archivo %></div>
 <% else %>
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :app_archivo, label: 'Archivo' } %>
-	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :app_archivo, label: 'archivo' } %>
+	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :app_archivo, label: 'Nombre del archivo' } %>
 <% end %>
-</br>
 
-<%= render partial: '0p/form_fields/file', locals: { form: form, token: :archivo } %>
+<%= render partial: '0p/frm_flds/file', locals: { form: form, token: :archivo } %>
 
-<% unless @objeto.documento_control %>
-	<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
+<% if @objeto.control_documento_id.present? %>
+	<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :app_archivo } %>
 <% end %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :control_documento_id } %>

@@ -133,6 +133,6 @@ class Repositorios::ControlDocumentosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def control_documento_params
-      params.require(:control_documento).permit(:nombre, :descripcion, :tipo, :control, :owner_class, :owner_id, :orden, :visible_para)
+      params.require(:control_documento).permit(:nombre, :descripcion, :tipo, :control, :owner_class, :owner_id, :orden, :visible_para, :codigo)
     end
 end

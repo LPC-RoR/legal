@@ -1,0 +1,49 @@
+<div class="shw_flds_lst">
+	<b><%= render partial: '0p/shw/fld_ln', locals: {fld: 'Cliente', vl: objeto.cliente.razon_social, algn: 'left'} %></b>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Receptor de la denuncia', vl: objeto.receptor_denuncia.receptor_denuncia, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Motivo de la denuncia', vl: objeto.motivo_denuncia.motivo_denuncia, algn: 'left'} %>
+	<b>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora denuncia', vl: dma_hm(objeto.fecha_hora), algn: 'right'} if objeto.receptor_denuncia.receptor_denuncia == 'Empresa' %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora certificado DT', vl: dma_hm(objeto.fecha_hora_dt), algn: 'right'} if objeto.receptor_denuncia.receptor_denuncia == 'Dirección del Trabajo' %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora Recepción', vl: dma_hm(objeto.fecha_hora_recepcion), algn: 'right'} if objeto.receptor_denuncia.receptor_denuncia == 'Empresa externa' %>
+	</b>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Presentada por', vl: objeto.presentado_por, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Vía de la declaración', vl: objeto.via_declaracion, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Tipo de declaración', vl: objeto.tipo_declaracion, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Dependencia del denunciante', vl: objeto.dependencia_denunciante.dependencia_denunciante, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Representante', vl: objeto.representante, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Documento que acredita representación', vl: objeto.documento_representacion, algn: 'left'} %>
+	<b class="text-info">
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo información a la DT', vl: dma_hm(plz_lv(objeto.fecha_hora, 3)), algn: 'right'} %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo investigación', vl: dma_hm(plz_lv(objeto.fecha_hora, 30)), algn: 'right'} %>
+	</b>
+</div>
+<div class="shw_bx">
+	<b>Archivo(s) de la denuncia</b></br>
+	<% if @cntrl_dnnc %>
+		<% if @dnnc.blank? %>
+			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/app_archivos/new#{ownr_prms(objeto)}&dcid=#{@dc_dnnc.id}", tltp: 'Subir denuncia'} do %>
+				<i class="bi bi-upload"></i>
+				Subir <%= @dc_dnnc.descripcion %>
+			<% end %>
+		<% else %>
+			<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: @dnnc.archivo.url, tltp: 'Ver denuncia'} do %>
+				<i class="bi bi-download"></i>
+				Denuncia recibida el <%= dma_hm(objeto.fecha_hora) %>
+			<% end %>
+		<% end %>
+	<% end %>
+	<% if @cntrl_ntfccn %>
+		<% if @ntfccn.blank? %>
+			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/app_archivos/new#{ownr_prms(objeto)}&dcid=#{@dc_ntfccn.id}", tltp: 'Subir denuncia'} do %>
+				<i class="bi bi-upload"></i>
+				Subir <%= @dc_ntfccn.descripcion %>
+			<% end %>
+		<% else %>
+			<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: @ntfccn.archivo.url, tltp: 'Ver Notificación'} do %>
+				<i class="bi bi-download"></i>
+				Notificación recibida desde la DT
+			<% end %>
+		<% end %>
+	<% end %>
+</div>

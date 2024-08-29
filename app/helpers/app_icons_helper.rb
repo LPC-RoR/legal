@@ -61,7 +61,7 @@ module AppIconsHelper
 			'h_textos' => 'blockquote-left',
 			'h_preguntas' => 'question-square',
 			'productos' => 'box-seam',
-			'denuncias' => 'file-earmark-lock'
+			'krn_denuncias' => 'mailbox'
 		}
 	end
 end

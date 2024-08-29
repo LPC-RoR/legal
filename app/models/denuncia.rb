@@ -6,4 +6,5 @@ class Denuncia < ApplicationRecord
 	belongs_to :dependencia_denunciante
 
 	has_many :denunciados
+
 end

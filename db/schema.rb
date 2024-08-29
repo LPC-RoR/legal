@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_27_152845) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_28_215704) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -158,7 +158,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_27_152845) do
     t.boolean "documento_control"
     t.string "control"
     t.string "visible_para"
+    t.integer "control_documento_id"
     t.index ["control"], name: "index_app_archivos_on_control"
+    t.index ["control_documento_id"], name: "index_app_archivos_on_control_documento_id"
     t.index ["documento_control"], name: "index_app_archivos_on_documento_control"
     t.index ["owner_class"], name: "index_app_archivos_on_owner_class"
     t.index ["owner_id"], name: "index_app_archivos_on_owner_id"
@@ -686,6 +688,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_27_152845) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "orden"
     t.string "visible_para"
+    t.string "codigo"
+    t.index ["codigo"], name: "index_control_documentos_on_codigo"
     t.index ["orden"], name: "index_control_documentos_on_orden"
     t.index ["owner_class"], name: "index_control_documentos_on_owner_class"
     t.index ["owner_id"], name: "index_control_documentos_on_owner_id"
@@ -1056,7 +1060,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_27_152845) do
 
   create_table "krn_denunciados", force: :cascade do |t|
     t.integer "krn_denuncia_id"
-    t.integer "empresa_externa_id"
+    t.integer "krn_empresa_externa_id"
     t.string "rut"
     t.string "nombre"
     t.string "cargo"
@@ -1070,9 +1074,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_27_152845) do
     t.boolean "dnndo_info_procedimiento"
     t.boolean "dnndo_info_derechos"
     t.integer "krn_empleado_id"
-    t.index ["empresa_externa_id"], name: "index_krn_denunciados_on_empresa_externa_id"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
+    t.index ["krn_empresa_externa_id"], name: "index_krn_denunciados_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciados_on_rut"
   end
 

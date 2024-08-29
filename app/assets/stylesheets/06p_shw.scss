@@ -1,12 +1,12 @@
 $shw_mrgn: 0;
-$shw_pddng: 0;
+$shw_pddng: .5rem;
 
 $shw_brd_wdth: 1px;
 $shw_brd_typ: solid;
 $shw_brd_clr: $pltt_5;
 $shw_brd_rds: 3px;
 
-$shw_ln_bg_clr: $pltt_7;
+$shw_ln_bg_clr: $pltt_8;
 $shw_ln_tc: 50% 50%;
 $shw_ln_gp: 0;
 
@@ -40,4 +40,9 @@ $shw_ln_gp: 0;
 //	        justify-self: end; 	
 		}
 	}
+}
+
+.shw_bx {
+	@include shw_bsc;
+	font-size: 14px;
 }

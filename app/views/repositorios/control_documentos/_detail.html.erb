@@ -1,25 +1,13 @@
-<% if @objeto.tipo.blank? %>
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
-	<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: ControlDocumento::TIPOS, label: 'Tipo' } %>
-<% else %>
-	<div class='text-info'>Tipo : <%= @objeto.tipo %></div>
-<% end %>
+<div class='form-row'>
+	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :tipo, sel_list: ControlDocumento::TIPOS, prompt: nil, label: 'Tipo' } %>
+	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :control, sel_list: ControlDocumento::CONTROLES, prompt: nil, label: 'Control' } %>
+	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :visible_para, sel_list: tipos_usuario, prompt: nil, label: 'Visible para' } %>
+</div>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :control, label: 'Control' } %>
-<%= render partial: '0p/form_fields/select', locals: { form: form, token: :control, sel_list: ControlDocumento::CONTROLES, label: 'Control' } %>
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :codigo, label: 'Código' } %>
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :nombre, label: 'Nombre del documento' } %>
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :visible_para, label: 'Visible para:' } %>
-<%= render partial: '0p/form_fields/select', locals: { form: form, token: :visible_para, sel_list: tipos_usuario, label: 'Visible' } %>
-
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :nombre, label: 'Nombre' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :nombre } %>
-
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %>
-
-<% unless @objeto.tipo.blank? %>
-	<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tipo } %>
-<% end %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>

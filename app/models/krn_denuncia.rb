@@ -12,4 +12,8 @@ class KrnDenuncia < ApplicationRecord
 #		self.cliente_id.blank? ? self.empresa : self.cliente
 		self.cliente
 	end
+
+	def app_archivos
+		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
+	end
 end
