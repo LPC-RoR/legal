@@ -8,6 +8,8 @@ class StEstado < ApplicationRecord
 
     validates_presence_of :orden, :estado
 
+    scope :ordr_stts, -> { order(:orden) }
+
   	def estado
 		self.st_estado
 	end

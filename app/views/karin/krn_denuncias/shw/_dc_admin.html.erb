@@ -1,0 +1,15 @@
+<% if cntrl %>
+	<% if fl.blank? %>
+		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/app_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: 'Subir denuncia'} do %>
+			<i class="bi bi-upload"></i>
+			Subir <%= dc.descripcion %>
+		<% end %>
+	<% else %>
+		<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: fl.archivo.url, tltp: 'Ver archivo'} do %>
+			<i class="bi bi-download"></i>
+			<%= dc.descripcion %>
+			<i class="bi bi-dot"></i>
+			<%= dma_hm(fl.created_at) %>
+		<% end %>
+	<% end %>
+<% end %>

@@ -13,4 +13,6 @@ class AgeUsuario < ApplicationRecord
 	validates :age_usuario, presence: true
 	validates :age_usuario, uniqueness: true
 
+	scope :no_ownr, -> { where(owner_class: nil, owner_id: nil) }
+
 end

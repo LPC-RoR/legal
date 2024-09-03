@@ -8,24 +8,21 @@ class ClientesController < ApplicationController
 
   # GET /clientes or /clientes.json
   def index
-    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+    @age_usuarios = AgeUsuario.no_ownr
+    @modelo = StModelo.get_model('Cliente')
 
-    @modelo = StModelo.find_by(st_modelo: 'Cliente')
-    @estados = @modelo.blank? ? [] : @modelo.st_estados.order(:orden).map {|e_cli| e_cli.st_estado}
+    @estados = @modelo.blank? ? [] : @modelo.stts_arry
     @tipos = Cliente::TIPOS
-    v_first = get_first_es('clientes')
-    frst_e = (v_first[0] == 'estado') ? v_first[1] : nil
-    frst_s = (v_first[0] == 'selector') ? v_first[1] : nil
 
-    @estado = (params[:e].blank? and params[:t].blank?) ? frst_e : params[:e]
-    @tipo = (params[:t].blank? and @estado.blank?) ? frst_s : params[:t]
+    @estado = std('clientes', params[:e], params[:t])
+    @tipo = typ('clientes', params[:e], params[:t])
     @path = '/clientes?'
 
     @vrbls = Variable.all.order(:variable)
 
     
-    cllcn = Cliente.where(estado: @estado) if @estado.present?
-    cllcn = Cliente.where(estado: 'activo', tipo_cliente: @tipo.singularize) if (@tipo.present? and @estado.blank?)
+    cllcn = Cliente.std(@estado) if @estado.present?
+    cllcn = Cliente.typ(@tipo.singularize) if (@tipo.present? and @estado.blank?)
 
     set_tabla('clientes', cllcn.order(preferente: :desc, razon_social: :asc), true)
 

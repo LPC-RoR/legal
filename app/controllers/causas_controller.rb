@@ -10,25 +10,18 @@ class CausasController < ApplicationController
 
   # GET /causas or /causas.json
   def index
-    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+    @age_usuarios = AgeUsuario.no_ownr
 
-    @modelo = StModelo.find_by(st_modelo: 'Causa')
-    @estados = @modelo.blank? ? [] : @modelo.st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
-    @tipos = ['cobranza']
+    @modelo = StModelo.get_model('Causa')
+    @estados = @modelo.blank? ? [] : @modelo.stts_arry
 
-    v_first = get_first_es('causas')
-    frst_e = (v_first[0] == 'estado') ? v_first[1] : nil
-    frst_s = (v_first[0] == 'selector') ? v_first[1] : nil
-
-    @estado = (params[:e].blank? and params[:t].blank?) ? frst_e : params[:e]
-    @tipo = (params[:t].blank? and @estado.blank?) ? frst_s : params[:t]
+    @estado = std('causas', params[:e], params[:t])
     @path = "/causas?"
     @link_new = @estado == 'tramitación' ? causas_path : nil
 
     if params[:query].blank?
 
-      cllcn = Causa.where(estado: @estado) if @estado.present?
-      cllcn = Causa.where(en_cobranza: true) if (@tipo.present? and @estado.blank?)
+      cllcn = Causa.std(@estado) if @estado.present?
 
       set_tabla('causas', cllcn, true)
       @srch = false

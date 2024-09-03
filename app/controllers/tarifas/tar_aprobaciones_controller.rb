@@ -5,9 +5,9 @@ class Tarifas::TarAprobacionesController < ApplicationController
 
   # GET /tar_aprobaciones or /tar_aprobaciones.json
   def index
-    set_tabla('tar_aprobaciones', TarAprobacion.all.order(fecha: :desc), true)
-    set_tabla('tar_calculos', TarCalculo.where(tar_aprobacion_id: nil), false)
-    set_tabla('tar_facturaciones', TarFacturacion.where(tar_aprobacion_id: nil, tar_factura_id: nil), false)
+    set_tabla('tar_aprobaciones', TarAprobacion.ordr, true)
+    set_tabla('tar_calculos', TarCalculo.no_aprbcn, false)
+    set_tabla('tar_facturaciones', TarFacturacion.no_aprbcn, false)
   end
 
   # GET /tar_aprobaciones/1 or /tar_aprobaciones/1.json

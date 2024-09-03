@@ -4,9 +4,9 @@
 <% case @options[:menu] %>
 <% when 'General' %>
 	<%= render partial: prtl_name('krn_denuncias', 'shw', 'tb_general'), locals: {objeto: @objeto} %>
-<% when 'Denunciante' %>
-	<%= render partial: prtl_name('krn_denuncias', 'shw', 'tb_denunciante'), locals: {objeto: @objeto} %>
-<% when 'Denunciado(s)' %>
+<% when 'Denunciante(s)' %>
+	<%= render partial: prtl_name('krn_denuncias', 'shw', 'tb_denunciantes'), locals: {objeto: @objeto} %>
+<% when 'Denunciada(s)' %>
 	<%= render partial: prtl_name('krn_denuncias', 'shw', 'tb_denunciados'), locals: {objeto: @objeto} %>
 <% when 'Medidas' %>
 <% when 'Documentos' %>

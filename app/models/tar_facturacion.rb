@@ -6,6 +6,8 @@ class TarFacturacion < ApplicationRecord
 	belongs_to :tar_cuota, optional: true
 	belongs_to :tar_calculo, optional: true
 
+	scope :no_aprbcn, -> { where(tar_aprobacion_id: nil) }
+
 	# MAP del pago
 
 	def padre

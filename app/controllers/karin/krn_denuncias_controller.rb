@@ -3,6 +3,8 @@ class Karin::KrnDenunciasController < ApplicationController
   before_action :scrty_on
   before_action :set_krn_denuncia, only: %i[ show edit update destroy ]
 
+  include Karin
+
   # GET /krn_denuncias or /krn_denuncias.json
   def index
     set_tabla('krn_denuncias', KrnDenuncia.all.order(fecha_hora: :desc), true)
@@ -10,22 +12,15 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
-    set_tab( :menu, [['General', operacion?], ['Denunciante', operacion?], ['Denunciado(s)', operacion?], ['Hechos', operacion?], ['Medidas', operacion?], ['Documentos', operacion?]] )
+    set_tab( :menu, [['General', operacion?], ['Denunciante(s)', operacion?], ['Denunciada(s)', operacion?], ['Hechos', operacion?], ['Medidas', operacion?], ['Documentos', operacion?]] )
 
     case @options[:menu]
     when 'General'
-      @cntrl_dnnc = @objeto.tipo_declaracion != 'Verbal'
-      @cntrl_crtfcd = @objeto.dnnte_derivacion != true
-      @cntrl_ntfccn = @objeto.receptor_denuncia.receptor_denuncia == 'DT'
-      modelo = StModelo.find_by(st_modelo: 'KrnDenuncia')
-      documentos_controlados = modelo.control_documentos
-      @dc_dnnc = documentos_controlados.find_by(codigo: 'denuncia')
-      @dc_crtfcd = documentos_controlados.find_by(codigo: 'certificado')
-      @dc_ntfccn = documentos_controlados.find_by(codigo: 'notificacion')
-      @dnnc = @dc_dnnc.blank? ? nil : @objeto.app_archivos.find_by(control_documento_id: @dc_dnnc.id)
-      @crtfcd = @dc_crtfcd.blank? ? nil : @objeto.app_archivos.find_by(control_documento_id: @dc_crtfcd.id)
-      @ntfccn = @dc_ntfccn.blank? ? nil : @objeto.app_archivos.find_by(control_documento_id: @dc_ntfccn.id)
-    when 'Denunciado(s)'
+      krn_dnnc_dc_init(@objeto)
+    when 'Denunciante(s)'
+      krn_dnncnts_dc_init(@objeto)
+      @denunciantes = @objeto.krn_denunciantes
+    when 'Denunciada(s)'
       set_tabla('krn_denunciados', @objeto.krn_denunciados.order(:nombre), false)
     end
   end

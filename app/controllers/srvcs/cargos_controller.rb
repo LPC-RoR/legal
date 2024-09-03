@@ -5,18 +5,22 @@ class Srvcs::CargosController < ApplicationController
 
   # GET /cargos or /cargos.json
   def index
-    @estados = StModelo.find_by(st_modelo: 'Cargo').st_estados.order(:orden).map {|e_crg| e_crg.estado}
+    @age_usuarios = AgeUsuario.no_ownr
+    @modelo = StModelo.get_model('Cargo')
+
+    @estados = @modelo.blank? ? [] : @modelo.stts_arry
     @tipos = ['Mensuales', 'Cargos']
-    @tipo = params[:t].blank? ? nil : params[:t]
-    @estado = params[:e].blank? ? (@tipo.blank? ? @estados[0] : nil) : params[:e]
+
+    @estado = std('asesorias', params[:e], params[:t])
+    @tipo = typ('asesorias', params[:e], params[:t])
     @path = "/cargos?"
 
     unless @tipo.blank?
-      tipo = TipoCargo.find_by(tipo_cargo: @tipo.singularize)
-      coleccion = Cargo.where(tipo_cargo_id: tipo.id).order(created_at: :desc)
+      tipo = TipoCargo.typ(@tipo.singularize)
+      coleccion = Cargo.typ(tipo.id)
     end
     unless @estado.blank?
-      coleccion = Cargo.where(estado: @estado).order(created_at: :desc)
+      coleccion = Cargo.std(@estado)
     end
     set_tabla('cargos', coleccion, true)
 

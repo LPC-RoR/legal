@@ -36,6 +36,8 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
+    scope :std, ->(estado) { where(estado: estado)}
+
     # OWN CHILDS
 
     # CUANTIA

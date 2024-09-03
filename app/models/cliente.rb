@@ -27,6 +27,9 @@ class Cliente < ApplicationRecord
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :tipo_cliente
 
+    scope :std, ->(estado) { where(estado: estado)}
+    scope :typ, ->(tipo) { where(estado: 'activo', tipo_cliente: tipo) }
+
     # CHILDS
 
     def notas

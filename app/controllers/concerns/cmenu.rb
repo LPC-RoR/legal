@@ -173,23 +173,22 @@ module Cmenu
 		d_name.blank? ? k_name : d_name
 	end
 
-	def first_estado(controller)
-		estado = nil
-		cmenu_clss[controller][:estados].each do |std|
-			estado = std[:std] if estado.blank? and std[:cndcn]
-		end
-		estado
+	def frst_std(cntrllr)
+		stts = cmenu_clss[cntrllr][:estados]
+		stts.blank? ? nil : stts.map {|st| st[:std] if st[:cndcn]}.compact.first
 	end
 
-	def first_selector(controller)
-		selector = nil
-		cmenu_clss[controller][:selectors].each do |slctr|
-			selector = slctr[0] if selector.blank? and slctr[1]
-		end
-		selector
+	def frst_typ(cntrllr)
+		slctrs = cmenu_clss[cntrllr][:selectors]
+		slctrs.blank? ? nil : slctrs.map {|slctr| slctr[0] if slctr[1]}.compact.first
 	end
 
-	def get_first_es(controller)
-		first_estado(controller).blank? ? (first_selector(controller).blank? ? nil : ['selector', first_selector(controller)]) : ['estado', first_estado(controller)]
+	def std(cntrllr, prms_e, prms_t)
+		(prms_e.blank? and prms_t.blank?) ? frst_std(cntrllr) : prms_e
 	end
+
+	def typ(cntrllr, prms_e, prms_t)
+		(prms_t.blank? and std(cntrllr, prms_e, prms_t).blank?) ? frst_typ(cntrllr) : prms_t
+	end
+
 end

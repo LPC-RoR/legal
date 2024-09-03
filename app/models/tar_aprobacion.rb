@@ -4,4 +4,5 @@ class TarAprobacion < ApplicationRecord
 	has_many :tar_facturaciones
 	has_many :tar_calculos
 
+	scope :ordr, -> { order(fecha: :desc) }
 end

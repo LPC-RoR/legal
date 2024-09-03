@@ -5,6 +5,13 @@ class Asesoria < ApplicationRecord
 
     validates_presence_of :descripcion
 
+    scope :std, ->(std) { where(estado: std).order(urgente: :desc, pendiente: :desc, created_at: :desc)}
+    scope :typ, ->(typ_id) { where(estado: 'activo', tipo_asesoria_id: typ_id).order(urgente: :desc, pendiente: :desc, created_at: :desc) }
+
+    def self.crstn(typ)
+    	typ.singularize == 'Redaccion' ? 'Redacción' : typ.singularize
+    end
+
     def notas
     	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
     end

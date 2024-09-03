@@ -6,22 +6,23 @@ class AsesoriasController < ApplicationController
 
   # GET /asesorias or /asesorias.json
   def index
-    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+    @age_usuarios = AgeUsuario.no_ownr
+    @modelo = StModelo.get_model('Asesoria')
 
-    @estados = StModelo.find_by(st_modelo: 'Asesoria').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
+    @estados = @modelo.blank? ? [] : @modelo.stts_arry
     @tipos = ['Multas', 'Redacciones']
-    @tipo = params[:t].blank? ? nil : params[:t]
-    @estado = params[:e].blank? ? (@tipo.blank? ? @estados[0] : nil) : params[:e]
+
+    @estado = std('asesorias', params[:e], params[:t])
+    @tipo = typ('asesorias', params[:e], params[:t])
+
     @path = "/asesorias?"
 
     unless @tipo.blank?
-      corregido = @tipo.singularize == 'Redaccion' ? 'Redacción' : @tipo.singularize
-      tipo = TipoAsesoria.find_by(tipo_asesoria: corregido)
-      tipo = 'Redacción' if (tipo == 'Redaccion')
-      coleccion = Asesoria.where(tipo_asesoria_id: tipo.id).order(urgente: :desc, pendiente: :desc, created_at: :desc)
+      tipo = TipoAsesoria.typ(Asesoria.crstn(@tipo))
+      coleccion = Asesoria.typ(tipo.id)
     end
     unless @estado.blank?
-      coleccion = Asesoria.where(estado: @estado).order(urgente: :desc, pendiente: :desc, created_at: :desc)
+      coleccion = Asesoria.std(@estado)
     end
     set_tabla('asesorias', coleccion, true)
 

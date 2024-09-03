@@ -20,30 +20,7 @@
 </div>
 <div class="shw_bx">
 	<b>Archivo(s) de la denuncia</b></br>
-	<% if @cntrl_dnnc %>
-		<% if @dnnc.blank? %>
-			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/app_archivos/new#{ownr_prms(objeto)}&dcid=#{@dc_dnnc.id}", tltp: 'Subir denuncia'} do %>
-				<i class="bi bi-upload"></i>
-				Subir <%= @dc_dnnc.descripcion %>
-			<% end %>
-		<% else %>
-			<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: @dnnc.archivo.url, tltp: 'Ver denuncia'} do %>
-				<i class="bi bi-download"></i>
-				Denuncia recibida el <%= dma_hm(objeto.fecha_hora) %>
-			<% end %>
-		<% end %>
-	<% end %>
-	<% if @cntrl_ntfccn %>
-		<% if @ntfccn.blank? %>
-			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/app_archivos/new#{ownr_prms(objeto)}&dcid=#{@dc_ntfccn.id}", tltp: 'Subir denuncia'} do %>
-				<i class="bi bi-upload"></i>
-				Subir <%= @dc_ntfccn.descripcion %>
-			<% end %>
-		<% else %>
-			<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: @ntfccn.archivo.url, tltp: 'Ver Notificación'} do %>
-				<i class="bi bi-download"></i>
-				Notificación recibida desde la DT
-			<% end %>
-		<% end %>
-	<% end %>
+	<%= render partial: prtl_name('krn_denuncias', 'shw', 'dc_admin'), locals: {cntrl: cntrl_dnnc(@objeto), ownr: @objeto, fl: @dnnc, dc: @dc_dnnc} %>
+	<%= render partial: prtl_name('krn_denuncias', 'shw', 'dc_admin'), locals: {cntrl: cntrl_act(@objeto), ownr: @objeto, fl: @act, dc: @dc_act} %>
+	<%= render partial: prtl_name('krn_denuncias', 'shw', 'dc_admin'), locals: {cntrl: cntrl_ntfccn(@objeto), ownr: @objeto, fl: @ntfccn, dc: @dc_ntfccn} %>
 </div>

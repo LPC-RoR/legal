@@ -4,6 +4,8 @@ class TarCalculo < ApplicationRecord
 
 	has_many :tar_facturaciones
 
+	scope :no_aprbcn, -> { where(tar_aprobacion_id: nil) }
+
 	# CHILDS
 
 	def owner
