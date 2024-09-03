@@ -36,7 +36,7 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
-    scope :std, ->(estado) { where(estado: estado)}
+    scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia)}
 
     # OWN CHILDS
 
