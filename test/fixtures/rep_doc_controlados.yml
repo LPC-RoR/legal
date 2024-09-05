@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ownr: one
+  ownr_type: Ownr
+  rep_doc_controlado: MyString
+  archivo: MyString
+  tipo: MyString
+  control: MyString
+  orden: 1
+
+two:
+  ownr: two
+  ownr_type: Ownr
+  rep_doc_controlado: MyString
+  archivo: MyString
+  tipo: MyString
+  control: MyString
+  orden: 1

@@ -15,11 +15,7 @@
 	<%= render partial: '0p/frm_flds/radio', locals: { form: form, token: :presentado_por, radio_list: ['Denunciante', 'Representante'], label: 'Presentada por:' } %>
 	<%= render partial: '0p/frm_flds/radio', locals: { form: form, token: :via_declaracion, radio_list: ['Denuncia presencial', 'Correo electrónico'], label: 'Vía:' } %>
 	<%= render partial: '0p/frm_flds/radio', locals: { form: form, token: :tipo_declaracion, radio_list: ['Escrita', 'Verbal'], label: 'Tipo:' } %>
-	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :dependencia_denunciante_id, colection: DependenciaDenunciante.all.order(:dependencia_denunciante).collect { |dd| [dd.dependencia_denunciante, dd.id] }, display_field: 'dependencia_denunciante', prompt: nil, label: 'Dependencia del denunciante' } %>
 </div>
-
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :representante, label: 'Representante:' } %>
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :documento_representacion, label: 'Documento que acredita representación:' } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :cliente_id } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :empresa_id } %>

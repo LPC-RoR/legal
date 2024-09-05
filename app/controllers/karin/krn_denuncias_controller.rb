@@ -7,7 +7,8 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias or /krn_denuncias.json
   def index
-    set_tabla('krn_denuncias', KrnDenuncia.all.order(fecha_hora: :desc), true)
+#    set_tabla('krn_denuncias', KrnDenuncia.all.order(fecha_hora: :desc), true)
+    set_tabla('krn_denuncias', KrnDenuncia.ordr, true)
   end
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
@@ -17,6 +18,9 @@ class Karin::KrnDenunciasController < ApplicationController
     case @options[:menu]
     when 'General'
       krn_dnnc_dc_init(@objeto)
+      krn_dnncnts_dc_init(@objeto)
+      set_tabla('krn_denunciantes', @objeto.krn_denunciantes.ordr, false)
+      set_tabla('krn_denunciados', @objeto.krn_denunciados.ordr, false)
     when 'Denunciante(s)'
       krn_dnncnts_dc_init(@objeto)
       @denunciantes = @objeto.krn_denunciantes
@@ -89,6 +93,6 @@ class Karin::KrnDenunciasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denuncia_params
-      params.require(:krn_denuncia).permit(:cliente_id, :receptor_denuncia_id, :empresa_receptora_id, :motivo_denuncia_id, :investigador_id, :fecha_hora, :fecha_hora_dt, :fecha_hora_recepcion, :dnnte_info_derivacion, :dnnte_derivacion, :dnnte_entidad_investigacion, :dnnte_empresa_investigacion_id, :empresa_id, :presentado_por, :via_declaracion, :tipo_declaracion, :dependencia_denunciante_id, :representante, :documento_representacion)
+      params.require(:krn_denuncia).permit(:cliente_id, :receptor_denuncia_id, :empresa_receptora_id, :motivo_denuncia_id, :investigador_id, :fecha_hora, :fecha_hora_dt, :fecha_hora_recepcion, :dnnte_info_derivacion, :dnnte_derivacion, :dnnte_entidad_investigacion, :dnnte_empresa_investigacion_id, :empresa_id, :presentado_por, :via_declaracion, :tipo_declaracion)
     end
 end

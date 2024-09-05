@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_28_215704) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_04_214433) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1096,6 +1096,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_215704) do
     t.boolean "dnnte_info_procedimiento"
     t.boolean "dnnte_info_derechos"
     t.integer "krn_empleado_id"
+    t.integer "dependencia_denunciante_id"
+    t.string "representante"
+    t.string "doc_representante"
+    t.index ["dependencia_denunciante_id"], name: "index_krn_denunciantes_on_dependencia_denunciante_id"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciantes_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
@@ -1164,6 +1168,60 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_215704) do
     t.index ["empresa_id"], name: "index_krn_empresa_externas_on_empresa_id"
     t.index ["rut"], name: "index_krn_empresa_externas_on_rut"
     t.index ["tipo"], name: "index_krn_empresa_externas_on_tipo"
+  end
+
+  create_table "krn_lst_medidas", force: :cascade do |t|
+    t.string "ownr_type", null: false
+    t.bigint "ownr_id", null: false
+    t.string "emisor"
+    t.string "tipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ownr_type", "ownr_id"], name: "index_krn_lst_medidas_on_ownr"
+  end
+
+  create_table "krn_lst_modificaciones", force: :cascade do |t|
+    t.string "ownr_type", null: false
+    t.bigint "ownr_id", null: false
+    t.string "emisor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ownr_type", "ownr_id"], name: "index_krn_lst_modificaciones_on_ownr"
+  end
+
+  create_table "krn_medidas", force: :cascade do |t|
+    t.integer "krn_lst_medida_id"
+    t.integer "krn_tipo_medida_id"
+    t.string "krn_medida"
+    t.text "detalle"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["krn_lst_medida_id"], name: "index_krn_medidas_on_krn_lst_medida_id"
+    t.index ["krn_tipo_medida_id"], name: "index_krn_medidas_on_krn_tipo_medida_id"
+  end
+
+  create_table "krn_modificaciones", force: :cascade do |t|
+    t.integer "krn_lst_modificacion_id"
+    t.integer "krn_medida_id"
+    t.text "detalle"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["krn_lst_modificacion_id"], name: "index_krn_modificaciones_on_krn_lst_modificacion_id"
+    t.index ["krn_medida_id"], name: "index_krn_modificaciones_on_krn_medida_id"
+  end
+
+  create_table "krn_tipo_medidas", force: :cascade do |t|
+    t.integer "cliente_id"
+    t.integer "empresa_id"
+    t.string "krn_tipo_medida"
+    t.boolean "denunciante"
+    t.boolean "denunciado"
+    t.string "tipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_krn_tipo_medidas_on_cliente_id"
+    t.index ["empresa_id"], name: "index_krn_tipo_medidas_on_empresa_id"
+    t.index ["tipo"], name: "index_krn_tipo_medidas_on_tipo"
   end
 
   create_table "lgl_datos", force: :cascade do |t|
@@ -1690,6 +1748,38 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_215704) do
     t.index ["reg_reporte_id"], name: "index_registros_on_reg_reporte_id"
     t.index ["reporte_id"], name: "index_registros_on_reporte_id"
     t.index ["tipo"], name: "index_registros_on_tipo"
+  end
+
+  create_table "rep_archivos", force: :cascade do |t|
+    t.string "ownr_type", null: false
+    t.bigint "ownr_id", null: false
+    t.string "rep_archivo"
+    t.string "archivo"
+    t.integer "rep_doc_controlado_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ownr_type", "ownr_id"], name: "index_rep_archivos_on_ownr"
+    t.index ["rep_archivo"], name: "index_rep_archivos_on_rep_archivo"
+    t.index ["rep_doc_controlado_id"], name: "index_rep_archivos_on_rep_doc_controlado_id"
+  end
+
+  create_table "rep_doc_controlados", force: :cascade do |t|
+    t.string "ownr_type", null: false
+    t.bigint "ownr_id", null: false
+    t.string "rep_doc_controlado"
+    t.string "archivo"
+    t.string "tipo"
+    t.string "control"
+    t.integer "orden"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "codigo"
+    t.string "descripcion"
+    t.index ["codigo"], name: "index_rep_doc_controlados_on_codigo"
+    t.index ["orden"], name: "index_rep_doc_controlados_on_orden"
+    t.index ["ownr_type", "ownr_id"], name: "index_rep_doc_controlados_on_ownr"
+    t.index ["rep_doc_controlado"], name: "index_rep_doc_controlados_on_rep_doc_controlado"
+    t.index ["tipo"], name: "index_rep_doc_controlados_on_tipo"
   end
 
   create_table "respuestas", force: :cascade do |t|

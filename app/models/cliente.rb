@@ -24,6 +24,8 @@ class Cliente < ApplicationRecord
 	has_many :krn_empresa_externas
 	has_many :krn_empleados
 
+	has_many :krn_tipo_medidas
+
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :tipo_cliente
 

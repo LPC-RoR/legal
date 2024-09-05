@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  krn_lst_medida_id: 1
+  krn_tipo_medida_id: 1
+  krn_medida: MyString
+  detalle: MyText
+
+two:
+  krn_lst_medida_id: 1
+  krn_tipo_medida_id: 1
+  krn_medida: MyString
+  detalle: MyText

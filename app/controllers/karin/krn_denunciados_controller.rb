@@ -69,7 +69,7 @@ class Karin::KrnDenunciadosController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = "/krn_denuncias/#{@objeto.krn_denuncia.id}?html_options[menu]=Denunciado(s)"
+      @rdrccn = @objeto.krn_denuncia
     end
 
     # Only allow a list of trusted parameters through.

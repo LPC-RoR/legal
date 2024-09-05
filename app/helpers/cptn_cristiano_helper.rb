@@ -20,9 +20,11 @@ module CptnCristianoHelper
 			'Tema' => 'Materia',
 			'AutTipoUsuario' => 'Tipo de Usuario',
 			'ControlDocumento' => 'Documento controlado',
+			'RepDocControlado' => 'Documento controlado',
 			'HmPagina' => 'Página',
 			'HmParrafo' => 'Párrafo',
-			'LglDocumento' => 'Documento legal'
+			'LglDocumento' => 'Documento legal',
+			'KrnLstMedida' => 'Lista de medidas'
 		}
 	end
 

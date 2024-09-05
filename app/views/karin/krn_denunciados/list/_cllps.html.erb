@@ -1,0 +1,23 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'Dnncd', objeto: objeto} do %>
+	<div class="shw_flds_lst">
+		<% if objeto.krn_empresa_externa_id.present? %>
+			<%= render partial: '0p/shw/fld_ln', locals: {fld: 'RUT empresa externa', vl: objeto.krn_empresa_externa.rut, algn: 'left'} %>
+			<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Empresa externa', vl: objeto.krn_empresa_externa.razon_social, algn: 'left'} %>
+		<% end %>
+
+		<b>
+			<%= render partial: '0p/shw/fld_ln', locals: {fld: 'RUT denunciado', vl: objeto.rut, algn: 'left'} %>
+			<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Nombre denunciado', vl: objeto.nombre, algn: 'left'} %>
+		</b>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Cargo', vl: objeto.cargo, algn: 'left'} %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Lugar de trabajo', vl: objeto.lugar_trabajo, algn: 'left'} %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'email', vl: objeto.email, algn: 'left'} %>
+
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Empleador', vl: objeto.empleador, algn: 'left'} %>
+
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Aplica artículo 4 inciso primero del Código del trabajo', vl: objeto.articulo_4_1 ? 'SI' : 'NO', algn: 'left'} %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'El denunciado cuenta con el reglamento interno actualizado', vl: objeto.dnndo_info_reglamento ? 'SI' : 'NO', algn: 'left'} %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'El denunciado fue capacitado en el procedimiento de investigacióm y sanción', vl: objeto.dnndo_info_procedimiento ? 'SI' : 'NO', algn: 'left'} %>
+		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'El denunciado fue informado de sus derechos relativos al procedimiento de Investigación y sanción', vl: objeto.dnndo_info_procedimiento ? 'SI' : 'NO', algn: 'left'} %>
+	</div>
+<% end %>

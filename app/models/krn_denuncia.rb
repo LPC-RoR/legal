@@ -2,25 +2,40 @@ class KrnDenuncia < ApplicationRecord
 	belongs_to :cliente, optional: true
 	belongs_to :motivo_denuncia
 	belongs_to :receptor_denuncia
-	belongs_to :dependencia_denunciante
+
+	has_many :rep_archivos, as: :ownr
 
 	has_many :krn_denunciantes
-
 	has_many :krn_denunciados
+
+	scope :ordr, -> { order(fecha_hora: :desc) }
+
+	# Ids de las empresas externas. nil => Empresa principal
+	# No hemos resuelto manejo de subcontratos y ASTs
+	def emprss_ids
+		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).uniq
+	end
+
+	def self.doc_cntrlds
+		StModelo.get_model('KrnDenuncia').rep_doc_controlados.ordr
+	end
+
+	def invstgdr_dt?
+		self.receptor_denuncia.receptor_denuncia == 'Dirección del Trabajo'
+	end
+
+	def por_representante?
+		self.presentado_por == 'Representante'
+	end
+
+	def entdd_invstgdr
+		ids = self.emprss_ids
+		self.invstgdr_dt? ? 'Dirección del Trabajo' : ( ids.length == 1 ? ( ids.first.blank? ? 'Empresa' : 'Empresa externa' ) : 'Empresa' )
+	end
 
 	def owner
 #		self.cliente_id.blank? ? self.empresa : self.cliente
 		self.cliente
 	end
 
-	def app_archivos
-		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def cmptnc_emprss
-		emprss_dnncnts_ids = self.krn_denunciantes.map {|dnncnt| dnncnt.krn_empresa_externa_id}.uniq
-		emprss_dnncd_ids = self.krn_denunciados.map {|dnncd| dnncd.krn_empresa_externa_id}.uniq 
-		emprss_ids = ( emprss_dnncnts_ids + emprss_dnncd_ids ).uniq
-		emprss_ids.length == 1 ? ( emprss_ids[0] == nil ? 'Empresa' : 'Empresa externa') : 'Empresa'
-	end
 end

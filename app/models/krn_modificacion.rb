@@ -1,0 +1,2 @@
+class KrnModificacion < ApplicationRecord
+end

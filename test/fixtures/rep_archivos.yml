@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ownr: one
+  ownr_type: Ownr
+  rep_archivo: MyString
+  archivo: MyString
+  rep_doc_controlado_id: 1
+
+two:
+  ownr: two
+  ownr_type: Ownr
+  rep_archivo: MyString
+  archivo: MyString
+  rep_doc_controlado_id: 1

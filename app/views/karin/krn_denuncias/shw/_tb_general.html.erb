@@ -10,17 +10,23 @@
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Presentada por', vl: objeto.presentado_por, algn: 'left'} %>
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Vía de la declaración', vl: objeto.via_declaracion, algn: 'left'} %>
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Tipo de declaración', vl: objeto.tipo_declaracion, algn: 'left'} %>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Dependencia del denunciante', vl: objeto.dependencia_denunciante.dependencia_denunciante, algn: 'left'} %>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Representante', vl: objeto.representante, algn: 'left'} %>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Documento que acredita representación', vl: objeto.documento_representacion, algn: 'left'} %>
+	<b><%= render partial: '0p/shw/fld_ln', locals: {fld: 'Entidad que investiga', vl: @entdd_invstgdr, algn: 'left'} %></b>
 	<b class="text-info">
-		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo información a la DT', vl: dma_hm(plz_lv(objeto.fecha_hora, 3)), algn: 'right'} %>
+		<% unless objeto.invstgdr_dt? %>
+			<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo información a la DT', vl: dma_hm(plz_lv(objeto.fecha_hora, 3)), algn: 'right'} %>
+		<% end %>
 		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo investigación', vl: dma_hm(plz_lv(objeto.fecha_hora, 30)), algn: 'right'} %>
 	</b>
 </div>
 <div class="shw_bx">
 	<b>Archivo(s) de la denuncia</b></br>
-	<%= render partial: prtl_name('krn_denuncias', 'shw', 'dc_admin'), locals: {cntrl: cntrl_dnnc(@objeto), ownr: @objeto, fl: @dnnc, dc: @dc_dnnc} %>
-	<%= render partial: prtl_name('krn_denuncias', 'shw', 'dc_admin'), locals: {cntrl: cntrl_act(@objeto), ownr: @objeto, fl: @act, dc: @dc_act} %>
-	<%= render partial: prtl_name('krn_denuncias', 'shw', 'dc_admin'), locals: {cntrl: cntrl_ntfccn(@objeto), ownr: @objeto, fl: @ntfccn, dc: @dc_ntfccn} %>
+	<%= render partial: "repositorios/shr/dc_admin", locals: {cntrl: cntrl_dnnc(objeto), ownr: objeto, fl: @dnnc, dc: @dc_dnnc} %>
+	<%= render partial: "repositorios/shr/dc_admin", locals: {cntrl: cntrl_act(objeto), ownr: objeto, fl: @act, dc: @dc_act} %>
+	<%= render partial: "repositorios/shr/dc_admin", locals: {cntrl: cntrl_ntfccn(objeto), ownr: objeto, fl: @ntfccn, dc: @dc_ntfccn} %>
 </div>
+
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciantes', ttl: "Persona(s) denunciante(s)", ownr: objeto} %>
+<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciantes'} %>
+
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciados', ttl: "Persona(s) denunciada(s)", ownr: objeto} %>
+<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>

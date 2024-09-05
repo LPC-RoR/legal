@@ -1,0 +1,27 @@
+<%= form_with(model: krn_lst_modificacion) do |form| %>
+  <% if krn_lst_modificacion.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(krn_lst_modificacion.errors.count, "error") %> prohibited this krn_lst_modificacion from being saved:</h2>
+
+      <ul>
+        <% krn_lst_modificacion.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :ownr_id, style: "display: block" %>
+    <%= form.text_field :ownr_id %>
+  </div>
+
+  <div>
+    <%= form.label :emisor, style: "display: block" %>
+    <%= form.text_field :emisor %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

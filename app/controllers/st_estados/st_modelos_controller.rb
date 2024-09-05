@@ -5,12 +5,15 @@ class StEstados::StModelosController < ApplicationController
 
   # GET /st_modelos or /st_modelos.json
   def index
-    set_tabla('st_modelos', StModelo.all.order(:st_modelo), false)
+    set_tabla('st_modelos', StModelo.ordr, false)
   end
 
   # GET /st_modelos/1 or /st_modelos/1.json
   def show
-    set_tabla('st_estados', @objeto.st_estados.order(:orden), false)
+    set_tabla('st_estados', @objeto.st_estados.ordr, false)
+    set_tabla('rep_doc_controlados', @objeto.rep_doc_controlados.ordr, false)
+    # DEPRECATED: Se reemplaza por el rep_doc_controlados
+    set_tabla('control_documentos', @objeto.control_documentos.order(:orden), false)
   end
 
   # GET /st_modelos/new

@@ -37,19 +37,21 @@ module Karin
 
   # determina cuando se debe subir archivo notificación de inicio de investigación por parte de la DT
   def cntrl_ntfccn(denuncia)
-    denuncia.receptor_denuncia.receptor_denuncia == 'DT'
+    denuncia.invstgdr_dt?
   end
 
   def krn_dnnc_dc_init(denuncia)
-      @dc_dnnc = krn_get_dc('KrnDenuncia', 'krn_denuncia')
-      @dc_act = krn_get_dc('KrnDenuncia', 'krn_acta')
-      @dc_crtfcd = krn_get_dc('KrnDenuncia', 'krn_certificado')
-      @dc_ntfccn = krn_get_dc('KrnDenuncia', 'krn_notificacion')
+      @dc_dnnc = KrnDenuncia.doc_cntrlds.get_archv('krn_denuncia')
+      @dc_act = KrnDenuncia.doc_cntrlds.get_archv('krn_acta')
+      @dc_crtfcd = KrnDenuncia.doc_cntrlds.get_archv('krn_certificado')
+      @dc_ntfccn = KrnDenuncia.doc_cntrlds.get_archv('krn_notificacion')
 
-      @act = krn_get_fl(denuncia, @dc_act)
-      @dnnc = krn_get_fl(denuncia, @dc_dnnc)
-      @crtfcd = krn_get_fl(denuncia, @dc_crtfcd)
-      @ntfccn = krn_get_fl(denuncia, @dc_ntfccn)
+      @act = denuncia.rep_archivos.get_dc_archv(@dc_act)
+      @dnnc = denuncia.rep_archivos.get_dc_archv(@dc_dnnc)
+      @crtfcd = denuncia.rep_archivos.get_dc_archv(@dc_crtfcd)
+      @ntfccn = denuncia.rep_archivos.get_dc_archv(@dc_ntfccn)
+
+      @entdd_invstgdr = @objeto.entdd_invstgdr
   end
 
   # --------------------------------------------------------------------------------------------- DENUNCIANTE
@@ -60,11 +62,15 @@ module Karin
   end
 
   def krn_dnncnts_dc_init(denuncia)
-      @dc_diat_diep = krn_get_dc('KrnDenunciante', 'krn_dnncnt_diat_diep')
+      @dc_diat_diep = KrnDenunciante.doc_cntrlds.get_archv('krn_dnncnt_diat_diep')
 
       @diat_diep = {}
       denuncia.krn_denunciantes.each do |dnncnt|
-        @diat_diep[dnncnt.id] = krn_get_fl(dnncnt, @dc_diat_diep)
+        puts "************************************* krn_dnncnts_dc_init"
+        puts @dc_diat_diep.blank?
+        puts denuncia.krn_denunciantes.count
+        puts dnncnt.rep_archivos.count
+        @diat_diep[dnncnt.id] = dnncnt.rep_archivos.get_dc_archv(@dc_diat_diep)
       end
   end
 

@@ -1,0 +1,18 @@
+<% if cntrl %>
+	<% if fl.blank? %>
+		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: "Subir #{dc.rep_doc_controlado}"} do %>
+			<i class="bi bi-upload"></i>
+			Subir 
+		<% end %>
+		<%= dc.rep_doc_controlado %></br>
+	<% else %>
+		<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: fl.archivo.url, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
+			<i class="bi bi-download"></i>
+			<%= dc.rep_doc_controlado %>
+		<% end %>
+		<i class="bi bi-dot"></i>
+		<%= dma_hm(fl.created_at) %>
+		<%= render partial: '0p/tabla/links_e', locals: {objeto: fl} %>
+		</br>
+	<% end %>
+<% end %>

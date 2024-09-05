@@ -70,11 +70,11 @@ class Karin::KrnDenunciantesController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = "/krn_denuncias/#{@objeto.krn_denuncia.id}?html_options[menu]=Denunciante"
+      @rdrccn = @objeto.krn_denuncia
     end
 
     # Only allow a list of trusted parameters through.
     def krn_denunciante_params
-      params.require(:krn_denunciante).permit(:krn_denuncia_id, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :dnnte_info_reglamento, :dnnte_info_procedimiento, :dnnte_info_derechos)
+      params.require(:krn_denunciante).permit(:krn_denuncia_id, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :dnnte_info_reglamento, :dnnte_info_procedimiento, :dnnte_info_derechos, :dependencia_denunciante_id, :representante, :doc_representante)
     end
 end

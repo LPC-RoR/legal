@@ -112,6 +112,10 @@ module CptnMapHelper
 		"?oclss=#{objeto.class.name}&oid=#{objeto.id}"
 	end
 
+	def blngs_prms(objeto)
+		"?oid=#{objeto.id}"
+	end
+
 	# DEPRECATED: Cambiado por cntrllr
 	# controlador SIN prefijo por alias
 	def tbl_cntrllr(controller)

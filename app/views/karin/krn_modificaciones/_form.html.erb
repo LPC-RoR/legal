@@ -1,0 +1,32 @@
+<%= form_with(model: krn_modificacion) do |form| %>
+  <% if krn_modificacion.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(krn_modificacion.errors.count, "error") %> prohibited this krn_modificacion from being saved:</h2>
+
+      <ul>
+        <% krn_modificacion.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :krn_lst_modificacion_id, style: "display: block" %>
+    <%= form.number_field :krn_lst_modificacion_id %>
+  </div>
+
+  <div>
+    <%= form.label :krn_medida_id, style: "display: block" %>
+    <%= form.number_field :krn_medida_id %>
+  </div>
+
+  <div>
+    <%= form.label :detalle, style: "display: block" %>
+    <%= form.text_area :detalle %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

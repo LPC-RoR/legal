@@ -4,6 +4,8 @@ class StEstados::StEstadosController < ApplicationController
   before_action :set_st_estado, only: %i[ show edit update destroy asigna arriba abajo ]
   after_action :reordenar, only: :destroy
 
+  include Orden
+
   # GET /st_estados or /st_estados.json
   def index
   end
@@ -28,8 +30,8 @@ class StEstados::StEstadosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Estado fue exitósamente creado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Estado fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,43 +44,12 @@ class StEstados::StEstadosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(st_estado_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Estado fue exitósamente actualizado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Estado fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def arriba
-    owner = @objeto.owner
-    anterior = @objeto.anterior
-    @objeto.orden -= 1
-    @objeto.save
-    anterior.orden += 1
-    anterior.save
-
-    redirect_to @objeto.redireccion
-  end
-
-  def abajo
-    owner = @objeto.owner
-    siguiente = @objeto.siguiente
-    @objeto.orden += 1
-    @objeto.save
-    siguiente.orden -= 1
-    siguiente.save
-
-    redirect_to @objeto.redireccion
-  end
-
-  def reordenar
-    @objeto.list.each_with_index do |val, index|
-      unless val.orden == index + 1
-        val.orden = index + 1
-        val.save
       end
     end
   end
@@ -93,10 +64,10 @@ class StEstados::StEstadosController < ApplicationController
 
   # DELETE /st_estados/1 or /st_estados/1.json
   def destroy
-    set_redireccion
+    get_rdrccn
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Estado fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Estado fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -107,8 +78,8 @@ class StEstados::StEstadosController < ApplicationController
       @objeto = StEstado.find(params[:id])
     end
 
-    def set_redireccion
-      @redireccion = "/st_modelos" 
+    def get_rdrccn
+      @rdrccn = @objeto.ownr
 
     end
 

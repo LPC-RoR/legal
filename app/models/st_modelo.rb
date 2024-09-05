@@ -2,10 +2,16 @@ class StModelo < ApplicationRecord
 
 	has_many :st_estados
 
+	has_many :rep_doc_controlados, as: :ownr
+
     validates_presence_of :st_modelo
 
     def self.get_model(modelo)
     	find_by(st_modelo: modelo)
+    end
+
+    def self.ordr
+    	order(:st_modelo)
     end
 
 	def primer_estado
@@ -17,7 +23,7 @@ class StModelo < ApplicationRecord
 	end
 
 	def estados
-		self.st_estados.ordr_stts
+		self.st_estados.ordr
 	end
 
 	def stts_arry

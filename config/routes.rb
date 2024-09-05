@@ -136,6 +136,12 @@ Rails.application.routes.draw do
     resources :krn_denunciantes
     resources :krn_denuncias
     resources :krn_empleados
+
+    resources :krn_modificaciones
+    resources :krn_medidas
+    resources :krn_lst_modificaciones
+    resources :krn_lst_medidas
+    resources :krn_tipo_medidas
   end
 
   scope module: 'hm' do
@@ -299,6 +305,11 @@ Rails.application.routes.draw do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
+    resources :rep_doc_controlados do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
+    resources :rep_archivos
   end
 
   scope module: 'aplicacion' do

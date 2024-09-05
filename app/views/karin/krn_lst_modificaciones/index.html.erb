@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Krn lst modificaciones</h1>
+
+<div id="krn_lst_modificaciones">
+  <% @krn_lst_modificaciones.each do |krn_lst_modificacion| %>
+    <%= render krn_lst_modificacion %>
+    <p>
+      <%= link_to "Show this krn lst modificacion", krn_lst_modificacion %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New krn lst modificacion", new_krn_lst_modificacion_path %>
