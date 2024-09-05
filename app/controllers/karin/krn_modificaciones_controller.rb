@@ -1,4 +1,4 @@
-class KrnModificacionesController < ApplicationController
+class Karin::KrnModificacionesController < ApplicationController
   before_action :set_krn_modificacion, only: %i[ show edit update destroy ]
 
   # GET /krn_modificaciones or /krn_modificaciones.json
