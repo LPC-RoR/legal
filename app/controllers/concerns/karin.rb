@@ -3,55 +3,70 @@ module Karin
 
   # --------------------------------------------------------------------------------------------- GENERAL
 
-  def krn_mdl(mdl)
-    StModelo.find_by(st_modelo: mdl)
+  #Control de despliegue de Archivos
+
+  def krn_cntrl(denuncia)
+    {
+      'krn_denuncia' => denuncia.tipo_declaracion != 'Verbal',
+      'krn_acta' => denuncia.tipo_declaracion == 'Verbal',
+      'krn_certificado' => denuncia.dnnte_derivacion != true,
+      'krn_notificacion' => denuncia.invstgdr_dt?,
+      'krn_dnncnt_diat_diep' => true
+    }
   end
 
-  def krn_doc_cntrlds(mdl)
-    krn_mdl(mdl).control_documentos
+  def load_dnnc_hsh(denuncia, lst)
+    @krn_dc = {}
+    @krn_fl = {}
+    lst.each do |dc|
+      @krn_dc[dc.codigo] = KrnDenuncia.doc_cntrlds.get_archv(dc.codigo)
+      @krn_fl[dc.codigo] = denuncia.rep_archivos.get_dc_archv(@krn_dc[dc.codigo])
+    end
   end
 
-  def krn_get_dc(mdl, cdg)
-    krn_doc_cntrlds(mdl).find_by(codigo: cdg)
+  def load_dnncnt_hsh(denuncia, lst)
+    @krn_dnncnt_dc = {}
+    @krn_dnncnt_fl = {}
+
+    denuncia.krn_denunciantes.each do |dnncnt|
+      lst.each do |dc|
+        @krn_dnncnt_dc[dnncnt.id] = {}
+        @krn_dnncnt_dc[dnncnt.id][dc.codigo] = KrnDenunciante.doc_cntrlds.get_archv(dc.codigo)
+        @krn_dnncnt_fl[dnncnt.id] = {}
+        @krn_dnncnt_fl[dnncnt.id][dc.codigo] = dnncnt.rep_archivos.get_dc_archv(@krn_dnncnt_dc[dnncnt.id][dc.codigo])
+      end
+    end
   end
 
-  def krn_get_fl(owner, dc)
-    dc.blank? ? nil : owner.app_archivos.find_by(control_documento_id: dc.id)
+  def load_dnncd_hsh(denuncia, lst)
+    @krn_dnncd_dc = {}
+    @krn_dnncd_fl = {}
+
+    denuncia.krn_denunciados.each do |dnncd|
+      lst.each do |dc|
+        @krn_dnncd_dc[dnncd.id] = {}
+        @krn_dnncd_dc[dnncd.id][dc.codigo] = KrnDenunciado.doc_cntrlds.get_archv(dc.codigo)
+        @krn_dnncd_fl[dnncd.id] = {}
+        @krn_dnncd_fl[dnncd.id][dc.codigo] = dnncd.rep_archivos.get_dc_archv(@krn_dnncd_dc[dnncd.id][dc.codigo])
+      end
+    end
   end
 
   # --------------------------------------------------------------------------------------------- DENUNCIAS
 
-  # determina cuando se debe subir archivo de denuncia
-  def cntrl_dnnc(denuncia)
-    denuncia.tipo_declaracion != 'Verbal'
-  end
-
-  def cntrl_act(denuncia)
-    denuncia.tipo_declaracion == 'Verbal'
-  end
-
-  # determina cuando se debe subir archivo de certificado de recepción de derivacción de denuncia
-  def cntrl_crtfcd(denuncia)
-    denuncia.dnnte_derivacion != true
-  end
-
-  # determina cuando se debe subir archivo notificación de inicio de investigación por parte de la DT
-  def cntrl_ntfccn(denuncia)
-    denuncia.invstgdr_dt?
-  end
-
   def krn_dnnc_dc_init(denuncia)
-      @dc_dnnc = KrnDenuncia.doc_cntrlds.get_archv('krn_denuncia')
-      @dc_act = KrnDenuncia.doc_cntrlds.get_archv('krn_acta')
-      @dc_crtfcd = KrnDenuncia.doc_cntrlds.get_archv('krn_certificado')
-      @dc_ntfccn = KrnDenuncia.doc_cntrlds.get_archv('krn_notificacion')
+    @krn_cntrl = krn_cntrl(@objeto)
 
-      @act = denuncia.rep_archivos.get_dc_archv(@dc_act)
-      @dnnc = denuncia.rep_archivos.get_dc_archv(@dc_dnnc)
-      @crtfcd = denuncia.rep_archivos.get_dc_archv(@dc_crtfcd)
-      @ntfccn = denuncia.rep_archivos.get_dc_archv(@dc_ntfccn)
+    @krn_dnnc_dc_lst = KrnDenuncia.doc_cntrlds
+    load_dnnc_hsh(@objeto, @krn_dnnc_dc_lst)
 
-      @entdd_invstgdr = @objeto.entdd_invstgdr
+    @krn_dnncnt_dc_lst = KrnDenunciante.doc_cntrlds
+    load_dnncnt_hsh(@objeto, @krn_dnncnt_dc_lst)
+
+    @krn_dnncd_dc_lst = KrnDenunciado.doc_cntrlds
+    load_dnncd_hsh(@objeto, @krn_dnncd_dc_lst)
+
+    @entdd_invstgdr = @objeto.entdd_invstgdr
   end
 
   # --------------------------------------------------------------------------------------------- DENUNCIANTE
@@ -62,14 +77,12 @@ module Karin
   end
 
   def krn_dnncnts_dc_init(denuncia)
+
+
       @dc_diat_diep = KrnDenunciante.doc_cntrlds.get_archv('krn_dnncnt_diat_diep')
 
       @diat_diep = {}
       denuncia.krn_denunciantes.each do |dnncnt|
-        puts "************************************* krn_dnncnts_dc_init"
-        puts @dc_diat_diep.blank?
-        puts denuncia.krn_denunciantes.count
-        puts dnncnt.rep_archivos.count
         @diat_diep[dnncnt.id] = dnncnt.rep_archivos.get_dc_archv(@dc_diat_diep)
       end
   end

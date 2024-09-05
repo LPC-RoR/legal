@@ -1,10 +1,18 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @krn_lst_modificacion %>
-
-<div>
-  <%= link_to "Edit this krn lst modificacion", edit_krn_lst_modificacion_path(@krn_lst_modificacion) %> |
-  <%= link_to "Back to krn lst modificaciones", krn_lst_modificaciones_path %>
-
-  <%= button_to "Destroy this krn lst modificacion", @krn_lst_modificacion, method: :delete %>
+<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: @objeto.ownr.krn_denuncia } %>
+<div class="f_50_col">
+  <div class="lft">
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'krn_modificaciones'} %>
+  </div>
+  <div class="rght">
+    <%= render partial: '0p/general/ttl_ttl', locals: {cntrllr: 'krn_medidas', ttl: "Medidas disponibles", ownr: nil} %>
+    <div class="shw_bx">
+      <% @objeto.ownr.krn_lst_medidas.each do |lst| %>
+        <% lst.krn_medidas.each do |mdd| %>
+          <%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_modificaciones/nueva#{blngs_prms(@objeto)}&mid=#{mdd.id}", tltp: 'Crea modificacion' } do %>
+            <%= mdd.dscrpcn %>
+          <% end %></br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

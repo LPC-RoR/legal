@@ -137,7 +137,9 @@ Rails.application.routes.draw do
     resources :krn_denuncias
     resources :krn_empleados
 
-    resources :krn_modificaciones
+    resources :krn_modificaciones do
+      match :nueva, via: :get, on: :collection
+    end
     resources :krn_medidas
     resources :krn_lst_modificaciones
     resources :krn_lst_medidas

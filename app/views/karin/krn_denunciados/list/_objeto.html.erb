@@ -8,7 +8,9 @@
 </div>
 <div class="shw_bx">
 	<b>Archivo(s) de la persona denunciada</b></br>
-	<%#= render partial: "repositorios/shr/dc_admin", locals: {cntrl: cntrl_diat_diep(objeto), ownr: objeto, fl: @diat_diep[objeto.id], dc: @dc_diat_diep} %>
+	<% @krn_dnncd_dc_lst.each do |dc| %>
+		<%= render partial: "repositorios/shr/dc_admin", locals: {cntrl: @krn_cntrl[dc.codigo], ownr: objeto, fl: @krn_dnncd_fl[objeto.id][dc.codigo], dc: @krn_dnncd_dc[objeto.id][dc.codigo]} %>
+	<% end %>
 	<b>Medidas de resguardo</b></br>
 	<% objeto.krn_lst_medidas.each do |lst| %>
 		<%= dma_hm(lst.created_at) %>
@@ -23,5 +25,13 @@
 		<i class="bi bi-list-check"></i>
 		Crear 
 	<% end %>
-	Lista de medidas <%= objeto.krn_lst_medidas.any? ? 'Extraordinaria' : 'Principal' %>
+	Lista de medidas <%= objeto.krn_lst_medidas.any? ? 'Extraordinaria' : 'Principal' %></br>
+
+	<% unless objeto.krn_lst_medidas.empty? %>
+		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_lst_modificaciones/new#{ownr_prms(objeto)}", tltp: 'Agregar lista de modificaciones' } do %>
+			<i class="bi bi-eraser"></i>
+			Crear 
+		<% end %>
+		Lista de modificaciones
+	<% end %>
 </div>

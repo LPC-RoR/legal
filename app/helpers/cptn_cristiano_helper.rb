@@ -24,7 +24,8 @@ module CptnCristianoHelper
 			'HmPagina' => 'Página',
 			'HmParrafo' => 'Párrafo',
 			'LglDocumento' => 'Documento legal',
-			'KrnLstMedida' => 'Lista de medidas'
+			'KrnLstMedida' => 'Lista de medidas',
+			'KrnLstModificacion' => 'Lista de modificaciones'
 		}
 	end
 

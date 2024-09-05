@@ -1,6 +1,8 @@
 class KrnMedida < ApplicationRecord
 	belongs_to :krn_lst_medida
 
+	has_one :krn_modificacion
+
  	scope :ordr, -> { order(:created_at) }
 
  	def dscrpcn

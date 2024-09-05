@@ -5,6 +5,7 @@ class KrnDenunciante < ApplicationRecord
 
 	has_many :rep_archivos, as: :ownr
 	has_many :krn_lst_medidas, as: :ownr
+	has_many :krn_lst_modificaciones, as: :ownr
 
 	def self.emprss_ids
 		all.map {|den| den.krn_empresa_externa_id}

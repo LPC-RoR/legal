@@ -1,18 +1,21 @@
 class Karin::KrnLstModificacionesController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_krn_lst_modificacion, only: %i[ show edit update destroy ]
 
   # GET /krn_lst_modificaciones or /krn_lst_modificaciones.json
   def index
-    @krn_lst_modificaciones = KrnLstModificacion.all
+    @coleccion = KrnLstModificacion.all
   end
 
   # GET /krn_lst_modificaciones/1 or /krn_lst_modificaciones/1.json
   def show
+   set_tabla('krn_modificaciones', @objeto.krn_modificaciones.ordr, false)
   end
 
   # GET /krn_lst_modificaciones/new
   def new
-    @krn_lst_modificacion = KrnLstModificacion.new
+    @objeto = KrnLstModificacion.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
   # GET /krn_lst_modificaciones/1/edit
@@ -21,15 +24,16 @@ class Karin::KrnLstModificacionesController < ApplicationController
 
   # POST /krn_lst_modificaciones or /krn_lst_modificaciones.json
   def create
-    @krn_lst_modificacion = KrnLstModificacion.new(krn_lst_modificacion_params)
+    @objeto = KrnLstModificacion.new(krn_lst_modificacion_params)
 
     respond_to do |format|
-      if @krn_lst_modificacion.save
-        format.html { redirect_to krn_lst_modificacion_url(@krn_lst_modificacion), notice: "Krn lst modificacion was successfully created." }
-        format.json { render :show, status: :created, location: @krn_lst_modificacion }
+      if @objeto.save
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Lista de modificaciones fue exitósamente creada." }
+        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @krn_lst_modificacion.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -37,22 +41,24 @@ class Karin::KrnLstModificacionesController < ApplicationController
   # PATCH/PUT /krn_lst_modificaciones/1 or /krn_lst_modificaciones/1.json
   def update
     respond_to do |format|
-      if @krn_lst_modificacion.update(krn_lst_modificacion_params)
-        format.html { redirect_to krn_lst_modificacion_url(@krn_lst_modificacion), notice: "Krn lst modificacion was successfully updated." }
-        format.json { render :show, status: :ok, location: @krn_lst_modificacion }
+      if @objeto.update(krn_lst_modificacion_params)
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Lista de modificaciones fue exitósamente actualizada." }
+        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @krn_lst_modificacion.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /krn_lst_modificaciones/1 or /krn_lst_modificaciones/1.json
   def destroy
-    @krn_lst_modificacion.destroy!
+    get_rdrccn
+    @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to krn_lst_modificaciones_url, notice: "Krn lst modificacion was successfully destroyed." }
+      format.html { redirect_to @rdrccn, notice: "Lista de modificaciones fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -60,7 +66,11 @@ class Karin::KrnLstModificacionesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_lst_modificacion
-      @krn_lst_modificacion = KrnLstModificacion.find(params[:id])
+      @objeto = KrnLstModificacion.find(params[:id])
+    end
+
+    def get_rdrccn
+      @rdrccn = @objeto.ownr.krn_denuncia
     end
 
     # Only allow a list of trusted parameters through.

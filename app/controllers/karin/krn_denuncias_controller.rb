@@ -18,7 +18,6 @@ class Karin::KrnDenunciasController < ApplicationController
     case @options[:menu]
     when 'General'
       krn_dnnc_dc_init(@objeto)
-      krn_dnncnts_dc_init(@objeto)
       set_tabla('krn_denunciantes', @objeto.krn_denunciantes.ordr, false)
       set_tabla('krn_denunciados', @objeto.krn_denunciados.ordr, false)
     when 'Denunciante(s)'

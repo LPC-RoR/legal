@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
 	helper_method :cmenu_clss, :std, :typ, :display_name
 	helper_method :plz_lv, :plz_c
-	helper_method :cntrl_dnnc, :cntrl_act, :cntrl_crtfcd, :cntrl_ntfccn, :cntrl_diat_diep
+	helper_method :krn_fl_cntrl
 
 	# ************************************************************************** COLECCINES DE ESTADOS
  
