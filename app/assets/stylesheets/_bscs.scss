@@ -3,7 +3,7 @@
 // Elementos básicos para construir todo!!
 
 // mrgn_pddng($mrgn, $pddng);
-// @include brd_ln($brd_wdth, $brd_typ, $brd_clr, $brd_clr, $brd_rds);
+// @include brd_ln($brd_wdth, $brd_typ, $brd_clr, $brd_rds);
 // brd($brd_wdth, $brd_rds, $brd_clr);
 // bx($bg_clr);
 // bx_shdw;
@@ -19,7 +19,7 @@
 	padding: $pddng;
 }
 
-@mixin brd_ln($brd_wdth, $brd_typ, $brd_clr, $brd_clr, $brd_rds) {
+@mixin brd_ln($brd_wdth, $brd_typ, $brd_clr, $brd_rds) {
     border: $brd_wdth $brd_typ $brd_clr;
     border-radius: $brd_rds;
 }

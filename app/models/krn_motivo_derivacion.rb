@@ -1,0 +1,2 @@
+class KrnMotivoDerivacion < ApplicationRecord
+end

@@ -1,32 +1,15 @@
-<div class="shw_flds_lst">
-	<b><%= render partial: '0p/shw/fld_ln', locals: {fld: 'Cliente', vl: objeto.cliente.razon_social, algn: 'left'} %></b>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Receptor de la denuncia', vl: objeto.receptor_denuncia.receptor_denuncia, algn: 'left'} %>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Motivo de la denuncia', vl: objeto.motivo_denuncia.motivo_denuncia, algn: 'left'} %>
-	<b>
-		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora denuncia', vl: dma_hm(objeto.fecha_hora), algn: 'right'} if objeto.receptor_denuncia.receptor_denuncia == 'Empresa' %>
-		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora certificado DT', vl: dma_hm(objeto.fecha_hora_dt), algn: 'right'} if objeto.receptor_denuncia.receptor_denuncia == 'Dirección del Trabajo' %>
-		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora Recepción', vl: dma_hm(objeto.fecha_hora_recepcion), algn: 'right'} if objeto.receptor_denuncia.receptor_denuncia == 'Empresa externa' %>
-	</b>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Presentada por', vl: objeto.presentado_por, algn: 'left'} %>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Vía de la declaración', vl: objeto.via_declaracion, algn: 'left'} %>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Tipo de declaración', vl: objeto.tipo_declaracion, algn: 'left'} %>
-	<b><%= render partial: '0p/shw/fld_ln', locals: {fld: 'Entidad que investiga', vl: @entdd_invstgdr, algn: 'left'} %></b>
-	<b class="text-info">
-		<% unless objeto.invstgdr_dt? %>
-			<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo información a la DT', vl: dma_hm(plz_lv(objeto.fecha_hora, 3)), algn: 'right'} %>
-		<% end %>
-		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo investigación', vl: dma_hm(plz_lv(objeto.fecha_hora, 30)), algn: 'right'} %>
-	</b>
-</div>
-<div class="shw_bx">
-	<b>Archivo(s) de la denuncia</b></br>
-	<% @krn_dnnc_dc_lst.each do |dc| %>
-		<%= render partial: "repositorios/shr/dc_admin", locals: {cntrl: @krn_cntrl[dc.codigo], ownr: objeto, fl: @krn_fl[dc.codigo], dc: @krn_dc[dc.codigo]} %>
-	<% end %>
-</div>
+<%= render partial: prtl_name('krn_denuncias', 'shw', 'dnnc_dtl'), locals: { objeto: objeto } %>
+<%= render partial: prtl_name('krn_denuncias', 'shw', 'archv_dtl'), locals: { objeto: objeto } %>
 
 <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciantes', ttl: "Persona(s) denunciante(s)", ownr: objeto} %>
 <%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciantes'} %>
 
 <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciados', ttl: "Persona(s) denunciada(s)", ownr: objeto} %>
 <%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>
+
+<%= render partial: prtl_name('krn_denuncias', 'shw', 'qstns'), locals: {objeto: objeto} %>
+
+<% unless objeto.rcp_dt? %>
+	<%= render partial: '0p/general/ttl_ttl', locals: {cntrllr: 'krn_derivaciones', ttl: "Derivación(es)", ownr: objeto} %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_derivaciones'} %>
+<% end %>

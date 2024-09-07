@@ -134,7 +134,9 @@ Rails.application.routes.draw do
     resources :krn_empresa_externas
     resources :krn_denunciados
     resources :krn_denunciantes
-    resources :krn_denuncias
+    resources :krn_denuncias do
+      match :check, via: :get, on: :member
+    end
     resources :krn_empleados
 
     resources :krn_modificaciones do
@@ -144,6 +146,11 @@ Rails.application.routes.draw do
     resources :krn_lst_modificaciones
     resources :krn_lst_medidas
     resources :krn_tipo_medidas
+    resources :krn_derivaciones do
+      match :nueva, via: :get, on: :collection
+    end
+    resources :krn_motivo_derivaciones
+    resources :krn_investigadores
   end
 
   scope module: 'hm' do

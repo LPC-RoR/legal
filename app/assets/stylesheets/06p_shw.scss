@@ -14,7 +14,7 @@ $shw_ln_gp: 0;
 
 @mixin shw_bsc {
 	@include mrgn_pddng($shw_mrgn, $shw_pddng);
-	@include brd_ln($shw_brd_wdth, $shw_brd_typ, $shw_brd_clr, $shw_brd_clr, $shw_brd_rds);
+	@include brd_ln($shw_brd_wdth, $shw_brd_typ, $shw_brd_clr, $shw_brd_rds);
 	background-color: white;
 }
 

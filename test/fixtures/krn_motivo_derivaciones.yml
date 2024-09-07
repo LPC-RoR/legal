@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  krn_motivo_derivacion: MyString
+
+two:
+  krn_motivo_derivacion: MyString

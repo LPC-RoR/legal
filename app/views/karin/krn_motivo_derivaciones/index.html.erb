@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Krn motivo derivaciones</h1>
+
+<div id="krn_motivo_derivaciones">
+  <% @krn_motivo_derivaciones.each do |krn_motivo_derivacion| %>
+    <%= render krn_motivo_derivacion %>
+    <p>
+      <%= link_to "Show this krn motivo derivacion", krn_motivo_derivacion %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New krn motivo derivacion", new_krn_motivo_derivacion_path %>

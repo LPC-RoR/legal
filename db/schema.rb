@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_04_214433) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_07_214532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1070,9 +1070,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_04_214433) do
     t.boolean "articulo_4_1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "dnndo_info_reglamento"
-    t.boolean "dnndo_info_procedimiento"
-    t.boolean "dnndo_info_derechos"
+    t.boolean "info_reglamento"
+    t.boolean "info_procedimiento"
+    t.boolean "info_derechos"
     t.integer "krn_empleado_id"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
@@ -1092,9 +1092,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_04_214433) do
     t.boolean "articulo_4_1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "dnnte_info_reglamento"
-    t.boolean "dnnte_info_procedimiento"
-    t.boolean "dnnte_info_derechos"
+    t.boolean "info_reglamento"
+    t.boolean "info_procedimiento"
+    t.boolean "info_derechos"
     t.integer "krn_empleado_id"
     t.integer "dependencia_denunciante_id"
     t.string "representante"
@@ -1128,6 +1128,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_04_214433) do
     t.integer "dependencia_denunciante_id"
     t.string "representante"
     t.string "documento_representacion"
+    t.boolean "info_opciones"
+    t.string "dnncnt_opcion"
+    t.string "emprs_opcion"
+    t.integer "krn_investigador_id"
     t.index ["cliente_id"], name: "index_krn_denuncias_on_cliente_id"
     t.index ["dependencia_denunciante_id"], name: "index_krn_denuncias_on_dependencia_denunciante_id"
     t.index ["dnnte_derivacion"], name: "index_krn_denuncias_on_dnnte_derivacion"
@@ -1138,8 +1142,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_04_214433) do
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["fecha_hora_recepcion"], name: "index_krn_denuncias_on_fecha_hora_recepcion"
     t.index ["investigador_id"], name: "index_krn_denuncias_on_investigador_id"
+    t.index ["krn_investigador_id"], name: "index_krn_denuncias_on_krn_investigador_id"
     t.index ["motivo_denuncia_id"], name: "index_krn_denuncias_on_motivo_denuncia_id"
     t.index ["receptor_denuncia_id"], name: "index_krn_denuncias_on_receptor_denuncia_id"
+  end
+
+  create_table "krn_derivaciones", force: :cascade do |t|
+    t.integer "krn_denuncia_id"
+    t.datetime "fecha"
+    t.integer "krn_empresa_externa_id"
+    t.integer "krn_motivo_derivacion_id"
+    t.string "otro_motivo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "tipo"
+    t.string "destino"
+    t.index ["destino"], name: "index_krn_derivaciones_on_destino"
+    t.index ["fecha"], name: "index_krn_derivaciones_on_fecha"
+    t.index ["krn_denuncia_id"], name: "index_krn_derivaciones_on_krn_denuncia_id"
+    t.index ["krn_empresa_externa_id"], name: "index_krn_derivaciones_on_krn_empresa_externa_id"
+    t.index ["krn_motivo_derivacion_id"], name: "index_krn_derivaciones_on_krn_motivo_derivacion_id"
+    t.index ["tipo"], name: "index_krn_derivaciones_on_tipo"
   end
 
   create_table "krn_empleados", force: :cascade do |t|
@@ -1168,6 +1191,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_04_214433) do
     t.index ["empresa_id"], name: "index_krn_empresa_externas_on_empresa_id"
     t.index ["rut"], name: "index_krn_empresa_externas_on_rut"
     t.index ["tipo"], name: "index_krn_empresa_externas_on_tipo"
+  end
+
+  create_table "krn_investigadores", force: :cascade do |t|
+    t.string "krn_investigador"
+    t.string "rut"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "krn_lst_medidas", force: :cascade do |t|
@@ -1208,6 +1239,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_04_214433) do
     t.datetime "updated_at", null: false
     t.index ["krn_lst_modificacion_id"], name: "index_krn_modificaciones_on_krn_lst_modificacion_id"
     t.index ["krn_medida_id"], name: "index_krn_modificaciones_on_krn_medida_id"
+  end
+
+  create_table "krn_motivo_derivaciones", force: :cascade do |t|
+    t.string "krn_motivo_derivacion"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "krn_tipo_medidas", force: :cascade do |t|

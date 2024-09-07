@@ -14,11 +14,16 @@ $objt_oln_tc: 70px auto 100px;
 $objt_ln_gp: 0;
 $objt_ln_tc: auto 100px;
 
+$qstn_brd_wdth: 1px;
+$qstn_brd_typ: solid;
+$qstn_brd_clr: $pltt_5;
+$qstn_brd_rds: 15px;
+
 @import "bscs";
 
 @mixin objt_bsc {
 	@include mrgn_pddng($objt_mrgn, $objt_pddng);
-	@include brd_ln($objt_brd_wdth, $objt_brd_typ, $objt_brd_clr, $objt_brd_clr, $objt_brd_rds);
+	@include brd_ln($objt_brd_wdth, $objt_brd_typ, $objt_brd_clr, $objt_brd_rds);
 	background-color: white;
 }
 
@@ -74,4 +79,47 @@ $objt_ln_tc: auto 100px;
         @include grd_ncol(3);
         justify-self: end;
 	}
+}
+
+// grd($grd_tc, $grd_gap);
+// grd_ncol($nth);
+// a_hover($lnk_clr, $hvr_clr);
+
+
+.qstn_bx {
+	margin: 2px 0 2px 0;
+	font-size: 16px;
+	text-align: center;
+	.qstn {
+		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px 20px 0 0);
+		padding: 5px 1rem 2px 1rem;
+		background-color: $pltt_7;
+		color: $blue_1;
+		font-weight: bold;
+	}
+	.optns {
+		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 0 0 20px 20px);
+		padding: 2px 1rem 5px 1rem;
+		background-color: $pltt_8;
+		color: $pltt_2;
+
+		@include grd(100px auto, 0);
+		.typ {
+	        @include grd_ncol(1);
+        	justify-self: start;
+		}
+		.lnks {
+    	    @include grd_ncol(2);
+        	justify-self: center;
+		}
+	}
+}
+
+.rspst {
+	margin: 2px 0 2px 0;
+	background-color: $pltt_8;
+	font-size: 16px;
+	text-align: center;
+	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px);
+	padding: 2px 1rem 5px 1rem;
 }

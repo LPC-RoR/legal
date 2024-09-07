@@ -69,22 +69,53 @@ module Karin
     @entdd_invstgdr = @objeto.entdd_invstgdr
   end
 
-  # --------------------------------------------------------------------------------------------- DENUNCIANTE
+  # --------------------------------------------------------------------------------------------- DERIVACIÓN
 
-  # determina cuando se debe subir archivo de denuncia
-  def cntrl_diat_diep(dnncnt)
-    true
+  def drvcn_mtv
+    {
+      'riohs' => 'RIOHS con protocolo no ha entrado en vigencia.',
+      'a41' => 'Aplica artículo 4 inciso primero del Código del trabajo.',
+      'seg' => 'Seguimiento de denuncia de empresa externa.',
+      'r_multi' => 'Recepción derivación de denuncia multi-empresa.',
+      'e_optn' => 'Por determinación de la empresa'
+    }
   end
 
-  def krn_dnncnts_dc_init(denuncia)
-
-
-      @dc_diat_diep = KrnDenunciante.doc_cntrlds.get_archv('krn_dnncnt_diat_diep')
-
-      @diat_diep = {}
-      denuncia.krn_denunciantes.each do |dnncnt|
-        @diat_diep[dnncnt.id] = dnncnt.rep_archivos.get_dc_archv(@dc_diat_diep)
-      end
+  def qstns_txts
+    {
+      'riohs' => {
+        qstn: 'RIOHS que incluye el procedimiento de investigación y sanción NO está vigente',
+        answ: nil
+      },
+      'a41' => {
+        qstn: 'Aplica artículo 4 inciso primero del Código del trabajo.',
+        answ: nil
+      },
+      'i_optns' => {
+        qstn: 'Informar al denunciante su opciones de derivación (investigación).',
+        answ: 'Denunciante ya fue informado de sus opciones de investigación (derivación).'
+      },
+      'externa' => {
+        qstn: 'Denunciante define opción derivación denuncia empresa externa',
+        answ: nil
+      },
+      'd_optn' => {
+        qstn: 'Denunciante define opción derivación denuncia empresa/multi',
+        answ: 'Denunciante opto por investigación en '
+      },
+      'e_optn' => {
+        qstn: 'Empresa define opción derivación denuncia empresa/multi',
+        answ: 'Empresa opto por investigación en '
+      },
+      'seg' => {
+        qstn: 'Recepción derivación de denuncia empresa externa',
+        answ: nil
+      },
+      'r_multi' => {
+        qstn: 'Recepción derivación de denuncia multi empresa',
+        answ: nil
+      },
+    }
   end
 
 end

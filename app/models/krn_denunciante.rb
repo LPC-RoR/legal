@@ -11,6 +11,10 @@ class KrnDenunciante < ApplicationRecord
 		all.map {|den| den.krn_empresa_externa_id}
 	end
 
+	def self.art4_1?
+		all.map { |den| den.articulo_4_1 }.include?(true)
+	end
+
 	def self.ordr
 		order(:rut)
 	end

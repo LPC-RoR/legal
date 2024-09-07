@@ -1,0 +1,23 @@
+<div class="qstn_bx">
+	<div class="qstn">
+		<%= qstns_txts[code][:qstn] %>
+	</div>
+	<div class="optns">
+		<div class="typ">
+			<% case accn %>
+			<% when 'Derivación' %>
+				<i class="bi bi-box-arrow-up-right"></i> 
+			<% when 'Chequeo' %>
+				<i class="bi bi-check2-square"></i> 
+			<% when 'Selección' %>
+				<i class="bi bi-toggles"></i>
+			<% when 'Recepción' %>
+				<i class="bi bi-box-arrow-in-down-right"></i>
+			<% end %>
+			<%= accn %>
+		</div>
+		<div class="lnks">
+			<%= render partial: prtl_name(c, 'qstns', "lnk_#{code}"), locals: {objeto: objeto} %>
+		</div>
+	</div>
+</div>

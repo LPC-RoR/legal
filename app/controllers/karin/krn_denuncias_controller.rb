@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy check ]
 
   include Karin
 
@@ -13,18 +13,14 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
-    set_tab( :menu, [['General', operacion?], ['Denunciante(s)', operacion?], ['Denunciada(s)', operacion?], ['Hechos', operacion?], ['Medidas', operacion?], ['Documentos', operacion?]] )
+    set_tab( :menu, [['General', operacion?], ['Hechos', operacion?], ['Medidas', operacion?], ['Documentos', operacion?]] )
 
     case @options[:menu]
     when 'General'
       krn_dnnc_dc_init(@objeto)
       set_tabla('krn_denunciantes', @objeto.krn_denunciantes.ordr, false)
       set_tabla('krn_denunciados', @objeto.krn_denunciados.ordr, false)
-    when 'Denunciante(s)'
-      krn_dnncnts_dc_init(@objeto)
-      @denunciantes = @objeto.krn_denunciantes
-    when 'Denunciada(s)'
-      set_tabla('krn_denunciados', @objeto.krn_denunciados.order(:nombre), false)
+      set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
     end
   end
 
@@ -67,6 +63,34 @@ class Karin::KrnDenunciasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def check
+    if params[:i_optns].present?
+      if params[:i_optns] == 'i_optns'
+        @objeto.info_opciones = true
+      else
+        @objeto.info_opciones = nil
+      end
+    end
+    if params[:d_optn].present?
+      if ['empresa', 'externa', 'dt'].include?(params[:d_optn])
+        @objeto.dnncnt_opcion = params[:d_optn]
+      else
+        @objeto.dnncnt_opcion = nil
+      end
+    end
+    if params[:e_optn].present?
+      if ['empresa', 'dt'].include?(params[:e_optn])
+        @objeto.emprs_opcion = params[:e_optn]
+      else
+        @objeto.emprs_opcion = nil
+      end
+    end
+
+    @objeto.save
+
+    redirect_to @objeto
   end
 
   # DELETE /krn_denuncias/1 or /krn_denuncias/1.json

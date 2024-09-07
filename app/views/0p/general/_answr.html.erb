@@ -1,0 +1,19 @@
+<div class="rspst">
+	<% case accn %>
+	<% when 'Derivación' %>
+		<i class="bi bi-box-arrow-up-right"></i> 
+	<% when 'Chequeo' %>
+		<i class="bi bi-check2-square"></i> 
+	<% when 'Selección' %>
+		<i class="bi bi-toggles"></i>
+	<% when 'Recepción' %>
+		<i class="bi bi-box-arrow-in-down-right"></i>
+	<% end %> 
+	<%= qstns_txts[code][:answ] %>
+
+	<% if prtl?(c, 'qstns', "pstfx_#{code}") %>
+		<%= render partial: prtl_name(c, 'qstns', "pstfx_#{code}"), locals: {objeto: objeto} %>
+	<% end %>
+
+	<%= render partial: prtl_name(c, 'qstns', "lnk_answ"), locals: {objeto: objeto, code: code} if trsh %>
+</div>

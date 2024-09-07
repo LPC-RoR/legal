@@ -62,6 +62,7 @@ module CptnMenuLeftHelper
 					titulo: 'Ley Karin',
 					condicion: admin?,
 					items: [
+						'KrnInvestigador',
 						'Procedimiento',
 						'Pautas'
 					]

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  krn_denuncia_id: 1
+  fecha: 2024-09-05 12:25:47
+  krn_empresa_externa_id: 1
+  krn_motivo_denuncia_id: 1
+  otro_motivo: MyString
+
+two:
+  krn_denuncia_id: 1
+  fecha: 2024-09-05 12:25:47
+  krn_empresa_externa_id: 1
+  krn_motivo_denuncia_id: 1
+  otro_motivo: MyString
