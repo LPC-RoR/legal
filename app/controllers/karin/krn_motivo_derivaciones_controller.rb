@@ -1,4 +1,4 @@
-class KrnMotivoDerivacionesController < ApplicationController
+class Karin::KrnMotivoDerivacionesController < ApplicationController
   before_action :set_krn_motivo_derivacion, only: %i[ show edit update destroy ]
 
   # GET /krn_motivo_derivaciones or /krn_motivo_derivaciones.json
