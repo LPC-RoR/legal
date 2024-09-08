@@ -1,0 +1,14 @@
+<div class="rspst">
+	<div class="answ">
+		<i class="bi bi-<%=actvbx_gly[accn]%>"></i>
+		<%= actvbx_a_txt[code] %>
+
+		<% if prtl?(c, 'qstns', "pstfx_#{code}") %>
+			<b><%= render partial: prtl_name(c, 'qstns', "pstfx_#{code}"), locals: {objeto: objeto} %></b>
+		<% end %>
+	</div>
+
+	<div class="trsh">
+		<%= render partial: prtl_name(c, 'qstns', "lnk_answ"), locals: {objeto: objeto, code: code} if trsh %>
+	</div>
+</div>

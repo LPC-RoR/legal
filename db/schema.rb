@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_07_214532) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_08_013316) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1132,6 +1132,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_07_214532) do
     t.string "dnncnt_opcion"
     t.string "emprs_opcion"
     t.integer "krn_investigador_id"
+    t.boolean "leida"
+    t.boolean "incnsstnt"
+    t.boolean "incmplt"
     t.index ["cliente_id"], name: "index_krn_denuncias_on_cliente_id"
     t.index ["dependencia_denunciante_id"], name: "index_krn_denuncias_on_dependencia_denunciante_id"
     t.index ["dnnte_derivacion"], name: "index_krn_denuncias_on_dnnte_derivacion"

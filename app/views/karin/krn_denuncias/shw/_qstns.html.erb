@@ -2,47 +2,30 @@
 
 	<% if objeto.art4_1? or (not objeto.riohs_on?) %>
 		<% unless objeto.riohs_on? %>
-			<%= render partial: '0p/general/qstn', locals: {objeto: objeto, code: 'riohs', accn: 'Derivación', c: 'krn_denuncias', dir: 'shw/qstns'} %>
+			<%= render partial: '0p/actv_bx/qstn', locals: {objeto: objeto, code: 'riohs', accn: 'Derivación', c: 'krn_denuncias', dir: 'shw/qstns'} %>
 		<% end %>
 
 		<% if objeto.art4_1? %>
-			<%= render partial: '0p/general/qstn', locals: {objeto: objeto, code: 'a41', accn: 'Derivación', c: 'krn_denuncias', dir: 'shw/qstns'} %>
+			<%= render partial: '0p/actv_bx/qstn', locals: {objeto: objeto, code: 'a41', accn: 'Derivación', c: 'krn_denuncias', dir: 'shw/qstns'} %>
 		<% end %>
 	<% else %>
-
-		<div class="qstn_bx">
-			<% if objeto.info_opciones == true %>
-				<%= render partial: '0p/general/answr', locals: {objeto: objeto, code: 'i_optns', accn: 'Chequeo', c: 'krn_denuncias', trsh: (not objeto.d_optn?)} %>
-			<% else %>
-				<%= render partial: '0p/general/qstn', locals: {objeto: objeto, code: 'i_optns', accn: 'Chequeo', c: 'krn_denuncias', dir: 'shw/qstns'} %>
-			<% end %>
-		</div>
+		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'i_optns', accn: 'Confirmación', cndtn: objeto.info_opciones == true, c: 'krn_denuncias', trsh: (not objeto.d_optn?)} %>
 
 		<% if objeto.empresa_externa? %>
-			<%= render partial: '0p/general/qstn', locals: {objeto: objeto, code: 'externa', accn: 'Selección', c: 'krn_denuncias', dir: 'shw/qstns'} %>
+			<%= render partial: '0p/actv_bx/qstn', locals: {objeto: objeto, code: 'externa', accn: 'Selección', c: 'krn_denuncias', dir: 'shw/qstns'} %>
 
 		<% else %>
 			<% if objeto.i_optns? %>
-				<% if objeto.d_optn? %>
-					<%= render partial: '0p/general/answr', locals: {objeto: objeto, code: 'd_optn', accn: 'Info', c: 'krn_denuncias', trsh: true } %>
-				<% else %>
-					<%= render partial: '0p/general/qstn', locals: {objeto: objeto, code: 'd_optn', accn: 'Selección', c: 'krn_denuncias', dir: 'shw/qstns'} %>
-				<% end %>
+				<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'd_optn', accn: 'Selección', cndtn: (objeto.d_optn?), c: 'krn_denuncias', trsh: (not objeto.e_optn?)} %>
 			<% end %>
-			<% if objeto.e_optn? or objeto.drv_dt? %>
-				<%= render partial: '0p/general/answr', locals: {objeto: objeto, code: 'e_optn', accn: 'Info', c: 'krn_denuncias', trsh: true } %>
-			<% else %>
-				<%= render partial: '0p/general/qstn', locals: {objeto: objeto, code: 'e_optn', accn: 'Selección', c: 'krn_denuncias', dir: 'shw/qstns'} %>
-			<% end %>
+			<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'e_optn', accn: 'Selección', cndtn: (objeto.e_optn? or objeto.drv_dt?), c: 'krn_denuncias', trsh: (not objeto.invstgdr?)} %>
 		<% end %>
 	<% end %>
 <% end %>
 
 <% if objeto.recibible? %>
-	<% if objeto.empresa_externa? %>
-		<%= render partial: '0p/general/qstn', locals: {objeto: objeto, code: 'seg', accn: 'Recepción', c: 'krn_denuncias', dir: 'shw/qstns'} %>
-	<% else %>
-		<%= render partial: '0p/general/qstn', locals: {objeto: objeto, code: 'r_multi', accn: 'Recepción', c: 'krn_denuncias', dir: 'shw/qstns'} %>
+	<% unless objeto.empresa_externa? %>
+		<%= render partial: '0p/actv_bx/qstn', locals: {objeto: objeto, code: 'r_multi', accn: 'Recepción', c: 'krn_denuncias', dir: 'shw/qstns'} %>
 	<% end %>
 <% end %>
 

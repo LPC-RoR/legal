@@ -77,6 +77,7 @@ module Karin
       'a41' => 'Aplica artículo 4 inciso primero del Código del trabajo.',
       'seg' => 'Seguimiento de denuncia de empresa externa.',
       'r_multi' => 'Recepción derivación de denuncia multi-empresa.',
+      'd_optn' => 'Por determinación del denunciante',
       'e_optn' => 'Por determinación de la empresa'
     }
   end
@@ -114,6 +115,14 @@ module Karin
       'r_multi' => {
         qstn: 'Recepción derivación de denuncia multi empresa',
         answ: nil
+      },
+      'invstgdr' => {
+        qstn: 'Seleccione el investigador de la denuncia',
+        answ: 'Investigador seleccionado : '
+      },
+      'leida' => {
+        qstn: 'Investigador leyó la denuncia?',
+        answ: 'Investigador ya leyó la denuncia'
       },
     }
   end

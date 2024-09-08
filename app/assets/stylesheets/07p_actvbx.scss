@@ -1,0 +1,49 @@
+
+.qstn_bx {
+	margin: 2px 0 2px 0;
+	font-size: 16px;
+	.qstn {
+		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px 20px 0 0);
+		padding: 5px 1rem 2px 1rem;
+		background-color: $pltt_7;
+		text-align: center;
+		color: $blue_1;
+		font-weight: bold;
+	}
+	.optns {
+		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 0 0 20px 20px);
+		padding: 2px 1rem 5px 1rem;
+		background-color: $pltt_8;
+		text-align: left;
+		color: $pltt_2;
+
+		@include grd(150px auto, 0);
+		.typ {
+	        @include grd_ncol(1);
+        	justify-self: start;
+		}
+		.lnks {
+    	    @include grd_ncol(2);
+        	justify-self: start;
+		}
+	}
+}
+
+.rspst {
+	margin: 2px 0 2px 0;
+	background-color: $pltt_8;
+	font-size: 16px;
+	text-align: left;
+	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px);
+	padding: 2px 1rem 5px 1rem;
+
+	@include grd(auto 50px, 0);
+	.answ {
+        @include grd_ncol(1);
+    	justify-self: start;
+	}
+	.trsh {
+	    @include grd_ncol(2);
+    	justify-self: end;
+	}
+}

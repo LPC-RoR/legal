@@ -87,6 +87,20 @@ class Karin::KrnDenunciasController < ApplicationController
         @objeto.emprs_opcion = nil
       end
     end
+    if params[:invstgdr].present?
+      unless params[:invstgdr] == 'erase'
+        @objeto.krn_investigador_id = params[:invstgdr].to_i
+      else
+        @objeto.krn_investigador_id = nil
+      end
+    end
+    if params[:leida].present?
+      if params[:leida] == 'leida'
+        @objeto.leida = true
+      else
+        @objeto.leida = nil
+      end
+    end
 
     @objeto.save
 

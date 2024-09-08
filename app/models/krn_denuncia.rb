@@ -3,6 +3,8 @@ class KrnDenuncia < ApplicationRecord
 	belongs_to :motivo_denuncia
 	belongs_to :receptor_denuncia
 
+	belongs_to :krn_investigador, optional: true
+
 	has_many :rep_archivos, as: :ownr
 
 	has_many :krn_denunciantes
@@ -89,6 +91,14 @@ class KrnDenuncia < ApplicationRecord
 
 	def e_optn?
 		self.emprs_opcion.present?
+	end
+
+	def invstgdr?
+		self.krn_investigador_id.present?
+	end
+
+	def leida?
+		self.leida == true
 	end
 
 	# ------------------------------------------------------------------------ 

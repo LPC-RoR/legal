@@ -20,8 +20,8 @@ class Karin::KrnDerivacionesController < ApplicationController
 
   def nueva
     ownr = params[:oclss].constantize.find(params[:oid])
-    if ['riohs', 'a41', 'seg', 'r_multi', 'e_optn'].include?(params[:t])
-      tipo = ['riohs', 'a41', 'e_optn'].include?(params[:t]) ? 'Derivación' : 'Recepción'
+    if ['riohs', 'a41', 'seg', 'r_multi', 'd_optn', 'e_optn'].include?(params[:t])
+      tipo = ['riohs', 'a41', 'd_optn', 'e_optn'].include?(params[:t]) ? 'Derivación' : 'Recepción'
       motivo = drvcn_mtv[params[:t]]
       fecha = Time.zone.today
       ownr.krn_derivaciones.create(fecha: fecha, tipo: tipo, otro_motivo: motivo)

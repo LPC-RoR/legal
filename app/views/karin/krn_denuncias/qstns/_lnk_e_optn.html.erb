@@ -1,7 +1,12 @@
-<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_denuncias/#{objeto.id}/check?e_optn=empresa", tltp: nil} do %>
-	Empresa
-<% end %>
-<i class="bi bi-dot"></i>
-<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_derivaciones/nueva#{ownr_prms(objeto)}&t=e_optn", tltp: nil} do %>
-	Derivar a la Dirección del Trabajo
-<% end %>
+<ul>
+	<li>
+		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_denuncias/#{objeto.id}/check?e_optn=empresa", tltp: nil} do %>
+			Empresa
+		<% end %>
+	</li>
+	<li>
+		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_derivaciones/nueva#{ownr_prms(objeto)}&t=e_optn", tltp: nil} do %>
+			Derivar a la Dirección del Trabajo
+		<% end %>
+	</li>
+</ul>

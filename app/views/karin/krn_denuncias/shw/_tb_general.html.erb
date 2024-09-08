@@ -9,7 +9,17 @@
 
 <%= render partial: prtl_name('krn_denuncias', 'shw', 'qstns'), locals: {objeto: objeto} %>
 
-<% unless objeto.rcp_dt? %>
+<% if objeto.krn_derivaciones.any? %>
 	<%= render partial: '0p/general/ttl_ttl', locals: {cntrllr: 'krn_derivaciones', ttl: "Derivación(es)", ownr: objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_derivaciones'} %>
+<% end %>
+
+<% if objeto.e_optn? %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'invstgdr', accn: 'Selección', cndtn: objeto.invstgdr?, c: 'krn_denuncias', trsh: (not objeto.leida?)} %>
+<% end %>
+
+<% if objeto.invstgdr? %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'leida', accn: 'Confirmación', cndtn: objeto.leida?, c: 'krn_denuncias', trsh: true} %>
+	<% if objeto.leida? %>
+	<% end %>
 <% end %>

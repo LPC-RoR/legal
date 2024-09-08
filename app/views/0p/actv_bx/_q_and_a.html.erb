@@ -1,0 +1,5 @@
+<% if cndtn %>
+	<%= render partial: '0p/actv_bx/answr', locals: {objeto: objeto, code: code, accn: answ_accn(accn), c: c, trsh: trsh} %>
+<% else %>
+	<%= render partial: '0p/actv_bx/qstn', locals: {objeto: objeto, code: code, accn: accn, c: c} %>
+<% end %>

@@ -1,0 +1,14 @@
+<div class="qstn_bx">
+	<div class="qstn">
+		<%= actvbx_q_txt[code] %>
+	</div>
+	<div class="optns">
+		<div class="typ">
+			<i class="bi bi-<%=actvbx_gly[accn]%>"></i> 
+			<%= accn %>
+		</div>
+		<div class="lnks">
+			<%= render partial: prtl_name(c, 'qstns', "lnk_#{code}"), locals: {objeto: objeto} %>
+		</div>
+	</div>
+</div>
