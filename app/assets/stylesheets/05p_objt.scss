@@ -14,10 +14,12 @@ $objt_oln_tc: 70px auto 100px;
 $objt_ln_gp: 0;
 $objt_ln_tc: auto 100px;
 
-$qstn_brd_wdth: 1px;
-$qstn_brd_typ: solid;
-$qstn_brd_clr: $pltt_5;
-$qstn_brd_rds: 15px;
+$sobjt_mrgn: 4px 0 0 0;
+$sobjt_pddng: .5rem;
+$sobjt_brd_wdth: 1px;
+$sobjt_brd_typ: solid;
+$sobjt_brd_clr: $pltt_8;
+$sobjt_brd_rds: 3px;
 
 @import "bscs";
 

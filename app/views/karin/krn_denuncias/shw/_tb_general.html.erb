@@ -1,5 +1,8 @@
-<%= render partial: prtl_name('krn_denuncias', 'shw', 'dnnc_dtl'), locals: { objeto: objeto } %>
-<%= render partial: prtl_name('krn_denuncias', 'shw', 'archv_dtl'), locals: { objeto: objeto } %>
+<div class="shw_bx">
+	<%= render partial: prtl_name('krn_denuncias', 'shw', 'shw_lst'), locals: {objeto: objeto} %>
+	<%= render partial: prtl_name('repositorios', 'shr', 'dcs'), locals: {objeto: objeto, mdl: 'KrnDenuncia'} %>
+</div>
+
 
 <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciantes', ttl: "Persona(s) denunciante(s)", ownr: objeto} %>
 <%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciantes'} %>
@@ -19,7 +22,16 @@
 <% end %>
 
 <% if objeto.invstgdr? %>
-	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'leida', accn: 'Confirmación', cndtn: objeto.leida?, c: 'krn_denuncias', trsh: true} %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'leida', accn: 'Confirmación', cndtn: objeto.leida?, c: 'krn_denuncias', trsh: objeto.no_eval?} %>
 	<% if objeto.leida? %>
+		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'incnsstnt', accn: 'Selección', cndtn: objeto.incnsstnt_ok?, c: 'krn_denuncias', trsh: true} %>
+		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'incmplt', accn: 'Selección', cndtn: objeto.incmplt_ok?, c: 'krn_denuncias', trsh: true} %>
+	<% end %>
+<% end %>
+
+<% if objeto.eval? %>
+	<% @coleccion['krn_denunciantes'].each do |dnncnt| %>
+	<% end %>
+	<% @coleccion['krn_denunciados'].each do |dnncnt| %>
 	<% end %>
 <% end %>

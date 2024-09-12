@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ownr_type: MyString
+  ownr_id: 1
+  krn_empresa_externa_id: 1
+  rut: MyString
+  nombre: MyString
+  cargo: MyString
+  lugar_trabajo: MyString
+  email: MyString
+  email_ok: false
+  info_reglamento: false
+  info_procedimiento: false
+  info_derechos: false
+
+two:
+  ownr_type: MyString
+  ownr_id: 1
+  krn_empresa_externa_id: 1
+  rut: MyString
+  nombre: MyString
+  cargo: MyString
+  lugar_trabajo: MyString
+  email: MyString
+  email_ok: false
+  info_reglamento: false
+  info_procedimiento: false
+  info_derechos: false

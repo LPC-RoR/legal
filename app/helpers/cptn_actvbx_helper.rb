@@ -27,7 +27,9 @@ module CptnActvbxHelper
 			'e_optn' => 'Empresa define opción derivación denuncia ( empresa o multi )',
 			'r_multi' => 'Recepción derivación de denuncia multi empresa',
 			'invstgdr' => 'Seleccione investigador a cargo de la denuncia',
-			'leida' => 'Investigador debe leer la denuncia'
+			'leida' => 'Investigador debe leer la denuncia',
+			'incnsstnt' => 'Evaluación de denuncia : Denuncia inconsistente?',
+			'incmplt' => 'Evaluación de denuncia : Denuncia incompleta?',
 		}
 	end
 
@@ -37,7 +39,9 @@ module CptnActvbxHelper
 			'd_optn' => 'Denunciante opto por investigación en : ',
 			'e_optn' => 'Empresa opto por investigación en : ',
 			'invstgdr' => 'Investigador seleccionado : ',
-			'leida' => 'Investigador ya leyó la denuncia'
+			'leida' => 'Investigador ya leyó la denuncia',
+			'incnsstnt' => ' Denuncia inconsistente : ',
+			'incmplt' => 'Denuncia incompleta : '
 		}
 	end
 end

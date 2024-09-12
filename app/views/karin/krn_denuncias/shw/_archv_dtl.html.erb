@@ -1,6 +1,0 @@
-<div class="shw_bx">
-	<b>Archivo(s) de la denuncia</b></br>
-	<% @krn_dnnc_dc_lst.each do |dc| %>
-		<%= render partial: "repositorios/shr/dc_admin", locals: {cntrl: @krn_cntrl[dc.codigo], ownr: objeto, fl: @krn_fl[dc.codigo], dc: @krn_dc[dc.codigo]} %>
-	<% end %>
-</div>

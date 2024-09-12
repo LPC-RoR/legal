@@ -1,0 +1,13 @@
+<div class="actv_ttl">
+	<div class="ttl">
+		<i class="bi bi-arrow-right"></i> <b>Modificaciones de medidas</b>
+	</div>
+	<div class="lnks">
+		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_lst_modificaciones/new#{ownr_prms(objeto)}", tltp: 'Agregar lista de modificaciones' } do %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+	</div>
+</div>
+<% objeto.krn_lst_modificaciones.each do |lst| %>
+	<%= render partial: prtl_name('krn_lst_modificaciones', 'shw', 'shw_objt'), locals: {ownr: objeto, mdds_lst: lst} %>
+<% end %>

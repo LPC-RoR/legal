@@ -1,0 +1,9 @@
+<%= render partial: '0p/actv_bx/ttl', locals: {ttl: 'Archivo(s) controlado(s)'} %>
+
+<% @dc_lst[mdl].each do |dc| %>
+	<% if dc.multiple == true %>
+		<%= render partial: "repositorios/shr/dc_fl_lst", locals: {cntrl: @krn_cntrl[dc.codigo], ownr: objeto, fl: ( mdl == 'KrnDenuncia' ? @dc_fl_hsh[mdl][dc.codigo][:fl] : @dc_fl_hsh[mdl][objeto.id][dc.codigo][:fl] ), dc: ( mdl == 'KrnDenuncia' ? @dc_fl_hsh[mdl][dc.codigo][:dc] : @dc_fl_hsh[mdl][objeto.id][dc.codigo][:dc])} %>
+	<% else %>
+		<%= render partial: "repositorios/shr/dc_fl", locals: {cntrl: @krn_cntrl[dc.codigo], ownr: objeto, fl: ( mdl == 'KrnDenuncia' ? @dc_fl_hsh[mdl][dc.codigo][:fl] : @dc_fl_hsh[mdl][objeto.id][dc.codigo][:fl] ), dc: ( mdl == 'KrnDenuncia' ? @dc_fl_hsh[mdl][dc.codigo][:dc] : @dc_fl_hsh[mdl][objeto.id][dc.codigo][:dc])} %>
+	<% end %>
+<% end %>

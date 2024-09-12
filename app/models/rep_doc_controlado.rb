@@ -1,5 +1,5 @@
 class RepDocControlado < ApplicationRecord
-  TIPOS = ['Documento', 'Archivo']
+  TIPOS = ['Archivo', 'Documento']
   CONTROLES = ['Requerido', 'Opcional']
 
   belongs_to :ownr, polymorphic: true
@@ -13,6 +13,14 @@ class RepDocControlado < ApplicationRecord
 
   def self.get_archv(codigo)
     find_by(codigo: codigo)
+  end
+
+  def self.denuncia
+    find_by(codigo: 'krn_denuncia')    
+  end
+
+  def self.corregida
+    find_by(codigo: 'krn_corregida')    
   end
 
   # ------------------------------------ ORDER LIST

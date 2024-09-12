@@ -11,45 +11,70 @@ module Karin
       'krn_acta' => denuncia.tipo_declaracion == 'Verbal',
       'krn_certificado' => denuncia.dnnte_derivacion != true,
       'krn_notificacion' => denuncia.invstgdr_dt?,
-      'krn_dnncnt_diat_diep' => true
+      'krn_dnncnt_diat_diep' => true,
+      'krn_corregida' => (denuncia.dnnc_errr?),
+      'krn_dnncnt_dclracn' => true,
+      'krn_dnncd_dclracn' => true,
+      'krn_antcdnt_objcn' => true,
+      'krn_dnncd_antcdnts' => true,
+      'krn_dnncnt_antcdnts' => true,
+      'krn_tstg_dclrcn' => true,
+      'krn_tstg_antcdnt' => true,
+      'krn_informe' => true,
+      'krn_crtfcd_infrm' => true,
+      'krn_pronunciamiento' => true,
+      'krn_impugnacion' => true
     }
   end
 
-  def load_dnnc_hsh(denuncia, lst)
-    @krn_dc = {}
-    @krn_fl = {}
-    lst.each do |dc|
-      @krn_dc[dc.codigo] = KrnDenuncia.doc_cntrlds.get_archv(dc.codigo)
-      @krn_fl[dc.codigo] = denuncia.rep_archivos.get_dc_archv(@krn_dc[dc.codigo])
-    end
-  end
+  def load_dc_fl_hsh(denuncia)
 
-  def load_dnncnt_hsh(denuncia, lst)
-    @krn_dnncnt_dc = {}
-    @krn_dnncnt_fl = {}
+    @dc_fl_hsh = {}
+    ['KrnDenuncia', 'KrnDenunciante','KrnDenunciado'].each do |mdl|
+      @dc_fl_hsh[mdl] = {}
+      @dc_fl_hsh['KrnTestigo'] = {}
 
-    denuncia.krn_denunciantes.each do |dnncnt|
-      lst.each do |dc|
-        @krn_dnncnt_dc[dnncnt.id] = {}
-        @krn_dnncnt_dc[dnncnt.id][dc.codigo] = KrnDenunciante.doc_cntrlds.get_archv(dc.codigo)
-        @krn_dnncnt_fl[dnncnt.id] = {}
-        @krn_dnncnt_fl[dnncnt.id][dc.codigo] = dnncnt.rep_archivos.get_dc_archv(@krn_dnncnt_dc[dnncnt.id][dc.codigo])
+      if mdl == 'KrnDenuncia'
+        @dc_lst[mdl].each do |dc|
+          @dc_fl_hsh[mdl][dc.codigo] = {}
+          @dc_fl_hsh[mdl][dc.codigo][:dc] = KrnDenuncia.doc_cntrlds.get_archv(dc.codigo)
+          if dc.multiple == true
+            @dc_fl_hsh[mdl][dc.codigo][:fl] = denuncia.rep_archivos.where(rep_doc_controlado_id: dc.id).updtd_ordr
+          else
+            @dc_fl_hsh[mdl][dc.codigo][:fl] = denuncia.rep_archivos.get_dc_archv( @dc_fl_hsh[mdl][dc.codigo][:dc] )
+          end
+        end
+      else
+        denuncia.send(mdl.tableize).each do |rcrd|
+          @dc_fl_hsh[mdl][rcrd.id] = {}
+          @dc_lst[mdl].each do |dc|
+            @dc_fl_hsh[mdl][rcrd.id][dc.codigo] = {}
+            @dc_fl_hsh[mdl][rcrd.id][dc.codigo][:dc] = mdl.constantize.doc_cntrlds.get_archv(dc.codigo)
+            if dc.multiple == true
+              @dc_fl_hsh[mdl][rcrd.id][dc.codigo][:fl] = rcrd.rep_archivos.where(rep_doc_controlado_id: dc.id).updtd_ordr
+            else
+              @dc_fl_hsh[mdl][rcrd.id][dc.codigo][:fl] = rcrd.rep_archivos.get_dc_archv( @dc_fl_hsh[mdl][rcrd.id][dc.codigo][:dc] )
+            end
+          end
+
+          rcrd.krn_testigos.each do |tstg|
+            @dc_fl_hsh['KrnTestigo'][tstg.id] = {}
+            @dc_lst['KrnTestigo'].each do |dc|
+              @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo] = {}
+              @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo][:dc] = KrnTestigo.doc_cntrlds.get_archv(dc.codigo)
+              if dc.multiple == true
+                @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo][:fl] = tstg.rep_archivos.where(rep_doc_controlado_id: dc.id).updtd_ordr
+              else
+                @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo][:fl] = tstg.rep_archivos.get_dc_archv( @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo][:dc] )
+              end
+
+            end
+          end
+
+        end
       end
     end
-  end
 
-  def load_dnncd_hsh(denuncia, lst)
-    @krn_dnncd_dc = {}
-    @krn_dnncd_fl = {}
-
-    denuncia.krn_denunciados.each do |dnncd|
-      lst.each do |dc|
-        @krn_dnncd_dc[dnncd.id] = {}
-        @krn_dnncd_dc[dnncd.id][dc.codigo] = KrnDenunciado.doc_cntrlds.get_archv(dc.codigo)
-        @krn_dnncd_fl[dnncd.id] = {}
-        @krn_dnncd_fl[dnncd.id][dc.codigo] = dnncd.rep_archivos.get_dc_archv(@krn_dnncd_dc[dnncd.id][dc.codigo])
-      end
-    end
   end
 
   # --------------------------------------------------------------------------------------------- DENUNCIAS
@@ -57,16 +82,14 @@ module Karin
   def krn_dnnc_dc_init(denuncia)
     @krn_cntrl = krn_cntrl(@objeto)
 
-    @krn_dnnc_dc_lst = KrnDenuncia.doc_cntrlds
-    load_dnnc_hsh(@objeto, @krn_dnnc_dc_lst)
+    @dc_lst = {}
+    @dc_lst['KrnDenuncia'] = KrnDenuncia.doc_cntrlds
+    @dc_lst['KrnDenunciante'] = KrnDenunciante.doc_cntrlds
+    @dc_lst['KrnDenunciado'] = KrnDenunciado.doc_cntrlds
+    @dc_lst['KrnTestigo'] = KrnTestigo.doc_cntrlds
 
-    @krn_dnncnt_dc_lst = KrnDenunciante.doc_cntrlds
-    load_dnncnt_hsh(@objeto, @krn_dnncnt_dc_lst)
+    load_dc_fl_hsh(denuncia)
 
-    @krn_dnncd_dc_lst = KrnDenunciado.doc_cntrlds
-    load_dnncd_hsh(@objeto, @krn_dnncd_dc_lst)
-
-    @entdd_invstgdr = @objeto.entdd_invstgdr
   end
 
   # --------------------------------------------------------------------------------------------- DERIVACIÓN
@@ -82,49 +105,5 @@ module Karin
     }
   end
 
-  def qstns_txts
-    {
-      'riohs' => {
-        qstn: 'RIOHS que incluye el procedimiento de investigación y sanción NO está vigente',
-        answ: nil
-      },
-      'a41' => {
-        qstn: 'Aplica artículo 4 inciso primero del Código del trabajo.',
-        answ: nil
-      },
-      'i_optns' => {
-        qstn: 'Informar al denunciante su opciones de derivación (investigación).',
-        answ: 'Denunciante ya fue informado de sus opciones de investigación (derivación).'
-      },
-      'externa' => {
-        qstn: 'Denunciante define opción derivación denuncia empresa externa',
-        answ: nil
-      },
-      'd_optn' => {
-        qstn: 'Denunciante define opción derivación denuncia empresa/multi',
-        answ: 'Denunciante opto por investigación en '
-      },
-      'e_optn' => {
-        qstn: 'Empresa define opción derivación denuncia empresa/multi',
-        answ: 'Empresa opto por investigación en '
-      },
-      'seg' => {
-        qstn: 'Recepción derivación de denuncia empresa externa',
-        answ: nil
-      },
-      'r_multi' => {
-        qstn: 'Recepción derivación de denuncia multi empresa',
-        answ: nil
-      },
-      'invstgdr' => {
-        qstn: 'Seleccione el investigador de la denuncia',
-        answ: 'Investigador seleccionado : '
-      },
-      'leida' => {
-        qstn: 'Investigador leyó la denuncia?',
-        answ: 'Investigador ya leyó la denuncia'
-      },
-    }
-  end
 
 end

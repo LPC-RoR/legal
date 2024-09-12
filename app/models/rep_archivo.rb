@@ -3,6 +3,7 @@ class RepArchivo < ApplicationRecord
   belongs_to :rep_doc_controlado, optional: true
 
   scope :ordr, -> { order(:rep_archivo) }
+  scope :updtd_ordr, -> { order(:updated_at) }
 
   require 'carrierwave/orm/activerecord'
   mount_uploader :archivo, RepArchivoUploader
@@ -13,6 +14,10 @@ class RepArchivo < ApplicationRecord
 
   def cntrld?
     self.rep_doc_controlado_id.present?
+  end
+
+  def mltpl?
+    self.rep_doc_controlado_id.blank? ? false : (self.rep_doc_controlado.multiple == true)
   end
 
 end

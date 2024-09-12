@@ -1,0 +1,23 @@
+<% if cntrl %>
+	<div class="dc_fl <%="text-danger" if fl.blank?%>">
+		<div class="fl">
+			<i class="bi bi-file-earmark"></i>
+			<% if fl.blank? %>
+				<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: "Subir #{dc.rep_doc_controlado}"} do %>
+					<i class="bi bi-upload"></i>
+					Subir 
+				<% end %>
+			<% else %>
+				<%= dma_hm(fl.updated_at) %>
+				<i class="bi bi-dot"></i>
+				<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: fl.archivo.url, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
+					<i class="bi bi-download"></i>
+				<% end %>
+			<% end %>
+			<%= dc.rep_doc_controlado %>
+		</div>
+		<div class="lnks">
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: fl} unless fl.blank? %>
+		</div>
+	</div>
+<% end %>

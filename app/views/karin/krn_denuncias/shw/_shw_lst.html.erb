@@ -1,4 +1,3 @@
-<div class="shw_flds_lst">
 	<b><%= render partial: '0p/shw/fld_ln', locals: {fld: 'Cliente', vl: objeto.cliente.razon_social, algn: 'left'} %></b>
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Receptor de la denuncia', vl: objeto.receptor_denuncia.receptor_denuncia, algn: 'left'} %>
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Motivo de la denuncia', vl: objeto.motivo_denuncia.motivo_denuncia, algn: 'left'} %>
@@ -17,4 +16,3 @@
 		<% end %>
 		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Plazo investigación', vl: dma_hm(plz_lv(objeto.fecha_hora, 30)), algn: 'right'} %>
 	</b>
-</div>

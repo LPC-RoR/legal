@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_08_013316) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1058,6 +1058,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_08_013316) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "krn_declaraciones", force: :cascade do |t|
+    t.integer "krn_denuncia_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.datetime "fecha"
+    t.string "archivo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "krn_investigador_id"
+    t.index ["krn_denuncia_id"], name: "index_krn_declaraciones_on_krn_denuncia_id"
+    t.index ["krn_investigador_id"], name: "index_krn_declaraciones_on_krn_investigador_id"
+    t.index ["ownr_id"], name: "index_krn_declaraciones_on_ownr_id"
+    t.index ["ownr_type"], name: "index_krn_declaraciones_on_ownr_type"
+  end
+
   create_table "krn_denunciados", force: :cascade do |t|
     t.integer "krn_denuncia_id"
     t.integer "krn_empresa_externa_id"
@@ -1248,6 +1263,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_08_013316) do
     t.string "krn_motivo_derivacion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "krn_testigos", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.integer "krn_empresa_externa_id"
+    t.string "rut"
+    t.string "nombre"
+    t.string "cargo"
+    t.string "lugar_trabajo"
+    t.string "email"
+    t.boolean "email_ok"
+    t.boolean "info_reglamento"
+    t.boolean "info_procedimiento"
+    t.boolean "info_derechos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["krn_empresa_externa_id"], name: "index_krn_testigos_on_krn_empresa_externa_id"
+    t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"
+    t.index ["rut"], name: "index_krn_testigos_on_rut"
   end
 
   create_table "krn_tipo_medidas", force: :cascade do |t|
@@ -1798,6 +1834,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_08_013316) do
     t.integer "rep_doc_controlado_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nombre"
     t.index ["ownr_type", "ownr_id"], name: "index_rep_archivos_on_ownr"
     t.index ["rep_archivo"], name: "index_rep_archivos_on_rep_archivo"
     t.index ["rep_doc_controlado_id"], name: "index_rep_archivos_on_rep_doc_controlado_id"
@@ -1815,6 +1852,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_08_013316) do
     t.datetime "updated_at", null: false
     t.string "codigo"
     t.string "descripcion"
+    t.boolean "multiple"
     t.index ["codigo"], name: "index_rep_doc_controlados_on_codigo"
     t.index ["orden"], name: "index_rep_doc_controlados_on_orden"
     t.index ["ownr_type", "ownr_id"], name: "index_rep_doc_controlados_on_ownr"

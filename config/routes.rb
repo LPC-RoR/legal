@@ -151,6 +151,10 @@ Rails.application.routes.draw do
     end
     resources :krn_motivo_derivaciones
     resources :krn_investigadores
+    resources :krn_declaraciones do
+      match :nueva, via: :post, on: :collection
+    end
+    resources :krn_testigos
   end
 
   scope module: 'hm' do

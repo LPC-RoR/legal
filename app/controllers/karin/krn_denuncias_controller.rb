@@ -18,8 +18,8 @@ class Karin::KrnDenunciasController < ApplicationController
     case @options[:menu]
     when 'General'
       krn_dnnc_dc_init(@objeto)
-      set_tabla('krn_denunciantes', @objeto.krn_denunciantes.ordr, false)
-      set_tabla('krn_denunciados', @objeto.krn_denunciados.ordr, false)
+      set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
+      set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
       set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
     end
   end
@@ -99,6 +99,20 @@ class Karin::KrnDenunciasController < ApplicationController
         @objeto.leida = true
       else
         @objeto.leida = nil
+      end
+    end
+    if params[:incnsstnt].present?
+      if ['s', 'n'].include?(params[:incnsstnt])
+        @objeto.incnsstnt = params[:incnsstnt] == 's' ? true : false
+      else
+        @objeto.incnsstnt = nil
+      end
+    end
+    if params[:incmplt].present?
+      if ['s', 'n'].include?(params[:incmplt])
+        @objeto.incmplt = params[:incmplt] == 's' ? true : false
+      else
+        @objeto.incmplt = nil
       end
     end
 

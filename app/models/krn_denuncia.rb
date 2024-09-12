@@ -10,6 +10,7 @@ class KrnDenuncia < ApplicationRecord
 	has_many :krn_denunciantes
 	has_many :krn_denunciados
 	has_many :krn_derivaciones
+	has_many :krn_declaraciones
 
 	scope :ordr, -> { order(fecha_hora: :desc) }
 
@@ -99,6 +100,60 @@ class KrnDenuncia < ApplicationRecord
 
 	def leida?
 		self.leida == true
+	end
+
+	def incnsstnt_ok?
+		self.incnsstnt != nil
+	end
+
+	def incmplt_ok?
+		self.incmplt != nil
+	end
+
+	def no_eval?
+		self.incnsstnt == nil and self.incmplt == nil
+	end
+
+	def eval?
+		self.incnsstnt != nil and self.incmplt != nil
+	end
+
+	def dnnc_errr?
+		self.incnsstnt == true or self.incmplt == true
+	end
+
+	# --------------------------------------------------------------------------------------------- DOCUMENTOS CONTROLADOS
+
+	def dc_denuncia
+		RepDocControlado.denuncia
+	end
+
+	def fl_denuncia
+		dc = self.dc_denuncia
+		dc.blank? ? nil : self.rep_archivos.get_dc_archv(dc)
+	end
+
+	def dc_corregida
+		RepDocControlado.corregida
+	end
+
+	def fl_corregida
+		dc = self.dc_corregida
+		dc.blank? ? nil : self.rep_archivos.get_dc_archv(dc)
+	end
+
+	def fl_denuncia?
+		self.fl_denuncia.present?
+	end
+
+	def fl_corregida?
+		self.fl_corregida.present?
+	end
+
+	# ------------------------------------------------------------------------ 
+
+	def agndmnt?
+		self.eval? and ( self.dnnc_errr? ? self.fl_corregida? : self.fl_denuncia )
 	end
 
 	# ------------------------------------------------------------------------ 

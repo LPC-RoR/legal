@@ -1,37 +1,17 @@
 <div class="objt">
+	<%= render partial: '0p/actv_bx/actv_objt', locals: {objeto: objeto} %>
 	<div class="ln">
-		<%= render partial: '0p/general/objt', locals: {objeto: objeto} %>
 	</div>
 	<div class="dsply">
 		<%= render partial: prtl_name('krn_denunciados', 'list', 'cllps'), locals: {objeto: objeto} %>
 	</div>
-</div>
-<div class="shw_bx">
-	<b>Archivo(s) de la persona denunciada</b></br>
-	<% @krn_dnncd_dc_lst.each do |dc| %>
-		<%= render partial: "repositorios/shr/dc_admin", locals: {cntrl: @krn_cntrl[dc.codigo], ownr: objeto, fl: @krn_dnncd_fl[objeto.id][dc.codigo], dc: @krn_dnncd_dc[objeto.id][dc.codigo]} %>
-	<% end %>
-	<b>Medidas de resguardo</b></br>
-	<% objeto.krn_lst_medidas.each do |lst| %>
-		<%= dma_hm(lst.created_at) %>
-		<i class="bi bi-dot"></i>
-		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: lst, tltp: 'Ver lista de medidas'} do %>
-			Lista de medidas de protección y resguardo <%= lst.tipo %>
-		<% end %>
-		<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: lst} %>
-		</br>
-	<% end %>
-	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_lst_medidas/new#{ownr_prms(objeto)}&t=#{objeto.krn_lst_medidas.any? ? 'Extraordinaria' : 'Principal'}", tltp: 'Agregar lista de medidas' } do %>
-		<i class="bi bi-list-check"></i>
-		Crear 
-	<% end %>
-	Lista de medidas <%= objeto.krn_lst_medidas.any? ? 'Extraordinaria' : 'Principal' %></br>
 
-	<% unless objeto.krn_lst_medidas.empty? %>
-		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_lst_modificaciones/new#{ownr_prms(objeto)}", tltp: 'Agregar lista de modificaciones' } do %>
-			<i class="bi bi-eraser"></i>
-			Crear 
-		<% end %>
-		Lista de modificaciones
+	<%= render partial: prtl_name('repositorios', 'shr', 'dcs'), locals: {objeto: objeto, mdl: 'KrnDenunciado'} %>
+	<%= render partial: prtl_name('karin', 'shr', 'mdds'), locals: {objeto: objeto} %>
+	<%= render partial: prtl_name('karin', 'shr', 'mdfccns'), locals: {objeto: objeto} %>
+
+	<% if objeto.krn_denuncia.agndmnt? %>
+		<%= render partial: prtl_name('karin', 'shr', 'agndmnt'), locals: {objeto: objeto} %>
+		<%= render partial: prtl_name('karin', 'shr', 'tstgs'), locals: {objeto: objeto} %>
 	<% end %>
 </div>
