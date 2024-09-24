@@ -1,6 +1,12 @@
 <div class="qstn_bx">
 	<div class="qstn">
-		<%= actvbx_q_txt[code] %>
+		<% if prtl?(c, 'code/qstn', code) %>
+			<%= render partial: prtl_name(c, 'code/qstn', code), locals: { objeto: objeto} %>
+		<% else %>
+			Falta código de la pregunta de <%= code %>
+			<%= actvbx_q_txt[code] %>
+		<% end %>
+
 	</div>
 	<div class="optns">
 		<div class="typ">
@@ -8,7 +14,13 @@
 			<%= accn %>
 		</div>
 		<div class="lnks">
-			<%= render partial: prtl_name(c, 'qstns', "lnk_#{code}"), locals: {objeto: objeto} %>
+			<% if prtl?(c, 'code/lnks', code) %>
+				<%= render partial: prtl_name(c, 'code/lnks', code), locals: { objeto: objeto} %>
+			<% else %>
+				Falta código del link de <%= code %>
+				<%= render partial: prtl_name(c, 'qstns', "lnk_#{code}"), locals: {objeto: objeto} %>
+			<% end %>
+
 		</div>
 	</div>
 </div>

@@ -1,0 +1,3 @@
+<% if ownr.e_optn? %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'invstgdr', accn: 'Selección', cndtn: ownr.invstgdr?, c: 'krn_denuncias', trsh: (not ownr.leida?)} %>
+<% end %>

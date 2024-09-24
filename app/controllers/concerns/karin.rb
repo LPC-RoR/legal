@@ -7,14 +7,15 @@ module Karin
 
   def krn_cntrl(denuncia)
     {
-      'krn_denuncia' => denuncia.tipo_declaracion != 'Verbal',
-      'krn_acta' => denuncia.tipo_declaracion == 'Verbal',
-      'krn_certificado' => denuncia.dnnte_derivacion != true,
-      'krn_notificacion' => denuncia.invstgdr_dt?,
-      'krn_dnncnt_diat_diep' => true,
-      'krn_corregida' => (denuncia.dnnc_errr?),
-      'krn_dnncnt_dclracn' => true,
-      'krn_dnncd_dclracn' => true,
+      'dnnc_denuncia' => denuncia.tipo_declaracion != 'Verbal',     # Denuncia se presenta por escrito
+      'dnnc_acta' => denuncia.tipo_declaracion == 'Verbal',         # Denuncia se presenta en forma verbal
+      'dnnc_notificacion' => denuncia.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
+      'dnnc_certificado' => denuncia.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
+      'dnncnt_diat_diep' => true,
+      'dnnc_corrgd' => (denuncia.dnnc_errr?),                       # Denuncia corregida
+      'dnnc_dclrcn' => true,                                        # Declaración
+      'dnnc_antcdnts' => true,                                      # Antecedentes
+      'dnnc_infrm' => true,                                         # Informe de investigación
       'krn_antcdnt_objcn' => true,
       'krn_dnncd_antcdnts' => true,
       'krn_dnncnt_antcdnts' => true,
@@ -76,6 +77,9 @@ module Karin
     end
 
   end
+
+  # --------------------------------------------------------------------------------------------- TAREAS
+
 
   # --------------------------------------------------------------------------------------------- DENUNCIAS
 

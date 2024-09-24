@@ -1,11 +1,13 @@
 class KrnDenuncia < ApplicationRecord
-	belongs_to :cliente, optional: true
+	belongs_to :ownr, polymorphic: true
 	belongs_to :motivo_denuncia
 	belongs_to :receptor_denuncia
 
 	belongs_to :krn_investigador, optional: true
 
 	has_many :rep_archivos, as: :ownr
+	has_many :krn_lst_medidas, as: :ownr
+	has_many :krn_lst_modificaciones, as: :ownr
 
 	has_many :krn_denunciantes
 	has_many :krn_denunciados
@@ -13,6 +15,10 @@ class KrnDenuncia < ApplicationRecord
 	has_many :krn_declaraciones
 
 	scope :ordr, -> { order(fecha_hora: :desc) }
+
+	def css_id
+		'dnnc'
+	end
 
 	def self.doc_cntrlds
 		StModelo.get_model('KrnDenuncia').rep_doc_controlados.ordr
@@ -25,7 +31,7 @@ class KrnDenuncia < ApplicationRecord
 	end
 
 	def invstgdr_dt?
-		self.drv_dt? or rcp_dt?
+		self.drv_dt? or self.rcp_dt?
 	end
 
 	def por_representante?
@@ -40,10 +46,6 @@ class KrnDenuncia < ApplicationRecord
 	def empresa_externa?
 		ids = self.emprss_ids
 		ids.length == 1 and ids[0] != nil
-	end
-
-	def art4_1?
-		self.krn_denunciantes.art4_1? or self.krn_denunciados.art4_1?
 	end
 
 	def rcp_dt?
@@ -78,12 +80,20 @@ class KrnDenuncia < ApplicationRecord
 		(self.drv_externa? == nil) ? self.rcp_externa? : self.drv_externa?
 	end
 
-	def riohs_on?
-		true
+	def art4_1?
+		self.krn_denunciantes.art4_1? or self.krn_denunciados.art4_1?
+	end
+
+	def riohs_off?
+		false
 	end
 
 	def i_optns?
 		self.info_opciones.present?
+	end
+
+	def inf_dnncnt?
+		self.info_opciones == true
 	end
 
 	def d_optn?
@@ -116,6 +126,10 @@ class KrnDenuncia < ApplicationRecord
 
 	def eval?
 		self.incnsstnt != nil and self.incmplt != nil
+	end
+
+	def dnnc_ok?
+		self.incnsstnt == false and self.incmplt == false
 	end
 
 	def dnnc_errr?

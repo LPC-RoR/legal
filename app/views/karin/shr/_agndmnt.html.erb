@@ -1,5 +1,5 @@
-<%= render partial: '0p/actv_bx/ttl', locals: {ttl: 'Fecha toma de declaración'} %>
-<%= render partial: '0p/actv_bx/get_dttm', locals: {objeto: objeto, c: objeto.class.name.tableize, sid: objeto.denuncia.krn_investigador_id} %>
+<%= render partial: '0p/actv_bx/ttl', locals: {gly: 'calendar-check', ttl: 'Fecha toma de declaración'} %>
+<%= render partial: '0p/actv_bx/get_dttm', locals: {objeto: objeto, c: 'krn_declaraciones', sid: objeto.denuncia.krn_investigador_id} %>
 <% objeto.krn_declaraciones.each do |dclrcn| %>
 	<%= render partial: prtl_name('krn_declaraciones', 'list', 'actv_objt'), locals: {objeto: dclrcn} %>
 <% end %>

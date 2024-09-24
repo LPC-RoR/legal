@@ -13,16 +13,16 @@ $qstn_brd_rds: 15px;
 	font-size: 16px;
 	.qstn {
 		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px 20px 0 0);
-		padding: $actv_pddng;
-		background-color: $pltt_7;
-		text-align: center;
-		color: $blue_1;
+		padding-left: 8rem;
+		background-color: $pltt_9;
+//		text-align: center;
+		color: $pltt_2;
 		font-weight: bold;
 	}
 	.optns {
 		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 0 0 20px 20px);
 		padding: $actv_pddng;
-		background-color: $pltt_8;
+		background-color: white;
 		text-align: left;
 		color: $pltt_2;
 
@@ -40,7 +40,7 @@ $qstn_brd_rds: 15px;
 
 .rspst {
 	margin: $actv_mrgn;
-	background-color: $pltt_8;
+	background-color: $pltt_9;
 	font-size: 16px;
 	text-align: left;
 	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px);
@@ -71,7 +71,7 @@ $qstn_brd_rds: 15px;
 .dc_fl {
 	margin: $actv_mrgn;
 	padding: $actv_pddng;
-	background-color: $pltt_8;
+	background-color: $pltt_9;
 	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px);
 	font-size: 14px;
 	@include grd(auto 50px, 0);
@@ -100,6 +100,29 @@ $qstn_brd_rds: 15px;
 	.a_lnks {
 	    @include grd_ncol(2);
     	justify-self: end;
+	}
+}
+
+.proc_objt {
+	margin: $actv_mrgn;
+	padding: $actv_pddng;
+	background-color: $pltt_8;
+	@include brd_ln(2px, $qstn_brd_typ, $qstn_brd_clr, 5px);
+	font-size: 16px;
+	@include grd(auto 200px, 0);
+	.p_objt {
+        @include grd_ncol(1);
+    	justify-self: start;
+    	font-weight: bold;
+	}
+	.p_lnks {
+	    @include grd_ncol(2);
+    	justify-self: end;
+	}
+
+	.p_dtl {
+		grid-column: span 2;
+		padding-left: 1rem;
 	}
 }
 

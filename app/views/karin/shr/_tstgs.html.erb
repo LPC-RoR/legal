@@ -8,6 +8,6 @@
 		<% end %>
 	</div>
 </div>
-<% objeto.krn_testigos.each do |tstg| %>
+<% objeto.krn_testigos.rut_ordr.each do |tstg| %>
 	<%= render partial: prtl_name('krn_testigos', 'list', 'objeto'), locals: {objeto: tstg} %>
 <% end %>

@@ -7,9 +7,6 @@
 	<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha_hora, label: 'Fecha y hora denuncia' } %>
 	<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha_hora_dt, label: 'Fecha y hora certificado DT' } %>
 	<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha_hora_recepcion, label: 'Fecha y hora recepción' } %>
-
-	<%#= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :alcance_denuncia_id, colection: AlcanceDenuncia.all.order(:alcance_denuncia).collect { |ad| [ad.alcance_denuncia, ad.id] }, display_field: 'alcance_denuncia', prompt: nil, label: 'Alcance de la denuncia' } %>
-
 </div>
 <div class='form-row'>
 	<%= render partial: '0p/frm_flds/radio', locals: { form: form, token: :presentado_por, radio_list: ['Denunciante', 'Representante'], label: 'Presentada por:' } %>
@@ -17,5 +14,5 @@
 	<%= render partial: '0p/frm_flds/radio', locals: { form: form, token: :tipo_declaracion, radio_list: ['Escrita', 'Verbal'], label: 'Tipo:' } %>
 </div>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :cliente_id } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :empresa_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>

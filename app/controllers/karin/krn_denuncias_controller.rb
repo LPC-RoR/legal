@@ -13,10 +13,12 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
-    set_tab( :menu, [['General', operacion?], ['Hechos', operacion?], ['Medidas', operacion?], ['Documentos', operacion?]] )
+    set_tab( :menu, [['General', operacion?], ['Hechos', operacion?]] )
 
     case @options[:menu]
     when 'General'
+      @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
+
       krn_dnnc_dc_init(@objeto)
       set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
       set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
@@ -26,9 +28,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/new
   def new
-    cliente_id = params[:oclss] == 'Cliente' ? params[:oid] : nil
-    empresa_id = params[:oclss] == 'Empresa' ? params[:oid] : nil
-    @objeto = KrnDenuncia.new(cliente_id: cliente_id, empresa_id: empresa_id)
+    @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
   # GET /krn_denuncias/1/edit
@@ -66,8 +66,8 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   def check
-    if params[:i_optns].present?
-      if params[:i_optns] == 'i_optns'
+    if params[:inf_dnncnt].present?
+      if params[:inf_dnncnt] == 'inf_dnncnt'
         @objeto.info_opciones = true
       else
         @objeto.info_opciones = nil
@@ -144,6 +144,6 @@ class Karin::KrnDenunciasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denuncia_params
-      params.require(:krn_denuncia).permit(:cliente_id, :receptor_denuncia_id, :empresa_receptora_id, :motivo_denuncia_id, :investigador_id, :fecha_hora, :fecha_hora_dt, :fecha_hora_recepcion, :dnnte_info_derivacion, :dnnte_derivacion, :dnnte_entidad_investigacion, :dnnte_empresa_investigacion_id, :empresa_id, :presentado_por, :via_declaracion, :tipo_declaracion)
+      params.require(:krn_denuncia).permit(:cliente_id, :receptor_denuncia_id, :empresa_receptora_id, :motivo_denuncia_id, :investigador_id, :fecha_hora, :fecha_hora_dt, :fecha_hora_recepcion, :dnnte_info_derivacion, :dnnte_derivacion, :dnnte_entidad_investigacion, :dnnte_empresa_investigacion_id, :empresa_id, :presentado_por, :via_declaracion, :tipo_declaracion, :ownr_type, :ownr_id)
     end
 end

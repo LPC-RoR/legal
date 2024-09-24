@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_16_195958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -696,6 +696,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
     t.index ["visible_para"], name: "index_control_documentos_on_visible_para"
   end
 
+  create_table "ctr_etapas", force: :cascade do |t|
+    t.integer "procedimiento_id"
+    t.string "codigo"
+    t.string "ctr_etapa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "orden"
+    t.index ["codigo"], name: "index_ctr_etapas_on_codigo"
+    t.index ["orden"], name: "index_ctr_etapas_on_orden"
+    t.index ["procedimiento_id"], name: "index_ctr_etapas_on_procedimiento_id"
+  end
+
   create_table "cuestionarios", force: :cascade do |t|
     t.integer "orden"
     t.integer "pauta_id"
@@ -1122,7 +1134,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
   end
 
   create_table "krn_denuncias", force: :cascade do |t|
-    t.integer "cliente_id"
     t.integer "receptor_denuncia_id"
     t.integer "empresa_receptora_id"
     t.integer "motivo_denuncia_id"
@@ -1136,7 +1147,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
     t.boolean "dnnte_derivacion"
     t.string "dnnte_entidad_investigacion"
     t.integer "dnnte_empresa_investigacion_id"
-    t.integer "empresa_id"
     t.string "presentado_por"
     t.string "via_declaracion"
     t.string "tipo_declaracion"
@@ -1150,11 +1160,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
     t.boolean "leida"
     t.boolean "incnsstnt"
     t.boolean "incmplt"
-    t.index ["cliente_id"], name: "index_krn_denuncias_on_cliente_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["dependencia_denunciante_id"], name: "index_krn_denuncias_on_dependencia_denunciante_id"
     t.index ["dnnte_derivacion"], name: "index_krn_denuncias_on_dnnte_derivacion"
     t.index ["dnnte_empresa_investigacion_id"], name: "index_krn_denuncias_on_dnnte_empresa_investigacion_id"
-    t.index ["empresa_id"], name: "index_krn_denuncias_on_empresa_id"
     t.index ["empresa_receptora_id"], name: "index_krn_denuncias_on_empresa_receptora_id"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
@@ -1162,6 +1172,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
     t.index ["investigador_id"], name: "index_krn_denuncias_on_investigador_id"
     t.index ["krn_investigador_id"], name: "index_krn_denuncias_on_krn_investigador_id"
     t.index ["motivo_denuncia_id"], name: "index_krn_denuncias_on_motivo_denuncia_id"
+    t.index ["ownr_id"], name: "index_krn_denuncias_on_ownr_id"
+    t.index ["ownr_type"], name: "index_krn_denuncias_on_ownr_type"
     t.index ["receptor_denuncia_id"], name: "index_krn_denuncias_on_receptor_denuncia_id"
   end
 
@@ -1217,6 +1229,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cliente_id"
+    t.integer "empresa_id"
+    t.index ["cliente_id"], name: "index_krn_investigadores_on_cliente_id"
+    t.index ["empresa_id"], name: "index_krn_investigadores_on_empresa_id"
   end
 
   create_table "krn_lst_medidas", force: :cascade do |t|
@@ -1749,6 +1765,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
     t.text "detalle"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "codigo"
+    t.index ["codigo"], name: "index_procedimientos_on_codigo"
     t.index ["tipo_procedimiento_id"], name: "index_procedimientos_on_tipo_procedimiento_id"
   end
 
@@ -2373,9 +2391,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_135403) do
     t.datetime "updated_at", null: false
     t.integer "procedimiento_id"
     t.text "detalle"
+    t.integer "ctr_etapa_id"
+    t.string "sub_procs"
     t.index ["codigo"], name: "index_tareas_on_codigo"
+    t.index ["ctr_etapa_id"], name: "index_tareas_on_ctr_etapa_id"
     t.index ["orden"], name: "index_tareas_on_orden"
     t.index ["procedimiento_id"], name: "index_tareas_on_procedimiento_id"
+    t.index ["sub_procs"], name: "index_tareas_on_sub_procs"
   end
 
   create_table "temas", force: :cascade do |t|

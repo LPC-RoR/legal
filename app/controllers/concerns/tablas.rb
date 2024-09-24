@@ -26,10 +26,8 @@ module Tablas
 			m_cuentas: 'modelo',
 			m_bancos: 'periodos_bancos',
 			receptor_denuncias: 'archivos_denuncia',
-			alcance_denuncias: 'archivos_denuncia',
 			motivo_denuncias: 'archivos_denuncia',
-			tareas: 'general',
-			tipo_denunciados: 'general'
+			tareas: 'general'
 		}
 	end
 

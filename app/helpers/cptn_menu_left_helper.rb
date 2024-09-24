@@ -41,11 +41,10 @@ module CptnMenuLeftHelper
 							]
 						},
 						{
-							titulo: 'Investigaciones',
+							titulo: 'Karin',
 							condicion: admin?,
 							items: [
-								['General', 'general'],
-								['Archivos Denuncia', 'archivos_denuncia']
+								['Parámetros', 'krn_parametros']
 							]
 						},
 						{
@@ -62,7 +61,6 @@ module CptnMenuLeftHelper
 					titulo: 'Ley Karin',
 					condicion: admin?,
 					items: [
-						'KrnInvestigador',
 						'Procedimiento',
 						'Pautas'
 					]

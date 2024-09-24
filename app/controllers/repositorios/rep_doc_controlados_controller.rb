@@ -81,6 +81,10 @@ class Repositorios::RepDocControladosController < ApplicationController
         @rdrccn = "/tablas/tipos"
       when 'StModelo'
         @rdrccn = @objeto.ownr
+      when 'CtrEtapa'
+        @rdrccn = @objeto.ownr.procedimiento
+      when 'Tarea'
+        @rdrccn = @objeto.ownr.ctr_etapa.procedimiento
       end
     end
 

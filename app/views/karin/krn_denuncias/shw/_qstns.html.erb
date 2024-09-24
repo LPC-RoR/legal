@@ -1,7 +1,7 @@
 <% if objeto.derivable? %>
 
-	<% if objeto.art4_1? or (not objeto.riohs_on?) %>
-		<% unless objeto.riohs_on? %>
+	<% if objeto.art4_1? or objeto.riohs_off? %>
+		<% if objeto.riohs_off? %>
 			<%= render partial: '0p/actv_bx/qstn', locals: {objeto: objeto, code: 'riohs', accn: 'Derivación', c: 'krn_denuncias', dir: 'shw/qstns'} %>
 		<% end %>
 
@@ -9,7 +9,7 @@
 			<%= render partial: '0p/actv_bx/qstn', locals: {objeto: objeto, code: 'a41', accn: 'Derivación', c: 'krn_denuncias', dir: 'shw/qstns'} %>
 		<% end %>
 	<% else %>
-		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'i_optns', accn: 'Confirmación', cndtn: objeto.info_opciones == true, c: 'krn_denuncias', trsh: (not objeto.d_optn?)} %>
+		<%#= render partial: '0p/actv_bx/q_and_a', locals: {objeto: objeto, code: 'i_optns', accn: 'Confirmación', cndtn: objeto.info_opciones == true, c: 'krn_denuncias', trsh: (not objeto.d_optn?)} %>
 
 		<% if objeto.empresa_externa? %>
 			<%= render partial: '0p/actv_bx/qstn', locals: {objeto: objeto, code: 'externa', accn: 'Selección', c: 'krn_denuncias', dir: 'shw/qstns'} %>

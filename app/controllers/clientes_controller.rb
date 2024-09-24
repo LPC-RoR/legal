@@ -101,6 +101,7 @@ class ClientesController < ApplicationController
     elsif @options[:menu] == 'Investigaciones'
       set_tabla('krn_denuncias', @objeto.krn_denuncias.order(fecha_hora: :desc), true)
       set_tabla('krn_empresa_externas', @objeto.krn_empresa_externas.order(:razon_social), false)
+      set_tabla('krn_investigadores', @objeto.krn_investigadores.rut_ordr, false)
       set_tabla('krn_tipo_medidas', @objeto.krn_tipo_medidas.ordr, false)
     elsif @options[:menu] == 'Configuración'
       set_tabla('productos', @objeto.productos.all.order(:producto), false)
@@ -221,6 +222,6 @@ class ClientesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cliente_params
-      params.require(:cliente).permit(:razon_social, :rut, :estado, :tipo_cliente, :preferente)
+      params.require(:cliente).permit(:razon_social, :rut, :estado, :tipo_cliente, :preferente )
     end
 end

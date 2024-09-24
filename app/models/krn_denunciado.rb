@@ -4,10 +4,14 @@ class KrnDenunciado < ApplicationRecord
 	belongs_to :krn_empleado, optional: true
 
 	has_many :rep_archivos, as: :ownr
-	has_many :krn_lst_medidas, as: :ownr
-	has_many :krn_lst_modificaciones, as: :ownr
 	has_many :krn_declaraciones, as: :ownr
 	has_many :krn_testigos, as: :ownr
+
+	scope :rut_ordr, -> {order(:rut)}
+
+	def css_id
+		"dnncd#{self.id}"
+	end
 
 	def self.emprss_ids
 		all.map {|den| den.krn_empresa_externa_id}
@@ -15,10 +19,6 @@ class KrnDenunciado < ApplicationRecord
 
 	def self.art4_1?
 		all.map { |den| den.articulo_4_1 }.include?(true)
-	end
-
-	def self.rut_ordr
-		order(:rut)
 	end
 
 	def empleador

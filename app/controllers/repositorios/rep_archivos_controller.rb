@@ -71,12 +71,17 @@ class Repositorios::RepArchivosController < ApplicationController
     end
 
     def get_rdrccn
-      case @objeto.ownr.class.name
-      when 'KrnDenuncia'
-        @rdrccn = @objeto.ownr
-      when 'KrnDenunciante'
-        @rdrccn = @objeto.ownr.krn_denuncia
+
+      tar = @objeto.rep_doc_controlado.ownr
+      clss_nm = @objeto.ownr.class.name
+      if ['KrnDenunciado', 'KrnDenunciante'].include?(clss_nm)
+        @rdrccn = krn_denuncia_path(@objeto.ownr.krn_denuncia, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
+        #@rdrccn = "/krn_denuncias/#{@objeto.ownr.krn_denuncia.id}##{tar.css_id}_#{@objeto.ownr.css_id}"
+      elsif clss_nm == 'KrnDenuncia'
+        @rdrccn = krn_denuncia_path(@objeto.ownr, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
+        #@rdrccn = "/krn_denuncias/#{@objeto.ownr.id}##{tar.css_id}_#{@objeto.ownr.css_id}"
       end
+
     end
 
     # Only allow a list of trusted parameters through.

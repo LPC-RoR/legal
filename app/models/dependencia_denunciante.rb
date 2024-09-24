@@ -1,2 +1,0 @@
-class DependenciaDenunciante < ApplicationRecord
-end

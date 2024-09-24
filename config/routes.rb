@@ -74,11 +74,6 @@ Rails.application.routes.draw do
 
 # SCOPES *********************************************************
 
-  scope module: 'investigacion' do
-    resources :denunciados
-    resources :denuncias
-    resources :tipo_denuncias
-  end
   scope module: 'producto' do
     resources :pro_etapas
     resources :pro_nominas
@@ -109,6 +104,16 @@ Rails.application.routes.draw do
     resources :lgl_tramo_empresas
   end 
 
+  scope module: 'control' do
+    resources :procedimientos
+    resources :tipo_procedimientos
+    resources :ctr_etapas
+    resources :tareas do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
+  end
+
   scope module: 'karin' do
     resources :respuestas do
       match :nueva, via: :post, on: :collection
@@ -119,17 +124,9 @@ Rails.application.routes.draw do
     resources :cuestionarios
     resources :preguntas
     resources :pautas
-    resources :tipo_procedimientos
-    resources :procedimientos
-    resources :tareas do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
-    end
     resources :tipo_denunciados
-    resources :alcance_denuncias
     resources :receptor_denuncias
     resources :motivo_denuncias
-    resources :dependencia_denunciantes
 
     resources :krn_empresa_externas
     resources :krn_denunciados
@@ -137,7 +134,6 @@ Rails.application.routes.draw do
     resources :krn_denuncias do
       match :check, via: :get, on: :member
     end
-    resources :krn_empleados
 
     resources :krn_modificaciones do
       match :nueva, via: :get, on: :collection
@@ -352,8 +348,7 @@ Rails.application.routes.draw do
       match :tarifas_generales, via: :get, on: :collection
       match :modelo, via: :get, on: :collection
       match :periodos_bancos, via: :get, on: :collection
-      match :general, via: :get, on: :collection
-      match :archivos_denuncia, via: :get, on: :collection
+      match :krn_parametros, via: :get, on: :collection
     end
   end
 

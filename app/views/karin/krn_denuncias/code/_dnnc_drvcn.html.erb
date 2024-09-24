@@ -1,0 +1,58 @@
+<% if ownr.riohs_off? %>
+	<% if ownr.invstgdr_dt? %>
+		<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'riohs', accn: 'Derivación', c: 'krn_denuncias', trsh: false} %>
+	<% else %>
+		<%= render partial: '0p/actv_bx/qstn', locals: {objeto: ownr, code: 'riohs', accn: 'Derivación', c: 'krn_denuncias'} %>
+	<% end %>
+<% elsif ownr.art4_1? %>
+	<% if ownr.invstgdr_dt? %>
+		<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'a41', accn: 'Derivación', c: 'krn_denuncias', trsh: false} %>
+	<% else %>
+		<%= render partial: '0p/actv_bx/qstn', locals: {objeto: ownr, code: 'a41', accn: 'Derivación', c: 'krn_denuncias'} %>
+	<% end %>
+<% else %>
+	<% unless ownr.empresa_externa? and ownr.rcp_externa? %>
+		<% if ownr.inf_dnncnt? %>
+			<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'inf_dnncnt', accn: 'Confirmación', c: 'krn_denuncias', trsh: (not ownr.d_optn?)} %>
+		<% else %>
+			<%= render partial: '0p/actv_bx/qstn', locals: {objeto: ownr, code: 'inf_dnncnt', accn: 'Confirmación', c: 'krn_denuncias'} %>
+		<% end %>
+	<% end %>
+
+	<!-- REVISAR -->
+	<!-- Todos los participantes pertenecen a una misma empresa (externa) -->
+	<% if ownr.empresa_externa? %>
+		<% if ownr.inf_dnncnt? %>
+			<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'externa', accn: 'Confirmación', c: 'krn_denuncias', trsh: (not ownr.d_optn?)} %>
+		<% else %>
+			<%= render partial: '0p/actv_bx/qstn', locals: {objeto: ownr, code: 'externa', accn: 'Confirmación', c: 'krn_denuncias'} %>
+		<% end %>
+	<% else %>
+		<% if ownr.derivable? %>
+			<!-- Se ponen bajo derivable porque son opciones que sólo tienen sentido si la denuncia se puede derivar -->
+			<% if ownr.inf_dnncnt? %>
+				<% if ownr.d_optn? %>
+					<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'd_optn', accn: 'Selección', c: 'krn_denuncias', trsh: (not ownr.e_optn?)} %>
+				<% else %>
+					<%= render partial: '0p/actv_bx/qstn', locals: {objeto: ownr, code: 'd_optn', accn: 'Selección', c: 'krn_denuncias'} %>
+				<% end %>
+			<% end %>
+			<% if (ownr.e_optn? or ownr.drv_dt?) %>
+				<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'e_optn', accn: 'Selección', c: 'krn_denuncias', trsh: (not ownr.invstgdr?)} %>
+			<% else %>
+				<%= render partial: '0p/actv_bx/qstn', locals: {objeto: ownr, code: 'e_optn', accn: 'Selección', c: 'krn_denuncias'} %>
+			<% end %>
+		<% end %>
+	<% end %>
+
+<% end %>
+
+<% if ownr.recibible? %>
+	<% unless ownr.empresa_externa? %>
+		<%= render partial: '0p/actv_bx/qstn', locals: {objeto: ownr, code: 'r_multi', accn: 'Recepción', c: 'krn_denuncias', dir: 'shw/qstns'} %>
+	<% end %>
+<% end %>
+<% if ownr.krn_derivaciones.any? %>
+	<%= render partial: '0p/general/ttl_ttl', locals: {cntrllr: 'krn_derivaciones', ttl: "Derivación(es)", ownr: ownr} %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_derivaciones'} %>
+<% end %>

@@ -14,7 +14,9 @@ class Karin::KrnInvestigadoresController < ApplicationController
 
   # GET /krn_investigadores/new
   def new
-    @objeto = KrnInvestigador.new
+    cliente_id = params[:oclss] == 'Cliente' ? params[:oid] : nil
+    empresa_id = params[:oclss] == 'Cliente' ? nil : params[:oid]
+    @objeto = KrnInvestigador.new(cliente_id: cliente_id, empresa_id: empresa_id)
   end
 
   # GET /krn_investigadores/1/edit
@@ -69,11 +71,11 @@ class Karin::KrnInvestigadoresController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = krn_investigadores_path
+      @rdrccn = "/clientes/#{@objeto.cliente_id}?html_options[menu]=Investigaciones"
     end
 
     # Only allow a list of trusted parameters through.
     def krn_investigador_params
-      params.require(:krn_investigador).permit(:krn_investigador, :rut, :email)
+      params.require(:krn_investigador).permit(:krn_investigador, :rut, :email, :cliente_id, :empresa_id)
     end
 end

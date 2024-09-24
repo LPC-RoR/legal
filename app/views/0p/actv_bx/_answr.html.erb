@@ -1,7 +1,16 @@
 <div class="rspst">
 	<div class="answ">
 		<i class="bi bi-<%=actvbx_gly[accn]%>"></i>
-		<%= actvbx_a_txt[code] %>
+		<% if prtl?(c, 'code/answr', code) %>
+			<%= render partial: prtl_name(c, 'code/answr', code), locals: { objeto: objeto} %>
+		<% else %>
+			Falta código de la respuesta de <%= code %>
+			<%= actvbx_a_txt[code] %>
+		<% end %>
+
+		<% if prtl?(c, 'code/pstfx', code) %>
+			<%= render partial: prtl_name(c, 'code/pstfx', code), locals: { objeto: objeto} %>
+		<% end %>
 
 		<% if prtl?(c, 'qstns', "pstfx_#{code}") %>
 			<b><%= render partial: prtl_name(c, 'qstns', "pstfx_#{code}"), locals: {objeto: objeto} %></b>
@@ -9,6 +18,6 @@
 	</div>
 
 	<div class="trsh">
-		<%= render partial: prtl_name(c, 'qstns', "lnk_answ"), locals: {objeto: objeto, code: code} if trsh %>
+		<%= render partial: prtl_name(c, 'code', "trsh"), locals: {objeto: objeto, code: code} if trsh %>
 	</div>
 </div>

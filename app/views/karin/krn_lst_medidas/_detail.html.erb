@@ -1,7 +1,6 @@
 <h3>Lista de medidas de protección y resguardo <%= @objeto.tipo %></h3>
 <div class='form-row'>
 	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :emisor, sel_list: ['Empresa', 'Empresa externa', 'Direccion del Trabajo'], prompt: nil, label: 'Emisor de la lista' } %>
-	<%#= render partial: '0p/frm_flds/select', locals: { form: form, token: :tipo, sel_list: ['Principal', 'Extraordinaria'], prompt: nil, label: 'Tipo de lista' } %>
 </div>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tipo } %>

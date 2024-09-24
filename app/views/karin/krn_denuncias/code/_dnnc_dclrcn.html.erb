@@ -1,0 +1,6 @@
+<% unless ownr.class.name == 'KrnTestigo' %>
+	<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_testigos', ttl: "Testigos", ownr: ownr} %>
+	<% ownr.krn_testigos.rut_ordr.each do |tstg| %>
+		<%= render partial: prtl_name('krn_testigos', 'list', 'objeto'), locals: {objeto: tstg} %>
+	<% end %>
+<% end %>

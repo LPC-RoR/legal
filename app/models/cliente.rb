@@ -20,11 +20,11 @@ class Cliente < ApplicationRecord
 	has_many :pro_clientes
 	has_many :productos, through: :pro_clientes
 
-	has_many :krn_denuncias
+	has_many :krn_denuncias, as: :ownr
 	has_many :krn_empresa_externas
-	has_many :krn_empleados
 
 	has_many :krn_tipo_medidas
+	has_many :krn_investigadores
 
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :tipo_cliente
