@@ -25,8 +25,9 @@ class Aplicacion::AppRecursosController < ApplicationController
     # Nomina y perfil de Dog
     vrs = AppVersion.last
     nmn = AppNomina.find_by(email: vrs.dog_email)
+    AppNomina.create(nombre: AppVersion::DOG_NAME, email: AppVersion::DOG_EMAIL) if nmn.blank?
     prfl = AppPerfil.find_by(email: vrs.dog_email)
-    vrs.app_nomina = nmn unless nmn.blank?
+    vrs.app_nomina = nmn
     nmn.app_perfil = prfl unless prfl.blank?
 
     # Nomina en general
