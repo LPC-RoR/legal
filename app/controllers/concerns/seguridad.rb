@@ -1,6 +1,10 @@
 module Seguridad
 	extend ActiveSupport::Concern
 
+	# Usuario : Se dedica a autenticar usuarios exclusivamente
+	# AppNomina : Se usa para registrar usuarios autorizados de distinta naturaleza. Dog, Usuarios de la aplicación Usuarios de Empresa
+	# AppPerfil : Es el único activo en la aplicación, el que se usa para validar
+
 	# SCRTY_ON
 
 	def rcrds_ctvs 

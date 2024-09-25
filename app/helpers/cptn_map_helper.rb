@@ -76,6 +76,16 @@ module CptnMapHelper
 		File.exist?(file)
 	end
 
+	# ----------------------------------------------------------------- SCOPE PARTIALS
+
+	def scp_prtl(scp, dir, prtl)
+		"#{scp}/#{dir+'/' unless dir.blank?}#{prtl}"
+	end
+
+	def scp_prtl?(scp, dir, prtl)
+		prtl_file?(prtl_to_file(scp_prtl(scp, dir, prtl)))
+	end
+
 	# ----------------------------------------------------------------- LAYOUT PARTIALS
 
 	# alias de lyt partial

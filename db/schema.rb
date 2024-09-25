@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_16_195958) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_25_190742) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -315,7 +315,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_16_195958) do
     t.string "tipo"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["email"], name: "index_app_nominas_on_email"
+    t.index ["ownr_id"], name: "index_app_nominas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_app_nominas_on_ownr_type"
   end
 
   create_table "app_observaciones", force: :cascade do |t|
@@ -333,12 +337,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_16_195958) do
   create_table "app_perfiles", force: :cascade do |t|
     t.string "email"
     t.integer "usuario_id"
-    t.integer "app_administrador_id"
+    t.integer "app_nomina_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "o_clss"
     t.integer "o_id"
-    t.index ["app_administrador_id"], name: "index_app_perfiles_on_app_administrador_id"
+    t.index ["app_nomina_id"], name: "index_app_perfiles_on_app_nomina_id"
     t.index ["email"], name: "index_app_perfiles_on_email"
     t.index ["o_clss"], name: "index_app_perfiles_on_o_clss"
     t.index ["o_id"], name: "index_app_perfiles_on_o_id"

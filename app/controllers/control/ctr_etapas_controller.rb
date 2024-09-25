@@ -4,6 +4,8 @@ class Control::CtrEtapasController < ApplicationController
   before_action :set_ctr_etapa, only: %i[ show edit update destroy arriba abajo ]
   after_action :reordenar, only: :destroy
 
+  include Orden
+
   # GET /ctr_etapas or /ctr_etapas.json
   def index
     @coleccion = CtrEtapa.all

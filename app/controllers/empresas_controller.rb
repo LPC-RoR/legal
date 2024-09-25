@@ -1,9 +1,11 @@
 class EmpresasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_empresa, only: %i[ show edit update destroy ]
 
   # GET /empresas or /empresas.json
   def index
-    @empresas = Empresa.all
+    @coleccion = Empresa.all
   end
 
   # GET /empresas/1 or /empresas/1.json
@@ -12,7 +14,7 @@ class EmpresasController < ApplicationController
 
   # GET /empresas/new
   def new
-    @empresa = Empresa.new
+    @objeto = Empresa.new
   end
 
   # GET /empresas/1/edit
@@ -21,15 +23,15 @@ class EmpresasController < ApplicationController
 
   # POST /empresas or /empresas.json
   def create
-    @empresa = Empresa.new(empresa_params)
+    @objeto = Empresa.new(empresa_params)
 
     respond_to do |format|
-      if @empresa.save
-        format.html { redirect_to empresa_url(@empresa), notice: "Empresa was successfully created." }
-        format.json { render :show, status: :created, location: @empresa }
+      if @objeto.save
+        format.html { redirect_to empresa_url(@objeto), notice: "Empresa was successfully created." }
+        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @empresa.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -37,19 +39,19 @@ class EmpresasController < ApplicationController
   # PATCH/PUT /empresas/1 or /empresas/1.json
   def update
     respond_to do |format|
-      if @empresa.update(empresa_params)
-        format.html { redirect_to empresa_url(@empresa), notice: "Empresa was successfully updated." }
-        format.json { render :show, status: :ok, location: @empresa }
+      if @objeto.update(empresa_params)
+        format.html { redirect_to empresa_url(@objeto), notice: "Empresa was successfully updated." }
+        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @empresa.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /empresas/1 or /empresas/1.json
   def destroy
-    @empresa.destroy!
+    @objeto.destroy!
 
     respond_to do |format|
       format.html { redirect_to empresas_url, notice: "Empresa was successfully destroyed." }
@@ -60,7 +62,7 @@ class EmpresasController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_empresa
-      @empresa = Empresa.find(params[:id])
+      @objeto = Empresa.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

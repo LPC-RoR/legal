@@ -21,7 +21,19 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-    Denuncia.delete_all
+
+    # Nomina y perfil de Dog
+    vrs = AppVersion.last
+    nmn = AppNomina.find_by(email: vrs.dog_email)
+    prfl = AppPerfil.find_by(email: vrs.dog_email)
+    vrs.app_nomina = nmn
+    nmn.app_perfil = prfl
+
+    # Nomina en general
+    AppNomina.gnrl.each do |nmn|
+      prfl = AppPerfil.find_by(email: nmn.email)
+      nmn.app_perfil = prfl
+    end
 
     redirect_to root_path
   end

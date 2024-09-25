@@ -22,10 +22,12 @@ module Orden
   end
 
   def reordenar
-    @objeto.list.each_with_index do |val, index|
-      unless val.orden == index + 1
-        val.orden = index + 1
-        val.save
+    unless @objeto.list.empty?
+      @objeto.list.each_with_index do |val, index|
+        unless val.orden == index + 1
+          val.orden = index + 1
+          val.save
+        end
       end
     end
   end
