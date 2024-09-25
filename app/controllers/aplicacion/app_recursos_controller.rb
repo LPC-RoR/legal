@@ -25,7 +25,6 @@ class Aplicacion::AppRecursosController < ApplicationController
     # Nomina y perfil de Dog
     vrs = AppVersion.last
     vrs.dog_email = AppVersion::DOG_EMAIL
-    vrs.dog_name = AppVersion::DOG_NAME
     vrs.save
 
     redirect_to root_path
