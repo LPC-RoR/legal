@@ -7,7 +7,7 @@
 			<% unless objeto.dog_perfil.blank? %>
 				<small class="text-muted">
 				<i class="bi bi-arrow-right"></i>
-				<%= objeto.dog_email %>
+				<%= objeto.app_nomina.blank? %>
 				<%= objeto.dog_perfil.nombre %>
 				</small>
 			<% end %>
