@@ -24,17 +24,9 @@ class Aplicacion::AppRecursosController < ApplicationController
 
     # Nomina y perfil de Dog
     vrs = AppVersion.last
-    nmn = AppNomina.find_by(email: AppVersion::DOG_EMAIL)
-    AppNomina.create(nombre: AppVersion::DOG_NAME, email: AppVersion::DOG_EMAIL) if nmn.blank?
-    prfl = AppPerfil.find_by(email: AppVersion::DOG_EMAIL)
-    vrs.app_nomina = nmn
-    nmn.app_perfil = prfl unless prfl.blank?
-
-    # Nomina en general
-    AppNomina.gnrl.each do |nmn|
-      prfl = AppPerfil.find_by(email: nmn.email)
-      nmn.app_perfil = prfl unless prfl.blank?
-    end
+    vrs.dog_email = AppVersion::DOG_EMAIL
+    vrs.dog_name = AppVersion::DOG_NAME
+    vrs.save
 
     redirect_to root_path
   end
