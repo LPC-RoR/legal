@@ -26,13 +26,13 @@ class Aplicacion::AppRecursosController < ApplicationController
     vrs = AppVersion.last
     nmn = AppNomina.find_by(email: vrs.dog_email)
     prfl = AppPerfil.find_by(email: vrs.dog_email)
-    vrs.app_nomina = nmn
-    nmn.app_perfil = prfl
+    vrs.app_nomina = nmn unless nmn.blank?
+    nmn.app_perfil = prfl unless prfl.blank?
 
     # Nomina en general
     AppNomina.gnrl.each do |nmn|
       prfl = AppPerfil.find_by(email: nmn.email)
-      nmn.app_perfil = prfl
+      nmn.app_perfil = prfl unless prfl.blank?
     end
 
     redirect_to root_path
