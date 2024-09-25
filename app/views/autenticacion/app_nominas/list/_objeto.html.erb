@@ -6,6 +6,7 @@
 			<i class="bi bi-person-square text-<%=objeto.perfil.blank? ? 'danger' : 'info' %>"></i> 
 
 			<b><%= objeto.nombre %></b></br>
+			<%= objeto.app_perfil.present? %>
 			<div style='padding-left: 1em; padding-right: 1em; line-height: 13px;'>
 			<small>
 				<i class="bi bi-person<%='-circle' if objeto.tipo == 'Admin'%>"></i>
