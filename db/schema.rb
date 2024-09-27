@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_25_190742) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_25_211941) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -340,12 +340,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_190742) do
     t.integer "app_nomina_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "o_clss"
-    t.integer "o_id"
     t.index ["app_nomina_id"], name: "index_app_perfiles_on_app_nomina_id"
     t.index ["email"], name: "index_app_perfiles_on_email"
-    t.index ["o_clss"], name: "index_app_perfiles_on_o_clss"
-    t.index ["o_id"], name: "index_app_perfiles_on_o_id"
     t.index ["usuario_id"], name: "index_app_perfiles_on_usuario_id"
   end
 

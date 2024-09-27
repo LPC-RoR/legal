@@ -10,19 +10,24 @@ class AppNomina < ApplicationRecord
 	validates :nombre, :email, presence: true
 	validates :nombre, :email, uniqueness: true
 
-	scope :gnrl, -> { where(ownr_type: nil)}
+	scope :gnrl, -> { where(ownr_id: nil)}
 
-	scope :ordered, -> { order(:nombre) }
+	scope :nombre_ordr, -> { order(:nombre) }
 
 	def self.dog
 		find_by(email: AppVersion::DOG_EMAIL)		
+	end
+
+	def self.activa(usuario)
+		find_by(email: usuario.email)
 	end
 
 	def dog?
 		self.ownr_type == 'AppVersion'
 	end
 
-	def perfil
+	# DEPRECATED Antiguo 'perfil'
+	def perfil2
 		perfil = AppPerfil.find_by(email: self.email)
 	end
 

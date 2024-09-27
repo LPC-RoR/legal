@@ -2,7 +2,7 @@
 
 	<%= render partial: 'layouts/partials/notice_alert' %>
 
-	<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, ES UNA PÁGINA PÚBLICA O DE DEVISE -->
+	<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, SI ES UNA PÁGINA PÚBLICA O ES UNA PÁGINA DE DEVISE -->
 	<% if get_perfil_activo.present? or get_public_controllers.include?(controller_name) or devise_controllers.include?(controller_name)  %>
 
 		<!-- Valida despliegue de menu_left -->

@@ -10,6 +10,8 @@ class AppPerfil < ApplicationRecord
 	# Si cfg_defaults[:activa_tipos_usuario] = true
 	has_one :age_usuario
 
+	delegate :nombre, to: :app_nomina, prefix: true
+
 	def self.dog
 		AppNomina.dog.app_perfil
 	end
@@ -18,12 +20,12 @@ class AppPerfil < ApplicationRecord
 		self.app_nomina.dog?
 	end
 
-	def app_enlaces
-		AppEnlace.where(owner_class: 'AppPerfil', owner_id: self.id)
+	def nombre_agenda
+		self.app_nomina_nombre.split(' ')[0]
 	end
 
-	def nombre
-		self.email == AppVersion::DOG_EMAIL ? AppVersion::DOG_NAME : AppNomina.find_by(email: self.email).nombre
+	def app_enlaces
+		AppEnlace.where(owner_class: 'AppPerfil', owner_id: self.id)
 	end
 
 end

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :empresas
   resources :parrafos
   resources :notas do
     match :agrega_nota, via: :post, on: :collection
@@ -70,6 +69,10 @@ Rails.application.routes.draw do
     match :swtch_pendiente, via: :get, on: :member
     match :swtch_urgencia, via: :get, on: :member
     match :swtch_prprty, via: :get, on: :member
+  end
+
+  resources :empresas do
+    match :registro, via: :post, on: :collection
   end
 
 # SCOPES *********************************************************
@@ -271,13 +274,8 @@ Rails.application.routes.draw do
     resources :age_usu_notas
   end
   scope module: 'autenticacion' do
-    resources :app_nominas do
-      match :set_admin, via: :get, on: :member
-    end
-    resources :app_perfiles do
-      # recurso SOLO si hay manejo de ESTADOS
-      resources :st_perfil_modelos
-    end
+    resources :app_nominas
+    resources :app_perfiles
     resources :app_versiones
     resources :aut_tipo_usuarios
   end
@@ -385,13 +383,11 @@ Rails.application.routes.draw do
 
   scope module: 'st_estados' do
     resources :st_estados do
-      match :asigna, via: :get, on: :member
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
     resources :st_modelos do 
       resources :st_estados
-      match :asigna, via: :get, on: :member
     end
     resources :st_bandejas
   end

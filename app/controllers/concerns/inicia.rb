@@ -3,30 +3,21 @@ module Inicia
 
 	# @concern.seguridad.rb : version_activa, dog_email
 
-	def crea_primera_version
-		AppVersion.create(dog_email: dog_email)
-	end
-
-	def get_dog
-		# No se usa dog_perfil? porque dog_perfil.blank? considera que exista pero no esté ligado a version_activa
-		dog_prfl = dog_perfil.blank? ? AppPerfil.create(o_clss: 'AppVersion', o_id: version_activa.id, email: dog_email) : dog_perfil
-
-		dog_prfl.o_clss = 'AppVersion'
-		dog_prfl.o_id = version_activa.id
-		dog_prfl.save
+	def init_vrsn
+		vrs = AppVersion.create(dog_email: dog_email) unless version_activa?
+		vrs.app_nomina = AppNomina.create(nombre: AppVersion::DOG_NAME, email: AppVersion::DOG_EMAIL) if AppNomina.dog.blank?
 	end
 
 	def inicia_sesion
-		if usuario_signed_in?
-			# Verifica version_activa y dog_perfil
-			crea_primera_version unless version_activa?
-			get_dog unless dog_perfil?
 
-			# USUARIO SIN PERFIL (Primer ingreso)
-			if perfil_activo.blank?
+		if usuario_signed_in?
+
+			init_vrsn								# Verifica existencia de versión y nómina de DOG
+	
+			if perfil_activo.blank?					# # USUARIO SIN PERFIL (Primer ingreso)
 
 				if nomina_activa.present? or libre_registro?
-					AppPerfil.create(email: current_usuario.email)
+					nomina_activa.app_perfil = AppPerfil.create(email: current_usuario.email)
 				else
 					sign_out_and_redirect(current_usuario)
 				end

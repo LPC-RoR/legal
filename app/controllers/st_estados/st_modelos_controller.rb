@@ -1,7 +1,7 @@
 class StEstados::StModelosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_st_modelo, only: %i[ show edit update destroy asigna ]
+  before_action :set_st_modelo, only: %i[ show edit update destroy ]
 
   # GET /st_modelos or /st_modelos.json
   def index
@@ -53,13 +53,6 @@ class StEstados::StModelosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def asigna
-    nomina = params[:class_name].constantize.find(params[:objeto_id])
-    nomina.st_perfil_modelos.create(st_perfil_modelo: @objeto.st_modelo, rol: 'nomina')
-
-    redirect_to nomina
   end
 
   # DELETE /st_modelos/1 or /st_modelos/1.json

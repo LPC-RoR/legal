@@ -101,8 +101,6 @@ class Aplicacion::PublicosController < ApplicationController
     end
     @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
 
-    puts "******************************************************************* home"
-
   end
 
   def home_prueba

@@ -5,142 +5,163 @@ module Seguridad
 	# AppNomina : Se usa para registrar usuarios autorizados de distinta naturaleza. Dog, Usuarios de la aplicación Usuarios de Empresa
 	# AppPerfil : Es el único activo en la aplicación, el que se usa para validar
 
-	# SCRTY_ON
+	# ------------------------------------------------------------------- PARA USUARIOS ANÓNIMOS
 
-	def rcrds_ctvs 
-		perfil = get_perfil_activo
-		{
-			version: get_version_activa,
-			nomina: usuario_signed_in? ? AppNomina.find_by(email: current_usuario.email) : nil,
-			perfil: perfil,
-			dog_perfil: AppPerfil.find_by(email: AppVersion::DOG_EMAIL),
-			usuario_agenda: usuario_signed_in? ? (perfil.blank? ? nil : perfil.age_usuario) : nil
-		}
+	def get_version_activa
+		AppVersion.activa
 	end
 
-	def scrty_vls
-		{
-			dog_name: AppVersion::DOG_NAME,
-			dog_email: AppVersion::DOG_EMAIL,
-			public_controllers: get_public_controllers,
-			activa_tipos_usuario: cfg_defaults[:activa_tipos_usuario]
-		}
-	end
-
-	def scrty_on
-		@rcrds_ctvs = rcrds_ctvs
-		@scrty_vls = scrty_vls
-	end
-
-	# VLS
-
-	def app_sigla
-		AppVersion.all.empty? ? 'app' : get_version_activa.app_sigla
+	# No está como helper_method
+	# Si no hay usuario activo, no hay nómina, luego tampoco perfil = no accede a páginas no publicas
+	def get_nomina_activa
+		usuario_signed_in? ? AppNomina.activa(current_usuario) : nil
 	end
 
 	def get_public_controllers
 		['publicos']
 	end
 
+	def get_app_sigla
+		version = get_version_activa
+		version.blank? ? 'app' : (version.app_sigla.blank? ? 'app' : version.app_sigla )
+	end
+
+	def get_perfil_activo
+		nomina = get_nomina_activa
+		nomina.blank? ? nil : nomina.app_perfil
+	end
+
+	# ------------------------------------------------------------------- SCRTY_ON
+
+	# Carga de objetos de seguridad
+	def load_scrty_objts
+		version = get_version_activa									# 'nil' si No hay versión
+		dog_nomina = version.blank? ? nil : version.app_nomina			# variable de tránsito
+		dog_perfil = dog_nomina.blank? ? nil : dog_nomina.app_perfil 	# 'nil' heredado o verificado
+		nomina = get_nomina_activa										# 'nil' si usuario es anónimo o sin Nómina
+		perfil = nomina.blank? ? nil : nomina.app_perfil				# 'nil' si nomina es nil o si sin Perfil
+		usuario_agenda = perfil.blank? ? nil : perfil.age_usuario		# 
+		{
+			version: version,
+			dog_perfil: dog_perfil,
+			nomina: nomina,
+			perfil: perfil,
+			usuario_agenda: usuario_agenda
+		}
+	end
+
+	def scrty_vls
+		version = get_version_activa
+		dog_email = version.blank? ? AppVersion::DOG_EMAIL : version.dog_email
+		dog_name = AppVersion::DOG_NAME
+		app_sigla = version.blank? ? 'app' : (version.app_sigla.blank? ? 'app' : version.app_sigla )
+		public_controllers = get_public_controllers
+		activa_tipos_usuario = cfg_defaults[:activa_tipos_usuario]
+		{
+			app_sigla: app_sigla,
+			dog_email: dog_email,
+			dog_name: dog_name,
+			public_controllers: public_controllers,
+			activa_tipos_usuario: activa_tipos_usuario			# Se usa para obtener tipo_usuario
+		}
+	end
+
+	# Se llama en cada controlador para cargar las variables sólo una vez
+	def scrty_on
+		@scrty_objts = load_scrty_objts
+		@scrty_vls = scrty_vls
+	end
+
+	# ------------------------------------------------------------------- VLS
+
+	def dog_name
+		@scrty_vls[:dog_name]
+	end
+
+	def dog_email
+		@scrty_vls[:dog_email]
+	end
+
+	def app_sigla
+		@scrty_vls[:app_sigla]
+	end
+
 	def public_controllers
 		@scrty_vls[:public_controllers]
 	end
 
-	def dog_name
-		usuario_signed_in? ? @scrty_vls[:dog_name] : (AppVersion.all.empty? ? AppVersion::DOG_NAME : get_version_activa.dog_email)
+	# Al parecer no es necesario, sólo se usa en publico? (abajo).	
+	def public_controller?
+		public_controllers.include?(controller_name) or controller_name.match(/^blg_*/)		
 	end
 
-	def dog_email
-		usuario_signed_in? ? @scrty_vls[:dog_email] : (AppVersion.all.empty? ? AppVersion::DOG_EMAIL : get_version_activa.dog_email)
+	def tipo_usuario
+		# Este método sólo tiene sentido si perfil_activo?
+		@scrty_vls[:activa_tipos_usuario] ? (perfil_activo? ? nomina_activa.tipo : 'nil') : 'no-activado'
 	end
 
-	# ACTIVOS
-
-	def dog_perfil
-		@rcrds_ctvs[:dog_perfil]
-	end
-
-	def dog_perfil?
-		AppVersion.all.empty? ? false : dog_perfil.present? and dog_perfil.o_clss == 'AppVersion' and dog_perfil.o_id == version_activa.id
-	end
-
-	def usuario_agenda
-		@rcrds_ctvs[:usuario_agenda]
-	end
-
-	def usuario_agenda?
-		usuario_signed_in? ? usuario_agenda.present? : false
-	end
-
-	def get_version_activa
-		AppVersion.last
-	end
+	# ------------------------------------------------------------------- ACTIVOS
 
 	def version_activa
-		@rcrds_ctvs[:version]
+		@scrty_objts[:version]
 	end
 
 	def version_activa?
-		usuario_signed_in? ? version_activa.present? : false
+		@scrty_objts[:version].present?
+	end
+
+	def dog_perfil
+		@scrty_objts[:dog_perfil]
+	end
+
+	def dog_perfil?
+		@scrty_objts[:dog_perfil].present?
 	end
 
 	def nomina_activa
-		@rcrds_ctvs[:nomina]
+		@scrty_objts[:nomina]
 	end
 
 	def nomina_activa?
-		usuario_signed_in? ? nomina_activa.present? : false
-	end
-
-	def get_perfil_activo
-		usuario_signed_in? ? AppPerfil.find_by(email: current_usuario.email) : nil
+		@scrty_objts[:nomina].present?
 	end
 
 	def perfil_activo
-		@rcrds_ctvs[:perfil]
+		@scrty_objts[:perfil]
 	end
 
 	def perfil_activo?
-		usuario_signed_in? ? perfil_activo.present? : false
+		@scrty_objts[:perfil].present?
 	end
 
-	def usuario_activo?
-		usuario_signed_in? ? (nomina_activa.present? or dog?) : false
+	def usuario_agenda
+		@scrty_objts[:usuario_agenda]
 	end
 
-	def nombre_perfil
-		dog? ? dog_name : ( nomina_activa? ? '' : nomina_activa.nombre)
+	def usuario_agenda?
+		@scrty_objts[:usuario_agenda].present?
 	end
 
-	def nombre_agenda
-		 nombre_perfil == '' ? '' : nombre_perfil.split(' ')[0]
-	end
-
-	# SCRTY
-
-	def tipo_usuario
-		scrty_vls[:activa_tipos_usuario] ? (nomina_activa.present? ? nomina_activa.tipo : nil) : 'general'
-	end
+	# ------------------------------------------------------------------- SCRTY
 
 	# Verdadero SOLO para DOG
 	def dog?
-		# Se usa el usuario porque dog no requiere nómina para funcionar
-		usuario_signed_in? ? (current_usuario.email == dog_email) : false
+		perfil_activo == dog_perfil
 	end
 
 	# es verdadero para ADMIN y DOG
 	def admin?
-		( usuario_activo? and tipo_usuario == 'admin' ) or dog?
+		( perfil_activo? and tipo_usuario == 'admin' ) or dog?
 	end
 
 	# es verdadero para OPERACIÓN, ADMIN y DOG
 	def operacion?
-		( usuario_activo? and tipo_usuario == 'operación' ) or admin? or dog?
+		( perfil_activo? and tipo_usuario == 'operación' ) or admin?	# admin? considera a dog?, no es necesario ponerlo
 	end
 
 	# es verdadero para FINANZAS, ADMIN y DOG
 	def finanzas?
-		( usuario_activo? and tipo_usuario == 'finanzas' ) or admin? or dog?
+		( perfil_activo? and tipo_usuario == 'finanzas' ) or admin?		# admin? considera a dog?, no es necesario ponerlo
 	end
 
 	# es verdadero para OPERACIÓN, FINANZAS, ADMIN y DOG
@@ -148,13 +169,9 @@ module Seguridad
 		operacion? or finanzas?
 	end
 
-	def public_controllers?
-		public_controllers.include?(controller_name) or controller_name.match(/^blg_*/)		
-	end
-
 	# Al parecer no es necesario, porque lo que no se restringe, siempre es público.	
 	def publico?
-		action_name == 'home' ? ( not usuario_signed_in?) : public_controllers?
+		action_name == 'home' ? ( not usuario_signed_in?) : public_controller?
 	end
 
 	def seguridad(nivel)
@@ -172,12 +189,8 @@ module Seguridad
 				finanzas?
 			when 'operación'
 				operacion?
-			when 'usuario'
-				usuario_activo?
-			when 'nomina' # DEPRECATED
-				admin? or nomina_activa?
-			when 'excluir' # DEPRECATED
-				false
+			when 'usuario'			# Idem que publico?
+				perfil_activo?
 			else
 				true
 			end

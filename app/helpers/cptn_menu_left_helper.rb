@@ -6,7 +6,7 @@ module CptnMenuLeftHelper
 			admin: [
 				{
 					titulo: nil,
-					condicion: usuario_activo?,
+					condicion: perfil_activo?,
 					items: [
 						'AgeActividad',
 						['Cliente', 'operación'],

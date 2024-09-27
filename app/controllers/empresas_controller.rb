@@ -1,7 +1,9 @@
 class EmpresasController < ApplicationController
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, only: %i[ show ]
   before_action :scrty_on
   before_action :set_empresa, only: %i[ show edit update destroy ]
+
+  include Rut
 
   # GET /empresas or /empresas.json
   def index
@@ -15,6 +17,23 @@ class EmpresasController < ApplicationController
   # GET /empresas/new
   def new
     @objeto = Empresa.new
+  end
+
+  def registro
+    prms = params[:rgstr]
+    unless prms[:rut].blank? or prms[:razon_social].blank? or prms[:email_administrador].blank?
+      if valid_rut?(prms[:rut])
+        empresa = Empresa.create(rut: prms[:rut], razon_social: prms[:razon_social], email_administrador: prms[:email_administrador])
+
+        ntc = 'Empresa registrada exitósamente'
+      else
+        alrt = 'Error de registro: RUT no válido'
+      end
+    else
+      alrt = 'Error de registro: Falta información para completar el registro'
+    end
+
+    redirect_to root_path, notice: ntc, alert: alrt
   end
 
   # GET /empresas/1/edit

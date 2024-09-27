@@ -50,7 +50,7 @@ class Csc::HechoArchivosController < ApplicationController
   def set_establece
     @objeto.establece = params[:establece] == 'nil' ? nil : params[:establece]
     age_usuario = perfil_activo.age_usuarios.first
-    @objeto.aprobado_por = age_usuario.blank? ? perfil_activo.nombre_perfil : age_usuario.age_usuario
+    @objeto.aprobado_por = age_usuario.blank? ? perfil_activo.app_nomina_nombre : age_usuario.age_usuario
     @objeto.save
     
     redirect_to "/causas/#{@objeto.hecho.causa.id}?html_options[menu]=Hechos"

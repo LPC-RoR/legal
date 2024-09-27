@@ -6,7 +6,8 @@ class AppVersion < ApplicationRecord
 
 	has_many :cfg_valores
 
-	def dog_perfil
-		AppPerfil.where(o_clss: self.class.name, o_id: self.id).first
+	def self.activa
+		last		
 	end
+
 end
