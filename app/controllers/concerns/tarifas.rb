@@ -62,17 +62,17 @@ module Tarifas
 			formula.match(/#{lookup}/)
 			facturable = $2
 			campo = $3
-			tar_pago = objeto.tar_tarifa.tar_pagos.find_by(codigo_formula: facturable)
-			if tar_pago.blank?
-				calculo = -1
-			else
-				tar_calculo = get_tar_calculo(objeto, tar_pago)
+#			tar_pago = objeto.tar_tarifa.tar_pagos.find_by(codigo_formula: facturable)
+#			if tar_pago.blank?
+#				calculo = 0
+#			else
+				tar_calculo = get_tar_calculo(objeto, pago)
 				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.monto_pesos 
-				tar_facturacion = get_tar_facturacion(objeto, tar_pago)
+				tar_facturacion = get_tar_facturacion(objeto, pago)
 				tf_monto_pesos = tar_facturacion.blank? ? 0 : tar_facturacion.monto_pesos
 #				calculo = facturacion.blank? ? 0 : (facturacion.send(campo).blank? ? 0 : facturacion.send(campo))
 				calculo = tc_monto_pesos == 0 ? tf_monto_pesos : tc_monto_pesos
-			end
+#			end
 			formula = formula.gsub($1, calculo.to_s)
 		end
 		formula
