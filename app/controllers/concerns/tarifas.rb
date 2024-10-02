@@ -64,9 +64,8 @@ module Tarifas
 			campo = $3
 			tar_pago = objeto.tar_tarifa.tar_pagos.find_by(codigo_formula: facturable)
 			if tar_pago.blank?
-				calculo = 0
+				calculo = -1
 			else
-#				puts "**************************************** lookup_less tar_pago presente"
 				tar_calculo = get_tar_calculo(objeto, tar_pago)
 				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.monto_pesos 
 				tar_facturacion = get_tar_facturacion(objeto, tar_pago)
