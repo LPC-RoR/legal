@@ -68,8 +68,8 @@ module Tarifas
 #			else
 				tar_calculo = get_tar_calculo(objeto, pago)
 				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.monto_pesos 
-				tar_facturacion = get_tar_facturacion(objeto, pago)
-				tf_monto_pesos = tar_facturacion.blank? ? 0 : tar_facturacion.monto_pesos
+				tar_facturaciones = get_tar_facturaciones(objeto, pago)
+				tf_monto_pesos = tar_facturaciones.empty? ? 0 : tar_facturaciones.map {|fctn| fctn.monto_pesos}.sum
 #				calculo = facturacion.blank? ? 0 : (facturacion.send(campo).blank? ? 0 : facturacion.send(campo))
 				calculo = tc_monto_pesos == 0 ? tf_monto_pesos : tc_monto_pesos
 #			end
@@ -271,6 +271,16 @@ module Tarifas
 	# Sirve para causa / asesoria
 	def get_tar_facturacion(objeto, pago)
 		objeto.class.name == 'Causa' ? objeto.facturaciones.where(tar_pago_id: pago.id).first : objeto.facturacion
+	end
+
+	# Se ajusta al menejo de cuotas
+	def get_tar_facturaciones(objeto, pago)
+		case objeto.class.name
+		when 'Causa'
+			fcts1 = objeto.facturaciones.where(tar_pago_id: pago.id)
+			fcts2 = objeto.facturaciones.where(facturable: pago.codigo_formula)
+			fcts1.empty? ? fcts2 : fcts1
+		end
 	end
 
 	# Sirve para causa / asesoria
