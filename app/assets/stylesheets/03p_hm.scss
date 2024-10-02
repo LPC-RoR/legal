@@ -9,7 +9,7 @@ $support: #ffa000;
 // ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
 // grd($grd_tc, $grd_gap);
 // grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
+// @include a_hover($lnk_clr, $hvr_clr);
 @import "bscs";
 
 // Función para el manejo de background_image
@@ -48,6 +48,7 @@ $h_nvbr_pddng: 0;
 				.mn_itm {
 					display: inline;
 					margin-left: 1em;
+					@include a_hover(white, gray);
 					a:hover {
 						position: relative;
 						left: 2px;

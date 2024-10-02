@@ -1,7 +1,12 @@
 class KrnDenuncia < ApplicationRecord
+
+	RECEPTORES = ['Empresa', 'Dirección del Trabajo', 'Empresa externa']
+	MOTIVOS = ['Acoso laboral', 'Acoso sexual', 'Violencia en el trabajo ejercida por terceros']
+
+	VIAS_DENUNCIA = ['Denuncia presencial', 'Correo electrónico', 'Plataforma']
+	TIPOS_DENUNCIA = ['Escrita', 'Verbal']
+
 	belongs_to :ownr, polymorphic: true
-	belongs_to :motivo_denuncia
-	belongs_to :receptor_denuncia
 
 	belongs_to :krn_investigador, optional: true
 
@@ -19,6 +24,41 @@ class KrnDenuncia < ApplicationRecord
 	def css_id
 		'dnnc'
 	end
+
+	# ------------------------------------------------------------------------ PROCS
+
+	def fecha?
+		 self.fecha_hora.present?
+	end
+
+	def trsh_fecha?
+		self.fecha? and self.via_declaracion.blank?
+	end
+
+	def fecha_dt?
+		 self.fecha_hora_dt.present?
+	end
+
+	def trsh_fecha_dt?
+		self.fecha_dt? and self.via_declaracion.blank?
+	end
+
+	def fecha_legal
+		self.drv_dt? ? self.fecha_hora_dt : self.fecha_hora
+	end
+
+	def fecha_legal?
+		self.fecha_legal.present?
+	end
+
+	def via_declaracion?
+		self.via_declaracion.present?
+	end
+
+	def tipo_declaracion?
+		self.tipo_declaracion.present?
+	end
+
 
 	def self.doc_cntrlds
 		StModelo.get_model('KrnDenuncia').rep_doc_controlados.ordr
@@ -49,15 +89,15 @@ class KrnDenuncia < ApplicationRecord
 	end
 
 	def rcp_dt?
-		self.receptor_denuncia.dt?
+		self.receptor_denuncia == RECEPTORES[1]
 	end
 
 	def rcp_empresa?
-		self.receptor_denuncia.empresa?
+		self.receptor_denuncia == RECEPTORES[0]
 	end
 
 	def rcp_externa?
-		self.receptor_denuncia.externa?
+		self.receptor_denuncia == RECEPTORES[2]
 	end
 
 	def drv_dt?
@@ -175,11 +215,6 @@ class KrnDenuncia < ApplicationRecord
 	def entdd_invstgdr
 		ids = self.emprss_ids
 		self.invstgdr_dt? ? 'Dirección del Trabajo' : ( ids.length == 1 ? ( ids.first.blank? ? 'Empresa' : 'Empresa externa' ) : 'Empresa' )
-	end
-
-	def owner
-#		self.cliente_id.blank? ? self.empresa : self.cliente
-		self.cliente
 	end
 
 end

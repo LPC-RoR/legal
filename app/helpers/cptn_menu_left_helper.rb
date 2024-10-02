@@ -41,13 +41,6 @@ module CptnMenuLeftHelper
 							]
 						},
 						{
-							titulo: 'Karin',
-							condicion: admin?,
-							items: [
-								['Parámetros', 'krn_parametros']
-							]
-						},
-						{
 							titulo: 'Modelo de Negocios',
 							condicion: admin?,
 							items: [

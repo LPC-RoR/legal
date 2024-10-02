@@ -1,36 +1,27 @@
 module Plazos
 	extend ActiveSupport::Concern
 
-	# Entrega indice del día de dt_fecha en el arreglo
-	def day_index(dt_fecha)
-		['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].find_index(dt_fecha.strftime('%A'))
-	end
-
-	def nombre_dia(dt_fecha)
-		['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'][day_index(dt_fecha)]
-	end
-
-	def no_lv(dt_fecha)
-		['sábado', 'domingo'].include?(nombre_dia(dt_fecha)) or CalFeriado.where(cal_fecha: dt_fecha.beginning_of_day..dt_fecha.end_of_day).any?
-	end
-
   	def plz_lv(fecha, dias)
-		fch = fecha
-		while no_lv(fch) do
-			fch = fch + 1.day
+  		unless fecha.blank? or dias.blank?
+	  		frds = CalFeriado.where('cal_fecha BETWEEN ? AND ?', fecha.beginning_of_day, (fecha + dias.day).end_of_day)
+	  		n_frds = frds.map {|frd| ['Saturday', 'Sunday'].exclude?(cal_fecha.strftime('%A')) }.compact.count
+
+	  		ds = dias + n_frds
+
+	  		s = (ds/5).to_i
+	  		r = ds % 5
+	  		skp = 4 - (fecha.to_date - fecha.monday.to_date).to_i
+	  		r2 = r > skp ? r + 2 : r
+	  		pls = s * 7 + r2
+
+			fecha + pls.day
+		else
+			nil
 		end
-		ds = 0
-		while ds < dias
-			fch = fch + 1.day 
-			unless no_lv(fch)
-				ds += 1
-			end
-		end
-		fch
 	end
 
 	def plz_c(fecha, dias)
-		fecha + dias.day
+		( fecha.blank? or dias.blank? ) ? nil : fecha + dias.day
 	end
 
 end

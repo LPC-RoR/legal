@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy check ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy check fll_dttm fll_fld fll_optn del_fld ]
 
   include Karin
 
@@ -13,22 +13,25 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
-    set_tab( :menu, [['General', operacion?], ['Hechos', operacion?]] )
+    set_tab( :menu, [['Denuncia', operacion?], ['Persona(s) Denunciante(s)', operacion?], ['Persona(s) Denunciada(s)', operacion?]] )
+
+    @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
+    krn_dnnc_dc_init(@objeto)
 
     case @options[:menu]
-    when 'General'
-      @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
-
-      krn_dnnc_dc_init(@objeto)
-      set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
-      set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
+    when 'Denuncia'
       set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
+    when 'Persona(s) Denunciante(s)'
+      set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
+    when 'Persona(s) Denunciada(s)'
+      set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
     end
   end
 
   # GET /krn_denuncias/new
   def new
-    @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid])
+    ownr_clss = 'Cliente'
+    @objeto = KrnDenuncia.new(ownr_type: ownr_clss)
   end
 
   # GET /krn_denuncias/1/edit
@@ -63,6 +66,53 @@ class Karin::KrnDenunciasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def fll_dttm
+    if perfil_activo?
+      case params[:k]
+      when 'fecha'
+        @objeto.fecha_hora = params_to_date(params, 'fecha')
+      when 'fecha_dt'
+        @objeto.fecha_hora_dt = params_to_date(params, 'fecha')
+      end
+      @objeto.save
+    end
+
+    redirect_to @objeto
+  end
+
+  def fll_optn
+    if perfil_activo?
+      case params[:k]
+      when 'via'
+        @objeto.via_declaracion = params[:option]
+      when 'tipo'
+        @objeto.tipo_declaracion = params[:option]
+      end
+      @objeto.save
+    end
+
+    redirect_to @objeto
+  end
+
+  def del_fld
+    if perfil_activo?
+      case params[:k]
+      when 'fecha'
+        @objeto.fecha_hora = nil
+      when 'fecha_dt'
+        @objeto.fecha_hora_dt = nil
+      when 'via'
+        @objeto.via_declaracion = nil
+      when 'tipo'
+        @objeto.tipo_declaracion = nil
+      end
+
+      @objeto.save
+    end
+
+    redirect_to @objeto
   end
 
   def check
@@ -139,11 +189,11 @@ class Karin::KrnDenunciasController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = "/#{@objeto.owner.class.name.tableize}/#{@objeto.owner.id}?html_options[menu]=Investigaciones"
+      @rdrccn = "/#{@objeto.ownr.class.name.tableize}/#{@objeto.ownr.id}?html_options[menu]=Investigaciones"
     end
 
     # Only allow a list of trusted parameters through.
     def krn_denuncia_params
-      params.require(:krn_denuncia).permit(:cliente_id, :receptor_denuncia_id, :empresa_receptora_id, :motivo_denuncia_id, :investigador_id, :fecha_hora, :fecha_hora_dt, :fecha_hora_recepcion, :dnnte_info_derivacion, :dnnte_derivacion, :dnnte_entidad_investigacion, :dnnte_empresa_investigacion_id, :empresa_id, :presentado_por, :via_declaracion, :tipo_declaracion, :ownr_type, :ownr_id)
+      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :receptor_denuncia, :motivo_denuncia, :empresa_receptora_id, :investigador_id, :fecha_hora, :fecha_hora_dt, :fecha_hora_recepcion, :dnnte_info_derivacion, :dnnte_derivacion, :dnnte_entidad_investigacion, :dnnte_empresa_investigacion_id, :empresa_id, :presentado_por, :via_declaracion, :tipo_declaracion)
     end
 end

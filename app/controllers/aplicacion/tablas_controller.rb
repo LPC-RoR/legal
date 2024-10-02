@@ -70,11 +70,6 @@ class Aplicacion::TablasController < ApplicationController
       set_tabla('m_periodos', MPeriodo.order(clave: :desc), false) 
   end
 
-  def krn_parametros
-    set_tabla('receptor_denuncias', ReceptorDenuncia.all.order(:receptor_denuncia), false)
-    set_tabla('motivo_denuncias', MotivoDenuncia.all.order(:motivo_denuncia), false)
-  end
-
   # GET /tablas or /tablas.json
   def index
   end

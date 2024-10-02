@@ -136,6 +136,9 @@ Rails.application.routes.draw do
     resources :krn_denunciantes
     resources :krn_denuncias do
       match :check, via: :get, on: :member
+      match :fll_dttm, via: :post, on: :member
+      match :fll_optn, via: :post, on: :member
+      match :del_fld, via: :get, on: :member
     end
 
     resources :krn_modificaciones do
@@ -346,7 +349,6 @@ Rails.application.routes.draw do
       match :tarifas_generales, via: :get, on: :collection
       match :modelo, via: :get, on: :collection
       match :periodos_bancos, via: :get, on: :collection
-      match :krn_parametros, via: :get, on: :collection
     end
   end
 

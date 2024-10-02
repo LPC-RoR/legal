@@ -4,7 +4,6 @@
 			<%= render partial: prtl_name(c, 'code/qstn', code), locals: { objeto: objeto} %>
 		<% else %>
 			Falta código de la pregunta de <%= code %>
-			<%= actvbx_q_txt[code] %>
 		<% end %>
 
 	</div>
@@ -18,7 +17,6 @@
 				<%= render partial: prtl_name(c, 'code/lnks', code), locals: { objeto: objeto} %>
 			<% else %>
 				Falta código del link de <%= code %>
-				<%= render partial: prtl_name(c, 'qstns', "lnk_#{code}"), locals: {objeto: objeto} %>
 			<% end %>
 
 		</div>

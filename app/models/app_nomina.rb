@@ -26,6 +26,10 @@ class AppNomina < ApplicationRecord
 		self.ownr_type == 'AppVersion'
 	end
 
+	def dominio
+		self.ownr.class.name
+	end
+
 	# DEPRECATED Antiguo 'perfil'
 	def perfil2
 		perfil = AppPerfil.find_by(email: self.email)

@@ -28,56 +28,6 @@ module Karin
     }
   end
 
-  def load_dc_fl_hsh(denuncia)
-
-    @dc_fl_hsh = {}
-    ['KrnDenuncia', 'KrnDenunciante','KrnDenunciado'].each do |mdl|
-      @dc_fl_hsh[mdl] = {}
-      @dc_fl_hsh['KrnTestigo'] = {}
-
-      if mdl == 'KrnDenuncia'
-        @dc_lst[mdl].each do |dc|
-          @dc_fl_hsh[mdl][dc.codigo] = {}
-          @dc_fl_hsh[mdl][dc.codigo][:dc] = KrnDenuncia.doc_cntrlds.get_archv(dc.codigo)
-          if dc.multiple == true
-            @dc_fl_hsh[mdl][dc.codigo][:fl] = denuncia.rep_archivos.where(rep_doc_controlado_id: dc.id).updtd_ordr
-          else
-            @dc_fl_hsh[mdl][dc.codigo][:fl] = denuncia.rep_archivos.get_dc_archv( @dc_fl_hsh[mdl][dc.codigo][:dc] )
-          end
-        end
-      else
-        denuncia.send(mdl.tableize).each do |rcrd|
-          @dc_fl_hsh[mdl][rcrd.id] = {}
-          @dc_lst[mdl].each do |dc|
-            @dc_fl_hsh[mdl][rcrd.id][dc.codigo] = {}
-            @dc_fl_hsh[mdl][rcrd.id][dc.codigo][:dc] = mdl.constantize.doc_cntrlds.get_archv(dc.codigo)
-            if dc.multiple == true
-              @dc_fl_hsh[mdl][rcrd.id][dc.codigo][:fl] = rcrd.rep_archivos.where(rep_doc_controlado_id: dc.id).updtd_ordr
-            else
-              @dc_fl_hsh[mdl][rcrd.id][dc.codigo][:fl] = rcrd.rep_archivos.get_dc_archv( @dc_fl_hsh[mdl][rcrd.id][dc.codigo][:dc] )
-            end
-          end
-
-          rcrd.krn_testigos.each do |tstg|
-            @dc_fl_hsh['KrnTestigo'][tstg.id] = {}
-            @dc_lst['KrnTestigo'].each do |dc|
-              @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo] = {}
-              @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo][:dc] = KrnTestigo.doc_cntrlds.get_archv(dc.codigo)
-              if dc.multiple == true
-                @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo][:fl] = tstg.rep_archivos.where(rep_doc_controlado_id: dc.id).updtd_ordr
-              else
-                @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo][:fl] = tstg.rep_archivos.get_dc_archv( @dc_fl_hsh['KrnTestigo'][tstg.id][dc.codigo][:dc] )
-              end
-
-            end
-          end
-
-        end
-      end
-    end
-
-  end
-
   # --------------------------------------------------------------------------------------------- TAREAS
 
 
@@ -92,7 +42,7 @@ module Karin
     @dc_lst['KrnDenunciado'] = KrnDenunciado.doc_cntrlds
     @dc_lst['KrnTestigo'] = KrnTestigo.doc_cntrlds
 
-    load_dc_fl_hsh(denuncia)
+#    load_dc_fl_hsh(denuncia)
 
   end
 

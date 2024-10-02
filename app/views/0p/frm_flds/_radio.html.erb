@@ -1,5 +1,5 @@
 <div class="formCell">
-	<%= form.label(token, label) %>
+	<%= form.label(token, label) unless label.blank? %>
 	<label for="<%=token.to_s%>">
 	<% radio_list.each_with_index do |radio, indice| %>
 		<% if indice == 0 %>

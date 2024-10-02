@@ -1,12 +1,8 @@
 <div class='form-row'>
-	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: nil, label: 'Cliente' } %>
-	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :motivo_denuncia_id, colection: MotivoDenuncia.all.order(:motivo_denuncia).collect { |md| [md.motivo_denuncia, md.id] }, display_field: 'motivo_denuncia', prompt: nil, label: 'Motivo de la denuncia' } %>
-	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :receptor_denuncia_id, colection: ReceptorDenuncia.all.order(:receptor_denuncia).collect { |rd| [rd.receptor_denuncia, rd.id] }, display_field: 'receptor_denuncia', prompt: nil, label: 'Receptor de la denuncia' } %>
-</div>
-<div class='form-row'>
-	<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha_hora, label: 'Fecha y hora denuncia' } %>
-	<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha_hora_dt, label: 'Fecha y hora certificado DT' } %>
-	<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha_hora_recepcion, label: 'Fecha y hora recepción' } %>
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :ownr_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: nil, label: 'Cliente' } %>
+
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :motivo_denuncia, colection: KrnDenuncia::MOTIVOS, display_field: 'motivo_denuncia', prompt: nil, label: 'Motivo de la denuncia' } %>
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :receptor_denuncia, colection: KrnDenuncia::RECEPTORES, display_field: 'receptor_denuncia', prompt: nil, label: 'Receptor de la denuncia' } %>
 </div>
 <div class='form-row'>
 	<%= render partial: '0p/frm_flds/radio', locals: { form: form, token: :presentado_por, radio_list: ['Denunciante', 'Representante'], label: 'Presentada por:' } %>
@@ -15,4 +11,4 @@
 </div>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>
+<%#= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>

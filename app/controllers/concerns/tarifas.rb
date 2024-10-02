@@ -280,7 +280,7 @@ module Tarifas
 		tarifa.tar_pagos.order(:orden).each do |pago|
 			tar_calculo = get_tar_calculo(causa, pago)
 			tar_facturacion = get_tar_facturacion(causa, pago)
-			h_status[pago.id] = tar_calculo.present? ? tar_calculo : ( tar_facturacion.present? ? tar_facturacion : nil )
+			h_status[pago.id] = (tar_calculo.present? and tar_calculo.tar_facturacion.present?) ? tar_calculo : ( tar_facturacion.present? ? tar_facturacion : nil )
 		end
 		h_status
 	end

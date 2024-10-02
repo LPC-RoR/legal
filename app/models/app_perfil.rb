@@ -10,7 +10,7 @@ class AppPerfil < ApplicationRecord
 	# Si cfg_defaults[:activa_tipos_usuario] = true
 	has_one :age_usuario
 
-	delegate :nombre, to: :app_nomina, prefix: true
+	delegate :nombre, :dominio, to: :app_nomina, prefix: true
 
 	def self.dog
 		AppNomina.dog.app_perfil

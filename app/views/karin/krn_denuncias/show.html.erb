@@ -6,9 +6,15 @@
 </div>
 
 <% case @options[:menu] %>
-<% when 'General' %>
-	<%= render partial: prtl_name('krn_denuncias', 'shw', 'tb_general'), locals: {objeto: @objeto} %>
-<% when 'Medidas' %>
-<% when 'Documentos' %>
+<% when 'Denuncia' %>
+	<% @etps.each do |etp| %>
+		<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: @objeto, scndry: nil} if prtl?('ctr_etapas', 'code', 'objeto') %>
+	<% end %>
+<% when 'Persona(s) Denunciante(s)' %>
+	<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciantes', ttl: "Persona(s) denunciante(s)", ownr: @objeto} %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciantes'} %>
+<% when 'Persona(s) Denunciada(s)' %>
+	<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciados', ttl: "Persona(s) denunciada(s)", ownr: @objeto} %>
+	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>
 <% end %>
 

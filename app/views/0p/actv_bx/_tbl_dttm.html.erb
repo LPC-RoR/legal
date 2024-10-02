@@ -1,0 +1,14 @@
+<%= form_with url: "/#{objeto.class.name.tableize}/#{objeto.id}/fll_dttm?k=#{key}", method: :post, local: true do |form| %>
+  <div class="get_dttm">
+    <div class="f_search">
+      <div class="lft">
+    		  <small><%= form.datetime_select :fecha, {order: [:day, :month, :year, :hour, :minute], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?', hour: 'Hora', minute: 'Minutos' }, selected: Time.zone.today}, {required: false} %></small>
+      </div>
+      <div class="right" align='right'>
+        <button type="submit" class="btn btn-info">
+          <i class="bi bi-calendar2-check"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+<% end %>
