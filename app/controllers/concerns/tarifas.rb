@@ -62,17 +62,18 @@ module Tarifas
 			formula.match(/#{lookup}/)
 			facturable = $2
 			campo = $3
-#			tar_pago = objeto.tar_tarifa.tar_pagos.find_by(codigo_formula: facturable)
+			tar_pago = objeto.tar_tarifa.tar_pagos.find_by(codigo_formula: facturable)
 #			if tar_pago.blank?
 #				calculo = 0
 #			else
-				tar_calculo = get_tar_calculo(objeto, pago)
-				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.tar_facturaciones.map {|fct| fct.monto_pesos}.sum
-				tar_facturaciones = get_tar_facturaciones(objeto, pago)
-				tf_monto_pesos = tar_facturaciones.empty? ? 0 : tar_facturaciones.map {|fctn| fctn.monto_pesos}.sum
+#				tar_calculo = get_tar_calculo(objeto, tar_pago)
+#				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.tar_facturaciones.map {|fct| fct.monto_pesos}.sum
+#				tar_facturaciones = get_tar_facturaciones(objeto, tar_pago)
+#				tf_monto_pesos = tar_facturaciones.empty? ? 0 : tar_facturaciones.map {|fctn| fctn.monto_pesos}.sum
 #				calculo = facturacion.blank? ? 0 : (facturacion.send(campo).blank? ? 0 : facturacion.send(campo))
-				calculo = tf_monto_pesos == 0 ? tc_monto_pesos : tf_monto_pesos
+#				calculo = tf_monto_pesos == 0 ? tc_monto_pesos : tf_monto_pesos
 #			end
+			calculo = objeto.facturaciones.map {|fct| fct.monto_pesos if fct.tar_pago_id != pago.id}.compact.sum
 			formula = formula.gsub($1, calculo.to_s)
 		end
 		formula
