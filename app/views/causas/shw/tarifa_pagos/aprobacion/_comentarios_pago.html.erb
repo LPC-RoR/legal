@@ -6,10 +6,6 @@
 			<b>Detalle aplicación de tarifa</b>
 		</div>
 	</div>
-	<%= causa.facturaciones.first.tar_pago_id unless causa.facturaciones.empty? %>
-	<%= causa.facturaciones.first.monto_pesos unless causa.facturaciones.empty? %>
-	<%= causa.calculos.first.monto_pesos unless causa.calculos.empty? %>
-	<%= causa.calculos.first.tar_pago_id unless causa.calculos.empty? %>
 	<% unless pago.tar_comentarios.empty? %>
 		<% pago.tar_comentarios.order(:orden).each do |comentario| %>
 
