@@ -1,2 +1,2 @@
 <%#= render partial: scp_prtl('0capitan', 'app/home', 'sign_in') if scp_prtl?('0capitan', 'app/home', 'sign_in') %>
-<%= render partial: 'empresas/registro' %>
+<%= render partial: 'empresas/registro' if dog? %>
