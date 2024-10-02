@@ -66,8 +66,13 @@ module Tarifas
 			if tar_pago.blank?
 				calculo = 0
 			else
-				facturacion = objeto.facturaciones.find_by(tar_pago_id: tar_pago.id)
-				calculo = facturacion.blank? ? 0 : (facturacion.send(campo).blank? ? 0 : facturacion.send(campo))
+				puts "**************************************** lookup_less tar_pago presente"
+				tar_calculo = objeto.tar_calculo.find_by(tar_pago_id: tar_pago.id)
+				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.monto_pesos 
+				tar_facturaciones = objeto.facturaciones.where(tar_pago_id: tar_pago.id)
+				tf_monto_pesos = tar_facturaciones.empty? ? 0 : tar_facturaciones.map {|tf| tf.monto_pesos}.sum
+#				calculo = facturacion.blank? ? 0 : (facturacion.send(campo).blank? ? 0 : facturacion.send(campo))
+				calculo = tc_monto_pesos == 0 ? tf_monto_pesos : tc_monto_pesos
 			end
 			formula = formula.gsub($1, calculo.to_s)
 		end
@@ -314,11 +319,6 @@ module Tarifas
 	# Sirve para Causa / Asesoría : objeto = {tar_calculo, tar_facturacion}; owner = {causa, asesoria}
 	def get_monto_calculo_pesos(objeto, owner, pago)
 		uf = get_uf_calculo(owner, pago)
-		puts "******************************************* get_monto_calculo_pesos"
-		puts uf
-		puts objeto.class.name
-		puts objeto.moneda
-		puts objeto.monto
 		objeto.moneda == 'Pesos' ? objeto.monto : (get_uf_calculo(owner, pago).blank? ? 0 : (objeto.monto * get_uf_calculo(owner, pago)))
 	end
 
@@ -326,11 +326,6 @@ module Tarifas
 	# Sirve para Causa / Asesoría : objeto = {tar_calculo, tar_facturacion}; owner = {causa, asesoria}
 	def get_monto_calculo_uf(objeto, owner, pago)
 		uf = get_uf_calculo(owner, pago)
-		puts "******************************************* get_monto_calculo_uf"
-		puts uf
-		puts objeto.class.name
-		puts objeto.moneda
-		puts objeto.monto
 		['UF', '', nil].include?(objeto.moneda) ? objeto.monto : (get_uf_calculo(owner, pago).blank? ? 0 : objeto.monto / get_uf_calculo(owner, pago))
 	end
 
