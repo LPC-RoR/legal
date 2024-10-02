@@ -71,7 +71,7 @@ module Tarifas
 				tar_facturaciones = get_tar_facturaciones(objeto, pago)
 				tf_monto_pesos = tar_facturaciones.empty? ? 0 : tar_facturaciones.map {|fctn| fctn.monto_pesos}.sum
 #				calculo = facturacion.blank? ? 0 : (facturacion.send(campo).blank? ? 0 : facturacion.send(campo))
-				calculo = tc_monto_pesos == 0 ? tf_monto_pesos : tc_monto_pesos
+				calculo = tf_monto_pesos == 0 ? tc_monto_pesos : tf_monto_pesos
 #			end
 			formula = formula.gsub($1, calculo.to_s)
 		end
