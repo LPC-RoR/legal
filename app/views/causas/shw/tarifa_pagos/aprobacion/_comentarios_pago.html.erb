@@ -6,6 +6,8 @@
 			<b>Detalle aplicación de tarifa</b>
 		</div>
 	</div>
+	<%= causa.facturaciones.count %>
+	<%= causa.calculos.count %>
 	<% unless pago.tar_comentarios.empty? %>
 		<% pago.tar_comentarios.order(:orden).each do |comentario| %>
 
