@@ -66,10 +66,10 @@ module Tarifas
 			if tar_pago.blank?
 				calculo = 0
 			else
-				puts "**************************************** lookup_less tar_pago presente"
-				tar_calculo = objeto.tar_calculo.find_by(tar_pago_id: tar_pago.id)
+#				puts "**************************************** lookup_less tar_pago presente"
+				tar_calculo = get_tar_calculo(objeto, tar_pago)
 				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.monto_pesos 
-				tar_facturaciones = objeto.facturaciones.where(tar_pago_id: tar_pago.id)
+				tar_facturacion = get_tar_facturacion(objeto, tar_pago)
 				tf_monto_pesos = tar_facturaciones.empty? ? 0 : tar_facturaciones.map {|tf| tf.monto_pesos}.sum
 #				calculo = facturacion.blank? ? 0 : (facturacion.send(campo).blank? ? 0 : facturacion.send(campo))
 				calculo = tc_monto_pesos == 0 ? tf_monto_pesos : tc_monto_pesos
@@ -285,7 +285,7 @@ module Tarifas
 		tarifa.tar_pagos.order(:orden).each do |pago|
 			tar_calculo = get_tar_calculo(causa, pago)
 			tar_facturacion = get_tar_facturacion(causa, pago)
-			h_status[pago.id] = (tar_calculo.present? and tar_calculo.tar_facturaciones.present?) ? tar_calculo : ( tar_facturacion.present? ? tar_facturacion : nil )
+			h_status[pago.id] = tar_calculo.present? ? tar_calculo : ( tar_facturacion.present? ? tar_facturacion : nil )
 		end
 		h_status
 	end
