@@ -67,7 +67,7 @@ module Tarifas
 #				calculo = 0
 #			else
 				tar_calculo = get_tar_calculo(objeto, pago)
-				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.monto_pesos 
+				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.tar_facturaciones.map {|fct| fct.monto_pesos}.sum
 				tar_facturaciones = get_tar_facturaciones(objeto, pago)
 				tf_monto_pesos = tar_facturaciones.empty? ? 0 : tar_facturaciones.map {|fctn| fctn.monto_pesos}.sum
 #				calculo = facturacion.blank? ? 0 : (facturacion.send(campo).blank? ? 0 : facturacion.send(campo))
