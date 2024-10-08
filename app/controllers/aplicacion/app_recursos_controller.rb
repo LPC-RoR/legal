@@ -22,6 +22,11 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
+    AgeActividad.all.each do |actvdd|
+      actvdd.ownr_type = actvdd.owner_class
+      actvdd.ownr_id = actvdd.owner_id
+      actvdd.save
+    end
 
     redirect_to root_path
   end

@@ -28,6 +28,8 @@ class Cliente < ApplicationRecord
 	has_many :krn_tipo_medidas
 	has_many :krn_investigadores
 
+	has_many :age_actividades, as: :ownr
+
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :tipo_cliente
 

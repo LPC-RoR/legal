@@ -30,6 +30,8 @@ class Causa < ApplicationRecord
 	has_many :estados
 	has_many :monto_conciliaciones
 
+	has_many :age_actividades, as: :ownr
+
 
 	# antecedentes de los hechos de la tabla
 	has_many :antecedentes

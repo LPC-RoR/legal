@@ -1,6 +1,7 @@
 class AgeActividad < ApplicationRecord
 
 #	belongs_to :app_perfil
+	belongs_to :ownr, polymorphic: true
 
 	# DEPRECATED, Se cambió por notas para tener un sólo formato
 	has_many :age_antecedentes
