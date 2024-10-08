@@ -2,7 +2,7 @@ class Repositorios::AppArchivosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_app_archivo, only: %i[ show edit update destroy ]
-  after_action :read_demanda, only: [:update], if: -> {@objeto.class_name == 'Causa'}
+  after_action :read_demanda, only: [:update], if: -> {@objeto.class.name == 'Causa'}
 
   # GET /app_archivos or /app_archivos.json
   def index
