@@ -1,0 +1,14 @@
+<i class="bi bi-dot"></i>
+<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_derivaciones/nueva#{ownr_prms(objeto)}&t=d_optn", tltp: nil} do %>
+	Dirección del Trabajo
+<% end %>
+</br>
+<% if objeto.externa? and objeto.rcp_empresa? %>
+	<i class="bi bi-dot"></i>
+	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_derivaciones/nueva#{ownr_prms(objeto)}&t=d_optn&eid=#{objeto.emprss_ids[0]}", tltp: nil} do %>
+		Empresa del denunciante
+	<% end %>
+<% else %>
+	<i class="bi bi-dot"></i>
+	<%= link_to 'Empresa', "/valores/nuevo#{ownr_prms(objeto)}&v=d_optn_emprs&b=t" %></br>
+<% end %>

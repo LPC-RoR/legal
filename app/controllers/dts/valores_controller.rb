@@ -15,6 +15,26 @@ class Dts::ValoresController < ApplicationController
     @objeto = Valor.new
   end
 
+  #[t: Texto, p: Párrafo, n: Número, b: Booleano, ps: Pesos, u: UF]
+  def nuevo
+    ownr = params[:oclss].constantize.find(params[:oid])
+    variable = Variable.find_by(variable: params[:v])
+    variable_id = variable.id
+    c_t = params[:t].blank? ? nil : params[:t]
+    c_p = params[:p].blank? ? nil : params[:p]
+    c_n = params[:n].blank? ? nil : params[:n]
+    c_b = params[:b].blank? ? nil : (params[:b] == 't' ? true : false)
+    c_f = params[:f].blank? ? nil : params[:f]
+    Valor.create(ownr_type: params[:oclss], ownr_id: params[:oid], c_string: c_t, c_text: c_p, c_numero: c_n, c_booleano: c_b, c_fecha: c_f, variable_id: variable_id )
+
+    case params[:oclss]
+    when 'KrnDenuncia'
+      rdrcn = ownr
+    end
+
+    redirect_to rdrcn
+  end
+
   # GET /valores/1/edit
   def edit
   end

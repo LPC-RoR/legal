@@ -15,6 +15,8 @@
 	</div>
 
 	<div class="trsh">
-		<%= render partial: prtl_name(objeto.class.name.tableize, 'code', "trsh"), locals: {objeto: objeto, code: code} if trsh and perfil_activo? %>
+		<% if objeto.trsh(code.to_sym) and perfil_activo? %>
+			<%= render partial: prtl_name(objeto.class.name.tableize, 'code', "trsh"), locals: {objeto: objeto, code: code} %>
+		<% end %>
 	</div>
 </div>

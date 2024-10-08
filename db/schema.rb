@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_08_001536) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1077,20 +1077,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
     t.boolean "info_reglamento"
     t.boolean "info_procedimiento"
     t.boolean "info_derechos"
-    t.integer "krn_empleado_id"
-    t.integer "dependencia_denunciante_id"
-    t.string "representante"
-    t.string "doc_representante"
-    t.index ["dependencia_denunciante_id"], name: "index_krn_denunciantes_on_dependencia_denunciante_id"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
-    t.index ["krn_empleado_id"], name: "index_krn_denunciantes_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
   end
 
   create_table "krn_denuncias", force: :cascade do |t|
-    t.integer "empresa_receptora_id"
-    t.integer "investigador_id"
+    t.integer "krn_empresa_externa_id"
     t.datetime "fecha_hora"
     t.datetime "fecha_hora_dt"
     t.datetime "fecha_hora_recepcion"
@@ -1103,7 +1096,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
     t.string "presentado_por"
     t.string "via_declaracion"
     t.string "tipo_declaracion"
-    t.integer "dependencia_denunciante_id"
     t.string "representante"
     t.string "documento_representacion"
     t.boolean "info_opciones"
@@ -1117,14 +1109,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
     t.integer "ownr_id"
     t.string "receptor_denuncia"
     t.string "motivo_denuncia"
-    t.index ["dependencia_denunciante_id"], name: "index_krn_denuncias_on_dependencia_denunciante_id"
     t.index ["dnnte_derivacion"], name: "index_krn_denuncias_on_dnnte_derivacion"
     t.index ["dnnte_empresa_investigacion_id"], name: "index_krn_denuncias_on_dnnte_empresa_investigacion_id"
-    t.index ["empresa_receptora_id"], name: "index_krn_denuncias_on_empresa_receptora_id"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["fecha_hora_recepcion"], name: "index_krn_denuncias_on_fecha_hora_recepcion"
-    t.index ["investigador_id"], name: "index_krn_denuncias_on_investigador_id"
+    t.index ["krn_empresa_externa_id"], name: "index_krn_denuncias_on_krn_empresa_externa_id"
     t.index ["krn_investigador_id"], name: "index_krn_denuncias_on_krn_investigador_id"
     t.index ["motivo_denuncia"], name: "index_krn_denuncias_on_motivo_denuncia"
     t.index ["ownr_id"], name: "index_krn_denuncias_on_ownr_id"
@@ -1136,8 +1126,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
     t.integer "krn_denuncia_id"
     t.datetime "fecha"
     t.integer "krn_empresa_externa_id"
-    t.integer "krn_motivo_derivacion_id"
-    t.string "otro_motivo"
+    t.string "motivo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tipo"
@@ -1146,20 +1135,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
     t.index ["fecha"], name: "index_krn_derivaciones_on_fecha"
     t.index ["krn_denuncia_id"], name: "index_krn_derivaciones_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_derivaciones_on_krn_empresa_externa_id"
-    t.index ["krn_motivo_derivacion_id"], name: "index_krn_derivaciones_on_krn_motivo_derivacion_id"
     t.index ["tipo"], name: "index_krn_derivaciones_on_tipo"
-  end
-
-  create_table "krn_empleados", force: :cascade do |t|
-    t.integer "cliente_id"
-    t.integer "empresa_id"
-    t.string "rut"
-    t.string "nombre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cliente_id"], name: "index_krn_empleados_on_cliente_id"
-    t.index ["empresa_id"], name: "index_krn_empleados_on_empresa_id"
-    t.index ["rut"], name: "index_krn_empleados_on_rut"
   end
 
   create_table "krn_empresa_externas", force: :cascade do |t|
@@ -2419,8 +2395,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
   end
 
   create_table "valores", force: :cascade do |t|
-    t.string "owner_class"
-    t.integer "owner_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.integer "variable_id"
     t.string "c_string"
     t.text "c_text"
@@ -2428,8 +2404,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
     t.decimal "c_numero"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["owner_class"], name: "index_valores_on_owner_class"
-    t.index ["owner_id"], name: "index_valores_on_owner_id"
+    t.boolean "c_booleano"
+    t.index ["ownr_id"], name: "index_valores_on_ownr_id"
+    t.index ["ownr_type"], name: "index_valores_on_ownr_type"
     t.index ["variable_id"], name: "index_valores_on_variable_id"
   end
 
@@ -2452,7 +2429,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
   end
 
   create_table "variables", force: :cascade do |t|
-    t.integer "tipo_causa_id"
     t.string "tipo"
     t.string "variable"
     t.string "control"
@@ -2460,11 +2436,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_30_174644) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "orden"
     t.string "descripcion"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["control"], name: "index_variables_on_control"
     t.index ["descripcion"], name: "index_variables_on_descripcion"
     t.index ["orden"], name: "index_variables_on_orden"
+    t.index ["ownr_id"], name: "index_variables_on_ownr_id"
+    t.index ["ownr_type"], name: "index_variables_on_ownr_type"
     t.index ["tipo"], name: "index_variables_on_tipo"
-    t.index ["tipo_causa_id"], name: "index_variables_on_tipo_causa_id"
   end
 
 end

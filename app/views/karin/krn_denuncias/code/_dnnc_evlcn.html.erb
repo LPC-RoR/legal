@@ -1,7 +1,7 @@
 <% if ownr.invstgdr? %>
-	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'leida', accn: 'Confirmación', cndtn: ownr.leida?, c: 'krn_denuncias', trsh: ownr.no_eval?} %>
-	<% if ownr.leida? %>
-		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'incnsstnt', accn: 'Selección', cndtn: ownr.incnsstnt_ok?, c: 'krn_denuncias', trsh: true} %>
-		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'incmplt', accn: 'Selección', cndtn: ownr.incmplt_ok?, c: 'krn_denuncias', trsh: true} %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_leida', accn: 'Confirmación', c: 'krn_denuncias'} %>
+	<% if ownr.vlr_dnnc_leida? %>
+		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_incnsstnt', accn: 'Selección', c: 'krn_denuncias', trsh: true} %>
+		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_incmplt', accn: 'Selección', c: 'krn_denuncias'} %>
 	<% end %>
 <% end %>

@@ -138,6 +138,7 @@ Rails.application.routes.draw do
       match :check, via: :get, on: :member
       match :fll_dttm, via: :post, on: :member
       match :fll_optn, via: :post, on: :member
+      match :fll_cltn_id, via: :post, on: :member
       match :del_fld, via: :get, on: :member
     end
 
@@ -229,7 +230,9 @@ Rails.application.routes.draw do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
-    resources :valores
+    resources :valores do
+      match :nuevo, via: :get, on: :collection
+    end
     resources :var_tp_causas
     resources :var_clis
   end

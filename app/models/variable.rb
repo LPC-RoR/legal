@@ -1,18 +1,21 @@
 class Variable < ApplicationRecord
 
-	TIPOS_VARIABLE = ['Texto', 'Párrafo', 'Número', 'Monto pesos', 'Monto UF']
+	TIPOS_VARIABLE = ['Texto', 'Párrafo', 'Número', 'Booleano', 'Monto pesos', 'Monto UF']
 
-	# DEPRECATED lo cambiamos a many to many
-	#belongs_to :tipo_causa, optional: true
-	#belongs_to :cliente, optional: true
+	include OrderModel
 
-	has_many :var_tp_causas
-	has_many :tipo_causas, through: :var_tp_causas
+ 	belongs_to :ownr, polymorphic: true
 
-	has_many :var_clis
-	has_many :clientes, through: :var_clis
+# DEPRECATED
+#	has_many :var_tp_causas
+#	has_many :tipo_causas, through: :var_tp_causas
+
+#	has_many :var_clis
+#	has_many :clientes, through: :var_clis
 
 	has_many :valores
+
+	scope :ordr, -> {order(:orden)}
 
 	def as_prms
 		self.variable.split(' ').join('!')
@@ -22,6 +25,43 @@ class Variable < ApplicationRecord
 		self.descripcion.present? ? self.descripcion : self.variable
 	end
 
+	# ----------------------------------------------- TIPOS
+
+	def texto?
+		self.tipo == TIPOS_VARIABLE[0]
+	end
+
+	def parrafo?
+		self.tipo == TIPOS_VARIABLE[1]
+	end
+
+	def numero?
+		[TIPOS_VARIABLE[2], TIPOS_VARIABLE[4], self.tipo == TIPOS_VARIABLE[5]].include?(self.tipo)
+	end
+
+	def booleano?
+		self.tipo == TIPOS_VARIABLE[3]
+	end
+
+	def pesos?
+		self.tipo == TIPOS_VARIABLE[4]
+	end
+
+	def uf?
+		self.tipo == TIPOS_VARIABLE[5]
+	end
+
+	# ----------------------------------------------- ORDER LIST
+
+	def list
+		self.ownr.variables.ordr
+	end
+
+	def redireccion
+		self.ctr_etapa.procedimiento
+	end
+
+	# DEPRECATED : Revisar nuevo uso de Variable:Valor
 	# ----------------------------------------------- Causa -> Valor <- Variable
 
 	def valor_campo(valor)

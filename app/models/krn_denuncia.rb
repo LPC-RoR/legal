@@ -5,12 +5,16 @@ class KrnDenuncia < ApplicationRecord
 
 	VIAS_DENUNCIA = ['Denuncia presencial', 'Correo electrónico', 'Plataforma']
 	TIPOS_DENUNCIA = ['Escrita', 'Verbal']
+	PRESENTADORES = ['Denunciante', 'Representante']
 
 	belongs_to :ownr, polymorphic: true
 
+	belongs_to :krn_empresa_externa, optional: true
 	belongs_to :krn_investigador, optional: true
 
 	has_many :rep_archivos, as: :ownr
+	has_many :valores, as: :ownr
+
 	has_many :krn_lst_medidas, as: :ownr
 	has_many :krn_lst_modificaciones, as: :ownr
 
@@ -21,26 +25,109 @@ class KrnDenuncia < ApplicationRecord
 
 	scope :ordr, -> { order(fecha_hora: :desc) }
 
+	delegate :rut, to: :krn_empresa_externa, prefix: true
+
 	def css_id
 		'dnnc'
 	end
 
+	def cndtn_trsh
+		{
+			fecha: {
+				cndtn: self.fecha?,
+				trsh: (not self.via_declaracion?)
+			},
+			fecha_dt: {
+				cndtn: self.fecha_dt?,
+				trsh: true
+			},
+			externa_id: {
+				cndtn: (self.krn_empresa_externa? or self.via_declaracion?),
+				trsh: (not self.via_declaracion?)
+			},
+			via: {
+				cndtn: self.via_declaracion?,
+				trsh: (not self.tipo_declaracion?)
+			},
+			tipo: {
+				cndtn: self.tipo_declaracion?,
+				trsh: (not self.presentado_por?)
+			},
+			presentada: {
+				cndtn: self.presentado_por?,
+				trsh: (not self.representante?)
+			},
+			representante: {
+				cndtn: self.representante?,
+				trsh: (not false)
+			},
+			sgmnt_drvcn: {
+				cndtn: self.vlr_seguimiento?,
+				trsh: (not false)
+			},
+			drvcn_dnncnt: {
+				cndtn: (self.extrn_prsncl? and (not self.derivable?)),
+				trsh: (false)
+			},
+			inf_dnncnt: {
+				cndtn: (self.vlr_inf_dnncnt?),
+				trsh: (not self.vlr_d_optn_emprs?)
+			},
+			d_optn_emprs: {
+				cndtn: (self.vlr_d_optn_emprs? or (not self.derivable?)),
+				trsh: (not self.vlr_e_optn_emprs?)
+			},
+			e_optn_emprs: {
+				cndtn: (self.vlr_e_optn_emprs? or (not self.derivable?)),
+				trsh: (not self.invstgdr?)
+			},
+			invstgdr: {
+				cndtn: self.invstgdr?,
+				trsh: (not self.vlr_dnnc_leida?)
+			},
+			dnnc_leida: {
+				cndtn: self.vlr_dnnc_leida?,
+				trsh: (not self.vlr_dnnc_incnsstnt?)
+			},
+			dnnc_incnsstnt: {
+				cndtn: self.vlr_dnnc_incnsstnt?,
+				trsh: (not self.vlr_dnnc_incmplt?)
+			},
+			dnnc_incmplt: {
+				cndtn: self.vlr_dnnc_incmplt?,
+				trsh: (not false)
+			},
+			dnnc_infrm_dt: {
+				cndtn: self.vlr_dnnc_infrm_dt?,
+				trsh: (not false)
+			}
+		}
+	end
+
+	def cndtn(code)
+		self.cndtn_trsh[code].blank? ? false : (self.cndtn_trsh[code][:cndtn].blank? ? false : self.cndtn_trsh[code][:cndtn])
+	end
+
+	def trsh(code)
+		self.cndtn_trsh[code].blank? ? false : (self.cndtn_trsh[code][:trsh].blank? ? false : self.cndtn_trsh[code][:trsh])
+	end
+
+	# --------------------------------------------------------------------------------------------- VALORES
+
+	def valor(variable_nm)
+		variable = Variable.find_by(variable: variable_nm)
+		variable.blank? ? nil : self.valores.find_by(variable_id: variable.id)
+	end
+
 	# ------------------------------------------------------------------------ PROCS
+	# ------------------------------------------------------------------------ INGRS
 
 	def fecha?
 		 self.fecha_hora.present?
 	end
 
-	def trsh_fecha?
-		self.fecha? and self.via_declaracion.blank?
-	end
-
 	def fecha_dt?
 		 self.fecha_hora_dt.present?
-	end
-
-	def trsh_fecha_dt?
-		self.fecha_dt? and self.via_declaracion.blank?
 	end
 
 	def fecha_legal
@@ -49,43 +136,6 @@ class KrnDenuncia < ApplicationRecord
 
 	def fecha_legal?
 		self.fecha_legal.present?
-	end
-
-	def via_declaracion?
-		self.via_declaracion.present?
-	end
-
-	def tipo_declaracion?
-		self.tipo_declaracion.present?
-	end
-
-
-	def self.doc_cntrlds
-		StModelo.get_model('KrnDenuncia').rep_doc_controlados.ordr
-	end
-
-	# Ids de las empresas externas. nil => Empresa principal
-	# No hemos resuelto manejo de subcontratos y ASTs
-	def emprss_ids
-		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).uniq
-	end
-
-	def invstgdr_dt?
-		self.drv_dt? or self.rcp_dt?
-	end
-
-	def por_representante?
-		self.presentado_por == 'Representante'
-	end
-
-	# ------------------------------------------------------------------------ DERIVACION
-	def multiempresa?
-		self.emprss_ids.length > 1
-	end
-
-	def empresa_externa?
-		ids = self.emprss_ids
-		ids.length == 1 and ids[0] != nil
 	end
 
 	def rcp_dt?
@@ -100,16 +150,74 @@ class KrnDenuncia < ApplicationRecord
 		self.receptor_denuncia == RECEPTORES[2]
 	end
 
+	def krn_empresa_externa?
+		self.krn_empresa_externa.present?
+	end
+
+	def via_declaracion?
+		self.via_declaracion.present?
+	end
+
+	def tipo_declaracion?
+		self.tipo_declaracion.present?
+	end
+
+	def presentado_por?
+		self.presentado_por.present?
+	end
+
+	def activa_representante?
+		self.presentado_por == PRESENTADORES[1]
+	end
+
+	def representante?
+		self.representante.present?
+	end
+
+	# ------------------------------------------------------------------------ SGMNT
+
+	def dnnc_seguimiento?
+		self.rcp_dt? or self.drv_dt? or self.externa?
+	end
+
+	def sgmnt_drvcn_externa?
+		self.rcp_externa? and self.externa?
+	end
+
+	def vlr_seguimiento
+		vlr = self.valor('Seguimiento')
+		vlr.blank? ? nil : vlr
+	end
+
+	def vlr_seguimiento?
+		self.vlr_seguimiento.present?
+	end
+
+	def seguimiento?
+		self.vlr_seguimiento.blank? ? nil : self.vlr_seguimiento.c_booleano
+	end
+
+	def drvcn_rchzd?
+		self.rcp_externa? and self.externa? and (self.seguimiento? == false)
+	end
+
+	# ------------------------------------------------------------------------ DRVCN
+
+	def no_drvcns?
+		self.krn_derivaciones.empty?
+	end
+
+	# Se distinguen tres estados, se diferencia si hay o no recepciones
 	def drv_dt?
-		self.krn_derivaciones.empty? ? nil : self.krn_derivaciones.lst.dstn_dt?
+		self.no_drvcns? ? nil : self.krn_derivaciones.lst.dstn_dt?
 	end
 
 	def drv_empresa?
-		self.krn_derivaciones.empty? ? nil : self.krn_derivaciones.lst.dstn_empresa?
+		self.no_drvcns? ? nil : self.krn_derivaciones.lst.dstn_empresa?
 	end
 
 	def drv_externa?
-		self.krn_derivaciones.empty? ? nil : self.krn_derivaciones.lst.dstn_externa?
+		self.no_drvcns? ? nil : self.krn_derivaciones.lst.dstn_externa?
 	end
 
 	def derivable?
@@ -117,65 +225,184 @@ class KrnDenuncia < ApplicationRecord
 	end
 
 	def recibible?
-		(self.drv_externa? == nil) ? self.rcp_externa? : self.drv_externa?
+		self.rcp_externa? and (self.empresa? or self.multiempresa?) and self.no_drvcns?
 	end
 
-	def art4_1?
-		self.krn_denunciantes.art4_1? or self.krn_denunciados.art4_1?
+	# El código verifica si es o no derivable
+	def dt_obligatoria?
+		self.riohs_off? or self.art4_1?
 	end
 
+	# RIOHS Aun no entra en vigencia
+	# Esto no cubre el caso multiempresa, en el cual puede haber más de una fecha de activación!
 	def riohs_off?
 		false
 	end
 
-	def i_optns?
-		self.info_opciones.present?
+	# A alguno de los participantes se le aplica el Artículo 4 parrafo 1
+	def art4_1?
+		self.krn_denunciantes.art4_1? or self.krn_denunciados.art4_1?
+	end
+
+	def extrn_prsncl?
+		self.rcp_empresa? and self.externa?
+	end
+
+	def vlr_inf_dnncnt
+		vlr = self.valor('inf_dnncnt')
+		vlr.blank? ? nil : vlr
+	end
+
+	def vlr_inf_dnncnt?
+		self.vlr_inf_dnncnt.present?
 	end
 
 	def inf_dnncnt?
-		self.info_opciones == true
+		self.vlr_inf_dnncnt.blank? ? nil : self.vlr_inf_dnncnt.c_booleano
 	end
 
-	def d_optn?
-		self.dnncnt_opcion.present?
+	def vlr_d_optn_emprs
+		vlr = self.valor('d_optn_emprs')
+		vlr.blank? ? nil : vlr
 	end
 
-	def e_optn?
-		self.emprs_opcion.present?
+	def vlr_d_optn_emprs?
+		self.vlr_d_optn_emprs.present?
+	end
+
+	def d_optn_emprs?
+		self.vlr_d_optn_emprs.blank? ? nil : self.vlr_d_optn_emprs.c_booleano
+	end
+
+	def vlr_e_optn_emprs
+		vlr = self.valor('e_optn_emprs')
+		vlr.blank? ? nil : vlr
+	end
+
+	def vlr_e_optn_emprs?
+		self.vlr_e_optn_emprs.present?
+	end
+
+	def e_optn_emprs?
+		self.vlr_e_optn_emprs.blank? ? nil : self.vlr_e_optn_emprs.c_booleano
+	end
+
+	# ------------------------------------------------------------------------ MDDS DE RESGUARDO
+
+	def dsply_mdds?
+		self.krn_denunciantes.any? and self.krn_denunciados.any?
+	end
+
+	def mdds?
+		self.krn_lst_medidas.any?
+	end
+
+	# ------------------------------------------------------------------------ COMPETENCIA DE INVESTIGAR
+
+	def emprss_ids
+		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).compact.uniq
+	end
+
+	def empresa?
+		ids = self.emprss_ids
+		ids.length == 1 and ids[0] == nil
+	end
+
+	def externa?
+		ids = self.emprss_ids
+		ids.length == 1 and ids[0] != nil
+	end
+
+	def multiempresa?
+		self.emprss_ids.length > 1
+	end
+
+	# ------------------------------------------------------------------------ INVSTGCN
+
+	def investigable?
+		self.no_drvcns? ? self.rcp_empresa? : self.drv_empresa?
 	end
 
 	def invstgdr?
 		self.krn_investigador_id.present?
 	end
 
-	def leida?
-		self.leida == true
+	def vlr_dnnc_leida
+		vlr = self.valor('dnnc_leida')
+		vlr.blank? ? nil : vlr
 	end
 
-	def incnsstnt_ok?
-		self.incnsstnt != nil
+	def vlr_dnnc_leida?
+		self.vlr_dnnc_leida.present?
 	end
 
-	def incmplt_ok?
-		self.incmplt != nil
+	def dnnc_leida?
+		self.vlr_dnnc_leida.blank? ? nil : self.vlr_dnnc_leida.c_booleano
 	end
 
-	def no_eval?
-		self.incnsstnt == nil and self.incmplt == nil
+	def vlr_dnnc_incnsstnt
+		vlr = self.valor('dnnc_incnsstnt')
+		vlr.blank? ? nil : vlr
+	end
+
+	def vlr_dnnc_incnsstnt?
+		self.vlr_dnnc_incnsstnt.present?
+	end
+
+	def dnnc_incnsstnt?
+		self.vlr_dnnc_incnsstnt.blank? ? nil : self.vlr_dnnc_incnsstnt.c_booleano
+	end
+
+	def vlr_dnnc_incmplt
+		vlr = self.valor('dnnc_incmplt')
+		vlr.blank? ? nil : vlr
+	end
+
+	def vlr_dnnc_incmplt?
+		self.vlr_dnnc_incmplt.present?
+	end
+
+	def dnnc_incmplt?
+		self.vlr_dnnc_incmplt.blank? ? nil : self.vlr_dnnc_incmplt.c_booleano
 	end
 
 	def eval?
-		self.incnsstnt != nil and self.incmplt != nil
+		self.vlr_dnnc_incmplt? and self.vlr_dnnc_incnsstnt?
 	end
 
 	def dnnc_ok?
-		self.incnsstnt == false and self.incmplt == false
+		self.dnnc_incnsstnt? == false and self.dnnc_incmplt? == false
 	end
 
-	def dnnc_errr?
-		self.incnsstnt == true or self.incmplt == true
+	# ------------------------------------------------------------------------ INVSTGCN
+
+	def vlr_dnnc_infrm_dt
+		vlr = self.valor('dnnc_infrm_dt')
+		vlr.blank? ? nil : vlr
 	end
 
+	def vlr_dnnc_infrm_dt?
+		self.vlr_dnnc_infrm_dt.present?
+	end
+
+	def dnnc_infrm_dt?
+		self.vlr_dnnc_infrm_dt.blank? ? nil : self.vlr_dnnc_infrm_dt.c_booleano
+	end
+
+
+
+	def invstgdr_dt?
+		self.drv_dt? or self.rcp_dt?
+	end
+
+	def entdd_invstgdr
+		ids = self.emprss_ids
+		self.invstgdr_dt? ? 'Dirección del Trabajo' : ( ids.length == 1 ? ( ids.first.blank? ? 'Empresa' : 'Empresa externa' ) : 'Empresa' )
+	end
+
+
+
+	# --------------------------------------------------------------------------------------------- MDDS
 	# --------------------------------------------------------------------------------------------- DOCUMENTOS CONTROLADOS
 
 	def dc_denuncia
@@ -202,19 +429,6 @@ class KrnDenuncia < ApplicationRecord
 
 	def fl_corregida?
 		self.fl_corregida.present?
-	end
-
-	# ------------------------------------------------------------------------ 
-
-	def agndmnt?
-		self.eval? and ( self.dnnc_errr? ? self.fl_corregida? : self.fl_denuncia )
-	end
-
-	# ------------------------------------------------------------------------ 
-
-	def entdd_invstgdr
-		ids = self.emprss_ids
-		self.invstgdr_dt? ? 'Dirección del Trabajo' : ( ids.length == 1 ? ( ids.first.blank? ? 'Empresa' : 'Empresa externa' ) : 'Empresa' )
 	end
 
 end

@@ -1,4 +1,4 @@
 <div class="formCell">
-	<%= form.label(token, label) %>
+	<%= form.label(token, label) unless label.blank? %>
 	<%= form.text_field(token) %>
 </div>

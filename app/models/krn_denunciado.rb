@@ -22,7 +22,7 @@ class KrnDenunciado < ApplicationRecord
 	end
 
 	def empleador
-		self.krn_empresa_externa_id.blank? ? 'Empleado de la empresa' : self.krn_empresa_externa.krn_empresa_externa
+		self.krn_empresa_externa_id.blank? ? 'Empleado de la empresa' : self.krn_empresa_externa.razon_social
 	end
 
 	def self.doc_cntrlds

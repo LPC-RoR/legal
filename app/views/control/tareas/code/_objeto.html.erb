@@ -1,20 +1,22 @@
 <% if objeto.dsply?(ownr) %>
+	<% if tar_cntrl(ownr)[objeto.codigo.to_sym] %>
 
-	<div class="proc_objt" id: <%= "#{objeto.css_id}#{ownr.css_id}" %>>
-		<div class="p_objt">
-			<%#= "#{objeto.css_id}#{ownr.css_id}" %>
-			<%= render partial: prtl_name('tareas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('tareas', 'code', 'objt') %>
+		<div class="proc_objt" id: <%= "#{objeto.css_id}#{ownr.css_id}" %>>
+			<div class="p_objt">
+				<%#= "#{objeto.css_id}#{ownr.css_id}" %>
+				<%= render partial: prtl_name('tareas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('tareas', 'code', 'objt') %>
+			</div>
+			<div class="p_lnks">
+				<%= render partial: prtl_name('tareas', 'code', 'lnks'), locals: {objeto: objeto, ownr: ownr} if prtl?('tareas', 'code', 'lnks') %>
+			</div>
+			<div class="p_dtl">
+
+				<!-- El prefijo del código determina donde van a buscar el código de la tarea -->
+				<%= render partial: prtl_name(prfx_cntrllr(objeto.codigo), 'code', objeto.codigo), locals: {objeto: objeto, ownr: ownr} if prtl?(prfx_cntrllr(objeto.codigo), 'code', objeto.codigo) %>
+
+				<%= render partial: prtl_name('repositorios', 'shr', 't_dcs'), locals: {objeto: objeto, mdl: ownr.class.name, ownr: ownr} %>
+			</div>
 		</div>
-		<div class="p_lnks">
-			<%= render partial: prtl_name('tareas', 'code', 'lnks'), locals: {objeto: objeto, ownr: ownr} if prtl?('tareas', 'code', 'lnks') %>
-		</div>
-		<div class="p_dtl">
 
-			<!-- El prefijo del código determina donde van a buscar el código de la tarea -->
-			<%= render partial: prtl_name(prfx_cntrllr(objeto.codigo), 'code', objeto.codigo), locals: {objeto: objeto, ownr: ownr} if prtl?(prfx_cntrllr(objeto.codigo), 'code', objeto.codigo) %>
-
-			<%= render partial: prtl_name('repositorios', 'shr', 't_dcs'), locals: {objeto: objeto, mdl: ownr.class.name, ownr: ownr} %>
-		</div>
-	</div>
-
+	<% end %>
 <% end %>

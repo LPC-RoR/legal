@@ -6,5 +6,8 @@
 		<% objeto.rep_doc_controlados.ordr.each do |dc| %>
 			<%= render partial: prtl_name('rep_doc_controlados', 'list', 'objeto'), locals: {objeto: dc} %>
 		<% end %>
+		<% objeto.variables.ordr.each do |var| %>
+			<%= render partial: prtl_name('variables', 'list', 'objeto'), locals: {objeto: var} %>
+		<% end %>
 	</div>
 </div>

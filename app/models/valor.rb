@@ -2,12 +2,18 @@ class Valor < ApplicationRecord
 
 	belongs_to :variable
 
-	def owner
-		self.owner_class.constantize.find(self.owner_id)
-	end
+	delegate :texto?, :parrafo?, :numero?, :booleano?, :pesos?, :uf?, to: :variable, prefix: true
 
 	def valor
-		['Número', 'Monto pesos', 'Monto UF'].include?(self.variable.tipo) ? valor.c_numero : ( self.variable.tipo == 'Texto' ? valor.c_string : ( self.variable.tipo == 'Parrafo' ? valor.c_text : nil ) )
+		if variable_numero?
+			valor.c_numero
+		elsif variable_texto?
+			valor.c_string
+		elsif variable_parrafo?
+			valor.c_text
+		elsif variable_booleano?
+			valor.c_boleano
+		end
 	end
 	
 end

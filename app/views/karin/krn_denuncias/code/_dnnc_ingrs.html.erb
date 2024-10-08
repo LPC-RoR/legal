@@ -1,18 +1,28 @@
 <!-- FECHAS -->
-<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, cndtn: ownr.fecha?, code: 'fecha', accn: 'Fecha', trsh: ownr.trsh_fecha?} %>
+<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'fecha', accn: 'Fecha'} %>
 
 <% if ownr.drv_dt? %>
-	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, cndtn: ownr.fecha_dt?, code: 'fecha_dt', accn: 'Fecha', trsh: ownr.trsh_fecha_dt?} %>
-<% end %>
-
-<% if ownr.rcp_externa? and ownr.multiempresa? %>
-	<%#= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'fecha_recepcion', accn: 'Info', c: 'krn_denuncias', trsh: ownr.fecha?} %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'fecha_dt', accn: 'Fecha'} %>
 <% end %>
 
 <!-- CAMPOS INICIALES -->
 <% if ownr.fecha? %>
-	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, cndtn: ownr.via_declaracion?, code: 'via', accn: 'Radio', trsh: (not ownr.tipo_declaracion?)} %>
-<% end %>
-<% if ownr.via_declaracion? %>
-	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, cndtn: ownr.tipo_declaracion?, code: 'tipo', accn: 'Radio', trsh: ownr.tipo_declaracion?} %>
+	<!-- RECIBIDA POR EMPRESA EXTERNA -->
+	<% if ownr.rcp_externa? %>
+		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'externa_id', accn: 'Selección', trsh: (not ownr.krn_empresa_externa?), prmpt: 'Empresa'} %>
+	<% end %>
+
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'via', accn: 'Radio'} %>
+
+	<% if ownr.via_declaracion? %>
+		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'tipo', accn: 'Radio'} %>
+	<% end %>
+
+	<% if ownr.tipo_declaracion? %>
+		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'presentada', accn: 'Radio'} %>
+	<% end %>
+
+	<% if ownr.presentado_por? and ownr.activa_representante? %>
+		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'representante', accn: 'Selección'} %>
+	<% end %>
 <% end %>

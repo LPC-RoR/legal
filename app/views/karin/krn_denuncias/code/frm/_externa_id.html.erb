@@ -1,0 +1,1 @@
+<%= render partial: '0p/actv_bx/tbl_slct', locals: {objeto: objeto, key: code, coleccion: objeto.ownr.krn_empresa_externas.order(:razon_social).collect { |externa| [externa.razon_social, externa.id] }, prmpt: 'Empresa' } %>

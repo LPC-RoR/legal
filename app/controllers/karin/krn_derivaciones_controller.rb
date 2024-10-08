@@ -22,9 +22,10 @@ class Karin::KrnDerivacionesController < ApplicationController
     ownr = params[:oclss].constantize.find(params[:oid])
     if ['riohs', 'a41', 'seg', 'r_multi', 'd_optn', 'e_optn'].include?(params[:t])
       tipo = ['riohs', 'a41', 'd_optn', 'e_optn'].include?(params[:t]) ? 'Derivación' : 'Recepción'
+      empresa_id = params[:eid]
       motivo = drvcn_mtv[params[:t]]
       fecha = Time.zone.today
-      ownr.krn_derivaciones.create(fecha: fecha, tipo: tipo, otro_motivo: motivo)
+      ownr.krn_derivaciones.create(fecha: fecha, tipo: tipo, motivo: motivo, krn_empresa_externa_id: empresa_id)
     end
 
     redirect_to ownr

@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy check fll_dttm fll_fld fll_optn del_fld ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy check fll_dttm fll_fld fll_optn del_fld fll_cltn_id ]
 
   include Karin
 
@@ -18,14 +18,9 @@ class Karin::KrnDenunciasController < ApplicationController
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
     krn_dnnc_dc_init(@objeto)
 
-    case @options[:menu]
-    when 'Denuncia'
-      set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
-    when 'Persona(s) Denunciante(s)'
-      set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
-    when 'Persona(s) Denunciada(s)'
-      set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
-    end
+    set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
+    set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
+    set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
   end
 
   # GET /krn_denuncias/new
@@ -89,6 +84,10 @@ class Karin::KrnDenunciasController < ApplicationController
         @objeto.via_declaracion = params[:option]
       when 'tipo'
         @objeto.tipo_declaracion = params[:option]
+      when 'presentada'
+        @objeto.presentado_por = params[:option]
+      when 'representante'
+        @objeto.representante = params[:option]
       end
       @objeto.save
     end
@@ -96,17 +95,45 @@ class Karin::KrnDenunciasController < ApplicationController
     redirect_to @objeto
   end
 
-  def del_fld
+  def fll_cltn_id
     if perfil_activo?
       case params[:k]
-      when 'fecha'
-        @objeto.fecha_hora = nil
-      when 'fecha_dt'
-        @objeto.fecha_hora_dt = nil
-      when 'via'
-        @objeto.via_declaracion = nil
-      when 'tipo'
-        @objeto.tipo_declaracion = nil
+      when 'externa_id'
+        @objeto.krn_empresa_externa_id = params[:cltn_id]
+      end
+      @objeto.save
+    end
+
+    redirect_to @objeto
+  end
+
+  def del_vlr(objeto, code)
+    vlr_nm = code == 'sgmnt_drvcn' ? 'Seguimiento' : code
+    vlr = objeto.valor(vlr_nm)
+    vlr.delete
+  end
+
+  def del_fld
+    if perfil_activo?
+      if ['sgmnt_drvcn', 'inf_dnncnt', 'd_optn_emprs', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt'].include?(params[:k])
+        del_vlr(@objeto, params[:k])
+      else
+        case params[:k]
+        when 'fecha'
+          @objeto.fecha_hora = nil
+        when 'fecha_dt'
+          @objeto.fecha_hora_dt = nil
+        when 'via'
+          @objeto.via_declaracion = nil
+        when 'tipo'
+          @objeto.tipo_declaracion = nil
+        when 'externa_id'
+          @objeto.krn_empresa_externa_id = nil
+        when 'presentada'
+          @objeto.presentado_por = nil
+        when 'representante'
+          @objeto.representante = nil
+        end
       end
 
       @objeto.save
@@ -116,27 +143,6 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   def check
-    if params[:inf_dnncnt].present?
-      if params[:inf_dnncnt] == 'inf_dnncnt'
-        @objeto.info_opciones = true
-      else
-        @objeto.info_opciones = nil
-      end
-    end
-    if params[:d_optn].present?
-      if ['empresa', 'externa', 'dt'].include?(params[:d_optn])
-        @objeto.dnncnt_opcion = params[:d_optn]
-      else
-        @objeto.dnncnt_opcion = nil
-      end
-    end
-    if params[:e_optn].present?
-      if ['empresa', 'dt'].include?(params[:e_optn])
-        @objeto.emprs_opcion = params[:e_optn]
-      else
-        @objeto.emprs_opcion = nil
-      end
-    end
     if params[:invstgdr].present?
       unless params[:invstgdr] == 'erase'
         @objeto.krn_investigador_id = params[:invstgdr].to_i

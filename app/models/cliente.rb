@@ -16,8 +16,8 @@ class Cliente < ApplicationRecord
 	has_many :org_areas
 	has_many :org_regiones
 
-	has_many :var_clis
-	has_many :variables, through: :var_clis
+#	has_many :var_clis
+#	has_many :variables, through: :var_clis
 
 	has_many :pro_clientes
 	has_many :productos, through: :pro_clientes

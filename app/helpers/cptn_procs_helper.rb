@@ -1,10 +1,31 @@
 module CptnProcsHelper
 
-	def etp_cntrl
+	def etp_cntrl(ownr)
+		clss = ownr.class.name
+		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
 		{
-			'etp_rcpcn' => true,
-			'etp_invstgcn' => false,
-			'etp_crr' => false
+			etp_rcpcn: true,
+			etp_invstgcn: dnnc.investigable?,
+			etp_crr_invstgcn: dnnc.eval?
+		}
+	end
+
+	def tar_cntrl(ownr)
+		clss = ownr.class.name
+		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
+		{
+			dnnc_ingrs: true,
+			dnncnt_diat_diep: true,
+			dnnc_sgmnt: dnnc.dnnc_seguimiento?,
+			dnnc_mdds: dnnc.dsply_mdds?,
+			dnnc_drvcn: true,
+			dnnc_infrmcn_dt: true,
+			dnnc_invstgdr: dnnc.investigable?,
+			dnnc_evlcn: dnnc.invstgdr?,
+			dnnc_agndmnt: dnnc.eval?,
+			dnnc_dclrcn: dnnc.eval?,
+			dnnc_infrm: dnnc.eval?,
+			dnnc_infrm_dt: dnnc.eval?
 		}
 	end
 
@@ -50,21 +71,12 @@ module CptnProcsHelper
 		{
 			'Derivación' => 'arrow-up-right',
 			'Confirmación' => 'check2-square',
-			'Selección' => 'toggles',
+			'Selección' => 'check-square',
 			'Recepción' => 'box-arrow-in-down-right',
 			'Info' => 'toggle-on',
 			'Fecha' => 'calendar2-check',
 			'Radio' => 'ui-radios'
 		}
-	end
-
-	def answ_accn(accn)
-		case accn
-		when 'Selección'
-			'Info'
-		else
-			accn
-		end		
 	end
 
 end

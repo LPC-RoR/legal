@@ -2,6 +2,7 @@ class Tarea < ApplicationRecord
 	belongs_to :ctr_etapa
 
 	has_many :rep_doc_controlados, as: :ownr
+	has_many :variables, as: :ownr
 
 	scope :ordr, -> {order(:orden)}
 
@@ -9,10 +10,6 @@ class Tarea < ApplicationRecord
 
 	def css_id
 		"tar#{self.id}"
-	end
-
-	def owner
-		self.ctr_etapa
 	end
 
 	def ok?
@@ -35,30 +32,13 @@ class Tarea < ApplicationRecord
 	# ------------------------------------ ORDER LIST
 
 	def list
-		self.ownr.ctr_etapas.ordr
+		self.ctr_etapa.tareas.ordr
 	end
 
 	def redireccion
-		self.owner.procedimiento
+		self.ctr_etapa.procedimiento
 	end
 
 	# -----------------------------------------------
 
-	def list
-		owner.tareas.ordr
-	end
-
-	def n_list
-		self.list.count
-	end
-
-	def siguiente
-		self.list.find_by(orden: self.orden + 1)
-	end
-
-	def anterior
-		self.list.find_by(orden: self.orden - 1)
-	end
-
-	# -----------------------------------------------
 end

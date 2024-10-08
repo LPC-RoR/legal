@@ -3,6 +3,12 @@
 		<i class="bi bi-arrow-right"></i> <b>Medidas de resguardo</b>
 	</div>
 	<div class="lnks">
+		<% if objeto.krn_lst_medidas.any? %>
+			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_lst_modificaciones/new#{ownr_prms(objeto)}", tltp: 'Agregar lista de modificaciones' } do %>
+				<i class="bi bi-dash-circle"></i>
+			<% end %>
+			<i class="bi bi-dot"></i>
+		<% end %>
 		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_lst_medidas/new#{ownr_prms(objeto)}&t=#{objeto.krn_lst_medidas.any? ? 'Extraordinaria' : 'Principal'}", tltp: "Agregar lista de medidas ( #{objeto.krn_lst_medidas.any? ? 'Extraordinaria' : 'Principal'} )" } do %>
 			<i class="bi bi-plus-circle"></i>
 		<% end %>
@@ -10,4 +16,7 @@
 </div>
 <% objeto.krn_lst_medidas.each do |lst| %>
 	<%= render partial: prtl_name('krn_lst_medidas', 'shw', 'shw_objt'), locals: {ownr: objeto, mdds_lst: lst, typ: lst.tipo} %>
+<% end %>
+<% objeto.krn_lst_modificaciones.each do |lst| %>
+	<%= render partial: prtl_name('krn_lst_modificaciones', 'shw', 'shw_objt'), locals: {ownr: objeto, mdds_lst: lst} %>
 <% end %>

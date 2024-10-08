@@ -1,7 +1,7 @@
 <div class="qstn_bx">
 	<div class="qstn">
-		<% if prtl?(c, 'code/qstn', code) %>
-			<%= render partial: prtl_name(c, 'code/qstn', code), locals: { objeto: objeto} %>
+		<% if prtl?(objeto.class.name.tableize, 'code/qstn', code) %>
+			<%= render partial: prtl_name(objeto.class.name.tableize, 'code/qstn', code), locals: { objeto: objeto} %>
 		<% else %>
 			Falta código de la pregunta de <%= code %>
 		<% end %>
@@ -13,8 +13,8 @@
 			<%= accn %>
 		</div>
 		<div class="lnks">
-			<% if prtl?(c, 'code/lnks', code) %>
-				<%= render partial: prtl_name(c, 'code/lnks', code), locals: { objeto: objeto} %>
+			<% if prtl?(objeto.class.name.tableize, 'code/lnks', code) %>
+				<%= render partial: prtl_name(objeto.class.name.tableize, 'code/lnks', code), locals: { objeto: objeto} %>
 			<% else %>
 				Falta código del link de <%= code %>
 			<% end %>

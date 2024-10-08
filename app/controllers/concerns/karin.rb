@@ -8,11 +8,12 @@ module Karin
   def krn_cntrl(denuncia)
     {
       'dnnc_denuncia' => denuncia.tipo_declaracion != 'Verbal',     # Denuncia se presenta por escrito
-      'dnnc_acta' => denuncia.tipo_declaracion == 'Verbal',         # Denuncia se presenta en forma verbal
       'dnnc_notificacion' => denuncia.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
+      'dnnc_acta' => denuncia.tipo_declaracion == 'Verbal',         # Denuncia se presenta en forma verbal
+      'dnnc_representacion' => denuncia.activa_representante?,      # Denuncia presentada por un representante
       'dnnc_certificado' => denuncia.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
       'dnncnt_diat_diep' => true,
-      'dnnc_corrgd' => (denuncia.dnnc_errr?),                       # Denuncia corregida
+      'dnnc_corrgd' => (not denuncia.dnnc_ok?),                     # Denuncia corregida
       'dnnc_dclrcn' => true,                                        # Declaración
       'dnnc_antcdnts' => true,                                      # Antecedentes
       'dnnc_infrm' => true,                                         # Informe de investigación
@@ -37,7 +38,6 @@ module Karin
     @krn_cntrl = krn_cntrl(@objeto)
 
     @dc_lst = {}
-    @dc_lst['KrnDenuncia'] = KrnDenuncia.doc_cntrlds
     @dc_lst['KrnDenunciante'] = KrnDenunciante.doc_cntrlds
     @dc_lst['KrnDenunciado'] = KrnDenunciado.doc_cntrlds
     @dc_lst['KrnTestigo'] = KrnTestigo.doc_cntrlds

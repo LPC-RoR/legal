@@ -90,7 +90,7 @@ $qstn_brd_rds: 15px;
 .actv_objt {
 	margin: $actv_mrgn;
 	padding: $actv_pddng;
-	background-color: $pltt_8;
+	background-color: $pltt_6;
 	@include brd_ln(2px, $qstn_brd_typ, $qstn_brd_clr, 5px);
 	font-size: 16px;
 	@include grd(auto 100px, 0);
@@ -157,7 +157,7 @@ $qstn_brd_rds: 15px;
 	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 10px);
 	background-color: $pltt_5;
 	color: $pltt_9;
-	@include grd(auto 50px, 0);
+	@include grd(auto 100px, 0);
 	.ttl {
         @include grd_ncol(1);
     	justify-self: start;
