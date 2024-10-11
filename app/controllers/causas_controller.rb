@@ -53,11 +53,12 @@ class CausasController < ApplicationController
     when 'Agenda'
       @hoy = Time.zone.today
 
-      set_tabla('age_actividades', @objeto.actividades.order(:fecha), false)
+      set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
 
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
-      actividades_causa = @objeto.actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
+#      actividades_causa = @objeto.age_actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
+      actividades_causa = @objeto.age_actividades.adncs.map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
     when 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), false)
@@ -67,15 +68,11 @@ class CausasController < ApplicationController
       # no se usa esta tabla, quizá luego se use para evitar proceso en vista
       set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
 
-      vrbls_ids = @objeto.cliente.variables.ids.intersection(@objeto.tipo_causa.variables.ids)
-      @variables = Variable.where(id: vrbls_ids)
-      @valores = @objeto.valores_datos
-
       # @cuantia_tarifa {true, false} señala cuando la tarifa requiere la cuantía para su cálculo
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
       @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
 
-      @audiencia_preparatoria = @objeto.actividades.find_by(age_actividad: 'Audiencia preparatoria')
+      @audiencia_preparatoria = @objeto.age_actividades.find_by(age_actividad: 'Audiencia preparatoria')
     when 'Tarifa & Pagos'
 
 #      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)

@@ -1,7 +1,7 @@
 class Actividades::AgeActividadesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad cambia_estado cambia_privada cambio_fecha]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad cambia_estado cambia_privada cambio_fecha sspndr]
   after_action :elimina_fecha_audiencia, only: :destroy
 
   # GET /age_actividades or /age_actividades.json
@@ -64,13 +64,13 @@ class Actividades::AgeActividadesController < ApplicationController
     unless age_actividad.blank? or f_params['fecha(3i)'].blank?
       tipo = params[:t].blank? ? f_params[:tipo] : (params[:t] == 'A' ? 'Audiencia' : ( params[:t] == 'H' ? 'Hito' : ( params[:t] == 'R' ? 'Reunión' : 'Tarea' ) ))
       app_perfil_id = perfil_activo.id
-      owner_id = params[:oid]
-      owner_class = owner_id.blank? ? nil : params[:cn].classify
+      ownr_id = params[:oid]
+      ownr_type = ownr_id.blank? ? nil : params[:cn].classify
       fecha = Time.zone.parse("#{f_params['fecha(3i)']}-#{mes}-#{annio} #{hora}:#{minutos}")
       audiencia_especial = f_params[:audiencia_especial]
       privada = f_params[:privada]
 
-      AgeActividad.create(app_perfil_id: app_perfil_id, owner_class: owner_class, owner_id: owner_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente', privada: privada, audiencia_especial: audiencia_especial)
+      AgeActividad.create(app_perfil_id: app_perfil_id, ownr_type: ownr_type, ownr_id: ownr_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente', privada: privada, audiencia_especial: audiencia_especial)
       mensaje = 'Actividad fue creada exitósamente'
 
       if params[:t] == 'A'
@@ -185,9 +185,10 @@ class Actividades::AgeActividadesController < ApplicationController
       log = @objeto.age_logs.create(fecha: @objeto.fecha, actividad: @objeto.age_actividad)
       unless log.blank?
         @objeto.fecha = params_to_date(prms, 'nueva_fecha')
+        @objeto.estado = 'pendiente' if @objeto.estado == 'suspendida'
         @objeto.save
 
-        causa = Causa.find(@objeto.owner_id)
+        causa = Causa.find(@objeto.ownr_id)
         causa.fecha_audiencia = @objeto.fecha
         causa.save
       end
@@ -195,7 +196,19 @@ class Actividades::AgeActividadesController < ApplicationController
 
     set_redireccion
     redirect_to @redireccion
-  
+  end
+
+  def sspndr
+    if ['suspendida', 'pendiente'].include?(@objeto.estado)
+      @objeto.estado = 'suspendida'
+      @objeto.save
+      causa = @objeto.ownr
+      causa.fecha_audiencia = nil
+      causa.save
+    end
+    
+    set_redireccion
+    redirect_to @redireccion
   end
 
   # DELETE /age_actividades/1 or /age_actividades/1.json

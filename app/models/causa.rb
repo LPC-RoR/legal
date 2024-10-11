@@ -49,7 +49,7 @@ class Causa < ApplicationRecord
     end
 
     def agenda
-    	self.actividades.where(tipo: ['Audiencia', 'Hito']).order(fecha: :desc)
+    	self.age_actividades.where(tipo: ['Audiencia', 'Hito']).fecha_d_ordr
     end
 
 	def valores_cuantia
@@ -135,11 +135,6 @@ class Causa < ApplicationRecord
 	# Valores asignados a las variables
 	def valores_datos
 		Valor.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	# Actividades
-	def actividades
-		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
 	end
 
 	def reportes

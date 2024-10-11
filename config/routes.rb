@@ -252,12 +252,14 @@ Rails.application.routes.draw do
       match :cambia_estado, via: :get, on: :member
       match :cambia_prioridad, via: :get, on: :member
       match :cambia_privada, via: :get, on: :member
-      match :cambio_fecha, via: :post, on: :member
       # desde aqui revisar
       match :crea_audiencia, via: :get, on: :collection
       match :suma_participante, via: :get, on: :member
       match :resta_participante, via: :get, on: :member
       match :agrega_antecedente, via: :post, on: :member
+      # -----------------------
+      match :cambio_fecha, via: :post, on: :member
+      match :sspndr, via: :get, on: :member
     end
     resources :age_antecedentes do
       match :arriba, via: :get, on: :member

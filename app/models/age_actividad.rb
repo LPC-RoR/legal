@@ -3,13 +3,16 @@ class AgeActividad < ApplicationRecord
 #	belongs_to :app_perfil
 	belongs_to :ownr, polymorphic: true
 
-	# DEPRECATED, Se cambió por notas para tener un sólo formato
-	has_many :age_antecedentes
-
 	has_many :age_usu_acts
 	has_many :age_usuarios, through: :age_usu_acts
 
 	has_many :age_logs
+
+	scope :fecha_ordr, -> {order(:fecha)}
+	scope :fecha_d_ordr, -> {order(fecha: :desc)}
+	scope :pndnts, -> {where(estado: 'pendiente')}
+	scope :sspondds, -> {where(estado: 'suspendida')}
+	scope :adncs, -> {where(tipo: 'Audiencia')}
 
 	def owner
 		self.owner_id.blank? ? nil : self.owner_class.constantize.find(self.owner_id)

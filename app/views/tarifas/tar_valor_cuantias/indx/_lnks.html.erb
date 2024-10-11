@@ -13,7 +13,4 @@
 <% unless @objeto.demandantes.empty? %>
 	<i class="bi bi-dot"></i>
 	<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/tar_valor_cuantias/new?class_name=#{ownr.class.name}&objeto_id=#{ownr.id}", tltp: 'Agrega item de cuantía' } %>
-	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_valor_cuantias/new?class_name=#{ownr.class.name}&objeto_id=#{ownr.id}", tooltip: 'Agregar item a cuantía'} do %>
-		<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %>
-	<% end %>
 <% end %>

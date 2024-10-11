@@ -37,10 +37,9 @@
 
 	<%= render partial: 'notas/shr/cllps_lnk_nw_nt', locals: {objeto: objeto} %>
 
+	<%= render partial: prtl_name('age_actividades', 'list', 'drpdwn_clndr'), locals: {objeto: objeto} %>
 	<!-- CAMBIO DE FECHA -->
-	<%= render layout: '0p/collapse/link', locals: {label: 'CambioFecha', objeto: objeto, tooltip: 'Cambiar fecha de la actividad'} do %>
-		<i class="bi bi-calendar-x"></i>
-	<% end %>
+
 	<!-- LINKS_E -->
 	<% if (controller_name == 'age_actividades' and objeto.owner_id.blank?) or (controller_name != 'age_actividades' and (objeto.app_perfil_id == perfil_activo.id or admin?) ) %>
 			<i class="bi bi-dot"></i>
