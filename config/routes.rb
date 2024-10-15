@@ -261,11 +261,6 @@ Rails.application.routes.draw do
       match :cambio_fecha, via: :post, on: :member
       match :sspndr, via: :get, on: :member
     end
-    resources :age_antecedentes do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
-      match :elimina_antecedente, via: :get, on: :member
-    end
     resources :age_pendientes do
       match :realizado_pendiente, via: :get, on: :member
       match :cambia_prioridad, via: :get, on: :member

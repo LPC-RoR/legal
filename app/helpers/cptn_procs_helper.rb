@@ -5,8 +5,8 @@ module CptnProcsHelper
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
 		{
 			etp_rcpcn: true,
-			etp_invstgcn: dnnc.investigable?,
-			etp_crr_invstgcn: dnnc.eval?
+			etp_invstgcn: dnnc.dnnc_infrm_invstgcn_dt?,
+			etp_crr_invstgcn: dnnc.dsply_cierre?
 		}
 	end
 
@@ -15,17 +15,18 @@ module CptnProcsHelper
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
 		{
 			dnnc_ingrs: true,
-			dnncnt_diat_diep: true,
-			dnnc_sgmnt: dnnc.dnnc_seguimiento?,
+			dnncnt_diat_diep: dnnc.dnncnts?,
+			dnnc_sgmnt: dnnc.dsply_sgmnt?,
+			dnnc_drvcn: dnnc.dsply_drvcns?,
 			dnnc_mdds: dnnc.dsply_mdds?,
-			dnnc_drvcn: true,
-			dnnc_infrmcn_dt: true,
-			dnnc_invstgdr: dnnc.investigable?,
+			dnnc_infrm_invstgcn_dt: dnnc.dsply_infrm_invstgcn_dt?,
+			dnnc_invstgdr: dnnc.dnnc_infrm_invstgcn_dt?,
 			dnnc_evlcn: dnnc.invstgdr?,
 			dnnc_agndmnt: dnnc.eval?,
 			dnnc_dclrcn: dnnc.eval?,
 			dnnc_infrm: dnnc.eval?,
-			dnnc_infrm_dt: dnnc.eval?
+			dnnc_sncns: dnnc.eval?,
+			dnnc_infrm_dt: dnnc.sncns?
 		}
 	end
 

@@ -1,6 +1,6 @@
 <!-- MAS INFORMACION -->
 <%= render partial: '0capitan/objeto/cllps_lnk_info', locals: {objeto: objeto} %>
-<% unless objeto.owner.blank? or controller_name != 'age_actividades' %>
+<% unless objeto.ownr.blank? or controller_name != 'age_actividades' %>
 	<%= render partial: 'actividades/age_actividades/list/lnk_ownr', locals: {objeto: objeto} %>
 <% end %>
 <%= render partial: 'actividades/age_usuarios/shr/usrs_drpdwn', locals: {objeto: objeto} %>

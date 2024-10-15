@@ -14,13 +14,7 @@ class AgeActividad < ApplicationRecord
 	scope :sspondds, -> {where(estado: 'suspendida')}
 	scope :adncs, -> {where(tipo: 'Audiencia')}
 
-	def owner
-		self.owner_id.blank? ? nil : self.owner_class.constantize.find(self.owner_id)
-	end
-
-	def ownr_name
-		self.owner.class.name == 'Causa' ? self.owner.rit : self.owner.razon_social
-	end
+    validates_presence_of :age_actividad
 
     def notas
     	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)

@@ -18,6 +18,10 @@ class Karin::KrnDenunciasController < ApplicationController
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
     krn_dnnc_dc_init(@objeto)
 
+    @mdds = @objeto.krn_lst_medidas.mdds
+    @mdfccns = @objeto.krn_lst_modificaciones.ordr
+    @sncns = @objeto.krn_lst_medidas.sncns
+
     set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
     set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
     set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
@@ -115,7 +119,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   def del_fld
     if perfil_activo?
-      if ['sgmnt_drvcn', 'inf_dnncnt', 'd_optn_emprs', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt'].include?(params[:k])
+      if ['sgmnt_drvcn', 'inf_dnncnt', 'd_optn_emprs', 'e_optn_emprs', 'dnnc_infrm_invstgcn_dt', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_infrm_dt'].include?(params[:k])
         del_vlr(@objeto, params[:k])
       else
         case params[:k]
@@ -133,6 +137,8 @@ class Karin::KrnDenunciasController < ApplicationController
           @objeto.presentado_por = nil
         when 'representante'
           @objeto.representante = nil
+        when 'invstgdr'
+          @objeto.krn_investigador_id = nil
         end
       end
 
@@ -200,6 +206,6 @@ class Karin::KrnDenunciasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denuncia_params
-      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :receptor_denuncia, :motivo_denuncia, :empresa_receptora_id, :investigador_id, :fecha_hora, :fecha_hora_dt, :fecha_hora_recepcion, :dnnte_info_derivacion, :dnnte_derivacion, :dnnte_entidad_investigacion, :dnnte_empresa_investigacion_id, :empresa_id, :presentado_por, :via_declaracion, :tipo_declaracion)
+      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :receptor_denuncia, :motivo_denuncia, :empresa_receptora_id, :krn_investigador_id, :fecha_hora, :fecha_hora_dt, :fecha_hora_recepcion, :dnnte_info_derivacion, :dnnte_derivacion, :dnnte_entidad_investigacion, :dnnte_empresa_investigacion_id, :empresa_id, :presentado_por, :via_declaracion, :tipo_declaracion)
     end
 end

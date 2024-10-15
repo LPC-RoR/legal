@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_08_212256) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_11_194536) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,8 +27,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_212256) do
     t.string "age_actividad"
     t.string "tipo"
     t.integer "app_perfil_id"
-    t.string "owner_class"
-    t.integer "owner_id"
     t.string "estado"
     t.datetime "fecha", precision: nil
     t.datetime "created_at", precision: nil, null: false
@@ -41,24 +39,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_08_212256) do
     t.index ["app_perfil_id"], name: "index_age_actividades_on_app_perfil_id"
     t.index ["estado"], name: "index_age_actividades_on_estado"
     t.index ["fecha"], name: "index_age_actividades_on_fecha"
-    t.index ["owner_class"], name: "index_age_actividades_on_owner_class"
-    t.index ["owner_id"], name: "index_age_actividades_on_owner_id"
     t.index ["ownr_id"], name: "index_age_actividades_on_ownr_id"
     t.index ["ownr_type"], name: "index_age_actividades_on_ownr_type"
     t.index ["privada"], name: "index_age_actividades_on_privada"
-  end
-
-  create_table "age_antecedentes", force: :cascade do |t|
-    t.integer "orden"
-    t.text "age_antecedente"
-    t.integer "age_actividad_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "nota"
-    t.string "tipo"
-    t.string "email"
-    t.index ["age_actividad_id"], name: "index_age_antecedentes_on_age_actividad_id"
-    t.index ["orden"], name: "index_age_antecedentes_on_orden"
   end
 
   create_table "age_logs", force: :cascade do |t|

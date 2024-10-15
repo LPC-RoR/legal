@@ -40,7 +40,7 @@ class ClientesController < ApplicationController
     if @options[:menu] == 'Agenda'
 
       @hoy = Time.zone.today
-      set_tabla('age_actividades', @objeto.actividades.order(:fecha), false)
+      set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
 
     elsif @options[:menu] == 'Causas'
 
@@ -105,7 +105,6 @@ class ClientesController < ApplicationController
       set_tabla('krn_tipo_medidas', @objeto.krn_tipo_medidas.ordr, false)
     elsif @options[:menu] == 'Configuración'
       set_tabla('productos', @objeto.productos.all.order(:producto), false)
-      @vrbls = Variable.all.order(:variable)
     end
   end
 

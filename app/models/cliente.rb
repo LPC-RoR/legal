@@ -30,7 +30,7 @@ class Cliente < ApplicationRecord
 
 	has_many :age_actividades, as: :ownr
 
-	validates :rut, valida_rut: true
+#	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :tipo_cliente
 
     scope :std, ->(estado) { where(estado: estado)}

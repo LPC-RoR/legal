@@ -5,7 +5,11 @@
 		<%= dma_hm(mdds_lst.updated_at) %>
 		<i class="bi bi-dot"></i>
 		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: mdds_lst, tltp: "Ver lista de medidas #{typ}" } do %>
-			Lista de medidas de protección y resguardo <%= mdds_lst.tipo %>
+			<% if mdds_lst.tipo == 'Sancion' %>
+				Lista de Sanciones de la Investigación
+			<% else %>
+				Lista de medidas de protección y resguardo <%= mdds_lst.tipo %>
+			<% end %>
 		<% end %>
 
 	</div>

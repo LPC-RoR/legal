@@ -1,7 +1,7 @@
 class Actividades::AgeActividadesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante agrega_antecedente realizada_pendiente cambia_prioridad cambia_estado cambia_privada cambio_fecha sspndr]
+  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante realizada_pendiente cambia_prioridad cambia_estado cambia_privada cambio_fecha sspndr]
   after_action :elimina_fecha_audiencia, only: :destroy
 
   # GET /age_actividades or /age_actividades.json
@@ -165,16 +165,6 @@ class Actividades::AgeActividadesController < ApplicationController
     @objeto.app_perfiles.delete(perfil)
 
     redirect_to ( params[:loc] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
-  end
-
-  # Ahora se llama agregar nota 25 mayo 2024
-  def agrega_antecedente
-    prms = params[:form_antecedente]
-    unless prms[:nota].blank? 
-      @objeto.age_antecedentes.create(nota: prms[:nota], tipo: prms[:tipo], email: perfil_activo.email, orden: @objeto.age_antecedentes.count + 1)
-    end
-
-    redirect_to ( params[:c] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
   end
 
   def cambio_fecha

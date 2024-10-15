@@ -1,21 +1,35 @@
 <% if ownr.drvcn_rchzd? %>
+	<!-- Nos derivaron una denuncia que NO es de nuestra competencia -->
 	<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'drvcn_rchzd', accn: 'Confirmación'} %>
-<% elsif ownr.extrn_prsncl? %>
-	<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'extrn_prsncl', accn: 'Confirmación'} %>
-	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr , code: 'drvcn_dnncnt', accn: 'Derivación'} %>
 <% elsif ownr.dt_obligatoria? %>
 	<% unless ownr.rcp_dt? %>
 		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'obligatoria', accn: 'Derivación'} %>
 	<% end %>
 <% else %>
-	<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'tipo_invstgcn', accn: 'Confirmación'} %>
-	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'inf_dnncnt', accn: 'Selección'} %>
-	<% if ownr.vlr_inf_dnncnt? %>
-		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'd_optn_emprs', accn: 'Derivación'} %>
-		<% if ownr.vlr_d_optn_emprs? %>
-			<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'e_optn_emprs', accn: 'Derivación'} %>
+
+	<% if ownr.rcpcn? %>
+		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'recpcn_ok', accn: 'Derivación'} %>
+	<% end %>
+
+	<% if ownr.extrn_prsncl? %>
+		<!-- Denuncia presencial fuera de nuestra competencia -->
+		<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'extrn_prsncl', accn: 'Confirmación'} %>
+		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'inf_dnncnt', accn: 'Selección'} %>
+		<% if ownr.vlr_inf_dnncnt? %>
+			<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr , code: 'drvcn_dnncnt', accn: 'Derivación'} %>
+		<% end %>
+	<% else %>
+		<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'tipo_invstgcn', accn: 'Confirmación'} %>
+		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'inf_dnncnt', accn: 'Selección'} %>
+
+		<% if ownr.vlr_inf_dnncnt? %>
+			<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'd_optn_emprs', accn: 'Derivación'} %>
+			<% if ownr.vlr_d_optn_emprs? %>
+				<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'e_optn_emprs', accn: 'Derivación'} %>
+			<% end %>
 		<% end %>
 	<% end %>
+
 <% end %>
 
 <% unless ownr.no_drvcns? %>

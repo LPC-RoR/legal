@@ -4,9 +4,9 @@ class ValidaRutValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
 
-    factores = [2, 3, 4, 5, 6, 7, 2, 3]
+    fctrs = [2, 3, 4, 5, 6, 7, 2, 3]
 
-    v_format = !!( value.strip =~ /^[\d]{1,2}\.?[\d]{3}\.?[\d]{3}\-[\dkK]{1}/ )
+    v_format = !!( value.strip =~ /^[\d]{1,2}\.?[\d]{3}\.?[\d]{3}\-?[\dkK]{1}/ )
 
     if v_format
       # valor verificador del dígito
@@ -21,10 +21,6 @@ class ValidaRutValidator < ActiveModel::EachValidator
     else
       vrfy = false
     end
-
-    resultado = 11 - (suma % 11) == 11 ? 0 : 11 - (suma % 11)
-
-    estado = 100 if verificador != resultado
 
     unless vrfy
       record.errors[attribute] << (options[:message] || ": rut no valido")

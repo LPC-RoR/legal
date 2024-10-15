@@ -1,5 +1,19 @@
-<%= render partial: '0p/actv_bx/ttl', locals: {gly: 'calendar-check', ttl: 'Fecha toma de declaración'} %>
-<%= render partial: '0p/actv_bx/get_dttm', locals: {objeto: objeto, c: 'krn_declaraciones', sid: objeto.denuncia.krn_investigador_id} %>
+<div class="actv_ttl">
+	<div class="ttl">
+		<i class="bi bi-calendar-check"></i> <b>Fecha de Toma de declaración</b></br>
+	</div>
+	<div class="lnks">
+		<%= render layout: '0p/collapse/link', locals: {label: objeto.css_id, objeto: nil, tooltip: 'Agrega fecha de Declaración'} do %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+	</div>
+</div>
+<%= render layout: '0p/collapse/display', locals: {label: objeto.css_id, objeto: nil} do %>
+	<%= render partial: '0p/actv_bx/get_dttm', locals: {objeto: objeto, c: 'krn_declaraciones', sid: objeto.denuncia.krn_investigador_id} %>
+<% end %>
+
+<%#= render partial: '0p/actv_bx/ttl', locals: {gly: 'calendar-check', ttl: 'Fecha toma de declaración'} %>
+<%#= render partial: '0p/actv_bx/get_dttm', locals: {objeto: objeto, c: 'krn_declaraciones', sid: objeto.denuncia.krn_investigador_id} %>
 <% objeto.krn_declaraciones.each do |dclrcn| %>
 	<%= render partial: prtl_name('krn_declaraciones', 'list', 'actv_objt'), locals: {objeto: dclrcn} %>
 <% end %>
