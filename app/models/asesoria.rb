@@ -3,7 +3,8 @@ class Asesoria < ApplicationRecord
 	belongs_to :tipo_asesoria
 	belongs_to :tar_servicio, optional: true
 
-	has_many :tar_facturaciones, as: :ownr
+	has_one :tar_calculo, as: :ownr
+	has_one :tar_facturacion, as: :ownr
 
     validates_presence_of :descripcion
 
@@ -20,14 +21,6 @@ class Asesoria < ApplicationRecord
 
 	def archivos
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def calculo
-		TarCalculo.where(ownr_clss: self.class.name).find_by(ownr_id: self.id)
-	end
-
-	def facturacion
-		TarFacturacion.where(owner_class: self.class.name).find_by(owner_id: self.id)
 	end
 
 	def uf_facturacion

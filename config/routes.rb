@@ -441,7 +441,6 @@ Rails.application.routes.draw do
       match :facturable, via: :get, on: :member
       match :facturar, via: :get, on: :member
       # nueva lógica
-      match :elimina, via: :get, on: :member
       match :crea_aprobacion, via: :get, on: :member
       match :a_aprobacion, via: :get, on: :member
       match :libera_facturacion, via: :get, on: :member

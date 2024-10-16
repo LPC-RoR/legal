@@ -48,11 +48,18 @@ class Tarifas::TarCalculosController < ApplicationController
   end
 
   def elimina_calculo
-    causa = @objeto.owner
+    causa = @objeto.ownr
     @objeto.tar_facturaciones.each do |fctn|
       fctn.delete
     end
     @objeto.delete
+
+    if causa.tar_facturaciones.count == causa.tar_tarifa.tar_pagos.count
+      causa.estado = 'terminada'
+    else
+      causa.estado = 'tramitación'
+    end
+    causa.save
 
     redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
   end

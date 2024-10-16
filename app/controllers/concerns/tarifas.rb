@@ -63,17 +63,7 @@ module Tarifas
 			facturable = $2
 			campo = $3
 			tar_pago = objeto.tar_tarifa.tar_pagos.find_by(codigo_formula: facturable)
-#			if tar_pago.blank?
-#				calculo = 0
-#			else
-#				tar_calculo = get_tar_calculo(objeto, tar_pago)
-#				tc_monto_pesos = tar_calculo.blank? ? 0 : tar_calculo.tar_facturaciones.map {|fct| fct.monto_pesos}.sum
-#				tar_facturaciones = get_tar_facturaciones(objeto, tar_pago)
-#				tf_monto_pesos = tar_facturaciones.empty? ? 0 : tar_facturaciones.map {|fctn| fctn.monto_pesos}.sum
-#				calculo = facturacion.blank? ? 0 : (facturacion.send(campo).blank? ? 0 : facturacion.send(campo))
-#				calculo = tf_monto_pesos == 0 ? tc_monto_pesos : tf_monto_pesos
-#			end
-			calculo = objeto.facturaciones.map {|fct| fct.monto_pesos if fct.tar_pago_id != pago.id}.compact.sum
+			calculo = objeto.tar_facturaciones.map {|fct| fct.monto_pesos if fct.tar_pago_id != pago.id}.compact.sum
 			formula = formula.gsub($1, calculo.to_s)
 		end
 		formula
@@ -266,20 +256,20 @@ module Tarifas
 
 	# Sirve para causa / asesoria
 	def get_tar_calculo(objeto, pago)
-		objeto.class.name == 'Causa' ? objeto.calculos.find_by(tar_pago_id: pago.id) : objeto.calculo
+		objeto.class.name == 'Causa' ? objeto.tar_calculos.find_by(tar_pago_id: pago.id) : objeto.calculo
 	end
 
 	# Sirve para causa / asesoria
 	def get_tar_facturacion(objeto, pago)
-		objeto.class.name == 'Causa' ? objeto.facturaciones.where(tar_pago_id: pago.id).first : objeto.facturacion
+		objeto.class.name == 'Causa' ? objeto.tar_facturaciones.where(tar_pago_id: pago.id).first : objeto.facturacion
 	end
 
 	# Se ajusta al menejo de cuotas
 	def get_tar_facturaciones(objeto, pago)
 		case objeto.class.name
 		when 'Causa'
-			fcts1 = objeto.facturaciones.where(tar_pago_id: pago.id)
-			fcts2 = objeto.facturaciones.where(facturable: pago.codigo_formula)
+			fcts1 = objeto.tar_facturaciones.where(tar_pago_id: pago.id)
+			fcts2 = objeto.tar_facturaciones.where(facturable: pago.codigo_formula)
 			fcts1.empty? ? fcts2 : fcts1
 		end
 	end

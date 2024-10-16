@@ -57,7 +57,7 @@
 		</div>
 		<% if owner.class.name == 'Causa' and controller_name == 'causas' %>
 			</br>
-			<%= link_to 'Autorizar pago', "/tar_facturaciones/crea_facturacion?owner_class=#{owner.class.name}&owner_id=#{owner.id}&pid=#{pago.id}", class: 'btn btn-primary btn-sm' %>
+			<%= link_to 'Autorizar pago', "/tar_facturaciones/crea_facturacion#{ownr_prms(owner)}&pid=#{pago.id}", class: 'btn btn-primary btn-sm' %>
 	    <% end %>
 		
 	<% end %>

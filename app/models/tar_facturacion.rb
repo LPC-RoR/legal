@@ -9,39 +9,18 @@ class TarFacturacion < ApplicationRecord
 	belongs_to :ownr, polymorphic: true
 
 	scope :no_aprbcn, -> { where(tar_aprobacion_id: nil) }
+	scope :dspnbls, -> {where(tar_aprobacion_id: nil, tar_factura_id: nil)}
 
 	delegate :cliente, to: :ownr, prefix: true
+
+	# Dejamos el campo facturtable por si lo necesitamos en los casos en los que tar_pago_id == nil
 
 	# MAP del pago
 
 	# DEPRECATED: Es necesario para diferenciar el caso de las tarifas por hora. Se puede cambiar para que padre == ownr
-	def padre
-		self.owner_id.blank? ? nil : (self.owner_class == 'RegReporte' ? self.owner_class.constantize.find(self.owner_id).owner : self.owner_class.constantize.find(self.owner_id))
-	end
-
-	def tipo_owner
-		case self.owner.class.name
-		when 'TarServicio'
-			'Servicio'
-		when 'RegReporte'
-			'Reporte Tareas'
-		else
-			self.owner.class.name
-		end
-	end
-
-	def owner_description
-		case self.owner.class.name
-		when 'TarServicio'
-			self.owner.descripcion
-		when 'RegReporte'
-			self.owner.reg_reporte
-		when 'Asesoria'
-			self.owner.descripcion
-		else
-			self.owner.send(self.owner.class.name.downcase)
-		end
-	end
+#	def padre
+#		self.owner_id.blank? ? nil : (self.owner_class == 'RegReporte' ? self.owner_class.constantize.find(self.owner_id).owner : self.owner_class.constantize.find(self.owner_id))
+#	end
 
 	# ******************************************************************************** NUEVO manejo de tarifa (despliegue de pagos)
 
@@ -72,12 +51,12 @@ class TarFacturacion < ApplicationRecord
 	end
 
 	def origen_fecha_uf
-		if self.owner.class.name == 'Causa'
+		if self.ownr.class.name == 'Causa'
 			tar_pago = self.find_pago
-			tar_uf_facturacion = self.owner.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
+			tar_uf_facturacion = self.ownr.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
 			tar_uf_facturacion.blank? ? 'TarFacturacion' : 'TarUfFacturacion'
-		elsif self.owner.class.name == 'Asesoria'
-			self.owner.fecha_uf.blank? ? 'TarFacturacion' : 'Asesoria'
+		elsif self.ownr.class.name == 'Asesoria'
+			self.ownr.fecha_uf.blank? ? 'TarFacturacion' : 'Asesoria'
 		else
 			'TarFacturacion'
 		end

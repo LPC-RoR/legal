@@ -83,12 +83,8 @@ class Causa < ApplicationRecord
 
 	# PAGOS
 
-	def calculos
-		TarCalculo.where(ownr_clss: self.class.name, ownr_id: self.id)
-	end
-
 	def facturaciones
-		TarFacturacion.where(owner_class: self.class.name, owner_id: self.id)
+#		TarFacturacion.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
 	# Archivos y control de archivos

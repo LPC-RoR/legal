@@ -12,10 +12,6 @@ class TarCalculo < ApplicationRecord
 
 	# CHILDS
 
-	def owner
-		self.ownr_clss.constantize.find(self.ownr_id)
-	end
-
 	def monto_pesos
 		self.monto
 	end

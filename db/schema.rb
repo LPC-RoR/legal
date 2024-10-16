@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_16_162355) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_16_175850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1920,8 +1920,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_162355) do
   end
 
   create_table "tar_calculos", force: :cascade do |t|
-    t.integer "clnt_id"
-    t.string "ownr_clss"
     t.integer "ownr_id"
     t.integer "tar_pago_id"
     t.string "moneda"
@@ -1935,8 +1933,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_162355) do
     t.integer "cliente_id"
     t.string "ownr_type"
     t.index ["cliente_id"], name: "index_tar_calculos_on_cliente_id"
-    t.index ["clnt_id"], name: "index_tar_calculos_on_clnt_id"
-    t.index ["ownr_clss"], name: "index_tar_calculos_on_ownr_clss"
     t.index ["ownr_id"], name: "index_tar_calculos_on_ownr_id"
     t.index ["ownr_type"], name: "index_tar_calculos_on_ownr_type"
     t.index ["tar_aprobacion_id"], name: "index_tar_calculos_on_tar_aprobacion_id"
@@ -2033,33 +2029,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_162355) do
   create_table "tar_facturaciones", force: :cascade do |t|
     t.string "facturable"
     t.decimal "monto"
-    t.string "estado"
-    t.string "owner_class"
-    t.integer "owner_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "glosa"
     t.integer "tar_factura_id"
-    t.decimal "monto_uf"
     t.string "moneda"
-    t.string "cliente_class"
-    t.integer "cliente_id"
     t.integer "tar_aprobacion_id"
     t.integer "tar_pago_id"
     t.decimal "cuantia_calculo"
     t.integer "tar_cuota_id"
-    t.decimal "pago_calculo"
     t.integer "tar_calculo_id"
     t.datetime "fecha_uf", precision: nil
     t.string "ownr_type"
     t.integer "ownr_id"
-    t.index ["cliente_class"], name: "index_tar_facturaciones_on_cliente_class"
-    t.index ["cliente_id"], name: "index_tar_facturaciones_on_cliente_id"
-    t.index ["estado"], name: "index_tar_facturaciones_on_estado"
     t.index ["facturable"], name: "index_tar_facturaciones_on_facturable"
     t.index ["moneda"], name: "index_tar_facturaciones_on_moneda"
-    t.index ["owner_class"], name: "index_tar_facturaciones_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_facturaciones_on_owner_id"
     t.index ["ownr_id"], name: "index_tar_facturaciones_on_ownr_id"
     t.index ["ownr_type"], name: "index_tar_facturaciones_on_ownr_type"
     t.index ["tar_aprobacion_id"], name: "index_tar_facturaciones_on_tar_aprobacion_id"

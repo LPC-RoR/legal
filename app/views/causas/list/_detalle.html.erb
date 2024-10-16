@@ -13,9 +13,9 @@
 		<% end %>
 	<% end %>
 	<hr>
-	<% if finanzas? and objeto.facturaciones.any? %>
+	<% if finanzas? and objeto.tar_facturaciones.any? %>
 		<div class="pago">
-			<% objeto.facturaciones.order(:created_at).each do |facturacion| %>
+			<% objeto.tar_facturaciones.order(:created_at).each do |facturacion| %>
 				<div class="ln_app">
 					<div class="ln_nm">
 						<%= facturacion.tar_pago.blank? ? '-' : facturacion.tar_pago.tar_pago %>

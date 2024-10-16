@@ -80,8 +80,8 @@ class CausasController < ApplicationController
       @audiencia_preparatoria = @objeto.age_actividades.find_by(age_actividad: 'Audiencia preparatoria')
     when 'Tarifa & Pagos'
 
-#      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
-#      set_tabla('tar_facturaciones', @objeto.facturaciones, false)
+      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
+      set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
 
       @pgs_stts = @objeto.tar_tarifa.blank? ? [] : pgs_stts(@objeto, @objeto.tar_tarifa)
 

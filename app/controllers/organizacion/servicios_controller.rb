@@ -9,8 +9,8 @@ class Organizacion::ServiciosController < ApplicationController
     set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
     set_tabla('tar_calculos', @objeto.tar_calculos, false)
 
-    @total_uf = @objeto.tar_calculos.map {|ccl| get_monto_calculo_uf(ccl, ccl.owner, ccl.tar_pago)}.sum
-    @total_pesos = @objeto.tar_calculos.map {|ccl| get_monto_calculo_pesos(ccl, ccl.owner, ccl.tar_pago)}.sum
+    @total_uf = @objeto.tar_calculos.map {|ccl| get_monto_calculo_uf(ccl, ccl.ownr, ccl.tar_pago)}.sum
+    @total_pesos = @objeto.tar_calculos.map {|ccl| get_monto_calculo_pesos(ccl, ccl.ownr, ccl.tar_pago)}.sum
 
     @h_pagos = get_h_pagos(@objeto)
   end

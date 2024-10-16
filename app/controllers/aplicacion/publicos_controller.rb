@@ -33,12 +33,12 @@ class Aplicacion::PublicosController < ApplicationController
 
       if finanzas?
         # Causas
-        csf_ids = Causa.all.map {|causa| causa.id if causa.facturaciones.empty?}.compact
+        csf_ids = Causa.all.map {|causa| causa.id if causa.tar_facturaciones.empty?}.compact
         set_tabla('sin_facturar-causas', Causa.where(id: csf_ids), false)
 
         # Cargos o facturaciones
-        set_tabla('sin_aprobacion-tar_facturaciones', TarFacturacion.where(tar_aprobacion_id: nil, tar_factura_id: nil), false)
-        set_tabla('sin_facturar-tar_facturaciones', TarFacturacion.where(tar_factura_id: nil).where.not(tar_aprobacion_id: nil), false)
+#        set_tabla('sin_aprobacion-tar_facturaciones', TarFacturacion.where(tar_aprobacion_id: nil, tar_factura_id: nil), false)
+#        set_tabla('sin_facturar-tar_facturaciones', TarFacturacion.where(tar_factura_id: nil).where.not(tar_aprobacion_id: nil), false)
 
         # Facturas
         set_tabla('por_emitir-tar_facturas', TarFactura.where(estado: 'ingreso').order(fecha_factura: :desc), false)

@@ -42,7 +42,7 @@
 		<% if operacion? %>
 			<%= render partial: 'notas/shr/cllps_lnk_nw_nt', locals: {objeto: objeto} %>
 			<!-- Lo siguiente se puso DENTRO del if porque si no se despliega el crud no tiene sentido el punto -->
-			<% if (finanzas? and objeto.facturaciones.any?) or (objeto.demanda? and operacion?) %>
+			<% if (finanzas? and objeto.tar_facturaciones.any?) or (objeto.demanda? and operacion?) %>
 				<i class="bi bi-dot"></i>
 			<% end %>
 			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if check_crud(objeto) %>

@@ -1,17 +1,17 @@
 <b>
 <div class="ttl_prnt">
 	<div class="ttl_ttl">
-		<% if objeto.owner.class.name == 'Causa' %>
-			Causa : <%= objeto.owner.rit %>
+		<% if objeto.ownr.class.name == 'Causa' %>
+			Causa : <%= objeto.ownr.rit %>
 			<i class="bi bi-dot"></i>
-			<%= objeto.owner.causa %>
+			<%= objeto.ownr.causa %>
 		<% else %>
-			Asesoria : <%= objeto.owner.descripcion %>
+			Asesoria : <%= objeto.ownr.descripcion %>
 		<% end %>
 	</div>
 	<div class="ttl_lnks">
-		<% if objeto.owner.class.name == 'Causa' %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.owner.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}", tooltip: objeto.owner.class.name} do %>
+		<% if objeto.ownr.class.name == 'Causa' %>
+			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.ownr.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}", tooltip: objeto.ownr.class.name} do %>
 				<i class="bi bi-box-arrow-up-right"></i>
 			<% end %>
 		<% end %>

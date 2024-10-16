@@ -80,7 +80,7 @@ class AsesoriasController < ApplicationController
 
   def elimina_cobro
     calculo = @objeto.calculo
-    facturacion = @objeto.facturacion
+    facturacion = @objeto.tar_facturacion
     facturacion.delete
     calculo.delete
     @objeto.estado = 'tramitación'
@@ -90,9 +90,9 @@ class AsesoriasController < ApplicationController
   end
 
   def facturar
-    unless @objeto.facturacion.blank?
+    unless @objeto.tar_facturacion.blank?
       factura = TarFactura.create(owner_class: 'Cliente', owner_id: @objeto.cliente.id, estado: 'ingreso')
-      factura.tar_facturaciones << @objeto.facturacion unless factura.blank?
+      factura.tar_facturaciones << @objeto.tar_facturacion unless factura.blank?
       if factura.blank?
         redirect_to asesorias_path, notice: 'No se pudo crear la factura'
       else
@@ -125,7 +125,7 @@ class AsesoriasController < ApplicationController
   end
 
   def liberar_factura
-    facturacion = @objeto.facturacion
+    facturacion = @objeto.tar_facturacion
     facturacion.tar_factura_id = nil
     facturacion.save
 
