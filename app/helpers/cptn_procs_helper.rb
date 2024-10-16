@@ -23,9 +23,10 @@ module CptnProcsHelper
 			dnnc_invstgdr: dnnc.dnnc_infrm_invstgcn_dt?,
 			dnnc_evlcn: dnnc.invstgdr?,
 			dnnc_agndmnt: dnnc.eval?,
-			dnnc_dclrcn: dnnc.eval?,
-			dnnc_infrm: dnnc.eval?,
-			dnnc_sncns: dnnc.eval?,
+			dnnc_dclrcn: ownr.dsply_dclrcn?,
+			dnnc_crr_dclrcns: dnnc.eval?,
+			dnnc_infrm: dnnc.vlr_dnnc_crr_dclrcns?,
+			dnnc_sncns: dnnc.vlr_dnnc_crr_dclrcns?,
 			dnnc_infrm_dt: dnnc.sncns?
 		}
 	end

@@ -119,7 +119,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   def del_fld
     if perfil_activo?
-      if ['sgmnt_drvcn', 'inf_dnncnt', 'd_optn_emprs', 'e_optn_emprs', 'dnnc_infrm_invstgcn_dt', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_infrm_dt'].include?(params[:k])
+      if ['sgmnt_drvcn', 'inf_dnncnt', 'd_optn_emprs', 'e_optn_emprs', 'dnnc_infrm_invstgcn_dt', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt'].include?(params[:k])
         del_vlr(@objeto, params[:k])
       else
         case params[:k]

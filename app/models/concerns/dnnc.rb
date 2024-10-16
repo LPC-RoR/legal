@@ -83,7 +83,11 @@ module Dnnc
 			},
 			dnnc_incmplt: {
 				cndtn: self.vlr_dnnc_incmplt?,
-				trsh: (not false)
+				trsh: (not self.vlr_dnnc_crr_dclrcns?)
+			},
+			dnnc_crr_dclrcns: {
+				cndtn: self.vlr_dnnc_crr_dclrcns?,
+				trsh: (not self.vlr_dnnc_infrm_dt?)
 			},
 			dnnc_infrm_dt: {
 				cndtn: self.vlr_dnnc_infrm_dt?,
@@ -355,10 +359,27 @@ module Dnnc
 		self.vlr_dnnc_incmplt? and self.vlr_dnnc_incnsstnt?
 	end
 
+	def dsply_dclrcn?
+		false
+	end
+
 	# ------------------------------------------------------------------------ CIERRE INVSTGCN
 
 	def dsply_cierre?
 		self.prtcpnts?
+	end
+
+	def vlr_dnnc_crr_dclrcns
+		vlr = self.valor('dnnc_crr_dclrcns')
+		vlr.blank? ? nil : vlr
+	end
+
+	def vlr_dnnc_crr_dclrcns?
+		self.vlr_dnnc_crr_dclrcns.present?
+	end
+
+	def dnnc_crr_dclrcns?
+		self.vlr_dnnc_crr_dclrcns.blank? ? nil : self.vlr_dnnc_crr_dclrcns.c_booleano
 	end
 
 	def sncns?

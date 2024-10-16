@@ -19,7 +19,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
 
   def nueva
     ownr = params[:oclss].constantize.find(params[:oid])
-    dnnc = ownr.class.name == 'KrnTestigo' ? owner.ownr.krn_denuncia : ownr.krn_denuncia
+    dnnc = ownr.class.name == 'KrnTestigo' ? ownr.ownr.krn_denuncia : ownr.krn_denuncia
     invstgdr = dnnc.krn_investigador
 
     ownr.krn_declaraciones.create(krn_denuncia_id: dnnc.id, krn_investigador_id: invstgdr.id, fecha: params_to_date(params, 'fecha'))

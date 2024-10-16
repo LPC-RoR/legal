@@ -33,4 +33,10 @@ class KrnDenunciado < ApplicationRecord
 		self.krn_denuncia
 	end
 
+	# --------------------------------------------------------------- DCLRCN
+
+	def dsply_dclrcn?
+		self.krn_declaraciones.any?
+	end
+
 end

@@ -9,21 +9,29 @@ class ValidaRutValidator < ActiveModel::EachValidator
     v_format = !!( value.strip =~ /^[\d]{1,2}\.?[\d]{3}\.?[\d]{3}\-?[\dkK]{1}/ )
 
     if v_format
+
       # valor verificador del dígito
       vrfy_dgt = value.strip[-1].downcase == 'k' ? 10 : value.strip[-1].to_i
 
       # valor verificador del número
-      arr = value.split('-')[0].gsub('.', '').reverse.split('')
+#      arr = value.split('-')[0].gsub('.', '').reverse.split('')
+      arr = !!(value.strip =~ /\-/) ? value.split('-')[0].gsub('.', '').reverse.split('') : value.strip.split('').reverse.drop(1)
       rst = arr.each_with_index.map {|c, i| c.to_i * fctrs[i]}.sum % 11
       vrfy_rut = rst == 0 ? 0 : 11 - rst
 
+      puts "-------------------------------------------------------------------------- rut"
+      puts vrfy_dgt
+      puts arr.join('')
+      puts vrfy_rut
+      puts rst
+  
       vrfy = vrfy_dgt == vrfy_rut
     else
       vrfy = false
     end
 
     unless vrfy
-      record.errors[attribute] << (options[:message] || ": rut no valido")
+      record.errors.add(attribute, :invalid_rut, message: "rut no válido")
     end
   end
 
