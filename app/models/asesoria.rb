@@ -3,6 +3,8 @@ class Asesoria < ApplicationRecord
 	belongs_to :tipo_asesoria
 	belongs_to :tar_servicio, optional: true
 
+	has_many :tar_facturaciones, as: :ownr
+
     validates_presence_of :descripcion
 
     scope :std, ->(std) { where(estado: std).order(urgente: :desc, pendiente: :desc, created_at: :desc)}

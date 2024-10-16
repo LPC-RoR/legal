@@ -64,7 +64,6 @@ class CausasController < ApplicationController
 
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
-#      actividades_causa = @objeto.age_actividades.where(tipo: 'Audiencia').map {|act| act.age_actividad}
       actividades_causa = @objeto.age_actividades.adncs.map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
     when 'Hechos'
@@ -73,9 +72,8 @@ class CausasController < ApplicationController
       set_tabla('app_archivos', @objeto.app_archivos.order(:app_archivo), false)
     when 'Datos & Cuantía'
       # no se usa esta tabla, quizá luego se use para evitar proceso en vista
-      set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
+#      set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
 
-      # @cuantia_tarifa {true, false} señala cuando la tarifa requiere la cuantía para su cálculo
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
       @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
 

@@ -3,6 +3,8 @@ class TarValorCuantia < ApplicationRecord
 	belongs_to :tar_detalle_cuantia
 	belongs_to :demandante, optional: true
 
+	scope :dsply, -> {order(:demandante_id, :tar_detalle_cuantia_id)}
+
     validates_presence_of :moneda
 
     # Cambié self.owner_class por Causa porque generaba un comportamiento anómalo

@@ -31,6 +31,7 @@ class Causa < ApplicationRecord
 	has_many :monto_conciliaciones
 
 	has_many :age_actividades, as: :ownr
+	has_many :tar_calculos, as: :ownr
 	has_many :tar_facturaciones, as: :ownr
 	has_many :tar_valor_cuantias, as: :ownr
 
@@ -42,7 +43,15 @@ class Causa < ApplicationRecord
 
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia)}
 
-    # ---------------------------------------------------------------- MIGRATION
+    # ---------------------------------------------------------------- MGRTN
+
+    def cuantias?
+    	self.tar_valor_cuantias.any?
+    end
+
+    def demandantes?
+    	self.demandantes.any?
+    end
 
     def por_facturar?
     	self.tar_facturaciones.empty? and self.tar_valor_cuantias.any?

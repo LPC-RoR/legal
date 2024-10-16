@@ -1,7 +1,7 @@
 <%= render partial: 'tarifas/tar_valor_cuantias/list/th' %>
 
 <!-- Detalles de cuantía -->
-<% objeto.valores_cuantia.order(:demandante_id, :tar_detalle_cuantia_id).each do |vc| %>
+<% objeto.tar_valor_cuantias.dsply.each do |vc| %>
 	<%= render partial: 'tarifas/tar_valor_cuantias/list/lobjeto', locals: {objeto: vc } %>
 <% end %>
 

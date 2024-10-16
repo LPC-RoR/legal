@@ -10,14 +10,13 @@ class TarFacturacion < ApplicationRecord
 
 	scope :no_aprbcn, -> { where(tar_aprobacion_id: nil) }
 
+	delegate :cliente, to: :ownr, prefix: true
+
 	# MAP del pago
 
+	# DEPRECATED: Es necesario para diferenciar el caso de las tarifas por hora. Se puede cambiar para que padre == ownr
 	def padre
 		self.owner_id.blank? ? nil : (self.owner_class == 'RegReporte' ? self.owner_class.constantize.find(self.owner_id).owner : self.owner_class.constantize.find(self.owner_id))
-	end
-
-	def owner
-		self.owner_class.constantize.find(self.owner_id)
 	end
 
 	def tipo_owner
