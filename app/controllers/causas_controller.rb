@@ -15,13 +15,18 @@ class CausasController < ApplicationController
     @modelo = StModelo.get_model('Causa')
     @estados = @modelo.blank? ? [] : @modelo.stts_arry
 
-    @estado = std('causas', params[:e], params[:t])
+    @estado = std('causas', params[:e], params[:t]) unless params[:t] == 'por_facturar'
     @path = "/causas?"
     @link_new = @estado == 'tramitación' ? causas_path : nil
 
     if params[:query].blank?
 
-      cllcn = Causa.std(@estado) if @estado.present?
+      if params[:t] == 'por_facturar'
+        c_ids = Causa.all.map {|cs| cs.id if cs.por_facturar?}.compact
+        cllcn = Causa.where(id: c_ids)
+      else
+        cllcn = Causa.std(@estado) if @estado.present?
+      end
 
       set_tabla('causas', cllcn, true)
       @srch = false

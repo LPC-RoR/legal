@@ -46,9 +46,11 @@ module Cmenu
 					'tramitación' => 'En Tramitación',
 					'terminada' => 'Terminadas',
 					'cerrada' => 'Cerradas',
-					'revisión' => 'Revisión'
+					'revisión' => 'Revisión',
+					'por_facturar' => 'Por facturar'
 				},
 				selectors: [
+					['por_facturar', admin?]
 				]
 			},
 			'asesorias' => {

@@ -1,7 +1,7 @@
 class TarValorCuantia < ApplicationRecord
 
 	belongs_to :tar_detalle_cuantia
-	belongs_to :demandante
+	belongs_to :demandante, optional: true
 
     validates_presence_of :moneda
 

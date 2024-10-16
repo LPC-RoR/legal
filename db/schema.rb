@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_11_194536) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_16_134449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -2047,6 +2047,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_11_194536) do
     t.decimal "pago_calculo"
     t.integer "tar_calculo_id"
     t.datetime "fecha_uf", precision: nil
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["cliente_class"], name: "index_tar_facturaciones_on_cliente_class"
     t.index ["cliente_id"], name: "index_tar_facturaciones_on_cliente_id"
     t.index ["estado"], name: "index_tar_facturaciones_on_estado"
@@ -2054,6 +2056,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_11_194536) do
     t.index ["moneda"], name: "index_tar_facturaciones_on_moneda"
     t.index ["owner_class"], name: "index_tar_facturaciones_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturaciones_on_owner_id"
+    t.index ["ownr_id"], name: "index_tar_facturaciones_on_ownr_id"
+    t.index ["ownr_type"], name: "index_tar_facturaciones_on_ownr_type"
     t.index ["tar_aprobacion_id"], name: "index_tar_facturaciones_on_tar_aprobacion_id"
     t.index ["tar_calculo_id"], name: "index_tar_facturaciones_on_tar_calculo_id"
     t.index ["tar_cuota_id"], name: "index_tar_facturaciones_on_tar_cuota_id"
@@ -2246,10 +2250,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_11_194536) do
     t.boolean "desactivado"
     t.string "nota"
     t.integer "demandante_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["demandante_id"], name: "index_tar_valor_cuantias_on_demandante_id"
     t.index ["desactivado"], name: "index_tar_valor_cuantias_on_desactivado"
     t.index ["owner_class"], name: "index_tar_valor_cuantias_on_owner_class"
     t.index ["owner_id"], name: "index_tar_valor_cuantias_on_owner_id"
+    t.index ["ownr_id"], name: "index_tar_valor_cuantias_on_ownr_id"
+    t.index ["ownr_type"], name: "index_tar_valor_cuantias_on_ownr_type"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_valor_cuantias_on_tar_detalle_cuantia_id"
   end
 

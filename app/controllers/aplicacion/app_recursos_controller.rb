@@ -21,11 +21,24 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
+    i= 1
 
-    AgeActividad.all.each do |actvdd|
-      actvdd.ownr_type = actvdd.owner_class
-      actvdd.ownr_id = actvdd.owner_id
-      actvdd.save
+    TarFacturacion.all.each do |tf|
+      puts "------------------------------------ TarFacturacion"
+      puts i
+      tf.ownr_type = tf.owner_class
+      tf.ownr_id = tf.owner_id
+      tf.save
+      i += 1
+    end
+
+    TarValorCuantia.all.each do |tvc|
+      puts "------------------------------------ TarValorCuantia"
+      puts i
+      tvc.ownr_type = tvc.owner_class
+      tvc.ownr_id = tvc.owner_id
+      tvc.save
+      i += 1
     end
 
     redirect_to root_path

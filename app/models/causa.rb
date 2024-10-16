@@ -31,6 +31,8 @@ class Causa < ApplicationRecord
 	has_many :monto_conciliaciones
 
 	has_many :age_actividades, as: :ownr
+	has_many :tar_facturaciones, as: :ownr
+	has_many :tar_valor_cuantias, as: :ownr
 
 
 	# antecedentes de los hechos de la tabla
@@ -39,6 +41,12 @@ class Causa < ApplicationRecord
     validates_presence_of :causa, :rit
 
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia)}
+
+    # ---------------------------------------------------------------- MIGRATION
+
+    def por_facturar?
+    	self.tar_facturaciones.empty? and self.tar_valor_cuantias.any?
+    end
 
     # OWN CHILDS
 
@@ -151,7 +159,6 @@ class Causa < ApplicationRecord
 
     def child_records?
     	valores_cuantia.any? or
-    	facturaciones.any? or
     	archivos.any? or 
     	documentos.any? or
     	enlaces.any? or
