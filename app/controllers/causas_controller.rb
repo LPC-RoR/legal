@@ -14,6 +14,7 @@ class CausasController < ApplicationController
 
     @modelo = StModelo.get_model('Causa')
     @estados = @modelo.blank? ? [] : @modelo.stts_arry
+    @tipos = ['por_facturar']
 
     @estado = std('causas', params[:e], params[:t]) unless params[:t] == 'por_facturar'
     @path = "/causas?"
@@ -22,6 +23,7 @@ class CausasController < ApplicationController
     if params[:query].blank?
 
       if params[:t] == 'por_facturar'
+        @tipo = 'por_facturar'
         c_ids = Causa.all.map {|cs| cs.id if cs.por_facturar?}.compact
         cllcn = Causa.where(id: c_ids)
       else
