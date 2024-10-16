@@ -65,21 +65,21 @@ class Tarifas::TarCalculosController < ApplicationController
   end
 
   def crea_aprobacion
-    cliente = @objeto.owner.cliente
+    cliente = @objeto.ownr_cliente
     # crea aprobacion
     aprobacion = cliente.tar_aprobaciones.create(cliente_id: cliente.id, fecha: Time.zone.today.to_date)
     aprobacion.tar_calculos << @objeto
     # asocia todas las facturaciones del cliente disponibles
-    disponibles = TarCalculo.where(tar_aprobacion_id: nil)
+    disponibles = TarCalculo.no_aprbcn
     disponibles.each do |ccl|
-      aprobacion.tar_calculos << ccl if ccl.owner.cliente.id == cliente.id
+      aprobacion.tar_calculos << ccl if ccl.ownr_cliente.id == cliente.id
     end
 
-    redirect_to "/causas/#{@objeto.owner.id}?html_options[menu]=Tarifa+%26+Pagos"
+    redirect_to "/causas/#{@objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos"
   end
 
   def liberar_calculo
-    causa = @objeto.owner
+    causa = @objeto.ownr
     @objeto.tar_aprobacion_id = nil
     @objeto.save
 
