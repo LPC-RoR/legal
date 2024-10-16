@@ -60,12 +60,12 @@ class TarFacturacion < ApplicationRecord
 	# esta fecha establece el día en el que se realizó el cálculo de la tarifa
 	# verifica si hay fecha de cálculo en la causa, si no, es la fecha de creación del tar_facturacion
 	def fecha_calculo
-		if self.owner.class.name == 'Causa'
+		if self.ownr.class.name == 'Causa'
 			tar_pago = self.find_pago
-			tar_uf_facturacion = self.owner.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
+			tar_uf_facturacion = self.ownr.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
 			tar_uf_facturacion.blank? ? self.created_at : tar_uf_facturacion.fecha_uf
-		elsif self.owner.class.name == 'Asesoria'
-			self.owner.fecha_uf.blank? ? self.created_at : self.owner.fecha_uf
+		elsif self.ownr.class.name == 'Asesoria'
+			self.ownr.fecha_uf.blank? ? self.created_at : self.ownr.fecha_uf
 		else
 			self.created_at
 		end
