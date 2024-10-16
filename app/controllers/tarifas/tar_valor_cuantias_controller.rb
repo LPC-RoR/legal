@@ -13,13 +13,11 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
   # GET /tar_valor_cuantias/new
   def new
-    @owner = params[:class_name].constantize.find(params[:objeto_id])
-    @objeto = TarValorCuantia.new(owner_class: params[:class_name], owner_id: params[:objeto_id])
+    @objeto = TarValorCuantia.new(ownr_type: params[:class_name], ownr_id: params[:objeto_id])
   end
 
   # GET /tar_valor_cuantias/1/edit
   def edit
-    @owner = @objeto.owner
   end
 
   # POST /tar_valor_cuantias or /tar_valor_cuantias.json
@@ -69,11 +67,11 @@ class Tarifas::TarValorCuantiasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/causas/#{@objeto.owner.id}?html_options[menu]=#{CGI.escape('Datos & Cuantía')}"
+      @redireccion = "/causas/#{@objeto.ownr.id}?html_options[menu]=#{CGI.escape('Datos & Cuantía')}"
     end
 
     # Only allow a list of trusted parameters through.
     def tar_valor_cuantia_params
-      params.require(:tar_valor_cuantia).permit(:owner_class, :owner_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda, :valor_tarifa, :nota, :desactivado, :demandante_id)
+      params.require(:tar_valor_cuantia).permit(:ownr_type, :ownr_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda, :valor_tarifa, :nota, :desactivado, :demandante_id)
     end
 end

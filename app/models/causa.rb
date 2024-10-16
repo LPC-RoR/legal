@@ -41,7 +41,8 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
-    scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia)}
+    scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
+    scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.no_fctrds?}.compact)}
 
     # ---------------------------------------------------------------- MGRTN
 
@@ -53,7 +54,7 @@ class Causa < ApplicationRecord
     	self.demandantes.any?
     end
 
-    def por_facturar?
+    def no_fctrds?
     	self.tar_facturaciones.empty? and self.tar_valor_cuantias.any?
     end
 

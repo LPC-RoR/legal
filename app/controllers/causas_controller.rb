@@ -24,8 +24,9 @@ class CausasController < ApplicationController
 
       if params[:t] == 'por_facturar'
         @tipo = 'por_facturar'
-        c_ids = Causa.all.map {|cs| cs.id if cs.por_facturar?}.compact
-        cllcn = Causa.where(id: c_ids)
+#        c_ids = Causa.all.map {|cs| cs.id if cs.no_fctrds?}.compact
+#        cllcn = Causa.where(id: c_ids)
+        cllcn = Causa.no_fctrds
       else
         cllcn = Causa.std(@estado) if @estado.present?
       end
@@ -71,9 +72,6 @@ class CausasController < ApplicationController
       set_tabla('hechos', @objeto.hechos.where(tema_id: nil).order(:orden), false)
       set_tabla('app_archivos', @objeto.app_archivos.order(:app_archivo), false)
     when 'Datos & Cuantía'
-      # no se usa esta tabla, quizá luego se use para evitar proceso en vista
-#      set_tabla('tar_valor_cuantias', @objeto.valores_cuantia, false)
-
       @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
       @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
 
