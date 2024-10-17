@@ -21,44 +21,16 @@ class TarFacturacion < ApplicationRecord
 #	end
 	# ******************************************************************************** Manejo de Tarifas
 
-	# TarFacturacion puede estar relacionado con TarPago o TarCuota cuando se trata de una causa
-	def find_pago
-		self.tar_pago_id.present? ? self.tar_pago : (self.tar_cuota_id.present? ? self.tar_cuota.tar_pago : nil)
-	end
-
-	# true : Establece cuando el detalle de cuantía asociado debe mostrar, porcentajes utilizado para calcular tarifa variable TOTAL
-	def porcentaje_cuantia?
-		self.tar_pago.blank? ? false : (self.tar_pago.porcentaje_cuantia.blank? ? false : self.tar_pago.porcentaje_cuantia)
-	end
-
-	# esta fecha establece el día en el que se realizó el cálculo de la tarifa
-	# verifica si hay fecha de cálculo en la causa, si no, es la fecha de creación del tar_facturacion
-	def fecha_calculo
-		if self.ownr.class.name == 'Causa'
-			tar_pago = self.find_pago
-			tar_uf_facturacion = self.ownr.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
-			tar_uf_facturacion.blank? ? self.created_at : tar_uf_facturacion.fecha_uf
-		elsif self.ownr.class.name == 'Asesoria'
-			self.ownr.fecha_uf.blank? ? self.created_at : self.ownr.fecha_uf
-		else
-			self.created_at
-		end
-	end
-
+	# /legal/app/controllers/organizacion/servicios_controller.rb:
 	def origen_fecha_uf
 		if self.ownr.class.name == 'Causa'
-			tar_pago = self.find_pago
-			tar_uf_facturacion = self.ownr.uf_facturaciones.find_by(tar_pago_id: tar_pago.id)
+			tar_uf_facturacion = self.ownr.uf_facturaciones.find_by(tar_pago_id: self.tar_pago_id)
 			tar_uf_facturacion.blank? ? 'TarFacturacion' : 'TarUfFacturacion'
 		elsif self.ownr.class.name == 'Asesoria'
 			self.ownr.fecha_uf.blank? ? 'TarFacturacion' : 'Asesoria'
 		else
 			'TarFacturacion'
 		end
-	end
-
-	def uf_calculo
-		TarUfSistema.find_by(fecha: self.fecha_calculo.to_date)
 	end
 
 	# -------------------------------------------------------------------------------------------------
@@ -89,22 +61,6 @@ class TarFacturacion < ApplicationRecord
 			nil
 		else
 			self.padre.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
-		end
-	end
-
-	def control_estado
-		if self.tar_aprobacion.blank? and self.tar_factura.blank?
-			'ingreso'
-		elsif self.tar_aprobacion.present? and self.tar_factura.blank?
-			'aprobación'
-		elsif self.tar_factura.present?
-			if self.tar_factura.documento.blank?
-				'aprobado'
-			elsif self.tar_factura.documento.present? and self.tar_factura.fecha_pago.blank?
-				'facturado'
-			elsif self.tar_factura.documento.present? and self.tar_factura.fecha_pago.present?
-				'pagado'
-			end
 		end
 	end
 

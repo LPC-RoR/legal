@@ -24,8 +24,6 @@ class CausasController < ApplicationController
 
       if params[:t] == 'por_facturar'
         @tipo = 'por_facturar'
-#        c_ids = Causa.all.map {|cs| cs.id if cs.no_fctrds?}.compact
-#        cllcn = Causa.where(id: c_ids)
         cllcn = Causa.no_fctrds
       else
         cllcn = Causa.std(@estado) if @estado.present?

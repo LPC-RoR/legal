@@ -45,13 +45,20 @@ class ClientesController < ApplicationController
     elsif @options[:menu] == 'Causas'
 
       @estados = StModelo.find_by(st_modelo: 'Causa').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
+      @tipos = ['por_facturar']
       @tipos = nil
-      @tipo = nil
+
       @estado = params[:e].blank? ? @estados[0] : params[:e]
       @path = "/clientes/#{@objeto.id}?html_options[menu]=Causas&"
 
-      coleccion = @objeto.causas.where(estado: @estado).order(created_at: :desc)
-      set_tabla('causas', coleccion, true)
+      if params[:t] == 'por_facturar'
+        @tipo = 'por_facturar'
+        cllcn = @objeto.causas.no_fctrds
+      else
+        cllcn = @objeto.causas.where(estado: @estado).order(created_at: :desc)
+      end
+
+      set_tabla('causas', cllcn, true)
 
     elsif @options[:menu] == 'Asesorias'
 
