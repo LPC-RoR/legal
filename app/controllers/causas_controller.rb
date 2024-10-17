@@ -149,7 +149,7 @@ class CausasController < ApplicationController
       sheet.add_row ['Audiencia preparatoria', fecha_ap]
       sheet.add_row ['Detalle de la cuantía']
       sheet.add_row ['Item', 'Honorarios', 'Real']
-      @objeto.valores_cuantia.each do |vc|
+      @objeto.tar_valor_cuantias.each do |vc|
         sheet.add_row [vc.detalle, vlr_tarifa(vc), vlr_cuantia(vc, 'real')]
       end
       sheet.add_row ['Total', get_total_cuantia(@objeto, 'tarifa'), get_total_cuantia(@objeto, 'real')]
@@ -209,7 +209,7 @@ class CausasController < ApplicationController
 
   def traer_archivos_cuantia
     controlados = @objeto.app_archivos.map { |app_a| app_a.app_archivo }
-    @objeto.valores_cuantia.each do |valor_cuantia|
+    @objeto.tar_valor_cuantias.each do |valor_cuantia|
       valor_cuantia.tar_detalle_cuantia.control_documentos.each do |control|
         unless controlados.include?(control.nombre)
           controlados << control.nombre

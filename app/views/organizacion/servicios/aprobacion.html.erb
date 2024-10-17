@@ -16,7 +16,7 @@
 					<% unless tar_calculo.ownr.demandantes.empty? %>
 						<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: tar_calculo.ownr} %>
 					<% end %>
-					<% unless tar_calculo.ownr.valores_cuantia.empty? %>
+					<% unless tar_calculo.ownr.tar_valor_cuantias.empty? %>
 						<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: tar_calculo.ownr, porcentaje_cuantia: false } %>
 					<% end %>
 				<% end %>

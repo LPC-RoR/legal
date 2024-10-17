@@ -55,7 +55,7 @@ class Causa < ApplicationRecord
     end
 
     def no_fctrds?
-    	self.tar_facturaciones.empty? and self.tar_valor_cuantias.any?
+    	self.tar_facturaciones.empty? and self.cuantias?
     end
 
     # OWN CHILDS
@@ -70,23 +70,7 @@ class Causa < ApplicationRecord
     	self.age_actividades.where(tipo: ['Audiencia', 'Hito']).fecha_d_ordr
     end
 
-	def valores_cuantia
-		TarValorCuantia.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def cuantia_modificada?
-		self.valores_cuantia.map {|vc| vc.activado?}.include?(false)
-	end
-
-	def text_cuantia
-		self.valores_cuantia.map {|vc| vc.detalle}.join(' ')
-	end
-
 	# PAGOS
-
-	def facturaciones
-#		TarFacturacion.where(owner_class: self.class.name, owner_id: self.id)
-	end
 
 	# Archivos y control de archivos
 
@@ -164,7 +148,6 @@ class Causa < ApplicationRecord
 	end
 
     def child_records?
-    	valores_cuantia.any? or
     	archivos.any? or 
     	documentos.any? or
     	enlaces.any? or
@@ -267,29 +250,6 @@ class Causa < ApplicationRecord
 		self.facturaciones.map {|factn| factn.monto_uf}.sum
 	end
 
-	# DEPRECATED
-	def total_cuantia
-		v_pesos = self.valores_cuantia.map {|vc| vc.valor if vc.moneda == 'Pesos'}.compact
-		v_uf = self.valores_cuantia.map {|vc| vc.valor if vc.moneda != 'Pesos'}.compact
-		[v_pesos.empty? ? 0 : v_pesos.sum, v_uf.empty? ? 0 : v_uf.sum]
-	end
-
-	# DEPRECATED
-	def cuantia_pesos(pago)
-		tc = self.total_cuantia
-		uf = self.uf_calculo_pago(pago)
-		valor_uf = uf.blank? ? 0 : uf.valor
-		tc[0] + tc[1] * valor_uf
-	end
-
-	# DEPRECATED
-	def cuantia_uf(pago)
-		tc = self.total_cuantia
-		uf = self.uf_calculo_pago(pago)
-		valor_uf = uf.blank? ? 0 : uf.valor
-		valor_uf == 0 ? 0 : tc[0] / valor_uf + tc[1]
-	end
-
     # ****************************************************
 
     def st_modelo
@@ -316,10 +276,6 @@ class Causa < ApplicationRecord
 		(uf.blank? or self.monto_pagado.blank?) ? 0 : self.monto_pagado / uf.valor
 	end
 
-	def v_cuantia
-		[self.valores_cuantia.map {|vc| vc.valor}.sum, self.valores_cuantia.map {|vc| vc.valor_uf}.sum]
-	end
-
 	def as_owner
 		self.causa
 	end
@@ -328,8 +284,9 @@ class Causa < ApplicationRecord
 		self.rit.blank? ? ( self.rol.blank? ? self.identificador : "#{self.rol} : #{self.era}") : self.rit
 	end
 
+	# /legal/app/views/causas/list/_monto_pagado.html.erb:
 	def detalle_cuantia(moneda)
-		valor = self.valores_cuantia.map { |vc| vc.valor if vc.moneda == moneda }.compact.sum
+		valor = self.tar_valor_cuantias.map { |vc| vc.valor if vc.moneda == moneda }.compact.sum
 		valor.blank? ? 0 : valor
 	end
 

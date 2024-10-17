@@ -241,7 +241,7 @@ module Tarifas
 	end
 
 	def get_total_cuantia(causa, tipo)
-		tipo == 'real' ? causa.valores_cuantia.map {|vlr_cnt| vlr_cuantia(vlr_cnt, 'real')}.sum : causa.valores_cuantia.map {|vlr_cnt| vlr_tarifa(vlr_cnt)}.sum
+		tipo == 'real' ? causa.tar_valor_cuantias.map {|vlr_cnt| vlr_cuantia(vlr_cnt, 'real')}.sum : causa.tar_valor_cuantias.map {|vlr_cnt| vlr_tarifa(vlr_cnt)}.sum
 	end
 
 	def get_total_cuantia_uf(causa, pago, tipo)
@@ -340,7 +340,7 @@ module Tarifas
     	uf_calculo = get_uf_calculo(objeto, pago)
     	if objeto.class.name == 'Causa'
 	    	# Si en una tarifa de cuantía, no hay cuantía o no hay UF para un pago que la requiere.
-	    	if (pago.valor.blank? and objeto.valores_cuantia.empty?) or (uf_calculo.blank? and pago.requiere_uf)
+	    	if (pago.valor.blank? and objeto.tar_valor_cuantias.empty?) or (uf_calculo.blank? and pago.requiere_uf)
 	    		monto_uf = 0
 	    		monto_pesos = 0
 	    	elsif tar_calculo.blank? and tar_facturacion.blank?
@@ -383,12 +383,12 @@ module Tarifas
 
 	# MÉTODOS PARA CALCULAR HONORARIO VARIABLE
 	def get_vctr_prcntgs(causa)
-		causa.valores_cuantia.map {|vc| vc.porcentaje_variable}.uniq.sort
+		causa.tar_valor_cuantias.map {|vc| vc.porcentaje_variable}.uniq.sort
 	end
 
 	def get_subtotales_cuantia(causa, pago)
 		sbtts_cnt = {}
-		causa.valores_cuantia.each do |vc|
+		causa.tar_valor_cuantias.each do |vc|
 			prcntg = vc.porcentaje_variable
 			if sbtts_cnt[vc.porcentaje_variable].blank?
 				sbtts_cnt[prcntg] = vlr_tarifa(vc)
