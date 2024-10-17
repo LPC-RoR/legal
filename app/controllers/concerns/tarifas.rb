@@ -221,13 +221,13 @@ module Tarifas
 			rem = demandante.blank? ? 0 : demandante.remuneracion
 			formula = formula.gsub('$Remuneración', rem.to_s)
 		end
-		valor.blank? ? ( formula.blank? ? 0 : calcula2(formula, tar_valor_cuantia.owner, nil) ) : valor
+		valor.blank? ? ( formula.blank? ? 0 : calcula2(formula, tar_valor_cuantia.ownr, nil) ) : valor
 	end
 
 	def chck_cuantia(tar_valor_cuantia, tipo)
 		formula = tipo == 'real' ? tar_valor_cuantia.formula : tar_valor_cuantia.formula_honorarios
 		valor = tipo == 'real' ? tar_valor_cuantia.valor : tar_valor_cuantia.valor_tarifa
-		valor.blank? ? 'formula' : ( formula.blank? ? 'campo' : valor == calcula2(formula, tar_valor_cuantia.owner, nil) ? 'ok' : 'fail' )
+		valor.blank? ? 'formula' : ( formula.blank? ? 'campo' : valor == calcula2(formula, tar_valor_cuantia.ownr, nil) ? 'ok' : 'fail' )
 	end
 
 	def vlr_tarifa(tar_valor_cuantia)
