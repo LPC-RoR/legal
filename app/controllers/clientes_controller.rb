@@ -48,7 +48,7 @@ class ClientesController < ApplicationController
       @tipos = ['por_facturar']
       @tipos = nil
 
-      @estado = params[:e].blank? ? @estados[0] : params[:e]
+      @estado = (params[:e].blank? and params[:t] != 'por_facturar') ? @estados[0] : params[:e]
       @path = "/clientes/#{@objeto.id}?html_options[menu]=Causas&"
 
       if params[:t] == 'por_facturar'
