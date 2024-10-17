@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 	helper_method :arriba, :abajo, :reordenar
 	helper_method :params_to_date, :dt_hoy, :s_hoy
 	helper_method :swtch_urgencia, :swtch_pendiente, :swtch_prrdd
-	helper_method :calcula2, :set_formulas, :set_valores, :vlr_cuantia, :chck_cuantia, :vlr_tarifa, :chck_tarifa, :get_total_cuantia 
+	helper_method :calcula2, :set_formulas, :vlr_cuantia, :chck_cuantia, :vlr_tarifa, :chck_tarifa, :get_total_cuantia 
 	helper_method :pgs_stts, :get_fecha_calculo, :leyenda_origen_fecha_calculo, :get_uf_calculo, :get_v_calculo_tarifa, :get_tar_uf_facturacion, :get_tar_facturacion, :get_monto_calculo_pesos, :get_monto_calculo_uf
 	helper_method :modelo_negocios_general, :cuentas_corrientes, :periodos
 	helper_method :nombre_dia, :nombre3_dia, :load_calendario, :get_cal_dia, :dyf, :prfx_dia

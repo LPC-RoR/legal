@@ -152,7 +152,6 @@ class Causa < ApplicationRecord
     	documentos.any? or
     	enlaces.any? or
     	valores_datos.any? or
-    	actividades.any? or
     	reportes.any? or 
     	registros.any? or
     	uf_facturaciones.any?
@@ -167,41 +166,13 @@ class Causa < ApplicationRecord
     end
 
     def get_age_actividad(nombre)
-    	self.actividades.find_by(age_actividad: nombre)
+    	self.age_actividades.find_by(age_actividad: nombre)
     end
-
-	def set_valores
-		calc_valores = {}
-
-		self.class::CALC_VALORES.each do |class_valor|
-			case class_valor[0]
-			when '#'
-				calc_valores[class_valor] = {}
-				unless self.tar_tarifa.blank? or self.tar_tarifa.tar_pagos.empty?
-					self.tar_tarifa.tar_pagos.each do |tar_pago|
-						if ['#monto_pagado', '#facturado_pesos', '#facturado_uf'].include?(class_valor)
-							calc_valores[class_valor][tar_pago.id] = self.send(class_valor.gsub('#', ''))
-						else
-							calc_valores[class_valor][tar_pago.id] = self.send(class_valor.gsub('#', ''), tar_pago)
-						end
-					end 
-				end 
-			when '$'
-				valor = self.valor(class_valor.gsub('$', ''))
-				calc_valores[class_valor] = valor.blank? ? 0 : valor
-			when '@'
-				fyc = class_valor.match(/^@(?<facturable>.+):(?<campo>.+)/)
-				tar_facturacion = objeto.facturaciones.find_by(facturable: fyc[:facturable])
-				calc_valores[class_valor] = tar_facturacion.blank? ? 0 : (tar_facturacion.send(fyc[:campo]).blank? ? 0 : tar_facturacion.send(fyc[:campo]))
-			end
-		end
-		calc_valores
-	end
 
 	# Encuentra el PAGO (TarFacturacion) asociado al pago
 	def pago_generado(objeto)
 		# objeto.class.name {TarPago, TarCuota}
-		objeto.class.name == 'TarPago' ? self.facturaciones.find_by(tar_pago_id: objeto.id) : self.facturaciones.find_by(tar_cuota_id: objeto.id)
+		objeto.class.name == 'TarPago' ? self.tar_facturaciones.find_by(tar_pago_id: objeto.id) : self.tar_facturaciones.find_by(tar_cuota_id: objeto.id)
 	end
 
 	# REVISAR --> DEPRECATED : Se remplaza por uf_tacturacion en concerns::tarifas
@@ -243,11 +214,11 @@ class Causa < ApplicationRecord
 	end
 
 	def facturado_pesos
-		self.facturaciones.map {|factn| factn.monto_pesos}.sum
+		self.tar_facturaciones.map {|factn| factn.monto_pesos}.sum
 	end
 
 	def facturado_uf
-		self.facturaciones.map {|factn| factn.monto_uf}.sum
+		self.tar_facturaciones.map {|factn| factn.monto_uf}.sum
 	end
 
     # ****************************************************

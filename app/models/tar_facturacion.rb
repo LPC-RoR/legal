@@ -13,17 +13,12 @@ class TarFacturacion < ApplicationRecord
 
 	delegate :cliente, to: :ownr, prefix: true
 
-	# Dejamos el campo facturtable por si lo necesitamos en los casos en los que tar_pago_id == nil
-
-	# MAP del pago
+	# Dejamos el campo facturable por si lo necesitamos en los casos en los que tar_pago_id == nil
 
 	# DEPRECATED: Es necesario para diferenciar el caso de las tarifas por hora. Se puede cambiar para que padre == ownr
 #	def padre
 #		self.owner_id.blank? ? nil : (self.owner_class == 'RegReporte' ? self.owner_class.constantize.find(self.owner_id).owner : self.owner_class.constantize.find(self.owner_id))
 #	end
-
-	# ******************************************************************************** NUEVO manejo de tarifa (despliegue de pagos)
-
 	# ******************************************************************************** Manejo de Tarifas
 
 	# TarFacturacion puede estar relacionado con TarPago o TarCuota cuando se trata de una causa

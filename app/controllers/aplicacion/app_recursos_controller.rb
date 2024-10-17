@@ -37,11 +37,18 @@ class Aplicacion::AppRecursosController < ApplicationController
 #      i += 1
 #    end
 
-    TarCalculo.all.each do |tc|
-      puts "_______________________________________________________________________"
-      tc.cliente_id = tc.clnt_id
-      tc.ownr_type = tc.ownr_clss
-      tc.save
+#    TarCalculo.all.each do |tc|
+#      puts "_______________________________________________________________________"
+#      tc.cliente_id = tc.clnt_id
+#      tc.ownr_type = tc.ownr_clss
+#      tc.save
+#    end
+
+    TarFacturacion.all.each do |tf|
+      if tf.ownr_type == 'Causa' and tf.tar_pago_id.blank? and tar_cuota_id.present?
+        tf.tar_pago_id = tf.tar_cuota.tar_pago.id
+        tf.save
+      end
     end
 
     redirect_to root_path
