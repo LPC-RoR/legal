@@ -36,7 +36,7 @@ class TarFacturacion < ApplicationRecord
 	# -------------------------------------------------------------------------------------------------
 
 	def uf_calculo
-		ufs = TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
+		fecha_uf.blank? ? 0 : TarUfSistema.find_by(fecha: self.fecha_uf.to_date)
 	end
 
 	def monto_ingreso
