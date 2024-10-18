@@ -51,11 +51,7 @@ class Aplicacion::AppRecursosController < ApplicationController
 #      end
 #    end
 
-    TarUfFacturacion.all.each do |tuf|
-      tuf.ownr_type = tuf.owner_class
-      tuf.ownr_id = tuf.owner_id
-      tuf.save
-    end
+    TarUfFacturacion.delete_all
 
     redirect_to root_path
   end
