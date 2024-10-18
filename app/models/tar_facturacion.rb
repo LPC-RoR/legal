@@ -59,13 +59,4 @@ class TarFacturacion < ApplicationRecord
 		self.moneda == 'Pesos' ? self.to_uf : self.monto_ingreso
 	end
 
-	# *************************************************************************************************
-	def pago_tarifa
-		if ['RegReporte', 'TarServicio'].include?(self.padre.class.name)
-			nil
-		else
-			self.padre.tar_tarifa.tar_pagos.find_by(codigo_formula: self.facturable)
-		end
-	end
-
 end

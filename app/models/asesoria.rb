@@ -5,6 +5,7 @@ class Asesoria < ApplicationRecord
 
 	has_one :tar_calculo, as: :ownr
 	has_one :tar_facturacion, as: :ownr
+	has_one :tar_uf_facturacion, as: :ownr
 
     validates_presence_of :descripcion
 

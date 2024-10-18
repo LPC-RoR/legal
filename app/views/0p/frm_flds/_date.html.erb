@@ -1,0 +1,4 @@
+<div class="formCell">
+	<%= form.label(token, label) %>
+	<%= form.date_select token , {order: [:day, :month, :year], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?' }, selected: Time.zone.today}, {required: false} %>
+</div>

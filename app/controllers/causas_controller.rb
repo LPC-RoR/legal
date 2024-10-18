@@ -1,7 +1,7 @@
 class CausasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor input_tar_facturacion elimina_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd swtch_urgencia swtch_pendiente ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd swtch_urgencia swtch_pendiente ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -79,7 +79,7 @@ class CausasController < ApplicationController
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
       set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
 
-      @pgs_stts = @objeto.tar_tarifa.blank? ? [] : pgs_stts(@objeto, @objeto.tar_tarifa)
+      @pgs_stts = @objeto.tar_tarifa.blank? ? [] : pgs_stts(@objeto)
 
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
@@ -323,32 +323,31 @@ class CausasController < ApplicationController
   end
 
   # Manegos de TarUfFacturacion
-  def input_tar_facturacion
-    unless params[:form_tar_facturacion]['fecha_uf(1i)'].blank? or params[:form_tar_facturacion]['fecha_uf(2i)'].blank? or params[:form_tar_facturacion]['fecha_uf(3i)'].blank?
+  def add_uf_facturacion
+    prms = params[:form_uf_facturacion]
+    unless prms['fecha_uf(1i)'].blank? or prms['fecha_uf(2i)'].blank? or prms['fecha_uf(3i)'].blank?
       tar_pago = TarPago.find(params[:pid])
       unless tar_pago.blank?
-        tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
-        annio = params[:form_tar_facturacion]['fecha_uf(1i)'].to_i
-        mes = params[:form_tar_facturacion]['fecha_uf(2i)'].to_i
-        dia = params[:form_tar_facturacion]['fecha_uf(3i)'].to_i
+        tar_uf_facturacion = get_tar_uf_facturacion(@objeto, tar_pago)
+        fecha_uf = params_to_date(prms, 'fecha_uf')
 
         if tar_uf_facturacion.blank?
-          tar_uf_facturacion = TarUfFacturacion.create( owner_class: 'Causa', owner_id: @objeto.id, tar_pago_id: tar_pago.id )
+          tar_uf_facturacion = TarUfFacturacion.create( ownr_type: 'Causa', ownr_id: @objeto.id, tar_pago_id: tar_pago.id )
         end
-        tar_uf_facturacion.fecha_uf = Time.zone.parse("#{annio}-#{mes}-#{dia}")
+        tar_uf_facturacion.fecha_uf = fecha_uf
         tar_uf_facturacion.save
       end
     end
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifas & Pagos')}"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}"
   end
 
-  def elimina_uf_facturacion
+  def del_uf_facturacion
     tar_pago = TarPago.find(params[:pid])
-    tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
+    tar_uf_facturacion = get_tar_uf_facturacion(@objeto, tar_pago)
     tar_uf_facturacion.delete
 
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifas & Pagos')}"
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}"
   end
 
   # DELETE /causas/1 or /causas/1.json

@@ -255,13 +255,13 @@ module Tarifas
 	end
 
 	# Sirve para causa / asesoria
-	def get_tar_calculo(objeto, pago)
-		objeto.class.name == 'Causa' ? objeto.tar_calculos.find_by(tar_pago_id: pago.id) : objeto.calculo
+	def get_tar_calculo(ownr, pago)
+		ownr.class.name == 'Causa' ? ownr.tar_calculos.find_by(tar_pago_id: pago.id) : ownr.tar_calculo
 	end
 
 	# Sirve para causa / asesoria
 	def get_tar_facturacion(objeto, pago)
-		objeto.class.name == 'Causa' ? objeto.tar_facturaciones.where(tar_pago_id: pago.id).first : objeto.facturacion
+		objeto.class.name == 'Causa' ? objeto.tar_facturaciones.find_by(tar_pago_id: pago.id) : objeto.tar_facturacion
 	end
 
 	# Se ajusta al menejo de cuotas
@@ -275,14 +275,14 @@ module Tarifas
 	end
 
 	# Sirve para causa / asesoria
-	def get_tar_uf_facturacion(objeto, pago)
-		objeto.class.name == 'Causa' ? objeto.uf_facturaciones.where(tar_pago_id: pago.id).first : objeto.facturacion
+	def get_tar_uf_facturacion(ownr, pago)
+		ownr.class.name == 'Causa' ? ownr.tar_uf_facturaciones.find_by(tar_pago_id: pago.id) : ownr.tar_uf_facturacion
 	end
 
 	# es un Array que contiene los cálculos, pagos o nil (si no hay ninguno de los anteriores)
-	def pgs_stts(causa, tarifa)
+	def pgs_stts(causa)
 		h_status = {}
-		tarifa.tar_pagos.order(:orden).each do |pago|
+		causa.tar_tarifa_tar_pagos.ordr.each do |pago|
 			tar_calculo = get_tar_calculo(causa, pago)
 			tar_facturacion = get_tar_facturacion(causa, pago)
 			h_status[pago.id] = tar_calculo.present? ? tar_calculo : ( tar_facturacion.present? ? tar_facturacion : nil )
@@ -291,42 +291,42 @@ module Tarifas
 	end
 
 	# este método debe aplicar a Causa y Asesoría
-	def get_fecha_calculo(causa, pago)
-		if causa.class.name == 'Causa'
-			tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
-			fecha1 = tar_uf_facturacion.blank? ? nil : tar_uf_facturacion.fecha_uf
+	def get_fecha_calculo(ownr, pago)
+		tar_uf_facturacion = get_tar_uf_facturacion(ownr, pago)
+		f1 = tar_uf_facturacion.blank? ? nil : tar_uf_facturacion.fecha_uf
 
-			tar_calculo = get_tar_calculo(causa, pago)
-			fecha2 = tar_calculo.blank? ? nil : tar_calculo.fecha_uf
+		tar_calculo = get_tar_calculo(ownr, pago)
+		f2 = tar_calculo.blank? ? nil : tar_calculo.fecha_uf
 
-			tar_facturacion = get_tar_facturacion(causa, pago)
-			fecha3 = tar_facturacion.blank? ? nil : tar_facturacion.fecha_uf
+		tar_facturacion = get_tar_facturacion(ownr, pago)
+		f3 = tar_facturacion.blank? ? nil : tar_facturacion.fecha_uf
 
-			fecha1.present? ? fecha1 : ( fecha2.present? ? fecha2 : (fecha3.present? ? fecha3 : (tar_facturacion.present? ? tar_facturacion.created_at : Time.zone.today)) )
-		elsif causa.class.name == 'Asesoria'
-			causa.fecha_uf.present? ? causa.fecha_uf : causa.facturacion.created_at
-		end
+		f_uf = f1.present? ? f1 : ( f2.present? ? f2 : f3 )
+		f_uf.blank? ? ( tar_facturacion.present? ? tar_facturacion.created_at : Time.zone.today ) : f_uf
 	end
 
 	# UF de cálculo tarifa
 	# Sirve para Causa / Asesoría
-	def get_uf_calculo(objeto, pago)
-		fecha_uf = objeto.class.name == 'Causa' ? get_fecha_calculo(objeto, pago) : (objeto.uf_facturacion.present? ? objeto.uf_facturacion.fecha : objeto.created_at )
-		fecha_uf.blank? ? nil : uf_fecha( fecha_uf )
+	def get_uf_calculo(ownr, pago)
+		vlr_uf(get_fecha_calculo(ownr, pago))
+	end
+
+	def requiere_uf(ownr, pago)
+		pago.blank? ? (ownr.tar_servicio.blank? ? false : (ownr.tar_servicio.moneda == 'UF')) : pago.requiere_uf
 	end
 
 	# Monto en pesos de TarCalculo o TarFacturación
 	# Sirve para Causa / Asesoría : objeto = {tar_calculo, tar_facturacion}; owner = {causa, asesoria}
 	def get_monto_calculo_pesos(objeto, owner, pago)
 		uf = get_uf_calculo(owner, pago)
-		objeto.moneda == 'Pesos' ? objeto.monto : (get_uf_calculo(owner, pago).blank? ? 0 : (objeto.monto * get_uf_calculo(owner, pago)))
+		objeto.moneda == 'Pesos' ? objeto.monto : (uf.blank? ? 0 : (objeto.monto * uf))
 	end
 
 	# Monto en UF de TarCalculo o TarFacturación
 	# Sirve para Causa / Asesoría : objeto = {tar_calculo, tar_facturacion}; owner = {causa, asesoria}
 	def get_monto_calculo_uf(objeto, owner, pago)
 		uf = get_uf_calculo(owner, pago)
-		['UF', '', nil].include?(objeto.moneda) ? objeto.monto : (get_uf_calculo(owner, pago).blank? ? 0 : objeto.monto / get_uf_calculo(owner, pago))
+		['UF', '', nil].include?(objeto.moneda) ? objeto.monto : (uf.blank? ? 0 : objeto.monto / uf)
 	end
 
     # Se usa en el ENCABEZADO del DETALLE DE UN PAGO
@@ -334,28 +334,26 @@ module Tarifas
     # 1.- Si no se cumple 1.- y hay TarFacturacion, saca la info de ahí
     # 3.- Si no se cumplen 1.- ni 2.- Se calcula para deplegar el monto para aprobación
     # Sirve para Causa / Asesoria: cambiamos causa por objeto
-    def get_v_calculo_tarifa(objeto, pago)
-    	tar_facturacion = get_tar_facturacion(objeto, pago)
-    	tar_calculo = get_tar_calculo(objeto, pago)
-    	uf_calculo = get_uf_calculo(objeto, pago)
-    	if objeto.class.name == 'Causa'
-	    	# Si en una tarifa de cuantía, no hay cuantía o no hay UF para un pago que la requiere.
-	    	if (pago.valor.blank? and objeto.tar_valor_cuantias.empty?) or (uf_calculo.blank? and pago.requiere_uf)
-	    		monto_uf = 0
-	    		monto_pesos = 0
-	    	elsif tar_calculo.blank? and tar_facturacion.blank?
-	    		monto = pago.valor.blank? ? (pago.formula_tarifa.blank? ? 0 : calcula2(pago.formula_tarifa, objeto, pago)) : pago.valor
-		        monto_pesos = pago.moneda == 'Pesos' ? monto : ( uf_calculo.blank? ? 0 : monto * uf_calculo )
-		        monto_uf = pago.moneda == 'UF' ? monto : ( uf_calculo.blank? ? 0 : monto / uf_calculo )
-	    	else
-	    		cll_fctn = tar_calculo.present? ? tar_calculo : tar_facturacion
-	    		monto_pesos = get_monto_calculo_pesos(cll_fctn, objeto, pago)
-	    		monto_uf = get_monto_calculo_uf(cll_fctn, objeto, pago)
-	    	end
-	    else
-    		cll_fctn = tar_calculo.present? ? tar_calculo : tar_facturacion
-    		monto_pesos = get_monto_calculo_pesos(cll_fctn, objeto, pago)
-    		monto_uf = get_monto_calculo_uf(cll_fctn, objeto, pago)
+    def get_v_calculo_tarifa(ownr, pago)
+    	tar_facturacion = get_tar_facturacion(ownr, pago)
+    	tar_calculo = get_tar_calculo(ownr, pago)
+    	obj = tar_calculo.blank? ? tar_facturacion : tar_calculo
+    	uf_calculo = get_uf_calculo(ownr, pago)
+    	if obj.present?
+    		monto_pesos = get_monto_calculo_pesos(obj, ownr, pago)
+    		monto_uf = get_monto_calculo_uf(obj, ownr, pago)
+    	else
+    		case ownr.class.name
+    		when 'Causa'
+		    	if (pago.valor.blank? and ownr.tar_valor_cuantias.empty?) or (uf_calculo.blank? and pago.requiere_uf)
+		    		monto_uf = 0
+		    		monto_pesos = 0
+		    	else
+		    		monto = pago.valor.blank? ? (pago.formula_tarifa.blank? ? 0 : calcula2(pago.formula_tarifa, ownr, pago)) : pago.valor
+			        monto_pesos = pago.moneda == 'Pesos' ? monto : ( uf_calculo.blank? ? 0 : monto * uf_calculo )
+			        monto_uf = pago.moneda == 'UF' ? monto : ( uf_calculo.blank? ? 0 : monto / uf_calculo )
+		    	end
+    		end
     	end
     	[monto_uf, monto_pesos]
     end

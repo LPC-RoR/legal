@@ -33,6 +33,7 @@ class Causa < ApplicationRecord
 	has_many :age_actividades, as: :ownr
 	has_many :tar_calculos, as: :ownr
 	has_many :tar_facturaciones, as: :ownr
+	has_many :tar_uf_facturaciones, as: :ownr
 	has_many :tar_valor_cuantias, as: :ownr
 
 
@@ -44,18 +45,12 @@ class Causa < ApplicationRecord
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
     scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.no_fctrds?}.compact)}
 
+    delegate :tar_pagos, to: :tar_tarifa, prefix: true
+
     # ---------------------------------------------------------------- MGRTN
 
-    def cuantias?
-    	self.tar_valor_cuantias.any?
-    end
-
-    def demandantes?
-    	self.demandantes.any?
-    end
-
     def no_fctrds?
-    	self.tar_facturaciones.empty? and self.cuantias?
+    	self.tar_facturaciones.empty? and self.tar_valor_cuantias.any?
     end
 
     # OWN CHILDS

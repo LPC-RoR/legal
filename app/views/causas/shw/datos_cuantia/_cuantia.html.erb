@@ -5,7 +5,7 @@
 		<%= render partial: 'actividades/shr/form_actividad', locals: {tipo: 'A', causa_id: objeto.id, cu: 'c', audiencia: 'Audiencia preparatoria' } %>
 	<% end %>
 <% end %>
-<% if objeto.demandantes? %>
+<% if objeto.demandantes.any? %>
 	<div class="app_box">
 		<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: objeto} %>
 	</div>
@@ -14,7 +14,7 @@
 		<small class="text-danger"><i class="bi bi-cone-striped"></i>No se pueden ingresar cuantías hasta tener al menos un demandante.</small>
 	</div>
 <% end %>
-<% if objeto.cuantias? %>
+<% if objeto.tar_valor_cuantias.any? %>
 	<div class="app_box">
 		<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: objeto, porcentaje_cuantia: false } %>
 	</div>

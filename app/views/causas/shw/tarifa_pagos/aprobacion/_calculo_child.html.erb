@@ -49,14 +49,8 @@
 		<% end %>
 
 	<% else %>
-
-		<div class="ln_app">
-			<div class="ln_lnks">
-				Pago sin autorizar!
-			</div>
-		</div>
 		<% if owner.class.name == 'Causa' and controller_name == 'causas' %>
-			</br>
+			</brs>
 			<%= link_to 'Autorizar pago', "/tar_facturaciones/crea_facturacion#{ownr_prms(owner)}&pid=#{pago.id}", class: 'btn btn-primary btn-sm' %>
 	    <% end %>
 		

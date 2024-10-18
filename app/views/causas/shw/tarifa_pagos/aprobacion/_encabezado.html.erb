@@ -14,7 +14,7 @@
 	</div>
 	<div class="ttl_rght">
 		<!-- No se ha realizado el cálculo y el pago requiere el valor de la UF -->
-		<% if pago.requiere_uf == true and uf_fecha(get_fecha_calculo(owner, pago)).blank? %>
+		<% if pago.requiere_uf == true and get_uf_calculo(owner, pago).blank? %>
 			<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(owner, pago)) %> no encontrada</b></small>
 		<% else %>
 			<small>
@@ -26,7 +26,7 @@
 	</div>
 </div>
 
-<% if pago.requiere_uf %>             
+<% if requiere_uf(owner, pago) %>             
 	<div class="ln_app">
 		<div class="ln_nm">
 			Fecha cálculo
@@ -34,10 +34,10 @@
 				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "#{get_tar_uf_facturacion(owner, pago).blank? ? 'Agrega' : 'Modiffica'} fecha UF de cálculo" } do %>
 					<i class="bi bi-pencil-square"></i>
 				<% end %>
-			<% end %>
-			<% if get_tar_uf_facturacion(owner, pago).present? %>
-				<%= link_to "/causas/#{owner.id}/elimina_uf_facturacion?pid=#{pago.id}" do %>
-					<i class="bi bi-trash"></i>
+				<% if get_tar_uf_facturacion(owner, pago).present? %>
+					<%= link_to "/causas/#{owner.id}/del_uf_facturacion?pid=#{pago.id}" do %>
+						<i class="bi bi-trash"></i>
+					<% end %>
 				<% end %>
 			<% end %>
 		</div>
@@ -50,7 +50,7 @@
 		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/form_uf_facturacion", locals: {causa: owner, pago: pago} %>
 	<% end %>
 
-	<% unless uf_fecha(get_fecha_calculo(owner, pago)).blank? and pago.requiere_uf %>
+	<% unless get_uf_calculo(owner, pago).blank? %>
 		<b>
 		<div class="ln_app">
 			<div class="ln_nm">

@@ -58,8 +58,8 @@ Rails.application.routes.draw do
     # ultima version
     match :agrega_valor, via: :post, on: :member
     match :elimina_valor, via: :get, on: :member
-    match :input_tar_facturacion, via: :post, on: :member
-    match :elimina_uf_facturacion, via: :get, on: :member
+    match :add_uf_facturacion, via: :post, on: :member
+    match :del_uf_facturacion, via: :get, on: :member
     match :swtch_pendiente, via: :get, on: :member
     match :swtch_urgencia, via: :get, on: :member
   end

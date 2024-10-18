@@ -1,12 +1,12 @@
 <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_pagos', ttl: 'Autorización de pagos', ownr: objeto} %>
 
-<% unless objeto.tar_tarifa.blank? or objeto.tar_tarifa.tar_pagos.empty? %>
-	<% objeto.tar_tarifa.tar_pagos.order(:orden).each do |pago| %>
+<% unless objeto.tar_tarifa.blank? or objeto.tar_tarifa_tar_pagos.empty? %>
+	<% objeto.tar_tarifa_tar_pagos.ordr.each do |pago| %>
 
 		<div class="cntnt_box">
 			<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: pago, owner: objeto} %>
 
-			<% if pago.requiere_uf == true and uf_fecha(get_fecha_calculo(objeto, pago)).blank? %>
+			<% if pago.requiere_uf == true and get_uf_calculo(objeto, pago).blank? %>
 				<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(objeto, pago)) %> no encontrada</b></small>
 			<% else %>
 				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: pago, causa: objeto } %>

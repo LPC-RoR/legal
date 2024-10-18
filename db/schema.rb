@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_16_175850) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_18_154712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -2202,17 +2202,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_16_175850) do
   end
 
   create_table "tar_uf_facturaciones", force: :cascade do |t|
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.string "pago"
     t.datetime "fecha_uf", precision: nil
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "tar_pago_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["fecha_uf"], name: "index_tar_uf_facturaciones_on_fecha_uf"
-    t.index ["owner_class"], name: "index_tar_uf_facturaciones_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_uf_facturaciones_on_owner_id"
-    t.index ["pago"], name: "index_tar_uf_facturaciones_on_pago"
+    t.index ["ownr_id"], name: "index_tar_uf_facturaciones_on_ownr_id"
+    t.index ["ownr_type"], name: "index_tar_uf_facturaciones_on_ownr_type"
     t.index ["tar_pago_id"], name: "index_tar_uf_facturaciones_on_tar_pago_id"
   end
 

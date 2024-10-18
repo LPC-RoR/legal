@@ -11,6 +11,8 @@ class TarPago < ApplicationRecord
 
     validates_presence_of :orden, :tar_pago, :moneda
 
+    scope :ordr, -> {order(:orden)}
+
     def formula_tarifa
     	TarFormula.find_by(codigo: self.codigo_formula).tar_formula
     end

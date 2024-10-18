@@ -1,13 +1,18 @@
 <div class="g_cllps">
-	<%= form_for :form_uf_facturacion, url: "/#{causa.class.name.tableize}/#{causa.id}/input_tar_facturacion?pid=#{pago.id unless pago.blank?}" do |form| %>
+	<%= form_for :form_uf_facturacion, url: "/#{causa.class.name.tableize}/#{causa.id}/add_uf_facturacion?pid=#{pago.id unless pago.blank?}" do |form| %>
 
-		Fecha UF del pago:
-		</br>
-		<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_uf } %>
-		</br>
-		<button type="submit" class="btn btn-info">
-		  <i class="bi bi-caret-right icon-white"></i>
-		</button>
+		<div class="row">
+			<div class="col-8">
+				<!--Fecha UF del pago:
+				</br-->
+				<%= render partial: '0p/frm_flds/date', locals: { form: form, token: :fecha_uf, label: 'Fecha UF del pago' } %>
+			</div>
+			<div class="col-4" align='right'>
+				<button type="submit" class="btn btn-info">
+				  <i class="bi bi-caret-right icon-white"></i>
+				</button>
+			</div>
+		</div>
 
 	<% end  %>
 </div>

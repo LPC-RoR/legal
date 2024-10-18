@@ -104,6 +104,11 @@ module Capitan
 		uf.blank? ? nil : uf.valor
 	end
 
+	def vlr_uf(fecha)
+		uf = fecha.blank? ? nil : TarUfSistema.find_by(fecha: fecha.to_date)
+		uf.blank? ? nil : uf.valor
+	end
+
 	def limpia_nombre(string)
 		string.gsub(/\t|\r|\n/, ' ').strip.downcase
 	end

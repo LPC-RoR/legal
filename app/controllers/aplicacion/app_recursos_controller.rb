@@ -44,11 +44,17 @@ class Aplicacion::AppRecursosController < ApplicationController
 #      tc.save
 #    end
 
-    TarFacturacion.all.each do |tf|
-      if tf.ownr_type == 'Causa' and tf.tar_pago_id.blank? and tar_cuota_id.present?
-        tf.tar_pago_id = tf.tar_cuota.tar_pago.id
-        tf.save
-      end
+#    TarFacturacion.all.each do |tf|
+#      if tf.ownr_type == 'Causa' and tf.tar_pago_id.blank? and tar_cuota_id.present?
+#        tf.tar_pago_id = tf.tar_cuota.tar_pago.id
+#        tf.save
+#      end
+#    end
+
+    TarUfFacturacion.all.each do |tuf|
+      tuf.ownr_type = tuf.owner_class
+      tuf.ownr_id = tuf.owner_id
+      tuf.save
     end
 
     redirect_to root_path
