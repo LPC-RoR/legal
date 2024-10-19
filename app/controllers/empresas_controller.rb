@@ -7,7 +7,7 @@ class EmpresasController < ApplicationController
 
   # GET /empresas or /empresas.json
   def index
-    @coleccion = Empresa.all
+    set_tabla('empresas', Empresa.rut_ordr, true)
   end
 
   # GET /empresas/1 or /empresas/1.json
@@ -23,9 +23,13 @@ class EmpresasController < ApplicationController
     prms = params[:rgstr]
     unless prms[:rut].blank? or prms[:razon_social].blank? or prms[:email_administrador].blank?
       if valid_rut?(prms[:rut])
-        empresa = Empresa.create(rut: prms[:rut], razon_social: prms[:razon_social], email_administrador: prms[:email_administrador])
-
-        ntc = 'Empresa registrada exitósamente'
+        emprs = Empresa.find_by(rut: rut_format(prms[:rut]))
+        if emprs.blank?
+          empresa = Empresa.create(rut: rut_format(prms[:rut]), razon_social: prms[:razon_social], email_administrador: prms[:email_administrador])
+          ntc = 'Empresa registrada exitósamente'
+        else
+          alrt = 'Empresa ya registrada'
+        end
       else
         alrt = 'Error de registro: RUT no válido'
       end

@@ -1,10 +1,11 @@
 <%= form_for :rgstr, url: "/empresas/registro" do |form| %>
+	<h5><b>Registre su empresa</b></h5>
 
 	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :rut, label: 'RUT de la empresa' } %>
 	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :razon_social, label: 'Razon social de la empresa' } %>
 	<%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
 
-	<div>
+	<div class="formCell">
 		<button type="submit" class="btn btn-info">
 		  <i class="bi bi-caret-right icon-white"></i> Registrar
 		</button>

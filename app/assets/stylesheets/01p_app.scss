@@ -36,9 +36,9 @@ $main_fnt_fmly: $a_fnt_fmly;
 
 // ERROR & NOTICE
 
-$ntc_rrr_mrgn: 2px 0 4px 0;
+$ntc_rrr_mrgn: 0;
 $ntc_rrr_pddng: .5rem;
-$ntc_rrr_brdr_wdth: 3px;
+$ntc_rrr_brdr_wdth: 1px;
 $ntc_rrr_brdr_ln: solid;
 $ntc_rrr_brdr_rds: 3px 3px 3px 3px;
 
@@ -157,17 +157,19 @@ $rrr_fnt_clr: $red_1;
 // NOTICE and ALERT
 
 .lyt_notice {
+	background-color: white;
 	@include mrgn_pddng($ntc_rrr_mrgn, $ntc_rrr_pddng);
 	@include brd_ln($ntc_rrr_brdr_wdth, solid, $ntc_brdr_clr, $ntc_rrr_brdr_rds);
-    box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
+//    box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
     color: $ntc_fnt_clr;
     font-weight: bold;
 }
 
 .lyt_error {
+	background-color: white;
 	@include mrgn_pddng($ntc_rrr_mrgn, $ntc_rrr_pddng);
 	@include brd_ln($ntc_rrr_brdr_wdth, solid, $rrr_brdr_clr, $ntc_rrr_brdr_rds);
-	box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
+//	box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
     color: $rrr_fnt_clr;
     font-weight: bold;
 }

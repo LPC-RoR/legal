@@ -11,10 +11,11 @@ module CptnMenuLeftHelper
 						'AgeActividad',
 						['Cliente', 'operación'],
 						['Causa', 'operación'],
-						['Asesoria', 'admin'],
+						['Asesoria', 'operación'],
 						['Cargo', 'finanzas'],
 						['TarAprobacion', 'finanzas'],
 						['TarFactura', 'finanzas'],
+						['Empresa', 'admin'],
 						['KrnDenuncia', 'operacion']
 					]
 				},

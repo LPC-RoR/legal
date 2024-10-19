@@ -51,7 +51,8 @@ class Aplicacion::AppRecursosController < ApplicationController
 #      end
 #    end
 
-    TarUfFacturacion.delete_all
+#    Borré los campos antes de  migrar los enlaces
+#    TarUfFacturacion.delete_all
 
     redirect_to root_path
   end

@@ -1,34 +1,22 @@
 <div class="hm_bnnr">
-	<div class="bnnr">
-		<div class="nvbr">
-			<div class="row">
-				<div class="col-lg-2 col-xs-12">
-					<div class="icn">
-						<%= render layout: '0p/layout/tooltip_link', locals: {link: root_path, tooltip: nil} do %>
-							<%= image_tag 'logo_navbar.png', style: 'height:40px;width:auto;' %>
-						<% end %>
-					</div>
-				</div>
-				<div class="col-lg-10">
-					<div class="mn">
-						<%= render partial: 'layouts/home/partials/bnnr_mn' %>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-		<div class="ttl">
+	<div class="hm_bnnr_icn">
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: root_path, tooltip: nil} do %>
+			<%= image_tag 'logo_addt.png', style: 'height:40px;width:auto;' %>
+		<% end %>
+	</div>
+	<div class="hm_bnnr_mddl">
+		<div class="hm_bnnr_ttl">
 			Abogados derecho del trabajo</br>
 		</div>
-		<div class="txt">
+		<div class="hm_bnnr_txt">
 			ASESORÍA
-			<i class="bi bi-dot icon-white"></i>
+			<i class="bi bi-dot icon-blue"></i>
 			IMPLEMENTACIÓN
-			<i class="bi bi-dot icon-white"></i>
+			<i class="bi bi-dot icon-blue"></i>
 			CAPACITACIÓN
 		</div>
-		<div class="txt2">
-		</div>
 	</div>
-	<div class="bl_bttm"></div>
+	<div class="hm_bnnr_mn">
+		<%= render partial: 'layouts/home/partials/bnnr_mn' %>
+	</div>
 </div>

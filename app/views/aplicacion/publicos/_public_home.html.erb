@@ -1,2 +1,38 @@
+<div class="hm_prdct">
+	<div class="p_lft">
+		<div class="icn">
+			<%= image_tag 'sgmnt.png', style: 'height:100%;width:auto;' %>
+		</div>
+		<div class="prdct">
+			Sistema de seguimiento</br>Procedimiento de Investigación y Sanción</br>ley 21.643
+		</div>
+		<div class="prdct_nt">
+			Registre su empresa para para obtener un demo.
+		</div>
+	</div>
+	<div class="p_rght">
+		<%= render partial: 'empresas/registro' %>
+	</div>
+</div>
+<div class="hm_lst_chck">
+	<div class="hm_chck">
+		<%= render partial: '0p/home/check', locals: {txt: 'Control de los plazos legales y tareas obligatorias.'} %>
+	</div>
+	<div class="hm_chck">
+		<%= render partial: '0p/home/check', locals: {txt: 'Control documental.'} %>
+	</div>
+	<div class="hm_chck">
+		<%= render partial: '0p/home/check', locals: {txt: 'Gestión y control de derivaciones de denuncias.'} %>
+	</div>
+	<div class="hm_chck">
+		<%= render partial: '0p/home/check', locals: {txt: 'Gestión de denuncias con múltiples denunciantes.'} %>
+	</div>
+	<div class="hm_chck">
+		<%= render partial: '0p/home/check', locals: {txt: 'Gestión de denuncias que involucran empresas subcontratistas o AST.'} %>
+	</div>
+	<div class="hm_chck">
+		<%= render partial: '0p/home/check', locals: {txt: 'Gestión de toma de declaraciones para personas denunciantes, denunciados y testigos.'} %>
+	</div>
+</div>
+<%#= request.remote_ip %>
 <%#= render partial: scp_prtl('0capitan', 'app/home', 'sign_in') if scp_prtl?('0capitan', 'app/home', 'sign_in') %>
-<%= render partial: 'empresas/registro' if dog? %>
