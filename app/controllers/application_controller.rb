@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 	helper_method :pgs_stts, :get_fecha_calculo, :leyenda_origen_fecha_calculo, :get_uf_calculo, :get_v_calculo_tarifa, :requiere_uf, :get_tar_uf_facturacion, :get_tar_facturacion, :get_monto_calculo_pesos, :get_monto_calculo_uf
 	helper_method :modelo_negocios_general, :cuentas_corrientes, :periodos
 	helper_method :nombre_dia, :nombre3_dia, :load_calendario, :get_cal_dia, :dyf, :prfx_dia
-	helper_method :lm_seguridad, :check_crud, :check_k_estados, :check_st_estado
+	helper_method :itm_scrty, :lm_seguridad, :check_crud, :check_k_estados, :check_st_estado
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
 	helper_method :cmenu_clss, :std, :typ, :display_name
 	helper_method :plz_lv, :plz_c

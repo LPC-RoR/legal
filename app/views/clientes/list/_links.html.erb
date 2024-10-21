@@ -2,6 +2,9 @@
 	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/organizacion?oid=#{objeto.id}", tooltip: 'Ver Organización' } do %>
 		<!--i class="bi bi-diagram-3"></i-->
 	<% end %>
+	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/cuentas/#{objeto.id}/ccta", tooltip: 'Cuenta del Cliente' } do %>
+		<i class="bi bi-collection"></i>
+	<% end %>
 <% end %>
 <%= render layout: '0p/collapse/link', locals: {label: 'Detalle', objeto: objeto, tooltip: 'Más información'} do %>
 	<i class="bi bi-plus-lg"></i>

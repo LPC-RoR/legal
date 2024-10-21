@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  resources :cuentas do
+    match :ccta, via: :get, on: :member
+    match :ecta, via: :get, on: :member
+    match :cdnncs, via: :get, on: :member
+    match :ednncs, via: :get, on: :member
+    match :cinvstgdrs, via: :get, on: :member
+    match :einvstgdrs, via: :get, on: :member
+    match :cextrns, via: :get, on: :member
+    match :eextrns, via: :get, on: :member
+    match :ctp_mdds, via: :get, on: :member
+    match :etp_mdds, via: :get, on: :member
+  end
   resources :parrafos
   resources :notas do
     match :agrega_nota, via: :post, on: :collection

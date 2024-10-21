@@ -1,6 +1,6 @@
-<%= render partial: '0p/frm_flds/rut_pj', locals: {form: form, pj_tkn: :krn_investigador, label: 'Nombre investigador'} %>
+<%= render partial: '0p/frm_flds/rut_pj', locals: {form: form, pj_tkn: :krn_investigador, label: 'Nombre completo'} %>
 
 <%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email, label: 'Email' } %>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :cliente_id } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :empresa_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>

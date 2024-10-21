@@ -14,7 +14,7 @@ class Karin::KrnTipoMedidasController < ApplicationController
 
   # GET /krn_tipo_medidas/new
   def new
-    @objeto = KrnTipoMedida.new(cliente_id: params[:oid])
+    @objeto = KrnTipoMedida.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
   # GET /krn_tipo_medidas/1/edit
@@ -69,11 +69,11 @@ class Karin::KrnTipoMedidasController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = "/clientes/#{@objeto.cliente.id}?html_options[menu]=Investigaciones"
+      @rdrccn = "/cuentas/#{@objeto.ownr.id}/#{@objeto.ownr.class.name.tableize[0]}tp_mdds"
     end
 
     # Only allow a list of trusted parameters through.
     def krn_tipo_medida_params
-      params.require(:krn_tipo_medida).permit(:cliente_id, :empresa_id, :krn_tipo_medida, :denunciante, :denunciado, :tipo)
+      params.require(:krn_tipo_medida).permit(:ownr_type, :ownr_id, :krn_tipo_medida, :denunciante, :denunciado, :tipo)
     end
 end

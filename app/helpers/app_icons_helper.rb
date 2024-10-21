@@ -10,6 +10,7 @@ module AppIconsHelper
 			'app_enlaces' => 'box-arrow-up-right',
 			'h_imagenes' => 'image',
 			'clientes' => 'building',
+			'empresas' => 'building',
 			'causas' => 'journal-text',
 			'asesorias' => 'briefcase',
 			'cargos' => 'currency-dollar',
@@ -61,7 +62,10 @@ module AppIconsHelper
 			'h_textos' => 'blockquote-left',
 			'h_preguntas' => 'question-square',
 			'productos' => 'box-seam',
-			'krn_denuncias' => 'mailbox'
+			'krn_denuncias' => 'mailbox',
+			'krn_investigadores' => 'binoculars',
+			'krn_empresa_externas' => 'building',
+			'krn_tipo_medidas' => 'exclamation-triangle'
 		}
 	end
 end

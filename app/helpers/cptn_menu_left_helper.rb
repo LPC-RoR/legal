@@ -9,14 +9,32 @@ module CptnMenuLeftHelper
 					condicion: perfil_activo?,
 					items: [
 						'AgeActividad',
-						['Cliente', 'operación'],
-						['Causa', 'operación'],
-						['Asesoria', 'operación'],
-						['Cargo', 'finanzas'],
-						['TarAprobacion', 'finanzas'],
-						['TarFactura', 'finanzas'],
-						['Empresa', 'admin'],
-						['KrnDenuncia', 'operacion']
+					]
+				},
+				{
+					titulo: nil,
+					condicion: operacion?,
+					items: [
+						'Cliente',
+						'Causa',
+						'Asesoria',
+						'KrnDenuncia',
+					]
+				},
+				{
+					titulo: nil,
+					condicion: finanzas?,
+					items: [
+						'Cargo',
+						'TarAprobacion',
+						'TarFactura',
+					]
+				},
+				{
+					titulo: nil,
+					condicion: admin?,
+					items: [
+						'Empresa',
 					]
 				},
 				{
@@ -90,6 +108,18 @@ module CptnMenuLeftHelper
 						'AutTipoUsuario'
 					]
 				}
+			],
+			cuenta: [
+				{
+					titulo: nil,
+					condicion: perfil_activo?,
+					items: [
+						['KrnDenuncia', @objeto],
+						['KrnInvestigador', @objeto],
+						['KrnEmpresaExterna', @objeto],
+						['KrnTipoMedida', @objeto]
+					]
+				},
 			]
 		}
 	end
@@ -105,16 +135,38 @@ module CptnMenuLeftHelper
 		(['servicios'] + devise_controllers).include?(controller_name)
 	end
 
+	def ctas_cntrllrs?
+		!!(controller_name =~ /^krn_[a-z_]*$/) or ( controller_name == 'cuentas' )
+	end
+
 	def lm_sym
-		( lm_exclude_action? or lm_exclude_controller?) ? nil : :admin
+		( lm_exclude_action? or lm_exclude_controller?) ? nil : (ctas_cntrllrs? ? :cuenta : :admin)
+	end
+
+	def itm_mdl(itm)
+		itm.class.name == 'Array' ? itm[0] : itm
 	end
 
 	# Determina la RUTA DESTINO usándo como parámetro el modelo del ítem
-	def model_link(modelo)
-		if modelo == 'Usuario'
+	def model_link(item)
+		if itm_mdl(item) == 'Usuario'
 			"/app_recursos/usuarios"
 		else
-			"/#{modelo.tableize}"
+			"/#{itm_mdl(item).tableize}"
+		end
+	end
+
+	def cta_acctn(item, objeto)
+		"#{objeto.class.name.tableize[0]}#{itm_mdl(item).constantize::ACCTN}"
+	end
+
+	def item_link(item)
+		if itm_mdl(item) == 'Usuario'
+			"/app_recursos/usuarios"
+		elsif item.class.name == 'Array'
+			"/cuentas/#{@objeto.id}/#{cta_acctn(item, @objeto)}"
+		else
+			"/#{itm_mdl(item).tableize}"
 		end
 	end
 
@@ -124,6 +176,14 @@ module CptnMenuLeftHelper
 			"Usuario"
 		else
 			"#{controller.classify}"
+		end
+	end
+
+	def itm_slctd?(modelo)
+		if modelo.class.name == 'Array'
+			controller_name.classify == modelo
+		else
+			action_name == modelo[1]
 		end
 	end
 
@@ -149,8 +209,8 @@ module CptnMenuLeftHelper
 		}
 	end
 
-	def modelo_item(modelo)
-		h_modelo_item[modelo].blank? ? m_to_name(modelo).tableize.capitalize : h_modelo_item[modelo]
+	def modelo_item(item)
+		h_modelo_item[itm_mdl(item)].blank? ? m_to_name(itm_mdl(item)).tableize.capitalize : h_modelo_item[itm_mdl(item)]
 	end
 
 end

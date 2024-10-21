@@ -199,6 +199,11 @@ module Seguridad
 
 	# ***************************************************** MANEJO DE TIPOS DE USUARIO
 
+	def itm_scrty(item)
+		item.class.name == 'Array' ? item[1] : true
+	end
+
+	#DEPRECATED : Revisar si siempre se puede reemplazar por itm_scrty
 	# Se usa en LMENU
 	def lm_seguridad(modelo)
 		modelo.class.name == 'Array' ? seguridad(modelo[1]) : true

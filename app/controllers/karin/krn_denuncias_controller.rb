@@ -29,8 +29,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/new
   def new
-    ownr_clss = 'Cliente'
-    @objeto = KrnDenuncia.new(ownr_type: ownr_clss)
+    @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
   # GET /krn_denuncias/1/edit
@@ -201,7 +200,7 @@ class Karin::KrnDenunciasController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = "/#{@objeto.ownr.class.name.tableize}/#{@objeto.ownr.id}?html_options[menu]=Investigaciones"
+      @rdrccn = "/cuentas/#{@objeto.ownr.id}/#{@objeto.ownr.class.name.tableize[0]}dnncs"
     end
 
     # Only allow a list of trusted parameters through.

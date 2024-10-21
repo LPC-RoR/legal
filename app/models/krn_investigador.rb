@@ -1,4 +1,7 @@
 class KrnInvestigador < ApplicationRecord
+
+	ACCTN = 'invstgdrs'
+
 	belongs_to :ownr, polymorphic: true
 #	belongs_to :cliente, optional: true
 #	belongs_to :empresa, optional: true

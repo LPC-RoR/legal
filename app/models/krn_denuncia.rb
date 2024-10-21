@@ -1,5 +1,7 @@
 class KrnDenuncia < ApplicationRecord
 
+	ACCTN = 'dnncs'
+
 	RECEPTORES = ['Empresa', 'Dirección del Trabajo', 'Empresa externa']
 	MOTIVOS = ['Acoso laboral', 'Acoso sexual', 'Violencia en el trabajo ejercida por terceros']
 

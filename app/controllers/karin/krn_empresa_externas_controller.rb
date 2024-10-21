@@ -14,7 +14,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
 
   # GET /krn_empresa_externas/new
   def new
-    @objeto = KrnEmpresaExterna.new(cliente_id: params[:oid])
+    @objeto = KrnEmpresaExterna.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
   # GET /krn_empresa_externas/1/edit
@@ -69,11 +69,11 @@ class Karin::KrnEmpresaExternasController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = "/clientes/#{@objeto.cliente.id}?html_options[menu]=Investigaciones"
+      @rdrccn = "/cuentas/#{@objeto.ownr.id}/#{@objeto.ownr.class.name.tableize[0]}extrns"
     end
 
     # Only allow a list of trusted parameters through.
     def krn_empresa_externa_params
-      params.require(:krn_empresa_externa).permit(:cliente_id, :rut, :razon_social, :tipo, :contacto, :email_contacto, :empresa_id)
+      params.require(:krn_empresa_externa).permit(:rut, :razon_social, :tipo, :contacto, :email_contacto, :ownr_type, :ownr_id)
     end
 end
