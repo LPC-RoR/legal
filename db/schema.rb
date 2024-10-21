@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_21_162237) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_21_171729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1153,8 +1153,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_162237) do
     t.datetime "updated_at", null: false
     t.integer "cliente_id"
     t.integer "empresa_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["cliente_id"], name: "index_krn_investigadores_on_cliente_id"
     t.index ["empresa_id"], name: "index_krn_investigadores_on_empresa_id"
+    t.index ["ownr_id"], name: "index_krn_investigadores_on_ownr_id"
+    t.index ["ownr_type"], name: "index_krn_investigadores_on_ownr_type"
   end
 
   create_table "krn_lst_medidas", force: :cascade do |t|

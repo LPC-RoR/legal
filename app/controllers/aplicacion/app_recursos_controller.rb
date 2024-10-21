@@ -66,6 +66,12 @@ class Aplicacion::AppRecursosController < ApplicationController
       tm.save
     end
 
+    KrnInvestigador.all.each do |inv|
+      inv.ownr_type = inv.cliente_id.present? ? 'Cliente' : 'Empresa'
+      inv.ownr_id = inv.cliente_id.present? ? inv.cliente_id : inv.empresa_id
+      inv.save
+    end
+
     redirect_to root_path
   end
 
