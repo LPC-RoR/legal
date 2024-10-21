@@ -54,6 +54,18 @@ class Aplicacion::AppRecursosController < ApplicationController
 #    Borré los campos antes de  migrar los enlaces
 #    TarUfFacturacion.delete_all
 
+    KrnEmpresaExterna.all.each do |ee|
+      ee.ownr_type = ee.cliente_id.present? ? 'Cliente' : 'Empresa'
+      ee.ownr_id = ee.cliente_id.present? ? ee.cliente_id : ee.empresa_id
+      ee.save
+    end
+
+    KrnTipoMedida.all.each do |tm|
+      tm.ownr_type = tm.cliente_id.present? ? 'Cliente' : 'Empresa'
+      tm.ownr_id = tm.cliente_id.present? ? tm.cliente_id : tm.empresa_id
+      tm.save
+    end
+
     redirect_to root_path
   end
 

@@ -5,7 +5,7 @@ class Cliente < ApplicationRecord
 	# tabla de CLIENTES
 	# 1.- Evaluar has_many tar_facturas
 
-	has_one :app_nomina, as: :ownr
+	has_many :app_nomina, as: :ownr
 
 	has_many :causas
 	has_many :asesorias
@@ -23,9 +23,8 @@ class Cliente < ApplicationRecord
 	has_many :productos, through: :pro_clientes
 
 	has_many :krn_denuncias, as: :ownr
-	has_many :krn_empresa_externas
-
-	has_many :krn_tipo_medidas
+	has_many :krn_empresa_externas, as: :ownr
+	has_many :krn_tipo_medidas, as: :ownr
 	has_many :krn_investigadores
 
 	has_many :age_actividades, as: :ownr
