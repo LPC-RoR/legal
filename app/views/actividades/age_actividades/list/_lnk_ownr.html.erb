@@ -1,3 +1,3 @@
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/#{objeto.owner.class.name.tableize}/#{objeto.owner.id}", tooltip: objeto.ownr_name} do %>
+<%= render layout: '0p/layout/tooltip_link', locals: {link: "/#{objeto.ownr.class.name.tableize}/#{objeto.ownr.id}", tooltip: objeto.ownr_name} do %>
 	<%= render partial: '0p/general/gly', locals: {gly: controller_icon[objeto.owner.class.name.tableize]} %>
 <% end %>
