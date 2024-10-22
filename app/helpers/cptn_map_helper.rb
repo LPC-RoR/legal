@@ -91,6 +91,7 @@ module CptnMapHelper
 	# alias de lyt partial
 	def prtl_als
 		{
+			'layouts/over' => 'layouts/home/over',
 			'layouts/devise/over' => 'layouts/home/over',
 			'layouts/devise/main' => 'layouts/main',
 			'layouts/servicios/main' => 'layouts/main',

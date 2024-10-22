@@ -1,0 +1,13 @@
+<div class="<%= lyts_prfx %>_over">
+	<% if prtl?('0capitan', 'app/over', 'menu_over') %>
+		<div class="ovr_mn">
+			<%= render partial: '0capitan/app/over/menu_over' %>
+		</div>
+	<% end %>
+
+	<% if prtl?('0capitan', 'app/over', 'banner') %>
+		<div class="bnnr">
+			<%= render partial: '0capitan/app/over/banner' %>
+		</div>
+	<% end %>
+</div>
