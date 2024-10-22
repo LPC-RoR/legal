@@ -41,7 +41,7 @@
 	<!-- CAMBIO DE FECHA -->
 
 	<!-- LINKS_E -->
-	<% if (controller_name == 'age_actividades' and objeto.owner_id.blank?) or (controller_name != 'age_actividades' and (objeto.app_perfil_id == perfil_activo.id or admin?) ) %>
+	<% if (controller_name == 'age_actividades' and objeto.ownr_id.blank?) or (controller_name != 'age_actividades' and (objeto.app_perfil_id == perfil_activo.id or admin?) ) %>
 			<i class="bi bi-dot"></i>
 			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 	<% end %>
