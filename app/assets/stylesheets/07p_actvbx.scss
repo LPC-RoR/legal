@@ -40,11 +40,14 @@ $qstn_brd_rds: 15px;
 
 .rspst {
 	margin: $actv_mrgn;
-	background-color: $pltt_9;
+	background-color: $blue_1;
+	color: white;
 	font-size: 16px;
 	text-align: left;
 	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px);
 	padding: $actv_pddng;
+
+	@include a_hover(white, blue);
 
 	@include grd(auto 200px 20px, 0);
 	.answ {

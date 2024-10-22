@@ -151,6 +151,8 @@ $rrr_fnt_clr: $red_1;
 
 .lyt_main {
 	@include mrgn_pddng($a_area_mrgn, $a_area_pddng);
+	height: 100%;
+	min-height: 40em;
    	font-family: $main_fnt_fmly;
 }
 

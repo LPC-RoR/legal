@@ -14,13 +14,8 @@
 			</div>
 		</li>
 	<% else %>
-		<%# unless cfg_defaults[:activa_tipos_usuario] and (itm_scrty(modelo) == false) %>
-			<!--li>
-				<%#= render partial: '0capitan/lmenu/item', locals: {modelo: (modelo.class.name == 'Array' ? modelo[0] : modelo)} %>
-			</li-->
-		<%# end %>
 		<li>
-			<%= render partial: '0capitan/lmenu/item2', locals: {modelo: modelo} %>
+			<%= render partial: '0capitan/lmenu/item', locals: {modelo: modelo} %>
 		</li>
 	<% end %>
 	</ul>

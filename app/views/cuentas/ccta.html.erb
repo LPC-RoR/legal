@@ -1,1 +1,3 @@
-<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, bk_lnk: nil } %>
+<% if admin? %>
+	<%= render partial: 'cuentas/nmns' %>
+<% end %>

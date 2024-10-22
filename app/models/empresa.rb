@@ -1,5 +1,5 @@
 class Empresa < ApplicationRecord
-	has_many :app_nomina, as: :ownr
+	has_many :app_nominas, as: :ownr
 
 	has_many :krn_investigadores, as: :ownr
 	has_many :krn_denuncias, as: :ownr

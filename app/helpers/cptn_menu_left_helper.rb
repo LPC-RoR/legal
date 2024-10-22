@@ -17,8 +17,7 @@ module CptnMenuLeftHelper
 					items: [
 						'Cliente',
 						'Causa',
-						'Asesoria',
-						'KrnDenuncia',
+						'Asesoria'
 					]
 				},
 				{
@@ -114,14 +113,30 @@ module CptnMenuLeftHelper
 					titulo: nil,
 					condicion: perfil_activo?,
 					items: [
-						['KrnDenuncia', @objeto],
-						['KrnInvestigador', @objeto],
-						['KrnEmpresaExterna', @objeto],
-						['KrnTipoMedida', @objeto]
+						['KrnDenuncia', gscp(@objeto)],
+						['KrnInvestigador', gscp(@objeto)],
+						['KrnEmpresaExterna', gscp(@objeto)],
+						['KrnTipoMedida', gscp(@objeto)]
 					]
 				},
 			]
 		}
+	end
+
+	def gscp(objeto)
+		if objeto.blank?
+			nil
+		elsif ['Empresa', 'Cliente'].include?(objeto.class.name)
+			@objeto
+		elsif ['KrnDenuncia', 'KrnInvestigador', 'KrnEmpresaExterna', 'KrnTipoMedida'].include?(objeto.class.name)
+			@objeto.ownr
+		elsif ['KrnDenunciante', 'KrnDenunciado'].include?(objeto.class.name)
+			@objeto.krn_denuncia.ownr
+		elsif ['KrnTestigo'].include?(objeto.class.name)
+			@objeto.ownr.krn_denuncia.ownr
+		else
+			nil
+		end
 	end
 
 	def lm_exclude_action?
@@ -136,7 +151,7 @@ module CptnMenuLeftHelper
 	end
 
 	def ctas_cntrllrs?
-		!!(controller_name =~ /^krn_[a-z_]*$/) or ( controller_name == 'cuentas' )
+		!!(controller_name =~ /^krn_[a-z_]*$/)  or ( ['cuentas', 'app_nominas'].include?(controller_name))
 	end
 
 	def lm_sym
@@ -164,7 +179,7 @@ module CptnMenuLeftHelper
 		if itm_mdl(item) == 'Usuario'
 			"/app_recursos/usuarios"
 		elsif item.class.name == 'Array'
-			"/cuentas/#{@objeto.id}/#{cta_acctn(item, @objeto)}"
+			"/cuentas/#{gscp(@objeto).id}/#{cta_acctn(item, gscp(@objeto))}"
 		else
 			"/#{itm_mdl(item).tableize}"
 		end

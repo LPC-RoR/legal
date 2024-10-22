@@ -5,7 +5,7 @@ class Cliente < ApplicationRecord
 	# tabla de CLIENTES
 	# 1.- Evaluar has_many tar_facturas
 
-	has_many :app_nomina, as: :ownr
+	has_many :app_nominas, as: :ownr
 
 	has_many :causas
 	has_many :asesorias

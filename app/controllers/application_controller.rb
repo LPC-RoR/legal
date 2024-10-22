@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
 	# Seguridad tabla_path
 	helper_method :get_public_controllers, :get_version_activa, :get_perfil_activo, :get_app_sigla
-	helper_method :dog_perfil, :dog_perfil?, :tipo_usuario, :version_activa, :version_activa?, :nomina_activa, :nomina_activa?, :perfil_activo, :perfil_activo?, :usuario_agenda, :usuario_agenda?
+	helper_method :scp_err?, :dog_perfil, :dog_perfil?, :tipo_usuario, :version_activa, :version_activa?, :nomina_activa, :nomina_activa?, :perfil_activo, :perfil_activo?, :usuario_agenda, :usuario_agenda?
 	helper_method :dog_name, :dog_email, :dog?, :admin?, :usuario_activo?, :publico?, :seguridad, :public_controllers 
 	helper_method :operacion?, :finanzas?
 	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :v_enlaces_general, :enlaces_perfil, :v_enlaces_perfil, :v_enlaces, :set_st_estado, :object_class_sym
@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
 	helper_method :cmenu_clss, :std, :typ, :display_name
 	helper_method :plz_lv, :plz_c
-	helper_method :krn_fl_cntrl
+	helper_method :krn_fl_cntrl, :krn_cntrllrs?
 
 	# ************************************************************************** COLECCINES DE ESTADOS
  

@@ -4,6 +4,7 @@ module Inicia
 	# @concern.seguridad.rb : version_activa, dog_email
 
 	def init_vrsn
+		# Cada una está con una condición distinta por si la trransacción se quiebra
 		vrs = AppVersion.create(dog_email: dog_email) unless version_activa?
 		vrs.app_nomina = AppNomina.create(nombre: AppVersion::DOG_NAME, email: AppVersion::DOG_EMAIL) if AppNomina.dog.blank?
 	end

@@ -2,6 +2,7 @@ class EmpresasController < ApplicationController
   before_action :authenticate_usuario!, only: %i[ show ]
   before_action :scrty_on
   before_action :set_empresa, only: %i[ show edit update destroy ]
+  after_action :add_admin, only: :registro
 
   include Rut
 
@@ -25,7 +26,8 @@ class EmpresasController < ApplicationController
       if valid_rut?(prms[:rut])
         emprs = Empresa.find_by(rut: rut_format(prms[:rut]))
         if emprs.blank?
-          empresa = Empresa.create(rut: rut_format(prms[:rut]), razon_social: prms[:razon_social], email_administrador: prms[:email_administrador])
+          @objeto = Empresa.create(rut: rut_format(prms[:rut]), razon_social: prms[:razon_social], email_administrador: prms[:email_administrador])
+#          @objeto.app_nominas.create(ownr_type: @objeto.class.name, ownr_id: @objeto.id, nombre: 'Administrador', email: @objeto.email_administrador, tipo:'admin')
           ntc = 'Empresa registrada exitósamente'
         else
           alrt = 'Empresa ya registrada'
@@ -83,6 +85,13 @@ class EmpresasController < ApplicationController
   end
 
   private
+
+    def add_admin
+      unless @objeto.blank?
+        @objeto.app_nominas.create(ownr_type: @objeto.class.name, ownr_id: @objeto.id, nombre: 'Administrador', email: @objeto.email_administrador, tipo:'admin')
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_empresa
       @objeto = Empresa.find(params[:id])

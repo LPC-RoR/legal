@@ -4,51 +4,97 @@ class CuentasController < ApplicationController
   before_action :set_cuenta, only: %i[  ]
 
   def ccta
-    @objeto = Cliente.find(params[:id])
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Cliente.find(params[:id])
+      if admin?
+        set_tabla('app_nominas', @objeto.app_nominas, true)
+      end
+    else
+      redirect_to root_path, alert: 'Usuario no tiene acceso a esta página'
+    end
   end
 
   def ecta
-    @objeto = Empresa.find(params[:id])
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Empresa.find(params[:id])
+      if admin?
+        set_tabla('app_nominas', @objeto.app_nominas, true)
+      end
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
   end
 
   def cdnncs
-    @objeto = Cliente.find(params[:id])
-    set_tabla('krn_denuncias', @objeto.krn_denuncias, true)
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Cliente.find(params[:id])
+      set_tabla('krn_denuncias', @objeto.krn_denuncias, true)
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
   end
 
   def ednncs
-    @objeto = Empresa.find(params[:id])
-    set_tabla('krn_denuncias', @objeto.krn_denuncias, true)
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Empresa.find(params[:id])
+      set_tabla('krn_denuncias', @objeto.krn_denuncias, true)
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
   end
 
   def cinvstgdrs
-    @objeto = Cliente.find(params[:id])
-    set_tabla('krn_investigadores', @objeto.krn_investigadores, true)
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Cliente.find(params[:id])
+      set_tabla('krn_investigadores', @objeto.krn_investigadores, true)
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
   end
 
   def einvstgdrs
-    @objeto = Empresa.find(params[:id])
-    set_tabla('krn_investigadores', @objeto.krn_investigadores, true)
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Empresa.find(params[:id])
+      set_tabla('krn_investigadores', @objeto.krn_investigadores, true)
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
   end
 
   def cextrns
-    @objeto = Cliente.find(params[:id])
-    set_tabla('krn_empresa_externas', @objeto.krn_empresa_externas, true)
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Cliente.find(params[:id])
+      set_tabla('krn_empresa_externas', @objeto.krn_empresa_externas, true)
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
   end
 
   def eextrns
-    @objeto = Empresa.find(params[:id])
-    set_tabla('krn_empresa_externas', @objeto.krn_empresa_externas, true)
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Empresa.find(params[:id])
+      set_tabla('krn_empresa_externas', @objeto.krn_empresa_externas, true)
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
   end
 
   def ctp_mdds
-    @objeto = Cliente.find(params[:id])
-    set_tabla('krn_tipo_medidas', @objeto.krn_tipo_medidas, true)
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Cliente.find(params[:id])
+      set_tabla('krn_tipo_medidas', @objeto.krn_tipo_medidas, true)
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
   end
 
   def etp_mdds
-    @objeto = Empresa.find(params[:id])
-    set_tabla('krn_tipo_medidas', @objeto.krn_tipo_medidas, true)
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Empresa.find(params[:id])
+      set_tabla('krn_tipo_medidas', @objeto.krn_tipo_medidas, true)
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
   end
 
   private

@@ -25,14 +25,14 @@ $h_nvbr_pddng: 0;
 // HOME
 
 .hm_bnnr {
-// position:fixed;
-// top:0;
-// width:100%;
+ position: sticky;
+ top:0;
+ width:100%;
 	background-color: white;
 //	margin: 0 3% 0 3%;
 	padding: 1rem;
-  height: 16vh;
-  max-height: 600px;
+//  height: 16vh;
+//  max-height: 600px;
 	color: $blue_2;
 	@include a_hover($blue_2, gray);
 	@include grd(200 auto 200, 0);

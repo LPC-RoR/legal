@@ -31,6 +31,11 @@ module Seguridad
 		nomina.blank? ? nil : nomina.app_perfil
 	end
 
+	def get_scp_activo
+		nmn = get_nomina_activa
+		nmn.blank? ? nil : (nmn.ownr.class.name == 'AppVersion' ? nil : nmn.ownr)
+	end
+
 	# ------------------------------------------------------------------- SCRTY_ON
 
 	# Carga de objetos de seguridad
@@ -39,13 +44,15 @@ module Seguridad
 		dog_nomina = version.blank? ? nil : version.app_nomina			# variable de tránsito
 		dog_perfil = dog_nomina.blank? ? nil : dog_nomina.app_perfil 	# 'nil' heredado o verificado
 		nomina = get_nomina_activa										# 'nil' si usuario es anónimo o sin Nómina
-		perfil = nomina.blank? ? nil : nomina.app_perfil				# 'nil' si nomina es nil o si sin Perfil
+		perfil = nomina.blank? ? nil : nomina.app_perfil
+		scp = get_scp_activo											# 'nil' si nomina es nil o si sin Perfil
 		usuario_agenda = perfil.blank? ? nil : perfil.age_usuario		# 
 		{
 			version: version,
 			dog_perfil: dog_perfil,
 			nomina: nomina,
 			perfil: perfil,
+			scp: scp,
 			usuario_agenda: usuario_agenda
 		}
 	end
@@ -86,6 +93,10 @@ module Seguridad
 		@scrty_vls[:app_sigla]
 	end
 
+	def krn_cntrllrs?
+		!!(controller_name =~ /^krn_[a-z_]*$/)
+	end
+
 	def public_controllers
 		@scrty_vls[:public_controllers]
 	end
@@ -124,6 +135,19 @@ module Seguridad
 
 	def nomina_activa?
 		@scrty_objts[:nomina].present?
+	end
+
+	def scp_activo
+		@scrty_objts[:scp]
+	end
+
+	def scp_activo?
+		@scrty_objts[:scp].present?
+	end
+
+	def scp_err?
+		scp = get_scp_activo
+		krn_cntrllrs? ? false : (scp.present? and ((( not ['cuentas', 'app_nominas'].include?(controller_name)) and (not krn_cntrllrs?)) or (action_name[0] != scp.class.name.downcase[0])))
 	end
 
 	def perfil_activo

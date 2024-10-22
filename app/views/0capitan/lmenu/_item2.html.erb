@@ -1,9 +1,0 @@
-<div class="<%= itm_slctd?(modelo) ? 'itm_slctd' : 'itm' %>">
-	<%= link_to item_link(modelo) do %>
-		<% if link_model(controller_name) == modelo %>
-			<i class="bi bi-arrow-right"></i> 
-		<% end %>
-		<i class="bi bi-<%=controller_icon[itm_mdl(modelo).tableize]%>"></i>
-		<%= modelo_item(modelo) %>
-	<% end %>
-</div>
