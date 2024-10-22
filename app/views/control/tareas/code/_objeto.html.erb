@@ -14,7 +14,9 @@
 				<!-- El prefijo del código determina donde van a buscar el código de la tarea -->
 				<%= render partial: prtl_name(prfx_cntrllr(objeto.codigo), 'code', objeto.codigo), locals: {objeto: objeto, ownr: ownr} if prtl?(prfx_cntrllr(objeto.codigo), 'code', objeto.codigo) %>
 
-				<%= render partial: prtl_name('repositorios', 'shr', 't_dcs'), locals: {objeto: objeto, mdl: ownr.class.name, ownr: ownr} %>
+				<% if @dsply_dc_fls[objeto.id] %>
+					<%= render partial: prtl_name('repositorios', 'shr', 't_dcs'), locals: {objeto: objeto, mdl: ownr.class.name, ownr: ownr} %>
+				<% end %>
 
 				<%= render partial: prtl_name(prfx_cntrllr(objeto.codigo), 'code/chlds', objeto.codigo), locals: {objeto: objeto, ownr: ownr} if prtl?(prfx_cntrllr(objeto.codigo), 'code/chlds', objeto.codigo) %>
 			</div>

@@ -18,6 +18,13 @@ class Karin::KrnDenunciasController < ApplicationController
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
     krn_dnnc_dc_init(@objeto)
 
+    @dsply_dc_fls = {}
+    @etps.each do |etp|
+      etp.tareas.each do |tar|
+        @dsply_dc_fls[tar.id] = tar.rep_doc_controlados.any? ? tar.rep_doc_controlados.map {|dc| @krn_cntrl[dc.codigo] }.include?(true) : false
+      end
+    end
+
     @mdds = @objeto.krn_lst_medidas.mdds
     @mdfccns = @objeto.krn_lst_modificaciones.ordr
     @sncns = @objeto.krn_lst_medidas.sncns
