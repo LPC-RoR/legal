@@ -283,9 +283,10 @@ module Dnnc
 
 	# ------------------------------------------------------------------------ MDDS
 
-	def dsply_mdds?
-		self.rcp_dt? or (self.drv_dt? == true) or (self.drv_externa? == true) or (self.e_optn_emprs? == true)
-	end
+#	def dsply_mdds?
+#		self.prtcpnts?
+#		self.rcp_dt? or (self.drv_dt? == true) or (self.drv_externa? == true) or (self.e_optn_emprs? == true)
+#	end
 
 	def mdds?
 		self.krn_lst_medidas.any?
