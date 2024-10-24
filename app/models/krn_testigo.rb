@@ -20,7 +20,7 @@ class KrnTestigo < ApplicationRecord
 
 	# --------------------------------------------------------------- DCLRCN
 
-	def dsply_dclrcn?
+	def dclrcn?
 		self.krn_declaraciones.any?
 	end
 

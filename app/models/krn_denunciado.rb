@@ -38,8 +38,8 @@ class KrnDenunciado < ApplicationRecord
 
 	# --------------------------------------------------------------- DCLRCN
 
-	def dsply_dclrcn?
-		self.krn_declaraciones.any?
+	def dclrcn?
+		self.krn_declaraciones.any? and ( not self.krn_testigos.map {|tst| tst.dclrcn?}.include?(false) )
 	end
 
 end

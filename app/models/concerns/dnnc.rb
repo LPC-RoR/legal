@@ -343,8 +343,8 @@ module Dnnc
 		self.vlr_dnnc_incmplt? and self.vlr_dnnc_incnsstnt?
 	end
 
-	def dsply_dclrcn?
-		false
+	def dclrcn?
+		self.invstgcn_emprs? and ( not self.krn_denunciantes.map {|dte| dte.dclrcn?}.include?(false) ) and ( not self.krn_denunciados.map {|dte| dte.dclrcn?}.include?(false) )
 	end
 
 	# ------------------------------------------------------------------------ CIERRE INVSTGCN
