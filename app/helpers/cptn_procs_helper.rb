@@ -6,7 +6,7 @@ module CptnProcsHelper
 		{
 			etp_rcpcn: true,
 			etp_invstgcn: dnnc.dnnc_infrm_invstgcn_dt?,
-			etp_crr_invstgcn: dnnc.dsply_cierre?
+			etp_crr_invstgcn: dnnc.eval?
 		}
 	end
 
@@ -18,9 +18,9 @@ module CptnProcsHelper
 			dnncnt_diat_diep: dnnc.dnncnts?,
 			dnnc_sgmnt: dnnc.dsply_sgmnt?,
 			dnnc_drvcn: dnnc.dsply_drvcns?,
-			dnnc_mdds: dnnc.prtcpnts?,
+			dnnc_mdds: dnnc.invstgcn_on?,
 #			dnnc_mdds: dnnc.dsply_mdds?,
-			dnnc_infrm_invstgcn_dt: dnnc.dsply_infrm_invstgcn_dt?,
+			dnnc_infrm_invstgcn_dt: (dnnc.invstgcn_emprs? and dnnc.mdds?),
 			dnnc_invstgdr: dnnc.dnnc_infrm_invstgcn_dt?,
 			dnnc_evlcn: dnnc.invstgdr?,
 			dnnc_agndmnt: dnnc.eval?,
@@ -41,8 +41,9 @@ module CptnProcsHelper
 		{
 			'dnnc_ingrs' => plz_lv(denuncia.fecha_legal, 1),             # Ingreso de la denuncia
 			'dnncnt_diat_diep' => plz_lv(denuncia.fecha_legal, 1),		# Atención psicológica temprana
-			'dnnc_mdds' => plz_lv(denuncia.fecha_legal, 1),				# Definición de medidas de protección y resguardo
 			'dnnc_drvcn' => plz_lv(denuncia.fecha_legal, 1),				# Denunciante elige responsable de la investigación
+			'dnnc_mdds' => plz_lv(denuncia.fecha_legal, 1),				# Definición de medidas de protección y resguardo
+			'dnnc_infrm_invstgcn_dt' => plz_lv(denuncia.fecha_legal, 3),
 			'dnnc_invstgdr' => plz_lv(denuncia.fecha_legal, 5),			# Plazo para asignar un investigador
 			'dnnc_evlcn' => plz_lv(denuncia.fecha_legal, 7),				# Plazo para evaluar la denuncia
 			'dnnc_agndmnt' => plz_lv(denuncia.fecha_legal, 10),			# Plazo para el agendamiento de declaraciones

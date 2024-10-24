@@ -9,6 +9,9 @@ class KrnDenunciado < ApplicationRecord
 
 	scope :rut_ordr, -> {order(:rut)}
 
+	validates :rut, valida_rut: true
+    validates_presence_of :rut, :nombre, :cargo, :lugar_trabajo, :email
+
 	def css_id
 		"dnncd#{self.id}"
 	end

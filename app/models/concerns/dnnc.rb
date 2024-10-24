@@ -9,10 +9,6 @@ module Dnnc
 
 	def prtl_cndtn
 		{
-			fecha: {
-				cndtn: self.fecha?,
-				trsh: (self.trsh_fecha?)
-			},
 			fecha_dt: {
 				cndtn: self.fecha_dt?,
 				trsh: true
@@ -51,18 +47,18 @@ module Dnnc
 			},
 			inf_dnncnt: {
 				cndtn: (self.vlr_inf_dnncnt?),
-				trsh: (not self.vlr_d_optn_emprs?)
+				trsh: (not self.vlr_d_optn_invstgcn?)
 			},
 			drvcn_dnncnt: {
 				cndtn: self.drvcns?,
 				trsh: false
 			},
-			d_optn_emprs: {
-				cndtn: (self.vlr_d_optn_emprs? or self.drv_dt?),
-				trsh: (not self.vlr_e_optn_emprs?)
+			d_optn_invstgcn: {
+				cndtn: (self.vlr_d_optn_invstgcn? or self.drv_dt?),
+				trsh: (not self.vlr_e_optn_invstgcn?)
 			},
-			e_optn_emprs: {
-				cndtn: (self.vlr_e_optn_emprs? or self.drv_dt?),
+			e_optn_invstgcn: {
+				cndtn: (self.vlr_e_optn_invstgcn? or self.drv_dt?),
 				trsh: (not self.mdds?)
 			},
 			dnnc_infrm_invstgcn_dt: {
@@ -113,14 +109,6 @@ module Dnnc
 
 	# ------------------------------------------------------------------------ INGRS
 
-	def fecha?
-		 self.fecha_hora.present?
-	end
-
-	def trsh_fecha?
-		self.rcp_externa? ? (not self.externa_id?) : (not self.via_declaracion? )
-	end
-
 	def fecha_dt?
 		 self.fecha_hora_dt.present?
 	end
@@ -129,12 +117,8 @@ module Dnnc
 		self.krn_empresa_externa.present?
 	end
 
-	def cndtn_externa_id?
-		
-	end
-
 	def dsply_via?
-		self.rcp_externa? ? self.externa_id? : fecha?
+		self.rcp_externa? ? self.externa_id? : true
 	end
 
 	def via_declaracion?
@@ -161,11 +145,11 @@ module Dnnc
 		self.representante.present?
 	end
 
-	# ------------------------------------------------------------------------ DIAT/DIEP
-
-	def dnnc_ingrs?
+	def ingrs_dnncnts?
 		self.activa_representante? ? self.representante? : self.presentado_por?
 	end
+
+	# ------------------------------------------------------------------------ DIAT/DIEP
 
 	def dnncnts?
 		self.krn_denunciantes.any?
@@ -202,22 +186,26 @@ module Dnnc
 		self.rcp_externa? and self.externa? and (self.seguimiento? == false)
 	end
 
-	def dnnc_sgmnt?
-		self.dsply_sgmnt? ? (self.sgmnt_drvcn_externa? ? self.drvcn_rchzd? : true )  : true
-	end
-
 	# ------------------------------------------------------------------------ DRVCNS
 
 	def dsply_drvcns?
-		self.prtcpnts?
+		self.dsply_sgmnt? ? self.vlr_seguimiento? : self.prtcpnts?
 	end
 
-	def drvcns?
-		self.krn_derivaciones.any?
+	def rcpcn?
+		self.rcp_externa? and self.empresa?
 	end
 
-	def no_drvcns?
-		self.krn_derivaciones.empty?
+	def rcpcnd?
+		self.rcpcn? and ( self.krn_derivaciones.map {|drv| drv.tipo}.include?('Recepción') )
+	end
+
+	def extrn_prsncl?
+		self.rcp_empresa? and self.externa?
+	end
+
+	def drvcns_on?
+		self.rcpcn? ? self.rcpcnd? : (self.rcp_dt? ? false : self.empresa?)
 	end
 
 	def riohs_off?
@@ -230,15 +218,15 @@ module Dnnc
 	end
 
 	def dt_obligatoria?
-		self.riohs_off? or self.art4_1?
+		self.extrn_prsncl? ? self.art4_1 : (self.riohs_off? or self.art4_1?)
 	end
 
-	def rcpcn?
-		self.rcp_externa? and self.empresa?
+	def drvcns?
+		self.krn_derivaciones.any?
 	end
 
-	def extrn_prsncl?
-		self.rcp_empresa? and self.externa?
+	def no_drvcns?
+		self.krn_derivaciones.empty?
 	end
 
 	def vlr_inf_dnncnt
@@ -254,49 +242,44 @@ module Dnnc
 		self.vlr_inf_dnncnt.blank? ? nil : self.vlr_inf_dnncnt.c_booleano
 	end
 
-	def vlr_d_optn_emprs
-		vlr = self.valor('d_optn_emprs')
+	def vlr_d_optn_invstgcn
+		vlr = self.valor('d_optn_invstgcn')
 		vlr.blank? ? nil : vlr
 	end
 
-	def vlr_d_optn_emprs?
-		self.vlr_d_optn_emprs.present?
+	def vlr_d_optn_invstgcn?
+		self.vlr_d_optn_invstgcn.present?
 	end
 
-	def d_optn_emprs?
-		self.vlr_d_optn_emprs.blank? ? nil : self.vlr_d_optn_emprs.c_booleano
+	def d_optn_invstgcn?
+		self.vlr_d_optn_invstgcn.blank? ? nil : self.vlr_d_optn_invstgcn.c_booleano
 	end
 
-	def vlr_e_optn_emprs
-		vlr = self.valor('e_optn_emprs')
+	def vlr_e_optn_invstgcn
+		vlr = self.valor('e_optn_invstgcn')
 		vlr.blank? ? nil : vlr
 	end
 
-	def vlr_e_optn_emprs?
-		self.vlr_e_optn_emprs.present?
+	def vlr_e_optn_invstgcn?
+		self.vlr_e_optn_invstgcn.present?
 	end
 
-	def e_optn_emprs?
-		self.vlr_e_optn_emprs.blank? ? nil : self.vlr_e_optn_emprs.c_booleano
+	def e_optn_invstgcn?
+		self.vlr_e_optn_invstgcn.blank? ? nil : self.vlr_e_optn_invstgcn.c_booleano
+	end
+
+	def invstgcn_on?
+		self.invstgcn_emprs? or self.invstgcn_dt? or self.invstgcn_extrn?
 	end
 
 
 	# ------------------------------------------------------------------------ MDDS
-
-#	def dsply_mdds?
-#		self.prtcpnts?
-#		self.rcp_dt? or (self.drv_dt? == true) or (self.drv_externa? == true) or (self.e_optn_emprs? == true)
-#	end
 
 	def mdds?
 		self.krn_lst_medidas.any?
 	end
 
 	# ------------------------------------------------------------------------ INFRMCN_DT
-
-	def dsply_infrm_invstgcn_dt?
-		self.krn_lst_medidas.any?
-	end
 
 	def vlr_dnnc_infrm_invstgcn_dt
 		vlr = self.valor('dnnc_infrm_invstgcn_dt')

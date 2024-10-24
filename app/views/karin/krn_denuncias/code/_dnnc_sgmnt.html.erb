@@ -2,6 +2,6 @@
 	<!-- Si se recibión en la DT, se pone un mensaje que declara el estatus de seguimiento-->
 	<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'cmptnc_dt', accn: 'Confirmación'} %>
 <% elsif ownr.sgmnt_drvcn_externa?  %>
-	<!-- Se trata de una derivación incorrecta, la empresa principal no tiene competencia en la investigación. Hay que marcarla como seguimiento, si se trata de una derivación, es necesario rechazarla para proteger el proceso-->
+	<!-- Denuncia recibida por una empresa externa que además es responsable de su investigación. Hay que marcarla como seguimiento, si se trata de una derivación, es necesario rechazarla para proteger el proceso-->
 	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'sgmnt_drvcn', accn: 'Selección'} %>
 <% end %>

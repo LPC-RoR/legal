@@ -3,10 +3,9 @@
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: objeto.ownr.class.name, vl: objeto.ownr.razon_social, algn: 'left'} %>
 
 <!-- FECHA DE RECEPCIÓN -->
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora denuncia (legal)', vl: dma_hm(objeto.fecha_legal), algn: 'right'} if objeto.rcp_empresa? %>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora certificado DT', vl: dma_hm(objeto.fecha_hora_dt), algn: 'right'} if objeto.rcp_dt? %>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora Recepción', vl: dma_hm(objeto.fecha_hora_recepcion), algn: 'right'} if objeto.rcp_externa? %>
-
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora denuncia', vl: dma_hm(objeto.fecha_hora), algn: 'right'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora certificado DT (derivación)', vl: dma_hm(objeto.fecha_hora_dt), algn: 'right'} if objeto.drv_dt? %>
+	
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Motivo de la denuncia', vl: objeto.motivo_denuncia, algn: 'left'} %>
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Receptor de la denuncia', vl: objeto.receptor_denuncia, algn: 'left'} %>
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Entidad que investiga', vl: @entdd_invstgdr, algn: 'left'} %>

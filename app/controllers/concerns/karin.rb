@@ -50,10 +50,10 @@ module Karin
 
   def drvcn_mtv
     {
+      'rcptn' => 'Recepción derivación de denuncia de nustra responsabilidad.',
       'riohs' => 'RIOHS con protocolo no ha entrado en vigencia.',
       'a41' => 'Aplica artículo 4 inciso primero del Código del trabajo.',
       'seg' => 'Seguimiento de denuncia de empresa externa.',
-      'r_multi' => 'Recepción derivación de denuncia multi-empresa.',
       'd_optn' => 'Por determinación del denunciante',
       'e_optn' => 'Por determinación de la empresa'
     }

@@ -9,10 +9,12 @@
 	<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: @objeto, scndry: nil} if prtl?('ctr_etapas', 'code', 'objeto') %>
 <% end %>
 
-<% if @objeto.dnnc_ingrs? %>
+<% if @objeto.ingrs_dnncnts? %>
 	<hr>
 	<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciantes', ttl: "Persona(s) denunciante(s)", ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciantes'} %>
+<% end %>
+<% if @objeto.dnncnts? %>
 	<hr>
 	<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_denunciados', ttl: "Persona(s) denunciada(s)", ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>

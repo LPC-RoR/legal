@@ -1,31 +1,26 @@
-<!-- FECHAS -->
-<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'fecha', accn: 'Fecha'} %>
-
 <% if ownr.drv_dt? %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'fecha_dt', accn: 'Fecha recepción Dirección del Trabajo'} %>
 <% end %>
 
-<!-- CAMPOS INICIALES: --> 
-<!-- Se usa fecha? porque el certificado de la DT llegará después -->
-<% if ownr.fecha? %>
-	<!-- Recibida por empresa externa -->
-	<% if ownr.rcp_externa? %>
-		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'externa_id', accn: 'Selección', trsh: (not ownr.krn_empresa_externa?), prmpt: 'Empresa'} %>
-	<% end %>
+<!-- Empresa externa que recibió la denuncia -->
+<% if ownr.rcp_externa? %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'externa_id', accn: 'Selección', trsh: (not ownr.krn_empresa_externa?), prmpt: 'Empresa'} %>
+<% end %>
 
-	<% if ownr.dsply_via? %>
-		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'via', accn: 'Radio'} %>
-	<% end %>
+<% if ownr.dsply_via? %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'via', accn: 'Radio'} %>
+<% end %>
 
-	<% if ownr.via_declaracion? %>
-		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'tipo', accn: 'Radio'} %>
-	<% end %>
+<!-- Formato de la declaración -->
+<% if ownr.via_declaracion? %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'tipo', accn: 'Radio'} %>
+<% end %>
 
-	<% if ownr.tipo_declaracion? %>
-		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'presentada', accn: 'Radio'} %>
-	<% end %>
+<!-- Quién presentó la denuncia -->
+<% if ownr.tipo_declaracion? %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'presentada', accn: 'Radio'} %>
+<% end %>
 
-	<% if ownr.presentado_por? and ownr.activa_representante? %>
-		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'representante', accn: 'Selección'} %>
-	<% end %>
+<% if ownr.presentado_por? and ownr.activa_representante? %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'representante', accn: 'Selección'} %>
 <% end %>

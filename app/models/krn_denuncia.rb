@@ -30,6 +30,8 @@ class KrnDenuncia < ApplicationRecord
 
 	delegate :rut, to: :krn_empresa_externa, prefix: true
 
+    validates_presence_of :fecha_hora
+
 	def fecha_legal
 		self.drv_dt? ? self.fecha_hora_dt : self.fecha_hora
 	end
@@ -41,7 +43,7 @@ class KrnDenuncia < ApplicationRecord
 	# ------------------------------------------------------------------------ COMPETENCIA DE INVESTIGAR
 
 	def emprss_ids
-		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).compact.uniq
+		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).uniq
 	end
 
 	def empresa?
@@ -84,6 +86,17 @@ class KrnDenuncia < ApplicationRecord
 		self.no_drvcns? ? nil : self.krn_derivaciones.lst.dstn_externa?
 	end
 
+	def invstgcn_emprs?
+		self.vlr_e_optn_invstgcn?
+	end
+
+	def invstgcn_dt?
+		self.rcp_dt? or self.drv_dt?
+	end
+
+	def invstgcn_extrn?
+		self.externa? and (self.rcp_externa? or self.drv_externa?)
+	end
 
 	# ------------------------------------------------------------------------ PRTCPNTS
 
@@ -96,9 +109,6 @@ class KrnDenuncia < ApplicationRecord
 	# ------------------------------------------------------------------------ DRVCN
 
 	# Se distinguen tres estados, se diferencia si hay o no recepciones
-	def derivable?
-		(self.drv_empresa? == nil) ? self.rcp_empresa? : self.drv_empresa?
-	end
 
 	def recibible?
 		self.rcp_externa? and (self.empresa? or self.multiempresa?) and self.no_drvcns?
