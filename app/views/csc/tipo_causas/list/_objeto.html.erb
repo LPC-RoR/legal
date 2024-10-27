@@ -44,7 +44,7 @@
 	</div>
 
 	<% objeto.control_documentos.order(:orden).each do |c_doc| %>
-			<%= render partial: 'repositorios/control_documentos/list/bjt', locals: {objeto: c_doc} %>
+			<%= render partial: 'repositorios/control_documentos/list/objeto', locals: {objeto: c_doc} %>
 	<% end %>
 
 	<!-- VARIABLES -->
@@ -52,15 +52,15 @@
 		<div class="ttl_ttl">
 			Variables
 		</div>
-		<% unless objeto.variables.count == @vrbls.count %>
-			<div class="ttl_lnks">
-				<%= render partial: "0p/add_lst/add_lst", locals: {id: objeto.id, lst: objeto.variables.map {|bjt_var| bjt_var.variable}, cmplt: @vrbls.map {|vrbl| vrbl.variable}, path: "/tipo_causas/#{objeto.id}/add_rcrd?v_nm="} %>
-			</div>
-		<% end %>
+		<%# unless objeto.variables.count == @vrbls.count %>
+			<!--div class="ttl_lnks">
+				<%#= render partial: "0p/add_lst/add_lst", locals: {id: objeto.id, lst: objeto.variables.map {|bjt_var| bjt_var.variable}, cmplt: @vrbls.map {|vrbl| vrbl.variable}, path: "/tipo_causas/#{objeto.id}/add_rcrd?v_nm="} %>
+			</div-->
+		<%# end %>
 	</div>
 
-	<% objeto.var_tp_causas.each do |rel| %>
-		<%= render partial: 'dts/var_tp_causas/list/var_child', locals: {objeto: rel} %>
-	<% end %>
+	<%# objeto.var_tp_causas.each do |rel| %>
+		<%#= render partial: 'dts/var_tp_causas/list/var_child', locals: {objeto: rel} %>
+	<%# end %>
 
 </small>

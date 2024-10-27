@@ -37,6 +37,13 @@ module CptnMenuLeftHelper
 					]
 				},
 				{
+					titulo: 'Causas & Asesorias',
+					condicion: operacion?,
+					items: [
+						'TribunalCorte',
+					]
+				},
+				{
 					titulo: 'Tablas',
 					condicion: admin?,
 					items: [
@@ -54,7 +61,7 @@ module CptnMenuLeftHelper
 							condicion: admin?,
 							items:  [
 								['Etapas & Tipos', 'tipos'],
-								['Cuantías & Tribunales', 'cuantias_tribunales'],
+								['Cuantías', 'cuantias_tribunales'],
 								['Tarifas generales', 'tarifas_generales'],
 							]
 						},

@@ -25,19 +25,19 @@ class Aplicacion::TablasController < ApplicationController
 
   def tipos
       #proceso de tipos de causa con asociacion antigua
-      @vrbls = Variable.all.order(:variable)
-      @vrbls.each do |vrbl|
-        unless vrbl.tipo_causa_id.blank?
-          tipo_causa = TipoCausa.find(vrbl.tipo_causa_id)
-          unless tipo_causa.blank?
-            tipo_causa.variables << vrbl
-            if tipo_causa.variables.ids.include?(vrbl.id)
-              vrbl.tipo_causa_id = nil
-              vrbl.save
-            end
-          end
-        end 
-      end
+#      @vrbls = Variable.all.order(:variable)
+#      @vrbls.each do |vrbl|
+#        unless vrbl.tipo_causa_id.blank?
+#          tipo_causa = TipoCausa.find(vrbl.tipo_causa_id)
+#          unless tipo_causa.blank?
+#            tipo_causa.variables << vrbl
+#            if tipo_causa.variables.ids.include?(vrbl.id)
+#              vrbl.tipo_causa_id = nil
+#              vrbl.save
+#            end
+#          end
+#        end 
+#      end
 
       set_tabla('tipo_causas', TipoCausa.all.order(:tipo_causa), false)
       set_tabla('tipo_asesorias', TipoAsesoria.all.order(:tipo_asesoria), false)

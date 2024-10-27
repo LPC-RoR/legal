@@ -5,4 +5,6 @@ class TribunalCorte < ApplicationRecord
 
 	has_many :causas
 
+	scope :trbnl_ordr, -> {order(:tribunal_corte)}
+
 end

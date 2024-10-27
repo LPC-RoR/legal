@@ -5,7 +5,7 @@ class Csc::TribunalCortesController < ApplicationController
 
   # GET /tribunal_cortes or /tribunal_cortes.json
   def index
-    @coleccion = TribunalCorte.all
+    set_tabla('tribunal_cortes', TribunalCorte.trbnl_ordr, false)
   end
 
   # GET /tribunal_cortes/1 or /tribunal_cortes/1.json
@@ -68,7 +68,7 @@ class Csc::TribunalCortesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = tabla_path(@objeto)
+      @redireccion = tribunal_cortes_path
     end
 
     # Only allow a list of trusted parameters through.
