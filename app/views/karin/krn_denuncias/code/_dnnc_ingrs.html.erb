@@ -7,20 +7,11 @@
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'externa_id', accn: 'Selección', trsh: (not ownr.krn_empresa_externa?), prmpt: 'Empresa'} %>
 <% end %>
 
-<% if ownr.dsply_via? %>
-	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'via', accn: 'Radio'} %>
-<% end %>
-
 <!-- Formato de la declaración -->
-<% if ownr.via_declaracion? %>
+<% if ownr.prsncl? %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'tipo', accn: 'Radio'} %>
 <% end %>
 
-<!-- Quién presentó la denuncia -->
-<% if ownr.tipo_declaracion? %>
-	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'presentada', accn: 'Radio'} %>
-<% end %>
-
-<% if ownr.presentado_por? and ownr.activa_representante? %>
+<% if ownr.rprsntnt? %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'representante', accn: 'Selección'} %>
 <% end %>

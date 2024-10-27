@@ -129,18 +129,12 @@ class Karin::KrnDenunciasController < ApplicationController
         del_vlr(@objeto, params[:k])
       else
         case params[:k]
-        when 'fecha'
-          @objeto.fecha_hora = nil
         when 'fecha_dt'
           @objeto.fecha_hora_dt = nil
-        when 'via'
-          @objeto.via_declaracion = nil
         when 'tipo'
           @objeto.tipo_declaracion = nil
         when 'externa_id'
           @objeto.krn_empresa_externa_id = nil
-        when 'presentada'
-          @objeto.presentado_por = nil
         when 'representante'
           @objeto.representante = nil
         when 'invstgdr'

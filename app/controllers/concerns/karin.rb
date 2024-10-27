@@ -10,7 +10,7 @@ module Karin
       'dnnc_denuncia' => denuncia.tipo_declaracion != 'Verbal',     # Denuncia se presenta por escrito
       'dnnc_notificacion' => denuncia.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
       'dnnc_acta' => denuncia.tipo_declaracion == 'Verbal',         # Denuncia se presenta en forma verbal
-      'dnnc_representacion' => denuncia.activa_representante?,      # Denuncia presentada por un representante
+      'dnnc_representacion' => denuncia.rprsntnt?,                  # Denuncia presentada por un representante
       'dnnc_certificado' => denuncia.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
       'dnncnt_diat_diep' => true,
       'dnnc_corrgd' => (not denuncia.dnnc_ok?),                     # Denuncia corregida
@@ -25,7 +25,7 @@ module Karin
       'krn_informe' => true,
       'krn_crtfcd_infrm' => true,
       'krn_pronunciamiento' => true,
-      'krn_impugnacion' => true
+      'krn_impugnacion' => true,
     }
   end
 

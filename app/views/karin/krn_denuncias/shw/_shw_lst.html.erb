@@ -8,5 +8,6 @@
 	
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Motivo de la denuncia', vl: objeto.motivo_denuncia, algn: 'left'} %>
 	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Receptor de la denuncia', vl: objeto.receptor_denuncia, algn: 'left'} %>
-	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Entidad que investiga', vl: @entdd_invstgdr, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Canal de denuncia', vl: objeto.via_declaracion, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Denuncia presentada por', vl: objeto.presentado_por, algn: 'left'} %>
 </b>

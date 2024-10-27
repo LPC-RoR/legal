@@ -1,5 +1,5 @@
 <%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver denunciado'} do %>
-	<%= s_rut(objeto.rut) %>
+	<%= objeto.rut.blank? ? 'Sin Cédula de identidad' : s_rut(objeto.rut) %>
 <% end %>
 <i class="bi bi-dot"></i>
 <%= objeto.nombre %>

@@ -6,9 +6,8 @@ class KrnDenuncia < ApplicationRecord
 	MOTIVOS = ['Acoso laboral', 'Acoso sexual', 'Violencia en el trabajo ejercida por terceros']
 
 	VIAS_DENUNCIA = ['Denuncia presencial', 'Correo electrónico', 'Plataforma']
+	TIPOS_DENUNCIANTE = ['Denunciante', 'Representante']
 	TIPOS_DENUNCIA = ['Escrita', 'Verbal']
-
-	include Dnnc
 
 	belongs_to :ownr, polymorphic: true
 
@@ -31,6 +30,11 @@ class KrnDenuncia < ApplicationRecord
 	delegate :rut, to: :krn_empresa_externa, prefix: true
 
     validates_presence_of :fecha_hora
+
+	include Valores
+	include Dnnc
+	include DnncProc
+	include Procs
 
 	def fecha_legal
 		self.drv_dt? ? self.fecha_hora_dt : self.fecha_hora
@@ -98,52 +102,9 @@ class KrnDenuncia < ApplicationRecord
 		self.externa? and (self.rcp_externa? or self.drv_externa?)
 	end
 
-	# ------------------------------------------------------------------------ PRTCPNTS
-
-	def dnncds?
-		self.krn_denunciados.any?
+	def sgmnt?
+		self.invstgcn_dt? or self.invstgcn_extrn?
 	end
-
-	# ------------------------------------------------------------------------ SGMNT
-
-	# ------------------------------------------------------------------------ DRVCN
-
-	# Se distinguen tres estados, se diferencia si hay o no recepciones
-
-	def recibible?
-		self.rcp_externa? and (self.empresa? or self.multiempresa?) and self.no_drvcns?
-	end
-
-	# El código verifica si es o no derivable
-	# RIOHS Aun no entra en vigencia
-	# Esto no cubre el caso multiempresa, en el cual puede haber más de una fecha de activación!
-	# ------------------------------------------------------------------------ MDDS DE RESGUARDO
-
-	# ------------------------------------------------------------------------ INVSTGCN
-
-	def investigable?
-		self.no_drvcns? ? self.rcp_empresa? : self.drv_empresa?
-	end
-
-	def dnnc_ok?
-		self.dnnc_incnsstnt? == false and self.dnnc_incmplt? == false
-	end
-
-	# ------------------------------------------------------------------------ INVSTGCN
-
-
-
-
-	def invstgdr_dt?
-		self.drv_dt? or self.rcp_dt?
-	end
-
-	def entdd_invstgdr
-		ids = self.emprss_ids
-		self.invstgdr_dt? ? 'Dirección del Trabajo' : ( ids.length == 1 ? ( ids.first.blank? ? 'Empresa' : 'Empresa externa' ) : 'Empresa' )
-	end
-
-
 
 	# --------------------------------------------------------------------------------------------- MDDS
 	# --------------------------------------------------------------------------------------------- DOCUMENTOS CONTROLADOS

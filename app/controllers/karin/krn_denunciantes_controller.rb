@@ -1,7 +1,7 @@
 class Karin::KrnDenunciantesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denunciante, only: %i[ show edit update destroy ]
+  before_action :set_krn_denunciante, only: %i[ show edit update destroy fll_optn del_fld ]
 
   # GET /krn_denunciantes or /krn_denunciantes.json
   def index
@@ -52,6 +52,35 @@ class Karin::KrnDenunciantesController < ApplicationController
     end
   end
 
+  def fll_optn
+    if perfil_activo?
+      case params[:k]
+      when 'ntfccn'
+        @objeto.direccion_notificacion = params[:option]
+      end
+      @objeto.save
+    end
+
+    redirect_to @objeto.krn_denuncia
+  end
+
+  def del_fld
+    if perfil_activo?
+      if [].include?(params[:k])
+        del_vlr(@objeto, params[:k])
+      else
+        case params[:k]
+        when 'ntfccn'
+          @objeto.direccion_notificacion = nil
+        end
+      end
+
+      @objeto.save
+    end
+
+    redirect_to @objeto.krn_denuncia
+  end
+
   # DELETE /krn_denunciantes/1 or /krn_denunciantes/1.json
   def destroy
     get_rdrccn
@@ -75,6 +104,6 @@ class Karin::KrnDenunciantesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denunciante_params
-      params.require(:krn_denunciante).permit(:krn_denuncia_id, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :dnnte_info_reglamento, :dnnte_info_procedimiento, :dnnte_info_derechos, :dependencia_denunciante_id, :representante, :doc_representante)
+      params.require(:krn_denunciante).permit(:krn_denuncia_id, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :articulo_516, :representante)
     end
 end

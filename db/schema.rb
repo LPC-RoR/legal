@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_21_172845) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_26_231141) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1043,6 +1043,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_172845) do
     t.boolean "info_procedimiento"
     t.boolean "info_derechos"
     t.integer "krn_empleado_id"
+    t.boolean "articulo_516"
+    t.string "direccion_notificacion"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciados_on_krn_empresa_externa_id"
@@ -1064,6 +1066,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_172845) do
     t.boolean "info_reglamento"
     t.boolean "info_procedimiento"
     t.boolean "info_derechos"
+    t.boolean "articulo_516"
+    t.string "direccion_notificacion"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
@@ -1073,34 +1077,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_172845) do
     t.integer "krn_empresa_externa_id"
     t.datetime "fecha_hora"
     t.datetime "fecha_hora_dt"
-    t.datetime "fecha_hora_recepcion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "dnnte_info_derivacion"
-    t.boolean "dnnte_derivacion"
-    t.string "dnnte_entidad_investigacion"
-    t.integer "dnnte_empresa_investigacion_id"
     t.string "presentado_por"
     t.string "via_declaracion"
     t.string "tipo_declaracion"
     t.string "representante"
-    t.string "documento_representacion"
-    t.boolean "info_opciones"
-    t.string "dnncnt_opcion"
-    t.string "emprs_opcion"
     t.integer "krn_investigador_id"
-    t.boolean "leida"
-    t.boolean "incnsstnt"
-    t.boolean "incmplt"
     t.string "ownr_type"
     t.integer "ownr_id"
     t.string "receptor_denuncia"
     t.string "motivo_denuncia"
-    t.index ["dnnte_derivacion"], name: "index_krn_denuncias_on_dnnte_derivacion"
-    t.index ["dnnte_empresa_investigacion_id"], name: "index_krn_denuncias_on_dnnte_empresa_investigacion_id"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
-    t.index ["fecha_hora_recepcion"], name: "index_krn_denuncias_on_fecha_hora_recepcion"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denuncias_on_krn_empresa_externa_id"
     t.index ["krn_investigador_id"], name: "index_krn_denuncias_on_krn_investigador_id"
     t.index ["motivo_denuncia"], name: "index_krn_denuncias_on_motivo_denuncia"

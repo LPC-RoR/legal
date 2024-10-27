@@ -6,11 +6,26 @@ class KrnDenunciante < ApplicationRecord
 	has_many :rep_archivos, as: :ownr
 	has_many :krn_declaraciones, as: :ownr
 	has_many :krn_testigos, as: :ownr
+	has_many :valores, as: :ownr
 
 	scope :rut_ordr, -> {order(:rut)}
 
 	validates :rut, valida_rut: true
-    validates_presence_of :rut, :nombre, :cargo, :lugar_trabajo, :email
+    validates_presence_of :rut, :nombre, :cargo, :lugar_trabajo
+    validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
+
+	include Procs
+	include Ntfccns
+	include Valores
+
+	def prtl_cndtn
+		{
+			ntfccn: {
+				cndtn: self.direccion_notificacion.present?,
+				trsh: (not self.krn_denuncia.invstgdr?)
+			}
+		}
+	end
 
 	def css_id
 		"dnncnt#{self.id}"
@@ -22,6 +37,18 @@ class KrnDenunciante < ApplicationRecord
 
 	def self.art4_1?
 		all.map { |den| den.articulo_4_1 }.include?(true)
+	end
+
+	def self.art516?
+		all.map { |den| den.articulo_516 }.include?(true)
+	end
+
+	def self.rgstrs_fail?
+		all.map {|den| den.rgstr_ok?}.include?(false)
+	end
+
+	def rgstr_ok?
+		self.articulo_516 ? self.direccion_notificacion.present? : true
 	end
 
 	def empleador

@@ -6,6 +6,8 @@
 
 	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :motivo_denuncia, colection: KrnDenuncia::MOTIVOS, display_field: 'motivo_denuncia', prompt: nil, label: 'Motivo de la denuncia' } %>
 	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :receptor_denuncia, colection: KrnDenuncia::RECEPTORES, display_field: 'receptor_denuncia', prompt: nil, label: 'Receptor de la denuncia' } %>
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :via_declaracion, colection: KrnDenuncia::VIAS_DENUNCIA, display_field: 'via_declaracion', prompt: nil, label: 'Canal' } %>
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :presentado_por, colection: KrnDenuncia::TIPOS_DENUNCIANTE, display_field: 'presentado_por', prompt: nil, label: 'Quien denuncia' } %>
 </div>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
