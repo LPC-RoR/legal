@@ -1,5 +1,5 @@
 <% unless objeto.rep_doc_controlados.empty? %>
-	<%= render partial: '0p/actv_bx/ttl', locals: {gly: 'files', ttl: 'Archivo(s) controlado(s)'} %>
+	<%#= render partial: '0p/actv_bx/ttl', locals: {gly: 'files', ttl: 'Archivo(s) controlado(s)'} %>
 
 	<% objeto.rep_doc_controlados.ordr.each do |dc| %>
 		<% if dc.multiple == true %>

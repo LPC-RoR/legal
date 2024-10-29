@@ -7,7 +7,7 @@ module CptnTablaAppHelper
 		}
 	end
 
-	def new?(source)
+	def new?(cntrllr)
 		cntrllr = source.class.name == 'String' ? source : source.class.name.tableize
 		h_new[cntrllr] == nil ? true : h_new[cntrllr]
 	end
@@ -50,6 +50,18 @@ module CptnTablaAppHelper
 				end
 			end
 		end
+	end
+
+	def crud_cndtns
+		{
+			krn_denunciantes: (not @objeto.dnnc_infrm_invstgcn_dt?),
+			krn_denunciados: (not @objeto.dnnc_infrm_invstgcn_dt?)
+		}
+	end
+
+	def crud?(objeto)
+		cntrllr = objeto.class.name.tableize
+		crud_cndtns[cntrllr.to_sym] == nil ? true : crud_cndtns[cntrllr.to_sym]
 	end
 
 end

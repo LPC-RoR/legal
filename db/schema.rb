@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_26_231141) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_29_224836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1088,6 +1088,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_26_231141) do
     t.integer "ownr_id"
     t.string "receptor_denuncia"
     t.string "motivo_denuncia"
+    t.datetime "fecha_hora_corregida"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denuncias_on_krn_empresa_externa_id"
@@ -1142,46 +1143,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_26_231141) do
     t.index ["ownr_type"], name: "index_krn_investigadores_on_ownr_type"
   end
 
-  create_table "krn_lst_medidas", force: :cascade do |t|
-    t.string "ownr_type", null: false
-    t.bigint "ownr_id", null: false
-    t.string "emisor"
-    t.string "tipo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["ownr_type", "ownr_id"], name: "index_krn_lst_medidas_on_ownr"
-  end
-
-  create_table "krn_lst_modificaciones", force: :cascade do |t|
-    t.string "ownr_type", null: false
-    t.bigint "ownr_id", null: false
-    t.string "emisor"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["ownr_type", "ownr_id"], name: "index_krn_lst_modificaciones_on_ownr"
-  end
-
-  create_table "krn_medidas", force: :cascade do |t|
-    t.integer "krn_lst_medida_id"
-    t.integer "krn_tipo_medida_id"
-    t.string "krn_medida"
-    t.text "detalle"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["krn_lst_medida_id"], name: "index_krn_medidas_on_krn_lst_medida_id"
-    t.index ["krn_tipo_medida_id"], name: "index_krn_medidas_on_krn_tipo_medida_id"
-  end
-
-  create_table "krn_modificaciones", force: :cascade do |t|
-    t.integer "krn_lst_modificacion_id"
-    t.integer "krn_medida_id"
-    t.text "detalle"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["krn_lst_modificacion_id"], name: "index_krn_modificaciones_on_krn_lst_modificacion_id"
-    t.index ["krn_medida_id"], name: "index_krn_modificaciones_on_krn_medida_id"
-  end
-
   create_table "krn_motivo_derivaciones", force: :cascade do |t|
     t.string "krn_motivo_derivacion"
     t.datetime "created_at", null: false
@@ -1207,20 +1168,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_26_231141) do
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"
     t.index ["rut"], name: "index_krn_testigos_on_rut"
-  end
-
-  create_table "krn_tipo_medidas", force: :cascade do |t|
-    t.string "krn_tipo_medida"
-    t.boolean "denunciante"
-    t.boolean "denunciado"
-    t.string "tipo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.index ["ownr_id"], name: "index_krn_tipo_medidas_on_ownr_id"
-    t.index ["ownr_type"], name: "index_krn_tipo_medidas_on_ownr_type"
-    t.index ["tipo"], name: "index_krn_tipo_medidas_on_tipo"
   end
 
   create_table "lgl_datos", force: :cascade do |t|

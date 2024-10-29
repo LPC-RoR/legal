@@ -160,13 +160,6 @@ Rails.application.routes.draw do
       match :del_fld, via: :get, on: :member
     end
 
-    resources :krn_modificaciones do
-      match :nueva, via: :get, on: :collection
-    end
-    resources :krn_medidas
-    resources :krn_lst_modificaciones
-    resources :krn_lst_medidas
-    resources :krn_tipo_medidas
     resources :krn_derivaciones do
       match :nueva, via: :get, on: :collection
     end

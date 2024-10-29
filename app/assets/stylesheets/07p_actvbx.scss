@@ -8,6 +8,100 @@ $qstn_brd_rds: 15px;
 
 @import "bscs";
 
+@mixin dc_fl_bsc($clr_bg, $clr) {
+	margin: $actv_mrgn;
+	padding: $actv_pddng;
+	background-color: $clr_bg;
+	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $clr_bg, 20px);
+	font-size: 14px;
+	color: $clr;
+	@include grd(auto 50px, 0);
+	.fl {
+        @include grd_ncol(1);
+    	justify-self: start;
+	}
+	.lnks {
+	    @include grd_ncol(2);
+    	justify-self: end;
+	}
+}
+
+@mixin dc_fl_lst_bsc($clr_bg, $clr) {
+	margin: $actv_mrgn;
+	font-size: 14px;
+	.dc_nm {
+		padding: $actv_pddng;
+		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $clr_bg, 20px 20px 0 0);
+		background-color: $clr_bg;
+		color: $clr;
+		@include grd(auto 50px, 0);
+		.fl {
+	        @include grd_ncol(1);
+	    	justify-self: start;
+		}
+		.lnks {
+		    @include grd_ncol(2);
+	    	justify-self: end;
+		}
+	}
+	.lst {
+		padding: $actv_pddng;
+		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 0 0 20px 20px);
+		background-color: $pltt_9;
+		font-weight: lighter;
+	}
+}
+
+@mixin ttl_bsc {
+	padding: $actv_pddng;
+	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 10px);
+	@include grd(auto 100px, 0);
+	.ttl {
+        @include grd_ncol(1);
+    	justify-self: start;
+	}
+	.lnks {
+	    @include grd_ncol(2);
+    	justify-self: end;
+    	@include a_hover(white, gray);
+	}
+}
+
+@mixin qstn_bx_bsc($clr_bg, $clr) {
+	margin: $actv_mrgn;
+	font-size: 16px;
+	.qstn {
+		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px 20px 0 0);
+		padding-left: 8rem;
+		background-color: $clr_bg;
+		color: $clr;
+		font-weight: bold;
+	}
+	.optns {
+		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 0 0 20px 20px);
+		padding: $actv_pddng;
+		background-color: white;
+		text-align: left;
+		color: $pltt_2;
+
+		@include grd(150px auto, 0);
+		.typ {
+	        @include grd_ncol(1);
+        	justify-self: start;
+		}
+		.lnks {
+    	    @include grd_ncol(2);
+        	justify-self: start;
+		}
+	}
+}
+
+.prmpt_ttl {
+	@include ttl_bsc;
+	background-color: white;
+	color: orange;
+}
+
 .qstn_bx {
 	margin: $actv_mrgn;
 	font-size: 16px;
@@ -15,7 +109,6 @@ $qstn_brd_rds: 15px;
 		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px 20px 0 0);
 		padding-left: 8rem;
 		background-color: $pltt_9;
-//		text-align: center;
 		color: $pltt_2;
 		font-weight: bold;
 	}
@@ -73,23 +166,6 @@ $qstn_brd_rds: 15px;
 	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px);
 }
 
-.dc_fl {
-	margin: $actv_mrgn;
-	padding: $actv_pddng;
-	background-color: $pltt_9;
-	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px);
-	font-size: 14px;
-	@include grd(auto 50px, 0);
-	.fl {
-        @include grd_ncol(1);
-    	justify-self: start;
-	}
-	.lnks {
-	    @include grd_ncol(2);
-    	justify-self: end;
-	}
-}
-
 .actv_objt {
 	margin: $actv_mrgn;
 	padding: $actv_pddng;
@@ -130,36 +206,11 @@ $qstn_brd_rds: 15px;
 	}
 }
 
-.dc_fl_lst {
-	margin: $actv_mrgn;
-	font-size: 14px;
-	.dc_nm {
-		padding: $actv_pddng;
-		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px 20px 0 0);
-		background-color: $pltt_7;
-		@include grd(auto 50px, 0);
-		.fl {
-	        @include grd_ncol(1);
-	    	justify-self: start;
-		}
-		.lnks {
-		    @include grd_ncol(2);
-	    	justify-self: end;
-		}
-	}
-	.lst {
-		padding: $actv_pddng;
-		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 0 0 20px 20px);
-		background-color: $pltt_9;
-		font-weight: lighter;
-	}
-}
-
 .actv_ttl {
 	padding: $actv_pddng;
 	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 10px);
-	background-color: $pltt_5;
-	color: $pltt_9;
+	background-color: blue_5;
+	color: blue;
 	@include grd(auto 100px, 0);
 	.ttl {
         @include grd_ncol(1);
@@ -168,8 +219,8 @@ $qstn_brd_rds: 15px;
 	.lnks {
 	    @include grd_ncol(2);
     	justify-self: end;
-    	@include a_hover(white, gray);
 	}
+   	@include a_hover(blue, $blue_4);
 }
 
 .actv_indnt {
@@ -178,4 +229,40 @@ $qstn_brd_rds: 15px;
 
 .form-actv_box {
 	padding-top: 5px;
+}
+
+// CLSS
+
+.dc_fl {
+	@include dc_fl_bsc($blue_4, blue);
+   	@include a_hover(blue, $blue_5);
+}
+
+.no_dc_fl {
+	@include dc_fl_bsc($red_4, red);
+   	@include a_hover(red, $red_5);
+}
+
+.opt_dc_fl {
+	@include dc_fl_bsc($pltt_6, $red_1);
+   	@include a_hover($red_1, $red_4);
+}
+
+.dc_fl_lst {
+	@include dc_fl_lst_bsc($blue_4, blue);
+   	@include a_hover(blue, $blue_5);
+}
+
+.no_dc_fl_lst {
+	@include dc_fl_lst_bsc($red_4, red);
+   	@include a_hover(red, $red_5);
+}
+
+.opt_dc_fl_lst {
+	@include dc_fl_lst_bsc($pltt_6, red_1);
+   	@include a_hover($red_1, $red_4);
+}
+
+.qstn_bx {
+	@include qstn_bx_bsc(white, orange);
 }

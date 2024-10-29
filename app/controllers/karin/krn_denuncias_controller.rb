@@ -25,10 +25,6 @@ class Karin::KrnDenunciasController < ApplicationController
       end
     end
 
-    @mdds = @objeto.krn_lst_medidas.mdds
-    @mdfccns = @objeto.krn_lst_modificaciones.ordr
-    @sncns = @objeto.krn_lst_medidas.sncns
-
     set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
     set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
     set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
@@ -76,8 +72,8 @@ class Karin::KrnDenunciasController < ApplicationController
   def fll_dttm
     if perfil_activo?
       case params[:k]
-      when 'fecha'
-        @objeto.fecha_hora = params_to_date(params, 'fecha')
+      when 'fecha_crrgd'
+        @objeto.fecha_hora_corregida = params_to_date(params, 'fecha')
       when 'fecha_dt'
         @objeto.fecha_hora_dt = params_to_date(params, 'fecha')
       end
@@ -125,12 +121,14 @@ class Karin::KrnDenunciasController < ApplicationController
 
   def del_fld
     if perfil_activo?
-      if ['sgmnt_drvcn', 'inf_dnncnt', 'd_optn_invstgcn', 'e_optn_invstgcn', 'dnnc_infrm_invstgcn_dt', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt'].include?(params[:k])
+      if ['sgmnt_drvcn', 'inf_dnncnt', 'd_optn_invstgcn', 'e_optn_invstgcn', 'dnnc_infrm_invstgcn_dt', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt', 'objcn_invstgdr'].include?(params[:k])
         del_vlr(@objeto, params[:k])
       else
         case params[:k]
         when 'fecha_dt'
           @objeto.fecha_hora_dt = nil
+        when 'fecha_crrgd'
+          @objeto.fecha_hora_corregida = nil
         when 'tipo'
           @objeto.tipo_declaracion = nil
         when 'externa_id'

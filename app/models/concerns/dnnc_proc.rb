@@ -21,7 +21,7 @@ module DnncProc
 				trsh: (not self.dnncnts?)
 			},
 			sgmnt_drvcn: {
-				cndtn: self.vlr_seguimiento?,
+				cndtn: self.vlr_flg_sgmnt?,
 				trsh: (not self.mdds?)
 			},
 			recpcn_ok: {
@@ -38,7 +38,7 @@ module DnncProc
 			},
 			d_optn_invstgcn: {
 				cndtn: (self.vlr_d_optn_invstgcn? or self.drv_dt?),
-				trsh: (not self.vlr_e_optn_invstgcn?)
+				trsh: (not (self.vlr_e_optn_invstgcn? or self.drvcns?))
 			},
 			e_optn_invstgcn: {
 				cndtn: (self.vlr_e_optn_invstgcn? or self.drv_dt?),
@@ -50,6 +50,10 @@ module DnncProc
 			},
 			invstgdr: {
 				cndtn: self.invstgdr?,
+				trsh: (not (self.vlr_dnnc_leida? or self.vlr_objcn_invstgdr?))
+			},
+			objcn_invstgdr: {
+				cndtn: (self.vlr_objcn_invstgdr?),
 				trsh: (not self.vlr_dnnc_leida?)
 			},
 			dnnc_leida: {
@@ -62,6 +66,10 @@ module DnncProc
 			},
 			dnnc_incmplt: {
 				cndtn: self.vlr_dnnc_incmplt?,
+				trsh: (not (self.any_dclrcn? or self.fecha_hora_corregida.present?))
+			},
+			fecha_crrgd: {
+				cndtn: self.fecha_hora_corregida.present?,
 				trsh: (not self.any_dclrcn?)
 			},
 			dnnc_crr_dclrcns: {

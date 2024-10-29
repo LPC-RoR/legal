@@ -1,6 +1,6 @@
 <% if cntrl %>
 
-	<div class="dc_fl_lst">
+	<div class="<%=fl.blank? ? (dc.req? ? 'no_dc_fl_lst' : 'opt_dc_fl_lst') : 'dc_fl_lst' %>">
 		<div class="dc_nm">
 			<div class="fl">
 				<%= dc.rep_doc_controlado %>

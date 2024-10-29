@@ -8,7 +8,7 @@ module Dnnc
 	end
 
 	# --------------------------------------------------------------------------------------------- VALORES
-
+	# Usamos esta función porque no está clara la utilidad de Concern Valores
 	def valor(variable_nm)
 		variable = Variable.find_by(variable: variable_nm)
 		variable.blank? ? nil : self.valores.find_by(variable_id: variable.id)
@@ -55,17 +55,28 @@ module Dnnc
 	end
 
 	def prtcpnts?
-		self.dnncnts? and self.dnncds?
+		self.no_vlnc? ? (self.dnncnts? and self.dnncds?) : self.dnncnts?
+	end
+
+	def no_vlnc?
+		self.motivo_denuncia != KrnDenuncia::MOTIVOS[2]
+	end
+
+	def prtcpnts_ingrs?
+		self.prtcpnts? and (not self.krn_denunciantes.rgstrs_fail?)
 	end
 
 	def prtcpnts_ok?
-		self.prtcpnts? and (not self.krn_denunciantes.rgstrs_fail?) and (not self.krn_denunciados.rgstrs_fail?)
+		dnncnts_ok = (not self.krn_denunciantes.rgstrs_fail?)
+		dnncds_ok = self.no_vlnc? ? (not self.krn_denunciados.rgstrs_fail?) : true
+		self.prtcpnts? and dnncnts_ok and dnncds_ok
 	end
 
 	# ------------------------------------------------------------------------ MDDS
 
 	def mdds?
-		self.krn_lst_medidas.any?
+		dc = RepDocControlado.find_by(codigo: 'mdds_rsgrd')
+		dc.blank? ? false : self.rep_archivos.where(rep_doc_controlado_id: dc.id).present?
 	end
 
 	# ------------------------------------------------------------------------ DIAT/DIEP
@@ -73,7 +84,7 @@ module Dnnc
 	# ------------------------------------------------------------------------ SGMNT
 
 	def dsply_sgmnt?
-		self.prtcpnts_ok? and (self.rcp_dt? or self.drv_dt? or self.externa?) and (self.drvcn_rchzd? or self.sgmnt_drvcn_externa?)
+		self.prtcpnts_ingrs? and (self.rcp_dt? or self.drv_dt? or self.externa?) and (self.drvcn_rchzd? or self.sgmnt_drvcn_externa?)
 	end
 
 	def drvcn_rchzd?
@@ -84,27 +95,14 @@ module Dnnc
 		self.rcp_externa? and self.externa?
 	end
 
-	def vlr_seguimiento
-		vlr = self.valor('Seguimiento')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_seguimiento?
-		self.vlr_seguimiento.present?
-	end
-
-	def seguimiento?
-		self.vlr_seguimiento.blank? ? nil : self.vlr_seguimiento.c_booleano
-	end
-
 	def dnnc_sgmnt_end?
-		self.end_ingrs? and (self.sgmnt_drvcn_externa? ? self.vlr_seguimiento? : true)
+		self.sgmnt_drvcn_externa? ? self.vlr_flg_sgmnt? : true
 	end
 
 	# ------------------------------------------------------------------------ DRVCNS
 
 	def dsply_drvcns?
-		self.dnnc_sgmnt_end? and self.prtcpnts_ok? and self.mdds? and (not self.invstgcn_dt?)
+		self.dnnc_sgmnt_end? and self.prtcpnts_ingrs? and self.mdds?
 	end
 
 	def rcpcn?
@@ -144,45 +142,6 @@ module Dnnc
 		self.krn_derivaciones.empty?
 	end
 
-	def vlr_inf_dnncnt
-		vlr = self.valor('inf_dnncnt')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_inf_dnncnt?
-		self.vlr_inf_dnncnt.present?
-	end
-
-	def inf_dnncnt?
-		self.vlr_inf_dnncnt.blank? ? nil : self.vlr_inf_dnncnt.c_booleano
-	end
-
-	def vlr_d_optn_invstgcn
-		vlr = self.valor('d_optn_invstgcn')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_d_optn_invstgcn?
-		self.vlr_d_optn_invstgcn.present?
-	end
-
-	def d_optn_invstgcn?
-		self.vlr_d_optn_invstgcn.blank? ? nil : self.vlr_d_optn_invstgcn.c_booleano
-	end
-
-	def vlr_e_optn_invstgcn
-		vlr = self.valor('e_optn_invstgcn')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_e_optn_invstgcn?
-		self.vlr_e_optn_invstgcn.present?
-	end
-
-	def e_optn_invstgcn?
-		self.vlr_e_optn_invstgcn.blank? ? nil : self.vlr_e_optn_invstgcn.c_booleano
-	end
-
 	def dnnc_drvcns_end?
 		self.dnnc_sgmnt_end? and (self.rcp_dt? or self.drv_dt? or self.drv_externa? or self.vlr_e_optn_invstgcn?)
 	end
@@ -193,63 +152,10 @@ module Dnnc
 
 
 	# ------------------------------------------------------------------------ INFRMCN_DT
-
-	def vlr_dnnc_infrm_invstgcn_dt
-		vlr = self.valor('dnnc_infrm_invstgcn_dt')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_dnnc_infrm_invstgcn_dt?
-		self.vlr_dnnc_infrm_invstgcn_dt.present?
-	end
-
-	def dnnc_infrm_invstgcn_dt?
-		self.vlr_dnnc_infrm_invstgcn_dt.blank? ? nil : self.vlr_dnnc_infrm_invstgcn_dt.c_booleano
-	end
-
 	# ------------------------------------------------------------------------ INVSTGCN
 
 	def invstgdr?
 		self.krn_investigador_id.present?
-	end
-
-	def vlr_dnnc_leida
-		vlr = self.valor('dnnc_leida')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_dnnc_leida?
-		self.vlr_dnnc_leida.present?
-	end
-
-	def dnnc_leida?
-		self.vlr_dnnc_leida.blank? ? nil : self.vlr_dnnc_leida.c_booleano
-	end
-
-	def vlr_dnnc_incnsstnt
-		vlr = self.valor('dnnc_incnsstnt')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_dnnc_incnsstnt?
-		self.vlr_dnnc_incnsstnt.present?
-	end
-
-	def dnnc_incnsstnt?
-		self.vlr_dnnc_incnsstnt.blank? ? nil : self.vlr_dnnc_incnsstnt.c_booleano
-	end
-
-	def vlr_dnnc_incmplt
-		vlr = self.valor('dnnc_incmplt')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_dnnc_incmplt?
-		self.vlr_dnnc_incmplt.present?
-	end
-
-	def dnnc_incmplt?
-		self.vlr_dnnc_incmplt.blank? ? nil : self.vlr_dnnc_incmplt.c_booleano
 	end
 
 	def eval?
@@ -257,7 +163,7 @@ module Dnnc
 	end
 
 	def dnnc_ok?
-		self.dnnc_incnsstnt? == false and self.dnnc_incmplt? == false
+		(self.dnnc_incnsstnt? == false and self.dnnc_incmplt? == false) or self.fecha_hora_corregida.present?
 	end
 
 	def any_dclrcn?
@@ -268,36 +174,11 @@ module Dnnc
 		self.invstgcn_emprs? and self.any_dclrcn? and ( not self.krn_denunciantes.map {|dte| dte.dclrcn?}.include?(false) ) and ( not self.krn_denunciados.map {|dte| dte.dclrcn?}.include?(false) )
 	end
 
-	# ------------------------------------------------------------------------ CIERRE INVSTGCN
-
-	def vlr_dnnc_crr_dclrcns
-		vlr = self.valor('dnnc_crr_dclrcns')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_dnnc_crr_dclrcns?
-		self.vlr_dnnc_crr_dclrcns.present?
-	end
-
-	def dnnc_crr_dclrcns?
-		self.vlr_dnnc_crr_dclrcns.blank? ? nil : self.vlr_dnnc_crr_dclrcns.c_booleano
-	end
+	# ------------------------------------------------------------------------ CIERRE
 
 	def sncns?
-		self.krn_lst_medidas.sncns.any?
-	end
-
-	def vlr_dnnc_infrm_dt
-		vlr = self.valor('dnnc_infrm_dt')
-		vlr.blank? ? nil : vlr
-	end
-
-	def vlr_dnnc_infrm_dt?
-		self.vlr_dnnc_infrm_dt.present?
-	end
-
-	def dnnc_infrm_dt?
-		self.vlr_dnnc_infrm_dt.blank? ? nil : self.vlr_dnnc_infrm_dt.c_booleano
+		dc = RepDocControlado.find_by(codigo: 'sncns')
+		dc.blank? ? false : self.rep_archivos.where(rep_doc_controlado_id: dc.id).present?
 	end
 
 end

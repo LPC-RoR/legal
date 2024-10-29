@@ -5,6 +5,9 @@ class RepArchivo < ApplicationRecord
   scope :ordr, -> { order(:rep_archivo) }
   scope :updtd_ordr, -> { order(:updated_at) }
 
+  validates_presence_of :rep_archivo, :archivo
+  validates_presence_of :nombre, if: -> {mltpl?}
+
   require 'carrierwave/orm/activerecord'
   mount_uploader :archivo, RepArchivoUploader
 

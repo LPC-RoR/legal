@@ -1,5 +1,5 @@
 <% if cntrl %>
-	<div class="dc_fl <%="text-danger" if fl.blank?%>">
+	<div class="<%=fl.blank? ? (dc.req? ? 'no_dc_fl' : 'opt_dc_fl') : 'dc_fl' %>">
 		<div class="fl">
 			<i class="bi bi-file-earmark"></i>
 			<% if fl.blank? %>

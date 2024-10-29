@@ -5,7 +5,7 @@ class KrnDenuncia < ApplicationRecord
 	RECEPTORES = ['Empresa', 'Dirección del Trabajo', 'Empresa externa']
 	MOTIVOS = ['Acoso laboral', 'Acoso sexual', 'Violencia en el trabajo ejercida por terceros']
 
-	VIAS_DENUNCIA = ['Denuncia presencial', 'Correo electrónico', 'Plataforma']
+	VIAS_DENUNCIA = ['Presencial', 'Correo electrónico', 'Plataforma']
 	TIPOS_DENUNCIANTE = ['Denunciante', 'Representante']
 	TIPOS_DENUNCIA = ['Escrita', 'Verbal']
 
@@ -16,9 +16,6 @@ class KrnDenuncia < ApplicationRecord
 
 	has_many :rep_archivos, as: :ownr
 	has_many :valores, as: :ownr
-
-	has_many :krn_lst_medidas, as: :ownr
-	has_many :krn_lst_modificaciones, as: :ownr
 
 	has_many :krn_denunciantes
 	has_many :krn_denunciados
@@ -32,6 +29,7 @@ class KrnDenuncia < ApplicationRecord
     validates_presence_of :fecha_hora
 
 	include Valores
+	include DnncVlrs
 	include Dnnc
 	include DnncProc
 	include Procs

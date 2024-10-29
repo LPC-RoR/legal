@@ -5,7 +5,7 @@ module CptnProcsHelper
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
 		{
 			etp_rcpcn: true,
-			etp_invstgcn: dnnc.dnnc_infrm_invstgcn_dt?,
+			etp_invstgcn: (dnnc.dnnc_infrm_invstgcn_dt? and dnnc.prtcpnts_ok?),
 			etp_crr_invstgcn: (dnnc.dclrcn? or dnnc.sgmnt?)
 		}
 	end
@@ -15,22 +15,27 @@ module CptnProcsHelper
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
 		{
 			dnnc_ingrs: true,							# Ingreso de datos básicos de la Denuncia
-			dnnc_prtcpnts: dnnc.end_ingrs?,			# Ingreso de participantes primarios
-			dnncnt_diat_diep: dnnc.dnncnts?,
-			dnnc_mdds: dnnc.prtcpnts_ok?,
-			dnnc_sgmnt: dnnc.dsply_sgmnt?,
-			dnnc_drvcn: dnnc.dsply_drvcns?,
+			dnnc_prtcpnts: dnnc.end_ingrs?,				# Ingreso de participantes primarios
+			dnncnt_diat_diep: dnnc.dnncnts?,			# Si hay denunciantes
+			dnnc_mdds: dnnc.prtcpnts_ingrs?,			# No es necesario que estén completos aún
+			dnnc_sgmnt: dnnc.dsply_sgmnt?,				# Considera prtcpnts_ok?
+			dnnc_drvcn: dnnc.dsply_drvcns?,				# Considera prtcpnts_ok?
 			dnnc_infrm_invstgcn_dt: (dnnc.invstgcn_emprs? and dnnc.mdds?),
-			dnnc_invstgdr: dnnc.dnnc_infrm_invstgcn_dt?,
+			dnnc_invstgdr: (dnnc.dnnc_infrm_invstgcn_dt? and dnnc.prtcpnts_ok?),
 			dnnc_evlcn: dnnc.invstgdr?,
 			dnnc_agndmnt: dnnc.eval?,
-			dnnc_dclrcn: ownr.krn_declaraciones.any?,
+			dnnc_dclrcn: (ownr.krn_declaraciones.any? and dnnc.dnnc_ok?),
 			dnnc_crr_dclrcns: dnnc.dclrcn?,
 			dnnc_infrm: (dnnc.vlr_dnnc_crr_dclrcns? or dnnc.sgmnt?),
 			dnnc_sncns: (dnnc.vlr_dnnc_crr_dclrcns? or dnnc.sgmnt?),
 			dnnc_infrm_dt: (dnnc.invstgcn_emprs? and dnnc.sncns?),
 			dnnc_prnncmnt: dnnc.vlr_dnnc_infrm_invstgcn_dt?
 		}
+	end
+
+	def dc_fl?(ownr, code)
+		dc = RepDocControlado.find_by(codigo: code)
+		dc.blank? ? false : ownr.rep_archivos.where(rep_doc_controlado_id: dc.id).present?
 	end
 
 	def ownr_dnnc(ownr)

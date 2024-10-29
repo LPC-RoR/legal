@@ -1,7 +1,0 @@
-<%= dma_hm(@objeto.created_at) %>
-<i class="bi bi-dot"></i>
-<% if @objeto.tipo == 'Sancion' %>
-	<h3>Lista de Sanciones de la Investigación</h3>
-<% else %>
-	<h3>Lista de medidas de protección y resguardo <%= @objeto.tipo %></h3>
-<% end %>

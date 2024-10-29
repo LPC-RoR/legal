@@ -23,6 +23,10 @@ class RepDocControlado < ApplicationRecord
     find_by(codigo: 'krn_corregida')    
   end
 
+  def req?
+    self.control == CONTROLES[0]
+  end
+
   # ------------------------------------ ORDER LIST
 
   def list

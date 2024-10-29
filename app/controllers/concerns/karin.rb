@@ -10,22 +10,21 @@ module Karin
       'dnnc_denuncia' => denuncia.tipo_declaracion != 'Verbal',     # Denuncia se presenta por escrito
       'dnnc_notificacion' => denuncia.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
       'dnnc_acta' => denuncia.tipo_declaracion == 'Verbal',         # Denuncia se presenta en forma verbal
-      'dnnc_representacion' => denuncia.rprsntnt?,                  # Denuncia presentada por un representante
-      'dnnc_certificado' => denuncia.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
+      'dnncnt_rprsntcn' => denuncia.rprsntnt?,                  # Denuncia presentada por un representante
       'dnncnt_diat_diep' => true,
-      'dnnc_corrgd' => (not denuncia.dnnc_ok?),                     # Denuncia corregida
-      'dnnc_dclrcn' => true,                                        # Declaración
-      'dnnc_antcdnts' => true,                                      # Antecedentes
-      'dnnc_infrm' => true,                                         # Informe de investigación
-      'krn_antcdnt_objcn' => true,
-      'krn_dnncd_antcdnts' => true,
-      'krn_dnncnt_antcdnts' => true,
-      'krn_tstg_dclrcn' => true,
-      'krn_tstg_antcdnt' => true,
-      'krn_informe' => true,
-      'krn_crtfcd_infrm' => true,
-      'krn_pronunciamiento' => true,
-      'krn_impugnacion' => true,
+      'mdds_rsgrd' => true,
+      'dnnc_certificado' => denuncia.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
+      'antcdnts_objcn' => denuncia.objcn_invstgdr?,
+      'rslcn_objcn' => denuncia.objcn_invstgdr?,
+      'dnnc_corrgd' => (denuncia.eval? and (not denuncia.dnnc_ok?)),                     # Denuncia corregida
+      'prtcpnts_dclrcn' => true,                                        # Declaración
+      'prtcpnts_antcdnts' => true,                                      # Antecedentes
+      'infrm_invstgcn' => true,                                         # Informe de investigación
+      'mdds_crrctvs' => true,
+      'sncns' => true,
+      'prnncmnt_dt' => true,
+      'rspld_mdds_crrctvs' => true,
+      'rspld_sncns' => true,
     }
   end
 

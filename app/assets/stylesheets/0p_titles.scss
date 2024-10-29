@@ -14,6 +14,28 @@ $ttl_ln_hght: 40px;
 
 /* TITULOS */
 
+@mixin clss_ttl_bsc($grd_tc, $clr_bg, $clr) {
+	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
+	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
+	@include bx($clr_bg);
+	@include bx_shdw;
+	@include grd(auto auto, $ttl_gap);
+	@include ln_fnt($ttl_ln_hght, $app_fnt, 16px, $clr);
+    font-weight: bold;
+}
+
+@mixin ttl_2clmns {
+	.ttl_ttl {
+		@include grd_ncol(1);
+    	padding-left: 1em;
+    	justify-self: start;
+	}
+	.ttl_lnks {
+		@include grd_ncol(2);
+    	justify-self: end;
+	}
+}
+
 @mixin ttl_bsc2($grd_tc) {
 	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
 	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
@@ -129,4 +151,12 @@ $ttl_ln_hght: 40px;
 
 .ttl_prnt {
 	@include ttl_prnt(auto auto, 3px 3px 3px 3px, 40px, 14px)
+}
+
+// CLSS_TTL
+
+.scndry_ttl {
+	@include clss_ttl_bsc($app_ttl_tc, $blue_4, blue);
+	@include ttl_2clmns;
+   	@include a_hover(blue, $blue_3);
 }

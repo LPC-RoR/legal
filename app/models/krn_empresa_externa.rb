@@ -1,5 +1,7 @@
 class KrnEmpresaExterna < ApplicationRecord
 
+	TIPOS = ['Subcontrato', 'AST']
+
 	ACCTN = 'extrns'
 
 	belongs_to :ownr, polymorphic: true

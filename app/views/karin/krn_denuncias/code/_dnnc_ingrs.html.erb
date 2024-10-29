@@ -1,17 +1,19 @@
+<!-- Denuncia fue derivada a la DT -->
 <% if ownr.drv_dt? %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'fecha_dt', accn: 'Fecha recepción Dirección del Trabajo'} %>
 <% end %>
 
-<!-- Empresa externa que recibió la denuncia -->
+<!-- Denuncia recibida en una empresa externa -->
 <% if ownr.rcp_externa? %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'externa_id', accn: 'Selección', trsh: (not ownr.krn_empresa_externa?), prmpt: 'Empresa'} %>
 <% end %>
 
-<!-- Formato de la declaración -->
+<!-- Formato de la declaración (si es presencial) -->
 <% if ownr.prsncl? %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'tipo', accn: 'Radio'} %>
 <% end %>
 
+<!-- Representante: si fue presentada por un representante -->
 <% if ownr.rprsntnt? %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'representante', accn: 'Selección'} %>
 <% end %>

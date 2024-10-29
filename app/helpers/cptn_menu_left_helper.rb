@@ -123,7 +123,6 @@ module CptnMenuLeftHelper
 						['KrnDenuncia', gscp(@objeto)],
 						['KrnInvestigador', gscp(@objeto)],
 						['KrnEmpresaExterna', gscp(@objeto)],
-						['KrnTipoMedida', gscp(@objeto)]
 					]
 				},
 			]
@@ -141,6 +140,8 @@ module CptnMenuLeftHelper
 			@objeto.krn_denuncia.ownr
 		elsif ['KrnTestigo'].include?(objeto.class.name)
 			@objeto.ownr.krn_denuncia.ownr
+		elsif ['KrnMedida'].include?(objeto.class.name)
+			@objeto.krn_lst_medida.ownr
 		else
 			nil
 		end

@@ -32,7 +32,6 @@
 <% if ownr.invstgcn_on? %>
 	<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'tipo_invstgcn', accn: 'Confirmación'} %>
 <% end %>
-
 <% unless ownr.no_drvcns? %>
 	<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_derivaciones', ttl: "Derivaciones", ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_derivaciones'} %>
