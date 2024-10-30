@@ -2,6 +2,10 @@
 	<div class="fl">
 		<i class="bi bi-calendar2-check"></i> 
 		<%= dma_hm(objeto.fecha) %>
+		<i class="bi bi-dot"></i>
+		<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: objeto, tltp: nil} do %>
+			Acceder Declaración
+		<% end %>
 	</div>
 	<div class="lnks">
 		<% unless objeto.archivo? %>

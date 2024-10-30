@@ -13,7 +13,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
-    set_tab( :menu, [['Denuncia', operacion?], ['Persona(s) Denunciante(s)', operacion?], ['Persona(s) Denunciada(s)', operacion?]] )
+    set_tab( :menu, [['Denuncia', operacion?], ['Declaraciones de Testigos', operacion?]] )
 
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
     krn_dnnc_dc_init(@objeto)

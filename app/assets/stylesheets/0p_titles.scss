@@ -160,3 +160,9 @@ $ttl_ln_hght: 40px;
 	@include ttl_2clmns;
    	@include a_hover(blue, $blue_3);
 }
+
+.thrd_ttl {
+	@include clss_ttl_bsc($app_ttl_tc, $blue_5, blue);
+	@include ttl_2clmns;
+   	@include a_hover(blue, $blue_3);
+}
