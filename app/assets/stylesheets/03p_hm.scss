@@ -29,11 +29,8 @@ $h_nvbr_pddng: 0;
  top:0;
  width:100%;
 	background-color: white;
-//	margin: 0 3% 0 3%;
 	padding: 1rem;
-//  height: 16vh;
-//  max-height: 600px;
-	color: $blue_2;
+	color: $txt_gray;
 	@include a_hover($blue_2, gray);
 	@include grd(200 auto 200, 0);
 
@@ -52,6 +49,7 @@ $h_nvbr_pddng: 0;
 	.hm_bnnr_mddl {
 		@include grd_ncol(2);
    	justify-self: center;
+   	font-weight: bold;
 	}
 
 	.hm_bnnr_mn {
@@ -86,20 +84,19 @@ $h_nvbr_pddng: 0;
 }
 
 .hm_prdct {
-//  height: 24vh;
-//  max-height: 600px;
-	padding: 2rem 1rem 3rem 1rem;
-//	background-color: white;
-	color: $blue_2;
+	padding: 1rem;
+	background-color: white;
+	color: $txt_gray;
 	@include a_hover($blue_2, gray);
 	@include grd(50% 50%, 0);
+
+	text-align: center;
 
 	.p_lft {
 		@include grd_ncol(1);
    	justify-self: center;
  		display: grid;
 
- 		text-align: center;
 
    	.icn {
    	}
@@ -109,8 +106,12 @@ $h_nvbr_pddng: 0;
    		font-weight: bold;
 
    	}
+ 		.prdct_ttl {
+   		font-size: 35px;
+   		line-height: 40px;
+   		font-weight: bold;
+ 		}
  		.prdct_nt {
-	 		text-align: center;
    		font-size: 14px;
  		}
 	}
@@ -118,6 +119,19 @@ $h_nvbr_pddng: 0;
 	.p_rght {
 		@include grd_ncol(2);
    	justify-self: center;
+
+   	.icn {
+   	}
+
+ 		.prdct_ttl {
+   		font-size: 35px;
+   		line-height: 40px;
+   		font-weight: bold;
+ 		}
+ 		.rgstr {
+   		line-height: 25px;
+   		font-size: 12px;
+ 		}
 	}
 }
 
@@ -125,7 +139,6 @@ $h_nvbr_pddng: 0;
 	padding: 1rem 0 2rem 0;
 	.hm_chck {
 		padding: 0 1rem 1rem 10%;
-	//	background-color: white;
 		color: $blue_2;
 
 		line-height: 1.6;
@@ -171,7 +184,6 @@ $h_nvbr_pddng: 0;
 	border-color: $blue_3;
  	border-radius: 10px;
 	background-color: $blue_2;
-//		position: relative;
 	text-align: center;
 	color: white;
 	.icon {
@@ -256,9 +268,4 @@ $h_nvbr_pddng: 0;
 
 * {
   box-sizing: border-box;
-}
-
-body {
-//  min-height: 100vh;
-//  font-family: "Baloo 2", sans-serif;
 }

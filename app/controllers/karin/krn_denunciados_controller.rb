@@ -3,6 +3,8 @@ class Karin::KrnDenunciadosController < ApplicationController
   before_action :scrty_on
   before_action :set_krn_denunciado, only: %i[ show edit update destroy fll_optn del_fld ]
 
+  include Karin
+
   # GET /krn_denunciados or /krn_denunciados.json
   def index
     @coleccion = KrnDenunciado.all
@@ -10,6 +12,15 @@ class Karin::KrnDenunciadosController < ApplicationController
 
   # GET /krn_denunciados/1 or /krn_denunciados/1.json
   def show
+    @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
+    krn_dnnc_dc_init(@objeto.krn_denuncia)
+
+    @dsply_dc_fls = {}
+    @etps.each do |etp|
+      etp.tareas.each do |tar|
+        @dsply_dc_fls[tar.id] = tar.rep_doc_controlados.any? ? tar.rep_doc_controlados.map {|dc| @krn_cntrl[dc.codigo] }.include?(true) : false
+      end
+    end
   end
 
   # GET /krn_denunciados/new

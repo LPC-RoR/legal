@@ -74,12 +74,12 @@ class Repositorios::RepArchivosController < ApplicationController
 
       tar = @objeto.rep_doc_controlado.ownr
       clss_nm = @objeto.ownr.class.name
-      if ['KrnDenunciado', 'KrnDenunciante'].include?(clss_nm)
-        @rdrccn = krn_denuncia_path(@objeto.ownr.krn_denuncia, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
-        #@rdrccn = "/krn_denuncias/#{@objeto.ownr.krn_denuncia.id}##{tar.css_id}_#{@objeto.ownr.css_id}"
+      if ['KrnDenunciado', 'KrnDenunciante', 'KrnTestigo'].include?(clss_nm)
+#        @rdrccn = krn_denuncia_path(@objeto.ownr.krn_denuncia, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
+        @rdrccn = @objeto.ownr
       elsif clss_nm == 'KrnDenuncia'
-        @rdrccn = krn_denuncia_path(@objeto.ownr, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
-        #@rdrccn = "/krn_denuncias/#{@objeto.ownr.id}##{tar.css_id}_#{@objeto.ownr.css_id}"
+#        @rdrccn = krn_denuncia_path(@objeto.ownr, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
+        @rdrccn = @objeto.ownr
       end
 
     end

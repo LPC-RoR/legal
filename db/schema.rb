@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_29_224836) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_30_204735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1039,9 +1039,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_29_224836) do
     t.boolean "articulo_4_1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "info_reglamento"
-    t.boolean "info_procedimiento"
-    t.boolean "info_derechos"
     t.integer "krn_empleado_id"
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
@@ -1063,9 +1060,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_29_224836) do
     t.boolean "articulo_4_1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "info_reglamento"
-    t.boolean "info_procedimiento"
-    t.boolean "info_derechos"
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
@@ -1159,11 +1153,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_29_224836) do
     t.string "lugar_trabajo"
     t.string "email"
     t.boolean "email_ok"
-    t.boolean "info_reglamento"
-    t.boolean "info_procedimiento"
-    t.boolean "info_derechos"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "articulo_4_1"
+    t.boolean "articulo_516"
+    t.string "direccion_notificacion"
     t.index ["krn_empresa_externa_id"], name: "index_krn_testigos_on_krn_empresa_externa_id"
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"

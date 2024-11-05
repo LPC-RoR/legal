@@ -24,7 +24,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
 
     ownr.krn_declaraciones.create(krn_denuncia_id: dnnc.id, krn_investigador_id: invstgdr.id, fecha: params_to_date(params, 'fecha'))
 
-    redirect_to dnnc
+    redirect_to ownr
   end
 
   # GET /krn_declaraciones/1/edit
@@ -79,7 +79,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = @objeto.krn_denuncia
+      @rdrccn = @objeto.ownr
     end
 
     # Only allow a list of trusted parameters through.

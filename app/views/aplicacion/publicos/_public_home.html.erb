@@ -1,37 +1,39 @@
 <div class="hm_prdct">
 	<div class="p_lft">
 		<div class="icn">
-			<%= image_tag 'sgmnt.png', style: 'height:100%;width:auto;' %>
-		</div>
-		<div class="prdct">
-			Sistema de seguimiento</br>Procedimiento de Investigación y Sanción</br>ley 21.643
+			<%= image_tag 'procedimiento.png', style: 'height:60%;width:auto;' %>
 		</div>
 		<div class="prdct_nt">
-			Registre su empresa para para acceder a un demo del sistema de seguimiento.
 		</div>
 	</div>
 	<div class="p_rght">
-		<%= render partial: 'empresas/registro' %>
+		<div class="rgstr">
+			<%= render partial: 'empresas/registro' %>
+		</div>
 	</div>
 </div>
-<div class="hm_lst_chck">
-	<div class="hm_chck">
-		<%= render partial: '0p/home/check', locals: {txt: 'Control de los plazos legales y tareas obligatorias.'} %>
+<div class="hm_prdct">
+	<div class="p_lft">
+		<div class="prdct_ttl">
+		</br></br>
+		Modelo de inmplementación</br>Procedimiento de</br> Investigación y Sanción.
+		</div>
 	</div>
-	<div class="hm_chck">
-		<%= render partial: '0p/home/check', locals: {txt: 'Control documental.'} %>
+	<div class="p_rght">
+		<%= image_tag 'modelo.png', style: 'height:80%;width:auto;' %>
 	</div>
-	<div class="hm_chck">
-		<%= render partial: '0p/home/check', locals: {txt: 'Gestión y control de derivaciones de denuncias.'} %>
+</div>
+<div class="hm_prdct">
+	<div class="p_lft">
+		<div class="icn">
+			<%= image_tag 'sistema.png', style: 'height:60%;width:auto;' %>
+		</div>
 	</div>
-	<div class="hm_chck">
-		<%= render partial: '0p/home/check', locals: {txt: 'Gestión de denuncias con múltiples denunciantes.'} %>
-	</div>
-	<div class="hm_chck">
-		<%= render partial: '0p/home/check', locals: {txt: 'Gestión de denuncias que involucran empresas subcontratistas o AST.'} %>
-	</div>
-	<div class="hm_chck">
-		<%= render partial: '0p/home/check', locals: {txt: 'Gestión de toma de declaraciones para personas denunciantes, denunciados y testigos.'} %>
+	<div class="p_rght">
+		<div class="prdct_ttl">
+		</br>
+		Sistema de seguimiento y registro del</br>Procedimiento de</br> Investigación y Sanción.
+		</div>
 	</div>
 </div>
 <%#= request.remote_ip %>

@@ -6,9 +6,8 @@
 
 <%= render partial: '0p/frm_flds/text', locals: { form: form, token: :cargo, label: 'Cargo/Relación laboral' } %>
 <%= render partial: '0p/frm_flds/text', locals: { form: form, token: :lugar_trabajo, label: 'Lugar de trabajo' } %>
-<%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email, label: 'Email' } %>
+<%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email, label: 'Email personal' } %>
 
 <%= render partial: '0p/frm_flds/chck_bx_lst', locals: { form: form, chck_bx_lst: [[:articulo_4_1, 'Aplica artículo 4 inciso primero del Código del trabajo'],[:articulo_516, 'Aplica artículo 516 del Código del trabajo']]} %>
-<%#= render partial: '0p/frm_flds/chck_bx_lst', locals: { form: form, chck_bx_lst: [[:articulo_4_1, 'Aplica artículo 4 inciso primero del Código del trabajo'], [:info_reglamento, 'Recibió regalamento interno actualizado?'], [:info_procedimiento, 'Capacitado en el Procedimiento de Investigación y sanción?'], [:info_derechos, 'Conoces sus derechos como denunciante?']]} %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :krn_denuncia_id } %>

@@ -1,0 +1,5 @@
+<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: @objeto.krn_denuncia } %>
+
+<% @etps.each do |etp| %>
+	<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: @objeto, scndry: nil} if prtl?('ctr_etapas', 'code', 'objeto') %>
+<% end %>
