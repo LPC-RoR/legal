@@ -11,11 +11,11 @@
 
 <% if @objeto.end_ingrs? %>
 	<hr>
-	<%= render partial: '0p/general/clss_ttl', locals: {clss: 'scndry_ttl',cntrllr: 'krn_denunciantes', ttl: "Persona(s) denunciante(s)", ownr: @objeto} %>
+	<%= render partial: '0p/general/indx_ttl', locals: {clss: 'prtcpnts_ttl', src: 'krn_denunciantes', ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciantes'} %>
 <% end %>
 <% if @objeto.dnncnts? and @objeto.no_vlnc? %>
 	<hr>
-	<%= render partial: '0p/general/clss_ttl', locals: {clss: 'scndry_ttl', cntrllr: 'krn_denunciados', ttl: "Persona(s) denunciada(s)", ownr: @objeto} %>
+	<%= render partial: '0p/general/indx_ttl', locals: {clss: 'prtcpnts_ttl', src: 'krn_denunciados', ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>
 <% end %>

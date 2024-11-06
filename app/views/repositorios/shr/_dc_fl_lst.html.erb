@@ -16,7 +16,7 @@
 			<% fl.each do |rarchv| %>
 
 				<div class="dc_fl">
-					<div class="fl">
+					<div class="answ">
 						<i class="bi bi-file-earmark"></i>
 						<%= dma_hm(rarchv.updated_at) %>
 						<i class="bi bi-dot"></i>
@@ -25,7 +25,7 @@
 						<% end %>
 						<%= rarchv.nombre %>
 					</div>
-					<div class="lnks">
+					<div class="trsh">
 						<%= render partial: '0p/tabla/links_e', locals: {objeto: rarchv} %>
 					</div>
 				</div>

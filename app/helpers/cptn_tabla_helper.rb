@@ -34,6 +34,10 @@ module CptnTablaHelper
 		(controller_name == get_controller(controller) or @objeto.blank?) ? "/#{get_controller(controller)}/new" : "/#{@objeto.class.name.tableize}/#{@objeto.id}/#{get_controller(controller)}/new"
 	end
 
+	def new_path(src, ownr)
+		"/#{cntrllr(src)}/new#{ownr_prms(ownr) unless ownr.blank?}"
+	end
+
 	def sortable?(controller, field)
 		if sortable_fields[controller].present?
 			sortable_fields[controller].include?(field) ? true : false

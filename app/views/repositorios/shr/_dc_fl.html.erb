@@ -1,6 +1,6 @@
 <% if cntrl %>
 	<div class="<%=fl.blank? ? (dc.req? ? 'no_dc_fl' : 'opt_dc_fl') : 'dc_fl' %>">
-		<div class="fl">
+		<div class="answr">
 			<i class="bi bi-file-earmark"></i>
 			<% if fl.blank? %>
 				<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: "Subir #{dc.rep_doc_controlado}"} do %>
@@ -16,8 +16,8 @@
 			<% end %>
 			<%= dc.rep_doc_controlado %>
 		</div>
-		<div class="lnks">
-			<%= render partial: '0p/tabla/links_e', locals: {objeto: fl} unless fl.blank? %>
+		<div class="trsh">
+			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: fl} unless fl.blank? %>
 		</div>
 	</div>
 <% end %>

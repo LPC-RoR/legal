@@ -111,7 +111,7 @@ module CptnHelper
 	end
 
 	def s_rut(rut)
-		rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
+		rut.blank? ? '##.###.###-#' : rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
 	end
 # ******************************************************************** HOME
 

@@ -3,7 +3,7 @@ $actv_pddng: 2px 1rem 2px 1rem;
 
 $qstn_brd_wdth: 1px;
 $qstn_brd_typ: solid;
-$qstn_brd_clr: $pltt_5;
+$qstn_brd_clr: $blue_cnv;
 $qstn_brd_rds: 15px;
 
 @import "bscs";
@@ -102,61 +102,6 @@ $qstn_brd_rds: 15px;
 	color: orange;
 }
 
-.qstn_bx {
-	margin: $actv_mrgn;
-	font-size: 16px;
-	.qstn {
-		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px 20px 0 0);
-		padding-left: 8rem;
-		background-color: $pltt_9;
-		color: $pltt_2;
-		font-weight: bold;
-	}
-	.optns {
-		@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 0 0 20px 20px);
-		padding: $actv_pddng;
-		background-color: white;
-		text-align: left;
-		color: $pltt_2;
-
-		@include grd(150px auto, 0);
-		.typ {
-	        @include grd_ncol(1);
-        	justify-self: start;
-		}
-		.lnks {
-    	    @include grd_ncol(2);
-        	justify-self: start;
-		}
-	}
-}
-
-.rspst {
-	margin: $actv_mrgn;
-	background-color: $blue_1;
-	color: white;
-	font-size: 16px;
-	text-align: left;
-	@include brd_ln($qstn_brd_wdth, $qstn_brd_typ, $qstn_brd_clr, 20px);
-	padding: $actv_pddng;
-
-	@include a_hover(white, blue);
-
-	@include grd(auto 200px 20px, 0);
-	.answ {
-        @include grd_ncol(1);
-    	justify-self: start;
-	}
-	.pstfx {
-        @include grd_ncol(2);
-    	justify-self: start;
-	}
-	.trsh {
-	    @include grd_ncol(3);
-    	justify-self: end;
-	}
-}
-
 .get_dttm {
 	margin: $actv_mrgn;
 	padding: 10px 1rem 5px 1rem;
@@ -181,28 +126,6 @@ $qstn_brd_rds: 15px;
 	.a_lnks {
 	    @include grd_ncol(2);
     	justify-self: end;
-	}
-}
-
-.proc_objt {
-	margin: $actv_mrgn;
-	padding: $actv_pddng;
-	background-color: $pltt_8;
-	@include brd_ln(2px, $qstn_brd_typ, $qstn_brd_clr, 5px);
-	font-size: 16px;
-	@include grd(auto 200px, 0);
-	.p_objt {
-        @include grd_ncol(1);
-    	justify-self: start;
-    	font-weight: bold;
-	}
-	.p_lnks {
-	    @include grd_ncol(2);
-    	justify-self: end;
-	}
-
-	.p_dtl {
-		grid-column: span 2;
 	}
 }
 
@@ -232,37 +155,3 @@ $qstn_brd_rds: 15px;
 }
 
 // CLSS
-
-.dc_fl {
-	@include dc_fl_bsc($blue_4, blue);
-   	@include a_hover(blue, $blue_5);
-}
-
-.no_dc_fl {
-	@include dc_fl_bsc($red_4, red);
-   	@include a_hover(red, $red_5);
-}
-
-.opt_dc_fl {
-	@include dc_fl_bsc($pltt_6, $red_1);
-   	@include a_hover($red_1, $red_4);
-}
-
-.dc_fl_lst {
-	@include dc_fl_lst_bsc($blue_4, blue);
-   	@include a_hover(blue, $blue_5);
-}
-
-.no_dc_fl_lst {
-	@include dc_fl_lst_bsc($red_4, red);
-   	@include a_hover(red, $red_5);
-}
-
-.opt_dc_fl_lst {
-	@include dc_fl_lst_bsc($pltt_6, red_1);
-   	@include a_hover($red_1, $red_4);
-}
-
-.qstn_bx {
-	@include qstn_bx_bsc(white, orange);
-}

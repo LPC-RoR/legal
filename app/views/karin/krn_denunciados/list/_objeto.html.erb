@@ -1,8 +1,7 @@
 <div class="objt">
 
-	<%= render partial: '0p/actv_bx/actv_objt', locals: {objeto: objeto} %>
-	<div class="ln">
-	</div>
+	<%= render partial: '0p/general/head_objt', locals: {clss: 'prtcpnts_objt' ,objeto: objeto, ownr: @objeto} %>
+
 	<div class="dsply">
 		<%= render partial: prtl_name('krn_denunciados', 'list', 'cllps'), locals: {objeto: objeto} %>
 	</div>
@@ -11,9 +10,11 @@
 		<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: objeto, scndry: 'KrnDenunciado'} if prtl?('ctr_etapas', 'code', 'objeto') %>
 	<% end %>
 
-	<%= render partial: '0p/general/clss_ttl', locals: {clss:  'thrd_ttl', cntrllr: 'krn_testigos', ttl: "Testigos", ownr: objeto} %>
-	<% objeto.krn_testigos.rut_ordr.each do |tstg| %>
-		<%= render partial: prtl_name('krn_testigos', 'list', 'objeto'), locals: {objeto: tstg} %>
-	<% end %>
+	<div class="objt">
+		<%= render partial: '0p/general/indx_ttl', locals: {clss: 'tstgs_ttl', src: 'krn_testigos', ownr: objeto} %>
+		<% objeto.krn_testigos.rut_ordr.each do |tstg| %>
+			<%= render partial: prtl_name('krn_testigos', 'list', 'objeto'), locals: {objeto: tstg} %>
+		<% end %>
+	</div>
 
 </div>

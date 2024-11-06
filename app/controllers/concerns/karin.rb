@@ -11,13 +11,13 @@ module Karin
       'dnnc_denuncia' => dnnc.tipo_declaracion != 'Verbal',     # Denuncia se presenta por escrito
       'dnnc_notificacion' => dnnc.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
       'dnnc_acta' => dnnc.tipo_declaracion == 'Verbal',         # Denuncia se presenta en forma verbal
-      'dnncnt_rprsntcn' => dnnc.rprsntnt?,                  # Denuncia presentada por un representante
+      'dnncnt_rprsntcn' => dnnc.rprsntnt?,                      # Denuncia presentada por un representante
       'dnncnt_diat_diep' => true,
       'mdds_rsgrd' => true,
       'dnnc_certificado' => dnnc.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
       'antcdnts_objcn' => dnnc.objcn_invstgdr?,
       'rslcn_objcn' => dnnc.objcn_invstgdr?,
-      'dnnc_corrgd' => (dnnc.eval? and (not dnnc.dnnc_ok?)),                     # Denuncia corregida
+      'dnnc_corrgd' => (dnnc.eval? and (not dnnc.dnnc_ok?)),            # Denuncia corregida
       'prtcpnts_dclrcn' => true,                                        # Declaración
       'prtcpnts_antcdnts' => true,                                      # Antecedentes
       'infrm_invstgcn' => true,                                         # Informe de investigación

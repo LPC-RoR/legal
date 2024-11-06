@@ -1,0 +1,14 @@
+<div class="<%=clss%>">
+	<div class="nm">
+		<% if prtl?(cntrllr(objeto), 'head', "objt") %>
+			<%= render partial: prtl_name(cntrllr(objeto), 'head', "objt"), locals: {objeto: objeto, ownr: ownr} %>
+		<% end %>
+	</div>
+	<div class="lnks">
+		<% if prtl?(cntrllr(objeto), 'head', "lnks") %>
+			<%= render partial: prtl_name(cntrllr(objeto), 'head', "lnks"), locals: {objeto: objeto, ownr: ownr} %>
+		<% else %>
+			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		<% end %>
+	</div>
+</div>

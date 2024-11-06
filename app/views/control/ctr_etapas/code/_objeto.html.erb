@@ -1,6 +1,6 @@
 <% if etp_cntrl(ownr)[objeto.codigo.to_sym] %>
 	<% if objeto.dsply?(ownr) %>
-		<div class="proc_objt">
+		<div class="etp_objt">
 			<div class="p_objt">
 				<%= render partial: prtl_name('ctr_etapas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'objt') %>
 			</div>

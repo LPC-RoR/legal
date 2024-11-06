@@ -1,0 +1,20 @@
+<div class="<%=clss%>">
+	<div class="ttl_ttl">
+		<%= render partial: '0p/general/gly', locals: {gly: controller_icon[cntrllr(src)]} %>
+		<% if prtl?(cntrllr(src), 'indx', "objt") %>
+			<%= render partial: prtl_name(cntrllr(src), 'indx', "objt"), locals: {ownr: ownr} %>
+		<% end %>
+	</div>
+	<div class="ttl_lnks">
+		<% if prtl?(cntrllr(src), 'indx', "lnks") %>
+			<%= render partial: prtl_name(cntrllr(src), 'indx', "lnks"), locals: {ownr: ownr} %>
+		<% else %>
+		
+			<%= render partial: '0p/tabla/lnk_new', locals: {lnk: new_path(src, ownr), tltp: "Agrega #{c_to_name(cntrllr(src))}"} %>
+			<%#= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr(cntrllr)}/new#{ownr_prms(ownr) unless ownr.blank?}", tltp: "Agrega #{c_to_name(cntrllr(cntrllr))}"} %>
+		<% end %>
+	</div>
+</div>
+<% if prtl?(cntrllr(src), 'indx', "dsply") %>
+	<%= render partial: prtl_name(cntrllr(src), 'indx', "dsply"), locals: {ownr: ownr} %>
+<% end %>

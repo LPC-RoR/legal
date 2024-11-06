@@ -1,7 +1,7 @@
 <% if objeto.dsply?(ownr) %>
 	<% if tar_cntrl(ownr)[objeto.codigo.to_sym] %>
 
-		<div class="proc_objt" id: <%= "#{objeto.css_id}#{ownr.css_id}" %>>
+		<div class="tar_objt" id: <%= "#{objeto.css_id}#{ownr.css_id}" %>>
 			<div class="p_objt">
 				<%#= "#{objeto.css_id}#{ownr.css_id}" %>
 				<%= render partial: prtl_name('tareas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('tareas', 'code', 'objt') %>
