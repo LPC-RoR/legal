@@ -5,7 +5,7 @@ module CptnProcsHelper
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
 		{
 			etp_rcpcn: true,
-			etp_invstgcn: (dnnc.dnnc_infrm_invstgcn_dt? and dnnc.prtcpnts_ok?),
+			etp_invstgcn: ((ownr.class.name == 'KrnDenuncia' and dnnc.fecha_trmtcn.present?) or controller_name != 'krn_denuncias'),
 			etp_crr_invstgcn: (dnnc.dclrcn? or dnnc.sgmnt?)
 		}
 	end
@@ -14,14 +14,20 @@ module CptnProcsHelper
 		clss = ownr.class.name
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
 		{
-			dnnc_ingrs: true,							# Ingreso de datos básicos de la Denuncia
-			dnnc_prtcpnts: dnnc.end_ingrs?,				# Ingreso de participantes primarios
-			dnncnt_diat_diep: dnnc.dnncnts?,			# Si hay denunciantes
-			dnnc_mdds: dnnc.prtcpnts_ingrs?,			# No es necesario que estén completos aún
-			dnnc_sgmnt: dnnc.dsply_sgmnt?,				# Considera prtcpnts_ok?
-			dnnc_drvcn: dnnc.dsply_drvcns?,				# Considera prtcpnts_ok?
-			dnnc_infrm_invstgcn_dt: (dnnc.invstgcn_emprs? and dnnc.mdds?),
-			dnnc_invstgdr: (dnnc.dnnc_infrm_invstgcn_dt? and dnnc.prtcpnts_ok?),
+			# Ingreso de datos básicos de la Denuncia
+			dnnc_ingrs: true,							
+			# Ingreso de participantes primarios: Sólo aparece si es necesario llenar empresa del empleado
+			dnnc_prtcpnts: (ownr.class.name != 'KrnDenuncia' and ownr.empleado_externo),		
+			# Si hay denunciantes, aparece uno para cada denunciante
+			dnncnt_diat_diep: dnnc.dnncnts?,			
+			# No es necesario que denunciados estén completos aún
+			dnnc_mdds: dnnc.prtcpnts_ingrs?,
+			# DEPRECATED
+			dnnc_sgmnt: false,				
+			# Registos de "principales" completo
+			dnnc_drvcn: (dnnc.prtcpnts_ingrs? and (not dnnc.rcp_dt?)),				
+			dnnc_infrm_invstgcn_dt: (dnnc.vlr_drv_emprs_optn? and dnnc.mdds? and dnnc.prtcpnts_ok?),
+			dnnc_invstgdr: (dnnc.fecha_trmtcn.present?),
 			dnnc_evlcn: dnnc.invstgdr?,
 			dnnc_agndmnt: (dnnc.eval? and controller_name != 'krn_denuncias'),
 			dnnc_dclrcn: (ownr.krn_declaraciones.any? and dnnc.dnnc_ok? and controller_name != 'krn_denuncias'),
@@ -29,7 +35,7 @@ module CptnProcsHelper
 			dnnc_infrm: (dnnc.vlr_dnnc_crr_dclrcns? or dnnc.sgmnt?),
 			dnnc_sncns: (dnnc.vlr_dnnc_crr_dclrcns? or dnnc.sgmnt?),
 			dnnc_infrm_dt: (dnnc.invstgcn_emprs? and dnnc.sncns?),
-			dnnc_prnncmnt: dnnc.vlr_dnnc_infrm_invstgcn_dt?
+			dnnc_prnncmnt: dnnc.fecha_trmtcn.present?
 		}
 	end
 
@@ -90,6 +96,10 @@ module CptnProcsHelper
 			'Fecha' => 'calendar2-check',
 			'Radio' => 'ui-radios'
 		}
+	end
+
+	def rcptr_lst(formato)
+		formato == 'P+' ? ['Empresa', 'Dirección del Trabajo', 'Empresa externa'] : ['Empresa', 'Dirección del Trabajo']
 	end
 
 end

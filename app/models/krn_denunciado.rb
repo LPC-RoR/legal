@@ -8,6 +8,8 @@ class KrnDenunciado < ApplicationRecord
 	has_many :krn_testigos, as: :ownr
 	has_many :valores, as: :ownr
 
+	delegate :rut, to: :krn_empresa_externa, prefix: true
+
 	scope :rut_ordr, -> {order(:rut)}
 
 	validates :rut, valida_rut: true, if: -> {rut.present?}
@@ -19,11 +21,19 @@ class KrnDenunciado < ApplicationRecord
 
 	def prtl_cndtn
 		{
+			externa_id: {
+				cndtn: self.krn_empresa_externa.present?,
+				trsh: ( not self.krn_denuncia.invstgdr?)
+			},
 			ntfccn: {
 				cndtn: self.direccion_notificacion.present?,
 				trsh: (not self.krn_denuncia.invstgdr?)
 			},
 		}
+	end
+
+	def krn_empresa_externa?
+		self.krn_empresa_externa_id.present?
 	end
 
 	def css_id
@@ -42,6 +52,11 @@ class KrnDenunciado < ApplicationRecord
 		all.map { |den| den.articulo516 }.include?(true)
 	end
 
+	def self.rgstrs_ok?
+		arry = all.map {|den| den.rgstr_ok?}.uniq
+		arry.length == 1 and arry[0] == true
+	end
+
 	def self.rgstrs_fail?
 		all.map {|den| den.rgstr_ok?}.include?(false)
 	end
@@ -51,11 +66,12 @@ class KrnDenunciado < ApplicationRecord
 	end
 
 	def flds_ok?
-		self.rut.present? and self.email.present?
+		empldr = self.empleado_externo ? self.krn_empresa_externa? : true
+		self.rut.present? and self.email.present? and empldr
 	end
 
 	def empleador
-		self.krn_empresa_externa_id.blank? ? 'Empleado de la empresa' : self.krn_empresa_externa.razon_social
+		self.empleado_externo ? (self.krn_empresa_externa.present? ? self.krn_empresa_externa.razon_social : 'Pendiente de ingreso') : 'Empleado de la empresa'
 	end
 
 	def self.doc_cntrlds

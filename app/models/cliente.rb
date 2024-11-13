@@ -19,8 +19,7 @@ class Cliente < ApplicationRecord
 #	has_many :var_clis
 #	has_many :variables, through: :var_clis
 
-	has_many :pro_clientes
-	has_many :productos, through: :pro_clientes
+	has_many :pro_dtll_ventas, as: :ownr
 
 	has_many :krn_denuncias, as: :ownr
 	has_many :krn_empresa_externas, as: :ownr
@@ -33,6 +32,15 @@ class Cliente < ApplicationRecord
 
     scope :std, ->(estado) { where(estado: estado)}
     scope :typ, ->(tipo) { where(estado: 'activo', tipo_cliente: tipo) }
+
+
+    def krn?
+    	self.pro_dtll_ventas.map {|dv| dv.producto.codigo.split('_')[0]}.include?('krn')
+    end
+
+    def krn_formato
+    	self.pro_dtll_ventas.map {|dv| dv.producto.formato if dv.producto.present?}.last
+    end
 
     # CHILDS
 

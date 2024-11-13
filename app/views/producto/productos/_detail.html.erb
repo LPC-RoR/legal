@@ -1,2 +1,16 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :producto, label: 'Producto' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :producto } %>
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :producto, label: 'Producto' } %>
+
+<div class='form-row'>
+	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :codigo, label: 'Código' } %>
+
+	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :tipo, sel_list: Producto::TIPOS, prompt: nil, label: 'Tipo' } %>
+	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :moneda, sel_list: ['UF', 'Pesos'], prompt: nil, label: 'Moneda' } %>
+	<%= render partial: '0p/frm_flds/number', locals: { form: form, token: :precio, label: 'Precio neto' } %>
+</div>
+<hr>
+<div class='form-row'>
+	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :procedimiento_id, colection: Procedimiento.lista, display_field: 'procedimiento', prompt: 'Procedimiento asociado', label: 'Procedimiento' } %>
+	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :formato, label: 'Formato' } %>
+	<%= render partial: '0p/frm_flds/number', locals: { form: form, token: :capacidad, label: 'Capacidad' } %>
+</div>
+<%= render partial: '0p/frm_flds/check_box', locals: { form: form, token: :prepago, label: 'Prepago' } %>

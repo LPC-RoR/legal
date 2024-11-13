@@ -4,8 +4,7 @@
 		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_incnsstnt', accn: 'Selección', c: 'krn_denuncias', trsh: true} %>
 		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_incmplt', accn: 'Selección', c: 'krn_denuncias'} %>
 	<% end %>
-
-	<% unless ownr.dnnc_ok? %>
-		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'fecha_crrgd', accn: 'Plazo entrega denuncia corregida'} %>
+	<% if ownr.dsply_crrgd? %>
+		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_fecha_crrgd', accn: 'Fecha'} %>
 	<% end %>
 <% end %>

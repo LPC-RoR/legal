@@ -3,13 +3,13 @@ module DnncProc
 
 	def prtl_cndtn
 		{
-			fecha_dt: {
+			drv_fecha_dt: {
 				cndtn: self.fecha_hora_dt.present?,
 				trsh: true
 			},
 			externa_id: {
 				cndtn: self.krn_empresa_externa.present?,
-				trsh: ( not self.dnncnts?)
+				trsh: (not self.invstgdr?)
 			},
 			tipo: {
 				# ['Escrita', 'Verbal']
@@ -24,36 +24,40 @@ module DnncProc
 				cndtn: self.vlr_flg_sgmnt?,
 				trsh: (not self.mdds?)
 			},
+			drv_rcp_externa: {
+				cndtn: (not self.no_drvcns?),
+				trsh: false
+			},
 			recpcn_ok: {
 				cndtn: self.rcpcnd?,
 				trsh: false
 			},
-			obligatoria: {
-				cndtn: self.drv_dt?,
+			drv_dt_oblgtr: {
+				cndtn: self.on_dt?,
 				trsh: (not self.mdds?)
 			},
-			inf_dnncnt: {
-				cndtn: (self.vlr_inf_dnncnt?),
-				trsh: (not self.vlr_d_optn_invstgcn?)
+			drv_inf_dnncnt: {
+				cndtn: (self.vlr_drv_inf_dnncnt?),
+				trsh: (not (self.vlr_drv_dnncnt_optn? or self.drvcns?))
 			},
-			d_optn_invstgcn: {
-				cndtn: (self.vlr_d_optn_invstgcn? or self.drv_dt?),
-				trsh: (not (self.vlr_e_optn_invstgcn? or self.drvcns?))
+			drv_dnncnt_optn: {
+				cndtn: (self.vlr_drv_dnncnt_optn?),
+				trsh: (not (self.drv_emprs_optn? or self.drvcns?))
 			},
-			e_optn_invstgcn: {
-				cndtn: (self.vlr_e_optn_invstgcn? or self.drv_dt?),
-				trsh: (not self.vlr_dnnc_infrm_invstgcn_dt?)
+			drv_emprs_optn: {
+				cndtn: (self.drv_emprs_optn? or self.drv_dt?),
+				trsh: (not (self.fecha_trmtcn.present? or self.drvcns?))
 			},
-			dnnc_infrm_invstgcn_dt: {
-				cndtn: self.vlr_dnnc_infrm_invstgcn_dt?,
+			dnnc_fecha_trmtcn: {
+				cndtn: self.fecha_trmtcn.present?,
 				trsh: (not self.invstgdr?)
 			},
 			invstgdr: {
 				cndtn: self.invstgdr?,
-				trsh: (not (self.vlr_dnnc_leida? or self.vlr_objcn_invstgdr?))
+				trsh: (not (self.vlr_dnnc_leida? or self.vlr_dnnc_objcn_invstgdr?))
 			},
-			objcn_invstgdr: {
-				cndtn: (self.vlr_objcn_invstgdr?),
+			dnnc_objcn_invstgdr: {
+				cndtn: (self.vlr_dnnc_objcn_invstgdr?),
 				trsh: (not self.vlr_dnnc_leida?)
 			},
 			dnnc_leida: {
@@ -68,7 +72,7 @@ module DnncProc
 				cndtn: self.vlr_dnnc_incmplt?,
 				trsh: (not (self.any_dclrcn? or self.fecha_hora_corregida.present?))
 			},
-			fecha_crrgd: {
+			dnnc_fecha_crrgd: {
 				cndtn: self.fecha_hora_corregida.present?,
 				trsh: (not self.any_dclrcn?)
 			},

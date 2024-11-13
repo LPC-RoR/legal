@@ -1,7 +1,7 @@
 class Karin::KrnDenunciantesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denunciante, only: %i[ show edit update destroy fll_optn del_fld ]
+  before_action :set_krn_denunciante, only: %i[ show edit update destroy fll_fld fll_cltn_id del_fld ]
 
   include Karin
 
@@ -63,11 +63,25 @@ class Karin::KrnDenunciantesController < ApplicationController
     end
   end
 
-  def fll_optn
+  def fll_fld
     if perfil_activo?
       case params[:k]
+      when 'externa_id'
+        @objeto.krn_empresa_externa_id = params[:vlr].to_i
       when 'ntfccn'
-        @objeto.direccion_notificacion = params[:option]
+        @objeto.direccion_notificacion = params[:vlr]
+      end
+      @objeto.save
+    end
+
+    redirect_to @objeto.krn_denuncia
+  end
+
+  def fll_cltn_id
+    if perfil_activo?
+      case params[:k]
+      when 'externa_id'
+        @objeto.krn_empresa_externa_id = params[:cltn_id]
       end
       @objeto.save
     end
@@ -81,6 +95,8 @@ class Karin::KrnDenunciantesController < ApplicationController
         del_vlr(@objeto, params[:k])
       else
         case params[:k]
+        when 'externa_id'
+          @objeto.krn_empresa_externa_id = nil
         when 'ntfccn'
           @objeto.direccion_notificacion = nil
         end
@@ -115,6 +131,6 @@ class Karin::KrnDenunciantesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denunciante_params
-      params.require(:krn_denunciante).permit(:krn_denuncia_id, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :articulo_516, :representante)
+      params.require(:krn_denunciante).permit(:krn_denuncia_id, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :articulo_516, :representante, :empleado_externo)
     end
 end

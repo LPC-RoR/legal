@@ -1,37 +1,18 @@
-<% if ownr.drvcn_rchzd? %>
-	<!-- Nos derivaron una denuncia que NO es de nuestra competencia -->
-	<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'drvcn_rchzd', accn: 'Confirmación'} %>
-<% else %>
-
-	<% if ownr.rcpcn? %>
-		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'recpcn_ok', accn: 'Derivación'} %>
+<% if ownr.rcp_externa? %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_rcp_externa', accn: 'Selección'} %>
+<% end %>
+<% if ownr.dt_obligatoria? %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_dt_oblgtr', accn: 'Derivación'} %>
+<% elsif ownr.rcp_empresa? %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_inf_dnncnt', accn: 'Selección'} %>
+	<% if ownr.vlr_drv_inf_dnncnt? %>
+		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_dnncnt_optn', accn: 'Derivación'} %>
 	<% end %>
-
-	<% if ownr.extrn_prsncl? %>
-		<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'extrn_prsncl', accn: 'Confirmación'} %>
-	<% end %>
-
-	<% if ownr.drvcns_on? %>
-		<% if ownr.dt_obligatoria? %>
-			<% unless ownr.rcp_dt? %>
-				<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'obligatoria', accn: 'Derivación'} %>
-			<% end %>
-		<% else %>
-			<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'inf_dnncnt', accn: 'Selección'} %>
-			<% if ownr.vlr_inf_dnncnt? %>
-				<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'd_optn_invstgcn', accn: 'Derivación'} %>
-			<% end %>
-			<% if ownr.vlr_d_optn_invstgcn? %>
-				<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'e_optn_invstgcn', accn: 'Derivación'} %>
-			<% end %>
-		<% end %>
-	<% end %>
-
+<% end %>
+<% if (ownr.rcp_empresa? and ownr.vlr_drv_dnncnt_optn?) or ownr.drv_empresa? %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_emprs_optn', accn: 'Derivación'} %>
 <% end %>
 
-<% if ownr.invstgcn_on? %>
-	<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'tipo_invstgcn', accn: 'Confirmación'} %>
-<% end %>
 <% unless ownr.no_drvcns? %>
 	<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_derivaciones', ttl: "Derivaciones", ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_derivaciones'} %>

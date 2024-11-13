@@ -90,13 +90,11 @@ Rails.application.routes.draw do
 # SCOPES *********************************************************
 
   scope module: 'producto' do
-    resources :pro_etapas
-    resources :pro_nominas
-    resources :pro_clientes
     resources :productos do
       match :agrega_producto, via: :get, on: :member
       match :elimina_producto, via: :get, on: :member
     end
+    resources :pro_dtll_ventas
   end
 
   scope module: 'lgl' do
@@ -145,17 +143,19 @@ Rails.application.routes.draw do
 
     resources :krn_empresa_externas
     resources :krn_denunciados do
-      match :fll_optn, via: :post, on: :member
+      match :fll_fld, via: :post, on: :member
+      match :fll_cltn_id, via: :post, on: :member
       match :del_fld, via: :get, on: :member
     end
     resources :krn_denunciantes do
-      match :fll_optn, via: :post, on: :member
+      match :fll_fld, via: :post, on: :member
+      match :fll_cltn_id, via: :post, on: :member
       match :del_fld, via: :get, on: :member
     end
     resources :krn_denuncias do
       match :check, via: :get, on: :member
       match :fll_dttm, via: :post, on: :member
-      match :fll_optn, via: :post, on: :member
+      match :fll_fld, via: :post, on: :member
       match :fll_cltn_id, via: :post, on: :member
       match :del_fld, via: :get, on: :member
     end

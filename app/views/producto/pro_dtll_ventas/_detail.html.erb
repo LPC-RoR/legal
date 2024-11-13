@@ -1,0 +1,4 @@
+<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :producto_id, colection: Producto.lst.collect { |pro| [pro.producto, pro.id] }, display_field: 'producto', prompt: nil, label: 'Producto' } %>
+
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>

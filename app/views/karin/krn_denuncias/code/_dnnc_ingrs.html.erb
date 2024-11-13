@@ -1,10 +1,10 @@
 <!-- Denuncia fue derivada a la DT -->
 <% if ownr.drv_dt? %>
-	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'fecha_dt', accn: 'Fecha recepción Dirección del Trabajo'} %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'drv_fecha_dt', accn: 'Fecha recepción Dirección del Trabajo'} %>
 <% end %>
 
 <!-- Denuncia recibida en una empresa externa -->
-<% if ownr.rcp_externa? %>
+<% if ownr.rcp_externa? and ownr.p_plus? %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'externa_id', accn: 'Selección', trsh: (not ownr.krn_empresa_externa?), prmpt: 'Empresa'} %>
 <% end %>
 

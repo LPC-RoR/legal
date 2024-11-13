@@ -1,9 +1,12 @@
 class Producto < ApplicationRecord
-	has_many :pro_nominas
-	has_many :app_nominas, through: :pro_nominas
+	TIPOS = ['Procedimiento', 'Capacitación', 'Asesoría', 'Capacidad']
 
-	has_many :pro_clientes
-	has_many :clientes, through: :pro_clientes
+	belongs_to :procedimiento, optional: true
 
-	has_many :pro_etapas
+	scope :lst, -> {order(:producto)}
+
+	def self.lista
+		Producto.lst.map {|prdct| "#{prdct.producto} : #{prdct.formato}"}
+	end
+
 end

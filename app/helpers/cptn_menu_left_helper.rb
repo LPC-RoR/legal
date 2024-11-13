@@ -118,7 +118,7 @@ module CptnMenuLeftHelper
 			cuenta: [
 				{
 					titulo: nil,
-					condicion: perfil_activo?,
+					condicion: (perfil_activo?),
 					items: [
 						['KrnDenuncia', gscp(@objeto)],
 						['KrnInvestigador', gscp(@objeto)],

@@ -15,8 +15,8 @@ module Karin
       'dnncnt_diat_diep' => true,
       'mdds_rsgrd' => true,
       'dnnc_certificado' => dnnc.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
-      'antcdnts_objcn' => dnnc.objcn_invstgdr?,
-      'rslcn_objcn' => dnnc.objcn_invstgdr?,
+      'antcdnts_objcn' => dnnc.dnnc_objcn_invstgdr?,
+      'rslcn_objcn' => dnnc.dnnc_objcn_invstgdr?,
       'dnnc_corrgd' => (dnnc.eval? and (not dnnc.dnnc_ok?)),            # Denuncia corregida
       'prtcpnts_dclrcn' => true,                                        # Declaración
       'prtcpnts_antcdnts' => true,                                      # Antecedentes
@@ -50,7 +50,8 @@ module Karin
 
   def drvcn_mtv
     {
-      'rcptn' => 'Recepción derivación de denuncia de nustra responsabilidad.',
+      'rcptn' => 'Recepción derivación de denuncia.',
+      'extrn_dt' => 'Rerivación a la DT desde empresa externa.',
       'riohs' => 'RIOHS con protocolo no ha entrado en vigencia.',
       'a41' => 'Aplica artículo 4 inciso primero del Código del trabajo.',
       'seg' => 'Seguimiento de denuncia de empresa externa.',

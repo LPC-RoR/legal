@@ -33,7 +33,7 @@ class ClientesController < ApplicationController
 
     set_st_estado(@objeto)
 
-    set_tab( :menu, [['Agenda', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Documentos', operacion?], ['Configuración', dog?]] )
+    set_tab( :menu, [['Agenda', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Documentos', operacion?], ['Productos', dog?]] )
 
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
@@ -105,8 +105,8 @@ class ClientesController < ApplicationController
 
       @d_pendientes = @objeto.documentos_pendientes
       @a_pendientes = @objeto.archivos_pendientes
-    elsif @options[:menu] == 'Configuración'
-      set_tabla('productos', @objeto.productos.all.order(:producto), false)
+    elsif @options[:menu] == 'Productos'
+      set_tabla('pro_dtll_ventas', @objeto.pro_dtll_ventas.fecha_ordr, false)
     end
   end
 

@@ -1,9 +1,9 @@
 <div class="dc_fl">
-	<div class="fl">
+	<div class="answr">
 		<i class="bi bi-calendar2-check"></i> 
 		<%= dma_hm(objeto.fecha) %>
 	</div>
-	<div class="lnks">
+	<div class="trsh">
 		<% unless objeto.archivo? %>
 			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
 		<% end %>

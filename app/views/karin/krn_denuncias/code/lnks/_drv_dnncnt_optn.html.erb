@@ -1,0 +1,13 @@
+<i class="bi bi-dot"></i>
+<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_derivaciones/nueva#{ownr_prms(objeto)}&t=d_optn", tltp: nil} do %>
+	Dirección del Trabajo
+<% end %>
+</br>
+<i class="bi bi-dot"></i>
+<% if objeto.externa? %>
+	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_derivaciones/nueva#{ownr_prms(objeto)}&t=d_optn&eid=#{objeto.externa_id}", tltp: nil} do %>
+		<%= objeto.externa.razon_social %>
+	<% end %>
+<% else %>
+	<%= link_to 'Empresa', "/valores/nuevo#{ownr_prms(objeto)}&v=drv_dnncnt_optn&b=t" %>
+<% end %>

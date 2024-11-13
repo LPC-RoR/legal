@@ -1,9 +1,7 @@
+<% if ownr.empleado_externo? %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'externa_id', accn: 'Selección', trsh: (not ownr.krn_empresa_externa?), prmpt: 'Empleador'} %>
+<% end %>
 <!-- Ingreso de Dirección para notificaciones -->
 <% if ownr.articulo_516 %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'ntfccn', accn: 'Selección'} %>
-<% end %>
-
-<!-- Se evalua en Denunciante y Denunciado según sus propias reglas -->
-<% unless ownr.rgstr_ok? %>
-	<%= render partial: '0p/actv_bx/answr', locals: {objeto: ownr, code: 'rgstr_fail', accn: 'Confirmación'} %>
 <% end %>

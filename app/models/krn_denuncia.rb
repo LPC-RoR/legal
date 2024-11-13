@@ -2,7 +2,6 @@ class KrnDenuncia < ApplicationRecord
 
 	ACCTN = 'dnncs'
 
-	RECEPTORES = ['Empresa', 'Dirección del Trabajo', 'Empresa externa']
 	MOTIVOS = ['Acoso laboral', 'Acoso sexual', 'Violencia en el trabajo ejercida por terceros']
 
 	VIAS_DENUNCIA = ['Presencial', 'Correo electrónico', 'Plataforma']
@@ -34,12 +33,22 @@ class KrnDenuncia < ApplicationRecord
 	include DnncProc
 	include Procs
 
+	delegate :krn_formato, to: :ownr, prefix: true
+
+	def p_plus?
+		self.ownr_krn_formato == 'P+'
+	end
+
 	def fecha_legal
 		self.drv_dt? ? self.fecha_hora_dt : self.fecha_hora
 	end
 
 	def fecha_legal?
 		self.fecha_legal.present?
+	end
+
+	def krn_empresa_externa?
+		self.krn_empresa_externa_id.present?
 	end
 
 	# ------------------------------------------------------------------------ COMPETENCIA DE INVESTIGAR
@@ -62,18 +71,30 @@ class KrnDenuncia < ApplicationRecord
 		self.emprss_ids.length > 1
 	end
 
+	def lttr_tp
+		self.multiempresa? ? 'M' : (self.externa? ? 'X' : (self.empresa? ? 'E' : '?'))
+	end
+
+	def externa_id
+		self.externa? ? self.emprss_ids[0] : nil
+	end
+
+	def externa
+		self.externa_id.blank? ? nil : KrnEmpresaExterna.find(self.externa_id)
+	end
+
 	# ------------------------------------------------------------------------ RCPS & DRVS
 
 	def rcp_dt?
-		self.receptor_denuncia == RECEPTORES[1]
+		self.receptor_denuncia == 'Dirección del Trabajo'
 	end
 
 	def rcp_empresa?
-		self.receptor_denuncia == RECEPTORES[0]
+		self.receptor_denuncia == 'Empresa'
 	end
 
 	def rcp_externa?
-		self.receptor_denuncia == RECEPTORES[2]
+		self.receptor_denuncia == 'Empresa externa'
 	end
 
 	def drv_dt?
@@ -88,8 +109,20 @@ class KrnDenuncia < ApplicationRecord
 		self.no_drvcns? ? nil : self.krn_derivaciones.lst.dstn_externa?
 	end
 
+	def on_empresa?
+		self.no_drvcns? ? self.rcp_empresa? : self.drv_empresa?
+	end
+
+	def on_externa?
+		self.no_drvcns? ? self.rcp_externa? : self.drv_externa?
+	end
+
+	def on_dt?
+		self.no_drvcns? ? self.rcp_dt? : self.drv_dt?
+	end
+
 	def invstgcn_emprs?
-		self.vlr_e_optn_invstgcn?
+		self.vlr_drv_emprs_optn?
 	end
 
 	def invstgcn_dt?

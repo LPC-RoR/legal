@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_30_204735) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_13_162130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1042,6 +1042,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_204735) do
     t.integer "krn_empleado_id"
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
+    t.boolean "empleado_externo"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciados_on_krn_empresa_externa_id"
@@ -1062,6 +1063,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_204735) do
     t.datetime "updated_at", null: false
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
+    t.boolean "empleado_externo"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
@@ -1083,6 +1085,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_204735) do
     t.string "receptor_denuncia"
     t.string "motivo_denuncia"
     t.datetime "fecha_hora_corregida"
+    t.datetime "fecha_trmtcn"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denuncias_on_krn_empresa_externa_id"
@@ -1102,10 +1105,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_204735) do
     t.datetime "updated_at", null: false
     t.string "tipo"
     t.string "destino"
+    t.string "origen"
     t.index ["destino"], name: "index_krn_derivaciones_on_destino"
     t.index ["fecha"], name: "index_krn_derivaciones_on_fecha"
     t.index ["krn_denuncia_id"], name: "index_krn_derivaciones_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_derivaciones_on_krn_empresa_externa_id"
+    t.index ["origen"], name: "index_krn_derivaciones_on_origen"
     t.index ["tipo"], name: "index_krn_derivaciones_on_tipo"
   end
 
@@ -1158,6 +1163,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_204735) do
     t.boolean "articulo_4_1"
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
+    t.boolean "empleado_externo"
     t.index ["krn_empresa_externa_id"], name: "index_krn_testigos_on_krn_empresa_externa_id"
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"
@@ -1570,35 +1576,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_204735) do
     t.index ["orden"], name: "index_preguntas_on_orden"
   end
 
-  create_table "pro_clientes", force: :cascade do |t|
-    t.integer "cliente_id"
+  create_table "pro_dtll_ventas", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.integer "producto_id"
+    t.datetime "fecha_activacion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cliente_id"], name: "index_pro_clientes_on_cliente_id"
-    t.index ["producto_id"], name: "index_pro_clientes_on_producto_id"
-  end
-
-  create_table "pro_etapas", force: :cascade do |t|
-    t.integer "producto_id"
-    t.integer "orden"
-    t.string "code_descripcion"
-    t.string "pro_etapa"
-    t.string "estado"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["code_descripcion"], name: "index_pro_etapas_on_code_descripcion"
-    t.index ["orden"], name: "index_pro_etapas_on_orden"
-    t.index ["producto_id"], name: "index_pro_etapas_on_producto_id"
-  end
-
-  create_table "pro_nominas", force: :cascade do |t|
-    t.integer "app_nomina_id"
-    t.integer "producto_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["app_nomina_id"], name: "index_pro_nominas_on_app_nomina_id"
-    t.index ["producto_id"], name: "index_pro_nominas_on_producto_id"
+    t.index ["ownr_id"], name: "index_pro_dtll_ventas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_pro_dtll_ventas_on_ownr_type"
+    t.index ["producto_id"], name: "index_pro_dtll_ventas_on_producto_id"
   end
 
   create_table "procedimientos", force: :cascade do |t|
@@ -1614,10 +1601,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_30_204735) do
 
   create_table "productos", force: :cascade do |t|
     t.string "producto"
-    t.string "code_descripcion"
+    t.string "codigo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["code_descripcion"], name: "index_productos_on_code_descripcion"
+    t.string "tipo"
+    t.integer "procedimiento_id"
+    t.string "formato"
+    t.boolean "prepago"
+    t.integer "capacidad"
+    t.string "moneda"
+    t.decimal "precio"
+    t.index ["codigo"], name: "index_productos_on_codigo"
+    t.index ["procedimiento_id"], name: "index_productos_on_procedimiento_id"
+    t.index ["tipo"], name: "index_productos_on_tipo"
   end
 
   create_table "reg_reportes", force: :cascade do |t|

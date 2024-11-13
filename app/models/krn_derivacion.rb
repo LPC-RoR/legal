@@ -8,15 +8,15 @@ class KrnDerivacion < ApplicationRecord
 	end
 
 	def dstn_dt?
-		self.tipo == 'Derivación' and self.krn_empresa_externa_id.blank?
+		self.destino == 'Dirección del Trabajo'
 	end
 
 	def dstn_empresa?
-		self.tipo == 'Recepción' and self.krn_empresa_externa_id.blank?
+		self.destino == 'Empresa'
 	end
 
 	def dstn_externa?
-		self.tipo == 'Derivación' and self.krn_empresa_externa_id.present?
+		self.destino == 'Externa'
 	end
 
 	def dstn

@@ -1,0 +1,4 @@
+<% unless (objeto.prtcpnts? or objeto.drvcns? or objeto.valores.any?) %>
+	<!--i class="bi bi-dot"></i-->
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+<% end %>

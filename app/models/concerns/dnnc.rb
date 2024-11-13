@@ -7,13 +7,6 @@ module Dnnc
 		'dnnc'
 	end
 
-	# --------------------------------------------------------------------------------------------- VALORES
-	# Usamos esta función porque no está clara la utilidad de Concern Valores
-	def valor(variable_nm)
-		variable = Variable.find_by(variable: variable_nm)
-		variable.blank? ? nil : self.valores.find_by(variable_id: variable.id)
-	end
-
 	# ------------------------------------------------------------------------ INGRS
 
 	def prsncl?
@@ -22,6 +15,10 @@ module Dnnc
 
 	def rprsntnt?
 		self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]
+	end
+
+	def rgstrs_ok?
+		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
 	end
 
 	def end_drv_dt?
@@ -63,7 +60,7 @@ module Dnnc
 	end
 
 	def prtcpnts_ingrs?
-		self.prtcpnts? and (not self.krn_denunciantes.rgstrs_fail?)
+		self.prtcpnts? and self.krn_denunciantes.rgstrs_ok?
 	end
 
 	def prtcpnts_ok?
@@ -88,7 +85,7 @@ module Dnnc
 	end
 
 	def drvcn_rchzd?
-		self.rcp_externa? and self.externa? and (self.seguimiento? == false)
+		self.rcp_externa? and self.externa? # and (self.seguimiento? == false)
 	end
 
 	def sgmnt_drvcn_externa?
@@ -163,7 +160,11 @@ module Dnnc
 	end
 
 	def dnnc_ok?
-		(self.dnnc_incnsstnt? == false and self.dnnc_incmplt? == false) or self.fecha_hora_corregida.present?
+		self.dnnc_incnsstnt? == false and self.dnnc_incmplt? == false
+	end
+
+	def dsply_crrgd?
+		self.eval? ? (not self.dnnc_ok?) : false
 	end
 
 	def any_dclrcn?

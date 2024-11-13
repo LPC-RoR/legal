@@ -39,6 +39,8 @@ class RepDocControlado < ApplicationRecord
       "/tablas?tb=7"
     when 'StModelo'
       self.ownr
+    when 'Tarea'
+      self.ownr.ctr_etapa.procedimiento
     end
   end
 

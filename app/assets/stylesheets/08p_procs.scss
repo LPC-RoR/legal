@@ -101,7 +101,7 @@ $clr_bg_red: #fae0e4;
 }
 
 @mixin trsh_ln {
-	@include grd(auto 200px 50px, 0);
+	@include grd(auto 300px 50px, 0);
 	.answ {
         @include grd_ncol(1);
     	justify-self: start;

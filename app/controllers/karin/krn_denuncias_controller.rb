@@ -83,17 +83,25 @@ class Karin::KrnDenunciasController < ApplicationController
     redirect_to @objeto
   end
 
-  def fll_optn
+  def fll_fld
     if perfil_activo?
       case params[:k]
+      when 'externa_id'
+        @objeto.krn_empresa_externa_id = params[:vlr].to_i
       when 'via'
-        @objeto.via_declaracion = params[:option]
+        @objeto.via_declaracion = params[:vlr]
       when 'tipo'
-        @objeto.tipo_declaracion = params[:option]
+        @objeto.tipo_declaracion = params[:vlr]
       when 'presentada'
-        @objeto.presentado_por = params[:option]
+        @objeto.presentado_por = params[:vlr]
       when 'representante'
-        @objeto.representante = params[:option]
+        @objeto.representante = params[:vlr]
+      when 'drv_fecha_dt'
+        @objeto.fecha_hora_dt = params_to_date(params, 'vlr')
+      when 'dnnc_fecha_trmtcn'
+        @objeto.fecha_trmtcn = params_to_date(params, 'vlr')
+      when 'dnnc_fecha_crrgd'
+        @objeto.fecha_hora_corregida = params_to_date(params, 'vlr')
       end
       @objeto.save
     end
@@ -121,11 +129,11 @@ class Karin::KrnDenunciasController < ApplicationController
 
   def del_fld
     if perfil_activo?
-      if ['sgmnt_drvcn', 'inf_dnncnt', 'd_optn_invstgcn', 'e_optn_invstgcn', 'dnnc_infrm_invstgcn_dt', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt', 'objcn_invstgdr'].include?(params[:k])
+      if ['sgmnt_drvcn', 'inf_dnncnt', 'drv_dnncnt_optn', 'drv_emprs_optn', 'dnnc_infrm_invstgcn_dt', 'dnnc_objcn_invstgdr', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt'].include?(params[:k])
         del_vlr(@objeto, params[:k])
       else
         case params[:k]
-        when 'fecha_dt'
+        when 'drv_fecha_dt'
           @objeto.fecha_hora_dt = nil
         when 'fecha_crrgd'
           @objeto.fecha_hora_corregida = nil
@@ -137,6 +145,10 @@ class Karin::KrnDenunciasController < ApplicationController
           @objeto.representante = nil
         when 'invstgdr'
           @objeto.krn_investigador_id = nil
+        when 'dnnc_fecha_trmtcn'
+          @objeto.fecha_trmtcn = nil
+        when 'dnnc_fecha_crrgd'
+          @objeto.fecha_hora_corregida = nil
         end
       end
 

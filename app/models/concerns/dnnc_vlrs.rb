@@ -1,6 +1,13 @@
 module DnncVlrs
  	extend ActiveSupport::Concern
 
+	# --------------------------------------------------------------------------------------------- VALORES
+	# Usamos esta función porque no está clara la utilidad de Concern Valores
+	def valor(variable_nm)
+		variable = Variable.find_by(variable: variable_nm)
+		variable.blank? ? nil : self.valores.find_by(variable_id: variable.id)
+	end
+
 	def vlr_flg_sgmnt?
 		self.valor('flg_sgmnt').present?
 	end
@@ -10,48 +17,39 @@ module DnncVlrs
 		v.blank? ? nil : v.c_booleano
 	end
 
-	def vlr_inf_dnncnt?
-		self.valor('inf_dnncnt').present?
+	def vlr_drv_inf_dnncnt?
+		self.valor('drv_inf_dnncnt').present?
 	end
 
-	def inf_dnncnt?
-		v = self.valor('inf_dnncnt')
+	def drv_inf_dnncnt?
+		v = self.valor('drv_inf_dnncnt')
 		v.blank? ? nil : v.c_booleano
 	end
 
-	def vlr_d_optn_invstgcn?
-		self.valor('d_optn_invstgcn').present?
+	def vlr_drv_emprs_optn?
+		self.valor('drv_emprs_optn').present?
 	end
 
-	def d_optn_invstgcn?
-		v = self.valor('d_optn_invstgcn')
+	def drv_emprs_optn?
+		v = self.valor('drv_emprs_optn')
 		v.blank? ? nil : v.c_booleano
 	end
 
-	def vlr_e_optn_invstgcn?
-		self.valor('e_optn_invstgcn').present?
+	def vlr_drv_dnncnt_optn?
+		self.valor('drv_dnncnt_optn').present?
 	end
 
-	def e_optn_invstgcn?
-		v = self.valor('e_optn_invstgcn')
+	def drv_dnncnt_optn?
+		v = self.valor('drv_dnncnt_optn')
 		v.blank? ? nil : v.c_booleano
 	end
 
-	def vlr_dnnc_infrm_invstgcn_dt?
-		self.valor('dnnc_infrm_invstgcn_dt').present?
+	def vlr_dnnc_objcn_invstgdr?
+		self.valor('dnnc_objcn_invstgdr').present?
 	end
 
-	def dnnc_infrm_invstgcn_dt?
-		v = self.valor('dnnc_infrm_invstgcn_dt')
-		v.blank? ? nil : v.c_booleano
-	end
-
-	def vlr_objcn_invstgdr?
-		self.valor('objcn_invstgdr').present?
-	end
-
-	def objcn_invstgdr?
-		v = self.valor('objcn_invstgdr')
+	def dnnc_objcn_invstgdr?
+		v = self.valor('dnnc_objcn_invstgdr')
 		v.blank? ? nil : v.c_booleano
 	end
 

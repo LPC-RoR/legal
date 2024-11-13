@@ -5,7 +5,7 @@ class Producto::ProductosController < ApplicationController
 
   # GET /productos or /productos.json
   def index
-    set_tabla('productos', Producto.all.order(:producto), false)
+    set_tabla('productos', Producto.lst, false)
   end
 
   # GET /productos/1 or /productos/1.json
@@ -88,6 +88,6 @@ class Producto::ProductosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def producto_params
-      params.require(:producto).permit(:producto, :code_descripcion)
+      params.require(:producto).permit(:producto, :codigo, :tipo, :procedimiento_id, :formato, :prepago, :capacidad, :moneda, :precio)
     end
 end

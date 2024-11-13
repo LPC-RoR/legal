@@ -3,6 +3,14 @@ class Procedimiento < ApplicationRecord
 
 	has_many :ctr_etapas
 
+	has_many :productos
+
+	scope :lst, -> {order(:procedimiento)}
+
+	def self.lista
+		Procedimiento.lst.map {|proc| proc.procedimiento}
+	end
+
 	def self.prcdmnt(cdg)
 		find_by(codigo: cdg)
 	end

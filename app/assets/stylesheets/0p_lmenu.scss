@@ -26,6 +26,8 @@
 /* TITULO */
 .lmn_ttl {
     @include mn_ttl(30px, 45px);
+    background-color: #2a6f97;
+    padding: 25px;
     a:hover {
         position: relative;
         left: 2px; /* adjust this value to move the title closer to the top */

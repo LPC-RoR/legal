@@ -5,3 +5,8 @@
 	<!-- Denuncia recibida por una empresa externa que además es responsable de su investigación. Hay que marcarla como seguimiento, si se trata de una derivación, es necesario rechazarla para proteger el proceso-->
 	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'sgmnt_drvcn', accn: 'Selección'} %>
 <% end %>
+
+<!-- P+ recibido en empresa externa-->
+<% if ownr.p_plus? and ownr.rcp_empresa? %>
+	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'sgmnt_drvcn', accn: 'Selección'} %>
+<% end %>
