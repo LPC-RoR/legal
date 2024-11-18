@@ -1,9 +1,9 @@
 <%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver denuncia'} do %>
 	<%= dma_hm(objeto.fecha_hora) %>
+	<i class="bi bi-dot"></i>
+	<%= objeto.motivo_denuncia %>
+	<i class="bi bi-dot"></i>
+	<%= objeto.receptor_denuncia %>
+	<i class="bi bi-dot"></i>
+	<%= objeto.lttr_tp %>
 <% end %>
-<i class="bi bi-dot"></i>
-<%= objeto.motivo_denuncia %>
-<i class="bi bi-dot"></i>
-<%= objeto.receptor_denuncia %>
-<i class="bi bi-dot"></i>
-<%= objeto.lttr_tp %>

@@ -1,6 +1,6 @@
 <%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver denunciado'} do %>
-	<%= objeto.rut.blank? ? 'Sin Cédula de identidad' : s_rut(objeto.rut) %>
+	<%= objeto.rut.blank? ? 'Sin cédula de identidad' : s_rut(objeto.rut) %>
+	<i class="bi bi-dot"></i>
+	<%= objeto.nombre %>
+	<%= render partial: 'karin/shr/prtcpnts_flgs', locals: {objeto: objeto} %>
 <% end %>
-<i class="bi bi-dot"></i>
-<%= objeto.nombre %>
-<%= render partial: 'karin/shr/prtcpnts_flgs', locals: {objeto: objeto} %>
