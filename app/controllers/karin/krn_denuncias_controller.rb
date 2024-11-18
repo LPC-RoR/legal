@@ -7,14 +7,11 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias or /krn_denuncias.json
   def index
-#    set_tabla('krn_denuncias', KrnDenuncia.all.order(fecha_hora: :desc), true)
     set_tabla('krn_denuncias', KrnDenuncia.ordr, true)
   end
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
-    set_tab( :menu, [['Denuncia', operacion?], ['Declaraciones de Testigos', operacion?]] )
-
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
     krn_dnnc_dc_init(@objeto)
 

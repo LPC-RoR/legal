@@ -51,6 +51,7 @@ $shw_ln_gp: 0;
 			padding-left: 1rem;
 	        @include grd_ncol(1);
 	        justify-self: start;
+	        font-weight: bold;
 		}
 		.vl {
 			// Dependiendo del tipo de campo se alinea esta columna
