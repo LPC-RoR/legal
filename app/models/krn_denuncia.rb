@@ -21,7 +21,7 @@ class KrnDenuncia < ApplicationRecord
 	has_many :krn_derivaciones
 	has_many :krn_declaraciones
 
-	scope :ordr, -> { order(fecha_hora: :desc) }
+	scope :ordr, -> { order(fecha_hora: :desc, id: :desc) }
 
 	delegate :rut, to: :krn_empresa_externa, prefix: true
 

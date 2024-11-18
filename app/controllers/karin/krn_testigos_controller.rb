@@ -85,6 +85,6 @@ class Karin::KrnTestigosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_testigo_params
-      params.require(:krn_testigo).permit(:ownr_type, :ownr_id, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :articulo_516)
+      params.require(:krn_testigo).permit(:ownr_type, :ownr_id, :empleado_externo, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :articulo_516)
     end
 end
