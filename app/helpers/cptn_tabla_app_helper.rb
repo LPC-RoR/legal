@@ -52,16 +52,4 @@ module CptnTablaAppHelper
 		end
 	end
 
-	def crud_cndtns
-		{
-			krn_denunciantes: (not @objeto.dnnc_infrm_invstgcn_dt?),
-			krn_denunciados: (not @objeto.dnnc_infrm_invstgcn_dt?)
-		}
-	end
-
-	def crud?(objeto)
-		cntrllr = objeto.class.name.tableize
-		crud_cndtns[cntrllr.to_sym] == nil ? true : crud_cndtns[cntrllr.to_sym]
-	end
-
 end

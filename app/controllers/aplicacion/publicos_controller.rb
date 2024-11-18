@@ -13,12 +13,6 @@ class Aplicacion::PublicosController < ApplicationController
       @usuario = get_perfil_activo.age_usuario
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
-      puts "$$$$$$$$$$$$$$$$$$$$$$$$$"
-      puts @usuario.class.name
-      puts @usuario.id
-      puts @usuario.notas.count
-      puts "$$$$$$$$$$$$$$$$$$$$$$$$$"
-
       set_tabla('notas', @usuario.notas.order(urgente: :desc, pendiente: :desc, created_at: :desc), false)
 
       # VERSIÖN ANTIGUA

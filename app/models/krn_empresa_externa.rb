@@ -1,6 +1,6 @@
 class KrnEmpresaExterna < ApplicationRecord
 
-	TIPOS = ['Subcontrato', 'AST']
+	TIPOS = ['Contrato', 'EST']
 
 	ACCTN = 'extrns'
 
