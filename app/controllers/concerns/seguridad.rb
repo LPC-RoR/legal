@@ -94,7 +94,7 @@ module Seguridad
 	end
 
 	def krn_cntrllrs?
-		!!(controller_name =~ /^krn_[a-z_]*$/)
+		!!(controller_name =~ /^krn_[a-z_]*$/) or 'rep_archivos'
 	end
 
 	def public_controllers
