@@ -1,19 +1,19 @@
 <%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: nil } %>
 
-<div class="shw_bx">
-	<%= render partial: prtl_name('krn_denuncias', 'shw', 'shw_lst'), locals: {objeto: @objeto} %>
-</div>
+<%= render partial: prtl_name('krn_denuncias', 'shw', 'shw_lst'), locals: {objeto: @objeto} %>
 
 <% @etps.each do |etp| %>
 	<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: @objeto, scndry: nil} if prtl?('ctr_etapas', 'code', 'objeto') %>
 <% end %>
 
-<% if @objeto.end_ingrs? %>
+<!-- INGRESO BÁSICO COMPLETO -->
+<% if @objeto.ingrs_dnnc_bsc? %>
 	<hr>
 	<%= render partial: '0p/general/indx_ttl', locals: {clss: 'prtcpnts_ttl', src: 'krn_denunciantes', ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciantes'} %>
 <% end %>
-<% if @objeto.dnncnts? and @objeto.no_vlnc? %>
+<!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
+<% if @objeto.ingrs_dnncnts_ok? and @objeto.no_vlnc? %>
 	<hr>
 	<%= render partial: '0p/general/indx_ttl', locals: {clss: 'prtcpnts_ttl', src: 'krn_denunciados', ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>

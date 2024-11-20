@@ -120,7 +120,10 @@ Rails.application.routes.draw do
   scope module: 'control' do
     resources :procedimientos
     resources :tipo_procedimientos
-    resources :ctr_etapas
+    resources :ctr_etapas do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
     resources :tareas do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member

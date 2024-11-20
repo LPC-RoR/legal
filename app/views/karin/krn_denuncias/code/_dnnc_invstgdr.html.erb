@@ -1,6 +1,9 @@
 <% if ownr.fecha_trmtcn.present? %>
 	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'invstgdr', accn: 'Selección'} %>
 	<% if ownr.invstgdr? %>
+		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_fecha_ntfccn_invstgdr', accn: 'Selección'} %>
+	<% end %>
+	<% if ownr.ntfccn_invstgdr? %>
 		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_objcn_invstgdr', accn: 'Selección'} %>
 	<% end %>
 <% end %>

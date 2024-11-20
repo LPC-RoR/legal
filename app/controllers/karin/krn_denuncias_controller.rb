@@ -99,6 +99,14 @@ class Karin::KrnDenunciasController < ApplicationController
         @objeto.fecha_trmtcn = params_to_date(params, 'vlr')
       when 'dnnc_fecha_crrgd'
         @objeto.fecha_hora_corregida = params_to_date(params, 'vlr')
+      when 'dnnc_fecha_ntfccn_invstgdr'
+        @objeto.fecha_hora_ntfccn_invsgdr = params_to_date(params, 'vlr')
+      when 'dnnc_fecha_trmn'
+        @objeto.fecha_trmn = params_to_date(params, 'vlr')
+      when 'dnnc_fecha_env'
+        @objeto.fecha_env_infrm = params_to_date(params, 'vlr')
+      when 'dnnc_fecha_prnncmnt'
+        @objeto.fecha_prnncmnt = params_to_date(params, 'vlr')
       end
       @objeto.save
     end
@@ -126,7 +134,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   def del_fld
     if perfil_activo?
-      if ['sgmnt_drvcn', 'inf_dnncnt', 'drv_dnncnt_optn', 'drv_emprs_optn', 'dnnc_infrm_invstgcn_dt', 'dnnc_objcn_invstgdr', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt'].include?(params[:k])
+      if ['sgmnt_drvcn', 'drv_inf_dnncnt', 'drv_dnncnt_optn', 'drv_emprs_optn', 'dnnc_infrm_invstgcn_dt', 'dnnc_objcn_invstgdr', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt'].include?(params[:k])
         del_vlr(@objeto, params[:k])
       else
         case params[:k]
@@ -146,6 +154,14 @@ class Karin::KrnDenunciasController < ApplicationController
           @objeto.fecha_trmtcn = nil
         when 'dnnc_fecha_crrgd'
           @objeto.fecha_hora_corregida = nil
+        when 'dnnc_fecha_ntfccn_invstgdr'
+          @objeto.fecha_hora_ntfccn_invsgdr = nil
+        when 'dnnc_fecha_trmn'
+          @objeto.fecha_trmn = nil
+        when 'dnnc_fecha_env'
+          @objeto.fecha_env_infrm = nil
+        when 'dnnc_fecha_prnncmnt'
+          @objeto.fecha_prnncmnt = nil
         end
       end
 

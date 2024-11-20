@@ -24,13 +24,31 @@ class KrnDenunciante < ApplicationRecord
 		{
 			externa_id: {
 				cndtn: self.krn_empresa_externa.present?,
-				trsh: ( not self.krn_denuncia.invstgdr?)
+				trsh: ( not self.krn_denuncia.fecha_trmtcn.present?)
 			},
 			ntfccn: {
 				cndtn: self.direccion_notificacion.present?,
-				trsh: (not self.krn_denuncia.invstgdr?)
+				trsh: (not self.krn_denuncia.fecha_trmtcn.present?)
 			}
 		}
+	end
+
+	def diat_diep?
+		dc = RepDocControlado.get_dc('dnncnt_diat_diep')
+		self.rep_archivos.find_by(rep_doc_controlado_id: dc.id).present?
+	end 
+
+	def dclrcn_ok?
+		dc = RepDocControlado.get_dc('prtcpnts_dclrcn')
+		self.rep_archivos.find_by(rep_doc_controlado_id: dc.id).present?
+	end
+
+	def self.diats_dieps_ok?
+		all.map {|arc| arc.diat_diep?}.exclude?(false)
+	end
+
+	def self.dclrcns_ok?
+		all.map {|arc| arc.dclrcn_ok?}.exclude?(false)
 	end
 
 	def krn_empresa_externa?

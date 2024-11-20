@@ -11,16 +11,8 @@ class RepDocControlado < ApplicationRecord
 
   include OrderModel
 
-  def self.get_archv(codigo)
+  def self.get_dc(codigo)
     find_by(codigo: codigo)
-  end
-
-  def self.denuncia
-    find_by(codigo: 'krn_denuncia')    
-  end
-
-  def self.corregida
-    find_by(codigo: 'krn_corregida')    
   end
 
   def req?

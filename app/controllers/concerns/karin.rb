@@ -8,24 +8,32 @@ module Karin
   def krn_cntrl(ownr)
     dnnc = ownr.class.name == 'KrnDenuncia' ? ownr : (dnnc = ownr.class.name == 'KrnTestigo' ? ownr.ownr.krn_denuncia : ownr.krn_denuncia)
     {
+       # GESTIÓN INICIAL DE LA DENUNCIA
       'dnnc_denuncia' => dnnc.tipo_declaracion != 'Verbal',     # Denuncia se presenta por escrito
-      'dnnc_notificacion' => dnnc.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
       'dnnc_acta' => dnnc.tipo_declaracion == 'Verbal',         # Denuncia se presenta en forma verbal
+      'dnnc_notificacion' => dnnc.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
       'dnncnt_rprsntcn' => dnnc.rprsntnt?,                      # Denuncia presentada por un representante
+
+      'dnnc_certificado' => dnnc.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
+
       'dnncnt_diat_diep' => true,
       'mdds_rsgrd' => true,
-      'dnnc_certificado' => dnnc.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
+
       'antcdnts_objcn' => dnnc.dnnc_objcn_invstgdr?,
       'rslcn_objcn' => dnnc.dnnc_objcn_invstgdr?,
+
+      'dnnc_evlcn' => (dnnc.eval? and (not dnnc.dnnc_ok?)),
       'dnnc_corrgd' => (dnnc.eval? and (not dnnc.dnnc_ok?)),            # Denuncia corregida
+
       'prtcpnts_dclrcn' => true,                                        # Declaración
       'prtcpnts_antcdnts' => true,                                      # Antecedentes
+
       'infrm_invstgcn' => true,                                         # Informe de investigación
       'mdds_crrctvs' => true,
       'sncns' => true,
+
       'prnncmnt_dt' => true,
-      'rspld_mdds_crrctvs' => true,
-      'rspld_sncns' => true,
+      'dnnc_mdds_sncns' => true,
     }
   end
 

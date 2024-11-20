@@ -24,24 +24,6 @@ $shw_ln_gp: 0;
 	font-size: 14px;
 }
 
-.shw_flds_lst {
-	@include shw_bsc;
-	.shw_ln {
-		@include shw_ln_bsc;
-		.fld {
-			padding-left: 1rem;
-	        @include grd_ncol(1);
-	        justify-self: start;
-		}
-		.vl {
-			// Dependiendo del tipo de campo se alinea esta columna
-			padding-right: 1rem;
-	        @include grd_ncol(2);
-//	        justify-self: end; 	
-		}
-	}
-}
-
 .shw_bx {
 	@include shw_bsc;
 	font-size: 14px;

@@ -17,3 +17,8 @@
 	<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_derivaciones', ttl: "Derivaciones", ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_derivaciones'} %>
 <% end %>
+
+<!-- Denuncia fue derivada a la DT -->
+<% if ownr.drv_dt? %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'drv_fecha_dt', accn: 'Fecha recepción Dirección del Trabajo'} %>
+<% end %>

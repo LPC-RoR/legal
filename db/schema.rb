@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_13_162130) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_20_004923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1086,6 +1086,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_162130) do
     t.string "motivo_denuncia"
     t.datetime "fecha_hora_corregida"
     t.datetime "fecha_trmtcn"
+    t.datetime "fecha_trmn"
+    t.datetime "fecha_hora_ntfccn_invsgdr"
+    t.datetime "fecha_env_infrm"
+    t.datetime "fecha_prnncmnt"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denuncias_on_krn_empresa_externa_id"
