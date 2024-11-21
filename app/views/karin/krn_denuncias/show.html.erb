@@ -1,6 +1,4 @@
-<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: nil } %>
-
-<%= render partial: prtl_name('krn_denuncias', 'shw', 'shw_lst'), locals: {objeto: @objeto} %>
+<%= render partial: '0p/general/clss_dir_objt_ttl', locals: {clss: 'shw_ttl', dir: 'shw', objt: @objeto, bck: nil} %>
 
 <% @etps.each do |etp| %>
 	<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: @objeto, scndry: nil} if prtl?('ctr_etapas', 'code', 'objeto') %>

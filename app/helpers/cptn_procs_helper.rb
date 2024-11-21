@@ -1,8 +1,14 @@
 module CptnProcsHelper
 
+	def dnnc_ownr(ownr)
+		clss = ownr.class.name
+		clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
+	end
+
 	def etp_cntrl(ownr)
 		clss = ownr.class.name
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
+		dnnc = dnnc_ownr(ownr)
 		{
 			etp_rcpcn: ['KrnDenuncia', 'KrnDenunciante'].include?(ownr.class.name),
 			etp_invstgcn: dnnc.fecha_trmtcn.present?,
@@ -15,6 +21,7 @@ module CptnProcsHelper
 	def tar_cntrl(ownr)
 		clss = ownr.class.name
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
+		dnnc = dnnc_ownr(ownr)
 		{
 			# Ingreso de datos básicos de la Denuncia
 			dnnc_ingrs: true,							
@@ -23,7 +30,7 @@ module CptnProcsHelper
 			# Si hay denunciantes, aparece uno para cada denunciante
 			dnncnt_diat_diep: (ownr.class.name == 'KrnDenunciante'),	
 			# Ingreso terminó y denuncia no fue recibida en la DT		
-			dnnc_drvcn: (dnnc.ingrs_dnnc_bsc? and (not dnnc.rcp_dt?)),				
+			dnnc_drvcn: (dnnc.ingrs_dnnc_bsc? and dnnc.ingrs_nts_ds? and (not dnnc.rcp_dt?)),				
 			# No es necesario que denunciados estén completos aún
 			dnnc_mdds: dnnc.ingrs_drvcns?,
 			# Registos de "principales" completo
@@ -47,24 +54,44 @@ module CptnProcsHelper
 		}
 	end
 
+	def tar_cmpltd_cndtns(dnnc)
+		{
+			dnnc_ingrs: dnnc.ingrs_dnnc_bsc?,
+		}
+	end
+
+	def tar_cmpltd(ownr, code)
+		dnnc = dnnc_ownr(ownr)
+		code_sym = code.to_sym
+		tar_cmpltd_cndtns(dnnc)[code_sym].present? ? tar_cmpltd_cndtns(dnnc)[code_sym] : false
+	end
+
 	def dc_fl?(ownr, code)
 		dc = RepDocControlado.find_by(codigo: code)
 		dc.blank? ? false : ownr.rep_archivos.where(rep_doc_controlado_id: dc.id).present?
 	end
 
-	def ownr_dnnc(ownr)
-		ownr.class.name == 'KrnDenuncia' ? ownr : (['KrnDenunciante', 'KrnDenunciado'].include?(ownr.class.name) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia)
-	end
-
 	def plz_aplcnm_mddds_sncns(dnnc)
-		fch_bs = dnnc.fecha_prnncmnt.blank? ? nil : (dnnc.fecha_prnncmnt < plz_lv(dnnc.fecha_env_infrm, 30) ? dnnc.fecha_prnncmnt : plz_lv(dnnc.fecha_env_infrm, 30))
+		plz_clcl = dnnc.fecha_env_infrm.blank? ? nil : plz_lv(dnnc.fecha_env_infrm, 30)
+		fch_bs = dnnc.fecha_env_infrm.blank? ? nil : (dnnc.fecha_prnncmnt.blank? ? plz_clcl : [plz_clcl, dnnc.fecha_prnncmnt].min)
 		fch_bs.blank? ? nil : plz_c(fch_bs, 15)
 	end
 
 	def etp_plz(ownr)
-		dnnc = ownr_dnnc(ownr)
+		dnnc = dnnc_ownr(ownr)
 		{
 			'etp_rcpcn'      => plz_lv(dnnc.fecha_hora, 3),
+			'etp_invstgcn'   => plz_lv(dnnc.fecha_legal, 30),
+			'etp_envio'      => plz_lv(dnnc.fecha_legal, 32),
+			'etp_prnncmnt'   => plz_lv(dnnc.fecha_env_infrm, 30),
+			'etp_mdds_sncns' => plz_aplcnm_mddds_sncns(dnnc)
+		}
+	end
+
+	def etp_plz_ok(ownr)
+		dnnc = dnnc_ownr(ownr)
+		{
+			'etp_rcpcn'      => dnnc.fecha,
 			'etp_invstgcn'   => plz_lv(dnnc.fecha_legal, 30),
 			'etp_envio'      => plz_lv(dnnc.fecha_legal, 32),
 			'etp_prnncmnt'   => plz_lv(dnnc.fecha_env_infrm, 30),

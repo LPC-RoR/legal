@@ -31,6 +31,9 @@ $sobjt_brd_rds: 3px;
 
 @mixin objt_ln_bsc {
 	background-color: $objt_ln_bg_clr;
+	padding: 3px 1rem 3px 1rem;
+	color: $pltt_2;
+	@include a_hover($pltt_2, $pltt_4);
 }
 
 .objt {
@@ -55,7 +58,6 @@ $sobjt_brd_rds: 3px;
 	@include objt_ln_bsc;
 	@include grd($objt_ln_tc, $objt_ln_gp);
 	.nm {
-		padding-left: 1rem;
         @include grd_ncol(1);
         justify-self: start;
 	}

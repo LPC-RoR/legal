@@ -8,8 +8,10 @@ $prcs_brd_rds: 3px;
 
 $prcs_ln_tc: auto 200px;
 
-$elmnt_mrgn: 2px 0 2px 0;
-$elmnt_pddng: 2px 1rem 2px 1rem;
+$elmnt_mrgn: 3px 0 3px 0;
+$elmnt_pddng: 3px 1rem 2px 1rem;
+
+$p_blue: #2a6f97;
 
 $clr_bg_red: #fae0e4;
 
@@ -120,7 +122,7 @@ $clr_bg_red: #fae0e4;
 	@include mrgn_pddng($elmnt_mrgn, $elmnt_pddng);
 	background-color: $clr_bg;
 	@include bx_shdw;
-	@include a_hover($clr, gray);
+	@include a_hover($clr, $blue_3);
 	@include grd(auto auto, 0);
 	line-height: 30px;
 	font-size: 16px;
@@ -130,9 +132,17 @@ $clr_bg_red: #fae0e4;
 
 @mixin p_ttl_bsc($brdr_clr, $clr_bg, $clr) {
 	@include ttl_objt_bsc($clr_bg, $clr);
-	border-bottom-style: solid;
-	border-width: 5px;
-	border-color: $brdr_clr;
+	@include brd_ln(4px, solid, $brdr_clr, 3px);
+}
+
+@mixin p_ttl_bttm_bsc($brdr_clr, $clr_bg, $clr) {
+	@include ttl_objt_bsc($clr_bg, $clr);
+	border-bottom: 5px solid $brdr_clr;
+}
+
+@mixin shw_ttl_bsc($brdr_clr, $clr_bg, $clr) {
+	@include ttl_objt_bsc($clr_bg, $clr);
+	@include brd_ln(5px, solid, $brdr_clr, 3px);
 }
 
 @mixin ttl_2clmns {
@@ -196,6 +206,14 @@ $clr_bg_red: #fae0e4;
 	}
 }
 
+@mixin flg_bx_bsc($clr) {
+	padding: 1px 1rem 1px 1rem;
+	@include brd_ln(1px, solid, $clr, 3px);
+	background-color: white;
+	color: $clr;
+}
+
+
 
 // ETAPAS Y TAREAS
 
@@ -205,13 +223,13 @@ $clr_bg_red: #fae0e4;
 }
 
 .tar_objt {
-	@include procs_area_bsc(white, $blue_cnv);
+	@include procs_area_bsc(white, $p_blue);
 	@include procs_bdy(15px);
 }
 
 // FORMS
 .prc_frm {
-	@include procs_area_bsc($blue_cnv_2, $blue_cnv);
+	@include procs_area_bsc($pltt_9, $blue_cnv);
 	.p_prmpt {
 
 	}
@@ -223,7 +241,7 @@ $clr_bg_red: #fae0e4;
 // ANSWR
 
 .rspst {
-	@include elmnt_bsc($blue_cnv, white);
+	@include elmnt_bsc(#0077b6, white);
 	@include a_hover(white, $gray_1);
 	@include trsh_ln;
 }
@@ -266,8 +284,13 @@ $clr_bg_red: #fae0e4;
 
 // TTLS
 
+.shw_ttl {
+	@include p_ttl_bsc($p_blue, $p_blue, white);
+	@include ttl_2clmns;
+}
+
 .prtcpnts_ttl {
-	@include p_ttl_bsc($gray_1, $gray_2, $blue_cnv);
+	@include p_ttl_bttm_bsc($gray_2, $gray_3, $blue_cnv);
 	@include ttl_2clmns;
 }
 
@@ -279,7 +302,7 @@ $clr_bg_red: #fae0e4;
 // OBJTS
 
 .prtcpnts_objt {
-	@include p_objt_bsc($gray_1, $gray_2, $blue_cnv);
+	@include p_objt_bsc($gray_2, $gray_3, $blue_cnv);
 	@include p_nm_lnks;
 }
 
@@ -287,4 +310,14 @@ $clr_bg_red: #fae0e4;
 
 .qstn_bx {
 	@include qstn_bsc($gray_3, $blue_cnv);
+}
+
+// FLAG BX
+
+.flg_bx_fail {
+	@include flg_bx_bsc(#ff8fab)
+}
+
+.flg_bx_ok {
+	@include flg_bx_bsc(#0077b6)
 }

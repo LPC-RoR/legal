@@ -1,3 +1,5 @@
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/#{objeto.ownr.class.name.tableize}/#{objeto.ownr.id}?html_options[menu]=Investigaciones", tooltip: objeto.ownr.razon_social} do %>
-	<i class="bi bi-building"></i>
+<% unless scp_activo? %>
+	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto.ownr)}/#{objeto.ownr.id}?html_options[menu]=Investigaciones", tltp: objeto.ownr.razon_social} do %>
+		<i class="bi bi-building"></i>
+	<% end %>
 <% end %>

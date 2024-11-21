@@ -44,7 +44,7 @@ module DnncProc
 			},
 			drv_emprs_optn: {
 				cndtn: (self.drv_emprs_optn? or self.drv_dt?),
-				trsh: (not (self.fecha_trmtcn.present? or self.drvcns?))
+				trsh: (not (self.fecha_trmtcn.present? or self.drvcns? or self.fl?('mdds_rsgrd')))
 			},
 			drv_fecha_dt: {
 				# Fecha de recepción de la denuncia derivada a la DT
@@ -54,7 +54,7 @@ module DnncProc
 			},
 			dnnc_fecha_trmtcn: {
 				cndtn: self.fecha_trmtcn.present?,
-				trsh: (not self.invstgdr?)
+				trsh: (not (self.invstgdr?))
 			},
 			# INVSTGDR Y OBJCN
 			invstgdr: {
@@ -121,12 +121,21 @@ module DnncProc
 		self.krn_denunciantes.rgstrs_ok?
 	end
 
+	def ingrs_nts_ds?
+		self.ingrs_dnncnts_ok? and self.krn_denunciados.any?
+	end
+
 	def ingrs_dnncds_ok?
 		self.krn_denunciados.rgstrs_ok?
 	end
 
 	def ingrs_drvcns?
 		self.drv_emprs_optn? or self.on_externa? or self.on_dt?
+	end
+
+	def fl?(code)
+		dc = RepDocControlado.get_dc(code)
+		self.rep_archivos.find_by(rep_doc_controlado_id: dc.id).present?
 	end
 
 	def ingrs_fls_ok?

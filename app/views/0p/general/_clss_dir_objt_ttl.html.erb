@@ -1,0 +1,31 @@
+<div class="<%=clss%>">
+	<div class="ttl_ttl">
+		<%= render partial: '0p/general/gly', locals: {gly: controller_icon[cntrllr(objt)]} %>
+		<% if prtl?(cntrllr(objt), dir, "objt") %>
+			<%= render partial: prtl_name(cntrllr(objt), dir, "objt"), locals: {objeto: objt} %>
+		<% end %>
+	</div>
+	<div class="ttl_lnks">
+		<% unless bck.blank? %>
+			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: bck, tltp: 'Voler'} do %>
+				<i class="bi bi-arrow-left"></i>
+			<% end %>
+		<% end %>
+		<% if prtl?(cntrllr(objt), dir, "cllps") %>
+			<%= render layout: '0p/collapse/link', locals: {label: 'objt_cllps', objeto: objt, tooltip: 'Detalle'} do %>
+				<i class="bi bi-arrow-bar-down"></i>
+			<% end %>
+		<% end %>
+		<% if prtl?(cntrllr(objt), dir, "lnks") %>
+			<% unless bck.blank? %>
+				<i class="bi bi-dot"></i>
+			<% end %>
+			<%= render partial: prtl_name(cntrllr(objt), dir, "lnks"), locals: {objeto: objt} %>
+		<% end %>
+	</div>
+</div>
+<% if prtl?(cntrllr(objt), dir, "cllps") %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'objt_cllps', objeto: objt} do %>
+		<%= render partial: prtl_name(cntrllr(objt), dir, "cllps"), locals: {objeto: objt} %>
+	<% end %>
+<% end %>

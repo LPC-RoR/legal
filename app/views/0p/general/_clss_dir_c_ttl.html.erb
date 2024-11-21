@@ -1,0 +1,28 @@
+<div class="<%=clss%>">
+	<div class="ttl_ttl">
+		<%= render partial: '0p/general/gly', locals: {gly: controller_icon[cntrllr(source)]} %>
+		<% if prtl?(cntrllr(source), dir, "objt") %>
+			<%= render partial: prtl_name(cntrllr(source), dir, "objt"), locals: {ownr: ownr} %>
+		<% end %>
+	</div>
+	<div class="ttl_lnks">
+		<% if prtl?(cntrllr(source), dir, "cllps") %>
+			<%= render layout: '0p/collapse/link', locals: {label: cntrllr(source), objeto: nil, tooltip: 'Detalle'} do %>
+				<i class="bi bi-arrow-bar-down"></i>
+			<% end %>
+		<% end %>
+		<% if prtl?(cntrllr(source), dir, "lnks") %>
+			<%= render partial: prtl_name(cntrllr(source), dir, "lnks"), locals: {ownr: ownr} %>
+		<% else %>
+			<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr(source)}/new#{ownr_prms(ownr) unless ownr.blank?}", tltp: "Agrega #{c_to_name(cntrllr(source))}"} %>
+		<% end %>
+	</div>
+</div>
+<% if prtl?(cntrllr(source), dir, "cllps") %>
+	<%= render layout: '0p/collapse/display', locals: {label: cntrllr(source), objeto: nil} do %>
+		<%= render partial: prtl_name(cntrllr(source), dir, "cllps"), locals: {objeto: objt} %>
+	<% end %>
+<% end %>
+<% if prtl?(cntrllr(source), dir, "dsply") %>
+	<%= render partial: prtl_name(cntrllr(source), dir, "dsply"), locals: {ownr: ownr} %>
+<% end %>

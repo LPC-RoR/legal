@@ -1,0 +1,13 @@
+<!-- ownr -->
+<div class="shw_bx">
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: objeto.ownr.class.name, vl: objeto.ownr.razon_social, algn: 'left'} %>
+
+<!-- FECHA DE RECEPCIÓN -->
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora denuncia', vl: dma_hm(objeto.fecha_hora), algn: 'right'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Fecha y hora certificado DT (derivación)', vl: dma_hm(objeto.fecha_hora_dt), algn: 'right'} if objeto.drv_dt? %>
+	
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Motivo de la denuncia', vl: objeto.motivo_denuncia, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Receptor de la denuncia', vl: objeto.receptor_denuncia, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Canal de denuncia', vl: objeto.via_declaracion, algn: 'left'} %>
+	<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Denuncia presentada por', vl: objeto.presentado_por, algn: 'left'} %>
+</div>

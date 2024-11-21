@@ -3,6 +3,9 @@
 
 		<div class="tar_objt" id: <%= "#{objeto.css_id}#{ownr.css_id}" %>>
 			<div class="p_objt">
+				<% if tar_cmpltd(ownr, objeto.codigo) %>
+					<i class="bi bi-check-lg"></i>
+				<% end %>
 				<%#= "#{objeto.css_id}#{ownr.css_id}" %>
 				<%= render partial: prtl_name('tareas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('tareas', 'code', 'objt') %>
 			</div>
