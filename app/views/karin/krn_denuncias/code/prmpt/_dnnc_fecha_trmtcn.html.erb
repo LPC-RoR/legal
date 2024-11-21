@@ -1,5 +1,7 @@
-<% if objeto.drv_dt? %>
-	Fecha y hora derivación a la Dirección del Trabajo.
+<% if objeto.rcp_dt? %>
+	Fecha Notificación de denuncia presentada en la Dirección del Trabajo.
+<% elsif objeto.drv_dt? %>
+	Fecha Certificado de recepción de denuncia en la Dirección del Trabajo.
 <% else %>
 	Fecha y hora en que se informó investigación a la Dirección del Trabajo.
 <% end %>

@@ -11,10 +11,10 @@ module CptnProcsHelper
 		dnnc = dnnc_ownr(ownr)
 		{
 			etp_rcpcn: ['KrnDenuncia', 'KrnDenunciante'].include?(ownr.class.name),
-			etp_invstgcn: dnnc.fecha_trmtcn.present?,
+			etp_invstgcn: (dnnc.fecha_trmtcn.present? and dnnc.on_empresa?),
 			etp_envio: dnnc.envio_ok?,
-			etp_prnncmnt: dnnc.fecha_env_infrm.present?,
-			etp_mdds_sncns: dnnc.fecha_prnncmnt.present?
+			etp_prnncmnt: (dnnc.fecha_env_infrm.present? and (not dnnc.on_dt?)),
+			etp_mdds_sncns: (dnnc.fecha_prnncmnt.present? or (dnnc.on_dt? and dnnc.fecha_env_infrm.present?))
 		}
 	end
 
@@ -32,7 +32,7 @@ module CptnProcsHelper
 			# Ingreso terminó y denuncia no fue recibida en la DT		
 			dnnc_drvcn: (dnnc.ingrs_dnnc_bsc? and dnnc.ingrs_nts_ds? and (not dnnc.rcp_dt?)),				
 			# No es necesario que denunciados estén completos aún
-			dnnc_mdds: dnnc.ingrs_drvcns?,
+			dnnc_mdds: ((dnnc.ingrs_dnnc_bsc? and dnnc.ingrs_nts_ds?) and dnnc.ingrs_drvcns?),
 			# Registos de "principales" completo
 			dnnc_infrm_invstgcn_dt: (dnnc.ingrs_fls_ok? and dnnc.prtcpnts_ok?),
 			# INVSTGCN
@@ -41,10 +41,10 @@ module CptnProcsHelper
 			dnnc_agndmnt: (dnnc.eval? and controller_name != 'krn_denuncias'),
 			dnnc_dclrcn: (ownr.krn_declaraciones.any? and dnnc.dnnc_ok? and controller_name != 'krn_denuncias'),
 			dnnc_rdccn_infrm: dnnc.dclrcns_ok?, 
-			dnnc_trmn_invstgcn: dnnc.infrm_rdctd?,
-			dnnc_fecha_env: dnnc.fecha_trmn.present?,
+			dnnc_trmn_invstgcn: (dnnc.infrm_rdctd? or (dnnc.on_dt? and dnnc.ingrs_dnnc_bsc?)),
+			dnnc_fecha_env: (dnnc.envio_ok?),
 			dnnc_fecha_prnncmnt: dnnc.fecha_env_infrm.present?,
-			dnnc_mdds_sncns: dnnc.fecha_prnncmnt.present?
+			dnnc_mdds_sncns: (dnnc.fecha_prnncmnt.present? or (dnnc.on_dt? and dnnc.fecha_env_infrm.present?))
 
 #			dnnc_crr_dclrcns: dnnc.dclrcn?,
 #			dnnc_infrm: (dnnc.vlr_dnnc_crr_dclrcns? or dnnc.sgmnt?),
@@ -73,7 +73,11 @@ module CptnProcsHelper
 
 	def plz_aplcnm_mddds_sncns(dnnc)
 		plz_clcl = dnnc.fecha_env_infrm.blank? ? nil : plz_lv(dnnc.fecha_env_infrm, 30)
-		fch_bs = dnnc.fecha_env_infrm.blank? ? nil : (dnnc.fecha_prnncmnt.blank? ? plz_clcl : [plz_clcl, dnnc.fecha_prnncmnt].min)
+		if dnnc.on_dt?
+			fch_bs = dnnc.fecha_env_infrm
+		else
+			fch_bs = dnnc.fecha_env_infrm.blank? ? nil : (dnnc.fecha_prnncmnt.blank? ? plz_clcl : [plz_clcl, dnnc.fecha_prnncmnt].min)
+		end
 		fch_bs.blank? ? nil : plz_c(fch_bs, 15)
 	end
 

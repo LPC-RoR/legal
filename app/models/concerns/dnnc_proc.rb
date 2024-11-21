@@ -171,7 +171,7 @@ module DnncProc
 	end
 
 	def envio_ok?
-		self.fecha_trmn.present?
+		self.fecha_trmn.present? or (self.on_dt? and self.fecha_trmtcn.present?)
 	end
 
 end
