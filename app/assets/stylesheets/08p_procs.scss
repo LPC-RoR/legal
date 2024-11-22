@@ -76,6 +76,14 @@ $clr_bg_red: #fae0e4;
 	font-size: 16px;
 }
 
+@mixin elmnt_brd_bsc($clr_bg, $clr) {
+	@include mrgn_pddng($elmnt_mrgn, $elmnt_pddng);
+	@include brd_ln(1px, solid, $clr, 20px);
+	background-color: $clr_bg;
+	color: $clr;
+	font-size: 16px;
+}
+
 @mixin lst_bsc($clr_bg, $clr) {
 	margin: $elmnt_mrgn;
 	font-size: 14px;
@@ -255,7 +263,7 @@ $clr_bg_red: #fae0e4;
 }
 
 .no_dc_fl {
-	@include elmnt_bsc($clr_bg_red, $red_2);
+	@include elmnt_bsc($clr_bg_red, $red_1);
 	@include a_hover(red, $red_3);
 	@include trsh_ln;
 }
@@ -273,7 +281,7 @@ $clr_bg_red: #fae0e4;
 }
 
 .no_dc_fl_lst {
-	@include lst_bsc($clr_bg_red, $red_2);
+	@include lst_bsc($clr_bg_red, $red_1);
    	@include a_hover(red, $red_3);
 }
 

@@ -25,14 +25,13 @@
 
 /* TITULO */
 .lmn_ttl {
-    @include mn_ttl(30px, 45px);
+    @include brd_ln(1px, solid, #2a6f97, 3px);
+    @include mrgn_pddng(3px 1px, 10px 20px 10px 20px);
     background-color: #2a6f97;
-    padding: 25px;
-    a:hover {
-        position: relative;
-        left: 2px; /* adjust this value to move the title closer to the top */
-        bottom: 2px; /* adjust this value to move the title closer to the top */
-    }
+    line-height: 18px;
+    font-size: 16px;
+    color: white;
+    @include a_hover(white, gray);
 }
 
 .cmn_ttl {
