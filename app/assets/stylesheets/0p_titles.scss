@@ -1,5 +1,7 @@
 $ttl_ln_hght: 40px;
 
+$p_blue: #2a6f97;
+
 /* PARTIALS */
 
 // mrgn_pddng($mrgn, $pddng);
@@ -17,7 +19,7 @@ $ttl_ln_hght: 40px;
 @mixin clss_ttl_bsc($grd_tc, $clr_bg, $clr) {
 	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
 	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
-	@include bx($clr_bg);
+	@include bx($p_blue);
 	@include bx_shdw;
 	@include grd(auto auto, $ttl_gap);
 	@include ln_fnt($ttl_ln_hght, $app_fnt, 16px, $clr);
@@ -39,7 +41,7 @@ $ttl_ln_hght: 40px;
 @mixin ttl_bsc2($grd_tc) {
 	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
 	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
-	@include bx($c_ttl_bg);
+	@include bx($p_blue);
 	@include bx_shdw;
 	@include grd(auto auto, $ttl_gap);
 	@include ln_fnt($ttl_ln_hght, $app_fnt, 16px, $c_ttl_fnt);

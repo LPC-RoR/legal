@@ -2,6 +2,7 @@ class Calendario::CalFeriadosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_cal_feriado, only: %i[ show edit update destroy ]
+  before_action :set_tipo, only: %i[create, update]
 
   # GET /cal_feriados or /cal_feriados.json
   def index
@@ -14,8 +15,7 @@ class Calendario::CalFeriadosController < ApplicationController
 
   # GET /cal_feriados/new
   def new
-    annio = CalAnnio.find(params[:aid])
-    @objeto = annio.cal_feriados.new
+    @objeto = CalFeriado.new
   end
 
   # GET /cal_feriados/1/edit
@@ -63,6 +63,14 @@ class Calendario::CalFeriadosController < ApplicationController
   end
 
   private
+
+    def set_tipo
+      prfx = prfx_dia(@objeto.cal_fecha)
+      @objeto.tipo = ['do', 'sa'].include?(prfx) ? prfx : 'lv'
+      puts "kmlkmñlkmñlkmlñkm"
+      puts @objeto.tipo
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_cal_feriado
       @objeto = CalFeriado.find(params[:id])
@@ -74,6 +82,6 @@ class Calendario::CalFeriadosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cal_feriado_params
-      params.require(:cal_feriado).permit(:cal_annio_id, :cal_fecha, :descripcion)
+      params.require(:cal_feriado).permit(:cal_fecha, :descripcion, :tipo)
     end
 end

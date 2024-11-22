@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_20_004923) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_22_155021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -441,64 +441,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_004923) do
     t.text "descripcion"
   end
 
-  create_table "cal_annios", force: :cascade do |t|
-    t.integer "cal_annio"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["cal_annio"], name: "index_cal_annios_on_cal_annio"
-  end
-
-  create_table "cal_dias", force: :cascade do |t|
-    t.integer "cal_dia"
-    t.integer "cal_mes_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "clave"
-    t.string "dia_semana"
-    t.integer "cal_semana_id"
-    t.datetime "dt_fecha", precision: nil
-    t.index ["cal_dia"], name: "index_cal_dias_on_cal_dia"
-    t.index ["cal_mes_id"], name: "index_cal_dias_on_cal_mes_id"
-    t.index ["cal_semana_id"], name: "index_cal_dias_on_cal_semana_id"
-    t.index ["dia_semana"], name: "index_cal_dias_on_dia_semana"
-    t.index ["dt_fecha"], name: "index_cal_dias_on_dt_fecha"
-  end
-
   create_table "cal_feriados", force: :cascade do |t|
-    t.integer "cal_annio_id"
     t.datetime "cal_fecha", precision: nil
     t.string "descripcion"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["cal_annio_id"], name: "index_cal_feriados_on_cal_annio_id"
+    t.string "tipo"
     t.index ["cal_fecha"], name: "index_cal_feriados_on_cal_fecha"
-  end
-
-  create_table "cal_mes_sems", force: :cascade do |t|
-    t.integer "cal_mes_id"
-    t.integer "cal_semana_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["cal_mes_id"], name: "index_cal_mes_sems_on_cal_mes_id"
-    t.index ["cal_semana_id"], name: "index_cal_mes_sems_on_cal_semana_id"
-  end
-
-  create_table "cal_meses", force: :cascade do |t|
-    t.integer "cal_mes"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "cal_annio_id"
-    t.string "clave"
-    t.index ["cal_annio_id"], name: "index_cal_meses_on_cal_annio_id"
-  end
-
-  create_table "cal_semanas", force: :cascade do |t|
-    t.integer "cal_semana"
-    t.integer "cal_mes_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["cal_mes_id"], name: "index_cal_semanas_on_cal_mes_id"
-    t.index ["cal_semana"], name: "index_cal_semanas_on_cal_semana"
+    t.index ["tipo"], name: "index_cal_feriados_on_tipo"
   end
 
   create_table "cargos", force: :cascade do |t|

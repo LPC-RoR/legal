@@ -13,14 +13,11 @@ class Aplicacion::TablasController < ApplicationController
   end
 
   def agenda
-      @primer_annio = CalAnnio.all.order(:cal_annio).first.cal_annio
-      @ultimo_annio = CalAnnio.all.order(:cal_annio).last.cal_annio
-      @annio_activo = params[:a].blank? ? CalAnnio.find_by(cal_annio: Time.zone.today.year) : CalAnnio.find_by(cal_annio: params[:a])
+      @annio = params[:a].blank? ? Time.zone.today.year : params[:a].to_i
 
-      usuarios_ids = AgeUsuario.all.map {|age_u| age_u.id unless (age_u.app_perfil.email == dog_email) }.compact
-      set_tabla('age_usuarios', AgeUsuario.where(id: usuarios_ids).order(:age_usuario), true)
+      @feriados = CalFeriado.where('extract(year  from cal_fecha) = ?', @annio).fecha_ordr
 
-      set_tabla('cal_feriados', @annio_activo.cal_feriados.order(:cal_fecha), false)
+      set_tabla('cal_feriados', @feriados, false)
   end
 
   def tipos

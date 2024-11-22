@@ -252,13 +252,7 @@ Rails.application.routes.draw do
   end
 
   scope module: 'calendario' do
-    resources :cal_annios
-#    resources :cal_meses
-#    resources :cal_semanas
-#    resources :cal_dias
     resources :cal_feriados
-  
-    resources :cal_mes_sems
   end
   scope module: 'actividades' do 
     resources :age_actividades do

@@ -53,7 +53,7 @@ module CptnMenuLeftHelper
 							items: [
 								['UF & Regiones', 'uf_regiones'],
 								['Enlaces', 'enlaces'],
-								['Agenda', 'agenda']
+								['Feriados', 'agenda']
 							]
 						},
 						{

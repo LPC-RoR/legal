@@ -1,3 +1,4 @@
 class CalFeriado < ApplicationRecord
-	belongs_to :cal_annio
+
+	scope :fecha_ordr, -> {order(:cal_fecha)}
 end

@@ -72,27 +72,4 @@ module Calendario
     (nombre_dia(dt_fecha) == 'domingo') or CalFeriado.where(cal_fecha: dt_fecha.beginning_of_day..dt_fecha.end_of_day).any?
   end
 
-  #------------------------------------------------------------------------------------------------------------------------
-
-  # VERIFICAR Se usa en tablas controller, para verificar que el año existe antes de desplegar la tabla REVISAR
-  def verifica_annio_activo
-    hoy = Time.zone.today
-    annio_actual = CalAnnio.find_by(cal_annio: @clave_annio)
-    if annio_actual.blank?
-      annio_actual = CalAnnio.create(cal_annio: hoy.year)
-      (1..12).to_a.each do |numero_mes|
-        CalMes.create(cal_mes: numero_mes, cal_annio_id: annio_actual.id, clave: "#{annio_actual.cal_annio} #{numero_mes}")
-      end
-    end
-    if hoy.month > 6
-      siguiente = CalAnnio.find_by(cal_annio: hoy.year + 1)
-      if siguiente.blank?
-        siguiente = CalAnnio.create(cal_annio: hoy.year + 1)
-        (1..12).to_a.each do |numero_mes|
-          CalMes.create(cal_mes: numero_mes, cal_annio_id: siguiente.id, clave: "#{siguiente.cal_annio} #{numero_mes}")
-        end
-      end
-    end
-  end
-
 end
