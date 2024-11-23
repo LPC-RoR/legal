@@ -27,8 +27,7 @@ class EmpresasController < ApplicationController
       if valid_rut?(prms[:rut])
         emprs = Empresa.find_by(rut: rut_format(prms[:rut]))
         if emprs.blank?
-          @objeto = Empresa.create(rut: rut_format(prms[:rut]), razon_social: prms[:razon_social], email_administrador: prms[:email_administrador])
-#          @objeto.app_nominas.create(ownr_type: @objeto.class.name, ownr_id: @objeto.id, nombre: 'Administrador', email: @objeto.email_administrador, tipo:'admin')
+          @objeto = Empresa.create(rut: rut_format(prms[:rut]), razon_social: prms[:razon_social], email_administrador: prms[:email_administrador], demo: prms[:demo], contacto: prms[:contacto])
           ntc = 'Empresa registrada exitósamente'
         else
           alrt = 'Empresa ya registrada'

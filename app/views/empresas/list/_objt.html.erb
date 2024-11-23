@@ -1,0 +1,10 @@
+<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: objeto, tltp: 'Ver productos'} do %>
+	<%= s_rut(objeto.rut) %>
+<% end %>
+<i class="bi bi-dot"></i>
+<%= objeto.razon_social %>
+<i class="bi bi-dot"></i>
+<%= objeto.krn_formato %>
+<% if objeto.contacto %>
+	<i class="bi bi-check2"></i>
+<% end %>

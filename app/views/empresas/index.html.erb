@@ -3,7 +3,7 @@
     <%#= render partial: '0p/cmenu/cmenu', locals: { c: 'clientes', tipo: @tipo, estado: @estado, path: @path} %>
   </div>
   <div class="right">
-      <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'empresas', ttl: "Empresas registradas", ownr: nil} %>
+      <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'empresas', ownr: nil, bck: nil} %>
 
       <%= render partial: '0p/tabla/tabla', locals: {c: 'empresas'} %>
   </div>

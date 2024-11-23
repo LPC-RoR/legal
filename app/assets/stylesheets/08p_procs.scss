@@ -11,8 +11,6 @@ $prcs_ln_tc: auto 200px;
 $elmnt_mrgn: 3px 0 3px 0;
 $elmnt_pddng: 3px 1rem 2px 1rem;
 
-$p_blue: #2a6f97;
-
 $clr_bg_red: #fae0e4;
 
 
@@ -221,6 +219,11 @@ $clr_bg_red: #fae0e4;
 	color: $clr;
 }
 
+.dlg_bsc {
+	margin: 2px;
+	padding: 1rem;
+	@include brd_ln(1px, solid, $blue_cnv, 3px);
+}
 
 
 // ETAPAS Y TAREAS

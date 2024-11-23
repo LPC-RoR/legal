@@ -1,3 +1,23 @@
-<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, bk_lnk: nil } %>
-<%#= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'app_nominas', ttl: "Nomina", ownr: @objeto} %>
-<%#= render partial: '0p/tabla/tabla', locals: {c: 'app_nominas'} %>
+<%= render partial: '0p/general/clss_dir_objt_ttl', locals: {clss: 'shw_ttl', dir: 'shw', objt: @objeto, bck: nil} %>
+<% if @objeto.init? %>
+	<div class="dlg_bsc">
+		Bienvenido, esta es una licencia <%= @objeto.demo? ? 'demo' : 'activa' %> del producto <b><%= @objeto.krn_formato %></b>.</br>
+		<% if @objeto.krn_formato == 'B' %>
+			Este producto está diseñado para empresas pequeñas, la licencia anual considera una investigación (no prorrogable). Cada investigación adicional se paga por separado.
+		<% elsif @objeto.krn_formato == 'P' %>
+			Este producto esta diseñado para empresas que no tienen regimen de subcontratación o usuarias, la licencia anual es por 20 investigaciones por año (no prorrogables).
+		<% else %>
+			Este producto esta diseñado para empresas que tienen regimen de subcontratación o usuarias, la licencia anual es por 20 investigaciones por año (no prorrogables).
+		<% end %>
+	</div>
+<% end %>
+<% if @objeto.no_invstgdrs? %>
+	<div class="dlg_bsc">
+		Antes de crear su primera investigación debe crear al menos un investigador.
+	</div>
+<% end %>
+<% if @objeto.no_externas? and @objeto.krn_formato == 'P+' %>
+	<div class="dlg_bsc">
+		Su producto es para empresas con régimen de subcontratación o usuarias. Para crear su primera investigación debe crear primero las empresas externas. Estas son necesarias para registrar denuncias recibidas en alguna de ellas o para derivarles denuncias, si fuera necesario.
+	</div>
+<% end %>

@@ -4,10 +4,12 @@ module Plazos
   	def plz_lv(fecha, dias)
   		unless fecha.blank? or dias.blank?
 	  		frds = CalFeriado.where('cal_fecha BETWEEN ? AND ?', fecha.beginning_of_day, (fecha + dias.day).end_of_day)
-	  		n_frds = frds.map {|frd| ['Saturday', 'Sunday'].exclude?(frd.cal_fecha.strftime('%A')) }.compact.count
+	  		# n_frds = frds.map {|frd| ['Saturday', 'Sunday'].exclude?(frd.cal_fecha.strftime('%A')) }.compact.count
+	  		n_frds = frds.lv.count
 
 	  		ds = dias + n_frds
 
+	  		# Se consumen 5 por semanas => ds/5 = n_semanas
 	  		s = (ds/5).to_i
 	  		r = ds % 5
 	  		skp = 4 - (fecha.to_date - fecha.monday.to_date).to_i

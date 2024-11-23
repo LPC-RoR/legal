@@ -2,8 +2,8 @@ class Calendario::CalFeriadosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_cal_feriado, only: %i[ show edit update destroy ]
-  before_action :set_tipo, only: %i[create, update]
-
+  after_action :set_tipo, only: %i[ create update ]
+  
   # GET /cal_feriados or /cal_feriados.json
   def index
     @coleccion = CalFeriado.all
@@ -67,6 +67,7 @@ class Calendario::CalFeriadosController < ApplicationController
     def set_tipo
       prfx = prfx_dia(@objeto.cal_fecha)
       @objeto.tipo = ['do', 'sa'].include?(prfx) ? prfx : 'lv'
+      @objeto.save
       puts "kmlkmñlkmñlkmlñkm"
       puts @objeto.tipo
     end

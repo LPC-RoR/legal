@@ -176,10 +176,11 @@ $h_nvbr_pddng: 0;
  position: sticky;
  top:0;
  width:100%;
-	background-color: white;
+	background-color: $p_blue;
 	padding: 1rem;
-	color: $txt_gray;
-	@include a_hover($blue_2, gray);
+//	color: $txt_gray;
+	color: white;
+	@include a_hover(white, $pltt_5);
 	@include grd(200 auto 200, 0);
 
 	.hm_bnnr_icn {
@@ -209,7 +210,7 @@ $h_nvbr_pddng: 0;
 		.mn_itm {
 			display: inline;
 			margin-left: 1em;
-			@include a_hover($blue_2, gray);
+			@include a_hover(white, $pltt_5);
 			a:hover {
 				position: relative;
 				left: 2px;
@@ -221,6 +222,7 @@ $h_nvbr_pddng: 0;
 }
 
 .hm_bnnr_ttl {
+	padding-top: 2rem;
 	text-align: center;
 	font-size: 40px;
 }
@@ -308,7 +310,7 @@ $h_nvbr_pddng: 0;
 
 .hm_fttr {
 	padding: 1rem;
-	background-color: #19237B;
+	background-color: $p_blue;
 	font-size: 16px;
 	font-weight: bold;
 	color: white;

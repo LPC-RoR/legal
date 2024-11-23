@@ -1,5 +1,7 @@
 <%= render layout: '0p/layout/tooltip_link', locals: {link: "/cuentas/#{objeto.id}/ecta", tooltip: 'Cuenta de la empresa' } do %>
 	<i class="bi bi-collection-fill"></i>
 <% end %>
-<i class="bi bi-dot"></i>
-<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+<% if dog? %>
+	<i class="bi bi-dot"></i>
+	<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
+<% end %>
