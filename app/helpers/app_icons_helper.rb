@@ -48,6 +48,7 @@ module AppIconsHelper
 			'blg_temas' => 'list-stars',
 			'age_actividades' => 'calendar4-event',
 			'age_usuarios' => 'person-workspace',
+			'age_pendientes' => 'list-check',
 			'cal_annios' => 'calendar',
 			'cal_meses' => 'calendar3',
 			'cal_semanas' => 'calendar2-week',

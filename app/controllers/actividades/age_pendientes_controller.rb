@@ -14,7 +14,7 @@ class Actividades::AgePendientesController < ApplicationController
 
   # GET /age_pendientes/new
   def new
-    @objeto = AgePendiente.new(age_usuario_id: params[:uid], estado: 'pendiente')
+    @objeto = AgePendiente.new(age_usuario_id: params[:oid], estado: 'pendiente')
   end
 
   # GET /age_pendientes/1/edit

@@ -17,8 +17,8 @@ $p_blue: #2a6f97;
 /* TITULOS */
 
 @mixin clss_ttl_bsc($grd_tc, $clr_bg, $clr) {
-	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
-	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
+	@include mrgn_pddng(3px, $ttl_padd);
+	@include brd(1px, 3px, c_ttl_brd);
 	@include bx($p_blue);
 	@include bx_shdw;
 	@include grd(auto auto, $ttl_gap);
@@ -39,7 +39,7 @@ $p_blue: #2a6f97;
 }
 
 @mixin ttl_bsc2($grd_tc) {
-	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
+	@include mrgn_pddng(3px 0 3px 0, $ttl_padd);
 	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
 	@include bx($p_blue);
 	@include bx_shdw;
