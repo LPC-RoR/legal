@@ -28,11 +28,13 @@ $h_nvbr_pddng: 0;
 
 @mixin prdct_2clmns($jstfy_slf) {
 	.hm_lft {
+		padding-top: 2rem;
 		@include grd_ncol(1);
    	justify-self: $jstfy_slf;
 	}
 
 	.hm_rght {
+		padding-top: 2rem;
 		@include grd_ncol(2);
    	justify-self: $jstfy_slf;
 	}
@@ -59,7 +61,7 @@ $h_nvbr_pddng: 0;
 }
 
 @mixin prdct_ttl_bsc($clr, $ln_hght, $ln_sz) {
-	padding: 1rem;
+	padding: 1rem 1rem 5px 1rem;
 	text-align: center;
 	color: $clr;
 	line-height: $ln_hght;
@@ -94,17 +96,17 @@ $h_nvbr_pddng: 0;
 }
 
 .hm_prdct_ttl {
-	@include prdct_ttl_bsc(#153969, 50px, 45px)
+	@include prdct_ttl_bsc(#153969, 45px, 40px)
 }
 
 .hm_prdct_sttl {
-	@include prdct_ttl_bsc(#718bab, 40px, 30px)
+	@include prdct_ttl_bsc(#718bab, 30px, 25px)
 }
 
 .hm_txt_bdy {
 	padding: 1rem;
 	background-color: white;
-	color: #000000;
+//	color: #000000;
 }
 
 .hm_htxt {
@@ -125,7 +127,7 @@ $h_nvbr_pddng: 0;
 }
 
 .hm_txt {
-	padding: 0 10% 1rem 10%;
+	padding: 1rem 5% 0 5%;
 	text-align: justify;
 //	text-align: left;
 	line-height: 20px;

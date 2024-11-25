@@ -222,7 +222,8 @@ $clr_bg_red: #fae0e4;
 .dlg_bsc {
 	margin: 2px;
 	padding: 1rem;
-	@include brd_ln(1px, solid, $blue_cnv, 3px);
+	@include brd_ln(1px, solid, $p_blue, 3px);
+	color: $blue_cnv;
 }
 
 
