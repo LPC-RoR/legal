@@ -5,7 +5,7 @@ class Repositorios::RepArchivosController < ApplicationController
 
   # GET /rep_archivos or /rep_archivos.json
   def index
-    @coleccion = RepArchivo.all
+#    set_tabla('rep_archivos', RepArchivo.hm_archvs, true)
   end
 
   # GET /rep_archivos/1 or /rep_archivos/1.json
@@ -15,8 +15,11 @@ class Repositorios::RepArchivosController < ApplicationController
   # GET /rep_archivos/new
   def new
     rep_doc_controlado = params[:dcid].blank? ? nil : RepDocControlado.find(params[:dcid]).rep_doc_controlado
+#    ownr_type = params[:oid].blank? ? nil : params[:oclss]
+# => ownr_id = params[:oid].blank? ? nil : params[:oid]
     ownr = params[:oclss].constantize.find(params[:oid])
     @objeto = ownr.rep_archivos.new(rep_archivo: rep_doc_controlado, rep_doc_controlado_id: params[:dcid])
+#    @objeto = RepArchivo.new(ownr_type: ownr_type, ownr_id: ownr_id, rep_archivo: rep_doc_controlado, rep_doc_controlado_id: params[:dcid])
   end
 
   # GET /rep_archivos/1/edit
@@ -72,15 +75,16 @@ class Repositorios::RepArchivosController < ApplicationController
 
     def get_rdrccn
 
-      tar = @objeto.rep_doc_controlado.ownr
-      clss_nm = @objeto.ownr.class.name
-      if ['KrnDenunciado', 'KrnDenunciante', 'KrnTestigo'].include?(clss_nm)
+#      tar = @objeto.rep_doc_controlado.ownr
+#      clss_nm = @objeto.ownr.class.name
+#      if ['KrnDenunciado', 'KrnDenunciante', 'KrnTestigo'].include?(clss_nm)
 #        @rdrccn = krn_denuncia_path(@objeto.ownr.krn_denuncia, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
-        @rdrccn = @objeto.ownr
-      elsif clss_nm == 'KrnDenuncia'
+#        @rdrccn = @objeto.ownr
+#      elsif clss_nm == 'KrnDenuncia'
 #        @rdrccn = krn_denuncia_path(@objeto.ownr, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
-        @rdrccn = @objeto.ownr
-      end
+#        @rdrccn = @objeto.ownr
+#      end
+      @rdrccn = @objeto.ownr
 
     end
 

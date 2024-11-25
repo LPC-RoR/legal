@@ -5,6 +5,8 @@ class RepArchivo < ApplicationRecord
   scope :ordr, -> { order(:rep_archivo) }
   scope :updtd_ordr, -> { order(:updated_at) }
 
+  scope :hm_archvs, -> {where(ownr_type: nil, ownr_id: nil)}
+
   validates_presence_of :rep_archivo, :archivo
   validates_presence_of :nombre, if: -> {mltpl?}
 

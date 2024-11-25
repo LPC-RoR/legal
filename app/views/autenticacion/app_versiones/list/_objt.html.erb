@@ -1,0 +1,11 @@
+<i class="bi bi-key"></i>
+<%= objeto.app_sigla %><i class="bi bi-dot"></i>
+<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: objeto, tltp: 'Detalle de la versión'} do %>
+	<%= objeto.app_nombre %>
+<% end %>
+<% unless objeto.app_nomina.blank? %>
+	<small class="text-muted">
+	<i class="bi bi-arrow-right"></i>
+	<%= objeto.app_nomina.nombre %>
+	</small>
+<% end %>

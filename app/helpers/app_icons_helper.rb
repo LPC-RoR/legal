@@ -66,7 +66,9 @@ module AppIconsHelper
 			'krn_denuncias' => 'mailbox',
 			'krn_investigadores' => 'binoculars',
 			'krn_empresa_externas' => 'building',
-			'krn_tipo_medidas' => 'exclamation-triangle'
+			'krn_tipo_medidas' => 'exclamation-triangle',
+			'procedimientos' => 'bar-chart-steps',
+			'rep_archivos' => 'file-earmark-richtext'
 		}
 	end
 end

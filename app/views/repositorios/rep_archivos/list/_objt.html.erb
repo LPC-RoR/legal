@@ -1,0 +1,13 @@
+<% if objeto.cntrld? %>
+	<i class="bi bi-file-check"></i>
+<% else %>
+	<i class="bi bi-file"></i> 
+<% end %> 
+
+<% if objeto.archivo.present? %>
+	<%= link_to objeto.archivo.url, class: 'sb-link', target: :_blank do %>
+		<%= objeto.rep_archivo %>
+	<% end %>
+<% else %>
+	<%= objeto.rep_archivo %>
+<% end %>

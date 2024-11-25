@@ -1,11 +1,11 @@
 <div class="f_50_col">
   <div class="lft">
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'procedimientos', ttl: "Procedimientos", ownr: nil } %>
+    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'procedimientos', ownr: nil, bck: nil} %>
 
     <%= render partial: '0p/tabla/tabla', locals: {c: 'procedimientos'} %>
   </div>
   <div class="rght">
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tipo_procedimientos', ttl: "Tipos de Procedimiento", ownr: nil } %>
+    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'tipo_procedimientos', ownr: nil, bck: nil} %>
 
     <%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_procedimientos'} %>
   </div>

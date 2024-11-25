@@ -1,7 +1,7 @@
 class Autenticacion::AppVersionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_app_version, only: %i[ edit update ]
+  before_action :set_app_version, only: %i[ edit update show ]
 
   # GET /app_versiones or /app_versiones.json
   def index
@@ -10,6 +10,11 @@ class Autenticacion::AppVersionesController < ApplicationController
 
   # GET /app_versiones/1/edit
   def edit
+  end
+
+  def show
+    set_tabla('rep_archivos', @objeto.rep_archivos, false)
+    set_tabla('cfg_valores', @objeto.cfg_valores, false)
   end
 
   # PATCH/PUT /app_versiones/1 or /app_versiones/1.json
