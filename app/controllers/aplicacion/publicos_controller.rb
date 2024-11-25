@@ -93,6 +93,8 @@ class Aplicacion::PublicosController < ApplicationController
     else
       @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
 
+      @hlp_rgstr_emprs = RepArchivo.find_by(rep_archivo: 'hlp_rgstr_emprs')
+
 #      articulos = BlgArticulo.all.order(created_at: :desc)
 #      @principal = articulos.first
 #      @segundo = articulos.second

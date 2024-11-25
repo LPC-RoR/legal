@@ -1,0 +1,7 @@
+<% if objeto.present? %>
+	<% if objeto.archivo.present? %>
+		<%= link_to objeto.archivo.url, class: 'sb-link', target: :_blank do %>
+			<%= txt %>
+		<% end %>
+	<% end %>
+<% end %>
