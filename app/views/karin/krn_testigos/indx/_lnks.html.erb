@@ -1,3 +1,3 @@
-<% unless @objeto.krn_investigador.present? %>
+<% unless ownr.krn_denuncia.krn_investigador.present? %>
 	<%= render partial: '0p/tabla/lnk_new', locals: {lnk: new_path('krn_testigos', ownr), tltp: "Agrega Testigo"} %>
 <% end %>
