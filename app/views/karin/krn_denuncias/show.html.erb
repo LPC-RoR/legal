@@ -7,12 +7,13 @@
 <!-- INGRESO BÁSICO COMPLETO -->
 <% if @objeto.ingrs_dnnc_bsc? %>
 	<hr>
-	<%= render partial: '0p/general/indx_ttl', locals: {clss: 'prtcpnts_ttl', src: 'krn_denunciantes', ownr: @objeto} %>
+	<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_denunciantes', ownr: @objeto} %>
+
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciantes'} %>
 <% end %>
 <!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
 <% if @objeto.ingrs_dnncnts_ok? and @objeto.no_vlnc? %>
 	<hr>
-	<%= render partial: '0p/general/indx_ttl', locals: {clss: 'prtcpnts_ttl', src: 'krn_denunciados', ownr: @objeto} %>
+	<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_denunciados', ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>
 <% end %>
