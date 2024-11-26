@@ -203,14 +203,16 @@ module CptnMenuLeftHelper
 	end
 
 	def itm_slctd?(modelo)
-		if modelo.class.name == 'Array'
-			controller_name.classify == modelo
-		else
+		if controller_name == 'cuentas'
+			(['ednncs', 'cdnncs'].include?(action_name) and modelo[0] == 'KrnDenuncia') or (['einvstgdrs', 'cinvstgdrs'].include?(action_name) and modelo[0] == 'KrnInvestigador') or (['eextrns', 'cextrns'].include?(action_name) and modelo[0] == 'KrnEmpresaExterna')
+		elsif modelo.class.name == 'Array'
 			action_name == modelo[1]
+		else
+			controller_name.classify == modelo
 		end
 	end
 
-	# Determina el ÍTEM dado el mdoelo del item
+	# Determina el ÍTEM dado el modelo del item
 	def h_modelo_item
 		{
 			'AppNomina' => 'Nomina',
@@ -228,7 +230,8 @@ module CptnMenuLeftHelper
 			'TribunalCorte' => 'Juzgados / Cortes',
 			'TarTarifa' => 'Tarifas Generales',
 			'MModelo' => 'Modelo de Negocios',
-			'DtMateria' => 'Multas'
+			'DtMateria' => 'Multas',
+			'KrnEmpresaExterna' => 'Empresas externas'
 		}
 	end
 
