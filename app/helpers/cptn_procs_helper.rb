@@ -26,7 +26,7 @@ module CptnProcsHelper
 			# Ingreso de datos básicos de la Denuncia
 			dnnc_ingrs: true,							
 			# Ingreso de participantes primarios: Sólo aparece si es necesario llenar empresa del empleado
-			dnnc_prtcpnts: (ownr.class.name != 'KrnDenuncia' and ownr.empleado_externo),		
+			dnnc_prtcpnts: (ownr.class.name != 'KrnDenuncia' and (ownr.empleado_externo or ownr.articulo_516)),		
 			# Si hay denunciantes, aparece uno para cada denunciante
 			dnncnt_diat_diep: (ownr.class.name == 'KrnDenunciante'),	
 			# Ingreso terminó y denuncia no fue recibida en la DT		

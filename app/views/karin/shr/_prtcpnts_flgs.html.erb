@@ -1,11 +1,14 @@
 <% if objeto.articulo_516 or objeto.articulo_4_1 or objeto.rgstr_ok? %>
+	<% if objeto.rgstr_ok? %>
+		<i class="bi bi-check-lg"></i>
+	<% end %>
 	<% if objeto.articulo_516 %>
 		<i class="bi bi-house-door"></i>
 	<% end %>
+	<% if objeto.empleado_externo %>
+		<i class="bi bi-paperclip"></i>
+	<% end %>
 	<% if objeto.articulo_4_1 %>
 		<i class="bi bi-bookmark-star"></i>
-	<% end %>
-	<% if objeto.rgstr_ok? %>
-		<i class="bi bi-check-lg"></i>
 	<% end %>
 <% end %>
