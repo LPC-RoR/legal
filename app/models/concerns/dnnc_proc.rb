@@ -57,8 +57,15 @@ module DnncProc
 
 			dnnc_fecha_trmtcn: {
 				cndtn: self.fecha_trmtcn.present?,
-				trsh: (not (self.invstgdr?))
+				trsh: (not (self.fecha_ntfccn.present?))
 			},
+			dnnc_fecha_ntfccn: {
+				# Fecha de Notificación de la denuncia a los participantes
+				# Se cierra al recibir informe de investigación de la DT o el rechazo de la derivación
+				cndtn: self.fecha_ntfccn.present?,
+				trsh: (not self.invstgdr?)
+			},
+
 			# INVSTGDR Y OBJCN
 			invstgdr: {
 				cndtn: self.invstgdr?,

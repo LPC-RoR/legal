@@ -97,6 +97,8 @@ class Karin::KrnDenunciasController < ApplicationController
         set_lgl_plzs(true)
       when 'dnnc_fecha_trmtcn'
         @objeto.fecha_trmtcn = params_to_date(params, 'vlr')
+      when 'dnnc_fecha_ntfccn'
+        @objeto.fecha_ntfccn = params_to_date(params, 'vlr')
       when 'dnnc_fecha_crrgd'
         @objeto.fecha_hora_corregida = params_to_date(params, 'vlr')
       when 'dnnc_fecha_ntfccn_invstgdr'
@@ -149,12 +151,14 @@ class Karin::KrnDenunciasController < ApplicationController
         when 'drv_fecha_dt'
           @objeto.fecha_hora_dt = nil
           set_lgl_plzs(false)
+        when 'dnnc_fecha_ntfccn'
+          @objeto.fecha_ntfccn = nil
+        when 'dnnc_fecha_trmtcn'
+          @objeto.fecha_trmtcn = nil
         when 'invstgdr'
           @objeto.krn_investigador_id = nil
         when 'fecha_crrgd'
           @objeto.fecha_hora_corregida = nil
-        when 'dnnc_fecha_trmtcn'
-          @objeto.fecha_trmtcn = nil
         when 'dnnc_fecha_crrgd'
           @objeto.fecha_hora_corregida = nil
         when 'dnnc_fecha_ntfccn_invstgdr'
