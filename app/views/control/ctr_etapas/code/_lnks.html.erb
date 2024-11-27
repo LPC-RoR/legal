@@ -1,1 +1,6 @@
+<% if etp_plz_ok(ownr)[objeto.codigo] %>
+	<i class="bi bi-calendar-check"></i>
+<% elsif etp_plz_ok(ownr)[objeto.codigo] == false %>
+	<i class="bi bi-calendar-x text-danger"></i>
+<% end %>
 <%= dma_hm(etp_plz(ownr)[objeto.codigo]) %>

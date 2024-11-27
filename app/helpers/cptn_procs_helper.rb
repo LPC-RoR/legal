@@ -84,8 +84,8 @@ module CptnProcsHelper
 	def etp_plz(ownr)
 		dnnc = dnnc_ownr(ownr)
 		{
-			'etp_rcpcn'      => plz_lv(dnnc.fecha_hora, 3),
-			'etp_invstgcn'   => plz_lv(dnnc.fecha_legal, 30),
+			'etp_rcpcn'      => dnnc.plz_trmtcn,
+			'etp_invstgcn'   => dnnc.plz_invstgcn,
 			'etp_envio'      => plz_lv(dnnc.fecha_legal, 32),
 			'etp_prnncmnt'   => plz_lv(dnnc.fecha_env_infrm, 30),
 			'etp_mdds_sncns' => plz_aplcnm_mddds_sncns(dnnc)
@@ -95,7 +95,7 @@ module CptnProcsHelper
 	def etp_plz_ok(ownr)
 		dnnc = dnnc_ownr(ownr)
 		{
-			'etp_rcpcn'      => dnnc.fecha,
+			'etp_rcpcn'      => dnnc.fecha_trmtcn.blank? ? nil : dnnc.fecha_trmtcn <= dnnc.plz_trmtcn,
 			'etp_invstgcn'   => plz_lv(dnnc.fecha_legal, 30),
 			'etp_envio'      => plz_lv(dnnc.fecha_legal, 32),
 			'etp_prnncmnt'   => plz_lv(dnnc.fecha_env_infrm, 30),

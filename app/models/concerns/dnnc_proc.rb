@@ -52,6 +52,9 @@ module DnncProc
 				cndtn: self.fecha_hora_dt.present?,
 				trsh: (not self.fecha_trmtcn.present?)
 			},
+
+
+
 			dnnc_fecha_trmtcn: {
 				cndtn: self.fecha_trmtcn.present?,
 				trsh: (not (self.invstgdr?))

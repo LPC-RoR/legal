@@ -2,6 +2,7 @@ class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_denuncia, only: %i[ show edit update destroy check fll_dttm fll_fld fll_optn del_fld fll_cltn_id ]
+  after_action :set_plzs, only: %i[ create update]
 
   include Karin
 
@@ -89,12 +90,11 @@ class Karin::KrnDenunciasController < ApplicationController
         @objeto.via_declaracion = params[:vlr]
       when 'tipo'
         @objeto.tipo_declaracion = params[:vlr]
-      when 'presentada'
-        @objeto.presentado_por = params[:vlr]
       when 'representante'
         @objeto.representante = params[:vlr]
       when 'drv_fecha_dt'
         @objeto.fecha_hora_dt = params_to_date(params, 'vlr')
+        set_lgl_plzs(true)
       when 'dnnc_fecha_trmtcn'
         @objeto.fecha_trmtcn = params_to_date(params, 'vlr')
       when 'dnnc_fecha_crrgd'
@@ -138,18 +138,21 @@ class Karin::KrnDenunciasController < ApplicationController
         del_vlr(@objeto, params[:k])
       else
         case params[:k]
-        when 'drv_fecha_dt'
-          @objeto.fecha_hora_dt = nil
-        when 'fecha_crrgd'
-          @objeto.fecha_hora_corregida = nil
-        when 'tipo'
-          @objeto.tipo_declaracion = nil
         when 'externa_id'
           @objeto.krn_empresa_externa_id = nil
+        when 'via'
+          @objeto.via_declaracion = nil
+        when 'tipo'
+          @objeto.tipo_declaracion = nil
         when 'representante'
           @objeto.representante = nil
+        when 'drv_fecha_dt'
+          @objeto.fecha_hora_dt = nil
+          set_lgl_plzs(false)
         when 'invstgdr'
           @objeto.krn_investigador_id = nil
+        when 'fecha_crrgd'
+          @objeto.fecha_hora_corregida = nil
         when 'dnnc_fecha_trmtcn'
           @objeto.fecha_trmtcn = nil
         when 'dnnc_fecha_crrgd'
@@ -218,6 +221,28 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   private
+
+    def set_plzs
+      if @objeto.fecha_hora != @objeto.fecha_prcsd
+        @objeto.plz_trmtcn = plz_lv(@objeto.fecha_hora, 3)
+        @objeto.plz_invstgcn = plz_lv(@objeto.fecha_hora, 30)
+        @objeto.plz_infrm = plz_lv(@objeto.fecha_hora, 32)
+        @objeto.plz_prnncmnt = plz_lv(@objeto.fecha_hora, 62)
+        @objeto.plz_mdds_sncns = plz_c(@objeto.plz_prnncmnt, 15)
+        @objeto.fecha_prcsd = @objeto.fecha_hora
+
+        @objeto.save
+      end
+    end
+
+    def set_lgl_plzs(flag)
+      fecha_ref = flag ? @objeto.fecha_hora_dt : @objeto.fecha_hora
+      @objeto.plz_invstgcn   = plz_lv(fecha_ref, 30)
+      @objeto.plz_infrm      = flag ? nil : plz_lv(fecha_ref, 32)
+      @objeto.plz_prnncmnt   = flag ? nil : plz_lv(fecha_ref, 62)
+      @objeto.plz_mdds_sncns = flag ? plz_c(@objeto.plz_invstgcn, 15) : plz_c(@objeto.plz_prnncmnt, 15)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia
       @objeto = KrnDenuncia.find(params[:id])
