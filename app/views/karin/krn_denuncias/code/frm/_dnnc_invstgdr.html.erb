@@ -1,0 +1,1 @@
+<%= render partial: '0p/actv_bx/f_slct_id', locals: {form: form, objeto: objeto, key: code, coleccion: objeto.ownr.krn_investigadores.order(:krn_investigador).collect { |invstgdr| [invstgdr.krn_investigador, invstgdr.id] }, prmpt: nil } %>

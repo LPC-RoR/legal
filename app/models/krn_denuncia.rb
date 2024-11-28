@@ -11,7 +11,7 @@ class KrnDenuncia < ApplicationRecord
 	belongs_to :ownr, polymorphic: true
 
 	belongs_to :krn_empresa_externa, optional: true
-	belongs_to :krn_investigador, optional: true
+#	belongs_to :krn_investigador, optional: true
 
 	has_many :rep_archivos, as: :ownr
 	has_many :valores, as: :ownr
@@ -20,6 +20,9 @@ class KrnDenuncia < ApplicationRecord
 	has_many :krn_denunciados
 	has_many :krn_derivaciones
 	has_many :krn_declaraciones
+
+	has_many :krn_inv_denuncias
+	has_many :krn_investigadores, through: :krn_inv_denuncias
 
 	scope :ordr, -> { order(fecha_hora: :desc, id: :desc) }
 

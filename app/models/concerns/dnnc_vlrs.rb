@@ -8,30 +8,12 @@ module DnncVlrs
 		variable.blank? ? nil : self.valores.find_by(variable_id: variable.id)
 	end
 
-	def vlr_flg_sgmnt?
-		self.valor('flg_sgmnt').present?
-	end
-
-	def flg_sgmnt?
-		v = self.valor('flg_sgmnt')
-		v.blank? ? nil : v.c_booleano
-	end
-
 	def vlr_drv_inf_dnncnt?
 		self.valor('drv_inf_dnncnt').present?
 	end
 
 	def drv_inf_dnncnt?
 		v = self.valor('drv_inf_dnncnt')
-		v.blank? ? nil : v.c_booleano
-	end
-
-	def vlr_drv_emprs_optn?
-		self.valor('drv_emprs_optn').present?
-	end
-
-	def drv_emprs_optn?
-		v = self.valor('drv_emprs_optn')
 		v.blank? ? nil : v.c_booleano
 	end
 
@@ -44,6 +26,15 @@ module DnncVlrs
 		v.blank? ? nil : v.c_booleano
 	end
 
+	def vlr_drv_emprs_optn?
+		self.valor('drv_emprs_optn').present?
+	end
+
+	def drv_emprs_optn?
+		v = self.valor('drv_emprs_optn')
+		v.blank? ? nil : v.c_booleano
+	end
+
 	def vlr_dnnc_objcn_invstgdr?
 		self.valor('dnnc_objcn_invstgdr').present?
 	end
@@ -53,12 +44,21 @@ module DnncVlrs
 		v.blank? ? nil : v.c_booleano
 	end
 
-	def vlr_dnnc_leida?
-		self.valor('dnnc_leida').present?
+	def vlr_dnnc_rslcn_objcn?
+		self.valor('dnnc_rslcn_objcn').present?
 	end
 
-	def dnnc_leida?
-		v = self.valor('dnnc_leida')
+	def dnnc_rslcn_objcn?
+		v = self.valor('dnnc_rslcn_objcn')
+		v.blank? ? nil : v.c_booleano
+	end
+
+	def vlr_dnnc_eval_ok?
+		self.valor('dnnc_eval_ok').present?
+	end
+
+	def dnnc_eval_ok?
+		v = self.valor('dnnc_eval_ok')
 		v.blank? ? nil : v.c_booleano
 	end
 

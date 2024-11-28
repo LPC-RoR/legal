@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_27_201507) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_28_013024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1039,7 +1039,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_201507) do
     t.datetime "fecha_hora_corregida"
     t.datetime "fecha_trmtcn"
     t.datetime "fecha_trmn"
-    t.datetime "fecha_hora_ntfccn_invsgdr"
+    t.datetime "fecha_ntfccn_invstgdr"
     t.datetime "fecha_env_infrm"
     t.datetime "fecha_prnncmnt"
     t.datetime "fecha_prcsd"
@@ -1091,6 +1091,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_201507) do
     t.index ["ownr_type"], name: "index_krn_empresa_externas_on_ownr_type"
     t.index ["rut"], name: "index_krn_empresa_externas_on_rut"
     t.index ["tipo"], name: "index_krn_empresa_externas_on_tipo"
+  end
+
+  create_table "krn_inv_denuncias", force: :cascade do |t|
+    t.integer "krn_investigador_id"
+    t.integer "krn_denuncia_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["krn_denuncia_id"], name: "index_krn_inv_denuncias_on_krn_denuncia_id"
+    t.index ["krn_investigador_id"], name: "index_krn_inv_denuncias_on_krn_investigador_id"
   end
 
   create_table "krn_investigadores", force: :cascade do |t|

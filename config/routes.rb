@@ -172,6 +172,7 @@ Rails.application.routes.draw do
       match :nueva, via: :post, on: :collection
     end
     resources :krn_testigos
+    resources :krn_inv_denuncias
   end
 
   scope module: 'hm' do

@@ -1,9 +1,18 @@
 <% if ownr.fecha_trmtcn.present? %>
-	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'invstgdr', accn: 'Selección'} %>
-	<% if ownr.invstgdr? %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_invstgdr', accn: 'Selección'} %>
+	<% if ownr.krn_investigadores.first.present? %>
 		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_fecha_ntfccn_invstgdr', accn: 'Selección'} %>
 	<% end %>
 	<% if ownr.ntfccn_invstgdr? %>
 		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_objcn_invstgdr', accn: 'Selección'} %>
+
+		<% if ownr.vlr_dnnc_objcn_invstgdr? and ownr.dnnc_objcn_invstgdr? %>
+			<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_rslcn_objcn', accn: 'Selección'} %>
+		<% end %>
+
+		<% if (ownr.vlr_dnnc_rslcn_objcn? and ownr.dnnc_rslcn_objcn?) %>
+			<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_invstgdr_objcn', accn: 'Selección'} %>
+		<% end %>
+
 	<% end %>
 <% end %>

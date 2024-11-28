@@ -1,9 +1,0 @@
-<ul>
-	<% objeto.ownr.krn_investigadores.rut_ordr.each do |invstgdr| %>
-		<li>
-			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_denuncias/#{objeto.id}/check?invstgdr=#{invstgdr.id}", tltp: nil} do %>
-				<%= invstgdr.krn_investigador %>
-			<% end %>
-		</li>
-	<% end %>
-</ul>

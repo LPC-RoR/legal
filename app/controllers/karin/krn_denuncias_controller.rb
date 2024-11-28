@@ -99,10 +99,16 @@ class Karin::KrnDenunciasController < ApplicationController
         @objeto.fecha_trmtcn = params_to_date(params, 'vlr')
       when 'dnnc_fecha_ntfccn'
         @objeto.fecha_ntfccn = params_to_date(params, 'vlr')
+      when 'dnnc_invstgdr'
+        invstgdr = KrnInvestigador.find(params[:vlr].to_i)
+        @objeto.krn_investigadores << invstgdr
+      when 'dnnc_invstgdr'
+        invstgdr = KrnInvestigador.find(params[:vlr].to_i)
+        @objeto.krn_investigadores << invstgdr
       when 'dnnc_fecha_crrgd'
         @objeto.fecha_hora_corregida = params_to_date(params, 'vlr')
       when 'dnnc_fecha_ntfccn_invstgdr'
-        @objeto.fecha_hora_ntfccn_invsgdr = params_to_date(params, 'vlr')
+        @objeto.fecha_ntfccn_invstgdr = params_to_date(params, 'vlr')
       when 'dnnc_fecha_trmn'
         @objeto.fecha_trmn = params_to_date(params, 'vlr')
       when 'dnnc_fecha_env'
@@ -136,7 +142,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   def del_fld
     if perfil_activo?
-      if ['sgmnt_drvcn', 'drv_inf_dnncnt', 'drv_dnncnt_optn', 'drv_emprs_optn', 'dnnc_infrm_invstgcn_dt', 'dnnc_objcn_invstgdr', 'dnnc_leida', 'dnnc_incnsstnt', 'dnnc_incmplt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt'].include?(params[:k])
+      if ['drv_inf_dnncnt', 'drv_dnncnt_optn', 'drv_emprs_optn', 'dnnc_objcn_invstgdr', 'dnnc_rslcn_objcn', 'dnnc_eval_ok', 'dnnc_infrm_invstgcn_dt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt'].include?(params[:k])
         del_vlr(@objeto, params[:k])
       else
         case params[:k]
@@ -155,14 +161,18 @@ class Karin::KrnDenunciasController < ApplicationController
           @objeto.fecha_ntfccn = nil
         when 'dnnc_fecha_trmtcn'
           @objeto.fecha_trmtcn = nil
-        when 'invstgdr'
-          @objeto.krn_investigador_id = nil
+        when 'dnnc_invstgdr'
+          invstgdr = @objeto.krn_investigadores.first
+          @objeto.krn_investigadores.delete(invstgdr)
+        when 'dnnc_invstgdr_objcn'
+          invstgdr = @objeto.krn_investigadores.second
+          @objeto.krn_investigadores.delete(invstgdr)
         when 'fecha_crrgd'
           @objeto.fecha_hora_corregida = nil
         when 'dnnc_fecha_crrgd'
           @objeto.fecha_hora_corregida = nil
         when 'dnnc_fecha_ntfccn_invstgdr'
-          @objeto.fecha_hora_ntfccn_invsgdr = nil
+          @objeto.fecha_ntfccn_invstgdr = nil
         when 'dnnc_fecha_trmn'
           @objeto.fecha_trmn = nil
         when 'dnnc_fecha_env'

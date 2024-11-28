@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  krn_investigador_id: 1
+  krn_denuncia_id: 1
+
+two:
+  krn_investigador_id: 1
+  krn_denuncia_id: 1

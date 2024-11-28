@@ -63,25 +63,33 @@ module DnncProc
 				# Fecha de Notificación de la denuncia a los participantes
 				# Se cierra al recibir informe de investigación de la DT o el rechazo de la derivación
 				cndtn: self.fecha_ntfccn.present?,
-				trsh: (not self.invstgdr?)
+				trsh: (not self.krn_investigadores.first.present?)
 			},
 
 			# INVSTGDR Y OBJCN
-			invstgdr: {
-				cndtn: self.invstgdr?,
-				trsh: (not self.fecha_hora_ntfccn_invsgdr.present?)
+			dnnc_invstgdr: {
+				cndtn: self.krn_investigadores.first.present?,
+				trsh: (not self.fecha_ntfccn_invstgdr.present?)
 			},
 			dnnc_fecha_ntfccn_invstgdr: {
-				cndtn: self.fecha_hora_ntfccn_invsgdr.present?,
-				trsh: (not (self.vlr_dnnc_leida? or self.vlr_dnnc_objcn_invstgdr?))
+				cndtn: self.fecha_ntfccn_invstgdr.present?,
+				trsh: (not (self.vlr_dnnc_eval_ok? or self.vlr_dnnc_objcn_invstgdr?))
 			},
 			dnnc_objcn_invstgdr: {
 				cndtn: (self.vlr_dnnc_objcn_invstgdr?),
-				trsh: (not self.vlr_dnnc_leida?)
+				trsh: (not (self.vlr_dnnc_eval_ok? or self.vlr_dnnc_rslcn_objcn?))
+			},
+			dnnc_rslcn_objcn: {
+				cndtn: (self.vlr_dnnc_rslcn_objcn?),
+				trsh: (not (self.vlr_dnnc_eval_ok? or self.krn_investigadores.second.present?))
+			},
+			dnnc_invstgdr_objcn: {
+				cndtn: self.krn_investigadores.second.present?,
+				trsh: (not self.fecha_ntfccn_invstgdr.present?)
 			},
 			# EVALCN
-			dnnc_leida: {
-				cndtn: self.vlr_dnnc_leida?,
+			dnnc_eval_ok: {
+				cndtn: self.vlr_dnnc_eval_ok?,
 				trsh: (not self.vlr_dnnc_incnsstnt?)
 			},
 			dnnc_incnsstnt: {
@@ -167,7 +175,7 @@ module DnncProc
 	end
 
 	def ntfccn_invstgdr?
-		self.fecha_hora_ntfccn_invsgdr.present?
+		self.fecha_ntfccn_invstgdr.present?
 	end
 
 	def dclrcns_ok?
