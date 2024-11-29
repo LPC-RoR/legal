@@ -2,7 +2,7 @@
 
 	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_eval_ok', accn: 'Selección'} %>
 
-	<% if ownr.dsply_crrgd? %>
+	<% if ownr.vlr_dnnc_eval_ok? and ownr.dnnc_eval_ok? == false %>
 		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_fecha_crrgd', accn: 'Fecha'} %>
 	<% end %>
 <% end %>

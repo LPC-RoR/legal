@@ -90,15 +90,7 @@ module DnncProc
 			# EVALCN
 			dnnc_eval_ok: {
 				cndtn: self.vlr_dnnc_eval_ok?,
-				trsh: (not self.vlr_dnnc_incnsstnt?)
-			},
-			dnnc_incnsstnt: {
-				cndtn: self.vlr_dnnc_incnsstnt?,
-				trsh: (not self.vlr_dnnc_incmplt?)
-			},
-			dnnc_incmplt: {
-				cndtn: self.vlr_dnnc_incmplt?,
-				trsh: (not (self.any_dclrcn? or self.fecha_hora_corregida.present?))
+				trsh: (not self.fecha_hora_corregida.present?)
 			},
 			dnnc_fecha_crrgd: {
 				cndtn: self.fecha_hora_corregida.present?,

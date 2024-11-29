@@ -4,6 +4,11 @@
 	<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: @objeto, scndry: nil} if prtl?('ctr_etapas', 'code', 'objeto') %>
 <% end %>
 
+<% if @objeto.fecha_hora_corregida.present? or (@objeto.vlr_dnnc_eval_ok? and @objeto.dnnc_eval_ok?) %>
+	<div class="dlg_bsc">
+		Gestión de declaraciones activada para cada participante.
+	</div>
+<% end %>
 <!-- INGRESO BÁSICO COMPLETO -->
 <% if @objeto.ingrs_dnnc_bsc? %>
 	<hr>

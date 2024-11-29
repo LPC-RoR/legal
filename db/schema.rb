@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_28_013024) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_29_000134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -973,6 +973,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_28_013024) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "krn_investigador_id"
+    t.boolean "rlzd"
     t.index ["krn_denuncia_id"], name: "index_krn_declaraciones_on_krn_denuncia_id"
     t.index ["krn_investigador_id"], name: "index_krn_declaraciones_on_krn_investigador_id"
     t.index ["ownr_id"], name: "index_krn_declaraciones_on_ownr_id"

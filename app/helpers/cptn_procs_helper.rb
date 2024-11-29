@@ -38,8 +38,8 @@ module CptnProcsHelper
 			# INVSTGCN
 			dnnc_invstgdr: (dnnc.fecha_trmtcn.present?),
 			dnnc_evlcn:  (dnnc.krn_investigadores.second.present? or (dnnc.vlr_dnnc_objcn_invstgdr? and (not dnnc.dnnc_objcn_invstgdr?) and dnnc.krn_investigadores.second.present?)),
-			dnnc_agndmnt: (dnnc.eval? and controller_name != 'krn_denuncias'),
-			dnnc_dclrcn: (ownr.krn_declaraciones.any? and dnnc.dnnc_ok? and controller_name != 'krn_denuncias'),
+			dnnc_agndmnt: ((dnnc.fecha_hora_corregida.present? or (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok?)) and controller_name != 'krn_denuncias'),
+			dnnc_dclrcn: (ownr.krn_declaraciones.any? and controller_name != 'krn_denuncias'),
 			dnnc_rdccn_infrm: dnnc.dclrcns_ok?, 
 			dnnc_trmn_invstgcn: (dnnc.infrm_rdctd? or (dnnc.on_dt? and dnnc.ingrs_dnnc_bsc?)),
 			dnnc_fecha_env: (dnnc.envio_ok?),
