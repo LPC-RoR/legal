@@ -1,7 +1,10 @@
 <%= render layout: '0p/collapse/link', locals: {label: 'Dnncnt', objeto: objeto, tooltip: 'Detalle denunciante'} do %>
 	<i class="bi bi-arrow-bar-down"></i>
 <% end %>
-<% unless @objeto.fecha_trmtcn.present? or (@objeto.krn_denunciados.any? and @objeto.krn_denunciantes.count == 1) or @objeto.vlr_drv_inf_dnncnt? %>
+<% unless @objeto.fecha_trmtcn.present? or @objeto.vlr_drv_inf_dnncnt? %>
 	<i class="bi bi-dot"></i>
-	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+	<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto} %>
+	<% unless @objeto.krn_denunciados.any? and @objeto.krn_denunciantes.count == 1 %>
+		<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
+	<% end %>
 <% end %>

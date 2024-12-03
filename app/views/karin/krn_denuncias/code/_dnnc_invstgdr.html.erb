@@ -1,4 +1,4 @@
-<% if ownr.fecha_trmtcn.present? %>
+<% if ownr.fecha_trmtcn.present? and ownr.fecha_ntfccn.present? %>
 	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_invstgdr', accn: 'Selección'} %>
 	<% if ownr.krn_investigadores.first.present? %>
 		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_fecha_ntfccn_invstgdr', accn: 'Selección'} %>

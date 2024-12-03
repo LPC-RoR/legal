@@ -136,7 +136,7 @@ module CptnMenuLeftHelper
 			@objeto
 		elsif ['KrnDenuncia', 'KrnInvestigador', 'KrnEmpresaExterna', 'KrnTipoMedida', 'KrnLstMedida'].include?(objeto.class.name)
 			@objeto.ownr
-		elsif ['KrnDenunciante', 'KrnDenunciado'].include?(objeto.class.name)
+		elsif ['KrnDenunciante', 'KrnDenunciado', 'KrnDerivacion'].include?(objeto.class.name)
 			@objeto.krn_denuncia.ownr
 		elsif ['KrnTestigo'].include?(objeto.class.name)
 			@objeto.ownr.krn_denuncia.ownr

@@ -1,1 +1,7 @@
-Denuncia derivada desde empresa externa: 
+<% if objeto.drvcn_rcbd? %>
+	Recepción de denuncia derivada desde empresa externa: 
+<% elsif objeto.vlr_sgmnt_emprs_extrn? %>
+	Seguimiento de denuncia investigada por empresa externa:	
+<% else %>
+	Denuncia derivada a la Dirección del Trabajo desde Empresa externa:
+<% end %>

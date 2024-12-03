@@ -12,6 +12,10 @@
 				<div class="f_lmn_lyt">
 					<div class="lft">
 						<%= render partial: '0p/lmenu/lmenu', locals: { sym: lm_sym } %>
+
+						<% if prtl?(controller_name, 'dwn_lft', 'bdy') %>
+							<%= render partial: prtl_name(controller_name, 'dwn_lft', 'bdy') %>
+						<% end %>
 					</div>
 					<div class="rgth">
 						<%= yield %>

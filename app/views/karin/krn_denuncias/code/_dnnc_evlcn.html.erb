@@ -1,8 +1,5 @@
-<% if (ownr.krn_investigadores.second.present? or (ownr.vlr_dnnc_objcn_invstgdr? and (not ownr.dnnc_objcn_invstgdr?) and ownr.krn_investigadores.second.present?)) %>
+<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_eval_ok', accn: 'Selección'} %>
 
-	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'dnnc_eval_ok', accn: 'Selección'} %>
-
-	<% if ownr.vlr_dnnc_eval_ok? and ownr.dnnc_eval_ok? == false %>
-		<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_fecha_crrgd', accn: 'Fecha'} %>
-	<% end %>
+<% if ownr.vlr_dnnc_eval_ok? and ownr.dnnc_eval_ok? == false %>
+	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'dnnc_fecha_crrgd', accn: 'Fecha'} %>
 <% end %>

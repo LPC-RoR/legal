@@ -31,19 +31,20 @@ module CptnProcsHelper
 			dnncnt_diat_diep: (ownr.class.name == 'KrnDenunciante'),	
 			# Ingreso terminó y denuncia no fue recibida en la DT		
 			dnnc_drvcn: (dnnc.ingrs_dnnc_bsc? and dnnc.ingrs_nts_ds? and (not dnnc.rcp_dt?)),				
-			# No es necesario que denunciados estén completos aún
-			dnnc_mdds: ((dnnc.ingrs_dnnc_bsc? and dnnc.ingrs_nts_ds?) and dnnc.ingrs_drvcns?),
+			# Sin derivaciones o única recepción | investigacion por la empresa | invetigacion por empresa externa
+			dnnc_mdds: ((dnnc.no_drvcns? and (not dnnc.rcp_externa?)) or (dnnc.on_empresa? and dnnc.vlr_drv_dnncnt_optn?) or (dnnc.on_externa? and dnnc.vlr_sgmnt_emprs_extrn?) or dnnc.drv_dt?),
 			# Registos de "principales" completo
 			dnnc_prmr_plz: (dnnc.ingrs_fls_ok? and dnnc.prtcpnts_ok?),
 			# INVSTGCN
 			dnnc_invstgdr: (dnnc.fecha_trmtcn.present?),
-			dnnc_evlcn:  (dnnc.krn_investigadores.second.present? or (dnnc.vlr_dnnc_objcn_invstgdr? and (not dnnc.dnnc_objcn_invstgdr?) and dnnc.krn_investigadores.second.present?)),
+			dnnc_evlcn:  (controller_name == 'KrnDenuncia' and ownr.invstgdr_ok? ),
 			dnnc_agndmnt: ((dnnc.fecha_hora_corregida.present? or (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok?)) and controller_name != 'krn_denuncias'),
 			dnnc_dclrcn: (ownr.krn_declaraciones.any? and controller_name != 'krn_denuncias'),
 			dnnc_rdccn_infrm: dnnc.dclrcns_ok?, 
-			dnnc_trmn_invstgcn: (dnnc.infrm_rdctd? or (dnnc.on_dt? and dnnc.ingrs_dnnc_bsc?)),
+#			dnnc_trmn_invstgcn: (dnnc.infrm_rdctd? or (dnnc.on_dt? and dnnc.ingrs_dnnc_bsc?)),
+			dnnc_trmn_invstgcn: dnnc.dclrcns_ok?,
 			dnnc_fecha_env: (dnnc.envio_ok?),
-			dnnc_fecha_prnncmnt: dnnc.fecha_env_infrm.present?,
+			dnnc_prnncmnt: dnnc.fecha_env_infrm.present?,
 			dnnc_mdds_sncns: (dnnc.fecha_prnncmnt.present? or (dnnc.on_dt? and dnnc.fecha_env_infrm.present?))
 
 #			dnnc_crr_dclrcns: dnnc.dclrcn?,
@@ -86,9 +87,9 @@ module CptnProcsHelper
 		{
 			'etp_rcpcn'      => dnnc.plz_trmtcn,
 			'etp_invstgcn'   => dnnc.plz_invstgcn,
-			'etp_envio'      => plz_lv(dnnc.fecha_legal, 32),
-			'etp_prnncmnt'   => plz_lv(dnnc.fecha_env_infrm, 30),
-			'etp_mdds_sncns' => plz_aplcnm_mddds_sncns(dnnc)
+			'etp_envio'      => dnnc.plz_infrm,
+			'etp_prnncmnt'   => dnnc.plz_prnncmnt,
+			'etp_mdds_sncns' => dnnc.plz_mdds_sncns
 		}
 	end
 
@@ -96,10 +97,10 @@ module CptnProcsHelper
 		dnnc = dnnc_ownr(ownr)
 		{
 			'etp_rcpcn'      => dnnc.fecha_trmtcn.blank? ? nil : dnnc.fecha_trmtcn <= dnnc.plz_trmtcn,
-			'etp_invstgcn'   => plz_lv(dnnc.fecha_legal, 30),
-			'etp_envio'      => plz_lv(dnnc.fecha_legal, 32),
-			'etp_prnncmnt'   => plz_lv(dnnc.fecha_env_infrm, 30),
-			'etp_mdds_sncns' => plz_aplcnm_mddds_sncns(dnnc)
+			'etp_invstgcn'   => dnnc.fecha_trmn.blank? ? nil : dnnc.fecha_trmn <= dnnc.plz_invstgcn,
+			'etp_envio'      => dnnc.fecha_env_infrm.blank? ? nil : dnnc.fecha_env_infrm <= dnnc.plz_infrm,
+			'etp_prnncmnt'   => dnnc.fecha_prnncmnt.blank? ? nil : dnnc.fecha_prnncmnt <= dnnc.plz_prnncmnt,
+			'etp_mdds_sncns' => dnnc.fecha_prcsd.blank? ? nil : dnnc.fecha_prcsd <= dnnc.plz_mdds_sncns
 		}
 	end
 

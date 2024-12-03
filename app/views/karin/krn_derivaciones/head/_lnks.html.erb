@@ -1,4 +1,3 @@
-<% unless @objeto.drv_dt? and @objeto.fecha_hora_dt.present? %>
-	<i class="bi bi-dot"></i>
-	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+<% unless (@objeto.drv_dt? and @objeto.fecha_hora_dt.present?) or @objeto.krn_derivaciones.last.id != objeto.id  %>
+	<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: objeto} %>
 <% end %>

@@ -48,7 +48,7 @@ class KrnDenunciante < ApplicationRecord
 	end
 
 	def self.dclrcns_ok?
-		all.map {|arc| arc.dclrcn_ok?}.exclude?(false)
+		all.map {|arc| arc.rlzd == true}.exclude?(false)
 	end
 
 	def krn_empresa_externa?
@@ -76,14 +76,9 @@ class KrnDenunciante < ApplicationRecord
 		arry.length == 1 and arry[0] == true
 	end
 
+
 	def self.rgstrs_fail?
 		all.map {|den| den.rgstr_ok?}.include?(false)
-	end
-
-	def rgstr_ok?
-		empldr = self.empleado_externo ? self.krn_empresa_externa? : true
-		art_516 = self.articulo_516 ? self.direccion_notificacion.present? : true
-		empldr and art_516
 	end
 
 	def empleador
@@ -102,6 +97,13 @@ class KrnDenunciante < ApplicationRecord
 
 	def dclrcn?
 		self.krn_declaraciones.any? and ( not self.krn_testigos.map {|tst| tst.dclrcn?}.include?(false) )
+	end
+
+	# --------------------------------------------------------------- METHODS
+	def rgstr_ok?
+		empldr = self.empleado_externo ? self.krn_empresa_externa? : true
+		art_516 = self.articulo_516 ? self.direccion_notificacion.present? : true
+		empldr and art_516
 	end
 
 end

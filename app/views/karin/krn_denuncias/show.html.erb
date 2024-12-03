@@ -5,9 +5,15 @@
 <% end %>
 
 <% if @objeto.fecha_hora_corregida.present? or (@objeto.vlr_dnnc_eval_ok? and @objeto.dnnc_eval_ok?) %>
-	<div class="dlg_bsc">
-		Gestión de declaraciones activada para cada participante.
-	</div>
+	<% if @objeto.dclrcns_ok? %>
+		<div class="dlg_bsc">
+			Todas las declaraciones marcadas como realizadas.
+		</div>
+	<% else %>
+		<div class="dlg_bsc">
+			Agendamiento y gestión de declaraciones activada para cada participante.
+		</div>
+	<% end %>
 <% end %>
 <!-- INGRESO BÁSICO COMPLETO -->
 <% if @objeto.ingrs_dnnc_bsc? %>
@@ -15,14 +21,46 @@
 	<div class="objt">
 		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_denunciantes', ownr: @objeto} %>
 
+		<% if @objeto.ingrs_dnnc_bsc? and ( not @objeto.dnncnts?) %>
+			<div class="dlg_bsc">
+				Információn básica de la denuncia completa. Debe ingresar al menos una persona denunciante.
+			</div>
+		<% end %>
+		<% if @objeto.dnncnts? and (not @objeto.dnncnts_rgstrs_ok?) %>
+			<div class="dlg_bsc">
+				Información de personas denunciantes no cumple con el estándar mínimo de ingreso. Se debe completar la información.
+			</div>
+		<% end %>
+		<% unless @objeto.diat_diep_ok? %>
+			<div class="dlg_bsc">
+				Falta evidencia de Atención psicológica temprana obligatoria. Subir evidencia.
+			</div>
+		<% end %>
+
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciantes'} %>
 	</div>
 <% end %>
 <!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
-<% if @objeto.ingrs_dnncnts_ok? and @objeto.no_vlnc? %>
+<% if @objeto.dnncnts? and @objeto.no_vlnc? %>
 	<hr>
 	<div class="objt">
 		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_denunciados', ownr: @objeto} %>
+
+		<% if @objeto.ingrs_dnnc_bsc? and (not @objeto.dnncds?) and @objeto.dnncnts? %>
+			<div class="dlg_bsc">
+				Debe ingresar al menos una persona denunciada. Debe terminar de ingresar las personas denunciantes antes de ingresar la primera persona denunciada.
+			</div>
+		<% end %>
+		<% if @objeto.dnncds? and (not @objeto.dnncds_rgstrs_ok?) %>
+			<div class="dlg_bsc">
+				Información de personas denunciadas no cumple con el estándar mínimo de ingreso (sólo con estándar de recepción). Se debe solicitar informacion a RRHH y completar el registro.
+			</div>
+		<% end %>
+
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>
+	</div>
+<% else %>	
+	<div class="dlg_bsc">
+		Denuncia de violencia en el trabajo ejercida por terceros. Las personas denunciadas (si las hay) se detallan en las declaraciones.
 	</div>
 <% end %>

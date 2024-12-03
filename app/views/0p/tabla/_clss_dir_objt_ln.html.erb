@@ -12,3 +12,6 @@
 		<% end %>
 	</div>
 </div>
+<% if prtl?(cntrllr(objeto), dir, "objt") %>
+	<%= render partial: prtl_name(cntrllr(objeto), dir, "cllps"), locals: {objeto: objeto} %>
+<% end %>

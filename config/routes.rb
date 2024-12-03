@@ -163,13 +163,12 @@ Rails.application.routes.draw do
       match :del_fld, via: :get, on: :member
     end
 
-    resources :krn_derivaciones do
-      match :nueva, via: :get, on: :collection
-    end
+    resources :krn_derivaciones
     resources :krn_motivo_derivaciones
     resources :krn_investigadores
     resources :krn_declaraciones do
       match :nueva, via: :post, on: :collection
+      match :rlzd, via: :get, on: :member
     end
     resources :krn_testigos
     resources :krn_inv_denuncias

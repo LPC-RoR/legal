@@ -1,7 +1,7 @@
 class Karin::KrnDeclaracionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_declaracion, only: %i[ show edit update destroy ]
+  before_action :set_krn_declaracion, only: %i[ show edit update destroy rlzd ]
 
   # GET /krn_declaraciones or /krn_declaraciones.json
   def index
@@ -59,6 +59,13 @@ class Karin::KrnDeclaracionesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def rlzd
+    @objeto.rlzd = @objeto.rlzd == true ? false : true
+    @objeto.save
+
+    redirect_to @objeto.krn_denuncia
   end
 
   # DELETE /krn_declaraciones/1 or /krn_declaraciones/1.json

@@ -26,6 +26,7 @@ class Karin::KrnDenunciasController < ApplicationController
     set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
     set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
     set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
+    set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
   end
 
   # GET /krn_denuncias/new
@@ -115,6 +116,8 @@ class Karin::KrnDenunciasController < ApplicationController
         @objeto.fecha_env_infrm = params_to_date(params, 'vlr')
       when 'dnnc_fecha_prnncmnt'
         @objeto.fecha_prnncmnt = params_to_date(params, 'vlr')
+      when 'dnnc_fecha_mdds_sncns'
+        @objeto.fecha_prcsd = params_to_date(params, 'vlr')
       end
       @objeto.save
     end
@@ -135,6 +138,7 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   def del_vlr(objeto, code)
+    code = code == 'drv_rcp_externa' ? 'sgmnt_emprs_extrn' : code
     vlr_nm = code == 'sgmnt_drvcn' ? 'Seguimiento' : code
     vlr = objeto.valor(vlr_nm)
     vlr.delete
@@ -142,7 +146,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   def del_fld
     if perfil_activo?
-      if ['drv_inf_dnncnt', 'drv_dnncnt_optn', 'drv_emprs_optn', 'dnnc_objcn_invstgdr', 'dnnc_rslcn_objcn', 'dnnc_eval_ok', 'dnnc_infrm_invstgcn_dt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt'].include?(params[:k])
+      if ['drv_inf_dnncnt', 'drv_dnncnt_optn', 'drv_emprs_optn', 'dnnc_objcn_invstgdr', 'drv_rcp_externa', 'dnnc_rslcn_objcn', 'dnnc_eval_ok', 'dnnc_infrm_invstgcn_dt', 'dnnc_crr_dclrcns', 'dnnc_infrm_dt'].include?(params[:k])
         del_vlr(@objeto, params[:k])
       else
         case params[:k]
@@ -179,6 +183,8 @@ class Karin::KrnDenunciasController < ApplicationController
           @objeto.fecha_env_infrm = nil
         when 'dnnc_fecha_prnncmnt'
           @objeto.fecha_prnncmnt = nil
+        when 'dnnc_fecha_mdds_sncns'
+          @objeto.fecha_prcsd = nil
         end
       end
 

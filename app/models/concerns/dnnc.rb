@@ -43,20 +43,9 @@ module Dnnc
 
 	# ------------------------------------------------------------------------ PRTCPNTS
 
-	def dnncnts?
-		self.krn_denunciantes.any?
-	end
-
-	def dnncds?
-		self.krn_denunciados.any?
-	end
 
 	def prtcpnts?
 		self.no_vlnc? ? (self.dnncnts? and self.dnncds?) : self.dnncnts?
-	end
-
-	def no_vlnc?
-		self.motivo_denuncia != KrnDenuncia::MOTIVOS[2]
 	end
 
 	def prtcpnts_ingrs?
@@ -133,10 +122,6 @@ module Dnnc
 
 	def drvcns?
 		self.krn_derivaciones.any?
-	end
-
-	def no_drvcns?
-		self.krn_derivaciones.empty?
 	end
 
 	def dnnc_drvcns_end?

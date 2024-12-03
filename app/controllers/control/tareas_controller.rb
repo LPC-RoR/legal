@@ -47,7 +47,7 @@ class Control::TareasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tarea_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Tarea fue exitósamente actializada." }
+        format.html { redirect_to @rdrccn, notice: "Tarea fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }

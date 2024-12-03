@@ -12,7 +12,7 @@ module DnncProc
 				trsh: (not self.krn_denunciantes.any?)
 			},
 			tipo: {
-				# Ingreso bàsico de la denuncia, se cierra al ingresar el primer denunciante
+				# Ingreso básico de la denuncia, se cierra al ingresar el primer denunciante
 				# ['Escrita', 'Verbal']
 				cndtn: self.tipo_declaracion.present?,
 				trsh: (not self.krn_denunciantes.any?)
@@ -26,8 +26,8 @@ module DnncProc
 			drv_rcp_externa: {
 				# recepción de derivaciones
 				# Se vuelve a activar al borrar la derivación
-				cndtn: (not self.no_drvcns?),
-				trsh: false
+				cndtn: (not self.no_drvcns? or self.vlr_sgmnt_emprs_extrn?),
+				trsh: (not self.vlr_drv_inf_dnncnt?)
 			},
 			drv_dt_oblgtr: {
 				# Se vuelve a activar al borrar la derivación
@@ -36,15 +36,15 @@ module DnncProc
 			},
 			drv_inf_dnncnt: {
 				cndtn: (self.vlr_drv_inf_dnncnt?),
-				trsh: (not (self.vlr_drv_dnncnt_optn? or self.drvcns?))
+				trsh: (not (self.vlr_drv_dnncnt_optn?))
 			},
 			drv_dnncnt_optn: {
 				cndtn: (self.vlr_drv_dnncnt_optn?),
-				trsh: (not (self.drv_emprs_optn? or self.drvcns?))
+				trsh: (not (self.drv_emprs_optn?))
 			},
 			drv_emprs_optn: {
 				cndtn: (self.drv_emprs_optn? or self.drv_dt?),
-				trsh: (not (self.fecha_trmtcn.present? or self.drvcns? or self.fl?('mdds_rsgrd')))
+				trsh: (not (self.fecha_trmtcn.present? or self.fl?('mdds_rsgrd')))
 			},
 			drv_fecha_dt: {
 				# Fecha de recepción de la denuncia derivada a la DT
@@ -57,7 +57,7 @@ module DnncProc
 
 			dnnc_fecha_trmtcn: {
 				cndtn: self.fecha_trmtcn.present?,
-				trsh: (not (self.fecha_ntfccn.present?))
+				trsh: (not self.krn_investigadores.first.present?)
 			},
 			dnnc_fecha_ntfccn: {
 				# Fecha de Notificación de la denuncia a los participantes
@@ -77,7 +77,7 @@ module DnncProc
 			},
 			dnnc_objcn_invstgdr: {
 				cndtn: (self.vlr_dnnc_objcn_invstgdr?),
-				trsh: (not (self.vlr_dnnc_eval_ok? or self.vlr_dnnc_rslcn_objcn?))
+				trsh: (not (self.krn_declaraciones.any?))
 			},
 			dnnc_rslcn_objcn: {
 				cndtn: (self.vlr_dnnc_rslcn_objcn?),
@@ -85,7 +85,7 @@ module DnncProc
 			},
 			dnnc_invstgdr_objcn: {
 				cndtn: self.krn_investigadores.second.present?,
-				trsh: (not self.fecha_ntfccn_invstgdr.present?)
+				trsh: (not self.vlr_dnnc_eval_ok?)
 			},
 			# EVALCN
 			dnnc_eval_ok: {
@@ -111,15 +111,20 @@ module DnncProc
 			},
 			dnnc_fecha_env: {
 				cndtn: self.fecha_env_infrm.present?,
-				trsh: (not false)
+				trsh: (not self.fecha_prnncmnt.present?)
 			},
 			dnnc_fecha_prnncmnt: {
 				cndtn: self.fecha_prnncmnt.present?,
+				trsh: (not self.fecha_prcsd.present?)
+			},
+			dnnc_fecha_mdds_sncns: {
+				cndtn: self.fecha_prcsd.present?,
 				trsh: (not false)
 			},
 		}
 	end
 
+	# ingreso de campos básicos ok?
 	def ingrs_dnnc_bsc?
 		extrn = self.receptor_denuncia == 'Empresa externa' ? self.krn_empresa_externa_id.present? : true
 		rprsntnt = self.presentado_por == 'Representante' ? self.representante.present? : true
@@ -127,13 +132,55 @@ module DnncProc
 		extrn and rprsntnt and tp
 	end
 
-	def ingrs_dnncnts_ok?
+	def dnncnts?
+		self.krn_denunciantes.any?
+	end
+
+	def dnncds?
+		self.krn_denunciados.any?
+	end
+
+	def no_vlnc?
+		self.motivo_denuncia != KrnDenuncia::MOTIVOS[2]
+	end
+
+	def dnncds_rgstrs_ok?
+		self.krn_denunciados.rgstrs_ok?
+	end
+
+	def dnncnts_rgstrs_ok?
 		self.krn_denunciantes.rgstrs_ok?
 	end
 
-	def ingrs_nts_ds?
-		self.ingrs_dnncnts_ok? and self.krn_denunciados.any?
+	def diat_diep_ok?
+		self.krn_denunciantes.diats_dieps_ok?
 	end
+
+	def ingrs_nts_ds?
+		self.dnncnts_rgstrs_ok? and self.krn_denunciados.any?
+	end
+
+	def no_drvcns?
+		self.krn_derivaciones.empty?
+	end
+
+	def drvcn_rcbd?
+		self.krn_derivaciones.empty? ? false : self.krn_derivaciones.first.destino == 'Empresa'
+	end
+
+	def just_rcvd?
+		self.krn_derivaciones.count == 1 and self.krn_derivaciones.first.destino == 'Empresa'
+	end
+
+	def invstgdr_ok?
+		(self.vlr_dnnc_objcn_invstgdr? and self.dnnc_objcn_invstgdr?) ? self.krn_investigadores.second.present? : self.krn_investigadores.first.present?
+	end
+
+	def dclrcns_ok?
+		self.krn_declaraciones.map {|dclrcn| dclrcn.rlzd == true}.exclude?(false)
+	end
+
+
 
 	def ingrs_dnncds_ok?
 		self.krn_denunciados.rgstrs_ok?
@@ -147,6 +194,8 @@ module DnncProc
 		dc = RepDocControlado.get_dc(code)
 		self.rep_archivos.find_by(rep_doc_controlado_id: dc.id).present?
 	end
+
+	#--------------------------------------------------------------------------- METHODS
 
 	def ingrs_fls_ok?
 		cods = ['mdds_rsgrd']
@@ -168,10 +217,6 @@ module DnncProc
 
 	def ntfccn_invstgdr?
 		self.fecha_ntfccn_invstgdr.present?
-	end
-
-	def dclrcns_ok?
-		self.krn_denunciantes.dclrcns_ok? and self.krn_denunciados.dclrcns_ok?
 	end
 
 	def infrm_rdctd?

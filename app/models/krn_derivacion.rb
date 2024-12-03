@@ -1,7 +1,10 @@
 class KrnDerivacion < ApplicationRecord
 	belongs_to :krn_denuncia
+	belongs_to :krn_empresa_externa, optional: true
 
 	scope :ordr, -> { order(:created_at) }
+
+	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
 
 	def self.lst
 		ordr.last

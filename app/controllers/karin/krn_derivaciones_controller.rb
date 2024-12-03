@@ -16,14 +16,13 @@ class Karin::KrnDerivacionesController < ApplicationController
 
   # GET /krn_derivaciones/new
   def new
-  end
-
-  def nueva
     drvcn_codes = ['riohs', 'a41', 'd_optn', 'e_optn', 'extrn']
     rcpcn_codes = ['rcptn', 'r_multi']
     extrn_codes = ['rcptn', 'extrn_dt']
     codes = (drvcn_codes | rcpcn_codes | extrn_codes)
-    ownr = params[:oclss].constantize.find(params[:oid])
+
+    ownr = KrnDenuncia.find(params[:oid])
+
     if codes.include?(params[:t])
       if drvcn_codes.include?(params[:t])
         tipo = 'Derivación'
@@ -36,11 +35,9 @@ class Karin::KrnDerivacionesController < ApplicationController
       end
       empresa_id = ownr.krn_empresa_externa_id
       motivo = drvcn_mtv[params[:t]]
-      fecha = Time.zone.today
-      ownr.krn_derivaciones.create(fecha: fecha, tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
-    end
 
-    redirect_to ownr
+      @objeto = ownr.krn_derivaciones.create(tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
+    end
   end
 
   # GET /krn_derivaciones/1/edit

@@ -35,6 +35,15 @@ module DnncVlrs
 		v.blank? ? nil : v.c_booleano
 	end
 
+	def vlr_sgmnt_emprs_extrn?
+		self.valor('sgmnt_emprs_extrn').present?
+	end
+
+	def sgmnt_emprs_extrn?
+		v = self.valor('sgmnt_emprs_extrn')
+		v.blank? ? nil : v.c_booleano
+	end
+
 	def vlr_dnnc_objcn_invstgdr?
 		self.valor('dnnc_objcn_invstgdr').present?
 	end
