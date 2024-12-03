@@ -15,7 +15,8 @@
 		<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) %>
 	</b>
 
-	<% if objeto.ownr.class.name == 'Causa' and controller_name == 'publicos' %>
+	<% if objeto.ownr.class.name == 'Causa' and ['publicos', 'servicios'].include?(controller_name) %>
+		<%= objeto.age_actividad %>
 		<%= objeto.ownr.causa %>
 	<% end %>
 
