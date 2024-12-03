@@ -44,16 +44,6 @@ class Actividades::AgeActividadesController < ApplicationController
     elsif params[:k] == 'rnn'
       tipo = 'Reunión'
     end
-#    case params[:t]
-#    when 'A'
-#      tipo = 'Audiencia'
-#    when 'R'
-#      tipo = 'Reunión'
-#    when 'T'
-#      tipo = 'Tarea'
-#    when 'H'
-#      tipo = 'Hito'
-#    end
     @objeto = AgeActividad.new(ownr_type: params[:oclss], ownr_id: params[:oid], app_perfil_id: perfil_activo.id, age_actividad: age_actividad, estado: 'pendiente', tipo: tipo)
   end
 

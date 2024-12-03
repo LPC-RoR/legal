@@ -15,6 +15,10 @@ class Organizacion::ServiciosController < ApplicationController
     @h_pagos = get_h_pagos(@objeto)
   end
 
+  def adncs
+      set_tabla('age_actividades', AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day).adncs.fecha_ordr, false)
+  end
+
   def antecedentes
     @objeto = Causa.find(params[:cid])
   end

@@ -363,6 +363,7 @@ Rails.application.routes.draw do
   scope module: 'organizacion' do
     resources :servicios do
       match :aprobacion, via: :get, on: :collection
+      match :adncs, via: :get, on: :collection
       match :antecedentes, via: :get, on: :collection
       match :organizacion, via: :get, on: :collection
       match :sucursales, via: :get, on: :collection
