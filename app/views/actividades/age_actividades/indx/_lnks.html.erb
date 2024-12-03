@@ -2,4 +2,8 @@
 	<%= render layout: '0p/collapse/link', locals: {label: 'new_actvdd', objeto: nil, tooltip: nil} do %>
 		<i class="bi bi-plus-circle"></i>
 	<% end %>
+<% else %>
+	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/servicios/adncs", tltp: 'Lista de Audiencias'} do %>
+		<i class="bi bi-printer"></i>
+	<% end %>
 <% end %>

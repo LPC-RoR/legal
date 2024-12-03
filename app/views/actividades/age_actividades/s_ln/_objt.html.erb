@@ -26,7 +26,7 @@
 		<% end %>
 	</div>
 	<div class="col-4">
-		<%= objeto.age_actividad %>
+		<%= objeto.age_actividad == 'Audiencia de juicio' ? objeto.age_actividad.upcase : objeto.age_actividad %>
 	</div>
 </div>
 <% if objeto.age_actividad == 'Audiencia de juicio' %>
