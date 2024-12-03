@@ -2,5 +2,5 @@
 <h4>Audiencias pendientes</h4>
 
 <% @coleccion['age_actividades'].each do |actvdd| %>
-	<%= render partial: '0p/tabla/clss_dir_objt_ln', locals: {objeto: actvdd, clss: 'objt_ln', dir: 's_ln'} %>
+	<%= render partial: prtl_name('age_actividades', 's_ln', 'objt'), locals: {objeto: actvdd, clss: 'objt_ln', dir: 's_ln'} %>
 <% end %>
