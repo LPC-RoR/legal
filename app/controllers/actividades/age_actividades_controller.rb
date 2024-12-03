@@ -36,17 +36,25 @@ class Actividades::AgeActividadesController < ApplicationController
 
   # GET /age_actividades/new
   def new
-    case params[:t]
-    when 'A'
+    ownr = params[:oid].blank? ? nil : params[:oclss].constantize.find(params[:oid])
+    if ['prprtr', 'unc', 'jc'].include?(params[:k])
       tipo = 'Audiencia'
-    when 'R'
+      age_actividad = 'Audiencia preparatoria' if params[:k] == 'prprtr'
+      age_actividad = 'Audiencia única' if params[:k] == 'unc'
+    elsif params[:k] == 'rnn'
       tipo = 'Reunión'
-    when 'T'
-      tipo = 'Tarea'
-    when 'H'
-      tipo = 'Hito'
     end
-    @objeto = AgeActividad.new(owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo.id, estado: 'pendiente', tipo: tipo)
+#    case params[:t]
+#    when 'A'
+#      tipo = 'Audiencia'
+#    when 'R'
+#      tipo = 'Reunión'
+#    when 'T'
+#      tipo = 'Tarea'
+#    when 'H'
+#      tipo = 'Hito'
+#    end
+    @objeto = AgeActividad.new(ownr_type: params[:oclss], ownr_id: params[:oid], app_perfil_id: perfil_activo.id, age_actividad: age_actividad, estado: 'pendiente', tipo: tipo)
   end
 
   def cu_actividad
@@ -113,8 +121,8 @@ class Actividades::AgeActividadesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Actividad fue exitósamente creada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Actividad fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -127,8 +135,8 @@ class Actividades::AgeActividadesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(age_actividad_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Actividad fue exitósamente actualizada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Actividad fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -203,10 +211,10 @@ class Actividades::AgeActividadesController < ApplicationController
 
   # DELETE /age_actividades/1 or /age_actividades/1.json
   def destroy
-    set_redireccion
+    get_rdrccn
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Actividad fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Actividad fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -215,9 +223,9 @@ class Actividades::AgeActividadesController < ApplicationController
 
     def elimina_fecha_audiencia
       if @objeto.tipo == 'Audiencia'
-        causa = Causa.find(@objeto.owner_id)
+        causa = Causa.find(@objeto.ownr_id)
         unless causa.blank?
-          ultimo = causa.actividades.where(tipo: 'Audiencia').last
+          ultimo = causa.age_actividades.where(tipo: 'Audiencia').last
           if ultimo.blank?
             causa.fecha_audiencia = nil
             causa.audiencia = nil
@@ -235,12 +243,12 @@ class Actividades::AgeActividadesController < ApplicationController
       @objeto = AgeActividad.find(params[:id])
     end
 
-    def set_redireccion
-      @redireccion = @objeto.owner_id.blank? ? "/age_actividades" : @objeto.owner
+    def get_rdrccn
+      @rdrccn = @objeto.ownr_id.blank? ? "/age_actividades" : @objeto.ownr
     end
 
     # Only allow a list of trusted parameters through.
     def age_actividad_params
-      params.require(:age_actividad).permit(:age_actividad, :tipo, :app_perfil_id, :owner_class, :owner_id, :estado, :fecha, :privada, :audiencia_especial)
+      params.require(:age_actividad).permit(:age_actividad, :tipo, :app_perfil_id, :ownr_type, :ownr_id, :estado, :fecha, :privada, :audiencia_especial)
     end
 end

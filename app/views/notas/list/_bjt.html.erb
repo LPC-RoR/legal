@@ -8,6 +8,10 @@
 		<i class="bi bi-dot"></i>
 		<%= objeto.perfil.app_nomina_nombre %>
 
+		<% if objeto.ownr.class.name == 'Causa' and controller_name == 'publicos' %>
+			<%= objeto.ownr.causa %>
+		<% end %>
+
 	</div>
 	<div class="ln_lnks">
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/notas/#{objeto.id}/swtch_realizada", tooltip: "Marcar como #{objeto.realizado ? 'Pendiente' : 'Realizada'}"} do %>

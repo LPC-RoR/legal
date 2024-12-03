@@ -36,6 +36,7 @@ class Causa < ApplicationRecord
 	has_many :tar_uf_facturaciones, as: :ownr
 	has_many :tar_valor_cuantias, as: :ownr
 
+	has_many :notas, as: :ownr
 
 	# antecedentes de los hechos de la tabla
 	has_many :antecedentes
@@ -56,10 +57,6 @@ class Causa < ApplicationRecord
     # OWN CHILDS
 
     # CUANTIA
-
-    def notas
-    	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
-    end
 
     def agenda
     	self.age_actividades.where(tipo: ['Audiencia', 'Hito']).fecha_d_ordr

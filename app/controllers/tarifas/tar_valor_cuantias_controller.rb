@@ -26,8 +26,8 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Valor de Cuantía fue exitósamente creado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Valor de Cuantía fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,8 +40,8 @@ class Tarifas::TarValorCuantiasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tar_valor_cuantia_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Valor de Cuantía fue exitósamente actualizado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Valor de Cuantía fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,9 +53,9 @@ class Tarifas::TarValorCuantiasController < ApplicationController
   # DELETE /tar_valor_cuantias/1 or /tar_valor_cuantias/1.json
   def destroy
     @objeto.destroy
-    set_redireccion
+    get_rdrccn
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Valor de Cuantía fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Valor de Cuantía fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -66,8 +66,8 @@ class Tarifas::TarValorCuantiasController < ApplicationController
       @objeto = TarValorCuantia.find(params[:id])
     end
 
-    def set_redireccion
-      @redireccion = "/causas/#{@objeto.ownr.id}?html_options[menu]=#{CGI.escape('Datos & Cuantía')}"
+    def get_rdrccn
+      @rdrccn = "/causas/#{@objeto.ownr.id}"
     end
 
     # Only allow a list of trusted parameters through.

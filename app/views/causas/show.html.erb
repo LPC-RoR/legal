@@ -4,14 +4,20 @@
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 
 <% case @options[:menu] %>
-<% when 'Agenda' %>
-	<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto, usuarios: @age_usuarios} %>
+<% when 'General' %>
+	<%= render partial: 'causas/shw/datos_cuantia/ndx_datos_cuantia', locals: {objeto: @objeto, variables: @variables} %>
+	<div class="row">
+		<div class="col-lg-6 col-xs-12">
+			<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto, usuarios: @age_usuarios} %>
+		</div>
+		<div class="col-lg-6">
+			<%= render partial: 'repositorios/shr/ndx_docs', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
+		</div>
+	</div>
 <% when 'Hechos' %>
 	<%= render partial: 'causas/shw/hechos/ndx_hechos', locals: {objeto: @objeto} %>
 <% when 'Tarifa & Pagos' %>
 	<%= render partial: 'causas/shw/tarifa_pagos/ndx_tarifa_pagos', locals: {objeto: @objeto, tar_cliente: @tar_cliente, tar_generales: @tar_generales } %>
-<% when 'Datos & Cuantía' %>
-	<%= render partial: 'causas/shw/datos_cuantia/ndx_datos_cuantia', locals: {objeto: @objeto, variables: @variables} %>
 <% when 'Documentos' %>
 	<!-- Se utiliza para Causa y Cliente -->
 	<%= render partial: 'repositorios/shr/ndx_docs', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>

@@ -1,11 +1,11 @@
 <div class="app_bjt">
 
-	<%= render partial: 'actividades/age_actividades/list/lobjt', locals: {objeto: objeto, usuarios: usuarios} %>
+	<%= render partial: 'actividades/age_actividades/list/lobjt', locals: {objeto: objeto, usuarios: @age_usuarios} %>
 
 	<%= render partial: 'actividades/age_usuarios/shr/usrs', locals: {objeto: objeto} %>
 	<%= render partial: 'actividades/age_actividades/list/txt', locals: {objeto: objeto} %>
 
-	<%= render partial: 'actividades/age_actividades/list/wrnngs', locals: {objeto: objeto, usuarios: usuarios} %>
+	<%= render partial: 'actividades/age_actividades/list/wrnngs', locals: {objeto: objeto, usuarios: @age_usuarios} %>
 
 	<%= render partial: 'notas/shr/notas_pendientes', locals: {objeto: objeto} %>
 </div>

@@ -15,6 +15,10 @@
 		<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) %>
 	</b>
 
+	<% if objeto.ownr.class.name == 'Causa' and controller_name == 'publicos' %>
+		<%= objeto.ownr.causa %>
+	<% end %>
+
 	<% if objeto.estado == 'realizada' %>
 		<i class="bi bi-check-lg"></i>
 	<% elsif objeto.estado == 'cancelada' %>

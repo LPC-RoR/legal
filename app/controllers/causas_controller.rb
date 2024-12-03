@@ -51,12 +51,12 @@ class CausasController < ApplicationController
 
     set_st_estado(@objeto)
 
-    set_tab( :menu, ['Agenda', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Datos & Cuantía', operacion?], ['Documentos', operacion?], ['Demanda', dog?]] )
+    set_tab( :menu, ['General', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Demanda', dog?]] )
 
     # Prueba de Docsplit
 
     case @options[:menu]
-    when 'Agenda'
+    when 'General'
       @hoy = Time.zone.today
 
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
@@ -65,15 +65,23 @@ class CausasController < ApplicationController
 
       actividades_causa = @objeto.age_actividades.adncs.map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
+
+      # Documentos
+      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
+      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
+
+      @d_pendientes = @objeto.documentos_pendientes
+      @a_pendientes = @objeto.archivos_pendientes
+
+      # Cuantía
+      @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
+      @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
+
     when 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), false)
       set_tabla('hechos', @objeto.hechos.where(tema_id: nil).order(:orden), false)
       set_tabla('app_archivos', @objeto.app_archivos.order(:app_archivo), false)
-    when 'Datos & Cuantía'
-      @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
-      @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
-
-      @audiencia_preparatoria = @objeto.age_actividades.find_by(age_actividad: 'Audiencia preparatoria')
     when 'Tarifa & Pagos'
 
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
@@ -85,13 +93,6 @@ class CausasController < ApplicationController
       @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
 
-    when 'Documentos'
-      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-
-      @d_pendientes = @objeto.documentos_pendientes
-      @a_pendientes = @objeto.archivos_pendientes
     when 'Demanda'
       set_tabla('parrafos', @objeto.parrafos.order(:orden), false)
     when 'Registro'

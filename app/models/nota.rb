@@ -1,11 +1,9 @@
 class Nota < ApplicationRecord
 
+	belongs_to :ownr, polymorphic: true
+
 	has_many :age_usu_notas
 	has_many :age_usuarios, through: :age_usu_notas
-
-	def owner
-		self.ownr_clss.constantize.find(self.ownr_id)
-	end
 
 	def perfil
 		AppPerfil.find(self.perfil_id)

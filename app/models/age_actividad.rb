@@ -8,6 +8,8 @@ class AgeActividad < ApplicationRecord
 
 	has_many :age_logs
 
+	has_many :notas, as: :ownr
+
 	scope :fecha_ordr, -> {order(:fecha)}
 	scope :fecha_d_ordr, -> {order(fecha: :desc)}
 	scope :pndnts, -> {where(estado: 'pendiente')}
@@ -15,10 +17,6 @@ class AgeActividad < ApplicationRecord
 	scope :adncs, -> {where(tipo: 'Audiencia')}
 
     validates_presence_of :age_actividad
-
-    def notas
-    	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
-    end
 
 	def nombre_creador
 		perfil = AppPerfil.find_by(id: self.app_perfil_id)

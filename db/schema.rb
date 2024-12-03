@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_29_000134) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_03_211743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1435,7 +1435,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_29_000134) do
   end
 
   create_table "notas", force: :cascade do |t|
-    t.string "ownr_clss"
+    t.string "ownr_type"
     t.integer "ownr_id"
     t.integer "perfil_id"
     t.string "nota"
@@ -1447,8 +1447,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_29_000134) do
     t.boolean "urgente"
     t.datetime "fecha_gestion"
     t.boolean "sin_fecha_gestion"
-    t.index ["ownr_clss"], name: "index_notas_on_ownr_clss"
     t.index ["ownr_id"], name: "index_notas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_notas_on_ownr_type"
     t.index ["perfil_id"], name: "index_notas_on_perfil_id"
   end
 

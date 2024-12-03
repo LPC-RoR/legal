@@ -1,4 +1,10 @@
-<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'age_actividades', ttl: 'Actividades', ownr: nil} %>
+<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'age_actividades', ownr: objeto} %>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'new_actvdd', objeto: nil} do %>
+	<%= render partial: prtl_name('age_actividades', 'indx', 'new_list'), locals: {ownr: objeto} %>
+<% end %>
+
+<%#= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'age_actividades', ttl: 'Actividades', ownr: nil} %>
 
 <% if objeto.class.name == 'Causa' and operacion? %>
 	<% unless @audiencias_pendientes.empty? %>
@@ -18,21 +24,14 @@
 	<% end %>
 <% end %>
 
-<div class="f_250rght_col">
-	<div class="lft">
-		<% @coleccion['age_actividades'].each do |age_actividad| %>
-			<% unless (['realizada', 'cancelada'].include?(age_actividad.estado) or (age_actividad.fecha.present? and age_actividad.fecha < Time.zone.today)) %>
-				<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: age_actividad, usuarios: usuarios} %>
-			<% end %>
-		<% end %>
-		<hr>
-		<% @coleccion['age_actividades'].each do |age_actividad| %>
-			<% if (['realizada', 'cancelada'].include?(age_actividad.estado) or age_actividad.fecha < Time.zone.today) %>
-				<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: age_actividad, usuarios: usuarios} %>
-			<% end %>
-		<% end %>
-	</div>
-	<div class="rght">
-		<%= render partial: 'actividades/shr/add_box', locals: {objeto: objeto} %>
-	</div>
-</div>
+<% @coleccion['age_actividades'].each do |age_actividad| %>
+	<% unless (['realizada', 'cancelada'].include?(age_actividad.estado) or (age_actividad.fecha.present? and age_actividad.fecha < Time.zone.today)) %>
+		<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: age_actividad, usuarios: usuarios} %>
+	<% end %>
+<% end %>
+<hr>
+<% @coleccion['age_actividades'].each do |age_actividad| %>
+	<% if (['realizada', 'cancelada'].include?(age_actividad.estado) or age_actividad.fecha < Time.zone.today) %>
+		<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: age_actividad, usuarios: usuarios} %>
+	<% end %>
+<% end %>

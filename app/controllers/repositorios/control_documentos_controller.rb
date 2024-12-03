@@ -52,7 +52,7 @@ class Repositorios::ControlDocumentosController < ApplicationController
     end
 
     if params[:oclss] == 'Causa'
-      redirect_to "/causas/#{owner.id}?html_options[menu]=Documentos"
+      redirect_to "/causas/#{owner.id}"
     elsif params[:oclss] == 'Cliente'
       redirect_to "/clientes/#{owner.id}?html_options[menu]=Documentos"
     end
