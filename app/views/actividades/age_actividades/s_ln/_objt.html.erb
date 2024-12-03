@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-8">
+	<div class="col-4">
 		<!-- ICONO SEGÚN TIPO DE ACTIVIDAD -->
 		<% if objeto.tipo == 'Audiencia' %>
 			<i class="bi bi-bank2"></i>
@@ -11,6 +11,8 @@
 			<i class="bi bi-check2-square"></i>
 		<% end %> 
 		<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) %>
+	</div>
+	<div class="col-4">
 		<%= objeto.ownr.causa %>
 		<% if objeto.estado == 'realizada' %>
 			<i class="bi bi-check-lg"></i>
