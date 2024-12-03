@@ -5,7 +5,7 @@
 <div class="f_50lft_col">
   <div class="lft">
 
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'age_actividades', ttl: 'Audiencias', ownr: nil} %>
+    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'age_actividades', ownr: nil} %>
 
     <%= render partial: '0p/tabla/tabla', locals: {c: 'age_actividades'} %>
 
@@ -18,7 +18,7 @@
   </div>
   <div class="rght">
 
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'notas', ttl: @usuario.age_usuario, ownr: nil} %>
+    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'notas', ownr: nil} %>
 
     <%= render layout: '0p/collapse/display', locals: {label: 'Personaliza', objeto: nil} do %>
       <%= render partial: 'actividades/age_actividades/partials/form_nombre' %>
