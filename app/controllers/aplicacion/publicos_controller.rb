@@ -15,7 +15,7 @@ class Aplicacion::PublicosController < ApplicationController
 
       set_tabla('notas', @usuario.notas.order(urgente: :desc, pendiente: :desc, created_at: :desc), false)
 
-      set_tabla('age_actividades', AgeActividad.adncs.fecha_d_ordr, false)
+      set_tabla('age_actividades', AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day).adncs.fecha_ordr, false)
 
       @hoy = Time.zone.today
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
