@@ -21,7 +21,7 @@ class NotasController < ApplicationController
     f_prms = params[:form_nota]    
     fecha_gestion = params_to_date(f_prms, 'fecha_gestion')
     unless f_prms[:nota].blank?
-      @objeto =Nota.create(ownr_clss: params[:clss], ownr_id: params[:oid], perfil_id: perfil_activo.id, fecha_gestion: fecha_gestion, nota: f_prms[:nota], prioridad: 'success')
+      @objeto =Nota.create(ownr_type: params[:clss], ownr_id: params[:oid], perfil_id: perfil_activo.id, fecha_gestion: fecha_gestion, nota: f_prms[:nota], prioridad: 'success')
       noticia = 'Nota fue exitósamente creada'
     else
       noticia = 'Error de ingreso: Nota vacía'
@@ -91,11 +91,11 @@ class NotasController < ApplicationController
     end
 
     def set_redireccion
-      case @objeto.owner.class.name
+      case @objeto.ownr_type
       when 'Asesoria'
         @redireccion  = asesorias_path
       when 'Causa'
-        @redireccion  = "/causas#cid_#{@objeto.owner.id}"
+        @redireccion  = "/causas#cid_#{@objeto.ownr_id}"
       when 'Cliente'
         @redireccion  = clientes_path
       when 'AgeActividad'

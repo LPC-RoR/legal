@@ -27,6 +27,8 @@ class Cliente < ApplicationRecord
 
 	has_many :age_actividades, as: :ownr
 
+	has_many :notas, as: :ownr
+
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :tipo_cliente
 
@@ -43,10 +45,6 @@ class Cliente < ApplicationRecord
     end
 
     # CHILDS
-
-    def notas
-    	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
-    end
 
 	def tarifas
 		TarTarifa.where(owner_class: self.class.name).where(owner_id: self.id)

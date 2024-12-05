@@ -18,9 +18,6 @@
 	<%= render partial: 'causas/shw/hechos/ndx_hechos', locals: {objeto: @objeto} %>
 <% when 'Tarifa & Pagos' %>
 	<%= render partial: 'causas/shw/tarifa_pagos/ndx_tarifa_pagos', locals: {objeto: @objeto, tar_cliente: @tar_cliente, tar_generales: @tar_generales } %>
-<% when 'Documentos' %>
-	<!-- Se utiliza para Causa y Cliente -->
-	<%= render partial: 'repositorios/shr/ndx_docs', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
 <% when 'Demanda' %>
 	<div class="prrf_box">
 		<% @coleccion['parrafos'].each do |parrafo| %>

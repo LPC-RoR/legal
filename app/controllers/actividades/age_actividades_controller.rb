@@ -182,8 +182,8 @@ class Actividades::AgeActividadesController < ApplicationController
       end
     end
 
-    set_redireccion
-    redirect_to @redireccion
+    get_rdrccn
+    redirect_to @rdrccn
   end
 
   def sspndr
