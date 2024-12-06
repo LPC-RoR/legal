@@ -7,6 +7,8 @@ class Asesoria < ApplicationRecord
 	has_one :tar_facturacion, as: :ownr
 	has_one :tar_uf_facturacion, as: :ownr
 
+	has_many :notas, as: :ownr
+
     validates_presence_of :descripcion
 
     scope :std, ->(std) { where(estado: std).order(urgente: :desc, pendiente: :desc, created_at: :desc)}
@@ -14,10 +16,6 @@ class Asesoria < ApplicationRecord
 
     def self.crstn(typ)
     	typ.singularize == 'Redaccion' ? 'Redacción' : typ.singularize
-    end
-
-    def notas
-    	Nota.where(ownr_clss: self.class.name, ownr_id: self.id)
     end
 
 	def archivos

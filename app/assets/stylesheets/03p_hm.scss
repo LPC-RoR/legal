@@ -176,6 +176,7 @@ $h_nvbr_pddng: 0;
 
 .hm_bnnr {
  position: sticky;
+ z-index: 5;
  top:0;
  width:100%;
 	background-color: $p_blue;
@@ -317,6 +318,64 @@ $h_nvbr_pddng: 0;
 	font-weight: bold;
 	color: white;
 	text-align: center;
+}
+
+// TTLS
+.hm_1_ttl {
+	margin-top: 2rem;
+	padding: 1rem;
+	font-size: 50px;
+	font-weight: bold;
+	color: $primary;
+	text-align: center;
+}
+
+.hm_2_ttl {
+//	margin-top: 2rem;
+	padding: 1rem;
+	font-size: 35px;
+	font-weight: bold;
+	color: $primary;
+	text-align: center;
+}
+
+.hm_3_ttl {
+//	margin-top: 2rem;
+	padding: 1rem;
+	line-height: 1.2;
+	font-size: 25px;
+//	font-weight: bold;
+	color: $primary;
+	text-align: center;
+}
+
+.hm_bx {
+	padding: 10%;
+}
+
+.hm_img_bx {
+	margin: 0 auto;
+	padding: 10%;
+	text-align: center;
+  z-index: -1;
+}
+
+.hm_1_p {
+	padding: 1rem 10% 1rem 10%;
+	line-height: 1.2;
+	font-size: 20px;
+//	font-weight: bold;
+	color: $primary;
+	text-align:  justify;
+}
+
+.hm_2_p {
+	padding: 1rem 10% 1rem 10%;
+	line-height: 1.2;
+	font-size: 25px;
+//	font-weight: bold;
+	color: $primary;
+	text-align:  justify;
 }
 
 //---------------------------------------------------------------- VERIFICAR
