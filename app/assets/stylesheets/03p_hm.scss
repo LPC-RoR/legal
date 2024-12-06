@@ -321,6 +321,20 @@ $h_nvbr_pddng: 0;
 }
 
 // TTLS
+// LOGO y PRODUCTO al comienzo de la página
+.prdct_ttl {
+	margin: 2rem 0 2rem 0;
+	padding: 1rem;
+	line-height: 1.1;
+	font-size: 35px;
+	color: $primary;
+	text-align: left;
+}
+
+.indnt {
+	padding-left: 1rem;
+}
+
 .hm_1_ttl {
 	margin-top: 2rem;
 	padding: 1rem;
@@ -328,6 +342,20 @@ $h_nvbr_pddng: 0;
 	font-weight: bold;
 	color: $primary;
 	text-align: center;
+}
+
+.hm_note {
+	padding: 1rem;
+	.imgn {
+		margin: 0 10px 10px 0;
+		float: left;
+	}
+	.txt {
+		line-height: 1.3;
+		font-size: 20px;
+		color: $primary;
+		text-align:  justify;
+	}
 }
 
 .hm_2_ttl {
@@ -363,7 +391,7 @@ $h_nvbr_pddng: 0;
 .hm_1_p {
 	padding: 1rem 10% 1rem 10%;
 	line-height: 1.2;
-	font-size: 20px;
+	font-size: 18px;
 //	font-weight: bold;
 	color: $primary;
 	text-align:  justify;

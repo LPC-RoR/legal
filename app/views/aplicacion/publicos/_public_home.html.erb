@@ -1,27 +1,36 @@
-<div class="hm_1_ttl">Procedimiento de Investigación y Sanción</div>
-
-<div class="hm_2_ttl"> Ley 21.643 (Ley Karin)</div>
-
-		<div class="hm_3_ttl">Las empresas con diez o más empleados tienen la obligación de contar con un <i>Procedimiento de Investigación y Sanción</i> para los casos (denuncias) de acoso laboral, sexual o violencia en el trabajo.</div>
+<div class="prdct_ttl">
+	<%= image_tag 'safestep.png', style: 'height:100%;width:auto;' %>
+	</br>
+	<div class="indnt">
+		Registro y control</br>
+		Procedimiento de Investigación y Sanción</br>
+		Ley 21.643
+	</div>
+</div>
 
 <div class="row no-gutters">
 	<div class="col-lg-6 col-xs-12">
-		<div class="hm_img_bx">
-			<div class="hm_3_ttl">Etapas del Procedimiento de Investigación y Sanción con sus plazos.</div>
-			<%= image_tag 'proceso.png', class: "img-responsive" %>
+		<div class="hm_note">
+			<div class="imgn">
+				<%= image_tag 'ss_bttn.png', style: 'height:auto;width:100px;' %>
+			</div>
+			<div class="txt">
+				SafeStep es una plataforma que le permitirá gestionar y controlar el Procedimiento de Investigación y Sanción de la ley 21.643. Algunas de nuestras característica más importantes son:
+				<ul>
+					<li>Controlamos todos los plazos legales involucrados.</li>
+					<li>Control de los documentos exigidos.</li>
+					<li>Guiamos paso a paso la gestión de la denuncia.</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<div class="col-lg-6">
-		<div class="hm_bx">
-			<div class="hm_1_p">
-				Algunas características de este procedimiento son:
+		<div class="hm_note">
+			<div class="imgn">
+				<%= image_tag 'agosto_1.png', style: 'height:auto;width:100px;' %>
 			</div>
-			<div class="hm_1_p">
-				<ul>
-					<li>El reglamento que rige este procedimiento, establece derechos y responsabilidades para todos los participantes de la investigación.</li>
-					<li>...</li>
-					<li>El perfíl mínimo requerido para el rol de <i>investigador.</i></li>
-				</ul>
+			<div class="txt">
+				En el contexto de la ley 21.643 (Ley Karin), a partir del 1ro de agosto del 2024 es obligatorio para todas las empresas con 10 o más empleados, contar con un <i>Procedimiento de Investigación y Sanción</i> para los casos de acoso laboral, sexual o violencia en el trabajo ejercida por terceros.
 			</div>
 		</div>
 	</div>
@@ -30,26 +39,6 @@
 <%#= image_tag 'logo_bajo.png', style: 'height:50px;width:auto;' %>
 <div class="hm_prdct_head">
 	<div class="hm_lft">
-		<div class="hm_prdct_ttl">
-			Sistema de gestión y registro del<br>
-			Procedimiento de Investigación y Sanción<br>
-		</div>
-		<div class="hm_prdct_sttl">
-			Ley 21.643 ( Ley Karin )
-		</div>
-		<div class="hm_txt">
-			Dados los altos estándares establecidos para su ejecución, la implementación del <i>Procedimiento de Investigación y Sanción</i> establecido por la ley 21.643,  resulta ser una gran desafío administrativo.
-		</div>
-		<div class="hm_txt">
-			El cumplimiento de los plazos establecidos, el perfil exigido al "investigador", y la capacidad de gestión necesaria para, por ejemplo, contar con la información que es requisito tener a la vista a la hora de redactar el informe final, entre otras, fundamentan con claridad la necesidad de contar con un sistema de información para un adecuado registro y control del procedimiento.
-		</div>
-		<div class="hm_txt">
-			Pero no todas las implementaciones del procedimiento tienen la misma complejidad. En empresas principales o usuarias la puesta en marcha debe incorporar estándares de coordinación y colaboración entre empresas y, para las empresas pequeñas en cambio, una buena solución necesariamente debe reducir significativamente los costos de implementación y de mantención en el tiempo.
-		</div>
-		<div class="hm_txt">
-			Para acceder a un demo del producto, registre su empresa y siga las instrucciones para activar su licencia de prueba en la que podrá simular el registro y control de una denuncia.
-			<%= render partial: '0p/general/lnk_rep_archv', locals: {objeto: @hlp_rgstr_emprs, txt: 'Manual para activar su versión demo'} %>
-		</div>
 	</div>
 	<div class="hm_rght">
 		<div class="hm_rgstr">
@@ -58,53 +47,6 @@
 	</div>
 </div>
 
-<div class="hm_txt_bdy">
-	<div class="hm_prdct_sttl">
-		Investigación de denuncias en empresas principales o usuarias
-	</div>
-
-	<div class="hm_txt">
-		Las exigencias adicionales establecidas para empresas principales o usuarias son:
-	</div>
-	<div class="hm_txt">
-		<lu>
-			<li>
-				La obligación de recibir denuncias presentadas por personas trabajadoras dependientes de otro empleador (subcontato o EST), incluso si no tiene la responsabilidad de investigar.
-			</li>
-			<li>
-				La responsabilidad de investigar denuncias en las cuales los involucrados en los hechos pertenezcan a más de una empresa.
-			</li>
-		</lu>
-	</div>
-
-	<div class="hm_txt">
-		Estas diferencias parecen simples de implementar pero, sus consecuencias en términos de gestión son significativas.
-	</div>
-	<div class="hm_txt">
-		Cuando hay más de una empresa involucrada, garantizar el cumplimiento de la ley nos lleva inevitablemente a la necesidad de garantizar coordinación y colaboración entre las empresas involucradas.
-	</div>
-	<div class="hm_txt">
-		También necesitaremos formalizar la derivación de denuncias entre empresas para garantizar los estándares mínimos y el cumplimiento de los plazos establecidos. Pero la mayor complejidad aparece al momento de cumplir los estándares exigidos para la redacción del informe final: la información que debemos tener a la vista no pertenece, en estos casos, a una única empresa, las medidas correctivas afectarán a más de un protocolo de prevención y, las sanciones deberán corresponder a las especificadas en el RIOHS del empleador de la o las personas denunciadas.
-	</div>
-	<div class="hm_txt">
-		Los temas legales son un tema aparte ¿Puede una empresa principal sancionar con el despido a una persona denunciada cuyo empleador es otra empresa? ¿Si lo anterior llegara a ocurrir y el afectado recurre a la justicia, cual es la responsabilidad de su empleador en el despido?
-	</div>
-	<div class="hm_txt">
-		La implementación del Procedimiento de Investigación y Sanción en una empresa pricipal o usuaria requiere un diseño que garantice la coordinación y colaboración entre empresas, en consecuencia, un sistema de gestión y control que lo contenga requiere ese nivel de complejidad.
-	</div>
-
-	<div class="hm_prdct_sttl">
-		Investigación de denuncias en empresas pequeñas
-	</div>
-	<div class="hm_txt">
-		Para una empresa pequeña, la dificultad principal es el costo en el que debe incurrir para cumplir a cabalidad las exigencias la ley. Problema que, para este tipo de empresas, se extiende al cumplimiento de todo el protocolo de prevención.
-	</div>
-	<div class="hm_txt">
-		Para muchas empresas la única solución factible será externalizar, a un <i>precio razonable</i>, las distintas responsabilidades que la ley exige. En el caso del <i>Procedimiento de Investigación y Sanción</i>, es importante comprender que derivar todas las denuncias a la Dirección del Trabajo no elimina, por ejemplo la responsabilidad de contar con la estructura necesaria para recibir denuncias y, para cumplir con todas las responsabilidades previas a la derivación. Además, sin importar quien realice la investigación, siempre será responsabilidad de la empresa proporcionar toda la información necesaria para sustentar la investigación.
-	</div>
-	<div class="hm_txt">
-		Para este tipo de empresas, contamos con un producto que les permite tener acceso al sistema de registro y control del procedimiento, pagando por las investigaciones en la medida que reciben sus denuncias.
-	</div>
 	<div class="hm_txt">
 	</div>
 	<div class="hm_txt">
