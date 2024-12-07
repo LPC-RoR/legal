@@ -69,6 +69,17 @@ $h_nvbr_pddng: 0;
 	font-size: $ln_sz;
 }
 
+// WHT_AREA
+
+.wht_area {
+	background-color: white;
+	margin-bottom: 1rem;
+}
+
+.pddng_bx {
+	padding: 1rem;
+}
+
 // PRDCTS
 
 .hm_prdct_head {
@@ -323,6 +334,7 @@ $h_nvbr_pddng: 0;
 // TTLS
 // LOGO y PRODUCTO al comienzo de la página
 .prdct_ttl {
+	background-color: white;
 	margin: 2rem 0 2rem 0;
 	padding: 1rem;
 	line-height: 1.1;
@@ -345,6 +357,7 @@ $h_nvbr_pddng: 0;
 }
 
 .hm_note {
+	background-color: white;
 	padding: 1rem;
 	.imgn {
 		margin: 0 10px 10px 0;
@@ -352,10 +365,16 @@ $h_nvbr_pddng: 0;
 	}
 	.txt {
 		line-height: 1.3;
-		font-size: 20px;
+		font-size: 18px;
 		color: $primary;
 		text-align:  justify;
 	}
+}
+
+.hm_btnn_wht {
+	align-text: center;
+	color: white;
+	@include a_hover(white, $blue_5);
 }
 
 .hm_2_ttl {

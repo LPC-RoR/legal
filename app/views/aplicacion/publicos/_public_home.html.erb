@@ -8,60 +8,34 @@
 	</div>
 </div>
 
-<div class="row no-gutters">
-	<div class="col-lg-6 col-xs-12">
-		<div class="hm_note">
-			<div class="imgn">
-				<%= image_tag 'ss_bttn.png', style: 'height:auto;width:100px;' %>
-			</div>
-			<div class="txt">
-				SafeStep es una plataforma que le permitirá gestionar y controlar el Procedimiento de Investigación y Sanción de la ley 21.643. Algunas de nuestras característica más importantes son:
-				<ul>
-					<li>Controlamos todos los plazos legales involucrados.</li>
-					<li>Control de los documentos exigidos.</li>
-					<li>Guiamos paso a paso la gestión de la denuncia.</li>
-				</ul>
-			</div>
+<div class="wht_area">
+	<div class="row no-gutters">
+		<div class="col-lg-6 col-xs-12">
+			<%= render partial: '0capitan/app/home/prdct' %>
+			<%= render partial: '0capitan/app/home/rgstr_emprs' %>
+
+		</div>
+		<div class="col-lg-6">
+			<%= render partial: '0capitan/app/home/agst' %>
 		</div>
 	</div>
-	<div class="col-lg-6">
-		<div class="hm_note">
-			<div class="imgn">
-				<%= image_tag 'agosto_1.png', style: 'height:auto;width:100px;' %>
-			</div>
-			<div class="txt">
-				En el contexto de la ley 21.643 (Ley Karin), a partir del 1ro de agosto del 2024 es obligatorio para todas las empresas con 10 o más empleados, contar con un <i>Procedimiento de Investigación y Sanción</i> para los casos de acoso laboral, sexual o violencia en el trabajo ejercida por terceros.
-			</div>
+</div>
+
+<div class="wht_area">
+	<div class="row no-gutters">
+		<div class="col-lg-4 col-xs-12">
+			<%= render partial: '0capitan/app/home/b' %>
+		</div>
+		<div class="col-lg-4 col-xs-12">
+			<%= render partial: '0capitan/app/home/p' %>
+		</div>
+		<div class="col-lg-4">
+			<%= render partial: '0capitan/app/home/p_mas' %>
 		</div>
 	</div>
 </div>
 
 <%#= image_tag 'logo_bajo.png', style: 'height:50px;width:auto;' %>
-<div class="hm_prdct_head">
-	<div class="hm_lft">
-	</div>
-	<div class="hm_rght">
-		<div class="hm_rgstr">
-			<%= render partial: 'empresas/registro' %>
-		</div>
-	</div>
-</div>
-
-	<div class="hm_txt">
-	</div>
-	<div class="hm_txt">
-	</div>
-	<div class="hm_txt">
-	</div>
-	<div class="hm_txt">
-	</div>
-	<div class="hm_txt">
-	</div>
-	<div class="hm_txt">
-	</div>
-	<div class="hm_txt">
-	</div>
-</div>
 
 <%#= request.remote_ip %>
 <%#= render partial: scp_prtl('0capitan', 'app/home', 'sign_in') if scp_prtl?('0capitan', 'app/home', 'sign_in') %>

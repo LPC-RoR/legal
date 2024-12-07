@@ -1,0 +1,7 @@
+<%#= render layout: '0p/collapse/btnn', locals: {clss-bttn. 'clss_btnn', label: 'label', objeto: nil, tooltip: nil} do %>
+  <!-- ... -->
+<%# end %>
+
+<button class="btn <%=clss_bttn%>" type="button" data-toggle="collapse" data-target="#<%=label%><%= objeto.blank? ? nil : objeto.id%>" aria-expanded="false" aria-controls="<%=label%><%= objeto.blank? ? nil : objeto.id%>%>">
+  <span data-toggle="tooltip" title="<%=tooltip%>"><%= yield %></span>
+</button>

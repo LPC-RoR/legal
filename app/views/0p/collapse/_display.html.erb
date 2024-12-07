@@ -3,5 +3,7 @@
 <%# end %>
 
 <div class="collapse" id="<%=label%><%= objeto.blank? ? nil : objeto.id%>">
-	<%= yield %>
+	<div class="card card-body">
+		<%= yield %>
+	</div>
 </div>

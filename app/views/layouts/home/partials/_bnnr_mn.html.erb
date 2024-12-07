@@ -2,7 +2,7 @@
 
 <% if usuario_signed_in? %>
 
-	<span><%= render partial: '0capitan/app/over/item', locals: {text: nil, link: destroy_usuario_session_path, metodo: :delete, gly: 'door-open'} %></span>
+	<span><%= render partial: '0capitan/app/over/item', locals: {text: 'Salir', link: destroy_usuario_session_path, metodo: :delete, gly: 'door-open'} %></span>
 
 <% else %>
 
@@ -13,12 +13,12 @@
 	</div>
 	<div class="mn_itm">
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: '/usuarios/sign_in', tooltip: nil} do %>
-			<i class="bi bi-person"></i>
+			<i class="bi bi-person"></i> Ingresar
 		<% end %>
 	</div>
 	<div class="mn_itm">
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: '/usuarios/sign_up', tooltip: nil} do %>
-			<i class="bi bi-person-plus"></i>
+			<i class="bi bi-person-plus"></i> Registro
 		<% end %>
 	</div>
 
