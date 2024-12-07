@@ -83,15 +83,15 @@ $h_nvbr_pddng: 0;
 .prdct_prc {
 	text-align: center;
 	.icn {
-		background-color: #b6ccfe;
-		@include brd(1px, 10px 10px 0 0, #b6ccfe);
+		background-color: #00509d;
+		@include brd(1px, 10px 10px 0 0, #00509d);
 		color: white;
 		padding: 1rem;
 	}
 	.prdct {
 		height: 100%;
 		min-height: 20em;
-		@include brd(1px, 0 0 10px 10px, #61a5c2);
+		@include brd(1px, 0, #61a5c2);
 		padding: 1rem;
 		color: #01497c;
 		.vrsn {
@@ -112,8 +112,17 @@ $h_nvbr_pddng: 0;
 		}
 		.prc_txt {
 			padding-top: 1rem;
+			min-height: 5em;
 			font-size: 14px;
 		}
+	}
+	.rnvcn {
+		background-color: #00509d;
+		@include brd(1px, 0 0 10px 10px, #61a5c2);
+		padding: 1rem;
+		color: white;
+		font-size: 20px;
+		font-weight: bold;
 	}
 }
 
