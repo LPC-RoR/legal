@@ -1,9 +1,4 @@
 $primary: #3c87b3;
-$secondary: #2ba27c;
-$support: #ffa000;
-
-$h_nvbr_mrgn: 0;
-$h_nvbr_pddng: 0;
 
 // @include mrgn_pddng($mrgn, $pddng);
 // @include brd($brd:wdth, $brd_rds, $brd_clr);
@@ -15,7 +10,7 @@ $h_nvbr_pddng: 0;
 // @include a_hover($lnk_clr, $hvr_clr);
 @import "bscs";
 
-// WHT_AREA
+// GNRL
 
 .wht_area {
 	background-color: white;
@@ -24,6 +19,20 @@ $h_nvbr_pddng: 0;
 
 .pddng_bx {
 	padding: 1rem;
+}
+
+.indnt {
+	padding-left: 1rem;
+}
+
+.prdct_ttl {
+//	background-color: white;
+	margin: 2rem 0 2rem 0;
+//	padding: 1rem;
+	line-height: 1.1;
+	font-size: 35px;
+	color: $primary;
+	text-align: left;
 }
 
 .prdct_prc {
@@ -72,7 +81,7 @@ $h_nvbr_pddng: 0;
 	}
 }
 
-// HOME
+// BNNR
 
 .hm_bnnr {
  position: sticky;
@@ -146,20 +155,7 @@ $h_nvbr_pddng: 0;
 
 // TTLS
 // LOGO y PRODUCTO al comienzo de la página
-.prdct_ttl {
-	background-color: white;
-	margin: 2rem 0 2rem 0;
-	padding: 1rem;
-	line-height: 1.1;
-	font-size: 35px;
-	color: $primary;
-	text-align: left;
-}
-
-.indnt {
-	padding-left: 1rem;
-}
-
+// No está en uso, pero hay dos ejemplos
 .hm_note {
 	background-color: white;
 	padding: 1rem;
