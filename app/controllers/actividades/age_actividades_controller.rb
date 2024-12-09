@@ -39,6 +39,7 @@ class Actividades::AgeActividadesController < ApplicationController
     ownr = params[:oid].blank? ? nil : params[:oclss].constantize.find(params[:oid])
     if ['prprtr', 'unc', 'jc'].include?(params[:k])
       tipo = 'Audiencia'
+      age_actividad = 'Audiencia de juicio' if params[:k] == 'jc'
       age_actividad = 'Audiencia preparatoria' if params[:k] == 'prprtr'
       age_actividad = 'Audiencia única' if params[:k] == 'unc'
     elsif params[:k] == 'rnn'

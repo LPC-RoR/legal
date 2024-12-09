@@ -10,6 +10,22 @@ $primary: #3c87b3;
 // @include a_hover($lnk_clr, $hvr_clr);
 @import "bscs";
 
+@mixin frm_gnrl($frm_clr, $clr) {
+	padding: 1rem;
+	background-color: $frm_clr;
+	color: $clr;
+}
+
+@mixin frm_top($frm_clr, $clr) {
+	@include frm_gnrl($frm_clr, $clr);
+	@include brd(1px, 10px 10px 0 0, $frm_clr);
+}
+
+@mixin frm_bttm($frm_clr, $clr) {
+	@include frm_gnrl($frm_clr, $clr);
+	@include brd(1px, 0 0 10px 10px, $frm_clr);
+}
+
 // GNRL
 
 .wht_area {
@@ -21,33 +37,47 @@ $primary: #3c87b3;
 	padding: 1rem;
 }
 
+.nw_area {
+	margin: 4rem 0 2rem 0;
+}
+
 .indnt {
 	padding-left: 1rem;
 }
 
-.prdct_ttl {
-//	background-color: white;
-	margin: 2rem 0 2rem 0;
-//	padding: 1rem;
-	line-height: 1.1;
+.txt_hght {
+	line-height: 1.2;
 	font-size: 35px;
+}
+
+.txt_mdm {
+	line-height: 1.2;
+	font-size: 25px;
+}
+
+.clr_prmry {
 	color: $primary;
+}
+
+.cntr {
+	text-align: center;
+}
+
+.prdct_ttl {
+	margin: 2rem 0 2rem 0;
 	text-align: left;
 }
 
 .prdct_prc {
 	text-align: center;
 	.icn {
-		background-color: #00509d;
-		@include brd(1px, 10px 10px 0 0, #00509d);
-		color: white;
+		@include frm_top(#00509d, white);
 		padding: 1rem;
 	}
 	.prdct {
 		height: 100%;
 		min-height: 20em;
-		@include brd(1px, 0, #61a5c2);
-		padding: 1rem;
+		@include brd(1px, 0, #00509d);
 		color: #01497c;
 		.vrsn {
 			padding-top: 1rem;
@@ -72,10 +102,7 @@ $primary: #3c87b3;
 		}
 	}
 	.rnvcn {
-		background-color: #00509d;
-		@include brd(1px, 0 0 10px 10px, #61a5c2);
-		padding: 1rem;
-		color: white;
+		@include frm_bttm(#00509d, white);
 		font-size: 20px;
 		font-weight: bold;
 	}
