@@ -10,6 +10,7 @@ $primary: #3c87b3;
 // @include a_hover($lnk_clr, $hvr_clr);
 @import "bscs";
 
+// FRAMES DE LAS CAJAS DE PRODUCTO
 @mixin frm_gnrl($frm_clr, $clr) {
 	padding: 1rem;
 	background-color: $frm_clr;
@@ -24,6 +25,45 @@ $primary: #3c87b3;
 @mixin frm_bttm($frm_clr, $clr) {
 	@include frm_gnrl($frm_clr, $clr);
 	@include brd(1px, 0 0 10px 10px, $frm_clr);
+}
+
+// AREAS DE TEXT EN PRODUCTO
+
+@mixin prdct_txt_area($pddng_top, $fnt_sz, $fnt_wght) {
+	padding-top: $pddng_top;
+	font-size: $fnt_sz;
+	font-weight: $fnt_wght;
+}
+
+@mixin prdct_gnrl($frm_clr, $fnt_frm_clr, $clr) {
+	text-align: center;
+	.icn {
+		@include frm_top($frm_clr, $fnt_frm_clr);
+	}
+	.prdct {
+		height: 100%;
+		min-height: 18em;
+		@include brd(1px, 0, $frm_clr);
+		color: $clr;
+		.vrsn {
+			@include prdct_txt_area(2rem, 30px, bold);
+		}
+		.vrsn_txt {
+			@include prdct_txt_area(.5rem, 16px, bold);
+			min-height: 3em;
+		}
+		.prc {
+			@include prdct_txt_area(1rem, 40px, bold);
+		}
+		.prc_txt {
+			@include prdct_txt_area(1rem, 14px, normal);
+		}
+	}
+	.rnvcn {
+		@include frm_bttm($frm_clr, $fnt_frm_clr);
+		font-size: 20px;
+		font-weight: bold;
+	}
 }
 
 // GNRL
@@ -69,43 +109,11 @@ $primary: #3c87b3;
 }
 
 .prdct_prc {
-	text-align: center;
-	.icn {
-		@include frm_top(#00509d, white);
-		padding: 1rem;
-	}
-	.prdct {
-		height: 100%;
-		min-height: 20em;
-		@include brd(1px, 0, #00509d);
-		color: #01497c;
-		.vrsn {
-			padding-top: 1rem;
-			font-size: 30px;
-			font-weight: bold;
-		}
-		.vrsn_txt {
-			padding-top: .5rem;
-			min-height: 3em;
-			font-size: 16px;
-			font-weight: bold;
-		}
-		.prc {
-			padding-top: 1rem;
-			font-size: 40px;
-			font-weight: bold;
-		}
-		.prc_txt {
-			padding-top: 1rem;
-			min-height: 5em;
-			font-size: 14px;
-		}
-	}
-	.rnvcn {
-		@include frm_bttm(#00509d, white);
-		font-size: 20px;
-		font-weight: bold;
-	}
+	@include prdct_gnrl(#00509d, white, #01497c);
+}
+
+.prdct_o_prc {
+	@include prdct_gnrl(#1e6091, white, #168aad);
 }
 
 // BNNR
