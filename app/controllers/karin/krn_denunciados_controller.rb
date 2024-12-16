@@ -12,6 +12,8 @@ class Karin::KrnDenunciadosController < ApplicationController
 
   # GET /krn_denunciados/1 or /krn_denunciados/1.json
   def show
+    get_dnnc_jot(@objeto)
+
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
     krn_dnnc_dc_init(@objeto.krn_denuncia)
 

@@ -1,20 +1,24 @@
-<% if ownr.rcp_externa? %>
+<% if @dnnc_jot['rcp_externa'] %>
 	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_rcp_externa', accn: 'Selección'} %>
 <% end %>
-<% if ownr.dt_obligatoria? %>
+<% if @dnnc_jot['dt_obligatoria'] %>
+
 	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_dt_oblgtr', accn: 'Derivación'} %>
-<% elsif ownr.rcp_empresa? or ownr.drvcn_rcbd? %>
+
+<% elsif @dnnc_jot['rcp_externa'] or @dnnc_jot['drvcn_rcbd'] %>
+
 	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_inf_dnncnt', accn: 'Selección'} %>
-	<% if ownr.vlr_drv_inf_dnncnt? %>
+	<% if @dnnc_jot['vlr_drv_inf_dnncnt'] %>
 		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_dnncnt_optn', accn: 'Derivación'} %>
 	<% end %>
-	<% if ownr.vlr_drv_dnncnt_optn? %>
+	<% if @dnnc_jot['vlr_drv_dnncnt_optn'] %>
 		<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_emprs_optn', accn: 'Derivación'} %>
 	<% end %>
+
 <% end %>
 
 <!-- LISTA DE DERIVACIONES -->
-<% unless ownr.no_drvcns? %>
+<% if @dnnc_jot['drvcns_any'] %>
 	<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_derivaciones', ownr: @objeto} %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_derivaciones'} %>
 <% end %>

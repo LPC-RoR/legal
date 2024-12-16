@@ -51,8 +51,16 @@ class KrnDenunciante < ApplicationRecord
 		all.map {|arc| arc.rlzd == true}.exclude?(false)
 	end
 
-	def krn_empresa_externa?
-		self.krn_empresa_externa_id.present?
+	def emprs_extrn_prsnt?
+		self.krn_empresa_externa.present?
+	end
+
+	def dnnc_fech_trmitcn?
+		self.krn_denuncia.fecha_trmtcn.present?
+	end
+
+	def drccn_ntfccn_prsnt?
+		self.direccion_notificacion.present?
 	end
 
 	def css_id

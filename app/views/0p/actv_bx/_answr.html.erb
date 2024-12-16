@@ -15,9 +15,8 @@
 	</div>
 
 	<div class="trsh">
-		<% if objeto.trsh(code.to_sym) and perfil_activo? %>
+		<% if get_cndtn(objeto, code, :trsh) and perfil_activo? %>
 			<%= render partial: '0p/actv_bx/trsh', locals: {objeto: objeto, code: code} %>
-			<%#= render partial: prtl_name(objeto.class.name.tableize, 'code', "trsh"), locals: {objeto: objeto, code: code} %>
 		<% end %>
 	</div>
 </div>

@@ -42,14 +42,6 @@ class KrnDenuncia < ApplicationRecord
 		self.ownr_krn_formato == 'P+'
 	end
 
-	def fecha_legal
-		self.drv_dt? ? self.fecha_hora_dt : self.fecha_hora
-	end
-
-	def fecha_legal?
-		self.fecha_legal.present?
-	end
-
 	def krn_empresa_externa?
 		self.krn_empresa_externa_id.present?
 	end
@@ -76,14 +68,6 @@ class KrnDenuncia < ApplicationRecord
 
 	def lttr_tp
 		self.multiempresa? ? 'M' : (self.externa? ? 'X' : (self.empresa? ? 'E' : '?'))
-	end
-
-	def externa_id
-		self.externa? ? self.emprss_ids[0] : nil
-	end
-
-	def externa
-		self.externa_id.blank? ? nil : KrnEmpresaExterna.find(self.externa_id)
 	end
 
 	# ------------------------------------------------------------------------ RCPS & DRVS
@@ -128,19 +112,7 @@ class KrnDenuncia < ApplicationRecord
 		self.vlr_drv_emprs_optn?
 	end
 
-	def invstgcn_dt?
-		self.rcp_dt? or self.drv_dt?
-	end
 
-	def invstgcn_extrn?
-		self.externa? and (self.rcp_externa? or self.drv_externa?)
-	end
-
-	def sgmnt?
-		self.invstgcn_dt? or self.invstgcn_extrn?
-	end
-
-	# --------------------------------------------------------------------------------------------- MDDS
 	# --------------------------------------------------------------------------------------------- DOCUMENTOS CONTROLADOS
 
 	def dc_denuncia

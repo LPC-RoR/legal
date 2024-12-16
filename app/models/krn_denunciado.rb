@@ -74,6 +74,18 @@ class KrnDenunciado < ApplicationRecord
 		self.empleado_externo ? (self.krn_empresa_externa.present? ? self.krn_empresa_externa.razon_social : 'Pendiente de ingreso') : 'Empleado de la empresa'
 	end
 
+	def emprs_extrn_prsnt?
+		self.krn_empresa_externa.present?
+	end
+
+	def dnnc_fech_trmitcn?
+		self.krn_denuncia.fecha_trmtcn.present?
+	end
+
+	def drccn_ntfccn_prsnt?
+		self.direccion_notificacion.present?
+	end
+
 	def self.doc_cntrlds
 		StModelo.get_model('KrnDenunciado').rep_doc_controlados.ordr
 	end
