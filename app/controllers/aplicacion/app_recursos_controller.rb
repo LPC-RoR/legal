@@ -21,14 +21,9 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-    Causa.all.each do |cs|
-      unless cs.last_adnc.blank?
-        if cs.last_adnc.fecha != cs.fecha_audiencia
-          cs.fecha_audiencia = cs.last_adnc.fecha
-          cs.audiencia = cs.last_adnc.age_actividad
-          cs.save
-        end
-      end
+
+    Variable.all do |vrbl|
+      vrbl.delete if vrbl.ownr.blank?
     end
 
     redirect_to root_path
