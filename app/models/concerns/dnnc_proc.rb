@@ -86,6 +86,10 @@ module DnncProc
 		self.fecha_trmn.present? or (self.on_dt? and self.fecha_trmtcn.present?)
 	end
 
+	def dnncds_any?
+		self.krn_denunciados.any?
+	end
+
 
 	# -----------------------------------------------------------------------------------------------
 
@@ -95,14 +99,6 @@ module DnncProc
 		rprsntnt = self.presentado_por == 'Representante' ? self.representante.present? : true
 		tp = self.via_declaracion == 'Presencial' ? self.tipo_declaracion.present? : true
 		extrn and rprsntnt and tp
-	end
-
-	def dnncnts?
-		self.krn_denunciantes.any?
-	end
-
-	def dnncds?
-		self.krn_denunciados.any?
 	end
 
 	def no_vlnc?

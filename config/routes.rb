@@ -36,7 +36,6 @@ Rails.application.routes.draw do
     match :swtch_pendiente, via: :get, on: :member
     match :swtch_urgencia, via: :get, on: :member
   end
-  resources :app_control_documentos
   resources :juzgados
   resources :reg_reportes do
     match :cambia_estado, via: :get, on: :member

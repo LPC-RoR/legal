@@ -4,8 +4,8 @@
 	<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: @objeto, scndry: nil} if prtl?('ctr_etapas', 'code', 'objeto') %>
 <% end %>
 
-<% if @objeto.fecha_hora_corregida.present? or (@objeto.vlr_dnnc_eval_ok? and @objeto.dnnc_eval_ok?) %>
-	<% if @objeto.dclrcns_ok? %>
+<% if @dnnc_jot['fecha_hora_corregida_prsnt'] or (@dnnc_jot['vlr_dnnc_eval_ok'] and @dnnc_jot['dnnc_eval_ok']) %>
+	<% if @dnnc_jot['dclrcns_ok'] %>
 		<div class="dlg_bsc">
 			Todas las declaraciones marcadas como realizadas.
 		</div>
@@ -16,22 +16,22 @@
 	<% end %>
 <% end %>
 <!-- INGRESO BÁSICO COMPLETO -->
-<% if @objeto.ingrs_dnnc_bsc? %>
+<% if @dnnc_jot['ingrs_dnnc_bsc'] %>
 	<hr>
 	<div class="objt">
 		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_denunciantes', ownr: @objeto} %>
 
-		<% if @objeto.ingrs_dnnc_bsc? and ( not @objeto.dnncnts?) %>
+		<% if @dnnc_jot['ingrs_dnnc_bsc'] and ( not @dnnc_jot['dnncnts_any']) %>
 			<div class="dlg_bsc">
 				Információn básica de la denuncia completa. Debe ingresar al menos una persona denunciante.
 			</div>
 		<% end %>
-		<% if @objeto.dnncnts? and (not @objeto.dnncnts_rgstrs_ok?) %>
+		<% if @dnnc_jot['dnncnts_any'] and (not @dnnc_jot['dnncnts_rgstrs_ok']) %>
 			<div class="dlg_bsc">
 				Información de personas denunciantes no cumple con el estándar mínimo de ingreso. Se debe completar la información.
 			</div>
 		<% end %>
-		<% unless @objeto.diat_diep_ok? %>
+		<% unless @dnnc_jot['diat_diep_ok'] %>
 			<div class="dlg_bsc">
 				Falta evidencia de Atención psicológica temprana obligatoria. Subir evidencia.
 			</div>
@@ -41,17 +41,17 @@
 	</div>
 <% end %>
 <!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
-<% if @objeto.dnncnts? and @objeto.no_vlnc? %>
+<% if @dnnc_jot['dnncnts_any'] and @dnnc_jot['no_vlnc'] %>
 	<hr>
 	<div class="objt">
 		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_denunciados', ownr: @objeto} %>
 
-		<% if @objeto.ingrs_dnnc_bsc? and (not @objeto.dnncds?) and @objeto.dnncnts? %>
+		<% if @dnnc_jot['ingrs_dnnc_bsc'] and (not @dnnc_jot['dnncds_any']) and @dnnc_jot['dnncnts_any'] %>
 			<div class="dlg_bsc">
 				Debe ingresar al menos una persona denunciada. Debe terminar de ingresar las personas denunciantes antes de ingresar la primera persona denunciada.
 			</div>
 		<% end %>
-		<% if @objeto.dnncds? and (not @objeto.dnncds_rgstrs_ok?) %>
+		<% if @dnnc_jot['dnncds_any'] and (not @dnnc_jot['dnncds_rgstrs_ok']) %>
 			<div class="dlg_bsc">
 				Información de personas denunciadas no cumple con el estándar mínimo de ingreso (sólo con estándar de recepción). Se debe solicitar informacion a RRHH y completar el registro.
 			</div>

@@ -48,6 +48,12 @@ class Causa < ApplicationRecord
 
     delegate :tar_pagos, to: :tar_tarifa, prefix: true
 
+    # Manejo de Fecha Audiencia
+
+    def last_adnc
+    	self.age_actividades.adncs.fecha_ordr.last
+    end
+
     # ---------------------------------------------------------------- MGRTN
 
     def no_fctrds?

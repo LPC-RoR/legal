@@ -33,7 +33,6 @@ module CptnProcsHelper
 			# Si hay denunciantes, aparece uno para cada denunciante
 			dnncnt_diat_diep: (ownr.class.name == 'KrnDenunciante'),	
 			# Ingreso terminó y denuncia no fue recibida en la DT		
-#			dnnc_drvcn: (dnnc.ingrs_dnnc_bsc? and dnnc.ingrs_nts_ds? and (not dnnc.rcp_dt?)),				
 			dnnc_drvcn: (@dnnc_jot['ingrs_dnnc_bsc'] and @dnnc_jot['ingrs_nts_ds'] and (not dnnc.rcp_dt?)),				
 			# Sin derivaciones o única recepción | investigacion por la empresa | invetigacion por empresa externa
 			dnnc_mdds: ((( not @dnnc_jot['drvcns_any']) and (not dnnc.rcp_externa?)) or (@dnnc_jot['on_empresa'] and @dnnc_jot['vlr_drv_dnncnt_optn'] ) or (@dnnc_jot['on_externa'] and @dnnc_jot['vlr_sgmnt_emprs_extrn'] ) or @dnnc_jot['drv_dt'] ),

@@ -21,7 +21,7 @@ module Dnnc
 
 
 	def prtcpnts?
-		self.no_vlnc? ? (self.dnncnts? and self.dnncds?) : self.dnncnts?
+		self.no_vlnc? ? (self.dnncnts_any? and self.dnncds_any?) : self.dnncnts_any?
 	end
 
 	# ------------------------------------------------------------------------ DRVCNS

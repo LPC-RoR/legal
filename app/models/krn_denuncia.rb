@@ -42,10 +42,6 @@ class KrnDenuncia < ApplicationRecord
 		self.ownr_krn_formato == 'P+'
 	end
 
-	def krn_empresa_externa?
-		self.krn_empresa_externa_id.present?
-	end
-
 	# ------------------------------------------------------------------------ COMPETENCIA DE INVESTIGAR
 
 	def emprss_ids

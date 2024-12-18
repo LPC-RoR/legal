@@ -87,6 +87,11 @@ module Karin
       'fecha_env_infrm_prsnt',    # Fecha envío informe
       'fecha_prnncmnt_prsnt',     # Fecha pronunciamiento presente
       'fecha_prcsd_prsnt',        # Fecha ...
+      'dnncnts_rgstrs_ok',        # Registros de denunciantes OK
+      'diat_diep_ok',             # DIAT/DIEP subido
+      'no_vlnc',                  # Denuncia no es de violencia
+      'dnncds_any',               # Algún denunciado
+      'dnncds_rgstrs_ok',         # Denunciantes registros OK                   
     ]
   end
 

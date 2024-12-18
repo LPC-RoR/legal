@@ -159,7 +159,7 @@ module CptnMenuLeftHelper
 	end
 
 	def ctas_cntrllrs?
-		!!(controller_name =~ /^krn_[a-z_]*$/)  or ( ['cuentas', 'app_nominas'].include?(controller_name))
+		!!(controller_name =~ /^krn_[a-z_]*$/)  or ( ['cuentas'].include?(controller_name))
 	end
 
 	def lm_sym

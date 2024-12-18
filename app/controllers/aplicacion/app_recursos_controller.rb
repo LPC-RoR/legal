@@ -21,55 +21,14 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
-    i= 1
-
-#    TarFacturacion.all.each do |tf|
-#      tf.ownr_type = tf.owner_class
-#      tf.ownr_id = tf.owner_id
-#      tf.save
-#      i += 1
-#    end
-
-#    TarValorCuantia.all.each do |tvc|
-#      tvc.ownr_type = tvc.owner_class
-#      tvc.ownr_id = tvc.owner_id
-#      tvc.save
-#      i += 1
-#    end
-
-#    TarCalculo.all.each do |tc|
-#      puts "_______________________________________________________________________"
-#      tc.cliente_id = tc.clnt_id
-#      tc.ownr_type = tc.ownr_clss
-#      tc.save
-#    end
-
-#    TarFacturacion.all.each do |tf|
-#      if tf.ownr_type == 'Causa' and tf.tar_pago_id.blank? and tar_cuota_id.present?
-#        tf.tar_pago_id = tf.tar_cuota.tar_pago.id
-#        tf.save
-#      end
-#    end
-
-#    Borré los campos antes de  migrar los enlaces
-#    TarUfFacturacion.delete_all
-
-    KrnEmpresaExterna.all.each do |ee|
-      ee.ownr_type = ee.cliente_id.present? ? 'Cliente' : 'Empresa'
-      ee.ownr_id = ee.cliente_id.present? ? ee.cliente_id : ee.empresa_id
-      ee.save
-    end
-
-    KrnTipoMedida.all.each do |tm|
-      tm.ownr_type = tm.cliente_id.present? ? 'Cliente' : 'Empresa'
-      tm.ownr_id = tm.cliente_id.present? ? tm.cliente_id : tm.empresa_id
-      tm.save
-    end
-
-    KrnInvestigador.all.each do |inv|
-      inv.ownr_type = inv.cliente_id.present? ? 'Cliente' : 'Empresa'
-      inv.ownr_id = inv.cliente_id.present? ? inv.cliente_id : inv.empresa_id
-      inv.save
+    Causa.all.each do |cs|
+      unless cs.last_adnc.blank?
+        if cs.last_adnc.fecha != cs.fecha_audiencia
+          cs.fecha_audiencia = cs.last_adnc.fecha
+          cs.audiencia = cs.last_adnc.age_actividad
+          cs.save
+        end
+      end
     end
 
     redirect_to root_path

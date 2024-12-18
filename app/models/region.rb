@@ -26,7 +26,7 @@ class Region < ApplicationRecord
 	end
 
 	def redireccion
-		"/tablas?tb=1"
+		"/tablas/uf_regiones"
 	end
 
 	# -----------------------------------------------

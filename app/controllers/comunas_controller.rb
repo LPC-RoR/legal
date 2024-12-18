@@ -26,7 +26,7 @@ class ComunasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Comuna was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Comuna fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class ComunasController < ApplicationController
     respond_to do |format|
       if @objeto.update(comuna_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Comuna was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Comuna fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class ComunasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Comuna was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Comuna fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end

@@ -3,6 +3,7 @@ class Actividades::AgeActividadesController < ApplicationController
   before_action :scrty_on
   before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante realizada_pendiente cambia_prioridad cambia_estado cambia_privada cambio_fecha sspndr]
   after_action :elimina_fecha_audiencia, only: :destroy
+  after_action :set_fecha_audiencia, only: %i[ create update ]
 
   # GET /age_actividades or /age_actividades.json
   def index
@@ -177,9 +178,8 @@ class Actividades::AgeActividadesController < ApplicationController
         @objeto.estado = 'pendiente' if @objeto.estado == 'suspendida'
         @objeto.save
 
-        causa = Causa.find(@objeto.ownr_id)
-        causa.fecha_audiencia = @objeto.fecha
-        causa.save
+        set_fecha_audiencia
+
       end
     end
 
@@ -212,22 +212,34 @@ class Actividades::AgeActividadesController < ApplicationController
 
   private
 
+    # Métodos para mantener campo fecha_audiencia que determina el orden
     def elimina_fecha_audiencia
       if @objeto.tipo == 'Audiencia'
-        causa = Causa.find(@objeto.ownr_id)
-        unless causa.blank?
-          ultimo = causa.age_actividades.where(tipo: 'Audiencia').last
+        ownr = @objeto.ownr
+        unless ownr.blank?
+          ultimo = ownr.age_actividades.udncs.fecha_ordr.last
           if ultimo.blank?
-            causa.fecha_audiencia = nil
-            causa.audiencia = nil
+            ownr.fecha_audiencia = nil
+            ownr.audiencia = nil
           else
-            causa.fecha_audiencia = @objeto.fecha
-            causa.audiencia = @objeto.age_actividad
+            ownr.fecha_audiencia = ultimo.fecha
+            ownr.audiencia = ultimo.age_actividad
           end
-          causa.save
+          ownr.save
         end
       end
     end
+
+    def set_fecha_audiencia
+      if @objeto.tipo == 'Audiencia'
+        ownr = @objeto.ownr
+        ownr.fecha_audiencia = @objeto.fecha
+        ownr.audiencia = @objeto.age_actividad
+        ownr.save
+      end
+    end
+
+    # ---------------------------------------------------------------------
 
     # Use callbacks to share common setup or constraints between actions.
     def set_age_actividad
