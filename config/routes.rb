@@ -174,8 +174,6 @@ Rails.application.routes.draw do
   end
 
   scope module: 'hm' do
-    resources :h_textos
-    resources :h_preguntas
     resources :hm_paginas
     resources :hm_parrafos
     resources :hm_links
@@ -382,15 +380,6 @@ Rails.application.routes.draw do
     resources :org_sucursales
   end
   
-  scope module: 'home' do
-    resources :h_imagenes
-    resources :h_links
-    resources :h_temas
-  end
-  
-  scope module: 'help' do
-  end
-
   scope module: 'st_estados' do
     resources :st_estados do
       match :arriba, via: :get, on: :member
@@ -527,12 +516,6 @@ Rails.application.routes.draw do
 
     # tabla de relación para resolver pagos
     resources :m_reg_facts
-  end
-
-  scope module: 'blog' do
-    resources :blg_articulos
-    resources :blg_temas
-    resources :blg_imagenes
   end
 
   scope module: 'dt' do

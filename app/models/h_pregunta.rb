@@ -1,2 +1,0 @@
-class HPregunta < ApplicationRecord
-end

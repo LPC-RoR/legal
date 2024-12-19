@@ -4,8 +4,6 @@ class AppPerfil < ApplicationRecord
 
 	has_many :app_mensajes
 
-	has_many :blg_articulos
-
 	# Aplicacion
 	# Si cfg_defaults[:activa_tipos_usuario] = true
 	has_one :age_usuario

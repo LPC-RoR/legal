@@ -18,15 +18,6 @@ module CptnHelper
 		no_foot_controllers.include?(controller_name)
 	end
 
-	def img_banner
-		h_imagen = HImagen.find_by(nombre: 'Banner')
-		unless h_imagen.blank?
-			h_imagen.imagenes.empty? ? nil : h_imagen.imagenes.order(created_at: :desc).first.imagen.over.url
-		else
-			nil
-		end
-	end
-
 # ******************************************************************** CONSTANTES 
 
 	#Cambiar paulatinamente por cfg_color
@@ -112,22 +103,6 @@ module CptnHelper
 
 	def s_rut(rut)
 		rut.blank? ? '##.###.###-#' : rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
-	end
-# ******************************************************************** HOME
-
-	def img_portada
-		h_imagen = HImagen.find_by(nombre: 'Portada')
-		h_imagen.blank? ? nil : (h_imagen.imagenes.empty? ? nil : h_imagen.imagenes.order(created_at: :desc).first)
-	end
-
-	def img_foot
-		h_imagen = HImagen.find_by(nombre: 'Foot')
-		h_imagen.blank? ? nil : (h_imagen.imagenes.empty? ? nil : h_imagen.imagenes.order(created_at: :desc).first)
-	end
-
-	def foot?
-		h_imagen = HImagen.find_by(nombre: 'Foot')
-		h_imagen.blank? ? false : (h_imagen.imagenes.empty? ? false : h_imagen.imagenes.first.present?)
 	end
 
 end

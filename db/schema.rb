@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_03_211743) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_19_003722) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -404,43 +404,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211743) do
     t.index ["aut_tipo_usuario"], name: "index_aut_tipo_usuarios_on_aut_tipo_usuario"
   end
 
-  create_table "blg_articulos", force: :cascade do |t|
-    t.string "blg_articulo"
-    t.integer "app_perfil_id"
-    t.integer "blg_tema_id"
-    t.string "estado"
-    t.text "articulo"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "imagen"
-    t.text "descripcion"
-    t.string "autor"
-    t.index ["app_perfil_id"], name: "index_blg_articulos_on_app_perfil_id"
-    t.index ["blg_tema_id"], name: "index_blg_articulos_on_blg_tema_id"
-    t.index ["estado"], name: "index_blg_articulos_on_estado"
-  end
-
-  create_table "blg_imagenes", force: :cascade do |t|
-    t.string "blg_imagen"
-    t.string "imagen"
-    t.string "blg_credito"
-    t.string "ownr_class"
-    t.integer "ownr_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["blg_imagen"], name: "index_blg_imagenes_on_blg_imagen"
-    t.index ["ownr_class"], name: "index_blg_imagenes_on_ownr_class"
-    t.index ["ownr_id"], name: "index_blg_imagenes_on_ownr_id"
-  end
-
-  create_table "blg_temas", force: :cascade do |t|
-    t.string "blg_tema"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "imagen"
-    t.text "descripcion"
-  end
-
   create_table "cal_feriados", force: :cascade do |t|
     t.datetime "cal_fecha", precision: nil
     t.string "descripcion"
@@ -792,52 +755,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211743) do
     t.index ["fecha"], name: "index_estados_on_fecha"
   end
 
-  create_table "h_imagenes", force: :cascade do |t|
-    t.string "nombre"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["nombre"], name: "index_h_imagenes_on_nombre"
-  end
-
-  create_table "h_links", force: :cascade do |t|
-    t.string "texto"
-    t.string "link"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
-  create_table "h_preguntas", force: :cascade do |t|
-    t.string "codigo"
-    t.string "h_pregunta"
-    t.text "respuesta"
-    t.string "lnk_txt"
-    t.string "lnk"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["codigo"], name: "index_h_preguntas_on_codigo"
-  end
-
-  create_table "h_temas", force: :cascade do |t|
-    t.string "tema"
-    t.string "detalle"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["tema"], name: "index_h_temas_on_tema"
-  end
-
-  create_table "h_textos", force: :cascade do |t|
-    t.string "codigo"
-    t.string "h_texto"
-    t.text "texto"
-    t.string "imagen"
-    t.string "img_sz"
-    t.string "lnk_txt"
-    t.string "lnk"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["codigo"], name: "index_h_textos_on_codigo"
-  end
-
   create_table "hecho_archivos", force: :cascade do |t|
     t.integer "hecho_id"
     t.integer "app_archivo_id"
@@ -904,51 +821,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_211743) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["clave"], name: "index_hlp_tutoriales_on_clave"
-  end
-
-  create_table "hm_links", force: :cascade do |t|
-    t.integer "orden"
-    t.integer "hm_parrafo_id"
-    t.string "hm_link"
-    t.string "texto"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["hm_parrafo_id"], name: "index_hm_links_on_hm_parrafo_id"
-    t.index ["orden"], name: "index_hm_links_on_orden"
-  end
-
-  create_table "hm_notas", force: :cascade do |t|
-    t.integer "hm_parrafo_id"
-    t.integer "orden"
-    t.string "hm_nota"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["hm_parrafo_id"], name: "index_hm_notas_on_hm_parrafo_id"
-    t.index ["orden"], name: "index_hm_notas_on_orden"
-  end
-
-  create_table "hm_paginas", force: :cascade do |t|
-    t.string "codigo"
-    t.string "hm_pagina"
-    t.string "tooltip"
-    t.boolean "menu_lft"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["codigo"], name: "index_hm_paginas_on_codigo"
-  end
-
-  create_table "hm_parrafos", force: :cascade do |t|
-    t.integer "hm_pagina_id"
-    t.integer "orden"
-    t.text "hm_parrafo"
-    t.string "tipo"
-    t.string "imagen"
-    t.string "img_lyt"
-    t.boolean "menu_lft"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["hm_pagina_id"], name: "index_hm_parrafos_on_hm_pagina_id"
-    t.index ["orden"], name: "index_hm_parrafos_on_orden"
   end
 
   create_table "juzgados", force: :cascade do |t|

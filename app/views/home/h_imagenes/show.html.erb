@@ -1,5 +1,0 @@
-<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: h_imagenes_path } %>
-
-<% @objeto.imagenes.order(created_at: :desc).each do |imagen| %>
-	<%= render partial: prtl_name('app_imagenes', 'list', 'objeto'), locals: {objeto: imagen} %>
-<% end %>

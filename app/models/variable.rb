@@ -6,13 +6,6 @@ class Variable < ApplicationRecord
 
  	belongs_to :ownr, polymorphic: true
 
-# DEPRECATED
-#	has_many :var_tp_causas
-#	has_many :tipo_causas, through: :var_tp_causas
-
-#	has_many :var_clis
-#	has_many :clientes, through: :var_clis
-
 	has_many :valores
 
 	scope :ordr, -> {order(:orden)}

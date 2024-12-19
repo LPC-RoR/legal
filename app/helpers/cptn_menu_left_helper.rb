@@ -97,11 +97,6 @@ module CptnMenuLeftHelper
 					items: [
 						'AppNomina',
 						'Producto',
-						'HmPagina',
-						'BlgArticulo',
-						'HPregunta',
-						'HTexto',
-						'HImagen',
 						'StModelo',
 						'Variable'
 					]
