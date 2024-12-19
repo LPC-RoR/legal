@@ -24,7 +24,7 @@
 		<% end %>
 
 		<div class="formCell">
-			<%= form.submit "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{m_to_name(@objeto.class.name)}" %>
+			<%= form.submit "#{ action_name == 'new' ? (@objeto.class.name == 'RepArchivo' ? 'Subir' : 'Crear') : 'Modificar'} #{m_to_name(@objeto.class.name)}" %>
 		</div>
 	<% end %>
 </div>

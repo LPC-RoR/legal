@@ -17,23 +17,13 @@
 <% end %>
 <!-- INGRESO BÁSICO COMPLETO -->
 <% if @dnnc_jot['ingrs_dnnc_bsc'] %>
-	<hr>
 	<div class="objt">
 		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_denunciantes', ownr: @objeto} %>
 
 		<% if @dnnc_jot['ingrs_dnnc_bsc'] and ( not @dnnc_jot['dnncnts_any']) %>
 			<div class="dlg_bsc">
-				Információn básica de la denuncia completa. Debe ingresar al menos una persona denunciante.
-			</div>
-		<% end %>
-		<% if @dnnc_jot['dnncnts_any'] and (not @dnnc_jot['dnncnts_rgstrs_ok']) %>
-			<div class="dlg_bsc">
-				Información de personas denunciantes no cumple con el estándar mínimo de ingreso. Se debe completar la información.
-			</div>
-		<% end %>
-		<% unless @dnnc_jot['diat_diep_ok'] %>
-			<div class="dlg_bsc">
-				Falta evidencia de Atención psicológica temprana obligatoria. Subir evidencia.
+				<i class="bi bi-lightbulb"></i> 
+				Információn básica de la denuncia completa. Debe ingresar información de la(s) persona(s) denunciante(s).
 			</div>
 		<% end %>
 
@@ -41,26 +31,26 @@
 	</div>
 <% end %>
 <!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
-<% if @dnnc_jot['dnncnts_any'] and @dnnc_jot['no_vlnc'] %>
-	<hr>
-	<div class="objt">
-		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_denunciados', ownr: @objeto} %>
+<% if @dnnc_jot['no_vlnc'] %>
+	<% if @dnnc_jot['dnncnts_any'] %>
+		<div class="objt">
+			<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_denunciados', ownr: @objeto} %>
 
-		<% if @dnnc_jot['ingrs_dnnc_bsc'] and (not @dnnc_jot['dnncds_any']) and @dnnc_jot['dnncnts_any'] %>
-			<div class="dlg_bsc">
-				Debe ingresar al menos una persona denunciada. Debe terminar de ingresar las personas denunciantes antes de ingresar la primera persona denunciada.
-			</div>
-		<% end %>
-		<% if @dnnc_jot['dnncds_any'] and (not @dnnc_jot['dnncds_rgstrs_ok']) %>
-			<div class="dlg_bsc">
-				Información de personas denunciadas no cumple con el estándar mínimo de ingreso (sólo con estándar de recepción). Se debe solicitar informacion a RRHH y completar el registro.
-			</div>
-		<% end %>
+			<% if @dnnc_jot['ingrs_dnnc_bsc'] and (not @dnnc_jot['dnncds_any']) and @dnnc_jot['dnncnts_any'] %>
+				<div class="dlg_bsc">
+					<i class="bi bi-lightbulb"></i> 
+					Debe ternminar de ingresar la(s) persona(s) denunciante(s) anter de ingresar persona(s) denunciante(s).</br>
+					<i class="bi bi-lightbulb"></i> 
+					Debe ingresar al menos una persona denunciada.
+				</div>
+			<% end %>
 
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>
-	</div>
-<% else %>	
+			<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denunciados'} %>
+		</div>
+	<% end %>
+<% else %>
 	<div class="dlg_bsc">
+		<i class="bi bi-lightbulb"></i> 
 		Denuncia de violencia en el trabajo ejercida por terceros. Las personas denunciadas (si las hay) se detallan en las declaraciones.
 	</div>
 <% end %>

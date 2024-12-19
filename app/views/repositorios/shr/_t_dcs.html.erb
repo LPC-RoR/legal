@@ -1,5 +1,4 @@
 <% unless objeto.rep_doc_controlados.empty? %>
-	<%#= render partial: '0p/actv_bx/ttl', locals: {gly: 'files', ttl: 'Archivo(s) controlado(s)'} %>
 
 	<% objeto.rep_doc_controlados.ordr.each do |dc| %>
 		<% if dc.multiple == true %>
@@ -8,4 +7,5 @@
 			<%= render partial: "repositorios/shr/dc_fl", locals: {cntrl: @krn_cntrl[dc.codigo], ownr: ownr, fl: ownr.rep_archivos.find_by(rep_doc_controlado_id: dc.id), dc: dc} %>
 		<% end %>
 	<% end %>
+
 <% end %>

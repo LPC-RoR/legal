@@ -22,10 +22,6 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    Variable.all do |vrbl|
-      vrbl.delete if vrbl.ownr.blank?
-    end
-
     redirect_to root_path
   end
 

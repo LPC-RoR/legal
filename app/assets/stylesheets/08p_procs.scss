@@ -221,9 +221,9 @@ $clr_bg_red: #fae0e4;
 
 .dlg_bsc {
 	margin: 2px;
-	padding: 1rem;
-	@include brd_ln(1px, solid, $p_blue, 3px);
-	color: $blue_cnv;
+	padding: .5rem 1rem;
+	@include brd_ln(1px, solid, red, 10px);
+	color: red;
 }
 
 
@@ -241,7 +241,7 @@ $clr_bg_red: #fae0e4;
 
 // FORMS
 .prc_frm {
-	@include procs_area_bsc($pltt_9, $blue_cnv);
+	@include procs_area_bsc($pltt_9, $p_blue);
 	.p_prmpt {
 
 	}
@@ -267,7 +267,7 @@ $clr_bg_red: #fae0e4;
 }
 
 .no_dc_fl {
-	@include elmnt_bsc($clr_bg_red, $red_1);
+	@include elmnt_bsc(#d8e2dc, red);
 	@include a_hover(red, $red_3);
 	@include trsh_ln;
 }
@@ -285,7 +285,7 @@ $clr_bg_red: #fae0e4;
 }
 
 .no_dc_fl_lst {
-	@include lst_bsc($clr_bg_red, $red_1);
+	@include lst_bsc(#d8e2dc, red);
    	@include a_hover(red, $red_3);
 }
 

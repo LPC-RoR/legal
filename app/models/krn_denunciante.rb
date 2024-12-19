@@ -109,9 +109,9 @@ class KrnDenunciante < ApplicationRecord
 
 	# --------------------------------------------------------------- METHODS
 	def rgstr_ok?
-		empldr = self.empleado_externo ? self.krn_empresa_externa? : true
-		art_516 = self.articulo_516 ? self.direccion_notificacion.present? : true
-		empldr and art_516
+		empldr = self.empleado_externo ? self.emprs_extrn_prsnt? : true
+		ntfccn = self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
+		empldr and ntfccn
 	end
 
 end

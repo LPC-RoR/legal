@@ -2,13 +2,7 @@
 
   <%= render partial: '0p/tabla/paginate', locals: {c: c, location: 'arriba'} %>
 
-  <%# if objt_prtl(c) == 'lobjeto' %>
-    <!--div class="tbl_bx">
-      <%#= render partial: "0p/tabla/list", locals: {c: c, clccn: @coleccion[c]} %>
-    </div-->
-  <%# else %>
-    <%= render partial: "0p/tabla/list", locals: {c: c, clccn: @coleccion[c]} %>
-  <%# end %>
+  <%= render partial: "0p/tabla/list", locals: {c: c, clccn: @coleccion[c]} %>
 
   <%= render partial: '0p/tabla/paginate', locals: {c: c, location: 'abajo'} if @coleccion[c].count > 15 %>
 
