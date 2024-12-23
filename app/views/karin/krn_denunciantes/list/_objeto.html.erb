@@ -1,4 +1,5 @@
 <%= render partial: '0p/general/head_objt', locals: {clss: 'prtcpnts_objt' ,objeto: objeto, ownr: @objeto} %>
+
 <% unless objeto.diat_diep? %>
 	<div class="dlg_bsc">
 		<i class="bi bi-bug"></i>
@@ -9,14 +10,14 @@
 <% if objeto.empleado_externo and (not objeto.emprs_extrn_prsnt?) %>
 	<div class="dlg_bsc">
 		<i class="bi bi-bug"></i>
-		Empleado externo, se debe ingresar su empleador.
+		La persona denunciante depende de otro empleador, el que debe ser identificado.
 	</div>
 <% end %>
 
 <% if objeto.articulo_516 and (not objeto.direccion_notificacion.present?) %>
 	<div class="dlg_bsc">
 		<i class="bi bi-bug"></i>
-		Empleado no tiene acceso a correo electrónico, se debe ingresar su dirección de notificación.
+		La persona denunciante no tiene acceso a correo electrónico, se debe registrar su dirección de notificación.
 	</div>
 <% end %>
 

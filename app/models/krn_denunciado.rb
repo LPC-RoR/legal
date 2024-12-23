@@ -107,4 +107,18 @@ class KrnDenunciado < ApplicationRecord
 		self.rut.present? and empldr and ntfccn
 	end
 
+	# --------------------------------------------------------------- VLRS
+
+	def on_empresa?
+		self.krn_denuncia.on_empresa?
+	end
+
+	def vlr_dnnc_eval_ok?
+		self.krn_denuncia.vlr_dnnc_eval_ok?
+	end	
+
+	def dnnc_eval_ok?
+		self.krn_denuncia.dnnc_eval_ok?
+	end
+
 end

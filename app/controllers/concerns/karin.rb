@@ -22,8 +22,8 @@ module Karin
       'antcdnts_objcn' => dnnc.dnnc_objcn_invstgdr?,
       'rslcn_objcn' => dnnc.dnnc_objcn_invstgdr?,
 
-      'dnnc_evlcn' => (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok? == true),
-      'dnnc_corrgd' => (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok? == true),            # Denuncia corregida
+      'dnnc_evlcn' => (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok? == false),
+      'dnnc_corrgd' => (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok? == false),            # Denuncia corregida
 
       'prtcpnts_dclrcn' => true,                                        # Declaración
       'prtcpnts_antcdnts' => true,                                      # Antecedentes
@@ -91,13 +91,18 @@ module Karin
       'diat_diep_ok',             # DIAT/DIEP subido
       'no_vlnc',                  # Denuncia no es de violencia
       'dnncds_any',               # Algún denunciado
-      'dnncds_rgstrs_ok',         # Denunciantes registros OK                   
+      'dnncds_rgstrs_ok',         # Denunciantes registros OK 
+      'vlr_drv_emprs_optn',
     ]
   end
 
   def prtcpnts_cds
     [
       'emprs_extrn_prsnt',        # Empresa externa presente
+      'drccn_ntfccn_prsnt',       # Dirección de notificación presente
+      'vlr_dnnc_eval_ok',
+      'dnnc_eval_ok',
+      'on_empresa'
     ]
   end
 

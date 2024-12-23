@@ -66,6 +66,11 @@ class KrnDenuncia < ApplicationRecord
 		self.multiempresa? ? 'M' : (self.externa? ? 'X' : (self.empresa? ? 'E' : '?'))
 	end
 
+	def externa
+		ids = self.emprss_ids
+		self.externa? ? KrnEmpresaExterna.find(ids[0]) : nil
+	end
+
 	# ------------------------------------------------------------------------ RCPS & DRVS
 
 	def rcp_dt?

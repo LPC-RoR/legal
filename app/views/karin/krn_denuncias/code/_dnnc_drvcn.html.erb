@@ -5,7 +5,8 @@
 
 	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_dt_oblgtr', accn: 'Derivación'} %>
 
-<% elsif @dnnc_jot['rcp_externa'] or @dnnc_jot['drvcn_rcbd'] %>
+<!-- Protocolo de preferncias de entidad investigadora -->
+<% elsif ((@dnnc_jot['on_empresa'] or @dnnc_jot['empresa']) and (not @dnnc_jot['on_dt'])) %>
 
 	<%= render partial: '0p/actv_bx/q_and_a', locals: {objeto: ownr, code: 'drv_inf_dnncnt', accn: 'Selección'} %>
 	<% if @dnnc_jot['vlr_drv_inf_dnncnt'] %>

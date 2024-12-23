@@ -13,7 +13,7 @@ module CptnProcsHelper
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
 		dnnc = dnnc_ownr(ownr)
 		{
-			etp_rcpcn: ['KrnDenuncia', 'KrnDenunciante'].include?(ownr.class.name),
+			etp_rcpcn: ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado'].include?(ownr.class.name),
 			etp_invstgcn: (dnnc.fecha_ntfccn.present? and @dnnc_jot['on_empresa']),
 			etp_envio: @dnnc_jot['envio_ok'],
 			etp_prnncmnt: (dnnc.fecha_env_infrm.present? and (not @dnnc_jot['on_dt'])),
@@ -34,13 +34,14 @@ module CptnProcsHelper
 			dnncnt_diat_diep: (ownr.class.name == 'KrnDenunciante'),	
 			# Ingreso terminó y denuncia no fue recibida en la DT		
 			dnnc_drvcn: (@dnnc_jot['ingrs_dnnc_bsc'] and @dnnc_jot['ingrs_nts_ds'] and (not dnnc.rcp_dt?)),				
-			# Sin derivaciones o única recepción | investigacion por la empresa | invetigacion por empresa externa
-			dnnc_mdds: ((( not @dnnc_jot['drvcns_any']) and (not dnnc.rcp_externa?)) or (@dnnc_jot['on_empresa'] and @dnnc_jot['vlr_drv_dnncnt_optn'] ) or (@dnnc_jot['on_externa'] and @dnnc_jot['vlr_sgmnt_emprs_extrn'] ) or @dnnc_jot['drv_dt'] ),
+			# Sin derivaciones o única recepción | investigacion por la empresa | investigacion por empresa externa
+#			dnnc_mdds: (((not @dnnc_jot['drvcns_any']) and (not dnnc.rcp_externa?)) or (@dnnc_jot['on_empresa'] and @dnnc_jot['vlr_drv_dnncnt_optn'] ) or (@dnnc_jot['on_externa'] and @dnnc_jot['vlr_sgmnt_emprs_extrn'] ) or @dnnc_jot['drv_dt'] ),
+			dnnc_mdds: (@dnnc_jot['on_dt'] or @dnnc_jot['vlr_drv_dnncnt_optn']),
 			# Registos de "principales" completo
 			dnnc_prmr_plz: (@dnnc_jot['ingrs_fls_ok'] and @dnnc_jot['prtcpnts_ok']),
 			# INVSTGCN
 			dnnc_invstgdr: (dnnc.fecha_trmtcn.present?),
-			dnnc_evlcn:  (controller_name == 'KrnDenuncia' and @dnnc_jot['invstgdr_ok'] ),
+			dnnc_evlcn:  (controller_name == 'krn_denuncias' and @dnnc_jot['invstgdr_ok'] ),
 			dnnc_agndmnt: ((dnnc.fecha_hora_corregida.present? or (@dnnc_jot['vlr_dnnc_eval_ok'] and @dnnc_jot['dnnc_eval_ok'])) and controller_name != 'krn_denuncias'),
 			dnnc_dclrcn: (@dnnc_jot['dclrcns_any'] and controller_name != 'krn_denuncias'),
 			dnnc_rdccn_infrm: @dnnc_jot['dclrcns_ok'], 
@@ -99,7 +100,7 @@ module CptnProcsHelper
 					trsh: (not (@dnnc_jot['vlr_drv_emprs_optn']))
 				},
 				drv_emprs_optn: {
-					cndtn: (@dnnc_jot['drv_emprs_optn'] or @dnnc_jot['on_dt']),
+					cndtn: (@dnnc_jot['vlr_drv_emprs_optn'] or @dnnc_jot['on_dt']),
 					trsh: (not (@dnnc_jot['fecha_trmtcn_prsnt'] or @dnnc_jot['fl_mdds_rsgrd']))
 				},
 				drv_fecha_dt: {

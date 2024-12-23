@@ -5,7 +5,7 @@
 </br>
 <i class="bi bi-dot"></i>
 <% if objeto.externa? %>
-	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_derivaciones/new#{ownr_prms(objeto)}&t=d_optn&eid=#{objeto.externa_id}", tltp: nil} do %>
+	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/krn_derivaciones/new#{ownr_prms(objeto)}&t=d_optn&eid=#{objeto.externa.id}", tltp: nil} do %>
 		<%= objeto.externa.razon_social %>
 	<% end %>
 <% else %>

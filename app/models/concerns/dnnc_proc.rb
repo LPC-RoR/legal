@@ -130,11 +130,11 @@ module DnncProc
 	end
 
 	def invstgdr_ok?
-		(self.vlr_dnnc_objcn_invstgdr? and self.dnnc_objcn_invstgdr?) ? self.krn_investigadores.second.present? : self.krn_investigadores.first.present?
+		(self.vlr_dnnc_objcn_invstgdr? and self.dnnc_objcn_invstgdr? == true) ? self.krn_investigadores.second.present? : self.krn_investigadores.first.present?
 	end
 
 	def dclrcns_ok?
-		self.krn_declaraciones.map {|dclrcn| dclrcn.rlzd == true}.exclude?(false)
+		self.krn_declaraciones.any? and self.krn_declaraciones.map {|dclrcn| dclrcn.rlzd == true}.exclude?(false)
 	end
 
 
