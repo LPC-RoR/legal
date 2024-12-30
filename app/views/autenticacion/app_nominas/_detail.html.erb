@@ -1,12 +1,14 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :nombre, label: 'Nombre Usuario Nómina', token: :nombre } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :nombre } %>
+<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :nombre, label: 'Nombre Usuario Nómina' } %>
 <div class="row">
 	<div class="col-lg-6 col-xs-12">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :email, label: 'e-mail' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :email } %>
+		<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :email, label: 'e-mail' } %>
+		<%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email, label: 'e-mail' } %>
 	</div>
 	<div class="col-lg-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo Usuario' } %>
-		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: AutTipoUsuario.all.order(:aut_tipo_usuario).map {|atu| atu.aut_tipo_usuario}, label: nil } %>
+		<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo Usuario' } %>
+		<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :tipo, sel_list: AppNomina::TIPOS, prompt: nil, label: 'Tipo de usuario' } %>
 	</div>
 </div>
+
+<%= render partial: '0p/frm_flds/hidden', locals: { form: form, token: :ownr_type } %>
+<%= render partial: '0p/frm_flds/hidden', locals: { form: form, token: :ownr_id } %>

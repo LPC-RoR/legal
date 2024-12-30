@@ -19,3 +19,6 @@
 		<% end %>
 	</div>
 <% end %>
+
+<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'app_nominas', ttl: "Nómina de usuarios", ownr: @objeto} %>
+<%= render partial: '0p/tabla/tabla', locals: {c: 'app_nominas'} %>

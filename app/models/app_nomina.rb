@@ -1,11 +1,10 @@
 class AppNomina < ApplicationRecord
 
+	TIPOS = ['operación', 'finanzas', 'general', 'admin']
+
 	belongs_to :ownr, polymorphic: true, optional: true
 
 	has_one :app_perfil
-
-	has_many :pro_nominas
-	has_many :productos, through: :pro_nominas
 
 	validates :nombre, :email, presence: true
 	validates :nombre, :email, uniqueness: true

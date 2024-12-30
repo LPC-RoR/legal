@@ -15,7 +15,9 @@ class Autenticacion::AppNominasController < ApplicationController
 
   # GET /app_nominas/new
   def new
-    @objeto = AppNomina.new
+    oid = params[:oid].blank? ? nil : params[:oid]
+    oclss = params[:oid].blank? ? nil : params[:oclss]
+    @objeto = AppNomina.new(ownr_type: oclss, ownr_id: oid)
   end
 
   # GET /app_nominas/1/edit
@@ -69,11 +71,15 @@ class Autenticacion::AppNominasController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/app_nominas" 
+      if @objeto.ownr_type == 'Empresa'
+        @redireccion = "/cuentas/#{@objeto.ownr.id}/ecta" 
+      else
+        @redireccion = "/app_nominas" 
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def app_nomina_params
-      params.require(:app_nomina).permit(:nombre, :email, :tipo)
+      params.require(:app_nomina).permit(:nombre, :email, :tipo, :ownr_type, :ownr_id)
     end
 end

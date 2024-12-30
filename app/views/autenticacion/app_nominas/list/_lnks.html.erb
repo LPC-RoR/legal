@@ -1,0 +1,8 @@
+<% if dog? %>
+	<%= render partial: 'autenticacion/app_nominas/list/set_admin', locals: {objeto: objeto} %>
+	<i class="bi bi-dot"></i>
+<% end %>
+
+<% if admin? %>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+<% end %>
