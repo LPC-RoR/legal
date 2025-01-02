@@ -1,22 +1,5 @@
 module CptnHelper
 
-# ******************************************************************** LAYOUTS 
-
-	def no_over_controllers
-		['servicios']
-	end
-
-	def no_over_layout?
-		no_over_controllers.include?(controller_name)
-	end
-
-	def no_foot_controllers
-		['servicios']
-	end
-
-	def no_foot_layout?
-		no_foot_controllers.include?(controller_name)
-	end
 
 # ******************************************************************** CONSTANTES 
 
@@ -46,8 +29,8 @@ module CptnHelper
 		opts
 	end
 
-	def tipos_usuario
-		AutTipoUsuario.all.order(:aut_tipo_usuario).map {|atu| atu.aut_tipo_usuario}
+	def h_tipos_usuario(app_nmn)
+		['Empresa', 'Cliente'].include?(app_nmn.ownr_type) ? ['recepción', 'investigador', 'rrhh'] : ['operación', 'finanzas', 'general', 'admin']
 	end
 
     def archivos_controlados_disponibles

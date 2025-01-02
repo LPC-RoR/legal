@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_19_003722) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_02_171152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -395,13 +395,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_19_003722) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["orden"], name: "index_audiencias_on_orden"
     t.index ["tipo_causa_id"], name: "index_audiencias_on_tipo_causa_id"
-  end
-
-  create_table "aut_tipo_usuarios", force: :cascade do |t|
-    t.string "aut_tipo_usuario"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["aut_tipo_usuario"], name: "index_aut_tipo_usuarios_on_aut_tipo_usuario"
   end
 
   create_table "cal_feriados", force: :cascade do |t|

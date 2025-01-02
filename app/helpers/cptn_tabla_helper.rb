@@ -15,14 +15,6 @@ module CptnTablaHelper
 		}
 	end
 
-	def table_types(controller)
-		if ['app_directorios', 'app_documentos', 'app_archivos'].include?(controller)
-			table_types_base[:borderless]
-		else
-			table_types_base[:striped]
-		end
-	end
-
 	# Obtiene los campos a desplegar en la tabla desde el objeto
 	def m_tabla_fields(objeto)
 		objeto.class::TABLA_FIELDS
@@ -44,13 +36,6 @@ module CptnTablaHelper
 		else
 			false
 		end
-	end
-
-	def sortable(column, title = nil)
-	  title ||= column.titleize
-	  css_class = column == sort_column ? "current #{sort_direction}" : nil
-	  direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-	  link_to title, {:sort => column, :direction => direction, html_options: @options}, {:class => css_class}
 	end
 
 	# obtiene el nombre del campo puro desde la descripción de TABLA_FIELDS

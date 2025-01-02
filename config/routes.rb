@@ -285,7 +285,6 @@ Rails.application.routes.draw do
     resources :app_nominas
     resources :app_perfiles
     resources :app_versiones
-    resources :aut_tipo_usuarios
   end
 
   scope module: 'recursos' do

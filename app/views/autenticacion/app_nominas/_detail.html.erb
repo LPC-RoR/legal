@@ -5,8 +5,7 @@
 		<%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email, label: 'e-mail' } %>
 	</div>
 	<div class="col-lg-6">
-		<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo Usuario' } %>
-		<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :tipo, sel_list: AppNomina::TIPOS, prompt: nil, label: 'Tipo de usuario' } %>
+		<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :tipo, sel_list: h_tipos_usuario(@objeto), prompt: nil, label: 'Tipo de usuario' } %>
 	</div>
 </div>
 

@@ -105,8 +105,7 @@ module CptnMenuLeftHelper
 					titulo: 'App', 
 					condicion: dog?, 
 					items: [
-						'AppVersion',
-						'AutTipoUsuario'
+						'AppVersion'
 					]
 				}
 			],
@@ -163,15 +162,6 @@ module CptnMenuLeftHelper
 
 	def itm_mdl(itm)
 		itm.class.name == 'Array' ? itm[0] : itm
-	end
-
-	# Determina la RUTA DESTINO usándo como parámetro el modelo del ítem
-	def model_link(item)
-		if itm_mdl(item) == 'Usuario'
-			"/app_recursos/usuarios"
-		else
-			"/#{itm_mdl(item).tableize}"
-		end
 	end
 
 	def cta_acctn(item, objeto)

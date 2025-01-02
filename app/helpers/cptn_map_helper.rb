@@ -128,14 +128,6 @@ module CptnMapHelper
 		"?oid=#{objeto.id}"
 	end
 
-	# DEPRECATED: Cambiado por cntrllr
-	# controlador SIN prefijo por alias
-	def tbl_cntrllr(controller)
-		simple = controller.split('-').last
-		# app_alias in helper Cristiano
-		app_alias[simple].blank? ? simple : app_alias[simple]
-	end
-
 	# source = {controller, objeto}
 	def objt_prtl(source)
 		c = cntrllr(source)
@@ -156,11 +148,6 @@ module CptnMapHelper
 	def primer_estado(controller)
 		st_modelo = StModelo.find_by(st_modelo: controller.classify)
 		st_modelo.blank? ? nil : st_modelo.primer_estado.st_estado
-	end
-
-	def estado_ingreso?(modelo, estado)
-		st_modelo = StModelo.find_by(st_modelo: modelo)
-		(st_modelo.blank? or st_modelo.st_estados.empty?) ? false : (st_modelo.st_estados.order(:orden).first.st_estado == estado)
 	end
 
 	def count_modelo_estado(modelo, estado)0
