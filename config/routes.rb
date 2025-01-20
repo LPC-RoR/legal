@@ -163,7 +163,6 @@ Rails.application.routes.draw do
     end
 
     resources :krn_derivaciones
-    resources :krn_motivo_derivaciones
     resources :krn_investigadores
     resources :krn_declaraciones do
       match :nueva, via: :post, on: :collection
@@ -272,7 +271,6 @@ Rails.application.routes.draw do
     end
     resources :age_logs
     
-    resources :age_usu_perfiles
     resources :age_usu_acts
     resources :age_usuarios do
       match :personaliza, via: :post, on: :member

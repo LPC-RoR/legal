@@ -1,8 +1,0 @@
-<% if nomina_activa? %>
-	<% unless @m.blank? or @e.blank? %>
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: @m.tableize, ttl: @m.tableize, ownr: nil} %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: @m.tableize} %>
-	<% else %>
-		Sin información para desplegar
-	<% end %>
-<% end %>

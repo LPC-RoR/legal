@@ -37,7 +37,6 @@ module AppIconsHelper
 			'm_modelos' => 'piggy-bank',
 			'm_cuentas' => 'safe2',
 			'm_formatos' => 'file-spreadsheet',
-			'sb_listas' => 'list-nested',
 			'app_empresas' => 'buildings',
 			'app_repos' => 'archive',
 			'app_directorios' => 'folder',
