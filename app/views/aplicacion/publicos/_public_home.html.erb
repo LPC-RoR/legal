@@ -1,23 +1,7 @@
-<div class="prdct_ttl wht_area pddng_bx txt_hght clr_prmry">
-	<%= image_tag 'laboralsafe.png', style: 'height:100%;width:auto;' %>
-	</br>
-	<div class="indnt">
-		Procedimiento de Investigación y Sanción
-		Ley 21.643</br>
-		<div class="indnt txt_mdm pddng_bx">
-			<i class="bi bi-dot"></i> Sistema de registro y control del <i>Procedimiento de Investigación y Sanción</i>.</br>
-			<i class="bi bi-dot"></i> Externalización de investigaciones.</br>
-			<i class="bi bi-dot"></i> Formación de investigadores.</br>
-			<i class="bi bi-dot"></i> Capacitación en la gestión del protocolo de prevención.</br>
-		</div>
-	</div>
-</div>
 
-<%= render partial: '0capitan/app/home/rgstr_emprs_dsply' %>
+<%= render partial: prtl_name('publicos', 'home/public_home', 'addt') %>
 
-<%= render partial: '0capitan/app/home/prdcts' %>
-
-<%#= render partial: '0capitan/app/home/scnd' %>
+<%= render partial: prtl_name('publicos', 'home/public_home', 'prdct_laborsafe') %>
 
 <%#= image_tag 'logo_bajo.png', style: 'height:50px;width:auto;' %>
 

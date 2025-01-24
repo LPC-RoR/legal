@@ -1,12 +1,7 @@
-<div class="lyt_notice">
-  Bienvenido(a) <%= perfil_activo.app_nomina_nombre %>
-</div>
-
-<div class="f_50lft_col">
+<div class="f_50lft_col" style='padding-top: 2px;'>
   <div class="lft">
 
     <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'age_actividades', ownr: nil} %>
-
     <%= render partial: '0p/tabla/tabla', locals: {c: 'age_actividades'} %>
 
     <% if dog? %>

@@ -12,15 +12,15 @@
 
 @mixin mn_ttl($pdd, $fnt_sz) {
     margin-bottom: 4px;
-    border: 1px solid $c_mn_brd;
+    border: 1px solid $pltt_7;
     border-radius: 3px 3px 3px 3px;
-    background-color: $c_mn_ttl_bg;
+    background-color: white;
     padding: $pdd;
     font-size: $fnt_sz;
     text-align: center;
-    color: $c_mn_ttl_fnt;
+    color: $pltt_5;
 
-    @include a_hover($c_mn_ttl_lnk, $c_mn_ttl_hvr);
+    @include a_hover($pltt_4, $pltt_6);
 }
 
 /* TITULO */
@@ -40,9 +40,9 @@
 
 .lmn {
     margin: 0;
-    border: 1px solid $c_mn_brd;
+    border: 1px solid $pltt_7;
     border-radius: 3px 3px 3px 3px;
-    background-color: $c_mn_bg;  // Es el color gris que está debajo de los ítems
+    background-color: $pltt_8;  // Es el color gris que está debajo de los ítems
     box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
     margin-bottom: 2px;
     font-family: 'Raleway', sans-serif;
@@ -51,11 +51,11 @@
     .lmn_prfl {
         padding: 10px 20px 10px 20px;
         line-height: 16px;
-        background-color: $c_mn_usr_bg;
-        color: $c_mn_usr_fnt;
+        background-color: $pltt_9;
+        color: $pltt_4;
         font-size: 14px;
 
-        @include a_hover($c_mn_usr_lnk, $c_mn_usr_hvr);
+        @include a_hover($pltt_4, $pltt_2);
     }
 
     .lmn_lst {
@@ -66,7 +66,7 @@
         .itm_ttl {
             padding: 5px 20px;
             background-color: white;
-            color: $c_mn_ttl_fnt;
+            color: $pltt_1;
             font-weight: bold;
         }
 
@@ -80,31 +80,31 @@
                 padding: 3px 20px;
                 display: block;       
                 text-decoration: none;
-                color: $c_mn_itm_lnk; 
+                color: $pltt_2; 
             }
 
             a:hover {
                 color: white;
-                background-color: $c_mn_itm_hvr;
+                background-color: $pltt_5;
             }
         }
 
         .itm_slctd {
             padding-left: 30px;
-            background-color: $c_mn_sltd_bg;
-            color: $c_mn_sltd_fnt;
+            background-color: $pltt_4;
+            color: $pltt_9;
             font-weight: bold;
 
             a {
                 padding: 3px 20px;
                 display: block;       
                 text-decoration: none;
-                color: $c_mn_sltd_lnk; 
+                color: $pltt_9; 
             }
 
             a:hover {
                 color: white;
-                background-color: $c_mn_sltd_hvr;
+                background-color: $pltt_5;
             }
         }
     }

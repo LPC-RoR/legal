@@ -17,11 +17,11 @@ $p_blue: #2a6f97;
 /* TITULOS */
 
 @mixin clss_ttl_bsc($grd_tc, $clr_bg, $clr) {
-	@include mrgn_pddng(3px, $ttl_padd);
-	@include brd(1px, 3px, c_ttl_brd);
+	@include mrgn_pddng(3px, 0 10px 0 10px);
+	@include brd(1px, 3px, pltt_4);
 	@include bx($p_blue);
 	@include bx_shdw;
-	@include grd(auto auto, $ttl_gap);
+	@include grd(auto auto, 0);
 	@include ln_fnt($ttl_ln_hght, $app_fnt, 16px, $clr);
     font-weight: bold;
 }
@@ -39,12 +39,12 @@ $p_blue: #2a6f97;
 }
 
 @mixin ttl_bsc2($grd_tc) {
-	@include mrgn_pddng(3px 0 3px 0, $ttl_padd);
-	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
+	@include mrgn_pddng(3px 0 3px 0, 0 10px 0 10px);
+	@include brd(1px, 3px 3px 3px 3px, pltt_4);
 	@include bx($p_blue);
 	@include bx_shdw;
-	@include grd(auto auto, $ttl_gap);
-	@include ln_fnt($ttl_ln_hght, $app_fnt, 16px, $c_ttl_fnt);
+	@include grd(auto auto, 0);
+	@include ln_fnt($ttl_ln_hght, $app_fnt, 16px, $pltt_9);
     font-weight: bold;
 }
 
@@ -59,17 +59,17 @@ $p_blue: #2a6f97;
 		@include grd_ncol(2);
     	justify-self: end;
 	}
-   	@include a_hover($c_ttl_lnk, $c_ttl_hvr);
+   	@include a_hover($pltt_9, $pltt_3);
 }
 
 //---------------------------------------------- LINE
 
 @mixin ttl_ln_bsc($grd_tc, $brd_rds, $ln_hght, $fnt_sz) {
-	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
+	@include mrgn_pddng(0 0 4px 0, 0 10px 0 10px);
 	@include brd(2px, $brd_rds, $pltt_6);
 	@include bx($pltt_9);
 	@include bx_shdw;
-	@include grd(auto auto, $ttl_gap);
+	@include grd(auto auto, 0);
 	@include ln_fnt($ln_hght, $app_fnt, $fnt_sz, $pltt_4);
     font-weight: bold;
 	.ttl_ttl {
@@ -86,7 +86,7 @@ $p_blue: #2a6f97;
 // ---------------------------------------------- NAV
 
 @mixin nav_cols2($grd_tc) {
-	@include brd(1px, 3px 3px 3px 3px, c_ttl_brd);
+	@include brd(1px, 3px 3px 3px 3px, pltt_4);
 	@include ttl_bsc2($grd_tc);
     justify-items: center;
 	.bck {
@@ -101,16 +101,16 @@ $p_blue: #2a6f97;
 		@include grd_ncol(3);
     	justify-self: end;
 	}
-   	@include a_hover($c_ttl_lnk, $c_ttl_hvr);
+   	@include a_hover($pltt_9, $pltt_3);
 }
 // -------------------------------------------------- PRNT
 
 @mixin ttl_prnt($grd_tc, $brd_rds, $ln_hght, $fnt_sz) {
-	@include mrgn_pddng($ttl_mrgn, $ttl_padd);
+	@include mrgn_pddng(0 0 4px 0, 0 10px 0 10px);
 	@include brd(2px, $brd_rds, $pltt_6);
 	@include bx(white);
 	@include bx_shdw;
-	@include grd(auto auto, $ttl_gap);
+	@include grd(auto auto, 0);
 	@include ln_fnt($ln_hght, $app_fnt, $fnt_sz, $pltt_4);
 	color: black;
     font-weight: bold;
@@ -128,11 +128,11 @@ $p_blue: #2a6f97;
 // ------------------------------------------------------------------------------------
 
 .ttl_nav {
-	@include nav_cols2($app_nav_tc);
+	@include nav_cols2(50px auto 50px);
 }
 
 .ttl_app {
-	@include ttl_nm_lnks($app_ttl_tc);
+	@include ttl_nm_lnks(auto auto);
 }
 
 .ttl_top {
@@ -158,13 +158,13 @@ $p_blue: #2a6f97;
 // CLSS_TTL
 
 .scndry_ttl {
-	@include clss_ttl_bsc($app_ttl_tc, $blue_4, blue);
+	@include clss_ttl_bsc(auto auto, $blue_4, blue);
 	@include ttl_2clmns;
    	@include a_hover(blue, $blue_3);
 }
 
 .thrd_ttl {
-	@include clss_ttl_bsc($app_ttl_tc, $blue_5, blue);
+	@include clss_ttl_bsc(auto auto, $blue_5, blue);
 	@include ttl_2clmns;
    	@include a_hover(blue, $blue_3);
 }

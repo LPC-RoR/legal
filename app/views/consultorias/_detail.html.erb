@@ -1,8 +1,0 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :cliente_id, label: 'Cliente' } %>
-<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: 'Cliente' } %>
-</br>
-
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :consultoria, label: 'Consultoría' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :consultoria } %>
-
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>

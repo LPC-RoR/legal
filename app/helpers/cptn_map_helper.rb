@@ -88,17 +88,7 @@ module CptnMapHelper
 
 	# ----------------------------------------------------------------- LAYOUT PARTIALS
 
-	# alias de lyt partial
-	def prtl_als
-		{
-			'layouts/home/over' => 'layouts/over',
-			'layouts/devise/over' => 'layouts/over',
-			'layouts/servicios/over' => 'layouts/over',
-			'layouts/devise/main' => 'layouts/main',
-			'layouts/servicios/main' => 'layouts/main',
-		}
-	end
-
+	# Esta función nos lleva al directorio donde se encuentran los layouts ocupados
 	def lyt_prtl_dir
 		if usuario_signed_in?
 			controller_name == 'servicios' ? 'servicios' : nil
@@ -108,9 +98,7 @@ module CptnMapHelper
 	end
 
 	def lyt_prtl(area)
-		prtl_nm = prtl_name('layouts', lyt_prtl_dir, area)
-		prtl_srch = prtl_als[prtl_nm].blank? ? prtl_nm : prtl_als[prtl_nm]
-		prtl_file?(prtl_to_file(prtl_srch)) ? prtl_srch : nil
+		prtl?('layouts', lyt_prtl_dir, area) ? prtl_name('layouts', lyt_prtl_dir, area) : ( prtl?('layouts', nil, area) ? prtl_name('layouts', nil, area) : nil )
 	end
 
 	# Se usa para diferenciar Clases de Sass

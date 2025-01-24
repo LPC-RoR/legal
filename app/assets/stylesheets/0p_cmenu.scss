@@ -3,8 +3,8 @@
 .cmn {
     margin: 0;
     padding-bottom: 10px;
-    background-color: $c_mn_bg;
-    border: 1px solid $c_mn_brd;
+    background-color: $pltt_8;
+    border: 1px solid $pltt_7;
     border-radius: 3px 3px 3px 3px;
     box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
     margin-bottom: 4px;
@@ -24,31 +24,31 @@
                 padding: 3px 20px;
                 display: block;       
                 text-decoration: none;
-                color: $c_mn_itm_lnk; 
+                color: $pltt_2; 
             }
 
             a:hover {
                 color: white;
-                background-color: $c_mn_itm_hvr;
+                background-color: $pltt_5;
             }
         }
 
         .itm_slctd {
             padding-left: 20px;
-            background-color: $c_mn_sltd_bg;
-            color: $c_mn_sltd_fnt;
+            background-color: $pltt_4;
+            color: $pltt_9;
             font-weight: bold;
 
             a {
                 padding: 3px 20px;
                 display: block;       
                 text-decoration: none;
-                color: $c_mn_sltd_lnk; 
+                color: $pltt_9; 
             }
 
             a:hover {
                 color: white;
-                background-color: $c_mn_sltd_hvr;
+                background-color: $pltt_5;
             }
         }
     }

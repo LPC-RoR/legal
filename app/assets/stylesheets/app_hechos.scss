@@ -2,5 +2,5 @@
 @import "bx_bs";
 
 .hc_box {
-	@include bx_bs($c_hc_bg, $c_hc_brd, 14px);
+	@include bx_bs($pltt_9, $pltt_7, 14px);
 }

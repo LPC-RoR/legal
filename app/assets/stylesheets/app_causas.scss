@@ -57,7 +57,7 @@ $at_bg: #d2e9e9;
 }
 
 .cs_box {
-	@include bx_bs($c_cs_bg, $c_cs_brd, 13px);
+	@include bx_bs($pltt_9, $pltt_7, 13px);
 }
 
 
@@ -92,7 +92,7 @@ $at_bg: #d2e9e9;
 }
 
 .tm_bjt {
-	@include cs_bsc($c_tm_ttl_bg, 40px, $c_tm_ttl_fnt, 15px);
+	@include cs_bsc($pltt_6, 40px, $pltt_3, 15px);
 	@include grd($cs_tc, 0px);
 
     .ttl_ttl {
@@ -106,21 +106,21 @@ $at_bg: #d2e9e9;
 		@include grd_ncol(2);
     	justify-self: end;
 
-		@include a_hover($c_tm_ttl_fnt, gray);
+		@include a_hover($pltt_3, gray);
     }
 }
 
 .hc_bjt {
-	@include cs_tmplt($c_hc_ttl_bg, 30px, $c_hc_ttl_fnt, 13px, $c_hc_ttl_fnt, gray);
+	@include cs_tmplt($pltt_7, 30px, $pltt_4, 13px, $pltt_4, gray);
 }
 
 // Antecedentes
 .at_bjt {
-	@include cs_tmplt($c_hc_ttl_bg3, 20px, black, 13px, $c_hc_ttl_fnt, gray);
+	@include cs_tmplt($pltt_9, 20px, black, 13px, $pltt_4, gray);
 }
 
 .innr_dscpcn {
-	background-color: $c_hc_ttl_bg2;
+	background-color: $pltt_8;
 	padding: 0 3em 0 3em;
     font-size: 13px;
 }

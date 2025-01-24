@@ -20,13 +20,6 @@ Rails.application.routes.draw do
     match :swtch_prrdd, via: :get, on: :member
   end
 
-  resources :cfg_valores
-  resources :regiones do
-    resources :comunas
-    match :arriba, via: :get, on: :member
-    match :abajo, via: :get, on: :member
-  end
-  resources :comunas
   resources :asesorias do
     match :set_tar_servicio, via: :post, on: :member
     match :generar_cobro, via: :get, on: :member
@@ -36,19 +29,6 @@ Rails.application.routes.draw do
     match :swtch_pendiente, via: :get, on: :member
     match :swtch_urgencia, via: :get, on: :member
   end
-  resources :juzgados
-  resources :reg_reportes do
-    match :cambia_estado, via: :get, on: :member
-  end
-  resources :registros do
-    match :reporta_registro, via: :get, on: :member
-    match :excluye_registro, via: :get, on: :member
-  end
-  resources :consultorias do
-    match :cambio_estado, via: :get, on: :member
-    match :procesa_registros, via: :get, on: :member
-  end
-
 #  get 'dwnldwrd' => 'causas/dwnldwrd', format: :docx
 
   resources :causas do
@@ -283,6 +263,7 @@ Rails.application.routes.draw do
     resources :app_nominas
     resources :app_perfiles
     resources :app_versiones
+    resources :cfg_valores
   end
 
   scope module: 'recursos' do
@@ -293,6 +274,13 @@ Rails.application.routes.draw do
       match :estado, via: :get, on: :member
     end
     resources :app_msg_msgs
+
+    resources :regiones do
+      resources :comunas
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
+    resources :comunas
   end
 
   scope module: 'repositorios' do
@@ -465,6 +453,14 @@ Rails.application.routes.draw do
     resources :tar_det_cuantia_controles
     # agregada para diferenciar porcentajes de tarifa según tipo de causa
     resources :tar_variable_bases
+
+    resources :reg_reportes do
+      match :cambia_estado, via: :get, on: :member
+    end
+    resources :registros do
+      match :reporta_registro, via: :get, on: :member
+      match :excluye_registro, via: :get, on: :member
+    end
   end
 
   scope module: 'modelos' do

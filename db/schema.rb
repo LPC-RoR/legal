@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_03_140346) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -508,19 +508,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_140346) do
     t.index ["region_id"], name: "index_comunas_on_region_id"
   end
 
-  create_table "consultorias", force: :cascade do |t|
-    t.string "consultoria"
-    t.integer "cliente_id"
-    t.string "estado"
-    t.integer "tar_tarifa_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "tar_hora_id"
-    t.index ["cliente_id"], name: "index_consultorias_on_cliente_id"
-    t.index ["tar_hora_id"], name: "index_consultorias_on_tar_hora_id"
-    t.index ["tar_tarifa_id"], name: "index_consultorias_on_tar_tarifa_id"
-  end
-
   create_table "control_documentos", force: :cascade do |t|
     t.string "nombre"
     t.string "descripcion"
@@ -739,12 +726,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_140346) do
     t.index ["st_contestacion"], name: "index_hechos_on_st_contestacion"
     t.index ["st_preparatoria"], name: "index_hechos_on_st_preparatoria"
     t.index ["tema_id"], name: "index_hechos_on_tema_id"
-  end
-
-  create_table "juzgados", force: :cascade do |t|
-    t.string "juzgado"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "k_sesiones", force: :cascade do |t|

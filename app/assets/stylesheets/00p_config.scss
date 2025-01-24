@@ -1,15 +1,14 @@
 // COLORS
 
-// CANVA
-$gray_1: #718bab;
-$gray_2: #c0cfe1;
-$gray_3: #dee1ef;
-$gray_4: #e9ecef;
+// LABORSAFE
+$ls_blue_1: #005A9C;
+$ls_blue_2: #0087CB;
+$ls_orange: #EBA300;
+$ls_yellow: #FFC300;
 
+// CANVA, Los GRAY estan en 08p_procs
 $blue_cnv: #153969;
 $blue_cnv_2: #edf2fb;
-
-$txt_gray: #718bab;
 
 // RED
 $red_1: #ef6351;
@@ -31,137 +30,19 @@ $blue_5: #e2fdff;
 $pltt_1: #212529;
 $pltt_2: #343a40;
 $pltt_3: #495057;
-$pltt_4: #6c757d; //Box link color
-$pltt_5: #adb5bd; //Box hover color
-$pltt_6: #ced4da; //Box Font Color
+$pltt_4: #6c757d;
+$pltt_5: #adb5bd;
+$pltt_6: #ced4da;
 $pltt_7: #dee2e6;
-$pltt_8: #e9ecef; //Box Background color
+$pltt_8: #e9ecef;
 $pltt_9: #f8f9fa;
-
-$bx_shdw_xy: 10px 10px;
-$bx_shdw_blr_rd: 18px;
-$bx_shdw_sprd_rd: -12px;
-$bx_shdw_clr: $pltt_3;
-
-$a_area_mrgn: 0 3% 0 3%;
-$a_area_pddng: 0;
-$a_fnt_fmly: 'Raleway', sans-serif;
 
 /* LAYOUT */
 
-$lyt_mrgn: 0;
-$lyt_ovr_mrgn: $lyt_mrgn;
-$lyt_nvbr_mrgn: $lyt_mrgn;
-$lyt_bdy_mrgn: $lyt_mrgn;
-
 $app_fnt: 'Raleway', sans-serif;
 
-$app_ttl_tc: auto auto;
-$app_nav_tc: 50px auto 50px;
-$app_nt_green: #a5be00;
-$app_nt_yellow: #ffd500;
-$app_nt_red: #d00000;
-
-
-
-/* APP */
-$c_box_bg: $pltt_9;
-$c_box_brd: $pltt_6;
-$c_box_fnt: $pltt_4;
-$c_box_lnk: $pltt_4;
-$c_box_hvr: $pltt_5;
-
-$c_box_bnn_bg: $pltt_9;
-$c_box_bnn_fnt: $pltt_4;
-
-$c_errr_bg: $red_4;
-$c_errr_brd: $red_3;
-$c_errr_fnt: $red_1;
-$c_ntc_bg: $blue_5;
-$c_ntc_brd: $blue_4;
-$c_ntc_fnt: $blue_1;
-
-/* MENU */
-
-$c_mn_bg: $pltt_8;
-$c_mn_brd: $pltt_7;
-$c_mn_ttl_bg: white;
-$c_mn_ttl_fnt: $pltt_5;
-$c_mn_ttl_lnk: $pltt_4;
-$c_mn_ttl_hvr: $pltt_6;
-$c_mn_usr_bg: $pltt_9;
-$c_mn_usr_fnt: $pltt_4;
-$c_mn_usr_lnk: $pltt_4;
-$c_mn_usr_hvr: $pltt_2;
-$c_mn_ttl_fnt: $pltt_2;
-$c_mn_itm_lnk: $pltt_2;
-$c_mn_itm_hvr: $pltt_5;
-$c_mn_sltd_bg: $pltt_4;
-$c_mn_sltd_fnt: $pltt_9;
-$c_mn_sltd_lnk: $pltt_9;
-$c_mn_sltd_hvr: $pltt_5;
-
-/* TITULOS */
-
-$c_ttl_bg: $pltt_4;
-$c_ttl_brd: $pltt_4;
-$c_ttl_fnt: $pltt_9;
-$c_ttl_lnk: $pltt_9;
-$c_ttl_hvr: $pltt_3;
-$ttl_mrgn: 0 0 4px 0;
-$ttl_padd: 0 10px 0 10px;
-$ttl_gap: 0;
-$ttl_ln_hght: 40px;
-
-/* AGENDA */
-
-$d_dyf_bg: $red_4;
-$d_dyf_fnt: $red_1;
-$d_dyf_brd: $red_5;
-$d_s_bg: $red_5;
-$d_s_fnt: $red_2;
-$d_s_brd: $red_5;
-$d_h_bg: $blue_5;
-$d_h_fnt: $blue_1;
-$d_h_brd: $blue_5;
-
-$c_ctvdd_bg: $pltt_9;
-$c_ctvdd_brd: $pltt_7;
-$c_pndt_bg: $pltt_8;
-$c_pndt_brd: $pltt_7;
-
-// CLIENTE
-
-$c_cl_bg: $pltt_9;
-$c_cl_brd: $pltt_7;
-
-// CAUSA
-
-$c_cs_bg: $pltt_9;
-$c_cs_brd: $pltt_7;
-
-$c_tm_ttl_bg: $pltt_6;
-$c_tm_ttl_fnt: $pltt_3;
-$c_tm_ttl_brd: $pltt_5;
-
-$c_hc_ttl_bg: $pltt_7;
-$c_hc_ttl_bg2: $pltt_8;
-$c_hc_ttl_bg3: $pltt_9;
-$c_hc_ttl_fnt: $pltt_4;
-$c_hc_ttl_brd: $pltt_6;
-$c_hc_bg: $pltt_9;
-$c_hc_brd: $pltt_7;
-
-// ASESORIA
-
-$c_as_bg: $pltt_9;
-$c_as_brd: $pltt_7;
-
-$app_bg: #003285;
-$app_clear: #615EFC;
-$sub_bg: #5C88C4;
+// Este color se usa pero no se cual es
 $app_brd_clr: #e5e8e8;
-$app_ttl_clr: white;
 
 html, body {
 //  height: 100%;
