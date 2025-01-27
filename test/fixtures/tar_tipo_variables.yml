@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tar_tarifa_id: 1
+  tipo_causa_id: 1
+  variable_tipo_causa: 9.99
+
+two:
+  tar_tarifa_id: 1
+  tipo_causa_id: 1
+  variable_tipo_causa: 9.99

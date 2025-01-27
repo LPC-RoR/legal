@@ -119,7 +119,6 @@ Rails.application.routes.draw do
     resources :cuestionarios
     resources :preguntas
     resources :pautas
-    resources :tipo_denunciados
     resources :receptor_denuncias
     resources :motivo_denuncias
 
@@ -284,12 +283,6 @@ Rails.application.routes.draw do
   end
 
   scope module: 'repositorios' do
-    resources :app_repositorios
-    # DEPECATED : reemplazado por app_repositorios
-    resources :app_repos do
-      match :publico, via: :get, on: :collection
-      match :perfil, via: :get, on: :collection
-    end
     resources :app_directorios do
       match :nuevo, via: :post, on: :collection
     end
@@ -384,6 +377,7 @@ Rails.application.routes.draw do
       match :asigna, via: :get, on: :member
       match :desasigna, via: :get, on: :member
     end
+    resources :tar_tipo_variables
     resources :tar_pagos do
       resources :tar_comentarios
       resources :tar_cuotas
@@ -429,7 +423,6 @@ Rails.application.routes.draw do
     end
     resources :tar_servicios
 
-    resources :tar_convenios
     resources :tar_facturas do 
       resources :tar_facturaciones
       match :set_documento, via: :post, on: :member
@@ -452,7 +445,6 @@ Rails.application.routes.draw do
 
     resources :tar_det_cuantia_controles
     # agregada para diferenciar porcentajes de tarifa según tipo de causa
-    resources :tar_variable_bases
 
     resources :reg_reportes do
       match :cambia_estado, via: :get, on: :member

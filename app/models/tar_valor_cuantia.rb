@@ -42,8 +42,8 @@ class TarValorCuantia < ApplicationRecord
 		tarifa = self.ownr.class.name == 'Causa' ? self.ownr.tar_tarifa : nil
 		unless tarifa.blank?
 			tipo_causa = self.ownr.tipo_causa
-			variable_base = tarifa.tar_variable_bases.find_by(tipo_causa_id: tipo_causa.id)
-			base = variable_base.blank? ? nil : variable_base.tar_base_variable
+			porcentaje_base_base = tarifa.tar_tipo_variables.find_by(tipo_causa_id: tipo_causa.id)
+			base = porcentaje_base.blank? ? nil : porcentaje_base.variable_tipo_causa
 			excepcion_base = tarifa.tar_formula_cuantias.find_by(tar_detalle_cuantia_id: self.tar_detalle_cuantia.id) 
 			excepcion = excepcion_base.blank? ? nil : excepcion_base.porcentaje_base
 			excepcion.blank? ? base : excepcion

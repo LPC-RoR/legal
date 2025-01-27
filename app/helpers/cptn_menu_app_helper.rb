@@ -41,8 +41,6 @@ module CptnMenuAppHelper
 			]
 		when 'Documentos'
 			[
-				['Compartidos', '/app_repos/publico'],
-				['Personales', '/app_repos/perfil']
 			]
 		when 'Enlaces'
 			[

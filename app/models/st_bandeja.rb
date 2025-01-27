@@ -1,2 +1,0 @@
-class StBandeja < ApplicationRecord
-end

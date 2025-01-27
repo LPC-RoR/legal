@@ -9,7 +9,7 @@ class TarTarifa < ApplicationRecord
 #	has_many :consultorias
 
 	has_many :tar_formula_cuantias
-	has_many :tar_variable_bases
+	has_many :tar_tipo_variables
 
     validates_presence_of :tarifa
 

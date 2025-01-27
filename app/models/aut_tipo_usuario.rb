@@ -1,2 +1,0 @@
-class AutTipoUsuario < ApplicationRecord
-end

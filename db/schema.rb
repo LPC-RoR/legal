@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_27_182737) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -207,20 +207,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["owner_id"], name: "index_app_imagenes_on_owner_id"
   end
 
-  create_table "app_mejoras", force: :cascade do |t|
-    t.text "detalle"
-    t.string "estado"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.integer "app_perfil_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["app_perfil_id"], name: "index_app_mejoras_on_app_perfil_id"
-    t.index ["estado"], name: "index_app_mejoras_on_estado"
-    t.index ["owner_class"], name: "index_app_mejoras_on_owner_class"
-    t.index ["owner_id"], name: "index_app_mejoras_on_owner_id"
-  end
-
   create_table "app_mensajes", force: :cascade do |t|
     t.string "mensaje"
     t.string "tipo"
@@ -260,18 +246,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["ownr_type"], name: "index_app_nominas_on_ownr_type"
   end
 
-  create_table "app_observaciones", force: :cascade do |t|
-    t.text "detalle"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.integer "perfil_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["owner_class"], name: "index_app_observaciones_on_owner_class"
-    t.index ["owner_id"], name: "index_app_observaciones_on_owner_id"
-    t.index ["perfil_id"], name: "index_app_observaciones_on_perfil_id"
-  end
-
   create_table "app_perfiles", force: :cascade do |t|
     t.string "email"
     t.integer "usuario_id"
@@ -281,28 +255,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["app_nomina_id"], name: "index_app_perfiles_on_app_nomina_id"
     t.index ["email"], name: "index_app_perfiles_on_email"
     t.index ["usuario_id"], name: "index_app_perfiles_on_usuario_id"
-  end
-
-  create_table "app_repos", force: :cascade do |t|
-    t.string "repositorio"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["owner_class"], name: "index_app_repos_on_owner_class"
-    t.index ["owner_id"], name: "index_app_repos_on_owner_id"
-    t.index ["repositorio"], name: "index_app_repos_on_repositorio"
-  end
-
-  create_table "app_repositorios", force: :cascade do |t|
-    t.string "app_repositorio"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["app_repositorio"], name: "index_app_repositorios_on_app_repositorio"
-    t.index ["owner_class"], name: "index_app_repositorios_on_owner_class"
-    t.index ["owner_id"], name: "index_app_repositorios_on_owner_id"
   end
 
   create_table "app_versiones", force: :cascade do |t|
@@ -387,33 +339,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["causa_id"], name: "index_causa_archivos_on_causa_id"
     t.index ["orden"], name: "index_causa_archivos_on_orden"
     t.index ["seleccionado"], name: "index_causa_archivos_on_seleccionado"
-  end
-
-  create_table "causa_docs", force: :cascade do |t|
-    t.integer "causa_id"
-    t.integer "app_documento_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "orden"
-    t.boolean "seleccionado"
-    t.index ["app_documento_id"], name: "index_causa_docs_on_app_documento_id"
-    t.index ["causa_id"], name: "index_causa_docs_on_causa_id"
-    t.index ["orden"], name: "index_causa_docs_on_orden"
-    t.index ["seleccionado"], name: "index_causa_docs_on_seleccionado"
-  end
-
-  create_table "causa_hechos", force: :cascade do |t|
-    t.integer "causa_id"
-    t.integer "hecho_id"
-    t.integer "orden"
-    t.string "st_contestación"
-    t.string "st_preparatoria"
-    t.string "st_juicio"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["causa_id"], name: "index_causa_hechos_on_causa_id"
-    t.index ["hecho_id"], name: "index_causa_hechos_on_hecho_id"
-    t.index ["orden"], name: "index_causa_hechos_on_orden"
   end
 
   create_table "causas", force: :cascade do |t|
@@ -564,23 +489,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["orden"], name: "index_demandantes_on_orden"
   end
 
-  create_table "denunciados", force: :cascade do |t|
-    t.integer "denuncia_id"
-    t.integer "tipo_denunciado_id"
-    t.string "empresa_denunciado"
-    t.string "rut_empresa_denunciado"
-    t.string "denunciado"
-    t.string "vinculo"
-    t.string "rut"
-    t.string "cargo"
-    t.string "lugar_trabajo"
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["denuncia_id"], name: "index_denunciados_on_denuncia_id"
-    t.index ["tipo_denunciado_id"], name: "index_denunciados_on_tipo_denunciado_id"
-  end
-
   create_table "dt_criterio_multas", force: :cascade do |t|
     t.integer "dt_tabla_multa_id"
     t.integer "orden"
@@ -692,19 +600,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["establece"], name: "index_hecho_archivos_on_establece"
     t.index ["hecho_id"], name: "index_hecho_archivos_on_hecho_id"
     t.index ["orden"], name: "index_hecho_archivos_on_orden"
-  end
-
-  create_table "hecho_docs", force: :cascade do |t|
-    t.integer "hecho_id"
-    t.integer "app_documento_id"
-    t.string "establece"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "orden"
-    t.index ["app_documento_id"], name: "index_hecho_docs_on_app_documento_id"
-    t.index ["establece"], name: "index_hecho_docs_on_establece"
-    t.index ["hecho_id"], name: "index_hecho_docs_on_hecho_id"
-    t.index ["orden"], name: "index_hecho_docs_on_orden"
   end
 
   create_table "hechos", force: :cascade do |t|
@@ -1523,20 +1418,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["fecha"], name: "index_tar_aprobaciones_on_fecha"
   end
 
-  create_table "tar_bases", force: :cascade do |t|
-    t.string "base"
-    t.decimal "monto_uf"
-    t.decimal "monto"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.integer "perfil_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["owner_class"], name: "index_tar_bases_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_bases_on_owner_id"
-    t.index ["perfil_id"], name: "index_tar_bases_on_perfil_id"
-  end
-
   create_table "tar_calculos", force: :cascade do |t|
     t.integer "ownr_id"
     t.integer "tar_pago_id"
@@ -1569,20 +1450,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.string "despliegue"
     t.string "moneda"
     t.index ["tar_pago_id"], name: "index_tar_comentarios_on_tar_pago_id"
-  end
-
-  create_table "tar_convenios", force: :cascade do |t|
-    t.datetime "fecha", precision: nil
-    t.decimal "monto"
-    t.string "estado"
-    t.integer "tar_factura_id"
-    t.integer "tar_facturacion_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["estado"], name: "index_tar_convenios_on_estado"
-    t.index ["fecha"], name: "index_tar_convenios_on_fecha"
-    t.index ["tar_factura_id"], name: "index_tar_convenios_on_tar_factura_id"
-    t.index ["tar_facturacion_id"], name: "index_tar_convenios_on_tar_facturacion_id"
   end
 
   create_table "tar_cuotas", force: :cascade do |t|
@@ -1632,16 +1499,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["codigo"], name: "index_tar_detalles_on_codigo"
     t.index ["orden"], name: "index_tar_detalles_on_orden"
     t.index ["tar_tarifa_id"], name: "index_tar_detalles_on_tar_tarifa_id"
-  end
-
-  create_table "tar_elementos", force: :cascade do |t|
-    t.integer "orden"
-    t.string "elemento"
-    t.string "codigo"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["codigo"], name: "index_tar_elementos_on_codigo"
-    t.index ["orden"], name: "index_tar_elementos_on_orden"
   end
 
   create_table "tar_facturaciones", force: :cascade do |t|
@@ -1721,29 +1578,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["tar_tarifa_id"], name: "index_tar_formulas_on_tar_tarifa_id"
   end
 
-  create_table "tar_horas", force: :cascade do |t|
-    t.string "tar_hora"
-    t.string "moneda"
-    t.decimal "valor"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["owner_class"], name: "index_tar_horas_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_horas_on_owner_id"
-    t.index ["tar_hora"], name: "index_tar_horas_on_tar_hora"
-  end
-
-  create_table "tar_liquidaciones", force: :cascade do |t|
-    t.string "liquidacion"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["owner_class"], name: "index_tar_liquidaciones_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_liquidaciones_on_owner_id"
-  end
-
   create_table "tar_nota_creditos", force: :cascade do |t|
     t.integer "numero"
     t.datetime "fecha", precision: nil
@@ -1819,6 +1653,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["tipo_causa_id"], name: "index_tar_tarifas_on_tipo_causa_id"
   end
 
+  create_table "tar_tipo_variables", force: :cascade do |t|
+    t.integer "tar_tarifa_id"
+    t.integer "tipo_causa_id"
+    t.decimal "variable_tipo_causa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tar_tarifa_id"], name: "index_tar_tipo_variables_on_tar_tarifa_id"
+    t.index ["tipo_causa_id"], name: "index_tar_tipo_variables_on_tipo_causa_id"
+  end
+
   create_table "tar_uf_facturaciones", force: :cascade do |t|
     t.datetime "fecha_uf", precision: nil
     t.datetime "created_at", precision: nil, null: false
@@ -1877,16 +1721,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.index ["codigo"], name: "index_tar_valores_on_codigo"
     t.index ["owner_class"], name: "index_tar_valores_on_owner_class"
     t.index ["owner_id"], name: "index_tar_valores_on_owner_id"
-  end
-
-  create_table "tar_variable_bases", force: :cascade do |t|
-    t.integer "tar_tarifa_id"
-    t.integer "tipo_causa_id"
-    t.decimal "tar_base_variable"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["tar_tarifa_id"], name: "index_tar_variable_bases_on_tar_tarifa_id"
-    t.index ["tipo_causa_id"], name: "index_tar_variable_bases_on_tipo_causa_id"
   end
 
   create_table "tar_variables", force: :cascade do |t|
@@ -1954,18 +1788,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_22_150452) do
     t.integer "tar_tarifa_id"
     t.index ["tar_tarifa_id"], name: "index_tipo_causas_on_tar_tarifa_id"
     t.index ["tipo_causa"], name: "index_tipo_causas_on_tipo_causa"
-  end
-
-  create_table "tipo_denunciados", force: :cascade do |t|
-    t.string "tipo_denunciado"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tipo_denuncias", force: :cascade do |t|
-    t.string "tipo_denuncia"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tipo_procedimientos", force: :cascade do |t|

@@ -240,8 +240,6 @@ class Repositorios::AppArchivosController < ApplicationController
         @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos"
       elsif ['KrnDenuncia', 'Causa'].include?(@objeto.owner.class.name)
         @redireccion = @objeto.owner
-      else
-        @redireccion = app_repositorios_path
       end
     end
 

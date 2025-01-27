@@ -78,8 +78,6 @@ class Repositorios::AppDocumentosController < ApplicationController
         @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos"
       elsif @objeto.causas.any?
         @redireccion = "/causas/#{@objeto.causas.first.id}?html_options[menu]=Hechos"
-      else
-        @redireccion = app_repositorios_path
       end
     end
 

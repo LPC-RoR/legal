@@ -8,7 +8,7 @@ class TipoCausa < ApplicationRecord
 #	has_many :variables, through: :var_tp_causas
 
 	has_many :tar_tarifas
-	has_many :tar_variable_bases
+	has_many :tar_tipo_variables
 
 	def control_documentos
 		ControlDocumento.where(owner_class: self.class.name, owner_id: self.id).order(:orden)

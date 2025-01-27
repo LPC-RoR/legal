@@ -38,7 +38,6 @@ module AppIconsHelper
 			'm_cuentas' => 'safe2',
 			'm_formatos' => 'file-spreadsheet',
 			'app_empresas' => 'buildings',
-			'app_repos' => 'archive',
 			'app_directorios' => 'folder',
 			'app_escaneos' => 'images',
 			'm_bancos' => 'bank',
