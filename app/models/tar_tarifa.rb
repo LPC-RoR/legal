@@ -4,9 +4,7 @@ class TarTarifa < ApplicationRecord
 
 	has_many :tar_pagos
 	has_many :tar_formulas
-	has_many :tar_detalles
 	has_many :causas
-#	has_many :consultorias
 
 	has_many :tar_formula_cuantias
 	has_many :tar_tipo_variables

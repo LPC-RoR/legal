@@ -16,8 +16,6 @@ class Tarifas::TarTarifasController < ApplicationController
 
     set_tabla('tar_formula_cuantias', @objeto.tar_formula_cuantias, false)
     set_tabla('tar_tipo_variables', @objeto.tar_tipo_variables, false)
-
-    set_tabla('tar_detalles', @objeto.tar_detalles.order(:orden), false)
   end
 
   # GET /tar_tarifas/new

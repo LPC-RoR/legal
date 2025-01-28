@@ -2,9 +2,6 @@ class ControlDocumento < ApplicationRecord
 	TIPOS = ['Documento', 'Archivo']
 	CONTROLES = ['Requerido', 'Opcional']
 
-	has_many :tar_det_cuantia_controles
-	has_many :tar_detalle_cuantias, through: :tar_det_cuantia_controles
-
 	# ------------------------------------ ORDER LIST
 
 	def owner

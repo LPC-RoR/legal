@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_27_182737) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_28_224125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1466,15 +1466,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_27_182737) do
     t.index ["tar_pago_id"], name: "index_tar_cuotas_on_tar_pago_id"
   end
 
-  create_table "tar_det_cuantia_controles", force: :cascade do |t|
-    t.integer "tar_detalle_cuantia_id"
-    t.integer "control_documento_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["control_documento_id"], name: "index_tar_det_cuantia_controles_on_control_documento_id"
-    t.index ["tar_detalle_cuantia_id"], name: "index_tar_det_cuantia_controles_on_tar_detalle_cuantia_id"
-  end
-
   create_table "tar_detalle_cuantias", force: :cascade do |t|
     t.string "tar_detalle_cuantia"
     t.string "descripcion"
@@ -1483,22 +1474,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_27_182737) do
     t.string "formula_cuantia"
     t.string "formula_honorarios"
     t.index ["tar_detalle_cuantia"], name: "index_tar_detalle_cuantias_on_tar_detalle_cuantia"
-  end
-
-  create_table "tar_detalles", force: :cascade do |t|
-    t.integer "orden"
-    t.string "codigo"
-    t.string "detalle"
-    t.string "tipo"
-    t.string "formula"
-    t.integer "tar_tarifa_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.boolean "esconder"
-    t.boolean "total"
-    t.index ["codigo"], name: "index_tar_detalles_on_codigo"
-    t.index ["orden"], name: "index_tar_detalles_on_orden"
-    t.index ["tar_tarifa_id"], name: "index_tar_detalles_on_tar_tarifa_id"
   end
 
   create_table "tar_facturaciones", force: :cascade do |t|
@@ -1707,31 +1682,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_27_182737) do
     t.index ["ownr_id"], name: "index_tar_valor_cuantias_on_ownr_id"
     t.index ["ownr_type"], name: "index_tar_valor_cuantias_on_ownr_type"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_valor_cuantias_on_tar_detalle_cuantia_id"
-  end
-
-  create_table "tar_valores", force: :cascade do |t|
-    t.string "codigo"
-    t.string "detalle"
-    t.decimal "valor_uf"
-    t.decimal "valor"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["codigo"], name: "index_tar_valores_on_codigo"
-    t.index ["owner_class"], name: "index_tar_valores_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_valores_on_owner_id"
-  end
-
-  create_table "tar_variables", force: :cascade do |t|
-    t.string "variable"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.decimal "porcentaje"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["owner_class"], name: "index_tar_variables_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_variables_on_owner_id"
   end
 
   create_table "tareas", force: :cascade do |t|

@@ -373,7 +373,6 @@ Rails.application.routes.draw do
     resources :tar_tarifas do 
       resources :tar_pagos
       resources :tar_formulas
-      resources :tar_detalles
       match :asigna, via: :get, on: :member
       match :desasigna, via: :get, on: :member
     end
@@ -410,7 +409,6 @@ Rails.application.routes.draw do
       match :abajo, via: :get, on: :member
     end
     resources :tar_detalles
-    resources :tar_valores
     resources :tar_facturaciones do
       match :crea_facturacion, via: :get, on: :collection
       match :elimina_facturacion, via: :get, on: :member
@@ -443,7 +441,6 @@ Rails.application.routes.draw do
     resources :tar_aprobaciones
     resources :tar_cuotas
 
-    resources :tar_det_cuantia_controles
     # agregada para diferenciar porcentajes de tarifa según tipo de causa
 
     resources :reg_reportes do
