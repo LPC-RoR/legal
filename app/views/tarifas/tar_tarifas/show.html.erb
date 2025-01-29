@@ -1,22 +1,22 @@
-<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: (@objeto.owner.blank? ? nil :  "/clientes/#{@objeto.owner.id}?html_options[menu]=Tarifas") } %>
+<%= render partial: '0p/general/clss_dir_objt_ttl', locals: {clss: 'shw_ttl', dir: 'shw', objt: @objeto, bck: nil} %>
 
 <div class="f_50lft_col">
 	<div class="lft">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_pagos', ttl: "Pagos", ownr: @objeto} %>
+	    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'tar_pagos', ownr: @objeto} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_pagos'} %>
 
 		<% if @objeto.cuantia_tarifa %>
 			<hr>
-			<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_formula_cuantias', ttl: "Fórmulas de cuantías", ownr: @objeto} %>
+		    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'tar_formula_cuantias', ownr: @objeto} %>
 			<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formula_cuantias'} %>
 		<% end %>
 		<hr>
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_tipo_variables', ttl: "Variable base ( % )", ownr: @objeto} %>
+	    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'tar_tipo_variables', ownr: @objeto} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tipo_variables'} %>
 
 	</div>
 	<div class="rght">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_formulas', ttl: "Fórmulas", ownr: @objeto} %>
+	    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'tar_formulas', ownr: @objeto} %>
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_formulas'} %>
 	</div>
 </div>

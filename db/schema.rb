@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_28_224125) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_29_185729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,11 +112,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_28_224125) do
     t.string "control"
     t.string "visible_para"
     t.integer "control_documento_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["control"], name: "index_app_archivos_on_control"
     t.index ["control_documento_id"], name: "index_app_archivos_on_control_documento_id"
     t.index ["documento_control"], name: "index_app_archivos_on_documento_control"
     t.index ["owner_class"], name: "index_app_archivos_on_owner_class"
     t.index ["owner_id"], name: "index_app_archivos_on_owner_id"
+    t.index ["ownr_id"], name: "index_app_archivos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_app_archivos_on_ownr_type"
     t.index ["visible_para"], name: "index_app_archivos_on_visible_para"
   end
 

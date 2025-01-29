@@ -1,13 +1,13 @@
-<%= render partial: '0p/general/ttl_shw', locals: {objeto: @objeto, dir: 'shw', bk_lnk: @objeto.tar_tarifa } %>
+<%= render partial: '0p/general/clss_dir_objt_ttl', locals: {clss: 'shw_ttl', dir: 'shw', objt: @objeto, bck: @objeto.tar_tarifa} %>
 
 <div class="f_30_70_col">
 	<div class="lft">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_cuotas', ttl: "Cuotas", ownr: @objeto} %>
+	    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'tar_cuotas', ownr: @objeto} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_cuotas'} %>    
 	</div>
 	<div class="rght">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_comentarios', ttl: "Comentarios", ownr: @objeto} %>
+	    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'tar_comentarios', ownr: @objeto} %>
 
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_comentarios'} %>    
 	</div>

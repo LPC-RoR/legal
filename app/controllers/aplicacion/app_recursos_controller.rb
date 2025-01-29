@@ -22,7 +22,17 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    redirect_to root_path
+    AppArchivo.all.each do |archv|
+      if archv.owner_class.blank? or archv.owner_id.blank?
+        archv.delete
+      else
+        archv.ownr_type = archv.owner_class
+        archv.ownr_id = archv.owner_id
+        archv.save
+      end
+    end
+
+    redirect_to root_path, notice: CausaArchivo.all.count
   end
 
   def password_recovery
