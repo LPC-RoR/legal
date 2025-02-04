@@ -42,5 +42,5 @@
 </div>
 <%= render partial: 'notas/shr/cllps_dsply_nw_nt', locals: {objeto: objeto} %>
 <%= render layout: '0p/collapse/display', locals: {label: 'Info', objeto: objeto} do %>
-  	<%= render partial: 'asesorias/list/detalle', locals: {objeto: objeto} %>
+  	<%= render partial: prtl_name('asesorias', 'list', 'detalle'), locals: {objeto: objeto} %>
 <% end %>

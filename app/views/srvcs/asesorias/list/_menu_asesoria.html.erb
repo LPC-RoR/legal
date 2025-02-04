@@ -1,11 +1,11 @@
 <small>
 <% unless objeto.sin_cargo? %>
-	<% if objeto.facturacion.blank? %>
+	<% if objeto.tar_facturacion.blank? %>
 		<% unless ( objeto.tar_servicio.blank? and ( objeto.moneda.blank? or objeto.monto.blank? ) ) %>
 			<%= link_to 'generar cobro', "/tar_facturaciones/crea_facturacion?owner_class=#{objeto.class.name}&owner_id=#{objeto.id}" %>
 		<% end %>
 	<% else %>
-		<% if objeto.facturacion.tar_aprobacion.blank? and objeto.facturacion.tar_factura.blank? %>
+		<% if objeto.tar_facturacion.tar_aprobacion.blank? and objeto.tar_facturacion.tar_factura.blank? %>
 			<%= link_to 'eliminar cobro', "/asesorias/#{objeto.id}/elimina_cobro" %>
 		<% end %>
 

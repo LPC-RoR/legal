@@ -7,6 +7,9 @@ class Cliente < ApplicationRecord
 
 	has_many :app_nominas, as: :ownr
 
+	has_many :app_archivos, as: :ownr
+	has_many :app_documentos, as: :ownr
+
 	has_many :causas
 	has_many :asesorias
 	has_many :cargos
@@ -69,7 +72,7 @@ class Cliente < ApplicationRecord
     end
 
     def st_modelo
-    	StModelo.find_by(st_modelo: 'Cliente')
+    	StModelo.find_by(st_modelo: self.class.name)
     end
 
 	def enlaces
@@ -77,6 +80,39 @@ class Cliente < ApplicationRecord
 	end
 
 	# Archivos y control de archivos
+
+	# Nombres de los archivos
+	def nms
+		self.app_archivos.nms.union(self.documentos.nms)
+	end
+
+	def fnd_fl(app_archivo)
+		self.app_archivos.find_by(app_archivo: app_archivo)
+	end
+
+	def acs
+		self.st_modelo.acs
+	end
+
+	# Archivos NO Controlados
+	def as
+		self.app_archivos.where.not(app_archivo: self.acs.nms)
+	end
+
+	def fnd_doc(app_documento)
+		self.app_documentos.find_by(app_documento: app_documento)
+	end
+
+	def dcs
+		self.st_modelo.dcs
+	end
+
+	#Documentos NO Controlados
+	def ds
+		self.app_documentos.where.not(app_documento: self.dcs.nms)
+	end
+
+	# ----------------------------------------------------
 
 	def nombres_usados
 		self.archivos.map {|archivo| archivo.app_archivo}.union(self.documentos.map {|doc| doc.app_documento})

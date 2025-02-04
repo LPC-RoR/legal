@@ -1,6 +1,6 @@
 <div class="ln_app">
 	<div class="ln_nm">
-		<% if objeto.facturacion.blank? %>
+		<% if objeto.tar_facturacion.blank? %>
 			<i class="bi bi-coin"></i>
 			Tarifa : 
 			<% if objeto.moneda.blank? or objeto.monto.blank? %>
@@ -17,7 +17,7 @@
 
 	</div>
 	<div class="ln_lnks">
-		<% if objeto.facturacion.blank? %>
+		<% if objeto.tar_facturacion.blank? %>
 			<% if objeto.moneda.blank? or objeto.monto.blank? %>
 				<%= render layout: '0p/collapse/link', locals: {label: 'Asesoria', objeto: objeto, tooltip: "#{objeto.tar_servicio.blank? ? 'Nueva' : 'Modifica'}" } do %>
 					<% if  objeto.tar_servicio.blank? %>
@@ -31,7 +31,7 @@
 	</div>
 </div>
 
-<% if objeto.facturacion.blank? %>
+<% if objeto.tar_facturacion.blank? %>
 	<% if objeto.moneda.blank? or objeto.monto.blank? %>
 		<%= render layout: '0p/collapse/display', locals: {label: 'Asesoria', objeto: objeto} do %>
 			<%= render partial: 'asesorias/list/form_tar_servicio', locals: {objeto: objeto} %>

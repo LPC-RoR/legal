@@ -69,7 +69,6 @@ class CausasController < ApplicationController
       # Documentos
       set_tabla('app_documentos', @objeto.ds, false)
       set_tabla('app_archivos', @objeto.as, false)
-      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
 
       @d_pendientes = @objeto.documentos_pendientes
       @a_pendientes = @objeto.archivos_pendientes

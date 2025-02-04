@@ -39,6 +39,12 @@ class Aplicacion::AppRecursosController < ApplicationController
       end
     end
 
+    AppDocumento.all.each do |doc|
+        doc.ownr_type = doc.owner_class
+        doc.ownr_id = doc.owner_id
+        doc.save
+    end
+
     redirect_to root_path, notice: CausaArchivo.all.count
   end
 

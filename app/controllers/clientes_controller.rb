@@ -33,14 +33,20 @@ class ClientesController < ApplicationController
 
     set_st_estado(@objeto)
 
-    set_tab( :menu, [['Agenda', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Documentos', operacion?], ['Productos', dog?]] )
+    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Productos', dog?]] )
 
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
-    if @options[:menu] == 'Agenda'
+    if @options[:menu] == 'General'
 
       @hoy = Time.zone.today
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
+
+      set_tabla('app_documentos', @objeto.ds, false)
+      set_tabla('app_archivos', @objeto.as, false)
+
+      @d_pendientes = @objeto.documentos_pendientes
+      @a_pendientes = @objeto.archivos_pendientes
 
     elsif @options[:menu] == 'Causas'
 
@@ -98,13 +104,6 @@ class ClientesController < ApplicationController
 
       set_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       set_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
-    elsif @options[:menu] == 'Documentos'
-      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
-      set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
-
-      @d_pendientes = @objeto.documentos_pendientes
-      @a_pendientes = @objeto.archivos_pendientes
     elsif @options[:menu] == 'Productos'
       set_tabla('pro_dtll_ventas', @objeto.pro_dtll_ventas.fecha_ordr, false)
     end
