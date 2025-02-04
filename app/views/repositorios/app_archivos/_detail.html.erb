@@ -9,6 +9,6 @@
 <% if @objeto.control_documento_id.present? %>
 	<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :app_archivo } %>
 <% end %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
+<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :control_documento_id } %>

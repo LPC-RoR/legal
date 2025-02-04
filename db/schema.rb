@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_29_185729) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_03_214400) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -172,9 +172,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_29_185729) do
     t.boolean "documento_control"
     t.string "referencia"
     t.string "visible_para"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["app_documento"], name: "index_app_documentos_on_app_documento"
     t.index ["owner_class"], name: "index_app_documentos_on_owner_class"
     t.index ["owner_id"], name: "index_app_documentos_on_owner_id"
+    t.index ["ownr_id"], name: "index_app_documentos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_app_documentos_on_ownr_type"
     t.index ["visible_para"], name: "index_app_documentos_on_visible_para"
   end
 
@@ -449,10 +453,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_29_185729) do
     t.integer "orden"
     t.string "visible_para"
     t.string "codigo"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.index ["codigo"], name: "index_control_documentos_on_codigo"
     t.index ["orden"], name: "index_control_documentos_on_orden"
     t.index ["owner_class"], name: "index_control_documentos_on_owner_class"
     t.index ["owner_id"], name: "index_control_documentos_on_owner_id"
+    t.index ["ownr_id"], name: "index_control_documentos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_control_documentos_on_ownr_type"
     t.index ["visible_para"], name: "index_control_documentos_on_visible_para"
   end
 

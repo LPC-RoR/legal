@@ -1,4 +1,4 @@
-class AsesoriasController < ApplicationController
+class Srvcs::AsesoriasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio generar_cobro facturar liberar_factura swtch_pendiente swtch_urgencia elimina_cobro ]

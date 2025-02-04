@@ -17,7 +17,7 @@ class Repositorios::AppDocumentosController < ApplicationController
 
   # GET /app_documentos/new
   def new
-    @objeto = AppDocumento.new(owner_class: params[:class_name], owner_id: params[:objeto_id])
+    @objeto = AppDocumento.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
   # GET /app_documentos/1/edit
@@ -72,17 +72,17 @@ class Repositorios::AppDocumentosController < ApplicationController
     end
 
     def set_redireccion
-      if ['AppDirectorio', 'Causa'].include?(@objeto.owner_class)
-        @redireccion = @objeto.owner
+      if ['AppDirectorio', 'Causa'].include?(@objeto.ownr_type)
+        @redireccion = @objeto.ownr
       elsif ['Cliente'].include?(@objeto.objeto_destino.class.name)
         @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos"
-      elsif @objeto.causas.any?
-        @redireccion = "/causas/#{@objeto.causas.first.id}?html_options[menu]=Hechos"
+#      elsif @objeto.causas.any?
+#        @redireccion = "/causas/#{@objeto.causas.first.id}?html_options[menu]=Hechos"
       end
     end
 
     # Only allow a list of trusted parameters through.
     def app_documento_params
-      params.require(:app_documento).permit(:app_documento, :publico, :owner_class, :owner_id, :existencia, :vencimiento)
+      params.require(:app_documento).permit(:app_documento, :publico, :ownr_type, :ownr_id, :existencia, :vencimiento)
     end
 end

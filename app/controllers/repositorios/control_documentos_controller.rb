@@ -15,9 +15,9 @@ class Repositorios::ControlDocumentosController < ApplicationController
 
   # GET /control_documentos/new
   def new
-    owner = params[:clss].constantize.find(params[:oid])
-    tipo = params[:clss] == 'TarDetalleCuantia' ? 'Archivo' : nil
-    @objeto = ControlDocumento.new(owner_class: params[:clss], owner_id: params[:oid], tipo: tipo, orden: owner.control_documentos.count + 1)
+    ownr = params[:oclss].constantize.find(params[:oid])
+    tipo = params[:oclss] == 'TarDetalleCuantia' ? 'Archivo' : nil
+    @objeto = ControlDocumento.new(ownr_type: params[:oclss], ownr_id: params[:oid], tipo: tipo, orden: ownr.control_documentos.count + 1)
   end
 
   # GET /control_documentos/1/edit
@@ -121,7 +121,7 @@ class Repositorios::ControlDocumentosController < ApplicationController
     end
 
     def set_redireccion
-      case @objeto.owner.class.name
+      case @objeto.ownr.class.name
       when 'TarDetalleCuantia'
         @redireccion = "/tablas/cuantias_tribunales"
       when 'TipoCausa'
@@ -133,6 +133,6 @@ class Repositorios::ControlDocumentosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def control_documento_params
-      params.require(:control_documento).permit(:nombre, :descripcion, :tipo, :control, :owner_class, :owner_id, :orden, :visible_para, :codigo)
+      params.require(:control_documento).permit(:nombre, :descripcion, :tipo, :control, :ownr_type, :ownr_id, :orden, :visible_para, :codigo)
     end
 end

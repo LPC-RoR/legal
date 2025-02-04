@@ -22,8 +22,18 @@ class Causa < ApplicationRecord
 	has_many :hechos
 	has_many :demandantes
 
-	has_many :causa_archivos
-	has_many :app_archivos, through: :causa_archivos
+	# Migración 1
+	# AppArchivo Que se presentan al tribunal (Hechos)
+	# Migrar a RepArchivo
+#	has_many :causa_archivos
+#	has_many :app_archivos, through: :causa_archivos
+	has_many :rep_archivos, as: :ownr
+
+	# Migración 2
+	# AppArchivo de la Causa (Demanda, Contesta, etc)
+	# Migrar desde Método archivos
+	has_many :app_archivos, as: :ownr
+	has_many :app_documentos, as: :ownr
 
 	has_many :secciones
 	has_many :parrafos
@@ -48,8 +58,7 @@ class Causa < ApplicationRecord
 
     delegate :tar_pagos, to: :tar_tarifa, prefix: true
 
-    # Manejo de Fecha Audiencia
-
+    # Ultima audiencia
     def last_adnc
     	self.age_actividades.adncs.fecha_ordr.last
     end
@@ -71,6 +80,40 @@ class Causa < ApplicationRecord
 	# PAGOS
 
 	# Archivos y control de archivos
+
+	# Nombres de los archivos
+	def nms
+		self.app_archivos.nms.union(self.documentos.nms)
+	end
+
+	def fnd_fl(app_archivo)
+		self.app_archivos.find_by(app_archivo: app_archivo)
+	end
+
+	# Archivos controlados
+	def acs
+		self.tipo_causa.acs
+	end
+
+	# Archivos NO Controlados
+	def as
+		self.app_archivos.where.not(app_archivo: self.acs.nms)
+	end
+
+	def fnd_doc(app_documento)
+		self.app_documentos.find_by(app_documento: app_documento)
+	end
+
+	def dcs
+		self.tipo_causa.dcs
+	end
+
+	#Documentos NO Controlados
+	def ds
+		self.app_documentos.where.not(app_documento: self.dcs.nms)
+	end
+
+	# -------------------------------------------------------------------------------------------------------
 
 	def nombres_usados
 		self.archivos.map {|archivo| archivo.app_archivo}.union(self.documentos.map {|doc| doc.app_documento})

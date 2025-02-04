@@ -10,8 +10,15 @@ class TipoCausa < ApplicationRecord
 	has_many :tar_tarifas
 	has_many :tar_tipo_variables
 
-	def control_documentos
-		ControlDocumento.where(owner_class: self.class.name, owner_id: self.id).order(:orden)
+	has_many :control_documentos, as: :ownr
+
+	# Archivos controlados
+	def acs
+		control_documentos.acs
+	end
+
+	def dcs
+		control_documentos.dcs
 	end
 
 end

@@ -2,14 +2,28 @@ class ControlDocumento < ApplicationRecord
 	TIPOS = ['Documento', 'Archivo']
 	CONTROLES = ['Requerido', 'Opcional']
 
-	# ------------------------------------ ORDER LIST
+	belongs_to :ownr, polymorphic: true
 
-	def owner
-		self.owner_class.constantize.find(self.owner_id)
+	def self.nms
+		all.map {|cd| cd.nombre}		
 	end
 
+	def self.acs
+		where(tipo: 'Archivo').order(:orden)
+	end
+
+	def self.dcs
+		where(tipo: 'Documento').order(:orden)
+	end
+
+  def req?
+    self.control == CONTROLES[0]
+  end
+
+	# ------------------------------------ ORDER LIST
+
 	def list
-		self.owner.control_documentos.order(:orden)
+		self.ownr.control_documentos.order(:orden)
 	end
 
 	def n_list
@@ -25,7 +39,7 @@ class ControlDocumento < ApplicationRecord
 	end
 
 	def redireccion
-		case self.owner_class
+		case self.ownr_class
 		when 'TarDetalleCuantia'
 			"/tablas?tb=7"
 		when 'StModelo'

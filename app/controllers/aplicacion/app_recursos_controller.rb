@@ -22,9 +22,16 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
+    ControlDocumento.all.each do |cd|
+      cd.ownr_type = cd.owner_class
+      cd.ownr_id = cd.owner_id
+      cd.save
+    end
+
     AppArchivo.all.each do |archv|
       if archv.owner_class.blank? or archv.owner_id.blank?
-        archv.delete
+        # Error! Borré los archivos (si existían) que se ingresan en hechos
+#        archv.delete
       else
         archv.ownr_type = archv.owner_class
         archv.ownr_id = archv.owner_id

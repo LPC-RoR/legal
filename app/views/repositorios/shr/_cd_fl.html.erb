@@ -1,0 +1,28 @@
+<% if cntrl %>
+	<div class="<%=fl.blank? ? (cd.req? ? 'no_dc_fl' : 'opt_dc_fl') : 'dc_fl' %>">
+		<div class="answr">
+			<small>
+			<i class="bi bi-file-earmark"></i>
+			<% if fl.blank? %>
+				<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/app_archivos/new#{ownr_prms(ownr)}&dcid=#{cd.id}", tltp: "Subir #{cd.nombre}"} do %>
+					<i class="bi bi-upload"></i>
+					Subir 
+				<% end %>
+			<% else %>
+				<%= dma_hm(fl.updated_at) %>
+			<% end %>
+			<%= cd.nombre %>
+			</small>
+		</div>
+		<div class="trsh">
+			<small>
+			<% unless fl.blank? %>
+				<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: fl.archivo.url, tltp: "Ver #{cd.nombre}"} do %>
+					<i class="bi bi-download"></i>
+				<% end %>
+				<i class="bi bi-dot"></i>
+			<% end %>
+			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: fl} unless fl.blank? %></small>
+		</div>
+	</div>
+<% end %>

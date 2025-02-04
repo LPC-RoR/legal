@@ -2,7 +2,7 @@ class Repositorios::AppArchivosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_app_archivo, only: %i[ show edit update destroy ]
-  after_action :read_demanda, only: [:update], if: -> {@objeto.owner.class.name == 'Causa'}
+  after_action :read_demanda, only: [:update], if: -> {@objeto.ownr.class.name == 'Causa'}
 
   # GET /app_archivos or /app_archivos.json
   def index
@@ -14,12 +14,15 @@ class Repositorios::AppArchivosController < ApplicationController
 
   # GET /app_archivos/new
   def new
+    # oclss: clase del ownr
+    # oid: id del ownr
+    # dcid: id del documento controlado. cuando lo hay
     # conviven dos modalidades de parámetros
     documento_controlado_id = params[:dcid]
     documento_controlado = params[:dcid].blank? ? nil : ControlDocumento.find(params[:dcid])
     nombre_documento = params[:dcid].blank? ? nil : documento_controlado.nombre
     ownr = params[:oclss].blank? ? params[:class_name].constantize.find(params[:objeto_id]) : params[:oclss].constantize.find(params[:oid])
-    @objeto = AppArchivo.new(owner_class: ownr.class.name, owner_id: ownr.id, app_archivo: nombre_documento, control_documento_id: documento_controlado_id)
+    @objeto = AppArchivo.new(ownr_type: ownr.class.name, ownr_id: ownr.id, app_archivo: nombre_documento, control_documento_id: documento_controlado_id)
   end
 
   # GET /app_archivos/1/edit
@@ -232,19 +235,19 @@ class Repositorios::AppArchivosController < ApplicationController
     def set_redireccion
       if @objeto.causas.any?
         @redireccion = "/causas/#{@objeto.causas.first.id}?html_options[menu]=Hechos"
-      elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.owner.class.name)
-        @redireccion = @objeto.owner
-      elsif ['AppDocumento'].include?(@objeto.owner.class.name)
-        @redireccion = "/#{@objeto.owner.objeto_destino.class.name.tableize.downcase}/#{@objeto.owner.objeto_destino.id}?html_options[menu]=Documentos"
+      elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.ownr.class.name)
+        @redireccion = @objeto.ownr
+      elsif ['AppDocumento'].include?(@objeto.ownr.class.name)
+        @redireccion = "/#{@objeto.ownr.objeto_destino.class.name.tableize.downcase}/#{@objeto.ownr.objeto_destino.id}?html_options[menu]=Documentos"
       elsif ['Cliente'].include?(@objeto.objeto_destino.class.name)
         @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos"
-      elsif ['KrnDenuncia', 'Causa'].include?(@objeto.owner.class.name)
-        @redireccion = @objeto.owner
+      elsif ['KrnDenuncia', 'Causa'].include?(@objeto.ownr.class.name)
+        @redireccion = @objeto.ownr
       end
     end
 
     # Only allow a list of trusted parameters through.
     def app_archivo_params
-      params.require(:app_archivo).permit(:app_archivo, :archivo, :archivo_cache, :owner_class, :owner_id, :remove_archivo, :control_documento_id)
+      params.require(:app_archivo).permit(:app_archivo, :archivo, :archivo_cache, :ownr_type, :ownr_id, :remove_archivo, :control_documento_id)
     end
 end

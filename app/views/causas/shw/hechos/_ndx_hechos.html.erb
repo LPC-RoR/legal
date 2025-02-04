@@ -5,23 +5,26 @@
 	</iframe>
 <% end %>
 
-<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'hechos', ttl: nil, ownr: objeto} %>
+<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'hechos', ownr: objeto} %>
+
+<!-- Despliegue de forms de Temas y hechos -->
 <%= render partial: prtl_name('causas', 'shw/hechos', 'dsply'), locals: {objeto: objeto} %>
+
 <%= render partial: '0p/tabla/tabla', locals: {c: 'temas'} %>
 
 <% unless @coleccion['hechos'].empty? %>
+
+	<!-- Si hay temas, los separamos de los hechos sin temas -->
 	<% if objeto.temas.any? %><hr> <% end %>
+
 	<% @coleccion['hechos'].each do |hecho| %>
 			<%= render partial: 'csc/hechos/list/innr_bjt', locals: {objeto: hecho} %>
 	<% end %>
+
 <% end %>
 
 <hr>
 
-<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'hchs-app_archivos', ttl: 'Archivos requeridos', ownr: objeto} %>
+<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'rep_archivos', ownr: objeto} %>
 
-<% unless @coleccion['app_archivos'].empty? %>
-	<% @objeto.causa_archivos.order(:orden).each do |rel| %>
-			<%= render partial: 'csc/causa_archivos/list/lobjeto', locals: {objeto: rel} %>
-	<% end %>
-<% end %>
+<%= render partial: '0p/tabla/tabla', locals: {c: 'rep_archivos'} %>

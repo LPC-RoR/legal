@@ -20,15 +20,6 @@ Rails.application.routes.draw do
     match :swtch_prrdd, via: :get, on: :member
   end
 
-  resources :asesorias do
-    match :set_tar_servicio, via: :post, on: :member
-    match :generar_cobro, via: :get, on: :member
-    match :elimina_cobro, via: :get, on: :member
-    match :facturar, via: :get, on: :member
-    match :liberar_factura, via: :get, on: :member
-    match :swtch_pendiente, via: :get, on: :member
-    match :swtch_urgencia, via: :get, on: :member
-  end
 #  get 'dwnldwrd' => 'causas/dwnldwrd', format: :docx
 
   resources :causas do
@@ -159,6 +150,17 @@ Rails.application.routes.draw do
   end
 
   scope module: 'srvcs' do
+    resources :tipo_asesorias
+    resources :asesorias do
+      match :set_tar_servicio, via: :post, on: :member
+      match :generar_cobro, via: :get, on: :member
+      match :elimina_cobro, via: :get, on: :member
+      match :facturar, via: :get, on: :member
+      match :liberar_factura, via: :get, on: :member
+      match :swtch_pendiente, via: :get, on: :member
+      match :swtch_urgencia, via: :get, on: :member
+    end
+
     resources :tipo_cargos
     resources :cargos
   end
@@ -187,7 +189,10 @@ Rails.application.routes.draw do
       match :eliminar, via: :get, on: :member
       match :set_establece, via: :get, on: :member
     end
-    resources :audiencias
+    resources :audiencias do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
     resources :causa_archivos do 
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
@@ -201,7 +206,6 @@ Rails.application.routes.draw do
     end
     # Para almacenar los pedazos de Demanda de la Causa
     resources :secciones
-    resources :tipo_asesorias
 
     resources :demandantes
     resources :monto_conciliaciones do

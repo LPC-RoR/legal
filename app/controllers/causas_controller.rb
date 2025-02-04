@@ -67,8 +67,8 @@ class CausasController < ApplicationController
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
 
       # Documentos
-      set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
-      set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
+      set_tabla('app_documentos', @objeto.ds, false)
+      set_tabla('app_archivos', @objeto.as, false)
       set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
 
       @d_pendientes = @objeto.documentos_pendientes
@@ -81,7 +81,8 @@ class CausasController < ApplicationController
     when 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), false)
       set_tabla('hechos', @objeto.hechos.where(tema_id: nil).order(:orden), false)
-      set_tabla('app_archivos', @objeto.app_archivos.order(:app_archivo), false)
+#      set_tabla('app_archivos', @objeto.app_archivos.order(:app_archivo), false)
+      set_tabla('rep_archivos', @objeto.rep_archivos.ordr, false)
     when 'Tarifa & Pagos'
 
       set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)

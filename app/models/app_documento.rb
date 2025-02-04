@@ -1,6 +1,15 @@
 class AppDocumento < ApplicationRecord
 
+	belongs_to :ownr, polymorphic: true
+
     validates_presence_of :app_documento
+
+	# Nombres
+	def self.nms
+		all.map {|dcmnt| dcmnt.app_documento}		
+	end
+
+	# REVISAR posiblemente DEPRECATED
 
 	def archivos
 		AppArchivo.where(owner_class: self.class.name).where(owner_id: self.id)
@@ -8,10 +17,6 @@ class AppDocumento < ApplicationRecord
 
 	def escaneos
 		AppEscaneo.where(ownr_class: self.class.name).where(ownr_id: self.id)
-	end
-
-	def owner
-		self.owner_class.constantize.find(self.owner_id)
 	end
 
 	def d_version
@@ -23,7 +28,7 @@ class AppDocumento < ApplicationRecord
 	end
 
 	def objeto_destino
-		['AppDirectorio', 'AppRepositorio'].include?(self.owner_class) ? self.owner.objeto_destino : self.owner
+		['AppDirectorio', 'AppRepositorio'].include?(self.owner_class) ? self.ownr.objeto_destino : self.ownr
 	end
 
 	def control_documento

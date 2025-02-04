@@ -75,16 +75,11 @@ class Repositorios::RepArchivosController < ApplicationController
 
     def get_rdrccn
 
-#      tar = @objeto.rep_doc_controlado.ownr
-#      clss_nm = @objeto.ownr.class.name
-#      if ['KrnDenunciado', 'KrnDenunciante', 'KrnTestigo'].include?(clss_nm)
-#        @rdrccn = krn_denuncia_path(@objeto.ownr.krn_denuncia, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
-#        @rdrccn = @objeto.ownr
-#      elsif clss_nm == 'KrnDenuncia'
-#        @rdrccn = krn_denuncia_path(@objeto.ownr, :anchor => "#{tar.css_id}#{@objeto.ownr.css_id}")
-#        @rdrccn = @objeto.ownr
-#      end
-      @rdrccn = @objeto.ownr
+      if @objeto.ownr.class.name == 'Causa'
+        @rdrccn = "/causas/#{@objeto.ownr.id}?html_options[menu]=Hechos"
+      else
+        @rdrccn = @objeto.ownr
+      end
 
     end
 

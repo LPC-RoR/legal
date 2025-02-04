@@ -1,5 +1,7 @@
 class AppArchivo < ApplicationRecord
 
+	belongs_to :ownr, polymorphic:true
+
 	has_many :causa_archivos
 	has_many :causas, through: :causa_archivos
 
@@ -12,12 +14,15 @@ class AppArchivo < ApplicationRecord
 
 	mount_uploader :archivo, ArchivoUploader
 
-	def owner
-		self.owner_class.constantize.find(self.owner_id)
+	# Nombres
+	def self.nms
+		all.map {|archv| archv.app_archivo}		
 	end
 
+	# REVISAR, probablemente DEPRECATED
+
 	def objeto_destino
-		['AppDirectorio', 'AppRepositorio'].include?(self.owner_class) ? self.owner.objeto_destino : self.owner
+		['AppDirectorio', 'AppRepositorio'].include?(self.ownr_type) ? self.ownr.objeto_destino : self.ownr
 	end
 
 	def d_nombre

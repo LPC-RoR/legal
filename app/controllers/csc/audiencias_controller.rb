@@ -1,7 +1,10 @@
 class Csc::AudienciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_audiencia, only: %i[ show edit update destroy ]
+  before_action :set_audiencia, only: %i[ show edit update destroy arriba abajo ]
+  after_action :reordenar, only: %i[update destroy]
+
+  include Orden
 
   # GET /audiencias or /audiencias.json
   def index
@@ -14,7 +17,7 @@ class Csc::AudienciasController < ApplicationController
 
   # GET /audiencias/new
   def new
-    tipo_causa = TipoCausa.find(params[:tipo_causa_id])
+    tipo_causa = TipoCausa.find(params[:oid])
     @objeto = Audiencia.new(tipo_causa_id: tipo_causa.id, orden: tipo_causa.audiencias.count + 1 )
   end
 
