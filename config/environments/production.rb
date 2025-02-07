@@ -70,8 +70,8 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'abogadosderechodeltrabajo.cl' }
   config.action_mailer.smtp_settings = { 
     address: 'email-smtp.eu-east-2.amazonaws.com', 
-    user_name: 'AKIA4KSOU5RK63NRWDEX', 
-    password: 'BFIEb7FkGnqJCqj9AEbbAbVH8P8DHIHRAtYAgFm/Nj5z',
+    user_name: 'HCHAKIA4KSOU5RK63NRWDEX', 
+    password: 'HCHBFIEb7FkGnqJCqj9AEbbAbVH8P8DHIHRAtYAgFm/Nj5z',
     enable_starttls: true,
     port: 587,
     # :Login authentication encodes the password in base64
