@@ -107,7 +107,7 @@ class CausasController < ApplicationController
 
   # GET /causas/new
   def new
-    modelo_causa = StModelo.find_by(st_modelo: 'Causa')
+    modelo_causa = StModelo.get_model('Causa')
     @objeto = Causa.new(estado: modelo_causa.primer_estado.st_estado, urgente: false, pendiente: false)
   end
 

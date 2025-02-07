@@ -65,6 +65,20 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Agregado por HCH
+  config.x.mail_from = %(Abogados derecho del Trabajo <no-reply@abogadosderechodeltrabajo.cl>)
+  config.action_mailer.default_url_options = { host: 'abogadosderechodeltrabajo.cl' }
+  config.action_mailer.smtp_settings = { 
+    address: 'email-smtp.eu-east-2.amazonaws.com', 
+    user_name: 'AKIA4KSOU5RK63NRWDEX', 
+    password: 'BFIEb7FkGnqJCqj9AEbbAbVH8P8DHIHRAtYAgFm/Nj5z',
+    enable_starttls: true,
+    port: 587,
+    # :Login authentication encodes the password in base64
+    authentication: :login
+  }
+  config.action_mailer.raise_delivery_errors = true
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false

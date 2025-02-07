@@ -1,10 +1,10 @@
 module Inicia
 	extend ActiveSupport::Concern
 
-	# @concern.seguridad.rb : version_activa, dog_email
+	# @concern.seguridad.rb : version_activa?, dog_email
 
 	def init_vrsn
-		# Cada una está con una condición distinta por si la trransacción se quiebra
+		# Cada una está con una condición distinta por si la transacción se quiebra
 		vrs = AppVersion.create(dog_email: dog_email) unless version_activa?
 		vrs.app_nomina = AppNomina.create(nombre: AppVersion::DOG_NAME, email: AppVersion::DOG_EMAIL) if AppNomina.dog.blank?
 	end
@@ -15,10 +15,13 @@ module Inicia
 
 			init_vrsn								# Verifica existencia de versión y nómina de DOG
 	
-			if perfil_activo.blank?					# # USUARIO SIN PERFIL (Primer ingreso)
+			unless perfil_activo?					# # USUARIO SIN PERFIL (Primer ingreso)
 
-				if nomina_activa.present? or libre_registro?
+				if nomina_activa?
 					nomina_activa.app_perfil = AppPerfil.create(email: current_usuario.email)
+				elsif libre_registro?
+					# Hay que ver si la aplicación está preparada para funcionar 
+					# con usuarios registrados que no pertenezcan a una nómina
 				else
 					sign_out_and_redirect(current_usuario)
 				end

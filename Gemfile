@@ -1,13 +1,16 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-#ruby '2.7.1'
-ruby '3.0.0'
+# ruby '2.7.1'
+# ruby '3.0.0'
+ruby '3.3.1'
 
 gem 'pg'
 
-gem 'bootstrap', '~> 4.5.2'
-gem 'jquery-rails'
+# gem 'bootstrap', '~> 4.5.2'
+gem 'bootstrap', '~> 5.3.3'
+# gem 'jquery-rails'
+gem 'dartsass-sprockets'
 
 gem 'devise'
 
@@ -41,7 +44,7 @@ gem 'stringio', '3.1.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'rails', '~> 5.2.6'
-gem 'rails', '~> 7.1.3'
+gem 'rails', '~> 8.0.1'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

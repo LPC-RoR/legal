@@ -2,6 +2,6 @@
 	<!-- ... -->
 <%# end %>
 
-<a data-toggle="collapse" href="#<%=label%><%= objeto.blank? ? nil : objeto.id%>" role="button" aria-expanded="false" aria-controls="<%=label%><%= objeto.blank? ? nil : objeto.id%>%>">
+<a data-bs-toggle="collapse" href="#<%=label%><%= objeto.blank? ? nil : objeto.id%>" role="button" aria-expanded="false" aria-controls="<%=label%><%= objeto.blank? ? nil : objeto.id%>%>">
 	<span data-toggle="tooltip" title="<%=tooltip%>"><%= yield %></span>
 </a>

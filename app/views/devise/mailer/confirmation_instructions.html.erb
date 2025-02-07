@@ -1,5 +1,7 @@
-<p>Bienvenido <%= @email %>!</p>
+<p>Bienvenido <%#= @email %>!</p>
 
-<p>Usted puede confirmar la cuenta de su email con el siguiente link:</p>
+<p>Este correo tiene el propósito de confirmar la dirección de correo electrónica utilizada por usted para registrarse en nuestra plataforma:</p>
 
-<p><%= link_to 'Confirmo mi cuenta', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%= link_to 'Confirmo la recepción del correo de verificación', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+Equipo de LaborSafe

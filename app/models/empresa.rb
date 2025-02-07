@@ -1,4 +1,5 @@
 class Empresa < ApplicationRecord
+    
 	has_many :app_nominas, as: :ownr
 
 	has_many :pro_dtll_ventas, as: :ownr
