@@ -23,7 +23,7 @@ class AgeActividad < ApplicationRecord
 		if perfil.blank?
 			'no encontrado'
 		else
-			perfil.email == AppVersion::DOG_EMAIL ? AppVersion::DOG_NAME : AppNomina.find_by(email: perfil.email).nombre
+			perfil.email == Rails.application.credentials[:dog][:email] ? Rails.application.credentials[:dog][:name] : AppNomina.find_by(email: perfil.email).nombre
 		end
 	end
 

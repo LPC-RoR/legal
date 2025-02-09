@@ -69,9 +69,9 @@ Rails.application.configure do
   config.x.mail_from = %(Abogados derecho del Trabajo <no-reply@abogadosderechodeltrabajo.cl>)
   config.action_mailer.default_url_options = { host: 'abogadosderechodeltrabajo.cl' }
   config.action_mailer.smtp_settings = { 
-    address: 'email-smtp.eu-east-2.amazonaws.com', 
-    user_name: 'HCHAKIA4KSOU5RK63NRWDEX', 
-    password: 'HCHBFIEb7FkGnqJCqj9AEbbAbVH8P8DHIHRAtYAgFm/Nj5z',
+    address: Rails.application.credentials[:smtp][:address], 
+    user_name: Rails.application.credentials[:smtp][:user_name], 
+    password: Rails.application.credentials[:smtp][:password],
     enable_starttls: true,
     port: 587,
     # :Login authentication encodes the password in base64

@@ -59,8 +59,8 @@ module Seguridad
 
 	def scrty_vls
 		version = get_version_activa
-		dog_email = version.blank? ? AppVersion::DOG_EMAIL : version.dog_email
-		dog_name = AppVersion::DOG_NAME
+		dog_email = version.blank? ? Rails.application.credentials[:dog][:email] : version.dog_email
+		dog_name = Rails.application.credentials[:dog][:name]
 		app_sigla = version.blank? ? 'app' : (version.app_sigla.blank? ? 'app' : version.app_sigla )
 		public_controllers = get_public_controllers
 		activa_tipos_usuario = cfg_defaults[:activa_tipos_usuario]

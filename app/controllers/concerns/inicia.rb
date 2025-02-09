@@ -6,7 +6,7 @@ module Inicia
 	def init_vrsn
 		# Cada una está con una condición distinta por si la transacción se quiebra
 		vrs = AppVersion.create(dog_email: dog_email) unless version_activa?
-		vrs.app_nomina = AppNomina.create(nombre: AppVersion::DOG_NAME, email: AppVersion::DOG_EMAIL) if AppNomina.dog.blank?
+		vrs.app_nomina = AppNomina.create(nombre: Rails.application.credentials[:dog][:name], email: Rails.application.credentials[:dog][:email]) if AppNomina.dog.blank?
 	end
 
 	def inicia_sesion
