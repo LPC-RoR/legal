@@ -58,7 +58,7 @@ gem 'uglifier', '>= 1.3.0'
 #gem 'mini_racer', '< 0.5.0', platforms: :ruby
 #gem 'libv8'
 #gem 'mini_racer', platforms: :ruby
-#gem 'mini_racer', '~> 0.15.0', platform: :ruby
+gem 'mini_racer', '~> 0.15.0', platform: :ruby
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
