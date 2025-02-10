@@ -189,8 +189,6 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    libv8 (8.4.255.0.1)
-    libv8 (8.4.255.0.1-x86_64-linux)
     libv8-node (22.7.0.4)
     libv8-node (22.7.0.4-x86_64-linux)
     listen (3.9.0)
@@ -398,7 +396,6 @@ DEPENDENCIES
   htmltoword
   jbuilder (~> 2.5)
   kaminari
-  libv8
   listen (~> 3.5)
   mini_racer
   pdf-reader
