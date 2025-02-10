@@ -14,7 +14,7 @@ class AppNomina < ApplicationRecord
 	scope :nombre_ordr, -> { order(:nombre) }
 
 	def self.dog
-		find_by(email: AppVersion::DOG_EMAIL)		
+		find_by(email: Rails.application.credentials[:dog][:email])		
 	end
 
 	def self.activa(usuario)
