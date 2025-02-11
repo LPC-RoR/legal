@@ -56,9 +56,12 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 #gem 'mini_racer', '< 0.5.0', platforms: :ruby
-gem 'libv8'
+#gem 'libv8'
 #gem 'mini_racer', platforms: :ruby
-gem 'mini_racer', '>= 0.6.0', platform: :ruby
+#gem 'mini_racer', '>= 0.6.0', platform: :ruby
+gem 'execjs'
+#gem 'therubyracer' # Optional, if you want a Ruby-based runtime
+
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
