@@ -246,7 +246,7 @@ GEM
     public_suffix (6.0.1)
     puma (3.12.6)
     racc (1.8.1)
-    rack (2.2.10)
+    rack (2.2.11)
     rack-session (1.0.2)
       rack (< 3)
     rack-test (2.2.0)
@@ -413,7 +413,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.3.7p123
 
 BUNDLED WITH
-   2.6.3
+   2.5.22
