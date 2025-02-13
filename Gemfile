@@ -40,7 +40,7 @@ gem 'pdf-reader'
 #gem "opensearch-ruby" # select one
 gem 'pg_search'
 
-gem 'stringio', '3.1.0'
+gem 'stringio', '3.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'rails', '~> 5.2.6'
