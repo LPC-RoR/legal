@@ -23,7 +23,8 @@ class Aplicacion::AppRecursosController < ApplicationController
   def procesos
 
     Usuario.all do |usr|
-      usr.confirm
+      usr.skip_confirmation!
+      usr.save!
     end
 
 #    ControlDocumento.all.each do |cd|
