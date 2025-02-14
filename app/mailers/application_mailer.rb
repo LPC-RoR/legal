@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'addt@abogadosderechodeltrabajo.cl
+  default from: 'addt@abogadosderechodeltrabajo.cl'
   layout 'mailer'
 end
