@@ -1,0 +1,12 @@
+<div class="dropdown d-inline">
+	<i class="bi bi-arrow-bar-down" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    	<% scp_menu[tkn].each do |itm| %>
+    		<% unless @scp == scp_item[tkn][itm[:scp].to_sym] %>
+    		<li>
+		        <small><a class="dropdown-item" href="<%=scp_lnk(tkn, objeto)%><%=itm[:scp]%>"><i class="bi bi-bookmark"></i> <%= scp_item[tkn][itm[:scp].to_sym] %></a></small>
+    		</li>
+    		<% end %>
+    	<% end %>
+    </ul>
+</div>

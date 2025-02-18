@@ -11,8 +11,11 @@ class Asesoria < ApplicationRecord
 
     validates_presence_of :descripcion
 
+    scope :assr_ordr, -> { order(urgente: :desc, pendiente: :desc, created_at: :desc) }
+
     scope :std, ->(std) { where(estado: std).order(urgente: :desc, pendiente: :desc, created_at: :desc)}
-    scope :typ, ->(typ_id) { where(estado: 'activo', tipo_asesoria_id: typ_id).order(urgente: :desc, pendiente: :desc, created_at: :desc) }
+    scope :typ_id, ->(typ_id) { where(estado: 'tramitación', tipo_asesoria_id: typ_id).assr_ordr }
+    scope :typ, ->(typ) { where(tipo_asesoria_id: TipoAsesoria.find_by(tipo_asesoria: typ).id, estado: 'tramitación').assr_ordr }
 
     def self.crstn(typ)
     	typ.singularize == 'Redaccion' ? 'Redacción' : typ.singularize

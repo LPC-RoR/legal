@@ -8,23 +8,29 @@ class ClientesController < ApplicationController
 
   # GET /clientes or /clientes.json
   def index
+    # Usuarios que no tienen ownr
     @age_usuarios = AgeUsuario.no_ownr
-    @modelo = StModelo.get_model('Cliente')
 
-    @estados = @modelo.blank? ? [] : @modelo.stts_arry
-    @tipos = Cliente::TIPOS
+    scp = params[:scp].blank? ? 'emprss' : params[:scp]
 
-    @estado = std('clientes', params[:e], params[:t])
-    @tipo = typ('clientes', params[:e], params[:t])
-    @path = '/clientes?'
+    case scp
+    when 'emprss'
+      cllcn = Cliente.typ('Empresa').cl_ordr
+    when 'sndcts'
+      cllcn = Cliente.typ('Sindicato').cl_ordr
+    when 'trbjdrs'
+      cllcn = Cliente.typ('Trabajador').cl_ordr
+    when 'actvs'
+      cllcn = Cliente.std('activo').cl_ordr
+    when 'de_bj'
+      cllcn = Cliente.std('baja').cl_ordr
+    end
+
+    @scp = scp_item[:clientes][scp.to_sym]
 
     @vrbls = Variable.all.order(:variable)
 
-    
-    cllcn = Cliente.std(@estado) if @estado.present?
-    cllcn = Cliente.typ(@tipo.singularize) if (@tipo.present? and @estado.blank?)
-
-    set_tabla('clientes', cllcn.order(preferente: :desc, razon_social: :asc), true)
+    set_tabla('clientes', cllcn, true)
 
   end
 
@@ -50,52 +56,69 @@ class ClientesController < ApplicationController
 
     elsif @options[:menu] == 'Causas'
 
-      @estados = StModelo.find_by(st_modelo: 'Causa').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
-      @tipos = ['por_facturar']
-      @tipos = nil
+      scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
 
-      @estado = (params[:e].blank? and params[:t] != 'por_facturar') ? @estados[0] : params[:e]
-      @path = "/clientes/#{@objeto.id}?html_options[menu]=Causas&"
-
-      if params[:t] == 'por_facturar'
-        @tipo = 'por_facturar'
+      case scp
+      when 'trmtcn'
+        cllcn = @objeto.causas.std('tramitación')
+      when 'sn_fctrcn'
         cllcn = @objeto.causas.no_fctrds
-      else
-        cllcn = @objeto.causas.where(estado: @estado).order(created_at: :desc)
+      when 'trmnds'
+        cllcn = @objeto.causas.std('terminada')
+      when 'crrds'
+        cllcn = @objeto.causas.std('cerrada')
+      when 'en_rvsn'
+        cllcn = @objeto.causas.std('revisión')
       end
+
+      @scp = scp_item[:causas][scp.to_sym]
 
       set_tabla('causas', cllcn, true)
 
     elsif @options[:menu] == 'Asesorias'
 
-      @estados = StModelo.find_by(st_modelo: 'Asesoria').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
-      @tipos = ['Multas', 'Redacciones']
-      @tipo = params[:t].blank? ? nil : params[:t]
-      @estado = params[:e].blank? ? (@tipo.blank? ? @estados[0] : nil) : params[:e]
-      @path = "/clientes/#{@objeto.id}?html_options[menu]=Asesorias&"
+      scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
 
-      unless @tipo.blank?
-        corregido = @tipo.singularize == 'Redaccion' ? 'Redacción' : @tipo.singularize
-        tipo = TipoAsesoria.find_by(tipo_asesoria: corregido)
-        tipo = 'Redacción' if (tipo == 'Redaccion')
-        coleccion = @objeto.asesorias.where(tipo_asesoria_id: tipo.id).order(created_at: :desc)
+      case scp
+      when 'trmtcn'
+        cllcn = @objeto.asesorias.std('tramitación')
+      when 'trmnds'
+        cllcn = @objeto.asesorias.std('terminada')
+      when 'crrds'
+        cllcn = @objeto.asesorias.std('cerradas')
+      when 'mlts'
+        cllcn = @objeto.asesorias.typ('Multa')
+      when 'crts_dspd'
+        cllcn = @objeto.asesorias.typ('CartaDespido')
+      when 'rdccns'
+        cllcn = @objeto.asesorias.typ('Redacción')
+      when 'cnslts'
+        cllcn = @objeto.asesorias.typ('Consulta')
       end
-      unless @estado.blank?
-        coleccion = @objeto.asesorias.where(estado: @estado).order(created_at: :desc)
-      end
-      set_tabla('asesorias', coleccion, true)
+
+      @scp = scp_item[:asesorias][scp.to_sym]
+
+      set_tabla('asesorias', cllcn, true)
 
     elsif @options[:menu] == 'Facturas'
-      @estados = StModelo.find_by(st_modelo: 'TarFactura').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
-      @tipos = nil
-      @tipo = nil
-      @estado = params[:e].blank? ? @estados[0] : params[:e]
-      @path = "/clientes/#{@objeto.id}?html_options[menu]=Facturas&"
 
-      coleccion = @objeto.facturas.where(estado: @estado).order(created_at: :desc)
-      set_tabla('tar_facturas', coleccion, true)
+      scp = params[:scp].blank? ? 'ingrss' : params[:scp]
+
+      case scp
+      when 'ingrss'
+        cllcn = @objeto.facturas.std('ingreso')
+      when 'fctrds'
+        cllcn = @objeto.facturas.std('facturada')
+      when 'pgds'
+        cllcn = @objeto.facturas.std('pagada')
+      end
+
+      @scp = scp_item[:tar_facturas][scp.to_sym]
+
+      set_tabla('tar_facturas', cllcn, true)
 
     elsif @options[:menu] == 'Tarifas'
+      
       @estados = []
       @tipos = ['causas', 'asesorias']
       @tipo = params[:t].blank? ? @tipos[0] : params[:t]
@@ -104,6 +127,7 @@ class ClientesController < ApplicationController
 
       set_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
       set_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
+
     elsif @options[:menu] == 'Productos'
       set_tabla('pro_dtll_ventas', @objeto.pro_dtll_ventas.fecha_ordr, false)
     end

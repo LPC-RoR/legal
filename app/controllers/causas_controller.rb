@@ -10,31 +10,27 @@ class CausasController < ApplicationController
 
   # GET /causas or /causas.json
   def index
+    # Usuarios que no tienen ownr
     @age_usuarios = AgeUsuario.no_ownr
 
-    @modelo = StModelo.get_model('Causa')
-    @estados = @modelo.blank? ? [] : @modelo.stts_arry
-    @tipos = ['por_facturar']
+    scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
 
-    @estado = std('causas', params[:e], params[:t]) unless params[:t] == 'por_facturar'
-    @path = "/causas?"
-    @link_new = @estado == 'tramitación' ? causas_path : nil
-
-    if params[:query].blank?
-
-      if params[:t] == 'por_facturar'
-        @tipo = 'por_facturar'
-        cllcn = Causa.no_fctrds
-      else
-        cllcn = Causa.std(@estado) if @estado.present?
-      end
-
-      set_tabla('causas', cllcn, true)
-      @srch = false
-    else
-      @cs_array = Causa.search_for(params[:query])
-      @srch = true
+    case scp
+    when 'trmtcn'
+      cllcn = Causa.std('tramitación')
+    when 'sn_fctrcn'
+      cllcn = Causa.no_fctrds
+    when 'trmnds'
+      cllcn = Causa.std('terminada')
+    when 'crrds'
+      cllcn = Causa.std('cerrada')
+    when 'en_rvsn'
+      cllcn = Causa.std('revisión')
     end
+
+    @scp = scp_item[:causas][scp.to_sym]
+
+    set_tabla('causas', cllcn, true)
 
   end
 

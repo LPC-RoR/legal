@@ -1,18 +1,11 @@
 <%= render partial: prtl_name('causas', 'indx', 'srch') %>
 
-<div class="f_200pxlft_col">
-  <div class="lft">
-    <%= render partial: '0p/cmenu/cmenu', locals: { c: 'causas', tipo: tipo, estado: estado, path: path} %>
-  </div>
-  <div class="rght">
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'causas', ttl: "Causas #{estado.blank? ? 'por facturar' : cmenu_clss['causas'][:items][estado].downcase}", ownr: nil} %>
+<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'causas', ownr: (controller_name == 'clientes' ? @objeto : nil)} %>
 
-    <% unless @srch %>
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'causas'} %>
-    <% else %>
-      <% @cs_array.each do |fnd| %>
-        <%= render partial: 'causas/list/objeto', locals: {objeto: fnd} %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<% unless @srch %>
+  <%= render partial: '0p/tabla/tabla', locals: {c: 'causas'} %>
+<% else %>
+  <% @cs_array.each do |fnd| %>
+    <%= render partial: 'causas/list/objeto', locals: {objeto: fnd} %>
+  <% end %>
+<% end %>

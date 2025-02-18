@@ -2,6 +2,10 @@ class Aplicacion::TablasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
 
+  def tribunal_corte
+    set_tabla('tribunal_cortes', TribunalCorte.trbnl_ordr, false)
+  end
+
   def uf_regiones
       set_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
       set_tabla('regiones', Region.order(:orden), false)

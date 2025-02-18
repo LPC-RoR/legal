@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
 	helper_method :nombre_dia, :nombre3_dia, :load_calendario, :get_cal_dia, :dyf, :prfx_dia
 	helper_method :itm_scrty, :lm_seguridad, :check_crud, :check_k_estados, :check_st_estado
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
-	helper_method :cmenu_clss, :std, :typ, :display_name
+	helper_method :cmenu_clss, :std, :typ, :display_name, :scp_menu, :scp_item
 	helper_method :plz_lv, :plz_c
 	helper_method :krn_fl_cntrl, :krn_cntrllrs?
 

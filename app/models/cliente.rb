@@ -38,6 +38,8 @@ class Cliente < ApplicationRecord
     scope :std, ->(estado) { where(estado: estado)}
     scope :typ, ->(tipo) { where(estado: 'activo', tipo_cliente: tipo) }
 
+    scope :cl_ordr, -> { order(preferente: :desc, razon_social: :asc) }
+
 
     def krn?
     	self.pro_dtll_ventas.map {|dv| dv.producto.codigo.split('_')[0]}.include?('krn')

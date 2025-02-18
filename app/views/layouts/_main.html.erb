@@ -5,12 +5,19 @@
 	<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, SI ES UNA PÁGINA PÚBLICA O ES UNA PÁGINA DE DEVISE -->
 	<% if get_perfil_activo.present? or get_public_controllers.include?(controller_name) or devise_controllers.include?(controller_name)  %>
 
+		<!-- Verifica usuarios de la aplicación o de cuenta -->
 		<% unless scp_err? %>
+
+			<!-- Obtiene sym del menú -->
 			<% unless lm_sym.blank? %>
 
 				<!--div class="f_250pxlft_col"-->
 				<div class="f_lmn_lyt">
 					<div class="lft">
+						<% if prtl?('layouts', 'lmenu', lm_sym.to_s) %>
+							<%= render partial: prtl_name('layouts', 'lmenu', lm_sym.to_s) %>
+						<% end %>
+
 						<%= render partial: '0p/lmenu/lmenu', locals: { sym: lm_sym } %>
 
 						<% if prtl?(controller_name, 'dwn_lft', 'bdy') %>
@@ -25,16 +32,13 @@
 			<% else %>
 				<%= yield %>
 			<% end %>
+
 		<% else %>
-			<div  class="lyt_error">
-				<i class="bi bi-cone-striped"></i> Este usuario no tiene acceso a esta página, comuniquese con el administrador de la plataforma.
-			</div>
+			<%= render partial: 'layouts/partials/errr_prfl' %>
 		<% end %>
 
 	<% else %>
-		<div  class="lyt_error">
-			<i class="bi bi-cone-striped"></i> Usuario sin perfil activo, comuniquese con el administrador de la plataforma.
-		</div>
+		<%= render partial: 'layouts/partials/errr_accss' %>
 	<% end %>
 
 </div>

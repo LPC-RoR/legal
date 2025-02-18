@@ -7,24 +7,29 @@ class Srvcs::AsesoriasController < ApplicationController
   # GET /asesorias or /asesorias.json
   def index
     @age_usuarios = AgeUsuario.no_ownr
-    @modelo = StModelo.get_model('Asesoria')
 
-    @estados = @modelo.blank? ? [] : @modelo.stts_arry
-    @tipos = ['Multas', 'Redacciones']
+    scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
 
-    @estado = std('asesorias', params[:e], params[:t])
-    @tipo = typ('asesorias', params[:e], params[:t])
-
-    @path = "/asesorias?"
-
-    unless @tipo.blank?
-      tipo = TipoAsesoria.typ(Asesoria.crstn(@tipo))
-      coleccion = Asesoria.typ(tipo.id)
+    case scp
+    when 'trmtcn'
+      cllcn = Asesoria.std('tramitación')
+    when 'trmnds'
+      cllcn = Asesoria.std('terminada')
+    when 'crrds'
+      cllcn = Asesoria.std('cerradas')
+    when 'mlts'
+      cllcn = Asesoria.typ('Multa')
+    when 'crts_dspd'
+      cllcn = Asesoria.typ('CartaDespido')
+    when 'rdccns'
+      cllcn = Asesoria.typ('Redacción')
+    when 'cnslts'
+      cllcn = Asesoria.typ('Consulta')
     end
-    unless @estado.blank?
-      coleccion = Asesoria.std(@estado)
-    end
-    set_tabla('asesorias', coleccion, true)
+
+    @scp = scp_item[:asesorias][scp.to_sym]
+
+    set_tabla('asesorias', cllcn, true)
 
   end
 

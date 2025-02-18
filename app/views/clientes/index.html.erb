@@ -1,10 +1,3 @@
-<div class="f_200pxlft_col">
-  <div class="lft">
-    <%= render partial: '0p/cmenu/cmenu', locals: { c: 'clientes', tipo: @tipo, estado: @estado, path: @path} %>
-  </div>
-  <div class="right">
-      <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'clientes', ttl: "Clientes #{@tipo.present? ? @tipo : cmenu_clss['clientes'][:items][@estado] }", ownr: nil} %>
+<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'clientes', ownr: (controller_name == 'clientes' ? @objeto : nil)} %>
 
-      <%= render partial: '0p/tabla/tabla', locals: {c: 'clientes'} if @tipo.present? or @estado.present? %>
-  </div>
-</div>
+<%= render partial: '0p/tabla/tabla', locals: {c: 'clientes'} %>

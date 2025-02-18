@@ -15,6 +15,10 @@ class TarFactura < ApplicationRecord
 	has_many :m_reg_facts
 	has_many :m_registros, through: :m_reg_facts
 
+	scope :fac_ordr, -> { order(created_at: :desc) }
+
+    scope :std, ->(std) { where(estado: std).fac_ordr}
+
 	# Para respaldar archivo factura
 	def factura
 		AppArchivo.where(owner_class: self.class.name).find_by(owner_id: self.id)

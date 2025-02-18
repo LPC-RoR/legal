@@ -1,9 +1,5 @@
 module CptnMenuAppHelper
 
-	def navbar?
-		{ a: false, s: false, h: true}
-	end
-
 	def menu_admn
 	    []
 	end

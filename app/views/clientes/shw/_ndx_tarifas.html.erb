@@ -1,15 +1,10 @@
-<div class="f_200pxlft_col">
-  <div class="lft">
-    <%= render partial: '0p/cmenu/cmenu', locals: { c: 'tar_tarifas', tipo: tipo, estado: estado, path: path} %>
+<div class="row gx-1">
+  <div class="col-lg-6 col-xs-12">
+    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'tar_tarifas', ownr: (controller_name == 'clientes' ? @objeto : nil)} %>
+    <%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
   </div>
-  <div class="rght">
-
-  	<% if tipo == 'causas' %>
-  		<%= render partial: prtl_name('tar_tarifas', 'indx', 'indx'), locals: {cntrllr: 'tar_tarifas', ownr: objeto, tipo: tipo} %>
-  	<% else %>
-  		<%= render partial: prtl_name('tar_servicios', 'indx', 'indx'), locals: {cntrllr: 'tar_servicios', ownr: objeto, tipo: tipo} %>
-  	<% end %>
-
+  <div class="col-lg-6">
+    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'tar_servicios', ownr: (controller_name == 'clientes' ? @objeto : nil)} %>
+      <%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
   </div>
-
 </div>

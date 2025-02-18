@@ -160,67 +160,6 @@
 
 // BNNR
 
-.hm_bnnr {
- position: sticky;
- z-index: 5;
- top:0;
- width:100%;
-	background-color: $ls_blue_1;
-	padding: .7rem;
-	color: white;
-	@include a_hover(white, $pltt_5);
-	@include grd(200 auto 200, 0);
-
-	.hm_bnnr_icn {
-		@include grd_ncol(1);
-   	justify-self: start;
-
-		a:hover {
-			position: relative;
-			left: 2px;
-			bottom: 2px;
-	    text-decoration: none;
-		}
-	}
-
-	.hm_bnnr_mddl {
-		@include grd_ncol(2);
-   	justify-self: center;
-   	font-weight: bold;
-	}
-
-	.hm_bnnr_mn {
-		@include grd_ncol(3);
-   	justify-self: end;
-
-		text-align: right;
-		font-size: 16px;
-		.mn_itm {
-			display: inline;
-			margin-left: 1em;
-			@include a_hover(white, $pltt_5);
-			a:hover {
-				position: relative;
-				left: 2px;
-				bottom: 2px;
-	      text-decoration: none;
-			}
-		}
-	}
-}
-
-.hm_bnnr_ttl {
-	padding-top: 2rem;
-	text-align: center;
-	font-size: 40px;
-}
-
-.hm_bnnr_txt {
-	padding-top: 1rem;
-	text-align: center;
-	font-size: 13px;
-}
-
 .hm_fttr {
 	padding: 1rem;
 	background-color: $ls_blue_1;

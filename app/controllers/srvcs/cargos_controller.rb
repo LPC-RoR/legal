@@ -6,23 +6,25 @@ class Srvcs::CargosController < ApplicationController
   # GET /cargos or /cargos.json
   def index
     @age_usuarios = AgeUsuario.no_ownr
-    @modelo = StModelo.get_model('Cargo')
 
-    @estados = @modelo.blank? ? [] : @modelo.stts_arry
-    @tipos = ['Mensuales', 'Cargos']
+        scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
 
-    @estado = std('asesorias', params[:e], params[:t])
-    @tipo = typ('asesorias', params[:e], params[:t])
-    @path = "/cargos?"
-
-    unless @tipo.blank?
-      tipo = TipoCargo.typ(@tipo.singularize)
-      coleccion = Cargo.typ(tipo.id)
+    case scp
+    when 'trmtcn'
+      cllcn = Cargo.std('tramitación')
+    when 'trmnds'
+      cllcn = Cargo.std('terminada')
+    when 'crrds'
+      cllcn = Cargo.std('cerradas')
+    when 'crgs'
+      cllcn = Cargo.typ('Cargo')
+    when 'mnsls'
+      cllcn = Cargo.typ('Mensual')
     end
-    unless @estado.blank?
-      coleccion = Cargo.std(@estado)
-    end
-    set_tabla('cargos', coleccion, true)
+
+    @scp = scp_item[:asesorias][scp.to_sym]
+
+    set_tabla('cargos', cllcn, true)
 
   end
 

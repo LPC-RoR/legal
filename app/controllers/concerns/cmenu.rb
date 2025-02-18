@@ -1,133 +1,162 @@
 module Cmenu
+
+	def scp_menu 
+		{
+			causas: [
+				{
+					scp: 'trmtcn',
+					cndcn: operacion?
+				},
+				{
+					scp: 'sn_fctrcn',
+					cndcn: operacion?
+				},
+				{
+					scp: 'trmnds',
+					cndcn: operacion?
+				},
+				{
+					scp: 'crrds',
+					cndcn: operacion?
+				},
+				{
+					scp: 'en_rvsn',
+					cndcn: admin?
+				}
+			],
+			clientes: [
+				{
+					scp: 'emprss',
+					cndcn: operacion?
+				},
+				{
+					scp: 'sndcts',
+					cndcn: operacion?
+				},
+				{
+					scp: 'trbjdrs',
+					cndcn: operacion?
+				},
+				{
+					scp: 'actvs',
+					cndcn: operacion?
+				},
+				{
+					scp: 'de_bj',
+					cndcn: admin?
+				},
+			],
+			asesorias: [
+				{
+					scp: 'trmtcn',
+					cndcn: operacion?
+				},
+				{
+					scp: 'trmnds',
+					cndcn: operacion?
+				},
+				{
+					scp: 'crrds',
+					cndcn: finanzas?
+				},
+				{
+					scp: 'mlts',
+					cndcn: operacion?
+				},
+				{
+					scp: 'crts_dspd',
+					cndcn: operacion?
+				},
+				{
+					scp: 'rdccns',
+					cndcn: operacion?
+				},
+				{
+					scp: 'cnslts',
+					cndcn: operacion?
+				},
+			],
+			cargos: [
+				{
+					scp: 'trmtcn',
+					cndcn: operacion?
+				},
+				{
+					scp: 'trmnds',
+					cndcn: operacion?
+				},
+				{
+					scp: 'crrds',
+					cndcn: finanzas?
+				},
+				{
+					scp: 'crgs',
+					cndcn: operacion?
+				},
+				{
+					scp: 'mnsls',
+					cndcn: operacion?
+				},
+			],
+			tar_facturas: [
+				{
+					scp: 'ingrss',
+					cndcn: admin?
+				},
+				{
+					scp: 'fctrds',
+					cndcn: admin?
+				},
+				{
+					scp: 'pgds',
+					cndcn: admin?
+				}
+			]
+		}
+	end
+
+	def scp_item 
+		{
+			causas: {
+				trmtcn: 'en tramitación',
+				sn_fctrcn: 'sin facturación',
+				trmnds: 'terminadas',
+				crrds: 'cerradas',
+				en_rvsn: 'en revisión'
+			},
+			clientes: {
+				emprss: 'Empresas',
+				sndcts: 'Sindicatos',
+				trbjdrs: 'Trabajadores',
+				actvs: 'Activos',
+				de_bj: 'Dados de Baja'
+			},
+			asesorias: {
+				trmtcn: 'en tramitación',
+				trmnds: 'terminadas',
+				crrds: 'cerradas',
+				mlts: 'Multas',
+				crts_dspd: 'Cartas de despido',
+				rdccns: 'Redacciones',
+				cnslts: 'Consultas'
+			},
+			cargos: {
+				trmtcn: 'en tramitación',
+				trmnds: 'terminadas',
+				crrds: 'cerradas',
+				crgs: 'Cargos',
+				mnsls: 'Mensuales'
+			},
+			tar_facturas: {
+				ingrss: 'ingresadas',
+				fctrds: 'facturadas',
+				pgds: 'pagadas'
+			}
+		}
+	end
+
 	def cmenu_clss
 		{
-			'clientes' => {
-				estados: [
-					{
-						std: 'activo',
-						cndcn: operacion?
-					},
-					{
-						std: 'baja',
-						cndcn: admin?
-					}
-				],
-				items: {
-					'activo' => 'Activos',
-					'baja' => 'Dados de baja'
-				},
-				selectors: [
-					['Empresas', operacion?],
-					['Sindicatos', operacion?],
-					['Trabajadores', operacion?]
-				]
-
-			},
-			'causas' => {
-				estados: [
-					{
-						std: 'tramitación',
-						cndcn: operacion?
-					},
-					{
-						std: 'revisión',
-						cndcn: admin?
-					},
-					{
-						std: 'terminada',
-						cndcn: operacion?
-					},
-					{
-						std: 'cerrada',
-						cndcn: general?
-					}
-				],
-				items: {
-					'tramitación' => 'En Tramitación',
-					'terminada' => 'Terminadas',
-					'cerrada' => 'Cerradas',
-					'revisión' => 'Revisión',
-					'por_facturar' => 'Por facturar'
-				},
-				selectors: [
-					['por_facturar', admin?]
-				]
-			},
-			'asesorias' => {
-				estados: [
-					{
-						std: 'tramitación',
-						cndcn: operacion?
-					},
-					{
-						std: 'terminada',
-						cndcn: operacion?
-					},
-					{
-						std: 'cerrada',
-						cndcn: finanzas?
-					}
-				],
-				items: {
-					'tramitación' => 'En Tramitación',
-					'terminada' => 'Terminadas',
-					'cerrada' => 'Cerradas',
-					'CartaDespido' => 'Carta de despido'
-				},
-				selectors: [
-					['Multas', admin?],
-					['CartaDespido', admin?],
-					['Redacciones', admin?],
-					['Consultas', admin?]
-				]
-			},
-			'cargos' => {
-				estados: [
-					{
-						std: 'tramitación',
-						cndcn: operacion?
-					},
-					{
-						std: 'terminada',
-						cndcn: operacion?
-					},
-					{
-						std: 'cerrada',
-						cndcn: finanzas?
-					}
-				],
-				items: {
-					'tramitación' => 'En Tramitación',
-					'terminada' => 'Terminadas',
-					'cerrada' => 'Cerradas'
-				},
-				selectors: [
-					['Cargos', admin?],
-					['Mensuales', admin?]
-				]
-			},
-			'tar_facturas' => {
-				estados: [
-					{
-						std: 'ingreso',
-						cndcn: operacion?
-					},
-					{
-						std: 'facturada',
-						cndcn: operacion?
-					},
-					{
-						std: 'pagada',
-						cndcn: finanzas?
-					}
-				],
-				items: {
-					'ingreso' => 'Por facturar',
-					'facturada' => 'Facturadas',
-					'pagada' => 'Pagadas'
-				},
-				selectors: nil
-			},
 			'tar_tarifas' => {
 				estados: nil,
 				items: {

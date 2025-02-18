@@ -23,13 +23,10 @@
     @include a_hover($pltt_4, $pltt_6);
 }
 
-/* TITULO */
-.lmn_ttl {
-    @include brd_ln(1px, solid, #2a6f97, 3px);
-    @include mrgn_pddng(3px 1px, 10px 20px 10px 20px);
-    background-color: #2a6f97;
-    line-height: 18px;
-    font-size: 16px;
+.crdncls {
+    background-color: $ls_blue_1;
+    line-height: 1.2;
+    font-size: 14px;
     color: white;
     @include a_hover(white, $pltt_6);
 }
@@ -39,7 +36,6 @@
 }
 
 .lmn {
-    margin: 0;
     border: 1px solid $pltt_7;
     border-radius: 3px 3px 3px 3px;
     background-color: $pltt_8;  // Es el color gris que está debajo de los ítems

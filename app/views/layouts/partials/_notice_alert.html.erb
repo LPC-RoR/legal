@@ -1,13 +1,13 @@
 <% if notice or alert %>
 	<% if notice %>
-		<div  class="lyt_notice">
-			<i class="bi bi-bell"></i> <%= notice %>
+		<div class="alert alert-success" role="alert" style="margin: 2px 0 2px 0;color: blue;">
+		  <i class="bi bi-bell"></i> <%= notice %>
 		</div>
 	<% end %>
 
 	<% if alert %>
-		<div  class="lyt_error">
-			<i class="bi bi-exclamation-diamond"></i> <%= alert %>
+		<div class="alert alert-danger" role="alert" style="margin: 2px 0 2px 0;color: red;">
+		  <i class="bi bi-bell"></i> <%= alert %>
 		</div>
 	<% end %>
 <% end %>

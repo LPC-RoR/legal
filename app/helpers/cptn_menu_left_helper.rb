@@ -1,6 +1,15 @@
 module CptnMenuLeftHelper
 	## ------------------------------------------------------- MENU
 
+	def scp_clnt(tkn, objeto)
+		tab = tkn == :tar_facturas ? 'Facturas' : tkn.to_s.capitalize
+		objeto.blank? ? '' : "/clientes/#{objeto.id unless objeto.blank?}?html_options[menu]=#{tab}&scp="
+	end
+
+	def scp_lnk(tkn, objeto)
+		tkn == :clientes ? "/clientes?scp=" : (controller_name == 'clientes' ? scp_clnt(tkn, objeto) : "/#{tkn.to_s}?scp=")
+	end
+
 	def menu_left
 		{
 			admin: [
@@ -37,16 +46,16 @@ module CptnMenuLeftHelper
 					]
 				},
 				{
-					titulo: 'Causas & Asesorias',
-					condicion: operacion?,
-					items: [
-						'TribunalCorte',
-					]
-				},
-				{
 					titulo: 'Tablas',
-					condicion: admin?,
+					condicion: true,
 					items: [
+						{
+							titulo: 'Causas & Asesorias',
+							condicion: operacion?,
+							items: [
+								['Tribunales / Cortes', 'tribunal_corte']
+							]
+						},
 						{
 							titulo: 'Generales',
 							condicion: admin?,

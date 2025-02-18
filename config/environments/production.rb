@@ -72,8 +72,9 @@ Rails.application.configure do
     address: Rails.application.credentials[:smtp][:address], 
     user_name: Rails.application.credentials[:smtp][:user_name], 
     password: Rails.application.credentials[:smtp][:password],
-    enable_starttls: true,
-    port: 587,
+    # No es necesario porque ya está encriptado a través de 465
+#    enable_starttls: true,
+    port: 465,
     # :Login authentication encodes the password in base64
     authentication: :login
   }

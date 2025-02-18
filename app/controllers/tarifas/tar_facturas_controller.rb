@@ -7,14 +7,21 @@ class Tarifas::TarFacturasController < ApplicationController
 
   # GET /tar_facturas or /tar_facturas.json
   def index
-    @estados = StModelo.find_by(st_modelo: 'TarFactura').st_estados.order(:orden).map {|e_ase| e_ase.st_estado}
-    @tipos = nil
-    @tipo = nil
-    @estado = params[:e].blank? ? @estados[0] : params[:e]
-    @path = "/tar_facturas?"
 
-    coleccion = TarFactura.where(estado: @estado).order(created_at: :desc)
-    set_tabla('tar_facturas', coleccion, true)
+    scp = params[:scp].blank? ? 'ingrss' : params[:scp]
+
+    case scp
+    when 'ingrss'
+      cllcn = TarFactura.std('ingreso')
+    when 'fctrds'
+      cllcn = TarFactura.std('facturada')
+    when 'pgds'
+      cllcn = TarFactura.std('pagada')
+    end
+
+    @scp = scp_item[:tar_facturas][scp.to_sym]
+
+    set_tabla('tar_facturas', cllcn, true)
 
   end
 

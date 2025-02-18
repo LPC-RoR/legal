@@ -1,10 +1,3 @@
-<div class="f_200pxlft_col">
-  <div class="lft">
-    <%= render partial: '0p/cmenu/cmenu', locals: { c: 'tar_facturas', tipo: tipo, estado: estado, path: path} %>
-  </div>
-  <div class="rght">
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_facturas', ttl: "Pre Facturas #{cmenu_clss['tar_facturas'][:items][estado]}", ownr: nil} %>
+<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'tar_facturas', ownr: (controller_name == 'clientes' ? @objeto : nil)} %>
 
-    <%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturas'} %>
-  </div>
-</div>
+<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_facturas'} %>

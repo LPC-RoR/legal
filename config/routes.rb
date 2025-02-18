@@ -327,6 +327,7 @@ Rails.application.routes.draw do
       end
     end
     resources :tablas do
+      match :tribunal_corte, via: :get, on: :collection
       match :uf_regiones, via: :get, on: :collection
       match :enlaces, via: :get, on: :collection
       match :calendario, via: :get, on: :collection

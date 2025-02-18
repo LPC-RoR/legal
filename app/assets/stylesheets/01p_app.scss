@@ -161,10 +161,6 @@ $app_fnt: 'Raleway', sans-serif;
 	}
 }
 
-.a_nvbr {
-	@include mrgn_pddng($nvbr_mrgn, $nvbr_pddng);
-}
-
 /* BODY */
 
 .lyt_main {
@@ -172,14 +168,4 @@ $app_fnt: 'Raleway', sans-serif;
 	height: 100%;
 	min-height: 80em;
    	font-family: $main_fnt_fmly;
-}
-
-// NOTICE and ALERT
-
-.lyt_notice {
-	@include ntc_errr_bsc(white, $ntc_brdr_clr, $ntc_fnt_clr)
-}
-
-.lyt_error {
-	@include ntc_errr_bsc(white, $errr_brdr_clr, $errr_fnt_clr)
 }
