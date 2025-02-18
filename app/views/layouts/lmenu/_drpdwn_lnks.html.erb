@@ -1,0 +1,23 @@
+<div class="dropdown d-inline">
+	Enlaces
+	<i class="bi bi-box-arrow-up-right" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
+    <ul class="dropdown-menu enlcs" aria-labelledby="dropdownMenuButton">
+    	<% unless v_enlaces[0].blank? %>
+    	<% v_enlaces[0].each do |lnk| %>
+    		<li>
+		        <small><a class="dropdown-item" href="<%=lnk[:link]%>"><i class="bi bi-box-arrow-up-right"></i> <%=lnk[:texto]%></a></small>
+    		</li>
+    	<% end %>
+    	<% end %>
+    	<% unless v_enlaces[0].blank? or v_enlaces[1].blank? %>
+    	<hr>
+    	<% end %>
+    	<% unless v_enlaces[1].blank? %>
+    	<% v_enlaces[1].each do |lnk| %>
+    		<li>
+		        <small><a class="dropdown-item" href="<%=lnk[:link]%>"><i class="bi bi-box-arrow-up-right"></i> <%=lnk[:texto]%></a></small>
+    		</li>
+    	<% end %>
+    	<% end %>
+    </ul>
+</div>

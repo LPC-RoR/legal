@@ -31,6 +31,14 @@
     @include a_hover(white, $pltt_6);
 }
 
+.enlcs {
+    background-color: $ls_blue_1;
+    line-height: 1.2;
+    font-size: 14px;
+    color: white;
+    @include a_hover(white, $pltt_1);
+}
+
 .cmn_ttl {
     @include mn_ttl(1em .5em .5em .5em, 14px)
 }
