@@ -68,7 +68,7 @@ class Csc::TribunalCortesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = tribunal_cortes_path
+      @redireccion = "/tablas/tribunal_corte"
     end
 
     # Only allow a list of trusted parameters through.

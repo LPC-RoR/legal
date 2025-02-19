@@ -1,8 +1,1 @@
-<div class="f_50lft_col">
-	<div class="lft">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_detalle_cuantias', ttl: "Items de cuantía", ownr: nil} %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_detalle_cuantias'} %>
-	</div>
-	<div class="rght">
-	</div>
-</div>
+<%= render partial: '0p/app/ttl_tbl', locals: {source: 'tar_detalle_cuantias', ownr: nil} %>

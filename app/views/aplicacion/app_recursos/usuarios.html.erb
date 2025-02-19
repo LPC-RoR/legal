@@ -1,5 +1,5 @@
-<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'usuarios', title: 'Usuarios', link_new: nil} %>
-<div class="shadow p-3 mb-3 bg-white rounded">
+<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'usr', source: 'app_recursos', ownr: (controller_name == 'clientes' ? @objeto : nil)} %>
+<div class="shadow-sm p-3 mb-3 bg-white rounded">
 	<% @coleccion['usuarios'].each do |usuario| %>
 		<%= render partial: 'aplicacion/app_recursos/partials/usuario', locals: {objeto: usuario} %>
 	<% end %>

@@ -26,7 +26,7 @@ class TarValorCuantia < ApplicationRecord
 
 	# Busca fórmula de honorarios
 	def formula_honorarios
-		causa = self.owner_class == 'Causa' ? self.ownr : nil
+		causa = self.ownr_type == 'Causa' ? self.ownr : nil
 		detalle_cuantia = self.tar_detalle_cuantia
 		unless causa.blank? or causa.tar_tarifa.blank? or causa.tar_tarifa.cuantia_tarifa == false
 			tarifa = causa.tar_tarifa

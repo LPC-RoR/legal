@@ -15,20 +15,24 @@ class CausasController < ApplicationController
 
     scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
 
-    case scp
-    when 'trmtcn'
-      cllcn = Causa.std('tramitación')
-    when 'sn_fctrcn'
-      cllcn = Causa.no_fctrds
-    when 'trmnds'
-      cllcn = Causa.std('terminada')
-    when 'crrds'
-      cllcn = Causa.std('cerrada')
-    when 'en_rvsn'
-      cllcn = Causa.std('revisión')
-    end
-
     @scp = scp_item[:causas][scp.to_sym]
+
+    if params[:query].present?
+      cllcn = Causa.search_for(params[:query])
+    else
+      case scp
+      when 'trmtcn'
+        cllcn = Causa.std('tramitación')
+      when 'sn_fctrcn'
+        cllcn = Causa.no_fctrds
+      when 'trmnds'
+        cllcn = Causa.std('terminada')
+      when 'crrds'
+        cllcn = Causa.std('cerrada')
+      when 'en_rvsn'
+        cllcn = Causa.std('revisión')
+      end
+    end
 
     set_tabla('causas', cllcn, true)
 

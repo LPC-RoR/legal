@@ -20,9 +20,7 @@ class Tarifas::TarTarifasController < ApplicationController
 
   # GET /tar_tarifas/new
   def new
-    ownr_clss = params[:ownr_clss] == '' ? nil : params[:ownr_clss]
-    ownr_id = params[:ownr_id]
-    @objeto = TarTarifa.new(owner_class: ownr_clss, owner_id: ownr_id, estado: 'ingreso')
+    @objeto = TarTarifa.new(owner_class: params[:ownr_clss], owner_id: params[:ownr_id], estado: 'ingreso')
   end
 
   # GET /tar_tarifas/1/edit

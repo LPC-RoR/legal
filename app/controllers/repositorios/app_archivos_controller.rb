@@ -2,7 +2,7 @@ class Repositorios::AppArchivosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_app_archivo, only: %i[ show edit update destroy ]
-  after_action :read_demanda, only: [:update], if: -> {@objeto.ownr.class.name == 'Causa'}
+  after_action :read_demanda, only: [:create, :update], if: -> {@objeto.ownr.class.name == 'Causa'}
 
   # GET /app_archivos or /app_archivos.json
   def index
@@ -133,12 +133,12 @@ class Repositorios::AppArchivosController < ApplicationController
 
     def read_demanda
       puts "------------------------------------------------------- read_demanda"
-      if @objeto.owner.class.name == 'Causa'
+      if @objeto.ownr.class.name == 'Causa'
         if @objeto.app_archivo == 'Demanda' and @objeto.archivo.present?
           path_pdf = File.join(Rails.root, 'public', @objeto.archivo.url)
           reader = PDF::Reader.new(path_pdf)
 
-          causa = @objeto.owner
+          causa = @objeto.ownr
           if causa.parrafos.any?
             causa.secciones.delete_all
             causa.parrafos.delete_all
@@ -156,19 +156,19 @@ class Repositorios::AppArchivosController < ApplicationController
           txt_prrf = ''
           final = nil
 
-          seccion = Seccion.create(causa_id: @objeto.owner.id, orden: 1, seccion: estado, texto: nil )
+          seccion = Seccion.create(causa_id: @objeto.ownr.id, orden: 1, seccion: estado, texto: nil )
 
           original.split("\n").each do |raw_line|
             line = raw_line.strip
             if estado == 'Datos'
               if line.match?(/^EN\s*LO\s*PRINCIPAL\,*\b/)
                 estado = 'Cuerpo'
-                Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+                Parrafo.create(causa_id: @objeto.ownr.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
                 p_ord += 1
                 txt_prrf = line
                 final = line
 
-                seccion = Seccion.create(causa_id: @objeto.owner.id, orden: 2, seccion: 'Cuerpo', texto: nil )
+                seccion = Seccion.create(causa_id: @objeto.ownr.id, orden: 2, seccion: 'Cuerpo', texto: nil )
 
               elsif line.match?(dts_rgx)
                 if line.match?(dts_rgx_nwln)
@@ -176,7 +176,7 @@ class Repositorios::AppArchivosController < ApplicationController
                 else
                   # Se crea nuevo campo
                   unless p_ord == 0 and txt_prrf == ''
-                    Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+                    Parrafo.create(causa_id: @objeto.ownr.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
                     p_ord += 1
                   end
                   txt_prrf = "#{line}"
@@ -185,7 +185,7 @@ class Repositorios::AppArchivosController < ApplicationController
                 txt_prrf << " #{line}" unless line.blank?
               end
               if line.match?(demandante_rgx)
-                causa = @objeto.owner
+                causa = @objeto.ownr
                 n_orden = causa.demandantes.count + 1
                 nombre = line.split(':')[1].strip
                 wrds = nombre.split(' ')
@@ -197,12 +197,12 @@ class Repositorios::AppArchivosController < ApplicationController
             else
               if line.match?(new_line_rgx)
                 # Primera línea de la siguiente sección
-                Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+                Parrafo.create(causa_id: @objeto.ownr.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
                 p_ord += 1
                 txt_prrf = line
                 final = line
                 if line.match?(one_line_rgx)
-                  Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{line}</br>")
+                  Parrafo.create(causa_id: @objeto.ownr.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{line}</br>")
                   p_ord += 1
                   txt_prrf = ''
                   final = ''
@@ -210,7 +210,7 @@ class Repositorios::AppArchivosController < ApplicationController
               else
                 # No es primera línea de la siguiente seccion y no es un campo => Debe ser la continuación de un campo.
                 if chk_br(line, final)
-                  Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+                  Parrafo.create(causa_id: @objeto.ownr.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
                   p_ord += 1
                   txt_prrf = line
                   final = line
@@ -221,7 +221,7 @@ class Repositorios::AppArchivosController < ApplicationController
               end
             end
           end
-          Parrafo.create(causa_id: @objeto.owner.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
+          Parrafo.create(causa_id: @objeto.ownr.id, seccion_id: seccion.id, orden: p_ord + 1, texto: "#{txt_prrf}</br>")
         end
 
       end

@@ -1,12 +1,9 @@
 <div class="f_50lft_col">
 	<div class="lft">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'app_enlaces', ttl: "Enlaces generales", ownr: nil} %>
-
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'app_enlaces'} %>
+	    <%= render partial: '0p/app/ttl_tbl', locals: {source: 'app_enlaces', ownr: nil} %>
 	</div>
 	<div class="rght">
 		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'prfl-app_enlaces', ttl: "Enlaces del perfil", ownr: nil} %>
-
 		<%= render partial: '0p/tabla/tabla', locals: {c: 'perfil-app_enlaces'} %>
 	</div>
 </div>

@@ -1,5 +1,9 @@
 module AppFormsHelper
 
+	def form_txt(actn, objeto)
+		"#{actn == 'new' ? (objeto.class.name == 'RepArchivo' ? 'Subir' : 'Crear') : 'Modificar'} #{m_to_name(objeto.class.name)}"
+	end
+
 	def form_class_excepctions
 		{
 			age_pendientes: 'oneFieldForm'

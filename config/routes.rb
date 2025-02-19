@@ -458,6 +458,7 @@ Rails.application.routes.draw do
   end
 
   scope module: 'modelos' do
+    resources :modelos
     resources :m_modelos
     resources :m_periodos
     resources :m_conceptos do

@@ -1,12 +1,8 @@
 <div class="f_50lft_col">
 	<div class="lft">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_tarifas', ttl: "Tarifas de causas", ownr: nil } %>
-
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_tarifas'} %>
+		<%= render partial: '0p/app/ttl_tbl', locals: {source: 'tar_tarifas', ownr: nil} %>
 	</div>
 	<div class="rght">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_servicios', ttl: "Tarifas de asesorías", ownr: nil} %>
-
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_servicios'} %>
+		<%= render partial: '0p/app/ttl_tbl', locals: {source: 'tar_servicios', ownr: nil} %>
 	</div>
 </div>

@@ -7,4 +7,7 @@ class TribunalCorte < ApplicationRecord
 
 	scope :trbnl_ordr, -> {order(:tribunal_corte)}
 
+    validates_presence_of :tribunal_corte
+	validates :tribunal_corte, uniqueness: true
+
 end

@@ -1,5 +1,5 @@
 <% if @objeto.class.name == 'MCuenta' %>
-	<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_periodos', title: "Cuenta : #{@objeto.m_cuenta}", link_new: nil} %>
+	<%#= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_periodos', title: "Cuenta : #{@objeto.m_cuenta}", link_new: nil} %>
 
 	<%= render partial: '0capitan/general/titulo_tabla', locals: {c: 'm_conciliaciones', title: "Conciliaciones de la cuenta", link_new: "/m_cuentas/#{@objeto.id}/m_conciliaciones/new"
 } %>

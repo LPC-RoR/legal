@@ -1,12 +1,8 @@
-<div class="f_50lft_col">
-  <div class="lft">
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'm_periodos', ttl: "Períodos", ownr: nil } %>
-
-    <%= render partial: '0p/tabla/tabla', locals: {c: "m_periodos"} %>
+<div class="row gx-1">
+  <div class="col-lg-6 col-xs-12">
+    <%= render partial: '0p/app/ttl_tbl', locals: {source: 'm_periodos', ownr: nil} %>
   </div>
-  <div class="rght">
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'm_bancos', ttl: "Bancos", ownr: nil } %>
-
-    <%= render partial: '0p/tabla/tabla', locals: {c: "m_bancos"} %>
+  <div class="col-lg-6">
+    <%= render partial: '0p/app/ttl_tbl', locals: {source: 'm_bancos', ownr: nil} %>
   </div>
 </div>

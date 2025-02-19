@@ -1,13 +1,9 @@
 <div class="f_50lft_col">
 	<div class="lft">
-		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'ttl_app', dir: 'indx', source: 'tipo_causas', ownr: nil} %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_causas'} %>
+		<%= render partial: '0p/app/ttl_tbl', locals: {source: 'tipo_causas', ownr: nil} %>
 	</div>
 	<div class="rght">
-		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'ttl_app', dir: 'indx', source: 'tipo_asesorias', ownr: nil} %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_asesorias'} %>
-		<hr>
-		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'ttl_app', dir: 'indx', source: 'tipo_cargos', ownr: nil} %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tipo_cargos'} %>
+		<%= render partial: '0p/app/ttl_tbl', locals: {source: 'tipo_asesorias', ownr: nil} %>
+		<%= render partial: '0p/app/ttl_tbl', locals: {source: 'tipo_cargos', ownr: nil} %>
 	</div>
 </div>

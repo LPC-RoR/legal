@@ -9,10 +9,9 @@ module CptnCristianoHelper
 	# excepciones de nombres de un modelo
 	def m_excepciones
 		{
-			'TarUfSistema' => 'Uf del sistema',
-			'SbLista' => 'Menú lateral',
-			'SbElemento' => 'Elemento del menú lateral',
-			'TarHora' => 'Tarifa en Horas',
+			'TarUfSistema' => 'Uf del día',
+			'TribunalCorte' => 'Juzgado',
+			'TarDetalleCuantia' => 'Item de cuantía',
 			'TarUfFacturacion' => 'UF de cálculo',
 			'TarTarifa' => 'Tarifa de Causa',
 			'TarServicio' => 'Tarifa de Asesoría',

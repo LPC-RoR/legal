@@ -1,0 +1,25 @@
+<%= form_with(model: objeto, local: true) do |form| %>
+  <% if objeto.errors.any? %>
+  <div id="error_explanation">
+    <h4 class='text-info'><%= objeto.errors.count %> <%= objeto.errors.count == 1 ? 'error' : 'errores' %> evitan que este registro sea grabado:</h4>
+
+    <ul>
+    <% objeto.errors.full_messages.each do |message| %>
+    <li class='text-info'><%= message %></li>
+    <% end %>
+    </ul>
+
+  </div>
+  <% end %>
+
+  <% unless detail_partial(objeto).blank? %>
+    <%= render partial: detail_partial(objeto), locals: {c: controller_name, form: form} %>
+  <% else %>
+    <h3>Ne se encontró archivo con el formulario</h3>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.submit form_txt(actn, objeto), class: "btn btn-primary" %>
+  </div>
+
+<% end %>
