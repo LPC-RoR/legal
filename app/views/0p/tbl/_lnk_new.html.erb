@@ -1,0 +1,6 @@
+<% ownr ||= nil %>
+<% blngs ||= nil %>
+<% tltp ||= "Agrega #{c_to_name(cntrllr(source))}" %>
+<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/#{cntrllr(source)}/new#{ownr_prms(ownr) unless ownr.blank?}#{blngs_prms(blngs) unless blngs.blank?}", tltp: tltp} do %>
+	<i class="bi bi-plus-circle"></i>
+<% end %>

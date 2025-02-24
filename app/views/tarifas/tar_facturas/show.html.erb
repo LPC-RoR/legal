@@ -1,3 +1,5 @@
+<!-- NO BORRÉ el título anterior para poder REVISAR -->
+<%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 <h4><i class="bi bi-<%= controller_icon['tar_facturas'] %>"></i> Factura de cliente <%= link_to @objeto.padre.razon_social, @objeto.padre %></h4>
 
 <%= render partial: 'st_estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>

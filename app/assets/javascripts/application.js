@@ -21,3 +21,36 @@
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip(); 
 });
+
+// app/javascript/packs/application.js
+document.addEventListener('turbolinks:load', function() {
+  const formModal = document.getElementById('formModal');
+
+  formModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget; // Botón que activó el modal
+    const action = button.getAttribute('data-action'); // Acción (new o edit)
+
+    if (action === 'new') {
+      const modalBody = document.getElementById('modalBody');
+      const form = modalBody.querySelector('form');
+
+      if (form) {
+        // Inicializar campos aquí
+        const campoInput = form.querySelector('#tu_modelo_campo');
+        if (campoInput) {
+          campoInput.value = 'Valor predeterminado';
+        }
+      }
+    }
+  });
+});
+
+// app/javascript/packs/application.js
+document.addEventListener('turbolinks:load', function() {
+  const formModal = document.getElementById('formModal');
+
+  // Limpiar el contenido del modal cuando se cierre
+  formModal.addEventListener('hidden.bs.modal', function () {
+    document.getElementById('modalBody').innerHTML = ''; // Vacía el contenido del modal
+  });
+});

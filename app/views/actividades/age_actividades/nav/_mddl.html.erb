@@ -1,0 +1,7 @@
+		sem <%= @n_semana %>: 
+		<%= dma(@week[0]) %>
+		<i class="bi bi-arrow-right"></i>
+		<%= dma(@week[6]) %> 
+		<%= render layout: '0p/collapse/link', locals: {label: 'age_actividades', objeto: nil, tooltip: 'Nueva Actividad'} do %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>

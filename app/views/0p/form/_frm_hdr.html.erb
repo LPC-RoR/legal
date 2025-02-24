@@ -1,9 +1,6 @@
-<h5 class='text-<%=cfg_color[:app]%>'>
-	<% if actn == 'new' %>
-		<i class="bi bi-plus-circle"></i> 
-	<% end %>
-	<% if actn == 'edit' %>
-		<i class="bi bi-pencil"></i> 
-	<% end %>
-	<%=m_to_name(objeto.class.name)%>
-</h5>
+<% if actn == 'new' %>
+	Nuevo <%=m_to_name(objeto.class.name)%>
+<% end %>
+<% if actn == 'edit' %>
+	Editar <%=m_to_name(objeto.class.name)%>
+<% end %>

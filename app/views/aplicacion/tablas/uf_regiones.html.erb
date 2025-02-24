@@ -1,8 +1,8 @@
-<div class="f_50lft_col">
-	<div class="lft">
-		<%= render partial: '0p/app/ttl_tbl', locals: {source: 'tar_uf_sistemas', ownr: nil} %>
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0p/tbl_ttl', locals: {source: 'tar_uf_sistemas'} %>
 	</div>
-	<div class="rght">
-		<%= render partial: '0p/app/ttl_tbl', locals: {source: 'regiones', ownr: nil} %>
+	<div class="col-lg-6">
+		<%= render partial: '0p/tbl_ttl', locals: {source: 'regiones', ordr: true} %>
 	</div>
 </div>

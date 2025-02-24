@@ -1,0 +1,30 @@
+<% ownr ||= nil %>
+<% blngs ||= nil %>
+<div class="shadow mrgn_top">
+	<div class="border border-2 rounded row gx-1 bg_blue p-2 fs-6">
+		<div class="col-2">
+			<% if prtl?(source, dir, "lft") %>
+				<%= render partial: prtl_name(source, dir, "lft") %>
+			<% end %>
+		</div>
+		<div class="col-8 bg_blue pe-1 text-center">
+			<% if prtl?(source, dir, "mddl") %>
+				<%= render partial: prtl_name(source, dir, "mddl") %>
+			<% end %>
+		</div>
+
+		<div class="col-2 text-end">
+			<% if prtl?(source, dir, "rght") %>
+				<%= render partial: prtl_name(source, dir, "rght") %>
+			<% end %>
+		</div>
+	</div>
+</div>
+<% if prtl?(source, dir, "cllps") %>
+	<%= render layout: '0p/collapse/display', locals: {label: str_cntrllr(source), objeto: nil} do %>
+		<%= render partial: prtl_name(source, dir, "cllps"), locals: {objeto: source} %>
+	<% end %>
+<% end %>
+<% if prtl?(source, dir, "dsply") %>
+	<%= render partial: prtl_name(source, dir, "dsply") %>
+<% end %>

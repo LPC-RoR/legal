@@ -1,19 +1,14 @@
 <div class="f_50lft_col">
   <div class="lft">
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'lgl_documentos', ttl: "Documentos legales", ownr: nil } %>
-    <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_documentos'} %>
+    <%= render partial: '0p/tbl_ttl', locals: {source: 'lgl_documentos', crud: 'lnks'} %>
   </div>
   <div class="rght">
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'lgl_tipo_entidades', ttl: "Tipos de entidad", ownr: nil } %>
-    <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_tipo_entidades'} %>
+    <%= render partial: '0p/tbl_ttl', locals: {source: 'lgl_tipo_entidades'} %>
 
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'lgl_entidades', ttl: "Entidades", ownr: nil } %>
-    <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_entidades'} %>
+    <%= render partial: '0p/tbl_ttl', locals: {source: 'lgl_entidades'} %>
 
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'lgl_tramo_empresas', ttl: "Tramos de empresa", ownr: nil } %>
-    <%= render partial: '0p/tabla/tabla', locals: {c: 'lgl_tramo_empresas'} %>
+    <%= render partial: '0p/tbl_ttl', locals: {source: 'lgl_tramo_empresas', ordr: true} %>
 
-    <%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_tramos', ttl: "Tramos de multas", ownr: nil } %>
-    <%= render partial: '0p/tabla/tabla', locals: {c: 'dt_tramos'} %>
+    <%= render partial: '0p/tbl_ttl', locals: {source: 'dt_tramos', ordr: true} %>
   </div>
 </div>

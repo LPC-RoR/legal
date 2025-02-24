@@ -1,3 +1,3 @@
-<%= render partial: '0p/general/clss_dir_objt_ttl', locals: {clss: 'shw_ttl', dir: 'shw', objt: @objeto, bck: nil} %>
-<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'krn_empresa_externas', ttl: "Empresas externas", ownr: @objeto} %>
-<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_empresa_externas'} %>
+<%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
+
+<%= render partial: '0p/tbl_ttl', locals: {source: 'krn_empresa_externas', ownr: @objeto} %>

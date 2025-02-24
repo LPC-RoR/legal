@@ -25,6 +25,7 @@ module CptnCristianoHelper
 			'LglDocumento' => 'Documento legal',
 			'KrnLstMedida' => 'Lista de medidas',
 			'KrnLstModificacion' => 'Lista de modificaciones',
+			'Region' => 'Región'
 		}
 	end
 
@@ -50,7 +51,7 @@ module CptnCristianoHelper
 			'conciliacion' => 'conciliación',
 			'articulo' => 'artículo',
 			'aprobacion' => 'aprobación',
-			'asesorias' => 'asesoría'
+			'region' => 'región'
 		}
 	end
 

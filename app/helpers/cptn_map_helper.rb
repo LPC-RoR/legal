@@ -11,21 +11,15 @@ module CptnMapHelper
 		cntrllr.match(/\-/) ? cntrllr.split('-').first : nil
 	end
 
-	# Obtiene el prefijo si lo hay
-	def prfx_prtl(cntrllr, prtl)
-		prfx = prfx_cntrllr(cntrllr)
-		"#{"#{prfx}-" unless prfx.blank?}#{prtl}"
+	# Mantiene el prefijo si o tiene
+	def str_cntrllr(source)
+		source.class.name == 'String' ? source : source.class.name.tableize
 	end
 
 	# source = {controller, objeto}
 	def cntrllr(source)
-		if source.class.name == 'String'
-			prfx_cntrllr = source.split('-').last
-			# app_alias in helper Cristiano
-			app_alias[prfx_cntrllr].blank? ? prfx_cntrllr : app_alias[prfx_cntrllr]
-		else
-			source.class.name.tableize
-		end
+		cntrllr = str_cntrllr(source).split('-').last
+		app_alias[cntrllr].blank? ? cntrllr : app_alias[cntrllr]
 	end
 
 	## Manejo de SCOPE de archivos
@@ -54,12 +48,16 @@ module CptnMapHelper
 		end
 	end
 
+	# Actualizado para manejar controladores con prefijo
+	# El prefijo se transforma en un subdir de 'subdir'
 	def prtl_dir(controller, subdir)
-		"#{with_scope(controller)}#{"/"+subdir unless subdir.blank?}/"
+		prfx = !!(controller =~ /\-/) ? controller.split('-')[0] : nil
+		cntrllr = !!(controller =~ /\-/) ? controller.split('-')[1] : controller.split('-')[0]
+		"#{with_scope(cntrllr)}#{"/"+subdir unless subdir.blank?}/#{prfx+"/" unless prfx.blank?}"
 	end
 
-	def prtl_name(controller, subdir, partial)
-		"#{prtl_dir(cntrllr(controller), subdir)}#{prfx_prtl(controller, partial)}"
+	def prtl_name(source, subdir, partial)
+		"#{prtl_dir(str_cntrllr(source), subdir)}#{partial}"
 	end
 
 	def prtl_to_file(prtl_nm)
@@ -68,8 +66,9 @@ module CptnMapHelper
 		"app/views/#{v_prtl.join('/')}.html.erb"
 	end
 
-	def prtl?(controller, subdir, partial)
-		File.exist?("app/views/#{prtl_dir(cntrllr(controller), subdir)}_#{prfx_prtl(controller, partial)}.html.erb")
+	# str_cntrllr resuelve el source
+	def prtl?(source, subdir, partial)
+		File.exist?("app/views/#{prtl_dir(str_cntrllr(source), subdir)}_#{partial}.html.erb")
 	end
 
 	def prtl_file?(file)

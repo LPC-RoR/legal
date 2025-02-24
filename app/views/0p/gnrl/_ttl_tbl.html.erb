@@ -1,0 +1,50 @@
+<% ownr ||= nil %>
+<% blngs ||= nil %>
+<div class="shadow mrgn_top">
+	<div class="border border-2 rounded row gx-1 bg_tbl p-2 fs-6">
+		<div class="col-8">
+			<b>
+			<%= render partial: '0p/general/gly', locals: {gly: controller_icon[cntrllr(source)]} %>
+			<% if prtl?(source, dir, "objt") %>
+				<%= render partial: prtl_name(source, dir, "objt"), locals: {ownr: ownr, blngs: blngs} %>
+			<% else %>
+				<%= c_to_name(cntrllr(source)).pluralize %>
+			<% end %>
+			</b>
+		</div>
+		<div class="col-4 bg_tbl pe-1 text-end">
+
+			<% unless lnks == 'ttl' %>
+
+				<!-- cllps -->
+				<% if prtl?(source, dir, "cllps") %>
+					<%= render layout: '0p/collapse/link', locals: {label: str_cntrllr(source), objeto: nil, tooltip: 'Detalle'} do %>
+						<i class="bi bi-arrow-bar-down"></i>
+					<% end %>
+				<% end %>
+
+				<% case lnks %>
+				<% when 'prtl' %>
+					<% if prtl?(source, dir, "lnks") %>
+						<%= render partial: prtl_name(source, dir, "lnks"), locals: {ownr: ownr, blngs: blngs} %>
+					<% end %>
+				<% when 'mdl' %>
+					<%= render partial: '0p/tbl/lnk_c', locals: {source: source, ownr: ownr, blngs: blngs} %>
+				<% else %>
+					<%= render partial: '0p/tbl/lnk_new', locals: {source: source, ownr: ownr, blngs: blngs} %>
+					<%#= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr(source)}/new#{ownr_prms(ownr) unless ownr.blank?}", tltp: "Agrega #{c_to_name(cntrllr(source))}"} %>
+				<% end %>
+
+		<% end %>
+
+		</div>
+	</div>
+</div>
+<% if prtl?(source, dir, "cllps") %>
+	<%= render layout: '0p/collapse/display', locals: {label: str_cntrllr(source), objeto: nil} do %>
+		<%= render partial: prtl_name(source, dir, "cllps"), locals: {objeto: source} %>
+	<% end %>
+<% end %>
+<% if prtl?(source, dir, "dsply") %>
+	<%= render partial: prtl_name(source, dir, "dsply") %>
+<% end %>

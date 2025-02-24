@@ -14,7 +14,7 @@ class Tarifas::TarUfSistemasController < ApplicationController
 
   # GET /tar_uf_sistemas/new
   def new
-    @objeto = TarUfSistema.new
+    @objeto = TarUfSistema.new(fecha: Time.zone.today)
   end
 
   # GET /tar_uf_sistemas/1/edit

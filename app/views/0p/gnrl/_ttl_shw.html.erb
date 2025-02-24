@@ -1,0 +1,33 @@
+<div class="shadow mrgn_top">
+	<div class="border border-2 rounded row gx-1 bg_blue p-2 fs-5">
+		<div class="col-8">
+			<b>
+			<%= render partial: '0p/general/gly', locals: {gly: controller_icon[cntrllr(objt)]} %>
+			<% if prtl?(objt, dir, "objt") %>
+				<%= render partial: prtl_name(objt, dir, "objt"), locals: {objeto: objt} %>
+			<% end %>
+			</b>
+		</div>
+		<div class="col-4 bg_blue pe-1 text-end">
+			<% if prtl?(objt, dir, "bck") %>
+				<%= render partial: prtl_name(objt, dir, "bck"), locals: {objeto: objt} %>
+			<% end %>
+			<% if prtl?(cntrllr(objt), dir, "cllps") %>
+				<%= render layout: '0p/collapse/link', locals: {label: str_cntrllr(objt), objeto: objt, tooltip: 'Detalle'} do %>
+					<i class="bi bi-arrow-bar-down"></i>
+				<% end %>
+			<% end %>
+			<% if prtl?(objt, dir, "lnks") %>
+				<%= render partial: prtl_name(objt, dir, "lnks"), locals: {objeto: objt} %>
+			<% end %>
+		</div>
+	</div>
+</div>
+<% if prtl?(objt, dir, "cllps") %>
+	<%= render layout: '0p/collapse/display', locals: {label: str_cntrllr(objt), objeto: objt} do %>
+		<%= render partial: prtl_name(objt, dir, "cllps"), locals: {objeto: objt} %>
+	<% end %>
+<% end %>
+<% if prtl?(objt, dir, "dsply") %>
+	<%= render partial: prtl_name(objt, dir, "dsply") %>
+<% end %>

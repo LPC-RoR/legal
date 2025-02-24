@@ -1,9 +1,11 @@
-<% clccn.each do |objeto| %>
-	<% if prtl?(cntrllr(objeto), 'list', "objeto") %>
-		<%= render partial: objt_prtl_name(objeto) , locals: {objeto: objeto} %>
-	<% elsif prtl?(cntrllr(objeto), 'list', "o_objt") %>
-    	<%= render partial: '0p/tabla/clss_dir_objt_oln', locals: {objeto: objeto, clss: 'objt_oln', dir: 'list'} %>
-	<% else %>
-    	<%= render partial: '0p/tabla/clss_dir_objt_ln', locals: {objeto: objeto, clss: 'objt_ln', dir: 'list'} %>
-    <% end %>
-<% end %>
+<div class="shadow">
+	<% clccn.each do |objeto| %>
+		<% if prtl?(cntrllr(objeto), 'list', "objeto") %>
+			<%= render partial: objt_prtl_name(objeto) , locals: {objeto: objeto} %>
+		<% elsif prtl?(cntrllr(objeto), 'list', "o_objt") %>
+	    	<%= render partial: '0p/tabla/clss_dir_objt_oln', locals: {objeto: objeto, clss: 'objt_oln', dir: 'list'} %>
+		<% else %>
+	    	<%= render partial: '0p/tabla/clss_dir_objt_ln', locals: {objeto: objeto, clss: 'objt_ln', dir: 'list'} %>
+	    <% end %>
+	<% end %>
+</div>

@@ -1,0 +1,4 @@
+//<!-- app/views/tu_modelo/edit.js.erb -->
+document.getElementById('modalBody').innerHTML = "<%= j render '0p/form/edit', objeto: @objeto, actn: 'edit' %>";
+document.getElementById('formModalLabel').innerText = "<%= j render '0p/form/frm_hdr', objeto: @objeto, actn: 'edit' %>";
+new bootstrap.Modal(document.getElementById('formModal')).show();

@@ -1,32 +1,20 @@
 <div class="row gx-1">
   <div class="col-lg-6 col-xs-12">
-    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'age_actividades', ownr: nil} %>
-    <%= render partial: '0p/tabla/tabla', locals: {c: 'age_actividades'} %>
+    <%= render partial: '0p/tbl_ttl', locals: {source: 'age_actividades', lnks: 'prtl'} %>
 
-    <% if dog? %>
-      <%= render layout: '0p/layout/tooltip_link', locals: {link: "/publicos/encuesta?sk=@#{@session_name}", tooltip: 'Deseo haecr la encuesta'} do %>
-        Encuesta
-      <% end %>
-    <% end %>
+    <%# if dog? %>
+      <%#= render layout: '0p/layout/tooltip_link', locals: {link: "/publicos/encuesta?sk=@#{@session_name}", tooltip: 'Deseo haecr la encuesta'} do %>
+        <!--Encuesta-->
+      <%# end %>
+    <%# end %>
   </div>
   <div class="col-lg-6">
-    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'notas', ownr: nil} %>
+    <%= render partial: '0p/ttl_tbl', locals: {source: 'notas', lnks: 'prtl'} %>
 
     <%= render layout: '0p/collapse/display', locals: {label: 'Personaliza', objeto: nil} do %>
       <%= render partial: 'actividades/age_actividades/partials/form_nombre' %>
     <% end %>
 
-    <%= render partial: '0p/tabla/tabla', locals: {c: 'notas'} %>
-  </div>
-</div>
-
-<div class="f_50lft_col" style='padding-top: 2px;'>
-  <div class="lft">
-
-
-  </div>
-  <div class="rght">
-
-
+    <%= render partial: '0p/tbl/tbl', locals: {source: 'notas'} %>
   </div>
 </div>

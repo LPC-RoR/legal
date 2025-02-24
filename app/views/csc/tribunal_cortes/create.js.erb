@@ -1,0 +1,11 @@
+// app/views/posts/create.js.erb
+<% if @objeto.errors.any? %>
+  // Mostrar errores en el modal
+//  document.getElementById('modalBody').innerHTML = "<%= j render 'new' %>";
+  document.getElementById('modalBody').innerHTML = "<%= j render '0p/form/frm', objeto: @objeto %>";
+<% else %>
+  // Cerrar el modal y actualizar la lista de posts
+  var mdlFrm = bootstrap.Modal.getInstance(document.getElementById('formModal'));
+  mdlFrm.hide();
+  document.getElementById('postsList').innerHTML = "<%= j render @objeto %>";
+<% end %>

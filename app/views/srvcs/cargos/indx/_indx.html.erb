@@ -1,3 +1,1 @@
-<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'cargos', ownr: (controller_name == 'clientes' ? @objeto : nil)} %>
-
-<%= render partial: '0p/tabla/tabla', locals: {c: 'cargos'} %>
+<%= render partial: '0p/tbl_ttl', locals: {source: 'cargos', ownr: (controller_name == 'clientes' ? @objeto : nil)} %>

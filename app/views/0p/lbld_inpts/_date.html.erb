@@ -1,0 +1,5 @@
+<div class="mb-3">
+	<%= form.label(token, label) %>
+	<%= form.date_select token , {order: [:day, :month, :year], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?' },
+          include_blank: true} %>
+</div>

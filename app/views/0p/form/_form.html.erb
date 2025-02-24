@@ -6,11 +6,11 @@
 	<%= form_with(model: @objeto, local: true) do |form| %>
 		<% if @objeto.errors.any? %>
 		<div id="error_explanation">
-			<h4 class='text-info'><%= @objeto.errors.count %> <%= @objeto.errors.count == 1 ? 'error' : 'errores' %> evitan que este registro sea grabado:</h4>
+			<h4 class='text-warning'><%= @objeto.errors.count %> <%= @objeto.errors.count == 1 ? 'error' : 'errores' %> evitan que este registro sea grabado:</h4>
 
 			<ul>
 			<% @objeto.errors.full_messages.each do |message| %>
-			<li class='text-info'><%= message %></li>
+			<li class='text-warning'><%= message %></li>
 			<% end %>
 			</ul>
   

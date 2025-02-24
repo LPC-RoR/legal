@@ -1,0 +1,16 @@
+<!-- direct partial : título de la aplicación + tabla de la aplicación -->
+<!-- TITULO de a aplicación -->
+<% ownr ||= nil %>
+<% blngs ||= nil %>
+<% lnks ||= nil %>
+<% crud ||= nil %>
+<% ordr ||= false %>
+<% source ||= 'error' %>
+<%= render partial: '0p/ttl_tbl', locals: {source: source, ownr: ownr, blngs: blngs, lnks: lnks} %>
+<!-- TABLA de la aplicación -->
+
+<% if source == 'error' %>
+	<%= render partial: '0p/gnrl/errr_msg', locals: {ttl: 'Error: falta de perámetros en partial!', dscrptn: "0p/tbl_ttl: falta parámetro 'source'", hnt: "Agregar source"} %>
+<% else %>
+	<%= render partial: '0p/tbl/tbl', locals: {source: str_cntrllr(source), ordr: ordr, crud: crud} %>
+<% end %>

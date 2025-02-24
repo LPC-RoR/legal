@@ -1,0 +1,35 @@
+<div class="shadow">
+<table class="table table-sm table-borderless table-striped table-hover">
+	<tbody>
+		<% clccn.each do |objt| %>
+			<% if prtl?(objt, 'list', "objeto") %>
+				<%= render partial: objt_prtl_name(objt) , locals: {objeto: objt} %>
+			<% else %>
+				<tr>
+					<% if ordr %>
+						<th class="app_lnk" style="padding-left: 1rem;"><%= render partial: '0p/tbl/ordr', locals: {objeto: objt} %></th>
+					<% end %>
+					<td class="app_lnk" style="padding-left: 1rem;">
+						<% if prtl?(objt, 'list', "objt") %>
+							<%= render partial: prtl_name(objt, 'list', "objt"), locals: {objeto: objt} %>
+						<% end %>
+					</td>
+					<% unless crud == 'ttl' %>
+						<td class="app_lnk" style="text-align: right;padding-right: 1rem;">
+							<% case crud %>
+							<% when 'lnks' %>
+								<%= render partial: prtl_name(objt, 'list', "lnks"), locals: {objeto: objt} %>
+							<% when 'mdl' %>
+								<%= render partial: '0p/tbl/lnk_u', locals: {objeto: objt} %>
+								<%= render partial: '0p/tbl/lnk_d', locals: {objeto: objt} %>
+							<% else %>
+								<%= render partial: '0p/tabla/links_e', locals: {objeto: objt} %>
+							<% end %>
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+</div>

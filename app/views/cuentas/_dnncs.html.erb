@@ -1,4 +1,4 @@
-<%= render partial: '0p/general/clss_dir_objt_ttl', locals: {clss: 'shw_ttl', dir: 'shw', objt: @objeto, bck: nil} %>
+<%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 <% if @objeto.no_invstgdrs? or (@objeto.no_externas? and @objeto.krn_formato == 'P+') %>
 	<% if @objeto.no_invstgdrs? %>
 		<div class="dlg_bsc">
@@ -11,7 +11,5 @@
 		</div>
 	<% end %>
 <% else %>	
-	<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'krn_denuncias', ownr: @objeto, bck: nil} %>
+	<%= render partial: '0p/tbl_ttl', locals: {source: 'krn_denuncias', ownr: @objeto} %>
 <% end %>
-
-<%= render partial: '0p/tabla/tabla', locals: {c: 'krn_denuncias'} %>

@@ -14,9 +14,10 @@
 				<!--div class="f_250pxlft_col"-->
 				<div class="f_lmn_lyt">
 					<div class="lft">
-						<% if prtl?('layouts', 'lmenu', lm_sym.to_s) %>
-							<%= render partial: prtl_name('layouts', 'lmenu', lm_sym.to_s) %>
-						<% end %>
+						<%# if prtl?('layouts', 'lmenu', lm_sym.to_s) %>
+							<%#= render partial: prtl_name('layouts', 'lmenu', lm_sym.to_s) %>
+						<%# end %>
+						<%= render partial: prtl_name('layouts', 'lmenu', 'admin') %>
 
 						<%= render partial: '0p/lmenu/lmenu', locals: { sym: lm_sym } %>
 
@@ -42,3 +43,5 @@
 	<% end %>
 
 </div>
+
+<%= render partial: prtl_name('0p', 'form', 'mdl') %>

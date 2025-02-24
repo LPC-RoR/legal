@@ -1,0 +1,21 @@
+@import "bscs";
+
+.bg_blue {
+	background-color: $ls_blue_1; /* Color personalizado */
+	color: white;
+	@include a_hover(white, $pltt_5);
+}
+
+.bg_tbl {
+	background-color: $ls_blue_2; /* Color personalizado */
+	color: white;
+	@include a_hover(white, $pltt_5);
+}
+
+.mrgn_top {
+	margin-top: 2px;
+}
+
+.app_lnk {
+   	@include a_hover($pltt_2, $pltt_5);
+}

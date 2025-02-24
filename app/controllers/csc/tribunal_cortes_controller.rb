@@ -29,10 +29,8 @@ class Csc::TribunalCortesController < ApplicationController
       if @objeto.save
         set_redireccion
         format.html { redirect_to @redireccion, notice: "Tribunal/Corte fue exitósamente creado." }
-        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +41,8 @@ class Csc::TribunalCortesController < ApplicationController
       if @objeto.update(tribunal_corte_params)
         set_redireccion
         format.html { redirect_to @redireccion, notice: "Tribunal/Corte fue exitósamente actualizado." }
-        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end

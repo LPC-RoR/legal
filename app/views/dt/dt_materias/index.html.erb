@@ -1,10 +1,12 @@
 <div class="f_400rght_col">
 	<div class="lft">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_materias', ttl: "Materias", ownr: nil } %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'dt_materias'} %>
+		<%= render partial: '0p/tbl_ttl', locals: {source: 'dt_materias'} %>
 	</div>
 	<div class="rght">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_tabla_multas', ttl: "Tablas de multas", ownr: nil } %>
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'dt_tabla_multas'} %>
+		<%= render partial: '0p/tbl_ttl', locals: {source: 'dt_tabla_multas'} %>
+
+		<!-- REVISAR DESPLIEGUE DE OBJETOS ANTES DE BORRAR -->
+		<%#= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_tabla_multas', ttl: "Tablas de multas", ownr: nil } %>
+		<%#= render partial: '0p/tabla/tabla', locals: {c: 'dt_tabla_multas'} %>
 	</div>
 </div>

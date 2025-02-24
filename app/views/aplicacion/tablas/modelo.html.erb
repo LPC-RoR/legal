@@ -1,6 +1,7 @@
 <div class="row gx-1">
 	<div class="col-lg-7 col-xs-12">
-		<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'm_modelos', ownr: nil} %>
+		<%= render partial: '0p/ttl_tbl', locals: {source: 'm_modelos'} %>
+		<%#= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'm_modelos', ownr: nil} %>
 	
 	  	<div class="shadow p-3 mb-3 bg-white rounded">
 		<div class="row">
@@ -45,6 +46,6 @@
 
 	</div>
 	<div class="col-lg-5">
-	    <%= render partial: '0p/app/ttl_tbl', locals: {source: 'm_cuentas', ownr: nil} %>
+	    <%= render partial: '0p/tbl_ttl', locals: {source: 'm_cuentas'} %>
 	</div>
 </div>

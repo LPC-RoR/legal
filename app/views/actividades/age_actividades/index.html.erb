@@ -1,13 +1,14 @@
-<div class="f_50lft_col">
-	<div class="lft">
-		<%= render partial: 'actividades/shr/semana_nav' %>
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0p/ttl_nav', locals: {source: 'age_actividades', div: 'nav'} %>
+
 		<% @week.each do |dt_fecha| %>
 			<%= render partial: 'actividades/shr/bjt_dia', locals: {objeto: dt_fecha, usuarios: @age_usuarios} %>
 		<% end %>
 	</div>
-	<div class="rght">
+	<div class="col-lg-6">
 		<% unless @usuario.blank? %>
-		    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'age_pendientes', ownr: @usuario, bck: nil} %>
+			<%= render partial: '0p/ttl_tbl', locals: {source: 'age_pendientes', blngs: @usuario} %>
 
 			<%= render layout: '0p/collapse/display', locals: {label: 'Personaliza', objeto: nil} do %>
 				<%= render partial: 'actividades/age_actividades/partials/form_nombre' %>

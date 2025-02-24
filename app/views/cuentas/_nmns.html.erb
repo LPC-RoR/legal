@@ -1,4 +1,4 @@
-<%= render partial: '0p/general/clss_dir_objt_ttl', locals: {clss: 'shw_ttl', dir: 'shw', objt: @objeto, bck: nil} %>
+<%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 <% if @objeto.init? %>
 	<div class="dlg_bsc">
 		Bienvenido, esta es una licencia <%= @objeto.demo? ? 'demo' : 'activa' %> del producto <b><%= @objeto.krn_formato %></b>, diseñado para 
@@ -20,5 +20,4 @@
 	</div>
 <% end %>
 
-<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'app_nominas', ttl: "Nómina de usuarios", ownr: @objeto} %>
-<%= render partial: '0p/tabla/tabla', locals: {c: 'app_nominas'} %>
+<%= render partial: '0p/tbl_ttl', locals: {source: 'app_nominas', ownr: @objeto} %>

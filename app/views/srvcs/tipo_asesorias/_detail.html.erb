@@ -1,7 +1,4 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_asesoria, label: 'Tipo de Asesoría' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tipo_asesoria } %></br>
-<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
-<%#= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %></br>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tipo_asesoria, label: 'Tipo de Asesoría' } %>
 
 <%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :documento, label: 'Documento' } %>
 <%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :archivos, label: 'Archivos' } %>
