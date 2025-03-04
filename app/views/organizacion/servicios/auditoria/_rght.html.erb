@@ -1,0 +1,16 @@
+<div class="pt-4">
+	<%= render layout: '0p/collapse/link', locals: {label: "Resultado", objeto: causa, tooltip: 'Ingresa/modifica Resultado'} do %>
+		<b>Resultado</b>
+	<% end %>
+	<div class="ps-3">
+		<i><%= causa.resultado %></i>
+	</div>
+</div>
+<div>
+	<%= render layout: '0p/collapse/link', locals: {label: "Estimacion", objeto: causa, tooltip: 'Ingresa/modifica Estimación'} do %>
+		<b>Estimación sobre el derecho que asiste al cliente</b>
+	<% end %>
+	<div class="ps-3">
+		<i><%= causa.estimacion %></i>
+	</div>
+</div>

@@ -7,122 +7,20 @@
 
 		<div class="row gx-3">
 			<div class="col-6">
-				<div class="row gx-1">
-					<div class="col-6 ps-1">
-						<b>Causa:</b>
-					</div>
-					<div class="col-6 pe-1">
-						<b>
-						<%= causa.rit %> 
-						<i class="bi bi-dot"></i>
-						<%= causa.causa %> 
-						</b>
-					</div>
-				</div>
-				<div class="row gx-1">
-					<div class="col-6 ps-1">
-						<b>Estado:</b>
-					</div>
-					<div class="col-6 pe-1">
-						Tramitación
-					</div>
-				</div>
-				<div class="row gx-1">
-					<div class="col-6 ps-1">
-						<b>Cuantía:</b>
-					</div>
-					<div class="col-6 pe-1 text-end">
-						<%= s_pesos(get_total_cuantia(causa, 'real')) %>
-					</div>
-				</div>
+				<%= render partial: prtl_name('servicios', 'auditoria', 'lft'), locals: {causa: causa} %>
 			</div>
 			<div class="col-6 app_lnk">
-				<div class="pt-4">
-					<%= render layout: '0p/collapse/link', locals: {label: "Resultado", objeto: causa, tooltip: 'Ingresa/modifica Resultado'} do %>
-						<b>Resultado</b>
-					<% end %>
-					<div class="ps-3">
-						<i><%= causa.resultado %></i>
-					</div>
-				</div>
-				<div>
-					<%= render layout: '0p/collapse/link', locals: {label: "Estimacion", objeto: causa, tooltip: 'Ingresa/modifica Estimación'} do %>
-						<b>Estimación sobre el derecho que asiste al cliente</b>
-					<% end %>
-					<div class="ps-3">
-						<i><%= causa.estimacion %></i>
-					</div>
-				</div>
+				<%= render partial: prtl_name('servicios', 'auditoria', 'rght'), locals: {causa: causa} %>
 			</div>
 		</div>
 
 		<%= render layout: '0p/collapse/display', locals: {label: 'Resultado', objeto: causa} do %>
-
-			<%= form_for :rsltd, url: "/causas/#{causa.id}/rsltd" do |form| %>
-				<div class="row gx-1">
-					<div class="col-9">
-						<%= render partial: '0p/lbld_inpts/text_area', locals: { form: form, token: :resultado, label: 'Resultado' } %>
-					</div>
-					<div class="col-3 text-end">
-						<button type="submit" class="btn btn-primary">
-						  <i class="bi bi-caret-right"></i>
-						</button>
-					</div>
-				</div>
-			<% end  %>
-
+			<%= render partial: prtl_name('servicios', 'auditoria', 'frm_rsltd'), locals: {causa: causa} %>
 		<% end %>
 
 		<%= render layout: '0p/collapse/display', locals: {label: 'Estimacion', objeto: causa} do %>
-
-			<%= form_for :estmcn, url: "/causas/#{causa.id}/estmcn" do |form| %>
-				<div class="row gx-1">
-					<div class="col-9">
-						<%= render partial: '0p/lbld_inpts/text_area', locals: { form: form, token: :estimacion, label: 'Estimación sobre el derecho que asiste al cliente' } %>
-					</div>
-					<div class="col-3 text-end">
-						<button type="submit" class="btn btn-primary">
-						  <i class="bi bi-caret-right"></i>
-						</button>
-					</div>
-				</div>
-			<% end  %>
-
+			<%= render partial: prtl_name('servicios', 'auditoria', 'frm_estmcn'), locals: {causa: causa} %>
 		<% end %>
 
 	</div>
 <% end %>
-
-<!--table class="table table-sm table-borderless table-striped table-hover"-->
-	<!--thead>
-		<tr>
-			<th>Tribunal</th>
-			<th>RIT/ROL Caratulado</th>
-			<th>Estado procesal</th>
-			<th>Cuantía / Resultado</th>
-			<th>Estimación sobre el derecho que asiste al cliente</th>
-		</tr>
-	</thead>
-	<tbody-->
-		<%# @coleccion['causas'].each do |reg| %>
-			<!--tr style="font-size: 15px;">
-				<td class="app_lnk" style="padding-left: 1rem;">
-					<b><%#= reg.glosa %></b>
-				</td>
-				<td class="app_lnk" style="padding-left: 1rem;text-align: <%#=reg.ctr_paso.rght ? 'right' : 'left'%>;">
-					<%#= reg.valor %>
-				</td>
-				<td class="app_lnk" style="text-align: right; padding-right: 1rem;">
-
-
-					<%# unless reg.ownr.class.name.constantize::PROC_INIT.include?(reg.ctr_paso.codigo) %>
-						<%#= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/#{reg.ownr.class.name.tableize}/#{reg.ownr.id}/clear_fld?k=#{reg.ctr_paso.codigo}", tltp: nil} do %>
-							<i class="bi bi-trash"></i>
-						<%# end %>
-					<%# end %>
-
-				</td>
-			</tr-->
-		<%# end %>
-	<!--/tbody>
-</table-->

@@ -1,0 +1,28 @@
+<div class="row gx-1">
+	<div class="col-6 ps-1">
+		<b>Causa:</b>
+	</div>
+	<div class="col-6 pe-1">
+		<b>
+		<%= causa.rit %> 
+		<i class="bi bi-dot"></i>
+		<%= causa.causa %> 
+		</b>
+	</div>
+</div>
+<div class="row gx-1">
+	<div class="col-6 ps-1">
+		<b>Estado:</b>
+	</div>
+	<div class="col-6 pe-1">
+		Tramitación
+	</div>
+</div>
+<div class="row gx-1">
+	<div class="col-6 ps-1">
+		<b>Cuantía:</b>
+	</div>
+	<div class="col-6 pe-1 text-end">
+		<%= s_pesos(get_total_cuantia(causa, 'real')) %>
+	</div>
+</div>
