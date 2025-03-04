@@ -413,7 +413,7 @@ DEPENDENCIES
   sqlite3
   stringio (= 3.1.1)
   turbo-rails
-  turbolinks (~> 5)
+  turbolinks (~> 5.2.0)
   tzinfo-data
   uglifier
   web-console (>= 3.3.0)
