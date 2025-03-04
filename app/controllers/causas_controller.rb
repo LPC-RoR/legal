@@ -175,19 +175,17 @@ class CausasController < ApplicationController
   end
 
   def rsltd
-    unless params[:rsltd][:resultado].blank?
-      @objeto.resultado = params[:rsltd][:resultado]
-      @objeto.save
-    end
+    @objeto.resultado = params[:rsltd][:resultado]
+    @objeto.save
 
     redirect_to "/servicios/auditoria?oid=#{@objeto.cliente.id}"
   end
 
   def estmcn
-    unless params[:estmcn][:estimacion].blank?
-      @objeto.estimacion = params[:estmcn][:estimacion]
-      @objeto.save
-    end
+    @objeto.probabilidad = params[:estmcn][:probabilidad]
+    @objeto.potencial_perdida = params[:estmcn][:potencial_perdida]
+    @objeto.estimacion = params[:estmcn][:estimacion]
+    @objeto.save
 
     redirect_to "/servicios/auditoria?oid=#{@objeto.cliente.id}"
   end

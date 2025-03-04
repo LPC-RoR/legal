@@ -14,7 +14,7 @@
 				Subir 
 			<% end %>
 		<% else %>
-			<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: fl.archivo.url, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
+			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: fl.archivo.url, target: :_blank, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
 				<i class="bi bi-download"></i>
 			<% end %>
 			<i class="bi bi-dot"></i>

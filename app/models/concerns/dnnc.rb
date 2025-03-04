@@ -33,6 +33,10 @@ module Dnnc
 		self.receptor_denuncia == 'Dirección del Trabajo'
 	end
 
+	def fl_dnnc_certificado?
+		self.receptor_denuncia == 'Dirección del Trabajo'
+	end
+
 	def fl_dnncnt_rprsntcn?
 		self.p_representante?
 	end

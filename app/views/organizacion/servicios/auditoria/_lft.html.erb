@@ -1,8 +1,18 @@
 <div class="row gx-1">
-	<div class="col-6 ps-1">
+	<div class="col-4 ps-1">
+		<b>Tribunal:</b>
+	</div>
+	<div class="col-8 pe-1">
+		<b>
+		<%= causa.tribunal_corte.tribunal_corte %>
+		</b>
+	</div>
+</div>
+<div class="row gx-1">
+	<div class="col-4 ps-1">
 		<b>Causa:</b>
 	</div>
-	<div class="col-6 pe-1">
+	<div class="col-8 pe-1">
 		<b>
 		<%= causa.rit %> 
 		<i class="bi bi-dot"></i>
@@ -11,18 +21,20 @@
 	</div>
 </div>
 <div class="row gx-1">
-	<div class="col-6 ps-1">
+	<div class="col-4 ps-1">
 		<b>Estado:</b>
 	</div>
-	<div class="col-6 pe-1">
+	<div class="col-8 pe-1">
 		Tramitación
 	</div>
 </div>
-<div class="row gx-1">
-	<div class="col-6 ps-1">
-		<b>Cuantía:</b>
-	</div>
-	<div class="col-6 pe-1 text-end">
-		<%= s_pesos(get_total_cuantia(causa, 'real')) %>
+
+<div class="pt-4 app_lnk">
+	<%= render layout: '0p/collapse/link', locals: {label: "Petitorio", objeto: causa, tooltip: 'Ingresa/modifica Petitorio'} do %>
+		<b>Petitorio</b>
+	<% end %>
+	<div class="ps-3">
+		<i><%= causa.resultado %></i>
 	</div>
 </div>
+<b>Cuantía:</b> <%= s_pesos(get_total_cuantia(causa, 'real')) %>

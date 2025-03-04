@@ -18,8 +18,8 @@ class Organizacion::ServiciosController < ApplicationController
   def auditoria
     @objeto = Cliente.find(params[:oid])
     @annio = (Time.zone.today.year-1).to_s
-    causas = @objeto.causas.where("rit LIKE ?", "%#{@annio}").std('tramitación')
-
+#    causas = @objeto.causas.where("rit LIKE ?", "%#{@annio}").std('tramitación')
+    causas = @objeto.causas.std('tramitación')
 
     set_tabla('causas', causas, false)
   end
