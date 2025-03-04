@@ -1,7 +1,7 @@
 class CausasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd swtch_urgencia swtch_pendiente ]
+  before_action :set_causa, only: %i[ show edit update destroy rsltd estmcn cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd swtch_urgencia swtch_pendiente ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -172,6 +172,24 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def rsltd
+    unless params[:rsltd][:resultado].blank?
+      @objeto.resultado = params[:rsltd][:resultado]
+      @objeto.save
+    end
+
+    redirect_to "/servicios/auditoria?oid=#{@objeto.cliente.id}"
+  end
+
+  def estmcn
+    unless params[:estmcn][:estimacion].blank?
+      @objeto.estimacion = params[:estmcn][:estimacion]
+      @objeto.save
+    end
+
+    redirect_to "/servicios/auditoria?oid=#{@objeto.cliente.id}"
   end
 
   def nueva_materia

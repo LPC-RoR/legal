@@ -15,6 +15,15 @@ class Organizacion::ServiciosController < ApplicationController
     @h_pagos = get_h_pagos(@objeto)
   end
 
+  def auditoria
+    @objeto = Cliente.find(params[:oid])
+    @annio = (Time.zone.today.year-1).to_s
+    causas = @objeto.causas.where("rit LIKE ?", "%#{@annio}").std('tramitación')
+
+
+    set_tabla('causas', causas, false)
+  end
+
   def adncs
       set_tabla('age_actividades', AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day).adncs.fecha_ordr, false)
   end

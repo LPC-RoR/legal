@@ -44,6 +44,8 @@ Rails.application.routes.draw do
     match :del_uf_facturacion, via: :get, on: :member
     match :swtch_pendiente, via: :get, on: :member
     match :swtch_urgencia, via: :get, on: :member
+    match :rsltd, via: :post, on: :member
+    match :estmcn, via: :post, on: :member
   end
   resources :clientes do
     match :add_rcrd, via: :get, on: :member
@@ -351,6 +353,7 @@ Rails.application.routes.draw do
   scope module: 'organizacion' do
     resources :servicios do
       match :aprobacion, via: :get, on: :collection
+      match :auditoria, via: :get, on: :collection
       match :adncs, via: :get, on: :collection
       match :antecedentes, via: :get, on: :collection
       match :organizacion, via: :get, on: :collection

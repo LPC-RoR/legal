@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_03_214158) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_04_015600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -384,6 +384,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_03_214158) do
     t.datetime "fecha_audiencia"
     t.string "audiencia"
     t.boolean "en_cobranza"
+    t.text "resultado"
+    t.text "estimacion"
     t.index ["archivos_registrados"], name: "index_causas_on_archivos_registrados"
     t.index ["causa_ganada"], name: "index_causas_on_causa_ganada"
     t.index ["era"], name: "index_causas_on_era"
