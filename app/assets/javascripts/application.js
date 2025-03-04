@@ -17,5 +17,3 @@
 //= require bootstrap-sprockets
 //= require chartkick
 //= require Chart.bundle
-
-import "@hotwired/turbo-rails"
