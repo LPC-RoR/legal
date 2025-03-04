@@ -18,7 +18,10 @@ gem 'devise'
 gem 'kaminari'
 
 # excel
-gem "roo", "~> 2.8.0"
+# hay que agregarla cuando se migra a ruby 3.4.0 porque ya no viene por defecto es esta versión
+gem 'csv'
+
+gem "roo", "~> 2.10.0"
 #crear planillas excel
 gem 'caxlsx'
 gem 'caxlsx_rails'
@@ -41,6 +44,8 @@ gem 'pdf-reader'
 gem 'pg_search'
 
 gem 'stringio', '3.1.1'
+
+gem 'turbo-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'rails', '~> 5.2.6'

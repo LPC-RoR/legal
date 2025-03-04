@@ -1,8 +1,9 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy check fll_dttm fll_fld fll_optn del_fld fll_cltn_id ]
-  after_action :set_plzs, only: %i[ create update]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy check set_fld clear_fld fll_dttm fll_fld fll_optn del_fld fll_cltn_id ]
+  after_action :set_plzs, only: %i[ create update ]
+  after_action :load_proc, only: %i[ create update ]
 
   include Karin
 
@@ -38,6 +39,10 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1/edit
   def edit
+  end
+
+  def cndtnl_via_declaracion
+    @data = KrnDenuncia.recent_data
   end
 
   # POST /krn_denuncias or /krn_denuncias.json
@@ -84,17 +89,45 @@ class Karin::KrnDenunciasController < ApplicationController
     redirect_to @objeto
   end
 
+  # Reemplazar a fll_fld generalizando y creando ctr_registro correspondiente
+  def set_fld
+    ctr_paso = CtrPaso.find_by(codigo: params[:k])
+    @objeto[ctr_paso.metodo] = params[ctr_paso.metodo.to_sym]
+    @objeto.save
+
+    dsply_metodo = ctr_paso.blngs_metodo.blank? ? ctr_paso.metodo : ctr_paso.blngs_metodo
+    field = @objeto[dsply_metodo]
+    if field.class.name == 'Datetime'
+      vlr = @objeto[ctr_paso.metodo].strftime("%d-%m-%Y  %I:%M%p")
+    else
+      vlr = @objeto.send(dsply_metodo)
+    end
+    @objeto.ctr_registros.create(orden: ctr_paso.orden, tarea_id: ctr_paso.tarea_id, ctr_paso_id: ctr_paso.id, glosa: ctr_paso.glosa, valor: vlr)
+
+    redirect_to @objeto
+  end
+
+  def clear_fld
+    ctr_paso = CtrPaso.find_by(codigo: params[:k])
+    @objeto[ctr_paso.metodo] = nil
+    @objeto.save
+    ctr_registro = @objeto.ctr_registros.find_by(ctr_paso_id: ctr_paso.id)
+    ctr_registro.delete
+
+    redirect_to @objeto
+  end
+
   def fll_fld
     if perfil_activo?
       case params[:k]
-      when 'externa_id'
-        @objeto.krn_empresa_externa_id = params[:vlr].to_i
+      when 'externa'
+        @objeto.krn_empresa_externa_id = params[:krn_empresa_externa_id].to_i
+      when 'tipo'
+        @objeto.tipo_declaracion = params[:tipo_declaracion]
+      when 'representante'
+        @objeto.representante = params[:representante]
       when 'via'
         @objeto.via_declaracion = params[:vlr]
-      when 'tipo'
-        @objeto.tipo_declaracion = params[:vlr]
-      when 'representante'
-        @objeto.representante = params[:vlr]
       when 'drv_fecha_dt'
         @objeto.fecha_hora_dt = params_to_date(params, 'vlr')
         set_lgl_plzs(true)
@@ -122,6 +155,8 @@ class Karin::KrnDenunciasController < ApplicationController
         @objeto.fecha_prcsd = params_to_date(params, 'vlr')
       end
       @objeto.save
+
+      @objeto.ctr_registros
     end
 
     redirect_to @objeto
@@ -263,6 +298,41 @@ class Karin::KrnDenunciasController < ApplicationController
       @objeto.plz_infrm      = flag ? nil : plz_lv(fecha_ref, 32)
       @objeto.plz_prnncmnt   = flag ? nil : plz_lv(fecha_ref, 62)
       @objeto.plz_mdds_sncns = flag ? plz_c(@objeto.plz_invstgcn, 15) : plz_c(@objeto.plz_prnncmnt, 15)
+    end
+
+    # --------------------------------------------------------------------- PROC
+
+    def load_proc
+      tar = Tarea.find_by(codigo: '010_ingrs')
+      KrnDenuncia::PROC_INIT.each do |paso|
+        ctr_paso = tar.ctr_pasos.find_by(codigo: paso)
+        reg = @objeto.ctr_registros.find_by(ctr_paso_id: ctr_paso.id)
+
+        if ctr_paso.glosa.blank?
+          case ctr_paso.codigo
+          when 'ownr'
+            glosa = @objeto.ownr.class.name
+          end
+        else
+          glosa = ctr_paso.glosa
+        end
+
+        vlr = @objeto.send(ctr_paso.metodo)
+
+        if ctr_paso.codigo == 'fecha_hora'
+          valor = vlr.blank? ? '__-__-__ __:__' : vlr.strftime("%d-%m-%Y  %I:%M%p")
+        else
+          valor = vlr
+        end
+
+        if reg.blank?
+          @objeto.ctr_registros.create(orden: ctr_paso.orden, tarea_id: tar.id, ctr_paso_id: ctr_paso.id, glosa: glosa, valor: valor)
+        else
+          reg.glosa = glosa
+          reg.valor = vlr
+          reg.save
+        end
+      end
     end
 
     # Use callbacks to share common setup or constraints between actions.

@@ -1,8 +1,13 @@
-<div class='form-row'>
-	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :lgl_tramo_empresa, label: 'Tramo de empresa' } %>
-
-	<%= render partial: '0p/frm_flds/decimal', locals: { form: form, token: :min, label: 'Mínimo' } %>
-	<%= render partial: '0p/frm_flds/decimal', locals: { form: form, token: :max, label: 'Máximo' } %>
-
-	<%= render partial: '0p/frm_flds/hidden', locals: { form: form, token: :orden } %>
+<div class='row gx-1'>
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :lgl_tramo_empresa, label: 'Tramo de empresa' } %>
+	</div>
+	<div class="col-lg-3 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :min, label: 'Mínimo' } %>
+	</div>
+	<div class="col-lg-3">
+		<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :max, label: 'Máximo' } %>
+	</div>
 </div>
+
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :orden } %>

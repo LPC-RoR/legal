@@ -1,14 +1,26 @@
-<div class='form-row'>
-	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :tipo, sel_list: RepDocControlado::TIPOS, prompt: nil, label: 'Tipo' } %>
-	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :control, sel_list: RepDocControlado::CONTROLES, prompt: nil, label: 'Control' } %>
-	<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :visible_para, sel_list: h_tipos_usuario(@objeto), prompt: nil, label: 'Visible para' } %>
-	<%= render partial: '0p/frm_flds/check_box', locals: { form: form, token: :multiple, label: 'Lista de archivos' } %>
+<div class="row gx-1">
+	<div class="col-lg-4 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :tipo, sel_list: RepDocControlado::TIPOS, label: 'Tipo' } %>
+	</div>
+	<div class="col-lg-4 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :control, sel_list: RepDocControlado::CONTROLES, label: 'Control' } %>
+	</div>
+	<div class="col-lg-4 col-xs-12 p-3">
+		<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :multiple, label: 'Lista de archivos' } %>
+	</div>
 </div>
 
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :codigo, label: 'Código' } %>
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :rep_doc_controlado, label: 'Nombre del documento' } %>
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
+<div class="row gx-1">
+	<div class="col-lg-4 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :codigo, label: 'Código' } %>
+	</div>
+	<div class="col-lg-8">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rep_doc_controlado, label: 'Nombre del documento' } %>
+	</div>
+</div>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
+
+<%#= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :visible_para, sel_list: h_tipos_usuario(@objeto), prompt: nil, label: 'Visible para' } %>
+
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:orden, :ownr_type, :ownr_id] } %>

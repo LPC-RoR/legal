@@ -1,0 +1,6 @@
+<div class="ps-4">
+	<!-- Despliega las TAREAS de la ETAPA -->
+	<% objeto.tareas.ordr.each do |tar| %>
+		<%= render partial: prtl_name('tareas', 'code', 'objeto'), locals: {objeto: tar, ownr: ownr} if prtl?('tareas', 'code', 'objeto') %>
+	<% end %>
+</div>

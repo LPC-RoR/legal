@@ -1,0 +1,20 @@
+<div class="p-3">
+
+	<%= form_with url: "/#{objeto.class.name.tableize}/#{objeto.id}/set_fld?k=#{code}", method: :post, local: true do |form| %>
+	<%#= form_with url: "/#{objeto.class.name.tableize}/#{objeto.id}/fll_fld?k=#{code}", method: :post, local: true do |form| %>
+
+		<div class="row gx-1 border rounded p-2">
+			<div class="col-10">
+				<% if prtl?(objeto, "proc/#{tar.codigo}", "frm_#{code}") %>
+					<%= render partial: prtl_name(objeto, "proc/#{tar.codigo}", "frm_#{code}"), locals: {form: form, objeto: objeto, code: code} %>
+				<% end %>
+			</div>
+			<div class="col-2 text-end">
+				<%= button_tag do %>
+				  <i class="bi bi-caret-right"></i>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+
+</div>

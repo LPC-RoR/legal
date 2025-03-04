@@ -49,6 +49,30 @@ class Cliente < ApplicationRecord
     	self.pro_dtll_ventas.map {|dv| dv.producto.formato if dv.producto.present?}.last
     end
 
+    def demo?
+    	self.pro_dtll_ventas.empty?
+    end
+
+    def init?
+    	self.krn_denuncias.empty? and self.krn_empresa_externas.empty? and self.krn_investigadores.empty?
+    end
+
+    def no_externas?
+    	self.krn_empresa_externas.empty?
+    end
+
+    def no_invstgdrs?
+    	self.krn_investigadores.empty?
+    end
+
+    def n_dnncs
+    	(self.demo? or self.krn_formato == 'B') ? 1 : 20
+    end
+
+    def new_bttn?
+    	self.krn_denuncias.count < self.n_dnncs
+    end
+
     # CHILDS
 
 	def tarifas

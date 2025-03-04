@@ -1,25 +1,18 @@
-<div class="prc_frm">
-	<div class="p_prmpt">
-	    <i class="bi bi-<%=actvbx_gly[accn]%>"></i> 
-	    <% if prtl?(objeto.class.name.tableize, 'code/prmpt', code) %>
-	      <b><%= render partial: prtl_name(objeto.class.name.tableize, 'code/prmpt', code), locals: {objeto: objeto, accn: accn} %></b>
-	    <% end %>
-	</div>
-
+<div class="p-3">
 	<%= form_with url: "/#{objeto.class.name.tableize}/#{objeto.id}/fll_fld?k=#{code}", method: :post, local: true do |form| %>
-		<div class="frm_dtl">
 
-			<div class="p_frm">
+		<div class="row gx-1 border rounded p-2">
+			<div class="col-10">
 				<% if prtl?(objeto.class.name.tableize, 'code/frm', code) %>
 					<%= render partial: prtl_name(objeto.class.name.tableize, 'code/frm', code), locals: { objeto: objeto, code: code, accn: accn, form: form} %>
 				<% end %>
 			</div>
-			<div class="p_sbmt">
+			<div class="col-2 text-end">
 				<%= button_tag do %>
 				  <i class="bi bi-caret-right"></i>
 				<% end %>
 			</div>
-
 		</div>
 	<% end %>
+
 </div>

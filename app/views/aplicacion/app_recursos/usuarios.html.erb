@@ -1,4 +1,4 @@
-<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'usr', source: 'app_recursos', ownr: (controller_name == 'clientes' ? @objeto : nil)} %>
+<%= render partial: '0p/ttl_tbl', locals: {source: 'usu-app_recursos', lnks: 'ttl'} %>
 <div class="shadow-sm p-3 mb-3 bg-white rounded">
 	<% @coleccion['usuarios'].each do |usuario| %>
 		<%= render partial: 'aplicacion/app_recursos/partials/usuario', locals: {objeto: usuario} %>

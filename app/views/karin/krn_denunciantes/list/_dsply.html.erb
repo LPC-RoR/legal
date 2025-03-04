@@ -1,0 +1,11 @@
+<% unless objeto.diat_diep? %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Falta evidencia de Atención psicológica temprana obligatoria. Subir evidencia.'} %>
+<% end %>
+
+<% if objeto.empleado_externo and (not objeto.emprs_extrn_prsnt?) %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'La persona denunciante depende de otro empleador, el que debe ser identificado.'} %>
+<% end %>
+
+<% if objeto.articulo_516 and (not objeto.direccion_notificacion.present?) %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'La persona denunciante no tiene acceso a correo electrónico, se debe registrar su dirección de notificación.'} %>
+<% end %>

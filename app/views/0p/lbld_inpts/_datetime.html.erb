@@ -1,0 +1,4 @@
+<div class="mb-3">
+	<%= form.label(token, label) %>
+	<%= form.datetime_select token, {order: [:day, :month, :year, :hour, :minute], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?', hour: 'Hora', minute: 'Minutos' } }, {required: false} %>
+</div>

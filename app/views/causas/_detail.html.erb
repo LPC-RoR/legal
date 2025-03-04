@@ -1,30 +1,18 @@
-<div class='form-row'>
-	<div class='form-cell'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_causa_id, label: 'Etapa' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, display_field: 'tipo_causa', prompt: 'Etapa' } %>
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, display_field: 'tipo_causa', label: 'Etapa' } %>
+
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tribunal_corte_id, colection: TribunalCorte.all.order(:tribunal_corte).collect { |tc| [tc.tribunal_corte, tc.id] }, display_field: 'tribunal_corte', prompt: 'Tribunal/Corte', label: 'Tribunal/Corte' } %>
 	</div>
-	<div class='form-cell'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :cliente_id, label: 'Cliente' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: 'Cliente' } %>
+	<div class="col-lg-6">
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: 'Cliente', label: 'Cliente' } %>
+
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rit, label: 'RIT / Rol : Era' } %>
 	</div>
-	<div class="form-cell">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tribunal_corte_id, label: 'Tribunal' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tribunal_corte_id, colection: TribunalCorte.all.order(:tribunal_corte).collect { |tc| [tc.tribunal_corte, tc.id] }, display_field: 'tribunal_corte', prompt: 'Tribunal/Corte' } %>
-	</div>
-</div>
-<div class="formCell">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :rit, label: 'RIT / Rol : Era' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rit } %>
-</div>
-<div class="formCell">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :causa, label: 'Caratulado' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :causa } %>
 </div>
 
-<!--div class="formCell">
-		<%#= render partial: '0p/form_fields/check_box', locals: { form: form, token: :en_cobranza, label: 'En cobranza' } %>
-</div-->
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :causa, label: 'Caratulado' } %>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :urgente } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :pendiente } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :estado } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :urgente } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :pendiente } %>

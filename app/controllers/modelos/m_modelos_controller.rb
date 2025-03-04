@@ -1,4 +1,6 @@
 class Modelos::MModelosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_m_modelo, only: %i[ show edit update destroy ]
 
   # GET /m_modelos or /m_modelos.json

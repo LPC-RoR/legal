@@ -12,10 +12,20 @@
 	@include a_hover(white, $pltt_5);
 }
 
+.bg_sub_tbl {
+	background-color: $pltt_7; /* Color personalizado */
+//	color: white;
+	@include a_hover(black, $pltt_5);
+}
+
 .mrgn_top {
 	margin-top: 2px;
 }
 
 .app_lnk {
    	@include a_hover($pltt_2, $pltt_5);
+}
+
+.app_danger {
+   	@include a_hover(red, $pltt_5);
 }

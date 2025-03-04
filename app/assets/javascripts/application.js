@@ -18,6 +18,8 @@
 //= require chartkick
 //= require Chart.bundle
 
+import "@hotwired/turbo-rails"
+
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip(); 
 });

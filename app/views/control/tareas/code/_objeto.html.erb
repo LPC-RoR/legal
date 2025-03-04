@@ -1,29 +1,10 @@
 <% if objeto.dsply?(ownr) %>
-	<% if tar_cntrl(ownr)[objeto.codigo.to_sym] %>
 
-		<div class="tar_objt" id: <%= "#{objeto.css_id}#{ownr.css_id}" %>>
-			<div class="p_objt">
-				<% if tar_cmpltd(ownr, objeto.codigo) %>
-					<i class="bi bi-check-lg"></i>
-				<% end %>
-				<%#= "#{objeto.css_id}#{ownr.css_id}" %>
-				<%= render partial: prtl_name('tareas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('tareas', 'code', 'objt') %>
-			</div>
-			<div class="p_lnks">
-				<%= render partial: prtl_name('tareas', 'code', 'lnks'), locals: {objeto: objeto, ownr: ownr} if prtl?('tareas', 'code', 'lnks') %>
-			</div>
-			<div class="p_dtl">
+	<!-- Trasladar paulatinamente el code de cada tarea -->
+	<% if tar_cntrl(ownr)[objeto.codigo.to_sym] or ['010_ingrs'].include?(objeto.codigo) %>
 
-				<!-- El prefijo del código determina donde van a buscar el código de la tarea -->
-				<%= render partial: prtl_name(prfx_cntrllr(objeto.codigo), 'code', objeto.codigo), locals: {objeto: objeto, ownr: ownr} if prtl?(prfx_cntrllr(objeto.codigo), 'code', objeto.codigo) %>
-
-				<% if @dsply_dc_fls[objeto.id] %>
-					<%= render partial: prtl_name('repositorios', 'shr', 't_dcs'), locals: {objeto: objeto, mdl: ownr.class.name, ownr: ownr} %>
-				<% end %>
-
-				<%= render partial: prtl_name(prfx_cntrllr(objeto.codigo), 'code/chlds', objeto.codigo), locals: {objeto: objeto, ownr: ownr} if prtl?(prfx_cntrllr(objeto.codigo), 'code/chlds', objeto.codigo) %>
-			</div>
-		</div>
+		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: objeto, ownr: ownr, color: 'primary'} %>
 
 	<% end %>
+
 <% end %>

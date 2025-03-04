@@ -1,52 +1,28 @@
-<div class='form-row'>
-	<div class='form-cell'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_asesoria_id, label: 'Tipo asesoría' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_asesoria_id, colection: TipoAsesoria.all.order(:tipo_asesoria).collect { |ta| [ta.tipo_asesoria, ta.id] }, display_field: 'tipo_asesoria', prompt: 'Tipo Asesoria' } %></br>
+<div class="row gx-1">
+	<div class="col-lg-3">
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_asesoria_id, colection: TipoAsesoria.all.order(:tipo_asesoria).collect { |ta| [ta.tipo_asesoria, ta.id] }, display_field: 'tipo_asesoria', label: 'Tipo Asesoría' } %>
 	</div>
-	<div class='form-cell'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :cliente_id, label: 'Cliente' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cli| [cli.razon_social, cli.id] }, display_field: 'razon_social', prompt: 'Cliente' } %></br>
+	<div class="col-lg-9">
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cli| [cli.razon_social, cli.id] }, display_field: 'razon_social', label: 'Cliente' } %>
+
+
+		</br>
+		<div class="row gx-1">
+			<div class="col-lg-6 col-xs-12">
+				<%= render partial: '0p/lbld_inpts/date', locals: { form: form, token: :fecha, label: 'Fecha' } %>
+			</div>
+			<div class="col-lg-6">
+				<%= render partial: '0p/lbld_inpts/date', locals: { form: form, token: :plazo, label: 'Plazo' } %>
+			</div>
+		</div>
+
+
 	</div>
 </div>
 
-<div class="formCell">
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
-	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %>
-</div>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
 
-<div class="formCell">
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :detalle, label: 'Antecedentes adicionales' } %>
-	<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :detalle } %>
-</div>
+<%= render partial: '0p/lbld_inpts/text_area', locals: { form: form, token: :detalle, label: 'Antecedentes adicionales' } %>
 
-<div class='form-row'>
-	<div class='form-cell'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha, label: 'Fecha' } %>
-		<small><%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %></small>
-	</div>
-	<!--div class='form-cell'>
-		<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha_uf, label: 'Fecha UF' } %>
-		<small><%#= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha_uf } %></small>
-	</div-->
-	<div class='form-cell'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :plazo, label: 'Plazo' } %>
-		<small><%= render partial: '0p/form_fields/date', locals: { form: form, token: :plazo } %></small>
-	</div>
-</div>
-<hr>
-<!--small><i>Si se trata de una asesoría única, llené directamente estos campos para no asignar tarifa.</i></small></br-->
 
-<!--div class="row">
-	<div class="col-lg-2 col-xs-12">
-		<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :moneda, label: 'Moneda' } %>
-		<%#= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'] } %>
-	</div>
-	<div class="col-lg-2">
-		<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :monto, label: 'Monto' } %>
-		<%#= render partial: '0p/form_fields/text', locals: { form: form, token: :monto } %>
-	</div>
-</div-->
-
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :urgente } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :pendiente } %>
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:estado, :urgente, :pendiente] } %>

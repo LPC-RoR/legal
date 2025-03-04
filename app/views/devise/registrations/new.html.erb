@@ -1,33 +1,48 @@
 <!--h2>Registro</h2-->
-<div class='row justify-content-center'>
+<div class='row justify-content-center mt-4'>
   <div class='col-md-4'>
     <div class="devise-box">
 
-      <h4><%= render partial: '0p/general/icon_text', locals: {text: 'Registro', gly: 'person-plus', clr: 'info'} %></h4>
+      <h4 class="text-center"><%= render partial: '0p/general/icon_text', locals: {text: 'Registro', gly: 'person-plus', clr: 'info'} %></h4>
+
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
         <%= render "devise/shared/error_messages", resource: resource %>
 
-        <div class="formCell">
-          <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <!--div class="formCell">
+          <%#= f.label :email %>
+          <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div-->
+        <div class="form-floating mb-3">
+          <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control', id: 'emailInput', placeholder: 'Email' %>
+          <%= f.label :email, 'Email', for: 'emailInput' %>
         </div>
 
-        <div class="formCell">
-          <%= f.label 'contraseña' %>
-          <% if @minimum_password_length %>
-          <small><em>(<%= @minimum_password_length %> caracteres mínimo)</em></small>
-          <% end %><br />
-          <%= f.password_field :password, autocomplete: "new-password" %>
+        <!--div class="formCell">
+          <%#= f.label 'contraseña' %>
+          <%# if @minimum_password_length %>
+          <small><em>(<%#= @minimum_password_length %> caracteres mínimo)</em></small>
+          <%# end %><br />
+          <%#= f.password_field :password, autocomplete: "new-password" %>
+        </div-->
+        <!-- Campo de contraseña -->
+        <div class="form-floating mb-3">
+          <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', id: 'passwordInput', placeholder: 'Password' %>
+          <%= f.label :password, 'Password', for: 'passwordInput' %>
         </div>
 
-        <div class="formCell">
-          <%= f.label 'confirmación de contraseña' %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <!--div class="formCell">
+          <%#= f.label 'confirmación de contraseña' %>
+          <%#= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div-->
+        <div class="form-floating mb-3">
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', id: 'passwordConfirm', placeholder: 'Password' %>
+          <%= f.label :password_confirmation, 'Confirmación de password', for: 'passwordConfirm' %>
         </div>
 
         <!--/br-->
 
-        <div class="formCell">
+        <div class="mb-3">
           <%= f.submit "Registrar" %>
         </div>
       <% end %>

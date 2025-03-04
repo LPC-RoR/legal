@@ -243,7 +243,7 @@ module CptnProcsHelper
 		}
 	end
 
-	def prfx_cntrllr(cdg)
+	def tar_cntrllr(cdg)
 		unless cdg.blank?
 			case cdg.split('_')[0]
 			when 'dnnc'

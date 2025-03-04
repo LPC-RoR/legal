@@ -8,6 +8,8 @@ class KrnDenuncia < ApplicationRecord
 	TIPOS_DENUNCIANTE = ['Denunciante', 'Representante']
 	TIPOS_DENUNCIA = ['Escrita', 'Verbal']
 
+	PROC_INIT = ['ownr', 'fecha_hora', 'motivo', 'receptor', 'canal', 'presentado_por']
+
 	belongs_to :ownr, polymorphic: true
 
 	belongs_to :krn_empresa_externa, optional: true
@@ -15,6 +17,8 @@ class KrnDenuncia < ApplicationRecord
 
 	has_many :rep_archivos, as: :ownr
 	has_many :valores, as: :ownr
+
+	has_many :ctr_registros, as: :ownr
 
 	has_many :krn_denunciantes
 	has_many :krn_denunciados
@@ -26,7 +30,7 @@ class KrnDenuncia < ApplicationRecord
 
 	scope :ordr, -> { order(fecha_hora: :desc, id: :desc) }
 
-	delegate :rut, to: :krn_empresa_externa, prefix: true
+	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
 
     validates_presence_of :fecha_hora
 
@@ -40,6 +44,24 @@ class KrnDenuncia < ApplicationRecord
 
 	def p_plus?
 		self.ownr_krn_formato == 'P+'
+	end
+
+	def fls(dc)
+		self.rep_archivos.where(rep_doc_controlado_id: dc.id).crtd_ordr
+	end
+
+	def fl(dc)
+		self.fls(dc).last
+	end
+
+	# ------------------------------------------------------------------------ PROC
+
+	def ownr_razon_social
+		self.ownr.razon_social
+	end
+
+	def rcptr_externa
+		self.krn_empresa_externa.razon_social
 	end
 
 	# ------------------------------------------------------------------------ COMPETENCIA DE INVESTIGAR
@@ -117,7 +139,7 @@ class KrnDenuncia < ApplicationRecord
 	# --------------------------------------------------------------------------------------------- DOCUMENTOS CONTROLADOS
 
 	def dc_denuncia
-		RepDocControlado.denuncia
+		RepDocControlado.find_by(codigo: 'dnnc_denuncia')
 	end
 
 	def fl_denuncia

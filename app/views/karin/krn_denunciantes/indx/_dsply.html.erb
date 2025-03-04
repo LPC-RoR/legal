@@ -1,0 +1,6 @@
+<% if @dnnc_jot['ingrs_dnnc_bsc'] and ( not @dnnc_jot['dnncnts_any']) %>
+
+	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Információn básica de la denuncia completa.'} %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Debe ingresar información de la(s) persona(s) denunciante(s).'} %>
+
+<% end %>

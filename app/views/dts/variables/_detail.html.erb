@@ -1,20 +1,16 @@
-<div class="row">
-	<div class="col-lg-6 col-xs-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
-		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: Variable::TIPOS_VARIABLE, label: 'Tipo' } %>
+<div class="row gx-1">
+	<div class="col-lg-3 col-xs-6">
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :tipo, sel_list: Variable::TIPOS_VARIABLE, label: 'Tipo' } %>
 	</div>
-	<div class="col-lg-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :control, label: 'Existencia' } %>
-		<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :control, radio_list: ['Opcional', 'Requerida'], label: 'Existencia' } %>
+	<div class="col-lg-6 col-xs-6">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :variable, label: 'Variable' } %>
+	</div>
+	<div class="col-lg-3" style="padding-left: 1rem;">
+		<%= render partial: '0p/lbld_inpts/radio', locals: { form: form, token: :control, radio_list: ['Opcional', 'Requerida'], label: 'Existencia' } %>
 	</div>
 </div>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :variable, label: 'Variable' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :variable } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :descripcion } %>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
 
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:ownr_type, :ownr_id, :orden] } %>

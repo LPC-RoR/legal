@@ -12,7 +12,7 @@ module Karin
       'dnnc_denuncia' => dnnc.tipo_declaracion != 'Verbal',     # Denuncia se presenta por escrito
       'dnnc_acta' => dnnc.tipo_declaracion == 'Verbal',         # Denuncia se presenta en forma verbal
       'dnnc_notificacion' => dnnc.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
-      'dnncnt_rprsntcn' => dnnc.rprsntnt?,                      # Denuncia presentada por un representante
+      'dnncnt_rprsntcn' => dnnc.representante?,                 # Denuncia presentada por un representante
 
       'dnnc_certificado' => dnnc.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
 
@@ -44,7 +44,7 @@ module Karin
       'p_plus',                   # Producto extendido
       'emprs_extrn_prsnt',        # Empresa externa presente
       'prsncl',                   # Denuncia entregada presencialmente
-      'rprsntnt',                 # Denuncia presentada por un representante
+      'representante',            # Denuncia presentada por un representante
       'dt_obligatoria',           # Denuncia se debe derivar obligatoriamente a la DT
       'drvcn_rcbd',               # Denuncia que fue recibida por derivación
       'drvcns_any',               # Denuncia con derivaciones

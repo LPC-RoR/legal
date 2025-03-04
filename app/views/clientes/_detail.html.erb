@@ -1,17 +1,12 @@
-<div class='row'>
-	<div class='col-md-4'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :rut, label: 'RUT' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :rut } %>
+<div class="row gx-0">
+	<div class="col-3">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT/Cédula de identidad' } %>
 	</div>
-	<div class='col-md-8'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :razon_social, label: 'Razon Social' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :razon_social } %>
+	<div class="col-9">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razon social/Nombre completo' } %>
 	</div>
 </div>
 
-<div class="formCell">
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_cliente, label: 'Tipo' } %>
-	<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :tipo_cliente, radio_list: ['Empresa', 'Sindicato', 'Trabajador'] } %>
-</div>
+<%= render partial: '0p/lbld_inpts/radio', locals: { form: form, token: :tipo_cliente, radio_list: ['Empresa', 'Sindicato', 'Trabajador'], label: 'Tipo' } %>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :estado } %>

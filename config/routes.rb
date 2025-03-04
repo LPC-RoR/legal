@@ -98,6 +98,11 @@ Rails.application.routes.draw do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
+    resources :ctr_registros
+    resources :ctr_pasos do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
   end
 
   scope module: 'karin' do
@@ -126,10 +131,13 @@ Rails.application.routes.draw do
     end
     resources :krn_denuncias do
       match :check, via: :get, on: :member
+      match :set_fld, via: :post, on: :member
+      match :clear_fld, via: :get, on: :member
       match :fll_dttm, via: :post, on: :member
       match :fll_fld, via: :post, on: :member
       match :fll_cltn_id, via: :post, on: :member
       match :del_fld, via: :get, on: :member
+      match :cndtnl_via_declaracion, via: :get, on: :collection
     end
 
     resources :krn_derivaciones

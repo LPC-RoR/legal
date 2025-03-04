@@ -1,3 +1,4 @@
+<% typ ||= 'tr' %>
 <div class="shadow">
 <table class="table table-sm table-borderless table-striped table-hover">
 	<tbody>
@@ -5,29 +6,21 @@
 			<% if prtl?(objt, 'list', "objeto") %>
 				<%= render partial: objt_prtl_name(objt) , locals: {objeto: objt} %>
 			<% else %>
-				<tr>
-					<% if ordr %>
-						<th class="app_lnk" style="padding-left: 1rem;"><%= render partial: '0p/tbl/ordr', locals: {objeto: objt} %></th>
+
+				<% case typ %>
+				<% when 'tr' %>
+					<%= render partial: '0p/tbl/tr', locals: {objt: objt, ordr: ordr, crud: crud} %>
+				<% when 'ln' %>
+					<%= render partial: '0p/tbl/ln', locals: {objt: objt, ordr: ordr, crud: crud} if typ == 'ln' %>
+
+					<% if prtl?(objt, 'list', "dsply") %>
+						<%= render partial: prtl_name(objt, 'list', "dsply"), locals: {objeto: objt} %>
 					<% end %>
-					<td class="app_lnk" style="padding-left: 1rem;">
-						<% if prtl?(objt, 'list', "objt") %>
-							<%= render partial: prtl_name(objt, 'list', "objt"), locals: {objeto: objt} %>
-						<% end %>
-					</td>
-					<% unless crud == 'ttl' %>
-						<td class="app_lnk" style="text-align: right;padding-right: 1rem;">
-							<% case crud %>
-							<% when 'lnks' %>
-								<%= render partial: prtl_name(objt, 'list', "lnks"), locals: {objeto: objt} %>
-							<% when 'mdl' %>
-								<%= render partial: '0p/tbl/lnk_u', locals: {objeto: objt} %>
-								<%= render partial: '0p/tbl/lnk_d', locals: {objeto: objt} %>
-							<% else %>
-								<%= render partial: '0p/tabla/links_e', locals: {objeto: objt} %>
-							<% end %>
-						</td>
+					<% if prtl?(objt, 'list', "sub") %>
+						<%= render partial: prtl_name(objt, 'list', "sub"), locals: {objeto: objt} %>
 					<% end %>
-				</tr>
+				<% end %>
+
 			<% end %>
 		<% end %>
 	</tbody>

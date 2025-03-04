@@ -1,0 +1,24 @@
+<tr style="font-size: 15px;">
+	<td class="text-<%=fl.blank? ? 'danger' : 'dark'%> app_<%=fl.blank? ? 'danger' : 'lnk'%>" style="padding-left: 1rem;">
+		<% if fl.blank? %>
+		<% else %>
+			<%= dma_hm(fl.updated_at) %> 
+		<% end %>
+		<i class="bi bi-file-earmark"></i> 
+		<%= dc.rep_doc_controlado %>
+	</td>
+	<td class="app_<%=fl.blank? ? 'danger' : 'lnk'%>" style="text-align: right; padding-right: 1rem;">
+		<% if fl.blank? %>
+			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: "Subir #{dc.rep_doc_controlado}"} do %>
+				<i class="bi bi-upload"></i>
+				Subir 
+			<% end %>
+		<% else %>
+			<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: fl.archivo.url, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
+				<i class="bi bi-download"></i>
+			<% end %>
+			<i class="bi bi-dot"></i>
+			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: fl} unless fl.blank? %>
+		<% end %>
+	</td>
+</tr>

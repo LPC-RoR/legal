@@ -1,0 +1,11 @@
+<div class="form-floating mb-3">
+
+    <%= form.text_area token, class: "form-control #{'is-invalid' if @objeto.errors[:name].any?}", id: label.parameterize, placeholder: label %>
+    <%= form.label token, label, for: label.parameterize unless @objeto.errors[token].any? %>
+    <% if @objeto.errors[token].any? %>
+      <div class="invalid-feedback">
+        <%= @objeto.errors[token].join(', ') %>
+      </div>
+    <% end %>
+
+</div>

@@ -9,9 +9,34 @@ module Dnnc
 
 	# ------------------------------------------------------------------------ INGRS
 
-	def rprsntnt?
-		self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]
+	def p_externa?
+		self.krn_empresa_externa_id.blank? and self.p_plus?
 	end
+
+	def p_tipo?
+		self.tipo_declaracion.blank? and self.via_declaracion == KrnDenuncia::VIAS_DENUNCIA[0]
+	end
+
+	def p_representante?
+		self.representante.blank? and self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]
+	end
+
+	def fl_dnnc_denuncia?
+		self.tipo_declaracion != 'Verbal'
+	end
+
+	def fl_dnnc_acta?
+		self.tipo_declaracion == 'Verbal'
+	end
+
+	def fl_dnnc_notificacion?
+		self.receptor_denuncia == 'Dirección del Trabajo'
+	end
+
+	def fl_dnncnt_rprsntcn?
+		self.p_representante?
+	end
+
 
 	def rgstrs_ok?
 		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?

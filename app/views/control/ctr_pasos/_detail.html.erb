@@ -1,0 +1,21 @@
+<div class="row gx-1">
+	<div class="col-lg-4 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :codigo, label: 'Código' } %>
+	</div>
+	<div class="col-lg-8">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :glosa, label: 'Glosa' } %>
+	</div>
+</div>
+
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :metodo, label: 'Método del ownr' } %>
+	</div>
+	<div class="col-lg-6">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :blngs_metodo, label: 'Método de visualización' } %>
+	</div>
+</div>
+
+<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :rght, label: 'Alineado a la derecha' } %>
+
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:orden, :tarea_id] } %>

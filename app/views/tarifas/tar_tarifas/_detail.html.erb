@@ -1,34 +1,24 @@
 <% unless @objeto.owner_id.blank? %>
 	<% if @objeto.owner_class == 'Cliente' and action_name == 'edit' %>
-		<p class="text-info">Tarifa del cliente : <%= @objeto.owner.razon_social %></p>
+		<p>Tarifa del cliente : <%= @objeto.owner.razon_social %></p>
 	<% end %>
 <% end %>
 
-<div class="row">
+<div class="row gx-1">
 	<div class="col-lg-6 col-xs-12">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tarifa, label: 'Nombre Tarifa' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tarifa } %>
-		<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :cuantia_tarifa, label: 'Diferencia cuantia para la tarifa' } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tarifa, label: 'Nombre Tarifa' } %>
+
+		<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :cuantia_tarifa, label: 'Diferencia cuantia para la tarifa' } %>
 		<% unless @objeto.owner_id.blank? %>
-			</br>
-			<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo_causa_id, label: 'Definir como tarifa por defecto' } %>
-			<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, display_field: 'tipo_causa', prompt: 'Etapa' } %>
+			<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, label: 'Definir como tarifa por defecto' } %>
 		<% end %>
 	</div>
-	<div class="col-lg-6">
-		<small class="text-info">Tarifa horas</small></br>
-
-		<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['UF', 'Pesos'] } %>
-
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :valor_hora, label: 'Valor hora' } %>
-		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor_hora } %>
+	<div class="col-lg-3 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :valor_hora, label: 'Valor hora' } %>
+	</div>
+	<div class="col-lg-3" style="padding-left: 1rem;">
+		<%= render partial: '0p/lbld_inpts/radio', locals: { form: form, token: :moneda, radio_list: ['UF', 'Pesos'], label: 'Moneda' } %>
 	</div>
 </div>
-<hr>
-<!--  DEPRECATED -->
-<%#= render partial: '0p/form_fields/label', locals: { form: form, label: ' Elementos Facturables', v: false } %>
-<%#= render partial: '0p/form_fields/text', locals: { form: form, token: :facturables } %>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_class } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :owner_id } %>
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:estado, :owner_class, :owner_id] } %>

@@ -3,6 +3,7 @@ class RepArchivo < ApplicationRecord
   belongs_to :rep_doc_controlado, optional: true
 
   scope :ordr, -> { order(:rep_archivo) }
+  scope :crtd_ordr, -> { order(created_at: :desc) }
   scope :updtd_ordr, -> { order(:updated_at) }
 
   scope :hm_archvs, -> {where(ownr_type: nil, ownr_id: nil)}

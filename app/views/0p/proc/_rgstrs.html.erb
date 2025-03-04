@@ -1,0 +1,24 @@
+<table class="table table-sm table-borderless table-striped table-hover">
+	<tbody>
+		<% rgstrs.each do |reg| %>
+			<tr style="font-size: 15px;">
+				<td class="app_lnk" style="padding-left: 1rem;">
+					<b><%= reg.glosa %></b>
+				</td>
+				<td class="app_lnk" style="padding-left: 1rem;text-align: <%=reg.ctr_paso.rght ? 'right' : 'left'%>;">
+					<%= reg.valor %>
+				</td>
+				<td class="app_lnk" style="text-align: right; padding-right: 1rem;">
+
+
+					<% unless reg.ownr.class.name.constantize::PROC_INIT.include?(reg.ctr_paso.codigo) %>
+						<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/#{reg.ownr.class.name.tableize}/#{reg.ownr.id}/clear_fld?k=#{reg.ctr_paso.codigo}", tltp: nil} do %>
+							<i class="bi bi-trash"></i>
+						<% end %>
+					<% end %>
+
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

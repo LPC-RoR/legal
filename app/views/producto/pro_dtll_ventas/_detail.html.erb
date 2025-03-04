@@ -1,4 +1,3 @@
-<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :producto_id, colection: Producto.lst.collect { |pro| [pro.producto, pro.id] }, display_field: 'producto', prompt: nil, label: 'Producto' } %>
+<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :producto_id, colection: Producto.lst.collect { |pro| [pro.producto, pro.id] }, display_field: 'producto', label: 'Producto' } %>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:ownr_type, :ownr_id] } %>

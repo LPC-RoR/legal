@@ -1,0 +1,13 @@
+<!-- TITILO de la aplicación -->
+<% clss ||= 'prtcpnts_ttl' %>
+<% dir ||= 'indx'  %>
+<% ownr ||= nil %>
+<% blngs ||= nil %>
+<% lnks ||= nil %>
+<% source ||= 'error' %>
+
+<% if source == 'error' %>
+	<%= render partial: '0p/gnrl/errr_msg', locals: {ttl: 'Error: falta de perámetros en partial!', dscrptn: "0p/ttl_tbl: falta parámetro 'source'", hnt: "Agregue parámetro faltante"} %>
+<% else %>
+	<%= render partial: '0p/gnrl/ttl_sub_tbl', locals: {dir: dir, source: source, ownr: ownr, blngs: blngs, lnks: lnks} %>
+<% end %>

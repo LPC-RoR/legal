@@ -1,0 +1,29 @@
+<% lnks ||= nil %>
+<% ordr ||= false %>
+<% crud ||= nil %>
+<% indnt ||= 0 %>
+<div class="row gx-1" style="font-size: 15px;">
+	<% if ordr %>
+		<div class=" col-2 app_lnk" style="padding-left: <%=indnt+1%>rem;">
+			<%= render partial: '0p/tbl/ordr', locals: {objeto: objt} %>
+		</div>
+	<% end %>
+	<div class="col-<%=ordr ? '7' : '9'%> app_lnk" style="padding-left: <%=indnt+1%>rem;">
+		<% if prtl?(objt, 'list', "objt") %>
+			<%= render partial: prtl_name(objt, 'list', "objt"), locals: {objeto: objt} %>
+		<% end %>
+	</div>
+	<% unless crud == 'ttl' %>
+		<div class="col-3 text-end app_lnk" style="padding-right: <%=indnt+1%>rem;">
+			<% case crud %>
+			<% when 'lnks' %>
+				<%= render partial: prtl_name(objt, 'list', "lnks"), locals: {objeto: objt} %>
+			<% when 'mdl' %>
+				<%= render partial: '0p/tbl/lnk_u', locals: {objeto: objt} %>
+				<%= render partial: '0p/tbl/lnk_d', locals: {objeto: objt} %>
+			<% else %>
+				<%= render partial: '0p/tabla/links_e', locals: {objeto: objt} %>
+			<% end %>
+		</div>
+	<% end %>
+</div>

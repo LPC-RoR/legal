@@ -1,0 +1,13 @@
+<tr style="font-size: 15px;">
+	<th class="text-<%=fls.empty? ? 'danger' : 'dark'%> app_<%=fl.empty? ? 'danger' : 'lnk'%>" style="padding-left: 1rem;">
+		<i class="bi bi-files"></i>
+		<%= dc.rep_doc_controlado %>
+	</th>
+	<th class="app_<%=fl.blank? ? 'danger' : 'lnk'%>" style="text-align: right; padding-right: 1rem;">
+		<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: " Agregar #{dc.rep_doc_controlado}" } %>
+	</th>
+</tr>
+
+<% fls.each do |fl| %>
+	<%= render partial: '0p/proc/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr} %>
+<% end %>

@@ -25,7 +25,8 @@ module CptnCristianoHelper
 			'LglDocumento' => 'Documento legal',
 			'KrnLstMedida' => 'Lista de medidas',
 			'KrnLstModificacion' => 'Lista de modificaciones',
-			'Region' => 'Región'
+			'Region' => 'Región',
+			'ProDtllVenta' => 'Producto de la Empresa'
 		}
 	end
 

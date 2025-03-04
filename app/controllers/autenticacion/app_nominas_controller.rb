@@ -73,6 +73,8 @@ class Autenticacion::AppNominasController < ApplicationController
     def set_redireccion
       if @objeto.ownr_type == 'Empresa'
         @redireccion = "/cuentas/#{@objeto.ownr.id}/ecta" 
+      elsif @objeto.ownr_type == 'Cliente'
+        @redireccion = "/cuentas/#{@objeto.ownr.id}/ccta" 
       else
         @redireccion = "/app_nominas" 
       end

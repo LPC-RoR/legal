@@ -131,6 +131,7 @@ GEM
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
     crass (1.0.6)
+    csv (3.3.2)
     dartsass-sprockets (3.2.0)
       railties (>= 4.0.0)
       sassc-embedded (~> 1.80.1)
@@ -296,7 +297,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.0)
-    roo (2.8.3)
+    roo (2.10.1)
       nokogiri (~> 1)
       rubyzip (>= 1.3.0, < 3.0.0)
     ruby-rc4 (0.1.5)
@@ -348,6 +349,9 @@ GEM
     timeout (0.4.3)
     ttfunk (1.8.0)
       bigdecimal (~> 3.1)
+    turbo-rails (2.0.11)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -389,6 +393,7 @@ DEPENDENCIES
   chartkick
   chromedriver-helper
   coffee-rails (~> 4.2)
+  csv
   dartsass-sprockets
   devise
   execjs
@@ -401,12 +406,13 @@ DEPENDENCIES
   pg_search
   puma (~> 3.11)
   rails (~> 8.0.1)
-  roo (~> 2.8.0)
+  roo (~> 2.10.0)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
   sqlite3
   stringio (= 3.1.1)
+  turbo-rails
   turbolinks (~> 5)
   tzinfo-data
   uglifier

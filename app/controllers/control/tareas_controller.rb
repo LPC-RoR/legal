@@ -13,6 +13,9 @@ class Control::TareasController < ApplicationController
 
   # GET /tareas/1 or /tareas/1.json
   def show
+    set_tabla('ctr_pasos', @objeto.ctr_pasos.ordr, true)
+    set_tabla('rep_doc_controlados', @objeto.rep_doc_controlados.ordr, true)
+    set_tabla('variables', @objeto.variables, true)
   end
 
   # GET /tareas/new
@@ -79,6 +82,6 @@ class Control::TareasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tarea_params
-      params.require(:tarea).permit(:orden, :procedimiento_id, :detalle, :codigo, :tarea, :plazo, :ctr_etapa_id, :sub_procs)
+      params.require(:tarea).permit(:orden, :procedimiento_id, :detalle, :codigo, :tarea, :plazo, :ctr_etapa_id, :sub_procs, :pasos_array)
     end
 end
