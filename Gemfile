@@ -45,8 +45,6 @@ gem 'pg_search'
 
 gem 'stringio', '3.1.1'
 
-gem 'turbo-rails'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #gem 'rails', '~> 5.2.6'
 gem 'rails', '~> 8.0.1'
