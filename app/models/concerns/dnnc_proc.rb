@@ -46,10 +46,6 @@ module DnncProc
 		self.fecha_trmtcn.present?
 	end
 
-	def fl_mdds_rsgrd?
-		self.fl?('mdds_rsgrd')
-	end
-
 	def fecha_hora_dt_prsnt?
 		self.fecha_hora_dt.present?
 	end
@@ -99,6 +95,10 @@ module DnncProc
 		rprsntnt = self.presentado_por == 'Representante' ? self.representante.present? : true
 		tp = self.via_declaracion == 'Presencial' ? self.tipo_declaracion.present? : true
 		extrn and rprsntnt and tp
+	end
+
+	def mtv_vlnc?
+		self.motivo_denuncia == KrnDenuncia::MOTIVOS[2]
 	end
 
 	def no_vlnc?

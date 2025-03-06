@@ -122,16 +122,23 @@ Rails.application.routes.draw do
 
     resources :krn_empresa_externas
     resources :krn_denunciados do
+      match :swtch, via: :get, on: :member
+      match :set_fld, via: :post, on: :member
+      match :clear_fld, via: :get, on: :member
       match :fll_fld, via: :post, on: :member
       match :fll_cltn_id, via: :post, on: :member
       match :del_fld, via: :get, on: :member
     end
     resources :krn_denunciantes do
+      match :swtch, via: :get, on: :member
+      match :set_fld, via: :post, on: :member
+      match :clear_fld, via: :get, on: :member
       match :fll_fld, via: :post, on: :member
       match :fll_cltn_id, via: :post, on: :member
       match :del_fld, via: :get, on: :member
     end
     resources :krn_denuncias do
+      match :swtch, via: :get, on: :member
       match :check, via: :get, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member

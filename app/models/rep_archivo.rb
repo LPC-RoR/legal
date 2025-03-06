@@ -9,7 +9,7 @@ class RepArchivo < ApplicationRecord
   scope :hm_archvs, -> {where(ownr_type: nil, ownr_id: nil)}
 
   validates_presence_of :rep_archivo, :archivo
-  validates_presence_of :nombre, if: -> {mltpl?}
+  validates_presence_of :nombre, if: -> {dc_multiple?}
 
   require 'carrierwave/orm/activerecord'
   mount_uploader :archivo, RepArchivoUploader
@@ -22,7 +22,7 @@ class RepArchivo < ApplicationRecord
     self.rep_doc_controlado_id.present?
   end
 
-  def mltpl?
+  def dc_multiple?
     self.rep_doc_controlado_id.blank? ? false : (self.rep_doc_controlado.multiple == true)
   end
 

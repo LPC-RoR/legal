@@ -1,5 +1,6 @@
-<%= render partial: 'karin/shr/prtcpnts_flgs', locals: {objeto: objeto} %>
-<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver denunciante'} do %>
+<%= render partial: 'karin/prtls/swtch_rvsd', locals: {objeto: objeto} %>
+
+<%= render layout: '0p/tltp_lnk', locals: {lnk: objeto, tltp: 'Ver denunciante'} do %>
 	<%= s_rut(objeto.rut) %>
 	<i class="bi bi-dot"></i>
 	<%= objeto.nombre %>

@@ -16,25 +16,19 @@ class Karin::KrnDerivacionesController < ApplicationController
 
   # GET /krn_derivaciones/new
   def new
-    drvcn_codes = ['riohs', 'a41', 'd_optn', 'e_optn', 'extrn']
-    rcpcn_codes = ['rcptn', 'r_multi']
-    extrn_codes = ['rcptn', 'extrn_dt']
-    codes = (drvcn_codes | rcpcn_codes | extrn_codes)
+    drvcn_codes = ['drvcn_art4_1', 'drvcn_dnncnt', 'drvcn_emprs']
+    # Recepción de derivaciones ( desde empresa_externa o dt)
+    rcpcn_codes = ['rcptn_extrn', 'rcpcn_dt']
+    codes = (drvcn_codes | rcpcn_codes)
 
     ownr = KrnDenuncia.find(params[:oid])
 
-    if codes.include?(params[:t])
-      if drvcn_codes.include?(params[:t])
-        tipo = 'Derivación'
-        origen = 'Empresa'
-        destino = params[:t] == 'extrn' ? 'Externa' : 'Dirección del Trabajo'
-      elsif extrn_codes.include?(params[:t])
-        tipo = params[:t] == 'rcptn' ? 'Recepción' : 'Derivación'
-        origen = 'Externa'
-        destino = params[:t] == 'rcptn' ? 'Empresa' : 'Dirección del Trabajo'
-      end
+    if codes.include?(params[:cdg])
+      tipo = drvcn_codes.include?(params[:cdg]) ? 'Derivación' : 'Recepción'
+      origen = ownr.on_dt? ? 'Dirección del Trabajo' : ( ownr.on_empresa? ? 'Empresa' : 'Externa' )
+      destino = rcpcn_codes.include?(params[:cdg]) ? 'Empresa' : ( params[:cdg] == 'drvcn_ext' ? 'Externa' : 'Dirección del Trabajo' )
       empresa_id = ownr.krn_empresa_externa_id
-      motivo = drvcn_mtv[params[:t]]
+      motivo = drvcn_text[params[:cdg].to_sym][:gls]
 
       @objeto = ownr.krn_derivaciones.create(tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
     end

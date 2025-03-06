@@ -1,6 +1,3 @@
-<% objeto.rep_doc_controlados.ordr.each do |dc| %>
-	<%= render partial: '0p/tbl/ln', locals: {objt: dc, ordr: true, indnt: 2} %>
-<% end %>
-<% objeto.variables.ordr.each do |var| %>
-	<%= render partial: '0p/tbl/ln', locals: {objt: var, ordr: true, indnt: 2} %>
+<% objeto.ctr_pasos.ordr.each do |ps| %>
+	<%= render partial: '0p/tbl/ln', locals: {objt: ps, ordr: true, indnt: 2} %>
 <% end %>

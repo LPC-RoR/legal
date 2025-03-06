@@ -1,6 +1,15 @@
 module Capitan
 	extend ActiveSupport::Concern
 
+	def swtch
+		@objeto[params[:tkn]] = @objeto.send(params[:tkn]) ? false : true
+		@objeto.save
+
+		rdrccn = ['KrnDenunciante', 'KrnDenunciado'].include?(@objeto.class.name) ? @objeto.krn_denuncia : @objeto
+
+		redirect_to rdrccn
+	end
+
 	# ************************************************************************** INICIALIZA VARIALES PARA CHANGE_STATE
     def set_st_estado(objeto)
     	st_modelo = StModelo.find_by(st_modelo: objeto.class.name)

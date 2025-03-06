@@ -1,7 +1,12 @@
 class KrnDenunciante < ApplicationRecord
+
+	PROC_INIT = []
+
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true
 	belongs_to :krn_empleado, optional: true
+
+	has_many :ctr_registros, as: :ownr
 
 	has_many :rep_archivos, as: :ownr
 	has_many :krn_declaraciones, as: :ownr
@@ -19,6 +24,62 @@ class KrnDenunciante < ApplicationRecord
 	include Procs
 	include Ntfccns
 	include Valores
+
+
+	def fls(dc)
+		self.rep_archivos.where(rep_doc_controlado_id: dc.id).crtd_ordr
+	end
+
+	def fl(dc)
+		self.fls(dc).last
+	end
+
+	def rcptr_externa
+		self.krn_empresa_externa.razon_social
+	end
+
+	# ------------------------------------------------------------------------ INGRS
+
+	def self.art4_1?
+		all.map { |den| den.articulo_4_1 }.include?(true)
+	end
+
+	def self.art516?
+		all.map { |den| den.articulo_516 }.include?(true)
+	end
+
+	def p_empleador?
+		self.krn_empresa_externa_id.blank?
+	end
+
+	def p_direccion?
+		self.direccion_notificacion.blank?
+	end
+
+	def fl_dnncnt_diat_diep?
+		true
+	end
+
+	def rgstr_ok?
+		empldr = self.empleado_externo ? self.krn_empresa_externa.present? : true
+		ntfccn = self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
+		empldr and ntfccn
+	end
+
+	def self.rvsds?
+		arry = all.map {|den| den.registro_revisado}.uniq
+		arry.length == 1 and arry[0] == true
+	end
+
+	# DEPRECATED
+	def self.rgstrs_ok?
+		arry = all.map {|den| den.rgstr_ok?}.uniq
+		arry.length == 1 and arry[0] == true
+	end
+
+	# ------------------------------------------------------------------------------
+
+
 
 	def prtl_cndtn
 		{
@@ -71,19 +132,6 @@ class KrnDenunciante < ApplicationRecord
 		all.map {|den| den.krn_empresa_externa_id}
 	end
 
-	def self.art4_1?
-		all.map { |den| den.articulo_4_1 }.include?(true)
-	end
-
-	def self.art516?
-		all.map { |den| den.articulo_516 }.include?(true)
-	end
-
-	def self.rgstrs_ok?
-		arry = all.map {|den| den.rgstr_ok?}.uniq
-		arry.length == 1 and arry[0] == true
-	end
-
 
 	def self.rgstrs_fail?
 		all.map {|den| den.rgstr_ok?}.include?(false)
@@ -108,12 +156,6 @@ class KrnDenunciante < ApplicationRecord
 	end
 
 	# --------------------------------------------------------------- METHODS
-	def rgstr_ok?
-		empldr = self.empleado_externo ? self.emprs_extrn_prsnt? : true
-		ntfccn = self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
-		empldr and ntfccn
-	end
-
 	# --------------------------------------------------------------- VLRS
 
 	def on_empresa?

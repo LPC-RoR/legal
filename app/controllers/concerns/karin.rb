@@ -1,6 +1,46 @@
 module Karin
   extend ActiveSupport::Concern
 
+  def drvcn_text
+    {
+      rcpcn_extrn: {
+        prmpt: 'La denuncia fue presentada en una empresa externa ¿Se trata de una derivación?',
+        lbl: 'Recibir denuncia derivada desde una empresa externa.',
+        gls: 'Denuncia recibida desde empresa externa.'
+      },
+      rcpcn_dt: {
+        prmpt: 'Se solicitó la devolución de la denuncia a la Dirección del Trabajo',
+        lbl: 'Recibir denuncia derivada desde la Dirección de Trabajo.',
+        gls: 'Denuncia recibida desde la Dirección del Trabajo.'
+      },
+      drvcn_art4_1: {
+        prmpt: 'Para alguno de los participantes aplica el artículo 4 inciso primero.',
+        lbl: 'Derivar ( obligatoriamente ) a la Dirección del Trabajo.',
+        gls: 'Derivada a la Dirección del Trabajo ( Artículo 4 inciso primero ).'
+      },
+      drvcn_dnncnt: {
+        prmpt: '¿La persona denunciante solicita derivar a la Dirección del Trabajo.',
+        lbl: 'Derivar a la Dirección del Trabajo.',
+        gls: 'Derivada a la Dirección del Trabajo ( Denunciante ).'
+      },
+      drvcn_emprs: {
+        prmpt: 'La empresa decide derivar a la Dirección del Trabajo.',
+        lbl: 'Derivar a la Dirección del Trabajo.',
+        gls: 'Derivada a la Dirección del Trabajo ( Empresa ).'
+      },
+      drvcn_ext: {
+        prmpt: 'Recepción de denuncia de empresa externa',
+        lbl: 'Derivar a la empresa externa.',
+        gls: 'Derivada a la empresa externa.'
+      },
+      drvcn_ext_dt: {
+        prmpt: 'Recepción de denuncia de empresa externa',
+        lbl: 'Derivar a la Dirección del Trabajo.',
+        gls: 'Derivada a la Dirección del Trabajo ( Externa ).'
+      },
+    }
+  end
+
   # --------------------------------------------------------------------------------------------- GENERAL
 
   #Control de despliegue de Archivos
@@ -133,6 +173,41 @@ module Karin
       'd_optn' => 'Por determinación del denunciante',
       'e_optn' => 'Por determinación de la empresa'
     }
+  end
+
+
+  # --------------------------------------------------------------------------------------------- ACTIVE KARIN
+
+  # Reemplazar a fll_fld generalizando y creando ctr_registro correspondiente
+  def set_fld
+    ctr_paso = CtrPaso.find_by(codigo: params[:k])
+    @objeto[ctr_paso.metodo] = params[ctr_paso.metodo.to_sym]
+    @objeto.save
+
+    dsply_metodo = ctr_paso.despliega.blank? ? ctr_paso.metodo : ctr_paso.despliega
+    field = @objeto[dsply_metodo]
+    case field.class.name
+    when 'Datetime'
+      vlr = @objeto[ctr_paso.metodo].strftime("%d-%m-%Y  %I:%M%p")
+    when 'TrueClass'
+      vlr = ''
+    else
+      vlr = @objeto.send(dsply_metodo)
+    end
+    @objeto.ctr_registros.create(orden: ctr_paso.orden, tarea_id: ctr_paso.tarea_id, ctr_paso_id: ctr_paso.id, glosa: ctr_paso.glosa, valor: vlr)
+
+    redirect_to @objeto
+  end
+
+  # Complemento de set_fld
+  def clear_fld
+    ctr_paso = CtrPaso.find_by(codigo: params[:k])
+    @objeto[ctr_paso.metodo] = nil
+    @objeto.save
+    ctr_registro = @objeto.ctr_registros.find_by(ctr_paso_id: ctr_paso.id)
+    ctr_registro.delete
+
+    redirect_to @objeto
   end
 
 

@@ -12,10 +12,10 @@
 		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :metodo, label: 'Método del ownr' } %>
 	</div>
 	<div class="col-lg-6">
-		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :blngs_metodo, label: 'Método de visualización' } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :despliega, label: 'Método de visualización' } %>
 	</div>
 </div>
 
-<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :rght, label: 'Alineado a la derecha' } %>
+<%= render partial: '0p/lbld_inpts/chck_bx_lst', locals: { form: form, chck_bx_lst: [[:rght, 'Alineado a la derecha'], [:proceso, 'Paso procesado']] } %>
 
 <%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:orden, :tarea_id] } %>

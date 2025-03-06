@@ -1,17 +1,16 @@
 <% if @objeto.cntrld? %>
-	<div class="text-info"><i class="bi bi-file"></i> <%= @objeto.rep_archivo %></div>
-	<% if @objeto.mltpl? %>
-		<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :nombre, label: 'Nombre del archivo' } %>
+	<h5 class="text-primary"><i class="bi bi-file"></i> <%= @objeto.rep_archivo %></h5>
+	<% if @objeto.dc_multiple? %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre del archivo' } %>
 	<% end %>
 <% else %>
-	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :rep_archivo, label: 'Nombre del archivo' } %>
+	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rep_archivo, label: 'Nombre del archivo' } %>
 <% end %>
 
-<%= render partial: '0p/frm_flds/file', locals: { form: form, token: :archivo } %>
+<%= render partial: '0p/lbld_inpts/file', locals: { form: form, token: :archivo } %>
 
 <% if @objeto.cntrld? %>
-	<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :rep_archivo } %>
+	<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :rep_archivo } %>
 <% end %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :rep_doc_controlado_id } %>
+
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:ownr_type, :ownr_id, :rep_doc_controlado_id] } %>

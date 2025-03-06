@@ -1,5 +1,10 @@
-<% if @dnnc_jot['dnncnts_any'] %>
-	<% unless @objeto.fecha_trmtcn.present? or @objeto.vlr_drv_inf_dnncnt? %>
-		<%= render partial: '0p/tabla/lnk_new', locals: {lnk: new_path('krn_denunciados', @objeto), tltp: "Agrega Denunciado"} %>
+<!-- Para saber si DRVCNS está terminado -->
+<% unless @objeto.investigacion_local or @objeto.krn_derivaciones.any? or @objeto.fl_mdds_rsgrd? %>
+
+	<% if  @objeto.krn_denunciantes.any? %>
+		<% unless @objeto.fecha_trmtcn.present? or @objeto.vlr_drv_inf_dnncnt? %>
+			<%= render partial: '0p/tabla/lnk_new', locals: {lnk: new_path('krn_denunciados', @objeto), tltp: "Agrega Denunciado"} %>
+		<% end %>
 	<% end %>
+
 <% end %>

@@ -10,7 +10,7 @@ module Dnnc
 	# ------------------------------------------------------------------------ INGRS
 
 	def p_externa?
-		self.krn_empresa_externa_id.blank? and self.p_plus?
+		self.receptor_denuncia == 'Empresa externa' and self.krn_empresa_externa_id.blank? and self.p_plus?
 	end
 
 	def p_tipo?
@@ -41,16 +41,71 @@ module Dnnc
 		self.p_representante?
 	end
 
+	def rgstrs_rvsds?
+		self.krn_denunciantes.rvsds? and self.krn_denunciados.rvsds?
+	end
 
-	def rgstrs_ok?
-		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
+	# ------------------------------------------------------------------------ DRVCNS
+
+	def p_solicitud_denuncia?
+		self.solicitud_denuncia != true and (self.receptor_denuncia == 'Dirección del Trabajo' or ( self.krn_derivaciones.empty? ? false : (self.krn_derivaciones.lst.dstn_dt? and ( not self.externa? ) ) ))
+	end
+
+	def p_investigacion_local?
+		self.investigacion_local.blank? and self.on_empresa? and ( not self.externa? )
+	end
+
+	def art4_1?
+		self.krn_denunciantes.art4_1? or self.krn_denunciados.art4_1?
+	end
+
+	def rcpcn_extrn?
+		self.krn_derivaciones.rcpcn_extrn?
+	end
+
+	def rcpcn_dt?
+		self.krn_derivaciones.rcpcn_dt?
+	end
+
+	def drvcn_art4_1?
+		self.krn_derivaciones.drvcn_art4_1?
+	end
+
+	def drvcn_dnncnt?
+		self.krn_derivaciones.drvcn_dnncnt?
+	end
+
+	def drvcn_emprs?
+		self.krn_derivaciones.drvcn_emprs?
+	end
+
+	def drvcn_ext?
+		self.krn_derivaciones.drvcn_ext?
+	end
+
+	def drvcn_ext_dt?
+		self.krn_derivaciones.drvcn_ext_dt?
+	end
+
+	def responsable
+		self.krn_derivaciones.empty? ? self.receptor_denuncia : self.krn_derivaciones.last.destino
+	end
+
+	# ------------------------------------------------------------------------ DRVCNS
+
+	def fl_mdds_rsgrd?
+		true
+	end
+
+	def fmdds_rsgrd?
+		self.fl?('mdds_rsgrd')
 	end
 
 	# ------------------------------------------------------------------------ PRTCPNTS
 
 
 	def prtcpnts?
-		self.no_vlnc? ? (self.dnncnts_any? and self.dnncds_any?) : self.dnncnts_any?
+		self.mtv_vlnc? ? self.dnncnts_any? : (self.dnncnts_any? and self.dnncds_any?)
 	end
 
 	# ------------------------------------------------------------------------ DRVCNS

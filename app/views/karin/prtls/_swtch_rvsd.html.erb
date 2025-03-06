@@ -1,0 +1,5 @@
+<% if objeto.rgstr_ok? %>
+	<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'registro_revisado', stts: ['no revisado', 'revisado']} %>
+<% else %>
+	<i class="bi bi-bug"></i>
+<% end %>

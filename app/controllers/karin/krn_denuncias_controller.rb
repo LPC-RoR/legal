@@ -89,33 +89,6 @@ class Karin::KrnDenunciasController < ApplicationController
     redirect_to @objeto
   end
 
-  # Reemplazar a fll_fld generalizando y creando ctr_registro correspondiente
-  def set_fld
-    ctr_paso = CtrPaso.find_by(codigo: params[:k])
-    @objeto[ctr_paso.metodo] = params[ctr_paso.metodo.to_sym]
-    @objeto.save
-
-    dsply_metodo = ctr_paso.blngs_metodo.blank? ? ctr_paso.metodo : ctr_paso.blngs_metodo
-    field = @objeto[dsply_metodo]
-    if field.class.name == 'Datetime'
-      vlr = @objeto[ctr_paso.metodo].strftime("%d-%m-%Y  %I:%M%p")
-    else
-      vlr = @objeto.send(dsply_metodo)
-    end
-    @objeto.ctr_registros.create(orden: ctr_paso.orden, tarea_id: ctr_paso.tarea_id, ctr_paso_id: ctr_paso.id, glosa: ctr_paso.glosa, valor: vlr)
-
-    redirect_to @objeto
-  end
-
-  def clear_fld
-    ctr_paso = CtrPaso.find_by(codigo: params[:k])
-    @objeto[ctr_paso.metodo] = nil
-    @objeto.save
-    ctr_registro = @objeto.ctr_registros.find_by(ctr_paso_id: ctr_paso.id)
-    ctr_registro.delete
-
-    redirect_to @objeto
-  end
 
   def fll_fld
     if perfil_activo?
@@ -303,9 +276,12 @@ class Karin::KrnDenunciasController < ApplicationController
     # --------------------------------------------------------------------- PROC
 
     def load_proc
-      tar = Tarea.find_by(codigo: '010_ingrs')
-      KrnDenuncia::PROC_INIT.each do |paso|
-        ctr_paso = tar.ctr_pasos.find_by(codigo: paso)
+      prcdmnt = Procedimiento.find_by(codigo: KrnDenuncia::PROC)
+#      tar = Tarea.find_by(codigo: '010_ingrs')
+      tar = prcdmnt.tareas.ordr.first
+      tar.ctr_pasos.init.ordr.each do |ctr_paso|
+
+        # el método se llama para create y update
         reg = @objeto.ctr_registros.find_by(ctr_paso_id: ctr_paso.id)
 
         if ctr_paso.glosa.blank?
@@ -317,6 +293,7 @@ class Karin::KrnDenunciasController < ApplicationController
           glosa = ctr_paso.glosa
         end
 
+        mtd = ctr_paso.despliega.blank? ? ctr_paso.metodo : ctr_paso.despliega
         vlr = @objeto.send(ctr_paso.metodo)
 
         if ctr_paso.codigo == 'fecha_hora'

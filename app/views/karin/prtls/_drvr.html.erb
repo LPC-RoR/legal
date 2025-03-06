@@ -1,0 +1,17 @@
+<% color ||= 'primary' %>
+<% gly ||= color == 'danger' ? 'bug' : ( color == 'primary' ? 'check2-all' : 'lightbulb' ) %>
+
+<% unless objeto.send("#{codigo}?") %>
+	<div class="m-1 ps-2 pt-1 pe-2 pb-1 text-<%=color%> border border-<%=color%> rounded" style="font-size: 14px;">
+		<div class="text-center">
+			<h6><b><%= drvcn_text[codigo.to_sym][:prmpt] %></b></h6>
+		</div>
+		<div class="app_lnk text-center">
+			<%#= render partial: '0p/gly', locals: {gly: gly} %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_derivaciones/new#{blngs_prms(objeto)}&cdg=#{codigo}", tltp: nil} do %>
+				<i class="bi bi-box-arrow-up-right"></i> 
+				<%= drvcn_text[codigo.to_sym][:lbl] %>
+			<% end %>
+		</div>
+	</div>
+<% end %>

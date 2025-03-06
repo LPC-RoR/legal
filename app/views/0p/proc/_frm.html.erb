@@ -1,7 +1,6 @@
 <div class="p-3">
 
 	<%= form_with url: "/#{objeto.class.name.tableize}/#{objeto.id}/set_fld?k=#{code}", method: :post, local: true do |form| %>
-	<%#= form_with url: "/#{objeto.class.name.tableize}/#{objeto.id}/fll_fld?k=#{code}", method: :post, local: true do |form| %>
 
 		<div class="row gx-1 border rounded p-2">
 			<div class="col-10">

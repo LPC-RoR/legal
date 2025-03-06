@@ -73,11 +73,11 @@ class Control::CtrPasosController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = @objeto.tarea
+      @rdrccn = @objeto.tarea.ctr_etapa.procedimiento
     end
 
     # Only allow a list of trusted parameters through.
     def ctr_paso_params
-      params.expect(ctr_paso: [ :orden, :tarea_id, :codigo, :glosa, :metodo, :blngs_metodo, :rght ])
+      params.expect(ctr_paso: [ :orden, :tarea_id, :codigo, :glosa, :metodo, :despliega, :rght, :proceso ])
     end
 end

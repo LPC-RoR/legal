@@ -8,6 +8,7 @@ class KrnDenuncia < ApplicationRecord
 	TIPOS_DENUNCIANTE = ['Denunciante', 'Representante']
 	TIPOS_DENUNCIA = ['Escrita', 'Verbal']
 
+	PROC = 'krn_invstgcn'
 	PROC_INIT = ['ownr', 'fecha_hora', 'motivo', 'receptor', 'canal', 'presentado_por']
 
 	belongs_to :ownr, polymorphic: true

@@ -25,16 +25,10 @@ module CptnProcsHelper
 		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
 		dnnc = dnnc_ownr(ownr)
 		{
-			# Ingreso de datos básicos de la Denuncia
-			dnnc_ingrs: true,							
-			# Ingreso de participantes primarios: Sólo aparece si es necesario llenar empresa del empleado
-			dnnc_prtcpnts: (ownr.class.name != 'KrnDenuncia' and (ownr.empleado_externo or ownr.articulo_516)),		
-			# Si hay denunciantes, aparece uno para cada denunciante
-			dnncnt_diat_diep: (ownr.class.name == 'KrnDenunciante'),	
-			# Ingreso terminó y denuncia no fue recibida en la DT		
-			dnnc_drvcn: (@dnnc_jot['ingrs_dnnc_bsc'] and @dnnc_jot['ingrs_nts_ds'] and (not dnnc.rcp_dt?)),				
-			# Sin derivaciones o única recepción | investigacion por la empresa | investigacion por empresa externa
-#			dnnc_mdds: (((not @dnnc_jot['drvcns_any']) and (not dnnc.rcp_externa?)) or (@dnnc_jot['on_empresa'] and @dnnc_jot['vlr_drv_dnncnt_optn'] ) or (@dnnc_jot['on_externa'] and @dnnc_jot['vlr_sgmnt_emprs_extrn'] ) or @dnnc_jot['drv_dt'] ),
+			'010_ingrs' => true,
+			'020_prtcpnts' => true,
+			'030_drvcns' => dnnc.rgstrs_rvsds?,
+			'040_mdds' => (( dnnc.rgstrs_rvsds? and ( not dnnc.on_empresa? ) ) or dnnc.investigacion_local),
 			dnnc_mdds: (@dnnc_jot['on_dt'] or @dnnc_jot['vlr_drv_dnncnt_optn']),
 			# Registos de "principales" completo
 			dnnc_prmr_plz: (@dnnc_jot['ingrs_fls_ok'] and @dnnc_jot['prtcpnts_ok']),
@@ -56,6 +50,33 @@ module CptnProcsHelper
 		frst_step = elemnt_cndtns[ownr.class.name].blank? ? nil : elemnt_cndtns[ownr.class.name]
 		scnd_step = frst_step.blank? ? nil : (frst_step[code.to_sym].blank? ? nil : frst_step[code.to_sym])
 		scnd_step.blank? ? nil : (scnd_step[type].blank? ? nil : scnd_step[type])
+	end
+
+	def tar_trsh_cndtn(ownr)
+		case ownr.class.name
+		when 'KrnDenuncia'
+			{
+				'010_ingrs' => ownr.krn_denunciantes.any?,
+				'030_drvcns' => ownr.fmdds_rsgrd?
+			}
+		when 'KrnDenunciante'
+			{
+				'020_prtcpnts' => ownr.registro_revisado
+			}
+		when 'KrnDenunciado'
+			{
+				'020_prtcpnts' => ownr.registro_revisado
+			}
+		end
+	end
+
+	def trsh_cndtn(objeto, ownr)
+		case objeto.class.name
+		when 'Tarea'
+			tar_trsh_cndtn(ownr).blank? ? false : ( tar_trsh_cndtn(ownr)[objeto.codigo].blank? ? false : tar_trsh_cndtn(ownr)[objeto.codigo] ) 
+		else
+			false
+		end
 	end
 
 	def elemnt_cndtns

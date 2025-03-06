@@ -13,7 +13,6 @@ class Control::TareasController < ApplicationController
 
   # GET /tareas/1 or /tareas/1.json
   def show
-    set_tabla('ctr_pasos', @objeto.ctr_pasos.ordr, true)
     set_tabla('rep_doc_controlados', @objeto.rep_doc_controlados.ordr, true)
     set_tabla('variables', @objeto.variables, true)
   end

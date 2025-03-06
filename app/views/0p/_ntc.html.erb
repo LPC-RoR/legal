@@ -1,5 +1,6 @@
 <% color ||= 'primary' %>
-<div class="m-1 ps-2 pt-1 pe-2 pb-1 text-<%=color%> border border-<%=color%> rounded" style="font-size: 14px;">
-	<i class="bi bi-lightbulb"></i> 
+<% gly ||= color == 'danger' ? 'bug' : ( color == 'primary' ? 'check2-all' : 'lightbulb' ) %>
+<div class="mt-2 mb-2 ps-2 pt-1 pe-2 pb-1 text-<%=color%> border border-<%=color%> rounded" style="font-size: 14px;">
+	<%= render partial: '0p/gly', locals: {gly: gly} %>
 	<%= ntc %>
 </div>

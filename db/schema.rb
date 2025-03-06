@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_04_170247) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_214929) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -489,7 +489,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_04_170247) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "metodo"
-    t.string "blngs_metodo"
+    t.string "despliega"
+    t.boolean "proceso"
     t.index ["codigo"], name: "index_ctr_pasos_on_codigo"
     t.index ["orden"], name: "index_ctr_pasos_on_orden"
     t.index ["tarea_id"], name: "index_ctr_pasos_on_tarea_id"
@@ -711,6 +712,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_04_170247) do
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
     t.boolean "empleado_externo"
+    t.boolean "registro_revisado"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciados_on_krn_empresa_externa_id"
@@ -732,6 +734,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_04_170247) do
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
     t.boolean "empleado_externo"
+    t.boolean "registro_revisado"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
@@ -765,8 +768,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_04_170247) do
     t.datetime "plz_prnncmnt"
     t.datetime "plz_mdds_sncns"
     t.datetime "fecha_ntfccn"
+    t.boolean "solicitud_denuncia"
+    t.boolean "investigacion_local"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
+    t.index ["investigacion_local"], name: "index_krn_denuncias_on_investigacion_local"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denuncias_on_krn_empresa_externa_id"
     t.index ["krn_investigador_id"], name: "index_krn_denuncias_on_krn_investigador_id"
     t.index ["motivo_denuncia"], name: "index_krn_denuncias_on_motivo_denuncia"
@@ -785,6 +791,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_04_170247) do
     t.string "tipo"
     t.string "destino"
     t.string "origen"
+    t.string "codigo"
+    t.index ["codigo"], name: "index_krn_derivaciones_on_codigo"
     t.index ["destino"], name: "index_krn_derivaciones_on_destino"
     t.index ["fecha"], name: "index_krn_derivaciones_on_fecha"
     t.index ["krn_denuncia_id"], name: "index_krn_derivaciones_on_krn_denuncia_id"
@@ -1744,7 +1752,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_04_170247) do
     t.text "detalle"
     t.integer "ctr_etapa_id"
     t.string "sub_procs"
-    t.string "pasos_array"
     t.index ["codigo"], name: "index_tareas_on_codigo"
     t.index ["ctr_etapa_id"], name: "index_tareas_on_ctr_etapa_id"
     t.index ["orden"], name: "index_tareas_on_orden"
