@@ -31,13 +31,13 @@
 
 <div class="pt-4 app_lnk">
 	<%= render layout: '0p/collapse/link', locals: {label: "Petitorio", objeto: causa, tooltip: 'Ingresa/modifica Petitorio'} do %>
-		<b>Petitorio/Cuantía</b>
+		<b>CUANTÍA/PETITORIO</b>
 	<% end %>
 	<div class="ps-3 text-justify">
+		<b>Cuantía:</b> <%= s_pesos(get_total_cuantia(causa, 'real')) %>
 		<% if causa.rit[0] == 'T' %>
 			<i>Que BancoEstado Centro de Servicios S.A. ha incurrido en conductas que vulneran derechos fundamentales.</i></br>
 		<% end %>
 		<i><%= causa.resultado %></i> 
-		<b>Cuantía:</b> <%= s_pesos(get_total_cuantia(causa, 'real')) %>
 	</div>
 </div>
