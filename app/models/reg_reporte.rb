@@ -1,11 +1,5 @@
 class RegReporte < ApplicationRecord
 
-	TABLA_FIELDS = [
-		's#nombre_padre',
-		'periodo',
-		'estado'
-	]
-
 	has_many :registros
 
 	def facturaciones

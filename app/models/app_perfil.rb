@@ -2,6 +2,8 @@ class AppPerfil < ApplicationRecord
 
 	belongs_to :app_nomina
 
+	has_many :app_enlaces, as: :ownr
+
 	has_many :app_mensajes
 
 	# Aplicacion
@@ -20,10 +22,6 @@ class AppPerfil < ApplicationRecord
 
 	def nombre_agenda
 		self.app_nomina_nombre.split(' ')[0]
-	end
-
-	def app_enlaces
-		AppEnlace.where(owner_class: 'AppPerfil', owner_id: self.id)
 	end
 
 end

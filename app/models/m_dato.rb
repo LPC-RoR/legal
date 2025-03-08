@@ -1,12 +1,5 @@
 class MDato < ApplicationRecord
 
-	TABLA_FIELDS = [
-		'm_dato',
-		'tipo',
-		'formula',
-		'tag'
-	]
-
 	belongs_to :m_formato
 
 	def tag

@@ -5,15 +5,6 @@ class Registro < ApplicationRecord
 
 	TIPO_REGISTRO = ['Informe', 'Documento', 'Llamada telefónica', 'Mail', 'Reporte']
 
-	TABLA_FIELDS = [
-		'i#fecha',
-		's#detalle',
-		'abogado',
-		'horas_minutos',
-		'm#monto',
-		'estado'
-	]
-
     validates_presence_of :fecha, :abogado, :detalle
 
  	def padre

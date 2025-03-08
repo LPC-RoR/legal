@@ -54,7 +54,7 @@ module Karin
       'dnnc_notificacion' => dnnc.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
       'dnncnt_rprsntcn' => dnnc.representante?,                 # Denuncia presentada por un representante
 
-      'dnnc_certificado' => dnnc.drv_dt? == true,               # DT certifica que recibió la denuncia que le derivamos
+      'dnnc_certificado' => dnnc.drv_dt?,                       # DT certifica que recibió la denuncia que le derivamos
 
       'dnncnt_diat_diep' => true,
       'mdds_rsgrd' => true,
@@ -80,7 +80,6 @@ module Karin
   # --------------------------------------------------------------------------------------------- DNNC_JOT (JUST ONE TIME)
   def jot_cds
     [
-      'rcp_externa',              # Denuncia recibida por una empresa externa
       'p_plus',                   # Producto extendido
       'emprs_extrn_prsnt',        # Empresa externa presente
       'prsncl',                   # Denuncia entregada presencialmente
@@ -161,27 +160,13 @@ module Karin
     @krn_cntrl = krn_cntrl(@objeto)
   end
 
-  # --------------------------------------------------------------------------------------------- DERIVACIÓN
-
-  def drvcn_mtv
-    {
-      'rcptn' => 'Recepción derivación de denuncia.',
-      'extrn_dt' => 'Rerivación a la DT desde empresa externa.',
-      'riohs' => 'RIOHS con protocolo no ha entrado en vigencia.',
-      'a41' => 'Aplica artículo 4 inciso primero del Código del trabajo.',
-      'seg' => 'Seguimiento de denuncia de empresa externa.',
-      'd_optn' => 'Por determinación del denunciante',
-      'e_optn' => 'Por determinación de la empresa'
-    }
-  end
-
-
   # --------------------------------------------------------------------------------------------- ACTIVE KARIN
 
   # Reemplazar a fll_fld generalizando y creando ctr_registro correspondiente
   def set_fld
     ctr_paso = CtrPaso.find_by(codigo: params[:k])
-    @objeto[ctr_paso.metodo] = params[ctr_paso.metodo.to_sym]
+
+    @objeto[ctr_paso.metodo] = ctr_paso.metodo.split('_')[0] == 'fecha' ? params_to_date(params, ctr_paso.metodo) : params[ctr_paso.metodo.to_sym]
     @objeto.save
 
     dsply_metodo = ctr_paso.despliega.blank? ? ctr_paso.metodo : ctr_paso.despliega

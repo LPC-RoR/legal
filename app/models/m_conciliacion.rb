@@ -1,11 +1,5 @@
 class MConciliacion < ApplicationRecord
 
-	TABLA_FIELDS = [
-		's#created_at',
-		'datos',
-		'registros'
-	]
-
 	belongs_to :m_cuenta
 
 	has_many :m_valores

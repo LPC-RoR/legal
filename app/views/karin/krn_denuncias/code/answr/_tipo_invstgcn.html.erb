@@ -6,6 +6,6 @@ Investigación
 	realizada por la empresa.
 <% elsif objeto.rcp_dt? or objeto.drv_dt? %>
 	realizada por la Dirección del Trabajo.
-<% elsif objeto.externa? and (objeto.rcp_externa? or objeto.drv_externa?) %>
+<% elsif objeto.externa? and (objeto.on_externa?) %>
 	realizada por la empresa externa.
 <% end %>

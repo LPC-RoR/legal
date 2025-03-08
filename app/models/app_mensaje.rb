@@ -1,10 +1,4 @@
 class AppMensaje < ApplicationRecord
-	TABLA_FIELDS = [
-		'fecha_envio', 
-		's#mensaje',
-		'email'
-	]
-
 
 	belongs_to :app_perfil, optional: true
 

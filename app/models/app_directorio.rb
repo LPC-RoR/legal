@@ -1,12 +1,5 @@
 class AppDirectorio < ApplicationRecord
 
-	TABLA_FIELDS = [
-		's#app_directorio'
-	]
-
-#	has_many :app_archivos
-#	has_many :app_imagenes
-
     validates_presence_of :app_directorio
 
 	has_one  :parent_relation, :foreign_key => "child_id", :class_name => "AppDirDir"

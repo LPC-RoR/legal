@@ -1,5 +1,0 @@
-<% if get_cndtn(objeto, code, :cndtn) %>
-	<%= render partial: '0p/proc/answr', locals: {tar: tar, objeto: objeto, code: code, accn: accn} %>
-<% else %>
-	<%= render partial: '0p/proc/frm', locals: {tar: tar, objeto: objeto, code: code, accn: accn} %>
-<% end %>

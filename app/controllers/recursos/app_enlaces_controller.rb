@@ -15,9 +15,9 @@ class Recursos::AppEnlacesController < ApplicationController
 
   # GET /app_enlaces/new
   def new
-    owner_class = (params[:class_name] == 'nil' ? nil : params[:class_name])
-    owner_id = (params[:objeto_id] == 'nil' ? nil : params[:objeto_id])
-    @objeto = AppEnlace.new(owner_class: owner_class, owner_id: owner_id)
+    ownr_type = (params[:oclss] == 'nil' ? nil : params[:oclss])
+    ownr_id = (params[:oid] == 'nil' ? nil : params[:oid])
+    @objeto = AppEnlace.new(ownr_type: ownr_type, ownr_id: ownr_id)
   end
 
   # GET /app_enlaces/1/edit
@@ -71,17 +71,15 @@ class Recursos::AppEnlacesController < ApplicationController
     end
 
     def set_redireccion
-      if @objeto.owner_id.blank? or @objeto.owner.class.name == 'AppPerfil'
+      if @objeto.ownr_id.blank? or @objeto.ownr.class.name == 'AppPerfil'
         @redireccion = tabla_path(@objeto)
-      elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.owner.class.name)
-        @redireccion = @objeto.owner
-      elsif ['Causa', 'Cliente'].include?(@objeto.objeto_destino.class.name)
-        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos+y+enlaces"
+      elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.ownr.class.name)
+        @redireccion = @objeto.ownr
       end
     end
 
     # Only allow a list of trusted parameters through.
     def app_enlace_params
-      params.require(:app_enlace).permit(:descripcion, :enlace, :owner_class, :owner_id)
+      params.require(:app_enlace).permit(:descripcion, :enlace, :ownr_type, :ownr_id)
     end
 end

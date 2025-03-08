@@ -2,6 +2,7 @@ module DnncProc
  	extend ActiveSupport::Concern
 
 	# --------------------------------------------------------------------------- JOT (JUST ONE TIME)
+	# se usa sólo en dt_obligatoria'
 	def prsncl?
 		self.via_declaracion == 'Presencial'
 	end
@@ -91,7 +92,7 @@ module DnncProc
 
 	# ingreso de campos básicos ok?
 	def ingrs_dnnc_bsc?
-		extrn = self.receptor_denuncia == 'Empresa externa' ? self.krn_empresa_externa_id.present? : true
+		extrn = self.rcp_externa? ? self.krn_empresa_externa_id.present? : true
 		rprsntnt = self.presentado_por == 'Representante' ? self.representante.present? : true
 		tp = self.via_declaracion == 'Presencial' ? self.tipo_declaracion.present? : true
 		extrn and rprsntnt and tp
@@ -121,10 +122,6 @@ module DnncProc
 		self.dnncnts_rgstrs_ok? and self.krn_denunciados.any?
 	end
 
-	def no_drvcns?
-		self.krn_derivaciones.empty?
-	end
-
 	def drvcn_rcbd?
 		self.krn_derivaciones.empty? ? false : self.krn_derivaciones.first.destino == 'Empresa'
 	end
@@ -139,11 +136,6 @@ module DnncProc
 
 
 
-	def fl?(code)
-		dc = RepDocControlado.get_dc(code)
-		self.rep_archivos.find_by(rep_doc_controlado_id: dc.id).present?
-	end
-
 	#--------------------------------------------------------------------------- METHODS
 
 	def ingrs_fls_ok?
@@ -151,7 +143,7 @@ module DnncProc
 		cods.push('dnnc_denuncia') if self.tipo_declaracion != 'Verbal'
 		cods.push('dnnc_acta') if self.tipo_declaracion == 'Verbal'
 		cods.push('dnncnt_rprsntcn') if self.presentado_por == 'Representante'
-		cods.push('dnnc_certificado') if self.drv_dt? == true
+		cods.push('dnnc_certificado') if self.drv_dt?
 		cods.push('dnnc_notificacion') if self.rcp_dt?
 
 		cds = cods.map {|code| RepDocControlado.get_dc(code)}

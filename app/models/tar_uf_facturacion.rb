@@ -1,10 +1,5 @@
 class TarUfFacturacion < ApplicationRecord
 
-	TABLA_FIELDS = [
-		'pago',
-		'fecha_uf',
-	]
-
 	belongs_to :tar_pago, optional: true
 	belongs_to :ownr, polymorphic: true
 

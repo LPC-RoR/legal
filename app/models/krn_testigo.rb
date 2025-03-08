@@ -23,10 +23,4 @@ class KrnTestigo < ApplicationRecord
 		self.ownr.denuncia
 	end
 
-	# --------------------------------------------------------------- DCLRCN
-
-	def dclrcn?
-		self.krn_declaraciones.any?
-	end
-
 end

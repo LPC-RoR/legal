@@ -12,8 +12,8 @@ class Aplicacion::TablasController < ApplicationController
   end
 
   def enlaces
-      set_tabla('app_enlaces', AppEnlace.where(owner_id: nil).order(:descripcion), false)
-      set_tabla('perfil-app_enlaces', AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion), false)
+      set_tabla('app_enlaces', AppEnlace.gnrl.dscrptn_ordr, false)
+      set_tabla('perfil-app_enlaces', perfil_activo.app_enlaces.dscrptn_ordr, false)
   end
 
   def agenda

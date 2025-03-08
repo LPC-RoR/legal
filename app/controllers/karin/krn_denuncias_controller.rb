@@ -278,7 +278,7 @@ class Karin::KrnDenunciasController < ApplicationController
     def load_proc
       prcdmnt = Procedimiento.find_by(codigo: KrnDenuncia::PROC)
 #      tar = Tarea.find_by(codigo: '010_ingrs')
-      tar = prcdmnt.tareas.ordr.first
+      tar = prcdmnt.ctr_etapas.ordr.first.tareas.ordr.first
       tar.ctr_pasos.init.ordr.each do |ctr_paso|
 
         # el método se llama para create y update

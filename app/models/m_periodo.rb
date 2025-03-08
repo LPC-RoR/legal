@@ -1,9 +1,5 @@
 class MPeriodo < ApplicationRecord
 
-	TABLA_FIELDS  = [
-		's#m_periodo'
-	]
-
 	has_many :m_registros
 
 	def items

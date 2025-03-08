@@ -1,21 +1,10 @@
 class AppEnlace < ApplicationRecord
 
-	TABLA_FIELDS = [
-		'e#enlace'
-	]
+	belongs_to :ownr, polymorphic: true
+
+	scope :gnrl, -> { where(ownr_id: nil) }
+	scope :dscrptn_ordr, -> { order(:descripcion) }
 
     validates_presence_of :descripcion, :enlace
-
-	def owner
-		self.owner_class.constantize.find(self.owner_id)
-	end
-
-	def app_enlace
-		self.descripcion
-	end
-
-	def objeto_destino
-		self.owner
-	end
 
 end

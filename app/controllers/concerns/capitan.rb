@@ -122,20 +122,14 @@ module Capitan
 		string.gsub(/\t|\r|\n/, ' ').strip.downcase
 	end
 
-	def enlaces_general
-		AppEnlace.where(owner_id: nil).order(:descripcion)
-	end
-
-	def enlaces_perfil
-		perfil_activo.blank? ? [] : AppEnlace.where(owner_class: 'AppPerfil', owner_id: perfil_activo.id).order(:descripcion)
-	end
-
 	def v_enlaces_general
-		enlaces_general.empty? ? nil : enlaces_general.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace}}
+		gnrl = AppEnlace.gnrl
+		gnrl.empty? ? nil : gnrl.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace}}
 	end
 
 	def v_enlaces_perfil
-		enlaces_perfil.empty? ? nil : enlaces_perfil.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace}}
+		prfl_lnks = perfil_activo.app_enlaces
+		prfl_lnks.empty? ? nil : prfl_lnks.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace}}
 	end
 
 	def v_enlaces

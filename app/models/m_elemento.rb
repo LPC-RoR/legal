@@ -1,10 +1,5 @@
 class MElemento < ApplicationRecord
 
-	TABLA_FIELDS = [
-		'm_elemento',
-		'tipo'
-	]
- 
  	belongs_to :m_formato
 	
 	# ------------------------------------ ORDER LIST

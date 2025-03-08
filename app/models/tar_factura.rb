@@ -1,13 +1,4 @@
 class TarFactura < ApplicationRecord
-	# Tabla de FACTURAS de VENTA
-	# Tiene tar_facturaciones
-
-	TABLA_FIELDS = [
-		'documento',
-		's#d_concepto',
-		'padre:razon_social',
-		'fecha_factura'
-	]
 
 	has_one :tar_nota_credito
 	has_many :tar_facturaciones

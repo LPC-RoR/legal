@@ -1,7 +1,5 @@
 class KrnDenunciado < ApplicationRecord
 
-	PROC_INIT = []
-
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true
 	belongs_to :krn_empleado, optional: true
@@ -13,9 +11,16 @@ class KrnDenunciado < ApplicationRecord
 	has_many :krn_testigos, as: :ownr
 	has_many :valores, as: :ownr
 
-	delegate :rut, to: :krn_empresa_externa, prefix: true
+	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
 
 	scope :rut_ordr, -> {order(:rut)}
+
+	scope :artcl41, -> { where(articulo_4_1: true) }
+	scope :artcl516, -> { where(articulo516: true) }
+
+	# Externas y propias
+	scope :extrns, -> { where.not(krn_empresa_externa_id: nil) }
+	scope :prps, -> { where(krn_empresa_externa_id: nil) }
 
 	validates :rut, valida_rut: true, if: -> {rut.present?}
     validates_presence_of :nombre, :cargo, :lugar_trabajo
@@ -32,19 +37,16 @@ class KrnDenunciado < ApplicationRecord
 		self.fls(dc).last
 	end
 
-	def rcptr_externa
-		self.krn_empresa_externa.razon_social
+	def fl?(code)
+		dc = RepDocControlado.get_dc(code)
+		fl(dc).present?
+	end
+
+	def self.emprss_ids
+		all.map {|den| den.krn_empresa_externa_id}.uniq
 	end
 
 	# ------------------------------------------------------------------------ INGRS
-
-	def self.art4_1?
-		all.map { |den| den.articulo_4_1 }.include?(true)
-	end
-
-	def self.art516?
-		all.map { |den| den.articulo516 }.include?(true)
-	end
 
 	def p_empleador?
 		self.krn_empresa_externa_id.blank?
@@ -107,10 +109,6 @@ class KrnDenunciado < ApplicationRecord
 		"dnncd#{self.id}"
 	end
 
-	def self.emprss_ids
-		all.map {|den| den.krn_empresa_externa_id}
-	end
-
 	def self.rgstrs_fail?
 		all.map {|den| den.rgstr_ok?}.include?(false)
 	end
@@ -137,12 +135,6 @@ class KrnDenunciado < ApplicationRecord
 
 	def denuncia
 		self.krn_denuncia
-	end
-
-	# --------------------------------------------------------------- DCLRCN
-
-	def dclrcn?
-		self.krn_declaraciones.any? and ( not self.krn_testigos.map {|tst| tst.dclrcn?}.include?(false) )
 	end
 
 	# --------------------------------------------------------------- METHODS

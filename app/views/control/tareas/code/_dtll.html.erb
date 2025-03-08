@@ -5,8 +5,8 @@
 
 	<% unless trsh_cndtn(objeto, ownr) %>
 		<% objeto.ctr_pasos.prcsbls.ordr.each do |paso| %>
-			<% if ownr.send("p_#{paso.codigo}?") %>
-				<% unless ownr.send(paso.metodo) %>
+			<% if ownr.send("proc_#{paso.codigo}?") %>
+				<% unless ownr.send("#{paso.metodo}?") %>
 					<%= render partial: '0p/proc/frm', locals: {tar: objeto, objeto: ownr, code: paso.metodo} %>
 				<% end %>
 			<% end %>

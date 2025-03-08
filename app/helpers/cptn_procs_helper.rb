@@ -29,7 +29,7 @@ module CptnProcsHelper
 			'020_prtcpnts' => true,
 			'030_drvcns' => dnnc.rgstrs_rvsds?,
 			'040_mdds' => (( dnnc.rgstrs_rvsds? and ( not dnnc.on_empresa? ) ) or dnnc.investigacion_local),
-			dnnc_mdds: (@dnnc_jot['on_dt'] or @dnnc_jot['vlr_drv_dnncnt_optn']),
+			'050_crr' => dnnc.fl?('mdds_rsgrd'),
 			# Registos de "principales" completo
 			dnnc_prmr_plz: (@dnnc_jot['ingrs_fls_ok'] and @dnnc_jot['prtcpnts_ok']),
 			# INVSTGCN
@@ -46,18 +46,12 @@ module CptnProcsHelper
 		}
 	end
 
-	def get_cndtn(ownr, code, type)
-		frst_step = elemnt_cndtns[ownr.class.name].blank? ? nil : elemnt_cndtns[ownr.class.name]
-		scnd_step = frst_step.blank? ? nil : (frst_step[code.to_sym].blank? ? nil : frst_step[code.to_sym])
-		scnd_step.blank? ? nil : (scnd_step[type].blank? ? nil : scnd_step[type])
-	end
-
 	def tar_trsh_cndtn(ownr)
 		case ownr.class.name
 		when 'KrnDenuncia'
 			{
 				'010_ingrs' => ownr.krn_denunciantes.any?,
-				'030_drvcns' => ownr.fmdds_rsgrd?
+				'030_drvcns' => ownr.fl?('mdds_rsgrd')
 			}
 		when 'KrnDenunciante'
 			{
@@ -79,142 +73,6 @@ module CptnProcsHelper
 		end
 	end
 
-	def elemnt_cndtns
-		{
-			'KrnDenuncia' => {
-				externa_id: {
-					# La existencia de este campo indica que la denuncia fue presentada en una empresa externa
-					# Ingreso básico de la denuncia, se cierra al ingresar el primer denunciante
-					cndtn: @dnnc_jot['emprs_extrn_prsnt'],
-					trsh: (not @dnnc_jot['dnncnts_any'])
-				},
-				tipo: {
-					# Ingreso básico de la denuncia, se cierra al ingresar el primer denunciante
-					# ['Escrita', 'Verbal']
-					cndtn: @dnnc_jot['tipo_declaracion_prsnt'],
-					trsh: (not @dnnc_jot['dnncnts_any'])
-				},
-				representante: {
-					# Ingreso básico de la denuncia, se cierra al ingresar el primer denunciante
-					cndtn: @dnnc_jot['representante_prsnt'],
-					trsh: (not @dnnc_jot['dnncnts_any'])
-				},
-				# DRVCNS
-				drv_rcp_externa: {
-					# recepción de derivaciones
-					# Se vuelve a activar al borrar la derivación
-					cndtn: ((@dnnc_jot['drvcns_any']) or @dnnc_jot['vlr_sgmnt_emprs_extrn']),
-					trsh: (not @dnnc_jot['vlr_drv_inf_dnncnt'])
-				},
-				drv_dt_oblgtr: {
-					# Se vuelve a activar al borrar la derivación
-					cndtn: @dnnc_jot['on_dt'],
-					trsh: false
-				},
-				drv_inf_dnncnt: {
-					cndtn: (@dnnc_jot['vlr_drv_inf_dnncnt']),
-					trsh: (not (@dnnc_jot['vlr_drv_dnncnt_optn']))
-				},
-				drv_dnncnt_optn: {
-					cndtn: (@dnnc_jot['vlr_drv_dnncnt_optn']),
-					trsh: (not (@dnnc_jot['vlr_drv_emprs_optn']))
-				},
-				drv_emprs_optn: {
-					cndtn: (@dnnc_jot['vlr_drv_emprs_optn'] or @dnnc_jot['on_dt']),
-					trsh: (not (@dnnc_jot['fecha_trmtcn_prsnt'] or @dnnc_jot['fl_mdds_rsgrd']))
-				},
-				drv_fecha_dt: {
-					# Fecha de recepción de la denuncia derivada a la DT
-					# Se cierra al recibir informe de investigación de la DT o el rechazo de la derivación
-					cndtn: @dnnc_jot['fecha_hora_dt_prsnt'],
-					trsh: (not @dnnc_jot['fecha_trmtcn_prsnt'])
-				},
-				dnnc_fecha_trmtcn: {
-					cndtn: @dnnc_jot['fecha_trmtcn_prsnt'],
-					trsh: (not @dnnc_jot['frst_invstgdr'])
-				},
-				dnnc_fecha_ntfccn: {
-					# Fecha de Notificación de la denuncia a los participantes
-					# Se cierra al recibir informe de investigación de la DT o el rechazo de la derivación
-					cndtn: @dnnc_jot['fecha_ntfccn_prsnt'],
-					trsh: (not @dnnc_jot['frst_invstgdr'])
-				},
-				dnnc_invstgdr: {
-					cndtn: @dnnc_jot['frst_invstgdr'],
-					trsh: (not @dnnc_jot['fecha_ntfccn_invstgdr_prsnt'])
-				},
-				dnnc_fecha_ntfccn_invstgdr: {
-					cndtn: @dnnc_jot['fecha_ntfccn_invstgdr_prsnt'],
-					trsh: (not (@dnnc_jot['vlr_dnnc_eval_ok'] or @dnnc_jot['vlr_dnnc_objcn_invstgdr']))
-				},
-				dnnc_objcn_invstgdr: {
-					cndtn: (@dnnc_jot['vlr_dnnc_objcn_invstgdr']),
-					trsh: (not (@dnnc_jot['dclrcns_any']))
-				},
-				dnnc_rslcn_objcn: {
-					cndtn: (@dnnc_jot['vlr_dnnc_rslcn_objcn']),
-					trsh: (not (@dnnc_jot['vlr_dnnc_eval_ok'] or @dnnc_jot['scnd_invstgdr']))
-				},
-				dnnc_invstgdr_objcn: {
-					cndtn: @dnnc_jot['scnd_invstgdr'],
-					trsh: (not @dnnc_jot['vlr_dnnc_eval_ok'])
-				},
-				dnnc_eval_ok: {
-					cndtn: @dnnc_jot['vlr_dnnc_eval_ok'],
-					trsh: (not @dnnc_jot['fecha_hora_corregida_present'])
-				},
-				dnnc_fecha_crrgd: {
-					cndtn: @dnnc_jot['fecha_hora_corregida_present'],
-					trsh: (not @dnnc_jot['dclrcns_any'])
-				},
-				dnnc_crr_dclrcns: {
-					cndtn: @dnnc_jot['vlr_dnnc_crr_dclrcns'],
-					trsh: (not @dnnc_jot['vlr_dnnc_infrm_dt'])
-				},
-				dnnc_infrm_dt: {
-					cndtn: @dnnc_jot['vlr_dnnc_infrm_dt'],
-					trsh: (not @dnnc_jot['fecha_trmn_prsnt'])
-				},
-				dnnc_fecha_trmn: {
-					cndtn: @dnnc_jot['fecha_trmn_prsnt'],
-					trsh: (not @dnnc_jot['fecha_env_infrm_prsnt'])
-				},
-				dnnc_fecha_env: {
-					cndtn: @dnnc_jot['fecha_env_infrm_prsnt'],
-					trsh: (not @dnnc_jot['fecha_prnncmnt_prsnt'])
-				},
-				dnnc_fecha_prnncmnt: {
-					cndtn: @dnnc_jot['fecha_prnncmnt_prsnt'],
-					trsh: (not @dnnc_jot['fecha_prcsd_prsnt'])
-				},
-				dnnc_fecha_mdds_sncns: {
-					cndtn: @dnnc_jot['fecha_prcsd_prsnt'],
-					trsh: (not false)
-				},
-			},
-			'KrnDenunciante' => {
-				externa_id: { 
-					cndtn: @dnnc_jot['emprs_extrn_prsnt'], 
-					trsh: ( not @dnnc_jot['dnnc_fech_trmitcn'])
-				},
-				ntfccn: {
-					cndtn: @dnnc_jot['drccn_ntfccn_prsnt'],
-					trsh: (not @dnnc_jot['dnnc_fech_trmitcn'])
-				}
-			},
-			'KrnDenunciado' => {
-				externa_id: { 
-					cndtn: @dnnc_jot['emprs_extrn_prsnt'], 
-					trsh: ( not @dnnc_jot['dnnc_fech_trmitcn'])
-				},
-				ntfccn: {
-					cndtn: @dnnc_jot['drccn_ntfccn_prsnt'],
-					trsh: (not @dnnc_jot['dnnc_fech_trmitcn'])
-				}
-			}
-		}
-	end
-
 	def tar_cmpltd_cndtns(dnnc)
 		{
 			dnnc_ingrs: @dnnc_jot['ingrs_dnnc_bsc'],
@@ -225,21 +83,6 @@ module CptnProcsHelper
 		dnnc = dnnc_ownr(ownr)
 		code_sym = code.to_sym
 		tar_cmpltd_cndtns(dnnc)[code_sym].present? ? tar_cmpltd_cndtns(dnnc)[code_sym] : false
-	end
-
-	def dc_fl?(ownr, code)
-		dc = RepDocControlado.find_by(codigo: code)
-		dc.blank? ? false : ownr.rep_archivos.where(rep_doc_controlado_id: dc.id).present?
-	end
-
-	def plz_aplcnm_mddds_sncns(dnnc)
-		plz_clcl = dnnc.fecha_env_infrm.blank? ? nil : plz_lv(dnnc.fecha_env_infrm, 30)
-		if dnnc.on_dt?
-			fch_bs = dnnc.fecha_env_infrm
-		else
-			fch_bs = dnnc.fecha_env_infrm.blank? ? nil : (dnnc.fecha_prnncmnt.blank? ? plz_clcl : [plz_clcl, dnnc.fecha_prnncmnt].min)
-		end
-		fch_bs.blank? ? nil : plz_c(fch_bs, 15)
 	end
 
 	def etp_plz(ownr)
@@ -261,29 +104,6 @@ module CptnProcsHelper
 			'etp_envio'      => dnnc.fecha_env_infrm.blank? ? nil : dnnc.fecha_env_infrm <= dnnc.plz_infrm,
 			'etp_prnncmnt'   => dnnc.fecha_prnncmnt.blank? ? nil : dnnc.fecha_prnncmnt <= dnnc.plz_prnncmnt,
 			'etp_mdds_sncns' => dnnc.fecha_prcsd.blank? ? nil : dnnc.fecha_prcsd <= dnnc.plz_mdds_sncns
-		}
-	end
-
-	def tar_cntrllr(cdg)
-		unless cdg.blank?
-			case cdg.split('_')[0]
-			when 'dnnc'
-				'krn_denuncias'
-			end
-		else
-			nil
-		end
-	end
-
-	def actvbx_gly
-		{
-			'Derivación' => 'arrow-up-right',
-			'Confirmación' => 'check2-square',
-			'Selección' => 'check-square',
-			'Recepción' => 'box-arrow-in-down-right',
-			'Info' => 'toggle-on',
-			'Fecha' => 'calendar2-check',
-			'Radio' => 'ui-radios'
 		}
 	end
 

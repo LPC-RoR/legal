@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_06_214929) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_07_002839) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -185,12 +185,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_214929) do
   create_table "app_enlaces", force: :cascade do |t|
     t.string "descripcion"
     t.string "enlace"
-    t.string "owner_class"
-    t.integer "owner_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["owner_class"], name: "index_app_enlaces_on_owner_class"
-    t.index ["owner_id"], name: "index_app_enlaces_on_owner_id"
+    t.index ["ownr_id"], name: "index_app_enlaces_on_ownr_id"
+    t.index ["ownr_type"], name: "index_app_enlaces_on_ownr_type"
   end
 
   create_table "app_escaneos", force: :cascade do |t|

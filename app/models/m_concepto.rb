@@ -1,9 +1,5 @@
 class MConcepto < ApplicationRecord
 
-#	TABLA_FIELDS = 	[
-#		'm_concepto'
-#	]
-	
 	belongs_to :m_modelo
 
 	has_many :m_items

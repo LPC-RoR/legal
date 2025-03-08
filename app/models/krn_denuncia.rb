@@ -1,5 +1,7 @@
 class KrnDenuncia < ApplicationRecord
 
+	DT = 'Dirección del Trabajo'
+
 	ACCTN = 'dnncs'
 
 	MOTIVOS = ['Acoso laboral', 'Acoso sexual', 'Violencia en el trabajo ejercida por terceros']
@@ -9,7 +11,6 @@ class KrnDenuncia < ApplicationRecord
 	TIPOS_DENUNCIA = ['Escrita', 'Verbal']
 
 	PROC = 'krn_invstgcn'
-	PROC_INIT = ['ownr', 'fecha_hora', 'motivo', 'receptor', 'canal', 'presentado_por']
 
 	belongs_to :ownr, polymorphic: true
 
@@ -32,6 +33,7 @@ class KrnDenuncia < ApplicationRecord
 	scope :ordr, -> { order(fecha_hora: :desc, id: :desc) }
 
 	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
+	delegate :razon_social, to: :ownr, prefix: true, allow_nil: true
 
     validates_presence_of :fecha_hora
 
@@ -43,53 +45,57 @@ class KrnDenuncia < ApplicationRecord
 
 	delegate :krn_formato, to: :ownr, prefix: true
 
+	# ------------------------------------------------------------------------ PRODUCTO
+	# Determina si el ownr de la denuncia tiene contratado un formato P+
 	def p_plus?
 		self.ownr_krn_formato == 'P+'
-	end
-
-	def fls(dc)
-		self.rep_archivos.where(rep_doc_controlado_id: dc.id).crtd_ordr
-	end
-
-	def fl(dc)
-		self.fls(dc).last
-	end
-
-	# ------------------------------------------------------------------------ PROC
-
-	def ownr_razon_social
-		self.ownr.razon_social
-	end
-
-	def rcptr_externa
-		self.krn_empresa_externa.razon_social
-	end
-
-	# ------------------------------------------------------------------------ COMPETENCIA DE INVESTIGAR
-
-	def emprss_ids
-		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).uniq
-	end
-
-	def empresa?
-		ids = self.emprss_ids
-		ids.length == 1 and ids[0] == nil
-	end
-
-	def externa?
-		ids = self.emprss_ids
-		ids.length == 1 and ids[0] != nil
-	end
-
-	def multiempresa?
-		self.emprss_ids.length > 1
 	end
 
 	def lttr_tp
 		self.multiempresa? ? 'M' : (self.externa? ? 'X' : (self.empresa? ? 'E' : '?'))
 	end
 
-	def externa
+	# ------------------------------------------------------------------------ REP ARCHIVOS
+
+	# Archivos existentes de un documento controlado multiple
+	def fls(dc)
+		self.rep_archivos.where(rep_doc_controlado_id: dc.id).crtd_ordr
+	end
+
+	# Archivos existentes de un documento controlado simple
+	def fl(dc)
+		self.fls(dc).last
+	end
+
+	def fl?(code)
+		dc = RepDocControlado.get_dc(code)
+		fl(dc).present?
+	end
+
+	# ------------------------------------------------------------------------ COMPETENCIA DE INVESTIGAR
+	# Se conservó la forma inicial
+
+	def emprss_ids
+		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).uniq
+	end
+
+	def empresa?
+		e_ids = self.emprss_ids
+		e_ids.length == 1 and e_ids[0] == nil
+	end
+
+	def externa?
+		e_ids = self.emprss_ids
+		e_ids.length == 1 and e_ids[0] != nil
+	end
+
+	def multiempresa?
+		e_ids = self.emprss_ids
+		self.emprss_ids.length > 1
+	end
+
+	# externa que investiga REVISAR porque se puede confundir con Externa que recibió
+	def empleador
 		ids = self.emprss_ids
 		self.externa? ? KrnEmpresaExterna.find(ids[0]) : nil
 	end
@@ -97,7 +103,7 @@ class KrnDenuncia < ApplicationRecord
 	# ------------------------------------------------------------------------ RCPS & DRVS
 
 	def rcp_dt?
-		self.receptor_denuncia == 'Dirección del Trabajo'
+		self.receptor_denuncia == KrnDenuncia::DT
 	end
 
 	def rcp_empresa?
@@ -108,61 +114,21 @@ class KrnDenuncia < ApplicationRecord
 		self.receptor_denuncia == 'Empresa externa'
 	end
 
+	# Alguna vez fue derivada a la DT
 	def drv_dt?
-		self.no_drvcns? ? nil : self.krn_derivaciones.lst.dstn_dt?
-	end
-
-	def drv_empresa?
-		self.no_drvcns? ? nil : self.krn_derivaciones.lst.dstn_empresa?
-	end
-
-	def drv_externa?
-		self.no_drvcns? ? nil : self.krn_derivaciones.lst.dstn_externa?
-	end
-
-	def on_empresa?
-		self.no_drvcns? ? self.rcp_empresa? : self.drv_empresa?
-	end
-
-	def on_externa?
-		self.no_drvcns? ? self.rcp_externa? : self.drv_externa?
+		self.krn_derivaciones.any? ? false : self.krn_derivaciones.dts.any?
 	end
 
 	def on_dt?
-		self.no_drvcns? ? self.rcp_dt? : self.drv_dt?
+		self.krn_derivaciones.empty? ? self.rcp_dt? : self.krn_derivaciones.on_dt?
 	end
 
-	def invstgcn_emprs?
-		self.vlr_drv_emprs_optn?
+	def on_empresa?
+		self.krn_derivaciones.empty? ? self.rcp_empresa? : self.krn_derivaciones.on_empresa?
 	end
 
-
-	# --------------------------------------------------------------------------------------------- DOCUMENTOS CONTROLADOS
-
-	def dc_denuncia
-		RepDocControlado.find_by(codigo: 'dnnc_denuncia')
-	end
-
-	def fl_denuncia
-		dc = self.dc_denuncia
-		dc.blank? ? nil : self.rep_archivos.get_dc_archv(dc)
-	end
-
-	def dc_corregida
-		RepDocControlado.corregida
-	end
-
-	def fl_corregida
-		dc = self.dc_corregida
-		dc.blank? ? nil : self.rep_archivos.get_dc_archv(dc)
-	end
-
-	def fl_denuncia?
-		self.fl_denuncia.present?
-	end
-
-	def fl_corregida?
-		self.fl_corregida.present?
+	def on_externa?
+		self.krn_derivaciones.empty? ? self.rcp_externa? : self.krn_derivaciones.on_externa?
 	end
 
 end

@@ -1,4 +1,4 @@
-<% unless objeto.ownr.class.name.constantize::PROC_INIT.include?(objeto.ctr_paso.codigo) %>
+<% if objeto.ctr_paso.proceso %>
 	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/#{objeto.class.name.tableize}/#{objeto.id}/del_fld?k=#{objeto.ctr_paso.codigo}", tltp: nil} do %>
 		<i class="bi bi-trash"></i>
 	<% end %>
