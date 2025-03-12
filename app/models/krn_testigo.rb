@@ -7,7 +7,7 @@ class KrnTestigo < ApplicationRecord
 
 	scope :rut_ordr, -> {order(:rut)}
 
-	validates :rut, valida_rut: true
+	validates :rut, valida_rut: true, if: -> {rut.present?}
     validates_presence_of :rut, :nombre, :cargo, :lugar_trabajo
     validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 
