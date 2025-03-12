@@ -1,13 +1,20 @@
+<% if prtl?(ownr, "proc/#{objeto.codigo}", 'nts')  %>
+	<%= render partial: prtl_name(ownr, "proc/#{objeto.codigo}", 'nts'), locals: {objeto: objeto, ownr: ownr} %>
+<% end %>
+
 <!-- Muestra TABLA de ctr_registros generados hasta ahora -->
 <% unless objeto.ctr_pasos.empty? %>
+	<% if tar_cntrl(ownr)[objeto.codigo] %>
+		<!-- REGISTROS DE LA DENUNCIA -->
+		<%= render partial: '0p/proc/rgstrs', locals: {rgstrs: ownr.ctr_registros.where(ctr_paso_id: objeto.ctr_pasos.ids).ordr, trsh_cndtn: trsh_cndtn(objeto, ownr), objeto: objeto, ownr: ownr} %>
 
-	<%= render partial: '0p/proc/rgstrs', locals: {rgstrs: ownr.ctr_registros.where(ctr_paso_id: objeto.ctr_pasos.ids).ordr, trsh_cndtn: trsh_cndtn(objeto, ownr)} %>
-
-	<% unless trsh_cndtn(objeto, ownr) %>
-		<% objeto.ctr_pasos.prcsbls.ordr.each do |paso| %>
-			<% if ownr.send("proc_#{paso.codigo}?") %>
-				<% unless ownr.send("#{paso.metodo}?") %>
-					<%= render partial: '0p/proc/frm', locals: {tar: objeto, objeto: ownr, code: paso.metodo} %>
+		<!-- FORMULARIOS DE CAMPOS DE LA DENUNCIA -->
+		<% unless trsh_cndtn(objeto, ownr) %>
+			<% objeto.ctr_pasos.prcsbls.ordr.each do |paso| %>
+				<% if ownr.send("proc_#{paso.codigo}?") %>
+					<% unless ownr.send("#{paso.metodo}?") %>
+						<%= render partial: '0p/proc/frm', locals: {tar: objeto, objeto: ownr, code: paso.metodo} %>
+					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>
@@ -15,16 +22,16 @@
 
 <% end %>
 
-<!-- ARCHIVOS simples / múltiples REQUERIDOS -->
+<!-- REP ARCHIVOS simples / múltiples REQUERIDOS -->
 <% unless objeto.rep_doc_controlados.empty? %>
 	<table class="table table-sm table-borderless table-striped table-hover">
 		<tbody>
 			<% objeto.rep_doc_controlados.ordr.each do |dc| %>
 				<% if ownr.send("fl_#{dc.codigo}?") %>
 					<% if dc.multiple == true %>
-						<%= render partial: '0p/proc/dcs', locals: {dc: dc, fls: ownr.fls(dc), ownr: ownr} %>
+						<%= render partial: '0p/proc/dcs', locals: {dc: dc, fls: ownr.fls(dc), ownr: ownr, trsh_cndtn: trsh_cndtn(objeto, ownr)} %>
 					<% else %>
-						<%= render partial: '0p/proc/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr} %>
+						<%= render partial: '0p/proc/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr, trsh_cndtn: trsh_cndtn(objeto, ownr)} %>
 					<% end %>
 				<% end %>
 			<% end %>
@@ -32,6 +39,7 @@
 	</table>
 <% end %>
 
+<!-- CHLDS -->
 <% if prtl?(ownr, "proc/#{objeto.codigo}", 'chlds')  %>
 	<%= render partial: prtl_name(ownr, "proc/#{objeto.codigo}", 'chlds'), locals: {objeto: objeto, ownr: ownr} %>
 <% else %>

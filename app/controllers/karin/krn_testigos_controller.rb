@@ -21,6 +21,8 @@ class Karin::KrnTestigosController < ApplicationController
         @dsply_dc_fls[tar.id] = tar.rep_doc_controlados.any? ? tar.rep_doc_controlados.map {|dc| @krn_cntrl[dc.codigo] }.include?(true) : false
       end
     end
+
+    set_tabla('krn_declaraciones', @objeto.krn_declaraciones, false)
   end
 
   # GET /krn_testigos/new

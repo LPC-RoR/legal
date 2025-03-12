@@ -10,6 +10,10 @@ class Tarea < ApplicationRecord
 
 	include OrderModel
 
+	def fls?
+		RepArchivo.where(rep_doc_controlado_id: self.rep_doc_controlados.ids).any?
+	end
+
 	def css_id
 		"tar#{self.id}"
 	end

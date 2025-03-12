@@ -1,7 +1,7 @@
 class Karin::KrnDeclaracionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_declaracion, only: %i[ show edit update destroy rlzd ]
+  before_action :set_krn_declaracion, only: %i[ show edit update destroy swtch ]
 
   # GET /krn_declaraciones or /krn_declaraciones.json
   def index
@@ -14,17 +14,11 @@ class Karin::KrnDeclaracionesController < ApplicationController
 
   # GET /krn_declaraciones/new
   def new
-    @objeto = KrnDeclaracion.new
-  end
-
-  def nueva
     ownr = params[:oclss].constantize.find(params[:oid])
     dnnc = ownr.class.name == 'KrnTestigo' ? ownr.ownr.krn_denuncia : ownr.krn_denuncia
     invstgdr = dnnc.krn_investigadores.last
 
-    ownr.krn_declaraciones.create(krn_denuncia_id: dnnc.id, krn_investigador_id: invstgdr.id, fecha: params_to_date(params, 'fecha'))
-
-    redirect_to ownr
+    @objeto = ownr.krn_declaraciones.new(krn_denuncia_id: dnnc.id, krn_investigador_id: invstgdr.id)
   end
 
   # GET /krn_declaraciones/1/edit
@@ -61,13 +55,6 @@ class Karin::KrnDeclaracionesController < ApplicationController
     end
   end
 
-  def rlzd
-    @objeto.rlzd = @objeto.rlzd == true ? false : true
-    @objeto.save
-
-    redirect_to @objeto.krn_denuncia
-  end
-
   # DELETE /krn_declaraciones/1 or /krn_declaraciones/1.json
   def destroy
     get_rdrccn
@@ -91,6 +78,6 @@ class Karin::KrnDeclaracionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_declaracion_params
-      params.require(:krn_declaracion).permit(:krn_denuncia_id, :ownr_type, :ownr_id, :fecha, :archivo)
+      params.require(:krn_declaracion).permit(:krn_denuncia_id, :krn_investigador_id, :ownr_type, :ownr_id, :fecha, :archivo)
     end
 end

@@ -59,8 +59,8 @@ module Karin
       'dnncnt_diat_diep' => true,
       'mdds_rsgrd' => true,
 
-      'antcdnts_objcn' => dnnc.dnnc_objcn_invstgdr?,
-      'rslcn_objcn' => dnnc.dnnc_objcn_invstgdr?,
+      'antcdnts_objcn' => dnnc.objcn_invstgdr,
+      'rslcn_objcn' => (dnnc.evlcn_incmplt? or dnnc.evlcn_incnsstnt?),
 
       'dnnc_evlcn' => (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok? == false),
       'dnnc_corrgd' => (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok? == false),            # Denuncia corregida
@@ -164,21 +164,22 @@ module Karin
 
   # Reemplazar a fll_fld generalizando y creando ctr_registro correspondiente
   def set_fld
-    ctr_paso = CtrPaso.find_by(codigo: params[:k])
+    ctr_paso = CtrPaso.find_by(metodo: params[:k])
 
     @objeto[ctr_paso.metodo] = ctr_paso.metodo.split('_')[0] == 'fecha' ? params_to_date(params, ctr_paso.metodo) : params[ctr_paso.metodo.to_sym]
     @objeto.save
 
     dsply_metodo = ctr_paso.despliega.blank? ? ctr_paso.metodo : ctr_paso.despliega
     field = @objeto[dsply_metodo]
-    case field.class.name
-    when 'Datetime'
+
+    if ctr_paso.metodo.split('_').first == 'fecha'
       vlr = @objeto[ctr_paso.metodo].strftime("%d-%m-%Y  %I:%M%p")
-    when 'TrueClass'
+    elsif field.class.name == 'TrueClass'
       vlr = ''
     else
       vlr = @objeto.send(dsply_metodo)
     end
+
     @objeto.ctr_registros.create(orden: ctr_paso.orden, tarea_id: ctr_paso.tarea_id, ctr_paso_id: ctr_paso.id, glosa: ctr_paso.glosa, valor: vlr)
 
     redirect_to @objeto

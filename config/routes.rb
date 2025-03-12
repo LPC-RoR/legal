@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :cuentas do
     match :ccta, via: :get, on: :member
     match :ecta, via: :get, on: :member
+    match :cnmn, via: :get, on: :member
+    match :enmn, via: :get, on: :member
     match :cdnncs, via: :get, on: :member
     match :ednncs, via: :get, on: :member
     match :cinvstgdrs, via: :get, on: :member
@@ -125,35 +127,25 @@ Rails.application.routes.draw do
       match :swtch, via: :get, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
-      match :fll_fld, via: :post, on: :member
-      match :fll_cltn_id, via: :post, on: :member
-      match :del_fld, via: :get, on: :member
     end
     resources :krn_denunciantes do
       match :swtch, via: :get, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
-      match :fll_fld, via: :post, on: :member
-      match :fll_cltn_id, via: :post, on: :member
-      match :del_fld, via: :get, on: :member
     end
     resources :krn_denuncias do
       match :swtch, via: :get, on: :member
       match :check, via: :get, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
-      match :fll_dttm, via: :post, on: :member
-      match :fll_fld, via: :post, on: :member
-      match :fll_cltn_id, via: :post, on: :member
-      match :del_fld, via: :get, on: :member
+      # ruta para manejo de panels
       match :cndtnl_via_declaracion, via: :get, on: :collection
     end
 
     resources :krn_derivaciones
     resources :krn_investigadores
     resources :krn_declaraciones do
-      match :nueva, via: :post, on: :collection
-      match :rlzd, via: :get, on: :member
+      match :swtch, via: :get, on: :member
     end
     resources :krn_testigos
     resources :krn_inv_denuncias

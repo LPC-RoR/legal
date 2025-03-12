@@ -1,5 +1,7 @@
 class AppNomina < ApplicationRecord
 
+	ACCTN = 'nmn'
+
 	TIPOS = ['operación', 'finanzas', 'general', 'admin']
 
 	belongs_to :ownr, polymorphic: true, optional: true

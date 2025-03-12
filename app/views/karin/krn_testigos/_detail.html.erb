@@ -1,11 +1,27 @@
-<%= render partial: '0p/frm_flds/rut_pj', locals: {form: form, pj_tkn: :nombre, label: 'Nombre completo'} %>
-<%= render partial: '0p/frm_flds/check_box', locals: {form: form, token: :empleado_externo, label: 'Empleado externo'} %>
+<div class="row gx-1">
+	<div class="col-4">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'Cédula de identidad' } %>
+	</div>
+	<div class="col-8">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre completo' } %>
+	</div>
+</div>
 
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :cargo, label: 'Cargo/Relación laboral' } %>
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :lugar_trabajo, label: 'Lugar de trabajo' } %>
-<%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email, label: 'Email personal' } %>
+<%= render partial: '0p/lbld_inpts/check_box', locals: {form: form, token: :empleado_externo, label: 'Empleado externo'} %>
 
-<%= render partial: '0p/frm_flds/chck_bx_lst', locals: { form: form, chck_bx_lst: [[:articulo_516, 'Aplica artículo 516 del Código del trabajo']]} %>
+<div class="row gx-1">
+	<div class="col-4">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :cargo, label: 'Cargo/Relación laboral' } %>
+	</div>
+	<div class="col-4">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :lugar_trabajo, label: 'Lugar de trabajo' } %>
+	</div>
+	<div class="col-4">
+		<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email, label: 'Email personal' } %>
+	</div>
+</div>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>
+<%= render partial: '0p/lbld_inpts/chck_bx_lst', locals: { form: form, chck_bx_lst: [[:articulo_516, 'Aplica artículo 516 del Código del trabajo']]} %>
+
+
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:ownr_type, :ownr_id] } %>

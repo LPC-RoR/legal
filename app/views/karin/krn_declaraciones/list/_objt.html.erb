@@ -1,2 +1,4 @@
-<small><%= objeto.ownr.nombre %></br>
+<small>
+	<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'rlzd', stts: ['no ralizado', 'realizado']} %>
+	<%= objeto.ownr.nombre %> 
 <%= dma_hm(objeto.fecha) %></small>

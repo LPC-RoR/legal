@@ -3,7 +3,7 @@
 
 	<!-- Diferencia ETAPAS realizadas o en curso con las pendientes -->
 	<% if etp_cntrl(ownr)[objeto.codigo.to_sym] %>
-		<%= render partial: prtl_name('ctr_etapas', 'code', 'ln'), locals: {objeto: objeto, ownr: ownr, color: 'dark'} %>
+		<%= render partial: prtl_name('ctr_etapas', 'code', 'ln'), locals: {objeto: objeto, ownr: ownr, color: 'primary'} %>
 	<% else %>
 		<%= render partial: prtl_name('ctr_etapas', 'code', 'ln'), locals: {objeto: objeto, ownr: ownr, color: 'danger'} %>
 	<% end %>

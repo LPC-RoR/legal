@@ -26,7 +26,8 @@ module CptnCristianoHelper
 			'KrnLstMedida' => 'Lista de medidas',
 			'KrnLstModificacion' => 'Lista de modificaciones',
 			'Region' => 'Región',
-			'ProDtllVenta' => 'Producto de la Empresa'
+			'ProDtllVenta' => 'Producto de la Empresa',
+			'KrnInvDenuncia' => 'Investigador',
 		}
 	end
 

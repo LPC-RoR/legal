@@ -44,18 +44,35 @@ class KrnDenunciante < ApplicationRecord
 		all.map {|den| den.krn_empresa_externa_id}.uniq
 	end
 
-	# ------------------------------------------------------------------------ INGRS
+	# ------------------------------------------------------------------------
 
-	def p_empleador?
-		self.krn_empresa_externa_id.blank?
+	def self.rlzds?
+ 		decs = all.map {|tes| tes.krn_declaraciones.rlzds?}.uniq.join('') == 'true'
+
+ 		tests = all.map {|tes| tes.krn_testigos.empty? ? 'true' : tes.krn_testigos.rlzds?}.uniq.join('') == 'true'
+		decs and tests
 	end
 
-	def p_direccion?
-		self.direccion_notificacion.blank?
+	# ------------------------------------------------------------------------ INGRS
+
+	def proc_empleador?
+		self.empleado_externo
+	end
+
+	def proc_direccion?
+		self.articulo_516
 	end
 
 	def fl_dnncnt_diat_diep?
 		true
+	end
+
+	def fl_prtcpnts_dclrcn?
+		self.krn_declaraciones.any?
+	end
+
+	def fl_prtcpnts_antcdnts?
+		self.krn_declaraciones.any?
 	end
 
 	def rgstr_ok?

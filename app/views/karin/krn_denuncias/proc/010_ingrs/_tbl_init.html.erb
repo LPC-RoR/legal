@@ -1,0 +1,7 @@
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: ownr.ownr.class.name, valor: ownr.ownr_razon_social} %>
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Fecha y hora de la recepción", valor: ownr.fecha_hora.blank? ? '__-__-__ __:__' : ownr.fecha_hora.strftime("%d-%m-%Y  %I:%M%p"), align: 'right'} %>
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Motivo de la denuncia", valor: ownr.motivo_denuncia} %>
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Receptor de la denuncia", valor: ownr.receptor_denuncia} %>
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Canal de la denuncia", valor: ownr.via_declaracion} %>
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Tipo de denuncia", valor: ownr.tipo_declaracion} %>
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Presentado por", valor: ownr.presentado_por} %>

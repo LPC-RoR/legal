@@ -4,8 +4,5 @@
 	<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: @objeto, scndry: nil} if prtl?('ctr_etapas', 'code', 'objeto') %>
 <% end %>
 
-<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'krn_testigos', ownr: @objeto} %>
-
-<% @objeto.krn_testigos.rut_ordr.each do |tstg| %>
-	<%= render partial: prtl_name('krn_testigos', 'list', 'objeto'), locals: {objeto: tstg} %>
-<% end %>
+<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_testigos', ownr: @objeto, lnks: 'prtl'} %>
+<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_testigos', typ: 'ln', crud: 'prtl'} %>

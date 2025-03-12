@@ -29,3 +29,9 @@
 .app_danger {
    	@include a_hover(red, $pltt_5);
 }
+
+// TABLA
+
+.table-ssm td, .table-smaller-cells th {
+    padding: 0.10rem; /* Ajusta el valor según necesites */
+}

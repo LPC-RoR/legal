@@ -5,7 +5,7 @@ class CtrPaso < ApplicationRecord
 
 	scope :ordr, -> { order(:orden) }
 	scope :prcsbls, ->  { where(proceso: true) }
-	scope :init, -> { where(proceso: false) }
+	scope :init, -> { where(proceso: [nil, false]) }
 
 	include OrderModel
 
@@ -16,7 +16,7 @@ class CtrPaso < ApplicationRecord
 	end
 
 	def redireccion
-		self.tarea
+		self.tarea.ctr_etapa.procedimiento
 	end
 
 	# -----------------------------------------------

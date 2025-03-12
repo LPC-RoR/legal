@@ -2,9 +2,9 @@
 
 	<!-- Trasladar paulatinamente el code de cada tarea -->
 	<% if tar_cntrl(ownr)[objeto.codigo] %>
-
 		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: objeto, ownr: ownr, color: 'primary'} %>
-
+	<% else %>
+		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: objeto, ownr: ownr, color: 'dark'} %>
 	<% end %>
 
 <% end %>

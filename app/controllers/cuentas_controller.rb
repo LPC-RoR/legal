@@ -26,6 +26,29 @@ class CuentasController < ApplicationController
     end
   end
 
+  def cnmn
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Cliente.find(params[:id])
+      if admin?
+        set_tabla('app_nominas', @objeto.app_nominas, true)
+      end
+    else
+      redirect_to root_path, alert: 'Usuario no tiene acceso a esta página'
+    end
+  end
+
+  def enmn
+    unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
+      @objeto = Empresa.find(params[:id])
+      @formato = @objeto.krn_formato
+      if admin?
+        set_tabla('app_nominas', @objeto.app_nominas, true)
+      end
+    else
+      redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
+    end
+  end
+
   def cdnncs
     unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
       @objeto = Cliente.find(params[:id])

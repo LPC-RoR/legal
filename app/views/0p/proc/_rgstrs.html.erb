@@ -1,6 +1,11 @@
-<% unless rgstrs.empty? %>
-<table class="table table-sm table-borderless table-striped table-hover">
+<% if rgstrs.any? or prtl?(ownr, "proc/#{objeto.codigo}", 'tbl_init') %>
+<table class="table table-ssm table-borderless table-striped table-hover">
 	<tbody>
+
+		<% if prtl?(ownr, "proc/#{objeto.codigo}", 'tbl_init')  %>
+			<%= render partial: prtl_name(ownr, "proc/#{objeto.codigo}", 'tbl_init'), locals: {objeto: objeto, ownr: ownr} %>
+		<% end %>
+
 		<% rgstrs.each do |reg| %>
 			<tr style="font-size: 15px;">
 				<td class="app_lnk" style="padding-left: 1rem;">

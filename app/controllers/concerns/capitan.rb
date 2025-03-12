@@ -5,7 +5,7 @@ module Capitan
 		@objeto[params[:tkn]] = @objeto.send(params[:tkn]) ? false : true
 		@objeto.save
 
-		rdrccn = ['KrnDenunciante', 'KrnDenunciado'].include?(@objeto.class.name) ? @objeto.krn_denuncia : @objeto
+		rdrccn = ['KrnDenunciante', 'KrnDenunciado'].include?(@objeto.class.name) ? @objeto.krn_denuncia : @objeto.ownr
 
 		redirect_to rdrccn
 	end

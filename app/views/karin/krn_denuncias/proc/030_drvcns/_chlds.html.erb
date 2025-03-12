@@ -1,22 +1,5 @@
 <% if @objeto.rgstrs_rvsds? %>
 
-	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Datos de personas denunciantes y denunciadas están revisados.'} if @objeto.krn_derivaciones.empty? %>
-
-	<%#= render partial: '0p/ntc', locals: {color: 'success', ntc: 'En este modelo la Dirección del Trabajo está habilitada para devolver una denuncia para ser investigada en la empresa (revisar caso en el que pera alguno de los participantes aplique el artículo 4 inciso primero del Código del Trabajo).'} %>
-	<%#= render partial: '0p/ntc', locals: {color: 'success', ntc: 'En este modelo es posible dar seguimiento a las denuncias cuya investigación es realizada por empresas externas (subcontratistas o usuarias).'} %>
-
-	<!-- LISTA DE DERIVACIONES -->
-	<% if @objeto.krn_derivaciones.any? %>
-	    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_derivaciones', ownr: @objeto, lnks: 'prtl'} %>
-		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'prtl'} %>
-	<% end %>
-
-	<% if @objeto.externa? %>
-		<%= render partial: '0p/ntc', locals: {color: 'dark', gly: 'check-lg', ntc: "Denuncia debe ser investigada por la empresa externa"} %>
-	<% end %>
-
-	<%= render partial: '0p/ntc', locals: {color: 'dark', gly: 'check-lg', ntc: "Responsable actual: #{@objeto.responsable}"} %>
-
 	<!-- DERIVACIONES -->
 
 	<% unless trsh_cndtn(objeto, ownr)  %>

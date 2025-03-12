@@ -1,7 +1,0 @@
-<% if ownr.empleado_externo? %>
-	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'externa_id', accn: 'Selección', trsh: (not @dnnc_jot['emprs_extrn_prsnt']), prmpt: 'Empleador'} %>
-<% end %>
-<!-- Ingreso de Dirección para notificaciones -->
-<% if ownr.articulo_516 %>
-	<%= render partial: '0p/actv_bx/f_and_a', locals: {objeto: ownr, code: 'ntfccn', accn: 'Selección'} %>
-<% end %>

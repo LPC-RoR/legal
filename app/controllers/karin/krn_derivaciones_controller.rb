@@ -27,7 +27,7 @@ class Karin::KrnDerivacionesController < ApplicationController
       tipo = drvcn_codes.include?(params[:cdg]) ? 'Derivación' : 'Recepción'
       origen = ownr.on_dt? ? 'Dirección del Trabajo' : ( ownr.on_empresa? ? 'Empresa' : 'Externa' )
       destino = rcpcn_codes.include?(params[:cdg]) ? 'Empresa' : ( params[:cdg] == 'drvcn_ext' ? 'Externa' : 'Dirección del Trabajo' )
-      empresa_id = ( ownr.on_externa? and ownr.krn_derivaciones.empty? ) ? ownr.krn_empresa_externa_id : ( ownr.on_externa? ? ( ownr.krn_derivaciones.empty? ? ownr.krn_empresa_externa_id :  ) : nil )
+#      empresa_id = ( ownr.on_externa? and ownr.krn_derivaciones.empty? ) ? ownr.krn_empresa_externa_id : ( ownr.on_externa? ? ( ownr.krn_derivaciones.empty? ? ownr.krn_empresa_externa_id :  ) : nil )
       if ownr.on_externa?
         empresa_id = ownr.krn_derivaciones.empty? ? ownr.krn_empresa_externa_id : ownr.krn_derivaciones.last.krn_empresa_externa_id
       elsif params[:cdg] == 'drvcn_ext'

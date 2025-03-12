@@ -13,10 +13,10 @@ module CptnProcsHelper
 		dnnc = dnnc_ownr(ownr)
 		{
 			etp_rcpcn: ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado'].include?(ownr.class.name),
-			etp_invstgcn: (dnnc.fecha_ntfccn.present? and @dnnc_jot['on_empresa']),
-			etp_envio: @dnnc_jot['envio_ok'],
-			etp_prnncmnt: (dnnc.fecha_env_infrm.present? and (not @dnnc_jot['on_dt'])),
-			etp_mdds_sncns: (dnnc.fecha_prnncmnt.present? or (dnnc.on_dt? and dnnc.fecha_env_infrm.present?))
+			etp_invstgcn: (dnnc.fecha_trmtcn? or  dnnc.fecha_hora_dt?),
+			etp_envio: ( dnnc.fecha_hora_dt? ? dnnc_ondnnc.fecha_trmtcn? : dnnc.fecha_trmn?),
+			etp_prnncmnt: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
+			etp_mdds_sncns: ( dnnc.fecha_env_infrm? or dnnc.plz_prnncmnt_vncd? )
 		}
 	end
 
@@ -30,19 +30,14 @@ module CptnProcsHelper
 			'030_drvcns' => dnnc.rgstrs_rvsds?,
 			'040_mdds' => (( dnnc.rgstrs_rvsds? and ( not dnnc.on_empresa? ) ) or dnnc.investigacion_local),
 			'050_crr' => dnnc.fl?('mdds_rsgrd'),
-			# Registos de "principales" completo
-			dnnc_prmr_plz: (@dnnc_jot['ingrs_fls_ok'] and @dnnc_jot['prtcpnts_ok']),
 			# INVSTGCN
-			dnnc_invstgdr: (dnnc.fecha_trmtcn.present?),
-			dnnc_evlcn:  (controller_name == 'krn_denuncias' and @dnnc_jot['invstgdr_ok'] ),
-			dnnc_agndmnt: ((dnnc.fecha_hora_corregida.present? or (@dnnc_jot['vlr_dnnc_eval_ok'] and @dnnc_jot['dnnc_eval_ok'])) and controller_name != 'krn_denuncias'),
-			dnnc_dclrcn: (@dnnc_jot['dclrcns_any'] and controller_name != 'krn_denuncias'),
-			dnnc_rdccn_infrm: @dnnc_jot['dclrcns_ok'], 
-			dnnc_trmn_invstgcn: @dnnc_jot['dclrcns_ok'],
-			dnnc_fecha_env: (@dnnc_jot['envio_ok']),
-			dnnc_prnncmnt: dnnc.fecha_env_infrm.present?,
-			dnnc_mdds_sncns: (dnnc.fecha_prnncmnt.present? or (@dnnc_jot['on_dt'] and dnnc.fecha_env_infrm.present?))
-
+			'060_invstgdr' => ((dnnc.fecha_trmtcn? or dnnc.fecha_hora_dt?) and dnnc.on_empresa?),
+			'070_evlcn' => (dnnc.krn_inv_denuncias.any? and dnnc.on_empresa?),
+			'080_agndmnt' => dnnc.krn_inv_denuncias.any?,
+			'090_trmn_invstgcn' => (dnnc.krn_inv_denuncias.any? and dnnc.rlzds? and dnnc.on_empresa?),
+			'100_env_rcpcn' => (dnnc.fecha_trmn? or dnnc.fecha_hora_dt?),
+			'110_prnncmnt' => dnnc.fecha_env_infrm?,
+			'120_mdds_sncns' => ( dnnc.fecha_env_infrm? or dnnc.plz_prnncmnt_vncd? )
 		}
 	end
 
@@ -51,7 +46,8 @@ module CptnProcsHelper
 		when 'KrnDenuncia'
 			{
 				'010_ingrs' => ownr.krn_denunciantes.any?,
-				'030_drvcns' => ownr.fl?('mdds_rsgrd')
+				'030_drvcns' => ownr.fl?('mdds_rsgrd'),
+				'050_crr' => ownr.krn_investigadores.any?,
 			}
 		when 'KrnDenunciante'
 			{
@@ -71,18 +67,6 @@ module CptnProcsHelper
 		else
 			false
 		end
-	end
-
-	def tar_cmpltd_cndtns(dnnc)
-		{
-			dnnc_ingrs: @dnnc_jot['ingrs_dnnc_bsc'],
-		}
-	end
-
-	def tar_cmpltd(ownr, code)
-		dnnc = dnnc_ownr(ownr)
-		code_sym = code.to_sym
-		tar_cmpltd_cndtns(dnnc)[code_sym].present? ? tar_cmpltd_cndtns(dnnc)[code_sym] : false
 	end
 
 	def etp_plz(ownr)

@@ -1,5 +1,6 @@
 <!-- Para saber si DRVCNS está terminado -->
-<% unless @objeto.investigacion_local or @objeto.krn_derivaciones.any? or @objeto.fl_mdds_rsgrd? %>
+<%# unless @objeto.investigacion_local or @objeto.krn_derivaciones.any? or @objeto.fl_mdds_rsgrd? %>
+<% unless @objeto.investigacion_local or @objeto.krn_derivaciones.any? %>
 
 	<% if  @objeto.krn_denunciantes.any? %>
 		<% unless @objeto.fecha_trmtcn.present? or @objeto.vlr_drv_inf_dnncnt? %>

@@ -1,0 +1,17 @@
+<% if @objeto.rgstrs_rvsds? %>
+
+	<!-- LISTA DE DERIVACIONES -->
+	<% if @objeto.krn_derivaciones.any? %>
+	    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_derivaciones', ownr: @objeto, lnks: 'prtl'} %>
+		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'prtl'} %>
+	<% end %>
+
+	<%#= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Datos de personas denunciantes y denunciadas están revisados.'} if @objeto.krn_derivaciones.empty? %>
+
+	<% if @objeto.externa? %>
+		<%= render partial: '0p/ntc', locals: {color: 'dark', gly: 'check-lg', ntc: "Denuncia debe ser investigada por la empresa externa"} %>
+	<% end %>
+
+	<%#= render partial: '0p/ntc', locals: {color: 'dark', gly: 'check-lg', ntc: "Responsable actual: #{@objeto.responsable}"} %>
+
+<% end %>

@@ -27,15 +27,55 @@ module Dnnc
 		self.on_empresa? and ( not self.externa? )
 	end
 
+	def proc_fecha_hora_dt?
+		self.on_dt?
+	end
+
 	# fecha en la que se notificó a los participantes
 	def proc_fecha_ntfccn?
-		self.investigacion_local
+		self.fl?('mdds_rsgrd')
 	end
 
 	# fecha de envío de investigación a la DT 
 	# fecha de recepción de certificado de recepción de denuncia
 	def proc_fecha_trmtcn?
-		true
+		self.fl?('mdds_rsgrd') and ( not self.fecha_hora_dt? )
+	end
+
+	def proc_objcn_invstgdr?
+		self.krn_investigadores.count == 1
+	end
+
+	def proc_evlcn_incmplt?
+		self.krn_investigadores.any? and ( not self.evlcn_ok )
+	end
+
+	def proc_evlcn_incnsstnt?
+		self.krn_investigadores.any? and ( not self.evlcn_ok )
+	end
+
+	def proc_evlcn_ok?
+		self.krn_investigadores.any? and self.evlcn_incmplt.blank? and self.evlcn_incnsstnt.blank?
+	end
+
+	def proc_fecha_hora_corregida?
+		self.evlcn_incmplt? or self.evlcn_incnsstnt?
+	end
+
+	def proc_fecha_trmn?
+		self.rlzds?
+	end
+
+	def proc_fecha_env_infrm?
+		self.fecha_trmn? or self.fecha_hora_dt?
+	end
+
+	def proc_plz_prnncmnt_vncd?
+		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? ) and  (not self.on_dt?)
+	end
+
+	def proc_fecha_prnncmnt?
+		self.fecha_env_infrm? and ( not self.plz_prnncmnt_vncd? ) and  (not self.on_dt?)
 	end
 
 	# ------------------------------------------------------------------------ FL CNDTNS
@@ -63,6 +103,53 @@ module Dnnc
 
 	def fl_mdds_rsgrd?
 		true
+	end
+
+	def fl_antcdnts_objcn?
+		self.objcn_invstgdr
+	end
+
+	def fl_rslcn_objcn?
+		self.evlcn_incmplt? or self.evlcn_incnsstnt?
+	end
+
+	# Evaluación de la denuncia
+	def fl_dnnc_evlcn?
+		self.on_empresa?
+	end
+
+	def fl_dnnc_corrgd?
+		self.evlcn_incmplt? or self.evlcn_incnsstnt?
+	end
+
+	def fl_infrm_invstgcn?
+		self.rlzds?
+	end
+
+	def fl_mdds_crrctvs?
+		self.rlzds?
+	end
+
+	def fl_sncns?
+		self.rlzds?
+	end
+
+	def fl_prnncmnt_dt?
+		self.fecha_prnncmnt?
+	end
+
+	def fl_dnnc_mdds_sncns?
+		self.fecha_env_infrm? or self.plz_prnncmnt_vncd?
+	end
+
+	# ------------------------------------------------------------------------ PRTCPNTS
+
+	def drvcn_dnncnt?
+		self.krn_derivaciones.find_by(codigo: 'drvcn_dnncnt')
+	end
+
+	def drvcn_emprs?
+		self.krn_derivaciones.find_by(codigo: 'drvcn_emprs')
 	end
 
 	# ------------------------------------------------------------------------ PRTCPNTS

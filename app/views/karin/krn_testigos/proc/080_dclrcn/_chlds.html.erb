@@ -1,0 +1,7 @@
+<% if @objeto.ownr.krn_denuncia.krn_inv_denuncias.any? %>
+
+	<!-- DECLARACIONES -->
+    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_declaraciones', ownr: @objeto, lnks: 'prtl'} %>
+	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_declaraciones', crud: 'prtl'} %>
+
+<% end %>

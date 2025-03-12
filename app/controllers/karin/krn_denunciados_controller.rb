@@ -1,7 +1,7 @@
 class Karin::KrnDenunciadosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denunciado, only: %i[ show edit update destroy swtch set_fld clear_fld fll_fld fll_cltn_id del_fld ]
+  before_action :set_krn_denunciado, only: %i[ show edit update destroy swtch set_fld clear_fld ]
 
   include Karin
 
@@ -23,6 +23,8 @@ class Karin::KrnDenunciadosController < ApplicationController
         @dsply_dc_fls[tar.id] = tar.rep_doc_controlados.any? ? tar.rep_doc_controlados.map {|dc| @krn_cntrl[dc.codigo] }.include?(true) : false
       end
     end
+  
+    set_tabla('krn_declaraciones', @objeto.krn_declaraciones, false)
   end
 
   # GET /krn_denunciados/new
@@ -62,51 +64,6 @@ class Karin::KrnDenunciadosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def fll_fld
-    if perfil_activo?
-      case params[:k]
-      when 'externa_id'
-        @objeto.krn_empresa_externa_id = params[:vlr].to_i
-      when 'ntfccn'
-        @objeto.direccion_notificacion = params[:vlr]
-      end
-      @objeto.save
-    end
-
-    redirect_to @objeto.krn_denuncia
-  end
-
-  def fll_cltn_id
-    if perfil_activo?
-      case params[:k]
-      when 'externa_id'
-        @objeto.krn_empresa_externa_id = params[:cltn_id].to_i
-      end
-      @objeto.save
-    end
-
-    redirect_to @objeto.krn_denuncia
-  end
-
-  def del_fld
-    if perfil_activo?
-      if [].include?(params[:k])
-        del_vlr(@objeto, params[:k])
-      else
-        case params[:k]
-        when 'externa_id'
-          @objeto.krn_empresa_externa_id = nil
-        when 'ntfccn'
-          @objeto.direccion_notificacion = nil
-        end
-      end
-
-      @objeto.save
-    end
-
-    redirect_to @objeto.krn_denuncia
   end
 
   # DELETE /krn_denunciados/1 or /krn_denunciados/1.json

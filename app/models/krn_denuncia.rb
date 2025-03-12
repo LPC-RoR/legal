@@ -55,6 +55,12 @@ class KrnDenuncia < ApplicationRecord
 		self.multiempresa? ? 'M' : (self.externa? ? 'X' : (self.empresa? ? 'E' : '?'))
 	end
 
+	# ------------------------------------------------------------------------
+
+	def rlzds?
+ 		self.krn_denunciantes.rlzds? and self.krn_denunciados.rlzds?
+	end
+
 	# ------------------------------------------------------------------------ REP ARCHIVOS
 
 	# Archivos existentes de un documento controlado multiple
@@ -129,6 +135,16 @@ class KrnDenuncia < ApplicationRecord
 
 	def on_externa?
 		self.krn_derivaciones.empty? ? self.rcp_externa? : self.krn_derivaciones.on_externa?
+	end
+
+	# ---------------------------------------------------------------------- SCOPE FIELDS
+
+	def frst_invstgdr
+		self.krn_investigadores.first
+	end
+
+	def scnd_invstgdr
+		self.krn_investigadores.first
 	end
 
 end
