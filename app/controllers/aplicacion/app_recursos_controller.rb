@@ -22,10 +22,7 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    Usuario.all do |usr|
-      usr.skip_confirmation!
-      usr.save!
-    end
+    Valor.delete_all
 
 #    ControlDocumento.all.each do |cd|
 #      cd.ownr_type = cd.owner_class
