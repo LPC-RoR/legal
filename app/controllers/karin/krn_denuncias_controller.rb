@@ -132,7 +132,9 @@ class Karin::KrnDenunciasController < ApplicationController
 
   def prg
     @objeto.fecha_trmtcn = nil
+    @objeto.fecha_trmn = nil
     @objeto.tipo_declaracion = nil
+    @objeto.investigacion_local = nil
     @objeto.krn_denunciantes.delete_all
     @objeto.krn_denunciados.delete_all
     @objeto.krn_derivaciones.delete_all

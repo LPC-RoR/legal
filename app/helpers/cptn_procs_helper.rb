@@ -2,15 +2,18 @@ module CptnProcsHelper
 
 	# ------------------------------------------------------------------------------------- PIS
 
-	def dnnc_ownr(ownr)
-		clss = ownr.class.name
-		clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
+	def etp_hide_hsh(ownr)
+		{
+			etp_prnncmnt: ownr.dnnc.on_dt?,
+		}
+	end
+
+	def etp_hide(ownr, codigo)
+		etp_hide_hsh(ownr)[codigo.to_sym].blank? ? false : etp_hide_hsh(ownr)[codigo.to_sym]
 	end
 
 	def etp_cntrl(ownr)
-		clss = ownr.class.name
-		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
-		dnnc = dnnc_ownr(ownr)
+		dnnc = ownr.dnnc
 		{
 			etp_rcpcn: ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado'].include?(ownr.class.name),
 			etp_invstgcn: (dnnc.fecha_trmtcn? or  dnnc.fecha_hora_dt?),
@@ -20,10 +23,19 @@ module CptnProcsHelper
 		}
 	end
 
+	def tar_hide_hsh(ownr)
+		{
+			'060_invstgdr' => ownr.dnnc.on_dt?,
+			'070_evlcn' => ownr.dnnc.on_dt?,
+		}
+	end
+
+	def tar_hide(ownr, codigo)
+		tar_hide_hsh(ownr)[codigo].blank? ? false : tar_hide_hsh(ownr)[codigo]
+	end
+
 	def tar_cntrl(ownr)
-		clss = ownr.class.name
-		dnnc = clss == 'KrnDenuncia' ? ownr : ( ['KrnDenunciante', 'KrnDenunciado'].include?(clss) ? ownr.krn_denuncia : ownr.ownr.krn_denuncia )
-		dnnc = dnnc_ownr(ownr)
+		dnnc = ownr.dnnc
 		{
 			'010_ingrs' => true,
 			'020_prtcpnts' => true,
@@ -70,7 +82,7 @@ module CptnProcsHelper
 	end
 
 	def etp_plz(ownr)
-		dnnc = dnnc_ownr(ownr)
+		dnnc = ownr.dnnc
 		{
 			'etp_rcpcn'      => dnnc.plz_trmtcn,
 			'etp_invstgcn'   => dnnc.plz_invstgcn,
@@ -81,7 +93,7 @@ module CptnProcsHelper
 	end
 
 	def etp_plz_ok(ownr)
-		dnnc = dnnc_ownr(ownr)
+		dnnc = ownr.dnnc
 		{
 			'etp_rcpcn'      => dnnc.fecha_trmtcn.blank? ? nil : dnnc.fecha_trmtcn <= dnnc.plz_trmtcn,
 			'etp_invstgcn'   => dnnc.fecha_trmn.blank? ? nil : dnnc.fecha_trmn <= dnnc.plz_invstgcn,

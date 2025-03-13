@@ -29,6 +29,10 @@ class KrnDenunciado < ApplicationRecord
 	include Ntfccns
 	include Valores
 
+	def dnnc
+		self.krn_denuncia
+	end
+
 	def fls(dc)
 		self.rep_archivos.where(rep_doc_controlado_id: dc.id).crtd_ordr
 	end

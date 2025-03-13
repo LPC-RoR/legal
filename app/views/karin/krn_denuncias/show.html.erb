@@ -19,13 +19,15 @@
 	<% end %>
 <% end %>
 
-<% if dog? %>
-	<%= "rep_archivos" if @objeto.rep_archivos.any? %>
-	<%= "valores" if @objeto.valores.any? %>
-	<%= "ctr_registros" if @objeto.ctr_registros.any? %>
-	<%= "krn_denunciantes" if @objeto.krn_denunciantes.any? %>
-	<%= "krn_denunciados" if @objeto.krn_denunciados.any? %>
-	<%= "krn_derivaciones" if @objeto.krn_derivaciones.any? %>
-	<%= "krn_declaraciones" if @objeto.krn_declaraciones.any? %>
-	<%= "krn_inv_denuncias" if @objeto.krn_inv_denuncias.any? %>
-<% end %>
+<%#= render partial: 'karin/prtls/dc_files', locals: {ownr: @objeto} %>
+
+<%# if dog? %>
+	<%#= "rep_archivos" if @objeto.rep_archivos.any? %>
+	<%#= "valores" if @objeto.valores.any? %>
+	<%#= "ctr_registros" if @objeto.ctr_registros.any? %>
+	<%#= "krn_denunciantes" if @objeto.krn_denunciantes.any? %>
+	<%#= "krn_denunciados" if @objeto.krn_denunciados.any? %>
+	<%#= "krn_derivaciones" if @objeto.krn_derivaciones.any? %>
+	<%#= "krn_declaraciones" if @objeto.krn_declaraciones.any? %>
+	<%#= "krn_inv_denuncias" if @objeto.krn_inv_denuncias.any? %>
+<%# end %>

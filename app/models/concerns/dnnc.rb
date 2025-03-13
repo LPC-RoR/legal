@@ -142,6 +142,19 @@ module Dnnc
 		self.fecha_env_infrm? or self.plz_prnncmnt_vncd?
 	end
 
+	# Sólo para desplegar TODA la lista en dnnc
+	def fl_dnncnt_diat_diep?
+		false
+	end
+
+	def fl_prtcpnts_dclrcn?
+		false
+	end
+
+	def fl_prtcpnts_antcdnts?
+		false
+	end
+
 	# ------------------------------------------------------------------------ PRTCPNTS
 
 	def drvcn_dnncnt?
