@@ -90,6 +90,6 @@ class Repositorios::RepDocControladosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rep_doc_controlado_params
-      params.require(:rep_doc_controlado).permit(:ownr_id, :ownr_type, :rep_doc_controlado, :archivo, :tipo, :control, :orden, :codigo, :descripcion, :multiple)
+      params.require(:rep_doc_controlado).permit(:ownr_id, :ownr_type, :rep_doc_controlado, :archivo, :tipo, :control, :orden, :codigo, :descripcion, :multiple, :control_fecha, :chequeable)
     end
 end

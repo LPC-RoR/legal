@@ -14,12 +14,15 @@ class Repositorios::RepArchivosController < ApplicationController
 
   # GET /rep_archivos/new
   def new
-    rep_doc_controlado = params[:dcid].blank? ? nil : RepDocControlado.find(params[:dcid]).rep_doc_controlado
-#    ownr_type = params[:oid].blank? ? nil : params[:oclss]
-# => ownr_id = params[:oid].blank? ? nil : params[:oid]
+    dc = RepDocControlado.find(params[:dcid])
+    dc_name = dc.blank? ? nil : dc.rep_doc_controlado
+    control_fecha = dc.blank? ? nil : dc.control_fecha
+    chequeable = dc.blank? ? nil : dc.chequeable
+    puts "----------------------------------------------"
+    puts control_fecha.blank?
+    puts chequeable.blank?
     ownr = params[:oclss].constantize.find(params[:oid])
-    @objeto = ownr.rep_archivos.new(rep_archivo: rep_doc_controlado, rep_doc_controlado_id: params[:dcid])
-#    @objeto = RepArchivo.new(ownr_type: ownr_type, ownr_id: ownr_id, rep_archivo: rep_doc_controlado, rep_doc_controlado_id: params[:dcid])
+    @objeto = ownr.rep_archivos.new(rep_archivo: dc_name, rep_doc_controlado_id: params[:dcid], control_fecha: control_fecha, chequeable: chequeable )
   end
 
   # GET /rep_archivos/1/edit
@@ -85,6 +88,6 @@ class Repositorios::RepArchivosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rep_archivo_params
-      params.require(:rep_archivo).permit(:ownr_id, :ownr_type, :rep_archivo, :archivo, :rep_doc_controlado_id, :nombre)
+      params.require(:rep_archivo).permit(:ownr_id, :ownr_type, :rep_archivo, :archivo, :rep_doc_controlado_id, :nombre, :fecha, :control_fecha, :chequeable)
     end
 end

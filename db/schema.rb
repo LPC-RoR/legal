@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_13_144517) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_13_174713) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1381,6 +1381,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_144517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "nombre"
+    t.boolean "control_fecha"
+    t.boolean "chequeable"
+    t.boolean "chck"
+    t.datetime "fecha"
     t.index ["ownr_type", "ownr_id"], name: "index_rep_archivos_on_ownr"
     t.index ["rep_archivo"], name: "index_rep_archivos_on_rep_archivo"
     t.index ["rep_doc_controlado_id"], name: "index_rep_archivos_on_rep_doc_controlado_id"
@@ -1399,6 +1403,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_144517) do
     t.string "codigo"
     t.string "descripcion"
     t.boolean "multiple"
+    t.boolean "control_fecha"
+    t.boolean "chequeable"
     t.index ["codigo"], name: "index_rep_doc_controlados_on_codigo"
     t.index ["orden"], name: "index_rep_doc_controlados_on_orden"
     t.index ["ownr_type", "ownr_id"], name: "index_rep_doc_controlados_on_ownr"

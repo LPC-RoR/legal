@@ -8,7 +8,9 @@ class RepArchivo < ApplicationRecord
 
   scope :hm_archvs, -> {where(ownr_type: nil, ownr_id: nil)}
 
-  validates_presence_of :rep_archivo, :archivo
+  validates :fecha, presence: true, if: -> {control_fecha}
+  validates :archivo, presence: true, unless: -> {chequeable}
+  validates_presence_of :rep_archivo
   validates_presence_of :nombre, if: -> {dc_multiple?}
 
   require 'carrierwave/orm/activerecord'

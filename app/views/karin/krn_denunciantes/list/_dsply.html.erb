@@ -1,3 +1,10 @@
+<% unless objeto.krn_declaraciones.any? %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin declaraciones.'} %>
+<% end %>
+<% unless objeto.krn_testigos.any? %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin testigos.'} %>
+<% end %>
+
 <% unless objeto.diat_diep? %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Falta evidencia de Atención psicológica temprana obligatoria. Subir evidencia.'} %>
 <% end %>

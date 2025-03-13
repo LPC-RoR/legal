@@ -1,12 +1,18 @@
 <% pddn ||= '1' %>
 <tr style="font-size: 15px;">
 	<td class="text-<%=fl.blank? ? 'danger' : 'dark'%> app_<%=fl.blank? ? 'danger' : 'lnk'%>" style="padding-left: <%=pddn%>rem;">
-		<% if fl.blank? %>
-		<% else %>
-			<%= dma_hm(fl.updated_at) %> 
-		<% end %>
+
 		<i class="bi bi-file-earmark"></i> 
+		<% unless fl.blank? %>
+			<% if fl.control_fecha %>
+				<i class="bi bi-calendar-check"></i>
+				<%= dma(fl.fecha) %> 
+			<% end %>
+		<% end %>
 		<%= dc.rep_doc_controlado %>
+		<% unless fl.blank? or fl.archivo? %>
+			<i class="bi bi-exclamation-triangle text-danger"></i>
+		<% end %>
 	</td>
 	<td class="app_<%=fl.blank? ? 'danger' : 'lnk'%>" style="text-align: right; padding-right: 1rem;">
 		<% if fl.blank? %>
@@ -15,11 +21,14 @@
 				Subir 
 			<% end %>
 		<% else %>
-			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: fl.archivo.url, target: :_blank, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
-				<i class="bi bi-download"></i>
+			<% if fl.archivo? %>
+				<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: fl.archivo.url, target: :_blank, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
+					<i class="bi bi-download"></i>
+				<% end %>
+				<i class="bi bi-dot"></i>
 			<% end %>
-			<i class="bi bi-dot"></i>
-			<%= render partial: '0p/tabla/link_eliminar', locals: {objeto: fl} unless fl.blank? %>
+			<%= render partial: '0p/tbl/lnk_editar', locals: {objeto: fl} if fl.control_fecha or fl.chequeable %>
+			<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: fl} unless fl.blank? %>
 		<% end %>
 	</td>
 </tr>

@@ -3,9 +3,18 @@
 <% elsif objeto.tipo == 'Archivo' %>
 	<i class="bi bi-file"></i>
 <% end %> 
-<% if objeto.control == 'Requerido' %>
-	<i class="bi bi-check2-square"></i>
+<% if objeto.multiple %>
+	<i class="bi bi-list-task"></i>
 <% end %>
+<% if objeto.control_fecha %>
+	<i class="bi bi-calendar-check"></i>
+<% end %>
+<% if objeto.chequeable %>
+	<i class="bi bi-file-earmark-check"></i>
+<% end %>
+<%# if objeto.control == 'Requerido' %>
+	<!--i class="bi bi-check2-square"></i-->
+<%# end %>
 <b><%= objeto.rep_doc_controlado %></b>
 <i class="bi bi-dot"></i>
 <%= objeto.codigo %>
