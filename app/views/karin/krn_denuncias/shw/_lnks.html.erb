@@ -1,7 +1,7 @@
 <% unless scp_activo? %>
 	<% if dog? %>
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/prg", tltp: 'Purge'} do %>
-			<i class="bi bi-trash3"></i>
+			<i class="bi bi-trash"></i>
 		<% end %>
 	<% end %>
 
