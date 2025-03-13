@@ -1,5 +1,5 @@
 <% unless objeto.registro_revisado %>
-	<% unless @objeto.fecha_trmtcn.present? or @objeto.vlr_drv_inf_dnncnt? %>
+	<% unless (@objeto.fecha_trmtcn? or @objeto.krn_derivaciones.any?) %>
 		<i class="bi bi-dot"></i>
 		<%= render partial: '0p/tabla/link_editar', locals: {objeto: objeto} %>
 		<% unless @objeto.krn_denunciados.any? and @objeto.krn_denunciantes.count == 1 %>

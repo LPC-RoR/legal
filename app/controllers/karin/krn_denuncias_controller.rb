@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy check set_fld clear_fld ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy check set_fld clear_fld prg ]
   after_action :set_plzs, only: %i[ create update ]
 
   include Karin
@@ -128,6 +128,14 @@ class Karin::KrnDenunciasController < ApplicationController
       format.html { redirect_to @rdrccn, notice: "Denuncia fue exitósamente eliminada." }
       format.json { head :no_content }
     end
+  end
+
+  def prg
+    @objeto.fecha_trmtcn = nil
+    @objeto.tipo_declaracion = nil
+    @objeto.save
+
+    redirect_to @objeto
   end
 
   private
