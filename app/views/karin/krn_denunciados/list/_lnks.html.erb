@@ -1,5 +1,5 @@
 <% unless objeto.registro_revisado %>
-	<% unless (@objeto.fecha_trmtcn.present? or @objeto.vlr_drv_inf_dnncnt?) and @dnnc_jot['dnncds_rgstrs_ok'] %>
+	<% unless (@objeto.fecha_trmtcn.present? or @objeto.krn_derivaciones.any?) %>
 		<i class="bi bi-dot"></i>
 		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 	<% end %>
