@@ -21,6 +21,10 @@
 
 <%= render partial: 'karin/prtls/dc_files', locals: {ownr: @objeto} %>
 
+<% if @objeto.krn_declaraciones.any? %>
+	<%= render partial: '0p/tbl_ttl', locals: {source: 'krn_declaraciones'} %>
+<% end %>
+
 <%# if dog? %>
 	<%#= "rep_archivos" if @objeto.rep_archivos.any? %>
 	<%#= "valores" if @objeto.valores.any? %>

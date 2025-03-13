@@ -83,8 +83,8 @@ class Repositorios::RepDocControladosController < ApplicationController
         @rdrccn = @objeto.ownr
       when 'CtrEtapa'
         @rdrccn = @objeto.ownr.procedimiento
-      when 'Tarea'
-        @rdrccn = @objeto.ownr.ctr_etapa.procedimiento
+      else
+        @rdrccn = @objeto.ownr
       end
     end
 
