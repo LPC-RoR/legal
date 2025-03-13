@@ -1,5 +1,5 @@
-<% if etp_plz_ok(ownr)[objeto.codigo].blank? %>
-	<!--i class="bi bi-hourglass-split"></i-->
+<% if etp_plz_ok(ownr)[objeto.codigo] == nil %>
+	<i class="bi bi-hourglass-split"></i>
 <% elsif etp_plz_ok(ownr)[objeto.codigo] %>
 	<i class="bi bi-calendar-check"></i>
 <% else %>
