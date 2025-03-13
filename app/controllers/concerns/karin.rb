@@ -45,8 +45,40 @@ module Karin
 
   #Control de despliegue de Archivos
 
+  def fl_dsply_hsh(ownr)
+    dnnc = ownr.dnnc
+    {
+      dnnc: {
+        'dnnc_denuncia'     => dnnc.tipo_declaracion != 'Verbal',
+        'dnnc_acta'         => dnnc.tipo_declaracion == 'Verbal',
+        'dnnc_notificacion' => dnnc.rcp_dt?,
+        'dnnc_certificado'  => (dnnc.on_dt? and dnnc.krn_derivaciones.any?),
+        'dnncnt_rprsntcn'   => (dnnc.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]),
+        'mdds_rsgrd'        => true,
+        'antcdnts_objcn'    => dnnc.objcn_invstgdr,
+        'rslcn_objcn'       => dnnc.fl?('antcdnts_objcn'),
+        'dnnc_evlcn'        => dnnc.on_empresa?,
+        'dnnc_corrgd'       => (dnnc.evlcn_incmplt? or dnnc.evlcn_incnsstnt?),
+        'infrm_invstgcn'    => dnnc.rlzds?,
+        'mdds_crrctvs'      => dnnc.rlzds?,
+        'sncns'             => dnnc.rlzds?,
+        'prnncmnt_dt'       => dnnc.fecha_prnncmnt?,
+        'dnnc_mdds_sncns'   => (dnnc.fecha_env_infrm? or dnnc.plz_prnncmnt_vncd?)
+      },
+      prtcpnts: {
+        'dnncnt_diat_diep'  => ownr.class.name == 'KrnDenunciante',
+        'prtcpnts_dclrcn'   => ownr.krn_declaraciones.any?,
+        'prtcpnts_antcdnts' => ownr.krn_declaraciones.any?
+      }
+    }
+  end
+
+  def fl_cndtn?(ownr, codigo)
+    ownr != ownr.dnnc ? fl_dsply_hsh(ownr)[:prtcpnts][codigo] : fl_dsply_hsh(ownr)[:dnnc][codigo]
+  end
+
   def krn_cntrl(ownr)
-    dnnc = ownr.class.name == 'KrnDenuncia' ? ownr : (dnnc = ownr.class.name == 'KrnTestigo' ? ownr.ownr.krn_denuncia : ownr.krn_denuncia)
+    dnnc = ownr.dnnc
     {
        # GESTIÓN INICIAL DE LA DENUNCIA
       'dnnc_denuncia' => dnnc.tipo_declaracion != 'Verbal',     # Denuncia se presenta por escrito

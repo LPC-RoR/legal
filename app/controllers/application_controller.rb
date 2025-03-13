@@ -35,30 +35,6 @@ class ApplicationController < ActionController::Base
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
 	helper_method :cmenu_clss, :std, :typ, :display_name, :scp_menu, :scp_item
 	helper_method :plz_lv, :plz_c
-	helper_method :krn_fl_cntrl, :krn_cntrllrs?, :drvcn_text
-
-	# ************************************************************************** COLECCINES DE ESTADOS
- 
- 	def st_colecciones(modelo, estado)
-		case modelo
-		when 'Causa'
-			modelo.constantize.where(estado: estado).order(created_at: :desc)
-		when 'Cliente'
-			modelo.constantize.where(estado: estado).order(:razon_social)
-		when 'Consultoria'
-			modelo.constantize.where(estado: estado).order(created_at: :desc)
-		when 'TarFactura'
-			modelo.constantize.where(estado: estado).order(documento: :desc)
-		end
-	end
-
-	# Este método se usa para construir un nombre de directorio a partir de un correo electrónico.
-	def archivo_usuario(email, params)
-		email.split('@').join('-').split('.').join('_')
-	end
-
-	def number? string
-	  true if Float(string) rescue false
-	end
+	helper_method :krn_fl_cntrl, :krn_cntrllrs?, :drvcn_text, :fl_cndtn?
 
 end
