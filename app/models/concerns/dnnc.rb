@@ -70,12 +70,13 @@ module Dnnc
 		self.fecha_trmn? or self.fecha_hora_dt?
 	end
 
-	def proc_plz_prnncmnt_vncd?
-		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? ) and  (not self.on_dt?)
+	def proc_prnncmnt_vncd?
+		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? )
+#		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? ) and  (not self.on_dt?)
 	end
 
 	def proc_fecha_prnncmnt?
-		self.fecha_env_infrm? and ( not self.plz_prnncmnt_vncd? ) and  (not self.on_dt?)
+		self.fecha_env_infrm? and ( not self.prnncmnt_vncd? ) and  (not self.on_dt?)
 	end
 
 	# ------------------------------------------------------------------------ FL CNDTNS
@@ -174,6 +175,10 @@ module Dnnc
 	# Registros revisados
 	def rgstrs_rvsds?
 		self.krn_denunciantes.rvsds? and self.krn_denunciados.rvsds?
+	end
+
+	def evlds?
+		self.evlcn_incmplt? or self.evlcn_incnsstnt? or self.evlcn_ok?
 	end
 
 	# ------------------------------------------------------------------------ DRVCNS

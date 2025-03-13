@@ -1,0 +1,5 @@
+<% if @objeto.fl?('mdds_rsgrd') %>
+	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Medidas de resguardo emitidas'} %>
+<% else %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Sistema no registra Medidas de Resguardo'} %>
+<% end %>

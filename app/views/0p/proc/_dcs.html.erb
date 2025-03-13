@@ -1,15 +1,15 @@
 <tr style="font-size: 15px;">
-	<th class="text-<%=fls.empty? ? 'danger' : 'dark'%> app_<%=fls.empty? ? 'danger' : 'lnk'%>" style="padding-left: 1rem;">
-		<i class="bi bi-files"></i>
-		<%= dc.rep_doc_controlado %>
-	</th>
-	<th class="app_<%=fls.empty? ? 'danger' : 'lnk'%>" style="text-align: right; padding-right: 1rem;">
-		<%# unless trsh_cndtn %>
-			<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: " Agregar #{dc.rep_doc_controlado}" } %>
-		<%# end %>
-	</th>
+	<td class="text-<%=fls.empty? ? 'danger' : 'dark'%> app_<%=fls.empty? ? 'danger' : 'lnk'%>" style="padding-left: 1rem;">
+		<b>
+			<i class="bi bi-files"></i>
+			<%= dc.rep_doc_controlado %>
+		</b>
+	</td>
+	<td class="app_<%=fls.empty? ? 'danger' : 'lnk'%>" style="text-align: right; padding-right: 1rem;">
+		<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: " Agregar #{dc.rep_doc_controlado}" } %>
+	</td>
 </tr>
 
 <% fls.each do |fl| %>
-	<%= render partial: '0p/proc/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr, trsh_cndtn: trsh_cndtn} %>
+	<%= render partial: '0p/proc/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr, trsh_cndtn: trsh_cndtn, pddn: 3} %>
 <% end %>

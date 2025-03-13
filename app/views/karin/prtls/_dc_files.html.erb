@@ -1,9 +1,11 @@
-<% @etps.each do |etp| %>
-	<% etp.tareas.ordr.each do |tar| %>
+<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'rep_archivos', lnks: 'ttl'} %>
 
-		<% unless tar.rep_doc_controlados.empty? %>
-			<table class="table table-sm table-borderless table-striped table-hover">
-				<tbody>
+<table class="table table-sm table-borderless table-striped table-hover">
+	<tbody>
+		<% @etps.each do |etp| %>
+			<% etp.tareas.ordr.each do |tar| %>
+
+				<% unless tar.rep_doc_controlados.empty? %>
 					<% tar.rep_doc_controlados.ordr.each do |dc| %>
 						<% if ownr.send("fl_#{dc.codigo}?") or ownr.fl?(dc.codigo) %>
 							<% if dc.multiple == true %>
@@ -13,9 +15,9 @@
 							<% end %>
 						<% end %>
 					<% end %>
-				</tbody>
-			</table>
-		<% end %>
+				<% end %>
 
-	<% end %>
-<% end %>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>

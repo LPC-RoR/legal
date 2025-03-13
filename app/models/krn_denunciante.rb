@@ -62,6 +62,10 @@ class KrnDenunciante < ApplicationRecord
 		decs and tests
 	end
 
+	def infrmcn_adcnl?
+		self.empleado_externo or self.articulo_516
+	end
+
 	# ------------------------------------------------------------------------ INGRS
 
 	def proc_empleador?

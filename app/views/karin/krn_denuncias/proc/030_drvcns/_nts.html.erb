@@ -3,7 +3,7 @@
 	<!-- LISTA DE DERIVACIONES -->
 	<% if @objeto.krn_derivaciones.any? %>
 	    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_derivaciones', ownr: @objeto, lnks: 'prtl'} %>
-		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'prtl'} %>
+		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'lnks'} %>
 	<% end %>
 
 	<%#= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Datos de personas denunciantes y denunciadas están revisados.'} if @objeto.krn_derivaciones.empty? %>

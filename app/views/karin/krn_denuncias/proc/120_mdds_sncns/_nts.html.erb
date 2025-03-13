@@ -1,0 +1,5 @@
+<% unless @objeto.fl?('dnnc_mdds_sncns') %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'No se registran evidencias de la aplicación de las Medidas y Sanciones de la investigación.'} %>
+<% else %>
+	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Se registran evidencias de la aplicación de las Medidas y Sanciones de la investigación.'} %>
+<% end %>
