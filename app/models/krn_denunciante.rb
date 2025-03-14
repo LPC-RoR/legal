@@ -56,7 +56,7 @@ class KrnDenunciante < ApplicationRecord
 	# ------------------------------------------------------------------------
 
 	def empleador_ok?
-		self.empleado_externo ? self.emprs_extrn_prsnt? : true
+		self.empleado_externo ? self.krn_empresa_externa.present? : true
 	end
 
 	def direccion_ok?
@@ -126,10 +126,6 @@ class KrnDenunciante < ApplicationRecord
 
 	def self.dclrcns_ok?
 		all.map {|arc| arc.rlzd == true}.exclude?(false)
-	end
-
-	def emprs_extrn_prsnt?
-		self.krn_empresa_externa.present?
 	end
 
 	def dnnc_fech_trmitcn?

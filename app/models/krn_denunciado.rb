@@ -53,7 +53,7 @@ class KrnDenunciado < ApplicationRecord
 	# ------------------------------------------------------------------------
 
 	def empleador_ok?
-		self.empleado_externo ? self.emprs_extrn_prsnt? : true
+		self.empleado_externo ? self.krn_empresa_externa.present? : true
 	end
 
 	def direccion_ok?
@@ -128,10 +128,6 @@ class KrnDenunciado < ApplicationRecord
 
 	def empleador
 		self.empleado_externo ? (self.krn_empresa_externa.present? ? self.krn_empresa_externa.razon_social : 'Pendiente de ingreso') : 'Empleado de la empresa'
-	end
-
-	def emprs_extrn_prsnt?
-		self.krn_empresa_externa.present?
 	end
 
 	def dnnc_fech_trmitcn?

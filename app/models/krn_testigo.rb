@@ -49,7 +49,7 @@ class KrnTestigo < ApplicationRecord
 	# -------------------------------------- RLZDS
 
 	def empleador_ok?
-		self.empleado_externo ? self.emprs_extrn_prsnt? : true
+		self.empleado_externo ? self.krn_empresa_externa.present? : true
 	end
 
 	def direccion_ok?

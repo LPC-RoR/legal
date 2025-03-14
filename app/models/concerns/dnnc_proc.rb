@@ -11,10 +11,6 @@ module DnncProc
 		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
 	end
 
-	def emprs_extrn_prsnt?
-		self.krn_empresa_externa.present?
-	end
-
 	def dnncnts_any?
 		self.krn_denunciantes.any?
 	end
