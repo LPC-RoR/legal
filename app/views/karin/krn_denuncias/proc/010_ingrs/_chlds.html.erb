@@ -1,8 +1,8 @@
-<% if @dnnc_jot['ingrs_dnnc_bsc'] and ( not @dnnc_jot['dnncnts_any']) %>
+<% unless @objeto.ingrs_dnnc_bsc? %>
 	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Információn básica de la denuncia completa. Ingresar personas denunciantes y denunciadas'} %>
 <% end %>
 
-<% if @dnnc_jot['ingrs_dnnc_bsc'] %>
+<% if @objeto.ingrs_dnnc_bsc? %>
 	<div class="row gx-1">
 		<div class="col-lg-6 col-xs-12">
 
@@ -20,7 +20,7 @@
 			<% else %>
 
 			    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_denunciados', ownr: @objeto, lnks: 'prtl'} %>
-				<% if @dnnc_jot['dnncnts_any'] %>
+				<% if @objeto.krn_denunciantes.any? %>
 					<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciados', typ: 'ln', crud: 'lnks'} %>
 				<% end %>
 

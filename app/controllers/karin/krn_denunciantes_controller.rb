@@ -12,17 +12,7 @@ class Karin::KrnDenunciantesController < ApplicationController
 
   # GET /krn_denunciantes/1 or /krn_denunciantes/1.json
   def show
-    get_dnnc_jot(@objeto)
-
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
-    krn_dnnc_dc_init(@objeto.krn_denuncia)
-
-    @dsply_dc_fls = {}
-    @etps.each do |etp|
-      etp.tareas.each do |tar|
-        @dsply_dc_fls[tar.id] = tar.rep_doc_controlados.any? ? tar.rep_doc_controlados.map {|dc| @krn_cntrl[dc.codigo] }.include?(true) : false
-      end
-    end
 
     set_tabla('krn_declaraciones', @objeto.krn_declaraciones, false)
     set_tabla('krn_testigos', @objeto.krn_testigos, false)

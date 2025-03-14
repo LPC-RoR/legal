@@ -54,10 +54,10 @@ module Karin
         'dnnc_notificacion' => dnnc.rcp_dt?,
         'dnnc_certificado'  => (dnnc.on_dt? and dnnc.krn_derivaciones.any?),
         'dnncnt_rprsntcn'   => (dnnc.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]),
-        'mdds_rsgrd'        => true,
+        'mdds_rsgrd'        => (( dnnc.rgstrs_ok? and ( not dnnc.on_empresa? ) ) or dnnc.investigacion_local),
         'antcdnts_objcn'    => dnnc.objcn_invstgdr,
         'rslcn_objcn'       => dnnc.fl?('antcdnts_objcn'),
-        'dnnc_evlcn'        => dnnc.on_empresa?,
+        'dnnc_evlcn'        => (dnnc.on_empresa? and dnnc.krn_investigadores.any?),
         'dnnc_corrgd'       => (dnnc.evlcn_incmplt? or dnnc.evlcn_incnsstnt?),
         'infrm_invstgcn'    => dnnc.rlzds?,
         'mdds_crrctvs'      => dnnc.rlzds?,
@@ -75,38 +75,6 @@ module Karin
 
   def fl_cndtn?(ownr, codigo)
     ownr != ownr.dnnc ? fl_dsply_hsh(ownr)[:prtcpnts][codigo] : fl_dsply_hsh(ownr)[:dnnc][codigo]
-  end
-
-  def krn_cntrl(ownr)
-    dnnc = ownr.dnnc
-    {
-       # GESTIÓN INICIAL DE LA DENUNCIA
-      'dnnc_denuncia' => dnnc.tipo_declaracion != 'Verbal',     # Denuncia se presenta por escrito
-      'dnnc_acta' => dnnc.tipo_declaracion == 'Verbal',         # Denuncia se presenta en forma verbal
-      'dnnc_notificacion' => dnnc.rcp_dt?,                      # Denuncia derivada a la DT o recibida por ella
-      'dnncnt_rprsntcn' => dnnc.representante?,                 # Denuncia presentada por un representante
-
-      'dnnc_certificado' => dnnc.drv_dt?,                       # DT certifica que recibió la denuncia que le derivamos
-
-      'dnncnt_diat_diep' => true,
-      'mdds_rsgrd' => true,
-
-      'antcdnts_objcn' => dnnc.objcn_invstgdr,
-      'rslcn_objcn' => (dnnc.evlcn_incmplt? or dnnc.evlcn_incnsstnt?),
-
-      'dnnc_evlcn' => (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok? == false),
-      'dnnc_corrgd' => (dnnc.vlr_dnnc_eval_ok? and dnnc.dnnc_eval_ok? == false),            # Denuncia corregida
-
-      'prtcpnts_dclrcn' => true,                                        # Declaración
-      'prtcpnts_antcdnts' => true,                                      # Antecedentes
-
-      'infrm_invstgcn' => true,                                         # Informe de investigación
-      'mdds_crrctvs' => true,
-      'sncns' => true,
-
-      'prnncmnt_dt' => true,
-      'dnnc_mdds_sncns' => true,
-    }
   end
 
   # --------------------------------------------------------------------------------------------- DNNC_JOT (JUST ONE TIME)
@@ -175,21 +143,6 @@ module Karin
       'dnnc_eval_ok',
       'on_empresa'
     ]
-  end
-
-  def get_dnnc_jot(ownr)
-    lst = ownr.class.name == 'KrnDenuncia' ? jot_cds : prtcpnts_cds
-    @dnnc_jot = {}
-    lst.each do |jcod|
-      @dnnc_jot[jcod] = ownr.send(jcod + '?')
-    end
-  end
-
-
-  # --------------------------------------------------------------------------------------------- DENUNCIAS
-
-  def krn_dnnc_dc_init(denuncia)
-    @krn_cntrl = krn_cntrl(@objeto)
   end
 
   # --------------------------------------------------------------------------------------------- ACTIVE KARIN

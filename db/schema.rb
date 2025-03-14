@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_13_174713) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_13_235058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -712,7 +712,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_174713) do
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
     t.boolean "empleado_externo"
-    t.boolean "registro_revisado"
+    t.boolean "rlzd"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciados_on_krn_empresa_externa_id"
@@ -734,7 +734,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_174713) do
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
     t.boolean "empleado_externo"
-    t.boolean "registro_revisado"
+    t.boolean "rlzd"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
@@ -860,6 +860,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_13_174713) do
     t.boolean "articulo_516"
     t.string "direccion_notificacion"
     t.boolean "empleado_externo"
+    t.boolean "rlzd"
     t.index ["krn_empresa_externa_id"], name: "index_krn_testigos_on_krn_empresa_externa_id"
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"

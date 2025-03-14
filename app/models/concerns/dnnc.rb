@@ -5,6 +5,10 @@ module Dnnc
 		'dnnc'
 	end
 
+	def rgstrs_ok?
+		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
+	end
+
 	# ------------------------------------------------------------------------ PROC CNDTNS
 
 	def proc_externa?
@@ -79,82 +83,6 @@ module Dnnc
 		self.fecha_env_infrm? and ( not self.prnncmnt_vncd? ) and  (not self.on_dt?)
 	end
 
-	# ------------------------------------------------------------------------ FL CNDTNS
-
-
-	def fl_dnnc_denuncia?
-		self.tipo_declaracion != 'Verbal'
-	end
-
-	def fl_dnnc_acta?
-		self.tipo_declaracion == 'Verbal'
-	end
-
-	def fl_dnnc_notificacion?
-		self.rcp_dt?
-	end
-
-	def fl_dnnc_certificado?
-		self.rcp_dt?
-	end
-
-	def fl_dnncnt_rprsntcn?
-		self.proc_representante?
-	end
-
-	def fl_mdds_rsgrd?
-		true
-	end
-
-	def fl_antcdnts_objcn?
-		self.objcn_invstgdr
-	end
-
-	def fl_rslcn_objcn?
-		self.evlcn_incmplt? or self.evlcn_incnsstnt?
-	end
-
-	# Evaluación de la denuncia
-	def fl_dnnc_evlcn?
-		self.on_empresa?
-	end
-
-	def fl_dnnc_corrgd?
-		self.evlcn_incmplt? or self.evlcn_incnsstnt?
-	end
-
-	def fl_infrm_invstgcn?
-		self.rlzds?
-	end
-
-	def fl_mdds_crrctvs?
-		self.rlzds?
-	end
-
-	def fl_sncns?
-		self.rlzds?
-	end
-
-	def fl_prnncmnt_dt?
-		self.fecha_prnncmnt?
-	end
-
-	def fl_dnnc_mdds_sncns?
-		self.fecha_env_infrm? or self.plz_prnncmnt_vncd?
-	end
-
-	# Sólo para desplegar TODA la lista en dnnc
-	def fl_dnncnt_diat_diep?
-		false
-	end
-
-	def fl_prtcpnts_dclrcn?
-		false
-	end
-
-	def fl_prtcpnts_antcdnts?
-		false
-	end
 
 	# ------------------------------------------------------------------------ PRTCPNTS
 
@@ -173,8 +101,8 @@ module Dnnc
 	end
 
 	# Registros revisados
-	def rgstrs_rvsds?
-		self.krn_denunciantes.rvsds? and self.krn_denunciados.rvsds?
+	def rlzds?
+		self.krn_denunciantes.rlzds? and self.krn_denunciados.rlzds?
 	end
 
 	def evlds?

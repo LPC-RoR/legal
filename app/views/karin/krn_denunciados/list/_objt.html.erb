@@ -1,4 +1,4 @@
-<%= render partial: 'karin/prtls/swtch_rvsd', locals: {objeto: objeto} %>
+<%= render partial: 'karin/prtls/prtcpnt_flgs', locals: {objeto: objeto} %>
 
 <%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver denunciado'} do %>
 	<%= objeto.rut.blank? ? '__.___.___-_' : s_rut(objeto.rut) %>

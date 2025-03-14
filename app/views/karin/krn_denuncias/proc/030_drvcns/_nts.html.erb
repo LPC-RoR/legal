@@ -1,4 +1,4 @@
-<% if @objeto.rgstrs_rvsds? %>
+<% if @objeto.rgstrs_ok? %>
 
 	<!-- LISTA DE DERIVACIONES -->
 	<% if @objeto.krn_derivaciones.any? %>
@@ -14,4 +14,6 @@
 
 	<%#= render partial: '0p/ntc', locals: {color: 'dark', gly: 'check-lg', ntc: "Responsable actual: #{@objeto.responsable}"} %>
 
+<% else %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Datos de personas de los participantes aÚn no están completos.'} %>
 <% end %>

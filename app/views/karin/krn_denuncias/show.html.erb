@@ -5,20 +5,6 @@
 	<%= render partial: prtl_name('ctr_etapas', 'code', 'objeto'), locals: {objeto: etp, ownr: @objeto, scndry: nil} if prtl?('ctr_etapas', 'code', 'objeto') %>
 <% end %>
 
-
-
-<% if @dnnc_jot['fecha_hora_corregida_prsnt'] or (@dnnc_jot['vlr_dnnc_eval_ok'] and @dnnc_jot['dnnc_eval_ok']) %>
-	<% if @dnnc_jot['dclrcns_ok'] %>
-		<div class="dlg_bsc">
-			Todas las declaraciones marcadas como realizadas.
-		</div>
-	<% else %>
-		<div class="dlg_bsc">
-			Agendamiento y gestión de declaraciones activada para cada participante.
-		</div>
-	<% end %>
-<% end %>
-
 <%= render partial: 'karin/prtls/dc_files', locals: {ownr: @objeto} %>
 
 <% if @objeto.krn_declaraciones.any? %>

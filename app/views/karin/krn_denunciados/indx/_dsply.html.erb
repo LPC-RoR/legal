@@ -1,6 +1,5 @@
-<% if @dnnc_jot['ingrs_dnnc_bsc'] and (not @dnnc_jot['dnncds_any']) and @dnnc_jot['dnncnts_any'] %>
+<% if @objeto.krn_denunciantes.any? and @objeto.krn_denunciados.empty? %>
 
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Debe terminar de ingresar la(s) persona(s) denunciante(s) antes de ingresar persona(s) denunciada(s).'} %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Debe ingresar al menos una persona denunciada.'} %>
 
 <% end %>

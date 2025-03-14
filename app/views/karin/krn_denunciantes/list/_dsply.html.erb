@@ -6,7 +6,7 @@
 <% end %>
 
 <% unless objeto.diat_diep? %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Falta evidencia de Atención psicológica temprana obligatoria. Subir evidencia.'} %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Falta evidencia de Atención psicológica temprana obligatoria.'} %>
 <% end %>
 
 <% if objeto.empleado_externo and (not objeto.emprs_extrn_prsnt?) %>

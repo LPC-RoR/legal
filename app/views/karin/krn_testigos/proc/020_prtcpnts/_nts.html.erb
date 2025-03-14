@@ -1,0 +1,3 @@
+<% unless @objeto.infrmcn_adcnl? %>
+	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'El participante no requiere información adicional'} %>
+<% end %>

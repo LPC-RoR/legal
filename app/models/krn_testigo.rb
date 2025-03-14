@@ -46,19 +46,30 @@ class KrnTestigo < ApplicationRecord
 		self.ownr.denuncia
 	end
 
-	def fl_prtcpnts_dclrcn?
-		self.krn_declaraciones.any?
+	# -------------------------------------- RLZDS
+
+	def empleador_ok?
+		self.empleado_externo ? self.emprs_extrn_prsnt? : true
 	end
 
-	def fl_prtcpnts_antcdnts?
-		self.krn_declaraciones.any?
+	def direccion_ok?
+		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
 	end
 
-	# --------------------------------------
-
-	def self.rlzds?
- 		arr = all.map {|tes| tes.krn_declaraciones.rlzds?}.uniq
- 		arr.length == 1 and arr[0] == true
+	def rgstr_ok?
+		self.empleador_ok? and self.direccion_ok? and self.rut?
 	end
+
+	def self.rgstrs_ok?
+		all.empty? ? true : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
+	end
+
+ 	def self.rlzds?
+ 		all.empty? ? true : all.map {|objt| objt.rlzd}.uniq.join('-') == 'true'
+ 	end
+
+ 	def dclrcns_rlzds?
+ 		self.krn_declaraciones.rlzds?
+ 	end
 
 end

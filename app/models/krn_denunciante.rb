@@ -55,11 +55,28 @@ class KrnDenunciante < ApplicationRecord
 
 	# ------------------------------------------------------------------------
 
-	def self.rlzds?
- 		decs = all.map {|tes| tes.krn_declaraciones.rlzds?}.uniq.join('') == 'true'
+	def empleador_ok?
+		self.empleado_externo ? self.emprs_extrn_prsnt? : true
+	end
 
- 		tests = all.map {|tes| tes.krn_testigos.empty? ? 'true' : tes.krn_testigos.rlzds?}.uniq.join('') == 'true'
-		decs and tests
+	def direccion_ok?
+		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
+	end
+
+	def rgstr_ok?
+		self.empleador_ok? and self.direccion_ok? and self.rut? and self.krn_testigos.rgstrs_ok?
+	end
+
+	def self.rgstrs_ok?
+		all.empty? ? false : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
+	end
+
+ 	def self.rlzds?
+ 		all.empty? ? false : all.map {|objt| objt.rlzd}.uniq.join('-') == 'true'
+ 	end
+
+	def dclrcns_rlzds?
+ 		self.krn_declaraciones.rlzds? and self.krn_testigos.rlzds?
 	end
 
 	def infrmcn_adcnl?
@@ -74,35 +91,6 @@ class KrnDenunciante < ApplicationRecord
 
 	def proc_direccion?
 		self.articulo_516
-	end
-
-	def fl_dnncnt_diat_diep?
-		true
-	end
-
-	def fl_prtcpnts_dclrcn?
-		self.krn_declaraciones.any?
-	end
-
-	def fl_prtcpnts_antcdnts?
-		self.krn_declaraciones.any?
-	end
-
-	def rgstr_ok?
-		empldr = self.empleado_externo ? self.krn_empresa_externa.present? : true
-		ntfccn = self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
-		empldr and ntfccn
-	end
-
-	def self.rvsds?
-		arry = all.map {|den| den.registro_revisado}.uniq
-		arry.length == 1 and arry[0] == true
-	end
-
-	# DEPRECATED
-	def self.rgstrs_ok?
-		arry = all.map {|den| den.rgstr_ok?}.uniq
-		arry.length == 1 and arry[0] == true
 	end
 
 	# ------------------------------------------------------------------------------

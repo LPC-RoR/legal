@@ -148,7 +148,9 @@ Rails.application.routes.draw do
     resources :krn_declaraciones do
       match :swtch, via: :get, on: :member
     end
-    resources :krn_testigos
+    resources :krn_testigos do
+      match :swtch, via: :get, on: :member
+    end
     resources :krn_inv_denuncias
   end
 

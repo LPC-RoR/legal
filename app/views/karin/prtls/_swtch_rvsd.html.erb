@@ -1,9 +1,0 @@
-<% if objeto.rgstr_ok? %>
-	<% if objeto.krn_denuncia.fl?('mdds_rsgrd') or objeto.krn_denuncia.investigacion_local? or objeto.krn_denuncia.krn_derivaciones.any? %>
-		<i class="bi bi-check2-square"></i>
-	<% else %>
-		<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'registro_revisado', stts: ['no revisado', 'revisado']} %>
-	<% end %>
-<% else %>
-	<i class="bi bi-bug"></i>
-<% end %>

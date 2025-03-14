@@ -15,7 +15,7 @@ module CptnProcsHelper
 	def etp_cntrl(ownr)
 		dnnc = ownr.dnnc
 		{
-			etp_rcpcn: ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado'].include?(ownr.class.name),
+			etp_rcpcn: ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name),
 			etp_invstgcn: ((dnnc.fecha_trmtcn? or  dnnc.fecha_hora_dt?) and dnnc.on_empresa?),
 			etp_envio: (( dnnc.fecha_hora_dt? ? dnnc.fecha_trmtcn? : dnnc.fecha_trmn?) or ( not dnnc.on_empresa? )),
 			etp_prnncmnt: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
@@ -39,14 +39,14 @@ module CptnProcsHelper
 		{
 			'010_ingrs' => true,
 			'020_prtcpnts' => true,
-			'030_drvcns' => dnnc.rgstrs_rvsds?,
-			'040_mdds' => (( dnnc.rgstrs_rvsds? and ( not dnnc.on_empresa? ) ) or dnnc.investigacion_local),
-			'050_crr' => dnnc.fl?('mdds_rsgrd'),
+			'030_drvcns' => (dnnc.krn_denunciantes.any? and dnnc.krn_denunciados.any?),
+			'040_mdds' => ( ( not dnnc.on_empresa? ) or dnnc.investigacion_local),
+			'050_crr' => (dnnc.fl?('mdds_rsgrd') and dnnc.rgstrs_ok?),
 			# INVSTGCN
 			'060_invstgdr' => ((dnnc.fecha_trmtcn? or dnnc.fecha_hora_dt?) and dnnc.on_empresa?),
 			'070_evlcn' => (dnnc.krn_inv_denuncias.any? and dnnc.on_empresa?),
 			'080_dclrcn' => dnnc.krn_inv_denuncias.any?,
-			'090_trmn_invstgcn' => (dnnc.krn_inv_denuncias.any? and dnnc.evlds? and dnnc.on_empresa? and dnnc.krn_declaraciones.any?),
+			'090_trmn_invstgcn' => (dnnc.krn_inv_denuncias.any? and dnnc.evlds? and dnnc.on_empresa? and dnnc.rlzds?),
 			'100_env_rcpcn' => (dnnc.fecha_trmn? or dnnc.fecha_hora_dt?),
 			'110_prnncmnt' => dnnc.fecha_env_infrm?,
 			'120_mdds_sncns' => ( dnnc.fecha_env_infrm? or dnnc.prnncmnt_vncd? )
@@ -67,11 +67,15 @@ module CptnProcsHelper
 			}
 		when 'KrnDenunciante'
 			{
-				'020_prtcpnts' => ownr.registro_revisado
+				'020_prtcpnts' => ownr.rlzd
 			}
 		when 'KrnDenunciado'
 			{
-				'020_prtcpnts' => ownr.registro_revisado
+				'020_prtcpnts' => ownr.rlzd
+			}
+		when 'KrnTestigo'
+			{
+				'020_prtcpnts' => ownr.rlzd
 			}
 		end
 	end

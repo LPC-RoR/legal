@@ -1,4 +1,12 @@
 <small>
-	<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'rlzd', stts: ['no ralizado', 'realizado']} %>
-	<%= objeto.ownr.nombre %> 
-<%= dma_hm(objeto.fecha) %></small>
+<% unless objeto.rlzd %>	
+	<% if @objeto.fl?('prtcpnts_dclrcn') or objeto.rlzd %>
+		<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'rlzd', stts: ['no ralizado', 'realizado']} %>
+	<% end %>	
+<% else %>	
+	<i class="bi bi-check2-square"></i>
+<% end %>	
+
+<%= objeto.ownr.nombre %> 
+<%= dma_hm(objeto.fecha) %>
+</small>

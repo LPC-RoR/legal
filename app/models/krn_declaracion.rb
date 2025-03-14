@@ -6,7 +6,6 @@ class KrnDeclaracion < ApplicationRecord
  	scope :fecha_ordr, -> {order(fecha: :desc)}
 
  	def self.rlzds?
- 		arr = all.map {|dec| dec.rlzd}.uniq
- 		arr == [] or (arr.length == 1 and arr[0] == true)
+ 		all.empty? ? false : all.map {|objt| objt.rlzd}.uniq.join('-') == 'true'
  	end
 end

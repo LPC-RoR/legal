@@ -1,4 +1,4 @@
-<% unless @dnnc_jot['dnncnts_any'] %>
+<% unless @objeto.krn_denunciantes.any? %>
 
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Debe ingresar información de la(s) persona(s) denunciante(s).'} %>
 

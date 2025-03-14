@@ -1,5 +1,15 @@
 <% if @objeto.fl?('mdds_rsgrd') %>
-	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Medidas de resguardo emitidas'} %>
+	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Medidas de resguardo registradas'} %>
 <% else %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Sistema no registra Medidas de Resguardo'} %>
+<% end %>
+<%# if @objeto.fl?('dnnc_denuncia') %>
+	<%#= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Denuncia registrada'} %>
+<%# else %>
+	<%#= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Sistema no registra Denuncia'} %>
+<%# end %>
+<% if @objeto.rgstrs_ok? %>
+	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Información de los participantes está completa.'} %>
+<% else %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Información de los participantes está incompleta'} %>
 <% end %>
