@@ -31,6 +31,7 @@ class KrnDenunciante < ApplicationRecord
 	include Ntfccns
 	include Valores
 
+ 	# ================================= GENERAL
 
 	def dnnc
 		self.krn_denuncia
@@ -49,6 +50,48 @@ class KrnDenunciante < ApplicationRecord
 		fl(dc).present?
 	end
 
+ 	# --------------------------------- Asociaciones
+
+ 	def declaraciones?
+ 		self.krn_declaraciones.any?
+ 	end
+
+ 	def testigos?
+ 		self.krn_testigos.any?
+ 	end
+
+ 	# ================================= 020_prtcpnts: Ingreso de(l) denunciante(s)
+
+	def fl_diat_diep?
+		self.fl?('dnncnt_diat_diep')
+	end 
+
+	def empleador?
+		self.krn_empresa_externa_id?		
+	end
+
+	def informacion_adicional?
+		self.empleado_externo or self.articulo_516
+	end
+
+	def proc_empleador?
+		self.empleado_externo
+	end
+
+	def proc_direccion?
+		self.articulo_516
+	end
+
+	def rgstr_ok?
+		self.empleador_ok? and self.direccion_ok? and self.rut? and self.krn_testigos.rgstrs_ok?
+	end
+
+	def self.rgstrs_ok?
+		all.empty? ? false : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
+	end
+
+ 	# --------------------------------- Despliegue de formularios
+
 	def self.emprss_ids
 		all.map {|den| den.krn_empresa_externa_id}.uniq
 	end
@@ -63,14 +106,6 @@ class KrnDenunciante < ApplicationRecord
 		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
 	end
 
-	def rgstr_ok?
-		self.empleador_ok? and self.direccion_ok? and self.rut? and self.krn_testigos.rgstrs_ok?
-	end
-
-	def self.rgstrs_ok?
-		all.empty? ? false : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
-	end
-
  	def self.rlzds?
  		all.empty? ? false : all.map {|objt| objt.rlzd}.uniq.join('-') == 'true'
  	end
@@ -79,19 +114,7 @@ class KrnDenunciante < ApplicationRecord
  		self.krn_declaraciones.rlzds? and self.krn_testigos.rlzds?
 	end
 
-	def infrmcn_adcnl?
-		self.empleado_externo or self.articulo_516
-	end
-
 	# ------------------------------------------------------------------------ INGRS
-
-	def proc_empleador?
-		self.empleado_externo
-	end
-
-	def proc_direccion?
-		self.articulo_516
-	end
 
 	# ------------------------------------------------------------------------------
 
@@ -110,19 +133,16 @@ class KrnDenunciante < ApplicationRecord
 		}
 	end
 
-	def diat_diep?
-		dc = RepDocControlado.get_dc('dnncnt_diat_diep')
-		self.rep_archivos.find_by(rep_doc_controlado_id: dc.id).present?
-	end 
-
 	def dclrcn_ok?
 		dc = RepDocControlado.get_dc('prtcpnts_dclrcn')
 		self.rep_archivos.find_by(rep_doc_controlado_id: dc.id).present?
 	end
 
 	def self.diats_dieps_ok?
-		all.map {|arc| arc.diat_diep?}.exclude?(false)
+		all.map {|arc| arc.fl_diat_diep?}.exclude?(false)
 	end
+
+
 
 	def self.dclrcns_ok?
 		all.map {|arc| arc.rlzd == true}.exclude?(false)

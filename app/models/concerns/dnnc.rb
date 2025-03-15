@@ -1,9 +1,31 @@
 module Dnnc
  	extend ActiveSupport::Concern
 
+ 	# ================================= GENERAL
+ 	# --------------------------------- Despliegue de formularios
 	def css_id
 		'dnnc'
 	end
+
+ 	# --------------------------------- Asociaciones
+
+ 	def denunciantes?
+ 		self.krn_denunciantes.any?
+ 	end
+
+ 	def denunciados?
+ 		self.krn_denunciados.any?
+ 	end
+
+ 	def declaraciones?
+ 		self.krn_declaraciones.any?
+ 	end
+
+ 	def derivaciones?
+ 		self.krn_derivaciones.any?
+ 	end
+
+ 	# --------------------------------- ????
 
 	def rgstrs_ok?
 		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
@@ -11,40 +33,6 @@ module Dnnc
 
 	# ------------------------------------------------------------------------ PROC CNDTNS
 
-	def proc_externa?
-		self.rcp_externa? and self.p_plus?
-	end
-
-	def proc_tipo?
-		self.via_declaracion == KrnDenuncia::VIAS_DENUNCIA[0]
-	end
-
-	def proc_representante?
-		self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]
-	end
-
-	def proc_solicitud_denuncia?
-		self.on_dt? and self.rcp_empresa? and ( not self.externa? )
-	end
-
-	def proc_investigacion_local?
-		self.on_empresa? and ( not self.externa? )
-	end
-
-	def proc_fecha_hora_dt?
-		self.on_dt?
-	end
-
-	# fecha en la que se notificó a los participantes
-	def proc_fecha_ntfccn?
-		self.fl?('mdds_rsgrd')
-	end
-
-	# fecha de envío de investigación a la DT 
-	# fecha de recepción de certificado de recepción de denuncia
-	def proc_fecha_trmtcn?
-		self.fl?('mdds_rsgrd') and ( not self.fecha_hora_dt? )
-	end
 
 	def proc_objcn_invstgdr?
 		self.krn_investigadores.count == 1
@@ -86,19 +74,7 @@ module Dnnc
 
 	# ------------------------------------------------------------------------ PRTCPNTS
 
-	def drvcn_dnncnt?
-		self.krn_derivaciones.find_by(codigo: 'drvcn_dnncnt')
-	end
-
-	def drvcn_emprs?
-		self.krn_derivaciones.find_by(codigo: 'drvcn_emprs')
-	end
-
 	# ------------------------------------------------------------------------ PRTCPNTS
-
-	def artcl41?
-		self.krn_denunciantes.artcl41.any? or self.krn_denunciados.artcl41.any?
-	end
 
 	# Registros revisados
 	def rlzds?

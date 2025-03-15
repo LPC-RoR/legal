@@ -1,5 +1,3 @@
-<% if @objeto.krn_denunciantes.any? and @objeto.krn_denunciados.empty? %>
-
+<% if @objeto.denunciantes? and ( not @objeto.denunciados? ) %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Debe ingresar al menos una persona denunciada.'} %>
-
 <% end %>

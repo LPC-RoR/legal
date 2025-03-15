@@ -14,6 +14,7 @@ class Karin::KrnDenunciasController < ApplicationController
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
     set_plzs
+    load_proc(@objeto)
 
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
 
@@ -122,13 +123,33 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   def prg
+    @objeto.krn_empresa_externa_id = nil
+    @objeto.tipo_declaracion = nil
+    @objeto.representante = nil
+    @objeto.fecha_hora_dt = nil
+    @objeto.investigacion_local = nil
+    @objeto.solicitud_denuncia = nil
+    @objeto.fecha_ntfccn = nil
     @objeto.fecha_trmtcn = nil
     @objeto.fecha_trmn = nil
-    @objeto.tipo_declaracion = nil
-    @objeto.investigacion_local = nil
+    @objeto.objcn_invstgdr = nil
+    @objeto.evlcn_incmplt = nil
+    @objeto.evlcn_incnsstnt = nil
+    @objeto.evlcn_ok = nil
+    @objeto.fecha_hora_corregida = nil
+    @objeto.fecha_trmn = nil
+    @objeto.fecha_env_infrm = nil
+    @objeto.fecha_prnncmnt = nil
+    @objeto.prnncmnt_vncd = nil
+
+    @objeto.ctr_registros.delete_all
     @objeto.krn_denunciantes.delete_all
     @objeto.krn_denunciados.delete_all
+    @objeto.krn_inv_denuncias.delete_all
     @objeto.krn_derivaciones.delete_all
+    @objeto.krn_declaraciones.delete_all
+    @objeto.rep_archivos.delete_all
+
     @objeto.save
 
     redirect_to @objeto

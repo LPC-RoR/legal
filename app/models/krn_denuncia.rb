@@ -126,7 +126,7 @@ class KrnDenuncia < ApplicationRecord
 
 	# Alguna vez fue derivada a la DT
 	def drv_dt?
-		self.krn_derivaciones.any? ? false : self.krn_derivaciones.dts.any?
+		self.derivaciones? ? false : self.krn_derivaciones.dts.any?
 	end
 
 	def on_dt?

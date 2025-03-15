@@ -1,0 +1,11 @@
+<% if prtl?('karin', 'hlp', objeto.codigo) %>
+
+	<%= render layout: '0p/off_canvas/lnk', locals: {lbl: objeto.codigo} do %>
+		<i class="bi bi-question-square"></i>
+	<% end %>
+
+	<%= render layout: '0p/off_canvas/dsply', locals: {lbl: objeto.codigo, ttl: objeto.ctr_etapa} do %>
+	  <%= render prtl_name('karin', 'hlp', objeto.codigo), locals: {objt: objeto} %>
+	<% end %>
+
+<% end %>

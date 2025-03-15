@@ -37,7 +37,7 @@ class Karin::KrnDerivacionesController < ApplicationController
       end
       motivo = drvcn_text[params[:cdg].to_sym][:gls]
 
-      @objeto = ownr.krn_derivaciones.create(tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
+      @objeto = ownr.krn_derivaciones.new(tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
     end
   end
 

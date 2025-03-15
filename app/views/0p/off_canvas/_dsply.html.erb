@@ -1,0 +1,16 @@
+<%#= render layout: '0p/off_canvas/dsply', locals: {lbl: 'label', objt?: nil, ttl: 'ttl'} do %>
+  <!-- ... -->
+<%# end %>
+
+<% objt ||= nil %>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="<%=lbl%><%=objt.blank? ? nil : objt.id%>" aria-labelledby="<%=lbl%><%=objt.blank? ? nil : objt.id%>Label">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="<%=lbl%><%=objt.blank? ? nil : objt.id%>Label"><%= ttl %></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+
+    <%= yield %>
+
+  </div>
+</div>

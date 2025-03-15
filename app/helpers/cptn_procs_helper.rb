@@ -39,9 +39,9 @@ module CptnProcsHelper
 		{
 			'010_ingrs' => true,
 			'020_prtcpnts' => true,
-			'030_drvcns' => (dnnc.krn_denunciantes.any? and dnnc.krn_denunciados.any?),
-			'040_mdds' => ( ( not dnnc.on_empresa? ) or dnnc.investigacion_local),
-			'050_crr' => (dnnc.fl?('mdds_rsgrd') and dnnc.rgstrs_ok?),
+			'030_drvcns' => (dnnc.denunciantes? and dnnc.denunciados?),
+#			'040_mdds' => ( dnnc.on_dt? or dnnc.investigacion_local or dnnc.investigacion_externa),
+			'050_crr' => (dnnc.rgstrs_ok? and (dnnc.dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or dnnc.rcp_dt?)),
 			# INVSTGCN
 			'060_invstgdr' => ((dnnc.fecha_trmtcn? or dnnc.fecha_hora_dt?) and dnnc.on_empresa?),
 			'070_evlcn' => (dnnc.krn_inv_denuncias.any? and dnnc.on_empresa?),
@@ -57,10 +57,10 @@ module CptnProcsHelper
 		case ownr.class.name
 		when 'KrnDenuncia'
 			{
-				'010_ingrs' => ownr.krn_denunciantes.any?,
+				'010_ingrs' => ownr.denunciantes?,
 				'030_drvcns' => (ownr.fl?('mdds_rsgrd') or ownr.fecha_env_infrm?),
 				'050_crr' => ownr.krn_investigadores.any?,
-				'070_evlcn' => ownr.krn_declaraciones.any?,
+				'070_evlcn' => ownr.declaraciones?,
 				'090_trmn_invstgcn' => ownr.fecha_env_infrm?,
 				'100_env_rcpcn' => (ownr.fecha_prnncmnt? or ownr.prnncmnt_vncd?),
 				'110_prnncmnt' => ownr.fl?('dnnc_mdds_sncns')
@@ -111,7 +111,7 @@ module CptnProcsHelper
 			'etp_rcpcn'      => plz_ok?(dnnc.fecha_trmtcn, dnnc.plz_trmtcn),
 			'etp_invstgcn'   => plz_ok?(dnnc.fecha_trmn, dnnc.plz_invstgcn),
 			'etp_envio'      => plz_ok?(dnnc.fecha_env_infrm, dnnc.plz_infrm),
-			'etp_prnncmnt'   => plz_ok?(dnnc.fecha_prnncmnt, dnnc.plz_prnncmnt),
+			'etp_prnncmnt'   => dnnc.on_dt? ? false : plz_ok?(dnnc.fecha_prnncmnt, dnnc.plz_prnncmnt),
 			'etp_mdds_sncns' => plz_ok?(dnnc.fecha_prcsd, dnnc.plz_mdds_sncns),
 		}
 	end

@@ -1,3 +1,3 @@
-<% if @objeto.krn_declaraciones.empty? %>
+<% unless @objeto.declaraciones? %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Se debe agendar la declaración del participante.'} %>
 <% end %>

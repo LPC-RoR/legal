@@ -1,5 +1,5 @@
 <% unless objeto.rlzd %>
-	<% unless (@objeto.fecha_trmtcn? or @objeto.krn_derivaciones.any?) %>
+	<% unless (@objeto.fecha_trmtcn? or @objeto.derivaciones?) %>
 		<i class="bi bi-dot"></i>
 		<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 	<% end %>

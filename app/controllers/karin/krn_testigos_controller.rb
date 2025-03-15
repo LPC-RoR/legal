@@ -1,7 +1,7 @@
 class Karin::KrnTestigosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_testigo, only: %i[ show edit update destroy swtch ]
+  before_action :set_krn_testigo, only: %i[ show edit update destroy swtch set_fld clear_fld ]
 
   include Karin
 

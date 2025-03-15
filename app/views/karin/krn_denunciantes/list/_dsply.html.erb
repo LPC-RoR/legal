@@ -1,18 +1,5 @@
-<% unless objeto.krn_declaraciones.any? %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin declaraciones.'} %>
-<% end %>
-<% unless objeto.krn_testigos.any? %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin testigos.'} %>
-<% end %>
+<%= render partial: 'karin/prtls/prtcpnts_lst_dsply', locals: {objeto: objeto} %>
 
-<% unless objeto.diat_diep? %>
+<% unless objeto.fl_diat_diep? %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Falta evidencia de Atención psicológica temprana obligatoria.'} %>
-<% end %>
-
-<% if objeto.empleado_externo and (not objeto.krn_empresa_externa.present?) %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'La persona denunciante depende de otro empleador, el que debe ser identificado.'} %>
-<% end %>
-
-<% if objeto.articulo_516 and (not objeto.direccion_notificacion.present?) %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'La persona denunciante no tiene acceso a correo electrónico, se debe registrar su dirección de notificación.'} %>
 <% end %>

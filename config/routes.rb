@@ -150,6 +150,8 @@ Rails.application.routes.draw do
     end
     resources :krn_testigos do
       match :swtch, via: :get, on: :member
+      match :set_fld, via: :post, on: :member
+      match :clear_fld, via: :get, on: :member
     end
     resources :krn_inv_denuncias
   end

@@ -1,5 +1,5 @@
 <div class="shw_bx">
-	<% if objeto.krn_empresa_externa_id.present? %>
+	<% if objeto.empleador? %>
 		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'RUT empresa externa', vl: objeto.krn_empresa_externa.rut, algn: 'left'} %>
 		<%= render partial: '0p/shw/fld_ln', locals: {fld: 'Empresa externa', vl: objeto.krn_empresa_externa.razon_social, algn: 'left'} %>
 	<% end %>

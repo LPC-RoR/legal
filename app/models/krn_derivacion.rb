@@ -16,15 +16,15 @@ class KrnDerivacion < ApplicationRecord
 	# --------------------------------------------------------
 
 	def self.on_dt?
-		all.ordr.last.destino == KrnDenuncia::DT
+		all.empty? ? false : all.ordr.last.destino == KrnDenuncia::DT
 	end
 
 	def self.on_empresa?
-		all.ordr.last.destino == 'Empresa'
+		all.empty? ? false : all.ordr.last.destino == 'Empresa'
 	end
 
 	def self.on_externa?
-		all.ordr.last.destino == 'Externa'
+		all.empty? ? false : all.ordr.last.destino == 'Externa'
 	end
 
 	def dstn_dt?

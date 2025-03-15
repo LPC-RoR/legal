@@ -2,8 +2,12 @@ class KrnTestigo < ApplicationRecord
  	belongs_to :ownr, polymorphic: true
 	belongs_to :krn_empresa_externa, optional: true
 
+	has_many :ctr_registros, as: :ownr
+
 	has_many :krn_declaraciones, as: :ownr
 	has_many :rep_archivos, as: :ownr
+
+	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
 
 	scope :rut_ordr, -> {order(:rut)}
 
@@ -28,11 +32,46 @@ class KrnTestigo < ApplicationRecord
 		fl(dc).present?
 	end
 
+
+ 	# --------------------------------- Asociaciones
+
+ 	def declaraciones?
+ 		self.krn_declaraciones.any?
+ 	end
+
+ 	# ================================= 020_prtcpnts: Ingreso del participante
+
+	def empleador?
+		self.krn_empresa_externa_id?		
+	end
+
+	def informacion_adicional?
+		self.empleado_externo or self.articulo_516
+	end
+
+	def proc_empleador?
+		self.empleado_externo
+	end
+
+	def proc_direccion?
+		self.articulo_516
+	end
+
+	def rgstr_ok?
+		self.empleador_ok? and self.direccion_ok? and self.rut?
+	end
+
+	def self.rgstrs_ok?
+		all.empty? ? true : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
+	end
+
+ 	# --------------------------------- Despliegue de formularios
+
 	def self.emprss_ids
 		all.map {|den| den.krn_empresa_externa_id}.uniq
 	end
 
-	# ----------------------------------------------------------
+	# ------------------------------------------------------------------------
 
 	def css_id
 		"tstg#{self.id}"
@@ -54,14 +93,6 @@ class KrnTestigo < ApplicationRecord
 
 	def direccion_ok?
 		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
-	end
-
-	def rgstr_ok?
-		self.empleador_ok? and self.direccion_ok? and self.rut?
-	end
-
-	def self.rgstrs_ok?
-		all.empty? ? true : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
 	end
 
  	def self.rlzds?

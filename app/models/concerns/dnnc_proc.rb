@@ -1,6 +1,76 @@
 module DnncProc
  	extend ActiveSupport::Concern
 
+ 	# ================================= 010_ingrs: Ingreso de la denuncia
+ 	# --------------------------------- Despliegue de formularios
+	def proc_externa?
+		self.rcp_externa? and self.p_plus?
+	end
+
+	def proc_tipo?
+		self.via_declaracion == KrnDenuncia::VIAS_DENUNCIA[0]
+	end
+
+	def proc_representante?
+		self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]
+	end
+
+ 	# --------------------------------- Control
+	# ingreso de campos básicos ok?
+	def tar_ingrs_ok?	# Ocupado sólo una vez
+		extrn = self.rcp_externa? ? self.krn_empresa_externa_id.present? : true
+		rprsntnt = self.presentado_por == 'Representante' ? self.representante.present? : true
+		tp = self.via_declaracion == 'Presencial' ? self.tipo_declaracion.present? : true
+		extrn and rprsntnt and tp
+	end
+
+	# El motivo de la denuncia es Violencia...
+	def motivo_vlnc?	# Ocupado sólo una vez
+		self.motivo_denuncia == KrnDenuncia::MOTIVOS[2]
+	end
+
+ 	# ================================= 030_drvcns: Ingreso de la denuncia
+ 	# --------------------------------- Despliegue de derivaciones
+
+ 	def drvcn?(code)
+ 		self.krn_derivaciones.find_by(codigo: code)
+ 	end
+
+ 	# --------------------------------- Despliegue de formularios
+
+	def artcl41?
+		self.krn_denunciantes.artcl41.any? or self.krn_denunciados.artcl41.any?
+	end
+
+	def proc_solicitud_denuncia?
+		self.on_dt? and self.rcp_empresa? and ( not self.externa? )
+	end
+
+	def proc_investigacion_local?
+		self.on_empresa? and ( not self.externa? )
+	end
+
+	def proc_investigacion_externa?
+		self.externa? and ( not self.on_dt? ) and ( not self.artcl41? )
+	end
+
+	def proc_fecha_hora_dt?
+		self.krn_derivaciones.on_dt? and self.rgstrs_ok?
+	end
+
+ 	# ================================= 050_crr: Cierre de la gestión inicial
+
+	# fecha de la notificación enviada por la DT (anunciando la recepción de una denuncia)
+	def proc_fecha_ntfccn?
+		self.rcp_dt?
+	end
+
+	# fecha de envío de investigación a la DT 
+	def proc_fecha_trmtcn?
+		self.dnnc.investigacion_local or self.investigacion_externa
+	end
+
+
 	# --------------------------------------------------------------------------- JOT (JUST ONE TIME)
 	# se usa sólo en dt_obligatoria'
 	def prsncl?
@@ -9,18 +79,6 @@ module DnncProc
 
 	def prtcpnts_ok?
 		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
-	end
-
-	def dnncnts_any?
-		self.krn_denunciantes.any?
-	end
-
-	def drvcns_any?
-		self.krn_derivaciones.any?
-	end
-
-	def dclrcns_any?
-		self.krn_declaraciones.any?
 	end
 
 	def frst_invstgdr?
@@ -86,18 +144,6 @@ module DnncProc
 
 	# -----------------------------------------------------------------------------------------------
 
-	# ingreso de campos básicos ok?
-	def ingrs_dnnc_bsc?
-		extrn = self.rcp_externa? ? self.krn_empresa_externa_id.present? : true
-		rprsntnt = self.presentado_por == 'Representante' ? self.representante.present? : true
-		tp = self.via_declaracion == 'Presencial' ? self.tipo_declaracion.present? : true
-		extrn and rprsntnt and tp
-	end
-
-	def mtv_vlnc?
-		self.motivo_denuncia == KrnDenuncia::MOTIVOS[2]
-	end
-
 	def no_vlnc?
 		self.motivo_denuncia != KrnDenuncia::MOTIVOS[2]
 	end
@@ -115,7 +161,7 @@ module DnncProc
 	end
 
 	def ingrs_nts_ds?
-		self.dnncnts_rgstrs_ok? and self.krn_denunciados.any?
+		self.dnncnts_rgstrs_ok? and self.denunciados?
 	end
 
 	def drvcn_rcbd?
@@ -127,7 +173,7 @@ module DnncProc
 	end
 
 	def dclrcns_ok?
-		self.krn_declaraciones.any? and self.krn_declaraciones.map {|dclrcn| dclrcn.rlzd == true}.exclude?(false)
+		self.declaraciones? and self.krn_declaraciones.map {|dclrcn| dclrcn.rlzd == true}.exclude?(false)
 	end
 
 

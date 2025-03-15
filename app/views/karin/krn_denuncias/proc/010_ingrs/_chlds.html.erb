@@ -1,8 +1,9 @@
-<% unless @objeto.ingrs_dnnc_bsc? %>
-	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Információn básica de la denuncia completa. Ingresar personas denunciantes y denunciadas'} %>
-<% end %>
+<% if @objeto.tar_ingrs_ok? %>
 
-<% if @objeto.ingrs_dnnc_bsc? %>
+	<% unless @objeto.denunciantes? %>
+		<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Információn básica de la denuncia completa.'} %>
+	<% end %>
+
 	<div class="row gx-1">
 		<div class="col-lg-6 col-xs-12">
 
@@ -13,14 +14,14 @@
 		<div class="col-lg-6">
 
 			<!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
-			<% if @objeto.mtv_vlnc? %>
+			<% if @objeto.motivo_vlnc? %>
 
 				<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Denuncia de violencia en el trabajo ejercida por terceros. Las personas denunciadas (si las hay) se detallan en las declaraciones.'} %>
 
 			<% else %>
 
 			    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_denunciados', ownr: @objeto, lnks: 'prtl'} %>
-				<% if @objeto.krn_denunciantes.any? %>
+				<% if @objeto.denunciantes? %>
 					<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciados', typ: 'ln', crud: 'lnks'} %>
 				<% end %>
 

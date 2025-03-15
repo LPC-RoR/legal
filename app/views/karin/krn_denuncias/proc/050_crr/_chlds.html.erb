@@ -1,0 +1,3 @@
+<% @proc[:etp_rcpcn][:fls_mss].each do |fl_desc| %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: "Falta el archivo #{fl_desc}"} %>
+<% end %>

@@ -46,6 +46,48 @@ class KrnDenunciado < ApplicationRecord
 		fl(dc).present?
 	end
 
+ 	# --------------------------------- Asociaciones
+
+ 	def declaraciones?
+ 		self.krn_declaraciones.any?
+ 	end
+
+ 	def testigos?
+ 		self.krn_testigos.any?
+ 	end
+
+ 	# ================================= 020_prtcpnts: Ingreso de(l) denunciante(s)
+
+	def fl_diat_diep?
+		self.fl?('dnncnt_diat_diep')
+	end 
+
+	def empleador?
+		self.krn_empresa_externa_id?		
+	end
+
+	def informacion_adicional?
+		self.empleado_externo or self.articulo_516
+	end
+
+	def proc_empleador?
+		self.empleado_externo
+	end
+
+	def proc_direccion?
+		self.articulo_516
+	end
+
+	def rgstr_ok?
+		self.empleador_ok? and self.direccion_ok? and self.rut? and self.krn_testigos.rgstrs_ok?
+	end
+
+	def self.rgstrs_ok?
+		all.empty? ? false : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
+	end
+
+ 	# --------------------------------- Despliegue de formularios
+
 	def self.emprss_ids
 		all.map {|den| den.krn_empresa_externa_id}.uniq
 	end
@@ -60,14 +102,6 @@ class KrnDenunciado < ApplicationRecord
 		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
 	end
 
-	def rgstr_ok?
-		self.empleador_ok? and self.direccion_ok? and self.rut? and self.krn_testigos.rgstrs_ok?
-	end
-
-	def self.rgstrs_ok?
-		all.empty? ? false : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
-	end
-
  	def self.rlzds?
  		all.empty? ? false : all.map {|objt| objt.rlzd}.uniq.join('-') == 'true'
  	end
@@ -76,19 +110,7 @@ class KrnDenunciado < ApplicationRecord
  		self.krn_declaraciones.rlzds? and self.krn_testigos.rlzds?
 	end
 
-	def infrmcn_adcnl?
-		self.empleado_externo or self.articulo_516
-	end
-
 	# ------------------------------------------------------------------------ INGRS
-
-	def proc_empleador?
-		self.empleado_externo
-	end
-
-	def proc_direccion?
-		self.articulo_516
-	end
 
 	# ------------------------------------------------------------------------------
 

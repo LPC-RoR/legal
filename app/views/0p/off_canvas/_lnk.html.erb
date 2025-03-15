@@ -1,0 +1,9 @@
+<%#= render layout: '0p/off_canvas/lnk', locals: {label: 'lbl', objt?: nil, tltp: nil} do %>
+	<!-- ... -->
+<%# end %>
+
+<% objt ||= nil %>
+<% tltp ||= nil %>
+<%= link_to "#", class: "btn", data: { bs_toggle: "offcanvas", bs_target: "##{lbl}#{objt.blank? ? nil : objt.id}" } do %>
+	<span data-toggle="tooltip" title="<%=tltp%>"><%= yield %></span>
+<% end %>

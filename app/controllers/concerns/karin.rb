@@ -1,6 +1,30 @@
 module Karin
   extend ActiveSupport::Concern
 
+  def etp_fls_slcted(ownr, etp)
+    fls = []
+    etp.tareas.ordr.each do |tar|
+      tar.rep_doc_controlados.ordr.each do |dc|
+        if fl_cndtn?(ownr, dc.codigo)
+          unless ownr.fl?(dc.codigo)
+            fls << dc.rep_doc_controlado
+          end
+        end
+      end
+    end
+    fls
+  end
+
+  def load_proc(ownr)
+    @proc = {}
+    @proc_objt = Procedimiento.find_by(codigo: 'krn_invstgcn')
+    @proc_objt.ctr_etapas.ordr.each do |etp|
+      @proc[etp.codigo.to_sym] = {}
+      @proc[etp.codigo.to_sym][:name] = etp.ctr_etapa
+      @proc[etp.codigo.to_sym][:fls_mss] = etp_fls_slcted(ownr, etp)
+    end
+  end
+
   def drvcn_text
     {
       rcpcn_extrn: {
@@ -19,7 +43,7 @@ module Karin
         gls: 'Derivada a la Dirección del Trabajo ( Artículo 4 inciso primero ).'
       },
       drvcn_dnncnt: {
-        prmpt: '¿La persona denunciante solicita derivar a la Dirección del Trabajo.',
+        prmpt: 'La persona denunciante solicita derivar a la Dirección del Trabajo.',
         lbl: 'Derivar a la Dirección del Trabajo.',
         gls: 'Derivada a la Dirección del Trabajo ( Denunciante ).'
       },
@@ -29,12 +53,12 @@ module Karin
         gls: 'Derivada a la Dirección del Trabajo ( Empresa ).'
       },
       drvcn_ext: {
-        prmpt: 'Recepción de denuncia de empresa externa',
+        prmpt: 'Recepción de denuncia de empresa externa: derivar a la empresa externa.',
         lbl: 'Derivar a la empresa externa.',
         gls: 'Derivada a la empresa externa.'
       },
       drvcn_ext_dt: {
-        prmpt: 'Recepción de denuncia de empresa externa',
+        prmpt: 'Recepción de denuncia de empresa externa: derivar a la Dirección del Trabajo.',
         lbl: 'Derivar a la Dirección del Trabajo.',
         gls: 'Derivada a la Dirección del Trabajo ( Externa ).'
       },
@@ -52,7 +76,7 @@ module Karin
         'dnnc_denuncia'     => dnnc.tipo_declaracion != 'Verbal',
         'dnnc_acta'         => dnnc.tipo_declaracion == 'Verbal',
         'dnnc_notificacion' => dnnc.rcp_dt?,
-        'dnnc_certificado'  => (dnnc.on_dt? and dnnc.krn_derivaciones.any?),
+        'dnnc_certificado'  => (dnnc.on_dt? and dnnc.derivaciones?),
         'dnncnt_rprsntcn'   => (dnnc.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]),
         'mdds_rsgrd'        => (( dnnc.rgstrs_ok? and ( not dnnc.on_empresa? ) ) or dnnc.investigacion_local),
         'antcdnts_objcn'    => dnnc.objcn_invstgdr,
@@ -67,8 +91,8 @@ module Karin
       },
       prtcpnts: {
         'dnncnt_diat_diep'  => ownr.class.name == 'KrnDenunciante',
-        'prtcpnts_dclrcn'   => ownr.krn_declaraciones.any?,
-        'prtcpnts_antcdnts' => ownr.krn_declaraciones.any?
+        'prtcpnts_dclrcn'   => ownr.declaraciones?,
+        'prtcpnts_antcdnts' => ownr.declaraciones?
       }
     }
   end
@@ -149,13 +173,14 @@ module Karin
 
   # Reemplazar a fll_fld generalizando y creando ctr_registro correspondiente
   def set_fld
-    ctr_paso = CtrPaso.find_by(metodo: params[:k])
+    ctr_paso = CtrPaso.find_by(codigo: params[:k])
 
     @objeto[ctr_paso.metodo] = ctr_paso.metodo.split('_')[0] == 'fecha' ? params_to_date(params, ctr_paso.metodo) : params[ctr_paso.metodo.to_sym]
     @objeto.save
 
     dsply_metodo = ctr_paso.despliega.blank? ? ctr_paso.metodo : ctr_paso.despliega
-    field = @objeto[dsply_metodo]
+    field = @objeto.send(dsply_metodo)
+
 
     if ctr_paso.metodo.split('_').first == 'fecha'
       vlr = @objeto[ctr_paso.metodo].strftime("%d-%m-%Y  %I:%M%p")
@@ -166,6 +191,17 @@ module Karin
     end
 
     @objeto.ctr_registros.create(orden: ctr_paso.orden, tarea_id: ctr_paso.tarea_id, ctr_paso_id: ctr_paso.id, glosa: ctr_paso.glosa, valor: vlr)
+
+    puts "---------------------------------------------- set_fld"
+    puts params[:k]
+    puts params[:krn_empresa_externa_id]
+    puts params[ctr_paso.metodo.to_sym]
+    puts dsply_metodo
+    puts @objeto[ctr_paso.metodo]
+    puts field
+    puts vlr
+
+    puts 'stop'
 
     redirect_to @objeto
   end

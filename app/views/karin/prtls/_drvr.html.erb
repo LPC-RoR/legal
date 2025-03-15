@@ -1,8 +1,9 @@
 <% color ||= 'primary' %>
 <% gly ||= color == 'danger' ? 'bug' : ( color == 'primary' ? 'check2-all' : 'lightbulb' ) %>
 
-<% unless objeto.send("#{codigo}?") %>
-	<div class="m-1 ps-2 pt-1 pe-2 pb-1 text-<%=color%> border border-<%=color%> rounded" style="font-size: 14px;">
+<!--% unless objeto.send("#{codigo}?") objeto.drvcn?(codigo) %-->
+<% unless objeto.drvcn?(codigo) %>
+	<div class="mt-1 mb-1 ps-2 pt-1 pe-2 pb-1 text-<%=color%> border border-<%=color%> rounded" style="font-size: 14px;">
 		<div class="text-center">
 			<h6><b><%= drvcn_text[codigo.to_sym][:prmpt] %></b></h6>
 		</div>

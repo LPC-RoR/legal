@@ -1,0 +1,8 @@
+<p class="text-justify", style="font-size: 16px;">El proceso de gestión inicial de la denuncia considera todas las tareas que se deben realizar dentro del primer plazo de tres días hábiles a partir de su recepción.
+</p>
+<hr>
+<ol>
+	<% CtrEtapa.find_by(codigo: 'etp_rcpcn').tareas.ordr.each do |tar| %>
+		<li style="font-size: 14px;"><%= tar.tarea %></li>
+	<% end %>
+</ol>
