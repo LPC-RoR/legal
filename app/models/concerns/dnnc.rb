@@ -54,12 +54,14 @@ module Dnnc
 		self.evlcn_incmplt? or self.evlcn_incnsstnt?
 	end
 
+	# Revisar si se usa esta o la siguiente 
+	# para registrar la recepción de la investigación realizada por la DT
 	def proc_fecha_trmn?
 		self.rlzds?
 	end
 
 	def proc_fecha_env_infrm?
-		self.fecha_trmn? or self.fecha_hora_dt?
+		self.fecha_trmn? or self.on_dt?
 	end
 
 	def proc_prnncmnt_vncd?

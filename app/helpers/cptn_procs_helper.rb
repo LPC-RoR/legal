@@ -46,8 +46,8 @@ module CptnProcsHelper
 			'060_invstgdr' => ((dnnc.fecha_trmtcn? or dnnc.fecha_hora_dt? or dnnc.fecha_ntfccn?) and @proc[:etp_rcpcn][:fls_mss].empty?),
 			'070_evlcn' => (dnnc.krn_inv_denuncias.any? and dnnc.on_empresa?),
 			'080_dclrcn' => dnnc.krn_inv_denuncias.any?,
-			'090_trmn_invstgcn' => (dnnc.krn_inv_denuncias.any? and dnnc.evlds? and dnnc.on_empresa? and dnnc.rlzds?),
-			'100_env_rcpcn' => (dnnc.fecha_trmn? or dnnc.fecha_hora_dt?),
+			'090_trmn_invstgcn' => (dnnc.rlzds? or dnnc.on_dt?),
+			'100_env_rcpcn' => (dnnc.fecha_trmn? or dnnc.rlzds?),
 			'110_prnncmnt' => dnnc.fecha_env_infrm?,
 			'120_mdds_sncns' => ( dnnc.fecha_env_infrm? or dnnc.prnncmnt_vncd? )
 		}

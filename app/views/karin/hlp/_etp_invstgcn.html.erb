@@ -1,0 +1,12 @@
+<p class="text-justify", style="font-size: 16px;">Esta etapa abarca todas las tareas propias de la investigación de la denuncia.
+</p>
+<p class="text-justify", style="font-size: 14px;">En el caso de investigaciones realizadas por la Dirección del Trabajo, no se despliegan las tareas detalladas a continuación. Solo se despliega el encabezado para mostrar el plazo comprometido para su ejecución.
+</p>
+<hr>
+
+<ol>
+	<% CtrEtapa.find_by(codigo: 'etp_invstgcn').tareas.ordr.each do |tar| %>
+		<li style="font-size: 14px;"><%= tar.tarea %></li>
+	<% end %>
+</ol>
+

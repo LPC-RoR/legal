@@ -12,6 +12,7 @@ class Karin::KrnDenunciadosController < ApplicationController
 
   # GET /krn_denunciados/1 or /krn_denunciados/1.json
   def show
+    load_proc(@objeto)
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
 
     set_tabla('krn_declaraciones', @objeto.krn_declaraciones, false)

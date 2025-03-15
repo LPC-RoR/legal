@@ -5,3 +5,7 @@
 <% else %>
 	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Todos los archivos requeridos ingresados.'} %>
 <% end %>
+
+<% if @objeto.on_dt? %>
+	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Investigación realizada por la Dirección del Trabajo. Se despliega la etapa Investigación sólo para mostrar el plazo para dicha etapa.'} %>
+<% end %>
