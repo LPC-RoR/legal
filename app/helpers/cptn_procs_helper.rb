@@ -16,7 +16,7 @@ module CptnProcsHelper
 		dnnc = ownr.dnnc
 		{
 			etp_rcpcn: ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name),
-			etp_invstgcn: ((dnnc.fecha_trmtcn? or  dnnc.fecha_hora_dt?) and dnnc.on_empresa?),
+			etp_invstgcn: ((dnnc.fecha_trmtcn? or dnnc.fecha_hora_dt? or dnnc.fecha_ntfccn?) and @proc[:etp_rcpcn][:fls_mss].empty?),
 			etp_envio: (( dnnc.fecha_hora_dt? ? dnnc.fecha_trmtcn? : dnnc.fecha_trmn?) or ( not dnnc.on_empresa? )),
 			etp_prnncmnt: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
 			etp_mdds_sncns: ( dnnc.fecha_env_infrm? or dnnc.prnncmnt_vncd? )
@@ -43,7 +43,7 @@ module CptnProcsHelper
 #			'040_mdds' => ( dnnc.on_dt? or dnnc.investigacion_local or dnnc.investigacion_externa),
 			'050_crr' => (dnnc.rgstrs_ok? and (dnnc.dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or dnnc.rcp_dt?)),
 			# INVSTGCN
-			'060_invstgdr' => ((dnnc.fecha_trmtcn? or dnnc.fecha_hora_dt?) and dnnc.on_empresa?),
+			'060_invstgdr' => ((dnnc.fecha_trmtcn? or dnnc.fecha_hora_dt? or dnnc.fecha_ntfccn?) and @proc[:etp_rcpcn][:fls_mss].empty?),
 			'070_evlcn' => (dnnc.krn_inv_denuncias.any? and dnnc.on_empresa?),
 			'080_dclrcn' => dnnc.krn_inv_denuncias.any?,
 			'090_trmn_invstgcn' => (dnnc.krn_inv_denuncias.any? and dnnc.evlds? and dnnc.on_empresa? and dnnc.rlzds?),
