@@ -3,6 +3,9 @@ module DnncProc
  	# ================================= PROC Etapas y Tareas
 
  	def fechas_invstgcn?
+ 		# Se informó inicio de investigación
+ 		# La DT recibió nuestra derivación
+ 		# La DT notificó inicio de la investigación
  		self.fecha_trmtcn? or self.fecha_hora_dt? or self.fecha_ntfccn?
  	end
 
@@ -13,6 +16,7 @@ module DnncProc
 
  	# ================================= 010_ingrs: Ingreso de la denuncia
  	# --------------------------------- Despliegue de formularios
+
 	def proc_externa?
 		self.rcp_externa? and self.p_plus?
 	end

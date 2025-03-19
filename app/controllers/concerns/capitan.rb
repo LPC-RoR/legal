@@ -147,7 +147,19 @@ module Capitan
 	end
 
 	def params_to_date(prms, date_field)
-		DateTime.new(prms["#{date_field}(1i)"].to_i, prms["#{date_field}(2i)"].to_i, prms["#{date_field}(3i)"].to_i, 0, 0, 0, "#{Time.zone.utc_offset/3600}")
+		puts "****************************************** params_to_date"
+		puts prms
+		puts date_field
+		puts "[#{date_field.strip}(1i)]"
+		puts "[#{date_field.strip}(2i)]"
+		puts "[#{date_field.strip}(3i)]"
+		puts prms["[#{date_field.strip}(1i)]"].to_i
+		puts prms["[#{date_field.strip}(2i)]"].to_i
+		puts prms["[#{date_field.strip}(3i)]"].to_i
+		annio = prms["[#{date_field.strip}(1i)]"].to_i
+		mes = prms["[#{date_field.strip}(2i)]"].to_i
+		dia = prms["[#{date_field.strip}(3i)]"].to_i
+		DateTime.new(annio, mes, dia, 0, 0, 0, "#{Time.zone.utc_offset/3600}")
 	end
 
 end

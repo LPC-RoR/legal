@@ -1,6 +1,47 @@
 module ProcControl
   extend ActiveSupport::Concern
 
+	# ------------------------------------------------------------------------------------- NEW VERSION
+
+	def plz_ok?(fecha, plazo)
+		fecha.present? ? plazo.to_date >= fecha.to_date : (plazo.to_date > Time.zone.today.to_date ? nil : false) unless plazo.blank?
+	end
+
+	def etp_cntrl_hsh(ownr)
+		dnnc = ownr.dnnc
+		fecha_legal = dnnc.fecha_hora_dt? ? @objeto.fecha_hora_dt : @objeto.fecha_hora
+		fecha_env_rcpcn = dnnc.fecha_env_infrm || dnnc.fecha_rcpcn_infrm
+		plz_env_rcpcn = dnnc.fecha_trmn? ? plz_lv(dnnc.fecha_trmn, 2) : plz_lv(fecha_legal, 32)
+		{
+			'etp_rcpcn'      => {
+				trmn:	dnnc.fechas_invstgcn?,
+				plz: plz_lv(dnnc.fecha_hora, 3),
+				plz_ok: dnnc.fecha_trmtcn? ? plz_ok?( dnnc.fecha_trmtcn, plz_lv(dnnc.fecha_hora, 3) ) : nil,
+			},
+			'etp_invstgcn'   => {
+				trmn:	dnnc.fecha_trmn?,
+				plz: plz_lv(fecha_legal, 30),
+				plz_ok: plz_ok?( dnnc.fecha_trmn, plz_lv(fecha_legal, 30)),
+			},
+			'etp_envio'      => {
+				trmn: (dnnc.fecha_env_infrm? or dnnc.fecha_rcpcn_infrm?),
+				plz: plz_env_rcpcn,
+				plz_ok: plz_ok?( fecha_env_rcpcn, plz_env_rcpcn),
+			},
+			'etp_prnncmnt'   => {
+				trmn: dnnc.fecha_prnncmnt?,
+				plz: plz_lv(dnnc.fecha_env_infrm, 30),
+				plz_ok: plz_ok?( dnnc.fecha_prnncmnt, plz_lv(dnnc.fecha_env_infrm, 30)),
+			},
+			'etp_mdds_sncns' => {
+				trmn: false,
+				plz: plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15),
+				plz_ok: true,
+			},
+		}
+	end
+
+
 	# ------------------------------------------------------------------------------------- PIS
 
 	def etp_hide_hsh(ownr)

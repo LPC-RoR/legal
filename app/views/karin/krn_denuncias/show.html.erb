@@ -1,5 +1,8 @@
 <%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 
+<!-- ETAPAS REALIZADAS -->
+<%= render partial: 'karin/prtls/etps_rlzds', locals: {ownr: @objeto} %>
+
 <!-- Registros acumulados de la denuncia -->
 <%= render partial: '0p/proc/dnnc_rgstrs', locals: {trsh_cndtn: false, objeto: @objeto} %>
 

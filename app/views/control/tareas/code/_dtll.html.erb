@@ -4,6 +4,7 @@
 
 <!-- Muestra TABLA de ctr_registros generados hasta ahora -->
 <% unless objeto.ctr_pasos.empty? %>
+
 	<% if tar_cntrl(ownr)[objeto.codigo] %>
 		<% objeto.ctr_pasos.ordr.each do |paso| %>
 			<% if ownr.send("proc_#{paso.codigo}?") %>
