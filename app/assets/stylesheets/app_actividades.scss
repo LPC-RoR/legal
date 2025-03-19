@@ -1,38 +1,30 @@
-
-// mrgn_pddng($mrgn, $pddng);
-// brd($brd:wdth, $brd_rds, $brd_clr);
-// bx($bg_clr);
-// bx_shdw;
-// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// grd($grd_tc, $grd_gap);
-// grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
-// @import "bscs";
+@use '00p_config' as cnfg;
+@use 'bscs';
 
 
 // @include ln_ttl_lnks($c_lnks, $c_hvr);
 @import "ttl_lnks";
 
 @mixin dia_hd($d_bg, $d_fnt, $d_brd) {
-	@include mrgn_pddng(0 0 4px 0, 10px);
-	@include brd(1px, 3px 3px 3px 3px, $d_brd);
-	@include bx($d_bg);
-	@include bx_shdw;
+	@include bscs.mrgn_pddng(0 0 4px 0, 10px);
+	@include bscs.brd(1px, 3px 3px 3px 3px, $d_brd);
+	@include bscs.bx($d_bg);
+	@include bscs.bx_shdw;
 	font-size: 15px;
 	color: $d_fnt;
 
 	.ttl {
     	font-weight: bold;
-    	@include grd(auto 100px, 0);
+    	@include bscs.grd(auto 100px, 0);
 	    justify-items: stretch;
 
 	    .lft {
-	    	@include grd_ncol(1);
+	    	@include bscs.grd_ncol(1);
 	    	justify-self: start;
 	    }
 
 		.rght {
-	    	@include grd_ncol(2);
+	    	@include bscs.grd_ncol(2);
 	    	justify-self: end;
 	    }
 	}
@@ -68,23 +60,23 @@
 // dia_hd($d_bg, $d_fnt, $d_brd)
 
 .d_dyf {
-	@include dia_hd($red_4, $red_1, $red_5);
+	@include dia_hd(cnfg.$red_4, cnfg.$red_1, cnfg.$red_5);
 }
 
 .d_s {
-	@include dia_hd($red_5, $red_2, $red_5);
+	@include dia_hd(cnfg.$red_5, cnfg.$red_2, cnfg.$red_5);
 }
 
 .d_h {
-	@include dia_hd($blue_5, $blue_1, $blue_5);
+	@include dia_hd(cnfg.$blue_5, cnfg.$blue_1, cnfg.$blue_5);
 }
 
 .ac_bjt {
-	@include ac_bjt_bs($pltt_9, $pltt_7);
+	@include ac_bjt_bs(cnfg.$pltt_9, cnfg.$pltt_7);
 	@include ac_dtll(black, gray);
 }
 
 .pndt_bjt {
-	@include ac_bjt_bs($pltt_8, $pltt_7);
+	@include ac_bjt_bs(cnfg.$pltt_8, cnfg.$pltt_7);
 	@include ac_dtll(black, gray);
 }

@@ -1,26 +1,27 @@
+@use '00p_config' as cnfg;
+@use 'bscs';
+
 $shw_mrgn: 2px 0 2px 0;
 $shw_pddng: .5rem;
 
 $shw_brd_wdth: 1px;
 $shw_brd_typ: solid;
-$shw_brd_clr: $pltt_5;
+$shw_brd_clr: cnfg.$pltt_5;
 $shw_brd_rds: 5px;
 
-$shw_ln_bg_clr: $pltt_9;
+$shw_ln_bg_clr: cnfg.$pltt_9;
 $shw_ln_tc: 60% 40%;
 $shw_ln_gp: 0;
 
-@import "bscs";
-
 @mixin shw_bsc {
-	@include mrgn_pddng($shw_mrgn, $shw_pddng);
-	@include brd_ln($shw_brd_wdth, $shw_brd_typ, $shw_brd_clr, $shw_brd_rds);
+	@include bscs.mrgn_pddng($shw_mrgn, $shw_pddng);
+	@include bscs.brd_ln($shw_brd_wdth, $shw_brd_typ, $shw_brd_clr, $shw_brd_rds);
 //	background-color: white;
 }
 
 @mixin shw_ln_bsc {
 	background-color: $shw_ln_bg_clr;
-	@include grd($shw_ln_tc, $shw_ln_gp);
+	@include bscs.grd($shw_ln_tc, $shw_ln_gp);
 	font-size: 14px;
 }
 
@@ -31,14 +32,14 @@ $shw_ln_gp: 0;
 		@include shw_ln_bsc;
 		.fld {
 			padding-left: 1rem;
-	        @include grd_ncol(1);
+	        @include bscs.grd_ncol(1);
 	        justify-self: start;
 	        font-weight: bold;
 		}
 		.vl {
 			// Dependiendo del tipo de campo se alinea esta columna
 			padding-right: 1rem;
-	        @include grd_ncol(2);
+	        @include bscs.grd_ncol(2);
 //	        justify-self: end; 	
 		}
 	}

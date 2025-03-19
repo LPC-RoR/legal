@@ -1,24 +1,17 @@
-// mrgn_pddng($mrgn, $pddng);
-// brd($brd_wdth, $brd_rds, $brd_clr);
-// bx($bg_clr);
-// bx_shdw;
-// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// grd($grd_tc, $grd_gap);
-// grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
-@import "bscs";
+@use '00p_config' as cnfg;
+@use 'bscs';
 
 
 .lgl_prrf {
 	background-color: white;
-	@include bx_shdw;
+	@include bscs.bx_shdw;
 	margin-bottom: 3px;
 	padding: 1rem;
 	.lnks {
-		@include a_hover($pltt_3, gray);
-		@include ln_fnt(15px, $app_fnt, 10px, $pltt_3);
+		@include bscs.a_hover(cnfg.$pltt_3, gray);
+		@include bscs.ln_fnt(15px, cnfg.$app_fnt, 10px, cnfg.$pltt_3);
 	}
 	.prrf {
-		@include ln_fnt(118px, $app_fnt, 15px, $pltt_3);
+		@include bscs.ln_fnt(118px, cnfg.$app_fnt, 15px, cnfg.$pltt_3);
 	}
 }

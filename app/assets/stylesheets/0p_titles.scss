@@ -1,170 +1,64 @@
-$ttl_ln_hght: 40px;
+@use '00p_config' as cnfg;
+@use 'bscs';
 
-$p_blue: #2a6f97;
+$ttl_ln_hght: 40px;
 
 /* PARTIALS */
 
-// mrgn_pddng($mrgn, $pddng);
-// brd($brd_wdth, $brd_rds, $brd_clr);
-// bx($bg_clr);
-// bx_shdw;
-// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// grd($grd_tc, $grd_gap);
-// grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
-@import "bscs";
-
 /* TITULOS */
 
-@mixin clss_ttl_bsc($grd_tc, $clr_bg, $clr) {
-	@include mrgn_pddng(3px, 0 10px 0 10px);
-	@include brd(1px, 3px, pltt_4);
-	@include bx($p_blue);
-	@include bx_shdw;
-	@include grd(auto auto, 0);
-	@include ln_fnt($ttl_ln_hght, $app_fnt, 16px, $clr);
-    font-weight: bold;
-}
-
-@mixin ttl_2clmns {
-	.ttl_ttl {
-		@include grd_ncol(1);
-    	padding-left: 1em;
-    	justify-self: start;
-	}
-	.ttl_lnks {
-		@include grd_ncol(2);
-    	justify-self: end;
-	}
-}
-
 @mixin ttl_bsc2($grd_tc) {
-	@include mrgn_pddng(3px 0 3px 0, 0 10px 0 10px);
-	@include brd(1px, 3px 3px 3px 3px, pltt_4);
-	@include bx($p_blue);
-	@include bx_shdw;
-	@include grd(auto auto, 0);
-	@include ln_fnt($ttl_ln_hght, $app_fnt, 16px, $pltt_9);
+	@include bscs.mrgn_pddng(3px 0 3px 0, 0 10px 0 10px);
+	@include bscs.brd(1px, 3px 3px 3px 3px, pltt_4);
+	@include bscs.bx(cnfg.$p_blue);
+	@include bscs.bx_shdw;
+	@include bscs.grd(auto auto, 0);
+	@include bscs.ln_fnt($ttl_ln_hght, cnfg.$app_fnt, 16px, cnfg.$pltt_9);
     font-weight: bold;
 }
 
 @mixin ttl_nm_lnks($grd_tc) {
 	@include ttl_bsc2($grd_tc);
 	.ttl_ttl {
-		@include grd_ncol(1);
+		@include bscs.grd_ncol(1);
     	padding-left: 1em;
     	justify-self: start;
 	}
 	.ttl_lnks {
-		@include grd_ncol(2);
+		@include bscs.grd_ncol(2);
     	justify-self: end;
 	}
-   	@include a_hover($pltt_9, $pltt_3);
+   	@include bscs.a_hover(cnfg.$pltt_9, cnfg.$pltt_3);
 }
 
-//---------------------------------------------- LINE
-
-@mixin ttl_ln_bsc($grd_tc, $brd_rds, $ln_hght, $fnt_sz) {
-	@include mrgn_pddng(0 0 4px 0, 0 10px 0 10px);
-	@include brd(2px, $brd_rds, $pltt_6);
-	@include bx($pltt_9);
-	@include bx_shdw;
-	@include grd(auto auto, 0);
-	@include ln_fnt($ln_hght, $app_fnt, $fnt_sz, $pltt_4);
-    font-weight: bold;
-	.ttl_ttl {
-		@include grd_ncol(1);
-    	justify-self: start;
-	}
-	.ttl_lnks {
-		@include grd_ncol(2);
-    	justify-self: end;
-	}
-   	@include a_hover($pltt_4, $pltt_6);
-}
-
-// ---------------------------------------------- NAV
-
-@mixin nav_cols2($grd_tc) {
-	@include brd(1px, 3px 3px 3px 3px, pltt_4);
-	@include ttl_bsc2($grd_tc);
-    justify-items: center;
-	.bck {
-		@include grd_ncol(1);
-    	padding-left: 1em;
-    	justify-self: start;
-	}
-	.info {
-		@include grd_ncol(2);
-	}
-	.nxt {
-		@include grd_ncol(3);
-    	justify-self: end;
-	}
-   	@include a_hover($pltt_9, $pltt_3);
-}
 // -------------------------------------------------- PRNT
 
 @mixin ttl_prnt($grd_tc, $brd_rds, $ln_hght, $fnt_sz) {
-	@include mrgn_pddng(0 0 4px 0, 0 10px 0 10px);
-	@include brd(2px, $brd_rds, $pltt_6);
-	@include bx(white);
-	@include bx_shdw;
-	@include grd(auto auto, 0);
-	@include ln_fnt($ln_hght, $app_fnt, $fnt_sz, $pltt_4);
+	@include bscs.mrgn_pddng(0 0 4px 0, 0 10px 0 10px);
+	@include bscs.brd(2px, $brd_rds, cnfg.$pltt_6);
+	@include bscs.bx(white);
+	@include bscs.bx_shdw;
+	@include bscs.grd(auto auto, 0);
+	@include bscs.ln_fnt($ln_hght, cnfg.$app_fnt, $fnt_sz, cnfg.$pltt_4);
 	color: black;
     font-weight: bold;
 	.ttl_ttl {
-		@include grd_ncol(1);
+		@include bscs.grd_ncol(1);
     	justify-self: start;
 	}
 	.ttl_lnks {
-		@include grd_ncol(2);
+		@include bscs.grd_ncol(2);
     	justify-self: end;
 	}
-   	@include a_hover($pltt_4, $pltt_6);
+   	@include bscs.a_hover(cnfg.$pltt_4, cnfg.$pltt_6);
 }
 
 // ------------------------------------------------------------------------------------
-
-.ttl_nav {
-	@include nav_cols2(50px auto 50px);
-}
 
 .ttl_app {
 	@include ttl_nm_lnks(auto auto);
 }
 
-.ttl_top {
-	@include ttl_ln_bsc(auto auto, 10px 10px 3px 3px, 30px, 14px)
-}
-
-.ttl_ln {
-	@include ttl_ln_bsc(auto auto, 10px 10px 10px 10px, 30px, 14px)
-}
-
-.ttl_smll_ln {
-	@include ttl_ln_bsc(auto auto, 10px 10px 10px 10px, 20px, 12px)
-}
-
-.ttl_bttn {
-	@include ttl_ln_bsc(auto auto, 3px 3px 10px 10px, 30px, 14px)
-}
-
 .ttl_prnt {
 	@include ttl_prnt(auto auto, 3px 3px 3px 3px, 40px, 14px)
-}
-
-// CLSS_TTL
-
-.scndry_ttl {
-	@include clss_ttl_bsc(auto auto, $blue_4, blue);
-	@include ttl_2clmns;
-   	@include a_hover(blue, $blue_3);
-}
-
-.thrd_ttl {
-	@include clss_ttl_bsc(auto auto, $blue_5, blue);
-	@include ttl_2clmns;
-   	@include a_hover(blue, $blue_3);
 }

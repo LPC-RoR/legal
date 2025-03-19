@@ -1,3 +1,6 @@
+@use '00p_config' as cnfg;
+@use 'bscs';
+
 /* ELEMENTOS BASE PARA EL MANEJO DE TABLAS */
 
 // DEPRECATED No se usan en este scss
@@ -14,135 +17,125 @@ $app_ln_gp: 0;
 
 // -------------------------------------------
 
-// mrgn_pddng($mrgn, $pddng);
-// brd($brd:wdth, $brd_rds, $brd_clr);
-// bx($bg_clr);
-// bx_shdw;
-// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// grd($grd_tc, $grd_gap);
-// grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
-@import "bscs";
-
 @mixin ln_bsc_prprty($clr_bg, $fnt_fmly, $fnt_sz) {
-    @include mrgn_pddng(0, $app_ln_padd);
-    @include bx($clr_bg);
-    @include ln_fnt($app_ln_hght, $fnt_fmly, $fnt_sz, black)
+    @include bscs.mrgn_pddng(0, $app_ln_padd);
+    @include bscs.bx($clr_bg);
+    @include bscs.ln_fnt($app_ln_hght, $fnt_fmly, $fnt_sz, black)
 }
 
 @mixin ln_nm_lnks($lnk_clr, $hvr_clr) {
-    @include grd(auto 100px, $app_ln_gp);
+    @include bscs.grd(auto 100px, $app_ln_gp);
     .ln_nm {
-        @include grd_ncol(1);
+        @include bscs.grd_ncol(1);
         justify-self: start;
     }
     .ln_lnks {
-        @include grd_ncol(2);
+        @include bscs.grd_ncol(2);
         justify-self: end;
     }
-    @include a_hover($lnk_clr, $hvr_clr);
+    @include bscs.a_hover($lnk_clr, $hvr_clr);
 }
 
 @mixin ln_ord_nm_lnks($lnk_clr, $hvr_clr) {
-    @include grd(50px auto 100px, $app_ln_gp);
+    @include bscs.grd(50px auto 100px, $app_ln_gp);
     .ln_order {
-        @include grd_ncol(1);
+        @include bscs.grd_ncol(1);
         justify-self: start;
     }
     .ln_nm {
-        @include grd_ncol(2);
+        @include bscs.grd_ncol(2);
         justify-self: start;
     }
     .ln_lnks {
-        @include grd_ncol(3);
+        @include bscs.grd_ncol(3);
         justify-self: end;
     }
-    @include a_hover($lnk_clr, $hvr_clr);
+    @include bscs.a_hover($lnk_clr, $hvr_clr);
 }
 
 @mixin ln_2auto($lnk_clr, $hvr_clr) {
-    @include grd(auto auto, $app_ln_gp);
+    @include bscs.grd(auto auto, $app_ln_gp);
     .ln_nm {
-        @include grd_ncol(1);
+        @include bscs.grd_ncol(1);
         justify-self: start;
     }
     .ln_lnks {
-        @include grd_ncol(2);
+        @include bscs.grd_ncol(2);
         justify-self: end;
     }
-    @include a_hover($lnk_clr, $hvr_clr);
+    @include bscs.a_hover($lnk_clr, $hvr_clr);
 }
 
 @mixin ttl_2auto($lnk_clr, $hvr_clr) {
-    @include grd(auto auto, $app_ln_gp);
+    @include bscs.grd(auto auto, $app_ln_gp);
     .ttl_lft {
-        @include grd_ncol(1);
+        @include bscs.grd_ncol(1);
         justify-self: start;
     }
     .ttl_rght {
-        @include grd_ncol(2);
+        @include bscs.grd_ncol(2);
         justify-self: end;
     }
-    @include a_hover($lnk_clr, $hvr_clr);
+    @include bscs.a_hover($lnk_clr, $hvr_clr);
 }
 
 @mixin ln_nm_mnt_lnks($lnk_clr, $hvr_clr) {
-    @include grd(auto 100px 50px, $app_ln_gp);
+    @include bscs.grd(auto 100px 50px, $app_ln_gp);
     .ln_nm {
-        @include grd_ncol(1);
+        @include bscs.grd_ncol(1);
         justify-self: start;
     }
     .ln_mnt {
-        @include grd_ncol(2);
+        @include bscs.grd_ncol(2);
         justify-self: end;
     }
     .ln_lnks {
-        @include grd_ncol(3);
+        @include bscs.grd_ncol(3);
         justify-self: end;
     }
-    @include a_hover($lnk_clr, $hvr_clr);
+    @include bscs.a_hover($lnk_clr, $hvr_clr);
 }
 
 @mixin ln_nm_2mnt_lnks ($lnk_clr, $hvr_clr) {
-    @include grd(auto 100px 100px 50px, $app_ln_gp);
+    @include bscs.grd(auto 100px 100px 50px, $app_ln_gp);
     .ln_nm {
-        @include grd_ncol(1);
+        @include bscs.grd_ncol(1);
         justify-self: start;
     }
     .ln_mnt1 {
-        @include grd_ncol(2);
+        @include bscs.grd_ncol(2);
         justify-self: end;
     }
     .ln_mnt2 {
-        @include grd_ncol(3);
+        @include bscs.grd_ncol(3);
         justify-self: end;
     }
     .ln_lnks {
-        @include grd_ncol(4);
+        @include bscs.grd_ncol(4);
         justify-self: end;
     }
-    @include a_hover($lnk_clr, $hvr_clr);
+    @include bscs.a_hover($lnk_clr, $hvr_clr);
 }
 
 // -------------------------------------------
 
 .ln_app {
-    @include ln_bsc_prprty(white, $app_fnt, 13px);
+    @include ln_bsc_prprty(white, cnfg.$app_fnt, 13px);
     @include ln_nm_lnks(blue, gray);
 }
 
 .ln_bjt_app {
-    @include ln_bsc_prprty($pltt_8, $app_fnt, 14px);
+    @include ln_bsc_prprty(cnfg.$pltt_8, cnfg.$app_fnt, 14px);
     @include ln_2auto(blue, gray);
 }
 
 .ln_nt_crd {
-    @include ln_bsc_prprty($pltt_8, $app_fnt, 10px);
+    @include ln_bsc_prprty(cnfg.$pltt_8, cnfg.$app_fnt, 10px);
     @include ln_2auto(blue, gray);
 }
 
 .ttl_bx {
-    @include ln_bsc_prprty(white, $app_fnt, 16px);
+    @include ln_bsc_prprty(white, cnfg.$app_fnt, 16px);
     @include ttl_2auto(blue, gray);
 }
 
@@ -154,7 +147,7 @@ $app_ln_gp: 0;
 
 /* ln de Demandante */
 .ln_dmndnts {
-    @include ln_bsc_prprty($pltt_8, $app_tb_fnt, 11px);
+    @include ln_bsc_prprty(cnfg.$pltt_8, $app_tb_fnt, 11px);
     @include ln_nm_mnt_lnks(blue, gray);
 }
 
@@ -165,15 +158,6 @@ $app_ln_gp: 0;
 
 
 // Cajas de tablas y objetos
-.tbl_bx {
-    padding: 1em;
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-    background-color: #ffffff;
-    margin-bottom: -8px;
-    border: 1px solid #f2f4f4;
-    border-radius: 3px 3px 3px 3px;
-    font-family: 'Raleway', sans-serif;
-}
 
 .objeto-box {
     padding: 1em;

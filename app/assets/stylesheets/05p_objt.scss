@@ -1,13 +1,16 @@
+@use '00p_config' as cnfg;
+@use 'bscs';
+
 $objt_mrgn: 4px 0 0 0;
 $objt_pddng: .5rem;
 $objt_brd_wdth: 1px;
 $objt_brd_typ: solid;
-$objt_brd_clr: $pltt_8;
+$objt_brd_clr: cnfg.$pltt_8;
 $objt_brd_rds: 3px;
 
-$objt_fnt_fmly: $main_fnt_fmly;
+$objt_fnt_fmly: cnfg.$app_fnt;
 $objt_clr: black;
-$objt_ln_bg_clr: $pltt_9;
+$objt_ln_bg_clr: cnfg.$pltt_9;
 $objt_ln_hght: 14px;
 
 $objt_oln_tc: 70px auto 100px;
@@ -18,22 +21,20 @@ $sobjt_mrgn: 4px 0 0 0;
 $sobjt_pddng: .5rem;
 $sobjt_brd_wdth: 1px;
 $sobjt_brd_typ: solid;
-$sobjt_brd_clr: $pltt_8;
+$sobjt_brd_clr: cnfg.$pltt_8;
 $sobjt_brd_rds: 3px;
 
-@import "bscs";
-
 @mixin objt_bsc {
-	@include mrgn_pddng($objt_mrgn, $objt_pddng);
-	@include brd_ln($objt_brd_wdth, $objt_brd_typ, $objt_brd_clr, $objt_brd_rds);
+	@include bscs.mrgn_pddng($objt_mrgn, $objt_pddng);
+	@include bscs.brd_ln($objt_brd_wdth, $objt_brd_typ, $objt_brd_clr, $objt_brd_rds);
 	background-color: white;
 }
 
 @mixin objt_ln_bsc {
 	background-color: $objt_ln_bg_clr;
 	padding: 3px 1rem 3px 1rem;
-	color: $pltt_2;
-	@include a_hover($pltt_2, $pltt_4);
+	color: cnfg.$pltt_2;
+	@include bscs.a_hover(cnfg.$pltt_2, cnfg.$pltt_4);
 }
 
 .objt {
@@ -56,31 +57,31 @@ $sobjt_brd_rds: 3px;
 
 .objt_ln {
 	@include objt_ln_bsc;
-	@include grd($objt_ln_tc, $objt_ln_gp);
+	@include bscs.grd($objt_ln_tc, $objt_ln_gp);
 	.nm {
-        @include grd_ncol(1);
+        @include bscs.grd_ncol(1);
         justify-self: start;
 	}
 	.lnks {
-        @include grd_ncol(2);
+        @include bscs.grd_ncol(2);
         justify-self: end;
 	}
 }
 
 .objt_oln {
 	@include objt_ln_bsc;
-	@include grd($objt_oln_tc, $objt_ln_gp);
+	@include bscs.grd($objt_oln_tc, $objt_ln_gp);
 	.ord {
 		padding-left: 1rem;
-        @include grd_ncol(1);
+        @include bscs.grd_ncol(1);
         justify-self: start;
 	}
 	.nm {
-        @include grd_ncol(2);
+        @include bscs.grd_ncol(2);
         justify-self: start;
 	}
 	.lnks {
-        @include grd_ncol(3);
+        @include bscs.grd_ncol(3);
         justify-self: end;
 	}
 }

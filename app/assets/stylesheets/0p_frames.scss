@@ -1,39 +1,28 @@
+@use '00p_config' as cnfg;
+@use 'bscs';
+
 $f_bg: white;
 $f_gap: 4px;
 $f_mrgn: 0;
 $auto: auto;
 
-// mrgn_pddng($mrgn, $pddng);
-// brd($brd_wdth, $brd_rds, $brd_clr);
-// bx($bg_clr);
-// bx_shdw;
-// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// grd($grd_tc, $grd_gap);
-// grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
-@import "bscs";
-
 @mixin frm_bsc($grd_tc) {
-	@include mrgn_pddng(0, 0);
+	@include bscs.mrgn_pddng(0, 0);
 //	@include bx(white);
-	@include grd($grd_tc, 2px);
+	@include bscs.grd($grd_tc, 2px);
     justify-items: stretch;
 
     .lft {
-    	@include grd_ncol(1);
+    	@include bscs.grd_ncol(1);
     }
     .rght {
-    	@include grd_ncol(2);
+    	@include bscs.grd_ncol(2);
     }
 }
 
 .f_search {
 	@include frm_bsc(auto 42px);
 	margin-bottom: 4px;
-}
-
-.f_25_75_col {
-	@include frm_bsc(25% 75%);
 }
 
 .f_30_70_col {
@@ -60,18 +49,6 @@ $auto: auto;
 	@include frm_bsc(250px auto);
 }
 
-.f_300pxlft_col {
-	@include frm_bsc(300px auto);
-}
-
-.f_300rght_col {
-	@include frm_bsc(auto 300px);
-}
-
 .f_400rght_col {
 	@include frm_bsc(auto 400px);
-}
-
-.f_250rght_col {
-	@include frm_bsc(auto 250px);
 }

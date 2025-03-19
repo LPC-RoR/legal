@@ -1,40 +1,32 @@
+@use '00p_config' as cnfg;
+@use 'bscs';
+
 $objt_mrgn: 1rem;
 $objt_pddng: 1rem;
 $objt_brd_width: 1px;
 $objt_brd_typ: solid;
-$objt_brd_clr: $pltt_3;
+$objt_brd_clr: cnfg.$pltt_3;
 $objt_brd_rds: 3px;
 
-
-// mrgn_pddng($mrgn, $pddng);
-// @include brd_ln($brd_wdth, $brd_typ, $brd_clr, $brd_rds);
-// brd($brd_wdth, $brd_rds, $brd_clr);
-// bx($bg_clr);
-// bx_shdw;
-// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// grd($grd_tc, $grd_gap);
-// grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
-@import "bscs";
 
 // @include ln_ttl_lnks($c_lnks, $c_hvr);
 // @import "ttl_lnks";
 
 @mixin ln_ttl_lnks($c_lnks, $c_hvr) {
 	.ttl_lnks {
-		@include grd(auto auto, 0);
+		@include bscs.grd(auto auto, 0);
 	    justify-items: stretch;
 
 	    .ttl {
-	    	@include grd_ncol(1);
+	    	@include bscs.grd_ncol(1);
 	    	justify-self: start;
 	    }
 
 		.lnks {
-			@include grd_ncol(2);
+			@include bscs.grd_ncol(2);
 	    	justify-self: end;
 	    }
 
-	    @include a_hover($c_lnks, $c_hvr)
+	    @include bscs.a_hover($c_lnks, $c_hvr)
 	}
 }

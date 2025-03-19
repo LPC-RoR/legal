@@ -1,109 +1,5 @@
-// mrgn_pddng($mrgn, $pddng);
-// brd($brd_wdth, $brd_rds, $brd_clr);
-// bx($bg_clr);
-// bx_shdw;
-// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// grd($grd_tc, $grd_gap);
-// grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
-@import "bscs";
-
-// HOME
-
-/* HOME BANNER */
-
-.homeBanner {
-	padding: 2em;
-	background-image: url('home_image.jpg');
-	background-size: cover;
-}
-
-.bnnBxs {
-	padding: 2em;
-//	background-image: url('home_image.jpg');
-//	background-size: cover;
-
-//  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  gap: 1rem;
-
-	.bnnBx {
-	  background-color: dodgerblue;
-	  color: white;
-	  padding: 1rem;
-	  height: 4rem;
-	}
-
-}
-
-
-
-
-
-
-.homeBanLogo {
-	font-size: 60px;
-	color: white;
-	text-align: center;
-	.nm_addt {
-		font-size: 12px;
-	}
-}
-
-.homeBanTxt {
-  font-family: "Quicksand", sans-serif;
-  font-optical-sizing: auto;
-//  font-weight: <weight>;
-  font-style: normal;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
-	.b_text {
-		padding: 1em;
-		@include brd(0, 6px 6px 6px 6px, $pltt_9);
-		background-color: hsla(0, 100%, 100%, 0.7);
-		@include bx_shdw;
-		color: #023e8a;
-		text-align: center;
-	}
-}
-
-.homeBBox {
-	margin: 1em 0 1em 0;
-	.info {
-		@include grd(1fr 1fr, 10px);
-		text-align: left;
-		.pill_1 {
-			@include grd_ncol(1);
-		}
-		.pill_2 {
-			@include grd_ncol(2);
-		}
-		.pill_1,.pill_2, {
-			@include brd(0, 6px 6px 6px 6px, $pltt_9);
-			background-color: hsla(0, 100%, 100%, 0.7);
-			@include bx_shdw;
-			display: inline-block;
-			.pll_ttl {
-				padding: 15px;
-				font-size: 18px;
-				color: #023e8a;
-			}
-		}
-		.pill_1:hover, .pill_2:hover {
-			position: relative;
-			left: 3px; /* adjust this value to move the title closer to the top */
-			bottom: 3px; /* adjust this value to move the title closer to the top */
-			background-color: hsla(0, 100%, 100%, 0.9);
-		}
-		a {
- 			text-decoration: none;
-			color: $pltt_1;
-		}
-	}
-}
-
-// HOME PRINCIPAL
+@use '00p_config' as cnfg;
+@use 'bscs';
 
 
 // HOME OBLIGACIONES 
@@ -114,8 +10,8 @@
 		margin-bottom: 3px;
 		padding: .5em;
 		background-color: white;
-		@include bx_shdw;
-		@include brd(1px, 20px 20px 6px 6px, $pltt_7);
+		@include bscs.bx_shdw;
+		@include bscs.brd(1px, 20px 20px 6px 6px, cnfg.$pltt_7);
 		text-align: center;
 		color: #023e8a;
 		font-size: 30px;
@@ -124,28 +20,28 @@
 		margin-bottom: 3px;
 		padding: 20px;
 		background-color: white;
-		@include bx_shdw;
-		@include brd(1px, 6px 6px 6px 6px, $pltt_7);
+		@include bscs.bx_shdw;
+		@include bscs.brd(1px, 6px 6px 6px 6px, cnfg.$pltt_7);
 		text-align: center;
 		font-size: 20px;
 		color: #023e8a;
 	}
 	.info {
-		@include grd(1fr 1fr 1fr, 10px);
+		@include bscs.grd(1fr 1fr 1fr, 10px);
 		text-align: center;
 		.pill_1 {
-			@include grd_ncol(1);
+			@include bscs.grd_ncol(1);
 		}
 		.pill_2 {
-			@include grd_ncol(2);
+			@include bscs.grd_ncol(2);
 		}
 		.pill_3 {
-			@include grd_ncol(3);
+			@include bscs.grd_ncol(3);
 		}
 		.pill_1,.pill_2, .pill_3 {
 			background-color: white;
-			@include bx_shdw;
-			@include brd(1px, 6px 6px 6px 6px, $pltt_7);
+			@include bscs.bx_shdw;
+			@include bscs.brd(1px, 6px 6px 6px 6px, cnfg.$pltt_7);
 			display: inline-block;
 			.pll_ttl {
 				padding: 20px;
@@ -156,7 +52,7 @@
 				text-align: left;
 				padding: 1em;
 				font-size: 13px;
-				color: $pltt_4;
+				color: cnfg.$pltt_4;
 				li {
 					margin: 5px 1.5em 5px 0;
 				}
@@ -171,8 +67,8 @@
 		margin-bottom: 3px;
 		padding: .5em;
 		background-color: white;
-		@include bx_shdw;
-		@include brd(1px, 20px 20px 6px 6px, $pltt_7);
+		@include bscs.bx_shdw;
+		@include bscs.brd(1px, 20px 20px 6px 6px, cnfg.$pltt_7);
 		text-align: center;
 		color: #023e8a;
 		font-size: 30px;
@@ -181,75 +77,12 @@
 		margin-bottom: 3px;
 		padding: 20px;
 		background-color: white;
-		@include bx_shdw;
-		@include brd(1px, 6px 6px 6px 6px, $pltt_7);
+		@include bscs.bx_shdw;
+		@include bscs.brd(1px, 6px 6px 6px 6px, cnfg.$pltt_7);
 
 		font-size: 13px;
-		color: $pltt_4;
+		color: cnfg.$pltt_4;
 	}
-}
-
-.homeText {
-	@include brd(2px, 3px 3px 3px 3px, $blue_3);
-	background-image: url('home_text.jpg');
-	background-size: cover;
-	.h_txt {
-			padding: 2em;
-		color: $pltt_1;
-		.txt_ttl {
-			padding: 2em;
-			background-color: hsla(0, 100%, 100%, 0.7);
-			font-size: 20px;
-		}
-		.txt_txt {
-			padding: 2em;
-			background-color: hsla(0, 100%, 100%, 0.7);
-			font-size: 14px;
-		}
-	}
-}
-
-.homeQuestion {
-	margin-top: 2px;
-	.prgnt {
-		border-radius: 10px 10px 0 0;
-		border-top: 2px solid $blue_4;
-		border-left: 2px solid $blue_4;
-		border-right: 2px solid $blue_4;
-		background-color: $blue_2;
-//		background-image: url('home_q.jpg');
-//		background-size: cover;
-		@include mrgn_pddng(0, 1em);
-		font-weight: bold;
-		font-size: 20px;
-		color: white;
-	}
-	.rspst2 {
-		border-radius: 0 0 10px 10px;
-		border-bottom: 2px solid $blue_4;
-		border-left: 2px solid $blue_4;
-		border-right: 2px solid $blue_4;
-		@include mrgn_pddng(0, 1em);
-		color: $pltt_2;
-		ul {
-			margin: 15px 0 15px 0;
-		}
-	}
-}
-
-/* HOME */
-.homeImage {
-    max-width: 100%;
-    max-height: 100%;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    overflow: auto;
-    position: fixed;
-    right: 0;
-    top: 0;
-    -o-object-fit: contain;
-    object-fit: contain;
 }
 
 @media (min-width: 600px) {

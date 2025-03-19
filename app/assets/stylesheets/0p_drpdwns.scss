@@ -1,3 +1,6 @@
+@use '00p_config' as cnfg;
+@use 'bscs';
+
 /* LIST DROPDOWN */
 
 [class^=lst-drpdwn] {
@@ -16,7 +19,7 @@
     min-width: 160px;
     font-size: 13px;
     z-index: 1;
-    @include a_hover(white, yellow);
+    @include bscs.a_hover(white, yellow);
 }
 
 [class^=lst-drpdwn]:hover [class^=lst-drpdwn-content] {
@@ -44,7 +47,7 @@
     display: none;
     position: absolute;
 //    ESTE FUNCIONÓ PARA PONER EL FONDO
-    background-color: $blue_1;
+    background-color: cnfg.$blue_1;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     min-width: 160px;
     z-index: 1;

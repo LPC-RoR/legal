@@ -1,21 +1,22 @@
-@import "bscs";
+@use '00p_config' as cnfg;
+@use 'bscs';
 
 .bg_blue {
-	background-color: $ls_blue_1; /* Color personalizado */
+	background-color: cnfg.$ls_blue_1; /* Color personalizado */
 	color: white;
-	@include a_hover(white, $pltt_5);
+	@include bscs.a_hover(white, cnfg.$pltt_5);
 }
 
 .bg_tbl {
-	background-color: $ls_blue_2; /* Color personalizado */
+	background-color: cnfg.$ls_blue_2; /* Color personalizado */
 	color: white;
-	@include a_hover(white, $pltt_5);
+	@include bscs.a_hover(white, cnfg.$pltt_5);
 }
 
 .bg_sub_tbl {
-	background-color: $pltt_7; /* Color personalizado */
+	background-color: cnfg.$pltt_7; /* Color personalizado */
 //	color: white;
-	@include a_hover(black, $pltt_5);
+	@include bscs.a_hover(black, cnfg.$pltt_5);
 }
 
 .mrgn_top {
@@ -23,11 +24,11 @@
 }
 
 .app_lnk {
-   	@include a_hover($pltt_2, $pltt_5);
+   	@include bscs.a_hover(cnfg.$pltt_2, cnfg.$pltt_5);
 }
 
 .app_danger {
-   	@include a_hover(red, $pltt_5);
+   	@include bscs.a_hover(red, cnfg.$pltt_5);
 }
 
 // TABLA

@@ -9,23 +9,3 @@
 	<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'control_documentos', ownr: objeto} %>
 	<%= render partial: '0p/tabla/list', locals: {clccn: objeto.control_documentos.order(:orden)} %>
 </div>
-
-<!--small-->
-
-	<!-- VARIABLES -->
-	<!--div class="ttl_smll_ln">
-		<div class="ttl_ttl">
-			Variables
-		</div-->
-		<%# unless objeto.variables.count == @vrbls.count %>
-			<!--div class="ttl_lnks">
-				<%#= render partial: "0p/add_lst/add_lst", locals: {id: objeto.id, lst: objeto.variables.map {|bjt_var| bjt_var.variable}, cmplt: @vrbls.map {|vrbl| vrbl.variable}, path: "/tipo_causas/#{objeto.id}/add_rcrd?v_nm="} %>
-			</div-->
-		<%# end %>
-	<!--/div-->
-
-	<%# objeto.var_tp_causas.each do |rel| %>
-		<%#= render partial: 'dts/var_tp_causas/list/var_child', locals: {objeto: rel} %>
-	<%# end %>
-
-<!--/small-->

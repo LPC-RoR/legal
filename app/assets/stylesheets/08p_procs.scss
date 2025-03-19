@@ -1,3 +1,6 @@
+@use '00p_config' as cnfg;
+@use 'bscs';
+
 $gray_1: #718bab;
 $gray_2: #c0cfe1;
 $gray_3: #dee1ef;
@@ -18,123 +21,48 @@ $elmnt_pddng: 3px 1rem 2px 1rem;
 $clr_bg_red: #fae0e4;
 
 
-// @include mrgn_pddng($mrgn, $pddng);
-// @include brd_ln($brd_wdth, $brd_typ, $brd_clr, $brd_rds);
-// @include brd($brd_wdth, $brd_rds, $brd_clr);
-// @include bx($bg_clr);
-// @include bx_shdw;
-// @include ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// @include grd($grd_tc, $grd_gap);
-// @include grd_ncol($nth);
-// @include a_hover($lnk_clr, $hvr_clr);
-
-@import "bscs";
-
-@mixin procs_area_bsc($clr_bg, $clr) {
-	@include mrgn_pddng($prcs_mrgn, $prcs_pddng);
-	@include brd_ln($prcs_brd_wdth, $prcs_brd_typ, $gray_1, $prcs_brd_rds);
-	background-color: $clr_bg;
-	color: $clr;
-}
-
-@mixin procs_bdy($fnt_sz) {
-	font-size: $fnt_sz;
-	@include grd($prcs_ln_tc, 0);
-	.p_objt {
-        @include grd_ncol(1);
+@mixin p_nm_lnks {
+	.nm {
+		@include bscs.grd_ncol(1);
+    	padding-left: 1em;
     	justify-self: start;
-    	font-weight: bold;
 	}
-	.p_lnks {
-	    @include grd_ncol(2);
+	.lnks {
+		@include bscs.grd_ncol(2);
     	justify-self: end;
 	}
-
-	.p_dtl {
-		grid-column: span 2;
-	}
-}
-
-@mixin frm_bdy($fnt_sz) {
-	font-size: $fnt_sz;
-	@include grd(auto 42px, 2px);
-	.p_frm {
-        @include grd_ncol(1);
-    	justify-self: start;
-    	font-weight: bold;
-	}
-	.p_sbmt {
-	padding: .5rem;
-	    @include grd_ncol(2);
-    	justify-self: end;
-    }
 }
 
 @mixin elmnt_bsc($clr_bg, $clr) {
-	@include mrgn_pddng($elmnt_mrgn, $elmnt_pddng);
-	@include brd_ln(1px, solid, $clr_bg, 20px);
+	@include bscs.mrgn_pddng($elmnt_mrgn, $elmnt_pddng);
+	@include bscs.brd_ln(1px, solid, $clr_bg, 20px);
 	background-color: $clr_bg;
 	color: $clr;
 	font-size: 16px;
-}
-
-@mixin elmnt_brd_bsc($clr_bg, $clr) {
-	@include mrgn_pddng($elmnt_mrgn, $elmnt_pddng);
-	@include brd_ln(1px, solid, $clr, 20px);
-	background-color: $clr_bg;
-	color: $clr;
-	font-size: 16px;
-}
-
-@mixin lst_bsc($clr_bg, $clr) {
-	margin: $elmnt_mrgn;
-	font-size: 14px;
-	.dc_nm {
-		padding: $elmnt_pddng;
-		@include brd_ln(1px, solid, $clr_bg, 20px 20px 0 0);
-		background-color: $clr_bg;
-		color: $clr;
-		@include grd(auto 50px, 0);
-		.fl {
-	        @include grd_ncol(1);
-	    	justify-self: start;
-		}
-		.lnks {
-		    @include grd_ncol(2);
-	    	justify-self: end;
-		}
-	}
-	.lst {
-		padding: $actv_pddng;
-		@include brd_ln(1px, solid, $clr_bg, 0 0 20px 20px);
-		background-color: $gray_3;
-		font-weight: lighter;
-	}
 }
 
 @mixin trsh_ln {
-//	@include grd(auto 300px 50px, 0);
-	@include grd(auto 20% 20%, 0);
+	@include bscs.grd(auto 20% 20%, 0);
 	.answ {
-        @include grd_ncol(1);
+        @include bscs.grd_ncol(1);
     	justify-self: start;
 	}
 	.pstfx {
-        @include grd_ncol(2);
+        @include bscs.grd_ncol(2);
     	justify-self: start;
 	}
 	.trsh {
-	    @include grd_ncol(3);
+	    @include bscs.grd_ncol(3);
     	justify-self: end;
 	}
 }
 
 @mixin ttl_objt_bsc($clr_bg, $clr) {
-	@include mrgn_pddng($elmnt_mrgn, $elmnt_pddng);
+	@include bscs.mrgn_pddng($elmnt_mrgn, $elmnt_pddng);
 	background-color: $clr_bg;
-	@include bx_shdw;
-	@include a_hover($clr, $blue_3);
-	@include grd(auto auto, 0);
+	@include bscs.bx_shdw;
+	@include bscs.a_hover($clr, cnfg.$blue_3);
+	@include bscs.grd(auto auto, 0);
 	line-height: 30px;
 	font-size: 16px;
 	color: $clr;
@@ -143,7 +71,7 @@ $clr_bg_red: #fae0e4;
 
 @mixin p_ttl_bsc($brdr_clr, $clr_bg, $clr) {
 	@include ttl_objt_bsc($clr_bg, $clr);
-	@include brd_ln(4px, solid, $brdr_clr, 3px);
+	@include bscs.brd_ln(4px, solid, $brdr_clr, 3px);
 }
 
 @mixin p_ttl_bttm_bsc($brdr_clr, $clr_bg, $clr) {
@@ -151,19 +79,14 @@ $clr_bg_red: #fae0e4;
 	border-bottom: 5px solid $brdr_clr;
 }
 
-@mixin shw_ttl_bsc($brdr_clr, $clr_bg, $clr) {
-	@include ttl_objt_bsc($clr_bg, $clr);
-	@include brd_ln(5px, solid, $brdr_clr, 3px);
-}
-
 @mixin ttl_2clmns {
 	.ttl_ttl {
-		@include grd_ncol(1);
+		@include bscs.grd_ncol(1);
     	padding-left: 1em;
     	justify-self: start;
 	}
 	.ttl_lnks {
-		@include grd_ncol(2);
+		@include bscs.grd_ncol(2);
     	justify-self: end;
 	}
 }
@@ -176,165 +99,50 @@ $clr_bg_red: #fae0e4;
 	border-color: $brdr_clr;
 }
 
-@mixin p_nm_lnks {
-	.nm {
-		@include grd_ncol(1);
-    	padding-left: 1em;
-    	justify-self: start;
-	}
-	.lnks {
-		@include grd_ncol(2);
-    	justify-self: end;
-	}
-}
-
-@mixin qstn_bsc($clr_bg, $clr) {
-	margin: $elmnt_mrgn;
-	font-size: 16px;
-	.qstn {
-		@include brd_ln(1px, $qstn_brd_typ, $clr_bg, 20px 20px 0 0);
-		padding-left: 8rem;
-		background-color: $clr_bg;
-		color: $clr;
-		font-weight: bold;
-	}
-	.optns {
-		@include brd_ln(1px, $qstn_brd_typ, $clr_bg, 0 0 20px 20px);
-		padding: $elmnt_pddng;
-		background-color: white;
-		text-align: left;
-		color: $pltt_2;
-
-		@include grd(150px auto, 0);
-		.typ {
-	        @include grd_ncol(1);
-        	justify-self: start;
-		}
-		.lnks {
-    	    @include grd_ncol(2);
-        	justify-self: start;
-		}
-	}
-}
-
-@mixin flg_bx_bsc($clr) {
-	padding: 1px 1rem 1px 1rem;
-	@include brd_ln(1px, solid, $clr, 3px);
-	background-color: white;
-	color: $clr;
-}
-
 .dlg_bsc {
 	margin: 2px;
 	padding: .5rem 1rem;
-	@include brd_ln(1px, solid, red, 10px);
+	@include bscs.brd_ln(1px, solid, red, 10px);
 	color: red;
 }
 
 
-// ETAPAS Y TAREAS
-
-.etp_objt {
-	@include procs_area_bsc($gray_3, $blue_cnv);
-	@include procs_bdy(16px);
-}
-
-.tar_objt {
-	@include procs_area_bsc(white, $p_blue);
-	@include procs_bdy(15px);
-}
-
-// FORMS
-.prc_frm {
-	@include procs_area_bsc($pltt_9, $p_blue);
-	.p_prmpt {
-
-	}
-	.frm_dtl {
-		@include frm_bdy(14xp);
-	}
-}
-
-// ANSWR
-
-.rspst {
-	@include elmnt_bsc(#0077b6, white);
-	@include a_hover(white, $gray_1);
-	@include trsh_ln;
-}
-
 // CLSS
 
 .dc_fl {
-	@include elmnt_bsc($gray_3, $blue_cnv);
-	@include a_hover($blue_cnv, $gray_1);
+	@include elmnt_bsc($gray_3, cnfg.$blue_cnv);
+	@include bscs.a_hover(cnfg.$blue_cnv, $gray_1);
 	@include trsh_ln;
 }
 
 .no_dc_fl {
 	@include elmnt_bsc(#d8e2dc, red);
-	@include a_hover(red, $red_3);
+	@include bscs.a_hover(red, cnfg.$red_3);
 	@include trsh_ln;
 }
 
 // REVISAR
 .opt_dc_fl {
-	@include elmnt_bsc($blue_cnv, white);
-	@include a_hover(white, $gray_1);
+	@include elmnt_bsc(cnfg.$blue_cnv, white);
+	@include bscs.a_hover(white, $gray_1);
 	@include trsh_ln;
-}
-
-.dc_fl_lst {
-	@include lst_bsc($gray_2, $blue_cnv);
-   	@include a_hover($blue_cnv, $gray_1);
-}
-
-.no_dc_fl_lst {
-	@include lst_bsc(#d8e2dc, red);
-   	@include a_hover(red, $red_3);
-}
-
-.opt_dc_fl_lst {
-	@include lst_bsc($pltt_6, red_1);
-   	@include a_hover($red_1, $red_4);
 }
 
 // TTLS
 
 .shw_ttl {
-	@include p_ttl_bsc($p_blue, $p_blue, white);
+	@include p_ttl_bsc(cnfg.$p_blue, cnfg.$p_blue, white);
 	@include ttl_2clmns;
 }
 
 .prtcpnts_ttl {
-	@include p_ttl_bttm_bsc($gray_2, $gray_3, $blue_cnv);
-	@include ttl_2clmns;
-}
-
-.tstgs_ttl {
-	@include p_ttl_bsc($gray_2, $gray_3, $blue_cnv);
+	@include p_ttl_bttm_bsc($gray_2, $gray_3, cnfg.$blue_cnv);
 	@include ttl_2clmns;
 }
 
 // OBJTS
 
 .prtcpnts_objt {
-	@include p_objt_bsc($gray_2, $gray_3, $blue_cnv);
+	@include p_objt_bsc($gray_2, $gray_3, cnfg.$blue_cnv);
 	@include p_nm_lnks;
-}
-
-// QSTN
-
-.qstn_bx {
-	@include qstn_bsc($gray_3, $blue_cnv);
-}
-
-// FLAG BX
-
-.flg_bx_fail {
-	@include flg_bx_bsc(#ff8fab)
-}
-
-.flg_bx_ok {
-	@include flg_bx_bsc(#0077b6)
 }

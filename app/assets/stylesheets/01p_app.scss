@@ -1,18 +1,21 @@
+@use '00p_config' as cnfg;
+@use 'bscs';
+
 $ovr_mn_mrgn: 2px 0 2px 0;
 $ovr_mn_pddng: 2px 0 0 0;
 $ovr_mn_brdr_wdth: 1px;
 $ovr_mn_brdr_ln: solid;
 $ovr_mn_brdr_rds: 3px 3px 3px 3px;
-$ovr_mn_brdr_clr: $pltt_6;
+$ovr_mn_brdr_clr: cnfg.$pltt_6;
 $ovr_mn_bg_clr: white;
-$ovr_mn_fnt_fmly: $app_fnt;
-$ovr_mn_clr: $pltt_4;
+$ovr_mn_fnt_fmly: cnfg.$app_fnt;
+$ovr_mn_clr: cnfg.$pltt_4;
 
 $ovr_mn_tc: 1fr 1fr 1fr;
 $ovr_mn_gp: 0;
 
 $ovr_mn_lnk_clr: $ovr_mn_clr;
-$ovr_mn_lnk_hvr: $pltt_5;
+$ovr_mn_lnk_hvr: cnfg.$pltt_5;
 
 $bnnr_mrgn: 0 0 4px 0;
 $bnnr_pddng: 0;
@@ -32,7 +35,7 @@ $nvbr_pddng: 0;
 
 $main_mrgn: 0;
 $main_pddng: 0;
-$main_fnt_fmly: $app_fnt;
+$main_fnt_fmly: cnfg.$app_fnt;
 
 // ERROR & NOTICE
 
@@ -44,106 +47,30 @@ $ntc_errr_brdr_rds: 3px 3px 3px 3px;
 
 $ntc_bg_clr: #ade8f4;
 $errr_bg_clr: white;
-$ntc_brdr_clr: $blue_3;
-$errr_brdr_clr: $red_3;
-$ntc_fnt_clr: $blue_1;
-$errr_fnt_clr: $red_1;
+$ntc_brdr_clr: cnfg.$blue_3;
+$errr_brdr_clr: cnfg.$red_3;
+$ntc_fnt_clr: cnfg.$blue_1;
+$errr_fnt_clr: cnfg.$red_1;
 
 $bx_shdw_xy: 10px 10px;
 $bx_shdw_blr_rd: 18px;
 $bx_shdw_sprd_rd: -12px;
-$bx_shdw_clr: $pltt_3;
+$bx_shdw_clr: cnfg.$pltt_3;
 
 $a_area_mrgn: 0 3% 0 3%;
 $a_area_pddng: 0;
-$app_fnt: 'Raleway', sans-serif;
 
 /* OVER  */
 
-// mrgn_pddng($mrgn, $pddng);
-// brd($brd_wdth, $brd_rds, $brd_clr);
-// bx($bg_clr);
-// bx_shdw;
-// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// grd($grd_tc, $grd_gap);
-// grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
-@import "bscs";
-
 @mixin ntc_errr_bsc($bg_clr, $brd_clr, $fnt_clr) {
 	background-color: $bg_clr;
-	@include mrgn_pddng($ntc_errr_mrgn, $ntc_errr_pddng);
+	@include bscs.mrgn_pddng($ntc_errr_mrgn, $ntc_errr_pddng);
 	@include brd_ln($ntc_errr_brdr_wdth, solid, $brd_clr, $ntc_errr_brdr_rds);
     box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
     color: $fnt_clr;
     font-weight: bold;
 }
 
-.a_over  {
-	@include mrgn_pddng($a_area_mrgn, $a_area_pddng);
-	.ovr_mn {				                                                     // Over Menu
-		@include mrgn_pddng($ovr_mn_mrgn, $ovr_mn_pddng);
-		@include brd($ovr_mn_brdr_wdth, $ovr_mn_brdr_rds, $ovr_mn_brdr_clr);
-	    box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
-	    background-color: $ovr_mn_bg_clr;
-
-	   	font-family: $ovr_mn_fnt_fmly;
-	    color: $ovr_mn_clr;
-
-	    @include grd($ovr_mn_tc, $ovr_mn_gp);
-  	    justify-items: center;
-
-	    .menu_left {
-	    	padding-left: 10px;
-	    	@include grd_ncol(1);
-	    	justify-self: start;
-	    }
-
-	    .menu_center {
-	    	@include grd_ncol(2);
-	    }
-
-	    .menu_right {
-	    	padding-right: 10px;
-	    	@include grd_ncol(3);
-	    	justify-self: end;
-	    }
-
-	    @include a_hover($pltt_4, $pltt_5);
-
-	    a:hover {
-			position: relative;
-			left: 2px; /* adjust this value to move the title closer to the top */
-			bottom: 2px; /* adjust this value to move the title closer to the top */
-	    }
-	}
-
-    /* BANNER */
-	.bnnr {
-		@include mrgn_pddng($bnnr_mrgn, $bnnr_pddng);
-		@include brd($bnnr_brdr_wdth, $bnnr_brdr_rds, $bnnr_brdr_clr);
-	    box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
-
-	    background-color: $bnnr_bg_clr;
-	    color: $bnnr_clr;
-
-	    @include grd($bnnr_tc, $bnnr_gp);
-  	    position: relative;
-  	    justify-items: center;
-
-	    .bnnr_img {
-	    	@include grd_ncol(1);
-	    	justify-self: start;
-	    }
-
-	    .bnnr_text {
-	    	@include grd_ncol(2);
-		    position: relative;
-		    top: 25%;
-	    }
-
-	}
-}
 
 /* NAVBAR */
 
@@ -164,8 +91,8 @@ $app_fnt: 'Raleway', sans-serif;
 /* BODY */
 
 .lyt_main {
-	@include mrgn_pddng($a_area_mrgn, $a_area_pddng);
+	@include bscs.mrgn_pddng($a_area_mrgn, $a_area_pddng);
 	height: 100%;
 	min-height: 80em;
-   	font-family: $main_fnt_fmly;
+   	font-family: cnfg.$app_fnt;
 }

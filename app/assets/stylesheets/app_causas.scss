@@ -1,3 +1,6 @@
+@use '00p_config' as cnfg;
+@use 'bscs';
+
 /* --clr-[fr sc th ob]-cs */
 
 $cs_fr: #1e0342;
@@ -12,16 +15,6 @@ $hc_bg: #00b4d8;
 $at_bg: #d2e9e9;
 
 // -------------------------------------------
-
-// mrgn_pddng($mrgn, $pddng);
-// brd($brd_wdth, $brd_rds, $brd_clr);
-// bx($bg_clr);
-// bx_shdw;
-// ln_fnt($ln_hght, $fnt_fmly, $fnt_sz, $fnt_clr);
-// grd($grd_tc, $grd_gap);
-// grd_ncol($nth);
-// a_hover($lnk_clr, $hvr_clr);
-@import "bscs";
 
 // bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr)
 @import "bjt";
@@ -57,7 +50,7 @@ $at_bg: #d2e9e9;
 }
 
 .cs_box {
-	@include bx_bs($pltt_9, $pltt_7, 13px);
+	@include bx_bs(cnfg.$pltt_9, cnfg.$pltt_7, 13px);
 }
 
 
@@ -74,53 +67,53 @@ $at_bg: #d2e9e9;
 
 @mixin cs_tmplt($bg_clr, $ln_hght, $clr, $fnt_sz, $a_clr, $hvr_clr) {
 	@include cs_bsc($bg_clr, $ln_hght, $clr, $fnt_sz);
-	@include grd($cs_tc, 0px);
+	@include bscs.grd($cs_tc, 0px);
 
     .ttl_ttl {
     	padding-left: 1em;
-		@include grd_ncol(1);
+		@include bscs.grd_ncol(1);
     	justify-self: start;
     }
 
     .ttl_lnks {
     	padding-right: 1em;
-		@include grd_ncol(2);
+		@include bscs.grd_ncol(2);
     	justify-self: end;
 
-		@include a_hover($a_clr, $hvr_clr);
+		@include bscs.a_hover($a_clr, $hvr_clr);
     }
 }
 
 .tm_bjt {
-	@include cs_bsc($pltt_6, 40px, $pltt_3, 15px);
-	@include grd($cs_tc, 0px);
+	@include cs_bsc(cnfg.$pltt_6, 40px, cnfg.$pltt_3, 15px);
+	@include bscs.grd($cs_tc, 0px);
 
     .ttl_ttl {
     	padding-left: 1em;
-		@include grd_ncol(1);
+		@include bscs.grd_ncol(1);
     	justify-self: start;
     }
 
     .ttl_lnks {
     	padding-right: 1em;
-		@include grd_ncol(2);
+		@include bscs.grd_ncol(2);
     	justify-self: end;
 
-		@include a_hover($pltt_3, gray);
+		@include bscs.a_hover(cnfg.$pltt_3, gray);
     }
 }
 
 .hc_bjt {
-	@include cs_tmplt($pltt_7, 30px, $pltt_4, 13px, $pltt_4, gray);
+	@include cs_tmplt(cnfg.$pltt_7, 30px, cnfg.$pltt_4, 13px, cnfg.$pltt_4, gray);
 }
 
 // Antecedentes
 .at_bjt {
-	@include cs_tmplt($pltt_9, 20px, black, 13px, $pltt_4, gray);
+	@include cs_tmplt(cnfg.$pltt_9, 20px, black, 13px, cnfg.$pltt_4, gray);
 }
 
 .innr_dscpcn {
-	background-color: $pltt_8;
+	background-color: cnfg.$pltt_8;
 	padding: 0 3em 0 3em;
     font-size: 13px;
 }
