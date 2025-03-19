@@ -136,10 +136,6 @@ class KrnDenunciado < ApplicationRecord
 		self.rep_archivos.find_by(rep_doc_controlado_id: dc.id).present?
 	end
 
-	def self.dclrcns_ok?
-		all.map {|arc| arc.rlzd == true}.exclude?(false)
-	end
-
 	def krn_empresa_externa?
 		self.krn_empresa_externa_id.present?
 	end

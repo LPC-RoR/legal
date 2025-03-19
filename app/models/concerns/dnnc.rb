@@ -29,19 +29,11 @@ module Dnnc
  		self.krn_inv_denuncias.any?
  	end
 
- 	# --------------------------------- ????
+	# ------------------------------------------------------------------------ PRTCPNTS
 
 	def rgstrs_ok?
 		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
 	end
-
-	# ------------------------------------------------------------------------ PROC CNDTNS
-
-
-
-	# ------------------------------------------------------------------------ PRTCPNTS
-
-	# ------------------------------------------------------------------------ PRTCPNTS
 
 	# Registros revisados
 	def rlzds?
@@ -54,26 +46,9 @@ module Dnnc
 
 	# ------------------------------------------------------------------------ DRVCNS
 
-	# Responsable de investigar, usado en una nota solamente
-	def responsable
-		self.krn_derivaciones.empty? ? self.receptor_denuncia : self.krn_derivaciones.last.destino
-	end
-
-	# ------------------------------------------------------------------------ DRVCNS
-	# REVISAR Está resuelto sin usar dt_obligatoria?
-
 	def extrn_prsncl?
 		self.rcp_empresa? and self.externa?
 	end
 
-	def riohs_off?
-		false
-	end
-
-	def dt_obligatoria?
-		self.extrn_prsncl? ? self.artcl41? : (self.riohs_off? or self.artcl41?)
-	end
-
-	# ------------------------------------------------------------------------ CIERRE
 
 end

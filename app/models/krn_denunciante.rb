@@ -148,10 +148,6 @@ class KrnDenunciante < ApplicationRecord
 
 
 
-	def self.dclrcns_ok?
-		all.map {|arc| arc.rlzd == true}.exclude?(false)
-	end
-
 	def dnnc_fech_trmitcn?
 		self.krn_denuncia.fecha_trmtcn.present?
 	end

@@ -59,12 +59,6 @@ class KrnDenuncia < ApplicationRecord
 		self.multiempresa? ? 'Multi' : (self.externa? ? 'Externa' : (self.empresa? ? 'Empresa' : '?'))
 	end
 
-	# ------------------------------------------------------------------------
-
-	def rlzds?
- 		self.krn_denunciantes.rlzds? and self.krn_denunciados.rlzds?
-	end
-
 	# ------------------------------------------------------------------------ REP ARCHIVOS
 
 	# Archivos existentes de un documento controlado multiple
@@ -89,6 +83,7 @@ class KrnDenuncia < ApplicationRecord
 		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).uniq
 	end
 
+	# NO se usa
 	def empresa?
 		e_ids = self.emprss_ids
 		e_ids.length == 1 and e_ids[0] == nil
@@ -99,6 +94,7 @@ class KrnDenuncia < ApplicationRecord
 		e_ids.length == 1 and e_ids[0] != nil
 	end
 
+	# NO se usa
 	def multiempresa?
 		e_ids = self.emprss_ids
 		self.emprss_ids.length > 1
@@ -139,16 +135,6 @@ class KrnDenuncia < ApplicationRecord
 
 	def on_externa?
 		self.krn_derivaciones.empty? ? self.rcp_externa? : self.krn_derivaciones.on_externa?
-	end
-
-	# ---------------------------------------------------------------------- SCOPE FIELDS
-
-	def frst_invstgdr
-		self.krn_investigadores.first
-	end
-
-	def scnd_invstgdr
-		self.krn_investigadores.first
 	end
 
 end
