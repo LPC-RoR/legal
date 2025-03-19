@@ -56,6 +56,10 @@ class KrnDenunciado < ApplicationRecord
  		self.krn_testigos.any?
  	end
 
+ 	def registros?
+ 		self.ctr_registros.any?
+ 	end
+
  	# ================================= 020_prtcpnts: Ingreso de(l) denunciante(s)
 
 	def fl_diat_diep?

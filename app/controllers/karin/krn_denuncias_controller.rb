@@ -4,6 +4,7 @@ class Karin::KrnDenunciasController < ApplicationController
   before_action :set_krn_denuncia, only: %i[ show edit update destroy check set_fld clear_fld prg ]
   after_action :set_plzs, only: %i[ create update ]
 
+  include ProcControl
   include Karin
 
   # GET /krn_denuncias or /krn_denuncias.json
@@ -16,13 +17,12 @@ class Karin::KrnDenunciasController < ApplicationController
     set_plzs
     load_proc(@objeto)
 
-    @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
-
     set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
     set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
     set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
     set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
     set_tabla('krn_inv_denuncias', @objeto.krn_inv_denuncias.order(:created_at), false)
+    set_tabla('ctr_registros', @objeto.ctr_registros.order(:created_at), false)
   end
 
   # GET /krn_denuncias/new

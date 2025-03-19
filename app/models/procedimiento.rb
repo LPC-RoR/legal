@@ -2,6 +2,7 @@ class Procedimiento < ApplicationRecord
 	belongs_to :tipo_procedimiento
 
 	has_many :ctr_etapas
+	has_many :rep_doc_controlados, as: :ownr
 
 	has_many :productos
 

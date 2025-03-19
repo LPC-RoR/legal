@@ -1,0 +1,29 @@
+<div class="mt-1 bg-white shadow rounded p-2">
+<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'rep_archivos', lnks: 'ttl'} %>
+
+<table class="table table-sm table-borderless table-striped table-hover">
+	<tbody>
+		<%# @proc[:fls_actv].each do |dc| %>
+			<%# if fl_cndtn?(ownr, dc.codigo) or ownr.fl?(dc.codigo) %>
+				<%# if dc.multiple == true %>
+					<%#= render partial: '0p/proc/dcs', locals: {dc: dc, fls: ownr.fls(dc), ownr: ownr, trsh_cndtn: false} %>
+				<%# else %>
+					<%#= render partial: '0p/proc/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr, trsh_cndtn: false} %>
+				<%# end %>
+			<%# end %>
+		<%# end %>
+
+		<% @proc[:fls_actv].each do |dc| %>
+			<% if fl_cndtn?(ownr, dc.codigo) or ownr.fl?(dc.codigo) %>
+				<% if dc.multiple == true %>
+					<%= render partial: '0p/proc/dcs', locals: {dc: dc, fls: ownr.fls(dc), ownr: ownr, trsh_cndtn: false} %>
+				<% else %>
+					<%= render partial: '0p/proc/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr, trsh_cndtn: false} %>
+				<% end %>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+</div>
+
+

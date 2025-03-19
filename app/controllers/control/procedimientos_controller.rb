@@ -12,6 +12,7 @@ class Control::ProcedimientosController < ApplicationController
   # GET /procedimientos/1 or /procedimientos/1.json
   def show
     set_tabla('ctr_etapas', @objeto.ctr_etapas.ordr, false)
+    set_tabla('rep_doc_controlados', @objeto.rep_doc_controlados.ordr, false)
   end
 
   # GET /procedimientos/new

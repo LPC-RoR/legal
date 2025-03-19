@@ -1,0 +1,37 @@
+<% if @coleccion['ctr_registros'].any? or prtl?(objeto, "prtls", 'tbl_init') %>
+<div class="mt-1 bg-white shadow rounded p-2">
+	<table class="table table-ssm table-borderless table-striped table-hover">
+		<tbody>
+
+			<% if prtl?(objeto, "prtls", 'tbl_init')  %>
+				<%= render partial: prtl_name(objeto, "prtls", 'tbl_init'), locals: {objeto: objeto} %>
+			<% end %>
+
+			<% @coleccion['ctr_registros'].each do |reg| %>
+				<tr style="font-size: 15px;">
+					<td class="app_lnk" style="padding-left: 1rem;">
+						<b><%= reg.glosa %></b>
+					</td>
+					<td class="app_lnk" style="padding-left: 1rem;text-align: <%=reg.ctr_paso.rght ? 'right' : 'left'%>;">
+						<%= reg.valor %>
+					</td>
+						<td class="app_lnk" style="text-align: right; padding-right: 1rem;">
+
+					<% if @coleccion['ctr_registros'].last == reg %>
+							<% if reg.ctr_paso.proceso %>
+								<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/#{reg.ownr.class.name.tableize}/#{reg.ownr.id}/clear_fld?k=#{reg.ctr_paso.codigo}", tltp: nil} do %>
+									<i class="bi bi-trash"></i>
+								<% end %>
+							<% end %>
+					<% end %>
+
+						</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+
+	<%= render partial: 'karin/prtls/dnnc_nts' %>
+
+</div>
+<% end %>

@@ -1,0 +1,11 @@
+<div class="mt-1 bg-white shadow rounded p-2">
+
+	<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'ctr_etapas', lnks: 'ttl'} %>
+
+	<%= render partial: prtl_name('ctr_etapas', 'code', 'ln'), locals: {objeto: @proc[:etp_last], ownr: ownr, color: 'primary'} %>
+
+	<% unless @proc[:tar_last].blank? %>
+		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: @proc[:tar_last], ownr: ownr, color: 'primary'} %>
+	<% end %>
+
+</div>

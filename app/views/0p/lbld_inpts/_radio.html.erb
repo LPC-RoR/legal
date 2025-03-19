@@ -1,4 +1,6 @@
-<div class="mb-3">
+<% id ||= nil %>
+<% dsply ||= nil %>
+<div class="mb-3" id="<%=id%>" style="display: <%=dsply%>;">
 	<%= form.label(token, label) unless label.blank? %>
 	<label for="<%=token.to_s%>">
 	<% radio_list.each_with_index do |radio, indice| %>

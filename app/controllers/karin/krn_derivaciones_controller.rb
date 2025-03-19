@@ -16,12 +16,15 @@ class Karin::KrnDerivacionesController < ApplicationController
 
   # GET /krn_derivaciones/new
   def new
-    drvcn_codes = ['drvcn_art4_1', 'drvcn_dnncnt', 'drvcn_emprs']
+    drvcn_codes = ['drvcn_art4_1', 'drvcn_dnncnt', 'drvcn_emprs', 'drvcn_ext', 'drvcn_ext_dt']
     # Recepción de derivaciones ( desde empresa_externa o dt)
     rcpcn_codes = ['rcptn_extrn', 'rcpcn_dt']
     codes = (drvcn_codes | rcpcn_codes)
 
     ownr = KrnDenuncia.find(params[:oid])
+
+    puts "***********************************"
+    puts ownr.blank?
 
     if codes.include?(params[:cdg])
       tipo = drvcn_codes.include?(params[:cdg]) ? 'Derivación' : 'Recepción'

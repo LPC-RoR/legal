@@ -1,7 +1,7 @@
 <% if prtl?('karin', "hlp/#{objeto.codigo}", 'hlp') %>
 
 	<%= render layout: '0p/off_canvas/lnk', locals: {lbl: objeto.codigo} do %>
-		<i class="bi bi-question-square"></i>
+		<small><i class="bi bi-question-circle text-primary"></i></small>
 	<% end %>
 
 	<%= render layout: '0p/off_canvas/dsply', locals: {lbl: objeto.codigo, ttl: objeto.tarea} do %>

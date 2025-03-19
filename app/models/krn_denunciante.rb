@@ -60,6 +60,10 @@ class KrnDenunciante < ApplicationRecord
  		self.krn_testigos.any?
  	end
 
+ 	def registros?
+ 		self.ctr_registros.any?
+ 	end
+
  	# ================================= 020_prtcpnts: Ingreso de(l) denunciante(s)
 
 	def fl_diat_diep?
@@ -82,6 +86,14 @@ class KrnDenunciante < ApplicationRecord
 		self.articulo_516
 	end
 
+	def empleador_ok?
+		self.empleado_externo ? self.krn_empresa_externa.present? : true
+	end
+
+	def direccion_ok?
+		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
+	end
+
 	def rgstr_ok?
 		self.empleador_ok? and self.direccion_ok? and self.rut? and self.krn_testigos.rgstrs_ok?
 	end
@@ -97,14 +109,6 @@ class KrnDenunciante < ApplicationRecord
 	end
 
 	# ------------------------------------------------------------------------
-
-	def empleador_ok?
-		self.empleado_externo ? self.krn_empresa_externa.present? : true
-	end
-
-	def direccion_ok?
-		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
-	end
 
  	def self.rlzds?
  		all.empty? ? false : all.map {|objt| objt.rlzd}.uniq.join('-') == 'true'

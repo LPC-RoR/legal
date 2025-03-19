@@ -2,3 +2,7 @@
 
 <!-- typ: 'ln' => par que despliegue el siguiente nivel (tareas) -->
 <%= render partial: '0p/tbl/tbl', locals: {source: 'ctr_etapas', ordr: true, crud: 'lnks', typ: 'ln'} %>
+<hr>
+<%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
+
+<%= render partial: '0p/tbl_ttl', locals: {source: 'rep_doc_controlados', ownr: @objeto, ordr: true, typ: 'tr'} %>

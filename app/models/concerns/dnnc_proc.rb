@@ -1,5 +1,15 @@
 module DnncProc
  	extend ActiveSupport::Concern
+ 	# ================================= PROC Etapas y Tareas
+
+ 	def fechas_invstgcn?
+ 		self.fecha_trmtcn? or self.fecha_hora_dt? or self.fecha_ntfccn?
+ 	end
+
+ 	def evld?
+ 		neg = (self.evlcn_incmplt? or self.evlcn_incnsstnt?) and self.fecha_hora_corregida?
+ 		neg or self. evlcn_ok?
+ 	end
 
  	# ================================= 010_ingrs: Ingreso de la denuncia
  	# --------------------------------- Despliegue de formularios
@@ -69,6 +79,57 @@ module DnncProc
 	def proc_fecha_trmtcn?
 		self.dnnc.investigacion_local or self.investigacion_externa
 	end
+
+ 	# ================================= 060_invstgdr: Asignar Investigador
+
+	def proc_objcn_invstgdr?
+		self.krn_investigadores.count == 1
+	end
+
+ 	# ================================= 070_evlcn: Evaluar denuncia
+
+	def proc_evlcn_incmplt?
+		self.krn_investigadores.any? and ( not self.evlcn_ok )
+	end
+
+	def proc_evlcn_incnsstnt?
+		self.krn_investigadores.any? and ( not self.evlcn_ok )
+	end
+
+	def proc_evlcn_ok?
+		self.krn_investigadores.any? and self.evlcn_incmplt.blank? and self.evlcn_incnsstnt.blank?
+	end
+
+	def proc_fecha_hora_corregida?
+		self.evlcn_incmplt? or self.evlcn_incnsstnt?
+	end
+
+ 	# ================================= 080_trmn_invstgcn: Término de la investigación
+
+	def proc_fecha_trmn?
+		self.rlzds?
+	end
+
+ 	# ================================= 100_env_rcpcn: Envío / Recepción del informe de investigación
+
+	def proc_fecha_env_infrm?
+		self.fecha_trmn?
+	end
+
+	def proc_fecha_rcpcn_infrm?
+		self.fecha_hora_dt?
+	end
+
+ 	# ================================= 110_prnncmnt: Pronunciamiento de la DT
+
+	def proc_fecha_prnncmnt?
+		self.fecha_env_infrm? and ( not self.prnncmnt_vncd? ) and  (not self.on_dt?)
+	end
+
+	def proc_prnncmnt_vncd?
+		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? )
+	end
+
 
 
 	# --------------------------------------------------------------------------- JOT (JUST ONE TIME)

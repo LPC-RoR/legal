@@ -4,8 +4,6 @@ class CtrPaso < ApplicationRecord
 	has_many :ctr_registros
 
 	scope :ordr, -> { order(:orden) }
-	scope :prcsbls, ->  { where(proceso: true) }
-	scope :init, -> { where(proceso: [nil, false]) }
 
 	include OrderModel
 

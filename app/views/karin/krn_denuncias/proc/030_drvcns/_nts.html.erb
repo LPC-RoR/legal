@@ -1,16 +1,42 @@
-<!-- LISTA DE DERIVACIONES -->
-<!-- Se despliegan aunque falte información -->
-<!-- para poder registrar voluntad de derivar del denunciante -->
-<% if @objeto.derivaciones? %>
-    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_derivaciones', ownr: @objeto, lnks: 'prtl'} %>
-	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'lnks'} %>
+<% if @objeto.rgstrs_ok? %>
+
+	<!-- DERIVACIONES -->
+
+	<%# unless trsh_cndtn(objeto, ownr)  %>
+		<% unless @objeto.investigacion_local %>
+			<!-- RECEPCIÓN dnnc recibidas por una EMPRESA EXTERNA -->
+			<!-- SOLO empresa? y multiempresa? sin derivaciones -->
+			<% if @objeto.rcp_externa? and @objeto.krn_derivaciones.empty? and ( not @objeto.externa? ) %>
+				<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'rcpcn_extrn'} %>
+			<% end %>
+
+			<% if @objeto.on_dt? %>
+				<!-- Recibir de vuelta una denuncia desde la DT (solicitada) -->
+				<% if @objeto.solicitud_denuncia %>
+					<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'rcpcn_dt'} %>
+				<% end %>
+			<% else %>
+				<% if @objeto.on_empresa? and @objeto.externa? %>
+					<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext_dt'} %>
+					<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext'} %>
+				<% else %>
+					<% if @objeto.artcl41? %>
+						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_art4_1'} %>
+					<% else %>
+						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_dnncnt'} %>
+						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<%# end %>
+
 <% end %>
 
-<% if @objeto.externa? %>
-	<%= render partial: '0p/ntc', locals: {color: 'dark', gly: 'check-lg', ntc: "Denuncia debe ser investigada por el empleador de los participantes"} %>
-<% end %>
-<% if @objeto.rgstrs_ok? %>
-	<%= render partial: '0p/ntc', locals: {color: 'primary', gly: 'check-lg', ntc: "La información básica de los participantes está completa."} %>
-<% else %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'bug', ntc: "La información básica de los participantes está incompleta."} %>
-<% end %>
+
+
+<%# if @objeto.rgstrs_ok? %>
+	<%#= render partial: '0p/ntc', locals: {color: 'primary', gly: 'check-lg', ntc: "La información básica de los participantes está completa."} %>
+<%# else %>
+	<%#= render partial: '0p/ntc', locals: {color: 'danger', gly: 'bug', ntc: "La información básica de los participantes está incompleta."} %>
+<%# end %>

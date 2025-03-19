@@ -1,0 +1,12 @@
+<% if @objeto.dnnc.krn_inv_denuncias.any? %>
+
+	<!-- DECLARACIONES -->
+    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_declaraciones', ownr: @objeto, lnks: 'prtl'} %>
+
+	<% unless @objeto.declaraciones? %>
+		<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Se debe agendar la declaración del participante.'} %>
+	<% end %>
+
+	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_declaraciones', crud: 'lnks'} %>
+
+<% end %>

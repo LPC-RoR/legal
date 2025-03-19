@@ -3,6 +3,7 @@ class Karin::KrnDenunciadosController < ApplicationController
   before_action :scrty_on
   before_action :set_krn_denunciado, only: %i[ show edit update destroy swtch set_fld clear_fld ]
 
+  include ProcControl
   include Karin
 
   # GET /krn_denunciados or /krn_denunciados.json
@@ -16,6 +17,8 @@ class Karin::KrnDenunciadosController < ApplicationController
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
 
     set_tabla('krn_declaraciones', @objeto.krn_declaraciones, false)
+    set_tabla('krn_testigos', @objeto.krn_testigos, false)
+    set_tabla('ctr_registros', @objeto.ctr_registros, false)
   end
 
   # GET /krn_denunciados/new

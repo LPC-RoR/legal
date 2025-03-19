@@ -25,6 +25,10 @@ module Dnnc
  		self.krn_derivaciones.any?
  	end
 
+ 	def investigadores?
+ 		self.krn_inv_denuncias.any?
+ 	end
+
  	# --------------------------------- ????
 
 	def rgstrs_ok?
@@ -33,45 +37,6 @@ module Dnnc
 
 	# ------------------------------------------------------------------------ PROC CNDTNS
 
-
-	def proc_objcn_invstgdr?
-		self.krn_investigadores.count == 1
-	end
-
-	def proc_evlcn_incmplt?
-		self.krn_investigadores.any? and ( not self.evlcn_ok )
-	end
-
-	def proc_evlcn_incnsstnt?
-		self.krn_investigadores.any? and ( not self.evlcn_ok )
-	end
-
-	def proc_evlcn_ok?
-		self.krn_investigadores.any? and self.evlcn_incmplt.blank? and self.evlcn_incnsstnt.blank?
-	end
-
-	def proc_fecha_hora_corregida?
-		self.evlcn_incmplt? or self.evlcn_incnsstnt?
-	end
-
-	# Revisar si se usa esta o la siguiente 
-	# para registrar la recepción de la investigación realizada por la DT
-	def proc_fecha_trmn?
-		self.rlzds?
-	end
-
-	def proc_fecha_env_infrm?
-		self.fecha_trmn? or self.on_dt?
-	end
-
-	def proc_prnncmnt_vncd?
-		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? )
-#		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? ) and  (not self.on_dt?)
-	end
-
-	def proc_fecha_prnncmnt?
-		self.fecha_env_infrm? and ( not self.prnncmnt_vncd? ) and  (not self.on_dt?)
-	end
 
 
 	# ------------------------------------------------------------------------ PRTCPNTS

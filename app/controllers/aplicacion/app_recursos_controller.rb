@@ -22,7 +22,19 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    Valor.delete_all
+    @proc = Procedimiento.prcdmnt('krn_invstgcn')
+    @proc.ctr_etapas.ordr.each do |etp|
+      ordn = 1
+      etp.tareas.ordr.each do |tar|
+        tar.rep_doc_controlados.ordr.each do |dc|
+          dc.ownr_type = @proc.class.name
+          dc.id = @proc.id
+          dc.orden = ordn
+          dc.save
+          ordn += 1
+        end
+      end
+    end
 
 #    ControlDocumento.all.each do |cd|
 #      cd.ownr_type = cd.owner_class

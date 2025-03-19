@@ -1,19 +1,12 @@
-<div class="mt-1 bg-white shadow rounded p-2">
-
-	<!-- ENCABEZADO de la ETAPA -->
-	<div class="row gx-1 text-<%=color%>">
-		<div class="col-8 ps-1">
-			<i class="bi bi-hourglass-split"></i> 
-			<b>
-			<%= render partial: prtl_name('ctr_etapas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'objt') %>
-			<%= render partial: prtl_name(objeto, 'code', 'objt_hlp'), locals: {objeto: objeto, ownr: ownr} %>
-			</b>
-		</div>
-		<div class="col-4 text-end pe-2">
-			<%= render partial: prtl_name('ctr_etapas', 'code', 'lnks'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'lnks') %>
-		</div> 
+<!-- ENCABEZADO de la ETAPA -->
+<div class="row gx-1 text-<%=color%> mt-1">
+	<div class="col-8">
+		<i class="bi bi-hourglass-split"></i> 
+		<b>
+		<%= render partial: prtl_name('ctr_etapas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'objt') %>
+		</b>
 	</div>
-
-	<!-- DETALLE DE LA ETAPA -->
-	<%= render partial: prtl_name('ctr_etapas', 'code', 'dtll'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'dtll') %>
+	<div class="col-4 text-end pe-2">
+		<%= render partial: prtl_name('ctr_etapas', 'code', 'lnks'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'lnks') %>
+	</div> 
 </div>

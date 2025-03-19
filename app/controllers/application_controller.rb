@@ -36,5 +36,6 @@ class ApplicationController < ActionController::Base
 	helper_method :cmenu_clss, :std, :typ, :display_name, :scp_menu, :scp_item
 	helper_method :plz_lv, :plz_c
 	helper_method :krn_fl_cntrl, :krn_cntrllrs?, :drvcn_text, :fl_cndtn?
+	helper_method :tar_cntrl
 
 end

@@ -1,0 +1,6 @@
+<% if @objeto.declaraciones? %>
+	<div class="mt-1 bg-white shadow rounded p-2">
+		<!-- Resumen de las declaraciones -->
+		<%= render partial: '0p/tbl_ttl', locals: {source: 'krn_declaraciones'} %>
+	</div>
+<% end %>

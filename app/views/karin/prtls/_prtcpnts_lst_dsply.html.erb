@@ -1,9 +1,7 @@
-<% unless objeto.declaraciones? %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin declaraciones.'} %>
-<% end %>
-
-<% unless objeto.testigos? %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin testigos.'} %>
+<% if objeto.dnnc.investigadores? and objeto.dnnc.evld? %>
+	<% unless objeto.declaraciones? %>
+		<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin declaraciones.'} %>
+	<% end %>
 <% end %>
 
 <% if objeto.empleado_externo and (not objeto.empleador?) %>
@@ -14,6 +12,6 @@
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'La persona denunciante no tiene acceso a correo electrónico, se debe registrar su dirección de notificación.'} %>
 <% end %>
 
-<% if objeto.articulo_4_1 %>
+<% if objeto.articulo_4_1 and ( not objeto.dnnc.on_dt? ) %>
 	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Aplica el artículo 4 inciso primero del Código del Trabajo: La denuncia debe ser derivada a la Dirección del Trabajo.'} %>
 <% end %>

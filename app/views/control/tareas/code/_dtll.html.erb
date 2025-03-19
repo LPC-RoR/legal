@@ -5,25 +5,16 @@
 <!-- Muestra TABLA de ctr_registros generados hasta ahora -->
 <% unless objeto.ctr_pasos.empty? %>
 	<% if tar_cntrl(ownr)[objeto.codigo] %>
-		<!-- REGISTROS DE LA DENUNCIA -->
-		<%= render partial: '0p/proc/rgstrs', locals: {rgstrs: ownr.ctr_registros.where(ctr_paso_id: objeto.ctr_pasos.ids).ordr, trsh_cndtn: trsh_cndtn(objeto, ownr), objeto: objeto, ownr: ownr} %>
-
-		<!-- FORMULARIOS DE CAMPOS DE LA DENUNCIA -->
-		<% unless trsh_cndtn(objeto, ownr) %>
-			<% objeto.ctr_pasos.prcsbls.ordr.each do |paso| %>
-				<% if ownr.send("proc_#{paso.codigo}?") %>
-					<% unless ownr.send("#{paso.metodo}?") %>
-						<%= render partial: '0p/proc/frm', locals: {tar: objeto, objeto: ownr, code: paso.codigo} %>
-					<% end %>
+		<% objeto.ctr_pasos.ordr.each do |paso| %>
+			<% if ownr.send("proc_#{paso.codigo}?") %>
+				<% unless ownr.send("#{paso.metodo}?") %>
+					<%= render partial: '0p/proc/frm', locals: {tar: objeto, objeto: ownr, code: paso.codigo} %>
 				<% end %>
 			<% end %>
 		<% end %>
 	<% end %>
 
 <% end %>
-
-<!-- ARCHIVOS de los DC de la TAREA -->
-<%#= render partial: prtl_name('tareas', 'code', 'dc_fls'), locals: {objeto: objeto, ownr: ownr} %>
 
 <!-- CHLDS -->
 <% if prtl?(ownr, "proc/#{objeto.codigo}", 'chlds')  %>

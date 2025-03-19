@@ -1,6 +1,7 @@
 <% objeto ||= @objeto %>
 <% prompt ||= nil %>
-<div class="form-floating mb-3">
+<% id ||= nil %>
+<div class="form-floating mb-3" id="<%=id%>">
 	<%= form.select token, options_for_select(sel_list, objeto.send(token.to_s)), { prompt: prompt }, class: 'form-select',  data: { turbo_frame: "cndtnl_#{token.to_s}" } %>
 	<%= form.label token, label, for: token.to_s %>
 </div>

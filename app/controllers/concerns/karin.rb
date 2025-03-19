@@ -1,14 +1,12 @@
 module Karin
   extend ActiveSupport::Concern
 
-  def etp_fls_slcted(ownr, etp)
+  def tar_fls_slctd(ownr, tar)
     fls = []
-    etp.tareas.ordr.each do |tar|
-      tar.rep_doc_controlados.ordr.each do |dc|
-        if fl_cndtn?(ownr, dc.codigo)
-          unless ownr.fl?(dc.codigo)
-            fls << dc.rep_doc_controlado
-          end
+    tar.rep_doc_controlados.ordr.each do |dc|
+      if fl_cndtn?(ownr, dc.codigo)
+        unless ownr.fl?(dc.codigo)
+          fls << dc.rep_doc_controlado
         end
       end
     end
@@ -17,11 +15,29 @@ module Karin
 
   def load_proc(ownr)
     @proc = {}
+    @proc[:fls_mss] = []
+    @proc[:fls_actv] = []
+    @proc[:etp_last] = nil
+    @proc[:tar_last] = nil
     @proc_objt = Procedimiento.find_by(codigo: 'krn_invstgcn')
     @proc_objt.ctr_etapas.ordr.each do |etp|
-      @proc[etp.codigo.to_sym] = {}
-      @proc[etp.codigo.to_sym][:name] = etp.ctr_etapa
-      @proc[etp.codigo.to_sym][:fls_mss] = etp_fls_slcted(ownr, etp)
+      if etp.dsply?(ownr) and etp_cntrl(ownr)[etp.codigo.to_sym]
+        @proc[:etp_last] = etp
+
+        etp.tareas.ordr.each do |tar|
+          if tar.dsply?(ownr) and tar_cntrl(ownr)[tar.codigo] and ( not tar_hide(ownr, tar.codigo) )
+            @proc[:tar_last] = tar
+          end
+        end
+      else
+        # break
+      end
+    end
+
+    @proc_objt.rep_doc_controlados.ordr.each do |dc|
+      if fl_cndtn?(ownr, dc.codigo)
+        @proc[:fls_actv] << dc
+      end
     end
   end
 
@@ -191,17 +207,6 @@ module Karin
     end
 
     @objeto.ctr_registros.create(orden: ctr_paso.orden, tarea_id: ctr_paso.tarea_id, ctr_paso_id: ctr_paso.id, glosa: ctr_paso.glosa, valor: vlr)
-
-    puts "---------------------------------------------- set_fld"
-    puts params[:k]
-    puts params[:krn_empresa_externa_id]
-    puts params[ctr_paso.metodo.to_sym]
-    puts dsply_metodo
-    puts @objeto[ctr_paso.metodo]
-    puts field
-    puts vlr
-
-    puts 'stop'
 
     redirect_to @objeto
   end

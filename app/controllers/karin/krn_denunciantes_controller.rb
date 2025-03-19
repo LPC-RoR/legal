@@ -3,6 +3,7 @@ class Karin::KrnDenunciantesController < ApplicationController
   before_action :scrty_on
   before_action :set_krn_denunciante, only: %i[ show edit update destroy swtch set_fld clear_fld ]
 
+  include ProcControl
   include Karin
 
   # GET /krn_denunciantes or /krn_denunciantes.json
@@ -17,6 +18,7 @@ class Karin::KrnDenunciantesController < ApplicationController
 
     set_tabla('krn_declaraciones', @objeto.krn_declaraciones, false)
     set_tabla('krn_testigos', @objeto.krn_testigos, false)
+    set_tabla('ctr_registros', @objeto.ctr_registros, false)
   end
 
   # GET /krn_denunciantes/new

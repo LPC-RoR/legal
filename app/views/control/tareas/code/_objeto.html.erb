@@ -1,8 +1,0 @@
-<% if objeto.dsply?(ownr) %>
-
-	<!-- Trasladar paulatinamente el code de cada tarea -->
-	<% if tar_cntrl(ownr)[objeto.codigo] %>
-		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: objeto, ownr: ownr, color: 'primary'} %>
-	<% end %>
-
-<% end %>
