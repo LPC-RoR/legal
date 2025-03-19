@@ -9,18 +9,21 @@ gem 'stringio', '3.1.1'
 
 # Base de datos
 gem 'pg'
-gem "sqlite3", ">= 2.1"
+gem 'sqlite3', '~> 1.4', platform: :ruby
 
 
 # FrontEnd
 gem 'bootstrap', '~> 5.3.3'
 gem 'dartsass-sprockets'
-gem 'sass-rails', '~> 5.0'        # Use SCSS for stylesheets
+#gem 'sass-rails', '~> 5.0'        # Use SCSS for stylesheets
 gem 'uglifier'                    # Compresor de Javascript
-gem 'coffee-rails', '~> 4.2'      # Use CoffeeScript for .coffee assets and views
+#gem 'coffee-rails', '~> 4.2'      # Use CoffeeScript for .coffee assets and views
 gem 'turbolinks', '~> 5.2.0'      # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'jbuilder'                    # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'execjs'
+
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+#gem "propshaft"
 
 # Autenticación y autorización
 gem 'devise'
@@ -68,10 +71,9 @@ gem "thruster", require: false
 
 # Development
 group :development, :test do
-#  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
-
+  #gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
