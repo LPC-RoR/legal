@@ -1,4 +1,7 @@
 <small>
+	<%= objeto.rlzd %>
+	<%= @objeto.class.name %>
+	<%= @objeto.rep_archivos.any? %>
 <% unless objeto.rlzd %>	
 	<% if @objeto.fl?('prtcpnts_dclrcn') or objeto.rlzd %>
 		<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'rlzd', stts: ['no ralizado', 'realizado']} %>

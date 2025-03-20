@@ -27,12 +27,9 @@ class Aplicacion::AppRecursosController < ApplicationController
       ordn = 1
       etp.tareas.ordr.each do |tar|
         tar.rep_doc_controlados.ordr.each do |dc|
-          dc.ownr_type = @proc.class.name
-          dc.id = @proc.id
-          dc.orden = ordn
-          dc.save
-          ordn += 1
+          dc.rep_archivos.delete_all
         end
+#        tar.rep_doc_controlados.delete_all if tar.rep_doc_controlados.any?
       end
     end
 

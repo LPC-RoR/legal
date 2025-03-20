@@ -18,9 +18,6 @@ class Repositorios::RepArchivosController < ApplicationController
     dc_name = dc.blank? ? nil : dc.rep_doc_controlado
     control_fecha = dc.blank? ? nil : dc.control_fecha
     chequeable = dc.blank? ? nil : dc.chequeable
-    puts "----------------------------------------------"
-    puts control_fecha.blank?
-    puts chequeable.blank?
     ownr = params[:oclss].constantize.find(params[:oid])
     @objeto = ownr.rep_archivos.new(rep_archivo: dc_name, rep_doc_controlado_id: params[:dcid], control_fecha: control_fecha, chequeable: chequeable )
   end

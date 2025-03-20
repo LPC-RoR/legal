@@ -9,7 +9,7 @@ module ProcControl
 
 	def etp_cntrl_hsh(ownr)
 		dnnc = ownr.dnnc
-		fecha_legal = dnnc.fecha_hora_dt? ? @objeto.fecha_hora_dt : @objeto.fecha_hora
+		fecha_legal = dnnc.fecha_hora_dt? ? dnnc.fecha_hora_dt : dnnc.fecha_hora
 		fecha_env_rcpcn = dnnc.fecha_env_infrm || dnnc.fecha_rcpcn_infrm
 		plz_env_rcpcn = dnnc.fecha_trmn? ? plz_lv(dnnc.fecha_trmn, 2) : plz_lv(fecha_legal, 32)
 		{
@@ -37,6 +37,56 @@ module ProcControl
 				trmn: false,
 				plz: plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15),
 				plz_ok: true,
+			},
+		}
+	end
+
+	def tar_cntrl_hsh(ownr)
+		dnnc = ownr.dnnc
+		{
+			'010_ingrs'    => {
+				actv: true,
+				frms: dnnc.frms_ingrs?,
+			},
+			'020_prtcpnts'    => {
+				actv: true,
+				frms: dnnc.frms_ingrs?,
+			},
+			'030_drvcns'    => {
+				actv: (dnnc.denunciantes? and dnnc.denunciados?),
+				frms: dnnc.frms_drvcns?,
+			},
+			'050_crr'    => {
+				actv: (dnnc.rgstrs_ok? and (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or dnnc.rcp_dt?)),
+				frms: dnnc.frms_crr?,
+			},
+			'060_invstgdr'    => {
+				actv: ((dnnc.fechas_invstgcn?)),
+				frms: dnnc.frms_invstgdr?,
+			},
+			'070_evlcn'    => {
+				actv: (dnnc.investigadores?),
+				frms: dnnc.frms_evlcn?,
+			},
+			'080_dclrcn'    => {
+				actv: (dnnc.investigadores? and dnnc.evld?),
+				frms: false,
+			},
+			'090_trmn_invstgcn' => {
+				actv: (dnnc.rlzds? or dnnc.on_dt?),
+				frms: dnnc.frms_trmn_invstgcn?,
+			},
+			'100_env_rcpcn' => {
+				actv: (dnnc.fecha_trmn? or dnnc.on_dt?),
+				frms: dnnc.frms_env_rcpcn?,
+			},
+			'110_prnncmnt' => {
+				actv: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
+				frms: dnnc.frms_prnncmnt?,
+			},
+			'120_mdds_sncns' => {
+				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
+				frms: false,
 			},
 		}
 	end

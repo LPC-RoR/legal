@@ -1,11 +1,23 @@
+<% if prtl?(ownr, "proc/#{@proc[:tar_last].codigo}", 'nts') or @tar_cntrl_hsh[@proc[:tar_last].codigo][:frms] or prtl?(ownr, "proc/#{@proc[:tar_last].codigo}", 'chlds') %>
 <div class="mt-1 bg-white shadow rounded p-2">
 
-	<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'ctr_etapas', lnks: 'ttl'} %>
-
-	<%= render partial: prtl_name('ctr_etapas', 'code', 'ln'), locals: {objeto: @proc[:etp_last], ownr: ownr, color: 'primary'} %>
-
-	<% unless @proc[:tar_last].blank? %>
-		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: @proc[:tar_last], ownr: ownr, color: 'primary'} %>
+	<% if prtl?(ownr, "proc/#{@proc[:tar_last].codigo}", 'nts')  %>
+		<%= render partial: prtl_name(ownr, "proc/#{@proc[:tar_last].codigo}", 'nts'), locals: {objeto: @proc[:tar_last], ownr: ownr} %>
 	<% end %>
 
+	<% if @tar_cntrl_hsh[@proc[:tar_last].codigo][:frms] %>
+		<%#= render partial: '0p/ttl_sub_tbl', locals: {source: 'ctr_etapas', lnks: 'ttl'} %>
+
+		<%= render partial: prtl_name('ctr_etapas', 'code', 'ln'), locals: {objeto: @proc[:etp_last], ownr: ownr, color: 'primary'} %>
+
+		<% unless @proc[:tar_last].blank? %>
+			<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: @proc[:tar_last], ownr: ownr, color: 'primary'} %>
+		<% end %>
+	<% end %>
+
+	<!-- CHLDS -->
+	<% if prtl?(ownr, "proc/#{@proc[:tar_last].codigo}", 'chlds')  %>
+		<%= render partial: prtl_name(ownr, "proc/#{@proc[:tar_last].codigo}", 'chlds'), locals: {objeto: @proc[:tar_last], ownr: ownr} %>
+	<% end %>
 </div>
+<% end %>

@@ -15,6 +15,7 @@ module Karin
 
   def load_proc(ownr)
     @etp_cntrl_hsh = etp_cntrl_hsh(ownr)
+    @tar_cntrl_hsh = tar_cntrl_hsh(ownr)
     @proc = {}
     @proc[:fls_mss] = []
     @proc[:fls_actv] = []
@@ -30,7 +31,8 @@ module Karin
         @proc[:etp_last] = etp
 
         etp.tareas.ordr.each do |tar|
-          if tar.dsply?(ownr) and tar_cntrl(ownr)[tar.codigo] and ( not tar_hide(ownr, tar.codigo) )
+#          if tar.dsply?(ownr) and tar_cntrl(ownr)[tar.codigo] and ( not tar_hide(ownr, tar.codigo) )
+          if @tar_cntrl_hsh[tar.codigo][:actv]
             @proc[:tar_last] = tar
           end
         end

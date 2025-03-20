@@ -1,6 +1,6 @@
-<% if prtl?(ownr, "proc/#{objeto.codigo}", 'nts')  %>
-	<%= render partial: prtl_name(ownr, "proc/#{objeto.codigo}", 'nts'), locals: {objeto: objeto, ownr: ownr} %>
-<% end %>
+<%# if prtl?(ownr, "proc/#{objeto.codigo}", 'nts')  %>
+	<%#= render partial: prtl_name(ownr, "proc/#{objeto.codigo}", 'nts'), locals: {objeto: objeto, ownr: ownr} %>
+<%# end %>
 
 <!-- Muestra TABLA de ctr_registros generados hasta ahora -->
 <% unless objeto.ctr_pasos.empty? %>
@@ -18,6 +18,6 @@
 <% end %>
 
 <!-- CHLDS -->
-<% if prtl?(ownr, "proc/#{objeto.codigo}", 'chlds')  %>
-	<%= render partial: prtl_name(ownr, "proc/#{objeto.codigo}", 'chlds'), locals: {objeto: objeto, ownr: ownr} %>
-<% end %>
+<%# if prtl?(ownr, "proc/#{objeto.codigo}", 'chlds')  %>
+	<%#= render partial: prtl_name(ownr, "proc/#{objeto.codigo}", 'chlds'), locals: {objeto: objeto, ownr: ownr} %>
+<%# end %>
