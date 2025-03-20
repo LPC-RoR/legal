@@ -178,4 +178,13 @@ module DnncProc
 		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? )
 	end
 
+ 	# ================================= 120_mdds_sncns: Pronunciamiento de la DT
+
+ 	def frms_mdds_sncns?
+ 		( self.fecha_prnncmnt? or self.prnncmnt_vncd? or self.fecha_rcpcn_infrm? ) and self.crr_dnnc.blank?
+ 	end
+
+ 	def proc_crr_dnnc?
+ 		( self.fecha_prnncmnt? or self.prnncmnt_vncd? or self.fecha_rcpcn_infrm? )
+ 	end
 end

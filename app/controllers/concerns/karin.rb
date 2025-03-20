@@ -131,11 +131,6 @@ module Karin
   def set_fld
     ctr_paso = CtrPaso.find_by(codigo: params[:k])
 
-    puts "**************************************************"
-    puts params[:k]
-    puts ctr_paso.blank?
-    puts ctr_paso.metodo
-
     @objeto[ctr_paso.metodo] = ctr_paso.metodo.split('_')[0] == 'fecha' ? params_to_date(params, ctr_paso.metodo) : params[ctr_paso.metodo.to_sym]
     @objeto.save
 

@@ -1,19 +1,27 @@
 <% unless @proc[:etps_trmnds].empty? %>
 <div class="mt-1 bg-white shadow rounded p-2">
-	<% @proc[:etps_trmnds].each do |etp_trmnd| %>
-		<div class="row gx-1">
-			<div class="col ps-2 text-primary">
-				<%= etp_trmnd[:etapa] %>
-			</div>
-			<div class="col pe-2 text-end text-<%=etp_trmnd[:plz_ok] ? 'primary' : 'danger'%>">
-				<% if etp_trmnd[:plz_ok] %>
-					<i class="bi bi-calendar-check"></i>
-				<% else %>
-					<i class="bi bi-calendar-x text-danger"></i>
-				<% end %>
-				<%= dma(etp_trmnd[:plz]) %>
-			</div>
-		</div>
-	<% end %>
-<div>
+	<table class="table table-ssm table-borderless table-striped table-hover">
+		<tbody>
+
+			<% @proc[:etps_trmnds].each do |etp_trmnd| %>
+				<tr style="font-size: 15px;">
+					<td class="app_lnk" style="padding-left: 1rem;">
+						<b><%= etp_trmnd[:etapa] %></b>
+					</td>
+					<td class="app_lnk" style="text-align: right; padding-right: 1rem;">
+						<div class="text-<%=etp_trmnd[:plz_ok] ? 'primary' : 'danger'%>">
+						<% if etp_trmnd[:plz_ok] %>
+							<i class="bi bi-calendar-check"></i>
+						<% else %>
+							<i class="bi bi-calendar-x text-danger"></i>
+						<% end %>
+						<%= dma(etp_trmnd[:plz]) %>
+						</div>
+					</td>
+				</tr>
+			<% end %>
+
+		</tbody>
+	</table>
+</div>
 <% end %>

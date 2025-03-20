@@ -86,7 +86,7 @@ module ProcControl
 			},
 			'120_mdds_sncns' => {
 				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
-				frms: false,
+				frms: dnnc.frms_mdds_sncns?,
 			},
 		}
 	end
