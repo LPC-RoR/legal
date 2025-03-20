@@ -1,0 +1,24 @@
+<div class="row mt-1 px-2" style="font-size: 12px; line-height: 1.2;">
+	<div class="col app_lnk">
+		<% if objeto.age_usuarios.any? %>
+			<i class="bi bi-caret-right"></i> 
+			<% objeto.age_usuarios.each do |usr| %>
+				<i class="bi bi-dot"></i> 
+				<%= usr.age_usuario %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/notas/#{objeto.id}/dssgn_usr?oid=#{usr.id}", tltp: "Elimina participante"} do %>
+					<i class="bi bi-x-circle"></i>
+				<% end %>
+			<% end %>
+		<% else %>
+			<div class="text-danger"><i class="bi bi-exclamation-diamond"></i> Nota sin participantes</div>
+		<% end %>
+	</div>
+	<div class="col text-end">
+		<%= render layout: '0p/collapse/link', locals: {label: 'Nota', objeto: objeto, tooltip: 'Agrega participante'} do %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+	</div>
+</div>
+<%= render layout: '0p/collapse/display', locals: {label: 'Nota', objeto: objeto} do %>
+	<%= render partial: 'notas/list/usr_slct', locals: {objeto: objeto} %>
+<% end %>

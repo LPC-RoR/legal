@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_20_004852) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_20_205514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -831,6 +831,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_004852) do
     t.integer "krn_denuncia_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "objetado"
     t.index ["krn_denuncia_id"], name: "index_krn_inv_denuncias_on_krn_denuncia_id"
     t.index ["krn_investigador_id"], name: "index_krn_inv_denuncias_on_krn_investigador_id"
   end
@@ -1164,7 +1165,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_004852) do
   create_table "notas", force: :cascade do |t|
     t.string "ownr_type"
     t.integer "ownr_id"
-    t.integer "perfil_id"
+    t.integer "app_perfil_id"
     t.string "nota"
     t.string "prioridad"
     t.boolean "realizado"
@@ -1174,9 +1175,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_20_004852) do
     t.boolean "urgente"
     t.datetime "fecha_gestion"
     t.boolean "sin_fecha_gestion"
+    t.index ["app_perfil_id"], name: "index_notas_on_app_perfil_id"
     t.index ["ownr_id"], name: "index_notas_on_ownr_id"
     t.index ["ownr_type"], name: "index_notas_on_ownr_type"
-    t.index ["perfil_id"], name: "index_notas_on_perfil_id"
   end
 
   create_table "org_area_areas", force: :cascade do |t|

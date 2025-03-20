@@ -16,7 +16,10 @@ Rails.application.routes.draw do
   resources :parrafos
   resources :notas do
     match :agrega_nota, via: :post, on: :collection
-    match :swtch_realizada, via: :get, on: :member
+    match :swtch, via: :get, on: :member
+    match :dssgn_usr, via: :get, on: :member
+    match :assgn_usr, via: :get, on: :member
+    match :swtch_clr, via: :get, on: :member
     match :swtch_pendiente, via: :get, on: :member
     match :swtch_urgencia, via: :get, on: :member
     match :swtch_prrdd, via: :get, on: :member
@@ -153,7 +156,9 @@ Rails.application.routes.draw do
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
     end
-    resources :krn_inv_denuncias
+    resources :krn_inv_denuncias do
+      match :swtch, via: :get, on: :member
+    end
   end
 
   scope module: 'hm' do

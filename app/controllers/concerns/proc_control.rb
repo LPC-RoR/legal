@@ -34,9 +34,9 @@ module ProcControl
 				plz_ok: plz_ok?( dnnc.fecha_prnncmnt, plz_lv(dnnc.fecha_env_infrm, 30)),
 			},
 			'etp_mdds_sncns' => {
-				trmn: false,
-				plz: plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15),
-				plz_ok: true,
+				trmn: dnnc.crr_dnnc,
+				plz: plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15), 
+				plz_ok: plz_ok?( dnnc.fl_last_date('dnnc_mdds_sncns'), plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15)),
 			},
 		}
 	end

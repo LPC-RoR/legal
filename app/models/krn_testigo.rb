@@ -15,23 +15,11 @@ class KrnTestigo < ApplicationRecord
     validates_presence_of :nombre, :cargo, :lugar_trabajo
     validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 
+	include Fls
+
 	def dnnc
 		self.ownr.krn_denuncia
 	end
-
-	def fls(dc)
-		self.rep_archivos.where(rep_doc_controlado_id: dc.id).crtd_ordr
-	end
-
-	def fl(dc)
-		self.fls(dc).last
-	end
-
-	def fl?(code)
-		dc = RepDocControlado.get_dc(code)
-		fl(dc).present?
-	end
-
 
  	# --------------------------------- Asociaciones
 

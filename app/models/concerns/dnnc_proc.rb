@@ -105,8 +105,12 @@ module DnncProc
 
  	# ================================= 060_invstgdr: Asignar Investigador
 
+ 	def objcn_invstgdr?
+ 		self.krn_inv_denuncias.any? ? self.krn_inv_denuncias.first.objetado : false
+ 	end
+
  	def frms_invstgdr?
- 		self.krn_investigadores.count == 1 and self.objcn_invstgdr.blank?
+ 		false
  	end
 
 	def proc_objcn_invstgdr?
@@ -151,7 +155,7 @@ module DnncProc
 
  	# ================================= 100_env_rcpcn: Envío / Recepción del informe de investigación
 
- 	def frms_env_rcpcn?
+ 	def frms_env_rcpcn? 
  		(self.fecha_trmn? and self.fecha_env_infrm.blank?) or (self.fecha_hora_dt? and self.fecha_rcpcn_infrm.blank?)
  	end
 

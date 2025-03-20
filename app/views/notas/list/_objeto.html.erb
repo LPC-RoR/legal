@@ -1,19 +1,18 @@
-<div class="app_nt_<%=objeto.color%>">
+<div class="m-1 border rounded">
+
 	<%= render partial: 'notas/list/bjt', locals: {objeto: objeto} %>
-	<small><%= render partial: 'actividades/age_usuarios/shr/usrs', locals: {objeto: objeto} %></small>
-	<div class="nt">
-		<% if objeto.color =='g' %>
-			<i class="bi bi-dot text-info"></i>
-		<% elsif objeto.color == 'y' %>
-			<i class="bi bi-exclamation-lg text-warning"></i>
-		<% elsif  objeto.color == 'r' %>
-			<i class="bi bi-cone-striped text-danger"></i>
-		<% end %>
+
+	<%= render partial: 'notas/list/prtcpnts', locals: {objeto: objeto} %>
+	<div class="px-2 app_lnk" style="font-size: 12px;">
 		<b>
+		<%= render partial: '0p/gly', locals: {gly: 'dot', clr: objeto.prioridad} if objeto.prioridad == 'success' %>
+		<%= render partial: '0p/gly', locals: {gly: 'exclamation-circle', clr: objeto.prioridad} if objeto.prioridad == 'warning' %>
+		<%= render partial: '0p/gly', locals: {gly: 'cone-striped', clr: objeto.prioridad} if objeto.prioridad == 'danger' %>
 		<% unless objeto.sin_fecha_gestion %>
 			<i class="bi bi-alarm"></i> <%= dma(objeto.fecha_gestion) %> 
 		<% end %>
 		<%= objeto.nota %>
 		</b>
 	</div>
+
 </div>

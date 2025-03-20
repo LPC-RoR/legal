@@ -5,6 +5,7 @@ class RepArchivo < ApplicationRecord
   scope :ordr, -> { order(:rep_archivo) }
   scope :crtd_ordr, -> { order(created_at: :desc) }
   scope :updtd_ordr, -> { order(:updated_at) }
+  scope :fecha_ordr, -> { order(:fecha) }
 
   scope :hm_archvs, -> {where(ownr_type: nil, ownr_id: nil)}
 

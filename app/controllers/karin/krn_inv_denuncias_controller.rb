@@ -1,7 +1,7 @@
 class Karin::KrnInvDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_inv_denuncia, only: %i[ show edit update destroy ]
+  before_action :set_krn_inv_denuncia, only: %i[ show edit update destroy swtch ]
 
   # GET /krn_inv_denuncias or /krn_inv_denuncias.json
   def index

@@ -3,6 +3,7 @@ class AppPerfil < ApplicationRecord
 	belongs_to :app_nomina
 
 	has_many :app_enlaces, as: :ownr
+	has_many :notas
 
 	has_many :app_mensajes
 

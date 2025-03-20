@@ -1,8 +1,10 @@
-<% unless objeto.testigos? %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin testigos.'} %>
-<% end %>
+<% unless objeto.rlzd %>
+	<% unless objeto.testigos? %>
+		<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin testigos.'} %>
+	<% end %>
 
-<%= render partial: 'karin/prtls/prtcpnts_lst_dsply', locals: {objeto: objeto} %>
+	<%= render partial: 'karin/prtls/prtcpnts_lst_dsply', locals: {objeto: objeto} %>
+<% end %>
 
 <% unless objeto.fl_diat_diep? %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Falta evidencia de Atención psicológica temprana obligatoria.'} %>

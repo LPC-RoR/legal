@@ -1,12 +1,14 @@
-<!-- Se activa sólo al momento de gestionar declaraciones -->
-<% if objeto.dnnc.investigadores? and objeto.dnnc.evld? %>
-	<% unless objeto.testigos? %>
-		<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin testigos.'} %>
+<% unless objeto.rlzd %>
+	<!-- Se activa sólo al momento de gestionar declaraciones -->
+	<% if objeto.dnnc.investigadores? and objeto.dnnc.evld? %>
+		<% unless objeto.testigos? %>
+			<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Particiapante sin testigos.'} %>
+		<% end %>
 	<% end %>
-<% end %>
 
-<%= render partial: 'karin/prtls/prtcpnts_lst_dsply', locals: {objeto: objeto} %>
+	<%= render partial: 'karin/prtls/prtcpnts_lst_dsply', locals: {objeto: objeto} %>
 
-<% if (not objeto.rut.present?) %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Falta ingresar la cédula de identidad del denunciado.'} %>
+	<% if (not objeto.rut.present?) %>
+		<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Falta ingresar la cédula de identidad del denunciado.'} %>
+	<% end %>
 <% end %>

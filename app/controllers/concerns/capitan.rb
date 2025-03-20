@@ -1,13 +1,31 @@
 module Capitan
 	extend ActiveSupport::Concern
 
+	def swtch_rdrccn
+		if ['KrnDenunciante', 'KrnDenunciado', 'KrnInvDenuncia'].include?(@objeto.class.name)
+			@objeto.krn_denuncia
+		elsif ['Nota'].include?(@objeto.class.name)
+			case @objeto.ownr.class.name
+			when 'Causa'
+				causas_path
+			end
+		else
+			@objeto.ownr
+		end
+	end
+
 	def swtch
 		@objeto[params[:tkn]] = @objeto.send(params[:tkn]) ? false : true
 		@objeto.save
 
-		rdrccn = ['KrnDenunciante', 'KrnDenunciado'].include?(@objeto.class.name) ? @objeto.krn_denuncia : @objeto.ownr
+		redirect_to swtch_rdrccn
+	end
 
-		redirect_to rdrccn
+	def swtch_clr
+		@objeto[params[:tkn]] = params[:clr]
+		@objeto.save
+
+		redirect_to swtch_rdrccn
 	end
 
 	# ************************************************************************** INICIALIZA VARIALES PARA CHANGE_STATE
@@ -66,7 +84,7 @@ module Capitan
     @objeto.prioridad = params[:prioridad] == 'nil' ? nil : params[:prioridad]
     @objeto.save
 
-		red = @objeto.class.name == 'Nota' ? "/#{@objeto.owner.class.name.tableize}" : "/#{@objeto.class.name.tableize}"
+		red = @objeto.class.name == 'Nota' ? "/#{@objeto.ownr.class.name.tableize}" : "/#{@objeto.class.name.tableize}"
 		redirect_to red
   end
 
@@ -147,19 +165,16 @@ module Capitan
 	end
 
 	def params_to_date(prms, date_field)
-		puts "****************************************** params_to_date"
-		puts prms
-		puts date_field
-		puts "[#{date_field.strip}(1i)]"
-		puts "[#{date_field.strip}(2i)]"
-		puts "[#{date_field.strip}(3i)]"
-		puts prms["[#{date_field.strip}(1i)]"].to_i
-		puts prms["[#{date_field.strip}(2i)]"].to_i
-		puts prms["[#{date_field.strip}(3i)]"].to_i
 		annio = prms["[#{date_field.strip}(1i)]"].to_i
 		mes = prms["[#{date_field.strip}(2i)]"].to_i
 		dia = prms["[#{date_field.strip}(3i)]"].to_i
 		DateTime.new(annio, mes, dia, 0, 0, 0, "#{Time.zone.utc_offset/3600}")
 	end
 
+	def prms_to_date_row(prms, date_field)
+		annio = prms["#{date_field.strip}(1i)"].to_i
+		mes = prms["#{date_field.strip}(2i)"].to_i
+		dia = prms["#{date_field.strip}(3i)"].to_i
+		DateTime.new(annio, mes, dia, 0, 0, 0, "#{Time.zone.utc_offset/3600}")
+	end
 end

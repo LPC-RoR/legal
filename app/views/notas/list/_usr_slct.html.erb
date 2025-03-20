@@ -1,0 +1,15 @@
+<div class="px-2 app_lnk" style="font-size: 12px;">
+	<% age_usrs = @age_usuarios.where.not(id: objeto.age_usuarios.ids) %>
+	<% if age_usrs.any? %>
+		<b>Seleccione un nuevo participante</b></br>
+		<% age_usrs.each do |usr| %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/notas/#{objeto.id}/assgn_usr?oid=#{usr.id}", tltp: "Asigna participante"} do %>
+				<i class="bi bi-dot"></i>
+				<i class="bi bi-plus-circle"></i>
+				<%= usr.age_usuario %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<div class="text-danger"><i class="bi bi-exclamation-diamond"></i> No hay usuarios disponibles</div>
+	<% end %>
+</div>

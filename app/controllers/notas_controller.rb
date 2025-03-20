@@ -1,7 +1,7 @@
 class NotasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_nota, only: %i[ show edit update destroy swtch_realizada swtch_urgencia swtch_pendiente swtch_prrdd ]
+  before_action :set_nota, only: %i[ show edit update destroy swtch swtch_clr dssgn_usr assgn_usr ]
 
   # GET /notas or /notas.json
   def index
@@ -19,9 +19,9 @@ class NotasController < ApplicationController
 
   def agrega_nota
     f_prms = params[:form_nota]    
-    fecha_gestion = params_to_date(f_prms, 'fecha_gestion')
+    fecha_gestion = prms_to_date_row(f_prms, 'fecha_gestion')
     unless f_prms[:nota].blank?
-      @objeto =Nota.create(ownr_type: params[:clss], ownr_id: params[:oid], perfil_id: perfil_activo.id, fecha_gestion: fecha_gestion, nota: f_prms[:nota], prioridad: 'success')
+      @objeto =Nota.create(ownr_type: params[:clss], ownr_id: params[:oid], app_perfil_id: perfil_activo.id, fecha_gestion: fecha_gestion, nota: f_prms[:nota], prioridad: 'success')
       noticia = 'Nota fue exitósamente creada'
     else
       noticia = 'Error de ingreso: Nota vacía'
@@ -65,9 +65,17 @@ class NotasController < ApplicationController
     end
   end
 
-  def swtch_realizada
-    @objeto.realizado = @objeto.realizado ? false : true
-    @objeto.save
+  def dssgn_usr
+    prtcpnt = AgeUsuario.find(params[:oid])
+    @objeto.age_usuarios.delete(prtcpnt)
+
+    set_redireccion
+    redirect_to @redireccion
+  end
+
+  def assgn_usr
+    prtcpnt = AgeUsuario.find(params[:oid])
+    @objeto.age_usuarios << prtcpnt
 
     set_redireccion
     redirect_to @redireccion
@@ -105,6 +113,6 @@ class NotasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def nota_params
-      params.require(:nota).permit(:ownr_clss, :ownr_id, :perfil_id, :nota, :prioridad, :realizado, :fecha_gestion, :sin_fecha_gestion)
+      params.require(:nota).permit(:ownr_clss, :ownr_id, :app_perfil_id, :nota, :prioridad, :realizado, :fecha_gestion, :sin_fecha_gestion)
     end
 end

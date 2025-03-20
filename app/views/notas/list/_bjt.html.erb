@@ -1,30 +1,29 @@
-<div class="ln_nt_crd">
-	<div class="ln_nm">
-		<i class="bi bi-circle-fill text-<%=objeto.prioridad%>"></i> 
-		<%#= render partial: '0capitan/objeto/point_urgente_pendiente', locals: {objeto: objeto} %>
-		<%= render partial: '0capitan/objeto/point_pendiente', locals: {objeto: objeto} %>
-		<i class="bi bi-cone-striped text-<%=objeto.color_text%>"></i>
+<div class="row m-0 px-1 py-1 bg-secondary-subtle app_lnk" style="font-size: 10px;line-height: 1.2;">
+	<div class="col">
+		<%= render partial: '0p/clr_point', locals: {clr: objeto.prioridad} %>
+		<%= render partial: '0p/clr_point', locals: {clr: 'primary'} unless objeto.realizado %>
+		<i class="bi bi-dot"></i>
+
+		<i class="bi bi-cone-striped text-<%= objeto.realizado ? 'muted' : objeto.prioridad%>"></i>
 		<%= dma_hm(objeto.created_at) %>
 		<i class="bi bi-dot"></i>
-		<%= objeto.perfil.app_nomina_nombre %>
+
+		<%= objeto.class.name %>
+		<%= objeto.app_perfil.app_nomina_nombre %>
 
 		<% if objeto.ownr.class.name == 'Causa' and controller_name == 'publicos' %>
 			<%= objeto.ownr.causa %>
 		<% end %>
 
 	</div>
-	<div class="ln_lnks">
-		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/notas/#{objeto.id}/swtch_realizada", tooltip: "Marcar como #{objeto.realizado ? 'Pendiente' : 'Realizada'}"} do %>
-			<i class="bi bi-<%=objeto.realizado ? 'x' : 'check'%>-lg"></i>
-		<% end %>
-		<%#= render partial: '0capitan/objeto/swtch_urgente_pendiente', locals: {objeto: objeto} %>
-		<%= render partial: '0capitan/objeto/swtch_pendiente', locals: {objeto: objeto} %>
+	<div class="col text-end">
+		<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'realizado', stts: ['pendiente', 'realizada']} %>
 		<i class="bi bi-dot"></i>
-		<%= render partial: '0p/swtch/swtch_prrdd', locals: {objeto: objeto} %>
-		<%= render partial: 'actividades/age_usuarios/shr/usrs_drpdwn', locals: {objeto: objeto} %>
+		<%= render partial: '0p/swtch_clr', locals: {objeto: objeto, tkn: 'prioridad', ttl: ['normal', 'mediana', 'urgente']} %>
+
 		<i class="bi bi-dot"></i>
 
-		<% if objeto.perfil.id == perfil_activo.id or admin? %>
+		<% if objeto.app_perfil.id == perfil_activo.id or admin? %>
 			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
 		<% end %>
 
