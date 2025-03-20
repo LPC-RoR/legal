@@ -67,21 +67,3 @@ $sobjt_brd_rds: 3px;
         justify-self: end;
 	}
 }
-
-.objt_oln {
-	@include objt_ln_bsc;
-	@include bscs.grd($objt_oln_tc, $objt_ln_gp);
-	.ord {
-		padding-left: 1rem;
-        @include bscs.grd_ncol(1);
-        justify-self: start;
-	}
-	.nm {
-        @include bscs.grd_ncol(2);
-        justify-self: start;
-	}
-	.lnks {
-        @include bscs.grd_ncol(3);
-        justify-self: end;
-	}
-}

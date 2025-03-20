@@ -14,7 +14,7 @@ class Tarifas::TarComentariosController < ApplicationController
 
   # GET /tar_comentarios/new
   def new
-    ownr = params[:oclss].constantize.find(params[:oid])
+    ownr = TarPago.find(params[:oid])
     @objeto = TarComentario.new(tar_pago_id: ownr.id, orden: ownr.tar_comentarios.count + 1)
   end
 

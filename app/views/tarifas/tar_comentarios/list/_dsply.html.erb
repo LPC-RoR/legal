@@ -1,0 +1,10 @@
+<div class="mb-2 ps-5" style="font-size: 12px; line-height: 1.2;">
+	<% if objeto.formula.present? %>
+		<i class="bi bi-question-circle"></i> 
+		<%= objeto.formula %>
+	<% end %>
+	<% if objeto.despliegue.present? %>
+		<i class="bi bi-arrow-right"></i> 
+		<%= objeto.despliegue %>
+	<% end %>
+</div>

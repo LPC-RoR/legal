@@ -1,14 +1,10 @@
 <%= render partial: '0p/general/clss_dir_objt_ttl', locals: {clss: 'shw_ttl', dir: 'shw', objt: @objeto, bck: @objeto.tar_tarifa} %>
 
-<div class="f_30_70_col">
-	<div class="lft">
-	    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'tar_cuotas', ownr: @objeto} %>
-
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_cuotas'} %>    
+<div class="row gx-1">
+	<div class="col-4">
+		<%= render partial: '0p/tbl_ttl', locals: {source: 'tar_cuotas', blngs: @objeto, ordr: true} %>
 	</div>
-	<div class="rght">
-	    <%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'tar_comentarios', ownr: @objeto} %>
-
-		<%= render partial: '0p/tabla/tabla', locals: {c: 'tar_comentarios'} %>    
+	<div class="col-8">
+		<%= render partial: '0p/tbl_ttl', locals: {source: 'tar_comentarios', typ: 'ln', blngs: @objeto, ordr: true} %>
 	</div>
 </div>

@@ -1,0 +1,8 @@
+<div class="mb-2 ps-3" style="font-size: 12px; line-height: 1.2;">
+	<% unless objeto.tar_formula_cuantia.blank? %>
+		Fórmula tarifa : <%= objeto.tar_formula_cuantia %>
+	<% end %>
+	<% unless objeto.porcentaje_base.blank? %>
+		Porcentaje cuantía : <%= s_p100(objeto.porcentaje_base, 2) %>
+	<% end %>
+</div>

@@ -1,12 +1,9 @@
-<div class="objt">
-	<div class="ln">
-		<%= render partial: '0p/general/o_objt', locals: {objeto: objeto} %>
-	</div>
-	<div class="dtl">
+<b><%= link_to objeto.tar_pago, objeto %></b> 
+<small class="text-muted">
+	[ <%= objeto.moneda %> ]
 		<% unless objeto.codigo_formula.blank? %>
 			<i class="bi bi-arrow-right"></i> <i><%= objeto.codigo_formula %></i>
 		<% else %>
 			<i class="bi bi-arrow-right"></i> <b><%= s_moneda(objeto.moneda, objeto.valor) %></b>
 		<% end %>
-	</div>
-</div>
+</small>

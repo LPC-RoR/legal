@@ -14,7 +14,7 @@ class Tarifas::TarFormulasController < ApplicationController
 
   # GET /tar_formulas/new
   def new
-    ownr = params[:oclss].constantize.find(params[:oid])
+    ownr = TarTarifa.find(params[:oid])
     @objeto = TarFormula.new(tar_tarifa_id: ownr.id, orden: ownr.tar_formulas.count + 1)
   end
 

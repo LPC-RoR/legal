@@ -1,77 +1,6 @@
 @use '00p_config' as cnfg;
 @use 'bscs';
 
-$ovr_mn_mrgn: 2px 0 2px 0;
-$ovr_mn_pddng: 2px 0 0 0;
-$ovr_mn_brdr_wdth: 1px;
-$ovr_mn_brdr_ln: solid;
-$ovr_mn_brdr_rds: 3px 3px 3px 3px;
-$ovr_mn_brdr_clr: cnfg.$pltt_6;
-$ovr_mn_bg_clr: white;
-$ovr_mn_fnt_fmly: cnfg.$app_fnt;
-$ovr_mn_clr: cnfg.$pltt_4;
-
-$ovr_mn_tc: 1fr 1fr 1fr;
-$ovr_mn_gp: 0;
-
-$ovr_mn_lnk_clr: $ovr_mn_clr;
-$ovr_mn_lnk_hvr: cnfg.$pltt_5;
-
-$bnnr_mrgn: 0 0 4px 0;
-$bnnr_pddng: 0;
-$bnnr_brdr_wdth: $ovr_mn_brdr_wdth;
-$bnnr_brdr_ln: $ovr_mn_brdr_ln;
-$bnnr_brdr_rds: $ovr_mn_brdr_rds;
-$bnnr_brdr_clr: $ovr_mn_brdr_clr;
-$bnnr_bg_clr: $ovr_mn_bg_clr;
-$bnnr_fnt_fmly: $ovr_mn_fnt_fmly;
-$bnnr_clr: $ovr_mn_clr;
-
-$bnnr_tc: auto 1fr;
-$bnnr_gp: 0;
-
-$nvbr_mrgn: 0;
-$nvbr_pddng: 0;
-
-$main_mrgn: 0;
-$main_pddng: 0;
-$main_fnt_fmly: cnfg.$app_fnt;
-
-// ERROR & NOTICE
-
-$ntc_errr_mrgn: 2px 0 2px 0;
-$ntc_errr_pddng: .5rem;
-$ntc_errr_brdr_wdth: 1px;
-$ntc_errr_brdr_ln: solid;
-$ntc_errr_brdr_rds: 3px 3px 3px 3px;
-
-$ntc_bg_clr: #ade8f4;
-$errr_bg_clr: white;
-$ntc_brdr_clr: cnfg.$blue_3;
-$errr_brdr_clr: cnfg.$red_3;
-$ntc_fnt_clr: cnfg.$blue_1;
-$errr_fnt_clr: cnfg.$red_1;
-
-$bx_shdw_xy: 10px 10px;
-$bx_shdw_blr_rd: 18px;
-$bx_shdw_sprd_rd: -12px;
-$bx_shdw_clr: cnfg.$pltt_3;
-
-$a_area_mrgn: 0 3% 0 3%;
-$a_area_pddng: 0;
-
-/* OVER  */
-
-@mixin ntc_errr_bsc($bg_clr, $brd_clr, $fnt_clr) {
-	background-color: $bg_clr;
-	@include bscs.mrgn_pddng($ntc_errr_mrgn, $ntc_errr_pddng);
-	@include brd_ln($ntc_errr_brdr_wdth, solid, $brd_clr, $ntc_errr_brdr_rds);
-    box-shadow: $bx_shdw_xy $bx_shdw_blr_rd $bx_shdw_sprd_rd $bx_shdw_clr;
-    color: $fnt_clr;
-    font-weight: bold;
-}
-
-
 /* NAVBAR */
 
 #navbar-logo:hover {
@@ -91,8 +20,15 @@ $a_area_pddng: 0;
 /* BODY */
 
 .lyt_main {
-	@include bscs.mrgn_pddng($a_area_mrgn, $a_area_pddng);
+	margin: 0 3% 0 3%;
+	padding: 0;
 	height: 100%;
 	min-height: 80em;
    	font-family: cnfg.$app_fnt;
+}
+
+//---------------------------------------------------------------- VERIFICAR
+
+* {
+  box-sizing: border-box;
 }

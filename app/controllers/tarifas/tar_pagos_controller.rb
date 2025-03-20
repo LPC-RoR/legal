@@ -16,7 +16,7 @@ class Tarifas::TarPagosController < ApplicationController
 
   # GET /tar_pagos/new
   def new
-    ownr = params[:oclss].constantize.find(params[:oid])
+    ownr = TarTarifa.find(params[:oid])
     @objeto = TarPago.new(tar_tarifa_id: ownr.id, estado: 'ingreso', orden: ownr.tar_pagos.count + 1)
   end
 

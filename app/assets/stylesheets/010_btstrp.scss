@@ -19,20 +19,29 @@
 	@include bscs.a_hover(black, cnfg.$pltt_5);
 }
 
-.mrgn_top {
-	margin-top: 2px;
-}
-
 .app_lnk {
    	@include bscs.a_hover(cnfg.$pltt_2, cnfg.$pltt_5);
 }
 
-.app_danger {
-   	@include bscs.a_hover(red, cnfg.$pltt_5);
-}
-
-// TABLA
+// TABLA CON LÍNEAS MÁS PEQUEÑAS
 
 .table-ssm td, .table-smaller-cells th {
     padding: 0.10rem; /* Ajusta el valor según necesites */
+}
+
+// TXT
+
+.txt_hght {
+	line-height: 1.2;
+	font-size: 35px;
+}
+
+.txt_mdm {
+	line-height: 1.2;
+	font-size: 25px;
+}
+
+.txt_smll {
+	line-height: 1.2;
+	font-size: 16px;
 }
