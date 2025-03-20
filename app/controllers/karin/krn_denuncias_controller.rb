@@ -16,6 +16,7 @@ class Karin::KrnDenunciasController < ApplicationController
   def show
     set_plzs
     load_proc(@objeto)
+    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
     set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
     set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
@@ -148,7 +149,10 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto.krn_inv_denuncias.delete_all
     @objeto.krn_derivaciones.delete_all
     @objeto.krn_declaraciones.delete_all
-    @objeto.rep_archivos.delete_all
+    @objeto.notas.delete_all
+    @objeto.rep_archivos.each do |arch|
+      arch.delete
+    end
 
     @objeto.save
 

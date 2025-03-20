@@ -14,7 +14,8 @@ class NotasController < ApplicationController
 
   # GET /notas/new
   def new
-    @objeto = Nota.new
+    ownr = params[:oclss].constantize.find(params[:oid])
+    @objeto = ownr.notas.new(app_perfil_id: perfil_activo.id, prioridad: 'success')
   end
 
   def agrega_nota
@@ -27,8 +28,8 @@ class NotasController < ApplicationController
       noticia = 'Error de ingreso: Nota vacía'
     end
 
-    set_redireccion
-    redirect_to @redireccion, notice: noticia
+    get_rdrccn
+    redirect_to @rdrccn, notice: noticia
   end
 
   # GET /notas/1/edit
@@ -41,8 +42,8 @@ class NotasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Nota fue exitósamente creada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Nota fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -55,8 +56,8 @@ class NotasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(nota_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Nota fue exitósamente actualizada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Nota fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -69,25 +70,25 @@ class NotasController < ApplicationController
     prtcpnt = AgeUsuario.find(params[:oid])
     @objeto.age_usuarios.delete(prtcpnt)
 
-    set_redireccion
-    redirect_to @redireccion
+    get_rdrccn
+    redirect_to @rdrccn
   end
 
   def assgn_usr
     prtcpnt = AgeUsuario.find(params[:oid])
     @objeto.age_usuarios << prtcpnt
 
-    set_redireccion
-    redirect_to @redireccion
+    get_rdrccn
+    redirect_to @rdrccn
   end
 
   # DELETE /notas/1 or /notas/1.json
   def destroy
-    set_redireccion
+    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Nota fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Nota fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -98,21 +99,23 @@ class NotasController < ApplicationController
       @objeto = Nota.find(params[:id])
     end
 
-    def set_redireccion
+    def get_rdrccn
       case @objeto.ownr_type
       when 'Asesoria'
-        @redireccion  = asesorias_path
+        @rdrccn  = asesorias_path
       when 'Causa'
-        @redireccion  = "/causas#cid_#{@objeto.ownr_id}"
+        @rdrccn  = "/causas#cid_#{@objeto.ownr_id}"
       when 'Cliente'
-        @redireccion  = clientes_path
+        @rdrccn  = clientes_path
       when 'AgeActividad'
-        @redireccion  = age_actividades_path
+        @rdrccn  = age_actividades_path
+      else
+        @rdrccn  = @objeto.ownr
       end
     end
 
     # Only allow a list of trusted parameters through.
     def nota_params
-      params.require(:nota).permit(:ownr_clss, :ownr_id, :app_perfil_id, :nota, :prioridad, :realizado, :fecha_gestion, :sin_fecha_gestion)
+      params.require(:nota).permit(:ownr_type, :ownr_id, :app_perfil_id, :nota, :prioridad, :realizado, :fecha_gestion, :sin_fecha_gestion)
     end
 end

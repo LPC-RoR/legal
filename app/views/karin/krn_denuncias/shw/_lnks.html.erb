@@ -1,4 +1,6 @@
 <% unless scp_activo? %>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text'} %>
+	<i class="bi bi-dot"></i>
 	<% if dog? %>
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/prg", tltp: 'Purge'} do %>
 			<i class="bi bi-trash"></i>

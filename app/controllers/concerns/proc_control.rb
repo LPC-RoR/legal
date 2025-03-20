@@ -43,6 +43,7 @@ module ProcControl
 
 	def tar_cntrl_hsh(ownr)
 		dnnc = ownr.dnnc
+		krn_dnnc = ownr != dnnc
 		{
 			'010_ingrs'    => {
 				actv: true,
@@ -54,39 +55,39 @@ module ProcControl
 			},
 			'030_drvcns'    => {
 				actv: (dnnc.denunciantes? and dnnc.denunciados?),
-				frms: dnnc.frms_drvcns?,
+				frms: (dnnc.frms_drvcns?),
 			},
 			'050_crr'    => {
 				actv: (dnnc.rgstrs_ok? and (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or dnnc.rcp_dt?)),
-				frms: dnnc.frms_crr?,
+				frms: (dnnc.frms_crr?),
 			},
 			'060_invstgdr'    => {
 				actv: ((dnnc.fechas_invstgcn?)),
-				frms: dnnc.frms_invstgdr?,
+				frms: (dnnc.frms_invstgdr?),
 			},
 			'070_evlcn'    => {
 				actv: (dnnc.investigadores?),
-				frms: dnnc.frms_evlcn?,
+				frms: (dnnc.frms_evlcn?),
 			},
 			'080_dclrcn'    => {
 				actv: (dnnc.investigadores? and dnnc.evld?),
-				frms: false,
+				frms: (ownr == dnnc),
 			},
 			'090_trmn_invstgcn' => {
 				actv: (dnnc.rlzds? or dnnc.on_dt?),
-				frms: dnnc.frms_trmn_invstgcn?,
+				frms: (dnnc.frms_trmn_invstgcn?),
 			},
 			'100_env_rcpcn' => {
 				actv: (dnnc.fecha_trmn? or dnnc.on_dt?),
-				frms: dnnc.frms_env_rcpcn?,
+				frms: (dnnc.frms_env_rcpcn?),
 			},
 			'110_prnncmnt' => {
 				actv: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
-				frms: dnnc.frms_prnncmnt?,
+				frms: (krn_dnnc and dnnc.frms_prnncmnt?),
 			},
 			'120_mdds_sncns' => {
 				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
-				frms: dnnc.frms_mdds_sncns?,
+				frms: (krn_dnnc and dnnc.frms_mdds_sncns?),
 			},
 		}
 	end

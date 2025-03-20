@@ -31,7 +31,6 @@
 		<%= render layout: '0p/collapse/link', locals: {label: 'Estado', objeto: objeto, tooltip: 'Último estado'} do %>
 			<i class="bi bi-tag"></i>
 		<% end %>
-		<%#= render partial: '0capitan/objeto/swtch_urgente_pendiente', locals: {objeto: objeto} %>
 		<%= render partial: 'clientes/shr/lnk_cl', locals: {objeto: objeto} %>
 		<% if objeto.demanda? and operacion? %>
 			<%= link_to objeto.demanda.archivo.url, class: 'sb-link', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
@@ -40,7 +39,7 @@
 		<% end %>
 		<i class="bi bi-dot"></i>
 		<% if operacion? %>
-			<%= render partial: 'notas/shr/cllps_lnk_nw_nt', locals: {objeto: objeto} %>
+			<%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text'} %>
 			<!-- Lo siguiente se puso DENTRO del if porque si no se despliega el crud no tiene sentido el punto -->
 			<% if (finanzas? and objeto.tar_facturaciones.any?) or (objeto.demanda? and operacion?) %>
 				<i class="bi bi-dot"></i>
@@ -50,7 +49,6 @@
 	</div>
 </div>
 
-<%= render partial: 'notas/shr/cllps_dsply_nw_nt', locals: {objeto: objeto} %>
 <%= render layout: '0p/collapse/display', locals: {label: 'Detalle', objeto: objeto} do %>
 	<%= render partial: 'causas/list/detalle', locals: {objeto: objeto} %>
 <% end %>
