@@ -1,3 +1,7 @@
-<% if objeto.ownr.class.name == 'Causa' and ['publicos', 'servicios'].include?(controller_name) %>
-	<%= objeto.ownr.causa %>
-<% end %>
+<div class="px-2">
+	<% if objeto.ownr.class.name == 'Causa' and ['publicos', 'servicios'].include?(controller_name) %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: objeto.ownr, tltp: 'Ir a la causa'} do %>
+			<%= objeto.ownr.causa %>
+		<% end %>
+	<% end %>
+</div>
