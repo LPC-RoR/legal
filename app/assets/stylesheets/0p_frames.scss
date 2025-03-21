@@ -1,14 +1,8 @@
 @use '00p_config' as cnfg;
 @use 'bscs';
 
-$f_bg: white;
-$f_gap: 4px;
-$f_mrgn: 0;
-$auto: auto;
-
 @mixin frm_bsc($grd_tc) {
 	@include bscs.mrgn_pddng(0, 0);
-//	@include bx(white);
 	@include bscs.grd($grd_tc, 2px);
     justify-items: stretch;
 
@@ -25,10 +19,6 @@ $auto: auto;
 	margin-bottom: 4px;
 }
 
-.f_30_70_col {
-	@include frm_bsc(30% 70%);
-}
-
 .f_50_col {
 	@include frm_bsc(50% 50%);
 }
@@ -37,18 +27,6 @@ $auto: auto;
 	@include frm_bsc(50% auto);
 }
 
-.f_lmn_lyt {
-	@include frm_bsc(20% 80%);
-}
-
 .f_200pxlft_col {
 	@include frm_bsc(200px auto);
-}
-
-.f_250pxlft_col {
-	@include frm_bsc(250px auto);
-}
-
-.f_400rght_col {
-	@include frm_bsc(auto 400px);
 }

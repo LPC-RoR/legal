@@ -40,6 +40,9 @@ gem 'carrierwave', '~> 2.0'       # Subir archivos
 gem 'htmltoword'                  # Export to word
 gem 'pdf-reader'                  # Leer PDF files
 
+gem 'wicked_pdf'                  # Para reportes en PDF
+gem 'wkhtmltopdf-binary'
+
 # Busqueda
 gem 'pg_search'
 

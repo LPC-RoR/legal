@@ -3,13 +3,6 @@
 
 /* ELEMENTOS BASE PARA EL MANEJO DE TABLAS */
 
-// DEPRECATED No se usan en este scss
-$app_ln_bg: white;
-$app_font: 'Raleway', sans-serif;
-$app_ln_txt_hght: 13px;
-$app_fnt_size: 14;
-
-//Usados
 $app_tb_fnt: Arial;
 $app_ln_padd: 2px 10px 2px 10px;    
 $app_ln_hght: 14px;
@@ -79,44 +72,6 @@ $app_ln_gp: 0;
     @include bscs.a_hover($lnk_clr, $hvr_clr);
 }
 
-@mixin ln_nm_mnt_lnks($lnk_clr, $hvr_clr) {
-    @include bscs.grd(auto 100px 50px, $app_ln_gp);
-    .ln_nm {
-        @include bscs.grd_ncol(1);
-        justify-self: start;
-    }
-    .ln_mnt {
-        @include bscs.grd_ncol(2);
-        justify-self: end;
-    }
-    .ln_lnks {
-        @include bscs.grd_ncol(3);
-        justify-self: end;
-    }
-    @include bscs.a_hover($lnk_clr, $hvr_clr);
-}
-
-@mixin ln_nm_2mnt_lnks ($lnk_clr, $hvr_clr) {
-    @include bscs.grd(auto 100px 100px 50px, $app_ln_gp);
-    .ln_nm {
-        @include bscs.grd_ncol(1);
-        justify-self: start;
-    }
-    .ln_mnt1 {
-        @include bscs.grd_ncol(2);
-        justify-self: end;
-    }
-    .ln_mnt2 {
-        @include bscs.grd_ncol(3);
-        justify-self: end;
-    }
-    .ln_lnks {
-        @include bscs.grd_ncol(4);
-        justify-self: end;
-    }
-    @include bscs.a_hover($lnk_clr, $hvr_clr);
-}
-
 // -------------------------------------------
 
 .ln_app {
@@ -129,26 +84,9 @@ $app_ln_gp: 0;
     @include ln_2auto(blue, gray);
 }
 
-.ln_nt_crd {
-    @include ln_bsc_prprty(cnfg.$pltt_8, cnfg.$app_fnt, 10px);
-    @include ln_2auto(blue, gray);
-}
-
 .ttl_bx {
     @include ln_bsc_prprty(white, cnfg.$app_fnt, 16px);
     @include ttl_2auto(blue, gray);
-}
-
-/* Registro de TarValorCuantia */
-.ln_vlr_cnt {
-    @include ln_bsc_prprty(white, $app_tb_fnt, 13px);
-    @include ln_nm_2mnt_lnks(blue, gray);
-}
-
-/* ln de Demandante */
-.ln_dmndnts {
-    @include ln_bsc_prprty(cnfg.$pltt_8, $app_tb_fnt, 11px);
-    @include ln_nm_mnt_lnks(blue, gray);
 }
 
 .ln_ordr {

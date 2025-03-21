@@ -5,6 +5,7 @@ class Organizacion::ServiciosController < ApplicationController
   include Tarifas
 
   def aprobacion
+    @indice = params[:indice]
     @objeto = TarAprobacion.find(params[:indice])
     set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
     set_tabla('tar_calculos', @objeto.tar_calculos, false)
@@ -13,6 +14,21 @@ class Organizacion::ServiciosController < ApplicationController
     @total_pesos = @objeto.tar_calculos.map {|ccl| get_monto_calculo_pesos(ccl, ccl.ownr, ccl.tar_pago)}.sum
 
     @h_pagos = get_h_pagos(@objeto)
+  
+  puts "********************************************************"
+puts "Ruta de la plantilla: #{Rails.root.join('app', 'views', 'organizacion', 'servicios', 'aprobacion.html.erb')}"
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "aprobacion_#{@indice}",
+               template: "organizacion/servicios/aprobacion.html.erb",
+               layout: 'pdf.html.erb'
+      end
+    end
+  rescue ArgumentError => e
+    # Manejar errores de parámetros inválidos
+    redirect_to "/servicios/aprobacion", alert: "Invalid date format. Please use YYYY-MM-DD."
   end
 
   def auditoria

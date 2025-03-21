@@ -1,21 +1,9 @@
 @use '00p_config' as cnfg;
 @use 'bscs';
-
-$app_nt_green: #a5be00;
-$app_nt_yellow: #ffd500;
-$app_nt_red: #d00000;
-
-// -------------------------------------------
-
-// bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr)
-@import "bjt";
-
-// NO sé porque lo pide, si lo saco, reclama!!
-// @include ln_ttl_lnks($c_lnks, $c_hvr);
-@import "ttl_lnks";
+@use 'bjt';
 
 .app_bjt {
-	@include bjt_bx(1px, 6px 6px 6px 6px, cnfg.$pltt_5, white);
+	@include bjt.bjt_bx(1px, 6px 6px 6px 6px, cnfg.$pltt_5, white);
 }
 
 /* BOXS */
@@ -45,34 +33,6 @@ $app_nt_red: #d00000;
 }
 
 /* ELEMENTOS */
-
-.add_box {
-	background-color: white;
-	color: #2980b9;
-
-	.hd {
-		background-color: #eaecee;
-		margin-bottom: 4px;
-		padding: 1em;
-	    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-		text-align: center;
-	}
-
-	.lnks {
-		background-color: #eaecee;
-	    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-		padding: 1em;
-
-    	a {
-    		color: d5d8dc;
-            text-decoration: none;
-    	}
-
-    	a:hover {
-    		color: gray;
-    	}
-	}
-}
 
 .chng_st {
 	margin-bottom: 10px;
@@ -122,14 +82,4 @@ $app_nt_red: #d00000;
     border: 1px solid #f2f4f4;
     border-radius: 3px 3px 3px 3px;
     font-family: 'Raleway', sans-serif;
-}
-
-.lbjt_box {
-	padding-left: 10px;
-	padding-right: 10px;
-    background-color: #ffffff;
-    border: 1px solid #f2f4f4;
-    border-radius: 3px 3px 3px 3px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
 }

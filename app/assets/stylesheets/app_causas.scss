@@ -1,56 +1,14 @@
 @use '00p_config' as cnfg;
 @use 'bscs';
+@use "bx_bs";
 
-/* --clr-[fr sc th ob]-cs */
-
-$cs_fr: #1e0342;
 $cs_sc: #0e46a3;
-$cs_th: #9ac8cd;
 $cs_ob: #f4f6f6;
 
 $cs_tc: auto auto;
 
-//$hc_bg: #bbd0ff;
-$hc_bg: #00b4d8;
-$at_bg: #d2e9e9;
-
-// -------------------------------------------
-
-// bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr)
-@import "bjt";
-
-
-// @include bx_bs($c_bg, $c_brd, $fnt_sz); CAJA BASE
-@import "bx_bs";
-
-
-
-@mixin cs_bjt_bs($c_bg, $c_brd) {
-	padding: 10px;
-	margin-bottom: 4px;
-    border: 1px solid $c_brd;
-    border-radius: 3px 3px 3px 3px;
-    box-shadow: 10px 10px 18px -12px rgba(166,153,166,1);
-	background-color: $c_bg;
-	font-size: 13px;
-}
-
-@mixin cs_dtll($c_lnks, $c_hvr) {
-	@include ln_ttl_lnks($c_lnks, $c_hvr);
-	.dscrpcn {
-		font-weight: bold;
-	}
-
-	.cllps {
-		padding: 14px;
-    	background-color: white;
-    	color: black;
-		font-size: 10px;
-	}
-}
-
 .cs_box {
-	@include bx_bs(cnfg.$pltt_9, cnfg.$pltt_7, 13px);
+	@include bx_bs.bx_bs(cnfg.$pltt_9, cnfg.$pltt_7, 13px);
 }
 
 

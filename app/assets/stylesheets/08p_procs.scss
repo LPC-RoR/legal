@@ -4,22 +4,9 @@
 $gray_1: #718bab;
 $gray_2: #c0cfe1;
 $gray_3: #dee1ef;
-$gray_4: #e9ecef;
-
-$prcs_mrgn: 4px 0 0 0;
-$prcs_pddng: .5rem;
-
-$prcs_brd_wdth: 1px;
-$prcs_brd_typ: solid;
-$prcs_brd_rds: 3px;
-
-$prcs_ln_tc: auto 200px;
 
 $elmnt_mrgn: 3px 0 3px 0;
 $elmnt_pddng: 3px 1rem 2px 1rem;
-
-$clr_bg_red: #fae0e4;
-
 
 @mixin p_nm_lnks {
 	.nm {

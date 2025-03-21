@@ -8,33 +8,10 @@ $objt_brd_typ: solid;
 $objt_brd_clr: cnfg.$pltt_8;
 $objt_brd_rds: 3px;
 
-$objt_fnt_fmly: cnfg.$app_fnt;
-$objt_clr: black;
-$objt_ln_bg_clr: cnfg.$pltt_9;
-$objt_ln_hght: 14px;
-
-$objt_oln_tc: 70px auto 100px;
-$objt_ln_gp: 0;
-$objt_ln_tc: auto 100px;
-
-$sobjt_mrgn: 4px 0 0 0;
-$sobjt_pddng: .5rem;
-$sobjt_brd_wdth: 1px;
-$sobjt_brd_typ: solid;
-$sobjt_brd_clr: cnfg.$pltt_8;
-$sobjt_brd_rds: 3px;
-
 @mixin objt_bsc {
 	@include bscs.mrgn_pddng($objt_mrgn, $objt_pddng);
 	@include bscs.brd_ln($objt_brd_wdth, $objt_brd_typ, $objt_brd_clr, $objt_brd_rds);
 	background-color: white;
-}
-
-@mixin objt_ln_bsc {
-	background-color: $objt_ln_bg_clr;
-	padding: 3px 1rem 3px 1rem;
-	color: cnfg.$pltt_2;
-	@include bscs.a_hover(cnfg.$pltt_2, cnfg.$pltt_4);
 }
 
 .objt {
@@ -52,18 +29,5 @@ $sobjt_brd_rds: 3px;
 	}
 	.lst {
 		line-height: 12px;
-	}
-}
-
-.objt_ln {
-	@include objt_ln_bsc;
-	@include bscs.grd($objt_ln_tc, $objt_ln_gp);
-	.nm {
-        @include bscs.grd_ncol(1);
-        justify-self: start;
-	}
-	.lnks {
-        @include bscs.grd_ncol(2);
-        justify-self: end;
 	}
 }
