@@ -1,16 +1,6 @@
-<div class="formCell">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :nombres, label: 'Nombres' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :nombres } %>
-</div>
-<div class="formCell">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :apellidos, label: 'Apellidos' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :apellidos } %>
-</div>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombres, label: 'Nombres' } %>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :apellidos, label: 'Apellidos' } %>
+<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :remuneracion, label: 'Remuneración' } %>
 
-<div class="formCell">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :remuneracion, label: 'Remuneración' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :remuneracion } %>
-</div>
-
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :causa_id } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :causa_id } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :orden } %>

@@ -1,16 +1,10 @@
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{ownr.id}/cuantia_to_xlsx", tooltip: 'Exportar a Excel'} do %>
+<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{blngs.id}/cuantia_to_xlsx", tooltip: 'Exportar a Excel'} do %>
 	<i class="bi bi-download"></i>
 <% end %>
+
 <i class="bi bi-dot"></i>
-<% if @audiencia_preparatoria.blank? %>
-	<%= render layout: '0p/collapse/link', locals: {label: 'AudienciaPreparatoria', objeto: nil, tooltip: 'Fecha AudienciaPreparatoria'} do %>
-		<i class="bi bi-calendar-check"></i>
-	<% end %>
-<% end %>
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/demandantes/new?cid=#{ownr.id}", tooltip: 'Agregar demandante'} do %>
-	<%= render partial: '0p/general/gly', locals: {gly: 'person-lines-fill'} %>
-<% end %>
+<%= render partial: '0p/tbl/lnk_new', locals: {source: 'demandantes', blngs: @objeto, gly: 'person-lines-fill'} %>
+
 <% unless @objeto.demandantes.empty? %>
-	<i class="bi bi-dot"></i>
-	<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/tar_valor_cuantias/new?class_name=#{ownr.class.name}&objeto_id=#{ownr.id}", tltp: 'Agrega item de cuantía' } %>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'tar_valor_cuantias', ownr: @objeto} %>
 <% end %>

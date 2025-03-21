@@ -1,0 +1,25 @@
+<!-- RESOLVER por FORM -->
+<% unless objeto.fecha.blank? %>
+
+	<div class="row m-1 px-2 py-1 gx-1 text-<%= objeto.text_color %> bg-secondary-subtle">
+		<div class="col text-<%= objeto.text_color %>">
+			<b class="">
+				<%= render partial: prtl_name('age_actividades', 'list', 'age_icon'), locals: {objeto: objeto} %>
+				<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) %>
+				<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'suspendida', stts: ['activa', 'suspendida'], glys: ['hourglass-split', 'check']} %>
+				<%= render partial: prtl_name('age_actividades', 'list', 'age_ownr'), locals: {objeto: objeto} %>
+				<%= render partial: prtl_name('age_actividades', 'list', 'age_estado'), locals: {objeto: objeto} %>
+			</b>
+		</div>
+		<div class="col text-end">
+			<%= render partial: 'actividades/age_actividades/list/lnks', locals: {objeto: objeto} %>
+		</div>
+	</div>
+
+	<%= render layout: '0p/collapse/display', locals: {label: 'CambioFecha', objeto: objeto} do %>
+	  	<%= render partial: 'actividades/age_actividades/list/frm_cambio_fecha', locals: {objeto: objeto} %>
+	<% end %>
+
+	<%= render partial: '0capitan/objeto/cllps_dsply_info', locals: {objeto: objeto} %>
+
+<% end %>

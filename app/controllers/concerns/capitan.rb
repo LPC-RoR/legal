@@ -171,7 +171,7 @@ module Capitan
 		DateTime.new(annio, mes, dia, 0, 0, 0, "#{Time.zone.utc_offset/3600}")
 	end
 
-	def prms_to_date_row(prms, date_field)
+	def prms_to_date_raw(prms, date_field)
 		annio = prms["#{date_field.strip}(1i)"].to_i
 		mes = prms["#{date_field.strip}(2i)"].to_i
 		dia = prms["#{date_field.strip}(3i)"].to_i

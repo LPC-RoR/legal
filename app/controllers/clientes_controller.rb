@@ -36,12 +36,12 @@ class ClientesController < ApplicationController
 
   # GET /clientes/1 or /clientes/1.json
   def show
+    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+    @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
 
     set_st_estado(@objeto)
 
     set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Productos', dog?]] )
-
-    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
     if @options[:menu] == 'General'
 

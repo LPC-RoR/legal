@@ -13,7 +13,7 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
   # GET /tar_valor_cuantias/new
   def new
-    @objeto = TarValorCuantia.new(ownr_type: params[:class_name], ownr_id: params[:objeto_id])
+    @objeto = TarValorCuantia.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
   # GET /tar_valor_cuantias/1/edit

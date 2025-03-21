@@ -1,15 +1,19 @@
 <!-- TH -->
-<div class="ln_vlr_cnt">
-	<div class="ln_nm">
+<div class="row gx-1 p-2 pg-white" style="font-size: 12px; line-height: 1.2;">
+	<div class="col-<%= controller_name == 'causas' ? 7 : 10 %>">
 		<b>Item</b>
 	</div>
-	<div class="ln_mnt1">
+	<div class="col-2 text-end">
 		<% if controller_name == 'causas' %>
 			<b>Tarifa</b>
 		<% end %>
 	</div>
-	<div class="ln_mnt2">
-		<b>Cuantía</b>
-	</div>
-	<div class="ln_lnks"></div>
+	<% if controller_name == 'causas' %>
+		<div class="col-2 text-end">
+			<b>Cuantía</b>
+		</div>
+	<% end %>
+	<% if controller_name == 'causas' %>
+		<div class="col-1 text-end"></div>
+	<% end %>
 </div>

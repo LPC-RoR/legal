@@ -1,4 +1,14 @@
-<%= render partial: '/csc/demandantes/list/th' %>
-<% objeto.demandantes.each do |dmndnt| %>
-	<%= render partial: '/csc/demandantes/list/objeto', locals: {objeto: dmndnt} %>
-<% end %>
+<div class="my-1 py-2 border bg-white rounded shadow app_lnk fnt_arial">
+	<% if objeto.demandantes.any? %>
+		<div class="bg-white">
+			<%= render partial: '/csc/demandantes/list/th' %>
+			<% objeto.demandantes.each do |dmndnt| %>
+				<%= render partial: '/csc/demandantes/list/objeto', locals: {objeto: dmndnt} %>
+			<% end %>
+		</div>
+	<% else %>
+		<div class="objt">
+			<small class="text-danger"><i class="bi bi-cone-striped"></i>No se pueden ingresar cuantías hasta tener al menos un demandante.</small>
+		</div>
+	<% end %>
+</div>

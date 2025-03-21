@@ -1,22 +1,12 @@
-<div class="g_cllps">
+<div class="text-dark">
+
+	<p><%= dma(objeto.created_at) %>
+	<i class="bi bi-dot"></i>
+	<%= objeto.nombre_creador %></p>
+
 	<% if objeto.privada %>
-		<i class="bi bi-dot"></i>
-		Actividad privada</br>
-	<% else %>
-		<% unless objeto.age_usuarios.empty? %>
-			<b>Encargados / Participantes</b></br>
-			<% objeto.age_usuarios.each do |age_usr| %>
-				<i class="bi bi-dot"></i>
-				<%= age_usr.age_usuario %>
-			<% end %>
-		<% else %>
-			Sin encargados / participantes
-		<% end %></br>
+		<p><i class="bi bi-dot"></i> Actividad privada</p>
 	<% end %>
-	<div class="ln_nt_crd">
-		<div class="ln_nm">
-			<%= dma(objeto.created_at) %> <%= objeto.nombre_creador %>
-		</div>
-	</div>
 	<%= render partial: 'notas/shr/notas_realizadas', locals: {objeto: objeto} %>
+	
 </div>

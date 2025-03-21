@@ -3,6 +3,8 @@ class NotasController < ApplicationController
   before_action :scrty_on
   before_action :set_nota, only: %i[ show edit update destroy swtch swtch_clr dssgn_usr assgn_usr ]
 
+  include AgeUsr
+
   # GET /notas or /notas.json
   def index
     @coleccion = Nota.all
@@ -20,7 +22,7 @@ class NotasController < ApplicationController
 
   def agrega_nota
     f_prms = params[:form_nota]    
-    fecha_gestion = prms_to_date_row(f_prms, 'fecha_gestion')
+    fecha_gestion = prms_to_date_raw(f_prms, 'fecha_gestion')
     unless f_prms[:nota].blank?
       @objeto =Nota.create(ownr_type: params[:clss], ownr_id: params[:oid], app_perfil_id: perfil_activo.id, fecha_gestion: fecha_gestion, nota: f_prms[:nota], prioridad: 'success')
       noticia = 'Nota fue exitósamente creada'
@@ -66,22 +68,6 @@ class NotasController < ApplicationController
     end
   end
 
-  def dssgn_usr
-    prtcpnt = AgeUsuario.find(params[:oid])
-    @objeto.age_usuarios.delete(prtcpnt)
-
-    get_rdrccn
-    redirect_to @rdrccn
-  end
-
-  def assgn_usr
-    prtcpnt = AgeUsuario.find(params[:oid])
-    @objeto.age_usuarios << prtcpnt
-
-    get_rdrccn
-    redirect_to @rdrccn
-  end
-
   # DELETE /notas/1 or /notas/1.json
   def destroy
     get_rdrccn
@@ -108,7 +94,7 @@ class NotasController < ApplicationController
       when 'Cliente'
         @rdrccn  = clientes_path
       when 'AgeActividad'
-        @rdrccn  = age_actividades_path
+        @rdrccn  = @objeto.ownr.ownr.present? ? @objeto.ownr.ownr : age_actividades_path
       else
         @rdrccn  = @objeto.ownr
       end

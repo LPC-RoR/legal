@@ -1,40 +1,36 @@
-<div class="form-row">
-	<div class="form-cell">
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tar_detalle_cuantia_id, colection: TarDetalleCuantia.all.order(:tar_detalle_cuantia).collect { |detalle| [detalle.tar_detalle_cuantia, detalle.id] }, prompt: 'Detalle Cuantía?' } %>
+<div class="row gx-1 mb-3">
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tar_detalle_cuantia_id, colection: TarDetalleCuantia.all.order(:tar_detalle_cuantia).collect { |detalle| [detalle.tar_detalle_cuantia, detalle.id] }, label: 'Detalle de la cuantía' } %>
 	</div>
-	<div class="form-cell">
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :demandante_id, colection: @objeto.ownr.demandantes.all.order(:orden).collect { |dmndnt| [dmndnt.demandante, dmndnt.id] }, prompt: nil } %>
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :demandante_id, colection: @objeto.ownr.demandantes.all.order(:orden).collect { |dmndnt| [dmndnt.demandante, dmndnt.id] }, label: 'Demandante' } %>
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :otro_detalle, label: 'Detalle (Otro)' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :otro_detalle } %>
+<div class="row gx-1 mb-3">
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :otro_detalle, label: 'Detalle (Otro)' } %>
 	</div>
-	<div class="col-6">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :nota, label: 'Nota' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :nota } %>
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nota, label: 'Nota' } %>
 	</div>
 </div>
+
 <hr>
-<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'] } %>
+
+<%= render partial: '0p/lbld_inpts/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'], label: 'Moneda' } %>
 
 <div class="row">
-	<div class="col-lg-6 col-xs-12">
-		<p class="text-info">Demanda</p>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :valor, label: 'Valor en la demanda' } %>
-		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor } %>
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :valor, label: 'Valor en la demanda' } %>
 	</div>
-	<div class="col-lg-6">
-		<p class="text-info">Tarifa</p>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :valor_tarifa, label: 'Valor para el cálculo de la tarifa' } %>
-		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor_tarifa } %>
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :valor_tarifa, label: 'Valor para la tarifa' } %>
 	</div>
 </div>
 
-<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :desactivado, label: 'Desactivado' } %>
+<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :desactivado, label: 'Desactivado' } %>
 
 
-<%= render partial: '0p/form_fields/hidden', locals: {form: form, token: :ownr_type} %>
-<%= render partial: '0p/form_fields/hidden', locals: {form: form, token: :ownr_id} %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: {form: form, token: :ownr_type} %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: {form: form, token: :ownr_id} %>

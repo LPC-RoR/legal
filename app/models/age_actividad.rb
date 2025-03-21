@@ -1,5 +1,10 @@
 class AgeActividad < ApplicationRecord
 
+	D_JC 	= 'Audiencia de juicio'
+	PRPRTR 	= 'Audiencia preparatoria'
+	UNC 	= 'Audiencia única'
+	RNN 	= 'Reunión'
+
 #	belongs_to :app_perfil
 	belongs_to :ownr, polymorphic: true
 
@@ -16,7 +21,11 @@ class AgeActividad < ApplicationRecord
 	scope :sspondds, -> {where(estado: 'suspendida')}
 	scope :adncs, -> {where(tipo: 'Audiencia')}
 
-    validates_presence_of :age_actividad
+	scope :d_jcs,	-> {where(age_actividad: D_JC)}
+	scope :prprtrs,	-> {where(age_actividad: PRPRTR)}
+	scope :uncs,	-> {where(age_actividad: UNC)}
+
+    validates_presence_of :age_actividad, :fecha
 
 	def nombre_creador
 		perfil = AppPerfil.find_by(id: self.app_perfil_id)
@@ -27,9 +36,13 @@ class AgeActividad < ApplicationRecord
 		end
 	end
 
+	def muted?
+		['realizada', 'cancelada'].include?(self.estado) or self.fecha < Time.zone.today
+	end
+
 	def text_color
 		unless self.fecha.blank?
-			if (['realizada', 'cancelada'].include?(self.estado) or self.fecha < Time.zone.today)
+			if self.muted?
 				'muted'
 			else
 				case self.tipo
@@ -46,11 +59,6 @@ class AgeActividad < ApplicationRecord
 		else
 			'muted'
 		end
-	end
-
-	def abr_encargados
-		usuarios = self.age_usuarios
-		usuarios.empty? ? 'Sin encargados' : ( usuarios.count == 1 ? usuarios.first.age_usuario : "#{usuarios.first.age_usuario} + #{usuarios.count - 1}" )
 	end
 
 	def nm_especial(audiencia_especial)

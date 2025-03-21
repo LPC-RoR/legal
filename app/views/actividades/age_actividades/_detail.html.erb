@@ -2,31 +2,27 @@
 <%#= @objeto.ownr_id %>
 <%#= @objeto.tipo %>
 <% if @objeto.ownr_id.blank? %>
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
-	<%= render partial: '0p/form_fields/radio', locals: { form: form, token: :tipo, radio_list: ['Reunión', 'Tarea'] } %>
+	<%= render partial: '0p/lbld_inpts/radio', locals: { form: form, token: :tipo, label: 'Tipo' } %>
 <% else %>
-	<p class="text-info"><%= @objeto.tipo %></p>
-	<h5 class="text-info"><%= @objeto.age_actividad %></h5>
+	<h5 class="text-dark"><%= @objeto.tipo %>: <%= @objeto.age_actividad %></h5>
 <% end %>
 
 
-<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha, label: 'Fecha' } %>
+<%= render partial: '0p/lbld_inpts/datetime', locals: { form: form, token: :fecha, label: 'Fecha' } %>
 
 <% unless @objeto.tipo == 'Audiencia' %>
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :age_actividad, label: 'Actividad' } %>
-	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :age_actividad } %>
+	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :age_actividad, label: 'Actividad' } %>
 <% end %>
 
 <% unless @objeto.tipo == 'Audiencia' %>
-	<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :privada, label: 'privada!' } %>
+	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :privada, label: 'privada!' } %>
 <% end %>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :estado } %>
-<% unless @objeto.ownr_id.blank? %>
-	<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :tipo } %>
-<% end %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_type } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :ownr_id } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :app_perfil_id } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :fecha } if action_name == 'edit' %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :age_actividad } if @objeto.tipo == 'Audiencia' %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :ownr_type } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :ownr_id } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :app_perfil_id } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :estado } %>
+
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :tipo} if @objeto.ownr_id? %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :fecha } if action_name == 'edit' %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :age_actividad } if @objeto.tipo == 'Audiencia' %>

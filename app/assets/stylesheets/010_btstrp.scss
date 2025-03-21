@@ -23,6 +23,10 @@
    	@include bscs.a_hover(cnfg.$pltt_2, cnfg.$pltt_5);
 }
 
+.fnt_arial {
+   	font-family: Arial;
+}
+
 // TABLA CON LÍNEAS MÁS PEQUEÑAS
 
 .table-ssm td, .table-smaller-cells th {

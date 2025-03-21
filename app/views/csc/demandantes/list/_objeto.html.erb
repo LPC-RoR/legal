@@ -1,13 +1,13 @@
-<div class="ln_dmndnts">
-	<div class="ln_nm">
+<div class="row gx-1 px-2" style="font-size: 12px; line-height: 1.2;">
+	<div class="col-<%=controller_name == 'causas' ? 9 : 10%>">
 		<%= "#{objeto.orden}.- #{objeto.nombres} #{objeto.apellidos}" %>
 	</div>
-	<div class="ln_mnt">
+	<div class="col-2 text-end">
 		<%= s_pesos(objeto.remuneracion) %>
 	</div>
-	<div class="ln_lnks">
-		<% if controller_name == 'causas' %>
-			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
-		<% end %>
-	</div>
+	<% if controller_name == 'causas' %>
+		<div class="col-1 text-end">
+				<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+		</div>
+	<% end %>
 </div>

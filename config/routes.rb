@@ -254,18 +254,14 @@ Rails.application.routes.draw do
   end
   scope module: 'actividades' do 
     resources :age_actividades do
+      match :swtch, via: :get, on: :member
+      match :dssgn_usr, via: :get, on: :member
+      match :assgn_usr, via: :get, on: :member
+      match :cambio_fecha, via: :post, on: :member
+      # desde aqui revisar
+      # -----------------------
       match :cu_actividad, via: :post, on: :collection
       match :cambia_estado, via: :get, on: :member
-      match :cambia_prioridad, via: :get, on: :member
-      match :cambia_privada, via: :get, on: :member
-      # desde aqui revisar
-      match :crea_audiencia, via: :get, on: :collection
-      match :suma_participante, via: :get, on: :member
-      match :resta_participante, via: :get, on: :member
-      match :agrega_antecedente, via: :post, on: :member
-      # -----------------------
-      match :cambio_fecha, via: :post, on: :member
-      match :sspndr, via: :get, on: :member
     end
     resources :age_pendientes do
       match :realizado_pendiente, via: :get, on: :member

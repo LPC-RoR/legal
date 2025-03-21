@@ -22,16 +22,8 @@ class Causa < ApplicationRecord
 	has_many :hechos
 	has_many :demandantes
 
-	# Migración 1
-	# AppArchivo Que se presentan al tribunal (Hechos)
-	# Migrar a RepArchivo
-#	has_many :causa_archivos
-#	has_many :app_archivos, through: :causa_archivos
 	has_many :rep_archivos, as: :ownr
 
-	# Migración 2
-	# AppArchivo de la Causa (Demanda, Contesta, etc)
-	# Migrar desde Método archivos
 	has_many :app_archivos, as: :ownr
 	has_many :app_documentos, as: :ownr
 
@@ -57,6 +49,15 @@ class Causa < ApplicationRecord
     scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.no_fctrds?}.compact)}
 
     delegate :tar_pagos, to: :tar_tarifa, prefix: true
+	delegate :tipo_causa, to: :tipo_causa, prefix: true
+
+	def demanda
+		self.app_archivos.find_by(app_archivo: 'Demanda')
+	end
+
+	def demanda?
+		self.demanda.present?
+	end
 
     # Ultima audiencia
     def last_adnc
@@ -132,15 +133,6 @@ class Causa < ApplicationRecord
 		ControlDocumento.where(id: ids)
 	end
 
-	def demanda
-		self.archivos.find_by(app_archivo: 'Demanda')
-	end
-
-	def demanda?
-		archivo = self.demanda
-
-		archivo.blank? ? false : archivo.archivo.present?
-	end
 	# ------------------------------------------------------------
 
 	def exclude_files

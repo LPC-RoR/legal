@@ -1,10 +1,12 @@
-<%= render partial: 'tarifas/tar_valor_cuantias/list/th' %>
+<div class="border rounded shadow bg-white fnt_arial app_lnk">
+	<%= render partial: 'tarifas/tar_valor_cuantias/list/th' %>
 
-<!-- Detalles de cuantía -->
-<% objeto.tar_valor_cuantias.dsply.each do |vc| %>
-	<%= render partial: 'tarifas/tar_valor_cuantias/list/lobjeto', locals: {objeto: vc } %>
-<% end %>
+	<!-- Detalles de cuantía -->
+	<% objeto.tar_valor_cuantias.dsply.each do |vc| %>
+		<%= render partial: 'tarifas/tar_valor_cuantias/list/objeto', locals: {objeto: vc } %>
+	<% end %>
 
-<hr>
+<!--hr-->
 
 <%= render partial: 'tarifas/tar_valor_cuantias/list/ttls', locals: {objeto: objeto} %>
+</div>

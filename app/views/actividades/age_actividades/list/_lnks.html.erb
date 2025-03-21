@@ -1,9 +1,9 @@
 <!-- MAS INFORMACION -->
 <%= render partial: '0capitan/objeto/cllps_lnk_info', locals: {objeto: objeto} %>
+
 <% unless objeto.ownr.blank? or controller_name != 'age_actividades' %>
 	<%= render partial: 'actividades/age_actividades/list/lnk_ownr', locals: {objeto: objeto} %>
 <% end %>
-<%= render partial: 'actividades/age_usuarios/shr/usrs_drpdwn', locals: {objeto: objeto} %>
 
 <i class="bi bi-dot"></i>
 <!-- CAMBIO DE ESTADO -->
@@ -31,18 +31,16 @@
 
 <% unless ['realizada', 'cancelada'].include?(objeto.estado) %>
 
-	<% unless usuarios.empty? or (objeto.fecha < @hoy)  %>
-		<%= render partial: 'actividades/shr/ctvdd/encargados', locals: {objeto: objeto, usuarios: usuarios} %>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text'} %>
+
+	<%= render layout: '0p/collapse/link', locals: {label: 'CambioFecha', objeto: objeto, tooltip: 'Cambiar fecha de la actividad'} do %>
+		<i class="bi bi-calendar-x"></i>
 	<% end %>
-
-	<%= render partial: 'notas/shr/cllps_lnk_nw_nt', locals: {objeto: objeto} %>
-
-	<%= render partial: prtl_name('age_actividades', 'list', 'drpdwn_clndr'), locals: {objeto: objeto} %>
-	<!-- CAMBIO DE FECHA -->
 
 	<!-- LINKS_E -->
 	<% if (controller_name == 'age_actividades' and objeto.ownr_id.blank?) or (controller_name != 'age_actividades' and (objeto.app_perfil_id == perfil_activo.id or admin?) ) %>
 			<i class="bi bi-dot"></i>
-			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+			<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} %>
 	<% end %>
+	
 <% end %>

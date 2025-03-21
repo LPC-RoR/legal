@@ -1,10 +1,6 @@
-<!-- CUANTIA -->
-
 <!-- Vista del PDF de la Demanda -->  
 <% if objeto.demanda? and operacion? %>
 	<iframe width="900" src=<%=objeto.demanda.archivo.url%>>
 	    <p>Placeholder text; only shows up if the page DOESN'T render!</p>
 	</iframe>
 <% end %>
-
-<%= render partial: 'causas/shw/datos_cuantia/cuantia', locals: {objeto: objeto, variables: variables} %>

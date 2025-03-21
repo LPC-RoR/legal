@@ -1,8 +1,9 @@
 <div class="m-1 border rounded">
 
-	<%= render partial: 'notas/list/bjt', locals: {objeto: objeto} %>
+	<%= render partial: 'notas/list/objt', locals: {objeto: objeto} %>
 
-	<%= render partial: 'notas/list/prtcpnts', locals: {objeto: objeto} %>
+	<%= render partial: 'actividades/shr/prtcpnts', locals: {objeto: objeto} %>
+
 	<div class="px-2 app_lnk" style="font-size: 12px;">
 		<b>
 		<%= render partial: '0p/gly', locals: {gly: 'dot', clr: objeto.prioridad} if objeto.prioridad == 'success' %>

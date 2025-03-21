@@ -1,9 +1,10 @@
 class Actividades::AgeActividadesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_age_actividad, only: %i[ show edit update destroy suma_participante resta_participante realizada_pendiente cambia_prioridad cambia_estado cambia_privada cambio_fecha sspndr]
-  after_action :elimina_fecha_audiencia, only: :destroy
-  after_action :set_fecha_audiencia, only: %i[ create update ]
+  before_action :set_age_actividad, only: %i[ show edit update destroy swtch dssgn_usr assgn_usr cambia_estado cambio_fecha ]
+  after_action :set_fecha_audiencia, only: :destroy
+
+  include AgeUsr
 
   # GET /age_actividades or /age_actividades.json
   def index
@@ -38,9 +39,9 @@ class Actividades::AgeActividadesController < ApplicationController
   # GET /age_actividades/new
   def new
     ownr = params[:oid].blank? ? nil : params[:oclss].constantize.find(params[:oid])
-    if ['prprtr', 'unc', 'jc'].include?(params[:k])
+    if ['prprtr', 'unc', 'd_jc'].include?(params[:k])
       tipo = 'Audiencia'
-      age_actividad = 'Audiencia de juicio' if params[:k] == 'jc'
+      age_actividad = 'Audiencia de juicio' if params[:k] == 'd_jc'
       age_actividad = 'Audiencia preparatoria' if params[:k] == 'prprtr'
       age_actividad = 'Audiencia única' if params[:k] == 'unc'
     elsif params[:k] == 'rnn'
@@ -88,21 +89,6 @@ class Actividades::AgeActividadesController < ApplicationController
     redirect_to "/#{params[:cn]}/#{params[:oid]}", notice: mensaje
   end
 
-  def cambia_privada
-    @objeto.privada = ( not @objeto.privada )
-    @objeto.save    
-
-    redirect_to params[:cn] == 'age_actividades' ? "/age_actividades" : @objeto.owner
-  end
-
-  # DEPRECATED
-  def crea_audiencia
-    causa = params[:class_name].constantize.find(params[:objeto_id])
-    AgeActividad.create(age_actividad: params[:label] ,owner_class: params[:class_name], owner_id: params[:objeto_id], app_perfil_id: perfil_activo.id, estado: 'ingreso', tipo: 'Audiencia')
-
-    redirect_to causa
-  end
-
   # GET /age_actividades/1/edit
   def edit
   end
@@ -137,34 +123,12 @@ class Actividades::AgeActividadesController < ApplicationController
     end
   end
 
-  def cambia_prioridad
-    # {negro, verde, amarillo, rojo}
-    @objeto.prioridad = params[:prioridad] == 'nil' ? nil : params[:prioridad]
-    @objeto.save
-
-    redirect_to ( params[:cn] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
-  end
-
   def cambia_estado
     # {negro, verde, amarillo, rojo}
     @objeto.estado = params[:e]
     @objeto.save
 
     redirect_to ( params[:cn] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
-  end
-
-  def suma_participante
-    perfil = AppPerfil.find(params[:pid])
-    @objeto.app_perfiles << perfil
-
-    redirect_to ( params[:loc] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
-  end
-
-  def resta_participante
-    perfil = AppPerfil.find(params[:pid])
-    @objeto.app_perfiles.delete(perfil)
-
-    redirect_to ( params[:loc] == 'age_actividades' ? '/age_actividades' : @objeto.owner )
   end
 
   def cambio_fecha
@@ -174,7 +138,7 @@ class Actividades::AgeActividadesController < ApplicationController
       # Agregar email del usuario que cambió la fecha
       log = @objeto.age_logs.create(fecha: @objeto.fecha, actividad: @objeto.age_actividad)
       unless log.blank?
-        @objeto.fecha = params_to_date(prms, 'nueva_fecha')
+        @objeto.fecha = prms_to_date_raw(prms, 'nueva_fecha')
         @objeto.estado = 'pendiente' if @objeto.estado == 'suspendida'
         @objeto.save
 
@@ -185,19 +149,6 @@ class Actividades::AgeActividadesController < ApplicationController
 
     get_rdrccn
     redirect_to @rdrccn
-  end
-
-  def sspndr
-    if ['suspendida', 'pendiente'].include?(@objeto.estado)
-      @objeto.estado = 'suspendida'
-      @objeto.save
-      causa = @objeto.ownr
-      causa.fecha_audiencia = nil
-      causa.save
-    end
-    
-    set_redireccion
-    redirect_to @redireccion
   end
 
   # DELETE /age_actividades/1 or /age_actividades/1.json
@@ -211,24 +162,6 @@ class Actividades::AgeActividadesController < ApplicationController
   end
 
   private
-
-    # Métodos para mantener campo fecha_audiencia que determina el orden
-    def elimina_fecha_audiencia
-      if @objeto.tipo == 'Audiencia'
-        ownr = @objeto.ownr
-        unless ownr.blank?
-          ultimo = ownr.age_actividades.udncs.fecha_ordr.last
-          if ultimo.blank?
-            ownr.fecha_audiencia = nil
-            ownr.audiencia = nil
-          else
-            ownr.fecha_audiencia = ultimo.fecha
-            ownr.audiencia = ultimo.age_actividad
-          end
-          ownr.save
-        end
-      end
-    end
 
     def set_fecha_audiencia
       if @objeto.tipo == 'Audiencia'

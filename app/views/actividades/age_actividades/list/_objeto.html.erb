@@ -1,11 +1,15 @@
-<div class="app_bjt">
+<div class="mb-1 pb-2 shadow border border-secondary-subtle rounded bg-white text-primary app_lnk" style="font-size: 12px; line-height: 1.2;">
 
-	<%= render partial: 'actividades/age_actividades/list/lobjt', locals: {objeto: objeto, usuarios: @age_usuarios} %>
+	<%= render partial: 'actividades/age_actividades/list/objt', locals: {objeto: objeto} %>
 
-	<%= render partial: 'actividades/age_usuarios/shr/usrs', locals: {objeto: objeto} %>
-	<%= render partial: 'actividades/age_actividades/list/txt', locals: {objeto: objeto} %>
+	<%= render partial: 'actividades/shr/prtcpnts', locals: {objeto: objeto, muted: objeto.muted?} %>
 
-	<%= render partial: 'actividades/age_actividades/list/wrnngs', locals: {objeto: objeto, usuarios: @age_usuarios} %>
+	<div class=" px-4 txt text-<%= objeto.text_color %>">
+		<b><%= objeto.descripcion %></b>
+	</div>
+
+	<%= render partial: 'actividades/age_actividades/list/wrnngs', locals: {objeto: objeto} %>
 
 	<%= render partial: 'notas/shr/notas_pendientes', locals: {objeto: objeto} %>
+
 </div>

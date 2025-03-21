@@ -1,0 +1,7 @@
+<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'tar_valor_cuantias', blngs: objeto, lnks: 'prtl'} %>
+
+<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: objeto} %>
+
+<% if objeto.tar_valor_cuantias.any? %>
+	<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: objeto, porcentaje_cuantia: false } %>
+<% end %>

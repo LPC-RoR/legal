@@ -14,7 +14,7 @@ class Csc::DemandantesController < ApplicationController
 
   # GET /demandantes/new
   def new
-    causa = Causa.find(params[:cid])
+    causa = Causa.find(params[:oid])
     @objeto = Demandante.new(causa_id: causa.id, orden: causa.demandantes.count + 1)
   end
 

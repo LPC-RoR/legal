@@ -1,0 +1,7 @@
+<% if objeto.estado == 'realizada' %>
+	<i class="bi bi-check-lg"></i>
+<% elsif objeto.estado == 'cancelada' %>
+	<i class="bi bi-x-lg"></i>
+<% elsif objeto.suspendida %>
+	<!--SUSPENDIDA-->
+<% end %>

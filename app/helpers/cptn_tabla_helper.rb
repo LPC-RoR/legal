@@ -38,6 +38,13 @@ module CptnTablaHelper
 		end
 	end
 
+	# Parámetros para usar en 0p/tbl/lnk_new
+	def prms(prms, place)
+		sign = place.blank? ? '?' : '&'
+		str = prms.blank? ? nil : prms.map {|prm| "#{prm[0]}=#{prm[1]}"}.join('&')
+		str.blank? ? '' : "#{sign}#{str}"
+	end
+
 	# obtiene el nombre del campo puro desde la descripción de TABLA_FIELDS
 	def get_field_name(label)
 		label.split(':').last.split('#').last

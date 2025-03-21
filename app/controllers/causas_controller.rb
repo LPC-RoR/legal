@@ -58,10 +58,11 @@ class CausasController < ApplicationController
     case @options[:menu]
     when 'General'
       @hoy = Time.zone.today
+      @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+      @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
 
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
 
-      @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
       actividades_causa = @objeto.age_actividades.adncs.map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
