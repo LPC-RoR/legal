@@ -7,7 +7,6 @@
 				<%= render partial: prtl_name('age_actividades', 'list', 'age_icon'), locals: {objeto: objeto} %>
 				<%= controller_name == 'age_actividades' ? hm(objeto.fecha) : dma_hm(objeto.fecha) %>
 				<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'suspendida', stts: ['activa', 'suspendida'], glys: ['hourglass-split', 'check']} %>
-				<%= render partial: prtl_name('age_actividades', 'list', 'age_ownr'), locals: {objeto: objeto} %>
 				<%= render partial: prtl_name('age_actividades', 'list', 'age_estado'), locals: {objeto: objeto} %>
 			</b>
 		</div>
