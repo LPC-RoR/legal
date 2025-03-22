@@ -77,7 +77,7 @@ Rails.application.configure do
 #    enable_starttls: true,
     port: 465,
     ssl:                  true,                         # Habilita SSL
-    enable_starttls_auto: false                         # Desactiva STARTTLS automático
+    enable_starttls_auto: false,                         # Desactiva STARTTLS automático
     # :Login authentication encodes the password in base64
     authentication: :login
   }
