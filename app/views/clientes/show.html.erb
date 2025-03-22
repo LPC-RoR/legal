@@ -5,14 +5,7 @@
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 <% case @options[:menu] %>
 <% when 'General' %>
-	<div class="row">
-		<div class="col-lg-6 col-xs-12">
-			<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto, usuarios: @age_usuarios} %>
-		</div>
-		<div class="col-lg-6">
-			<%= render partial: 'repositorios/shr/repositorio', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
-		</div>
-	</div>
+	<%= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
 <% when 'Causas' %>
 	<%= render partial: 'causas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 <% when 'Asesorias' %>

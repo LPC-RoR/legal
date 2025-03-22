@@ -8,7 +8,6 @@ class Cliente < ApplicationRecord
 	has_many :app_nominas, as: :ownr
 
 	has_many :app_archivos, as: :ownr
-	has_many :app_documentos, as: :ownr
 
 	has_many :causas
 	has_many :asesorias
@@ -141,7 +140,7 @@ class Cliente < ApplicationRecord
 	# ----------------------------------------------------
 
 	def nombres_usados
-		self.archivos.map {|archivo| archivo.app_archivo}.union(self.documentos.map {|doc| doc.app_documento})
+		self.archivos.map {|archivo| archivo.app_archivo}
 	end
 
 	def archivos
@@ -169,24 +168,6 @@ class Cliente < ApplicationRecord
 
 	def exclude_files
 		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
-	end
-
-	def documentos
-		AppDocumento.where(owner_class: 'Clientes', owner_id: self.id)
-	end
-
-	def documentos_controlados
-		self.st_modelo.control_documentos.where(tipo: 'Documento').order(:nombre)
-	end
-
-	def documentos_pendientes
-		ids = self.documentos_controlados.map {|doc| doc.id unless self.nombres_usados.include?(doc.nombre) }.compact
-		ControlDocumento.where(id: ids)
-	end
-	# ----------------------------------------------------------
-
-	def exclude_docs
-		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Documento').order(:nombre).map {|cd| cd.nombre}
 	end
 
 	# Hasta aqui revisado!

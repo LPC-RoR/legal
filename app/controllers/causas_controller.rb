@@ -67,11 +67,7 @@ class CausasController < ApplicationController
       actividades_causa = @objeto.age_actividades.adncs.map {|act| act.age_actividad}
       @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
 
-      # Documentos
-      set_tabla('app_documentos', @objeto.ds, false)
       set_tabla('app_archivos', @objeto.as, false)
-
-      @d_pendientes = @objeto.documentos_pendientes
       @a_pendientes = @objeto.archivos_pendientes
 
       # Cuantía

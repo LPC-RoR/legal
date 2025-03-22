@@ -25,7 +25,6 @@ class Causa < ApplicationRecord
 	has_many :rep_archivos, as: :ownr
 
 	has_many :app_archivos, as: :ownr
-	has_many :app_documentos, as: :ownr
 
 	has_many :secciones
 	has_many :parrafos
@@ -117,7 +116,7 @@ class Causa < ApplicationRecord
 	# -------------------------------------------------------------------------------------------------------
 
 	def nombres_usados
-		self.archivos.map {|archivo| archivo.app_archivo}.union(self.documentos.map {|doc| doc.app_documento})
+		self.archivos.map {|archivo| archivo.app_archivo}
 	end
 
 	def archivos
@@ -139,30 +138,6 @@ class Causa < ApplicationRecord
 		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
 	end
 
-	# Documentos y control de documentos
-	def documentos
-		AppDocumento.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def documentos_controlados
-		self.tipo_causa.control_documentos.where(tipo: 'Documento').order(:nombre)
-	end
-
-	def documentos_pendientes
-		ids = self.documentos_controlados.map {|doc| doc.id unless self.nombres_usados.include?(doc.nombre) }.compact
-		ControlDocumento.where(id: ids)
-	end
-	# ----------------------------------------------------------
-
-	def exclude_docs
-		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Documento').order(:nombre).map {|cd| cd.nombre}
-	end
-
-	# enlaces
-	def enlaces
-		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
 	# Valores asignados a las variables
 	def valores_datos
 		Valor.where(owner_class: self.class.name, owner_id: self.id)
@@ -179,16 +154,6 @@ class Causa < ApplicationRecord
 	def uf_facturaciones
 		TarUfFacturacion.where(owner_class: self.class.name, owner_id: self.id)
 	end
-
-    def child_records?
-    	archivos.any? or 
-    	documentos.any? or
-    	enlaces.any? or
-    	valores_datos.any? or
-    	reportes.any? or 
-    	registros.any? or
-    	uf_facturaciones.any?
-    end
 
     # **************************************************** CÁLCULO DE TARIFA [PAGOS]
 

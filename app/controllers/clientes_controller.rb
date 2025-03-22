@@ -48,10 +48,7 @@ class ClientesController < ApplicationController
       @hoy = Time.zone.today
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
 
-      set_tabla('app_documentos', @objeto.ds, false)
       set_tabla('app_archivos', @objeto.as, false)
-
-      @d_pendientes = @objeto.documentos_pendientes
       @a_pendientes = @objeto.archivos_pendientes
 
     elsif @options[:menu] == 'Causas'
