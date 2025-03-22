@@ -78,6 +78,9 @@ Rails.application.configure do
     port: 465,
     # :Login authentication encodes the password in base64
     authentication: :login
+    ssl:                  true,                         # Habilita SSL
+    # tls:                  false,                        # Desactiva STARTTLS (no se usa con SMTPS)
+    enable_starttls_auto: false                         # Desactiva STARTTLS automático
   }
   config.action_mailer.raise_delivery_errors = true
 
