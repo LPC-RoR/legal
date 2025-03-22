@@ -1,0 +1,5 @@
+<% if prtl?(objt, 'list/cllps', 'objt') %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'Info', objeto: objt} do %>
+		<%= render partial: prtl_name(objt, 'list/cllps', 'objt'), locals: {objeto: objt} %>
+	<% end %>
+<% end %>

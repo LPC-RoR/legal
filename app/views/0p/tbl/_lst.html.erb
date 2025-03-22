@@ -19,6 +19,8 @@
 					<% if prtl?(objt, 'list', "sub") %>
 						<%= render partial: prtl_name(objt, 'list', "sub"), locals: {objeto: objt} %>
 					<% end %>
+				<% when 'frame' %>
+					<%= render partial: '0p/objt/objt_frame', locals: {objt: objt} %>
 				<% end %>
 
 			<% end %>

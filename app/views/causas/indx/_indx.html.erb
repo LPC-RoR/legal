@@ -3,10 +3,10 @@
 <%= render partial: '0p/ttl_tbl', locals: {source: 'causas'} %>
 
 <% unless @srch %>
-  <%= render partial: '0p/tbl/tbl', locals: {source: 'causas', crud: 'lnks'} %>
-  <%#= render partial: '0p/tabla/tabla', locals: {c: 'causas'} %>
+  <%= render partial: '0p/tbl/tbl', locals: {source: 'causas', typ: 'frame'} %>
 <% else %>
   <% @cs_array.each do |fnd| %>
-    <%= render partial: 'causas/list/objeto', locals: {objeto: fnd} %>
+    <%= render partial: '0p/objt/objt_frame', locals: {objt: fnd} %>
   <% end %>
 <% end %>
+

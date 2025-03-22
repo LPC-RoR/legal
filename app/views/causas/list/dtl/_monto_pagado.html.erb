@@ -37,7 +37,7 @@
 <% if objeto.estado == 'tramitación' %>
 	<%= render layout: '0p/collapse/display', locals: {label: 'IngresoMonto', objeto: objeto} do %>
 		<div style="padding-left: 2em; padding-right: 1em;">
-		  	<%= render partial: 'causas/list/frm_conciliacion', locals: {objeto: objeto} %>
+		  	<%= render partial: 'causas/list/cllps/frm_monto_negociacion', locals: {objeto: objeto} %>
 	  	</div>
 	<% end %>
 <% end %>
