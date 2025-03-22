@@ -75,9 +75,8 @@ Rails.application.configure do
     password: Rails.application.credentials[:smtp][:password],
     # No es necesario porque ya está encriptado a través de 465
 #    enable_starttls: true,
-    port: 465,
-    ssl:                  true,                         # Habilita SSL
-    enable_starttls_auto: false,                         # Desactiva STARTTLS automático
+    port: 587,
+    enable_starttls_auto: true,                         # Desactiva STARTTLS automático
     # :Login authentication encodes the password in base64
     authentication: :login
   }
