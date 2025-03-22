@@ -1,3 +1,6 @@
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/clientes/#{objeto.cliente.id}?html_options[menu]=#{objeto.class.name.pluralize}", tooltip: objeto.cliente.razon_social} do %>
-	<i class="bi bi-building"></i>
+<!-- Se usa en el frame:objt:lnks de Causa y los otros objetos -->
+<% unless controller_name == 'clientes' %>
+	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/clientes/#{objeto.cliente.id}?html_options[menu]=#{objeto.class.name.pluralize}", tooltip: objeto.cliente.razon_social} do %>
+		<i class="bi bi-building"></i>
+	<% end %>
 <% end %>

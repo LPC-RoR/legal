@@ -306,7 +306,6 @@ Rails.application.routes.draw do
       match :nuevo, via: :post, on: :collection
     end
     resources :app_dir_dires
-    resources :app_documentos
     resources :app_archivos
     resources :app_imagenes
     resources :app_escaneos do

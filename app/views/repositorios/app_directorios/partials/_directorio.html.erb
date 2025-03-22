@@ -8,13 +8,6 @@
       <% end  %>
     <% end %>
 
-    <!-- Documentos-->
-    <% unless @coleccion["#{tag unless tag.blank?}app_documentos"].blank? %>
-      <% @coleccion["#{tag unless tag.blank?}app_documentos"].each do |doc| %>
-        <%= render partial: "/repositorios/app_documentos/partials/modelo", locals: {a: 'index', objeto: doc} %>
-      <% end  %>
-    <% end %>
-
     <!-- Archivos-->
     <% unless @coleccion["#{tag unless tag.blank?}app_archivos"].blank? %>
       <% @coleccion["#{tag unless tag.blank?}app_archivos"].each do |archivo| %>
@@ -26,5 +19,4 @@
 </table>
 
 <%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'app_directorios', o: objeto} %>
-<%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'app_documentos', o: objeto} %>
 <%= render partial: '0p/tabla/btn_nuevo_o', locals: {c: 'app_archivos', o: objeto} %>

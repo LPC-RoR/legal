@@ -124,17 +124,8 @@ class Cliente < ApplicationRecord
 		self.app_archivos.where.not(app_archivo: self.acs.nms)
 	end
 
-	def fnd_doc(app_documento)
-		self.app_documentos.find_by(app_documento: app_documento)
-	end
-
 	def dcs
 		self.st_modelo.dcs
-	end
-
-	#Documentos NO Controlados
-	def ds
-		self.app_documentos.where.not(app_documento: self.dcs.nms)
 	end
 
 	# ----------------------------------------------------

@@ -1,8 +1,1 @@
-<div class="app_bjt" id="cid_<%=objeto.id%>">
-	<%= render partial: 'causas/list/bjt', locals: {objeto: objeto} %>
-
-	<%= render partial: 'causas/list/audiencia', locals: {objeto: objeto} %>
-	<%= render partial: 'causas/list/monto_pagado', locals: {objeto: objeto} %>
-
-	<%= render partial: 'notas/shr/notas_pendientes', locals: {objeto: objeto} %>
-</div>
+<%= render partial: '0shr/objt_frame', locals: {objeto: objeto} %>

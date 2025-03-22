@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_21_024016) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_22_174801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -158,29 +158,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_024016) do
     t.index ["directorio"], name: "index_app_directorios_on_directorio"
     t.index ["owner_class"], name: "index_app_directorios_on_owner_class"
     t.index ["owner_id"], name: "index_app_directorios_on_owner_id"
-  end
-
-  create_table "app_documentos", force: :cascade do |t|
-    t.string "documento"
-    t.boolean "publico"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.string "app_documento"
-    t.string "existencia"
-    t.string "vencimiento"
-    t.boolean "documento_control"
-    t.string "referencia"
-    t.string "visible_para"
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.index ["app_documento"], name: "index_app_documentos_on_app_documento"
-    t.index ["owner_class"], name: "index_app_documentos_on_owner_class"
-    t.index ["owner_id"], name: "index_app_documentos_on_owner_id"
-    t.index ["ownr_id"], name: "index_app_documentos_on_ownr_id"
-    t.index ["ownr_type"], name: "index_app_documentos_on_ownr_type"
-    t.index ["visible_para"], name: "index_app_documentos_on_visible_para"
   end
 
   create_table "app_enlaces", force: :cascade do |t|

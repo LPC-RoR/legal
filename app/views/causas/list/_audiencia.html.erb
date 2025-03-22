@@ -1,9 +1,9 @@
 <% unless objeto.fecha_audiencia.blank? %>
-	<div class="ln_app">
-		<div class="ln_nm">
+	<div class="row px-3 pb-1 gx-1" style="font-size: 13px;line-height: 1.2;">
+		<div class="col">
 			<%= objeto.audiencia %>
 		</div>
-		<div class="ln_lnks">
+		<div class="col text-end">
 			<%= dma(objeto.fecha_audiencia) %>
 		</div>
 	</div>

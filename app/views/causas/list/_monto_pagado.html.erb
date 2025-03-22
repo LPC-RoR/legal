@@ -1,9 +1,10 @@
-<div class="ln_app">
-	<div class="ln_nm">
-		<i class="bi bi-cash-coin"></i> 
+<div class="row px-3 pb-1 gx-1 app_lnk" style="font-size: 13px;line-height: 1.2;">
+	<div class="col">
 
+		<i class="bi bi-cash-coin"></i> 
 		<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
 		<i class="bi bi-arrow-right"></i>
+
 		<% unless objeto.monto_pagado.blank? %>
 			<%= s_pesos(objeto.monto_pagado) %>
 		<% else %> 
@@ -11,8 +12,9 @@
 				<%= objeto.monto_conciliaciones.last.tipo %> : <%= s_pesos(objeto.monto_conciliaciones.last.monto) %>
 			<% end %>
 		<% end %>
+
 	</div>
-	<div class="ln_lnks">
+	<div class="col text-end">
 		<% if objeto.estado == 'tramitación' %>
 			<% unless objeto.monto_conciliaciones.empty? %>
 				<%= render layout: '0p/collapse/link', locals: {label: 'DetalleMontos', objeto: objeto, tooltip: "Montos Conciliación"} do %>
@@ -31,6 +33,7 @@
 		<% end %>
 	</div>
 </div>
+
 <% if objeto.estado == 'tramitación' %>
 	<%= render layout: '0p/collapse/display', locals: {label: 'IngresoMonto', objeto: objeto} do %>
 		<div style="padding-left: 2em; padding-right: 1em;">

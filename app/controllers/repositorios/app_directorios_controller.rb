@@ -11,7 +11,6 @@ class Repositorios::AppDirectoriosController < ApplicationController
   def show
     @padres = AppDirectorio.where(id: @objeto.padres_ids)
     set_tabla('app_directorios', @objeto.directorios, false)
-    set_tabla('app_documentos', @objeto.documentos, false)
     set_tabla('app_archivos', @objeto.archivos, false)
   end
 

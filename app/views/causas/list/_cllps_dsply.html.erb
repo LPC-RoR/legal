@@ -1,0 +1,12 @@
+<%= render layout: '0p/collapse/display', locals: {label: 'Detalle', objeto: objeto} do %>
+	<%= render partial: 'causas/list/detalle', locals: {objeto: objeto} %>
+<% end %>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'Estado', objeto: objeto} do %>
+	<%= render partial: 'causas/list/ultimo_estado', locals: {objeto: objeto} %>
+<% end %>
+
+<!-- Despliegue de Warnings -->
+<%= render layout: '0p/collapse/display', locals: {label: 'Warnings', objeto: objeto} do %>
+	<%= render partial: prtl_name(objeto, 'list', 'wrnngs'), locals: {objeto: objeto} %>
+<% end %>

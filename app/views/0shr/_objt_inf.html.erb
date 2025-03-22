@@ -1,0 +1,5 @@
+<% if prtl?(objeto, 'list', 'objt_inf') %>
+	<%= render layout: '0p/collapse/link', locals: {label: 'Detalle', objeto: objeto, tooltip: 'Más información'} do %>
+		<i class="bi bi-arrow-bar-down"></i>
+	<% end %>
+<% end %>

@@ -35,7 +35,6 @@ class Srvcs::AsesoriasController < ApplicationController
 
   # GET /asesorias/1 or /asesorias/1.json
   def show
-    set_tabla('app_documentos', @objeto.documentos.order(:app_documento), false)
     set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
     set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
     set_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
