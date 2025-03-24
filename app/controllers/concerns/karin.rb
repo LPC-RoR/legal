@@ -102,6 +102,7 @@ module Karin
       dnnc: {
         'dnnc_denuncia'     => dnnc.tipo_declaracion != 'Verbal',
         'dnnc_acta'         => dnnc.tipo_declaracion == 'Verbal',
+        'dnnc_antcdnts'     => true,
         'dnnc_notificacion' => dnnc.rcp_dt?,
         'dnnc_certificado'  => (dnnc.on_dt? and dnnc.derivaciones?),
         'dnncnt_rprsntcn'   => (dnnc.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]),
