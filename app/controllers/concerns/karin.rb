@@ -107,6 +107,7 @@ module Karin
         'dnnc_certificado'  => (dnnc.on_dt? and dnnc.derivaciones?),
         'dnncnt_rprsntcn'   => (dnnc.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]),
         'mdds_rsgrd'        => (( dnnc.rgstrs_ok? and ( not dnnc.on_empresa? ) ) or dnnc.investigacion_local),
+        'rslcn_dvlcn'       => dnnc.solicitud_denuncia,
         'antcdnts_objcn'    => (dnnc.investigadores? ? dnnc.krn_inv_denuncias.first.objetado : false),
         'rslcn_objcn'       => dnnc.fl?('antcdnts_objcn'),
         'dnnc_evlcn'        => (dnnc.on_empresa? and dnnc.krn_investigadores.any?),
