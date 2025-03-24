@@ -51,6 +51,10 @@ class KrnDenuncia < ApplicationRecord
 		self
 	end
 
+	def presencial?
+		self.via_declaracion == VIAS_DENUNCIA[0]
+	end
+
 	# ------------------------------------------------------------------------ PRODUCTO
 	# Determina si el ownr de la denuncia tiene contratado un formato P+
 	def p_plus?

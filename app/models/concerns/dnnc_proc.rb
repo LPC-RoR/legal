@@ -17,12 +17,20 @@ module DnncProc
  	# ================================= 010_ingrs: Ingreso de la denuncia
  	# --------------------------------- Despliegue de formularios
 
+ 	def frm_externa?
+ 		self.rcp_externa? and self.krn_empresa_externa_id.blank?
+ 	end
+
+ 	def frm_tipo?
+ 		self.presencial? and self.tipo_declaracion.blank?
+ 	end
+
+ 	def frm_representante?
+ 		self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1] and self.representante.blank?
+ 	end
+
  	def frms_ingrs?
- 		ext = self.rcp_externa? and self.krn_empresa_externa_id.blank?
- 		tip = self.via_declaracion == KrnDenuncia::VIAS_DENUNCIA[0] and self.tipo_declaracion.blank?
- 		rep = self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1] and self.representante.blank?
- 		frms = ext or tip or rep
- 		frms
+ 		self.frm_externa? or self.frm_tipo? or self.frm_representante?
  	end
 
 	def proc_externa?

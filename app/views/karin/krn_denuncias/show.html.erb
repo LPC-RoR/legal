@@ -21,8 +21,17 @@
 <!-- Resumen de las declaraciones -->
 <%= render partial: 'karin/prtls/dclrcns', locals: {ownr: @objeto} %>
 
-<%#= @proc[:etp_last].codigo %>
-<%#= @proc[:tar_last].codigo unless @proc[:tar_last].blank? %>
+<%= @proc[:etp_last].codigo %>
+<%= @proc[:tar_last].codigo unless @proc[:tar_last].blank? %>
+<%= @objeto.fechas_invstgcn? and @objeto.chck_dvlcn? %>
+<%= @objeto.frms_ingrs? %>
+-
+<%= @objeto.rcp_externa? and @objeto.krn_empresa_externa_id.blank? %>
+<%= @objeto.via_declaracion == KrnDenuncia::VIAS_DENUNCIA[0] and @objeto.tipo_declaracion.blank? %>
+<%= @objeto.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1] and @objeto.representante.blank? %>
+-
+<%= @objeto.proc_externa? %>
+<%= @objeto.proc_tipo? %>
 
 <%# if dog? %>
 	<%#= "rep_archivos" if @objeto.rep_archivos.any? %>
