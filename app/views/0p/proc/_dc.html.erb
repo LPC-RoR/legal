@@ -9,7 +9,7 @@
 				<%= dma(fl.fecha) %> 
 			<% end %>
 		<% end %>
-		<%= dc.rep_doc_controlado %>
+		<%= fl.blank? ? dc.rep_doc_controlado : (fl.nombre.blank? ? fl.rep_archivo : fl.nombre) %>
 		<% unless fl.blank? or fl.archivo? %>
 			<i class="bi bi-exclamation-triangle text-danger"></i>
 		<% end %>
