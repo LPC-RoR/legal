@@ -2,6 +2,8 @@
 
 <%= render partial: '0p/lbld_inpts/datetime', locals: { form: form, token: :fecha_hora, label: 'Fecha y hora de la denuncia' } %>
 
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :identificador, label: 'Identificador de la denuncia' } %>
+
 <div class="row gx-1">
 	<div class="col-lg-3 col-xs-12">
 		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :motivo_denuncia, colection: KrnDenuncia::MOTIVOS, label: 'Motivo de la denuncia' } %>
