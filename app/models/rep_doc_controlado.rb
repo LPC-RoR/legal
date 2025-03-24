@@ -29,10 +29,8 @@ class RepDocControlado < ApplicationRecord
     case self.ownr_type
     when 'TarDetalleCuantia'
       "/tablas?tb=7"
-    when 'StModelo'
+    else
       self.ownr
-    when 'Tarea'
-      self.ownr.ctr_etapa.procedimiento
     end
   end
 

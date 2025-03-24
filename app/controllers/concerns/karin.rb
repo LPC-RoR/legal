@@ -23,10 +23,13 @@ module Karin
     @proc[:tar_last] = nil
     @proc[:etps_trmnds] = []
     @proc_objt = Procedimiento.find_by(codigo: 'krn_invstgcn')
+
     @proc_objt.ctr_etapas.ordr.each do |etp|
+
       if @etp_cntrl_hsh[etp.codigo][:trmn]
         @proc[:etps_trmnds] << {etapa: etp.ctr_etapa, plz_ok: @etp_cntrl_hsh[etp.codigo][:plz_ok], plz: @etp_cntrl_hsh[etp.codigo][:plz] }
       end
+
       if etp.dsply?(ownr) and etp_cntrl(ownr)[etp.codigo.to_sym]
         @proc[:etp_last] = etp
 
