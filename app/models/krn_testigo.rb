@@ -15,7 +15,7 @@ class KrnTestigo < ApplicationRecord
 
 	validates :rut, valida_rut: true, if: -> {rut.present?}
     validates_presence_of :nombre, :cargo, :lugar_trabajo
-    validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
+#    validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 
 	include Fls
 
