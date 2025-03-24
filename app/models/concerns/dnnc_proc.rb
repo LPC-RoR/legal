@@ -6,7 +6,7 @@ module DnncProc
  		# Se informó inicio de investigación
  		# La DT recibió nuestra derivación
  		# La DT notificó inicio de la investigación
- 		self.fecha_trmtcn? or self.fecha_hora_dt? or self.fecha_ntfccn?
+ 		self.fecha_trmtcn? or self.fecha_hora_dt? or self.fecha_ntfccn? or self.fecha_dvlcn?
  	end
 
  	def evld?
@@ -101,14 +101,17 @@ module DnncProc
 
 	# fecha de la notificación enviada por la DT (anunciando la recepción de una denuncia)
 	def proc_fecha_ntfccn?
-		self.rcp_dt?
+		self.rcp_dt? and (not self.solicitud_denuncia)
 	end
 
 	# fecha de envío de investigación a la DT 
 	def proc_fecha_trmtcn?
-		self.dnnc.investigacion_local or self.investigacion_externa
+		(self.investigacion_local or self.investigacion_externa) and (not self.solicitud_denuncia)
 	end
 
+	def proc_fecha_dvlcn?
+		self.solicitud_denuncia
+	end
  	# ================================= 060_invstgdr: Asignar Investigador
 
  	def objcn_invstgdr?

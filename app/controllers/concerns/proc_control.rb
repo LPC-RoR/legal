@@ -9,7 +9,7 @@ module ProcControl
 
 	def etp_cntrl_hsh(ownr)
 		dnnc = ownr.dnnc
-		fecha_legal = dnnc.fecha_hora_dt? ? dnnc.fecha_hora_dt : dnnc.fecha_hora
+		fecha_legal = dnnc.fecha_dvlcn? ? dnnc.fecha_dvlcn : (dnnc.fecha_hora_dt? ? dnnc.fecha_hora_dt : dnnc.fecha_hora)
 		fecha_env_rcpcn = dnnc.fecha_env_infrm || dnnc.fecha_rcpcn_infrm
 		plz_env_rcpcn = dnnc.fecha_trmn? ? plz_lv(dnnc.fecha_trmn, 2) : plz_lv(fecha_legal, 32)
 		{
