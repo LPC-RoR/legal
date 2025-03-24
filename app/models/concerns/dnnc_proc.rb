@@ -21,7 +21,8 @@ module DnncProc
  		ext = self.rcp_externa? and self.krn_empresa_externa_id.blank?
  		tip = self.via_declaracion == KrnDenuncia::VIAS_DENUNCIA[0] and self.tipo_declaracion.blank?
  		rep = self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1] and self.representante.blank?
- 		ext or tip or rep
+ 		frms = ext or tip or rep
+ 		frms
  	end
 
 	def proc_externa?
