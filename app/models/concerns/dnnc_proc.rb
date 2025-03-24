@@ -54,6 +54,10 @@ module DnncProc
  	# ================================= 030_drvcns: Ingreso de la denuncia
  	# --------------------------------- Despliegue de derivaciones
 
+ 	def chck_dvlcn?
+ 		self.solicitud_denuncia ? self.on_empresa? : true
+ 	end
+
  	def frms_drvcns?
  		loc = self.on_empresa? and ( not self.externa? ) and self.investigacion_local.blank?
  		ext = self.externa? and ( not self.on_dt? ) and ( not self.artcl41? ) and self.investigacion_externa.blank?
@@ -84,7 +88,7 @@ module DnncProc
 	end
 
 	def proc_fecha_hora_dt?
-		self.krn_derivaciones.on_dt? and self.rgstrs_ok?
+		self.krn_derivaciones.on_dt? and self.rgstrs_ok? and self.chck_dvlcn?
 	end
 
  	# ================================= 050_crr: Cierre de la gestión inicial

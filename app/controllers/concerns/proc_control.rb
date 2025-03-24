@@ -14,7 +14,7 @@ module ProcControl
 		plz_env_rcpcn = dnnc.fecha_trmn? ? plz_lv(dnnc.fecha_trmn, 2) : plz_lv(fecha_legal, 32)
 		{
 			'etp_rcpcn'      => {
-				trmn:	dnnc.fechas_invstgcn?,
+				trmn:	(dnnc.fechas_invstgcn? and dnnc.chck_dvlcn?),
 				plz: plz_lv(dnnc.fecha_hora, 3),
 				plz_ok: dnnc.fecha_trmtcn? ? plz_ok?( dnnc.fecha_trmtcn, plz_lv(dnnc.fecha_hora, 3) ) : nil,
 			},
@@ -59,7 +59,7 @@ module ProcControl
 				frms: (dnnc.frms_drvcns?),
 			},
 			'050_crr'    => {
-				actv: (dnnc.rgstrs_ok? and (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or dnnc.rcp_dt?)),
+				actv: (dnnc.rgstrs_ok? and (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or (dnnc.on_dt? and (not dnnc.solicitud_denuncia)))),
 				frms: (dnnc.frms_crr?),
 			},
 			'060_invstgdr'    => {
@@ -79,7 +79,7 @@ module ProcControl
 				frms: (dnnc.frms_trmn_invstgcn?),
 			},
 			'100_env_rcpcn' => {
-				actv: (dnnc.fecha_trmn? or dnnc.on_dt?),
+				actv: (dnnc.fecha_trmn? or (dnnc.on_dt? and (not dnnc.solicitud_denuncia))),
 				frms: (dnnc.frms_env_rcpcn?),
 			},
 			'110_prnncmnt' => {
@@ -111,8 +111,8 @@ module ProcControl
 		{
 			etp_rcpcn: true,					# Se despliega en todos los OWNR
 #			etp_invstgcn: (dnnc.fechas_invstgcn? and @proc[:etp_rcpcn][:fls_mss].empty?),
-			etp_invstgcn: (dnnc.fechas_invstgcn?),
-			etp_envio: (dnnc.fecha_trmn? or dnnc.on_dt?),
+			etp_invstgcn: (dnnc.fechas_invstgcn? and dnnc.chck_dvlcn?),
+			etp_envio: ((dnnc.fecha_trmn? or dnnc.on_dt?) and dnnc.chck_dvlcn?),
 			etp_prnncmnt: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
 			etp_mdds_sncns: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? )
 		}

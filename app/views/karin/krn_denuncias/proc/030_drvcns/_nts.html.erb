@@ -20,11 +20,13 @@
 					<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext_dt'} %>
 					<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext'} %>
 				<% else %>
+					<% if  (not @objeto.solicitud_denuncia) %>
 					<% if @objeto.artcl41? %>
 						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_art4_1'} %>
 					<% else %>
 						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_dnncnt'} %>
 						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
+					<% end %>
 					<% end %>
 				<% end %>
 			<% end %>

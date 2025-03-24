@@ -4,6 +4,8 @@ module Capitan
 	def swtch_rdrccn
 		if ['KrnDenunciante', 'KrnDenunciado', 'KrnInvDenuncia'].include?(@objeto.class.name)
 			@objeto.krn_denuncia
+		elsif @objeto.class.name == 'KrnDenuncia'
+			@objeto
 		elsif ['Nota'].include?(@objeto.class.name)
 			case @objeto.ownr.class.name
 			when 'Causa'
