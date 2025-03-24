@@ -50,7 +50,8 @@ module ProcControl
 				frms: dnnc.frms_ingrs?,
 			},
 			'020_prtcpnts'    => {
-				actv: true,
+				# Ante teníamos true pero se saltaba 010_ingrs porque 020 aparecía como tarea activa de inmediato
+				actv: ownr != dnnc,
 				frms: dnnc.frms_ingrs?,
 			},
 			'030_drvcns'    => {

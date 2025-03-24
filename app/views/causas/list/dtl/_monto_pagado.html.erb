@@ -16,13 +16,6 @@
 	</div>
 	<div class="col text-end">
 		<% if objeto.estado == 'tramitación' %>
-			<% unless objeto.monto_conciliaciones.empty? %>
-				<%= render layout: '0p/collapse/link', locals: {label: 'DetalleMontos', objeto: objeto, tooltip: "Montos Conciliación"} do %>
-				 	<i class="bi bi-arrow-bar-down"></i>
-				<% end %>
-			<% end %>
-		<% end %>
-		<% if objeto.estado == 'tramitación' %>
 			<%= render layout: '0p/collapse/link', locals: {label: 'IngresoMonto', objeto: objeto, tooltip: "Nuevo Monto Conciliación"} do %>
 			 	<i class="bi bi-plus-circle"></i>
 			<% end %>
@@ -38,14 +31,6 @@
 	<%= render layout: '0p/collapse/display', locals: {label: 'IngresoMonto', objeto: objeto} do %>
 		<div style="padding-left: 2em; padding-right: 1em;">
 		  	<%= render partial: 'causas/list/cllps/frm_monto_negociacion', locals: {objeto: objeto} %>
-	  	</div>
-	<% end %>
-<% end %>
-
-<% unless objeto.monto_conciliaciones.empty? %>
-	<%= render layout: '0p/collapse/display', locals: {label: 'DetalleMontos', objeto: objeto} do %>
-		<div style="padding-left: 2em; padding-right: 1em;">
-		  	<%= render partial: 'causas/list/lst_montos', locals: {objeto: objeto} %>
 	  	</div>
 	<% end %>
 <% end %>
