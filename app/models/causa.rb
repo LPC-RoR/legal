@@ -58,24 +58,7 @@ class Causa < ApplicationRecord
 		self.demanda.present?
 	end
 
-    # Ultima audiencia
-    def last_adnc
-    	self.age_actividades.adncs.fecha_ordr.last
-    end
-
     # ---------------------------------------------------------------- MGRTN
-
-    def no_fctrds?
-    	self.tar_facturaciones.empty? and self.tar_valor_cuantias.any?
-    end
-
-    # OWN CHILDS
-
-    # CUANTIA
-
-    def agenda
-    	self.age_actividades.where(tipo: ['Audiencia', 'Hito']).fecha_d_ordr
-    end
 
 	# PAGOS
 
@@ -129,11 +112,6 @@ class Causa < ApplicationRecord
 		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
 	end
 
-	# Valores asignados a las variables
-	def valores_datos
-		Valor.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
 	def reportes
 		RegReporte.where(owner_class: self.class.name, owner_id: self.id)
 	end
@@ -147,12 +125,6 @@ class Causa < ApplicationRecord
 	end
 
     # **************************************************** CÁLCULO DE TARIFA [PAGOS]
-
-    def get_valor(variable)
-    	variable = Variable.find_by(variable: variable)
-	    valor = self.valores_datos.find_by(variable_id: variable.id)
-	    variable.tipo == 'Texto' ? valor.c_string : ( variable.tipo == 'Párrafo' ? valor.c_parrafo : valor.c_numero )
-    end
 
     def get_age_actividad(nombre)
     	self.age_actividades.find_by(age_actividad: nombre)
@@ -196,12 +168,6 @@ class Causa < ApplicationRecord
 		TarUfSistema.find_by(fecha: fecha_calculo_pago(pago))
 	end
 
-	def valor(variable_name)
-		variable = self.tipo_causa.variables.find_by(variable: variable_name)
-		valor = self.valores_datos.find_by(variable_id: variable.id)
-		valor
-	end
-
 	def facturado_pesos
 		self.tar_facturaciones.map {|factn| factn.monto_pesos}.sum
 	end
@@ -212,16 +178,10 @@ class Causa < ApplicationRecord
 
     # ****************************************************
 
+    # Revisar uso
     def st_modelo
     	StModelo.find_by(st_modelo: self.class.name)
     end
-
-	# Hasta aqui revisado!
-
-	# DEPRECATED
-	def valores
-		TarValor.where(owner_class: self.class.name, owner_id: self.id)
-	end
 
 	def tarifas_cliente
 		self.cliente.tarifas
@@ -234,14 +194,6 @@ class Causa < ApplicationRecord
 	def monto_pagado_uf(pago)
 		uf = self.uf_calculo_pago(pago)
 		(uf.blank? or self.monto_pagado.blank?) ? 0 : self.monto_pagado / uf.valor
-	end
-
-	def as_owner
-		self.causa
-	end
-
-	def d_id
-		self.rit.blank? ? ( self.rol.blank? ? self.identificador : "#{self.rol} : #{self.era}") : self.rit
 	end
 
 	# /legal/app/views/causas/list/_monto_pagado.html.erb:
