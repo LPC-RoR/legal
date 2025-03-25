@@ -2,7 +2,7 @@
 <% ordr ||= false %>
 <% crud ||= nil %>
 <% indnt ||= 0 %>
-<div class="row gx-1" style="font-size: 15px;">
+<div class="row gx-1" style="font-size: 15px;" id="<%=cntrllr(objt)%>#cid<%=objt.id%>">
 	<% if ordr %>
 		<div class=" col-2 app_lnk" style="padding-left: <%=indnt+1%>rem;">
 			<%= render partial: '0p/tbl/ordr', locals: {objeto: objt} %>

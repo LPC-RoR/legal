@@ -4,14 +4,13 @@ class KrnDenunciante < ApplicationRecord
 	belongs_to :krn_empresa_externa, optional: true
 	belongs_to :krn_empleado, optional: true
 
-	has_many :notas, as: :ownr
-
 	has_many :ctr_registros, as: :ownr
 
 	has_many :rep_archivos, as: :ownr
+	has_many :notas, as: :ownr
+
 	has_many :krn_declaraciones, as: :ownr
 	has_many :krn_testigos, as: :ownr
-	has_many :valores, as: :ownr
 
 	delegate :rut, to: :krn_empresa_externa, prefix: true
 	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true

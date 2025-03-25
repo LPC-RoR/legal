@@ -4,26 +4,6 @@
 	<%= render partial: prtl_name('age_actividades', 'indx', 'new_list'), locals: {ownr: objeto} %>
 <% end %>
 
-<%#= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'age_actividades', ttl: 'Actividades', ownr: nil} %>
-
-<% if objeto.class.name == 'Causa' and operacion? %>
-	<% unless @audiencias_pendientes.empty? %>
-		<% @audiencias_pendientes.each do |pendiente| %>
-			<%= render layout: '0p/collapse/display', locals: {label: pendiente.split(' ').join('_'), objeto: nil} do %>
-				<%= render partial: 'actividades/shr/form_actividad', locals: {tipo: 'A', causa_id: objeto.id, cu: 'c', audiencia: pendiente } %>
-			<% end %>
-		<% end %>
-	<% end %>
-<% end %>
-
-<% ['Hito', 'Reunión', 'Tarea'].each do |tipo| %>
-	<% unless ['Reunión', 'Tarea'].include?(tipo) and finanzas? and not admin? %>
-		<%= render layout: '0p/collapse/display', locals: {label: tipo, objeto: nil} do %>
-			<%= render partial: 'actividades/shr/form_actividad', locals: {tipo: tipo[0], causa_id: objeto.id, cu: 'c', audiencia: nil } %>
-		<% end %>
-	<% end %>
-<% end %>
-
 <% @coleccion['age_actividades'].each do |age_actividad| %>
 	<% unless (['realizada', 'cancelada'].include?(age_actividad.estado) or (age_actividad.fecha.present? and age_actividad.fecha < Time.zone.today)) %>
 		<%= render partial: 'actividades/age_actividades/list/objeto', locals: {objeto: age_actividad} %>

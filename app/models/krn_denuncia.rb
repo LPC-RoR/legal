@@ -18,7 +18,6 @@ class KrnDenuncia < ApplicationRecord
 #	belongs_to :krn_investigador, optional: true
 
 	has_many :rep_archivos, as: :ownr
-	has_many :valores, as: :ownr
 	has_many :notas, as: :ownr
 
 	has_many :ctr_registros, as: :ownr

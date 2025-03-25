@@ -1,0 +1,13 @@
+<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/servicios/auditoria?oid=#{objeto.id}", tltp: 'Reporte Auditoría' } do %>
+	<i class="bi bi-file-pdf"></i>
+<% end %>
+
+<%= render layout: '0p/layout/tooltip_link', locals: {link: "/cuentas/#{objeto.id}/cdnncs", tooltip: 'Cuenta del Cliente' } do %>
+	<i class="bi bi-collection"></i>
+<% end %>
+
+<% if operacion? %>
+	<i class="bi bi-dot"></i>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text'} %>
+	<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} %>
+<% end %>

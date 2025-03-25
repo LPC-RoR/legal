@@ -7,7 +7,7 @@
 
 <i class="bi bi-dot"></i>
 <!-- CAMBIO DE ESTADO -->
-<% unless ['Audiencia', 'Hito'].include?(objeto.tipo)  or (objeto.fecha < @hoy) %>
+<% unless ['Audiencia', 'Hito'].include?(objeto.tipo)  or (objeto.fecha < dt_hoy) %>
 
     <% unless objeto.estado == 'realizada' %>
     	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=realizada", tooltip: 'Marcar como realizada'} do %>

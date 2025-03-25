@@ -1,7 +1,7 @@
 class CausasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy rsltd estmcn cambio_estado procesa_registros actualiza_pago agrega_valor elimina_valor add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd swtch_urgencia swtch_pendiente ]
+  before_action :set_causa, only: %i[ show edit update destroy cambio_estado rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -50,32 +50,20 @@ class CausasController < ApplicationController
   def show
 
     set_st_estado(@objeto)
-
     set_tab( :menu, ['General', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Demanda', dog?]] )
 
     # Prueba de Docsplit
 
     case @options[:menu]
     when 'General'
-      @hoy = Time.zone.today
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
       @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
 
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
-
-
-      actividades_causa = @objeto.age_actividades.adncs.map {|act| act.age_actividad}
-      @audiencias_pendientes = @objeto.tipo_causa.audiencias.map {|audiencia| audiencia.audiencia unless (audiencia.tipo == 'Única' and actividades_causa.include?(audiencia.audiencia))}.compact
-
       set_tabla('notas', @objeto.notas.rlzds, false)
       set_tabla('monto_conciliaciones', @objeto.monto_conciliaciones.ordr_fecha, false)
       set_tabla('estados', @objeto.estados.ordr_dfecha, false)
       set_tabla('app_archivos', @objeto.as, false)
-      @a_pendientes = @objeto.archivos_pendientes
-
-      # Cuantía
-      @cuantia_tarifa = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
-      @tarifa_requiere_cuantia = @objeto.tar_tarifa.blank? ? false : @objeto.tar_tarifa.cuantia_tarifa
 
     when 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), false)
@@ -258,17 +246,6 @@ class CausasController < ApplicationController
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
   end
 
-  # se utiliza para Clases que manejan estados porque se declaró el modelo
-  def cambio_estado
-    StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
-
-    @objeto.estado = params[:st]
-    @objeto.save
-
-#    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
-    redirect_to "/causas/#{@objeto.id}"
-  end
-
   def procesa_registros
     registros_proceso = @objeto.registros.where(estado: 'ingreso')
     unless registros_proceso.empty?
@@ -285,58 +262,6 @@ class CausasController < ApplicationController
 
     redirect_to "/causas/#{@objeto.id}?html_options[tab]=Reportes"
     
-  end
-
-  def actualiza_pago
-    unless params[:monto_pagado][:monto].blank?
-      @objeto.monto_pagado = params[:monto_pagado][:monto]
-      @objeto.save
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Tarifa+%26+Pagos"
-  end
-
-  def agrega_valor
-    variable = Variable.find(params[:vid])
-
-    valor = @objeto.valores_datos.find_by(variable_id: variable.id)
-
-    case variable.tipo
-    when 'Texto'
-      if valor.blank?
-        Valor.create(owner_class: 'Causa', owner_id: @objeto.id, variable_id: variable.id, c_string: params[:form_valor][:c_texto])
-      else
-        valor.c_string = params[:form_valor][:c_texto]
-      end
-    when 'Párrafo'
-      if valor.blank?
-        Valor.create(owner_class: 'Causa', owner_id: @objeto.id, variable_id: variable.id, c_parrafo: params[:form_valor][:c_parrafo])
-      else
-        valor.c_parrafo = params[:form_valor][:c_parrafo]
-      end
-    else
-      if ['Número', 'Monto pesos', 'Monto UF'].include?(variable.tipo)
-        if valor.blank?
-          Valor.create(owner_class: 'Causa', owner_id: @objeto.id, variable_id: variable.id, c_numero: params[:form_valor][:c_numero])
-        else
-          valor.c_numero = params[:form_valor][:c_numero].to_f 
-        end
-      end
-    end
-
-    valor.save unless valor.blank?
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Datos & Cuantía')}"
-  end
-
-  def elimina_valor
-    variable = Variable.find(params[:vid])
-    unless variable.blank?
-      valor = @objeto.valores_datos.find_by(variable_id: variable.id)
-      valor.delete unless valor.blank?
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Datos & Cuantía')}"
   end
 
   # Manegos de TarUfFacturacion
@@ -365,6 +290,17 @@ class CausasController < ApplicationController
     tar_uf_facturacion.delete
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}"
+  end
+
+  # se utiliza para Clases que manejan estados porque se declaró el modelo
+  def cambio_estado
+    StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
+
+    @objeto.estado = params[:st]
+    @objeto.save
+
+#    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
+    redirect_to "/causas/#{@objeto.id}"
   end
 
   # DELETE /causas/1 or /causas/1.json

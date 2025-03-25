@@ -32,7 +32,6 @@ Rails.application.routes.draw do
     resources :hechos
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
-    match :actualiza_pago, via: :post, on: :member
     match :traer_archivos_cuantia, via: :get, on: :member
     match :crea_archivo_controlado, via: :get, on: :member
     match :input_nuevo_archivo, via: :post, on: :member
@@ -43,17 +42,12 @@ Rails.application.routes.draw do
     match :hchstowrd, via: :get, on: :member, format: 'docx'
     match :ntcdntstowrd, via: :get, on: :member, format: 'docx'
     # ultima version
-    match :agrega_valor, via: :post, on: :member
-    match :elimina_valor, via: :get, on: :member
     match :add_uf_facturacion, via: :post, on: :member
     match :del_uf_facturacion, via: :get, on: :member
-    match :swtch_pendiente, via: :get, on: :member
-    match :swtch_urgencia, via: :get, on: :member
     match :rsltd, via: :post, on: :member
     match :estmcn, via: :post, on: :member
   end
   resources :clientes do
-    match :add_rcrd, via: :get, on: :member
     match :cambio_estado, via: :get, on: :member
     match :swtch_pendiente, via: :get, on: :member
     match :swtch_urgencia, via: :get, on: :member

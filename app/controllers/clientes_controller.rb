@@ -1,7 +1,7 @@
 class ClientesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura add_rcrd swtch_urgencia swtch_pendiente swtch_prprty ]
+  before_action :set_cliente, only: %i[ show edit update destroy cambio_estado crea_factura aprueba_factura swtch_urgencia swtch_pendiente swtch_prprty ]
   after_action :rut_puro, only: %i[ create update ]
 
 #  include Bandejas
@@ -36,20 +36,17 @@ class ClientesController < ApplicationController
 
   # GET /clientes/1 or /clientes/1.json
   def show
+
+    set_st_estado(@objeto)
+    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Productos', dog?]] )
+
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
     @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
 
-    set_st_estado(@objeto)
-
-    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Productos', dog?]] )
-
     if @options[:menu] == 'General'
 
-      @hoy = Time.zone.today
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
-
       set_tabla('app_archivos', @objeto.as, false)
-      @a_pendientes = @objeto.archivos_pendientes
 
     elsif @options[:menu] == 'Causas'
 
@@ -168,17 +165,6 @@ class ClientesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def add_rcrd
-    if params[:v_nm].present?
-      chld = Variable.find_by(variable: params[:v_nm].split('_').join(' '))
-      unless chld.blank?
-        @objeto.variables << chld
-      end
-    end
-
-    redirect_to '/clientes'
   end
 
   # se utiliza para Clases que manejan estados porque se declaró el modelo

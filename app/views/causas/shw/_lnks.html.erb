@@ -1,3 +1,7 @@
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/causas#causa_#{@objeto.id}", tltp: 'Volver a la línea'} do %>
+	<i class="bi bi-box-arrow-in-left"></i>
+<% end %>
+
 <% if controller_name == 'causas' %>
 	<%= link_to "/clientes/#{objeto.cliente.id}?html_options[menu]=Causas" do %>
 		<i class="bi bi-building"></i>
