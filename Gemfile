@@ -13,17 +13,24 @@ gem 'sqlite3', '~> 1.4', platform: :ruby
 
 
 # FrontEnd
+# Lo necesito para las gemas que usan sprockets
+gem 'sprockets-rails'
 gem 'bootstrap', '~> 5.3.3'
-gem 'dartsass-sprockets'
-#gem 'sass-rails', '~> 5.0'        # Use SCSS for stylesheets
-gem 'uglifier'                    # Compresor de Javascript
-#gem 'coffee-rails', '~> 4.2'      # Use CoffeeScript for .coffee assets and views
-gem 'turbolinks', '~> 5.2.0'      # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'jbuilder'                    # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'execjs'
+gem "dartsass-rails", "~> 0.5.1"
+#gem 'dartsass-sprockets'
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-#gem "propshaft"
+gem "propshaft"
+#gem 'uglifier'                    # Compresor de Javascript reemplazada por la de arriba
+
+#gem 'coffee-rails', '~> 4.2'      # Use CoffeeScript for .coffee assets and views
+
+gem "turbo-rails"
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+#gem 'turbolinks', '~> 5.2.0'      # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+
+gem 'jbuilder'                    # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'execjs'
 
 # Autenticación y autorización
 gem 'devise'
