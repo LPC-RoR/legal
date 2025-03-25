@@ -14,7 +14,7 @@ gem 'sqlite3', '~> 1.4', platform: :ruby
 
 # FrontEnd
 # Lo necesito para las gemas que usan sprockets
-gem 'sprockets-rails'
+#gem 'sprockets-rails'
 gem 'bootstrap', '~> 5.3.3'
 gem "dartsass-rails", "~> 0.5.1"
 #gem 'dartsass-sprockets'
