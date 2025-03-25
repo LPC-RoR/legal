@@ -14,21 +14,7 @@ class Csc::EstadosController < ApplicationController
 
   # GET /estados/new
   def new
-    @objeto = Estado.new
-  end
-
-  def nuevo
-    causa = Causa.find(params[:cid])
-    f_prms = params[:nuevo_estado]
-      unless f_prms[:estado].blank? or causa.blank?
-      annio = f_prms['fecha(1i)'].blank? ? hoy.year : f_prms['fecha(1i)']
-      mes = f_prms['fecha(2i)'].blank? ? hoy.month : f_prms['fecha(2i)']
-      dia = f_prms['fecha(3i)']
-      fecha = Time.zone.parse("#{dia}-#{mes}-#{annio} 00:00")
-      causa.estados.create(fecha: fecha, link: f_prms[:link], estado: f_prms[:estado])
-    end
-
-    redirect_to "/causas#cid_#{causa.id}"    
+    @objeto = Estado.new(causa_id: params[:oid])
   end
 
   # GET /estados/1/edit
@@ -41,8 +27,8 @@ class Csc::EstadosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Estado fue exitósamente creado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Estado fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -55,8 +41,8 @@ class Csc::EstadosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(estado_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Estado fue exitósamente actualizado." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Estado fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,11 +53,11 @@ class Csc::EstadosController < ApplicationController
 
   # DELETE /estados/1 or /estados/1.json
   def destroy
-    set_redireccion
+    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Estado fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Estado fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -82,8 +68,8 @@ class Csc::EstadosController < ApplicationController
       @objeto = Estado.find(params[:id])
     end
 
-    def set_redireccion
-      @redireccion = "/causas#cid_#{@objeto.causa.id}"
+    def get_rdrccn
+      @rdrccn = "/causas/#{@objeto.causa.id}"
     end
 
     # Only allow a list of trusted parameters through.

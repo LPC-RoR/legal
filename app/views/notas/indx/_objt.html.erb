@@ -1,1 +1,5 @@
-Notas del usuario <%= @usuario.age_usuario %>
+<% if controller_name == 'causas' %>
+	Notas no realizadas
+<% else %>
+	Notas del usuario <%= @usuario.age_usuario %>
+<% end %>

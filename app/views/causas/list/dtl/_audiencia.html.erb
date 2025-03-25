@@ -1,10 +1,16 @@
-<% unless objeto.fecha_audiencia.blank? %>
-	<div class="row px-3 pb-1 gx-1" style="font-size: 13px;line-height: 1.2;">
+<div class="px-3" style="font-size: 13px; line-height: 1.2;">
+	<%= objeto.tribunal_corte.tribunal_corte %>
+</div>
+<%# unless objeto.fecha_audiencia.blank? %>
+	<div class="row px-3 pb-1 gx-1 text-<%=objeto.fecha_audiencia.blank? ? 'danger' : 'primary'%>" style="font-size: 13px;line-height: 1.2;">
 		<div class="col">
-			<%= objeto.audiencia %>
+			<% if objeto.fecha_audiencia.blank? %>
+				<i class="bi bi-cone-striped text-danger"></i>
+			<% end %>
+			<%= objeto.fecha_audiencia.blank? ? 'Sin audiencias' : objeto.audiencia %>
 		</div>
 		<div class="col text-end">
-			<%= dma(objeto.fecha_audiencia) %>
+			<%= dma(objeto.fecha_audiencia) unless objeto.fecha_audiencia.blank? %>
 		</div>
 	</div>
-<% end %>
+<%# end %>

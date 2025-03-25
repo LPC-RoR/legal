@@ -1,18 +1,4 @@
 <div class="app_lnks">
-	<b><%= objeto.tribunal_corte.tribunal_corte %></b>
-	<% unless objeto.agenda.empty? %>
-		<% objeto.agenda.each do |elem| %>
-			<div class="ln_app">
-				<div class="ln_nm">
-					<%= elem.age_actividad %>
-				</div>
-				<div class="ln_lnks">
-					<%= dma(elem.fecha) %>
-				</div>
-			</div>
-		<% end %>
-	<% end %>
-	<hr>
 	<% if finanzas? and objeto.tar_facturaciones.any? %>
 		<div class="pago">
 			<% objeto.tar_facturaciones.order(:created_at).each do |facturacion| %>

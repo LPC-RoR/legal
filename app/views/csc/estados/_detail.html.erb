@@ -1,8 +1,7 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :fecha, label: 'Fecha' } %>
-<%= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %>
+<%= render partial: '0p/lbld_inpts/date', locals: { form: form, token: :fecha, label: 'Fecha' } %>
+<%#= render partial: '0p/form_fields/date', locals: { form: form, token: :fecha } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :link, label: 'Link' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :link } %>
+<%= render partial: '0p/lbld_inpts/text_area', locals: { form: form, token: :estado, label: 'Estado' } %>
+<%#= render partial: '0p/form_fields/text_area', locals: { form: form, token: :estado } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :estado, label: 'Estado' } %>
-<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :estado } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :causa_id } %>

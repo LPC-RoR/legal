@@ -227,12 +227,8 @@ Rails.application.routes.draw do
     resources :secciones
 
     resources :demandantes
-    resources :monto_conciliaciones do
-      match :nuevo, via: :post, on: :collection
-    end
-    resources :estados do
-      match :nuevo, via: :post, on: :collection
-    end
+    resources :monto_conciliaciones
+    resources :estados
     resources :tribunal_cortes
   end
 

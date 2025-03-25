@@ -8,8 +8,8 @@
 <% when 'General' %>
 	<%= render partial: prtl_name('causas', 'shw/general', 'vw_dnnc'), locals: {objeto: @objeto} %>
 	<%= render partial: prtl_name('causas', 'shw/general', 'cuantia'), locals: {objeto: @objeto} %>
-	<%#= render partial: prtl_name('causas', 'shw/general', 'rcrss'), locals: {objeto: @objeto} %>
 	<%= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
+	<%= render partial: prtl_name('causas', 'shw/general', 'rcrss'), locals: {objeto: @objeto} %>
 
 <% when 'Hechos' %>
 	<%= render partial: 'causas/shw/hechos/ndx_hechos', locals: {objeto: @objeto} %>

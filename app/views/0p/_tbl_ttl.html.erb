@@ -13,5 +13,5 @@
 <% if source == 'error' %>
 	<%= render partial: '0p/gnrl/errr_msg', locals: {ttl: 'Error: falta de perámetros en partial!', dscrptn: "0p/tbl_ttl: falta parámetro 'source'", hnt: "Agregar source"} %>
 <% else %>
-	<%= render partial: '0p/tbl/tbl', locals: {source: str_cntrllr(source), typ: typ, ordr: ordr, crud: crud} %>
+	<%= render partial: '0p/tbl/tbl', locals: {source: str_cntrllr(source), typ: typ, ordr: ordr, crud: crud}  %>
 <% end %>

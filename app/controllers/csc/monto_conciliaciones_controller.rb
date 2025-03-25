@@ -16,22 +16,7 @@ class Csc::MontoConciliacionesController < ApplicationController
 
   # GET /monto_conciliaciones/new
   def new
-    @objeto = MontoConciliacion.new
-  end
-
-  def nuevo
-    causa = Causa.find(params[:cid])
-    f_prms = params[:monto_conciliacion]
-
-    annio = f_prms['fecha(1i)'].blank? ? hoy.year : f_prms['fecha(1i)']
-    mes = f_prms['fecha(2i)'].blank? ? hoy.month : f_prms['fecha(2i)']
-    dia = f_prms['fecha(3i)']
-    fecha = Time.zone.parse("#{dia}-#{mes}-#{annio} 00:00")
-    unless f_prms.blank? or causa.blank?
-      causa.monto_conciliaciones.create(fecha: fecha, tipo: f_prms[:tipo], monto: f_prms[:monto])
-    end
-
-    redirect_to "/causas#cid_#{causa.id}"
+    @objeto = MontoConciliacion.new(causa_id: params[:oid])
   end
 
   # GET /monto_conciliaciones/1/edit
@@ -45,7 +30,7 @@ class Csc::MontoConciliacionesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Monto conciliacion was successfully created." }
+        format.html { redirect_to @redireccion, notice: "Monto fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,7 +44,7 @@ class Csc::MontoConciliacionesController < ApplicationController
     respond_to do |format|
       if @objeto.update(monto_conciliacion_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Monto conciliacion was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "Monto fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,7 +59,7 @@ class Csc::MontoConciliacionesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Monto conciliacion was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "Monto fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -94,7 +79,7 @@ class Csc::MontoConciliacionesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = "/causas#cid_#{@objeto.causa.id}"
+      @redireccion = "/causas/#{@objeto.causa.id}"
     end
 
     # Only allow a list of trusted parameters through.

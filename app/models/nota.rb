@@ -6,8 +6,7 @@ class Nota < ApplicationRecord
 	has_many :age_usu_notas
 	has_many :age_usuarios, through: :age_usu_notas
 
-#	def perfil
-#		AppPerfil.find(self.perfil_id)
-#	end
+	scope :no_rlzds, -> { where(realizado: [false, nil]) }
+	scope :rlzds, -> { where(realizado: true) }
 
 end
