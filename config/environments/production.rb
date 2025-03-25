@@ -31,6 +31,9 @@ Rails.application.configure do
   config.assets.compile = false
   config.assets.cache = true
 
+  config.assets.prefix = '/assets'
+  config.assets.resolve_assets_in_css_urls = true
+
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
