@@ -1,7 +1,8 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
+import "turbo_init"
 import "controllers"
-import { Turbo } from "@hotwired/turbo-rails"
+//import { Turbo } from "@hotwired/turbo-rails"
 
 // Debugging de carga de Turbo
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,8 +14,4 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('2. Preload en importmap.rb')
     console.error('3. Errores en la consola')
   }
-})
-
-$(document).on("turbo:load", () => {
-  console.log("ON TURBOOOO!")
 })
