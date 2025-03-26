@@ -1,5 +1,7 @@
 {
   "name": "legal",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@hotwired/turbo-rails": "^8.0.13"
+  }
 }

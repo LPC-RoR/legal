@@ -1,7 +1,6 @@
 class Aplicacion::PublicosController < ApplicationController
-  before_action :authenticate_usuario!, only: %i[ home2 encuesta preguntas ]
+  before_action :authenticate_usuario!, only: %i[ encuesta preguntas ]
   before_action :scrty_on, only: %i[ home home_prueba encuesta preguntas ]
-  before_action :set_publico, only: %i[ show edit update destroy ]
   before_action :inicia_sesion, only: [:home]
 
   # GET /publicos or /publicos.json
@@ -204,11 +203,6 @@ class Aplicacion::PublicosController < ApplicationController
         @cuestionario = @pauta.cuestionarios.find_by(orden: @cuestionario.orden + 1)
         @cuestionario.blank? ? nil : @cuestionario.first
       end
-    end
-
-    # Use callbacks to share common setup or constraints between actions.
-    def set_publico
-      @objeto = Publico.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

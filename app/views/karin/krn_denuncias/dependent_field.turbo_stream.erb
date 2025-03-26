@@ -1,0 +1,7 @@
+<!-- app/views/your_controller/dependent_field.turbo_stream.erb -->
+<% container_id = "dependent-#{@field_name}-container" %>
+<% partial_name = "dependent_#{@field_name}" %>
+
+<%= turbo_stream.replace container_id do %>
+  <%= render partial_name, form: form_for(@your_model), main_value: @field_value %>
+<% end %>

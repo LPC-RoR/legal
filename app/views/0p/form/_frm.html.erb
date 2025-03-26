@@ -1,4 +1,5 @@
-<%= form_with(model: objeto, local: false) do |form| %>
+<%= data ||= nil %>
+<%= form_with(model: objeto, local: false, data: data) do |form| %>
 
   <% if objeto.errors.any? %>
   <div id="error_explanation">

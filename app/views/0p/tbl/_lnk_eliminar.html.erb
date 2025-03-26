@@ -1,5 +1,15 @@
 <% if not has_child?(objeto) %>
-	<%= link_to objeto, method: :delete, data: { confirm: 'Está seguro?'}, title: 'Eliminar', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+	<%#= link_to objeto, method: :delete, data: { confirm: 'Está seguro?'}, title: 'Eliminar', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+		<!--i class=<%#="bi-trash"%>></i-->
+	<%# end %>
+
+	<%= button_to objeto, 
+	    method: :delete, 
+	    form_class: "inline-form",
+	    data: { confirm: 'Está seguro?'},
+	#    form: { "data-turbo": "false" }, 
+	    class: "no_btn"  do %>
 		<i class=<%="bi-trash"%>></i>
 	<% end %>
+
 <% end %>

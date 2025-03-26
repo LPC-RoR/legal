@@ -11,23 +11,24 @@ gem 'stringio', '3.1.1'
 gem 'pg'
 gem 'sqlite3', '~> 1.4', platform: :ruby
 
-
 # FrontEnd
-# Lo necesito para las gemas que usan sprockets
-#gem 'sprockets-rails'
 gem 'bootstrap', '~> 5.3.3'
 gem "dartsass-rails", "~> 0.5.1"
-#gem 'dartsass-sprockets'
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-#gem 'uglifier'                    # Compresor de Javascript reemplazada por la de arriba
 
 #gem 'coffee-rails', '~> 4.2'      # Use CoffeeScript for .coffee assets and views
 
 gem "turbo-rails"
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem "importmap-rails"
+
+# Gemfile para evitar conflicto de los :delete
+#gem 'rails-ujs'
+
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-#gem 'turbolinks', '~> 5.2.0'      # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem "stimulus-rails"
 
 gem 'jbuilder'                    # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'execjs'

@@ -31,6 +31,18 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
+  def tipo_declaracion_field
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          'tipo-declaracion-container',
+          partial: 'tipo_declaracion_field',
+          locals: { form: form_for(Declaracion.new) }
+        )
+      end
+    end
+  end
+
   # GET /krn_denuncias/1/edit
   def edit
   end

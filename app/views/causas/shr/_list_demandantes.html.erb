@@ -7,8 +7,6 @@
 			<% end %>
 		</div>
 	<% else %>
-		<div class="objt">
-			<small class="text-danger"><i class="bi bi-cone-striped"></i>No se pueden ingresar cuantías hasta tener al menos un demandante.</small>
-		</div>
+		<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'No se pueden ingresar cuantías hasta tener al menos un demandante.'} %>
 	<% end %>
 </div>

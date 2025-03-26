@@ -10,10 +10,28 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require popper
 //= require bootstrap-sprockets
 //= require chartkick
 //= require Chart.bundle
+
+import "@hotwired/turbo-rails" // Asegúrate de que esto esté presente
+import "./controllers"
+
+// Agrega esto temporalmente en application.js
+document.addEventListener('turbo:load', () => {
+  console.log('Turbo está cargado?', window.Turbo ? 'Sí' : 'No')
+})
+
+// Debugging de carga de Turbo
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Turbo disponible:', typeof Turbo !== 'undefined')
+  
+  if (typeof Turbo === 'undefined') {
+    console.error('Turbo no se cargó correctamente. Verifica:')
+    console.error('1. Importación en application.js')
+    console.error('2. Preload en importmap.rb')
+    console.error('3. Errores en la consola')
+  }
+})

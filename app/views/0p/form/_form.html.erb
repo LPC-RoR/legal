@@ -1,9 +1,11 @@
+<% data ||= nil %>
+
 <div class="form-box">
 	<%= render partial: '0p/form/header', locals: {text: m_to_name(@objeto.class.name), size: config[:font_size][:title]} %>
 </div>
 
 <div class="form-box">
-	<%= form_with(model: @objeto, local: true) do |form| %>
+	<%= form_with(model: @objeto, local: true, data: data) do |form| %>
 		<% if @objeto.errors.any? %>
 		<div id="error_explanation">
 			<h4 class='text-warning'><%= @objeto.errors.count %> <%= @objeto.errors.count == 1 ? 'error' : 'errores' %> evitan que este registro sea grabado:</h4>

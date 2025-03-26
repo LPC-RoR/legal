@@ -57,3 +57,22 @@
 	line-height: 1.2;
 	font-size: 16px;
 }
+
+.no_btn {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  color: cnfg.$pltt_2;
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}
+
+.no_btn:hover {
+  color: gray;
+  text-decoration: underline;
+}
+
+.inline-form {
+  display: inline;
+}

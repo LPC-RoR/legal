@@ -138,6 +138,7 @@ Rails.application.routes.draw do
       match :prg, via: :get, on: :member
       # ruta para manejo de panels
       match :cndtnl_via_declaracion, via: :get, on: :collection
+      match :tipo_declaracion_field, via: :get, on: :collection
     end
 
     resources :krn_derivaciones

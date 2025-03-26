@@ -9,15 +9,27 @@
 		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :motivo_denuncia, colection: KrnDenuncia::MOTIVOS, label: 'Motivo de la denuncia' } %>
 	</div>
 	<div class="col-lg-3 col-xs-12">
-		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :receptor_denuncia, colection: rcptr_lst(@objeto.ownr_krn_formato), label: 'Receptor de la denuncia' } %>
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :receptor_denuncia, colection: rcptr_lst(@objeto.ownr_krn_formato), label: 'Receptor de la denuncia', tdata: { action: "change-dynamic-dnnc#toggleKrnEmpresaExternaId", dynamic_form_target: "receptorDenuncia"} } %>
 	</div>
 	<div class="col-lg-3 col-xs-12">
-		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :via_declaracion, sel_list: KrnDenuncia::VIAS_DENUNCIA, label: 'Canal de denuncia', id: 'canal' } %>
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :via_declaracion, sel_list: KrnDenuncia::VIAS_DENUNCIA, label: 'Canal de denuncia', tdata: { action: "change-dynamic-dnnc#toggleTipoDeclaracion", dynamic_form_target: "viaDeclaracion" } } %>
 	</div>
 	<div class="col-lg-3">
-		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :presentado_por, colection: KrnDenuncia::TIPOS_DENUNCIANTE, label: 'Quien denuncia' } %>
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :presentado_por, sel_list: KrnDenuncia::TIPOS_DENUNCIANTE, label: 'Quien denuncia', tdata: { action: "change-dynamic-dnnc#toggleRepresentante", dynamic_form_target: "presentadoPor" } } %>
 	</div>
 
+</div>
+
+<div id="krn-empresa-externa-id-container" class="<%= 'd-none' unless @objeto.receptor_denuncia == 'Empresa externa' %>">
+  <%= render "krn_empresa_externa_id", form: form %>
+</div>
+
+<div id="tipo-declaracion-container" class="<%= 'd-none' unless @objeto.via_declaracion == 'Presencial' %>">
+  <%= render "tipo_declaracion", form: form %>
+</div>
+
+<div id="representante-container" class="<%= 'd-none' unless @objeto.presentado_por == 'Representante' %>">
+  <%= render "representante", form: form %>
 </div>
 
 <!-- Usado para pruebas de Javascript -->
