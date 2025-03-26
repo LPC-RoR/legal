@@ -1,7 +1,7 @@
 class Aplicacion::AppRecursosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :inicia_sesion, only: [:administracion, :procesos, :home]
+  before_action :inicia_sesion, only: [:procesos]
 
   include Tarifas
 
@@ -15,9 +15,6 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def usuarios
     set_tabla('usuarios', Usuario.all, true)
-  end
-
-  def administracion
   end
 
   def procesos

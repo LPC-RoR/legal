@@ -36,7 +36,7 @@ class Karin::KrnDenunciasController < ApplicationController
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
           'tipo-declaracion-container',
-          partial: 'tipo_declaracion_field',
+          partial: 'tipo_declaracion',
           locals: { form: form_for(Declaracion.new) }
         )
       end

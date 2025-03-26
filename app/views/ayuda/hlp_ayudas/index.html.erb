@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Hlp ayudas" %>
+
+<h1>Hlp ayudas</h1>
+
+<div id="hlp_ayudas">
+  <% @hlp_ayudas.each do |hlp_ayuda| %>
+    <%= render hlp_ayuda %>
+    <p>
+      <%= link_to "Show this hlp ayuda", hlp_ayuda %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New hlp ayuda", new_hlp_ayuda_path %>

@@ -60,6 +60,11 @@ Rails.application.routes.draw do
 
 # SCOPES *********************************************************
 
+  scope module: 'ayuda' do
+    resources :hlp_notas
+    resources :hlp_ayudas
+  end
+
   scope module: 'producto' do
     resources :productos do
       match :agrega_producto, via: :get, on: :member

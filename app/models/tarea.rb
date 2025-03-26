@@ -5,6 +5,7 @@ class Tarea < ApplicationRecord
 	has_many :ctr_registros
 	has_many :rep_doc_controlados, as: :ownr
 	has_many :variables, as: :ownr
+	has_many :hlp_ayudas, as: :ownr
 
 	scope :ordr, -> {order(:orden)}
 

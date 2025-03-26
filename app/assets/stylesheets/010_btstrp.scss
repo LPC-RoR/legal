@@ -58,21 +58,12 @@
 	font-size: 16px;
 }
 
-.no_btn {
-  background: none!important;
-  border: none;
-  padding: 0!important;
-  color: cnfg.$pltt_2;
-  text-decoration: underline;
-  cursor: pointer;
-  font: inherit;
+// Manejo de lo :hover de los dropdowns
+.dropdown-menu .dropdown-item {
+    transition: all 0.3s ease; /* Transición para efectos suaves */
 }
-
-.no_btn:hover {
-  color: gray;
-  text-decoration: underline;
-}
-
-.inline-form {
-  display: inline;
+.dropdown-menu .dropdown-item:hover {
+    background: linear-gradient(90deg, cnfg.pltt_1, cnfg.pltt_9) !important;
+    color: white !important;
+    padding-left: 20px; /* Desplaza el texto */
 }

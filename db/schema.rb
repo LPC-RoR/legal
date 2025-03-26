@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_24_212336) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_26_173205) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -649,6 +649,32 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_24_212336) do
     t.index ["st_contestacion"], name: "index_hechos_on_st_contestacion"
     t.index ["st_preparatoria"], name: "index_hechos_on_st_preparatoria"
     t.index ["tema_id"], name: "index_hechos_on_tema_id"
+  end
+
+  create_table "hlp_ayudas", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.string "hlp_ayuda"
+    t.string "texto"
+    t.string "referencia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ownr_id"], name: "index_hlp_ayudas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_hlp_ayudas_on_ownr_type"
+  end
+
+  create_table "hlp_notas", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.integer "orden"
+    t.string "hlp_nota"
+    t.string "texto"
+    t.string "referencia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orden"], name: "index_hlp_notas_on_orden"
+    t.index ["ownr_id"], name: "index_hlp_notas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_hlp_notas_on_ownr_type"
   end
 
   create_table "k_sesiones", force: :cascade do |t|

@@ -2,6 +2,7 @@ class CtrPaso < ApplicationRecord
 	belongs_to :tarea
 
 	has_many :ctr_registros
+	has_many :hlp_ayudas, as: :ownr
 
 	scope :ordr, -> { order(:orden) }
 

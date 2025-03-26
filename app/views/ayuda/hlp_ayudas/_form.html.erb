@@ -1,0 +1,42 @@
+<%= form_with(model: hlp_ayuda) do |form| %>
+  <% if hlp_ayuda.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(hlp_ayuda.errors.count, "error") %> prohibited this hlp_ayuda from being saved:</h2>
+
+      <ul>
+        <% hlp_ayuda.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :ownr_type, style: "display: block" %>
+    <%= form.text_field :ownr_type %>
+  </div>
+
+  <div>
+    <%= form.label :ownr_id, style: "display: block" %>
+    <%= form.number_field :ownr_id %>
+  </div>
+
+  <div>
+    <%= form.label :hlp_ayuda, style: "display: block" %>
+    <%= form.text_field :hlp_ayuda %>
+  </div>
+
+  <div>
+    <%= form.label :texto, style: "display: block" %>
+    <%= form.text_field :texto %>
+  </div>
+
+  <div>
+    <%= form.label :referencia, style: "display: block" %>
+    <%= form.text_field :referencia %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

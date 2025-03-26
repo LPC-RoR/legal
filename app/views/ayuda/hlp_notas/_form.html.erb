@@ -1,0 +1,47 @@
+<%= form_with(model: hlp_nota) do |form| %>
+  <% if hlp_nota.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(hlp_nota.errors.count, "error") %> prohibited this hlp_nota from being saved:</h2>
+
+      <ul>
+        <% hlp_nota.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :ownr_type, style: "display: block" %>
+    <%= form.text_field :ownr_type %>
+  </div>
+
+  <div>
+    <%= form.label :ownr_id, style: "display: block" %>
+    <%= form.number_field :ownr_id %>
+  </div>
+
+  <div>
+    <%= form.label :orden, style: "display: block" %>
+    <%= form.number_field :orden %>
+  </div>
+
+  <div>
+    <%= form.label :hlp_nota, style: "display: block" %>
+    <%= form.text_field :hlp_nota %>
+  </div>
+
+  <div>
+    <%= form.label :texto, style: "display: block" %>
+    <%= form.text_field :texto %>
+  </div>
+
+  <div>
+    <%= form.label :referencia, style: "display: block" %>
+    <%= form.text_field :referencia %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

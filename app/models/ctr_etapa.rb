@@ -2,6 +2,7 @@ class CtrEtapa < ApplicationRecord
 	belongs_to :procedimiento
 
 	has_many :tareas
+	has_many :hlp_ayudas, as: :ownr
 
 	scope :ordr, -> { order(:orden) }
 
