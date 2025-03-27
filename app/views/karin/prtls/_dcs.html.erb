@@ -3,7 +3,7 @@
 
 <table class="table table-sm table-borderless table-striped table-hover">
 	<tbody>
-		<% @proc[:fls_actv].each do |dc| %>
+		<% @fls_actv.each do |dc| %>
 			<% if fl_cndtn?(ownr, dc.codigo) or ownr.fl?(dc.codigo) %>
 				<% if dc.multiple == true %>
 					<%= render partial: '0p/proc/dcs', locals: {dc: dc, fls: ownr.fls(dc), ownr: ownr, trsh_cndtn: false} %>

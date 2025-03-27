@@ -14,26 +14,31 @@ module ProcControl
 		plz_env_rcpcn = dnnc.fecha_trmn? ? plz_lv(dnnc.fecha_trmn, 2) : plz_lv(fecha_legal, 32)
 		{
 			'etp_rcpcn'      => {
-				trmn:	(dnnc.fechas_invstgcn? and dnnc.chck_dvlcn?),
+				actv: true,
+				trmn:	(dnnc.rgstrs_ok? and dnnc.fechas_invstgcn? and dnnc.chck_dvlcn?),
 				plz: plz_lv(dnnc.fecha_hora, 3),
 				plz_ok: dnnc.fecha_trmtcn? ? plz_ok?( dnnc.fecha_trmtcn, plz_lv(dnnc.fecha_hora, 3) ) : nil,
 			},
 			'etp_invstgcn'   => {
+				actv: (dnnc.rgstrs_ok? and dnnc.fechas_invstgcn? and dnnc.chck_dvlcn?),
 				trmn:	dnnc.fecha_trmn?,
 				plz: plz_lv(fecha_legal, 30),
 				plz_ok: plz_ok?( dnnc.fecha_trmn, plz_lv(fecha_legal, 30)),
 			},
 			'etp_envio'      => {
+				actv: ((dnnc.fecha_trmn? or dnnc.on_dt?) and dnnc.chck_dvlcn?),
 				trmn: (dnnc.fecha_env_infrm? or dnnc.fecha_rcpcn_infrm?),
 				plz: plz_env_rcpcn,
 				plz_ok: plz_ok?( fecha_env_rcpcn, plz_env_rcpcn),
 			},
 			'etp_prnncmnt'   => {
+				actv: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
 				trmn: dnnc.fecha_prnncmnt?,
 				plz: plz_lv(dnnc.fecha_env_infrm, 30),
 				plz_ok: plz_ok?( dnnc.fecha_prnncmnt, plz_lv(dnnc.fecha_env_infrm, 30)),
 			},
 			'etp_mdds_sncns' => {
+				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
 				trmn: dnnc.crr_dnnc,
 				plz: plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15), 
 				plz_ok: plz_ok?( dnnc.fl_last_date('dnnc_mdds_sncns'), plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15)),
@@ -51,7 +56,7 @@ module ProcControl
 			},
 			'020_prtcpnts'    => {
 				# Ante teníamos true pero se saltaba 010_ingrs porque 020 aparecía como tarea activa de inmediato
-				actv: ownr != dnnc,
+				actv: (not dnnc.frms_ingrs?),
 				frms: dnnc.frms_ingrs?,
 			},
 			'030_drvcns'    => {
@@ -59,11 +64,13 @@ module ProcControl
 				frms: (dnnc.frms_drvcns?),
 			},
 			'050_crr'    => {
-				actv: (dnnc.rgstrs_ok? and (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or (dnnc.on_dt? and (not dnnc.solicitud_denuncia)))),
+				# No exigimos dnnc.rgstrs_ok? para activar el cierre, 
+				# pues al hacerlo nos quedamos en la tarea de derivación mostrando un mensaje que no tiene que ver con las derivaciones
+				actv: (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or (dnnc.on_dt? and (not dnnc.solicitud_denuncia))),
 				frms: (dnnc.frms_crr?),
 			},
 			'060_invstgdr'    => {
-				actv: ((dnnc.fechas_invstgcn?)),
+				actv: (dnnc.rgstrs_ok? and dnnc.fechas_invstgcn?),
 				frms: (dnnc.frms_invstgdr?),
 			},
 			'070_evlcn'    => {
@@ -110,7 +117,6 @@ module ProcControl
 		dnnc = ownr.dnnc
 		{
 			etp_rcpcn: true,					# Se despliega en todos los OWNR
-#			etp_invstgcn: (dnnc.fechas_invstgcn? and @proc[:etp_rcpcn][:fls_mss].empty?),
 			etp_invstgcn: (dnnc.fechas_invstgcn? and dnnc.chck_dvlcn?),
 			etp_envio: ((dnnc.fecha_trmn? or dnnc.on_dt?) and dnnc.chck_dvlcn?),
 			etp_prnncmnt: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
@@ -142,7 +148,6 @@ module ProcControl
 #			'040_mdds' => ( dnnc.on_dt? or dnnc.investigacion_local or dnnc.investigacion_externa),
 			'050_crr' => (dnnc.rgstrs_ok? and (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or dnnc.rcp_dt?)),
 			# INVSTGCN
-#			'060_invstgdr' => ((dnnc.fechas_invstgcn?) and @proc[:etp_rcpcn][:fls_mss].empty?),
 			'060_invstgdr' => ((dnnc.fechas_invstgcn?)),
 			'070_evlcn' => (dnnc.investigadores?),
 			'080_dclrcn' => (dnnc.investigadores? and dnnc.evld?),

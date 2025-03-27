@@ -1,4 +1,6 @@
 class Ayuda::HlpAyudasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_hlp_ayuda, only: %i[ show edit update destroy ]
 
   # GET /hlp_ayudas or /hlp_ayudas.json
@@ -12,7 +14,7 @@ class Ayuda::HlpAyudasController < ApplicationController
 
   # GET /hlp_ayudas/new
   def new
-    @objeto = HlpAyuda.new
+    @objeto = HlpAyuda.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
   # GET /hlp_ayudas/1/edit
@@ -25,7 +27,8 @@ class Ayuda::HlpAyudasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Ayuda fue exitósamente creada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Ayuda fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +41,8 @@ class Ayuda::HlpAyudasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(hlp_ayuda_params)
-        format.html { redirect_to @objeto, notice: "Ayuda fue exitósamente actualizada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Ayuda fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,10 +53,11 @@ class Ayuda::HlpAyudasController < ApplicationController
 
   # DELETE /hlp_ayudas/1 or /hlp_ayudas/1.json
   def destroy
+    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to hlp_ayudas_path, status: :see_other, notice: "Ayuda fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, status: :see_other, notice: "Ayuda fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -61,6 +66,10 @@ class Ayuda::HlpAyudasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_hlp_ayuda
       @objeto = HlpAyuda.find(params.expect(:id))
+    end
+
+    def get_rdrccn
+      @rdrccn = @objeto.ownr
     end
 
     # Only allow a list of trusted parameters through.

@@ -36,7 +36,7 @@
 		<%= render partial: 'notas/shr/cllps_lnk_nw_nt', locals: {objeto: objeto} %>
 		<i class="bi bi-dot"></i>
 		<% if operacion? %>
-			<%= render partial: '0p/tabla/links_e', locals: {objeto: objeto} if check_crud(objeto) %>
+			<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} if check_crud(objeto) %>
 		<% end %>
 	</div>
 </div>

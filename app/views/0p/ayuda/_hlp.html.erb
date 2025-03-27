@@ -1,0 +1,17 @@
+<div class="p-1">
+	<div class="" style="font-size: 14px;line-height: 1.2;">
+		<%=objt.hlp_ayudas.empty? ? 'Sin ayuda definida' : objt.hlp_ayudas.first.texto.html_safe %>
+	</div>
+
+	<% unless objt.hlp_ayudas.empty? or objt.hlp_ayudas.first.referencia.blank? %>
+		<div class="text-justify" style="font-size: 10px;line-height: 1.2;">
+			<%= objt.hlp_ayudas.first.referencia %>
+		</div>
+	<% end %>
+
+	<% unless objt.hlp_notas.empty? %>
+		<% objt.hlp_notas.ordr.each do |nota| %>
+			<%= render partial: '0p/ayuda/nota', locals: {objt: nota} %>
+		<% end %>
+	<% end %>
+</div>

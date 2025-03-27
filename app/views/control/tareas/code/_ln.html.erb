@@ -1,18 +1,11 @@
-<!--div class="bg-primary.bg-gradient shadow p-1"-->
-<div class="ps-1 pe-1">
-	<div class=" row gx-1 text-<%=color%>">
-		<!-- ENCABEZADO de la TAREA -->
-		<div class="col-8 ps-3">
-			<i class="bi bi-list-task"></i> 
-			<b>
-			<%= render partial: prtl_name('tareas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'objt') %>
-			</b>
-		</div>
-		<div class="col-4 text-end">
-			<%#= render partial: prtl_name('tareas', 'code', 'lnks'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'lnks') %>
-		</div>
+<div class=" row gx-1 text-<%=color%>">
+	<!-- ENCABEZADO de la TAREA -->
+	<div class="col-8 ps-3">
+		<b>
+		<%= render partial: prtl_name('tareas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'objt') %>
+		</b>
 	</div>
-
-	<!-- DETALLE de la TAREA -->
-	<%= render partial: prtl_name('tareas', 'code', 'dtll'), locals: {objeto: objeto, ownr: ownr} if prtl?('tareas', 'code', 'dtll') %>
+	<div class="col-4 text-end">
+		<%#= render partial: prtl_name('tareas', 'code', 'lnks'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'lnks') %>
+	</div>
 </div>

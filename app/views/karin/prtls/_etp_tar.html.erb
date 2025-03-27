@@ -1,25 +1,26 @@
-<% if prtl?(ownr, "proc/#{@proc[:tar_last].codigo}", 'nts') or (@tar_cntrl_hsh[@proc[:tar_last].codigo][:frms] and @proc[:tar_last].dsply?(@objeto)) or prtl?(ownr, "proc/#{@proc[:tar_last].codigo}", 'chlds') %>
+<% unless @etp_last.blank? or @tar_last.blank? %>
+	<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'nts') or (@tar_cntrl_hsh[@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto)) or prtl?(ownr, "proc/#{@tar_last.codigo}", 'chlds') %>
 
-<div class="mt-1 bg-white shadow rounded p-2">
+		<div class="mt-1 bg-white shadow rounded p-2">
 
-	<% if prtl?(ownr, "proc/#{@proc[:tar_last].codigo}", 'nts')  %>
-		<%= render partial: prtl_name(ownr, "proc/#{@proc[:tar_last].codigo}", 'nts'), locals: {objeto: @proc[:tar_last], ownr: ownr} %>
+			<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'nts')  %>
+				<%= render partial: prtl_name(ownr, "proc/#{@tar_last.codigo}", 'nts'), locals: {objeto: @tar_last, ownr: ownr} %>
+			<% end %>
+
+			<% if @tar_cntrl_hsh[@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto) %>
+				<%= render partial: prtl_name('tareas', 'code', 'dtll'), locals: {objeto: @tar_last, ownr: ownr} if @tar_last.dsply?(ownr) %>
+			<% end %>
+
+			<!-- CHLDS -->
+			<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'chlds')  %>
+				<%= render partial: prtl_name(ownr, "proc/#{@tar_last.codigo}", 'chlds'), locals: {objeto: @tar_last, ownr: ownr} %>
+			<% end %>
+		</div>
+
 	<% end %>
-
-	<% if @tar_cntrl_hsh[@proc[:tar_last].codigo][:frms] and @proc[:tar_last].dsply?(@objeto) %>
-	
-		<%#= render partial: '0p/ttl_sub_tbl', locals: {source: 'ctr_etapas', lnks: 'ttl'} %>
-		<%= render partial: prtl_name('ctr_etapas', 'code', 'ln'), locals: {objeto: @proc[:etp_last], ownr: ownr, color: 'primary'} %>
-
-		<% unless @proc[:tar_last].blank? %>
-			<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: @proc[:tar_last], ownr: ownr, color: 'primary'} %>
-		<% end %>
-	<% end %>
-
-	<!-- CHLDS -->
-	<% if prtl?(ownr, "proc/#{@proc[:tar_last].codigo}", 'chlds')  %>
-		<%= render partial: prtl_name(ownr, "proc/#{@proc[:tar_last].codigo}", 'chlds'), locals: {objeto: @proc[:tar_last], ownr: ownr} %>
-	<% end %>
-</div>
-
 <% end %>
+
+<%#= @tar_last.dsply?(ownr) %>
+<%#= ownr.frms_crr? %>
+<%#= ownr.rcp_dt? and ownr.fecha_ntfccn.blank? %>
+<%#= (ownr.dnnc.investigacion_local or ownr.investigacion_externa) and ownr.fecha_trmtcn.blank? %>

@@ -1,0 +1,14 @@
+<%#= render partial: '0p/off_canvas/dsply', locals: {objt: nil} %>
+
+<% objt ||= nil %>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="<%=objt.class.name.tableize%><%=objt.id%>" aria-labelledby="<%=objt.class.name.tableize%><%=objt.id%>Label">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="<%=objt.class.name.tableize%><%=objt.id%>Label"><%= objt.hlp_ayudas.empty? ? 'Sin ayuda definida' : objt.hlp_ayudas.first.hlp_ayuda %></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+
+    <%= render partial: '0p/ayuda/hlp', locals: {objt: objt} %>
+
+  </div>
+</div>

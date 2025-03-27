@@ -1,0 +1,5 @@
+<% if @objeto.rgstrs_ok? %>
+	<%= render partial: '0p/ntc', locals: {color: 'primary', gly: 'check-lg', ntc: "La información básica de los participantes ingresados hasta el momento está completa."} %>
+<% else %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'bug', ntc: "La información básica de los participantes ingresados hasta el momento está incompleta."} %>
+<% end %>

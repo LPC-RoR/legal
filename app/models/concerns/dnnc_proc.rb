@@ -101,10 +101,16 @@ module DnncProc
 
  	# ================================= 050_crr: Cierre de la gestión inicial
 
+ 	def frm_fecha_ntfccn?
+ 		self.rcp_dt? and self.fecha_ntfccn.blank?
+ 	end
+
+ 	def frm_fecha_trmtcn?
+ 		(self.dnnc.investigacion_local or self.investigacion_externa) and self.fecha_trmtcn.blank?
+ 	end
+
  	def frms_crr?
- 		ntf = self.rcp_dt? and self.fecha_ntfccn.blank?
- 		trm = (self.dnnc.investigacion_local or self.investigacion_externa) and self.fecha_trmtcn.blank?
- 		ntf or trm
+ 		self.frm_fecha_ntfccn? or self.frm_fecha_trmtcn?
  	end
 
 	# fecha de la notificación enviada por la DT (anunciando la recepción de una denuncia)

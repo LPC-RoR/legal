@@ -1,6 +1,6 @@
 <!-- NO FUNCIONA el default -->
 <% default ||= nil %>
 <div class="mb-3">
-	<%= form.label(token, label) %>
+	<%= form.label(token, label) %></br>
 	<%= form.date_select token, { default: default, order: [:day, :month, :year], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?' }, include_blank: true} %>
 </div>

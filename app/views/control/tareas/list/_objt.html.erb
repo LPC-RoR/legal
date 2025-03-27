@@ -1,7 +1,9 @@
 <%#= objeto.rep_doc_controlados.any? %>
 <%#= render layout: '0p/layout/tltp_lnk', locals: {lnk: objeto, tltp: 'Acceder a la tarea'} do %>
 	<i class="bi bi-caret-right"></i>
-	<b><%= objeto.tarea %></b>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: objeto, tltp: 'Ver ayudas'} do %>
+		<b><%= objeto.tarea %></b>
+	<% end %>
 	<i class="bi bi-dot"></i>
 	<%= objeto.codigo %>
 <%# end %>

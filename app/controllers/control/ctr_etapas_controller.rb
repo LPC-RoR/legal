@@ -13,6 +13,8 @@ class Control::CtrEtapasController < ApplicationController
 
   # GET /ctr_etapas/1 or /ctr_etapas/1.json
   def show
+    set_tabla('hlp_ayudas', @objeto.hlp_ayudas, false)
+    set_tabla('hlp_notas', @objeto.hlp_notas.ordr, false)
   end
 
   # GET /ctr_etapas/new

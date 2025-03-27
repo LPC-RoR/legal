@@ -3,6 +3,7 @@ class CtrEtapa < ApplicationRecord
 
 	has_many :tareas
 	has_many :hlp_ayudas, as: :ownr
+	has_many :hlp_notas, as: :ownr
 
 	scope :ordr, -> { order(:orden) }
 

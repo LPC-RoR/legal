@@ -1,7 +1,6 @@
 <!-- ENCABEZADO de la ETAPA -->
-<div class="row gx-1 text-<%=color%> mt-1">
+<div class="row gx-1 text-<%=color%>">
 	<div class="col-8">
-		<i class="bi bi-hourglass-split"></i> 
 		<b>
 		<%= render partial: prtl_name('ctr_etapas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'objt') %>
 		</b>

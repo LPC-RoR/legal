@@ -1,5 +1,9 @@
 class Ayuda::HlpNotasController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_hlp_nota, only: %i[ show edit update destroy ]
+
+  include Orden
 
   # GET /hlp_notas or /hlp_notas.json
   def index
@@ -12,7 +16,8 @@ class Ayuda::HlpNotasController < ApplicationController
 
   # GET /hlp_notas/new
   def new
-    @objeto = HlpNota.new
+    ownr = params[:oclss].constantize.find(params[:oid])
+    @objeto = HlpNota.new(ownr_type: params[:oclss], ownr_id: params[:oid], orden: ownr.hlp_notas.count + 1)
   end
 
   # GET /hlp_notas/1/edit
@@ -25,7 +30,8 @@ class Ayuda::HlpNotasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Nota fue exitósamente creada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Nota fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +44,8 @@ class Ayuda::HlpNotasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(hlp_nota_params)
-        format.html { redirect_to @objeto, notice: "Nota fue exitósamente actualizada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Nota fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,10 +56,11 @@ class Ayuda::HlpNotasController < ApplicationController
 
   # DELETE /hlp_notas/1 or /hlp_notas/1.json
   def destroy
+    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to hlp_notas_path, status: :see_other, notice: "Nota fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, status: :see_other, notice: "Nota fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -61,6 +69,10 @@ class Ayuda::HlpNotasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_hlp_nota
       @objeto = HlpNota.find(params.expect(:id))
+    end
+
+    def get_rdrccn
+      @rdrccn = @objeto.ownr
     end
 
     # Only allow a list of trusted parameters through.

@@ -16,29 +16,29 @@ module Karin
   def load_proc(ownr)
     @etp_cntrl_hsh = etp_cntrl_hsh(ownr)
     @tar_cntrl_hsh = tar_cntrl_hsh(ownr)
-    @proc = {}
-    @proc[:fls_mss] = []
-    @proc[:fls_actv] = []
-    @proc[:etp_last] = nil
-    @proc[:tar_last] = nil
-    @proc[:etps_trmnds] = []
+    @fls_actv = []
+    @etps_trmnds = []
     @proc_objt = Procedimiento.find_by(codigo: 'krn_invstgcn')
 
     @proc_objt.ctr_etapas.ordr.each do |etp|
 
       if @etp_cntrl_hsh[etp.codigo][:trmn]
-        @proc[:etps_trmnds] << {etapa: etp.ctr_etapa, plz_ok: @etp_cntrl_hsh[etp.codigo][:plz_ok], plz: @etp_cntrl_hsh[etp.codigo][:plz] }
+        @etps_trmnds << {etapa: etp.ctr_etapa, plz_ok: @etp_cntrl_hsh[etp.codigo][:plz_ok], plz: @etp_cntrl_hsh[etp.codigo][:plz] }
+      else
+        if @etp_cntrl_hsh[etp.codigo][:actv]
+          @etp_last = etp
+
+          etp.tareas.ordr.each do |tar|
+  #          if tar.dsply?(ownr) and tar_cntrl(ownr)[tar.codigo] and ( not tar_hide(ownr, tar.codigo) )
+            if @tar_cntrl_hsh[tar.codigo][:actv]
+              @tar_last = tar
+            end
+          end
+        end
+        break
       end
 
       if etp.dsply?(ownr) and etp_cntrl(ownr)[etp.codigo.to_sym]
-        @proc[:etp_last] = etp
-
-        etp.tareas.ordr.each do |tar|
-#          if tar.dsply?(ownr) and tar_cntrl(ownr)[tar.codigo] and ( not tar_hide(ownr, tar.codigo) )
-          if @tar_cntrl_hsh[tar.codigo][:actv]
-            @proc[:tar_last] = tar
-          end
-        end
       else
         # break
       end
@@ -46,7 +46,7 @@ module Karin
 
     @proc_objt.rep_doc_controlados.ordr.each do |dc|
       if fl_cndtn?(ownr, dc.codigo)
-        @proc[:fls_actv] << dc
+        @fls_actv << dc
       end
     end
 

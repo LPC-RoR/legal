@@ -1,3 +1,5 @@
-<b><%= objeto.ctr_etapa %></b>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: objeto, tltp: 'Ver ayudas'} do %>
+	<b><%= objeto.ctr_etapa %></b>
+<% end %>
 <i class="bi bi-dot"></i>
 <%= objeto.codigo %>
