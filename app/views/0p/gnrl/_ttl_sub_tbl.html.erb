@@ -42,9 +42,9 @@
 </div>
 <% if prtl?(source, dir, "cllps") %>
 	<%= render layout: '0p/collapse/display', locals: {label: str_cntrllr(source), objeto: nil} do %>
-		<%= render partial: prtl_name(source, dir, "cllps"), locals: {objeto: source} %>
+		<%= render partial: prtl_name(source, dir, "cllps"), locals: {source: source, ownr: ownr, blngs: blngs} %>
 	<% end %>
 <% end %>
 <% if prtl?(source, dir, "dsply") %>
-	<%= render partial: prtl_name(source, dir, "dsply") %>
+	<%= render partial: prtl_name(source, dir, "dsply"), locals: {source: source, ownr: ownr, blngs: blngs} %>
 <% end %>

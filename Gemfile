@@ -35,6 +35,8 @@ gem 'execjs'
 
 # Autenticación y autorización
 gem 'devise'
+# Para verificar envío de correos en el navegador
+gem 'letter_opener', group: :development
 
 # Paginación
 gem 'kaminari'

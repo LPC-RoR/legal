@@ -1,18 +1,22 @@
-<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'tar_pagos', ttl: 'Autorización de pagos', ownr: objeto} %>
+<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'tar_pagos', blngs: objeto, lnks: 'ttl'} %>
 
-<% unless objeto.tar_tarifa.blank? or objeto.tar_tarifa_tar_pagos.empty? %>
+<% if objeto.tar_tarifa.blank? %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'check-lg', ntc: "La causa no tiene tarifa asignada."} %>
+<% elsif objeto.tar_tarifa_tar_pagos.empty? %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'check-lg', ntc: "La tarifa asignada a la causa no tiene pagos asignados."} %>
+<% else %>
 	<% objeto.tar_tarifa_tar_pagos.ordr.each do |pago| %>
+			<div class="mt-1 p-2 bg-white border border-secondary rounded-2 app_lnk" style="font-size: 13px;line-height: 1.2;">
+				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: pago, owner: objeto} %>
 
-		<div class="cntnt_box">
-			<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: pago, owner: objeto} %>
-
-			<% if pago.requiere_uf == true and get_uf_calculo(objeto, pago).blank? %>
-				<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(objeto, pago)) %> no encontrada</b></small>
-			<% else %>
-				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: pago, causa: objeto } %>
-				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/calculo_child', locals: {pago: pago, owner: objeto } %>
-			<% end %>
-		</div>
+				<% if !!pago.requiere_uf == true and get_uf_calculo(objeto, pago).blank? %>
+					<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'check-lg', ntc: "UF del día #{dma(get_fecha_calculo(objeto, pago))} no encontrada."} %>
+					<!--small><b class="text-danger">UF del dia <%#= dma(get_fecha_calculo(objeto, pago)) %> no encontrada</b></small-->
+				<% else %>
+					<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: pago, causa: objeto } %>
+					<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/calculo_child', locals: {pago: pago, owner: objeto } %>
+				<% end %>
+			</div>
 
 	<% end %>
 <% end %>

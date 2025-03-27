@@ -1,9 +1,9 @@
-<div class="ln_app">
-	<div class="ln_nm">
+<div class="row px-2 gx-1">
+	<div class="col-9">
 		<i class="bi bi-<%= comentario.despliegue.blank? ? 'lightbulb' : 'dot' %>"></i>
 		<%= comentario.comentario %>
 	</div>
-	<div class="ln_lnks">
+	<div class="col-3 text-end">
 		<% unless comentario.despliegue.blank? %>
 			<%= s_moneda(comentario.moneda, calcula2(comentario.despliegue, causa, pago)) %>
 		<% end %>

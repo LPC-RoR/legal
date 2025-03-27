@@ -1,0 +1,2 @@
+module Usuarios::ConfirmationsHelper
+end

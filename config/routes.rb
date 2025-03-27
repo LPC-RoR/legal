@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     match :nuevo_hecho, via: :post, on: :member
     match :hchstowrd, via: :get, on: :member, format: 'docx'
     match :ntcdntstowrd, via: :get, on: :member, format: 'docx'
+    match :asigna_tarifa, via: :get, on: :member
     # ultima version
     match :add_uf_facturacion, via: :post, on: :member
     match :del_uf_facturacion, via: :get, on: :member
@@ -389,8 +390,6 @@ Rails.application.routes.draw do
     resources :tar_tarifas do 
       resources :tar_pagos
       resources :tar_formulas
-      match :asigna, via: :get, on: :member
-      match :desasigna, via: :get, on: :member
     end
     resources :tar_tipo_variables
     resources :tar_pagos do
@@ -532,9 +531,12 @@ Rails.application.routes.draw do
     resources :dt_tramos
   end
 
-  devise_for :usuarios
+#  devise_for :usuarios
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
+  devise_for :usuarios, controllers: {
+    confirmations: 'usuarios/confirmations',
+    registrations: 'usuarios/registrations'
+  }
   root 'aplicacion/publicos#home'
 
 end

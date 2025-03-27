@@ -1,18 +1,11 @@
 <!-- DEPRECATED : Reemplazar por _encabezado_calculo.html.erb -->
 <!-- Se usa owner y no causa porque este código se podría accesar desde Asesoria -->
 <!-- pago: tar_pago, owner: causa -->
-<div class="ttl_bx">
-	<div class="ttl_lft">
-		<b>
-		<% if pago.owner.class.name == 'Asesoria' %>
-			<%= owner.descripcion %>
-		<% else %>
-			<!-- 'Causa': Se puede desplegar TarPago o TarFacturacion, pero TarFacturacion se despliega distinto que si owner es Asesoria -->
-			<%= pago.tar_pago %>
-		<% end %>
-		</b>
+<div class="row px-2 gx-1" style="font-size: 16px;line-height: 1.2;">
+	<div class="col">
+		<b><%= pago.tar_pago %></b>
 	</div>
-	<div class="ttl_rght">
+	<div class="col text-end">
 		<!-- No se ha realizado el cálculo y el pago requiere el valor de la UF -->
 		<% if pago.requiere_uf == true and get_uf_calculo(owner, pago).blank? %>
 			<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(owner, pago)) %> no encontrada</b></small>
@@ -27,10 +20,10 @@
 </div>
 
 <% if requiere_uf(owner, pago) %>             
-	<div class="ln_app">
-		<div class="ln_nm">
+	<div class="row px-2 gx-1">
+		<div class="col">
 			Fecha cálculo
-			<% if controller_name == 'causas' %>
+			<% if controller_name == 'causas' and owner.tar_calculos.empty? %>
 				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "#{get_tar_uf_facturacion(owner, pago).blank? ? 'Agrega' : 'Modiffica'} fecha UF de cálculo" } do %>
 					<i class="bi bi-pencil-square"></i>
 				<% end %>
@@ -41,7 +34,7 @@
 				<% end %>
 			<% end %>
 		</div>
-		<div class="ln_lnks">
+		<div class="col text-end">
 			<%= dma(get_fecha_calculo(owner, pago)) %>
 		</div>
 	</div>
@@ -52,11 +45,11 @@
 
 	<% unless get_uf_calculo(owner, pago).blank? %>
 		<b>
-		<div class="ln_app">
-			<div class="ln_nm">
+		<div class="row px-2 gx-1">
+			<div class="col">
 				<%= leyenda_origen_fecha_calculo(owner, pago) %>
 			</div>
-			<div class="ln_lnks">
+			<div class="col text-end">
 				<%= s_uf( get_uf_calculo(owner, pago) ) %>
 			</div>
 		</div>

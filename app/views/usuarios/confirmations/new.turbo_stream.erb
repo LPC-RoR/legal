@@ -1,0 +1,11 @@
+<!-- app/views/usuarios/confirmations/new.html.erb -->
+<div data-controller="confirmation">
+  <% if params[:confirmation] == 'success' %>
+    <div class="alert alert-success">
+      ¡Tu cuenta ha sido confirmada exitosamente!
+    </div>
+    <%= link_to "Continuar", new_usuario_session_path, class: "btn btn-primary" %>
+  <% else %>
+    <!-- Formulario normal de reenvío de confirmación -->
+  <% end %>
+</div>

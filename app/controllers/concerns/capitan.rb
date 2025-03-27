@@ -179,4 +179,8 @@ module Capitan
 		dia = prms["#{date_field.strip}(3i)"].to_i
 		DateTime.new(annio, mes, dia, 0, 0, 0, "#{Time.zone.utc_offset/3600}")
 	end
+
+	def prm_safe(prm)
+		CGI.escape(prm)
+	end
 end

@@ -1,11 +1,10 @@
 <% if pago.valor.blank? %>
 	<hr>
 
-	<div class="ln_app">
-		<div class="ln_nm">
-			<b>Detalle aplicación de tarifa</b>
-		</div>
+	<div class="px-2">
+		<b>Detalle aplicación de tarifa</b>
 	</div>
+	
 	<% unless pago.tar_comentarios.empty? %>
 		<% pago.tar_comentarios.order(:orden).each do |comentario| %>
 

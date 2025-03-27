@@ -1,7 +1,12 @@
-<p>Bienvenido <%#= @email %>!</p>
+<p>Bienvenido!</p>
 
 <p>Este correo tiene el propósito de confirmar la dirección de correo electrónica utilizada por usted para registrarse en nuestra plataforma:</p>
 
-<p><%= link_to 'Confirmo la recepción del correo de verificación', confirmation_url(@resource, confirmation_token: @token) %></p>
-
-Equipo de LaborSafe
+<p>
+  <%= link_to "Confirmar mi cuenta", 
+              confirmation_url(@resource, 
+                             confirmation_token: @token,
+                             turbo: "false"),
+              data: { turbo: false } %>
+</p>
+<p>Equipo de LaborSafe</p>

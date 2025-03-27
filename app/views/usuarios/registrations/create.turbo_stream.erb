@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "notice" do %>
+  <div id="notice">
+    Se ha enviado un mensaje con instrucciones de confirmación a tu email.
+  </div>
+<% end %>
+
+<%= turbo_stream.replace "registration_form" do %>
+  <%= render partial: "usuarios/sessions/new" %>
+<% end %>

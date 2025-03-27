@@ -1,0 +1,16 @@
+<small>
+<div class="row gx-1 mx-5">
+	<div class="col text-end pe-5">
+		<% unless @tar_cliente.empty? %>
+			<b class="app_lnk">Tarifas del cliente</b></br>
+			<%= render partial: 'causas/shw/tarifa_pagos/sel_tarifas', locals: {objeto: blngs, list_tarifas: @tar_cliente} %>
+		<% end %>
+	</div>
+	<div class="col ps-5">
+		<% unless @tar_generales.empty? %>
+			<b class="app_lnk">Tarifas generales</b></br>
+			<%= render partial: 'causas/shw/tarifa_pagos/sel_tarifas', locals: {objeto: blngs, list_tarifas: @tar_generales} %>
+		<% end %>
+	</div>
+</div>
+</small>

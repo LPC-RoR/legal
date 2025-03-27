@@ -119,8 +119,8 @@ class ClientesController < ApplicationController
       @estado = params[:e].blank? ? @estados[0] : params[:e]
       @path = "/clientes/#{@objeto.id}?html_options[menu]=Tarifas&"
 
-      set_tabla('tar_tarifas', @objeto.tarifas.order(:created_at), false)
-      set_tabla('tar_servicios', @objeto.servicios.order(:created_at), false)
+      set_tabla('tar_tarifas', @objeto.tar_tarifas.order(:created_at), false)
+      set_tabla('tar_servicios', @objeto.tar_servicios.order(:created_at), false)
 
     elsif @options[:menu] == 'Productos'
       set_tabla('pro_dtll_ventas', @objeto.pro_dtll_ventas.fecha_ordr, false)

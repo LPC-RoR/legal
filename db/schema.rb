@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_26_173205) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_27_154003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1674,16 +1674,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_173205) do
     t.string "tipo"
     t.string "moneda"
     t.decimal "monto"
-    t.string "owner_class"
-    t.integer "owner_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "estado"
     t.integer "tipo_asesoria_id"
     t.index ["codigo"], name: "index_tar_servicios_on_codigo"
     t.index ["estado"], name: "index_tar_servicios_on_estado"
-    t.index ["owner_class"], name: "index_tar_servicios_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_servicios_on_owner_id"
+    t.index ["ownr_id"], name: "index_tar_servicios_on_ownr_id"
+    t.index ["ownr_type"], name: "index_tar_servicios_on_ownr_type"
     t.index ["tipo"], name: "index_tar_servicios_on_tipo"
     t.index ["tipo_asesoria_id"], name: "index_tar_servicios_on_tipo_asesoria_id"
   end
@@ -1691,8 +1691,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_173205) do
   create_table "tar_tarifas", force: :cascade do |t|
     t.string "tarifa"
     t.string "estado"
-    t.string "owner_class"
-    t.integer "owner_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "facturables"
@@ -1704,8 +1704,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_26_173205) do
     t.index ["estado"], name: "index_tar_tarifas_on_estado"
     t.index ["facturables"], name: "index_tar_tarifas_on_facturables"
     t.index ["moneda"], name: "index_tar_tarifas_on_moneda"
-    t.index ["owner_class"], name: "index_tar_tarifas_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_tarifas_on_owner_id"
+    t.index ["ownr_id"], name: "index_tar_tarifas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_tar_tarifas_on_ownr_type"
     t.index ["tipo_causa_id"], name: "index_tar_tarifas_on_tipo_causa_id"
   end
 

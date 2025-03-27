@@ -1,0 +1,7 @@
+<% if controller_name == 'causas' %>
+	<%= render layout: '0p/collapse/link', locals: {label: 'CambioTarifa', objeto: nil, tooltip: 'Asignar/cambiar tarifa'} do %>
+		<i class="bi bi-pencil"></i>
+	<% end %>
+<% else %>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'tar_tarifas', ownr: ownr } %>
+<% end %>

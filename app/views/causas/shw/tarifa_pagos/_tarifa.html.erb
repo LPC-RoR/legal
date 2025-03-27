@@ -1,11 +1,5 @@
-<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'css-tar_tarifas', ttl: 'Tarifa', ownr: objeto} %>
+<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'tar_tarifas', blngs: objeto, lnks: 'prtl'} %>
 
-<div class="objeto-box">
-
-	<% if @objeto.tar_tarifa.present? %>
-		<%= render partial: 'causas/shw/tarifa_pagos/nombre_tarifa', locals: {objeto: objeto} %>
-	<% else %>
-		<p class="text-danger"><i class="bi bi-cone-striped"></i> Sin tarifa asignada</p>
-	<% end %>
-
-</div>
+<%= render layout: '0p/collapse/display', locals: {label: 'CambioTarifa', objeto: nil} do %>
+	<%= render partial: prtl_name('tar_tarifas', 'indx/cllps', "cambio_tarifa"), locals: {blngs: objeto} %>
+<% end %>

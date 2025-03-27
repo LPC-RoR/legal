@@ -13,13 +13,12 @@ class Cliente < ApplicationRecord
 	has_many :asesorias
 	has_many :cargos
 
+	has_many :tar_tarifas, as: :ownr
+	has_many :tar_servicios, as: :ownr
 	has_many :tar_aprobaciones
 
 	has_many :org_areas
 	has_many :org_regiones
-
-#	has_many :var_clis
-#	has_many :variables, through: :var_clis
 
 	has_many :pro_dtll_ventas, as: :ownr
 
@@ -74,16 +73,8 @@ class Cliente < ApplicationRecord
 
     # CHILDS
 
-	def tarifas
-		TarTarifa.where(owner_class: self.class.name).where(owner_id: self.id)
-	end
-
 	def actividades
 		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
-	end
-
-	def servicios
-		TarServicio.where(owner_class: self.class.name).where(owner_id: self.id)
 	end
 
 	def facturas

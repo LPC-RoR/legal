@@ -14,9 +14,9 @@ class Tarifas::TarServiciosController < ApplicationController
 
   # GET /tar_servicios/new
   def new
-    ownr_clss = params[:ownr_clss] == '' ? nil : params[:ownr_clss]
-    ownr_id = params[:ownr_id]
-    @objeto = TarServicio.new(owner_class: ownr_clss, owner_id: ownr_id, estado: 'ingreso')
+    ownr_clss = params[:oclss] == '' ? nil : params[:oclss]
+    ownr_id = params[:oid]
+    @objeto = TarServicio.new(ownr_type: ownr_clss, ownr_id: ownr_id, estado: 'ingreso')
   end
 
   # GET /tar_servicios/1/edit
@@ -70,11 +70,11 @@ class Tarifas::TarServiciosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.padre.blank? ? tabla_path(@objeto) : "/clientes/#{@objeto.padre.id}?html_options[menu]=Tarifas"
+      @redireccion = @objeto.ownr_id.blank? ? tabla_path(@objeto) : "/clientes/#{@objeto.ownr.id}?html_options[menu]=Tarifas"
     end
 
     # Only allow a list of trusted parameters through.
     def tar_servicio_params
-      params.require(:tar_servicio).permit(:codigo, :descripcion, :detalle, :tipo, :moneda, :monto, :owner_class, :owner_id, :tipo_asesoria_id, :estado)
+      params.require(:tar_servicio).permit(:codigo, :descripcion, :detalle, :tipo, :moneda, :monto, :ownr_type, :ownr_id, :tipo_asesoria_id, :estado)
     end
 end

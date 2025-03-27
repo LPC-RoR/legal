@@ -1,7 +1,7 @@
 class CausasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy cambio_estado rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd ]
+  before_action :set_causa, only: %i[ show edit update destroy asigna_tarifa cambio_estado rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -68,7 +68,6 @@ class CausasController < ApplicationController
     when 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), false)
       set_tabla('hechos', @objeto.hechos.where(tema_id: nil).order(:orden), false)
-#      set_tabla('app_archivos', @objeto.app_archivos.order(:app_archivo), false)
       set_tabla('rep_archivos', @objeto.rep_archivos.ordr, false)
     when 'Tarifa & Pagos'
 
@@ -78,7 +77,7 @@ class CausasController < ApplicationController
       @pgs_stts = @objeto.tar_tarifa.blank? ? [] : pgs_stts(@objeto)
 
       # Tarifas para seleccionar
-      @tar_generales = TarTarifa.where(owner_id: nil).order(:tarifa)
+      @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
 
     when 'Demanda'
@@ -160,6 +159,13 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def asigna_tarifa
+    @objeto.tar_tarifa_id = params[:oid] == 'nil' ? nil : params[:oid]
+    @objeto.save
+
+    redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{prm_safe('Tarifa & Pagos')}"
   end
 
   def rsltd

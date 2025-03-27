@@ -45,7 +45,7 @@ class Causa < ApplicationRecord
     validates_presence_of :causa, :rit
 
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
-    scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.no_fctrds?}.compact)}
+    scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.tar_calculos.empty?}.compact)}
 
     delegate :tar_pagos, to: :tar_tarifa, prefix: true
 	delegate :tipo_causa, to: :tipo_causa, prefix: true
@@ -184,7 +184,7 @@ class Causa < ApplicationRecord
     end
 
 	def tarifas_cliente
-		self.cliente.tarifas
+		self.cliente.tar_tarifas
 	end
 
 	def monto_pagado_pesos(pago)

@@ -9,7 +9,7 @@
 
 <div class="row gx-1">
 	<div class="col-lg-3 col-xs-12">
-		<% unless @objeto.owner_id.blank? %>
+		<% unless @objeto.ownr_id.blank? %>
 			<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_asesoria_id, colection: TipoAsesoria.all.order(:tipo_asesoria).collect { |ta| [ta.detalle, ta.id] }, prompt: 'Tipo Asesoría', label: 'Definir como tarifa por defecto' } %>
 		<% end %>
 	</div>
@@ -27,4 +27,4 @@
 
 <%= render partial: '0p/lbld_inpts/text_area', locals: { form: form, token: :detalle, label: 'Detalle' } %>
 
-<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:estado, :owner_class, :owner_id] } %>
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:estado, :ownr_type, :ownr_id] } %>
