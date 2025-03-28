@@ -51,21 +51,7 @@ module DnncProc
  	end
 
  	# --------------------------------- Despliegue de formularios
- 	# DEPRECATED
-	def proc_solicitud_denuncia?
-		self.on_dt? and self.rcp_empresa? and ( not self.externa? )
-	end
-
-	# DEPRECATED
-	def proc_fecha_hora_dt?
-		self.krn_derivaciones.on_dt? and self.rgstrs_ok? and self.chck_dvlcn?
-	end
-
  	# ================================= 050_crr: Cierre de la gestión inicial
-
- 	def frm_fecha_hora_dt?
- 		self.krn_derivaciones.on_dt? and self.rgstrs_ok? and self.fecha_hora_dt.blank?
- 	end
 
  	def frm_fecha_ntfccn?
  		self.rcp_dt? and self.fecha_ntfccn.blank?
@@ -77,6 +63,11 @@ module DnncProc
 
  	def frms_crr?
  		self.frm_fecha_ntfccn? or self.frm_fecha_trmtcn?
+ 	end
+
+ 	# Fecha del certificado en el que la DT acusa recibo de la derivación
+ 	def proc_fecha_hora_dt?
+ 		self.krn_derivaciones.on_dt? and self.rgstrs_ok? and self.fecha_hora_dt.blank?
  	end
 
 	# fecha de la notificación enviada por la DT (anunciando la recepción de una denuncia)

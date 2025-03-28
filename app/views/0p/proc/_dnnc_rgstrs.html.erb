@@ -8,6 +8,7 @@
 			<% end %>
 
 			<% @coleccion['ctr_registros'].each do |reg| %>
+				<% unless reg.ctr_paso.blank? %>
 				<tr style="font-size: 15px;">
 					<td class="app_lnk" style="padding-left: 1rem;">
 						<b><%= reg.glosa %></b>
@@ -25,6 +26,9 @@
 
 						</td>
 				</tr>
+				<% else %>
+					<%= reg.glosa %>
+				<% end %>
 			<% end %>
 		</tbody>
 	</table>
