@@ -36,6 +36,9 @@ class KrnDenuncia < ApplicationRecord
 	delegate :razon_social, to: :ownr, prefix: true, allow_nil: true
 
     validates_presence_of :fecha_hora
+	validates :krn_empresa_externa_id, presence: true, if: -> { receptor_denuncia == 'Empresa externa' }
+	validates :tipo_declaracion, presence: true, if: -> { via_declaracion == 'Presencial' }
+	validates :representante, presence: true, if: -> { presentado_por == 'Representante' }
 
 	include Valores
 	include DnncVlrs
@@ -72,7 +75,6 @@ class KrnDenuncia < ApplicationRecord
 		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).uniq
 	end
 
-	# NO se usa
 	def empresa?
 		e_ids = self.emprss_ids
 		e_ids.length == 1 and e_ids[0] == nil

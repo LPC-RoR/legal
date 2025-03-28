@@ -7,7 +7,15 @@
 	</div>
 </div>
 
-<%= render partial: '0p/lbld_inpts/check_box', locals: {form: form, token: :empleado_externo, label: 'Empleado externo'} %>
+<%= render partial: '0p/lbld_inpts/check_box', locals: {form: form, token: :empleado_externo, label: 'Empleado externo', data: { 
+            prtcpnts_fields_target: "empresaCheckbox",
+            action: "change->prtcpnts-fields#updateFields"
+          }} %>
+
+<div data-prtcpnts-fields-target="empresaField" 
+   style="display: <%= form.object.empleado_externo? ? 'block' : 'none' %>">
+	  <%= render "krn_empresa_externa_id", form: form %>
+</div>
 
 <div class="row gx-1">
 	<div class="col-4">
@@ -21,7 +29,14 @@
 	</div>
 </div>
 
-<%= render partial: '0p/lbld_inpts/chck_bx_lst', locals: { form: form, chck_bx_lst: [[:articulo_516, 'Aplica artículo 516 del Código del trabajo']]} %>
+<%= render partial: '0p/lbld_inpts/check_box', locals: {form: form, token: :articulo_516, label: 'Aplica artículo 516 del Código del trabajo', data: { 
+            prtcpnts_fields_target: "articuloCheckbox",
+            action: "change->prtcpnts-fields#updateFields"
+          }} %>
 
+<div data-prtcpnts-fields-target="articuloField" 
+   style="display: <%= form.object.articulo_516? ? 'block' : 'none' %>">
+	  <%= render "direccion", form: form %>
+</div>
 
 <%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:ownr_type, :ownr_id] } %>

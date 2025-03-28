@@ -1,0 +1,3 @@
+<% if @objeto.krn_inv_denuncias.empty? %>
+	<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'bug', ntc: "Se debe ingresar el investigador asignado a la denuncia."} %>
+<% end %>

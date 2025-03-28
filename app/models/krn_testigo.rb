@@ -58,7 +58,7 @@ class KrnTestigo < ApplicationRecord
  	# --------------------------------- Despliegue de formularios
 
 	def self.emprss_ids
-		all.map {|den| den.krn_empresa_externa_id}.uniq
+		all.map {|den| den.krn_empresa_externa_id if !!den.empleado_externo}.uniq
 	end
 
 	# ------------------------------------------------------------------------

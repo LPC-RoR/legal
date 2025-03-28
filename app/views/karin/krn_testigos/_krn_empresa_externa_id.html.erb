@@ -1,0 +1,3 @@
+<div class="mb-3">
+	<%= render partial: '0p/lbld_inpts/select_id', locals: {form: form, token: :krn_empresa_externa_id, colection: @objeto.dnnc.ownr.krn_empresa_externas.order(:razon_social).collect { |externa| [externa.razon_social, externa.id] }, label: 'Empresa que recibió la denuncia' } %>
+</div>

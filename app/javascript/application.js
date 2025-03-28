@@ -16,3 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('3. Errores en la consola')
   }
 })
+
+export default class extends Controller {
+  connect() {
+    console.log("Controlador PRTCPNT-FIELDS conectado!")
+  }
+
+  logAction() {
+    console.log("¡Acción ejecutada correctamente!")
+    alert("¡Funciona!") // Para verlo visualmente
+  }
+}

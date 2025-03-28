@@ -15,3 +15,7 @@
 <% if objeto.articulo_4_1 and ( not objeto.dnnc.on_dt? ) %>
 	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Aplica el artículo 4 inciso primero del Código del Trabajo: La denuncia debe ser derivada a la Dirección del Trabajo.'} %>
 <% end %>
+
+<% if objeto.dnnc.externa? %>
+	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Participante de empresa externa.'} %>
+<% end %>

@@ -15,6 +15,9 @@ module ProcControl
 		{
 			'etp_rcpcn'      => {
 				actv: true,
+				# rgstrs_ok?				: la información de los participantes ingresados hasta el momento está completa.
+				# fechas_invstgcn?	: Tramitación, Certificado, Notificación, Devolución
+				# chck_dvlcn?				: Si se debe dar por resuelta la devolución de la denuncia NO CONSIDERA EL RECHAZO
 				trmn:	(dnnc.rgstrs_ok? and dnnc.fechas_invstgcn? and dnnc.chck_dvlcn?),
 				plz: plz_lv(dnnc.fecha_hora, 3),
 				plz_ok: dnnc.fecha_trmtcn? ? plz_ok?( dnnc.fecha_trmtcn, plz_lv(dnnc.fecha_hora, 3) ) : nil,
@@ -33,7 +36,7 @@ module ProcControl
 			},
 			'etp_prnncmnt'   => {
 				actv: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
-				trmn: dnnc.fecha_prnncmnt?,
+				trmn: (dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd?),
 				plz: plz_lv(dnnc.fecha_env_infrm, 30),
 				plz_ok: plz_ok?( dnnc.fecha_prnncmnt, plz_lv(dnnc.fecha_env_infrm, 30)),
 			},
@@ -50,16 +53,8 @@ module ProcControl
 		dnnc = ownr.dnnc
 		krn_dnnc = ownr != dnnc
 		{
-			'010_ingrs'    => {
-				actv: true,
-				frms: dnnc.frms_ingrs?,
-			},
-			'020_prtcpnts'    => {
-				# Ante teníamos true pero se saltaba 010_ingrs porque 020 aparecía como tarea activa de inmediato
-				actv: (not dnnc.frms_ingrs?),
-				frms: dnnc.frms_ingrs?,
-			},
 			'030_drvcns'    => {
+				# La información de los participantes no necesita estas completa
 				actv: (dnnc.denunciantes? and dnnc.denunciados?),
 				frms: (dnnc.frms_drvcns?),
 			},
@@ -91,11 +86,11 @@ module ProcControl
 			},
 			'110_prnncmnt' => {
 				actv: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
-				frms: (krn_dnnc and dnnc.frms_prnncmnt?),
+				frms: (dnnc.frms_prnncmnt?),
 			},
 			'120_mdds_sncns' => {
 				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
-				frms: (krn_dnnc and dnnc.frms_mdds_sncns?),
+				frms: (dnnc.frms_mdds_sncns?),
 			},
 		}
 	end
@@ -127,8 +122,6 @@ module ProcControl
 	def tar_hide_hsh(ownr)
 		dnnc = ownr.dnnc
 		{
-			'010_ingrs'    => dnnc.tar_ingrs_ok?,
-			'020_prtcpnts' => (ownr != dnnc and ownr.rgstr_ok?),
 			'060_invstgdr' => dnnc.on_dt?,
 			'070_evlcn' => ownr.dnnc.on_dt?,
 		}
@@ -142,8 +135,6 @@ module ProcControl
 		dnnc = ownr.dnnc
 		{
 			# Revisar relación con participantes
-			'010_ingrs' => (dnnc == ownr),
-			'020_prtcpnts' => dnnc != ownr,
 			'030_drvcns' => (dnnc.denunciantes? and dnnc.denunciados?),
 #			'040_mdds' => ( dnnc.on_dt? or dnnc.investigacion_local or dnnc.investigacion_externa),
 			'050_crr' => (dnnc.rgstrs_ok? and (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.fecha_hora_dt? or dnnc.rcp_dt?)),
@@ -162,25 +153,12 @@ module ProcControl
 		case ownr.class.name
 		when 'KrnDenuncia'
 			{
-				'010_ingrs' => ownr.denunciantes?,
 				'030_drvcns' => (ownr.fl?('mdds_rsgrd') or ownr.fecha_env_infrm?),
 				'050_crr' => ownr.krn_investigadores.any?,
 				'070_evlcn' => ownr.declaraciones?,
 				'090_trmn_invstgcn' => ownr.fecha_env_infrm?,
 				'100_env_rcpcn' => (ownr.fecha_prnncmnt? or ownr.prnncmnt_vncd?),
 				'110_prnncmnt' => ownr.fl?('dnnc_mdds_sncns')
-			}
-		when 'KrnDenunciante'
-			{
-				'020_prtcpnts' => ownr.rlzd
-			}
-		when 'KrnDenunciado'
-			{
-				'020_prtcpnts' => ownr.rlzd
-			}
-		when 'KrnTestigo'
-			{
-				'020_prtcpnts' => ownr.rlzd
 			}
 		end
 	end

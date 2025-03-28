@@ -19,39 +19,15 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    @proc = Procedimiento.prcdmnt('krn_invstgcn')
-    @proc.ctr_etapas.ordr.each do |etp|
-      ordn = 1
-      etp.tareas.ordr.each do |tar|
-        tar.rep_doc_controlados.ordr.each do |dc|
-          dc.rep_archivos.delete_all
-        end
-#        tar.rep_doc_controlados.delete_all if tar.rep_doc_controlados.any?
-      end
+    pasos = CtrPaso.where(id: [1,2,3,4,5])
+    pasos.each do |paso|
+      paso.ctr_registros.delete_all
     end
 
-#    ControlDocumento.all.each do |cd|
-#      cd.ownr_type = cd.owner_class
-#      cd.ownr_id = cd.owner_id
-#      cd.save
-#    end
-
-#    AppArchivo.all.each do |archv|
-#      if archv.owner_class.blank? or archv.owner_id.blank?
-        # Error! Borré los archivos (si existían) que se ingresan en hechos
-#        archv.delete
-#      else
-#        archv.ownr_type = archv.owner_class
-#        archv.ownr_id = archv.owner_id
-#        archv.save
-#      end
-#    end
-
-#    AppDocumento.all.each do |doc|
-#        doc.ownr_type = doc.owner_class
-#        doc.ownr_id = doc.owner_id
-#        doc.save
-#    end
+    tareas = Tarea.where(id: [27,42])
+    tareas.each do |tar|
+      tar.ctr_registros.delete_all
+    end
 
     redirect_to root_path, notice: CausaArchivo.all.count
   end

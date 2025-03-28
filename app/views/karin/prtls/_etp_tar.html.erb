@@ -1,4 +1,5 @@
 <% unless @etp_last.blank? or @tar_last.blank? %>
+
 	<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'nts') or (@tar_cntrl_hsh[@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto)) or prtl?(ownr, "proc/#{@tar_last.codigo}", 'chlds') %>
 
 		<div class="mt-1 bg-white shadow rounded p-2">
@@ -19,8 +20,3 @@
 
 	<% end %>
 <% end %>
-
-<%#= @tar_last.dsply?(ownr) %>
-<%#= ownr.frms_crr? %>
-<%#= ownr.rcp_dt? and ownr.fecha_ntfccn.blank? %>
-<%#= (ownr.dnnc.investigacion_local or ownr.investigacion_externa) and ownr.fecha_trmtcn.blank? %>

@@ -1,6 +1,7 @@
-<div class="mb-3">
-  <label>
-    <%= form.check_box token, id: token.to_s %>
-    <span><%= label %></span>
-  </label>
+<% data ||= nil %>
+<div class="mb-3 form-check">
+  <%= form.check_box token, 
+        class: "form-check-input", 
+        data: data %>
+  <%= form.label token, label, class: "form-check-label" %>
 </div>

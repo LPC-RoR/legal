@@ -31,10 +31,6 @@ module Dnnc
 
 	# ------------------------------------------------------------------------ PRTCPNTS
 
-	def rgstrs_ok?
-		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
-	end
-
 	# Registros revisados
 	def rlzds?
 		self.krn_denunciantes.rlzds? and self.krn_denunciados.rlzds?

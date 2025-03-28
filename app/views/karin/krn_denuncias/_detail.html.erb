@@ -9,26 +9,33 @@
 		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :motivo_denuncia, colection: KrnDenuncia::MOTIVOS, label: 'Motivo de la denuncia' } %>
 	</div>
 	<div class="col-lg-3 col-xs-12">
-		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :receptor_denuncia, colection: rcptr_lst(@objeto.ownr_krn_formato), label: 'Receptor de la denuncia', data: { action: "change-dynamic-dnnc#toggleKrnEmpresaExternaId", dynamic_form_target: "receptorDenuncia"} } %>
+  <!-- Grupo condicional para empresa_externa -->
+			<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :receptor_denuncia, colection: rcptr_lst(@objeto.ownr_krn_formato), label: 'Receptor de la denuncia', data: { 
+              'conditional-fields-target': 'receptorDenuncia',
+              action: 'change->conditional-fields#toggleEmpresaExterna'
+            } } %>
 	</div>
 	<div class="col-lg-3 col-xs-12">
-		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :via_declaracion, sel_list: KrnDenuncia::VIAS_DENUNCIA, label: 'Canal de denuncia', data: { action: "change-dynamic-dnnc#toggleTipoDeclaracion", dynamic_form_target: "viaDeclaracion" } } %>
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :via_declaracion, sel_list: KrnDenuncia::VIAS_DENUNCIA, label: 'Canal de denuncia', data: { 'conditional-fields-target': 'viaDeclaracion', action: 'change->conditional-fields#toggleTipoDeclaracion'} } %>
 	</div>
 	<div class="col-lg-3">
-		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :presentado_por, sel_list: KrnDenuncia::TIPOS_DENUNCIANTE, label: 'Quien denuncia', data: { action: "change-dynamic-dnnc#toggleRepresentante", dynamic_form_target: "presentadoPor" } } %>
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :presentado_por, sel_list: KrnDenuncia::TIPOS_DENUNCIANTE, label: 'Quien denuncia', data: { 
+              'conditional-fields-target': 'presentadoPor',
+              action: 'change->conditional-fields#toggleRepresentante'
+            } } %>
 	</div>
 
 </div>
 
-<div id="krn-empresa-externa-id-container" class="<%= 'd-none' unless @objeto.receptor_denuncia == 'Empresa externa' %>">
-  <%= render "krn_empresa_externa_id", form: form %>
+<div data-conditional-fields-target="empresaExternaGroup" hidden>
+	  <%= render "krn_empresa_externa_id", form: form %>
 </div>
 
-<div id="tipo-declaracion-container" class="<%= 'd-none' unless @objeto.via_declaracion == 'Presencial' %>">
+<div data-conditional-fields-target="tipoDeclaracionGroup" hidden>
   <%= render "tipo_declaracion", form: form %>
 </div>
 
-<div id="representante-container" class="<%= 'd-none' unless @objeto.presentado_por == 'Representante' %>">
+<div data-conditional-fields-target="representanteGroup" hidden>
   <%= render "representante", form: form %>
 </div>
 

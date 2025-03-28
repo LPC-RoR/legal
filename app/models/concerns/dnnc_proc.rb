@@ -2,104 +2,70 @@ module DnncProc
  	extend ActiveSupport::Concern
  	# ================================= PROC Etapas y Tareas
 
- 	def fechas_invstgcn?
- 		# Se informó inicio de investigación
- 		# La DT recibió nuestra derivación
- 		# La DT notificó inicio de la investigación
- 		self.fecha_trmtcn? or self.fecha_hora_dt? or self.fecha_ntfccn? or self.fecha_dvlcn?
- 	end
-
- 	def evld?
- 		neg = (self.evlcn_incmplt? or self.evlcn_incnsstnt?) and self.fecha_hora_corregida?
- 		neg or self. evlcn_ok?
- 	end
-
- 	# ================================= 010_ingrs: Ingreso de la denuncia
- 	# --------------------------------- Despliegue de formularios
-
- 	def frm_externa?
- 		self.rcp_externa? and self.krn_empresa_externa_id.blank?
- 	end
-
- 	def frm_tipo?
- 		self.presencial? and self.tipo_declaracion.blank?
- 	end
-
- 	def frm_representante?
- 		self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1] and self.representante.blank?
- 	end
-
- 	def frms_ingrs?
- 		self.frm_externa? or self.frm_tipo? or self.frm_representante?
- 	end
-
-	def proc_externa?
-		self.rcp_externa? and self.p_plus?
-	end
-
-	def proc_tipo?
-		self.via_declaracion == KrnDenuncia::VIAS_DENUNCIA[0]
-	end
-
-	def proc_representante?
-		self.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]
-	end
-
- 	# --------------------------------- Control
-	# ingreso de campos básicos ok?
-	def tar_ingrs_ok?	# Ocupado sólo una vez
-		extrn = self.rcp_externa? ? self.krn_empresa_externa_id.present? : true
-		rprsntnt = self.presentado_por == 'Representante' ? self.representante.present? : true
-		tp = self.via_declaracion == 'Presencial' ? self.tipo_declaracion.present? : true
-		extrn and rprsntnt and tp
-	end
-
-	# El motivo de la denuncia es Violencia...
+	# El motivo de la denuncia es Violencia... Usado para saber si se ingresan personas denunciadas
 	def motivo_vlnc?	# Ocupado sólo una vez
 		self.motivo_denuncia == KrnDenuncia::MOTIVOS[2]
 	end
 
- 	# ================================= 030_drvcns: Ingreso de la denuncia
- 	# --------------------------------- Despliegue de derivaciones
+ 	# Los datos de los participantes ingresados hasta el momento están completos
+	def rgstrs_ok?
+		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
+	end
 
+	# fecha_trmtcn? 	: Fecha en la que se informa inicio de una investigación a la DT
+	# fecha_hora_dt?	: Fecha del certificado emitido por la DT en el que acusa recepción de la denuncia que les derivamos
+	# fecha_ntfccn?		: Fecha en la que la DT notificó inicio de la investigación de una denuncia recibido por ellos
+	# fecha_dvlcn?		: Fecha en la que ocurre la devolución de la denuncia (solicitada) desde la DT
+ 	def fechas_invstgcn?
+ 		self.fecha_trmtcn? or self.fecha_hora_dt? or self.fecha_ntfccn? or self.fecha_dvlcn?
+ 	end
+
+ 	# Chequeo de devolución de denuncia solicitada FALTA RECHAZO DE LA SOLICITUD
  	def chck_dvlcn?
  		self.solicitud_denuncia ? self.on_empresa? : true
  	end
 
- 	def frms_drvcns?
- 		loc = self.on_empresa? and ( not self.externa? ) and self.investigacion_local.blank?
- 		ext = self.externa? and ( not self.on_dt? ) and ( not self.artcl41? ) and self.investigacion_externa.blank?
- 		fdt = self.krn_derivaciones.on_dt? and self.rgstrs_ok? and self.fecha_hora_dt.blank?
- 		loc or ext or fdt
- 	end
-
- 	def drvcn?(code)
- 		self.krn_derivaciones.find_by(codigo: code)
- 	end
-
- 	# --------------------------------- Despliegue de formularios
+ 	# ================================= 030_drvcns: Ingreso de la denuncia
 
 	def artcl41?
 		self.krn_denunciantes.artcl41.any? or self.krn_denunciados.artcl41.any?
 	end
 
+ 	# --------------------------------- Despliegue de formularios
+
+	def proc_investigacion_local?
+		self.on_empresa? and self.empresa?
+	end
+
+	def proc_investigacion_externa?
+		self.on_externa? and self.externa? and ( not self.artcl41? )
+	end
+
+ 	def frms_drvcns?
+ 		self.proc_investigacion_local? or self.proc_investigacion_externa?
+ 	end
+
+ 	# Se usa para evitar crear una "derivación" que ya se haya creado en la denuncia
+ 	def drvcn?(code)
+ 		self.krn_derivaciones.find_by(codigo: code)
+ 	end
+
+ 	# --------------------------------- Despliegue de formularios
+ 	# DEPRECATED
 	def proc_solicitud_denuncia?
 		self.on_dt? and self.rcp_empresa? and ( not self.externa? )
 	end
 
-	def proc_investigacion_local?
-		self.on_empresa? and ( not self.externa? )
-	end
-
-	def proc_investigacion_externa?
-		self.externa? and ( not self.on_dt? ) and ( not self.artcl41? )
-	end
-
+	# DEPRECATED
 	def proc_fecha_hora_dt?
 		self.krn_derivaciones.on_dt? and self.rgstrs_ok? and self.chck_dvlcn?
 	end
 
  	# ================================= 050_crr: Cierre de la gestión inicial
+
+ 	def frm_fecha_hora_dt?
+ 		self.krn_derivaciones.on_dt? and self.rgstrs_ok? and self.fecha_hora_dt.blank?
+ 	end
 
  	def frm_fecha_ntfccn?
  		self.rcp_dt? and self.fecha_ntfccn.blank?
@@ -141,6 +107,11 @@ module DnncProc
 	end
 
  	# ================================= 070_evlcn: Evaluar denuncia
+
+ 	def evld?
+ 		neg = (self.evlcn_incmplt? or self.evlcn_incnsstnt?) and self.fecha_hora_corregida?
+ 		neg or self. evlcn_ok?
+ 	end
 
  	def frms_evlcn?
  		icm = self.investigadores? and ( not self.evlcn_ok ) and self.evlcn_incmplt.blank?
@@ -192,9 +163,16 @@ module DnncProc
 
  	# ================================= 110_prnncmnt: Pronunciamiento de la DT
 
+ 	def frm_fecha_prnncmnt?
+ 		self.fecha_env_infrm? and ( not self.prnncmnt_vncd? ) and  (not self.on_dt?) and self.fecha_prnncmnt.blank?
+ 	end
+
+ 	def frm_prnncmnt_vncd?
+ 		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? ) and self.prnncmnt_vncd.blank?
+ 	end
+
  	def frms_prnncmnt?
- 		fpr = self.fecha_env_infrm? and ( not self.prnncmnt_vncd? ) and  (not self.on_dt?) and self.fecha_prnncmnt.blank?
- 		prv = self.fecha_env_infrm? and ( not self.fecha_prnncmnt? ) and self.prnncmnt_vncd.blank?
+ 		self.frm_fecha_prnncmnt? or self.frm_prnncmnt_vncd?
  	end
 
 	def proc_fecha_prnncmnt?
