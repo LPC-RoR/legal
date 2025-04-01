@@ -1,4 +1,4 @@
-<div class="mt-1 bg-white shadow rounded p-2">
+<!--div class="mt-1 bg-white shadow rounded p-2"-->
 
 	<div class="row gx-1">
 		<div class="col-lg-6 col-xs-12">
@@ -26,7 +26,7 @@
 		</div>
 	</div>
 
-	<% if @objeto.fecha_trmtcn? or @objeto.fecha_dvlcn? %>
+	<% if @objeto.rgstrs_ok? and (@objeto.investigacion_local or @objeto.solicitud_denuncia and @objeto.on_empresa?) %>
 		<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_inv_denuncias', blngs: @objeto, lnks: 'prtl'} %>
 		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_inv_denuncias', typ: 'ln', crud: 'lnks'} %>
 	<% end %>
@@ -34,6 +34,15 @@
 	<% if @objeto.derivaciones? %>
 	    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_derivaciones', ownr: @objeto, lnks: 'prtl'} %>
 		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'lnks'} %>
+
+		<% if @objeto.solicitud_denuncia  %>
+			<!-- Recibir de vuelta una denuncia desde la DT (solicitada) -->
+			<% if @objeto.on_dt? %>
+				<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'rcpcn_dt'} %>
+			<% end %>
+		<% end %>
+
+
 	<% end %>
 
-</div>
+<!--/div-->

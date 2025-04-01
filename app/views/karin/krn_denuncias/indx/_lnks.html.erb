@@ -1,3 +1,3 @@
 <% if @objeto.new_bttn? %>
-	<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr('krn_denuncias')}/new#{ownr_prms(@objeto) unless @objeto.blank?}", tltp: "Agrega #{c_to_name(cntrllr('krn_denuncias'))}"} %>
+	<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr('krn_denuncias')}/new#{ownr_prms(@objeto) unless @objeto.blank?}", tltp: "Agrega #{to_name(cntrllr('krn_denuncias'))}"} %>
 <% end %>

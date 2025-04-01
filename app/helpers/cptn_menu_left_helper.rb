@@ -231,7 +231,7 @@ module CptnMenuLeftHelper
 	end
 
 	def modelo_item(item)
-		h_modelo_item[itm_mdl(item)].blank? ? m_to_name(itm_mdl(item)).tableize.capitalize : h_modelo_item[itm_mdl(item)]
+		h_modelo_item[itm_mdl(item)].blank? ? to_name(itm_mdl(item)).tableize.capitalize : h_modelo_item[itm_mdl(item)]
 	end
 
 end

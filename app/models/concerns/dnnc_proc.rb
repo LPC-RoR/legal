@@ -16,8 +16,9 @@ module DnncProc
 	# fecha_hora_dt?	: Fecha del certificado emitido por la DT en el que acusa recepción de la denuncia que les derivamos
 	# fecha_ntfccn?		: Fecha en la que la DT notificó inicio de la investigación de una denuncia recibido por ellos
 	# fecha_dvlcn?		: Fecha en la que ocurre la devolución de la denuncia (solicitada) desde la DT
+	# saque la fecha de devolución porque se procesará desde la devolución.
  	def fechas_invstgcn?
- 		self.fecha_trmtcn? or self.fecha_hora_dt? or self.fecha_ntfccn? or self.fecha_dvlcn?
+ 		self.fecha_trmtcn? or self.fecha_ntfccn? or (self.solicitud_denuncia ? self.fecha_dvlcn? : self.fecha_hora_dt?)
  	end
 
  	# Chequeo de devolución de denuncia solicitada FALTA RECHAZO DE LA SOLICITUD
@@ -29,6 +30,14 @@ module DnncProc
 
 	def artcl41?
 		self.krn_denunciantes.artcl41.any? or self.krn_denunciados.artcl41.any?
+	end
+
+	def fecha_drvcn_dt
+		self.krn_derivaciones.dts.empty? ? nil : self.krn_derivaciones.dts.first.fecha
+	end
+
+	def fecha_plz_rcpcn
+		self.fecha_drvcn_dt.blank? ? (self.fecha_trmtcn || self.fecha_ntfccn) : self.fecha_drvcn_dt
 	end
 
  	# --------------------------------- Despliegue de formularios
@@ -53,85 +62,86 @@ module DnncProc
  	# --------------------------------- Despliegue de formularios
  	# ================================= 050_crr: Cierre de la gestión inicial
 
- 	def frm_fecha_ntfccn?
- 		self.rcp_dt? and self.fecha_ntfccn.blank?
- 	end
+	# fecha de la notificación enviada por la DT (anunciando la recepción de una denuncia)
+	# NO se puede pedir devolución de estas denuncias
+	def proc_fecha_ntfccn?
+		self.rcp_dt?
+	end
 
- 	def frm_fecha_trmtcn?
- 		(self.dnnc.investigacion_local or self.investigacion_externa) and self.fecha_trmtcn.blank?
- 	end
-
- 	def frms_crr?
- 		self.frm_fecha_ntfccn? or self.frm_fecha_trmtcn?
+	# Fecha en la que se informo el inicio de una investigación a la DT
+ 	def proc_fecha_trmtcn?
+ 		(self.dnnc.investigacion_local or self.investigacion_externa)
  	end
 
  	# Fecha del certificado en el que la DT acusa recibo de la derivación
  	def proc_fecha_hora_dt?
- 		self.krn_derivaciones.on_dt? and self.rgstrs_ok? and self.fecha_hora_dt.blank?
+ 		self.krn_derivaciones.on_dt?
  	end
 
-	# fecha de la notificación enviada por la DT (anunciando la recepción de una denuncia)
-	def proc_fecha_ntfccn?
-		self.rcp_dt? and (not self.solicitud_denuncia)
-	end
-
-	# fecha de envío de investigación a la DT 
-	def proc_fecha_trmtcn?
-		(self.investigacion_local or self.investigacion_externa) and (not self.solicitud_denuncia)
-	end
+ 	def frms_crr?
+ 		self.proc_fecha_ntfccn? or self.proc_fecha_trmtcn? or self.proc_fecha_hora_dt? or self.proc_fecha_dvlcn?
+ 	end
 
 	def proc_fecha_dvlcn?
-		self.solicitud_denuncia
+		self.solicitud_denuncia and self.on_empresa?
 	end
  	# ================================= 060_invstgdr: Asignar Investigador
 
+ 	def proc_objcn_acogida?
+ 		self.objcn_invstgdr? and (not self.objcn_rechazada)
+ 	end
+
+ 	def proc_objcn_rechazada?
+ 		self.objcn_invstgdr? and (not self.objcn_acogida)
+ 	end
+
+ 	def frms_invstgdr?
+ 		self.proc_objcn_acogida? or self.proc_objcn_rechazada?
+ 	end
+
+ 	# Sirve para controlar crud de los investigadores
  	def objcn_invstgdr?
  		self.krn_inv_denuncias.any? ? self.krn_inv_denuncias.first.objetado : false
  	end
 
- 	def frms_invstgdr?
- 		false
+ 	def objcn_ok?
+ 		self.objcn_invstgdr? ? (self.objcn_rechazada? or (self.objcn_acogida? and self.krn_inv_denuncias.count == 2)) : true
  	end
-
-	def proc_objcn_invstgdr?
-		self.krn_investigadores.count == 1
-	end
 
  	# ================================= 070_evlcn: Evaluar denuncia
 
  	def evld?
- 		neg = (self.evlcn_incmplt? or self.evlcn_incnsstnt?) and self.fecha_hora_corregida?
- 		neg or self. evlcn_ok?
- 	end
-
- 	def frms_evlcn?
- 		icm = self.investigadores? and ( not self.evlcn_ok ) and self.evlcn_incmplt.blank?
- 		ics = self.investigadores? and ( not self.evlcn_ok ) and self.evlcn_incnsstnt.blank?
- 		eok = self.investigadores? and self.evlcn_incmplt.blank? and self.evlcn_incnsstnt.blank? and self.evlcn_ok.blank?
- 		fhc = (self.evlcn_incmplt? or self.evlcn_incnsstnt?) and self.fecha_hora_corregida.blank?
- 		icm or ics or eok or fhc
+ 		(self.evlcn_desaprobada? and self.fecha_hora_corregida?) or self. evlcn_ok?
  	end
 
 	def proc_evlcn_incmplt?
-		self.krn_investigadores.any? and ( not self.evlcn_ok )
+		self.krn_investigadores.any? and ( not self.evlcn_incnsstnt )
 	end
 
 	def proc_evlcn_incnsstnt?
-		self.krn_investigadores.any? and ( not self.evlcn_ok )
+		self.krn_investigadores.any? and ( not self.evlcn_incmplt )
 	end
 
 	def proc_evlcn_ok?
-		self.krn_investigadores.any? and self.evlcn_incmplt.blank? and self.evlcn_incnsstnt.blank?
+		self.krn_investigadores.any? and (not self.evlcn_desaprobada?)
+	end
+
+	def proc_evlcn_desaprobada?
+		self.krn_investigadores.any? and (not self.evlcn_ok?)
 	end
 
 	def proc_fecha_hora_corregida?
-		self.evlcn_incmplt? or self.evlcn_incnsstnt?
+		self.proc_evlcn_desaprobada?
 	end
+
+ 	def frms_evlcn?
+ 		self.proc_evlcn_ok? or self.proc_fecha_hora_corregida? or self.proc_fecha_hora_corregida?
+ 	end
 
  	# ================================= 080_trmn_invstgcn: Término de la investigación
 
  	def frms_trmn_invstgcn?
- 		self.rlzds? and self.fecha_trmn.blank?
+ 		self.proc_fecha_trmn?
  	end
 
 	def proc_fecha_trmn?
@@ -141,7 +151,7 @@ module DnncProc
  	# ================================= 100_env_rcpcn: Envío / Recepción del informe de investigación
 
  	def frms_env_rcpcn? 
- 		(self.fecha_trmn? and self.fecha_env_infrm.blank?) or (self.fecha_hora_dt? and self.fecha_rcpcn_infrm.blank?)
+ 		self.fecha_trmn? or self.fecha_hora_dt?
  	end
 
 	def proc_fecha_env_infrm?
@@ -154,18 +164,6 @@ module DnncProc
 
  	# ================================= 110_prnncmnt: Pronunciamiento de la DT
 
- 	def frm_fecha_prnncmnt?
- 		self.fecha_env_infrm? and ( not self.prnncmnt_vncd? ) and  (not self.on_dt?) and self.fecha_prnncmnt.blank?
- 	end
-
- 	def frm_prnncmnt_vncd?
- 		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? ) and self.prnncmnt_vncd.blank?
- 	end
-
- 	def frms_prnncmnt?
- 		self.frm_fecha_prnncmnt? or self.frm_prnncmnt_vncd?
- 	end
-
 	def proc_fecha_prnncmnt?
 		self.fecha_env_infrm? and ( not self.prnncmnt_vncd? ) and  (not self.on_dt?)
 	end
@@ -174,10 +172,14 @@ module DnncProc
 		self.fecha_env_infrm? and ( not self.fecha_prnncmnt? )
 	end
 
+ 	def frms_prnncmnt?
+ 		self.proc_fecha_prnncmnt? or self.proc_prnncmnt_vncd?
+ 	end
+
  	# ================================= 120_mdds_sncns: Pronunciamiento de la DT
 
  	def frms_mdds_sncns?
- 		( self.fecha_prnncmnt? or self.prnncmnt_vncd? or self.fecha_rcpcn_infrm? ) and self.crr_dnnc.blank?
+ 		self.proc_crr_dnnc?
  	end
 
  	def proc_crr_dnnc?

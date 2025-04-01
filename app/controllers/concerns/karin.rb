@@ -23,25 +23,25 @@ module Karin
     @proc_objt.ctr_etapas.ordr.each do |etp|
 
       if @etp_cntrl_hsh[etp.codigo][:trmn]
-        @etps_trmnds << {etapa: etp.ctr_etapa, plz_ok: @etp_cntrl_hsh[etp.codigo][:plz_ok], plz: @etp_cntrl_hsh[etp.codigo][:plz] }
+        @etps_trmnds << {codigo: etp.codigo, etapa: etp.ctr_etapa, plz_ok: @etp_cntrl_hsh[etp.codigo][:plz_ok], plz: @etp_cntrl_hsh[etp.codigo][:plz], plz_tag: @etp_cntrl_hsh[etp.codigo][:plz_tag]}
+          @etp_last = etp
       else
         if @etp_cntrl_hsh[etp.codigo][:actv]
           @etp_last = etp
+          puts "**************************************************************** etp_last"
+          puts etp.codigo
 
           etp.tareas.ordr.each do |tar|
-  #          if tar.dsply?(ownr) and tar_cntrl(ownr)[tar.codigo] and ( not tar_hide(ownr, tar.codigo) )
             if @tar_cntrl_hsh[tar.codigo][:actv]
               @tar_last = tar
+          puts "**************************************************************** tar_last"
+          puts tar.codigo
             end
           end
         end
         break
       end
 
-      if etp.dsply?(ownr) and etp_cntrl(ownr)[etp.codigo.to_sym]
-      else
-        # break
-      end
     end
 
     @proc_objt.rep_doc_controlados.ordr.each do |dc|

@@ -8,7 +8,7 @@
 			<% if prtl?(source, dir, "objt") %>
 				<%= render partial: prtl_name(source, dir, "objt"), locals: {ownr: ownr, blngs: blngs} %>
 			<% else %>
-				<%= c_to_name(cntrllr(source)).pluralize %>
+				<%= to_name(cntrllr(source)).pluralize %>
 			<% end %>
 			</b>
 		</div>
@@ -32,7 +32,6 @@
 					<%= render partial: '0p/tbl/lnk_c', locals: {source: source, ownr: ownr, blngs: blngs} %>
 				<% else %>
 					<%= render partial: '0p/tbl/lnk_new', locals: {source: source, ownr: ownr, blngs: blngs} %>
-					<%#= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr(source)}/new#{ownr_prms(ownr) unless ownr.blank?}", tltp: "Agrega #{c_to_name(cntrllr(source))}"} %>
 				<% end %>
 
 		<% end %>
@@ -40,6 +39,7 @@
 		</div>
 	</div>
 </div>
+
 <% if prtl?(source, dir, "cllps") %>
 	<%= render layout: '0p/collapse/display', locals: {label: str_cntrllr(source), objeto: nil} do %>
 		<%= render partial: prtl_name(source, dir, "cllps"), locals: {objeto: source} %>

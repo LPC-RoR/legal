@@ -2,21 +2,14 @@
 
 	<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'nts') or (@tar_cntrl_hsh[@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto)) or prtl?(ownr, "proc/#{@tar_last.codigo}", 'chlds') %>
 
-		<div class="mt-1 bg-white shadow rounded p-2">
-
-			<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'nts')  %>
-				<%= render partial: prtl_name(ownr, "proc/#{@tar_last.codigo}", 'nts'), locals: {objeto: @tar_last, ownr: ownr} %>
-			<% end %>
+			<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'nts'} %>
 
 			<% if @tar_cntrl_hsh[@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto) %>
 				<%= render partial: prtl_name('tareas', 'code', 'dtll'), locals: {objeto: @tar_last, ownr: ownr} if @tar_last.dsply?(ownr) %>
 			<% end %>
 
-			<!-- CHLDS -->
-			<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'chlds')  %>
-				<%= render partial: prtl_name(ownr, "proc/#{@tar_last.codigo}", 'chlds'), locals: {objeto: @tar_last, ownr: ownr} %>
-			<% end %>
-		</div>
+		<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'chlds'} %>
+		<!--/div-->
 
 	<% end %>
 <% end %>

@@ -1,7 +1,7 @@
 module AppFormsHelper
 
 	def form_txt(actn, objeto)
-		"#{actn == 'new' ? (objeto.class.name == 'RepArchivo' ? 'Subir' : 'Crear') : 'Modificar'} #{m_to_name(objeto.class.name)}"
+		"#{actn == 'new' ? (objeto.class.name == 'RepArchivo' ? 'Subir' : 'Crear') : 'Modificar'} #{to_name(objeto.class.name)}"
 	end
 
 	def form_class_excepctions
@@ -15,7 +15,7 @@ module AppFormsHelper
 	end
 
 	def submit_text(objeto)
-		['oneFieldForm'].include?(form_class(objeto)) ? '<i class="bi bi-caret-right"></i>'.html_safe : "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{m_to_name(objeto.class.name)}"
+		['oneFieldForm'].include?(form_class(objeto)) ? '<i class="bi bi-caret-right"></i>'.html_safe : "#{ action_name == 'new' ? 'Crear' : 'Modificar'} #{to_name(objeto.class.name)}"
 	end
 
 end

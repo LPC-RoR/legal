@@ -1,8 +1,8 @@
-<div class="ps-5 pe-5">
+<!--div class="ps-5 pe-5"-->
 
 	<%= form_with url: "/#{objeto.class.name.tableize}/#{objeto.id}/set_fld?k=#{code}", method: :post, local: true do |form| %>
 
-		<div class="row gx-1 border rounded p-1">
+		<div class="row gx-1 p-1">
 			<div class="col-10 ps-3">
 				<% if prtl?(objeto, "proc/#{tar.codigo}", "frm_#{code}") %>
 					<%= render partial: prtl_name(objeto, "proc/#{tar.codigo}", "frm_#{code}"), locals: {form: form, objeto: objeto, code: code} %>
@@ -16,4 +16,4 @@
 		</div>
 	<% end %>
 
-</div>
+<!--/div-->

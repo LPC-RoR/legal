@@ -1,10 +1,10 @@
-<div class="text-<%=etp_plz_ok(ownr)[objeto.codigo] ? 'primary' : 'danger'%>">
+<div class="text-<%=etp_muted(objeto.codigo, ownr) ? 'muted' : (etp_plz_ok(ownr)[objeto.codigo] ? 'primary' : 'danger')%>">
 	<% if etp_plz_ok(ownr)[objeto.codigo] == nil %>
 		<i class="bi bi-hourglass-split"></i>
 	<% elsif etp_plz_ok(ownr)[objeto.codigo] %>
 		<i class="bi bi-calendar-check"></i>
 	<% else %>
-		<i class="bi bi-calendar-x text-danger"></i>
+		<i class="bi bi-calendar-x"></i>
 	<% end %>
 	<%= dma_hm(etp_plz(ownr)[objeto.codigo]) %>
 </div>

@@ -1,4 +1,4 @@
-<div class="mt-1 bg-white shadow rounded p-2">
+<!--div class="mt-1 bg-white shadow rounded p-2"-->
 	<%= render partial: prtl_name('ctr_etapas', 'code', 'ln'), locals: {objeto: @etp_last, ownr: ownr, color: 'primary'} unless @etp_last.blank? %>
 
 	<% unless @tar_last.blank? %>
@@ -7,4 +7,12 @@
 
 	<%= render partial: '0p/ayuda/dsply', locals: {objt: @etp_last} unless @etp_last.blank? %>
 	<%= render partial: '0p/ayuda/dsply', locals: {objt: @tar_last} unless @tar_last.blank? %>
-</div>
+
+	<% unless @tar_last.blank? %>
+		<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'stts_nts') %>
+			<div class="ms-5">
+				<%= render partial: '0p/prtls/dsply', locals: {objt: ownr, dir: "proc/#{@tar_last.codigo}", prtl: 'stts_nts'}  unless @tar_last.blank? %>
+			</div>
+		<% end %>
+	<% end %>
+<!--/div-->

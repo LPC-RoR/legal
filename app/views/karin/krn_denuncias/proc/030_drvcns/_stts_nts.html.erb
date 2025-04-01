@@ -1,6 +1,4 @@
-<% if @objeto.rgstrs_ok? %>
-	<%= render partial: '0p/ntc', locals: {color: 'primary', gly: 'check-lg', ntc: "La información básica de los participantes ingresados hasta el momento está completa."} %>
-<% else %>
+<% unless @objeto.rgstrs_ok? %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'bug', ntc: "La información básica de los participantes ingresados hasta el momento está incompleta."} %>
 <% end %>
 
@@ -11,10 +9,6 @@
 	<% end %>
 
 	<% if @objeto.on_dt? %>
-		<!-- Recibir de vuelta una denuncia desde la DT (solicitada) -->
-		<% if @objeto.solicitud_denuncia %>
-			<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'rcpcn_dt'} %>
-		<% end %>
 	<% else %>
 		<% if @objeto.on_empresa? and @objeto.externa? %>
 			<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext_dt'} %>

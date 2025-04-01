@@ -1,12 +1,12 @@
-<% if ownr.on_dt? %>
-	<% if ownr.fecha_ntfccn? %>
+<% if objeto.on_dt? %>
+	<% if objeto.fecha_ntfccn? %>
 		<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: "Denuncia recibida en la Dirección del Trabajo."} %>
 	<% end %>
-	<% if ownr.fecha_hora_dt? %>
+	<% if objeto.fecha_hora_dt? %>
 		<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: "Denuncia derivada a la Dirección del Trabajo."} %>
 	<% end %>
 <% end %>
 
-<% unless @objeto.rlzds? %>
+<% unless objeto.rlzds? %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Las declaraciones aún no han sido realizadas.'} %>
 <% end %>

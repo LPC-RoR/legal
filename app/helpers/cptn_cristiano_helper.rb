@@ -1,5 +1,13 @@
 module CptnCristianoHelper
 
+	def is_model?(str)
+		str == str.camelize
+	end
+
+	def is_controller?(str)
+		str == str.tableize
+	end
+
 	# controlador SIN prefijo por alias
 	def get_controller(controller)
 		simple = controller.split('-').last
@@ -23,8 +31,6 @@ module CptnCristianoHelper
 			'HmPagina' => 'Página',
 			'HmParrafo' => 'Párrafo',
 			'LglDocumento' => 'Documento legal',
-			'KrnLstMedida' => 'Lista de medidas',
-			'KrnLstModificacion' => 'Lista de modificaciones',
 			'Region' => 'Región',
 			'ProDtllVenta' => 'Producto de la Empresa',
 			'KrnInvDenuncia' => 'Investigador',
@@ -62,26 +68,20 @@ module CptnCristianoHelper
 		/^tar_|^app_|^h_|^st_|^ind_|^m_|^blg_|^dt_|^org_|^age_|^hm_|^lgl_|^pro_|^krn_|^ctr_|^cal_|^rep_|^hlp_/
 	end
 
-	# nombre que se desplega de un controlador
-	def c_to_name(controller)
-		if m_excepciones.keys.include?(controller.classify)
-			# Manejo de excepciones
-			m_excepciones[controller.classify]
-		else
-			# Manejo de scopes
-			text = controller.match(scopes) ? controller.gsub(scopes, '') : controller
-			# corrige acentos
-			text.singularize.humanize.split.map {|word| corrige(word.downcase)}.join(' ').capitalize
-		end
+	def str_name(str_source)
+		cntrllr = is_model?(str_source) ? str_source.tableize : str_source
+		no_scope = cntrllr.match(scopes) ? cntrllr.gsub(scopes, '') : cntrllr
+		no_scope.singularize.humanize.split.map {|word| corrige(word.downcase)}.join(' ').capitalize
 	end
 
-	# nombre que se desplega de un controlador
-	def m_to_name(modelo)
-		if m_excepciones.keys.include?(modelo)
-			m_excepciones[modelo]
-		else
-			c_to_name(modelo.tableize)
-		end
+	def get_excpcns(str_source)
+		mdl = is_model?(str_source) ? str_source : str_source.classify
+		m_excepciones.keys.include?(mdl) ? m_excepciones[mdl] : nil
+	end
+
+	def to_name(source)
+		str_source = source.class.name == 'String' ? source : source.class.name
+		get_excpcns(str_source).blank? ? str_name(str_source) : get_excpcns(str_source)
 	end
 
 	# corrige palabras

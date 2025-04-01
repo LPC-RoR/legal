@@ -1,0 +1,9 @@
+<div class=" bg-white shadow border text-end text-danger pe-2 py-1" style="font-size: 13px;line-height: 1.2;">
+	<% if prtl?(c, 'list', 'new_hnt') %>
+		<i class="bi bi-lightbulb"></i> 
+		<%= render partial: prtl_name(c, 'list', 'new_hnt') %> 
+		<i class="bi bi-arrow-up"></i>
+	<% else %>
+		<i class="bi bi-lightbulb"></i> Ingrese un primer <%= to_name(c) %> <i class="bi bi-arrow-up"></i>
+	<% end %>
+</div>

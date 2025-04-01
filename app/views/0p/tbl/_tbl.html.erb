@@ -1,12 +1,14 @@
 <% typ ||= 'tr' %>
 <% ordr ||= false %>
 <% crud ||= nil %>
-<% unless @coleccion[str_cntrllr(source)].empty? %>
+<% hnt ||= true %>
+<% if @coleccion[str_cntrllr(source)].empty? %>
+  <%= render partial: "0p/tbl/new_hnt", locals: {c: str_cntrllr(source)} %>
+<% else  %>
 
   <%= render partial: '0p/tabla/paginate', locals: {c: str_cntrllr(source), location: 'arriba'} %>
 
   <%= render partial: "0p/tbl/lst", locals: {clccn: @coleccion[str_cntrllr(source)], ordr: ordr, crud: crud, typ: typ} %>
 
   <%= render partial: '0p/tabla/paginate', locals: {c: str_cntrllr(source), location: 'abajo'} if @coleccion[str_cntrllr(source)].count > 15 %>
-
 <% end %>

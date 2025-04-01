@@ -1,3 +1,3 @@
-<% if @objeto.krn_investigadores.count == 0 or ( @objeto.krn_investigadores.count == 1 and @objeto.objcn_invstgdr? ) %>
-	<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr('krn_inv_denuncias')}/new#{blngs_prms(@objeto) unless @objeto.blank?}", tltp: "Agrega #{c_to_name(cntrllr('krn_inv_denuncias'))}"} %>
+<% if @objeto.krn_investigadores.count == 0 or ( @objeto.krn_investigadores.count == 1 and @objeto.objcn_invstgdr? and @objeto.objcn_acogida ) %>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'krn_inv_denuncias', blngs: @objeto} %>
 <% end %>

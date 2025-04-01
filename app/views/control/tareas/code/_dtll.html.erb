@@ -1,23 +1,18 @@
-<%# if prtl?(ownr, "proc/#{objeto.codigo}", 'nts')  %>
-	<%#= render partial: prtl_name(ownr, "proc/#{objeto.codigo}", 'nts'), locals: {objeto: objeto, ownr: ownr} %>
-<%# end %>
-
 <!-- Muestra TABLA de ctr_registros generados hasta ahora -->
-<% unless objeto.ctr_pasos.empty? %>
+<% if objeto.ctr_pasos.any? %>
 
-	<%# if tar_cntrl(ownr)[objeto.codigo] %>
-		<% objeto.ctr_pasos.ordr.each do |paso| %>
-			<% if ownr.send("proc_#{paso.codigo}?") %>
-				<% unless ownr.send("#{paso.metodo}?") %>
-					<%= render partial: '0p/proc/frm', locals: {tar: objeto, objeto: ownr, code: paso.codigo} %>
-				<% end %>
+	<% if objeto.ctr_pasos.map {|paso| ownr.send("proc_#{paso.codigo}?") unless ownr.send("#{paso.metodo}?") }.include?(true) %>
+
+	<div class="row gx-1 border rounded mx-5 p-2">
+	<% objeto.ctr_pasos.ordr.each do |paso| %>
+		<% if ownr.send("proc_#{paso.codigo}?") %>
+			<% unless ownr.send("#{paso.metodo}?") %>
+				<%= render partial: '0p/proc/frm', locals: {tar: objeto, objeto: ownr, code: paso.codigo} %>
 			<% end %>
 		<% end %>
-	<%# end %>
+	<% end %>
+	</div>
+
+	<% end %>
 
 <% end %>
-
-<!-- CHLDS -->
-<%# if prtl?(ownr, "proc/#{objeto.codigo}", 'chlds')  %>
-	<%#= render partial: prtl_name(ownr, "proc/#{objeto.codigo}", 'chlds'), locals: {objeto: objeto, ownr: ownr} %>
-<%# end %>

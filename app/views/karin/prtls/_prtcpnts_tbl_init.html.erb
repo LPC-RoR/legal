@@ -1,0 +1,18 @@
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: to_name(objeto), valor: "#{s_rut(objeto.rut)} : #{objeto.nombre}"} %>
+<% if objeto.empleado_externo %>
+	<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Empleador", valor: objeto.krn_empresa_externa.blank? ? 'Empresa sin registrar' : objeto.krn_empresa_externa.razon_social} %>
+<% end %>
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Cargo", valor: objeto.cargo} %>
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Lugar de Trabajo", valor: objeto.lugar_trabajo} %>
+<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Email personal", valor: objeto.email} %>
+
+<% unless objeto.class.name == 'KrnTestigo' %>
+	<% if objeto.articulo_4_1 %>
+		<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Aplica articulo 4 inciso primero", valor: ''} %>
+	<% end %>
+<% end %>
+
+<% if objeto.articulo_516 %>
+	<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Aplica articulo 516 del Código del Trabajo", valor: ''} %>
+	<%= render partial: '0p/proc/rgstr_tr', locals: {glosa: "Dirección para notificaciones", valor: "#{objeto.direccion_notificacion? ? objeto.direccion_notificacion : 'Dirección no registrada'}"} %>
+<% end %>

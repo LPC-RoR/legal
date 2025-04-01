@@ -4,7 +4,6 @@ module Plazos
   	def plz_lv(fecha, dias)
   		unless fecha.blank? or dias.blank?
 	  		frds = CalFeriado.where('cal_fecha BETWEEN ? AND ?', fecha.beginning_of_day, (fecha + dias.day).end_of_day)
-	  		# n_frds = frds.map {|frd| ['Saturday', 'Sunday'].exclude?(frd.cal_fecha.strftime('%A')) }.compact.count
 	  		n_frds = frds.lv.count
 
 	  		ds = dias + n_frds
@@ -22,8 +21,25 @@ module Plazos
 		end
 	end
 
+	def lv_to_plz(fecha, plazo)
+		fecha ||= Time.zone.today.to_date
+		if plazo.blank?
+			nil
+		else
+			n_dias = (plazo.to_date - fecha.to_date).to_i
+	  		frds = CalFeriado.where('cal_fecha BETWEEN ? AND ?', fecha.beginning_of_day, plazo.end_of_day)
+	  		n_frds = frds.lv.count
+			n_dias - n_frds
+		end
+	end
+
 	def plz_c(fecha, dias)
 		( fecha.blank? or dias.blank? ) ? nil : fecha + dias.day
+	end
+
+	def c_to_plz(fecha, plazo)
+		fecha ||= Time.zone.today.to_date
+		plazo.blank? ? nil : (plazo.to_date - fecha.to_date).to_i
 	end
 
 end
