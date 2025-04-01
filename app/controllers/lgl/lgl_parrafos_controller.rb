@@ -100,12 +100,14 @@ class Lgl::LglParrafosController < ApplicationController
   end
 
   def cnct_up
-    documento = @objeto.lgl_documento
-    anterior = documento.lgl_parrafos.find_by(orden: @objeto.orden - 1)
-    anterior.lgl_parrafo += @objeto.lgl_parrafo
-    anterior.save
+    unless @objeto.blank?    
+      documento = @objeto.lgl_documento
+      anterior = documento.lgl_parrafos.find_by(orden: @objeto.orden - 1)
+      anterior.lgl_parrafo += @objeto.lgl_parrafo
+      anterior.save
 
-    @objeto.delete
+      @objeto.delete
+    end
 
     get_rdrccn
     redirect_to @rdrccn
