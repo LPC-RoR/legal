@@ -5,6 +5,8 @@ class Lgl::LglParrafosController < ApplicationController
   after_action :reordenar, only: %i[ destroy update cnct_up]
   after_action :chk_tgs, only: :update
 
+  include Orden
+
   # GET /lgl_parrafos or /lgl_parrafos.json
   def index
     @coleccion = LglParrafo.all
