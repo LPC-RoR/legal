@@ -16,6 +16,10 @@ class LglParrafo < ApplicationRecord
 	has_one  :parent, :through => :parent_relation
 	has_many :children, :through => :child_relations, :source => :child
 
+	scope :ordr, -> { order(:orden) }
+
+	include OrderModel
+
 	def n_parent
 		self.parent.blank? ? 0 : self.parent.n_parent + 1
 	end
@@ -26,28 +30,12 @@ class LglParrafo < ApplicationRecord
 
 	# ------------------------------------ ORDER LIST
 
-	def owner
-		self.lgl_documento
-	end
-
 	def list
-		self.owner.lgl_parrafos.order(:orden, :created_at)
-	end
-
-	def n_list
-		self.list.count
-	end
-
-	def siguiente
-		self.list.find_by(orden: self.orden + 1)
-	end
-
-	def anterior
-		self.list.find_by(orden: self.orden - 1)
+	self.lgl_documento.lgl_parrafos.ordr
 	end
 
 	def redireccion
-		"/tablas?tb=1"
+		self.lgl_documento
 	end
 
 	# -----------------------------------------------

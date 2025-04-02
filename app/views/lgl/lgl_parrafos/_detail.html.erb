@@ -1,28 +1,20 @@
-<div class="form-row">
-	<div class="formCell">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipo, label: 'Tipo' } %>
-		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :tipo, sel_list: LglParrafo::TIPOS, label: nil } %>
+<div class="row gx-1">
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :codigo, label: 'Código' } %>
 	</div>
-	<div class="formCell">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :accion, label: 'Acción' } %>
-		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :accion, sel_list: LglParrafo::ACCIONES, label: nil } %>
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :tipo, sel_list: LglParrafo::TIPOS, label: 'Tipo' } %>
+	</div>
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :accion, sel_list: LglParrafo::ACCIONES, label: 'Acción' } %>
 	</div>
 </div>
 
-<div class="formCell">
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :lgl_parrafo, label: 'Párrafo' } %>
-	<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :lgl_parrafo } %>
-</div>
-<div class="formCell">
-	<%= render partial: '0p/form_fields/label', locals: { form: form, token: :resumen, label: 'Resumen' } %>
-	<%= render partial: '0p/form_fields/text', locals: { form: form, token: :resumen } %>
-</div>
+<%= render partial: '0p/lbld_inpts/text_area', locals: { form: form, token: :lgl_parrafo, label: 'Párrafo' } %>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :resumen, label: 'Resumen' } %>
+<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :ocultar, label: 'Ocultar' } %>
 
-<div class="formCell">
-	<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :ocultar, label: 'Ocultar' } %>
-</div>
-
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :lgl_documento_id } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
-<!-- DEPRECATED : Padd según jerarquía -->
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :pdd_lft } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :lgl_documento_id } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :orden } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :txt_bld } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :txt_cntr } %>

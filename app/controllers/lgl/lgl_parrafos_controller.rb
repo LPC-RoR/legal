@@ -1,7 +1,7 @@
 class Lgl::LglParrafosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_lgl_parrafo, only: %i[ show edit update destroy swtch padd cnct_up prnt ]
+  before_action :set_lgl_parrafo, only: %i[ show edit update destroy arriba abajo swtch padd cnct_up prnt ]
   after_action :reordenar, only: %i[ destroy update cnct_up]
 #  after_action :chk_tgs, only: :update
 
@@ -19,7 +19,9 @@ class Lgl::LglParrafosController < ApplicationController
 
   # GET /lgl_parrafos/new
   def new
-    @objeto = LglParrafo.new
+    doc = LglDocumento.find(params[:oid])
+    ordn = doc.lgl_parrafos.count + 1
+    @objeto = LglParrafo.new(lgl_documento_id: params[:oid], orden: ordn)
   end
 
   # GET /lgl_parrafos/1/edit
@@ -148,13 +150,11 @@ class Lgl::LglParrafosController < ApplicationController
     end
 
     def get_rdrccn
-      documento = @objeto.lgl_documento
-      anterior = documento.lgl_parrafos.find_by(orden: @objeto.orden - 1)
-      @rdrccn = "/lgl_documentos/#{@objeto.lgl_documento.id}#oid_#{anterior.id unless anterior.blank?}"
+      @rdrccn = "/lgl_documentos/#{@objeto.lgl_documento_id}#lgl_parrafos_#{@objeto.orden == 1 ? 1 : @objeto.orden - 1}"
     end
 
     # Only allow a list of trusted parameters through.
     def lgl_parrafo_params
-      params.require(:lgl_parrafo).permit(:lgl_documento_id, :orden, :lgl_parrafo, :tipo, :definicion, :accion, :resumen, :ocultar)
+      params.require(:lgl_parrafo).permit(:lgl_documento_id, :orden, :codigo, :lgl_parrafo, :tipo, :definicion, :accion, :resumen, :ocultar)
     end
 end

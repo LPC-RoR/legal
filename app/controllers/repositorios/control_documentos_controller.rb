@@ -106,15 +106,6 @@ class Repositorios::ControlDocumentosController < ApplicationController
 
   private
 
-    def reordenar
-      @objeto.list.each_with_index do |val, index|
-        unless val.orden == index + 1
-          val.orden = index + 1
-          val.save
-        end
-      end
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_control_documento
       @objeto = ControlDocumento.find(params[:id])
