@@ -16,11 +16,13 @@
 	</div>
 </div>
 
+<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :desactivado, label: 'Desactivado' } %>
 <hr>
 
-<%= render partial: '0p/lbld_inpts/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'], label: 'Moneda' } %>
-
 <div class="row">
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/radio', locals: { form: form, token: :moneda, radio_list: ['Pesos', 'UF'], label: 'Moneda' } %>
+	</div>
 	<div class="col">
 		<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :valor, label: 'Valor en la demanda' } %>
 	</div>
@@ -29,7 +31,6 @@
 	</div>
 </div>
 
-<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :desactivado, label: 'Desactivado' } %>
 
 
 <%= render partial: '0p/lbld_inpts/hidden', locals: {form: form, token: :ownr_type} %>

@@ -1,15 +1,19 @@
+<!-- versión Bootstrap -->
 <% id ||= nil %>
 <% dsply ||= nil %>
 <div class="mb-3" id="<%=id%>" style2="display: <%=dsply%>;">
+
 	<%= form.label(token, label) unless label.blank? %>
-	<label for="<%=token.to_s%>"></br>
 	<% radio_list.each_with_index do |radio, indice| %>
-		<% if indice == 0 %>
-			<%= form.radio_button token, radio, checked: true %>
-		<% else %>
-			<%= form.radio_button token, radio %>
-		<% end %>
- 		<%= f.label "#{token.to_s}_#{radio.downcase}".to_sym, radio %>
+		<div class="form-check">
+			<% if indice == 0 %>
+			    <%= form.radio_button token, radio, class: "form-check-input" %>
+			    <%= form.label token, radio, value: radio, class: "form-check-label" %>
+			<% else %>
+			    <%= form.radio_button token, radio, class: "form-check-input" %>
+			    <%= form.label token, radio, value: radio, class: "form-check-label" %>
+			<% end %>
+		</div>
  	<% end %>
-	</label>
+
 </div>

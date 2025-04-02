@@ -19,14 +19,16 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def procesos
 
-    pasos = CtrPaso.where(id: [1,2,3,4,5])
-    pasos.each do |paso|
-      paso.ctr_registros.delete_all
-    end
+    Causa.all.each do |causa|
+      if causa.age_actividades.adncs.any?
 
-    tareas = Tarea.where(id: [27,42])
-    tareas.each do |tar|
-      tar.ctr_registros.delete_all
+        adncs = causa.age_actividades.adncs.ftrs.fecha_ordr
+        causa.fecha_audiencia = adncs.empty? ? nil : adncs.first.fecha
+        causa.audiencia = adncs.empty? ? nil : adncs.first.age_actividad
+
+        causa.save
+
+      end
     end
 
     redirect_to root_path, notice: CausaArchivo.all.count

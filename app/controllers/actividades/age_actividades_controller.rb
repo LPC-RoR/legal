@@ -2,7 +2,7 @@ class Actividades::AgeActividadesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_age_actividad, only: %i[ show edit update destroy swtch dssgn_usr assgn_usr cambia_estado cambio_fecha ]
-  after_action :set_fecha_audiencia, only: :destroy
+  after_action :set_fecha_audiencia, only: %i[ create update destroy]
 
   include AgeUsr
 
@@ -166,8 +166,10 @@ class Actividades::AgeActividadesController < ApplicationController
     def set_fecha_audiencia
       if @objeto.tipo == 'Audiencia'
         ownr = @objeto.ownr
-        ownr.fecha_audiencia = @objeto.fecha
-        ownr.audiencia = @objeto.age_actividad
+        adncs = ownr.age_actividades.adncs.ftrs.fecha_ordr
+        ownr.fecha_audiencia = adncs.empty? ? nil : adncs.first.fecha
+        ownr.audiencia = adncs.empty? ? nil : adncs.first.age_actividad
+
         ownr.save
       end
     end

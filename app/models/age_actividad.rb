@@ -20,6 +20,7 @@ class AgeActividad < ApplicationRecord
 	scope :pndnts, -> {where(estado: 'pendiente')}
 	scope :sspondds, -> {where(estado: 'suspendida')}
 	scope :adncs, -> {where(tipo: 'Audiencia')}
+	scope :ftrs, -> { where("fecha > ?", Time.zone.today) }
 
 	scope :d_jcs,	-> {where(age_actividad: D_JC)}
 	scope :prprtrs,	-> {where(age_actividad: PRPRTR)}
