@@ -12,7 +12,12 @@ module Capitan
 				causas_path
 			end
 		else
-			@objeto.ownr
+			case @objeto.class.name
+			when 'LglParrafo'
+				@objeto.lgl_documento
+			else
+				@objeto.ownr
+			end
 		end
 	end
 

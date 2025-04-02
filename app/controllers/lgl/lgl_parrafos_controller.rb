@@ -1,9 +1,9 @@
 class Lgl::LglParrafosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_lgl_parrafo, only: %i[ show edit update destroy padd cnct_up chk_tgs prnt ]
+  before_action :set_lgl_parrafo, only: %i[ show edit update destroy swtch padd cnct_up prnt ]
   after_action :reordenar, only: %i[ destroy update cnct_up]
-  after_action :chk_tgs, only: :update
+#  after_action :chk_tgs, only: :update
 
   include Orden
 

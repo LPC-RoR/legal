@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     resources :lgl_entidades
     resources :lgl_recursos
     resources :lgl_parrafos do
+      match :swtch, via: :get, on: :member
       match :padd, via: :get, on: :member
       match :cnct_up, via: :get, on: :member
       match :chk_tgs, via: :get, on: :member
