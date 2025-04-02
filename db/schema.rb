@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_02_173524) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_02_193009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -879,6 +879,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_173524) do
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"
     t.index ["rut"], name: "index_krn_testigos_on_rut"
+  end
+
+  create_table "lgl_citas", force: :cascade do |t|
+    t.integer "lgl_parrafo_id"
+    t.integer "orden"
+    t.string "codigo"
+    t.string "lgl_cita"
+    t.string "referencia"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo"], name: "index_lgl_citas_on_codigo"
+    t.index ["lgl_parrafo_id"], name: "index_lgl_citas_on_lgl_parrafo_id"
+    t.index ["orden"], name: "index_lgl_citas_on_orden"
   end
 
   create_table "lgl_datos", force: :cascade do |t|

@@ -77,6 +77,10 @@ Rails.application.routes.draw do
   scope module: 'lgl' do
     resources :lgl_entidades
     resources :lgl_recursos
+    resources :lgl_citas do
+      match :arriba, via: :get, on: :member
+      match :abajo, via: :get, on: :member
+    end
     resources :lgl_parrafos do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member

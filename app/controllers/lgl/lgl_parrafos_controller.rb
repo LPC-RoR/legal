@@ -14,6 +14,7 @@ class Lgl::LglParrafosController < ApplicationController
 
   # GET /lgl_parrafos/1 or /lgl_parrafos/1.json
   def show
+    set_tabla('lgl_citas', LglCita.ordr, true)
     set_tabla('lgl_datos', @objeto.lgl_datos.order(:orden), false)
   end
 

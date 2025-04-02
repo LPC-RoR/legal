@@ -5,6 +5,8 @@ class LglParrafo < ApplicationRecord
 
 	belongs_to :lgl_documento
 
+	has_many :lgl_citas
+
 	has_many :lgl_puntos
 	has_many :lgl_datos
 

@@ -1,7 +1,13 @@
 <div class="row gx-1 px-1 app_lnk" style="font-size: 10px; line-height: 1.2;">
 	<div class="col">
 		<%= render partial: '0p/tbl/ordr', locals: {objeto: objeto} %>
-		<%= objeto.codigo %>
+		<% if admin? %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: objeto, tltp: 'Gestionar citas'} do %>
+				<%= objeto.codigo %>
+			<% end %>
+		<% else %>
+			<%= objeto.codigo %>
+		<% end %>
 	</div>
 	<div class="col text-end">
 		<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'txt_bld', stts: [' text normal', 'texto en negrita'], glys: ['type', 'type-bold']} %>
