@@ -72,7 +72,7 @@ Rails.application.configure do
   config.x.mail_from = %(Abogados derecho del Trabajo <no-reply@abogadosderechodeltrabajo.cl>)
   config.action_mailer.default_url_options = { host: 'abogadosderechodeltrabajo.cl' }
   config.action_mailer.smtp_settings = { 
-    address: Rails.application.credentials[:smtp][:address], 
+    address: 'email-smtp.us-east-2.amazonaws.com', 
     user_name: Rails.application.credentials[:smtp][:user_name], 
     password: Rails.application.credentials[:smtp][:password],
     port: 587,
