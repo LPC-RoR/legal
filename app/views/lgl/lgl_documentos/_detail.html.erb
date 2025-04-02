@@ -1,6 +1,7 @@
 <div class="row gx-1">
 	<div class="col-lg-3 col-xs-12">
-		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :tipo, sel_list: ['Ley', 'Circular', 'Reglamento', 'Otro'], label: 'Tipo' } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :codigo, label: 'Código' } %>
+		<%#= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :tipo, sel_list: ['Ley', 'Circular', 'Reglamento', 'Otro'], label: 'Tipo' } %>
 	</div>
 	<div class="col-lg-9">
 		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :lgl_documento, label: 'Documento legal' } %>

@@ -84,6 +84,6 @@ class Lgl::LglDocumentosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lgl_documento_params
-      params.require(:lgl_documento).permit(:lgl_documento, :tipo, :archivo)
+      params.require(:lgl_documento).permit(:lgl_documento, :codigo, :tipo, :archivo)
     end
 end
