@@ -2,7 +2,7 @@ class Lgl::LglDocumentosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_lgl_documento, only: %i[ show edit update destroy ]
-  after_action :read_pdf, only: %i[ create update ]
+  after_action :read_pdf, only: %i[ create ]
 
   include Lgl
 
