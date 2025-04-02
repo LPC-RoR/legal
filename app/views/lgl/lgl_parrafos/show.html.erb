@@ -1,5 +1,5 @@
 <%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 <div class="my-1 p-2 bg-white border shadow">
-	<%= @objeto.lgl_parrafo %>
+	<%= @objeto.lgl_parrafo.html_safe %>
 </div>
 <%= render partial: '0p/tbl/tbl', locals: {source: 'lgl_citas'} %>
