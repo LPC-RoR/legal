@@ -1,7 +1,7 @@
 <% unless prrfs.empty? %>
 <div class="mx-1 p-2 bg-white border shadow" style="font-size: 12px;line-height: 1.2;">
 	<div class="p-2 text-center fw-bold">
-		<%= doc.lgl_documento %>
+		<%= doc.lgl_documento %>:<%= prrfs.count %>
 	</div>
 	<ul>
 		<% prrfs.each do |prrf| %>
