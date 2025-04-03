@@ -1,5 +1,5 @@
 <div class="row gx-1 px-1 app_lnk" style="font-size: 10px; line-height: 1.2;">
-	<div class="col-8">
+	<div class="col-9">
 		<%= render partial: '0p/tbl/ordr', locals: {objeto: objeto} %>
 		<% if admin? %>
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: objeto, tltp: 'Gestionar citas'} do %>
@@ -9,7 +9,7 @@
 			<%= objeto.codigo %><i class="bi bi-dot"></i><%=objeto.referencia %>
 		<% end %>
 	</div>
-	<div class="col-4 text-end">
+	<div class="col-3 text-end">
 		<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'txt_bld', stts: [' text normal', 'texto en negrita'], glys: ['type', 'type-bold']} %>
 		<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'txt_cntr', stts: ['texto a la izquierda', 'texto_centrado'], glys: ['text-left', 'text-center']} %>
 		<% if admin? %>
