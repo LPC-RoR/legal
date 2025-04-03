@@ -19,6 +19,7 @@ class LglParrafo < ApplicationRecord
 	has_many :children, :through => :child_relations, :source => :child
 
 	scope :ordr, -> { order(:orden) }
+	scope :dsplys, -> { where(dsply: true) }
 
 	include OrderModel
 

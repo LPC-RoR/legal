@@ -17,6 +17,8 @@ class Karin::KrnDenunciasController < ApplicationController
     set_plzs
     load_proc(@objeto)
     load_temas_proc
+    @doc = LglDocumento.find_by(codigo: 'd_rik')
+    @prrfs = @doc.lgl_parrafos.ordr.dsplys
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
     set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)

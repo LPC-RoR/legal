@@ -18,7 +18,7 @@ module Karin
     @tar_cntrl_hsh = tar_cntrl_hsh(ownr)
     @fls_actv = []
     @etps_trmnds = []
-    @proc_objt = Procedimiento.find_by(codigo: 'd_rik')
+    @proc_objt = Procedimiento.find_by(codigo: 'krn_invstgcn')
 
     @proc_objt.ctr_etapas.ordr.each do |etp|
 
