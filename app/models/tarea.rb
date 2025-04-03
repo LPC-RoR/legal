@@ -7,6 +7,7 @@ class Tarea < ApplicationRecord
 	has_many :variables, as: :ownr
 	has_many :hlp_ayudas, as: :ownr
 	has_many :hlp_notas, as: :ownr
+	has_many :lgl_temas, as: :ownr
 
 	scope :ordr, -> {order(:orden)}
 

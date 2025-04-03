@@ -16,6 +16,7 @@ class Karin::KrnDenunciasController < ApplicationController
   def show
     set_plzs
     load_proc(@objeto)
+    load_temas_proc
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
     set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)

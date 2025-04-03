@@ -28,20 +28,38 @@ module Karin
       else
         if @etp_cntrl_hsh[etp.codigo][:actv]
           @etp_last = etp
-          puts "**************************************************************** etp_last"
-          puts etp.codigo
 
           etp.tareas.ordr.each do |tar|
             if @tar_cntrl_hsh[tar.codigo][:actv]
               @tar_last = tar
-          puts "**************************************************************** tar_last"
-          puts tar.codigo
             end
           end
         end
         break
       end
 
+    end
+
+    def load_temas(ownr, hsh)
+        unless ownr.blank?
+          ownr.lgl_temas.each do |tm|
+            mdl = tm.codigo[0] == 'd' ? 'LglDocumento' : (tm.codigo[0] == 'p' ? 'LglParrafo' : 'LglCita')
+            tema = mdl.constantize.find_by(codigo: tm.codigo)
+          puts "********************************************************** load_temas"
+          puts ownr.class.name
+          puts ownr.codigo
+          puts tm.codigo
+          puts mdl
+            hsh[tm.codigo] = tema
+          end
+        end
+    end
+
+    def load_temas_proc
+      @lgl_temas = {}
+      load_temas(@proc_objt, @lgl_temas)
+      load_temas(@etp_last, @lgl_temas)
+      load_temas(@tar_last, @lgl_temas)
     end
 
     @proc_objt.rep_doc_controlados.ordr.each do |dc|

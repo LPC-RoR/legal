@@ -15,6 +15,7 @@ class Control::CtrEtapasController < ApplicationController
   def show
     set_tabla('hlp_ayudas', @objeto.hlp_ayudas, false)
     set_tabla('hlp_notas', @objeto.hlp_notas.ordr, false)
+    set_tabla('lgl_temas', @objeto.lgl_temas.ordr, false)
   end
 
   # GET /ctr_etapas/new

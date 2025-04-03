@@ -3,10 +3,10 @@
 		<%= render partial: '0p/tbl/ordr', locals: {objeto: objeto} %>
 		<% if admin? %>
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: objeto, tltp: 'Gestionar citas'} do %>
-				<%= objeto.codigo %>
+				<%= objeto.codigo %><i class="bi bi-dot"></i><%=objeto.referencia %>
 			<% end %>
 		<% else %>
-			<%= objeto.codigo %>
+			<%= objeto.codigo %><i class="bi bi-dot"></i><%=objeto.referencia %>
 		<% end %>
 	</div>
 	<div class="col text-end">

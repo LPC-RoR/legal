@@ -1,5 +1,6 @@
 <%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 
 <%= render partial: '0p/tbl_ttl', locals: {source: 'rep_doc_controlados', ownr: @objeto, ordr: true, typ: 'tr'} %>
+<%= render partial: '0p/tbl_ttl', locals: {source: 'lgl_temas', ownr: @objeto, ordr: true, typ: 'tr'} %>
 
 <%= render partial: 'ayuda/shr/hlp_files', locals: {objeto: @objeto} %>

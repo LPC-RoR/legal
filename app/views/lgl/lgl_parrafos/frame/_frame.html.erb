@@ -1,4 +1,4 @@
-<div class="my-1 p-1 bg-white border shadow" id="<%=cntrllr(objeto)%>_<%=objeto.orden%>">
-	<%= render partial: prtl_name('lgl_parrafos', 'frame', 'cntrls'), locals: {objeto: objeto} %>
+<div class="<%='my-1 p-1 bg-white border shadow' if controller_name.start_with?('lgl_')%>" id="<%=cntrllr(objeto)%>_<%=objeto.orden%>">
+	<%= render partial: prtl_name('lgl_parrafos', 'frame', 'cntrls'), locals: {objeto: objeto} if controller_name.start_with?('lgl_') %>
 	<%= render partial: prtl_name('lgl_parrafos', 'frame', 'prrf'), locals: {objeto: objeto} %>
 </div>

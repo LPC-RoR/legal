@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_03_124838) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_03_132105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -984,6 +984,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_03_124838) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tipo"], name: "index_lgl_recursos_on_tipo"
+  end
+
+  create_table "lgl_temas", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.integer "orden"
+    t.string "codigo"
+    t.string "lgl_tema"
+    t.boolean "heredado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo"], name: "index_lgl_temas_on_codigo"
+    t.index ["orden"], name: "index_lgl_temas_on_orden"
+    t.index ["ownr_id"], name: "index_lgl_temas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_lgl_temas_on_ownr_type"
   end
 
   create_table "lgl_tipo_entidades", force: :cascade do |t|

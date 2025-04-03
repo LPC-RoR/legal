@@ -13,6 +13,7 @@ class Control::ProcedimientosController < ApplicationController
   def show
     set_tabla('ctr_etapas', @objeto.ctr_etapas.ordr, false)
     set_tabla('rep_doc_controlados', @objeto.rep_doc_controlados.ordr, false)
+    set_tabla('lgl_temas', @objeto.lgl_temas.ordr, false)
   end
 
   # GET /procedimientos/new

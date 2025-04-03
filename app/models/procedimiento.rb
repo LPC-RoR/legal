@@ -3,6 +3,7 @@ class Procedimiento < ApplicationRecord
 
 	has_many :ctr_etapas
 	has_many :rep_doc_controlados, as: :ownr
+	has_many :lgl_temas, as: :ownr
 
 	has_many :productos
 
