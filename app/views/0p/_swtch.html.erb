@@ -1,10 +1,11 @@
 <% prmpt ||= nil %>
 <% glys ||= ['check2-square', 'square'] %>
+<% clr ||= nil %>
 <%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/swtch?tkn=#{tkn}", tltp: "Marcar como #{objeto.send(tkn) ? stts[0] : stts[1]}"} do %>
 	<% if objeto.send(tkn) %>
-		<i class="bi bi-<%=glys[0]%>"></i>
+		<i class="bi bi-<%=glys[0]%> text-<%=clr%>"></i>
 	<% else %>
-		<i class="bi bi-<%=glys[1]%>"></i>
+		<i class="bi bi-<%=glys[1]%> text-<%=clr%>"></i>
 	<% end %>
 	<%= prmpt %>
 <% end %>

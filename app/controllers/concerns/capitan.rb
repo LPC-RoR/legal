@@ -15,6 +15,8 @@ module Capitan
 			case @objeto.class.name
 			when 'LglParrafo'
 				@objeto.lgl_documento
+			when 'Asesoria'
+				asesorias_path
 			else
 				@objeto.ownr
 			end

@@ -1,7 +1,7 @@
 class Srvcs::AsesoriasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_asesoria, only: %i[ show edit update destroy set_tar_servicio facturar liberar_factura swtch_pendiente swtch_urgencia elimina_cobro ]
+  before_action :set_asesoria, only: %i[ show edit update destroy swtch set_tar_servicio facturar liberar_factura elimina_cobro ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   # GET /asesorias or /asesorias.json

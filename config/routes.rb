@@ -179,13 +179,12 @@ Rails.application.routes.draw do
   scope module: 'srvcs' do
     resources :tipo_asesorias
     resources :asesorias do
+      match :swtch, via: :get, on: :member
       match :set_tar_servicio, via: :post, on: :member
       match :generar_cobro, via: :get, on: :member
       match :elimina_cobro, via: :get, on: :member
       match :facturar, via: :get, on: :member
       match :liberar_factura, via: :get, on: :member
-      match :swtch_pendiente, via: :get, on: :member
-      match :swtch_urgencia, via: :get, on: :member
     end
 
     resources :tipo_cargos
