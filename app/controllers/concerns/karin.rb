@@ -18,7 +18,7 @@ module Karin
     @tar_cntrl_hsh = tar_cntrl_hsh(ownr)
     @fls_actv = []
     @etps_trmnds = []
-    @proc_objt = Procedimiento.find_by(codigo: 'krn_invstgcn')
+    @proc_objt = Procedimiento.find_by(codigo: 'd_rik')
 
     @proc_objt.ctr_etapas.ordr.each do |etp|
 
@@ -45,11 +45,6 @@ module Karin
           ownr.lgl_temas.each do |tm|
             mdl = tm.codigo[0] == 'd' ? 'LglDocumento' : (tm.codigo[0] == 'p' ? 'LglParrafo' : 'LglCita')
             tema = mdl.constantize.find_by(codigo: tm.codigo)
-          puts "********************************************************** load_temas"
-          puts ownr.class.name
-          puts ownr.codigo
-          puts tm.codigo
-          puts mdl
             hsh[tm.codigo] = tema
           end
         end
