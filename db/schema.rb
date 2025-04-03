@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_02_193009) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_03_124838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -912,6 +912,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_193009) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "codigo"
+    t.string "referencia"
     t.index ["codigo"], name: "index_lgl_documentos_on_codigo"
     t.index ["tipo"], name: "index_lgl_documentos_on_tipo"
   end
@@ -959,6 +960,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_193009) do
     t.string "codigo"
     t.boolean "txt_bld"
     t.boolean "txt_cntr"
+    t.string "referencia"
     t.index ["codigo"], name: "index_lgl_parrafos_on_codigo"
     t.index ["lgl_documento_id"], name: "index_lgl_parrafos_on_lgl_documento_id"
     t.index ["orden"], name: "index_lgl_parrafos_on_orden"

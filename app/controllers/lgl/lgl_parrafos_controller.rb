@@ -156,6 +156,6 @@ class Lgl::LglParrafosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lgl_parrafo_params
-      params.require(:lgl_parrafo).permit(:lgl_documento_id, :orden, :codigo, :lgl_parrafo, :tipo, :definicion, :accion, :resumen, :ocultar)
+      params.require(:lgl_parrafo).permit(:lgl_documento_id, :orden, :codigo, :referencia, :lgl_parrafo, :tipo, :definicion, :accion, :resumen, :ocultar)
     end
 end

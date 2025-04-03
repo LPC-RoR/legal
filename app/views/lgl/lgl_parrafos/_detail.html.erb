@@ -10,6 +10,8 @@
 	</div>
 </div>
 
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :referencia, label: 'Referencia' } %>
+
 <%= render partial: '0p/lbld_inpts/text_area', locals: { form: form, token: :lgl_parrafo, label: 'Párrafo' } %>
 <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :resumen, label: 'Resumen' } %>
 <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :ocultar, label: 'Ocultar' } %>
