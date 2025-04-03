@@ -15,9 +15,6 @@ class Organizacion::ServiciosController < ApplicationController
 
     @h_pagos = get_h_pagos(@objeto)
   
-  puts "********************************************************"
-puts "Ruta de la plantilla: #{Rails.root.join('app', 'views', 'organizacion', 'servicios', 'aprobacion.html.erb')}"
-
     respond_to do |format|
       format.html
       format.pdf do
@@ -29,6 +26,11 @@ puts "Ruta de la plantilla: #{Rails.root.join('app', 'views', 'organizacion', 's
   rescue ArgumentError => e
     # Manejar errores de parámetros inválidos
     redirect_to "/servicios/aprobacion", alert: "Invalid date format. Please use YYYY-MM-DD."
+  end
+
+  def documentos
+    @objeto = LglDocumento.find_by(codigo: params[:cdg])
+    set_tabla('lgl_parrafos', @objeto.lgl_parrafos.ordr, false)
   end
 
   def auditoria

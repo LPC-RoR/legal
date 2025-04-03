@@ -1,8 +1,8 @@
 class Lgl::LglParrafosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_lgl_parrafo, only: %i[ show edit update destroy arriba abajo swtch padd cnct_up prnt ]
-  after_action :reordenar, only: %i[ destroy update cnct_up]
+  before_action :set_lgl_parrafo, only: %i[ show edit update destroy arriba abajo swtch padd prnt ]
+  after_action :reordenar, only: %i[ destroy update ]
 #  after_action :chk_tgs, only: :update
 
   include Orden
@@ -96,20 +96,6 @@ class Lgl::LglParrafosController < ApplicationController
     else
       padre.children.delete(@objeto) unless padre.blank?
       abuelo.children << @objeto unless abuelo.blank?
-    end
-
-    get_rdrccn
-    redirect_to @rdrccn
-  end
-
-  def cnct_up
-    unless @objeto.blank?    
-      documento = @objeto.lgl_documento
-      anterior = documento.lgl_parrafos.find_by(orden: @objeto.orden - 1)
-      anterior.lgl_parrafo += @objeto.lgl_parrafo
-      anterior.save
-
-      @objeto.delete
     end
 
     get_rdrccn

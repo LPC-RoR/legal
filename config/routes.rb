@@ -87,7 +87,6 @@ Rails.application.routes.draw do
       match :abajo, via: :get, on: :member
       match :swtch, via: :get, on: :member
       match :padd, via: :get, on: :member
-      match :cnct_up, via: :get, on: :member
       match :chk_tgs, via: :get, on: :member
       match :prnt, via: :get, on: :member
     end
@@ -361,6 +360,7 @@ Rails.application.routes.draw do
   scope module: 'organizacion' do
     resources :servicios do
       match :aprobacion, via: :get, on: :collection
+      match :documentos, via: :get, on: :collection
       match :auditoria, via: :get, on: :collection
       match :adncs, via: :get, on: :collection
       match :antecedentes, via: :get, on: :collection

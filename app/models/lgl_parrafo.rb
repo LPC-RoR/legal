@@ -33,7 +33,7 @@ class LglParrafo < ApplicationRecord
 	# ------------------------------------ ORDER LIST
 
 	def list
-	self.lgl_documento.lgl_parrafos.ordr
+		self.lgl_documento.lgl_parrafos.ordr
 	end
 
 	def redireccion
