@@ -1,4 +1,5 @@
-<div class="g_cllps">
+<% unless @usuario.blank? %>
+<div class="p-1">
 <%= form_for :form_nombre, url: "/age_usuarios/#{@usuario.id}/personaliza" do |form| %>
 
 	Nuevo nombre:
@@ -10,3 +11,4 @@
 
 <% end  %>
 </div>
+<% end %>
