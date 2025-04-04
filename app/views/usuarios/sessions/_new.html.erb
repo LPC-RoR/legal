@@ -1,0 +1,39 @@
+<div class='row justify-content-center mt-4'>
+  <div class='col-md-4'>
+    <!--h2>Ingreso</h2-->
+    <div class="devise-box">
+
+      <h4 class="text-center"><%= render partial: '0p/general/icon_text', locals: {text: 'Ingreso', gly: 'person-check', clr: 'info'} %></h4>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+        <!-- Campo de email (opcional, solo como ejemplo) -->
+        <div class="form-floating mb-3">
+          <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control', id: 'emailInput', placeholder: 'Email' %>
+          <%= f.label :email, 'Email', for: 'emailInput' %>
+        </div>
+
+        <!-- Campo de contraseña -->
+        <div class="form-floating mb-3">
+          <%= f.password_field :password, autocomplete: "current-password", class: 'form-control', id: 'passwordInput', placeholder: 'Password' %>
+          <%= f.label :password, 'Password', for: 'passwordInput' %>
+        </div>
+
+        <%# if devise_mapping.rememberable? %>
+          <!--div class="field"-->
+            <%#= f.check_box :remember_me %>
+            <!--small><%#= f.label 'recuerdame' %></small-->
+          <!--/div-->
+        <%# end %>
+
+        <div class="actions mb-3">
+          <%= f.submit "Ingresar" %>
+        </div>
+      <% end %>
+
+      <p id="notice"><%= notice %></p>
+      <%= render "devise/shared/links" %>
+      
+    </div>
+  </div>
+</div>
