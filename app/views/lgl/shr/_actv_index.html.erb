@@ -6,10 +6,10 @@
 	<ul>
 		<% prrfs.each do |prrf| %>
 			<%= prrf.codigo %>
-			<li><%= render partial: '0p/mdl/lnk', locals: {txt: prrf.referencia.split(',')[1], cdg: prrf.codigo} %></li>
-			<%= render partial: '0p/mdl/mdl', locals: {sz: 'lg', scrll: true, cdg: prrf.codigo, ttl: prrf.referencia.split(',')[1], prtl: prtl_name(prrf, 'frame', 'frame'), lcls: {objeto: prrf}} %>
+			<li><%= render partial: '0p/mdl/lnk', locals: {txt: prrf.referencia.split(',')[1], cdg: 'Parrafos'} %></li>
 
 		<% end %>
 	</ul>
 </div>
 <% end %>
+<%= render partial: '0p/mdl/mdl', locals: {sz: 'lg', scrll: true, cdg: 'Parrafos', ttl: prrf.referencia.split(',')[1], prtl: prtl_name(prrf, 'frame', 'frame'), lcls: {objeto: prrf}} %>
