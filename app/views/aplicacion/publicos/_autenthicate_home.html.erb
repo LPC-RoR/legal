@@ -15,6 +15,6 @@
       <%= render partial: 'actividades/age_actividades/partials/form_nombre' %>
     <% end %>
 
-    <%= render partial: '0p/tbl/tbl', locals: {source: 'notas'} %>
+    <%= render partial: '0p/tbl/tbl', locals: {source: 'notas'} unless @usuario.blank? %>
   </div>
 </div>
