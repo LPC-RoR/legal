@@ -9,7 +9,7 @@
     <%# end %>
   </div>
   <div class="col-lg-6">
-    <%= render partial: '0p/ttl_tbl', locals: {source: 'notas', lnks: 'prtl'} %>
+    <%= render partial: '0p/ttl_tbl', locals: {source: 'notas', lnks: 'prtl'} unless @usuario.blank? %>
 
     <%= render layout: '0p/collapse/display', locals: {label: 'Personaliza', objeto: nil} do %>
       <%= render partial: 'actividades/age_actividades/partials/form_nombre' %>

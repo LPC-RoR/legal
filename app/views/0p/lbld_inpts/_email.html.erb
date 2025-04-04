@@ -1,11 +1,15 @@
+<% objeto ||= @objeto %>
 <div class="form-floating mb-3">
 
-    <%= form.email_field token, class: "form-control #{'is-invalid' if @objeto.errors[:name].any?}", id: label.parameterize, placeholder: label %>
-    <%= form.label token, label, for: label.parameterize unless @objeto.errors[token].any? %>
-    <% if @objeto.errors[token].any? %>
-      <div class="invalid-feedback">
-        <%= @objeto.errors[token].join(', ') %>
-      </div>
+    <%= form.email_field token, class: "form-control #{'is-invalid' if (objeto.present? and objeto.errors[:name].any?)}", id: label.parameterize, placeholder: label %>
+    <%= form.label token, label, for: label.parameterize unless (objeto.present? and objeto.errors[token].any?) %>
+
+    <% unless objeto.blank? %>
+      <% if objeto.errors[token].any? %>
+        <div class="invalid-feedback">
+          <%= @objeto.errors[token].join(', ') %>
+        </div>
+      <% end %>
     <% end %>
 
 </div>
