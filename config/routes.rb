@@ -542,7 +542,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_for :usuarios, controllers: {
     confirmations: 'usuarios/confirmations',
-    registrations: 'usuarios/registrations'
+    registrations: 'usuarios/registrations',
+    sessions: 'usuarios/sessions'
   }
   root 'aplicacion/publicos#home'
 

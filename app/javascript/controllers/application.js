@@ -1,13 +1,12 @@
+// app/javascript/controllers/application.js
 import { Application } from "@hotwired/stimulus"
-import PrtcpntsFieldsController from "./controllers/prtcpnts_fields_controller"
+import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
 
 const application = Application.start()
 application.register("prtcpnts-fields", PrtcpntsFieldsController)
 
-// Configure Stimulus development experience
-application.debug = false
-window.Stimulus   = application
+window.Stimulus = application
+const context = require.context("controllers", true, /\.js$/)
+Stimulus.load(definitionsFromContext(context))
 
 export { application }
-
-console.log("Controllers registrados:", application.controllers)

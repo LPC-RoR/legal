@@ -27,6 +27,7 @@ module Inicia
 				end
 
 			end
+
 		end
 
 		# si hay perfil_activo ? hay usuarios se inicia applicacion : se despliega home SIN perfil_activo

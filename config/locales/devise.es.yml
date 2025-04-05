@@ -37,6 +37,8 @@ es:
       updated: "Tu contraseña fue modificada correctamente. Has iniciado sesión."
       updated_not_active: "Tu contraseña fue modificada correctamente."
     registrations:
+      user:
+        taken: 'Este correo electrónico ya fue registrado'
       destroyed: "Adiós, tu cuenta ha sido eliminada. Esperamos verte de vuelta pronto!"
       signed_up: "Bienvenido! Te has registrado correctamente."
       signed_up_but_inactive: "Te has registrado correctamente, pero tu cuenta aun no ha sido activada."
@@ -55,7 +57,7 @@ es:
       unlocked: "Tu cuenta ha sido desbloqueada. Inicia sesión para continuar."
   errors:
     messages:
-      already_confirmed: "ya fue confirmada. Intenta ingresar."
+      already_confirmed: "ya fue confirmado. Intenta ingresar."
       confirmation_period_expired: "necesita ser confirmada dentro de %{period}, por favor pide una nueva"
       expired: "ha expirado, por favor pide una nueva"
       not_found: "no encontrado"

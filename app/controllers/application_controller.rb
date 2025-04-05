@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+	# agregado para devise con turbo-frame
+	before_action :store_user_location!, if: :storable_location?
 
 	include Config
 	include Seguridad
@@ -36,5 +38,15 @@ class ApplicationController < ActionController::Base
 	helper_method :cmenu_clss, :std, :typ, :display_name, :scp_menu, :scp_item
 	helper_method :plz_lv, :plz_c
 	helper_method :krn_fl_cntrl, :krn_cntrllrs?, :drvcn_text, :fl_cndtn?
+
+  private
+
+  def storable_location?
+    request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
+  end
+
+  def store_user_location!
+    store_location_for(:usuario, request.fullpath)
+  end
 
 end

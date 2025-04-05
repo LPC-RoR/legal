@@ -27,3 +27,27 @@ export default class extends Controller {
     alert("¡Funciona!") // Para verlo visualmente
   }
 }
+
+// app/javascript/application.js (o donde tengas tu JS principal)
+document.addEventListener('DOMContentLoaded', () => {
+  // Polyfill para redirección post-login
+  if (window.location.pathname.includes('sign_in') && 
+      document.cookie.includes('_legal_session')) {
+    window.location.href = '/'
+  }
+  
+  // Deshabilitar doble submit
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', () => {
+      const submitBtn = form.querySelector('[type="submit"]')
+      if (submitBtn) submitBtn.disabled = true
+    })
+  })
+})
+
+// app/javascript/packs/application.js
+document.addEventListener('turbo:load', function() {
+  if (window.location.pathname === '/usuarios/sign_in' && document.cookie.match(/signed_in=true/)) {
+    window.location.href = '/'
+  }
+})
