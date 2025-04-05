@@ -28,7 +28,7 @@ module Seguridad
 
 	def get_perfil_activo
 		nomina = get_nomina_activa
-		nomina.blank? ? nil : nomina.app_perfil
+		nomina.blank? ? nil : (current_usuario.confirmed? ? nomina.app_perfil : nil )
 	end
 
 	def get_scp_activo

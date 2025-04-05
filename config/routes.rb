@@ -545,6 +545,7 @@ Rails.application.routes.draw do
     registrations: 'usuarios/registrations',
     sessions: 'usuarios/sessions'
   }
+
   root 'aplicacion/publicos#home'
 
 end

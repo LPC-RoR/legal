@@ -2,7 +2,7 @@ class Aplicacion::PublicosController < ApplicationController
   before_action :authenticate_usuario!, only: %i[ encuesta preguntas ]
   before_action :scrty_on, only: %i[ home home_prueba encuesta preguntas ]
   before_action :inicia_sesion, only: [:home]
-
+#  before_action :check_user_confirmation, if: :user_signed_in?
   # GET /publicos or /publicos.json
   def index
   end

@@ -27,4 +27,5 @@ module DeviseTurboFix
       super
     end
   end
+
 end

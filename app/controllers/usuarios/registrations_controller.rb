@@ -32,11 +32,19 @@ class Usuarios::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def after_inactive_sign_up_path_for(resource)
-    new_usuario_session_path
+  def after_sign_up_path_for(resource)
+    if resource.active_for_authentication?
+      root_path # Si el usuario está activo (confirmado)
+    else
+      # Ruta a la que irán los usuarios no confirmados
+      new_user_session_path
+    end
   end
 
-  def after_sign_up_path_for(resource)
-    root_path
+  def after_inactive_sign_up_path_for(resource)
+    # Mensaje que verán después de registrarse si necesitan confirmación
+    # Puedes crear una vista específica para esto en views/devise/registrations/signed_up_but_unconfirmed.html.erb
+    signed_up_but_unconfirmed_path
   end
+
 end

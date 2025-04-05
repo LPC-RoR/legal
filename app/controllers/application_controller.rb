@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
 	# agregado para devise con turbo-frame
-	before_action :store_user_location!, if: :storable_location?
 
   include DeviseTurboFix
 
