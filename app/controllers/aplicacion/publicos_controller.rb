@@ -10,8 +10,8 @@ class Aplicacion::PublicosController < ApplicationController
   def home
     if usuario_signed_in?
 
-      if perfil_activo? and perfil_activo.age_usuario.blank?
-        AgeUsuario.create(age_usuario: perfil_activo.nombre_agenda, app_perfil_id: perfil_activo.id)
+      if get_perfil_activo.present? and get_perfil_activo.age_usuario.blank?
+        AgeUsuario.create(age_usuario: get_perfil_activo.nombre_agenda, app_perfil_id: get_perfil_activo.id)
       end
 
       @usuario = get_perfil_activo.age_usuario
