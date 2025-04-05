@@ -3,7 +3,7 @@
 	<%= render partial: 'layouts/partials/notice_alert' %>
 
 	<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, SI ES UNA PÁGINA PÚBLICA O ES UNA PÁGINA DE DEVISE -->
-	<% if get_perfil_activo.present? or get_public_controllers.include?(controller_name) or devise_controllers.include?(controller_name)  %>
+	<% if get_perfil_activo.present? or not_authenticate? or devise_controllers.include?(controller_name)  %>
 
 		<!-- Verifica usuarios de la aplicación o de cuenta -->
 		<% unless scp_err? %>

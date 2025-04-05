@@ -21,6 +21,10 @@ module Seguridad
 		['publicos']
 	end
 
+	def not_authenticate?
+		get_public_controllers.include?(controller_name) and (not (action_name == 'home' and usuario_signed_in?))
+	end
+
 	def get_app_sigla
 		version = get_version_activa
 		version.blank? ? 'app' : (version.app_sigla.blank? ? 'app' : version.app_sigla )
