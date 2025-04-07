@@ -547,5 +547,7 @@ Rails.application.routes.draw do
   }
 
   root 'aplicacion/publicos#home'
-
+  # manejo formulario de registro de empresas
+  post '/register', to: 'empresas#create', as: 'register'
+  get '/verify_email', to: 'empresas#verify', as: 'verify_email'
 end

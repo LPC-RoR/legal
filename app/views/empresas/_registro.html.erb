@@ -1,16 +1,27 @@
-<%= form_for :rgstr, url: "/empresas/registro" do |form| %>
-<h5><b>Registre su empresa</b></h5>
+<%# app/views/pages/home.html.erb %>
+<!-- Resto de tu landing page... -->
 
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :rut, label: 'RUT de la empresa' } %>
-<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :razon_social, label: 'Razon social de la empresa' } %>
-<%= render partial: '0p/frm_flds/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
-<%= render partial: '0p/frm_flds/select', locals: { form: form, token: :demo, sel_list: ['Estandar', 'Principal o Usuaria'], prompt: nil, label: 'Demo' } %>
-<%= render partial: '0p/frm_flds/check_box', locals: { form: form, token: :contacto, label: 'Solicito contacto comercial' } %>
+<div id="registration-form">
+  <h3>Registre su empresa</h3>
+  <%= form_with(model: @objeto, url: register_path, data: { turbo: false }) do |form| %>
+    <% if @objeto.errors.any? %>
+      <div class="error-messages">
+        <% @objeto.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+    <% end %>
 
-<div class="formCell">
-	<button type="submit" class="btn btn-info">
-	  <i class="bi bi-caret-right icon-white"></i> Registrar
-	</button>
+	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT de la empresa' } %>
+	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razon social de la empresa' } %>
+	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
+	<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :demo, sel_list: ['Estandar', 'Principal o Usuaria'], prompt: nil, label: 'Demo' } %>
+	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Solicito contacto comercial' } %>
+
+    <div class="actions">
+      <%= form.submit "Registrar mi empresa", class: "btn btn-primary" %>
+    </div>
+  <% end %>
 </div>
 
-<% end  %>
+<!-- Resto de tu landing page... -->

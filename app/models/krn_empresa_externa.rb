@@ -6,7 +6,7 @@ class KrnEmpresaExterna < ApplicationRecord
 
 	belongs_to :ownr, polymorphic: true
 
-	has_many :krn_denuncia
+	has_many :krn_denuncias
 	has_many :krn_derivaciones
 
 	validates :rut, valida_rut: true

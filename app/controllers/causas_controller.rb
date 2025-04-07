@@ -277,7 +277,7 @@ class CausasController < ApplicationController
       tar_pago = TarPago.find(params[:pid])
       unless tar_pago.blank?
         tar_uf_facturacion = get_tar_uf_facturacion(@objeto, tar_pago)
-        fecha_uf = params_to_date(prms, 'fecha_uf')
+        fecha_uf = prms_to_date_raw(prms, 'fecha_uf')
 
         if tar_uf_facturacion.blank?
           tar_uf_facturacion = TarUfFacturacion.create( ownr_type: 'Causa', ownr_id: @objeto.id, tar_pago_id: tar_pago.id )

@@ -49,15 +49,42 @@ class EmpresasController < ApplicationController
   # POST /empresas or /empresas.json
   def create
     @objeto = Empresa.new(empresa_params)
+    @objeto.verification_token = SecureRandom.urlsafe_base64
+    @objeto.email_verified = false
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to empresa_url(@objeto), notice: "Empresa was successfully created." }
-        format.json { render :show, status: :created, location: @objeto }
+        EmpresaMailer.verification_email(@objeto).deliver_later
+        format.html { redirect_to root_path, notice: 'Te hemos enviado un correo de verificación' }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            'registration-form',
+            partial: 'empresas/registration_success',
+            locals: { email: @objeto.email_administrador }
+          )
+        end
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @objeto.errors, status: :unprocessable_entity }
+        format.html { redirect_to root_path, alert: @objeto.errors.full_messages.join(', ') }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            'registration-form',
+            partial: 'empresas/registration_form',
+            locals: { user: @objeto }
+          )
+        end
       end
+
+    end
+  end
+
+  def verify
+    @objeto = Empresa.find_by(verification_token: params[:token])
+    
+    if @objeto
+      @objeto.update(email_verified: true, verification_token: nil)
+      redirect_to root_path, notice: 'Correo verificado correctamente'
+    else
+      redirect_to root_path, alert: 'Token de verificación inválido'
     end
   end
 

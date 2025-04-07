@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_03_224734) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_07_132640) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -600,6 +600,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_03_224734) do
     t.datetime "updated_at", null: false
     t.string "demo"
     t.boolean "contacto"
+    t.boolean "email_verified"
+    t.string "verification_token"
     t.index ["rut"], name: "index_empresas_on_rut"
     t.index ["sha1"], name: "index_empresas_on_sha1"
   end

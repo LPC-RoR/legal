@@ -12,6 +12,7 @@ class Empresa < ApplicationRecord
 
 	validates :rut, valida_rut: true
     validates_uniqueness_of :rut
+    validates_presence_of :razon_social, :email_administrador
 
     def cnt_cntrllr
     	'emprss'
