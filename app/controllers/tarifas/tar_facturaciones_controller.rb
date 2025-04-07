@@ -56,7 +56,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
       tar_uf_facturacion = get_tar_uf_facturacion(owner, pago)
       fecha_uf = tar_uf_facturacion.blank? ? Time.zone.today : tar_uf_facturacion.fecha_uf
-      valor_uf = tar_uf_facturacion.blank? ? uf_del_dia : tar_uf_facturacion.valor
+      valor_uf = tar_uf_facturacion.blank? ? uf_del_dia : uf_fecha(fecha_uf)
 
       if pago.valor.blank?
         formula = pago.codigo_formula
