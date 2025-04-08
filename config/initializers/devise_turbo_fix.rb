@@ -20,12 +20,17 @@ module DeviseTurboFix
     root_path
   end
 
-  def respond_with(resource, _opts = {})
-    if resource.persisted?
-      redirect_to after_sign_in_path_for(resource)
-    else
-      super
-    end
+#  def respond_with(resource, _opts = {})
+#    if resource.persisted?
+#      redirect_to after_sign_in_path_for(resource)
+#    else
+#      super
+#    end
+#  end
+
+  def respond_with(resource, *args)
+    return super unless request.format.docx? # Skip Turbo for .docx requests
+    super
   end
 
 end

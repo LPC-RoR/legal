@@ -72,7 +72,8 @@ module Seguridad
 		public_controllers = get_public_controllers
 		activa_tipos_usuario = cfg_defaults[:activa_tipos_usuario]
 		# Es usuario ADDT?
-		addt_usr = [nil.class.name, 'AppVersion'].include?(get_nomina_activa.ownr.class.name) 
+		nmn_ownr = get_nomina_activa.blank? ? nil : get_nomina_activa.ownr
+		addt_usr = nmn_ownr.blank? ? true : [nil.class.name, 'AppVersion'].include?(nmn_ownr.class.name) 
 		{
 			app_sigla: app_sigla,
 			dog_email: dog_email,
