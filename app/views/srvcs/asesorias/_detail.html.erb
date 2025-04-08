@@ -1,6 +1,6 @@
 <div class="row gx-1">
 	<div class="col-lg-3">
-		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_asesoria_id, colection: TipoAsesoria.all.order(:tipo_asesoria).collect { |ta| [ta.tipo_asesoria, ta.id] }, display_field: 'tipo_asesoria', label: 'Tipo Asesoría' } %>
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_asesoria_id, colection: TipoAsesoria.all.order(:tipo_asesoria).collect { |ta| [ta.descripcion, ta.id] }, display_field: 'descripcion', label: 'Tipo Asesoría' } %>
 	</div>
 	<div class="col-lg-9">
 		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cli| [cli.razon_social, cli.id] }, display_field: 'razon_social', label: 'Cliente' } %>
