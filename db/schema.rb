@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_08_162206) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_08_215851) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1850,6 +1850,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_08_162206) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "descripcion"
+    t.string "descipcion"
     t.index ["tipo_asesoria"], name: "index_tipo_asesorias_on_tipo_asesoria"
   end
 
@@ -1857,6 +1858,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_08_162206) do
     t.string "tipo_cargo"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "descipcion"
     t.index ["tipo_cargo"], name: "index_tipo_cargos_on_tipo_cargo"
   end
 

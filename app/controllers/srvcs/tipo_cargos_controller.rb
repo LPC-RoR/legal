@@ -73,6 +73,6 @@ class Srvcs::TipoCargosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tipo_cargo_params
-      params.require(:tipo_cargo).permit(:tipo_cargo)
+      params.require(:tipo_cargo).permit(:tipo_cargo, :descipcion)
     end
 end

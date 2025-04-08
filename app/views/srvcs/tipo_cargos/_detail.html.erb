@@ -1,1 +1,8 @@
-<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tipo_cargo, label: 'Tipo de Cargo' } %>
+<div class="row">
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tipo_cargo, label: 'Código' } %>
+	</div>
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :descripcion, label: 'Tipo de Cargo' } %>
+	</div>
+</div>

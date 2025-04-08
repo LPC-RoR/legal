@@ -1,4 +1,11 @@
-<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tipo_asesoria, label: 'Tipo de Asesoría' } %>
+<div class="row">
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tipo_asesoria, label: 'Código' } %>
+	</div>
+	<div class="col">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :descripcion, label: 'Tipo de Asesoría' } %>
+	</div>
+</div>
 
-<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :documento, label: 'Documento' } %>
-<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :archivos, label: 'Archivos' } %>
+<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :documento, label: 'Documento' } %>
+<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :archivos, label: 'Archivos' } %>

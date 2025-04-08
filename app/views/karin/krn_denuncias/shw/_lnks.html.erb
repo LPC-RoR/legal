@@ -9,7 +9,7 @@
 		<% end %>
 	<% end %>
 
-	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto.ownr)}/#{objeto.ownr.id}", tltp: objeto.ownr.razon_social} do %>
+	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.id}/#{objeto.ownr.class.name == 'Empresa' ? 'e' : 'c'}dnncs", tltp: objeto.ownr.razon_social} do %>
 		<i class="bi bi-building"></i>
 	<% end %>
 <% end %>

@@ -1,11 +1,16 @@
 <%= render partial: '0p/general/head_objt', locals: {clss: 'prtcpnts_objt' ,objeto: objeto, ownr: nil} %>
 
 <div style="padding-left: 1rem;">
-	<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'audiencias', ownr: objeto} %>
-	<%= render partial: '0p/tabla/list', locals: {clccn: objeto.audiencias.order(:orden)} %>
+	<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'audiencias', ownr: objeto} %>
+	<% objeto.audiencias.order(:orden).each do |objt| %>
+			<%= render partial: '0p/tbl/ln', locals: {objt: objt, ordr: true} %>
+	<% end %>
 </div>
 
 <div style="padding-left: 1rem;">
-	<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'prtcpnts_ttl', dir: 'indx', source: 'control_documentos', ownr: objeto} %>
-	<%= render partial: '0p/tabla/list', locals: {clccn: objeto.control_documentos.order(:orden)} %>
+	<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'control_documentos', ownr: objeto} %>
+	<% objeto.control_documentos.order(:orden).each do |objt| %>
+			<%= render partial: '0p/tbl/ln', locals: {objt: objt, ordr: true} %>
+	<% end %>
+	<%#= render partial: '0p/tabla/list', locals: {clccn: objeto.control_documentos.order(:orden)} %>
 </div>
