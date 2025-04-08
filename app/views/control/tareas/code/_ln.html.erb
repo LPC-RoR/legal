@@ -5,7 +5,7 @@
 		<%= render partial: prtl_name('tareas', 'code', 'objt'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'objt') %>
 		</b>
 	</div>
-	<div class="col-4 text-end">
-		<%#= render partial: prtl_name('tareas', 'code', 'lnks'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'lnks') %>
+	<div class="col-4 pe-2 text-end">
+		<%= render partial: prtl_name('tareas', 'code', 'lnks'), locals: {objeto: objeto, ownr: ownr} if prtl?('ctr_etapas', 'code', 'lnks') %>
 	</div>
 </div>

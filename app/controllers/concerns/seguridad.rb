@@ -7,11 +7,11 @@ module Seguridad
 
 	# ------------------------------------------------------------------- PARA USUARIOS ANÓNIMOS
 
+	# helper_method : verificar uso, aparece en un helper
 	def get_version_activa
 		AppVersion.activa
 	end
 
-	# No está como helper_method
 	# Si no hay usuario activo, no hay nómina, luego tampoco perfil = no accede a páginas no publicas
 	def get_nomina_activa
 		usuario_signed_in? ? AppNomina.activa(current_usuario) : nil
@@ -21,15 +21,18 @@ module Seguridad
 		['publicos']
 	end
 
+	# helper_method : rutas que NO requieren autenticación de usuarios
 	def not_authenticate?
 		get_public_controllers.include?(controller_name) and (not (action_name == 'home' and usuario_signed_in?))
 	end
 
+	# helper_method
 	def get_app_sigla
 		version = get_version_activa
 		version.blank? ? 'app' : (version.app_sigla.blank? ? 'app' : version.app_sigla )
 	end
 
+	# helper_method
 	def get_perfil_activo
 		nomina = get_nomina_activa
 		nomina.blank? ? nil : (current_usuario.confirmed? ? nomina.app_perfil : nil )
@@ -64,16 +67,19 @@ module Seguridad
 	def scrty_vls
 		version = get_version_activa
 		dog_email = version.blank? ? Rails.application.credentials[:dog][:email] : version.dog_email
-		dog_name = Rails.application.credentials[:dog][:name]
+#		dog_name = Rails.application.credentials[:dog][:name]
 		app_sigla = version.blank? ? 'app' : (version.app_sigla.blank? ? 'app' : version.app_sigla )
 		public_controllers = get_public_controllers
 		activa_tipos_usuario = cfg_defaults[:activa_tipos_usuario]
+		# Es usuario ADDT?
+		addt_usr = [nil.class.name, 'AppVersion'].include?(get_nomina_activa.ownr.class.name) 
 		{
 			app_sigla: app_sigla,
 			dog_email: dog_email,
-			dog_name: dog_name,
+#			dog_name: dog_name,
 			public_controllers: public_controllers,
-			activa_tipos_usuario: activa_tipos_usuario			# Se usa para obtener tipo_usuario
+			activa_tipos_usuario: activa_tipos_usuario,			# Se usa para obtener tipo_usuario
+			addt_usr: addt_usr
 		}
 	end
 
@@ -84,10 +90,6 @@ module Seguridad
 	end
 
 	# ------------------------------------------------------------------- VLS
-
-	def dog_name
-		@scrty_vls[:dog_name]
-	end
 
 	def dog_email
 		@scrty_vls[:dog_email]

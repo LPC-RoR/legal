@@ -6,7 +6,7 @@
     <% if (logo.present? and File.exist?("app/assets/images/#{logo}")) or sigla.present? %>
       <a class="navbar-brand" href="<%=app_home%>">
         <% if logo.blank? %>
-          <div class='text-white'><b><%= app_sigla %></b></div>
+          <div class='text-white'><b><%= get_app_sigla %></b></div>
         <% else %>
               <%= link_to image_tag(logo, class: "img-responsive", id: "navbar-logo"), root_path %>
         <% end %>

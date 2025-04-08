@@ -15,7 +15,7 @@
 	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT de la empresa' } %>
 	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razon social de la empresa' } %>
 	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
-	<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :demo, sel_list: ['Estandar', 'Principal o Usuaria'], prompt: nil, label: 'Demo' } %>
+	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :principal_usuaria, label: 'Empresa principal o usuaria' } %>
 	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Solicito contacto comercial' } %>
 
     <div class="actions">

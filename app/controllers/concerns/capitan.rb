@@ -11,6 +11,8 @@ module Capitan
 			when 'Causa'
 				causas_path
 			end
+		elsif ['Empresa'].include?(@objeto.class.name)
+			"/#{@objeto.class.name.tableize}"
 		else
 			case @objeto.class.name
 			when 'LglParrafo'

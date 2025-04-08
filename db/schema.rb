@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_07_132640) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_08_162206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -411,6 +411,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_132640) do
     t.boolean "pendiente"
     t.boolean "urgente"
     t.boolean "preferente"
+    t.boolean "principal_usuaria"
     t.index ["estado"], name: "index_clientes_on_estado"
     t.index ["tipo_cliente"], name: "index_clientes_on_tipo_cliente"
   end
@@ -602,6 +603,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_132640) do
     t.boolean "contacto"
     t.boolean "email_verified"
     t.string "verification_token"
+    t.boolean "principal_usuaria"
     t.index ["rut"], name: "index_empresas_on_rut"
     t.index ["sha1"], name: "index_empresas_on_sha1"
   end
@@ -719,6 +721,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_132640) do
     t.string "direccion_notificacion"
     t.boolean "empleado_externo"
     t.boolean "rlzd"
+    t.string "relacion_denunciante"
+    t.boolean "rvsd"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciados_on_krn_empresa_externa_id"
@@ -741,6 +745,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_132640) do
     t.string "direccion_notificacion"
     t.boolean "empleado_externo"
     t.boolean "rlzd"
+    t.boolean "rvsd"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
@@ -877,6 +882,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_07_132640) do
     t.string "direccion_notificacion"
     t.boolean "empleado_externo"
     t.boolean "rlzd"
+    t.boolean "rvsd"
     t.index ["krn_empresa_externa_id"], name: "index_krn_testigos_on_krn_empresa_externa_id"
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"

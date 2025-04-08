@@ -39,32 +39,37 @@ class Cliente < ApplicationRecord
     scope :cl_ordr, -> { order(preferente: :desc, razon_social: :asc) }
 
 
-    def krn?
-    	self.pro_dtll_ventas.map {|dv| dv.producto.codigo.split('_')[0]}.include?('krn')
+    # Procedimiento Investigación y Snación
+
+    def productos?
+        self.pro_dtll_ventas.any?
     end
 
-    def krn_formato
-    	self.pro_dtll_ventas.map {|dv| dv.producto.formato if dv.producto.present?}.last
+    def nomina?
+        self.app_nominas.any?
     end
 
-    def demo?
-    	self.pro_dtll_ventas.empty?
+    def investigadores?
+        self.krn_investigadores.any?
     end
 
-    def init?
-    	self.krn_denuncias.empty? and self.krn_empresa_externas.empty? and self.krn_investigadores.empty?
+    def empresas_externas?
+        self.krn_empresa_externas.any?
     end
 
-    def no_externas?
-    	self.krn_empresa_externas.empty?
+    def operable?
+        externas  = self.principal_usuaria ? self.empresas_externas? : true
+        # pendiente manejo de productos: vencimiento y bloqueo
+        productos = true
+        self.nomina? and externas and self.investigadores?
     end
 
-    def no_invstgdrs?
-    	self.krn_investigadores.empty?
+    def formatos
+        self.productos? ? self.productos.map {|pro| pro.formato} : []
     end
 
     def n_dnncs
-    	(self.demo? or self.krn_formato == 'B') ? 1 : 20
+    	self.productos? ? (self.formatos.include?('B') ? 1 : 20) : 1
     end
 
     def new_bttn?
@@ -82,10 +87,6 @@ class Cliente < ApplicationRecord
 	end
 
 	# OBJETO
-
-    def d_rut
-    	self.rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
-    end
 
     def st_modelo
     	StModelo.find_by(st_modelo: self.class.name)

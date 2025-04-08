@@ -1,0 +1,16 @@
+<% ttl ||= 'Mensaje sin título' %>
+<div class="bg-white border rounded-2 shadow">
+	<div class="my-4 text-center">
+		<%= image_tag('email_head.png', alt: 'Logo de la empresa', class: 'email-logo') %>
+	</div>
+	<div class="text-center">
+		<h4><%= ttl %></h4>
+	</div>
+	<div class="my-5 px-5">
+		<%= yield %>
+	</div>
+
+	<div class="my-5 text-center">
+		<%= image_tag('email_sign.png', alt: 'Firma', class: 'email-signature') %>
+	</div>
+</div>

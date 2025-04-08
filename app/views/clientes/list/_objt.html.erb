@@ -1,6 +1,6 @@
 <%= render partial: '0p/swtch/prprtys', locals: {objeto: objeto, prprty_lst: ['preferente']} %>
 <%= render layout: '0p/layout/tooltip_link', locals: {link: objeto, tooltip: 'Ver Cliente' } do %>
-	<%= objeto.d_rut %>
+	<%= s_rut(objeto.rut) %>
 <% end %> : 
 <%= objeto.razon_social %>
 

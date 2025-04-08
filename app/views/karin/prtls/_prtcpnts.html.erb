@@ -24,11 +24,24 @@
 			<% end %>
 			
 		</div>
+		<div class="text-end" style="font-size: 14px;">
+			<% if prtl?(@objeto, 'hlp', 'prtcpnts') %>
+				<%= render partial: '0p/mdl/lnk', locals: {cdg: "hlp_prtcpnts", txt: 'Necesita ayuda?'} %>
+				<%= render partial: '0p/mdl/mdl', locals: {cdg: "hlp_prtcpnts", ttl: "Registros de Participantes", prtl: prtl_name(@objeto, 'hlp', 'prtcpnts'), sz: 'lg'} %>
+			<% end %>
+		</div>
 	</div>
 
 	<% if @objeto.rgstrs_ok? and (@objeto.investigacion_local or @objeto.solicitud_denuncia and @objeto.on_empresa?) %>
 		<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_inv_denuncias', blngs: @objeto, lnks: 'prtl'} %>
 		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_inv_denuncias', typ: 'ln', crud: 'lnks'} %>
+
+		<div class="text-end" style="font-size: 14px;">
+			<% if prtl?(@objeto, 'hlp', 'invstgdrs') %>
+				<%= render partial: '0p/mdl/lnk', locals: {cdg: "hlp_invstgdrs", txt: 'Necesita ayuda?'} %>
+				<%= render partial: '0p/mdl/mdl', locals: {cdg: "hlp_invstgdrs", ttl: "Asignación del Investigador", prtl: prtl_name(@objeto, 'hlp', 'invstgdrs'), sz: 'lg'} %>
+			<% end %>
+		</div>
 	<% end %>
 
 	<% if @objeto.derivaciones? %>

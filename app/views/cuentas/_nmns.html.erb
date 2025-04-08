@@ -1,23 +1,11 @@
 <%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
-<% if @objeto.init? %>
-	<div class="dlg_bsc">
-		Bienvenido, esta es una licencia <%= @objeto.demo? ? 'demo' : 'activa' %> del producto <b><%= @objeto.krn_formato %></b>, diseñado para 
-		<% if @objeto.krn_formato == 'B' %>
-			empresas pequeñas.
-		<% elsif @objeto.krn_formato == 'P' %>
-			empresas que no tienen regimen de subcontratación o usuarias.
-		<% else %>
-			empresas que tienen regimen de subcontratación o usuarias.
-		<% end %>
-	</div>
-<% end %>
-<% if @objeto.no_invstgdrs? %>
-	<div class="dlg_bsc">
-		Antes de crear su primera investigación debe crear al menos un investigador.
-		<% if @objeto.no_externas? and @objeto.krn_formato == 'P+' %>
-			También debe crear las empresas externas (subcontrato o EST). Estas son necesarias para registrar denuncias recibidas en alguna de ellas o para derivarles denuncias, si fuera necesario.
-		<% end %>
-	</div>
-<% end %>
 
-<%= render partial: '0p/tbl_ttl', locals: {source: 'app_nominas', ownr: @objeto} %>
+<% unless @objeto.operable? or ( not admin? ) %>
+	<%= render partial: prtl_name('cuentas', 'prtls', 'init_nomina') %>
+<% else %>
+<% end %>
+<%= render partial: '0p/tbl_ttl', locals: {source: 'app_nominas', ownr: @objeto} if admin? %>
+
+<% if dog? %>
+	<%= render partial: '0p/tbl_ttl', locals: {source: 'pro_dtll_ventas', ownr: @objeto} %>
+<% end %>

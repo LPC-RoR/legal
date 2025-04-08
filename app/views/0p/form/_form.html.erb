@@ -25,8 +25,18 @@
 			<h3>Ne se encontró archivo con el formulario</h3>
 		<% end %>
 
-		<div class="formCell">
-			<%= form.submit "#{ action_name == 'new' ? (@objeto.class.name == 'RepArchivo' ? 'Subir' : 'Crear') : 'Modificar'} #{to_name(@objeto.class.name)}" %>
+		<div class="mb3">
+			<div class="row">
+				<div class="col">
+					<%= form.submit "#{ action_name == 'new' ? (@objeto.class.name == 'RepArchivo' ? 'Subir' : 'Crear') : 'Modificar'} #{to_name(@objeto.class.name)}" %>
+				</div>
+				<div class="col text-end pt-3">
+					<% if prtl?(@objeto, 'hlp', 'detail') %>
+						<small><%= render partial: '0p/mdl/lnk', locals: {cdg: "hlp_detail", txt: 'Necesita ayuda?'} %></small>
+						<%= render partial: '0p/mdl/mdl', locals: {cdg: "hlp_detail", ttl: "Ingreso de #{to_name(@objeto)}", prtl: prtl_name(@objeto, 'hlp', 'detail'), sz: 'lg'} %>
+					<% end %>
+				</div>
+			</div>
 		</div>
 	<% end %>
 </div>

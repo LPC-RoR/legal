@@ -1,15 +1,6 @@
 <%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
-<% if @objeto.no_invstgdrs? or (@objeto.no_externas? and @objeto.krn_formato == 'P+') %>
-	<% if @objeto.no_invstgdrs? %>
-		<div class="dlg_bsc">
-			Antes de crear su primera investigación debe crear al menos un investigador.
-		</div>
-	<% end %>
-	<% if @objeto.no_externas? and @objeto.krn_formato == 'P+' %>
-		<div class="dlg_bsc">
-			Su producto es para empresas con régimen de subcontratación o usuarias. Para crear su primera investigación debe crear primero las empresas externas. Estas son necesarias para registrar denuncias recibidas en alguna de ellas o para derivarles denuncias, si fuera necesario.
-		</div>
-	<% end %>
-<% else %>	
+<% unless @objeto.operable? %>
+	<%= render partial: prtl_name('cuentas', 'prtls', 'init_dnnc') %>
+<% else %>
 	<%= render partial: '0p/tbl_ttl', locals: {source: 'krn_denuncias', ownr: @objeto, crud: 'lnks'} %>
 <% end %>

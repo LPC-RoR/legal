@@ -28,8 +28,8 @@ module CptnProcsHelper
 		}
 	end
 
-	def rcptr_lst(formato)
-		formato == 'P+' ? ['Empresa', 'Dirección del Trabajo', 'Empresa externa'] : ['Empresa', 'Dirección del Trabajo']
+	def rcptr_lst(ownr)
+		ownr.principal_usuaria ? ['Empresa', 'Dirección del Trabajo', 'Empresa externa'] : ['Empresa', 'Dirección del Trabajo']
 	end
 
 	def hide_last_crud?(codigo, ownr)

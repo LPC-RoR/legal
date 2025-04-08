@@ -1,0 +1,20 @@
+<%= render layout: 'cuentas/prtls/msgg', locals: {ttl: 'Investigadores'} do %>
+	<p>Su cuenta de empresa aún no está operable, falta información básica por completar.</p>
+	<% if admin? %>
+		<% unless @objeto.nomina? %>
+			<p>Cuenta sin nómina de usuarios</p>
+		<% end %>
+	<% else %>
+		<p>Comuniquese con el administrador de la cuenta para resolver el problema.</p>
+	<% end %>
+
+	<% unless @objeto.investigadores? %>
+		<p>Se debe ingresar al menos un investigador.</p>
+	<% end %>
+
+	<% unless @objeto.empresas_externas? %>
+		<% if @objeto.principal_usuaria %>
+			<p>Se debe ingresar al menos una empresa externa.</p>
+		<% end %>
+	<% end %>
+<% end %>

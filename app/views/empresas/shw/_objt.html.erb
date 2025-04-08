@@ -1,7 +1,9 @@
 <%= objeto.razon_social %>
 <i class="bi bi-dot"></i>
-<%= objeto.d_rut %>
-<% unless @formato.blank? %>
-	<i class="bi bi-dot"></i>
-	<%= @formato %>
+<%= s_rut(objeto.rut) %>
+<% unless @objeto.principal_usuaria %>
+	<i class="bi bi-diagram-3"></i>
+<% end %>
+<% unless objeto.productos? %>
+	<small>( Demo )</small>
 <% end %>

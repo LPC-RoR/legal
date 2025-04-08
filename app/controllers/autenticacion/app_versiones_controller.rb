@@ -43,6 +43,6 @@ class Autenticacion::AppVersionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def app_version_params
-      params.require(:app_version).permit(:app_nombre, :app_sigla, :app_logo, :app_banner, :dog_email)
+      params.require(:app_version).permit(:app_nombre, :app_sigla, :app_logo, :app_banner)
     end
 end

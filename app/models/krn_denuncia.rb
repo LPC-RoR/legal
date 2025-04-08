@@ -47,8 +47,6 @@ class KrnDenuncia < ApplicationRecord
 	include Procs
 	include Fls
 
-	delegate :krn_formato, to: :ownr, prefix: true
-
 	def dnnc
 		self
 	end
@@ -58,11 +56,6 @@ class KrnDenuncia < ApplicationRecord
 	end
 
 	# ------------------------------------------------------------------------ PRODUCTO
-	# Determina si el ownr de la denuncia tiene contratado un formato P+
-	def p_plus?
-		self.ownr_krn_formato == 'P+'
-	end
-
 	def lttr_tp
 		self.multiempresa? ? 'Multi' : (self.externa? ? 'Externa' : (self.empresa? ? 'Empresa' : '?'))
 	end

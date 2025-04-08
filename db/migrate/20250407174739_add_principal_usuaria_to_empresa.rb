@@ -1,0 +1,5 @@
+class AddPrincipalUsuariaToEmpresa < ActiveRecord::Migration[8.0]
+  def change
+    add_column :empresas, :principal_usuaria, :boolean
+  end
+end

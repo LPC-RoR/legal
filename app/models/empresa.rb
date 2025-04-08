@@ -18,46 +18,45 @@ class Empresa < ApplicationRecord
     	'emprss'
     end
 
+    # Procedimiento Investigación y Snación
+
+    def productos?
+        self.pro_dtll_ventas.any?
+    end
+
+    def nomina?
+        self.app_nominas.any?
+    end
+
+    def investigadores?
+        self.krn_investigadores.any?
+    end
+
+    def empresas_externas?
+        self.krn_empresa_externas.any?
+    end
+
 	# OBJETO
 
-    def d_rut
-    	self.rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
+    def operable?
+        externas  = self.principal_usuaria ? self.empresas_externas? : true
+        # pendiente manejo de productos: vencimiento y bloqueo
+        productos = true
+        self.nomina? and externas and self.investigadores?
     end
 
-    def krn?
-    	self.pro_dtll_ventas.map {|dv| dv.producto.codigo.split('_')[0]}.include?('krn')
-    end
-
-    def krn_formato
-    	if self.pro_dtll_ventas.empty?
-    		self.demo == 'Estandar' ? 'P' : 'P+'
-    	else
-    		self.pro_dtll_ventas.map {|dv| dv.producto.formato if dv.producto.present?}.last
-    	end
-    end
-
-    def demo?
-    	self.pro_dtll_ventas.empty?
-    end
-
-    def init?
-    	self.krn_denuncias.empty? and self.krn_empresa_externas.empty? and self.krn_investigadores.empty?
-    end
-
-    def no_externas?
-    	self.krn_empresa_externas.empty?
-    end
-
-    def no_invstgdrs?
-    	self.krn_investigadores.empty?
+    def formatos
+        self.productos? ? self.productos.map {|pro| pro.formato} : []
     end
 
     def n_dnncs
-    	(self.demo? or self.krn_formato == 'B') ? 1 : 20
+    	self.productos? ? (self.formatos.include?('B') ? 1 : 20) : 1
     end
 
     def new_bttn?
     	self.krn_denuncias.count < self.n_dnncs
     end
+
+    # ---------------------------------------------------------------------------------
 
 end

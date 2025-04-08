@@ -5,6 +5,19 @@
 		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: @tar_last, ownr: ownr, color: 'primary'} unless @tar_last.blank? %>
 	<% end %>
 
+	<%= render layout: '0p/mdl/modal', locals: {cdg: @etp_last.codigo, ttl: @etp_last.ctr_etapa, sz: 'lg'} do %>
+		<%= render partial: prtl_name(@objeto, 'hlp', @etp_last.codigo) %>
+	<% end %>
+	<%= render layout: '0p/mdl/modal', locals: {cdg: @tar_last.codigo, ttl: @tar_last.tarea, sz: 'lg'} do %>
+		<%= render partial: prtl_name(@objeto, "hlp/#{@tar_last.codigo}", 'tarea' ) %>
+	<% end %>
+
+	<% if prtl?(ownr, "hlp/#{@tar_last.codigo}", 'speech') %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "#{@tar_last.codigo}_spch", ttl: 'Entrega de información', sz: 'lg'} do %>
+			<%= render partial: prtl_name(@objeto, "hlp/#{@tar_last.codigo}", 'speech' ) %>
+		<% end %>
+	<% end %>
+
 	<%= render partial: '0p/ayuda/dsply', locals: {objt: @etp_last} unless @etp_last.blank? %>
 	<%= render partial: '0p/ayuda/dsply', locals: {objt: @tar_last} unless @tar_last.blank? %>
 

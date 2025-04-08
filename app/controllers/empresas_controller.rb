@@ -1,8 +1,8 @@
 class EmpresasController < ApplicationController
   before_action :authenticate_usuario!, only: %i[ show ]
   before_action :scrty_on
-  before_action :set_empresa, only: %i[ show edit update destroy ]
-  after_action :add_admin, only: :registro
+  before_action :set_empresa, only: %i[ show edit update destroy swtch ]
+  after_action :add_admin, only: :create
 
   include Rut
 
@@ -13,33 +13,11 @@ class EmpresasController < ApplicationController
 
   # GET /empresas/1 or /empresas/1.json
   def show
-      set_tabla('pro_dtll_ventas', @objeto.pro_dtll_ventas.fecha_ordr, false)
   end
 
   # GET /empresas/new
   def new
     @objeto = Empresa.new
-  end
-
-  def registro
-    prms = params[:rgstr]
-    unless prms[:rut].blank? or prms[:razon_social].blank? or prms[:email_administrador].blank?
-      if valid_rut?(prms[:rut])
-        emprs = Empresa.find_by(rut: rut_format(prms[:rut]))
-        if emprs.blank?
-          @objeto = Empresa.create(rut: rut_format(prms[:rut]), razon_social: prms[:razon_social], email_administrador: prms[:email_administrador], demo: prms[:demo], contacto: prms[:contacto])
-          ntc = 'Empresa registrada exitósamente'
-        else
-          alrt = 'Empresa ya registrada'
-        end
-      else
-        alrt = 'Error de registro: RUT no válido'
-      end
-    else
-      alrt = 'Error de registro: Falta información para completar el registro'
-    end
-
-    redirect_to root_path, notice: ntc, alert: alrt
   end
 
   # GET /empresas/1/edit
@@ -126,6 +104,6 @@ class EmpresasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def empresa_params
-      params.require(:empresa).permit(:rut, :razon_social, :email_administrador, :email_verificado, :sha1)
+      params.require(:empresa).permit(:rut, :razon_social, :email_administrador, :email_verificado, :sha1, :principal_usuaria)
     end
 end

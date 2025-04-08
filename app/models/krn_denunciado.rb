@@ -24,7 +24,7 @@ class KrnDenunciado < ApplicationRecord
 	scope :prps, -> { where(krn_empresa_externa_id: nil) }
 
 	validates :rut, valida_rut: true, if: -> {rut.present?}
-    validates_presence_of :nombre, :cargo, :lugar_trabajo
+    validates_presence_of :nombre, :cargo, :lugar_trabajo, :relacion_denunciante
 
 	include Procs
 	include Ntfccns

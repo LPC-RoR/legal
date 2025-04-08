@@ -1,7 +1,4 @@
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/cuentas/#{objeto.id}/ednncs", tooltip: 'Cuenta de la empresa' } do %>
-	<i class="bi bi-collection-fill"></i> Cuenta
-<% end %>
-<% if dog? and (not has_child?(objeto)) %>
-	<i class="bi bi-dot"></i>
+<% if dog? %>
+	<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'principal_usuaria', stts: ['empresa simple', 'empresa principal o usuaria']} %>
 	<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: objeto} %>
 <% end %>

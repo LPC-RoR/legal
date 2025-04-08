@@ -10,7 +10,7 @@
 	</div>
 	<div class="col-lg-3 col-xs-12">
   <!-- Grupo condicional para empresa_externa -->
-			<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :receptor_denuncia, colection: rcptr_lst(@objeto.ownr_krn_formato), label: 'Receptor de la denuncia', data: { 
+			<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :receptor_denuncia, colection: rcptr_lst(@objeto.ownr), label: 'Receptor de la denuncia', data: { 
               'conditional-fields-target': 'receptorDenuncia',
               action: 'change->conditional-fields#toggleEmpresaExterna'
             } } %>

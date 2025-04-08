@@ -17,7 +17,6 @@ class CuentasController < ApplicationController
   def ecta
     unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
       @objeto = Empresa.find(params[:id])
-      @formato = @objeto.krn_formato
       if admin?
         set_tabla('app_nominas', @objeto.app_nominas, true)
       end
@@ -29,6 +28,7 @@ class CuentasController < ApplicationController
   def cnmn
     unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
       @objeto = Cliente.find(params[:id])
+      set_tabla('pro_dtll_ventas', @objeto.pro_dtll_ventas.fecha_ordr, false)
       if admin?
         set_tabla('app_nominas', @objeto.app_nominas, true)
       end
@@ -40,7 +40,7 @@ class CuentasController < ApplicationController
   def enmn
     unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
       @objeto = Empresa.find(params[:id])
-      @formato = @objeto.krn_formato
+      set_tabla('pro_dtll_ventas', @objeto.pro_dtll_ventas.fecha_ordr, false)
       if admin?
         set_tabla('app_nominas', @objeto.app_nominas, true)
       end
@@ -52,7 +52,6 @@ class CuentasController < ApplicationController
   def cdnncs
     unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
       @objeto = Cliente.find(params[:id])
-      @formato = @objeto.krn_formato
       set_tabla('krn_denuncias', @objeto.krn_denuncias.ordr, true)
     else
       redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'
@@ -62,7 +61,6 @@ class CuentasController < ApplicationController
   def ednncs
     unless (scp_err? or (scp_activo? and (scp_activo.id != params[:id].to_i)))
       @objeto = Empresa.find(params[:id])
-      @formato = @objeto.krn_formato
       set_tabla('krn_denuncias', @objeto.krn_denuncias.ordr, true)
     else
       redirect_to root_path, alert: 'Usuario redireccionado: no tiene acceso a la página que llamó.'

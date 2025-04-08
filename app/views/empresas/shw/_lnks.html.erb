@@ -1,5 +1,5 @@
-<% if admin? and controller_name == 'cuentas' %>
-	<%= link_to root_path, title: 'Addt', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+<% if @scrty_vls[:addt_usr] and admin? and controller_name == 'cuentas' %>
+	<%= link_to "/#{@objeto.class.name.tableize}", title: 'Addt', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 		<i class="bi bi-menu-button-wide"></i>
 	<% end %>
 <% end %>

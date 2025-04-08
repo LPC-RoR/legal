@@ -1,10 +1,14 @@
-<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: objeto, tltp: 'Ver productos'} do %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.id}/ednncs", tltp: 'Cuenta de la empresa' } do %>
 	<%= s_rut(objeto.rut) %> 
 	<i class="bi bi-dot"></i>
 	<%= objeto.razon_social %>
 <% end %>
-<i class="bi bi-dot"></i>
-<%= objeto.krn_formato %>
+<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: objeto, tltp: 'Ver productos'} do %>
+<% end %>
+<% if  objeto.principal_usuaria %>
+	<i class="bi bi-dot"></i>
+	<i class="bi bi-diagram-3"></i>
+<% end %>
 <% if objeto.contacto %>
-	<i class="bi bi-check2"></i>
+	<i class="bi bi-info-square"></i>
 <% end %>

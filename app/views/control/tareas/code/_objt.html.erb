@@ -1,1 +1,4 @@
-<%= render partial: '0p/ayuda/lnk', locals: {objt: objeto, objt_name: objeto.tarea, tltp: nil} %>
+<%#= render partial: '0p/ayuda/lnk', locals: {objt: objeto, objt_name: objeto.tarea, tltp: nil} %>
+<%= render layout: '0p/mdl/link', locals: {cdg: objeto.codigo} do %>
+	<i class="bi bi-caret-right"></i> <%= objeto.tarea %>
+<% end %>

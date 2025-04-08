@@ -39,11 +39,11 @@ class CausasController < ApplicationController
   end
 
   def hchstowrd
-    respond_with(@object, filename: 'hechos.docx', word_template: 'hchstowrd.docx')
+    respond_with(@objeto, filename: 'hechos.docx', word_template: 'hchstowrd.docx')
   end
 
   def ntcdntstowrd
-    respond_with(@object, filename: 'antecedentes.docx', word_template: 'ntcdntstowrd.docx')
+    respond_with(@objeto, filename: 'antecedentes.docx', word_template: 'ntcdntstowrd.docx')
   end
 
   # GET /causas/1 or /causas/1.json

@@ -1,4 +1,3 @@
-<%= render partial: '0p/ayuda/lnk', locals: {objt: objeto, objt_name: objeto.ctr_etapa, tltp: nil} %>
-<%#= render layout: '0p/off_canvas/lnk', locals: {lbl: objeto.codigo} do %>
-	<%#= objeto.ctr_etapa %>
-<%# end %>
+<%= render layout: '0p/mdl/link', locals: {cdg: objeto.codigo} do %>
+	<i class="bi bi-caret-right"></i> <%= objeto.ctr_etapa %>
+<% end %>

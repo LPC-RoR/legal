@@ -1,0 +1,5 @@
+<% if prtl?(ownr, "hlp/#{objeto.codigo}", 'speech') %>
+	<%= render layout: '0p/mdl/link', locals: {cdg: "#{objeto.codigo}_spch"} do %>
+		<i class="bi bi-chat-right-dots"></i>
+	<% end %>
+<% end %>

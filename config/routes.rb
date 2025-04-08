@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   end
 
   resources :empresas do
-    match :registro, via: :post, on: :collection
+    match :swtch, via: :get, on: :member
   end
 
 # SCOPES *********************************************************

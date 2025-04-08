@@ -17,6 +17,8 @@
 	  <%= render "krn_empresa_externa_id", form: form %>
 </div>
 
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :relacion_denunciante, label: 'Relación laboral con el denunciante' } %>
+
 <div class="row gx-1">
 	<div class="col-4">
 		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :cargo, label: 'Cargo/Relación laboral' } %>

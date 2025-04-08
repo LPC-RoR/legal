@@ -1,11 +1,10 @@
 module Inicia
 	extend ActiveSupport::Concern
 
-	# @concern.seguridad.rb : version_activa?, dog_email
-
 	def init_vrsn
 		# Cada una está con una condición distinta por si la transacción se quiebra
-		vrs = AppVersion.create(dog_email: dog_email) unless version_activa?
+		# Le dog_mail a la creación, no tiene campos validados con prescence
+		vrs = AppVersion.create unless version_activa?
 		vrs.app_nomina = AppNomina.create(nombre: Rails.application.credentials[:dog][:name], email: Rails.application.credentials[:dog][:email]) if AppNomina.dog.blank?
 	end
 
