@@ -86,17 +86,21 @@ class NotasController < ApplicationController
     end
 
     def get_rdrccn
-      case @objeto.ownr_type
-      when 'Asesoria'
-        @rdrccn  = asesorias_path
-      when 'Causa'
-        @rdrccn  = "/causas#cid_#{@objeto.ownr_id}"
-      when 'Cliente'
-        @rdrccn  = clientes_path
-      when 'AgeActividad'
-        @rdrccn  = @objeto.ownr.ownr.present? ? @objeto.ownr.ownr : age_actividades_path
+      if ['Cliente', 'Asesoria', 'Cargo'].include?(@objeto.ownr_type)
+        @rdrccn = "/#{@objeto.ownr_type.tableize}"
       else
-        @rdrccn  = @objeto.ownr
+        case @objeto.ownr_type
+        when 'Asesoria'
+          @rdrccn  = asesorias_path
+        when 'Causa'
+          @rdrccn  = "/causas#cid_#{@objeto.ownr_id}"
+        when 'Cliente'
+          @rdrccn  = clientes_path
+        when 'AgeActividad'
+          @rdrccn  = @objeto.ownr.ownr.present? ? @objeto.ownr.ownr : age_actividades_path
+        else
+          @rdrccn  = @objeto.ownr
+        end
       end
     end
 

@@ -13,12 +13,18 @@
 			</div>
 			<div class="col-lg-6">
 				<%= render partial: '0p/lbld_inpts/date', locals: { form: form, token: :plazo, label: 'Plazo' } %>
+
+				<% if admin? %>
+					<%= render partial: '0p/lbld_inpts/date', locals: { form: form, token: :fecha_uf, label: 'Fecha UF' } %>
+				<% end %>
+
 			</div>
 		</div>
 
 
 	</div>
 </div>
+
 
 <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :descripcion, label: 'Descripción' } %>
 

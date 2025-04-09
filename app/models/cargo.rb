@@ -2,6 +2,9 @@ class Cargo < ApplicationRecord
 	belongs_to :tipo_cargo
 	belongs_to :cliente
 
+	has_one :tar_facturacion, as: :ownr
+	has_many :notas, as: :ownr
+
 	scope :crg_ordr, -> { order(created_at: :desc) }
 
     scope :std, ->(std) { where(estado: std).crg_ordr}

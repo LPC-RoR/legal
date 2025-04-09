@@ -1,0 +1,8 @@
+<% unless objeto.tipo_cargo.blank? %>
+	<% if objeto.tipo_cargo.tipo_cargo == 'Cargo' %>
+		<i class="bi bi-coin"></i> 
+	<% elsif objeto.tipo_cargo.tipo_cargo == 'Mensual' %>
+		<i class="bi bi-calendar-check"></i> 
+	<% end %>
+<% end %>
+<%= objeto.cargo %>

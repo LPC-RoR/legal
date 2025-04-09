@@ -7,7 +7,7 @@ class Srvcs::CargosController < ApplicationController
   def index
     @age_usuarios = AgeUsuario.no_ownr
 
-        scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
+    scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
 
     case scp
     when 'trmtcn'
