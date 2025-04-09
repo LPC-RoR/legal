@@ -1,1 +1,7 @@
-Persona(s) denunciada(s)
+<% if prtl?(@objeto, 'hlp', 'prtcpnts') %>
+	<%= render layout: '0p/mdl/link', locals: {cdg: "hlp_prtcpnts"} do %>
+		<span class="text-white">Persona(s) denunciada(s)</span> <i class="bi bi-info-square text-white"></i>
+	<% end %>
+<% else %>
+	Persona(s) denunciada(s)
+<% end %>

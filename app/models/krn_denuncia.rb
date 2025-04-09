@@ -33,7 +33,7 @@ class KrnDenuncia < ApplicationRecord
 	scope :ordr, -> { order(fecha_hora: :desc, id: :desc) }
 
 	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
-	delegate :razon_social, to: :ownr, prefix: true, allow_nil: true
+	delegate :razon_social, :principal_usuaria, to: :ownr, prefix: true, allow_nil: true
 
     validates_presence_of :fecha_hora
 	validates :krn_empresa_externa_id, presence: true, if: -> { receptor_denuncia == 'Empresa externa' }

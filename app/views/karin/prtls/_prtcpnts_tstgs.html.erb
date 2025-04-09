@@ -1,0 +1,10 @@
+<% unless objeto.class.name == 'KrnTestigo' %>
+	<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_testigos', ownr: objeto, lnks: 'prtl'} %>
+	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_testigos', typ: 'ln', crud: 'prtl'} %>
+
+	<% if prtl?('karin', 'prtls', 'prtcpnts_hlp_tstgs') and controller_name != 'krn_denuncias' %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_tstgs", ttl: "Testigos del participante", sz: 'lg'} do %>
+			<%= render partial: prtl_name('karin', 'prtls', 'prtcpnts_hlp_tstgs') %>
+		<% end %>
+	<% end %>
+<% end %>

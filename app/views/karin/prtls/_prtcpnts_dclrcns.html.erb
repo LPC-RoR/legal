@@ -1,0 +1,14 @@
+<% if @objeto.dnnc.krn_inv_denuncias.any? %>
+
+	<!-- DECLARACIONES -->
+    <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_declaraciones', ownr: @objeto, lnks: 'prtl'} %>
+
+	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_declaraciones', crud: 'lnks'} %>
+
+	<% if prtl?('karin', 'prtls', 'prtcpnts_hlp_dclrcns') and controller_name != 'krn_denuncias' %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_dclrcns", ttl: "Declaración del participante", sz: 'lg'} do %>
+			<%= render partial: prtl_name('karin', 'prtls', 'prtcpnts_hlp_dclrcns') %>
+		<% end %>
+	<% end %>
+
+<% end %>

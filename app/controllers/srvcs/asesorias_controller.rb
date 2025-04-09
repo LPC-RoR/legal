@@ -143,7 +143,7 @@ class Srvcs::AsesoriasController < ApplicationController
 
     def asigna_tarifa_defecto
       tipo_asesoria = @objeto.tipo_asesoria
-      servicios = tipo_asesoria.blank? ? [] : @objeto.cliente.servicios.where(tipo_asesoria_id: tipo_asesoria.id)
+      servicios = tipo_asesoria.blank? ? [] : @objeto.cliente.tar_servicios.where(tipo_asesoria_id: tipo_asesoria.id)
       servicio = servicios.empty? ? nil : servicios.first
 
       unless servicio.blank?

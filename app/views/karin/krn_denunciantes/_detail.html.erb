@@ -7,15 +7,17 @@
 	</div>
 </div>
 
-<%= render partial: '0p/lbld_inpts/check_box', locals: {form: form, token: :empleado_externo, label: 'Empleado externo', data: { 
-            prtcpnts_fields_target: "empresaCheckbox",
-            action: "change->prtcpnts-fields#updateFields"
-          }} %>
+<% if @objeto.krn_denuncia.ownr_principal_usuaria %>
+	<%= render partial: '0p/lbld_inpts/check_box', locals: {form: form, token: :empleado_externo, label: 'Empleado externo', data: { 
+	            prtcpnts_fields_target: "empresaCheckbox",
+	            action: "change->prtcpnts-fields#updateFields"
+	          }} %>
 
-<div data-prtcpnts-fields-target="empresaField" 
-   style="display: <%= form.object.empleado_externo? ? 'block' : 'none' %>">
-	  <%= render "krn_empresa_externa_id", form: form %>
-</div>
+	<div data-prtcpnts-fields-target="empresaField" 
+	   style="display: <%= form.object.empleado_externo? ? 'block' : 'none' %>">
+		  <%= render "krn_empresa_externa_id", form: form %>
+	</div>
+<% end %>
 
 <div class="row gx-1">
 	<div class="col-4">
