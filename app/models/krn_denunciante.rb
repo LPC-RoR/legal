@@ -28,6 +28,9 @@ class KrnDenunciante < ApplicationRecord
     validates_presence_of :rut, :nombre, :cargo, :lugar_trabajo
     validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 
+	include EmailVerifiable
+	after_create :send_verification_email
+
 	include Procs
 	include Ntfccns
 	include Valores

@@ -26,10 +26,17 @@ class KrnDenunciado < ApplicationRecord
 	validates :rut, valida_rut: true, if: -> {rut.present?}
     validates_presence_of :nombre, :cargo, :lugar_trabajo, :relacion_denunciante
 
+	include EmailVerifiable
+
 	include Procs
 	include Ntfccns
 	include Valores
 	include Fls
+
+	# Sobreescribimos para que no genere token automáticamente
+	def should_generate_token?
+		false
+	end
 
 	def dnnc
 		self.krn_denuncia

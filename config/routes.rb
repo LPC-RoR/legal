@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  # Verificación de correos electrónicos de participantes
+  # config/routes.rb
+  # config/routes.rb
+  post ':model/:id/verify_email', to: 'email_verifications#initiate', as: :initiate_email_verification
+  get ':model/:id/verify/:token', to: 'email_verifications#verify', as: :confirm_email_verification
+  
   resources :cuentas do
     match :ccta, via: :get, on: :member
     match :ecta, via: :get, on: :member

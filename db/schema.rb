@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_10_124637) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_10_144825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -724,6 +724,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_124637) do
     t.boolean "rlzd"
     t.string "relacion_denunciante"
     t.boolean "rvsd"
+    t.boolean "verified"
+    t.string "verification_token"
+    t.datetime "verification_sent_at"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciados_on_krn_empresa_externa_id"
@@ -747,6 +750,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_124637) do
     t.boolean "empleado_externo"
     t.boolean "rlzd"
     t.boolean "rvsd"
+    t.boolean "verified"
+    t.string "verification_token"
+    t.datetime "verification_sent_at"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
@@ -862,6 +868,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_124637) do
     t.datetime "updated_at", null: false
     t.string "ownr_type"
     t.integer "ownr_id"
+    t.boolean "verified"
+    t.string "verification_token"
+    t.datetime "verification_sent_at"
     t.index ["ownr_id"], name: "index_krn_investigadores_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_investigadores_on_ownr_type"
   end
@@ -884,6 +893,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_124637) do
     t.boolean "empleado_externo"
     t.boolean "rlzd"
     t.boolean "rvsd"
+    t.boolean "verified"
+    t.string "verification_token"
+    t.datetime "verification_sent_at"
     t.index ["krn_empresa_externa_id"], name: "index_krn_testigos_on_krn_empresa_externa_id"
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"

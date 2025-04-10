@@ -14,4 +14,8 @@ class KrnInvestigador < ApplicationRecord
 
 	validates :rut, valida_rut: true
     validates_presence_of :rut, :krn_investigador, :email
+
+	include EmailVerifiable
+	after_create :send_verification_email
+
 end

@@ -26,18 +26,12 @@ module Karin
         @etps_trmnds << {codigo: etp.codigo, etapa: etp.ctr_etapa, plz_ok: @etp_cntrl_hsh[etp.codigo][:plz_ok], plz: @etp_cntrl_hsh[etp.codigo][:plz], plz_tag: @etp_cntrl_hsh[etp.codigo][:plz_tag]}
           @etp_last = etp
       else
-          puts "******************************************************************** etapa"
-          puts etp.codigo
         if @etp_cntrl_hsh[etp.codigo][:actv]
           @etp_last = etp
-          puts "******************************************************************** etapa"
-          puts etp.codigo
 
           etp.tareas.ordr.each do |tar|
             if @tar_cntrl_hsh[tar.codigo][:actv]
               @tar_last = tar
-          puts "******************************************************************** tarea"
-          puts tar.codigo
             end
           end
         end
