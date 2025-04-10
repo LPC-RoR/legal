@@ -1,0 +1,42 @@
+<div class="row gx-1">
+	<div class="col-4">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'Cédula de identidad' } %>
+	</div>
+	<div class="col-8">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre completo' } %>
+	</div>
+</div>
+
+<!-- EMPLEADO EXTERNO -->
+<%= render partial: '0p/lbld_inpts/check_box', locals: {form: form, token: :empleado_externo, label: 'Empleado externo', data: { 
+            prtcpnts_fields_target: "empresaCheckbox",
+            action: "change->prtcpnts-fields#updateFields"
+          }} %>
+
+<div data-prtcpnts-fields-target="empresaField" 
+   style="display: <%= form.object.empleado_externo? ? 'block' : 'none' %>">
+	  <%= render "krn_empresa_externa_id", form: form %>
+</div>
+
+<div class="row gx-1">
+	<div class="col-4">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :cargo, label: 'Cargo/Relación laboral' } %>
+	</div>
+	<div class="col-4">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :lugar_trabajo, label: 'Lugar de trabajo' } %>
+	</div>
+	<div class="col-4">
+		<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email, label: 'Email personal' } %>
+	</div>
+</div>
+
+<!-- ARTÍCULO 516 -->
+<%= render partial: '0p/lbld_inpts/check_box', locals: {form: form, token: :articulo_516, label: 'Aplica artículo 516 del Código del trabajo', data: { 
+            prtcpnts_fields_target: "articuloCheckbox",
+            action: "change->prtcpnts-fields#updateFields"
+          }} %>
+
+<div data-prtcpnts-fields-target="articuloField" 
+   style="display: <%= form.object.articulo_516? ? 'block' : 'none' %>">
+	  <%= render "direccion", form: form %>
+</div>
