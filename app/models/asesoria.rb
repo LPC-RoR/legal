@@ -3,8 +3,9 @@ class Asesoria < ApplicationRecord
 	belongs_to :tipo_asesoria
 	belongs_to :tar_servicio, optional: true
 
-	has_one :tar_calculo, as: :ownr
 	has_one :tar_facturacion, as: :ownr
+
+	has_one :tar_calculo, as: :ownr
 	has_one :tar_uf_facturacion, as: :ownr
 
 	has_many :notas, as: :ownr
@@ -17,17 +18,32 @@ class Asesoria < ApplicationRecord
     scope :typ_id, ->(typ_id) { where(estado: 'tramitación', tipo_asesoria_id: typ_id).assr_ordr }
     scope :typ, ->(typ) { where(tipo_asesoria_id: TipoAsesoria.find_by(tipo_asesoria: typ).id, estado: 'tramitación').assr_ordr }
 
+    delegate :descripcion, :moneda, :monto, to: :tar_servicio, prefix: true
+
     def self.crstn(typ)
     	typ.singularize == 'Redaccion' ? 'Redacción' : typ.singularize
     end
 
-	def archivos
-		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
-	end
+    def fecha_uf_facturacion
+    	self.fecha_uf? ? self.fecha_uf : Time.zone.today.to_date
+    end
 
-	def uf_facturacion
-		TarUfFacturacion.where(owner_class: self.class.name).find_by(owner_id: self.id)
-	end
+    def get_uf_facturacion
+    	TarUfSistema.find_by(fecha: self.fecha_uf_facturacion)
+    end
+
+    def facturable?
+    	# SOLO se facturan tarifas
+    	if self.tar_servicio.present?
+	    	self.get_uf_facturacion.present? or self.tar_servicio_moneda == 'Pesos'
+    	else
+    		false
+    	end
+    end
+
+    def monto_factura
+    	self.tar_servicio_moneda == 'Pesos' ? self.tar_servicio_monto : (self.tar_servicio_monto * self.get_uf_facturacion.valor)
+    end
 
 	def archivos
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
@@ -35,18 +51,6 @@ class Asesoria < ApplicationRecord
 
 	def exclude_files
 		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
-	end
-
-	def documentos
-		AppDocumento.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def exclude_docs
-		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Documento').order(:nombre).map {|cd| cd.nombre}
-	end
-
-	def enlaces
-		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
 	def actividades

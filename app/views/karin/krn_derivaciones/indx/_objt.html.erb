@@ -1,1 +1,7 @@
-Derivaciones
+<% if prtl?(@objeto, 'hlp', 'drvcns') %>
+	<%= render layout: '0p/mdl/link', locals: {cdg: "hlp_drvcns"} do %>
+		<span class="text-white">Derivaciones</span> <i class="bi bi-info-square text-white"></i>
+	<% end %>
+<% else %>	
+	Derivaciones
+<% end %>

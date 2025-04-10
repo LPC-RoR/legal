@@ -1,11 +1,11 @@
-<% case objeto.owner.class.name %>
+<% case objeto.ownr.class.name %>
 <% when 'Causa' %>
 	<%= objeto.tar_pago.tar_pago %> 
 	<% unless objeto.tar_cuota_id.blank? %>
 		( <%= objeto.tar_cuota.orden %> )
 	<% end %>
 <% when 'Asesoria' %>
-	<%= "Asesoría #{objeto.owner.tipo_asesoria.tipo_asesoria}" %>
+	<%= "Asesoría #{objeto.ownr.tipo_asesoria.tipo_asesoria}" %>
 <% end %>
 
 <i class="bi bi-dot"></i>

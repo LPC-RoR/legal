@@ -1,5 +1,5 @@
 class Tarifas::TarFacturacionesController < ApplicationController
-  before_action :set_tar_facturacion, only: %i[ show edit update destroy elimina facturable facturar estado crea_aprobacion a_aprobacion elimina_facturacion libera_facturacion ]
+  before_action :set_tar_facturacion, only: %i[ show edit update destroy facturable facturar crea_aprobacion a_aprobacion elimina_facturacion libera_facturacion ]
 
   include Tarifas
 

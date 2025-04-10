@@ -10,4 +10,10 @@ class Cargo < ApplicationRecord
     scope :std, ->(std) { where(estado: std).crg_ordr}
     scope :typ_id, ->(typ_id) { where(estado: 'activo', tipo_cargo_id: typ_id).crg_ordr }
     scope :typ, ->(typ) { where(tipo_cargo_id: TipoCargo.find_by(tipo_cargo: typ).id, estado: 'tramitación').crg_ordr }
+
+    def facturable?
+    	uf = self.fecha_uf? ? TarUfSistema.find_by(fecha: self.fecha_uf) : TarUfSistema.find_by(fecha: Time.zone.today.to_date)
+    	uf.present?
+    end
+
 end

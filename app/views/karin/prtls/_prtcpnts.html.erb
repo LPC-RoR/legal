@@ -59,4 +59,11 @@
 		<% end %>
 	<% end %>
 
+	<div class="text-end" style="font-size: 14px;">
+		<% if prtl?(@objeto, 'hlp', 'drvcns') %>
+			<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_drvcns", ttl: "Gestión de las derivaciones", sz: 'lg'} do %>
+				<%= render partial: prtl_name(@objeto, 'hlp', 'drvcns') %>
+			<% end %>
+		<% end %>
+	</div>
 <% end %>

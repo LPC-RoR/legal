@@ -1,0 +1,31 @@
+<div class="row gx-1 px-2 text-primary" style="font-size: 14px;">
+	<div class="col">
+		<% if objeto.tar_calculo.blank? %>
+			Pendiente
+		<% elsif objeto.tar_calculo.tar_aprobacion.blank? %>
+			Pago generado
+		<% elsif objeto.tar_facturacion.tar_factura.blank? %>
+			Pago por facturar
+		<% else %>
+			Facturado
+		<% end %>
+		<% unless objeto.tar_calculo.blank? %>
+			<%= s_pesos(objeto.tar_calculo.monto) %>
+		<% end %>
+	</div>
+	<div class="col text-end app_lnk">
+		<% if objeto.tar_calculo.blank? %>
+			<% if objeto.facturable? %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/crea_pago_asesoria?oid=#{objeto.id}", tltp: 'Genera pago'} do %>
+					Generar pago
+				<% end %>
+			<% else %>
+				UF no encontrada
+			<% end %>
+		<% elsif objeto.tar_calculo.tar_aprobacion.blank? and objeto.tar_facturacion.tar_factura.blank? %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/elimina_pago_asesoria?oid=#{objeto.id}", tltp: 'Genera pago'} do %>
+					Eliminar pago
+				<% end %>
+		<% end %>
+	</div>
+</div>

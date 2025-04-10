@@ -3,6 +3,9 @@
 <div class="px-2 fw-bold" style="font-size: 14px;line-height: 1.3;">
 	<%= objeto.descripcion %>
 </div>
+<% if admin? %>
+	<%= render partial: prtl_name('asesorias', 'list/dtl', 'fctrcn'), locals: {objeto: objeto} %>
+<% end %>
 
 <% if objeto.detalle? %>
 	<%= render layout: '0p/collapse/display', locals: {label: 'Info', objeto: objeto} do %>

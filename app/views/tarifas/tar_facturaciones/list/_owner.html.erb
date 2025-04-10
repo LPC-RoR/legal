@@ -1,13 +1,13 @@
 <small>
-<%= objeto.owner.class.name unless objeto.owner_id.blank? %> : 
-<% case objeto.owner.class.name %>
+<%= objeto.ownr.class.name unless objeto.ownr_id.blank? %> : 
+<% case objeto.ownr.class.name %>
 <% when 'Causa' %>
-	<%= link_to objeto.owner.rit, "/causas/#{objeto.owner.id}?html_options[menu]=Tarifa+%26+Pagos" %></br><%= objeto.owner.causa %>
+	<%= link_to objeto.ownr.rit, "/causas/#{objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos" %></br><%= objeto.ownr.causa %>
 <% when 'TarServicio' %>
-	<%= link_to objeto.owner.codigo, objeto.owner %> <%= objeto.owner.descripcion %>
+	<%= link_to objeto.ownr.codigo, objeto.ownr %> <%= objeto.ownr.descripcion %>
 <% when 'RegReporte' %>
-	<%= link_to objeto.owner.nombre_padre, objeto.owner %>
+	<%= link_to objeto.ownr.nombre_padre, objeto.ownr %>
 <% when 'Asesoria' %>
-	<%= link_to objeto.owner.descripcion, objeto.owner %>
+	<%= link_to objeto.ownr.descripcion, objeto.ownr %>
 <% end %>
 </small>

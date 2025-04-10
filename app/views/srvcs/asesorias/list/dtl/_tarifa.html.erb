@@ -1,20 +1,11 @@
 <div class="row gx-1 px-2" style="font-size: 14px;line-height: 1.3;">
 	<div class="col">
-		<% if objeto.tar_facturacion.blank? %>
-			<i class="bi bi-coin"></i>
-			Tarifa : 
-			<% if objeto.moneda.blank? or objeto.monto.blank? %>
-				<%= objeto.tar_servicio.descripcion unless objeto.tar_servicio.blank? %> 
-				<i class="bi bi-dot"></i>
-				<%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) unless objeto.tar_servicio.blank? %>
-			<% else %>
-				<%= s_moneda(objeto.moneda, objeto.monto) %>
-			<% end %>
-		<% end %>
-		<% unless objeto.fecha_uf.blank? %>
-			  ( UF del <%= dma(objeto.fecha_uf) %> ) 
-		<% end %>
-
+		<i class="bi bi-coin"></i>
+		Tarifa : 
+		<%= objeto.tar_servicio.descripcion unless objeto.tar_servicio.blank? %> 
+		<i class="bi bi-dot"></i>
+		<%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) unless objeto.tar_servicio.blank? %>
+		  ( UF del <%= dma(objeto.fecha_uf_facturacion) %> : <%= s_pesos2(objeto.get_uf_facturacion.valor) %> ) 
 	</div>
 	<div class="col text-end">
 		<% if objeto.tar_facturacion.blank? %>

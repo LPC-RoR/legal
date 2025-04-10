@@ -15,6 +15,24 @@ class Tarifas::TarCalculosController < ApplicationController
     @objeto = TarCalculo.new
   end
 
+  def crea_pago_asesoria
+    @objeto = Asesoria.find(params[:oid])
+    calculo = TarCalculo.create(ownr_type: 'Asesoria', ownr_id: params[:oid], cliente_id: @objeto.cliente_id, fecha_uf: @objeto.fecha_uf_facturacion, monto: @objeto.monto_factura, moneda: 'Pesos', glosa: @objeto.descripcion)
+    TarFacturacion.create(ownr_type: 'Asesoria', ownr_id: params[:oid], tar_calculo_id: calculo.id, fecha_uf: @objeto.fecha_uf_facturacion, monto: @objeto.monto_factura, moneda: 'Pesos', glosa: @objeto.descripcion)
+
+    redirect_to asesorias_path
+  end
+
+  def elimina_pago_asesoria
+    @objeto = Asesoria.find(params[:oid])
+    calculo = @objeto.tar_calculo
+    pago = @objeto.tar_facturacion
+    pago.delete
+    calculo.delete
+
+    redirect_to asesorias_path
+  end
+
   # GET /tar_calculos/1/edit
   def edit
   end
