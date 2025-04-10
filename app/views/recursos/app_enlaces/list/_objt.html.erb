@@ -1,6 +1,6 @@
 <i class="bi bi-box-arrow-up-right"></i> 
 <% if objeto.enlace.present? %>
-	<%= link_to objeto.enlace, class: 'sb-link', target: :_blank do %>
+	<%= link_to objeto.enlace, class: 'sb-link', target: (objeto.blank ? :_blank : :_self) do %>
 		<%= objeto.descripcion %> 
 	<% end %>
 <% else %>

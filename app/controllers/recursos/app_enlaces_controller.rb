@@ -80,6 +80,6 @@ class Recursos::AppEnlacesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def app_enlace_params
-      params.require(:app_enlace).permit(:descripcion, :enlace, :ownr_type, :ownr_id)
+      params.require(:app_enlace).permit(:descripcion, :enlace, :ownr_type, :ownr_id, :blank)
     end
 end

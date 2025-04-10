@@ -139,7 +139,7 @@ class Causa < ApplicationRecord
 	# REVISAR --> DEPRECATED : Se remplaza por uf_tacturacion en concerns::tarifas
 	# Encuentra la UF de Cálculo (TarUfFacturacion) asociado al pago
 	def tar_uf_facturacion(pago)
-		self.uf_facturaciones.find_by(tar_pago_id: pago.id)
+		self.tar_uf_facturaciones.find_by(tar_pago_id: pago.id)
 	end
 
 	def origen_fecha_pago(pago)

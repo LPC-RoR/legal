@@ -276,7 +276,7 @@ class CausasController < ApplicationController
     unless prms['fecha_uf(1i)'].blank? or prms['fecha_uf(2i)'].blank? or prms['fecha_uf(3i)'].blank?
       tar_pago = TarPago.find(params[:pid])
       unless tar_pago.blank?
-        tar_uf_facturacion = get_tar_uf_facturacion(@objeto, tar_pago)
+        tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
         fecha_uf = prms_to_date_raw(prms, 'fecha_uf')
 
         if tar_uf_facturacion.blank?
@@ -292,7 +292,7 @@ class CausasController < ApplicationController
 
   def del_uf_facturacion
     tar_pago = TarPago.find(params[:pid])
-    tar_uf_facturacion = get_tar_uf_facturacion(@objeto, tar_pago)
+    tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
     tar_uf_facturacion.delete
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}"

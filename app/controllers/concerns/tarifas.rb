@@ -274,11 +274,6 @@ module Tarifas
 		end
 	end
 
-	# Sirve para causa / asesoria
-	def get_tar_uf_facturacion(ownr, pago)
-		ownr.class.name == 'Causa' ? ownr.tar_uf_facturaciones.find_by(tar_pago_id: pago.id) : ownr.tar_uf_facturacion
-	end
-
 	# es un Array que contiene los cálculos, pagos o nil (si no hay ninguno de los anteriores)
 	def pgs_stts(causa)
 		h_status = {}
@@ -292,8 +287,8 @@ module Tarifas
 
 	# este método debe aplicar a Causa y Asesoría
 	def get_fecha_calculo(ownr, pago)
-		tar_uf_facturacion = get_tar_uf_facturacion(ownr, pago)
-		f1 = tar_uf_facturacion.blank? ? nil : tar_uf_facturacion.fecha_uf
+		fobj = ownr.class.name == 'Causa' ? ownr.tar_uf_facturacion(pago) : ownr
+		f1 = fobj.blank? ? nil : fobj.fecha_uf
 
 		tar_calculo = get_tar_calculo(ownr, pago)
 		f2 = tar_calculo.blank? ? nil : tar_calculo.fecha_uf
@@ -358,11 +353,13 @@ module Tarifas
     	[monto_uf, monto_pesos]
     end
 
-	def origen_fecha_calculo(causa, pago)
-		tar_uf_facturacion = get_tar_uf_facturacion(causa, pago)
-		tar_calculo = get_tar_calculo(causa, pago)
-		tar_facturacion = get_tar_facturacion(causa, pago)
-		tar_uf_facturacion.present? ? 'TarUfFacturacion' : ( tar_calculo.present? ? 'TarCalculo' : ( tar_facturacion.present? ? 'TarFacturacion' : 'Today' ) )
+	def origen_fecha_calculo(ownr, pago)
+		orgn ||= ownr if (ownr.class.name == 'Causa' and ownr.tar_uf_facturacion(pago))
+		orgn ||= ownr if (['Asesoria', 'Cargo'].include?(ownr.class.name) and ownr.fecha_uf? )
+		orgn ||= get_tar_calculo(ownr, pago)
+		orgn ||= get_tar_facturacion(ownr, pago)
+
+		orgn.class.name
 	end
 
     # Se usa en Aprobación

@@ -16,14 +16,14 @@
 	<div class="col text-end app_lnk">
 		<% if objeto.tar_calculo.blank? %>
 			<% if objeto.facturable? %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/crea_pago_asesoria?oid=#{objeto.id}", tltp: 'Genera pago'} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/crea_pago_asesoria?oclss=#{objeto.class.name}&oid=#{objeto.id}", tltp: 'Genera pago'} do %>
 					Generar pago
 				<% end %>
 			<% else %>
 				UF no encontrada
 			<% end %>
 		<% elsif objeto.tar_calculo.tar_aprobacion.blank? and objeto.tar_facturacion.tar_factura.blank? %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/elimina_pago_asesoria?oid=#{objeto.id}", tltp: 'Genera pago'} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/elimina_pago_asesoria?oclss=#{objeto.class.name}&oid=#{objeto.id}", tltp: 'Genera pago'} do %>
 					Eliminar pago
 				<% end %>
 		<% end %>

@@ -153,12 +153,12 @@ module Capitan
 
 	def v_enlaces_general
 		gnrl = AppEnlace.gnrl
-		gnrl.empty? ? nil : gnrl.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace}}
+		gnrl.empty? ? nil : gnrl.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace, blnk: enlace.blank}}
 	end
 
 	def v_enlaces_perfil
 		prfl_lnks = perfil_activo.app_enlaces
-		prfl_lnks.empty? ? nil : prfl_lnks.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace}}
+		prfl_lnks.empty? ? nil : prfl_lnks.map {|enlace| {texto: enlace.descripcion, link: enlace.enlace, blnk: enlace.blank}}
 	end
 
 	def v_enlaces

@@ -24,10 +24,10 @@
 		<div class="col">
 			Fecha cálculo
 			<% if controller_name == 'causas' and owner.tar_calculos.empty? %>
-				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "#{get_tar_uf_facturacion(owner, pago).blank? ? 'Agrega' : 'Modiffica'} fecha UF de cálculo" } do %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "#{owner.tar_uf_facturacion(pago).blank? ? 'Agrega' : 'Modiffica'} fecha UF de cálculo" } do %>
 					<i class="bi bi-pencil-square"></i>
 				<% end %>
-				<% if get_tar_uf_facturacion(owner, pago).present? %>
+				<% if owner.tar_uf_facturacion(pago).present? %>
 					<%= link_to "/causas/#{owner.id}/del_uf_facturacion?pid=#{pago.id}" do %>
 						<i class="bi bi-trash"></i>
 					<% end %>

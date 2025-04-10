@@ -6,13 +6,13 @@
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     	<% unless v_enlaces[0].blank? %>
 	    	<% v_enlaces[0].each do |lnk| %>
-		        <li style="font-size: 12px; line-height: 1.2;"><a class="dropdown-item text-dark app_lnk" href="<%=lnk[:link]%>"><i class="bi bi-box-arrow-up-right"></i> <%=lnk[:texto]%></a></li>
+		        <li style="font-size: 12px; line-height: 1.2;"><a class="dropdown-item text-dark app_lnk" href="<%=lnk[:link]%>" target="<%='_blank' if lnk[:blnk]%>"><i class="bi bi-box-arrow-up-right"></i> <%=lnk[:texto]%></a></li>
 	    	<% end %>
     	<% end %>
         <li><hr class="dropdown-divider"></li>
     	<% unless v_enlaces[1].blank? %>
 	    	<% v_enlaces[1].each do |lnk| %>
-		        <li style="font-size: 12px; line-height: 1.2;"><a class="dropdown-item text-dark app_lnk" href="<%=lnk[:link]%>"><i class="bi bi-box-arrow-up-right"></i> <%=lnk[:texto]%></a></li>
+		        <li style="font-size: 12px; line-height: 1.2;"><a class="dropdown-item text-dark app_lnk" href="<%=lnk[:link]%>" target="<%='_blank' if lnk[:blnk]%>"><i class="bi bi-box-arrow-up-right"></i> <%=lnk[:texto]%></a></li>
 	    	<% end %>
     	<% end %>
     </ul>

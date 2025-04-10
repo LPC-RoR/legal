@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_08_215851) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_10_124637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -167,6 +167,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_08_215851) do
     t.integer "ownr_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.boolean "blank"
     t.index ["ownr_id"], name: "index_app_enlaces_on_ownr_id"
     t.index ["ownr_type"], name: "index_app_enlaces_on_ownr_type"
   end

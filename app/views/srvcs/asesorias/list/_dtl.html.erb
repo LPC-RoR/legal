@@ -4,7 +4,7 @@
 	<%= objeto.descripcion %>
 </div>
 <% if admin? %>
-	<%= render partial: prtl_name('asesorias', 'list/dtl', 'fctrcn'), locals: {objeto: objeto} %>
+	<%= render partial: 'srvcs/prtls/fctrcn', locals: {objeto: objeto} %>
 <% end %>
 
 <% if objeto.detalle? %>

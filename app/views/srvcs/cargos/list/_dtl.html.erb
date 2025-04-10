@@ -1,13 +1,16 @@
-<%= render partial: prtl_name('asesorias', 'list/dtl', 'tarifa'), locals: {objeto: objeto} %>
+<%= render partial: prtl_name('cargos', 'list/dtl', 'tarifa'), locals: {objeto: objeto} %>
 
-<div class="px-2 fw-bold" style="font-size: 14px;line-height: 1.3;">
+<div class="px-3 fw-bold" style="font-size: 14px;line-height: 1.3;">
 	<%= objeto.cargo %>
 </div>
-
 <% if objeto.detalle? %>
 	<%= render layout: '0p/collapse/display', locals: {label: 'Info', objeto: objeto} do %>
 	  	<%= render partial: prtl_name('asesorias', 'list/cllps', 'detalle'), locals: {objeto: objeto} %>
 	<% end %>
+<% end %>
+
+<% if admin? %>
+	<%= render partial: 'srvcs/prtls/fctrcn', locals: {objeto: objeto} %>
 <% end %>
 
 <%= render partial: 'notas/shr/notas_pendientes', locals: {objeto: objeto} %>
