@@ -5,7 +5,8 @@
 		<%= objeto.tar_servicio.descripcion unless objeto.tar_servicio.blank? %> 
 		<i class="bi bi-dot"></i>
 		<%= s_moneda(objeto.tar_servicio.moneda, objeto.tar_servicio.monto) unless objeto.tar_servicio.blank? %>
-		  ( UF del <%= dma(objeto.fecha_uf_facturacion) %> : <%= s_pesos2(objeto.get_uf_facturacion.valor) %> ) 
+		  ( UF del <%= dma(objeto.fecha_uf_facturacion) %> : 
+		  <%= objeto.get_uf_facturacion.blank? ? 'UF no ingresada' s_pesos2(objeto.get_uf_facturacion.valor) %> ) 
 	</div>
 	<div class="col text-end">
 		<% if objeto.tar_facturacion.blank? %>
