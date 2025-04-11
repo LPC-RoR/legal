@@ -1,6 +1,6 @@
 # app/controllers/email_verifications_controller.rb
 class EmailVerificationsController < ApplicationController
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
 
   def verify
@@ -15,21 +15,30 @@ class EmailVerificationsController < ApplicationController
                   else nil
                   end
 
-    if model_class.nil?
+    unless model_class
       redirect_to root_path, alert: 'Tipo de modelo no válido'
       return
     end
 
     record = model_class.find_by(verification_token: token)
 
-    if record && record.verification_sent_at.nil?
-      record.update(verification_sent_at: Time.current)
-      redirect_to root_path, notice: 'Correo electrónico verificado exitosamente'
-    elsif record&.verification_sent_at.present?
-      redirect_to root_path, alert: 'Este enlace ya fue utilizado'
-    else
+    unless record
       redirect_to root_path, alert: 'Enlace de verificación no válido'
+      return
     end
+
+    # Verificar si el token ya fue usado (opcional)
+#    if record.email_verified?
+    # Cambie para que usara el campo ya existente email_ok
+    if record.email_ok?
+      redirect_to root_path, alert: 'Este correo ya fue verificado'
+      return
+    end
+
+    # Marcar como verificado
+    record.update!(email_ok: true, verification_sent_at: Time.current)
+
+    redirect_to root_path, notice: 'Correo electrónico verificado exitosamente'
   end
 
   def send_verification

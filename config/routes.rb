@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # Verificación de correos electrónicos de participantes
   # Nuevas rutas para la verificación
-  get '/verify_custom_email', to: 'email_verifications#verify', as: 'verify_custom_email'
+#  get '/verify_custom_email', to: 'email_verifications#verify', as: 'verify_custom_email'
+  get 'verify_custom_email', to: 'email_verifications#verify', as: :verify_custom_email
   post '/send_verification_email', to: 'email_verifications#send_verification', as: 'send_verification_email'
   
   resources :cuentas do
