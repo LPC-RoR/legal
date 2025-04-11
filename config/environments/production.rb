@@ -73,7 +73,7 @@ Rails.application.configure do
 
   # Agregado por HCH
   config.x.mail_from = %(Abogados derecho del Trabajo <no-reply@abogadosderechodeltrabajo.cl>)
-  config.action_mailer.default_url_options = { host: 'abogadosderechodeltrabajo.cl', protocol: 'https' }
+  config.action_mailer.default_url_options = { host: 'www.abogadosderechodeltrabajo.cl', protocol: 'https' }
   config.action_mailer.smtp_settings = { 
     address: 'email-smtp.us-east-2.amazonaws.com', 
     user_name: Rails.application.credentials[:smtp][:user_name], 
