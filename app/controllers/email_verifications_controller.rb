@@ -1,7 +1,7 @@
 # app/controllers/email_verifications_controller.rb
 class EmailVerificationsController < ApplicationController
   before_action :authenticate_usuario!, except: [:verify]
-  before_action :scrty_on
+  before_action :scrty_on, except: [:verify]
 
   def verify
     token = params[:token]
