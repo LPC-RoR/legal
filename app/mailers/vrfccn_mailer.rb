@@ -1,20 +1,10 @@
-class VrfccnMailer < ActionMailer::Base
-  def verification_email(model_class, model_id)
-    record = model_class.constantize.find(model_id)
-    @record = record
-    @model_name = record.class.model_name.human
-    @verification_url = url_for(
-      controller: 'email_verifications',
-      action: 'verify',
-      model: record.class.name.underscore,
-      id: record.id,
-      token: record.verification_token,
-      only_path: false
-    )
+# app/mailers/vrfccn_mailer.rb
+class VrfccnMailer < ApplicationMailer
+  layout 'mailer' # o el nombre de tu layout común
 
-    mail(
-      to: record.email,
-      subject: "Verifica tu dirección de correo (#{@model_name})"
-    )
+  def verification_email(user, verification_url)
+    @user = user
+    @verification_url = verification_url
+    mail(to: @user.email, subject: 'Por favor verifica tu correo electrónico')
   end
 end

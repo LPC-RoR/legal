@@ -17,13 +17,11 @@ class KrnTestigo < ApplicationRecord
     validates_presence_of :nombre, :cargo, :lugar_trabajo
 #    validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 
-	include EmailVerifiable
-
 	include Fls
 
-	# Sobreescribimos para que no genere token automáticamente
-	def should_generate_token?
-		false
+	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
+	def verified?
+	  verification_sent_at.present?
 	end
 
 	def dnnc

@@ -59,7 +59,7 @@ module AppIconsHelper
 			'krn_empresa_externas' => 'building',
 			'krn_tipo_medidas' => 'exclamation-triangle',
 			'procedimientos' => 'bar-chart-steps',
-			'rep_archivos' => 'file-earmark-richtext'
+#			'rep_archivos' => 'file-earmark-richtext'
 		}
 	end
 end

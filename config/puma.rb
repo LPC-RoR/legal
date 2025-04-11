@@ -39,3 +39,13 @@ plugin :solid_queue if ENV["SOLID_QUEUE_IN_PUMA"]
 # Specify the PID file. Defaults to tmp/pids/server.pid in development.
 # In other environments, only set the PID file if requested.
 pidfile ENV["PIDFILE"] if ENV["PIDFILE"]
+
+# SSL en produccion pero no en desarrollo
+# config/puma.rb
+if ENV["RAILS_ENV"] == "production"
+  ssl_bind "0.0.0.0", "443", {
+    key: "/etc/ssl/private/tu_dominio.key",
+    cert: "/etc/ssl/certs/tu_dominio.crt",
+    verify_mode: "none"  # Opcional: para desarrollo autofirmado
+  }
+end

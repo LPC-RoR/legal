@@ -67,3 +67,11 @@
 		<% end %>
 	</div>
 <% end %>
+
+	<div class="text-end" style="font-size: 14px;">
+		<% if prtl?(@objeto, 'hlp', 'archvs_rqrds') %>
+			<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_archvs_rqrds", ttl: "Archivos requeridos", sz: 'lg'} do %>
+				<%= render partial: prtl_name(@objeto, 'hlp', 'archvs_rqrds') %>
+			<% end %>
+		<% end %>
+	</div>
