@@ -22,7 +22,7 @@
 				<% end %>
 			</div>
 			<div class="rght">
-				<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado#{'_asesoria' if tar_calculo.ownr.class.name == 'Asesoria'}", locals: {objeto: tar_calculo.ownr, pago: tar_calculo.tar_pago, owner: tar_calculo.ownr} %>
+				<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado#{'_asesoria' if ['Asesoria', 'Cargo'].include?(tar_calculo.ownr_type) }", locals: {objeto: tar_calculo.ownr, pago: (tar_calculo.tar_pago unless tar_calculo.tar_pago.blank? ), owner: tar_calculo.ownr} %>
 
 				<% if tar_calculo.ownr.class.name == 'Causa' %>
 					<% if tar_calculo.tar_pago.requiere_uf == true and uf_fecha(get_fecha_calculo(tar_calculo.ownr, tar_calculo.tar_pago)).blank? %>
