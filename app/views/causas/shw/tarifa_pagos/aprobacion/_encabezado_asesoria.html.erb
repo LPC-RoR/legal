@@ -7,7 +7,7 @@
 	<div class="col-4 text-end">
 		<% if (objeto.class.name == 'Asesoria' and objeto.tar_servicio_moneda == 'UF') or (objeto.class.name == 'Cargo' and objeto.moneda == 'UF') %>
 			<small>
-			<%= s_uf5(objeto.tar_servicio_monto) %>
+			<%= s_uf5(objeto.class.name == 'Asesoria' ? objeto.tar_servicio_monto : objeto.monto) %>
 			<i class="bi bi-arrow-left-right"></i>
 			</small>
 		<% end %>
