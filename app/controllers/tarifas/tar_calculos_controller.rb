@@ -93,7 +93,7 @@ class Tarifas::TarCalculosController < ApplicationController
     # asocia todas las facturaciones del cliente disponibles
     disponibles = TarCalculo.no_aprbcn
     disponibles.each do |ccl|
-      aprobacion.tar_calculos << ccl if (ccl.ownr_cliente.id == cliente.id and clss_arry.include?(cll.ownr_type))
+      aprobacion.tar_calculos << ccl if (ccl.ownr_cliente.id == cliente.id and clss_arry.include?(ccl.ownr_type))
     end
 
     rdccn = oclss == 'Causa' ? "/causas/#{@objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos" : "/#{@objeto.ownr_type.tableize}"
