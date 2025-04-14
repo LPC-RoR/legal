@@ -5,7 +5,7 @@
 		<%= objeto.tar_calculo.glosa %>
 	</div>
 	<div class="col-4 text-end">
-		<% if objeto.tar_servicio_moneda == 'UF' %>
+		<% if (objeto.class.name == 'Asesoria' and objeto.tar_servicio_moneda == 'UF') or (objeto.class.name == 'Cargo' and objeto.moneda == 'UF') %>
 			<small>
 			<%= s_uf5(objeto.tar_servicio_monto) %>
 			<i class="bi bi-arrow-left-right"></i>
@@ -15,7 +15,7 @@
 	</div>
 </div>
 
-<% if objeto.tar_servicio.moneda == 'UF' %>             
+<% if (objeto.class.name == 'Asesoria' and objeto.tar_servicio_moneda == 'UF') or (objeto.class.name == 'Cargo' and objeto.moneda == 'UF') %>             
 	<div class="row gx-1 px-2">
 		<div class="col-8">
 			Fecha cálculo
