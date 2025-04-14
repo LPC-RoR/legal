@@ -1,12 +1,15 @@
 <b>
 <div class="ttl_prnt">
 	<div class="ttl_ttl">
-		<% if objeto.ownr.class.name == 'Causa' %>
+		<% case objeto.ownr_type %>
+		<% when 'Causa' %>
 			Causa : <%= objeto.ownr.rit %>
 			<i class="bi bi-dot"></i>
 			<%= objeto.ownr.causa %>
-		<% else %>
+		<% when 'Asesoria' %>
 			Asesoria : <%= objeto.ownr.descripcion %>
+		<% when 'Cargo' %>
+			Asesoria : <%= objeto.ownr.cargo %>
 		<% end %>
 	</div>
 	<div class="ttl_lnks">
