@@ -1,0 +1,20 @@
+<% if @objeto.investigacion_local? or @objeto.investigacion_externa? %>
+	<div class="mb-3">
+	<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+		<%= render layout: 'cuentas/prtls/hint', locals: {gly: nil, fw: 'bold'} do %>
+			¿Desea deshacer la últma acción realizada?
+		<% end %>
+		<% if @objeto.investigacion_local? %>
+			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+				<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_local, prmpt: 'La empresa decidió realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
+			<% end %>
+		<% end %>
+
+		<% if @objeto.investigacion_externa? %>
+			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+				<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_externa, prmpt: 'La empresa externa decidió realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación externa', 'Investigación extena']} %>
+			<% end %>
+		<% end %>
+	<% end %>
+	</div>
+<% end %>

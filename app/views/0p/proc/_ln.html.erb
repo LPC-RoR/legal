@@ -1,0 +1,12 @@
+<% align  ||= 'left' %>
+<% bld    ||= false %>
+<% lbld   ||= false %>
+<% rbld   ||= false %>
+<% pddng  ||= nil %>
+<% valor  ||= nil %>
+<div class=" col-9 app_lnk <%='fw-bold' if lbld or bld%>" style="padding-left: <%=pddng%>rem;">
+	<%= glosa %>
+</div>
+<div class="col-3 app_lnk <%='fw-bold' if rbld or bld%>" style="text-align: <%=align%>;">
+	<%= valor %>
+</div>

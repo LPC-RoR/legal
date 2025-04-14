@@ -29,12 +29,13 @@
 
   <body>
 
-    <%= render partial: lyt_prtl('over') unless lyt_prtl('over').blank? %>
+    <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('over')} %>
 
-    <%= render partial: lyt_prtl('navbar') unless lyt_prtl('navbar').blank? %>
+    <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('navbar')} %>
 
-    <%= render partial: lyt_prtl('main') unless lyt_prtl('main').blank? %>
+    <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('main')} %>
 
-    <%= render partial: lyt_prtl('footer') unless lyt_prtl('footer').blank? %>
+    <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('footer')} %>
+
   </body>
 </html>

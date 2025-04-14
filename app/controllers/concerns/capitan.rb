@@ -1,7 +1,7 @@
 module Capitan
 	extend ActiveSupport::Concern
 
-	def swtch_rdrccn
+	def cptn_rdrccn
 		if ['KrnDenunciante', 'KrnDenunciado', 'KrnInvDenuncia'].include?(@objeto.class.name)
 			@objeto.krn_denuncia
 		elsif @objeto.class.name == 'KrnDenuncia'
@@ -29,14 +29,21 @@ module Capitan
 		@objeto[params[:tkn]] = @objeto.send(params[:tkn]) ? false : true
 		@objeto.save
 
-		redirect_to swtch_rdrccn
+		redirect_to cptn_rdrccn
 	end
 
 	def swtch_clr
 		@objeto[params[:tkn]] = params[:clr]
 		@objeto.save
 
-		redirect_to swtch_rdrccn
+		redirect_to cptn_rdrccn
+	end
+
+	def niler
+		@objeto[params[:tkn]] = nil
+		@objeto.save
+
+		redirect_to cptn_rdrccn
 	end
 
 	# ************************************************************************** INICIALIZA VARIALES PARA CHANGE_STATE

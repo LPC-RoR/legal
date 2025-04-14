@@ -3,31 +3,37 @@
 	<%= render partial: 'layouts/partials/notice_alert' %>
 
 	<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, SI ES UNA PÁGINA PÚBLICA O ES UNA PÁGINA DE DEVISE -->
-	<% if get_perfil_activo.present? or not_authenticate? or devise_controllers.include?(controller_name)  %>
+	<% if get_perfil_activo.present? or not_authenticate_routes? %>
 
 		<!-- Verifica usuarios de la aplicación o de cuenta -->
-		<% unless scp_err? %>
+		<% unless krn_user_error? %>
 
-			<!-- Obtiene sym del menú -->
-			<% unless lm_sym.blank? %>
-
-				<div class="row gx-1">
-					<div class="col-3">
-						<%= render partial: prtl_name('layouts', 'lmenu', 'admin') %>
-
-						<%= render partial: '0p/lmenu/lmenu', locals: { sym: lm_sym } %>
-
-						<% if prtl?(controller_name, 'dwn_lft', 'bdy') %>
-							<%= render partial: prtl_name(controller_name, 'dwn_lft', 'bdy') %>
-						<% end %>
-					</div>
-					<div class="col-9">
-						<%= yield %>
-					</div>
+			<% if new_krn_routes? %>
+				<div style="margin-left: 10%;margin-right: 10%;">
+					<%= yield %>
 				</div>
-
 			<% else %>
-				<%= yield %>
+				<!-- Obtiene sym del menú -->
+				<% unless lm_sym.blank? %>
+
+					<div class="row gx-1">
+						<div class="col-3">
+							<%= render partial: prtl_name('layouts', 'lmenu', 'admin') %>
+
+							<%= render partial: '0p/lmenu/lmenu', locals: { sym: lm_sym } %>
+
+							<% if prtl?(controller_name, 'dwn_lft', 'bdy') %>
+								<%= render partial: prtl_name(controller_name, 'dwn_lft', 'bdy') %>
+							<% end %>
+						</div>
+						<div class="col-9">
+							<%= yield %>
+						</div>
+					</div>
+
+				<% else %>
+					<%= yield %>
+				<% end %>
 			<% end %>
 
 		<% else %>

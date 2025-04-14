@@ -1,0 +1,26 @@
+<% if @objeto.fecha_ntfccn? or @objeto.fecha_trmtcn? or @objeto.fecha_hora_dt? %>
+	<div class="mb-3">
+	<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+		<%= render layout: 'cuentas/prtls/hint', locals: {gly: nil, fw: 'bold'} do %>
+			¿Desea deshacer la últma acción realizada?
+		<% end %>
+		<% if @objeto.fecha_ntfccn? %>
+			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+				<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_ntfccn, prmpt: 'Fecha en la que la Dirección del Trabajo notificó recepción de una denuncia.'} %>
+			<% end %>
+		<% end %>
+
+		<% if @objeto.fecha_trmtcn? %>
+			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+				<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_trmtcn, prmpt: 'Fecha en la que empresa informó a la Dirección del Trabajo el inicio de la investigación.'} %>
+			<% end %>
+		<% end %>
+
+		<% if @objeto.fecha_hora_dt? %>
+			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+				<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_hora_dt, prmpt: 'Fecha del certificado emitido por la Dirección del Trabajo por la recepción de la derivación de la denuncia.'} %>
+			<% end %>
+		<% end %>
+	<% end %>
+	</div>
+<% end %>

@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch check set_fld clear_fld prg ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler check set_fld clear_fld prg ]
   after_action :set_plzs, only: %i[ create update ]
 
   include ProcControl
@@ -61,7 +61,7 @@ class Karin::KrnDenunciasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Denuncia fue exitósamente creada." }
+        format.html { redirect_to "/krn_denuncias/#{@objeto.id}_1", notice: "Denuncia fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -198,11 +198,14 @@ class Karin::KrnDenunciasController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia
-      @objeto = KrnDenuncia.find(params[:id])
+      @tbs = ['Proceso', 'Participantes', 'Documentos obligatorios', 'Declaraciones']
+      prms = params[:id].split('_')
+      @indx = prms[1].blank? ? 0 : prms[1].to_i
+      @objeto = KrnDenuncia.find(prms[0])
     end
 
     def get_rdrccn
-      @rdrccn = "/cuentas/#{@objeto.ownr.id}/#{@objeto.ownr.class.name.tableize[0]}dnncs"
+      @rdrccn = "/cuentas/#{@objeto.ownr.class.name.tableize[0]}_#{@objeto.ownr.id}/dnncs"
     end
 
     # Only allow a list of trusted parameters through.

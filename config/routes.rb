@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   post '/send_verification_email', to: 'email_verifications#send_verification', as: 'send_verification_email'
   
   resources :cuentas do
+    match :dnncs, via: :get, on: :member
+    match :invstgdrs, via: :get, on: :member
+    match :extrns, via: :get, on: :member
+    match :nmn, via: :get, on: :member
     match :ccta, via: :get, on: :member
     match :ecta, via: :get, on: :member
     match :cnmn, via: :get, on: :member
@@ -152,6 +156,7 @@ Rails.application.routes.draw do
     end
     resources :krn_denuncias do
       match :swtch, via: :get, on: :member
+      match :niler, via: :get, on: :member
       match :check, via: :get, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member

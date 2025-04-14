@@ -1,3 +1,20 @@
 <% unless controller_name == 'servicios' %>
-	<%= render partial: '0p/navbar/navbar', locals: {lft: nil, cntr: nil, mn: menu, mn_admn: menu_admn, clr_bg: '#005A9C', logo: 'logo_nvbr.png', sigla: nil}  %>
+
+	<div class="row gx-1 p-2">
+		<div class="col">
+			<%= image_tag 'logo_nvbr.png' %>
+		</div>
+		<div class="col d-flex gap-3 pe-4 pt-2 navbar_lnk justify-content-end">
+			<% if usuario_signed_in? %>
+			  <%= render partial: 'usuarios/lnks/lnk_salir' %>
+			<% else %>
+			  <%= render partial: 'usuarios/lnks/lnk_ingrs' %>
+			  <%= render partial: 'usuarios/lnks/lnk_rgstr' %>
+			<% end %>
+		</div>
+	</div>
+
+	<!-- Sólo pa recordar como se usa el navbar -->
+	<%#= render partial: '0p/navbar/navbar', locals: {lft: nil, cntr: nil, mn: menu, mn_admn: menu_admn, clr_bg: '#005A9C', logo: 'logo_nvbr.png', sigla: nil}  %>
+
 <% end %>

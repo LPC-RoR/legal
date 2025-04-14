@@ -2,8 +2,8 @@
 	<i class="bi bi-file-pdf"></i>
 <% end %>
 
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/cuentas/#{objeto.id}/cdnncs", tooltip: 'Cuenta del Cliente' } do %>
-	<i class="bi bi-collection"></i>
+<%= render layout: '0p/layout/tooltip_link', locals: {link: "/cuentas/#{objeto.class.name.downcase[0]}_#{objeto.id}/dnncs", tooltip: 'Cuenta del Cliente' } do %>
+	<i class="bi bi-stack"></i>
 <% end %>
 
 <% if operacion? %>

@@ -1,6 +1,6 @@
 <% pddn ||= '1' %>
 <tr style="font-size: 15px;">
-	<td class="text-<%=fl.blank? ? 'danger' : 'dark'%> app_<%=fl.blank? ? 'danger' : 'lnk'%>" style="padding-left: <%=pddn%>rem;">
+	<td class="text-<%=fl.blank? ? 'muted' : 'dark'%> app_lnk" style="padding-left: <%=pddn%>rem;">
 
 		<i class="bi bi-file-earmark"></i> 
 		<% unless fl.blank? %>
@@ -14,7 +14,7 @@
 			<i class="bi bi-exclamation-triangle text-danger"></i>
 		<% end %>
 	</td>
-	<td class="app_<%=fl.blank? ? 'danger' : 'lnk'%>" style="text-align: right; padding-right: 1rem;">
+	<td class="app_lnk" style="text-align: right; padding-right: 1rem;">
 		<% if fl.blank? %>
 			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: "Subir #{dc.rep_doc_controlado}"} do %>
 				<i class="bi bi-upload"></i>

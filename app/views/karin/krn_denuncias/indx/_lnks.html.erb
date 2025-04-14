@@ -1,3 +1,4 @@
+<!-- Pregunta si el número de denuncias excede las permitidas al cliente/empresa -->
 <% if @objeto.new_bttn? %>
 	<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr('krn_denuncias')}/new#{ownr_prms(@objeto) unless @objeto.blank?}", tltp: "Agrega #{to_name(cntrllr('krn_denuncias'))}"} %>
 <% end %>

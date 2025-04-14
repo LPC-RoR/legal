@@ -1,6 +1,14 @@
 @use '00p_config' as cnfg;
 @use 'bscs';
 
+// BACKGROUND
+
+.bg_gray {
+	background-color: #dee2e6; /* Color personalizado */
+	color: cnfg.$pltt_4;
+	@include bscs.a_hover(cnfg.$pltt_4, cnfg.$pltt_5);
+}
+
 .bg_blue {
 	background-color: cnfg.$ls_blue_1; /* Color personalizado */
 	color: white;
@@ -19,12 +27,18 @@
 	@include bscs.a_hover(black, cnfg.$pltt_5);
 }
 
+// LINKS
+
+.navbar_lnk {
+   	@include bscs.a_hover(cnfg.$pltt_4, cnfg.$pltt_5);
+}
+
 .app_lnk {
    	@include bscs.a_hover(cnfg.$pltt_2, cnfg.$pltt_5);
 }
 
 .objt_lnk {
-   	@include bscs.a_hover(blue, cnfg.$blue_3);
+   	@include bscs.a_hover(cnfg.$blue_1, cnfg.$blue_3);
 }
 
 .app_fnt {
@@ -63,7 +77,7 @@
     transition: all 0.3s ease; /* Transición para efectos suaves */
 }
 .dropdown-menu .dropdown-item:hover {
-    background: linear-gradient(90deg, cnfg.$pltt_3, cnfg.$pltt_5) !important;
+    background: linear-gradient(90deg, cnfg.$pltt_4, cnfg.$pltt_5) !important;
     color: white !important;
     padding-left: 20px; /* Desplaza el texto */
 }

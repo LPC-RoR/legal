@@ -1,0 +1,34 @@
+<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+	<div class=" border_bottom">
+		<%= render partial: prtl_name('ctr_etapas', 'code', 'ln'), locals: {objeto: @etp_last, ownr: ownr, color: 'primary'} unless @etp_last.blank? %>
+	</div>
+	<% unless @tar_last.blank? %>
+		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: @tar_last, ownr: ownr, color: 'primary'} unless @tar_last.blank? %>
+	<% end %>
+<% end %>
+
+<%= render layout: '0p/mdl/modal', locals: {cdg: @etp_last.codigo, ttl: @etp_last.ctr_etapa, sz: 'lg'} do %>
+	<%= render partial: prtl_name(@objeto, 'hlp', @etp_last.codigo) %>
+<% end %>
+<% unless @tar_last.blank? %>
+	<%= render layout: '0p/mdl/modal', locals: {cdg: @tar_last.codigo, ttl: @tar_last.tarea, sz: 'lg'} do %>
+		<%= render partial: prtl_name(@objeto, "hlp/#{@tar_last.codigo}", 'tarea' ) %>
+	<% end %>
+
+	<% if prtl?(ownr, "hlp/#{@tar_last.codigo}", 'speech') %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "#{@tar_last.codigo}_spch", ttl: 'Entrega de información', sz: 'lg'} do %>
+			<%= render partial: prtl_name(@objeto, "hlp/#{@tar_last.codigo}", 'speech' ) %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<%= render partial: '0p/ayuda/dsply', locals: {objt: @etp_last} unless @etp_last.blank? %>
+<%= render partial: '0p/ayuda/dsply', locals: {objt: @tar_last} unless @tar_last.blank? %>
+
+<% unless @tar_last.blank? %>
+	<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'stts_nts') %>
+		<div class="ms-5">
+			<%= render partial: '0p/prtls/dsply', locals: {objt: ownr, dir: "proc/#{@tar_last.codigo}", prtl: 'stts_nts'}  unless @tar_last.blank? %>
+		</div>
+	<% end %>
+<% end %>

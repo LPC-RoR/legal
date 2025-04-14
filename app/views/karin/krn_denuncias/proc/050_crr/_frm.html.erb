@@ -1,0 +1,15 @@
+<%= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') %>
+
+<div class="border rounded-2">
+	<% if @objeto.rcp_dt? %>
+		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_ntfccn'} %>
+	<% end %>
+
+	<% if (@objeto.dnnc.investigacion_local or @objeto.investigacion_externa) %>
+		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_trmtcn'} %>
+	<% end %>
+
+	<% if @objeto.krn_derivaciones.on_dt? %>
+		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_hora_dt'} %>
+	<% end %>
+</div>

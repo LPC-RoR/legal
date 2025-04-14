@@ -84,17 +84,20 @@ class Tarifas::TarCalculosController < ApplicationController
   end
 
   def crea_aprobacion
-    cliente = @objeto.ownr_cliente
+    cliente   = @objeto.ownr_cliente
+    oclss     = @objeto.ownr_type
+    clss_arry = oclss == 'Causa' ? ['Causa'] : ['Asesoria', 'Cargo']
     # crea aprobacion
     aprobacion = cliente.tar_aprobaciones.create(cliente_id: cliente.id, fecha: Time.zone.today.to_date)
     aprobacion.tar_calculos << @objeto
     # asocia todas las facturaciones del cliente disponibles
     disponibles = TarCalculo.no_aprbcn
     disponibles.each do |ccl|
-      aprobacion.tar_calculos << ccl if ccl.ownr_cliente.id == cliente.id
+      aprobacion.tar_calculos << ccl if (ccl.ownr_cliente.id == cliente.id and clss_arry.include?(cll.ownr_type))
     end
 
-    redirect_to "/causas/#{@objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos"
+    rdccn = oclss == 'Causa' ? "/causas/#{@objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos" : "/#{@objeto.ownr_type.tableize}"
+    redirect_to rdccn
   end
 
   def liberar_calculo

@@ -1,0 +1,22 @@
+<%= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') %>
+
+<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+	<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'El investigador debe evaluar la denuncia. Si la denuncia no pasa satisfactoriamente la evaluación, se le devolverá a la persona denunciante con las observaciones para su corrección y se le dará un plazo para la entrega de la denuncia corregida.'} %>
+
+	<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+		<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_incmplt, prmpt: 'La denuncia está incompleta.', stts: ['Denuncia completa', 'Denuncia incompleta']} %>
+	<% end %>
+
+	<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+		<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_incnsstnt, prmpt: 'La denuncia presenta inconsistencias.', stts: ['Denuncia completa', 'Denuncia incompleta']} %>
+	<% end %>
+
+	<% if @objeto.evlcn_incmplt or @objeto.evlcn_incnsstnt %>
+		<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La denuncia no ha pasado la evaluación satisfactoriamente, se debe registrar el plazo otorgado para su corrección.'} %>
+		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_hora_corregida'} %>
+	<% else %>
+		<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia esta completa y no presenta inconsistencias.', stts: ['denuncia que pasa la evaluación', 'denuncia que debe ser evaluada']} %>
+		<% end %>
+	<% end %>
+<% end %>

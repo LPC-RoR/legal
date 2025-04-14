@@ -1,45 +1,39 @@
-<%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
+<%= render partial: 'cuentas/shw/ttl', locals: {objt: @objeto} %>
 
+<%= render partial: prtl_name(@objeto, 'shw/icons', 'shw_menu') %>
 
-<div class="mt-1 bg-white shadow border rounded p-2">
+<% case @tbs[@indx] %>
+<% when 'Proceso' %>
+	<div style="margin-left: 5%;">
+		<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: 'shw/shr', prtl: 'prlg'} %>
+		<%= render partial: prtl_name(@objeto, 'shw/proceso', 'etps_rlzds'), locals: {ownr: @objeto} %>
+		<%= render partial: prtl_name(@objeto, 'shw/proceso', 'stts'), locals: {ownr: @objeto} %>
+		<div class="pt-2" style="margin-left: 5%;">
+			<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'undo'} unless @tar_last.blank? %>
+			<%= render partial: prtl_name(@objeto, 'shw/proceso', 'dsply_tarea'), locals: {ownr: @objeto} %>
+		</div>
+	</div>
+	<%#= render partial: 'karin/prtls/etp_tar', locals: {ownr: @objeto} %>
+	<!-- NOTAS -->
+	<%= render partial: 'karin/prtls/nts', locals: {objeto: @objeto} %>
+	<%= render partial: prtl_name(@objeto, 'shw/proceso', 'tbls'), locals: {ownr: @objeto} %>
+<% when 'Participantes' %>
+	<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: 'shw/shr', prtl: 'prlg'} %>
 	<!-- Registros acumulados de la denuncia -->
-	<%= render partial: '0p/proc/dnnc_rgstrs', locals: {objeto: @objeto} %>
-
+	<%= render partial: prtl_name(@objeto, 'shw/participantes', 'prtcpnts'), locals: {objeto: @objeto} %>
+	<%#= render partial: '0p/proc/dnnc_rgstrs', locals: {objeto: @objeto} %>
 	<!-- Despliegue de Denunciantes y Denunciados -->
-	<%= render partial: 'karin/prtls/prtcpnts', locals: {ownr: @objeto} %>
-</div>
+<% when 'Documentos obligatorios' %>
+	<!-- Archivo de la denuncia -->
+	<%= render partial: 'karin/prtls/dcs', locals: {ownr: @objeto} %>
+<% when 'Declaraciones' %>
+	<!-- Resumen de las declaraciones -->
+	<%= render partial: 'karin/prtls/prtcpnts_dclrcns', locals: {ownr: @objeto} %>
+<% end %>
 
-<div class="mt-1 bg-white shadow border rounded p-2">
-	<!-- ETAPAS REALIZADAS -->
-	<%= render partial: 'karin/prtls/etps_rlzds', locals: {ownr: @objeto} %>
-
-	<!-- STTS -->
-	<%= render partial: 'karin/prtls/stts', locals: {ownr: @objeto} %>
-
-	<!-- ETAPA y TAREA activa -->
-	<%= render partial: 'karin/prtls/etp_tar', locals: {ownr: @objeto} %>
-</div>
-
-<!-- NOTAS -->
-<%= render partial: 'karin/prtls/nts', locals: {objeto: @objeto} %>
-
-
-<!-- Archivo de la denuncia -->
-<%= render partial: 'karin/prtls/dcs', locals: {ownr: @objeto} %>
-
-<!-- Resumen de las declaraciones -->
-<%= render partial: 'karin/prtls/prtcpnts_dclrcns', locals: {ownr: @objeto} %>
+<%= render layout: '0p/mdl/modal', locals: {cdg: 'Detalle', ttl: 'Reporte de la denuncia', sz: 'lg'} do %>
+	<%= render partial: prtl_name(@objeto, 'shw/proceso', 'rgstrs'), locals: {objeto: @objeto} %>
+<% end %>
 
 <%#= @etp_last.codigo unless @etp_last.blank? %>
 <%#= @tar_last.codigo unless @tar_last.blank? %>
-
-<%# if dog? %>
-	<%#= "rep_archivos" if @objeto.rep_archivos.any? %>
-	<%#= "valores" if @objeto.valores.any? %>
-	<%#= "ctr_registros" if @objeto.ctr_registros.any? %>
-	<%#= "krn_denunciantes" if @objeto.denunciantes? %>
-	<%#= "krn_denunciados" if @objeto.denunciados? %>
-	<%#= "krn_derivaciones" if @objeto.derivaciones? %>
-	<%#= "krn_declaraciones" if @objeto.declaraciones? %>
-	<%#= "krn_inv_denuncias" if @objeto.krn_inv_denuncias.any? %>
-<%# end %>

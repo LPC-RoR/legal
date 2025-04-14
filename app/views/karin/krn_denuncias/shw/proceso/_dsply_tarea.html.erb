@@ -1,0 +1,14 @@
+<% unless @etp_last.blank? or @tar_last.blank? %>
+	<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'nts') or (@tar_cntrl_hsh[@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto)) or prtl?(ownr, "proc/#{@tar_last.codigo}", 'chlds') %>
+
+		<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'nts'} %>
+
+		<% if @tar_cntrl_hsh[@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto) %>
+			<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'frm'} %>
+		<% end %>
+
+		<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'chlds'} %>
+		<!--/div-->
+
+	<% end %>
+<% end %>

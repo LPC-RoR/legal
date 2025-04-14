@@ -1,6 +1,0 @@
-<%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
-<% unless @objeto.operable? %>
-	<%= render partial: prtl_name('cuentas', 'prtls', 'init_dnnc') %>
-<% else %>
-	<%= render partial: '0p/tbl_ttl', locals: {source: 'krn_denuncias', ownr: @objeto, crud: 'lnks'} %>
-<% end %>

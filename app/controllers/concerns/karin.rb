@@ -83,12 +83,12 @@ module Karin
         gls: 'Derivada a la Dirección del Trabajo ( Artículo 4 inciso primero ).'
       },
       drvcn_dnncnt: {
-        prmpt: 'La persona denunciante solicita derivar a la Dirección del Trabajo.',
+        prmpt: 'La persona denunciante solicita derivar la denuncia a la Dirección del Trabajo.',
         lbl: 'Derivar a la Dirección del Trabajo.',
         gls: 'Derivada a la Dirección del Trabajo ( Denunciante ).'
       },
       drvcn_emprs: {
-        prmpt: 'La empresa decide derivar a la Dirección del Trabajo.',
+        prmpt: 'La empresa decide derivar la denuncia a la Dirección del Trabajo.',
         lbl: 'Derivar a la Dirección del Trabajo.',
         gls: 'Derivada a la Dirección del Trabajo ( Empresa ).'
       },

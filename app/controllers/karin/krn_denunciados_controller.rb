@@ -79,7 +79,7 @@ class Karin::KrnDenunciadosController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = @objeto.krn_denuncia
+      @rdrccn = "/krn_denuncias/#{@objeto.krn_denuncia_id}_1"
     end
 
     # Only allow a list of trusted parameters through.

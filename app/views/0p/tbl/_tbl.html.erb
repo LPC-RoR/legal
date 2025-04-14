@@ -1,8 +1,9 @@
-<% typ ||= 'tr' %>
-<% ordr ||= false %>
-<% crud ||= nil %>
-<% hnt ||= true %>
-<% if @coleccion[str_cntrllr(source)].empty? %>
+<% typ     ||= 'tr' %>
+<% ordr    ||= false %>
+<% crud    ||= nil %>
+<% hnt     ||= true %>
+<% new_hnt ||= false %>
+<% if @coleccion[str_cntrllr(source)].empty? and new_hnt %>
   <%= render partial: "0p/tbl/new_hnt", locals: {c: str_cntrllr(source)} %>
 <% else  %>
 

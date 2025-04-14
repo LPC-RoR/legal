@@ -1,9 +1,5 @@
 module CptnMapHelper
 
-	def devise_controllers
-		['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']
-	end
-
 	#------------------------------------------------------------------ PARTIALS
 
 	# Obtiene el cntrllr cuando tiene prefijo
@@ -83,26 +79,6 @@ module CptnMapHelper
 
 	def scp_prtl?(scp, dir, prtl)
 		prtl_file?(prtl_to_file(scp_prtl(scp, dir, prtl)))
-	end
-
-	# ----------------------------------------------------------------- LAYOUT PARTIALS
-
-	# Esta función nos lleva al directorio donde se encuentran los layouts ocupados
-	def lyt_prtl_dir
-		if usuario_signed_in?
-			controller_name == 'servicios' ? 'servicios' : nil
-		else
-			devise_controllers.include?(controller_name) ? 'devise' : 'home'
-		end
-	end
-
-	def lyt_prtl(area)
-		prtl?('layouts', lyt_prtl_dir, area) ? prtl_name('layouts', lyt_prtl_dir, area) : ( prtl?('layouts', nil, area) ? prtl_name('layouts', nil, area) : nil )
-	end
-
-	# Se usa para diferenciar Clases de Sass
-	def lyts_prfx
-		usuario_signed_in? ? (controller_name == 'servicios' ? 's' : 'a') : 'h'
 	end
 
 	# ----------------------------------------------------------------- TABLE PARTIALS

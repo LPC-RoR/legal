@@ -1,5 +1,0 @@
-<%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
-<% unless @objeto.operable? %>
-	<%= render partial: prtl_name('cuentas', 'prtls', 'init_externas') %>
-<% end %>
-<%= render partial: '0p/tbl_ttl', locals: {source: 'krn_empresa_externas', ownr: @objeto, lnks: 'prtl', crud: 'lnks'} if @objeto.principal_usuaria %>

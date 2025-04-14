@@ -1,0 +1,7 @@
+<% prmpt ||= nil %>
+<% clr   ||= nil %>
+
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/niler?tkn=#{tkn}", tltp: "Anular ingreso de este campo"} do %>
+	<i class="bi bi-arrow-counterclockwise"></i>
+	<%= prmpt %>
+<% end %>

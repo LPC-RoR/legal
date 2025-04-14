@@ -23,8 +23,9 @@ class ApplicationController < ActionController::Base
 
 	# Seguridad tabla_path
 	helper_method :get_version_activa, :not_authenticate?, :get_app_sigla, :get_perfil_activo
+	helper_method :get_scp_activo
 	helper_method :scp_err?, :scp_activo?, :dog_perfil, :dog_perfil?, :tipo_usuario, :version_activa, :version_activa?, :nomina_activa, :nomina_activa?, :perfil_activo, :perfil_activo?, :usuario_agenda, :usuario_agenda?
-	helper_method :dog?, :admin?, :usuario_activo?, :publico?, :seguridad, :public_controllers 
+	helper_method :dog?, :admin?, :usuario_activo?, :publico?, :seguridad 
 	helper_method :operacion?, :finanzas?
 	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :v_enlaces_general, :enlaces_perfil, :v_enlaces_perfil, :v_enlaces, :set_st_estado, :object_class_sym
 	helper_method :arriba, :abajo, :reordenar

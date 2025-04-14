@@ -1,0 +1,32 @@
+<% if @objeto.derivaciones? %>
+	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_derivaciones', blngs: @objeto, fs: 6} %>
+	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'lnks'} %>
+
+	<% if @objeto.solicitud_denuncia  %>
+		<!-- Recibir de vuelta una denuncia desde la DT (solicitada) -->
+		<% if @objeto.on_dt? %>
+			<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'rcpcn_dt'} %>
+		<% end %>
+	<% end %>
+
+	<div class="text-end" style="font-size: 14px;">
+		<% if prtl?(@objeto, 'hlp', 'drvcns') %>
+			<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_drvcns", ttl: "Gestión de las derivaciones", sz: 'lg'} do %>
+				<%= render partial: prtl_name(@objeto, 'hlp', 'drvcns') %>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>
+
+<% if @objeto.rgstrs_ok? and (@objeto.investigacion_local or @objeto.solicitud_denuncia and @objeto.on_empresa?) %>
+	<div class="ps-2">
+		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_inv_denuncias', blngs: @objeto, fs: 6} %>
+		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_inv_denuncias', typ: 'ln', crud: 'lnks', new_hnt: true} %>
+
+		<% if prtl?(@objeto, 'hlp', 'invstgdrs') %>
+			<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_invstgdrs", ttl: "Asignación del Investigador", sz: 'lg'} do %>
+				<%= render partial: prtl_name(@objeto, 'hlp', 'invstgdrs') %>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>

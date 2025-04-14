@@ -17,15 +17,6 @@ module Seguridad
 		usuario_signed_in? ? AppNomina.activa(current_usuario) : nil
 	end
 
-	def get_public_controllers
-		['publicos']
-	end
-
-	# helper_method : rutas que NO requieren autenticación de usuarios
-	def not_authenticate?
-		get_public_controllers.include?(controller_name) and (not (action_name == 'home' and usuario_signed_in?))
-	end
-
 	# helper_method
 	def get_app_sigla
 		version = get_version_activa
@@ -39,6 +30,7 @@ module Seguridad
 	end
 
 	def get_scp_activo
+		# Empresa, Cliente , nil
 		nmn = get_nomina_activa
 		nmn.blank? ? nil : (nmn.ownr.class.name == 'AppVersion' ? nil : nmn.ownr)
 	end
@@ -69,7 +61,6 @@ module Seguridad
 		dog_email = version.blank? ? Rails.application.credentials[:dog][:email] : version.dog_email
 #		dog_name = Rails.application.credentials[:dog][:name]
 		app_sigla = version.blank? ? 'app' : (version.app_sigla.blank? ? 'app' : version.app_sigla )
-		public_controllers = get_public_controllers
 		activa_tipos_usuario = cfg_defaults[:activa_tipos_usuario]
 		# Es usuario ADDT?
 		nmn_ownr = get_nomina_activa.blank? ? nil : get_nomina_activa.ownr
@@ -78,7 +69,6 @@ module Seguridad
 			app_sigla: app_sigla,
 			dog_email: dog_email,
 #			dog_name: dog_name,
-			public_controllers: public_controllers,
 			activa_tipos_usuario: activa_tipos_usuario,			# Se usa para obtener tipo_usuario
 			addt_usr: addt_usr
 		}
@@ -102,15 +92,6 @@ module Seguridad
 
 	def krn_cntrllrs?
 		!!(controller_name =~ /^krn_[a-z_]*$/) or 'rep_archivos'
-	end
-
-	def public_controllers
-		@scrty_vls[:public_controllers]
-	end
-
-	# Al parecer no es necesario, sólo se usa en publico? (abajo).	
-	def public_controller?
-		public_controllers.include?(controller_name) or controller_name.match(/^blg_*/)		
 	end
 
 	def tipo_usuario

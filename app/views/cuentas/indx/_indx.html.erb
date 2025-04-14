@@ -1,0 +1,10 @@
+<%= render partial: 'cuentas/prtls/menu_icons' %>
+<%= render partial: 'cuentas/prtls/cllps/cllps_dsply' %>
+
+<%= render partial: 'cuentas/indx/ttl', locals: {source: source, ownr: @objeto, fs: 3} %>
+
+<% unless @objeto.operable? %>
+	<%= render partial: prtl_name('cuentas', 'prtls/init', init_prtl) %>
+<% else %>
+	<%= render partial: 'cuentas/indx/tbl', locals: {source: source} %>
+<% end %>

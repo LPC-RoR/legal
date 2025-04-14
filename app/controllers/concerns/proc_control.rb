@@ -72,7 +72,7 @@ module ProcControl
 			},
 			'060_invstgdr'    => {
 				actv: (dnnc.rgstrs_ok? and dnnc.fechas_invstgcn?),
-				frms: (dnnc.frms_invstgdr?),
+				frms: (not dnnc.frms_invstgdr?),
 			},
 			'070_evlcn'    => {
 				actv: (dnnc.investigadores? and dnnc.objcn_ok?),

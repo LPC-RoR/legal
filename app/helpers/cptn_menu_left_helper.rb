@@ -138,14 +138,12 @@ module CptnMenuLeftHelper
 			nil
 		elsif ['Empresa', 'Cliente'].include?(objeto.class.name)
 			@objeto
-		elsif ['KrnDenuncia', 'KrnInvestigador', 'KrnEmpresaExterna', 'KrnDeclaracion', 'KrnTipoMedida', 'KrnLstMedida'].include?(objeto.class.name)
+		elsif ['KrnDenuncia', 'KrnInvestigador', 'KrnEmpresaExterna', 'KrnDeclaracion'].include?(objeto.class.name)
 			@objeto.ownr
 		elsif ['KrnDenunciante', 'KrnDenunciado', 'KrnDerivacion', 'KrnInvDenuncia'].include?(objeto.class.name)
 			@objeto.krn_denuncia.ownr
 		elsif ['KrnTestigo'].include?(objeto.class.name)
 			@objeto.ownr.krn_denuncia.ownr
-		elsif ['KrnMedida'].include?(objeto.class.name)
-			@objeto.krn_lst_medida.ownr
 		else
 			nil
 		end
