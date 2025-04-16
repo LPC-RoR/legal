@@ -62,7 +62,7 @@ module ProcControl
 			},
 			'080_dclrcn'    => {
 				actv: (dnnc.investigadores? and dnnc.evld?),
-				frms: (ownr == dnnc),
+				frms: true,
 			},
 			'090_trmn_invstgcn' => {
 				actv: ((dnnc.dclrcns? and dnnc.evld?) or dnnc.on_dt?),
