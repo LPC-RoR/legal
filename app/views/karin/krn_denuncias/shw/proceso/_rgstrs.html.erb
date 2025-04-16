@@ -78,7 +78,7 @@
 			<%= render partial: '0p/proc/ln', locals: {glosa: "Evaluación: la denuncia presenta inconsistencias."} %>
 		<% end %>
 		<% if objeto.fecha_hora_corregida? %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "Plazo para presentar denuncia corregida.", valor: dma(objeto.fecha_hora_corregida), align: 'right'} %>
+			<%= render partial: '0p/proc/ln', locals: {glosa: "Plazo para presentar denuncia corregida.", valor: dma(objeto.fecha_hora_corregida), align: 'right', bld: true} %>
 		<% end %>
 	<% end %>
 
@@ -87,18 +87,18 @@
 	<% end %>
 
 	<% if objeto.fecha_trmn? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Término de la investigación.", valor: dma(objeto.fecha_trmn), align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Término de la investigación.", valor: dma(objeto.fecha_trmn), align: 'right', bld: true} %>
 	<% end %>
 
 	<% if objeto.fecha_env_infrm? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Se remitió el informe de investigación a la Dirección del Trabajo.", valor: dma(objeto.fecha_env_infrm), align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Se remitió el informe de investigación a la Dirección del Trabajo.", valor: dma(objeto.fecha_env_infrm), align: 'right', bld: true} %>
 	<% end %>
 	<% if objeto.fecha_rcpcn_infrm? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió el informe de investigación desde la Dirección del Trabajo.", valor: dma(objeto.fecha_rcpcn_infrm), align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió el informe de investigación desde la Dirección del Trabajo.", valor: dma(objeto.fecha_rcpcn_infrm), align: 'right', bld: true} %>
 	<% end %>
 
 	<% if objeto.fecha_prnncmnt? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió el pronunciamiento de la Dirección del Trabajo.", valor: dma(objeto.fecha_prnncmnt), align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió el pronunciamiento de la Dirección del Trabajo.", valor: dma(objeto.fecha_prnncmnt), align: 'right', bld: true} %>
 	<% end %>
 
 	<% if objeto.prnncmnt_vncd %>
@@ -106,6 +106,6 @@
 	<% end %>
 
 	<% if objeto.fecha_cierre? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Dia del cierre del procedimiento de investigación.", valor: dma(objeto.fecha_cierre), align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Dia del cierre del procedimiento de investigación.", valor: dma(objeto.fecha_cierre), align: 'right', bld: true} %>
 	<% end %>
 </div>
