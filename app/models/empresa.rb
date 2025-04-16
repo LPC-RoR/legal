@@ -46,7 +46,7 @@ class Empresa < ApplicationRecord
     end
 
     def formatos
-        self.productos? ? self.productos.map {|pro| pro.formato} : []
+        self.productos? ? self.pro_dtll_ventas.map {|pro| pro.formato} : []
     end
 
     def n_dnncs
