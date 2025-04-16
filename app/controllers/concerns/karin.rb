@@ -51,7 +51,7 @@ module Karin
       'etp_invstgcn'   => plz_ok?(dnnc.fecha_trmn, etp_plz('etp_invstgcn')),
       'etp_infrm'      => plz_ok?(dnnc.fecha_env_infrm, etp_plz('etp_infrm')),
       'etp_prnncmnt'   => dnnc.on_dt? ? false : plz_ok?(dnnc.fecha_prnncmnt, etp_plz('etp_prnncmnt')),
-      'etp_mdds_sncns' => plz_ok?(dnnc.fecha_prcsd, etp_plz('etp_mdds_sncns')),
+      'etp_mdds_sncns' => plz_ok?(dnnc.fecha_cierre, etp_plz('etp_mdds_sncns')),
     }
   end
 
@@ -62,7 +62,7 @@ module Karin
       'etp_invstgcn'    => lv_to_plz(dnnc.fecha_trmn, etp_plz('etp_invstgcn')),
       'etp_infrm'       => lv_to_plz((dnnc.fecha_env_infrm || dnnc.fecha_rcpcn_infrm), etp_plz('etp_infrm')),
       'etp_prnncmnt'    => dnnc.on_dt? ? nil : lv_to_plz(dnnc.fecha_prnncmnt, etp_plz('etp_prnncmnt')),
-      'etp_mdds_sncns'  => c_to_plz(dnnc.fecha_prcsd, etp_plz('etp_mdds_sncns'))
+      'etp_mdds_sncns'  => c_to_plz(dnnc.fecha_cierre, etp_plz('etp_mdds_sncns'))
     }
   end
 
