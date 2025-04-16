@@ -1,0 +1,10 @@
+<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+	<%= render layout: 'cuentas/prtls/hint', locals: {gly: nil, fw: 'bold'} do %>
+		¿Desea deshacer la últma acción realizada?
+	<% end %>
+	<% if @objeto.fecha_trmn? %>
+		<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+			<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_trmn, prmpt: 'Fecha en la terminó la investigación.'} %>
+		<% end %>
+	<% end %>
+<% end %>

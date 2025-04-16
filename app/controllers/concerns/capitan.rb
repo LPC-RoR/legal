@@ -1,6 +1,19 @@
 module Capitan
 	extend ActiveSupport::Concern
 
+	def rep_archivo_rdrccn
+	  if ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(@objeto.ownr_type)
+	    "/krn_denuncias/#{@objeto.ownr.dnnc.id}_1"
+	  else
+	    case @objeto.ownr_type
+	    when 'Causa'
+	      "/causas/#{@objeto.ownr.id}?html_options[menu]=Hechos"
+	    else
+	      @objeto.ownr
+	    end
+	  end
+	end
+
 	def cptn_rdrccn
 		if ['KrnDenunciante', 'KrnDenunciado', 'KrnInvDenuncia'].include?(@objeto.class.name)
 			@objeto.krn_denuncia

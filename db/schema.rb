@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_10_144825) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_16_160623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -802,6 +802,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_144825) do
     t.boolean "objcn_acogida"
     t.boolean "objcn_rechazada"
     t.boolean "evlcn_desaprobada"
+    t.datetime "fecha_cierre"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["identificador"], name: "index_krn_denuncias_on_identificador"

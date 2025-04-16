@@ -26,9 +26,7 @@ class KrnDenunciado < ApplicationRecord
 	validates :rut, valida_rut: true, if: -> {rut.present?}
     validates_presence_of :nombre, :cargo, :lugar_trabajo, :relacion_denunciante
 
-	include Procs
 	include Ntfccns
-	include Valores
 	include Fls
 
 	def dnnc
@@ -98,6 +96,14 @@ class KrnDenunciado < ApplicationRecord
 
 	def direccion_ok?
 		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
+	end
+
+	def dclrcn?
+		self.fl?('prtcpnts_dclrcn') and self.krn_testigos.dclrcns?
+	end
+
+	def self.dclrcns?
+		all.empty? ? false : all.map {|objt| objt.dclrcn?}.uniq.join('-') == 'true'
 	end
 
  	def self.rlzds?

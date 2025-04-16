@@ -1,35 +1,37 @@
-<!-- PARTICIPANTES -->
-<div class="row gx-4">
-	<div class="col-lg-6 col-xs-12">
+<div style="margin-left: 7%;">
+	<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: 'shw/shr', prtl: 'prlg'} %>
 
-		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6} %>
-	    <%#= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_denunciantes', ownr: @objeto, lnks: 'prtl'} %>
-		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciantes', typ: 'ln', crud: 'lnks'} %>
+	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6} %>
+	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciantes', shdw: false, typ: 'ln', crud: 'lnks'} %>
 
-	</div>
-	<div class="col-lg-6">
 
-		<!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
-		<% if @objeto.motivo_vlnc? %>
+	<!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
+	<% if @objt['motivo_vlnc?'] %>
 
-			<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Denuncia de violencia en el trabajo ejercida por terceros. Las personas denunciadas (si las hay) se detallan en las declaraciones.'} %>
+		<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Denuncia de violencia en el trabajo ejercida por terceros. Las personas denunciadas (si las hay) se detallan en las declaraciones.'} %>
 
-		<% else %>
+	<% else %>
 
-			<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciados', ownr: @objeto, fs: 6} %>
-		    <%#= render partial: '0p/ttl_sub_tbl', locals: {source: 'krn_denunciados', ownr: @objeto, lnks: 'prtl'} %>
-			<% if @objeto.denunciantes? %>
-				<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciados', typ: 'ln', crud: 'lnks'} %>
-			<% end %>
-
+		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciados', ownr: @objeto, fs: 6} %>
+		<% if @objt['denunciantes?'] %>
+			<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciados', shdw: false, typ: 'ln', crud: 'lnks'} %>
 		<% end %>
-		
-	</div>
-	<div class="text-end" style="font-size: 14px;">
-		<% if prtl?(@objeto, 'hlp', 'prtcpnts') %>
-			<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_prtcpnts", ttl: "Registros de Participantes", sz: 'lg'} do %>
-				<%= render partial: prtl_name(@objeto, 'hlp', 'prtcpnts') %>
-			<% end %>
+
+	<% end %>
+
+</div>
+
+
+<div class="text-end" style="font-size: 14px;">
+	<% if prtl?(@objeto, 'hlp', 'prtcpnts') %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_prtcpnts", ttl: "Registros de Participantes", sz: 'lg'} do %>
+			<%= render partial: prtl_name(@objeto, 'hlp', 'prtcpnts') %>
 		<% end %>
-	</div>
+	<% end %>
+
+	<% if prtl?('karin', 'prtls', 'prtcpnts_hlp_tstgs') and controller_name != 'krn_denuncias' %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_tstgs", ttl: "Testigos del participante", sz: 'lg'} do %>
+			<%= render partial: prtl_name('karin', 'prtls', 'prtcpnts_hlp_tstgs') %>
+		<% end %>
+	<% end %>
 </div>

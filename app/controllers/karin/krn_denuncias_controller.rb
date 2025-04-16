@@ -2,7 +2,6 @@ class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler check set_fld clear_fld prg ]
-  after_action :set_plzs, only: %i[ create update ]
 
   include ProcControl
   include Karin
@@ -14,18 +13,29 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
-    set_plzs
+    load_objt(@objeto)
     load_proc(@objeto)
     load_temas_proc
     @doc = LglDocumento.find_by(codigo: 'd_rik')
     @prrfs = @doc.lgl_parrafos.ordr.dsplys
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
-    set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
+    # Se necesita afuera para mostrar Reporte como modal
     set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
     set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
-    set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
+    set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
     set_tabla('krn_inv_denuncias', @objeto.krn_inv_denuncias.order(:created_at), false)
+
+    case @indx
+    when 0
+      load_objt_plzs(@objeto)     # Carga plazos
+      set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
+    when 1
+      load_p_fls
+    when 2
+      set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
+    end
+
     set_tabla('ctr_registros', @objeto.ctr_registros.order(:created_at), false)
   end
 
@@ -176,29 +186,9 @@ class Karin::KrnDenunciasController < ApplicationController
 
   private
 
-    # after_action :create :update
-    def set_plzs
-      # @objeto.fecha_prcsd : Registra la fecha que se utilizó para el cálculo de los plazos
-      # Sólo procesa si fecha_hora ha cambiado o recién se crea
-#      if @objeto.fecha_hora != @objeto.fecha_prcsd
-        @objeto.plz_trmtcn = plz_lv(@objeto.fecha_hora, 3)        # Siempre se cuenta a partir de la fecha de recepción
-        fecha_hora = @objeto.fecha_hora_dt? ? @objeto.fecha_hora_dt : @objeto.fecha_hora
-        @objeto.plz_invstgcn = plz_lv(fecha_hora, 30)             # Se ajusta a fecha_hora
-        @objeto.plz_infrm = plz_lv(@objeto.plz_invstgcn, 2)
-        fecha_envio = @objeto.fecha_env_infrm? ? @objeto.fecha_env_infrm : @objeto.plz_infrm
-        @objeto.plz_prnncmnt = @objeto.on_dt? ? nil : plz_lv(fecha_envio, 30)
-        fecha_prnncmnt = @objeto.on_dt? ? fecha_envio : @objeto.plz_prnncmnt
-        @objeto.plz_mdds_sncns = plz_c(fecha_prnncmnt, 15)
-
-#        @objeto.fecha_prcsd = @objeto.fecha_hora
-
-        @objeto.save
-#      end
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia
-      @tbs = ['Proceso', 'Participantes', 'Documentos obligatorios', 'Declaraciones']
+      @tbs = ['Proceso', 'Participantes', 'Agenda']
       prms = params[:id].split('_')
       @indx = prms[1].blank? ? 0 : prms[1].to_i
       @objeto = KrnDenuncia.find(prms[0])

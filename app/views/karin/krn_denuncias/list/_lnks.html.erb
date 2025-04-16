@@ -1,3 +1,3 @@
-<% unless (objeto.registros? or objeto.derivaciones? or objeto.rep_archivos.any?) %>
+<% unless (objeto.registros? or @objt['derivaciones?'] or objeto.rep_archivos.any?) %>
 	<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} %>
 <% end %>

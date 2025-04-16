@@ -12,7 +12,6 @@ class KrnDenunciante < ApplicationRecord
 	has_many :krn_declaraciones, as: :ownr
 	has_many :krn_testigos, as: :ownr
 
-	delegate :rut, to: :krn_empresa_externa, prefix: true
 	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
 
 	scope :rut_ordr, -> {order(:rut)}
@@ -25,15 +24,13 @@ class KrnDenunciante < ApplicationRecord
 	scope :prps, -> { where(krn_empresa_externa_id: nil) }
 
 	validates :rut, valida_rut: true
-    validates_presence_of :rut, :nombre, :cargo, :lugar_trabajo
-    validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
+  validates_presence_of :rut, :nombre, :cargo, :lugar_trabajo
+  validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 
 #	include EmailVerifiable
 	after_create :send_verification_email
 
-	include Procs
 	include Ntfccns
-	include Valores
 	include Fls
 
 	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
@@ -106,6 +103,14 @@ class KrnDenunciante < ApplicationRecord
 	end
 
 	# ------------------------------------------------------------------------
+
+	def dclrcn?
+		self.fl?('prtcpnts_dclrcn') and self.krn_testigos.dclrcns?
+	end
+
+	def self.dclrcns?
+		all.empty? ? false : all.map {|objt| objt.dclrcn?}.uniq.join('-') == 'true'
+	end
 
  	def self.rlzds?
  		all.empty? ? false : all.map {|objt| objt.rlzd}.uniq.join('-') == 'true'

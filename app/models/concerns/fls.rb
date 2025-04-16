@@ -4,7 +4,7 @@ module Fls
 
 	# Archivos existentes de un documento controlado multiple
 	def fls(dc)
-		self.rep_archivos.where(rep_doc_controlado_id: dc.id).crtd_ordr
+		dc.blank? ? [] : self.rep_archivos.where(rep_doc_controlado_id: dc.id).crtd_ordr
 	end
 
 	# Archivos existentes de un documento controlado simple
@@ -17,8 +17,12 @@ module Fls
 		fl(dc).present?
 	end
 
+	def objt_dc(code)
+		RepDocControlado.get_dc(code)
+	end
+
 	def fl_last_date(code)
-		dc = RepDocControlado.get_dc(code)
+		dc = objt_dc(code)
 		ars = dc.blank? ? [] : self.rep_archivos.where(rep_doc_controlado_id: dc.id)
 		ars.blank? ? nil : ars.map {|arch| arch.fecha}.max
 	end

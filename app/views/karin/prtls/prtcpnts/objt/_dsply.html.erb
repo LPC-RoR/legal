@@ -1,0 +1,23 @@
+<div style="margin-left: 7%;">
+
+	<% if @objeto.investigadores? %>
+		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_declaraciones', brdr_wdth: 2, ownr: objeto, fs: 6} %>
+		<div class="py-2">
+			<% objeto.krn_declaraciones.fecha_ordr.each do |dclrcn| %>
+				<%= render partial: '0p/tbl/ln', locals: {objt: dclrcn, ownr: objeto} %>
+			<% end %>
+		</div>
+	<% end %>
+
+	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'rep_archivos', brdr_wdth: 2, ownr: objeto, fs: 6} %>
+	<div class="py-2">
+		<% @p_fls[objeto.class.name][objeto.id].each do |dc| %>
+			<% if dc.multiple == true %>
+				<%= render partial: '0p/proc/dcs_ln', locals: {dc: dc, fls: objeto.fls(dc), ownr: objeto} %>
+			<% else %>
+				<%= render partial: '0p/proc/dc_ln', locals: {dc: dc, fl: objeto.fl(dc), ownr: objeto} %>
+			<% end %>
+		<% end %>
+	</div>
+
+</div>

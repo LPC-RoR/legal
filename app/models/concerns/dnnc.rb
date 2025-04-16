@@ -36,6 +36,10 @@ module Dnnc
 	# ------------------------------------------------------------------------ PRTCPNTS
 
 	# Registros revisados
+	def dclrcns?
+		self.krn_denunciantes.dclrcns? and (self.krn_denunciados.dclrcns? or self.motivo_vlnc?)
+	end
+
 	def rlzds?
 		self.krn_denunciantes.rlzds? and self.krn_denunciados.rlzds?
 	end

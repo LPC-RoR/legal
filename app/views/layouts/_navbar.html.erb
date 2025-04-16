@@ -1,16 +1,17 @@
 <% unless controller_name == 'servicios' %>
-
-	<div class="row gx-1 p-2">
-		<div class="col">
-			<%= image_tag 'logo_nvbr.png' %>
+	<div class="row mb-1 border-bottom">
+		<div class="col-9">
+			<%= image_tag (krn_routes? ? 'krn_nvbr.png' : 'logo_nvbr.png') %>
 		</div>
-		<div class="col d-flex gap-3 pe-4 pt-2 navbar_lnk justify-content-end">
-			<% if usuario_signed_in? %>
-			  <%= render partial: 'usuarios/lnks/lnk_salir' %>
-			<% else %>
-			  <%= render partial: 'usuarios/lnks/lnk_ingrs' %>
-			  <%= render partial: 'usuarios/lnks/lnk_rgstr' %>
-			<% end %>
+		<div class="col-3 position-relative app_lnk" style="height: <%= krn_routes? ? 90 : 75%>px;">
+			<div class="pe-5 position-absolute bottom-0 text-end w-100">
+				<% if usuario_signed_in? %>
+				  <%= render partial: 'usuarios/lnks/lnk_salir' %>
+				<% else %>
+				  <%= render partial: 'usuarios/lnks/lnk_ingrs' %>
+				  <%= render partial: 'usuarios/lnks/lnk_rgstr' %>
+				<% end %>
+			</div>
 		</div>
 	</div>
 

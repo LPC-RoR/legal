@@ -3,15 +3,8 @@ module ProcControl
 
 	# ------------------------------------------------------------------------------------- NEW VERSION
 
-	def plz_ok?(fecha, plazo)
-		fecha.present? ? plazo.to_date >= fecha.to_date : (plazo.to_date > Time.zone.today.to_date ? nil : false) unless plazo.blank?
-	end
-
-	def etp_cntrl_hsh(ownr)
+	def etp_cntrl_hsh(ownr, objt)
 		dnnc = ownr.dnnc
-		fecha_legal = dnnc.fecha_dvlcn? ? dnnc.fecha_dvlcn : (dnnc.fecha_hora_dt? ? dnnc.fecha_hora_dt : dnnc.fecha_hora)
-		fecha_env_rcpcn = dnnc.fecha_env_infrm || dnnc.fecha_rcpcn_infrm
-		plz_env_rcpcn = dnnc.fecha_trmn? ? plz_lv(dnnc.fecha_trmn, 2) : plz_lv(fecha_legal, 32)
 		{
 			'etp_rcpcn'      => {
 				actv: true,
@@ -19,43 +12,32 @@ module ProcControl
 				# fechas_invstgcn?	: Tramitación, Certificado, Notificación, Devolución
 				# chck_dvlcn?				: Si se debe dar por resuelta la devolución de la denuncia NO CONSIDERA EL RECHAZO
 				trmn:	(dnnc.rgstrs_ok? and dnnc.fechas_invstgcn? and dnnc.chck_dvlcn?),
-				plz: plz_lv(dnnc.fecha_hora, 3),
-				plz_ok: dnnc.fecha_plz_rcpcn.present? ? plz_ok?( dnnc.fecha_plz_rcpcn, plz_lv(dnnc.fecha_hora, 3) ) : nil,
-				plz_tag: lv_to_plz(dnnc.fecha_plz_rcpcn, plz_lv(dnnc.fecha_hora, 3))
 			},
 			'etp_invstgcn'   => {
 				# A esta etapa pasamos sin preguntarnos por la devolución, recien en este minuto se puede formalizar el pedido
 				actv: ((dnnc.rgstrs_ok? and dnnc.fechas_invstgcn?) or dnnc.on_dt?),
 				trmn:	(dnnc.fecha_trmn? or dnnc.on_dt?),
-				plz: plz_lv(fecha_legal, 30),
-				plz_ok: plz_ok?( dnnc.fecha_trmn, plz_lv(fecha_legal, 30)),
-				plz_tag: lv_to_plz(dnnc.fecha_trmn, plz_lv(fecha_legal, 30))
 			},
-			'etp_envio'      => {
+			'etp_infrm'      => {
 				actv: ((dnnc.fecha_trmn? or dnnc.on_dt?)),
 				trmn: (dnnc.fecha_env_infrm? or dnnc.fecha_rcpcn_infrm?),
-				plz: plz_env_rcpcn,
-				plz_ok: plz_ok?( fecha_env_rcpcn, plz_env_rcpcn),
-				plz_tag: lv_to_plz(fecha_env_rcpcn, plz_env_rcpcn)
 			},
 			'etp_prnncmnt'   => {
 				actv: (dnnc.fecha_env_infrm? or dnnc.on_dt?),
 				trmn: (dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.on_dt?),
-				plz: plz_lv(dnnc.fecha_env_infrm, 30),
-				plz_ok: plz_ok?( dnnc.fecha_prnncmnt, plz_lv(dnnc.fecha_env_infrm, 30)),
-				plz_tag: lv_to_plz(dnnc.fecha_prnncmnt, plz_lv(dnnc.fecha_env_infrm, 30))
 			},
 			'etp_mdds_sncns' => {
 				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
-				trmn: dnnc.crr_dnnc,
-				plz: plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15), 
-				plz_ok: plz_ok?( dnnc.fl_last_date('dnnc_mdds_sncns'), plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15)),
-				plz_tag: c_to_plz(dnnc.fl_last_date('dnnc_mdds_sncns'), plz_c((dnnc.fecha_prnncmnt || dnnc.fecha_rcpcn_infrm) , 15))
+				trmn: dnnc.fecha_cierre?,
+			},
+			'etp_cierre' => {
+				actv: dnnc.fecha_cierre?,
+				trmn: false,
 			},
 		}
 	end
 
-	def tar_cntrl_hsh(ownr)
+	def tar_cntrl_hsh(ownr, objt)
 		dnnc = ownr.dnnc
 		krn_dnnc = ownr != dnnc
 		{
@@ -83,8 +65,8 @@ module ProcControl
 				frms: (ownr == dnnc),
 			},
 			'090_trmn_invstgcn' => {
-				actv: ((dnnc.rlzds? and dnnc.evld?) or dnnc.on_dt?),
-				frms: (dnnc.frms_trmn_invstgcn?),
+				actv: ((dnnc.dclrcns? and dnnc.evld?) or dnnc.on_dt?),
+				frms: true,
 			},
 			'100_env_rcpcn' => {
 				actv: (dnnc.fecha_trmn? or dnnc.on_dt?),
@@ -97,6 +79,10 @@ module ProcControl
 			'120_mdds_sncns' => {
 				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
 				frms: (dnnc.frms_mdds_sncns?),
+			},
+			'130_prcdmnt_crrd' => {
+				actv: dnnc.fecha_cierre?,
+				frms: false,
 			},
 		}
 	end

@@ -1,5 +1,6 @@
-<% typ ||= 'tr' %>
-<div class="shadow mt-1">
+<% shdw    = shdw ? true : false %>
+<% typ  ||= 'tr' %>
+<div class="<%='shadow' if shdw%> mt-1">
 <table class="table table-sm table-borderless table-striped table-hover">
 	<tbody>
 		<% clccn.each do |objt| %>

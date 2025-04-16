@@ -5,7 +5,7 @@
 	<% end %>
 <% end %>	
 
-<% if @objeto.derivaciones? and @objeto.krn_derivaciones.last.destino == 'Dirección del Trabajo' %>	
+<% if @objt['derivaciones?'] and @objeto.krn_derivaciones.last.destino == 'Dirección del Trabajo' %>	
 	<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: 'solicitud_denuncia', stts: ['sin solicitud de devolución', 'con solicitud de devolución'], glys: ['arrow-counterclockwise', 'question-square']} %>
 <% end %>	
 </div>

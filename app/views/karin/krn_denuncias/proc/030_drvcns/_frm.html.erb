@@ -4,7 +4,7 @@
 <% end %>
 
 <% unless @objeto.on_dt? %>
-	<% if @objeto.on_empresa? and @objeto.externa? %>
+	<% if @objt['on_empresa?'] and @objeto.externa? %>
 
 		<%= render layout: 'cuentas/prtls/proceso/actn' do %>
 		<%= render layout: 'cuentas/prtls/proceso/hint', locals: {gly: 'chat-left-dots', clr: 'primary'} do %>
@@ -37,7 +37,7 @@
 					<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
 				<% end %>
 
-				<% if @objeto.on_empresa? %>
+				<% if @objt['on_empresa?'] %>
 					<%= render layout: 'cuentas/prtls/proceso/actn' do %>
 						<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
 							<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_local, prmpt: 'La empresa decidió realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>

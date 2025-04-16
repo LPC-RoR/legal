@@ -13,7 +13,7 @@ class Karin::KrnDenunciantesController < ApplicationController
 
   # GET /krn_denunciantes/1 or /krn_denunciantes/1.json
   def show
-    load_proc(@objeto)
+    #load_proc(@objeto)
     @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
@@ -24,7 +24,6 @@ class Karin::KrnDenunciantesController < ApplicationController
 
   # GET /krn_denunciantes/new
   def new
-#    denuncia = params[:oclss].constantize.find(params[:oid])
     @objeto = KrnDenunciante.new(krn_denuncia_id: params[:oid])
   end
 

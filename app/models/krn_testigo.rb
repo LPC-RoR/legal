@@ -90,6 +90,10 @@ class KrnTestigo < ApplicationRecord
 		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
 	end
 
+	def self.dclrcns?
+		all.empty? ? true : all.map {|objt| objt.fl?('prtcpnts_dclrcn')}.uniq.join('-') == 'true'
+	end
+
  	def self.rlzds?
  		all.empty? ? true : all.map {|objt| objt.rlzd}.uniq.join('-') == 'true'
  	end

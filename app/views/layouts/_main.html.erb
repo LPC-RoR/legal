@@ -1,6 +1,6 @@
 <div class="lyt_main">
 
-	<%= render partial: 'layouts/partials/notice_alert' %>
+	<%= render partial: 'layouts/partials/notice_alert' unless krn_routes? %>
 
 	<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, SI ES UNA PÁGINA PÚBLICA O ES UNA PÁGINA DE DEVISE -->
 	<% if get_perfil_activo.present? or not_authenticate_routes? %>
@@ -8,8 +8,9 @@
 		<!-- Verifica usuarios de la aplicación o de cuenta -->
 		<% unless krn_user_error? %>
 
-			<% if new_krn_routes? %>
+			<% if krn_routes? %>
 				<div style="margin-left: 10%;margin-right: 10%;">
+					<%= render partial: 'layouts/partials/notice_alert' %>
 					<%= yield %>
 				</div>
 			<% else %>

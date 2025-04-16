@@ -1,7 +1,7 @@
 <% unless objeto.rlzd or objeto.registros? %>
-	<% unless (@objeto.rgstrs_ok? and (@objeto.fecha_trmtcn? or @objeto.derivaciones?)) %>
+	<% unless (@objeto.rgstrs_ok? and (@objeto.fecha_trmtcn? or @objt['derivaciones?'])) %>
 		<%= render partial: '0p/tbl/lnk_editar', locals: {objeto: objeto} %>
-		<% unless @objeto.denunciados? and @objeto.krn_denunciantes.count == 1 %>
+		<% unless @objt['denunciados?'] and @objeto.krn_denunciantes.count == 1 %>
 			<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: objeto} %>
 		<% end %>
 	<% end %>

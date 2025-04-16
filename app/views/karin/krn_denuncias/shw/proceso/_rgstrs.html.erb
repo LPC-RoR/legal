@@ -20,14 +20,14 @@
 
 	<!-- PARTICIPANTES -->
 	<% if @coleccion['krn_denunciantes'].any? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "PERSONAS DENUNCIANTES", valor: nil, bld: true} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Personas denunciantes", valor: nil, bld: true} %>
 		<% @coleccion['krn_denunciantes'].each do |dnncnt| %>
 			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncnt.rut)} #{dnncnt.nombre}", valor: "#{dnncnt.krn_testigos.count == 0 ? 'sin testigos' : "#{dnncnt.krn_testigos.count} testigo(s)"}", pddng: 1} %>
 		<% end %>
 	<% end %>
 
 	<% if @coleccion['krn_denunciados'].any? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "PERSONAS DENUNCIADAS", valor: nil, bld: true} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Personas denunciadas", valor: nil, bld: true} %>
 		<% @coleccion['krn_denunciados'].each do |dnncd| %>
 			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncd.rut)} #{dnncd.nombre}", valor: "#{dnncd.krn_testigos.count == 0 ? 'sin testigos' : "#{dnncd.krn_testigos.count} testigo(s)"}", pddng: 1} %>
 		<% end %>
@@ -43,7 +43,7 @@
 
 	<!-- INVESTIGACIONES EN LA EMPRESA -->
 	<% if objeto.investigacion_local %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "La empresa decidió realizar la investigación de la denuncia.", bld: true} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "La empresa decidió realizar la investigación de la denuncia."} %>
 	<% end %>
 	<% if objeto.investigacion_externa %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "La empresa externa decidió realizar la investigación de la denuncia.", bld: true} %>
@@ -51,12 +51,57 @@
 
 	<!-- FECHAS DE CIERRE -->
 	<% if objeto.fecha_ntfccn? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Fecha en la que la Dirección notifico la recepción de una denuncia.", valor: dma(objeto.fecha_ntfccn), bld: true, align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "La Dirección del Trabajo notifico la recepción de una denuncia.", valor: dma(objeto.fecha_ntfccn), bld: true, align: 'right'} %>
 	<% end %>
 	<% if objeto.fecha_trmtcn? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Fecha en la que se informa a la Dirección del Trabajo el inicio de una investigación.", valor: dma(objeto.fecha_trmtcn), bld: true, align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Se informó a la Dirección del Trabajo el inicio de una investigación.", valor: dma(objeto.fecha_trmtcn), bld: true, align: 'right'} %>
 	<% end %>
 	<% if objeto.fecha_hora_dt %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Fecha del certificado emitido por la Dirección del Trabajo acusando recibo de la denuncia derivada.", bld: true, align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió certificado emitido por la Dirección del Trabajo acusando recibo de la denuncia derivada.", bld: true, align: 'right'} %>
+	<% end %>
+
+	<% if objeto.krn_investigadores.first.present? %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "El sr. #{objeto.krn_investigadores.first.krn_investigador} será el investigador de la causa."} %>
+	<% end %>
+
+	<% if objeto.krn_investigadores.second.present? %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "El sr. #{objeto.krn_investigadores.second.krn_investigador} será el investigador de la causa."} %>
+	<% end %>
+
+	<% if objeto.evlcn_ok %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Evaluación: la denuncia está completa y no presenta inconsistencias."} %>
+	<% else %>
+		<% if objeto.evlcn_incmplt %>
+			<%= render partial: '0p/proc/ln', locals: {glosa: "Evaluación: la denuncia está incompleta."} %>
+		<% end %>
+		<% if objeto.evlcn_incnsstnt %>
+			<%= render partial: '0p/proc/ln', locals: {glosa: "Evaluación: la denuncia presenta inconsistencias."} %>
+		<% end %>
+		<% if objeto.fecha_hora_corregida? %>
+			<%= render partial: '0p/proc/ln', locals: {glosa: "Plazo para presentar denuncia corregida.", valor: dma(objeto.fecha_hora_corregida), align: 'right'} %>
+		<% end %>
+	<% end %>
+
+	<% if objeto.dclrcns? %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Todos los participantes han declarado."} %>
+	<% end %>
+
+	<% if objeto.fecha_trmn? %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Término de la investigación.", valor: dma(objeto.fecha_trmn), align: 'right'} %>
+	<% end %>
+
+	<% if objeto.fecha_env_infrm? %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Se remitió el informe de investigación a la Dirección del Trabajo.", valor: dma(objeto.fecha_env_infrm), align: 'right'} %>
+	<% end %>
+	<% if objeto.fecha_rcpcn_infrm? %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió el informe de investigación desde la Dirección del Trabajo.", valor: dma(objeto.fecha_rcpcn_infrm), align: 'right'} %>
+	<% end %>
+
+	<% if objeto.fecha_prnncmnt? %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió el pronunciamiento de la Dirección del Trabajo.", valor: dma(objeto.fecha_prnncmnt), align: 'right'} %>
+	<% end %>
+
+	<% if objeto.prnncmnt_vncd %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "El plazo para el pronunciamiento de la Dirección del Trabajo venció."} %>
 	<% end %>
 </div>

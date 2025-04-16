@@ -1,12 +1,15 @@
+<% unless objeto.codigo == 'etp_cierre' %>
 <div class="d-flex justify-content-end gap-1">
-	<div class="text-<%=etp_muted(objeto.codigo, ownr) ? 'muted' : (etp_plz_ok(ownr)[objeto.codigo] ? 'primary' : 'dark')%>">
-		<% if etp_plz_ok(ownr)[objeto.codigo] == nil %>
+	<div class="text-<%=etp_muted(objeto.codigo, ownr) ? 'muted' : (@objt[:etp_cntrl][objeto.codigo][:plz_ok] ? 'primary' : 'dark')%>">
+		<% if @objt[:etp_cntrl][objeto.codigo][:plz_ok] == nil %>
 			<i class="bi bi-hourglass-split text-muted"></i>
-		<% elsif etp_plz_ok(ownr)[objeto.codigo] %>
+		<% elsif @objt[:etp_cntrl][objeto.codigo][:plz_ok] %>
 			<i class="bi bi-calendar-check text-primary"></i>
 		<% else %>
 			<i class="bi bi-calendar-x text-danger"></i>
 		<% end %>
-		<%= dma_hm(etp_plz(ownr)[objeto.codigo]) %>
+		<!-- Funciona con @objt -->
+		<%= dma_hm(etp_plz(objeto.codigo)) %>
 	</div>
 </div>
+<% end %>

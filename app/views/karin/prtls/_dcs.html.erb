@@ -1,3 +1,4 @@
+<%= render partial: 'cuentas/indx/ttl', locals: {source: 'rep_archivos', ownr: @objeto, fs: 6} %>
 <table class="table table-sm table-borderless table-striped table-hover">
 	<tbody>
 		<% @fls_actv.each do |dc| %>
@@ -11,3 +12,11 @@
 		<% end %>
 	</tbody>
 </table>
+
+<div class="text-end" style="font-size: 14px;">
+	<% if prtl?(@objeto, 'hlp', 'archvs_rqrds') %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_archvs_rqrds", ttl: "Archivos requeridos", sz: 'lg'} do %>
+			<%= render partial: prtl_name(@objeto, 'hlp', 'archvs_rqrds') %>
+		<% end %>
+	<% end %>
+</div>

@@ -1,8 +1,10 @@
 <%= render partial: 'karin/prtls/prtcpnt_flgs', locals: {objeto: objeto} %>
 
 <%= render layout: '0p/tltp_lnk', locals: {lnk: objeto, tltp: 'Ver denunciante'} do %>
+	<b>
 	<%= s_rut(objeto.rut) %>
 	<i class="bi bi-dot"></i>
 	<%= objeto.nombre %>
+	</b>
 <% end %>
 <%= render partial: 'karin/prtls/prtcpnts/email_verification', locals: {objeto: objeto} %>

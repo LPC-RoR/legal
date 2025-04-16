@@ -40,11 +40,8 @@ class KrnDenuncia < ApplicationRecord
 	validates :tipo_declaracion, presence: true, if: -> { via_declaracion == 'Presencial' }
 	validates :representante, presence: true, if: -> { presentado_por == 'Representante' }
 
-	include Valores
-	include DnncVlrs
 	include Dnnc
 	include DnncProc
-	include Procs
 	include Fls
 
 	def dnnc

@@ -1,10 +1,10 @@
 <% unless @etp_last.blank? or @tar_last.blank? %>
 
-	<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'nts') or (@tar_cntrl_hsh[@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto)) or prtl?(ownr, "proc/#{@tar_last.codigo}", 'chlds') %>
+	<% if prtl?(ownr, "proc/#{@tar_last.codigo}", 'nts') or (@objt[:tar_cntrl][@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto)) or prtl?(ownr, "proc/#{@tar_last.codigo}", 'chlds') %>
 
 		<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'nts'} %>
 
-		<% if @tar_cntrl_hsh[@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto) %>
+		<% if @objt[:tar_cntrl][@tar_last.codigo][:frms] and @tar_last.dsply?(@objeto) %>
 			<%= render partial: prtl_name('tareas', 'code', 'dtll'), locals: {objeto: @tar_last, ownr: ownr} if @tar_last.dsply?(ownr) %>
 		<% end %>
 

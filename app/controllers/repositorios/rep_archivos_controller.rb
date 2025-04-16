@@ -74,17 +74,12 @@ class Repositorios::RepArchivosController < ApplicationController
     end
 
     def get_rdrccn
-
-      if @objeto.ownr.class.name == 'Causa'
-        @rdrccn = "/causas/#{@objeto.ownr.id}?html_options[menu]=Hechos"
-      else
-        @rdrccn = @objeto.ownr
-      end
-
+      # Está en Capitan
+      @rdrccn = rep_archivo_rdrccn
     end
 
     # Only allow a list of trusted parameters through.
     def rep_archivo_params
-      params.require(:rep_archivo).permit(:ownr_id, :ownr_type, :rep_archivo, :archivo, :rep_doc_controlado_id, :nombre, :fecha, :control_fecha, :chequeable)
+      params.require(:rep_archivo).permit(:ownr_id, :ownr_type, :rep_archivo, :archivo, :archivo_cache, :rep_doc_controlado_id, :nombre, :fecha, :control_fecha, :chequeable)
     end
 end

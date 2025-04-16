@@ -1,9 +1,0 @@
-<% unless @objeto.crr_dnnc %>
-<% unless @objeto.fl?('dnnc_mdds_sncns') %>
-	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Se debe ingresar evidencias de la aplicación de las medidas y las sanciones.'} %>
-<% else %>
-	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Se registran evidencias de la aplicación de las Medidas y Sanciones de la investigación.'} %>
-<% end %>
-<% else %>
-	<%= render partial: '0p/ntc', locals: {color: 'primary', ntc: 'Se ha cerrado el procedimiento de investigación.'} %>
-<% end %>

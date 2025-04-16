@@ -27,12 +27,8 @@ module CptnLayoutsHelper
 		['cuentas'].include?(controller_name)and ['dnncs', 'invstgdrs', 'extrns', 'nmn'].include?(action_name)
 	end
 
-	def new_krn_routes?
-		controller_name.start_with?('krn_') or cuentas_routes? or krn_non_krn_routes?
-	end
-
 	def krn_routes?
-		!!(controller_name =~ /^krn_[a-z_]*$/) or krn_non_krn_routes?
+		controller_name.start_with?('krn_') or cuentas_routes? or krn_non_krn_routes?
 	end
 
 	def krn_user_error?

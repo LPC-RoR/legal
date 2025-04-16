@@ -1,0 +1,15 @@
+<%= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') %>
+
+<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+	<%= render layout: 'cuentas/prtls/hint', locals: {gly: nil, fw: 'bold'} do %>
+		Subir las evidencias de la aplicación de las medidas correctivas y sanciones definidas.
+	<% end %>
+
+	<% if @objeto.fl_last_date('dnnc_mdds_sncns') %>
+		<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: "Fecha evidencia más reciente: #{dma(@objeto.fl_last_date('dnnc_mdds_sncns'))}"} %>
+		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_cierre'} %>
+	<% else %>
+		<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Hasta el minuto no se han subido evidencias.'} %>
+	<% end %>
+
+<% end %>
