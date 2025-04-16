@@ -104,4 +104,8 @@
 	<% if objeto.prnncmnt_vncd %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "El plazo para el pronunciamiento de la Dirección del Trabajo venció."} %>
 	<% end %>
+
+	<% if objeto.fecha_cierre? %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Dia del cierre del procedimiento de investigación.", valor: dma(objeto.fecha_cierre), align: 'right'} %>
+	<% end %>
 </div>
