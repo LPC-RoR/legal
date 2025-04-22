@@ -4,8 +4,6 @@ class KrnDenunciado < ApplicationRecord
 	belongs_to :krn_empresa_externa, optional: true
 	belongs_to :krn_empleado, optional: true
 
-	has_many :ctr_registros, as: :ownr
-
 	has_many :rep_archivos, as: :ownr
 	has_many :notas, as: :ownr
 
@@ -46,10 +44,6 @@ class KrnDenunciado < ApplicationRecord
 
  	def testigos?
  		self.krn_testigos.any?
- 	end
-
- 	def registros?
- 		self.ctr_registros.any?
  	end
 
  	# ================================= 020_prtcpnts: Ingreso de(l) denunciante(s)

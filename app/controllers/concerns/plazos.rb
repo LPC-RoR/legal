@@ -36,7 +36,7 @@ module Plazos
 			n_dias = (plazo.to_date - fecha.to_date).to_i
 	  		frds = CalFeriado.where('cal_fecha BETWEEN ? AND ?', fecha.beginning_of_day, plazo.end_of_day)
 	  		n_frds = frds.lv.count
-			n_dias - n_frds
+			n_dias == 0 ? 0 : n_dias - n_frds
 		end
 	end
 

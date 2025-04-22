@@ -6,7 +6,7 @@
 	<% end %>
 
 	<!-- Sacamos mdds_rsgrd porque NO estos controlando rep_archivos por tarea -->
-	<% unless !!@objeto.investigacion_local or @objt['derivaciones?'] or @objeto.fecha_trmtcn? %>
+	<% unless @objeto.fecha_hora_dt? or @objeto.fecha_trmtcn? %>
 		<%= render partial: '0p/tabla/lnk_new', locals: {lnk: new_path('krn_denunciantes', @objeto), tltp: "Agrega Denunciante"} %>
 	<% end %>
 </div>

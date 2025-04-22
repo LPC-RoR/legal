@@ -1,21 +1,13 @@
 <% if @objeto.evlcn_ok? or @objeto.fecha_hora_corregida? %>
-	<div class="mb-3">
-	<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-		<%= render layout: 'cuentas/prtls/hint', locals: {gly: nil, fw: 'bold'} do %>
-			¿Desea deshacer la últma acción realizada?
+	<% if @objeto.fecha_hora_corregida? %>
+		<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+			<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_hora_corregida, prmpt: 'Plazo otorgado para entregar la denuncia corregida.'} %>
 		<% end %>
-		<% if @objeto.fecha_hora_corregida? %>
-			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-				<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_hora_corregida, prmpt: 'Plazo otorgado para entregar la denuncia corregida.'} %>
-			<% end %>
-		<% end %>
-
-		<% if @objeto.evlcn_ok? %>
-			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-				<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia esta completa y no presenta inconsistencias.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['evaluación no satisfactoria', 'evaluación satisfactoria']} %>
-			<% end %>
-		<% end %>
-
 	<% end %>
-	</div>
+
+	<% if @objeto.evlcn_ok? %>
+		<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia esta completa y no presenta inconsistencias.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['evaluación no satisfactoria', 'evaluación satisfactoria']} %>
+		<% end %>
+	<% end %>
 <% end %>

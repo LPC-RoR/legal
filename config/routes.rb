@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   # Verificación de correos electrónicos de participantes
   # Nuevas rutas para la verificación
-#  get '/verify_custom_email', to: 'email_verifications#verify', as: 'verify_custom_email'
-  get 'verify_custom_email', to: 'email_verifications#verify', as: :verify_custom_email
-#  get 'email_verifications/verify', to: 'email_verifications#verify', as: :verify_custom_email
-  post '/send_verification_email', to: 'email_verifications#send_verification', as: 'send_verification_email'
-  
+
+  get '/verify_custom_email', to: 'email_verifications#verify', as: :verify_custom_email
+  post '/send_verification_email', to: 'email_verifications#send_verification', as: :send_verification_email
+
   resources :cuentas do
     match :dnncs, via: :get, on: :member
     match :invstgdrs, via: :get, on: :member
@@ -113,18 +112,13 @@ Rails.application.routes.draw do
   end 
 
   scope module: 'control' do
-    resources :procedimientos
     resources :tipo_procedimientos
+    resources :procedimientos
     resources :ctr_etapas do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end
     resources :tareas do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
-    end
-    resources :ctr_registros
-    resources :ctr_pasos do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
     end

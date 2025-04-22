@@ -259,35 +259,21 @@ module Karin
 
   # Reemplazar a fll_fld generalizando y creando ctr_registro correspondiente
   def set_fld
-    ctr_paso = CtrPaso.find_by(codigo: params[:k])
+    fecha = params[:k].start_with?('fecha_')
+    mthd  = params[:k]
+    vlr   = fecha ? params_to_date(params, mthd) : params[mthd.to_sym]
 
-    @objeto[ctr_paso.metodo] = ctr_paso.metodo.split('_')[0] == 'fecha' ? params_to_date(params, ctr_paso.metodo) : params[ctr_paso.metodo.to_sym]
+    @objeto[mthd] = vlr
     @objeto.save
-
-    dsply_metodo = ctr_paso.despliega.blank? ? ctr_paso.metodo : ctr_paso.despliega
-    field = @objeto.send(dsply_metodo)
-
-
-    if ctr_paso.metodo.split('_').first == 'fecha'
-      vlr = @objeto[ctr_paso.metodo].strftime("%d-%m-%Y  %I:%M%p")
-    elsif field.class.name == 'TrueClass'
-      vlr = ''
-    else
-      vlr = @objeto.send(dsply_metodo)
-    end
-
-    @objeto.ctr_registros.create(orden: ctr_paso.orden, tarea_id: ctr_paso.tarea_id, ctr_paso_id: ctr_paso.id, glosa: ctr_paso.glosa, valor: vlr)
 
     redirect_to @objeto
   end
 
   # Complemento de set_fld
   def clear_fld
-    ctr_paso = CtrPaso.find_by(codigo: params[:k])
-    @objeto[ctr_paso.metodo] = nil
+    mthd = params[:k]
+    @objeto[mthd] = nil
     @objeto.save
-    ctr_registro = @objeto.ctr_registros.find_by(ctr_paso_id: ctr_paso.id)
-    ctr_registro.delete
 
     redirect_to @objeto
   end

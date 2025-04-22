@@ -20,8 +20,6 @@ class KrnDenuncia < ApplicationRecord
 	has_many :rep_archivos, as: :ownr
 	has_many :notas, as: :ownr
 
-	has_many :ctr_registros, as: :ownr
-
 	has_many :krn_denunciantes
 	has_many :krn_denunciados
 	has_many :krn_derivaciones

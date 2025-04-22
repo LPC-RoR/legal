@@ -4,8 +4,6 @@ class KrnTestigo < ApplicationRecord
 
 	has_many :notas, as: :ownr
 
-	has_many :ctr_registros, as: :ownr
-
 	has_many :krn_declaraciones, as: :ownr
 	has_many :rep_archivos, as: :ownr
 

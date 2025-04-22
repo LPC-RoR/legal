@@ -1,7 +1,7 @@
 <div style="margin-left: 7%;">
 	<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: 'shw/shr', prtl: 'prlg'} %>
 
-	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6} %>
+	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6, lnks: 'prtl'} %>
 	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciantes', shdw: false, typ: 'ln', crud: 'lnks'} %>
 
 

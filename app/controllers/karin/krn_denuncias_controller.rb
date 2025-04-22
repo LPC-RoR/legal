@@ -36,7 +36,6 @@ class Karin::KrnDenunciasController < ApplicationController
       set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
     end
 
-    set_tabla('ctr_registros', @objeto.ctr_registros.order(:created_at), false)
   end
 
   # GET /krn_denuncias/new
@@ -168,7 +167,6 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto.fecha_prnncmnt = nil
     @objeto.prnncmnt_vncd = nil
 
-    @objeto.ctr_registros.delete_all
     @objeto.krn_denunciantes.delete_all
     @objeto.krn_denunciados.delete_all
     @objeto.krn_inv_denuncias.delete_all

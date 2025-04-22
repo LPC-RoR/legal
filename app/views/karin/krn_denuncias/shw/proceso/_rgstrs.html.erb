@@ -17,22 +17,40 @@
 	<% if objeto.presentado_por == 'Representante' %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Denunciante representado por", valor: objeto.representante} %>
 	<% end %>
+</div>
 
 	<!-- PARTICIPANTES -->
+<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
 	<% if @coleccion['krn_denunciantes'].any? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Personas denunciantes", valor: nil, bld: true} %>
 		<% @coleccion['krn_denunciantes'].each do |dnncnt| %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncnt.rut)} #{dnncnt.nombre}", valor: "#{dnncnt.krn_testigos.count == 0 ? 'sin testigos' : "#{dnncnt.krn_testigos.count} testigo(s)"}", pddng: 1} %>
+			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncnt.rut)} #{dnncnt.nombre}"} %>
+			<% if dnncnt.krn_testigos.any? %>
+				<%= render partial: '0p/proc/ln', locals: {glosa: "Testigo(s) de la persona denunciante", valor: nil, bld: true, pddng: 1} %>
+				<% dnncnt.krn_testigos.each do |tstg| %>
+					<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(tstg.rut)} #{tstg.nombre}", pddng: 1} %>
+				<% end %>
+			<% end %>
 		<% end %>
 	<% end %>
+</div>
 
+<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
 	<% if @coleccion['krn_denunciados'].any? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Personas denunciadas", valor: nil, bld: true} %>
 		<% @coleccion['krn_denunciados'].each do |dnncd| %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncd.rut)} #{dnncd.nombre}", valor: "#{dnncd.krn_testigos.count == 0 ? 'sin testigos' : "#{dnncd.krn_testigos.count} testigo(s)"}", pddng: 1} %>
+			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncd.rut)} #{dnncd.nombre}"} %>
+			<% if dnncd.krn_testigos.any? %>
+				<%= render partial: '0p/proc/ln', locals: {glosa: "Testigo(s) de la persona denunciada", valor: nil, bld: true, pddng: 1} %>
+				<% dnncd.krn_testigos.each do |tstg| %>
+					<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(tstg.rut)} #{tstg.nombre}", pddng: 1} %>
+				<% end %>
+			<% end %>
 		<% end %>
 	<% end %>
+</div>
 
+<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
 	<!-- DERIVACIONES -->
 	<% if @coleccion['krn_derivaciones'].any? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "DERIVACIONES", valor: nil, bld: true} %>

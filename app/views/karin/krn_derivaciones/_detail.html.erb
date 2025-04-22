@@ -1,12 +1,6 @@
-<%#= @objeto.krn_empresa_externa_razon_social if @objeto.krn_empresa_externa.present? %>
-<%#= @objeto.tipo %>
 <%= @objeto.motivo %>
-<%#= @objeto.origen %>
-<%#= @objeto.destino %>
-<div class='form-row'>
 
-	<%= render partial: '0p/frm_flds/datetime', locals: { form: form, token: :fecha, label: 'Fecha y hora de la derivación' } %>
-</div>
+<%= render partial: '0p/lbld_inpts/datetime', locals: { form: form, token: :fecha, label: 'Fecha y hora de la derivación' } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :krn_denuncia_id } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :krn_empresa_externa_id } %>

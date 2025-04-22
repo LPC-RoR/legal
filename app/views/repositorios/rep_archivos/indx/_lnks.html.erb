@@ -5,5 +5,7 @@
 		<% end %>
 	<% end %>
 
-	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'rep_archivos', ownr: ownr} %>
+	<% unless krn_routes? %>
+		<%= render partial: '0p/tbl/lnk_new', locals: {source: 'rep_archivos', ownr: ownr} %>
+	<% end %>
 </div>

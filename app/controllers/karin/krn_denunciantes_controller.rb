@@ -19,7 +19,6 @@ class Karin::KrnDenunciantesController < ApplicationController
 
     set_tabla('krn_declaraciones', @objeto.krn_declaraciones, false)
     set_tabla('krn_testigos', @objeto.krn_testigos, false)
-    set_tabla('ctr_registros', @objeto.ctr_registros, false)
   end
 
   # GET /krn_denunciantes/new

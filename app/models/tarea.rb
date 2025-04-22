@@ -1,8 +1,6 @@
 class Tarea < ApplicationRecord
 	belongs_to :ctr_etapa
 
-	has_many :ctr_pasos
-	has_many :ctr_registros
 	has_many :rep_doc_controlados, as: :ownr
 	has_many :variables, as: :ownr
 	has_many :hlp_ayudas, as: :ownr

@@ -29,10 +29,6 @@ module Dnnc
  		self.krn_inv_denuncias.any?
  	end
 
- 	def registros?
- 		self.ctr_registros.any?
- 	end
-
 	# ------------------------------------------------------------------------ PRTCPNTS
 
 	# Registros revisados

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_16_160623) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_21_210731) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -458,40 +458,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_160623) do
     t.index ["codigo"], name: "index_ctr_etapas_on_codigo"
     t.index ["orden"], name: "index_ctr_etapas_on_orden"
     t.index ["procedimiento_id"], name: "index_ctr_etapas_on_procedimiento_id"
-  end
-
-  create_table "ctr_pasos", force: :cascade do |t|
-    t.integer "orden"
-    t.integer "tarea_id"
-    t.string "codigo"
-    t.string "glosa"
-    t.boolean "rght"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "metodo"
-    t.string "despliega"
-    t.boolean "proceso"
-    t.index ["codigo"], name: "index_ctr_pasos_on_codigo"
-    t.index ["orden"], name: "index_ctr_pasos_on_orden"
-    t.index ["tarea_id"], name: "index_ctr_pasos_on_tarea_id"
-  end
-
-  create_table "ctr_registros", force: :cascade do |t|
-    t.integer "tarea_id"
-    t.integer "ctr_paso_id"
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.datetime "fecha"
-    t.string "glosa"
-    t.string "valor"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "orden"
-    t.index ["ctr_paso_id"], name: "index_ctr_registros_on_ctr_paso_id"
-    t.index ["orden"], name: "index_ctr_registros_on_orden"
-    t.index ["ownr_id"], name: "index_ctr_registros_on_ownr_id"
-    t.index ["ownr_type"], name: "index_ctr_registros_on_ownr_type"
-    t.index ["tarea_id"], name: "index_ctr_registros_on_tarea_id"
   end
 
   create_table "cuestionarios", force: :cascade do |t|
