@@ -4,7 +4,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # config/environments/production.rb
-#  config.force_ssl = true  # ← Activado en producción
+  config.force_ssl = true  # ← Activado en producción
 
   # Code is not reloaded between requests.
   config.cache_classes = true
