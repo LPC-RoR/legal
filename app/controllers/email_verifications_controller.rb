@@ -68,12 +68,21 @@ class EmailVerificationsController < ApplicationController
 
     record.update(verification_token: SecureRandom.urlsafe_base64)
 
-    verification_url = verify_custom_email_url(
+    verification_url = url_for(
+      controller: 'email_verifications',
+      action: 'verify',
       token: record.verification_token,
       model_type: model_type,
+      only_path: false,
       host: Rails.application.config.action_mailer.default_url_options[:host],
-      protocol: Rails.application.config.action_mailer.default_url_options[:protocol]
+      protocol: Rails.application.config.action_mailer.default_url_options[:protocol] || 'https'
     )
+#    verification_url = verify_custom_email_url(
+#      token: record.verification_token,
+#      model_type: model_type,
+#      host: Rails.application.config.action_mailer.default_url_options[:host],
+#      protocol: Rails.application.config.action_mailer.default_url_options[:protocol]
+#    )
 
     if VrfccnMailer.verification_email(record, verification_url).deliver_later
       redirect_back fallback_location: root_path, notice: 'Correo de verificación enviado'

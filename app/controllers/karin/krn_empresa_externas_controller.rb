@@ -69,7 +69,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = "/cuentas/#{@objeto.ownr.id}/#{@objeto.ownr.class.name.tableize[0]}extrns"
+      @rdrccn = "/cuentas/#{@objeto.ownr.class.name.tableize[0]}_#{@objeto.ownr.id}/extrns"
     end
 
     # Only allow a list of trusted parameters through.

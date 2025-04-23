@@ -30,8 +30,8 @@ class Autenticacion::AppNominasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Nomina de usuario fue exitósamente creada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Nomina de usuario fue exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,8 +44,8 @@ class Autenticacion::AppNominasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(app_nomina_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Nomina de usuario fue exitósamente actualizada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Nomina de usuario fue exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,10 +56,10 @@ class Autenticacion::AppNominasController < ApplicationController
 
   # DELETE /app_nominas/1 or /app_nominas/1.json
   def destroy
-    set_redireccion
+    get_rdrccn
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Nomina de usuario fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Nomina de usuario fue exitósamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -70,13 +70,11 @@ class Autenticacion::AppNominasController < ApplicationController
       @objeto = AppNomina.find(params[:id])
     end
 
-    def set_redireccion
-      if @objeto.ownr_type == 'Empresa'
-        @redireccion = "/cuentas/#{@objeto.ownr.id}/ecta" 
-      elsif @objeto.ownr_type == 'Cliente'
-        @redireccion = "/cuentas/#{@objeto.ownr.id}/ccta" 
+    def get_rdrccn
+      if ['Empresa', 'Cliente'].include?(@objeto.ownr_type)
+        @rdrccn = "/cuentas/#{@objeto.ownr.class.name.tableize[0]}_#{@objeto.ownr.id}/nmn"
       else
-        @redireccion = "/app_nominas" 
+        @rdrccn = "/app_nominas" 
       end
     end
 

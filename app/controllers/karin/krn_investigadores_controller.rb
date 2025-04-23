@@ -69,7 +69,7 @@ class Karin::KrnInvestigadoresController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = "/cuentas/#{@objeto.ownr.id}/#{@objeto.ownr.class.name.tableize[0]}invstgdrs"
+      @rdrccn = "/cuentas/#{@objeto.ownr.class.name.tableize[0]}_#{@objeto.ownr.id}/invstgdrs"
     end
 
     # Only allow a list of trusted parameters through.
