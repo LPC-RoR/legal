@@ -28,6 +28,7 @@ class KrnDenunciante < ApplicationRecord
 #	include EmailVerifiable
 	after_create :send_verification_email
 
+	include EmailVerifiable
 	include Ntfccns
 	include Fls
 

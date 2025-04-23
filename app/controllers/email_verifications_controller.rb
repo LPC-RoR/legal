@@ -39,6 +39,12 @@ class EmailVerificationsController < ApplicationController
     record.update!(email_ok: true, verification_sent_at: Time.current)
 
     redirect_to root_path, notice: 'Correo electrónico verificado exitosamente'
+
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: 'Registro no encontrado'
+  rescue => e
+    Rails.logger.error "Error verifying email: #{e.message}"
+    redirect_to root_path, alert: 'Ocurrió un error al verificar el correo'
   end
 
   def send_verification
