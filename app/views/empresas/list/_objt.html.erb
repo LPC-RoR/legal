@@ -1,11 +1,5 @@
 <%= render partial: 'cuentas/prtls/lnk_cta', locals: {objeto: objeto} %>
-<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.class.name.downcase[0]}_#{objeto.id}/dnncs", tltp: 'Acceder a la cuenta' } do %>
-	<%= s_rut(objeto.rut) %> 
-	<i class="bi bi-dot"></i>
-	<%= objeto.razon_social %>
-<% end %>
-<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: objeto, tltp: 'Ver productos'} do %>
-<% end %>
+
 <% if  objeto.principal_usuaria %>
 	<i class="bi bi-dot"></i>
 	<i class="bi bi-diagram-3"></i>

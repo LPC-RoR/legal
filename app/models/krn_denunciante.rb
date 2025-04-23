@@ -152,10 +152,6 @@ class KrnDenunciante < ApplicationRecord
 		self.direccion_notificacion.present?
 	end
 
-	def css_id
-		"dnncnt#{self.id}"
-	end
-
 
 	def self.rgstrs_fail?
 		all.map {|den| den.rgstr_ok?}.include?(false)

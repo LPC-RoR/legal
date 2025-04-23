@@ -15,10 +15,6 @@ class Tarea < ApplicationRecord
 		RepArchivo.where(rep_doc_controlado_id: self.rep_doc_controlados.ids).any?
 	end
 
-	def css_id
-		"tar#{self.id}"
-	end
-
 	def ok?
 		tarea_ok?(self.codigo)
 	end

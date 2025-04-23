@@ -3,7 +3,7 @@
 		<i class="bi bi-inboxes"></i>
 	<% end %>
 
-	<% if false %>
+	<% if dog? %>
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/prg", tltp: 'Purge'} do %>
 			<i class="bi bi-trash"></i>
 		<% end %>

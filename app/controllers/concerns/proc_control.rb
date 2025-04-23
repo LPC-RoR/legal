@@ -44,51 +44,50 @@ module ProcControl
 			'030_drvcns'    => {
 				# La información de los participantes no necesita estas completa
 				actv: (dnnc.denunciantes? and dnnc.denunciados?),
-				frms: (dnnc.frms_drvcns?),
 			},
 			'050_crr'    => {
 				# No exigimos dnnc.rgstrs_ok? para activar el cierre, 
 				# pues al hacerlo nos quedamos en la tarea de derivación mostrando un mensaje que no tiene que ver con las derivaciones
 				actv: (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.on_dt? or (dnnc.solicitud_denuncia and dnnc.on_empresa?)),
-				frms: (dnnc.frms_crr?),
 			},
 			'060_invstgdr'    => {
 				actv: (dnnc.rgstrs_ok? and dnnc.fechas_invstgcn?),
-				frms: (not dnnc.frms_invstgdr?),
 			},
 			'070_evlcn'    => {
 				actv: (dnnc.investigadores? and dnnc.objcn_ok?),
-				frms: (dnnc.frms_evlcn?),
 			},
 			'080_dclrcn'    => {
 				actv: (dnnc.investigadores? and dnnc.evld?),
-				frms: true,
 			},
 			'090_trmn_invstgcn' => {
 				actv: ((dnnc.dclrcns? and dnnc.evld?) or dnnc.on_dt?),
-				frms: true,
 			},
 			'100_env_rcpcn' => {
 				actv: (dnnc.fecha_trmn? or dnnc.on_dt?),
-				frms: (dnnc.frms_env_rcpcn?),
 			},
 			'110_prnncmnt' => {
 				actv: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
-				frms: (dnnc.frms_prnncmnt?),
 			},
 			'120_mdds_sncns' => {
 				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
-				frms: (dnnc.frms_mdds_sncns?),
 			},
 			'130_prcdmnt_crrd' => {
 				actv: dnnc.fecha_cierre?,
-				frms: false,
 			},
 		}
 	end
 
-
 	# ------------------------------------------------------------------------------------- PIS
+
+	def etp_hide_hsh(dnnc)
+		{
+			'etp_prnncmnt' => dnnc.on_dt?
+		}
+	end
+
+	def etp_hide(dnnc, codigo)
+		etp_hide_hsh(dnnc)[codigo].blank? ? false : etp_hide_hsh(dnnc)[codigo]
+	end
 
 	def tar_hide_hsh(ownr)
 		dnnc = ownr.dnnc

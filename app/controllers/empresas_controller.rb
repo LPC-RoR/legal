@@ -13,6 +13,7 @@ class EmpresasController < ApplicationController
 
   # GET /empresas/1 or /empresas/1.json
   def show
+    set_tabla('pro_dtll_ventas', @objeto.pro_dtll_ventas, false)
   end
 
   # GET /empresas/new

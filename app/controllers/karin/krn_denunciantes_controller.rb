@@ -13,12 +13,6 @@ class Karin::KrnDenunciantesController < ApplicationController
 
   # GET /krn_denunciantes/1 or /krn_denunciantes/1.json
   def show
-    #load_proc(@objeto)
-    @etps = Procedimiento.prcdmnt('krn_invstgcn').ctr_etapas.ordr
-    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
-
-    set_tabla('krn_declaraciones', @objeto.krn_declaraciones, false)
-    set_tabla('krn_testigos', @objeto.krn_testigos, false)
   end
 
   # GET /krn_denunciantes/new

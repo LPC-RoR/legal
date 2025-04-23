@@ -46,10 +46,6 @@ class KrnDenuncia < ApplicationRecord
 		self
 	end
 
-	def presencial?
-		self.via_declaracion == VIAS_DENUNCIA[0]
-	end
-
 	# ------------------------------------------------------------------------ PRODUCTO
 	def lttr_tp
 		self.multiempresa? ? 'Multi' : (self.externa? ? 'Externa' : (self.empresa? ? 'Empresa' : '?'))

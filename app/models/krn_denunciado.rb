@@ -134,10 +134,6 @@ class KrnDenunciado < ApplicationRecord
 		self.krn_empresa_externa_id.present?
 	end
 
-	def css_id
-		"dnncd#{self.id}"
-	end
-
 	def self.rgstrs_fail?
 		all.map {|den| den.rgstr_ok?}.include?(false)
 	end

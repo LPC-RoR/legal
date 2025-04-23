@@ -19,7 +19,7 @@
 	<% end %>
 </div>
 
-	<!-- PARTICIPANTES -->
+<!-- PARTICIPANTES -->
 <div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
 	<% if @coleccion['krn_denunciantes'].any? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Personas denunciantes", valor: nil, bld: true} %>
@@ -50,12 +50,13 @@
 	<% end %>
 </div>
 
+<!-- DERIVACIONES -->
 <div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
 	<!-- DERIVACIONES -->
 	<% if @coleccion['krn_derivaciones'].any? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "DERIVACIONES", valor: nil, bld: true} %>
 		<% @coleccion['krn_derivaciones'].each do |drvcn| %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "#{drvcn.glosa}", valor: "#{dma(drvcn.fecha)}", pddng: 1} %>
+			<%= render partial: '0p/proc/ln', locals: {glosa: "#{drvcn.motivo}", valor: "#{dma(drvcn.fecha)}", pddng: 1} %>
 		<% end %>
 	<% end %>
 
@@ -69,7 +70,7 @@
 
 	<!-- FECHAS DE CIERRE -->
 	<% if objeto.fecha_ntfccn? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "La Dirección del Trabajo notifico la recepción de una denuncia.", valor: dma(objeto.fecha_ntfccn), bld: true, align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "La Dirección del Trabajo notificó la recepción de una denuncia.", valor: dma(objeto.fecha_ntfccn), bld: true, align: 'right'} %>
 	<% end %>
 	<% if objeto.fecha_trmtcn? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Se informó a la Dirección del Trabajo el inicio de una investigación.", valor: dma(objeto.fecha_trmtcn), bld: true, align: 'right'} %>
@@ -80,6 +81,10 @@
 
 	<% if objeto.krn_investigadores.first.present? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "El sr. #{objeto.krn_investigadores.first.krn_investigador} será el investigador de la causa."} %>
+	<% end %>
+
+	<% if objeto.krn_inv_denuncias.first.objetado %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Se presento una objeción de imparcialidad contra el investigador asignado."} %>
 	<% end %>
 
 	<% if objeto.krn_investigadores.second.present? %>
@@ -125,5 +130,14 @@
 
 	<% if objeto.fecha_cierre? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Dia del cierre del procedimiento de investigación.", valor: dma(objeto.fecha_cierre), align: 'right', bld: true} %>
+	<% end %>
+</div>
+
+<hr>
+
+<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
+	<%= render partial: '0p/proc/ln', locals: {glosa: "ETAPAS REALIZADAS", valor: nil, bld: true} %>
+	<% @etps_trmnds.each do |etp_trmnd| %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: etp_trmnd[:etapa], valor: "#{-etp_trmnd[:plz_tag] unless etp_trmnd[:plz_tag].blank? or etp_trmnd[:plz_tag] == 0} #{dma(etp_trmnd[:plz])}", align: 'right'} %>
 	<% end %>
 </div>

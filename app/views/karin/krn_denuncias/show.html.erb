@@ -8,14 +8,16 @@
 		<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: 'shw/shr', prtl: 'prlg'} %>
 		<%= render partial: prtl_name(@objeto, 'shw/proceso', 'etps_rlzds'), locals: {ownr: @objeto} %>
 
-		<% if prtl?(@objeto, "proc/#{@tar_last.codigo}", 'undo') %>
-			<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-				<%= render layout: '0p/collapse/link', locals: {label: 'Undo', objeto: nil, tooltip: nil} do %>
-					<div class="mx-1 fw-bold" style="font-size: 18px;">¿Desea deshacer la última acción realizada?</div>
-				<% end %>
+		<% unless @tar_last.blank? %>
+			<% if prtl?(@objeto, "proc/#{@tar_last.codigo}", 'undo') %>
+				<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+					<%= render layout: '0p/collapse/link', locals: {label: 'Undo', objeto: nil, tooltip: nil} do %>
+						<div class="mx-1 fw-bold" style="font-size: 18px;">¿Desea deshacer la última acción realizada?</div>
+					<% end %>
 
-				<%= render layout: '0p/collapse/dsply', locals: {label: 'Undo', objeto: nil} do %>
-					<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'undo'} unless @tar_last.blank? %>
+					<%= render layout: '0p/collapse/dsply', locals: {label: 'Undo', objeto: nil} do %>
+						<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'undo'} unless @tar_last.blank? %>
+					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>
@@ -37,12 +39,12 @@
 <% when 'Agenda' %>
 	<!-- Resumen de las declaraciones -->
 	<%= render partial: prtl_name(@objeto, 'shw/agenda', 'dclrcns'), locals: {ownr: @objeto} %>
-	<%#= render partial: 'karin/prtls/prtcpnts_dclrcns', locals: {ownr: @objeto} %>
 <% end %>
 
 <%= render layout: '0p/mdl/modal', locals: {cdg: 'Detalle', ttl: 'Reporte de la denuncia', sz: 'lg'} do %>
 	<%= render partial: prtl_name(@objeto, 'shw/proceso', 'rgstrs'), locals: {objeto: @objeto} %>
 <% end %>
 
+<%= @objeto.objcn_ok? %>
 <%#= @etp_last.codigo unless @etp_last.blank? %>
 <%#= @tar_last.codigo unless @tar_last.blank? %>

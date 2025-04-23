@@ -4,7 +4,7 @@
 		<i class="bi bi-question-circle"></i>
 	<% end %>
 <% end %>	
-<% if @objeto.krn_investigadores.count == 0 or ( @objeto.krn_investigadores.count == 1 and @objeto.objcn_invstgdr? and @objeto.objcn_acogida ) %>
+<% if @objeto.krn_investigadores.count == 0 or ( @objeto.krn_investigadores.count == 1 and @objeto.objcn_invstgdr? ) %>
 	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'krn_inv_denuncias', blngs: @objeto} %>
 <% end %>
 </div>

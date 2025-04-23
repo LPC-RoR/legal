@@ -23,14 +23,10 @@ class Karin::KrnDerivacionesController < ApplicationController
 
     ownr = KrnDenuncia.find(params[:oid])
 
-    puts "***********************************"
-    puts ownr.blank?
-
     if codes.include?(params[:cdg])
       tipo = drvcn_codes.include?(params[:cdg]) ? 'Derivación' : 'Recepción'
       origen = ownr.on_dt? ? 'Dirección del Trabajo' : ( ownr.on_empresa? ? 'Empresa' : 'Externa' )
       destino = rcpcn_codes.include?(params[:cdg]) ? 'Empresa' : ( params[:cdg] == 'drvcn_ext' ? 'Externa' : 'Dirección del Trabajo' )
-#      empresa_id = ( ownr.on_externa? and ownr.krn_derivaciones.empty? ) ? ownr.krn_empresa_externa_id : ( ownr.on_externa? ? ( ownr.krn_derivaciones.empty? ? ownr.krn_empresa_externa_id :  ) : nil )
       if ownr.on_externa?
         empresa_id = ownr.krn_derivaciones.empty? ? ownr.krn_empresa_externa_id : ownr.krn_derivaciones.last.krn_empresa_externa_id
       elsif params[:cdg] == 'drvcn_ext'
@@ -39,6 +35,9 @@ class Karin::KrnDerivacionesController < ApplicationController
         nil
       end
       motivo = drvcn_text[params[:cdg].to_sym][:gls]
+      puts "********************************************************************* new"
+      puts params[:cdg]
+      puts motivo
 
       @objeto = ownr.krn_derivaciones.new(tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
     end
@@ -101,6 +100,6 @@ class Karin::KrnDerivacionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_derivacion_params
-      params.require(:krn_derivacion).permit(:krn_denuncia_id, :fecha, :krn_empresa_externa_id, :krn_motivo_derivacion_id, :otro_motivo, :tipo, :destino)
+      params.require(:krn_derivacion).permit(:krn_denuncia_id, :fecha, :krn_empresa_externa_id, :motivo, :krn_motivo_derivacion_id, :otro_motivo, :tipo, :origen, :destino)
     end
 end

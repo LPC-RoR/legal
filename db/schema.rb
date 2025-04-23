@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_21_210731) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_23_185112) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -838,6 +838,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_210731) do
     t.boolean "verified"
     t.string "verification_token"
     t.datetime "verification_sent_at"
+    t.boolean "email_ok"
     t.index ["ownr_id"], name: "index_krn_investigadores_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_investigadores_on_ownr_type"
   end

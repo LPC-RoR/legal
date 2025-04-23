@@ -34,7 +34,7 @@ module Karin
     # REVISAR existencia de fecha_recep_infrm
     fecha_envio_rcpcn_infrm = (objt.fecha_env_infrm || objt.fecha_rcpcn_infrm)
     @objt['plz_prnncmnt'] = @objt['on_dt?'] ? nil : plz_lv(fecha_envio_rcpcn_infrm, 30)
-    fecha_inicio_mdds_sncns = @objt['on_dt?'] ? fecha_envio_infrm : @objt['plz_prnncmnt']
+    fecha_inicio_mdds_sncns = @objt['on_dt?'] ? fecha_envio_rcpcn_infrm : @objt['plz_prnncmnt']
     @objt['plz_mdds_sncns'] = plz_c(fecha_inicio_mdds_sncns, 15)
   end
 
@@ -81,14 +81,16 @@ module Karin
     @proc_objt.ctr_etapas.ordr.each do |etp|
 
       if @objt[:etp_cntrl][etp.codigo][:trmn]
-        @etps_trmnds << {
-          codigo: etp.codigo, 
-          etapa: etp.ctr_etapa, 
-          plz: etp_plz(etp.codigo), 
-          plz_ok: etp_plz_ok?(objt)[etp.codigo], 
-          plz_tag: etp_plz_left(objt)[etp.codigo]
-        }
-          @etp_last = etp
+        unless etp_hide(objt, etp.codigo)
+          @etps_trmnds << {
+            codigo: etp.codigo, 
+            etapa: etp.ctr_etapa, 
+            plz: etp_plz(etp.codigo), 
+            plz_ok: etp_plz_ok?(objt)[etp.codigo], 
+            plz_tag: etp_plz_left(objt)[etp.codigo]
+          }
+        end
+        @etp_last = etp
       else
         if @objt[:etp_cntrl][etp.codigo][:actv]
           @etp_last = etp
@@ -96,10 +98,11 @@ module Karin
           etp.tareas.ordr.each do |tar|
             if @objt[:tar_cntrl][tar.codigo][:actv]
               @tar_last = tar
+            else
+              break
             end
           end
         end
-        break
       end
 
     end
@@ -233,9 +236,9 @@ module Karin
         'rslcn_objcn'       => dnnc.fl?('antcdnts_objcn'),
         'dnnc_evlcn'        => (dnnc.on_empresa? and dnnc.krn_investigadores.any?),
         'dnnc_corrgd'       => ((dnnc.evlcn_incmplt or dnnc.evlcn_incnsstnt) and (not dnnc.evlcn_ok)),
-        'infrm_invstgcn'    => dnnc.fecha_trmn?,
-        'mdds_crrctvs'      => dnnc.fecha_trmn?,
-        'sncns'             => dnnc.fecha_trmn?,
+        'infrm_invstgcn'    => (dnnc.fecha_trmn? or dnnc.fecha_rcpcn_infrm?),
+        'mdds_crrctvs'      => (dnnc.fecha_trmn? or dnnc.fecha_rcpcn_infrm?),
+        'sncns'             => (dnnc.fecha_trmn? or dnnc.fecha_rcpcn_infrm?),
         'prnncmnt_dt'       => dnnc.fecha_prnncmnt?,
         'dnnc_mdds_sncns'   => (dnnc.fecha_env_infrm? or dnnc.plz_prnncmnt_vncd?)
       },

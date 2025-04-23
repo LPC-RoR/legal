@@ -66,10 +66,6 @@ class KrnTestigo < ApplicationRecord
 
 	# ------------------------------------------------------------------------
 
-	def css_id
-		"tstg#{self.id}"
-	end
-
 	def self.doc_cntrlds
 		StModelo.get_model('KrnTestigo').rep_doc_controlados.ordr
 	end
