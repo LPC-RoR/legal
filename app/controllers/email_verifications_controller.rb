@@ -48,6 +48,8 @@ class EmailVerificationsController < ApplicationController
   end
 
   def send_verification
+    Rails.logger.info "Current mailer config: #{Rails.application.config.action_mailer.default_url_options.inspect}"
+
     # Asegurar que solo usuarios autorizados puedan reenviar
     unless authorized_user?
       redirect_to root_path, alert: 'No autorizado'
@@ -74,21 +76,14 @@ class EmailVerificationsController < ApplicationController
 
     record.update(verification_token: SecureRandom.urlsafe_base64)
 
-    verification_url = url_for(
-      controller: 'email_verifications',
-      action: 'verify',
+    verification_url = verify_custom_email_url(
       token: record.verification_token,
       model_type: model_type,
-      only_path: false,
-      host: Rails.application.config.action_mailer.default_url_options[:host],
-      protocol: Rails.application.config.action_mailer.default_url_options[:protocol] || 'https'
+      host: 'www.abogadosderechodeltrabajo.cl',
+      protocol: 'https'
     )
-#    verification_url = verify_custom_email_url(
-#      token: record.verification_token,
-#      model_type: model_type,
-#      host: Rails.application.config.action_mailer.default_url_options[:host],
-#      protocol: Rails.application.config.action_mailer.default_url_options[:protocol]
-#    )
+
+    Rails.logger.info "Generated verification URL: #{verification_url}"
 
     if VrfccnMailer.verification_email(record, verification_url).deliver_later
       redirect_back fallback_location: root_path, notice: 'Correo de verificación enviado'

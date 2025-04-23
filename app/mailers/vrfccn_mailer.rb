@@ -5,6 +5,11 @@ class VrfccnMailer < ApplicationMailer
   def verification_email(user, verification_url)
     @user = user
     @verification_url = verification_url
-    mail(to: @user.email, subject: 'Por favor verifica tu correo electrónico')
+
+    mail(
+      to: @user.email,
+      from: Rails.application.config.x.mail_from,
+      subject: 'Por favor verifica tu correo electrónico'
+      )
   end
 end
