@@ -1,4 +1,5 @@
 class KrnDenunciado < ApplicationRecord
+	include EmailVerifiable
 
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true

@@ -1,4 +1,5 @@
 class KrnDenunciante < ApplicationRecord
+	include EmailVerifiable
 
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true
@@ -25,10 +26,6 @@ class KrnDenunciante < ApplicationRecord
   validates_presence_of :rut, :nombre, :cargo, :lugar_trabajo
   validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 
-#	include EmailVerifiable
-	after_create :send_verification_email
-
-	include EmailVerifiable
 	include Ntfccns
 	include Fls
 
@@ -184,18 +181,5 @@ class KrnDenunciante < ApplicationRecord
 	def dnnc_eval_ok?
 		self.krn_denuncia.dnnc_eval_ok?
 	end
-
-  private
-
-  def send_verification_email
-    self.verification_token = SecureRandom.urlsafe_base64
-    self.save!
-    verification_url = Rails.application.routes.url_helpers.verify_custom_email_url(
-      token: self.verification_token,
-      model_type: 'denunciante',
-      host: 'localhost:3000' # Cambia según tu entorno
-    )
-    VrfccnMailer.verification_email(self, verification_url).deliver_now
-  end
 
 end

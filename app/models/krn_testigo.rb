@@ -1,5 +1,8 @@
 class KrnTestigo < ApplicationRecord
+	include EmailVerifiable
+
  	belongs_to :ownr, polymorphic: true
+
 	belongs_to :krn_empresa_externa, optional: true
 
 	has_many :notas, as: :ownr

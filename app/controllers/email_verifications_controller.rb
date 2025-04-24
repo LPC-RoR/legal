@@ -27,9 +27,6 @@ class EmailVerificationsController < ApplicationController
       return
     end
 
-    # Verificar si el token ya fue usado (opcional)
-#    if record.email_verified?
-    # Cambie para que usara el campo ya existente email_ok
     if record.email_ok?
       redirect_to root_path, alert: 'Este correo ya fue verificado'
       return
@@ -48,7 +45,6 @@ class EmailVerificationsController < ApplicationController
   end
 
   def send_verification
-    # Asegurar que solo usuarios autorizados puedan reenviar
     unless authorized_user?
       redirect_to root_path, alert: 'No autorizado'
       return
@@ -57,6 +53,7 @@ class EmailVerificationsController < ApplicationController
     model_type = params[:model_type]
     id = params[:id]
 
+    # Buscar el registro correctamente
     model_class = case model_type
                   when 'denunciante' then KrnDenunciante
                   when 'investigador' then KrnInvestigador
@@ -65,6 +62,7 @@ class EmailVerificationsController < ApplicationController
                   else nil
                   end
 
+    # Asignar a la variable record
     record = model_class&.find_by(id: id)
 
     unless record
@@ -72,23 +70,17 @@ class EmailVerificationsController < ApplicationController
       return
     end
 
+    # Actualizar el token
     record.update(verification_token: SecureRandom.urlsafe_base64)
 
-    # Generación ABSOLUTAMENTE controlada de la URL
+    # Generar URL de verificación
     verification_url = verify_custom_email_url(
       token: record.verification_token,
       model_type: model_type,
-      host: 'www.abogadosderechodeltrabajo.cl',
-      protocol: 'https',
-      script_name: '' # Previene prefijos no deseados
+      host: appropriate_host,
+      protocol: appropriate_protocol,
+      port: appropriate_port
     )
-
-#    verification_url = verify_custom_email_url(
-#      token: record.verification_token,
-#      model_type: model_type,
-#      host: 'www.abogadosderechodeltrabajo.cl',
-#      protocol: 'https'
-#    )
 
     Rails.logger.info "Generated verification URL: #{verification_url}"
 
@@ -101,9 +93,21 @@ class EmailVerificationsController < ApplicationController
 
   private
 
+  def appropriate_host
+    Rails.env.production? ? 'www.abogadosderechodeltrabajo.cl' : 'localhost'
+  end
+
+  def appropriate_protocol
+    Rails.env.production? ? 'https' : 'http'
+  end
+
+  def appropriate_port
+    Rails.env.production? ? nil : 3000
+  end
+
   def authorized_user?
-    # Implementa tu lógica de autorización aquí
-    # Ejemplo simple:
+    # Lógica de autorización (ejemplo simple)
+    #current_usuario&.admin?
     admin?
   end
 end
