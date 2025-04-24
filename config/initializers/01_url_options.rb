@@ -1,12 +1,16 @@
-# config/initializers/01_url_options.rb
-Rails.application.reloader.to_prepare do
+# config/initializers/00_force_url_options.rb
+Rails.application.config.after_initialize do
   if Rails.env.production?
-    options = { host: 'www.abogadosderechodeltrabajo.cl', protocol: 'https' }
-    
-    Rails.application.routes.default_url_options = options
-    Rails.application.config.action_mailer.default_url_options = options
-    ActionMailer::Base.default_url_options = options
-    
-    puts "URL options FORZADAS en producción: #{options.inspect}" if Rails.env.development?
+    ActionMailer::Base.class_eval do
+      def default_url_options
+        { host: 'www.abogadosderechodeltrabajo.cl', protocol: 'https' }
+      end
+    end
+
+    Rails.application.routes.named_routes.url_helpers_module.module_eval do
+      def default_url_options
+        { host: 'www.abogadosderechodeltrabajo.cl', protocol: 'https' }
+      end
+    end
   end
 end
