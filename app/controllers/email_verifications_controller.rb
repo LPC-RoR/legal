@@ -48,14 +48,12 @@ class EmailVerificationsController < ApplicationController
   end
 
   def send_verification
-    default_url_options = { 
+    default_options = { 
       host: 'www.abogadosderechodeltrabajo.cl', 
-      protocol: 'https' 
+      protocol: 'https',
+      script_name: '' # Importante para evitar prefijos no deseados
     }
     
-    Rails.application.routes.default_url_options = default_url_options
-    Rails.application.config.action_mailer.default_url_options = default_url_options
-
     # Asegurar que solo usuarios autorizados puedan reenviar
     unless authorized_user?
       redirect_to root_path, alert: 'No autorizado'
@@ -82,15 +80,13 @@ class EmailVerificationsController < ApplicationController
 
     record.update(verification_token: SecureRandom.urlsafe_base64)
 
-    verification_url = url_for(
-      controller: 'email_verifications',
-      action: 'verify',
-      token: record.verification_token,
-      model_type: model_type,
-      host: default_url_options[:host],
-      protocol: default_url_options[:protocol],
-      only_path: false
+    verification_url = Rails.application.routes.url_helpers.verify_custom_email_url(
+      {
+        token: record.verification_token,
+        model_type: model_type
+      }.merge(default_options)
     )
+
 #    verification_url = verify_custom_email_url(
 #      token: record.verification_token,
 #      model_type: model_type,
