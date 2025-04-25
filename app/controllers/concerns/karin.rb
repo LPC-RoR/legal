@@ -184,7 +184,7 @@ module Karin
         gls: 'Denuncia recibida desde empresa externa.'
       },
       rcpcn_dt: {
-        prmpt: 'Se solicitó la devolución de la denuncia a la Dirección del Trabajo',
+        prmpt: 'Solicitud de devolución aceptada',
         lbl: 'Recibir denuncia derivada desde la Dirección de Trabajo.',
         gls: 'Denuncia recibida desde la Dirección del Trabajo.'
       },

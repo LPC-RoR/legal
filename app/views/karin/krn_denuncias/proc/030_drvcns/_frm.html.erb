@@ -1,3 +1,5 @@
+<%= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') if @objeto.solicitud_denuncia %>
+
 <% if @objeto.rcp_externa? and @objeto.krn_derivaciones.empty? and ( not @objeto.externa? ) %>
 	<p>La denuncia debe ser investigada por la empresa, recibir la derivación desde la empresa externa.</p>
 	<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'rcpcn_extrn'} %>
@@ -15,7 +17,7 @@
 		<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext'} %>
 		<% end %>
 	<% else %>
-		<% if  (not @objeto.solicitud_denuncia) %>
+		<%# if  (not @objeto.solicitud_denuncia) %>
 			<% if @objeto.artcl41? %>
 				<%= render layout: 'cuentas/prtls/proceso/actn' do %>
 					<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'Para alguno de los participantes aplica el Articulo 4 inciso primero del Código del Trabajo (tiene un cargo gerencial), la denuncia debe ser obligatoriamente derivada a la Dirección del Trabajo.'} %>
@@ -23,18 +25,20 @@
 					<%= render partial: 'karin/prtls/drvr', locals: {objeto: @objeto, codigo: 'drvcn_art4_1'} %>
 				<% end %>
 			<% else %>
-				<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-					<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que tiene derecho a pedir que su denuncia sea derivada a la Dirección del Trabajo.'} %>
+				<% unless @objeto.solicitud_denuncia %>
+					<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+						<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que tiene derecho a pedir que su denuncia sea derivada a la Dirección del Trabajo.'} %>
 
-					<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_dnncnt'} %>
-				<% end %>
+						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_dnncnt'} %>
+					<% end %>
 
-				<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-					<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La persona denunciante manifiesta su opción de que su denuncia sea investigada en la empresa.'} %>
+					<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+						<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La persona denunciante manifiesta su opción de que su denuncia sea investigada en la empresa.'} %>
 
-					<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que, en el trascurso de tres días hábiles desde la recepción de la denuncia, la empresa tiene el derecho de derivar la denuncia a la Dirección del Trabajo si lo estima conveniente. Decisión que, de ocurrir, se le informará por escrito.'} %>
+						<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que, en el trascurso de tres días hábiles desde la recepción de la denuncia, la empresa tiene el derecho de derivar la denuncia a la Dirección del Trabajo si lo estima conveniente. Decisión que, de ocurrir, se le informará por escrito.'} %>
 
-					<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
+						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
+					<% end %>
 				<% end %>
 
 				<% if @objt['on_empresa?'] %>
@@ -53,6 +57,6 @@
 					<% end %>
 				<% end %>
 			<% end %>
-		<% end %>
+		<%# end %>
 	<% end %>
 <% end %>

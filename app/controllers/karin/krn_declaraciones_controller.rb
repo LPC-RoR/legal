@@ -1,7 +1,7 @@
 class Karin::KrnDeclaracionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_declaracion, only: %i[ show edit update destroy swtch ]
+  before_action :set_krn_declaracion, only: %i[ show edit update destroy swtch migrar ]
 
   # GET /krn_declaraciones or /krn_declaraciones.json
   def index
@@ -53,6 +53,16 @@ class Karin::KrnDeclaracionesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def migrar
+    if @objeto.krn_denuncia.krn_investigadores.count == 2
+      @objeto.krn_investigador_id = @objeto.krn_denuncia.krn_investigadores.last.id
+      @objeto.save
+    end
+
+    get_rdrccn
+    redirect_to @rdrccn
   end
 
   # DELETE /krn_declaraciones/1 or /krn_declaraciones/1.json

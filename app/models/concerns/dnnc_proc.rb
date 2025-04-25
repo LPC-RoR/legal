@@ -49,13 +49,13 @@ module DnncProc
  	end
 
  	def objcn_ok?
- 		self.objcn_invstgdr? ? (self.objcn_rechazada? or (self.objcn_acogida? and self.krn_inv_denuncias.count == 2)) : true
+ 		self.objcn_invstgdr? ? (self.objcn_rechazada or (self.objcn_acogida and self.krn_inv_denuncias.count == 2)) : true
  	end
 
  	# ================================= 070_evlcn: Evaluar denuncia
 
  	def evld?
- 		(self.evlcn_desaprobada? and self.fecha_hora_corregida?) or self. evlcn_ok?
+ 		((self.evlcn_incmplt or self.incnsstnt) and self.fecha_hora_corregida?) or self. evlcn_ok?
  	end
 
  	# ================================= 080_trmn_invstgcn: Término de la investigación

@@ -48,7 +48,8 @@ module ProcControl
 			'050_crr'    => {
 				# No exigimos dnnc.rgstrs_ok? para activar el cierre, 
 				# pues al hacerlo nos quedamos en la tarea de derivación mostrando un mensaje que no tiene que ver con las derivaciones
-				actv: (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.on_dt? or (dnnc.solicitud_denuncia and dnnc.on_empresa?)),
+#				actv: (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.on_dt? or (dnnc.solicitud_denuncia and dnnc.on_empresa?)),
+				actv: (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.on_dt?),
 			},
 			'060_invstgdr'    => {
 				actv: (dnnc.rgstrs_ok? and dnnc.fechas_invstgcn?),

@@ -164,6 +164,7 @@ Rails.application.routes.draw do
     resources :krn_investigadores
     resources :krn_declaraciones do
       match :swtch, via: :get, on: :member
+      match :migrar, via: :get, on: :member
     end
     resources :krn_testigos do
       match :swtch, via: :get, on: :member

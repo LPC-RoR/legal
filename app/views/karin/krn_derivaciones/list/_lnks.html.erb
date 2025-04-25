@@ -1,3 +1,7 @@
+<% if objeto.destino == 'Dirección del Trabajo' and @objeto.krn_derivaciones.count == 1 %>
+	<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: 'solicitud_denuncia', stts: ['sin solicitud de devolución', 'con solicitud de devolución'], glys: ['arrow-counterclockwise', 'arrow-left']} %>
+<% end %>
+
 <% unless (@objeto.on_dt? and @objeto.fecha_hora_dt.present?) or @objeto.krn_derivaciones.last.id != objeto.id or @objeto.fecha_env_infrm?  %>
 	<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} %>
 <% end %>

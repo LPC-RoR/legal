@@ -2,11 +2,15 @@
 	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_derivaciones', blngs: @objeto, fs: 6} %>
 	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'lnks'} %>
 
-	<% if @objeto.solicitud_denuncia  %>
+	<% if @objeto.solicitud_denuncia and @objeto.on_dt? %>
 		<!-- Recibir de vuelta una denuncia desde la DT (solicitada) -->
-		<% if @objeto.on_dt? %>
-			<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'rcpcn_dt'} %>
+		<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+			<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'Se solicitó a la Dirección del Trabajo la devolución de la denuncia.'} %>
+
+			<%= render partial: 'karin/prtls/drvr', locals: {objeto: @objeto, codigo: 'rcpcn_dt'} %>
 		<% end %>
+
+
 	<% end %>
 
 	<div class="text-end" style="font-size: 14px;">
