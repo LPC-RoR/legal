@@ -1,0 +1,15 @@
+<div class="row mb-1 p-1 border-bottom">
+	<div class="col-9">
+		<%#= image_tag (krn_routes? ? 'krn_nvbr.png' : 'logo_nvbr.png') %>
+	</div>
+	<div class="col-3 position-relative navbar_lnk" style="height: <%= krn_routes? ? 25 : 25%>px;">
+		<div class="pe-5 position-absolute bottom-0 text-end w-100 ">
+			<% if usuario_signed_in? %>
+			  <%= render partial: 'usuarios/lnks/lnk_salir' %>
+			<% else %>
+			  <%= render partial: 'usuarios/lnks/lnk_ingrs' %>
+			  <span class="ms-2"><%= render partial: 'usuarios/lnks/lnk_rgstr' %></span>
+			<% end %>
+		</div>
+	</div>
+</div>

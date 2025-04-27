@@ -73,7 +73,7 @@ module CptnHelper
 	end
 
 	def dma_hm(date)
-		date.blank? ? '__-__-__ __:__' : date.strftime("%d-%m-%Y  %I:%M%p")
+		date.blank? ? '__-__-__ __:__' : date.strftime("%d-%m-%Y  %H:%M")
 	end
 
 	def hm(date)

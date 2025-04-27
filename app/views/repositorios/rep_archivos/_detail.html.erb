@@ -1,5 +1,5 @@
 <% if @objeto.cntrld? %>
-	<h5 class="text-primary"><i class="bi bi-file"></i> <%= @objeto.rep_archivo %></h5>
+	<h5 class="text-primary"><i class="bi bi-file-earmark-arrow-up"></i> <%= @objeto.rep_archivo %></h5>
 	<% if @objeto.dc_multiple? %>
 		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre del archivo' } %>
 	<% end %>

@@ -1,8 +1,9 @@
+<% col_lft ||= 9 %>
 <div class="row px-2 border border-dark-subtle border-5 rounded-pill fs-4 app_lnk">
-	<div class="col-9">
+	<div class="col-<%=col_lft%>">
 		<%= render partial: '0p/prtls/dsply', locals: {objt: objt, dir: 'shw', prtl: 'objt'} %>
 	</div>
-	<div class="col-3 text-end">
+	<div class="col-<%=12-col_lft%> text-end">
 		<%= render partial: '0p/prtls/dsply', locals: {objt: objt, dir: 'shw', prtl: 'lnks'} %>
 	</div>
 </div>

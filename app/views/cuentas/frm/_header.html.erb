@@ -1,0 +1,14 @@
+<% sz 		||= 4 %>
+<% text_new ||= 'Nuevo' %>
+<div class="px-3 pt-2 border border-dark-subtle border-5 rounded-pill fs-4 app_lnk">
+	<h<%=sz%> class='text-<%=cfg_color[:app]%>'>
+
+		<i class="bi bi-input-cursor-text"></i>
+		<% if prtl?(@objeto, 'frm', 'header') %>
+			<%= render partial: prtl_name(@objeto, 'frm', 'header') %>
+		<% else %>
+			<%= text_new %> <%= to_name(@objeto) %>
+		<% end %>
+
+	</h<%=sz%>>
+</div>

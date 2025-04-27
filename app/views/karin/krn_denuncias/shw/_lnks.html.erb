@@ -1,7 +1,9 @@
 <% unless scp_activo? %>
-	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: objeto.ownr.razon_social} do %>
-		<i class="bi bi-inboxes"></i>
+	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: 'Historial de denuncias'} do %>
+		<i class="bi bi-inboxes"></i> <span style="font-size: 14px; line-height: 1.5;">Historial de denuncias</span>
 	<% end %>
+
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text', gly_clss: 'fs-4'} %>
 
 	<% if dog? %>
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/prg", tltp: 'Purge'} do %>

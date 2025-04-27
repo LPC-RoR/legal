@@ -1,6 +1,7 @@
+<% col_lft ||= 8 %>
 <div class="shadow mt-1">
 	<div class="border border-2 rounded row gx-1 bg_blue p-2 fs-5">
-		<div class="col-8">
+		<div class="col-<%=col_lft%>">
 			<b>
 			<%= render partial: '0p/general/gly', locals: {gly: controller_icon[cntrllr(objt)]} %>
 			<% if prtl?(objt, dir, "objt") %>
@@ -8,7 +9,7 @@
 			<% end %>
 			</b>
 		</div>
-		<div class="col-4 bg_blue pe-1 text-end">
+		<div class="col-<%=12 - col_lft%> bg_blue pe-1 text-end">
 			<% if prtl?(objt, dir, "bck") %>
 				<%= render partial: prtl_name(objt, dir, "bck"), locals: {objeto: objt} %>
 			<% end %>

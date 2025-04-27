@@ -33,7 +33,7 @@ class KrnDenuncia < ApplicationRecord
 	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
 	delegate :razon_social, :principal_usuaria, to: :ownr, prefix: true, allow_nil: true
 
-    validates_presence_of :fecha_hora
+    validates_presence_of :fecha_hora, :identificador
 	validates :krn_empresa_externa_id, presence: true, if: -> { receptor_denuncia == 'Empresa externa' }
 	validates :tipo_declaracion, presence: true, if: -> { via_declaracion == 'Presencial' }
 	validates :representante, presence: true, if: -> { presentado_por == 'Representante' }

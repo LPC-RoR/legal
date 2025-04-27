@@ -1,8 +1,12 @@
 <% data ||= nil %>
 
-<div class="form-box">
-	<%= render partial: '0p/form/header', locals: {text: to_name(@objeto.class.name), size: config[:font_size][:title]} %>
-</div>
+<% if krn_routes? %>
+	<%= render partial: 'cuentas/frm/header' %>
+<% else %>
+	<div class="form-box">
+		<%= render partial: '0p/form/header', locals: {text: to_name(@objeto.class.name), size: config[:font_size][:title]} %>
+	</div>
+<% end %>
 
 <div class="form-box">
 	<%= form_with(model: @objeto, local: true, data: data) do |form| %>

@@ -1,26 +1,29 @@
 <div class="bg-white mb-1 mt-1 p1 text-primary">
 
-	<div class="row", style="padding: 2rem;">
-		<div class="col-lg-6 col-xs-12">
-			<div class="text-center txt_hght pb-1">
-				<%= image_tag 'addt_sombra.png', style: 'height:100%;width:auto;' %></br>
-				Abogados Derecho del Trabajo
-				<div class="text-center txt_smll">
-					ASESORÍA · CAPACITACIÓN · SERVICIOS
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-6">
-			<div class="pb-1 text-center txt_hght">Ley 21.643</div>
-			<div class="text-start txt_mdm">
-				<i class="bi bi-dot"></i> Asesoría en la implementación de la ley</br>
-				<i class="bi bi-dot"></i> Documentación obligatoria</br>
-				<i class="bi bi-dot"></i> Capacitación en la ley 21.643</br>
-				<i class="bi bi-dot"></i> Formación de investigadores</br>
-				<i class="bi bi-dot"></i> <b><i>LaborSafe</i></b></br>
-				<i class="bi bi-dot"></i> Externalización de investigaciones</br>
-			</div>
+	<div class="text-center pb-1" style="font-size: 30px;line-height: 1.5;">
+		<%= image_tag 'addt_sombra.png', style: 'height:100%;width:auto;' %></br>
+		Abogados Derecho del Trabajo
+		<div class="text-center" style="font-size: 16px;line-height: 1.5;">
+			ASESORÍA · CAPACITACIÓN · SERVICIOS LEGALES
 		</div>
 	</div>
 
+	<div class="row", style="padding: 2rem;">
+		<div class="col-lg-6 col-xs-12">
+			<div class="text-wrap" style="font-size: 18px;line-height: 1.5;">
+				<p>Asesoramos a empresas de distinto tamaño en la implementación de la ley 21.643 (Ley Karin).</p> 
+				<p>Nuestro modelo de implementación se adecua a las necesidades específicas de cada empresa, ofreciendo soluciones escalables o externalizadas para empresas pequeñas y, para <b>empresas principales o usuarias</b>, un modelo de recepción e investigación de denuncias ampliado, que permite gestionar denuncias cuyos participantes pertenezcan a distintas empresas.</p>
+				<p>Nos especializamos en la implementación del <b>Procedimiento de Investigación y sanción</b>: ofrecemos asesoría en su implementación, capacitación para los investigadores y nuestro software especializado <b>LaborSafe</b> para el registro y control del procedimiento.</p>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="text-center">
+				<%= image_tag 'email_head.png' %>
+			</div>
+			<div class="px-5">
+				<%= render partial: 'empresas/registro' %>
+			</div>
+		</div>
+	</div>
 </div>
+

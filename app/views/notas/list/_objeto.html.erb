@@ -2,7 +2,7 @@
 
 	<%= render partial: 'notas/list/objt', locals: {objeto: objeto} %>
 
-	<%= render partial: 'actividades/shr/prtcpnts', locals: {objeto: objeto} %>
+	<%= render partial: 'actividades/shr/prtcpnts', locals: {objeto: objeto} unless krn_routes? %>
 
 	<div class="px-2 app_lnk" style="font-size: 12px;">
 		<b>
