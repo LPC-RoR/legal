@@ -2,8 +2,10 @@
 
 <%= render layout: 'cuentas/prtls/proceso/actn' do %>
 	<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Si la Dirección del Trabajo envió el pronunciamiento respecto del informe de investigación, ingrese la fecha en la que se recibió el pronunciamiento.'} %>
-	<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_prnncmnt'} %>
+	<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_prnncmnt', plz_fld: true} %>
+<% end %>
 
+<%= render layout: 'cuentas/prtls/proceso/actn' do %>
 	<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Si el plazo de 30 días hábiles para recibir el pronunciamiento de la Dirección del Trabajo venció, seleccione la siguiente opción.'} %>
 	<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
 		<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :prnncmnt_vncd, prmpt: 'El plazo para recibir el pronunciamiento venció.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['plazo no vencido', 'plazo vencido']} %>

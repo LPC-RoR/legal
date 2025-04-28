@@ -55,7 +55,7 @@ module DnncProc
  	# ================================= 070_evlcn: Evaluar denuncia
 
  	def evld?
- 		((self.evlcn_incmplt or self.incnsstnt) and self.fecha_hora_corregida?) or self. evlcn_ok?
+ 		((self.evlcn_incmplt or self.evlcn_incnsstnt) and self.fecha_hora_corregida?) or self. evlcn_ok?
  	end
 
  	# ================================= 080_trmn_invstgcn: Término de la investigación

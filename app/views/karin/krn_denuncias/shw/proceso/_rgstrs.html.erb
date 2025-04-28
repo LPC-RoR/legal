@@ -1,109 +1,13 @@
-<div class="row gx-1 mx-5 px-2 border-bottom" style="font-size: 14px;">
-	<%= render partial: '0p/proc/ln', locals: {glosa: objeto.ownr.class.name, valor: objeto.ownr_razon_social, bld: true} %>
-	<%= render partial: '0p/proc/ln', locals: {glosa: "Fecha y hora de la recepción", valor: dma_hm(objeto.fecha_hora), bld: true, align: 'right'} %>
-	<%= render partial: '0p/proc/ln', locals: {glosa: "Motivo de la denuncia", valor: objeto.motivo_denuncia, bld: true} %>
-	<%= render partial: '0p/proc/ln', locals: {glosa: "Receptor de la denuncia", valor: objeto.receptor_denuncia} %>
-
-	<% if objeto.receptor_denuncia == 'Empresa externa' %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Empresa que recibió la denuncia", valor: objeto.krn_empresa_externa.razon_social} %>
-	<% end %>
-
-	<%= render partial: '0p/proc/ln', locals: {glosa: "Canal de la denuncia", valor: objeto.via_declaracion} %>
-	<% if objeto.via_declaracion == 'Presencial' %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Denuncia presentada en forma", valor: objeto.tipo_declaracion} %>
-	<% end %>
-
-	<%= render partial: '0p/proc/ln', locals: {glosa: "Presentado por", valor: objeto.presentado_por} %>
-	<% if objeto.presentado_por == 'Representante' %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Denunciante representado por", valor: objeto.representante} %>
-	<% end %>
-</div>
-
-<!-- PARTICIPANTES -->
-<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
-	<% if @coleccion['krn_denunciantes'].any? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Personas denunciantes", valor: nil, bld: true} %>
-		<% @coleccion['krn_denunciantes'].each do |dnncnt| %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncnt.rut)} #{dnncnt.nombre}"} %>
-			<% if dnncnt.krn_testigos.any? %>
-				<%= render partial: '0p/proc/ln', locals: {glosa: "Testigo(s) de la persona denunciante", valor: nil, bld: true, pddng: 1} %>
-				<% dnncnt.krn_testigos.each do |tstg| %>
-					<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(tstg.rut)} #{tstg.nombre}", pddng: 1} %>
-				<% end %>
-			<% end %>
-		<% end %>
-	<% end %>
-</div>
-
-<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
-	<% if @coleccion['krn_denunciados'].any? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Personas denunciadas", valor: nil, bld: true} %>
-		<% @coleccion['krn_denunciados'].each do |dnncd| %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncd.rut)} #{dnncd.nombre}"} %>
-			<% if dnncd.krn_testigos.any? %>
-				<%= render partial: '0p/proc/ln', locals: {glosa: "Testigo(s) de la persona denunciada", valor: nil, bld: true, pddng: 1} %>
-				<% dnncd.krn_testigos.each do |tstg| %>
-					<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(tstg.rut)} #{tstg.nombre}", pddng: 1} %>
-				<% end %>
-			<% end %>
-		<% end %>
-	<% end %>
-</div>
+<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'gnrl'), locals: {objeto: objeto} %>
+<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'prtcpnts'), locals: {objeto: objeto} %>
 
 <!-- DERIVACIONES -->
 <div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
-	<!-- DERIVACIONES -->
-	<% if @coleccion['krn_derivaciones'].any? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "DERIVACIONES", valor: nil, bld: true} %>
-		<% @coleccion['krn_derivaciones'].each do |drvcn| %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "#{drvcn.motivo}", valor: "#{dma(drvcn.fecha)}", pddng: 1} %>
-		<% end %>
-	<% end %>
 
-	<!-- INVESTIGACIONES EN LA EMPRESA -->
-	<% if objeto.investigacion_local %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "La empresa decidió realizar la investigación de la denuncia."} %>
-	<% end %>
-	<% if objeto.investigacion_externa %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "La empresa externa decidió realizar la investigación de la denuncia.", bld: true} %>
-	<% end %>
-
-	<!-- FECHAS DE CIERRE -->
-	<% if objeto.fecha_ntfccn? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "La Dirección del Trabajo notificó la recepción de una denuncia.", valor: dma(objeto.fecha_ntfccn), bld: true, align: 'right'} %>
-	<% end %>
-	<% if objeto.fecha_trmtcn? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Se informó a la Dirección del Trabajo el inicio de una investigación.", valor: dma(objeto.fecha_trmtcn), bld: true, align: 'right'} %>
-	<% end %>
-	<% if objeto.fecha_hora_dt %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió certificado emitido por la Dirección del Trabajo acusando recibo de la denuncia derivada.", bld: true, align: 'right'} %>
-	<% end %>
-
-	<% if objeto.krn_investigadores.first.present? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "El sr. #{objeto.krn_investigadores.first.krn_investigador} será el investigador de la causa."} %>
-	<% end %>
-
-	<% if objeto.krn_inv_denuncias.any? and objeto.krn_inv_denuncias.first.objetado %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Se presento una objeción de imparcialidad contra el investigador asignado."} %>
-	<% end %>
-
-	<% if objeto.krn_investigadores.second.present? %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "El sr. #{objeto.krn_investigadores.second.krn_investigador} será el investigador de la causa."} %>
-	<% end %>
-
-	<% if objeto.evlcn_ok %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: "Evaluación: la denuncia está completa y no presenta inconsistencias."} %>
-	<% else %>
-		<% if objeto.evlcn_incmplt %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "Evaluación: la denuncia está incompleta."} %>
-		<% end %>
-		<% if objeto.evlcn_incnsstnt %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "Evaluación: la denuncia presenta inconsistencias."} %>
-		<% end %>
-		<% if objeto.fecha_hora_corregida? %>
-			<%= render partial: '0p/proc/ln', locals: {glosa: "Plazo para presentar denuncia corregida.", valor: dma(objeto.fecha_hora_corregida), align: 'right', bld: true} %>
-		<% end %>
-	<% end %>
+	<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'drvcns'), locals: {objeto: objeto} %>
+	<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'crr'), locals: {objeto: objeto} %>
+	<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'invstgdr'), locals: {objeto: objeto} %>
+	<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'evlcn'), locals: {objeto: objeto} %>
 
 	<% if objeto.dclrcns? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Todos los participantes han declarado."} %>
@@ -111,17 +15,21 @@
 
 	<% if objeto.fecha_trmn? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Término de la investigación.", valor: dma(objeto.fecha_trmn), align: 'right', bld: true} %>
+		<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'antcpcn_atrs'), locals: {cdg: 'etp_invstgcn'} %>
 	<% end %>
 
 	<% if objeto.fecha_env_infrm? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Se remitió el informe de investigación a la Dirección del Trabajo.", valor: dma(objeto.fecha_env_infrm), align: 'right', bld: true} %>
+		<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'antcpcn_atrs'), locals: {cdg: 'etp_infrm'} %>
 	<% end %>
 	<% if objeto.fecha_rcpcn_infrm? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió el informe de investigación desde la Dirección del Trabajo.", valor: dma(objeto.fecha_rcpcn_infrm), align: 'right', bld: true} %>
+		<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'antcpcn_atrs'), locals: {cdg: 'etp_infrm'} %>
 	<% end %>
 
 	<% if objeto.fecha_prnncmnt? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Se recibió el pronunciamiento de la Dirección del Trabajo.", valor: dma(objeto.fecha_prnncmnt), align: 'right', bld: true} %>
+		<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'antcpcn_atrs'), locals: {cdg: 'etp_prnncmnt'} %>
 	<% end %>
 
 	<% if objeto.prnncmnt_vncd %>
@@ -130,14 +38,20 @@
 
 	<% if objeto.fecha_cierre? %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Dia del cierre del procedimiento de investigación.", valor: dma(objeto.fecha_cierre), align: 'right', bld: true} %>
+		<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'antcpcn_atrs'), locals: {cdg: 'etp_mdds_sncns'} %>
 	<% end %>
 </div>
 
 <hr>
 
 <div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
-	<%= render partial: '0p/proc/ln', locals: {glosa: "ETAPAS REALIZADAS", valor: nil, bld: true} %>
+	<%= render partial: '0p/proc/ln', locals: {glosa: "#{'NO HAY ' if @etps_trmnds.empty?}ETAPAS TERMINADAS", valor: nil, bld: true} %>
 	<% @etps_trmnds.each do |etp_trmnd| %>
-		<%= render partial: '0p/proc/ln', locals: {glosa: etp_trmnd[:etapa], valor: "#{-etp_trmnd[:plz_tag] unless etp_trmnd[:plz_tag].blank? or etp_trmnd[:plz_tag] == 0} #{dma(etp_trmnd[:plz])}", align: 'right'} %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: etp_trmnd[:etapa], valor: "#{"#{-etp_trmnd[:plz_tag]} : " unless etp_trmnd[:plz_tag].blank? or etp_trmnd[:plz_tag] == 0} #{dma(etp_trmnd[:plz])}", align: 'right'} %>
 	<% end %>
+</div>
+
+<hr>
+<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
+	<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'dcs_lst'), locals: {ownr: @objeto} %>
 </div>

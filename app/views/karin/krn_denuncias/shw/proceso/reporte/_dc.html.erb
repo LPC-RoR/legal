@@ -1,0 +1,3 @@
+<% pddng ||= nil %>
+<% gls = "#{'(pendiente)' if fl.blank?} #{dma(fl.fecha) if fl.present? and fl.control_fecha} #{fl.blank? ? dc.rep_doc_controlado : (fl.nombre.blank? ? fl.rep_archivo : fl.nombre)}" %>
+<%= render partial: '0p/proc/ln', locals: {glosa: gls, gly: 'file-earmark-arrow-up', pddng: pddng} %>

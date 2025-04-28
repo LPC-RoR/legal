@@ -3,9 +3,9 @@
 <%= render layout: 'cuentas/prtls/proceso/actn' do %>
 	<% if @objt['on_dt?'] %>
 		<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Registre la fecha en la que se recibió el informe de investigación desde la Dirección del Trabajo.'} %>
-		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_rcpcn_infrm'} %>
+		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_rcpcn_infrm', plz_fld: true} %>
 	<% else %>
 		<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Registre la fecha en la que se envió el informe de investigación a la Dirección del Trabajo.'} %>
-		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_env_infrm'} %>
+		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_env_infrm', plz_fld: true} %>
 	<% end %>
 <% end %>

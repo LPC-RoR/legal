@@ -1,5 +1,7 @@
-<% unless @objt['denunciantes?'] and (@objt['denunciados?'] or @objeto.motivo_vlnc?) %>
-	<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-		<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Denuncia recién creada, registre la información de las personas denunciantes, denunciadas y sus correspondientes testigos.'} %>
+<div class="ms-5">
+	<% unless @objt['denunciantes?'] and (@objt['denunciados?'] or @objeto.motivo_vlnc?) %>
+		<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+			<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'Denuncia recién creada, ingrese la información de las personas denunciantes, denunciadas y sus correspondientes testigos. Vaya a Denunciantes'} %>
+		<% end %>
 	<% end %>
-<% end %>
+</div>

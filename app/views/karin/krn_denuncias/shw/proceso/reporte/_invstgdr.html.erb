@@ -1,0 +1,16 @@
+<% if objeto.krn_investigadores.first.present? %>
+	<%= render partial: '0p/proc/ln', locals: {glosa: "Investigador asignado a la denuncia:", valor: objeto.krn_investigadores.first.krn_investigador} %>
+<% end %>
+<% if objeto.objcn_invstgdr? %>
+	<%= render partial: '0p/proc/ln', locals: {glosa: "Se presento objeción de imparcialidad al investigador asignado.", pddng: 1} %>
+<% end %>
+
+<% if @objeto.objcn_acogida %>
+	<% if objeto.krn_investigadores.second.present? %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Segundo investigador asignado a la denuncia:", valor: objeto.krn_investigadores.second.krn_investigador} %>
+	<% else %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Objeción de imparcialidad acogida, se debe asignar otro investigador.", pddng: 1} %>
+	<% end %>
+<% elsif @objeto.objcn_rechazada %>
+	<%= render partial: '0p/proc/ln', locals: {glosa: "Objeción de imparcialidad rechazada, se confirma investigador asignado.", pddng: 1} %>
+<% end %>

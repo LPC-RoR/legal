@@ -1,0 +1,50 @@
+<!-- PARTICIPANTES -->
+<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
+	<%= render partial: '0p/proc/ln', locals: {glosa: "Personas denunciantes", valor: nil, bld: true} %>
+
+	<% if @coleccion['krn_denunciantes'].any? %>
+		<% @coleccion['krn_denunciantes'].each do |dnncnt| %>
+			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncnt.rut)} #{dnncnt.nombre}"} %>
+			<% if dnncnt.fl?('dnncnt_diat_diep') %>
+				<%= render partial: '0p/proc/ln', locals: {glosa: "Documentación Atención psicológica temprana.", gly: 'chack2-all', pddng: 1} %>
+			<% else %>
+				<%= render partial: '0p/proc/ln', locals: {glosa: "(pendiente) Documentación Atención psicológica temprana.", gly: 'cone-striped', pddng: 1} %>
+			<% end %>
+			<%= render partial: prtl_name(@objeto, 'shw/proceso/reporte', 'prtcpnt_dclrcn'), locals: {prtcpnt: dnncnt} %>
+			<% if dnncnt.krn_testigos.any? %>
+				<%= render partial: '0p/proc/ln', locals: {glosa: "Testigo(s) de la persona denunciante", bld: true, pddng: 1} %>
+				<% dnncnt.krn_testigos.each do |tstg| %>
+					<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(tstg.rut)} #{tstg.nombre}", pddng: 1} %>
+					<%= render partial: prtl_name(@objeto, 'shw/proceso/reporte', 'prtcpnt_dclrcn'), locals: {prtcpnt: tstg} %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Aún no se han igresados personas denunciantes."} %>
+	<% end %>
+</div>
+
+<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
+	<%= render partial: '0p/proc/ln', locals: {glosa: "Personas denunciadas", bld: true} %>
+
+	<% if @objt['motivo_vlnc?'] %>
+		<%= render partial: '0p/proc/ln', locals: {glosa: "Denuncia por violenciaen el trabajo ejercida por terceros, las personas denunciadas (si las hay) se detallan en la declaracion de la persona denunciante."} %>
+	<% else %>
+		<% if @coleccion['krn_denunciados'].any? %>
+			<% @coleccion['krn_denunciados'].each do |dnncd| %>
+				<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncd.rut)} #{dnncd.nombre}"} %>
+				<%= render partial: prtl_name(@objeto, 'shw/proceso/reporte', 'prtcpnt_dclrcn'), locals: {prtcpnt: dnncd} %>
+				<% if dnncd.krn_testigos.any? %>
+					<%= render partial: '0p/proc/ln', locals: {glosa: "Testigo(s) de la persona denunciada", bld: true, pddng: 1} %>
+					<% dnncd.krn_testigos.each do |tstg| %>
+						<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(tstg.rut)} #{tstg.nombre}", pddng: 1} %>
+						<%= render partial: prtl_name(@objeto, 'shw/proceso/reporte', 'prtcpnt_dclrcn'), locals: {prtcpnt: tstg} %>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% else %>
+			<%= render partial: '0p/proc/ln', locals: {glosa: "Aún no se han igresados personas denunciadas."} %>
+		<% end %>
+	<% end %>
+
+</div>

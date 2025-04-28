@@ -7,7 +7,7 @@
 
 	<% if @objeto.fl_last_date('dnnc_mdds_sncns') %>
 		<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: "Fecha evidencia más reciente: #{dma(@objeto.fl_last_date('dnnc_mdds_sncns'))}"} %>
-		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_cierre'} %>
+		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_cierre', plz_fld: true} %>
 	<% else %>
 		<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Hasta el minuto no se han subido evidencias.'} %>
 	<% end %>

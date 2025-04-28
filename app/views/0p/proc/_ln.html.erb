@@ -4,7 +4,11 @@
 <% rbld   ||= false %>
 <% pddng  ||= nil %>
 <% valor  ||= nil %>
+<% gly    ||= nil %>
 <div class=" col-9 app_lnk <%='fw-bold' if lbld or bld%>" style="padding-left: <%=pddng%>rem;">
+	<% if gly.present? %>
+		<i class="bi bi-<%=gly%>"></i>
+	<% end %>
 	<%= glosa %>
 </div>
 <div class="col-3 app_lnk <%='fw-bold' if rbld or bld%>" style="text-align: <%=align%>;">

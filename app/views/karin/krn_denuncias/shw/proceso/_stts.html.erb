@@ -6,6 +6,9 @@
 		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: @tar_last, ownr: ownr, color: 'primary'} unless @tar_last.blank? %>
 	<% end %>
 <% end %>
+<% if @tar_last.blank? %>
+		<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: 'shw/shr', prtl: 'prlg'} %>
+<% end %>
 
 <%= render layout: '0p/mdl/modal', locals: {cdg: @etp_last.codigo, ttl: @etp_last.ctr_etapa, sz: 'lg'} do %>
 	<%= render partial: prtl_name(@objeto, 'hlp', @etp_last.codigo) %>
