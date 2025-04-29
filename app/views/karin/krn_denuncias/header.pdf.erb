@@ -1,0 +1,25 @@
+<div class="pdf-header">
+  <div class="header-content">
+    <%#= pdf_image_tag logo, height: 60 %>
+    <%= wicked_pdf_image_tag(Rails.root.join('app', 'assets', 'images', 'logo_tyc.png')) %>
+    <h2><%= ENV['ORGANIZATION_NAME'] || 'Mi Organización' %></h2>
+    <p class="report-title"><%= @report_title || 'Reporte' %></p>
+  </div>
+</div>
+
+<style>
+  .pdf-header {
+    text-align: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  .header-content {
+    margin: 0 auto;
+    width: 80%;
+  }
+  .report-title {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+  }
+</style>

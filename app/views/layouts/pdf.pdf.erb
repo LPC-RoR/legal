@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Reporte PDF</title>
+    <%= pdf_stylesheet("pdf") %>
+    <!-- OR if using the initializer approach: -->
+    <%#= wicked_pdf_stylesheet_link_tag "pdf" %>
+    
+    <style>
+      /* Estilo minimalista para tablas PDF */
+      table.pdf-minimal {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 9px; /* Tamaño de fuente reducido */
+        line-height: 1.2; /* Altura de línea compacta */
+      }
+      
+      table.pdf-minimal td,
+      table.pdf-minimal th {
+        padding: 3px 5px; /* Padding reducido (vertical horizontal) */
+        border: none; /* Elimina todos los bordes */
+        height: 18px; /* Altura fija para las filas */
+      }
+      
+      /* Opcional: fondo alternado para mejor legibilidad */
+      table.pdf-minimal tr:nth-child(even) {
+        background-color: #f8f8f8;
+      }
+      td.wide-column {
+        width: 50%;
+        word-wrap: break-word; /* Rompe palabras largas */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pdf-header">
+      <%= image_tag pdf_asset_base64('tyc.png'), class: 'header-image' %>
+
+    </div>
+    <%= yield %>
+
+    <div style="text-align: center; margin: 20px 0;">
+      <!-- Genera el QR (ejemplo con un ID de reporte) -->
+      <%= image_tag qr_code_as_base64("https://www.abogadosderechodeltrabajo.cl/krn_reportes/dnnc.pdf?oid=#{@objeto.id}"), 
+                    alt: "Código QR del Reporte", 
+                    style: "width: 100px; height: 100px;" %>
+      
+      <p style="font-size: 10px;">Escanea este código para ver el reporte actualizado en línea</p>
+    </div>
+  </body>
+</html>

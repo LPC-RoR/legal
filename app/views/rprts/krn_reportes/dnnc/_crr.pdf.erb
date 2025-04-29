@@ -1,0 +1,11 @@
+<!-- FECHAS DE CIERRE -->
+<% if objeto.fecha_ntfccn? %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "La Dirección del Trabajo notificó la recepción de una denuncia.", valor: dma(objeto.fecha_ntfccn), fnt_wght: 'bold', align: 'right'} %>
+<% end %>
+<% if objeto.fecha_trmtcn? %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Se informó a la Dirección del Trabajo el inicio de una investigación.", valor: dma(objeto.fecha_trmtcn), fnt_wght: 'bold', align: 'right'} %>
+	<%= render partial: 'rprts/krn_reportes/dnnc/antcpcn_atrs', locals: {cdg: 'etp_rcpcn'} %>
+<% end %>
+<% if objeto.fecha_hora_dt %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Se recibió certificado emitido por la Dirección del Trabajo acusando recibo de la denuncia derivada.", fnt_wght: 'bold', align: 'right'} %>
+<% end %>

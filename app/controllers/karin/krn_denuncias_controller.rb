@@ -1,7 +1,10 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler check set_fld clear_fld prg ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler set_fld clear_fld prg ]
+
+  # Si estás usando Devise:
+  skip_before_action :authenticate_usuario!, only: [:reporte] 
 
   include ProcControl
   include Karin
@@ -91,49 +94,6 @@ class Karin::KrnDenunciasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-
-  def del_vlr(objeto, code)
-    code = code == 'drv_rcp_externa' ? 'sgmnt_emprs_extrn' : code
-    vlr_nm = code == 'sgmnt_drvcn' ? 'Seguimiento' : code
-    vlr = objeto.valor(vlr_nm)
-    vlr.delete
-  end
-
-  def check
-    if params[:invstgdr].present?
-      unless params[:invstgdr] == 'erase'
-        @objeto.krn_investigador_id = params[:invstgdr].to_i
-      else
-        @objeto.krn_investigador_id = nil
-      end
-    end
-    if params[:leida].present?
-      if params[:leida] == 'leida'
-        @objeto.leida = true
-      else
-        @objeto.leida = nil
-      end
-    end
-    if params[:incnsstnt].present?
-      if ['s', 'n'].include?(params[:incnsstnt])
-        @objeto.incnsstnt = params[:incnsstnt] == 's' ? true : false
-      else
-        @objeto.incnsstnt = nil
-      end
-    end
-    if params[:incmplt].present?
-      if ['s', 'n'].include?(params[:incmplt])
-        @objeto.incmplt = params[:incmplt] == 's' ? true : false
-      else
-        @objeto.incmplt = nil
-      end
-    end
-
-    @objeto.save
-
-    redirect_to @objeto
   end
 
   # DELETE /krn_denuncias/1 or /krn_denuncias/1.json

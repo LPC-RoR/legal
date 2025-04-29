@@ -71,6 +71,12 @@ Rails.application.routes.draw do
 
 # SCOPES *********************************************************
 
+  scope module: 'rprts' do
+    resources :krn_reportes do
+      match :dnnc, via: :get, on: :collection
+    end
+  end
+
   scope module: 'ayuda' do
     resources :hlp_notas
     resources :hlp_ayudas

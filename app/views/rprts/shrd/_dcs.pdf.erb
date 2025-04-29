@@ -1,0 +1,8 @@
+<%= render partial: 'rprts/shrd/tr', locals: {glosa: dc.rep_doc_controlado, gly: 'list-task', fnt_wght: 'bold'} %>
+<% if fls.empty? %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: 'lista vacía', pddng: 1} %>
+<% else %>
+	<% fls.each do |fl| %>
+		<%= render partial: 'rprts/shrd/dc', locals: {dc: dc, fl: fl, ownr: ownr, pddng: 1} %>
+	<% end %>
+<% end %>

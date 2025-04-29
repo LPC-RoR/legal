@@ -1,0 +1,15 @@
+<!-- DERIVACIONES -->
+<% if @coleccion['krn_derivaciones'].any? %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "DERIVACIONES", fnt_wght: 'bold'} %>
+	<% @coleccion['krn_derivaciones'].each do |drvcn| %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "#{drvcn.motivo}", valor: "#{dma(drvcn.fecha)}", pddng: 1} %>
+	<% end %>
+<% end %>
+
+<!-- INVESTIGACIONES EN LA EMPRESA -->
+<% if objeto.investigacion_local %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "La empresa decidió realizar la investigación de la denuncia."} %>
+<% end %>
+<% if objeto.investigacion_externa %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "La empresa externa decidió realizar la investigación de la denuncia.", fnt_wght: 'bold'} %>
+<% end %>

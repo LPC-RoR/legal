@@ -1,0 +1,32 @@
+<div class="row gx-1 mx-5 px-2 border-bottom" style="font-size: 14px;">
+	<!-- EMPRESA | CLIENTE -->
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: objeto.ownr.class.name, valor: objeto.ownr_razon_social, fnt_wght: 'bold'} %>
+
+	<!-- FECHA HORA RECEPCIÓN -->
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Fecha y hora de la recepción", valor: dma_hm(objeto.fecha_hora), fnt_wght: 'bold', align: 'right'} %>
+
+	<!-- MOTIVO DE LA DENUNCIA -->
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Motivo de la denuncia", valor: objeto.motivo_denuncia, fnt_wght: 'bold'} %>
+
+	<!-- RECEPTOR DE LA DENUNCIA -->
+	<% if objeto.receptor_denuncia == 'Empresa' %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Denuncia recibida en nuestra empresa"} %>
+	<% elsif objeto.receptor_denuncia == 'Empresa externa' %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Empresa que recibió la denuncia", valor: objeto.krn_empresa_externa.razon_social, fnt_wght: 'bold'} %>
+	<% else %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Denuncia recibida en la Dirección del Trabajo.", fnt_wght: 'bold'} %>
+	<% end %>
+
+	<!-- CANAL DE DENUNCIA -->
+	<% if objeto.via_declaracion == 'Presencial' %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Denuncia presentada en forma presencial", valor: objeto.tipo_declaracion} %>
+	<% else %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Canal de denuncia", valor: objeto.via_declaracion} %>
+	<% end %>
+
+	<% if objeto.presentado_por == 'Representante' %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Denunciante representado por", valor: objeto.representante} %>
+	<% else %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Denuncia presentada por la persona denunciante"} %>
+	<% end %>
+</div>

@@ -1,0 +1,13 @@
+<% if objeto.evlcn_ok %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Evaluación: la denuncia está completa y no presenta inconsistencias."} %>
+<% else %>
+	<% if objeto.evlcn_incmplt %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Evaluación: la denuncia está incompleta."} %>
+	<% end %>
+	<% if objeto.evlcn_incnsstnt %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Evaluación: la denuncia presenta inconsistencias."} %>
+	<% end %>
+	<% if objeto.fecha_hora_corregida? %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Plazo para presentar denuncia corregida.", valor: dma(objeto.fecha_hora_corregida), align: 'right', fnt_wght: 'bold'} %>
+	<% end %>
+<% end %>

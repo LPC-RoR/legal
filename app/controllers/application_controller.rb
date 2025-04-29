@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
 	# agregado para devise con turbo-frame
 
+#	helper PdfHelper
+	include PdfHelper
+
   include DeviseTurboFix
 
 	include Config

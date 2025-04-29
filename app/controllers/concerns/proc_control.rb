@@ -20,11 +20,11 @@ module ProcControl
 			},
 			'etp_infrm'      => {
 				actv: ((dnnc.fecha_trmn? or dnnc.on_dt?)),
-				trmn: (dnnc.fecha_env_infrm? or dnnc.fecha_rcpcn_infrm?),
+				trmn: (dnnc.fecha_env_infrm? or (dnnc.on_dt? and dnnc.fecha_rcpcn_infrm?)),
 			},
 			'etp_prnncmnt'   => {
-				actv: (dnnc.fecha_env_infrm? or dnnc.on_dt?),
-				trmn: (dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.on_dt?),
+				actv: (dnnc.fecha_env_infrm? or (dnnc.on_dt? and dnnc.fecha_rcpcn_infrm?)),
+				trmn: (dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or (dnnc.on_dt? and dnnc.fecha_rcpcn_infrm?)),
 			},
 			'etp_mdds_sncns' => {
 				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),

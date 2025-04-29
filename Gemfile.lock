@@ -122,6 +122,7 @@ GEM
     chartkick (5.1.4)
     childprocess (5.1.0)
       logger (~> 1.5)
+    chunky_png (1.4.0)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.0)
     crass (1.0.6)
@@ -221,6 +222,10 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    mime-types (3.6.2)
+      logger
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2025.0422)
     mini_magick (5.2.0)
       benchmark
       logger
@@ -334,6 +339,10 @@ GEM
     roo (2.10.1)
       nokogiri (~> 1)
       rubyzip (>= 1.3.0, < 3.0.0)
+    rqrcode (3.1.0)
+      chunky_png (~> 1.0)
+      rqrcode_core (~> 2.0)
+    rqrcode_core (2.0.0)
     rubocop (1.75.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -455,6 +464,7 @@ DEPENDENCIES
   caxlsx
   caxlsx_rails
   chartkick
+  chunky_png
   csv
   dartsass-rails (~> 0.5.1)
   devise
@@ -466,6 +476,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   listen (~> 3.5)
+  mime-types
   pdf-reader
   pg
   pg_search
@@ -473,6 +484,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 8.0.1)
   roo (~> 2.10.0)
+  rqrcode
   rubocop-rails-omakase
   selenium-webdriver
   solid_cable

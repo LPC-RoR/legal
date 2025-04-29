@@ -1,0 +1,12 @@
+<% pddng    ||= 0 %>
+<% align    ||= 'left' %>
+<% valor    ||= nil %>
+<% fnt_wght ||= 'normal' %>
+<tr style="font-size: 12px;font-weight: <%=fnt_wght%>;">
+	<td style="padding-left: <%=pddng+1%>rem;">
+		<%= glosa %>
+	</td>
+	<td style="text-align: <%=align%>;">
+		<%= valor %>
+	</td>
+</tr>

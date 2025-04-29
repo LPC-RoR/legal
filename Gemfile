@@ -53,6 +53,10 @@ gem 'pdf-reader'                  # Leer PDF files
 gem 'wicked_pdf'                  # Para reportes en PDF
 gem 'wkhtmltopdf-binary'
 
+gem 'mime-types'
+gem 'rqrcode'
+gem 'chunky_png'  # Necesario para convertir el QR a imagen
+
 # Busqueda
 gem 'pg_search'
 

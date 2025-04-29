@@ -1,0 +1,11 @@
+<%= render partial: 'rprts/shrd/tr', locals: {glosa: "DOCUMENTACIÓN OBLIGATORIA", fnt_wght: 'bold'} %>
+
+<% @fls_actv.each do |dc| %>
+	<% if fl_cndtn?(ownr, dc.codigo) or ownr.fl?(dc.codigo) %>
+		<% if dc.multiple == true %>
+			<%= render partial: 'rprts/shrd/dcs', locals: {dc: dc, fls: ownr.fls(dc), ownr: ownr} %>
+		<% else %>
+			<%= render partial: 'rprts/shrd/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr} %>
+		<% end %>
+	<% end %>
+<% end %>

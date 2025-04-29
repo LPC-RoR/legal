@@ -1,7 +1,8 @@
+<% crud ||= nil %>
 <table class="table table-striped">
   <tbody>
     <% @coleccion[cntrllr(source)].each do |objt| %>
-      <%= render partial: '0p/tbl/tr', locals: {objt: objt} %>
+      <%= render partial: '0p/tbl/tr', locals: {objt: objt, crud: crud} %>
     <% end %>
   </tbody>
 </table>

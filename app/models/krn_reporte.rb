@@ -1,0 +1,2 @@
+class KrnReporte < ApplicationRecord
+end
