@@ -377,8 +377,9 @@ module Tarifas
 	end
 
 	# MÉTODOS PARA CALCULAR HONORARIO VARIABLE
+	# HCH Agregué compact porque el nil no tiene sentido en la línea 405
 	def get_vctr_prcntgs(causa)
-		causa.tar_valor_cuantias.map {|vc| vc.porcentaje_variable}.uniq.sort
+		causa.tar_valor_cuantias.map {|vc| vc.porcentaje_variable}.compact.uniq.sort
 	end
 
 	def get_subtotales_cuantia(causa, pago)
