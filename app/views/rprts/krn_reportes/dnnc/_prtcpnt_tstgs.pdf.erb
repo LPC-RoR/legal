@@ -1,0 +1,11 @@
+<% if prtcpnt.krn_testigos.any? %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Testigo(s) de la persona #{to_name(prtcpnt)}", fnt_wght: 'bold', pddng: 1} %>
+	<% prtcpnt.krn_testigos.each do |tstg| %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "#{s_rut(tstg.rut)} #{tstg.nombre}", pddng: 1} %>
+		<% if action_name == 'dnnc' %>
+			<%= render partial: prtl_name(@objeto, 'shw/proceso/reporte', 'prtcpnt_dclrcn'), locals: {prtcpnt: tstg} %>
+		<% else %>
+			<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnt_dts_base', locals: {prtcpnt: tstg, pddng: 2} %>
+		<% end %>
+	<% end %>
+<% end %>

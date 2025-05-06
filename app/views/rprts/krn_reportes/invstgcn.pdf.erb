@@ -1,0 +1,14 @@
+<% dstntr ||= {nombre: 'NOMBRE DEL DESTINATARIO', rol: 'ROL DEL DESTINATARIO'} %>
+<% objt ||= nil %>
+<h2>Notificación de inicio de investigación ley 21.643</h2>
+
+<div style="font-weight: bold;">
+	<p>Sr(a) <%= dstntr[:nombre] %></p>
+	<p>PRESENTE</p>
+</div>
+
+<p>Le informamos que con fecha <%= dma(objt.blank? ? Time.zone.today : objt.fecha_hora) %> se ha presentado una denuncia en la cual usted participa en calidad de <%=dstntr[:rol]%>.</p>
+
+<p>La normativa establecida por la Dirección del Trabajo, establece la obligación de implementar Medidas de resguardo que garanticen que todo el Procedimiento de Investigación y Sanción se realice en un ambiente que no revictimice a las victimas, evite todo tipo de represalias y garantice la objetividad e imparcialidad de la investigación. El cumplimiento de estas medidas de resguardo es obligatorio para todos los participantes de la denuncia.</p>
+
+<p>Cariños Carlos</p>

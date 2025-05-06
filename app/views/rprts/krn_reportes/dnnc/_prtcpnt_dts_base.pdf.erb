@@ -1,0 +1,7 @@
+<% pddng ||= nil %>
+<% if prtcpnt.empleado_externo %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Empleador del participante", valor: prtcpnt.empleador, pddng: pddng} %>
+<% end %>
+<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Cargo", valor: prtcpnt.cargo, pddng: pddng} %>
+<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Lugar del Trabajo", valor: prtcpnt.lugar_trabajo, pddng: pddng} %>
+<%= render partial: 'rprts/shrd/tr', locals: {glosa: "email personal", valor: prtcpnt.email, pddng: pddng} %>

@@ -5,6 +5,8 @@ class Procedimiento < ApplicationRecord
 	has_many :rep_doc_controlados, as: :ownr
 	has_many :lgl_temas, as: :ownr
 
+	has_many :pdf_archivos, as: :ownr
+
 	has_many :productos
 
 	scope :lst, -> {order(:procedimiento)}

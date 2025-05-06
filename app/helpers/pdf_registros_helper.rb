@@ -1,0 +1,2 @@
+module PdfRegistrosHelper
+end

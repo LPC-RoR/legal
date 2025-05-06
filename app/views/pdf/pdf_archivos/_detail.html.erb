@@ -1,0 +1,18 @@
+<div class="row gx-1">
+	<div class="row-3">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :codigo, label: 'Código' } %>
+	</div>
+	<div class="row-9">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre del reporte' } %>
+	</div>
+</div>
+<div class="row gx-1">
+	<div class="row-6">
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :tipo, sel_list: ['Recurso', 'Notificación', 'Evento'], label: 'Tipo' } %>
+	</div>
+	<div class="row-6">
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :modelos, label: 'Modelos a los cuales aplica' } %>
+	</div>
+</div>
+
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:ownr_type, :ownr_id] } %>

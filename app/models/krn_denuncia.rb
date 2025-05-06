@@ -19,6 +19,8 @@ class KrnDenuncia < ApplicationRecord
 
 	has_many :rep_archivos, as: :ownr
 	has_many :notas, as: :ownr
+	# Los ownr de los pdf_registros SIEMPRE son destinatarios
+	has_many :pdf_registros, as: :ref
 
 	has_many :krn_denunciantes
 	has_many :krn_denunciados
@@ -44,6 +46,10 @@ class KrnDenuncia < ApplicationRecord
 
 	def dnnc
 		self
+	end
+
+	def prcdmnt
+		Procedimiento.find_by(codigo: 'krn_invstgcn')
 	end
 
 	# ------------------------------------------------------------------------ PRODUCTO

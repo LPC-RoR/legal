@@ -35,9 +35,10 @@
 	<!-- Registros acumulados de la denuncia -->
 	<%= render partial: prtl_name(@objeto, 'shw/participantes', 'prtcpnts'), locals: {objeto: @objeto} %>
 	<!-- Despliegue de Denunciantes y Denunciados -->
-<% when 'Agenda' %>
+<% when 'Reportes' %>
+	<%= render partial: prtl_name(@objeto, 'shw/reportes', 'rprts'), locals: {objeto: @objeto} %>
 	<!-- Resumen de las declaraciones -->
-	<%= render partial: prtl_name(@objeto, 'shw/agenda', 'dclrcns'), locals: {ownr: @objeto} %>
+	<%#= render partial: prtl_name(@objeto, 'shw/agenda', 'dclrcns'), locals: {ownr: @objeto} %>
 <% end %>
 
 <%= render layout: '0p/mdl/modal', locals: {cdg: 'Detalle', ttl: 'Reporte de la denuncia', sz: 'lg'} do %>

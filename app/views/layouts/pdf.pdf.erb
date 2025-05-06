@@ -34,19 +34,22 @@
     </style>
   </head>
   <body>
-    <div id="pdf-header">
+    <div class="text-center" id="pdf-header">
       <%= image_tag pdf_asset_base64('tyc.png'), class: 'header-image' %>
 
     </div>
     <%= yield %>
 
-    <div style="text-align: center; margin: 20px 0;">
-      <!-- Genera el QR (ejemplo con un ID de reporte) -->
-      <%= image_tag qr_code_as_base64("https://www.abogadosderechodeltrabajo.cl/krn_reportes/dnnc.pdf?oid=#{@objeto.id}"), 
-                    alt: "Código QR del Reporte", 
-                    style: "width: 100px; height: 100px;" %>
-      
-      <p style="font-size: 10px;">Escanea este código para ver el reporte actualizado en línea</p>
-    </div>
+    <% if action_name == 'dnnc' %>
+      <div style="text-align: center; margin: 20px 0;">
+        <!-- Genera el QR (ejemplo con un ID de reporte) -->
+        <%= image_tag qr_code_as_base64("https://www.abogadosderechodeltrabajo.cl/krn_reportes/dnnc.pdf?oid=#{@objeto.id}"), 
+                      alt: "Código QR del Reporte", 
+                      style: "width: 100px; height: 100px;" %>
+        
+        <p style="font-size: 10px;">Reporte emitido el <%=dma_hm(Time.zone.now)%></br>Escanea este código para ver el reporte actualizado en línea</p>
+      </div>
+    <% end %>
+
   </body>
 </html>

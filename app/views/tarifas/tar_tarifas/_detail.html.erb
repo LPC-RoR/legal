@@ -1,6 +1,6 @@
 <% unless @objeto.ownr_id.blank? %>
 	<% if @objeto.ownr_type == 'Cliente' and action_name == 'edit' %>
-		<p>Tarifa del cliente : <%= @objeto.owner.razon_social %></p>
+		<p>Tarifa del cliente : <%= @objeto.ownr.razon_social %></p>
 	<% end %>
 <% end %>
 

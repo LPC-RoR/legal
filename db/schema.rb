@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_23_185112) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_05_150027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -129,12 +129,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_23_185112) do
     t.string "nombre"
     t.string "telefono"
     t.string "email"
-    t.string "owner_class"
-    t.integer "owner_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["owner_class"], name: "index_app_contactos_on_owner_class"
-    t.index ["owner_id"], name: "index_app_contactos_on_owner_id"
+    t.string "grupo"
+    t.index ["grupo"], name: "index_app_contactos_on_grupo"
+    t.index ["ownr_id"], name: "index_app_contactos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_app_contactos_on_ownr_type"
   end
 
   create_table "app_dir_dires", force: :cascade do |t|
@@ -1299,6 +1301,36 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_23_185112) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["orden"], name: "index_pautas_on_orden"
+  end
+
+  create_table "pdf_archivos", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.string "codigo"
+    t.string "nombre"
+    t.string "modelos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "tipo"
+    t.index ["codigo"], name: "index_pdf_archivos_on_codigo"
+    t.index ["ownr_id"], name: "index_pdf_archivos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_pdf_archivos_on_ownr_type"
+    t.index ["tipo"], name: "index_pdf_archivos_on_tipo"
+  end
+
+  create_table "pdf_registros", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.integer "pdf_archivo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ref_type"
+    t.integer "ref_id"
+    t.index ["ownr_id"], name: "index_pdf_registros_on_ownr_id"
+    t.index ["ownr_type"], name: "index_pdf_registros_on_ownr_type"
+    t.index ["pdf_archivo_id"], name: "index_pdf_registros_on_pdf_archivo_id"
+    t.index ["ref_id"], name: "index_pdf_registros_on_ref_id"
+    t.index ["ref_type"], name: "index_pdf_registros_on_ref_type"
   end
 
   create_table "preguntas", force: :cascade do |t|

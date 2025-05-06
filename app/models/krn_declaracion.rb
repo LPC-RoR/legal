@@ -3,6 +3,8 @@ class KrnDeclaracion < ApplicationRecord
 	belongs_to :krn_investigador
  	belongs_to :ownr, polymorphic: true
 
+	has_many :pdf_registros, as: :ref
+
  	scope :fecha_ordr, -> {order(fecha: :desc)}
 
  	def self.rlzds?

@@ -1,10 +1,17 @@
 <div style="margin-left: 7%;">
 
+	<% if objeto.pdf_registros.any? %>
+		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'pdf_registros', brdr_wdth: 2, ownr: objeto, fs: 6} %>
+		<% objeto.pdf_registros.order(:created_at).each do |mail| %>
+			<%= render partial: '0p/tbl/ln', locals: {objt: mail, crud: 'lnks'} %>
+		<% end %>
+	<% end %>
+
 	<% if @objeto.investigadores? %>
 		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_declaraciones', brdr_wdth: 2, ownr: objeto, fs: 6} %>
 		<div class="py-2">
 			<% objeto.krn_declaraciones.fecha_ordr.each do |dclrcn| %>
-				<%= render partial: '0p/tbl/ln', locals: {objt: dclrcn, ownr: objeto} %>
+				<%= render partial: '0p/tbl/ln', locals: {objt: dclrcn, ownr: objeto, crud: 'lnks'} %>
 			<% end %>
 		</div>
 	<% end %>

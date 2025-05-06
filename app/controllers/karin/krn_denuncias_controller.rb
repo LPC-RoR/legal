@@ -3,9 +3,6 @@ class Karin::KrnDenunciasController < ApplicationController
   before_action :scrty_on
   before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler set_fld clear_fld prg ]
 
-  # Si estás usando Devise:
-  skip_before_action :authenticate_usuario!, only: [:reporte] 
-
   include ProcControl
   include Karin
 
@@ -36,7 +33,8 @@ class Karin::KrnDenunciasController < ApplicationController
     when 1
       load_p_fls
     when 2
-      set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
+#      set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
+      set_tabla('pdf_archivos', @objeto.prcdmnt.pdf_archivos.order(:created_at), false)
     end
 
   end
@@ -146,7 +144,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia
-      @tbs = ['Proceso', 'Participantes', 'Agenda']
+      @tbs = ['Proceso', 'Participantes', 'Reportes']
       prms = params[:id].split('_')
       @indx = prms[1].blank? ? 0 : prms[1].to_i
       @objeto = KrnDenuncia.find(prms[0])

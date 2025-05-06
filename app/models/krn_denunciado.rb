@@ -7,6 +7,7 @@ class KrnDenunciado < ApplicationRecord
 
 	has_many :rep_archivos, as: :ownr
 	has_many :notas, as: :ownr
+	has_many :pdf_registros, as: :ownr
 
 	has_many :krn_declaraciones, as: :ownr
 	has_many :krn_testigos, as: :ownr

@@ -70,10 +70,18 @@ Rails.application.routes.draw do
   end
 
 # SCOPES *********************************************************
-
+  scope module: 'pdf' do
+    resources :pdf_registros
+    resources :pdf_archivos
+  end
   scope module: 'rprts' do
     resources :krn_reportes do
       match :dnnc, via: :get, on: :collection
+      match :infrmcn, via: :get, on: :collection
+      match :invstgcn, via: :get, on: :collection
+      match :dclrcn, via: :get, on: :collection
+      match :drvcn, via: :get, on: :collection
+      match :generate_and_send_report, via: :get, on: :collection
     end
   end
 

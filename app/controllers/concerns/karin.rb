@@ -3,11 +3,23 @@ module Karin
 
   def load_objt(objt)
     @objt = {} if @objt.blank?
-    @objt['denunciantes?'] = objt.krn_denunciantes.any?
-    @objt['denunciados?'] = objt.krn_denunciados.any?
-    @objt['declaraciones?'] = objt.krn_declaraciones.any?
-    @objt['derivaciones?'] = objt.krn_derivaciones.any?
-    @objt['investigadores?'] = objt.krn_investigadores.any?
+    @objt['denunciantes']     = objt.krn_denunciantes
+    @objt['denunciantes?']    = @objt['denunciantes'].any?
+    @objt['denunciados']      = objt.krn_denunciados
+    @objt['denunciados?']     = @objt['denunciados'].any?
+    @objt['declaraciones']    = objt.krn_declaraciones
+    @objt['declaraciones?']   = @objt['declaraciones'].any?
+    @objt['derivaciones']     = objt.krn_derivaciones
+    @objt['derivaciones?']    = @objt['derivaciones'].any?
+    @objt['investigadores']   = objt.krn_investigadores
+    @objt['investigadores?']  = @objt['investigadores'].any?
+
+    @objt['rrhh']             = objt.ownr.app_contactos.where(grupo: 'RRHH')
+    @objt['rrhh?']            = @objt['rrhh'].any?
+    @objt['recepcion']        = objt.ownr.app_contactos.where(grupo: 'Recepción')
+    @objt['recepcion?']       = @objt['recepcion'].any?
+    @objt['rprsntnt_lgl']     = objt.ownr.app_contactos.where(grupo: 'Representante social')
+    @objt['rprsntnt_lgl?']    = @objt['rprsntnt_lgl'].any?
 
     mthds = [
       'on_dt?', 'on_empresa?', 'rgstrs_ok?', 'motivo_vlnc?'

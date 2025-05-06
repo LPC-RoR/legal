@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 	include Inicia
 	include IniciaAplicacion
 
+	include Crstn
 	include Capitan
 	include Tablas
 	include Cmenu
@@ -43,6 +44,7 @@ class ApplicationController < ActionController::Base
 	helper_method :cmenu_clss, :std, :typ, :display_name, :scp_menu, :scp_item
 	helper_method :plz_lv, :plz_c, :plz_ok?, :etp_plz
 	helper_method :krn_fl_cntrl, :krn_cntrllrs?, :drvcn_text, :fl_cndtn?
+	helper_method :to_name, :corrige
 
   private
 

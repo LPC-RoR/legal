@@ -7,8 +7,6 @@ class Cliente < ApplicationRecord
 
 	has_many :app_nominas, as: :ownr
 
-	has_many :app_archivos, as: :ownr
-
 	has_many :causas
 	has_many :asesorias
 	has_many :cargos
@@ -28,6 +26,8 @@ class Cliente < ApplicationRecord
 
 	has_many :age_actividades, as: :ownr
 
+	has_many :app_contactos, as: :ownr
+	has_many :app_archivos, as: :ownr
 	has_many :notas, as: :ownr
 
 	validates :rut, valida_rut: true

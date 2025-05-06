@@ -1,4 +1,6 @@
 class Recursos::AppContactosController < ApplicationController
+  before_action :authenticate_usuario!
+  before_action :scrty_on
   before_action :set_app_contacto, only: %i[ show edit update destroy ]
 
   # GET /app_contactos or /app_contactos.json
@@ -11,7 +13,7 @@ class Recursos::AppContactosController < ApplicationController
 
   # GET /app_contactos/new
   def new
-    @objeto = AppContacto.new(owner_class: params[:class_name], owner_id: params[:objeto_id])
+    @objeto = AppContacto.new(ownr_type: params[:oclss], ownr_id: params[:oid])
   end
 
   # GET /app_contactos/1/edit
@@ -25,7 +27,7 @@ class Recursos::AppContactosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "App contacto was successfully created." }
+        format.html { redirect_to @rdrccn, notice: "Contacto fue exitósamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +41,7 @@ class Recursos::AppContactosController < ApplicationController
     respond_to do |format|
       if @objeto.update(app_contacto_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "App contacto was successfully updated." }
+        format.html { redirect_to @rdrccn, notice: "Contacto fue exitósamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +55,7 @@ class Recursos::AppContactosController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "App contacto was successfully destroyed." }
+      format.html { redirect_to @rdrccn, notice: "Contacto fue exitósamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -65,11 +67,15 @@ class Recursos::AppContactosController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = @objeto.owner_class.constantize.find(@objeto.owner_id)
+      if ['Empresa', 'Cliente'].include?(@objeto.ownr_type)
+        @rdrccn = "/cuentas/#{@objeto.ownr.class.name.tableize[0]}_#{@objeto.ownr.id}/nmn"
+      else
+        @rdrccn = @objeto.ownr
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def app_contacto_params
-      params.require(:app_contacto).permit(:nombre, :telefono, :email, :owner_class, :owner_id)
+      params.require(:app_contacto).permit(:ownr_type, :ownr_id, :nombre, :telefono, :email, :grupo)
     end
 end

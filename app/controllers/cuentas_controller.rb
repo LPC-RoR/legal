@@ -17,6 +17,7 @@ class CuentasController < ApplicationController
 
   def nmn
       set_tabla('app_nominas', @objeto.app_nominas, true)
+      set_tabla('app_contactos', @objeto.app_contactos.order(:nombre), true)
   end
 
   def ccta

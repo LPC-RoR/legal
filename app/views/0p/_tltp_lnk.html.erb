@@ -1,7 +1,8 @@
 <!-- Se usa mthd prque method es palabla reservada -->
-<% data ||= nil %>
-<% mthd ||= nil %>
+<% data   ||= nil %>
+<% mthd   ||= nil %>
 <% target ||= nil %>
+<% tltp   ||= nil %>
 <%= link_to lnk, method: mthd, data: data, target: target, title: tltp, data_toggle: 'tooltip', data_placement: 'right' do %>
     <% yield %>
 <% end %>

@@ -1,0 +1,4 @@
+<%= dma_hm(objeto.created_at) %> <%= objeto.pdf_archivo.nombre %>
+<% if ['AppContacto'].include?(objeto.class.name) %>
+	<%= to_name(objeto.ref) %> <%= objeto.ref.id %>
+<% end %>

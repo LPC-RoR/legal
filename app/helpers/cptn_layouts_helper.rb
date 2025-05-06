@@ -20,7 +20,7 @@ module CptnLayoutsHelper
 	end
 
 	def krn_non_krn_routes?
-		['app_nominas', 'rep_archivos', 'notas'].include?(controller_name) and ['edit', 'new'].include?(action_name)
+		['app_nominas', 'rep_archivos', 'notas', 'pdf_archivos'].include?(controller_name) and ['edit', 'new'].include?(action_name)
 	end
 
 	def cuentas_routes?

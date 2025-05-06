@@ -8,6 +8,8 @@ class Empresa < ApplicationRecord
 	has_many :krn_denuncias, as: :ownr
 	has_many :krn_empresa_externas, as: :ownr
 
+    has_many :app_contactos, as: :ownr
+
 	scope :rut_ordr, -> {order(:rut)}
 
 	validates :rut, valida_rut: true

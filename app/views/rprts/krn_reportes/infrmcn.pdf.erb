@@ -1,0 +1,22 @@
+<!--div style="margin-left: 1cm; margin-right: 1cm;"-->
+	<h2>Solicitud de información y documentación</h2>
+
+	<p>Solicitamos verificar y completar la información de los trabajadores presentados a continuación.</p>
+
+	<table class="pdf-minimal">
+	<thead>
+	</thead>
+	<tbody>
+		<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnts', locals: {objeto: @objeto} %>
+	</tbody>
+	</table>
+
+	<p>Por favor adjuntarnos la siguiente documentación.</p>
+	<ol>
+		<li>Contrato y anexos de contrato de todas las personas denunciadas y denunciantes.</li>
+		<li>Resultados de la última evaluación de presencia de factores de riesgo psicosocial de la empresa/área.</li>
+		<li>Protocolo de prevención del acoso laboral, sexual y violencia en el trabajo ejercido por terceros.</li>
+		<li>Estadística de las licencias médicas presentadas en la empresa/área relacionadas con acoso laboral, sexual o violencia en el trabajo ejercido por terceros.</li>
+	</ol>
+
+<!--/div-->

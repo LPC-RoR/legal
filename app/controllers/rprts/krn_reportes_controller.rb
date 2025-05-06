@@ -5,6 +5,19 @@ class Rprts::KrnReportesController < ApplicationController
   include Karin
   include ProcControl
 
+  def load_data(oid, rprt)
+    case rprt
+    when 'dclrcn'
+      @objeto = KrnDeclaracion.find(oid)
+      dnnc = @objeto.ownr.dnnc
+    else
+      @objeto = KrnDenuncia.find(oid)
+      dnnc = @objeto
+    end
+    load_objt(dnnc)
+    load_proc(dnnc)
+  end
+
   def dnnc
     @objeto = KrnDenuncia.find(params[:oid])
 
@@ -16,21 +29,166 @@ class Rprts::KrnReportesController < ApplicationController
     set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
     set_tabla('krn_inv_denuncias', @objeto.krn_inv_denuncias.order(:created_at), false)
 
-    respond_to do |format|
-      format.pdf do
-        render pdf: "documento",
-          margin: { top: '.5cm', bottom: '1cm', left: '1cm', right: '1cm' },
-          page_size: 'A4',
-          disable_smart_shrinking: true, # Importante para respetar dimensiones
-          encoding: 'UTF-8',
-             template: 'rprts/krn_reportes/dnnc',
-             layout: 'pdf',
-             show_as_html: params[:debug].present?,
-             footer: { center: "Página [page] de [topage]" }
+    respond_to_pdf('dnnc')
+  end
+
+  def infrmcn
+    @objeto = KrnDenuncia.find(params[:oid])
+
+    load_objt(@objeto)
+
+    set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
+    set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
+
+    respond_to_pdf('infrmcn')
+  end
+
+  def invstgcn
+    @objeto = KrnDenuncia.find(params[:oid])
+    @prtcpnt = {
+      nombre: 'NOMBRE COMPLETO DEL PARTICIPANTE',
+      rol: 'ROL DEL PARTICIPANTE'
+    }
+
+    respond_to_pdf('invstgcn')
+  end
+
+  def dclrcn
+    @objeto = KrnDeclaracion.find(params[:oid])
+
+    respond_to_pdf('dclrcn')
+  end
+
+  def drvcn
+    @objeto = KrnDerivacion.find(params[:oid])
+    @prtcpnt = {
+      nombre: 'NOMBRE COMPLETO DEL PARTICIPANTE',
+      rol: 'ROL DEL PARTICIPANTE'
+    }
+    @invstgdr = {
+      nombre: 'NOMBRE DEL INVESTIGADOR ASIGNADO',
+      email: 'EMAIL DEL INVESTIGADOR ASIGNADO'
+    }
+
+    respond_to_pdf('drvcn')
+  end
+
+  def sbjcts
+    {
+      infrmcn: 'Verificación de datos y solicitud de documentación.',
+      invstgcn: 'Notificación de recepción de denuncia.'
+    }
+  end
+
+  def generate_and_send_report
+    @pdf_archivo = PdfArchivo.find_by(codigo: params[:rprt])
+    # Manejo de tablas
+    load_data(params[:oid], params[:rprt])
+
+    dstntrs = get_dstntrs(params[:oid], params[:rprt])
+
+    dstntrs.each do |dstntr|
+      # Generación de la DATA
+      pdf_data = get_pdf_data(dstntr, params[:oid], params[:rprt])
+
+      # Enviar por correo
+      PdfMailer.send_pdf(
+        dstntr[:email], 
+        pdf_data, 
+        "rep_#{params[:rprt]}.pdf",
+        params[:rprt],
+        sbjcts[params[:rprt].to_sym]
+      ).deliver_now
+
+      if dstntr[:ref].present?
+        ref_type = dstntr[:ref].class.name
+        ref_id   = dstntr[:ref].id
+      else
+        ref_type = nil
+        ref_id   = nil
       end
+
+      case params[:rprt]
+      when 'infrmcn'
+      else
+      end
+
+      dstntr[:objt].pdf_registros.create(pdf_archivo_id: @pdf_archivo.id, ref_type: ref_type, ref_id: ref_id)
     end
+    
+    get_rdrccn
+    ntc = dstntrs.length == 0 ? 'No se encontraron destinatarios pendientes.' : "El reporte ha sido enviado exitósamente a #{dstntrs.length} participante(s)."
+    redirect_to @rdrccn, notice: ntc
   end
 
   private
+
+    def get_rdrccn
+      dnnc_id = @objeto.class.name == 'KrnDeclaracion' ? "#{@objeto.ownr.dnnc.id}_1" : "#{@objeto.id}_2"
+      @rdrccn = "/krn_denuncias/#{dnnc_id}"
+    end
+
+    def respond_to_pdf(rprt)
+      respond_to do |format|
+        format.pdf do
+          render pdf: "documento",
+            margin: { top: '.5cm', bottom: '1cm', left: '1cm', right: '1cm' },
+            page_size: 'A4',
+            disable_smart_shrinking: true, # Importante para respetar dimensiones
+            encoding: 'UTF-8',
+            template: "rprts/krn_reportes/#{rprt}",
+            layout: 'pdf',
+            show_as_html: params[:debug].present?,
+            footer: { center: "Página [page] de [topage]" }
+        end
+      end
+    end
+
+    def get_pdf_data(dstntr, oid, rprt)
+      # Generar el PDF
+      WickedPdf.new.pdf_from_string(
+        render_to_string(
+          template: "rprts/krn_reportes/#{rprt}",
+          layout: 'pdf',
+          formats: [:pdf],  # ← Esto es clave para que busque .pdf.erb
+          locals: {dstntr: dstntr, objt: rprt == 'dclrcn' ? KrnDeclaracion.find(oid) : KrnDenuncia.find(oid)}
+        )
+      )
+    end
+
+    def get_dstntrs(oid, rprt)
+#      @objeto = KrnDenuncia.find(oid)
+      @pdf_archivo = PdfArchivo.find_by(codigo: rprt)
+      dstntrs = []
+      if rprt == 'dclrcn'
+        dclrcn = KrnDeclaracion.find(oid)
+        rgstr = dclrcn.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+        dstntrs << {objt: dclrcn.ownr, ref: dclrcn, invstgdr: dclrcn.ownr.dnnc.krn_investigadores.last, nombre: dclrcn.ownr.nombre, rol: to_name(dclrcn.ownr), email: dclrcn.ownr.email} if rgstr.blank?
+      elsif ['drvcn', 'invstgcn'].include?(rprt)
+        @objt['denunciantes'].each do |dnncnt|
+          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+          dstntrs << {objt: dnncnt, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
+          dnncnt.krn_testigos.each do |tstg|
+            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+            dstntrs << {objt: tstg, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
+          end
+        end
+        @objt['denunciados'].each do |dnncd|
+          rgstr = dnncd.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+          dstntrs << {objt: dnncd, nombre: dnncd.nombre, rol: 'Denunciante', email: dnncd.email} if rgstr.blank?
+          dnncd.krn_testigos.each do |tstg|
+            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+            dstntrs << {objt: tstg, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
+          end
+        end
+      elsif ['infrmcn'].include?('infrmcn')
+        @objt['rrhh'].each do |rol|
+          rgstr = rol.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+          dstntrs << {objt: rol, nombre: rol.nombre, rol: 'RRHH', email: rol.email} if rgstr.blank?
+        end
+      end
+
+      dstntrs
+    end
 
 end
