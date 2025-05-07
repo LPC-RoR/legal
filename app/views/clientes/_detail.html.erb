@@ -7,6 +7,8 @@
 	</div>
 </div>
 
+<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :backup_emails, label: 'Emails de respaldo' } %>
+
 <%= render partial: '0p/lbld_inpts/radio', locals: { form: form, token: :tipo_cliente, radio_list: ['Empresa', 'Sindicato', 'Trabajador'], label: 'Tipo' } %>
 
 <%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :estado } %>

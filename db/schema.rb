@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_05_150027) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_07_155620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -415,6 +415,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_150027) do
     t.boolean "urgente"
     t.boolean "preferente"
     t.boolean "principal_usuaria"
+    t.string "backup_emails"
     t.index ["estado"], name: "index_clientes_on_estado"
     t.index ["tipo_cliente"], name: "index_clientes_on_tipo_cliente"
   end
@@ -573,6 +574,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_150027) do
     t.boolean "email_verified"
     t.string "verification_token"
     t.boolean "principal_usuaria"
+    t.string "backup_emails"
     t.index ["rut"], name: "index_empresas_on_rut"
     t.index ["sha1"], name: "index_empresas_on_sha1"
   end
@@ -1312,7 +1314,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_150027) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tipo"
+    t.integer "orden"
     t.index ["codigo"], name: "index_pdf_archivos_on_codigo"
+    t.index ["orden"], name: "index_pdf_archivos_on_orden"
     t.index ["ownr_id"], name: "index_pdf_archivos_on_ownr_id"
     t.index ["ownr_type"], name: "index_pdf_archivos_on_ownr_type"
     t.index ["tipo"], name: "index_pdf_archivos_on_tipo"

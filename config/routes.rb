@@ -77,6 +77,7 @@ Rails.application.routes.draw do
   scope module: 'rprts' do
     resources :krn_reportes do
       match :dnnc, via: :get, on: :collection
+      match :drchs, via: :get, on: :collection
       match :infrmcn, via: :get, on: :collection
       match :invstgcn, via: :get, on: :collection
       match :dclrcn, via: :get, on: :collection

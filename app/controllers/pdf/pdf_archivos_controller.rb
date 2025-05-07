@@ -74,6 +74,6 @@ class Pdf::PdfArchivosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pdf_archivo_params
-      params.expect(pdf_archivo: [ :ownr_type, :ownr_id, :tipo, :codigo, :nombre, :modelos ])
+      params.expect(pdf_archivo: [ :ownr_type, :ownr_id, :orden, :tipo, :codigo, :nombre, :modelos ])
     end
 end

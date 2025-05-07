@@ -1,6 +1,6 @@
 <% unless scp_activo? %>
-	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: 'Historial de denuncias'} do %>
-		<i class="bi bi-inboxes"></i> <span style="font-size: 14px; line-height: 1.5;">Historial de denuncias</span>
+	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: 'Home'} do %>
+		<i class="bi bi-house-door"></i>
 	<% end %>
 
 	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text', gly_clss: 'fs-4'} %>

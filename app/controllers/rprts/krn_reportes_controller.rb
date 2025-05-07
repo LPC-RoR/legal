@@ -7,6 +7,12 @@ class Rprts::KrnReportesController < ApplicationController
 
   def load_data(oid, rprt)
     case rprt
+    when 'invstgdr'
+      @objeto = KrnInvDenuncia.find(oid)
+      dnnc = @objeto.krn_denuncia
+    when 'drvcn'
+      @objeto = KrnDerivacion.find(oid)
+      dnnc = @objeto.krn_denuncia
     when 'dclrcn'
       @objeto = KrnDeclaracion.find(oid)
       dnnc = @objeto.ownr.dnnc
@@ -30,6 +36,10 @@ class Rprts::KrnReportesController < ApplicationController
     set_tabla('krn_inv_denuncias', @objeto.krn_inv_denuncias.order(:created_at), false)
 
     respond_to_pdf('dnnc')
+  end
+
+  def drchs
+    respond_to_pdf('drchs')
   end
 
   def infrmcn
@@ -108,11 +118,6 @@ class Rprts::KrnReportesController < ApplicationController
         ref_id   = nil
       end
 
-      case params[:rprt]
-      when 'infrmcn'
-      else
-      end
-
       dstntr[:objt].pdf_registros.create(pdf_archivo_id: @pdf_archivo.id, ref_type: ref_type, ref_id: ref_id)
     end
     
@@ -144,6 +149,30 @@ class Rprts::KrnReportesController < ApplicationController
       end
     end
 
+    def get_objt(oid, rprt)
+      case rprt
+      when 'drvcn'
+        KrnDerivacion.find(oid)
+      when 'invstgcn'
+        nil
+      when 'invstgdr'
+        KrnInvDenuncia.find(oid)
+      end
+    end
+
+    def get_invstgdr(oid, rprt)
+      case rprt
+      when 'drvcn'
+        invstgdr = KrnDerivacion.find(oid).krn_denuncia.krn_investigadores.last
+      when 'invstgcn'
+        invstgdr = KrnDenuncia.find(oid).krn_investigadores.last
+      when 'invstgdr'
+        invstgdr = KrnInvDenuncia.find(oid).krn_denuncia.krn_investigadores.last
+      end
+
+      {nombre: invstgdr.krn_investigador, email: invstgdr.email}
+    end
+
     def get_pdf_data(dstntr, oid, rprt)
       # Generar el PDF
       WickedPdf.new.pdf_from_string(
@@ -151,7 +180,7 @@ class Rprts::KrnReportesController < ApplicationController
           template: "rprts/krn_reportes/#{rprt}",
           layout: 'pdf',
           formats: [:pdf],  # ← Esto es clave para que busque .pdf.erb
-          locals: {dstntr: dstntr, objt: rprt == 'dclrcn' ? KrnDeclaracion.find(oid) : KrnDenuncia.find(oid)}
+          locals: {dstntr: dstntr, objt: get_objt(oid, rprt)}
         )
       )
     end
@@ -164,21 +193,23 @@ class Rprts::KrnReportesController < ApplicationController
         dclrcn = KrnDeclaracion.find(oid)
         rgstr = dclrcn.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
         dstntrs << {objt: dclrcn.ownr, ref: dclrcn, invstgdr: dclrcn.ownr.dnnc.krn_investigadores.last, nombre: dclrcn.ownr.nombre, rol: to_name(dclrcn.ownr), email: dclrcn.ownr.email} if rgstr.blank?
-      elsif ['drvcn', 'invstgcn'].include?(rprt)
+      elsif ['drvcn', 'invstgdr', 'invstgcn'].include?(rprt)
+        ref = get_objt(oid, rprt)
+        invstgdr = get_invstgdr(oid, rprt)
         @objt['denunciantes'].each do |dnncnt|
           rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
-          dstntrs << {objt: dnncnt, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
+          dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
           dnncnt.krn_testigos.each do |tstg|
             t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
-            dstntrs << {objt: tstg, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
+            dstntrs << {objt: tstg, ref: ref, invstgdr: invstgdr, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
           end
         end
         @objt['denunciados'].each do |dnncd|
           rgstr = dnncd.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
-          dstntrs << {objt: dnncd, nombre: dnncd.nombre, rol: 'Denunciante', email: dnncd.email} if rgstr.blank?
+          dstntrs << {objt: dnncd, ref: ref, invstgdr: invstgdr, nombre: dnncd.nombre, rol: 'Denunciante', email: dnncd.email} if rgstr.blank?
           dnncd.krn_testigos.each do |tstg|
             t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
-            dstntrs << {objt: tstg, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
+            dstntrs << {objt: tstg, ref: ref, invstgdr: invstgdr, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
           end
         end
       elsif ['infrmcn'].include?('infrmcn')

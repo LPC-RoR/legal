@@ -105,6 +105,6 @@ class EmpresasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def empresa_params
-      params.require(:empresa).permit(:rut, :razon_social, :email_administrador, :email_verificado, :sha1, :principal_usuaria)
+      params.require(:empresa).permit(:rut, :razon_social, :email_administrador, :email_verificado, :sha1, :principal_usuaria, :backup_emails)
     end
 end

@@ -3,6 +3,8 @@ class KrnDerivacion < ApplicationRecord
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true
 
+	has_many :pdf_registros, as: :ref
+
 	scope :ordr, -> { order(:created_at) }
 
 	scope :dts, -> { where(destino: KrnDenuncia::DT) }
