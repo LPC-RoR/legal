@@ -65,7 +65,7 @@ class Pdf::PdfRegistrosController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(@objeto.ownr.class.name) ? "/krn_denuncias/#{@objeto.ownr.dnnc.id}_1" : @objeto.ownr
+      @rdrccn = @objeto.rdrccn
     end
 
     # Only allow a list of trusted parameters through.
