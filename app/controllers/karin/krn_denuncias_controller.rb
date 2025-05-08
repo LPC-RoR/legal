@@ -125,12 +125,27 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto.fecha_prnncmnt = nil
     @objeto.prnncmnt_vncd = nil
 
-    @objeto.krn_denunciantes.delete_all
-    @objeto.krn_denunciados.delete_all
+    @objeto.krn_denunciantes.each do |dnncnt|
+      dnncnt.pdf_registros.delete_all
+      dnncnt.krn_testigos.each do |tstg|
+        tstg.pdf_registros.delete_all
+        tstg.delete
+      end
+      dnncnt.delete
+    end
+    @objeto.krn_denunciados.each do |dnncd|
+      dnncd.pdf_registros.delete_all
+      dnncd.krn_testigos.each do |tstg|
+        tstg.pdf_registros.delete_all
+        tstg.delete
+      end
+      dnncd.delete
+    end
     @objeto.krn_inv_denuncias.delete_all
     @objeto.krn_derivaciones.delete_all
     @objeto.krn_declaraciones.delete_all
     @objeto.notas.delete_all
+    @objeto.pdf_registros.delete_all
     @objeto.rep_archivos.each do |arch|
       arch.delete
     end
