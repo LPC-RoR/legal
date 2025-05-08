@@ -151,6 +151,8 @@ class Rprts::KrnReportesController < ApplicationController
 
     def get_objt(oid, rprt)
       case rprt
+      when 'infrmcn'
+        KrnDenuncia.find(oid)
       when 'drvcn'
         KrnDerivacion.find(oid)
       when 'invstgcn'
@@ -213,9 +215,10 @@ class Rprts::KrnReportesController < ApplicationController
           end
         end
       elsif ['infrmcn'].include?('infrmcn')
+        ref = get_objt(oid, rprt)
         @objt['rrhh'].each do |rol|
           rgstr = rol.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
-          dstntrs << {objt: rol, nombre: rol.nombre, rol: 'RRHH', email: rol.email} if rgstr.blank?
+          dstntrs << {objt: rol, ref: ref, nombre: rol.nombre, rol: 'RRHH', email: rol.email} if rgstr.blank?
         end
       end
 
