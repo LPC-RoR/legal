@@ -217,8 +217,8 @@ class Rprts::KrnReportesController < ApplicationController
       elsif ['infrmcn'].include?('infrmcn')
         ref = get_objt(oid, rprt)
         @objt['rrhh'].each do |rol|
-          rgstr = rol.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
-          dstntrs << {objt: rol, ref: ref, nombre: rol.nombre, rol: 'RRHH', email: rol.email} if rgstr.blank?
+          rgstrs = rol.pdf_registros.where(pdf_archivo_id: @pdf_archivo.id, ref_id: ref.id)
+          dstntrs << {objt: rol, ref: ref, nombre: rol.nombre, rol: 'RRHH', email: rol.email} if (rgstrs.empty? or rgstrs.count < 3)
         end
       end
 
