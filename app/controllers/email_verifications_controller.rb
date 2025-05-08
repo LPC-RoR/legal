@@ -27,7 +27,7 @@ class EmailVerificationsController < ApplicationController
       return
     end
 
-    if record.email_ok?
+    if record.email_ok == record.email
       redirect_to root_path, alert: 'Este correo ya fue verificado'
       return
     end
