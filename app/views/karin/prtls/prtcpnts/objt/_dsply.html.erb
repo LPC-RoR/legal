@@ -1,8 +1,9 @@
 <div style="margin-left: 7%;">
 
-	<% if objeto.email.present? and (not objeto.verified?) %>
+	<%# if objeto.email.present? and (not objeto.verified?) %>
+	<% if objeto.email.present? and (objeto.email != objeto.email_ok) %>
 		<div class="ms-5" style="font-size: 14px;">
-			<i class="bi bi-lightbulb"></i> No se ha enviado aún el correo electrónico para verificar el email del participante.
+			<i class="bi bi-lightbulb"></i> El correo electrónico del participante aún no se ha verificado.
 		</div>
 	<% end %>
 
