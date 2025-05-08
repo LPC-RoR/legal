@@ -1,7 +1,7 @@
 <% if objeto.verified? %>
 	<i class="bi bi-at"></i>
 <% else %>
-	<% unless objeto.email.blank? or objeto.email == objeto.email_ok %>
+	<% if objeto.email.present? and objeto.email != objeto.email_ok %>
 		<%= link_to send_verification_email_path(model_type: to_name(objeto).downcase, id: objeto.id),  
 		            data: { turbo_method: :post } do %>  
 		  <i class="bi bi-envelope-at"></i>  
