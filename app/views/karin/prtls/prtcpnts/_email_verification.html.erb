@@ -1,10 +1,8 @@
-<% if objeto.verified? %>
-	<i class="bi bi-at"></i>
-<% else %>
-	<% if objeto.email.present? and objeto.email != objeto.email_ok %>
-		<%= link_to send_verification_email_path(model_type: to_name(objeto).downcase, id: objeto.id),  
-		            data: { turbo_method: :post } do %>  
-		  <i class="bi bi-envelope-at"></i>  
-		<% end %>
+<% if objeto.email.present? and objeto.email != objeto.email_ok %>
+	<%= link_to send_verification_email_path(model_type: to_name(objeto).downcase, id: objeto.id),  
+	            data: { turbo_method: :post } do %>  
+	  <i class="bi bi-envelope-at"></i>  
 	<% end %>
+<% elsif objeto.verified? and objeto.email == objeto.email_ok %>
+	<i class="bi bi-at"></i>
 <% end %>
