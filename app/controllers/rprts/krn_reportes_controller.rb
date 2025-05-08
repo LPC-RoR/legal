@@ -172,7 +172,7 @@ class Rprts::KrnReportesController < ApplicationController
         invstgdr = KrnInvDenuncia.find(oid).krn_denuncia.krn_investigadores.last
       end
 
-      {nombre: invstgdr.krn_investigador, email: invstgdr.email}
+      {nombre: invstgdr.blank? ? nil : invstgdr.krn_investigador, email: invstgdr.blank? ? nil : invstgdr.email}
     end
 
     def get_pdf_data(dstntr, oid, rprt)
