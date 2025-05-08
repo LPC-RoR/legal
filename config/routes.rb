@@ -80,6 +80,7 @@ Rails.application.routes.draw do
       match :drchs, via: :get, on: :collection
       match :infrmcn, via: :get, on: :collection
       match :invstgcn, via: :get, on: :collection
+      match :invstgdr, via: :get, on: :collection
       match :dclrcn, via: :get, on: :collection
       match :drvcn, via: :get, on: :collection
       match :generate_and_send_report, via: :get, on: :collection

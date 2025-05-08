@@ -63,6 +63,16 @@ class Rprts::KrnReportesController < ApplicationController
     respond_to_pdf('invstgcn')
   end
 
+  def invstgdr
+    @objeto = KrnDenuncia.find(params[:oid])
+    @prtcpnt = {
+      nombre: 'NOMBRE COMPLETO DEL PARTICIPANTE',
+      rol: 'ROL DEL PARTICIPANTE'
+    }
+
+    respond_to_pdf('invstgdr')
+  end
+
   def dclrcn
     @objeto = KrnDeclaracion.find(params[:oid])
 
