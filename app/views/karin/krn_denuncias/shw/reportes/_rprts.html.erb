@@ -22,4 +22,10 @@
 		<% end %>
 
 	</div>
+
+	<div class="mt-2 app_lnk">
+		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'pdf_registros', blngs: @objeto, fs: 6, ttl: true} %>
+		<%= render partial: '0p/tbl/tbl', locals: {source: 'pdf_registros', typ: 'ln', crud: 'lnks', new_hnt: false} %>
+	</div>
 </div>
+
