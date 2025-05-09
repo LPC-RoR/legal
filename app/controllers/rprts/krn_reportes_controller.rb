@@ -96,6 +96,7 @@ class Rprts::KrnReportesController < ApplicationController
   def sbjcts
     {
       infrmcn:  'Verificación de datos y solicitud de documentación.',
+      drvcn:    'Notificación de derivación de la denuncia.',
       invstgcn: 'Notificación de recepción de denuncia.',
       invstgdr: 'Notificación de asignación de Investigador.',
       dclrcn:  'Citación a declarar.'
@@ -145,7 +146,9 @@ class Rprts::KrnReportesController < ApplicationController
       when 'KrnDeclaracion'
         dnnc_id = "#{@objeto.ownr.dnnc.id}_1"
       when 'KrnInvDenuncia'
-        dnnc_id = "#{@objeto.krn_denuncia_id}_1"
+        dnnc_id = "#{@objeto.krn_denuncia_id}_0"
+      when 'KrnDerivacion'
+        dnnc_id = "#{@objeto.krn_denuncia_id}_0"
       else
         dnnc_id = "#{@objeto.id}_2"
       end

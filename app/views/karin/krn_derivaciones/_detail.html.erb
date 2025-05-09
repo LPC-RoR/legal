@@ -1,6 +1,6 @@
 <%= @objeto.motivo %>
 
-<%= render partial: '0p/lbld_inpts/datetime', locals: { form: form, token: :fecha, label: 'Fecha y hora de la derivación' } %>
+<%= render partial: '0p/lbld_inpts/date', locals: { form: form, token: :fecha, label: 'Fecha y hora de la derivación' } %>
 
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :krn_denuncia_id } %>
 <%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :krn_empresa_externa_id } %>
