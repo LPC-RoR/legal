@@ -95,8 +95,10 @@ class Rprts::KrnReportesController < ApplicationController
 
   def sbjcts
     {
-      infrmcn: 'Verificación de datos y solicitud de documentación.',
-      invstgcn: 'Notificación de recepción de denuncia.'
+      infrmcn:  'Verificación de datos y solicitud de documentación.',
+      invstgcn: 'Notificación de recepción de denuncia.',
+      invstgdr: 'Notificación de asignación de Investigador.',
+      dclrcn:  'Citación a declarar.'
     }
   end
 
@@ -139,7 +141,14 @@ class Rprts::KrnReportesController < ApplicationController
   private
 
     def get_rdrccn
-      dnnc_id = @objeto.class.name == 'KrnDeclaracion' ? "#{@objeto.ownr.dnnc.id}_1" : "#{@objeto.id}_2"
+      case @objeto.class.name
+      when 'KrnDeclaracion'
+        dnnc_id = "#{@objeto.ownr.dnnc.id}_1"
+      when 'KrnInvDenuncia'
+        dnnc_id = "#{@objeto.krn_denuncia_id}_1"
+      else
+        dnnc_id = "#{@objeto.id}_2"
+      end
       @rdrccn = "/krn_denuncias/#{dnnc_id}"
     end
 
@@ -180,6 +189,8 @@ class Rprts::KrnReportesController < ApplicationController
         invstgdr = KrnDenuncia.find(oid).krn_investigadores.last
       when 'invstgdr'
         invstgdr = KrnInvDenuncia.find(oid).krn_denuncia.krn_investigadores.last
+      when 'dclrcn'
+        invstgdr = KrnDeclaracion.find(oid).ownr.krn_denuncia.krn_investigadores.last
       end
 
       {nombre: invstgdr.blank? ? nil : invstgdr.krn_investigador, email: invstgdr.blank? ? nil : invstgdr.email}
@@ -203,8 +214,9 @@ class Rprts::KrnReportesController < ApplicationController
       dstntrs = []
       if rprt == 'dclrcn'
         dclrcn = KrnDeclaracion.find(oid)
+        invstgdr = get_invstgdr(oid, rprt)
         rgstr = dclrcn.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
-        dstntrs << {objt: dclrcn.ownr, ref: dclrcn, invstgdr: dclrcn.ownr.dnnc.krn_investigadores.last, nombre: dclrcn.ownr.nombre, rol: to_name(dclrcn.ownr), email: dclrcn.ownr.email} if rgstr.blank?
+        dstntrs << {objt: dclrcn.ownr, ref: dclrcn, invstgdr: invstgdr, nombre: dclrcn.ownr.nombre, rol: to_name(dclrcn.ownr), email: dclrcn.ownr.email} if rgstr.blank?
       elsif ['drvcn', 'invstgdr', 'invstgcn'].include?(rprt)
         ref = get_objt(oid, rprt)
         invstgdr = get_invstgdr(oid, rprt)

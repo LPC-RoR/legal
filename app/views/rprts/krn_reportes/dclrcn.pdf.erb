@@ -12,8 +12,8 @@
 
 <p>Le informamos que hemos agendado para el próximo <%= dma_hm(fecha) %> su declaración en la investigación en la cual usted participa en calidad de <%=dstntr[:rol]%>.</p>
 
-<p>La declaración será tomada por el invstigador asignado a la denuncia el Sr(a) <%=invstgdr[:nombre]%>, quien estará encantado de resolver las dudas que pueda tener respecto.</p>
+<p>La declaración será tomada por el(la) invstigador(a) asignado(a), el Sr(a) <%=dstntr[:invstgdr][:nombre]%>, quien estará encantado de resolver las dudas que pueda tener respecto.</p>
 
-<p><%=invstgdr[:nombre]%></br>
+<p><%=dstntr[:invstgdr][:nombre]%></br>
 <small>Investigador asignado</br>
-<%=invstgdr[:email]%></small></p>
+<%=dstntr[:invstgdr][:email]%></small></p>
