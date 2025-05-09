@@ -6,6 +6,7 @@
 	<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo además, que nuestra empresa tiene la obligación de tomar Medidas de Resguardo para evitar que la investigación de esta denuncia tenga efectos negativos en las personas particpantes. Estas medidas serán definidas a la brevedad y le serán notificadas por escrito. La normativa vigente establece que es obligatorio para todos los participantes acatar estas medidas, así como tambien, colaborar con esta investigación.'} %>
 
 <% end %>
+
 <div class="border rounded-2">
 
 	<% if @objeto.rcp_dt? %>
@@ -19,4 +20,5 @@
 	<% if @objeto.krn_derivaciones.on_dt? %>
 		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_hora_dt'} %>
 	<% end %>
+
 </div>

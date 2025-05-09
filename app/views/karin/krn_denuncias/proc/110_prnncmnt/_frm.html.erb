@@ -2,7 +2,9 @@
 
 <%= render layout: 'cuentas/prtls/proceso/actn' do %>
 	<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Si la Dirección del Trabajo envió el pronunciamiento respecto del informe de investigación, ingrese la fecha en la que se recibió el pronunciamiento.'} %>
-	<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_prnncmnt', plz_fld: true} %>
+	<div class="border rounded-2">
+		<%= render partial: '0p/proc/frm', locals: {tar: @tar_last, objeto: @objeto, code: 'fecha_prnncmnt', plz_fld: true} %>
+	</div>
 <% end %>
 
 <%= render layout: 'cuentas/prtls/proceso/actn' do %>
