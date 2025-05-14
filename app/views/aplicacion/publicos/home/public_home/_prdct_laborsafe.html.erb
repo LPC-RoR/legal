@@ -20,11 +20,12 @@
 		</div>
 
 		<div class="text-center" style="margin-top: 6rem;margin-left: 10%;margin-right: 10%;font-size: 24px; line-height: 1.5;">
+			<%= image_tag 'ls_logo_100.png', width: "100" %>
 			<div>
 				Las personas denunciantes y denunciadas podrán acceder en cualquier momento a un reporte detallado del estado actual de la investigación.
 			</div>
 			<div style="margin-left: 6rem;margin-right:6rem;font-size: 14px;line-height: 1.5;font-weight: bold;">
-				El reporte contiene el detalle de todas las acciones realizadas. No muestra el contenido de la denuncia ni las declaraciones de los participantes. El siguiente código QR lo conducirá a un reporte tipo de una denuncia simple.
+				El reporte muestra todas las acciones realizadas, un resúmen de los plazos ya vencidos y el detalle de la documentación exigida. No muestra el contenido de la denuncia ni las declaraciones de los participantes. El siguiente código QR lo conducirá a un reporte tipo de una denuncia simple.
 			</div>
 			<%= image_tag 'qr_dnnc.png', width: "500" %>
 		</div>
@@ -32,10 +33,12 @@
 		<div class="row gx-1 text-center" style="margin-top: 6rem;font-size: 24px; line-height: 1.5;">
 			<div class="col">
 				<div class="text-center">
+					<%= image_tag 'enviar_correo.png', width: "100" %>
 					<%= image_tag 'ntfccns.png', width: "500" %>
 				</div>
 			</div>
 			<div class="col">
+				<%= image_tag 'ls_logo_100.png', width: "100" %>
 				<div class="px-5">
 					Gestione la comunicación formal de la investigación con los participantes a través de correos electrónicos generados por la plataforma.
 				</div>
@@ -43,11 +46,12 @@
 		</div>
 
 		<div class="text-center" style="margin-top: 6rem;margin-left: 10rem;margin-right: 10rem;font-size: 24px; line-height: 1.5;">
+			<%= image_tag 'ls_logo_100.png', width: "100" %>
 			<div>
 				Cubrimos todas las obligaciones adicionales exigidas para <b>empresas principales o usuarias.</b>
 			</div>
 			<div style="margin-left: 6rem;margin-right: 6rem;font-size: 16px;line-height: 1.5;">
-				Contamos con un modelo de implementación que considera la capacitación del equipo de rrhh/recepción/investigación y la completa coordinación con las empresas colaboradoras. La versión ampliada de nuestra plataforma le permitirá recibir denuncias de personas trabajadoras de empresas colaboradoras y registrar y controlar investigaciones de denuncias cuyos particpantes pertenezcan a más de una empresa, entre otras funcionalidades.
+				Contamos con un modelo de implementación que considera la capacitación del equipo de rrhh/recepción/investigación y la completa coordinación con las empresas colaboradoras, necesaria para garantizar el cumplimiento de toda la normativa. La versión ampliada de nuestra plataforma le permitirá recibir denuncias de personas trabajadoras de empresas colaboradoras y registrar y controlar investigaciones de denuncias cuyos particpantes pertenezcan a más de una empresa, entre otras funcionalidades.
 			</div>
 		</div>
 
@@ -56,6 +60,6 @@
 
 
 
-	<%= render partial: prtl_name('publicos', 'home/public_home', 'tres_prdcts') %>
+	<%#= render partial: prtl_name('publicos', 'home/public_home', 'tres_prdcts') %>
 
 </div>
