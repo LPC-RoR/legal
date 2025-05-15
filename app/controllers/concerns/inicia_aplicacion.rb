@@ -11,7 +11,7 @@ module IniciaAplicacion
 
 		scp = get_scp_activo
 		if scp.present?
-			redirect_to "/cuentas/#{scp.id}/#{scp.class.name.downcase[0]}cta"
+			redirect_to "/cuentas/#{scp.class.name.downcase[0]}_#{scp.id}/dnncs"
 		end
 	end
 

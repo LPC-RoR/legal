@@ -10,16 +10,6 @@ Rails.application.routes.draw do
     match :invstgdrs, via: :get, on: :member
     match :extrns, via: :get, on: :member
     match :nmn, via: :get, on: :member
-    match :ccta, via: :get, on: :member
-    match :ecta, via: :get, on: :member
-    match :cnmn, via: :get, on: :member
-    match :enmn, via: :get, on: :member
-    match :cdnncs, via: :get, on: :member
-    match :ednncs, via: :get, on: :member
-    match :cinvstgdrs, via: :get, on: :member
-    match :einvstgdrs, via: :get, on: :member
-    match :cextrns, via: :get, on: :member
-    match :eextrns, via: :get, on: :member
     match :ctp_mdds, via: :get, on: :member
     match :etp_mdds, via: :get, on: :member
   end
