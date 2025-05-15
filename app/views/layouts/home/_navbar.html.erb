@@ -4,8 +4,12 @@
 	</div>
 	<div class="col-3 position-relative navbar_lnk" style="height: <%= krn_routes? ? 25 : 25%>px;">
 		<div class="pe-5 position-absolute bottom-0 text-end w-100 ">
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: 'Home'} do %>
+				<i class="bi bi-house"></i> Home
+			<% end %>
+
 			<% if usuario_signed_in? %>
-			  <%= render partial: 'usuarios/lnks/lnk_salir' %>
+			  <span class="ms-4"><%= render partial: 'usuarios/lnks/lnk_salir' %></span>
 			<% else %>
 			  <%= render partial: 'usuarios/lnks/lnk_ingrs' %>
 			  <span class="ms-2"><%= render partial: 'usuarios/lnks/lnk_rgstr' %></span>

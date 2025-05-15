@@ -1,6 +1,4 @@
-class Ayuda::HlpAyudasController < ApplicationController
-  before_action :authenticate_usuario!
-  before_action :scrty_on
+class Aplicacion::HlpAyudasController < ApplicationController
   before_action :set_hlp_ayuda, only: %i[ show edit update destroy ]
 
   # GET /hlp_ayudas or /hlp_ayudas.json
@@ -65,7 +63,7 @@ class Ayuda::HlpAyudasController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hlp_ayuda
-      @objeto = HlpAyuda.find(params.expect(:id))
+      @hlp = params.expect(:id)
     end
 
     def get_rdrccn

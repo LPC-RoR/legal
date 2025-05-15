@@ -79,7 +79,6 @@ Rails.application.routes.draw do
 
   scope module: 'ayuda' do
     resources :hlp_notas
-    resources :hlp_ayudas
   end
 
   scope module: 'producto' do
@@ -368,6 +367,7 @@ Rails.application.routes.draw do
       match :modelo, via: :get, on: :collection
       match :periodos_bancos, via: :get, on: :collection
     end
+    resources :hlp_ayudas
   end
 
   scope module: 'organizacion' do
