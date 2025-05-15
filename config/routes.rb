@@ -77,10 +77,6 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'ayuda' do
-    resources :hlp_notas
-  end
-
   scope module: 'producto' do
     resources :productos do
       match :agrega_producto, via: :get, on: :member

@@ -14,8 +14,6 @@ class Control::TareasController < ApplicationController
   # GET /tareas/1 or /tareas/1.json
   def show
     set_tabla('rep_doc_controlados', @objeto.rep_doc_controlados.ordr, true)
-    set_tabla('hlp_ayudas', @objeto.hlp_ayudas, false)
-    set_tabla('hlp_notas', @objeto.hlp_notas.ordr, false)
     set_tabla('lgl_temas', @objeto.lgl_temas.ordr, false)
 end
 
