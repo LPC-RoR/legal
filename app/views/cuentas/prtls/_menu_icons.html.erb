@@ -2,8 +2,17 @@
 	<div class="col">
 		<%= render partial: 'cuentas/prtls/menu_drpdwn' %>
 	</div>
-	<div class="col text-end">
-		<%= render partial: 'cuentas/prtls/cllps/cllps_lnks' %>
+	<div class="col text-center" style="font-size: 22px;padding-top: 15px;">
+		<b><i class="bi bi-buildings"></i> <%= @objeto.razon_social %></b>
+		<% if @objeto.productos? %>
+			<small>( DEMO )</small>
+		<% end %>
+	</div>
+	<div class="col me-4 text-end" style="font-size:16px;padding-top: 25px;">
+		<i class="bi bi-person-circle"></i> <%#= nomina_activa.nombre %>
+		<%= render layout: '0p/layout/tooltip_link', locals: {link: edit_usuario_registration_path, tooltip: 'Editar mi usuario'} do %>
+			<b><%= perfil_activo.email %></b>
+		<% end %>
 		
 		<% if @scrty_vls[:addt_usr] and admin? and controller_name == 'cuentas' %>
 			<%= link_to "/#{@objeto.class.name.tableize}", title: 'Addt', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
