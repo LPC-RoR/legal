@@ -1,0 +1,5 @@
+<% unless action_name == actn %>
+    <li style="font-size: 14px; line-height: 1.2;">
+    	<a class="dropdown-item text-dark app_lnk" href="/cuentas/<%=objeto.class.name.downcase[0]%>_<%=@objeto.id%>/<%=actn%>"><%=item%></a>
+    </li>
+<% end %>
