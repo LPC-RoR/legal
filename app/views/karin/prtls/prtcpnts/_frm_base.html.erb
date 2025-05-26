@@ -7,11 +7,13 @@
 	</div>
 </div>
 
+<% if @objeto.dnnc.ownr.principal_usuaria %>
 <!-- EMPLEADO EXTERNO -->
 <%= render partial: '0p/lbld_inpts/check_box', locals: {form: form, token: :empleado_externo, label: 'Empleado externo', data: { 
             prtcpnts_fields_target: "empresaCheckbox",
             action: "change->prtcpnts-fields#updateFields"
           }} %>
+<% end %>
 
 <div data-prtcpnts-fields-target="empresaField" 
    style="display: <%= form.object.empleado_externo? ? 'block' : 'none' %>">

@@ -3,7 +3,6 @@
 <%= render partial: 'cuentas/indx/ttl', locals: {source: source, ownr: @objeto, fs: 3, brdr_clr: 'dark-subtle'} %>
 
 <% unless @objeto.operable? %>
-	<%= render partial: prtl_name('cuentas', 'prtls/init', init_prtl) %>
-<% else %>
-	<%= render partial: 'cuentas/indx/tbl', locals: {source: source, crud: 'lnks'} %>
+	<%= render partial: prtl_name('cuentas', 'prtls/init', 'not_oprbl') %>
 <% end %>
+<%= render partial: 'cuentas/indx/tbl', locals: {source: source, crud: 'lnks'} %>

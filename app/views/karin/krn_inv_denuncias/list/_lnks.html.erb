@@ -1,25 +1,3 @@
-<% unless @coleccion['krn_inv_denuncias'].first == objeto and @coleccion['krn_inv_denuncias'].count == 2 %>
-	<% if objeto.pdf_registros.empty? %>
-		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=invstgdr"} do %>
-			<i class="bi bi-envelope-at"></i>
-		<% end %>
-	<% else %>
-		<i class="bi bi-check2-all"></i>
-	<% end %>
-<% end %>
-
-<% if @coleccion['krn_inv_denuncias'].first == objeto %>
-	<% unless @coleccion['krn_inv_denuncias'].count == 2 or @objeto.objcn_acogida or @objeto.objcn_rechazada or @objeto.fecha_trmn? %>
-		<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'objetado', stts: ['no objetado', 'objetado'], glys: ['ban', 'square']} %>
-	<% else %>
-		<% if @objeto.objcn_acogida %>
-			<i class="bi bi-ban"></i>
-		<% elsif @objeto.objcn_rechazada %>
-			<i class="bi bi-check2-all"></i>
-		<% end %>
-	<% end %>
-<% end %>
-
 <% unless (@coleccion['krn_inv_denuncias'].count == 2 and objeto == @coleccion['krn_inv_denuncias'].first) or objeto.objetado or @objeto.fecha_trmn? %>
 		<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} %>
 <% end %>

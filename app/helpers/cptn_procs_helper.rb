@@ -26,4 +26,8 @@ module CptnProcsHelper
 		etp_hd_hsh.keys.include?(codigo) ? etp_hd_hsh[codigo] : false
 	end
 
+	def email_mask(email)
+		[Rails.application.credentials[:dog][:email], 'hugo@edasoft.cl'].include?(email) ? 'usuario@empresa.cl' : email
+	end
+
 end

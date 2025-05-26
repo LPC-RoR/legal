@@ -1,4 +1,4 @@
-<%= render partial: 'cuentas/indx/indx', locals: {source: 'app_nominas', init_prtl: 'init_nomina'} %>
+<%= render partial: 'cuentas/indx/indx', locals: {source: 'app_nominas'} %>
 <% if @objeto.operable? %>
 		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'app_contactos', ownr: @objeto, fs: 3, brdr_clr: 'dark-subtle'} %>
 		<%= render partial: 'cuentas/indx/tbl', locals: {source: 'app_contactos', crud: 'lnks'} %>

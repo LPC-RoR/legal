@@ -142,11 +142,11 @@ class Karin::KrnDenunciasController < ApplicationController
       end
       dnncd.delete
     end
+    @objeto.pdf_registros.delete_all
     @objeto.krn_inv_denuncias.delete_all
     @objeto.krn_derivaciones.delete_all
     @objeto.krn_declaraciones.delete_all
     @objeto.notas.delete_all
-    @objeto.pdf_registros.delete_all
     @objeto.rep_archivos.each do |arch|
       arch.delete
     end

@@ -13,6 +13,8 @@
 					<%= render partial: 'layouts/partials/notice_alert' %>
 					<%= yield %>
 				</div>
+			<%# elsif not_authenticate_routes? %>
+				<%#= yield %>
 			<% else %>
 				<!-- Obtiene sym del menú -->
 				<% unless lm_sym.blank? %>

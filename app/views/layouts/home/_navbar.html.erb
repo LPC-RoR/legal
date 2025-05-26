@@ -1,13 +1,12 @@
 <div class="row mb-1 p-1 border-bottom">
-	<div class="col-9">
+	<div class="col-9 navbar_lnk" style="padding-left: 20px;">
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: 'Home'} do %>
+			<i class="bi bi-house"></i> Home
+		<% end %>
 		<%#= image_tag (krn_routes? ? 'krn_nvbr.png' : 'logo_nvbr.png') %>
 	</div>
 	<div class="col-3 position-relative navbar_lnk" style="height: <%= krn_routes? ? 25 : 25%>px;">
 		<div class="pe-5 position-absolute bottom-0 text-end w-100 ">
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: 'Home'} do %>
-				<i class="bi bi-house"></i> Home
-			<% end %>
-
 			<% if usuario_signed_in? %>
 			  <span class="ms-4"><%= render partial: 'usuarios/lnks/lnk_salir' %></span>
 			<% else %>

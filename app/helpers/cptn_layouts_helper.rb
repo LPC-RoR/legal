@@ -6,7 +6,7 @@ module CptnLayoutsHelper
 	end
 
 	def public_controllers
-		['publicos']
+		['hlp_ayudas']
 	end
 
 	def non_left_menu_controllers
@@ -15,8 +15,8 @@ module CptnLayoutsHelper
 
 	# helper_method : rutas que NO requieren autenticación de usuarios
 	def not_authenticate_routes?
-		authenticate_home = action_name == 'home' and usuario_signed_in?
-		(public_controllers | devise_controllers).include?(controller_name) and (not authenticate_home)
+		public_home = action_name == 'home' and (not usuario_signed_in?)
+		(public_controllers | devise_controllers).include?(controller_name) or (public_home)
 	end
 
 	def krn_non_krn_routes?
@@ -32,15 +32,19 @@ module CptnLayoutsHelper
 	end
 
 	def krn_user_error?
-		get_scp_activo.present? and (not krn_routes?)
+		get_scp_activo.present? and (not (krn_routes? or not_authenticate_routes?))
 	end
 
 	# Esta función nos lleva al directorio donde se encuentran los layouts ocupados
 	def lyt_prtl_dir
-		if usuario_signed_in?
-			controller_name == 'servicios' ? 'servicios' : nil
+		if controller_name == 'hlp_ayudas'
+			'home'
 		else
-			devise_controllers.include?(controller_name) ? 'devise' : 'home'
+			if usuario_signed_in?
+				controller_name == 'servicios' ? 'servicios' : nil
+			else
+				devise_controllers.include?(controller_name) ? 'devise' : 'home'
+			end
 		end
 	end
 

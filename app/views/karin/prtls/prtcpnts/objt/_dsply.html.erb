@@ -23,6 +23,7 @@
 		</div>
 	<% end %>
 
+	<% if objeto.class.name == 'KrnDenunciante' or @objeto.investigadores? %>
 	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'rep_archivos', brdr_wdth: 2, ownr: objeto, fs: 6} %>
 	<div class="py-2">
 		<% @p_fls[objeto.class.name][objeto.id].each do |dc| %>
@@ -33,5 +34,6 @@
 			<% end %>
 		<% end %>
 	</div>
+	<% end %>
 
 </div>

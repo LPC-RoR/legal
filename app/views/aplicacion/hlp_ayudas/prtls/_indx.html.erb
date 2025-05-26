@@ -1,5 +1,11 @@
-<div class="ms-4 app_lnk">
-	<%= render layout: '0p/tltp_lnk', locals: {lnk: '/hlp_ayudas/rgstr_emprs', tltp: 'Registro de empresa'} do %>
-		<i class="bi bi-cursor"></i> Registro de empresa
-	<% end %>
+<div class="ms-4 app_lnk" style="font-size: 14px; line-height: 1;">
+	<p><%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'rgstr_emprs', dscrpcn: 'Registro de empresa', tltp: 'Registro de empresa'} %></p>
+
+	<p><%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Descripción general del ambiente LaborSafe', tltp: 'Descripción general del ambiente LaborSafe'} %></p>
+
+	<p><%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'estrctr_dnnc', dscrpcn: 'Estructura general de la denuncia', tltp: 'Estructura general de la denuncia'} %></p>
+
+	<p><%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'prncpl_usr', dscrpcn: 'Empresas principales o usuarias', tltp: 'Empresas principales o usuarias'} %></p>
+
+	<p><%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dnnc_smpl', dscrpcn: 'Ejemplo de denuncia simple', tltp: 'Ejemplo de denuncia simple'} %></p>
 </div>

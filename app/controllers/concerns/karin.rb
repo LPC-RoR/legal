@@ -119,6 +119,11 @@ module Karin
 
     end
 
+    puts "****************************************** load_proc"
+    puts @etp_last.codigo
+    puts @tar_last.codigo
+    puts @etps_trmnds
+
     @proc_objt.rep_doc_controlados.ordr.each do |dc|
       if fl_cndtn?(objt, dc.codigo)
         @fls_actv << dc

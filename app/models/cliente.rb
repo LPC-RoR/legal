@@ -61,7 +61,7 @@ class Cliente < ApplicationRecord
         externas  = self.principal_usuaria ? self.empresas_externas? : true
         # pendiente manejo de productos: vencimiento y bloqueo
         productos = true
-        self.nomina? and externas and self.investigadores?
+        externas and self.investigadores?
     end
 
     def formatos

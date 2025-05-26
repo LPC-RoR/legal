@@ -157,7 +157,7 @@ module CptnMenuLeftHelper
 	end
 
 	def lm_exclude_controller?
-		(['servicios'] + devise_controllers).include?(controller_name)
+		(['servicios']+ public_controllers + devise_controllers).include?(controller_name)
 	end
 
 	def ctas_cntrllrs?

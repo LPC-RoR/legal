@@ -1,0 +1,24 @@
+<%= render layout: 'cuentas/prtls/msgg', locals: {ttl: '¡Bienvenido a LaborSafe!'} do %>
+
+	<p class="objt_lnk">Si esta es su primera experiencia en el ambiente <b>LaborSafe</b> le recomendamos visitar:</br>
+	<%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Descripción general del ambiente LaborSafe', tltp: 'Descripción del ambiente general.'} %></p>
+
+	<p>Su cuenta de empresa aún no está operable:</p>
+	
+	<ul>
+		<% unless @objeto.investigadores? %>
+			<li>Se debe ingresar al menos un investigador.</li>
+		<% end %>
+
+		<% if @objeto.principal_usuaria %>
+			<% unless @objeto.empresas_externas? %>
+				<li>Se debe ingresar al menos una empresa externa.</li>
+			<% end %>
+		<% end %>
+	</ul>
+
+	<% unless admin? %>
+		<p>Comuniquese con el administrador de la cuenta para resolver el problema.</p>
+	<% end %>
+
+<% end %>

@@ -1,0 +1,31 @@
+<div class="ms-4 objt_lnk" style="font-size: 12px;">
+	<div>
+		<% unless @coleccion['krn_inv_denuncias'].first == objeto and @coleccion['krn_inv_denuncias'].count == 2 %>
+			<% if objeto.pdf_registros.empty? %>
+				Investigador aún no ha sido notificado a los participantes
+			<% else %>
+				Investigador ya fue notificado a los participantes
+			<% end %>
+		<% end %>
+	</div>
+	<div>
+		<% if @coleccion['krn_inv_denuncias'].first == objeto %>
+			<% unless @coleccion['krn_inv_denuncias'].count == 2 or @objeto.objcn_acogida or @objeto.objcn_rechazada or @objeto.fecha_trmn? %>
+				<% if objeto.objetado %>
+					Investigador objetado 
+				<% else %>
+					Investigador sin objeción 
+				<% end %>
+				<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'objetado', stts: ['no objetado', 'objetado'], glys: ['ban', 'square']} %>
+			<% else %>
+				<% if @objeto.objcn_acogida %>
+					Objeción acogida 
+					<i class="bi bi-ban"></i>
+				<% elsif @objeto.objcn_rechazada %>
+					Objeción rechazada
+					<i class="bi bi-check2-all"></i>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+</div>

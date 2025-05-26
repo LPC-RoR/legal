@@ -1,0 +1,405 @@
+<h3>Ejemplo de denuncia simple</h3>
+
+<p>Las características de este ejemplo son las siguientes:
+	<ol>
+		<li>La empresa NO cumple el rol de empresa principal o usuaria.</li>
+		<li>Para ninguno de los participantes aplica el Artículo 4 inciso primero del Código del Trabajo.</li>
+		<li>Para ninguno de los participantes aplica el Artículo 516 del código del Trabajo.</li>
+		<li>Se trata de una denuncia investigada por la propia empresa.</li>
+		<li>No hay objeción del investigador asignado.</li>
+		<li>La denuncia esta completa y no presenta inconsistencias.</li>
+		<li>El plazo para el pronunciamiento de la Dirección del Trabajo se cumple sin recibir el pronunciamiento.</li>
+	</ol>
+</p>
+
+<p>Para ingresar una denuncia debemos seleccionar el ítem <b>Denuncias</b> del menú principal. Si recién se ingresó a la cuenta de la empresa, esta es la opción que aparece por defecto. Usted deberá ver algo similar a esta imagen:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_1.png', width: "600" %>
+</div>
+
+<h4>Crear denuncia</h4>
+
+<p>Al presionar el botón del ícono <i class="bi bi-plus-circle"></i> a la derecha del encabezado <b>Denuncias</b>, accederá al formulario de ingreso de denuncia.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_2.png', width: "600" %>
+</div>
+
+<p>Se puede ver en el formulario tres tipos de campos, dos de ingreso, cuatro de selección y uno opcional.</p>
+<p>Los dos superiores:
+	<ul>
+		<li>Fecha y hora de la denuncia</li>
+		<li>Identificador de la denuncia</li>
+	</ul>
+son campos que requieren el ingreso de información. La fecha y hora de la denuncia es, por supuesto la fecha y hora en la que fue presentada/enviada la denuncia; El identificador de la denuncia es una propio de cada empresa. Por ejemplo, una empresa podría utilizar los apellidos de las personas denunciantes y denunciados para construir el identificador: <b>"Perez - Rivera"</b>, Otra empresa utilizará un identificador compuesto; <b>"L-2-2025"</b>, que identifica la denuncia por acoso laboral Nº 2 del año 2025, etc.</p>
+<p>El ingreso de un indentificador de la denuncia es obligatorio</p>
+
+<p>Los campos de selección son:
+	<ul>
+		<li><b>Motivo de la denuncia</b>: cuyas opciones son:
+			<ol>
+				<li>Acoso laboral</li>
+				<li>Acoso sexual</li>
+				<li>Violencia en el trabajo ejercida por terceros</li>
+			</ol>
+		</li>
+		<li><b>Receptor de la denuncia</b>: cuyas opciones son:
+			<ol>
+				<li>Empresa</li>
+				<li>Dirección del Trabajo</li>
+				<li>Empresa externa (aparece sólo si la empresa es principal p usuaria)</li>
+			</ol>
+		</li>
+		<li><b>Canal de denuncia</b>: cuyas opciones son:
+			<ol>
+				<li>Presencial</li>
+				<li>Correo electrónico</li>
+				<li>Plataforma</li>
+			</ol>
+		</li>
+		<li><b>Quien denuncia</b>: cuyas opciones son:
+			<ol>
+				<li>Denunciante</li>
+				<li>Representante</li>
+			</ol>
+		</li>
+	</ul>
+</p>
+
+<p>Finalmente, el campo <b>Formato de la denuncia</b>, es un campo opcional pues aparece, sólo si se seleccionó la opción <b>Presencial</b> en el campo <i>Canal de denuncia</i>. Esto es porque, una denuncia que se presenta en forma presencial, puede ser presentada por escrito o en forma verbal.</p>
+
+<p>Para conocer en detalle los campos, sus opciones y todos los campos opcionales, presione en la parte inferior derecha del formulario el link <b>¿Necesita ayuda para llenar este formulario?</b></p>
+
+<p>Una vez completado el formulario y presionado el botón Crear Denuncia</b>, la plataforma creará la denuncia y le presentará la página en la cual se ingresa la información de las personas denunciantes y denunciadas.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_3.png', width: "600" %>
+</div>
+
+<h4>Ingresar datos de las personas denunciantes, denunciadas y testigos</h4>
+
+<p>En la imagen anterior vemos en la parte superior, un mensaje que nos informa que la denuncia que acabamos de ingresar fue creada exitósamente.</p>
+<p>Inmediatamente debajo de este anuncio, encontramos un encabezado que nos cuenta que estamos <b>dentro</b> de la denuncia cuyo identificador es <b>Denuncia simple</b> y nos muestra la fecha y hora de la denuncia.</p>
+<p>Bajo el encabezado encontramos un nivel que tiene un <b>menu deplegable</b> a la izquierda y a la derecha un link que nos permite ver un <b>resumen del estado de la denuncia</b>.</p>
+
+<p>El menú desplegable tiene tres ítems:
+	<ul>
+		<li>Proceso</li>
+		<li>Participantes</li>
+		<li>Reportes</li>
+	</ul>
+</p>
+
+<p>Como comprobamos, la creación de una denuncia nos conduce al ítem <b>Participantes</b>.</p>
+
+<h5>Resumen del estado de la denuncia</h5>
+
+<p><b>LaborSafe</b> A medida que vamos ingresando información en la denuncia, cumpliendo con las tareas de cada etapa del Procedimiento de Investigación y Sanción. La plataforma va registrando en este reporte el datalle de todas las acciones realizadas.</p>
+<p>Si consultamos el resumen en este momento veremos lo siguiente:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_4.png', width: "600" %>
+</div>
+
+<p>Podemos ver en el resumen el detalle de la información que hasta el momento se ha ingresado de la denuncia. Respecto a la información de los participantes, se indica que no se han ingresado aún.</p>
+<p>Tambieén se establece que no se ha terminado ninguna etapa aún.</p>
+<p>Finalmente, respecto a la <b>Documentación obligatoria</b> no se ha subido ningún archivo aún. Particularmente muestra que está pendiente subir la <b>Denuncia</b> la cual está señalada como <b>pendiente</b> y que no se han subido anexos a la denuncia (opcionales).</p>
+
+<h5>Ingreso de personas denunciadas, denunciantes y testigos</h5>
+
+<p>Cerrando el informe de resumen, volvemos a la página <b>Participantes</b>.</p>
+<p>Bajo el menú encontramos un mensaje que nos invita a ingresar los datos de las personas denunciantes y denunciadas. Bajo este mensaje, finalmente encontramos los encabezados de las listas de personas denunciantes y más abajo, el de la lista de personas denunciadas.</p>
+<p>A pesar de que el reglamento no se refiere nunca a denuncias realizadas por más de una persona denunciante, nos parece natural su implementación por las siguientes razones:
+	<ol>
+		<li>El reglamento establece que el sindicato de la empresa puede presentar la denuncia en representación de la parsona denunciante, en este contexto nos parece probable que en este ejercicio, pueda ocurrir, que dicha representación se extienda a más de una persona denunciante.</li>
+		<li>La opción de dividir una denuncia de más de una persona denunciante en tantas denuncias como denunciantes, no sólo multiplica el trabajo administrativo y el número de declaraciones realizadas por los testigos, complejiza además la definición de medidas correctivas y sanciones, enfrentandonos a la situación en la que una persona denunciada pudiera tener más de una sanción y que haya diferencias entre ellas respecto a la severidad.</li>
+	</ol>
+</p>
+<p>Vemos que el encabezado de la lista de personas denunciantes tiene dos botones en su extremo derecho, pero la lista de las personas denunciadas solo uno. Ya sabemos que el botón <i class="bi bi-plus-circle"></i> es el que me permite ingresar un nuevo registro, el botón <i class="bi bi-question-circle"></i>, donde quiera que se encuentre, representa <b>ayuda</b>.</p>
+<p>El botón <i class="bi bi-question-circle"></i> en el encabezado de la lista de personas denunciantes es la ayuda que me permitirá comprender la información que se despliega en cada registro de una persona denunciante y su funcionalidad, lo mismo para el botón del encabezado de la lista de personas denunciadas.</p>
+<p>Podemos concluir de lo anterior es que en este momento la plataforma sólo me permite ingresar personas denunciantes. Efectivamente, para poder ingresar una persona denunciada es necesario haber ingresado al menos una persona denunciante.</p>
+
+<p>Al presionar el botón para ingresar una persona denunciante accederemos al siguiente formulario:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_5.png', width: "600" %>
+</div>
+
+<p>Al igual que en el ingreso de la denuncia, tenemos un link (abajo a la izquierda) que nos permite acceder a una descripción detallada de los campos solicitados.</p>
+<p>Algunas observaciones acerca de los campos solicitados:
+	<ol>
+		<li>Al igual que en el caso del investigador, la <b>cédula de identidad será verificada por la plataforma</b>.</li>
+		<li><b>Aplica el artículo 516 del Código del Trabajo</b>: Se marca este campo si la persona denunciante NO tiene ni usa correo electrónico, en este caso la ley obliga que toda la información y notificaciones del proceso se le envíen por correo certificado. Al seleccionar este campo aparecerá en el formulario un campo adicional para que se ingrese la dirección que se usará para estos efectos.</li>
+		<li><b>Aplica el artículo 4 inciso priero del Código del Trabajo</b>: Se marca este campo si la persona tiene un cargo de gerencia, situación en la cual es obligatorio derivar la denuncia a la Dirección del Trabajo para su derivación.</li>
+	</ol>
+</p>
+
+<p>El ingreso de una persona denunciada y de los testigos es similar al ingreso de la persona denunciante. Una vez ingresada la información que se tiene al momento de la denuncia, la página queda más o menos como muestra la siguiente imagen:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_6.png', width: "600" %>
+</div>
+
+<p>Como se puede ver, se ingreso una persona denunciante, la cual entregó información de un testigo y una persona denunciada.</p>
+<p>Se puede ver que no se ha verificado aún ninguno de los correos electrónicos.</p>
+<p>Por último se ve que no se ingresó la cédula de identidad de la parsona denunciada.</p>
+
+<p>El estado de la información de los participantes que muestra esta imagen es típico de una denuncia recién entregada. Es normal que la persona denunciada no cuente con toda la información de la persona denunciada, tambien es frecuente que no lleve toda la información de los testigos que presenta con la denuncia.</p>
+<p>La plataforma exige que la información de la persona denunciante esté completa pero es tolerante con la información de la parsona denunciada y los testigos.</p>
+<p>Toda la información de los participantes debe ser verificada y completada por el área de recursos humanos. Para ello, la plataforma tiene un reporte que se envía automáticamente por correo electrónico al contacto de recursos humanos ingresado en la plataforma, solicitando que se verifiquen y completen los datos de los participantes.</p>
+<p>Este reporte No contiene información relativa al contenido de la denuncia para velar por la confidencialidad del procedimiento.</p>
+<p>Es posible que al momento de declarar, tanto la persona denunciante como la denunciada entreguen información de testigos, por ello, el reporte descrito anteriormente se puede enviar una segunda vez, en la que se incluirán sólo los particiapntes que no fueron incorporados en la solicitud anterior.</p>
+
+<h4>Enviar solicitud de verificación y complementación de datos de los participantes</h4>
+
+<p>Una vez recibida la denuncia, hacer dos solicitudes al área de RRHH:
+	<ol>
+		<li>Solicitar que verifique, corrija si es necesario y complete la información de los participantes que se tienen hasta el momento.</li>
+		<li>Solicitar toda la documentación que el reglamento exige tener a la vista a la hora de redactar el informe de la investigación.</li>
+	</ol>
+</p>
+
+<p>Una vez ingresada la información de los participantes contenida en la denuncia, la plataforma genera un reporte que contiene el detalle de los datos ingresados por particpante. Este reporte es enviado por correo electrónico al contacto de RRHH que se registro para la empresa.</p>
+
+<p>Para enviar el reporte con ambas solicitudes debe ir a la página <b>Reportes</b> de la denuncia. Para ello, presiones el menú desplegable que en este minuto se encuentra en la página <b>Participantes</b>. Al presionarlo aparecera el menú desplegable con las otras dos vistas de la denuncia: <b>Proceso</b> y <b>Reportes</b>, como muestra la siguiente imagen.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_7.png', width: "600" %>
+</div>
+
+<p>Presione el ítem <b>Reportes</b> y accederá a los resportes habilitados para la cuenta, como se muestra en la siguiente imagen:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_8.png', width: "600" %>
+</div>
+
+<p>La lista de reportes que se despliega tiene la siguiente funcionalidad:
+	<ol>
+		<li>El nombre del reporte es un link que muestra un ejemplo del reporte</li>
+		<li>El ícono <i class="bi bi-envelope-check"></i> a la derecha del nombre es el botón que envía el reporte a todos sus destinatarios.</li>
+	</ol>
+</p>
+
+<p>Puede ser el caso, que todo lo anterior ocurra mientras la persona denunciante esté presentando la denuncia, de ser así el envío de la solicitud a RRHH puede postergarse para una vez finalizada la recepción de la denuncia.</p>
+
+<p>Hemos terminado de ingresar los datos de los participantes, ahora nos vamos al <b>proceso</b> de la denuncia para realizar terminar la recepción de la denuncia. Para ello seleccionemos <b>Proceso></b> en el menú desplegable de la denuncia.</p>
+
+<h4>Definición de las posibles derivaciones</h4>
+
+<p>Al llegar a la página <b>Proceso</b> veremos la siguiente información desplegada:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_9.png', width: "600" %>
+</div>
+
+<p>La página <b>Proceso</b> de la denuncia, siempre contiene su estado de avance en cuanto al Procedimiento de Investigación y Sanción</p>
+<p>En la imagen se muestra que estamos en la etapa <b>Recepción de la denuncia</b>, a la derecha de esta información encontramos el plazo en el que se debe realizar esta etapa (22-5-2025).</p>
+<p>Abajo de la etapa, en letras un poco más pequeñas, encontraremos la tarea que nos corresponde realizar ahora, en este caso la terea es: <b>Definición de las posibles derivaciones</b>.</p>
+<p>Bajo el nombre de la tarea, encontraremos el detalle de la tarea, en este caso separado en tres áreas diferenciadas, cada área termina con un link, el cual se debe presionar si el área representa la opción que adoptó la persona denunciante o la empresa.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_10.png', width: "600" %>
+</div>
+
+<p>Cada párrafo comienza con un ícono, si significado es el siguiente:
+	<ol>
+		<li><i class="bi bi-chat-left-dots"></i> : Antecede un párrafo que debe ser leído textualmente a la persona denunciate. Se trata de información que es obligatorio entregar.</li>
+		<li><i class="bi bi-clipboard2-check"></i> : Antecede un párrafo que describe una decición adoptada o un hecho constatado. En el ejemplo señala que el segundo párrafo aplica si <b>La persona denunciante manifiesta su opción de que su denuncia sea investigada en la empresa.</b></li>
+		<li><i class="bi bi-cursor"></i> : Antecede al link utilizado para adoptar la opción elegida.</li>
+	</ol>
+</p>
+
+<p>En un segundo cuerpo de la página, vemos la lista de <b>Documentación obligatoria</b> en la cual se aprecia que no se ha subido aún la denuncia, tampoco se han subido otros anexos de la denuncia.</p>
+
+<p>Como nuestro ejemplo se trata de una denuncia investigada por la empresa, presionamos el link <b>La empresa decidió realizar la investigación de la denuncia.</b></p>
+
+<p>Este es un ejemplo de denuncia que ha sido investigada por la empresa, luego presionamos el tercer link: <b> La empresa decidió realizar la investigación de la denuncia</b>, lo cual nos lleva a la siguiente página:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_11.png', width: "600" %>
+</div>
+
+<p>Podemos ver que seguimos en la etapa <b>Recepción de la denuncia</b> pero ahora la tarea es el <b>Cierre de la recepción de la denuncia</b></p>
+
+<p>Lo primero que nos llama la atención del detalle de la tarea es la advertencia: <i class="bi bi-cone-striped"></i> No se puede cerrar la rececpción de la denuncia mientras no esté completa la información de los participantes. Recuerde que la cédula de identidad de la persona denunciante no había sido ingresada.</p>
+
+<p>A esta altura, ya debemos haber recibido los datos y la documentación solicitada a RRHH, luego volveremos a la página <b>Participantes</b> y completamos la información.</p>
+
+<p>Ahora si estamos listos para hacer el cierre de la recepción.</p>
+
+<h4>Cierre de la recepción de la denuncia</h4>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_12.png', width: "600" %>
+</div>
+
+<p>Antes de mirar el detalle de la tarea, podemos ver que arriba de la información de la etapa y tarea actuales, ahora hay un texto que nos pregunta <b>¿Desea deshacer la última acción realizada?</b>. Al presionar este link, aparecerá bajo la pregunta un link, que nos permitirá deshacer la última acción. En este caso: <b>La empresa decidió realizar la investigación de la denuncia.</b></p>
+
+<p>A partir de este momento, la plataforma siempre nos ofrecerá esta opción para devolvernos paso a paso en el procedimiento. Si la acción fue crear un registro, encontrará en el lugar del link, instrucciones para deshacer la acción deseada.</p>
+
+<p>Tambien podemos ver, sobre el detalle de la tarea, que apareció el encabezado del investigador asignado a la investigación y con ello, la posibilidad de asignar uno de los investigadores registrados al presionar el botón <i class="bi bi-plus-circle"></i>.</p>
+
+<p>La asignación del investigador se considera la primera tarea de la etapa <b>Investigación</b>, pero es probable que en mucha empresa la persona que recepciona la denuncia este a cargo de asignar el investigador al momento de recibir la denuncia. Si no se ingresa en la etapa de cierre de la rewcepción no hay problema, seguirá apareciendo en la siguiente etapa.</p>
+
+<p>Es recomendable asignar y notificar el investigador asignado cuanto antes para una pronta resolución de una eventual objeción al investigador presentada por alguna de las personas denunciantes o denunciadas.</p>
+
+<p>Volvamos al proceso:</p>
+
+<p>Ya no está la advertencia. La tarea cuenta ahora con dos textos que deben ser leídos/informados a la persona denunciante y una fecha que ingresar: <b>Fecha en que se informa a la Dirección del Trabajo el inicio de la investigación</b>.</p>
+
+<p>En el segundo cuerpo de <b>Documentación obligatoria</b> vemos que se agregó un tercer elemento a la lista: <b>Medidas de resguardo</b>. Aún no se ha subido ningún archivo.</p>
+
+<p>Bajo el formulario para ingresar la fecha encontramos la leyenda: <b><i class="bi bi-cone-striped"></i> Esta fecha será usada para verificar el cumplimiento del plazo.</b> sólo si la fecha ingresada, es menor o igual al plazo de la etapa actual, el plazo se habrá cumplido. Ingresaremos una fecha anterior en un día (21-5-2025)</p>
+
+<p>Para ingresar la fecha selecciono la fecha utilizando los menú desplegables del formulario y finalmente presiono el botón azul de la derecha del formulario. Esta acción nos llega a la siguiente imagen:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_13.png', width: "600" %>
+</div>
+
+<p>Antes de mirar el detalle de la tarea, notamos que apareció una nueva sección inmediatamente debajo del menú: <b>Etapas concluidas</b></p>
+
+<p>Al registrar la fecha en la cual se informó a la Dirección del Trabajo el inicio de la investigación, la plataforma verifica el cumplimiento del plazo asociado. El detalle indica que la etapa <b>Recepción de la denuncia</b>, cuyo plazo vencía el 22-05-2025, se cumplió con un día de anticipación (21-05-2025).</p>
+
+<h4>Investigación</h4>
+
+<p>Podemos ver que esta nueva etapa tiene un nuevo plazo a cumplir: 01-07-2025</p>
+
+<p>Podemos ver que la primera tarea de la etapa de investigación es simplemente <b>Asignar un investigador</b>. Para ello presionamos el botón <i class="bi bi-plus-circle"></i> en el extremo derecho del encabezado <b>Investigador</b> para acceder al formulario donde seleccionaré al investigador.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_14.png', width: "600" %>
+</div>
+
+<p>Como solo hemos registrado un investigador llamado <b>Nombre completo del investigador</b>, sólo podemos seleccionar ese y presionar el botón <b>Crear Investigador</b>. De esta forma llegamos a la siguiente tarea del procedimiento:</p>
+
+<h4>Evaluación de la denuncia</h4>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_15.png', width: "600" %>
+</div>
+
+<p>Podemos ver que se ha desplegado el registro del investigados asignado, en el extremo derecho del registro podemos ver los botones que nos permiten modificarlo o eliminarlo.</p>
+<p>A continuación del nombre del investigador un boton que nos permitirá nostificar via correo electrónico a todos los participantes que fue asignado a la investigación de la denuncia.</p>
+<p>Abajo del registro dos estados:
+	<ol>
+		<li>Investigador aún no ha sido notificado a los participantes</li>
+		<li> Investigador sin objeción <i class="bi bi-square"></i>
+	</ol>
+</li>
+</p>
+
+<p>El cuadrado al final del segundo estado, es un botón que permite marcar el investigador como objetado. No seguiremos ese camino pues este es un ejemplo de denuncia simple.</p>
+
+<p>A continuación vemos el detalle de la tarea. El reglamento establece que el investigador debe evaluar la denuncia evaluando que esté completa y que no presente inconsistencias. Si la denuncia adolece de alguno de estos problemas debe ser devuelta a la persona denunciante con las observaciones y un plazo para devolverla corregida.</p>
+<p>Podemos ver que en la lista de <b>Documentación obligatoria</b> ahora aparece el archivo <b>Evaluación de la denuncia</b></p>
+<p>Como se trata de una denuncia simple, tomaremos la opción <b>La denuncia está completa y no presenta inconsistencias</b>, lo cual nos lleva a la siguiente imagen:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_16.png', width: "600" %>
+</div>
+
+<p>La descricpción de la tarea es ahora <b>Agendamiento y toma de Declaraciones</b></p>
+<p>En el lugar del detalle de la tarea encontramos una leyenda que nos dice que debemos ir a la página <b>Participantes</b> para cumpletar esta tarea. En esta página nos encontraremos lo siguiente (sólo la parte superior, no aparece el detalle de la persona denunciante.):</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_17.png', width: "600" %>
+</div>
+
+<p>Podemos ver que en el detalle de cada participante ahora aparecen las notificaciones que han sido enviadas con su fecha y hora. Además se incluyo un encabezado <b>Agenda de declaraciones</b> (cada participante tiene una). Esta es la lista de agendamientos de declaraciones. En la mayoría de los casos, sólo hara falta una declaración, pero si este no es el caso, es posible ingresar más de una.</p>
+
+<h4>Agendamiento y toma de declaraciones</h4>
+
+<p>Para agendar una declaración basta con presionar el botón <i class="bi bi-plus-circle"></i> en el extremo derecho del encabezado <b>Agenda de declaraciones</b>, al hacerlo aparecerá el siguiente formulario:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_18.png', width: "600" %>
+</div>
+
+<p>Al ingresar una declaración a la agenda del testigo lucirá así:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_19.png', width: "600" %>
+</div>
+
+<p>Puede apreciar que junto con aparecer la cita en la agenda, bajo el encabezado <b>Documentación obligatoria</b> del testigo, ahora se solicita subir la <b>Declaración del particpante</b>, además se activa una lista para subir, documentos que el testigo pueda adjuntar a su declaración como antecedentes. Esto último es opcional.</p>
+
+<p>La plataforma considera que la declaración fue tomada si se subió el corrrespondiente archivo a la plataforma.</p>
+<p>Para completar la tarea debemos, en consecuencia, agendar las declaraciones de todos los participantes y subir sus correspondientes declaraciones. Una vez completado todo esto volvemos a la página <b>Proceso</b> y nos encontramos con lo siguiente:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_20.png', width: "600" %>
+</div>
+
+<p>Obviamente, una vez tomadas las declaraciones, lo que resta es dar por terminado el procedimiento de investigación.</p>
+
+<h4>Término de la investigación</h4>
+
+<p>El detalle de la tarea muestra esta vez sólo el formulario que nos pide la fecha <b>Fecha término de la investigación</b>. La plataforma nos advierte una vez más que esta fecha será utilizada para evaluar el plazo de la etapa. Esta vez ingresaremos exáctamente la fecha del plazo, lo cual nos lleva a la siguiente etapa.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_21.png', width: "600" %>
+</div>
+
+<h4>Envío/recepción del Informe de Investigación</h4>
+
+<p>Podemos observar en la parte alta del proceso, que ya hemos terminado dos etapas, y que la segunda se terminó justo en el plazo establecido.</p>
+<p>Ahora nos encontramos en la etapa <b>Envío/recepción del Informe de Investigación</b> y la única tarea que tiene esta etapa es registrar la fecha en la que esto ocurre.</p>
+<p>Como en este ejemplo la investigación fue realizada por la empresa, lo que corresponde es <i>Enviar el informe de la investigación (con sus correspondientes medidas correctivas y sanciones) a la Dirección del Trabajo.</i></p>
+
+<p>Es importante, al momento de agendar las declaraciones, dejar tiempo entre el término de la toma de declaraciones y el término de la investigación para confeccionar el informe de investigación. Como podemos observar, el plazo para enviar el informe a la Dirección del Trabajo es de sólo dos días hábiles.</p>
+
+<p>Más abajo del detalle de la tarea, en la lista de <b>Documentación obligatoria</b>, podemos ver que se agregaron el informe de la investigación, las medidas correctivas y las sanciones de la investigación.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_22.png', width: "600" %>
+</div>
+
+<p>Esta ocasión ingresaremos como fecha de envío del informe el 04-07-2025, es decir, no cumplimos el plazo por un día.</p>
+
+<h4>Pronunciamiento de la Dirección del Trabajo</h4>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_23.png', width: "600" %>
+</div>
+
+<p>Podemos observar que ya tenemos tres etapas concluidas y como se destaca en rojo el plazo no cumplido de la tercera etapa.</p>
+
+<p>Ahora veamos el detalle de la tarea:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_24.png', width: "600" %>
+</div>
+
+<p>La Dirección del Trabajo cuenta con 30 días hábiles para pronunciarse sobre el informe de investigación y las medidas y sanciones que contiene. Si se cumple el plazo y no se ha recibido el pronunciamiento, se da por aprobado el informe de investigación y se deben aplicar las medidas correctivas y sanciones.</p>
+<p>El detalle de la tarea ofrece ambas opciones, ingresar la <b>Fecha recepción pronunciamiento de la DT</b> y el link que establece que <b>El plazo para recibir el pronunciamiento venció</b>. Para efectos de este ejemplo elejimos la última.</p>
+
+<h4>Aplicación de Medidas correctivas y Sanciones</h4>
+
+<p>El plazo para aplicar las medidas correctivas y sanciones es de <b>15 días corridos</b>, a diferencia de los otros plazos que eran en días hábiles.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_25.png', width: "600" %>
+</div>
+
+<p>Esta tarea es un poco diferente a las demás, consiste en subir archivos a la plataforma que respalden la aplicación de las medidas correctivas y sanciones.</p>
+<p>Si miramos la lista de <b>Documentación obligatoria</b> veremos que se agregó al final, la lista de <b>Evidencias de la aplicación de Medidas y Sanciones</b></p>
+<p>Si subimos un archivo a esta lista, nuestra página se verá así:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_26.png', width: "600" %>
+</div>
+
+<p>Podemos observar que la plataforma nos cuenta cual es la fecha del archivo más reciente que subimos, esto con el fin de controlar el cumplimiento del plazo.</p>
+<p>Tambien nos solicita la fecha <b>Fecha de cierre de procedimiento de investigación y sanción.</b> Esta es la fecha en la que se terminaron de implementar las medidas correctivas y sanciones del informe de investigación. Tal como lo dice la leyenda del formulario, esta fecha se usa para evaluar el cumplimiento del plazo de la etapa.</p>
+<p>Esta vez la fecha en la terminamos es anterior al plazo establecido.</p>
+<p>La página del proceso finalmente luce así:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_27.png', width: "600" %>
+</div>
+
+<h4>Reportes y Documentación obligatoria</h4>
+
+<p>Para no extender (más aún) este ejemplo de denuncia simple, no hemos descrito el manejo de los reportes que se envían por correo electrónico a los distintos participantes. Tampoco el manejo del repositorio de la denuncia, donde se sube la Documentación obligatoria.</p>

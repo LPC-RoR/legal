@@ -5,7 +5,6 @@ class KrnInvestigador < ApplicationRecord
 
 	belongs_to :ownr, polymorphic: true
 
-#	has_many :krn_denuncias
 	has_many :krn_declaraciones
 
 	has_many :krn_inv_denuncias
