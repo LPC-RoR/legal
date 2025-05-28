@@ -1,0 +1,84 @@
+<h3>Reportes y notificaciones</h3>
+
+<p><b>LaborSafe</b> cuenta con un conjunto de reportes que, en su mayoría, se envían por correo electrónico a los distintos participantes en forma de un Archivo PDF.</p>
+
+<p>Dado que reportes y notificaciones tienen diversas funcionalidadaes, los reportes y notificaciones de <b>LaborSafe</b> pueden ser enviados desde distintos lugares de la plataforma.</p>
+
+<p>En términos generales podemos definir dos lugares donde podemos encontrar el botón que envía el reporte o notificación:
+	<ul>
+		<li>En la página <b>Reportes</b> de la denuncia, ahi se pueden ver además, los ejemplos del reporte</li>
+		<li>En los registros de una tabla, por ejemplo en cada uno de los participantes de una denuncia.</li>
+	</ul>
+</p>
+
+<p>Página <b>Reportes</b> de la Denuncia</p>
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/rprts_ntfccns_1.png', width: "600" %>
+</div>
+
+<p>Registro de un participante (persona denunciante) en el que se puede ver el botón <i class="bi bi-envelope-at"></i> utilizado para enviar el correo electrónico con el link que permite <b>verificar su correo electrónico</b>.</p>
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/rprts_ntfccns_1.png', width: "600" %>
+</div>
+
+<h4>Verificación de correos electrónicos de los participantes</h4>
+
+<p>El primer correo electrónico que se envía en una denuncia específica en aquel que nos permite <b>verificar el correo electrónico de cada participante. Esto cobra importancia debido a que el reglamento exige que toda la información se debe enviar al <b>correo personal</b> de los participantes.</b></p>
+
+<p>Todos los registros que despliegan el nombre de algun participante de la denuncia, tendrán al final del nombre del participante el botón <i class="bi bi-envelope-at"> que permite enviar el email con el link de verficación correspondiente.</i></p>
+<p>Cuando el participante verifica su dirección a través de este link, el botón será reemplazado por el ícono <i class="bi bi-at"></i>.</p>
+
+<p>Los email de verificación de correo electrónico no se envían automáticamente al momento de crear un nuevo participante, las razones son sencillas
+	<ul>
+		<li>Los datos de los participantes se ingresarán generalmente, antes de haber notificado a los participantes la recepción de la denuncia y no tiene sentido que reciban correos electrónicos antes de ser notificados.</li>
+		<li>Las personas denunciantes o denunciadas, pueden aportar nuevos testigos al momento de prestar su declaración, luego la verificación de sus correos se hará en diferido.</li>
+	</ul>
+</p>
+
+<h4>Recursos</h4>
+
+<p>Un <b>recurso</b> es un reporte al cual los participantes tienen acceso en cualquier momento. Al final de la notificación de la denuncia enviada a todos los participantes, se adjuntan los códigos QR que le permitirán acceder a estos reportes cada vez que lo requieran. Los recursos que ofrece la plataforma son:</p>
+<ul>
+	<li><b>Estado de la denuncia</b> : entrega un cualquier minuto un resumen de todas las acciones registradas en la denuncia hasta el momento en el que se solicita.</li>
+	<li><b>Derechos y obligaciones de los participantes</b> : Detalla los artículos del reglamento que establecen los derechos y responsabilidades de todos los participantes de la denuncia y de las institiciones que participan de procedimiento.</li>
+	<li><b>Procedimiento de Investigación y Sanción ley 21.643</b> : Descripción simple del <i>Procedimiento de Investigación y Sanción</i> que tiene el fin de orientar a las personas denunciantes, personas denunciadas y testigos.</li>
+	<li><b>Presentación de una denuncia</b> : Documento que orienta a las personas para la presentación de una denuncia.</li>
+</ul>
+
+<h4>Envíos a grupos de destinatarios</h4>
+
+<p>En la imagen de la pantalla <b>Reportes</b> de la denuncia, vemos que hay dos reportes que tienen a su derecha el botón <i class="bi bi-envelope-check"></i>, que indica que se pueden enviar a un grupo específico de destinatarios:
+	<ul>
+		<li>Verificación de datos de los participantes y solicitud de documentación</li>
+		<li>Notificación de inicio de investigación</li>
+	</ul>
+</p>
+
+<h5>Verificación de datos de los participantes y solicitud de documentación</h5>
+
+<p>Los destinatarios de este correo son los contactos de RRHH registrados en la plataforma y su contenido es el detalle de la información, que hasta el momento se tiene, de los participantes. Su proposito es pedir se verifique, corrija y complete (si es necesario) la información que se adjunta de los participantes. Adicionalmente solicita toda la documentación que el reglamento obliga tener a la vista, al momento de redactar el informe de investigación.</p>
+<p>Dado que la lista de participantes puede incrementarse en relación a los testigos en la medida que tomamos las declaraciones a denunciantes y denunciados, este reporte se puede enviar más de una vez. Cada vez que se envia, la plataforma cuidará que sólo se envíe a quienes no lo han recibido.</p>
+
+<h5>Notificación de inicio de la investigación</h5>
+
+<p>Es la notificación que se envía a todos los participantes anunciando la recepción de la denuncia.</p>
+<p>También puede ser enviado más de una vez cuidándo no enviarlo a quienes ya lo recibieron.</p>
+
+<h4>Notificaciones vinculadas a la creación de un registro particular</h4>
+
+<p>En la imagen de la página <b>Reportes</b> de la denuncia podemos ver tres ejemplos:
+	<ul>
+		<li>Notificación de derivación de la denuncia</li>
+		<li>Notificación de la asignación de investigador a la denuncia</li>
+		<li>Agendamiento de declaración del participante</li>
+	</ul>
+</p>
+
+<p>El reglamento establece <b>la obligación de informar por escrito la derivación de la denuncia</b>. Una denuncia puede ser derivada a la Dirección del trabajo o a una empresa externa y, en casos particulares, una denuncia puede ser derivada más de una vez.</p>
+<p>En el registro de cada derivación, habrá un botón que permita notificar esa derivación en particular a todos los participantes.</p>
+
+<p>Tambień <b>es obligatorio notificar la asignación del investigador a la denuncia</b>. Dado que el reglamento posibilita la presentación de una objeción al investigador asignado, lo cual de ser acogido por la empresa generaría una segunda asignación, es posible que una denuncia tenga dos asignaciones y requiera notificar ambas en la medida que ocurren.</p>
+<p>En el registro de cada investigador, habrá un botón que permita notificar su asignación a todos los participantes.</p>
+
+<p>Por último, se debe informar a cada participante la fecha y hora en la cual se le tomará declaración. Si bien, es probable que baste una única declaración es posible agendar una segunda cita.</p>
+<p>En el registro de cada agendamiento, habrá un botón que permita enviar la cita al participante que se desa citar.</p>

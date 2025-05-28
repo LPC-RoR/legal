@@ -1,6 +1,6 @@
 <%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 
-<%= render partial: 'st_estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
+<%= render partial: 'st_estados/st_estados/partials/change_state', locals: {objeto: @objeto} if admin? %>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 

@@ -1,0 +1,63 @@
+<h3>Gestión de la Documentación obligatoria</h3>
+
+<p>En la medida que vamos avanzando en el <i>Procedimiento de Investigación y Sanción</i>, la plataforma va exigiendo que cierta documentación sea subida a la plataforma. Ya sea porque en ese momento es posible incluirlo o porque la denuncia tiene una condición particular que lo hace necesario.</p>
+
+<p>La documentación obligatoria de nuestro ejemplo de denuncia simple, luce así luego de que hemos registrado todo el procedimiento y hemos dejado para el final, subir los documentos:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dcmntcn_oblgtr_1.png', width: "600" %>
+</div>
+
+<h4>Control de tareas</h4>
+
+<p>Los <b>Documentos obligatorios</b> son aquellos necesarios para documentar el Procedimiento de Inestigación y Sanción. El reglamento establece en detalle todos los antecedentes que se deben registrar en la 'Carpeta de Investigación', que son equivalentes a los que podría exigir la Dirección del Trabajo en una fiscalización.</p>
+
+<p>La Dirección del Trabajo no revisará la plataforma, obviamente, su fiscalización revisará el conjunto de documentos físicamente, es decir la <i>Carpeta de Investigación</i>.</p>
+
+<p>Podemos ver en la imagen anterior, que en la lista de documentos <b>Evidencia de la aplicación de Medidas y Sanciones</b>, se subió un documento llamado <b>Evidencia aplicación de sanciones de la investigación</b>.</p>
+
+<p>La plataforma verifica que haya sido subido, al menos ún archivo de la lista <i>Evidencia de la aplicación de Medidas y Sanciones</i></p>para permitir el término de la etapa. Por ello, la plataforma nos permitió postergar el almacenamiento de muchos documentos, salvo de este. Hay otros ejemplos de esta obligatoriedad: la toma de declaraciones se da por terminada cuando las declaraciones de todos los participantes han sido subidas a la plataforma</p>
+
+<p>Estos casos, en los que la plataforma exige subir el archivo, cumplen la función de evitar que se pueda avanzar equivocadamente, cuando la tarea no se ha completado aún, afectando el control de los plazos, la emisión de información de la denuncia, etc.</p>
+
+<p>Los estándares de supervición del procedimiento y de confidencialidad establecidos por cada empresa, determinarán si las reglas de obligatoriedad serán más o menos estrictas en su implementación.</p>
+
+<h4>Documentos chequeados</h4>
+
+<p>Un estándar intermedio, consiste en crear sólo la carátula del documento sin subirlo, con el fin de registrar que se cuenta con él en la carpeta.</p>
+<p>Esto puede ser usado para subir cierto documento en diferido o simplemente, para no subirlo pero dejar constancia de que se cuenta con él. Esto último puede ser necesario por ejemplo, para cumplir con la política de confidencialidad de la empresa.</p>
+<p>En el ejemplo de la imagen anterior, se chequeó el documento <b>Evidencia aplicación de sanciones de la investigación</b>. Esto es señalado por la plataforma agregando el ícono <i class="bi bi-exclamation-triangle"></i> en rojo, al final del nombre del documento.</p>
+
+<h4>Documentos vs Lista de documentos</h4>
+
+<p>Se puede apreciar en la imagen, que la lista tiene dos tipos de elementos con distinta funcionalidad:
+	<ol>
+		<li><b>Documento único</b>: son aquellos cuyo nombre comienzan con el ícono <i class="bi bi-file-earmark"></i>. El documento <b>Denuncia</b> por ejemplo. La funcionalidad que ofrece este elemento es simplemente <b>Subir</b> el documento, presentada en el botón de la derecha.</li>
+		<li><b>Lista de documentos</b>: son aquellos cuyo nombre comienza con el ícono <i class="bi bi-list-ul"></i>. Ejemplificado por las <b>Medidas de resguardo</b> por ejemplo. Este elemento es un pequeño encabezado, que a su derecha tiene el botón <i class="bi bi-plus-circle"></i> que permite agregar documentos a la lista.</li>
+	</ol>
+</p>
+
+<p>Para subir un documento único presionamos el botón <b><i class="bi bi-upload"></i> Subir</b>, loi cual despliega el siguiente formulario:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dcmntcn_oblgtr_2.png', width: "600" %>
+</div>
+
+<p>Podemos ver que el nombre del documento se asigna por defecto y que sólo se requiere <i>buscarlo</i> y <i>subirlo</i>.</p>
+
+<p>Para subir un documento a una lista de documentos se debe presionar el botón <i class="bi bi-plus-circle"></i>, lo cual despliega el siguiente formulario:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dcmntcn_oblgtr_3.png', width: "600" %>
+</div>
+
+<p>En este formulario podemos ver dos cambios evidentes:
+	<ol>
+		<li><b>Debemos nombrar el archivo</b>, requisito obvio pues no tiene sentido contar con una lista de archivos que tienen el mismo nombre.</li>
+		<li><b>La fecha del docunmento</b>. Este campo no aparece en todas las listas, para la lista <i>Medidas de resguardo</i> tiene sentido, pues muestra la oportunidad en la adopción de las medidas. Es parte de la configuración determinar qué documentos pediran el registro de la fecha y cuales no.</li>
+	</ol>
+</p>
+
+<p>La fecha que se registra en cada documento debe coincidir con la fecha que muestra el documento. Esto sólo puede ser garantizado por el usuario que sube el documento. La plataforma no tiene cómo verificar este estándar.</p>
+
+<p>Esta flexibilidad requiere, para garantizar un buen resultado, la formalización por parte de la empresa, del estándar de manejo de la documentación del Procedimiento de Investigación y Sanción. Este estándar debe considerar el manejo de dacumentación proveniente de empresas externas cuando se trata de una empresa principal o usuaria.</p>
