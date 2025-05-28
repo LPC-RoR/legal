@@ -52,11 +52,16 @@ class Empresa < ApplicationRecord
     end
 
     def n_dnncs
-    	self.productos? ? (self.formatos.include?('B') ? 1 : 20) : 1
+        # Si tiene productos puede ser 1 (B) o 20, si no (DEMO) son 10
+    	self.productos? ? (self.formatos.include?('B') ? 1 : 20) : 10
     end
 
     def new_bttn?
     	self.krn_denuncias.count < self.n_dnncs
+    end
+
+    def demo_activo?
+        self.productos? ? true : (self.created_at.to_date.in_time_zone <= 30.days.ago.in_time_zone)
     end
 
     # ---------------------------------------------------------------------------------

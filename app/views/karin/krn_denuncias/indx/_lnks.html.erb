@@ -1,4 +1,6 @@
-<!-- Pregunta si el número de denuncias excede las permitidas al cliente/empresa -->
-<% if @objeto.new_bttn? and @objeto.operable? %>
+<!-- new_bttn? : Pregunta si el número de denuncias excede las permitidas al cliente/empresa -->
+<!-- operable? : Pregunta se ingresaron investigadores y empresas externas si corresponde -->
+<!-- demo_activo? : Si la cuenta es DEMO no puede usarse por más de 30 días, si no es DEMO, es siempre verdadero -->
+<% if @objeto.new_bttn? and @objeto.operable? and @objeto.demo_activo? %>
 	<%= render partial: '0p/tabla/lnk_new', locals: {lnk: "/#{cntrllr('krn_denuncias')}/new#{ownr_prms(@objeto) unless @objeto.blank?}", tltp: "Agrega #{to_name(cntrllr('krn_denuncias'))}"} %>
 <% end %>
