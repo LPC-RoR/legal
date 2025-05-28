@@ -5,4 +5,9 @@
 <% unless @objeto.operable? %>
 	<%= render partial: prtl_name('cuentas', 'prtls/init', 'not_oprbl') %>
 <% end %>
-<%= render partial: 'cuentas/indx/tbl', locals: {source: source, crud: 'lnks'} %>
+
+<% unless @objeto.demo_activo? %>
+	<%= render partial: prtl_name('cuentas', 'prtls/init', 'demo_vncd') %>
+<% else %>
+	<%= render partial: 'cuentas/indx/tbl', locals: {source: source, crud: 'lnks'} %>
+<% end %>

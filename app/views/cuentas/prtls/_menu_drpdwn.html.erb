@@ -1,12 +1,14 @@
-<div class="dropdown">
-    <a class="btn btn-link btn-lg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi bi-list-ul fs-3 text-secondary"></i>
-    </a>
-    
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <%= render partial: 'cuentas/prtls/drpdwn_item', locals: {objeto: @objeto, actn: 'dnncs', item: 'Denuncias'} %>
-        <%= render partial: 'cuentas/prtls/drpdwn_item', locals: {objeto: @objeto, actn: 'invstgdrs', item: 'Investigadores'} %>
-        <%= render partial: 'cuentas/prtls/drpdwn_item', locals: {objeto: @objeto, actn: 'extrns', item: 'Empresas externas'} if @objeto.principal_usuaria %>
-        <%= render partial: 'cuentas/prtls/drpdwn_item', locals: {objeto: @objeto, actn: 'nmn', item: 'Nómina'} %>
-    </ul>
-</div>
+<% if @objeto.demo_activo? %>
+    <div class="dropdown">
+        <a class="btn btn-link btn-lg dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-list-ul fs-3 text-secondary"></i>
+        </a>
+        
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <%= render partial: 'cuentas/prtls/drpdwn_item', locals: {objeto: @objeto, actn: 'dnncs', item: 'Denuncias'} %>
+            <%= render partial: 'cuentas/prtls/drpdwn_item', locals: {objeto: @objeto, actn: 'invstgdrs', item: 'Investigadores'} %>
+            <%= render partial: 'cuentas/prtls/drpdwn_item', locals: {objeto: @objeto, actn: 'extrns', item: 'Empresas externas'} if @objeto.principal_usuaria %>
+            <%= render partial: 'cuentas/prtls/drpdwn_item', locals: {objeto: @objeto, actn: 'nmn', item: 'Nómina'} %>
+        </ul>
+    </div>
+<% end %>

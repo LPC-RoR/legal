@@ -1,0 +1,10 @@
+<%= render layout: 'cuentas/prtls/msgg', locals: {ttl: '¡Su cuenta DEMO ha espirado!'} do %>
+
+	<p>Su cuenta DEMO ha exedido los 30 días otorgados para la evaluación del producto.</p>
+	<p>Todo el contenido de su cuenta será próximamente eliminado.</p>
+	
+	<% unless admin? %>
+		<p>Comuniquese con el administrador de la cuenta para resolver el problema.</p>
+	<% end %>
+
+<% end %>
