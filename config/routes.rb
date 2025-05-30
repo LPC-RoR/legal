@@ -310,6 +310,7 @@ Rails.application.routes.draw do
       match :abajo, via: :get, on: :member
     end
     resources :comunas
+    resources :rcrs_logos
   end
 
   scope module: 'repositorios' do

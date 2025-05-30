@@ -26,6 +26,7 @@ class Rprts::KrnReportesController < ApplicationController
 
   def dnnc
     @objeto = KrnDenuncia.find(params[:oid])
+    @logo_url = @objeto.ownr.logo_url
 
     load_objt(@objeto)
     load_proc(@objeto)
@@ -39,11 +40,15 @@ class Rprts::KrnReportesController < ApplicationController
   end
 
   def drchs
+    @objeto = KrnDenuncia.find(params[:oid])
+    @logo_url = @objeto.ownr.logo_url
+
     respond_to_pdf('drchs')
   end
 
   def infrmcn
     @objeto = KrnDenuncia.find(params[:oid])
+    @logo_url = @objeto.ownr.logo_url
 
     load_objt(@objeto)
 
@@ -55,6 +60,8 @@ class Rprts::KrnReportesController < ApplicationController
 
   def invstgcn
     @objeto = KrnDenuncia.find(params[:oid])
+    @logo_url = @objeto.ownr.logo_url
+
     @prtcpnt = {
       nombre: 'NOMBRE COMPLETO DEL PARTICIPANTE',
       rol: 'ROL DEL PARTICIPANTE'
@@ -65,6 +72,8 @@ class Rprts::KrnReportesController < ApplicationController
 
   def invstgdr
     @objeto = KrnDenuncia.find(params[:oid])
+    @logo_url = @objeto.ownr.logo_url
+
     @prtcpnt = {
       nombre: 'NOMBRE COMPLETO DEL PARTICIPANTE',
       rol: 'ROL DEL PARTICIPANTE'
@@ -75,12 +84,15 @@ class Rprts::KrnReportesController < ApplicationController
 
   def dclrcn
     @objeto = KrnDeclaracion.find(params[:oid])
+    @logo_url = @objeto.ownr.logo_url
 
     respond_to_pdf('dclrcn')
   end
 
   def drvcn
     @objeto = KrnDerivacion.find(params[:oid])
+    @logo_url = @objeto.ownr.logo_url
+
     @prtcpnt = {
       nombre: 'NOMBRE COMPLETO DEL PARTICIPANTE',
       rol: 'ROL DEL PARTICIPANTE'
@@ -103,6 +115,7 @@ class Rprts::KrnReportesController < ApplicationController
     }
   end
 
+  # Método para generar PDF y enviarlo por correo electrónico
   def generate_and_send_report
     @pdf_archivo = PdfArchivo.find_by(codigo: params[:rprt])
     # Manejo de tablas

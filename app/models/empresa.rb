@@ -8,16 +8,22 @@ class Empresa < ApplicationRecord
 	has_many :krn_denuncias, as: :ownr
 	has_many :krn_empresa_externas, as: :ownr
 
+    has_one :rcrs_logo, as: :ownr
     has_many :app_contactos, as: :ownr
 
 	scope :rut_ordr, -> {order(:rut)}
 
 	validates :rut, valida_rut: true
-    validates_uniqueness_of :rut
+    validates :email_administrador, valida_admin_empresa: true
+    validates_uniqueness_of :rut, :email_administrador
     validates_presence_of :razon_social, :email_administrador
 
     def cnt_cntrllr
     	'emprss'
+    end
+
+    def logo_url
+        self.rcrs_logo.blank? ? 'krn_nvbr.png' : self.rcrs_logo.logo.resized.url
     end
 
     # Procedimiento Investigación y Snación

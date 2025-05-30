@@ -35,7 +35,8 @@
   </head>
   <body>
     <div class="text-center" id="pdf-header">
-      <%= image_tag pdf_asset_base64('tyc.png'), class: 'header-image' %>
+      <%#= image_tag pdf_asset_base64('tyc.png'), class: 'header-image' %>
+      <%= image_tag pdf_asset_base64(@logo_url), class: 'header-image' %>
     </div>
     <%= yield %>
 

@@ -1,12 +1,14 @@
 <%= render partial: 'cuentas/prtls/menu_icons' %>
 
+<%#= image_tag @objeto.rcrs_logo.logo.resized.url if @objeto.rcrs_logo.present? %>
+
 <%= render partial: 'cuentas/indx/ttl', locals: {source: source, ownr: @objeto, fs: 3, brdr_clr: 'dark-subtle'} %>
 
 <% unless @objeto.operable? %>
 	<%= render partial: prtl_name('cuentas', 'prtls/init', 'not_oprbl') %>
 <% end %>
 
-<% unless @objeto.demo_activo? %>
+<% unless @objeto.demo_activo? or dog? %>
 	<%= render partial: prtl_name('cuentas', 'prtls/init', 'demo_vncd') %>
 <% else %>
 	<%= render partial: 'cuentas/indx/tbl', locals: {source: source, crud: 'lnks'} %>

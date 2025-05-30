@@ -26,6 +26,7 @@ class Cliente < ApplicationRecord
 
 	has_many :age_actividades, as: :ownr
 
+    has_one :rcrs_logo, as: :ownr
 	has_many :app_contactos, as: :ownr
 	has_many :app_archivos, as: :ownr
 	has_many :notas, as: :ownr
@@ -39,7 +40,11 @@ class Cliente < ApplicationRecord
     scope :cl_ordr, -> { order(preferente: :desc, razon_social: :asc) }
 
 
-    # Procedimiento Investigación y Snación
+    # Procedimiento Investigación y Sanción
+
+    def logo_url
+        self.rcrs_logo.blank? ? 'tyc.png' : self.rcrs_logo.logo.resized.url
+    end
 
     def productos?
         self.pro_dtll_ventas.any?
@@ -74,6 +79,10 @@ class Cliente < ApplicationRecord
 
     def new_bttn?
     	self.krn_denuncias.count < self.n_dnncs
+    end
+
+    def demo_activo?
+        true
     end
 
     # CHILDS
