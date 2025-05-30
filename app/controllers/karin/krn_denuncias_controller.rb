@@ -107,15 +107,85 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   def prg
+    @objeto.rep_archivos.each do |arch|
+      arch.delete
+    end
+
+    @objeto.pdf_registros.delete_all
+
+    @objeto.notas.each do |nota|
+      nota.age_usu_notas.delete_all
+      nota.delete
+    end
+
+    @objeto.krn_denunciantes.each do |dnncnt|
+      dnncnt.rep_archivos.each do |arch|
+        arch.delete
+      end
+      dnncnt.notas.each do |nota|
+        nota.age_usu_notas.delete_all
+        nota.delete
+      end
+      dnncnt.pdf_registros.delete_all
+      dnncnt.krn_declaraciones.each do |dclrcn|
+        dclrcn.pdf_registros.delete_all
+        dclrcn.delete
+      end
+      dnncnt.krn_testigos.each do |tstg|
+        tstg.rep_archivos.each do |arch|
+          arch.delete
+        end
+        tstg.pdf_registros.delete_all
+        tstg.krn_declaraciones.each do |dclrcn|
+          dclrcn.pdf_registros.delete_all
+          dclrcn.delete
+        end
+        tstg.delete
+      end
+      dnncnt.delete
+    end
+
+    @objeto.krn_denunciados.each do |dnncd|
+      dnncd.rep_archivos.each do |arch|
+        arch.delete
+      end
+      dnncd.notas.each do |nota|
+        nota.age_usu_notas.delete_all
+        nota.delete
+      end
+      dnncd.pdf_registros.delete_all
+      dnncd.krn_declaraciones.each do |dclrcn|
+        dclrcn.pdf_registros.delete_all
+        dclrcn.delete
+      end
+      dnncd.krn_testigos.each do |tstg|
+        tstg.rep_archivos.each do |arch|
+          arch.delete
+        end
+        tstg.pdf_registros.delete_all
+        tstg.krn_declaraciones.each do |dclrcn|
+          dclrcn.pdf_registros.delete_all
+          dclrcn.delete
+        end
+        tstg.delete
+      end
+      dnncd.delete
+    end
+
+    @objeto.krn_derivaciones.each do |drvcn|
+      drvcn.pdf_registros.delete_all
+      drvcn.delete
+    end
+
+    @objeto.krn_inv_denuncias.delete_all
+
     @objeto.krn_empresa_externa_id = nil
-    @objeto.tipo_declaracion = nil
-    @objeto.representante = nil
-    @objeto.fecha_hora_dt = nil
     @objeto.investigacion_local = nil
+    @objeto.investigacion_externa = nil
     @objeto.solicitud_denuncia = nil
     @objeto.fecha_ntfccn = nil
     @objeto.fecha_trmtcn = nil
-    @objeto.fecha_trmn = nil
+    @objeto.fecha_hora_dt = nil
     @objeto.objcn_invstgdr = nil
     @objeto.evlcn_incmplt = nil
     @objeto.evlcn_incnsstnt = nil
@@ -126,30 +196,6 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto.fecha_prnncmnt = nil
     @objeto.prnncmnt_vncd = nil
 
-    @objeto.krn_denunciantes.each do |dnncnt|
-      dnncnt.pdf_registros.delete_all
-      dnncnt.krn_testigos.each do |tstg|
-        tstg.pdf_registros.delete_all
-        tstg.delete
-      end
-      dnncnt.delete
-    end
-    @objeto.krn_denunciados.each do |dnncd|
-      dnncd.pdf_registros.delete_all
-      dnncd.krn_testigos.each do |tstg|
-        tstg.pdf_registros.delete_all
-        tstg.delete
-      end
-      dnncd.delete
-    end
-    @objeto.pdf_registros.delete_all
-    @objeto.krn_inv_denuncias.delete_all
-    @objeto.krn_derivaciones.delete_all
-    @objeto.krn_declaraciones.delete_all
-    @objeto.notas.delete_all
-    @objeto.rep_archivos.each do |arch|
-      arch.delete
-    end
 
     @objeto.save
 
