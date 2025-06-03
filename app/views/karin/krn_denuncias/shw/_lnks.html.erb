@@ -1,13 +1,18 @@
-<% unless scp_activo? %>
+<%# unless scp_activo? %>
 	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: 'Home'} do %>
 		<i class="bi bi-house-door"></i>
 	<% end %>
 
 	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text', gly_clss: 'fs-4'} %>
+<%# end %>
 
-	<% if dog? %>
-		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/prg", tltp: 'Purge'} do %>
-			<i class="bi bi-trash"></i>
-		<% end %>
+<% if dog? %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/prg", tltp: 'Purge'} do %>
+		<i class="bi bi-trash"></i>
 	<% end %>
+<% end %>
+
+<i class="bi bi-dot"></i>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: '/hlp_ayudas/bnvnd', tltp: 'Ir a la ayuda de LaborSafe', target: '_blank'} do %>
+    <i class="bi bi-question-circle"></i>
 <% end %>

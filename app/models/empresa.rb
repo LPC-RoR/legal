@@ -67,7 +67,7 @@ class Empresa < ApplicationRecord
     end
 
     def demo_activo?
-        self.productos? ? true : (self.created_at.to_date.in_time_zone <= 30.days.ago.in_time_zone)
+        self.productos? ? true : (self.created_at.to_date.in_time_zone > 30.days.ago.in_time_zone)
     end
 
     # ---------------------------------------------------------------------------------

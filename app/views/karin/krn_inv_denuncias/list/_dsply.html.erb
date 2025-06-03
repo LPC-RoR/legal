@@ -16,7 +16,8 @@
 				<% else %>
 					Investigador sin objeción 
 				<% end %>
-				<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'objetado', stts: ['no objetado', 'objetado'], glys: ['ban', 'square']} %>
+				<i class="bi bi-dot"></i>
+				<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'objetado', stts: ['no objetado', 'objetado'], glys: ['ban', 'square'], prmpt: objeto.objetado ? 'quitar objeción' : 'objetar'} %>
 			<% else %>
 				<% if @objeto.objcn_acogida %>
 					Objeción acogida 

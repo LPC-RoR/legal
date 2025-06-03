@@ -20,6 +20,7 @@ class Rprts::KrnReportesController < ApplicationController
       @objeto = KrnDenuncia.find(oid)
       dnnc = @objeto
     end
+    @logo_url = @objeto.dnnc.ownr.logo_url
     load_objt(dnnc)
     load_proc(dnnc)
   end

@@ -11,7 +11,7 @@
 			<% if prtl?(@objeto, "proc/#{@tar_last.codigo}", 'undo') %>
 				<%= render layout: 'cuentas/prtls/proceso/actn' do %>
 					<%= render layout: '0p/collapse/link', locals: {label: 'Undo', objeto: nil, tooltip: nil} do %>
-						<div class="mx-1 fw-bold" style="font-size: 18px;">¿Desea deshacer la última acción realizada?</div>
+						<div class="mx-1 fw-bold" style="font-size: 18px;"><i class="bi bi-cursor"></i> ¿Desea deshacer la última acción realizada?</div>
 					<% end %>
 
 					<%= render layout: '0p/collapse/dsply', locals: {label: 'Undo', objeto: nil} do %>

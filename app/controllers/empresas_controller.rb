@@ -93,7 +93,7 @@ class EmpresasController < ApplicationController
   private
 
     def add_admin
-      unless @objeto.blank?
+      if @objeto.persisted?
         @objeto.app_nominas.create(ownr_type: @objeto.class.name, ownr_id: @objeto.id, nombre: 'Administrador', email: @objeto.email_administrador, tipo:'admin')
       end
     end

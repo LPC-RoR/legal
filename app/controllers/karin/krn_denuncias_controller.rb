@@ -195,6 +195,7 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto.fecha_env_infrm = nil
     @objeto.fecha_prnncmnt = nil
     @objeto.prnncmnt_vncd = nil
+    @objeto.fecha_cierre = nil
 
 
     @objeto.save

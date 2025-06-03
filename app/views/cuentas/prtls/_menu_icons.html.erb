@@ -49,7 +49,11 @@
 		<%= render layout: '0p/layout/tooltip_link', locals: {link: edit_usuario_registration_path, tooltip: 'Editar mi usuario'} do %>
 			<b><%= email_mask(perfil_activo.email) %></b>
 		<% end %>
-		
+		<i class="bi bi-dot"></i>
+        <%= render layout: '0p/tltp_lnk', locals: {lnk: '/hlp_ayudas/bnvnd', tltp: 'Ir a la ayuda de LaborSafe', target: '_blank'} do %>
+            <i class="bi bi-question-circle"></i>
+        <% end %>
+
 		<% if @scrty_vls[:addt_usr] and admin? and controller_name == 'cuentas' %>
 			<%= link_to "/#{@objeto.class.name.tableize}", title: 'Addt', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
 				<i class="bi bi-menu-button-wide fs-3"></i>
