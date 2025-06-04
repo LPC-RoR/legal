@@ -6,29 +6,8 @@
 		<i>Procedimiento de Investigación y Sanción</i> · 
 		Ley 21.643</br>
 
-		<div class="row gx-1 text-center" style="margin-top: 6rem;font-size: 24px; line-height: 1.5;">
-			<div class="col-lg-4 col-xs-12">
-				<div class="px-4" style="margin-top: 1rem;">
-					Gestione la recepción de denuncias y toda la investigación desde una plataforma que lo guiará paso a paso a través del Procedimiento de Investigación y Sanción.
-				</div>
-			</div>
-			<div class="col-lg-8">
-				<div class="text-center">
-					<%= image_tag 'ejemplo2.png', width: "600" %>
-				</div>
-			</div>
-		</div>
-
-		<div class="text-center" style="margin-top: 6rem;margin-left: 10%;margin-right: 10%;font-size: 24px; line-height: 1.5;">
-			<%= image_tag 'ls_logo_100.png', width: "100" %>
-			<div>
-				Las personas denunciantes y denunciadas podrán acceder en cualquier momento a un reporte detallado del estado actual de la investigación.
-			</div>
-			<div style="font-size: 14px;line-height: 1.5;font-weight: normal;">
-				El reporte detalla las acciones realizadas, un resúmen de los plazos de las etapas terminadas y el detalle de la documentación obligatoria. Este reporte <b>no muestra el contenido de la denuncia ni las declaraciones de los participantes</b>. El siguiente código QR lo conducirá a un reporte tipo de una denuncia simple.
-			</div>
-			<%= image_tag 'qr_dnnc.png', width: "500" %>
-		</div>
+		<%= render partial: 'aplicacion/publicos/home/public_home/laborsafe/paso_a_paso' %>
+		<%= render partial: 'aplicacion/publicos/home/public_home/laborsafe/rcrss' %>
 
 		<div class="row gx-1 text-center" style="margin-top: 6rem;margin-right: 5%;font-size: 24px; line-height: 1.5;">
 			<div class="col-lg-8 col-xs-12">
