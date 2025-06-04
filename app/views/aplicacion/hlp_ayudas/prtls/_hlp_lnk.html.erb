@@ -1,3 +1,4 @@
-<%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/#{hlp}", tltp: tltp} do %>
+<% target ||= nil %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/#{hlp}", tltp: tltp, target: target} do %>
 	<i class="bi bi-cursor"></i> <%=dscrpcn %>
 <% end %>

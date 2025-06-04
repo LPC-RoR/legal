@@ -2,46 +2,15 @@
 	<%= image_tag 'laboralsafe.png', style: 'height:100%;width:auto;' %>
 	</br>
 	<div style="padding-left: 3rem;">
+
 		Sistema de registro y control</br>
 		<i>Procedimiento de Investigación y Sanción</i> · 
 		Ley 21.643</br>
 
 		<%= render partial: 'aplicacion/publicos/home/public_home/laborsafe/paso_a_paso' %>
 		<%= render partial: 'aplicacion/publicos/home/public_home/laborsafe/rcrss' %>
-
-		<div class="row gx-1 text-center" style="margin-top: 6rem;margin-right: 5%;font-size: 24px; line-height: 1.5;">
-			<div class="col-lg-8 col-xs-12">
-				<div>
-					<%= image_tag 'enviar_correo.png', width: "100" %>
-				</div>
-				<div style="margin-top: 2rem;">
-					<%= image_tag 'ntfccns.png', width: "600" %>
-				</div>
-				<div style="margin-left: 10%;margin-right: 10%;font-size: 14px;line-height: 1.5;font-weight: normal;">
-					Información general del procedimiento (capacitación), notificaciones obligatorias, citaciones a declarar, entre otras.
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<%= image_tag 'ls_logo_100.png', width: "100" %>
-				<div class="px-5" style="margin-top: 1rem;">
-					Gestione la comunicación formal de la investigación con los participantes a través de correos electrónicos generados por la plataforma.
-				</div>
-			</div>
-		</div>
-
-		<div class="text-center" style="margin-top: 6rem;margin-bottom: 6rem;margin-left: 10%;margin-right: 10%;font-size: 24px; line-height: 1.5;">
-			<div>
-				<%= image_tag 'ls_logo_100.png', width: "100" %>
-			</div>
-			
-			<div class="mt-2">
-				Cubrimos todas las obligaciones adicionales exigidas para <b>empresas principales o usuarias.</b>
-			</div>
-			<div style="font-size: 16px;line-height: 1.5;">
-				Contamos con un modelo de implementación que considera la capacitación del equipo de rrhh/recepción/investigación y la completa coordinación con las empresas colaboradoras, necesaria para garantizar el cumplimiento de toda la normativa. La versión ampliada de nuestra plataforma le permitirá recibir denuncias de personas trabajadoras de empresas colaboradoras y registrar y controlar investigaciones de denuncias cuyos particpantes pertenezcan a más de una empresa, entre otras funcionalidades.
-			</div>
-		</div>
-
+		<%= render partial: 'aplicacion/publicos/home/public_home/laborsafe/ntfccns' %>
+		<%= render partial: 'aplicacion/publicos/home/public_home/laborsafe/prncpl_usr' %>
 
 	</div>
 

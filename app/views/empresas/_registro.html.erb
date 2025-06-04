@@ -27,6 +27,7 @@
     <%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/rgstr_emprs", tltp: 'Ayuda para registro de empresa', target: '_blank'} do %>
       <i class="bi bi-cursor"></i> Instrucciones para registrar su empresa.
     <% end %>
+    <p><%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'prncpl_usr', dscrpcn: 'Empresas principales o usuarias', tltp: 'Empresas principales o usuarias', target: '_blank'} %></p>
   </div>
 </div>
 
