@@ -18,16 +18,24 @@
 			<small>Extracto del reglamento que regula el Procedimiento de Investigación y Sanción.</b>.</small>
 		</div>
 	</div>
-	<div class="row gx-1 text-center" style="font-size: 10px;line-height: 1.5;">
+	<div class="row gx-1 text-center objt_lnk" style="font-size: 12px;line-height: 1.5;">
 		<div class="col-lg-4 col-xs-12">
 			<%= image_tag 'home/qr_resumen.png' %></br>
-			Ejemplo
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/dnnc.pdf?oid=36", tltp: "Ver ejemplo", target: '_blank'} do %>
+				<i class="bi bi-cursor"></i> Ver Ejemplo
+			<% end %>
 		</div>
 		<div class="col-lg-4 col-xs-12">
 			<%= image_tag 'home/qr_guia.png' %></br>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/prcdmnt_invstgcn_sncn", tltp: "Ver ejemplo", target: '_blank'} do %>
+				<i class="bi bi-cursor"></i> Ver Ejemplo
+			<% end %>
 		</div>
 		<div class="col-lg-4">
 			<%= image_tag 'home/qr_drchs.png' %></br>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/drchs_rspnsbldds", tltp: "Ver ejemplo", target: '_blank'} do %>
+				<i class="bi bi-cursor"></i> Ver Ejemplo
+			<% end %>
 		</div>
 	</div>
 </div>
