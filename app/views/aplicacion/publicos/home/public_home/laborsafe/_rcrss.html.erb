@@ -6,36 +6,43 @@
 	</div>
 	<div class="row gx-1" style="font-size: 18px;line-height: 1.5;">
 		<div class="col-lg-4 col-xs-12">
-			<p><b>Resumen del estado de la denuncia</b></p>
-			<small>Detalle de las acciones realizadas, plazos y documentación obligatoria. Disponible <b>sólo para personas denunciantes y denunciadas</b>.</small>
+			<p><b>Reporte: Resumen del estado de la denuncia</b></p>
+			<div style="font-size: 16px; line-height: 1.5;">
+				<p>Detalle de las acciones realizadas, plazos y documentación obligatoria. Disponible <b>sólo para personas denunciantes y denunciadas</b>.</p>
+			</div>
+
+			<%= image_tag 'home/qr_resumen.png' %>
+			<div class="objt_lnk" style="font-size: 12px; line-height: 1.5;">
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/dnnc.pdf?oid=36", tltp: "Ver ejemplo", target: '_blank'} do %>
+					<i class="bi bi-cursor"></i> Ver Ejemplo
+				<% end %>
+			</div>
 		</div>
 		<div class="col-lg-4 col-xs-12">
-			<p><b>Procedimiento de Investigación y Sanción: Guía del participante</b></p>
-			<small>Guía para participantes acerca de las distintas etapas y tareas del Procedimiento de Investigación y Sanción.</b>.</small>
+			<p><b>Procedimiento de Investigación y Sanción</b></p>
+			<div style="font-size: 16px; line-height: 1.5;">
+				<p>Guía para participantes acerca de las distintas etapas y tareas del Procedimiento de Investigación y Sanción.</b>.</p>
+			</div>
+
+			<%= image_tag 'home/qr_guia.png' %>
+			<div class="objt_lnk" style="font-size: 12px; line-height: 1.5;">
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/prcdmnt_invstgcn_sncn", tltp: "Ver ejemplo", target: '_blank'} do %>
+					<i class="bi bi-cursor"></i> Ver Ejemplo
+				<% end %>
+			</div>
 		</div>
 		<div class="col-lg-4">
 			<p><b>Derechos y obligaciones de los participantes</b></p>
-			<small>Extracto del reglamento que regula el Procedimiento de Investigación y Sanción.</b>.</small>
-		</div>
-	</div>
-	<div class="row gx-1 text-center objt_lnk" style="font-size: 12px;line-height: 1.5;">
-		<div class="col-lg-4 col-xs-12">
-			<%= image_tag 'home/qr_resumen.png' %></br>
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/dnnc.pdf?oid=36", tltp: "Ver ejemplo", target: '_blank'} do %>
-				<i class="bi bi-cursor"></i> Ver Ejemplo
-			<% end %>
-		</div>
-		<div class="col-lg-4 col-xs-12">
-			<%= image_tag 'home/qr_guia.png' %></br>
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/prcdmnt_invstgcn_sncn", tltp: "Ver ejemplo", target: '_blank'} do %>
-				<i class="bi bi-cursor"></i> Ver Ejemplo
-			<% end %>
-		</div>
-		<div class="col-lg-4">
-			<%= image_tag 'home/qr_drchs.png' %></br>
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/drchs_rspnsbldds", tltp: "Ver ejemplo", target: '_blank'} do %>
-				<i class="bi bi-cursor"></i> Ver Ejemplo
-			<% end %>
+			<div style="margin-bottom: 2.5rem;font-size: 16px; line-height: 1.5;">
+				<p>Extracto del reglamento que regula el Procedimiento de Investigación y Sanción.</b>.</p>
+			</div>
+
+			<%= image_tag 'home/qr_drchs.png' %>
+			<div class="objt_lnk" style="font-size: 12px; line-height: 1.5;">
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/drchs_rspnsbldds", tltp: "Ver ejemplo", target: '_blank'} do %>
+					<i class="bi bi-cursor"></i> Ver Ejemplo
+				<% end %>
+			</div>
 		</div>
 	</div>
 </div>
