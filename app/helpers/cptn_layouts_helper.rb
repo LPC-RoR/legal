@@ -27,8 +27,12 @@ module CptnLayoutsHelper
 		['cuentas'].include?(controller_name)and ['dnncs', 'invstgdrs', 'extrns', 'nmn'].include?(action_name)
 	end
 
+	def krn_hlp_routes?
+		(controller_name == 'hlp_ayudas' and ['ambnt', 'bnvnd', 'dcmntcn_oblgtr', 'dnnc_smpl', 'drchs_rspnsbldds', 'estrctr_dnnc', 'prcdmnt_invstgcn_sncn', 'prncpl_usr', 'rgstr_emprs', 'rprts_ntfccns'].include?(@hlp))
+	end
+
 	def krn_routes?
-		controller_name.start_with?('krn_') or cuentas_routes? or krn_non_krn_routes?
+		controller_name.start_with?('krn_') or cuentas_routes? or krn_non_krn_routes? or krn_hlp_routes?
 	end
 
 	def krn_user_error?
