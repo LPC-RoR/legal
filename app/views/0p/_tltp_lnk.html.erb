@@ -3,6 +3,6 @@
 <% mthd   ||= nil %>
 <% target ||= nil %>
 <% tltp   ||= nil %>
-<%= link_to lnk, method: mthd, data: data, target: target, title: tltp, data_toggle: 'tooltip', data_placement: 'right' do %>
+<%= link_to lnk, data: data, target: target, title: tltp, data_toggle: 'tooltip', data_placement: 'right' do %>
     <% yield %>
 <% end %>

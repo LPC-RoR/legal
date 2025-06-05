@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :parrafos
   resources :notas do
     match :agrega_nota, via: :post, on: :collection
-    match :swtch, via: :get, on: :member
+    match :swtch, via: :post, on: :member
     match :dssgn_usr, via: :get, on: :member
     match :assgn_usr, via: :get, on: :member
     match :swtch_clr, via: :get, on: :member
@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   end
 
   resources :empresas do
-    match :swtch, via: :get, on: :member
+    match :swtch, via: :post, on: :member
   end
 
 # SCOPES *********************************************************
@@ -96,7 +96,7 @@ Rails.application.routes.draw do
     resources :lgl_parrafos do
       match :arriba, via: :get, on: :member
       match :abajo, via: :get, on: :member
-      match :swtch, via: :get, on: :member
+      match :swtch, via: :post, on: :member
       match :padd, via: :get, on: :member
       match :chk_tgs, via: :get, on: :member
       match :prnt, via: :get, on: :member
@@ -140,17 +140,17 @@ Rails.application.routes.draw do
 
     resources :krn_empresa_externas
     resources :krn_denunciados do
-      match :swtch, via: :get, on: :member
+      match :swtch, via: :post, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
     end
     resources :krn_denunciantes do
-      match :swtch, via: :get, on: :member
+      match :swtch, via: :post, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
     end
     resources :krn_denuncias do
-      match :swtch, via: :get, on: :member
+      match :swtch, via: :post, on: :member
       match :niler, via: :get, on: :member
       match :check, via: :get, on: :member
       match :set_fld, via: :post, on: :member
@@ -164,16 +164,16 @@ Rails.application.routes.draw do
     resources :krn_derivaciones
     resources :krn_investigadores
     resources :krn_declaraciones do
-      match :swtch, via: :get, on: :member
+      match :swtch, via: :post, on: :member
       match :migrar, via: :get, on: :member
     end
     resources :krn_testigos do
-      match :swtch, via: :get, on: :member
+      match :swtch, via: :post, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
     end
     resources :krn_inv_denuncias do
-      match :swtch, via: :get, on: :member
+      match :swtch, via: :post, on: :member
     end
   end
 
@@ -187,7 +187,7 @@ Rails.application.routes.draw do
   scope module: 'srvcs' do
     resources :tipo_asesorias
     resources :asesorias do
-      match :swtch, via: :get, on: :member
+      match :swtch, via: :post, on: :member
       match :set_tar_servicio, via: :post, on: :member
       match :generar_cobro, via: :get, on: :member
       match :elimina_cobro, via: :get, on: :member
@@ -265,7 +265,7 @@ Rails.application.routes.draw do
   end
   scope module: 'actividades' do 
     resources :age_actividades do
-      match :swtch, via: :get, on: :member
+      match :swtch, via: :post, on: :member
       match :dssgn_usr, via: :get, on: :member
       match :assgn_usr, via: :get, on: :member
       match :cambio_fecha, via: :post, on: :member
