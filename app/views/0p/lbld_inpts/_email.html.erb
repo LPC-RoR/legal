@@ -1,15 +1,34 @@
+<%# objeto ||= @objeto %>
+<!--div class="form-floating mb-3">
+
+    <%#= form.email_field token, class: "form-control #{'is-invalid' if (objeto.present? and objeto.errors[:name].any?)}", id: label.parameterize, placeholder: label %>
+    <%#= form.label token, label, for: label.parameterize unless (objeto.present? and objeto.errors[token].any?) %>
+
+    <%# unless objeto.blank? %>
+      <%# if objeto.errors[token].any? %>
+        <div class="invalid-feedback">
+          <%#= @objeto.errors[token].join(', ') %>
+        </div>
+      <%# end %>
+    <%# end %>
+
+</div-->
+
+<!-- MODIFICADO PARA ARREGLAR DESPLIEGUE DE INPUT EMAIL EN REGISTRO, PERO NO FUNCIONÓ -->
+
 <% objeto ||= @objeto %>
 <div class="form-floating mb-3">
+  <%= form.email_field token, 
+      class: "form-control #{'is-invalid' if objeto&.errors&.[](token)&.any?}", 
+      id: "#{token}_#{objeto&.id || 'new'}", 
+      placeholder: label,
+      value: form.object.send(token) %>
 
-    <%= form.email_field token, class: "form-control #{'is-invalid' if (objeto.present? and objeto.errors[:name].any?)}", id: label.parameterize, placeholder: label %>
-    <%= form.label token, label, for: label.parameterize unless (objeto.present? and objeto.errors[token].any?) %>
+  <%= form.label token, label %>
 
-    <% unless objeto.blank? %>
-      <% if objeto.errors[token].any? %>
-        <div class="invalid-feedback">
-          <%= @objeto.errors[token].join(', ') %>
-        </div>
-      <% end %>
-    <% end %>
-
+  <% if objeto&.errors&.[](token)&.any? %>
+    <div class="invalid-feedback">
+      <%= objeto.errors[token].join(', ') %>
+    </div>
+  <% end %>
 </div>

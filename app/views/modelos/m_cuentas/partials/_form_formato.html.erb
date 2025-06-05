@@ -1,9 +1,7 @@
 <p><small><b>FORMATO</b></br>Formato para la carga de cartolas bancarias (excel).</small></p>
 <%= form_for :set_formato, url: "/m_cuentas/#{objeto.id}/set_formato" do |form| %>
 	<small>
-
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :m_formato_id, label: 'Formato' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :m_formato_id, colection: objeto.m_banco.m_formatos.order(:m_formato).collect { |formato| [formato.m_formato, formato.id] }, display_field: 'm_formato', prompt: 'Formato' } %></small>
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :m_formato_id, colection: objeto.m_banco.m_formatos.order(:m_formato).collect { |formato| [formato.m_formato, formato.id] }, display_field: 'm_formato', prompt: 'Formato', label: 'Formato' } %></small>
 
 		<button type="submit" class="btn btn-info">
 		  <i class="bi bi-arrow-right-short"></i>

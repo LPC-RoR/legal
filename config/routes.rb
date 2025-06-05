@@ -147,8 +147,7 @@ Rails.application.routes.draw do
     end
     resources :krn_denuncias do
       match :swtch, via: :post, on: :member
-      match :niler, via: :get, on: :member
-      match :check, via: :get, on: :member
+      match :niler, via: :post, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
       match :prg, via: :get, on: :member

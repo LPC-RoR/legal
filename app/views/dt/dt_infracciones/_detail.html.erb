@@ -1,24 +1,17 @@
 <div class='row'>
 	<div class='col-md-6'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :codigo, label: 'Código' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :codigo } %>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :dt_infraccion, label: 'Infracción' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :dt_infraccion } %>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :normas, label: 'Normas' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :normas } %>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :criterios, label: 'Criterios' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :criterios } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :codigo, label: 'Código' } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :dt_infraccion, label: 'Infracción' } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :normas, label: 'Normas' } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :criterios, label: 'Criterios' } %>
 	</div>
 	<div class='col-md-6'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tipificacion, label: 'Tipificación' } %>
-		<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :tipificacion } %>
+		<%= render partial: '0p/lbld_inpts/text_area', locals: { form: form, token: :tipificacion, label: 'Tipificación' } %>
 
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :dt_tabla_multa_id, label: 'Tabla multa' } %>
-		<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :dt_tabla_multa_id, colection: DtTablaMulta.all.order(:dt_tabla_multa).collect { |tm| [tm.dt_tabla_multa, tm.id] }, display_field: 'dt_tabla_multa', prompt: 'Tabla multa' } %>
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :dt_tabla_multa_id, colection: DtTablaMulta.all.order(:dt_tabla_multa).collect { |tm| [tm.dt_tabla_multa, tm.id] }, display_field: 'dt_tabla_multa', prompt: 'Tabla multa', label: 'Tabla multa' } %>
 		</br>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :nota_multa, label: 'Nota multa' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :nota_multa } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nota_multa, label: 'Nota multa' } %>
 	</div>
 </div>
 
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :dt_materia_id } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :dt_materia_id } %>

@@ -1,16 +1,8 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tema_id, label: 'Materia' } %>
-<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tema_id, colection: @objeto.causa.temas.order(:orden).collect { |mat| [mat.tema, mat.id] }, display_field: 'tema', prompt: 'Materia' } %></br>
+<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tema_id, colection: @objeto.causa.temas.order(:orden).collect { |mat| [mat.tema, mat.id] }, display_field: 'tema', prompt: 'Materia', label: 'Materia' } %></br>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :hecho, label: 'Título del hecho' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :hecho } %>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :hecho, label: 'Título del hecho' } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :descripcion, label: 'Hecho' } %>
-<%= render partial: '0p/form_fields/text_area', locals: { form: form, token: :descripcion } %>
-<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :cita, label: 'Cita' } %>
-<%#= render partial: '0p/form_fields/text_area', locals: { form: form, token: :cita } %>
+<%= render partial: '0p/lbld_inpts/text_area', locals: { form: form, token: :descripcion, label: 'Hecho' } %>
 
-<%#= render partial: '0p/form_fields/label', locals: { form: form, token: :documento, label: 'Referencia' } %>
-<%#= render partial: '0p/form_fields/text', locals: { form: form, token: :documento } %>
-
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :causa_id } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :orden } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :causa_id } %>

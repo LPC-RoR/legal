@@ -1,15 +1,8 @@
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :st_estado, label: 'Estado' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :st_estado } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :destinos, label: 'Destinos' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :destinos } %>
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :destinos_admin, label: 'Destinos para Administradores' } %>
-<%= render partial: '0p/form_fields/text', locals: { form: form, token: :destinos_admin } %>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :st_estado, label: 'Estado' } %>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :destinos, label: 'Destinos' } %>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :destinos_admin, label: 'Destinos para Administradores' } %>
 
-<%= render partial: '0p/form_fields/label', locals: { form: form, token: :check, label: 'Desplegar?' } %>
-<%= render partial: '0p/form_fields/select', locals: { form: form, token: :check, sel_list: AutTipoUsuario.all.order(:aut_tipo_usuario).map {|atu| atu.aut_tipo_usuario}, label: nil } %>
+<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :check, sel_list: AutTipoUsuario.all.order(:aut_tipo_usuario).map {|atu| atu.aut_tipo_usuario}, label: 'Desplegar?' } %>
 
-<!-- USADO PARA EL MANEJO DE BANDEJAS, QUEDA AQUI PARA POSIBLE USO FUTURO -->
-<%#= render partial: '0p/form_fields/check_box', locals: { form: form, token: :aprobacion, label: 'Aprobación' } %>
-
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :st_modelo_id} %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden} %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :st_modelo_id} %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :orden} %>

@@ -1,11 +1,9 @@
 <div class="row">
 	<div class="col-9">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :tar_pago, label: 'Pago' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :tar_pago } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tar_pago, label: 'Pago' } %>
 	</div>
 	<div class="col-3">
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :moneda, label: 'Moneda pago' } %>
-		<%= render partial: '0p/form_fields/select', locals: { form: form, token: :moneda, sel_list: ['Pesos', 'UF'], label: 'Moneda' } %>
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :moneda, sel_list: ['Pesos', 'UF'], label: 'Moneda' } %>
 	</div>
 </div>
 
@@ -13,18 +11,16 @@
 
 <div class='row'>
 	<div class='col-lg-6 col-xs-12'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :codigo_formula, label: 'Código Fórmula' } %>
-		<%= render partial: '0p/form_fields/text', locals: { form: form, token: :codigo_formula } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :codigo_formula, label: 'Código Fórmula' } %>
 	</div>
 	<div class='col-lg-6'>
-		<%= render partial: '0p/form_fields/label', locals: { form: form, token: :valor, label: 'Valor' } %>
-		<%= render partial: '0p/form_fields/number', locals: { form: form, token: :valor } %>
+		<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :valor, label: 'Valor' } %>
 	</div>
 </div>
 
-<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :requiere_uf, label: 'Cálculo del pago requiere UF' } %>
-<%= render partial: '0p/form_fields/check_box', locals: { form: form, token: :detalla_porcentaje_cuantia, label: 'Detalla porcentajes en detalle de cuantía' } %>
+<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :requiere_uf, label: 'Cálculo del pago requiere UF' } %>
+<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :detalla_porcentaje_cuantia, label: 'Detalla porcentajes en detalle de cuantía' } %>
 
-<%= render partial: '0p/form_fields/hidden', locals: {form: form, token: :tar_tarifa_id} %>
-<%= render partial: '0p/form_fields/hidden', locals: {form: form, token: :estado} %>
-<%= render partial: '0p/form_fields/hidden', locals: { form: form, token: :orden } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: {form: form, token: :tar_tarifa_id} %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: {form: form, token: :estado} %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :orden } %>

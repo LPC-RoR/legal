@@ -3,13 +3,13 @@
 <% end %>
 
 <%= form_for :asigna_factura, url: "/m_registros/#{objeto.id}/asigna_factura" do |form| %>
-	<%= render partial: '0p/form_fields/select_id', locals: { form: form, token: :tar_factura_id, colection: facturadas.collect { |fac| ["#{fac.documento} : #{s_pesos(fac.monto_pesos)}", fac.id] }, display_field: 'documento', prompt: 'Factura?' } %></br>
+	<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tar_factura_id, colection: facturadas.collect { |fac| ["#{fac.documento} : #{s_pesos(fac.monto_pesos)}", fac.id] }, display_field: 'documento', prompt: 'Factura?' } %></br>
 	</br>
-	<%= render partial: '0p/form_fields/radio', locals: {form: form, token: :tipo_monto, radio_list: ['Factura', 'Disponible', 'Monto']}  %>
+	<%= render partial: '0p/lbld_inpts/radio', locals: {form: form, token: :tipo_monto, radio_list: ['Factura', 'Disponible', 'Monto']}  %>
 
 	<div class='form-inline'>
 		
-		<%= render partial: '0p/form_fields/number', locals: {form: form, token: :monto} %>
+		<%= render partial: '0p/lbld_inpts/number', locals: {form: form, token: :monto} %>
 		<button type="submit" class="btn btn-info">
 		  <i class="bi bi-caret-right icon-white"></i>
 		</button>

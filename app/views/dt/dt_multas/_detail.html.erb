@@ -1,12 +1,12 @@
 <div class='form-row'>
 
-	<%= render partial: '0p/frm_flds/select_id', locals: { form: form, token: :dt_tramo_id, colection: DtTramo.all.order(:orden).collect { |tm| [tm.dt_tramo, tm.id] }, display_field: 'dt_tramo', prompt: nil, label: 'Tramo' } %>
+	<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :dt_tramo_id, colection: DtTramo.all.order(:orden).collect { |tm| [tm.dt_tramo, tm.id] }, display_field: 'dt_tramo', prompt: nil, label: 'Tramo' } %>
 
-	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :leve, label: 'Leve' } %>
-	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :grave, label: 'Grave' } %>
-	<%= render partial: '0p/frm_flds/text', locals: { form: form, token: :gravisima, label: 'Gravísima' } %>
+	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :leve, label: 'Leve' } %>
+	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :grave, label: 'Grave' } %>
+	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :gravisima, label: 'Gravísima' } %>
 </div>
 
 
-<%= render partial: '0p/frm_flds/hidden', locals: { form: form, token: :orden } %>
-<%= render partial: '0p/frm_flds/hidden', locals: { form: form, token: :dt_tabla_multa_id } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :orden } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :dt_tabla_multa_id } %>
