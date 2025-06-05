@@ -1,16 +1,16 @@
 <small>
 <% unless objeto.send(tkn) == 'success' %>
-	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_clr?tkn=#{tkn}&clr=success", title: ttl[0], 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_clr?tkn=#{tkn}&clr=success", tltp: ttl[0], data: {turbo_method: :post}} do %>
 		<i class="bi bi-circle-fill text-success"></i>
 	<% end %>
 <% end %>
 <% unless objeto.send(tkn) == 'warning' %>
-	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_clr?tkn=#{tkn}&clr=warning", title: ttl[1], 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_clr?tkn=#{tkn}&clr=warning", tltp: ttl[1], data: {turbo_method: :post}} do %>
 		<i class="bi bi-circle-fill text-warning"></i>
 	<% end %>
 <% end %>
 <% unless objeto.send(tkn) == 'danger' %>
-	<%= link_to "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_clr?tkn=#{tkn}&clr=danger", title: ttl[2], 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{objeto.class.name.tableize}/#{objeto.id}/swtch_clr?tkn=#{tkn}&clr=danger", tltp: ttl[2], data: {turbo_method: :post}} do %>
 		<i class="bi bi-circle-fill text-danger"></i>
 	<% end %>
 <% end %>

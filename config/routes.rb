@@ -17,12 +17,9 @@ Rails.application.routes.draw do
   resources :notas do
     match :agrega_nota, via: :post, on: :collection
     match :swtch, via: :post, on: :member
-    match :dssgn_usr, via: :get, on: :member
-    match :assgn_usr, via: :get, on: :member
-    match :swtch_clr, via: :get, on: :member
-    match :swtch_pendiente, via: :get, on: :member
-    match :swtch_urgencia, via: :get, on: :member
-    match :swtch_prrdd, via: :get, on: :member
+    match :dssgn_usr, via: :post, on: :member
+    match :assgn_usr, via: :post, on: :member
+    match :swtch_clr, via: :post, on: :member
   end
 
 #  get 'dwnldwrd' => 'causas/dwnldwrd', format: :docx
@@ -50,9 +47,8 @@ Rails.application.routes.draw do
   end
   resources :clientes do
     match :cambio_estado, via: :get, on: :member
-    match :swtch_pendiente, via: :get, on: :member
-    match :swtch_urgencia, via: :get, on: :member
-    match :swtch_prprty, via: :get, on: :member
+    match :swtch_pendiente, via: :post, on: :member
+    match :swtch_urgencia, via: :post, on: :member
   end
 
   resources :empresas do
@@ -266,8 +262,8 @@ Rails.application.routes.draw do
   scope module: 'actividades' do 
     resources :age_actividades do
       match :swtch, via: :post, on: :member
-      match :dssgn_usr, via: :get, on: :member
-      match :assgn_usr, via: :get, on: :member
+      match :dssgn_usr, via: :post, on: :member
+      match :assgn_usr, via: :post, on: :member
       match :cambio_fecha, via: :post, on: :member
       # desde aqui revisar
       # -----------------------

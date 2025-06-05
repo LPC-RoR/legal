@@ -1,7 +1,0 @@
-<small>
-<% ['preferente', 'urgencia', 'responsabilidad'].each do |prprty| %>
-	<% if prprty_lst.include?(prprty) %>
-		<%= render partial: '0p/swtch/swtch_prprty', locals: {objeto: objeto, prprty: prprty} %>
-	<% end %>
-<% end %>
-</small>

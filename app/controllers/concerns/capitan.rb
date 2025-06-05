@@ -110,26 +110,6 @@ module Capitan
 	# **************************************************************************** WTCHS
 	# Aplicados en Causa, Asesoría y Cliente
 
-  def swtch_prrdd
-    # {negro, verde, amarillo, rojo}
-    @objeto.prioridad = params[:prioridad] == 'nil' ? nil : params[:prioridad]
-    @objeto.save
-
-		red = @objeto.class.name == 'Nota' ? "/#{@objeto.ownr.class.name.tableize}" : "/#{@objeto.class.name.tableize}"
-		redirect_to red
-  end
-
-	def swtch_prprty
-		case params[:prprty]
-		when 'preferente'
-			@objeto.preferente = @objeto.preferente ? false : true
-		end
-		@objeto.save
-
-		red = @objeto.class.name == 'Nota' ? "/#{@objeto.owner.class.name.tableize}" : "/#{@objeto.class.name.tableize}"
-		redirect_to red
-	end
-
  	def swtch_pendiente
 		@objeto.pendiente = @objeto.pendiente ? false : true
 		@objeto.save
