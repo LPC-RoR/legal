@@ -2,11 +2,13 @@
 	<h6>Nuevo antecedente solicitado</h6>
 	<%= form_for :nuevo_antecedente, url: "/hechos/#{objeto.id}/nuevo_antecedente" do |form| %>
 
-		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :solicitud } %>
+		<%= render partial: '0p/lbld_inpts/text_raw', locals: { form: form, token: :solicitud, label: 'Solicitud' } %>
 		
-		<button type="submit" class="btn btn-info">
-		  <i class="bi bi-caret-right"></i>
-		</button>
+		<div class="text-end">
+			<button type="submit" class="btn btn-primary">
+			  <i class="bi bi-caret-right"></i>
+			</button>
+		</div>
 
 	<% end  %>
 </div>

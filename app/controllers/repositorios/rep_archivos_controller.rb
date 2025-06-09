@@ -14,7 +14,7 @@ class Repositorios::RepArchivosController < ApplicationController
 
   # GET /rep_archivos/new
   def new
-    dc = RepDocControlado.find(params[:dcid])
+    dc = params[:dcid].blank? ? nil : RepDocControlado.find(params[:dcid])
     dc_name = dc.blank? ? nil : dc.rep_doc_controlado
     control_fecha = dc.blank? ? nil : dc.control_fecha
     chequeable = dc.blank? ? nil : dc.chequeable
