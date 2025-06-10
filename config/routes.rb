@@ -415,8 +415,8 @@ Rails.application.routes.draw do
       match :abajo, via: :get, on: :member
     end
     resources :tar_calculos do
-      match :crea_pago_asesoria, via: :get, on: :collection
-      match :elimina_pago_asesoria, via: :get, on: :collection
+      match :crea_pago_asesoria, via: :post, on: :collection
+      match :elimina_pago_asesoria, via: :post, on: :collection
       # revisar desde aqui
       match :elimina_calculo, via: :get, on: :member
       match :liberar_calculo, via: :get, on: :member
