@@ -42,7 +42,7 @@ class Asesoria < ApplicationRecord
     end
 
     def monto_factura
-    	self.tar_servicio_moneda == 'Pesos' ? self.tar_servicio_monto : (self.tar_servicio_monto * self.get_uf_facturacion.valor)
+    	self.tar_facturacion.present? ? self.tar_facturacion.monto : (self.tar_servicio_moneda == 'Pesos' ? self.tar_servicio_monto : (self.tar_servicio_monto * self.get_uf_facturacion.valor))
     end
 
 	def archivos

@@ -131,6 +131,9 @@ GEM
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
     date (3.4.1)
+    dentaku (3.5.4)
+      bigdecimal
+      concurrent-ruby
     devise (4.9.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -467,6 +470,7 @@ DEPENDENCIES
   chunky_png
   csv
   dartsass-rails (~> 0.5.1)
+  dentaku
   devise
   execjs
   htmltoword

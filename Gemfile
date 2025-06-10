@@ -63,6 +63,9 @@ gem 'pg_search'
 # Gráficos
 gem "chartkick"
 
+# Evaluación de expresiones
+gem "dentaku"
+
 # Servidor y optimización
 #gem 'puma', '~> 3.11'
 gem "puma", ">= 5.0"
