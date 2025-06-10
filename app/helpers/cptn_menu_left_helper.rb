@@ -97,7 +97,8 @@ module CptnMenuLeftHelper
 					condicion: admin?,
 					items: [
 						'LglDocumento',
-						'DtMateria'
+						'DtMateria',
+						'DtTablaMulta'
 					]
 				},
 				{
@@ -223,7 +224,7 @@ module CptnMenuLeftHelper
 			'TribunalCorte' => 'Juzgados / Cortes',
 			'TarTarifa' => 'Tarifas Generales',
 			'MModelo' => 'Modelo de Negocios',
-			'DtMateria' => 'Multas',
+			'DtMateria' => 'Materias (Multas)',
 			'KrnEmpresaExterna' => 'Empresas externas'
 		}
 	end

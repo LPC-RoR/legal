@@ -1,2 +1,4 @@
-<% col_lft ||= 8 %>
-<%= render partial: '0p/gnrl/ttl_shw', locals: {objt: objt, dir: 'shw', col_lft: col_lft} %>
+<% col_lft  ||= 8 %>
+<% dir      ||= 'shw' %>
+<% bck_path ||= nil %>
+<%= render partial: '0p/gnrl/ttl_shw', locals: {objt: objt, col_lft: col_lft, bck_path: bck_path} %>

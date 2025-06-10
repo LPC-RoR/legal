@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_30_154223) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_10_144343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -486,18 +486,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_154223) do
     t.datetime "updated_at", null: false
     t.index ["causa_id"], name: "index_demandantes_on_causa_id"
     t.index ["orden"], name: "index_demandantes_on_orden"
-  end
-
-  create_table "dt_criterio_multas", force: :cascade do |t|
-    t.integer "dt_tabla_multa_id"
-    t.integer "orden"
-    t.decimal "monto"
-    t.string "unidad"
-    t.string "dt_criterio_multa"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["dt_tabla_multa_id"], name: "index_dt_criterio_multas_on_dt_tabla_multa_id"
-    t.index ["orden"], name: "index_dt_criterio_multas_on_orden"
   end
 
   create_table "dt_infracciones", force: :cascade do |t|

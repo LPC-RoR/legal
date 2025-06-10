@@ -1,4 +1,6 @@
-<% col_lft ||= 8 %>
+<% col_lft  ||= 8 %>
+<% dir      ||= 'shw' %>
+<% bck_path ||= nil %>
 <div class="shadow mt-1">
 	<div class="border border-2 rounded row gx-1 bg_blue p-2 fs-5">
 		<div class="col-<%=col_lft%>">
@@ -10,6 +12,11 @@
 			</b>
 		</div>
 		<div class="col-<%=12 - col_lft%> bg_blue pe-1 text-end">
+			<% unless bck_path.blank? %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: bck_path, tltp: 'Volver'} do %>
+					<i class="bi bi-arrow-left"></i>
+				<% end %>
+			<% end %>
 			<% if prtl?(objt, dir, "bck") %>
 				<%= render partial: prtl_name(objt, dir, "bck"), locals: {objeto: objt} %>
 			<% end %>

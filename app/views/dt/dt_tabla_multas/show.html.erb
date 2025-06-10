@@ -1,39 +1,27 @@
-<%= render partial: '0p/ttl_shw', locals: {objt: @objeto, dir: 'shw', bk_lnk: dt_materias_path } %>
+<%= render partial: '0p/ttl_shw', locals: {objt: @objeto, dir: 'shw', bck_path: dt_tabla_multas_path } %>
 
-<div class="f_50_col">
-	<div class="lft">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_multas', ttl: "Detalle de Multa", ownr: nil } %>
+<%= render partial: '0p/ttl_tbl', locals: {source: 'dt_multas', ttl: "Detalle de Multa", blngs: @objeto } %>
 
-		<div class="objeto-box">
-		<table class="table table-striped table-sm  thead-dark">
-		  <thead>
-		    <tr>
-		      <td><i><small>Tamaño Empresa</small></i></td>
-		      <td><i><small>Leve</small></i></td>
-		      <td><i><small>Grave</small></i></td>
-		      <td><i><small>Gravísima</small></i></td>
-		      <td></td>
-		    </tr>
-		  </thead>
+<table class="table table-striped table-sm  thead-dark">
+  <thead>
+    <tr>
+      <td><i><small>Tamaño Empresa</small></i></td>
+      <td><i><small>Leve</small></i></td>
+      <td><i><small>Grave</small></i></td>
+      <td><i><small>Gravísima</small></i></td>
+      <td></td>
+    </tr>
+  </thead>
 
-		  <tbody>
-		    <!-- Opción para evitar escribir el parcial _modelo.html.erb en cada controlador-->
-		      <% unless @objeto.p100_leve.blank? %>
-		        <tr>
-		          <td><i><small><%= "-" %></small></i></td>
-		          <td><i><small><%= s_p100(@objeto.p100_leve, 0) %></small></i></td>
-		          <td><i><small><%= s_p100(@objeto.p100_grave, 0) %></small></i></td>
-		          <td><i><small><%= s_p100(@objeto.p100_gravisima, 0) %></small></i></td>
-		        </tr>
-		      <% end %>
-				<%= render partial: '0p/tabla/tabla', locals: {c: 'dt_multas'} %>
-		  </tbody>
-		</table>
-		</div>
-
-	</div>
-	<div class="rght">
-		<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'dt_criterio_multas', ttl: "Criterio multas", ownr: nil } %>
-		<%#= render partial: '0p/tabla/tabla', locals: {c: 'dt_criterio_multas'} %>
-	</div>
-</div>
+  <tbody class="objt_lnk">
+	<% @objeto.dt_multas.order(:orden).each do |multa| %>
+		<tr>
+		  <td><i><small><%= multa.tamanio %></small></i></td>
+		  <td><i><small><%= multa.leve %></small></i></td>
+		  <td><i><small><%= multa.grave %></small></i></td>
+		  <td><i><small><%= multa.gravisima %></small></i></td>
+		  <td class="text-end objt_lnk"><%= render partial: '0p/tbl/lnks_e', locals: {objeto: multa} %></td>
+		</tr>
+	<% end  %>
+  </tbody>
+</table>

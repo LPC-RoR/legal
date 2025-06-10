@@ -6,7 +6,6 @@ class Dt::DtMateriasController < ApplicationController
   # GET /dt_materias or /dt_materias.json
   def index
     set_tabla('dt_materias', DtMateria.all.order(:capitulo), false)
-    set_tabla('dt_tabla_multas', DtTablaMulta.all.order(:dt_tabla_multa), false)
   end
 
   # GET /dt_materias/1 or /dt_materias/1.json

@@ -5,7 +5,8 @@ class Dt::DtTablaMultasController < ApplicationController
 
   # GET /dt_tabla_multas or /dt_tabla_multas.json
   def index
-    @coleccion = DtTablaMulta.all
+    set_tabla('dt_tabla_multas', DtTablaMulta.all.order(:dt_tabla_multa), false)
+    set_tabla('dt_tramos', DtTramo.all.order(:orden), false)
   end
 
   # GET /dt_tabla_multas/1 or /dt_tabla_multas/1.json

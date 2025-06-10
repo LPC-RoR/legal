@@ -59,6 +59,7 @@ module AppIconsHelper
 			'krn_empresa_externas' => 'building',
 			'krn_tipo_medidas' => 'exclamation-triangle',
 			'procedimientos' => 'bar-chart-steps',
+			'dt_tabla_multas' => 'table',
 #			'rep_archivos' => 'file-earmark-richtext'
 		}
 	end

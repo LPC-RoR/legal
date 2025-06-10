@@ -1,21 +1,33 @@
-<div class="g_cllps">
-  <small>
-  <div class="row">
-    <div class="col-lg-4 col-xs-12">
-        <b>NORMA LEGAL INFRINGIDA Y SANCIONATORIA</b>: </br>
-        <small><%= objeto.normas %></small></br>
-        <b>CRITERIOS (NATURALEZA+AFECTACIÓN)</b>: </br>
-        <small><%= objeto.criterios %></small></br>
+<div class="p-4 border">
+    <div class="row">
+        <div class="col-lg-4 col-xs-12" style="font-size: 12px;line-height: 1.5;">
+            <b>NORMA LEGAL INFRINGIDA Y SANCIONATORIA</b>: </br>
+            <%= objeto.normas %></br>
+            <b>CRITERIOS (NATURALEZA+AFECTACIÓN)</b>: </br>
+            <%= objeto.criterios %></br>
+        </div>
+        <div class="col-lg-4 col-xs-12" style="font-size: 12px;line-height: 1.5;">
+            <b>HECHO INFRACCIONAL (TIPIFICACIÓN)</b>: </br>
+            <%= objeto.tipificacion %></br>
+        </div>
+        <div class="col-lg-4" style="font-size: 12px;line-height: 1.5;">
+            <b>DETERMINACIÓN DEL MONTO DE LA MULTA (<%= objeto.dt_tabla_multa.moneda.blank? ? 'moneda no ingresada' : objeto.dt_tabla_multa.moneda %>)</b>: </br>
+
+            <div class="row gx-1">
+                <div class="col-6">Tamaño empresa</div>
+                <div class="col-2">Leve</div>
+                <div class="col-2">Grave</div>
+                <div class="col-2">Gravísima</div>
+
+                <% objeto.dt_tabla_multa.dt_multas.order(:orden).each do |multa| %>
+                    <div class="col-6"><i><small><%= multa.tamanio %></small></i></div>
+                    <div class="col-2"><i><small><%= multa.leve %></small></i></div>
+                    <div class="col-2"><i><small><%= multa.grave %></small></i></div>
+                    <div class="col-2"><i><small><%= multa.gravisima %></small></i></div>
+                <% end  %>
+            </div>
+            <b>Nota: <%= objeto.nota_multa %></b>
+
+        </div>
     </div>
-    <div class="col-lg-4 col-xs-12">
-        <b>HECHO INFRACCIONAL (TIPIFICACIÓN)</b>: </br>
-        <small><%= objeto.tipificacion %></small></br>
-    </div>
-    <div class="col-lg-4">
-        <b>DETERMINACIÓN DEL MONTO DE LA MULTA (<%= objeto.dt_tabla_multa.moneda.blank? ? 'moneda no ingresada' : objeto.dt_tabla_multa.moneda%>)</b>: </br>
-        <%= render partial: 'dt/dt_tabla_multas/list/tabla_multas', locals: {objeto: objeto.dt_tabla_multa} unless objeto.dt_tabla_multa.blank? %>
-        <small><b>Nota</b>: <%= objeto.nota_multa %></small>
-    </div>
-  </div>
-  </small>
 </div>

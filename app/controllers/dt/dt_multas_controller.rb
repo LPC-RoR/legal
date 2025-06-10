@@ -14,9 +14,9 @@ class Dt::DtMultasController < ApplicationController
 
   # GET /dt_multas/new
   def new
-    owner = params[:oclss].constantize.find(params[:oid])
-    orden = owner.dt_multas.count + 1
-    @objeto = DtMulta.new(orden: orden, dt_tabla_multa_id: owner.id)
+    blngs = DtTablaMulta.find(params[:oid])
+    orden = blngs.dt_multas.count + 1
+    @objeto = DtMulta.new(orden: orden, dt_tabla_multa_id: blngs.id)
   end
 
   # GET /dt_multas/1/edit

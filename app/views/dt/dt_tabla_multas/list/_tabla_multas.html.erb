@@ -11,28 +11,14 @@
 
   <tbody>
     <!-- Opción para evitar escribir el parcial _modelo.html.erb en cada controlador-->
-      <% unless objeto.p100_leve.blank? %>
-        <tr>
-          <td><i><small>%</small></i></td>
-          <td align="right"><i><small><%= s_p100(objeto.p100_leve, 0) %></small></i></td>
-          <td align="right"><i><small><%= s_p100(objeto.p100_grave, 0) %></small></i></td>
-          <td align="right"><i><small><%= s_p100(objeto.p100_gravisima, 0) %></small></i></td>
-        </tr>
-      <% end %>
-      <% objeto.dt_multas.order(:orden).each do |multa| %>
-        <tr>
-          <td><i><small><%= multa.tamanio %></small></i></td>
-          <td align="right"><i><small><%= multa.leve %></small></i></td>
-          <td align="right"><i><small><%= multa.grave %></small></i></td>
-          <td align="right"><i><small><%= multa.gravisima %></small></i></td>
-        </tr>
-      <% end  %>
+      <%# objeto.dt_multas.order(:orden).each do |multa| %>
+        <!--tr>
+          <td><i><small><%#= multa.tamanio %></small></i></td>
+          <td align="right"><i><small><%#= multa.leve %></small></i></td>
+          <td align="right"><i><small><%#= multa.grave %></small></i></td>
+          <td align="right"><i><small><%#= multa.gravisima %></small></i></td>
+        </tr-->
+      <%# end  %>
   </tbody>
 </table>
-<% end %>
-
-<% unless objeto.dt_criterio_multas.empty? %>
-  <% objeto.dt_criterio_multas.order(:orden).each do |criterio| %>
-    <%= render partial: 'dt/dt_criterio_multas/list/objeto', locals: {objeto: criterio} %>
-  <% end %>
 <% end %>
