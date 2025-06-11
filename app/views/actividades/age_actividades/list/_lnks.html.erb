@@ -10,17 +10,17 @@
 <% unless ['Audiencia', 'Hito'].include?(objeto.tipo)  or (objeto.fecha < dt_hoy) %>
 
     <% unless objeto.estado == 'realizada' %>
-    	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=realizada", tooltip: 'Marcar como realizada'} do %>
+    	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=realizada", tltp: 'Marcar como realizada'} do %>
             <i class="bi bi-check-lg"></i>
     	<% end %>
     <% end %>
     <% unless objeto.estado == 'cancelada' %>
-    	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=cancelada", tooltip: 'Marcar como cancelada'} do %>
+    	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=cancelada", tltp: 'Marcar como cancelada'} do %>
             <i class="bi bi-x-lg"></i>
     	<% end %>
     <% end %>
     <% unless objeto.estado == 'pendiente' %>
-    	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=pendiente", tooltip: 'Marcar como pendiente'} do %>
+    	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/age_actividades/#{objeto.id}/cambia_estado?cn=#{controller_name}&e=pendiente", tltp: 'Marcar como pendiente'} do %>
             <i class="bi bi-arrow-left"></i>
     	<% end %>
     <% end %>

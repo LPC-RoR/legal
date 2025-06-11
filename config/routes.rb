@@ -25,8 +25,9 @@ Rails.application.routes.draw do
 #  get 'dwnldwrd' => 'causas/dwnldwrd', format: :docx
 
   resources :causas do
-    resources :temas
-    resources :hechos
+#    resources :temas
+#    resources :hechos
+    match :swtch, via: :post, on: :member
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
     match :traer_archivos_cuantia, via: :get, on: :member
@@ -86,12 +87,12 @@ Rails.application.routes.draw do
     resources :lgl_recursos
     resources :lgl_temas
     resources :lgl_citas do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :lgl_parrafos do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
       match :swtch, via: :post, on: :member
       match :padd, via: :get, on: :member
       match :chk_tgs, via: :get, on: :member
@@ -101,8 +102,8 @@ Rails.application.routes.draw do
     resources :lgl_datos
     resources :lgl_parra_parras
     resources :lgl_puntos do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :lgl_tipo_entidades
     resources :lgl_tramo_empresas
@@ -112,12 +113,12 @@ Rails.application.routes.draw do
     resources :tipo_procedimientos
     resources :procedimientos
     resources :ctr_etapas do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :tareas do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
   end
 
@@ -172,13 +173,6 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'hm' do
-    resources :hm_paginas
-    resources :hm_parrafos
-    resources :hm_links
-    resources :hm_notas
-  end
-
   scope module: 'srvcs' do
     resources :tipo_asesorias
     resources :asesorias do
@@ -201,14 +195,13 @@ Rails.application.routes.draw do
       match :add_rcrd, via: :get, on: :member
     end
     resources :temas do
-      resources :hechos
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
       match :nuevo_hecho, via: :post, on: :member
     end
     resources :hechos do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
       match :nuevo_archivo, via: :post, on: :member
       match :sel_archivo, via: :get, on: :member
       match :set_evaluacion, via: :get, on: :member
@@ -219,19 +212,19 @@ Rails.application.routes.draw do
       match :set_establece, via: :get, on: :member
     end
     resources :audiencias do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :causa_archivos do 
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
       match :eliminar, via: :get, on: :member
       match :set_seleccionado, via: :get, on: :member
     end 
     # se reutlizó tabla para almacenar los antecedentes de un hecho
     resources :antecedentes do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     # Para almacenar los pedazos de Demanda de la Causa
     resources :secciones
@@ -245,8 +238,8 @@ Rails.application.routes.draw do
   # Usado para poner las entidades necesarias para mantener Variables y su relación con causas y clientes
   scope module: 'dts' do
     resources :variables do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :valores do
       match :nuevo, via: :get, on: :collection
@@ -301,8 +294,8 @@ Rails.application.routes.draw do
 
     resources :regiones do
       resources :comunas
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :comunas
     resources :rcrs_logos
@@ -320,12 +313,12 @@ Rails.application.routes.draw do
     end
     resources :control_documentos do
       match :crea_documento_controlado, via: :get, on: :member
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :rep_doc_controlados do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :rep_archivos
   end
@@ -389,8 +382,8 @@ Rails.application.routes.draw do
   
   scope module: 'st_estados' do
     resources :st_estados do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :st_modelos do 
       resources :st_estados
@@ -407,12 +400,12 @@ Rails.application.routes.draw do
     resources :tar_pagos do
       resources :tar_comentarios
       resources :tar_cuotas
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :tar_formulas do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :tar_calculos do
       match :crea_pago_asesoria, via: :post, on: :collection
@@ -435,8 +428,8 @@ Rails.application.routes.draw do
     resources :tar_formula_cuantias
     resources :tar_uf_sistemas
     resources :tar_comentarios do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :tar_detalles
     resources :tar_facturaciones do
@@ -487,12 +480,12 @@ Rails.application.routes.draw do
     resources :m_modelos
     resources :m_periodos
     resources :m_conceptos do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :m_items do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
 
     resources :m_bancos do
@@ -508,12 +501,12 @@ Rails.application.routes.draw do
       resources :m_datos
     end
     resources :m_elementos do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :m_datos do
-      match :arriba, via: :get, on: :member
-      match :abajo, via: :get, on: :member
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
     end
     resources :m_conciliaciones do
       match :conciliacion, via: :get, on: :member
@@ -534,7 +527,6 @@ Rails.application.routes.draw do
   scope module: 'dt' do
     resources :dt_tabla_multas do
       resources :dt_multas
-      resources :dt_criterio_multas
     end
     resources :dt_multas
     resources :dt_infracciones do

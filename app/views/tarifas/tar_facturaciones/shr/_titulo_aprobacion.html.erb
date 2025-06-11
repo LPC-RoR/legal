@@ -11,7 +11,7 @@
 	</div>
 	<div class="ttl_lnks">
 		<% if objeto.owner.class.name == 'Causa' %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: objeto.owner, tooltip: objeto.owner.class.name} do %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: objeto.owner, tltp: objeto.owner.class.name} do %>
 				<i class="bi bi-box-arrow-up-right"></i>
 			<% end %>
 		<% end %>

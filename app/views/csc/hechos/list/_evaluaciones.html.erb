@@ -3,22 +3,22 @@
 	<small class="text-info">Contestación</small></br>
 	<small>
 	<% unless objeto.st_contestacion.blank? %>
-		<%= render layout: '0p/layout/tooltip_link', locals: { link: "/hechos/#{objeto.id}/set_evaluacion?c=c&e=nil", tooltip: 'sin evaluacion' } do %>
+		<%= render layout: '0p/tltp_lnk', locals: { lnk: "/hechos/#{objeto.id}/set_evaluacion?c=c&e=nil", tltp: 'sin evaluacion' } do %>
 			<i class="bi bi-circle-fill text-dark"></i>
 		<% end %>
 	<% end %>
 	<% unless objeto.st_contestacion == 'success' %>
-		<%= render layout: '0p/layout/tooltip_link', locals: { link: "/hechos/#{objeto.id}/set_evaluacion?c=c&e=success", tooltip: 'hecho pacífico' } do %>
+		<%= render layout: '0p/tltp_lnk', locals: { lnk: "/hechos/#{objeto.id}/set_evaluacion?c=c&e=success", tltp: 'hecho pacífico' } do %>
 			<i class="bi bi-circle-fill text-success"></i>
 		<% end %>
 	<% end %>
 	<% unless objeto.st_contestacion == 'warning' %>
-		<%= render layout: '0p/layout/tooltip_link', locals: { link: "/hechos/#{objeto.id}/set_evaluacion?c=c&e=warning", tooltip: 'revisar' } do %>
+		<%= render layout: '0p/tltp_lnk', locals: { lnk: "/hechos/#{objeto.id}/set_evaluacion?c=c&e=warning", tltp: 'revisar' } do %>
 			<i class="bi bi-circle-fill text-warning"></i>
 		<% end %>
 	<% end %>
 	<% unless objeto.st_contestacion == 'danger' %>
-		<%= render layout: '0p/layout/tooltip_link', locals: { link: "/hechos/#{objeto.id}/set_evaluacion?c=c&e=danger", tooltip: 'hecho controvertido' }  do %>
+		<%= render layout: '0p/tltp_lnk', locals: { lnk: "/hechos/#{objeto.id}/set_evaluacion?c=c&e=danger", tltp: 'hecho controvertido' }  do %>
 			<i class="bi bi-circle-fill text-danger"></i>
 		<% end %>
 	<% end %>
@@ -28,22 +28,22 @@
 	<small class="text-info">Preparatoria</small></br>
 	<small>
 	<% unless objeto.st_preparatoria.blank? %>
-		<%= render layout: '0p/layout/tooltip_link', locals: { link: "/hechos/#{objeto.id}/set_evaluacion?c=p&e=nil", tooltip: 'sin evaluación' } do %>
+		<%= render layout: '0p/tltp_lnk', locals: { lnk: "/hechos/#{objeto.id}/set_evaluacion?c=p&e=nil", tltp: 'sin evaluación' } do %>
 			<i class="bi bi-circle-fill text-dark"></i>
 		<% end %>
 	<% end %>
 	<% unless objeto.st_preparatoria == 'success' %>
-		<%= render layout: '0p/layout/tooltip_link', locals: { link: "/hechos/#{objeto.id}/set_evaluacion?c=p&e=success", tooltip: 'hecho pacífico' } do %>
+		<%= render layout: '0p/tltp_lnk', locals: { lnk: "/hechos/#{objeto.id}/set_evaluacion?c=p&e=success", tltp: 'hecho pacífico' } do %>
 			<i class="bi bi-circle-fill text-success"></i>
 		<% end %>
 	<% end %>
 	<%# unless objeto.st_preparatoria == 'warning' %>
-		<%#= render layout: '0p/layout/tooltip_link', locals: { link: "/hechos/#{objeto.id}/set_evaluacion?c=p&e=warning" } do %>
+		<%#= render layout: '0p/tltp_lnk', locals: { lnk: "/hechos/#{objeto.id}/set_evaluacion?c=p&e=warning" } do %>
 			<!--i class="bi bi-circle-fill text-warning"></i-->
 		<%# end %>
 	<%# end %>
 	<% unless objeto.st_preparatoria == 'dangter' %>
-		<%= render layout: '0p/layout/tooltip_link', locals: { link: "/hechos/#{objeto.id}/set_evaluacion?c=p&e=danger", tooltip: 'hecho controvertido' } do %>
+		<%= render layout: '0p/tltp_lnk', locals: { lnk: "/hechos/#{objeto.id}/set_evaluacion?c=p&e=danger", tltp: 'hecho controvertido' } do %>
 			<i class="bi bi-circle-fill text-danger"></i>
 		<% end %>
 	<% end %>

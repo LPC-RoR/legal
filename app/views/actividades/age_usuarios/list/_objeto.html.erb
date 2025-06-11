@@ -1,6 +1,6 @@
 <span class="text-info" >
 	<%= objeto.age_usuario %> 
-	<%= render layout: '0p/layout/tooltip_link', locals: {link: "/age_usuarios/#{objeto.id}/desasigna_usuario?owclss=#{owner.class.name}&owid=#{owner.id}&cn=#{controller_name}", tooltip: 'Desasigna usuario'} do %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/age_usuarios/#{objeto.id}/desasigna_usuario?owclss=#{owner.class.name}&owid=#{owner.id}&cn=#{controller_name}", tltp: 'Desasigna usuario'} do %>
 		<i class="bi bi-x-lg"></i>
 	<% end %>
 </span>

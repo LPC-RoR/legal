@@ -15,8 +15,8 @@ class Csc::TemasController < ApplicationController
 
   # GET /temas/new
   def new
-    causa = Causa.find(params[:cid])
-    @objeto = Tema.new(causa_id: params[:cid], orden: causa.temas.count + 1)
+    causa = Causa.find(params[:oid])
+    @objeto = Tema.new(causa_id: params[:oid], orden: causa.temas.count + 1)
   end
 
   # GET /temas/1/edit

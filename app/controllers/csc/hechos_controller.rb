@@ -1,7 +1,7 @@
 class Csc::HechosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo remueve_documento arriba abajo set_evaluacion nuevo_antecedente ]
+  before_action :set_hecho, only: %i[ show edit update destroy nuevo_archivo sel_archivo arriba abajo set_evaluacion nuevo_antecedente ]
   after_action :ordena_hechos, only: %i[ create destroy update nuevo_antecedente ]
 
   # GET /hechos or /hechos.json
@@ -16,9 +16,10 @@ class Csc::HechosController < ApplicationController
   # GET /hechos/new
   def new
     # Al crear un hecho el orden siempre se refiera a la Causa, al estar dentro de una Materia en particular conservan ese oreden
-    owner = params[:cid].blank? ? Tema.find(params[:tid]) : Causa.find(params[:cid])
+    owner = params[:oclss].constantize.find(params[:oid])
+    tema_id = owner.class.name == 'Causa' ? nil : owner.id
     causa = owner.class.name == 'Causa' ? owner : owner.causa
-    @objeto = Hecho.new(tema_id: params[:tid], causa_id: causa.id, orden: causa.hechos.count + 1)
+    @objeto = Hecho.new(tema_id: tema_id, causa_id: causa.id, orden: causa.hechos.count + 1)
   end
 
   # GET /hechos/1/edit

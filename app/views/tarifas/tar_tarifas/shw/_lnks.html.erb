@@ -1,5 +1,5 @@
 <% unless @objeto.ownr.blank? %>
-	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/clientes/#{@objeto.ownr.id}?html_options[menu]=Tarifas", tltp: 'Volver a las tarifas del cliente'} do %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/clientes/#{@objeto.ownr.id}?html_options[menu]=Tarifas", tltp: 'Volver a las tarifas del cliente'} do %>
 		<i class="bi bi-arrow-left"></i>
 	<% end %>
 <% end %>

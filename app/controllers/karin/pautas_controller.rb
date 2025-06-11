@@ -4,6 +4,8 @@ class Karin::PautasController < ApplicationController
   before_action :set_pauta, only: %i[ show edit update destroy arriba abajo ]
   after_action :reordenar, only: :destroy
 
+  include Orden
+
   # GET /pautas or /pautas.json
   def index
     set_tabla('pautas', Pauta.all.order(:orden), false)

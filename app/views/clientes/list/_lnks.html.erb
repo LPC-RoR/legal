@@ -1,8 +1,8 @@
-<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/servicios/auditoria?oid=#{objeto.id}", tltp: 'Reporte Auditoría' } do %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/servicios/auditoria?oid=#{objeto.id}", tltp: 'Reporte Auditoría' } do %>
 	<i class="bi bi-file-pdf"></i>
 <% end %>
 
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/cuentas/#{objeto.class.name.downcase[0]}_#{objeto.id}/dnncs", tooltip: 'Cuenta del Cliente' } do %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.class.name.downcase[0]}_#{objeto.id}/dnncs", tltp: 'Cuenta del Cliente' } do %>
 	<i class="bi bi-stack"></i>
 <% end %>
 

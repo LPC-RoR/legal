@@ -42,7 +42,18 @@ module Capitan
 		@objeto[params[:tkn]] = @objeto.send(params[:tkn]) ? false : true
 		@objeto.save
 
-		redirect_to cptn_rdrccn
+		case @objeto.class.name
+		when 'Causa'
+			if ['hechos_registrados', 'archivos_registrados'].include?(params[:tkn])
+				rdrccn = causa_path(@objeto, html_options: {menu: 'Hechos'})
+			else
+				rdrccn = @objeto
+			end
+		else
+			rdrccn = nil
+		end
+
+		redirect_to rdrccn.blank? ? cptn_rdrccn : rdrccn
 	end
 
 	def swtch_clr

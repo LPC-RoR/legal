@@ -1,21 +1,16 @@
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/antecedentes?cid=#{ownr.id}", tooltip: 'Solicitud de documentos'} do %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/servicios/antecedentes?cid=#{ownr.id}", tltp: 'Solicitud de documentos'} do %>
 	<i class="bi bi-file-pdf"></i>
 <% end %>
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{ownr.id}/ntcdntstowrd", tooltip: 'Solicitud de Antecedentes'} do %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/causas/#{ownr.id}/ntcdntstowrd", tltp: 'Solicitud de Antecedentes'} do %>
 	<i class="bi bi-file-word"></i>
 <% end %>
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{ownr.id}/hchstowrd", tooltip: 'Revisión de hechos'} do %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/causas/#{ownr.id}/hchstowrd", tltp: 'Revisión de hechos'} do %>
 	<i class="bi bi-file-word"></i>
 <% end %>
 <i class="bi bi-dot"></i>
 <% unless ownr.hechos_registrados %>
 
-	<%= render layout: '0p/collapse/link', locals: {label: 'NuevaMateria', objeto: nil, tooltip: 'Agrega materia'} do %>
-		<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %> Materia
-	<% end %>
-
-	<%= render layout: '0p/collapse/link', locals: {label: 'NuevoHecho', objeto: nil, tooltip: 'Agrega hecho'} do %>
-		<%= render partial: '0p/general/gly', locals: {gly: 'plus-circle'} %> Hecho
-	<% end %>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'temas', blngs: ownr, txt: 'Materia'} %>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'hechos', ownr: ownr, txt: 'Hecho'} %>
 
 <% end %>

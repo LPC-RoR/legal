@@ -2,6 +2,7 @@
 <!--         ['true', false] -->
 <% glys  ||= ['check2-square', 'square'] %>
 <% clr   ||= nil %>
+<% stts  ||= ['falso', 'verdadero'] %>
 
 <%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/swtch?tkn=#{tkn}", tltp: "Marcar como #{objeto.send(tkn) ? stts[0] : stts[1]}", data: {turbo_method: :post}} do %>
 	<% if objeto.send(tkn) %>

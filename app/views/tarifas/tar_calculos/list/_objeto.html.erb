@@ -1,7 +1,7 @@
 <div class="ln_app">
 	<div class="ln_nm">
 		<b><%= objeto.glosa %></b>
-		<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_calculos/#{objeto.id}/crea_aprobacion", tooltip: 'Crea aprobación'} do %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{objeto.id}/crea_aprobacion", tltp: 'Crea aprobación'} do %>
 			<i class="bi bi-plus-circle"></i>
 		<% end %>
 	</div>

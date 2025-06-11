@@ -5,12 +5,9 @@
 	</iframe>
 <% end %>
 
-<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'hechos', ownr: objeto} %>
+<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'hechos', ownr: objeto, lnks: 'prtl'} %>
 
-<!-- Despliegue de forms de Temas y hechos -->
-<%= render partial: prtl_name('causas', 'shw/hechos', 'dsply'), locals: {objeto: objeto} %>
-
-<%= render partial: '0p/tabla/tabla', locals: {c: 'temas'} %>
+<%= render partial: '0p/tbl/tbl', locals: {source: 'temas', typ: 'ln', crud: 'lnks'} %>
 
 <% unless @coleccion['hechos'].empty? %>
 
@@ -18,13 +15,13 @@
 	<% if objeto.temas.any? %><hr> <% end %>
 
 	<% @coleccion['hechos'].each do |hecho| %>
-			<%= render partial: 'csc/hechos/list/innr_bjt', locals: {objeto: hecho} %>
+		<%= render partial: 'csc/hechos/list/innr_bjt', locals: {objeto: hecho} %>
 	<% end %>
 
 <% end %>
 
 <hr>
 
-<%= render partial: '0p/general/clss_dir_c_ttl', locals: {clss: 'shw_ttl', dir: 'indx', source: 'rep_archivos', ownr: objeto} %>
+<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'rep_archivos', ownr: objeto, lnks: 'prtl'} %>
 
-<%= render partial: '0p/tabla/tabla', locals: {c: 'rep_archivos'} %>
+<%= render partial: '0p/tbl/tbl', locals: {source: 'rep_archivos'} %>

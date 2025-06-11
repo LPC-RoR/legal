@@ -4,7 +4,7 @@
 			<small>
 			<i class="bi bi-file-earmark"></i>
 			<% if fl.blank? %>
-				<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/app_archivos/new#{ownr_prms(ownr)}&dcid=#{cd.id}", tltp: "Subir #{cd.nombre}"} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/app_archivos/new#{ownr_prms(ownr)}&dcid=#{cd.id}", tltp: "Subir #{cd.nombre}"} do %>
 					<i class="bi bi-upload"></i>
 					Subir 
 				<% end %>
@@ -17,7 +17,7 @@
 		<div class="trsh">
 			<small>
 			<% unless fl.blank? %>
-				<%= render layout: '0p/layout/blnk_tltp_lnk', locals: {lnk: fl.archivo.url, tltp: "Ver #{cd.nombre}"} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: fl.archivo.url, tltp: "Ver #{cd.nombre}", target: '_blank'} do %>
 					<i class="bi bi-download"></i>
 				<% end %>
 				<i class="bi bi-dot"></i>

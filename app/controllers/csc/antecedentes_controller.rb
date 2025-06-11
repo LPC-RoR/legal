@@ -14,7 +14,9 @@ class Csc::AntecedentesController < ApplicationController
 
   # GET /antecedentes/new
   def new
-    @objeto = Antecedente.new(causa_id: params[:causa_id])
+    hecho = Hecho.find(params[:oid])
+    causa_id = hecho.causa_id.present? ? hecho.causa_id : hecho.tema.causa_id
+    @objeto = hecho.antecedentes.new(causa_id: causa_id, orden: hecho.antecedentes.count + 1)
   end
 
   # GET /antecedentes/1/edit
@@ -105,6 +107,6 @@ class Csc::AntecedentesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def antecedente_params
-      params.require(:antecedente).permit(:hecho, :riesgo, :ventaja, :cita, :orden, :causa_id, :solicitud)
+      params.require(:antecedente).permit(:hecho_id, :riesgo, :ventaja, :cita, :orden, :causa_id, :solicitud)
     end
 end

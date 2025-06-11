@@ -52,8 +52,8 @@ class Aplicacion::TablasController < ApplicationController
   end
 
   def tarifas_generales
-      set_tabla('tar_tarifas', TarTarifa.where(owner_class: ''), false)
-      set_tabla('tar_servicios', TarServicio.where(owner_class: ''), false)
+      set_tabla('tar_tarifas', TarTarifa.where(ownr_type: ''), false)
+      set_tabla('tar_servicios', TarServicio.where(ownr_type: ''), false)
   end
 
   def modelo

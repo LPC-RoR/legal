@@ -1,0 +1,5 @@
+<% unless objeto.hechos.empty? %>
+	<% objeto.hechos.order(:orden).each do |hecho| %>
+		<%= render partial: 'csc/hechos/list/innr_bjt', locals: {objeto: hecho} %>
+	<% end %>
+<% end %>

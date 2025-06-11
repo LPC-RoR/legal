@@ -14,7 +14,7 @@
 	</div>
 	<div class="ttl_lnks">
 		<% if objeto.ownr.class.name == 'Causa' %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{objeto.ownr.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}", tooltip: objeto.ownr.class.name} do %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/causas/#{objeto.ownr.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}", tltp: objeto.ownr.class.name} do %>
 				<i class="bi bi-box-arrow-up-right"></i>
 			<% end %>
 		<% end %>

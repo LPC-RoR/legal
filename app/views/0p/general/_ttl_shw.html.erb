@@ -7,7 +7,7 @@
 	</div>
 	<div class="ttl_lnks">
 		<% unless bk_lnk.blank? %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: bk_lnk, tooltip: 'Volver'} do %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: bk_lnk, tltp: 'Volver'} do %>
 				<i class="bi bi-arrow-left"></i>
 			<% end %>
 		<% end %>

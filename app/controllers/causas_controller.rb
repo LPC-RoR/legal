@@ -1,7 +1,7 @@
 class CausasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy asigna_tarifa cambio_estado rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd ]
+  before_action :set_causa, only: %i[ show edit update destroy swtch asigna_tarifa cambio_estado rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas

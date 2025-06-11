@@ -2,7 +2,7 @@
 	<div class="g_cllps">
 		<p>Agrega Producto</p>
 		<% Producto.all.order(:producto).each do |prdct| %>
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/productos/#{prdct.id}/agrega_producto?cid=#{ownr.id}", tooltip: 'Agrega Producto'} do %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/productos/#{prdct.id}/agrega_producto?cid=#{ownr.id}", tltp: 'Agrega Producto'} do %>
 				<%= prdct.producto unless ownr.productos.ids.include?(prdct.id) %></br>
 			<% end %>
 		<% end %>

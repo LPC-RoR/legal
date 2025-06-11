@@ -15,7 +15,7 @@
 		</div>
 		<div class="rght">
 			: <%= @objeto.rit %>
-				<%= render layout: '0p/layout/tooltip_link', locals: {link: @objeto, tooltip: @objeto.class.name} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: @objeto, tltp: @objeto.class.name} do %>
 					<i class="bi bi-box-arrow-up-right"></i>
 				<% end %>
 				</br>

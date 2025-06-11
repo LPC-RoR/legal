@@ -16,13 +16,13 @@
 	</td>
 	<td class="app_lnk" style="text-align: right; padding-right: 1rem;">
 		<% if fl.blank? %>
-			<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: "Subir #{dc.rep_doc_controlado}"} do %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: "Subir #{dc.rep_doc_controlado}"} do %>
 				<i class="bi bi-upload"></i>
 				Subir 
 			<% end %>
 		<% else %>
 			<% if fl.archivo? %>
-				<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: fl.archivo.url, target: :_blank, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: fl.archivo.url, target: :_blank, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
 					<i class="bi bi-download"></i>
 				<% end %>
 				<i class="bi bi-dot"></i>

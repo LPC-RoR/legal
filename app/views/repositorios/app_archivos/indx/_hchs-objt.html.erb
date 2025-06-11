@@ -1,5 +1,5 @@
 Archivos requeridos
 <i class="bi bi-dot"></i>
-<%= render layout: '0p/layout/tooltip_link', locals: {link: "/causas/#{ownr.id}/set_flags?f=areg", tooltip: "#{ownr.archivos_registrados ? 'Desbloquea archivos' : 'Bloquea archivos' }"} do  %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/causas/#{ownr.id}/set_flags?f=areg", tltp: "#{ownr.archivos_registrados ? 'Desbloquea archivos' : 'Bloquea archivos' }"} do  %>
 	<%= render partial: '0p/general/gly', locals: {gly: "#{'check-' if ownr.archivos_registrados}square"} %>
 <% end %>

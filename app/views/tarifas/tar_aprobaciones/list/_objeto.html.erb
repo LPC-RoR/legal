@@ -4,7 +4,7 @@
 			<b><%= objeto.id %><i class="bi bi-dot"></i><%= dma(objeto.fecha) %></b>
 		</div>
 		<div class="ln_lnks">
-			<%= render layout: '0p/layout/tooltip_link', locals: {link: "/servicios/aprobacion?indice=#{objeto.id}", tooltip: 'Ver aprobacion'} do %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/servicios/aprobacion?indice=#{objeto.id}", tltp: 'Ver aprobacion'} do %>
 				<i class="bi bi-file-pdf"></i>
 			<% end %>
 			<%= render partial: 'clientes/shr/lnk_cl', locals: {objeto: objeto} %>
@@ -20,7 +20,7 @@
 				<div class="ln_nm">
 					<%= render partial:'0p/general/gly', locals: {gly: controller_icon['tar_calculos']} %>
 					<%= ccl.glosa %>
-					<%= render layout: '0p/layout/tooltip_link', locals: {link: "/tar_calculos/#{ccl.id}/liberar_calculo", tooltip: 'Libera cálculo'} do %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{ccl.id}/liberar_calculo", tltp: 'Libera cálculo'} do %>
 						<i class="bi bi-trash"></i>
 					<% end %>
 				</div>

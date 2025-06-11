@@ -1,5 +1,5 @@
 <%# unless scp_activo? %>
-	<%= render layout: '0p/layout/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: 'Home'} do %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: 'Home'} do %>
 		<i class="bi bi-house-door"></i>
 	<% end %>
 
