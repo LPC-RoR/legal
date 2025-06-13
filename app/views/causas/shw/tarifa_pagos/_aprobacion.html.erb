@@ -13,7 +13,7 @@
 				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: pago, ownr: objeto} %>
 
 				<% if !!pago.requiere_uf == true and @h_pgs[pago.id][:uf_calculo].blank? %>
-					<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'check-lg', ntc: "UF del día #{dma(@fecha_uf[pago.id])} no encontrada."} %>
+					<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'check-lg', ntc: "UF del día #{dma(@h_pgs[pago.id][:fecha_calculo])} no encontrada."} %>
 				<% else %>
 					<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: pago, causa: objeto } %>
 					<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/calculo_child', locals: {pago: pago, ownr: objeto } %>

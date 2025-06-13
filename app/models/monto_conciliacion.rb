@@ -11,7 +11,17 @@ class MontoConciliacion < ApplicationRecord
 	def update_monto_pagado
       causa = self.causa
       ultimo = causa.monto_conciliaciones.last
-      causa.monto_pagado = (ultimo.present? and ['Acuerdo', 'Sentencia'].include?(ultimo.tipo)) ? ultimo.monto : nil
+      if ultimo.present? and ['Acuerdo', 'Sentencia'].include?(ultimo.tipo)
+	      causa.monto_pagado = ultimo.monto
+	      causa.estado = 'pagada'
+	    else
+	      causa.monto_pagado = nil
+        if causa.tar_tarifa.present?
+          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
+        else
+          causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
+        end
+	    end
       causa.save
 	end
 end

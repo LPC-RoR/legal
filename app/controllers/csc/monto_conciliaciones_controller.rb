@@ -71,6 +71,16 @@ class Csc::MontoConciliacionesController < ApplicationController
       ultimo = causa.monto_conciliaciones.last
       if @objeto == ultimo
         causa.monto_pagado = @objeto.persisted? ? (['Acuerdo', 'Sentencia'].include?(@objeto.tipo) ? @objeto.monto : nil) : nil
+
+        n_clcls = causa.tar_calculos.count 
+        n_pgs   = causa.tar_tarifa.blank? ? 0 : causa.tar_tarifa.tar_pagos.count
+
+        if causa.tar_tarifa.present?
+          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
+        else
+          causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
+        end
+
         causa.save
       end
     end

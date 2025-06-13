@@ -70,7 +70,7 @@ class Tarifas::TarCalculosController < ApplicationController
       n_clcls = ownr.tar_calculos.count 
       n_pgs   = ownr.tar_tarifa.tar_pagos.count
 
-      ownr.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : 'tramitación')
+      ownr.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : (ownr.monto_pagado.blank? ? 'tramitación' : 'pagada'))
 
       # CAUSA GANADA !!
       ownr.causa_ganada = ownr.monto_pagado == 0
@@ -142,7 +142,7 @@ class Tarifas::TarCalculosController < ApplicationController
     if causa.tar_facturaciones.count == causa.tar_tarifa.tar_pagos.count
       causa.estado = 'terminada'
     else
-      causa.estado = 'tramitación'
+      causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
     end
     causa.save
 

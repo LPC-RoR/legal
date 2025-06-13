@@ -31,13 +31,19 @@ class Aplicacion::AppRecursosController < ApplicationController
       end
 
       if causa.estado == 'tramitación'
-        n_clcls = causa.tar_calculos.count 
-        n_pgs   = causa.tar_tarifa.blank? ? 0 : causa.tar_tarifa.tar_pagos.count
-
-        causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : 'tramitación')
 
         ultimo = causa.monto_conciliaciones.last
         causa.monto_pagado = (ultimo.present? and ['Acuerdo', 'Sentencia'].include?(ultimo.tipo)) ? ultimo.monto : nil
+
+        # Estado va después del monto porque debe estar actualizado
+        n_clcls = causa.tar_calculos.count 
+        n_pgs   = causa.tar_tarifa.blank? ? 0 : causa.tar_tarifa.tar_pagos.count
+
+        if causa.tar_tarifa.present?
+          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
+        else
+          causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
+        end
 
         causa.save
       end

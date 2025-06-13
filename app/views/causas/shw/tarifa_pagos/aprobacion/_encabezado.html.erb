@@ -10,7 +10,7 @@
 		<!-- el pago requiere el valor de la UF y la UF no se ha ingresado -->
 		<!-- Se usa la nuevas funciones get_uf_calculo_pago, get_fecha_calculo_pago y get_v_tarifa_pago -->
 		<% if pago.requiere_uf == true and @h_pgs[pago.id][:uf_calculo].blank? %>
-			<small><b class="text-danger">UF del dia <%= dma(@fecha_uf[pago.id]) %> no encontrada</b></small>
+			<small><b class="text-danger">UF del dia <%= dma(@h_pgs[pago.id][:fecha_calculo]) %> no encontrada</b></small>
 		<% else %>
 			<small>
 			<%= s_uf5(@h_pgs[pago.id][:v_tarifa][0]) %>
