@@ -35,6 +35,10 @@ class Aplicacion::AppRecursosController < ApplicationController
         n_pgs   = causa.tar_tarifa.blank? ? 0 : causa.tar_tarifa.tar_pagos.count
 
         causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : 'tramitación')
+
+        ultimo = causa.monto_conciliaciones.last
+        causa.monto_pagado = ['Acuerdo', 'Sentencia'].include?(ultimo.tipo) ? ultimo.monto : nil
+
         causa.save
       end
 

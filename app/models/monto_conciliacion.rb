@@ -5,4 +5,13 @@ class MontoConciliacion < ApplicationRecord
 	belongs_to :causa
 
 	scope :ordr_fecha, -> { order(:created_at) }
+
+	after_destroy :update_monto_pagado
+
+	def update_monto_pagado
+      causa = self.causa
+      ultimo = causa.monto_conciliaciones.last
+      causa.monto_pagado = ['Acuerdo', 'Sentencia'].include?(ultimo.tipo) ? ultimo.monto : nil
+      causa.save
+	end
 end
