@@ -37,7 +37,7 @@ class Aplicacion::AppRecursosController < ApplicationController
         causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : 'tramitación')
 
         ultimo = causa.monto_conciliaciones.last
-        causa.monto_pagado = ['Acuerdo', 'Sentencia'].include?(ultimo.tipo) ? ultimo.monto : nil
+        causa.monto_pagado = (ultimo.present? and ['Acuerdo', 'Sentencia'].include?(ultimo.tipo)) ? ultimo.monto : nil
 
         causa.save
       end
