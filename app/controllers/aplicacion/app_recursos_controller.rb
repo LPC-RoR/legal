@@ -32,7 +32,7 @@ class Aplicacion::AppRecursosController < ApplicationController
 
       if causa.estado == 'tramitación'
         n_clcls = causa.tar_calculos.count 
-        n_pgs   = causa.tar_tarifa.tar_pagos.count
+        n_pgs   = causa.tar_tarifa.blank? ? 0 : causa.tar_tarifa.tar_pagos.count
 
         causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : 'tramitación')
         causa.save
