@@ -5,6 +5,7 @@ module Cmenu
 			causas: [
 				{scp: 'trmtcn',	cndcn: operacion?},
 				{scp: 'sn_fctrcn', cndcn: operacion?},
+				{scp: 'pgds',	cndcn: operacion?},
 				{scp: 'trmnds',	cndcn: operacion?},
 				{scp: 'crrds', cndcn: operacion?},
 				{scp: 'en_rvsn', cndcn: admin?}
@@ -45,6 +46,7 @@ module Cmenu
 			causas: {
 				trmtcn: 'en tramitación',
 				sn_fctrcn: 'sin facturación',
+				pgds: 'pagadas',
 				trmnds: 'terminadas',
 				crrds: 'cerradas',
 				en_rvsn: 'en revisión'

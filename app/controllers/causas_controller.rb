@@ -25,6 +25,8 @@ class CausasController < ApplicationController
         cllcn = Causa.trmtcn
       when 'sn_fctrcn'
         cllcn = Causa.std('ingreso')
+      when 'pgds'
+        cllcn = Causa.std('pagada')
       when 'trmnds'
         cllcn = Causa.std('terminada')
       when 'crrds'
