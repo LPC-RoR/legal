@@ -6,6 +6,8 @@
 	<% end %>
 
 	<% unless krn_routes? %>
-		<%= render partial: '0p/tbl/lnk_new', locals: {source: 'rep_archivos', ownr: ownr} %>
+		<% unless ownr.class.name == 'Causa' and ownr.archivos_registrados %>
+			<%= render partial: '0p/tbl/lnk_new', locals: {source: 'rep_archivos', ownr: ownr} %>
+		<% end %>
 	<% end %>
 </div>

@@ -1,0 +1,12 @@
+<!-- Se usa mthd prque method es palabla reservada -->
+<% data   ||= nil %>
+<% mthd   ||= nil %>
+<% target ||= nil %>
+<% clss   ||= "btn btn-sm btn-primary" %>
+<%= button_to lnk, 
+              method: mthd, 
+#              form: { data: { turbo: true, turbo_confirm: "¿Estás seguro?" } },
+              form: { data: data }, 
+              class: clss do %>
+  <%= yield %>
+<% end %>

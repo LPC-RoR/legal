@@ -44,8 +44,11 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
+    # en MIGRACIÓN
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
+    # DEPRECATED : Se cambia por std('ingreso'), se deben migrar todas las causas que están en estado 'tramitación'
     scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.tar_calculos.empty?}.compact)}
+    scope :trmtcn, -> { where(estado: ['ingreso', 'tramitación']).order(:fecha_audiencia) }
 
     delegate :tar_pagos, to: :tar_tarifa, prefix: true
 	delegate :tipo_causa, to: :tipo_causa, prefix: true

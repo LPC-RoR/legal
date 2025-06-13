@@ -30,16 +30,10 @@ Rails.application.routes.draw do
     match :swtch, via: :post, on: :member
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
-    match :traer_archivos_cuantia, via: :get, on: :member
-    match :crea_archivo_controlado, via: :get, on: :member
-    match :input_nuevo_archivo, via: :post, on: :member
-    match :set_flags, via: :get, on: :member
     match :cuantia_to_xlsx, via: :get, on: :member
-    match :nueva_materia, via: :post, on: :member
-    match :nuevo_hecho, via: :post, on: :member
     match :hchstowrd, via: :get, on: :member, format: 'docx'
     match :ntcdntstowrd, via: :get, on: :member, format: 'docx'
-    match :asigna_tarifa, via: :get, on: :member
+    match :asigna_tarifa, via: :post, on: :member
     # ultima version
     match :add_uf_facturacion, via: :post, on: :member
     match :del_uf_facturacion, via: :get, on: :member
@@ -197,7 +191,6 @@ Rails.application.routes.draw do
     resources :temas do
       match :arriba, via: :post, on: :member
       match :abajo, via: :post, on: :member
-      match :nuevo_hecho, via: :post, on: :member
     end
     resources :hechos do
       match :arriba, via: :post, on: :member
@@ -408,10 +401,11 @@ Rails.application.routes.draw do
       match :abajo, via: :post, on: :member
     end
     resources :tar_calculos do
+      match :crea_calculo, via: :post, on: :collection
+      match :elimina_calculo, via: :post, on: :member
       match :crea_pago_asesoria, via: :post, on: :collection
       match :elimina_pago_asesoria, via: :post, on: :collection
       # revisar desde aqui
-      match :elimina_calculo, via: :get, on: :member
       match :liberar_calculo, via: :get, on: :member
       match :crea_aprobacion, via: :get, on: :member
     end
@@ -433,8 +427,6 @@ Rails.application.routes.draw do
     end
     resources :tar_detalles
     resources :tar_facturaciones do
-      match :crea_facturacion, via: :get, on: :collection
-      match :elimina_facturacion, via: :get, on: :member
       match :facturable, via: :get, on: :member
       match :facturar, via: :get, on: :member
       # nueva lógica

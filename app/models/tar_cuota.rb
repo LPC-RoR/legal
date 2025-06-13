@@ -3,6 +3,8 @@ class TarCuota < ApplicationRecord
 
 	has_many :tar_facturaciones
 
+	scope :ordr, -> { order(:orden) }
+
 	def monto_pagado(owner, monto)
 		realizados = owner.facturaciones.where(tar_cuota_id: self.id)
 		if self.moneda == 'UF'

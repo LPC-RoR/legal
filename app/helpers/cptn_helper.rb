@@ -41,27 +41,27 @@ module CptnHelper
 # ******************************************************************** DESPLIEGUE DE CAMPOS
 
 	def s_moneda(moneda, valor)
-		moneda == 'Pesos' ? s_pesos(valor) : s_uf(valor)
+		valor.blank? ? 'vacío' : moneda == 'Pesos' ? s_pesos(valor) : s_uf(valor)
 	end
 
 	def s_pesos(valor)
-		number_to_currency(valor, locale: :en, precision: cfg_defaults[:pesos])
+		valor.blank? ? 'vacío' : number_to_currency(valor, locale: :en, precision: cfg_defaults[:pesos])
 	end
 
 	def s_pesos2(valor)
-		number_to_currency(valor, locale: :en, precision: 2)
+		valor.blank? ? 'vacío' : number_to_currency(valor, locale: :en, precision: 2)
 	end
 
 	def s_uf(valor)
-		number_to_currency(valor, unit: 'UF', precision: cfg_defaults[:uf])
+		valor.blank? ? 'vacío' : number_to_currency(valor, unit: 'UF', precision: cfg_defaults[:uf])
 	end
 
 	def s_uf5(valor)
-		number_to_currency(valor, unit: 'UF', precision: cfg_defaults[:uf_calculo])
+		valor.blank? ? 'vacío' : number_to_currency(valor, unit: 'UF', precision: cfg_defaults[:uf_calculo])
 	end
 
 	def s_p100(valor, decimales)
-		number_to_currency(valor, unit: '%', precision: decimales)
+		valor.blank? ? 'vacío' : number_to_currency(valor, unit: '%', precision: decimales)
 	end
 
 	def dma(date)

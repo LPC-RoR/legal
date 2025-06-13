@@ -1,7 +1,7 @@
 class CausasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy swtch asigna_tarifa cambio_estado rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion traer_archivos_cuantia crea_archivo_controlado input_nuevo_archivo set_flags cuantia_to_xlsx nueva_materia nuevo_hecho hchstowrd ntcdntstowrd ]
+  before_action :set_causa, only: %i[ show edit update destroy swtch asigna_tarifa cambio_estado rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion cuantia_to_xlsx hchstowrd ntcdntstowrd ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -22,9 +22,9 @@ class CausasController < ApplicationController
     else
       case scp
       when 'trmtcn'
-        cllcn = Causa.std('tramitación')
+        cllcn = Causa.trmtcn
       when 'sn_fctrcn'
-        cllcn = Causa.no_fctrds
+        cllcn = Causa.std('ingreso')
       when 'trmnds'
         cllcn = Causa.std('terminada')
       when 'crrds'
@@ -70,11 +70,7 @@ class CausasController < ApplicationController
       set_tabla('hechos', @objeto.hechos.where(tema_id: nil).order(:orden), false)
       set_tabla('rep_archivos', @objeto.rep_archivos.ordr, false)
     when 'Tarifa & Pagos'
-
-      set_tabla('tar_uf_facturaciones', @objeto.uf_facturaciones, false)
-      set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
-
-      @pgs_stts = @objeto.tar_tarifa.blank? ? [] : pgs_stts(@objeto)
+      @h_pgs = @objeto.tar_tarifa.blank? ? {} : h_pgs(@objeto)
 
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)
@@ -182,74 +178,6 @@ class CausasController < ApplicationController
     @objeto.save
 
     redirect_to "/servicios/auditoria?oid=#{@objeto.cliente.id}"
-  end
-
-  def nueva_materia
-    f_prms = params[:nueva_materia]
-    unless f_prms[:tema].blank?
-      n_materias = @objeto.temas.count
-      @objeto.temas.create(tema: f_prms[:tema], orden: n_materias + 1)
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
-  end
-
-  def nuevo_hecho
-    f_prms = params[:nuevo_hecho]
-    unless f_prms[:descripcion].blank?
-      n_hechos = @objeto.hechos.count
-      @objeto.hechos.create(hecho: f_prms[:hecho], descripcion: f_prms[:descripcion], orden: n_hechos + 1)
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
-  end
-
-  def set_flags
-    case params[:f]
-    when 'hreg'
-      @objeto.hechos_registrados = @objeto.hechos_registrados ? false : true
-    when 'areg'
-      @objeto.archivos_registrados = @objeto.archivos_registrados ? false : true
-    end
-    @objeto.save
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
-  end
-
-  def traer_archivos_cuantia
-    controlados = @objeto.app_archivos.map { |app_a| app_a.app_archivo }
-    @objeto.tar_valor_cuantias.each do |valor_cuantia|
-      valor_cuantia.tar_detalle_cuantia.control_documentos.each do |control|
-        unless controlados.include?(control.nombre)
-          controlados << control.nombre
-          app_archivo = AppArchivo.create(owner_class: nil, owner_id: nil, app_archivo: control.nombre, control: control.control, documento_control: true)
-          @objeto.causa_archivos.create(app_archivo_id: app_archivo.id, orden: @objeto.causa_archivos.count + 1)
-        end
-      end
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
-  end
-
-  def crea_archivo_controlado
-    control = ControlDocumento.find(params[:cid])
-    controlados = @objeto.app_archivos.map { |app_a| app_a.app_archivo }
-    unless controlados.include?(control.nombre)
-      app_archivo = AppArchivo.create(owner_class: nil, owner_id: nil, app_archivo: control.nombre, control: control.control, documento_control: true)
-      @objeto.causa_archivos.create(app_archivo_id: app_archivo.id, orden: @objeto.causa_archivos.count + 1)
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
-  end
-
-  def input_nuevo_archivo
-    f_params = params[:nuevo_archivo]
-    unless f_params[:app_archivo].blank?
-      app_archivo = AppArchivo.create(owner_class: nil, owner_id: nil, app_archivo: f_params[:app_archivo], control: nil, documento_control: false)
-      @objeto.causa_archivos.create(app_archivo_id: app_archivo.id, orden: @objeto.causa_archivos.count + 1)
-    end
-
-    redirect_to "/causas/#{@objeto.id}?html_options[menu]=Hechos"
   end
 
   def procesa_registros

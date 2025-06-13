@@ -1,56 +1,58 @@
-<!-- DEPRECATED : Reemplazar por _encabezado_calculo.html.erb -->
-<!-- Se usa owner y no causa porque este código se podría accesar desde Asesoria -->
-<!-- pago: tar_pago, owner: causa -->
+<!-- Versión 2.0 OK -->
+<!-- Encabezado del pago: usado en despliegue del pago de una causa+tarifa -->
+<!-- pago: tar_pago, ownr: causa -->
+
 <div class="row px-2 gx-1" style="font-size: 16px;line-height: 1.2;">
 	<div class="col">
 		<b><%= pago.tar_pago %></b>
 	</div>
 	<div class="col text-end">
-		<!-- No se ha realizado el cálculo y el pago requiere el valor de la UF -->
-		<% if pago.requiere_uf == true and get_uf_calculo(owner, pago).blank? %>
-			<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(owner, pago)) %> no encontrada</b></small>
+		<!-- el pago requiere el valor de la UF y la UF no se ha ingresado -->
+		<!-- Se usa la nuevas funciones get_uf_calculo_pago, get_fecha_calculo_pago y get_v_tarifa_pago -->
+		<% if pago.requiere_uf == true and @h_pgs[pago.id][:uf_calculo].blank? %>
+			<small><b class="text-danger">UF del dia <%= dma(@fecha_uf[pago.id]) %> no encontrada</b></small>
 		<% else %>
 			<small>
-			<%= s_uf5(get_v_calculo_tarifa(owner, pago)[0]) %>
+			<%= s_uf5(@h_pgs[pago.id][:v_tarifa][0]) %>
 			<i class="bi bi-arrow-left-right"></i>
 			</small>
-			<b><%= s_pesos(get_v_calculo_tarifa(owner, pago)[1]) %></b>
+			<b><%= s_pesos(@h_pgs[pago.id][:v_tarifa][1]) %></b>
 		<% end %>
 	</div>
 </div>
 
-<% if requiere_uf(owner, pago) %>             
+<% if pago.requiere_uf %>             
 	<div class="row px-2 gx-1">
 		<div class="col">
 			Fecha cálculo
-			<% if controller_name == 'causas' and owner.tar_calculos.empty? %>
-				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "#{owner.tar_uf_facturacion(pago).blank? ? 'Agrega' : 'Modiffica'} fecha UF de cálculo" } do %>
+			<% if controller_name == 'causas' and ownr.tar_calculos.empty? %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "#{@h_pgs[pago.id][:tar_uf_facturacion].blank? ? 'Agrega' : 'Modifica'} fecha UF de cálculo" } do %>
 					<i class="bi bi-pencil-square"></i>
 				<% end %>
-				<% if owner.tar_uf_facturacion(pago).present? %>
-					<%= link_to "/causas/#{owner.id}/del_uf_facturacion?pid=#{pago.id}" do %>
+				<% if @h_pgs[pago.id][:tar_uf_facturacion].present? %>
+					<%= link_to "/causas/#{ownr.id}/del_uf_facturacion?pid=#{pago.id}" do %>
 						<i class="bi bi-trash"></i>
 					<% end %>
 				<% end %>
 			<% end %>
 		</div>
 		<div class="col text-end">
-			<%= dma(get_fecha_calculo(owner, pago)) %>
+			<%= dma(@h_pgs[pago.id][:fecha_calculo]) %>
 		</div>
 	</div>
 
 	<%= render layout: '0p/collapse/display', locals: {label: 'AgregaModifica', objeto: pago} do %>
-		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/form_uf_facturacion", locals: {causa: owner, pago: pago} %>
+		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/form_uf_facturacion", locals: {causa: ownr, pago: pago} %>
 	<% end %>
 
-	<% unless get_uf_calculo(owner, pago).blank? %>
+	<% unless @h_pgs[pago.id][:uf_calculo].blank? %>
 		<b>
 		<div class="row px-2 gx-1">
 			<div class="col">
-				<%= leyenda_origen_fecha_calculo(owner, pago) %>
+				<%= @h_pgs[pago.id][:origen_fecha_uf] %>
 			</div>
 			<div class="col text-end">
-				<%= s_uf( get_uf_calculo(owner, pago) ) %>
+				<%= s_pesos2( @h_pgs[pago.id][:uf_calculo] ) %>
 			</div>
 		</div>
 		</b>

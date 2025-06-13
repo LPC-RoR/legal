@@ -153,6 +153,8 @@ module Capitan
 		uf.blank? ? nil : uf.valor
 	end
 
+	# Versión 2.0
+	# Trae valor de la UF desde TarUfSistema
 	def vlr_uf(fecha)
 		uf = fecha.blank? ? nil : TarUfSistema.find_by(fecha: fecha.to_date)
 		uf.blank? ? nil : uf.valor

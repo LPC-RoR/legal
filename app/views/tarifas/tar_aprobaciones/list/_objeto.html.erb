@@ -25,7 +25,8 @@
 					<% end %>
 				</div>
 				<div class="ln_lnks">
-					<%= s_pesos(get_monto_calculo_pesos(ccl, ccl.ownr, ccl.tar_pago)) %>
+					<%#= s_pesos(get_monto_calculo_pesos(ccl, ccl.ownr, ccl.tar_pago)) %>
+					<%= s_pesos(ccl.monto) %>
 				</div>
 			</div>
 		<% end %>

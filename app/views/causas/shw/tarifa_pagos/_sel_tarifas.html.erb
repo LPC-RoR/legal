@@ -1,7 +1,9 @@
+<!-- Versión 2.0 -->
+<!-- Link para cambiar de tarifa -->
 <div style="padding-left: 1em">
-	<small class="text-muted">
+	<small class="text-muted app_lnk">
 	<% list_tarifas.each do |tar| %>
-		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/causas/#{objeto.id}/asigna_tarifa?oid=#{tar.id}", tltp: 'Asignar Tarifa' } do %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/causas/#{objeto.id}/asigna_tarifa?oid=#{tar.id}", tltp: 'Asignar Tarifa', data: {turbo_method: :post} } do %>
 			<i class="bi bi-arrow-bar-left"></i>
 			<%= tar.tarifa %>
 		<% end %> 

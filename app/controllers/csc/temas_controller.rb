@@ -1,8 +1,8 @@
 class Csc::TemasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_tema, only: %i[ show edit update destroy arriba abajo nuevo_hecho ]
-  after_action :ordena_temas, only: %i[ destroy nuevo_hecho ]
+  before_action :set_tema, only: %i[ show edit update destroy arriba abajo ]
+  after_action :ordena_temas, only: %i[ destroy ]
 
   # GET /temas or /temas.json
   def index
@@ -51,16 +51,6 @@ class Csc::TemasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def nuevo_hecho
-    f_prms = params[:nuevo_hecho]
-    unless f_prms[:descripcion].blank?
-      n_hechos = @objeto.causa.hechos.count
-      @objeto.hechos.create(causa_id: @objeto.causa.id, tema_id: @objeto.id, hecho: f_prms[:hecho], descripcion: f_prms[:descripcion], orden: n_hechos + 1)
-    end
-
-    redirect_to "/causas/#{@objeto.causa.id}?html_options[menu]=Hechos"
   end
 
   def arriba

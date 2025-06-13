@@ -6,7 +6,8 @@
 		<% end %>
 	</div>
 	<div class="ln_lnks">
-		<%= objeto.moneda %>
-		<%= s_pesos(get_monto_calculo_pesos(objeto, objeto.ownr, objeto.tar_pago)) %>
+		<%#= objeto.moneda %>
+		<%#= s_pesos(get_monto_calculo_pesos(objeto, objeto.ownr, objeto.tar_pago)) %>
+		<%= s_pesos(objeto.monto) %>
 	</div>
 </div>

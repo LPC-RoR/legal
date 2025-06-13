@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 	helper_method :scp_err?, :scp_activo?, :dog_perfil, :dog_perfil?, :tipo_usuario, :version_activa, :version_activa?, :nomina_activa, :nomina_activa?, :perfil_activo, :perfil_activo?, :usuario_agenda, :usuario_agenda?
 	helper_method :dog?, :admin?, :usuario_activo?, :publico?, :seguridad 
 	helper_method :operacion?, :finanzas?
-	helper_method :uf_del_dia, :uf_fecha, :enlaces_general, :v_enlaces_general, :enlaces_perfil, :v_enlaces_perfil, :v_enlaces, :set_st_estado, :object_class_sym
+	helper_method :vlr_uf, :uf_del_dia, :uf_fecha, :enlaces_general, :v_enlaces_general, :enlaces_perfil, :v_enlaces_perfil, :v_enlaces, :set_st_estado, :object_class_sym
 	helper_method :arriba, :abajo, :reordenar
 	helper_method :params_to_date, :dt_hoy, :s_hoy
 	helper_method :swtch_urgencia, :swtch_pendiente

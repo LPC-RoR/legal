@@ -1,53 +1,58 @@
-	<hr>
-	<% unless @pgs_stts[pago.id].blank? %>
-		<div class="px-2">
-			<b>Autorización</b>
-			<% if @pgs_stts[pago.id].class.name == 'TarCalculo' and @pgs_stts[pago.id].tar_aprobacion_id.blank? %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{@pgs_stts[pago.id].id}/elimina_calculo", tltp: 'Eliminar autorización'} do %>
-					<i class="bi bi-trash"></i>
-				<% end %>
+<!-- Version 2.0 -->
+<hr>
+<% unless @h_pgs[pago.id][:objt_calculo].blank? %>
+	<div class="px-2">
+		<b>Autorización</b>
+		<!-- BOTÓN ELIMINA CALCULO -->
+		<% if @h_pgs[pago.id][:objt_calculo].class.name == 'TarCalculo' and @h_pgs[pago.id][:objt_calculo].tar_aprobacion_id.blank? %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{@h_pgs[pago.id][:objt_calculo].id}/elimina_calculo", tltp: 'Eliminar autorización', data: {turbo_method: :post}} do %>
+				<i class="bi bi-trash"></i>
 			<% end %>
+		<% end %>
+	</div>
+	<div class="row px-2 gx-1">
+		<div class="col">
+			<i class="bi bi-dot"></i>Fecha autorización
 		</div>
-		<div class="row px-2 gx-1">
-			<div class="col">
-				<i class="bi bi-dot"></i>Fecha autorización
-			</div>
-			<div class="col text-end">
-				<%= dma( @pgs_stts[pago.id].created_at ) %>
-			</div>
+		<div class="col text-end">
+			<%= dma( @h_pgs[pago.id][:objt_calculo].created_at ) %>
 		</div>
-		<div class="row px-2 gx-1">
-			<div class="col">
-				<i class="bi bi-dot"></i>Cuantía utilizada para el cálculo
-			</div>
-			<div class="col text-end">
-				<%= s_pesos( @pgs_stts[pago.id].cuantia_calculo ) %>
-			</div>
+	</div>
+	<div class="row px-2 gx-1">
+		<div class="col">
+			<i class="bi bi-dot"></i>Cuantía utilizada para el cálculo
 		</div>
+		<div class="col text-end">
+			<%= s_pesos( @h_pgs[pago.id][:objt_calculo].cuantia_calculo ) %>
+		</div>
+	</div>
 
+	<% unless @h_pgs[pago.id][:ownr_fctrcn].tar_facturaciones.empty? %>
 		<div class="px-2">
 			<b>Pago(s)</b>
 		</div>
-		<% unless @pgs_stts[pago.id].tar_facturaciones.empty? %>
-			<% @pgs_stts[pago.id].tar_facturaciones.order(:created_at).each do |fctn| %>
-				<div class="row px-2 gx-1">
-					<div class="col">
-						<i class="bi bi-dot"></i><%= fctn.glosa %>
-						<% unless get_tar_facturacion(owner, pago).tar_aprobacion.blank? and get_tar_facturacion(owner, pago).tar_factura.blank? %>
-							<%= render partial: 'tarifas/tar_facturaciones/list/aprobacion_factura', locals: {objeto: get_tar_facturacion(owner, pago)} %>
-						<% end %>
-					</div>
-					<div class="col text-end">
-						<%= s_pesos(fctn.monto_pesos) %>
-					</div>
-				</div>
-			<% end %>
-		<% end %>
 
-	<% else %>
-		<% if owner.class.name == 'Causa' and controller_name == 'causas' %>
-			</br>
-			<%= link_to 'Autorizar pago', "/tar_facturaciones/crea_facturacion#{ownr_prms(owner)}&pid=#{pago.id}", class: 'btn btn-primary btn-sm text-white' %>
-	    <% end %>
-		
+		<% @h_pgs[pago.id][:ownr_fctrcn].tar_facturaciones.order(:created_at).each do |fctn| %>
+			<div class="row px-2 gx-1">
+				<div class="col">
+					<i class="bi bi-dot"></i><%= fctn.glosa %>
+					<% unless fctn.tar_aprobacion.blank? and fctn.tar_factura.blank? %>
+						<%= render partial: 'tarifas/tar_facturaciones/list/aprobacion_factura', locals: {objeto: fctn} %>
+					<% end %>
+				</div>
+				<div class="col text-end">
+					<%= s_pesos(fctn.monto_pesos) %>
+				</div>
+			</div>
+		<% end %>
 	<% end %>
+
+<% else %>
+	<% if ownr.class.name == 'Causa' and controller_name == 'causas' %>
+		</br>
+		<%= render layout: '0p/bttn', locals: {lnk: "/tar_calculos/crea_calculo#{ownr_prms(ownr)}&pid=#{pago.id}", mthd: :post} do %>
+			<i class="bi bi-cursor"></i> Autorizar pago
+		<% end %>
+    <% end %>
+	
+<% end %>

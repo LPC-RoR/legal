@@ -1,3 +1,5 @@
+<!-- Versión 2.0 -->
+<!-- Parobación de pagos -->
 <%= render partial: '0p/ttl_sub_tbl', locals: {source: 'tar_pagos', blngs: objeto, lnks: 'ttl'} %>
 
 <% if objeto.tar_tarifa.blank? %>
@@ -7,15 +9,16 @@
 <% else %>
 	<% objeto.tar_tarifa_tar_pagos.ordr.each do |pago| %>
 			<div class="mt-1 p-2 bg-white border border-secondary rounded-2 app_lnk" style="font-size: 13px;line-height: 1.2;">
-				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: pago, owner: objeto} %>
 
-				<% if !!pago.requiere_uf == true and get_uf_calculo(objeto, pago).blank? %>
-					<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'check-lg', ntc: "UF del día #{dma(get_fecha_calculo(objeto, pago))} no encontrada."} %>
-					<!--small><b class="text-danger">UF del dia <%#= dma(get_fecha_calculo(objeto, pago)) %> no encontrada</b></small-->
+				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: pago, ownr: objeto} %>
+
+				<% if !!pago.requiere_uf == true and @h_pgs[pago.id][:uf_calculo].blank? %>
+					<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'check-lg', ntc: "UF del día #{dma(@fecha_uf[pago.id])} no encontrada."} %>
 				<% else %>
 					<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: pago, causa: objeto } %>
-					<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/calculo_child', locals: {pago: pago, owner: objeto } %>
+					<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/calculo_child', locals: {pago: pago, ownr: objeto } %>
 				<% end %>
+
 			</div>
 
 	<% end %>
