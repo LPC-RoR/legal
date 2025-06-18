@@ -1,13 +1,15 @@
-<div class="text-center" style="margin-top: 6rem;margin-bottom: 6rem;margin-left: 10%;margin-right: 10%;font-size: 24px; line-height: 1.5;">
+<div class="text-center" style="margin-top: 5rem;margin-bottom: 6rem;margin-left: 10%;margin-right: 10%;font-size: 24px; line-height: 1.5;">
 	<div>
 		<%= image_tag 'ls_logo_100.png', width: "100" %>
 	</div>
 	
 	<div class="mt-2">
-		Cubrimos todas las obligaciones adicionales exigidas para <b>empresas principales o usuarias.</b>
+		Versión extendida para <b>empresas principales o usuarias.</b>
 	</div>
-	<div style="font-size: 16px;line-height: 1.5;">
+	<div class="objt_lnk" style="font-size: 16px;line-height: 1.5;">
 		<p>Contamos con un modelo de implementación que considera la capacitación del equipo de rrhh/recepción/investigación y la completa coordinación con las empresas colaboradoras.</p> 
 		<p>La versión ampliada de nuestra plataforma le permitirá recibir denuncias de personas trabajadoras de empresas colaboradoras y, registrar y controlar investigaciones de denuncias cuyos participantes pertenezcan a más de una empresa, entre otras funcionalidades.</p>
+		<p>Para mayor información visite: 
+    	<%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'prncpl_usr', dscrpcn: 'Empresas principales o usuarias', tltp: 'Empresas principales o usuarias', target: '_blank'} %></p>
 	</div>
 </div>
