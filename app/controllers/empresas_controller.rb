@@ -66,14 +66,12 @@ class EmpresasController < ApplicationController
       if usuario.new_record?
         random_password = Devise.friendly_token.first(12)
         usuario.assign_attributes(
-          password: @objeto.rut,
-          password_confirmation: @objeto.rut,
-#          password: random_password,
-#          password_confirmation: random_password,
+          password: random_password,
+          password_confirmation: random_password,
           confirmed_at: Time.now  # Marcar como confirmado para que no necesite autenticación
         )
         usuario.save!
-        EmpresaMailer.wellcome_email(@objeto.attributes.slice('email_administrador')).deliver_later
+        EmpresaMailer.wellcome_email(@objeto.attributes.slice('email_administrador', 'password')).deliver_later
       end
 
       redirect_to root_path, notice: 'Correo verificado correctamente'
