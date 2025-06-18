@@ -7,3 +7,8 @@
 <% if objeto.contacto %>
 	<i class="bi bi-info-square"></i>
 <% end %>
+<% if dog? %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/empresas/#{objeto.id}/prg", tltp: 'Purgar'} do %>
+		<i class="bi bi-trash"></i>
+	<% end %>
+<% end %>

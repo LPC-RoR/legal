@@ -5,7 +5,7 @@ module Config
 		{
 			app_nombre: 'Abogados Derecho del Trabajo',
 			app_sigla: 'addt',
-			app_home: "http://www.abogadosderechodeltrabajo.cl/",
+			app_home: "https://www.laborsafe.cl/",
 			activa_tipos_usuario: true,
 			# Determinan la existencia de elementos del layout
 			lyt_o_bann: true,

@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'addt@abogadosderechodeltrabajo.cl'
+  default from: 'no-reply@laborsafe.cl'
   layout 'mailer'
 
   before_action :add_logo_attachment

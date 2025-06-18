@@ -48,6 +48,7 @@ Rails.application.routes.draw do
 
   resources :empresas do
     match :swtch, via: :post, on: :member
+    match :prg, via: :get, on: :member
   end
 
 # SCOPES *********************************************************

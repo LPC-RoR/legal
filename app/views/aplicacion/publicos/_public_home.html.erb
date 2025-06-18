@@ -1,4 +1,18 @@
+<div class="text-center text-primary">
+	<%= image_tag 'laboralsafe.png', style: 'height:100%;width:auto;' %>
+	<h1>Carpeta de Investigación Electrónica</h1>
+	<h2>Procedimiento de Investigación y Sanción</h2>
+	<h3>Ley Karin</h3>
 
-<%= render partial: prtl_name('publicos', 'home/public_home', 'addt') %>
+	<!-- MODAL bttn -->
+	<%= render partial: '0p/mdl/bttn', locals: {cdg: 'RegistroEmpresa', txt: 'Registre su empresa para obtener versión DEMO de Laborsafe', gly: 'cursor'} %>
+</div>
+
+<!-- MODAL display -->
+<%= render layout: '0p/mdl/modal', locals: {cdg: 'RegistroEmpresa', ttl: 'Registro de empresa'} do %>
+	<%= render partial: 'empresas/registro' %>
+<% end %>
+
+<%#= render partial: prtl_name('publicos', 'home/public_home', 'lbrsf') %>
 
 <%= render partial: prtl_name('publicos', 'home/public_home', 'prdct_laborsafe') %>

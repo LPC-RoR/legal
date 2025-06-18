@@ -2,7 +2,7 @@ class Actividades::AgeActividadesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_age_actividad, only: %i[ show edit update destroy swtch dssgn_usr assgn_usr cambia_estado cambio_fecha ]
-  after_action :set_fecha_audiencia, only: %i[ create update destroy]
+  after_action :set_fecha_audiencia, only: %i[ create update ]
 
   include AgeUsr
 

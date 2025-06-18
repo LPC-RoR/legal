@@ -1,0 +1,6 @@
+<% gly ||= nil %>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<%=cdg%>">
+  <%= render partial: '0p/gly', locals: {gly: gly} unless gly.blank? %>
+  <%= txt %>
+</button>

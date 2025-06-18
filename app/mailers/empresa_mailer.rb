@@ -10,4 +10,10 @@ class EmpresaMailer < ApplicationMailer
     
     mail(to: @objeto.email_administrador, subject: 'Verifica tu dirección de correo electrónico')
   end
+
+  def wellcome_email(attrbts)
+    @attrbts = attrbts
+    
+    mail(to: @attrbts['email_administrador'], subject: 'Bienvenido a LaborSafe')
+  end
 end

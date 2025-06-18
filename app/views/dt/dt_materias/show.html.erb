@@ -1,3 +1,5 @@
 <%= render partial: '0p/ttl_shw', locals: {objt: @objeto, dir: 'shw', bck_path: dt_materias_path } %>
 
 <%= render partial: '0p/tbl/tbl', locals: {source: 'dt_infracciones', typ: 'ln'} %>
+
+<%= link_to "Descargar PDF", dt_materia_path(@objeto, format: :pdf), class: 'btn btn-primary' %>

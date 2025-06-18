@@ -11,6 +11,20 @@ class Dt::DtMateriasController < ApplicationController
   # GET /dt_materias/1 or /dt_materias/1.json
   def show
     set_tabla('dt_infracciones', @objeto.dt_infracciones.order(:codigo), false)
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "reporte_#{@objeto.id}",
+               template: "dt/dt_materias/show",
+               layout: 'rpdf.html.erb',
+               orientation: 'Portrait',  # o 'Landscape'
+               page_size: 'A4',
+               show_as_html: params[:debug].present?,
+               margin: { top: 15, bottom: 15, left: 10, right: 10 }
+      end
+    end
+
   end
 
   # GET /dt_materias/new

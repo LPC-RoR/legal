@@ -95,7 +95,7 @@ class EmailVerificationsController < ApplicationController
   private
 
   def appropriate_host
-    Rails.env.production? ? 'www.abogadosderechodeltrabajo.cl' : 'localhost'
+    Rails.env.production? ? 'www.laborsafe.cl' : 'localhost'
   end
 
   def appropriate_protocol

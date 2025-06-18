@@ -2,7 +2,7 @@
 <!-- Resto de tu landing page... -->
 
 <div id="registration-form">
-  <h3>Registre su empresa</h3>
+  <!--h3>Registre su empresa</h3-->
   <%= form_with(model: @objeto, url: register_path, data: { turbo: false }) do |form| %>
     <% if @objeto.errors.any? %>
       <div class="error-messages">
@@ -16,7 +16,7 @@
 	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razon social de la empresa' } %>
 	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
 
-	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :principal_usuaria, label: 'Empresa principal o usuaria' } %>
+	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :principal_usuaria, label: 'Empresa principal o usuaria (*)' } %>
 	<%#= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Solicito información comercial' } %>
 
     <div class="actions">
@@ -24,11 +24,9 @@
     </div>
   <% end %>
 
-  <div class="mt-3 text-center objt_lnk" style="font-size: 14px;">
-    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/hlp_ayudas/rgstr_emprs", tltp: 'Ayuda para registro de empresa', target: '_blank'} do %>
-      <i class="bi bi-cursor"></i> Instrucciones para registrar su empresa.
-    <% end %>
-    <p><%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'prncpl_usr', dscrpcn: 'Empresas principales o usuarias', tltp: 'Empresas principales o usuarias', target: '_blank'} %></p>
+  <div class="mt-3 text-center fw-bold objt_lnk" style="font-size: 12px;line-height: 1.5;">
+    (*) Marque esta opción si su empresa cumple el rol de empresa principal o usuaria. Para mayor información visite: 
+    <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'prncpl_usr', dscrpcn: 'Empresas principales o usuarias', tltp: 'Empresas principales o usuarias', target: '_blank'} %>
   </div>
 
 </div>

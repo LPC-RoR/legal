@@ -28,6 +28,19 @@ class AgeActividad < ApplicationRecord
 
     validates_presence_of :age_actividad, :fecha
 
+	after_destroy :update_audiencia
+
+	def update_audiencia
+      if @objeto.tipo == 'Audiencia' and @objeto.ownr_type == 'Causa'
+        ownr = @objeto.ownr
+        adncs = ownr.age_actividades.adncs.ftrs.fecha_ordr
+        ownr.fecha_audiencia = adncs.empty? ? nil : adncs.first.fecha
+        ownr.audiencia = adncs.empty? ? nil : adncs.first.age_actividad
+
+        ownr.save
+      end
+	end
+
 	def nombre_creador
 		perfil = AppPerfil.find_by(id: self.app_perfil_id)
 		if perfil.blank?
