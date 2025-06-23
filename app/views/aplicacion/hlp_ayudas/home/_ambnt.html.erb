@@ -1,19 +1,26 @@
-<h3>Descripción general del ambiente de <b>LaborSafe</b></h3>
+<h3 class="mb-4">Descripción general del ambiente de <b>LaborSafe</b></h3>
 
-<p>Al ingresar por primera vez a su cuenta de <b>LaborSafe</b>, se econtrará con una ventana de bienvenida similar a la siguiente:</p>
+<p>La siguiente descripción le servirá de ayuda y guía para familiarizarse con el ambiente de LaborSafe. Está diseñada especialmente para ayudar al usuario administrador a completar la configuración inicial de la cuenta y dejarla operativa.</p>
+
+<p>Al ingresar por primera vez a la plataforma encontrará la ventana de bienvenida</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/ambnt_1.png', width: "600" %>
 </div>
 
-<h4>Datos de la cuenta y menú desplegable</h4>
+<p>Revisaremos de arriba a abajo los distintos elementos presentes en la ventana.</p>
 
-<p>En la parte superior encontrará la <b>razón social de la empresa</b> propietaria de la cuenta, en este caso usamos el nombre <b>Empresa de prueba</b>; la leyenda <b>( DEMO )</b> si la cuenta aún no ha sido registrada y finalmente, si es el administrador de la cuenta, el botón <i class="bi bi-arrow-bar-down"></i>, que le permitirá acceder a la personalización del logo de la empresa.</p>
-<p>Si se trata de una versión DEMO, bajo la razón social de la empresa encontrará la leyenda <b>Su cuenta Demo le permite crear hasta 10 denuncias y estará activa por 30 días contados desde el registro de su empresa</b> en letras pequeñas.</p>
-<p>En el nivel inmediatamente infrerior, encontrará el <b>Menú Desplegable de la denuncia</b> a la izquierda y el correo electrónico del usuario activo a la derecha.</p>
-<p>El botón <i class="bi bi-question-circle"></i>, a la derecha del correo electrónico del usuario, lo llevará a la página de <b>Ayuda de LaborSafe</b>, la cual se abrirá en una pestaña distinta por simplicidad.</p>
+<h5 class="mb-3">Datos de la cuenta y menú desplegable</h5>
 
-<h5>Menú desplegable de la denuncia</h5>
+<p>En la línea superior encontrará la <b>razón social de la empresa</b> titular de la cuenta, en este caso usamos el nombre <b>Empresa de prueba</b>; inmediatamente a su derecha verá la leyenda <b>( DEMO )</b> lo cual indica que se trata de una cuenta que se activó para que el usuario conozca la plataforma; finalmente, sólo si el usuario es el administrador de la cuenta, verá el botón <i class="bi bi-arrow-bar-down"></i>, que le permitirá acceder a la personalización del logo de la empresa.</p>
+
+<p>Si se trata de una versión DEMO, bajo la razón social de la empresa encontrará la leyenda (en letras pequeñas) <b>Su cuenta Demo le permite crear hasta 10 denuncias y estará activa por 30 días contados desde el registro de su empresa</b>.</p>
+
+<p>Un nivel más abajo, encontrará el <b>Menú Desplegable de la denuncia</b> a la izquierda y el <b>correo electrónico del usuario activo</b> a la derecha.</p>
+
+<p>El botón <i class="bi bi-question-circle"></i>, a la derecha del correo electrónico del usuario, lo llevará a la página de <b>Ayuda de LaborSafe</b>, la cual se abrirá en una pestaña distinta para su comodidad.</p>
+
+<h5 class="mb-3">Menú desplegable de la denuncia</h5>
 
 <p>Al presionar el ícono del menú, este se desplegará de la siguiente forma:</p>
 
@@ -29,37 +36,30 @@
 	<li><b>Nómina</b></li>
 </ol>
 
-<p>Nunca se despliega la opción actual y dependiendo del <b>tipo de usuario</b>, el despliegue se ajusta y muestra sólo las opciones para las cuales cuenta con autorización.</p>
+<p>Sólo el usuario administrador tiene acceso a todas las opciones del menú, un usuario de recepción o investigador sólo verá la información de su competencia.</p>
+<p>La opción <b>Empresas externas</b> solo se despliega en la versión <i>ampliada</i> de la plataforma, para empresas principales o usuarias.</p>
 
-<p>La plataforma distingue cuatro tipos de usuarios.</p>
-<ul>
-	<li><b>admin</b> : Administrador de la cuenta.</li>
-	<li><b>recepcion</b> : Recepción de denuncias.</li>
-	<li><b>investigador</b> : Investigador.</li>
-	<li><b>rrhh</b> : Recursos humanos.</li>
-</ul>
-
-<h5>Denuncias</h5>
+<h5 class="mb-3">Denuncias</h5>
 
 <p>Esta es la opción que se despliega por defecto al entrar a la cuenta.</p>
-<p>El ítem <b>Denuncias</b> le da acceso al listado de denuncias ingresadas y a través de cada registro, presionando el link que se encuentra en el identificador de la denuncia, podrá acceder al detalle de una denuncia en particular.</p>
-<p>En este ambiente también se puede crear una nueva denuncia. Esta opción no está desplegada en la imagen del ejemplo porque aún no se cumplen las condiciones necesarias para activar la opción, en este caso, no se ha registrado aún ningún <i>investigador</i>.</p>
+<p>Le da acceso al listado de denuncias ingresadas y a través de cada registro, presionando el link que se encuentra en el identificador de la denuncia, puede acceder al detalle de una denuncia en particular.</p>
+<p>En este ambiente también se puede crear una nueva denuncia. Esta opción no está desplegada en la imagen del ejemplo porque aún no se cumplen las condiciones necesarias para activar la opción, en este caso, no se ha registrado aún un <i>investigador</i> (al menos uno).</p>
 
-<h5>Investigadores</h5>
+<h5 class="mb-3">Investigadores</h5>
 
 <p>El ítem <b>Investigadores</b> le da acceso a la lista de investigadores registrados en la plataforma.</p>
 <p>Como refleja el mensaje de bienvenida, <b>la plataforma no le permitirá crear denuncias si no ha registrado al menos un investigador</b>. Luego, nuestra primera tarea será registrar nuestro primer investigador (ver abajo <b>Ingreso del primer investigador</b>).</p>
 
-<h5>Empresas externas</h5>
+<h5 class="mb-3">Empresas externas</h5>
 
-<p>Esta opción no aparece en el despliegue menú de la imagen porque está disponible sólo en la versión para empresas principales o usuarias.</p>
-<p>Si la empresa propietaria de la cuenta se registró como empresa principal o usuaria, es obligación ingresar al menos una empresa externa para habilitar el ingreso de nuevas denuncias. En este caso el mensaje de bienvenida también incluirá esta restricción en su descripción</p>
+<p>Esta opción no aparece en la imagen de arriba porque está disponible sólo en la versión para empresas principales o usuarias.</p>
+<p>Si la empresa propietaria de la cuenta se registró como empresa principal o usuaria, es obligación ingresar al menos una empresa externa para habilitar el ingreso de nuevas denuncias. En este caso el mensaje de bienvenida también incluirá esta alerta en su descripción.</p>
 
-<h5>Nómina</h5>
+<h5 class="mb-3">Nómina</h5>
 
-<p>Esta opción está disponible sólo para usuarios <i>admin</i>. Esta opción le permitirá ingresar o actualizar la nómina de usuarios que tendrán acceso a la plataforma. También podrá en está página, crear y administra los contactos que podrán recibir los correos electrónicos y notificaciones desde la plataforma (uso administrativo).</p>
+<p>Esta opción está disponible sólo para usuarios <i>admin</i>. Le permitirá ingresar o actualizar la nómina de usuarios que tendrán acceso a la plataforma. También podrá, crear y administra los contactos que podrán recibir los correos electrónicos y notificaciones desde la plataforma (uso administrativo).</p>
 
-<h3>Ingreso del primer investigador</h3>
+<h3 class="mb-3">Ingreso del primer investigador</h3>
 
 <h4>Paso 1: Seleccionar la opción Investigadores</h4>
 
@@ -69,8 +69,8 @@
 	<%= image_tag 'hlp/ambnt_3.png', width: "600" %>
 </div>
 
-<p>La página desplegada es muy similar a la anterior, la única diferencia es el <b>encabezado</b> que en esta ocasión dice <b>Investigadores</b> y en su extremo derecho tiene un botón con el ícono <i class="bi bi-plus-circle"></i>. Este botón le dará acceso al formulario para ingresar un nuevo investigador.</p>
-<p>En toda las tablas presentadas en la plataforma, los encabezados de las tablas mostrarán a su derecha un botón similar para ingresar un nuevo registro en ellas, a menos que el usuario no tenga permisos para realizar esta acción o el ingreso se encuentre protegido por razones propias del procedimiento.</p>
+<p>La página desplegada es muy similar a la anterior, la única diferencia es el <b>encabezado</b> que en esta ocasión dice <b>Investigadores</b> y, en su extremo derecho, tiene un botón con el ícono <i class="bi bi-plus-circle"></i>. Este botón le dará acceso al <b>formulario para ingresar un nuevo investigador</b>.</p>
+<p>En toda las tablas presentadas en la plataforma, sus encabezados mostrarán a su derecha un botón idéntico para ingresar un nuevo registro en ellas, a menos que el usuario no tenga permisos para realizar esta acción o el ingreso se encuentre protegido por razones propias del procedimiento.</p>
 <p>Al presionar el botón para ingresar la información de nuestro primer investigador se desplegará el siguiente formulario:</p>
 
 <div class="mb-2 text-center">
@@ -99,13 +99,12 @@
 
 <p>A continuación del nombre del investigador encontrará un tercer botón con el ícono: <i class="bi bi-envelope-at"></i></p>
 
-<p>Al presionar este botón la plataforma enviará al correo electrónico del investigador con un link que le permitirá <b>verificar la dirección de correo registrada.</b></p>
-<p>Una vez verificado el correo electrónico, el ícono para enviar el correo de verificación será reemplazado por el ícono <i class="bi bi-at"></i> para señalar que la dirección de correo electrónico fue verificada.</p>
+<p>Al presionar este botón la plataforma enviará al correo electrónico del investigador con un link que le permitirá <b>verificar la dirección de correo registrada.</b> Una vez verificado el correo electrónico, el ícono para enviar el correo de verificación será reemplazado por el ícono <i class="bi bi-at"></i> para señalar que la dirección de correo electrónico fue verificada.</p>
 <p>Este botón esta disponible para todos los particpantes del Procedimiento de Investigación y Sanción, de esta forma <b>la plataforma incorpora la verificación de correos personales para todos participantes de la denuncia</b>.</p>
 
-<h3>Ingreso la primera denuncia</h3>
+<h3 class="mb-3">Ingreso de la primera denuncia</h3>
 
-<p>Ya habiendo ingresado nuestro primer investigador, estamos en condiciones de ingresar nuestra primera denuncia.</p>
+<p>Habiendo ingresado nuestro primer investigador, estamos en condiciones de ingresar nuestra primera denuncia.</p>
 <p><b>NOTA</b>: Recuerde que si se registró como empresa principal o usuaria deberá ingresar al menos una empresa externa para activar el ingreso de denuncias. El procedimiento es similar al ingreso de un investigador: selecciones la opción <b>Empresas externas</b> en el menú desplegable y presiones el botón <i class="bi bi-plus-circle"></i> a la derecha del encabezado.</p>
 
 <p>Para un tutorial del ingreso de una denuncia, vaya a <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dnnc_smpl', dscrpcn: 'Ejemplo de denuncia simple', tltp: 'Ejemplo de denuncia simple'} %> </p>
