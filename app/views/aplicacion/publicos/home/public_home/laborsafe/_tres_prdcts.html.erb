@@ -1,52 +1,31 @@
 <div class="row gx-1", style="padding: 3rem;">
 	<div class="col-lg-4 col-xs-12">
-		<div class="text-center txt_smll text-primary">
-			<div class="mb-2">
-				<%= image_tag 'logo/logo_ls_120.png', style: 'height:100%;width:auto;' %>
-			</div>
-			<b>BÁSICA</b>
-		</div>
-		<div class="txt_smll p-1 text-justify text-primary">
+		<%= render layout: 'aplicacion/publicos/home/public_home/laborsafe/prdct_pill', locals: {version: 'BÁSICA', price: 'UF 7', nota: 'Licencia anual'} do %>
 			<ul>
 				<li>Para empresas pequeñas</li>
 				<li>Compra capacidad en la medida de sus necesidades</i>
 				<li>Licencia anual incluye una investigación</li>
-				<li>Manuales de uso</li>
 			</ul>
-		</div>
+		<% end %>
 	</div>
 	<div class="col-lg-4 col-xs-12">
-		<div class="text-center txt_smll text-primary">
-			<div class="mb-2">
-				<%= image_tag 'logo/logo_ls_120.png', style: 'height:100%;width:auto;' %>
-			</div>
-			<b>ESTÁNDAR</b>
-		</div>
-		<div class="txt_smll p-1 text-justify text-primary">
+		<%= render layout: 'aplicacion/publicos/home/public_home/laborsafe/prdct_pill', locals: {version: 'ESTÁNDAR', price: 'UF 60', nota: 'Licencia primer año', renovacion: 'Renovacion: UF 40'} do %>
 			<ul>
 				<li>Licencia anual incluye 10 investigaciones</li>
 				<li>Capacitación</i>
-				<li>Manuales de uso</li>
 				<li>Soporte técnico</li>
 			</ul>
-		</div>
+		<% end %>
 	</div>
 	<div class="col-lg-4">
-		<div class="text-center txt_smll text-primary">
-			<div class="mb-2">
-				<%= image_tag 'logo/logo_ls_120.png', style: 'height:100%;width:auto;' %>
-			</div>
-			<b>EXTENDIDA</b>
-		</div>
-		<div class="txt_smll p-1 text-justify text-primary">
+		<%= render layout: 'aplicacion/publicos/home/public_home/laborsafe/prdct_pill', locals: {version: 'EXTENDIDA', price: 'UF 120', nota: 'Licencia primer año', renovacion: 'Renovacion: UF 80'} do %>
 			<ul>
 				<li>Para empresas principales o usuarias</li>
 				<li>Licencia anual incluye 10 investigaciones</li>
 				<li>Consultoría de implementación</i>
 				<li>Capacitación</i>
-				<li>Manuales de uso</li>
 				<li>Soporte técnico</li>
 			</ul>
-		</div>
+		<% end %>
 	</div>
 </div>
