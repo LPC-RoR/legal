@@ -61,6 +61,17 @@ class Causa < ApplicationRecord
 		self.demanda.present?
 	end
 
+    # ---------------------------------------------------------------- ACTIVIDADES
+
+    def audiencia_proxima
+    	audiencias = self.age_actividades.adncs.ftrs.fecha_ordr
+    	audiencias.empty? ? nil : audiencias.first
+    end
+
+    def get_age_actividad(nombre)
+    	self.age_actividades.find_by(age_actividad: nombre)
+    end
+
     # ---------------------------------------------------------------- MGRTN
 
 	# PAGOS
@@ -138,10 +149,6 @@ class Causa < ApplicationRecord
 	end
 
     # **************************************************** CÁLCULO DE TARIFA [PAGOS]
-
-    def get_age_actividad(nombre)
-    	self.age_actividades.find_by(age_actividad: nombre)
-    end
 
 	# Encuentra el PAGO (TarFacturacion) asociado al pago
 	def pago_generado(objeto)
