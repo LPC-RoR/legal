@@ -2,12 +2,10 @@
 
 <%= render layout: 'cuentas/prtls/proceso/actn' do %>
 
-	<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que nuestra empresa tiene la obligación de prestar Atención Psicológica Temprana a todas las personas participantes, la cual será coordinada por nuestra empresa para que sea recibida por usted a la brevedad.'} %>
-
-	<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo además, que nuestra empresa tiene la obligación de tomar Medidas de Resguardo para evitar que la investigación de esta denuncia tenga efectos negativos en las personas particpantes. Estas medidas serán definidas a la brevedad y le serán notificadas por escrito. La normativa vigente establece que es obligatorio para todos los participantes acatar estas medidas, así como tambien, colaborar con esta investigación.'} %>
-	<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'Término de la recepción presencial de la denuncia.'} %>
 	<% unless @objeto.rgstrs_ok? %>
 		<%= render partial: 'cuentas/prtls/proceso/alrt', locals: {txt: 'No se puede cerrar la recepción de la denuncia mientras no esté completa la información de los participantes.'} %>
+	<% else %>
+		<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La información de los participantes está completa. Si alguno de los datos no está verificado por favor concluya su verificación antes de seguir adelante.'} %>
 	<% end %>
 
 	<div class="border rounded-2">

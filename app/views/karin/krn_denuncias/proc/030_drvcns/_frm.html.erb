@@ -36,6 +36,10 @@
 							<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que tiene derecho a pedir que su denuncia sea derivada a la Dirección del Trabajo.'} %>
 							<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que, en el trascurso de tres días hábiles desde la recepción de la denuncia, la empresa tiene el derecho de derivar la denuncia a la Dirección del Trabajo si lo estima conveniente. Decisión que, de ocurrir, se le informará por escrito.'} %>
 							<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que si los hechos denunciados son constitutivos de delito, usted podrá denunciar ante el Ministerio Público, Carabineros de Chile o la Policía de Investigaciones, acción para la cual, nuestra empresa le brindará todas las facilidades necesarias.'} %>
+							<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que nuestra empresa tiene la obligación de prestar Atención Psicológica Temprana a todas las personas denunciantes, la cual será coordinada por nuestra empresa para que sea recibida por usted a la brevedad.'} %>
+
+							<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Por último, le informo que nuestra empresa tiene la obligación de tomar Medidas de Resguardo para evitar que la investigación de esta denuncia tenga efectos negativos en las personas particpantes. Estas medidas serán definidas a la brevedad y le serán notificadas por escrito. La normativa vigente establece que es obligatorio para todos los participantes acatar estas medidas, así como tambien, colaborar con esta investigación.'} %>
+
 						<% end %>
 						<!-- DENUNCIANTE SOLICITA DERIVAR A LA DT -->
 						<%= render layout: 'cuentas/prtls/proceso/actn' do %>
@@ -50,7 +54,7 @@
 					<% else %>
 						<!-- EMPRESA DERIVA A LA DT -->
 						<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-							<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La persona denunciante manifiesta su opción de que su denuncia sea investigada en la empresa.'} %>
+							<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La persona denunciante manifestó su deseo de que la denuncia sea investigada en la empresa.'} %>
 
 							<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
 						<% end %>
