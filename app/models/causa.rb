@@ -65,6 +65,16 @@ class Causa < ApplicationRecord
 
 	# PAGOS
 
+	# Número de cálculos de tarifa realizados
+	def clcls
+		self.tar_calculos.count
+	end
+
+	# Número de pagos en la tarifa
+	def pgs_trf
+		self.tar_tarifa.blank? ? 0 : self.tar_tarifa.tar_pagos.count
+	end
+
 	# Archivos y control de archivos
 
 	# Nombres de los archivos
