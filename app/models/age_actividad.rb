@@ -31,8 +31,8 @@ class AgeActividad < ApplicationRecord
 	after_destroy :update_audiencia
 
 	def update_audiencia
-      if @objeto.tipo == 'Audiencia' and @objeto.ownr_type == 'Causa'
-        ownr = @objeto.ownr
+      if self.tipo == 'Audiencia' and self.ownr_type == 'Causa'
+        ownr = self.ownr
         adncs = ownr.age_actividades.adncs.ftrs.fecha_ordr
         ownr.fecha_audiencia = adncs.empty? ? nil : adncs.first.fecha
         ownr.audiencia = adncs.empty? ? nil : adncs.first.age_actividad
