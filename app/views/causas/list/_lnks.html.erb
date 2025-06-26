@@ -1,3 +1,10 @@
+<% if dog? %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: 'causas/chck_estds', tltp: 'Revisa estados', data: {turbo_method: :post}} do %>
+		<i class="bi bi-journal-check"></i>
+	<% end %>
+	<i class="bi bi-dot"></i>
+<% end %>
+
 <%= render layout: '0p/collapse/link', locals: {label: 'Estado', objeto: objeto, tooltip: 'Último estado'} do %>
 	<i class="bi bi-tag"></i>
 <% end %>

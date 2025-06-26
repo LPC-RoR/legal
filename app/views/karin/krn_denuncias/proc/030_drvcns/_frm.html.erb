@@ -8,6 +8,7 @@
 <% unless @objeto.on_dt? %>
 	<% if @objt['on_empresa?'] and @objeto.externa? %>
 
+		<!-- Se recibió en la EMPRESA una denuncia de EMPRESA EXTERNA -->
 		<%= render layout: 'cuentas/prtls/proceso/actn' do %>
 			<%= render layout: 'cuentas/prtls/proceso/hint', locals: {gly: 'chat-left-dots', clr: 'primary'} do %>
 				Ha recibido una denuncia que no puede ser investigada por la empresa. La persona denunciante debe decidir si la denuncia se le deriva a su empleador o a la Dirección del Trabajo.
@@ -16,9 +17,11 @@
 			<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext_dt'} %>
 			<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext'} %>
 		<% end %>
+
 	<% else %>
 		<%# if  (not @objeto.solicitud_denuncia) %>
 			<% if @objeto.artcl41? %>
+				<!-- Para alguno de los participantes aplica el Artículo 4:1 -->
 				<%= render layout: 'cuentas/prtls/proceso/actn' do %>
 					<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'Para alguno de los participantes aplica el Articulo 4 inciso primero del Código del Trabajo (tiene un cargo gerencial), la denuncia debe ser obligatoriamente derivada a la Dirección del Trabajo.'} %>
 
@@ -26,36 +29,52 @@
 				<% end %>
 			<% else %>
 				<% unless @objeto.solicitud_denuncia %>
-					<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-						<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que tiene derecho a pedir que su denuncia sea derivada a la Dirección del Trabajo.'} %>
+					<% unless @objeto.derivaciones? or @objeto.dnncnt_investigacion_local %> 
+						<!-- ENTREGA DE INFORMACIÓN -->
+						<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+							<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'Entrega de información a la persona denunciante (obligatoria).'} %>
+							<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que tiene derecho a pedir que su denuncia sea derivada a la Dirección del Trabajo.'} %>
+							<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que, en el trascurso de tres días hábiles desde la recepción de la denuncia, la empresa tiene el derecho de derivar la denuncia a la Dirección del Trabajo si lo estima conveniente. Decisión que, de ocurrir, se le informará por escrito.'} %>
+							<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que si los hechos denunciados son constitutivos de delito, usted podrá denunciar ante el Ministerio Público, Carabineros de Chile o la Policía de Investigaciones, acción para la cual, nuestra empresa le brindará todas las facilidades necesarias.'} %>
+						<% end %>
+						<!-- DENUNCIANTE SOLICITA DERIVAR A LA DT -->
+						<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+							<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_dnncnt'} %>
+						<% end %>
+						<!-- DENUNCIANTE SOLICITA INVESTIGCIÓN LOCAL -->
+						<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+							<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+								<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :dnncnt_investigacion_local, prmpt: 'La persona denunciante manifiesta su deseo de que la investigación sea realizada por la empresa.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
+							<% end %>
+						<% end %>
+					<% else %>
+						<!-- EMPRESA DERIVA A LA DT -->
+						<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+							<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La persona denunciante manifiesta su opción de que su denuncia sea investigada en la empresa.'} %>
 
-						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_dnncnt'} %>
-					<% end %>
+							<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
+						<% end %>
 
-					<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-						<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La persona denunciante manifiesta su opción de que su denuncia sea investigada en la empresa.'} %>
+						<!-- EMPRESA INVESTIGA -->
+						<% if @objt['on_empresa?'] %>
+							<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+								<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+									<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_local, prmpt: 'La empresa decide realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
+								<% end %>
+							<% end %>
+						<% end %>
 
-						<%= render partial: 'cuentas/prtls/proceso/spch', locals: {txt: 'Le informo que, en el trascurso de tres días hábiles desde la recepción de la denuncia, la empresa tiene el derecho de derivar la denuncia a la Dirección del Trabajo si lo estima conveniente. Decisión que, de ocurrir, se le informará por escrito.'} %>
-
-						<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
-					<% end %>
-				<% end %>
-
-				<% if @objt['on_empresa?'] %>
-					<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-						<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-							<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_local, prmpt: 'La empresa decidió realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
+						<!-- EMPRESA EXTERNA INVESTIGA -->
+						<% if @objeto.on_externa? %>
+							<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+								<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+									<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_externa, prmpt: 'La empresa externa decide realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación externa', 'Investigación extena']} %>
+								<% end %>
+							<% end %>
 						<% end %>
 					<% end %>
 				<% end %>
 
-				<% if @objeto.on_externa? %>
-					<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-						<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-							<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_externa, prmpt: 'La empresa externa decidió realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación externa', 'Investigación extena']} %>
-						<% end %>
-					<% end %>
-				<% end %>
 			<% end %>
 		<%# end %>
 	<% end %>

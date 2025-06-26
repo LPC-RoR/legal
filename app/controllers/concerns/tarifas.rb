@@ -1,6 +1,21 @@
 module Tarifas
 	extend ActiveSupport::Concern
 
+	def check_estados(causa)
+        n_clcls = causa.tar_calculos.count 
+        n_pgs   = causa.tar_tarifa.blank? ? 0 : causa.tar_tarifa.tar_pagos.count
+
+        if causa.tar_tarifa.present?
+          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
+        else
+          causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
+        end
+
+        causa.save
+	end
+
+	# ------------------------------------------------------------------- CALCULA
+
 	def parentesis_less(formula, objeto, pago)
 		while formula.match?(/\([^()]*\)/) do
 			segmento = formula.match(/\([^()]*\)/)[0]

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     match :hchstowrd, via: :get, on: :member, format: 'docx'
     match :ntcdntstowrd, via: :get, on: :member, format: 'docx'
     match :asigna_tarifa, via: :post, on: :member
+    match :chck_estds, via: :post, on: :member
     # ultima version
     match :add_uf_facturacion, via: :post, on: :member
     match :del_uf_facturacion, via: :get, on: :member

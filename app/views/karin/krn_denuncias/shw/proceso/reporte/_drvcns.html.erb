@@ -8,8 +8,8 @@
 
 <!-- INVESTIGACIONES EN LA EMPRESA -->
 <% if objeto.investigacion_local %>
-	<%= render partial: '0p/proc/ln', locals: {glosa: "La empresa decidió realizar la investigación de la denuncia."} %>
+	<%= render partial: '0p/proc/ln', locals: {glosa: "La empresa decide realizar la investigación de la denuncia."} %>
 <% end %>
 <% if objeto.investigacion_externa %>
-	<%= render partial: '0p/proc/ln', locals: {glosa: "La empresa externa decidió realizar la investigación de la denuncia.", bld: true} %>
+	<%= render partial: '0p/proc/ln', locals: {glosa: "La empresa externa decide realizar la investigación de la denuncia.", bld: true} %>
 <% end %>

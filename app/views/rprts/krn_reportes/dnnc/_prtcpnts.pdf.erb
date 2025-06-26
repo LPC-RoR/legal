@@ -4,7 +4,7 @@
 
 	<% if @objt['denunciantes?'] %>
 		<% @objt['denunciantes'].each do |dnncnt| %>
-			<%= render partial: 'rprts/shrd/tr', locals: {glosa: "#{s_rut(dnncnt.rut)} #{dnncnt.nombre}"} %>
+			<%= render partial: prtl_name('krn_reportes', 'dnnc', 'glosa_prtcpnt'), locals: {rut: dnncnt.rut, nombre: dnncnt.nombre} %>
 			<% if action_name == 'dnnc' %>
 				<%= render partial: 'rprts/krn_reportes/dnnc/atncn_psclgc_tmprn', locals: {prtcpnt: dnncnt} %>
 				<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnt_dclrcn', locals: {prtcpnt: dnncnt} %>
@@ -29,7 +29,7 @@
 	<% else %>
 		<% if @objt['denunciados?'] %>
 			<% @objt['denunciados'].each do |dnncd| %>
-				<%= render partial: 'rprts/shrd/tr', locals: {glosa: "#{s_rut(dnncd.rut)} #{dnncd.nombre}"} %>
+				<%= render partial: prtl_name('krn_reportes', 'dnnc', 'glosa_prtcpnt'), locals: {rut: dnncd.rut, nombre: dnncd.nombre} %>
 				<% if action_name == 'dnnc' %>
 					<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnt_dclrcn', locals: {prtcpnt: dnncd} %>
 					<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnt_tstgs', locals: {prtcpnt: dnncd} %>

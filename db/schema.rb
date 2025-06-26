@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_10_144343) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_24_214943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -712,7 +712,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_144343) do
     t.string "via_declaracion"
     t.string "tipo_declaracion"
     t.string "representante"
-    t.integer "krn_investigador_id"
     t.string "ownr_type"
     t.integer "ownr_id"
     t.string "receptor_denuncia"
@@ -724,11 +723,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_144343) do
     t.datetime "fecha_env_infrm"
     t.datetime "fecha_prnncmnt"
     t.datetime "fecha_prcsd"
-    t.datetime "plz_trmtcn"
-    t.datetime "plz_invstgcn"
-    t.datetime "plz_infrm"
-    t.datetime "plz_prnncmnt"
-    t.datetime "plz_mdds_sncns"
     t.datetime "fecha_ntfccn"
     t.boolean "solicitud_denuncia"
     t.boolean "investigacion_local"
@@ -747,12 +741,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_144343) do
     t.boolean "objcn_rechazada"
     t.boolean "evlcn_desaprobada"
     t.datetime "fecha_cierre"
+    t.boolean "dnncnt_investigacion_local"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["identificador"], name: "index_krn_denuncias_on_identificador"
     t.index ["investigacion_local"], name: "index_krn_denuncias_on_investigacion_local"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denuncias_on_krn_empresa_externa_id"
-    t.index ["krn_investigador_id"], name: "index_krn_denuncias_on_krn_investigador_id"
     t.index ["motivo_denuncia"], name: "index_krn_denuncias_on_motivo_denuncia"
     t.index ["ownr_id"], name: "index_krn_denuncias_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_denuncias_on_ownr_type"

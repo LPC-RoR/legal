@@ -1,7 +1,7 @@
 class CausasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy swtch asigna_tarifa cambio_estado rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion cuantia_to_xlsx hchstowrd ntcdntstowrd ]
+  before_action :set_causa, only: %i[ show edit update destroy swtch asigna_tarifa cambio_estado chck_estds rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion cuantia_to_xlsx hchstowrd ntcdntstowrd ]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   include Tarifas
@@ -157,6 +157,12 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def chck_estds
+    check_estados(@objeto)
+
+    redirect_to causas_path
   end
 
   def asigna_tarifa

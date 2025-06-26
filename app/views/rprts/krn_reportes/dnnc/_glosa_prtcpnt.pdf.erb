@@ -1,0 +1,5 @@
+<% pddng  ||= nil %>
+<% rut    ||= nil %>
+<% nombre ||= nil %>
+<% rt = rut.blank? ? 'SIN RUT' : ( controller_name == 'krn_denuncias' ? s_rut(rut) : 'RUT VERIFICADO' ) %>
+<%= render partial: 'rprts/shrd/tr', locals: {glosa: "#{rt} #{nombre}"} %>
