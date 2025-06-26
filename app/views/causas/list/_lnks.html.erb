@@ -1,5 +1,5 @@
 <% if dog? %>
-	<%= render layout: '0p/tltp_lnk', locals: {lnk: 'causas/chck_estds', tltp: 'Revisa estados', data: {turbo_method: :post}} do %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "causas/#{objeto.id}/chck_estds", tltp: 'Revisa estados', data: {turbo_method: :post}} do %>
 		<i class="bi bi-journal-check"></i>
 	<% end %>
 	<i class="bi bi-dot"></i>
