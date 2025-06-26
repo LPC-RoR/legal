@@ -64,14 +64,24 @@ class EmpresasController < ApplicationController
 
       usuario = Usuario.find_or_initialize_by(email: @objeto.email_administrador)      
       if usuario.new_record?
+        
         random_password = Devise.friendly_token.first(12)
         usuario.assign_attributes(
           password: random_password,
           password_confirmation: random_password,
           confirmed_at: Time.now  # Marcar como confirmado para que no necesite autenticación
         )
-        usuario.save!
-        EmpresaMailer.wellcome_email(@objeto.attributes.slice('email_administrador', 'password')).deliver_later
+#        usuario.save!
+#        EmpresaMailer.wellcome_email(@objeto.attributes.slice('email_administrador', 'password')).deliver_later
+
+        if usuario.save!
+          # Envía el correo con los datos del USUARIO, no de la empresa
+          EmpresaMailer.wellcome_email(
+            email: usuario.email, 
+            password: random_password
+          ).deliver_later
+        end
+
       end
 
       redirect_to root_path, notice: 'Correo verificado correctamente'
