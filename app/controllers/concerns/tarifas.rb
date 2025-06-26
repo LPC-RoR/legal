@@ -316,7 +316,7 @@ module Tarifas
 #		objt ||= get_tar_facturacion_pago(ownr, pago)
 #		uf_calculo = get_uf_calculo_pago(ownr, pago)
 		if objt.present?
-			monto_pesos = objt.moneda == 'Pesos' ? objt.monto : (uf_calculo.blank? ? nil : objeto.monto * uf_calculo)
+			monto_pesos = objt.moneda == 'Pesos' ? objt.monto : (uf_calculo.blank? ? nil : objt.monto * uf_calculo)
 			monto_uf    = ['UF', '', nil].include?(objt.moneda) ? objt.monto : (uf_calculo.blank? ? nil : objt.monto / uf_calculo)
 		elsif (pago.valor.blank? and ownr.tar_valor_cuantias.empty?) or (uf_calculo.blank? and pago.requiere_uf)
 			monto_pesos = nil
