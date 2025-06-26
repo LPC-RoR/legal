@@ -40,7 +40,7 @@ class Aplicacion::AppRecursosController < ApplicationController
         n_pgs   = causa.tar_tarifa.blank? ? 0 : causa.tar_tarifa.tar_pagos.count
 
         if causa.tar_tarifa.present?
-          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
+          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminada' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
         else
           causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
         end

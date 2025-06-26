@@ -17,7 +17,7 @@ class MontoConciliacion < ApplicationRecord
 	    else
 	      causa.monto_pagado = nil
         if causa.tar_tarifa.present?
-          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminadas' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
+          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminada' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
         else
           causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
         end
