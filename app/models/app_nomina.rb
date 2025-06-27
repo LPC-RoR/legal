@@ -9,7 +9,7 @@ class AppNomina < ApplicationRecord
 	has_one :app_perfil
 
 	validates :nombre, :email, presence: true
-	validates :nombre, :email, uniqueness: true
+	validates :email, uniqueness: true
 
 	scope :gnrl, -> { where(ownr_id: nil)}
 
