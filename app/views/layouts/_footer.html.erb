@@ -1,6 +1,6 @@
 <% unless controller_name == 'servicios' %>
-  <div class="p-3 mt-3 text-center bg_gray" style="font-size: 16px">
+  <div class="p-3 mt-3 text-center bg_gray fs-5" style="font-size: 16px">
     <%= image_tag (krn_routes? or not_authenticate_routes?) ? 'krn_nvbr.png' : 'addt_foot.png' %></br>
-    <%= 'contacto@addt.cl' unless krn_routes? %>
+    <p><%= 'contacto@addt.cl' unless krn_routes? %></br><i class="bi bi-telephone"></i> +56 2 3375 8020</p>
   </div>
 <% end %>
