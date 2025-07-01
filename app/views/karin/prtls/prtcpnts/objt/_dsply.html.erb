@@ -8,7 +8,7 @@
 	<% end %>
 
 	<% if objeto.pdf_registros.any? %>
-		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'pdf_registros', brdr_wdth: 2, ownr: objeto, fs: 6} %>
+		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'pdf_registros', brdr_wdth: 2, ownr: objeto, fs: 6, ttl: true} %>
 		<% objeto.pdf_registros.order(:created_at).each do |mail| %>
 			<%= render partial: '0p/tbl/ln', locals: {objt: mail, crud: 'lnks'} %>
 		<% end %>

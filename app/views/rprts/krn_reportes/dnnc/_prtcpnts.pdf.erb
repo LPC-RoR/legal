@@ -25,7 +25,7 @@
 	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Personas denunciadas", fnt_wght: 'bold'} %>
 
 	<% if @objt['motivo_vlnc?'] %>
-		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Denuncia por violenciaen el trabajo ejercida por terceros, las personas denunciadas (si las hay) se detallan en la declaracion de la persona denunciante."} %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Denuncia por violencia en el trabajo ejercida por terceros, las personas denunciadas (si las hay) se detallan en la declaracion de la persona denunciante."} %>
 	<% else %>
 		<% if @objt['denunciados?'] %>
 			<% @objt['denunciados'].each do |dnncd| %>
@@ -35,7 +35,7 @@
 					<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnt_tstgs', locals: {prtcpnt: dnncd} %>
 				<% else %>
 					<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnt_dts_base', locals: {prtcpnt: dnncd, pddng: 1} %>
-					<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Relación con la persona denunciante", valor: dnncd.
+					<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Relación con la persona denunciante:", valor: dnncd.
 						relacion_denunciante, pddng: 1} %>
 					<% if dnncd.articulo_4_1 %>
 						<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Aplica el artículo 4 inciso primero del Código del Trabajo.", pddng: 1} %>

@@ -1,5 +1,6 @@
 <% default ||= nil %>
+<% start_year_step 	||= 1 %>
 <div class="mb-3">
 	<%= form.label(token, label) %></br>
-	<%= form.datetime_select token, {default: default, order: [:day, :month, :year, :hour, :minute], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?', hour: 'Hora', minute: 'Minutos' } }, {required: false} %>
+	<%= form.datetime_select token, {default: default, order: [:day, :month, :year, :hour, :minute], prompt: { day: 'Día', month: 'Mes', year: 'Año', hour: 'Hora', minute: 'Minutos' } }, {required: false}, start_year: Date.today.year - start_year_step} %>
 </div>

@@ -1,6 +1,7 @@
 <!-- NO FUNCIONA el default -->
-<% default ||= nil %>
+<% default 			||= nil %>
+<% start_year_step 	||= 1 %>
 <div class="mb-3">
-	<%= form.label(token, label) %></br>
-	<%= form.date_select token, { default: default, order: [:day, :month, :year], prompt: { day: 'Día?', month: 'Mes?', year: 'Año?' }, include_blank: true} %>
+	<%= form.label(token, label) %><br>
+	<%= form.date_select token, { default: default, order: [:day, :month, :year], prompt: { day: 'Día', month: 'Mes', year: 'Año' }, include_blank: true, start_year: Date.today.year - start_year_step} %>
 </div>

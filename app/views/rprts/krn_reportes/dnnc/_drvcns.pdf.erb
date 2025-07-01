@@ -1,7 +1,7 @@
 <!-- DERIVACIONES -->
 <% if @coleccion['krn_derivaciones'].any? or objeto.investigacion_local or objeto.investigacion_externa %>
 	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Se entregó la información obligatoria:", fnt_wght: 'bold'} %>
-	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "- La persona denunciante tiene el derecho a solicitar la derivación de la denuncia a la Dirección del Trabajo", pddng: 1} %>
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "- La persona denunciante tiene el derecho a solicitar la derivación de la denuncia a la Dirección del Trabajo.", pddng: 1} %>
 	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "- La empresa tiene el derecho a derivar de la denuncia a la Dirección del Trabajo dentro de los primeros 3 días hábiles desde su recepción.", pddng: 1} %>
 	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "- Se le informó de los lugares de denuncia en caso de que los hechos sean constitutivos de delito.", pddng: 1} %>
 	<% if @coleccion['krn_derivaciones'].any? %>

@@ -1,5 +1,5 @@
 <%#= @etps_trmnds %>
 <% hsh = @etps_trmnds.find {|h| h[:codigo] == cdg } %>
 <% if  hsh.present? and hsh[:plz_tag] != 0 %>
-	<%= render partial: '0p/proc/ln', locals: {glosa: "Plazo #{'no' if hsh[:plz_tag] < 0} cumplido: #{hsh[:plz_tag].abs} dia(s) de #{hsh[:plz_tag] < 0 ? 'atrazo' : 'anticipación'}", pddng: 1} %>
+	<%= render partial: '0p/proc/ln', locals: {glosa: "Plazo #{'no' if hsh[:plz_tag] < 0} cumplido: #{hsh[:plz_tag].abs} día(s) de #{hsh[:plz_tag] < 0 ? 'atrazo' : 'anticipación'}", pddng: 1} %>
 <% end %>

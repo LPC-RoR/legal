@@ -5,6 +5,10 @@ module CptnLayoutsHelper
 		['confirmations', 'mailer', 'passwords', 'registrations', 'sessions', 'unlocks']
 	end
 
+	def devise_routes?
+		devise_controllers.include?(controller_name)
+	end
+
 	def public_controllers
 		['hlp_ayudas']
 	end
@@ -32,7 +36,7 @@ module CptnLayoutsHelper
 	end
 
 	def krn_routes?
-		controller_name.start_with?('krn_') or cuentas_routes? or krn_non_krn_routes? or krn_hlp_routes?
+		controller_name.start_with?('krn_') or cuentas_routes? or krn_non_krn_routes? or krn_hlp_routes? or devise_routes?
 	end
 
 	def krn_user_error?

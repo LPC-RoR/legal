@@ -63,22 +63,12 @@ class Rprts::KrnReportesController < ApplicationController
     @objeto = KrnDenuncia.find(params[:oid])
     @logo_url = @objeto.ownr.logo_url
 
-    @prtcpnt = {
-      nombre: 'NOMBRE COMPLETO DEL PARTICIPANTE',
-      rol: 'ROL DEL PARTICIPANTE'
-    }
-
     respond_to_pdf('invstgcn')
   end
 
   def invstgdr
     @objeto = KrnDenuncia.find(params[:oid])
     @logo_url = @objeto.ownr.logo_url
-
-    @prtcpnt = {
-      nombre: 'NOMBRE COMPLETO DEL PARTICIPANTE',
-      rol: 'ROL DEL PARTICIPANTE'
-    }
 
     respond_to_pdf('invstgdr')
   end
@@ -91,17 +81,8 @@ class Rprts::KrnReportesController < ApplicationController
   end
 
   def drvcn
-    @objeto = KrnDerivacion.find(params[:oid])
+    @objeto = KrnDenuncia.find(params[:oid])
     @logo_url = @objeto.ownr.logo_url
-
-    @prtcpnt = {
-      nombre: 'NOMBRE COMPLETO DEL PARTICIPANTE',
-      rol: 'ROL DEL PARTICIPANTE'
-    }
-    @invstgdr = {
-      nombre: 'NOMBRE DEL INVESTIGADOR ASIGNADO',
-      email: 'EMAIL DEL INVESTIGADOR ASIGNADO'
-    }
 
     respond_to_pdf('drvcn')
   end

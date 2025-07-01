@@ -2,7 +2,7 @@
 <div class="d-flex justify-content-end gap-1">
 	<div class="text-<%=etp_muted(objeto.codigo, ownr) ? 'muted' : (@objt[:etp_cntrl][objeto.codigo][:plz_ok] ? 'primary' : 'dark')%>">
 		<% if @objt[:etp_cntrl][objeto.codigo][:plz_ok] == nil %>
-			<span style="font-size: 14px;">plazo a cumplir</span> : 
+			<span style="font-size: 14px;">Plazo a cumplir</span> : 
 		<% elsif @objt[:etp_cntrl][objeto.codigo][:plz_ok] %>
 			<i class="bi bi-calendar-check text-primary"></i>
 		<% else %>

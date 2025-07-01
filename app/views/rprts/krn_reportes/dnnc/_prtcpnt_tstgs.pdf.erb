@@ -1,6 +1,6 @@
 <% if prtcpnt.krn_testigos.any? %>
 	<% if controller_name == 'krn_reportes' %>
-		<%= render partial: 'rprts/shrd/tr', locals: {glosa: 'El participante ha presentado testigos', fnt_wght: 'bold', pddng: 1} %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: 'El participante ha presentado testigos.', fnt_wght: 'bold', pddng: 1} %>
 	<% else %>
 		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Testigo(s) de la persona #{to_name(prtcpnt)}", fnt_wght: 'bold', pddng: 1} %>
 		<% prtcpnt.krn_testigos.each do |tstg| %>

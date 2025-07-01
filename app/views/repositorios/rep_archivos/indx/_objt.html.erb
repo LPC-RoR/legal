@@ -3,7 +3,7 @@
 <% else %>
 	Archivos requeridos
 <% end %>
-<i class="bi bi-dot"></i>
 <% if ownr.class.name == 'Causa' %>
+	<i class="bi bi-dot"></i>
 	<%= render partial: '0p/swtch', locals: {objeto: ownr, tkn: 'archivos_registrados', stts: ['Desbloqueado', 'Bloqueado']} %>
 <% end %>

@@ -1,6 +1,6 @@
 <% dstntr   ||= {nombre: 'NOMBRE DEL PARTICIPANTE', rol: 'ROL DEL PARTICIPANTE', invstgdr: {nombre: 'NOMBRE DEL INVESTIGADOR', email: 'EMAIL DEL INVESTIGADOR'}} %>
 <% objt     ||= nil %>
-<h2>Notificación de asignación de investigador a la denuncia.</h2>
+<h2>Notificación de la asignación de investigador a la denuncia</h2>
 
 <div style="font-weight: bold;">
 	<p>Sr(a) <%= dstntr[:nombre] %></p>
@@ -11,14 +11,14 @@
 
 <p>Estaremos encantados de resolver cualquier duda respeto a la presente notificación.</p>
 
-<h4>Recepción de Denuncias</h4>
+<h4>Recepción de denuncias</h4>
 
 <% if dstntr[:rol] != 'Testigo' %>
 	<h3>Objeción del investigador</h3>
 
-	<p>El reglamento establece que las personas denunciantes y denunciadas pueden, si cuentan con antecedentes que lo respalden, objetar el investigador asignado a la investigación.</p>
+	<p>El reglamento establece que las personas denunciantes y denunciadas pueden, si cuentan con antecedentes que lo respalden, objetar al investigador asignado a la investigación.</p>
 	<p>La única causal aceptada para la presentación de una objeción es la imparcialidad del inverstigador asignado.</p>
-	<p>Sólo se aceptarán objeciones con antecedentes de respaldo, la falta de antecedentes representa el rechazo inmediato de la objeción presentada.</p>
+	<p>Solo se aceptarán objeciones con antecedentes de respaldo. La falta de antecedentes representa el rechazo inmediato de la objeción presentada.</p>
 	<p>El reglamento establece que es la empresa la que debe evaluar la objeción presentada.</p>
-	<p>Si la objeción es acogida por la empresa, se procederá a cambiar el investigador asignado a la investigación. En caso contrario, el investigador asignado en primera instancia será confirmado.</p>
+	<p>Si la objeción es acogida por la empresa, se procederá a cambiar al investigador asignado a la investigación. En caso contrario, el investigador asignado en primera instancia será confirmado.</p>
 <% end %>

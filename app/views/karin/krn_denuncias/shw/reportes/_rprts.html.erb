@@ -13,7 +13,7 @@
 			</div>
 			<div class="col-3 text-end">
 				<% if pdf.tipo == 'Notificación' %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{@objeto.id}&rprt=#{pdf.codigo}", target: '_blank', tltp: 'Enviar porte por correo electrónico'} do %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{@objeto.id}&rprt=#{pdf.codigo}", target: '_blank', tltp: 'Enviar reporte por correo electrónico'} do %>
 						<i class="bi bi-envelope-check"></i>
 					<% end %>
 				<% end %>

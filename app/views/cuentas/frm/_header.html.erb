@@ -7,7 +7,7 @@
 		<% if prtl?(@objeto, 'frm', 'header') %>
 			<%= render partial: prtl_name(@objeto, 'frm', 'header') %>
 		<% else %>
-			<%= text_new %> <%= to_name(@objeto) %>
+			<%= text_new %> <%= to_name(@objeto).downcase %>
 		<% end %>
 
 	</h<%=sz%>>

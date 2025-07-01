@@ -21,7 +21,7 @@
 			<% end %>
 		<% else %>
 			<% if fl.archivo? %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: fl.archivo.url, target: :_blank, tltp: "Ver #{dc.rep_doc_controlado}"} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: fl.archivo.url, target: :_blank, tltp: "Ver #{dc.rep_doc_controlado.downcase}"} do %>
 					<i class="bi bi-download"></i>
 				<% end %>
 				<i class="bi bi-dot"></i>

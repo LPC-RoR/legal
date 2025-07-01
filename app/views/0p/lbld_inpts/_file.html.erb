@@ -10,7 +10,7 @@
 		  <%= "Remueve: #{token.to_s}" %>
 		</label>
   	<% else %>
-	    <%= form.file_field token %>
+	    <%= form.file_field token, class: "form-control" %>
 	    <%= form.hidden_field "#{token}_cache".to_sym %>
     <% end %>
 </end>
