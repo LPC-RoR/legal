@@ -2,6 +2,7 @@ class Repositorios::RepArchivosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_rep_archivo, only: %i[ show edit update destroy ]
+  before_action :set_bck_rdrccn
 
   # GET /rep_archivos or /rep_archivos.json
   def index
@@ -32,8 +33,7 @@ class Repositorios::RepArchivosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Archivo fue exitósamente creado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Archivo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,8 +46,7 @@ class Repositorios::RepArchivosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(rep_archivo_params)
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Archivo fue exitósamente actualizado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Archivo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,11 +57,10 @@ class Repositorios::RepArchivosController < ApplicationController
 
   # DELETE /rep_archivos/1 or /rep_archivos/1.json
   def destroy
-    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Archivo fue exitósamente eliminado." }
+      format.html { redirect_to @bck_rdrccn, notice: "Archivo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -74,8 +72,6 @@ class Repositorios::RepArchivosController < ApplicationController
     end
 
     def get_rdrccn
-      # Está en Capitan
-      @rdrccn = rep_archivo_rdrccn
     end
 
     # Only allow a list of trusted parameters through.

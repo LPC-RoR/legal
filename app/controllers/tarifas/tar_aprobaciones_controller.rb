@@ -34,7 +34,7 @@ class Tarifas::TarAprobacionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Aprobación fue exitósamente creada." }
+        format.html { redirect_to @objeto, notice: "Aprobación fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +47,7 @@ class Tarifas::TarAprobacionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tar_aprobacion_params)
-        format.html { redirect_to @objeto, notice: "Aprobación fue exitósamente actualizada." }
+        format.html { redirect_to @objeto, notice: "Aprobación fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,7 +60,7 @@ class Tarifas::TarAprobacionesController < ApplicationController
   def destroy
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to tar_aprobaciones_url, notice: "Aprobación fue exitósamente eliminada." }
+      format.html { redirect_to tar_aprobaciones_url, notice: "Aprobación fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

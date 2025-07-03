@@ -32,7 +32,7 @@ class Csc::AudienciasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Audiencia fue exitósamente creada." }
+        format.html { redirect_to @redireccion, notice: "Audiencia fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +46,7 @@ class Csc::AudienciasController < ApplicationController
     respond_to do |format|
       if @objeto.update(audiencia_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Audiencia fue exitósamente actualizada." }
+        format.html { redirect_to @redireccion, notice: "Audiencia fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,7 +60,7 @@ class Csc::AudienciasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Audiencia fue exitósamente eliminada." }
+      format.html { redirect_to @redireccion, notice: "Audiencia fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

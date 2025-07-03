@@ -59,7 +59,7 @@ class Srvcs::AsesoriasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Asesoria fue exitósamente creada." }
+        format.html { redirect_to @redireccion, notice: "Asesoria fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -73,7 +73,7 @@ class Srvcs::AsesoriasController < ApplicationController
     respond_to do |format|
       if @objeto.update(asesoria_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Asesoria fue exitósamente actualizada." }
+        format.html { redirect_to @redireccion, notice: "Asesoria fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -102,7 +102,7 @@ class Srvcs::AsesoriasController < ApplicationController
       else
         @objeto.estado = 'terminada'
         @objeto.save
-        redirect_to factura, notice: 'Factura ha sido exitósamente creada'
+        redirect_to factura, notice: 'Factura ha sido exitosamente creada'
       end
     else
       redirect_to asesorias_path, notice: 'Asesoría sin cobro asociado'
@@ -123,7 +123,7 @@ class Srvcs::AsesoriasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Asesoria fue exitósamente eliminada." }
+      format.html { redirect_to @redireccion, notice: "Asesoria fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

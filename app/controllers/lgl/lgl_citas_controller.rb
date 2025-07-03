@@ -33,7 +33,7 @@ class Lgl::LglCitasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Cita fue exitósamente creada." }
+        format.html { redirect_to @rdrccn, notice: "Cita fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +47,7 @@ class Lgl::LglCitasController < ApplicationController
     respond_to do |format|
       if @objeto.update(lgl_cita_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Cita fue exitósamente actualizada." }
+        format.html { redirect_to @rdrccn, notice: "Cita fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,7 +62,7 @@ class Lgl::LglCitasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, status: :see_other, notice: "Cita fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, status: :see_other, notice: "Cita fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

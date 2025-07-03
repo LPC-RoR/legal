@@ -27,7 +27,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Detalle de Cuantía fue exitósamente creado." }
+        format.html { redirect_to @redireccion, notice: "Detalle de Cuantía fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_detalle_cuantia_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Detalle de Cuantía fue exitósamente actualizado." }
+        format.html { redirect_to @redireccion, notice: "Detalle de Cuantía fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     end
     
     set_redireccion
-    redirect_to @redireccion, notice: "Control documental agregado exitósamente al detalle de cuantía"
+    redirect_to @redireccion, notice: "Control documental agregado exitosamente al detalle de cuantía"
   end
 
   def elimina_control_documento
@@ -67,7 +67,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     end
     
     set_redireccion
-    redirect_to @redireccion, notice: "Control documental eliminado exitósamente al detalle de cuantía"
+    redirect_to @redireccion, notice: "Control documental eliminado exitosamente al detalle de cuantía"
   end
 
   # DELETE /tar_detalle_cuantias/1 or /tar_detalle_cuantias/1.json
@@ -75,7 +75,7 @@ class Tarifas::TarDetalleCuantiasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Detalle de Cuantía fue exitósamente eliminado." }
+      format.html { redirect_to @redireccion, notice: "Detalle de Cuantía fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

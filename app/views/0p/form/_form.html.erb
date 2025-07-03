@@ -1,7 +1,9 @@
+<% fml  ||= false %>
 <% data ||= nil %>
+<% @bck_rdrccn ||= "/#{@objeto.class.name.tableize}" %>
 
 <% if krn_routes? %>
-	<%= render partial: 'cuentas/frm/header' %>
+	<%= render partial: 'cuentas/frm/header', locals: {fml: fml} %>
 <% else %>
 	<div class="form-box">
 		<%= render partial: '0p/form/header', locals: {text: to_name(@objeto.class.name), size: config[:font_size][:title]} %>
@@ -25,13 +27,15 @@
 
 		<% unless detail_partial(@objeto).blank? %>
 			<%= render partial: detail_partial(@objeto), locals: {c: controller_name, form: form} %>
+			<!-- Saber desde donde se llamó el formulario -->
+			<%= hidden_field_tag :bck_rdrccn, @bck_rdrccn %>
 		<% else %>
 			<h3>Ne se encontró archivo con el formulario</h3>
 		<% end %>
 
 		<div class="my-3">
 			<div class="row">
-				<div class="col">
+				<div class="col app_lnk">
 					<%= form.submit "#{ action_name == 'new' ? (@objeto.class.name == 'RepArchivo' ? 'Subir' : 'Crear') : 'Modificar'} #{to_name(@objeto.class.name)}" %>
 				</div>
 				<div class="col text-end pt-3">

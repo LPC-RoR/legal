@@ -28,7 +28,8 @@ module Crstn
 			'conciliacion' => 'conciliación',
 			'articulo' => 'artículo',
 			'aprobacion' => 'aprobación',
-			'region' => 'región'
+			'region' => 'región',
+			'declaracion' => 'declaración'
 		}
 	end
 

@@ -2,6 +2,7 @@ class Karin::PautasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_pauta, only: %i[ show edit update destroy arriba abajo ]
+  before_action :set_bck_rdrccn
   after_action :reordenar, only: :destroy
 
   include Orden
@@ -32,8 +33,7 @@ class Karin::PautasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @rdrccn, notice: "Pauta fue exitósamente creada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Pauta fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,8 +46,7 @@ class Karin::PautasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(pauta_params)
-        set_redireccion
-        format.html { redirect_to @rdrccn, notice: "Pauta fue exitósamente actualizada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Pauta fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,11 +57,10 @@ class Karin::PautasController < ApplicationController
 
   # DELETE /pautas/1 or /pautas/1.json
   def destroy
-    set_redireccion
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Pauta fue exitósamente eliminada." }
+      format.html { redirect_to @bck_rdrccn, notice: "Pauta fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -71,10 +69,6 @@ class Karin::PautasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_pauta
       @objeto = Pauta.find(params[:id])
-    end
-
-    def set_redireccion
-      @rdrccn = pautas_path
     end
 
     # Only allow a list of trusted parameters through.

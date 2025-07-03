@@ -29,7 +29,7 @@ class Modelos::MConciliacionesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Conciliacion fue exitósamente creada." }
+        format.html { redirect_to @redireccion, notice: "Conciliacion fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +43,7 @@ class Modelos::MConciliacionesController < ApplicationController
     respond_to do |format|
       if @objeto.update(m_conciliacion_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Conciliacion fue exitósamente actualizada." }
+        format.html { redirect_to @redireccion, notice: "Conciliacion fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -68,7 +68,7 @@ class Modelos::MConciliacionesController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Conciliacion fue exitósamente eliminada." }
+      format.html { redirect_to @redireccion, notice: "Conciliacion fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

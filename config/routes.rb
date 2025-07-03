@@ -147,7 +147,7 @@ Rails.application.routes.draw do
       match :niler, via: :post, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
-      match :prg, via: :get, on: :member
+      match :prg, via: :post, on: :member
       # ruta para manejo de panels
       match :cndtnl_via_declaracion, via: :get, on: :collection
       match :tipo_declaracion_field, via: :get, on: :collection

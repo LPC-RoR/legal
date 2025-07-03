@@ -28,7 +28,7 @@ class Producto::ProductosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Producto fue exitósamente creado." }
+        format.html { redirect_to @rdrccn, notice: "Producto fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ class Producto::ProductosController < ApplicationController
     respond_to do |format|
       if @objeto.update(producto_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Producto fue exitósamente actualizado." }
+        format.html { redirect_to @rdrccn, notice: "Producto fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -71,7 +71,7 @@ class Producto::ProductosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Producto fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Producto fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

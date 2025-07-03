@@ -2,6 +2,7 @@ class Karin::KrnDerivacionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_derivacion, only: %i[ show edit update destroy ]
+  before_action :set_bck_rdrccn
 
   include Karin
 
@@ -35,9 +36,6 @@ class Karin::KrnDerivacionesController < ApplicationController
         nil
       end
       motivo = drvcn_text[params[:cdg].to_sym][:gls]
-      puts "********************************************************************* new"
-      puts params[:cdg]
-      puts motivo
 
       @objeto = ownr.krn_derivaciones.new(tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
     end
@@ -53,8 +51,7 @@ class Karin::KrnDerivacionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Derivacion fue exitósamente creada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Derivacion fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -67,8 +64,7 @@ class Karin::KrnDerivacionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_derivacion_params)
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Derivacion fue exitósamente actualiada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Derivacion fue exitosamente actualiada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -79,11 +75,10 @@ class Karin::KrnDerivacionesController < ApplicationController
 
   # DELETE /krn_derivaciones/1 or /krn_derivaciones/1.json
   def destroy
-    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Derivacion fue exitósamente eliminada." }
+      format.html { redirect_to @bck_rdrccn, notice: "Derivacion fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -92,10 +87,6 @@ class Karin::KrnDerivacionesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_derivacion
       @objeto = KrnDerivacion.find(params[:id])
-    end
-
-    def get_rdrccn
-      @rdrccn = @objeto.krn_denuncia
     end
 
     # Only allow a list of trusted parameters through.

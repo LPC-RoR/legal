@@ -30,7 +30,7 @@ class Dt::DtTablaMultasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tabla de Multa fue exitósamente creada." }
+        format.html { redirect_to @redireccion, notice: "Tabla de Multa fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class Dt::DtTablaMultasController < ApplicationController
     respond_to do |format|
       if @objeto.update(dt_tabla_multa_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tabla de Multa fue exitósamente actualizada." }
+        format.html { redirect_to @redireccion, notice: "Tabla de Multa fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,7 +58,7 @@ class Dt::DtTablaMultasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tabla de Multa fue exitósamente eliminada." }
+      format.html { redirect_to @redireccion, notice: "Tabla de Multa fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

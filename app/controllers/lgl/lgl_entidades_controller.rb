@@ -28,7 +28,7 @@ class Lgl::LglEntidadesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Entidad fue exitósamente creada." }
+        format.html { redirect_to @rdrccn, notice: "Entidad fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ class Lgl::LglEntidadesController < ApplicationController
     respond_to do |format|
       if @objeto.update(lgl_entidad_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Entidad fue exitósamente actualizada." }
+        format.html { redirect_to @rdrccn, notice: "Entidad fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class Lgl::LglEntidadesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Entidad fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Entidad fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

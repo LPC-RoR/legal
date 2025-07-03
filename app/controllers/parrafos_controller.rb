@@ -25,7 +25,7 @@ class ParrafosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to parrafo_url(@objeto), notice: "Párrafo fue exitósamente creado." }
+        format.html { redirect_to parrafo_url(@objeto), notice: "Párrafo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class ParrafosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(parrafo_params)
-        format.html { redirect_to parrafo_url(@objeto), notice: "Párrafo fue exitósamente actualizado." }
+        format.html { redirect_to parrafo_url(@objeto), notice: "Párrafo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ParrafosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to parrafos_url, notice: "Párrafo fue exitósamente eliminado." }
+      format.html { redirect_to parrafos_url, notice: "Párrafo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

@@ -7,4 +7,9 @@ class KrnInvDenuncia < ApplicationRecord
 	def dnnc
 		self.krn_denuncia
 	end
+
+	# Se usa para resolver bck_rdrccn
+	def ownr
+		self.krn_denuncia
+	end
 end

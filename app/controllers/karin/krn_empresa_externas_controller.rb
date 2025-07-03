@@ -2,6 +2,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_empresa_externa, only: %i[ show edit update destroy ]
+  before_action :set_bck_rdrccn
 
   # GET /krn_empresa_externas or /krn_empresa_externas.json
   def index
@@ -27,8 +28,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Empresa externa fue exitósamente creada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Empresa externa fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,8 +41,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_empresa_externa_params)
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Empresa externa fue exitósamente actualizada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Empresa externa fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,11 +52,10 @@ class Karin::KrnEmpresaExternasController < ApplicationController
 
   # DELETE /krn_empresa_externas/1 or /krn_empresa_externas/1.json
   def destroy
-    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Empresa externa fue exitósamente eliminada." }
+      format.html { redirect_to @bck_rdrccn, notice: "Empresa externa fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -66,10 +64,6 @@ class Karin::KrnEmpresaExternasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_empresa_externa
       @objeto = KrnEmpresaExterna.find(params[:id])
-    end
-
-    def get_rdrccn
-      @rdrccn = "/cuentas/#{@objeto.ownr.class.name.tableize[0]}_#{@objeto.ownr.id}/extrns"
     end
 
     # Only allow a list of trusted parameters through.

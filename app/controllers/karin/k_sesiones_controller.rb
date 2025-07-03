@@ -27,7 +27,7 @@ class Karin::KSesionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to k_sesion_url(@objeto), notice: "Sesion fue exitósamente creada." }
+        format.html { redirect_to k_sesion_url(@objeto), notice: "Sesion fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class Karin::KSesionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(k_sesion_params)
-        format.html { redirect_to k_sesion_url(@objeto), notice: "Sesion fue exitósamente actualizada." }
+        format.html { redirect_to k_sesion_url(@objeto), notice: "Sesion fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class Karin::KSesionesController < ApplicationController
   def borrar_encuesta
     @objeto.respuestas.delete_all
 
-    redirect_to '/publicos/encuesta', notice: 'Encuesta borrada exitósamente'
+    redirect_to '/publicos/encuesta', notice: 'Encuesta borrada exitosamente'
   end
 
   # DELETE /k_sesiones/1 or /k_sesiones/1.json
@@ -60,7 +60,7 @@ class Karin::KSesionesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to k_sesiones_url, notice: "Sesion fue exitósamente eliminada." }
+      format.html { redirect_to k_sesiones_url, notice: "Sesion fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

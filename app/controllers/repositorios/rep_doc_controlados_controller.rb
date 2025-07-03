@@ -2,6 +2,7 @@ class Repositorios::RepDocControladosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_rep_doc_controlado, only: %i[ show edit update destroy arriba abajo ]
+  before_action :set_bck_rdrccn
   after_action :reordenar, only: :destroy
 
   include Orden
@@ -32,8 +33,7 @@ class Repositorios::RepDocControladosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Documento controlado fue exitósamente creado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Documento controlado fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,8 +46,7 @@ class Repositorios::RepDocControladosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(rep_doc_controlado_params)
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Documento controlado fue exitósamente actualizado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Documento controlado fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,11 +57,10 @@ class Repositorios::RepDocControladosController < ApplicationController
 
   # DELETE /rep_doc_controlados/1 or /rep_doc_controlados/1.json
   def destroy
-    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Documento controlado fue exitósamente eliminado." }
+      format.html { redirect_to @bck_rdrccn, notice: "Documento controlado fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -71,21 +69,6 @@ class Repositorios::RepDocControladosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_rep_doc_controlado
       @objeto = RepDocControlado.find(params[:id])
-    end
-
-    def get_rdrccn
-      case @objeto.ownr.class.name
-      when 'TarDetalleCuantia'
-        @rdrccn = "/tablas/cuantias_tribunales"
-      when 'TipoCausa'
-        @rdrccn = "/tablas/tipos"
-      when 'StModelo'
-        @rdrccn = @objeto.ownr
-      when 'CtrEtapa'
-        @rdrccn = @objeto.ownr.procedimiento
-      else
-        @rdrccn = @objeto.ownr
-      end
     end
 
     # Only allow a list of trusted parameters through.

@@ -94,7 +94,7 @@ class EmpresasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(empresa_params)
-        format.html { redirect_to empresa_url(@objeto), notice: "Empresa fue exitósamente actualizada." }
+        format.html { redirect_to empresa_url(@objeto), notice: "Empresa fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -108,7 +108,7 @@ class EmpresasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to empresas_url, notice: "Empresa fue exitósamente eliminada." }
+      format.html { redirect_to empresas_url, notice: "Empresa fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

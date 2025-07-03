@@ -54,7 +54,7 @@ class Dts::VarTpCausasController < ApplicationController
     set_redireccion
     @var_tp_causa.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Variable fue exitósamente liberada." }
+      format.html { redirect_to @redireccion, notice: "Variable fue exitosamente liberada." }
       format.json { head :no_content }
     end
   end

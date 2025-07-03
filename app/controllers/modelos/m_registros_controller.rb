@@ -29,7 +29,7 @@ class Modelos::MRegistrosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Registro fue exitósamente creado." }
+        format.html { redirect_to @redireccion, notice: "Registro fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +43,7 @@ class Modelos::MRegistrosController < ApplicationController
     respond_to do |format|
       if @objeto.update(m_registro_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Registro fue exitósamente actualizado." }
+        format.html { redirect_to @redireccion, notice: "Registro fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -81,7 +81,7 @@ class Modelos::MRegistrosController < ApplicationController
             @objeto.m_reg_facts.create(tar_factura_id: factura.id, monto: factura.monto_pesos)
             factura.estado = 'pagada'
             factura.save
-            noticia = 'La factura ha sido exitósamente asignada al registro'
+            noticia = 'La factura ha sido exitosamente asignada al registro'
           else
             noticia = 'Error en la asignación: Monto de la factura excede abono disponible'
           end
@@ -92,7 +92,7 @@ class Modelos::MRegistrosController < ApplicationController
               factura.estado = 'pagada'
               factura.save
             end
-            noticia = 'Disponible del abono ha sido exitósamente asignado a la factura'
+            noticia = 'Disponible del abono ha sido exitosamente asignado a la factura'
           else
             noticia = 'Error en la asignación: Dsiponible del abono excede disponible de la factura'
           end
@@ -108,7 +108,7 @@ class Modelos::MRegistrosController < ApplicationController
                 factura.estado = 'pagada'
                 factura.save
               end
-              noticia = 'Monto del abono ha sido exitósamente asignado a la factura'
+              noticia = 'Monto del abono ha sido exitosamente asignado a la factura'
             end
           else
             noticia = 'Error en la asignación: No se ingreso monto para pagar factura'
@@ -127,7 +127,7 @@ class Modelos::MRegistrosController < ApplicationController
 
     @objeto.tar_facturas.delete(factura)
 
-    redirect_to "/m_modelos?id=p_#{@objeto.m_periodo.id}", notice: 'Factura fue liberada exitósamente'
+    redirect_to "/m_modelos?id=p_#{@objeto.m_periodo.id}", notice: 'Factura fue liberada exitosamente'
   end
 
   # DELETE /m_registros/1 or /m_registros/1.json
@@ -135,7 +135,7 @@ class Modelos::MRegistrosController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Registro fue exitósamente eliminado." }
+      format.html { redirect_to @redireccion, notice: "Registro fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

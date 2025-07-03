@@ -2,6 +2,7 @@ class Karin::KrnInvDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_inv_denuncia, only: %i[ show edit update destroy swtch ]
+  before_action :set_bck_rdrccn
 
   # GET /krn_inv_denuncias or /krn_inv_denuncias.json
   def index
@@ -27,8 +28,7 @@ class Karin::KrnInvDenunciasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Investigador fue exitósamente creado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Investigador fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,8 +41,7 @@ class Karin::KrnInvDenunciasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_inv_denuncia_params)
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Investigador fue exitósamente actualizado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Investigador fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,11 +52,10 @@ class Karin::KrnInvDenunciasController < ApplicationController
 
   # DELETE /krn_inv_denuncias/1 or /krn_inv_denuncias/1.json
   def destroy
-    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Investigador fue exitósamente eliminado." }
+      format.html { redirect_to @bck_rdrccn, notice: "Investigador fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -66,10 +64,6 @@ class Karin::KrnInvDenunciasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_inv_denuncia
       @objeto = KrnInvDenuncia.find(params[:id])
-    end
-
-    def get_rdrccn
-      @rdrccn = @objeto.krn_denuncia
     end
 
     # Only allow a list of trusted parameters through.

@@ -36,7 +36,7 @@ class Lgl::LglParrafosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Párrafo fue exitósamente creado." }
+        format.html { redirect_to @rdrccn, notice: "Párrafo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -50,7 +50,7 @@ class Lgl::LglParrafosController < ApplicationController
     respond_to do |format|
       if @objeto.update(lgl_parrafo_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Párrafo fue exitósamente actualizado." }
+        format.html { redirect_to @rdrccn, notice: "Párrafo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -108,7 +108,7 @@ class Lgl::LglParrafosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Párrafo fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Párrafo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

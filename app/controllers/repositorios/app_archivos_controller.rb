@@ -2,6 +2,7 @@ class Repositorios::AppArchivosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_app_archivo, only: %i[ show edit update destroy ]
+  before_action :set_bck_rdrccn
   after_action :read_demanda, only: [:create, :update], if: -> {@objeto.ownr.class.name == 'Causa'}
 
   # GET /app_archivos or /app_archivos.json
@@ -35,8 +36,7 @@ class Repositorios::AppArchivosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Archivo fue exitósamente creado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Archivo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,8 +49,7 @@ class Repositorios::AppArchivosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(app_archivo_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Archivo fue exitósamente actualizado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Archivo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -61,10 +60,9 @@ class Repositorios::AppArchivosController < ApplicationController
 
   # DELETE /app_archivos/1 or /app_archivos/1.json
   def destroy
-    set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Archivo fue exitósamente eliminado." }
+      format.html { redirect_to @bck_rdrccn, notice: "Archivo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -230,20 +228,6 @@ class Repositorios::AppArchivosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_app_archivo
       @objeto = AppArchivo.find(params[:id])
-    end
-
-    def set_redireccion
-      if @objeto.causas.any?
-        @redireccion = "/causas/#{@objeto.causas.first.id}?html_options[menu]=Hechos"
-      elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.ownr.class.name)
-        @redireccion = @objeto.ownr
-      elsif ['AppDocumento'].include?(@objeto.ownr.class.name)
-        @redireccion = "/#{@objeto.ownr.objeto_destino.class.name.tableize.downcase}/#{@objeto.ownr.objeto_destino.id}?html_options[menu]=Documentos"
-      elsif ['Cliente'].include?(@objeto.objeto_destino.class.name)
-        @redireccion = "/#{@objeto.objeto_destino.class.name.tableize.downcase}/#{@objeto.objeto_destino.id}?html_options[menu]=Documentos"
-      elsif ['KrnDenuncia', 'Causa'].include?(@objeto.ownr.class.name)
-        @redireccion = @objeto.ownr
-      end
     end
 
     # Only allow a list of trusted parameters through.

@@ -48,7 +48,7 @@ class Modelos::MModelosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Modelo fue exitósamente creado." }
+        format.html { redirect_to @objeto, notice: "Modelo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -61,7 +61,7 @@ class Modelos::MModelosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(m_modelo_params)
-        format.html { redirect_to @objeto, notice: "Modelo fue exitósamente actualizado." }
+        format.html { redirect_to @objeto, notice: "Modelo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,7 +74,7 @@ class Modelos::MModelosController < ApplicationController
   def destroy
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to m_modelos_url, notice: "Modelo fue exitósamente eliminado." }
+      format.html { redirect_to m_modelos_url, notice: "Modelo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

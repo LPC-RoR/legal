@@ -26,7 +26,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
       aprobacion.tar_facturaciones << factn if factn.ownr_cliente.id == cliente.id
     end
 
-    redirect_to aprobacion, notice: 'Aprobación fue exitósamente creada'
+    redirect_to aprobacion, notice: 'Aprobación fue exitosamente creada'
   end
 
   # GET /tar_facturaciones/1/edit

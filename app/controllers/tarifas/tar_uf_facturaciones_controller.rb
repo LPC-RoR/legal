@@ -45,7 +45,7 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
 
     @objeto = owner
     get_rdrccn
-    redirect_to @rdrccn, notice: "UF de facturación exitósamente creada"
+    redirect_to @rdrccn, notice: "UF de facturación exitosamente creada"
   end
 
   # GET /tar_uf_facturaciones/1/edit
@@ -64,7 +64,7 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "UF fue exitósamente creada." }
+        format.html { redirect_to @rdrccn, notice: "UF fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -78,7 +78,7 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_uf_facturacion_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "UF fue exitósamente actualizada." }
+        format.html { redirect_to @rdrccn, notice: "UF fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -92,7 +92,7 @@ class Tarifas::TarUfFacturacionesController < ApplicationController
     get_rdrccn
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "UF fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "UF fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

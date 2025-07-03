@@ -30,7 +30,7 @@ class Lgl::LglDatosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Dato legal fue exitósamente creado." }
+        format.html { redirect_to @rdrccn, notice: "Dato legal fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class Lgl::LglDatosController < ApplicationController
     respond_to do |format|
       if @objeto.update(lgl_dato_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Dato legal fue exitósamente actualizado." }
+        format.html { redirect_to @rdrccn, notice: "Dato legal fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,7 +59,7 @@ class Lgl::LglDatosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Dato legal fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Dato legal fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

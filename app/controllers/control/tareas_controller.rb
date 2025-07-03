@@ -35,7 +35,7 @@ end
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Tarea fue exitósamente creada." }
+        format.html { redirect_to @rdrccn, notice: "Tarea fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +49,7 @@ end
     respond_to do |format|
       if @objeto.update(tarea_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Tarea fue exitósamente actualizada." }
+        format.html { redirect_to @rdrccn, notice: "Tarea fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,7 +64,7 @@ end
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Tarea fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Tarea fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

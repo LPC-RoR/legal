@@ -35,7 +35,7 @@ class Dts::VariablesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Variable fue exitósamente creada." }
+        format.html { redirect_to @rdrccn, notice: "Variable fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +49,7 @@ class Dts::VariablesController < ApplicationController
     respond_to do |format|
       if @objeto.update(variable_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Variable fue exitósamente actualizada." }
+        format.html { redirect_to @rdrccn, notice: "Variable fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,7 +63,7 @@ class Dts::VariablesController < ApplicationController
     get_rdrccn
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Variable fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Variable fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

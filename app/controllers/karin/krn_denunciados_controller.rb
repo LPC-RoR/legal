@@ -2,6 +2,7 @@ class Karin::KrnDenunciadosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_denunciado, only: %i[ show edit update destroy swtch set_fld clear_fld ]
+  before_action :set_bck_rdrccn
 
   include ProcControl
   include Karin
@@ -30,8 +31,7 @@ class Karin::KrnDenunciadosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Denunciado fue exitósamente creado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Denunciado fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,8 +44,7 @@ class Karin::KrnDenunciadosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_denunciado_params)
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Denunciado fue exitósamente actualizado." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Denunciado fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,11 +55,10 @@ class Karin::KrnDenunciadosController < ApplicationController
 
   # DELETE /krn_denunciados/1 or /krn_denunciados/1.json
   def destroy
-    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Denunciado fue exitósamente eliminado." }
+      format.html { redirect_to @bck_rdrccn, notice: "Denunciado fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -69,10 +67,6 @@ class Karin::KrnDenunciadosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denunciado
       @objeto = KrnDenunciado.find(params[:id])
-    end
-
-    def get_rdrccn
-      @rdrccn = "/krn_denuncias/#{@objeto.krn_denuncia_id}_1"
     end
 
     # Only allow a list of trusted parameters through.

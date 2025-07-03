@@ -53,7 +53,7 @@ class Pdf::PdfRegistrosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, status: :see_other, notice: "Registro fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, status: :see_other, notice: "Registro fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

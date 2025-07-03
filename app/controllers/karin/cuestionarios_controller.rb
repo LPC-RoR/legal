@@ -31,7 +31,7 @@ class Karin::CuestionariosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Cuestionario fue exitósamente creado." }
+        format.html { redirect_to @rdrccn, notice: "Cuestionario fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -45,7 +45,7 @@ class Karin::CuestionariosController < ApplicationController
     respond_to do |format|
       if @objeto.update(cuestionario_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Cuestionario fue exitósamente actualizado." }
+        format.html { redirect_to @rdrccn, notice: "Cuestionario fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,7 +60,7 @@ class Karin::CuestionariosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Cuestionario fue exitósamente eliminado." }
+      format.html { redirect_to @rdrccn, notice: "Cuestionario fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

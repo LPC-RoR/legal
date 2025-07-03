@@ -2,6 +2,7 @@ class Karin::PreguntasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_pregunta, only: %i[ show edit update destroy ]
+  before_action :set_bck_rdrccn
 
   # GET /preguntas or /preguntas.json
   def index
@@ -29,8 +30,7 @@ class Karin::PreguntasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Pregunta fue exitósamente creada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Pregunta fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,8 +43,7 @@ class Karin::PreguntasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(pregunta_params)
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Pregunta fue exitósamente actualizada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Pregunta fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,11 +54,10 @@ class Karin::PreguntasController < ApplicationController
 
   # DELETE /preguntas/1 or /preguntas/1.json
   def destroy
-    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Pregunta fue exitósamente eliminada." }
+      format.html { redirect_to @bck_rdrccn, notice: "Pregunta fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -68,10 +66,6 @@ class Karin::PreguntasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_pregunta
       @objeto = Pregunta.find(params[:id])
-    end
-
-    def get_rdrccn
-      @rdrccn = @objeto.cuestionario
     end
 
     # Only allow a list of trusted parameters through.

@@ -33,7 +33,7 @@ class Repositorios::AppEscaneosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to app_escaneo_url(@objeto), notice: "Escaneo fue exitósamente creado." }
+        format.html { redirect_to app_escaneo_url(@objeto), notice: "Escaneo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +47,7 @@ class Repositorios::AppEscaneosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(app_escaneo_params)
-        format.html { redirect_to app_escaneo_url(@objeto), notice: "Escaneo fue exitósamente actualizado." }
+        format.html { redirect_to app_escaneo_url(@objeto), notice: "Escaneo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -61,7 +61,7 @@ class Repositorios::AppEscaneosController < ApplicationController
     @objeto.destroy
 
     respond_to do |format|
-      format.html { redirect_to app_escaneos_url, notice: "Escaneo fue exitósamente eliminado." }
+      format.html { redirect_to app_escaneos_url, notice: "Escaneo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

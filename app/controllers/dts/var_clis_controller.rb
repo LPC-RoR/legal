@@ -52,7 +52,7 @@ class Dts::VarClisController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Variable fue exitósamente liberada." }
+      format.html { redirect_to @redireccion, notice: "Variable fue exitosamente liberada." }
       format.json { head :no_content }
     end
   end

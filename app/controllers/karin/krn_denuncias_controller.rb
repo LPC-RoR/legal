@@ -2,6 +2,7 @@ class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler set_fld clear_fld prg ]
+  before_action :set_bck_rdrccn
 
   include ProcControl
   include Karin
@@ -59,6 +60,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1/edit
   def edit
+    @bck_rdrccn = request.referer
   end
 
   def cndtnl_via_declaracion
@@ -71,8 +73,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        get_rdrccn
-        format.html { redirect_to "/krn_denuncias/#{@objeto.id}_1", notice: "Denuncia fue exitósamente creada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Denuncia fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -85,8 +86,7 @@ class Karin::KrnDenunciasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_denuncia_params)
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Denuncia fue exitósamente actualizada." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Denuncia fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -97,11 +97,10 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # DELETE /krn_denuncias/1 or /krn_denuncias/1.json
   def destroy
-    get_rdrccn
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Denuncia fue exitósamente eliminada." }
+      format.html { redirect_to @bck_rdrccn, notice: "Denuncia fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -211,10 +210,6 @@ class Karin::KrnDenunciasController < ApplicationController
       prms = params[:id].split('_')
       @indx = prms[1].blank? ? 0 : prms[1].to_i
       @objeto = KrnDenuncia.find(prms[0])
-    end
-
-    def get_rdrccn
-      @rdrccn = "/cuentas/#{@objeto.ownr.class.name.tableize[0]}_#{@objeto.ownr.id}/dnncs"
     end
 
     # Only allow a list of trusted parameters through.

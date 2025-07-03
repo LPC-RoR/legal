@@ -130,7 +130,7 @@ class Rprts::KrnReportesController < ApplicationController
     end
     
     get_rdrccn
-    ntc = dstntrs.length == 0 ? 'No se encontraron destinatarios pendientes.' : "El reporte ha sido enviado exitósamente a #{dstntrs.length} participante(s)."
+    ntc = dstntrs.length == 0 ? 'No se encontraron destinatarios pendientes.' : "El reporte ha sido enviado exitosamente a #{dstntrs.length} participante(s)."
     redirect_to @rdrccn, notice: ntc
   end
 

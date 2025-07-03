@@ -72,7 +72,7 @@ class Actividades::AgeActividadesController < ApplicationController
       privada = f_params[:privada]
 
       AgeActividad.create(app_perfil_id: app_perfil_id, ownr_type: ownr_type, ownr_id: ownr_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente', privada: privada, audiencia_especial: audiencia_especial)
-      mensaje = 'Actividad fue creada exitósamente'
+      mensaje = 'Actividad fue creada exitosamente'
 
       if params[:t] == 'A'
         causa = Causa.find(params[:oid])
@@ -100,7 +100,7 @@ class Actividades::AgeActividadesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Actividad fue exitósamente creada." }
+        format.html { redirect_to @rdrccn, notice: "Actividad fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -114,7 +114,7 @@ class Actividades::AgeActividadesController < ApplicationController
     respond_to do |format|
       if @objeto.update(age_actividad_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Actividad fue exitósamente actualizada." }
+        format.html { redirect_to @rdrccn, notice: "Actividad fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -156,7 +156,7 @@ class Actividades::AgeActividadesController < ApplicationController
     get_rdrccn
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Actividad fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Actividad fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

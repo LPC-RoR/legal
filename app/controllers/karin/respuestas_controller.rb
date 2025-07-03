@@ -2,6 +2,7 @@ class Karin::RespuestasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_respuesta, only: %i[ show edit update destroy ]
+  before_action :set_bck_rdrccn
 
   # GET /respuestas or /respuestas.json
   def index
@@ -38,7 +39,7 @@ class Karin::RespuestasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to respuesta_url(@objeto), notice: "Respuesta was successfully created." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Respuesta was successfully created." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,7 +52,7 @@ class Karin::RespuestasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(respuesta_params)
-        format.html { redirect_to respuesta_url(@objeto), notice: "Respuesta was successfully updated." }
+        format.html { redirect_to params[:bck_rdrccn], notice: "Respuesta was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,7 +66,7 @@ class Karin::RespuestasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to respuestas_url, notice: "Respuesta was successfully destroyed." }
+      format.html { redirect_to @bck_rdrccn, notice: "Respuesta was successfully destroyed." }
       format.json { head :no_content }
     end
   end

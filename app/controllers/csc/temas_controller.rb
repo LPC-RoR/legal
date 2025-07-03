@@ -30,7 +30,7 @@ class Csc::TemasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tema fue exitósamente creado." }
+        format.html { redirect_to @redireccion, notice: "Tema fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class Csc::TemasController < ApplicationController
     respond_to do |format|
       if @objeto.update(tema_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tema fue exitósamente actualizado." }
+        format.html { redirect_to @redireccion, notice: "Tema fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -84,7 +84,7 @@ class Csc::TemasController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tema fue exitósamente eliminado." }
+      format.html { redirect_to @redireccion, notice: "Tema fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

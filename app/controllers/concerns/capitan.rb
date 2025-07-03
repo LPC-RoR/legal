@@ -1,6 +1,10 @@
 module Capitan
 	extend ActiveSupport::Concern
 
+    def set_bck_rdrccn
+      @bck_rdrccn = request.referer
+    end
+
 	def rep_archivo_rdrccn
 	  if ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(@objeto.ownr_type)
 	    "/krn_denuncias/#{@objeto.ownr.dnnc.id}_1"

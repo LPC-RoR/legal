@@ -57,7 +57,7 @@ class Tarifas::TarFacturasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Factura fue exitósamente creada." }
+        format.html { redirect_to @objeto, notice: "Factura fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -70,7 +70,7 @@ class Tarifas::TarFacturasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tar_factura_params)
-        format.html { redirect_to @objeto, notice: "Factura fue exitósamente actualizada." }
+        format.html { redirect_to @objeto, notice: "Factura fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -201,7 +201,7 @@ class Tarifas::TarFacturasController < ApplicationController
         @objeto.tar_nota_credito = nc
         @objeto.estado = 'pagada'
         @objeto.save
-        noticia = 'Nota de crédito fue exitósamente creada'
+        noticia = 'Nota de crédito fue exitosamente creada'
       end
     else
         noticia = 'Error al crear Nota de crédito: Información incompleta'
@@ -216,7 +216,7 @@ class Tarifas::TarFacturasController < ApplicationController
     @objeto.estado = 'facturada'
     @objeto.save
     
-    redirect_to @objeto, notice: 'Nota de crédito fue exitósamente eliminada'
+    redirect_to @objeto, notice: 'Nota de crédito fue exitosamente eliminada'
   end
 
   def a_facturada
@@ -232,7 +232,7 @@ class Tarifas::TarFacturasController < ApplicationController
   def destroy
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to tar_facturas_url, notice: "Factura fue exitósamente eliminada." }
+      format.html { redirect_to tar_facturas_url, notice: "Factura fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

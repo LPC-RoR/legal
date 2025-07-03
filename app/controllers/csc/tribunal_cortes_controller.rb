@@ -28,7 +28,7 @@ class Csc::TribunalCortesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tribunal/Corte fue exitósamente creado." }
+        format.html { redirect_to @redireccion, notice: "Tribunal/Corte fue exitosamente creado." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -40,7 +40,7 @@ class Csc::TribunalCortesController < ApplicationController
     respond_to do |format|
       if @objeto.update(tribunal_corte_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tribunal/Corte fue exitósamente actualizado." }
+        format.html { redirect_to @redireccion, notice: "Tribunal/Corte fue exitosamente actualizado." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -52,7 +52,7 @@ class Csc::TribunalCortesController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tribunal/Corte fue exitósamente eliminado." }
+      format.html { redirect_to @redireccion, notice: "Tribunal/Corte fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

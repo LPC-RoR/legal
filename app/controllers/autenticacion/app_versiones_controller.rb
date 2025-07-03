@@ -22,7 +22,7 @@ class Autenticacion::AppVersionesController < ApplicationController
     respond_to do |format|
       if @objeto.update(app_version_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Version fue exitósamente actualizada." }
+        format.html { redirect_to @redireccion, notice: "Version fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }

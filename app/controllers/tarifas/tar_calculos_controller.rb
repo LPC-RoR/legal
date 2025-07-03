@@ -109,7 +109,7 @@ class Tarifas::TarCalculosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Calculo fue exitósamente creado." }
+        format.html { redirect_to @objeto, notice: "Calculo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -122,7 +122,7 @@ class Tarifas::TarCalculosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tar_calculo_params)
-        format.html { redirect_to @objeto, notice: "Calculo fue exitósamente actualizado." }
+        format.html { redirect_to @objeto, notice: "Calculo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -178,7 +178,7 @@ class Tarifas::TarCalculosController < ApplicationController
   def destroy
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to tar_calculos_url, notice: "Calculo fue exitósamente eliminado." }
+      format.html { redirect_to tar_calculos_url, notice: "Calculo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

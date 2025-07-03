@@ -34,7 +34,7 @@ class Control::CtrEtapasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Etapa fue exitósamente creada." }
+        format.html { redirect_to @rdrccn, notice: "Etapa fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,7 +48,7 @@ class Control::CtrEtapasController < ApplicationController
     respond_to do |format|
       if @objeto.update(ctr_etapa_params)
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Etapa fue exitósamente actualizada." }
+        format.html { redirect_to @rdrccn, notice: "Etapa fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,7 +63,7 @@ class Control::CtrEtapasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Etapa fue exitósamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Etapa fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

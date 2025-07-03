@@ -30,7 +30,7 @@ class Modelos::MBancosController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Banco fue exitósamente creado." }
+        format.html { redirect_to @redireccion, notice: "Banco fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class Modelos::MBancosController < ApplicationController
     respond_to do |format|
       if @objeto.update(m_banco_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Banco fue exitósamente actualizado." }
+        format.html { redirect_to @redireccion, notice: "Banco fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,7 +58,7 @@ class Modelos::MBancosController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Banco fue exitósamente eliminado." }
+      format.html { redirect_to @redireccion, notice: "Banco fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

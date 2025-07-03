@@ -29,7 +29,14 @@ class KrnDenunciado < ApplicationRecord
 	include Ntfccns
 	include Fls
 
+	# -------------------------------- General
+
 	def dnnc
+		self.krn_denuncia
+	end
+
+	# Se usa para resolver bck_rdrccn
+	def ownr
 		self.krn_denuncia
 	end
 
