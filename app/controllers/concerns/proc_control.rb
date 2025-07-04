@@ -41,40 +41,19 @@ module ProcControl
 		dnnc = ownr.dnnc
 		krn_dnnc = ownr != dnnc
 		{
-			'030_drvcns'    => {
-				# La información de los participantes no necesita estas completa
-				actv: (dnnc.denunciantes? and dnnc.denunciados?),
-			},
-			'050_crr'    => {
-				# No exigimos dnnc.rgstrs_ok? para activar el cierre, 
-				# pues al hacerlo nos quedamos en la tarea de derivación mostrando un mensaje que no tiene que ver con las derivaciones
-#				actv: (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.on_dt? or (dnnc.solicitud_denuncia and dnnc.on_empresa?)),
-				actv: (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.on_dt?),
-			},
-			'060_invstgdr'    => {
-				actv: (dnnc.rgstrs_ok? and dnnc.fechas_invstgcn?),
-			},
-			'070_evlcn'    => {
-				actv: (dnnc.investigadores? and dnnc.objcn_ok?),
-			},
-			'080_dclrcn'    => {
-				actv: (dnnc.investigadores? and dnnc.evld?),
-			},
-			'090_trmn_invstgcn' => {
-				actv: ((dnnc.dclrcns? and dnnc.evld?) or dnnc.on_dt?),
-			},
-			'100_env_rcpcn' => {
-				actv: (dnnc.fecha_trmn? or dnnc.on_dt?),
-			},
-			'110_prnncmnt' => {
-				actv: (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
-			},
-			'120_mdds_sncns' => {
-				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
-			},
-			'130_prcdmnt_crrd' => {
-				actv: dnnc.fecha_cierre?,
-			},
+			# La información de los participantes no necesita estas completa
+			'030_drvcns'				=> (dnnc.denunciantes? and dnnc.denunciados?),
+			# No exigimos dnnc.rgstrs_ok? para activar el cierre, 
+			# pues al hacerlo nos quedamos en la tarea de derivación mostrando un mensaje que no tiene que ver con las derivaciones
+			'050_crr'						=> (dnnc.investigacion_local or dnnc.investigacion_externa or dnnc.on_dt?),
+			'060_invstgdr'    	=> (dnnc.rgstrs_ok? and dnnc.fechas_invstgcn?),
+			'070_evlcn'					=> (dnnc.investigadores? and dnnc.objcn_ok?),
+			'080_dclrcn'				=> (dnnc.investigadores? and dnnc.evld?),
+			'090_trmn_invstgcn'	=> ((dnnc.dclrcns? and dnnc.evld?) or dnnc.on_dt?),
+			'100_env_rcpcn'			=> (dnnc.fecha_trmn? or dnnc.on_dt?),
+			'110_prnncmnt'			=> (dnnc.fecha_env_infrm? and (not dnnc.on_dt?)),
+			'120_mdds_sncns'		=> ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm? ),
+			'130_prcdmnt_crrd' 	=> dnnc.fecha_cierre?
 		}
 	end
 

@@ -108,7 +108,7 @@ module Karin
           @etp_last = etp
 
           etp.tareas.ordr.each do |tar|
-            if @objt[:tar_cntrl][tar.codigo][:actv]
+            if @objt[:tar_cntrl][tar.codigo]
               @tar_last = tar
             else
               break

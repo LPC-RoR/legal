@@ -6,9 +6,9 @@
 <% when 'Proceso' %>
 	<%= render partial: prtl_name(@objeto, 'shw/paginas', 'shw_proceso'), locals: {objeto: @objeto, tar_last: @tar_last} %>
 <% when 'Participantes' %>
-	<%= render partial: prtl_name(@objeto, 'shw/participantes', 'prtcpnts'), locals: {objeto: @objeto} %>
+	<%= render partial: prtl_name(@objeto, 'shw/paginas', 'prtcpnts'), locals: {objeto: @objeto, tar_last: @tar_last} %>
 <% when 'Reportes' %>
-	<%= render partial: prtl_name(@objeto, 'shw/reportes', 'rprts'), locals: {objeto: @objeto} %>
+	<%= render partial: prtl_name(@objeto, 'shw/paginas', 'rprts'), locals: {objeto: @objeto, tar_last: @tar_last} %>
 <% end %>
 
 <%= render layout: '0p/mdl/modal', locals: {cdg: 'Detalle', ttl: 'Reporte de la denuncia', sz: 'lg'} do %>
