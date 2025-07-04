@@ -2,7 +2,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_declaracion, only: %i[ show edit update destroy swtch migrar ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   # GET /krn_declaraciones or /krn_declaraciones.json
   def index
@@ -20,6 +20,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
     invstgdr = dnnc.krn_investigadores.last
 
     @objeto = ownr.krn_declaraciones.new(krn_denuncia_id: dnnc.id, krn_investigador_id: invstgdr.id)
+    set_bck_rdrccn
   end
 
   # GET /krn_declaraciones/1/edit
@@ -29,6 +30,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
   # POST /krn_declaraciones or /krn_declaraciones.json
   def create
     @objeto = KrnDeclaracion.new(krn_declaracion_params)
+    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save

@@ -2,7 +2,7 @@ class Recursos::AppContactosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_app_contacto, only: %i[ show edit update destroy ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   # GET /app_contactos or /app_contactos.json
   def index
@@ -15,6 +15,7 @@ class Recursos::AppContactosController < ApplicationController
   # GET /app_contactos/new
   def new
     @objeto = AppContacto.new(ownr_type: params[:oclss], ownr_id: params[:oid])
+    set_bck_rdrccn
   end
 
   # GET /app_contactos/1/edit
@@ -24,6 +25,7 @@ class Recursos::AppContactosController < ApplicationController
   # POST /app_contactos or /app_contactos.json
   def create
     @objeto = AppContacto.new(app_contacto_params)
+    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save

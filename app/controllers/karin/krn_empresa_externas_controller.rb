@@ -2,7 +2,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_empresa_externa, only: %i[ show edit update destroy ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   # GET /krn_empresa_externas or /krn_empresa_externas.json
   def index
@@ -16,6 +16,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
   # GET /krn_empresa_externas/new
   def new
     @objeto = KrnEmpresaExterna.new(ownr_type: params[:oclss], ownr_id: params[:oid])
+    set_bck_rdrccn
   end
 
   # GET /krn_empresa_externas/1/edit
@@ -25,6 +26,7 @@ class Karin::KrnEmpresaExternasController < ApplicationController
   # POST /krn_empresa_externas or /krn_empresa_externas.json
   def create
     @objeto = KrnEmpresaExterna.new(krn_empresa_externa_params)
+    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save

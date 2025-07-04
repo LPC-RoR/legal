@@ -15,6 +15,10 @@ class AppNomina < ApplicationRecord
 
 	scope :nombre_ordr, -> { order(:nombre) }
 
+	def dflt_bck_rdrccn
+		['Cliente', 'Empresa'].include?(self.ownr_type) ? "/cuentas/#{self.ownr_type[0].downcase}_#{self.ownr.id}/nmn" : "/app_nominas"
+	end
+
 	def self.dog
 		find_by(email: Rails.application.credentials[:dog][:email])		
 	end

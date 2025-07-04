@@ -30,6 +30,10 @@ class KrnTestigo < ApplicationRecord
 		self.ownr.krn_denuncia
 	end
 
+	def dflt_bck_rdrccn
+		"/krn_denuncias/#{self.dnnc.id}_1"
+	end
+
  	# --------------------------------- Asociaciones
 
  	def declaraciones?

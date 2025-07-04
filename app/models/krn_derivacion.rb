@@ -11,6 +11,14 @@ class KrnDerivacion < ApplicationRecord
 
 	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
 
+	def dnnc
+		self.krn_denuncia
+	end
+
+	def dflt_bck_rdrccn
+		"/krn_denuncias/#{self.dnnc.id}_1"
+	end
+
 	def self.lst
 		ordr.last
 	end

@@ -13,7 +13,7 @@ class KrnInvestigador < ApplicationRecord
 	scope :rut_ordr, -> { order(:rut) }
 
 	validates :rut, valida_rut: true
-  validates_presence_of :rut, :krn_investigador, :email
+	validates_presence_of :rut, :krn_investigador, :email
 
 	scope :verified, -> { where.not(email_verified_at: nil) }
 	scope :unverified, -> { where(email_verified_at: nil) }
@@ -23,4 +23,7 @@ class KrnInvestigador < ApplicationRecord
 	  verification_sent_at.present?
 	end
 
+	def dflt_bck_rdrccn
+		"/cuentas/#{self.ownr.class.name[0].downcase}_#{self.ownr.id}/invstgdrs"
+	end
 end

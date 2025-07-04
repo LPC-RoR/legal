@@ -2,7 +2,7 @@ class NotasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_nota, only: %i[ show edit update destroy swtch swtch_clr dssgn_usr assgn_usr ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy agrega_nota ]
 
   include AgeUsr
 
@@ -19,8 +19,10 @@ class NotasController < ApplicationController
   def new
     ownr = params[:oclss].constantize.find(params[:oid])
     @objeto = ownr.notas.new(app_perfil_id: perfil_activo.id, prioridad: 'success')
+    set_bck_rdrccn
   end
 
+  # REVISAR
   def agrega_nota
     f_prms = params[:form_nota]    
     fecha_gestion = prms_to_date_raw(f_prms, 'fecha_gestion')
@@ -41,6 +43,7 @@ class NotasController < ApplicationController
   # POST /notas or /notas.json
   def create
     @objeto = Nota.new(nota_params)
+    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save

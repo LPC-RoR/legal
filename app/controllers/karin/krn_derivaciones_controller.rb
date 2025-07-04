@@ -2,7 +2,7 @@ class Karin::KrnDerivacionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_derivacion, only: %i[ show edit update destroy ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   include Karin
 
@@ -38,6 +38,7 @@ class Karin::KrnDerivacionesController < ApplicationController
       motivo = drvcn_text[params[:cdg].to_sym][:gls]
 
       @objeto = ownr.krn_derivaciones.new(tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
+      set_bck_rdrccn
     end
   end
 
@@ -48,6 +49,7 @@ class Karin::KrnDerivacionesController < ApplicationController
   # POST /krn_derivaciones or /krn_derivaciones.json
   def create
     @objeto = KrnDerivacion.new(krn_derivacion_params)
+    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save

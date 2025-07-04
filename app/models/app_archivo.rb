@@ -14,6 +14,16 @@ class AppArchivo < ApplicationRecord
 
 	mount_uploader :archivo, ArchivoUploader
 
+	def dflt_bck_rdrccn
+		if ['KrnDenuncia'].include?(self.ownr.class.name)
+		  "/krn_denuncias/#{self.ownr.dnnc.id}_0"
+		elsif ['KrnDenunciado', 'KrnDenunciante', 'KrnTestigo'].include?(self.ownr.class.name)
+		  "/krn_denuncias/#{self.ownr.dnnc.id}_1"
+		else
+		  self.ownr
+		end
+	end
+
 	# Nombres
 	def self.nms
 		all.map {|archv| archv.app_archivo}		

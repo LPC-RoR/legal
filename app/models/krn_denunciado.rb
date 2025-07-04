@@ -35,6 +35,10 @@ class KrnDenunciado < ApplicationRecord
 		self.krn_denuncia
 	end
 
+	def dflt_bck_rdrccn
+		"/krn_denuncias/#{self.dnnc.id}_1"
+	end
+
 	# Se usa para resolver bck_rdrccn
 	def ownr
 		self.krn_denuncia

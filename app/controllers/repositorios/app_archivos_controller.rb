@@ -2,7 +2,7 @@ class Repositorios::AppArchivosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_app_archivo, only: %i[ show edit update destroy ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
   after_action :read_demanda, only: [:create, :update], if: -> {@objeto.ownr.class.name == 'Causa'}
 
   # GET /app_archivos or /app_archivos.json
@@ -24,6 +24,7 @@ class Repositorios::AppArchivosController < ApplicationController
     nombre_documento = params[:dcid].blank? ? nil : documento_controlado.nombre
     ownr = params[:oclss].blank? ? params[:class_name].constantize.find(params[:objeto_id]) : params[:oclss].constantize.find(params[:oid])
     @objeto = AppArchivo.new(ownr_type: ownr.class.name, ownr_id: ownr.id, app_archivo: nombre_documento, control_documento_id: documento_controlado_id)
+    set_bck_rdrccn
   end
 
   # GET /app_archivos/1/edit
@@ -33,6 +34,7 @@ class Repositorios::AppArchivosController < ApplicationController
   # POST /app_archivos or /app_archivos.json
   def create
     @objeto = AppArchivo.new(app_archivo_params)
+    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save

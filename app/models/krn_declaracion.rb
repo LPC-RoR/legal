@@ -5,7 +5,17 @@ class KrnDeclaracion < ApplicationRecord
 
 	has_many :pdf_registros, as: :ref
 
+    validates_presence_of :fecha
+
  	scope :fecha_ordr, -> {order(fecha: :desc)}
+
+ 	def dnnc
+ 		self.ownr.dnnc
+ 	end
+
+	def dflt_bck_rdrccn
+		"/krn_denuncias/#{self.dnnc.id}_1"
+	end
 
  	def self.rlzds?
  		all.empty? ? false : all.map {|objt| objt.fl_dclrcn?}.uniq.join('-') == 'true'

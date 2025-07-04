@@ -1,9 +1,37 @@
 module Capitan
 	extend ActiveSupport::Concern
 
-    def set_bck_rdrccn
-      @bck_rdrccn = request.referer
-    end
+	def extract_action_from_referer
+	  referer = request.referer
+	  if referer.present?
+	    begin
+	      uri = URI.parse(referer)
+	      path = uri.path
+	      # Reconoce la ruta y extrae el action_name
+	      route_params = Rails.application.routes.recognize_path(path)
+	      action_name = route_params[:action]
+	      puts "El action_name del referer es: #{action_name}"
+	      action_name
+	    rescue URI::InvalidURIError, ActionController::RoutingError => e
+	      puts "Error al analizar el referer: #{e.message}"
+	      nil
+	    end
+	  else
+	    puts "No hay referer en la solicitud"
+	    nil
+	  end
+	end
+
+	def ne_rfrr?
+		acctn_referer = extract_action_from_referer
+		puts "-------------------------------------- ne_rfrr"
+		puts acctn_referer
+		['new', 'edit'].include?(acctn_referer)
+	end
+
+  def set_bck_rdrccn
+    @bck_rdrccn = ne_rfrr? ? @objeto.dflt_bck_rdrccn : request.referer
+  end
 
 	def rep_archivo_rdrccn
 	  if ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(@objeto.ownr_type)

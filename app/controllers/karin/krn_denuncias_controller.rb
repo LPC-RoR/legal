@@ -2,7 +2,7 @@ class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler set_fld clear_fld prg ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   include ProcControl
   include Karin
@@ -44,6 +44,7 @@ class Karin::KrnDenunciasController < ApplicationController
   # GET /krn_denuncias/new
   def new
     @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid])
+    set_bck_rdrccn
   end
 
   def tipo_declaracion_field
@@ -60,7 +61,6 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1/edit
   def edit
-    @bck_rdrccn = request.referer
   end
 
   def cndtnl_via_declaracion
@@ -70,7 +70,7 @@ class Karin::KrnDenunciasController < ApplicationController
   # POST /krn_denuncias or /krn_denuncias.json
   def create
     @objeto = KrnDenuncia.new(krn_denuncia_params)
-
+    set_bck_rdrccn
     respond_to do |format|
       if @objeto.save
         format.html { redirect_to params[:bck_rdrccn], notice: "Denuncia fue exitosamente creada." }

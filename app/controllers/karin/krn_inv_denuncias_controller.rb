@@ -2,7 +2,7 @@ class Karin::KrnInvDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_inv_denuncia, only: %i[ show edit update destroy swtch ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   # GET /krn_inv_denuncias or /krn_inv_denuncias.json
   def index
@@ -16,6 +16,7 @@ class Karin::KrnInvDenunciasController < ApplicationController
   # GET /krn_inv_denuncias/new
   def new
     @objeto = KrnInvDenuncia.new(krn_denuncia_id: params[:oid])
+    set_bck_rdrccn
   end
 
   # GET /krn_inv_denuncias/1/edit
@@ -25,6 +26,7 @@ class Karin::KrnInvDenunciasController < ApplicationController
   # POST /krn_inv_denuncias or /krn_inv_denuncias.json
   def create
     @objeto = KrnInvDenuncia.new(krn_inv_denuncia_params)
+    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save

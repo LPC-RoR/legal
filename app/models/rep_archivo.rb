@@ -17,6 +17,16 @@ class RepArchivo < ApplicationRecord
   require 'carrierwave/orm/activerecord'
   mount_uploader :archivo, RepArchivoUploader
 
+  def dflt_bck_rdrccn
+    if ['KrnDenuncia'].include?(self.ownr.class.name)
+      "/krn_denuncias/#{self.ownr.dnnc.id}_0"
+    elsif ['KrnDenunciado', 'KrnDenunciante', 'KrnTestigo'].include?(self.ownr.class.name)
+      "/krn_denuncias/#{self.ownr.dnnc.id}_1"
+    else
+      self.ownr
+    end
+  end
+
   def self.get_dc_archv(dc)
     find_by(rep_doc_controlado_id: dc.id)
   end

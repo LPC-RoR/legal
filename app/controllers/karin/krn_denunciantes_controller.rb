@@ -2,7 +2,7 @@ class Karin::KrnDenunciantesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_denunciante, only: %i[ show edit update destroy swtch set_fld clear_fld ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   include ProcControl
   include Karin
@@ -19,6 +19,7 @@ class Karin::KrnDenunciantesController < ApplicationController
   # GET /krn_denunciantes/new
   def new
     @objeto = KrnDenunciante.new(krn_denuncia_id: params[:oid])
+    set_bck_rdrccn
   end
 
   # GET /krn_denunciantes/1/edit
@@ -28,6 +29,7 @@ class Karin::KrnDenunciantesController < ApplicationController
   # POST /krn_denunciantes or /krn_denunciantes.json
   def create
     @objeto = KrnDenunciante.new(krn_denunciante_params)
+    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save

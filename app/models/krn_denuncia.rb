@@ -48,6 +48,10 @@ class KrnDenuncia < ApplicationRecord
 		self
 	end
 
+	def dflt_bck_rdrccn
+		"/cuentas/#{self.ownr.class.name[0].downcase}_#{self.ownr.id}/dnncs"
+	end
+
 	def prcdmnt
 		Procedimiento.find_by(codigo: 'krn_invstgcn')
 	end

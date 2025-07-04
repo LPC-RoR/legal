@@ -2,7 +2,7 @@ class Karin::KrnInvestigadoresController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_investigador, only: %i[ show edit update destroy ]
-  before_action :set_bck_rdrccn
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   # GET /krn_investigadores or /krn_investigadores.json
   def index
@@ -16,6 +16,7 @@ class Karin::KrnInvestigadoresController < ApplicationController
   # GET /krn_investigadores/new
   def new
     @objeto = KrnInvestigador.new(ownr_type: params[:oclss], ownr_id: params[:oid])
+    set_bck_rdrccn
   end
 
   # GET /krn_investigadores/1/edit
@@ -25,6 +26,7 @@ class Karin::KrnInvestigadoresController < ApplicationController
   # POST /krn_investigadores or /krn_investigadores.json
   def create
     @objeto = KrnInvestigador.new(krn_investigador_params)
+    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save
@@ -55,7 +57,7 @@ class Karin::KrnInvestigadoresController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to params[:bck_rdrccn], notice: "Investigador fue exitosamente eliminado." }
+      format.html { redirect_to @bck_rdrccn, notice: "Investigador fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

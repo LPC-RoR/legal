@@ -161,7 +161,7 @@ class Rprts::KrnReportesController < ApplicationController
             template: "rprts/krn_reportes/#{rprt}",
             layout: 'pdf',
             show_as_html: params[:debug].present?,
-            footer: { center: "Página [page] de [topage]" }
+            footer: { center: "Página [page] de [topage]", encoding: 'UTF-8' }
         end
       end
     end
