@@ -22,7 +22,7 @@ module Karin
     @objt['rprsntnt_lgl?']    = @objt['rprsntnt_lgl'].any?
 
     mthds = [
-      'on_dt?', 'on_empresa?', 'rgstrs_ok?', 'motivo_vlnc?'
+      'rcp_externa?', 'on_dt?', 'on_empresa?', 'rgstrs_ok?', 'motivo_vlnc?', 'externa?'
     ]
     mthds.each do |mthd|
       @objt[mthd] = objt.send(mthd)

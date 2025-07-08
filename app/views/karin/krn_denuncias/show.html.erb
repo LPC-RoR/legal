@@ -11,7 +11,7 @@
 	<%= render partial: prtl_name(@objeto, 'shw', 'shw_rprts'), locals: {objeto: @objeto, tar_last: @tar_last} %>
 <% end %>
 
-<%= render layout: '0p/mdl/modal', locals: {cdg: 'Detalle', ttl: 'Reporte de la denuncia', sz: 'lg'} do %>
+<%= render layout: '0p/mdl/modal', locals: {cdg: 'Detalle', ttl: 'Resúmen del procedimiento', sz: 'lg'} do %>
 	<%= render partial: prtl_name(@objeto, 'shw/proceso', 'rgstrs'), locals: {objeto: @objeto} %>
 <% end %>
 
