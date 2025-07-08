@@ -40,6 +40,8 @@ class Cliente < ApplicationRecord
     scope :cl_ordr, -> { order(preferente: :desc, razon_social: :asc) }
 
 
+    include Prdct
+
     # Procedimiento Investigación y Sanción
 
     def logo_url
@@ -62,6 +64,13 @@ class Cliente < ApplicationRecord
         self.krn_empresa_externas.any?
     end
 
+    # PRODUCTOS
+
+    def fecha_demo_activa?
+        self.created_at.to_date.in_time_zone > 10.days.ago.in_time_zone
+    end
+
+    # DEPRECATED
     def operable?
         externas  = self.principal_usuaria ? self.empresas_externas? : true
         # pendiente manejo de productos: vencimiento y bloqueo

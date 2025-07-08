@@ -1,0 +1,24 @@
+<% ownr      ||= nil %>
+<% blngs     ||= nil %>
+<% fs        ||= nil %>
+<% brdr_wdth ||= 5 %>
+<% brdr_clr  ||= 'dark-subtle' %>
+<% ttl       ||= false %>
+<div class="row px-2 py-1 border-bottom border-<%=brdr_clr%> border-<%=brdr_wdth%> bg_sub_tbl fs-<%=fs%> app_lnk">
+	<div class="col-9">
+		<% if prtl?(source, 'indx', 'objt') %>
+			<i class="bi bi-caret-right-fill"></i> <%= render partial: prtl_name(source, 'indx', 'objt'), locals: {ownr: ownr, blngs: blngs} %>
+		<% else %>
+			<%= to_name(source).pluralize %>
+		<% end %>
+	</div>
+	<div class="col-3 text-end">
+		<% unless ttl %>
+			<% if prtl?(source, 'indx', 'lnks') %>
+				<%= render partial: prtl_name(source, 'indx', 'lnks'), locals: {ownr: ownr, blngs: blngs} %>
+			<% else %>
+				<%= render partial: '0p/tbl/lnk_new', locals: {source: source, ownr: ownr, blngs: blngs}%>
+			<% end %>
+		<% end %>
+	</div>
+</div>

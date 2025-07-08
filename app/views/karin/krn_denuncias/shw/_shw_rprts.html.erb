@@ -1,0 +1,35 @@
+<!-- NOTA Ingresar participantes -->
+<% unless @objt['denunciantes?'] and (@objt['denunciados?'] or @objeto.motivo_vlnc?) %>
+	<%= render partial: prtl_name(@objeto, 'mssgs', 'dnnc_nueva') %>
+<% else %>
+	<div class="ms-5">
+		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_reportes', ownr: @objeto, fs: 6, ttl: true} %>
+
+		<div class="mt-2 app_lnk">
+
+			<% @coleccion['pdf_archivos'].each do |pdf| %>
+			<div class="row gx-1">
+				<div class="col-9">
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/#{pdf.codigo}.pdf?oid=#{@objeto.id}", target: '_blank'} do %>
+							<i class="bi bi-cursor"></i>
+							<%= pdf.nombre %></br>
+						<% end %>
+				</div>
+				<div class="col-3 text-end">
+					<% if pdf.tipo == 'Notificación' %>
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{@objeto.id}&rprt=#{pdf.codigo}", target: '_blank', tltp: 'Enviar reporte por correo electrónico'} do %>
+							<i class="bi bi-envelope-check"></i>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+			<% end %>
+
+		</div>
+
+		<div class="mt-2 app_lnk">
+			<%= render partial: 'cuentas/indx/ttl', locals: {source: 'pdf_registros', blngs: @objeto, fs: 6, ttl: true} %>
+			<%= render partial: '0p/tbl/tbl', locals: {source: 'pdf_registros', typ: 'ln', crud: 'lnks', new_hnt: false} %>
+		</div>
+	</div>
+<% end %>

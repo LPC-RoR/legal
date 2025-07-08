@@ -1,0 +1,9 @@
+<%= render layout: 'cuentas/prtls/msgg', locals: {ttl: '¡Usted no tiene autorización para acceder a está funcionalidad!'} do %>
+
+	<p><b>Funcionalidad reservada para el administrador de la cuenta.</b></p>
+	
+	<% unless admin? %>
+		<p>Comuniquese con el administrador de la cuenta para resolver el problema.</p>
+	<% end %>
+
+<% end %>

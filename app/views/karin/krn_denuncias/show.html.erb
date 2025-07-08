@@ -1,14 +1,14 @@
 <%= render partial: 'cuentas/shw/ttl', locals: {objt: @objeto, col_lft: 7} %>
 
-<%= render partial: prtl_name(@objeto, 'shw/icons', 'shw_menu') %>
+<%= render partial: prtl_name(@objeto, 'shw', 'menu') %>
 
 <% case @tbs[@indx] %>
 <% when 'Proceso' %>
-	<%= render partial: prtl_name(@objeto, 'shw/paginas', 'shw_proceso'), locals: {objeto: @objeto, tar_last: @tar_last} %>
+	<%= render partial: prtl_name(@objeto, 'shw', 'shw_proceso'), locals: {objeto: @objeto, tar_last: @tar_last} %>
 <% when 'Participantes' %>
-	<%= render partial: prtl_name(@objeto, 'shw/paginas', 'prtcpnts'), locals: {objeto: @objeto, tar_last: @tar_last} %>
+	<%= render partial: prtl_name(@objeto, 'shw', 'shw_prtcpnts'), locals: {objeto: @objeto, tar_last: @tar_last} %>
 <% when 'Reportes' %>
-	<%= render partial: prtl_name(@objeto, 'shw/paginas', 'rprts'), locals: {objeto: @objeto, tar_last: @tar_last} %>
+	<%= render partial: prtl_name(@objeto, 'shw', 'shw_rprts'), locals: {objeto: @objeto, tar_last: @tar_last} %>
 <% end %>
 
 <%= render layout: '0p/mdl/modal', locals: {cdg: 'Detalle', ttl: 'Reporte de la denuncia', sz: 'lg'} do %>

@@ -6,9 +6,10 @@
 		<%= render partial: prtl_name('tareas', 'code', 'ln'), locals: {objeto: @tar_last, ownr: ownr, color: 'primary'} unless @tar_last.blank? %>
 	<% end %>
 <% end %>
+
 <!-- NOTA Ingresar participantes -->
-<% if @tar_last.blank? %>
-		<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: 'shw/shr', prtl: 'prlg'} %>
+<% unless @objt['denunciantes?'] and (@objt['denunciados?'] or @objeto.motivo_vlnc?) %>
+	<%= render partial: prtl_name(@objeto, 'mssgs', 'dnnc_nueva') %>
 <% end %>
 
 <!-- AYUDA ETAPA -->

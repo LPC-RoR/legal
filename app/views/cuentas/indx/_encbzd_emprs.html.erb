@@ -1,6 +1,6 @@
 <div class="mt-2 text-center app_lnk" style="font-size: 20px;">
 	<b><i class="bi bi-buildings"></i> <%= @objeto.razon_social %></b>
-	<% unless @objeto.productos? %>
+	<% if @objeto.demo? %>
 		<small>( DEMO )</small>
 	<% end %>
 
@@ -10,7 +10,7 @@
 		<% end %>
 	<% end %>
 
-	<% unless @objeto.productos? %>
+	<% if @objeto.demo? %>
 		<div style="font-size: 10px;">
 			Su cuenta Demo le permite crear hasta 10 denuncias y estará activa por 10 días contados desde el registro de su empresa.
 		</div>
@@ -39,22 +39,3 @@
 		</div>
 	<% end %>
 <% end %>
-
-<div class="row app_lnk">
-	<div class="col">
-		<%= render partial: 'cuentas/prtls/menu_drpdwn' %>
-	</div>
-	<div class="col me-3 pt-4 text-end" style="font-size:16px;">
-		<i class="bi bi-person-circle"></i> <%#= nomina_activa.nombre %>
-		<%= render layout: '0p/tltp_lnk', locals: {lnk: edit_usuario_registration_path, tltp: 'Editar mi usuario'} do %>
-			<b><%= email_mask(perfil_activo.email) %></b>
-		<% end %>
-		<% if @scrty_vls[:addt_usr] and admin? and controller_name == 'cuentas' %>
-			<i class="bi bi-dot"></i>
-			<%= link_to "/#{@objeto.class.name.tableize}", title: 'Addt', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-				<i class="bi bi-menu-button-wide"></i>
-			<% end %>
-		<% end %>
-		
-	</div>
-</div>

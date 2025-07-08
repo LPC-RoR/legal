@@ -4,6 +4,6 @@
 <% unless @objeto.principal_usuaria %>
 	<i class="bi bi-diagram-3"></i>
 <% end %>
-<% unless objeto.productos? %>
+<% if objeto.demo_activo? %>
 	<small>( Demo )</small>
 <% end %>

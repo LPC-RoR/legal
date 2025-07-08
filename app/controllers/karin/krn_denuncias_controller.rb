@@ -73,7 +73,7 @@ class Karin::KrnDenunciasController < ApplicationController
     set_bck_rdrccn
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Denuncia fue exitosamente creada." }
+        format.html { redirect_to "/krn_denuncias/#{@objeto.id}_1", notice: "Denuncia fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -196,7 +196,6 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto.prnncmnt_vncd = nil
     @objeto.fecha_cierre = nil
 
-
     @objeto.save
 
     redirect_to @objeto
@@ -208,7 +207,7 @@ class Karin::KrnDenunciasController < ApplicationController
     def set_krn_denuncia
       @tbs = ['Proceso', 'Participantes', 'Reportes']
       prms = params[:id].split('_')
-      @indx = prms[1].blank? ? 0 : prms[1].to_i
+      @indx = prms[1].blank? ? (tipo_usuario == 'recepción' ? 1 : 0) : prms[1].to_i
       @objeto = KrnDenuncia.find(prms[0])
     end
 

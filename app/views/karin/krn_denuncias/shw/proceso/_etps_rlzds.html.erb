@@ -6,6 +6,45 @@
 		<% end %>
 
 		<div class="row ps-2 fs-xs">
+
+
+
+			<table class="table table-sm table-borderless table-striped table-hover">
+				<tbody>
+					<% @etps_trmnds.each do |etp_trmnd| %>
+						<tr>
+							<td><%= etp_trmnd[:etapa] %></td>
+							<td>
+								<div class="text-<%=etp_muted(etp_trmnd[:codigo], ownr) ? 'muted' : (etp_trmnd[:plz_ok] ? 'primary' : 'danger')%>">
+									<% unless etp_trmnd[:plz_tag].blank? or etp_trmnd[:plz_tag] == 0 or etp_muted(etp_trmnd[:codigo], ownr) %>
+										<small><%= etp_trmnd[:plz_tag].abs %> dia<%='s' if etp_trmnd[:plz_tag].abs > 1%> <%=etp_trmnd[:plz_tag] > 0 ? 'antes' : 'despues' %></small>
+									<% end %>
+									<%= dma(etp_trmnd[:plz]) %>
+									<% if etp_trmnd[:plz_ok] %>
+										<i class="bi bi-calendar-check"></i>
+									<% else %>
+										<i class="bi bi-calendar-x"></i>
+									<% end %>
+								</div>
+							</td>
+						</tr>
+						<% if fl_cndtn?(ownr, dc.codigo) or ownr.fl?(dc.codigo) %>
+							<% if dc.multiple == true %>
+								<%= render partial: '0p/proc/dcs', locals: {dc: dc, fls: ownr.fls(dc), ownr: ownr} %>
+							<% else %>
+								<%= render partial: '0p/proc/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr} %>
+							<% end %>
+						<% end %>
+					<% end %>
+				</tbody>
+			</table>
+
+
+
+
+
+
+
 			<% @etps_trmnds.each do |etp_trmnd| %>
 				<div class="col-9">
 					<%= etp_trmnd[:etapa] %>

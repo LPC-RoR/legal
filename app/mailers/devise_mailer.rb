@@ -9,15 +9,15 @@ class DeviseMailer < Devise::Mailer
   def confirmation_instructions(record, token, opts={})
     # Personalizar el asunto
     opts[:subject] = "Confirma tu cuenta en ADDT"
-    attachments.inline['email_head.png'] = File.read(Rails.root.join('app/assets/images/email_head.png'))
-    attachments.inline['email_sign.png'] = File.read(Rails.root.join('app/assets/images/email_sign.png'))
+    attachments.inline['email_head.png'] = File.read(Rails.root.join('app/assets/images/mssgs/email_head.png'))
+    attachments.inline['email_sign.png'] = File.read(Rails.root.join('app/assets/images/mssgs/email_sign.png'))
     super
   end
 
   def reset_password_instructions(record, token, opts={})
     opts[:subject] = "Restablece tu contraseña en ADDT"
-    attachments.inline['email_head.png'] = File.read(Rails.root.join('app/assets/images/email_head.png'))
-    attachments.inline['email_sign.png'] = File.read(Rails.root.join('app/assets/images/email_sign.png'))
+    attachments.inline['email_head.png'] = File.read(Rails.root.join('app/assets/images/mssgs/email_head.png'))
+    attachments.inline['email_sign.png'] = File.read(Rails.root.join('app/assets/images/mssgs/email_sign.png'))
     super
   end
   

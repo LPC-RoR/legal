@@ -1,33 +1,9 @@
 <% pddn ||= '1' %>
 <div class="row gx-1 px-1" style="font-size: 14px;">
 	<div class="col-9 text-<%=fl.blank? ? 'muted' : 'dark'%> app_lnk" style="padding-left: <%=pddn%>rem;">
-		<i class="bi bi-file-earmark"></i> 
-		<% unless fl.blank? %>
-			<% if fl.control_fecha %>
-				<i class="bi bi-calendar-check"></i>
-				<%= dma(fl.fecha) %> 
-			<% end %>
-		<% end %>
-		<%= fl.blank? ? dc.rep_doc_controlado : (fl.nombre.blank? ? fl.rep_archivo : fl.nombre) %>
-		<% unless fl.blank? or fl.archivo? %>
-			<i class="bi bi-exclamation-triangle text-danger"></i>
-		<% end %>
+		<%= render partial: '0p/proc/dc_objt', locals: {fl: fl, dc: dc} %>
 	</div>
 	<div class="col-3 pe-2 text-end app_lnk">
-		<% if fl.blank? %>
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/rep_archivos/new#{ownr_prms(ownr)}&dcid=#{dc.id}", tltp: "Subir #{dc.rep_doc_controlado}"} do %>
-				<i class="bi bi-upload"></i>
-				Subir 
-			<% end %>
-		<% else %>
-			<% if fl.archivo? %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: fl.archivo.url, target: :_blank, tltp: "Ver #{dc.rep_doc_controlado.downcase}"} do %>
-					<i class="bi bi-download"></i>
-				<% end %>
-				<i class="bi bi-dot"></i>
-			<% end %>
-			<%= render partial: '0p/tbl/lnk_editar', locals: {objeto: fl} if fl.control_fecha or fl.chequeable %>
-			<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: fl} unless fl.blank? %>
-		<% end %>
+		<%= render partial: '0p/proc/dc_lnks', locals: {fl: fl, dc: dc, ownr: ownr} %>
 	</div>
 </div>

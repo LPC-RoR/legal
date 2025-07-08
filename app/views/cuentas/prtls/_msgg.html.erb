@@ -1,7 +1,8 @@
-<% ttl ||= 'Mensaje sin título' %>
-<div class="mt-2 bg-white border rounded-2 shadow">
+<% ttl   ||= 'Mensaje sin título' %>
+<% firma = true if firma.nil? %>
+<div class="my-2 bg-white border rounded-2 shadow">
 	<div class="mx-4 my-4">
-		<%= image_tag('email_head.png', alt: 'Logo de la empresa', class: 'email-logo') %>
+		<%= image_tag('mssgs/email_head.png', alt: 'Logo de la empresa', class: 'email-logo') %>
 	</div>
 	<div class="text-center">
 		<h4><%= ttl %></h4>
@@ -10,7 +11,9 @@
 		<%= yield %>
 	</div>
 
-	<div class="mx-4 my-5 text-center">
-		<%= image_tag('email_sign.png', alt: 'Firma', class: 'email-signature') %>
-	</div>
+	<% if firma %>
+		<div class="mx-4 my-5 text-center">
+			<%= image_tag('mssgs/email_sign.png', alt: 'Firma', class: 'email-signature') %>
+		</div>
+	<% end %>
 </div>
