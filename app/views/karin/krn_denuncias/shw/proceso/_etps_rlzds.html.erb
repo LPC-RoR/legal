@@ -28,13 +28,6 @@
 								</div>
 							</td>
 						</tr>
-						<% if fl_cndtn?(ownr, dc.codigo) or ownr.fl?(dc.codigo) %>
-							<% if dc.multiple == true %>
-								<%= render partial: '0p/proc/dcs', locals: {dc: dc, fls: ownr.fls(dc), ownr: ownr} %>
-							<% else %>
-								<%= render partial: '0p/proc/dc', locals: {dc: dc, fl: ownr.fl(dc), ownr: ownr} %>
-							<% end %>
-						<% end %>
 					<% end %>
 				</tbody>
 			</table>
