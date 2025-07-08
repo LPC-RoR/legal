@@ -14,7 +14,7 @@
 					<% @etps_trmnds.each do |etp_trmnd| %>
 						<tr>
 							<td><%= etp_trmnd[:etapa] %></td>
-							<td>
+							<td class="text-end">
 								<div class="text-<%=etp_muted(etp_trmnd[:codigo], ownr) ? 'muted' : (etp_trmnd[:plz_ok] ? 'primary' : 'danger')%>">
 									<% unless etp_trmnd[:plz_tag].blank? or etp_trmnd[:plz_tag] == 0 or etp_muted(etp_trmnd[:codigo], ownr) %>
 										<small><%= etp_trmnd[:plz_tag].abs %> dia<%='s' if etp_trmnd[:plz_tag].abs > 1%> <%=etp_trmnd[:plz_tag] > 0 ? 'antes' : 'despues' %></small>
