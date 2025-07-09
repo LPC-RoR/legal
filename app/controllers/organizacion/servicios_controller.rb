@@ -13,7 +13,7 @@ class Organizacion::ServiciosController < ApplicationController
     @total_uf = @objeto.tar_calculos.map {|ccl| get_monto_calculo_uf(ccl, ccl.ownr, ccl.tar_pago)}.sum
     @total_pesos = @objeto.tar_calculos.map {|ccl| get_monto_calculo_pesos(ccl, ccl.ownr, ccl.tar_pago)}.sum
 
-    @h_pagos = get_h_pagos(@objeto)
+    @h_pgs = get_h_pagos(@objeto)
   
     respond_to do |format|
       format.html
