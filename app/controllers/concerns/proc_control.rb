@@ -7,7 +7,7 @@ module ProcControl
 		dnnc = ownr.dnnc
 		{
 			'etp_rcpcn'      => {
-				actv: true,
+				actv: objt['rgstrs_info_mnm?'],
 				# rgstrs_ok?				: la información de los participantes ingresados hasta el momento está completa.
 				# fechas_invstgcn?	: Tramitación, Certificado, Notificación, Devolución
 				# chck_dvlcn?				: Si se debe dar por resuelta la devolución de la denuncia NO CONSIDERA EL RECHAZO

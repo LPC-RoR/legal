@@ -4,6 +4,9 @@
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{objeto.id}/crea_aprobacion", tltp: 'Crea aprobación'} do %>
 			<i class="bi bi-plus-circle"></i>
 		<% end %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{objeto.id}/add_to_last_aprbcn", tltp: 'Agrega a la última aprobación'} do %>
+			<i class="bi bi-arrow-left-circle"></i>
+		<% end %>
 	</div>
 	<div class="ln_lnks">
 		<%#= objeto.moneda %>

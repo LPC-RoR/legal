@@ -19,89 +19,17 @@ class KrnTestigo < ApplicationRecord
     validates_presence_of :nombre, :cargo, :lugar_trabajo
 #    validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 
+	include Prtcpnt
 	include Fls
-
-	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
-	def verified?
-	  verification_sent_at.present?
-	end
 
 	def dnnc
 		self.ownr.krn_denuncia
-	end
-
-	def dflt_bck_rdrccn
-		"/krn_denuncias/#{self.dnnc.id}_1"
 	end
 
  	# --------------------------------- Asociaciones
 
  	def declaraciones?
  		self.krn_declaraciones.any?
- 	end
-
- 	# ================================= 020_prtcpnts: Ingreso del participante
-
-	def empleador?
-		self.krn_empresa_externa_id?		
-	end
-
-	def informacion_adicional?
-		self.empleado_externo or self.articulo_516
-	end
-
-	def proc_empleador?
-		self.empleado_externo
-	end
-
-	def proc_direccion?
-		self.articulo_516
-	end
-
-	def rgstr_ok?
-		self.empleador_ok? and self.direccion_ok? and self.rut?
-	end
-
-	def self.rgstrs_ok?
-		all.empty? ? true : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
-	end
-
- 	# --------------------------------- Despliegue de formularios
-
-	def self.emprss_ids
-		all.map {|den| den.krn_empresa_externa_id if !!den.empleado_externo}.uniq
-	end
-
-	# ------------------------------------------------------------------------
-
-	def self.doc_cntrlds
-		StModelo.get_model('KrnTestigo').rep_doc_controlados.ordr
-	end
-
-	def denuncia
-		self.ownr.denuncia
-	end
-
-	# -------------------------------------- RLZDS
-
-	def empleador_ok?
-		self.empleado_externo ? self.krn_empresa_externa.present? : true
-	end
-
-	def direccion_ok?
-		self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
-	end
-
-	def self.dclrcns?
-		all.empty? ? true : all.map {|objt| objt.fl?('prtcpnts_dclrcn')}.uniq.join('-') == 'true'
-	end
-
- 	def self.rlzds?
- 		all.empty? ? true : all.map {|objt| objt.rlzd}.uniq.join('-') == 'true'
- 	end
-
- 	def dclrcns_rlzds?
- 		self.krn_declaraciones.rlzds?
  	end
 
 end

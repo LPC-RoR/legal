@@ -7,10 +7,29 @@ module DnncProc
 		self.motivo_denuncia == KrnDenuncia::MOTIVOS[2]
 	end
 
+	def rgstrs_mnms?
+		self.krn_denunciantes.any? and (self.krn_denunciados.any? or self.motivo_vlnc?)
+	end
+
  	# Los datos de los participantes ingresados hasta el momento están completos
 	def rgstrs_ok?
-		self.krn_denunciantes.rgstrs_ok? and self.krn_denunciados.rgstrs_ok?
+		self.krn_denunciantes.rgstrs_ok? and (self.krn_denunciados.rgstrs_ok? or self.motivo_vlnc?)
 	end
+
+	# ETAPA Para resolver el comienzo de las etapas
+	def rgstrs_info_mnm?
+		self.rgstrs_mnms? and self.rgstrs_ok?
+	end
+
+ 	# Reconocer declaración Verbal
+ 	def verbal?
+ 		self.via_declaracion == 'Presencial' and self.tipo_declaracion == 'Verbal'
+ 	end
+
+ 	# TAREA Información obligatoria
+ 	def get_infrmcn_oblgtr?
+ 		self.rcp_empresa? and self.verbal? and self.dnncnt_info_oblgtr.blank?
+ 	end
 
 	# fecha_trmtcn? 	: Fecha en la que se informa inicio de una investigación a la DT
 	# fecha_hora_dt?	: Fecha del certificado emitido por la DT en el que acusa recepción de la denuncia que les derivamos

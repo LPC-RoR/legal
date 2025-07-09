@@ -1,79 +1,46 @@
-<%= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') if @objeto.solicitud_denuncia %>
+<% unless tipo_usuario == 'investigador' %>
+	<%= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') if @objeto.solicitud_denuncia %>
 
-<!-- DERIVACIÓN DESDE EMPRESA EXTERNA -->
-<% if @objt['rcp_externa?'] and @objt['derivaciones'].empty? and ( not @objt['externa?'] ) %>
-	<p>La denuncia debe ser investigada por la empresa, recibir la derivación desde la empresa externa.</p>
-	<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'rcpcn_extrn'} %>
-<% end %>
+	<% if @objt['rcp_externa?'] and @objt['derivaciones'].empty? and ( not @objt['externa?'] ) %>
+		<!-- DERIVACIÓN DESDE EMPRESA EXTERNA -->
+		<%= render partial: '0p/proc/task_dsply', locals: {tsk: '030_drvcns', cdg: 'drvcn_desde_extrn'} %>
+	<% end %>
 
-<!-- La denuncia puede estar en la empresa o en una empresa externa -->
-<!-- Si está en una empresa externa, es su responsabilidad investigar: seguimiento -->
-<% unless @objeto.on_dt? %>
-	<% if @objt['on_empresa?'] and @objt['externa?'] %>
-
-		<!-- Se recibió en la EMPRESA una denuncia de EMPRESA EXTERNA -->
-		<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-			<%= render layout: 'cuentas/prtls/proceso/hint', locals: {gly: 'chat-left-dots', clr: 'primary'} do %>
-				Ha recibido una denuncia que no puede ser investigada por la empresa. La persona denunciante debe decidir si la denuncia se le deriva a su empleador o a la Dirección del Trabajo.
-			<% end %>
-
-			<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext_dt'} %>
-			<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext'} %>
-		<% end %>
-
-	<% else %>
-		<%# if  (not @objeto.solicitud_denuncia) %>
-			<% if @objeto.artcl41? %>
-				<!-- Para alguno de los participantes aplica el Artículo 4:1 -->
-				<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-					<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'Para alguno de los participantes aplica el Articulo 4 inciso primero del Código del Trabajo (tiene un cargo gerencial), la denuncia debe ser obligatoriamente derivada a la Dirección del Trabajo.'} %>
-
-					<%= render partial: 'karin/prtls/drvr', locals: {objeto: @objeto, codigo: 'drvcn_art4_1'} %>
-				<% end %>
-			<% else %>
-				<% unless @objeto.solicitud_denuncia %>
-					<% unless @objeto.derivaciones? or @objeto.dnncnt_investigacion_local %> 
-						<!-- ENTREGA DE INFORMACIÓN -->
-						<%= render partial: prtl_name(@objeto, 'proc/030_drvcns', 'info_oblgtr') %>
-						<!-- DENUNCIANTE SOLICITA DERIVAR A LA DT -->
-						<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-							<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_dnncnt'} %>
-						<% end %>
-						<!-- DENUNCIANTE SOLICITA INVESTIGCIÓN LOCAL -->
-						<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-							<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-								<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :dnncnt_investigacion_local, prmpt: 'La persona denunciante manifiesta su deseo de que la investigación sea realizada por la empresa.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
-							<% end %>
-						<% end %>
-					<% else %>
-						<!-- EMPRESA DERIVA A LA DT -->
-						<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-							<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La persona denunciante manifestó su deseo de que la denuncia sea investigada en la empresa.'} %>
-
-							<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
-						<% end %>
-
-						<!-- EMPRESA INVESTIGA -->
-						<% if @objt['on_empresa?'] %>
-							<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-								<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-									<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_local, prmpt: 'La empresa decide realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
-								<% end %>
-							<% end %>
-						<% end %>
-
-						<!-- EMPRESA EXTERNA INVESTIGA -->
-						<% if @objeto.on_externa? %>
-							<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-								<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-									<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_externa, prmpt: 'La empresa externa decide realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación externa', 'Investigación extena']} %>
-								<% end %>
+	<!-- La denuncia puede estar en la empresa o en una empresa externa -->
+	<!-- Si está en una empresa externa, es su responsabilidad investigar: seguimiento -->
+	<% unless @objt['on_dt?'] %>
+		<% if @objt['on_empresa?'] and @objt['externa?'] %>
+			<!-- Se recibió en la EMPRESA una denuncia de EMPRESA EXTERNA -->
+			<%= render partial: '0p/proc/task_dsply', locals: {tsk: '030_drvcns', cdg: 'drvcns_dnnc_extrn'} %>
+		<% else %>
+			<%# if  (not @objeto.solicitud_denuncia) %>
+				<% if @objt['artcl41?'] %>
+					<!-- Para alguno de los participantes aplica el Artículo 4:1 -->
+					<%= render partial: '0p/proc/task_dsply', locals: {tsk: '030_drvcns', cdg: 'drvcn_art41'} %>
+				<% else %>
+					<% unless @objeto.solicitud_denuncia %>
+						<% if @objt['verbal?'] and @objeto.dnncnt_info_oblgtr != true %>
+							<!-- ENTREGA DE INFORMACIÓN -->
+							<%= render partial: '0p/proc/task_dsply', locals: {tsk: '030_drvcns', cdg: 'info_oblgtr'} %>
+						<% else %>
+							<% unless @objt['derivaciones?'] or @objeto.dnncnt_investigacion_local %> 
+								<!-- OPCIONES DENUNCIANTE -->
+								<%= render partial: '0p/proc/task_dsply', locals: {tsk: '030_drvcns', cdg: 'opcns_dnncnt'} %>
+							<% else %>
+								<!-- OPCIONES EMPRESA Y EMPRESA EXTERNA -->
+								<%= render partial: '0p/proc/task_dsply', locals: {tsk: '030_drvcns', cdg: 'opcns_emprs_y_extrn'} %>
+								<%#= render partial: prtl_name(@objeto, 'proc/030_drvcns', 'opcns_emprs_y_extrn') %>
 							<% end %>
 						<% end %>
 					<% end %>
-				<% end %>
 
-			<% end %>
-		<%# end %>
+				<% end %>
+			<%# end %>
+		<% end %>
 	<% end %>
+
+<% else %>
+	<%= render partial: prtl_name(@objeto, 'mssgs', 'usr_error') %>
 <% end %>
+
+

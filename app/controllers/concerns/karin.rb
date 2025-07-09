@@ -18,11 +18,12 @@ module Karin
     @objt['rrhh?']            = @objt['rrhh'].any?
     @objt['recepcion']        = objt.ownr.app_contactos.where(grupo: 'Recepción')
     @objt['recepcion?']       = @objt['recepcion'].any?
-    @objt['rprsntnt_lgl']     = objt.ownr.app_contactos.where(grupo: 'Representante social')
+    @objt['rprsntnt_lgl']     = objt.ownr.app_contactos.where(grupo: 'Representante legal')
     @objt['rprsntnt_lgl?']    = @objt['rprsntnt_lgl'].any?
 
     mthds = [
-      'rcp_externa?', 'on_dt?', 'on_empresa?', 'rgstrs_ok?', 'motivo_vlnc?', 'externa?'
+      'rcp_externa?', 'on_dt?', 'on_empresa?', 'on_externa?', 'rgstrs_ok?', 'motivo_vlnc?', 'externa?', 'verbal?', 'artcl41?',
+      'rgstrs_info_mnm?', 'get_infrmcn_oblgtr?'
     ]
     mthds.each do |mthd|
       @objt[mthd] = objt.send(mthd)

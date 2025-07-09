@@ -1,5 +1,5 @@
 class Tarifas::TarCalculosController < ApplicationController
-  before_action :set_tar_calculo, only: %i[ show edit update destroy elimina_calculo liberar_calculo crea_aprobacion ]
+  before_action :set_tar_calculo, only: %i[ show edit update destroy elimina_calculo liberar_calculo crea_aprobacion add_to_last_aprbcn ]
 
   include Tarifas
 
@@ -164,6 +164,13 @@ class Tarifas::TarCalculosController < ApplicationController
 
     rdccn = oclss == 'Causa' ? "/causas/#{@objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos" : "/#{@objeto.ownr_type.tableize}"
     redirect_to rdccn
+  end
+
+  def add_to_last_aprbcn
+    last_aprbcn = TarAprobacion.last
+    last_aprbcn.tar_calculos << @objeto
+
+    redirect_to tar_aprobaciones_path
   end
 
   def liberar_calculo

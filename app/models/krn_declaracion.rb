@@ -17,10 +17,6 @@ class KrnDeclaracion < ApplicationRecord
 		"/krn_denuncias/#{self.dnnc.id}_1"
 	end
 
- 	def self.rlzds?
- 		all.empty? ? false : all.map {|objt| objt.fl_dclrcn?}.uniq.join('-') == 'true'
- 	end
-
  	def fl_dclrcn?
  		self.ownr.fl?('prtcpnts_dclrcn').present?
  	end

@@ -9,3 +9,10 @@
 		<li class="mb-1">Por último, le informo que nuestra empresa tiene la obligación de tomar Medidas de Resguardo para evitar que la investigación de esta denuncia tenga efectos negativos en las personas particpantes. Estas medidas serán definidas a la brevedad y le serán notificadas por escrito. La normativa vigente establece que es obligatorio para todos los participantes acatar estas medidas, así como tambien, colaborar con esta investigación.</li>
 	</ol>
 <% end %>
+
+<!-- SE ENTREGÓ LA INFORMACION AL DENUNCIANTE -->
+<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+	<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+		<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :dnncnt_info_oblgtr, prmpt: 'Se entregó la información obligatoria a la persona denunciante.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['Información sin entregar', 'Enformación entragada']} %>
+	<% end %>
+<% end %>

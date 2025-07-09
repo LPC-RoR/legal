@@ -25,6 +25,13 @@ class Rprts::KrnReportesController < ApplicationController
     load_proc(dnnc)
   end
 
+  def dnncnt_info_oblgtr
+    @objeto = KrnDenuncia.find(params[:oid])
+    @logo_url = @objeto.dnnc.ownr.logo_url
+
+    respond_to_pdf('dnncnt_info_oblgtr')
+  end
+
   def dnnc
     @objeto = KrnDenuncia.find(params[:oid])
     @logo_url = @objeto.ownr.logo_url
@@ -168,6 +175,8 @@ class Rprts::KrnReportesController < ApplicationController
 
     def get_objt(oid, rprt)
       case rprt
+      when 'dnncnt_info_oblgtr'
+        KrnDenuncia.find(oid)
       when 'infrmcn'
         KrnDenuncia.find(oid)
       when 'drvcn'
@@ -183,6 +192,8 @@ class Rprts::KrnReportesController < ApplicationController
       case rprt
       when 'drvcn'
         invstgdr = KrnDerivacion.find(oid).krn_denuncia.krn_investigadores.last
+      when 'dnncnt_info_oblgtr'
+        invstgdr = KrnDenuncia.find(oid).krn_investigadores.last
       when 'invstgcn'
         invstgdr = KrnDenuncia.find(oid).krn_investigadores.last
       when 'invstgdr'
@@ -215,6 +226,17 @@ class Rprts::KrnReportesController < ApplicationController
         invstgdr = get_invstgdr(oid, rprt)
         rgstr = dclrcn.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
         dstntrs << {objt: dclrcn.ownr, ref: dclrcn, invstgdr: invstgdr, nombre: dclrcn.ownr.nombre, rol: to_name(dclrcn.ownr), email: dclrcn.ownr.email} if rgstr.blank?
+      elsif ['dnncnt_info_oblgtr'].include?(rprt)  
+        ref = get_objt(oid, rprt)
+        invstgdr = get_invstgdr(oid, rprt)
+        @objt['denunciantes'].each do |dnncnt|
+          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+          dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
+          dnncnt.krn_testigos.each do |tstg|
+            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+            dstntrs << {objt: tstg, ref: ref, invstgdr: invstgdr, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
+          end
+        end
       elsif ['drvcn', 'invstgdr', 'invstgcn'].include?(rprt)
         ref = get_objt(oid, rprt)
         invstgdr = get_invstgdr(oid, rprt)

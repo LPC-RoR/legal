@@ -105,11 +105,6 @@ class KrnDenuncia < ApplicationRecord
 		self.receptor_denuncia == 'Empresa externa'
 	end
 
-	# Alguna vez fue derivada a la DT
-	def drv_dt?
-		self.derivaciones? ? false : self.krn_derivaciones.dts.any?
-	end
-
 	def on_dt?
 		self.krn_derivaciones.empty? ? self.rcp_dt? : self.krn_derivaciones.on_dt?
 	end

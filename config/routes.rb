@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   end
   scope module: 'rprts' do
     resources :krn_reportes do
+      match :dnncnt_info_oblgtr, via: :get, on: :collection
       match :dnnc, via: :get, on: :collection
       match :drchs, via: :get, on: :collection
       match :infrmcn, via: :get, on: :collection
@@ -405,6 +406,7 @@ Rails.application.routes.draw do
     resources :tar_calculos do
       match :crea_calculo, via: :post, on: :collection
       match :elimina_calculo, via: :post, on: :member
+      match :add_to_last_aprbcn, via: :post, on: :member
       match :crea_pago_asesoria, via: :post, on: :collection
       match :elimina_pago_asesoria, via: :post, on: :collection
       # revisar desde aqui
