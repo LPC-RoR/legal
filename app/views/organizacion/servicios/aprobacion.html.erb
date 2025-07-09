@@ -22,7 +22,16 @@
 				<% end %>
 			</div>
 			<div class="rght">
-				<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado#{'_asesoria' if ['Asesoria', 'Cargo'].include?(tar_calculo.ownr_type) }", locals: {objeto: tar_calculo.ownr, pago: (tar_calculo.tar_pago unless tar_calculo.tar_pago.blank? ), owner: tar_calculo.ownr} %>
+				<% if ['Asesoria', 'Cargo'].include?(tar_calculo.ownr_type) %>
+				11111
+					<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado_asesoria", locals: {objeto: tar_calculo.ownr, pago: (tar_calculo.tar_pago unless tar_calculo.tar_pago.blank? ), ownr: tar_calculo.ownr} %>
+				<% elsif controller_name == 'servicios' %>
+				22222
+					<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado_calculo", locals: {objeto: tar_calculo.ownr, cll: tar_calculo, ownr: tar_calculo.ownr} %>
+				<% else %>
+				33333
+					<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado", locals: {objeto: tar_calculo.ownr, pago: (tar_calculo.tar_pago unless tar_calculo.tar_pago.blank? ), ownr: tar_calculo.ownr} %>
+				<% end %>
 
 				<% if tar_calculo.ownr.class.name == 'Causa' %>
 					<% if tar_calculo.tar_pago.requiere_uf == true and uf_fecha(get_fecha_calculo(tar_calculo.ownr, tar_calculo.tar_pago)).blank? %>

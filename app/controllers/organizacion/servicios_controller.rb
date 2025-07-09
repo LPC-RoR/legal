@@ -13,8 +13,7 @@ class Organizacion::ServiciosController < ApplicationController
     @total_uf = @objeto.tar_calculos.map {|ccl| get_monto_calculo_uf(ccl, ccl.ownr, ccl.tar_pago)}.sum
     @total_pesos = @objeto.tar_calculos.map {|ccl| get_monto_calculo_pesos(ccl, ccl.ownr, ccl.tar_pago)}.sum
 
-#    @h_pgs = get_h_pagos(@objeto)
-    @h_pgs = h_pgs(@objeto) 
+    @h_pgs = get_h_pagos(@objeto)
   
     respond_to do |format|
       format.html
@@ -26,7 +25,7 @@ class Organizacion::ServiciosController < ApplicationController
     end
   rescue ArgumentError => e
     # Manejar errores de parámetros inválidos
-    redirect_to "/servicios/aprobacion", alert: "Invalid date format. Please use YYYY-MM-DD."
+    redirect_to "/servicios/aprobacion?indice=#{@indice}", alert: "Invalid date format. Please use YYYY-MM-DD."
   end
 
   def documentos
@@ -90,11 +89,28 @@ class Organizacion::ServiciosController < ApplicationController
       }
     end
 
+    def array_from_pago(ownr, pago)
+      hsh = {}
+      tar_uf_facturacion    = get_tar_uf_facturacion_pago(ownr, pago)
+      objt_calculo          = get_objt_pago(ownr, pago)
+      objt_origen       = tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion
+      fecha_calculo         = objt_origen.blank? ? Time.zone.today : objt_origen.fecha_uf
+      uf_calculo        = vlr_uf(fecha_calculo)
+      hsh[:fecha_calculo]    = fecha_calculo
+      hsh[:uf_calculo]       = uf_calculo
+      hsh[:objt_calculo]       = objt_calculo
+      hsh[:v_tarifa]         = get_v_tarifa_pago(ownr, pago, objt_calculo, uf_calculo)
+      hsh[:tar_uf_facturacion] = tar_uf_facturacion
+      hsh[:origen_fecha_uf]    = origen_fecha_calculo_pago(objt_origen.class.name)
+      hsh[:ownr_fctrcn]          = objt_calculo.class.name == 'TarCalculo' ? objt_calculo : ownr
+      hsh
+    end
+
     # crea un hash con el cálculo de los pagos
     def get_h_pagos(aprobacion)
       h_pagos = {}      
-      aprobacion.tar_facturaciones.each do |tar_facturacion|
-        h_pagos[tar_facturacion.id] = array_pago(tar_facturacion)
+      aprobacion.tar_calculos.each do |tar_calculo|
+        h_pagos[tar_calculo.id] = array_from_pago(tar_calculo.ownr, tar_calculo.tar_pago)
       end
       h_pagos
     end

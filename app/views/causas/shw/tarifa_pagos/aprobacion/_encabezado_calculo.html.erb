@@ -1,0 +1,60 @@
+<!-- Versión 2.0 OK -->
+<!-- Encabezado del calculo: usado en despliegue del calculo de una causa+tarifa -->
+<!-- cll: tar_calculo tar_pago, ownr: causa -->
+
+<div class="row px-2 gx-1" style="font-size: 16px;line-height: 1.2;">
+	<div class="col">
+		<b><%= cll.tar_pago.tar_pago %></b>
+	</div>
+	<div class="col text-end">
+		<!-- el pago requiere el valor de la UF y la UF no se ha ingresado -->
+		<!-- Se usa la nuevas funciones get_uf_calculo_pago, get_fecha_calculo_pago y get_v_tarifa_pago -->
+		<% if cll.tar_pago.requiere_uf == true and @h_pgs[cll.id][:uf_calculo].blank? %>
+			<small><b class="text-danger">UF del dia <%= dma(@h_pgs[cll.id][:fecha_calculo]) %> no encontrada</b></small>
+		<% else %>
+			<small>
+			<%= s_uf5(@h_pgs[cll.id][:v_tarifa][0]) %>
+			<i class="bi bi-arrow-left-right"></i>
+			</small>
+			<b><%= s_pesos(@h_pgs[cll.id][:v_tarifa][1]) %></b>
+		<% end %>
+	</div>
+</div>
+
+<% if cll.tar_pago.requiere_uf %>             
+	<div class="row px-2 gx-1">
+		<div class="col">
+			Fecha cálculo
+			<% if controller_name == 'causas' and ownr.tar_calculos.empty? %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: cll.tar_pago, tooltip: "#{@h_pgs[cll.id][:tar_uf_facturacion].blank? ? 'Agrega' : 'Modifica'} fecha UF de cálculo" } do %>
+					<i class="bi bi-pencil-square"></i>
+				<% end %>
+				<% if @h_pgs[cll.id][:tar_uf_facturacion].present? %>
+					<%= link_to "/causas/#{ownr.id}/del_uf_facturacion?pid=#{cll.id}" do %>
+						<i class="bi bi-trash"></i>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="col text-end">
+			<%= dma(@h_pgs[cll.id][:fecha_calculo]) %>
+		</div>
+	</div>
+
+	<%= render layout: '0p/collapse/display', locals: {label: 'AgregaModifica', objeto: cll.tar_pago} do %>
+		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/form_uf_facturacion", locals: {causa: ownr, pago: cll.tar_pago} %>
+	<% end %>
+
+	<% unless @h_pgs[cll.id][:uf_calculo].blank? %>
+		<b>
+		<div class="row px-2 gx-1">
+			<div class="col">
+				<%= @h_pgs[cll.id][:origen_fecha_uf] %>
+			</div>
+			<div class="col text-end">
+				<%= s_pesos2( @h_pgs[cll.id][:uf_calculo] ) %>
+			</div>
+		</div>
+		</b>
+	<% end %>
+<% end %>
