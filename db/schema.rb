@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_10_005229) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_10_205258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -1807,24 +1807,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_005229) do
     t.index ["ownr_id"], name: "index_tar_valor_cuantias_on_ownr_id"
     t.index ["ownr_type"], name: "index_tar_valor_cuantias_on_ownr_type"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_valor_cuantias_on_tar_detalle_cuantia_id"
-  end
-
-  create_table "tareas", force: :cascade do |t|
-    t.integer "orden"
-    t.string "codigo"
-    t.string "tarea"
-    t.string "plazo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "procedimiento_id"
-    t.text "detalle"
-    t.integer "ctr_etapa_id"
-    t.string "sub_procs"
-    t.index ["codigo"], name: "index_tareas_on_codigo"
-    t.index ["ctr_etapa_id"], name: "index_tareas_on_ctr_etapa_id"
-    t.index ["orden"], name: "index_tareas_on_orden"
-    t.index ["procedimiento_id"], name: "index_tareas_on_procedimiento_id"
-    t.index ["sub_procs"], name: "index_tareas_on_sub_procs"
   end
 
   create_table "temas", force: :cascade do |t|

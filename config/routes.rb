@@ -113,10 +113,6 @@ Rails.application.routes.draw do
       match :arriba, via: :post, on: :member
       match :abajo, via: :post, on: :member
     end
-    resources :tareas do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
   end
 
   scope module: 'karin' do

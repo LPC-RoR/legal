@@ -27,7 +27,6 @@ module Tablas
 			m_bancos: 'periodos_bancos',
 			receptor_denuncias: 'archivos_denuncia',
 			motivo_denuncias: 'archivos_denuncia',
-			tareas: 'general'
 		}
 	end
 

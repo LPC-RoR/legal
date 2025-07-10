@@ -1,6 +1,6 @@
 module DnncProc
  	extend ActiveSupport::Concern
- 	# ================================= PROC Etapas y Tareas
+ 	# ================================= PROC Etapas
 
 	# El motivo de la denuncia es Violencia... Usado para saber si se ingresan personas denunciadas
 	def motivo_vlnc?	# Ocupado sólo una vez

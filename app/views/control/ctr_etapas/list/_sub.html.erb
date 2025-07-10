@@ -1,6 +1,0 @@
-<% objeto.tareas.ordr.each do |tr| %>
-	<%= render partial: '0p/tbl/ln', locals: {objt: tr, crud: 'lnks', indnt: 1} %>
-	<% if prtl?(tr, 'list', "sub") %>
-		<%= render partial: prtl_name(tr, 'list', "sub"), locals: {objeto: tr} %>
-	<% end %>
-<% end %>
