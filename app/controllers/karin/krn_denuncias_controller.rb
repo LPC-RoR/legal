@@ -35,7 +35,7 @@ class Karin::KrnDenunciasController < ApplicationController
       load_p_fls
     when 2
 #      set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
-      set_tabla('pdf_archivos', @objeto.prcdmnt.pdf_archivos.ordr, false)
+      set_tabla('pdf_archivos', @objeto.prcdmnt.pdf_archivos.where(codigo: rprts_pdf_actvs).ordr, false)
       set_tabla('pdf_registros', @objeto.pdf_registros.order(:created_at), false)
     end
 

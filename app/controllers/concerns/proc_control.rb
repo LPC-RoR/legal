@@ -6,35 +6,12 @@ module ProcControl
 	def etp_cntrl_hsh(ownr, objt)
 		dnnc = ownr.dnnc
 		{
-			'etp_rcpcn'      => {
-				actv: objt['rgstrs_mnms?'],
-				# rgstrs_ok?				: la información de los participantes ingresados hasta el momento está completa.
-				# fechas_invstgcn?	: Tramitación, Certificado, Notificación, Devolución
-				# chck_dvlcn?				: Si se debe dar por resuelta la devolución de la denuncia NO CONSIDERA EL RECHAZO
-				trmn:	(objt['fechas_crr_rcpcn?'] and objt['chck_dvlcn?']),
-			},
-			'etp_invstgcn'   => {
-				actv: ((objt['fechas_crr_rcpcn?'] or objt['on_dt?']) and objt['chck_dvlcn?']),
-				# A esta etapa pasamos sin preguntarnos por la devolución, recien en este minuto se puede formalizar el pedido
-#				actv: ((dnnc.rgstrs_ok? and dnnc.fechas_invstgcn?) or dnnc.on_dt?),
-				trmn:	(dnnc.fecha_trmn? or dnnc.plz_invstgcn_vncd),
-			},
-			'etp_infrm'      => {
-				actv: (dnnc.fecha_trmn? or dnnc.plz_invstgcn_vncd),
-				trmn: (dnnc.fecha_env_infrm? or dnnc.fecha_rcpcn_infrm?),
-			},
-			'etp_prnncmnt'   => {
-				actv: (dnnc.fecha_env_infrm? or dnnc.fecha_rcpcn_infrm?),
-				trmn: (dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd? or dnnc.fecha_rcpcn_infrm?),
-			},
-			'etp_mdds_sncns' => {
-				actv: ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd or dnnc.fecha_rcpcn_infrm? ),
-				trmn: dnnc.fecha_cierre?,
-			},
-			'etp_cierre' => {
-				actv: dnnc.fecha_cierre?,
-				trmn: false,
-			},
+			'etp_rcpcn'      	=> objt['rgstrs_mnms?'],
+			'etp_invstgcn'   	=> ((objt['fechas_crr_rcpcn?'] or objt['on_dt?']) and objt['chck_dvlcn?']),
+			'etp_infrm'      	=> (dnnc.fecha_trmn? or dnnc.plz_invstgcn_vncd),
+			'etp_prnncmnt'   	=> (dnnc.fecha_env_infrm? or dnnc.fecha_rcpcn_infrm?),
+			'etp_mdds_sncns' 	=> ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd or dnnc.fecha_rcpcn_infrm? ),
+			'etp_cierre' 			=> dnnc.fecha_cierre?
 		}
 	end
 

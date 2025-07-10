@@ -38,6 +38,7 @@
       <%#= image_tag pdf_asset_base64('tyc.png'), class: 'header-image' %>
       <%= image_tag pdf_asset_base64(@logo_url), class: 'header-image' %>
     </div>
+    <div style="font-size: 10px;text-align: end;">Fecha emision: <%=Time.zone.now%></div>
     <%= yield %>
 
   </body>

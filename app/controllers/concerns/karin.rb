@@ -118,7 +118,7 @@ module Karin
 
     plz_hsh = nil
     @proc_objt.ctr_etapas.ordr.each do |etp|
-      if @objt[:etp_cntrl][etp.codigo][:actv]
+      if @objt[:etp_cntrl][etp.codigo]
         @etps_trmnds << plz_hsh unless plz_hsh.nil?
         plz_hsh = {
           codigo: etp.codigo, 
@@ -240,6 +240,22 @@ module Karin
     }
   end
 
+  # --------------------------------------------------------------------------------------------- Reportes PDF
+
+  def rprts_pdf_actvs
+    actvs = []
+    actvs << 'dnncnt_info_oblgtr' if ['recepción'].include?(tipo_usuario) or admin?
+    actvs << 'dnnc'               
+    actvs << 'drchs'
+#    actvs << 'prcdmnt'
+    actvs << 'infrmcn'            if ['recepción'].include?(tipo_usuario) or admin?
+    actvs << 'invstgcn'           if ['investigación'].include?(tipo_usuario) or admin?
+    actvs << 'drvcn'              if ['investigación'].include?(tipo_usuario) or admin?
+    actvs << 'invstgdr'           if ['investigación'].include?(tipo_usuario) or admin?
+    actvs << 'dclrcn'             if ['investigación'].include?(tipo_usuario) or admin?
+    actvs
+  end
+
   # --------------------------------------------------------------------------------------------- GENERAL
 
   #Control de despliegue de Archivos
@@ -261,8 +277,6 @@ module Karin
         'dnnc_evlcn'        => (dnnc.evlcn_incmplt or dnnc.evlcn_incnsstnt),
         'dnnc_corrgd'       => ((dnnc.evlcn_incmplt or dnnc.evlcn_incnsstnt) and (not dnnc.evlcn_ok)),
         'infrm_invstgcn'    => ((dnnc.fechas_crr_rcpcn? or dnnc.on_dt?) and dnnc.chck_dvlcn?),
-        'mdds_crrctvs'      => (dnnc.fecha_trmn? or dnnc.fecha_rcpcn_infrm?),
-        'sncns'             => (dnnc.fecha_trmn? or dnnc.fecha_rcpcn_infrm?),
         'prnncmnt_dt'       => dnnc.fecha_prnncmnt?,
         'dnnc_mdds_sncns'   => (dnnc.fecha_env_infrm? or dnnc.plz_prnncmnt_vncd?)
       },
