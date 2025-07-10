@@ -1,5 +1,14 @@
 <% unless tipo_usuario == 'investigador' %>
-	<!-- USUARIO: recepción -->
-	<% if @objt['get_infrmcn_oblgtr?'] %>
+
+	<!-- Despliegue de DERIVACIONES e INVESTIGADORES -->
+	<%= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') %>
+
+	<% if @objt['get_crr_rcpcn?'] %>
+		<%= render partial: prtl_name(@objeto, "proc/#{@etp_last.codigo}", 'tsk_crr') %>
+	<% else %>
+		<%= render partial: prtl_name(@objeto, "proc/#{@etp_last.codigo}", 'tsk_drvcns') %>
 	<% end %>
+
+<% else %>
+	<%= render partial: prtl_name(@objeto, 'mssgs', 'usr_error') %>
 <% end %>

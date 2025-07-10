@@ -1,0 +1,11 @@
+<div class="ms-5">
+	<%= render layout: 'cuentas/prtls/msgg', locals: {ttl: 'Participantes con declaraciones', firma: false} do %>
+
+		<p class="objt_lnk"><b>Todos los participantes ingresados cuentan con su declaración.</b></p>
+		<p>Si ya no tiene más particpantes que agregar, vaya a la página <i>Proceso</i> para continuar.
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}_0"} do %>
+					<i class="bi bi-cursor"></i> Ir a Proceso
+				<% end %>
+		</p>
+	<% end %>
+</div>

@@ -1,0 +1,13 @@
+<div class="ms-5">
+	<%= render layout: 'cuentas/prtls/msgg', locals: {ttl: 'Enviar información obligatoria a las personas denunciantes.', firma: false} do %>
+
+		<p class="objt_lnk"><b>Denuncia se presentó en forma escrita, se debe enviar la información obligatoria a las personas denunciantes.</b>
+			<% if @indx != 1 %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}_1"} do %>
+					<i class="bi bi-cursor"></i> Ir a Participantes
+				<% end %>
+			<% end %>
+		</p>
+		
+	<% end %>
+</div>

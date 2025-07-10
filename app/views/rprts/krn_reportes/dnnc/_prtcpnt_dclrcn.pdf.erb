@@ -1,4 +1,4 @@
-<% if @objeto.evld? %>
+<% if @objeto.dnnc_evld? %>
 	<% pddng = prtcpnt.class.name == 'KrnTestigo' ? 2 : 1 %>
 	<% if prtcpnt.krn_declaraciones.empty? %>
 		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Declaración sin agendar.", pddng: pddng} %>

@@ -1,0 +1,3 @@
+<% unless @etp_last.blank? %>
+	<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc", prtl: @etp_last.codigo} %>
+<% end %>

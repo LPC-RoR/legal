@@ -4,11 +4,11 @@
 
 <% case @tbs[@indx] %>
 <% when 'Proceso' %>
-	<%= render partial: prtl_name(@objeto, 'shw', 'shw_proceso'), locals: {objeto: @objeto, tar_last: @tar_last} %>
+	<%= render partial: prtl_name(@objeto, 'shw', 'shw_proceso'), locals: {objeto: @objeto} %>
 <% when 'Participantes' %>
-	<%= render partial: prtl_name(@objeto, 'shw', 'shw_prtcpnts'), locals: {objeto: @objeto, tar_last: @tar_last} %>
+	<%= render partial: prtl_name(@objeto, 'shw', 'shw_prtcpnts'), locals: {objeto: @objeto} %>
 <% when 'Reportes' %>
-	<%= render partial: prtl_name(@objeto, 'shw', 'shw_rprts'), locals: {objeto: @objeto, tar_last: @tar_last} %>
+	<%= render partial: prtl_name(@objeto, 'shw', 'shw_rprts'), locals: {objeto: @objeto} %>
 <% end %>
 
 <%= render layout: '0p/mdl/modal', locals: {cdg: 'Detalle', ttl: 'Resúmen del procedimiento', sz: 'lg'} do %>
@@ -16,4 +16,3 @@
 <% end %>
 
 <%#= @etp_last.codigo unless @etp_last.blank? %>
-<%#= @tar_last.codigo unless @tar_last.blank? %>

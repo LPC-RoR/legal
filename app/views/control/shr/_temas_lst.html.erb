@@ -2,7 +2,7 @@
 	<h5><i class="bi bi-lightbulb"></i></h5>
 </div>
 <!-- No se incluyó @proc_objt porque el tamaño es demasiado para un modal -->
-<% [@tar_last, @etp_last].each do |objt| %>
+<% [@etp_last].each do |objt| %>
 	<% unless objt.blank? %>
 		<ul>
 		<% objt.lgl_temas.ordr.each do |tm| %>

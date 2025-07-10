@@ -1,0 +1,24 @@
+<!-- EMPRESA DERIVA A LA DT -->
+<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+	<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La persona denunciante manifestó su deseo de que la denuncia sea investigada en la empresa.'} %>
+
+	<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_emprs'} %>
+<% end %>
+
+<!-- EMPRESA INVESTIGA -->
+<% if @objt['on_empresa?'] %>
+	<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+		<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_local, prmpt: 'La empresa decide realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<!-- EMPRESA EXTERNA INVESTIGA -->
+<% if @objt['on_externa?'] %>
+	<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+		<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :investigacion_externa, prmpt: 'La empresa externa decide realizar la investigación de la denuncia.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación externa', 'Investigación extena']} %>
+		<% end %>
+	<% end %>
+<% end %>

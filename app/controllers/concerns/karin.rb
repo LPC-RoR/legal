@@ -23,7 +23,11 @@ module Karin
 
     mthds = [
       'rcp_externa?', 'on_dt?', 'on_empresa?', 'on_externa?', 'rgstrs_ok?', 'motivo_vlnc?', 'externa?', 'verbal?', 'artcl41?',
-      'rgstrs_info_mnm?', 'get_infrmcn_oblgtr?'
+      'rgstrs_mnms?', 'rgstrs_info_mnm?', 'get_infrmcn_oblgtr?', 'dnncnts_info_oblgtr?', 'rcpcn_dnnc?', 'drvcn_extrn?', 'get_opcns_dnncnt?',
+      'get_crr_rcpcn?', 'fl_atncn_sclgc_tmprn?', 'fl_dnnc?', 'fl_acta?', 'fl_rprsntcn?', 'fl_ntfccn?', 'fl_crtfcd?',
+      'fl_mdds_rsgrd?', 'fls_rcpcn?', 'inf_cierre?', 'fechas_crr_rcpcn?',
+      'fl_antcdnts_objcn?', 'fl_rslcn_objcn?', 'fl_evlcn?', 'fl_crrgd?', 'fl_infrm?', 'fls_invstgcn?',
+      'dnnc_evld?', 'dclrcns_ok?', 'chck_dvlcn?', 'fl_prnncmnt?'
     ]
     mthds.each do |mthd|
       @objt[mthd] = objt.send(mthd)
@@ -34,9 +38,10 @@ module Karin
     @objt = {} if @objt.blank?
 
     # Siempre a partir de la fecha de tramitación.
+    # Si la denuncia se deriva a la DT, el plazo de recepción es anterior a la derivación
     @objt['plz_rcpcn'] = plz_lv(objt.fecha_hora, 3)
 
-    # Considera aun la fecha de devolución
+    # Se ajusta según fecha_hora_dt y considera la fecha de devolución
     fecha_inicio_investigacion = objt.fecha_dvlcn? ? objt.fecha_dvlcn : (objt.fecha_hora_dt? ? objt.fecha_hora_dt : objt.fecha_hora)
     @objt['plz_invstgcn'] = plz_lv(fecha_inicio_investigacion, 30)
 
@@ -44,9 +49,11 @@ module Karin
     # cuida el plazo máximo
     @objt['plz_infrm'] = plz_lv(@objt['plz_invstgcn'], 2)
 
-    # REVISAR existencia de fecha_recep_infrm
+    # Se basa en la fecha que existe
     fecha_envio_rcpcn_infrm = (objt.fecha_env_infrm || objt.fecha_rcpcn_infrm)
     @objt['plz_prnncmnt'] = @objt['on_dt?'] ? nil : plz_lv(fecha_envio_rcpcn_infrm, 30)
+
+    # Se ajusta dependiendo si se investigó o no en la DT
     fecha_inicio_mdds_sncns = @objt['on_dt?'] ? fecha_envio_rcpcn_infrm : @objt['plz_prnncmnt']
     @objt['plz_mdds_sncns'] = plz_c(fecha_inicio_mdds_sncns, 15)
   end
@@ -59,23 +66,42 @@ module Karin
   # plz_ok? está en plazos
   def etp_plz_ok?(ownr)
     dnnc = ownr.dnnc
+    # plz_ok == nil => Control de la etapa no aplica
+    # Cuando la denuncia fue presentada en la DT no e controla este plazo
+    # Cuando se deriva a la DT la fecha que se usa para calcular es la fecha en la que se derivó a la DT
+    # Cuando se investiga en la DT se asume el cumplimiento del plazo
+    fecha_rcpcn = @objt['rcp_dt?'] ? nil : (@objt['on_dt?'] ? @objt['derivaciones'].last.fecha.to_date : dnnc.fecha_trmtcn)
+    fecha_infrm = (dnnc.fecha_env_infrm || dnnc.fecha_rcpcn_infrm)
     {
-      'etp_rcpcn'      => plz_ok?(dnnc.fecha_trmtcn, etp_plz('etp_rcpcn')),
+      'etp_rcpcn'      => @objt['rcp_dt?'] ? nil : plz_ok?(fecha_rcpcn, etp_plz('etp_rcpcn')),
       'etp_invstgcn'   => dnnc.on_dt? ? true : plz_ok?(dnnc.fecha_trmn, etp_plz('etp_invstgcn')),
-      'etp_infrm'      => plz_ok?(dnnc.fecha_env_infrm, etp_plz('etp_infrm')),
-      'etp_prnncmnt'   => dnnc.on_dt? ? false : plz_ok?(dnnc.fecha_prnncmnt, etp_plz('etp_prnncmnt')),
+      'etp_infrm'      => plz_ok?(fecha_infrm, etp_plz('etp_infrm')),
+      'etp_prnncmnt'   => dnnc.on_dt? ? nil : plz_ok?(dnnc.fecha_prnncmnt, etp_plz('etp_prnncmnt')),
       'etp_mdds_sncns' => plz_ok?(dnnc.fecha_cierre, etp_plz('etp_mdds_sncns')),
     }
   end
 
   def etp_plz_left(ownr)
     dnnc = ownr.dnnc
+    fecha_rcpcn = @objt['rcp_dt?'] ? nil : (@objt['on_dt?'] ? @objt['derivaciones'].last.fecha.to_date : dnnc.fecha_trmtcn)
+    fecha_infrm = (dnnc.fecha_env_infrm || dnnc.fecha_rcpcn_infrm)
     {
-      'etp_rcpcn'       => lv_to_plz(dnnc.fecha_trmtcn, etp_plz('etp_rcpcn')),
+      'etp_rcpcn'       => @objt['rcp_dt?'] ? nil : lv_to_plz(fecha_rcpcn, etp_plz('etp_rcpcn')),
       'etp_invstgcn'    => dnnc.on_dt? ? 0 : lv_to_plz(dnnc.fecha_trmn, etp_plz('etp_invstgcn')),
-      'etp_infrm'       => lv_to_plz((dnnc.fecha_env_infrm || dnnc.fecha_rcpcn_infrm), etp_plz('etp_infrm')),
+      'etp_infrm'       => lv_to_plz(fecha_infrm, etp_plz('etp_infrm')),
       'etp_prnncmnt'    => dnnc.on_dt? ? nil : lv_to_plz(dnnc.fecha_prnncmnt, etp_plz('etp_prnncmnt')),
       'etp_mdds_sncns'  => c_to_plz(dnnc.fecha_cierre, etp_plz('etp_mdds_sncns'))
+    }
+  end
+
+  def etp_fecha(ownr)
+    dnnc = ownr.dnnc
+    {
+      'etp_rcpcn'       => @objt['rcp_dt?'] ? nil : (@objt['on_dt?'] ? @objt['derivaciones'].last.fecha.to_date : dnnc.fecha_trmtcn),
+      'etp_invstgcn'    => dnnc.on_dt? ? etp_plz('etp_invstgcn') : dnnc.fecha_trmn,
+      'etp_infrm'       => (dnnc.fecha_env_infrm || dnnc.fecha_rcpcn_infrm),
+      'etp_prnncmnt'    => dnnc.on_dt? ? nil : dnnc.fecha_prnncmnt,
+      'etp_mdds_sncns'  => dnnc.fecha_cierre
     }
   end
 
@@ -85,39 +111,25 @@ module Karin
     @objt = {} if @objt.blank?
 
     @objt[:etp_cntrl] = etp_cntrl_hsh(objt, @objt)
-    @objt[:tar_cntrl] = tar_cntrl_hsh(objt, @objt)
 
     @fls_actv = []
     @etps_trmnds = []
     @proc_objt = Procedimiento.find_by(codigo: 'krn_invstgcn')
 
+    plz_hsh = nil
     @proc_objt.ctr_etapas.ordr.each do |etp|
-
-      if @objt[:etp_cntrl][etp.codigo][:trmn]
-        unless etp_hide(objt, etp.codigo)
-          @etps_trmnds << {
-            codigo: etp.codigo, 
-            etapa: etp.ctr_etapa, 
-            plz: etp_plz(etp.codigo), 
-            plz_ok: etp_plz_ok?(objt)[etp.codigo], 
-            plz_tag: etp_plz_left(objt)[etp.codigo]
-          }
-        end
+      if @objt[:etp_cntrl][etp.codigo][:actv]
+        @etps_trmnds << plz_hsh unless plz_hsh.nil?
+        plz_hsh = {
+          codigo: etp.codigo, 
+          etapa: etp.ctr_etapa, 
+          plz: etp_plz(etp.codigo),               # etp_plz reemplaza etp_ por plz_
+          plz_fecha: etp_fecha(objt)[etp.codigo],  # fecha utilizada para el cálculo
+          plz_ok: etp_plz_ok?(objt)[etp.codigo],  # objt == dnnc, usa plz_ok?
+          plz_tag: etp_plz_left(objt)[etp.codigo] # No queda claro cuando es + o -
+        }
         @etp_last = etp
-      else
-        if @objt[:etp_cntrl][etp.codigo][:actv]
-          @etp_last = etp
-
-          etp.tareas.ordr.each do |tar|
-            if @objt[:tar_cntrl][tar.codigo]
-              @tar_last = tar
-            else
-              break
-            end
-          end
-        end
       end
-
     end
 
     @proc_objt.rep_doc_controlados.ordr.each do |dc|
@@ -186,7 +198,6 @@ module Karin
     @lgl_temas = {}
     load_temas(@proc_objt, @lgl_temas)
     load_temas(@etp_last, @lgl_temas)
-    load_temas(@tar_last, @lgl_temas)
   end
 
   def drvcn_text
@@ -247,9 +258,9 @@ module Karin
         'rslcn_dvlcn'       => dnnc.solicitud_denuncia,
         'antcdnts_objcn'    => (dnnc.investigadores? ? dnnc.krn_inv_denuncias.first.objetado : false),
         'rslcn_objcn'       => dnnc.fl?('antcdnts_objcn'),
-        'dnnc_evlcn'        => (dnnc.on_empresa? and dnnc.krn_investigadores.any?),
+        'dnnc_evlcn'        => (dnnc.evlcn_incmplt or dnnc.evlcn_incnsstnt),
         'dnnc_corrgd'       => ((dnnc.evlcn_incmplt or dnnc.evlcn_incnsstnt) and (not dnnc.evlcn_ok)),
-        'infrm_invstgcn'    => (dnnc.fecha_trmn? or dnnc.fecha_rcpcn_infrm?),
+        'infrm_invstgcn'    => ((dnnc.fechas_crr_rcpcn? or dnnc.on_dt?) and dnnc.chck_dvlcn?),
         'mdds_crrctvs'      => (dnnc.fecha_trmn? or dnnc.fecha_rcpcn_infrm?),
         'sncns'             => (dnnc.fecha_trmn? or dnnc.fecha_rcpcn_infrm?),
         'prnncmnt_dt'       => dnnc.fecha_prnncmnt?,

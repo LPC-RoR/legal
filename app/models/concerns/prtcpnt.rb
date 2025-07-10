@@ -41,15 +41,15 @@ module Prtcpnt
   # Métodos de clase
   class_methods do
     def rgstrs_ok?
-      all.empty? ? false : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
+      all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
     end
 
     def emprss_ids
-      self.class.name == 'KrnTestigo' ? nil : all.map {|den| den.krn_empresa_externa_id if !!den.empleado_externo}.uniq
+      name == 'KrnTestigo' ? nil : all.map {|den| den.krn_empresa_externa_id if !!den.empleado_externo}.uniq
     end
 
     def dclrcns?
-      all.empty? ? false : all.map {|objt| objt.dclrcn?}.uniq.join('-') == 'true'
+      all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|objt| objt.dclrcn?}.uniq.join('-') == 'true'
     end
 
   end

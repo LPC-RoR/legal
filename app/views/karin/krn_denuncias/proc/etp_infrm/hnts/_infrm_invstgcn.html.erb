@@ -1,0 +1,9 @@
+<h4 class="text-center">Informe de investigación</h4>
+
+<% if @objt['on_dt?'] %>
+	<p>La investigación fue realizada el la Dirección del Trabajo.</p>
+	<p>Debe registrar la fecha en la cual recibió el informe de investigación.</p>
+<% else %>
+	<p>La investigación fue realizada por la empresa.</p>
+	<p>Debe registrar la fecha en la cual envií el informe de investigación a la Dirección del Trabajo.</p>
+<% end %>

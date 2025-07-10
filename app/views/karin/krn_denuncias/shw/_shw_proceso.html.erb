@@ -1,15 +1,26 @@
-<div style="margin-left: 5%;">
-	<%= render partial: prtl_name(objeto, 'shw/proceso', 'etps_rlzds'), locals: {ownr: objeto} %>
+<% if @objt['rgstrs_mnms?'] %>
+	<!-- INGRESO MÍNIMO DE INFORMACIÓN DE PARTICIPANTES COMPLETADO -->
 
-	<%= render partial: prtl_name(objeto, 'shw/proceso', 'undo'), locals: {ownr: objeto, tar_last: tar_last} %>
+	<div style="margin-left: 5%;">
+		<%= render partial: prtl_name(objeto, 'shw/proceso', 'etps_rlzds'), locals: {ownr: objeto} %>
 
-	<%= render partial: prtl_name(objeto, 'shw/proceso', 'stts'), locals: {ownr: objeto} %>
-	<div class="pt-2" style="margin-left: 5%;">
-		<%= render partial: prtl_name(objeto, 'shw/proceso', 'dsply_tarea'), locals: {ownr: objeto} %>
+		<!-- REVISAR USO DE tar_last -->
+		<%= render partial: prtl_name(objeto, 'shw/proceso', 'undo'), locals: {ownr: objeto} %>
 
-		<%= render partial: 'karin/prtls/nts', locals: {objeto: objeto} %>
+		<%= render partial: prtl_name(objeto, 'shw/proceso', 'stts'), locals: {ownr: objeto} %>
+		<div class="pt-2" style="margin-left: 5%;">
+
+			<%= render partial: prtl_name(objeto, 'shw/proceso', 'dsply_etapa'), locals: {ownr: objeto} %>
+
+			<%= render partial: 'karin/prtls/nts', locals: {objeto: objeto} %>
+
+		</div>
+		<div class="mt-5 ms-2">
+			<%= render partial: prtl_name(objeto, 'shw/proceso', 'dcs'), locals: {ownr: objeto} %>
+		</div>
 	</div>
-	<div class="mt-5 ms-2">
-		<%= render partial: prtl_name(objeto, 'shw/proceso', 'dcs'), locals: {ownr: objeto} %>
-	</div>
-</div>
+
+<% else %>
+	<!-- NO SE HA COMPLETADO EL INGRESO MÍNIMO -->
+	<%= render partial: prtl_name(@objeto, 'mssgs', 'no_ingrs_mnm') %>
+<% end %>

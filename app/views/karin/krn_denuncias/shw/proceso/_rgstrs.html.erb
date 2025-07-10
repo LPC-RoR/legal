@@ -9,7 +9,7 @@
 	<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'invstgdr'), locals: {objeto: objeto} %>
 	<%= render partial: prtl_name(objeto, 'shw/proceso/reporte', 'evlcn'), locals: {objeto: objeto} %>
 
-	<% if objeto.dclrcns? %>
+	<% if @objt['dclrcns_ok?'] %>
 		<%= render partial: '0p/proc/ln', locals: {glosa: "Todos los participantes han declarado."} %>
 	<% end %>
 

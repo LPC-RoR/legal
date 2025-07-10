@@ -1,9 +1,11 @@
 <div style="margin-left: 7%;">
 	<!-- NOTA Ingresar participantes -->
-	<% unless @objt['denunciantes?'] and (@objt['denunciados?'] or @objeto.motivo_vlnc?) %>
+	<% unless @objt['rgstrs_mnms?'] %>
 		<%= render partial: prtl_name(@objeto, 'mssgs', 'dnnc_nueva') %>
 	<% else %>
-		<%= render partial: prtl_name(@objeto, 'mssgs', 'rgstrs_ok') if @objt['rgstrs_ok?'] %>
+		<%= render partial: prtl_name(@objeto, 'mssgs', 'rgstrs_ok') if @etp_last.codigo == 'etp_rcpcn' %>
+		<%= render partial: prtl_name(@objeto, 'mssgs', 'dclrcn') if @etp_last.codigo == 'etp_invstgcn' and @objt['investigadores?'] and (not @objt['dclrcns_ok?']) %>
+		<%= render partial: prtl_name(@objeto, 'mssgs', 'dclrcns_ok') if @etp_last.codigo == 'etp_invstgcn' and @objt['dclrcns_ok?'] %>
 	<% end %>
 
 	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6, lnks: 'prtl'} %>

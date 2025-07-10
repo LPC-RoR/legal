@@ -1,0 +1,33 @@
+<h4 class="text-center">Término de la investigación.</h4>
+<% if @objt['fls_invstgcn?'] %>
+	<p class="objt_lnk"><b>El reglamento establece un plazo de 30 días hábiles para realizar la investigación.</b></p>
+	<% if @objt['on_dt?'] %>
+		<p>La investigación fue realizada en la Dirección de Trabajo. No tiene como controlar el cumplimiento de este plazo, la Dirección del Trabajo tiene un plazo de 2 días hábiles una vez terminada la investigación para enviar el Informe de Investigación.</p>
+	<% else %>
+		<p>La denuncia fue investigada por la empresa, debe registrar la fecha en la cual se termino la investigación.</p>
+		<p><b>NOTA</b>: El término de la investigación se establece al terminar el informe de investigación con sus correspondientes medidas correctivas y sanciones.</p>
+	<% end %>
+<% else %>
+	<p><b>No esta completa la información asociada a la etapa de investigación.</b>
+		<ol>
+			<% unless @objt['fl_antcdnts_objcn?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se han antecedentes de la objeción al investigador.</li>
+			<% end %>
+			<% unless @objt['fl_rslcn_objcn?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido la resolución de la objeción al investigador.</li>
+			<% end %>
+			<% unless @objt['fl_evlcn?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido la evaluación de la denuncia.</li>
+			<% end %>
+			<% unless @objt['fl_crrgd?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido la denuncia corregida.</li>
+			<% end %>
+			<% unless @objt['fl_dnnc?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido la denuncia.</li>
+			<% end %>
+			<% unless @objt['fl_infrm?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido el informe de investigación.</li>
+			<% end %>
+		</ol>
+	</p>
+<% end %>

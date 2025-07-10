@@ -1,0 +1,64 @@
+<h4 class="text-center">Cierre de la recepción de la denuncia.</h4>
+
+<% if @objt['inf_cierre?'] %>
+	<p><b>La información necesaria para cerrar la recepción de la denuncia está completa.</b></p>
+
+	<% if @objt['rcp_dt?'] %>
+		<p>La denuncia fue presentada directamente en la Dirección del Trabajo.</p>
+		<p>Se debe registrar la fecha de recepción de la denuncia contenida en la notificación enviada por la Dirección del Trabajo.</p>
+	<% end %>
+
+	<% if (@objeto.investigacion_local or @objeto.investigacion_externa) %>
+		<% if @objeto.investigacion_local %>
+			<p>La empresa decidió realizar la investigación de la denuncia.</p>
+		<% else %>
+			<p>La empresa externa decidió realizar la investigación de la denuncia.</p>
+		<% end %>
+		<p>Se debe registrar la fecha en la que se informó a la Dirección del Trabajo el inicio de la investigación.</p>
+	<% end %>
+
+	<% if @objeto.krn_derivaciones.on_dt? %>
+		<p>La denuncia fue derivada a la Dirección del Trabajo.</p>
+		<p>Se debe registrar la fecha contenida en el certificado de recepción emitido por la Dirección del Trabajo.</p>
+	<% end %>
+<% else %>
+	<p><b>No esta completa la información necesaria para cerrar la recepción de la denuncia.</b>
+		<ol>
+			<% unless @objt['rgstrs_info_mnm?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se han completados los datos de los participantes.</li>
+			<% end %>
+			<% unless @objt['dnncnts_info_oblgtr?'] or @objeto.dnncnt_info_oblgtr %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha entregado la información obligatoria a las personas denunciantes.</li>
+			<% end %>
+			<% unless @objt['fl_atncn_sclgc_tmprn?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se han subido evidencias de la atención sicológica temprana recibida por las personas denuncaintes.
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}_1"} do %>
+					<i class="bi bi-cursor"></i> Ir a Participantes
+				<% end %></p>
+				</li>
+			<% end %>
+			<% unless @objt['fl_rprsntcn?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido documento que acredita la representación.</li>
+			<% end %>
+			<% unless @objt['fl_dnnc?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido la denuncia.</li>
+			<% end %>
+			<% unless @objt['fl_acta?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido el acta firmada y timbrada por la empresa.</li>
+			<% end %>
+			<% unless @objt['fl_mdds_rsgrd?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se han subido la medidas de resguardo adoptadas.</li>
+			<% end %>
+			<% unless @objt['fl_ntfccn?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido la notificación de la Dirección del Trabajo.</li>
+			<% end %>
+			<% unless @objt['fl_crtfcd?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido el certificado de la Dirección del Trabajo.</li>
+			<% end %>
+			<% unless @objt['fl_rslcn_dvlcn?'] %>
+				<li><i class="bi bi-cone-striped text-danger"></i> No se ha subido la resolución de la solicitud de devolución.</li>
+			<% end %>
+		</ol>
+	</p>
+	<small><b>NOTA</b>: Ante de completar el cierre de la recepción asegurese de que los datos de los participantes fueron debidamente verificados y de ser necesario, completados.</small>
+<% end %>

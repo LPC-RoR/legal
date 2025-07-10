@@ -1,0 +1,23 @@
+<% plz_fld ||= false %>
+
+<%= form_with url: "/#{objeto.class.name.tableize}/#{objeto.id}/set_fld?k=#{code}", method: :post, local: true do |form| %>
+
+	<div class="row gx-1 px-1 pt-1">
+		<div class="col-10 ps-3">
+			<% if prtl?(objeto, "proc/#{etp.codigo}", "frm_#{code}") %>
+				<%= render partial: prtl_name(objeto, "proc/#{etp.codigo}", "frm_#{code}"), locals: {form: form, objeto: objeto, code: code} %>
+			<% end %>
+		</div>
+		<div class="col-2 text-end p-1">
+			<%= button_tag do %>
+			  <i class="bi bi-caret-right"></i>
+			<% end %>
+		</div>
+	</div>
+	<% if plz_fld %>
+		<div class="ps-2 text-start fw-bold" style="font-size: 12px;">
+			<i class="bi bi-cone-striped text-danger"></i>
+			Esta fecha será usada para verificar el cumplimiento del plazo.
+		</div>
+	<% end %>
+<% end %>

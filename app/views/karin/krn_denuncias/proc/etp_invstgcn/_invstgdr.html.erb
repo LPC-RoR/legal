@@ -1,0 +1,23 @@
+<%#= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') %>
+
+<%= render layout: 'cuentas/prtls/proceso/actn' do %>
+
+	<% if @objeto.objcn_invstgdr? %>
+		<% if @objeto.fl?('antcdnts_objcn') %>
+			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+				<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :objcn_acogida, prmpt: 'La empresa acogió la objeción de imparcialidad.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['objeción acogida', 'objeción no acogida']} %>
+			<% end %>
+		<% else %>
+			<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'No se puede acoger la objeción de imparcialidad antes de subir algún antecedente que la fundamente.'} %>
+		<% end %>
+
+		<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :objcn_rechazada, prmpt: 'La empresa no acogió la objeción de imparcialidad.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['objeción no acogida', 'objeción acogida']} %>
+		<% end %>
+	<% end %>
+
+	<% if @objeto.objcn_acogida and @objeto.krn_investigadores.count == 1 %>
+		<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La objeción de imparcialidad fue acogida, debe asignar un nuevo investigador a la denuncia.'} %>
+	<% end %>
+
+<% end %>

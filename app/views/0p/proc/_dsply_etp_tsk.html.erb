@@ -1,0 +1,4 @@
+<div class="p-4 border">
+	<%= render partial: prtl_name(@objeto, "proc/#{etp.codigo}/hnts", prtl) if prtl?(@objeto, "proc/#{etp.codigo}/hnts", prtl) %>
+	<%= render partial: prtl_name(@objeto, "proc/#{etp.codigo}", prtl) if prtl?(@objeto, "proc/#{etp.codigo}", prtl) %>
+</div>

@@ -1,0 +1,10 @@
+<% unless tipo_usuario == 'recepción' %>
+
+	<!-- Despliegue de DERIVACIONES e INVESTIGADORES -->
+	<%= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') %>
+
+	<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'infrm_invstgcn'} %>
+
+<% else %>
+	<%= render partial: prtl_name(@objeto, 'mssgs', 'usr_error') %>
+<% end %>

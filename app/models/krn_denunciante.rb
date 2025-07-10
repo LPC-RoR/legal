@@ -39,7 +39,7 @@ class KrnDenunciante < ApplicationRecord
 
  	# --------------------------------- PDF Archivos y registros
 
- 	def dnncnt_info_oblgtr?
+ 	def info_oblgtr?
  		pdf = PdfArchivo.find_by(codigo: 'dnncnt_info_oblgtr')
  		pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id).present?
  	end
@@ -61,7 +61,7 @@ class KrnDenunciante < ApplicationRecord
 	end 
 
 	def self.diats_dieps_ok?
-		all.map {|arc| arc.fl_diat_diep?}.exclude?(false)
+		all.empty? ? false : all.map {|arc| arc.fl_diat_diep?}.exclude?(false)
 	end
 
 end

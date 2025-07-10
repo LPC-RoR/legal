@@ -1,8 +1,9 @@
 module Plazos
 	extend ActiveSupport::Concern
 
+	# Si no hay fecha utiliza la fecha de hoy
+	# Si no hay plazo => nil
 	def plz_ok?(fecha, plazo)
-		# noi si no hay plazo
 		fecha_calculo = fecha.present? ? fecha.to_date : Time.zone.today.to_date
 		plazo.present? ? plazo.to_date >= fecha_calculo.to_date : nil
 	end
@@ -34,8 +35,10 @@ module Plazos
 			nil
 		else
 			n_dias = (plazo.to_date - fecha.to_date).to_i
-	  		frds = CalFeriado.where('cal_fecha BETWEEN ? AND ?', fecha.beginning_of_day, plazo.end_of_day)
-	  		n_frds = frds.lv.count
+			unless n_dias == 0
+		  		frds = CalFeriado.where('cal_fecha BETWEEN ? AND ?', fecha.beginning_of_day, plazo.end_of_day)
+		  		n_frds = frds.lv.count
+	  		end
 			n_dias == 0 ? 0 : n_dias - n_frds
 		end
 	end

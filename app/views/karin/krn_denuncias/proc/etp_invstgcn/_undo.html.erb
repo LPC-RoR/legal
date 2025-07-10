@@ -1,0 +1,43 @@
+<% if @objt['dclrcns_ok?'] %>
+	<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Todos los participantes tienen su declaración, razón por la cual se muestra el registro del término de la investigación.'} %>
+<% elsif @objt['dnnc_evld?'] %>
+	<% if @objeto.evlcn_ok? or @objeto.fecha_hora_corregida? %>
+		<% if @objeto.fecha_hora_corregida? %>
+			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+				<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_hora_corregida, prmpt: 'Plazo otorgado para entregar la denuncia corregida.'} %>
+			<% end %>
+		<% end %>
+
+		<% if @objeto.evlcn_ok? %>
+			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+				<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia esta completa y no presenta inconsistencias.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['evaluación no satisfactoria', 'evaluación satisfactoria']} %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% elsif @objt['investigadores?'] %>
+	<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Para volver a la tarea anterior, elimine el investigador asignado.'} %>
+<% else %>
+	<% if @objeto.objcn_invstgdr? %>
+		<%= render partial: 'cuentas/prtls/proceso/hnt', locals: {txt: 'Investigador con objeción de imparcialidad: para volver a la tarea anterior debe primero eliminar la objeción.'} %>
+	<% else %>
+		<% if @objeto.fecha_ntfccn? or @objeto.fecha_trmtcn? or @objeto.fecha_hora_dt? %>
+			<% if @objeto.fecha_ntfccn? %>
+				<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+					<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_ntfccn, prmpt: 'Fecha en la que la Dirección del Trabajo notificó recepción de una denuncia.'} %>
+				<% end %>
+			<% end %>
+
+			<% if @objeto.fecha_trmtcn? %>
+				<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+					<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_trmtcn, prmpt: 'Fecha en la que empresa informó a la Dirección del Trabajo el inicio de la investigación.'} %>
+				<% end %>
+			<% end %>
+
+			<% if @objeto.fecha_hora_dt? %>
+				<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
+					<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_hora_dt, prmpt: 'Fecha del certificado emitido por la Dirección del Trabajo por la recepción de la derivación de la denuncia.'} %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+<% end %>
