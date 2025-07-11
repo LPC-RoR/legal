@@ -1,6 +1,6 @@
 <%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :producto_id, colection: Producto.lst.collect { |pro| [pro.producto, pro.id] }, display_field: 'producto', label: 'Producto' } %>
 <div class="ms-1 mt-2">
-	<%= render partial: '0p/lbld_inpts/date', locals: { form: form, token: :fecha_activación, label: 'Fecha activación del producto' } %>
+	<%= render partial: '0p/lbld_inpts/date', locals: { form: form, token: :fecha_activacion, label: 'Fecha activación del producto' } %>
 </div>
 
 <%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:ownr_type, :ownr_id] } %>

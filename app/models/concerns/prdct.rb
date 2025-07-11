@@ -27,7 +27,7 @@ module Prdct
 
     def producto_activo?
         activos = self.pro_dtll_ventas.activos
-        activos.any? and (self.krn_denuncias.count < activos.last.capacidad)
+        activos.any? and activos.last.capacidad.present? and (self.krn_denuncias.count < activos.last.capacidad)
     end
 
     def krn_activo?
