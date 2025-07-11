@@ -10,7 +10,7 @@ module Prdct
     end
 
     def producto_vencido?
-        self.pro_dtll_ventas.activos.empty?
+        self.pro_dtll_ventas.any? and self.pro_dtll_ventas.activos.empty?
     end
 
     def cta_demo_completa?
