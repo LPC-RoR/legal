@@ -14,7 +14,7 @@ class Empresa < ApplicationRecord
 	scope :rut_ordr, -> {order(:rut)}
 
 	validates :rut, valida_rut: true
-    validates :email_administrador, valida_admin_empresa: true
+    validates :email_administrador, valida_admin_empresa: true, unless: :persisted?
     validates_uniqueness_of :rut, :email_administrador
     validates_presence_of :razon_social, :email_administrador
 
