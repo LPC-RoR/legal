@@ -5,9 +5,6 @@
 
 <!-- Manejo de mensajes de inicio de cuenta! -->
 <!-- EVALUAR cambiar dog? por not scp_activo? -->
-<%= @objeto.krn_activo? %>
-<%= @objeto.demo_activo? %>
-<%= @objeto.producto_activo? %>
 <% if @objeto.krn_activo? or dog? %>
 	<% unless (action_name == 'dnncs' and (not @objeto.rgstrs_mnms?)) %>
 		<%= render partial: 'cuentas/indx/tbl', locals: {source: source, crud: 'lnks'} %>
