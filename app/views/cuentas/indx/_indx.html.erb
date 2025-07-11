@@ -14,8 +14,6 @@
 			<%= render partial: prtl_name('cuentas', 'indx/mssgs', 'rgstrs_mnms') %>
 	<% end %>
 <% elsif @objeto.demo_vencido? or @objeto.producto_vencido? %>
-	<%= @objeto.demo_activo? %>
-	<%= @objeto.producto_activo? %>
 	<%= render partial: prtl_name('cuentas', 'indx/mssgs', 'prdct_vncd') %>
 <% elsif @objeto.cta_demo_completa? or @objeto.cta_producto_completa? %>
 	<%= render partial: prtl_name('cuentas', 'indx/mssgs', 'cta_cmplt') %>
