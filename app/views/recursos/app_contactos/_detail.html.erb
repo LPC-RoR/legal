@@ -3,13 +3,13 @@
 		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :grupo, sel_list: ['Recepción', 'RRHH', 'Representante Legal'], label: 'Grupo' } %>
 	</div>
 	<div class="col-9">
-		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre Completo' } %>
+		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre completo' } %>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-3">
-		<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email, label: 'email' } %>
+		<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email, label: 'Email' } %>
 	</div>
 	<div class="col-9">
 		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :telefono, label: 'Teléfono' } %>

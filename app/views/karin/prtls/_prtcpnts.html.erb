@@ -25,7 +25,7 @@
 	</div>
 	<div class="text-end" style="font-size: 14px;">
 		<% if prtl?(@objeto, 'hlp', 'prtcpnts') %>
-			<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_prtcpnts", ttl: "Registros de Participantes", sz: 'lg'} do %>
+			<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_prtcpnts", ttl: "Registros de participantes", sz: 'lg'} do %>
 				<%= render partial: prtl_name(@objeto, 'hlp', 'prtcpnts') %>
 			<% end %>
 		<% end %>

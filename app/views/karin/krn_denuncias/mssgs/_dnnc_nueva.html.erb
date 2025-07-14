@@ -1,7 +1,7 @@
 <div class="ms-5">
 	<%= render layout: 'cuentas/prtls/msgg', locals: {ttl: 'Denuncia recién creada', firma: false} do %>
 
-		<p class="objt_lnk"><b>Denuncia recién creada, ingrese la información de las personas denunciantes, denunciadas y (si cuenta con la información) sus correspondientes testigos.</b>
+		<p class="objt_lnk"><b>Denuncia recién creada. Ingrese la información de las personas denunciantes, denunciadas y (si cuenta con la información) sus correspondientes testigos.</b>
 			<% if @indx != 1 %>
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}_1"} do %>
 					<i class="bi bi-cursor"></i> Ir a Participantes
