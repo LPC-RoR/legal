@@ -22,6 +22,7 @@
 		<p>Se debe registrar la fecha contenida en el certificado de recepción emitido por la Dirección del Trabajo.</p>
 	<% end %>
 <% else %>
+	<% unless @objt['fls_rcpcn?'] %>
 	<p><b>No esta completa la información necesaria para cerrar la recepción de la denuncia.</b>
 		<ol>
 			<% unless @objt['rgstrs_info_mnm?'] %>
@@ -61,4 +62,5 @@
 		</ol>
 	</p>
 	<small><b>NOTA</b>: Ante de completar el cierre de la recepción asegurese de que los datos de los participantes fueron debidamente verificados y de ser necesario, completados.</small>
+	<% end %>
 <% end %>

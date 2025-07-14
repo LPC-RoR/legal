@@ -86,7 +86,7 @@ module DnncProc
  	end
 
  	def fl_crtfcd?
- 		self.krn_derivaciones.any? and self.on_dt? ? self.fl?('dnnc_certificado') : true
+ 		(self.krn_derivaciones.any? and self.on_dt?) ? self.fl?('dnnc_certificado') : true
  	end
 
  	def fl_rslcn_dvlcn?
