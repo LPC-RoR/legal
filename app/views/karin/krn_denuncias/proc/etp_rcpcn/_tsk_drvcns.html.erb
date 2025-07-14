@@ -2,6 +2,7 @@
 <% if @objt['verbal?'] and @objeto.dnncnt_info_oblgtr != true %>
 	<% if @objt['get_infrmcn_oblgtr?'] %>
 		<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'inf_oblgtr'} %>
+	<% end %>
 <% else %>
 	<% unless @objt['dnncnts_info_oblgtr?'] %>
 		<%= render partial: prtl_name(@objeto, 'mssgs', 'dnncnt_no_inf_oblgtr') %>
