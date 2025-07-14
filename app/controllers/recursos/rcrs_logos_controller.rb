@@ -69,7 +69,7 @@ class Recursos::RcrsLogosController < ApplicationController
     end
 
     def get_rdrccn
-      @rdrccn = @objeto.ownr
+      @rdrccn = "/cuentas/#{@objeto.ownr.class.name[0].downcase}_#{@objeto.ownr.id}/dnncs"
     end
 
     # Only allow a list of trusted parameters through.
