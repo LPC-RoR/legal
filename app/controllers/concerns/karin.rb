@@ -114,11 +114,13 @@ module Karin
 
     @fls_actv = []
     @etps_trmnds = []
+    @plz_ok = {}
     @proc_objt = Procedimiento.find_by(codigo: 'krn_invstgcn')
 
     plz_hsh = nil
     @proc_objt.ctr_etapas.ordr.each do |etp|
       if @objt[:etp_cntrl][etp.codigo]
+        @plz_ok[etp.codigo] = etp_plz_ok?(objt)[etp.codigo]
         @etps_trmnds << plz_hsh unless plz_hsh.nil?
         plz_hsh = {
           codigo: etp.codigo, 

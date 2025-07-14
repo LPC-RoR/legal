@@ -1,9 +1,9 @@
 <% unless objeto.codigo == 'etp_cierre' %>
 <div class="d-flex justify-content-end gap-1">
-	<div class="text-<%=etp_muted(objeto.codigo, ownr) ? 'muted' : (@objt[:etp_cntrl][objeto.codigo][:plz_ok] ? 'primary' : 'dark')%>">
-		<% if @objt[:etp_cntrl][objeto.codigo][:plz_ok] == nil %>
+	<div class="text-<%=etp_muted(objeto.codigo, ownr) ? 'muted' : (@plz_ok[objeto.codigo] ? 'primary' : 'dark')%>">
+		<% if @plz_ok[objeto.codigo] == nil %>
 			<span style="font-size: 14px;">Plazo a cumplir</span> : 
-		<% elsif @objt[:etp_cntrl][objeto.codigo][:plz_ok] %>
+		<% elsif @plz_ok[objeto.codigo] %>
 			<i class="bi bi-calendar-check text-primary"></i>
 		<% else %>
 			<i class="bi bi-calendar-x text-danger"></i>
