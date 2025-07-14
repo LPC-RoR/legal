@@ -1,31 +1,37 @@
 <!-- USUARIO: recepción -->
-<!-- Despliega Información obligatoria que se debe entregar a las personas denunciantes -->
-<%= render partial: prtl_name(@objeto, 'proc/etp_rcpcn', 'verbal') %>
+<% if @objt['verbal?'] and @objeto.dnncnt_info_oblgtr != true %>
+	<% if @objt['get_infrmcn_oblgtr?'] %>
+		<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'inf_oblgtr'} %>
+<% else %>
+	<% unless @objt['dnncnts_info_oblgtr?'] %>
+		<%= render partial: prtl_name(@objeto, 'mssgs', 'dnncnt_no_inf_oblgtr') %>
+	<% end %>
 
-<% unless @objt['on_dt?'] %>
-	<% if @objt['rcpcn_dnnc?'] %>
-		<!-- DERIVACIÓN DESDE EMPRESA EXTERNA -->
-		<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'drvcn_desde_extrn'} %>
-	<% else %>
-		<!-- La denuncia puede estar en la empresa o en una empresa externa -->
-		<!-- Si está en una empresa externa, es su responsabilidad investigar: seguimiento -->
-		<% if @objt['drvcn_extrn?'] %>
-			<!-- Se recibió en la EMPRESA una denuncia de EMPRESA EXTERNA -->
-			<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'drvcns_dnnc_extrn'} %>
+	<% unless @objt['on_dt?'] %>
+		<% if @objt['rcpcn_dnnc?'] %>
+			<!-- DERIVACIÓN DESDE EMPRESA EXTERNA -->
+			<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'drvcn_desde_extrn'} %>
 		<% else %>
-			<% if @objt['artcl41?'] %>
-				<!-- Para alguno de los participantes aplica el Artículo 4:1 -->
-				<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'drvcn_art_41'} %>
+			<!-- La denuncia puede estar en la empresa o en una empresa externa -->
+			<!-- Si está en una empresa externa, es su responsabilidad investigar: seguimiento -->
+			<% if @objt['drvcn_extrn?'] %>
+				<!-- Se recibió en la EMPRESA una denuncia de EMPRESA EXTERNA -->
+				<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'drvcns_dnnc_extrn'} %>
 			<% else %>
+				<% if @objt['artcl41?'] %>
+					<!-- Para alguno de los participantes aplica el Artículo 4:1 -->
+					<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'drvcn_art_41'} %>
+				<% else %>
 
-				<!-- REVISAR SOLICITUD DE DENUNCIA -->
-				<% unless @objeto.solicitud_denuncia %>
-					<% if @objt['get_opcns_dnncnt?'] %> 
-						<!-- OPCIONES DENUNCIANTE -->
-						<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'opcns_dnncnt'} %>
-					<% else %>
-						<!-- OPCIONES EMPRESA Y EMPRESA EXTERNA -->
-						<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'opcns_emprs_y_extrn'} %>
+					<!-- REVISAR SOLICITUD DE DENUNCIA -->
+					<% unless @objeto.solicitud_denuncia %>
+						<% if @objt['get_opcns_dnncnt?'] %> 
+							<!-- OPCIONES DENUNCIANTE -->
+							<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'opcns_dnncnt'} %>
+						<% else %>
+							<!-- OPCIONES EMPRESA Y EMPRESA EXTERNA -->
+							<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'opcns_emprs_y_extrn'} %>
+						<% end %>
 					<% end %>
 				<% end %>
 			<% end %>
