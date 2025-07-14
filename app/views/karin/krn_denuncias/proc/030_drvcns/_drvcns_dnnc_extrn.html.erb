@@ -1,9 +1,0 @@
-<!-- Se recibió en la EMPRESA una denuncia de EMPRESA EXTERNA -->
-<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-	<%= render layout: 'cuentas/prtls/proceso/hint', locals: {gly: 'chat-left-dots', clr: 'primary'} do %>
-		Ha recibido una denuncia que no puede ser investigada por la empresa. La persona denunciante debe decidir si la denuncia se le deriva a su empleador o a la Dirección del Trabajo.
-	<% end %>
-
-	<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext_dt'} %>
-	<%= render partial: 'karin/prtls/drvr', locals: {color: 'success', objeto: @objeto, codigo: 'drvcn_ext'} %>
-<% end %>

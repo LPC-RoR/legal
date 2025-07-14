@@ -1,7 +1,0 @@
-<%= render layout: 'cuentas/prtls/proceso/actn' do %>
-	<% if @objeto.fecha_cierre? %>
-		<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-			<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_cierre, prmpt: 'Fecha en la que cerró el procedimiento de investigación.'} %>
-		<% end %>
-	<% end %>
-<% end %>

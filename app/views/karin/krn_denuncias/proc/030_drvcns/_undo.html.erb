@@ -1,7 +1,0 @@
-<% if @objeto.dnncnt_investigacion_local %>
-	<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-		<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :dnncnt_investigacion_local, prmpt: 'La persona denunciante manifiesta su deseo de que la investigación sea realizada por la empresa.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
-	<% end %>
-<% else %>
-	<div class="px-3">Aún no se han realizado acciones.</div>
-<% end %>
