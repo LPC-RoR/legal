@@ -1,12 +1,9 @@
 // app/javascript/controllers/application.js
 import { Application } from "@hotwired/stimulus"
-import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
+// import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 
 const application = Application.start()
-application.register("prtcpnts-fields", PrtcpntsFieldsController)
+// eagerLoadControllersFrom("app/javascript/controllers", application)
 
-window.Stimulus = application
-const context = require.context("controllers", true, /\.js$/)
-Stimulus.load(definitionsFromContext(context))
-
+// Export for potential use elsewhere
 export { application }

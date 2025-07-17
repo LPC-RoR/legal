@@ -4,34 +4,25 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["empresaCheckbox", "articuloCheckbox", "empresaField", "articuloField"]
 
-  connect() {
-    console.log("Controlador conectado - Targets encontrados:", {
-      empresaCheckbox: this.empresaCheckboxTarget,
-      articuloCheckbox: this.articuloCheckboxTarget,
-      empresaField: this.empresaFieldTarget,
-      articuloField: this.articuloFieldTarget
-    })
-    
-    this.updateFields() // Estado inicial
+  initialize() {
+    console.log("Controlador de campos condicionales inicializado");
+    this.updateFields(); // Establecer estado inicial
   }
 
   updateFields() {
-    this.updateFieldVisibility(this.empresaCheckboxTarget, this.empresaFieldTarget)
-    this.updateFieldVisibility(this.articuloCheckboxTarget, this.articuloFieldTarget)
-  }
-
-  updateFieldVisibility(checkbox, fieldElement) {
-    if (!checkbox || !fieldElement) {
-      console.error("Elemento no encontrado:", { checkbox, fieldElement })
-      return
+    console.log("Actualizando campos condicionales");
+    
+    // Verificar si los targets existen antes de acceder a ellos
+    if (this.hasEmpresaCheckboxTarget && this.hasEmpresaFieldTarget) {
+      const visible = this.empresaCheckboxTarget.checked;
+      this.empresaFieldTarget.style.display = visible ? 'block' : 'none';
+      console.log(`Campo empresa: ${visible ? 'visible' : 'oculto'}`);
     }
-    
-    const isVisible = checkbox.checked
-    fieldElement.style.display = isVisible ? 'block' : 'none'
-    
-    // Opcional: deshabilitar campos ocultos
-    fieldElement.querySelectorAll('input, select').forEach(input => {
-      input.disabled = !isVisible
-    })
+
+    if (this.hasArticuloCheckboxTarget && this.hasArticuloFieldTarget) {
+      const visible = this.articuloCheckboxTarget.checked;
+      this.articuloFieldTarget.style.display = visible ? 'block' : 'none';
+      console.log(`Campo artículo 516: ${visible ? 'visible' : 'oculto'}`);
+    }
   }
 }

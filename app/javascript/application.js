@@ -2,10 +2,17 @@
 
 // Importaciones ES (usando importmaps)
 import "@hotwired/turbo-rails"
-//import "@popperjs/core"
+import "controllers/application"
 import * as bootstrap from "bootstrap"
-import "controllers"
 window.bootstrap = bootstrap // Make bootstrap available globally
+
+// Finalmente tus controladores personalizados
+import PrtcpntsFieldsController from "controllers/prtcpnts_fields"
+import ConditionalFieldsController from "controllers/conditional_fields"
+import { application } from "controllers/application"
+
+application.register("prtcpnts-fields", PrtcpntsFieldsController)
+application.register("conditional-fields", ConditionalFieldsController)
 
 // Debugging de carga de Turbo
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,21 +26,39 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-// Initialize Bootstrap components
+// Initialize Bootstrap components with Turbo compatibility
 function initializeBootstrap() {
-  // Tooltips
-  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
-    new bootstrap.Tooltip(el)
+  // Initialize Tooltips
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 
-  // Dropdowns - Correct initialization
-  document.querySelectorAll('.dropdown-toggle').forEach(dropdown => {
-    new bootstrap.Dropdown(dropdown)
+  // Initialize Dropdowns
+  const dropdownToggleList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+  dropdownToggleList.map(function (dropdownToggle) {
+    dropdownToggle.addEventListener('click', function (e) {
+      e.preventDefault()
+      const dropdown = bootstrap.Dropdown.getOrCreateInstance(this)
+      dropdown.toggle()
+    })
   })
 
-  // Modals
-  document.querySelectorAll('[data-bs-toggle="modal"]').forEach(modalTriggerEl => {
-    modalTriggerEl.addEventListener('click', () => {
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.dropdown')) {
+      const openDropdowns = [].slice.call(document.querySelectorAll('.dropdown-toggle.show'))
+      openDropdowns.map(function (openDropdown) {
+        const dropdown = bootstrap.Dropdown.getInstance(openDropdown)
+        if (dropdown) dropdown.hide()
+      })
+    }
+  })
+
+  // Initialize Modals
+  const modalTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="modal"]'))
+  modalTriggerList.map(function (modalTriggerEl) {
+    modalTriggerEl.addEventListener('click', function () {
       const target = modalTriggerEl.getAttribute('data-bs-target')
       const modal = bootstrap.Modal.getOrCreateInstance(document.querySelector(target))
       modal.show()
@@ -41,9 +66,10 @@ function initializeBootstrap() {
   })
 }
 
-// Event listeners
+// Turbo events
 document.addEventListener('turbo:load', initializeBootstrap)
 document.addEventListener('turbo:render', initializeBootstrap)
+document.addEventListener('turbo:frame-render', initializeBootstrap)
 
-// Initial call
+// Regular load event
 document.addEventListener('DOMContentLoaded', initializeBootstrap)
