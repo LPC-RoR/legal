@@ -5,16 +5,14 @@ module AgeUsr
     prtcpnt = AgeUsuario.find(params[:oid])
     @objeto.age_usuarios.delete(prtcpnt)
 
-    get_rdrccn
-    redirect_to @rdrccn
+    redirect_to(request.referer || root_path)
   end
 
   def assgn_usr
     prtcpnt = AgeUsuario.find(params[:oid])
     @objeto.age_usuarios << prtcpnt
 
-    get_rdrccn
-    redirect_to @rdrccn
+    redirect_to(request.referer || root_path)
   end
 
 end
