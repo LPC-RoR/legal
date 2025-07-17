@@ -13,6 +13,6 @@
 	</div>
 <% else %>
 	<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-		<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia esta completa y no presenta inconsistencias.', stts: ['denuncia que pasa la evaluación', 'denuncia que debe ser evaluada']} %>
+		<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia está completa y no presenta inconsistencias.', stts: ['denuncia que pasa la evaluación', 'denuncia que debe ser evaluada']} %>
 	<% end %>
 <% end %>

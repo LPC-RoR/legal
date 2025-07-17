@@ -1,9 +1,9 @@
-@use '00p_config' as cnfg;
+@use 'config' as cnfg;
 @use 'bscs';
 
 
 // @include ln_ttl_lnks($c_lnks, $c_hvr);
-@import "ttl_lnks";
+@use "ttl_lnks";
 
 @mixin dia_hd($d_bg, $d_fnt, $d_brd) {
 	@include bscs.mrgn_pddng(0 0 4px 0, 10px);
@@ -32,7 +32,7 @@
 
 // No incluimos a_hover para que los botones se vieran azules
 @mixin ac_dtll($c_lnks, $c_hvr) {
-	@include ln_ttl_lnks($c_lnks, $c_hvr);
+	@include ttl_lnks.ln_ttl_lnks($c_lnks, $c_hvr);
 	.dscrpcn {
 		font-weight: bold;
 	}

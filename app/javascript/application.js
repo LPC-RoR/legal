@@ -1,11 +1,11 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 
-//= require popper
-
+// Importaciones ES (usando importmaps)
 import "@hotwired/turbo-rails"
-import "turbo_init"
+//import "@popperjs/core"
+import * as bootstrap from "bootstrap"
 import "controllers"
-//import { Turbo } from "@hotwired/turbo-rails"
+window.bootstrap = bootstrap // Make bootstrap available globally
 
 // Debugging de carga de Turbo
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,37 +19,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
-export default class extends Controller {
-  connect() {
-    console.log("Controlador PRTCPNT-FIELDS conectado!")
-  }
+// Initialize Bootstrap components
+function initializeBootstrap() {
+  // Tooltips
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+    new bootstrap.Tooltip(el)
+  })
 
-  logAction() {
-    console.log("¡Acción ejecutada correctamente!")
-    alert("¡Funciona!") // Para verlo visualmente
-  }
-}
+  // Dropdowns - Correct initialization
+  document.querySelectorAll('.dropdown-toggle').forEach(dropdown => {
+    new bootstrap.Dropdown(dropdown)
+  })
 
-// app/javascript/application.js (o donde tengas tu JS principal)
-document.addEventListener('DOMContentLoaded', () => {
-  // Polyfill para redirección post-login
-  if (window.location.pathname.includes('sign_in') && 
-      document.cookie.includes('_legal_session')) {
-    window.location.href = '/'
-  }
-  
-  // Deshabilitar doble submit
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', () => {
-      const submitBtn = form.querySelector('[type="submit"]')
-      if (submitBtn) submitBtn.disabled = true
+  // Modals
+  document.querySelectorAll('[data-bs-toggle="modal"]').forEach(modalTriggerEl => {
+    modalTriggerEl.addEventListener('click', () => {
+      const target = modalTriggerEl.getAttribute('data-bs-target')
+      const modal = bootstrap.Modal.getOrCreateInstance(document.querySelector(target))
+      modal.show()
     })
   })
-})
+}
 
-// app/javascript/packs/application.js
-document.addEventListener('turbo:load', function() {
-  if (window.location.pathname === '/usuarios/sign_in' && document.cookie.match(/signed_in=true/)) {
-    window.location.href = '/'
-  }
-})
+// Event listeners
+document.addEventListener('turbo:load', initializeBootstrap)
+document.addEventListener('turbo:render', initializeBootstrap)
+
+// Initial call
+document.addEventListener('DOMContentLoaded', initializeBootstrap)

@@ -1,0 +1,1 @@
+Rails.configuration.node_modules_path = Rails.root.join('node_modules')

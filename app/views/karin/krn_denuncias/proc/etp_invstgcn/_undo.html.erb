@@ -10,7 +10,7 @@
 
 		<% if @objeto.evlcn_ok? %>
 			<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-				<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia esta completa y no presenta inconsistencias.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['evaluación no satisfactoria', 'evaluación satisfactoria']} %>
+				<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia está completa y no presenta inconsistencias.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['evaluación no satisfactoria', 'evaluación satisfactoria']} %>
 			<% end %>
 		<% end %>
 	<% end %>

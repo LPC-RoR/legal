@@ -1,4 +1,4 @@
-@use '00p_config' as cnfg;
+@use 'config' as cnfg;
 
 
 // Elementos básicos para construir todo!!
@@ -12,7 +12,7 @@
 // @include grd($grd_tc, $grd_gap);
 // @include grd_ncol($nth);
 // @include a_hover($lnk_clr, $hvr_clr);
-// @import "bscs";
+// @use "bscs";
 
 // MARGEN PADDING
 @mixin mrgn_pddng($mrgn, $pddng) {

@@ -1,0 +1,33 @@
+/* Carrusel responsive */
+.carousel {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.carousel-inner {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+  .carousel {
+    padding: 0 15px;
+  }
+  
+  .carousel-indicators {
+    margin-bottom: 0.5rem;
+  }
+  
+  .carousel-control-prev, 
+  .carousel-control-next {
+    width: 10%;
+  }
+}

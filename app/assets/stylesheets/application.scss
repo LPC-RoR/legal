@@ -12,28 +12,32 @@
  *
  *= require_self
  */
-@import "bootstrap";
-// @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css");
-@import "00p_config";
-@import "01p_app";
-@import "010_btstrp";
-@import "06p_shw";
-@import "08p_procs";
-@import "0p_form-style";
-@import "0p_frames";
-@import "0p_titles";
-@import "0p_drpdwns";
-@import "0p_general";
-@import "0p_home";
-@import "0p_tablas";
-@import "0p_lmenu";
-@import "0p_repositorios";
-@import "app_causas";
-@import "app_actividades";
-@import "app_hechos";
-@import "app_lgl";
-@import "footer";
-@import "pdf";
+// At the very top
+@use "sass:color";
+@use "sass:math";
+
+@use "bootstrap/dist/css/bootstrap";
+
+@use "p01_btstrp";
+@use "p02_app";
+@use "p06_shw";
+@use "p08_procs";
+@use "p09_carousel";
+@use "p_form-style";
+@use "p_frames";
+@use "p_titles";
+@use "p_drpdwns";
+@use "p_general";
+@use "p_home";
+@use "p_tablas";
+@use "p_lmenu";
+@use "p_repositorios";
+@use "app_causas";
+@use "app_actividades";
+@use "app_hechos";
+@use "app_lgl";
+@use "footer";
+@use "pdf";
 
 .sb-link {
   text-decoration: none;

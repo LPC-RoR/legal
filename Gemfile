@@ -12,7 +12,6 @@ gem 'pg'
 gem 'sqlite3', '~> 1.4', platform: :ruby
 
 # FrontEnd
-gem 'bootstrap', '~> 5.3.3'
 gem "dartsass-rails", "~> 0.5.1"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -123,3 +122,4 @@ end
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "cssbundling-rails", "~> 1.4"

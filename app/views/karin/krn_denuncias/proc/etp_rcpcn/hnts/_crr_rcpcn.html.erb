@@ -23,7 +23,7 @@
 	<% end %>
 <% else %>
 	<% unless @objt['fls_rcpcn?'] %>
-	<p><b>No esta completa la información necesaria para cerrar la recepción de la denuncia.</b>
+	<p><b>No está completa la información necesaria para cerrar la recepción de la denuncia.</b>
 		<ol>
 			<% unless @objt['rgstrs_info_mnm?'] %>
 				<li><i class="bi bi-cone-striped text-danger"></i> No se han completados los datos de los participantes.</li>
@@ -32,7 +32,7 @@
 				<li><i class="bi bi-cone-striped text-danger"></i> No se ha entregado la información obligatoria a las personas denunciantes.</li>
 			<% end %>
 			<% unless @objt['fl_atncn_sclgc_tmprn?'] %>
-				<li><i class="bi bi-cone-striped text-danger"></i> No se han subido evidencias de la atención sicológica temprana recibida por las personas denuncaintes.
+				<li><i class="bi bi-cone-striped text-danger"></i> No se han subido evidencias de la atención sicológica temprana recibida por las personas denunciantes.
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}_1"} do %>
 					<i class="bi bi-cursor"></i> Ir a Participantes
 				<% end %></p>
@@ -61,6 +61,6 @@
 			<% end %>
 		</ol>
 	</p>
-	<small><b>NOTA</b>: Ante de completar el cierre de la recepción asegurese de que los datos de los participantes fueron debidamente verificados y de ser necesario, completados.</small>
+	<small><b>NOTA</b>: Antes de completar el cierre de la recepción asegúrese de que los datos de los participantes fueron debidamente verificados y, de ser necesario, completados.</small>
 	<% end %>
 <% end %>

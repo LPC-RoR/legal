@@ -1,8 +1,8 @@
-@use '00p_config' as cnfg;
+@use 'config' as cnfg;
 @use 'bscs';
 
 // bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr)
-// @import "bjt"
+// @use "bjt"
 
 @mixin bjt_bx($brd_wdth, $brd_rds, $brd_clr, $bg_clr) {
 	@include bscs.mrgn_pddng(0 0 4px 0, 10px);
