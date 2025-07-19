@@ -7,7 +7,13 @@
                       class: "d-block w-100", 
                       alt: slide.nombre %>
         <div class="carousel-caption">
-          <%= render partial: '0p/mdl/bttn', locals: {cdg: 'RegistroEmpresa', txt: 'Solicitar demo', gly: 'cursor'} %>
+          <%#= render partial: '0p/mdl/bttn', locals: {cdg: 'RegistroEmpresa', txt: 'Solicitar demo', gly: 'cursor'} %>
+
+          <button type="button" class="btn btn-primary mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#RegistroEmpresa">
+            <%= render partial: '0p/gly', locals: {gly: 'cursor'} %>
+            Solicitar demo
+          </button>
+
         </div>
 
       </div>
