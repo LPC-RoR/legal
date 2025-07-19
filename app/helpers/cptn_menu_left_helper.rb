@@ -115,7 +115,8 @@ module CptnMenuLeftHelper
 					titulo: 'App', 
 					condicion: dog?, 
 					items: [
-						'AppVersion'
+						'AppVersion',
+						'Slide'
 					]
 				}
 			],

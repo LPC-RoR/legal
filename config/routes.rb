@@ -345,6 +345,10 @@ Rails.application.routes.draw do
       match :periodos_bancos, via: :get, on: :collection
     end
     resources :hlp_ayudas
+    resources :slides do
+      match :arriba, via: :post, on: :member
+      match :abajo, via: :post, on: :member
+    end
   end
 
   scope module: 'organizacion' do

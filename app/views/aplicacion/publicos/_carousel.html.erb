@@ -1,37 +1,25 @@
-<div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
-  <!-- Indicadores -->
-  <div class="carousel-indicators">
-    <% (0..3).each do |index| %>
-      <button type="button" 
-              data-bs-target="#imageCarousel" 
-              data-bs-slide-to="<%= index %>" 
-              class="<%= 'active' if index == 0 %>" 
-              aria-label="Slide <%= index + 1 %>"></button>
+<div id="dynamicCarousel" class="carousel slide" data-bs-ride="carousel">
+
+  <div class="carousel-inner">
+    <% @slides.each_with_index do |slide, index| %>
+      <div class="carousel-item <%= 'active' if index == 0 %>">
+        <%= image_tag slide.imagen.variant(resize_to_limit: [1200, 675]), 
+                      class: "d-block w-100", 
+                      alt: slide.nombre %>
+        <div class="carousel-caption">
+          <%= render partial: '0p/mdl/bttn', locals: {cdg: 'RegistroEmpresa', txt: 'Solicitar demo', gly: 'cursor'} %>
+        </div>
+
+      </div>
     <% end %>
   </div>
   
-  <!-- Slides -->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <%= image_tag "slide1.jpg", class: "d-block w-100", alt: "Descripción imagen 1" %>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag "slide2.jpg", class: "d-block w-100", alt: "Descripción imagen 2" %>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag "slide3.jpg", class: "d-block w-100", alt: "Descripción imagen 3" %>
-    </div>
-    <div class="carousel-item">
-      <%= image_tag "slide4.jpg", class: "d-block w-100", alt: "Descripción imagen 4" %>
-    </div>
-  </div>
-  
   <!-- Controles -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+  <button class="carousel-control-prev" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Anterior</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+  <button class="carousel-control-next" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Siguiente</span>
   </button>

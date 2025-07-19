@@ -40,6 +40,9 @@ gem 'letter_opener', group: :development
 # Paginación
 gem 'kaminari'
 
+# Gemfile
+gem 'image_processing', '~> 1.2'
+
 # Manejo de Archivos y exportación
 gem 'csv'                         # excel
 gem "roo", "~> 2.10.0"            # Leer archivos excel

@@ -472,6 +472,7 @@ DEPENDENCIES
   devise
   execjs
   htmltoword
+  image_processing (~> 1.2)
   importmap-rails
   jbuilder
   kamal

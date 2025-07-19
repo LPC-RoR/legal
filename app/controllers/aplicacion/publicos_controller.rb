@@ -42,6 +42,8 @@ class Aplicacion::PublicosController < ApplicationController
     else
       @objeto = Empresa.new
 
+      @slides = Slide.activas.ordr
+
       @hlp_rgstr_emprs = RepArchivo.find_by(rep_archivo: 'hlp_rgstr_emprs')
 
     end

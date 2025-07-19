@@ -39,6 +39,11 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.singular 'bases', 'base'
     inflect.singular 'Bases', 'Base'
 
+    inflect.plural 'slide', 'slides'
+    inflect.plural 'Slide', 'Slides'
+    inflect.singular 'slides', 'slide'
+    inflect.singular 'Slides', 'Slide'
+
     inflect.irregular 'nota', 'notas'
     inflect.irregular 'pauta', 'pautas'
     inflect.irregular 'pregunta', 'preguntas'

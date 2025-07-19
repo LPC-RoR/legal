@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: 1
+  desactivar: false
+  nombre: MyString
+  txt: MyText
+
+two:
+  orden: 1
+  desactivar: false
+  nombre: MyString
+  txt: MyText

@@ -60,6 +60,7 @@ module AppIconsHelper
 			'krn_tipo_medidas' => 'exclamation-triangle',
 			'procedimientos' => 'bar-chart-steps',
 			'dt_tabla_multas' => 'table',
+			'slides' => 'file-slides'
 #			'rep_archivos' => 'file-earmark-richtext'
 		}
 	end
