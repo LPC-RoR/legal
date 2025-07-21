@@ -31,3 +31,10 @@
     width: 10%;
   }
 }
+
+.carousel-control-prev,
+.carousel-control-next {
+  &:focus-visible {
+    outline: 3px solid rgba(0, 0, 0, 0.1);  /* negro muy tenue */
+  }
+}

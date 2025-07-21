@@ -1,0 +1,28 @@
+<div id="dynamicCarousel" class="carousel slide" data-bs-ride="carousel">
+
+  <div class="carousel-inner">
+    <% @slides.each_with_index do |slide, index| %>
+      <div class="carousel-item <%= 'active' if index == 0 %>">
+        <%= image_tag slide.imagen.variant(resize_to_limit: [1200, 675]), 
+                      class: "d-block w-100", 
+                      alt: slide.nombre %>
+        <div class="carousel-caption">
+          <%#= render partial: '0p/mdl/bttn', locals: {cdg: 'RegistroEmpresa', txt: 'Solicitar demo', gly: 'cursor'} %>
+
+
+        </div>
+
+      </div>
+    <% end %>
+  </div>
+  
+  <!-- Controles -->
+  <button class="carousel-control-prev focus-ring-0" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next focus-ring-0" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
