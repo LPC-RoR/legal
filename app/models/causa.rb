@@ -10,15 +10,18 @@ class Causa < ApplicationRecord
   include PgSearch::Model
 
 	pg_search_scope :search_ignoring_accents,
-	  against: [:causa],  # Solo busca en 'causa'
+	  against: [:causa],
 	  using: {
 	    tsearch: {
 	      dictionary: 'spanish',
-	      normalization: 2  # Esto normaliza acentos (equivalente a ignorarlos)
+	      normalization: 2  # Ignora acentos
 	    },
-	    trigram: {}  # Búsqueda aproximada opcional
+	    trigram: {
+	      only: [:causa],  # Asegúrate de que solo se aplique a 'causa'
+	      threshold: 0.3   # Ajusta según necesidad (valor por defecto: 0.3)
+	    }
 	  }
-  
+    
 	CALC_VALORES = [ 
 		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
 		'$Remuneración'
