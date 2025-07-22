@@ -7,60 +7,6 @@ class Aplicacion::PublicosController < ApplicationController
   def index
   end
 
-  def home
-    if usuario_signed_in?
-
-      prfl = get_perfil_activo
-      @usuario = prfl.age_usuario unless prfl.blank?
-      @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
-
-      unless @usuario.blank?
-        set_tabla('notas', @usuario.notas.order(urgente: :desc, pendiente: :desc, created_at: :desc), false)
-      end
-
-      set_tabla('age_actividades', AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day).adncs.fecha_ordr, false)
-
-      @hoy = Time.zone.today
-      @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
-
-      # VERSIÖN ANTIGUA
-
-      @estados = nil
-      @tipos = ['Causas', 'Pagos', 'Facturas']
-      @tipo = params[:t].blank? ? @tipos[0] : params[:t]
-      @estado = nil
-      @path = "/?"
-
-      inicia_sesion if perfil_activo.blank?
-      if operacion?
-        # Causas
-        set_tabla('tramitacion-causas', Causa.where(estado: 'tramitación'), false)
-        @causas_en_proceso = Causa.where(estado: 'tramitación')
-      end
-
-
-    else
-      @objeto = Empresa.new
-
-      @slides = Slide.activas.ordr
-
-      @hlp_rgstr_emprs = RepArchivo.find_by(rep_archivo: 'hlp_rgstr_emprs')
-
-    end
-    @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
-
-  end
-
-  def home_prueba
-    @txts = {}
-    ['rsmn_ly21643', 'cmplmnt_medio', 'cmplmnt_simple'].each do |cdg|
-      txt = HTexto.find_by(codigo: cdg)
-      @txts[cdg] = {}
-      @txts[cdg][:h_texto] = txt.h_texto
-      @txts[cdg][:texto] = txt.texto
-    end
-  end
-
   def encuesta
       @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
       sesion = KSesion.find_by(sesion: @session_name)
