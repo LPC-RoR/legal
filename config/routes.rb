@@ -541,7 +541,13 @@ Rails.application.routes.draw do
     sessions: 'usuarios/sessions'
   }
 
-  root 'aplicacion/publicos#home'
+  # Ruta raíz que redirige según autenticación
+  authenticated :usuario do
+    root 'home#dshbrd', as: :authenticated_root
+  end
+  
+  root 'home#index'
+
   # manejo formulario de registro de empresas
   post '/register', to: 'empresas#create', as: 'register'
   get '/verify_email', to: 'empresas#verify', as: 'verify_email'

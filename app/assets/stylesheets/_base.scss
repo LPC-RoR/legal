@@ -11,8 +11,9 @@
 }
 
 // CAMBIOS : Agregué 'Raleway' y baje line--height a 120%
+// Comenté background-color para eliminar el fondo gris
 body {
   font: 1em/160% 'Raleway', sans-serif;
-  background-color: var(--co-body-bg);
+//  background-color: var(--co-body-bg);
   color: var(--co-body-text);
 }
