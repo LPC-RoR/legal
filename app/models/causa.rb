@@ -9,16 +9,17 @@ class Causa < ApplicationRecord
 
   include PgSearch::Model
 
-  pg_search_scope :search_insensitive_accents,
-    against: [:causa, :rit],
-    using: {
-      tsearch: {
-      	prefix: true,
-        dictionary: 'spanish',
-        any_word: true,
-        normalization: 2
-      }
-    }
+	pg_search_scope :search_insensitive_accents,
+	  against: [:causa, :rit],
+	  ignoring: :accents,
+	  using: {
+	    tsearch: {
+	      prefix: true,
+	      dictionary: 'spanish',
+	      any_word: true,
+	      normalization: 2
+	    }
+	  }
 
   # Método para búsqueda que ignora acentos
 	def self.search_ignoring_accents(query)
