@@ -18,10 +18,11 @@ class Causa < ApplicationRecord
 	    },
 	    trigram: {
 	      only: [:causa],  # Asegúrate de que solo se aplique a 'causa'
+	      word_similarity: true,  # Opcional: para coincidencias parciales
 	      threshold: 0.3   # Ajusta según necesidad (valor por defecto: 0.3)
 	    }
 	  }
-    
+
 	CALC_VALORES = [ 
 		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
 		'$Remuneración'
