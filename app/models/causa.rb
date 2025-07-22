@@ -1,11 +1,32 @@
 class Causa < ApplicationRecord
 
-	include PgSearch
+#	include PgSearch
 
-	pg_search_scope :search_for, against: {
-		causa: 'A',
-		rit: 'B'
-	}, using: { tsearch: {prefix: true, any_word: true} }
+#	pg_search_scope :search_for, against: {
+#		causa: 'A',
+#		rit: 'B'
+#	}, using: { tsearch: {prefix: true, any_word: true} }
+
+  include PgSearch::Model
+
+  pg_search_scope :search_insensitive_accents,
+    against: [:causa, :rit],
+    using: {
+      tsearch: {
+      	prefix: true,
+        dictionary: 'spanish',
+        any_word: true,
+        normalization: 2
+      }
+    }
+
+  # Método para búsqueda que ignora acentos
+  def self.search_ignoring_accents(query)
+    # Aplicamos unaccent tanto al query como a los campos de búsqueda
+    where("unaccent(causa) ILIKE unaccent(?) OR unaccent(rit) ILIKE unaccent(?)", 
+          "%#{query}%", "%#{query}%")
+  end
+
 
 	CALC_VALORES = [ 
 		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',

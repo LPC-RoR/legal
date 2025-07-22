@@ -18,7 +18,8 @@ class CausasController < ApplicationController
     @scp = scp_item[:causas][scp.to_sym]
 
     if params[:query].present?
-      cllcn = Causa.search_for(params[:query])
+#      cllcn = Causa.search_for(params[:query])
+      cllcn = Causa.search_ignoring_accents(params[:query])
     else
       case scp
       when 'trmtcn'
