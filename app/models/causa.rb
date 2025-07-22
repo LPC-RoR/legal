@@ -22,9 +22,12 @@ class Causa < ApplicationRecord
 
   # Método para búsqueda que ignora acentos
   def self.search_ignoring_accents(query)
+	  where("unaccent(causa::text) ILIKE unaccent(:query) OR unaccent(rit::text) ILIKE unaccent(:query)", 
+        query: "%#{query}%")
+
     # Aplicamos unaccent tanto al query como a los campos de búsqueda
-    where("public.unaccent(causa::text) ILIKE public.unaccent(?) OR public.unaccent(rit::text) ILIKE public.unaccent(?)", 
-          "%#{query}%", "%#{query}%")
+#    where("public.unaccent(causa::text) ILIKE public.unaccent(?) OR public.unaccent(rit::text) ILIKE public.unaccent(?)", 
+#          "%#{query}%", "%#{query}%")
   end
 
 
