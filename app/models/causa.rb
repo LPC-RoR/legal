@@ -10,20 +10,15 @@ class Causa < ApplicationRecord
   include PgSearch::Model
 
 	pg_search_scope :search_ignoring_accents,
-	  against: [:causa],  # Solo busca en causa ahora
+	  against: [:causa],  # Solo busca en 'causa'
 	  using: {
 	    tsearch: {
 	      dictionary: 'spanish',
-	      normalization: 2  # Normaliza acentos
+	      normalization: 2  # Esto normaliza acentos (equivalente a ignorarlos)
 	    },
-	    trigram: {}  # Para búsqueda aproximada
+	    trigram: {}  # Búsqueda aproximada opcional
 	  }
-
-	def self.search_ignoring_accents(query)
-	  where("unaccent(causa::text) ILIKE unaccent(:query)", 
-	    query: "%#{query}%")
-	end
-
+  
 	CALC_VALORES = [ 
 		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
 		'$Remuneración'
