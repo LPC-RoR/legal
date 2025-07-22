@@ -19,20 +19,11 @@ class Causa < ApplicationRecord
       trigram: {}  # Para búsqueda aproximada
     }
 
-  # Método para búsqueda que ignora acentos
-	def self.search_ignoring_accents(query)
-	  sanitized_query = "%#{query}%"
-	  where(
-	    "unaccent(public.causa::text) ILIKE ? OR unaccent(public.rit::text) ILIKE ?", 
-	    sanitized_query, sanitized_query
-	  )
-	end
+  def self.search_ignoring_accents(query)
+	  where("unaccent(causa::text) ILIKE unaccent(:query) OR unaccent(rit::text) ILIKE unaccent(:query)", 
+        query: "%#{query}%")
 
-#  def self.search_ignoring_accents(query)
-#	  where("unaccent(causa::text) ILIKE unaccent(:query) OR unaccent(rit::text) ILIKE unaccent(:query)", 
-#        query: "%#{query}%")
-#
-#  end
+  end
 
 
 	CALC_VALORES = [ 
