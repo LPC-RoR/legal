@@ -1,27 +1,27 @@
 class Causa < ApplicationRecord
 
-#	include PgSearch
+	include PgSearch
 
-#	pg_search_scope :search_for, against: {
-#		causa: 'A',
-#		rit: 'B'
-#	}, using: { tsearch: {prefix: true, any_word: true} }
+	pg_search_scope :search_for, against: {
+		causa: 'A',
+		rit: 'B'
+	}, using: { tsearch: {prefix: true, any_word: true} }
 
-  include PgSearch::Model
+#  include PgSearch::Model
 
-	pg_search_scope :search_ignoring_accents,
-	  against: ["causa::text"],
-	  using: {
-	    tsearch: {
-	      dictionary: 'spanish',
-	      normalization: 2  # Ignora acentos
-	    },
-	    trigram: {
-	      only: [:causa],  # Asegúrate de que solo se aplique a 'causa'
-	      word_similarity: true,  # Opcional: para coincidencias parciales
-	      threshold: 0.3   # Ajusta según necesidad (valor por defecto: 0.3)
-	    }
-	  }
+#	pg_search_scope :search_ignoring_accents,
+#	  against: ["causa::text"],
+#	  using: {
+#	    tsearch: {
+#	      dictionary: 'spanish',
+#	      normalization: 2  # Ignora acentos
+#	    },
+#	    trigram: {
+#	      only: [:causa],  # Asegúrate de que solo se aplique a 'causa'
+#	      word_similarity: true,  # Opcional: para coincidencias parciales
+#	      threshold: 0.3   # Ajusta según necesidad (valor por defecto: 0.3)
+#	    }
+#	  }
 
 	CALC_VALORES = [ 
 		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
