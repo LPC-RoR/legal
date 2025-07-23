@@ -10,7 +10,7 @@ class Causa < ApplicationRecord
   include PgSearch::Model
 
 	pg_search_scope :search_ignoring_accents,
-	  against: [:causa],
+	  against: ["causa::text"],
 	  using: {
 	    tsearch: {
 	      dictionary: 'spanish',
