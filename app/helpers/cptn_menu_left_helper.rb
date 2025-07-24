@@ -151,23 +151,12 @@ module CptnMenuLeftHelper
 		end
 	end
 
-	def lm_exclude_action?
-		controller_name == 'publicos' and (
-				(['home', 'home_prueba'].include?(action_name) and current_usuario.blank?) or
-				action_name == 'ayuda'
-			)
-	end
-
-	def lm_exclude_controller?
-		(['servicios']+ public_controllers + devise_controllers).include?(controller_name)
-	end
-
 	def ctas_cntrllrs?
 		!!(controller_name =~ /^krn_[a-z_]*$/)  or ( ['cuentas'].include?(controller_name))
 	end
 
 	def lm_sym
-		( lm_exclude_action? or lm_exclude_controller?) ? nil : (ctas_cntrllrs? ? :cuenta : :admin)
+		ctas_cntrllrs? ? :cuenta : :admin
 	end
 
 	def itm_mdl(itm)

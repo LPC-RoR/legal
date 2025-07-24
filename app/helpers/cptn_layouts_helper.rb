@@ -19,8 +19,8 @@ module CptnLayoutsHelper
 
 	# helper_method : rutas que NO requieren autenticación de usuarios
 	def not_authenticate_routes?
-		public_home = action_name == 'home' and (not usuario_signed_in?)
-		(public_controllers | devise_controllers).include?(controller_name) or (public_home)
+		public_home = (controller_name == 'home' and action_name == 'index')
+		(public_controllers | devise_controllers).include?(controller_name) or public_home
 	end
 
 	def krn_non_krn_routes?
@@ -43,21 +43,18 @@ module CptnLayoutsHelper
 		get_scp_activo.present? and (not (krn_routes? or not_authenticate_routes?))
 	end
 
-	# Esta función nos lleva al directorio donde se encuentran los layouts ocupados
+	# Resuelve el directorio donde encontrar el layout
 	def lyt_prtl_dir
-		if controller_name == 'hlp_ayudas'
+		if ['hlp_ayudas', 'servicios'].include?(controller_name) or devise_controllers.include?(controller_name) or (controller_name == 'home' and action_name == 'index')
 			'home'
 		else
-			if usuario_signed_in?
-				controller_name == 'servicios' ? 'servicios' : nil
-			else
-				devise_controllers.include?(controller_name) ? 'devise' : 'home'
-			end
+			nil
 		end
 	end
 
+	# Resuelve el layout que ocupar
+	# Usa por defecto el que está en la raiz
 	def lyt_prtl(area)
-		dir_prtl = prtl?('layouts', lyt_prtl_dir, area)
 		prtl?('layouts', lyt_prtl_dir, area) ? prtl_name('layouts', lyt_prtl_dir, area) : ( prtl?('layouts', nil, area) ? prtl_name('layouts', nil, area) : nil )
 	end
 

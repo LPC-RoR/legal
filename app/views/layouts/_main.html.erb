@@ -1,7 +1,5 @@
 <div class="lyt_main">
 
-	<%= render partial: 'layouts/partials/notice_alert' unless krn_routes? %>
-
 	<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, SI ES UNA PÁGINA PÚBLICA O ES UNA PÁGINA DE DEVISE -->
 	<% if get_perfil_activo.present? or not_authenticate_routes? %>
 
@@ -13,40 +11,30 @@
 					<%= render partial: 'layouts/partials/notice_alert' %>
 					<%= yield %>
 				</div>
-			<%# elsif not_authenticate_routes? %>
-				<%#= yield %>
 			<% else %>
-				<!-- Obtiene sym del menú -->
-				<% unless lm_sym.blank? %>
+				<div class="row gx-1" style="margin-left: 3%; margin-right: 3%;">
+					<%= render partial: 'layouts/partials/notice_alert' %>
+					<div class="col-3">
+						<%= render partial: prtl_name('layouts', 'lmenu', 'admin') %>
 
-					<div class="row gx-1">
-						<div class="col-3">
-							<%= render partial: prtl_name('layouts', 'lmenu', 'admin') %>
+						<%= render partial: '0p/lmenu/lmenu', locals: { sym: lm_sym } %>
 
-							<%= render partial: '0p/lmenu/lmenu', locals: { sym: lm_sym } %>
-
-							<% if prtl?(controller_name, 'dwn_lft', 'bdy') %>
-								<%= render partial: prtl_name(controller_name, 'dwn_lft', 'bdy') %>
-							<% end %>
-						</div>
-						<div class="col-9">
-							<%= yield %>
-						</div>
+						<% if prtl?(controller_name, 'dwn_lft', 'bdy') %>
+							<%= render partial: prtl_name(controller_name, 'dwn_lft', 'bdy') %>
+						<% end %>
 					</div>
-
-				<% else %>
-					<%= yield %>
-				<% end %>
+					<div class="col-9">
+						<%= yield %>
+					</div>
+				</div>
 			<% end %>
 
 		<% else %>
-			<%= render partial: 'layouts/partials/errr_prfl' %>
+			<%= render partial: 'layouts/mssgs/err_perfil' %>
 		<% end %>
 
 	<% else %>
-		<%= render partial: 'layouts/partials/errr_accss' %>
+		<%= render partial: 'layouts/mssgs/err_accss' %>
 	<% end %>
 
 </div>
-
-<%#= render partial: prtl_name('0p', 'form', 'mdl') %>
