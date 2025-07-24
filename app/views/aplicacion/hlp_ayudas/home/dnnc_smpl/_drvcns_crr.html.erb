@@ -1,0 +1,111 @@
+<h4>Definición de las posibles derivaciones</h4>
+
+<p>La página <b>Proceso</b> de la denuncia muestra, a esta altura del procedimiento la siguiente información.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_9.png', width: "600" %>
+</div>
+
+<p>La plataforma nos cuenta que nos encontramos en la etapa de recepción de la denuncia, cuyo plazo legal vence el 22-05-2025.</p>
+
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+	<p>A la izquierda del plazo de la etapa aparece un calendario en color rojo con una x en el centro. Esto es porque en el ejemplo este plazo excede la fecha en la cual se está ingresando la denuncia, es decir, el plazo ya venció. Si el atraso no es real, más adelante al ingresar la fecha en la que se informó la investigación a la Dirección del Trabajo, o la fecha en la cual se derivó a esta institución, cambiará el estado del plazo al adecuado.
+	</p>
+</div>
+
+<p>A continuación encontramos un recordatorio de que no hemos enviado la información obligatoria a las personas denunciantes.</p>
+<p>Finalmente encontramos el detalle de lo primero que debemos resolver en esta etapa: si su preferencia es que la denuncia sea derivada a la Dirección del Trabajo o que sea investigada por la empresa.</p>
+
+<p>En la <i>información obligatoria</i> entregada a la persona participante se encuentra su derecho a elegir entre estas opciones. Como la denuncia se entregó por escrito, dicha información se envía por correo y la opción del denunciante se recibe por la misma vía.</p>
+
+<p>La tarea entonces es muy simple presionar el link que contiene la elección de la persona denunciante.</p>
+
+<p>En una segunda área cuyo encabezado es <b>Documentación obligatoria</b>, encontramos la lista de documentos que, dado el estado de la denuncia, es obligatorio subir. En la imagen se aprecia que no se ha subido aún la denuncia, tampoco se han subido otros anexos de la denuncia (opcionales).</p>
+
+<p>Los dos elementos que conforman hasta este minuto la lista de <b>Documentación obligatoria</b> comienzan con íconos distintos y, además, tienen distinta funcionalidad (botones de la derecha).</p>
+<ul>
+	<li><i class="bi bi-file-earmark"></i> indica que se debe subir un documento único.</li>
+	<li><i class="bi bi-list-ul"></i> indica que se trata de uno o más documentos (una sublista).</li>
+</ul>
+<p>La funcionalidad asociada, permite subir y gestionar un único documento en el primer caso, o una lista de ellos.</p>
+
+<p>Para información detallada de la gestión de la documentación obligatoria visite 
+	<%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dcmntcn_oblgtr', dscrpcn: 'Gestión de la documentación obligatoria', tltp: 'Gestión de la documentación obligatoria'} %>
+</p>
+
+<p>Como nuestro ejemplo se trata de una denuncia investigada por la empresa, presionamos el link <b>La persona denunciante manifiesta por escrito su deseo de que la investigación sea realizada por la empresa.</b>, lo cual nos lleva a la siguiente tarea:</p>
+
+<p>Aún estamos en la etapa de Recepción de la denuncia. Ló único que cambió en la página es el detalle de la tarea.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_11.png', width: "600" %>
+</div>
+
+<p>Si la persona denunciante a optado por una investigación realizda por la empresa, la empresa podrá decidir dentro de los tres primeros días hábiles, decidir derivar la denuncia a la Dirección del Trabajo o investigarla. Esto es lo que se debe registrar en esta tarea. Para mostrar el caso más extenso, elegimos <i>La empresa decide realizar la investigación de la denuncia.</i></p>
+
+<p>Esto nos lleva a nuestra siguiente tarea:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cierre_rcpcn_advrtncs.png', width: "600" %>
+</div>
+
+<p>En este punto, la plataforma nos informa una lista de acciones que aún no hemos realizado y que debemos completar para seguir adelante con el procedimiento. Se trata de cuatro archivos que se deben subir, un correo que se debe enviar y una NOTA.</p> 
+
+<p>Salvo la NOTA, todas las acciones solicitadas ya se ha explicado como se realizan.</p>
+
+
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+	<h5>Verificación de datos de los participantes y solicitud de documentación</h5>
+
+	<p>Para completar los datos de los participantes, la plataforma le permite enviar, vía correo electrónico al contacto de RRHH, el detalle de los datos con los que se cuenta de los participantes y solicitar lo siguiente:
+		<ol>
+			<li>Verificar, corregir y, si es necesario, completar la información de los participantes que se envía.</li>
+			<li>Enviar toda la documentación que el reglamento exige tener a la vista a la hora de redactar el informe de la investigación (se envía detalle).</li>
+		</ol>
+	</p>
+
+	<p>Para enviar este correo debe ir a la página <b>Reportes</b> de la denuncia. Para ello, presione el menú desplegable y seleccione la opción <b>Reportes</b>:</p>
+
+	<div class="mb-2 text-center">
+		<%= image_tag 'hlp/dnnc_smpl_8.png', width: "600" %>
+	</div>
+
+	<p>La lista de reportes que se despliega tiene la siguiente funcionalidad:
+		<ol>
+			<li>El <b>nombre del reporte</b> es un link que muestra un ejemplo del reporte</li>
+			<li>El ícono <i class="bi bi-envelope-check"></i> a la derecha del nombre es el botón que envía el reporte a todos sus destinatarios.</li>
+		</ol>
+	</p>
+
+	<p>Una vez enviado el correo con la solicitud presionando el botón <i class="bi bi-envelope-check"></i>, deberemos esperar a recibir la información completa, la que utilizaremos para completar la información de los participantes. Para efectos de este ejemplo, consideraremos que todo esto ya ocurrió.</p>
+</div>
+<p>Volvemos entonces a la página <b>Proceso</b> para retomar nuestras tareas.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>Una vez completadas estas tareas podremos continuar.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cierre_rcpcn.png', width: "600" %>
+</div>
+
+<p>Como explica la tarea desplegada, se trata de registrar la fecha en la que se informó a la Dirección del Trabajo el inicio de la investigación.</p>
+
+<p>Bajo el formulario, verá que la fecha ingresada será utilizada para verificar el cumplimiento del plazo de la etapa.</p>
+
+<p>Pero esta no es la única acción que se puede realizar: vemos que el encabezado del investigador está desplegado y que es posible asignar un investigador a la denuncia.</p>
+
+<p>Si bien la asignación del investigador pertenece a la siguiente etapa <i>Investigación</i>, la plataforma permite su asignación en la recepción de la denuncia para cubrir el caso de empresa que lo resuelvan en esa etapa.</p> 
+<p>En este ejemplo ingresaremos directamente la fecha de informe a la Dirección del Trabajo. Diremos que se informó a la Dirección del Trabajo un día antes del vencimiento del plazo, el 21-05-2025.</p>
+
+<p>Pasamos así a la siguiente etapa del procedimiento:</p>

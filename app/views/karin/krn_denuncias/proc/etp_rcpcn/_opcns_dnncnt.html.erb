@@ -14,7 +14,7 @@
 	<!-- DENUNCIANTE SOLICITA INVESTIGACIÓN LOCAL -->
 	<%= render layout: 'cuentas/prtls/proceso/actn' do %>
 		<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :dnncnt_opcn_escrita, prmpt: 'La persona denunciante manifiesta su deseo de que la investigación sea realizada por la empresa al enviar la denuncia por escrito.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
+			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :dnncnt_opcn_escrita, prmpt: 'La persona denunciante manifiesta por escrito su deseo de que la investigación sea realizada por la empresa.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
 		<% end %>
 	<% end %>
 <% end %>
