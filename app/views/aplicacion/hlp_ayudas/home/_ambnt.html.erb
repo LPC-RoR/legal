@@ -1,28 +1,71 @@
-<h3 class="mb-4">Descripción general del ambiente de <b>LABORSAFE</b></h3>
+<h3 class="mb-4">Configuración básica</h3>
+<p><b>NOTA</b>: Esta configuración puede ser realizada sólo por el administrador de la cuenta, idealmente antes de dar acceso a sus usuarios para garantizar que se encuentren con una cuenta ya configurada.</p>
 
-<p>La siguiente descripción le servirá de ayuda y guía para familiarizarse con el ambiente de LABORSAFE. Está diseñada especialmente para ayudar al usuario administrador a completar la configuración inicial de la cuenta y dejarla operativa.</p>
+<p>El presente tutorial está diseñado especialmente para ayudar al usuario administrador a completar la configuración inicial de la cuenta y dejarla operativa.</p>
 
-<p>Al ingresar por primera vez a la plataforma encontrará la ventana de bienvenida:</p>
+<p>El proceso de configuración de LABORSAFE cambia levemente si se trata de una empresa principal o usuaria, la cual necesita para comenzar haber registrado al menos una empresa externa. En el detalle diferenciaremos los pasos y consideraciones que aplican sólo a este tipo de empresas.</p>
+
+<p>Al ingresar por primera vez a la plataforma encontrará lo siguiente:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/ambnt_1.png', width: "600" %>
 </div>
 
-<p>Revisaremos los distintos elementos presentes en la ventana.</p>
+<p>Veamos los distintos elementos y sus funcionalidades:</p>
 
-<h5 class="mb-3">Encabezado</h5>
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/encbzd_emprs.png', width: "600" %>
+</div>
 
-<p>En la línea superior encontrará la <b>razón social de la empresa</b> titular de la cuenta. En este caso usamos el nombre <b>Empresa de prueba</b>. Inmediatamente a su derecha verá la leyenda <b>( DEMO )</b>.</p>
-<p>El botón para personalizar el logo de la empresa (<i class="bi bi-arrow-bar-down"></i>) estará visible únicamente para el usuario que tenga el perfil de administrador de la cuenta.</p>
+<p>En la parte superior encontrámos información de la cuenta de la empresa:
+	<ol>
+		<li>El nombre de la empresa, en este caso es <i>Empresa de prueba</i>.</li>
+		<li>La leyenda (DEMO) indicando que se trata de una cuenta de prueba, que tiene capacidad y duración limitada.</li>
+		<li>El botón <i class="bi bi-arrow-bar-down"></i>, que le permitirá subir el logo de su empresa para personalizar la cuenta.</li>
+		<li>La leyenda <i>Su cuenta Demo le permite crear hasta 10 denuncias y estará activa por 10 días contados desde el registro de su empresa.</i></li>
+	</ol>
 </p>
 
-<p>Si se trata de una versión DEMO, bajo la razón social de la empresa encontrará la leyenda: <b>'Su cuenta Demo le permite crear hasta 10 denuncias y estará activa por 10 días contados desde el registro de su empresa"</b>.</p>
+<p>Inmediatamente debajo encontramos el menú desplegable:</p>
 
-<p>Más abajo, encontrará el <b>menú desplegable de la denuncia</b> al lado izquierdo y, al lado derecho, el <b>correo electrónico del usuario activo</b>.</p>
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/encbzd_menu.png', width: "600" %>
+</div>
 
-<p>El botón <i class="bi bi-question-circle"></i>, a la derecha del correo electrónico del usuario, lo llevará a la página de <b>Ayuda de LABORSAFE</b>, la cual se abrirá en una pestaña distinta.</p>
+<p>En el distinguimos dos elementos:
+	<ol>
+		<li>El menú desplegable, a la izquierda.</li>
+		<li>El correo electrónico del usuario actual, el cual es un botón que le permite editar su usuario para <i>cambiar su contraseña</i> o para <i>cancelar su cuenta</i>.</li>
+	</ol>
+</p>
 
-<h5 class="mb-3">Menú desplegable de la denuncia</h5>
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+	<p><b>Confidencialidad de las denuncias</b></p>
+	<p>En el ejemplo aparece la dirección de correo <i>admin@empresa.cl</i> dando a entender que se trata del <i>usuario administrador</i> y que se trata de un <i>correo corporativo</i>.</p>
+	<p>El usuario administrador tendrá acceso a la información de todas las denuncias, por ello este rol debe ser asignado a quien comprenda y garantice los estándares de confidencialidad exigidos por el reglamento.</p>
+</div>
+
+<p>Finalmente llegamos al encabezado de la lista de denuncias:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/encbzd_dnncs.png', width: "600" %>
+</div>
+
+<p>Usualmente en este encabezado, a la derecha del texto <i>Denuncias</i>, hay un botón <i class="bi bi-plus-circle"></i> que permite agregar una nueva denuncia. La razón de su ausencia es que <i>la plataforma no permitirá el ingreso de denuncias sin completar antes la configuración mínima necesaria</i>, lo cual está explicado en el mensaje de bienvenida que se despliega bajo el encabezado.</p>
+
+<p>El mensaje nos indica que para completar la configuración inicial debemos completar dos pasos:
+	<ul>
+		<li>Ingresar al menos un investigador</li>
+		<li>Ingresar al menos una empresa externa</li>
+	</ul>
+</p>
+
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+	<p><b>Empresas principales o usuarias</b></p>
+	<p>La ventana de bienvenida de la imagen corresponde a la de una empresa principal o usuaria, si la cuenta de la empresa fuera <i>estándar</i> sólo pediría <i>ingresar al menos un investigador</i>.</p>
+</div>
+
+<h5 class="mb-3">Uso del menú desplegable</h5>
 
 <p>Al presionar el ícono del menú, este se desplegará mostrando las siguientes opciones:</p>
 
@@ -30,65 +73,47 @@
 	<%= image_tag 'hlp/ambnt_2.png', width: "600" %>
 </div>
 
-<p>El menú desplegable presenta las alternativas disponibles para navegar. Si usted está en la sección “Denuncia”, no verá esta opción dado que ya se encuentra en esa página.</p>
+<p>El menú presenta las alternativas disponibles para navegar. En la imagen, dado que usted está en la sección “Denuncia”, no verá esta opción pues ya se encuentra en esa página.</p>
 
 <p>El total de opciones que puede desplegar son cuatro:</p>
 <ol>
-	<li><b>Denuncias</b></li>
-	<li><b>Investigadores</b></li>
-	<li><b>Empresas externas (disponible solo para empresas principales o usuarias)</b></li>
-	<li><b>Nómina</b></li>
+	<li><i>Denuncias</i></li>
+	<li><i>Investigadores</i></li>
+	<li><i>Empresas externas</i> (disponible solo para empresas principales o usuarias)</li>
+	<li><i>Nómina</i></li>
 </ol>
 
-<p>Únicamente el usuario administrador tiene acceso a todas las opciones del menú; los usuarios de recepción o investigadores sólo podrán ver la información correspondiente a su área de competencia.</p>
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+	<p>Únicamente el usuario administrador tiene acceso a todas las opciones del menú; los usuarios de recepción o investigadores sólo podrán ver la información correspondiente a su área de competencia.</p>
+</div>
 
-<h5 class="mb-3">Denuncias</h5>
-
-<p>Esta es la opción que se despliega por defecto al entrar a la cuenta.</p>
-<p>Le da acceso al listado de denuncias ingresadas y a través de cada registro, presionando el link que se encuentra en el identificador de la denuncia, puede acceder al detalle de una denuncia en particular.</p>
-<p>En este ambiente también se puede crear una nueva denuncia. Esta opción no está desplegada en la imagen del ejemplo porque aún no se cumplen las condiciones necesarias para activar la opción, en este caso, no se ha registrado aún un <i>investigador</i> (al menos uno).</p>
+<h4>Configuración básica</h4>
 
 <h5 class="mb-3">Investigadores</h5>
 
-<p>El ítem <b>Investigadores</b> le da acceso a la lista de investigadores registrados en la plataforma.</p>
-<p>Como refleja el mensaje de bienvenida, <b>la plataforma no le permitirá crear denuncias si no ha registrado al menos un investigador</b>. Luego, nuestra primera tarea será registrar nuestro primer investigador (ver abajo <b>Ingreso del primer investigador</b>).</p>
-
-<h5 class="mb-3">Empresas externas</h5>
-
-<p>Esta opción no aparece en la imagen de arriba porque está disponible solo en la versión para empresas principales o usuarias.</p>
-<p>Si la empresa propietaria de la cuenta se registró como empresa principal o usuaria, es obligación ingresar al menos una empresa externa para habilitar el ingreso de nuevas denuncias. En este caso el mensaje de bienvenida también incluirá esta alerta en su descripción.</p>
-
-<h5 class="mb-3">Nómina</h5>
-
-<p>Esta opción está disponible solo para usuarios <i>admin</i>. Le permitirá ingresar o actualizar la nómina de usuarios que tendrán acceso a la plataforma. También podrá crear y administrar los contactos que podrán recibir los correos electrónicos y notificaciones desde la plataforma (uso administrativo).</p>
-
-<h3 class="mb-3">Ingreso del primer investigador</h3>
-
-<h4>Paso 1: Seleccionar la opción Investigadores</h4>
-
-<p>Seleccionamos la opción <b>Investigadores</b> en el menú desplegable lo cual nos dará acceso a la siguiente página.</p>
+<p>Para acceder a la lista de investigadores seleccione la opción <i>Investigadores</i> del menú desplegable.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/ambnt_3.png', width: "600" %>
 </div>
 
-<p>La página desplegada es muy similar a la anterior. La única diferencia es el <b>encabezado</b> que en esta ocasión dice <b>Investigadores</b> y, en su extremo derecho, tiene un botón con el ícono <i class="bi bi-plus-circle"></i>. Este botón le dará acceso al <b>formulario para ingresar un nuevo investigador</b>.</p>
-<p>En toda las tablas presentadas en la plataforma, sus encabezados mostrarán a su derecha un botón idéntico para ingresar un nuevo registro en ellas, a menos que el usuario no tenga permisos para realizar esta acción o el ingreso se encuentre protegido por razones propias del procedimiento.</p>
-<p>Al presionar el botón para ingresar la información de nuestro primer investigador se desplegará el siguiente formulario:</p>
+<p>Como aún no se cumple con la configuración básica, la plataforma despliega el mismo mensaje de bienvenida, pero a diferencia del encabezado de las denuncias, en el encabezado de los investigadores está habilitado el botón <i class="bi bi-plus-circle"></i> que permite crear un investigador.</p>
+
+<p>Al presionar el botón <i class="bi bi-plus-circle"></i> accedemos al formulario para crea un investigador:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/ambnt_4.png', width: "600" %>
 </div>
 
-<p>Si bien los campos del formulario no requieren mayor explicación, sí son necesarias algunas observaciones:
+<p>Los campos del formulario no requieren mayor explicación, sólo algunas observaciones:
 <ol>
-	<li>La plataforma verificará las cédulas de identidad de los participantes utilizando para ello el dígito verificador.</li>
+	<li>La plataforma verificará la cédula de identidad del investigador utilizando para ello el dígito verificador.</li>
 	<li>La plataforma reconoce todos los formatos de <i>cédulas de identidad</i>, no es necesario ingresar el guión.</li>
 	<li>El reglamento establece que todos los participantes en el Procedimiento de Investigación y Sanción deben usar su <b>correo personal</b> y el investigador también debe cumplir con esta exigencia.</li>
 </ol>
 </p>
 
-<p>Para efectos del ejemplo, ingresaremos como nombre del investigador: <b>Nombre completo del investigador</b> Una vez ingresado el nuevo investigador nuestra página actualizada lucirá así:</p>
+<p>Para efectos del ejemplo, ingresaremos como nombre del investigador: <b>Investigador de la empresa</b> Una vez ingresado el nuevo investigador nuestra página actualizada lucirá así:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/ambnt_5.png', width: "600" %>
@@ -101,14 +126,63 @@
 </ol>
 </p>
 
-<p>A continuación del nombre del investigador encontrará un tercer botón con el ícono: <i class="bi bi-envelope-at"></i>.</p>
+<p>A continuación del nombre del investigador encontrará un tercer botón con el ícono: <i class="bi bi-envelope-at"> Verificar</i>. Este botón envía un correo electrónico al email registrado con un link que le permitirá al investigador <i>verificar la dirección de correo registrada</i>.</p>
 
-<p>Al presionar este botón la plataforma enviará al correo electrónico del investigador con un link que le permitirá <b>verificar la dirección de correo registrada.</b> Una vez verificado el correo electrónico, el ícono para enviar el correo de verificación será reemplazado por el ícono <i class="bi bi-at"></i> para señalar que la dirección de correo electrónico fue verificada.</p>
-<p>Este botón está disponible para todos los participantes del Procedimiento de Investigación y Sanción, de esta forma <b>la plataforma incorpora la verificación de correos personales para todos participantes de la denuncia</b>.</p>
+<p>Una vez verificado el correo electrónico, el ícono para enviar el correo de verificación será reemplazado por el ícono <i class="bi bi-at"></i> para señalar que la dirección de correo electrónico fue verificada.</p>
+
+<p>Este botón está disponible para todos los participantes del Procedimiento de Investigación y Sanción, de esta forma <b>la plataforma incorpora la verificación de correos personales para todos participantes de una denuncia</b>.</p>
+
+<p>Finalmente, vemos que el mensaje de bienvenida no ha desaparecido, pero ahora no considera como tarea pendiente el ingreso de un investigador.</p>
+
+<h5 class="mb-3">Empresas externas</h5>
+
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+	<p><b>Empresas principales o usuarias</b></p>
+	<p>Sólo las empresas principales o usuaria requieren el ingreso de empresas externas.</p>
+</div>
+
+<p>Para acceder a la lista de empresas externas seleccione la opción <i>Empresas externas</i> del menú desplegable.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/ambnt_6.png', width: "600" %>
+</div>
+
+<p>La situación es similar al ingreso de investigadores, para agregar una empresa externa presionamos el botón <i class="bi bi-plus-circle"></i> que se encuentra a la derecha del encabezado.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/ambnt_7.png', width: "600" %>
+</div>
+
+<p>El campo <i>Tipo de empresa</i> tiene dos opciones:
+	<ol>
+		<li>Contrato</li>
+		<li>EST</li>
+	</ol>
+</p>
+
+<p>Observaciones:
+	<ol>
+		<li>El RUT de la empresa es verificado ultilizando el dígito verificador.</li>
+		<li>Se recomienda que el <i>email de contacto</i> sea corporativo.</li>
+	</ol>
+</p>
+
+<p>Una vez ingresa la empresa externa, veremos lo siguiente:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/ambnt_8.png', width: "600" %>
+</div>
+
+<p>Bajo el encabezado vemos los datos de la empresa ingresada y, dado que completamos la información requerida para cumplir con la configuración mínima, ya no vemos el mensaje de bienvenida. Estamos habilitados para ingresar nuestra primera denuncia.</p>
 
 <h3 class="mb-3">Ingreso de la primera denuncia</h3>
 
-<p>Habiendo ingresado nuestro primer investigador, estamos en condiciones de ingresar nuestra primera denuncia.</p>
-<p><b>NOTA</b>: Recuerde que si se registró como empresa principal o usuaria deberá ingresar al menos una empresa externa para activar el ingreso de denuncias. El procedimiento es similar al ingreso de un investigador: seleccione la opción <b>Empresas externas</b> en el menú desplegable y presione el botón <i class="bi bi-plus-circle"></i> a la derecha del encabezado.</p>
+<p>Para acceder a la lista de denuncias seleccione la opción <i>Denuncias</i> del menú desplegable.</p>
 
-<p>Para un tutorial del ingreso de una denuncia, vaya a <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dnnc_smpl', dscrpcn: 'Ejemplo de denuncia simple', tltp: 'Ejemplo de denuncia simple'} %>.</p>
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/ambnt_9.png', width: "600" %>
+</div>
+
+<p>Ahora, ya está disponible el botón <i class="bi bi-plus-circle"></i> a la derecha del encabezado para ingresar nuestra primera denuncia.</p>
+
+<p>La plataforma permite el ingreso de todos los tipos de denuncia posibles, para ilustrar el ingreso de una denuncia simple, hemos creado un tutorial que le permitirá familiarizarse con el ambiente de trabajo. <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dnnc_smpl', dscrpcn: 'Ejemplo de denuncia simple', tltp: 'Ejemplo de denuncia simple'} %>.</p>

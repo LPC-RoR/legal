@@ -27,7 +27,7 @@ module CptnProcsHelper
 	end
 
 	def email_mask(email)
-		[Rails.application.credentials[:dog][:email], 'hugo@edasoft.cl'].include?(email) ? 'usuario@empresa.cl' : email
+		[Rails.application.credentials[:dog][:email], 'hugo@edasoft.cl'].include?(email) ? 'admin@empresa.cl' : email
 	end
 
 end
