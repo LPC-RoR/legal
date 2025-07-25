@@ -27,7 +27,7 @@ module Karin
       'get_crr_rcpcn?', 'fl_atncn_sclgc_tmprn?', 'fl_dnnc?', 'fl_acta?', 'fl_rprsntcn?', 'fl_ntfccn?', 'fl_crtfcd?',
       'fl_mdds_rsgrd?', 'fls_rcpcn?', 'inf_cierre?', 'fechas_crr_rcpcn?',
       'fl_antcdnts_objcn?', 'fl_rslcn_objcn?', 'fl_evlcn?', 'fl_crrgd?', 'fl_infrm?', 'fls_invstgcn?',
-      'dnnc_evld?', 'dclrcns_ok?', 'chck_dvlcn?', 'fl_prnncmnt?'
+      'dnnc_evld?', 'dclrcns_ok?', 'chck_dvlcn?', 'fl_prnncmnt?', 'fl_rslcn_dvlcn?'
     ]
     mthds.each do |mthd|
       @objt[mthd] = objt.send(mthd)
@@ -276,8 +276,8 @@ module Karin
         'rslcn_dvlcn'       => dnnc.solicitud_denuncia,
         'antcdnts_objcn'    => (dnnc.investigadores? ? dnnc.krn_inv_denuncias.first.objetado : false),
         'rslcn_objcn'       => dnnc.fl?('antcdnts_objcn'),
-        'dnnc_evlcn'        => (dnnc.evlcn_incmplt or dnnc.evlcn_incnsstnt),
-        'dnnc_corrgd'       => ((dnnc.evlcn_incmplt or dnnc.evlcn_incnsstnt) and (not dnnc.evlcn_ok)),
+        'dnnc_evlcn'        => dnnc.evlcn_incnsstnt,
+        'dnnc_corrgd'       => (dnnc.evlcn_incnsstnt and (not dnnc.evlcn_ok)),
         'infrm_invstgcn'    => ((dnnc.fechas_crr_rcpcn? or dnnc.on_dt?) and dnnc.chck_dvlcn?),
         'prnncmnt_dt'       => dnnc.fecha_prnncmnt?,
         'dnnc_mdds_sncns'   => (dnnc.fecha_env_infrm? or dnnc.plz_prnncmnt_vncd?)

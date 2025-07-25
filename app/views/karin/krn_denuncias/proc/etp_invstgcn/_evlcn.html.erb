@@ -1,18 +1,13 @@
 <%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-	<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_incmplt, prmpt: 'La denuncia está incompleta.', stts: ['Denuncia completa', 'Denuncia incompleta']} %>
+	<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_incnsstnt, prmpt: 'La denuncia presenta inconsistencias, debe ser devuelta a la persona denunciante para su corrección.', stts: ['denuncia sin inconsistencias', 'Denuncia con inconsistencias']} %>
 <% end %>
 
-<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-	<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_incnsstnt, prmpt: 'La denuncia presenta inconsistencias.', stts: ['Denuncia completa', 'Denuncia incompleta']} %>
-<% end %>
-
-<% if @objeto.evlcn_incmplt or @objeto.evlcn_incnsstnt %>
-	<%= render partial: 'cuentas/prtls/proceso/fact', locals: {txt: 'La denuncia no ha pasado la evaluación satisfactoriamente, se debe registrar el plazo otorgado para su corrección.'} %>
+<% if @objeto.evlcn_incnsstnt %>
 	<div class="border rounded-2">
 		<%= render partial: '0p/proc/etp_frm', locals: {etp: @etp_last, objeto: @objeto, code: 'fecha_hora_corregida'} %>
 	</div>
 <% else %>
 	<%= render layout: 'cuentas/prtls/proceso/lnk', locals: {fw: 'bold'} do %>
-		<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia está completa y no presenta inconsistencias.', stts: ['denuncia que pasa la evaluación', 'denuncia que debe ser evaluada']} %>
+		<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :evlcn_ok, prmpt: 'La denuncia no presenta inconsistencias.', stts: ['denuncia sin inconsistencias', 'denuncia que debe ser analizada']} %>
 	<% end %>
 <% end %>

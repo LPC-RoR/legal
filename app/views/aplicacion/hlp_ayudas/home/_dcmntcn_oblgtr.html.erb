@@ -1,63 +1,129 @@
-<h3>Gestión de la Documentación obligatoria</h3>
+<h3>Documentación obligatoria</h3>
 
-<p>En la medida que vamos avanzando en el <i>Procedimiento de Investigación y Sanción</i>, la plataforma va exigiendo que cierta documentación sea subida a la plataforma. Ya sea porque en ese momento es posible incluirlo o porque la denuncia tiene una condición particular que lo hace necesario.</p>
+<p>En la medida que avanzamos en el <i>Procedimiento de Investigación y Sanción</i>, la plataforma pedirá que la <i>documentación obligatoria</i> sea subida.</p>
 
-<p>La documentación obligatoria de nuestro ejemplo de denuncia simple, luce así luego de que hemos registrado todo el procedimiento y hemos dejado para el final, subir los documentos:</p>
+<p>El conjunto de documentos requeridos dependerá de las características particulares de la denuncia: si se trata de una denuncia presentada en forma verbal, por ejemplo, solicitará subir el <i>Acta de la denuncia firmada y timbrada por la empresa</i>, en caso contrario, solicitará la <i>Denuncia</i> presentada.</p>
+
+<p>En la medida que las condiciones particulares para exigir un documento se cumplan, aparecerá su nombre en la lista de <i>Documentación obligatoria</i> de la denuncia.</p>
+
+<h4>Denuncia vs Participantes</h4>
+
+<p>Hay más de una lista de <i>Documentación obligatoria</i> asociadas a una denuncia: hay una lista principal que contiene los documentos que son únicos para la denuncia y, cada participante tiene asociada una lista adicional. El documento <i>Denuncia</i> estará en la lista principal porque sólo hay uno por denuncia, en cambio la <i>Declaración del participante</i> aparecerá en la lista del participante al cual pertenece y habrá tantos como personas denunciantes, denunciadas y testigos.</p>
+
+<h5>Documentación Atención psicológica temprana</h5>
+
+<p>La primera lista de <i>documentación obligatoria</i> que veremos aparecer será la de la persona denunciante:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dcmntcn_oblgtr_1.png', width: "600" %>
 </div>
 
-<h4>Control de tareas</h4>
+<p>Esto nos permite mostrar otra caracteristica importante de nuestra lista de documentos: algunos de los elementos de la lista son documentos y otros, como la <i>Documentación Atención psicológica temprana</i>, son realmente una lista de docuementos.</p>
 
-<p>Los <b>Documentos obligatorios</b> son aquellos necesarios para documentar el Procedimiento de Inestigación y Sanción. El reglamento establece en detalle todos los antecedentes que se deben registrar en la 'Carpeta de Investigación', que son equivalentes a los que podría exigir la Dirección del Trabajo en una fiscalización.</p>
+<p>La razón es simple, hay más de un documento que puede respaldar que la persona denunciante recibió la atención sicológica temprana obligatoria. La plataforma permite entonces que se suban todos los que sean pertinentes al caso de la persona denunciante.</p>
 
-<p>La Dirección del Trabajo no revisará la plataforma, obviamente, su fiscalización revisará el conjunto de documentos físicamente, es decir la <i>Carpeta de Investigación</i>.</p>
+<p>Podemos ver en la imagen, que cuando se trata de una lista de documentos, el nombre del documento es antecedido por el ícono <i class="bi bi-list-task"></i> y a la derecha un botón <i class="bi bi-plus-circle"></i> nos permite agregar documentos a la lista. Tal como funciona un encabezado.</p>
 
-<p>Podemos ver en la imagen anterior, que en la lista de documentos <b>Evidencia de la aplicación de Medidas y Sanciones</b>, se subió un documento llamado <b>Evidencia aplicación de sanciones de la investigación</b>.</p>
+<p>El ícono <i class="bi bi-cone-striped text-danger"></i> a la izquierda del nombre es una alerta de que la lista está vacía.</p>
 
-<p>La plataforma verifica que haya sido subido, al menos ún archivo de la lista <i>Evidencia de la aplicación de Medidas y Sanciones</i></p>para permitir el término de la etapa. Por ello, la plataforma nos permitió postergar el almacenamiento de muchos documentos, salvo de este. Hay otros ejemplos de esta obligatoriedad: la toma de declaraciones se da por terminada cuando las declaraciones de todos los participantes han sido subidas a la plataforma</p>
+<h5>Subir documento a la lista</h5>
 
-<p>Estos casos, en los que la plataforma exige subir el archivo, cumplen la función de evitar que se pueda avanzar equivocadamente, cuando la tarea no se ha completado aún, afectando el control de los plazos, la emisión de información de la denuncia, etc.</p>
-
-<p>Los estándares de supervición del procedimiento y de confidencialidad establecidos por cada empresa, determinarán si las reglas de obligatoriedad serán más o menos estrictas en su implementación.</p>
-
-<h4>Documentos chequeados</h4>
-
-<p>Un estándar intermedio, consiste en crear sólo la carátula del documento sin subirlo, con el fin de registrar que se cuenta con él en la carpeta.</p>
-<p>Esto puede ser usado para subir cierto documento en diferido o simplemente, para no subirlo pero dejar constancia de que se cuenta con él. Esto último puede ser necesario por ejemplo, para cumplir con la política de confidencialidad de la empresa.</p>
-<p>En el ejemplo de la imagen anterior, se chequeó el documento <b>Evidencia aplicación de sanciones de la investigación</b>. Esto es señalado por la plataforma agregando el ícono <i class="bi bi-exclamation-triangle"></i> en rojo, al final del nombre del documento.</p>
-
-<h4>Documentos vs Lista de documentos</h4>
-
-<p>Se puede apreciar en la imagen, que la lista tiene dos tipos de elementos con distinta funcionalidad:
-	<ol>
-		<li><b>Documento único</b>: son aquellos cuyo nombre comienzan con el ícono <i class="bi bi-file-earmark"></i>. El documento <b>Denuncia</b> por ejemplo. La funcionalidad que ofrece este elemento es simplemente <b>Subir</b> el documento, presentada en el botón de la derecha.</li>
-		<li><b>Lista de documentos</b>: son aquellos cuyo nombre comienza con el ícono <i class="bi bi-list-ul"></i>. Ejemplificado por las <b>Medidas de resguardo</b> por ejemplo. Este elemento es un pequeño encabezado, que a su derecha tiene el botón <i class="bi bi-plus-circle"></i> que permite agregar documentos a la lista.</li>
-	</ol>
-</p>
-
-<p>Para subir un documento único presionamos el botón <b><i class="bi bi-upload"></i> Subir</b>, loi cual despliega el siguiente formulario:</p>
+<p>Al presionar el botón <i class="bi bi-plus-circle"></i> accedemos al formulario para subir un documento a la lista.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dcmntcn_oblgtr_2.png', width: "600" %>
 </div>
 
-<p>Podemos ver que el nombre del documento se asigna por defecto y que sólo se requiere <i>buscarlo</i> y <i>subirlo</i>.</p>
+<p>En la parte superior aparece el nombre de la lista a la cual se está subiendo el documento, en este caso es <i>Documentación Atención psicológica temprana</i>.</p>
 
-<p>Para subir un documento a una lista de documentos se debe presionar el botón <i class="bi bi-plus-circle"></i>, lo cual despliega el siguiente formulario:</p>
+<p>Tratándose de una lista de documentos donde cada archivo tiene su nombre, es necesario ingresar el <i>Nombre del archivo</i> que estamos subiendo.</p>
+
+<p>En este caso, dado que es obligatorio proporcionar atención sicológica temprana a la persona denunciante de inmediato, es importante registrar la <i>Fecha</i> de emisión del documento.</p>
+
+<p>Finalente el botón <i>Examinar...</i> nos permite buscar y deselccionar el archivo que subiremos.</p>
+<p>Una vez completado el formulario solo falta pesionar el botón <i>Subir archivo</i></p>
+
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:0.7rem; line-height: 1.5;">
+	<p><b>Chequeo de archivos</b></p>
+	<p>Si sólo quiere marcar el archivo como existente sin subirlo, no seleccione ningún archivo y llené sólo los campos de información. Esto es útil si desea avanzar en el procedimiento y subir en forma diferida los archivos o si está probando su versión DEMO y no tiene sentido subir todos los archivos.</p>
+</div>
+
+<p>Una vez <i>chequeado</i> el documento nuestra lista lucirá así:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dcmntcn_oblgtr_3.png', width: "600" %>
 </div>
 
-<p>En este formulario podemos ver dos cambios evidentes:
+<p>Ahora la lista muestra un documento llamado <i>DIEP</i> y el ícono <i class="bi bi-exclamation-triangle text-danger"></i> señala que el documento no se subió, solo se chequeó.</p>
+
+<p>Al terminar de ingresar la información de los participantes que contiene la denuncia, volvemos a la página <i>Proceso</i> y vemos la lista de <i>documentación obligatoria</i> de la denuncia.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dcmntcn_oblgtr_4.png', width: "600" %>
+</div>
+
+<p>En la lista vemos:
 	<ol>
-		<li><b>Debemos nombrar el archivo</b>, requisito obvio pues no tiene sentido contar con una lista de archivos que tienen el mismo nombre.</li>
-		<li><b>La fecha del docunmento</b>. Este campo no aparece en todas las listas, para la lista <i>Medidas de resguardo</i> tiene sentido, pues muestra la oportunidad en la adopción de las medidas. Es parte de la configuración determinar qué documentos pediran el registro de la fecha y cuales no.</li>
+		<li>Un documento llamado <i>Denuncia</i></li>
+		<li>Una lista de documentos llamada <i>Otros anexos de la denuncia</i></li>
 	</ol>
 </p>
 
-<p>La fecha que se registra en cada documento debe coincidir con la fecha que muestra el documento. Esto sólo puede ser garantizado por el usuario que sube el documento. La plataforma no tiene cómo verificar este estándar.</p>
+<p>La lista es <i></i> opcional, en ella se ponen documentos presentados como evidencia de la denuncia. Si se trata de una denuncia cuya evidencia se basa exclusivamente en el testimonio de testigos, esta lista puede estar vacía.</p>
 
-<p>Esta flexibilidad requiere, para garantizar un buen resultado, la formalización por parte de la empresa, del estándar de manejo de la documentación del Procedimiento de Investigación y Sanción. Este estándar debe considerar el manejo de dacumentación proveniente de empresas externas cuando se trata de una empresa principal o usuaria.</p>
+<h5>Subir documento</h5>
+
+<p>Cuando se trata de subir un documento único, a la derecha encontraremos un botón <i class="bi bi-upload"></i> <i>Subir</i>. Al presionarlo accedemos al formulario para subir el documento.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dcmntcn_oblgtr_5.png', width: "600" %>
+</div>
+
+<p>En la parte superior aparece el nombre del documento que estamos subiendo y debajo el boton <i>Examinar...</i> para seleccionar el archivo que subiremos.</p>
+
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:0.7rem; line-height: 1.5;">
+	<p><b>Chequeo de archivos</b></p>
+	<p>Si sólo quiere marcar el archivo como existente sin subirlo, no seleccione ningún archivo sólo presione el botón <i>Subir archivo</i>. Esto es útil si desea avanzar en el procedimiento y subir en forma diferida los archivos o si está probando su versión DEMO y no tiene sentido subir todos los archivos.</p>
+</div>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dcmntcn_oblgtr_6.png', width: "600" %>
+</div>
+
+<p>Arriba podemos ver como luce un archivo único <i>chequeado</i>.</p>
+
+<h4>Control de documentación obligatoria</h4>
+
+<p>La plataforma controla la existencia de la documentación obligatoria en distintos puntos del procedimiento. La plataforma reconocerá un archivo chequeado como existente a menos que la cuenta se configure con control estricto de documentos.</p>
+
+<p>Por ejemplo, antes de terminar la etapa <i>Recepción de la denuncia</i> La plataforma verifica que los documentos requeridos para pasar a la etapa siguiente hayan sido subidos/chequeados.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dcmntcn_oblgtr_7.png', width: "600" %>
+</div>
+
+<p>En el mensaje de arriba el único documento faltante es <i>Medidas de resguardo</i> (nº 2), el cual es una lista.</p>
+
+<p>Como puede ver en el mensaje, la plataforma también se ocupa de que haya entregado la <i>información obligatoria</i> a la persona denunciante y que los datos de los participantes de la denuncia hayan sido verificado y complementados.</p>
+
+<p>Hay una segunda forma de controlar documentos obligatorios. En el caso de la <i>Declaración del participante</i>, la plataforma no le permitirá cerrar la etapa de investigación hasta que se haya subido/chequeado la declaración de todos los participantes.</p>
+
+<h4>Documentos generados por la plataforma</h4>
+
+<p>Las listas de documentación obligatoria agrupan sólo documentos generados fuera de la plataforma. En este sentido las listas actúan sólo como repositorios de dicha documentación. Pero hay un segundo grupo de documentos que sí son generados por la plataforma.</p>
+
+<p>La plataforma genera un conjunto de documentos en PDF y los envía por correo electrónico a los participantes. Se trata de documentos cuya generación puede descansar completamente en la plataforma:
+	<ul>
+		<li>Notificación de la asignación del investigador a la investigación</li>
+		<li>Notificación de la derivación de la causa</li>
+		<li>Envío de la información obligatoria a la persona denunciante si la denuncia se hace llegar por escrito.</li>
+		<li>etc.</li>
+	</ul>
+</p>
+
+<p>Cada uno de estos documentos se generan registrando su fecha de generación y envío, adicionalmente, cada cuenta debe registrar una dirección de correo electrónico a la que llegan copia de todos los emails enviados por la plataforma, garantizando así además el respaldo del correo electrónico correspondiente.</p>
+
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:0.7rem; line-height: 1.5;">
+	<p><b>Ayuda</b></p>
+	<p>Para acceder a una descripción simple de los archivos que se controla a través de las listas <i>Dpcumentación obligatoria</i> presione el botón <i class="bi bi-question-circle"></i> que se encuentra a la derecha del encabezado de la lista que se encuentra al final de página <i>Proceso</i>.</p>
+</div>

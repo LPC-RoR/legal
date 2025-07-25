@@ -186,7 +186,6 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto.fecha_trmtcn = nil
     @objeto.fecha_hora_dt = nil
     @objeto.objcn_invstgdr = nil
-    @objeto.evlcn_incmplt = nil
     @objeto.evlcn_incnsstnt = nil
     @objeto.evlcn_ok = nil
     @objeto.fecha_hora_corregida = nil

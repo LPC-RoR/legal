@@ -108,7 +108,7 @@ module DnncProc
  	end
 
  	def fl_evlcn?
- 		(self.evlcn_incmplt or self.evlcn_incnsstnt) ? self.fl?('dnnc_evlcn') : true
+ 		self.evlcn_incnsstnt ? self.fl?('dnnc_evlcn') : true
  	end
 
  	def fl_crrgd?
@@ -140,7 +140,7 @@ module DnncProc
  	end
 
  	def dnnc_evld?
- 		((self.evlcn_incmplt or self.evlcn_incnsstnt) and self.fecha_hora_corregida?) or self.evlcn_ok?
+ 		(self.evlcn_incnsstnt and self.fecha_hora_corregida?) or self.evlcn_ok?
  	end
 
 	def dclrcns_ok?
