@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_22_172516) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_24_213517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -398,11 +398,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_22_172516) do
     t.text "estimacion"
     t.string "probabilidad"
     t.decimal "potencial_perdida"
+    t.boolean "archivada"
+    t.string "estado_pago"
     t.index ["archivos_registrados"], name: "index_causas_on_archivos_registrados"
     t.index ["causa_ganada"], name: "index_causas_on_causa_ganada"
     t.index ["era"], name: "index_causas_on_era"
     t.index ["estado"], name: "index_causas_on_estado"
     t.index ["estado_causa"], name: "index_causas_on_estado_causa"
+    t.index ["estado_pago"], name: "index_causas_on_estado_pago"
     t.index ["fecha_audiencia"], name: "index_causas_on_fecha_audiencia"
     t.index ["fecha_ingreso"], name: "index_causas_on_fecha_ingreso"
     t.index ["fecha_uf"], name: "index_causas_on_fecha_uf"

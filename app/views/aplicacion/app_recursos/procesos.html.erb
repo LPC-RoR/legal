@@ -1,1 +1,8 @@
-<!-- BORRAR -->
+<div class="m-3">
+	<h4>Procesos</h4>
+	<% if dog? %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: '/app_recursos/chck_estds', tltp: 'Chequea estados de las causas', data: {turbo_method: :post}} do %>
+			<i class="bi bi-cursor"></i> Chequea estados de las causas!
+		<% end %>
+	<% end %>
+</div>

@@ -11,27 +11,33 @@ class CausasController < ApplicationController
   # GET /causas or /causas.json
   def index
     # Usuarios que no tienen ownr
+    limpia_audiencias
     @age_usuarios = AgeUsuario.no_ownr
 
-    scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
+    scp = params[:scp].blank? ? 'rvsn' : params[:scp]
 
     @scp = scp_item[:causas][scp.to_sym]
 
     if params[:query].present?
       cllcn = Causa.search_for(params[:query])
-#      cllcn = Causa.search_ignoring_accents(params[:query])
     else
       case scp
-      when 'trmtcn'
+      when 'rvsn'
         cllcn = Causa.trmtcn
-      when 'sn_fctrcn'
+      when 'ingrs'
         cllcn = Causa.std('ingreso')
-      when 'pgds'
-        cllcn = Causa.std('pagada')
-      when 'trmnds'
-        cllcn = Causa.std('terminada')
-      when 'crrds'
-        cllcn = Causa.std('cerrada')
+      when 'trmtcn'
+        cllcn = Causa.std('tramitación')
+      when 'archvd'
+        cllcn = Causa.std('archivada')
+      when 'vacio'
+        cllcn = Causa.std_pago('vacio')
+      when 'incmplt'
+        cllcn = Causa.std_pago('incompleto')
+      when 'monto'
+        cllcn = Causa.std_pago('monto')
+      when 'cmplt'
+        cllcn = Causa.std_pago('completo')
       when 'en_rvsn'
         cllcn = Causa.std('revisión')
       end
@@ -93,8 +99,7 @@ class CausasController < ApplicationController
 
   # GET /causas/new
   def new
-    modelo_causa = StModelo.get_model('Causa')
-    @objeto = Causa.new(estado: modelo_causa.primer_estado.st_estado, urgente: false, pendiente: false)
+    @objeto = Causa.new(estado: 'ingreso', urgente: false, pendiente: false)
   end
 
   # GET /causas/1/edit

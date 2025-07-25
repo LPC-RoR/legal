@@ -3,11 +3,14 @@ module Cmenu
 	def scp_menu 
 		{
 			causas: [
+				{scp: 'rvsn',	cndcn: operacion?},
+				{scp: 'ingrs',	cndcn: operacion?},
 				{scp: 'trmtcn',	cndcn: operacion?},
-				{scp: 'sn_fctrcn', cndcn: operacion?},
-				{scp: 'pgds',	cndcn: operacion?},
-				{scp: 'trmnds',	cndcn: operacion?},
-				{scp: 'crrds', cndcn: operacion?},
+				{scp: 'archvd',	cndcn: operacion?},
+				{scp: 'vacio', cndcn: finanzas?},
+				{scp: 'incmplt',	cndcn: finanzas?},
+				{scp: 'monto',	cndcn: finanzas?},
+				{scp: 'cmplt', cndcn: finanzas?},
 				{scp: 'en_rvsn', cndcn: admin?}
 			],
 			clientes: [
@@ -44,11 +47,14 @@ module Cmenu
 	def scp_item 
 		{
 			causas: {
+				rvsn: 	'revisión de causas',
+				ingrs: 	'ingreso',
 				trmtcn: 'en tramitación',
-				sn_fctrcn: 'sin facturación',
-				pgds: 'pagadas',
-				trmnds: 'terminadas',
-				crrds: 'cerradas',
+				archvd: 'archivadas',
+				vacio: 	'sin pagos',
+				incmplt: 'pagos incompletos',
+				monto: 	'con monto',
+				cmplt: 	'pagos completos',
 				en_rvsn: 'en revisión'
 			},
 			clientes: {

@@ -170,6 +170,7 @@ class Actividades::AgeActividadesController < ApplicationController
         ownr.fecha_audiencia = adncs.empty? ? nil : adncs.first.fecha
         ownr.audiencia = adncs.empty? ? nil : adncs.first.age_actividad
 
+        ownr.estado = ownr.get_estado
         ownr.save
       end
     end

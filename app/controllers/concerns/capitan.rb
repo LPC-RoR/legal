@@ -237,4 +237,16 @@ module Capitan
 	def prm_safe(prm)
 		CGI.escape(prm)
 	end
+
+	# ---------------------------------------------------------------------------- CAUSAS
+  def limpia_audiencias
+    Causa.std('tramitación').each do |causa|
+      if causa.fecha_audiencia? and causa.fecha_audiencia.to_date <= Time.zone.today.to_date
+        causa.fecha_audiencia = nil
+        causa.audiencia       = nil
+        causa.save
+      end
+    end
+  end
+
 end

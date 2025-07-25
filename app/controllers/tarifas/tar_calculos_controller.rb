@@ -70,7 +70,7 @@ class Tarifas::TarCalculosController < ApplicationController
       n_clcls = ownr.tar_calculos.count 
       n_pgs   = ownr.tar_tarifa.tar_pagos.count
 
-      ownr.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminada' : (ownr.monto_pagado.blank? ? 'tramitación' : 'pagada'))
+      ownr.estado_pago = ownr.get_estado_pago
 
       # CAUSA GANADA !!
       ownr.causa_ganada = ownr.monto_pagado == 0
@@ -139,11 +139,7 @@ class Tarifas::TarCalculosController < ApplicationController
     end
     @objeto.delete
 
-    if causa.tar_facturaciones.count == causa.tar_tarifa.tar_pagos.count
-      causa.estado = 'terminada'
-    else
-      causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
-    end
+    causa.estado_pago = causa.get_estado_pago
     causa.save
 
     redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
@@ -191,6 +187,7 @@ class Tarifas::TarCalculosController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_tar_calculo
       @objeto = TarCalculo.find(params[:id])

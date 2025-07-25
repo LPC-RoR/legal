@@ -18,45 +18,17 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def procesos
+  end
 
-#    Causa.all.each do |causa|
-#      if causa.age_actividades.adncs.any?
-#
-#        adncs = causa.age_actividades.adncs.ftrs.fecha_ordr
-#        causa.fecha_audiencia = adncs.empty? ? nil : adncs.first.fecha
-#        causa.audiencia = adncs.empty? ? nil : adncs.first.age_actividad
-
-#        causa.save
-
-#      end
-
-#      if causa.estado == 'tramitación'
-
-#        ultimo = causa.monto_conciliaciones.last
-#        causa.monto_pagado = (ultimo.present? and ['Acuerdo', 'Sentencia'].include?(ultimo.tipo)) ? ultimo.monto : nil
-
-        # Estado va después del monto porque debe estar actualizado
-#        n_clcls = causa.tar_calculos.count 
-#        n_pgs   = causa.tar_tarifa.blank? ? 0 : causa.tar_tarifa.tar_pagos.count
-
-#        if causa.tar_tarifa.present?
-#          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminada' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
-#        else
-#          causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
-#        end
-
-#        causa.save
-#      end
-
-#    end
-
-    Tarea.all.each do |tar|
-      tar.rep_doc_controlados.delete_all
-      tar.variables.delete_all
-      tar.lgl_temas.delete_all
-      tar.delete
+  def chck_estds
+    Causa.all.each do |causa|
+      if ['ingreso', 'pagada', 'tramitación'].include?(causa.estado)
+        causa.estado = causa.get_estado
+        causa.estado_pago = causa.get_estado_pago
+        causa.save
+      end
     end
-
+    
     redirect_to root_path, notice: CausaArchivo.all.count
   end
 

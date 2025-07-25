@@ -7,22 +7,6 @@ class Causa < ApplicationRecord
 		rit: 'B'
 	}, using: { tsearch: {prefix: true, any_word: true} }
 
-#  include PgSearch::Model
-
-#	pg_search_scope :search_ignoring_accents,
-#	  against: ["causa::text"],
-#	  using: {
-#	    tsearch: {
-#	      dictionary: 'spanish',
-#	      normalization: 2  # Ignora acentos
-#	    },
-#	    trigram: {
-#	      only: [:causa],  # Asegúrate de que solo se aplique a 'causa'
-#	      word_similarity: true,  # Opcional: para coincidencias parciales
-#	      threshold: 0.3   # Ajusta según necesidad (valor por defecto: 0.3)
-#	    }
-#	  }
-
 	CALC_VALORES = [ 
 		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
 		'$Remuneración'
@@ -62,6 +46,7 @@ class Causa < ApplicationRecord
 
     # en MIGRACIÓN
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
+    scope :std_pago, ->(estado_pago) { where(estado_pago: estado_pago).order(:fecha_audiencia) }
     # DEPRECATED : Se cambia por std('ingreso'), se deben migrar todas las causas que están en estado 'tramitación'
     scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.tar_calculos.empty?}.compact)}
     scope :trmtcn, -> { where(estado: ['ingreso', 'tramitación']).order(:fecha_audiencia) }
@@ -76,6 +61,22 @@ class Causa < ApplicationRecord
 	def demanda?
 		self.demanda.present?
 	end
+
+    # ---------------------------------------------------------------- ESTADO Y ESTADO PAGO
+
+    def get_estado
+    	audncs 		= self.age_actividades.adncs
+    	n_audncs 	= audncs.count
+
+    	n_audncs == 0 ? 'ingreso' : (self.archivada ? 'archivada' : 'tramitación')
+    end
+
+    def get_estado_pago
+    	n_clcls	= self.tar_calculos.count
+    	n_pgs 	= self.tar_tarifa.tar_pagos.count
+
+    	n_clcls == 0 ? 'vacios' : (n_clcls == n_pgs ? 'completos' : (self.monto_pagado? ? 'monto' : 'incompleto'))
+    end
 
     # ---------------------------------------------------------------- ACTIVIDADES
 

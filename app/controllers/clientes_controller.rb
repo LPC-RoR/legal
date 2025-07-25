@@ -50,19 +50,28 @@ class ClientesController < ApplicationController
 
     elsif @options[:menu] == 'Causas'
 
-      scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
+      limpia_audiencias
+      scp = params[:scp].blank? ? 'rvsn' : params[:scp]
 
       case scp
+      when 'rvsn'
+        cllcn = Causa.trmtcn
+      when 'ingrs'
+        cllcn = Causa.std('ingreso')
       when 'trmtcn'
-        cllcn = @objeto.causas.std('tramitación')
-      when 'sn_fctrcn'
-        cllcn = @objeto.causas.no_fctrds
-      when 'trmnds'
-        cllcn = @objeto.causas.std('terminada')
-      when 'crrds'
-        cllcn = @objeto.causas.std('cerrada')
+        cllcn = Causa.std('tramitación')
+      when 'archvd'
+        cllcn = Causa.std('archivada')
+      when 'vacio'
+        cllcn = Causa.std_pago('vacio')
+      when 'incmplt'
+        cllcn = Causa.std_pago('incompleto')
+      when 'monto'
+        cllcn = Causa.std_pago('monto')
+      when 'cmplt'
+        cllcn = Causa.std_pago('completo')
       when 'en_rvsn'
-        cllcn = @objeto.causas.std('revisión')
+        cllcn = Causa.std('revisión')
       end
 
       @scp = scp_item[:causas][scp.to_sym]

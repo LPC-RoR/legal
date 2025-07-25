@@ -25,8 +25,6 @@ Rails.application.routes.draw do
 #  get 'dwnldwrd' => 'causas/dwnldwrd', format: :docx
 
   resources :causas do
-#    resources :temas
-#    resources :hechos
     match :swtch, via: :post, on: :member
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
@@ -323,11 +321,11 @@ Rails.application.routes.draw do
     end
     resources :app_recursos do
       collection do
-        match :ayuda, via: :get
-        match :administracion, via: :get
         match :procesos, via: :get
         match :usuarios, via: :get
         match :password_recovery, via: :get
+        # ----------------- métodos para procesos
+        match :chck_estds, via: :post
       end
     end
     resources :tablas do
