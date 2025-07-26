@@ -1,6 +1,6 @@
 <div style="background-color: white;">
 	<div style="margin-left: 5%;margin-right: 5%;">
-		<%= render partial: 'layouts/partials/notice_alert' %>
+		<%= render partial: 'layouts/partials/notice_alert' unless controller_name == 'hlp_ayudas' %>
 	</div>
 	<%= yield %>
 </div>
