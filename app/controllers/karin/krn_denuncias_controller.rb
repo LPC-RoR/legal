@@ -43,7 +43,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/new
   def new
-    @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid])
+    @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid], fecha_hora: Time.zone.now)
     set_bck_rdrccn
   end
 

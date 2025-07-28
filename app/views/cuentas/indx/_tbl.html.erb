@@ -2,7 +2,8 @@
 <table class="table table-striped">
   <tbody>
     <% @coleccion[cntrllr(source)].each do |objt| %>
-      <%= render partial: '0p/tbl/tr', locals: {objt: objt, crud: crud} %>
+      <% typ = ['krn_investigadores'].include?(cntrllr(source)) ? 'ln' : 'tr' %>
+      <%= render partial: "0p/tbl/#{typ}", locals: {objt: objt, crud: crud} %>
     <% end %>
   </tbody>
 </table>

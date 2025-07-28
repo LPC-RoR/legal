@@ -1,8 +1,13 @@
-<!-- Se usa mthd prque method es palabla reservada -->
-<% data   ||= nil %>
-<% mthd   ||= nil %>
+<% data ||= {} %>
 <% target ||= nil %>
-<% tltp   ||= nil %>
-<%= link_to lnk, data: data, target: target, title: tltp, data_toggle: 'tooltip', data_placement: 'right' do %>
+<% tltp ||= nil %>
+<% 
+  default_data = {
+    toggle: 'tooltip',
+    placement: 'right'
+  }
+  combined_data = default_data.merge(data)
+%>
+<%= link_to lnk, data: combined_data, target: target, title: tltp do %>
     <% yield %>
 <% end %>

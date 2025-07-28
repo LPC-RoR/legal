@@ -72,7 +72,7 @@ class EmailVerificationsController < ApplicationController
     end
 
     # Actualizar el token
-    record.update(verification_token: SecureRandom.urlsafe_base64)
+    record.update(verification_token: SecureRandom.urlsafe_base64, n_vrfccn_lnks: record.n_vrfccn_lnks.blank? ? 1 : record.n_vrfccn_lnks += 1, fecha_vrfccn_lnk: Time.zone.now)
 
     # Generar URL de verificación
     verification_url = verify_custom_email_url(

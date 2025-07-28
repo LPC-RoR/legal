@@ -1,10 +1,8 @@
 <div style="margin-left: 7%;">
 
 	<div class="ms-5 objt_lnk" style="font-size: 14px;">
-		<% if objeto.email.present? and (objeto.email != objeto.email_ok) %>
-			<i class="bi bi-cone-striped text-danger"></i> El correo electrónico del participante aún no se ha verificado.
-		<% end %>
-		<%= render partial: 'karin/prtls/prtcpnts/email_verification', locals: {objeto: objeto} %>
+
+		<%= render partial: 'karin/prtls/prtcpnts/objt/email_verification', locals: {objeto: objeto} %>
 
 		<% if objeto.class.name == 'KrnDenunciante' %>
 			<br>
@@ -14,7 +12,7 @@
 				<i class="bi bi-check2-all"></i> Se envió la información obligatoria por correo electrónico.
 			<% else %>
 				<i class="bi bi-cone-striped text-danger"></i> Se debe enviar la información obligatoria por correo electrónico.
-				<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{@objeto.id}&rprt=dnncnt_info_oblgtr"} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{@objeto.id}&rprt=dnncnt_info_oblgtr", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
 					<i class="bi bi-envelope-at"></i> Enviar!
 				<% end %>
 			<% end %>

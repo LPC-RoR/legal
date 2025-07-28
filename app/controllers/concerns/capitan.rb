@@ -70,9 +70,10 @@ module Capitan
 
 	def swtch
 		@objeto[params[:tkn]] = @objeto.send(params[:tkn]) ? false : true
-		@objeto.estado = @objeto.get_estado
-		@objeto.estado_pago = @objeto.estado_pago
-
+		if ['Causa'].include?(@objeto.class.name)
+			@objeto.estado = @objeto.get_estado
+			@objeto.estado_pago = @objeto.estado_pago
+		end
 		@objeto.save
 
 		case @objeto.class.name
