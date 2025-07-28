@@ -25,17 +25,30 @@
 	<% unless @objt['fls_rcpcn?'] %>
 	<p><b>No está completa la información necesaria para cerrar la recepción de la denuncia.</b>
 		<ol>
+			<% if @objt['emails_vrfcds?'] %>
+				<% unless @objt['dnncnts_info_oblgtr?'] or @objeto.dnncnt_info_oblgtr %>
+					<li><i class="bi bi-cone-striped text-danger"></i> No se ha entregado la información obligatoria a las personas denunciantes.
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}_1"} do %>
+						<i class="bi bi-cursor"></i> Ir a Participantes
+					<% end %>
+					</li>
+				<% end %>
+			<% else %>
+				<li><i class="bi bi-cone-striped text-danger"></i> Falta completar verificación de los correos electrónicos de los participantes. Una vez verificados, se debe enviar la información obligatoria a los participantes.
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}_1"} do %>
+					<i class="bi bi-cursor"></i> Ir a Participantes
+				<% end %>
+				</li>
+			<% end %>
+
 			<% unless @objt['rgstrs_info_mnm?'] %>
 				<li><i class="bi bi-cone-striped text-danger"></i> No se han completados los datos de los participantes.</li>
-			<% end %>
-			<% unless @objt['dnncnts_info_oblgtr?'] or @objeto.dnncnt_info_oblgtr %>
-				<li><i class="bi bi-cone-striped text-danger"></i> No se ha entregado la información obligatoria a las personas denunciantes.</li>
 			<% end %>
 			<% unless @objt['fl_atncn_sclgc_tmprn?'] %>
 				<li><i class="bi bi-cone-striped text-danger"></i> No se han subido evidencias de la atención sicológica temprana recibida por las personas denunciantes.
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}_1"} do %>
 					<i class="bi bi-cursor"></i> Ir a Participantes
-				<% end %></p>
+				<% end %>
 				</li>
 			<% end %>
 			<% unless @objt['fl_rprsntcn?'] %>

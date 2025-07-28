@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_28_172242) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_28_210651) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -864,7 +864,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_28_172242) do
     t.string "cargo"
     t.string "lugar_trabajo"
     t.string "email"
-    t.boolean "email_ok"
+    t.string "email_ok"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "articulo_4_1"

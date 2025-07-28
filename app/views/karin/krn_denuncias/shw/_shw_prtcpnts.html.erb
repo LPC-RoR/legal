@@ -8,6 +8,8 @@
 		<%= render partial: prtl_name(@objeto, 'mssgs', 'dclrcns_ok') if @etp_last.codigo == 'etp_invstgcn' and @objt['dclrcns_ok?'] %>
 	<% end %>
 
+	<%= render partial: prtl_name(@objeto, 'shw/prtcpnts', 'vrfccn_datos_prtcpnts') %>
+
 	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6, lnks: 'prtl'} %>
 	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciantes', shdw: false, typ: 'ln', crud: 'lnks'} %>
 

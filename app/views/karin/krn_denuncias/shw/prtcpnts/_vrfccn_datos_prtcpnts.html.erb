@@ -1,0 +1,25 @@
+<% if @objt['rgstrs_mnms?'] %>
+	<div class="p-2 border app_lnk">
+		<div class="row gx-1">
+			<div class="col-8">
+				<b>Solicitud de verificación de información</b>
+			</div>
+			<div class="col-4 text-end">
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{@objeto.id}&rprt=infrmcn", tltp: 'Enviar reporte por correo electrónico', data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
+					<i class="bi bi-envelope-check"></i>
+				<% end %>
+			</div>
+		</div>
+		<% @pdf_rgstr_rvsn.each do |rgstr| %>
+			<div class="row gx-1">
+				<div class="col-8 ps-3">
+					<%= dma_hm(rgstr.created_at) %> 
+					<%= rgstr.pdf_archivo.nombre %>
+				</div>
+				<div class="col-4 text-end">
+					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: rgstr} %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+<% end %>

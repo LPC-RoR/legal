@@ -11,6 +11,10 @@ module Prtcpnt
       self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
     end
 
+    def email_vrfcd?
+      self.articulo_516 ? true : (self.verified? and (self.email == self.email_ok))
+    end
+
   	def rgstr_ok?
   		self.empleador_ok? and self.direccion_ok? and self.rut? and ( self.class.name == 'KrnTestigo' ? true : self.krn_testigos.rgstrs_ok?)
   	end
@@ -42,6 +46,10 @@ module Prtcpnt
   class_methods do
     def rgstrs_ok?
       all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
+    end
+
+    def emails_ok?
+      all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|den| den.email_vrfcd?}.uniq.join('-') == 'true'
     end
 
     def emprss_ids

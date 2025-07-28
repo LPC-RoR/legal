@@ -33,6 +33,8 @@ class Karin::KrnDenunciasController < ApplicationController
       set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
     when 1
       load_p_fls
+      @pdf_rvsn = PdfArchivo.find_by(codigo: 'infrmcn')
+      @pdf_rgstr_rvsn = @objeto.pdf_registros.where(pdf_archivo_id: @pdf_rvsn.id)
     when 2
 #      set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
       set_tabla('pdf_archivos', @objeto.prcdmnt.pdf_archivos.where(codigo: rprts_pdf_actvs).ordr, false)

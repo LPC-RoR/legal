@@ -16,6 +16,10 @@ module DnncProc
 		self.krn_denunciantes.rgstrs_ok? and (self.krn_denunciados.rgstrs_ok? or self.motivo_vlnc?)
 	end
 
+	def emails_vrfcds?
+		self.krn_denunciantes.emails_ok? and (self.krn_denunciados.emails_ok? or self.motivo_vlnc?)
+	end
+
 	# ETAPA Para resolver el comienzo de las etapas
 	def rgstrs_info_mnm?
 		self.rgstrs_mnms? and self.rgstrs_ok?

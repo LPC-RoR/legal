@@ -342,7 +342,8 @@ module Tarifas
 
 	# Versión 2.0: secondary
 	def get_objt_calculo_pago(ownr, pago)
-		objt = get_tar_uf_facturacion_pago(ownr, pago)
+		# Cambiado porque había un error en producción
+		objt = ownr.class.name == 'Causa' ? get_tar_uf_facturacion_pago(ownr, pago) : ownr
 		objt ||= get_objt_pago(ownr, pago)
 		objt
 	end

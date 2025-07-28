@@ -27,7 +27,8 @@ module Karin
       'get_crr_rcpcn?', 'fl_atncn_sclgc_tmprn?', 'fl_dnnc?', 'fl_acta?', 'fl_rprsntcn?', 'fl_ntfccn?', 'fl_crtfcd?',
       'fl_mdds_rsgrd?', 'fls_rcpcn?', 'inf_cierre?', 'fechas_crr_rcpcn?',
       'fl_antcdnts_objcn?', 'fl_rslcn_objcn?', 'fl_evlcn?', 'fl_crrgd?', 'fl_infrm?', 'fls_invstgcn?',
-      'dnnc_evld?', 'dclrcns_ok?', 'chck_dvlcn?', 'fl_prnncmnt?', 'fl_rslcn_dvlcn?'
+      'dnnc_evld?', 'dclrcns_ok?', 'chck_dvlcn?', 'fl_prnncmnt?', 'fl_rslcn_dvlcn?',
+      'emails_vrfcds?'
     ]
     mthds.each do |mthd|
       @objt[mthd] = objt.send(mthd)

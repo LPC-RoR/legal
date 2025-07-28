@@ -220,7 +220,6 @@ class Rprts::KrnReportesController < ApplicationController
     end
 
     def get_dstntrs(oid, rprt)
-#      @objeto = KrnDenuncia.find(oid)
       @pdf_archivo = PdfArchivo.find_by(codigo: rprt)
       dstntrs = []
       if rprt == 'dclrcn'
@@ -234,10 +233,6 @@ class Rprts::KrnReportesController < ApplicationController
         @objt['denunciantes'].each do |dnncnt|
           rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
           dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
-          dnncnt.krn_testigos.each do |tstg|
-            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
-            dstntrs << {objt: tstg, ref: ref, invstgdr: invstgdr, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
-          end
         end
       elsif ['drvcn', 'invstgdr', 'invstgcn'].include?(rprt)
         ref = get_objt(oid, rprt)
