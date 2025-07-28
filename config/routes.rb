@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :causas do
     match :swtch, via: :post, on: :member
+    match :swtch_stt, via: :post, on: :member
     match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
     match :cuantia_to_xlsx, via: :get, on: :member

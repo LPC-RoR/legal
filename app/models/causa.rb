@@ -68,7 +68,7 @@ class Causa < ApplicationRecord
     	audncs 		= self.age_actividades.adncs
     	n_audncs 	= audncs.count
 
-    	n_audncs == 0 ? 'ingreso' : (self.archivada ? 'archivada' : 'tramitación')
+    	n_audncs == 0 ? 'ingreso' : (self.archvd ? 'archivada' : 'tramitación')
     end
 
     def get_estado_pago

@@ -24,8 +24,6 @@ module Capitan
 
 	def ne_rfrr?
 		acctn_referer = extract_action_from_referer
-		puts "-------------------------------------- ne_rfrr"
-		puts acctn_referer
 		['new', 'edit'].include?(acctn_referer)
 	end
 
@@ -72,6 +70,9 @@ module Capitan
 
 	def swtch
 		@objeto[params[:tkn]] = @objeto.send(params[:tkn]) ? false : true
+		@objeto.estado = @objeto.get_estado
+		@objeto.estado_pago = @objeto.estado_pago
+
 		@objeto.save
 
 		case @objeto.class.name
@@ -85,7 +86,9 @@ module Capitan
 			rdrccn = nil
 		end
 
-		redirect_to rdrccn.blank? ? cptn_rdrccn : rdrccn
+		set_bck_rdrccn
+#		redirect_to rdrccn.blank? ? cptn_rdrccn : rdrccn
+		redirect_to @bck_rdrccn
 	end
 
 	def swtch_clr
@@ -102,13 +105,29 @@ module Capitan
 		redirect_to cptn_rdrccn
 	end
 
+	# ************************************************************************** ESTADOS
+	def swtch_stt
+			stt = params[:stt]
+			unless @objeto.blank? or stt.blank?
+				case stt
+				when 'archvd'
+					@objeto = ['Causa', 'Asesoría'].include?(@objeto.class.name) ? 'archivada' : 'archivado'
+				end
+				@objeto.save
+			else
+				ntc = "#{'objeto vacío' if @objeto.blank?} #{'estado vacío' if stt.blank?}"
+			end
+
+			set_bck_rdrccn
+			redirect_to @bck_rdrccn, notice: ntc
+	end	
 	# ************************************************************************** INICIALIZA VARIALES PARA CHANGE_STATE
-    def set_st_estado(objeto)
-    	st_modelo = StModelo.find_by(st_modelo: objeto.class.name)
-    	@st_estado = st_modelo.blank? ? nil : st_modelo.st_estados.find_by(st_estado: objeto.estado)
-    	@st_usuario = @st_estado.blank? ? [] : @st_estado.destinos.split(' ').map {|std| std if check_st_estado(objeto, std)}.compact
-    	@st_admin = @st_estado.blank? ? [] : @st_estado.destinos_admin.split(' ').map {|std| std if check_st_estado(objeto, std)}.compact
-    end
+  def set_st_estado(objeto)
+  	st_modelo = StModelo.find_by(st_modelo: objeto.class.name)
+  	@st_estado = st_modelo.blank? ? nil : st_modelo.st_estados.find_by(st_estado: objeto.estado)
+  	@st_usuario = @st_estado.blank? ? [] : @st_estado.destinos.split(' ').map {|std| std if check_st_estado(objeto, std)}.compact
+  	@st_admin = @st_estado.blank? ? [] : @st_estado.destinos_admin.split(' ').map {|std| std if check_st_estado(objeto, std)}.compact
+  end
 
 	# ************************************************************************** TABLA
 	def set_tabla(controller, tabla, paginate)

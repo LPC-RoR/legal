@@ -1,0 +1,4 @@
+<% objt ||= @objeto %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{objt.class.name.tableize}/#{objt.id}/swtch_stt", tltp: 'Cambiar estado', stt: stt} do %>
+	<i class="bi bi-archive"></i>
+<% end %>
