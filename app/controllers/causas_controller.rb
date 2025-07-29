@@ -30,7 +30,7 @@ class CausasController < ApplicationController
         cllcn = Causa.std('tramitación')
       when 'archvd'
         cllcn = Causa.std('archivada')
-      when 'vacio'
+      when 'vacios'
         cllcn = Causa.std_pago('vacios')
       when 'incmplt'
         cllcn = Causa.std_pago('incompletos')

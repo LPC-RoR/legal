@@ -7,7 +7,7 @@ module Cmenu
 				{scp: 'ingrs',	cndcn: operacion?},
 				{scp: 'trmtcn',	cndcn: operacion?},
 				{scp: 'archvd',	cndcn: operacion?},
-				{scp: 'vacio', cndcn: finanzas?},
+				{scp: 'vacios', cndcn: finanzas?},
 				{scp: 'incmplt',	cndcn: finanzas?},
 				{scp: 'monto',	cndcn: finanzas?},
 				{scp: 'cmplt', cndcn: finanzas?},
