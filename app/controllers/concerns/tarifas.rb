@@ -368,7 +368,7 @@ module Tarifas
 		hsh = {}
 		ownr.tar_tarifa_tar_pagos.ordr.each do |pago|
 			hsh[pago.id] = {}
-			tar_uf_facturacion 		= ownr.class.name == 'Causa' ? get_tar_uf_facturacion_pago(ownr, pago) :
+			tar_uf_facturacion 		= ownr.class.name == 'Causa' ? get_tar_uf_facturacion_pago(ownr, pago) : nil
 			objt_calculo         	= get_objt_pago(ownr, pago)
 			objt_origen						= ownr.class.name == 'Causa' ? (tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion) : ownr
 			fecha_calculo        	= objt_origen.blank? ? Time.zone.today : (objt_origen.fecha_uf.blank? = Time.zone.today : objt_origen.fecha_uf)

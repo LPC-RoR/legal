@@ -91,11 +91,11 @@ class Organizacion::ServiciosController < ApplicationController
 
     def array_from_pago(ownr, pago)
       hsh = {}
-      tar_uf_facturacion    = get_tar_uf_facturacion_pago(ownr, pago)
+      tar_uf_facturacion    = ownr.class.name == 'Causa' ? get_tar_uf_facturacion_pago(ownr, pago) : nil
       objt_calculo          = get_objt_pago(ownr, pago)
-      objt_origen       = tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion
-      fecha_calculo         = objt_origen.blank? ? Time.zone.today : objt_origen.fecha_uf
-      uf_calculo        = vlr_uf(fecha_calculo)
+      objt_origen           = ownr.class.name == 'Causa' ? (tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion) : ownr
+      fecha_calculo         = objt_origen.blank? ? Time.zone.today : (objt_origen.fecha_uf.blank? = Time.zone.today : objt_origen.fecha_uf)
+      uf_calculo            = vlr_uf(fecha_calculo)
       hsh[:fecha_calculo]    = fecha_calculo
       hsh[:uf_calculo]       = uf_calculo
       hsh[:objt_calculo]       = objt_calculo
