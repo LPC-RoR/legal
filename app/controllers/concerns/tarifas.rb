@@ -278,7 +278,7 @@ module Tarifas
 
 	# ----------------------------------------------------------------------------------------------------- Pagos
 	def get_tar_uf_facturacion_pago(ownr, pago)
-		ownr.tar_uf_facturaciones.find_by(tar_pago_id: pago.id)
+		ownr.class.name == 'Causa' ? ownr.tar_uf_facturaciones.find_by(tar_pago_id: pago.id) : nil
 	end
 
 	# Versión 2.0
