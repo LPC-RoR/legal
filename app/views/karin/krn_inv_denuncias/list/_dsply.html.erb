@@ -7,7 +7,7 @@
 				Investigador ya fue notificado a los participantes
 			<% end %>
 			<% if objeto.pdf_registros.empty? %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=invstgdr"} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=invstgdr", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
 					<i class="bi bi-envelope-at"></i> Notificar!
 				<% end %>
 			<% else %>

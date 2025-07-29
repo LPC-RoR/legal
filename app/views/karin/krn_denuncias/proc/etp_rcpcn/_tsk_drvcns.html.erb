@@ -1,18 +1,18 @@
 <!-- USUARIO: recepción -->
-<% if @objt['verbal?'] and @objeto.dnncnt_info_oblgtr != true %>
-	<% if @objt['get_infrmcn_oblgtr?'] %>
-		<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'inf_oblgtr'} %>
-	<% end %>
+<!-- Si es denuncia verbal y NO se entregó la infornmación obligatoria -->
+<% if @objt['get_infrmcn_oblgtr?'] %>
+	<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'inf_oblgtr'} %>
 <% else %>
-	<% unless @objt['dnncnts_info_oblgtr?'] %>
-		<%#= render partial: prtl_name(@objeto, 'mssgs', 'dnncnt_no_inf_oblgtr') %>
-	<% end %>
 
 	<% unless @objt['on_dt?'] %>
+	
 		<% if @objt['rcpcn_dnnc?'] %>
+
 			<!-- DERIVACIÓN DESDE EMPRESA EXTERNA -->
 			<%= render partial: '0p/proc/dsply_etp_tsk', locals: {etp: @etp_last, prtl: 'drvcn_desde_extrn'} %>
+
 		<% else %>
+
 			<!-- La denuncia puede estar en la empresa o en una empresa externa -->
 			<!-- Si está en una empresa externa, es su responsabilidad investigar: seguimiento -->
 			<% if @objt['drvcn_extrn?'] %>
@@ -36,6 +36,8 @@
 					<% end %>
 				<% end %>
 			<% end %>
+
 		<% end %>
 	<% end %>
+
 <% end %>

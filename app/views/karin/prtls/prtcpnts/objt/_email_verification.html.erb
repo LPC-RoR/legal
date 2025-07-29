@@ -17,7 +17,7 @@
 
 	<% else %>
 		<% if objeto.verified? %>
-			<i class="bi bi-at"> <%= objeto.email %> </i> <b>verificado!</b>
+			<i class="bi bi-at text-primary"> <%= email_mask(objeto.email) %> </i> <b>verificado!</b>
 		<% end %>
 	<% end %>
 <% end %>

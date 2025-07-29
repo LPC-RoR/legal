@@ -10,12 +10,22 @@
 				<%= render partial: 'karin/prtls/prtcpnts/objt/chck_dnncnt_info_oblgtr', locals: {objeto: objeto} %>
 				<%= render partial: 'karin/prtls/prtcpnts/objt/chck_drchs', locals: {objeto: objeto} %>
 				<%= render partial: 'karin/prtls/prtcpnts/objt/chck_invstgcn', locals: {objeto: objeto} %>
+				<%= render partial: 'karin/prtls/prtcpnts/objt/chck_mdds_rsgrd', locals: {objeto: objeto} %>
+				<%= render partial: 'karin/prtls/prtcpnts/objt/chck_ntfccn_drvcns', locals: {objeto: objeto} %>
+				<%= render partial: 'karin/prtls/prtcpnts/objt/chck_invstgdr', locals: {objeto: objeto} %>
 
 			<% else %>
 				<br><i class="bi bi-cone-striped text-danger"></i> No se puede enviar información a los participantes mientras su correo electrónico no se haya verificado.
 			<% end %>
 		<% end %>
 	</div>
+
+	<% if objeto.pdf_registros.any? %>
+		<%= render partial: 'cuentas/indx/ttl_scndry', locals: {source: 'pdf_registros', brdr_wdth: 1, ownr: objeto, fs: 6, ttl: true} %>
+		<% objeto.pdf_registros.order(:created_at).each do |mail| %>
+			<%= render partial: '0p/tbl/ln', locals: {objt: mail, crud: 'lnks'} %>
+		<% end %>
+	<% end %>
 
 	<% if @objeto.investigadores? %>
 		<%= render partial: 'cuentas/indx/ttl_scndry', locals: {source: 'krn_declaraciones', brdr_wdth: 1, ownr: objeto, fs: 6} %>
@@ -24,13 +34,6 @@
 				<%= render partial: '0p/tbl/ln', locals: {objt: dclrcn, ownr: objeto, crud: 'lnks'} %>
 			<% end %>
 		</div>
-	<% end %>
-
-	<% if objeto.pdf_registros.any? %>
-		<%= render partial: 'cuentas/indx/ttl_scndry', locals: {source: 'pdf_registros', brdr_wdth: 1, ownr: objeto, fs: 6} %>
-		<% objeto.pdf_registros.order(:created_at).each do |mail| %>
-			<%= render partial: '0p/tbl/ln', locals: {objt: mail, crud: 'lnks'} %>
-		<% end %>
 	<% end %>
 
 	<% if objeto.class.name == 'KrnDenunciante' or @objeto.investigadores? %>

@@ -1,11 +1,3 @@
-<% if objeto.pdf_registros.empty? %>
-	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=drvcn"} do %>
-		<i class="bi bi-envelope-at"></i>
-	<% end %>
-<% else %>
-	<i class="bi bi-check2-all"></i>
-<% end %>
-
 <% if objeto.destino == 'Dirección del Trabajo' and @objeto.krn_derivaciones.count == 1 %>
 	<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: 'solicitud_denuncia', stts: ['sin solicitud de devolución', 'con solicitud de devolución'], glys: ['arrow-counterclockwise', 'arrow-left']} %>
 <% end %>

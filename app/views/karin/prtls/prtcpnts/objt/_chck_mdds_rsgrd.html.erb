@@ -1,0 +1,17 @@
+<br>
+<% if objeto.invstgcn_sent? %>
+	<% if @objeto.mdds_rsgrd_for_attchmnt? %>
+		<% if objeto.mdds_rsgrd_sent? %>
+			<i class="bi bi-check2-all text-primary"></i> Se envió notificación de las medidas de resguardo adoptadas por correo electrónico.
+		<% else %>
+			<i class="bi bi-cone-striped text-danger"></i> Se debe enviar las medidas de resguardo adoptadas por correo electrónico.
+			<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{@objeto.id}&rprt=mdds_rsgrd", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
+				<i class="bi bi-envelope-at"></i> Enviar!
+			<% end %>
+		<% end %>
+	<% else %>
+		<i class="bi bi-cone-striped text-danger"></i> No se puede enviar las medidas de resguardo a los trabajadores: No se han subido a la plataforma o sólo fue chequeado.
+	<% end %>
+<% else %>
+	<i class="bi bi-cone-striped text-danger"></i> No se puede enviar las medidas de resguardo a los trabajadores mientras no se haya enviado la notificación de la recepción de denuncia.
+<% end %>

@@ -5,7 +5,7 @@
     
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <% @tbs.each_with_index do |tb, indx| %>
-            <% unless indx == @indx %>
+            <% unless indx == @indx or (tb == 'Reportes' and scp_activo?) %>
                 <li style="font-size: 12px; line-height: 1.2;">
                     <a class="dropdown-item text-dark app_lnk" href="/krn_denuncias/<%=@objeto.id%>_<%=indx%>"><%=tb%></a>
                 </li>

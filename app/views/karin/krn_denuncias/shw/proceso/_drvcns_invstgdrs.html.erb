@@ -1,6 +1,6 @@
 <% if @objt['derivaciones?'] %>
 	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_derivaciones', blngs: @objeto, fs: 6} %>
-	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'lnks'} %>
+	<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'lnks', typ: 'ln'} %>
 
 	<% if @objeto.solicitud_denuncia and @objeto.on_dt? %>
 		<!-- Recibir de vuelta una denuncia desde la DT (solicitada) -->

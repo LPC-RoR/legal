@@ -3,6 +3,7 @@
 	<!-- Despliegue de DERIVACIONES e INVESTIGADORES -->
 	<%= render partial: prtl_name(@objeto, 'shw/proceso', 'drvcns_invstgdrs') %>
 
+	<!-- Sí se cumplen condiciones para el cierre muestra el cierre de la recepción -->
 	<% if @objt['get_crr_rcpcn?'] %>
 		<%= render partial: prtl_name(@objeto, "proc/#{@etp_last.codigo}", 'tsk_crr') %>
 	<% else %>

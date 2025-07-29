@@ -4,7 +4,7 @@
 		<%= render partial: prtl_name(@objeto, 'mssgs', 'dnnc_nueva') %>
 	<% else %>
 		<%= render partial: prtl_name(@objeto, 'mssgs', 'rgstrs_ok') if @etp_last.codigo == 'etp_rcpcn' %>
-		<%= render partial: prtl_name(@objeto, 'mssgs', 'dclrcn') if @etp_last.codigo == 'etp_invstgcn' and @objt['investigadores?'] and (not @objt['dclrcns_ok?']) %>
+		<%= render partial: prtl_name(@objeto, 'mssgs', 'dclrcn') if @objt['dnnc_evld?'] and not (@objt['dclrcns_ok?']) %>
 		<%= render partial: prtl_name(@objeto, 'mssgs', 'dclrcns_ok') if @etp_last.codigo == 'etp_invstgcn' and @objt['dclrcns_ok?'] %>
 	<% end %>
 

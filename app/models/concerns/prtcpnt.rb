@@ -45,11 +45,21 @@ module Prtcpnt
 
     def invstgcn_sent?
       pdf = PdfArchivo.find_by(codigo: 'invstgcn')
-      pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id).present?
+      frst = pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id).present? and (self.class.name == 'KrnTestigo' ? true : self.krn_testigos.invstgcn_sents?)
+    end
+
+    def mdds_rsgrd_sent?
+      pdf = PdfArchivo.find_by(codigo: 'mdds_rsgrd')
+      pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id).present? and (self.class.name == 'KrnTestigo' ? true : self.krn_testigos.mdds_rsgrd_sents?)
     end
 
     def dclrcn?
       self.fl?('prtcpnts_dclrcn') and (self.class.name == 'KrnTestigo' ? true : self.krn_testigos.dclrcns?)
+    end
+
+    def invstgdr_sent?
+      pdf = PdfArchivo.find_by(codigo: 'invstgdr')
+      frst = pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id).present? and (self.class.name == 'KrnTestigo' ? true : self.krn_testigos.invstgdr_sents?)
     end
 
   end
@@ -70,6 +80,18 @@ module Prtcpnt
 
     def dclrcns?
       all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|objt| objt.dclrcn?}.uniq.join('-') == 'true'
+    end
+
+    def invstgcn_sents?
+      all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|objt| objt.invstgcn_sent?}.uniq.join('-') == 'true'
+    end
+
+    def mdds_rsgrd_sents?
+      all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|objt| objt.mdds_rsgrd_sent?}.uniq.join('-') == 'true'
+    end
+
+    def invstgdr_sents?
+      all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|objt| objt.invstgdr_sent?}.uniq.join('-') == 'true'
     end
 
   end

@@ -1,6 +1,6 @@
 <% dstntr ||= {nombre: 'NOMBRE DEL DESTINATARIO', rol: 'ROL DEL DESTINATARIO'} %>
 <% objt ||= nil %>
-<h2>Notificación de inicio de investigación ley 21.643</h2>
+<h2>Notificación de recepción de denuncia ley 21.643</h2>
 
 <div style="font-weight: bold;">
 	<p>Sr(a) <%= dstntr[:nombre] %></p>
@@ -10,6 +10,13 @@
 <p>Le informamos que con fecha <%= dma(objt.blank? ? Time.zone.today : objt.fecha_hora) %> se ha presentado una denuncia en la cual usted participa en calidad de <%=dstntr[:rol]%>.</p>
 
 <p>La normativa establecida por la Dirección del Trabajo establece la obligación de implementar Medidas de resguardo que garanticen que todo el <i>procedimiento de investigación y sanción</i> se realice en un ambiente que no revictimice a las víctimas, evite todo tipo de represalias y garantice la objetividad e imparcialidad de la investigación. El cumplimiento de estas medidas de resguardo es obligatorio para todos los participantes de la denuncia.</p>
+
+<p>Nuestra empresa tiene la obligación de resguardar la confidencialidad del la información contenida en todas las etapas del procedimiento. Específicamente:
+	<ol>
+		<li>Las personas denunciantes y denunciadas tendrán acceso a la denuncia, pero se excluirá de dicho documento la identidad de terceras personas participantes en los hechos relatados. Así como la identidad de los testigos presentados por ambas partes.</li>
+		<li>Todos los participantes tienen la responsabilidad de no compartir información relativa a su participanción en el procedimiento de investigación con otros empleados de la empresa.</li>
+	</ol>
+</p>
 
 <h4>Recepción de denuncias ley 21.643</h4>
 
@@ -34,16 +41,5 @@
 	<!-- Genera el QR (ejemplo con un ID de reporte) -->
 	<%= image_tag qr_code_as_base64("https://www.laborsafe.cl/hlp_ayudas/prcdmnt_invstgcn_sncn"), 
 	              alt: "Código QR de la Guía para los particiapantes", 
-	              style: "width: 100px; height: 100px;" %>
-</div>
-
-<h4>Derechos y obligaciones de los participantes, del empleador y de las instituciones y organizaciones que participan de la investigación.</h4>
-<div>
-	El reglamento del <i>procedimiento de investigación y sanción</i> de la ley 21.643 establece derechos y obligaciones para los distintos participantes. El siguiente código QR le permitirá acceder al detalle del reglamento donde se detallan.
-</div>
-<div style="text-align: center; margin: 20px 0;">
-	<!-- Genera el QR (ejemplo con un ID de reporte) -->
-	<%= image_tag qr_code_as_base64("https://www.laborsafe.cl/hlp_ayudas/drchs_rspnsbldds"), 
-	              alt: "Código QR de Derechos y obligaciones", 
 	              style: "width: 100px; height: 100px;" %>
 </div>

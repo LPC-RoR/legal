@@ -73,6 +73,13 @@ class Rprts::KrnReportesController < ApplicationController
     respond_to_pdf('invstgcn')
   end
 
+  def mdds_rsgrd
+    @objeto = KrnDenuncia.find(params[:oid])
+    @logo_url = @objeto.ownr.logo_url
+
+    respond_to_pdf('mdds_rsgrd')
+  end
+
   def invstgdr
     @objeto = KrnDenuncia.find(params[:oid])
     @logo_url = @objeto.ownr.logo_url
@@ -107,6 +114,7 @@ class Rprts::KrnReportesController < ApplicationController
   # Método para generar PDF y enviarlo por correo electrónico
   def generate_and_send_report
     @pdf_archivo = PdfArchivo.find_by(codigo: params[:rprt])
+
     # Manejo de tablas
     load_data(params[:oid], params[:rprt])
 
@@ -114,7 +122,13 @@ class Rprts::KrnReportesController < ApplicationController
 
     dstntrs.each do |dstntr|
       # Generación de la DATA
-      pdf_data = get_pdf_data(dstntr, params[:oid], params[:rprt])
+      case params[:rprt]
+      when 'mdds_rsgrd'
+        ownr = KrnDenuncia.find(params[:oid])
+        pdf_data = ownr.fl_last_tkn('mdds_rsgrd', :fecha).archivo.path
+      else
+        pdf_data = get_pdf_data(dstntr, params[:oid], params[:rprt])
+      end
 
       # Enviar por correo
       PdfMailer.send_pdf(
@@ -176,17 +190,17 @@ class Rprts::KrnReportesController < ApplicationController
     end
 
     def get_objt(oid, rprt)
-      case rprt
-      when 'dnncnt_info_oblgtr'
-        KrnDenuncia.find(oid)
-      when 'infrmcn'
-        KrnDenuncia.find(oid)
-      when 'drvcn'
-        KrnDerivacion.find(oid)
-      when 'invstgcn'
-        nil
-      when 'invstgdr'
-        KrnInvDenuncia.find(oid)
+      if ['dnncnt_info_oblgtr', 'infrmcn', 'mdds_rsgrd'].include?(rprt)
+          KrnDenuncia.find(oid)
+      else
+        case rprt
+        when 'drvcn'
+          KrnDerivacion.find(oid)
+        when 'invstgcn'
+          nil
+        when 'invstgdr'
+          KrnInvDenuncia.find(oid)
+        end
       end
     end
 
@@ -234,7 +248,7 @@ class Rprts::KrnReportesController < ApplicationController
           rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
           dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
         end
-      elsif ['drvcn', 'invstgdr', 'invstgcn', 'drchs'].include?(rprt)
+      elsif ['drvcn', 'invstgdr', 'invstgcn', 'drchs', 'mdds_rsgrd'].include?(rprt)
         ref = get_objt(oid, rprt)
         invstgdr = get_invstgdr(oid, rprt)
         @objt['denunciantes'].each do |dnncnt|

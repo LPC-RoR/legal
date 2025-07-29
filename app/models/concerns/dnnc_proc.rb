@@ -55,12 +55,36 @@ module DnncProc
  		self.investigacion_local or self.investigacion_externa or self.on_dt?
  	end
 
+ 	def get_crr_infrm?
+ 		self.fecha_trmn? or self.on_dt?
+ 	end
+
  	def inf_cierre?
  		self.rgstrs_info_mnm? and (self.dnncnts_info_oblgtr? or self.dnncnt_info_oblgtr) and self.fls_rcpcn?
  	end
 
  	def fechas_crr_rcpcn?
  		self.fecha_trmtcn? or self.fecha_ntfccn? or (self.solicitud_denuncia ? self.fecha_dvlcn? : self.fecha_hora_dt?)
+ 	end
+
+ 	def invstgcn_sents?
+ 		self.krn_denunciantes.invstgcn_sents? and self.krn_denunciados.invstgcn_sents?
+ 	end
+
+ 	def mdds_rsgrd_sents?
+ 		self.krn_denunciantes.mdds_rsgrd_sents? and self.krn_denunciados.mdds_rsgrd_sents?
+ 	end
+
+ 	def invstgdr_sents?
+ 		self.krn_denunciantes.invstgdr_sents? and self.krn_denunciados.invstgdr_sents?
+ 	end
+
+ 	def ntfcn_drvcns_sents?
+ 		self.krn_derivaciones.empty? ? true : self.krn_derivaciones.map {|drvcn| drvcn.pdf_registros.any? }.join('-') == 'true'
+ 	end
+
+ 	def info_rcpcn_sent?
+ 		self.invstgcn_sents? and self.mdds_rsgrd_sents? and self.ntfcn_drvcns_sents?
  	end
 
  	# ---------------------------------------------------- ARCHIVOS CONTROLADOS RECEPCION
@@ -79,6 +103,11 @@ module DnncProc
 
  	def fl_acta?
  		self.verbal? ? self.fl?('dnnc_acta') : true
+ 	end
+
+ 	def mdds_rsgrd_for_attchmnt?
+ 		lst = fl_last_tkn('mdds_rsgrd', :fecha)
+ 		lst.present? and lst.archivo.present?
  	end
 
  	def fl_mdds_rsgrd?

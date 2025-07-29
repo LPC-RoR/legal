@@ -1,3 +1,5 @@
+<% typ ||= 'tr' %>
+
 <%= render partial: 'cuentas/indx/encbzd_emprs' %>
 <%= render partial: 'cuentas/indx/menu' %>
 
@@ -7,7 +9,7 @@
 <!-- EVALUAR cambiar dog? por not scp_activo? -->
 <% if @objeto.krn_activo? or dog? %>
 	<% unless (action_name == 'dnncs' and (not @objeto.rgstrs_mnms?)) %>
-		<%= render partial: 'cuentas/indx/tbl', locals: {source: source, crud: 'lnks'} %>
+		<%= render partial: 'cuentas/indx/tbl', locals: {source: source, crud: 'lnks', typ: typ} %>
 	<% end %>
 
 	<% unless @objeto.rgstrs_mnms? %>

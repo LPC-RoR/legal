@@ -1,0 +1,15 @@
+<div style="margin-left: 7%;">
+
+	<div class="ms-5 objt_lnk" style="font-size: 14px;">
+
+		<% if objeto.pdf_registros.empty? %>
+			<i class="bi bi-cone-striped text-danger"></i> La notificación de la derivación no ha sido enviada a los participantes.
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=drvcn", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
+				<i class="bi bi-envelope-at"></i> Enviar!
+			<% end %>
+		<% else %>
+			<i class="bi bi-check2-all"></i> La notificación de la derivación ha sido enviada a los participantes.
+		<% end %>
+
+	</div>
+</div>

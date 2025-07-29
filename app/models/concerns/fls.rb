@@ -21,9 +21,15 @@ module Fls
 		RepDocControlado.get_dc(code)
 	end
 
+	def fl_last_tkn(code, ordr_tkn)
+		dc = objt_dc(code)
+		lst = dc.blank? ? [] : self.rep_archivos.where(rep_doc_controlado_id: dc.id).order(ordr_tkn)
+		dc.blank? ? nil : (lst.empty? ? nil : lst.last)
+	end
+
 	def fl_last_date(code)
 		dc = objt_dc(code)
 		ars = dc.blank? ? [] : self.rep_archivos.where(rep_doc_controlado_id: dc.id)
-		ars.blank? ? nil : ars.map {|arch| arch.fecha}.max
+		ars.empty? ? nil : ars.map {|arch| arch.fecha}.max
 	end
 end

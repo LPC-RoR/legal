@@ -1,8 +1,14 @@
+<% typ  ||= 'tr' %>
 <% crud ||= nil %>
-<table class="table table-striped">
-  <tbody>
+
+<% if typ == 'tr' %>
+  <%= render layout: '0p/tbl/wrap_tr' do %>
     <% @coleccion[cntrllr(source)].each do |objt| %>
       <%= render partial: "0p/tbl/tr", locals: {objt: objt, crud: crud} %>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+<% else %>
+    <% @coleccion[cntrllr(source)].each do |objt| %>
+      <%= render partial: "0p/tbl/ln", locals: {objt: objt, crud: crud} %>
+    <% end %>
+<% end %>

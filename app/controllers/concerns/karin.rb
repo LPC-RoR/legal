@@ -25,10 +25,10 @@ module Karin
       'rcp_externa?', 'on_dt?', 'on_empresa?', 'on_externa?', 'rgstrs_ok?', 'motivo_vlnc?', 'externa?', 'verbal?', 'artcl41?',
       'rgstrs_mnms?', 'rgstrs_info_mnm?', 'get_infrmcn_oblgtr?', 'dnncnts_info_oblgtr?', 'rcpcn_dnnc?', 'drvcn_extrn?', 'get_opcns_dnncnt?',
       'get_crr_rcpcn?', 'fl_atncn_sclgc_tmprn?', 'fl_dnnc?', 'fl_acta?', 'fl_rprsntcn?', 'fl_ntfccn?', 'fl_crtfcd?',
-      'fl_mdds_rsgrd?', 'fls_rcpcn?', 'inf_cierre?', 'fechas_crr_rcpcn?',
+      'fl_mdds_rsgrd?', 'fls_rcpcn?', 'inf_cierre?', 'fechas_crr_rcpcn?', 'info_rcpcn_sent?',
       'fl_antcdnts_objcn?', 'fl_rslcn_objcn?', 'fl_evlcn?', 'fl_crrgd?', 'fl_infrm?', 'fls_invstgcn?',
       'dnnc_evld?', 'dclrcns_ok?', 'chck_dvlcn?', 'fl_prnncmnt?', 'fl_rslcn_dvlcn?',
-      'emails_vrfcds?'
+      'emails_vrfcds?', 'invstgcn_sents?', 'mdds_rsgrd_sents?', 'invstgdr_sents?', 'ntfcn_drvcns_sents?', 'get_crr_infrm?'
     ]
     mthds.each do |mthd|
       @objt[mthd] = objt.send(mthd)
@@ -122,7 +122,7 @@ module Karin
     @proc_objt.ctr_etapas.ordr.each do |etp|
       if @objt[:etp_cntrl][etp.codigo]
         @plz_ok[etp.codigo] = etp_plz_ok?(objt)[etp.codigo]
-        @etps_trmnds << plz_hsh unless plz_hsh.nil?
+        @etps_trmnds << plz_hsh unless (plz_hsh.nil? or (plz_hsh[:codigo] == 'etp_prnncmnt' and plz_hsh[:plz].nil?))
         plz_hsh = {
           codigo: etp.codigo, 
           etapa: etp.ctr_etapa, 

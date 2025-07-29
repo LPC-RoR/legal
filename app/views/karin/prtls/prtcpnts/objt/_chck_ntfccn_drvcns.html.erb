@@ -1,0 +1,11 @@
+<% if @objt['derivaciones?'] %>
+	<br>
+	<% if @objt['ntfcn_drvcns_sents?'] %>
+		<i class="bi bi-check2-all text-primary"></i> Se envió la o las notificaciones de las derivaciones registradas.
+	<% else %>
+		<i class="bi bi-cone-striped text-primary"></i> Se debe enviar la o las notificaciones de las derivaciones registradas por correo electrónico.
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}_1"} do %>
+			<i class="bi bi-cursor"></i> Ir a Participantes
+		<% end %>
+	<% end %>
+<% end %>

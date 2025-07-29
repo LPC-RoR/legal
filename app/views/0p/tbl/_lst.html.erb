@@ -14,12 +14,6 @@
 				<% when 'ln' %>
 					<%= render partial: '0p/tbl/ln', locals: {objt: objt, ordr: ordr, crud: crud} %>
 
-					<% if prtl?(objt, 'list', "dsply") %>
-						<%= render partial: prtl_name(objt, 'list', "dsply"), locals: {objeto: objt} %>
-					<% end %>
-					<% if prtl?(objt, 'list', "sub") %>
-						<%= render partial: prtl_name(objt, 'list', "sub"), locals: {objeto: objt} %>
-					<% end %>
 				<% when 'frame' %>
 					<%= render partial: '0p/objt/objt_frame', locals: {objt: objt} %>
 				<% end %>

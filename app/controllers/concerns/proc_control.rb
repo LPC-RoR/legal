@@ -7,8 +7,8 @@ module ProcControl
 		dnnc = ownr.dnnc
 		{
 			'etp_rcpcn'      	=> objt['rgstrs_mnms?'],
-			'etp_invstgcn'   	=> ((objt['fechas_crr_rcpcn?'] or objt['on_dt?']) and objt['chck_dvlcn?']),
-			'etp_infrm'      	=> (dnnc.fecha_trmn? or dnnc.plz_invstgcn_vncd),
+			'etp_invstgcn'   	=> ((objt['fechas_crr_rcpcn?'] or objt['on_dt?']) and objt['chck_dvlcn?'] and objt['fls_rcpcn?'] and objt['info_rcpcn_sent?']),
+			'etp_infrm'      	=> (dnnc.fecha_trmn? or dnnc.plz_invstgcn_vncd or objt['on_dt?']),
 			'etp_prnncmnt'   	=> (dnnc.fecha_env_infrm? or dnnc.fecha_rcpcn_infrm?),
 			'etp_mdds_sncns' 	=> ( dnnc.fecha_prnncmnt? or dnnc.prnncmnt_vncd or dnnc.fecha_rcpcn_infrm? ),
 			'etp_cierre' 			=> dnnc.fecha_cierre?
