@@ -55,23 +55,23 @@ class ClientesController < ApplicationController
 
       case scp
       when 'rvsn'
-        cllcn = Causa.trmtcn
+        cllcn = @objeto.causas.trmtcn
       when 'ingrs'
-        cllcn = Causa.std('ingreso')
+        cllcn = @objeto.causas.std('ingreso')
       when 'trmtcn'
-        cllcn = Causa.std('tramitación')
+        cllcn = @objeto.causas.std('tramitación')
       when 'archvd'
-        cllcn = Causa.std('archivada')
+        cllcn = @objeto.causas.std('archivada')
       when 'vacio'
-        cllcn = Causa.std_pago('vacio')
+        cllcn = @objeto.causas.std_pago('vacio')
       when 'incmplt'
-        cllcn = Causa.std_pago('incompleto')
+        cllcn = @objeto.causas.std_pago('incompleto')
       when 'monto'
-        cllcn = Causa.std_pago('monto')
+        cllcn = @objeto.causas.std_pago('monto')
       when 'cmplt'
-        cllcn = Causa.std_pago('completo')
+        cllcn = @objeto.causas.std_pago('completo')
       when 'en_rvsn'
-        cllcn = Causa.std('revisión')
+        cllcn = @objeto.causas.std('revisión')
       end
 
       @scp = scp_item[:causas][scp.to_sym]
