@@ -234,7 +234,7 @@ class Rprts::KrnReportesController < ApplicationController
           rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
           dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
         end
-      elsif ['drvcn', 'invstgdr', 'invstgcn'].include?(rprt)
+      elsif ['drvcn', 'invstgdr', 'invstgcn', 'drchs'].include?(rprt)
         ref = get_objt(oid, rprt)
         invstgdr = get_invstgdr(oid, rprt)
         @objt['denunciantes'].each do |dnncnt|
@@ -254,6 +254,7 @@ class Rprts::KrnReportesController < ApplicationController
           end
         end
       elsif ['infrmcn'].include?('infrmcn')
+        # Reporte de solicitud de Información
         ref = get_objt(oid, rprt)
         @objt['rrhh'].each do |rol|
           rgstrs = rol.pdf_registros.where(pdf_archivo_id: @pdf_archivo.id, ref_id: ref.id)

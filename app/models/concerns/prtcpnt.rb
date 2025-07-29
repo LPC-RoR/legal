@@ -36,6 +36,18 @@ module Prtcpnt
   	  verification_sent_at.present?
   	end
 
+    # --------------------------------- PDF Archivos y registros
+
+    def drchs_sent?
+      pdf = PdfArchivo.find_by(codigo: 'drchs')
+      pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id).present?
+    end
+
+    def invstgcn_sent?
+      pdf = PdfArchivo.find_by(codigo: 'invstgcn')
+      pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id).present?
+    end
+
     def dclrcn?
       self.fl?('prtcpnts_dclrcn') and (self.class.name == 'KrnTestigo' ? true : self.krn_testigos.dclrcns?)
     end

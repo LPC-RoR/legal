@@ -18,9 +18,10 @@ class Repositorios::RepArchivosController < ApplicationController
     dc = params[:dcid].blank? ? nil : RepDocControlado.find(params[:dcid])
     dc_name = dc.blank? ? nil : dc.rep_doc_controlado
     control_fecha = dc.blank? ? nil : dc.control_fecha
+    fecha = control_fecha ? Time.zone.now : nil
     chequeable = dc.blank? ? nil : dc.chequeable
     ownr = params[:oclss].constantize.find(params[:oid])
-    @objeto = ownr.rep_archivos.new(rep_archivo: dc_name, rep_doc_controlado_id: params[:dcid], control_fecha: control_fecha, chequeable: chequeable )
+    @objeto = ownr.rep_archivos.new(rep_archivo: dc_name, rep_doc_controlado_id: params[:dcid], control_fecha: control_fecha, chequeable: chequeable, fecha: fecha )
     set_bck_rdrccn
   end
 

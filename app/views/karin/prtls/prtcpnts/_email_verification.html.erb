@@ -1,3 +1,4 @@
+<!-- Aún se usa para KrnInvestigador -->
 <% if objeto.email.present? and objeto.email != objeto.email_ok %>
 	<%= link_to send_verification_email_path(model_type: to_name(objeto).downcase, id: objeto.id),  
 	            data: { turbo_method: :post, turbo_confirm: 'Verificar envio de email' } do %>  

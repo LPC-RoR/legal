@@ -51,7 +51,7 @@ module Cmenu
 				ingrs: 	'ingreso',
 				trmtcn: 'en tramitación',
 				archvd: 'archivadas',
-				vacio: 	'sin pagos',
+				vacios: 	'sin pagos',
 				incmplt: 'pagos incompletos',
 				monto: 	'con monto',
 				cmplt: 	'pagos completos',
