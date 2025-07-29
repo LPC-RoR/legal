@@ -75,7 +75,7 @@ class Causa < ApplicationRecord
     	n_clcls	= self.tar_calculos.count
     	n_pgs 	= self.tar_tarifa.blank? ? 0 : self.tar_tarifa.tar_pagos.count
 
-    	n_clcls == 0 ? 'vacios' : (n_clcls == n_pgs ? 'completos' : (self.monto_pagado? ? 'monto' : 'incompleto'))
+    	n_clcls == 0 ? 'vacios' : (n_clcls == n_pgs ? 'completos' : (self.monto_pagado? ? 'monto' : 'incompletos'))
     end
 
     # ---------------------------------------------------------------- ACTIVIDADES
