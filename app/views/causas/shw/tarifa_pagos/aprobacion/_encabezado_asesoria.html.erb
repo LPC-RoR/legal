@@ -28,10 +28,10 @@
 	<b>
 	<div class="row gx-1 px-2">
 		<div class="col-8">
-			<%= leyenda_origen_fecha_calculo(owner, pago) %>
+			<%= leyenda_origen_fecha_calculo(ownr, pago) %>
 		</div>
 		<div class="col-4 text-end">
-			<%= s_uf( uf_fecha(owner.get_uf_facturacion.present? ? owner.get_uf_facturacion.fecha : objeto.created_at) ) %>
+			<%= s_uf( uf_fecha(ownr.get_uf_facturacion.present? ? ownr.get_uf_facturacion.fecha : objeto.created_at) ) %>
 		</div>
 	</div>
 	</b>
