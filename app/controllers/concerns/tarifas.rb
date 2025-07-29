@@ -283,7 +283,7 @@ module Tarifas
 
 	# Versión 2.0
 	def get_tar_calculo_pago(ownr, pago)
-		ownr.tar_calculos.find_by(tar_pago_id: pago.id)
+		ownr.class.name == 'Causa' ? ownr.tar_calculos.find_by(tar_pago_id: pago.id) : ownr.tar_calculo
 	end
 
 	# Versión 2.0
