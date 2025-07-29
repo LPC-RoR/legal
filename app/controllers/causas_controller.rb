@@ -31,13 +31,13 @@ class CausasController < ApplicationController
       when 'archvd'
         cllcn = Causa.std('archivada')
       when 'vacio'
-        cllcn = Causa.std_pago('vacio')
+        cllcn = Causa.std_pago('vacios')
       when 'incmplt'
-        cllcn = Causa.std_pago('incompleto')
+        cllcn = Causa.std_pago('incompletos')
       when 'monto'
         cllcn = Causa.std_pago('monto')
       when 'cmplt'
-        cllcn = Causa.std_pago('completo')
+        cllcn = Causa.std_pago('completos')
       when 'en_rvsn'
         cllcn = Causa.std('revisión')
       end
