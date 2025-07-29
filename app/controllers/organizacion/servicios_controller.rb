@@ -94,7 +94,7 @@ class Organizacion::ServiciosController < ApplicationController
       tar_uf_facturacion    = get_tar_uf_facturacion_pago(ownr, pago)
       objt_calculo          = get_objt_pago(ownr, pago)
       objt_origen           = ownr.class.name == 'Causa' ? (tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion) : ownr
-      fecha_calculo         = objt_origen.blank? ? Time.zone.today : (objt_origen.fecha_uf.blank? = Time.zone.today : objt_origen.fecha_uf)
+      fecha_calculo         = objt_origen.blank? ? Time.zone.today : (objt_origen.fecha_uf.blank? ? Time.zone.today : objt_origen.fecha_uf)
       uf_calculo            = vlr_uf(fecha_calculo)
       hsh[:fecha_calculo]    = fecha_calculo
       hsh[:uf_calculo]       = uf_calculo
