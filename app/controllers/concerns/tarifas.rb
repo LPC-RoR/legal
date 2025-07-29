@@ -524,7 +524,7 @@ module Tarifas
 		cuantia_honorarios = cuantia_calculo.blank? ? get_total_cuantia(causa, 'tarifa') : cuantia_calculo
 		fctr = {}
 		vctr.each do |perc|
-			fctr[perc] = sbtts[perc] / cuantia_honorarios
+			fctr[perc] = [0, nil].include?(cuantia_honorarios) ? 0 : sbtts[perc] / cuantia_honorarios
 		end
 		fctr
 	end
