@@ -62,14 +62,14 @@ class ClientesController < ApplicationController
         cllcn = @objeto.causas.std('tramitación')
       when 'archvd'
         cllcn = @objeto.causas.std('archivada')
-      when 'vacio'
-        cllcn = @objeto.causas.std_pago('vacio')
+      when 'vacios'
+        cllcn = @objeto.causas.std_pago('vacios')
       when 'incmplt'
-        cllcn = @objeto.causas.std_pago('incompleto')
+        cllcn = @objeto.causas.std_pago('incompletos')
       when 'monto'
         cllcn = @objeto.causas.std_pago('monto')
       when 'cmplt'
-        cllcn = @objeto.causas.std_pago('completo')
+        cllcn = @objeto.causas.std_pago('completos')
       when 'en_rvsn'
         cllcn = @objeto.causas.std('revisión')
       end
