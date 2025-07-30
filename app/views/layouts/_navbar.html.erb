@@ -1,8 +1,8 @@
 <% unless controller_name == 'servicios' %>
-	<div class="row mb-1 p-1 border-bottom bg_gray">
+	<div class="row mb-2 p-1 border-bottom bg_gray2">
 		<div class="col-9">
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: 'Home'} do %>
-				<%= image_tag (krn_routes? ? 'krn_nvbr.png' : 'logo_nvbr.png') %>
+				<%= image_tag (krn_routes? ? 'logo/logo_100.png' : 'logo_nvbr.png') %>
 			<% end %>
 		</div>
 		<div class="col-3 position-relative navbar_lnk" style="height: <%= krn_routes? ? 25 : 25%>px;">

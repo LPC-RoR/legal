@@ -1,40 +1,193 @@
-/* Carrusel responsive */
-.carousel {
-  max-width: 1200px;
-  margin: 0 auto;
-}
+@use "sass:math";
 
-.carousel-inner {
-  border-radius: 0.5rem;
-  overflow: hidden;
-}
+// Variables para imágenes 1920x528
+$carousel-ratio: math.div(528, 1920); // 0.275
+$carousel-max-width: 1920px;
+$carousel-max-height: 528px;
+$carousel-control-size: 60px;
+$carousel-control-icon-size: 2.5rem;
 
-.carousel-item img {
+#dynamicCarousel {
   width: 100%;
-  height: auto;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-}
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  background-color: #f8f9fa;
+  touch-action: pan-y; // Mejora el desplazamiento táctil
 
-/* Ajustes para móviles */
-@media (max-width: 768px) {
-  .carousel {
-    padding: 0 15px;
+  // Contenedor responsivo que mantiene la relación de aspecto
+  .carousel-inner {
+    width: 100%;
+    padding-bottom: math.percentage($carousel-ratio);
+    position: relative;
+    overflow: hidden; // Añadido para evitar desbordamientos
+    
+    @media (min-width: $carousel-max-width) {
+      max-width: $carousel-max-width;
+      margin: 0 auto;
+      padding-bottom: $carousel-max-height;
+    }
   }
-  
-  .carousel-indicators {
-    margin-bottom: 0.5rem;
+
+  // Items del carrusel - CORRECCIÓN PRINCIPAL
+  .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; // Cambiado de flex a none (comportamiento estándar de Bootstrap)
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden; // Mejora las transiciones
+    perspective: 1000px;
+    transition: transform 0.6s ease-in-out;
+
+    &.active {
+      display: flex; // Solo el item activo se muestra
+    }
+
+    // Imagen que se ajusta manteniendo relación de aspecto
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Cambiado de contain a cover para mejor visualización
+      display: block;
+      
+      @media (min-width: 1920px) {
+        object-fit: contain; // Para pantallas grandes usamos contain
+      }
+    }
+
+    // Placeholders
+    .carousel-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+      color: #6c757d;
+      
+      i.bi-image {
+        font-size: 3rem;
+        opacity: 0.6;
+        margin-bottom: 1rem;
+      }
+      
+      p {
+        margin: 0;
+        font-size: 1rem;
+      }
+    }
+
+    // Manejo de errores
+    .carousel-error-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+      color: #856404;
+      padding: 1rem;
+      text-align: center;
+      
+      i.bi-exclamation-triangle {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      
+      small {
+        font-size: 0.875rem;
+      }
+    }
   }
-  
-  .carousel-control-prev, 
+
+  // Controles de navegación - CORRECCIÓN DE Z-INDEX
+  .carousel-control-prev,
   .carousel-control-next {
-    width: 10%;
+    width: $carousel-control-size;
+    height: $carousel-control-size;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+    z-index: 20; // Aumentado para asegurar que estén sobre los items
+    cursor: pointer; // Mejora la usabilidad
+    
+    &:hover {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    &-icon {
+      width: $carousel-control-icon-size;
+      height: $carousel-control-icon-size;
+      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+    }
+  }
+
+  .carousel-control-prev { left: 25px; }
+  .carousel-control-next { right: 25px; }
+
+  // Indicadores - CORRECCIÓN DE Z-INDEX
+  .carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    z-index: 15; // Entre los controles y los items
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    
+    [data-bs-target] {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin: 0 6px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-indent: -999px; // Oculta el texto
+      overflow: hidden;
+      
+      &.active {
+        background-color: white;
+        transform: scale(1.3);
+      }
+    }
   }
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-  &:focus-visible {
-    outline: 3px solid rgba(0, 0, 0, 0.1);  /* negro muy tenue */
+// Transición mejorada
+.carousel-item {
+  transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+  opacity: 0;
+  
+  &.active {
+    opacity: 1;
+  }
+  
+  // Suaviza la transición entre slides
+  &.carousel-item-next,
+  &.carousel-item-prev,
+  &.carousel-item-start,
+  &.carousel-item-end {
+    display: flex;
+  }
+  
+  &.carousel-item-next:not(.carousel-item-start),
+  &.carousel-item-prev:not(.carousel-item-end) {
+    opacity: 0.5;
   }
 }

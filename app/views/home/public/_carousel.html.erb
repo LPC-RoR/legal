@@ -1,28 +1,43 @@
 <div id="dynamicCarousel" class="carousel slide" data-bs-ride="carousel">
+  <!-- Indicadores -->
+  <div class="carousel-indicators">
+    <% @slides.each_with_index do |slide, index| %>
+      <button type="button" 
+              data-bs-target="#dynamicCarousel" 
+              data-bs-slide-to="<%= index %>" 
+              class="<%= 'active' if index == 0 %>"></button>
+    <% end %>
+  </div>
 
+  <!-- Slides -->
   <div class="carousel-inner">
     <% @slides.each_with_index do |slide, index| %>
       <div class="carousel-item <%= 'active' if index == 0 %>">
-        <%= image_tag slide.imagen.variant(resize_to_limit: [1200, 675]), 
-                      class: "d-block w-100", 
-                      alt: slide.nombre %>
-        <div class="carousel-caption">
-          <%#= render partial: '0p/mdl/bttn', locals: {cdg: 'RegistroEmpresa', txt: 'Solicitar demo', gly: 'cursor'} %>
-
-
-        </div>
-
+        <%= render 'home/public/slide_content', slide: slide, index: index %>
       </div>
     <% end %>
   </div>
-  
-  <!-- Controles -->
-  <button class="carousel-control-prev focus-ring-0" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="prev">
+
+  <!-- Controles de navegación -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Anterior</span>
   </button>
-  <button class="carousel-control-next focus-ring-0" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="next">
+  <button class="carousel-control-next" type="button" data-bs-target="#dynamicCarousel" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Siguiente</span>
   </button>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var myCarousel = document.getElementById('dynamicCarousel');
+  if (myCarousel) {
+    var carousel = new bootstrap.Carousel(myCarousel, {
+      interval: 5000, // 5 segundos entre transiciones
+      wrap: true, // Permite que el carrusel vuelva al principio
+      pause: 'hover' // Pausa al hacer hover
+    });
+  }
+});
+</script>
