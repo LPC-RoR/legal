@@ -1,4 +1,11 @@
 <div id="dynamicCarousel" class="carousel slide" data-bs-ride="carousel">
+
+  <div class="position-absolute top-0 end-0 m-3" style="z-index: 10;">
+    <%= render layout: '0p/collapse/link', locals: {label: 'Navbar', objeto: nil, tooltip: 'Menu'} do %>
+      <i class="bi bi-list fs-3 text-white"></i>
+    <% end %>
+  </div>
+
   <!-- Indicadores -->
   <div class="carousel-indicators">
     <% @slides.each_with_index do |slide, index| %>
