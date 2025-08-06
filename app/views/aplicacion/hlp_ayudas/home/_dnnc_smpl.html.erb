@@ -1,11 +1,13 @@
 <h3>Ejemplo de denuncia simple</h3>
 
-<p>Las características de este ejemplo son las siguientes:
+<p>Este tutorial, destinado a usuarios principiantes, tiene como objetivo mostrar las principales características de la gestion de denuncias y familiarizar al usuario con en ambiente LABORSAFE.</p>
+
+<p>Las características de la denuncia de este ejemplo son las siguientes:
 	<ol>
 		<li>La empresa NO cumple el rol de empresa principal o usuaria.</li>
-		<li>Se trata de una denuncia investigada por la propia empresa.</li>
+		<li>La denuncia es investigada por la propia empresa.</li>
 		<li>No se presenta objeción del investigador asignado.</li>
-		<li>La denuncia está completa y no presenta inconsistencias.</li>
+		<li>La denuncia no presenta inconsistencias.</li>
 		<li>El plazo para el pronunciamiento de la Dirección del Trabajo se cumple sin recibir el pronunciamiento.</li>
 	</ol>
 </p>
@@ -16,14 +18,17 @@
 	<%= image_tag 'hlp/dnnc_smpl_1.png', width: "600" %>
 </div>
 
-<p>Si a la derecha del encabezado <b>Denuncias</b> no aparece el botón <i class="bi bi-plus-circle"></i>, es por alguna de las siguientes razones: 
-	<ol>
-		<li>No se ha completado la configuración inicial de la cuenta.</li>
-		<li>Ha vencido el plazo de su producto DEMO</li>
-		<li>Ha completado el número de denuncias asignadas a su producto</li>
-	</ol>
-	Si se trata del primer caso encontrará lo necesario para completar la configutración en el link <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Descripción general del ambiente LaborSafe', tltp: 'Descripción general del ambiente LABORSAFE'} %>
-</p>
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
+	<p><b>Configuración básica</b></p>
+	<p>Si a la derecha del encabezado <i>Denuncias</i> no aparece el botón <i class="bi bi-plus-circle"></i>, es por alguna de las siguientes razones: 
+		<ol>
+			<li>No se ha completado la configuración inicial de la cuenta.</li>
+			<li>Ha vencido el plazo de su producto DEMO</li>
+			<li>Ha completado el número de denuncias asignadas a su producto</li>
+		</ol>
+		Si se trata del primer caso encontrará lo necesario para completar la configutración básica en el link <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Configuración básica', tltp: 'Configuración básica'} %>
+	</p>
+</div>
 
 <%= render partial: prtl_name('hlp_ayudas', 'home/dnnc_smpl', 'crear_dnnc') %>
 
@@ -89,5 +94,3 @@
 </div>
 
 <p><b>NOTA</b> Para simplificar este ejemplo, subimos solo los documentos necesarios para continuar con el procedimiento. Para una explicación detallada de la gestión de la Documentación obligatoria visite <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dcmntcn_oblgtr', dscrpcn: 'Gestión de la Documentación obligatoria', tltp: 'Gestión de la Documentación obligatoria'} %></p>
-
-<p>Tampoco enviamos todas las notificaciones como se puede verificar en el caso de la notificación del investigador asignado.</p>

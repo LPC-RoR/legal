@@ -13,7 +13,8 @@
 
 <p>En este estado inicial, podemos ver que sólo podemos ingresar <i>personas denunciantes</i>. La plataforma permite ingresar <i>personas denunciadas sólo si se ha ingresado al menos una persona denunciante. Consecuentemente, no nos pertimirá borrar una última persona denunciante si ya hemos ingresado alguna persona denunciada.</i></p>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
+	<p><b>Denuncias con varias personas denunciantes</b></p>
 	<p>A pesar de que el reglamento no se refiere nunca a denuncias realizadas por más de una persona denunciante, nos parece natural su implementación por las siguientes razones:
 		<ol>
 			<li>El reglamento establece que el sindicato de la empresa puede presentar una denuncia en representación de la persona denunciante. En este contexto nos parece probable que, en este ejercicio, dicha representación se extienda a más de una persona denunciante.</li>
@@ -43,9 +44,22 @@
 </div>
 
 <p>La imagen superior muestra en primer lugar el mensaje "<i>La información contenida en los registros de los participantes cumple con el estándar mínimo necesario para continuar con la recepción de la denuncia</i>. <b>Ir a Proceso</b>"</p>
-<p>El reglamento permite que la información proporcionada en la denuncia respecto de la persona denunciante sea incompleta, pues no es exigible que la persona denunciante conozca el RUT o la dirección de correo personal de la persona denunciante, por ejemplo.</p>
 
-<p>Hemos ingresado los datos de una persona denunciante quien proporcionó los datos de un testigo, y de una persona denunciada.</p>
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
+	<p><b>Información parcial</b></p>
+	<p>El reglamento permite que la información proporcionada en la denuncia respecto de la persona denunciada esté incompleta, pues no es exigible que la persona denunciante conozca el RUT o la dirección de correo personal de la persona denunciante, por ejemplo.</p>
+	<p>La información faltante debe ser completada antes de realizar alguna de las siguientes acciones: 
+		<ul>
+			<li>Informar a la Dirección del Trabajo el inicio de la investigación</li>
+			<li>Derivar la denuncia a la Dirección del Trabajo</li>
+		</ul>
+	</p>
+	<p>La plataforma cuenta con un reporte que se envía por correo electrónico al contacto de recursos humanos registrado, solicitando que se verifiquen y completen los datos de los participantes de la denuncia. El botón (<i class="bi bi-envelope-at"></i>) para enviar dicho correo electrónico se encuentra sobre el encabezado de las presona(s) denunciante(s), a la derecha de la frase <i>Solicitud de verificación de información</i></p>
+	<p></p>
+	<p>Esta verificación y eventual complementación de información debe ser realizada siempre.</p>
+</div>
+
+<p>Hemos ingresado los datos de una persona denunciante quien proporcionó los datos de un testigo, y de una persona denunciada. Como podemos ver en la imagen anterior, hemos ingresado todos los datos solicitados.</p>
 
 <p>El registro de cada participante despliega su cédula de identidad y su nombre y a su derecha, verá los botones que permiten modificar o eliminar el registro.</p>
 <p>Bajo el nombre de cada participante encontrará una primera advertencia: <i class="bi bi-cone-striped text-danger"></i> <i>El correo electrónico del participante aún no se ha verificado.</i> seguida de un botón <i class="bi bi-envelope-at"></i> <i>Verificar</i></p>
@@ -60,18 +74,17 @@
 	</p>
 </div>
 
-<p>Podemos ver, bajo la advertencia de verificación y sólo en el caso de las personas denunciantes, una segunda advertencia: <i class="bi bi-cone-striped text-danger"></i> <i>Se debe enviar la información obligatoria por correo electrónico.</i> seguida del botón <i class="bi bi-envelope-at"></i> <i>Enviar!</i></p>
+<p>Bajo la advertencia de verificación y sólo en el caso de las personas denunciantes, veremos una segunda advertencia: <i class="bi bi-cone-striped text-danger"></i> <i>Se debe enviar la información obligatoria por correo electrónico.</i> seguida del botón <i class="bi bi-envelope-at text-primary"></i> <i class="text-primary">Enviar!</i></p>
 
-<p>El reglamento establece la entrega de <i>información obligatoria</i> a la persona denunciante al momento de recibir la denuncia. Si la denuncia es presentada en forma verbal la información se entregará verbalmente y se dejará registro de ello en la carpeta, de otro modo la plataforma habilitará este botón para que sea enviada por correo.</p>
+<p>El reglamento establece la entrega de <i>información obligatoria</i> a la persona denunciante al momento de recibir la denuncia. Si la denuncia es presentada en forma verbal la información se entregará verbalmente y se dejará registro de ello en la carpeta, de otro modo, como en este ejemplo, la plataforma habilitará este botón para que sea enviada por correo.</p>
 
-<p>Obviamente, solo las personas denunciantes y denunciadas cuentan con un encabezado que les permite <b>agregar testigos</b>.</p>
+<p>Solo las personas denunciantes y denunciadas cuentan con un encabezado que les permite <b>agregar testigos</b>.</p>
 <p>Solo las personas denunciantes tienen (en esta etapa del procedimiento) una lista de <b>Documentación obligatoria</b>, que contiene un link para subir documentación que respalde haber recibido <b>Atención sicológica temprana</b>.</p>
 
 <p>Por simplicidad, en este ejemplo se ingresó la información mínima requerida para avanzar en el proceso, de no ser así, la plataforma desplegará las advertencias correspondientes.</p>
 
-<p>La plataforma cuenta con un reporte que se envía por correo electrónico al contacto de recursos humanos registrado, solicitando que se verifiquen y completen los datos de los participantes de la denuncia. Esta verificación y eventual complementación debe ser realizada siempre.</p>
-
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
+	<p><b>Orden de las tareas en la plataforma</b></p>
 	<p>El orden en el que presentamos las tareas de ingreso de la denuncia <b>considera la posibilidad de que esta labor sea realizada mientras la persona denunciante está presencialmente entregando su denuncia</b>, por ello, las tareas que no requieren la participación de la persona denunciante, como el envío de la solicitud de información a RRHH, se postergan hasta finalizar la participación de la persona denunciante</p>
 </div>
 

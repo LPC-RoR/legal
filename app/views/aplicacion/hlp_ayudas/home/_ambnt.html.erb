@@ -39,7 +39,7 @@
 	</ol>
 </p>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
 	<p><b>Confidencialidad de las denuncias</b></p>
 	<p>En el ejemplo aparece la dirección de correo <i>admin@empresa.cl</i> dando a entender que se trata del <i>usuario administrador</i> y que se trata de un <i>correo corporativo</i>.</p>
 	<p>El usuario administrador tendrá acceso a la información de todas las denuncias, por ello este rol debe ser asignado a quien comprenda y garantice los estándares de confidencialidad exigidos por el reglamento.</p>
@@ -60,7 +60,7 @@
 	</ul>
 </p>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
 	<p><b>Empresas principales o usuarias</b></p>
 	<p>La ventana de bienvenida de la imagen corresponde a la de una empresa principal o usuaria, si la cuenta de la empresa fuera <i>estándar</i> sólo pediría <i>ingresar al menos un investigador</i>.</p>
 </div>
@@ -73,7 +73,14 @@
 	<%= image_tag 'hlp/ambnt_2.png', width: "600" %>
 </div>
 
-<p>El menú presenta las alternativas disponibles para navegar. En la imagen, dado que usted está en la sección “Denuncia”, no verá esta opción pues ya se encuentra en esa página.</p>
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
+	<p><b>Seguridad</b></p>
+	<p>El menú presenta las alternativas disponibles para navegar. 
+		<ul>
+			<li>Dado que desplegamos el menú desde la opción <i>Denuncias</i>, esta opción no es ofrecida.</li>
+			<li>La <i>configuración básica</i> sólo puede ser realizada por el usuario administrador de la cuenta, por esta razón el menú despliega en la imagen todas las opciones disponibles.</li>
+		</ul></p>
+</div>
 
 <p>El total de opciones que puede desplegar son cuatro:</p>
 <ol>
@@ -82,12 +89,6 @@
 	<li><i>Empresas externas</i> (disponible solo para empresas principales o usuarias)</li>
 	<li><i>Nómina</i></li>
 </ol>
-
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
-	<p>Únicamente el usuario administrador tiene acceso a todas las opciones del menú; los usuarios de recepción o investigadores sólo podrán ver la información correspondiente a su área de competencia.</p>
-</div>
-
-<h4>Configuración básica</h4>
 
 <h5 class="mb-3">Investigadores</h5>
 
@@ -126,9 +127,18 @@
 </ol>
 </p>
 
-<p>A continuación del nombre del investigador encontrará un tercer botón con el ícono: <i class="bi bi-envelope-at"> Verificar</i>. Este botón envía un correo electrónico al email registrado con un link que le permitirá al investigador <i>verificar la dirección de correo registrada</i>.</p>
+<p>Bajo el nombre del investigador verá una leyenda que dice: <i class="bi bi-cone-striped text-danger"></i> <i>Aún no se envía email con link de verificación de correo electrónico.</i> que finaliza con el botón <i class="bi bi-envelope-at text-primary"></i> <span class="text-primary">Enviar</span> </p>
 
-<p>Una vez verificado el correo electrónico, el ícono para enviar el correo de verificación será reemplazado por el ícono <i class="bi bi-at"></i> para señalar que la dirección de correo electrónico fue verificada.</p>
+<p>Este botón envía un correo electrónico al email registrado para el investigador, con un link que le permitirá <i>verificar la dirección de correo registrada</i>.</p>
+
+<p>Una vez enviado el correo electrónico, verá en la parte alta de la pantalla el mensaje <i class="bi bi-bell text-primary"></i> <span class="text-primary">Correo de verificación enviado</span> y, el mensaje bajo el nombre del investigador ha cambiado:
+	<ol>
+		<li>Al comienzo del mensaje (que sigue siendo el mismo) aparece ahora la fecha en la que se envió el correo de verificación.</li>
+		<li>Al final del mensaje aún podemos ver el botón, pero ahora dice <span class="text-primary">Reenviar</span>, el cual nos permitirá enviar un segundo correo si fuera necesario.</li>
+	</ol>
+</p>
+
+<p>Una vez verificado el correo electrónico por el investigador, el ícono para enviar el correo de verificación será reemplazado por el ícono <i class="bi bi-at text-primary"></i> acompañado de la palabra <span class="text-primary">Verificado!</span>.</p>
 
 <p>Este botón está disponible para todos los participantes del Procedimiento de Investigación y Sanción, de esta forma <b>la plataforma incorpora la verificación de correos personales para todos participantes de una denuncia</b>.</p>
 

@@ -1,28 +1,20 @@
 <h4>Investigación</h4>
 
-<p>En este punto del procedimiento nuestra página de <i>proceso</i> luce así:</p>
+<p>En este punto del procedimiento nuestra página <i>Proceso</i> luce así:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/invstgcn.png', width: "600" %>
 </div>
 
-<p>Vemos que hemos cambiado a la etapa <i>Investigación</i> y que ahora sí es obligatorio asignar el investigador.</p>
-
 <ol>
-	<li>Un nuevo elemento: <b>Etapas concluidas</b> en el que aparece el detalle del cumplimiento del plazo establecido para cada etapa. En este caso nos muestra que se terminó la etapa con un día de anticipación.</li>
-	<li>Nos cuenta que hemos iniciado la etapa de <i>Investigación</i> y que el plazo para realizarla es el 01-07-2025</li>
-	<li>Nos muestra el estado del repositorio de documentos obligatorios.</li>
+	<li>Un nuevo elemento, <b>Etapas concluidas</b>, nos muestra el cumplimiento del plazo establecido para cada etapa. En este caso nos muestra que se terminó la etapa con un día de anticipación.</li>
+	<li>Hemos iniciado la etapa de <i>Investigación</i> y el plazo para realizarla es el 01-07-2025</li>
+	<li>A esta altura del proedimiento, asignar un investigador a la denuncia es obligatorio.</li>
 </ol>
-
-<p>Ya que el investigador no fue asignado con anterioridad, ahora su ingreso es obligatorio.</p>
 
 <h5>Asignar un investigador</h5>
 
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_13.png', width: "600" %>
-</div>
-
-<p>Al presionar el botón <i class="bi bi-plus-circle"></i> en el extremo derecho del encabezado <b>Investigador</b> accederemos al formulario donde seleccionaremos al investigador.</p>
+<p>Presionando el botón <i class="bi bi-plus-circle"></i> en el extremo derecho del encabezado <b>Investigador</b> accederemos al formulario donde seleccionaremos al investigador.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_14.png', width: "600" %>
@@ -36,19 +28,19 @@
 	<%= image_tag 'hlp/dnnc_smpl_15.png', width: "600" %>
 </div>
 
-<p>Se ha desplegado el registro del investigador asignado bajo el encabezado. La información es simple: el nombre del investigador y a su derecha los botones para modificar/eliminar el registro.</p>
-<p>Y bajo el nombre del investigador asignado se ven acciones posibles de realizar respecto al investigador:
+<p>Se ha desplegado el registro del investigador asignado bajo el encabezado. El registro es simple: el nombre del investigador y a su derecha los botones para modificar/eliminar el registro.</p>
+<p>Bajo el nombre del investigador asignado se ven acciones posibles de realizar respecto al investigador:
 	<ol>
-		<li>Investigador aún no ha sido notificado a los participantes <i class="bi bi-envelope-at"></i> Notificar!</li>
-		<li> Investigador sin objeción <i class="bi bi-dot"></i> <i class="bi bi-square"></i> objetar</li>
+		<li>Investigador aún no ha sido notificado a los participantes <i class="bi bi-envelope-at text-primary"></i> <span class="text-primary">Notificar!</span></li>
+		<li>Investigador sin objeción <i class="bi bi-dot"></i> <i class="bi bi-square text-primary"></i> <span class="text-primary">objetar</span></li>
 	</ol>
 </p>
 
 <p>Al final de cada advertencia, encontramos un botón que permite realizar la acción.</p>
 
-<p>El reglamento establece que el investigador debe evaluar la denuncia verificando que esté completa y que no presente inconsistencias. Si la denuncia adolece de alguno de estos problemas, debe ser devuelta a la persona denunciante con las observaciones correspondientes y establecer un plazo para que sea devuelta con las observaciones resueltas.</p>
+<p>El reglamento establece que el investigador debe analizar la denuncia verificando que no presente inconsistencias. Si la denuncia no cumple el estándar requerido, debe ser devuelta a la persona denunciante con las observaciones correspondientes y establecer un plazo para que sea devuelta con las observaciones resueltas.</p>
 
-<p>Si la evaluación presenta alguno de los problemas evaluados, la plataforma pedirá que se suba un archivo con la <i>Evaluación de la denuncia</i> y pedira que se ingrese la fecha del plazo asignado para la entrega de la denuncia corregida. Si la denuncia no presenta problemas no es necesario subir la evaluación.</p>
+<p>Si la denuncia presenta inconsistencias, la plataforma solicitará que se suba el documento que contiene el análisis de la denuncia y pedirá que se ingrese la fecha del plazo asignado para la entrega de la denuncia corregida.</p>
 
 <p>Como se trata de una denuncia simple, tomaremos la opción <b>La denuncia está completa y no presenta inconsistencias</b>, lo cual nos lleva a la siguiente tarea:</p>
 
@@ -64,6 +56,8 @@
 	<%= image_tag 'hlp/dnnc_smpl_17.png', width: "600" %>
 </div>
 
+<p>En la imagen mostramos solo la información de la persona denunciante, el procedimiento es el mismo en cada participante.</p>
+
 <p>Lo que se debe realizar en cada participante es lo siguiente:
 	<ol>
 		<li>Agendar su declaración</li>
@@ -72,7 +66,8 @@
 	</ol>
 </p>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
+	<p><b>Planificacion del tiempo de la investigación</b></p>
 	<p>Es importante que las declaraciones se agenden lo antes posible, lar personas denunciantes o denunciadas pueden aportar con testigos al momento de dar su declaración, lo cual podría afectar el cumplimiento del plazo de investigación si no se cuenta con el tiempo suficiente.</p>
 </div>
 
@@ -84,7 +79,7 @@
 	<%= image_tag 'hlp/dnnc_smpl_18.png', width: "600" %>
 </div>
 
-<p>Al ingresar una declaración a la agenda del testigo lucirá así:</p>
+<p>Al ingresar la declaración a la agenda de la persona denunciante lucirá así:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_19.png', width: "600" %>
@@ -92,7 +87,7 @@
 
 <p>Bajo el encabezado <i>Agenda de declaraciones</i> aparece la declaración que acabamos de agrendar con fecha y hora. A la derecha, a la izquierda de los botones de modificar/eliminar, aparece un boton <i class="bi bi-envelope-at"></i> que permite notificar al participante la cita a declarar que se acaba de generar.</p>
 
-<p>Bajo el encabezado <b>Documentación obligatoria</b> del testigo, se solicita ahora subir la <b>Declaración del participante</b>, y se activa una lista para subir documentos que el testigo pueda adjuntar a su declaración como antecedentes (opcional).</p>
+<p>Bajo el encabezado <b>Documentación obligatoria</b> del participante, se solicita ahora subir la <b>Declaración del participante</b>, y se activa una lista para subir documentos pueda adjuntar a su declaración como antecedentes (opcional).</p>
 
 <p><b>La plataforma considerará que la declaración fue tomada si se subió el correspondiente archivo de la declaración a la plataforma</b>.</p>
 <p>Para completar la tarea debemos, en consecuencia, agendar las declaraciones de todos los participantes y subir sus correspondientes declaraciones. Si cada participante tiene adjunta su declaración aparecerá el siguiente mensaje:</p> 
@@ -101,23 +96,20 @@
 	<%= image_tag 'hlp/mnsg_dclrcn.png', width: "600" %>
 </div>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
-	<p><b>Redacción del informe de investigación</b></p>
-	<p>Una vez terminada la toma de declaraciones, el investigador debe realizar la redacción del informe de investigación con sus correspondientes <i>medidas correctivas</i> y <i>Sanciones</i>.</p>
-	<p>Una vez terminada su redacción se debe subir a la plataforma.</p>
-</div>
-
 <p>Si se ha completado el proceso de toma de declaraciones ir a la página <i>Proceso</i> para continuar con el procedimiento.</p>
 
 <h5>Término de la investigación</h5>
 
-<p>Mientras no se suba el informe de investigación a la plataforma no será posible continuar con el procedimiento.</p>
+<p>Una vez terminada la toma de declaraciones, el investigador debe realizar la redacción del informe de investigación con sus correspondientes <i>medidas correctivas</i> y <i>Sanciones</i>.</p>
+<p>Una vez terminada su redacción se debe subir a la plataforma.</p>
+
+<p>La plataforma desplegará un mensaje con todas las acciones pendientes impidiendo que terminemos la etapa mientras no se completen.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/mnsg_infrm.png', width: "600" %>
 </div>
 
-<p>Una vez subido el informe, la plataforma le permitirá registrar la fecha de término de la investigación. Fecha que será utilizada para verificar el cumplimiento del plaso de la etapa.</p>
+<p>Una vez subido el informe y notificado el investigador, la plataforma permitirá registrar la fecha de término de la investigación. Fecha que será utilizada para verificar el cumplimiento del plaso de la etapa.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_20.png', width: "600" %>
