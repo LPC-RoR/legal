@@ -1,26 +1,30 @@
 <div class="p-1" style="margin-left: 2%; margin-right: 2%;">
 	<div class="row gx-2">
 		<div class="col-lg-4 col-xs-12">
-			<%= render layout: 'home/public/prdcts/prdct_pill', locals: {version: 'BÁSICO', price: 'UF 7', nota: 'Licencia anual'} do %>
+			<%= render layout: 'home/public/prdcts/prdct_pill', locals: {version: 'PREPAGO', price: 'UF 7', nota: 'por investigación', renovacion: nil} do %>
 				<ul>
-					<li>Licencia anual de 1 investigación.</li>
+					<li>Pago por denuncia.</li>
 					<li>Pensada para empresas pequeñas.</li>
-					<li>Adquiera licencias adicionales según su necesidad.</i>
+					<li>Disponible solo para versión estándar.</li>
 				</ul>
 			<% end %>
 		</div>
 		<div class="col-lg-4 col-xs-12">
 			<%= render layout: 'home/public/prdcts/prdct_pill', locals: {version: 'ESTÁNDAR', price: 'UF 60', nota: 'Licencia primer año', renovacion: 'Renovacion: UF 40'} do %>
 				<ul>
-					<li>Licencia anual con 10 investigaciones incluidas, capacitación y soporte técnico para acompañarlo en todo el proceso.</li>
+					<li>Licencia anual</li>
+					<li>Para empresas sin régimen de subcontratación.</li>
+					<li>Capacidad: diez denuncias.</li>
 				</ul>
 			<% end %>
 		</div>
 		<div class="col-lg-4">
 			<%= render layout: 'home/public/prdcts/prdct_pill', locals: {version: 'EXTENDIDO', price: 'UF 120', nota: 'Licencia primer año', renovacion: 'Renovacion: UF 80'} do %>
 				<ul>
+					<li>Licencia anual.</li>
 					<li>Para empresas principales o usuarias.</li>
-					<li>Licencia anual que incluye 10 investigaciones, consultoría de implementación, capacitación y soporte técnico dedicado.</li>
+					<li>Capacidad: diez denuncias.</li>
+					<li>Incluye consultoría de implementación.</li>
 				</ul>
 			<% end %>
 		</div>

@@ -1,8 +1,18 @@
 <!-- Carousel -->
 <%= render partial: 'home/public/carousel' %>
-<!-- Registro para Demo -->
 <%= render partial: 'home/public/btn_demo' %>
+
+<%= render partial: 'home/public/boxes' %>
+<%= render partial: 'home/public/btn_demo' %>
+<!-- Registro para Demo -->
 <%= render partial: 'home/public/modal_demo' %>
+
+<%#= image_tag 'home/ventanas.png', class: "responsive-image" %>
+
+<div class="position-relative">
+ 	<%= image_tag 'home/ventanas.png', class: "img-fluid" %>
+	<%= render partial: 'home/public/btn_demo' %>
+</div>
 
 <!-- LaborSafe -->
 <%= render partial: 'home/public/prdct_laborsafe' %>

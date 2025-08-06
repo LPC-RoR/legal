@@ -2,23 +2,31 @@
 <% nota  ||= nil %>
 <% renovacion ||= nil %>
 
-<div class="p-3">
+<div class="shadow border rounded-4 p-3">
 	
-	<div class="text-center text-primary">
+	<div class="text-center text-secondary">
 		<div class="mb-2">
-			<%= image_tag 'logo/logo_ls_120.png', style: 'height:100%;width:auto;' %>
+			<%= image_tag 'logo/istp_75.png', style: 'height:100%;width:auto;' %>
 		</div>
-		<div class="mb-2 fw-bold2", style="font-size: 1rem;">
+		<div class="mb-2 fw-bold2", style="font-size: 1.2rem;">
 			<%= version %>
 		</div>
 	</div>
-	<div class="p-1 text-justify text-primary" style="height: 140px;font-size: 0.8rem;line-height: 1.5;">
+	<div class="p-1 text-justify text-secondary" style="height: 9rem;font-size: 0.9rem;line-height: 1.5;">
 		<%= yield %>
 	</div>
 	<div class="py-1 fs-5 text-center border rounded-pill text-bg-primary">
 		<%= price %>
-		<div style="font-size: 1rem"><%= nota %></div>
+		<!--div style="font-size: 1rem"><%#= nota %></div-->
 	</div>
-	<div class="mt-1 text-center" style="font-size: 0.7rem">* <%= renovacion %></div>
+
+	<div class="mt-1 text-center" style="font-size: 0.7rem">
+		<i class="bi bi-cone-striped text-danger"></i> No incluye investigación de la denuncia.
+	</div>
+	<div class="mt-1 text-center" style="height: 1rem;font-size: 0.7rem">
+		<% unless renovacion.nil? %>
+			* <%= renovacion %>
+		<% end %>
+	</div>
 
 </div>

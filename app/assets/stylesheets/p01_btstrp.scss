@@ -81,3 +81,9 @@
     color: white !important;
     padding-left: 20px; /* Desplaza el texto */
 }
+
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
