@@ -1,0 +1,25 @@
+<% unless ownr.notas.empty? %>
+
+	<div class="row mt-1 px-2 py-1 border gx-1" style="background-color: #e9ecef;">
+		<div class="col-8 fw-bold">
+			Notas
+		</div>
+		<div class="col-4 text-end">
+			<% unless ownr.notas.rlzds.empty? %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'NotasRealizadas', objeto: nil, tooltip: nil} do %>
+					<i class="bi bi-arrow-bar-down"></i> Ver notas realizadas
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<% unless ownr.notas.no_rlzds.empty? %>
+		<%= render partial: 'notas/shr/pndnts', locals: {ownr: ownr, blue_dot: false} %>
+	<% end %>
+
+	<% unless ownr.notas.rlzds.empty? %>
+		<%= render layout: '0p/collapse/dsply', locals: {label: 'NotasRealizadas', objeto: nil} do %>
+			<%= render partial: 'notas/shr/rlzds', locals: {ownr: ownr, blue_dot: false} %>
+		<% end %>
+	<% end %>
+
+<% end %>

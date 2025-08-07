@@ -8,6 +8,8 @@ class Nota < ApplicationRecord
 
 	validates :nota, presence: true
 
+	scope :crtd_at_asc, -> { order(:created_at) }
+
 	scope :no_rlzds, -> { where(realizado: [false, nil]) }
 	scope :rlzds, -> { where(realizado: true) }
 

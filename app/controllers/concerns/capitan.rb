@@ -96,14 +96,18 @@ module Capitan
 		@objeto[params[:tkn]] = params[:clr]
 		@objeto.save
 
-		redirect_to cptn_rdrccn
+		set_bck_rdrccn
+#		redirect_to cptn_rdrccn
+		redirect_to @bck_rdrccn
 	end
 
 	def niler
 		@objeto[params[:tkn]] = nil
 		@objeto.save
 
-		redirect_to cptn_rdrccn
+		set_bck_rdrccn
+#		redirect_to cptn_rdrccn
+		redirect_to @bck_rdrccn
 	end
 
 	# ************************************************************************** ESTADOS

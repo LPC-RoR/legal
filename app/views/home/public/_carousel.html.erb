@@ -1,10 +1,19 @@
 <div id="dynamicCarousel" class="carousel slide" data-bs-ride="carousel">
 
-  <div class="position-absolute top-0 end-0 m-3" style="z-index: 10;">
-    <%= render layout: '0p/collapse/link', locals: {label: 'Navbar', objeto: nil, tooltip: 'Menu'} do %>
+  <!--div class="position-absolute top-0 end-0 m-3" style="z-index: 10;">
+    <%#= render layout: '0p/collapse/link', locals: {label: 'Navbar', objeto: nil, tooltip: 'Menu'} do %>
       <i class="bi bi-list fs-3 text-white"></i>
-    <% end %>
-  </div>
+    <%# end %>
+  </div-->
+
+<div class="position-absolute top-0 end-0 m-2" style="z-index: 10;">
+  <%= render layout: '0p/collapse/link', locals: {label: 'Navbar', objeto: nil, tooltip: 'Menu'} do %>
+    <button class="btn btn-primary btn-sm px-1">
+      <i class="bi bi-list fs-5 text-white"></i>
+    </button>
+  <% end %>
+</div>
+
 
   <!-- Indicadores -->
   <div class="carousel-indicators">

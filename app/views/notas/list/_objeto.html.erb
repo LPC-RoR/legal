@@ -1,19 +1,17 @@
+<% prrdds 	= [nil, true].include?(prrdds) ? true : false %>
+<% blue_dot = [nil, true].include?(blue_dot) ? true : false %>
 <div class="m-1 border border-success rounded">
 
-	<%= render partial: 'notas/list/objt', locals: {objeto: objeto} %>
+	<%= render partial: 'notas/list/objt', locals: {objeto: objeto, prrdds: prrdds, blue_dot: blue_dot} %>
 
 	<%= render partial: 'actividades/shr/prtcpnts', locals: {objeto: objeto} unless krn_routes? %>
 
-	<div class="px-2 app_lnk" style="font-size: 12px;">
-		<b>
-		<%= render partial: '0p/gly', locals: {gly: 'dot', clr: objeto.prioridad} if objeto.prioridad == 'success' %>
-		<%= render partial: '0p/gly', locals: {gly: 'exclamation-circle', clr: objeto.prioridad} if objeto.prioridad == 'warning' %>
-		<%= render partial: '0p/gly', locals: {gly: 'cone-striped', clr: objeto.prioridad} if objeto.prioridad == 'danger' %>
-		<% unless objeto.sin_fecha_gestion %>
+	<div class="px-3 app_lnk fw-bold" style="font-size: 0.7rem;">
+		<i class="bi bi-chat-right-text text-<%=objeto.realizado ? 'muted' : objeto.prioridad %>"></i>
+		<% if objeto.tarea_con_plazo %>
 			<i class="bi bi-alarm"></i> <%= dma(objeto.fecha_gestion) %> 
 		<% end %>
 		<%= objeto.nota %>
-		</b>
 	</div>
 
 </div>

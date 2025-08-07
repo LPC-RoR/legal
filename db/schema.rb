@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_28_210651) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_07_181302) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1225,6 +1225,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_28_210651) do
     t.boolean "urgente"
     t.datetime "fecha_gestion"
     t.boolean "sin_fecha_gestion"
+    t.boolean "tarea_con_plazo"
     t.index ["app_perfil_id"], name: "index_notas_on_app_perfil_id"
     t.index ["ownr_id"], name: "index_notas_on_ownr_id"
     t.index ["ownr_type"], name: "index_notas_on_ownr_type"

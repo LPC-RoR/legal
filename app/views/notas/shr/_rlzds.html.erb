@@ -1,0 +1,7 @@
+<% prrdds 	= [nil, true].include?(prrdds) ? true : false %>
+<% blue_dot = [nil, true].include?(blue_dot) ? true : false %>
+<% unless ownr.notas.empty? %>
+	<% ownr.notas.rlzds.crtd_at_asc.each do |nota| %>
+		<%= render partial: 'notas/list/objeto', locals: {objeto: nota, prrdds: prrdds, blue_dot: blue_dot} %>
+	<% end %>
+<% end %>

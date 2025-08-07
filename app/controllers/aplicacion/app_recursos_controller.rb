@@ -29,7 +29,16 @@ class Aplicacion::AppRecursosController < ApplicationController
       end
     end
     
-    redirect_to root_path, notice: CausaArchivo.all.count
+    redirect_to root_path, notice: Causa.all.count
+  end
+
+  def migrar_notas
+    Nota.all.each do |nota|
+      nota.tarea_con_plazo = nota.sin_fecha_gestion ? false : true
+      nota.save
+    end
+    
+    redirect_to root_path, notice: Nota.all.count
   end
 
   def password_recovery

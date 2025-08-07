@@ -1,10 +1,14 @@
-<div class="row m-0 px-1 py-1 bg-secondary-subtle rounded app_lnk" style="font-size: 10px;line-height: 1.2;">
+<div class="row m-0 py-1 bg-secondary-subtle rounded app_lnk" style="font-size: 0.7rem;line-height: 1.2;">
 	<div class="col">
-		<%= render partial: '0p/clr_point', locals: {clr: objeto.prioridad} %>
-		<%= render partial: '0p/clr_point', locals: {clr: 'primary'} unless objeto.realizado %>
-		<i class="bi bi-dot"></i>
+		<%# if prrdds or blue_dot %>
+			<%= render partial: '0p/clr_point', locals: {clr: objeto.prioridad} if prrdds %>
+			<% if blue_dot %>
+			<%= render partial: '0p/clr_point', locals: {clr: 'primary'} unless objeto.realizado %>
+			<% end %>
+			<!--i class="bi bi-dot"></i-->
+		<%# end %>
 
-		<i class="bi bi-cone-striped text-<%= objeto.realizado ? 'muted' : objeto.prioridad%>"></i>
+		<!--i class="bi bi-cone-striped text-<%#= objeto.realizado ? 'muted' : objeto.prioridad%>"></i-->
 		<%= dma_hm(objeto.created_at) %>
 		<i class="bi bi-dot"></i>
 
