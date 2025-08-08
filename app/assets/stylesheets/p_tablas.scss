@@ -84,11 +84,6 @@ $app_ln_gp: 0;
     @include ln_2auto(blue, gray);
 }
 
-.ttl_bx {
-    @include ln_bsc_prprty(white, cnfg.$app_fnt, 16px);
-    @include ttl_2auto(blue, gray);
-}
-
 .ln_ordr {
     @include ln_bsc_prprty(white, $app_tb_fnt, 13px);
     @include ln_ord_nm_lnks(blue, gray);

@@ -86,14 +86,6 @@ $elmnt_pddng: 3px 1rem 2px 1rem;
 	border-color: $brdr_clr;
 }
 
-.dlg_bsc {
-	margin: 2px;
-	padding: .5rem 1rem;
-	@include bscs.brd_ln(1px, solid, red, 10px);
-	color: red;
-}
-
-
 // CLSS
 
 .dc_fl {

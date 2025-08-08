@@ -10,14 +10,18 @@ module Plazos
 
   	def plz_lv(fecha, dias)
   		unless fecha.blank? or dias.blank?
+  			# Feriados entre los días, incluidos
 	  		frds = CalFeriado.where('cal_fecha BETWEEN ? AND ?', fecha.beginning_of_day, (fecha + dias.day).end_of_day)
+	  		# Se cuentan sólo los lv
 	  		n_frds = frds.lv.count
 
+	  		# Núnero de días, agregamos los feriados
 	  		ds = dias + n_frds
 
 	  		# Se consumen 5 por semanas => ds/5 = n_semanas
 	  		s = (ds/5).to_i
 	  		r = ds % 5
+	  		# Ajuste según el día de partida
 	  		skp = 4 - (fecha.to_date - fecha.monday.to_date).to_i
 	  		r2 = r > skp ? r + 2 : r
 	  		pls = s * 7 + r2

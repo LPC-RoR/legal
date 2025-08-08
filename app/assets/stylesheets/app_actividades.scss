@@ -71,11 +71,6 @@
 	@include dia_hd(cnfg.$blue_5, cnfg.$blue_1, cnfg.$blue_5);
 }
 
-.ac_bjt {
-	@include ac_bjt_bs(cnfg.$pltt_9, cnfg.$pltt_7);
-	@include ac_dtll(black, gray);
-}
-
 .pndt_bjt {
 	@include ac_bjt_bs(cnfg.$pltt_8, cnfg.$pltt_7);
 	@include ac_dtll(black, gray);

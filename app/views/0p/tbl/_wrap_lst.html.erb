@@ -1,0 +1,29 @@
+<% shdw = shdw ? true : false %>
+<% typ  ||= 'tr' %>
+<div class="<%='shadow' if shdw%> mt-1">
+	<table class="table table-sm table-borderless table-striped table-hover">
+		<tbody>
+			<% clccn.each do |objt| %>
+				<% if prtl?(objt, 'list', "objeto") %>
+					<%= render partial: objt_prtl_name(objt) , locals: {objeto: objt} %>
+				<% else %>
+
+					<% case typ %>
+					<% when 'tr' %>
+						<% if prtl?(objt, 'list', 'tr') %>
+							<%= render partial: prtl_name(objt, 'list', 'tr'), locals: {objeto: objt} %>
+						<% else %>
+							<%= render partial: '0p/tbl/tr', locals: {objt: objt, ordr: ordr, crud: crud} %>
+						<% end %>
+					<% when 'ln' %>
+						<%= render partial: '0p/tbl/ln', locals: {objt: objt, ordr: ordr, crud: crud} %>
+
+					<% when 'frame' %>
+						<%= render partial: '0p/objt/objt_frame', locals: {objt: objt} %>
+					<% end %>
+
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+</div>

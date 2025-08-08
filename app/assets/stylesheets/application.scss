@@ -20,7 +20,6 @@
 
 @use "p01_btstrp";
 @use "p02_app";
-@use "p06_shw";
 @use "p08_procs";
 @use "p09_carousel";
 @use "p_form-style";
@@ -28,15 +27,12 @@
 @use "p_titles";
 @use "p_drpdwns";
 @use "p_general";
-@use "p_home";
 @use "p_tablas";
 @use "p_lmenu";
 @use "p_repositorios";
 @use "app_causas";
 @use "app_actividades";
 @use "app_hechos";
-@use "app_lgl";
-@use "footer";
 @use "pdf";
 
 .sb-link {

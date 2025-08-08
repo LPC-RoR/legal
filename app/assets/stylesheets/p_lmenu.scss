@@ -24,18 +24,6 @@
     @include bscs.a_hover(white, cnfg.$pltt_6);
 }
 
-.enlcs {
-    background-color: cnfg.$ls_blue_1;
-    line-height: 1.2;
-    font-size: 14px;
-    color: white;
-    @include bscs.a_hover(white, cnfg.$pltt_1);
-}
-
-.cmn_ttl {
-    @include mn_ttl(1em .5em .5em .5em, 14px)
-}
-
 .lmn {
     border: 1px solid cnfg.$pltt_7;
     border-radius: 3px 3px 3px 3px;

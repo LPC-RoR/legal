@@ -26,7 +26,7 @@ class AgeActividad < ApplicationRecord
 	scope :prprtrs,	-> {where(age_actividad: PRPRTR)}
 	scope :uncs,	-> {where(age_actividad: UNC)}
 
-    validates_presence_of :age_actividad, :fecha
+  validates_presence_of :age_actividad, :fecha
 
 	after_destroy :update_audiencia
 

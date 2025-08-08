@@ -1,25 +1,30 @@
 <% shdw    = shdw ? true : false %>
 <% typ  ||= 'tr' %>
 <div class="<%='shadow' if shdw%> mt-1">
-<table class="table table-sm table-borderless table-striped table-hover">
-	<tbody>
-		<% clccn.each do |objt| %>
-			<% if prtl?(objt, 'list', "objeto") %>
-				<%= render partial: objt_prtl_name(objt) , locals: {objeto: objt} %>
-			<% else %>
 
-				<% case typ %>
-				<% when 'tr' %>
-					<%= render partial: '0p/tbl/tr', locals: {objt: objt, ordr: ordr, crud: crud} %>
-				<% when 'ln' %>
-					<%= render partial: '0p/tbl/ln', locals: {objt: objt, ordr: ordr, crud: crud} %>
+	<% if typ == 'tr' %>
+	<table class="table table-sm table-borderless table-striped table-hover">
+		<tbody>
+	<% end %>
 
-				<% when 'frame' %>
+			<% clccn.each do |objt| %>
+				<% if prtl?(objt, 'list', "objeto") %>
+					<%= render partial: objt_prtl_name(objt) , locals: {objeto: objt} %>
+				<% elsif typ == 'frame' %>
 					<%= render partial: '0p/objt/objt_frame', locals: {objt: objt} %>
-				<% end %>
+				<% else %>
 
+					<% if prtl?(objt, 'list', typ) %>
+						<%= render partial: prtl_name(objt, 'list', typ), locals: {objt: objt} %>
+					<% else %>
+						<%= render partial: "0p/tbl/#{typ}", locals: {objt: objt, ordr: ordr, crud: crud} %>
+					<% end %>
+
+				<% end %>
 			<% end %>
-		<% end %>
-	</tbody>
-</table>
+
+	<% if typ == 'tr' %>
+		</tbody>
+	</table>
+	<% end %>
 </div>

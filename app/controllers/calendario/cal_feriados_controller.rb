@@ -68,8 +68,6 @@ class Calendario::CalFeriadosController < ApplicationController
       prfx = prfx_dia(@objeto.cal_fecha)
       @objeto.tipo = ['do', 'sa'].include?(prfx) ? prfx : 'lv'
       @objeto.save
-      puts "kmlkmñlkmñlkmlñkm"
-      puts @objeto.tipo
     end
 
     # Use callbacks to share common setup or constraints between actions.

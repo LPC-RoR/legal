@@ -55,17 +55,8 @@ module Calendario
     ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'][day_index(dt_fecha)]
   end
 
-  # Si es lunes, es el mismo día, si no, el lunes pasado
-  def lunes_dt(dt_fecha)
-    dt_fecha - day_index(dt_fecha).day
-  end
-
   def prfx_dia(dt_fecha)
     ['lu', 'ma', 'mi', 'ju', 'vi', 'sa', 'do'][day_index(dt_fecha)]
-  end
-
-  def nombre3_dia(dt_fecha)
-    nombre_dia(dt_fecha)[0..2]
   end
 
   def dyf(dt_fecha)
