@@ -1,5 +1,6 @@
 <!-- NO FUNCIONA el default -->
 <%# dflt = action_name == 'new' ? Time.zone.now : form.object.send(token).presence %>
+<%#= dflt ||= nil %>
 <% start_year_step 	||= 1 %>
 <div class="mb-3">
 	<%= form.label(token, label) %><br>
@@ -10,7 +11,7 @@
       prompt: { day: 'Día', month: 'Mes', year: 'Año' },
       include_blank: true,
       start_year: Date.today.year - start_year_step,
-      selected: dflt  # Usa 'selected' en lugar de 'default'
+#      selected: dflt  # Usa 'selected' en lugar de 'default'
     }
   ) %>
 	<%#= form.date_select token, { default: dflt, order: [:day, :month, :year], prompt: { day: 'Día', month: 'Mes', year: 'Año' }, include_blank: true, start_year: Date.today.year - start_year_step} %>

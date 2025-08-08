@@ -1,11 +1,12 @@
 <%# dflt = @objeto.send(token) || Time.zone.now %>
 <%# dflt = form.object.send(token).presence || Time.zone.now %>
 <%# dflt = action_name == 'new' ? Time.zone.now : form.object.send(token).presence %>
+<%#= dflt ||= nil %>
 <% start_year_step	||= 1 %>
 <div class="mb-3">
 	<%= form.label(token, label) %></br>
 	<%= form.datetime_select token, {
-		default: dflt, 
+#		default: dflt, 
 		order: [:day, :month, :year, :hour, :minute], 
 		prompt: { day: 'Día', month: 'Mes', year: 'Año', hour: 'Hora', minute: 'Minutos' }, 
 		start_year: (Date.today.year - start_year_step)
