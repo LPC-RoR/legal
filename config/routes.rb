@@ -186,7 +186,6 @@ Rails.application.routes.draw do
   scope module: 'csc' do
     resources :tipo_causas do
       resources :audiencias
-      match :add_rcrd, via: :get, on: :member
     end
     resources :temas do
       match :arriba, via: :post, on: :member
