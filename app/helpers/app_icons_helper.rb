@@ -29,7 +29,6 @@ module AppIconsHelper
 			'tar_pagos' => 'currency-dollar',
 			'tar_formulas' => 'lightbulb',
 			'tar_comentarios' => 'chat',
-			'variables' => 'signpost',
 			'st_modelos' => 'box',
 			'dt_materias' => 'bank',
 			'm_periodos' => 'calendar3',
