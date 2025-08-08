@@ -1,27 +1,40 @@
-<% bg  ||= 'bg-light' %>
-<% gly ||= 'circle-fill' %>
-<% clr ||= 'primary' %>
-<% ttl ||= 'Sin título' %>
+<% bg       ||= 'bg-light' %>
+<% gly      ||= 'circle-fill' %>
+<% icon_clr      ||= 'primary' %>
+<% ttl      ||= 'Sin título' %>
+<% ttl_bclr  ||= 'secondary' %>
+<% ttl_align  ||= nil %>
+
+<% ttl_clr    ||= nil %>
+<% img_icon   ||= nil %>
+<% bg_clr     ||= nil %>
+<% bg_img     ||= nil %>
+
+<% icon_radius ||= 3 %>
 
 <div class="container">
-  <div class="position-relative border rounded-4 p-3 shadow-sm <%= bg %>">
+  <div class="position-relative border rounded-4 p-3 shadow-sm <%= bg unless (bg_img or bg_clr) %>" style="background-image: url('<%= asset_path(bg_img) if bg_img %>');background-color: <%=bg_clr if bg_clr%>;">
     <!-- Pseudo-elemento para tapar el borde -->
     <div class="position-absolute top-0 start-0 translate-middle rounded-circle" style="
-      width: 1.5rem;
-      height: 1.5rem;
+      width: <%=icon_radius%>rem;
+      height: <%=icon_radius%>rem;
       background: <%= bg == 'bg-light' ? '#f8f9fa' : 'inherit' %>;
       border: 2px solid transparent;
       transform: translate(-50%, -50%);
     "></div>
-    
-    <!-- Ícono (se superpone al pseudo-elemento) -->
+
+    <!-- Ícono o Imagen (se superpone al pseudo-elemento en el marco) -->
     <div class="position-absolute top-0 start-0 translate-middle">
-      <i class="bi bi-<%= gly %> fs-2 text-<%= clr %>"></i>
+      <% if img_icon %>
+        <%= image_tag img_icon, class: "img-fluid"  %>
+      <% else %>    
+        <i class="bi bi-<%= gly %> fs-2 text-<%= icon_clr %>"></i>
+      <% end %>
     </div>
     
     <!-- Contenido -->
     <div class="ps-4">
-      <h4 class="mb-3"><%= ttl %></h4>
+      <h4 class="mb-3 text-<%=ttl_align%> text-<%=ttl_bclr unless ttl_clr%>" style="color: <%=ttl_clr if ttl_clr%>"><%= ttl.html_safe %></h4>
       <p class="mb-0">
         <%= yield %>
       </p>

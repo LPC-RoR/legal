@@ -87,6 +87,6 @@ class NotasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def nota_params
-      params.require(:nota).permit(:ownr_type, :ownr_id, :app_perfil_id, :nota, :prioridad, :realizado, :fecha_gestion, :sin_fecha_gestion)
+      params.require(:nota).permit(:ownr_type, :ownr_id, :app_perfil_id, :nota, :prioridad, :realizado, :fecha_gestion, :sin_fecha_gestion, :tarea_con_plazo)
     end
 end

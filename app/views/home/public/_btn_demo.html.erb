@@ -1,4 +1,5 @@
-<div class=" py-2 text-center">
+<% pddng ||= 2 %>
+<div class=" py-<%=pddng%> text-center">
   <button type="button" class="btn btn-primary mt-md-0 mt-3" data-bs-toggle="modal" data-bs-target="#RegistroEmpresa">
     <%= render partial: '0p/gly', locals: {gly: 'cursor'} %>
     Solicitar demo
