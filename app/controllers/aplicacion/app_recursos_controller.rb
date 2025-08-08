@@ -41,6 +41,17 @@ class Aplicacion::AppRecursosController < ApplicationController
     redirect_to root_path, notice: Nota.all.count
   end
 
+  def activar_fecha_en_notas
+    Nota.all.each do |nota|
+      if nota.ownr.class.name == 'Causa'
+        nota.tarea_con_plazo = true
+        nota.save
+      end
+    end
+    
+    redirect_to root_path, notice: Nota.all.count
+  end
+
   def password_recovery
     if usuario_signed_in? or dog?
       @raw, hashed = Devise.token_generator.generate(Usuario, :reset_password_token)

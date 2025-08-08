@@ -329,6 +329,7 @@ Rails.application.routes.draw do
         match :password_recovery, via: :get
         # ----------------- métodos para procesos
         match :chck_estds, via: :post
+        match :activar_fecha_en_notas, via: :post
       end
     end
     resources :tablas do
