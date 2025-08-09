@@ -14,7 +14,7 @@ class Producto::ProDtllVentasController < ApplicationController
 
   # GET /pro_dtll_ventas/new
   def new
-    @objeto = ProDtllVenta.new(ownr_type: params[:oclss], ownr_id: params[:oid])
+    @objeto = ProDtllVenta.new(ownr_type: params[:oclss], ownr_id: params[:oid], fecha_activacion: Time.zone.now)
   end
 
   # GET /pro_dtll_ventas/1/edit

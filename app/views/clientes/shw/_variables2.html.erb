@@ -1,6 +1,0 @@
-<%= render partial: '0p/general/ttl_indx', locals: {cntrllr: 'cli-variables', ttl: 'Variables del cliente', ownr: objeto} %>
-<div class="app_box">
-	<% @objeto.var_clis.each do |rel| %>
-		<%= render partial: 'dts/var_clis/list/var_child', locals: {objeto: rel} %>
-	<% end %>
-</div>

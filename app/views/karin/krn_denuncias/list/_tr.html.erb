@@ -1,0 +1,16 @@
+<tr class="app_lnk" style="font-size: 1rem;line-height: 1.5;">
+	<td><%= dma_hm(objt.fecha_hora) %></td>
+	<td class="fw-bold">
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: objt, tltp: 'Ver denuncia'} do %>
+			<%= objt.identificador %>
+		<% end %>	
+	</td>
+	<td><%= objt.motivo_denuncia %></td>
+	<td class="text-end">
+		<% if ['recepción'].include?(tipo_usuario) or operacion? %>
+			<% unless (objt.krn_derivaciones.any? or objt.rep_archivos.any?) %>
+				<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objt} %>
+			<% end %>
+		<% end %>
+	</td>
+</tr>
