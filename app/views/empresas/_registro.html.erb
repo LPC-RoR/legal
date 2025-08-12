@@ -1,7 +1,7 @@
 <%# app/views/pages/home.html.erb %>
 <!-- Resto de tu landing page... -->
 
-<div id="registration-form">
+<div id="registration-form app_font">
   <!--h3>Registre su empresa</h3-->
   <%= form_with(model: @objeto, url: register_path, data: { turbo: false }) do |form| %>
     <% if @objeto.errors.any? %>
@@ -13,7 +13,7 @@
     <% end %>
 
     <div class="mb-2 text-center">
-      Registre su empresa y tenga acceso a una vesión DEMO
+      Registre su empresa y tenga acceso a una versión DEMO
     </div>    
 
   	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT de la empresa' } %>
@@ -29,7 +29,7 @@
   	<%#= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Solicito información comercial' } %>
 
     <div class="actions">
-      <%= form.submit "Registrar mi empresa", class: "btn btn-primary" %>
+      <%= form.submit "Registrar mi empresa", class: "btn btn-sm btn-outline-primary" %>
     </div>
   <% end %>
 

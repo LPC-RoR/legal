@@ -82,4 +82,8 @@ class HomeController < ApplicationController
 			@causas_en_proceso = Causa.where(estado: 'tramitación')
 		end
   end
+
+  def costos
+  	
+  end
 end

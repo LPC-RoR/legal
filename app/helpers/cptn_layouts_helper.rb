@@ -19,7 +19,7 @@ module CptnLayoutsHelper
 
 	# helper_method : rutas que NO requieren autenticación de usuarios
 	def not_authenticate_routes?
-		public_home = (controller_name == 'home' and action_name == 'index')
+		public_home = (controller_name == 'home' and ['index', 'costos'].include?(action_name))
 		(public_controllers | devise_controllers).include?(controller_name) or public_home
 	end
 
@@ -45,7 +45,7 @@ module CptnLayoutsHelper
 
 	# Resuelve el directorio donde encontrar el layout
 	def lyt_prtl_dir
-		if ['hlp_ayudas', 'servicios'].include?(controller_name) or devise_controllers.include?(controller_name) or (controller_name == 'home' and action_name == 'index')
+		if ['hlp_ayudas', 'servicios'].include?(controller_name) or devise_controllers.include?(controller_name) or (controller_name == 'home' and ['index', 'costos'].include?(action_name))
 			'home'
 		else
 			nil

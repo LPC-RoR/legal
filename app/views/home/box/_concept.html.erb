@@ -1,0 +1,14 @@
+<% gly   ||= 'dot' %>
+<% cncpt ||= 'sin concepto' %>
+<% dtll  ||= 'sin detalle' %>
+<div class="border py-1 px-3 rounded-4 d-flex align-items-center mb-3 icon-title-hover">
+  <!-- Ícono (puedes reemplazar por una imagen si prefieres) -->
+  <i class="bi bi-<%=gly%> me-2"></i>
+  
+  <!-- Título con tooltip -->
+  <h5 class="m-0 title-hover" 
+  data-bs-toggle="tooltip" 
+  data-bs-placement="bottom" 
+  data-bs-custom-class="white-tooltip"
+  title="<%=dtll%>"><%= cncpt %></h5>
+</div>
