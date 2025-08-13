@@ -1,0 +1,24 @@
+<div class="p-3 my-3">
+	<%= image_tag 'logo/tyc_60.png', class: 'img-fluid' %>
+</div>
+<div class="px-3 text-secondary">
+	<h3>Reporte de causas</h3>
+	<h3><%= @objt.razon_social %></h3>
+</div>
+<% @coleccion['causas'].each do |causa| %>
+
+	<% @objeto = causa %>
+	<div class="row gx-1 py-1 px-3 border rounded-4 shadow fw-bold" style="margin-left: 3%;margin-right: 3%;">
+		<div class="col-4"><%= causa.rit %></div>
+		<div class="col-4"><%= causa.causa %></div>
+	</div>
+
+	<div class="" style="margin-left: 3%;margin-right: 3%;">
+		<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: causa} %>
+
+		<% if causa.tar_valor_cuantias.any? %>
+			<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: causa, porcentaje_cuantia: false } %>
+		<% end %>
+	</div>
+
+<% end %>

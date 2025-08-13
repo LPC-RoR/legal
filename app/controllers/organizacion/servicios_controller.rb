@@ -28,6 +28,13 @@ class Organizacion::ServiciosController < ApplicationController
     redirect_to "/servicios/aprobacion?indice=#{@indice}", alert: "Invalid date format. Please use YYYY-MM-DD."
   end
 
+  def causas
+    unless params[:oid].blank?
+      @objt = Cliente.find(params[:oid])
+      set_tabla('causas', @objt.causas.order(:created_at), false)
+    end
+  end
+
   def documentos
     @objeto = LglDocumento.find_by(codigo: params[:cdg])
     set_tabla('lgl_parrafos', @objeto.lgl_parrafos.ordr, false)
