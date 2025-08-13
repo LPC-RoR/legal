@@ -1,0 +1,22 @@
+<div class="row gx-1 px-2" style="font-size: 12px; line-height: 1.2;">
+	<div class="col-8">
+		<%= render partial: 'tarifas/tar_valor_cuantias/list/cnt', locals: {objeto: objeto} %>
+	</div>
+	<div class="col-2 text-end">
+			<%= render partial: 'tarifas/tar_valor_cuantias/list/icono_check', locals: {check_valor: chck_tarifa(objeto)} if controller_name != 'servicios' %>
+			<% unless objeto.activado? %><del><% end %>
+				<%= s_moneda( objeto.moneda, vlr_tarifa(objeto) ) %>
+			<% unless objeto.activado? %></del><% end %>
+	</div>
+	<%# if controller_name == 'causas' %>
+		<div class="col-2 text-end">
+			<%# if controller_name == 'causas' %>
+				<%= render partial: 'tarifas/tar_valor_cuantias/list/icono_check', locals: {check_valor: chck_cuantia(objeto, 'real')} if controller_name != 'servicios' %>
+				<% unless objeto.activado? %><del><% end %>
+					<%= s_moneda( objeto.moneda, vlr_cuantia(objeto, 'real') ) %>
+				<% unless objeto.activado? %></del><% end %>
+			<%# end %>
+		</div>
+	<%# end %>
+
+</div>

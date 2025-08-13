@@ -17,7 +17,22 @@
 		<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: causa} %>
 
 		<% if causa.tar_valor_cuantias.any? %>
-			<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: causa, porcentaje_cuantia: false } %>
+
+
+			<div class="border rounded shadow bg-white fnt_arial app_lnk">
+				<%= render partial: 'tarifas/tar_valor_cuantias/list/info_th' %>
+
+				<!-- Detalles de cuantía -->
+				<% causa.tar_valor_cuantias.dsply.each do |vc| %>
+					<%= render partial: 'tarifas/tar_valor_cuantias/list/info', locals: {objeto: vc } %>
+				<% end %>
+
+			<!--hr-->
+
+			<%= render partial: 'tarifas/tar_valor_cuantias/list/info_ttls', locals: {objeto: causa} %>
+			</div>
+
+			<%#= render partial: 'causas/shr/list_cuantia', locals: {objeto: causa, porcentaje_cuantia: false } %>
 		<% end %>
 	</div>
 
