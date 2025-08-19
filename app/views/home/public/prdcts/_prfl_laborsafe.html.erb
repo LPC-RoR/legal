@@ -1,19 +1,21 @@
 <div class="row gx-1 mt-3 py-4 fs-4" style="margin-left: 3%; margin-right: 3%; color: #3c6e71;">
-  <div class="col-lg-8 col-xs-12">
-    <!-- Pseudo-elemento para el fondo con transparencia -->
-    <div style="
-      background-image: url('<%= asset_path('logo/istp_50.png') %>');
-      background-repeat: no-repeat;
-      background-size: 50px 50px;
-      background-position: center;
-      opacity: 0.5; /* 50% de transparencia */">
-    </div>
-    <!-- Contenido (no afectado por la transparencia) -->
-    <p class="m-0 px-4">
-      Software para el registro y control del <i>procedimiento de investigación y sanción</i><br>Ley 21.643 (Ley Karin)
-    </p>
 
-    <div class="mt-4 p-4 border border-4 rounded-4 shadow-sm" style="background-color: #e3f2fd;border-color: #6096ba;color: #3c6e71;">
+  <p class="m-0 px-4">
+    Software para el registro y control del <i>procedimiento de investigación y sanción</i><br>Ley 21.643 (Ley Karin)
+  </p>
+
+  <div class="col-lg-4 col-xs-12 p-3">
+    <%= render partial: 'home/box/concept', locals: {cncpt: 'Cumplimiento', dtll: 'Cumple con todas las exigencias establecidas en el reglamento que regula el procedimiento de investigación y sanción.', gly: 'trophy'} %>
+    <%= render partial: 'home/box/concept', locals: {cncpt: 'Simplicidad', dtll: 'Proceso completamente asistido, reconoce todos los tipos de denuncia y las excepciones del procedimiento.', gly: 'cup-hot'} %>
+    <%= render partial: 'home/box/concept', locals: {cncpt: 'Documentación obligatoria', dtll: 'Cada denuncia cuenta con un repositorio desde el cual se controla toda la documentación obligatoria.', gly: 'folder-check'} %>
+  </div>
+  <div class="col-lg-4 col-xs-12 p-3">
+      <%= render partial: 'home/box/concept', locals: {cncpt: 'Control de plazos', dtll: 'Control de plazos sensible al tipo de investigación.', gly: 'calendar2-check'} %>
+    <%= render partial: 'home/box/concept', locals: {cncpt: 'Notificaciones e información obligatoria', dtll: 'Generación automatizada y envío trazable desde la plataforma.', gly: 'bell'} %>
+    <%= render partial: 'home/box/concept', locals: {cncpt: 'Confidencialidad', dtll: 'Acceso autenticado y restringido según perfil del usuario/participante. Informes generados según modelo de Confidencialidad.', gly: 'shield-exclamation'} %>
+  </div>
+  <div class="col-lg-4">
+    <div class="p-4 border border-4 rounded-4 shadow-sm" style="background-color: #e3f2fd;border-color: #6096ba;color: #3c6e71;">
 	    <div class="fs-5">
 	    	Registre su empresa para:
 	    </div>
@@ -24,17 +26,9 @@
 	    		<li>Coordinar una presentación vía telemática</li>
 	    	</ul>
 	    </div>
-	    <div class="text-end">
+	    <div class="text-center">
 	    	<%= render partial: 'home/box/btn_demo', locals: {align: 'end', pddng: 2} %>
 	    </div>
     </div>
-  </div>
-  <div class="col-lg-4">
-  	<%= render partial: 'home/box/concept', locals: {cncpt: 'Cumplimiento', dtll: 'Cumple con todas las exigencias establecidas en el reglamento que regula el procedimiento.', gly: 'trophy'} %>
-  	<%= render partial: 'home/box/concept', locals: {cncpt: 'Simplicidad', dtll: 'Proceso completamente asistido, reconoce casos y excepciones del procedimiento.', gly: 'cup-hot'} %>
-  	<%= render partial: 'home/box/concept', locals: {cncpt: 'Documentación obligatoria', dtll: 'Repositorio documental con control documental por investigación.', gly: 'folder-check'} %>
-  	<%= render partial: 'home/box/concept', locals: {cncpt: 'Plazos', dtll: 'Gestión de plazos sensible al tipo de investigación.', gly: 'calendar2-check'} %>
-  	<%= render partial: 'home/box/concept', locals: {cncpt: 'Notificaciones e información obligatoria', dtll: 'Generación automatizada y envío trazable desde la plataforma.', gly: 'bell'} %>
-  	<%= render partial: 'home/box/concept', locals: {cncpt: 'Confidencialidad', dtll: 'Acceso autenticado y restringido según perfil del usuario/participante.', gly: 'shield-exclamation'} %>
   </div>
 </div>
