@@ -6,9 +6,9 @@
 		<% @coleccion['krn_denunciantes'].each do |dnncnt| %>
 			<%= render partial: '0p/proc/ln', locals: {glosa: "#{s_rut(dnncnt.rut)} #{dnncnt.nombre}"} %>
 			<% if dnncnt.fl?('dnncnt_diat_diep') %>
-				<%= render partial: '0p/proc/ln', locals: {glosa: "Documentación atención sicológica temprana.", gly: 'chack2-all', pddng: 1} %>
+				<%= render partial: '0p/proc/ln', locals: {glosa: "Documentación atención psicológica temprana.", gly: 'chack2-all', pddng: 1} %>
 			<% else %>
-				<%= render partial: '0p/proc/ln', locals: {glosa: "(pendiente) Documentación atención sicológica temprana.", gly: 'cone-striped', pddng: 1} %>
+				<%= render partial: '0p/proc/ln', locals: {glosa: "(pendiente) Documentación atención psicológica temprana.", gly: 'cone-striped', pddng: 1} %>
 			<% end %>
 			<%= render partial: prtl_name(@objeto, 'shw/proceso/reporte', 'prtcpnt_dclrcn'), locals: {prtcpnt: dnncnt} %>
 			<% if dnncnt.krn_testigos.any? %>

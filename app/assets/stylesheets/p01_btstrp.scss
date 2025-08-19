@@ -45,6 +45,10 @@
    	@include bscs.a_hover(cnfg.$blue_1, cnfg.$blue_3);
 }
 
+.artcl_lnk {
+    @include bscs.a_hover(cnfg.$pltt_5, cnfg.$pltt_4);
+}
+
 .app_fnt {
    	font-family: cnfg.$app_fnt;
 }

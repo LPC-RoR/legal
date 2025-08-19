@@ -1,18 +1,35 @@
-<div class="row gx-1 mt-3 border rounded-4 fs-4" style="margin-left: 3%; margin-right: 3%; color: #3c6e71;">
-  <div class="col-lg-6 p-4 text-center">
-    Ley 21.643 "Ley Karin": El costo del incumplimiento y la importancia de una implementación efectiva
-    <div class="text-end" style="font-size: 0.7rem;line-height: 1.5;">Agosto 2025</div>
-    <div class="text-end" style="font-size: 0.7rem;line-height: 1.5;">Equipo LaborSafe</div>
-  </div>
-  <div class="col-lg-6 col-xs-12 rounded-top-end-4" style="background-image: url('<%= asset_path('artcls/costos.png') %>'); background-size: cover; background-position: center;">
+<div class="row gx-1 mt-3 border rounded-4 text-secondary fs-4" style="margin-left: 3%; margin-right: 3%; background2-color: #3c6e71;">
+
+  <div class="position-relative rounded-4" style="height: 400px; overflow: hidden;">
+    <%= image_tag 'artcls/costos_resumen.png', class: 'img-fluid w-100 h-100 rounded-4', style: 'object-fit: cover;' %>
+    <div class="position-absolute top-0 start-0 w-100 h-50 d-flex align-items-center justify-content-center text-white fs-3 px-3" style="border-top-left-radius: .5rem; border-top-right-radius: .5rem;">
+      <div class="text-center" style="max-width: 800px;">
+        Ley 21.643 "Ley Karin": El costo del incumplimiento
+      </div>
+    </div>
   </div>
 
-  <div class="mt-3 px-5 py-3 text-start" style="font-size: 1rem;line-height: 1.5;">
-    <p>Tras un año de vigencia, la implementación de la ley 21.643 (Ley Karin) presenta nuevos desafíos. Un número significativo de empresas han recibido sus primeras denuncias, y las que no, empiezan a preguntarse si están preparadas operativamente para enfrentar una investigación. Los desafíos se concentran ahora, en la implementación operativa del <i>Procedimiento de investigación y sanción</i>.</p>
-    <p class="objt_lnk">No hay una única forma de cumplir la ley: para algunas empresas el desafío será lograr el cambio cultural buscado (la prevención), a otras, les bastará con cumplir con el mínimo necesario para no tener problemas. Y por problemas debemos entender los costos asociados al incumplimiento de la ley.
+  <div class="pt-3 px-3">
+    <div class="text-center" style="font-size: 0.7rem;line-height: 1.5;">Agosto 2025 | Equipo LaborSafe</div>
+  </div>
+
+  <div class="mt-2 px-5 py-3 text-start app_lnk" style="font-size: 0.9rem;line-height: 1.5;">
+    <p>A un año de la entrada en vigencia de la Ley 21.643 (Ley Karin), comienzan a conocerse las primeras evaluaciones sobre su implementación. El elevado volumen de denuncias recibidas, además de poner en aprietos a la Dirección del Trabajo, ha puesto en el centro de la discusión el <i>procedimiento de investigación y sanción</i>. Por su parte las empresas, ahora enfrentadas a denuncias reales, han transitado en estos meses desde las dudas iniciales hacia las propuestas de cambio, las que en términos generales apuntan a la flexibilización de algunos aspectos del procedimiento.</p>
+
+    <p>No hay una única forma de implementar la ley. Una empresa con un buen desarrollo organizacional tendrá como objetivo el cambio cultural, y probablemente, éste no será el primer desafío de esta naturaleza que afronta. El proyecto contará con el equipo idóneo y también los recursos necesarios. Sin embargo, la gran mayoría de las empresas no puede garantizar este estándar.</p>
+
+    <p>El deficiente estándar en la implementación de la ley se debe a dos causas principalmente:
+      <ul>
+        <li>Motivos <i>financieros</i>: la empresa no cuenta con los recursos necesarios.</li>
+        <li>Motivos <i>culturales</i>: la empresa no suscribe o rechaza el cambio cultural propuesto por la ley, probablemente porque considera que su cultura organizacional es suficientemente buena y, en consecuencia, implementará sólo lo necesario para no tener problemas.</li>
+      </ul>
+    </p>
+
+    <p>En este escenario, para muchas empresas, implementar consiste en <i>cumplir con la ley al menor costo posible</i>. Esta actitud, si bien no es la ideal, sí aporta al menos una metodología: en la medida que una empresa conoce los costos asociados al no cumplimiento de la ley podrá diseñar un modelo de implementación que reduzca o elimine el riesgo de incurrir en ellos. Esta información le permitirá también evaluar fundadamente la pertinencia de las inversiones asociadas.
       <%= render layout: '0p/tltp_lnk', locals: {lnk: '/krn_csts', tltp: 'Ir al artículo'} do %>
         <span style="font-size: 1rem;"><i class="bi bi-cursor"></i> Ir al artículo</span>
       <% end %>
     </p>
+
   </div>
 </div>
