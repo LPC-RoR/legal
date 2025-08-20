@@ -12,18 +12,24 @@
       </div>
     <% end %>
 
-    <div class="mb-2 text-center">
+    <!--div class="mb-2 text-center">
       Registre su empresa y tenga acceso a una versión DEMO
-    </div>    
+    </div-->    
 
   	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT de la empresa' } %>
-  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razón social de la empresa' } %>
+    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razón social de la empresa' } %>
+  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :administrador, label: 'Nombre del administrador de la cuenta' } %>
   	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
 
-  	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :principal_usuaria, label: 'Empresa principal o usuaria (*)' } %>
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Deseo que me contacten telefónicamente.' } %>
+    <%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :telefono, label: 'Teléfono del administrador de la cuenta (*)' } %>
+
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :informacion_comercial, label: 'Deseo información comercial de los productos.' } %>
+  	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :principal_usuaria, label: 'Empresa principal o usuaria (**)' } %>
+
     <div class="mb-2 objt_lnk" style="font-size: 0.7rem;line-height: 1.5;">
-      (*) Marque esta opción si su empresa cumple el rol de empresa principal o usuaria. <!--Para mayor información visite: -->
-      <%#= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'prncpl_usr', dscrpcn: 'Empresas principales o usuarias', tltp: 'Empresas principales o usuarias', target: '_blank'} %>
+      (*) El número telefónico se utilizará como medio de contacto sólo si ha solicitado contacto telefónico.<br>
+      (**) Marque esta opción si su empresa cumple el rol de empresa principal o usuaria.
     </div>
 
   	<%#= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Solicito información comercial' } %>

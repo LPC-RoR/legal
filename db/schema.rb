@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_07_181302) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_20_190636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -596,6 +596,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_181302) do
     t.string "verification_token"
     t.boolean "principal_usuaria"
     t.string "backup_emails"
+    t.string "administrador"
+    t.string "telefono"
+    t.boolean "informacion_comercial"
     t.index ["rut"], name: "index_empresas_on_rut"
     t.index ["sha1"], name: "index_empresas_on_sha1"
   end
