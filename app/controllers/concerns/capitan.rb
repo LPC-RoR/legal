@@ -116,7 +116,9 @@ module Capitan
 			unless @objeto.blank? or stt.blank?
 				case stt
 				when 'archvd'
-					@objeto = ['Causa', 'Asesoría'].include?(@objeto.class.name) ? 'archivada' : 'archivado'
+					@objeto.estado = ['Causa', 'Asesoría'].include?(@objeto.class.name) ? 'archivada' : 'archivado'
+				else
+					@objeto.estado = stt
 				end
 				@objeto.save
 			else

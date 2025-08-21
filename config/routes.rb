@@ -43,6 +43,8 @@ Rails.application.routes.draw do
     match :estmcn, via: :post, on: :member
   end
   resources :clientes do
+    match :swtch_stt, via: :post, on: :member
+    # ------------------------------------------
     match :cambio_estado, via: :get, on: :member
     match :swtch_pendiente, via: :post, on: :member
     match :swtch_urgencia, via: :post, on: :member

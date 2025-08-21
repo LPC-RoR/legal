@@ -1,6 +1,7 @@
 <%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 
-<%= render partial: 'st_estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
+<%= render partial: '0p/objt/cambio_estado', locals: { stts: ['ingreso', 'activo', 'baja'] } if dog? %>
+<%#= render partial: 'st_estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 <% case @options[:menu] %>

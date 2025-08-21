@@ -1,0 +1,11 @@
+<% stts ||= [] %>
+<div class="my-1 px-2 shadow border objt_lnk" style="font-size: 0.8rem;line-height: 1.5;">
+	<%= @objeto.estado %> : 
+	<% stts.each do |stt| %>
+		<% unless stt == @objeto.estado %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{@objeto.class.name.tableize}/#{@objeto.id}/swtch_stt?stt=#{stt}", tltp: "#{stt}", data: {turbo_method: :post}} do %>
+				<%= stt %>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>
