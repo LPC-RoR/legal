@@ -19,6 +19,10 @@ class RepDocControlado < ApplicationRecord
     self.control == CONTROLES[0]
   end
 
+  def dflt_bck_rdrccn
+    self.ownr
+  end
+
   # ------------------------------------ ORDER LIST
 
   def list
