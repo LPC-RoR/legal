@@ -3,6 +3,7 @@ class EmpresasController < ApplicationController
   before_action :scrty_on
   before_action :set_empresa, only: %i[ show edit update destroy swtch prg ]
   after_action :add_admin, only: :create
+  after_action :rut_puro, only: %i[ create update ]
 
   include Rut
 
@@ -130,6 +131,10 @@ class EmpresasController < ApplicationController
   end
 
   private
+    def rut_puro
+      @objeto.rut = @objeto.rut.gsub(' ', '').gsub('.', '').gsub('-', '')
+      @objeto.save
+    end
 
     def add_admin
       if @objeto.persisted?
