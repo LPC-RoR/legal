@@ -2,8 +2,8 @@ class Repositorios::RepDocControladosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_rep_doc_controlado, only: %i[ show edit update destroy arriba abajo ]
-  before_action :set_bck_rdrccn
   after_action :reordenar, only: :destroy
+  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   include Orden
 
@@ -21,6 +21,7 @@ class Repositorios::RepDocControladosController < ApplicationController
     ownr = params[:oclss].constantize.find(params[:oid])
     orden = ownr.rep_doc_controlados.count + 1
     @objeto = ownr.rep_doc_controlados.new(orden: orden)
+    set_bck_rdrccn
   end
 
   # GET /rep_doc_controlados/1/edit
@@ -33,7 +34,7 @@ class Repositorios::RepDocControladosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Documento controlado fue exitosamente creado." }
+        format.html { redirect_to @bck_rdrccn, notice: "Documento controlado fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +47,7 @@ class Repositorios::RepDocControladosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(rep_doc_controlado_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Documento controlado fue exitosamente actualizado." }
+        format.html { redirect_to @bck_rdrccn, notice: "Documento controlado fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
