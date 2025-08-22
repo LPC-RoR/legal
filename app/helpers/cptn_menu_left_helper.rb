@@ -40,7 +40,7 @@ module CptnMenuLeftHelper
 				},
 				{
 					titulo: nil,
-					condicion: admin?,
+					condicion: operacion?,
 					items: [
 						'Empresa',
 					]

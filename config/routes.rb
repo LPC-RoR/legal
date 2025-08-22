@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post '/send_verification_email', to: 'email_verifications#send_verification', as: :send_verification_email
 
   get '/krn_csts', to: 'home#costos'
+  get '/artcls/:tkn', to: 'home#artcls', as: 'artcls'
 
   resources :cuentas do
     match :dnncs, via: :get, on: :member

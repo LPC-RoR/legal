@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_action :authenticate_usuario!, only: [:dshbrd]
-    before_action :scrty_on, only: [:dshbrd]
+  before_action :scrty_on, only: [:dshbrd]
 
   def index
 		@objeto = Empresa.new
@@ -81,6 +81,10 @@ class HomeController < ApplicationController
 			set_tabla('tramitacion-causas', Causa.where(estado: 'tramitación'), false)
 			@causas_en_proceso = Causa.where(estado: 'tramitación')
 		end
+  end
+
+  def artcls
+  	
   end
 
   def costos

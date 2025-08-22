@@ -9,18 +9,22 @@ module CptnLayoutsHelper
 		devise_controllers.include?(controller_name)
 	end
 
-	def public_controllers
-		['hlp_ayudas']
+	def public_controller_routes?
+		['hlp_ayudas', 'servicios'].include?(controller_name)
+	end
+
+	def blg_routes?
+		controller_name == 'home' and action_name == 'artcls'
 	end
 
 	def non_left_menu_controllers
-		devise_controllers | public_controllers | ['cuentas']
+		devise_controllers | public_controller_routes? | ['cuentas'] | blg_routes?
 	end
 
 	# helper_method : rutas que NO requieren autenticación de usuarios
 	def not_authenticate_routes?
-		public_home = (controller_name == 'home' and ['index', 'costos'].include?(action_name))
-		(public_controllers | devise_controllers).include?(controller_name) or public_home
+		public_home = (controller_name == 'home' and ['index', 'costos', 'artcls'].include?(action_name))
+		public_controller_routes? or devise_routes? or public_home | blg_routes?
 	end
 
 	def krn_non_krn_routes?
@@ -36,7 +40,7 @@ module CptnLayoutsHelper
 	end
 
 	def krn_routes?
-		controller_name.start_with?('krn_') or cuentas_routes? or krn_non_krn_routes? or krn_hlp_routes? or devise_routes?
+		controller_name.start_with?('krn_') or cuentas_routes? or krn_non_krn_routes? or krn_hlp_routes? or devise_routes? or blg_routes?
 	end
 
 	def krn_user_error?
@@ -45,7 +49,7 @@ module CptnLayoutsHelper
 
 	# Resuelve el directorio donde encontrar el layout
 	def lyt_prtl_dir
-		if ['hlp_ayudas', 'servicios'].include?(controller_name) or devise_controllers.include?(controller_name) or (controller_name == 'home' and ['index', 'costos'].include?(action_name))
+		if public_controller_routes? or devise_routes? or (controller_name == 'home' and ['index', 'costos', 'artcls'].include?(action_name))
 			'home'
 		else
 			nil
