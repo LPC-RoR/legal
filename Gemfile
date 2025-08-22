@@ -8,7 +8,8 @@ gem 'rails', '~> 8.0.1'
 gem 'stringio', '3.1.1'
 
 # Necesario para no hace rails assets:precompile en development
-gem 'sprockets-rails'
+# Borrado porque genera un problema con PropShaft
+# gem 'sprockets-rails'
 
 # Base de datos
 gem 'pg'
