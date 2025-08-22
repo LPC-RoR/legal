@@ -17,6 +17,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+  <!-- Cargar ECharts manualmente ANTES de todo -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/theme/dark.js"></script>
+ 
+
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbo-track': 'reload' %>
     <%= stylesheet_link_tag "app_layout" %>
 

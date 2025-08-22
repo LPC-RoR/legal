@@ -6,9 +6,6 @@ import "controllers/application"
 import * as bootstrap from "bootstrap"
 window.bootstrap = bootstrap // Make bootstrap available globally
 
-import "echarts"
-import "echarts/theme/dark"
-
 // Finalmente tus controladores personalizados
 import PrtcpntsFieldsController from "controllers/prtcpnts_fields"
 import ConditionalFieldsController from "controllers/conditional_fields"

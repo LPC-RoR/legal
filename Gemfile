@@ -7,6 +7,9 @@ gem 'rails', '~> 8.0.1'
 
 gem 'stringio', '3.1.1'
 
+# Necesario para no hace rails assets:precompile en development
+gem 'sprockets-rails'
+
 # Base de datos
 gem 'pg'
 gem 'sqlite3', '~> 1.4', platform: :ruby
@@ -64,6 +67,7 @@ gem 'pg_search'
 
 # Gráficos
 gem "chartkick"
+gem "rails_charts"
 
 # Evaluación de expresiones
 gem "dentaku"
@@ -119,7 +123,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

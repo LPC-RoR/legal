@@ -12,7 +12,3 @@ pin "controllers/conditional_fields", to: "controllers/conditional_fields_contro
 pin "controllers/prtcpnts_fields", to: "controllers/prtcpnts_fields_controller.js"
 pin "bootstrap", to: "https://ga.jspm.io/npm:bootstrap@5.3.7/dist/js/bootstrap.esm.js"
 pin "@popperjs/core", to: "https://ga.jspm.io/npm:@popperjs/core@2.11.8/lib/index.js"
-
-
-pin "echarts", to: "echarts.min.js"
-pin "echarts/theme/dark", to: "echarts/theme/dark.js"
