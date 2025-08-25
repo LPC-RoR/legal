@@ -11,12 +11,11 @@
 	<div class="mt-4 px-5 text-start text-secondary app_lnk" style="font-size: .9rem;line-height: 1.5;color: #3c6e71;">
 
 		<% if prtl?('home', "artcls/#{params[:tkn]}", 'sgmnt') %>
-			<%= render partial: "home/artcls/#{params[:tkn]}/sgmnt" %>
+			<%= render partial: "home/artcls/#{params[:tkn]}/sgmnt", locals: {tkn: params[:tkn]} %>
         <% end %>
-		<% unless action_name == 'artcls2'%>
-		    <%= render layout: '0p/tltp_lnk', locals: {lnk: '/krn_csts', tltp: 'Ir al artículo'} do %>
-	        <span style="font-size: 0.9rem;"><i class="bi bi-cursor"></i> Ir al artículo</span>
-	        <% end %>
+
+		<% if prtl?('home', "artcls/#{params[:tkn]}", 'rest') %>
+			<%= render partial: "home/artcls/#{params[:tkn]}/rest", locals: {tkn: params[:tkn]} %>
         <% end %>
 
 		<p class="text-center"><i class="bi bi-c-circle"></i> Equipo de LaborSafe<br>www.laborsafe.cl</p>

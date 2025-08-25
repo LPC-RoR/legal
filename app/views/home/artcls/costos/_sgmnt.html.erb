@@ -12,7 +12,9 @@
 </p>
 
 <p>Crear un canal de denuncias, diseñar e implementar medidas de resguardo, contar con -al menos- un investigador con las competencias necesarias, cumplir con las exigencias formales de una investigación, entre otros, son desafíos aún presentes tras un año de vigencia de la ley. Su implementación o perfeccionamiento en el tiempo, si bien tendrá estándares distintos en cada empresa, buscará siempre satisfacer una exigencia mínima: <i>evitar los costos asociados al incumplimiento de la ley</i>.
-<%= render layout: '0p/tltp_lnk', locals: {lnk: '/krn_csts', tltp: 'Ir al artículo'} do %>
+<% unless action_name == 'artcls' %>
+  <%= render layout: '0p/tltp_lnk', locals: {lnk: "/home/artcls/costos", tltp: 'Ir al artículo'} do %>
     <span style="font-size: 0.9rem;"><i class="bi bi-cursor"></i> Ir al artículo</span>
   <% end %>
+<% end %>
 </p>
