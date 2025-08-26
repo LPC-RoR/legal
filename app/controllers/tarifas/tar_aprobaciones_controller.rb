@@ -12,11 +12,6 @@ class Tarifas::TarAprobacionesController < ApplicationController
 
   # GET /tar_aprobaciones/1 or /tar_aprobaciones/1.json
   def show
-    set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
-
-    sin_asignar = TarFacturacion.where(tar_aprobacion_id: nil, tar_factura_id: nil)
-    ids_cliente = sin_asignar.map {|sa| sa.id if sa.padre.cliente.id == @objeto.cliente.id}.compact
-    set_tabla('pend-tar_facturaciones', TarFacturacion.where(id: ids_cliente), false)
   end
 
   # GET /tar_aprobaciones/new
@@ -34,7 +29,8 @@ class Tarifas::TarAprobacionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Aprobación fue exitosamente creada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Aprobación fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +43,8 @@ class Tarifas::TarAprobacionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(tar_aprobacion_params)
-        format.html { redirect_to @objeto, notice: "Aprobación fue exitosamente actualizada." }
+        get_rdrccn
+        format.html { redirect_to @rdrccn, notice: "Aprobación fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,9 +55,10 @@ class Tarifas::TarAprobacionesController < ApplicationController
 
   # DELETE /tar_aprobaciones/1 or /tar_aprobaciones/1.json
   def destroy
+    get_rdrccn
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to tar_aprobaciones_url, notice: "Aprobación fue exitosamente eliminada." }
+      format.html { redirect_to @rdrccn, notice: "Aprobación fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -69,6 +67,10 @@ class Tarifas::TarAprobacionesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_tar_aprobacion
       @objeto = TarAprobacion.find(params[:id])
+    end
+
+    def get_rdrccn
+      @rdrccn = tar_aprobaciones_url
     end
 
     # Only allow a list of trusted parameters through.
