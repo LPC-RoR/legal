@@ -2,20 +2,14 @@
 
 <div class="row gx-1 mt-3 border rounded-4 fs-3 text-white" style="margin-left: 3%; margin-right: 3%;">
 
-	<div class="text-center" style="padding-top: 3rem;padding-bottom: 20rem;background-image: url('<%= asset_path('artcls/lentes.png') %>'); background-size: cover; background-position: top;">
-	    Ley 21.643 "Ley Karin": <br>El costo del incumplimiento
-	    <div class="text-end2" style="font-size: 0.7rem;line-height: 1.5;">Agosto 2025</div>
-	    <div class="text-end2" style="font-size: 0.7rem;line-height: 1.5;">Equipo LaborSafe</div>
-	</div>
+	<% if prtl?('home', "artcls/#{params[:tkn]}", 'img') %>
+		<%= render partial: "home/artcls/#{params[:tkn]}/img" %>
+    <% end %>
 
 	<div class="mt-4 px-5 text-start text-secondary app_lnk" style="font-size: .9rem;line-height: 1.5;color: #3c6e71;">
 
-		<% if prtl?('home', "artcls/#{params[:tkn]}", 'sgmnt') %>
-			<%= render partial: "home/artcls/#{params[:tkn]}/sgmnt", locals: {tkn: params[:tkn]} %>
-        <% end %>
-
-		<% if prtl?('home', "artcls/#{params[:tkn]}", 'rest') %>
-			<%= render partial: "home/artcls/#{params[:tkn]}/rest", locals: {tkn: params[:tkn]} %>
+		<% if prtl?('home', "artcls/#{params[:tkn]}", 'artcl') %>
+			<%= render partial: "home/artcls/#{params[:tkn]}/artcl", locals: {tkn: params[:tkn]} %>
         <% end %>
 
 		<p class="text-center"><i class="bi bi-c-circle"></i> Equipo de LaborSafe<br>www.laborsafe.cl</p>

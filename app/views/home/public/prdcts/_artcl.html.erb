@@ -1,7 +1,7 @@
-<div class="row gx-1 mt-3 border rounded-4 text-secondary fs-4" style="margin-left: 3%; margin-right: 3%; background2-color: #3c6e71;">
+<!--div class="row gx-1 mt-3 border rounded-4 text-secondary fs-4" style="margin-left: 3%; margin-right: 3%; background2-color: #3c6e71;">
 
   <div class="position-relative rounded-4" style="height: 400px; overflow: hidden;">
-    <%= image_tag 'artcls/costos_resumen.png', class: 'img-fluid w-100 h-100 rounded-4', style: 'object-fit: cover;' %>
+    <%#= image_tag 'artcls/costos_resumen.png', class: 'img-fluid w-100 h-100 rounded-4', style: 'object-fit: cover;' %>
     <div class="position-absolute top-0 start-0 w-100 h-50 d-flex align-items-center justify-content-center text-white fs-3 px-3" style="border-top-left-radius: .5rem; border-top-right-radius: .5rem;">
       <div class="text-center" style="max-width: 800px;">
         Ley 21.643 "Ley Karin": El costo del incumplimiento
@@ -9,29 +9,14 @@
     </div>
   </div>
 
-  <div class="pt-3 px-3">
-    <div class="text-center" style="font-size: 0.7rem;line-height: 1.5;">Agosto 2025 | Equipo LaborSafe</div>
+</div-->
+
+
+  <div class="row gx-1 mt-3 border rounded-4 text-secondary" style="margin: 0 3%;font-size: 0.8rem;line-height: 1.5;color: #3c6e71;">
+    <div class="col-lg-6 col-xs-12">
+      <%= render partial: "home/artcls/abstrct", locals: {tkn: 'costos', tema: 'Ley 21.643 (Ley Karin):',ttl: 'Los costos del incumplimiento', img: 'artcls/costos.png'} %>
+    </div>
+    <div class="col-lg-6">
+      <%= render partial: "home/artcls/abstrct", locals: {tkn: 'externalizacion', tema: 'Ley 21.643 (Ley Karin):', ttl: 'Externalizacion de investigaciones', img: 'artcls/extrnlzcn_1000.webp'} %>
+    </div>
   </div>
-
-  <div class="mt-2 px-5 py-3 text-start app_lnk ubuntu-regular" style="font-size: 0.9rem;line-height: 1.5;">
-    <p>A un año de la entrada en vigencia de la Ley N.º 21.643 (Ley Karin), comienzan a conocerse las primeras evaluaciones sobre su implementación. Tal como se había anticipado, el elevado volumen de denuncias recibidas ha generado importantes consecuencias: ha superado con creces la capacidad de investigación de la Dirección del Trabajo y ha situado en el centro del debate el procedimiento de investigación y sanción. En este contexto, han surgido diversas propuestas de ajuste, que en términos generales se orientan a flexibilizar algunas de las exigencias del procedimiento.</p>
-
-    <p>Sin importar el tamaño de la empresa, o lo alineada que esté con el cambio cultural propuesto por la ley, la recepción de las primeras denuncias trajó consigo un aprendizaje importante. Aprendizaje que frecuentemente implicó adecuaciones y mejoras sobre la marcha: hay plazos que cumplir y multas que evitar. Es la hora de la verdad, el momento en el que se pone a prueba el estándar logrado en la implementación de la ley.</p>
-
-    <p>La implementación de la Ley 21.643 es compleja en muchos sentidos. Se trata de un cambio cultural significativo, prueba de ello es el número de denuncias recibidas, pero también es exigente en términos financieros: para un número importante de empresas, la implementación de la ley en un buen estándar representa un costo que no pueden enfrentar completamente. Estas brechas pueden llegar a ser muy significativas.</p>
-
-    <p>Origen de las principales brechas en la implementación de la ley:
-      <ul>
-        <li><i>Financieras</i>: La gran mayoría de las empresas no cuentan con los recursos necesarios para garantizar un estándar adecuado, en la práctica esto ha derivado en que las pequeñas empresas realicen solo un cumplimiento formal de la norma, sin generar un cambio sustantivo.</li>
-        <li><i>Culturales</i>: algunas organizaciones no han asumido o no adhieren al cambio cultural que la ley busca promover, ya sea porque consideran que su propia cultura organizacional ya es suficiente o, simplemente, porque no lo consideran prioritario.</li>
-      </ul>
-    </p>
-
-    <p>Crear un canal de denuncias, diseñar e implementar medidas de resguardo, contar con -al menos- un investigador con las competencias necesarias, cumplir con las exigencias formales de una investigación, entre otros, son desafíos aún presentes tras un año de vigencia de la ley. Su implementación o perfeccionamiento en el tiempo, si bien tendrá estándares distintos en cada empresa, buscará siempre satisfacer una exigencia mínima: <i>evitar los costos asociados al incumplimiento de la ley</i>.
-    <%= render layout: '0p/tltp_lnk', locals: {lnk: '/krn_csts', tltp: 'Ir al artículo'} do %>
-        <span style="font-size: 0.9rem;"><i class="bi bi-cursor"></i> Ir al artículo</span>
-      <% end %>
-    </p>
-
-  </div>
-</div>
