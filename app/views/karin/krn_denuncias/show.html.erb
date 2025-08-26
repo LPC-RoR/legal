@@ -1,6 +1,6 @@
 <%= render partial: 'cuentas/shw/ttl', locals: {objt: @objeto, col_lft: 7} %>
 
-<%= render partial: prtl_name(@objeto, 'shw', 'menu') %>
+<%= render partial: prtl_name(@objeto, 'shw', 'shw_tab'), locals: { objt: @objeto } %>
 
 <% case @tbs[@indx] %>
 <% when 'Proceso' %>

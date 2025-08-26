@@ -1,0 +1,10 @@
+<div class="my-2 fs-5">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if params[:id] != "#{objt.id}_1" %>" aria-current="page" href="/krn_denuncias/<%=objt.id%>_0">Proceso</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if params[:id] == "#{objt.id}_1" %>" href="/krn_denuncias/<%=objt.id%>_1">Participantes</a>
+    </li>
+  </ul>
+</div>

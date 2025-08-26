@@ -1,8 +1,8 @@
 <% if @objt['rgstrs_mnms?'] %>
-	<div class="p-2 border app_lnk">
+	<div class="my-1 p-2 border app_lnk">
 		<div class="row gx-1">
 			<div class="col-8">
-				<b>Solicitud de verificación de información</b>
+				<b>Solicitud de verificación de datos de los participantes</b>
 			</div>
 			<div class="col-4 text-end">
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{@objeto.id}&rprt=infrmcn", tltp: 'Enviar reporte por correo electrónico', data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>

@@ -1,9 +1,0 @@
-<br>
-<% if objeto.drchs_sent? %>
-	<i class="bi bi-check2-all text-primary"></i> Se envió información de derechos y obligaciones de los participantes por correo electrónico.
-<% else %>
-	<i class="bi bi-cone-striped text-primary"></i> Se debe enviar información de derechos y obligaciones de los participantes por correo electrónico.
-	<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{@objeto.id}&rprt=drchs", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
-		<i class="bi bi-envelope-at"></i> Enviar!
-	<% end %>
-<% end %>

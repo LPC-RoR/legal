@@ -37,6 +37,10 @@ module Prtcpnt
   	end
 
     # --------------------------------- PDF Archivos y registros
+    def get_pdf_registro(code)
+      pdf = PdfArchivo.find_by(codigo: code)
+      pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id)
+    end
 
     def drchs_sent?
       pdf = PdfArchivo.find_by(codigo: 'drchs')

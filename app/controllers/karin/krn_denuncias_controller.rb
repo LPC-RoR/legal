@@ -21,6 +21,8 @@ class Karin::KrnDenunciasController < ApplicationController
     @prrfs = @doc.lgl_parrafos.ordr.dsplys
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
+    set_tab(:menu, ['Proceso', 'Participantes'])
+
     # Se necesita afuera para mostrar Reporte como modal
     set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
     set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
