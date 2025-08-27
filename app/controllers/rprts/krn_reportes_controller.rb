@@ -150,10 +150,29 @@ class Rprts::KrnReportesController < ApplicationController
       dstntr[:objt].pdf_registros.create(pdf_archivo_id: @pdf_archivo.id, ref_type: ref_type, ref_id: ref_id)
     end
     
-    #get_rdrccn
     set_bck_rdrccn
     ntc = dstntrs.length == 0 ? 'No se encontraron destinatarios pendientes.' : "El reporte ha sido enviado exitosamente a #{dstntrs.length} participante(s)."
-#    redirect_to @rdrccn, notice: ntc
+    redirect_to @bck_rdrccn, notice: ntc
+  end
+
+  def audit_rprt
+    @pdf_archivo = PdfArchivo.find_by(codigo: params[:rprt])
+    load_data(params[:oid], params[:rprt])
+    dstntrs = get_dstntrs(params[:oid], params[:rprt])
+
+    dstntrs.each do |dstntr|
+      if dstntr[:ref].present?
+        ref_type = dstntr[:ref].class.name
+        ref_id   = dstntr[:ref].id
+      else
+        ref_type = nil
+        ref_id   = nil
+      end
+
+      dstntr[:objt].pdf_registros.create(pdf_archivo_id: @pdf_archivo.id, ref_type: ref_type, ref_id: ref_id, audtd: true)
+    end
+    set_bck_rdrccn
+    ntc = dstntrs.length == 0 ? 'No se encontraron destinatarios pendientes.' : "El reporte ha sido enviado exitosamente a #{dstntrs.length} participante(s)."
     redirect_to @bck_rdrccn, notice: ntc
   end
 

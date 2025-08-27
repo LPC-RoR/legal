@@ -1,7 +1,7 @@
 class Karin::KrnInvestigadoresController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_investigador, only: %i[ show edit update destroy ]
+  before_action :set_krn_investigador, only: %i[ show edit update destroy swtch ]
   before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   # GET /krn_investigadores or /krn_investigadores.json

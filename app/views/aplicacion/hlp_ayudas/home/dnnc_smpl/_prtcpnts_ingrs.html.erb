@@ -1,7 +1,8 @@
 <h5>Ingreso de personas denunciantes, denunciadas y testigos</h5>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/encbzds_dnncnts_dnncds.png', width: "600" %>
+	<!-- dnnc_smpl_5 -->
+	<%= image_tag 'hlp/dnnc_smpl_5.png', width: "600" %>
 </div>
 
 <p>A la derecha de los encabezados correspondientes podemos encontrar dos botónes de íconos:
@@ -26,7 +27,8 @@
 <p>Al presionar el botón <i class="bi bi-plus-circle"></i> para ingresar una persona denunciante accederemos al siguiente formulario:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_5.png', width: "600" %>
+	<!-- dnnc_smpl_6 -->
+	<%= image_tag 'hlp/dnnc_smpl_6.png', width: "600" %>
 </div>
 
 <p>La mayoría de los datos solicitados se explican sólo, las únicas observaciones son:
@@ -40,7 +42,8 @@
 <p>El ingreso de las personas denunciadas y de los testigos es similar al ingreso de la persona denunciante. Una vez ingresada la información que se tiene al momento de la denuncia, la página queda más o menos como muestra la siguiente imagen:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_6.png', width: "600" %>
+	<!-- dnnc_smpl_7 -->
+	<%= image_tag 'hlp/dnnc_smpl_7.webp', width: "600" %>
 </div>
 
 <p>La imagen superior muestra en primer lugar el mensaje "<i>La información contenida en los registros de los participantes cumple con el estándar mínimo necesario para continuar con la recepción de la denuncia</i>. <b>Ir a Proceso</b>"</p>
@@ -62,21 +65,43 @@
 <p>Hemos ingresado los datos de una persona denunciante quien proporcionó los datos de un testigo, y de una persona denunciada. Como podemos ver en la imagen anterior, hemos ingresado todos los datos solicitados.</p>
 
 <p>El registro de cada participante despliega su cédula de identidad y su nombre y a su derecha, verá los botones que permiten modificar o eliminar el registro.</p>
-<p>Bajo el nombre de cada participante encontrará una primera advertencia: <i class="bi bi-cone-striped text-danger"></i> <i>El correo electrónico del participante aún no se ha verificado.</i> seguida de un botón <i class="bi bi-envelope-at"></i> <i>Verificar</i></p>
+<p>Bajo el nombre de cada participante encontrará dos advertencias:
+<ul>
+	<li><i class="bi bi-cone-striped text-danger"></i> <i>Email con link de verificación de correo electrónico.</i> <i class="bi bi-clipboard-check text-primary"></i> <i class="text-primary">Auditar!</i> y <i class="bi bi-envelope-at text-primary"></i> <i class="text-primary">Enviar</li>
+	<li></i><i class="bi bi-cone-striped text-danger"></i> No se puede enviar información al participante (verificar correo electrónico).</li>
+</ul> </p>
 
 <div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
 	<p><b>Verificación de correo electrónico del participante</b></p>
 	<p>El reglamento establece que <b>toda la información debe ser enviada al correo electrónico personal de cada participante</b>. Para garantizar el éxito de este envío, la plataforma cuenta con un mecanismos para verificar estas direcciones de correo:
 		<ol>
-			<li>Al presionar el botón <i class="bi bi-envelope-at"></i> <i>Verificar</i>, la plataforma enviará un correo electrónico al participante con un link, que les permitirá verificar la dirección de correo entregada.</li>
-			<li>Una vez verificada la dirección de correo del participante la plataforma registrará el correo cmo verificado.</li>
+			<li>Al presionar el botón <i class="bi bi-envelope-at text-primary"></i> <i class="text-primary">Enviar</i>, la plataforma enviará un correo electrónico al participante con un link, que les permitirá verificar la dirección de correo entregada.</li>
+			<li>Una vez verificada la dirección de correo del participante la plataforma registrará el correo como verificado lo cual habilitará el envío de información y notificaciones.</li>
 		</ol>
 	</p>
 </div>
 
-<p>Bajo la advertencia de verificación y sólo en el caso de las personas denunciantes, veremos una segunda advertencia: <i class="bi bi-cone-striped text-danger"></i> <i>Se debe enviar la información obligatoria por correo electrónico.</i> seguida del botón <i class="bi bi-envelope-at text-primary"></i> <i class="text-primary">Enviar!</i></p>
+<p>El link <i class="bi bi-clipboard-check text-primary"></i> <i class="text-primary">Auditar!</i> en este caso particular, permite contarle a la plataforma directamente que el la dirección de correo electrónico está correcta. Esta es la modalidad de <i>auditoría formal</i>.</p>
 
-<p>El reglamento establece la entrega de <i>información obligatoria</i> a la persona denunciante al momento de recibir la denuncia. Si la denuncia es presentada en forma verbal la información se entregará verbalmente y se dejará registro de ello en la carpeta, de otro modo, como en este ejemplo, la plataforma habilitará este botón para que sea enviada por correo.</p>
+<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
+	<p><b>Auditoría formal</b></p>
+	<p>El modo de <i>auditoría formal</i> es una funcionalidad disponible en dos contextos de una denuncia:
+		<ul>
+			<li><i>Información enviada por correo electrónico desde la plataforma</i>: en este contexto sirve permite marcar directamente en la plataforma, que el correo electrónico se envió sin haberlo enviado.</li>
+			<li><i>Documentación que debe ser subida a la plataforma</i>: en este contexto permite marcar directamente en la plataforma que el archivo existe, sin necesidad de subirlo.</li>
+		</ul>
+	</p>
+	<p>Esta propiedad es útil en diversos contextos:
+		<ul>
+			<li>Para auditar investigaciones ya realizadas. En estos casos, dado que e procedimiento ya se realizó, no tiene sentido enviar correos electrónicos a los participantes, tampoco darse el trabajo de subir toda la documentación, basta con verificar lo que está hecho y lo que no.</li>
+			<li>Para manejar excepciones. Por ejemplo, al ingresar una investigación en curso, la información ya enviada por correo se auditará para no tener que enviarla nuevamente. Otro ejemplo importante, es el caso en el que alguno de los participantes solicita que toda la información se le envió por correo certificado.</li>
+		</ul>
+	</p>
+</div>
+
+<!--p>Bajo la advertencia de verificación y sólo en el caso de las personas denunciantes, veremos una segunda advertencia: <i class="bi bi-cone-striped text-danger"></i> <i>Se debe enviar la información obligatoria por correo electrónico.</i> seguida del botón <i class="bi bi-envelope-at text-primary"></i> <i class="text-primary">Enviar!</i></p>
+
+<p>El reglamento establece la entrega de <i>información obligatoria</i> a la persona denunciante al momento de recibir la denuncia. Si la denuncia es presentada en forma verbal la información se entregará verbalmente y se dejará registro de ello en la carpeta, de otro modo, como en este ejemplo, la plataforma habilitará este botón para que sea enviada por correo.</p-->
 
 <p>Solo las personas denunciantes y denunciadas cuentan con un encabezado que les permite <b>agregar testigos</b>.</p>
 <p>Solo las personas denunciantes tienen (en esta etapa del procedimiento) una lista de <b>Documentación obligatoria</b>, que contiene un link para subir documentación que respalde haber recibido <b>Atención psicológica temprana</b>.</p>

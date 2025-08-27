@@ -1,0 +1,2 @@
+class PdfAuditoria < ApplicationRecord
+end

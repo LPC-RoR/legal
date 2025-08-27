@@ -5,17 +5,17 @@
 		<%= render partial: 'karin/prtls/prtcpnts/objt/email_verification', locals: {objeto: objeto} %>
 
 		<% unless objeto.articulo_516 %>
-			<% if objeto.verified? and objeto.email == objeto.email_ok %>
+			<% if (objeto.verified? and objeto.email == objeto.email_ok) or objeto.email_adtd %>
 
 				<%= render partial: 'pdf/pdf_registros/objt_chck', locals: {objeto: objeto, code: 'dnncnt_info_oblgtr', cone_clr: @objt['verbal?'] ? 'primary' : 'danger'} if objeto.class.name == 'KrnDenunciante' %>
 				<%= render partial: 'pdf/pdf_registros/objt_chck', locals: {objeto: objeto, code: 'drchs'} %>
 				<%= render partial: 'pdf/pdf_registros/objt_chck', locals: {objeto: objeto, code: 'invstgcn'} %>
 				<%= render partial: 'karin/prtls/prtcpnts/objt/chck_mdds_rsgrd', locals: {objeto: objeto} %>
 				<%= render partial: 'karin/prtls/prtcpnts/objt/chck_ntfccn_drvcns', locals: {objeto: objeto} %>
-				<%= render partial: 'pdf/pdf_registros/objt_chck', locals: {objeto: objeto, code: 'invstgdr'} %>
+				<%= render partial: 'pdf/pdf_registros/objt_chck', locals: {objeto: objeto, code: 'invstgdr'} if @objeto.investigadores? %>
 
 			<% else %>
-				<br><i class="bi bi-cone-striped text-danger"></i> No se puede enviar información a los participantes mientras su correo electrónico no se haya verificado.
+				<br><i class="bi bi-cone-striped text-danger"></i> No se puede enviar información al participante (verificar correo electrónico).
 			<% end %>
 		<% end %>
 	</div>

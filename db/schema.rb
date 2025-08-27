@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_20_190636) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_27_152939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -709,6 +709,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_190636) do
     t.datetime "verification_sent_at"
     t.integer "n_vrfccn_lnks"
     t.datetime "fecha_vrfccn_lnk"
+    t.boolean "email_adtd"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciados_on_krn_empresa_externa_id"
@@ -737,6 +738,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_190636) do
     t.datetime "verification_sent_at"
     t.integer "n_vrfccn_lnks"
     t.datetime "fecha_vrfccn_lnk"
+    t.boolean "email_adtd"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
@@ -854,6 +856,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_190636) do
     t.boolean "email_ok"
     t.integer "n_vrfccn_lnks"
     t.datetime "fecha_vrfccn_lnk"
+    t.boolean "email_adtd"
     t.index ["ownr_id"], name: "index_krn_investigadores_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_investigadores_on_ownr_type"
   end
@@ -881,6 +884,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_190636) do
     t.datetime "verification_sent_at"
     t.integer "n_vrfccn_lnks"
     t.datetime "fecha_vrfccn_lnk"
+    t.boolean "email_adtd"
     t.index ["krn_empresa_externa_id"], name: "index_krn_testigos_on_krn_empresa_externa_id"
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"
@@ -1344,6 +1348,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_190636) do
     t.datetime "updated_at", null: false
     t.string "ref_type"
     t.integer "ref_id"
+    t.boolean "audtd"
     t.index ["ownr_id"], name: "index_pdf_registros_on_ownr_id"
     t.index ["ownr_type"], name: "index_pdf_registros_on_ownr_type"
     t.index ["pdf_archivo_id"], name: "index_pdf_registros_on_pdf_archivo_id"

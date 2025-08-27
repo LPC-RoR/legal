@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   scope module: 'pdf' do
     resources :pdf_registros
     resources :pdf_archivos
+    resources :pdf_auditorias
   end
   scope module: 'rprts' do
     resources :krn_reportes do
@@ -72,6 +73,7 @@ Rails.application.routes.draw do
       match :dclrcn, via: :get, on: :collection
       match :drvcn, via: :get, on: :collection
       match :generate_and_send_report, via: :get, on: :collection
+      match :audit_rprt, via: :get, on: :collection
     end
   end
 
@@ -155,7 +157,9 @@ Rails.application.routes.draw do
     end
 
     resources :krn_derivaciones
-    resources :krn_investigadores
+    resources :krn_investigadores do
+      match :swtch, via: :post, on: :member
+    end
     resources :krn_declaraciones do
       match :swtch, via: :post, on: :member
       match :migrar, via: :get, on: :member

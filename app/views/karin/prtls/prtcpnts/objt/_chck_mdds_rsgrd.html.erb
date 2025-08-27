@@ -2,8 +2,10 @@
 	<% if @objeto.mdds_rsgrd_for_attchmnt? %>
 		<%= render partial: 'pdf/pdf_registros/objt_chck', locals: {objeto: objeto, code: 'mdds_rsgrd'} %>
 	<% else %>
+		<br>
 		<i class="bi bi-cone-striped text-danger"></i> No se puede enviar las medidas de resguardo a los trabajadores: No se han subido a la plataforma o sólo fue chequeado.
 	<% end %>
 <% else %>
+	<br>
 	<i class="bi bi-cone-striped text-danger"></i> No se puede enviar las medidas de resguardo a los trabajadores mientras no se haya enviado la notificación de la recepción de denuncia.
 <% end %>

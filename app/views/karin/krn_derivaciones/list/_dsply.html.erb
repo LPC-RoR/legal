@@ -4,11 +4,18 @@
 
 		<% if objeto.pdf_registros.empty? %>
 			<i class="bi bi-cone-striped text-danger"></i> La notificación de la derivación no ha sido enviada a los participantes.
+			<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/audit_rprt?oid=#{@objeto.id}&rprt=invstgdr"} do %>
+				<i class="bi bi-clipboard-check"></i> Auditar!
+			<% end %>
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=drvcn", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
 				<i class="bi bi-envelope-at"></i> Enviar!
 			<% end %>
 		<% else %>
-			<i class="bi bi-check2-all"></i> La notificación de la derivación ha sido enviada a los participantes.
+			<% if objeto.pdf_registros.first.audtd %>
+				<i class="bi bi-clipboard-check text-primary"></i> Notificación de la derivación de la denuncia a los participantes auditada.
+			<% else %>
+				<i class="bi bi-check2-all text-primary"></i> La notificación de la derivación ha sido enviada a los participantes.
+			<% end %>
 		<% end %>
 
 	</div>

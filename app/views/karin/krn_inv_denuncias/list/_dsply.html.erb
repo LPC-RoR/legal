@@ -3,15 +3,19 @@
 		<% unless @coleccion['krn_inv_denuncias'].first == objeto and @coleccion['krn_inv_denuncias'].count == 2 %>
 			<% if objeto.pdf_registros.empty? %>
 				Investigador aún no ha sido notificado a los participantes
-			<% else %>
-				Investigador ya fue notificado a los participantes
-			<% end %>
-			<% if objeto.pdf_registros.empty? %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/audit_rprt?oid=#{@objeto.id}&rprt=invstgdr"} do %>
+					<i class="bi bi-clipboard-check"></i> Auditar!
+				<% end %>
+
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=invstgdr", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
 					<i class="bi bi-envelope-at"></i> Notificar!
 				<% end %>
 			<% else %>
-				<i class="bi bi-check2-all"></i>
+				<% if objeto.pdf_registros.first.audtd %>
+					<i class="bi bi-clipboard-check text-primary"></i> Notificación del investigador a los participantes auditada.
+				<% else %>
+					<i class="bi bi-check2-all text-primary"></i> Investigador ya fue notificado a los participantes
+				<% end %>
 			<% end %>
 		<% end %>
 

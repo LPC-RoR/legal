@@ -44,6 +44,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.singular 'slides', 'slide'
     inflect.singular 'Slides', 'Slide'
 
+    inflect.irregular 'auditoria', 'auditorias'
     inflect.irregular 'nota', 'notas'
     inflect.irregular 'pauta', 'pautas'
     inflect.irregular 'pregunta', 'preguntas'
