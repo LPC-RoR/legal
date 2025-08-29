@@ -2,6 +2,10 @@ class EmpresasController < ApplicationController
   before_action :authenticate_usuario!, only: %i[ show ]
   before_action :scrty_on
   before_action :set_empresa, only: %i[ show edit update destroy swtch prg ]
+
+  # anti-bot para create
+  MIN_FILL_SECONDS = 3
+
   after_action :add_admin, only: :create
   after_action :rut_puro, only: %i[ create update ]
 
@@ -28,6 +32,20 @@ class EmpresasController < ApplicationController
 
   # POST /empresas or /empresas.json
   def create
+
+    # --- CORTES TEMPRANOS ANTI-BOT ---
+    # Honeypot llenado => bot
+    if params.dig(:objeto, :website).present?
+      head :ok and return
+    end
+
+    # Envío demasiado rápido (desde carga del form)
+    loaded_at = params[:form_loaded_at].to_i
+    if loaded_at.zero? || (Time.current.to_i - loaded_at) < MIN_FILL_SECONDS
+      head :ok and return
+    end
+    # --- FIN ANTI-BOT ---
+
     @objeto = Empresa.new(empresa_params)
     @objeto.verification_token = SecureRandom.urlsafe_base64
     @objeto.email_verified = false
@@ -72,8 +90,6 @@ class EmpresasController < ApplicationController
           password_confirmation: random_password,
           confirmed_at: Time.now  # Marcar como confirmado para que no necesite autenticación
         )
-#        usuario.save!
-#        EmpresaMailer.wellcome_email(@objeto.attributes.slice('email_administrador', 'password')).deliver_later
 
         if usuario.save!
           # Envía el correo con los datos del USUARIO, no de la empresa
@@ -132,14 +148,20 @@ class EmpresasController < ApplicationController
 
   private
     def rut_puro
-      @objeto.rut = @objeto.rut.gsub(' ', '').gsub('.', '').gsub('-', '')
-      @objeto.save
+      return unless @objeto&.persisted?
+      normalizado = @objeto.rut.to_s.delete('.- ').gsub(' ', '')
+      @objeto.update_column(:rut, normalizado) if normalizado.present?
     end
 
     def add_admin
-      if @objeto.persisted?
-        @objeto.app_nominas.create(ownr_type: @objeto.class.name, ownr_id: @objeto.id, nombre: 'Administrador', email: @objeto.email_administrador, tipo:'admin')
-      end
+      return unless @objeto&.persisted?
+      @objeto.app_nominas.create(
+        ownr_type: @objeto.class.name,
+        ownr_id:   @objeto.id,
+        nombre:    'Administrador',
+        email:     @objeto.email_administrador,
+        tipo:      'admin'
+      )
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -149,6 +171,12 @@ class EmpresasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def empresa_params
-      params.require(:empresa).permit(:rut, :razon_social, :email_administrador, :email_verificado, :sha1, :principal_usuaria, :backup_emails)
+#      params.require(:empresa).permit(
+#        :rut, :razon_social, :email_administrador, :email_verificado, :sha1, :principal_usuaria, :backup_emails)
+      params.require(:objeto).permit(
+        :rut, :razon_social, :administrador, :email_administrador, 
+        :contacto, :telefono, :informacion_comercial, :principal_usuaria
+        # :website NO se persiste (honeypot)
+      )
     end
 end

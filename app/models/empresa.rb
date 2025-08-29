@@ -1,4 +1,5 @@
 class Empresa < ApplicationRecord
+    attr_accessor :website  # honeypot
     
 	has_many :app_nominas, as: :ownr
 
@@ -17,6 +18,11 @@ class Empresa < ApplicationRecord
     validates :email_administrador, valida_admin_empresa: true, unless: :persisted?
     validates_uniqueness_of :rut, :email_administrador
     validates_presence_of :razon_social, :email_administrador
+
+    validates :email_administrador, format: { with: URI::MailTo::EMAIL_REGEXP }
+    validates :telefono, length: { maximum: 25 }, allow_blank: true
+    validates :razon_social, length: { maximum: 200 }
+    validates :administrador, length: { maximum: 120 }
 
     include Prdct
 

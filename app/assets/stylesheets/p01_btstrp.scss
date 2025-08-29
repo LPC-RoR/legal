@@ -131,3 +131,15 @@
 .white-tooltip.bs-tooltip-bottom .tooltip-arrow::before {
   border-bottom-color: white;
 }
+
+.zoom-box {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 0;
+}
+
+.zoom-box:hover {
+  transform: scale(1.1);
+  z-index: 10; /* lo pone por encima de los adyacentes */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}

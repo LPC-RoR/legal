@@ -1,4 +1,4 @@
-<div id="registration-form ubuntu-regular">
+<div id="registration-form app_font">
   <%= form_with(model: @objeto, url: register_path, data: { turbo: false }) do |form| %>
 
     <% if @objeto.errors.any? %>
@@ -9,16 +9,15 @@
       </div>
     <% end %>
 
-  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT de la empresa' } %>
-    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razón social de la empresa' } %>
-  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :administrador, label: 'Nombre del administrador de la cuenta' } %>
-  	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
+    <%= render partial: '0p/lbld_inpts/text',  locals: { form: form, token: :rut,                 label: 'RUT de la empresa' } %>
+    <%= render partial: '0p/lbld_inpts/text',  locals: { form: form, token: :razon_social,        label: 'Razón social de la empresa' } %>
+    <%= render partial: '0p/lbld_inpts/text',  locals: { form: form, token: :administrador,       label: 'Nombre del administrador de la cuenta' } %>
+    <%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
 
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Deseo que me contacten telefónicamente.' } %>
-    <%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :telefono, label: 'Teléfono del administrador de la cuenta (*)' } %>
-
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto,              label: 'Deseo que me contacten telefónicamente.' } %>
+    <%= render partial: '0p/lbld_inpts/email',     locals: { form: form, token: :telefono,              label: 'Teléfono del administrador de la cuenta (*)' } %>
     <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :informacion_comercial, label: 'Deseo información comercial de los productos.' } %>
-  	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :principal_usuaria, label: 'Empresa principal o usuaria (**)' } %>
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :principal_usuaria,     label: 'Empresa principal o usuaria (**)' } %>
 
     <!-- Honeypot (campo que un humano no completa) -->
     <div class="hp-field" aria-hidden="true">
@@ -34,13 +33,10 @@
       (**) Marque esta opción si su empresa cumple el rol de empresa principal o usuaria.
     </div>
 
-  	<%#= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Solicito información comercial' } %>
-
     <div class="actions">
       <%= form.submit "Registrar mi empresa", class: "btn btn-sm btn-outline-primary" %>
     </div>
   <% end %>
-
 </div>
 
 <style>

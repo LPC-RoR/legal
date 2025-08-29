@@ -15,6 +15,10 @@ gem 'stringio', '3.1.1'
 gem 'pg'
 gem 'sqlite3', '~> 1.4', platform: :ruby
 
+# Seguridad
+# Rack::Attack (rate limiting por IP)
+gem 'rack-attack'
+
 # FrontEnd
 gem "dartsass-rails", "~> 0.5.1"
 
