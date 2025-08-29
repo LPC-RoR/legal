@@ -143,3 +143,11 @@
   z-index: 10; /* lo pone por encima de los adyacentes */
   box-shadow: 0 8px 16px rgba(0,0,0,0.3);
 }
+
+.btn-grow {
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn-grow:hover {
+  transform: scale(1.1); /* ajusta el 1.1 al tamaño que quieras */
+}
