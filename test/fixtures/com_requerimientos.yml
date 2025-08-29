@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rut: MyString
+  razon_social: MyString
+  nombre: MyString
+  email: MyString
+  contacto_comercial: false
+  reunion_telematica: false
+  laborsafe: false
+  auditoria: false
+  externalizacion: false
+  consultoria: false
+  capacitacion: false
+  asesoria_legal: MyString
+
+two:
+  rut: MyString
+  razon_social: MyString
+  nombre: MyString
+  email: MyString
+  contacto_comercial: false
+  reunion_telematica: false
+  laborsafe: false
+  auditoria: false
+  externalizacion: false
+  consultoria: false
+  capacitacion: false
+  asesoria_legal: MyString

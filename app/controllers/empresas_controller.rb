@@ -62,6 +62,7 @@ class EmpresasController < ApplicationController
           )
         end
       else
+        @req = ComRequerimiento.new
         format.html { redirect_to root_path, alert: @objeto.errors.full_messages.join(', ') }
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(

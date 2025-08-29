@@ -1,0 +1,53 @@
+<div id="registration-form ubuntu-regular">
+  <%= form_with(model: @req, url: requerimiento_path, data: { turbo: false }) do |form| %>
+
+    <% if @req.errors.any? %>
+      <div class="error-messages">
+        <% @req.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT de la empresa', objeto: @req } %>
+    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razón social de la empresa', objeto: @req } %>
+  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre del solicitante', objeto: @req } %>
+  	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email, label: 'Email del solicitante', objeto: @req } %>
+
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto_comercial, label: 'Deseo que me contacte un ejecutivo comercial.', objeto: @req } %>
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :reunion_telematica, label: 'Deseo coordinar una reunión telemática.' } %>
+    <div class="mb-2 text-center fw-bold">Seleccione los productos que son de su interes:</div>
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :laborsafe, label: 'Laborsafe' } %>
+  	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :auditoria, label: 'Auditoría de procedimientos ya realiados' } %>
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :externalizacion, label: 'Externalización de investigaciones' } %>
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :consultoria, label: 'Consultoría' } %>
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :capacitacion, label: 'Capacitación' } %>
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :asesoria_legal, label: 'Asesoría legal' } %>
+
+    <!-- Honeypot (campo que un humano no completa) -->
+    <div class="hp-field" aria-hidden="true">
+      <%= form.label :website, "Deje este campo vacío" %>
+      <%= form.text_field :website, autocomplete: "off", tabindex: -1 %>
+    </div>
+
+    <!-- Timestamp de carga (para medir tiempo mínimo de llenado) -->
+    <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
+
+    <div class="actions">
+      <%= form.submit "Enviar requerimiento", class: "btn btn-sm btn-outline-primary" %>
+    </div>
+  <% end %>
+
+</div>
+
+<style>
+/* Oculta sin usar display:none */
+.hp-field {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+</style>

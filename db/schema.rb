@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_27_152939) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_29_154653) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -451,6 +451,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_27_152939) do
     t.string "backup_emails"
     t.index ["estado"], name: "index_clientes_on_estado"
     t.index ["tipo_cliente"], name: "index_clientes_on_tipo_cliente"
+  end
+
+  create_table "com_requerimientos", force: :cascade do |t|
+    t.string "rut"
+    t.string "razon_social"
+    t.string "nombre"
+    t.string "email"
+    t.boolean "contacto_comercial"
+    t.boolean "reunion_telematica"
+    t.boolean "laborsafe"
+    t.boolean "auditoria"
+    t.boolean "externalizacion"
+    t.boolean "consultoria"
+    t.boolean "capacitacion"
+    t.string "asesoria_legal"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.boolean "realizada"
+    t.index ["ownr_id"], name: "index_com_requerimientos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_com_requerimientos_on_ownr_type"
+    t.index ["realizada"], name: "index_com_requerimientos_on_realizada"
+    t.index ["rut"], name: "index_com_requerimientos_on_rut"
   end
 
   create_table "comunas", force: :cascade do |t|

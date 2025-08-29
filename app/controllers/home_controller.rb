@@ -4,6 +4,7 @@ class HomeController < ApplicationController
 
   def index
 		@objeto = Empresa.new
+		@req = ComRequerimiento.new
 		@slides = Slide.activas.ordr
 
 		# Precargamos los variants para mejor performance

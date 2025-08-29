@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @com_requerimiento %>
+
+<div>
+  <%= link_to "Edit this com requerimiento", edit_com_requerimiento_path(@com_requerimiento) %> |
+  <%= link_to "Back to com requerimientos", com_requerimientos_path %>
+
+  <%= button_to "Destroy this com requerimiento", @com_requerimiento, method: :delete %>
+</div>

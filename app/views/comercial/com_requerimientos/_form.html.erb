@@ -1,0 +1,77 @@
+<%= form_with(model: com_requerimiento) do |form| %>
+  <% if com_requerimiento.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(com_requerimiento.errors.count, "error") %> prohibited this com_requerimiento from being saved:</h2>
+
+      <ul>
+        <% com_requerimiento.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :rut, style: "display: block" %>
+    <%= form.text_field :rut %>
+  </div>
+
+  <div>
+    <%= form.label :razon_social, style: "display: block" %>
+    <%= form.text_field :razon_social %>
+  </div>
+
+  <div>
+    <%= form.label :nombre, style: "display: block" %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :contacto_comercial, style: "display: block" %>
+    <%= form.checkbox :contacto_comercial %>
+  </div>
+
+  <div>
+    <%= form.label :reunion_telematica, style: "display: block" %>
+    <%= form.checkbox :reunion_telematica %>
+  </div>
+
+  <div>
+    <%= form.label :laborsafe, style: "display: block" %>
+    <%= form.checkbox :laborsafe %>
+  </div>
+
+  <div>
+    <%= form.label :auditoria, style: "display: block" %>
+    <%= form.checkbox :auditoria %>
+  </div>
+
+  <div>
+    <%= form.label :externalizacion, style: "display: block" %>
+    <%= form.checkbox :externalizacion %>
+  </div>
+
+  <div>
+    <%= form.label :consultoria, style: "display: block" %>
+    <%= form.checkbox :consultoria %>
+  </div>
+
+  <div>
+    <%= form.label :capacitacion, style: "display: block" %>
+    <%= form.checkbox :capacitacion %>
+  </div>
+
+  <div>
+    <%= form.label :asesoria_legal, style: "display: block" %>
+    <%= form.text_field :asesoria_legal %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
