@@ -1,0 +1,29 @@
+<% if flash[:errors].present? %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var errors = <%= flash[:errors].to_json.html_safe %>;
+      var body = document.getElementById("errorModalBody");
+      body.innerHTML = "<ul>" + errors.map(e => "<li>" + e + "</li>").join("") + "</ul>";
+
+      var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+      myModal.show();
+    });
+  </script>
+<% end %>
+
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="errorModalLabel">Errores en el formulario</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="errorModalBody">
+        <!-- Aquí se insertarán los errores -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

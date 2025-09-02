@@ -63,7 +63,9 @@ class EmpresasController < ApplicationController
         end
       else
         @req = ComRequerimiento.new
-        format.html { redirect_to root_path, alert: @objeto.errors.full_messages.join(', ') }
+        error_messages = @objeto.errors.full_messages
+        flash[:errors] = error_messages
+        format.html { redirect_to root_path(errors: error_messages), alert: 'Error en el registro de la empresa' }
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
             'registration-form',
@@ -174,7 +176,7 @@ class EmpresasController < ApplicationController
     def empresa_params
 #      params.require(:empresa).permit(
 #        :rut, :razon_social, :email_administrador, :email_verificado, :sha1, :principal_usuaria, :backup_emails)
-      params.require(:objeto).permit(
+      params.require(:empresa).permit(
         :rut, :razon_social, :administrador, :email_administrador, 
         :contacto, :telefono, :informacion_comercial, :principal_usuaria
         # :website NO se persiste (honeypot)

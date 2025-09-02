@@ -48,7 +48,9 @@ class Comercial::ComRequerimientosController < ApplicationController
         format.json { render :show, status: :created, location: @com_requerimiento }
       else
         @objeto = Empresa.new
-        format.html { redirect_to root_path, alert: @com_requerimiento.errors.full_messages.join(', ') }
+        error_messages = @com_requerimiento.errors.full_messages
+        flash[:errors] = error_messages
+        format.html { redirect_to root_path(errors: error_messages), alert: 'Error en la solicitud de contacto comercial' }
         format.json { render json: @com_requerimiento.errors, status: :unprocessable_entity }
       end
     end
