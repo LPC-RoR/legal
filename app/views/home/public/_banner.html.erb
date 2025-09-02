@@ -35,7 +35,7 @@
               Fichas de productos y servicios
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDocs">
-              <li><%= link_to 'Laborsafe', rails_blob_path(@prfl_laborsafe.file, disposition: "inline"), target: "_blank", class: 'dropdown-item' %></li>
+              <li><%= link_to 'Laborsafe', rails_blob_path(@prfl_laborsafe.file, disposition: "inline"), target: "_blank", class: 'dropdown-item' unless @prfl_laborsafe.blank?%></li>
               <li><%= link_to 'Externalización de investigaciones', root_path, class: 'dropdown-item' %></li>
             </ul>
           </li>
