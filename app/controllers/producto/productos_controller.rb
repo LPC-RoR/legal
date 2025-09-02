@@ -1,7 +1,25 @@
 class Producto::ProductosController < ApplicationController
-  before_action :authenticate_usuario!
-  before_action :scrty_on
+  before_action :authenticate_usuario!, except: %i[partial]
+  before_action :scrty_on, except: %i[partial]
   before_action :set_producto, only: %i[ show edit update destroy agrega_producto elimina_producto ]
+
+  ALLOWED = {
+    "formales"       => "producto/productos/prtls/formales",
+    "legales"        => "producto/productos/prtls/legales",
+    "externas"       => "producto/productos/prtls/externas",
+    "implementacion" => "producto/productos/prtls/implementacion",
+    "capacitacion"   => "producto/productos/prtls/capacitacion",
+    "asesoria"       => "producto/productos/prtls/asesoria"
+  }.freeze
+
+  def partial
+    key = params[:key].to_s
+    partial_path = ALLOWED[key]
+    return head :not_found unless partial_path
+
+    render partial: partial_path, formats: [:html], layout: false, status: :ok
+  end
+
 
   # GET /productos or /productos.json
   def index

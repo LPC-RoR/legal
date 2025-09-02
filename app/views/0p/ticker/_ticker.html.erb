@@ -1,0 +1,36 @@
+<div class="ticker-wrapper position-relative">
+  <div class="ticker" data-speed="40">
+    <div class="ticker__track">
+      <% items ||= [
+        { icon: 'shield-check',  label: 'Cumplimiento',     detail: 'Cumplimos estándares y normativas laborales aplicables.' },
+        { icon: 'people',        label: 'Equipos',          detail: 'Formación de equipos de investigación internos.' },
+        { icon: 'clock-history', label: 'Plazos',           detail: 'Control de plazos legales y alertas automáticas.' },
+        { icon: 'lock',          label: 'Confidencialidad', detail: 'Resguardo de información y acceso por perfiles.' },
+        { icon: 'graph-up',      label: 'Indicadores',      detail: 'KPIs y tableros para la dirección y RR.HH.' }
+      ] %>
+
+      <% 2.times do %>
+        <% items.each do |it| %>
+          <div class="ticker__item text-secondary"
+               tabindex="0" role="button" aria-selected="false"
+               aria-label="<%= it[:label] %>"
+               data-detail="<%= it[:detail] %>">
+            <i class="bi bi-<%= it[:icon] %> me-2"></i>
+            <span class="ticker__label"><%= it[:label] %></span>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Panel que se despliega BAJO el ticker %>
+  <div class="ticker__panel collapse" data-role="panel" aria-live="polite">
+    <button type="button"
+            class="btn-close position-absolute top-0 end-0 m-3"
+            aria-label="Cerrar"
+            data-role="panel-close"></button>
+    <div class="container-fluid py-4">
+      <p class="m-0 fs-4 fs-md-4 text-center text-secondary" data-role="panel-text"></p>
+    </div>
+  </div>
+</div>

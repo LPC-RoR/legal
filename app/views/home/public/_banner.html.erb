@@ -1,0 +1,63 @@
+<div class="hero position-relative mb-2">
+  <%= image_tag 'home/bg_laborsafe.webp', class: 'img-fluid w-100 d-block', alt: 'LaborSafe' %>
+
+  <!-- Navbar superpuesta -->
+  <nav class="navbar navbar-expand-md navbar-dark overlay-nav">
+    <div class="container-fluid px-3">
+      <!-- Branding (opcional, a la izquierda) -->
+      <%= link_to 'LaborSafe', root_path, class: 'navbar-brand d-none d-md-inline' %>
+
+      <!-- Botón hamburguesa -->
+      <button class="navbar-toggler ms-auto" type="button"
+              data-bs-toggle="collapse" data-bs-target="#heroNav"
+              aria-controls="heroNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Ítems de menú -->
+      <div class="collapse navbar-collapse" id="heroNav">
+        <ul class="navbar-nav ms-auto align-items-md-center">
+          <li class="nav-item">
+            <a class="nav-link js-open-modal"
+               href="#"
+               data-bs-toggle="modal"
+               data-bs-target="#Requerimiento">
+              Contacto
+            </a>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Productos', root_path, class: 'nav-link' %>
+          </li>
+
+          <!-- Dropdown de ejemplo -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="menuDocs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Documentos
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDocs">
+              <li><%= link_to 'Laborsafe', root_path, class: 'dropdown-item' %></li>
+              <li><%= link_to 'Externalización de investigaciones', root_path, class: 'dropdown-item' %></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+              <%= link_to 'Login', new_usuario_session_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+              <%= link_to 'Registro', new_usuario_registration_path, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<%= render '0p/ticker/ticker', items: [
+  { icon: 'trophy',          label: 'Cumplimiento', detail: 'Informa paso a paso los requisitos de la ley.' },
+  { icon: 'bicycle',         label: 'Simplicidad', detail: 'Proceso completamente asistido, no requiere conocimiento experto del procedimiento.' },
+  { icon: 'folder-check',    label: 'Documentación obligatoria', detail: 'Cada denuncia cuenta con un repositorio con control decumental.' },
+  { icon: 'calendar2-check', label: 'Control de plazos', detail: 'Control de plazos sensible al tipo de investigación.' },
+  { icon: 'bell',      label: 'Notificaciones e información obligatoria',      detail: 'Generación automatizada y envío trazable desde la plataforma.' },
+  { icon: 'ban',      label: 'Confidencialidad',      detail: 'Modelo de confidencialidad para usuarios y participantes.' }
+] %>
+

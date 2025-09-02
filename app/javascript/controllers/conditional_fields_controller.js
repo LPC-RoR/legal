@@ -12,6 +12,7 @@ export default class extends Controller {
   ]
 
   connect() {
+    console.log("Conectado:", this.element);
     // Mostrar/ocultar campos inicialmente según los valores actuales
     this.toggleEmpresaExterna();
     this.toggleTipoDeclaracion();

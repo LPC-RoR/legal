@@ -1,11 +1,7 @@
-<% pddng ||= 2 %>
-<% align ||= 'center' %>
-<div class="py-<%=pddng%> text-<%=align%>">
-  <button type="button" 
-          class="btn btn-primary mt-md-0 mt-3 btn-grow" 
-          data-bs-toggle="modal" 
-          data-bs-target="#Requerimiento">
-    <%= render partial: '0p/gly', locals: {gly: 'cursor'} %>
-    Solicitar contacto comercial
-  </button>
-</div>
+<button type="button" 
+        class="btn btn-primary mt-md-0 mt-3 btn-grow" 
+        data-bs-toggle="modal" 
+        data-bs-target="#Requerimiento">
+  <%= render partial: '0p/gly', locals: {gly: 'cursor'} %>
+  Solicitar contacto comercial
+</button>

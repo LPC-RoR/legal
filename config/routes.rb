@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   get '/krn_csts', to: 'home#costos'
   get '/artcls/:tkn', to: 'home#artcls', as: 'artcls'
 
+  # config/routes.rb
+  namespace :producto do
+    get "productos/partial/:key", to: "productos#partial", as: :productos_partial
+  end
+  # El helper queda producto_productos_partial_path a menos que mantengas `as: :productos_partial`
+
   resources :cuentas do
     match :dnncs, via: :get, on: :member
     match :invstgdrs, via: :get, on: :member

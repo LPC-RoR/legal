@@ -1,0 +1,17 @@
+<!-- 'home/box/_prdct_line.html.erb' -->
+
+<% rndd ||= nil %>
+<div class="hover-wrapper my-1"
+  data-controller="hover-partial"
+  data-hover-partial-url-value="<%=producto_productos_partial_path(tkn)%>">
+
+     <div class="p-2 <%= rndd %> zoom-box"
+          style="background-color: <%= clr %>;"
+          data-action="mouseenter->hover-partial#open mouseleave->hover-partial#close click->hover-partial#toggle keydown.enter->hover-partial#toggle"
+          tabindex="0" role="button" aria-expanded="false">
+       <%= txt %>
+     </div>
+
+     <div class="hover-panel" data-hover-partial-target="panel"></div>
+
+</div>
