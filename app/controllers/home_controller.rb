@@ -8,6 +8,7 @@ class HomeController < ApplicationController
 		@slides = Slide.activas.ordr
 
 		@prfl_laborsafe = ComDocumento.find_by(codigo: 'prfl_laborsafe')
+		@prfl_externalizacion = ComDocumento.find_by(codigo: 'prfl_externalizacion')
 
 		# Precargamos los variants para mejor performance
 		if @slides.any?
