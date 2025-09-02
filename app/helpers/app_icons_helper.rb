@@ -53,6 +53,7 @@ module AppIconsHelper
 			'lgl_documentos' => 'blockquote-left',
 			'lgl_parrafos' => 'blockquote-right',
 			'productos' => 'box-seam',
+			'com_documentos' => 'file-earmark-pdf',
 			'krn_denuncias' => 'mailbox',
 			'krn_investigadores' => 'binoculars',
 			'krn_empresa_externas' => 'building',

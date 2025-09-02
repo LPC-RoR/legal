@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @com_documento %>
+
+<div>
+  <%= link_to "Edit this com documento", edit_com_documento_path(@com_documento) %> |
+  <%= link_to "Back to com documentos", com_documentos_path %>
+
+  <%= button_to "Destroy this com documento", @com_documento, method: :delete %>
+</div>

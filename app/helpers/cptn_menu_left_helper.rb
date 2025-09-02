@@ -107,6 +107,7 @@ module CptnMenuLeftHelper
 					items: [
 						'AppNomina',
 						'Producto',
+						'ComDocumento',
 						'StModelo',
 						'Variable'
 					]

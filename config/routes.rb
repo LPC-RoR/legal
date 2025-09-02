@@ -67,6 +67,9 @@ Rails.application.routes.draw do
   scope module: 'comercial' do
     post '/requerimiento', to: 'com_requerimientos#create', as: 'requerimiento'
     resources :com_requerimientos
+    resources :com_documentos do
+      member { get :download }
+    end
   end
 
   scope module: 'pdf' do

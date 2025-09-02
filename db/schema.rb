@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_29_154653) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_02_172353) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -451,6 +451,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_29_154653) do
     t.string "backup_emails"
     t.index ["estado"], name: "index_clientes_on_estado"
     t.index ["tipo_cliente"], name: "index_clientes_on_tipo_cliente"
+  end
+
+  create_table "com_documentos", force: :cascade do |t|
+    t.string "codigo", null: false
+    t.string "titulo", null: false
+    t.string "doc_type", null: false
+    t.date "issued_on"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo"], name: "index_com_documentos_on_codigo"
+    t.index ["doc_type"], name: "index_com_documentos_on_doc_type"
+    t.index ["issued_on"], name: "index_com_documentos_on_issued_on"
   end
 
   create_table "com_requerimientos", force: :cascade do |t|

@@ -53,6 +53,7 @@ module Crstn
 			'Region' => 'Región',
 			'ProDtllVenta' => 'Producto de la Empresa',
 			'KrnInvDenuncia' => 'Investigador',
+			'ComDocumento' => 'Documento comercial'
 		}
 	end
 

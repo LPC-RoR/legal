@@ -7,6 +7,8 @@ class HomeController < ApplicationController
 		@req = ComRequerimiento.new
 		@slides = Slide.activas.ordr
 
+		@prfl_laborsafe = ComDocumento.find_by(codigo: 'prfl_laborsafe')
+
 		# Precargamos los variants para mejor performance
 		if @slides.any?
 		  # Nuevas dimensiones basadas en 1920x528 (manteniendo la relación 1200:330 pero en HD)

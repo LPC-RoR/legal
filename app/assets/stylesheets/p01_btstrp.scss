@@ -462,44 +462,27 @@
 
 /* Panel que se despliega bajo el div hovered */
 .hover-panel {
-  display: block;           /* mantiene el flujo bajo el div */
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: max-height 280ms ease, opacity 220ms ease;
-  will-change: max-height, opacity;
-  margin-top: 0;            /* se anima cuando abre */
-}
-
-.hover-panel.is-open {
-  max-height: 800px;        /* ajusta según el contenido esperado */
-  opacity: 1;
-  margin-top: 0.5rem;
-}
-
-/* Opcional: que el panel “respete” el z-index del zoom sin taparse */
-.hover-panel .card {
-  box-shadow: 0 4px 12px rgba(0,0,0,.12);
-  border-radius: .5rem;
-}
-
-/* === Hover panel: versión a prueba de balas === */
-.hover-panel {
-  display: none;            /* oculto por defecto */
+  display: none;         /* oculto por defecto */
   overflow: hidden;
   opacity: 0;
+  max-height: 0;         /* colapsado */
   transition: opacity 200ms ease, max-height 240ms ease;
-  max-height: 0;            /* colapsado */
   margin-top: 0;
   position: relative;
-  z-index: 11;              /* por encima del .zoom-box al hacer hover */
+  z-index: 11;           /* sobre el .zoom-box al abrir */
 }
 
 .hover-panel.is-open {
-  display: block;           /* mostrar */
+  display: block;
   opacity: 1;
   margin-top: .5rem;
   /* max-height lo setea Stimulus dinámicamente según el contenido */
+}
+
+/* Opcional: relieve en tarjetas dentro del panel */
+.hover-panel .card {
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  border-radius: .5rem;
 }
 
 /* Si tu .zoom-box tiene z-index 10 al hacer hover, el panel debe estar por encima */

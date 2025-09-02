@@ -1,0 +1,14 @@
+  <%= form.label :codigo %>
+  <%= form.text_field :codigo, required: true %>
+
+  <%= form.label :titulo %>
+  <%= form.text_field :titulo, required: true %>
+
+  <%= form.label :doc_type %>
+  <%= form.text_field :doc_type, required: true %>
+
+  <%= form.label :issued_on %>
+  <%= form.date_field :issued_on %>
+
+  <%= form.label :file, "PDF" %>
+  <%= form.file_field :file, accept: "application/pdf" %>
