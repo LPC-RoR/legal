@@ -3,7 +3,7 @@ module Config
 
 	def cfg_defaults
 		{
-			app_nombre: 'Abogados Derecho del Trabajo',
+			app_nombre: 'Laborsafe',
 			app_sigla: 'addt',
 			app_home: "https://www.laborsafe.cl/",
 			activa_tipos_usuario: true,
