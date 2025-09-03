@@ -54,6 +54,7 @@ module AppIconsHelper
 			'lgl_parrafos' => 'blockquote-right',
 			'productos' => 'box-seam',
 			'com_documentos' => 'file-earmark-pdf',
+			'com_requerimientos' => 'person-raised-hand',
 			'krn_denuncias' => 'mailbox',
 			'krn_investigadores' => 'binoculars',
 			'krn_empresa_externas' => 'building',

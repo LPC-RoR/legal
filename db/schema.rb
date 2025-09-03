@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_02_172353) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_02_231451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -483,10 +483,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_02_172353) do
     t.string "ownr_type"
     t.integer "ownr_id"
     t.boolean "realizada"
+    t.string "email_ok"
+    t.string "verification_token"
+    t.datetime "verification_sent_at"
+    t.integer "n_vrfccn_lnks", default: 0, null: false
+    t.datetime "fecha_vrfccn_lnk"
     t.index ["ownr_id"], name: "index_com_requerimientos_on_ownr_id"
     t.index ["ownr_type"], name: "index_com_requerimientos_on_ownr_type"
     t.index ["realizada"], name: "index_com_requerimientos_on_realizada"
     t.index ["rut"], name: "index_com_requerimientos_on_rut"
+    t.index ["verification_token"], name: "index_com_requerimientos_on_verification_token", unique: true
   end
 
   create_table "comunas", force: :cascade do |t|

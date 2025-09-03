@@ -7,13 +7,10 @@ class EmailVerificationsController < ApplicationController
     token = params[:token]
     model_type = params[:model_type]
 
-    model_class = case model_type
-                  when 'denunciante' then KrnDenunciante
-                  when 'investigador' then KrnInvestigador
-                  when 'denunciado' then KrnDenunciado
-                  when 'testigo' then KrnTestigo
-                  else nil
-                  end
+    model_class = model_type.classify.safe_constantize
+    unless [KrnDenunciante, KrnInvestigador, KrnDenunciado, KrnTestigo, ComRequerimiento].include?(model_class)
+      model_class = nil
+    end
 
     unless model_class
       redirect_to root_path, alert: 'Tipo de modelo no válido'
@@ -55,13 +52,10 @@ class EmailVerificationsController < ApplicationController
     id = params[:id]
 
     # Buscar el registro correctamente
-    model_class = case model_type
-                  when 'denunciante' then KrnDenunciante
-                  when 'investigador' then KrnInvestigador
-                  when 'denunciado' then KrnDenunciado
-                  when 'testigo' then KrnTestigo
-                  else nil
-                  end
+    model_class = model_type.classify.safe_constantize
+    unless [KrnDenunciante, KrnInvestigador, KrnDenunciado, KrnTestigo, ComRequerimiento].include?(model_class)
+      model_class = nil
+    end
 
     # Asignar a la variable record
     record = model_class&.find_by(id: id)

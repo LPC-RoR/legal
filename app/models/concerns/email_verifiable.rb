@@ -1,23 +1,22 @@
 module EmailVerifiable
   extend ActiveSupport::Concern
 
-#  included do
-#    after_create :send_verification_email, if: :email_present?
-#  end
-
   def email_present?
-    email.present?
+    respond_to?(:email) && email.present?
   end
 
   def model_type_name
-    self.class.name.underscore.gsub('krn_', '')
+    self.class.name.underscore # => "com_requerimiento", "krn_denunciante", etc.
   end
 
   def send_verification_email
     self.verification_token = SecureRandom.urlsafe_base64
+    self.n_vrfccn_lnks = (self.n_vrfccn_lnks || 0) + 1
+    self.fecha_vrfccn_lnk = Time.zone.now
     save!
-    
+
     VrfccnMailer.verification_email(self, verification_url).deliver_later
+    self.update_column(:verification_sent_at, Time.current) # marca hora de envío
   end
 
   def verification_url
@@ -27,10 +26,7 @@ module EmailVerifiable
       host: appropriate_host,
       protocol: appropriate_protocol
     }
-    
-    # Solo agregar puerto en desarrollo
     url_options[:port] = 3000 if Rails.env.development?
-    
     Rails.application.routes.url_helpers.verify_custom_email_url(url_options)
   end
 

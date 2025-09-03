@@ -43,6 +43,7 @@ module CptnMenuLeftHelper
 					condicion: operacion?,
 					items: [
 						'Empresa',
+						'ComRequerimiento'
 					]
 				},
 				{
@@ -85,6 +86,14 @@ module CptnMenuLeftHelper
 					]
 				},
 				{
+					titulo: 'Comercial',
+					condicion: dog?,
+					items: [
+						'Producto',
+						'ComDocumento',
+					]
+				},
+				{
 					titulo: 'Ley Karin',
 					condicion: admin?,
 					items: [
@@ -106,10 +115,7 @@ module CptnMenuLeftHelper
 					condicion: admin?, 
 					items: [
 						'AppNomina',
-						'Producto',
-						'ComDocumento',
 						'StModelo',
-						'Variable'
 					]
 				},
 				{

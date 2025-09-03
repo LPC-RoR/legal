@@ -1,10 +1,32 @@
-<p style="color: green"><%= notice %></p>
+<%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 
-<%= render @com_requerimiento %>
-
-<div>
-  <%= link_to "Edit this com requerimiento", edit_com_requerimiento_path(@com_requerimiento) %> |
-  <%= link_to "Back to com requerimientos", com_requerimientos_path %>
-
-  <%= button_to "Destroy this com requerimiento", @com_requerimiento, method: :delete %>
+<div class="row gx-1 mt-3">
+  <div class="col-lg-6">
+    <ul>
+      <li>RUT: <%= s_rut(@objeto.rut) %></li>
+      <li>Razón social: <%= @objeto.razon_social %></li>
+      <li>Nombre: <%= @objeto.nombre %></li>
+      <li>Email: <%= @objeto.email %>
+        <% if @objeto.email == @objeto.email_ok %>
+          <i class="bi bi-check2-all text-primary"></i>
+        <% else %>
+          <i class="bi bi-question-circle text-danger"></i>
+        <% end %>
+      </li>
+    </ul>
+    <div class="ms-3 p-2">
+      <%= render partial: '0p/shw_field/chck_box', locals: {cndtn: @objeto.contacto_comercial, lbl: "Solicita contacto comercial"} %><br>
+      <%= render partial: '0p/shw_field/chck_box', locals: {cndtn: @objeto.reunion_telematica, lbl: "Solicita reunión telemática"} %><br>
+      <p><b>Interesado en los productos:</b></p>
+      <%= render partial: '0p/shw_field/chck_box', locals: {cndtn: @objeto.laborsafe, lbl: "Software Laborsafe"} %><br>
+      <%= render partial: '0p/shw_field/chck_box', locals: {cndtn: @objeto.auditoria, lbl: "Auditoría de investigaciones"} %><br>
+      <%= render partial: '0p/shw_field/chck_box', locals: {cndtn: @objeto.externalizacion, lbl: "Externalización de investigaciones"} %><br>
+      <%= render partial: '0p/shw_field/chck_box', locals: {cndtn: @objeto.consultoria, lbl: "Consultoría de implementación"} %><br>
+      <%= render partial: '0p/shw_field/chck_box', locals: {cndtn: @objeto.capacitacion, lbl: "Capacitación"} %><br>
+      <%= render partial: '0p/shw_field/chck_box', locals: {cndtn: @objeto.asesoria_legal, lbl: "Asesoría legal"} %><br>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xs-12">
+    <%= render partial: '0p/tbl_ttl', locals: {source: 'notas'} %>
+  </div>
 </div>

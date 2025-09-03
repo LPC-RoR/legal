@@ -3,6 +3,8 @@ class ComRequerimiento < ApplicationRecord
 
     belongs_to :ownr, optional: true
 
+    has_many :notas, as: :ownr
+
 	validates :rut, valida_rut: true
     validates_presence_of :razon_social, :nombre, :email
 
@@ -12,4 +14,8 @@ class ComRequerimiento < ApplicationRecord
 
 	scope :rut_ordr, -> {order(:rut)}
 
+    include EmailVerifiable
+
+    # Solo ComRequerimiento debe disparar el correo al crear
+    after_create :send_verification_email, if: :email_present?
 end
