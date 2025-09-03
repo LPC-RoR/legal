@@ -222,11 +222,6 @@ class ClientesController < ApplicationController
   end
 
   private
-    def rut_puro
-      @objeto.rut = @objeto.rut.gsub(' ', '').gsub('.', '').gsub('-', '')
-      @objeto.save
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_cliente
       @objeto = Cliente.find(params[:id])

@@ -14,7 +14,7 @@
   	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :administrador, label: 'Nombre del administrador de la cuenta' } %>
   	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
 
-    <%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :telefono, label: 'Teléfono del administrador de la cuenta (*)' } %>
+    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :telefono, label: 'Teléfono del administrador de la cuenta (*)' } %>
 
     <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Deseo que me contacten telefónicamente.' } %>
     <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :informacion_comercial, label: 'Deseo información comercial de los productos.' } %>

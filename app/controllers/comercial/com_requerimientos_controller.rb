@@ -2,6 +2,7 @@ class Comercial::ComRequerimientosController < ApplicationController
   before_action :authenticate_usuario!, except: :create
   before_action :scrty_on, except: :create
   before_action :set_com_requerimiento, only: %i[ show edit update destroy ]
+  after_action :rut_puro, only: %i[ create update ]
 
   # anti-bot para create
   MIN_FILL_SECONDS = 3
@@ -85,13 +86,6 @@ class Comercial::ComRequerimientosController < ApplicationController
   end
 
   private
-    def rut_puro
-      return unless @objeto&.persisted?
-
-      rut = @objeto.rut.to_s
-      normalizado = rut.gsub(/[.\-\s]/, '').upcase
-      @objeto.update_column(:rut, normalizado) if normalizado.present? && normalizado != rut
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_com_requerimiento

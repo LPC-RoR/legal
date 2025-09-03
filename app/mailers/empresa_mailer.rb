@@ -4,11 +4,11 @@ class EmpresaMailer < ApplicationMailer
   #
   #   en.empresa_mailer.verification_email.subject
   #
-  def verification_email(objeto)
-    @objeto = objeto
-    @verification_url = verify_email_url(token: @objeto.verification_token)
-    
-    mail(to: @objeto.email_administrador, subject: 'Verifica tu dirección de correo electrónico')
+  def verification_email
+    empresa = Empresa.find(params[:empresa_id])
+    @verification_url = verify_email_url(token: empresa.verification_token)
+      
+    mail(to: empresa.email_administrador, subject: 'Verifica tu dirección de correo electrónico')
   end
 
   def wellcome_email(email:, password:)

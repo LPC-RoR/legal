@@ -52,10 +52,10 @@ class EmpresasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        EmpresaMailer.with(
-          empresa_id: @objeto.id,
-          tenant_id: (Current.respond_to?(:tenant) ? Current.tenant&.id : nil)
-        ).verification_email.deliver_later
+        EmpresaMailer
+          .with(empresa_id: @objeto.id)
+          .verification_email
+          .deliver_later
 
         format.html { redirect_to root_path, notice: 'Te hemos enviado un correo de verificación' }
         format.turbo_stream do
@@ -154,10 +154,10 @@ class EmpresasController < ApplicationController
   end
 
   private
-    def rut_puro
-      return unless @objeto&.persisted?
-      normalizado = @objeto.rut.to_s.delete('.- ').gsub(' ', '')
-      @objeto.update_column(:rut, normalizado) if normalizado.present?
+    def current_tenant_id
+      return nil unless defined?(::Current)
+      return nil unless ::Current.respond_to?(:tenant)
+      ::Current.tenant&.id
     end
 
     def add_admin

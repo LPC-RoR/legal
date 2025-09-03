@@ -1,5 +1,16 @@
 module Capitan
+
 	extend ActiveSupport::Concern
+
+	# Se usa par todos los modelos que lo verifican
+	def rut_puro
+	  return unless @objeto&.persisted? && @objeto.rut.present?
+
+	  # Hyphen literal al inicio → no se interpreta como rango
+	  normalizado = @objeto.rut.to_s.delete('-. ')  # elimina puntos, guiones y espacios
+
+	  @objeto.update_column(:rut, normalizado) if normalizado.present?
+	end
 
 	def extract_action_from_referer
 	  referer = request.referer
