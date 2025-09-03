@@ -12,7 +12,7 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def add_signature_attachment
-    attachments.inline['email_sign.png'] = File.read(Rails.root.join('app/assets/images/mssgs/email_sign.png'))
+    attachments.inline['email_sign.webp'] = File.read(Rails.root.join('app/assets/images/mssgs/email_sign.webp'))
   end
 
 end
