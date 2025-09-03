@@ -52,7 +52,11 @@ class EmpresasController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        EmpresaMailer.verification_email(@objeto).deliver_later
+        EmpresaMailer.with(
+          empresa_id: @objeto.id,
+          tenant_id: (Current.respond_to?(:tenant) ? Current.tenant&.id : nil)
+        ).verification_email.deliver_later
+
         format.html { redirect_to root_path, notice: 'Te hemos enviado un correo de verificación' }
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(

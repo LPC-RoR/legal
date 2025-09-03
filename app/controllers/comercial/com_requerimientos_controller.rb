@@ -1,6 +1,6 @@
 class Comercial::ComRequerimientosController < ApplicationController
-  before_action :authenticate_usuario!
-  before_action :scrty_on
+  before_action :authenticate_usuario!, except: :create
+  before_action :scrty_on, except: :create
   before_action :set_com_requerimiento, only: %i[ show edit update destroy ]
 
   # anti-bot para create

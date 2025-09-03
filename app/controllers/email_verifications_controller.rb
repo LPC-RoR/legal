@@ -1,7 +1,7 @@
 # app/controllers/email_verifications_controller.rb
 class EmailVerificationsController < ApplicationController
-  before_action :authenticate_usuario!, except: [:verify]
-  before_action :scrty_on, except: [:verify]
+  before_action :authenticate_usuario!, except: [:verify], if: -> { params[:model_type] != 'com_requerimientos' }
+  before_action :scrty_on, except: [:verify], if: -> { params[:model_type] != 'com_requerimientos' }
 
   def verify
     token = params[:token]
@@ -43,7 +43,7 @@ class EmailVerificationsController < ApplicationController
   end
 
   def send_verification
-    unless authorized_user?
+    unless authorized_user? or params[:model_type] == 'com_requerimientos'
       redirect_to root_path, alert: 'No autorizado'
       return
     end
@@ -79,11 +79,16 @@ class EmailVerificationsController < ApplicationController
 
     Rails.logger.info "Generated verification URL: #{verification_url}"
 
-    if VrfccnMailer.verification_email(record, verification_url).deliver_later
-      redirect_back fallback_location: root_path, notice: 'Correo de verificación enviado'
-    else
-      redirect_back fallback_location: root_path, alert: 'Error al enviar el correo'
-    end
+    VrfccnMailer.with(
+      user_class: record.class.name,
+      user_id: record.id,
+      verification_url: verification_url,
+      tenant_id: (Current.respond_to?(:tenant) ? Current.tenant&.id : nil)
+    ).verification_email.deliver_later
+
+    # luego maneja success/flash sin el if basado en deliver_later:
+    flash[:notice] = "Te enviamos un correo para verificar tu cuenta."
+    redirect_to root_path
   end
 
   private

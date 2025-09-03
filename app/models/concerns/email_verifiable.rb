@@ -15,7 +15,13 @@ module EmailVerifiable
     self.fecha_vrfccn_lnk = Time.zone.now
     save!
 
-    VrfccnMailer.verification_email(self, verification_url).deliver_later
+    VrfccnMailer.with(
+      user_class: self.class.name,
+      user_id: self.id,
+      verification_url: verification_url,
+      tenant_id: current_tenant_id
+    ).verification_email.deliver_later
+
     self.update_column(:verification_sent_at, Time.current) # marca hora de envío
   end
 
@@ -38,5 +44,11 @@ module EmailVerifiable
 
   def appropriate_protocol
     Rails.env.production? ? 'https' : 'http'
+  end
+
+  def current_tenant_id
+    return nil unless defined?(::Current)
+    return nil unless ::Current.respond_to?(:tenant)
+    ::Current.tenant&.id
   end
 end
