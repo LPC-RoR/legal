@@ -76,13 +76,13 @@ class HomeController < ApplicationController
   	def artcls_hsh
   		{
 	  		costos: {
-	  			image_url: view_context.image_url('artcls/costos_1920.jpg'),
+	  			image_url: view_context.image_url('artcls/costos_1200.jpg'),
 	  			title: 'Los costos del incumplimiento',
 	  			description: 'Descripción de costos',
 	  			type: 'article',
 	  		},
 	  		externalizacion: {
-	  			image_url: view_context.image_url('artcls/extrnlzcn_1920.jpg'),
+	  			image_url: view_context.image_url('artcls/extrnlzcn_1200.jpg'),
 	  			title: 'Externalizacion de investigaciones',
 	  			description: 'Descripción de externalización',
 	  			type: 'article',
