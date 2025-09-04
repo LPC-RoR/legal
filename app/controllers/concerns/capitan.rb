@@ -14,21 +14,32 @@ module Capitan
 
 	def extract_action_from_referer
 	  referer = request.referer
-	  if referer.present?
-	    begin
-	      uri = URI.parse(referer)
-	      path = uri.path
-	      # Reconoce la ruta y extrae el action_name
-	      route_params = Rails.application.routes.recognize_path(path)
-	      action_name = route_params[:action]
-	      puts "El action_name del referer es: #{action_name}"
-	      action_name
-	    rescue URI::InvalidURIError, ActionController::RoutingError => e
-	      puts "Error al analizar el referer: #{e.message}"
-	      nil
-	    end
-	  else
-	    puts "No hay referer en la solicitud"
+	  unless referer.present?
+	    Rails.logger.info "No hay referer en la solicitud"
+	    return nil
+	  end
+
+	  begin
+	    uri  = URI.parse(referer)
+	    path = uri.path
+
+	    # 👉 clave: inyectar el environment de este request
+	    route_params = Rails.application.routes.recognize_path(
+	      path,
+	      environment: request.env,                 # trae 'warden', session, etc.
+	      method:      request.method_symbol,       # opcional, ayuda a constraints
+	      script_name: request.script_name.to_s     # opcional
+	    )
+
+	    action_name = route_params[:action]
+	    Rails.logger.info "El action_name del referer es: #{action_name}"
+	    action_name
+	  rescue URI::InvalidURIError, ActionController::RoutingError => e
+	    Rails.logger.warn "Error al analizar el referer: #{e.message}"
+	    nil
+	  rescue NoMethodError => e
+	    # Por si algún constraint sigue asumiendo cosas del env
+	    Rails.logger.warn "Constraint rompió en recognize_path: #{e.class} - #{e.message}"
 	    nil
 	  end
 	end

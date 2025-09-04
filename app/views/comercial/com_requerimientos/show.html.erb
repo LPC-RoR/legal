@@ -1,7 +1,7 @@
 <%= render partial: '0p/ttl_shw', locals: {objt: @objeto} %>
 
 <div class="row gx-1 mt-3">
-  <div class="col-lg-6">
+  <div class="col-lg-4">
     <ul>
       <li>RUT: <%= s_rut(@objeto.rut) %></li>
       <li>Razón social: <%= @objeto.razon_social %></li>
@@ -26,7 +26,14 @@
       <%= render partial: '0p/shw_field/chck_box', locals: {cndtn: @objeto.asesoria_legal, lbl: "Asesoría legal"} %><br>
     </div>
   </div>
-  <div class="col-lg-6 col-xs-12">
-    <%= render partial: '0p/tbl_ttl', locals: {source: 'notas'} %>
+  <div class="col-lg-8 col-xs-12">
+    <%#= render partial: '0p/tbl_ttl', locals: {source: 'notas'} %>
+    <%= render partial: 'notas/shr/notas_pendientes', locals: {objeto: @objeto} %>
+
+    <% unless @objeto.notas.where(realizado: true).empty? %>
+      <div class="text-center fw-bold"><p>Notas realiazadas</p></div>
+    <% end %>
+    
+    <%= render partial: 'notas/shr/notas_realizadas', locals: {objeto: @objeto} %>
   </div>
 </div>

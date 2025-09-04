@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 	include Tarifas
 
 	# Seguridad tabla_path
-	helper_method :get_version_activa, :not_authenticate?, :get_app_sigla, :get_perfil_activo
+	helper_method :get_version_activa, :get_app_sigla, :get_perfil_activo
 	helper_method :get_scp_activo
 	helper_method :scp_err?, :scp_activo?, :dog_perfil, :dog_perfil?, :tipo_usuario, :version_activa, :version_activa?, :nomina_activa, :nomina_activa?, :perfil_activo, :perfil_activo?, :usuario_agenda, :usuario_agenda?
 	helper_method :dog?, :admin?, :usuario_activo?, :publico?, :seguridad 
