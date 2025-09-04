@@ -51,10 +51,42 @@ class HomeController < ApplicationController
   end
 
   def artcls
+  	@hsh = artcls_hsh[params[:tkn].to_sym]
   	
-  end
+	  set_meta_tags(
+	    title:       @hsh[:title],
+	    description: @hsh[:description],
+	    og: {
+	      site_name:  'LaborSafe',
+	      title:      @hsh[:title],
+	      description:@hsh[:description],
+	      type:       'article',
+	      url:        "https://www.laborsafe.cl/artcls/#{params[:tkn]}",
+	      image:      @hsh[:image_url]
+	    }
+		)
+	end
 
   def costos
   	
   end
+
+  private
+
+  	def artcls_hsh
+  		{
+	  		costos: {
+	  			image_url: view_context.image_url('artcls/costos_1920.jpg'),
+	  			title: 'Los costos del incumplimiento',
+	  			description: 'Descripción de costos',
+	  			type: 'article',
+	  		},
+	  		externalizacion: {
+	  			image_url: view_context.image_url('artcls/extrnlzcn_1920.jpg'),
+	  			title: 'Externalizacion de investigaciones',
+	  			description: 'Descripción de externalización',
+	  			type: 'article',
+	  		}
+  		}
+		end
 end

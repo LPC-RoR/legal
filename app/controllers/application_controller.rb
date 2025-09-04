@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-	# agregado para devise con turbo-frame
+  before_action :prepare_meta_tags
 
 #	helper PdfHelper
 	include PdfHelper
@@ -47,6 +47,25 @@ class ApplicationController < ActionController::Base
 	helper_method :to_name, :corrige
 
   private
+
+  def prepare_meta_tags(meta = {})
+    site = "Mi Sitio"
+    defaults = {
+      site: site,
+      title: meta[:title] || site,
+      description: meta[:description] || "Descripción del sitio",
+      reverse: true,
+      og: {
+        site_name: site,
+        title: meta[:title] || site,
+        description: meta[:description] || "Descripción del sitio",
+        type: meta[:type] || 'website',
+        url: request.original_url,
+        image: meta[:image],
+      }
+    }
+    set_meta_tags defaults
+  end
 
   def storable_location?
     request.get? && is_navigational_format? && !devise_controller? && !request.xhr?

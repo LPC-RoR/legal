@@ -11,6 +11,10 @@ gem 'stringio', '3.1.1'
 # Borrado porque genera un problema con PropShaft
 # gem 'sprockets-rails'
 
+# para desplegar articulos bonitos
+gem 'meta-tags'
+
+
 # Base de datos
 gem 'pg'
 gem 'sqlite3', '~> 1.4', platform: :ruby
