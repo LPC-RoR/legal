@@ -3,7 +3,10 @@
     <!--h2>Ingreso</h2-->
     <div class="devise-box">
 
-      <h4 class="text-center"><%= render partial: '0p/general/icon_text', locals: {text: 'Ingreso', gly: 'person-check', clr: 'info'} %></h4>
+      <h4 class="text-center">
+        <%= image_tag 'logo/istp_30.png', class: 'img-fluid' %>
+        <i class="bi bi-person2-check"></i> Ingreso
+      </h4>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name),
              data: { turbo: true }) do |f| %>
@@ -34,6 +37,8 @@
 
       <p id="notice"><%= notice %></p>
       <%= render "devise/shared/links" %>
+
+      <div class="text-end" style="font-size: .6rem;">Autenticado con Devise</div>
       
     </div>
   </div>

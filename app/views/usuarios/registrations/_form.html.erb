@@ -4,7 +4,11 @@
 
       <h4 class="text-center">
         
-        <%= render partial: '0p/general/icon_text', locals: {text: 'Registro', gly: 'person-plus', clr: 'info'} %></h4>
+      <h4 class="text-center">
+        <%= image_tag 'logo/istp_30.png', class: 'img-fluid' %>
+        <i class="bi bi-person2-check"></i> Registro
+      </h4>
+        <%#= render partial: '0p/general/icon_text', locals: {text: 'Registro', gly: 'person-plus', clr: 'info'} %></h4>
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), 
              format: :turbo_stream, 
@@ -52,6 +56,8 @@
 
       <%= render "devise/shared/links" %>
 
+      <div class="text-end" style="font-size: .6rem;">Autenticado con Devise</div>
+      
     </div>
   </div>
 </div>
