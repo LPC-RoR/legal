@@ -3,6 +3,32 @@ class HomeController < ApplicationController
   before_action :scrty_on, only: [:dshbrd]
 
   def index
+  	prepare_meta_tags
+
+    set_meta_tags(
+      title: "Cumple Ley Karin con LaborSafe",
+      description: "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)",
+      canonical: root_url,
+      og: {
+        type: 'website',
+        url: root_url,
+        title: "LaborSafe",
+        description: "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)",
+        image: {
+          _:  view_context.image_url('logo/logo_100.png'), # JPG/PNG 1200x630
+          width: 392,
+          height: 100,
+          type: 'image/jpeg'
+        }
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: "LaborSafe",
+        description: "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)",
+        image: view_context.image_url('logo/logo_100.png')
+      }
+    )
+
 		@objeto = Empresa.new
 		@req = ComRequerimiento.new
 		# @slides = Slide.activas.ordr
@@ -78,15 +104,38 @@ class HomeController < ApplicationController
 	  		costos: {
 	  			image_url: view_context.image_url('artcls/costos_1200.jpg'),
 	  			title: 'Los costos del incumplimiento',
-	  			description: 'Crear un canal de denuncias, diseñar e implementar medidas de resguardo, contar con -al menos- un investigador con las competencias necesarias, cumplir con las exigencias formales de una investigación, entre otros, son desafíos aún presentes tras un año de vigencia de la ley. Su implementación o perfeccionamiento en el tiempo, si bien tendrá estándares distintos en cada empresa, buscará siempre satisfacer una exigencia mínima: evitar los costos asociados al incumplimiento de la ley.',
+	  			description: 'Crear un canal de denuncias, diseñar e implementar medidas de resguardo, contar con -al menos- un investigador con las competencias necesarias, cumplir con las exigencias formales de una investigación, entre otros, son desafíos aún presentes tras un año de vigencia de la ley. Su implementación o perfeccionamiento en el tiempo, si bien tendrá estándares distintos en cada empresa, buscará siempre satisfacer una exigencia mínima: evitar los costos asociados al incumplimiento de la ley.'.truncate(160),
 	  			type: 'article',
 	  		},
 	  		externalizacion: {
 	  			image_url: view_context.image_url('artcls/extrnlzcn_1200.jpg'),
 	  			title: 'Externalizacion de investigaciones',
-	  			description: 'La externalización de investigaciones es la modalidad en la cual se delega a una empresa externa la realización de la investigación. Si bien, solo es posible utilizarla en los casos investigados por la propia empresa, puede ser una buena alternativa dadas sus ventajas financieras y operativas.',
+	  			description: 'La externalización de investigaciones es la modalidad en la cual se delega a una empresa externa la realización de la investigación. Si bien, solo es posible utilizarla en los casos investigados por la propia empresa, puede ser una buena alternativa dadas sus ventajas financieras y operativas.'.truncate(160),
 	  			type: 'article',
 	  		}
   		}
 		end
+
+	  def prepare_meta_tags(meta = {})
+	    site = "LaborSafe"
+	    defaults = {
+	      site: site,
+	      title: site,
+	      reverse: true, # "Página | LaborSafe"
+	      description: "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)",
+	      canonical: request.original_url,
+	      og: {
+	        site_name: site,
+	        type: 'website',
+	        url: request.original_url,
+	        image: view_context.image_url('logo/logo_100.png'),
+	        locale: 'es_LA'
+	      },
+	      twitter: {
+	        card: 'summary_large_image',
+#	        site: '@tu_cuenta', # opcional
+	      }
+	    }
+	    set_meta_tags defaults.merge(meta)
+	  end
 end
