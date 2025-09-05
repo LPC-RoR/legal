@@ -47,6 +47,7 @@ class EmpresasController < ApplicationController
     # --- FIN ANTI-BOT ---
 
     @objeto = Empresa.new(empresa_params)
+    purge_logo_if_requested
     @objeto.verification_token = SecureRandom.urlsafe_base64
     @objeto.email_verified = false
 
@@ -118,7 +119,8 @@ class EmpresasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(empresa_params)
-        format.html { redirect_to empresa_url(@objeto), notice: "Empresa fue exitosamente actualizada." }
+        purge_logo_if_requested
+        format.html { redirect_to cta_root_path, notice: "Empresa fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -132,7 +134,7 @@ class EmpresasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to empresas_url, notice: "Empresa fue exitosamente eliminada." }
+      format.html { redirect_to empresas_path, notice: "Empresa fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -154,6 +156,17 @@ class EmpresasController < ApplicationController
   end
 
   private
+
+    def cta_root_path
+      "/cuentas/e_#{@objeto.id}/dnncs"
+    end
+
+    def purge_logo_if_requested
+      if params.dig(:empresa, :remove_logo) == "1" && @objeto.logo.attached?
+        @objeto.logo.purge
+      end
+    end
+
     def current_tenant_id
       return nil unless defined?(::Current)
       return nil unless ::Current.respond_to?(:tenant)
@@ -182,7 +195,7 @@ class EmpresasController < ApplicationController
 #        :rut, :razon_social, :email_administrador, :email_verificado, :sha1, :principal_usuaria, :backup_emails)
       params.require(:empresa).permit(
         :rut, :razon_social, :administrador, :email_administrador, 
-        :contacto, :telefono, :informacion_comercial, :principal_usuaria
+        :contacto, :telefono, :informacion_comercial, :principal_usuaria, :logo,
         # :website NO se persiste (honeypot)
       )
     end

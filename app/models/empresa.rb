@@ -1,6 +1,9 @@
 class Empresa < ApplicationRecord
     attr_accessor :website  # honeypot
     
+    # Logo con Active Storage
+    has_one_attached :logo
+
 	has_many :app_nominas, as: :ownr
 
 	has_many :pro_dtll_ventas, as: :ownr
@@ -18,6 +21,9 @@ class Empresa < ApplicationRecord
     validates :email_administrador, valida_admin_empresa: true, unless: :persisted?
     validates_uniqueness_of :rut, :email_administrador
     validates_presence_of :razon_social, :email_administrador
+
+    # Valida logo ingresado por Active Storage
+    validate :acceptable_logo
 
     validates :email_administrador, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :telefono, length: { maximum: 25 }, allow_blank: true
@@ -83,5 +89,19 @@ class Empresa < ApplicationRecord
     end
 
     # ---------------------------------------------------------------------------------
+    private
+
+        def acceptable_logo
+            return unless logo.attached?
+
+            unless logo.blob.byte_size <= 2.megabytes
+              errors.add(:logo, "debe pesar 2MB o menos")
+            end
+
+            acceptable_types = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"]
+            unless acceptable_types.include?(logo.content_type)
+              errors.add(:logo, "debe ser PNG, JPG, WEBP o SVG")
+            end
+        end
 
 end

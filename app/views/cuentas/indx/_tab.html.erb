@@ -1,0 +1,16 @@
+<div class="my-2 fs-6">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if action_name == "dnncs" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/dnncs">Denuncias</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if action_name == "invstgdrs" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/invstgdrs">Investigadores</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if action_name == "extrns" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/extrns">Empresas externas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if action_name == "nmn" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/nmn">Nómina</a>
+    </li>
+  </ul>
+</div>

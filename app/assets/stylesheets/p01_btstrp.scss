@@ -10,6 +10,14 @@
   background-repeat: no-repeat;
 }
 
+.bg_azul_oscuro {
+  background-color: cnfg.$azul_oscuro;
+}
+
+.bg_azul_claro {
+  background-color: cnfg.$azul_claro;
+}
+
 .bg_gray {
 	background-color: #dee2e6; /* Color personalizado */
 	color: cnfg.$pltt_4;
@@ -38,7 +46,19 @@
   background-color: black !important;
 }
 
+.clr_azul_oscuro {
+  color: cnfg.$azul_oscuro;
+}
+
+.clr_azul_principal {
+  color: cnfg.$azul_principal;
+}
+
 // LINKS
+
+.lnk_principal {
+  @include bscs.a_hover(cnfg.$azul_principal, cnfg.$pltt_6);
+}
 
 .navbar_lnk {
    	@include bscs.a_hover(cnfg.$pltt_4, cnfg.$pltt_6);

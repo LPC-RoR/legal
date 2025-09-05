@@ -1,9 +1,10 @@
 <% typ ||= 'tr' %>
 
-<%= render partial: 'cuentas/indx/encbzd_emprs' %>
-<%= render partial: 'cuentas/indx/menu' %>
+<%= render partial: 'cuentas/prtls/wndw_head', locals: {objt: @objeto} %>
+<%= render partial: 'cuentas/indx/tab', locals: {objt: @objeto} if admin? %>
+<%#= render partial: 'cuentas/indx/menu' %>
 
-<%= render partial: 'cuentas/indx/ttl', locals: {source: source, ownr: @objeto, fs: 3, brdr_clr: 'dark-subtle'} %>
+<%= render partial: 'cuentas/indx/ttl', locals: {source: source, ownr: @objeto, fs: 5, brdr_clr: 'dark-subtle'} %>
 
 <!-- Manejo de mensajes de inicio de cuenta! -->
 <!-- EVALUAR cambiar dog? por not scp_activo? -->

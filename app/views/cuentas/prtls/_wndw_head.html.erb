@@ -1,0 +1,40 @@
+<div class="p-2 border rounded-2 bg_azul_claro clr_azul_principal fw-bold lnk_principal">
+	<div class="row gx-1">
+		<div class="col-lg-8 fw-bold">
+			<i class="bi bi-buildings"></i> 
+			<%= link_to [:edit, objt], title: 'Editar', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+			    <%= objt.razon_social %>
+			<% end %>
+			<i class="bi bi-dot"></i>
+			<% if objt.demo? %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'InfoProducto', objeto: nil, tooltip: 'Información del producto'} do %>
+					<small>DEMO</small>
+				<% end %>
+			<% else %>
+				<i class="bi bi-box2"></i>
+			<% end %>
+		</div>
+		<div class="col-lg-4 text-end">
+			<% if @scrty_vls[:addt_usr] and admin? and controller_name == 'cuentas' %>
+				<%= link_to "/#{@objeto.class.name.tableize}", title: 'Addt', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+					<i class="bi bi-person-circle"></i>
+				<% end %>
+			<% else %>
+				<i class="bi bi-person-circle"></i>
+			<% end %>
+			
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: edit_usuario_registration_path, tltp: 'Editar mi usuario'} do %>
+				<%= objt_email_mask(perfil_activo) %>
+			<% end %>
+		</div>
+	</div>
+
+</div>
+	<%= render layout: '0p/collapse/dsply', locals: {label: 'InfoProducto', objeto: nil} do %>
+		<div class="p-3 border rounded-2">
+			<% if objt.demo? %>
+				Su cuenta le permite crear hasta 5 denuncias y estará activa por diez días contados desde el registro de su empresa.
+			<% else %>
+			<% end %>
+		</div>
+	<% end %>

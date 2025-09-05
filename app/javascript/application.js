@@ -17,10 +17,15 @@ import "ticker"
 import HoverPartialController       from "controllers/hover_partial_controller"
 import PrtcpntsFieldsController     from "controllers/prtcpnts_fields_controller"
 import ConditionalFieldsController  from "controllers/conditional_fields_controller"
+import LogoPreviewController from "controllers/logo_preview_controller"
+
+//window.Stimulus = Application.start()
+//Stimulus.register("logo-preview", LogoPreviewController)
 
 application.register("hover-partial",      HoverPartialController)
 application.register("prtcpnts-fields",    PrtcpntsFieldsController)
 application.register("conditional-fields", ConditionalFieldsController)
+application.register("logo-preview", LogoPreviewController)
 
 // 6) Debug
 console.log("[app] window.Turbo:", typeof window.Turbo)

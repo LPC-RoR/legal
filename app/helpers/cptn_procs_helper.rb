@@ -31,4 +31,12 @@ module CptnProcsHelper
 		[Rails.application.credentials[:dog][:email], 'hugo@edasoft.cl'].include?(email) ? mask : email
 	end
 
+	def objt_email_mask(objt)
+		if objt.class.name == 'AppPerfil'
+			[Rails.application.credentials[:dog][:email], 'hugo@edasoft.cl', 'hugo@laborsafe.cl'].include?(objt.email) ? 'admin@empresa.cl' : objt.email
+		elsif objt.class.name.tableize.split('_')[0] == 'krn'
+			"#{objt.class.name.tableize.split('_')[1]}@casa.cl"
+		end
+	end
+
 end
