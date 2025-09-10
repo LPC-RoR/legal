@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
 	include Capitan
 	include Tablas
 	include Cmenu
+	include Paths
 
 
 	include Modelos
@@ -45,6 +46,7 @@ class ApplicationController < ActionController::Base
 	helper_method :plz_lv, :plz_c, :plz_ok?, :etp_plz
 	helper_method :krn_fl_cntrl, :krn_cntrllrs?, :drvcn_text, :fl_cndtn?
 	helper_method :to_name, :corrige
+	helper_method :bck_path_krn_objt
 
   private
 

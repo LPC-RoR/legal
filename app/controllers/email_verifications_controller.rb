@@ -88,7 +88,13 @@ class EmailVerificationsController < ApplicationController
 
     # luego maneja success/flash sin el if basado en deliver_later:
     flash[:notice] = "Te enviamos un correo para verificar tu cuenta."
-    redirect_to root_path
+    if [KrnDenunciante, KrnDenunciado, KrnTestigo].include?(model_class)
+      redirect_to "/krn_denuncias/#{record.dnnc.id}_1"
+    elsif model_class == KrnInvestigador
+      redirect_to "/cuentas/#{record.dnnc.ownr.class.name[0].downcase}_#{record.dnnc.ownr.id}"
+    else
+      redirect_to root_path
+    end
   end
 
   private

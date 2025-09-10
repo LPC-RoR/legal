@@ -1,0 +1,8 @@
+<% if hsh[act_id][:chcks].objt_prsnt?(ownr, act) %>
+	<i class="bi bi-file-earmark-check text-primary"></i>
+<% else %>
+	<i class="bi bi-file-earmark-excel text-danger"></i>
+<% end %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.name.tableize}/#{ownr.id}/prsnt?mdl=act&cdg=#{act}&p=trash", tltp: 'Encontrado', data: {turbo_method: :post}} do %>
+	<i class="bi bi-trash"></i>
+<% end %>

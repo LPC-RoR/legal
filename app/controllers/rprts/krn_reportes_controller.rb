@@ -128,6 +128,20 @@ class Rprts::KrnReportesController < ApplicationController
         pdf_data = ownr.fl_last_tkn('mdds_rsgrd', :fecha).archivo.path
       else
         pdf_data = get_pdf_data(dstntr, params[:oid], params[:rprt])
+
+        # Guardar en ActArchivo
+        act_archivo = dstntr[:objt].act_archivos.new(
+          act_archivo: params[:rprt],
+          nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
+          mdl: 'ClssPrcdmnt',
+        )
+        act_archivo.pdf.attach(
+          io: StringIO.new(pdf_data),
+          filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
+          content_type: 'application/pdf'
+        )
+        act_archivo.save!
+
       end
 
       # Enviar por correo
@@ -147,12 +161,39 @@ class Rprts::KrnReportesController < ApplicationController
         ref_id   = nil
       end
 
-      dstntr[:objt].pdf_registros.create(pdf_archivo_id: @pdf_archivo.id, ref_type: ref_type, ref_id: ref_id)
+      dstntr[:objt].pdf_registros.create(pdf_archivo_id: @pdf_archivo.id, ref_type: ref_type, ref_id: ref_id, cdg: params[:rprt])
     end
     
     set_bck_rdrccn
     ntc = dstntrs.length == 0 ? 'No se encontraron destinatarios pendientes.' : "El reporte ha sido enviado exitosamente a #{dstntrs.length} participante(s)."
     redirect_to @bck_rdrccn, notice: ntc
+  end
+
+  def generate_and_store_report
+    @pdf_archivo = PdfArchivo.find_by(codigo: params[:rprt])
+    load_data(params[:oid], params[:rprt])
+
+    # Generar el PDF
+    pdf_data = get_pdf_data({}, params[:oid], params[:rprt]) # Sin destinatario específico
+
+    # Guardar en ActArchivo
+    act_archivo = dstntr[:objt].act_archivos.new(
+      act_archivo: params[:rprt],
+      nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
+      mdl: 'ClssPrcdmnt',
+    )
+    act_archivo.pdf.attach(
+      io: StringIO.new(pdf_data),
+      filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
+      content_type: 'application/pdf'
+    )
+    act_archivo.save!
+
+    if act_archivo.save
+      redirect_back fallback_location: root_path, notice: "Reporte almacenado correctamente."
+    else
+      redirect_back fallback_location: root_path, alert: "Error al almacenar el reporte."
+    end
   end
 
   def audit_rprt
@@ -169,7 +210,7 @@ class Rprts::KrnReportesController < ApplicationController
         ref_id   = nil
       end
 
-      dstntr[:objt].pdf_registros.create(pdf_archivo_id: @pdf_archivo.id, ref_type: ref_type, ref_id: ref_id, audtd: true)
+      dstntr[:objt].pdf_registros.create(pdf_archivo_id: @pdf_archivo.id, ref_type: ref_type, ref_id: ref_id, audtd: true, cdg: params[:rprt])
     end
     set_bck_rdrccn
     ntc = dstntrs.length == 0 ? 'No se encontraron destinatarios pendientes.' : "El reporte ha sido enviado exitosamente a #{dstntrs.length} participante(s)."
@@ -258,31 +299,31 @@ class Rprts::KrnReportesController < ApplicationController
       if rprt == 'dclrcn'
         dclrcn = KrnDeclaracion.find(oid)
         invstgdr = get_invstgdr(oid, rprt)
-        rgstr = dclrcn.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+        rgstr = dclrcn.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
         dstntrs << {objt: dclrcn.ownr, ref: dclrcn, invstgdr: invstgdr, nombre: dclrcn.ownr.nombre, rol: to_name(dclrcn.ownr), email: dclrcn.ownr.email} if rgstr.blank?
       elsif ['dnncnt_info_oblgtr'].include?(rprt)  
         ref = get_objt(oid, rprt)
         invstgdr = get_invstgdr(oid, rprt)
         @objt['denunciantes'].each do |dnncnt|
-          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
           dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
         end
       elsif ['drvcn', 'invstgdr', 'invstgcn', 'drchs', 'mdds_rsgrd'].include?(rprt)
         ref = get_objt(oid, rprt)
         invstgdr = get_invstgdr(oid, rprt)
         @objt['denunciantes'].each do |dnncnt|
-          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
           dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
           dnncnt.krn_testigos.each do |tstg|
-            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
             dstntrs << {objt: tstg, ref: ref, invstgdr: invstgdr, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
           end
         end
         @objt['denunciados'].each do |dnncd|
-          rgstr = dnncd.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+          rgstr = dnncd.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
           dstntrs << {objt: dnncd, ref: ref, invstgdr: invstgdr, nombre: dnncd.nombre, rol: 'Denunciante', email: dnncd.email} if rgstr.blank?
           dnncd.krn_testigos.each do |tstg|
-            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id)
+            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
             dstntrs << {objt: tstg, ref: ref, invstgdr: invstgdr, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
           end
         end
@@ -290,7 +331,7 @@ class Rprts::KrnReportesController < ApplicationController
         # Reporte de solicitud de Información
         ref = get_objt(oid, rprt)
         @objt['rrhh'].each do |rol|
-          rgstrs = rol.pdf_registros.where(pdf_archivo_id: @pdf_archivo.id, ref_id: ref.id)
+          rgstrs = rol.pdf_registros.where(pdf_archivo_id: @pdf_archivo.id, ref_id: ref.id, cdg: rprt)
           dstntrs << {objt: rol, ref: ref, nombre: rol.nombre, rol: 'RRHH', email: rol.email} if (rgstrs.empty? or rgstrs.count < 3)
         end
       end

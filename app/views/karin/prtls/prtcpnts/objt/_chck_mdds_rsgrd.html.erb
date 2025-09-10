@@ -1,6 +1,6 @@
 <% if objeto.invstgcn_sent? %>
 	<% if @objeto.mdds_rsgrd_for_attchmnt? %>
-		<%= render partial: 'pdf/pdf_registros/objt_chck', locals: {objeto: objeto, code: 'mdds_rsgrd'} %>
+		<%= render partial: 'pdf/pdf_registros/objt_chck', locals: {audit: objeto.dnnc.auditoria, hsh: @acts_hsh, mdl: ClssPrcdmnt, objeto: objeto, code: 'mdds_rsgrd'} %>
 	<% else %>
 		<br>
 		<i class="bi bi-cone-striped text-danger"></i> No se puede enviar las medidas de resguardo a los trabajadores: No se han subido a la plataforma o sólo fue chequeado.

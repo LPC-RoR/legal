@@ -5,6 +5,9 @@ class AppPerfil < ApplicationRecord
 	has_many :app_enlaces, as: :ownr
 	has_many :notas
 
+	has_many :check_auditorias, as: :ownr
+	has_many :audit_notas, as: :ownr
+
 	has_many :app_mensajes
 
 	# Aplicacion

@@ -54,6 +54,13 @@ $pltt_9: #f8f9fa;
 
 $app_fnt: 'Raleway', sans-serif;
 
+html {
+  text-size-adjust: 100%;        /* estándar */
+  -webkit-text-size-adjust: 100%;/* Safari/iOS */
+}
+
 html, body {
-//  height: 100%;
+  -webkit-font-smoothing: antialiased; /* WebKit */
+  -moz-osx-font-smoothing: grayscale;  /* Firefox en macOS */
+  text-rendering: optimizeLegibility;  /* sugerencia genérica */
 }

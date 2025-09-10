@@ -2,9 +2,6 @@
 <% if ['admin', 'operación'].include?(tipo_usuario) or dog? %>
 	<%= render partial: 'cuentas/indx/indx', locals: {source: 'app_nominas'} %>
 
-	<!-- El ingreso de Contactos habilita opciones de reportes, no inhabilitan el ingreso de una Denuncia -->
-	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'app_contactos', ownr: @objeto, fs: 5, brdr_clr: 'dark-subtle'} %>
-	<%= render partial: '0p/tbl/tbl', locals: {source: 'app_contactos', crud: 'lnks'} %>
 <% else %>
 	<%= render partial: prtl_name('cuentas', 'indx/mssgs', 'no_access') %>
 <% end %>

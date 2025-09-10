@@ -1,7 +1,7 @@
 class Karin::KrnDenunciantesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denunciante, only: %i[ show edit update destroy swtch set_fld clear_fld ]
+  before_action :set_krn_denunciante, only: %i[ show edit update destroy swtch prsnt set_fld clear_fld ]
   before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   include ProcControl

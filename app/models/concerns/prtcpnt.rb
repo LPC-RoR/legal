@@ -57,6 +57,7 @@ module Prtcpnt
       pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id).present? and (self.class.name == 'KrnTestigo' ? true : self.krn_testigos.mdds_rsgrd_sents?)
     end
 
+    # DEPRECATED
     def dclrcn?
       self.fl?('prtcpnts_dclrcn') and (self.class.name == 'KrnTestigo' ? true : self.krn_testigos.dclrcns?)
     end
@@ -82,6 +83,7 @@ module Prtcpnt
       name == 'KrnTestigo' ? nil : all.map {|den| den.krn_empresa_externa_id if !!den.empleado_externo}.uniq
     end
 
+    # DEPRECATED
     def dclrcns?
       all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|objt| objt.dclrcn?}.uniq.join('-') == 'true'
     end

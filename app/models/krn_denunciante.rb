@@ -5,7 +5,12 @@ class KrnDenunciante < ApplicationRecord
 	belongs_to :krn_empresa_externa, optional: true
 	belongs_to :krn_empleado, optional: true
 
+	has_many :act_archivos, as: :ownr
+	has_many :check_auditorias, as: :ownr
+	has_many :audit_notas, as: :ownr
+
 	has_many :rep_archivos, as: :ownr
+	
 	has_many :notas, as: :ownr
 	has_many :pdf_registros, as: :ownr
 
@@ -29,6 +34,10 @@ class KrnDenunciante < ApplicationRecord
 
 	include Prtcpnt
 	include Fls
+
+	def sym
+		:dnncnt
+	end
 
  	# ================================= GENERAL
 

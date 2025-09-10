@@ -4,22 +4,18 @@ class CuentasController < ApplicationController
   before_action :set_cuenta, only: %i[ dnncs invstgdrs extrns nmn ]
 
   def dnncs
-      set_tab(:indx, ['Denuncias', 'Investigadores', 'Empresas externar', 'Nómina']) if admin?
       set_tabla('krn_denuncias', @objeto.krn_denuncias.ordr, true)
   end
 
   def invstgdrs
-      set_tab(:indx, ['Denuncias', 'Investigadores', 'Empresas externar', 'Nómina']) if admin?
       set_tabla('krn_investigadores', @objeto.krn_investigadores, true)
   end
 
   def extrns
-      set_tab(:indx, ['Denuncias', 'Investigadores', 'Empresas externar', 'Nómina']) if admin?
       set_tabla('krn_empresa_externas', @objeto.krn_empresa_externas, true)
   end
 
   def nmn
-      set_tab(:indx, ['Denuncias', 'Investigadores', 'Empresas externar', 'Nómina']) if admin?
       set_tabla('app_nominas', @objeto.app_nominas, true)
       set_tabla('app_contactos', @objeto.app_contactos.order(:nombre), true)
   end

@@ -8,6 +8,28 @@
   }
   combined_data = default_data.merge(data)
 %>
-<%= link_to lnk, data: combined_data, target: target, title: tltp do %>
+
+
+<% default_data = { toggle: 'tooltip', placement: 'right' } %>
+<% extra_opts   = {
+      bs_toggle: :tooltip,
+      bs_placement: :top,
+      # bs_custom_class: 'tooltip-azul',
+      'bs-original-title': tltp
+    } %>
+
+<% combined = default_data.merge(data).merge(extra_opts) %>
+
+
+
+
+<%#= link_to lnk, data: combined_data, target: target, title: tltp do %>
+    <%# yield %>
+<%# end %>
+
+<%= link_to lnk,
+            target: target,
+            data: combined do %>
+
     <% yield %>
 <% end %>

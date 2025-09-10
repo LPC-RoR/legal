@@ -1,6 +1,11 @@
 <h5><%= @objeto.ownr.razon_social %></h5>
 
-<%= render '0p/lbld_inpts/datetime', 
+<%#= render '0p/lbld_inpts/datetime', 
+     form: form, 
+     token: :fecha_hora, 
+     label: 'Fecha y hora de la denuncia' %>
+
+<%= render '0p/lbld_inpts/datetime_clndr', 
      form: form, 
      token: :fecha_hora, 
      label: 'Fecha y hora de la denuncia' %>
@@ -41,6 +46,11 @@
 <div data-conditional-fields-target="representanteGroup" hidden>
   <%= render "representante", form: form %>
 </div>
+
+<%= render '0p/lbld_inpts/check_box', 
+     form: form, 
+     token: :auditoria, 
+     label: 'Auditoria' %>
 
 <!-- Usado para pruebas de Javascript -->
 <%#= render partial: '0p/lbld_inpts/radio', locals: {form: form, token: :tipo_declaracion, radio_list: KrnDenuncia::TIPOS_DENUNCIA, label: 'Formato de la denuncia', id: 'tipo_declaracion' } %>

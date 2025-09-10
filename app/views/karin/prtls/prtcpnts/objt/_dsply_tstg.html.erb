@@ -1,9 +1,0 @@
-<div style="margin-left: 7%;">
-	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_testigos', brdr_wdth: 2, ownr: objeto, fs: 6} %>
-	<div class="py-2">
-		<% objeto.krn_testigos.each do |tstg| %>
-			<%= render partial: '0p/tbl/ln', locals: {objt: tstg, ownr: objeto} %>
-			<%= render partial: 'karin/prtls/prtcpnts/objt/dsply', locals: {objeto: tstg} %>
-		<% end %>
-	</div>
-</div>

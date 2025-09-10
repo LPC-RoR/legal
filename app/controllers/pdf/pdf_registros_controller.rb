@@ -70,6 +70,6 @@ class Pdf::PdfRegistrosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pdf_registro_params
-      params.expect(pdf_registro: [ :ownr_type, :ownr_id, :pdf_archivo_id ])
+      params.expect(pdf_registro: [ :ownr_type, :ownr_id, :pdf_archivo_id, :cdg ])
     end
 end

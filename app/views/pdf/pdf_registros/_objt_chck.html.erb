@@ -1,4 +1,8 @@
+<% hsh ||= @acts_hsh %>
+<% act_id = "#{objeto.class.name}_#{objeto.id}" %>
 <% unless code.nil? %>
+
+
 	<% cone_clr ||= 'danger' %>
 	<% pdf_rgstr = objeto.get_pdf_registro(code) %>
 	<% pdf_archv = PdfArchivo.find_by(codigo: code) %>

@@ -152,11 +152,13 @@ Rails.application.routes.draw do
     resources :krn_empresa_externas
     resources :krn_denunciados do
       match :swtch, via: :post, on: :member
+      match :prsnt, via: :post, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
     end
     resources :krn_denunciantes do
       match :swtch, via: :post, on: :member
+      match :prsnt, via: :post, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
     end
@@ -166,6 +168,7 @@ Rails.application.routes.draw do
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
       match :prg, via: :post, on: :member
+      match :prsnt, via: :post, on: :member
       # ruta para manejo de panels
       match :cndtnl_via_declaracion, via: :get, on: :collection
       match :tipo_declaracion_field, via: :get, on: :collection
@@ -181,6 +184,7 @@ Rails.application.routes.draw do
     end
     resources :krn_testigos do
       match :swtch, via: :post, on: :member
+      match :prsnt, via: :post, on: :member
       match :set_fld, via: :post, on: :member
       match :clear_fld, via: :get, on: :member
     end
@@ -335,6 +339,12 @@ Rails.application.routes.draw do
       match :abajo, via: :post, on: :member
     end
     resources :rep_archivos
+    resources :act_archivos do
+      match :download, via: :get, on: :member
+      match :rmv_cntrld, via: :post, on: :member
+    end
+    resources :check_auditorias
+    resources :audit_notas
   end
 
   scope module: 'aplicacion' do
@@ -348,9 +358,11 @@ Rails.application.routes.draw do
         match :procesos, via: :get
         match :usuarios, via: :get
         match :password_recovery, via: :get
-        # ----------------- métodos para procesos
+        # ----------------- métodos para procesos migrar_notas
         match :chck_estds, via: :post
         match :activar_fecha_en_notas, via: :post
+        match :migrar_notas, via: :post
+        match :purge_rep_archivos, via: :post
       end
     end
     resources :tablas do

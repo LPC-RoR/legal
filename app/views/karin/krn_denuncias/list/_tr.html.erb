@@ -1,6 +1,9 @@
 <tr class="app_lnk" style="font-size: 1rem;line-height: 1.5;">
 	<td class="ps-3"><%= dma_hm(objt.fecha_hora) %></td>
 	<td class="fw-bold">
+		<% if objt.auditoria %>
+			<i class="bi bi-clipboard2-pulse"></i>
+		<% end %>
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: objt, tltp: 'Ver denuncia'} do %>
 			<%= objt.identificador %>
 		<% end %>	

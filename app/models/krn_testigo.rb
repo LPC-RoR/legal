@@ -5,10 +5,16 @@ class KrnTestigo < ApplicationRecord
 
 	belongs_to :krn_empresa_externa, optional: true
 
+
+	has_many :act_archivos, as: :ownr
+	has_many :check_auditorias, as: :ownr
+	has_many :audit_notas, as: :ownr
+
 	has_many :notas, as: :ownr
 	has_many :pdf_registros, as: :ownr
 
 	has_many :krn_declaraciones, as: :ownr
+
 	has_many :rep_archivos, as: :ownr
 
 	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
@@ -21,6 +27,10 @@ class KrnTestigo < ApplicationRecord
 
 	include Prtcpnt
 	include Fls
+
+	def sym
+		:tstg
+	end
 
 	def dnnc
 		self.ownr.krn_denuncia

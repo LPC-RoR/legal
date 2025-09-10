@@ -1,0 +1,12 @@
+<h5 class="text-primary"><i class="bi bi-file-earmark-arrow-up"></i> <%= @objeto.mdl.constantize.act_nombre[@objeto.act_archivo] %></h5>
+<% if @objeto.mdl.constantize.act_lst?(@objeto.act_archivo)  %>
+	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre del archivo' } %>
+<% end %>
+
+<% if @objeto.mdl.constantize.act_fecha(@objeto.act_archivo) %>
+	<%= render partial: '0p/lbld_inpts/date_clndr', locals: { form: form, token: :fecha, label: 'Fecha' } %>
+<% end %>
+
+<%= render partial: '0p/lbld_inpts/act_file', locals: { form: form, token: :pdf } %>
+
+<%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:ownr_type, :ownr_id, :act_archivo, :mdl, :control_fecha ] } %>

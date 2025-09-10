@@ -1,0 +1,10 @@
+<div class="row gx-1 mb-1 mx-2 py-1 px-3 border rounded-2 bg_azul_claro clr_azul_oscuro" style="font-size: 1rem;">
+	<div class="col-10">
+		<%= render partial: prtl_name(objeto, 'list', 'objt'), locals: {objeto: objeto} %>
+	</div>
+	<div class="col-2 text-end app_lnk">
+		<%= render partial: prtl_name(objeto, 'list', 'lnks'), locals: {objeto: objeto} %>
+	</div>
+</div>
+
+<%= render partial: prtl_name(objeto, 'list', 'dsply'), locals: {objeto: objeto} if prtl?(objeto, 'list', 'dsply') %>

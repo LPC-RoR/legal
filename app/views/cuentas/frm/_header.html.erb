@@ -1,4 +1,4 @@
-<% sz 		  ||= 4 %>
+<% sz 		  ||= 5 %>
 <% fml   	  ||= false %>
 <% text_acctn ||= action_name == 'new' ? (fml ? 'Nueva' : 'Nuevo') : 'Editar' %>
 <div class="row px-3 pt-2 border border-dark-subtle border-5 rounded-pill fs-4 app_lnk">
@@ -17,8 +17,8 @@
 	</div>
 	<div class="col-4 text-end">
 		<h<%=sz%> class='text-<%=cfg_color[:app]%>'>
-		<%#= render layout: '0p/tltp_lnk', locals: {lnk: bck_rdrccn(@objeto), tltp: 'Volver'} do %>
-		<%= render layout: '0p/tltp_lnk', locals: {lnk: @bck_rdrccn, tltp: 'Volver'} do %>
+		<!-- bck_path_krn_objt(objt) está en app_path_helper.rb -->
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: bck_path_krn_objt(@objeto), tltp: 'Volver'} do %>
 			<i class="bi bi-arrow-left"></i>
 		<% end %>				
 		</h<%=sz%>>

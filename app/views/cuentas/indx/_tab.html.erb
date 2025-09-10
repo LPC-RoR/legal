@@ -6,9 +6,11 @@
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "invstgdrs" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/invstgdrs">Investigadores</a>
     </li>
+    <% if objt.principal_usuaria %>
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "extrns" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/extrns">Empresas externas</a>
     </li>
+    <% end %>
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "nmn" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/nmn">Nómina</a>
     </li>

@@ -10,6 +10,12 @@ import { application } from "controllers/application"
 import * as bootstrap from "bootstrap"
 window.bootstrap = bootstrap
 
+document.addEventListener("turbo:load", () => {
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((el) => {
+    new bootstrap.Tooltip(el, { container: 'body' });
+  });
+});
+
 // 4) Scripts propios
 import "ticker"
 

@@ -17,7 +17,12 @@ class KrnDenuncia < ApplicationRecord
 	belongs_to :krn_empresa_externa, optional: true
 #	belongs_to :krn_investigador, optional: true
 
+	has_many :act_archivos, as: :ownr
+	has_many :check_auditorias, as: :ownr
+	has_many :audit_notas, as: :ownr
+
 	has_many :rep_archivos, as: :ownr
+
 	has_many :notas, as: :ownr
 	# Los ownr de los pdf_registros SIEMPRE son destinatarios
 	has_many :pdf_registros, as: :ref
@@ -29,6 +34,8 @@ class KrnDenuncia < ApplicationRecord
 
 	has_many :krn_inv_denuncias
 	has_many :krn_investigadores, through: :krn_inv_denuncias
+
+#	enum etapa: { recepcion: 0, investigacion: 1, informe: 2, pronunciamiento: 3, aplicacion: 4 }
 
 	scope :ordr, -> { order(fecha_hora: :desc, id: :desc) }
 
@@ -44,6 +51,10 @@ class KrnDenuncia < ApplicationRecord
 	include Dnnc
 	include DnncProc
 	include Fls
+
+	def sym
+		:dnnc
+	end
 
 	def dnnc
 		self

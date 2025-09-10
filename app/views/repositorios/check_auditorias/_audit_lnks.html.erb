@@ -1,0 +1,6 @@
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.name.tableize}/#{ownr.id}/prsnt?mdl=act&cdg=#{act}&p=true", tltp: 'Encontrado', data: {turbo_method: :post}} do %>
+	<i class="bi bi-check-square"></i>
+<% end %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.name.tableize}/#{ownr.id}/prsnt?mdl=act&cdg=#{act}&p=false", tltp: 'No encontrado', data: {turbo_method: :post}} do %>
+	<i class="bi bi-x-square"></i>
+<% end %>

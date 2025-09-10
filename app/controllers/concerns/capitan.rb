@@ -114,6 +114,28 @@ module Capitan
 		redirect_to @bck_rdrccn
 	end
 
+	# Auditoria
+	def prsnt
+		if params[:p] == 'trash'
+			chck = @objeto.check_auditorias.find_by(cdg: params[:cdg])
+			chck.delete unless chck.blank?
+		else
+			@objeto.check_auditorias.create!(
+			  ownr_type: @objeto.class.name,
+			  ownr_id: @objeto.id,
+			  mdl: params[:mdl],
+			  cdg: params[:cdg],
+			  prsnt: params[:p],
+			  app_perfil_id: perfil_activo.id,
+			  audited_at: Time.zone.now
+			)
+		end
+
+
+		set_bck_rdrccn
+		redirect_to @bck_rdrccn
+	end
+
 	def swtch_clr
 		@objeto[params[:tkn]] = params[:clr]
 		@objeto.save

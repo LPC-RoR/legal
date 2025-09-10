@@ -14,8 +14,19 @@
 		<%= render partial: 'notas/shr/notas', locals: {ownr: objeto} %>
 
 	</div>
+
+	<div class="mx-1 my-2 border rounded-4">
+		<div class="p-2 border-bottom fw-bold" style="font-size: 1rem;">
+			<i class="bi bi-caret-right-fill"></i> Documentos controlados de la denuncia
+		</div>
+		<div class="py-2 px-3">
+			<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, audit: objeto.dnnc.auditoria} %>
+		</div>
+	</div>
+
 	<div class="mt-5 ms-2">
-		<%= render partial: prtl_name(objeto, 'shw/proceso', 'dcs'), locals: {ownr: objeto} %>
+		<%#= render partial: prtl_name(objeto, 'shw/proceso', 'dcs'), locals: {ownr: objeto} %>
+		<%#= render partial: 'repositorios/act_archivos/dsply_list', locals: {list: @acts, mdl: Prcdmnt, ownr: objeto, audit: objeto.auditoria} %>
 	</div>
 
 <% else %>

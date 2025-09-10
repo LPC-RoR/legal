@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler set_fld clear_fld prg ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler prsnt set_fld clear_fld prg ]
   before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   include ProcControl
@@ -14,6 +14,21 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
+    @acts_hsh = {}
+    add_to_act_hsh(@acts_hsh, @objeto)
+    @objeto.krn_denunciantes.each do |dnncnt|
+      add_to_act_hsh(@acts_hsh, dnncnt)
+      dnncnt.krn_testigos.each do |tstg|
+        add_to_act_hsh(@acts_hsh, tstg)
+      end
+    end
+    @objeto.krn_denunciados.each do |dnncd|
+      add_to_act_hsh(@acts_hsh, dnncd)
+      dnncd.krn_testigos.each do |tstg|
+        add_to_act_hsh(@acts_hsh, tstg)
+      end
+    end
+
     load_objt(@objeto)
     load_proc(@objeto)
     load_temas_proc
@@ -206,6 +221,36 @@ class Karin::KrnDenunciasController < ApplicationController
 
   private
 
+    def add_to_act_hsh(hsh, objt)
+      act_id = "#{objt.class.name}_#{objt.id}"
+      acts   = ClssPrcdmnt.archivos_que_aplican(objt)
+      actns  = ClssPrcdmnt.acciones_que_aplican(objt)
+      hsh[act_id] = {}
+      # Códigos act_archivo
+      hsh[act_id][:cdgs] = acts
+      hsh[act_id][:actns] = actns
+      acts.each do |act|
+        # Act archivos de cada código
+        if ClssPrcdmnt.act_lst?(act)
+          hsh[act_id][act] = objt.act_archivos.where(act_archivo: act)
+        else
+          hsh[act_id][act] = objt.act_archivos.find_by(act_archivo: act)
+        end
+      end
+
+      actns.each do |actn|
+        # Act archivos de cada código
+        if ClssPrcdmnt.actn_multpl?(actn)
+          hsh[act_id][actn] = objt.act_archivos.where(act_archivo: actn)
+        else
+          hsh[act_id][actn] = objt.act_archivos.find_by(act_archivo: actn)
+        end
+      end
+
+      # Objetos auditados
+      hsh[act_id][:chcks] = objt.check_auditorias
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia
       @tbs = ['Proceso', 'Participantes', 'Reportes']
@@ -216,6 +261,6 @@ class Karin::KrnDenunciasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denuncia_params
-      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :identificador, :fecha_hora, :receptor_denuncia, :motivo_denuncia, :krn_empresa_externa_id, :krn_investigador_id, :fecha_hora_dt, :presentado_por, :via_declaracion, :tipo_declaracion, :representante)
+      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :identificador, :fecha_hora, :receptor_denuncia, :motivo_denuncia, :krn_empresa_externa_id, :krn_investigador_id, :fecha_hora_dt, :presentado_por, :via_declaracion, :tipo_declaracion, :representante, :auditoria)
     end
 end

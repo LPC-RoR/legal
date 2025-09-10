@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_02_231451) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_09_231010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
+
+  create_table "act_archivos", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.string "act_archivo"
+    t.string "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "fecha"
+    t.string "mdl"
+    t.boolean "control_fecha"
+    t.index ["act_archivo"], name: "index_act_archivos_on_act_archivo"
+    t.index ["control_fecha"], name: "index_act_archivos_on_control_fecha"
+    t.index ["mdl"], name: "index_act_archivos_on_mdl"
+    t.index ["ownr_id"], name: "index_act_archivos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_act_archivos_on_ownr_type"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -318,6 +335,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_02_231451) do
     t.index ["tipo_causa_id"], name: "index_audiencias_on_tipo_causa_id"
   end
 
+  create_table "audit_notas", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.integer "app_perfil_id"
+    t.text "nota"
+    t.text "recomendacion"
+    t.integer "prioridad"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_perfil_id"], name: "index_audit_notas_on_app_perfil_id"
+    t.index ["ownr_id"], name: "index_audit_notas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_audit_notas_on_ownr_type"
+    t.index ["prioridad"], name: "index_audit_notas_on_prioridad"
+  end
+
   create_table "cal_feriados", force: :cascade do |t|
     t.datetime "cal_fecha", precision: nil
     t.string "descripcion"
@@ -437,6 +469,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_02_231451) do
     t.index ["tipo"], name: "index_cfg_valores_on_tipo"
   end
 
+  create_table "check_auditorias", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.string "mdl"
+    t.string "cdg"
+    t.boolean "prsnt"
+    t.datetime "audited_at"
+    t.integer "app_perfil_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_perfil_id"], name: "index_check_auditorias_on_app_perfil_id"
+    t.index ["cdg"], name: "index_check_auditorias_on_cdg"
+    t.index ["mdl"], name: "index_check_auditorias_on_mdl"
+    t.index ["ownr_id"], name: "index_check_auditorias_on_ownr_id"
+    t.index ["ownr_type", "ownr_id", "cdg"], name: "index_check_auditorias_on_ownr_type_and_ownr_id_and_cdg", unique: true
+    t.index ["ownr_type"], name: "index_check_auditorias_on_ownr_type"
+  end
+
   create_table "clientes", force: :cascade do |t|
     t.string "razon_social"
     t.string "rut"
@@ -449,6 +499,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_02_231451) do
     t.boolean "preferente"
     t.boolean "principal_usuaria"
     t.string "backup_emails"
+    t.boolean "activa_devolucion"
     t.index ["estado"], name: "index_clientes_on_estado"
     t.index ["tipo_cliente"], name: "index_clientes_on_tipo_cliente"
   end
@@ -641,6 +692,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_02_231451) do
     t.string "administrador"
     t.string "telefono"
     t.boolean "informacion_comercial"
+    t.boolean "activa_devolucion"
     t.index ["rut"], name: "index_empresas_on_rut"
     t.index ["sha1"], name: "index_empresas_on_sha1"
   end
@@ -827,6 +879,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_02_231451) do
     t.boolean "dnncnt_info_oblgtr"
     t.boolean "dnncnt_opcn_escrita"
     t.boolean "plz_invstgcn_vncd"
+    t.boolean "auditoria"
+    t.index ["auditoria"], name: "index_krn_denuncias_on_auditoria"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["identificador"], name: "index_krn_denuncias_on_identificador"
@@ -1391,6 +1445,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_02_231451) do
     t.string "ref_type"
     t.integer "ref_id"
     t.boolean "audtd"
+    t.string "cdg"
+    t.index ["cdg"], name: "index_pdf_registros_on_cdg"
     t.index ["ownr_id"], name: "index_pdf_registros_on_ownr_id"
     t.index ["ownr_type"], name: "index_pdf_registros_on_ownr_type"
     t.index ["pdf_archivo_id"], name: "index_pdf_registros_on_pdf_archivo_id"
@@ -1521,8 +1577,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_02_231451) do
   end
 
   create_table "rep_archivos", force: :cascade do |t|
-    t.string "ownr_type", null: false
-    t.bigint "ownr_id", null: false
+    t.string "ownr_type"
+    t.bigint "ownr_id"
     t.string "rep_archivo"
     t.string "archivo"
     t.integer "rep_doc_controlado_id"

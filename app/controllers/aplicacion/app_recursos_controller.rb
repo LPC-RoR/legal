@@ -20,6 +20,39 @@ class Aplicacion::AppRecursosController < ApplicationController
   def procesos
   end
 
+  def purge_rep_archivos
+
+    huerfanos = RepArchivo.where(ownr_type: nil)
+    huerfanos.delete_all
+
+    dnncnts = RepArchivo.where(ownr_type: 'KrnDenunciante')
+    dnncnts.delete_all
+
+    dnncds = RepArchivo.where(ownr_type: 'KrnDenunciado')
+    dnncds.delete_all
+
+    tstgs =  RepArchivo.where(ownr_type: 'KrnTestigo')
+    tstgs.delete_all
+
+    KrnDenuncia.all.each do |dnnc|
+      dnnc.rep_archivos.delete_all
+      dnnc.krn_denunciantes.each do |dnncnt|
+        dnncnt.rep_archivos.delete_all
+        dnncnt.krn_testigos.each do |tstg|
+          tstg.rep_archivos.delete_all
+        end
+      end
+      dnnc.krn_denunciados.each do |dnncd|
+        dnncd.rep_archivos.delete_all
+        dnncd.krn_testigos.each do |tstg|
+          tstg.rep_archivos.delete_all
+        end
+      end
+    end
+    
+    redirect_to root_path, notice: KrnDenuncia.all.count
+  end
+
   def chck_estds
     Causa.all.each do |causa|
       if ['ingreso', 'pagada', 'tramitación'].include?(causa.estado)

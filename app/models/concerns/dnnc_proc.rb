@@ -176,8 +176,20 @@ module DnncProc
  		(self.evlcn_incnsstnt and self.fecha_hora_corregida?) or self.evlcn_ok?
  	end
 
+ 	# DEPRECATED
 	def dclrcns_ok?
 		self.krn_denunciantes.dclrcns? and (self.krn_denunciados.dclrcns? or self.motivo_vlnc?)
+	end
+
+	def antecedentes_objecion?
+		self.act_archivos.exists?(act_archivo: 'objecion_antcdnts')
+	end
+
+	def declaraciones_completas?
+		todos_los_sujetos = krn_denunciantes + krn_denunciados + krn_denunciantes.flat_map(&:krn_testigos) + krn_denunciados.flat_map(&:krn_testigos)
+		todos_los_sujetos.all? do |sujeto|
+			sujeto.act_archivos.exists?(act_archivo: 'declaracion')
+		end
 	end
 
  	### ==================================================================================

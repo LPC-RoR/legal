@@ -1,0 +1,34 @@
+<div style="margin-left: 3%;">
+
+	<div class="ms-1 app_lnk" style="font-size: 14px;">
+
+		<%= render partial: 'karin/prtcpnts/objt/email_verification', locals: {objeto: objeto} %>
+		<%= render layout: 'cuentas/shw/list_box', locals: {ttl: 'Envío de información y notificaciones'} do %>
+			<%= render partial: 'pdf/pdf_registros/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, audit: objeto.dnnc.auditoria} %>
+		<% end %>
+
+	</div>
+
+	<% if @objeto.investigadores? %>
+		<%= render partial: 'cuentas/indx/ttl_scndry', locals: {source: 'krn_declaraciones', brdr_wdth: 1, ownr: objeto, fs: 6} %>
+		<div class="px-2">
+			<% objeto.krn_declaraciones.fecha_ordr.each do |dclrcn| %>
+				<%= render partial: '0p/tbl/ln', locals: {objt: dclrcn, ownr: objeto, crud: 'lnks'} %>
+			<% end %>
+		</div>
+	<% end %>
+
+	<div class="ms-1 app_lnk" style="font-size: 14px;">
+		<% act_id = "#{objeto.class.name}_#{objeto.id}" %>
+		<% unless @acts_hsh[act_id][:cdgs].empty? %>
+			<%= render layout: 'cuentas/shw/list_box', locals: {ttl: 'Documentos controlados'} do %>
+				<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, audit: objeto.dnnc.auditoria} %>
+			<% end %>
+		<% end %>
+	</div>
+
+	<% if objeto.audit_notas.any? %>
+		<%= render partial: prtl_name('audit_notas', nil, 'ownr_list'), locals: {objeto: objeto} %>
+	<% end %>
+
+</div>

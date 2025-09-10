@@ -1,0 +1,4 @@
+<div class="mx-2 py-1 px-3 fw-bold bg_azul_claro clr_azul_oscuro" style="font-size: .8rem;">NOTAS DE AUDITORIA</div>
+<% objeto.audit_notas.each do |nota| %>
+	<%= render partial: prtl_name('audit_notas', nil, 'nota'), locals: {objt: nota} %>
+<% end %>

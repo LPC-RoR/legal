@@ -132,33 +132,11 @@
   transition: transform 0.3s ease;
 }
 
-/* Estilo opcional para el tooltip */
-.tooltip-inner {
-  max-width: 200px;
-  padding: 0.5rem 1rem;
-  background-color: #333;
-}
-
 /* Efecto de movimiento al hacer hover */
 .icon-title-hover:hover .icon-hover,
 .icon-title-hover:hover .title-hover {
   transform: translateX(5px);
   transition: transform 0.3s ease;
-}
-
-/* Estilo para el tooltip blanco */
-.white-tooltip .tooltip-inner {
-  background-color: white;
-  color: #333;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  max-width: 300px;
-  padding: 10px;
-  font-size: 0.9rem;
-}
-
-.white-tooltip.bs-tooltip-bottom .tooltip-arrow::before {
-  border-bottom-color: white;
 }
 
 .zoom-box {
@@ -509,4 +487,3 @@
 .zoom-box:hover {
   z-index: 10;
 }
-

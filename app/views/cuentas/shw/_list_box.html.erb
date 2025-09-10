@@ -1,0 +1,10 @@
+<% ttl ||= 'Sin título' %>
+<div class="mx-1 my-2 border rounded-4">
+	<div class="p-2 border-bottom fw-bold" style="font-size: 1rem;">
+		<i class="bi bi-caret-right-fill"></i> <%= ttl %>
+	</div>
+
+	<div class="py-2 px-3">
+		<%= yield %>
+	</div>
+</div>

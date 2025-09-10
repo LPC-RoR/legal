@@ -1,0 +1,55 @@
+<% act_id = "#{ownr.class.name}_#{ownr.id}" %>
+<div class="row gx-1">
+	<div class="col-lg-10 <%= 'text-primary' if ownr.pdf_registros.exists?(cdg: code) %>">
+		<% if ownr.pdf_registros.exists?(cdg: code) %>
+			<i class="bi bi-check2-all text-primary"></i>
+		<% elsif hsh[act_id][:chcks].objt_audited?(ownr, code) %>
+			<i class="bi bi-clipboard-check"></i>
+		<% else %>
+			<i class="bi bi-cone-striped text-danger"></i>
+		<% end %>
+		<%=mdl.act_nombre[code]%>
+	</div>
+	<div class="col-lg-2 text-end app_lnk">
+		<% if (mdl.actn_multpl?(code) and hsh[act_id][code].any?) or ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) or hsh[act_id][:chcks].objt_audited?(ownr, code) %>
+			<% if (mdl.actn_multpl?(code) and hsh[act_id][code].any?) or ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) %>
+				<% unless mdl.actn_multpl?(code) %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[act_id][code].id}/download", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
+						<i class="bi bi-download"></i>
+					<% end %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[act_id][code].id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post}} do %>
+						<i class="bi bi-trash"></i>
+					<% end %>
+					<%#= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: hsh[act_id][code]} %>
+				<% end %>
+			<% else %>
+				<%= render partial: 'repositorios/check_auditorias/audited_lnks', locals: {hsh: hsh, act_id: act_id, ownr: ownr, act:code} %>
+			<% end %>
+		<% else %>
+			<%= render partial: 'repositorios/check_auditorias/audit_lnks', locals: {hsh: hsh, act_id: act_id, ownr: ownr, act:code} %>
+			<% unless mdl.ref_generated?(code) %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{ownr.dnnc.id}&rprt=#{code}", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
+					<i class="bi bi-envelope-at"></i>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+
+<% if mdl.actn_multpl?(code) and hsh[act_id][code].any? %>
+	<% hsh[act_id][code].each do |act_fl| %>
+		<div class="row gx-1 ms-4">
+			<div class="col-lg-10">
+				<%= dma_hm(act_fl.created_at) %>
+			</div>
+			<div class="col-lg-2">
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_fl.id}/download", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
+					<i class="bi bi-download"></i>
+				<% end %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_fl.id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post}} do %>
+					<i class="bi bi-trash"></i>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+<% end %>
