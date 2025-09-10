@@ -113,8 +113,6 @@ class Rprts::KrnReportesController < ApplicationController
 
   # Método para generar PDF y enviarlo por correo electrónico
   def generate_and_send_report
-    @pdf_archivo = PdfArchivo.find_by(codigo: params[:rprt])
-
     # Manejo de tablas
     load_data(params[:oid], params[:rprt])
 
@@ -161,7 +159,7 @@ class Rprts::KrnReportesController < ApplicationController
         ref_id   = nil
       end
 
-      dstntr[:objt].pdf_registros.create(pdf_archivo_id: @pdf_archivo.id, ref_type: ref_type, ref_id: ref_id, cdg: params[:rprt])
+      dstntr[:objt].pdf_registros.create(ref_type: ref_type, ref_id: ref_id, cdg: params[:rprt])
     end
     
     set_bck_rdrccn
@@ -170,30 +168,47 @@ class Rprts::KrnReportesController < ApplicationController
   end
 
   def generate_and_store_report
-    @pdf_archivo = PdfArchivo.find_by(codigo: params[:rprt])
     load_data(params[:oid], params[:rprt])
+    dstntrs = get_dstntrs(params[:oid], params[:rprt])
 
-    # Generar el PDF
-    pdf_data = get_pdf_data({}, params[:oid], params[:rprt]) # Sin destinatario específico
+    dstntrs.each do |dstntr|
+      # Generación de la DATA
+      case params[:rprt]
+      when 'mdds_rsgrd'
+        ownr = KrnDenuncia.find(params[:oid])
+        pdf_data = ownr.fl_last_tkn('mdds_rsgrd', :fecha).archivo.path
+      else
+        pdf_data = get_pdf_data(dstntr, params[:oid], params[:rprt])
 
-    # Guardar en ActArchivo
-    act_archivo = dstntr[:objt].act_archivos.new(
-      act_archivo: params[:rprt],
-      nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
-      mdl: 'ClssPrcdmnt',
-    )
-    act_archivo.pdf.attach(
-      io: StringIO.new(pdf_data),
-      filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
-      content_type: 'application/pdf'
-    )
-    act_archivo.save!
+        # Guardar en ActArchivo
+        act_archivo = dstntr[:objt].act_archivos.new(
+          act_archivo: params[:rprt],
+          nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
+          mdl: 'ClssPrcdmnt',
+        )
+        act_archivo.pdf.attach(
+          io: StringIO.new(pdf_data),
+          filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
+          content_type: 'application/pdf'
+        )
+        act_archivo.save!
 
-    if act_archivo.save
-      redirect_back fallback_location: root_path, notice: "Reporte almacenado correctamente."
-    else
-      redirect_back fallback_location: root_path, alert: "Error al almacenar el reporte."
+      end
+
+      if dstntr[:ref].present?
+        ref_type = dstntr[:ref].class.name
+        ref_id   = dstntr[:ref].id
+      else
+        ref_type = nil
+        ref_id   = nil
+      end
+
+      dstntr[:objt].pdf_registros.create(ref_type: ref_type, ref_id: ref_id, cdg: params[:rprt])
     end
+    
+    set_bck_rdrccn
+    ntc = dstntrs.length == 0 ? 'No se encontraron destinatarios pendientes.' : "El reporte ha sido enviado exitosamente a #{dstntrs.length} participante(s)."
+    redirect_to @bck_rdrccn, notice: ntc
   end
 
   def audit_rprt

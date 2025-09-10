@@ -35,6 +35,7 @@ class ClssPrcdmnt
         { tipo: 'verificar_email',      si: ->(o) { true } },
         { tipo: 'dnncnt_info_oblgtr',   si: ->(o) { true } },
         { tipo: 'drchs',                si: ->(o) { true } },
+        { tipo: 'drvcn',                si: ->(o) { true } },
         { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'mdds_rsgrd',           si: ->(o) { true } },
         { tipo: 'invstgdr',             si: ->(o) { true } }
@@ -49,6 +50,7 @@ class ClssPrcdmnt
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
         { tipo: 'drchs',                si: ->(o) { true } },
+        { tipo: 'drvcn',                si: ->(o) { true } },
         { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'mdds_rsgrd',           si: ->(o) { true } },
         { tipo: 'invstgdr',             si: ->(o) { true } }
@@ -63,6 +65,7 @@ class ClssPrcdmnt
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
         { tipo: 'drchs',                si: ->(o) { true } },
+        { tipo: 'drvcn',                si: ->(o) { true } },
         { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'mdds_rsgrd',           si: ->(o) { true } },
         { tipo: 'invstgdr',             si: ->(o) { true } }
@@ -105,6 +108,7 @@ class ClssPrcdmnt
           'dnncnt_info_oblgtr'  => 'Información obligatoria para la persona participante',
           'drchs'               => 'Derechos y obligaciones de los participantes',
           'invstgcn'            => 'Notificación de recepción de denuncia ley 21.643',
+          'drvcn'               => 'Notificación de la derivación de la denuncia',
           'mdds_rsgrd'          => 'Medidas de resguardo',
           'invstgdr'            => 'Notificación del investigador asignado a la denuncia',
 

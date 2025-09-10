@@ -1,7 +1,8 @@
 class PdfRegistro < ApplicationRecord
 	belongs_to :ownr, polymorphic: true
 	belongs_to :ref, polymorphic: true, optional: true
-	belongs_to :pdf_archivo
+	# DEPRECATED
+	belongs_to :pdf_archivo, optional: true
 
 	def rdrccn
 		if ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(self.ownr_type)

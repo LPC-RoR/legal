@@ -28,8 +28,14 @@
 		<% else %>
 			<%= render partial: 'repositorios/check_auditorias/audit_lnks', locals: {hsh: hsh, act_id: act_id, ownr: ownr, act:code} %>
 			<% unless mdl.ref_generated?(code) %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{ownr.dnnc.id}&rprt=#{code}", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
-					<i class="bi bi-envelope-at"></i>
+				<% if ['krnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name) and ownr.articulo_516 %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_store_report?oid=#{ownr.dnnc.id}&rprt=#{code}", tltp: 'Generar y almacenar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
+						<i class="bi bi-file-earmark-pdf"></i>
+					<% end %>
+				<% else %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{ownr.dnnc.id}&rprt=#{code}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
+						<i class="bi bi-envelope-at"></i>
+					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>

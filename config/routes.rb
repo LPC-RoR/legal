@@ -88,6 +88,7 @@ Rails.application.routes.draw do
       match :dclrcn, via: :get, on: :collection
       match :drvcn, via: :get, on: :collection
       match :generate_and_send_report, via: :get, on: :collection
+      match :generate_and_store_report, via: :get, on: :collection
       match :audit_rprt, via: :get, on: :collection
     end
   end
