@@ -1,6 +1,7 @@
 class Usuario < ApplicationRecord
+  belongs_to :tenant
 
-	scope :ordered, -> { order(:created_at) }
+  scope :ordered, -> { order(:created_at) }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
