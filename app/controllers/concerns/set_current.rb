@@ -9,7 +9,7 @@ module SetCurrent
   private
 
   def set_current_tenant
-    Current.tenant = current_user&.tenant # or whatever logic you use
+    Current.tenant = current_usuario&.tenant # or whatever logic you use
   end
 end
 
