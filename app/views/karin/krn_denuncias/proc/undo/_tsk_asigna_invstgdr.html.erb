@@ -1,0 +1,28 @@
+<div class="border rounded-2 my-1">
+	<div class="p-2 bg_azul_claro" style="font-size: 1rem;">
+		<i class="bi bi-cone-striped text-danger"></i> Deshacer ultimas acciones:
+	</div>
+	<div>
+
+		<% if @objeto.fecha_ntfccn? or @objeto.fecha_trmtcn? or @objeto.fecha_hora_dt? %>
+			<% if @objeto.fecha_ntfccn? %>
+				<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
+					<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_ntfccn, prmpt: 'Fecha en la que la Dirección del Trabajo notificó recepción de una denuncia.'} %>
+				<% end %>
+			<% end %>
+
+			<% if @objeto.fecha_trmtcn? %>
+				<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
+					<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_trmtcn, prmpt: 'Fecha en la que empresa informó a la Dirección del Trabajo el inicio de la investigación.'} %>
+				<% end %>
+			<% end %>
+
+			<% if @objeto.fecha_hora_dt? %>
+				<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
+					<%= render partial: '0p/niler', locals: {objeto: @objeto, tkn: :fecha_hora_dt, prmpt: 'Fecha del certificado emitido por la Dirección del Trabajo por la recepción de la derivación de la denuncia.'} %>
+				<% end %>
+			<% end %>
+		<% end %>
+
+	</div>
+</div>

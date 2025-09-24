@@ -1,0 +1,22 @@
+<% source 	||= nil %>
+<% ownr  	||= nil %>
+<% blngs  	||= nil %>
+<% dir    	||= nil %>
+<% prtl   	||= nil %>
+<% clss_ttl ||= nil %>
+<% clss_lst ||= nil %>
+<div class="mx-1 my-2 border rounded-4 app_lnk">
+	<div class="p-2 border-bottom fw-bold <%=clss_ttl%>" style="font-size: 1rem;">
+		<div class="row gx-1">
+			<div class="col-10">
+				<%= render partial: prtl(source, dir, 'objt'), locals: {objt: source, ownr: ownr, blngs: blngs} if prtl?(source, dir, 'objt') %>
+			</div>
+			<div class="col-2 text-end">
+				<%= render partial: prtl(source, dir, 'lnks'), locals: {objt: source, ownr: ownr, blngs: blngs} if prtl?(source, dir, 'lnks') %>
+			</div>
+		</div>
+	</div>
+	<div class="py-2 px-3 <%=clss_lst%>">
+		<%= render partial: prtl(source, dir, 'lst'), locals: {objt: source, ownr: ownr, blngs: blngs} if prtl?(source, dir, 'lst') %>
+	</div>
+</div>

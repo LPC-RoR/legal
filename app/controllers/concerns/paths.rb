@@ -1,7 +1,7 @@
 module Paths
 	extend ActiveSupport::Concern
 
-	def krn_indx_action
+  	def krn_indx_action
 		{
 			'KrnDenuncia' => 'dnncs',
 			'KrnInvestigador' => 'invstgdrs',
@@ -26,4 +26,20 @@ module Paths
 			"/krn_denuncias/#{objt.ownr.dnnc.id}_1"
 		end
 	end
+
+	# ------------------------------------------------------ ACT_ARCHIVO
+
+	def dnnc_shw_path(ownr)
+		dnnc_id = "#{ownr.dnnc.id}_#{ownr.class.name == 'KrnDenuncia' ? '0' : '1'}"
+		"/krn_denuncias/#{dnnc_id}"
+	end
+
+	def act_archivo_rdrccn(ownr)
+		if ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name)
+			dnnc_shw_path(ownr)
+		else
+			ownr
+		end
+	end
+
 end

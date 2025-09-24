@@ -1,28 +1,31 @@
+<% act_id = "#{objeto.class.name}_#{objeto.id}" %>
 <div style="margin-left: 3%;">
 
 	<div class="ms-1 app_lnk" style="font-size: 14px;">
 
 		<%= render partial: 'karin/prtcpnts/objt/email_verification', locals: {objeto: objeto} %>
-		<%= render layout: 'cuentas/shw/list_box', locals: {ttl: 'Envío de información y notificaciones'} do %>
-			<%= render partial: 'pdf/pdf_registros/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, audit: objeto.dnnc.auditoria} %>
+		<!-- Las acciones se desbloquean si: -->
+		<!-- 1.- Hay un correo electrónico verificado -->
+		<!-- 2.- El correo electrónico fur auditado como presente -->
+		<!-- 3.- Se usa el correo certificado y ya se tienen la dirección -->
+		<!-- La opción 3 no permite enviar correo sólo crear los pdf asociados -->
+		<% if @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, 'verificar_email') or objeto.email_direccion? %>
+			<%= render layout: 'cuentas/shw/list_box', locals: {ttl: 'Envío de información y notificaciones'} do %>
+				<%= render partial: 'pdf/pdf_registros/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
+			<% end %>
 		<% end %>
 
 	</div>
 
 	<% if @objeto.investigadores? %>
-		<%= render partial: 'cuentas/indx/ttl_scndry', locals: {source: 'krn_declaraciones', brdr_wdth: 1, ownr: objeto, fs: 6} %>
-		<div class="px-2">
-			<% objeto.krn_declaraciones.fecha_ordr.each do |dclrcn| %>
-				<%= render partial: '0p/tbl/ln', locals: {objt: dclrcn, ownr: objeto, crud: 'lnks'} %>
-			<% end %>
-		</div>
+		<%= render partial: 'cuentas/prtls/smpl_box', locals: {source: 'krn_declaraciones', dir: 'indx', ownr: objeto, clss_ttl: 'bg_azul_claro'} %>
 	<% end %>
 
 	<div class="ms-1 app_lnk" style="font-size: 14px;">
 		<% act_id = "#{objeto.class.name}_#{objeto.id}" %>
 		<% unless @acts_hsh[act_id][:cdgs].empty? %>
 			<%= render layout: 'cuentas/shw/list_box', locals: {ttl: 'Documentos controlados'} do %>
-				<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, audit: objeto.dnnc.auditoria} %>
+				<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
 			<% end %>
 		<% end %>
 	</div>

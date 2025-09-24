@@ -1,19 +1,29 @@
 <% act_id = "#{ownr.class.name}_#{ownr.id}" %>
 <div class="row gx-1">
 	<div class="col-lg-10 <%= 'text-primary' if ownr.pdf_registros.exists?(cdg: code) %>">
-		<% if ownr.pdf_registros.exists?(cdg: code) %>
-			<i class="bi bi-check2-all text-primary"></i>
-		<% elsif hsh[act_id][:chcks].objt_audited?(ownr, code) %>
+
+		<% if mdl.act_lst?(code) %>
+			<i class="bi bi-list-task text-secondary"></i>
+		<% elsif ownr.pdf_registros.exists?(cdg: code) %>
+			<i class="bi bi-file-earmark-pdf"></i>
+		<% elsif hsh[act_id][:rlzds].objt_rlzd?(ownr, code) %>
 			<i class="bi bi-clipboard-check"></i>
 		<% else %>
+			<% if @krn_proc.tarea == ClssPrcdmnt.tsk_name[code] %>
+				<i class="bi bi-arrow-right text-primary"></i>
+			<% end %>
 			<i class="bi bi-cone-striped text-danger"></i>
 		<% end %>
-		<%=mdl.act_nombre[code]%>
+		<span class="text-<%=mdl.act_lst?(code) ? 'secondary' : 'primary'%>"><%=mdl.act_nombre[code]%></span>
+
 	</div>
 	<div class="col-lg-2 text-end app_lnk">
-		<% if (mdl.actn_multpl?(code) and hsh[act_id][code].any?) or ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) or hsh[act_id][:chcks].objt_audited?(ownr, code) %>
-			<% if (mdl.actn_multpl?(code) and hsh[act_id][code].any?) or ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) %>
-				<% unless mdl.actn_multpl?(code) %>
+		<!-- Si (se envía multiples veces y hay algun ActArchivo) or (Si no se envía multiples y hay un elemento) or ( se marcó como realizado) -->
+		<%# if (mdl.actn_multpl?(code) and hsh[act_id][code].any?) or ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) or hsh[act_id][:rlzds].objt_rlzd?(ownr, code) %>
+		<% if ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) or hsh[act_id][:rlzds].objt_rlzd?(ownr, code) %>
+			<%# if (mdl.actn_multpl?(code) and hsh[act_id][code].any?) or ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) %>
+			<% if ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) %>
+				<%# unless mdl.actn_multpl?(code) %>
 					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[act_id][code].id}/download", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
 						<i class="bi bi-download"></i>
 					<% end %>
@@ -21,13 +31,15 @@
 						<i class="bi bi-trash"></i>
 					<% end %>
 					<%#= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: hsh[act_id][code]} %>
-				<% end %>
+				<%# end %>
 			<% else %>
-				<%= render partial: 'repositorios/check_auditorias/audited_lnks', locals: {hsh: hsh, act_id: act_id, ownr: ownr, act:code} %>
+				<%= render partial: 'repositorios/check_realizados/rlzd', locals: {hsh: hsh, act_id: act_id, ownr: ownr, act:code} %>
 			<% end %>
 		<% else %>
-			<%= render partial: 'repositorios/check_auditorias/audit_lnks', locals: {hsh: hsh, act_id: act_id, ownr: ownr, act:code} %>
+
+			<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: hsh, act_id: act_id, ownr: ownr, act:code} %>
 			<% unless mdl.ref_generated?(code) %>
+			
 				<% if ['krnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name) and ownr.articulo_516 %>
 					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_store_report?oid=#{ownr.dnnc.id}&rprt=#{code}", tltp: 'Generar y almacenar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
 						<i class="bi bi-file-earmark-pdf"></i>
@@ -42,13 +54,13 @@
 	</div>
 </div>
 
-<% if mdl.actn_multpl?(code) and hsh[act_id][code].any? %>
+<% if mdl.actn_multpl?(code) and hsh[act_id][code]&.any? %>
 	<% hsh[act_id][code].each do |act_fl| %>
-		<div class="row gx-1 ms-4">
+		<div class="row gx-1 ms-4 text-primary">
 			<div class="col-lg-10">
 				<%= dma_hm(act_fl.created_at) %>
 			</div>
-			<div class="col-lg-2">
+			<div class="col-lg-2 pe-4 text-end objt_lnk">
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_fl.id}/download", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
 					<i class="bi bi-download"></i>
 				<% end %>

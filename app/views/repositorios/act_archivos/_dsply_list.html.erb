@@ -1,51 +1,37 @@
 <% act_id = "#{ownr.class.name}_#{ownr.id}" %>
+<%#= lnks %>
+<%# lnks ||= true %>
 <% hsh[act_id][:cdgs].each do |act| %>
 
 	<div class="row gx-1 text-<%=mdl.act_lst?(act) ? 'secodary' : 'primary'%>">
 		<div class="col-10 fw-bold">
 			<% if mdl.act_lst?(act) %>
 				<i class="bi bi-list-task"></i>
+			<% elsif (mdl.act_lst?(act) and hsh[act_id][act].any? and hsh[act_id][act].exists?(rlzd: true)) or ((not mdl.act_lst?(act)) and hsh[act_id][act]&.rlzd?) %>
+				<i class="bi bi-clipboard-check"></i>
 			<% else %>
 				<i class="bi bi-file-earmark-pdf"></i>
 			<% end %>
-			<!-- Act auditado -->
-			<% if hsh[act_id][:chcks].objt_audited?(ownr, act) %>
-				<i class="bi bi-clipboard-check"></i>
-			<!-- Act subido -->
-			<% elsif (mdl.act_lst?(act) and hsh[act_id][act].any?) or hsh[act_id][act].present? %>
-				<i class="bi bi-check2-all text-primary"></i>
-			<% else %>
+			<% if (mdl.act_lst?(act) and hsh[act_id][act].none?) or hsh[act_id][act].nil? %>
 				<i class="bi bi-cone-striped text-<%= mdl.act_optnl?(act) ? 'primary' : 'danger' %>"></i>
 			<% end %>
 			<%=mdl.act_nombre[act]%>
 		</div>
 		<div class="col-2 text-end app_lnk">
-			<% if audit and ((mdl.act_lst?(act) and @acts_hsh[act_id][act].empty?) or @acts_hsh[act_id][act].nil?) %>
-				<% if hsh[act_id][:chcks].objt_audited?(ownr, act) %>
-					<%= render partial: 'repositorios/check_auditorias/audited_lnks', locals: {hsh: hsh, act_id: act_id, ownr: ownr, act:act} %>
-				<% else %>
-					<%= render partial: 'repositorios/check_auditorias/audit_lnks', locals: {hsh: hsh, act_id: act_id, ownr: ownr, act:act} %>
-				<% end %>
-				<% unless hsh[act_id][:chcks].objt_audited?(ownr, act) %>
-					<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', gly: (mdl.act_lst?(act) ? 'plus-circle' : 'upload') ,ownr: ownr, tltp: "Agrega #{mdl.act_nombre[act].downcase}", prms: {act: act, mdl: mdl}} %>
-				<% end %>
-			<% else %>
-				<% unless mdl.act_lst?(act) %>
-					<% if hsh[act_id][act] %>
+			<% if lnks %>
+			<% if mdl.act_lst?(act) or ((not mdl.act_lst?(act)) and @acts_hsh[act_id][act].nil?) %>
+				<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', gly: (mdl.act_lst?(act) ? 'plus-circle' : 'upload') ,ownr: ownr, tltp: "Agrega #{mdl.act_nombre[act].downcase}", prms: {act: act, mdl: mdl}} %>
+			<% end %>
+			<% unless mdl.act_lst?(act) %>
+				<% if hsh[act_id][act] %>
+					<% unless hsh[act_id][act].rlzd? %>		
 						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[act_id][act].id}/download", tltp: "Bajar #{mdl.act_nombre[act].downcase}", target: '_blank'} do %>
 							<i class="bi bi-download"></i>
 						<% end %>
-						<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: hsh[act_id][act]} %>
-					<% else %>
-						<% unless hsh[act_id][:chcks].objt_audited?(ownr, act) %>
-							<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', gly: (mdl.act_lst?(act) ? 'plus-circle' : 'upload') ,ownr: ownr, tltp: "Agrega #{mdl.act_nombre[act].downcase}", prms: {act: act, mdl: mdl}} %>
-						<% end %>
 					<% end %>
-				<% else %>
-					<% unless hsh[act_id][:chcks].objt_audited?(ownr, act) %>
-						<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', gly: (mdl.act_lst?(act) ? 'plus-circle' : 'upload') ,ownr: ownr, tltp: "Agrega #{mdl.act_nombre[act].downcase}", prms: {act: act, mdl: mdl}} %>
-					<% end %>
+					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: hsh[act_id][act]} %>
 				<% end %>
+			<% end %>
 			<% end %>
 		</div>
 	</div>
@@ -56,11 +42,15 @@
 				<div class="row gx-1">
 					<div class="col-10">
 						<i class="bi bi-arrow-return-right"></i>
-						<i class="bi bi-file-earmark-pdf"></i>
+						<% if lst_fl.rlzd? %>
+							<i class="bi bi-clipboard-check"></i>
+						<% else %>
+							<i class="bi bi-file-earmark-pdf"></i>
+						<% end %>
 						<%=lst_fl.nombre%>
 					</div>
 					<div class="col-2 text-end app_lnk">
-						<%= render partial: '0p/tbl/lnks_e', locals: {objeto: lst_fl} %>
+						<%= render partial: '0p/tbl/lnks_e', locals: {objeto: lst_fl} if lnks %>
 					</div>
 				</div>
 			<% end %>

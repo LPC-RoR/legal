@@ -1,0 +1,4 @@
+<% drvcn = objeto.krn_derivaciones.last %>
+<%= link_to drvcn, data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro?" }, title: 'Eliminar última derivación', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+	<i class=<%="bi-trash"%>></i> Eliminar última derivación a <%=drvcn.destino%>
+<% end %>

@@ -63,9 +63,14 @@ gem 'caxlsx_rails'
 gem 'carrierwave', '~> 2.0'       # Subir archivos
 gem 'htmltoword'                  # Export to word
 gem 'pdf-reader'                  # Leer PDF files
+# Gemfile
+gem 'combine_pdf', '~> 1.0'
 
 gem 'wicked_pdf'                  # Para reportes en PDF
 gem 'wkhtmltopdf-binary'
+
+# Gemfile
+gem 'grover'                      # Para reportes en PDF con bootstrap 5
 
 gem 'mime-types'
 gem 'rqrcode'

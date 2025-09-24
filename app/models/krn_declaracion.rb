@@ -5,6 +5,8 @@ class KrnDeclaracion < ApplicationRecord
 
 	has_many :pdf_registros, as: :ref
 
+	before_validation :truncate_seconds
+
     validates_presence_of :fecha
 
  	scope :fecha_ordr, -> {order(fecha: :desc)}
@@ -28,4 +30,10 @@ class KrnDeclaracion < ApplicationRecord
  	def invstgdr_elmnd?
  		self.krn_denuncia.krn_investigadores.ids.include?(self.krn_investigador_id) == false
  	end
+
+	private
+
+	def truncate_seconds
+	  self.fecha = fecha&.change(sec: 0, usec: 0)
+	end
 end

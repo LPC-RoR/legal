@@ -1,0 +1,13 @@
+<div class="border rounded-2 my-1">
+	<div class="p-2 bg_azul_claro" style="font-size: 1rem;">
+		Pronunciamiento de la Dirección del Trabajo:
+	</div>
+	<div>
+		<%= render partial: '0p/proc/etp_frm', locals: {etp: @krn_proc.etapa, objeto: @objeto, code: 'fecha_prnncmnt', plz_fld: true} %>
+
+		<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
+			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :prnncmnt_vncd, prmpt: 'El plazo para recibir el pronunciamiento venció.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['plazo no vencido', 'plazo vencido']} %>
+		<% end %>
+
+	</div>
+</div>

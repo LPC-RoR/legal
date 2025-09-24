@@ -18,6 +18,10 @@
   background-color: cnfg.$azul_claro;
 }
 
+.bg_gris_claro {
+  background-color: cnfg.$gris_claro;
+}
+
 .bg_gray {
 	background-color: #dee2e6; /* Color personalizado */
 	color: cnfg.$pltt_4;
@@ -486,4 +490,16 @@
 /* Si tu .zoom-box tiene z-index 10 al hacer hover, el panel debe estar por encima */
 .zoom-box:hover {
   z-index: 10;
+}
+
+// TOOLTIP CON FONDO BLANCO
+
+.tooltip.custom-tooltip .tooltip-inner {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0,0,0,.15);
+}
+.tooltip.custom-tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #fff !important;
 }

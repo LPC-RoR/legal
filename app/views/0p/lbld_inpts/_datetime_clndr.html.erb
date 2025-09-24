@@ -1,4 +1,7 @@
 <div class="mb-3">
-  <%= form.label label %>
-  <%= form.datetime_local_field token, step: 60 %>
+  <%= form.label token %>
+  <%=
+    form.datetime_local_field token,
+          value: form.object[token]&.strftime("%Y-%m-%dT%H:%M")
+  %>
 </div>

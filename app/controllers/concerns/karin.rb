@@ -15,6 +15,7 @@ module Karin
     @objt['investigadores?']  = @objt['investigadores'].any?
 
     @objt['rrhh']             = objt.ownr.app_contactos.where(grupo: 'RRHH')
+    @objt['crdncn_apt']       = objt.ownr.app_contactos.where(grupo: 'Apt')
     @objt['rrhh?']            = @objt['rrhh'].any?
     @objt['recepcion']        = objt.ownr.app_contactos.where(grupo: 'Recepción')
     @objt['recepcion?']       = @objt['recepcion'].any?
@@ -22,7 +23,7 @@ module Karin
     @objt['rprsntnt_lgl?']    = @objt['rprsntnt_lgl'].any?
 
     mthds = [
-      'rcp_externa?', 'on_dt?', 'on_empresa?', 'on_externa?', 'rgstrs_ok?', 'motivo_vlnc?', 'externa?', 'verbal?', 'artcl41?',
+      'rcp_externa?', 'on_dt?', 'on_empresa?', 'on_externa?', 'rgstrs_ok?', 'externa?', 'verbal?', 'artcl41?',
       'rgstrs_mnms?', 'rgstrs_info_mnm?', 'get_infrmcn_oblgtr?', 'dnncnts_info_oblgtr?', 'rcpcn_dnnc?', 'drvcn_extrn?', 'get_opcns_dnncnt?',
       'get_crr_rcpcn?', 'fl_atncn_sclgc_tmprn?', 'fl_dnnc?', 'fl_acta?', 'fl_rprsntcn?', 'fl_ntfccn?', 'fl_crtfcd?',
       'fl_mdds_rsgrd?', 'fls_rcpcn?', 'inf_cierre?', 'fechas_crr_rcpcn?', 'info_rcpcn_sent?',
@@ -305,7 +306,7 @@ module Karin
   def set_fld
     fecha = params[:k].start_with?('fecha_')
     mthd  = params[:k]
-    vlr   = fecha ? params_to_date(params, mthd) : params[mthd.to_sym]
+    vlr   = fecha ? Date.parse(params[mthd.to_sym]) : params[mthd.to_sym]
 
     @objeto[mthd] = vlr
     @objeto.save

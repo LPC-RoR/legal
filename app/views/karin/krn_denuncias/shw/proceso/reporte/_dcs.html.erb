@@ -1,8 +1,0 @@
-<%= render partial: '0p/proc/ln', locals: {glosa: dc.rep_doc_controlado, gly: 'list-task', bld: true} %>
-<% if fls.empty? %>
-	<%= render partial: '0p/proc/ln', locals: {glosa: 'lista vacía', pddng: 1} %>
-<% else %>
-	<% fls.each do |fl| %>
-		<%= render partial: prtl_name(ownr, 'shw/proceso/reporte', 'dc'), locals: {dc: dc, fl: fl, ownr: ownr, pddng: 1} %>
-	<% end %>
-<% end %>

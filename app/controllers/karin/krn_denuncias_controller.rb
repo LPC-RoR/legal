@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler prsnt set_fld clear_fld prg ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt set_fld clear_fld prg ]
   before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   include ProcControl
@@ -14,8 +14,15 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
+    @rprt = DenunciaReport.new(@objeto).to_h
+
     @acts_hsh = {}
     add_to_act_hsh(@acts_hsh, @objeto)
+
+    act_id = "#{@objeto.class.name}_#{@objeto.id}"
+    @acts_hsh[act_id]['infrmcn']    = @objeto.act_archivos.where(act_archivo: 'infrmcn')
+    @acts_hsh[act_id]['crdncn_apt'] = @objeto.act_archivos.where(act_archivo: 'crdncn_apt')
+
     @objeto.krn_denunciantes.each do |dnncnt|
       add_to_act_hsh(@acts_hsh, dnncnt)
       dnncnt.krn_testigos.each do |tstg|
@@ -29,9 +36,15 @@ class Karin::KrnDenunciasController < ApplicationController
       end
     end
 
-    load_objt(@objeto)
+    @combinados = @objeto.act_archivos.where(act_archivo: 'combinado')
+
+    @krn_proc = KrnPrcdmnt.for(@objeto)
+    @archivos_obligatorios = ClssPrcdmnt.archivos_obligatorios(@objeto)
+    @acciones_obligatorias = ClssPrcdmnt.acciones_obligatorias(@objeto)
+
+#    load_objt(@objeto)
     load_proc(@objeto)
-    load_temas_proc
+#    load_temas_proc
     @doc = LglDocumento.find_by(codigo: 'd_rik')
     @prrfs = @doc.lgl_parrafos.ordr.dsplys
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
@@ -225,10 +238,21 @@ class Karin::KrnDenunciasController < ApplicationController
       act_id = "#{objt.class.name}_#{objt.id}"
       acts   = ClssPrcdmnt.archivos_que_aplican(objt)
       actns  = ClssPrcdmnt.acciones_que_aplican(objt)
+
+      files = objt.act_archivos.map {|act| act.act_archivo}
+      checks = objt.check_realizados.map {|chk| chk.cdg}
+
+      o_archvs = ClssPrcdmnt.archivos_obligatorios(objt) - files - checks
+      o_accns  = ClssPrcdmnt.acciones_obligatorias(objt) - files - checks
+
       hsh[act_id] = {}
       # Códigos act_archivo
-      hsh[act_id][:cdgs] = acts
+      hsh[act_id][:cdgs]  = acts
       hsh[act_id][:actns] = actns
+
+      hsh[act_id][:o_archvs] = o_archvs
+      hsh[act_id][:o_accns]  = o_accns
+
       acts.each do |act|
         # Act archivos de cada código
         if ClssPrcdmnt.act_lst?(act)
@@ -248,7 +272,9 @@ class Karin::KrnDenunciasController < ApplicationController
       end
 
       # Objetos auditados
-      hsh[act_id][:chcks] = objt.check_auditorias
+      hsh[act_id][:chcks]   = objt.check_auditorias
+      hsh[act_id][:rlzds]   = objt.check_realizados
+      hsh[act_id][:rgstrs]  = objt.pdf_registros
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -256,7 +282,7 @@ class Karin::KrnDenunciasController < ApplicationController
       @tbs = ['Proceso', 'Participantes', 'Reportes']
       prms = params[:id].split('_')
       @indx = prms[1].blank? ? (tipo_usuario == 'recepción' ? 1 : 0) : prms[1].to_i
-      @objeto = KrnDenuncia.find(prms[0])
+      @objeto = action_name == 'show' ? KrnDenuncia.estrctr.find(prms[0]) : KrnDenuncia.find(prms[0])
     end
 
     # Only allow a list of trusted parameters through.

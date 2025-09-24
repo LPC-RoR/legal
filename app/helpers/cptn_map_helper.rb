@@ -9,6 +9,8 @@ module CptnMapHelper
 
 	# Mantiene el prefijo si o tiene
 	def str_cntrllr(source)
+#		src_clss = source.class
+#		src_clss == Class ? source.name.tableize : (src_clss == 'String' ? source : source.class.name.tableize)
 		source.class.name == 'String' ? source : source.class.name.tableize
 	end
 
@@ -52,6 +54,7 @@ module CptnMapHelper
 		"#{with_scope(cntrllr)}#{"/"+subdir unless subdir.blank?}/#{prfx+"/" unless prfx.blank?}"
 	end
 
+	# DEPRECATED
 	def prtl_name(source, subdir, partial)
 		"#{prtl_dir(str_cntrllr(source), subdir)}#{partial}"
 	end
@@ -65,6 +68,11 @@ module CptnMapHelper
 	# str_cntrllr resuelve el source
 	def prtl?(source, subdir, partial)
 		File.exist?("app/views/#{prtl_dir(str_cntrllr(source), subdir)}_#{partial}.html.erb")
+	end
+
+	# Copia de prtl_name
+	def prtl(source, subdir, partial)
+		"#{prtl_dir(str_cntrllr(source), subdir)}#{partial}"
 	end
 
 	def prtl_file?(file)

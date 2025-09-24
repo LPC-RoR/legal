@@ -40,7 +40,7 @@
 				</div>
 				<div class="col text-end pt-3">
 					<% if prtl?(@objeto, 'hlp', 'detail') %>
-						<%= render layout: '0p/mdl/link', locals: {cdg: 'hlp_detail'} do %>
+						<%= render layout: '0p/mdl/link', locals: {cdg: 'hlp_detail', tltp: 'Ayuda'} do %>
 							<i class="bi bi-cursor"></i> ¿Necesita ayuda para llenar este formulario?
 						<% end %>
 						<%= render partial: '0p/mdl/mdl', locals: {cdg: "hlp_detail", ttl: "Ingreso de #{to_name(@objeto).downcase}", prtl: prtl_name(@objeto, 'hlp', 'detail'), sz: 'lg'} %>

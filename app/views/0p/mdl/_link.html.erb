@@ -1,5 +1,14 @@
 <div class="app_lnk">
-	<%= link_to "#", data: { bs_toggle: "modal", bs_target: "##{cdg}" } do %>
-		<%= yield %>
-	<% end %>
+  <%= link_to '#',
+              data: {
+                bs_toggle: 'modal',
+                bs_target: "##{cdg}"
+              },
+              title: tltp,
+              'data-bs-toggle-tooltip': true,
+              'data-bs-placement': 'top',
+              'data-bs-custom-class': 'custom-tooltip' do %>
+    <%= yield %>
+  <% end %>
 </div>
+	<%#= link_to "#", data: { bs_toggle: "modal", bs_target: "##{cdg}" } do %>

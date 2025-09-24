@@ -1,0 +1,21 @@
+<div class="my-1 border rounded-4">
+	<div class="px-3 border-bottom bg_azul_claro clr_azul_oscuro" style="font-size: 1rem;">Etapas concluidas</div>
+
+	<div class="px-3">
+
+		<table class="table table-sm table-striped">
+			<tbody>
+				<tr>
+					<th>Etapa</th>
+					<th>Plazo</th>
+					<th class="text-end">Fecha término</th>
+				</tr>
+				<% [:etp_rcpcn, :etp_invstgcn, :etp_infrm, :etp_prnncmnt, :etp_mdds_sncns].each do |etp| %>
+					<% if @objeto.plz_fecha_inicio(etp) %>
+						<%= render partial: 'karin/krn_denuncias/shw/proceso/etp_rlzd_objt', locals: {tkn: etp} %>
+					<% end %>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>

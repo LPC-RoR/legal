@@ -1,0 +1,16 @@
+<div class="border rounded-2 my-1">
+	<div class="p-2 bg_azul_claro" style="font-size: 1rem;">
+		La empresa elige entre las siguientes opciones:
+	</div>
+	<div>
+
+		<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
+			<%= render partial: 'karin/krn_derivaciones/lnk_drvcn', locals: {ownr: @objeto, color: 'success', codigo: 'drvcn_emprs'} %>
+		<% end %>
+		<% token = @objeto.on_empresa? ? :investigacion_local : :investigacion_externa %>
+		<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
+			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: token, prmpt: 'La empresa decide realizar la investigación.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
+		<% end %>
+
+	</div>
+</div>

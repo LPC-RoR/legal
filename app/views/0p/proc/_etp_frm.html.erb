@@ -4,8 +4,8 @@
 
 	<div class="row gx-1 px-1 pt-1">
 		<div class="col-10 ps-3">
-			<% if prtl?(objeto, "proc/#{etp.codigo}", "frm_#{code}") %>
-				<%= render partial: prtl_name(objeto, "proc/#{etp.codigo}", "frm_#{code}"), locals: {form: form, objeto: objeto, code: code} %>
+			<% if prtl?(objeto, "proc/#{etp}", "frm_#{code}") %>
+				<%= render partial: prtl_name(objeto, "proc/#{etp}", "frm_#{code}"), locals: {form: form, objeto: objeto, code: code} %>
 			<% end %>
 		</div>
 		<div class="col-2 text-end p-1">

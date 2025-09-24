@@ -1,0 +1,10 @@
+<div class="border rounded-2 my-1">
+	<div class="p-2 bg_azul_claro" style="font-size: 1rem;">
+		<i class="bi bi-cone-striped text-danger"></i> Deshacer ultimas acciones:
+	</div>
+	<div>
+		<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
+			<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :dnncnt_investigacion_local, prmpt: 'La persona denunciante manifiesta su deseo de que la investigación sea realizada por la empresa.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
+		<% end %>
+	</div>
+</div>

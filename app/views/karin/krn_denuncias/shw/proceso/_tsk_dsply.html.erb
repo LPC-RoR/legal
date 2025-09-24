@@ -1,0 +1,3 @@
+<% if tsk_exist?(@objeto, @krn_proc.tarea) %>
+	<%= render partial: tsk_prtl(@objeto, @krn_proc.tarea), locals: {objt: @objeto} %>
+<% end %>

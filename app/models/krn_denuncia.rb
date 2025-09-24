@@ -1,14 +1,15 @@
 class KrnDenuncia < ApplicationRecord
 
-	DT = 'Dirección del Trabajo'
+	DT = 'Dirección del Trabajo'.freeze
 
-	ACCTN = 'dnncs'
+	ACCTN = 'dnncs'.freeze
 
-	MOTIVOS = ['Acoso laboral', 'Acoso sexual', 'Violencia en el trabajo ejercida por terceros']
+	RECEPTORES = ['Empresa', 'Empresa externa', 'Dirección del Trabajo'].freeze
+	MOTIVOS = ['Acoso laboral', 'Acoso sexual', 'Violencia en el trabajo ejercida por terceros'].freeze
 
-	VIAS_DENUNCIA = ['Presencial', 'Correo electrónico', 'Plataforma']
-	TIPOS_DENUNCIANTE = ['Denunciante', 'Representante']
-	TIPOS_DENUNCIA = ['Escrita', 'Verbal']
+	VIAS_DENUNCIA = ['Presencial', 'Correo electrónico', 'Plataforma'].freeze
+	TIPOS_DENUNCIANTE = ['Denunciante', 'Representante'].freeze
+	TIPOS_DENUNCIA = ['Escrita', 'Verbal'].freeze
 
 	PROC = 'krn_invstgcn'
 
@@ -18,6 +19,7 @@ class KrnDenuncia < ApplicationRecord
 #	belongs_to :krn_investigador, optional: true
 
 	has_many :act_archivos, as: :ownr
+	has_many :check_realizados, as: :ownr
 	has_many :check_auditorias, as: :ownr
 	has_many :audit_notas, as: :ownr
 
@@ -25,14 +27,14 @@ class KrnDenuncia < ApplicationRecord
 
 	has_many :notas, as: :ownr
 	# Los ownr de los pdf_registros SIEMPRE son destinatarios
-	has_many :pdf_registros, as: :ref
+	has_many :pdf_registros, as: :ownr
 
-	has_many :krn_denunciantes
-	has_many :krn_denunciados
-	has_many :krn_derivaciones
-	has_many :krn_declaraciones
+	has_many :krn_denunciantes, -> { order(created_at: :asc) }, dependent: :destroy
+	has_many :krn_denunciados, -> { order(created_at: :asc) }, dependent: :destroy
+	has_many :krn_derivaciones, -> { order(created_at: :asc) }, dependent: :destroy
+	has_many :krn_declaraciones, -> { order(created_at: :asc) }, dependent: :destroy
 
-	has_many :krn_inv_denuncias
+	has_many :krn_inv_denuncias, -> { order(created_at: :asc) }, dependent: :destroy
 	has_many :krn_investigadores, through: :krn_inv_denuncias
 
 #	enum etapa: { recepcion: 0, investigacion: 1, informe: 2, pronunciamiento: 3, aplicacion: 4 }
@@ -48,9 +50,19 @@ class KrnDenuncia < ApplicationRecord
 	validates :tipo_declaracion, presence: true, if: -> { via_declaracion == 'Presencial' }
 	validates :representante, presence: true, if: -> { presentado_por == 'Representante' }
 
+	include Cptn
+
 	include Dnnc
 	include DnncProc
 	include Fls
+
+	def self.estrctr
+		includes(
+			krn_denunciantes: [:krn_testigos, :krn_declaraciones],
+			krn_denunciados: [:krn_testigos, :krn_declaraciones],
+			krn_inv_denuncias: [], krn_derivaciones: []
+			)
+	end
 
 	def sym
 		:dnnc
@@ -73,28 +85,49 @@ class KrnDenuncia < ApplicationRecord
 		self.multiempresa? ? 'Multi' : (self.externa? ? 'Externa' : (self.empresa? ? 'Empresa' : '?'))
 	end
 
+	# ------------------------------------------------------------------------ MOTIVOS
+
+	def laboral?
+		motivo_denuncia == MOTIVOS[0]
+	end
+
+	def sexual?
+		motivo_denuncia == MOTIVOS[1]
+	end
+
+	def violencia?
+		motivo_denuncia == MOTIVOS[2]
+	end
 
 	# ------------------------------------------------------------------------ COMPETENCIA DE INVESTIGAR
 	# Se conservó la forma inicial
 
+	def empleados_externos?
+		krn_denunciantes.exists?(empleado_externo: true) || krn_denunciados.exists?(empleado_externo: true)
+	end
+
 	def emprss_ids
-		( self.krn_denunciantes.emprss_ids + self.krn_denunciados.emprss_ids ).uniq
+		(krn_denunciantes.pluck(:krn_empresa_externa_id) + krn_denunciados.pluck(:krn_empresa_externa_id)).uniq
 	end
 
 	def empresa?
-		e_ids = self.emprss_ids
-		e_ids.length == 1 and e_ids[0] == nil
+		not empleados_externos?
 	end
 
 	def externa?
-		e_ids = self.emprss_ids
-		e_ids.length == 1 and e_ids[0] != nil
+		ids = emprss_ids
+		empleados_externos? and
+		ids.size == 1 and ids[0] != nil
 	end
 
 	# NO se usa
 	def multiempresa?
-		e_ids = self.emprss_ids
-		self.emprss_ids.length > 1
+		empleados_externos? and
+		emprss_ids.size > 1
+	end
+
+	def externa_id
+		rcp_externa? ? krn_empresa_externa_id : (externa? ? emprss_ids[0] : nil)
 	end
 
 	# externa que investiga REVISAR porque se puede confundir con Externa que recibió
@@ -105,28 +138,204 @@ class KrnDenuncia < ApplicationRecord
 
 	# ------------------------------------------------------------------------ RCPS & DRVS
 
-	def rcp_dt?
-		self.receptor_denuncia == KrnDenuncia::DT
-	end
-
 	def rcp_empresa?
-		self.receptor_denuncia == 'Empresa'
+		receptor_denuncia == RECEPTORES[0]
 	end
 
 	def rcp_externa?
-		self.receptor_denuncia == 'Empresa externa'
+		receptor_denuncia == RECEPTORES[1]
 	end
 
-	def on_dt?
-		self.krn_derivaciones.empty? ? self.rcp_dt? : self.krn_derivaciones.on_dt?
+	def rcp_dt?
+		receptor_denuncia == RECEPTORES[2]
+	end
+
+	def emprs_recibida_por_extrn?
+		rcp_externa? and empresa?
+	end
+
+	def extrn_recibida_por_emprs?
+		rcp_empresa? and externa?
 	end
 
 	def on_empresa?
-		self.krn_derivaciones.empty? ? self.rcp_empresa? : self.krn_derivaciones.on_empresa?
+		campo = krn_derivaciones.none? ?  receptor_denuncia : krn_derivaciones.last&.destino
+		campo == RECEPTORES[0]
 	end
 
 	def on_externa?
-		self.krn_derivaciones.empty? ? self.rcp_externa? : self.krn_derivaciones.on_externa?
+		campo = krn_derivaciones.none? ?  receptor_denuncia : krn_derivaciones.last&.destino
+		campo == RECEPTORES[1]
+	end
+
+	def on_dt?
+		campo = krn_derivaciones.none? ?  receptor_denuncia : krn_derivaciones.last&.destino
+		campo == RECEPTORES[2]
+	end
+
+	def drvcn_dt?
+		krn_derivaciones.last&.destino == RECEPTORES[2]
+	end
+
+	# ------------------------------------------------------------------------ ESTADO DE LOS REEGISTROS BAJO DNNC
+
+	def act_operativo?(cdg)
+		act_archivos.exists?(act_archivo: cdg) ||
+		CheckRealizado.objt_rlzd?(self, cdg)
+	end
+
+	# Se ingresó información mínima de la denuncia y sus participantes
+	def prtcpnts_minimos?
+		krn_denunciantes.exists? && (krn_denunciados.exists? || violencia?)
+	end
+
+	def on_rcp?
+		prtcpnts_minimos? and krn_derivaciones.none?
+	end
+
+ 	# No hay derivaciones entre empresas
+ 	def proc_not_drvcn_entre_empresas?
+ 		campos = [tsk_emprs_drvcn_extrn?, tsk_extrn_drvcn_emprs?]
+ 		campos.count(true) == 0
+ 	end
+
+	# Se entregó la información obligatoria a los denunciantes
+	def dnncnts_infrmds?
+	    krn_denunciantes.all? do |denunciante|
+	      denunciante.act_archivos.exists?(act_archivo: 'dnncnt_info_oblgtr') ||
+	      denunciante.check_realizados.exists?(cdg: 'dnncnt_info_oblgtr')
+	    end
+	end
+
+	def tiene_art4_1?
+		krn_denunciantes.exists?(articulo_4_1: true) || krn_denunciados.exists?(articulo_4_1: true)
+	end
+
+	# todos tienen rut e email, considera caso de articulo_516 y violencia
+	def cmplts?
+	  return false if krn_denunciantes.none?
+
+	  # Solo chequea denunciados si violencia? es falso
+	  if !violencia? && krn_denunciados.none?
+	    return false
+	  end
+
+	  krn_denunciantes.all?(&:cmplt?) &&
+	  krn_denunciados.all?(&:cmplt?) &&
+	  krn_denunciantes.flat_map(&:krn_testigos).all?(&:cmplt?) &&
+	  krn_denunciados.flat_map(&:krn_testigos).all?(&:cmplt?)
+	end
+
+	def donde_estoy?
+		on_empresa? ? RECEPTORES[0] : (on_externa? ? RECEPTORES[1] : RECEPTORES[2])
+	end
+
+	def not_on_dt?
+		donde_estoy? != RECEPTORES[2]
+	end
+
+	def drvcn_with_cdg(cdg)
+		krn_derivaciones.exists?(codigo: cdg)		
+	end
+
+	def apt_coordinada?
+		act_operativo?('crdncn_apt')
+	end
+
+	def infrmcn_slctd?
+		act_operativo?('infrmcn')
+	end
+
+	def comprobantes_firmados?
+		krn_denunciantes.all?(&:tiene_comprobante?)
+	end
+
+	def tiene_mdds_rsgrd?
+#	  act_archivos.any? { |a| a.act_archivo == 'mdds_rsgrd' && a.pdf.attached? }
+	  act_archivos.any? { |a| a.act_archivo == 'mdds_rsgrd' }
+	end
+
+	def tienen_mdds_rsgrd?
+		(krn_denunciantes + krn_denunciados).all?(&:tiene_mdds_rsgrd?)
+	end
+
+	def dnnc_notificada?
+		krn_denunciantes.map {|d| d.act_operativo?('invstgcn').to_s}.uniq.join('_') == 'true'
+	end
+
+	def mdds_rsgrd?
+		tiene_mdds_rsgrd? and tienen_mdds_rsgrd?
+	end
+
+	def evidencia_apt?
+		krn_denunciantes.map {|d| d.act_operativo?('apt').to_s}.uniq.join('_') == 'true'
+	end
+
+	def tiene_investigador?
+		krn_inv_denuncias.where(objetado: [false, nil]).exists?
+	end
+
+	def analizada?
+		evlcn_ok or (evlcn_incnsstnt and fecha_hora_corregida?)
+	end
+
+	def tienen_dclrcn?
+	  return false if krn_denunciantes.none?
+
+	  # Solo chequea denunciados si violencia? es falso
+	  if !violencia? && krn_denunciados.none?
+	    return false
+	  end
+
+	  krn_denunciantes.all?(&:tiene_dclrcn?) &&
+	  krn_denunciados.all?(&:tiene_dclrcn?) &&
+	  krn_denunciantes.flat_map(&:krn_testigos).all?(&:tiene_dclrcn?) &&
+	  krn_denunciados.flat_map(&:krn_testigos).all?(&:tiene_dclrcn?)
+	end
+
+	def tiene_infrm?
+	  act_archivos.any? { |a| a.act_archivo == 'informe' && a.pdf.attached? || a.rlzd? }
+	end
+
+	def tiene_mdds_sncns?
+	  act_archivos.load.any? do |a|
+	    a.act_archivo == 'medidas_sanciones' && (a.pdf.attached? || a.rlzd?)
+	  end
+	end
+	
+	def fecha_ultima_evidencia
+		act_archivos&.where(act_archivo: 'medidas_sanciones')&.last.fecha
+	end
+
+	def unir_pdfs!
+		# 1. recolectar blobs
+		blobs = act_archivos.joins(:pdf_attachment).map { |aa| aa.pdf.blob }
+		return if blobs.empty?
+
+		# 2. combinar
+		combined = CombinePDF.new
+		blobs.each do |blob|
+			combined << CombinePDF.parse(blob.download)
+		end
+
+		# 3. crear el objeto en memoria
+		nuevo = act_archivos.new(
+			mdl:         'ClssPrcdmnt',
+			act_archivo: 'combinado',
+			nombre:      "pdf_#{id}_combinado.pdf"
+		)
+
+	  	# 4. adjuntar **antes** de validar/guardar
+	  	nuevo.pdf.attach(
+		    io:           StringIO.new(combined.to_pdf),
+		    filename:     "denuncia_#{id}_combinado.pdf",
+		    content_type: 'application/pdf'
+		)
+
+		# 5. guardar (ahora sí pasa la validación de PDF adjunto)
+		nuevo.save!
+
+		nuevo
 	end
 
 end

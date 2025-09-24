@@ -1,5 +1,13 @@
 class Rprts::KrnReportesController < ApplicationController
 
+  REF_CLSS = {
+    'invstgdr'  => KrnInvDenuncia,
+    'drvcn'     => KrnDerivacion,
+    'dclrcn'    => KrnDeclaracion,
+    'infrmcn'   => AppContacto,
+    'crdncn_apt'=> AppContacto
+  }.freeze
+
   layout :pdf
 
   include Karin
@@ -30,6 +38,13 @@ class Rprts::KrnReportesController < ApplicationController
     @logo_url = @objeto.dnnc.ownr.logo_url
 
     respond_to_pdf('dnncnt_info_oblgtr')
+  end
+
+  def comprobante
+    @objeto = KrnDenuncia.find(params[:oid])
+    @logo_url = @objeto.dnnc.ownr.logo_url
+
+    respond_to_pdf('comprobante')
   end
 
   def dnnc
@@ -66,6 +81,17 @@ class Rprts::KrnReportesController < ApplicationController
     respond_to_pdf('infrmcn')
   end
 
+  def crdncn_apt
+    @objeto = KrnDenuncia.find(params[:oid])
+    @logo_url = @objeto.ownr.logo_url
+
+    load_objt(@objeto)
+
+    set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
+
+    respond_to_pdf('crdncn_apt')
+  end
+
   def invstgcn
     @objeto = KrnDenuncia.find(params[:oid])
     @logo_url = @objeto.ownr.logo_url
@@ -73,11 +99,11 @@ class Rprts::KrnReportesController < ApplicationController
     respond_to_pdf('invstgcn')
   end
 
-  def mdds_rsgrd
+  def medidas_resguardo
     @objeto = KrnDenuncia.find(params[:oid])
     @logo_url = @objeto.ownr.logo_url
 
-    respond_to_pdf('mdds_rsgrd')
+    respond_to_pdf('medidas_resguardo')
   end
 
   def invstgdr
@@ -103,44 +129,63 @@ class Rprts::KrnReportesController < ApplicationController
 
   def sbjcts
     {
-      infrmcn:  'Verificación de datos y solicitud de documentación.',
-      drvcn:    'Notificación de derivación de la denuncia.',
-      invstgcn: 'Notificación de recepción de denuncia.',
-      invstgdr: 'Notificación de asignación de Investigador.',
-      dclrcn:  'Citación a declarar.'
-    }
+      infrmcn:    'Verificación de datos y solicitud de documentación.',
+      crdncn_apt: 'Coordinación de atención psicológica temprana.',
+      drvcn:      'Notificación de derivación de la denuncia.',
+      invstgcn:   'Notificación de recepción de denuncia.',
+      invstgdr:   'Notificación de asignación de Investigador.',
+      dclrcn:     'Citación a declarar.'
+    }.freeze
   end
 
   # Método para generar PDF y enviarlo por correo electrónico
   def generate_and_send_report
+
     # Manejo de tablas
     load_data(params[:oid], params[:rprt])
-
     dstntrs = get_dstntrs(params[:oid], params[:rprt])
 
     dstntrs.each do |dstntr|
+      ownr_fl  = ['infrmcn', 'crdncn_apt'].include?(params[:rprt]) ? KrnDenuncia.find(params[:oid]) : dstntr[:objt]
+      ref_type = ['infrmcn', 'crdncn_apt', 'drvcn', 'invstgdr', 'dclrcn'].include?(params[:rprt]) ? REF_CLSS[params[:rprt]].to_s : nil
+      ref_id   = ['drvcn', 'invstgdr', 'dclrcn'].include?(params[:rprt]) ? params[:oid] : (['infrmcn', 'crdncn_apt'].include?(params[:rprt]) ? dstntr[:objt].id : nil)
+
       # Generación de la DATA
       case params[:rprt]
-      when 'mdds_rsgrd'
-        ownr = KrnDenuncia.find(params[:oid])
-        pdf_data = ownr.fl_last_tkn('mdds_rsgrd', :fecha).archivo.path
-      else
+      when 'medidas_resguardo'
+
+  pdf_blob = ownr_fl.dnnc
+                 &.act_archivos
+                 &.find_by(act_archivo: 'mdds_rsgrd')
+                 &.pdf
+                 &.blob
+  pdf_data = pdf_blob&.download
+
+  unless pdf_data.present?
+    Rails.logger.warn "No se encontró PDF de medidas_resguardo para oid=#{params[:oid]}"
+    next  # <-- saltar este destinatario y continuar con el siguiente
+  end
+        else
         pdf_data = get_pdf_data(dstntr, params[:oid], params[:rprt])
-
-        # Guardar en ActArchivo
-        act_archivo = dstntr[:objt].act_archivos.new(
-          act_archivo: params[:rprt],
-          nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
-          mdl: 'ClssPrcdmnt',
-        )
-        act_archivo.pdf.attach(
-          io: StringIO.new(pdf_data),
-          filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
-          content_type: 'application/pdf'
-        )
-        act_archivo.save!
-
       end
+
+       # Guardar en ActArchivo
+      act_archivo = dstntr[:objt].act_archivos.new(
+        act_archivo: params[:rprt],
+        nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
+        mdl: 'ClssPrcdmnt',
+      )
+      act_archivo.pdf.attach(
+        io: StringIO.new(pdf_data),
+        filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
+        content_type: 'application/pdf'
+      )
+      act_archivo.save!
+
+      # Ahora sí guardar
+      act_archivo.save!
+
+
 
       # Enviar por correo
       PdfMailer.send_pdf(
@@ -151,15 +196,7 @@ class Rprts::KrnReportesController < ApplicationController
         sbjcts[params[:rprt].to_sym]
       ).deliver_now
 
-      if dstntr[:ref].present?
-        ref_type = dstntr[:ref].class.name
-        ref_id   = dstntr[:ref].id
-      else
-        ref_type = nil
-        ref_id   = nil
-      end
-
-      dstntr[:objt].pdf_registros.create(ref_type: ref_type, ref_id: ref_id, cdg: params[:rprt])
+      ownr_fl.pdf_registros.create(ref_type: ref_type, ref_id: ref_id, cdg: params[:rprt])
     end
     
     set_bck_rdrccn
@@ -168,15 +205,21 @@ class Rprts::KrnReportesController < ApplicationController
   end
 
   def generate_and_store_report
+    @ownr = KrnDenuncia.find(params[:oid]) if ['infrmcn', 'crdncn_apt', 'medidas_resguardo'].include?(params[:rprt])
+
     load_data(params[:oid], params[:rprt])
     dstntrs = get_dstntrs(params[:oid], params[:rprt])
 
     dstntrs.each do |dstntr|
+
       # Generación de la DATA
       case params[:rprt]
-      when 'mdds_rsgrd'
-        ownr = KrnDenuncia.find(params[:oid])
-        pdf_data = ownr.fl_last_tkn('mdds_rsgrd', :fecha).archivo.path
+      when 'medidas_resguardo'
+        pdf_rcrd = ownr_fl.dnnc&.act_archivos
+                 .find_by(act_archivo: 'medidas_resguardo')
+                 &.pdf
+                 &.blob
+        pdf_data = pdf_rcrd&.download
       else
         pdf_data = get_pdf_data(dstntr, params[:oid], params[:rprt])
 
@@ -265,7 +308,7 @@ class Rprts::KrnReportesController < ApplicationController
     end
 
     def get_objt(oid, rprt)
-      if ['dnncnt_info_oblgtr', 'infrmcn', 'mdds_rsgrd'].include?(rprt)
+      if ['dnncnt_info_oblgtr', 'comprobante', 'infrmcn', 'crdncn_apt', 'medidas_resguardo'].include?(rprt)
           KrnDenuncia.find(oid)
       else
         case rprt
@@ -284,6 +327,8 @@ class Rprts::KrnReportesController < ApplicationController
       when 'drvcn'
         invstgdr = KrnDerivacion.find(oid).krn_denuncia.krn_investigadores.last
       when 'dnncnt_info_oblgtr'
+        invstgdr = KrnDenuncia.find(oid).krn_investigadores.last
+      when 'comprobante'
         invstgdr = KrnDenuncia.find(oid).krn_investigadores.last
       when 'invstgcn'
         invstgdr = KrnDenuncia.find(oid).krn_investigadores.last
@@ -316,38 +361,56 @@ class Rprts::KrnReportesController < ApplicationController
         invstgdr = get_invstgdr(oid, rprt)
         rgstr = dclrcn.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
         dstntrs << {objt: dclrcn.ownr, ref: dclrcn, invstgdr: invstgdr, nombre: dclrcn.ownr.nombre, rol: to_name(dclrcn.ownr), email: dclrcn.ownr.email} if rgstr.blank?
-      elsif ['dnncnt_info_oblgtr'].include?(rprt)  
+      elsif ['dnncnt_info_oblgtr', 'comprobante'].include?(rprt)  
         ref = get_objt(oid, rprt)
         invstgdr = get_invstgdr(oid, rprt)
         @objt['denunciantes'].each do |dnncnt|
-          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
+          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: nil, cdg: rprt)
           dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
         end
-      elsif ['drvcn', 'invstgdr', 'invstgcn', 'drchs', 'mdds_rsgrd'].include?(rprt)
+      elsif ['medidas_resguardo'].include?(rprt)
         ref = get_objt(oid, rprt)
         invstgdr = get_invstgdr(oid, rprt)
         @objt['denunciantes'].each do |dnncnt|
-          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
+          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: nil, cdg: rprt)
+          dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
+        end
+        @objt['denunciados'].each do |dnncd|
+          rgstr = dnncd.pdf_registros.find_by(pdf_archivo_id: nil, cdg: rprt)
+          dstntrs << {objt: dnncd, ref: ref, invstgdr: invstgdr, nombre: dnncd.nombre, rol: 'Denunciante', email: dnncd.email} if rgstr.blank?
+        end
+      elsif ['drvcn', 'invstgdr', 'invstgcn', 'drchs'].include?(rprt)
+        ref = get_objt(oid, rprt)
+        invstgdr = get_invstgdr(oid, rprt)
+        @objt['denunciantes'].each do |dnncnt|
+          rgstr = dnncnt.pdf_registros.find_by(pdf_archivo_id: nil, cdg: rprt)
           dstntrs << {objt: dnncnt, ref: ref, invstgdr: invstgdr, nombre: dnncnt.nombre, rol: 'Denunciante', email: dnncnt.email} if rgstr.blank?
           dnncnt.krn_testigos.each do |tstg|
-            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
+            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: nil, cdg: rprt)
             dstntrs << {objt: tstg, ref: ref, invstgdr: invstgdr, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
           end
         end
         @objt['denunciados'].each do |dnncd|
-          rgstr = dnncd.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
+          rgstr = dnncd.pdf_registros.find_by(pdf_archivo_id: nil, cdg: rprt)
           dstntrs << {objt: dnncd, ref: ref, invstgdr: invstgdr, nombre: dnncd.nombre, rol: 'Denunciante', email: dnncd.email} if rgstr.blank?
           dnncd.krn_testigos.each do |tstg|
-            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: @pdf_archivo.id, cdg: rprt)
+            t_rgstr = tstg.pdf_registros.find_by(pdf_archivo_id: nil, cdg: rprt)
             dstntrs << {objt: tstg, ref: ref, invstgdr: invstgdr, nombre: tstg.nombre, rol: 'Testigo', email: tstg.email} if t_rgstr.blank?
           end
         end
-      elsif ['infrmcn'].include?('infrmcn')
+      elsif ['infrmcn'].include?(rprt)
         # Reporte de solicitud de Información
         ref = get_objt(oid, rprt)
         @objt['rrhh'].each do |rol|
           rgstrs = rol.pdf_registros.where(pdf_archivo_id: @pdf_archivo.id, ref_id: ref.id, cdg: rprt)
           dstntrs << {objt: rol, ref: ref, nombre: rol.nombre, rol: 'RRHH', email: rol.email} if (rgstrs.empty? or rgstrs.count < 3)
+        end
+      elsif ['crdncn_apt'].include?(rprt)
+        # Reporte de solicitud de Información
+        ref = get_objt(oid, rprt)
+        @objt['crdncn_apt'].each do |rol|
+          rgstrs = rol.pdf_registros.where(pdf_archivo_id: @pdf_archivo&.id, ref_id: ref.id, cdg: rprt)
+          dstntrs << {objt: rol, ref: ref, nombre: rol.nombre, rol: 'Apt', email: rol.email} if (rgstrs.empty? or rgstrs.count < 3)
         end
       end
 

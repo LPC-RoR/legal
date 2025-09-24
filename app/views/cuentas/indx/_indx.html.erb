@@ -17,7 +17,7 @@
 		<%= render partial: '0p/tbl/tbl', locals: {source: 'app_contactos', crud: 'lnks'} %>
 	<% end %>
 
-	<% unless @objeto.rgstrs_mnms? %>
+	<% unless @objeto.recepcion_habilitada? %>
 			<%= render partial: prtl_name('cuentas', 'indx/mssgs', 'rgstrs_mnms') %>
 	<% end %>
 <% elsif @objeto.demo_vencido? or @objeto.producto_vencido? %>

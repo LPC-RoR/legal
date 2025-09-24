@@ -12,7 +12,10 @@ window.bootstrap = bootstrap
 
 document.addEventListener("turbo:load", () => {
   document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((el) => {
-    new bootstrap.Tooltip(el, { container: 'body' });
+    new bootstrap.Tooltip(el, {
+      container: 'body',
+      customClass: 'custom-tooltip'   // <-- clave
+    });
   });
 });
 

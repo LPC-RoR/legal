@@ -1,5 +1,5 @@
 <!-- NOTA Ingresar participantes -->
-<% unless @objt['denunciantes?'] and (@objt['denunciados?'] or @objeto.motivo_vlnc?) %>
+<% unless @objt['denunciantes?'] and (@objt['denunciados?'] or @objeto.violencia?) %>
 	<%= render partial: prtl_name(@objeto, 'mssgs', 'dnnc_nueva') %>
 <% else %>
 	<div class="ms-5">

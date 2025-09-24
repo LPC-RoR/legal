@@ -1,0 +1,26 @@
+<h2>Comprobante de recepción de denuncia Ley 21.643.</h2>
+
+<p style="font-size: 0.8rem;line-height: 1.5;"><b>NOTA</b> Cumpliendo con el protocolo de confidencialidad que exige el reglamento que regula el procedimiento de investigación y sanción, este documento no contiene información que pueda vulnerar dicho derecho.</p>
+
+<p>Con fecha <%=dma(@objeto.fecha_hora)%> usted ha presentado en calidad de persona denunciante, una denuncia en el contexto de la Ley 21.643. Para fines administrativo y de consulta, dicha denuncia ha sido caratulada con el identificador <%=@objeto.identificador%>.</p>
+
+<% if @objeto.via_declaracion == 'Presencial' and @objeto.tipo_declaracion == 'Verbal' %>
+	<p>Su denuncia fue presentada en forma verbal, razón por la cual se levantó un acta que contiene su declaración en forma integra. Esta acta, le fue presentada, firmada por usted en todas sus hojas y timbrada por la empresa.</p>
+
+	<p>El acta firmada y timbrada fue generada en dos ejemplares idénticos, uno de ellos le fue entregado en su calidad de persona denunciante, la otra copia queda en poder de la empresa como parte de la carpeta investigativa de la denuncia.</p>
+
+	<p>Durante la recepción de su denuncia se le entregó toda la información que el reglamento establece como obligatoria en su condición de persona denunciante</p>
+<% else %>
+	<p>El documento presentado como usted como denuncia ha sido incorporado a la carpeta de investigación de su denuncia.</p>
+<% end %>
+
+<p>La empresa le ha enviado vía correo electrónico, el detalle de todos los derechos y responsabilidades de los participantes de este procedimiento establecidos en el reglamento que lo regula, entre otros:
+	<ul>
+		<li>Su derecho a solicitar la derivación a la Dirección del Trabajo de su denuncia.</li>
+		<li>El derecho de la empresa a, en el plazo de tres días hábiles contados desde la fecha de su recepción, derivar la denuncia a la Dirección del Trabajo.</li>
+		<li>La obligación de la empresa a proporcionar inmediatamente atención psicológica temprana a las personas denunciantes.</li>
+		<li>La obligación de la empresa a definir y aplicar medidas de resguardo aplicables a personas denunciantes y denunciadas.</li>
+	</ul>
+</p>
+
+<p>Si usted tiene alguna diferecia o duda con lo expresado en este documento, por favor presentela a su canal de denuncia para su aclaración o corrección.</p>

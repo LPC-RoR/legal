@@ -115,6 +115,27 @@ module Capitan
 	end
 
 	# Auditoria
+	def rlzd
+		if params[:p] == 'trash'
+			chck = @objeto.check_realizados.find_by(cdg: params[:cdg])
+			chck.delete unless chck.blank?
+		else
+			@objeto.check_realizados.create!(
+			  ownr_type: @objeto.class.name,
+			  ownr_id: @objeto.id,
+			  mdl: params[:mdl],
+			  cdg: params[:cdg],
+			  rlzd: params[:p],
+			  app_perfil_id: perfil_activo.id,
+			  chequed_at: Time.zone.now
+			)
+		end
+
+		set_bck_rdrccn
+		redirect_to @bck_rdrccn
+	end
+
+	# Auditoria
 	def prsnt
 		if params[:p] == 'trash'
 			chck = @objeto.check_auditorias.find_by(cdg: params[:cdg])
@@ -130,7 +151,6 @@ module Capitan
 			  audited_at: Time.zone.now
 			)
 		end
-
 
 		set_bck_rdrccn
 		redirect_to @bck_rdrccn

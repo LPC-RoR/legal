@@ -1,6 +1,9 @@
 <%= render partial: 'cuentas/shw/ttl', locals: {objt: @objeto, col_lft: 7} %>
 
+<div><%= @krn_proc.etapa %> : <%= @krn_proc.tarea %> : <%= action_name %> : <%= params[:id] %></div>
+
 <%= render partial: prtl_name(@objeto, 'shw', 'shw_tab'), locals: { objt: @objeto } %>
+
 
 <% case @tbs[@indx] %>
 <% when 'Proceso' %>
@@ -16,3 +19,5 @@
 <% end %>
 
 <%#= @etp_last.codigo unless @etp_last.blank? %>
+<%#= @objeto.tsk_comprobantes_firmados? %>
+<%#= @objeto.comprobantes_firmados? %>

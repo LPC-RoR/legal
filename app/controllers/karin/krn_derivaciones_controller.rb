@@ -17,25 +17,19 @@ class Karin::KrnDerivacionesController < ApplicationController
 
   # GET /krn_derivaciones/new
   def new
-    drvcn_codes = ['drvcn_art4_1', 'drvcn_dnncnt', 'drvcn_emprs', 'drvcn_ext', 'drvcn_ext_dt']
-    # Recepción de derivaciones ( desde empresa_externa o dt)
-    rcpcn_codes = ['rcptn_extrn', 'rcpcn_dt']
+    drvcn_codes = ClssDrvcn::DRVCN_CDGS
+    rcpcn_codes = ClssDrvcn::RCPCN_CDGS
     codes = (drvcn_codes | rcpcn_codes)
 
     ownr = KrnDenuncia.find(params[:oid])
 
-    if codes.include?(params[:cdg])
-      tipo = drvcn_codes.include?(params[:cdg]) ? 'Derivación' : 'Recepción'
-      origen = ownr.on_dt? ? 'Dirección del Trabajo' : ( ownr.on_empresa? ? 'Empresa' : 'Externa' )
-      destino = rcpcn_codes.include?(params[:cdg]) ? 'Empresa' : ( params[:cdg] == 'drvcn_ext' ? 'Externa' : 'Dirección del Trabajo' )
-      if ownr.on_externa?
-        empresa_id = ownr.krn_derivaciones.empty? ? ownr.krn_empresa_externa_id : ownr.krn_derivaciones.last.krn_empresa_externa_id
-      elsif params[:cdg] == 'drvcn_ext'
-        empresa_id = ownr.empleador
-      else
-        nil
-      end
-      motivo = drvcn_text[params[:cdg].to_sym][:gls]
+    if ClssDrvcn.valid?(params[:cdg])
+      codigo      = params[:cdg]
+      tipo        = ClssDrvcn.tipo(params[:cdg])
+      origen      = ownr.donde_estoy?
+      destino     = ClssDrvcn.destino(params[:cdg])
+      empresa_id  = ownr.externa_id
+      motivo      = ClssDrvcn.glosa(params[:cdg].to_sym)
 
       @objeto = ownr.krn_derivaciones.new(tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
       set_bck_rdrccn
@@ -93,6 +87,6 @@ class Karin::KrnDerivacionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_derivacion_params
-      params.require(:krn_derivacion).permit(:krn_denuncia_id, :fecha, :krn_empresa_externa_id, :motivo, :krn_motivo_derivacion_id, :otro_motivo, :tipo, :origen, :destino)
+      params.require(:krn_derivacion).permit(:codigo, :krn_denuncia_id, :fecha, :krn_empresa_externa_id, :motivo, :tipo, :origen, :destino)
     end
 end

@@ -1,8 +1,7 @@
 class Karin::KrnTestigosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_testigo, only: %i[ show edit update destroy swtch prsnt set_fld clear_fld ]
-  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
+  before_action :set_krn_testigo, only: %i[ show edit update destroy swtch rlzd prsnt set_fld clear_fld ]
 
   include ProcControl
   include Karin
@@ -33,7 +32,7 @@ class Karin::KrnTestigosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Testigo fue exitosamente creado." }
+        format.html { redirect_to dnnc_shw_path(@objeto), notice: "Testigo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +45,7 @@ class Karin::KrnTestigosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_testigo_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Testigo fue exitosamente actualizado." }
+        format.html { redirect_to dnnc_shw_path(@objeto), notice: "Testigo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,7 +59,7 @@ class Karin::KrnTestigosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @bck_rdrccn, notice: "Testigo fue exitosamente eliminado." }
+      format.html { redirect_to dnnc_shw_path(@objeto), notice: "Testigo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

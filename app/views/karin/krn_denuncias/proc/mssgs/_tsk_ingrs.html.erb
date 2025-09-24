@@ -1,0 +1,7 @@
+<% unless tipo_usuario == 'investigador' %>
+	<% unless @objeto.prtcpnts_minimos? %>
+		<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'No se ha completado el ingreso de la información de los participantes.'} %>
+	<% end %>
+<% else %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
+<% end %>

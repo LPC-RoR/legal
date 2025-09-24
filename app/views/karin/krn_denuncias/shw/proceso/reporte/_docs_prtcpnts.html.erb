@@ -1,0 +1,47 @@
+<!-- NOTA Ingresar participantes -->
+
+<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6, ttl: true} %>
+<div class="mx-2">
+	<% @objeto.krn_denunciantes.each do |dnncnt| %>
+		<div class="border rounded-2 my-1 p-2 fw-bold">[CONFIDENCIAL: <%="#{dnncnt.sym.to_s.upcase}-#{dnncnt.id}"%>]</div>
+		<div class="ms-3">
+			<%= render partial: 'karin/prtcpnts/objt/stts', locals: {objt: dnncnt} %>
+			<% dnncnt.krn_testigos.each do |tstg| %>
+				<div class="ms-5">
+					<div class="border rounded-2 my-1 p-2 fw-bold">[CONFIDENCIAL: <%="#{tstg.sym.to_s.upcase}-#{tstg.id}"%>]</div>
+					<%= render partial: 'karin/prtcpnts/objt/stts', locals: {objt: tstg} %>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+<%#= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciantes', shdw: false, typ: 'ln', crud: 'lnks'} %>
+</div>
+
+
+<!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
+<% if @objeto.violencia? %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Denuncia de violencia en el trabajo ejercida por terceros. Las personas denunciadas (si las hay) se detallan en las declaraciones.'} %>
+<% else %>
+
+	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciados', ownr: @objeto, fs: 6, ttl: true} %>
+	<div class="mx-2">
+		<% @objeto.krn_denunciados.each do |dnncd| %>
+			<div class="border rounded-2 my-1 p-2 fw-bold">[CONFIDENCIAL: <%="#{dnncd.sym.to_s.upcase}-#{dnncd.id}"%>]</div>
+			<div class="ms-3">
+				<%= render partial: 'karin/prtcpnts/objt/stts', locals: {objt: dnncd} %>
+				<% dnncd.krn_testigos.each do |tstg| %>
+					<div class="ms-5">
+						<div class="border rounded-2 my-1 p-2 fw-bold">[CONFIDENCIAL: <%="#{tstg.sym.to_s.upcase}-#{tstg.id}"%>]</div>
+						<%= render partial: 'karin/prtcpnts/objt/stts', locals: {objt: tstg} %>
+					</div>
+				<% end %>
+			</div>
+		<% end %>
+	<%#= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciantes', shdw: false, typ: 'ln', crud: 'lnks'} %>
+	</div>
+
+	<% if @objeto.krn_denunciantes.any? %>
+		<%#= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciados', shdw: false, typ: 'ln', crud: 'lnks'} %>
+	<% end %>
+
+<% end %>

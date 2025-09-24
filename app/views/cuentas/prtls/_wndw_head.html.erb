@@ -2,8 +2,12 @@
 	<div class="row gx-1">
 		<div class="col-lg-8 fw-bold">
 			<i class="bi bi-buildings"></i> 
-			<%= link_to [:edit, objt], title: 'Editar', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-			    <%= objt.razon_social %>
+			<% if admin? %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: [:edit, objt], tltp: 'Editar cuenta'} do %>
+					<%= objt.razon_social %>
+				<% end %>
+			<% else %>
+				<%= objt.razon_social %>
 			<% end %>
 			<i class="bi bi-dot"></i>
 			<% if objt.demo? %>
@@ -16,7 +20,7 @@
 		</div>
 		<div class="col-lg-4 text-end">
 			<% if @scrty_vls[:addt_usr] and admin? and controller_name == 'cuentas' %>
-				<%= link_to "/#{@objeto.class.name.tableize}", title: 'Addt', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{@objeto.class.name.tableize}", tltp: "Ver Cuentas"} do %>
 					<i class="bi bi-person-circle"></i>
 				<% end %>
 			<% else %>

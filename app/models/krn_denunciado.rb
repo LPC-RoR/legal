@@ -6,6 +6,7 @@ class KrnDenunciado < ApplicationRecord
 	belongs_to :krn_empleado, optional: true
 
 	has_many :act_archivos, as: :ownr
+	has_many :check_realizados, as: :ownr
 	has_many :check_auditorias, as: :ownr
 	has_many :audit_notas, as: :ownr
 
@@ -30,6 +31,10 @@ class KrnDenunciado < ApplicationRecord
 
 	validates :rut, valida_rut: true, if: -> {rut.present?}
     validates_presence_of :nombre, :cargo, :lugar_trabajo, :relacion_denunciante
+	validates_presence_of :krn_empresa_externa_id, if: -> {empleado_externo}
+	validates_presence_of :direccion_notificacion, if: -> {articulo_516}
+
+	include Cptn
 
 	include Prtcpnt
 	include Fls

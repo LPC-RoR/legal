@@ -4,8 +4,9 @@ class ActArchivo < ApplicationRecord
 
   MAX_PDF_SIZE = 20.megabytes
 
-  validate :pdf_valid
-  validate :safe_pdf
+  validate :pdf_valid, unless: -> {self.rlzd}
+  validate :safe_pdf, unless: -> {self.rlzd}
+  validate :pdf_must_be_attached_unless_rlzd
 
   validates :fecha, presence: true, if: -> {self.mdl.constantize.act_fecha(self.act_archivo)}
   validates_presence_of :act_archivo
@@ -16,6 +17,13 @@ class ActArchivo < ApplicationRecord
   scope :fecha_ordr, -> { order(:fecha) }
 
   private
+
+  def pdf_must_be_attached_unless_rlzd
+    return if rlzd
+    unless pdf.attached?
+      errors.add(:pdf, "debe estar adjunto si no está realizado")
+    end
+  end
 
   def pdf_valid
     return unless pdf.attached?
@@ -75,5 +83,3 @@ class ActArchivo < ApplicationRecord
   end
 
 end
-
-

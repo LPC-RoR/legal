@@ -1,0 +1,48 @@
+<div class="border rounded-2 p-3 bg_gris_claro clr_azul_oscuro">
+	<div class="row gx-1 fs-6">
+		<div class="col-8">
+			<div class="d-flex justify-content-start gap-1 text-dark">
+				<i class="bi bi-caret-right-fill"></i><%= ClssPrcdmnt.act_nombre[@krn_proc.etapa.to_s] %>
+				<%= render layout: '0p/mdl/link', locals: {cdg: @krn_proc.etapa.to_s, tltp: "Ayuda de la etapa"} do %>
+					<i class="bi bi-question-circle"></i>
+				<% end %>
+			</div>
+		</div>
+		<!-- Etapa del procedimiento cerrado no tiene plazo -->
+		<div class="col-4 text-end">
+			<% if @krn_proc.plazo %>
+				<% ontime = Time.zone.today <= @krn_proc.plazo %>
+				<% if ontime %>
+					<i class="bi bi-calendar-check text-primary"></i>
+				<% else %>
+					<i class="bi bi-calendar-x text-danger"></i>
+				<% end %>
+				<span class="text-<%=ontime ? 'primary' : 'danger'%>"><%= dma(@krn_proc.plazo) %></span>
+			<% else %>
+				-
+			<% end %>
+		</div>
+	</div>
+
+	<div class="row gx-1">
+		<div class="col-8 ps-4">
+			<i class="bi bi-caret-right"></i><%= ClssPrcdmnt.act_nombre[@krn_proc.tarea] %>
+		</div>
+		<div class="col-4 text-end app_lnk">
+			<% if undo_exist?(@objeto, @krn_proc.tarea) %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'Undo', objeto: nil, tooltip: nil} do %>
+					<div class="fw-bold"><i class="bi bi-cursor"></i> ¿Desea deshacer la última acción realizada?</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<%= render layout: '0p/mdl/modal', locals: {cdg: @krn_proc.etapa.to_s, ttl: ClssPrcdmnt.act_nombre[@krn_proc.etapa.to_s], sz: 'lg'} do %>
+	<%= render partial: prtl_name(@objeto, 'hlp', @krn_proc.etapa.to_s) %>
+<% end %>
+<% if undo_exist?(@objeto, @krn_proc.tarea) %>
+	<%= render layout: '0p/collapse/dsply', locals: {label: 'Undo', objeto: nil} do %>
+		<%= render partial: undo_prtl(@objeto, @krn_proc.tarea), locals: {objt: @objeto} %>
+	<% end %>
+<% end %>

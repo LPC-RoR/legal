@@ -3,20 +3,28 @@ module Prtcpnt
 
   # Métodos de instancia
   included do
-    def empleador_ok?
-      self.empleado_externo ? self.krn_empresa_externa.present? : true
+
+    def email_verificado?
+      verified? and (email == email_ok)
     end
 
-    def direccion_ok?
-      self.articulo_516 ? self.direccion_notificacion.present? : self.email.present?
+    def email_direccion?
+      (articulo_516 and direccion_notificacion?) or email_verificado?
     end
 
+    # ----------------------------------------------------------------- FUTURO DEPRECATED
+
+    # Revisar porque tener articulo 516 no es tener el email verificado
     def email_vrfcd?
       self.articulo_516 ? true : (self.verified? and (self.email == self.email_ok))
     end
 
+    def cmplt?
+      rut? and (email? or articulo_516 or dnnc.violencia?)
+    end
+
   	def rgstr_ok?
-  		self.empleador_ok? and self.direccion_ok? and self.rut? and ( self.class.name == 'KrnTestigo' ? true : self.krn_testigos.rgstrs_ok?)
+  		self.rut? and ( self.class.name == 'KrnTestigo' ? true : self.krn_testigos.rgstrs_ok?)
   	end
 
     def dnnc
@@ -37,6 +45,34 @@ module Prtcpnt
   	end
 
     # --------------------------------- PDF Archivos y registros
+    def act_operativo?(cdg)
+      act_archivos.exists?(act_archivo: cdg) ||
+      CheckRealizado.objt_rlzd?(self, cdg)
+    end
+
+    def tiene_comprobante?
+      act_archivos.any? { |a| (a.act_archivo == 'comprobante_firmado' && a.pdf.attached?) || a.rlzd? }
+    end
+
+    def tiene_mdds_rsgrd_fl?
+      act_archivos.any? { |a| a.act_archivo == 'medidas_resguardo' && a.pdf.attached? || a.rlzd? }
+    end
+
+    def tiene_mdds_rsgrd_chk?
+      check_realizados.any? { |c| c.cdg == 'medidas_resguardo' }
+    end
+
+    def tiene_mdds_rsgrd?
+      tiene_mdds_rsgrd_fl? || tiene_mdds_rsgrd_chk? 
+    end
+
+    def tiene_dclrcn?
+      act_archivos.any? { |a| a.act_archivo == 'declaracion' && a.pdf.attached? || a.rlzd? }
+    end
+
+
+
+
     def get_pdf_registro(code)
       pdf = PdfArchivo.find_by(codigo: code)
       pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id)

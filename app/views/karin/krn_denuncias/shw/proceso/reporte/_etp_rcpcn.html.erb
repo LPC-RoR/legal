@@ -1,0 +1,16 @@
+<div class="my-1 border rounded-4">
+	<div class="px-3 border-bottom bg_azul_claro clr_azul_oscuro" style="font-size: 1rem;">Recepción de la denuncia</div>
+
+	<div class="px-3">
+
+		<ul>
+			<% if @rprt[:dnncnt_invstgcn_local] %>
+				<li><%=@rprt[:dnncnt_invstgcn_local]%></li>
+			<% end %>
+			<% if @rprt[:invstgcn_local_externa] %>
+				<li><%=@rprt[:invstgcn_local_externa]%></li>
+			<% end %>
+		</ul>
+
+	</div>
+</div>

@@ -1,34 +1,24 @@
-<% unless @etps_trmnds.empty? %>
-	<div class="px-2 pt-2 border">
-		<div class=" px-1 bg_gray" style="font-size: 18px;"><b>Etapas concluidas</b></div>
-		
+<% unless @krn_proc.etapa == :etp_rcpcn %>
+<div class="mx-1 my-2 border rounded-4">
+	<div class="p-2 border-bottom fw-bold" style="font-size: 1rem;">
+		<i class="bi bi-caret-right-fill"></i> Etapas concluidas
+	</div>
+	<div class="py-2 px-3">
 		<table class="table table-sm table-borderless table-striped table-hover">
 			<tbody>
-				<% @etps_trmnds.each do |etp_trmnd| %>
-					<% clr = etp_muted(etp_trmnd[:codigo], ownr) ? 'muted' : (etp_trmnd[:plz_ok] ? 'primary' : 'danger') %>
-					<% clndr_type = etp_trmnd[:plz_ok] ? 'check' : 'x' %>
-					<tr>
-						<td><%= etp_trmnd[:etapa] %></td>
-						<td class="text-end text-muted">
-							<%= dma(etp_trmnd[:plz]) %>
-						</td>
-						<td class="text-end text-<%=clr%>">
-							<% if etp_trmnd[:plz_fecha].blank? %>
-								-
-							<% else %>
-								<% if etp_trmnd[:plz_tag] == 0 %>
-									<!--i class="bi bi-check2-all"></i-->
-								<% else %>
-									(<%=-etp_trmnd[:plz_tag]%>) 
-								<% end %>
-								<%= dma(etp_trmnd[:plz_fecha]) %>
-								<i class="bi bi-calendar-<%=clndr_type%>"></i>
-							<% end %>
-						</td>
-					</tr>
+				<tr>
+					<th>Etapa</th>
+					<th>Plazo</th>
+					<th class="text-end">Fecha término</th>
+				</tr>
+				<% [:etp_rcpcn, :etp_invstgcn, :etp_infrm, :etp_prnncmnt, :etp_mdds_sncns].each do |etp| %>
+					<%# if @objeto.plz_fecha_inicio(etp) %>
+					<% if ClssPrcdmnt.plz_dsply(etp, @objeto) %>
+						<%= render partial: 'karin/krn_denuncias/shw/proceso/etp_rlzd_objt', locals: {tkn: etp} %>
+					<% end %>
 				<% end %>
 			</tbody>
 		</table>
 	</div>
-
+</div>
 <% end %>

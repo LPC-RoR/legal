@@ -35,7 +35,7 @@ class Repositorios::ActArchivosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to bck_act_archivo_path(@objeto), notice: "Archivo fue exitosamente creado." }
+        format.html { redirect_to act_archivo_rdrccn(@objeto.ownr), notice: "Archivo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,7 +48,7 @@ class Repositorios::ActArchivosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(act_archivo_params)
-        format.html { redirect_to bck_act_archivo_path(@objeto), notice: "Archivo fue exitosamente actualizado." }
+        format.html { redirect_to act_archivo_rdrccn(@objeto.ownr), notice: "Archivo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,7 +62,7 @@ class Repositorios::ActArchivosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to act_archivos_path, status: :see_other, notice: "Archivo fue exitosamente eliminado." }
+      format.html { redirect_to act_archivo_rdrccn(@objeto.ownr), status: :see_other, notice: "Archivo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -72,7 +72,7 @@ class Repositorios::ActArchivosController < ApplicationController
     pdf_registro.delete unless pdf_registro.blank?
     @objeto.delete
 
-    redirect_to bck_act_archivo_path(@objeto)    
+    redirect_to act_archivo_rdrccn(@objeto.ownr)
   end
 
   private
@@ -83,6 +83,6 @@ class Repositorios::ActArchivosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def act_archivo_params
-      params.expect(act_archivo: [ :ownr_type, :ownr_id, :act_archivo, :mdl, :control_fecha, :nombre, :fecha, :pdf ])
+      params.expect(act_archivo: [ :ownr_type, :ownr_id, :act_archivo, :mdl, :control_fecha, :nombre, :fecha, :pdf, :rlzd ])
     end
 end

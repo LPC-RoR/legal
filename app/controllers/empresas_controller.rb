@@ -1,5 +1,5 @@
 class EmpresasController < ApplicationController
-  before_action :authenticate_usuario!, only: %i[ show ]
+  before_action :authenticate_usuario!, only: %i[ show index ]
   before_action :scrty_on
   before_action :set_empresa, only: %i[ show edit update destroy swtch prg ]
 

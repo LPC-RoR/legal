@@ -1,0 +1,7 @@
+<% unless tipo_usuario == 'investigador' %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Los datos ingresados de los participantes cumplen con las exigencias mínimas para continuar con el proceso.', gly: 'cone-striped'} if tab_participantes? %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Para activar el envío de información y notificaciones debe verificar el correo electrónico de los participantes.', gly: 'cone-striped'} if tab_participantes? %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Es obligación entregar información a la persona denunciante acerca de su derecho a elegir la entidad investigadora. Envíe dicha información por correo electrónico para contar con evidencia de la entrega de esta información.', gly: 'cone-striped'} %>
+<% else %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
+<% end %>

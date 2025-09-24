@@ -1,3 +1,13 @@
 <div class="app_lnk">
+	<%= link_to txt,
+              '#',
+              data: {
+                bs_toggle: 'modal',   // para abrir el modal
+                bs_target: "##{cdg}",
+                bs_toggle_tooltip: true,  // tooltip
+                bs_placement: 'top',
+                bs_title: 'Tu texto de ayuda',
+                bs_custom_class: 'custom-tooltip'
+              } %>
 	<%= link_to txt, "#", data: { bs_toggle: "modal", bs_target: "##{cdg}" } %>
 </div>

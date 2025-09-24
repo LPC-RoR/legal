@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_10_010723) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_15_192018) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -25,11 +25,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_10_010723) do
     t.date "fecha"
     t.string "mdl"
     t.boolean "control_fecha"
+    t.boolean "rlzd"
     t.index ["act_archivo"], name: "index_act_archivos_on_act_archivo"
     t.index ["control_fecha"], name: "index_act_archivos_on_control_fecha"
     t.index ["mdl"], name: "index_act_archivos_on_mdl"
     t.index ["ownr_id"], name: "index_act_archivos_on_ownr_id"
     t.index ["ownr_type"], name: "index_act_archivos_on_ownr_type"
+    t.index ["rlzd"], name: "index_act_archivos_on_rlzd"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -485,6 +487,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_10_010723) do
     t.index ["ownr_id"], name: "index_check_auditorias_on_ownr_id"
     t.index ["ownr_type", "ownr_id", "cdg"], name: "index_check_auditorias_on_ownr_type_and_ownr_id_and_cdg", unique: true
     t.index ["ownr_type"], name: "index_check_auditorias_on_ownr_type"
+  end
+
+  create_table "check_realizados", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.integer "app_perfil_id"
+    t.string "mdl"
+    t.string "cdg"
+    t.boolean "rlzd"
+    t.datetime "chequed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_perfil_id"], name: "index_check_realizados_on_app_perfil_id"
+    t.index ["cdg"], name: "index_check_realizados_on_cdg"
+    t.index ["mdl"], name: "index_check_realizados_on_mdl"
+    t.index ["ownr_id"], name: "index_check_realizados_on_ownr_id"
+    t.index ["ownr_type"], name: "index_check_realizados_on_ownr_type"
+    t.index ["rlzd"], name: "index_check_realizados_on_rlzd"
   end
 
   create_table "clientes", force: :cascade do |t|

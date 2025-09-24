@@ -1,13 +1,13 @@
 <div class="d-flex justify-content-end gap-1">
 	<% if prtl?(@objeto, 'hlp', 'prtcpnts') %>
-		<%= render layout: '0p/mdl/link', locals: {cdg: "hlp_prtcpnts"} do %>
+		<%= render layout: '0p/mdl/link', locals: {cdg: "hlp_prtcpnts", tltp: 'Detalle del registro de denunciados'} do %>
 			<i class="bi bi-question-circle"></i>
 		<% end %>
 	<% end %>
 
 	<!-- Para saber si DRVCNS está terminado -->
 	<% unless @objeto.fecha_hora_dt? or @objeto.fecha_trmtcn? %>
-		<% if  @objt['denunciantes?'] %>
+		<% if  @objeto.krn_denunciantes.any? %>
 			<%= render partial: '0p/tabla/lnk_new', locals: {lnk: new_path('krn_denunciados', @objeto), tltp: "Agrega Denunciado"} %>
 		<% end %>
 	<% end %>

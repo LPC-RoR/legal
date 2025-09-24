@@ -1,3 +1,4 @@
+# Aplicables a Cliente y Empresa
 module Prdct
     extend ActiveSupport::Concern
 
@@ -32,6 +33,14 @@ module Prdct
 
     def krn_activo?
         self.demo_activo? or self.producto_activo?
+    end
+
+    def recepcion_habilitada?
+      krn_investigadores.exists? &&
+      ((not principal_usuaria) or (principal_usuaria && krn_empresa_externas.exists?)) &&
+      app_contactos.exists?(grupo: 'RRHH') &&
+      app_contactos.exists?(grupo: 'Apt')
+      app_contactos.exists?(grupo: 'Backup')
     end
 
     # Registros mínimos

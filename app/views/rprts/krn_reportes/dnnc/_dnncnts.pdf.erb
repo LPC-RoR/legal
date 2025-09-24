@@ -1,0 +1,22 @@
+<!-- PARTICIPANTES -->
+<div class="row gx-1 mt-2 mx-5 px-2 border-bottom" style="font-size: 14px;">
+	<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Personas denunciantes", fnt_wght: 'bold'} %>
+
+	<% if @objt['denunciantes?'] %>
+		<% @objt['denunciantes'].each do |dnncnt| %>
+			<%= render partial: prtl_name('krn_reportes', 'dnnc', 'glosa_prtcpnt'), locals: {rut: dnncnt.rut, nombre: dnncnt.nombre} %>
+			<% if action_name == 'dnnc' %>
+				<%= render partial: 'rprts/krn_reportes/dnnc/atncn_psclgc_tmprn', locals: {prtcpnt: dnncnt} %>
+				<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnt_dclrcn', locals: {prtcpnt: dnncnt} %>
+				<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnt_tstgs', locals: {prtcpnt: dnncnt} %>
+			<% else %>
+				<%= render partial: 'rprts/krn_reportes/dnnc/prtcpnt_dts_base', locals: {prtcpnt: dnncnt, pddng: 1} %>
+				<% if dnncnt.articulo_4_1 %>
+					<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Aplica el artículo 4 inciso primero del Código del Trabajo.", pddng: 1} %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<%= render partial: 'rprts/shrd/tr', locals: {glosa: "Aún no se han igresados personas denunciantes."} %>
+	<% end %>
+</div>

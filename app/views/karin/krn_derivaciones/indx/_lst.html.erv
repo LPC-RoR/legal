@@ -1,0 +1,1 @@
+<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'lnks', typ: 'ln'} %>

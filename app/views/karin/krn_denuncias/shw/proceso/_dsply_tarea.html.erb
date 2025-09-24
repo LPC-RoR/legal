@@ -1,6 +1,0 @@
-<% unless @etp_last.blank? or @tar_last.blank? %>
-	<!-- REVISAR dsply? Tiene sentido en los SHOW de participantes -->
-	<% if @tar_last.dsply?(@objeto) %>
-		<%= render partial: '0p/prtls/dsply', locals: {objt: @objeto, dir: "proc/#{@tar_last.codigo}", prtl: 'frm'} %>
-	<% end %>
-<% end %>

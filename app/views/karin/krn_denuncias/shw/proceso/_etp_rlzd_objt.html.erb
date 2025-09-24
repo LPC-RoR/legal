@@ -1,0 +1,11 @@
+<% plazo = @objeto.plazo(tkn) %>
+<% cmplmnt = @objeto.plz_fecha_cmplmnt(tkn) %>
+<% clr = plazo.nil? ? 'muted' : (cmplmnt.nil? ? 'success' : (cmplmnt.to_date <= plazo.to_date ? 'primary' : 'danger')) %>
+
+<% if ClssPrcdmnt.plz_dsply(tkn, @objeto) %>
+<tr class="text-<%=clr%>">
+	<td class="text-<%=clr%>"><%=ClssPrcdmnt.act_nombre[tkn.to_s]%></td>
+	<td class="text-<%=clr%>"><%= dma(plazo) %></td>
+	<td class="text-end text-<%=clr%>"><%=dma(cmplmnt)%></td>
+</tr>
+<% end %>

@@ -1,0 +1,18 @@
+<%= render partial: 'karin/prtcpnts/dsply/email_verification', locals: {objeto: objt} %>
+<% if @acts_hsh[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email') or objt.email_direccion? %>
+	<%= render layout: 'cuentas/shw/list_box', locals: {ttl: 'Envío de información y notificaciones'} do %>
+		<%= render partial: 'pdf/pdf_registros/stts_lst', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt, lnks: true} %>
+	<% end %>
+<% end %>
+
+<% if @objeto.investigadores? %>
+	<%= render partial: 'cuentas/prtls/smpl_box', locals: {source: 'krn_declaraciones', dir: 'dsply', ownr: objt, clss_ttl: 'bg_azul_claro'} %>
+<% end %>
+
+<div class="ms-1 app_lnk" style="font-size: 14px;">
+	<% unless @acts_hsh[objt.clss_id][:cdgs].empty? %>
+		<%= render layout: 'cuentas/shw/list_box', locals: {ttl: 'Documentos controlados'} do %>
+			<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt, lnks: false} %>
+		<% end %>
+	<% end %>
+</div>

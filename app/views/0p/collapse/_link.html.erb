@@ -1,6 +1,18 @@
 <%#= render layout: '0p/collapse/link', locals: {label: 'label', objeto: nil, tooltip: nil} do %>
 	<!-- ... -->
 <%# end %>
-<a data-bs-toggle="collapse" href="#<%=label%><%= objeto.blank? ? nil : objeto.id%>" role="button" aria-expanded="false" aria-controls="<%=label%><%= objeto.blank? ? nil : objeto.id%>%>">
-	<span data-toggle="tooltip" title="<%=tooltip%>"><%= yield %></span>
+
+<% id = "#{label}#{objeto.blank? ? nil : objeto.id}" %>
+
+<a data-bs-toggle="collapse"
+   href="#<%= id %>"
+   role="button"
+   aria-expanded="false"
+   aria-controls="<%= id %>">
+  <span data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        data-bs-title="<%= tooltip %>"
+        data-bs-custom-class="custom-tooltip">
+    <%= yield %>
+  </span>
 </a>

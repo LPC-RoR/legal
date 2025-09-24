@@ -1,35 +1,43 @@
-<% if @objt['rgstrs_mnms?'] %>
-	<!-- INGRESO MÍNIMO DE INFORMACIÓN DE PARTICIPANTES COMPLETADO -->
+<%= render partial: prtl_name(objeto, 'shw/proceso', 'etps_rlzds'), locals: {ownr: objeto} %>
+<%= render partial: prtl_name(objeto, 'shw/proceso', 'drvcns_invstgdrs'), locals: {ownr: objeto} %>
 
-	<%= render partial: prtl_name(objeto, 'shw/proceso', 'etps_rlzds'), locals: {ownr: objeto} %>
+<%= render partial: prtl_name(objeto, 'shw/proceso', 'etapa_tarea'), locals: {ownr: objeto} %>
 
-	<!-- REVISAR USO DE tar_last -->
-	<%= render partial: prtl_name(objeto, 'shw/proceso', 'undo'), locals: {ownr: objeto} %>
+<!-- Hay uno identico a este en shw_participantes -->
+<%= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>
+<%= render partial: prtl_name(objeto, 'shw/proceso', 'tsk_dsply'), locals: {ownr: objeto} %>
 
-	<%= render partial: prtl_name(objeto, 'shw/proceso', 'stts'), locals: {ownr: objeto} %>
-	<div class="pt-2" style="margin-left: 5%;">
+<div class="pt-2" style="margin-left: 5%;">
+	<%= render partial: 'notas/shr/notas', locals: {ownr: objeto} %>
+</div>
 
-		<%= render partial: prtl_name(objeto, 'shw/proceso', 'dsply_etapa'), locals: {ownr: objeto} %>
-
-		<%= render partial: 'notas/shr/notas', locals: {ownr: objeto} %>
-
+<div class="mx-1 my-2 border rounded-4">
+	<div class="p-2 border-bottom fw-bold" style="font-size: 1rem;">
+		<i class="bi bi-caret-right-fill"></i> Documentos controlados de la denuncia
 	</div>
-
-	<div class="mx-1 my-2 border rounded-4">
-		<div class="p-2 border-bottom fw-bold" style="font-size: 1rem;">
-			<i class="bi bi-caret-right-fill"></i> Documentos controlados de la denuncia
-		</div>
-		<div class="py-2 px-3">
-			<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, audit: objeto.dnnc.auditoria} %>
-		</div>
+	<div class="py-2 px-3">
+		<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
 	</div>
+</div>
 
-	<div class="mt-5 ms-2">
-		<%#= render partial: prtl_name(objeto, 'shw/proceso', 'dcs'), locals: {ownr: objeto} %>
-		<%#= render partial: 'repositorios/act_archivos/dsply_list', locals: {list: @acts, mdl: Prcdmnt, ownr: objeto, audit: objeto.auditoria} %>
+<div class="mx-1 my-2 border rounded-4">
+	<div class="p-2 border-bottom fw-bold" style="font-size: 1rem;">
+		<i class="bi bi-caret-right-fill"></i> Documentos combinados
 	</div>
-
-<% else %>
-	<!-- NO SE HA COMPLETADO EL INGRESO MÍNIMO -->
-	<%= render partial: prtl_name(@objeto, 'mssgs', 'no_ingrs_mnm') %>
-<% end %>
+	<div class="py-2 px-3">
+		<% if @combinados.empty? %>
+			No se han generado archivos combinados
+		<% end %>
+		<% @combinados.each do |cmbnd| %>
+			<div class="row gx-1 objt_lnk">
+				<div class="col-10"><%= cmbnd.nombre %></div>
+				<div class="col-2 text-end">
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{cmbnd.id}/download", tltp: "Bajar #{cmbnd.nombre}", target: '_blank'} do %>
+						<i class="bi bi-download"></i>
+					<% end %>
+					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: cmbnd} if admin? %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>
