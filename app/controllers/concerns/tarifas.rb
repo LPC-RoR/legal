@@ -267,8 +267,9 @@ module Tarifas
 
 	# Versión 2.0
 	def vlr_tarifa(tar_valor_cuantia)
-		tarifa = vlr_cuantia(tar_valor_cuantia, 'tarifa')
-		tarifa == 0 ? vlr_cuantia(tar_valor_cuantia, 'real') : tarifa
+		tarifa_t = tar_valor_cuantia.nil? ? 0 : vlr_cuantia(tar_valor_cuantia, 'tarifa')
+		tarifa_r = tar_valor_cuantia.nil? ? 0 : vlr_cuantia(tar_valor_cuantia, 'real')
+		tarifa_t == 0 ? tarifa_r : tarifa_t
 	end
 
 	# Versión 2.0
