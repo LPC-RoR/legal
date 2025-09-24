@@ -273,7 +273,7 @@ module Tarifas
 
 	# Versión 2.0
 	def get_total_cuantia(ownr, tipo)
-		tipo == 'real' ? ownr.tar_valor_cuantias.map {|vlr_cnt| vlr_cuantia(vlr_cnt, 'real')}.sum : ownr.tar_valor_cuantias.map {|vlr_cnt| vlr_tarifa(vlr_cnt)}.sum
+		ownr.nil? ? nil : (tipo == 'real' ? ownr.tar_valor_cuantias.map {|vlr_cnt| vlr_cuantia(vlr_cnt, 'real')}.sum : ownr.tar_valor_cuantias.map {|vlr_cnt| vlr_tarifa(vlr_cnt)}.sum)
 	end
 
 	# ----------------------------------------------------------------------------------------------------- Pagos
