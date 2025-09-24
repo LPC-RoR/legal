@@ -256,7 +256,9 @@ module Tarifas
 	# tipo : { 'real', 'tarifa'}
 	def vlr_cuantia(tar_valor_cuantia, tipo)
 		formula = tipo == 'real' ? tar_valor_cuantia.formula : tar_valor_cuantia.formula_honorarios
-		valor = tipo == 'real' ? tar_valor_cuantia.valor : tar_valor_cuantia.valor_tarifa
+		valor_r = tar_valor_cuantia.valor.nil? ? 0 : tar_valor_cuantia.valor
+		valor_t = tar_valor_cuantia.valor_tarifa.nil? ? 0 : tar_valor_cuantia.valor_tarifa
+		valor = tipo == 'real' ? valor_r : valor_t
 		if /\$Remuneración/.match?(formula)
 			demandante = tar_valor_cuantia.demandante
 			rem = demandante.blank? ? 0 : demandante.remuneracion
@@ -274,7 +276,7 @@ module Tarifas
 
 	# Versión 2.0
 	def get_total_cuantia(ownr, tipo)
-		ownr.nil? ? nil : (tipo == 'real' ? ownr.tar_valor_cuantias.map {|vlr_cnt| vlr_cuantia(vlr_cnt, 'real')}.sum : ownr.tar_valor_cuantias.map {|vlr_cnt| vlr_tarifa(vlr_cnt)}.sum)
+		ownr.nil? ? 0 : (tipo == 'real' ? ownr.tar_valor_cuantias.map {|vlr_cnt| vlr_cuantia(vlr_cnt, 'real')}.sum : ownr.tar_valor_cuantias.map {|vlr_cnt| vlr_tarifa(vlr_cnt)}.sum)
 	end
 
 	# ----------------------------------------------------------------------------------------------------- Pagos
