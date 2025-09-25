@@ -1,5 +1,3 @@
-<!-- layouts/pdf.pdf.erb -->
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -10,15 +8,31 @@
 
     <!-- Tus reglas adicionales -->
     <style>
-      @media print {
-        .table-bordered { border-collapse: collapse !important; }
-        .table-bordered th,
-        .table-bordered td { border: 1px solid #dee2e6 !important; }
+      /* 1. Declarar la fuente */
+      body {
+        font-family: 'DejaVu Sans', Arial, sans-serif !important;
+        font-size: 10px;          /* tamaño base */
+        line-height: 1.4;
+      }
+
+      .rprt_bx {
+        margin: 1rem;padding: .5rem;border: 1px solid #ebebeb;border-radius: 0.5rem;
+      }
+
+      .rprt_bx_ttl {
+        border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #ebebeb;
+      }
+
+      /* 2. Opcional: ajustes para tablas */
+      table, th, td {
+        font-family: inherit !important;
+        font-size: inherit !important;
       }
       table.pdf-minimal { width: 100%; border-collapse: collapse; font-size: 9px; line-height: 1.2; }
       table.pdf-minimal td, table.pdf-minimal th { padding: 3px 5px; border: none; height: 18px; }
       table.pdf-minimal tr:nth-child(even) { background-color: #f8f8f8; }
       td.wide-column { width: 50%; word-wrap: break-word; }
+
     </style>
   </head>
 

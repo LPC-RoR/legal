@@ -1,0 +1,49 @@
+<div class="rprt_bx">
+	<div class="rprt_bx_ttl" style="font-size: 1rem;">Derivaciones</div>
+
+	<div style="margin-top: 0.5rem;">
+
+		<% if @rprt[:derivaciones].any? %>
+
+		<table class="table table-sm table-striped">
+			<tbody>
+				<% @rprt[:derivaciones].each do |drv| %>
+					<tr>
+						<td><%=dma(drv[0])%></td>
+						<td class="text-end"><%=ClssDrvcn::HSH_TXTS[drv[1].to_sym][:gls]%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+		<% else %>
+			<div class="py-2">No se han registrado derivaciones de la denuncia.</div>
+		<% end %>
+
+	</div>
+</div>
+
+<div class="rprt_bx">
+	<div class="rprt_bx_ttl" style="font-size: 1rem;">Investigador asignado</div>
+
+	<div style="margin-top: 0.5rem;">
+
+		<% if @rprt[:investigadores].any? %>
+
+		<table class="table table-sm table-striped">
+			<tbody>
+				<% @rprt[:investigadores].each do |inv| %>
+					<tr>
+						<td><%=inv[0]%></td>
+						<td class="text-end"><%=inv[1] ? 'objetado' : 'activo'%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+		<% else %>
+			<div class="py-2">No se ha asignado un investigador a la denuncia.</div>
+		<% end %>
+
+	</div>
+</div>

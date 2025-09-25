@@ -1,0 +1,43 @@
+<div class="row gx-1">
+	<div class="col-10">
+		<% if objt.articulo_516 %>
+			Participante solicita envío de información y notificaciones por correo certificado.
+		<% else %>
+			[CONFIDENCIAL: <%="EMAIL-#{objt.sym.to_s.upcase}-#{objt.id}"%>]
+		<% end %>
+	</div>
+	<div class="col-2 text-end">
+		<% unless objt.articulo_516  %>
+			<% if objt.email %>
+				<% if objt.email != objt.email_ok and (not @acts_hsh[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email')) %>
+					<%= objt.n_vrfccn_lnks.blank? ? 'Sin enviar' : 'Enviado' %>
+				<% else %>
+					<%= objt.verified? ? 'Verificado' : 'Manualmente' %>
+				<% end %>
+			<% else %>
+				No registrado
+			<% end %>
+		<% end %>
+	</div>
+</div>
+
+<% if @acts_hsh[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email') or objt.email_direccion? %>
+	<div class="fw-bold">Envío de información y notificaciones</div>
+	<div class="ms-3">
+		<%= render partial: 'karin/krn_denuncias/shw/rprt/rprt_lst', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt, lnks: true} %>
+	</div>
+<% end %>
+
+<% if objt.dnnc.krn_inv_denuncias.any? %>
+	<div class="fw-bold">Agenda de declaraciones</div>
+	<div class="ms-3">
+		<%= render partial: 'karin/krn_denuncias/shw/rprt/dclrcn_lst', locals: {ownr: objt} %>
+	</div>
+<% end %>
+
+<% unless @acts_hsh[objt.clss_id][:cdgs].empty? %>
+	<div class="fw-bold">Documentos controlados</div>
+	<div class="ms-3">
+		<%= render partial: 'karin/krn_denuncias/shw/rprt/act_archivo_lst', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt} %>
+	</div>
+<% end %>

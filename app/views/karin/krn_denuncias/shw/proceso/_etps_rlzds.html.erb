@@ -14,7 +14,7 @@
 				<% [:etp_rcpcn, :etp_invstgcn, :etp_infrm, :etp_prnncmnt, :etp_mdds_sncns].each do |etp| %>
 					<%# if @objeto.plz_fecha_inicio(etp) %>
 					<% if ClssPrcdmnt.plz_dsply(etp, @objeto) %>
-						<%= render partial: 'karin/krn_denuncias/shw/proceso/etp_rlzd_objt', locals: {tkn: etp} %>
+						<%= render partial: 'karin/krn_denuncias/shw/proceso/etp_rlzd_objt', locals: {objeto: @objeto, tkn: etp} %>
 					<% end %>
 				<% end %>
 			</tbody>

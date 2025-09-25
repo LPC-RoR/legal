@@ -8,6 +8,8 @@ class Rprts::KrnReportesController < ApplicationController
     'crdncn_apt'=> AppContacto
   }.freeze
 
+  include Karin
+
   layout :pdf
 
   include Karin
@@ -48,17 +50,6 @@ class Rprts::KrnReportesController < ApplicationController
   end
 
   def dnnc
-    @objeto = KrnDenuncia.find(params[:oid])
-    @logo_url = @objeto.ownr.logo_url
-
-    load_objt(@objeto)
-    load_proc(@objeto)
-
-    set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
-    set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
-    set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
-    set_tabla('krn_inv_denuncias', @objeto.krn_inv_denuncias.order(:created_at), false)
-
     respond_to_pdf('dnnc')
   end
 
@@ -204,6 +195,31 @@ class Rprts::KrnReportesController < ApplicationController
     redirect_to @bck_rdrccn, notice: ntc
   end
 
+  def generate_and_store_dnnc
+    @ownr = KrnDenuncia.estrctr.find(params[:oid])
+    @logo_url = @ownr.dnnc.ownr.logo_url
+    @rprt = DenunciaReport.new(@ownr).to_h
+    @krn_proc = KrnPrcdmnt.for(@ownr)
+    @acts_hsh = ActLoad.for_tree(@ownr)
+
+    pdf_data = get_pdf_data(nil, params[:oid], params[:rprt])
+
+    # Guardar en ActArchivo
+    act_archivo = @ownr.act_archivos.new(
+      act_archivo: params[:rprt],
+      nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
+      mdl: 'ClssPrcdmnt',
+    )
+    act_archivo.pdf.attach(
+      io: StringIO.new(pdf_data),
+      filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
+      content_type: 'application/pdf'
+    )
+    act_archivo.save!
+
+    redirect_to "/krn_denuncias/#{@ownr.id}_2"
+  end
+
   def generate_and_store_report
     @ownr = KrnDenuncia.find(params[:oid]) if ['infrmcn', 'crdncn_apt', 'medidas_resguardo'].include?(params[:rprt])
 
@@ -341,14 +357,45 @@ class Rprts::KrnReportesController < ApplicationController
       {nombre: invstgdr.blank? ? nil : invstgdr.krn_investigador, email: invstgdr.blank? ? nil : invstgdr.email}
     end
 
+#    def get_pdf_data(dstntr, oid, rprt)
+#      # Generar el PDF
+#      WickedPdf.new.pdf_from_string(
+#        render_to_string(
+#          template: "rprts/krn_reportes/#{rprt}",
+#          layout: 'pdf',
+#          formats: [:pdf],  # ← Esto es clave para que busque .pdf.erb
+#          locals: {dstntr: dstntr, objt: get_objt(oid, rprt)}
+#        )
+#      )
+#    end
+
     def get_pdf_data(dstntr, oid, rprt)
-      # Generar el PDF
+      return unless rprt == 'dnnc'
+      # <<< CASO ESPECIAL: dnnc con Grover >>>
+      if rprt == 'dnnc'
+        html = render_to_string(
+          template: "rprts/krn_reportes/dnnc",
+          layout:    'pdf',
+          formats:   [:html],        # importante: no :pdf
+          locals:    { dstntr: dstntr, objt: get_objt(oid, rprt) }
+        )
+
+  # ===== DEBUG =====
+  FileUtils.mkdir_p(Rails.root.join('tmp/grover'))
+  File.write(Rails.root.join('tmp/grover/dnnc_last.html'), html)
+  Rails.logger.info "[Grover] HTML generado: #{html.bytesize / 1024} KB"
+  # =================
+
+        return Grover.new(html, format: 'A4', print_background: true).to_pdf
+      end
+
+      # <<< RESTO DE REPORTES – WickedPDF sin cambios >>>
       WickedPdf.new.pdf_from_string(
         render_to_string(
           template: "rprts/krn_reportes/#{rprt}",
           layout: 'pdf',
-          formats: [:pdf],  # ← Esto es clave para que busque .pdf.erb
-          locals: {dstntr: dstntr, objt: get_objt(oid, rprt)}
+          formats: [:pdf],
+          locals: { dstntr: dstntr, objt: get_objt(oid, rprt) }
         )
       )
     end

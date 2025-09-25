@@ -1,0 +1,32 @@
+<% act_id = "#{ownr.class.name}_#{ownr.id}" %>
+<div class="row gx-1">
+	<div class="col-10 <%= 'text-primary' if ownr.pdf_registros.exists?(cdg: code) %>">
+
+		<% if mdl.act_lst?(code) %>
+			<i class="bi bi-list-task text-secondary"></i>
+		<% elsif ownr.pdf_registros.exists?(cdg: code) %>
+			<i class="bi bi-file-earmark-pdf"></i>
+		<% elsif hsh[act_id][:rlzds].objt_rlzd?(ownr, code) %>
+			<i class="bi bi-clipboard-check"></i>
+		<% else %>
+			<% if @krn_proc.tarea == ClssPrcdmnt.tsk_name[code] %>
+				<i class="bi bi-arrow-right text-primary"></i>
+			<% end %>
+			<i class="bi bi-cone-striped text-danger"></i>
+		<% end %>
+		<span class="text-<%=mdl.act_lst?(code) ? 'secondary' : 'primary'%>"><%=mdl.act_nombre[code]%></span>
+
+	</div>
+	<div class="col-2 text-end ">
+		<% if ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) or hsh[act_id][:rlzds].objt_rlzd?(ownr, code) %>
+			<%# if (mdl.actn_multpl?(code) and hsh[act_id][code].any?) or ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) %>
+			<% if ((not mdl.actn_multpl?(code)) and hsh[act_id][code]) %>
+				Subido
+			<% else %>
+				En carpeta
+			<% end %>
+		<% else %>
+			Faltante
+		<% end %>
+	</div>
+</div>

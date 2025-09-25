@@ -45,7 +45,7 @@ module Prdct
 
     # Registros mínimos
     def rgstrs_mnms?
-        self.investigadores? and (self.principal_usuaria ? self.empresas_externas? : true)
+        self.krn_investigadores.any? and (self.principal_usuaria ? self.empresas_externas? : true)
     end
 
     def denuncias_activas?

@@ -89,6 +89,7 @@ Rails.application.routes.draw do
       match :drvcn, via: :get, on: :collection
       match :generate_and_send_report, via: :get, on: :collection
       match :generate_and_store_report, via: :get, on: :collection
+      match :generate_and_store_dnnc, via: :get, on: :collection
       match :audit_rprt, via: :get, on: :collection
     end
   end
@@ -173,6 +174,7 @@ Rails.application.routes.draw do
       match :prg, via: :post, on: :member
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
+      match :pdf_combinado, via: :get, on: :member
       # ruta para manejo de panels
       match :cndtnl_via_declaracion, via: :get, on: :collection
       match :tipo_declaracion_field, via: :get, on: :collection
@@ -346,6 +348,7 @@ Rails.application.routes.draw do
     resources :rep_archivos
     resources :act_archivos do
       match :download, via: :get, on: :member
+      match :show, via: :get, on: :member
       match :rmv_cntrld, via: :post, on: :member
     end
     resources :check_realizados

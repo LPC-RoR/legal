@@ -16,6 +16,8 @@ class ActArchivo < ApplicationRecord
   scope :crtd_ordr, -> { order(created_at: :desc) }
   scope :fecha_ordr, -> { order(:fecha) }
 
+  scope :with_attached_pdf, -> { includes(pdf_attachment: :blob) }
+
   private
 
   def pdf_must_be_attached_unless_rlzd

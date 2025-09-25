@@ -1,0 +1,43 @@
+<div class="rprt_bx" style="line-height: 1.6;">
+	<div class="rprt_bx_ttl" style="font-size: 1rem;">Documentos controlados de los participantes</div>
+	<div class="mt-2 ms-3">
+
+		<% objeto.krn_denunciantes.each do |dnncnt| %>
+			<div><i>[CONFIDENCIAL: <%="#{dnncnt.sym.to_s.upcase}-#{dnncnt.id}"%>]</i></div>
+			<div class="ms-3">
+				<%= render partial: 'karin/krn_denuncias/shw/rprt/stts', locals: {objt: dnncnt} %>
+			</div>
+			<div class="mt-2">
+				<% dnncnt.krn_testigos.each do |tstg| %>
+					<div><i>[CONFIDENCIAL: <%="#{tstg.sym.to_s.upcase}-#{tstg.id}"%>]</i></div>
+					<div class="ms-3">
+						<%= render partial: 'karin/krn_denuncias/shw/rprt/stts', locals: {objt: tstg} %>
+					</div>
+				<% end %>
+			</div>
+		<% end %>
+
+		<!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
+		<% if objeto.violencia? %>
+			<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Denuncia de violencia en el trabajo ejercida por terceros. Las personas denunciadas (si las hay) se detallan en las declaraciones.'} %>
+		<% else %>
+
+			<% objeto.krn_denunciados.each do |dnncd| %>
+				<div class="mt-2"><i>[CONFIDENCIAL: <%="#{dnncd.sym.to_s.upcase}-#{dnncd.id}"%>]</i></div>
+				<div class="ms-3">
+					<%= render partial: 'karin/krn_denuncias/shw/rprt/stts', locals: {objt: dnncd} %>
+				</div>
+				<div class="mt-2">
+					<% dnncd.krn_testigos.each do |tstg| %>
+						<div><i>[CONFIDENCIAL: <%="#{tstg.sym.to_s.upcase}-#{tstg.id}"%>]</i></div>
+						<div class="ms-3">
+							<%= render partial: 'karin/krn_denuncias/shw/rprt/stts', locals: {objt: tstg} %>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+
+		<% end %>
+
+	</div>
+</div>

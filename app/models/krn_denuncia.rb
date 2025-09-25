@@ -18,16 +18,16 @@ class KrnDenuncia < ApplicationRecord
 	belongs_to :krn_empresa_externa, optional: true
 #	belongs_to :krn_investigador, optional: true
 
-	has_many :act_archivos, as: :ownr
-	has_many :check_realizados, as: :ownr
-	has_many :check_auditorias, as: :ownr
-	has_many :audit_notas, as: :ownr
+	has_many :act_archivos, as: :ownr, dependent: :destroy
+	has_many :check_realizados, as: :ownr, dependent: :destroy
+	has_many :check_auditorias, as: :ownr, dependent: :destroy
+	has_many :audit_notas, as: :ownr, dependent: :destroy
 
-	has_many :rep_archivos, as: :ownr
+	has_many :rep_archivos, as: :ownr, dependent: :destroy
 
-	has_many :notas, as: :ownr
+	has_many :notas, as: :ownr, dependent: :destroy
 	# Los ownr de los pdf_registros SIEMPRE son destinatarios
-	has_many :pdf_registros, as: :ownr
+	has_many :pdf_registros, as: :ownr, dependent: :destroy
 
 	has_many :krn_denunciantes, -> { order(created_at: :asc) }, dependent: :destroy
 	has_many :krn_denunciados, -> { order(created_at: :asc) }, dependent: :destroy
@@ -308,34 +308,54 @@ class KrnDenuncia < ApplicationRecord
 	end
 
 	def unir_pdfs!
-		# 1. recolectar blobs
-		blobs = act_archivos.joins(:pdf_attachment).map { |aa| aa.pdf.blob }
-		return if blobs.empty?
+	  blobs = []
 
-		# 2. combinar
-		combined = CombinePDF.new
-		blobs.each do |blob|
-			combined << CombinePDF.parse(blob.download)
-		end
+	  # 1.a → propios de la denuncia
+	  blobs += act_archivos.with_attached_pdf.map { |aa| aa.pdf.blob }
 
-		# 3. crear el objeto en memoria
-		nuevo = act_archivos.new(
-			mdl:         'ClssPrcdmnt',
-			act_archivo: 'combinado',
-			nombre:      "pdf_#{id}_combinado.pdf"
-		)
+	  # 1.b → de denunciantes y sus testigos
+	  den_ids  = krn_denunciantes.pluck(:id)
+	  tst_ids  = krn_denunciantes.joins(:krn_testigos).pluck('krn_testigos.id')
+	  blobs += ActArchivo
+	             .with_attached_pdf
+	             .where(ownr_type: 'KrnDenunciante', ownr_id: den_ids)
+	             .or(
+	               ActArchivo.with_attached_pdf
+	                         .where(ownr_type: 'KrnTestigo', ownr_id: tst_ids)
+	             )
+	             .map { |aa| aa.pdf.blob }
 
-	  	# 4. adjuntar **antes** de validar/guardar
-	  	nuevo.pdf.attach(
-		    io:           StringIO.new(combined.to_pdf),
-		    filename:     "denuncia_#{id}_combinado.pdf",
-		    content_type: 'application/pdf'
-		)
+	  # 1.c → de denunciados y sus testigos
+	  den_ids2 = krn_denunciados.pluck(:id)
+	  tst_ids2 = krn_denunciados.joins(:krn_testigos).pluck('krn_testigos.id')
+	  blobs += ActArchivo
+	             .with_attached_pdf
+	             .where(ownr_type: 'KrnDenunciado', ownr_id: den_ids2)
+	             .or(
+	               ActArchivo.with_attached_pdf
+	                         .where(ownr_type: 'KrnTestigo', ownr_id: tst_ids2)
+	             )
+	             .map { |aa| aa.pdf.blob }
 
-		# 5. guardar (ahora sí pasa la validación de PDF adjunto)
-		nuevo.save!
+	  blobs.compact!
+	  return if blobs.empty?
 
-		nuevo
+	  # 2. combinar … (resto idéntico)
+	  combined = CombinePDF.new
+	  blobs.each { |b| combined << CombinePDF.parse(b.download) }
+
+	  nuevo = act_archivos.new(
+	    mdl:         'ClssPrcdmnt',
+	    act_archivo: 'combinado',
+	    nombre:      "pdf_#{id}_combinado.pdf"
+	  )
+	  nuevo.pdf.attach(
+	    io:           StringIO.new(combined.to_pdf),
+	    filename:     "denuncia_#{id}_combinado.pdf",
+	    content_type: 'application/pdf'
+	  )
+	  nuevo.save!
+	  nuevo
 	end
-
+	
 end

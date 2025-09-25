@@ -1,0 +1,48 @@
+<div class="rprt_bx">
+	<div class="rprt_bx_ttl" style="font-size: 1rem;">Estado de los datos de los participantes</div>
+
+	<div class="mt-2">
+
+		<% @rprt[:estructura].krn_denunciantes.each do |dnncnt| %>
+			<div>[CONFIDENCIAL: <%="#{dnncnt.sym.to_s.upcase}-#{dnncnt.id}"%>]</div>
+			<div class="ps-2">Los datos de la persona denunciante <%='no' unless dnncnt.cmplt?%> están completos.</div>
+			<div class="ps-2">La información y notificaciones de la investigación serán enviadas por correo <%= dnncnt.articulo_516 ? ' certificado' : 'electrónico'%></div>
+			<% if dnncnt.articulo_4_1 %>
+				<div class="ps-2">Para este participante aplica el artículo 4 inciso primero del Código del Trabajo.</div>
+			<% end %>
+			<% dnncnt.krn_testigos.each do |tstg| %>
+				<div class="mt-2">[CONFIDENCIAL: <%="#{tstg.sym.to_s.upcase}-#{tstg.id}"%>]</div>
+				<div class="ps-2">Los datos de la persona denunciante <%='no' unless tstg.cmplt?%> están completos.</div>
+				<div class="ps-2">La información y notificaciones de la investigación serán enviadas por correo <%= tstg.articulo_516 ? ' certificado' : 'electrónico'%></div>
+				<% if tstg.articulo_4_1 %>
+					<div class="ps-2">Para este participante aplica el artículo 4 inciso primero del Código del Trabajo.</div>
+				<% end %>
+			<% end %>
+		<% end %>
+
+		<% @rprt[:estructura].krn_denunciados.each do |dnncd| %>
+			<div class="mt-2">[CONFIDENCIAL: <%="#{dnncd.sym.to_s.upcase}-#{dnncd.id}"%>]</div>
+			<div class="ps-2">Los datos de la persona denunciante <%='no' unless dnncd.cmplt?%> están completos.</div>
+			<div class="ps-2">La información y notificaciones de la investigación serán enviadas por correo <%= dnncd.articulo_516 ? ' certificado' : 'electrónico'%></div>
+			<% if dnncd.articulo_4_1 %>
+				<div class="ps-2">Para este participante aplica el artículo 4 inciso primero del Código del Trabajo.</div>
+			<% end %>
+			<% dnncd.krn_testigos.each do |tstg| %>
+				<div class="mt-2">[CONFIDENCIAL: <%="#{tstg.sym.to_s.upcase}-#{tstg.id}"%>]</div>
+				<div class="ps-2">Los datos de la persona denunciante <%='no' unless tstg.cmplt?%> están completos.</div>
+				<div class="ps-2">La información y notificaciones de la investigación serán enviadas por correo <%= tstg.articulo_516 ? ' certificado' : 'electrónico'%></div>
+				<% if tstg.articulo_4_1 %>
+					<div class="ps-2">Para este participante aplica el artículo 4 inciso primero del Código del Trabajo.</div>
+				<% end %>
+			<% end %>
+		<% end %>
+
+		<p class="mt-3">Acciones generales sobre los participantes</p>
+		<ul>
+			<li><%=@rprt[:prtcpnts_minimos]%></li>
+			<li><%=@rprt[:coordinacion_apt]%></li>
+			<li><%=@rprt[:infrmcn_slctd]%></li>
+		</ul>
+
+	</div>
+</div>

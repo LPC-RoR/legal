@@ -1,0 +1,63 @@
+<table class="table table-sm">
+	<tbody>
+
+<% hsh[ownr.clss_id][:cdgs].each do |act| %>
+	
+	<tr>
+		<td>
+			<% if mdl.act_lst?(act) %>
+				<i class="bi bi-list-task"></i>
+			<% elsif (mdl.act_lst?(act) and hsh[ownr.clss_id][act].any? and hsh[ownr.clss_id][act].exists?(rlzd: true)) or ((not mdl.act_lst?(act)) and hsh[ownr.clss_id][act]&.rlzd?) %>
+				<i class="bi bi-clipboard-check"></i>
+			<% else %>
+				<i class="bi bi-file-earmark-pdf"></i>
+			<% end %>
+			<% if (mdl.act_lst?(act) and hsh[ownr.clss_id][act].none?) or hsh[ownr.clss_id][act].nil? %>
+				<i class="bi bi-cone-striped text-<%= mdl.act_optnl?(act) ? 'primary' : 'danger' %>"></i>
+			<% end %>
+			<%=mdl.act_nombre[act]%>
+		</td>
+		<td class="text-end">
+			<% if lnks %>
+			<% if mdl.act_lst?(act) or ((not mdl.act_lst?(act)) and @acts_hsh[ownr.clss_id][act].nil?) %>
+				<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', gly: (mdl.act_lst?(act) ? 'plus-circle' : 'upload') ,ownr: ownr, tltp: "Agrega #{mdl.act_nombre[act].downcase}", prms: {act: act, mdl: mdl}} %>
+			<% end %>
+			<% unless mdl.act_lst?(act) %>
+				<% if hsh[ownr.clss_id][act] %>
+					<% unless hsh[ownr.clss_id][act].rlzd? %>		
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][act].id}/download", tltp: "Bajar #{mdl.act_nombre[act].downcase}", target: '_blank'} do %>
+							<i class="bi bi-download"></i>
+						<% end %>
+					<% end %>
+					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: hsh[ownr.clss_id][act]} %>
+				<% end %>
+			<% end %>
+			<% end %>
+		</td>
+	</tr>
+
+	<% if mdl.act_lst?(act) %>
+		<div class="ms-4 text-primary">
+			<% hsh[ownr.clss_id][act].each do |lst_fl| %>
+				<tr>
+					<td>
+						<i class="bi bi-arrow-return-right"></i>
+						<% if lst_fl.rlzd? %>
+							<i class="bi bi-clipboard-check"></i>
+						<% else %>
+							<i class="bi bi-file-earmark-pdf"></i>
+						<% end %>
+						<%=lst_fl.nombre%>
+					</td>
+					<td class="text-end">
+						<%= render partial: '0p/tbl/lnks_e', locals: {objeto: lst_fl} if lnks %>
+					</td>
+				</tr>
+			<% end %>
+		</div>
+	<% end %>
+
+<% end %>
+
+	</tbody>
+</table>

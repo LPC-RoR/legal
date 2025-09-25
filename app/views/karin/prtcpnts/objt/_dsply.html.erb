@@ -17,7 +17,7 @@
 
 	</div>
 
-	<% if @objeto.investigadores? %>
+	<% if @objeto.krn_inv_denuncias.any? %>
 		<%= render partial: 'cuentas/prtls/smpl_box', locals: {source: 'krn_declaraciones', dir: 'indx', ownr: objeto, clss_ttl: 'bg_azul_claro'} %>
 	<% end %>
 

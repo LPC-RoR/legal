@@ -9,10 +9,10 @@ class ClssPrcdmnt
         { nombre: 'acta',               si: ->(o) { o.via_declaracion == 'Presencial' and o.tipo_declaracion == 'Verbal' } },
         { nombre: 'mdds_rsgrd',         si: ->(o) { true } },
         { nombre: 'notificacion',       si: ->(o) { o.rcp_dt? } },
-        { nombre: 'certificado',        si: ->(o) { o.on_dt? and o.derivaciones? } },
+        { nombre: 'certificado',        si: ->(o) { o.on_dt? and o.krn_derivaciones.any? } },
         { nombre: 'dvlcn_slctd',        si: ->(o) { o.ownr.activa_devolucion } },
         { nombre: 'dvlcn_rslcn',        si: ->(o) { o.solicitud_denuncia } },
-        { nombre: 'objecion_antcdnts',  si: ->(o) { o.investigadores? ? o.krn_inv_denuncias.first.objetado : false } },
+        { nombre: 'objecion_antcdnts',  si: ->(o) { o.krn_inv_denuncias.any? ? o.krn_inv_denuncias.first.objetado : false } },
         { nombre: 'objecion_rslcn',     si: ->(o) { o.antecedentes_objecion? } },
         { nombre: 'analisis',           si: ->(o) { o.evlcn_incnsstnt } },
         { nombre: 'denuncia_corregida', si: ->(o) { o.evlcn_incnsstnt } },
@@ -30,7 +30,7 @@ class ClssPrcdmnt
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
         { nombre: 'comprobante_firmado',si: ->(o) { true } },
         { nombre: 'apt',                si: ->(o) { true } },
-        { nombre: 'declaracion',        si: ->(o) { o.dnnc.investigadores? } },
+        { nombre: 'declaracion',        si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
@@ -46,8 +46,8 @@ class ClssPrcdmnt
     dnncd: {
       archivos: [
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
-        { nombre: 'antecedentes',       si: ->(o) { o.dnnc.investigadores? } },
-        { nombre: 'declaracion',        si: ->(o) { o.dnnc.investigadores? } },
+        { nombre: 'antecedentes',       si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
+        { nombre: 'declaracion',        si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
@@ -61,8 +61,8 @@ class ClssPrcdmnt
     tstg: {
       archivos: [
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
-        { nombre: 'antecedentes',       si: ->(o) { o.dnnc.investigadores? } },
-        { nombre: 'declaracion',        si: ->(o) { o.dnnc.investigadores? } },
+        { nombre: 'antecedentes',       si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
+        { nombre: 'declaracion',        si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
@@ -157,7 +157,8 @@ class ClssPrcdmnt
           'drvcn'               => 'Notificación de la derivación de la denuncia',
           'invstgdr'            => 'Notificación del investigador asignado a la denuncia',
           'infrmcn'             => 'Verificación de datos de los participantes',
-          'crdncn_apt'          => 'Coordinación de atención psocológica temprana'
+          'crdncn_apt'          => 'Coordinación de atención psocológica temprana',
+          'dnnc'                      => 'Reporte del estado de la denuncia'
 
     }
   end.freeze

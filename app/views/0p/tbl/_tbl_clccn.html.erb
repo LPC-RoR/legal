@@ -1,0 +1,17 @@
+<% shdw    = shdw ? true : false %>
+<% typ     ||= 'tr' %>
+<% ordr    ||= false %>
+<% crud    ||= nil %>
+<% hnt     ||= true %>
+<% new_hnt ||= false %>
+
+<% if clccn.empty? and new_hnt %>
+  <%= render partial: "0p/tbl/new_hnt", locals: {c: str_cntrllr(source)} %>
+<% else  %>
+
+  <%#= render partial: '0p/tabla/paginate', locals: {c: str_cntrllr(source), location: 'arriba'} %>
+
+  <%= render partial: "0p/tbl/lst", locals: {clccn: clccn, shdw: shdw, ordr: ordr, crud: crud, typ: typ} %>
+
+  <%#= render partial: '0p/tabla/paginate', locals: {c: str_cntrllr(source), location: 'abajo'} if clccn.count > 15 %>
+<% end %>

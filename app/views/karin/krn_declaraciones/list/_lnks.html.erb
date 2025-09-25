@@ -1,7 +1,8 @@
 <% if objeto.pdf_registros.empty? %>
-	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=dclrcn"} do %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=dclrcn", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
 		<i class="bi bi-envelope-at"></i>
 	<% end %>
+
 <% else %>
 	<i class="bi bi-check2-all"></i>
 <% end %>

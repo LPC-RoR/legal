@@ -2,8 +2,13 @@
 Grover.configure do |config|
   config.options = {
     format: 'A4',
-    print_media_type: false,
-    prefer_css_page_size: true,
+    margin: {
+      top: '1cm',
+      bottom: '1cm',
+      left: '1cm',
+      right: '1cm'
+    },
+    print_background: true, # <-- importante para Bootstrap
     launch_args: ['--no-sandbox', '--disable-setuid-sandbox']
   }
 end

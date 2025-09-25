@@ -12,6 +12,12 @@ class Repositorios::ActArchivosController < ApplicationController
 
   # GET /act_archivos/1 or /act_archivos/1.json
   def show
+    archivo = ActArchivo.find(params[:id])
+    # importante: disposition: :inline
+    send_data archivo.pdf.download,
+              filename:    archivo.pdf.filename.to_s,
+              type:        'application/pdf',
+              disposition: 'inline'
   end
 
   def download
@@ -35,7 +41,7 @@ class Repositorios::ActArchivosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to act_archivo_rdrccn(@objeto.ownr), notice: "Archivo fue exitosamente creado." }
+        format.html { redirect_to act_archivo_rdrccn(@objeto), notice: "Archivo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,7 +54,7 @@ class Repositorios::ActArchivosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(act_archivo_params)
-        format.html { redirect_to act_archivo_rdrccn(@objeto.ownr), notice: "Archivo fue exitosamente actualizado." }
+        format.html { redirect_to act_archivo_rdrccn(@objeto), notice: "Archivo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,7 +68,7 @@ class Repositorios::ActArchivosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to act_archivo_rdrccn(@objeto.ownr), status: :see_other, notice: "Archivo fue exitosamente eliminado." }
+      format.html { redirect_to act_archivo_rdrccn(@objeto), status: :see_other, notice: "Archivo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

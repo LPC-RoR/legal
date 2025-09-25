@@ -1,8 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt set_fld clear_fld prg ]
-  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt pdf_combinado set_fld clear_fld prg ]
 
   include ProcControl
   include Karin
@@ -14,61 +13,18 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
-    @rprt = DenunciaReport.new(@objeto).to_h
-
-    @acts_hsh = {}
-    add_to_act_hsh(@acts_hsh, @objeto)
-
-    act_id = "#{@objeto.class.name}_#{@objeto.id}"
-    @acts_hsh[act_id]['infrmcn']    = @objeto.act_archivos.where(act_archivo: 'infrmcn')
-    @acts_hsh[act_id]['crdncn_apt'] = @objeto.act_archivos.where(act_archivo: 'crdncn_apt')
-
-    @objeto.krn_denunciantes.each do |dnncnt|
-      add_to_act_hsh(@acts_hsh, dnncnt)
-      dnncnt.krn_testigos.each do |tstg|
-        add_to_act_hsh(@acts_hsh, tstg)
-      end
-    end
-    @objeto.krn_denunciados.each do |dnncd|
-      add_to_act_hsh(@acts_hsh, dnncd)
-      dnncd.krn_testigos.each do |tstg|
-        add_to_act_hsh(@acts_hsh, tstg)
-      end
-    end
-
-    @combinados = @objeto.act_archivos.where(act_archivo: 'combinado')
-
+#    @rprt = DenunciaReport.new(@objeto).to_h
+    @acts_hsh = ActLoad.for_tree(@objeto)
     @krn_proc = KrnPrcdmnt.for(@objeto)
-    @archivos_obligatorios = ClssPrcdmnt.archivos_obligatorios(@objeto)
-    @acciones_obligatorias = ClssPrcdmnt.acciones_obligatorias(@objeto)
 
-#    load_objt(@objeto)
-    load_proc(@objeto)
-#    load_temas_proc
-    @doc = LglDocumento.find_by(codigo: 'd_rik')
-    @prrfs = @doc.lgl_parrafos.ordr.dsplys
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
-
-    set_tab(:menu, ['Proceso', 'Participantes'])
-
-    # Se necesita afuera para mostrar Reporte como modal
-    set_tabla('krn_denunciantes', @objeto.krn_denunciantes.rut_ordr, false)
-    set_tabla('krn_denunciados', @objeto.krn_denunciados.rut_ordr, false)
-    set_tabla('krn_derivaciones', @objeto.krn_derivaciones.ordr, false)
-    set_tabla('krn_inv_denuncias', @objeto.krn_inv_denuncias.order(:created_at), false)
 
     case @indx
     when 0
-      load_objt_plzs(@objeto)     # Carga plazos
-      set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
     when 1
-      load_p_fls
-      @pdf_rvsn = PdfArchivo.find_by(codigo: 'infrmcn')
-      @pdf_rgstr_rvsn = @objeto.pdf_registros.where(pdf_archivo_id: @pdf_rvsn.id)
     when 2
-#      set_tabla('krn_declaraciones', @objeto.krn_declaraciones.fecha_ordr, false)
-      set_tabla('pdf_archivos', @objeto.prcdmnt.pdf_archivos.where(codigo: rprts_pdf_actvs).ordr, false)
-      set_tabla('pdf_registros', @objeto.pdf_registros.order(:created_at), false)
+      @combinados = @objeto.act_archivos.where(act_archivo: 'combinado')
+      @rprts = @objeto.act_archivos.where(act_archivo: 'dnnc').order(created_at: :desc)
     end
 
   end
@@ -118,7 +74,7 @@ class Karin::KrnDenunciasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_denuncia_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Denuncia fue exitosamente actualizada." }
+        format.html { redirect_to krn_denuncias_path, notice: "Denuncia fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -127,12 +83,23 @@ class Karin::KrnDenunciasController < ApplicationController
     end
   end
 
+  # GET /krn_denuncias/:id/pdf_combinado
+  def pdf_combinado
+
+    # (opcional) autorización
+    # authorize denuncia
+
+    combinado = @objeto.unir_pdfs!        # genera si aún no existe
+
+    redirect_to "/krn_denuncias/#{@objeto.id}_2"              # redirige a la URL permanente de ActiveStorage
+  end
+
   # DELETE /krn_denuncias/1 or /krn_denuncias/1.json
   def destroy
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @bck_rdrccn, notice: "Denuncia fue exitosamente eliminada." }
+      format.html { redirect_to krn_denuncias_path, notice: "Denuncia fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -233,49 +200,6 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   private
-
-    def add_to_act_hsh(hsh, objt)
-      act_id = "#{objt.class.name}_#{objt.id}"
-      acts   = ClssPrcdmnt.archivos_que_aplican(objt)
-      actns  = ClssPrcdmnt.acciones_que_aplican(objt)
-
-      files = objt.act_archivos.map {|act| act.act_archivo}
-      checks = objt.check_realizados.map {|chk| chk.cdg}
-
-      o_archvs = ClssPrcdmnt.archivos_obligatorios(objt) - files - checks
-      o_accns  = ClssPrcdmnt.acciones_obligatorias(objt) - files - checks
-
-      hsh[act_id] = {}
-      # Códigos act_archivo
-      hsh[act_id][:cdgs]  = acts
-      hsh[act_id][:actns] = actns
-
-      hsh[act_id][:o_archvs] = o_archvs
-      hsh[act_id][:o_accns]  = o_accns
-
-      acts.each do |act|
-        # Act archivos de cada código
-        if ClssPrcdmnt.act_lst?(act)
-          hsh[act_id][act] = objt.act_archivos.where(act_archivo: act)
-        else
-          hsh[act_id][act] = objt.act_archivos.find_by(act_archivo: act)
-        end
-      end
-
-      actns.each do |actn|
-        # Act archivos de cada código
-        if ClssPrcdmnt.actn_multpl?(actn)
-          hsh[act_id][actn] = objt.act_archivos.where(act_archivo: actn)
-        else
-          hsh[act_id][actn] = objt.act_archivos.find_by(act_archivo: actn)
-        end
-      end
-
-      # Objetos auditados
-      hsh[act_id][:chcks]   = objt.check_auditorias
-      hsh[act_id][:rlzds]   = objt.check_realizados
-      hsh[act_id][:rgstrs]  = objt.pdf_registros
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia

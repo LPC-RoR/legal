@@ -6,17 +6,17 @@ class KrnTestigo < ApplicationRecord
 	belongs_to :krn_empresa_externa, optional: true
 
 
-	has_many :act_archivos, as: :ownr
-	has_many :check_realizados, as: :ownr
-	has_many :check_auditorias, as: :ownr
-	has_many :audit_notas, as: :ownr
+	has_many :act_archivos, as: :ownr, dependent: :destroy
+	has_many :check_realizados, as: :ownr, dependent: :destroy
+	has_many :check_auditorias, as: :ownr, dependent: :destroy
+	has_many :audit_notas, as: :ownr, dependent: :destroy
 
-	has_many :notas, as: :ownr
-	has_many :pdf_registros, as: :ownr
+	has_many :notas, as: :ownr, dependent: :destroy
+	has_many :pdf_registros, as: :ownr, dependent: :destroy
 
-	has_many :krn_declaraciones, as: :ownr
+	has_many :krn_declaraciones, as: :ownr, dependent: :destroy
 
-	has_many :rep_archivos, as: :ownr
+	has_many :rep_archivos, as: :ownr, dependent: :destroy
 
 	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
 

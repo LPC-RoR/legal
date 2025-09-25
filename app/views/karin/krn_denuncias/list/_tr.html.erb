@@ -6,7 +6,10 @@
 		<% end %>
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: objt, tltp: 'Ver denuncia'} do %>
 			<%= objt.identificador %>
-		<% end %>	
+		<% end %>
+		<% if dog? %>
+			<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: objt} %>
+		<% end %>
 	</td>
 	<td><%= objt.motivo_denuncia %></td>
 	<td class="pe-3 text-end">

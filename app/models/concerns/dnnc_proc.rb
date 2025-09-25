@@ -158,7 +158,7 @@ module DnncProc
  	end
 
  	def tsk_infrm?
- 		not_on_dt? and fecha_trmn? and
+ 		((not_on_dt? and fecha_trmn?) or on_dt?) and
  		(not fecha_env_infrm?) and (not fecha_rcpcn_infrm?)
  	end
 

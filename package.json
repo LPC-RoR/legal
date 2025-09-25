@@ -5,10 +5,11 @@
     "@hotwired/turbo-rails": "^8.0.13",
     "@popperjs/core": "^2.11.8",
     "autoprefixer": "^10.4.21",
-    "bootstrap": "^5.3.7",
+    "bootstrap": "5",
     "lucide": "^0.488.0",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
+    "puppeteer": "^24.22.2",
     "sass": "^1.89.2"
   },
   "scripts": {
@@ -19,5 +20,23 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LPC-RoR/legal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LPC-RoR/legal/issues"
+  },
+  "homepage": "https://github.com/LPC-RoR/legal#readme"
 }

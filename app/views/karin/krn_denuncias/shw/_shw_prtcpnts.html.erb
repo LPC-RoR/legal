@@ -12,7 +12,7 @@
 <% end %>
 
 <%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6, lnks: 'prtl'} %>
-<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciantes', shdw: false, typ: 'ln', crud: 'lnks'} %>
+<%= render partial: '0p/tbl/tbl_clccn', locals: {source: 'krn_denunciantes', clccn: @objeto.krn_denunciantes, shdw: false, typ: 'ln', crud: 'lnks'} %>
 
 
 <!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
@@ -24,7 +24,7 @@
 
 	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciados', ownr: @objeto, fs: 6} %>
 	<% if @objeto.krn_denunciantes.any? %>
-		<%= render partial: '0p/tbl/tbl', locals: {source: 'krn_denunciados', shdw: false, typ: 'ln', crud: 'lnks'} %>
+		<%= render partial: '0p/tbl/tbl_clccn', locals: {source: 'krn_denunciados', clccn: @objeto.krn_denunciados, shdw: false, typ: 'ln', crud: 'lnks'} %>
 	<% end %>
 
 <% end %>

@@ -31,7 +31,7 @@ class Karin::KrnDerivacionesController < ApplicationController
       empresa_id  = ownr.externa_id
       motivo      = ClssDrvcn.glosa(params[:cdg].to_sym)
 
-      @objeto = ownr.krn_derivaciones.new(tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
+      @objeto = ownr.krn_derivaciones.new(codigo: codigo, tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
       set_bck_rdrccn
     end
   end

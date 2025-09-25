@@ -1,16 +1,9 @@
 <div class="d-flex justify-content-end pt-1 fs-5">
-<% if dog? %>
-	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/prg", tltp: 'Purge', data: {turbo_method: :post, turbo_confirm: "¿Estás seguro?"}} do %>
-		<i class="bi bi-trash"></i>
-	<% end %>
-	<i class="bi bi-dot"></i>
-<% end %>
-<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: 'Home'} do %>
-	<i class="bi bi-house-door"></i>
-<% end %>
 
-<span class="ms-2"><%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text', gly_clss: 'fs-5', tltp: 'Nueva nota de la denuncia'} %></span>
-<span class="ms-2"><%= render layout: '0p/mdl/link', locals: {cdg: 'Detalle', tltp: 'Resumen del procedimiento'} do %>
-	<i class="bi bi-file-earmark-ppt"></i>
-<% end %></span>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: 'Home'} do %>
+		<i class="bi bi-house-door"></i>
+	<% end %>
+
+	<span class="ms-2"><%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text', gly_clss: 'fs-5', tltp: 'Nueva nota de la denuncia'} %></span>
+
 </div>

@@ -5,14 +5,14 @@
 	<% end %>
 <% end %>
 
-<% if @objeto.investigadores? %>
+<% if objt.dnnc.krn_inv_denuncias.any? %>
 	<%= render partial: 'cuentas/prtls/smpl_box', locals: {source: 'krn_declaraciones', dir: 'dsply', ownr: objt, clss_ttl: 'bg_azul_claro'} %>
 <% end %>
 
 <div class="ms-1 app_lnk" style="font-size: 14px;">
 	<% unless @acts_hsh[objt.clss_id][:cdgs].empty? %>
 		<%= render layout: 'cuentas/shw/list_box', locals: {ttl: 'Documentos controlados'} do %>
-			<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt, lnks: false} %>
+			<%= render partial: 'repositorios/act_archivos/tbl_dsply_lst', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt, lnks: false} %>
 		<% end %>
 	<% end %>
 </div>

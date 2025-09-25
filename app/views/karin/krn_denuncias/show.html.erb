@@ -1,7 +1,5 @@
 <%= render partial: 'cuentas/shw/ttl', locals: {objt: @objeto, col_lft: 7} %>
 
-<div><%= @krn_proc.etapa %> : <%= @krn_proc.tarea %> : <%= action_name %> : <%= params[:id] %></div>
-
 <%= render partial: prtl_name(@objeto, 'shw', 'shw_tab'), locals: { objt: @objeto } %>
 
 
@@ -11,11 +9,7 @@
 <% when 'Participantes' %>
 	<%= render partial: prtl_name(@objeto, 'shw', 'shw_prtcpnts'), locals: {objeto: @objeto} %>
 <% when 'Reportes' %>
-	<%= render partial: prtl_name(@objeto, 'shw', 'shw_rprts'), locals: {objeto: @objeto} %>
-<% end %>
-
-<%= render layout: '0p/mdl/modal', locals: {cdg: 'Detalle', ttl: 'Resúmen del procedimiento', sz: 'lg'} do %>
-	<%= render partial: prtl_name(@objeto, 'shw/proceso', 'rgstrs'), locals: {objeto: @objeto} %>
+	<%= render partial: prtl_name(@objeto, 'shw', 'shw_rcrss'), locals: {objeto: @objeto} %>
 <% end %>
 
 <%#= @etp_last.codigo unless @etp_last.blank? %>

@@ -29,16 +29,16 @@ module Paths
 
 	# ------------------------------------------------------ ACT_ARCHIVO
 
-	def dnnc_shw_path(ownr)
-		dnnc_id = "#{ownr.dnnc.id}_#{ownr.class.name == 'KrnDenuncia' ? '0' : '1'}"
+	def dnnc_shw_path(objt)
+		dnnc_id = "#{objt.ownr.dnnc.id}_#{objt.ownr.class.name == 'KrnDenuncia' ? (['combinado', 'dnnc'].include?(objt.act_archivo) ? '2' : '0') : '1'}"
 		"/krn_denuncias/#{dnnc_id}"
 	end
 
-	def act_archivo_rdrccn(ownr)
-		if ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name)
-			dnnc_shw_path(ownr)
+	def act_archivo_rdrccn(objt)
+		if ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(objt.ownr.class.name)
+			dnnc_shw_path(objt)
 		else
-			ownr
+			objt.ownr
 		end
 	end
 

@@ -3,7 +3,7 @@ class KrnDerivacion < ApplicationRecord
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true
 
-	has_many :pdf_registros, as: :ref
+	has_many :pdf_registros, as: :ref, dependent: :destroy
 
 	scope :ordr, -> { order(:created_at) }
 

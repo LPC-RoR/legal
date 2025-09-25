@@ -27,6 +27,7 @@ class DenunciaReport
       dnncnt_invstgcn_local:   dnnct_invstgcn_local_text,
       invstgcn_local_externa:  invstgcn_local_externa_text,
       evlcn_ok:                evlcn_ok_text,
+      plz_prnncmnt:            plz_prnncmnt_text,
 #      involucrados_cantidad:   denuncia.involucrados.count,
 #      archivos_cantidad:       denuncia.archivos.count,
 #      ultima_actualizacion:    denuncia.updated_at,
@@ -86,6 +87,10 @@ class DenunciaReport
 
   def evlcn_ok_text
     denuncia.evlcn_ok.nil? ? nil : (denuncia.evlcn_ok ? 'La denuncia no presenta inconsistencias.' : 'La denuncia presenta inconsistencias, se devuelve a la persona denunciante para su corrección.')
+  end
+
+  def plz_prnncmnt_text
+    denuncia.prnncmnt_vncd.nil? ? nil : (denuncia.prnncmnt_vncd ? 'El plazo para el pronunciamiento de la Dirección del Trabajo venció' : nil)
   end
 
 end
