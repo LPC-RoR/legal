@@ -1,41 +1,44 @@
-<% act_id = "#{objeto.class.name}_#{objeto.id}" %>
 <div class="row gx-1 mx-1 py-1 px-2 border rounded-4">
 	<div class="col-8">
-		<% if objeto.email.blank? %>
-			<i class="bi bi-cone-striped text-danger"></i> El correo electrónico del participante no se ha ingresado.
+		<% if objeto.email != objeto.email_ok and (not objeto.tiene_check_realizado?) %>
+			<i class="bi bi-cone-striped text-danger"></i> 
+			<%= ClssPrcdmnt.act_nombre['verificar_email'] %>
+			<!-- NO se han enviado emails de verificación -->
+			<% unless objeto.n_vrfccn_lnks.blank? %>
+				<%=objeto.n_vrfccn_lnks%><i class="bi bi-dot"></i><%=dma(objeto.fecha_vrfccn_lnk)%>
+			<% end %>		
 		<% else %>
-			<% if objeto.email != objeto.email_ok and (not @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, 'verificar_email')) %>
-				<i class="bi bi-cone-striped text-danger"></i> 
-				<%= ClssPrcdmnt.act_nombre['verificar_email'] %>
-				<!-- NO se han enviado emails de verificación -->
-				<% unless objeto.n_vrfccn_lnks.blank? %>
-					<%=objeto.n_vrfccn_lnks%><i class="bi bi-dot"></i><%=dma(objeto.fecha_vrfccn_lnk)%>
-				<% end %>		
-			<% else %>
-				<% if @acts_hsh[objeto.clss_id][:rlzds].objt_rlzd?(objeto, 'verificar_email') %>
-					<i class="bi bi-clipboard-check text-primary"></i>
-				<% end %>
-				<% if objeto.verified? %>
-					<i class="bi bi-at text-primary"></i>
-				<% end %>
-				<span class="text-primary"><%= email_mask(objeto.email) %></span>
+			<% if objeto.tiene_check_realizado? %>
+				<i class="bi bi-clipboard-check text-primary"></i>
 			<% end %>
+			<% if objeto.verified? %>
+				<i class="bi bi-at text-primary"></i>
+			<% end %>
+			<span class="text-primary"><%= email_mask(objeto.email) %></span>
 		<% end %>
 	</div>
 	<div class="col-4 text-end app_lnk">
-		<% unless objeto.articulo_516 or objeto.email.blank? %>
-			<% if objeto.email != objeto.email_ok and (not @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, 'verificar_email')) %>
-				<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: @acts_hsh, act_id: act_id, ownr: objeto, act: 'verificar_email'} %>
-				<%= link_to send_verification_email_path(model_type: objeto.class.name.tableize, id: objeto.id),  
-				            data: { turbo_method: :post, turbo_confirm: 'Verificar envio de email' } do %>  
-				  <i class="bi bi-envelope-at"></i> <%= objeto.n_vrfccn_lnks.blank? ? 'Enviar' : 'Reenviar' %>
-				<% end %>
+		<% if objeto.email != objeto.email_ok and (not objeto.tiene_check_realizado?) %>
+			<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: @acts_hsh, act_id: objeto.clss_id, ownr: objeto, act: 'verificar_email'} %>
+			<%= link_to send_verification_email_path(model_type: objeto.class.name.tableize, id: objeto.id),  
+			            data: { turbo_method: :post, turbo_confirm: 'Verificar envio de email' } do %>  
+			  <i class="bi bi-envelope-at"></i> <%= objeto.n_vrfccn_lnks.blank? ? 'Enviar' : 'Reenviar' %>
+			<% end %>
+		<% else %>
+			<% if objeto.verified? and objeto.email == objeto.email_ok %>
+				 <b>verificado!</b>
 			<% else %>
-				<% if objeto.verified? %>
-					 <b>verificado!</b>
+
+				<% if objeto.tiene_check_realizado? %>
+					<i class="bi bi-file-earmark-check text-primary"></i>
 				<% else %>
-					<%= render partial: 'repositorios/check_realizados/rlzd', locals: {hsh: @acts_hsh, act_id: objeto.clss_id, ownr: objeto, act: 'verificar_email'} %>
+					<i class="bi bi-file-earmark-excel text-danger"></i>
 				<% end %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{objeto.class.name.tableize}/#{objeto.id}/rlzd?mdl=act&cdg=verificar_email&p=trash", tltp: 'Eliminar marca de realizado', data: {turbo_method: :post}} do %>
+					<i class="bi bi-trash"></i>
+				<% end %>
+
+				<%#= render partial: 'repositorios/check_realizados/rlzd', locals: {hsh: @acts_hsh, act_id: objeto.clss_id, ownr: objeto, act: 'verificar_email'} %>
 			<% end %>
 		<% end %>
 	</div>

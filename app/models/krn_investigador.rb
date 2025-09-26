@@ -5,6 +5,8 @@ class KrnInvestigador < ApplicationRecord
 
 	belongs_to :ownr, polymorphic: true
 
+	has_many :check_realizados, as: :ownr, dependent: :destroy
+
 	has_many :krn_declaraciones
 
 	has_many :krn_inv_denuncias
@@ -18,9 +20,15 @@ class KrnInvestigador < ApplicationRecord
 	scope :verified, -> { where.not(email_verified_at: nil) }
 	scope :unverified, -> { where(email_verified_at: nil) }
 
+	include Cptn
+
 	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
 	def verified?
 	  verification_sent_at.present?
+	end
+
+	def tiene_check_realizado?
+		check_realizados.exists?(cdg: 'verificar_email',rlzd: true)
 	end
 
 	def dflt_bck_rdrccn

@@ -1,37 +1,3 @@
-<%#= render partial: 'karin/krn_investigadores/list/email_verification', locals: {objeto: objeto} %>
-<!-- krn_investigadores -->
-<div style="margin-left: 7%;">
-	<div class="ms-5 objt_lnk" style="font-size: 14px;">
-
-		<% if objeto.email.blank? %>
-			<i class="bi bi-cone-striped text-danger"></i> El correo electrónico del participante no se ha ingresado.
-		<% else %>
-
-			<% if objeto.email != objeto.email_ok and [nil, false].include?(objeto.email_adtd) %>
-				<i class="bi bi-cone-striped text-danger"></i> 
-				<% if objeto.n_vrfccn_lnks.blank? %>
-					Email con link de verificación de correo electrónico.
-				<% else %>
-					<%= dma(objeto.fecha_vrfccn_lnk) %><%=" (#{objeto.n_vrfccn_lnks})" if objeto.n_vrfccn_lnks > 1 %>: Aún no se recibe verificación del correo electrónico.
-				<% end %>
-
-				<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'email_adtd', stts: ['no auditada', 'auditada'], glys: ['clipboard', 'clipboard-check'], prmpt: 'Auditar!'} %>
-
-				<%= link_to send_verification_email_path(model_type: to_name(objeto).downcase, id: objeto.id),  
-				            data: { turbo_method: :post, turbo_confirm: 'Verificar envio de email' } do %>  
-				  <i class="bi bi-envelope-at"></i> <%= objeto.n_vrfccn_lnks.blank? ? 'Enviar' : 'Reenviar' %>
-				<% end %>
-
-			<% else %>
-				<% if objeto.email_adtd %>
-					<i class="bi bi-clipboard-check"></i> <%= objeto.email %>  <b>auditado!</b>
-					<%= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'email_adtd', stts: ['no auditada', 'auditada'], glys: ['clipboard', 'clipboard-check'], prmpt: (objeto.email_adtd ? 'Eliminar auditoría' : 'Auditar!')} %>
-				<% end %>
-				<% if objeto.verified? %>
-					<i class="bi bi-at"> <%= objeto.email %> </i> <b>verificado!</b>
-				<% end %>
-			<% end %>
-		<% end %>
-
-	</div>
+<div class="ms-5">
+	<%= render partial: 'karin/krn_investigadores/list/email_verification', locals: {objeto: objeto} %>
 </div>
