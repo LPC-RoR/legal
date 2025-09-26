@@ -1,5 +1,5 @@
 class Usuario < ApplicationRecord
-  belongs_to :tenant
+  belongs_to :tenant, optional: true
 
   scope :ordered, -> { order(:created_at) }
 

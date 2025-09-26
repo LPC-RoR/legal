@@ -74,7 +74,7 @@ class Karin::KrnDenunciasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_denuncia_params)
-        format.html { redirect_to krn_denuncias_path, notice: "Denuncia fue exitosamente actualizada." }
+        format.html { redirect_to cta_dnncs_path, notice: "Denuncia fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -99,7 +99,7 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to krn_denuncias_path, notice: "Denuncia fue exitosamente eliminada." }
+      format.html { redirect_to cta_dnncs_path, notice: "Denuncia fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -200,6 +200,10 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   private
+
+    def cta_dnncs_path
+      "/cuentas/#{@objeto.ownr.class.name[0].downcase}_#{@objeto.ownr_id}/dnncs"
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia

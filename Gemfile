@@ -65,6 +65,7 @@ gem 'htmltoword'                  # Export to word
 gem 'pdf-reader'                  # Leer PDF files
 # Gemfile
 gem 'combine_pdf', '~> 1.0'
+gem 'prawn'           # crea el PDF anonimizado
 
 gem 'wicked_pdf'                  # Para reportes en PDF
 gem 'wkhtmltopdf-binary'
@@ -75,6 +76,9 @@ gem 'grover'                      # Para reportes en PDF con bootstrap 5
 gem 'mime-types'
 gem 'rqrcode'
 gem 'chunky_png'  # Necesario para convertir el QR a imagen
+
+# Para el manejo de Tenants
+gem 'request_store'
 
 # Busqueda
 gem 'pg_search'

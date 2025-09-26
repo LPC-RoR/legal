@@ -83,30 +83,33 @@ class EmpresasController < ApplicationController
     end
   end
 
+  # app/controllers/empresas_controller.rb
   def verify
     @objeto = Empresa.find_by(verification_token: params[:token])
-    
+
     if @objeto
       @objeto.update(email_verified: true, verification_token: nil)
 
-      usuario = Usuario.find_or_initialize_by(email: @objeto.email_administrador)      
+      usuario = Usuario.find_or_initialize_by(email: @objeto.email_administrador)
+
       if usuario.new_record?
-        
         random_password = Devise.friendly_token.first(12)
         usuario.assign_attributes(
           password: random_password,
           password_confirmation: random_password,
-          confirmed_at: Time.now  # Marcar como confirmado para que no necesite autenticación
+          confirmed_at: Time.current
         )
 
+        # Asignar tenant (crear si no existe)
+        tenant = @objeto.tenant || @objeto.create_tenant(nombre: @objeto.razon_social)
+        usuario.tenant = tenant
+
         if usuario.save!
-          # Envía el correo con los datos del USUARIO, no de la empresa
           EmpresaMailer.wellcome_email(
-            email: usuario.email, 
+            email: usuario.email,
             password: random_password
           ).deliver_later
         end
-
       end
 
       redirect_to root_path, notice: 'Correo verificado correctamente'

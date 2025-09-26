@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_15_192018) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_26_015126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -2003,6 +2003,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_192018) do
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "owner_type"
+    t.integer "owner_id"
+    t.index ["owner_id"], name: "index_tenants_on_owner_id"
+    t.index ["owner_type"], name: "index_tenants_on_owner_type"
   end
 
   create_table "tipo_asesorias", force: :cascade do |t|

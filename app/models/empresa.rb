@@ -1,6 +1,9 @@
 class Empresa < ApplicationRecord
     attr_accessor :website  # honeypot
     
+    has_one :tenant, as: :owner, dependent: :destroy
+    after_create :crear_tenant
+
     # Logo con Active Storage
     has_one_attached :logo
 
@@ -90,6 +93,10 @@ class Empresa < ApplicationRecord
 
     # ---------------------------------------------------------------------------------
     private
+
+        def crear_tenant
+            Tenant.create!(nombre: razon_social, owner: self)
+        end
 
         def acceptable_logo
             return unless logo.attached?

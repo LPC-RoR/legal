@@ -265,6 +265,7 @@ GEM
     parser (3.3.7.4)
       ast (~> 2.4.1)
       racc
+    pdf-core (0.10.0)
     pdf-reader (2.14.1)
       Ascii85 (>= 1.0, < 3.0, != 2.0.0)
       afm (~> 0.2.1)
@@ -277,6 +278,10 @@ GEM
       activesupport (>= 6.1)
     pp (0.6.2)
       prettyprint
+    prawn (2.5.0)
+      matrix (~> 0.4)
+      pdf-core (~> 0.10.0)
+      ttfunk (~> 1.8)
     prettyprint (0.2.0)
     prism (1.4.0)
     propshaft (1.1.0)
@@ -344,6 +349,8 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
+    request_store (1.7.0)
+      rack (>= 1.4)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -497,11 +504,13 @@ DEPENDENCIES
   pdf-reader
   pg
   pg_search
+  prawn
   propshaft
   puma (>= 5.0)
   rack-attack
   rails (~> 8.0.1)
   rails_charts
+  request_store
   roo (~> 2.10.0)
   rqrcode
   rubocop-rails-omakase
