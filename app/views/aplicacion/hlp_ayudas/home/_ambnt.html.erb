@@ -1,43 +1,42 @@
 <h3 class="mb-4">Configuración básica</h3>
-<p><b>NOTA</b>: Esta configuración puede ser realizada sólo por el administrador de la cuenta, idealmente antes de dar acceso a sus usuarios para garantizar que se encuentren con una cuenta ya configurada.</p>
+<p><b>NOTA</b>: Esta configuración debe ser realizada únicamente por el administrador de la cuenta. Se recomienda completarla antes de otorgar acceso a los demás usuarios, de manera que ingresen a una cuenta ya preparada y operativa.</p>
 
-<p>El presente tutorial está diseñado especialmente para ayudar al usuario administrador a completar la configuración inicial de la cuenta y dejarla operativa.</p>
+<p>Este tutorial ha sido diseñado para guiar al administrador en el proceso de configuración inicial de la cuenta, asegurando que quede lista para su uso.</p>
 
-<p>El proceso de configuración de LABORSAFE cambia levemente si se trata de una empresa principal o usuaria, la cual necesita para comenzar haber registrado al menos una empresa externa. En el detalle diferenciaremos los pasos y consideraciones que aplican sólo a este tipo de empresas.</p>
+<p>Por simplicidad, llevaremos a cabo la configuración considerando el caso de una empresa principal o usuaria. Este procedimiento contempla únicamente una tarea adicional respecto del que corresponde a una empresa que no participa en un régimen de subcontratación. Dicha tarea será destacada de manera diferenciada para facilitar su identificación.</p>
 
-<p>Al ingresar por primera vez a la plataforma encontrará lo siguiente:</p>
+<h4>Primer ingreso a LABORSAFE</h4>
 
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/ambnt_1.png', width: "600" %>
-</div>
-
-<p>Veamos los distintos elementos y sus funcionalidades:</p>
-
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/encbzd_emprs.png', width: "600" %>
-</div>
-
-<p>En la parte superior encontrámos información de la cuenta de la empresa:
-	<ol>
-		<li>El nombre de la empresa, en este caso es <i>Empresa de prueba</i>.</li>
-		<li>La leyenda (DEMO) indicando que se trata de una cuenta de prueba, que tiene capacidad y duración limitada.</li>
-		<li>El botón <i class="bi bi-arrow-bar-down"></i>, que le permitirá subir el logo de su empresa para personalizar la cuenta.</li>
-		<li>La leyenda <i>Su cuenta Demo le permite crear hasta 10 denuncias y estará activa por 10 días contados desde el registro de su empresa.</i></li>
-	</ol>
+<p>
+Los datos del administrador de la cuenta, ingresados a través del formulario de registro de empresa disponible en nuestra página principal, se utilizarán para generar el primer <i>usuario administrador</i> de su organización. Este usuario recibirá, vía correo electrónico, las instrucciones necesarias para completar su registro junto con sus credenciales de acceso.
 </p>
 
-<p>Inmediatamente debajo encontramos el menú desplegable:</p>
+<p>Al ingresar por primera vez a la plataforma, el usuario administrador visualizará la página principal correspondiente a la cuenta de su empresa.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/encbzd_menu.png', width: "600" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_1.png', width: "700" %>
 </div>
 
-<p>En el distinguimos dos elementos:
-	<ol>
-		<li>El menú desplegable, a la izquierda.</li>
-		<li>El correo electrónico del usuario actual, el cual es un botón que le permite editar su usuario para <i>cambiar su contraseña</i> o para <i>cancelar su cuenta</i>.</li>
-	</ol>
+<p>En la parte superior de la imagen podemos distinguir tres elementos generales:</p>
+
+<p><b>Menú de LABORSAFE</b></p>
+<p>En el primer nivel de la imagen: a la izquierda el logo de LABORSAFE y a la derecha los tres ítems del menú.</p>
+
+<p><b>Mensaje emergente</b></p>
+<p>En la imagen el mensaje nos cuenta que nuestra sesión se inició correctamente.</p>
+
+<p><b>Encabezado de la cuenta</b></p>
+<p>Cuenta con tres elementos:
+	<ul>
+		<li>Nombre de la empresa: a la izquierda. Si el usuario es administrador de la cuenta, el nombre es además in link que lo conduce a un ambiente en el cual puede, por ejemplo, subir el ícono de su empresa para personalizar la cuenta.</li>
+		<li>Producto: a continuación del nombre de la empresa, en este caso <i>DEMO</i>. Al presionar sobre él nos muestra información del producto activo.</li>
+		<li>Usuario activo: A la derecha. Es un link que nos lleva al ambiente de edición del usuario, donde podemos cambiar la contraseña o eliminar nuestro usuario.</li>
+	</ul>
 </p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_2.png', width: "700" %>
+</div>
 
 <div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
 	<p><b>Confidencialidad de las denuncias</b></p>
@@ -45,65 +44,51 @@
 	<p>El usuario administrador tendrá acceso a la información de todas las denuncias, por ello este rol debe ser asignado a quien comprenda y garantice los estándares de confidencialidad exigidos por el reglamento.</p>
 </div>
 
-<p>Finalmente llegamos al encabezado de la lista de denuncias:</p>
+<p><b>Cuenta de la empresa</b></p>
+
+<p>Finalmente llegamos a la información de la cuenta. El tab superior nos permite seleccionar cuatro opciones:
+	<ol>
+		<li>Denuncias</li>
+		<li>Invetigadores</li>
+		<li>Empresas externas (sólo para empresas principales o usuarias)</li>
+		<li>Nómina</li>
+	</ol>
+</p>
+
+<p>Podemos ver que la opción seleccionada por defecto es <i>Denuncias</i></p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/encbzd_dnncs.png', width: "600" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_3.png', width: "700" %>
 </div>
 
-<p>Usualmente en este encabezado, a la derecha del texto <i>Denuncias</i>, hay un botón <i class="bi bi-plus-circle"></i> que permite agregar una nueva denuncia. La razón de su ausencia es que <i>la plataforma no permitirá el ingreso de denuncias sin completar antes la configuración mínima necesaria</i>, lo cual está explicado en el mensaje de bienvenida que se despliega bajo el encabezado.</p>
+<p>Al final de este encabezado, a la derecha del texto “Denuncias”, debería aparecer el botón <i class="bi bi-plus-circle"></i> para agregar una nueva denuncia. Si no se muestra, es porque la plataforma requiere completar primero la configuración mínima, tal como se indica en el mensaje de bienvenida bajo el encabezado.</p>
 
-<p>El mensaje nos indica que para completar la configuración inicial debemos completar dos pasos:
+<p>La configuración mínima solicitada es:
 	<ul>
-		<li>Ingresar al menos un investigador</li>
-		<li>Ingresar al menos una empresa externa</li>
+		<li>Ingresar al menos un investigador.</li>
+		<li>Ingresar al menos una empresa externa (sólo para empresas principales o usuarias).</li>
+		<li>Ingresar al menos un contacto de RRHH. Este contacto se utiliza para solicitar la verificación y complementación de los datos de los participantes. También para solicitar la documentación de los participantes solicitada por el investigador.</li>
+		<li>Ingresar al menos un contacto para <i>atención psicológica temprana</i>. Se trata de la persona que debe coordinar y acompañar la atención psicologica temprana de las personas denucniantes.</li>
+		<li>Ingresar al menos un contacto de <i>respaldo de correos electrónicos</i>. Todos los correos electrónicos enviados desde la plataforma quedan respaldados en esta dirección de correo.</li>
 	</ul>
 </p>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
-	<p><b>Empresas principales o usuarias</b></p>
-	<p>La ventana de bienvenida de la imagen corresponde a la de una empresa principal o usuaria, si la cuenta de la empresa fuera <i>estándar</i> sólo pediría <i>ingresar al menos un investigador</i>.</p>
-</div>
-
-<h5 class="mb-3">Uso del menú desplegable</h5>
-
-<p>Al presionar el ícono del menú, este se desplegará mostrando las siguientes opciones:</p>
-
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/ambnt_2.png', width: "600" %>
-</div>
-
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
-	<p><b>Seguridad</b></p>
-	<p>El menú presenta las alternativas disponibles para navegar. 
-		<ul>
-			<li>Dado que desplegamos el menú desde la opción <i>Denuncias</i>, esta opción no es ofrecida.</li>
-			<li>La <i>configuración básica</i> sólo puede ser realizada por el usuario administrador de la cuenta, por esta razón el menú despliega en la imagen todas las opciones disponibles.</li>
-		</ul></p>
-</div>
-
-<p>El total de opciones que puede desplegar son cuatro:</p>
-<ol>
-	<li><i>Denuncias</i></li>
-	<li><i>Investigadores</i></li>
-	<li><i>Empresas externas</i> (disponible solo para empresas principales o usuarias)</li>
-	<li><i>Nómina</i></li>
-</ol>
+<p><b>NOTA</b>: Un contacto no es un usuario, es una dirección de correo que la cuenta usa con un fin específico.</p>
 
 <h5 class="mb-3">Investigadores</h5>
 
-<p>Para acceder a la lista de investigadores seleccione la opción <i>Investigadores</i> del menú desplegable.</p>
+<p>Para acceder a la lista de investigadores seleccione la opción <i>Investigadores</i>.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/ambnt_3.png', width: "600" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_4.png', width: "700" %>
 </div>
 
-<p>Como aún no se cumple con la configuración básica, la plataforma despliega el mismo mensaje de bienvenida, pero a diferencia del encabezado de las denuncias, en el encabezado de los investigadores está habilitado el botón <i class="bi bi-plus-circle"></i> que permite crear un investigador.</p>
+<p>Como aún no se cumple con la configuración básica, la plataforma despliega el mismo mensaje, pero a diferencia del encabezado de las denuncias, en el encabezado de los investigadores está habilitado el botón <i class="bi bi-plus-circle"></i> que permite crear nuestro primer investigador.</p>
 
 <p>Al presionar el botón <i class="bi bi-plus-circle"></i> accedemos al formulario para crea un investigador:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/ambnt_4.png', width: "600" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_5.png', width: "700" %>
 </div>
 
 <p>Los campos del formulario no requieren mayor explicación, sólo algunas observaciones:

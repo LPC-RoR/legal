@@ -30,7 +30,13 @@ module Paths
 	# ------------------------------------------------------ ACT_ARCHIVO
 
 	def dnnc_shw_path(objt)
-		dnnc_id = "#{objt.ownr.dnnc.id}_#{objt.ownr.class.name == 'KrnDenuncia' ? (['combinado', 'dnnc'].include?(objt.act_archivo) ? '2' : '0') : '1'}"
+		if objt.class == ActArchivo
+			dnnc_id = "#{objt.ownr.dnnc.id}_#{objt.ownr.class.name == 'KrnDenuncia' ? (['combinado', 'dnnc'].include?(objt.act_archivo) ? '2' : '0') : '1'}"
+		elsif ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(objt.class.name)
+			dnnc_id = "#{objt.ownr.dnnc.id}_1"
+		else
+			dnnc_id = "#{objt.ownr.dnnc.id}_0"
+		end
 		"/krn_denuncias/#{dnnc_id}"
 	end
 
