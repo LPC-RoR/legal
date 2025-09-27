@@ -27,6 +27,10 @@ module Paths
 		end
 	end
 
+	# ------------------------------------------------------ APP_NOMINA
+	def app_nmn_rdrct_path(objt)
+		objt.ownr_id.nil? ? app_nominas_path : "/cuentas/#{objt.ownr.class.name[0].downcase}_#{objt.ownr_id}/nmn"
+	end	
 	# ------------------------------------------------------ ACT_ARCHIVO
 
 	def dnnc_shw_path(objt)

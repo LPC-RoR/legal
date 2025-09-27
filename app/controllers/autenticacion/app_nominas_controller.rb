@@ -3,7 +3,6 @@ class Autenticacion::AppNominasController < ApplicationController
   before_action :scrty_on
   before_action :inicia_sesion
   before_action :set_app_nomina, only: %i[ show edit update destroy ]
-  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   # GET /app_nominas or /app_nominas.json
   def index
@@ -19,7 +18,7 @@ class Autenticacion::AppNominasController < ApplicationController
     oid = params[:oid].blank? ? nil : params[:oid]
     oclss = params[:oid].blank? ? nil : params[:oclss]
     @objeto = AppNomina.new(ownr_type: oclss, ownr_id: oid)
-    set_bck_rdrccn
+    
   end
 
   # GET /app_nominas/1/edit
@@ -29,11 +28,11 @@ class Autenticacion::AppNominasController < ApplicationController
   # POST /app_nominas or /app_nominas.json
   def create
     @objeto = AppNomina.new(app_nomina_params)
-    set_bck_rdrccn
+    
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Nomina de usuario fue exitosamente creada." }
+        format.html { redirect_to app_nmn_rdrct_path(@objeto), notice: "Nomina de usuario fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +45,7 @@ class Autenticacion::AppNominasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(app_nomina_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Nomina de usuario fue exitosamente actualizada." }
+        format.html { redirect_to app_nmn_rdrct_path(@objeto), notice: "Nomina de usuario fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,7 +58,7 @@ class Autenticacion::AppNominasController < ApplicationController
   def destroy
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @bck_rdrccn, notice: "Nomina de usuario fue exitosamente eliminada." }
+      format.html { redirect_to app_nmn_rdrct_path(@objeto), notice: "Nomina de usuario fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
