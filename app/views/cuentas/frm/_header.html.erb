@@ -9,6 +9,8 @@
 			<%= text_acctn %> 
 			<% if prtl?(@objeto, 'frm', 'txt_objt') %>
 				<%= render partial: prtl_name(@objeto, 'frm', 'txt_objt') %>
+			<% elsif prtl?(@objeto, 'frm', 'txt_hdr') %>
+				<%= render partial: prtl_name(@objeto, 'frm', 'txt_hdr') %>
 			<% else %>
 				<%= to_name(@objeto).downcase %>
 			<% end %>

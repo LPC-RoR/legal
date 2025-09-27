@@ -11,7 +11,7 @@
 		<!--/br-->
 			<i class="bi bi-arrow-right"></i>
 			<i class="bi bi-person<%='-circle' if objt.tipo == 'admin'%>"></i>
-			<%= objt.email %> 
+			<%= email_mask(objt.email) %> 
 		</small>
 	</td>
 	<td class="pe-3 text-end">

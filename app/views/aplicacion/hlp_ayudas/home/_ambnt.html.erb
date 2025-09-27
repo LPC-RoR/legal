@@ -102,7 +102,7 @@ Los datos del administrador de la cuenta, ingresados a través del formulario de
 <p>Para efectos del ejemplo, ingresaremos como nombre del investigador: <b>Investigador de la empresa</b> Una vez ingresado el nuevo investigador nuestra página actualizada lucirá así:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/ambnt_5.png', width: "600" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_6.png', width: "700" %>
 </div>
 
 <p>Podemos ver que bajo el encabezado se muestra el primer registro de nuestra lista de investigadores.</p>
@@ -112,40 +112,33 @@ Los datos del administrador de la cuenta, ingresados a través del formulario de
 </ol>
 </p>
 
-<p>Bajo el nombre del investigador verá una leyenda que dice: <i class="bi bi-cone-striped text-danger"></i> <i>Email con link de verificación de correo electrónico.</i> que finaliza con el botón <i class="bi bi-envelope-at text-primary"></i> <span class="text-primary">Enviar</span> </p>
+<p><b>Verificación de la dirección de correo electrónico</b></p>
 
-<p>Este botón envía un correo electrónico al email registrado para el investigador, con un link que le permitirá <i>verificar la dirección de correo registrada</i>.</p>
-
-<p>Una vez enviado el correo electrónico, verá en la parte alta de la pantalla el mensaje <i class="bi bi-bell text-primary"></i> <span class="text-primary">Correo de verificación enviado</span> y, el mensaje bajo el nombre del investigador ha cambiado:
-	<ol>
-		<li>Al comienzo del mensaje (que sigue siendo el mismo) aparece ahora la fecha en la que se envió el correo de verificación.</li>
-		<li>Al final del mensaje aún podemos ver el botón, pero ahora dice <span class="text-primary">Reenviar</span>, el cual nos permitirá enviar un segundo correo si fuera necesario.</li>
-	</ol>
+<p>Bajo el nombre del investigador verá una leyenda que dice: <i class="bi bi-cone-striped text-danger"></i> <i>Verificación de la dirección de correo electrónico</i> que finaliza con dos botones:
+	<ul>
+		<li><i class="bi bi-envelope-at"></i> Enviar : este botón envía un correo electrónico con el link que le permitirá al investigador verificar la dirección registrada.</li>
+		<li><i class="bi bi-check-square"></i> : este botón permite la <i>verificación manual</i> de la dirección registrada.</li>
+	</ul>
 </p>
 
-<p>Una vez verificado el correo electrónico por el investigador, el ícono para enviar el correo de verificación será reemplazado por el ícono <i class="bi bi-at text-primary"></i> acompañado de la palabra <span class="text-primary">Verificado!</span>.</p>
+<p>La funcionalidad de verificación de direcciones de correo electrónico está disponible para todos los participantes de una denuncia.</p>
 
-<p>Este botón está disponible para todos los participantes del Procedimiento de Investigación y Sanción, de esta forma <b>la plataforma incorpora la verificación de correos personales para todos participantes de una denuncia</b>.</p>
-
-<p>Finalmente, vemos que el mensaje de bienvenida no ha desaparecido, pero ahora no considera como tarea pendiente el ingreso de un investigador.</p>
+<p>Podemos ver que el mensaje ya no tiene como pendiente ingresar al menos un investigador y que el ícono de alerta ha desaparecido del tab <i>Investigadores</i>.</p>
 
 <h5 class="mb-3">Empresas externas</h5>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
-	<p><b>Empresas principales o usuarias</b></p>
-	<p>Sólo las empresas principales o usuaria requieren el ingreso de empresas externas.</p>
-</div>
+<p><b>NOTA</b>: Sólo las empresas principales o usuaria requieren el ingreso de empresas externas.</p>
 
-<p>Para acceder a la lista de empresas externas seleccione la opción <i>Empresas externas</i> del menú desplegable.</p>
+<p>Para acceder a la lista de empresas externas seleccione la opción <i>Empresas externas</i></p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/ambnt_6.png', width: "600" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_7.png', width: "700" %>
 </div>
 
-<p>La situación es similar al ingreso de investigadores, para agregar una empresa externa presionamos el botón <i class="bi bi-plus-circle"></i> que se encuentra a la derecha del encabezado.</p>
+<p>Para agregar una empresa externa presionamos el botón <i class="bi bi-plus-circle"></i> que se encuentra a la derecha del encabezado.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/ambnt_7.png', width: "600" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_8.png', width: "700" %>
 </div>
 
 <p>El campo <i>Tipo de empresa</i> tiene dos opciones:
@@ -165,10 +158,14 @@ Los datos del administrador de la cuenta, ingresados a través del formulario de
 <p>Una vez ingresa la empresa externa, veremos lo siguiente:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/ambnt_8.png', width: "600" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_9.png', width: "700" %>
 </div>
 
-<p>Bajo el encabezado vemos los datos de la empresa ingresada y, dado que completamos la información requerida para cumplir con la configuración mínima, ya no vemos el mensaje de bienvenida. Estamos habilitados para ingresar nuestra primera denuncia.</p>
+<p>Bajo el encabezado vemos los datos de la empresa ingresada, solo nos resta ingresar los contactos mínimos solicitados.</p>
+
+<h3 class="mb-3">Ingreso de contactos</h3>
+
+<p>Para acceder a la lista de contactos seleccione la opción <i>Nómina</i></p>
 
 <h3 class="mb-3">Ingreso de la primera denuncia</h3>
 
