@@ -4,7 +4,7 @@
 
 <p>Las características de la denuncia de este ejemplo son las siguientes:
 	<ol>
-		<li>La empresa NO cumple el rol de empresa principal o usuaria.</li>
+		<li>La denuncia no ocurre en el contexto de régimen de subcontratación.</li>
 		<li>La denuncia es investigada por la propia empresa.</li>
 		<li>No se presenta objeción del investigador asignado.</li>
 		<li>La denuncia no presenta inconsistencias.</li>
@@ -15,26 +15,22 @@
 <p>Para ingresar una denuncia debemos seleccionar el ítem <b>Denuncias</b> del menú principal.</p> 
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_1.png', width: "600" %>
+	<%= image_tag 'hlp/dnnc_smpl_1.png', width: "700" %>
 </div>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
-	<p><b>Configuración básica</b></p>
-	<p>Si a la derecha del encabezado <i>Denuncias</i> no aparece el botón <i class="bi bi-plus-circle"></i>, es por alguna de las siguientes razones: 
-		<ol>
-			<li>No se ha completado la configuración inicial de la cuenta.</li>
-			<li>Ha vencido el plazo de su producto DEMO</li>
-			<li>Ha completado el número de denuncias asignadas a su producto</li>
-		</ol>
-		Si se trata del primer caso encontrará lo necesario para completar la configutración básica en el link <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Configuración básica', tltp: 'Configuración básica'} %>
-	</p>
-</div>
+<p><b>NOTA</b>:Si a la derecha del encabezado <i>Denuncias</i> no aparece el botón <i class="bi bi-plus-circle"></i>, es por alguna de las siguientes razones: 
+	<ol>
+		<li>No se ha completado la configuración básica de la cuenta.</li>
+		<li>Ha vencido el plazo de su producto DEMO</li>
+		<li>Ha completado el número de denuncias asignadas a su producto</li>
+	</ol>
+	Si se trata del primer caso encontrará lo necesario para completar la configutración básica en el link <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Configuración básica', tltp: 'Configuración básica'} %>
+</p>
 
 <%= render partial: prtl_name('hlp_ayudas', 'home/dnnc_smpl', 'crear_dnnc') %>
 
 <h4>Ingreso de los participantes</h4>
 <%= render partial: prtl_name('hlp_ayudas', 'home/dnnc_smpl', 'prtcpnts_ambnt') %>
-<%= render partial: prtl_name('hlp_ayudas', 'home/dnnc_smpl', 'btn_rsmn_prcdmnt') %>
 <%= render partial: prtl_name('hlp_ayudas', 'home/dnnc_smpl', 'prtcpnts_ingrs') %>
 <%= render partial: prtl_name('hlp_ayudas', 'home/dnnc_smpl', 'drvcns_crr') %>
 <%= render partial: prtl_name('hlp_ayudas', 'home/dnnc_smpl', 'invstgcn') %>

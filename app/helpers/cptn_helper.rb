@@ -30,7 +30,7 @@ module CptnHelper
 	end
 
 	def h_tipos_usuario(app_nmn)
-		['Empresa', 'Cliente'].include?(app_nmn.ownr_type) ? ['admin', 'recepción', 'investigador', 'rrhh'] : ['operación', 'finanzas', 'general', 'admin']
+		['Empresa', 'Cliente'].include?(app_nmn.ownr_type) ? ['admin', 'recepción', 'investigador', 'auditor'] : ['operación', 'finanzas', 'general', 'admin']
 	end
 
     def archivos_controlados_disponibles

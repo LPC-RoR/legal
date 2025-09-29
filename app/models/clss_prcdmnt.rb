@@ -157,7 +157,7 @@ class ClssPrcdmnt
           'drvcn'               => 'Notificación de la derivación de la denuncia',
           'invstgdr'            => 'Notificación del investigador asignado a la denuncia',
           'infrmcn'             => 'Verificación de datos de los participantes',
-          'crdncn_apt'          => 'Coordinación de atención psocológica temprana',
+          'crdncn_apt'          => 'Coordinación de atención psicológica temprana',
           'dnnc'                      => 'Reporte del estado de la denuncia'
 
     }

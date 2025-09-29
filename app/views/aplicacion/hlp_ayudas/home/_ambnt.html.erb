@@ -173,21 +173,66 @@ Los datos del administrador de la cuenta, ingresados a través del formulario de
 
 <p>Como usted puede apreciar, basta el usuario administrador para que la cuenta quede operativa.</p>
 
-<p><b>Ingeso de un nuevo usuario a la nómina.</b></p>
+<p><b>Nomina</b></p>
 
-<p>Para acceder a la lista de contactos seleccione la opción <i>Nómina</i></p>
-
-<h3 class="mb-3">Ingreso de la primera denuncia</h3>
-
-
-
-
-<p>Para acceder a la lista de denuncias seleccione la opción <i>Denuncias</i> del menú desplegable.</p>
+<p>La nómina contiene <i>perfiles de usuario</i>. Se trata de un registro que contiene los datos del usuario, los que la plataforma usará para saber a qué empresa debe tener accerso un usuario recién registrado.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/ambnt_9.png', width: "600" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_11.png', width: "700" %>
 </div>
 
+<p>Vemos en el formulario que los campos requeridos para ingresar un perfil de usuario son:
+	<ul>
+		<li><i>Tipo de usuario</i>: este campo determina la información y la funcionalidad que estará disponible para este usuario.</li>
+		<li><i>Nombe de usuario</i></li>
+		<li><i>Email del usuario</i>: LABRSAFE utiliza el email como nombre de usuario.</li>
+	</ul>
+</p>
+
+<p>Los tipos de usuario son:
+	<ul>
+		<li><i>admin</i>: este usuario tiene acceso a toda la información y funcionalidad de la cuenta.</li>
+		<li><i>recpción</i>: este usuario tiene acceso a la información y funcionalidad de la recepción de denuncias.</li>
+		<li><i>investigador</i>: este usuario tiene acceso a toda la información pero no a la funcionalidad asociada a la recepción de denuncias.</li>
+		<li><i>auditoría</i>: este usuario tiene acceso a toda la información pero sólo a la funcionalidad propia de la ejecución de la auditoría. Ningún otro usuario tiene acceso a esta funcionalidad.</li>
+	</ul>
+</p>
+
+<p>El usuario incluido en la nómina sólo debe registrarse en la plataforma como usuario utilizando el email que contiene la nómina y verificar su correo electrónico a través del link que recibirá para dicho efecto.</p>
+
+<p><b>Contactos</b></p>
+
+<p>Un contacto no es un usuario, son direcciones de correo que la platafora utilizará para enviar los correos propios del procedimiento de investigación y sanción.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_12.png', width: "700" %>
+</div>
+
+<p>Los campos del formulario de un contacto son:
+	<ul>
+		<li><i>Grupo</i>: este campo determina cuales correos recibirá.</li>
+		<li><i>Nombre completo</i>.</li>
+		<li><i>Email</i></li>
+		<li><i>Telefono</i></li>
+	</ul>
+</p>
+
+<p>Los grupos disponibles son:
+	<ul>
+		<li><i>RRHH</i>: estos contactos son utilizados por la plataforma para dos propósitos: solicitar la verificación de los datos de los participantes y para solicitar documentación de los participantes.</li>
+		<li><i>Apt</i>: estos contactos son utilizados por la plataforma para coordinar la atención psicológica temprana de las personas denunciantes.</li>
+		<li><i>Backup</i>: este correo no es un destinatario propiamente tal, a esta dirección de correo llega una copia de todos los correos electrónicos enviados por la plataforma a los destinatarios de la empresa.</li>
+	</ul>
+</p>
+
+<p>La plataforma nos exige tener al menos uno de cada uno. Una vez hemos completado esta tarea, estamos en condiciones de crear nuestra primera denuncia.</p>
+
+<h3 class="mb-3">Ingreso de denuncias</h3>
+
 <p>Ahora, ya está disponible el botón <i class="bi bi-plus-circle"></i> a la derecha del encabezado para ingresar nuestra primera denuncia.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_13.png', width: "700" %>
+</div>
 
 <p>La plataforma permite el ingreso de todos los tipos de denuncia posibles, para ilustrar el ingreso de una denuncia simple, hemos creado un tutorial que le permitirá familiarizarse con el ambiente de trabajo. <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dnnc_smpl', dscrpcn: 'Ejemplo de denuncia simple', tltp: 'Ejemplo de denuncia simple'} %>.</p>

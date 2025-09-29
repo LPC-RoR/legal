@@ -1,40 +1,38 @@
 <h5>Ingreso de personas denunciantes, denunciadas y testigos</h5>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_5 -->
-	<%= image_tag 'hlp/dnnc_smpl_5.png', width: "600" %>
+	<%= image_tag 'hlp/dnnc_smpl_3.png', width: "700" %>
 </div>
 
 <p>A la derecha de los encabezados correspondientes podemos encontrar dos botónes de íconos:
 	<ul>
 		<li><i class="bi bi-question-circle"></i>: nos lleva a la ayuda que describe la información y funcionalidad asociada al despliege de un registro de denunciante/denunciado.</li>
-		<li><i class="bi bi-plus-circle"></i>: no permite agregar una persona denunciante/denunciada.</li>
+		<li><i class="bi bi-plus-circle"></i>: nos permite agregar una persona denunciante/denunciada.</li>
 	</ul>
 </p>
 
-<p>En este estado inicial, podemos ver que sólo podemos ingresar <i>personas denunciantes</i>. La plataforma permite ingresar <i>personas denunciadas sólo si se ha ingresado al menos una persona denunciante. Consecuentemente, no nos pertimirá borrar una última persona denunciante si ya hemos ingresado alguna persona denunciada.</i></p>
+<p>La plataforma exige registrar al menos a una persona denunciante antes de poder ingresar los datos de una persona denunciada. Por esta razón, únicamente el primer encabezado dispone de un botón de ingreso al inicio. De manera recíproca, tampoco será posible eliminar a la única persona denunciante registrada si ya existe alguna persona denunciada en la lista.</i></p>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
-	<p><b>Denuncias con varias personas denunciantes</b></p>
-	<p>A pesar de que el reglamento no se refiere nunca a denuncias realizadas por más de una persona denunciante, nos parece natural su implementación por las siguientes razones:
-		<ol>
-			<li>El reglamento establece que el sindicato de la empresa puede presentar una denuncia en representación de la persona denunciante. En este contexto nos parece probable que, en este ejercicio, dicha representación se extienda a más de una persona denunciante.</li>
-			<li>La opción de dividir una denuncia de varias personas denunciantes en tantas denuncias como denunciantes haya, no solo multiplica el trabajo administrativo y el número de declaraciones realizadas por los testigos, sino que complejiza, además, la definición de medidas correctivas y sanciones, enfrentándonos a la situación en la que una persona denunciada pudiera tener más de una sanción, por ejemplo.</li>
-		</ol>
-	</p>
-</div>
+<p><b>Denuncias con múltiples personas denunciantes</b></p>
+<p>Aunque el reglamento no contempla expresamente la posibilidad de que una denuncia sea presentada por más de una persona denunciante, consideramos natural su implementación por las siguientes razones:
+	<ol>
+		<li>El reglamento dispone que el sindicato de la empresa puede presentar una denuncia en representación de la persona denunciante. En ese contexto, resulta razonable entender que dicha representación pueda extenderse a varias personas denunciantes.</li>
+		<li>Dividir una denuncia conjunta en tantas denuncias como denunciantes existan no solo incrementa la carga administrativa y multiplica las declaraciones de testigos, sino que también dificulta la definición de medidas correctivas y sanciones. Esto podría generar situaciones en que una misma persona denunciada reciba más de una sanción por hechos que forman parte de un mismo caso.</li>
+	</ol>
+</p>
 
 <p>Al presionar el botón <i class="bi bi-plus-circle"></i> para ingresar una persona denunciante accederemos al siguiente formulario:</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_6 -->
-	<%= image_tag 'hlp/dnnc_smpl_6.png', width: "600" %>
+	<%= image_tag 'hlp/dnnc_smpl_4.png', width: "700" %>
 </div>
 
-<p>La mayoría de los datos solicitados se explican sólo, las únicas observaciones son:
+<p><b>NOTA</b>: El campo <i>Empleado externo</i> de la segunda línea del formulario, se despliega únicamente si se trata de una empresa principal o usuaria, la cual está obligada a recibir denuncias de personas trabajadoras de empresas con las cuales tenga un régimen de subcontratación.</p>
+
+<p>La mayoría de los datos solicitados se explican sólo, por ello sólo haremos algunas observaciones:
 	<ol>
 		<li>La <b>cédula de identidad será verificada</b> por la plataforma, utilizando para ello el dígito verificador.</li>
-		<li><i>Aplica el artículo 516 del Código del Trabajo</i>: Se marca este campo <b>si la persona denunciante NO tiene ni usa correo electrónico</b>, en este caso la ley obliga que toda la información y notificaciones del procedimiento se le envíen por correo certificado. Al seleccionar este campo aparecerá en el formulario un campo adicional para que se ingrese la dirección que se usará para estos efectos.</li>
+		<li><b>Aplica el artículo 516 del Código del Trabajo</b>: Se marca este campo <b>si la persona denunciante NO tiene ni usa correo electrónico</b>, en este caso la ley obliga que toda la información y notificaciones del procedimiento se le envíen por correo certificado. Al seleccionar este campo aparecerá en el formulario un campo adicional para que se ingrese la dirección que se usará para estos efectos.</li>
 		<li><b>Aplica el artículo 4 inciso primero del Código del Trabajo</b>: Se marca este campo <b>si la persona trabajadora tiene un cargo de gerencia</b>, situación en la cual es obligatorio derivar la denuncia a la Dirección del Trabajo.</li>
 	</ol>
 </p>
@@ -42,9 +40,20 @@
 <p>El ingreso de las personas denunciadas y de los testigos es similar al ingreso de la persona denunciante. Una vez ingresada la información que se tiene al momento de la denuncia, la página queda más o menos como muestra la siguiente imagen:</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_7 -->
-	<%= image_tag 'hlp/dnnc_smpl_7.webp', width: "600" %>
+	<%= image_tag 'hlp/dnnc_smpl_5.png', width: "700" %>
 </div>
+
+<p>La plataforma asume por defecto que el ingreso de una denuncia se realiza con la persona denunciante presente. Por ello, prioriza las acciones que resultan pertinentes en ese contexto, y posterga aquellas que no requieren de su participación.</p>
+
+<p>La vista muestra ahora en su parte superior tres mensajes:
+	<ul>
+		<li>Los datos ingresados de los participantes cumplen con las exigencias mínimas para continuar con el proceso.</li>
+		<li>Para activar el envío de información y notificaciones debe verificar el correo electrónico de los participantes.</li>
+		<li>Es obligación entregar información a la persona denunciante acerca de su derecho a elegir la entidad investigadora. Envíe dicha información por correo electrónico para contar con evidencia de la entrega de esta información.</li>
+	</ul>
+</p>
+
+<p>El ingreso de datos contenidos en la denuncia es la primera tarea en su recepción, pero.</p>
 
 <p>La imagen superior muestra en primer lugar el mensaje "<i>La información contenida en los registros de los participantes cumple con el estándar mínimo necesario para continuar con la recepción de la denuncia</i>. <b>Ir a Proceso</b>"</p>
 
