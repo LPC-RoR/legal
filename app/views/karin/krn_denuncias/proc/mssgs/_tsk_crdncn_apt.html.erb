@@ -1,5 +1,5 @@
 <% unless tipo_usuario == 'investigador' %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Es obligación proporcionar atención psicológica temprana a las personas denunciantes. Envíe el correo electrónico solicitando la coordinación o verifique que ya fue realizada.', gly: 'cone-striped'} %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Es obligación brindar atención psicológica temprana a las personas denunciantes. Envíe el correo electrónico solicitando la coordinación o verifique que ya fue realizada.', gly: 'cone-striped'} %>
 <% else %>
 	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
 <% end %>
