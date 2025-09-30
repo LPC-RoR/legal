@@ -1,5 +1,5 @@
 <% unless tipo_usuario == 'investigador' %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'En comprobante de denuncia firmado por la persona denunciante, es evidencia del cumplimiento de la normativa en la recepción de la denuncia.', gly: 'cone-striped'} %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Gestione el comprobante de denuncia firmado por la persona denunciante, el cual constituye evidencia del cumplimiento de la normativa en la etapa de recepción.', gly: 'cone-striped'} %>
 <% else %>
 	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
 <% end %>
