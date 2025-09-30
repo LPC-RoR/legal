@@ -348,7 +348,7 @@ Rails.application.routes.draw do
     resources :rep_archivos
     resources :act_archivos do
       match :download, via: :get, on: :member
-      match :show, via: :get, on: :member
+      match :show_pdf, via: :get, on: :member
       match :rmv_cntrld, via: :post, on: :member
     end
     resources :check_realizados

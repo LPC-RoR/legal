@@ -1,5 +1,5 @@
 class Repositorios::ActArchivosController < ApplicationController
-  before_action :set_act_archivo, only: %i[ show edit update destroy download rmv_cntrld ]
+  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download rmv_cntrld ]
   before_action :authenticate_usuario!
   before_action :scrty_on
 
@@ -11,7 +11,7 @@ class Repositorios::ActArchivosController < ApplicationController
   end
 
   # GET /act_archivos/1 or /act_archivos/1.json
-  def show
+  def show_pdf
     archivo = ActArchivo.find(params[:id])
     # importante: disposition: :inline
     send_data archivo.pdf.download,
