@@ -1,4 +1,6 @@
 class ActArchivo < ApplicationRecord
+  attr_accessor :skip_pdf_presence
+
   belongs_to :ownr, polymorphic: true
   has_one_attached :pdf
 
@@ -21,10 +23,8 @@ class ActArchivo < ApplicationRecord
   private
 
   def pdf_must_be_attached_unless_rlzd
-    return if rlzd
-    unless pdf.attached?
-      errors.add(:pdf, "debe estar adjunto si no está realizado")
-    end
+    return if rlzd || skip_pdf_presence
+    errors.add(:pdf, "debe estar adjunto si no está realizado") unless pdf.attached?
   end
 
   def pdf_valid

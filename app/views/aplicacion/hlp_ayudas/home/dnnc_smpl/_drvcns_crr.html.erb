@@ -1,47 +1,43 @@
-<h4>Definición de las posibles derivaciones</h4>
+<h4>Opción de derivación a la persona denunciante </h4>
 
-<p>La página <b>Proceso</b> de la denuncia muestra, a esta altura del procedimiento la siguiente información.</p>
+<p>La vista <b>Proceso</b> de la denuncia muestra ahora la siguiente información.</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_8 -->
-	<%= image_tag 'hlp/dnnc_smpl_8.png', width: "600" %>
+	<%= image_tag 'hlp/dnnc_smpl_6.png', width: "700" %>
 </div>
 
-<p>La plataforma nos cuenta que nos encontramos en la etapa de recepción de la denuncia, cuyo plazo legal vence el 22-05-2025.</p>
+<p>La plataforma indica que actualmente nos encontramos en la etapa de <b>recepción de la denuncia</b>, cuyo plazo legal vence el 01-10-2025. Dentro de esta etapa, la tarea que corresponde ejecutar es: <i>Preguntar opción de derivación a la persona denunciante</i>.</p>
 
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
-	<p><b>Ingreso de denucias ya procesadas</b></p>
-	<p>A la izquierda del plazo de la etapa aparece un calendario en color rojo con una x en el centro. Esto es porque en el ejemplo este plazo excede la fecha en la cual se está ingresando la denuncia a la plataforma, es decir, el plazo ya venció. Si el atraso no es real y se está ingresando una denuncia en forma difereida, más adelante, al ingresar la fecha en la que se informó la investigación a la Dirección del Trabajo, o la fecha en la cual se derivó a esta institución, cambiará el estado del plazo al adecuado.
-	</p>
-</div>
+<p>Inmediatamente debajo se detalla la primera tarea de esta fase:<p>
 
-<p>Finalmente encontramos el detalle de lo primero que debemos resolver en esta etapa: Opciones de la persona denunciante<p>
+<p>Parte de la <i>información que debe entregarse a la persona denunciante</i> al momento de presentar su denuncia es el derecho a optar entre derivarla a la Dirección del Trabajo o someterla a una investigación interna realizada por la Empresa. En este ejemplo se asume que la respuesta se recibirá por escrito, ya que la denuncia también fue presentada por escrito. En tales casos, la plataforma controla que la información obligatoria sea enviada por correo electrónico, a fin de dejar constancia.</p>
 
-<p>Parte de la <i>información que es obligación entregar a la persona denunciante</i> al momento de presentar su denuncia es, su derecho a optar, por su derivación a la Dirección del Trabajo o por una investigación realizada por la Empresa. El ejemplo asume que la respuesta se recibirá por escrito, pues la denuncia se presentó por escrito y en estos casos la plataforma controla que la información obligatoria se envíe por correo electrónico.</p>
+<p>La ejecución de esta tarea es sencilla: basta con presionar el enlace que contiene la opción seleccionada por la persona denunciante.</p>
 
-<p>Realizar la tarea es muy simple, consiste en presionar el link que contiene la opción de la persona denunciante.</p>
+<p>En una segunda sección, titulada <b>Documentación obligatoria</b>, se muestra la lista de documentos que, de acuerdo con el estado actual de la denuncia, deben ser cargados. En la imagen se observa que aún no se ha subido la <i>denuncia</i> (obligatoria) ni los <i>anexos de la denuncia</i> (opcionales).</p>
 
-<p>En una segunda área cuyo encabezado es <b>Documentación obligatoria</b>, encontramos la lista de documentos que, dado el estado de la denuncia, se pueden subir. En la imagen se aprecia que no se ha subido aún la <i>denuncia</i> (obligatorio), tampoco se han subido <i>otros anexos de la denuncia</i> (opcionales).</p>
-
-<p>Los dos elementos que conforman hasta este minuto la lista de <b>Documentación obligatoria</b> comienzan con íconos distintos y, además, tienen distinta funcionalidad asociada (botones de la derecha).</p>
+<p>Los elementos que conforman hasta ahora la lista de <b>Documentación obligatoria</b> se distinguen por sus íconos iniciales y por las funcionalidades asociadas a los botones ubicados a la derecha.</p>
 <ul>
 	<li><i class="bi bi-file-earmark"></i> indica que se debe subir un documento único.</li>
 	<li><i class="bi bi-list-ul"></i> indica que se trata de uno o más documentos (una sublista).</li>
 </ul>
-<p>La funcionalidad asociada, permite subir y gestionar un único documento en el primer caso, o una lista de ellos.</p>
+<p>En consecuencia, la funcionalidad asociada, permite subir y gestionar un único documento en el primer caso, o una lista de ellos.</p>
 
 <p>Para información detallada de la gestión de la documentación obligatoria visite 
 	<%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dcmntcn_oblgtr', dscrpcn: 'Gestión de la documentación obligatoria', tltp: 'Gestión de la documentación obligatoria'} %>
 </p>
 
-<p>Como nuestro ejemplo se trata de una denuncia investigada por la empresa, presionamos el link <i>La persona denunciante manifiesta por escrito su deseo de que la investigación sea realizada por la empresa.</i>, lo cual nos lleva a la siguiente tarea:</p>
-
-<p>Aún estamos en la etapa de Recepción de la denuncia. Ló único que cambió en la página es el detalle de la tarea.</p>
+<p>Como nuestro ejemplo se trata de una denuncia investigada por la empresa, presionamos el link <i>La persona denunciante manifiesta su deseo de que la investigación sea realizada por la empresa.</i>, lo cual nos lleva a la siguiente tarea:</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_9 -->
-	<%= image_tag 'hlp/dnnc_smpl_9.png', width: "600" %>
+	<%= image_tag 'hlp/dnnc_smpl_7.png', width: "700" %>
 </div>
+
+<p>Podemos apreciar que aún estamos en la etapa de Recepción de la denuncia, pero ahora la tarea es <i>Coordinación de la atención psicológica temprana.</i>. Para realizar esta tarea debemos cambiarnos a la vista <i>Participantes</i>.</p>
+
+<p>El reglamento que regula el procedimiento de investigación y sanción establece la obligación de brindar <i>atención psicológica temprana</i> a las personas denunciantes. En la práctica, las instituciones administradoras del seguro cuentan con un número telefónico para tal efecto.</p>
+
+<p>La plataforma cubre el caso en el cual la persona responsablde realizar esta coordinación es distinta a la persona que hizo la recepción. SI este es el caso, es necesario enviar un correo que solicite al encargado realizar la coordinación. Si se trata de la misma persona no es necesario enviar el correo, tan sólo deberemos marcar la acción como realizada para distinguirla del caso en el cual no se realizó la coordinación.</p>
 
 <p>Si la persona denunciante a optado por una investigación realizada por la empresa, la empresa podrá, dentro de los tres primeros días hábiles, decidir derivar la denuncia a la Dirección del Trabajo o investigarla internamente. Esto es lo que se debe registrar en esta tarea. Para mostrar el caso más extenso, elegimos <i>La empresa decide realizar la investigación de la denuncia.</i></p>
 

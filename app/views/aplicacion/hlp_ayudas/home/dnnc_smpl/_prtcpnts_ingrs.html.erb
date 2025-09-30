@@ -4,58 +4,112 @@
 	<%= image_tag 'hlp/dnnc_smpl_3.png', width: "700" %>
 </div>
 
-<p>A la derecha de los encabezados correspondientes podemos encontrar dos botónes de íconos:
-	<ul>
-		<li><i class="bi bi-question-circle"></i>: nos lleva a la ayuda que describe la información y funcionalidad asociada al despliege de un registro de denunciante/denunciado.</li>
-		<li><i class="bi bi-plus-circle"></i>: nos permite agregar una persona denunciante/denunciada.</li>
-	</ul>
-</p>
+<p>A la derecha de los encabezados de personas denunciantes y denunciadas se encuentran dos botones con íconos:</p>
+<ul>
+	<li><i class="bi bi-question-circle"></i>: dirige a la ayuda que describe la información y la funcionalidad asociada al despliegue de un registro de denunciante o denunciado.</li>
+	<li><i class="bi bi-plus-circle"></i>: permite agregar una persona denunciante o denunciada.</li>
+</ul>
 
-<p>La plataforma exige registrar al menos a una persona denunciante antes de poder ingresar los datos de una persona denunciada. Por esta razón, únicamente el primer encabezado dispone de un botón de ingreso al inicio. De manera recíproca, tampoco será posible eliminar a la única persona denunciante registrada si ya existe alguna persona denunciada en la lista.</i></p>
+<p>La plataforma exige registrar al menos a una persona denunciante antes de poder ingresar datos de una persona denunciada. Por esta razón, solo el primer encabezado dispone inicialmente de un botón de ingreso. De manera recíproca, tampoco es posible eliminar a la única persona denunciante registrada si ya existe alguna persona denunciada en la lista.</p>
 
-<p><b>Denuncias con múltiples personas denunciantes</b></p>
-<p>Aunque el reglamento no contempla expresamente la posibilidad de que una denuncia sea presentada por más de una persona denunciante, consideramos natural su implementación por las siguientes razones:
-	<ol>
-		<li>El reglamento dispone que el sindicato de la empresa puede presentar una denuncia en representación de la persona denunciante. En ese contexto, resulta razonable entender que dicha representación pueda extenderse a varias personas denunciantes.</li>
-		<li>Dividir una denuncia conjunta en tantas denuncias como denunciantes existan no solo incrementa la carga administrativa y multiplica las declaraciones de testigos, sino que también dificulta la definición de medidas correctivas y sanciones. Esto podría generar situaciones en que una misma persona denunciada reciba más de una sanción por hechos que forman parte de un mismo caso.</li>
-	</ol>
-</p>
+<h5>Denuncias con múltiples personas denunciantes</h5>
+<p>Aunque el reglamento no contempla expresamente que una denuncia pueda ser presentada por más de una persona denunciante, consideramos natural habilitar esta posibilidad por las siguientes razones:</p>
+<ol>
+	<li>El reglamento establece que el sindicato de la empresa puede presentar una denuncia en representación de la persona denunciante. En este contexto, resulta razonable entender que dicha representación pueda extenderse a varias personas denunciantes.</li>
+	<li>Dividir una denuncia conjunta en tantas denuncias como denunciantes existan no solo incrementa la carga administrativa y multiplica las declaraciones de testigos, sino que también complica la definición de medidas correctivas y sanciones. Ello podría generar situaciones en las que una misma persona denunciada reciba más de una sanción por hechos que forman parte de un mismo caso.</li>
+</ol>
 
-<p>Al presionar el botón <i class="bi bi-plus-circle"></i> para ingresar una persona denunciante accederemos al siguiente formulario:</p>
+<p>Al presionar el botón <i class="bi bi-plus-circle"></i> para ingresar una persona denunciante, se desplegará el siguiente formulario:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_4.png', width: "700" %>
 </div>
 
-<p><b>NOTA</b>: El campo <i>Empleado externo</i> de la segunda línea del formulario, se despliega únicamente si se trata de una empresa principal o usuaria, la cual está obligada a recibir denuncias de personas trabajadoras de empresas con las cuales tenga un régimen de subcontratación.</p>
+<p><b>NOTA:</b> El campo <i>Empleado externo</i>, ubicado en la segunda línea del formulario, se despliega únicamente cuando se trata de una empresa principal o usuaria, la cual está obligada a recibir denuncias de trabajadores pertenecientes a empresas con las que mantiene un régimen de subcontratación.</p>
 
-<p>La mayoría de los datos solicitados se explican sólo, por ello sólo haremos algunas observaciones:
-	<ol>
-		<li>La <b>cédula de identidad será verificada</b> por la plataforma, utilizando para ello el dígito verificador.</li>
-		<li><b>Aplica el artículo 516 del Código del Trabajo</b>: Se marca este campo <b>si la persona denunciante NO tiene ni usa correo electrónico</b>, en este caso la ley obliga que toda la información y notificaciones del procedimiento se le envíen por correo certificado. Al seleccionar este campo aparecerá en el formulario un campo adicional para que se ingrese la dirección que se usará para estos efectos.</li>
-		<li><b>Aplica el artículo 4 inciso primero del Código del Trabajo</b>: Se marca este campo <b>si la persona trabajadora tiene un cargo de gerencia</b>, situación en la cual es obligatorio derivar la denuncia a la Dirección del Trabajo.</li>
-	</ol>
-</p>
+<p>La mayoría de los datos solicitados se explican por sí solos, por lo que solo corresponde destacar algunas consideraciones:</p>
+<ol>
+	<li><b>Verificación de cédula de identidad:</b> la plataforma valida automáticamente el número ingresado mediante el dígito verificador.</li>
+	<li><b>Aplicación del artículo 516 del Código del Trabajo:</b> se marca este campo cuando la persona denunciante <b>no tiene ni utiliza correo electrónico y ha solicitado que la información y notificaciones del procedimiento sean enviadas por correo certificado</b>. Al seleccionarlo, se habilitará un campo adicional para ingresar la dirección postal correspondiente.</li>
+	<li><b>Aplicación del artículo 4, inciso primero, del Código del Trabajo:</b> se marca este campo cuando la persona trabajadora ocupa un <b>cargo de gerencia</b>. En tal situación, la denuncia debe ser obligatoriamente derivada a la Dirección del Trabajo.</li>
+</ol>
 
-<p>El ingreso de las personas denunciadas y de los testigos es similar al ingreso de la persona denunciante. Una vez ingresada la información que se tiene al momento de la denuncia, la página queda más o menos como muestra la siguiente imagen:</p>
+<p>El registro de personas denunciadas y testigos se realiza de la misma forma que el de la persona denunciante. Una vez ingresada la información de los participantes disponible al momento de la denuncia, la página se verá aproximadamente como en la siguiente imagen:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_5.png', width: "700" %>
 </div>
 
-<p>La plataforma asume por defecto que el ingreso de una denuncia se realiza con la persona denunciante presente. Por ello, prioriza las acciones que resultan pertinentes en ese contexto, y posterga aquellas que no requieren de su participación.</p>
+<p>En la parte superior de la vista se muestran tres mensajes:</p>
+<ul>
+	<li>Los datos ingresados de los participantes cumplen con las exigencias mínimas para continuar con el proceso.</li>
+	<li>Para activar el envío de información y notificaciones debe verificar el correo electrónico de los participantes.</li>
+	<li>Es obligación entregar información a la persona denunciante acerca de su derecho a elegir la entidad investigadora. Envíe dicha información por correo electrónico para contar con evidencia de la entrega de esta información.</li>
+</ul>
 
-<p>La vista muestra ahora en su parte superior tres mensajes:
-	<ul>
-		<li>Los datos ingresados de los participantes cumplen con las exigencias mínimas para continuar con el proceso.</li>
-		<li>Para activar el envío de información y notificaciones debe verificar el correo electrónico de los participantes.</li>
-		<li>Es obligación entregar información a la persona denunciante acerca de su derecho a elegir la entidad investigadora. Envíe dicha información por correo electrónico para contar con evidencia de la entrega de esta información.</li>
-	</ul>
-</p>
+<p>Hasta ahora, nuestras tareas se han centrado en el ingreso de datos:</p>
+<ol>
+	<li>Creación de la denuncia.</li>
+	<li>Registro de los participantes de la denuncia: personas denunciantes, denunciadas y testigos.</li>
+</ol>
 
-<p>El primer mensaje le informa al usuario que, si ya se ingresó los datos de los participantes de la denuncia, puede continuar con el proceso de recepción.</p>
-<p>El segundo mensaje recuerda la importancia de verificar las direcciones de correo electrónico de los participantes, ya que esta acción habilita el envío de información y notificaciones desde la plataforma.</p>
-<p>Finalmente, el tercer mensaje señala que el reglamento establece la obligación de entregar determinada información a la persona denunciante durante la recepción de la denuncia. Para dar cumplimiento a esta obligación, la plataforma solicita enviar dicha información por correo electrónico, de manera que exista constancia del cumplimiento. Esta acción sólo será posible si la dirección de correo electrónico ha sido previamente verificada.</p>
+<p>El primer mensaje confirma que la información ingresada hasta este punto es suficiente para continuar con el procedimiento, particularmente con la etapa de recepción de la denuncia. A partir de aquí, la plataforma se encargará de gestionar las tareas pendientes asociadas a dicha etapa.</p>
+
+<p>De forma predeterminada, la plataforma asume que la recepción se realiza con la persona denunciante presente. Por ello, prioriza las tareas que deben ejecutarse en el marco de esa entrevista y posterga para el final aquellas que no requieren de su participación.</p>
+
+<p>El siguiente objetivo de la plataforma es obtener evidencia de que se entregó a la persona denunciante toda la información que el reglamento exige poner a su disposición al momento de presentar la denuncia. Esto es lo que establece el tercer mensaje.</p>
+
+<p>El segundo mensaje, sin embargo, tiene prioridad sobre el tercero por una razón fundamental: incluso si la información fue entregada verbalmente y quedó registrada en el comprobante de recepción de la denuncia, la plataforma exige que se reitere por correo electrónico a la persona denunciante. Solo así dicho envío constituye una evidencia válida de la entrega.</p>
+
+<p>Para que este correo electrónico sea considerado como evidencia, debe enviarse a una dirección previamente verificada. Esta es la acción requerida en el segundo mensaje.</p>
+
+<h5>Verificación de la dirección de correo electrónico de la persona denunciante</h5>
+
+<p>Bajo el registro que contiene los datos de cada participante se encuentra un apartado destinado a gestionar la verificación de su dirección de correo electrónico.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_6.png', width: "700" %>
+</div>
+
+<p>El ícono <i class="bi bi-cone-striped text-danger"></i> indica que la <i>verificación de la dirección de correo electrónico</i> aún no se ha realizado. Al final del registro de verificación se presentan dos botones:</p>
+<ul>
+	<li><i class="bi bi-check-square"></i>: permite <i>marcar manualmente</i> la dirección como verificada.</li>
+	<li><i class="bi bi-envelope-at"></i> Enviar: <i>remite un correo electrónico</i> a la dirección registrada con un enlace para completar la verificación.</li>
+</ul>
+
+<p>El envío del correo de verificación no deshabilita el botón, lo que permite reenviar el mensaje tantas veces como sea necesario. Una vez que la dirección de correo electrónico sea verificada a través del enlace, el registro lo reflejará automáticamente de la siguiente manera:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_7.png', width: "700" %>
+</div>
+
+<h4>Entrega de información obligatoria a la persona denunciante</h4>
+
+<p>Una vez verificada la dirección de correo electrónico de la persona denunciante, aparecerá bajo su registro un bloque titulado <i>Envío de información y notificaciones</i>. La primera opción, indicada con una flecha, corresponde a la que necesitamos: <i>Información obligatoria para la persona participante</i>.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_8.png', width: "700" %>
+</div>
+
+<p>Podemos apreciar en la imagen, que todos los elementos del bloque tienen a su derecha los mismos botones para su gestión:</p>
+<ul>
+	<li><i class="bi bi-check-square"></i>: permite <i>marcar manualmente</i> la acción como realizada.</li>
+	<li><i class="bi bi-envelope-at"></i>: permite <i>realizar la acción a través de la plataforma.</i></li>
+</ul>
+
+<p>En todos los elementos del bloque <i>Envío de información y notificaciones</i>, la opción <i>marcar manualmente como realizada</i> significa que la información fue entregada por otra vía y que damos fe de ello. En cambio, ejecutar la acción a través de la plataforma implica no solo que la información se envió por correo electrónico, sino que además se generaron respaldos asociados.</p>
+
+<p>Cuando se envía información o una notificación mediante la plataforma, se realizan las siguientes acciones:</p>
+<ol>
+	<li>Se genera un documento PDF con la información que se desea entregar, siempre con fecha y hora de creación.</li>
+	<li>Una copia del PDF queda asociada al registro del participante destinatario.</li>
+	<li>Otra copia se adjunta al correo electrónico enviado al participante destinatario.</li>
+	<li>Todos los correos electrónicos enviados desde la plataforma se respaldan en una dirección designada por la empresa propietaria de la cuenta.</li>
+</ol>
+
+<p>El hecho de que toda la información y notificaciones se generen siempre en formato PDF permite a la plataforma crear en cualquier momento un archivo <i>combinado</i> que reúna todos los documentos asociados a la denuncia. Este recurso resulta especialmente útil para derivar denuncias, responder a fiscalizaciones o proceder a su archivo.</p>
+
+
 
 <p><b>NOTA</b>: La verificación de los correos electrónicos de los participantes constituye una buena práctica, puesto que el reglamento exige que la información y notificaciones generadas durante el procedimiento sean enviadas a sus direcciones personales.</p>
 
@@ -83,70 +137,12 @@
 
 <p>En ambos casos, los correos electrónicos no incluyen detalles de la denuncia, sino únicamente los datos que se requiere verificar o complementar. De este modo, se resguarda el principio de confidencialidad.</p>
 
-<p>Finalmente vemos el detalle de los participantes ingresados: la denuncia cuenta con una persona denunciante y una persona denunciada. Sólo la persona denunciante ha presentado un testigo, la persona denunciada podrá presentar sus testigos al momento de dar su declaración.</p>
+<p>Finalmente, se despliega el detalle de los participantes ingresados: la denuncia cuenta con una persona denunciante y una persona denunciada. Hasta ahora, solo la persona denunciante ha presentado un testigo, mientras que la persona denunciada podrá presentar los suyos al momento de rendir su declaración.</p>
 
-<p>Podemos ver que cada participante muestra bajo el registro que lo identifica, la acción <i>Verificación de la dirección de correo electrónico</i>. Acción que cuenta con botónes similarres a los de las acciones anteriores, con la diferencia de que el botón que realiza la acción a través de la plataforma tiene a continuación la palabra <i>Enviar</i> (la funcionalidad es la misma).</p>
+<p>Cada participante muestra, bajo su registro identificatorio, la acción <i>Verificación de la dirección de correo electrónico</i>. Esta acción utiliza botones similares a los descritos anteriormente, con la diferencia de que el botón que ejecuta la acción a través de la plataforma incorpora la palabra <i>Enviar</i> (aunque la funcionalidad es la misma).</p>
 
-<p>También es posible apreciar que sólo a la persona denunciante se le pide dar cuanta de una lista de documentos controlados.</p>
+<p>Asimismo, se observa que únicamente a la persona denunciante se le solicita entregar una lista de documentos controlados.</p>
 
-<p>Sobre cada uno de estos temas volveremos más adelante.</p>
+<p>Más adelante profundizaremos en cada uno de estos aspectos.</p>
 
-
-
-
-
-
-
-
-<p>Hemos ingresado los datos de una persona denunciante quien proporcionó los datos de un testigo, y de una persona denunciada. Como podemos ver en la imagen anterior, hemos ingresado todos los datos solicitados.</p>
-
-<p>El registro de cada participante despliega su cédula de identidad y su nombre y a su derecha, verá los botones que permiten modificar o eliminar el registro.</p>
-<p>Bajo el nombre de cada participante encontrará dos advertencias:
-<ul>
-	<li><i class="bi bi-cone-striped text-danger"></i> <i>Email con link de verificación de correo electrónico.</i> <i class="bi bi-clipboard-check text-primary"></i> <i class="text-primary">Auditar!</i> y <i class="bi bi-envelope-at text-primary"></i> <i class="text-primary">Enviar</li>
-	<li></i><i class="bi bi-cone-striped text-danger"></i> No se puede enviar información al participante (verificar correo electrónico).</li>
-</ul> </p>
-
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
-	<p><b>Verificación de correo electrónico del participante</b></p>
-	<p>El reglamento establece que <b>toda la información debe ser enviada al correo electrónico personal de cada participante</b>. Para garantizar el éxito de este envío, la plataforma cuenta con un mecanismos para verificar estas direcciones de correo:
-		<ol>
-			<li>Al presionar el botón <i class="bi bi-envelope-at text-primary"></i> <i class="text-primary">Enviar</i>, la plataforma enviará un correo electrónico al participante con un link, que les permitirá verificar la dirección de correo entregada.</li>
-			<li>Una vez verificada la dirección de correo del participante la plataforma registrará el correo como verificado lo cual habilitará el envío de información y notificaciones.</li>
-		</ol>
-	</p>
-</div>
-
-<p>El link <i class="bi bi-clipboard-check text-primary"></i> <i class="text-primary">Auditar!</i> en este caso particular, permite contarle a la plataforma directamente que el la dirección de correo electrónico está correcta. Esta es la modalidad de <i>auditoría formal</i>.</p>
-
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size:10px; line-height: 1.5;">
-	<p><b>Auditoría formal</b></p>
-	<p>El modo de <i>auditoría formal</i> es una funcionalidad disponible en dos contextos de una denuncia:
-		<ul>
-			<li><i>Información enviada por correo electrónico desde la plataforma</i>: en este contexto sirve permite marcar directamente en la plataforma, que el correo electrónico se envió sin haberlo enviado.</li>
-			<li><i>Documentación que debe ser subida a la plataforma</i>: en este contexto permite marcar directamente en la plataforma que el archivo existe, sin necesidad de subirlo.</li>
-		</ul>
-	</p>
-	<p>Esta propiedad es útil en diversos contextos:
-		<ul>
-			<li>Para auditar investigaciones ya realizadas. En estos casos, dado que e procedimiento ya se realizó, no tiene sentido enviar correos electrónicos a los participantes, tampoco darse el trabajo de subir toda la documentación, basta con verificar lo que está hecho y lo que no.</li>
-			<li>Para manejar excepciones. Por ejemplo, al ingresar una investigación en curso, la información ya enviada por correo se auditará para no tener que enviarla nuevamente. Otro ejemplo importante, es el caso en el que alguno de los participantes solicita que toda la información se le envió por correo certificado.</li>
-		</ul>
-	</p>
-</div>
-
-<!--p>Bajo la advertencia de verificación y sólo en el caso de las personas denunciantes, veremos una segunda advertencia: <i class="bi bi-cone-striped text-danger"></i> <i>Se debe enviar la información obligatoria por correo electrónico.</i> seguida del botón <i class="bi bi-envelope-at text-primary"></i> <i class="text-primary">Enviar!</i></p>
-
-<p>El reglamento establece la entrega de <i>información obligatoria</i> a la persona denunciante al momento de recibir la denuncia. Si la denuncia es presentada en forma verbal la información se entregará verbalmente y se dejará registro de ello en la carpeta, de otro modo, como en este ejemplo, la plataforma habilitará este botón para que sea enviada por correo.</p-->
-
-<p>Solo las personas denunciantes y denunciadas cuentan con un encabezado que les permite <b>agregar testigos</b>.</p>
-<p>Solo las personas denunciantes tienen (en esta etapa del procedimiento) una lista de <b>Documentación obligatoria</b>, que contiene un link para subir documentación que respalde haber recibido <b>Atención psicológica temprana</b>.</p>
-
-<p>Por simplicidad, en este ejemplo se ingresó la información mínima requerida para avanzar en el proceso, de no ser así, la plataforma desplegará las advertencias correspondientes.</p>
-
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
-	<p><b>Orden de las tareas en la plataforma</b></p>
-	<p>El orden en el que presentamos las tareas de ingreso de la denuncia <b>considera la posibilidad de que esta labor sea realizada mientras la persona denunciante está presencialmente entregando su denuncia</b>, por ello, las tareas que no requieren la participación de la persona denunciante, como el envío de la solicitud de información a RRHH, se postergan hasta finalizar la participación de la persona denunciante</p>
-</div>
-
-<p>Una vez concluido el ingreso de los datos de los participantes se debe continuar con el procedimiento de recepción, para ello no dirigimos a la página <i>Proceso</i>, ya sea seleccionando la opción en el menú desplegable o utilizando el link del mensaje desplegado.</p>
+<p>Una vez concluido el ingreso de datos de los participantes se debe continuar con el procedimiento de recepción, para ello nos dirigimos a la vista <i>Proceso</i>.</p>

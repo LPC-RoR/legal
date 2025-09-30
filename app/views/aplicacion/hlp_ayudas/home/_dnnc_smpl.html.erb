@@ -1,31 +1,31 @@
 <h3>Ejemplo de denuncia simple</h3>
 
-<p>Este tutorial, destinado a usuarios principiantes, tiene como objetivo mostrar las principales características de la gestion de denuncias y familiarizar al usuario con en ambiente LABORSAFE.</p>
+<p>Este tutorial, dirigido a usuarios principiantes, tiene como propósito mostrar las principales características de la gestión de denuncias y familiarizar al usuario con el entorno de <b>LABORSAFE</b>.</p>
 
-<p>Las características de la denuncia de este ejemplo son las siguientes:
-	<ol>
-		<li>La denuncia no ocurre en el contexto de régimen de subcontratación.</li>
-		<li>La denuncia es investigada por la propia empresa.</li>
-		<li>No se presenta objeción del investigador asignado.</li>
-		<li>La denuncia no presenta inconsistencias.</li>
-		<li>El plazo para el pronunciamiento de la Dirección del Trabajo se cumple sin recibir el pronunciamiento.</li>
-	</ol>
-</p>
+<p>Las características de la denuncia utilizada en este ejemplo son las siguientes:</p>
+<ol>
+	<li>No se enmarca en un régimen de subcontratación.</li>
+	<li>La investigación es realizada por la propia empresa.</li>
+	<li>No existe objeción respecto del investigador asignado.</li>
+	<li>La denuncia no presenta inconsistencias.</li>
+	<li>El plazo para el pronunciamiento de la Dirección del Trabajo vence sin que se reciba respuesta.</li>
+</ol>
 
-<p>Para ingresar una denuncia debemos seleccionar el ítem <b>Denuncias</b> del menú principal.</p> 
+
+<p>Para ingresar una denuncia, se debe seleccionar el ítem <b>Denuncias</b> en el menú de la denuncia.</p> 
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_1.png', width: "700" %>
 </div>
 
-<p><b>NOTA</b>:Si a la derecha del encabezado <i>Denuncias</i> no aparece el botón <i class="bi bi-plus-circle"></i>, es por alguna de las siguientes razones: 
-	<ol>
-		<li>No se ha completado la configuración básica de la cuenta.</li>
-		<li>Ha vencido el plazo de su producto DEMO</li>
-		<li>Ha completado el número de denuncias asignadas a su producto</li>
-	</ol>
-	Si se trata del primer caso encontrará lo necesario para completar la configutración básica en el link <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Configuración básica', tltp: 'Configuración básica'} %>
-</p>
+<p><b>NOTA:</b>Si a la derecha del encabezado <i>Denuncias</i> no aparece el botón <i class="bi bi-plus-circle"></i>, puede deberse a alguna de las siguientes razones:</p>
+<ol>
+	<li>No se ha completado la configuración básica de la cuenta.</li>
+	<li>Ha vencido el plazo de su producto DEMO</li>
+	<li>Ha completado el número de denuncias asignadas a su producto</li>
+</ol>
+<p>En el primer caso, encontrará lo necesario para completar la configuración básica en el siguiente enlace: <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Configuración básica', tltp: 'Configuración básica'} %></p>
+
 
 <%= render partial: prtl_name('hlp_ayudas', 'home/dnnc_smpl', 'crear_dnnc') %>
 

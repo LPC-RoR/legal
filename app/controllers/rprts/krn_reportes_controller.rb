@@ -144,27 +144,27 @@ class Rprts::KrnReportesController < ApplicationController
       # Generación de la DATA
       case params[:rprt]
       when 'medidas_resguardo'
+          pdf_blob = ownr_fl.dnnc
+                         &.act_archivos
+                         &.find_by(act_archivo: 'mdds_rsgrd')
+                         &.pdf
+                         &.blob
+          pdf_data = pdf_blob&.download
 
-  pdf_blob = ownr_fl.dnnc
-                 &.act_archivos
-                 &.find_by(act_archivo: 'mdds_rsgrd')
-                 &.pdf
-                 &.blob
-  pdf_data = pdf_blob&.download
-
-  unless pdf_data.present?
-    Rails.logger.warn "No se encontró PDF de medidas_resguardo para oid=#{params[:oid]}"
-    next  # <-- saltar este destinatario y continuar con el siguiente
-  end
+          unless pdf_data.present?
+            Rails.logger.warn "No se encontró PDF de medidas_resguardo para oid=#{params[:oid]}"
+            next  # <-- saltar este destinatario y continuar con el siguiente
+          end
         else
-        pdf_data = get_pdf_data(dstntr, params[:oid], params[:rprt])
+          pdf_data = get_pdf_data(dstntr, params[:oid], params[:rprt])
       end
 
-       # Guardar en ActArchivo
+      # Guardar en ActArchivo
       act_archivo = dstntr[:objt].act_archivos.new(
         act_archivo: params[:rprt],
         nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
         mdl: 'ClssPrcdmnt',
+        skip_pdf_presence: true        # <-- bypass validation
       )
       act_archivo.pdf.attach(
         io: StringIO.new(pdf_data),
@@ -172,11 +172,6 @@ class Rprts::KrnReportesController < ApplicationController
         content_type: 'application/pdf'
       )
       act_archivo.save!
-
-      # Ahora sí guardar
-      act_archivo.save!
-
-
 
       # Enviar por correo
       PdfMailer.send_pdf(
@@ -370,7 +365,7 @@ class Rprts::KrnReportesController < ApplicationController
 #    end
 
     def get_pdf_data(dstntr, oid, rprt)
-      return unless rprt == 'dnnc'
+      # return unless rprt == 'dnnc'
       # <<< CASO ESPECIAL: dnnc con Grover >>>
       if rprt == 'dnnc'
         html = render_to_string(

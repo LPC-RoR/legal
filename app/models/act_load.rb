@@ -39,7 +39,9 @@ class ActLoad
   # archivo_cache es opcional; si no viene se calcula internamente
   def initialize(obj, archivo_cache = nil)
     @obj      = obj
-    @archivos = archivo_cache || obj.act_archivos.group_by(&:act_archivo)
+    key = "#{obj.class.name}_#{obj.id}"
+    @archivos = archivo_cache&.[](key) ||        # ← leemos del cache
+              obj.act_archivos.group_by(&:act_archivo)
 
     @cdgs  = ClssPrcdmnt.archivos_que_aplican(obj)
     @actns = ClssPrcdmnt.acciones_que_aplican(obj)
