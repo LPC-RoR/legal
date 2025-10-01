@@ -1,6 +1,4 @@
 <% if @objeto.krn_derivaciones.any? %>
-	<%#= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_derivaciones', blngs: @objeto, fs: 6} %>
-	<%#= render partial: '0p/tbl/tbl', locals: {source: 'krn_derivaciones', crud: 'lnks', typ: 'ln'} %>
 
 	<%= render partial: 'cuentas/prtls/smpl_box', locals: {source: 'krn_derivaciones', dir: 'indx', blngs: @objeto, clss_ttl: 'bg_azul_claro'} %>
 
@@ -25,16 +23,20 @@
 <% end %>
 
 <% if @objeto.krn_inv_denuncias.any? %>
-		<%#= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_inv_denuncias', blngs: @objeto, fs: 6} %>
-		<%#= render partial: '0p/tbl/tbl', locals: {source: 'krn_inv_denuncias', typ: 'ln', crud: 'lnks', new_hnt: true} %>
 
-		<%= render partial: '0p/tbl/tbl_clccn', locals: {source: 'krn_inv_denuncias', clccn: @objeto.krn_inv_denuncias} %>
-		<%#= render partial: 'cuentas/prtls/smpl_box', locals: {source: 'krn_inv_denuncias', dir: 'indx', blngs: @objeto, clss_ttl: 'bg_azul_claro clr_azul_oscuro'} %>
+	<div class="mx-1 my-2 border rounded-4">
+		<div class="p-2 border-bottom fw-bold" style="font-size: 1rem;">
+			<i class="bi bi-caret-right-fill"></i> Investigador asignado
+		</div>
+		<div class="py-2 px-3">
+			<%= render partial: '0p/tbl/tbl_clccn', locals: {source: 'krn_inv_denuncias', clccn: @objeto.krn_inv_denuncias, typ: 'ln'} %>
+		</div>
+	</div>
 
-
-		<% if prtl?(@objeto, 'hlp', 'invstgdrs') %>
-			<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_invstgdrs", ttl: "Asignación del Investigador", sz: 'lg'} do %>
-				<%= render partial: prtl_name(@objeto, 'hlp', 'invstgdrs') %>
-			<% end %>
+	<% if prtl?(@objeto, 'hlp', 'invstgdrs') %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_invstgdrs", ttl: "Asignación del Investigador", sz: 'lg'} do %>
+			<%= render partial: prtl_name(@objeto, 'hlp', 'invstgdrs') %>
 		<% end %>
+	<% end %>
+
 <% end %>

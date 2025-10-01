@@ -1,0 +1,5 @@
+<% unless tipo_usuario == 'recepción' %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Redactar y subir el informe de investigación.', gly: 'lightbulb', clr: 'dark'} %>
+<% else %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
+<% end %>

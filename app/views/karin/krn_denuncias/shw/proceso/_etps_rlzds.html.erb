@@ -1,4 +1,4 @@
-<% unless @krn_proc.etapa == :etp_rcpcn %>
+<% unless @kproc.etapa == :etp_rcpcn %>
 <div class="mx-1 my-2 border rounded-4">
 	<div class="p-2 border-bottom fw-bold" style="font-size: 1rem;">
 		<i class="bi bi-caret-right-fill"></i> Etapas concluidas
@@ -12,9 +12,10 @@
 					<th class="text-end">Fecha término</th>
 				</tr>
 				<% [:etp_rcpcn, :etp_invstgcn, :etp_infrm, :etp_prnncmnt, :etp_mdds_sncns].each do |etp| %>
-					<%# if @objeto.plz_fecha_inicio(etp) %>
-					<% if ClssPrcdmnt.plz_dsply(etp, @objeto) %>
-						<%= render partial: 'karin/krn_denuncias/shw/proceso/etp_rlzd_objt', locals: {objeto: @objeto, tkn: etp} %>
+					<% unless @kproc.etapa == etp %>
+						<% if ClssPrcdmnt.plz_dsply(etp, @objeto) %>
+							<%= render partial: 'karin/krn_denuncias/shw/proceso/etp_rlzd_objt', locals: {objeto: @objeto, tkn: etp} %>
+						<% end %>
 					<% end %>
 				<% end %>
 			</tbody>

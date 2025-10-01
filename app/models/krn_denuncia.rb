@@ -271,6 +271,10 @@ class KrnDenuncia < ApplicationRecord
 		krn_denunciantes.map {|d| d.act_operativo?('apt').to_s}.uniq.join('_') == 'true'
 	end
 
+	def dnnc?
+		act_operativo?('denuncia')
+	end
+
 	def tiene_investigador?
 		krn_inv_denuncias.where(objetado: [false, nil]).exists?
 	end

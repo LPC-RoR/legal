@@ -5,7 +5,7 @@
 	<div>
 		<% if @objeto.tiene_mdds_sncns? %>
 			<p class="mt-2 px-2"><i class="bi bi-calendar-event text-primary"></i> La fecha de la última evidencia subida a la plataforma tiene fecha <%=dma(@objeto.fecha_ultima_evidencia)%>.</p>
-			<%= render partial: '0p/proc/etp_frm', locals: {etp: @krn_proc.etapa, objeto: @objeto, code: 'fecha_cierre', plz_fld: true} %>
+			<%= render partial: '0p/proc/etp_frm', locals: {etp: @kproc.etapa, objeto: @objeto, code: 'fecha_cierre', plz_fld: true} %>
 		<% else %>
 			<p class="mt-2 px-2"><i class="bi bi-cone-striped text-danger"></i> Aún no se ingresan evidencias de la aplicación de las medidas correctivas y sanciones.</p>
 		<% end %>

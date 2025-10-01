@@ -163,6 +163,16 @@ class ClssPrcdmnt
     }
   end.freeze
 
+  def self.prcs_tsks
+    ['tsk_dnncnt_optn_drvcn', 'tsk_mdds_rsgrd', 'tsk_emprs_optn_drvcn', 'tsk_cierre_rcpcn', 
+      'tsk_asigna_invstgdr', 'tsk_analisis_dnnc', 'tsk_redaccion_infrm', 'tsk_cierre_invstgcn',
+      'tsk_infrm', 'tsk_prnncmnt', 'tsk_mdds_sncns'].freeze
+  end
+
+  def self.prtcpnts_tsks
+    ['tsk_ingrs', 'tsk_dnncnt_info_oblgtr', 'tsk_crdncn_apt', 'tsk_comprobantes_firmados', 'tsk_notificar_dnnc', 'tsk_mdds_rsgrd', 'tsk_evidencia_apt', 'tsk_dclrcns'].freeze
+  end
+
   def self.act_optnl?(act)
     ['antecedentes'].include?(act)
   end

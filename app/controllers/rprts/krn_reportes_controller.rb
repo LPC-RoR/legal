@@ -160,7 +160,7 @@ class Rprts::KrnReportesController < ApplicationController
       end
 
       # Guardar en ActArchivo
-      act_archivo = dstntr[:objt].act_archivos.new(
+      act_archivo = ownr_fl.act_archivos.new(
         act_archivo: params[:rprt],
         nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
         mdl: 'ClssPrcdmnt',
@@ -194,7 +194,7 @@ class Rprts::KrnReportesController < ApplicationController
     @ownr = KrnDenuncia.estrctr.find(params[:oid])
     @logo_url = @ownr.dnnc.ownr.logo_url
     @rprt = DenunciaReport.new(@ownr).to_h
-    @krn_proc = KrnPrcdmnt.for(@ownr)
+    @kproc = KrnPrcdmnt.for(@ownr)
     @acts_hsh = ActLoad.for_tree(@ownr)
 
     pdf_data = get_pdf_data(nil, params[:oid], params[:rprt])
@@ -346,23 +346,11 @@ class Rprts::KrnReportesController < ApplicationController
       when 'invstgdr'
         invstgdr = KrnInvDenuncia.find(oid).krn_denuncia.krn_investigadores.last
       when 'dclrcn'
-        invstgdr = KrnDeclaracion.find(oid).ownr.krn_denuncia.krn_investigadores.last
+        invstgdr = KrnDeclaracion.find(oid).ownr.dnnc.krn_investigadores.last
       end
 
       {nombre: invstgdr.blank? ? nil : invstgdr.krn_investigador, email: invstgdr.blank? ? nil : invstgdr.email}
     end
-
-#    def get_pdf_data(dstntr, oid, rprt)
-#      # Generar el PDF
-#      WickedPdf.new.pdf_from_string(
-#        render_to_string(
-#          template: "rprts/krn_reportes/#{rprt}",
-#          layout: 'pdf',
-#          formats: [:pdf],  # ← Esto es clave para que busque .pdf.erb
-#          locals: {dstntr: dstntr, objt: get_objt(oid, rprt)}
-#        )
-#      )
-#    end
 
     def get_pdf_data(dstntr, oid, rprt)
       # return unless rprt == 'dnnc'
@@ -444,14 +432,14 @@ class Rprts::KrnReportesController < ApplicationController
         # Reporte de solicitud de Información
         ref = get_objt(oid, rprt)
         @objt['rrhh'].each do |rol|
-          rgstrs = rol.pdf_registros.where(pdf_archivo_id: @pdf_archivo.id, ref_id: ref.id, cdg: rprt)
+          rgstrs = rol.pdf_registros.where(pdf_archivo_id: nil, ref_id: ref.id, cdg: rprt)
           dstntrs << {objt: rol, ref: ref, nombre: rol.nombre, rol: 'RRHH', email: rol.email} if (rgstrs.empty? or rgstrs.count < 3)
         end
       elsif ['crdncn_apt'].include?(rprt)
         # Reporte de solicitud de Información
         ref = get_objt(oid, rprt)
         @objt['crdncn_apt'].each do |rol|
-          rgstrs = rol.pdf_registros.where(pdf_archivo_id: @pdf_archivo&.id, ref_id: ref.id, cdg: rprt)
+          rgstrs = rol.pdf_registros.where(pdf_archivo_id: nil, ref_id: ref.id, cdg: rprt)
           dstntrs << {objt: rol, ref: ref, nombre: rol.nombre, rol: 'Apt', email: rol.email} if (rgstrs.empty? or rgstrs.count < 3)
         end
       end

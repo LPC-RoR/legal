@@ -1,0 +1,7 @@
+<% unless tipo_usuario == 'recepción' %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: '1.- Agendar declaración de los participantes.', gly: 'lightbulb', clr: 'dark'} %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: '2.- Tomar las declaraciones.', gly: 'lightbulb', clr: 'dark'} %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: '3.- Subir las declaraciones firmadas a la plataforma.', gly: 'lightbulb', clr: 'dark'} %>
+<% else %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
+<% end %>

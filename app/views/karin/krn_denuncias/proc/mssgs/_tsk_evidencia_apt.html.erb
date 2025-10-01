@@ -1,5 +1,5 @@
 <% unless tipo_usuario == 'investigador' %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Se debe subir la evidencia de la atención psicológica temprana de las personas denunciantes.', gly: 'cone-striped'} %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Subir evidencia de la atención psicológica temprana de las personas denunciantes.', gly: 'lightbulb', clr: 'dark'} %>
 <% else %>
 	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
 <% end %>

@@ -1,5 +1,6 @@
 <% unless tipo_usuario == 'investigador' %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Gestione el comprobante de denuncia firmado por la persona denunciante, el cual constituye evidencia del cumplimiento de la normativa en la etapa de recepción.', gly: 'cone-striped'} %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: '1.- Envíe el comprobante de rececpión de denuncia a la persona denunciante.', gly: 'lightbulb', clr: 'dark'} %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: '2.- Suba a la plataforma el comprobante firmado por la persona denunciante.', gly: 'lightbulb', clr: 'dark'} %>
 <% else %>
 	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
 <% end %>

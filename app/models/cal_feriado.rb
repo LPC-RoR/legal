@@ -21,6 +21,10 @@ class CalFeriado < ApplicationRecord
 
     fecha_inicial ||= Time.zone.today
     fecha = fecha_inicial.to_date
+    # --- nuevo bloque -------------------------------------------------
+    # Si la fecha inicial no es hábil, se toma el siguiente día hábil
+    fecha += 1 while !es_dia_habil?(fecha)
+    # -------------------------------------------------------------------
     cont  = 0
 
     while cont < dias

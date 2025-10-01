@@ -9,7 +9,7 @@
 		<% elsif hsh[act_id][:rlzds].objt_rlzd?(ownr, code) %>
 			<i class="bi bi-clipboard-check"></i>
 		<% else %>
-			<% if @krn_proc.tarea == ClssPrcdmnt.tsk_name[code] %>
+			<% if @kproc.tarea == ClssPrcdmnt.tsk_name[code] %>
 				<i class="bi bi-arrow-right text-primary"></i>
 			<% end %>
 			<i class="bi bi-cone-striped text-danger"></i>

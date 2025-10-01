@@ -15,7 +15,7 @@ class Karin::KrnDenunciasController < ApplicationController
   def show
 #    @rprt = DenunciaReport.new(@objeto).to_h
     @acts_hsh = ActLoad.for_tree(@objeto)
-    @krn_proc = KrnPrcdmnt.for(@objeto)
+    @kproc = KrnPrcdmnt.for(@objeto)
 
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 

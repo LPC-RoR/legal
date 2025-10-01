@@ -1,128 +1,175 @@
-<h4>Investigación</h4>
+<h3>Investigación</h3>
 
-<p>En este punto del procedimiento nuestra página <i>Proceso</i> luce así:</p>
+<p>En este punto del procedimiento, la vista <i>Proceso</i> se presenta de la siguiente manera:</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_15 -->
-	<%= image_tag 'hlp/dnnc_smpl_15.webp', width: "600" %>
+	<%= image_tag 'hlp/dnnc_smpl_29.png', width: "700" %>
 </div>
 
 <ol>
-	<li>Un nuevo elemento, <b>Etapas concluidas</b>, nos muestra el cumplimiento del plazo establecido para cada etapa. En este caso nos muestra que se terminó la etapa con un día de anticipación.</li>
-	<li>Hemos iniciado la etapa de <i>Investigación</i> y el plazo para realizarla es el 01-07-2025</li>
-	<li>A esta altura del proedimiento, asignar un investigador a la denuncia es obligatorio.</li>
+	<li>Un nuevo apartado, <b>Etapas concluidas</b>, muestra el cumplimiento de los plazos establecidos para cada fase. En este caso, se indica que la etapa finalizó exactamente el día en que vencía el plazo.</li>
+	<li>Se ha iniciado la etapa de <i>Investigación de la denuncia</i>, cuyo plazo de ejecución vence el 10-11-2025.</li>
 </ol>
 
-<h5>Asignar un investigador</h5>
+<p>La primera tarea de esta etapa es <i>Asignar un investigador a la denuncia</i>.</p>
 
-<p>Presionando el botón <i class="bi bi-plus-circle"></i> en el extremo derecho del encabezado <b>Investigador</b> accederemos al formulario donde seleccionaremos al investigador.</p>
+
+
+<h4>Asignar un investigador a la denuncia</h4>
+
+<p>Al presionar el botón <i class="bi bi-plus-circle"></i>, ubicado en el extremo derecho del encabezado <b>Investigador</b>, accederemos al formulario para seleccionar a la persona encargada.</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_16 -->
-	<%= image_tag 'hlp/dnnc_smpl_16.webp', width: "600" %>
+	<%= image_tag 'hlp/invstgcn_01.png', width: "700" %>
 </div>
 
-<p>Como solo hemos registrado un investigador llamado <b>Investigador de la empresa</b>, solo podemos seleccionar ese y presionar el botón <b>Crear Investigador</b>. De esta forma llegamos a la siguiente tarea de la etapa:</p>
+<p>Como en este ejemplo solo se ha registrado un investigador, identificado como <b>Investigador de la empresa</b>, únicamente podremos seleccionarlo y luego presionar el botón <b>Crear Investigador</b>. Con ello avanzamos a la siguiente tarea de la etapa.</p>
+
+
 
 <h5>Análisis de la denuncia</h5>
 
-<div class="mb-2 text-center">
-	<!-- dnnc_smpl_17 -->
-	<%= image_tag 'hlp/dnnc_smpl_17.webp', width: "600" %>
-</div>
-
-<p>Se ha desplegado el registro del investigador asignado bajo el encabezado. El registro es simple: el nombre del investigador y a su derecha los botones para modificar/eliminar el registro.</p>
-<p>Bajo el nombre del investigador asignado se ven acciones posibles de realizar respecto al investigador:
-	<ol>
-		<li>Investigador aún no ha sido notificado a los participantes <i class="bi bi-envelope-at text-primary"></i> <span class="text-primary">Notificar!</span></li>
-		<li>Investigador sin objeción <i class="bi bi-dot"></i> <i class="bi bi-square text-primary"></i> <span class="text-primary">objetar</span></li>
-	</ol>
-</p>
-
-<p>Al final de cada advertencia, encontramos un botón que permite realizar la acción.</p>
-
-<p>El reglamento establece que el investigador debe analizar la denuncia verificando que no presente inconsistencias. Si la denuncia no cumple el estándar requerido, debe ser devuelta a la persona denunciante con las observaciones correspondientes y establecer un plazo para que sea devuelta con las observaciones resueltas.</p>
-
-<p>Si la denuncia presenta inconsistencias, la plataforma solicitará que se suba el documento que contiene el análisis de la denuncia y pedirá que se ingrese la fecha del plazo asignado para la entrega de la denuncia corregida.</p>
-
-<p>Como se trata de una denuncia simple, tomaremos la opción <b>La denuncia está completa y no presenta inconsistencias</b>, lo cual nos lleva a la siguiente tarea:</p>
-
-<h5>Agendamiento y toma de declaraciones</h5>
+<p>Esta tarea se realiza íntegramente en la vista <i>Participantes</i>.</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_18 -->
-	<%= image_tag 'hlp/dnnc_smpl_18.webp', width: "600" %>
+	<%= image_tag 'hlp/invstgcn_02.png', width: "700" %>
 </div>
 
-<p>Como explica el mensaje, esta tarea se realiza en la página <i>Participantes</i>. Nos cambiamos de página utilizando el link entregado.</p>
+<p>En esta etapa se despliega el registro del investigador, mostrando su nombre y, a la derecha, los botones para modificar o eliminar dicho registro.</p>
+<p>Bajo el nombre del investigador asignado aparecen las siguientes acciones posibles:</p>
+<ol>
+	<li>Notificar a los participantes sobre el investigador asignado.</li>
+	<li>Objetar al investigador.</li>
+</ol>
+
+
+<p>El reglamento establece que el investigador debe analizar la denuncia verificando que no presente inconsistencias. Si la denuncia no cumple con el estándar requerido, debe ser devuelta a la persona denunciante junto con las observaciones correspondientes y un plazo definido para su corrección y reingreso.</p>
+
+<p>En caso de detectar inconsistencias, la plataforma solicitará subir el documento que contenga el análisis de la denuncia, además de ingresar la fecha límite asignada para la entrega de la denuncia corregida.</p>
+
+<p>Dado que este es un ejemplo de denuncia simple, seleccionaremos la opción <b>La denuncia no presenta inconsistencias</b>, lo que nos conducirá a la siguiente tarea.</p>
+
+
+
+<h4>Agendamiento y toma de declaraciones</h4>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_19 -->
-	<%= image_tag 'hlp/dnnc_smpl_19.webp', width: "600" %>
+	<%= image_tag 'hlp/invstgcn_03.png', width: "700" %>
 </div>
 
-<p>En la imagen mostramos solo la información de la persona denunciante, el procedimiento es el mismo en cada participante.</p>
-
-<p>Lo que se debe realizar en cada participante es lo siguiente:
-	<ol>
-		<li>Agendar su declaración</li>
-		<li>Tomar su declaración</li>
-		<li>Subir su declaración a la plataforma</li>
-	</ol>
-</p>
-
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
-	<p><b>Planificacion del tiempo de la investigación</b></p>
-	<p>Es importante que las declaraciones se agenden lo antes posible, lar personas denunciantes o denunciadas pueden aportar con testigos al momento de dar su declaración, lo cual podría afectar el cumplimiento del plazo de investigación si no se cuenta con el tiempo suficiente.</p>
-</div>
-
-<p>En el detalle de cada participante ahora aparecen las notificaciones que han sido enviadas con su fecha y hora. Además, se incluyo el encabezado <b>Agenda de declaraciones</b> (cada participante tiene una). En la mayoría de los casos, sólo hara falta una declaración por participante, pero si es necesario, es posible ingresar más de una.</p>
-
-<p>Para agendar una declaración basta con presionar el botón <i class="bi bi-plus-circle"></i> en el extremo derecho del encabezado <b>Agenda de declaraciones</b>, al hacerlo aparecerá el siguiente formulario:</p>
+<p>En cada participante se despliega una sección denominada <i>Agenda de declaraciones</i>, donde deben registrarse las declaraciones correspondientes.</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_20 -->
-	<%= image_tag 'hlp/dnnc_smpl_20.webp', width: "600" %>
+	<%= image_tag 'hlp/invstgcn_04.png', width: "700" %>
 </div>
 
-<p>Al ingresar la declaración a la agenda de la persona denunciante lucirá así:</p>
+<p>Bajo el encabezado <i>Agenda de declaraciones</i> se muestra la citación recién agendada, con su fecha y hora. A la derecha, junto a los botones de modificar y eliminar, aparece el botón <i class="bi bi-envelope-at"></i>, que permite notificar al participante sobre la cita para declarar.</p>
+
+<p>Respecto de la <i>toma de declaraciones</i>, la plataforma no genera un registro adicional, ya que la subida de la declaración firmada constituye evidencia suficiente. Por lo tanto, el procedimiento consiste en agendar la declaración y luego subirla en el registro de cada participante.</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_21 -->
-	<%= image_tag 'hlp/dnnc_smpl_21.webp', width: "600" %>
+	<%= image_tag 'hlp/invstgcn_05.png', width: "700" %>
 </div>
 
-<p>Bajo el encabezado <i>Agenda de declaraciones</i> aparece la declaración que acabamos de agrendar con fecha y hora. A la derecha, a la izquierda de los botones de modificar/eliminar, aparece un boton <i class="bi bi-envelope-at"></i> que permite notificar al participante la cita a declarar que se acaba de generar.</p>
+<p>Es fundamental que las declaraciones se agenden lo antes posible. Tanto denunciantes como denunciados pueden presentar testigos en el momento de declarar, lo que podría afectar el cumplimiento del plazo de investigación si no se dispone de tiempo suficiente para gestionar estas incorporaciones.</p>
 
-<p>Bajo el encabezado <b>Documentación obligatoria</b> del participante, se solicita ahora subir la <b>Declaración del participante</b>, y se activa una lista para subir documentos pueda adjuntar a su declaración como antecedentes (opcional).</p>
-
-<p><b>La plataforma considerará que la declaración fue tomada si se subió el correspondiente archivo de la declaración a la plataforma</b>.</p>
-<p>Para completar la tarea debemos, en consecuencia, agendar las declaraciones de todos los participantes y subir sus correspondientes declaraciones. Si cada participante tiene adjunta su declaración aparecerá el siguiente mensaje:</p> 
+<p>En el detalle de cada participante se registran las notificaciones enviadas, indicando fecha y hora, y en la sección <i>Documentos controlados</i> se visualiza la declaración ya subida.</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_22 -->
-	<%= image_tag 'hlp/dnnc_smpl_22.webp', width: "600" %>
+	<%= image_tag 'hlp/invstgcn_06.png', width: "700" %>
 </div>
 
-<p>Si se ha completado el proceso de toma de declaraciones ir a la página <i>Proceso</i> para continuar con el procedimiento.</p>
-
-<h5>Término de la investigación</h5>
-
-<p>Una vez terminada la toma de declaraciones, el investigador debe realizar la redacción del informe de investigación con sus correspondientes <i>medidas correctivas</i> y <i>Sanciones</i>.</p>
-<p>Una vez terminada su redacción se debe subir a la plataforma.</p>
-
-<p>La plataforma desplegará un mensaje con todas las acciones pendientes impidiendo que terminemos la etapa mientras no se completen.</p>
+<p>Una vez finalizada la tarea de agendamiento y toma de declaraciones, la barra de navegación indicará que la próxima acción debe realizarse en la vista <i>Proceso</i>.</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_23 -->
-	<%= image_tag 'hlp/dnnc_smpl_23.webp', width: "600" %>
+	<%= image_tag 'hlp/invstgcn_07.png', width: "700" %>
 </div>
 
-<p>Una vez subido el informe y notificado el investigador, la plataforma permitirá registrar la fecha de término de la investigación. Fecha que será utilizada para verificar el cumplimiento del plaso de la etapa.</p>
+
+
+<h4>Redacción del informe de investigación</h4>
+
+<p>Finalizada la toma de declaraciones, el investigador debe redactar el informe de investigación, incorporando las <i>medidas correctivas</i> y las <i>sanciones</i> que correspondan.</p>
 
 <div class="mb-2 text-center">
-	<!-- dnnc_smpl_24 -->
-	<%= image_tag 'hlp/dnnc_smpl_24.webp', width: "600" %>
+	<%= image_tag 'hlp/invstgcn_08.png', width: "700" %>
 </div>
 
-<p>El detalle de la tarea muestra esta vez solo el formulario que nos pide ingresar la <b>Fecha término de la investigación</b>. La plataforma nos advierte, una vez más, que esta fecha será utilizada para evaluar el plazo de la etapa. Esta vez ingresaremos exactamente la fecha del plazo (01-07-2025), lo cual nos lleva a la siguiente etapa.</p>
+<p>En la plataforma, esta tarea se cumple simplemente subiendo el documento controlado <i>Informe de investigación</i>.</p>
+
+
+
+
+<h4>Cierre de la investigación</h4>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/invstgcn_09.png', width: "700" %>
+</div>
+
+<p>Esta etapa consiste únicamente en registrar la fecha en que se concluyó la investigación. El formulario advierte que la fecha ingresada será utilizada para verificar el cumplimiento del plazo establecido para la etapa. En este ejemplo, ingresaremos una fecha que excede el plazo en un día, lo que permitirá observar cómo la plataforma registra un incumplimiento.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/invstgcn_10.png', width: "700" %>
+</div>
+
+<p>Cuando el plazo no se cumple, el registro aparece destacado en rojo dentro de la sección <i>Etapas concluidas</i>.</p>
+
+
+
+<h4>Envío del informe de investigación</h4>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/invstgcn_11.png', width: "700" %>
+</div>
+
+<p>En esta etapa se debe registrar la fecha en que el informe de investigación es remitido a la Dirección del Trabajo. En este ejemplo, la fecha ingresada corresponde a un día antes del vencimiento del plazo de la etapa.</p>
+
+<p>La sección <i>Etapas concluidas</i> muestra ahora una tercera etapa registrada:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/invstgcn_12.png', width: "700" %>
+</div>
+
+
+
+
+<h4>Pronunciamiento de la Dirección del Trabajo</h4>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/invstgcn_13.png', width: "700" %>
+</div>
+
+<p>La Dirección del Trabajo dispone de 30 días hábiles para pronunciarse sobre el informe de investigación y respecto de las medidas y sanciones que este contiene. Si el plazo vence sin que se emita dicho pronunciamiento, el informe se entiende aprobado y deben aplicarse las medidas correctivas y sanciones en él establecidas.</p>
+
+<p>La tarea contempla ambas alternativas: ingresar la <b>fecha de recepción del pronunciamiento de la Dirección del Trabajo</b> o seleccionar el enlace que indica <b>El plazo para recibir el pronunciamiento venció</b>. Para este ejemplo, optaremos por la segunda opción.</p>
+
+
+
+
+<h4>Aplicación de medidas correctivas y sanciones</h4>
+
+<p>El plazo para aplicar las medidas correctivas y sanciones es de <b>15 días corridos</b>, a diferencia de las etapas anteriores, cuyos plazos se cuentan en días hábiles.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/invstgcn_14.png', width: "700" %>
+</div>
+
+<p>En la tabla de etapas realizadas puede observarse que la última etapa no tiene control de plazo, lo que se debe a que no se recibió pronunciamiento de la Dirección del Trabajo.</p>
+
+<p>Esta tarea consiste en subir los documentos que respalden la aplicación de las medidas correctivas y sanciones. Al revisar la lista de <b>Documentación obligatoria</b>, veremos que se ha agregado un nuevo apartado: <b>Evidencias de la aplicación de medidas y sanciones</b>.</p>
+<p>Al cargar un archivo en esta lista, la página se visualizará de la siguiente manera:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/invstgcn_15.png', width: "700" %>
+</div>
+
+<p>La plataforma muestra la fecha del archivo más reciente subido, con el fin de controlar el cumplimiento del plazo. Es necesario cargar todos los documentos que constituyan evidencia de la aplicación de medidas y sanciones. Dado que la plataforma no puede determinar cuántos documentos son necesarios, desde la carga del primero solicitará la <b>Fecha de cierre del procedimiento de investigación y sanción</b>. Esta corresponde a la fecha en que se terminaron de implementar las medidas y sanciones contenidas en el informe de investigación, y será utilizada para evaluar el cumplimiento del plazo de la etapa.</p>
+<p>Debemos subir todos los archivos que sirvan de evidencia. Como la plataforma no tiene como saber cuantos son, desde que subimos el primero nos solicita la <b>Fecha de cierre de procedimiento de investigación y sanción.</b> Esta es la fecha en la que se terminaron de implementar las medidas correctivas y sanciones del informe de investigación. Tal como lo dice la leyenda del formulario, esta fecha se usa para evaluar el cumplimiento del plazo de la etapa.</p>
+<p>En este ejemplo, ingresamos una fecha anterior al plazo establecido.</p>
+<p>Finalmente, la vista del proceso se mostrará de la siguiente forma:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/invstgcn_16.png', width: "700" %>
+</div>
+
+<p>Equipo LABORSAFE</p>

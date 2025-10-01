@@ -1,0 +1,21 @@
+<% unless tipo_usuario == 'investigador' %>
+
+	<% if @objeto.rcp_dt? %>
+		<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Registre la fecha en la cual se recibió la notificación de recepción de denuncia desde la Dirección del Trabajo.', gly: 'lightbulb', clr: 'dark'} %>
+	<% end %>
+
+	<% if (@objeto.dnnc.investigacion_local or @objeto.investigacion_externa) %>
+		<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Registre la fecha en la cual se informó a la Dirección del Trabajo el inicio de la investigación.', gly: 'lightbulb', clr: 'dark'} %>
+	<% end %>
+
+	<% if @objeto.krn_derivaciones.on_dt? %>
+		<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Registre la fecha en la cual se recibió el certificado de recepción de derivación desde la Dirección del Trabajo.', gly: 'lightbulb', clr: 'dark'} %>
+	<% end %>
+
+	<% unless @objeto.dnnc? %>
+		<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Suba documento de la denuncia.', gly: 'lightbulb', clr: 'dark'} %>
+	<% end %>
+
+<% else %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
+<% end %>

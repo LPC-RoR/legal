@@ -1,10 +1,20 @@
 <div class="my-2 fs-5">
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link <%= 'active' if ["#{objt.id}", "#{objt.id}_0"].include?(params[:id]) %>" aria-current="page" href="/krn_denuncias/<%=objt.id%>_0">Proceso</a>
+      <a class="nav-link <%= 'active' if ["#{objt.id}", "#{objt.id}_0"].include?(params[:id]) %>" aria-current="page" href="/krn_denuncias/<%=objt.id%>_0">
+        <% if ClssPrcdmnt.prcs_tsks.include?(@kproc.tarea) %>
+          <i class="bi bi-cone-striped text-danger"></i> 
+        <% end %>
+        Proceso
+      </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link <%= 'active' if ["#{objt.id}_1"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_1">Participantes</a>
+      <a class="nav-link <%= 'active' if ["#{objt.id}_1"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_1">
+        <% if ClssPrcdmnt.prtcpnts_tsks.include?(@kproc.tarea) %>
+          <i class="bi bi-cone-striped text-danger"></i> 
+        <% end %>
+        Participantes
+      </a>
     </li>
     <li class="nav-item">
       <a class="nav-link <%= 'active' if ["#{objt.id}_2"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_2">Recursos</a>
