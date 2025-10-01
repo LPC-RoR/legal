@@ -148,21 +148,54 @@
 	<%= image_tag 'hlp/dnnc_smpl_10.png', width: "700" %>
 </div>
 
-<p>El mensaje ahora invita a gestionar el <i>comprobante de denuncia firmado</i>. Esta es una tarea particular: en el bloque <i>Envío de información y notificaciones</i> aparece señalada con una flecha <i>Comprobante de recepción de denuncia</i> y abajo, en el bloque <i>Documentos controlados</i> se nos solicita el <i>Comprobante de recepción de denuncia firmado</i>.</p>
+<p>El mensaje ahora invita a gestionar el <i>comprobante de denuncia firmado</i>. Se trata de una tarea particular: en el bloque <i>Envío de información y notificaciones</i> aparece la opción <i>Comprobante de recepción de denuncia</i> (señalada con una flecha), mientras que en el bloque <i>Documentos controlados</i> se solicita el <i>Comprobante de recepción de denuncia firmado</i>.</p>
 
-<p>La explicación simple: primero enviamos el comprobante que genera automáticamente la plataforma, y en una segunda instancia, cuando la persona denunciante nos devuelve una copia del comprobante firmado, lo subimos a la plataforma en el bloque de documentos controlados.</p>
+<p>La explicación es simple: primero se envía el comprobante generado automáticamente por la plataforma y, en una segunda instancia, cuando la persona denunciante devuelve la copia firmada, este documento debe cargarse en el bloque de <i>Documentos controlados</i>.</p>
 
-<p>Lo anterior nos da pie para hablar de la diferencia entre ambos bloques. Como hemos visto, el bloque <i>Envío de información y notificaciones</i> agrupa documentos que la plataforma genera automáticamente y envía a quien corresponda. El bloque <i>Documentos controlados</i> en cambio, reúne documentos que no son generados por la plataforma por distintas razones: algunos de ellos son generados por una institución externa, por ejemplo, el alta de la atención psicológica temprana brindada por la institución administradora del seguro. Y otros documentos, como el comprobante firmado, deben contener la firma del participante para tener validez.</p>
+<p>Lo anterior permite destacar la diferencia entre ambos bloques. Como hemos visto, el bloque <i>Envío de información y notificaciones</i> agrupa documentos generados automáticamente por la plataforma y enviados al destinatario correspondiente. En cambio, el bloque <i>Documentos controlados</i> reúne documentos que no son producidos por la plataforma, ya sea porque provienen de instituciones externas —por ejemplo, el alta de la atención psicológica temprana emitida por la entidad administradora del seguro— o porque requieren la firma de un participante para tener validez, como ocurre con el comprobante firmado.</p>
 
-<p>Otra diferencia importante es que el bloque de <i>Documentos controlados</i> permite listas de documentos bajo un mismo concepto. Por ejemplo, en la imagen, el elemento <i>Evidencia de atención psicológica temprana</i>, permite subir más de un archivo. En cambio el elemento <i>Comprobante de recepción de denuncia firmado</i> está definido como un archivo único.</p>
+<p>Otra diferencia importante es que el bloque <i>Documentos controlados</i> admite listas de documentos bajo un mismo concepto. Por ejemplo, en la imagen, el elemento <i>Evidencia de atención psicológica temprana</i> permite subir varios archivos. En cambio, el elemento <i>Comprobante de recepción de denuncia firmado</i> está definido como un archivo único.</p>
 
-<p>El envío del comprobante será registrada de la siguiente forma:</p>
+<p>El envío del comprobante se registrará de la siguiente manera:</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_11.png', width: "700" %>
 </div>
 
-<p>Ahora debemos subir el comprobante firmado, para ello usamos el botón <i class="bi bi-download"></i> que se encuentra a la derecha del elemento en el bloque <i>Documentos controlados</i>.</p>
+<p>A continuación, debemos subir el comprobante firmado. Para ello, utilice el botón <i class="bi bi-download"></i> ubicado a la derecha del elemento correspondiente en el bloque <i>Documentos controlados</i>.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_12.png', width: "700" %>
+</div>
+
+<p>Como podemos ver, el formulario para subir un archivo único asigna automáticamente un nombre por defecto. Solo permite dos acciones: seleccionar el archivo a subir o marcarlo directamente como subido. Para este ejemplo, realizaremos la primera opción.</p>
+
+<p>Una vez completada la acción, la plataforma actualiza el estado del elemento modificando los botones disponibles.</p>
+<ul>
+	<li><i class="bi bi-download"></i>: para bajar el archivo.</li>
+	<li><i class="bi bi-trash"></i>: para borrar el archivo que se acaba de subir.</li>
+</ul>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_13.png', width: "700" %>
+</div>
+
+
+<h4>Notificación de recepción de denuncia ley 21.643</h4>
+
+<p>La notificación de recepción de la denuncia debe enviarse a todos los participantes. Dado que se trata de un documento que puede generarse automáticamente, la plataforma incorpora una acción específica para ello en el bloque <i>Envío de información y notificaciones</i>.</p>
+
+<p>Para este ejemplo, utilizaremos la plataforma para enviar dicha notificación. Sin embargo, antes debemos resolver un problema: las direcciones de correo electrónico de los demás participantes aún no han sido verificadas. Para continuar, realizaremos la verificación de manera manual.</p>
+
+<p>Luego de este paso, la vista se presenta de la siguiente forma:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_14.png', width: "700" %>
+</div>
+
+<p>Vemos que todos los participantes tiene la acción <i>Notificación de recepción de denuncia ley 21.643</i>. Afortunadamente, basta con que le enviemos la notificación a un participante para que la plataforma se las envíe a los restantes.</p>
+
+<h4>Envío de las medidas de resguardo</h4>
 
 
 
@@ -170,8 +203,6 @@
 
 
 
-
-<p><b>NOTA</b>: La verificación de los correos electrónicos de los participantes constituye una buena práctica, puesto que el reglamento exige que la información y notificaciones generadas durante el procedimiento sean enviadas a sus direcciones personales.</p>
 
 <p>El reglamento admite que los datos de las personas denunciadas incluidos en la denuncia puedan estar incompletos, dado que no se exige que la persona denunciante disponga de todos ellos. En coherencia con ello, la plataforma permite registrar información parcial durante la etapa de recepción, pero requiere que los datos estén completos para avanzar a la fase de investigación.</p>
 
