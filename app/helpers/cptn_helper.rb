@@ -10,10 +10,6 @@ module CptnHelper
 
 # ******************************************************************** HELPERS DE USO GENERAL
 
-	def s_as_prms(string)
-		string.split(' ').join('_')
-	end
-
 	def nombre(objeto)
 		objeto.send(objeto.class.name.tableize.singularize)
 	end
@@ -33,10 +29,6 @@ module CptnHelper
 		['Empresa', 'Cliente'].include?(app_nmn.ownr_type) ? ['admin', 'recepción', 'investigador', 'auditor'] : ['operación', 'finanzas', 'general', 'admin']
 	end
 
-    def archivos_controlados_disponibles
-    	st_modelo = StModelo.find_by(st_modelo: 'Hecho')
-    	st_modelo.blank? ? [] : st_modelo.control_documentos.order(:orden)
-    end
 
 # ******************************************************************** DESPLIEGUE DE CAMPOS
 

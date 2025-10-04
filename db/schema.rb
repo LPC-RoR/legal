@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_26_015126) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_03_183151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -520,6 +520,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_26_015126) do
     t.boolean "principal_usuaria"
     t.string "backup_emails"
     t.boolean "activa_devolucion"
+    t.boolean "verificacion_datos"
+    t.boolean "coordinacion_apt"
     t.index ["estado"], name: "index_clientes_on_estado"
     t.index ["tipo_cliente"], name: "index_clientes_on_tipo_cliente"
   end
@@ -595,18 +597,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_26_015126) do
     t.index ["ownr_id"], name: "index_control_documentos_on_ownr_id"
     t.index ["ownr_type"], name: "index_control_documentos_on_ownr_type"
     t.index ["visible_para"], name: "index_control_documentos_on_visible_para"
-  end
-
-  create_table "ctr_etapas", force: :cascade do |t|
-    t.integer "procedimiento_id"
-    t.string "codigo"
-    t.string "ctr_etapa"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "orden"
-    t.index ["codigo"], name: "index_ctr_etapas_on_codigo"
-    t.index ["orden"], name: "index_ctr_etapas_on_orden"
-    t.index ["procedimiento_id"], name: "index_ctr_etapas_on_procedimiento_id"
   end
 
   create_table "cuestionarios", force: :cascade do |t|
@@ -713,6 +703,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_26_015126) do
     t.string "telefono"
     t.boolean "informacion_comercial"
     t.boolean "activa_devolucion"
+    t.boolean "verificacion_datos"
+    t.boolean "coordinacion_apt"
     t.index ["rut"], name: "index_empresas_on_rut"
     t.index ["sha1"], name: "index_empresas_on_sha1"
   end
@@ -1354,69 +1346,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_26_015126) do
     t.index ["ownr_type"], name: "index_notas_on_ownr_type"
   end
 
-  create_table "org_area_areas", force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "child_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["child_id"], name: "index_org_area_areas_on_child_id"
-    t.index ["parent_id"], name: "index_org_area_areas_on_parent_id"
-  end
-
-  create_table "org_areas", force: :cascade do |t|
-    t.string "org_area"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "cliente_id"
-    t.index ["cliente_id"], name: "index_org_areas_on_cliente_id"
-  end
-
-  create_table "org_cargos", force: :cascade do |t|
-    t.string "org_cargo"
-    t.integer "dotacion"
-    t.integer "org_area_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["org_area_id"], name: "index_org_cargos_on_org_area_id"
-  end
-
-  create_table "org_empleados", force: :cascade do |t|
-    t.string "rut"
-    t.string "nombres"
-    t.string "apellido_paterno"
-    t.string "apellido_materno"
-    t.integer "org_cargo_id"
-    t.datetime "fecha_nacimiento", precision: nil
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "org_sucursal_id"
-    t.index ["org_cargo_id"], name: "index_org_empleados_on_org_cargo_id"
-    t.index ["org_sucursal_id"], name: "index_org_empleados_on_org_sucursal_id"
-  end
-
-  create_table "org_regiones", force: :cascade do |t|
-    t.string "org_region"
-    t.integer "cliente_id"
-    t.integer "region_id"
-    t.integer "orden"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["cliente_id"], name: "index_org_regiones_on_cliente_id"
-    t.index ["orden"], name: "index_org_regiones_on_orden"
-    t.index ["org_region"], name: "index_org_regiones_on_org_region"
-    t.index ["region_id"], name: "index_org_regiones_on_region_id"
-  end
-
-  create_table "org_sucursales", force: :cascade do |t|
-    t.string "org_sucursal"
-    t.string "direccion"
-    t.integer "org_region_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["org_region_id"], name: "index_org_sucursales_on_org_region_id"
-    t.index ["org_sucursal"], name: "index_org_sucursales_on_org_sucursal"
-  end
-
   create_table "parrafos", force: :cascade do |t|
     t.integer "causa_id"
     t.integer "seccion_id"
@@ -1496,17 +1425,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_26_015126) do
     t.index ["ownr_id"], name: "index_pro_dtll_ventas_on_ownr_id"
     t.index ["ownr_type"], name: "index_pro_dtll_ventas_on_ownr_type"
     t.index ["producto_id"], name: "index_pro_dtll_ventas_on_producto_id"
-  end
-
-  create_table "procedimientos", force: :cascade do |t|
-    t.string "procedimiento"
-    t.integer "tipo_procedimiento_id"
-    t.text "detalle"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "codigo"
-    t.index ["codigo"], name: "index_procedimientos_on_codigo"
-    t.index ["tipo_procedimiento_id"], name: "index_procedimientos_on_tipo_procedimiento_id"
   end
 
   create_table "productos", force: :cascade do |t|
@@ -2036,12 +1954,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_26_015126) do
     t.integer "tar_tarifa_id"
     t.index ["tar_tarifa_id"], name: "index_tipo_causas_on_tar_tarifa_id"
     t.index ["tipo_causa"], name: "index_tipo_causas_on_tipo_causa"
-  end
-
-  create_table "tipo_procedimientos", force: :cascade do |t|
-    t.string "tipo_procedimiento"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "tribunal_cortes", force: :cascade do |t|

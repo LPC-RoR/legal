@@ -72,12 +72,46 @@ class KrnDenuncia < ApplicationRecord
 		self
 	end
 
+	def invstgdr_activo
+		krn_inv_denuncias&.last&.objetado ? nil : krn_inv_denuncias.last
+	end
+
 	def dflt_bck_rdrccn
 		"/cuentas/#{self.ownr.class.name[0].downcase}_#{self.ownr.id}/dnncs"
 	end
 
 	def prcdmnt
 		Procedimiento.find_by(codigo: 'krn_invstgcn')
+	end
+
+
+	# KrnDenuncia
+	def destinatarios(rprt)
+	  # bloque re-utilizable
+	  build_hash = ->(obj) { { objt: obj, email: obj.email, nombre: obj.nombre } }
+
+	  [].tap do |list|
+	    # 1) denunciantes y sus testigos
+	    krn_denunciantes.includes(:krn_testigos).find_each do |denunciante|
+	    	if ClssPdfRprt.cntrl_dstntrs[:krn_denunciantes].include?(rprt)
+		    	list << build_hash.call(denunciante) unless denunciante.articulo_516
+	    	end
+	    	if ClssPdfRprt.cntrl_dstntrs[:krn_testigos].include?(rprt)
+	    		denunciante.krn_testigos.find_each { |t| list << build_hash.call(t) unless t.articulo_516 }
+	    	end
+	    end
+
+	    # 2) denunciados y sus testigos
+	    krn_denunciados.includes(:krn_testigos).find_each do |denunciado|
+	    	if ClssPdfRprt.cntrl_dstntrs[:krn_denunciados].include?(rprt)
+	    		list << build_hash.call(denunciado) unless denunciado.articulo_516
+	    	end
+	    	if ClssPdfRprt.cntrl_dstntrs[:krn_testigos].include?(rprt)
+	    		denunciado.krn_testigos.find_each { |t| list << build_hash.call(t) unless t.articulo_516 }
+	    	end
+	    end
+
+	  end
 	end
 
 	# ------------------------------------------------------------------------ PRODUCTO

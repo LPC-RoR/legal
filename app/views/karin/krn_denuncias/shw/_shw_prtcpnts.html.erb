@@ -6,9 +6,13 @@
 <%= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>
 
 <!-- ActArchivo de DNNC -->
-<% if @objeto.prtcpnts_minimos? %>
-	<%= render partial: 'repositorios/act_archivos/dsply_act_archivo', locals: {objeto: @objeto, rprt: 'crdncn_apt'} %>
-	<%= render partial: 'repositorios/act_archivos/dsply_act_archivo', locals: {objeto: @objeto, rprt: 'infrmcn'} %>
+<% rprt_apt = @objeto.ownr.coordinacion_apt %>
+<% rprt_dts = @objeto.ownr.verificacion_datos %>
+<% if @objeto.prtcpnts_minimos? and (rprt_apt or rprt_dts) %>
+	<div class="my-2">
+		<%= render partial: 'repositorios/act_archivos/dsply_act_archivo', locals: {objeto: @objeto, rprt: 'crdncn_apt'} if rprt_apt %>
+		<%= render partial: 'repositorios/act_archivos/dsply_act_archivo', locals: {objeto: @objeto, rprt: 'infrmcn'} if rprt_dts %>
+	</div>
 <% end %>
 
 <%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6, lnks: 'prtl'} %>

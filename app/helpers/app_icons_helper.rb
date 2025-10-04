@@ -59,7 +59,6 @@ module AppIconsHelper
 			'krn_investigadores' => 'binoculars',
 			'krn_empresa_externas' => 'building',
 			'krn_tipo_medidas' => 'exclamation-triangle',
-			'procedimientos' => 'bar-chart-steps',
 			'dt_tabla_multas' => 'table',
 			'slides' => 'file-slides'
 #			'rep_archivos' => 'file-earmark-richtext'

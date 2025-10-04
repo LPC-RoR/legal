@@ -1,0 +1,42 @@
+<div style="margin: 0 10%;">
+	<h3>Notificación de Asignación de Investigador a la Denuncia</h3>
+
+	<div style="font-weight: bold;">
+	  <p>Sr(a). <%= dstntr[:nombre] %></p>
+	  <p>PRESENTE</p>
+	</div>
+
+	<p>
+	  Por medio de la presente, le informamos que el(la) Sr(a). <%= ref.krn_investigador.krn_investigador %> ha sido designado(a) como 
+	  investigador(a) de la denuncia en la cual usted participa en calidad de <%= dstntr[:objt].rol %>.
+	</p>
+
+	<p>
+	  Quedamos a su disposición para resolver cualquier consulta respecto de la presente notificación.
+	</p>
+
+
+	<% if dstntr[:objt].rol != 'testigo' %>
+	  <h4>Objeción del Investigador</h4>
+
+	  <p>
+	    El reglamento establece que las personas denunciantes y denunciadas podrán objetar al investigador designado, 
+	    siempre que cuenten con antecedentes que sustenten dicha objeción.
+	  </p>
+
+	  <p>
+	    La única causal válida para objetar es la falta de imparcialidad del investigador asignado.
+	  </p>
+
+	  <p>
+	    Solo se admitirán objeciones que estén debidamente respaldadas con antecedentes. 
+	    La ausencia de fundamentos implicará el rechazo inmediato de la objeción presentada.
+	  </p>
+
+	  <p>
+	    Corresponde a la empresa evaluar la procedencia de la objeción. 
+	    En caso de ser acogida, se procederá a designar un nuevo investigador; de lo contrario, 
+	    se confirmará al investigador originalmente asignado.
+	  </p>
+	<% end %>
+</div>

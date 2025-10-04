@@ -15,9 +15,6 @@ class Cliente < ApplicationRecord
 	has_many :tar_servicios, as: :ownr
 	has_many :tar_aprobaciones
 
-	has_many :org_areas
-	has_many :org_regiones
-
 	has_many :pro_dtll_ventas, as: :ownr
 
 	has_many :krn_denuncias, as: :ownr
@@ -46,6 +43,12 @@ class Cliente < ApplicationRecord
 
     def logo_url
         self.rcrs_logo.blank? ? 'tyc.png' : self.rcrs_logo.logo.resized.url
+    end
+
+    def cntcts_array
+        [(verificacion_datos? ? 'RRHH' : nil),
+            (coordinacion_apt? ? 'Apt' : nil),
+            'Backup'].compact
     end
 
     def productos?
@@ -179,14 +182,6 @@ class Cliente < ApplicationRecord
 
 	def facturaciones_pendientes
 		self.facturaciones.where(estado: 'aprobado', tar_factura_id: nil)
-	end
-
-	def sucursales
-		sucursales_ids = []
-		self.org_regiones.each do |reg|
-			sucursales_ids = sucursales_ids.union(reg.org_sucursales.ids)
-		end
-		OrgSucursal.where(id: sucursales_ids)
 	end
 
 	# DEPRECATED

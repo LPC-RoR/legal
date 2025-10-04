@@ -9,4 +9,7 @@ class AppContacto < ApplicationRecord
 		['Cliente', 'Empresa'].include?(self.ownr_type) ? "/cuentas/#{self.ownr_type[0].downcase}_#{self.ownr.id}/nmn" : "/app_contactos"
 	end
 
+	def sym
+		:cntct
+	end
 end

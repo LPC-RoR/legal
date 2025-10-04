@@ -129,15 +129,6 @@ Rails.application.routes.draw do
     resources :lgl_tramo_empresas
   end 
 
-  scope module: 'control' do
-    resources :tipo_procedimientos
-    resources :procedimientos
-    resources :ctr_etapas do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-  end
-
   scope module: 'karin' do
     resources :respuestas do
       match :nueva, via: :post, on: :collection
@@ -157,20 +148,17 @@ Rails.application.routes.draw do
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
       match :set_fld, via: :post, on: :member
-      match :clear_fld, via: :get, on: :member
     end
     resources :krn_denunciantes do
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
       match :set_fld, via: :post, on: :member
-      match :clear_fld, via: :get, on: :member
     end
     resources :krn_denuncias do
       match :swtch, via: :post, on: :member
       match :niler, via: :post, on: :member
       match :set_fld, via: :post, on: :member
-      match :clear_fld, via: :get, on: :member
       match :prg, via: :post, on: :member
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
@@ -195,7 +183,6 @@ Rails.application.routes.draw do
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
       match :set_fld, via: :post, on: :member
-      match :clear_fld, via: :get, on: :member
     end
     resources :krn_inv_denuncias do
       match :swtch, via: :post, on: :member
@@ -401,22 +388,8 @@ Rails.application.routes.draw do
       match :auditoria, via: :get, on: :collection
       match :adncs, via: :get, on: :collection
       match :antecedentes, via: :get, on: :collection
-      match :organizacion, via: :get, on: :collection
-      match :sucursales, via: :get, on: :collection
-      match :empleados, via: :get, on: :collection
       match :multas, via: :get, on: :collection
     end
-    resources :org_areas do
-      match :nuevo_hijo, via: :post, on: :member
-    end
-    resources :org_area_areas
-    resources :org_cargos
-    resources :org_empleados
-
-    resources :org_regiones do 
-      resources :org_sucursales
-    end
-    resources :org_sucursales
   end
   
   scope module: 'st_estados' do

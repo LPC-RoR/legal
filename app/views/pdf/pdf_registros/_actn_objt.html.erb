@@ -19,7 +19,7 @@
 	<div class="col-lg-2 text-end app_lnk">
 		<% if ((not mdl.actn_multpl?(code)) and hsh[ownr.clss_id][code]) or hsh[ownr.clss_id][:rlzds].objt_rlzd?(ownr, code) %>
 			<% if ((not mdl.actn_multpl?(code)) and hsh[ownr.clss_id][code]) %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][code].id}/download", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][code].id}/show_pdf", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
 						<i class="bi bi-download"></i>
 					<% end %>
 					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][code].id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post}} do %>

@@ -75,8 +75,16 @@
 	<div class="col-lg-6">
 		<h5>Configuracion de la empresa</h5>
 		<div class="form-check mb-3">
-		  <%= form.check_box :activa_devolucion, class: "form-check-input", value: 1 %>
-		  <%= form.label :activa_devolucion, "Activa solicitud de devolución", class: "form-check-label" %>
+			<% if dog? %>
+				<%= form.check_box :activa_devolucion, class: "form-check-input", value: 1 %>
+				<%= form.label :activa_devolucion, "Activa solicitud de devolución", class: "form-check-label" %>
+			<% end %>
+			
+			<%= form.check_box :verificacion_datos, class: "form-check-input", value: 1 %>
+			<%= form.label :verificacion_datos, "Activa verificación de datos", class: "form-check-label" %>
+
+			<%= form.check_box :coordinacion_apt, class: "form-check-input", value: 1 %>
+			<%= form.label :coordinacion_apt, "Coordinación de atención psicológica temprana", class: "form-check-label" %>
 		</div>
 	</div>
 </div>

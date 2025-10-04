@@ -1,0 +1,18 @@
+<div style="margin: 0 10%;">
+	<h3>Coordinación de atención psicológica temprana para personas denunciantes.</h3>
+
+	<p>Solicitamos coordinar a la brevedad atención psicológica temprana para la(s) siguiente(s) personas trabajadoras:</p>
+
+	<table class="pdf-minimal">
+	<thead>
+	</thead>
+	<tbody>
+		<% ownr.krn_denunciantes.each do |dnncnt| %>
+			<tr><td><b>Nombre</b></td><td><b><%=dnncnt.nombre%></b></td></tr>
+			<tr><td><b>Cédula de identidad</b></td><td><%=s_rut(dnncnt.rut)%></td></tr>
+			<tr><td><b>Email</b></td><td><%=dnncnt.email%></td></tr>
+			<!--tr><td><b>Teléfono</b></td><td><%#=dnncnt.telefono%></td></tr-->
+		<% end %>
+	</tbody>
+	</table>
+</div>

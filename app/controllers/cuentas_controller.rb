@@ -43,13 +43,12 @@ class CuentasController < ApplicationController
     def set_cuenta
       prms = params[:id].split('_')
       @mdl = prms[0] == 'e' ? Empresa : Cliente
-#      @objeto = @mdl.find(prms[1])
       @objeto = @mdl.includes(:krn_investigadores, :krn_empresa_externas, :krn_denuncias, :app_nominas, :app_contactos).find(prms[1])
       @tab_flags = {
         invstgdrs: @objeto.krn_investigadores.none?,
         extrns: @objeto.krn_empresa_externas.none?,
         nmn: @objeto.app_nominas.none?,
-        cntcts: @objeto.app_contactos.where(grupo: %w[RRHH Apt Backup]).distinct.count(:grupo) < 3
+        cntcts: @objeto.app_contactos.where(grupo: @objeto.cntcts_array).distinct.count(:grupo) < @objeto.cntcts_array.count
       }
     end
 

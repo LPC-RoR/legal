@@ -198,7 +198,8 @@ class EmpresasController < ApplicationController
 #        :rut, :razon_social, :email_administrador, :email_verificado, :sha1, :principal_usuaria, :backup_emails)
       params.require(:empresa).permit(
         :rut, :razon_social, :administrador, :email_administrador, 
-        :contacto, :telefono, :informacion_comercial, :principal_usuaria, :logo, :activa_devolucion
+        :contacto, :telefono, :informacion_comercial, :principal_usuaria, :logo,
+        :activa_devolucion, :verificacion_datos, :coordinacion_apt
         # :website NO se persiste (honeypot)
       )
     end

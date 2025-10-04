@@ -1,0 +1,33 @@
+<div style="margin: 0 10%;">
+	<h3>Notificación de recepción de denuncia ley 21.643</h3>
+
+	<div style="font-weight: bold;">
+		<p>Sr(a) <%= dstntr[:nombre] %></p>
+		<p>PRESENTE</p>
+	</div>
+
+	<p>
+	  Le informamos que, con fecha <%= dma(dstntr[:objt].dnnc.fecha_hora) %>, se ha presentado una denuncia en la cual usted participa en calidad de 
+	  <%= dstntr[:objt].class.name.tableize.split('_')[1].classify.downcase %>.
+	</p>
+
+	<p>
+	  La normativa dictada por la Dirección del Trabajo establece la obligación de adoptar <b>Medidas de Resguardo</b>, destinadas a asegurar que todo el 
+	  <i>procedimiento de investigación y sanción</i> se desarrolle en un ambiente que evite la revictimización de las personas denunciantes, prevenga cualquier tipo de represalia y garantice la objetividad e imparcialidad de la investigación. 
+	  El cumplimiento de estas medidas es obligatorio para todas las partes intervinientes.
+	</p>
+
+	<p>
+	  Asimismo, nuestra empresa tiene la obligación de resguardar la confidencialidad de la información en todas las etapas del procedimiento. En particular:
+	</p>
+
+	<ol>
+	  <li>
+	    Las personas denunciantes y denunciadas tendrán acceso al contenido de la denuncia; sin embargo, se excluirá la identidad de terceras personas mencionadas en los hechos, así como la identidad de los testigos ofrecidos por ambas partes.
+	  </li>
+	  <li>
+	    Todos los participantes tienen la responsabilidad de mantener en estricta reserva cualquier información relativa a su intervención en el procedimiento, absteniéndose de compartirla con otros trabajadores de la empresa.
+	  </li>
+	</ol>
+
+</div>

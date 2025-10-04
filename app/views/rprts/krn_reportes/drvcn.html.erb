@@ -1,0 +1,19 @@
+<div style="margin: 0 10%;">
+
+	<h3>Notificación de Derivación de la Denuncia</h3>
+
+	<div style="font-weight: bold;">
+	  <p>Sr(a). <%= dstntr[:nombre] %></p>
+	  <p>PRESENTE</p>
+	</div>
+
+	<p>
+	  Por la presente, le informamos que con fecha <%= dma(ref.fecha) %>, la denuncia en la cual usted participa en calidad de 
+	  <%= dstntr[:objt].rol %> ha sido derivada conforme al siguiente motivo: <%= ref.motivo %>.
+	</p>
+
+	<p>
+	  Quedamos a su disposición para atender cualquier consulta relacionada con la presente notificación.
+	</p>
+
+</div>

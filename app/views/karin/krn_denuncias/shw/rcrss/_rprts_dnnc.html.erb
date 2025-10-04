@@ -24,7 +24,7 @@
 					<td><%=dma_hm(rprt.created_at)%></td>
 					<td class="text-end app_lnk">
 						<!--%= link_to act_archivo_show_path(rprt),-->
-						<%= link_to "/act_archivos/#{rprt.id}",
+						<%= link_to "/act_archivos/#{rprt.id}/show_pdf",
 						            target: '_blank',
 						            title:  "Ver #{ClssPrcdmnt.act_nombre['dnnc'].downcase}" do %>
 						  <i class="bi bi-download"></i>

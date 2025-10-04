@@ -43,6 +43,30 @@ class Empresa < ApplicationRecord
         self.rcrs_logo.blank? ? 'logo/logo_60.png' : self.rcrs_logo.logo.resized.url
     end
 
+    # Configuración reportes
+
+    def cntcts_array
+        [(verificacion_datos? ? 'RRHH' : nil),
+            (coordinacion_apt? ? 'Apt' : nil),
+            'Backup'].compact
+    end
+
+    # KrnDenuncia
+    def destinatarios(rprt)
+      # bloque re-utilizable
+      build_hash = ->(obj) { { objt: obj, email: obj.email, nombre: obj.nombre } }
+
+      [].tap do |list|
+        # 1) app_contactos
+        app_contactos.find_each do |contacto|
+            if (rprt == 'crdncn_apt' and contacto.grupo == 'Apt') or (rprt == 'infrmcn' and contacto.grupo == 'RRHH')
+                list << build_hash.call(contacto)
+            end
+        end
+
+      end
+    end
+
     # Procedimiento Investigación y Snación
 
     def productos?

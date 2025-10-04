@@ -1,0 +1,47 @@
+<div style="margin: 0 10%;">
+	<h3>Comprobante de Recepción de Denuncia – Ley 21.643</h3>
+
+	<p>
+		<small><b>NOTA:</b> En cumplimiento del protocolo de confidencialidad exigido por el reglamento que regula el procedimiento de investigación y sanción, este documento no incluye información que pueda vulnerar dicho derecho.</small>
+	</p>
+
+	<p>
+	  Con fecha <%= dma(dstntr[:objt].dnnc.fecha_hora) %>, usted presentó, en calidad de persona denunciante, una denuncia en el marco de la Ley 21.643. 
+	  Para fines administrativos y de consulta, dicha denuncia ha sido registrada con el identificador <%= dstntr[:objt].dnnc.identificador %>.
+	</p>
+
+	<% if dstntr[:objt].dnnc.via_declaracion == 'Presencial' and dstntr[:objt].dnnc.tipo_declaracion == 'Verbal' %>
+	  <p>
+	    Su denuncia fue presentada en forma verbal, razón por la cual se levantó un acta que contiene íntegramente su declaración. 
+	    Esta acta fue firmada por usted en todas sus hojas y timbrada por la empresa.
+	  </p>
+
+	  <p>
+	    El acta firmada y timbrada se generó en dos ejemplares idénticos: uno de ellos le fue entregado en su calidad de persona denunciante 
+	    y el otro quedó en poder de la empresa, como parte de la carpeta investigativa correspondiente.
+	  </p>
+
+	  <p>
+	    Durante la recepción de su denuncia, se le proporcionó toda la información obligatoria establecida en el reglamento respecto de los derechos de las personas denunciantes.
+	  </p>
+	<% else %>
+	  <p>
+	    El documento presentado por usted como denuncia ha sido incorporado a la carpeta de investigación correspondiente.
+	  </p>
+	<% end %>
+
+	<p>
+	  Asimismo, la empresa le ha remitido por correo electrónico el detalle de los derechos y responsabilidades de las personas participantes en este procedimiento, entre los cuales se encuentran:
+	</p>
+
+	<ul>
+	  <li>El derecho a solicitar que su denuncia sea derivada a la Dirección del Trabajo.</li>
+	  <li>El derecho de la empresa, dentro de los tres días hábiles siguientes a su recepción, a derivar la denuncia a la Dirección del Trabajo.</li>
+	  <li>La obligación de la empresa de otorgar atención psicológica temprana a las personas denunciantes.</li>
+	  <li>La obligación de la empresa de definir y aplicar Medidas de Resguardo respecto de las personas denunciantes y denunciadas.</li>
+	</ul>
+
+	<p>
+	  Si usted tuviera alguna discrepancia o duda respecto de lo consignado en este documento, le solicitamos canalizarla a través del medio de denuncia correspondiente, para su aclaración o corrección.
+	</p>
+</div>

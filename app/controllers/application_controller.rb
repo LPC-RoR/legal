@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
 	include Modelos
 
 	include Calendario
-	include Plazos
 
 	include Tarifas
 
@@ -43,8 +42,7 @@ class ApplicationController < ActionController::Base
 	helper_method :itm_scrty, :lm_seguridad, :check_crud, :check_k_estados, :check_st_estado
 	helper_method :cfg_defaults, :cfg_navbar, :cfg_color, :cfg_fonts
 	helper_method :cmenu_clss, :std, :typ, :display_name, :scp_menu, :scp_item
-	helper_method :plz_lv, :plz_c, :plz_ok?, :etp_plz
-	helper_method :krn_fl_cntrl, :krn_cntrllrs?, :drvcn_text, :fl_cndtn?
+	helper_method :krn_fl_cntrl, :krn_cntrllrs?, :drvcn_text
 	helper_method :to_name, :corrige
 	helper_method :bck_path_krn_objt
 

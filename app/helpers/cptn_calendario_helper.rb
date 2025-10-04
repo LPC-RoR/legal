@@ -17,10 +17,6 @@ module CptnCalendarioHelper
 		}
 	end
 
-	def month_key(year, month)
-		"#{year} #{nombre_mes[month]}"
-	end
-
 	def clss_dia(fecha)
 		if dyf(fecha)
 			'd_dyf'

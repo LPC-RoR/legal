@@ -1,9 +1,0 @@
-<div class="area" style="padding-left: <%=indent%>em">
-	<%= render partial: 'organizacion/org_cargos/partials/line_cargo', locals: {objeto: objeto} %>
-
-	<% unless objeto.org_empleados.empty? %>
-		<% objeto.org_empleados.order(:apellido_paterno).each do |empleado| %>
-			<%= render partial: 'organizacion/org_empleados/partials/display_empleado', locals: {objeto: empleado, indent: indent + 1} %>
-		<% end %>
-	<% end %>
-</div>

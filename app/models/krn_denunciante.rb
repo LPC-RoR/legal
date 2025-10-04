@@ -44,6 +44,10 @@ class KrnDenunciante < ApplicationRecord
 		:dnncnt
 	end
 
+	def rol
+		'denunciante'
+	end
+
  	# ================================= GENERAL
 
 	# Se usa para resolver bck_rdrccn

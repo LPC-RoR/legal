@@ -1,8 +1,3 @@
-<% dstntr   ||= {nombre: 'NOMBRE DEL PARTICIPANTE', rol: 'ROL DEL PARTICIPANTE'} %>
-<% objt     ||= nil %>
-<% invstgdr ||= nil %>
-<% fecha    ||= objt.blank? ? Time.zone.now : objt.fecha %>
-<% invstgdr ||= objt.blank? ? {nombre: 'NOMBRE DEL INVESTIGADOR', email: 'EMAIL DEL INVETIGADOR'} : {nombre: dstntr[:invstgdr].krn_investigador, email: dstntr[:invstgdr].email} %>
 <h2>Agendamiento de declaración del participante</h2>
 
 <div style="font-weight: bold;">
@@ -10,10 +5,10 @@
 	<p>PRESENTE</p>
 </div>
 
-<p>Le informamos que hemos agendado para el próximo <%= dma_hm(fecha) %> su declaración en la investigación en la cual usted participa en calidad de <%=dstntr[:rol]%>.</p>
+<p>Le informamos que hemos agendado para el próximo <%= dma_hm(ref.fecha) %> su declaración en la investigación en la cual usted participa en calidad de <%=dstntr[:objt].rol%>.</p>
 
-<p>La declaración será tomada por el(la) invstigador(a) asignado(a), el Sr(a) <%=dstntr[:invstgdr][:nombre]%>, quien estará encantado de resolver las dudas que pueda tener respecto.</p>
+<p>La declaración será tomada por el(la) invstigador(a) asignado(a), el Sr(a) <%=dstntr[:objt].dnnc.invstgdr_activo.nombre%>, quien estará encantado de resolver las dudas que pueda tener respecto.</p>
 
-<p><%=dstntr[:invstgdr][:nombre]%></br>
+<p><%=dstntr[:objt].dnnc.invstgdr_activo.nombre%></br>
 <small>Investigador asignado</br>
-<%=dstntr[:invstgdr][:email]%></small></p>
+<%=dstntr[:objt].dnnc.invstgdr_activo.email%></small></p>

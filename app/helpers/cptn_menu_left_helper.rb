@@ -97,7 +97,6 @@ module CptnMenuLeftHelper
 					titulo: 'Ley Karin',
 					condicion: admin?,
 					items: [
-						'Procedimiento',
 						'Pautas'
 					]
 				},

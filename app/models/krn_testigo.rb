@@ -37,6 +37,10 @@ class KrnTestigo < ApplicationRecord
 		:tstg
 	end
 
+	def rol
+		'testigo'
+	end
+
 	def dnnc
 		self.ownr.krn_denuncia
 	end

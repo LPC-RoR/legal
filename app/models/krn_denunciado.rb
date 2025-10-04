@@ -43,6 +43,10 @@ class KrnDenunciado < ApplicationRecord
 		:dnncd
 	end
 
+	def rol
+		'denunciado'
+	end
+
 	# -------------------------------- General
 
 	def dnnc

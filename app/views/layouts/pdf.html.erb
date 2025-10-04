@@ -42,7 +42,10 @@
         <%= image_tag "data:image/png;base64,#{Base64.strict_encode64(File.read(Rails.root.join('app/assets/images', @logo_url)))}", class: 'header-image' %>
       <% end %>
     </div>
-    <div style="font-size: 10px; text-align: end;">
+    <div style="margin: 1rem;font-size: 8px; text-align: center;">
+      <% unless dstntr.nil? %>
+        Destinatario: <%= "#{dstntr[:objt].sym.to_s.upcase}-#{dstntr[:objt].id}" %><br>
+      <% end %>
       Fecha emisión: <%= l Time.zone.now, format: :short %>
     </div>
 

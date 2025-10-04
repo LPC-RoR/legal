@@ -1,0 +1,38 @@
+<div style="margin: 0 10%;">
+	<h2>Verificación de datos de los participantes y solicitud de documentación.</h2>
+
+	<p>Solicitamos verificar y completar la información de los trabajadores presentados a continuación:</p>
+
+	<table class="pdf-minimal">
+	<thead>
+	</thead>
+	<tbody>
+		<% ownr.krn_denunciantes.each do |dnncnt| %>
+			<tr><td><b>Nombre</b></td>			<td><b><%=dnncnt.nombre%></b></td></tr>
+			<tr><td>Cédula de identidad</td>	<td><%=s_rut(dnncnt.rut)%></td></tr>
+			<tr><td>Email</td>					<td><%=dnncnt.email%></td></tr>
+			<tr><td>Articulo 4 inciso 1ro</td>	<td><%=dnncnt.articulo_4_1 ? 'aplica' : 'no aplica'%></td></tr>
+			<% dnncnt.krn_testigos.each do |tstg| %>
+				<tr><td><b>Nombre</b></td>			<td><b><%=tstg.nombre%></b></td></tr>
+				<tr><td>Cédula de identidad</td>	<td><%=s_rut(tstg.rut)%></td></tr>
+				<tr><td>Email</td>					<td><%=tstg.email%></td></tr>
+				<tr><td>Articulo 4 inciso 1ro</td>	<td><%=tstg.articulo_4_1 ? 'aplica' : 'no aplica'%></td></tr>
+			<% end %>
+		<% end %>
+
+		<% ownr.krn_denunciados.each do |dnncd| %>
+			<tr><td><b>Nombre</b></td>			<td><b><%=dnncd.nombre%></b></td></tr>
+			<tr><td>Cédula de identidad</td>	<td><%=s_rut(dnncd.rut)%></td></tr>
+			<tr><td>Email</td>					<td><%=dnncd.email%></td></tr>
+			<tr><td>Articulo 4 inciso 1ro</td>	<td><%=dnncd.articulo_4_1 ? 'aplica' : 'no aplica'%></td></tr>
+			<% dnncd.krn_testigos.each do |tstg| %>
+				<tr><td><b>Nombre</b></td>			<td><b><%=tstg.nombre%></b></td></tr>
+				<tr><td>Cédula de identidad</td>	<td><%=s_rut(tstg.rut)%></td></tr>
+				<tr><td>Email</td>					<td><%=tstg.email%></td></tr>
+				<tr><td>Articulo 4 inciso 1ro</td>	<td><%=tstg.articulo_4_1 ? 'aplica' : 'no aplica'%></td></tr>
+			<% end %>
+		<% end %>
+	</tbody>
+	</table>
+
+</div>
