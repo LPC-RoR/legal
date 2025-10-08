@@ -18,7 +18,7 @@ class NotasController < ApplicationController
   # GET /notas/new
   def new
     ownr = params[:oclss].constantize.find(params[:oid])
-    @objeto = ownr.notas.new(app_perfil_id: perfil_activo.id, prioridad: 'success', fecha_gestion: Time.zone.now)
+    @objeto = ownr.notas.new(app_perfil_id: current_usuario.id, prioridad: 'success', fecha_gestion: Time.zone.now)
     set_bck_rdrccn
   end
 

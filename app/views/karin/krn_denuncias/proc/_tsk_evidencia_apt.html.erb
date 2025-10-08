@@ -1,0 +1,12 @@
+<% if tab_participantes? %>
+	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Obtener evidencia de la atención psicológica temprana de las personas denunciantes y subirla a la plataforma.', gly: 'lightbulb'} do %>
+
+		<ol>
+			<% if @objeto.ownr.coordinacion_apt %>
+				<li>Solicitar a la persona encargada de la coordinación de la atención psicológica temprana la documentación de evidencia,</li>
+			<% end %>
+			<li>Subir documentación de evidencia a la plataforma.</li>
+		</ol>
+
+	<% end %>
+<% end %>

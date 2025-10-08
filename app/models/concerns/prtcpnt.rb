@@ -4,6 +4,14 @@ module Prtcpnt
   # Métodos de instancia
   included do
 
+    def cnfdntl_key
+      "[CONFIDENCIAL: #{sym.to_s.upcase}-#{id}]"
+    end
+
+    def cnfdntl_email
+      "[CONFIDENCIAL: EMAIL-#{sym.to_s.upcase}-#{id}]"
+    end
+
     def email_verificado?
       verified? and (email == email_ok)
     end
@@ -19,8 +27,11 @@ module Prtcpnt
       self.articulo_516 ? true : (self.verified? and (self.email == self.email_ok))
     end
 
+    # Este método debe funcionar para todos los modelos
+    # RUT  e email/dirección
+    # No se incluye caso de violencia, porque no se puede preguntar desde un registro que no existe
     def cmplt?
-      rut? and (email? or articulo_516 or dnnc.violencia?)
+      rut? and email_direccion?
     end
 
   	def rgstr_ok?

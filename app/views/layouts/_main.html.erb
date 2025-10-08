@@ -1,40 +1,8 @@
 <div class="p-0 app_fnt" style="height: 100%;min-height: 80em;">
 
-	<!-- DESPLIEGA PÁGINA SÓLO SI EL PERFIL ESTÁ ACTIVO, SI ES UNA PÁGINA PÚBLICA O ES UNA PÁGINA DE DEVISE -->
-	<% if get_perfil_activo.present? or not_authenticate_routes? %>
-
-		<!-- Verifica usuarios de la aplicación o de cuenta -->
-		<% unless krn_user_error? %>
- 
-			<% if krn_routes? %>
-				<div style="margin-left: 10%;margin-right: 10%;">
-					<%= render partial: 'layouts/partials/notice_alert' %>
-					<%= yield %>
-				</div>
-			<% else %>
-				<div class="row gx-1" style="margin-left: 3%; margin-right: 3%;">
-					<%= render partial: 'layouts/partials/notice_alert' %>
-					<div class="col-3">
-						<%= render partial: prtl_name('layouts', 'lmenu', 'admin') %>
-
-						<%= render partial: '0p/lmenu/lmenu', locals: { sym: lm_sym } %>
-
-						<% if prtl?(controller_name, 'dwn_lft', 'bdy') %>
-							<%= render partial: prtl_name(controller_name, 'dwn_lft', 'bdy') %>
-						<% end %>
-					</div>
-					<div class="col-9">
-						<%= yield %>
-					</div>
-				</div>
-			<% end %>
-
-		<% else %>
-			<%= render partial: 'layouts/mssgs/err_perfil' %>
-		<% end %>
-
-	<% else %>
-		<%= render partial: 'layouts/mssgs/err_accss' %>
-	<% end %>
+	<div style="margin-left: 10%;margin-right: 10%;">
+		<%#= render partial: 'layouts/partials/notice_alert' %>
+		<%= yield %>
+	</div>
 
 </div>

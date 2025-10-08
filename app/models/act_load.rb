@@ -78,7 +78,7 @@ class ActLoad
     # Archivos por acción
     actns.each do |a|
       list = archivos[a] || []
-      h[a] = ClssPrcdmnt.actn_multpl?(a) ? list : list.first
+      h[a] = (ClssPrcdmnt.actn_multpl?(a) or ClssPrcdmnt.ref_generated?(a)) ? list : list.first
     end
 
     # Caso especial que ya se usaba en el controlador

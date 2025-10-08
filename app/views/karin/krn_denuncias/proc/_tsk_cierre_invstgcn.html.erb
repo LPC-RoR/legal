@@ -1,8 +1,8 @@
-<div class="border rounded-2 my-1">
-	<div class="p-2 bg_azul_claro" style="font-size: 1rem;">
-		Cierre de la investigación:
-	</div>
-	<div>
+<% if tab_proceso? %>
+	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Cierre de la investigación', gly: 'lightbulb'} do %>
+
+		<p>Registre la fecha en la cual se cerró la investigación</p>
 		<%= render partial: '0p/proc/etp_frm', locals: {etp: @kproc.etapa, objeto: @objeto, code: 'fecha_trmn', plz_fld: true} %>
-	</div>
-</div>
+
+	<% end %>
+<% end %>

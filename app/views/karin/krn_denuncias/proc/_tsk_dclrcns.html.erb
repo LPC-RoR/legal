@@ -1,0 +1,11 @@
+<% if tab_participantes? %>
+	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Agendar y tomar declaraciones a los participantes', gly: 'lightbulb'} do %>
+
+		<ol>
+			<li>Agendar declaraciones de los participantes y enviar citación por correo electrónico.</li>
+			<li>Tomar declaracióna a los participantes.</li>
+			<li>Subir las declaraciones firmadas a la plataforma.</li>
+		</ol>
+
+	<% end %>
+<% end %>

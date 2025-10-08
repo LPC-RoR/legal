@@ -1,4 +1,4 @@
-<% unless tipo_usuario == 'investigador' %>
+<% unless if current_usuario.recepcion? %>
 	<% if @objeto.prtcpnts_minimos? %>
 		<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Información de participantes cumple con el mínimo requerido.', clr: 'success'} if tab_participantes? %>
 	<% end %>

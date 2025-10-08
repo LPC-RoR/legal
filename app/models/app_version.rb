@@ -1,5 +1,7 @@
 class AppVersion < ApplicationRecord
 
+    has_one :tenant, as: :owner, dependent: :destroy
+
 	has_one :app_nomina, as: :ownr
 	has_many :rep_archivos, as: :ownr
 

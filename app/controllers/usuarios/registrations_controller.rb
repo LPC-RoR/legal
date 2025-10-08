@@ -1,56 +1,98 @@
-class Usuarios::RegistrationsController < Devise::RegistrationsController
-  respond_to :html, :turbo_stream
+# app/controllers/usuarios/registrations_controller.rb
+module Usuarios
+  class RegistrationsController < Devise::RegistrationsController
+    before_action :configure_account_update_params, only: [:update]
+    respond_to :html, :turbo_stream
 
-  def create
-    build_resource(sign_up_params)
-    resource.save
-    yield resource if block_given?
+    def create
+      email = sign_up_params[:email]&.downcase
 
-    if resource.persisted?
-      if resource.active_for_authentication?
-        set_flash_message! :notice, :signed_up
-        sign_up(resource_name, resource)
-        
-        respond_to do |format|
-          format.html { redirect_to after_sign_up_path_for(resource) }
-          format.turbo_stream { redirect_to after_sign_up_path_for(resource) }
+      # 1. ¿Está en nómina?
+      nomina = AppNomina.find_by(email: email)
+      unless nomina
+        build_resource(sign_up_params)
+        resource.errors.add(:email, 'no está autorizado para registrarse')
+        respond_with_navigational(resource) { render :new }
+        return
+      end
+
+      # 2. ¿A qué empresa/cliente pertenece?
+      owner = nomina.ownr
+      unless owner
+        build_resource(sign_up_params)
+        resource.errors.add(:email, 'no está asociado a una organización válida')
+        respond_with_navigational(resource) { render :new }
+        return
+      end
+
+      # 3. Tenant (crear si no existe)
+      if owner.tenant.nil?
+        tenant = owner.build_tenant(nombre: owner.try(:razon_social) || owner.try(:nombre) || 'Tenant')
+        tenant.save!
+      else
+        tenant = owner.tenant
+      end
+
+      # 4. Crear usuario
+      build_resource(sign_up_params)
+      resource.tenant = tenant
+
+      if resource.save
+        resource.add_role(:user, tenant) # rol inicial
+        yield resource if block_given?
+
+        if resource.active_for_authentication?
+          set_flash_message! :notice, :signed_up
+          sign_up(resource_name, resource)
+
+          respond_to do |format|
+            format.html { redirect_to after_sign_up_path_for(resource) }
+            format.turbo_stream { redirect_to after_sign_up_path_for(resource) }
+          end
+        else
+          set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+          expire_data_after_sign_in!
+
+          respond_to do |format|
+            format.html { redirect_to after_inactive_sign_up_path_for(resource) }
+            format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(after_inactive_sign_up_path_for(resource)) }
+          end
         end
       else
-        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
-        expire_data_after_sign_in!
-        
+        clean_up_passwords resource
+        set_minimum_password_length
+
         respond_to do |format|
-          format.html { redirect_to after_inactive_sign_up_path_for(resource) }
-          format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(after_inactive_sign_up_path_for(resource)) }
+          format.html { render :new }
+          format.turbo_stream { render turbo_stream: turbo_stream.replace('registration_form', partial: 'devise/registrations/form', locals: { resource: resource }) }
         end
       end
-    else
-      clean_up_passwords resource
-      set_minimum_password_length
-      
-      respond_to do |format|
-        format.html { render :new }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace('registration_form', partial: 'devise/registrations/form', locals: { resource: resource }) }
+    end
+
+    protected
+
+    def after_sign_up_path_for(resource)
+      resource.active_for_authentication? ? root_path : new_user_session_path
+    end
+
+    def after_inactive_sign_up_path_for(resource)
+      signed_up_but_unconfirmed_path
+    end
+
+    def configure_account_update_params
+      devise_parameter_sanitizer.permit(:account_update, keys: [:nombre])
+    end
+
+    def respond_with(resource, _opts = {})
+      if request.format.turbo_stream?
+        if resource.errors.empty?
+          redirect_to after_update_path_for(resource)
+        else
+          render :edit, status: :unprocessable_entity
+        end
+      else
+        super
       end
     end
   end
-
-  protected
-
-  def after_sign_up_path_for(resource)
-    if resource.active_for_authentication?
-      root_path # Si el usuario está activo (confirmado)
-    else
-      # Ruta a la que irán los usuarios no confirmados
-      new_user_session_path
-    end
-  end
-
-  def after_inactive_sign_up_path_for(resource)
-    # Mensaje que verán después de registrarse si necesitan confirmación
-    # Puedes crear una vista específica para esto en views/devise/registrations/signed_up_but_unconfirmed.html.erb
-    signed_up_but_unconfirmed_path
-  end
-
 end
-

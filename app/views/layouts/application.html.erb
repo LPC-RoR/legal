@@ -1,57 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1SXGV2HB5H"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-1SXGV2HB5H');
-    </script>
-
-    <title><%= get_app_sigla%></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= display_meta_tags %>
-    <!-- Opcional pero recomendable -->
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-  <!-- Cargar ECharts manualmente ANTES de todo -->
-  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/theme/dark.js"></script>
- 
-
-    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= stylesheet_link_tag "app_layout" %>
-
-    <%= favicon_link_tag asset_path('favicon.ico') if File.exist?("app/assets/images/favicon.ico") %>
-
-    <!-- Bootstrap ICON -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow&family=Lexend:wght@100;200;300;400;500;600;700;800;900&family=Raleway:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-
-  </head>
+  <%= render partial: 'layouts/partials/head', locals: {title: 'Laborsafe'} %>
 
   <body>
-
-    <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('navbar')} %>
+    <%= render partial: 'layouts/partials/navbar', locals: {logo_path: "logo/logo_60.png"} %>
 
     <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('main')} %>
 
     <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('footer')} %>
 
-    <%= javascript_importmap_tags %>
   </body>
+
 </html>

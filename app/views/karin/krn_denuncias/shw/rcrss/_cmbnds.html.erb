@@ -4,7 +4,7 @@
 			<i class="bi bi-caret-right-fill"></i> Documentos combinados
 		</div>
 		<div class="col-2 text-end app_lnk">
-			<% if admin? %>
+			<% if current_usuario.admin? %>
 				<%= link_to pdf_combinado_krn_denuncia_path(@objeto),
 				              target: '_blank' do %>
 				    <i class="bi bi-plus-circle"></i>
@@ -20,10 +20,10 @@
 			<div class="row gx-1 objt_lnk">
 				<div class="col-10"><%=dma_hm(cmbnd.created_at)%><%= cmbnd.nombre %></div>
 				<div class="col-2 text-end app_lnk">
-					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{cmbnd.id}/download", tltp: "Bajar #{cmbnd.nombre}", target: '_blank'} do %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{cmbnd.id}/download", tltp: "Bajar #{cmbnd.nombre}"} do %>
 						<i class="bi bi-download"></i>
 					<% end %>
-					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: cmbnd} if admin? %>
+					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: cmbnd} if current_usuario.admin? %>
 				</div>
 			</div>
 		<% end %>

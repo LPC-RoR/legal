@@ -42,38 +42,6 @@ module Karin
     }
   end
 
-  # --------------------------------------------------------------------------------------------- GENERAL
-
-  #Control de despliegue de Archivos
-
-  def fl_dsply_hsh(ownr)
-    dnnc = ownr.dnnc
-    {
-      dnnc: {
-        'dnnc_denuncia'     => dnnc.tipo_declaracion != 'Verbal',
-        'dnnc_acta'         => dnnc.tipo_declaracion == 'Verbal',
-        'dnnc_antcdnts'     => true,
-        'dnnc_notificacion' => dnnc.rcp_dt?,
-        'dnnc_certificado'  => (dnnc.on_dt? and dnnc.derivaciones?),
-        'dnncnt_rprsntcn'   => (dnnc.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1]),
-        'mdds_rsgrd'        => (( dnnc.rgstrs_ok? and ( not dnnc.on_empresa? ) ) or dnnc.investigacion_local),
-        'rslcn_dvlcn'       => dnnc.solicitud_denuncia,
-        'antcdnts_objcn'    => (dnnc.investigadores? ? dnnc.krn_inv_denuncias.first.objetado : false),
-        'rslcn_objcn'       => dnnc.fl?('antcdnts_objcn'),
-        'dnnc_evlcn'        => dnnc.evlcn_incnsstnt,
-        'dnnc_corrgd'       => (dnnc.evlcn_incnsstnt and (not dnnc.evlcn_ok)),
-        'infrm_invstgcn'    => ((dnnc.fechas_crr_rcpcn? or dnnc.on_dt?) and dnnc.chck_dvlcn?),
-        'prnncmnt_dt'       => dnnc.fecha_prnncmnt?,
-        'dnnc_mdds_sncns'   => (dnnc.fecha_env_infrm? or dnnc.plz_prnncmnt_vncd?)
-      },
-      prtcpnts: {
-        'dnncnt_diat_diep'  => ownr.class.name == 'KrnDenunciante',
-        'prtcpnts_dclrcn'   => ownr.declaraciones?,
-        'prtcpnts_antcdnts' => ownr.declaraciones?
-      }
-    }
-  end
-
   # --------------------------------------------------------------------------------------------- CAMPOS DEL OWNR
 
   # Reemplazar a fll_fld generalizando y creando ctr_registro correspondiente

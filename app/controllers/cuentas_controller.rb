@@ -1,7 +1,7 @@
 class CuentasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_cuenta, only: %i[ dnncs invstgdrs extrns nmn ]
+  before_action :set_cuenta, only: %i[ dnncs invstgdrs extrns nmn usrs ]
 
   def dnncs
       set_tabla('krn_denuncias', @objeto.krn_denuncias.ordr, true)
@@ -18,6 +18,11 @@ class CuentasController < ApplicationController
   def nmn
       set_tabla('app_nominas', @objeto.app_nominas, true)
       set_tabla('app_contactos', @objeto.app_contactos.order(:nombre), true)
+  end
+
+  def usrs
+    @tenant  = @objeto.tenant or raise ActiveRecord::RecordNotFound
+    @usuarios = @tenant.usuarios.order(:email)
   end
 
   def ctp_mdds

@@ -273,7 +273,7 @@ class KrnDenuncia < ApplicationRecord
 	end
 
 	def apt_coordinada?
-		act_operativo?('crdncn_apt')
+		ownr.coordinacion_apt ? act_operativo?('crdncn_apt') : true
 	end
 
 	def infrmcn_slctd?

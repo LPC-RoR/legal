@@ -1,0 +1,10 @@
+<% if tab_participantes? %>
+	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Notificar a los participantes la recepción de la denuncia.', gly: 'lightbulb'} do %>
+
+		<ol>
+			<li>Verificar el correo electrónico de las personas denunciadas y testigos.</li>
+			<li>Notificar a todos los participantes la recepción de la denuncia.</li>
+		</ol>
+
+	<% end %>
+<% end %>

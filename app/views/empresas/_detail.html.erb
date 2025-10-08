@@ -1,13 +1,13 @@
 <div class="row gx-0">
 	<div class="col-3">
-		<% if dog? %>
+		<% if current_usuario.dog? %>
 			<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT/Cédula de identidad' } %>
 		<% else %>
 			<%= s_rut(@objeto.rut)%>
 		<% end %>
 	</div>
 	<div class="col-9">
-		<% if dog? %>
+		<% if current_usuario.dog? %>
 			<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razon social/Nombre completo' } %>
 		<% else %>
 			<%= @objeto.razon_social %>
@@ -17,14 +17,14 @@
 
 <div class="row gx-0">
 	<div class="col-3">
-		<% if dog? %>
+		<% if current_usuario.dog? %>
 			<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :administrador, label: 'Administrador' } %>
 		<% else %>
 			<%= @objeto.administrador %>
 		<% end %>
 	</div>
 	<div class="col-9">
-		<% if dog? %>
+		<% if current_usuario.dog? %>
 			<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :email_administrador, label: 'Email administrador' } %>
 		<% else %>
 			<%= @objeto.email_administrador %>
@@ -75,7 +75,7 @@
 	<div class="col-lg-6">
 		<h5>Configuracion de la empresa</h5>
 		<div class="form-check mb-3">
-			<% if dog? %>
+			<% if current_usuario.dog? %>
 				<%= form.check_box :activa_devolucion, class: "form-check-input", value: 1 %>
 				<%= form.label :activa_devolucion, "Activa solicitud de devolución", class: "form-check-label" %>
 			<% end %>

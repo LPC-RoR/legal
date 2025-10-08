@@ -4,6 +4,7 @@
 <%#= render partial: prtl_name(@objeto, 'mssgs', 'dclrcns_ok') if @etp_last.codigo == 'etp_invstgcn' and @objt['dclrcns_ok?'] %>
 
 <%= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>
+<%= render partial: prtl_name(objeto, 'shw/proceso', 'tsk_dsply'), locals: {ownr: objeto} %>
 
 <!-- ActArchivo de DNNC -->
 <% rprt_apt = @objeto.ownr.coordinacion_apt %>

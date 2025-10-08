@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_03_183151) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_06_185521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1567,6 +1567,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_03_183151) do
     t.index ["pregunta_id"], name: "index_respuestas_on_pregunta_id"
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
   create_table "secciones", force: :cascade do |t|
     t.integer "causa_id"
     t.integer "orden"
@@ -1983,12 +1993,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_03_183151) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.bigint "tenant_id", null: false
+    t.bigint "tenant_id"
+    t.string "nombre"
     t.index ["confirmation_token"], name: "index_usuarios_on_confirmation_token", unique: true
     t.index ["email"], name: "index_usuarios_on_email", unique: true
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true
     t.index ["tenant_id"], name: "index_usuarios_on_tenant_id"
     t.index ["unlock_token"], name: "index_usuarios_on_unlock_token", unique: true
+  end
+
+  create_table "usuarios_roles", id: false, force: :cascade do |t|
+    t.bigint "usuario_id"
+    t.bigint "role_id"
+    t.index ["role_id"], name: "index_usuarios_roles_on_role_id"
+    t.index ["usuario_id", "role_id"], name: "index_usuarios_roles_on_usuario_id_and_role_id"
+    t.index ["usuario_id"], name: "index_usuarios_roles_on_usuario_id"
   end
 
   create_table "valores", force: :cascade do |t|

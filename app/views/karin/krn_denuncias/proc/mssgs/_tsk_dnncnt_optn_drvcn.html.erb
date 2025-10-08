@@ -1,6 +1,0 @@
-<% unless tipo_usuario == 'investigador' %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'La persona denunciante debe manifestar su preferencia respecto a que entidad realizará la investigación.', gly: 'lightbulb', clr: 'dark'} %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Esta tarea es la última que requiere definiciones con la persona denunciante.', gly: 'cone-striped'} if tab_proceso? %>
-<% else %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
-<% end %>

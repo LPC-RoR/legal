@@ -2,6 +2,8 @@ class Aplicacion::TablasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
 
+  layout 'addt'
+
   def tribunal_corte
     set_tabla('tribunal_cortes', TribunalCorte.trbnl_ordr, false)
   end

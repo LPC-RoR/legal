@@ -1,5 +1,0 @@
-<% unless tipo_usuario == 'recepción' %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Asignar un investigador a la denuncia.', gly: 'lightbulb', clr: 'dark'} %>
-<% else %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
-<% end %>

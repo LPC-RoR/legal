@@ -1,5 +1,5 @@
 class EmpresasController < ApplicationController
-  before_action :authenticate_usuario!, only: %i[ show index ]
+  before_action :authenticate_usuario!, except: [:create, :verify]
   before_action :scrty_on
   before_action :set_empresa, only: %i[ show edit update destroy swtch prg ]
 
@@ -13,7 +13,8 @@ class EmpresasController < ApplicationController
 
   # GET /empresas or /empresas.json
   def index
-    set_tabla('empresas', Empresa.rut_ordr, true)
+    set_tabla('empresas', empresas_visibles, true)
+    render layout: 'addt'
   end
 
   # GET /empresas/1 or /empresas/1.json
@@ -32,14 +33,11 @@ class EmpresasController < ApplicationController
 
   # POST /empresas or /empresas.json
   def create
-
     # --- CORTES TEMPRANOS ANTI-BOT ---
-    # Honeypot llenado => bot
     if params.dig(:objeto, :website).present?
       head :ok and return
     end
 
-    # Envío demasiado rápido (desde carga del form)
     loaded_at = params[:form_loaded_at].to_i
     if loaded_at.zero? || (Time.current.to_i - loaded_at) < MIN_FILL_SECONDS
       head :ok and return
@@ -47,16 +45,15 @@ class EmpresasController < ApplicationController
     # --- FIN ANTI-BOT ---
 
     @objeto = Empresa.new(empresa_params)
+    @objeto.build_tenant(name: @objeto.razon_social)
+
     purge_logo_if_requested
     @objeto.verification_token = SecureRandom.urlsafe_base64
     @objeto.email_verified = false
 
-    respond_to do |format|
+    respond_to do |format|          # <-- FALTABA ESTE BLOQUE
       if @objeto.save
-        EmpresaMailer
-          .with(empresa_id: @objeto.id)
-          .verification_email
-          .deliver_later
+        EmpresaMailer.with(empresa_id: @objeto.id).verification_email.deliver_later
 
         format.html { redirect_to root_path, notice: 'Te hemos enviado un correo de verificación' }
         format.turbo_stream do
@@ -70,6 +67,7 @@ class EmpresasController < ApplicationController
         @req = ComRequerimiento.new
         error_messages = @objeto.errors.full_messages
         flash[:errors] = error_messages
+
         format.html { redirect_to root_path(errors: error_messages), alert: 'Error en el registro de la empresa' }
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
@@ -79,43 +77,40 @@ class EmpresasController < ApplicationController
           )
         end
       end
-
     end
   end
 
-  # app/controllers/empresas_controller.rb
   def verify
-    @objeto = Empresa.find_by(verification_token: params[:token])
+    @objeto = Empresa.find_by!(verification_token: params[:token])
+    @objeto.update!(email_verified: true, verification_token: nil)
 
-    if @objeto
-      @objeto.update(email_verified: true, verification_token: nil)
+    usuario = Usuario.find_or_initialize_by(email: @objeto.email_administrador)
 
-      usuario = Usuario.find_or_initialize_by(email: @objeto.email_administrador)
-
-      if usuario.new_record?
-        random_password = Devise.friendly_token.first(12)
-        usuario.assign_attributes(
-          password: random_password,
-          password_confirmation: random_password,
-          confirmed_at: Time.current
-        )
-
-        # Asignar tenant (crear si no existe)
-        tenant = @objeto.tenant || @objeto.create_tenant(nombre: @objeto.razon_social)
-        usuario.tenant = tenant
-
-        if usuario.save!
-          EmpresaMailer.wellcome_email(
-            email: usuario.email,
-            password: random_password
-          ).deliver_later
-        end
-      end
-
-      redirect_to root_path, notice: 'Correo verificado correctamente'
-    else
-      redirect_to root_path, alert: 'Token de verificación inválido'
+    if usuario.new_record?
+      random_password = Devise.friendly_token.first(12)
+      usuario.assign_attributes(
+        password:              random_password,
+        password_confirmation: random_password,
+        confirmed_at:          Time.current
+      )
     end
+
+    # Asignar tenant y rol
+    usuario.tenant = @objeto.tenant
+    usuario.save!
+    usuario.add_role(:admin, @objeto.tenant)
+
+    # <-- AQUÍ -->
+    if usuario == current_usuario
+      bypass_sign_in(usuario) # actualiza sesión de Devise
+    end
+
+    # Bienvenida
+    EmpresaMailer.wellcome_email(usuario.email, random_password).deliver_later
+
+    redirect_to root_path, notice: 'Correo verificado correctamente'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: 'Token inválido'
   end
 
   # PATCH/PUT /empresas/1 or /empresas/1.json
@@ -129,6 +124,28 @@ class EmpresasController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def update_role
+    @usuario = @objeto.tenant.usuarios.find(params[:usuario_id])
+    nuevo_rol = params[:rol]
+
+    # 1. Quitar roles previos sobre este tenant
+    @usuario.roles.where(resource: @objeto.tenant).destroy_all
+
+    # 2. Asignar nuevo rol
+    @usuario.add_role(nuevo_rol.to_sym, @objeto.tenant)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "usuario_#{@usuario.id}_rol",
+          partial: 'empresas/usuario_rol',
+          locals: { usuario: @usuario }
+        )
+      end
+      format.html { redirect_back fallback_location: empresa_path(@objeto), notice: 'Rol actualizado' }
     end
   end
 
@@ -160,6 +177,22 @@ class EmpresasController < ApplicationController
 
   private
 
+    # devuelve el scope que el usuario puede ver
+    def empresas_visibles
+      if current_usuario.tenant.nil?
+        Empresa.all
+      else
+        case current_usuario.tenant.owner_type
+        when 'Empresa'
+          Empresa.where(id: current_usuario.tenant.owner_id)
+        when 'Cliente'
+          Empresa.none # o la lógica que corresponda si un Cliente puede ver empresas
+        else
+          Empresa.none
+        end
+      end
+    end
+
     def cta_root_path
       "/cuentas/e_#{@objeto.id}/dnncs"
     end
@@ -189,13 +222,13 @@ class EmpresasController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_empresa
-      @objeto = Empresa.find(params[:id])
+      @objeto = empresas_visibles.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to empresas_path, alert: 'Empresa no encontrada'
     end
 
     # Only allow a list of trusted parameters through.
     def empresa_params
-#      params.require(:empresa).permit(
-#        :rut, :razon_social, :email_administrador, :email_verificado, :sha1, :principal_usuaria, :backup_emails)
       params.require(:empresa).permit(
         :rut, :razon_social, :administrador, :email_administrador, 
         :contacto, :telefono, :informacion_comercial, :principal_usuaria, :logo,

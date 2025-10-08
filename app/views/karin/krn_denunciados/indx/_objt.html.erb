@@ -1,1 +1,4 @@
+<% if @objeto.krn_denunciados.none? and (not @objeto.violencia?) %>
+	<i class="bi bi-cone-striped text-danger"></i>
+<% end %>
 Persona(s) denunciada(s)

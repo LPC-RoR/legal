@@ -1,8 +1,8 @@
-<%= render partial: prtl_name(@ownr, 'shw/rprt', 'encbzd'), locals: {objeto: @ownr} %>
-<%= render partial: prtl_name(@ownr, 'shw/rprt', 'etps_rlzds'), locals: {objeto: @ownr} %>
-<%= render partial: prtl_name(@ownr, 'shw/rprt', 'drvcns_invstgdrs'), locals: {objeto: @ownr} %>
-<%= render partial: prtl_name(@ownr, 'shw/rprt', 'info_prtcpnts'), locals: {objeto: @ownr} %>
-<%= render partial: prtl_name(@ownr, 'shw/rprt', 'etps'), locals: {objeto: @ownr} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/encbzd" %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/etps_rlzds", locals: {objeto: @ownr} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/drvcns_invstgdrs", locals: {objeto: @ownr} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/accns" %>
 
-<%= render partial: prtl_name(@ownr, 'shw/rprt', 'docs_dnnc'), locals: {objeto: @ownr} %>
-<%= render partial: prtl_name(@ownr, 'shw/rprt', 'docs_prtcpnts'), locals: {objeto: @ownr} %>
+<%#= render partial: prtl_name(@ownr, 'shw/rprt', 'docs_dnnc'), locals: {objeto: @ownr} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/docs_dnnc", locals: {objeto: @ownr} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/docs_prtcpnts", locals: {objeto: @ownr} %>

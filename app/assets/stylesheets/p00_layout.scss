@@ -1,0 +1,11 @@
+/* app/assets/stylesheets/components/_navbar.scss */
+.navbar-nav {
+  /* tamaño que ya le diste al menú principal */
+  font-size: 0.8rem;   /* ejemplo */
+}
+
+/* Hacer que los items del desplegable hereden ese mismo tamaño */
+.navbar-nav .dropdown-menu,
+.navbar-nav .dropdown-item {
+  font-size: inherit;  /* ← hereda del navbar-nav */
+}

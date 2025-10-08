@@ -1,27 +1,18 @@
-<div class="border rounded-2 my-1">
-	<div class="p-2 bg_azul_claro" style="font-size: 1rem;">
-		<% if @objeto.tiene_art4_1? %>
-			Para alguna de las personas denunciantes o denunciadas aplica el artículo 4 inciso primero (ocupa un cargo gerencial). El regalmento establece la obligación de derivar la denuncia a la Dirección del Trabajo.
-		<% else %>
-			La persona denunciante debe decidir entre las siguientes opciones:
-		<% end %>
-	</div>
-	<div>
+<% if tab_proceso? %>
+	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'La persona denunciante debe manifestar su preferencia respecto a que entidad realizará la investigación', gly: 'lightbulb'} do %>
 
 		<% if @objeto.tiene_art4_1? %>
-			<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
-				<%= render partial: 'karin/krn_derivaciones/lnk_drvcn', locals: {ownr: @objeto, color: 'success', codigo: 'drvcn_art4_1'} %>
-			<% end %>
+			<%= render partial: 'karin/krn_derivaciones/lnk_drvcn', locals: {ownr: @objeto, color: 'success', codigo: 'drvcn_art4_1'} %>
 		<% else %>
+			<%= render partial: 'karin/krn_derivaciones/lnk_drvcn', locals: {ownr: @objeto, color: 'success', codigo: 'drvcn_dnncnt'} %>
 
-			<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
-				<%= render partial: 'karin/krn_derivaciones/lnk_drvcn', locals: {ownr: @objeto, color: 'success', codigo: 'drvcn_dnncnt'} %>
-			<% end %>
-			<%= render layout: 'cuentas/prtls/proceso/wrp_lnk_proceso' do %>
-				<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :dnncnt_investigacion_local, prmpt: 'La persona denunciante manifiesta su deseo de que la investigación sea realizada por la empresa.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['No será investigación local', 'Investigación local']} %>
-			<% end %>
-
+			<div class="fw-bold">
+				<%= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: :dnncnt_investigacion_local, prmpt: 'La persona denunciante manifiesta su deseo de que la investigación sea realizada por la empresa.', glys: ['arrow-counterclockwise', 'cursor'], stts: ['preferencia eliminada', 'empresa']} %>
+			</div>
 		<% end %>
 
-	</div>
-</div>
+		<div class="my-2 text-secondary" style="font-size: 0.7rem;">
+			<i class="bi bi-cone-striped"></i> Esta tarea es la última que requiere definiciones con la persona denunciante.
+		</div>
+	<% end %>
+<% end %>

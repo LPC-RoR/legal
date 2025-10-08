@@ -1,4 +1,4 @@
-<div class="border rounded-2 p-3 bg_gris_claro clr_azul_oscuro">
+<div class="shadow border-1 border-secondary rounded-2 py-2 px-3 bg_azul_claro clr_azul_oscuro">
 	<div class="row gx-1 fs-6">
 		<div class="col-8">
 			<div class="d-flex justify-content-start gap-1 text-dark">
@@ -24,18 +24,16 @@
 		</div>
 	</div>
 
-	<div class="row gx-1">
-		<div class="col-8 ps-4">
-			<i class="bi bi-caret-right"></i><%= ClssPrcdmnt.act_nombre[@kproc.tarea] %>
-		</div>
-		<div class="col-4 text-end app_lnk">
-			<% if undo_exist?(@objeto, @kproc.tarea) %>
-				<%= render layout: '0p/collapse/link', locals: {label: 'Undo', objeto: nil, tooltip: nil} do %>
-					<div class="fw-bold"><i class="bi bi-cursor"></i> ¿Desea deshacer la última acción realizada?</div>
-				<% end %>
+	<div class="ps-4 fw-bold"><i class="bi bi-caret-right"></i><%= ClssPrcdmnt.act_nombre[@kproc.tarea] %></div>
+
+	<% if undo_exist?(@objeto, @kproc.tarea) %>
+		<div class="text-end app_lnk">
+			<%= render layout: '0p/collapse/link', locals: {label: 'Undo', objeto: nil, tooltip: nil} do %>
+				<i class="bi bi-cursor"></i> ¿Desea deshacer la última acción realizada?
 			<% end %>
 		</div>
-	</div>
+	<% end %>
+
 </div>
 
 <%= render layout: '0p/mdl/modal', locals: {cdg: @kproc.etapa.to_s, ttl: ClssPrcdmnt.act_nombre[@kproc.etapa.to_s], sz: 'lg'} do %>

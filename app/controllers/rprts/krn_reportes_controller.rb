@@ -10,8 +10,8 @@ class Rprts::KrnReportesController < ApplicationController
     dnnc_id = ClssPdfRprt.rcrd_rprts.include?(rprt) ? ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(oid).dnnc.id : oid
     @dnnc = KrnDenuncia.estrctr.find(dnnc_id)
     @logo_url = @dnnc.ownr.logo_url
-    @dstntrs = ClssPdfRprt.dnnc_rprts.include?(rprt) ? @dnnc.ownr.destinatarios(rprt) : @dnnc.destinatarios(rprt)
     @ref = ClssPdfRprt.rcrd_rprts.include?(rprt) ? ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(oid) : nil
+    @dstntrs = rprt == 'dclrcn' ? @ref.destinatario : (ClssPdfRprt.dnnc_rprts.include?(rprt) ? @dnnc.ownr.destinatarios(rprt) : @dnnc.destinatarios(rprt))
   end
 
   def dnncnt_info_oblgtr
@@ -78,7 +78,7 @@ class Rprts::KrnReportesController < ApplicationController
       )
       act_archivo.pdf.attach(
         io: StringIO.new(pdf_data),
-        filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
+        filename: "#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
         content_type: 'application/pdf'
       )
       act_archivo.save!
@@ -87,7 +87,7 @@ class Rprts::KrnReportesController < ApplicationController
       PdfMailer.send_pdf(
         dstntr[:email], 
         pdf_data, 
-        "rep_#{params[:rprt]}.pdf",
+        "#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
         params[:rprt],
         ClssPdfRprt.sbjcts[params[:rprt].to_sym]
       ).deliver_now
@@ -116,12 +116,12 @@ class Rprts::KrnReportesController < ApplicationController
     )
     act_archivo.pdf.attach(
       io: StringIO.new(pdf_data),
-      filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
+      filename: "#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
       content_type: 'application/pdf'
     )
     act_archivo.save!
 
-    redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt])
+    redirect_to ClssPdfRprt.rdrct_path(@ownr, params[:rprt])
   end
 
   def generate_and_store_report
@@ -142,7 +142,7 @@ class Rprts::KrnReportesController < ApplicationController
       )
       act_archivo.pdf.attach(
         io: StringIO.new(pdf_data),
-        filename: "rep_#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
+        filename: "#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
         content_type: 'application/pdf'
       )
       act_archivo.save!
@@ -190,7 +190,22 @@ class Rprts::KrnReportesController < ApplicationController
           locals:    { dstntr: dstntr, ownr: ownr, ref: ref }
         )
 
-        return Grover.new(html, format: 'A4', print_background: true).to_pdf
+        return Grover.new(html,
+           format: 'A4',
+           print_background: true,
+           display_url: Rails.application.routes.url_helpers.root_url(host: 'http://127.0.0.1:3000'),
+           wait_until: 'domcontentloaded',
+           timeout: 8_000,
+           launch_args: ['--no-sandbox',
+                         '--disable-setuid-sandbox',
+                         '--disable-dev-shm-usage',
+                         '--disable-web-security',
+                         '--disable-background-timer-throttling',
+                         '--disable-renderer-backgrounding',
+                         '--disable-backgrounding-occluded-windows',
+                         '--disable-features=TranslateUI',
+                         '--disable-ipc-flooding-protection',
+                         '--disable-features=VizDisplayCompositor']).to_pdf
       end
     end
 

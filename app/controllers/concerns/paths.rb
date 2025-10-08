@@ -12,17 +12,21 @@ module Paths
 	end
 
 	def bck_path_krn_objt(objt)
-		if ['Empresa', 'Cliente'].include?(objt.class.name)
+		case objt.class.name
+		when 'Empresa', 'Cliente' 
 			"/cuentas/#{objt.class.name[0].downcase}_#{objt.id}/dnncs"
-		elsif ['KrnDenuncia', 'KrnInvestigador', 'KrnEmpresaExterna', 'AppNomina', 'AppContacto'].include?(objt.class.name)
+		when 'KrnDenuncia', 'KrnInvestigador', 'KrnEmpresaExterna', 'AppNomina', 'AppContacto'
 			"/cuentas/#{objt.ownr.class.name[0].downcase}_#{objt.ownr.id}/#{krn_indx_action[objt.class.name]}"
+		else
+			objt.ownr
 		end
 	end
 
 	def bck_act_archivo_path(objt)
-		if ['KrnDenuncia'].include?(objt.ownr.class.name)
+		case objt.ownr.class.name
+		when 'KrnDenuncia'
 			objt.ownr
-		elsif ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(objt.ownr.class.name)
+		when 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'
 			"/krn_denuncias/#{objt.ownr.dnnc.id}_1"
 		end
 	end

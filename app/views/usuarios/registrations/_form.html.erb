@@ -47,6 +47,11 @@
           <%= f.label :password_confirmation, 'Confirmación de password', for: 'passwordConfirm' %>
         </div>
 
+        <div class="form-floating mb-3">
+          <%= f.text_field :nombre, autocomplete: "nombre", class: 'form-control', id: 'Nombre', placeholder: 'Nombre del usuario' %>
+          <%= f.label :nombre, 'Nombre del usuario', for: 'Nombre' %>
+        </div>
+
         <!--/br-->
 
         <div class="mb-3">

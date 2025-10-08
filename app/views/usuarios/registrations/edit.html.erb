@@ -56,6 +56,11 @@
           <%= f.label :current_password, 'Pasword actual', for: 'passwordCurrent' %>
         </div>
 
+        <div class="form-floating mb-3">
+          <%= f.text_field :nombre, autocomplete: "nombre", class: 'form-control', id: 'Nombre', placeholder: 'Nombre del usuario' %>
+          <%= f.label :nombre, 'Nombre del usuario', for: 'Nombre' %>
+        </div>
+
         <div class="mb-3">
           <%= f.submit "Actualizar" %>
         </div>
@@ -63,7 +68,7 @@
 
 </br>
 
-      <h5><%= render partial: '0p/general/icon_text', locals: {text: "Cancelar mi cuenta", gly: 'emoji-frown', clr: 'info'} %></h5>
+      <h5><%= render partial: '0p/general/icon_text', locals: {text: "Cancelar mi cuenta", gly: 'emoji-frown', clr: 'dark'} %></h5>
 
       <p><%= button_to "Cancelar mi cuenta", registration_path(resource_name), data: { confirm: "Está usted seguro?" }, method: :delete %></p>
 

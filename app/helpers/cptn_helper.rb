@@ -60,6 +60,10 @@ module CptnHelper
 		date.blank? ? '__-__-__' : date.strftime("%d-%m-%Y")
 	end
 
+	def rprt_dma(date)
+		date.blank? ? '-' : date.strftime("%d-%m-%Y")
+	end
+
 	def hm(datetime)
 		datetime.blank? ? '__:__' : datetime.strftime("%I:%M%p")
 	end

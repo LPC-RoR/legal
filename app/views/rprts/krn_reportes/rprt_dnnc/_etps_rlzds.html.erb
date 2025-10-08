@@ -1,0 +1,17 @@
+<%= render layout: 'rprts/krn_reportes/rprt_dnnc/box_tmplt', locals: {ttl: 'Control de plazos', fnt_rem: 0.9} do %>
+	<table class="table table-sm">
+		<tbody>
+			<tr>
+				<th>Etapa</th>
+				<th>Fecha límite</th>
+				<th class="text-end">Fecha término</th>
+			</tr>
+			<% [:etp_rcpcn, :etp_invstgcn, :etp_infrm, :etp_prnncmnt, :etp_mdds_sncns].each do |etp| %>
+				<% if objeto.plz_fecha_inicio(etp) %>
+					<!-- Está en shw porque se usa desde otro lado -->
+					<%= render partial: 'karin/krn_denuncias/shw/proceso/etp_rlzd_objt', locals: {objeto: objeto, tkn: etp} %>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

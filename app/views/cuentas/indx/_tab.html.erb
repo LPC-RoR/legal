@@ -3,6 +3,7 @@
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "dnncs" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/dnncs">Denuncias</a>
     </li>
+
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "invstgdrs" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/invstgdrs">
         <% if @tab_flags[:invstgdrs] %>
@@ -10,6 +11,7 @@
         <% end %>
       Investigadores</a>
     </li>
+
     <% if objt.principal_usuaria %>
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "extrns" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/extrns">
@@ -19,6 +21,7 @@
       Empresas externas</a>
     </li>
     <% end %>
+
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "nmn" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/nmn">
         <% if @tab_flags[:nmn] or @tab_flags[:cntcts] %>
@@ -26,5 +29,13 @@
         <% end %>
       Nómina</a>
     </li>
+
+    <!-- La vista de los usuarios sólo es de DOG por ahora -->
+    <% if current_usuario.dog? %>
+    <li class="nav-item">
+      <a class="nav-link <%= 'active' if action_name == "usrs" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/usrs">
+      Usuarios</a>
+    </li>
+    <% end %>
   </ul>
 </div>

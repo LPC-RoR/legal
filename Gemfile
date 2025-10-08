@@ -46,6 +46,14 @@ gem 'execjs'
 
 # Autenticación y autorización
 gem 'devise'
+# Para manejor roles de Usuarios
+gem 'rolify'
+# Para manejar autorizaciones
+gem 'pundit'
+# Para el manejo de Tenants
+gem 'request_store'
+
+
 # Para verificar envío de correos en el navegador
 gem 'letter_opener', group: :development
 
@@ -76,9 +84,6 @@ gem 'grover'                      # Para reportes en PDF con bootstrap 5
 gem 'mime-types'
 gem 'rqrcode'
 gem 'chunky_png'  # Necesario para convertir el QR a imagen
-
-# Para el manejo de Tenants
-gem 'request_store'
 
 # Busqueda
 gem 'pg_search'

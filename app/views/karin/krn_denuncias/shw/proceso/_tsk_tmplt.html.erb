@@ -1,0 +1,11 @@
+<% ttl ||= 'sin título' %>
+<% gly ||= nil %>
+<div class="border rounded-2 shadow-sm my-1">
+	<div class="p-2 rounded-2 bg_azul_claro clr_azul_oscuro" style="font-size: 0.9rem;">
+		<% if gly %><i class="bi bi-<%=gly%>"></i> <% end %>
+		<%= ttl %>
+	</div>
+	<div class="px-4 py-2 bg_gris_claro clr_azul_oscuro objt_lnk">
+		<%= yield %>
+	</div>
+</div>

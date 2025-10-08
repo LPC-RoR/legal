@@ -122,21 +122,10 @@ module CptnMenuLeftHelper
 					condicion: dog?, 
 					items: [
 						'AppVersion',
-						'Slide'
+						'Slide',
+						'GlobalUsuario'
 					]
 				}
-			],
-			cuenta: [
-				{
-					titulo: nil,
-					condicion: (perfil_activo?),
-					items: [
-						['KrnDenuncia', gscp(@objeto)],
-						['KrnInvestigador', gscp(@objeto)],
-						['KrnEmpresaExterna', gscp(@objeto)],
-						['AppNomina', gscp(@objeto)],
-					]
-				},
 			]
 		}
 	end

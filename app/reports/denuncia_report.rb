@@ -40,9 +40,9 @@ class DenunciaReport
   def receptor_text
     case denuncia.receptor_denuncia
     when 'Empresa'
-      'Denuncia recibida en el canal de denuncia de nuestra empresa.'
+      'Denuncia recibida a través del canal oficial de denuncias de la empresa.'
     when 'Externa'
-      "Denuncia presentada en el canal de denuncia de la empresa #{empresa_externa}."
+      "Denuncia recibida a través del canal oficial de denuncias de la empresa. #{empresa_externa}."
     else
       'Denuncia presentada en la Dirección del Trabajo.'
     end
@@ -54,7 +54,11 @@ class DenunciaReport
 
   def canal_text
     if denuncia.via_declaracion == 'Presencial'
-      cmplmnt = "presencialmente en forma #{denuncia.tipo_declaracion.downcase}."
+      if denuncia.tipo_declaracion.downcase == 'escrita'
+        cmplmnt = "de manera presencial y por escrito"
+      else
+        cmplmnt = "verbalmente de manera presencial"
+      end
     else
       cmplmnt = "vía #{denuncia.via_declaracion.downcase}"
     end
@@ -62,35 +66,35 @@ class DenunciaReport
   end
 
   def denunciante_text
-    denuncia.presentado_por == 'Denunciante' ? 'Denuncia presentada por la persona denunciante.' : 'Denuncia presentada por un tercero en representación de la persona denunciante.'
+    denuncia.presentado_por == 'Denunciante' ? 'Denuncia ingresada directamente por la persona denunciante.' : 'Denuncia presentada por un tercero en representación de la persona denunciante.'
   end
 
   def participantes_minimos_text
-     "La denuncia #{'no' unless denuncia.prtcpnts_minimos?} cuenta con el número de participantes mínimos necesarios."
+    denuncia.prtcpnts_minimos? ? nil : 'Falta información respecto de uno o más participantes.'
   end
 
   def coordinacion_apt_text
-    "#{denuncia.apt_coordinada? ? 'Se coordinó' : 'No se ha coordinado'} la recepción de atención psicológica temprana de la persona denunciante."
+    denuncia.ownr.coordinacion_apt ? "#{denuncia.apt_coordinada? ? 'Se coordinó' : 'No se ha coordinado, hasta la fecha,'} la recepción de atención psicológica temprana para la persona denunciante." : nil
   end
 
   def infrmcn_slctd_text
-    "#{denuncia.infrmcn_slctd? ? 'Se solicitó' : 'No se ha solicitado'} la verificación de la información de los participantes."
+    denuncia.ownr.verificacion_datos ? "#{denuncia.infrmcn_slctd? ? 'Se solicitó' : 'No se ha solicitado, hasta la fecha,'} la verificación de la información correspondiente a los participantes." : nil
   end
 
   def dnnct_invstgcn_local_text
-    denuncia.dnncnt_investigacion_local ? 'La persona denunciante manifestó su deseo de que la investigación fuera realizada por la empresa.' : nil
+    denuncia.dnncnt_investigacion_local ? 'La persona denunciante manifestó su voluntad de que la investigación sea realizada por la empresa.' : nil
   end
 
   def invstgcn_local_externa_text
-    denuncia.investigacion_local ? 'La denuncia será investigada por la empresa.' : (denuncia.investigacion_externa ? 'La denuncia será investigada por la empresa externa.' : nil)
+    denuncia.investigacion_local ? 'La empresa resolvió efectuar la investigación de la denuncia de manera interna.' : (denuncia.investigacion_externa ? 'La empresa externa resolvió efectuar la investigación de la denuncia de manera interna.' : nil)
   end
 
   def evlcn_ok_text
-    denuncia.evlcn_ok.nil? ? nil : (denuncia.evlcn_ok ? 'La denuncia no presenta inconsistencias.' : 'La denuncia presenta inconsistencias, se devuelve a la persona denunciante para su corrección.')
+    (denuncia.evlcn_ok.nil? or denuncia.evlcn_ok) ? nil : 'La denuncia presenta inconsistencias, por lo que se devuelve a la persona denunciante para su corrección.'
   end
 
   def plz_prnncmnt_text
-    denuncia.prnncmnt_vncd.nil? ? nil : (denuncia.prnncmnt_vncd ? 'El plazo para el pronunciamiento de la Dirección del Trabajo venció' : nil)
+    denuncia.prnncmnt_vncd.nil? ? nil : (denuncia.prnncmnt_vncd ? 'El plazo establecido para el pronunciamiento de la Dirección del Trabajo ha vencido.' : nil)
   end
 
 end

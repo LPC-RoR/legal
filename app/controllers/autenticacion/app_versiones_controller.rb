@@ -3,6 +3,8 @@ class Autenticacion::AppVersionesController < ApplicationController
   before_action :scrty_on
   before_action :set_app_version, only: %i[ edit update show ]
 
+  layout 'addt'
+
   # GET /app_versiones or /app_versiones.json
   def index
     set_tabla('app_versiones', AppVersion.all, false)

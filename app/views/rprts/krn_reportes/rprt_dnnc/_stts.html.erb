@@ -1,0 +1,61 @@
+<!-- PARTICIPANTE -->
+<div class="row gx-1">
+	<div class="col-10">
+		<%=objt.cnfdntl_key%>
+	</div>
+	<div class="col-2 text-end">
+		Datos <%= objt.cmplt? ? 'completos' : 'incompletos' %>
+	</div>
+</div>
+
+<div class="ms-3">
+	<!-- EMAIL PARTICIPANTE -->
+	<div class="row gx-1">
+		<div class="col-10">
+			<% if objt.articulo_516 %>
+				El participante solicitó que la información y las notificaciones le sean enviadas por correo certificado.
+			<% elsif objt.email %>
+				<%=objt.cnfdntl_email%>
+			<% else %>
+				El participante no registra una dirección de correo electrónico en la plataforma.
+			<% end %>
+		</div>
+		<div class="col-2 text-end">
+			<% unless objt.articulo_516  %>
+				<% if objt.email %>
+					<% if objt.email != objt.email_ok and (not @acts_hsh[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email')) %>
+						Sin validar
+					<% else %>
+						<%= objt.verified? ? 'Verificado' : 'Revisado' %>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+
+	<% if objt.articulo_4_1 %>
+		<div>Respecto de este participante, resulta aplicable lo dispuesto en el artículo 4°, inciso primero, del Código del Trabajo.</div>
+	<% end %>
+
+	<% if @acts_hsh[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email') or objt.email_direccion? %>
+		<div class="fw-bold">Documentos del participante generados por la plataforma</div>
+		<div class="ms-3">
+			<%= render partial: 'rprts/krn_reportes/rprt_dnnc/pltfrm_fls', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt, lnks: true} %>
+		</div>
+	<% end %>
+
+	<% if objt.dnnc.krn_inv_denuncias.any? %>
+		<div class="fw-bold">Agenda de declaraciones</div>
+		<div class="ms-3">
+			<%= render partial: 'rprts/krn_reportes/rprt_dnnc/dclrcn_lst', locals: {ownr: objt} %>
+		</div>
+	<% end %>
+
+	<% unless @acts_hsh[objt.clss_id][:cdgs].empty? %>
+		<div class="fw-bold">Documentos controlados</div>
+		<div class="ms-3">
+			<%= render partial: 'rprts/krn_reportes/rprt_dnnc/extrns_fls', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt} %>
+		</div>
+	<% end %>
+
+</div>

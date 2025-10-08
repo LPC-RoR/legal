@@ -4,7 +4,7 @@ class ClientesController < ApplicationController
   before_action :set_cliente, only: %i[ show edit update destroy swtch_stt cambio_estado crea_factura aprueba_factura swtch_urgencia swtch_pendiente ]
   after_action :rut_puro, only: %i[ create update ]
 
-#  include Bandejas
+  layout 'addt'
 
   # GET /clientes or /clientes.json
   def index

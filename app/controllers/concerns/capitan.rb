@@ -126,7 +126,7 @@ module Capitan
 			  mdl: params[:mdl],
 			  cdg: params[:cdg],
 			  rlzd: params[:p],
-			  app_perfil_id: perfil_activo.id,
+			  app_perfil_id: current_usuario.id,
 			  chequed_at: Time.zone.now
 			)
 		end

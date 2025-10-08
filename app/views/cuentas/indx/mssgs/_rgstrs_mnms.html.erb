@@ -7,22 +7,32 @@
 			<li>Se debe ingresar al menos un investigador.</li>
 		<% end %>
 
-		<% if @objeto.principal_usuaria %>
-			<% if @objeto.krn_empresa_externas.none? %>
-				<li>Se debe ingresar al menos una empresa externa.</li>
-			<% end %>
+		<% if @objeto.principal_usuaria and @objeto.krn_empresa_externas.none? %>
+			<li>Se debe ingresar al menos una empresa externa.</li>
 		<% end %>
 
 		<% unless @objeto.app_contactos.exists?(grupo: 'RRHH') %>
+			<% if @objeto.verificacion_datos %>
 			<li>Se debe ingresar al menos un contacto de RRHH.</li>
+			<% end %>
 		<% end %>
 		<% unless @objeto.app_contactos.exists?(grupo: 'Apt') %>
+			<% if @objeto.coordinacion_apt %>
 			<li>Se debe ingresar al menos un contacto para atención psicológica temprana.</li>
+			<% end %>
 		<% end %>
 		<% unless @objeto.app_contactos.exists?(grupo: 'Backup') %>
 			<li>Se debe ingresar al menos un contacto para el respaldo de correos electrónicos.</li>
 		<% end %>
 	</ul>
+
+	<% unless @objeto.verificacion_datos %>
+		<p><i class="bi bi-lightbulb"></i> No está activada la verificación de datos de las personas participantes</p>
+	<% end %>
+
+	<% unless @objeto.coordinacion_apt %>
+		<p><i class="bi bi-lightbulb"></i> No está activada la coordinación de atención psicológica temprana para las personas denunciantes</p>
+	<% end %>
 
 	<% unless admin? %>
 		<p>Comuniquese con el administrador de la cuenta para resolver el problema.</p>

@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :prepare_meta_tags
 
+  include SetCurrentTenant
+  include Pundit
+#  include Pundit::Authorization   # <-- línea clave
+
 #	helper PdfHelper
 	include PdfHelper
 
@@ -24,6 +28,10 @@ class ApplicationController < ActionController::Base
 	include Calendario
 
 	include Tarifas
+
+  def pundit_user
+    current_usuario        # <-- clave
+  end
 
 	# Seguridad tabla_path
 	helper_method :get_version_activa, :get_app_sigla, :get_perfil_activo

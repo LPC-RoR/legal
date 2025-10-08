@@ -104,75 +104,89 @@ module DnncProc
  		not_on_dt? and apt_coordinada? and (not comprobantes_firmados?)
  	end
 
+ 	# Enviar notificación de la recepción de la denuncia a todos los participantes
  	def tsk_notificar_dnnc?
  		(on_dt? or (not_on_dt? and apt_coordinada? and comprobantes_firmados?)) and
  		( not dnnc_notificada?)
  	end
 
+ 	# Enviar medidas de resguardo a los participantes
  	def tsk_mdds_rsgrd?
  		(on_dt? or (not_on_dt? and apt_coordinada? and comprobantes_firmados? and dnnc_notificada?)) and
  		(not mdds_rsgrd?)
  	end
 
+ 	# Subir evidencia de la entrega de la apt a las personas denunciantes
  	def tsk_evidencia_apt?
  		(on_dt? or (not_on_dt? and apt_coordinada? and comprobantes_firmados?)) and
  		(not evidencia_apt?)
  	end
 
+ 	# Opcion de derivación de la empresa
  	def tsk_emprs_optn_drvcn?
  		campos = [investigacion_local, investigacion_externa]
  		not_on_dt? and evidencia_apt? and
  		campos.count(true) == 0
  	end
 
+ 	# Cierre de la recepción de la denuncia
  	def tsk_cierre_rcpcn?
  		evidencia_apt? and 
  		(on_dt? or investigacion_local or investigacion_externa) and
  		(not fecha_hora_dt) and (not fecha_trmtcn) and (not fecha_ntfccn)
  	end
 
+ 	# Asignar investigador
  	def tsk_asigna_invstgdr?
  		campos = [fecha_hora_dt?, fecha_trmtcn?, fecha_ntfccn?]
  		not_on_dt? and
  		campos.count(true) == 1 and krn_inv_denuncias.none?
  	end
 
+ 	# Análisis de la denuncia
  	def tsk_analisis_dnnc?
  		not_on_dt? and krn_inv_denuncias.any? and
  		(not analizada?)
  	end
 
+ 	# Agendamiento y toma de las declaraciones
  	def tsk_dclrcns?
  		not_on_dt? and analizada? and
  		(not tienen_dclrcn?)
  	end
 
+ 	# Redacción del Informe de investigación (subir)
  	def tsk_redaccion_infrm?
  		not_on_dt? and tienen_dclrcn? and
  		(not tiene_infrm?)
  	end
 
+ 	# Cierre de la investigación
  	def tsk_cierre_invstgcn?
  		not_on_dt? and tiene_infrm? and
  		(not fecha_trmn?)
  	end
 
+ 	# Envio o recepción del informe de investigación
  	def tsk_infrm?
  		((not_on_dt? and fecha_trmn?) or on_dt?) and
  		(not fecha_env_infrm?) and (not fecha_rcpcn_infrm?)
  	end
 
+ 	# Pronunciamiento de la Dirección del Trabajo
  	def tsk_prnncmnt?
  		not_on_dt? and
  		fecha_env_infrm? and
  		(not fecha_prnncmnt?) and (not prnncmnt_vncd)
  	end
 
+ 	# Aplicación de las medidas de resguardo y sanciones
  	def tsk_mdds_sncns?
  		(on_dt? or (fecha_prnncmnt? or prnncmnt_vncd)) and
  		(not fecha_cierre?)
  	end
 
+ 	# Procedimiento terminado
  	def tsk_prcdmnt_trmnd?
  		fecha_cierre?
  	end
@@ -188,10 +202,6 @@ module DnncProc
 		self.krn_denunciantes.rgstrs_ok? and (self.krn_denunciados.rgstrs_ok? or self.violencia?)
 	end
 
-	def emails_vrfcds?
-		self.krn_denunciantes.emails_ok? and (self.krn_denunciados.emails_ok? or self.violencia?)
-	end
-
 	# ETAPA Para resolver el comienzo de las etapas
 	def rgstrs_info_mnm?
 		self.rgstrs_mnms? and self.rgstrs_ok?
@@ -202,37 +212,8 @@ module DnncProc
  		self.rcp_empresa? and self.via_declaracion == 'Presencial' and self.tipo_declaracion == 'Verbal'
  	end
 
- 	# TAREA Información obligatoria
- 	def get_infrmcn_oblgtr?
- 		self.verbal? and self.dnncnt_info_oblgtr.blank?
- 	end
-
  	def dnncnts_info_oblgtr?
  		self.krn_denunciantes.map {|dnncnt| dnncnt.info_oblgtr?}.uniq.join('-') == 'true'
- 	end
-
- 	def rcpcn_dnnc?
- 		self.on_externa? and (not self.externa?)
- 	end
-
- 	def drvcn_extrn?
- 		self.on_empresa? and self.externa?
- 	end
-
- 	def get_opcns_dnncnt?
- 		not (self.on_dt? or self.dnncnt_investigacion_local or self.dnncnt_opcn_escrita)
- 	end
-
- 	def get_crr_rcpcn?
- 		self.investigacion_local or self.investigacion_externa or self.on_dt?
- 	end
-
- 	def get_crr_infrm?
- 		self.fecha_trmn? or self.on_dt?
- 	end
-
- 	def inf_cierre?
- 		self.rgstrs_info_mnm? and (self.dnncnts_info_oblgtr? or self.dnncnt_info_oblgtr) and self.fls_rcpcn?
  	end
 
  	def fechas_crr_rcpcn?
@@ -255,83 +236,11 @@ module DnncProc
  		self.krn_derivaciones.empty? ? true : self.krn_derivaciones.map {|drvcn| drvcn.pdf_registros.any? }.join('-') == 'true'
  	end
 
- 	def info_rcpcn_sent?
- 		self.invstgcn_sents? and self.mdds_rsgrd_sents? and self.ntfcn_drvcns_sents?
- 	end
-
  	# ---------------------------------------------------- ARCHIVOS CONTROLADOS RECEPCION
-
- 	def fl_rprsntcn?
- 		self.presentado_por == 'Representante' ? self.fl?('dnncnt_rprsntcn') : true
- 	end
-
- 	def fl_atncn_sclgc_tmprn?
- 		self.krn_denunciantes.diats_dieps_ok?
- 	end
-
- 	def fl_dnnc?
- 		self.verbal? ? true : self.fl?('dnnc_denuncia')
- 	end
-
- 	def fl_acta?
- 		self.verbal? ? self.fl?('dnnc_acta') : true
- 	end
 
  	def mdds_rsgrd_for_attchmnt?
  		lst = fl_last_tkn('mdds_rsgrd', :fecha)
  		lst.present? and lst.archivo.present?
- 	end
-
- 	def fl_mdds_rsgrd?
- 		self.fl?('mdds_rsgrd')
- 	end
-
- 	def fl_ntfccn?
- 		self.rcp_dt? ? self.fl?('dnnc_notificacion') : true
- 	end
-
- 	def fl_crtfcd?
- 		(self.krn_derivaciones.any? and self.on_dt?) ? self.fl?('dnnc_certificado') : true
- 	end
-
- 	def fl_rslcn_dvlcn?
- 		self.solicitud_denuncia ? self.fl?('rslcn_dvlcn') : true
- 	end
-
- 	def fls_rcpcn?
- 		self.fl_atncn_sclgc_tmprn? and self.fl_dnnc? and self.fl_acta? and self.fl_mdds_rsgrd? and self.fl_rprsntcn? and self.fl_ntfccn? and fl_crtfcd? and self.fl_rslcn_dvlcn?
- 	end
-
- 	# ---------------------------------------------------- ARCHIVOS CONTROLADOS INVESTIGACION
-
- 	def fl_antcdnts_objcn?
- 		self.objcn_invstgdr? ? self.fl?('antcdnts_objcn') : true
- 	end
-
- 	def fl_rslcn_objcn?
- 		self.objcn_invstgdr? ? self.fl?('rslcn_objcn') : true
- 	end
-
- 	def fl_evlcn?
- 		self.evlcn_incnsstnt ? self.fl?('dnnc_evlcn') : true
- 	end
-
- 	def fl_crrgd?
- 		self.fecha_hora_corregida? ? self.fl?('dnnc_corrgd') : true
- 	end
-
- 	def fl_infrm?
- 		self.fl?('infrm_invstgcn')
- 	end
-
- 	def fls_invstgcn?
- 		self.fl_antcdnts_objcn? and self.fl_rslcn_objcn? and self.fl_evlcn? and self.fl_crrgd? and self.fl_infrm?
- 	end
-
- 	# ---------------------------------------------------- ARCHIVOS CONTROLADOS INVESTIGACION
-
- 	def fl_prnncmnt?
- 		self.fecha_prnncmnt? ? self.fl?('prnncmnt_dt') : true
  	end
 
  	# ---------------------------------------------------- 
@@ -339,19 +248,6 @@ module DnncProc
  	def objcn_invstgdr?
  		self.krn_inv_denuncias.any? ? self.krn_inv_denuncias.first.objetado : false
  	end
-
- 	def objcn_ok?
- 		self.objcn_invstgdr? ? (self.objcn_rechazada or (self.objcn_acogida and self.krn_inv_denuncias.count == 2)) : true
- 	end
-
- 	def dnnc_evld?
- 		(self.evlcn_incnsstnt and self.fecha_hora_corregida?) or self.evlcn_ok?
- 	end
-
- 	# DEPRECATED
-	def dclrcns_ok?
-		self.krn_denunciantes.dclrcns? and (self.krn_denunciados.dclrcns? or self.violencia?)
-	end
 
 	def antecedentes_objecion?
 		self.act_archivos.exists?(act_archivo: 'objecion_antcdnts')
@@ -372,11 +268,6 @@ module DnncProc
  		self.solicitud_denuncia ? self.on_empresa? : true
  	end
 
- 	# ================================= 030_drvcns: Ingreso de la denuncia
-
-	def artcl41?
-		self.krn_denunciantes.artcl41.any? or self.krn_denunciados.artcl41.any?
-	end
 
  	# --------------------------------- Despliegue de formularios
 

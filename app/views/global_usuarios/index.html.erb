@@ -1,0 +1,10 @@
+<h3>Administración de roles de usuarios Addt</h3>
+
+<!-- global_usuarios/index -->
+<% @usuarios.each do |u| %>
+  <%= u.email %>
+  <%= form_with model: u, url: global_usuario_path(u) do |f| %>
+    <%= f.select :role, options_for_select(Usuario::ADDT_ROLES, u.role) %>
+    <%= f.submit "Cambiar" %>
+  <% end %>
+<% end %>

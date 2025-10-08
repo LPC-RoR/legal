@@ -1,14 +1,18 @@
 <% typ ||= 'tr' %>
 
-<%= render partial: 'cuentas/prtls/wndw_head', locals: {objt: @objeto} %>
-<%= render partial: 'cuentas/indx/tab', locals: {objt: @objeto} if admin? %>
+<%= render partial: 'cuentas/indx/emprs_head', locals: {objt: @objeto} %>
+<%= render partial: 'cuentas/indx/tab', locals: {objt: @objeto} if current_usuario.admin? %>
 
 <%= render partial: 'cuentas/indx/ttl', locals: {source: source, ownr: @objeto, fs: 5, brdr_clr: 'dark-subtle'} %>
 <!-- Manejo de mensajes de inicio de cuenta! -->
 <!-- EVALUAR cambiar dog? por not scp_activo? -->
-<% if @objeto.krn_activo? or dog? %>
+<% if @objeto.krn_activo? or current_usuario.dog? %>
 	<% unless (action_name == 'dnncs' and (not @objeto.rgstrs_mnms?)) %>
-		<%= render partial: '0p/tbl/tbl', locals: {source: source, typ: typ} %>
+		<% if action_name == 'usrs' %>
+			<%= render partial: 'cuentas/usrs' %>
+		<% else %>
+			<%= render partial: '0p/tbl/tbl', locals: {source: source, typ: typ} %>
+		<% end %>
 	<% end %>
 
 	<% if action_name == 'nmn' %>

@@ -1,0 +1,11 @@
+<% if tab_participantes? %>
+	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Ingresar los datos de los participantes registrados en la denuncia.', gly: 'lightbulb'} do %>
+
+		<ul>
+			<li>Se debe ingresar al menos una persona denunciante.</li>
+			<li>Se debe ingresar al menos una persona denunciada a menos que la denuncia sea por violencia en el trabajo ejercida por terceros, en cuyo caso no se ingresan personas denunciadas.</li>
+			<li>El ingreso de testigos es opcional tanto para las personas denunciantes como denunciadas.</li>
+		</ul>
+
+	<% end %>
+<% end %>

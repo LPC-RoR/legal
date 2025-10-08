@@ -1,19 +1,11 @@
-<div class="border rounded-2 my-1">
-	<div class="p-2 bg_azul_claro" style="font-size: 1rem;">
-		Informe de investigación:
-	</div>
-	<div>
-		
+<% if tab_proceso? %>
+	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: "#{@objeto.on_dt? ? 'Recepción' : 'Remisión'} del informe de investigación", gly: 'lightbulb'} do %>
+
 		<% if @objeto.on_dt? %>
-			<div class="border rounded-2">
-				<%= render partial: '0p/proc/etp_frm', locals: {etp: @kproc.etapa, objeto: @objeto, code: 'fecha_rcpcn_infrm', plz_fld: true} %>
-			</div>
+			<%= render partial: '0p/proc/etp_frm', locals: {etp: @kproc.etapa, objeto: @objeto, code: 'fecha_rcpcn_infrm', plz_fld: true} %>
 		<% else %>
-			<div class="border rounded-2">
-				<%= render partial: '0p/proc/etp_frm', locals: {etp: @kproc.etapa, objeto: @objeto, code: 'fecha_env_infrm', plz_fld: true} %>
-			</div>
+			<%= render partial: '0p/proc/etp_frm', locals: {etp: @kproc.etapa, objeto: @objeto, code: 'fecha_env_infrm', plz_fld: true} %>
 		<% end %>
 
-	</div>
-</div>
-
+	<% end %>
+<% end %>

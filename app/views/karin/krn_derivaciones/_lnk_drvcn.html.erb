@@ -1,8 +1,4 @@
-<% unless ownr.drvcn_with_cdg(codigo) %>
-	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_derivaciones/new#{blngs_prms(ownr)}&cdg=#{codigo}", tltp: nil} do %>
-		<div class="d-flex justify-content-start gap-1">
-			<i class="bi bi-cursor"></i> 
-			<b><%= drvcn_text[codigo.to_sym][:prmpt] %></b>
-		</div>
-	<% end %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_derivaciones/new#{blngs_prms(ownr)}&cdg=#{codigo}", tltp: nil} do %>
+	<i class="bi bi-cursor"></i> 
+	<b><%= ClssDrvcn::HSH_TXTS[codigo.to_sym][:prmpt] %></b>
 <% end %>

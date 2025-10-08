@@ -2,7 +2,7 @@
 
 	<p><b>Funcionalidad reservada para el administrador de la cuenta.</b></p>
 	
-	<% unless admin? %>
+	<% unless current_usuario.admin? %>
 		<p>Comuniquese con el administrador de la cuenta para resolver el problema.</p>
 	<% end %>
 

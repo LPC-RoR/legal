@@ -40,43 +40,55 @@ class HomeController < ApplicationController
  	
     # Puedes redirigir a dashboard si ya está autenticado
     redirect_to authenticated_root_path if usuario_signed_in?
+
+  	render layout: 'public'
   end
   
-  def dshbrd
+	def dshbrd
+	  # 1. Salida temprana si el usuario está en un scope especial
+	  if scp_activo?
+	    redirect_to "/cuentas/#{nomina_activa.ownr.class.name[0].downcase}_#{nomina_activa.ownr.id}/dnncs"
+	    return               # <-- evita el doble render
+	  end
 
-  	redirect_to "/cuentas/#{nomina_activa.ownr.class.name[0].downcase}_#{nomina_activa.ownr.id}/dnncs" if scp_activo?
+	  # 2. Resto de la lógica del dashboard
+	  prfl = get_perfil_activo
+	  @usuario = prfl.age_usuario unless prfl.blank?
+	  @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
-		prfl = get_perfil_activo
-		@usuario = prfl.age_usuario unless prfl.blank?
-		@age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+	  unless @usuario.blank?
+	    set_tabla('notas',
+	              @usuario.notas.order(urgente: :desc,
+	                                   pendiente: :desc,
+	                                   created_at: :desc),
+	              false)
+	  end
 
-		unless @usuario.blank?
-			set_tabla('notas', @usuario.notas.order(urgente: :desc, pendiente: :desc, created_at: :desc), false)
-		end
+	  set_tabla('age_actividades',
+	            AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day)
+	                        .adncs
+	                        .fecha_ordr,
+	            false)
 
-		set_tabla('age_actividades', AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day).adncs.fecha_ordr, false)
+	  @hoy = Time.zone.today
+	  @estados = nil
+	  @tipos  = ['Causas', 'Pagos', 'Facturas']
+	  @tipo   = params[:t].presence || @tipos[0]
+	  @estado = nil
+	  @path   = '/?'
 
-		@hoy = Time.zone.today
-		@age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+	  inicia_sesion if perfil_activo.blank?
 
-		# VERSIÓN ANTIGUA
+	  if operacion?
+	    set_tabla('tramitacion-causas', Causa.where(estado: 'tramitación'), false)
+	    @causas_en_proceso = Causa.where(estado: 'tramitación')
+	  end
 
-		@estados = nil
-		@tipos = ['Causas', 'Pagos', 'Facturas']
-		@tipo = params[:t].blank? ? @tipos[0] : params[:t]
-		@estado = nil
-		@path = "/?"
+	  render layout: 'addt'   # solo se ejecuta cuando no hubo redirect
+	end
 
-		inicia_sesion if perfil_activo.blank?
 
-		if operacion?
-			# Causas
-			set_tabla('tramitacion-causas', Causa.where(estado: 'tramitación'), false)
-			@causas_en_proceso = Causa.where(estado: 'tramitación')
-		end
-  end
-
-  def artcls
+	def artcls
   	@hsh = artcls_hsh[params[:tkn].to_sym]
   	
 	  set_meta_tags(

@@ -1,7 +1,0 @@
-<% unless tipo_usuario == 'investigador' %>
-	<% unless @objeto.prtcpnts_minimos? %>
-		<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Ingresar los datos de los participantes registrados en la denuncia.', gly: 'lightbulb', clr: 'dark'} %>
-	<% end %>
-<% else %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
-<% end %>

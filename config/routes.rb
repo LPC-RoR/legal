@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     match :invstgdrs, via: :get, on: :member
     match :extrns, via: :get, on: :member
     match :nmn, via: :get, on: :member
+    match :usrs, via: :get, on: :member
     match :ctp_mdds, via: :get, on: :member
     match :etp_mdds, via: :get, on: :member
   end
@@ -50,6 +51,7 @@ Rails.application.routes.draw do
     match :estmcn, via: :post, on: :member
   end
   resources :clientes do
+    resources :tenant_usuarios, only: %i[index update], controller: 'tenant_usuarios'
     match :swtch_stt, via: :post, on: :member
     # ------------------------------------------
     match :cambio_estado, via: :get, on: :member
@@ -58,9 +60,16 @@ Rails.application.routes.draw do
   end
 
   resources :empresas do
+    member do
+      get  'usuarios', to: 'empresa_usuarios#index'   # listado
+      patch 'usuarios/:usuario_id/rol', to: 'empresa_usuarios#update_role', as: :update_rol
+      patch :update_rol
+    end
     match :swtch, via: :post, on: :member
     match :prg, via: :get, on: :member
   end
+
+  resources :global_usuarios, only: %i[index update]
 
 # SCOPES *********************************************************
 

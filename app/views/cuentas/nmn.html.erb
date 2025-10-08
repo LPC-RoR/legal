@@ -1,5 +1,5 @@
 <!-- Se controla aqui el acceso para no complejizar el uso de indx/lnks de AppNomina y AppContacto -->
-<% if ['admin', 'operación'].include?(tipo_usuario) or dog? %>
+<% if current_usuario.admin? or current_usuario.dog? %>
 	<%= render partial: 'cuentas/indx/indx', locals: {source: 'app_nominas'} %>
 
 <% else %>

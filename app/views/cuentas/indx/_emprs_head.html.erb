@@ -1,0 +1,34 @@
+<div class="mb-2 p-2 border rounded-2 bg_azul_claro clr_azul_principal fw-bold lnk_principal">
+	<div class="row gx-1">
+		<div class="col-lg-8 fw-bold" style="font-size: 1rem;">
+			<i class="bi bi-buildings"></i> 
+			<% if current_usuario.admin? %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: [:edit, objt], tltp: 'Editar cuenta'} do %>
+					<%= objt.razon_social %>
+				<% end %>
+			<% else %>
+				<%= objt.razon_social %>
+			<% end %>
+		</div>
+		<div class="col-lg-4 pe-2 text-end">
+			<i class="bi bi-box2"></i>
+			<% if objt.demo? %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'InfoProducto', objeto: nil, tooltip: 'Información del producto'} do %>
+					<small>DEMO</small>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+
+</div>
+
+<%= render layout: '0p/collapse/dsply', locals: {label: 'InfoProducto', objeto: nil} do %>
+	<div class="p-3 border rounded-2">
+		<% if objt.demo? %>
+			<i class="bi bi-lightbulb"></i>
+			Su cuenta le permite crear hasta 5 denuncias y estará activa por diez días contados desde el registro de su empresa.
+		<% else %>
+		<% end %>
+	</div>
+<% end %>
+<%= render partial: 'layouts/partials/notice_alert' %>

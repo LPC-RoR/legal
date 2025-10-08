@@ -1,14 +1,11 @@
 <% unless @kproc.etapa == :etp_rcpcn %>
-<div class="mx-1 my-2 border rounded-4">
-	<div class="p-2 border-bottom fw-bold" style="font-size: 1rem;">
-		<i class="bi bi-caret-right-fill"></i> Etapas concluidas
-	</div>
-	<div class="py-2 px-3">
+
+	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Etapas concluidas', gly: 'caret-right-fill'} do %>
 		<table class="table table-sm table-borderless table-striped table-hover">
 			<tbody>
 				<tr>
 					<th>Etapa</th>
-					<th>Plazo</th>
+					<th>Fecha límite</th>
 					<th class="text-end">Fecha término</th>
 				</tr>
 				<% [:etp_rcpcn, :etp_invstgcn, :etp_infrm, :etp_prnncmnt, :etp_mdds_sncns].each do |etp| %>
@@ -20,6 +17,6 @@
 				<% end %>
 			</tbody>
 		</table>
-	</div>
-</div>
+	<% end %>
+
 <% end %>

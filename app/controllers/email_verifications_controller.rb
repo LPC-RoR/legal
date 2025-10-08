@@ -114,6 +114,6 @@ class EmailVerificationsController < ApplicationController
   def authorized_user?
     # Lógica de autorización (ejemplo simple)
     #current_usuario&.admin?
-    operacion?
+    current_usuario.operacion?
   end
 end

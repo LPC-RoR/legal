@@ -1,0 +1,28 @@
+<div style="margin: 0 10%;">
+	<h3>Agendamiento de declaración del participante</h3>
+
+	<div style="font-weight: bold;">
+	  <p>Sr(a). <%= dstntr[:nombre] %></p>
+	  <p>PRESENTE</p>
+	</div>
+
+	<p>
+	Le informamos que su declaración en el marco de la investigación en la cual participa en calidad de <%= dstntr[:objt].rol %> ha sido agendada para el próximo <%= dma_hm(ref.fecha) %>.
+	</p>
+
+	<p>
+	La diligencia será realizada por el(la) investigador(a) asignado(a), Sr(a). <%= dstntr[:objt].dnnc.invstgdr_activo.krn_investigador.krn_investigador %>, quien podrá atender cualquier consulta o requerimiento que usted tenga respecto de esta citación.
+	</p>
+
+	<p>
+	Atentamente,
+	</p>
+
+	<p>
+	<%= dstntr[:objt].dnnc.invstgdr_activo.krn_investigador.krn_investigador %><br/>
+	<small>
+	Investigador(a) asignado(a)<br/>
+	<%= dstntr[:objt].dnnc.invstgdr_activo.krn_investigador.email %>
+	</small>
+	</p>
+</div>

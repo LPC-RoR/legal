@@ -18,6 +18,10 @@
 
 @use "bootstrap/dist/css/bootstrap";
 
+@use "fnt_montserrat";
+@use "fnt_open_sans";
+
+@use "p00_layout";
 @use "p01_btstrp";
 @use "p02_app";
 @use "p08_procs";

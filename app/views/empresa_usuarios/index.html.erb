@@ -1,0 +1,31 @@
+<h3>Usuarios de <%= @empresa.razon_social %></h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Rol actual</th>
+      <th>Cambiar rol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @usuarios.each do |usuario| %>
+      <tr>
+        <td><%= usuario.email %></td>
+        <td><%= usuario.role || "—" %></td>
+        <td>
+          <%= form_with url: update_rol_empresa_path(@empresa, usuario_id: usuario.id),
+                        method: :patch do |f| %>   <!-- remote: true por defecto -->
+            <%= f.select :rol,
+                         options_for_select(Usuario::LBSF_ROLES, usuario.role),
+                         {},
+                         { onchange: 'this.form.requestSubmit()' } %>
+          <% end %>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Volver a empresa", @empresa %>

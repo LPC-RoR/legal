@@ -15,6 +15,10 @@ class KrnDeclaracion < ApplicationRecord
  		self.ownr.dnnc
  	end
 
+ 	def destinatario
+ 		[{ objt: ownr, email: ownr.email, nombre: ownr.nombre }]
+ 	end
+
 	def dflt_bck_rdrccn
 		"/krn_denuncias/#{self.dnnc.id}_1"
 	end

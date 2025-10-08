@@ -3,6 +3,8 @@ class Tarifas::TarFacturasController < ApplicationController
   before_action :scrty_on
   before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago libera_factura crea_nota_credito elimina_nota_credito a_facturada]
 
+  layout 'addt'
+
   include Tarifas
 
   # GET /tar_facturas or /tar_facturas.json

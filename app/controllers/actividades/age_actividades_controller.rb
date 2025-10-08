@@ -4,6 +4,8 @@ class Actividades::AgeActividadesController < ApplicationController
   before_action :set_age_actividad, only: %i[ show edit update destroy swtch dssgn_usr assgn_usr cambia_estado cambio_fecha ]
   after_action :set_fecha_audiencia, only: %i[ create update ]
 
+  layout 'addt'
+
   include AgeUsr
 
   # GET /age_actividades or /age_actividades.json

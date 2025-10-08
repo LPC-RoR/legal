@@ -3,7 +3,7 @@
     <li class="nav-item">
       <a class="nav-link <%= 'active' if ["#{objt.id}", "#{objt.id}_0"].include?(params[:id]) %>" aria-current="page" href="/krn_denuncias/<%=objt.id%>_0">
         <% if ClssPrcdmnt.prcs_tsks.include?(@kproc.tarea) %>
-          <i class="bi bi-cone-striped text-danger"></i> 
+          <i class="bi bi-arrow-right"></i> 
         <% end %>
         Proceso
       </a>
@@ -11,7 +11,7 @@
     <li class="nav-item">
       <a class="nav-link <%= 'active' if ["#{objt.id}_1"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_1">
         <% if ClssPrcdmnt.prtcpnts_tsks.include?(@kproc.tarea) %>
-          <i class="bi bi-cone-striped text-danger"></i> 
+          <i class="bi bi-arrow-right"></i> 
         <% end %>
         Participantes
       </a>

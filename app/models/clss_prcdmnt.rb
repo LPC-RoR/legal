@@ -40,7 +40,8 @@ class ClssPrcdmnt
         { tipo: 'medidas_resguardo',    si: ->(o) { o.dnnc.tiene_mdds_rsgrd? } },
         { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
-        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } }
+        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } }
       ]
     },
     dnncd: {
@@ -55,7 +56,8 @@ class ClssPrcdmnt
         { tipo: 'medidas_resguardo',    si: ->(o) { o.dnnc.tiene_mdds_rsgrd? } },
         { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
-        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } }
+        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } }
       ]
     },
     tstg: {
@@ -69,7 +71,8 @@ class ClssPrcdmnt
         { tipo: 'drchs',                si: ->(o) { true } },
         { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
-        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } }
+        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } }
       ]
     }
   }.freeze
@@ -101,11 +104,11 @@ class ClssPrcdmnt
 
   def self.act_nombre
     {
-          'etp_rcpcn'                 => 'Recepción de la denuncia',
+          'etp_rcpcn'                 => 'Tramites propios de la recepción de denuncia',
           'etp_invstgcn'              => 'Investigación de la denuncia',
           'etp_infrm'                 => 'Informe de investigación',
           'etp_prnncmnt'              => 'Pronunciamiento de la Dirección del Trabajo',
-          'etp_mdds_sncns'            => 'Medidas correctivas y sanciones',
+          'etp_mdds_sncns'            => 'Aplicación de las medidas correctivas y sanciones',
           'etp_prcdmnt_cerrado'       => 'Procedimiento cerrado',
           'tsk_ingrs'                 => 'Ingreso de datos',
           'tsk_extrn_drvcn_emprs'     => 'Denuncia de la empresa recibida en empresa externa',
@@ -156,6 +159,7 @@ class ClssPrcdmnt
           'invstgcn'                  => 'Notificación de recepción de denuncia ley 21.643',
           'drvcn'               => 'Notificación de la derivación de la denuncia',
           'invstgdr'            => 'Notificación del investigador asignado a la denuncia',
+          'dclrcn'                    => 'Citación a toma de declaración',
           'infrmcn'             => 'Verificación de datos de los participantes',
           'crdncn_apt'          => 'Coordinación de atención psicológica temprana',
           'dnnc'                      => 'Reporte del estado de la denuncia'
@@ -178,7 +182,7 @@ class ClssPrcdmnt
   end
 
   def self.act_lst?(act)
-    ['mdds_rsgrd', 'medidas_resguardo', 'objecion_antcdnts', 'medidas_sanciones', 'antecedentes', 'apt'].include?(act)
+    ['antecedentes', 'mdds_rsgrd', 'medidas_resguardo', 'objecion_antcdnts', 'medidas_sanciones', 'antecedentes', 'apt'].include?(act)
   end
 
   def self.act_fecha(act)
@@ -190,7 +194,7 @@ class ClssPrcdmnt
   end
 
   def self.ref_generated?(act)
-    ['invstgdr', 'drvcn'].include?(act)
+    ['invstgdr', 'drvcn', 'dclrcn'].include?(act)
   end
 
   def self.actn_multpl?(act)
