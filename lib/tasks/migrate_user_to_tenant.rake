@@ -60,14 +60,9 @@ namespace :migrate do
 
       # 4. Rol por defecto si no tiene ninguno
       if user.roles.empty?
-        case user.email.downcase
-        when 'hugo.chinga.g@gmail.com'
-          safe_add_role(user, :dog, tenant)
-        else
-          safe_add_role(user, :admin, tenant)
-        end
-        puts "  ✓ Rol :#{rol_por_defecto} asignado"
+        puts "  ⚠️  No se asigna rol porque no hay tenant válido"
       end
+
     end
 
     puts 'Migración finalizada.'
