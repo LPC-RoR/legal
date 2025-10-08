@@ -36,9 +36,9 @@ namespace :migrate do
         if user.roles.empty?
           case user.email.downcase
           when 'solange.mena@tapiaycia.cl', 'paula.donoso@tapiaycia.cl', 'francisco.tapia@tapiaycia.cl'
-            safe_add_role(user, :admin, tenant)
+            safe_add_role(user, :admin)
           else
-            safe_add_role(user, :operacion, tenant)
+            safe_add_role(user, :operacion)
           end
           puts "  ✓ Rol asignado"
         end
@@ -60,7 +60,13 @@ namespace :migrate do
 
       # 4. Rol por defecto si no tiene ninguno
       if user.roles.empty?
-        puts "  ⚠️  No se asigna rol porque no hay tenant válido"
+        case user.email.downcase
+        when 'solange.mena@tapiaycia.cl', 'paula.donoso@tapiaycia.cl', 'francisco.tapia@tapiaycia.cl'
+          safe_add_role(user, :admin)
+        else
+          safe_add_role(user, :operacion)
+        end
+        puts "  ✓ Rol asignado"
       end
 
     end
