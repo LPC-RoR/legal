@@ -183,6 +183,8 @@ class EmpresasController < ApplicationController
         Empresa.all
       else
         case current_usuario.tenant.owner_type
+        when 'AppVersion'
+          Empresa.all
         when 'Empresa'
           Empresa.where(id: current_usuario.tenant.owner_id)
         when 'Cliente'
