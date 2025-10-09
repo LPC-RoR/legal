@@ -20,6 +20,15 @@ class Aplicacion::AppRecursosController < ApplicationController
   def procesos
   end
 
+  def migrar_tenants
+    usuarios_con_tenant_sin_owner = Usuario.joins(:tenant).where(tenant: { owner: nil })
+    puts "Cantidad: #{usuarios_con_tenant_sin_owner.count}"
+    puts usuarios_con_tenant_sin_owner.pluck(:email)
+    usuarios_con_tenant_sin_owner.update_all(tenant_id: nil)
+
+    redirect_to root_path, notice: usuarios_con_tenant_sin_owner.count
+  end
+
   def purge_rep_archivos
 
     huerfanos = RepArchivo.where(ownr_type: nil)

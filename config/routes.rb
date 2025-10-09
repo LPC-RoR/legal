@@ -368,6 +368,7 @@ Rails.application.routes.draw do
         match :activar_fecha_en_notas, via: :post
         match :migrar_notas, via: :post
         match :purge_rep_archivos, via: :post
+        match :migrar_tenants, via: :post
       end
     end
     resources :tablas do
