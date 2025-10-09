@@ -21,10 +21,16 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_tenants
-    usuarios_con_tenant_sin_owner = Usuario.joins(:tenant).where(tenant: { owner: nil })
-    puts "Cantidad: #{usuarios_con_tenant_sin_owner.count}"
-    puts usuarios_con_tenant_sin_owner.pluck(:email)
-    usuarios_con_tenant_sin_owner.update_all(tenant_id: nil)
+    u = Usuario.find_by(email: 'afiwugogida18@gmail.com')
+    u.delete
+
+    u = Usuario.find_by(email: 'luisvalcarcel.m@yahoo.com')
+    safe_add_role(u, :admin, u.tenant)
+    u.remove_role(:operacion, nil)
+
+    u = Usuario.find_by(email: 'hugo@laborsafe.cl')
+    safe_add_role(u, :admin, u.tenant)
+    u.remove_role(:operacion, nil)
 
     redirect_to root_path, notice: usuarios_con_tenant_sin_owner.count
   end
@@ -106,6 +112,16 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   private
+    # helper local dentro de la task
+    def safe_add_role(user, role_name, resource = nil)
+      role = Role.find_or_create_by!(
+        name: role_name.to_s,
+        resource_type: resource&.class&.name,
+        resource_id: resource&.id
+      )
+      user.add_role(role_name, resource)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
 
     def sort_column
