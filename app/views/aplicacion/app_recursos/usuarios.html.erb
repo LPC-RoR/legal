@@ -7,5 +7,5 @@
 <hr>
 
 <% Empresa.all.each do |emp| %>
-	<div><%=emp.razon_social%>:<%=emp.id%>-<%= emp.tenant.id %></div>
+	<div><%=emp.razon_social%>:<%=emp.id%>-<%= emp.tenant ? emp.tenant.id : 'sin tenant'  %></div>
 <% end %>
