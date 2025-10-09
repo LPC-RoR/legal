@@ -4,3 +4,8 @@
 		<%= render partial: 'aplicacion/app_recursos/partials/usuario', locals: {objeto: usuario} %>
 	<% end %>
 </div>
+<hr>
+
+<% Empresa.all.each do |emp| %>
+	<div><%=emp.razon_social%>:<%=emp.id%>-<%= emp.tenant.id %></div>
+<% end %>
