@@ -11,5 +11,5 @@
 		<i class="bi bi-check-circle"></i>
 	<% end %>
 	<%= objeto.tenant.blank? %>
-	<%= objeto.roles.map { |r| "#{r.name} → #{r.resource_type}:#{r.resource_id}" } %>|<%=objeto.tenant.owner_type%>:<%=objeto.tenant.owner_id%>
+	<%= objeto.roles.map { |r| "#{r.name} → #{r.resource_type}:#{r.resource_id}" } %>|<%=objeto&.tenant&.owner_type%>:<%=objeto&.tenant&.owner_id%>
 </div>
