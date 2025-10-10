@@ -202,7 +202,7 @@ module Capitan
 
 	# ************************************************************************** TABLA
 	def set_tabla(controller, tabla, paginate)
-		
+
 		@coleccion = {} if @coleccion.blank?
 		@paginate = {} if @paginate.blank?
 

@@ -9,8 +9,6 @@ module CptnMapHelper
 
 	# Mantiene el prefijo si o tiene
 	def str_cntrllr(source)
-#		src_clss = source.class
-#		src_clss == Class ? source.name.tableize : (src_clss == 'String' ? source : source.class.name.tableize)
 		source.class.name == 'String' ? source : source.class.name.tableize
 	end
 
