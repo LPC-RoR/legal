@@ -3,7 +3,7 @@
   <%= render partial: 'layouts/partials/head', locals: {title: 'Laborsafe'} %>
 
   <body>
-    <%= render partial: 'layouts/partials/navbar', locals: {logo_path: "logo/logo_60.png"} %>
+    <%= render partial: 'layouts/partials/navbar', locals: {logo_path: "logo/logo_60.png"} unless controller_name == 'servicios' %>
 
     <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('main')} %>
 
