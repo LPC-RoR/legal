@@ -54,11 +54,6 @@ class Causa < ApplicationRecord
 	scope :sin_tar_calculos, -> {
 		left_outer_joins(:tar_calculos).where(tar_calculos: { id: nil })
 	}
-	scope :con_un_solo_tar_calculo, -> {
-		joins(:tar_calculos)                # INNER JOIN
-	  		.group('causas.id')                # agrupamos por causa
-	  		.having('COUNT(tar_calculos.id) = 1') # sólo 1 tar_calculo
-	}
 
     delegate :tar_pagos, to: :tar_tarifa, prefix: true
 	delegate :tipo_causa, to: :tipo_causa, prefix: true

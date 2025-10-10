@@ -65,7 +65,12 @@ class ClientesController < ApplicationController
       when 'vacios'
         cllcn = @objeto.causas.std('tramitación').sin_tar_calculos
       when 'incmplt'
-        cllcn = @objeto.causas.std('tramitación').con_un_solo_tar_calculo
+        cllcn = @objeto.causas
+               .where(id: @objeto.causas.std('tramitación')
+                                   .joins(:tar_calculos)
+                                   .group('causas.id')
+                                   .having('COUNT(tar_calculos.id) = 1')
+                                   .select('causas.id'))
       when 'monto'
         cllcn = @objeto.causas.std_pago('monto')
       when 'cmplt'
