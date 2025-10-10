@@ -76,6 +76,10 @@ class ClientesController < ApplicationController
 
       @scp = scp_item[:causas][scp.to_sym]
 
+      puts "******************************* show"
+      puts cllcn.class.name
+      puts "******************************* show"
+      
       set_tabla('causas', cllcn, true)
 
     elsif @options[:menu] == 'Asesorias'
