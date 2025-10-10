@@ -206,7 +206,7 @@ module Capitan
 		@coleccion = {} if @coleccion.blank?
 		@paginate = {} if @paginate.blank?
 
-		@coleccion[controller] = paginate ? tabla.page(params[:page]) : tabla
+		@coleccion[controller] = (paginate and tabla) ? tabla.page(params[:page]) : tabla
 		@paginate[controller] = paginate
 
 	end
