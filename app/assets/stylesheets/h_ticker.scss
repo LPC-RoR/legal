@@ -1,0 +1,179 @@
+// TICKER
+
+.ticker {
+  --ticker-speed: 40s; /* se puede sobreescribir con data-speed */
+  overflow: hidden;
+  position: relative;
+  background: var(--bs-body-bg);
+  border-top: 1px solid rgba(var(--bs-dark-rgb), .08);
+  border-bottom: 1px solid rgba(var(--bs-dark-rgb), .08);
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll var(--ticker-speed) linear infinite;
+  will-change: transform;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* -50% porque duplicamos el contenido */
+}
+
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1.25rem;
+  white-space: nowrap;
+  border-right: 1px solid rgba(var(--bs-dark-rgb), .08);
+  font-size: clamp(.875rem, .35vw + .9rem, 1.05rem);
+  cursor: pointer;
+  user-select: none;
+}
+
+.ticker__item:focus-visible {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: 2px;
+  border-radius: .25rem;
+}
+
+.ticker:hover .ticker__track {
+  animation-play-state: paused; /* Pausa para leer/mejor hover */
+}
+
+/* Overlay de detalle a pantalla completa */
+.ticker__overlay {
+  position: fixed;
+  inset: 0 auto auto 0; /* top:0; left:0; width:100vw; */
+  width: 100vw;
+  transform: translateY(-100%);
+  transition: transform .25s ease;
+  background: rgba(var(--bs-dark-rgb), .98);
+  color: #fff;
+  z-index: 1080; /* sobre navbars/modals comunes */
+  pointer-events: none;
+}
+
+.ticker__overlay.show {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Respeta usuarios con “reduced motion” */
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track { animation: none; }
+}
+
+/* Opcional: reduce padding en pantallas pequeñas */
+@media (max-width: 576px) {
+  .ticker__item { padding: .6rem .9rem; }
+}
+
+/* Cinta desplazándose */
+.ticker {
+  --ticker-speed: 40s;
+  overflow: hidden;
+  position: relative;
+  background: var(--bs-body-bg);
+  border-top: 1px solid rgba(var(--bs-dark-rgb), .08);
+  border-bottom: 1px solid rgba(var(--bs-dark-rgb), .08);
+}
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll var(--ticker-speed) linear infinite;
+  will-change: transform;
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 0.5625rem 1.25rem;
+  white-space: nowrap;
+  border-right: 1px solid rgba(var(--bs-dark-rgb), .08);
+  font-size: clamp(
+    0.875rem * 0.75,        /* mínimo  */
+    (0.35vw + 0.9rem) * 0.75,
+    1.05rem * 0.75          /* máximo  */
+  );
+  cursor: pointer;
+}
+
+/* Panel inferior (ancho completo) */
+.ticker__panel {
+  position: relative;
+  width: 100%;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border-top: 1px solid rgba(var(--bs-dark-rgb), .12);
+  box-shadow: 0 -4px 16px rgba(0,0,0,.05);
+  z-index: 1;
+}
+
+/* Opcional: pausa el scroll cuando el mouse está sobre la cinta */
+.ticker:hover .ticker__track { animation-play-state: paused; }
+
+@media (max-width: 576px) {
+  .ticker__item { padding: .6rem .9rem; }
+}
+
+/* Permite que el ítem crecido no se corte verticalmente */
+.ticker {
+  overflow-x: hidden;
+  overflow-y: visible; /* antes estaba hidden */
+}
+
+/* Animación suave al crecer */
+.ticker__item {
+  position: relative;                /* para z-index */
+  transition: transform .18s ease, 
+              box-shadow .18s ease, 
+              background-color .18s ease;
+  transform-origin: center;          /* expande parejo */
+  will-change: transform;
+}
+
+/* Crece al hover/foco; sube sobre sus vecinos */
+.ticker__item:hover,
+.ticker__item:focus-visible,
+.ticker__item:active {
+  transform: scale(1.14);            /* puedes dejarlo en 1.10–1.18 a gusto */
+  z-index: 3;
+  background-color: rgba(var(--bs-dark-rgb), .03);
+  box-shadow: 0 .25rem 1rem rgba(0,0,0,.12);
+  border-radius: .375rem;
+}
+
+/* En móviles, un crecimiento más sutil para no tapar tanto */
+@media (max-width: 576px) {
+  .ticker__item:hover,
+  .ticker__item:focus-visible,
+  .ticker__item:active {
+    transform: scale(1.08);
+  }
+}
+
+/* Si el usuario prefiere reducir movimiento, desactiva el scale */
+@media (prefers-reduced-motion: reduce) {
+  .ticker__item { transition: none; }
+  .ticker__item:hover,
+  .ticker__item:focus-visible,
+  .ticker__item:active { transform: none; }
+}
+
+/* (Opcional) Pausa el scroll al pasar el cursor por la cinta */
+.ticker:hover .ticker__track { 
+  animation-play-state: paused; 
+}
+
+.ticker__item.is-active {
+  background-color: rgba(var(--bs-dark-rgb), .04);
+  border-radius: .375rem;
+}
+

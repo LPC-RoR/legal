@@ -1,0 +1,16 @@
+<div class="mx-1 my-2 border rounded-4">
+	<div class="row gx-1 p-2 border-bottom fw-bold" style="font-size: 1rem;">
+		<div class="col-10">
+			<i class="bi bi-caret-right-fill"></i> Documentos anonimizados
+		</div>
+		<div class="col-2 text-end app_lnk">
+		</div>
+	</div>
+	<div class="py-2 px-3">
+		<% if @objeto.dnnc? %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}/annmzr", tltp: 'Anonimizar denuncia', data: {turbo_method: :post}} do %>
+				Anonimizar denuncia
+			<% end %>
+		<% end %>
+	</div>
+</div>

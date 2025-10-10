@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt pdf_combinado set_fld prg ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt pdf_combinado annmzr set_fld prg ]
 
   include Karin
 
@@ -101,6 +101,31 @@ class Karin::KrnDenunciasController < ApplicationController
       format.html { redirect_to cta_dnncs_path, notice: "Denuncia fue exitosamente eliminada." }
       format.json { head :no_content }
     end
+  end
+
+  def annmzr
+    # Ejecutado donde necesites (job, controlador, consola)
+    act = @objeto.act_archivos.find_by(act_archivo: 'denuncia')
+    if act
+      original_blob = act.pdf.blob
+
+      anonimizador = PdfAnonimizador.new(original_blob)
+      pdf_io       = anonimizador.anonimizado_io
+
+      nuevo_act = denuncia.act_archivos.create!(
+        tipo: 'anonimizado' # campo extra que puedes tener
+      )
+      nuevo_act.pdf.attach(
+        io: pdf_io,
+        filename: "denuncia_#{denuncia.id}_anonimizada.pdf",
+        content_type: 'application/pdf'
+      )
+      ntc = 'Archivo anonimizado creado exitósamente'
+    else
+      ntc = 'Archivo fuente no encontrado'
+    end
+
+    redirect_to "/krn_denuncias/#{@objeto.id}_2", ntc: ntc              # redirige a la URL permanente de ActiveStorage
   end
 
   def prg

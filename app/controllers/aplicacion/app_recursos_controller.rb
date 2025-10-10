@@ -32,7 +32,7 @@ class Aplicacion::AppRecursosController < ApplicationController
     safe_add_role(u, :admin, u.tenant)
     u.remove_role(:operacion, nil)
 
-    redirect_to root_path, notice: usuarios_con_tenant_sin_owner.count
+    redirect_to root_path
   end
 
   def purge_rep_archivos

@@ -6,14 +6,14 @@ class HomeController < ApplicationController
   	prepare_meta_tags
 
     set_meta_tags(
-      title: "Cumple Ley Karin con LaborSafe",
+      title: "Simplifica y asegura el cumplimiento de la Ley 21.643 (Ley Karin)",
       description: "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)",
       canonical: root_url,
       og: {
         type: 'website',
         url: root_url,
         title: "LaborSafe",
-        description: "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)",
+        description: "Gestiona todas tus investigaciones laborales desde una sola plataforma",
         image: {
           _:  view_context.image_url('logo/logo_100.png'), # JPG/PNG 1200x630
           width: 392,
@@ -24,7 +24,7 @@ class HomeController < ApplicationController
       twitter: {
         card: 'summary_large_image',
         title: "LaborSafe",
-        description: "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)",
+        description: "Cumple los plazos legales, protege la confidencialidad y automatiza tus documentos",
         image: view_context.image_url('logo/logo_100.png')
       }
     )
@@ -35,6 +35,7 @@ class HomeController < ApplicationController
 
 		@prfl_laborsafe = ComDocumento.find_by(codigo: 'prfl_laborsafe')
 		@prfl_externalizacion = ComDocumento.find_by(codigo: 'prfl_externalizacion')
+		@rprt_dnnc = ComDocumento.find_by(codigo: 'dnnc')
 
     @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
  	

@@ -63,9 +63,9 @@ class ClientesController < ApplicationController
       when 'archvd'
         cllcn = @objeto.causas.std('archivada')
       when 'vacios'
-        cllcn = @objeto.causas.std_pago('vacios')
+        cllcn = @objeto.causas.std('tramitación').sin_tar_calculos
       when 'incmplt'
-        cllcn = @objeto.causas.std_pago('incompletos')
+        cllcn = @objeto.causas.std('tramitación').con_un_solo_tar_calculo
       when 'monto'
         cllcn = @objeto.causas.std_pago('monto')
       when 'cmplt'

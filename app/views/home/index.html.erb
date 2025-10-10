@@ -1,7 +1,77 @@
 <!-- Carousel -->
 <%= render partial: 'home/public/banner' %>
-<%= render partial: 'home/public/prcdmnt' %>
+<div style="background-image: url('<%= asset_path('home/bg_home.webp') %>'); background-size: cover; background-position: top;background-attachment: fixed;">
 
+	<%= render '0p/ticker/ticker', items: [
+	  { icon: 'trophy',          label: 'Cumplimiento', detail: 'Informa paso a paso los requisitos de la ley.' },
+	  { icon: 'bicycle',         label: 'Simplicidad', detail: 'Proceso completamente asistido, no requiere conocimiento experto del procedimiento.' },
+	  { icon: 'folder-check',    label: 'Documentación obligatoria', detail: 'Cada denuncia cuenta con un repositorio con control documental.' },
+	  { icon: 'calendar2-check', label: 'Control de plazos', detail: 'Control de plazos sensible al tipo de investigación.' },
+	  { icon: 'bell',      label: 'Notificaciones e información obligatoria',      detail: 'Generación automatizada y envío trazable desde la plataforma.' },
+	  { icon: 'ban',      label: 'Confidencialidad',      detail: 'Modelo de confidencialidad para usuarios y participantes.' }
+	] %>
+
+	<% h_clr = '#0077b6' %>
+
+	<div class="mt-4 text-center clr_azul_principal montserrat-regular" style="color: <%#=h_clr%>;">
+		<%#= image_tag 'logo/logo_blue_40.webp', class: 'img-fluid' %>
+		<div class="fs-1">
+			Gestione sus denuncias de la Ley 21.643<br>en una plataforma especializada
+		</div>
+
+		<div class="row gx-4 mt-5" style="margin: 1rem 10%;">
+			<div class="col-lg-4 col-xs-12">
+				<div class="rounded-3 bg-gradient-blue-light p-3">
+				  <h1 style="height: 80px;">Laborsafe</h1>
+				  <h6 class= "open-sans-regular" style="height: 100px;">Plataforma especializada en la gestion del procedimiento de investigación y sanción de la Ley 21.643.</h6>
+				</div>
+			</div>
+			<div class="col-lg-4 col-xs-12">
+				<div class="rounded-3 bg-gradient-blue-light p-3">
+				  <h3 style="height: 80px;">Externalización de investigaciones</h3>
+				  <h6 class= "open-sans-regular" style="height: 100px;">Para empresas cuyo número de denuncias no justifique un investigador interno.</h6>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="rounded-3 bg-gradient-blue-light p-3">
+				  <h3 style="height: 80px;">Auditoría de investigaciones</h3>
+				  <h6 class= "open-sans-regular" style="height: 100px;">Para empresas que auditen los aspectos legales y normativos de investigaciones ya realizadas.</h6>
+				</div>
+			</div>
+		</div>
+
+		<div class="row gx-4" style="margin: 1rem 10%;">
+			<div class="col-lg-6 col-xs-12">
+				<div class="rounded-3 bg-gradient-blue-light p-3">
+				  <h4>Confidencialidad de la investigación</h4>
+				  <h6 class= "open-sans-regular text-start" style="margin-left: 3%;height: 100px;">
+				  	<ul>
+				  		<li>Autenticación de usuarios</li>
+				  		<li>Encapculamiento de la investigación</li>
+				  		<li>Reportes anonimizados</li>
+				  	</ul>
+				  </h6>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="rounded-3 bg-gradient-blue-light p-3">
+				  <h4>Otros servicios</h4>
+				  <h6 class= "open-sans-regular text-start" style="margin-left: 3%;height: 100px;">
+				  	<ul>
+				  		<li>Consultoría de implementación para empresas principales o usuarias</li>
+				  		<li>Capacitacion en la Ley 21.643</li>
+				  		<li>Formación de investigadores</li>
+				  	</ul>
+				  </h6>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+	<%#= render partial: 'home/public/prcdmnt' %>
 
 <%= render partial: 'home/public/stack' %>
 <%= render partial: 'home/public/btns' %>
@@ -10,6 +80,7 @@
 
 <%= render partial: 'home/public/modal_demo' %>
 <%= render partial: 'home/public/modal_errores_form' %>
+
 
 <!-- LaborSafe -->
 <%#= render partial: 'home/public/prdcts/tres_prdcts' %>

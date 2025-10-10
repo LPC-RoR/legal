@@ -74,6 +74,8 @@ gem 'pdf-reader'                  # Leer PDF files
 # Gemfile
 gem 'combine_pdf', '~> 1.0'
 gem 'prawn'           # crea el PDF anonimizado
+gem 'prawn-table'       # si hay tablas
+gem 'ruby-openai'       # NER (puedes usar spaCy vía API propia)
 
 gem 'wicked_pdf'                  # Para reportes en PDF
 gem 'wkhtmltopdf-binary'

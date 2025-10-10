@@ -32,7 +32,7 @@
           <!-- Dropdown de ejemplo -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="menuDocs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Fichas de productos y servicios
+              Productos y servicios
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDocs">
               <li><%= link_to 'Laborsafe', rails_blob_path(@prfl_laborsafe.file, disposition: "inline"), target: "_blank", class: 'dropdown-item' unless @prfl_laborsafe.blank?%></li>
@@ -44,20 +44,11 @@
               <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-              <%= link_to 'Registrarse', new_usuario_registration_path, class: 'nav-link' %>
+              <%= link_to 'Registro', new_usuario_registration_path, class: 'nav-link' %>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 </div>
-
-<%= render '0p/ticker/ticker', items: [
-  { icon: 'trophy',          label: 'Cumplimiento', detail: 'Informa paso a paso los requisitos de la ley.' },
-  { icon: 'bicycle',         label: 'Simplicidad', detail: 'Proceso completamente asistido, no requiere conocimiento experto del procedimiento.' },
-  { icon: 'folder-check',    label: 'Documentación obligatoria', detail: 'Cada denuncia cuenta con un repositorio con control documental.' },
-  { icon: 'calendar2-check', label: 'Control de plazos', detail: 'Control de plazos sensible al tipo de investigación.' },
-  { icon: 'bell',      label: 'Notificaciones e información obligatoria',      detail: 'Generación automatizada y envío trazable desde la plataforma.' },
-  { icon: 'ban',      label: 'Confidencialidad',      detail: 'Modelo de confidencialidad para usuarios y participantes.' }
-] %>
 
