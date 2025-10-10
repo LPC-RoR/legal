@@ -1,4 +1,4 @@
-<% if @paginate[c] %>
+<% if @paginate[c] and @coleccion[c].any? %>
 	<% if location == 'abajo' and @coleccion[c].count > 25 %><small><small><%= page_entries_info(@coleccion[c]) %></small></small><% end %>
 	<%= paginate @coleccion[c] %>
 	<% if location == 'arriba' and @coleccion[c].count > 25 %><small><small><%= page_entries_info(@coleccion[c]) %></small></small><% end %>
