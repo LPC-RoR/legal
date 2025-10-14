@@ -55,7 +55,7 @@ class Empresa < ApplicationRecord
     # KrnDenuncia
     def destinatarios(rprt)
       # bloque re-utilizable
-      build_hash = ->(obj) { { objt: obj, email: obj.email, nombre: obj.nombre } }
+      build_hash = ->(obj) { { objt: obj, email: ( demo? ? email_administrador : obj.email ), nombre: obj.nombre } }
 
       [].tap do |list|
         # 1) app_contactos

@@ -113,10 +113,10 @@
         </div>
 
         <!-- Términos y condiciones -->
-        <div class="form-check objt_lnk">
+        <div class="form-check text-start objt_lnk">
           <%= f.check_box :terms_accepted, class: "form-check-input", required: true %>
           <%= f.label :terms_accepted, class: "form-check-label" do %>
-            Acepto los <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#termsModal">términos y condiciones</a> y la <a href="#" class="text-primary">política de privacidad</a> *
+            Acepto los <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#termsModal">términos y condiciones</a> *
           <% end %>
           <div class="invalid-feedback">
             Debes aceptar los términos y condiciones
@@ -178,10 +178,11 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Términos y Condiciones</h5>
+        <h4 class="modal-title">Términos y condiciones (versión demostrativa)</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
+        <%= render partial: 'empresas/trmns_cndcns_demo' %>
         <!-- Contenido de términos y condiciones -->
       </div>
     </div>
