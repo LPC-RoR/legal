@@ -61,7 +61,7 @@
 
 		<div class="row gx-4" style="margin: 1rem 5%;">
 			<div class="col-lg-4 col-xs-12 pb-1">
-				<%= link_to "Ver reporte de denuncia simple", "/com_documentos/#{@rprt_dnnc.id}/show_pdf", class: "btn btn-primary w-100", target: '_blank' %>
+				<%= link_to "Ver reporte de denuncia simple", "/com_documentos/#{@rprt_dnnc.id}/show_pdf", class: "btn btn-primary w-100", target: '_blank' if @rprt_dnnc %>
 			</div>
 			<div class="col-lg-4 col-xs-12 pb-1">
 				<%= render layout: '0p/collapse/bttn', locals: {clss_bttn: 'btn btn-primary w-100', label: 'Cntct', objeto: nil, tooltip: nil} do %>
