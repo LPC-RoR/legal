@@ -45,7 +45,7 @@ class EmpresasController < ApplicationController
     # --- FIN ANTI-BOT ---
 
     @objeto = Empresa.new(empresa_params)
-    @objeto.build_tenant(name: @objeto.razon_social)
+    @objeto.build_tenant(nombre: @objeto.razon_social)
 
     purge_logo_if_requested
     @objeto.verification_token = SecureRandom.urlsafe_base64
@@ -234,7 +234,7 @@ class EmpresasController < ApplicationController
       params.require(:empresa).permit(
         :rut, :razon_social, :administrador, :email_administrador, 
         :contacto, :telefono, :informacion_comercial, :principal_usuaria, :logo,
-        :activa_devolucion, :verificacion_datos, :coordinacion_apt
+        :activa_devolucion, :verificacion_datos, :coordinacion_apt, :industry, :company_size, :plan_type
         # :website NO se persiste (honeypot)
       )
     end

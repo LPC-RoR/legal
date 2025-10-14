@@ -93,14 +93,6 @@ class Empresa < ApplicationRecord
     end
 
 
-    # DEPRECATED
-    def operable?
-        externas  = 
-        # pendiente manejo de productos: vencimiento y bloqueo
-        productos = true
-        externas and self.investigadores?
-    end
-
 	# OBJETO
 
     def formatos

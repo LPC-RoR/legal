@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
   <%= render partial: 'layouts/partials/head', locals: {title: 'Laborsafe'} %>
 
   <body>
 
     <%= render partial: 'layouts/public/main' %>
 
-    <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('footer')} %>
+    <%= render partial: 'layouts/partials/footer', locals: {logo_path: "logo/logo_90.png"} unless controller_name == 'servicios' %>
 
   </body>
 

@@ -16,6 +16,4 @@ class ComRequerimiento < ApplicationRecord
 
     include EmailVerifiable
 
-    # Solo ComRequerimiento debe disparar el correo al crear
-    after_create :send_verification_email, if: :email_present?
 end

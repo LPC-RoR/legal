@@ -9,6 +9,9 @@
 			<% else %>
 				<%= objt.razon_social %>
 			<% end %>
+			<% if objt.plan_type == 'extendido' %>
+				<i class="bi bi-diagram-3"></i>
+			<% end %>
 		</div>
 		<div class="col-lg-4 pe-2 text-end">
 			<i class="bi bi-box2"></i>

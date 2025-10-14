@@ -7,8 +7,6 @@ class Comercial::ComRequerimientosController < ApplicationController
   # anti-bot para create
   MIN_FILL_SECONDS = 3
 
-  after_action :rut_puro, only: %i[ create update ]
-
   # GET /com_requerimientos or /com_requerimientos.json
   def index
     set_tabla('com_requerimientos', ComRequerimiento.order(created_at: :desc), true)
@@ -32,19 +30,12 @@ class Comercial::ComRequerimientosController < ApplicationController
 
   # POST /com_requerimientos or /com_requerimientos.json
   def create
+    # ----- early bot rejection -----
+    head :ok and return if params.dig(:objeto, :website).present?
 
-    # --- CORTES TEMPRANOS ANTI-BOT ---
-    # Honeypot llenado => bot
-    if params.dig(:objeto, :website).present?
-      head :ok and return
-    end
-
-    # Envío demasiado rápido (desde carga del form)
     loaded_at = params[:form_loaded_at].to_i
-    if loaded_at.zero? || (Time.current.to_i - loaded_at) < MIN_FILL_SECONDS
-      head :ok and return
-    end
-    # --- FIN ANTI-BOT ---
+    head :ok and return if loaded_at.zero? || (Time.current.to_i - loaded_at) < MIN_FILL_SECONDS
+    # --------------------------------
 
     @objeto = ComRequerimiento.new(com_requerimiento_params)
 
@@ -98,8 +89,7 @@ class Comercial::ComRequerimientosController < ApplicationController
         :ownr_type, :ownr_id, :realizada,
         :rut, :razon_social, :nombre, :email,
         :contacto_comercial, :reunion_telematica, :laborsafe, :auditoria,
-        :externalizacion, :consultoria, :capacitacion, :asesoria_legal,
-        :website # el honeypot igual se permite, no se usará
+        :externalizacion, :consultoria, :capacitacion, :asesoria_legal, :motivo, :mensaje
         )
     end
 end

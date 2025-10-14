@@ -1,39 +1,47 @@
+# app/models/concerns/email_verifiable.rb
 module EmailVerifiable
   extend ActiveSupport::Concern
+
+  included do
+    # OLD: after_create :send_verification_email
+    after_create_commit :send_verification_email   # 1️⃣ enqueue after COMMIT
+  end
 
   def email_present?
     respond_to?(:email) && email.present?
   end
 
   def model_type_name
-    self.class.name.underscore # => "com_requerimiento", "krn_denunciante", etc.
+    self.class.name.underscore
   end
 
   def send_verification_email
-    self.verification_token = SecureRandom.urlsafe_base64
-    self.n_vrfccn_lnks = (self.n_vrfccn_lnks || 0) + 1
-    self.fecha_vrfccn_lnk = Time.zone.now
-    save!
+    # 2️⃣ everything that must be persisted before the mail
+    #     is sent is done in a single update
+    update!(
+      verification_token:   SecureRandom.urlsafe_base64,
+      n_vrfccn_lnks:        (n_vrfccn_lnks || 0) + 1,
+      fecha_vrfccn_lnk:     Time.zone.now,
+      verification_sent_at: Time.current
+    )
 
     VrfccnMailer.with(
-      user_class: self.class.name,
-      user_id: self.id,
+      user_class:     self.class.name,
+      user_id:        id,
       verification_url: verification_url,
-      tenant_id: current_tenant_id
+      tenant_id:      current_tenant_id
     ).verification_email.deliver_later
-
-    self.update_column(:verification_sent_at, Time.current) # marca hora de envío
   end
 
   def verification_url
-    url_options = {
-      token: verification_token,
+    opts = {
+      token:      verification_token,
       model_type: model_type_name,
-      host: appropriate_host,
-      protocol: appropriate_protocol
+      host:       appropriate_host,
+      protocol:   appropriate_protocol
     }
-    url_options[:port] = 3000 if Rails.env.development?
-    Rails.application.routes.url_helpers.verify_custom_email_url(url_options)
+    opts[:port] = 3000 if Rails.env.development?
+    Rails.application.routes.url_helpers.verify_custom_email_url(opts)
   end
 
   private
@@ -47,8 +55,6 @@ module EmailVerifiable
   end
 
   def current_tenant_id
-    return nil unless defined?(::Current)
-    return nil unless ::Current.respond_to?(:tenant)
-    ::Current.tenant&.id
+    defined?(::Current) && ::Current.respond_to?(:tenant) ? ::Current.tenant&.id : nil
   end
 end

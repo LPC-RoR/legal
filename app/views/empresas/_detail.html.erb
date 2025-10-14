@@ -86,6 +86,14 @@
 			<%= form.check_box :coordinacion_apt, class: "form-check-input", value: 1 %>
 			<%= form.label :coordinacion_apt, "Coordinación de atención psicológica temprana", class: "form-check-label" %>
 		</div>
+
+		<% if current_usuario.admin? %>
+			<div class="form-floating">
+				<%= form.select :plan_type, options_for_select([['Estándar', 'estandar'], ['Extendido', 'extendido'],]), {}, class: "form-select", required: true %>
+				<%= form.label :plan_type, "Plan de Interés" %>
+			</div>
+		<% end %>
+
 	</div>
 </div>
 

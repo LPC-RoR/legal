@@ -23,8 +23,6 @@
 	</td>
 	<td class="text-end">
 		<% unless scp_activo? %>
-			<%= render partial: '0p/swtch', locals: {objeto: objt, tkn: 'principal_usuaria', stts: ['empresa simple', 'empresa principal o usuaria']} %>
-				<i class="bi bi-dot"></i>
 			<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objt} %>
 		<% end %>
 	</td>

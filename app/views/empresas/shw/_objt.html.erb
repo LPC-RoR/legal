@@ -1,9 +1,6 @@
 <%= objeto.razon_social %>
 <i class="bi bi-dot"></i>
 <%= s_rut(objeto.rut) %>
-<% unless @objeto.principal_usuaria %>
-	<i class="bi bi-diagram-3"></i>
-<% end %>
 <% if objeto.demo_activo? %>
 	<small>( Demo )</small>
 <% end %>

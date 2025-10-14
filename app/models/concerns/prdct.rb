@@ -37,7 +37,7 @@ module Prdct
 
     def recepcion_habilitada?
       krn_investigadores.exists? &&
-      ((not principal_usuaria) or (principal_usuaria && krn_empresa_externas.exists?)) &&
+      ((plan_type == 'estandar') or (plan_type == 'extendido' && krn_empresa_externas.exists?)) &&
       app_contactos.exists?(grupo: 'RRHH') &&
       app_contactos.exists?(grupo: 'Apt')
       app_contactos.exists?(grupo: 'Backup')
@@ -45,7 +45,7 @@ module Prdct
 
     # Registros mínimos
     def rgstrs_mnms?
-        self.krn_investigadores.any? and (self.principal_usuaria ? self.empresas_externas? : true)
+        krn_investigadores.any? and (plan_type == 'extendido' ? krn_empresa_externas.any? : true)
     end
 
     def denuncias_activas?

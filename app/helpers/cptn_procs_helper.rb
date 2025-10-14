@@ -47,7 +47,7 @@ module CptnProcsHelper
 	# ----------------------------------------------- HASTA AQUI LA LÓGICA NUEVA
 
 	def rcptr_lst(ownr)
-		ownr.principal_usuaria ? ['Empresa', 'Dirección del Trabajo', 'Empresa externa'] : ['Empresa', 'Dirección del Trabajo']
+		['Empresa', 'Dirección del Trabajo', ('Empresa externa' if ownr.plan_type == 'extendido')].compact
 	end
 
 	def email_mask(email)

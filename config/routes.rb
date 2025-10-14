@@ -77,7 +77,8 @@ Rails.application.routes.draw do
     post '/requerimiento', to: 'com_requerimientos#create', as: 'requerimiento'
     resources :com_requerimientos
     resources :com_documentos do
-      member { get :download }
+      match :download, via: :get, on: :member
+      match :show_pdf, via: :get, on: :member
     end
   end
 

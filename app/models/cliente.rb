@@ -77,14 +77,6 @@ class Cliente < ApplicationRecord
         self.created_at.to_date.in_time_zone > 10.days.ago.in_time_zone
     end
 
-    # DEPRECATED
-    def operable?
-        externas  = self.principal_usuaria ? self.empresas_externas? : true
-        # pendiente manejo de productos: vencimiento y bloqueo
-        productos = true
-        externas and self.investigadores?
-    end
-
     def formatos
         self.productos? ? self.pro_dtll_ventas.map {|pro| pro.formato} : []
     end

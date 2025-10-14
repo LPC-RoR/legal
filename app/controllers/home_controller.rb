@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
-  before_action :authenticate_usuario!, only: [:dshbrd]
+	before_action :redirect_unauthenticated, only: :dshbrd
+#  before_action :authenticate_usuario!, only: [:dshbrd]
   before_action :scrty_on, only: [:dshbrd]
 
   def index
@@ -40,15 +41,17 @@ class HomeController < ApplicationController
     @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
  	
     # Puedes redirigir a dashboard si ya está autenticado
-    redirect_to authenticated_root_path if usuario_signed_in?
+    if usuario_signed_in?
+    	redirect_to authenticated_root_path and return
+  	end
 
   	render layout: 'public'
   end
   
 	def dshbrd
 	  # 1. Salida temprana si el usuario está en un scope especial
-	  if scp_activo?
-	    redirect_to "/cuentas/#{nomina_activa.ownr.class.name[0].downcase}_#{nomina_activa.ownr.id}/dnncs"
+	  if ['Cliente', 'Empresa'].include?(current_usuario&.tenant.owner_type)
+	    redirect_to "/cuentas/#{current_usuario&.tenant.owner_type[0].downcase}_#{current_usuario&.tenant.owner_id}/dnncs"
 	    return               # <-- evita el doble render
 	  end
 
@@ -111,6 +114,11 @@ class HomeController < ApplicationController
   end
 
   private
+
+		def redirect_unauthenticated
+		  return if usuario_signed_in?          # ya está logueado
+		  redirect_to root_path and return      # redirige al index público
+		end
 
   	def artcls_hsh
   		{

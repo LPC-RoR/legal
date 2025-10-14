@@ -7,7 +7,7 @@
 			<li>Se debe ingresar al menos un investigador.</li>
 		<% end %>
 
-		<% if @objeto.principal_usuaria and @objeto.krn_empresa_externas.none? %>
+		<% if @objeto.plan_type == 'extendido' and @objeto.krn_empresa_externas.none? %>
 			<li>Se debe ingresar al menos una empresa externa.</li>
 		<% end %>
 

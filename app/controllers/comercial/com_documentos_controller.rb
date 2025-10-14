@@ -1,8 +1,8 @@
 class Comercial::ComDocumentosController < ApplicationController
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, except: :show_pdf
   before_action :scrty_on
-  before_action :require_admin!
-  before_action :set_com_documento, only: %i[ show edit update download destroy ]
+  before_action :require_admin!, except: :show_pdf
+  before_action :set_com_documento, only: %i[ show edit update download destroy show_pdf ]
 
   # GET /com_documentos or /com_documentos.json
   def index
@@ -10,7 +10,13 @@ class Comercial::ComDocumentosController < ApplicationController
   end
 
   # GET /com_documentos/1 or /com_documentos/1.json
-  def show
+  def show_pdf
+    archivo = ComDocumento.find(params[:id])
+    # importante: disposition: :inline
+    send_data archivo.file.download,
+              filename:    archivo.file.filename.to_s,
+              type:        'application/pdf',
+              disposition: 'inline'
   end
 
   # Descarga segura (URL firmada)

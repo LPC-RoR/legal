@@ -12,7 +12,7 @@
       Investigadores</a>
     </li>
 
-    <% if objt.principal_usuaria %>
+    <% if objt.plan_type == 'extendido' %>
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "extrns" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/extrns">
         <% if @tab_flags[:extrns] %>

@@ -17,28 +17,28 @@
       <!-- Ítems de menú -->
       <div class="collapse navbar-collapse" id="heroNav">
         <ul class="navbar-nav ms-auto align-items-md-center">
-          <li class="nav-item">
+          <!--li class="nav-item">
             <a class="nav-link js-open-modal"
                href="#"
                data-bs-toggle="modal"
                data-bs-target="#Requerimiento">
               Contacto
             </a>
-          </li>
+          </li-->
           <!--li class="nav-item">
             <%#= link_to 'Productos', root_path, class: 'nav-link' %>
           </li-->
 
           <!-- Dropdown de ejemplo -->
-          <li class="nav-item dropdown">
+          <!--li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="menuDocs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Productos y servicios
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDocs">
-              <li><%= link_to 'Laborsafe', rails_blob_path(@prfl_laborsafe.file, disposition: "inline"), target: "_blank", class: 'dropdown-item' unless @prfl_laborsafe.blank?%></li>
-              <li><%= link_to 'Externalización de investigaciones', rails_blob_path(@prfl_externalizacion.file, disposition: "inline"), target: "_blank", class: 'dropdown-item' unless @prfl_externalizacion.blank?%></li>
+              <li><%#= link_to 'Laborsafe', rails_blob_path(@prfl_laborsafe.file, disposition: "inline"), target: "_blank", class: 'dropdown-item' unless @prfl_laborsafe.blank?%></li>
+              <li><%#= link_to 'Externalización de investigaciones', rails_blob_path(@prfl_externalizacion.file, disposition: "inline"), target: "_blank", class: 'dropdown-item' unless @prfl_externalizacion.blank?%></li>
             </ul>
-          </li>
+          </li-->
 
           <li class="nav-item">
               <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'nav-link' %>

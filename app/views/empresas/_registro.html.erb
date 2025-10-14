@@ -1,56 +1,250 @@
-<div id="registration-form ubuntu-regular">
-  <%= form_with(model: @objeto, url: register_path, data: { turbo: false }) do |form| %>
+<div class="card shadow border-0 rounded-4 overflow-hidden2">
 
-    <% if @objeto.errors.any? %>
-      <div class="error-messages">
-        <% @objeto.errors.full_messages.each do |message| %>
-          <p><%= message %></p>
-        <% end %>
+  <!-- Header con gradiente -->
+  <div class="card-header bg-gradient-primary text-white py-3" style="background: linear-gradient(135deg,#667eea 0%, #764ba2 100%);">
+    <div class="text-center">
+      <h4 class="mb-2 pt-1">Versión demo personalizada</h4>
+    </div>
+  </div>
+  
+  <div class="card-body p-4">
+    <%= form_with(model: @objeto, url: register_path, data: { turbo: false }, local: true, class: "needs-validation", novalidate: true) do |f| %>
+      
+      <!-- Información de la Empresa -->
+      <div class="mb-5">
+        <h5 class="text-primary mb-3">
+          Registro de versión demostrativa
+        </h5>
+        
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-floating">
+              <%= f.text_field :razon_social, class: "form-control", placeholder: "Nombre de la empresa", required: true %>
+              <%= f.label :razon_social, "Nombre de la Empresa *" %>
+              <div class="invalid-feedback">
+                Por favor ingrese el nombre de su empresa
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+              <%= f.text_field :rut, class: "form-control", placeholder: "RUT", required: true %>
+              <%= f.label :rut, "RUT *" %>
+              <div class="invalid-feedback">
+                Por favor ingresa el RUT de su empresa
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+              <%#= f.select :industry, options_for_select([
+                ['Tecnología', 'technology'],
+                ['Salud', 'health'],
+                ['Educación', 'education'],
+                ['Finanzas', 'finance'],
+                ['Retail', 'retail'],
+                ['Manufactura', 'manufacturing'],
+                ['Servicios', 'services'],
+                ['Otro', 'other']
+              ]), {}, class: "form-select", required: true %>
+              <%#= f.label :industry, "Industria *" %>
+              <%= f.select :plan_type, options_for_select([
+                ['Estándar', 'estandar'],
+                ['Extendido', 'extendido'],
+              ]), {}, class: "form-select", required: true %>
+              <%= f.label :plan_type, "Plan de Interés" %>
+            </div>
+          </div>
+        </div>
+      
+        <!--div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <%#= f.select :company_size, options_for_select([
+                ['1-10 empleados', '1-10'],
+                ['11-50 empleados', '11-50'],
+                ['51-200 empleados', '51-200'],
+                ['201-500 empleados', '201-500'],
+                ['500+ empleados', '500+']
+              ]), {}, class: "form-select" %>
+              <%#= f.label :company_size, "Tamaño de la Empresa" %>
+            </div>
+          </div>
+          
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <%#= f.select :plan_type, options_for_select([
+                ['Estándar', 'estandar'],
+                ['Extendido', 'extendido'],
+              ]), {}, class: "form-select", required: true %>
+              <%#= f.label :plan_type, "Plan de Interés" %>
+            </div>
+          </div>
+        </div-->
+
+        <p class="text-center text-secondary"><small><i class="bi bi-lightbulb"></i> Seleccione el plan <i>extendido</i> si su empresa cumple el rol de principla o usuaria.</small></p>
+
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-floating">
+              <%= f.text_field :administrador, class: "form-control", placeholder: "Nombre completo", required: true %>
+              <%= f.label :administrador, "Nombre del administrador *" %>
+              <div class="invalid-feedback">
+                Por favor ingresa el nombre del administrador de la cuenta
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-floating">
+              <%= f.email_field :email_administrador, class: "form-control", placeholder: "correo@empresa.com", required: true %>
+              <%= f.label :email_administrador, "Correo electrónico del administrador *" %>
+              <div class="invalid-feedback">
+                Por favor ingresa un correo válido
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Términos y condiciones -->
+        <div class="form-check objt_lnk">
+          <%= f.check_box :terms_accepted, class: "form-check-input", required: true %>
+          <%= f.label :terms_accepted, class: "form-check-label" do %>
+            Acepto los <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#termsModal">términos y condiciones</a> y la <a href="#" class="text-primary">política de privacidad</a> *
+          <% end %>
+          <div class="invalid-feedback">
+            Debes aceptar los términos y condiciones
+          </div>
+        </div>
+
       </div>
+
+      
+      <!-- Información de Contacto -->
+      <!--div class="mb-5">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <%#= f.text_field :administrador, class: "form-control", placeholder: "Nombre completo", required: true %>
+              <%#= f.label :administrador, "Nombre del Responsable *" %>
+              <div class="invalid-feedback">
+                Por favor ingresa el nombre del administrador de la cuenta
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 mb-3">
+            <div class="form-floating">
+              <%#= f.email_field :email_administrador, class: "form-control", placeholder: "correo@empresa.com", required: true %>
+              <%#= f.label :email_administrador, "Correo Electrónico *" %>
+              <div class="invalid-feedback">
+                Por favor ingresa un correo válido
+              </div>
+            </div>
+          </div>
+        </div>
+      </div-->
+      
+
+
+      <!-- Honeypot (campo que un humano no completa) -->
+      <div class="hp-field" aria-hidden="true">
+        <%= f.label :website, "Deje este campo vacío" %>
+        <%= f.text_field :website, autocomplete: "off", tabindex: -1 %>
+      </div>
+
+      <!-- Timestamp de carga (para medir tiempo mínimo de llenado) -->
+      <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
+
+      
+      <!-- Botón de envío -->
+      <div class="d-grid">
+        <%= f.submit "Registrar Empresa", class: "btn btn-outline-primary rounded-pill hover-lift" %>
+      </div>
+
     <% end %>
+  </div>
+</div>
 
-  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT de la empresa' } %>
-    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razón social de la empresa' } %>
-  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :administrador, label: 'Nombre del administrador de la cuenta' } %>
-  	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email_administrador, label: 'Email del administrador de la cuenta' } %>
 
-    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :telefono, label: 'Teléfono del administrador de la cuenta (*)' } %>
-
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Deseo que me contacten telefónicamente.' } %>
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :informacion_comercial, label: 'Deseo información comercial de los productos.' } %>
-  	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :principal_usuaria, label: 'Empresa principal o usuaria (**)' } %>
-
-    <!-- Honeypot (campo que un humano no completa) -->
-    <div class="hp-field" aria-hidden="true">
-      <%= form.label :website, "Deje este campo vacío" %>
-      <%= form.text_field :website, autocomplete: "off", tabindex: -1 %>
+<!-- Modal de términos y condiciones -->
+<div class="modal fade" id="termsModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Términos y Condiciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Contenido de términos y condiciones -->
+      </div>
     </div>
-
-    <!-- Timestamp de carga (para medir tiempo mínimo de llenado) -->
-    <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
-
-    <div class="mb-2 objt_lnk" style="font-size: 0.7rem;line-height: 1.5;">
-      (*) El número telefónico se utilizará como medio de contacto sólo si ha solicitado contacto telefónico.<br>
-      (**) Marque esta opción si su empresa cumple el rol de empresa principal o usuaria.
-    </div>
-
-  	<%#= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto, label: 'Solicito información comercial' } %>
-
-    <div class="actions">
-      <%= form.submit "Registrar mi empresa", class: "btn btn-sm btn-outline-primary" %>
-    </div>
-  <% end %>
-
+  </div>
 </div>
 
 <style>
-/* Oculta sin usar display:none */
-.hp-field {
-  position: absolute !important;
-  left: -10000px !important;
-  top: auto !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-}
+  /* Estilos adicionales para hacerlo más atractivo */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .form-control:focus, .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  }
+  
+  .card {
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Animación de entrada */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .card {
+    animation: slideInUp 0.6s ease-out;
+  }
 </style>
+
+<!-- JavaScript para validación de Bootstrap -->
+<script>
+  // Validación de Bootstrap
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      var forms = document.getElementsByClassName('needs-validation');
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>

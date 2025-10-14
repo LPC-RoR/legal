@@ -1,0 +1,128 @@
+<div class="card shadow border-0 rounded-4">
+
+  <!-- Header -->
+  <div class="card-header bg-gradient-primary text-white text-center py-3"
+       style="background: linear-gradient(135deg,#667eea 0%, #764ba2 100%);">
+    <h4 class="mb-2 pt-1">Contacto comercial</h4>
+  </div>
+
+  <div class="card-body p-4">
+    <%= form_with model: @req,
+                  url: requerimiento_path,
+                  data: { turbo: false },
+                  local: true,
+                  class: "needs-validation",
+                  novalidate: true do |f| %>
+
+      <div class="mb-5">
+        <h5 class="text-primary mb-3">
+          Solicitud de contacto comercial
+        </h5>
+          
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-floating">
+              <%= f.text_field :razon_social, class: "form-control", placeholder: "Nombre del la empresa", required: true %>
+              <%= f.label :razon_social, "Nombre de la empresa *" %>
+              <div class="invalid-feedback">Por favor ingrese el nombre de su empresa</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+              <%= f.text_field :rut, class: "form-control", placeholder: "RUT", required: true %>
+              <%= f.label :rut, "RUT *" %>
+              <div class="invalid-feedback">
+                Por favor ingresa el RUT de su empresa
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+              <%#= f.select :industry, options_for_select([
+                ['Tecnología', 'technology'],
+                ['Salud', 'health'],
+                ['Educación', 'education'],
+                ['Finanzas', 'finance'],
+                ['Retail', 'retail'],
+                ['Manufactura', 'manufacturing'],
+                ['Servicios', 'services'],
+                ['Otro', 'other']
+              ]), {}, class: "form-select", required: true %>
+              <%#= f.label :industry, "Industria *" %>
+              <%= f.select :motivo,
+                           options_for_select([["Contacto comercial", "contacto"],
+                                               ["Reunión telemática", "reunion"]]),
+                           {}, class: "form-select", required: true %>
+              <%= f.label :motivo, "Solicitud *" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-floating">
+              <%= f.text_field :nombre, class: "form-control", placeholder: "Nombre del solicitante", required: true %>
+              <%= f.label :nombre, "Nombre del solicitante *" %>
+              <div class="invalid-feedback">Por favor ingrese el nombre del solicitante</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-floating">
+              <%= f.email_field :email, class: "form-control", placeholder: "correo@ejemplo.com", required: true %>
+              <%= f.label :email, "Correo electrónico del solicitante *" %>
+              <div class="invalid-feedback">Se requiere un e-mail válido</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="form-floating">
+            <%= f.text_area :mensaje, class: "form-control", placeholder: "Mensaje", rows: 3, style: "height:120px" %>
+            <%= f.label :mensaje, "Mensaje / Comentarios (opcional)" %>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Anti-spam simple -->
+      <div class="hp-field" aria-hidden="true">
+        <%= f.label :website, "No completes esto" %>
+        <%= f.text_field :website, autocomplete: "off", tabindex: -1 %>
+      </div>
+      <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
+
+      <div class="d-grid">
+        <%= f.submit "Solicitar reunión",
+                     class: "btn btn-outline-primary rounded-pill hover-lift" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+
+
+<style>
+  .hp-field { position:absolute; left:-9999px; }
+  .hover-lift { transition: transform .2s ease, box-shadow .2s ease; }
+  .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,.12); }
+</style>
+
+<script>
+  /* Validación Bootstrap 5 */
+  (() => { 'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', e => {
+        if (!form.checkValidity()) { e.preventDefault(); e.stopPropagation(); }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>

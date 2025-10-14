@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_06_185521) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_14_013500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -561,6 +561,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_06_185521) do
     t.datetime "verification_sent_at"
     t.integer "n_vrfccn_lnks", default: 0, null: false
     t.datetime "fecha_vrfccn_lnk"
+    t.string "motivo"
+    t.text "mensaje"
+    t.index ["motivo"], name: "index_com_requerimientos_on_motivo"
     t.index ["ownr_id"], name: "index_com_requerimientos_on_ownr_id"
     t.index ["ownr_type"], name: "index_com_requerimientos_on_ownr_type"
     t.index ["realizada"], name: "index_com_requerimientos_on_realizada"
@@ -705,6 +708,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_06_185521) do
     t.boolean "activa_devolucion"
     t.boolean "verificacion_datos"
     t.boolean "coordinacion_apt"
+    t.string "industry"
+    t.string "company_size"
+    t.string "plan_type"
+    t.index ["company_size"], name: "index_empresas_on_company_size"
+    t.index ["industry"], name: "index_empresas_on_industry"
+    t.index ["plan_type"], name: "index_empresas_on_plan_type"
     t.index ["rut"], name: "index_empresas_on_rut"
     t.index ["sha1"], name: "index_empresas_on_sha1"
   end

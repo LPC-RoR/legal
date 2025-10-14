@@ -2,83 +2,104 @@
 <%= render partial: 'home/public/banner' %>
 <div style="background-image: url('<%= asset_path('home/bg_home.webp') %>'); background-size: cover; background-position: top;background-attachment: fixed;">
 
-	<%= render '0p/ticker/ticker', items: [
-	  { icon: 'trophy',          label: 'Cumplimiento', detail: 'Informa paso a paso los requisitos de la ley.' },
-	  { icon: 'bicycle',         label: 'Simplicidad', detail: 'Proceso completamente asistido, no requiere conocimiento experto del procedimiento.' },
-	  { icon: 'folder-check',    label: 'Documentación obligatoria', detail: 'Cada denuncia cuenta con un repositorio con control documental.' },
-	  { icon: 'calendar2-check', label: 'Control de plazos', detail: 'Control de plazos sensible al tipo de investigación.' },
-	  { icon: 'bell',      label: 'Notificaciones e información obligatoria',      detail: 'Generación automatizada y envío trazable desde la plataforma.' },
-	  { icon: 'ban',      label: 'Confidencialidad',      detail: 'Modelo de confidencialidad para usuarios y participantes.' }
-	] %>
+	<%= render partial: 'home/public/ticker' %>
 
-	<% h_clr = '#0077b6' %>
-
-	<div class="mt-4 text-center clr_azul_principal montserrat-regular" style="color: <%#=h_clr%>;">
+	<div class="mt-4 text-center clr_azul_principal montserrat-regular">
 		<%#= image_tag 'logo/logo_blue_40.webp', class: 'img-fluid' %>
-		<div class="fs-1">
+		<div class="px-4 fs-1">
 			Gestione sus denuncias de la Ley 21.643<br>en una plataforma especializada
 		</div>
 
-		<div class="row gx-4 mt-5" style="margin: 1rem 10%;">
+		<div class="row gx-4 mt-5" style="margin: 1rem 5%;">
+			<div class="col-12">
+				<div class="rounded-3 bg-gradient-blue-light pt-4 px-4">
+				  <!--h1>Laborsafe</h1-->
+				  <h4 class= "open-sans-regular">Plataforma especializada en la gestión integral del procedimiento de investigación y sanción establecido por la Ley N.º 21.643.</h4>
+				</div>
+			</div>
+		</div>
+
+		<div class="row gx-4 mt-5" style="margin: 1rem 5%;">
 			<div class="col-lg-4 col-xs-12">
-				<div class="rounded-3 bg-gradient-blue-light p-3">
-				  <h1 style="height: 80px;">Laborsafe</h1>
-				  <h6 class= "open-sans-regular" style="height: 100px;">Plataforma especializada en la gestion del procedimiento de investigación y sanción de la Ley 21.643.</h6>
+				<div class="rounded-3 bg-gradient-blue-light pt-4 px-4">
+				  <h3>Externalización de investigaciones</h3>
+				  <h6 class="open-sans-regular" style="font-size: 0.9rem;line-height: 1.5;">Servicio orientado a empresas cuyo volumen de denuncias no justifica la contratación de un investigador.</h6>
 				</div>
 			</div>
 			<div class="col-lg-4 col-xs-12">
-				<div class="rounded-3 bg-gradient-blue-light p-3">
-				  <h3 style="height: 80px;">Externalización de investigaciones</h3>
-				  <h6 class= "open-sans-regular" style="height: 100px;">Para empresas cuyo número de denuncias no justifique un investigador interno.</h6>
+				<div class="rounded-3 bg-gradient-blue-light pt-4 px-4">
+				  <h3>Auditoría de investigaciones</h3>
+				  <h6 class="open-sans-regular" style="font-size: 0.9rem;line-height: 1.5;">Servicio dirigido a empresas que requieran revisar el cumplimiento legal y normativo de investigaciones ya realizadas.</h6>
 				</div>
 			</div>
 			<div class="col-lg-4">
-				<div class="rounded-3 bg-gradient-blue-light p-3">
-				  <h3 style="height: 80px;">Auditoría de investigaciones</h3>
-				  <h6 class= "open-sans-regular" style="height: 100px;">Para empresas que auditen los aspectos legales y normativos de investigaciones ya realizadas.</h6>
+				<div class="rounded-3 bg-gradient-blue-light pt-4 px-4">
+				  <h3>Consultoría y capacitación</h3>
+				  <h6 class= "open-sans-regular text-start" style="font-size: 0.9rem;line-height: 1.5;">
+				  	Nuestros servicios de consultoría y capacitación cubren integralmente todas las exigencias del procedimiento de investigación y sanción.
+				  </h6>
 				</div>
 			</div>
 		</div>
 
-		<div class="row gx-4" style="margin: 1rem 10%;">
-			<div class="col-lg-6 col-xs-12">
-				<div class="rounded-3 bg-gradient-blue-light p-3">
-				  <h4>Confidencialidad de la investigación</h4>
-				  <h6 class= "open-sans-regular text-start" style="margin-left: 3%;height: 100px;">
-				  	La plataforma protege la información sensible mediante perfiles de acceso controlado y genera únicamente reportes anonimizados, sin incluir detalles de denuncias ni declaraciones.
-				  </h6>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="rounded-3 bg-gradient-blue-light p-3">
-				  <h4>Otros servicios</h4>
-				  <h6 class= "open-sans-regular text-start" style="margin-left: 3%;height: 100px;">
-				  	<ul>
-				  		<li>Consultoría de implementación para empresas principales o usuarias</li>
-				  		<li>Capacitacion en la Ley 21.643</li>
-				  		<li>Formación de investigadores</li>
-				  	</ul>
-				  </h6>
+		<div class="row gx-4 mt-5" style="margin: 1rem 5%;">
+			<div class="col-12">
+				<div class="rounded-3 bg-gradient-blue-light pt-4 px-4">
+				  <h4>Descubra cómo nuestra plataforma puede transformar la gestión de sus denuncias</h4>
+				  <p class="open-sans-regular text-start" style="font-size: 0.9rem;line-height: 1.5;">
+				  	LaborSafe es una <i>carpeta de investigación virtual</i> que va más allá del almacenamiento de documentos: controla plazos, coordina tareas y comunicaciones, genera evidencia de cumplimiento y resguarda la confidencialidad en todo el proceso.
+				  </p>
+				  <p class="open-sans-regular text-start" style="font-size: 0.9rem;line-height: 1.5;">
+				  	En cualquier etapa del procedimiento, el reporte de la denuncia le permite visualizar el estado actualizado de la investigación: las tareas completadas, el cumplimiento de los plazos y todas las acciones que el reglamento exige registrar en la carpeta de investigación. Puede revisar un ejemplo simplificado de este reporte haciendo clic en <i>Ver reporte de denuncia simple</i>.
+				  </p>
+				  <p class="open-sans-regular text-start" style="font-size: 0.9rem;line-height: 1.5;">
+				  	Para coordinar una reunión de presentación de LaborSafe, haga clic en <i>Contacto comercial</i>. Si prefiere explorar la plataforma por su cuenta, puede solicitar una <i>versión demostrativa personalizada</i>.
+				  </p>
 				</div>
 			</div>
 		</div>
+
+		<div class="row gx-4" style="margin: 1rem 5%;">
+			<div class="col-lg-4 col-xs-12 pb-1">
+				<%= link_to "Ver reporte de denuncia simple", "/com_documentos/#{@rprt_dnnc.id}/show_pdf", class: "btn btn-primary w-100", target: '_blank' %>
+			</div>
+			<div class="col-lg-4 col-xs-12 pb-1">
+				<%= render layout: '0p/collapse/bttn', locals: {clss_bttn: 'btn btn-primary w-100', label: 'Cntct', objeto: nil, tooltip: nil} do %>
+					Contacto comercial
+				<% end %>
+			</div>
+			<div class="col-lg-4 pb-1">
+				<%= render layout: '0p/collapse/bttn', locals: {clss_bttn: 'btn btn-primary w-100', label: 'Demo', objeto: nil, tooltip: nil} do %>
+					Versión demostrativa personalizada
+				<% end %>
+			</div>
+		</div>
+
+		<!-- COLLAPSE partials -->
+		<%= render layout: '0p/collapse/dsply', locals: {label: 'Cntct', objeto: nil} do %>
+			<div class="container mt-5">
+			  <div class="row justify-content-center">
+					<div class="col-lg-6">
+						<%= render partial: 'empresas/contacto' %>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<%= render layout: '0p/collapse/dsply', locals: {label: 'Demo', objeto: nil} do %>
+			<div class="container mt-5">
+			  <div class="row justify-content-center">
+					<div class="col-lg-6">
+						<%= render partial: 'empresas/registro' %>
+					</div>
+				</div>
+			</div>
+		<% end %>
 
 	</div>
 
-	<%= render partial: 'home/public/btns' %>
 
 </div>
 
-	<%#= render partial: 'home/public/prcdmnt' %>
-
-	<%#= render partial: 'home/public/stack' %>
-
-<%= render partial: 'home/public/externalizacion' %>
 <%= render partial: 'home/public/artcl' %>
 
-<%= render partial: 'home/public/modal_demo' %>
 <%= render partial: 'home/public/modal_errores_form' %>
-
-
-<!-- LaborSafe -->
-<%#= render partial: 'home/public/prdcts/tres_prdcts' %>

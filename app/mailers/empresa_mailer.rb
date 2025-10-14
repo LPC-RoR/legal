@@ -11,9 +11,10 @@ class EmpresaMailer < ApplicationMailer
     mail(to: empresa.email_administrador, subject: 'Verifica tu dirección de correo electrónico')
   end
 
-  def wellcome_email(email:, password:)
-    @email = email
+  def wellcome_email(email, password)
+    @email    = email
     @password = password
     mail(to: @email, subject: 'Bienvenido a nuestra plataforma')
   end
+
 end
