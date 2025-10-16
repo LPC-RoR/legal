@@ -1,13 +1,13 @@
 <%= render layout: 'rprts/krn_reportes/rprt_dnnc/box_tmplt', locals: {ttl: 'Acciones registradas', fnt_rem: 0.9} do %>
-	<% if @rprt[:prtcpnts_minimos] or @rprt[:coordinacion_apt] or @rprt[:infrmcn_slctd] or @rprt[:dnncnt_invstgcn_local] or @rprt[:invstgcn_local_externa] or @rprt[:evlcn_ok] or @rprt[:plz_prnncmnt] %>
+	<% if reporte[:prtcpnts_minimos] or reporte[:coordinacion_apt] or reporte[:infrmcn_slctd] or reporte[:dnncnt_invstgcn_local] or reporte[:invstgcn_local_externa] or reporte[:evlcn_ok] or reporte[:plz_prnncmnt] %>
 		<ol>
-			<% if @rprt[:prtcpnts_minimos] %><li><%=@rprt[:prtcpnts_minimos]%></li><% end %>
-			<% if @rprt[:coordinacion_apt] %><li><%=@rprt[:coordinacion_apt]%></li><% end %>
-			<% if @rprt[:infrmcn_slctd] %><li><%=@rprt[:infrmcn_slctd]%></li><% end %>
-			<% if @rprt[:dnncnt_invstgcn_local] %><li><%=@rprt[:dnncnt_invstgcn_local]%></li><% end %>
-			<% if @rprt[:invstgcn_local_externa] %><li><%=@rprt[:invstgcn_local_externa]%></li><% end %>
-			<% if @rprt[:evlcn_ok] %><li><%=@rprt[:evlcn_ok]%></li><% end %>
-			<% if @rprt[:plz_prnncmnt] %><li><%=@rprt[:plz_prnncmnt]%></li><% end %>
+			<% if reporte[:prtcpnts_minimos] %><li><%=reporte[:prtcpnts_minimos]%></li><% end %>
+			<% if reporte[:coordinacion_apt] %><li><%=reporte[:coordinacion_apt]%></li><% end %>
+			<% if reporte[:infrmcn_slctd] %><li><%=reporte[:infrmcn_slctd]%></li><% end %>
+			<% if reporte[:dnncnt_invstgcn_local] %><li><%=reporte[:dnncnt_invstgcn_local]%></li><% end %>
+			<% if reporte[:invstgcn_local_externa] %><li><%=reporte[:invstgcn_local_externa]%></li><% end %>
+			<% if reporte[:evlcn_ok] %><li><%=reporte[:evlcn_ok]%></li><% end %>
+			<% if reporte[:plz_prnncmnt] %><li><%=reporte[:plz_prnncmnt]%></li><% end %>
 		</ol>
 	<% end %>
 <% end %>

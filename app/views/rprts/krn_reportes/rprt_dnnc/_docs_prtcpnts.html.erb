@@ -3,10 +3,10 @@
 	<div class="mt-2 ms-3">
 
 		<% objeto.krn_denunciantes.each do |dnncnt| %>
-			<%= render partial: 'rprts/krn_reportes/rprt_dnnc/stts', locals: {objt: dnncnt} %>
+			<%= render partial: 'rprts/krn_reportes/rprt_dnnc/stts', locals: {objt: dnncnt, acts: acts} %>
 			<div class="mt-2">
 				<% dnncnt.krn_testigos.each do |tstg| %>
-					<%= render partial: 'rprts/krn_reportes/rprt_dnnc/stts', locals: {objt: tstg} %>
+					<%= render partial: 'rprts/krn_reportes/rprt_dnnc/stts', locals: {objt: tstg, acts: acts} %>
 				<% end %>
 			</div>
 		<% end %>
@@ -17,10 +17,10 @@
 		<% else %>
 
 			<% objeto.krn_denunciados.each do |dnncd| %>
-				<%= render partial: 'rprts/krn_reportes/rprt_dnnc/stts', locals: {objt: dnncd} %>
+				<%= render partial: 'rprts/krn_reportes/rprt_dnnc/stts', locals: {objt: dnncd, acts: acts} %>
 				<div class="mt-2">
 					<% dnncd.krn_testigos.each do |tstg| %>
-						<%= render partial: 'rprts/krn_reportes/rprt_dnnc/stts', locals: {objt: tstg} %>
+						<%= render partial: 'rprts/krn_reportes/rprt_dnnc/stts', locals: {objt: tstg, acts: acts} %>
 					<% end %>
 				</div>
 			<% end %>

@@ -3,22 +3,22 @@
 		<tbody>
 			<tr>
 				<td>Identificador</td>
-				<td class="fw-bold"><%=@rprt[:identificador]%></td>
+				<td class="fw-bold"><%=reporte[:identificador]%></td>
 			</tr>
 			<tr>
-				<td><%=@rprt[:ownr_type]%></td>
-				<td class="fw-bold"><%=@rprt[:razon_social]%></td>
+				<td><%=reporte[:ownr_type]%></td>
+				<td class="fw-bold"><%=reporte[:razon_social]%></td>
 			</tr>
 			<tr>
 				<td>Motivo de la denuncia</td>
-				<td class="fw-bold"><%=@rprt[:motivo]%></td>
+				<td class="fw-bold"><%=reporte[:motivo]%></td>
 			</tr>
 		</tbody>
 	</table>
 
 	<ul>
-		<li><%=@rprt[:receptor]%></li>
-		<li><%=@rprt[:canal]%></li>
-		<li><%=@rprt[:denunciante]%></li>
+		<li><%=reporte[:receptor]%></li>
+		<li><%=reporte[:canal]%></li>
+		<li><%=reporte[:denunciante]%></li>
 	</ul>
 <% end %>

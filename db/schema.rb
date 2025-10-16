@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_14_013500) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_14_230347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -26,6 +26,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_14_013500) do
     t.string "mdl"
     t.boolean "control_fecha"
     t.boolean "rlzd"
+    t.string "tipo"
     t.index ["act_archivo"], name: "index_act_archivos_on_act_archivo"
     t.index ["control_fecha"], name: "index_act_archivos_on_control_fecha"
     t.index ["mdl"], name: "index_act_archivos_on_mdl"

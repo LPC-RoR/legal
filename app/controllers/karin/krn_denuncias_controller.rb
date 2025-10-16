@@ -104,28 +104,17 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   def annmzr
-    # Ejecutado donde necesites (job, controlador, consola)
+    # @objeto es la denuncia (asegúrate de haberla cargado antes)
     act = @objeto.act_archivos.find_by(act_archivo: 'denuncia')
+
     if act
-      original_blob = act.pdf.blob
-
-      anonimizador = PdfAnonimizador.new(original_blob)
-      pdf_io       = anonimizador.anonimizado_io
-
-      nuevo_act = denuncia.act_archivos.create!(
-        tipo: 'anonimizado' # campo extra que puedes tener
-      )
-      nuevo_act.pdf.attach(
-        io: pdf_io,
-        filename: "denuncia_#{denuncia.id}_anonimizada.pdf",
-        content_type: 'application/pdf'
-      )
-      ntc = 'Archivo anonimizado creado exitósamente'
+      AnonimizaPdfJob.perform_later(@objeto.id, act.pdf.blob.id)
+      ntc = 'Anonimización en curso. El nuevo archivo aparecerá en segundos.'
     else
       ntc = 'Archivo fuente no encontrado'
     end
 
-    redirect_to "/krn_denuncias/#{@objeto.id}_2", ntc: ntc              # redirige a la URL permanente de ActiveStorage
+    redirect_to "/krn_denuncias/#{@objeto.id}_2", ntc: ntc
   end
 
   def prg

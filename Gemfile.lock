@@ -362,6 +362,8 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
+    redis-client (0.24.0)
+      connection_pool
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
@@ -379,6 +381,7 @@ GEM
       chunky_png (~> 1.0)
       rqrcode_core (~> 2.0)
     rqrcode_core (2.0.0)
+    rtesseract (3.1.4)
     rubocop (1.75.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -407,6 +410,7 @@ GEM
       rubocop (>= 1.72)
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
+    ruby-filemagic (0.7.3)
     ruby-openai (8.3.0)
       event_stream_parser (>= 0.3.0, < 2.0.0)
       faraday (>= 1)
@@ -427,6 +431,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (8.0.2)
+      connection_pool (>= 2.5.0)
+      json (>= 2.9.0)
+      logger (>= 1.6.2)
+      rack (>= 3.1.0)
+      redis-client (>= 0.23.2)
     solid_cable (3.0.7)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -520,8 +530,10 @@ DEPENDENCIES
   kaminari
   letter_opener
   listen (~> 3.5)
+  marcel (~> 1.0)
   meta-tags
   mime-types
+  mini_magick
   pdf-reader
   pg
   pg_search
@@ -537,9 +549,12 @@ DEPENDENCIES
   rolify
   roo (~> 2.10.0)
   rqrcode
+  rtesseract
   rubocop-rails-omakase
+  ruby-filemagic (~> 0.7.3)
   ruby-openai
   selenium-webdriver
+  sidekiq
   solid_cable
   solid_cache
   solid_queue

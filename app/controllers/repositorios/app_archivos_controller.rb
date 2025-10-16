@@ -132,7 +132,6 @@ class Repositorios::AppArchivosController < ApplicationController
     end
 
     def read_demanda
-      puts "------------------------------------------------------- read_demanda"
       if @objeto.ownr.class.name == 'Causa'
         if @objeto.app_archivo == 'Demanda' and @objeto.archivo.present?
           path_pdf = File.join(Rails.root, 'public', @objeto.archivo.url)

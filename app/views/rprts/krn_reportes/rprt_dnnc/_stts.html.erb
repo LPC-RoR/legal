@@ -23,7 +23,7 @@
 		<div class="col-2 text-end">
 			<% unless objt.articulo_516  %>
 				<% if objt.email %>
-					<% if objt.email != objt.email_ok and (not @acts_hsh[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email')) %>
+					<% if objt.email != objt.email_ok and (not acts[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email')) %>
 						Sin validar
 					<% else %>
 						<%= objt.verified? ? 'Verificado' : 'Revisado' %>
@@ -37,10 +37,10 @@
 		<div>Respecto de este participante, resulta aplicable lo dispuesto en el artículo 4°, inciso primero, del Código del Trabajo.</div>
 	<% end %>
 
-	<% if @acts_hsh[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email') or objt.email_direccion? %>
+	<% if acts[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email') or objt.email_direccion? %>
 		<div class="fw-bold">Documentos del participante generados por la plataforma</div>
 		<div class="ms-3">
-			<%= render partial: 'rprts/krn_reportes/rprt_dnnc/pltfrm_fls', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt, lnks: true} %>
+			<%= render partial: 'rprts/krn_reportes/rprt_dnnc/pltfrm_fls', locals: {hsh: acts, mdl: ClssPrcdmnt, ownr: objt, lnks: true} %>
 		</div>
 	<% end %>
 
@@ -51,10 +51,10 @@
 		</div>
 	<% end %>
 
-	<% unless @acts_hsh[objt.clss_id][:cdgs].empty? %>
+	<% unless acts[objt.clss_id][:cdgs].empty? %>
 		<div class="fw-bold">Documentos controlados</div>
 		<div class="ms-3">
-			<%= render partial: 'rprts/krn_reportes/rprt_dnnc/extrns_fls', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objt} %>
+			<%= render partial: 'rprts/krn_reportes/rprt_dnnc/extrns_fls', locals: {acts: acts, mdl: ClssPrcdmnt, ownr: objt} %>
 		</div>
 	<% end %>
 

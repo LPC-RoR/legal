@@ -3,18 +3,41 @@ class PdfAnonimizador
   require 'pdf/reader'
   require 'prawn'
   require 'openai'
+  require 'mini_magick'
+  require 'rtesseract'
 
-  OPENAI_CLIENT = OpenAI::Client.new(access_token: Rails.application.credentials.openai_api_key!)
+  TOKEN_LIMIT   = 50_000
+  OVERLAP_CHARS = 2_000
+  MODEL         = 'gpt-4o'
 
   def initialize(blob)
-    @blob = blob                 # ActiveStorage::Blob del PDF original
+    @blob = blob
   end
 
-  # Devuelve un IO (StringIO) con el PDF anonimizado
+  # app/services/pdf_anonimizador.rb  (fragmento clave)
   def anonimizado_io
-    texto_completo = extraer_texto
-    texto_anonimizado = reemplazar_entidades(texto_completo)
+    # 1.  texto de cada página (OCR si hace falta)
+    paginas = PdfOcrReader.texto_por_pagina(@blob)
 
+    # 2.  texto de las imágenes incrustadas
+    imgs_por_pag = PdfImageTextExtractor.textos_por_pagina(@blob)
+
+    # 3.  ensamblar cuerpo
+    texto_completo = paginas.map do |p|
+      base = p[:text]
+      if (imgs = imgs_por_pag[p[:page]])
+        imgs.each { |img| base += "\n[IMAGEN-#{p[:page]}-#{img[:idx]}]\n#{img[:text]}\n[IMAGEN-#{p[:page]}-#{img[:idx]}]\n" }
+      end
+      base
+    end.join("\n")
+
+    # 3b.  garantía: nunca envíes cadena vacía a GPT
+    texto_completo = texto_completo.presence || '[sin texto]'
+
+    # 4.  anonimizar con GPT-4o
+    texto_anonimizado = anonimiza_con_gpt(texto_completo)
+
+    # 5.  PDF limpio
     io = StringIO.new
     generar_pdf_desde_texto(texto_anonimizado, io)
     io.rewind
@@ -23,43 +46,42 @@ class PdfAnonimizador
 
   private
 
-  def extraer_texto
-    texto = ''
-    PDF::Reader.new(StringIO.new(@blob.download)).pages.each do |page|
-      texto += page.text
-    end
-    texto
-  end
-
-  def reemplazar_entidades(texto)
-    # Usamos OpenAI para NER; puedes cambiarlo por tu propio modelo
+  def anonimiza_con_gpt(texto)
     prompt = <<~TXT
-      Anonimiza el siguiente texto reemplazando:
-      - Nombres de personas por [NOMBRE]
-      - Direcciones por [DIRECCION]
-      - Cargos/funciones por [CARGO]
+      Anonimiza el siguiente texto.
+      Reemplaza:
+      - Nombres de personas → [NOMBRE]
+      - Cargos → [CARGO]
+      - Emails → [EMAIL]
+      - Teléfonos → [TELEFONO]
+      - RUT/DNI → [RUT/CI]
+      - Direcciones postales → solo hasta el número (calle+número), deja la comuna/ciudad/region sin cambio.
+      - Deja intactos los marcadores [IMAGEN-X]
+
+      Ejemplos de salida esperada:
+      ENTRADA:  DOMICILIO : Gálvez Nº 1569 27 Comuna de Isla de Maipo
+      SALIDA:   DOMICILIO : [DIRECCION]
+
+      ENTRADA:  Avda. Providencia N° 1208, Of. 207, Providencia
+      SALIDA:   [DIRECCION]
 
       Texto:
       #{texto}
     TXT
 
-    response = OPENAI_CLIENT.chat(
+    response = OpenAI::Client.new.chat(
       parameters: {
-        model: 'gpt-4',
+        model: MODEL,
         messages: [{ role: 'user', content: prompt }],
         temperature: 0
       }
     )
-
     response.dig('choices', 0, 'message', 'content') || texto
   end
 
   def generar_pdf_desde_texto(texto, io)
+    Prawn::Fonts::AFM.hide_m17n_warning = true
     Prawn::Document.new(page_size: 'A4', page_layout: :portrait) do |pdf|
-      pdf.font_families.update('Helvetica' => {
-                                 normal: 'Helvetica',
-                                 bold: 'Helvetica-Bold'
-                               })
       pdf.font 'Helvetica'
       pdf.text texto, size: 11, inline_format: true
     end.render(io)

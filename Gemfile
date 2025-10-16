@@ -53,6 +53,7 @@ gem 'pundit'
 # Para el manejo de Tenants
 gem 'request_store'
 
+gem 'sidekiq'          # or delayed_job / resque
 
 # Para verificar envío de correos en el navegador
 gem 'letter_opener', group: :development
@@ -76,6 +77,9 @@ gem 'combine_pdf', '~> 1.0'
 gem 'prawn'           # crea el PDF anonimizado
 gem 'prawn-table'       # si hay tablas
 gem 'ruby-openai'       # NER (puedes usar spaCy vía API propia)
+
+gem 'rtesseract'          # wrapper de Tesseract-OCR
+gem 'mini_magick'         # convertir pdf → png
 
 gem 'wicked_pdf'                  # Para reportes en PDF
 gem 'wkhtmltopdf-binary'
@@ -154,3 +158,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "cssbundling-rails", "~> 1.4"
+
+gem "marcel", "~> 1.0"
+
+gem "ruby-filemagic", "~> 0.7.3"

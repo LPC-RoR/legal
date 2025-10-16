@@ -1,5 +1,5 @@
 <% hsh[ownr.clss_id][:actns].each do |actn| %>
 	<% unless ClssPrcdmnt.list_excluded?(actn) %>
-		<%= render partial: 'rprts/krn_reportes/rprt_dnnc/pltfrm_objt', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: ownr, code: actn} %>
+		<%= render partial: 'rprts/krn_reportes/rprt_dnnc/pltfrm_objt', locals: {hsh: hsh, mdl: ClssPrcdmnt, ownr: ownr, code: actn} %>
 	<% end %>
 <% end %>

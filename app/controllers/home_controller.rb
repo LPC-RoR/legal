@@ -7,14 +7,15 @@ class HomeController < ApplicationController
   	prepare_meta_tags
 
     set_meta_tags(
-      title: "Simplifica y asegura el cumplimiento de la Ley 21.643 (Ley Karin)",
-      description: "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)",
+      title: "Gestión de Denuncias Ley 21.643 | Plataforma Especializada",
+      description: "Plataforma especializada para gestionar denuncias de la Ley 21.643 en Chile. Externalización de investigaciones, auditoría y capacitación.",
+      keywords: %w[ley 21.643 gestión denuncias investigaciones laborales auditoría consultoría chile],
       canonical: root_url,
       og: {
         type: 'website',
         url: root_url,
-        title: "LaborSafe",
-        description: "Gestiona todas tus investigaciones laborales desde una sola plataforma",
+        title: "LaborSafe - Gestión Profesional de Denuncias Ley 21.643",
+        description: "Transforma la gestión de denuncias con cumplimiento automático de plazos y reportes normativos.",
         image: {
           _:  view_context.image_url('logo/logo_100.png'), # JPG/PNG 1200x630
           width: 392,
@@ -24,8 +25,8 @@ class HomeController < ApplicationController
       },
       twitter: {
         card: 'summary_large_image',
-        title: "LaborSafe",
-        description: "Cumple los plazos legales, protege la confidencialidad y automatiza tus documentos",
+        title: "LaborSafe - Gestión de Denuncias Ley 21.643",
+        description: "Plataforma especializada para empresas que gestionan denuncias bajo la Ley 21.643 en Chile.",
         image: view_context.image_url('logo/logo_100.png')
       }
     )

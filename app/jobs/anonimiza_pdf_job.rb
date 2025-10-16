@@ -1,0 +1,23 @@
+# app/jobs/anonimiza_pdf_job.rb
+class AnonimizaPdfJob < ApplicationJob
+  queue_as :default
+  retry_on Faraday::TimeoutError, wait: :exponentially_longer, attempts: 5
+
+  def perform(denuncia_id, original_blob_id)
+    denuncia = KrnDenuncia.find(denuncia_id)   # ← sin namespace
+    blob     = ActiveStorage::Blob.find(original_blob_id)
+
+    io = PdfAnonimizador.new(blob).anonimizado_io
+
+  nuevo_act = denuncia.act_archivos.new(act_archivo: 'anonimizado')
+  nuevo_act.skip_pdf_presence = true   # ← salta la validación
+  nuevo_act.save!
+
+  nuevo_act.pdf.attach(
+    io: io,
+    filename: "denuncia_#{denuncia.id}_anonimizada.pdf",
+    content_type: 'application/pdf'
+  )
+
+  end
+end

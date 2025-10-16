@@ -10,9 +10,9 @@ class ActArchivo < ApplicationRecord
   validate :safe_pdf, unless: -> {self.rlzd}
   validate :pdf_must_be_attached_unless_rlzd
 
-  validates :fecha, presence: true, if: -> {self.mdl.constantize.act_fecha(self.act_archivo)}
+  validates :fecha, presence: true, if: -> { mdl.present? && mdl.constantize.try(:act_fecha, act_archivo) }
   validates_presence_of :act_archivo
-  validates_presence_of :nombre, if: -> {self.mdl.constantize.act_lst?(self.act_archivo)}
+  validates :nombre, presence: true, if: -> { mdl.present? && mdl.constantize.try(:act_lst?, act_archivo) }
 
   scope :act_ordr, -> { order(:act_archivo) }
   scope :crtd_ordr, -> { order(created_at: :desc) }

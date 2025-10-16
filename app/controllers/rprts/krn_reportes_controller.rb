@@ -60,97 +60,30 @@ class Rprts::KrnReportesController < ApplicationController
 
   # Método para generar PDF y enviarlo por correo electrónico
   def generate_and_send_report
+    dnnc_id = ClssPdfRprt.rcrd_rprts.include?(params[:rprt]) ? ClssPdfRprt::RCRD_CLSS[params[:rprt].to_sym].find(params[:oid]).dnnc.id : params[:oid]
+    @dnnc = KrnDenuncia.estrctr.find(dnnc_id)
 
-    init_rprt(params[:oid], params[:rprt])
-    
-    @dstntrs.each do |dstntr|
-
-      @ownr = ClssPdfRprt.dnnc_rprts.include?(params[:rprt]) ? @dnnc : dstntr[:objt]
-
-      pdf_data = get_grover_pdf_data(@ownr, dstntr, params[:oid], params[:rprt], @ref)
-
-      # Guardar en ActArchivo
-      act_archivo = @ownr.act_archivos.new(
-        act_archivo: params[:rprt],
-        nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
-        mdl: 'ClssPrcdmnt',
-        skip_pdf_presence: true        # <-- bypass validation
-      )
-      act_archivo.pdf.attach(
-        io: StringIO.new(pdf_data),
-        filename: "#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
-        content_type: 'application/pdf'
-      )
-      act_archivo.save!
-
-      # Enviar por correo
-      PdfMailer.send_pdf(
-        dstntr[:email], 
-        pdf_data, 
-        "#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
-        params[:rprt],
-        ClssPdfRprt.sbjcts[params[:rprt].to_sym]
-      ).deliver_now
-
-      @ownr.pdf_registros.create(cdg: params[:rprt])
-    end
-    
-    ntc = @dstntrs.length == 0 ? 'No se encontraron destinatarios pendientes.' : "El reporte ha sido enviado exitosamente a #{@dstntrs.length} participante(s)."
-    redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt]), notice: ntc
+    ProcessKrnReportJob.perform_later('generate_and_send', params[:oid], params[:rprt])
+    redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt]),
+                notice: 'El reporte se está generando y enviando por correo. Recibirá una notificación cuando finalice.'
   end
 
   def generate_and_store_dnnc
-    @ownr = KrnDenuncia.estrctr.find(params[:oid])
-    @logo_url = @ownr.dnnc.ownr.logo_url
-    @rprt = DenunciaReport.new(@ownr).to_h
-    @kproc = KrnPrcdmnt.for(@ownr)
-    @acts_hsh = ActLoad.for_tree(@ownr)
+    dnnc_id = ClssPdfRprt.rcrd_rprts.include?(params[:rprt]) ? ClssPdfRprt::RCRD_CLSS[params[:rprt].to_sym].find(params[:oid]).dnnc.id : params[:oid]
+    @dnnc = KrnDenuncia.estrctr.find(dnnc_id)
 
-    pdf_data = get_grover_pdf_data(@ownr, nil, params[:oid], params[:rprt], nil)
-
-    # Guardar en ActArchivo
-    act_archivo = @ownr.act_archivos.new(
-      act_archivo: params[:rprt],
-      nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
-      mdl: 'ClssPrcdmnt',
-    )
-    act_archivo.pdf.attach(
-      io: StringIO.new(pdf_data),
-      filename: "#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
-      content_type: 'application/pdf'
-    )
-    act_archivo.save!
-
-    redirect_to ClssPdfRprt.rdrct_path(@ownr, params[:rprt])
+    ProcessKrnReportJob.perform_later('generate_and_store_dnnc', params[:oid], params[:rprt])
+    redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt]),
+                notice: 'El PDF está siendo almacenado, le avisaremos cuando esté listo.'
   end
 
   def generate_and_store_report
-    init_rprt(params[:oid], params[:rprt])
-    
-    @dstntrs.each do |dstntr|
+    dnnc_id = ClssPdfRprt.rcrd_rprts.include?(params[:rprt]) ? ClssPdfRprt::RCRD_CLSS[params[:rprt].to_sym].find(params[:oid]).dnnc.id : params[:oid]
+    @dnnc = KrnDenuncia.estrctr.find(dnnc_id)
 
-      @ownr = ClssPdfRprt.dnnc_rprts.include?(params[:rprt]) ? @dnnc : dstntr[:objt]
-
-      pdf_data = get_grover_pdf_data(@ownr, dstntr, params[:oid], params[:rprt], @ref)
-
-      # Guardar en ActArchivo
-      act_archivo = @ownr.act_archivos.new(
-        act_archivo: params[:rprt],
-        nombre: ClssPrcdmnt.act_nombre[params[:rprt]],
-        mdl: 'ClssPrcdmnt',
-        skip_pdf_presence: true        # <-- bypass validation
-      )
-      act_archivo.pdf.attach(
-        io: StringIO.new(pdf_data),
-        filename: "#{ClssPrcdmnt.act_nombre[params[:rprt]]}.pdf",
-        content_type: 'application/pdf'
-      )
-      act_archivo.save!
-
-      @ownr.pdf_registros.create(cdg: params[:rprt])
-    end
-    
-    redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt]), notice: ntc
+    ProcessKrnReportJob.perform_later('generate_and_store', params[:oid], params[:rprt])
+    redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt]),
+                notice: 'Los archivos se están generando en segundo plano.'
   end
 
   private
@@ -171,7 +104,9 @@ class Rprts::KrnReportesController < ApplicationController
       end
     end
 
-    def get_grover_pdf_data(ownr, dstntr, oid, rprt, ref)
+    def get_grover_pdf_data(ownr, dstntr, oid, rprt, ref, reporte = nil, acts = nil)
+
+      acts ||= ActLoad.for_tree(ownr)   # fallback for controller calls
       if ClssPdfRprt.attch_rprt.include?(rprt)
         # Attachar archivo existente
         # act_archivo: 'mdds_rsgrd', es así porque es distinto a rprt
@@ -186,8 +121,15 @@ class Rprts::KrnReportesController < ApplicationController
         html = render_to_string(
           template: "rprts/krn_reportes/#{rprt}",
           layout:    'pdf',
-          formats:   [:html],        # importante: no :pdf
-          locals:    { dstntr: dstntr, ownr: ownr, ref: ref }
+          formats:   [:html],
+          locals:    {
+            dstntr:  dstntr,
+            ownr:    ownr,
+            ref:     ref,
+            rprt:    rprt,
+            reporte: reporte || DenunciaReport.new(ownr).to_h, # fallback por si acaso
+            acts: acts          # ← now available in every partial
+          }
         )
 
         return Grover.new(html,

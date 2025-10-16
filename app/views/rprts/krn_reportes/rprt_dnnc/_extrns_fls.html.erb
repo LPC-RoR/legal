@@ -1,15 +1,15 @@
-<% hsh[ownr.clss_id][:cdgs].each do |act| %>
+<% acts[ownr.clss_id][:cdgs].each do |act| %>
 	
 	<div class="row gx-1 text-<%=ClssPrcdmnt.act_lst?(act) ? 'secodary' : 'primary'%>">
 		<div class="col-10" style="font-size: <%='0.7rem;' if ClssPrcdmnt.act_lst?(act) %>">
-			<% unless mdl.actn_multpl?(act) or mdl.ref_generated?(act) %>· <% end %>
+			<% unless mdl.act_lst?(act) or mdl.ref_generated?(act) %>· <% end %>
 			<%=ClssPrcdmnt.act_nombre[act]%>
 		</div>
 		<div class="col-2 text-end">
 
 			<% unless ClssPrcdmnt.act_lst?(act) %>
-				<% if @acts_hsh[@ownr.clss_id][act] %>
-					<% if @acts_hsh[@ownr.clss_id][act].rlzd? %>
+				<% if acts[ownr.clss_id][act] %>
+					<% if acts[ownr.clss_id][act].rlzd? %>
 						Revisado
 					<% else %>
 						PDF
@@ -23,7 +23,7 @@
 
 	<% if ClssPrcdmnt.act_lst?(act) %>
 		<div class="ms-4 text-primary">
-			<% @acts_hsh[ownr.clss_id][act].each do |lst_fl| %>
+			<% acts[ownr.clss_id][act].each do |lst_fl| %>
 
 				<div class="row gx-1">
 					<div class="col-10">

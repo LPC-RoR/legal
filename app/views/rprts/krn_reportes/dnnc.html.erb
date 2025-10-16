@@ -1,8 +1,8 @@
-<%= render partial: "rprts/krn_reportes/rprt_dnnc/encbzd" %>
-<%= render partial: "rprts/krn_reportes/rprt_dnnc/etps_rlzds", locals: {objeto: @ownr} %>
-<%= render partial: "rprts/krn_reportes/rprt_dnnc/drvcns_invstgdrs", locals: {objeto: @ownr} %>
-<%= render partial: "rprts/krn_reportes/rprt_dnnc/accns" %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/encbzd", locals: {reporte: reporte} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/etps_rlzds", locals: {objeto: ownr} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/drvcns_invstgdrs", locals: {reporte: reporte} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/accns", locals: {reporte: reporte} %>
 
 <%#= render partial: prtl_name(@ownr, 'shw/rprt', 'docs_dnnc'), locals: {objeto: @ownr} %>
-<%= render partial: "rprts/krn_reportes/rprt_dnnc/docs_dnnc", locals: {objeto: @ownr} %>
-<%= render partial: "rprts/krn_reportes/rprt_dnnc/docs_prtcpnts", locals: {objeto: @ownr} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/docs_dnnc", locals: {objeto: ownr, acts: acts} %>
+<%= render partial: "rprts/krn_reportes/rprt_dnnc/docs_prtcpnts", locals: {objeto: ownr, acts: acts} %>

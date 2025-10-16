@@ -209,12 +209,6 @@ module Capitan
 		@coleccion[controller] = paginate ? tabla.page(params[:page]) : tabla
 		@paginate[controller] = paginate
 
-		puts "******************************************************** set_tabla"
-		puts controller
-		puts @coleccion[controller].class.name
-		puts @paginate[controller]
-		puts "******************************************************** set_tabla"
-
 	end
 
 	# ************************************************************************** INICIALIZA TAB

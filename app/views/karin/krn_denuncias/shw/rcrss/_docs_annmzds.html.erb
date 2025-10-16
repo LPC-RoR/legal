@@ -8,9 +8,22 @@
 	</div>
 	<div class="py-2 px-3">
 		<% if @objeto.dnnc? %>
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}/annmzr", tltp: 'Anonimizar denuncia', data: {turbo_method: :post}} do %>
-				Anonimizar denuncia
-			<% end %>
+			<div class="row gx-1 objt_lnk">
+				<div class="col-10">
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}/annmzr", tltp: 'Anonimizar denuncia', data: {turbo_method: :post}} do %>
+						Anonimizar denuncia
+					<% end %>
+				</div>
+				<div class="col-2 text-end">
+					<% fl = @objeto.act_archivos.find_by(act_archivo: 'anonimizado') %>
+					<% if fl %>
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{fl.id}/show_pdf", tltp: 'Ver'} do %>
+							Archivo!
+						<% end %>
+						<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: fl} %>
+					<% end %>
+				</div>
+			</div>
 		<% end %>
 	</div>
 </div>

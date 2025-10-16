@@ -28,7 +28,7 @@ class ClssPrcdmnt
         { nombre: 'representacion',     si: ->(o) { o.dnnc.presentado_por == KrnDenuncia::TIPOS_DENUNCIANTE[1] } },
         { nombre: 'antecedentes',       si: ->(o) { true } },
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
-        { nombre: 'comprobante_firmado',si: ->(o) { true } },
+        { nombre: 'comprobante_firmado',si: ->(o) { o.act_archivos.exists?(act_archivo: 'comprobante') } },
         { nombre: 'apt',                si: ->(o) { true } },
         { nombre: 'declaracion',        si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       ],
@@ -182,7 +182,7 @@ class ClssPrcdmnt
   end
 
   def self.act_lst?(act)
-    ['antecedentes', 'mdds_rsgrd', 'medidas_resguardo', 'objecion_antcdnts', 'medidas_sanciones', 'antecedentes', 'apt'].include?(act)
+    ['antecedentes', 'mdds_rsgrd', 'medidas_resguardo', 'objecion_antcdnts', 'medidas_sanciones', 'apt'].include?(act)
   end
 
   def self.act_fecha(act)
