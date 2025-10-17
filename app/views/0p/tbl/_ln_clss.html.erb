@@ -1,0 +1,53 @@
+<% clss 		||= ClssTbl.clss_dflt %>
+<% dir  		||= clss.to_s %>
+<% ordr			||= false %>
+<% hide_crud    ||= false %>
+
+<% indnt ||= 0 %>
+
+<div class="row <%= ClssTbl.clss_str(clss) %>" style="<%= ClssTbl.styl_str(clss) %>" id="<%=cntrllr(objt)%>#cid<%=objt.id%>">
+
+	<% if ordr %>
+		<div class=" col-2 app_lnk" style="padding-left: <%=indnt+1%>rem;">
+			<%= render partial: '0p/tbl/ordr', locals: {objeto: objt} %>
+		</div>
+	<% end %>
+
+	<div class="col-<%=ordr ? '7' : '9'%> app_lnk" style="padding-left: <%=indnt+1%>rem;">
+		<% if prtl?(objt, dir, "objt") %>
+			<%= render partial: prtl(objt, dir, "objt"), locals: {objeto: objt} %>
+		<% end %>
+	</div>
+
+	<div class="col-3 text-end app_lnk" style="padding-right: <%=indnt+1%>rem;">
+		<% unless hide_crud %>
+
+			<% if prtl?(objt, dir, "cllps") %>
+				<%= render layout: '0p/collapse/link', locals: {label: objt.class.name, objeto: objt, tooltip: nil} do %>
+					<i class="bi bi-arrow-bar-down"></i>
+				<% end %>
+			<% end %>
+
+			<% if prtl?(objt, dir, "lnks") %>
+				<%= render partial: prtl(objt, dir, "lnks"), locals: {objeto: objt} %>
+			<% elsif prtl?(source, dir, 'lft_lnks') %>
+				<%= render partial: prtl(objt, dir, "lft_lnks"), locals: {objeto: objt} %>
+				<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objt} %>
+			<% else %>
+				<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objt} %>
+			<% end %>
+
+		<% end %>
+	</div>
+
+</div>
+
+<% if prtl?(objt, dir, "cllps") %>
+	<%= render layout: '0p/collapse/display', locals: {label: objt.class.name, objeto: objt} do %>
+		<%= render partial: prtl(objt, dir, "cllps"), locals: {objeto: objt} %>
+	<% end %>
+<% end %>
+
+<% if prtl?(objt, dir, "dsply") %>
+	<%= render partial: prtl(objt, dir, "dsply"), locals: {objeto: objt} %>
+<% end %>

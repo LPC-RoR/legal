@@ -1,0 +1,32 @@
+<% dir  		||= clss.to_s %>
+<% ordr			||= false %>
+<% hide_crud    ||= false %>
+
+<% indnt ||= 0 %>
+<tr id="<%=cntrllr(objt)%>#cid<%=objt.id%>" style="font-size: 1rem;">
+
+	<% if ordr %>
+		<th class="app_lnk" style="padding-left: <%=indnt+1%>rem;"><%= render partial: '0p/tbl/ordr', locals: {objeto: objt} %></th>
+	<% end %>
+
+	<td class="app_lnk" style="padding-left: <%=indnt+1%>rem;">
+		<% if prtl?(objt, dir, "objt") %>
+			<%= render partial: prtl(objt, dir, "objt"), locals: {objeto: objt} %>
+		<% end %>
+	</td>
+
+	<% unless hide_crud %>
+		<td class="app_lnk" style="text-align: right; padding-right: <%=indnt+1%>rem;">
+
+			<% if prtl?(objt, dir, "lnks") %>
+				<%= render partial: prtl(objt, dir, "lnks"), locals: {objeto: objt} %>
+			<% elsif prtl?(source, dir, 'lft_lnks') %>
+				<%= render partial: prtl(objt, dir, "lft_lnks"), locals: {objeto: objt} %>
+				<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objt} %>
+			<% else %>
+				<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objt} %>
+			<% end %>
+
+		</td>
+	<% end %>
+</tr>

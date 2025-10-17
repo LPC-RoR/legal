@@ -4,19 +4,24 @@ class CuentasController < ApplicationController
   before_action :set_cuenta, only: %i[ dnncs invstgdrs extrns nmn usrs ]
 
   def dnncs
+    set_pgnt_tbl('krn_denuncias', @objeto.krn_denuncias.ordr)
       set_tabla('krn_denuncias', @objeto.krn_denuncias.ordr, true)
   end
 
   def invstgdrs
+    set_pgnt_tbl('krn_investigadores', @objeto.krn_investigadores)
       set_tabla('krn_investigadores', @objeto.krn_investigadores, true)
   end
 
   def extrns
+    set_pgnt_tbl('krn_empresa_externas', @objeto.krn_empresa_externas)
       set_tabla('krn_empresa_externas', @objeto.krn_empresa_externas, true)
   end
 
   def nmn
+    set_pgnt_tbl('app_nominas', @objeto.app_nominas)
       set_tabla('app_nominas', @objeto.app_nominas, true)
+      @cntcts = @objeto.app_contactos.order(:nombre)
       set_tabla('app_contactos', @objeto.app_contactos.order(:nombre), true)
   end
 

@@ -13,6 +13,7 @@ class EmpresasController < ApplicationController
 
   # GET /empresas or /empresas.json
   def index
+    set_pgnt_tbl('empresas', empresas_visibles)
     set_tabla('empresas', empresas_visibles, true)
     render layout: 'addt'
   end

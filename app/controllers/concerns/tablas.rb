@@ -1,7 +1,15 @@
 module Tablas
 	extend ActiveSupport::Concern
 
-	# ************************************ MANEJO DE PATHS
+	# Este setéo es sólo para colecciones paginables
+	# funciona con un partial de tabla que funciona con colecciones directamente
+	def set_pgnt_tbl(c, clccn, nrows = nil)
+		@pgnt ||= {}
+		nrows ||= ClssTbl.kminr_nlines
+		@pgnt[c] = clccn.page(params[:page]).per(nrows)
+	end
+
+	# ************************************ MANEJO DE PATHS (DEPRECATED)
 
 	def sym_objeto(objeto)
 		objeto.class.name.tableize.to_sym

@@ -1,0 +1,13 @@
+<% pgnt     ||= false %>
+
+<% clss     ||= ClssTbl.clss_dflt %>
+<% dir      ||= clss.to_s %>
+<% typ      ||= 'tr' %>
+<% ordr     ||= false %>
+<% hide_crud    ||= false %>
+
+<%= render partial: '0p/tbl/pgnt', locals: {clccn: clccn, lctn: 'arriba'} if pgnt %>
+
+<%= render partial: "0p/tbl/lst_clss", locals: {clccn: clccn, clss: clss, dir: dir, typ: typ, ordr: ordr, hide_crud: hide_crud} %>
+
+<%= render partial: '0p/tbl/pgnt', locals: {clccn: clccn, lctn: 'abajo'} if pgnt %>

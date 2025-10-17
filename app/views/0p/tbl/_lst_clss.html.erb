@@ -1,0 +1,28 @@
+<% clss 		||= ClssTbl.clss_dflt %>
+<% dir  		||= clss.to_s %>
+<% typ  		||= 'tr' %>
+<% ordr			||= false %>
+<% hide_crud    ||= false %>
+<div class="<%= ClssTbl.clss_lyt[clss][:bx][:clss] %>" style="<%= ClssTbl.clss_lyt[clss][:bx][:style] %>">
+
+	<% if typ == 'tr' %>
+	<table class="<%= ClssTbl.clss_lyt[clss][:tbl_clss] %>">
+		<tbody>
+	<% end %>
+
+			<% clccn.each do |objt| %>
+				<% if prtl?(objt, dir, "objeto") %>
+					<%= render partial: prtl(objt, dir, "objeto") , locals: {objeto: objt} %>
+				<% elsif prtl?(objt, dir, typ) %>
+					<%= render partial: prtl(objt, dir, typ), locals: {objt: objt} %>
+				<% else %>
+					<!-- NO se puede pasar clss, porque la clase del objeto no puede ser la del título -->
+					<%= render partial: "0p/tbl/#{typ}_clss", locals: {objt: objt, clss: clss, dir: dir, ordr: ordr, hide_crud: hide_crud} %>
+				<% end %>
+			<% end %>
+
+	<% if typ == 'tr' %>
+		</tbody>
+	</table>
+	<% end %>
+</div>

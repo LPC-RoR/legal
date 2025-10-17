@@ -3,29 +3,38 @@
 <%= render partial: 'cuentas/indx/emprs_head', locals: {objt: @objeto} %>
 <%= render partial: 'cuentas/indx/tab', locals: {objt: @objeto} if current_usuario.admin? %>
 
-<%= render partial: 'cuentas/indx/ttl', locals: {source: source, ownr: @objeto, fs: 5, brdr_clr: 'dark-subtle'} %>
+<%#= render partial: 'cuentas/indx/ttl', locals: {source: source, ownr: @objeto, fs: 5, brdr_clr: 'dark-subtle'} %>
+<%= render partial: '0p/ttl_clss', locals: {source: source, dir: 'indx', hide_gly: true} %>
+
 <!-- Manejo de mensajes de inicio de cuenta! -->
-<!-- EVALUAR cambiar dog? por not scp_activo? -->
+<!-- EVALUAR Usando tenants hay que cambiar dog? por operacion? -->
 <% if @objeto.krn_activo? or current_usuario.dog? %>
-	<% unless (action_name == 'dnncs' and (not @objeto.rgstrs_mnms?)) %>
-		<% if action_name == 'usrs' %>
-			<%= render partial: 'cuentas/usrs' %>
-		<% else %>
-			<%= render partial: '0p/tbl/tbl', locals: {source: source, typ: typ} %>
-		<% end %>
+
+	<% case action_name %>
+	<% when 'usrs' %>
+		<%= render partial: 'cuentas/usrs' %>
+	<% when 'dnncs' %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @pgnt[source], dir: 'list', pgnt: true} if @objeto.rgstrs_mnms? %>
+	<% else %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @pgnt[source], dir: 'list', typ: typ, pgnt: true} %>
 	<% end %>
 
 	<% if action_name == 'nmn' %>
 		<!-- El ingreso de Contactos habilita opciones de reportes, no inhabilitan el ingreso de una Denuncia -->
-		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'app_contactos', ownr: @objeto, fs: 5, brdr_clr: 'dark-subtle'} %>
-		<%= render partial: '0p/tbl/tbl', locals: {source: 'app_contactos', crud: 'lnks'} %>
+		<%= render partial: '0p/ttl_clss', locals: {source: 'app_contactos', dir: 'indx', hide_gly: true} %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @cntcts, dir: 'list'} %>
 	<% end %>
 
 	<% unless @objeto.recepcion_habilitada? %>
 			<%= render partial: prtl_name('cuentas', 'indx/mssgs', 'rgstrs_mnms') %>
 	<% end %>
+
 <% elsif @objeto.demo_vencido? or @objeto.producto_vencido? %>
+
 	<%= render partial: prtl_name('cuentas', 'indx/mssgs', 'prdct_vncd') %>
+
 <% elsif @objeto.cta_demo_completa? or @objeto.cta_producto_completa? %>
+
 	<%= render partial: prtl_name('cuentas', 'indx/mssgs', 'cta_cmplt') %>
+
 <% end %>
