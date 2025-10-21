@@ -29,10 +29,8 @@ class PdfImageTextExtractor
   def self.render_page(pdf, page)
     tmp_dir = '/tmp'
     base    = File.join(tmp_dir, "page_#{SecureRandom.hex(8)}")
-    # 1. ejecutamos
-    ok = system('pdftoppm', '-f', page.to_s, '-l', page.to_s,
-                '-png', '-r', DPI.to_s, pdf, base)
-    # 2. buscamos el archivo que realmente generó
+    ok      = system('pdftoppm', '-f', page.to_s, '-l', page.to_s,
+                     '-png', '-r', DPI.to_s, pdf, base)
     out_png = Dir["#{base}-*.png"].first
     raise "pdftoppm falló página #{page}" unless ok && out_png && File.exist?(out_png)
     out_png

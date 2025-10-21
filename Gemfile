@@ -163,3 +163,5 @@ gem "cssbundling-rails", "~> 1.4"
 gem "marcel", "~> 1.0"
 
 gem "ruby-filemagic", "~> 0.7.3"
+
+gem "redcarpet", "~> 3.6"
