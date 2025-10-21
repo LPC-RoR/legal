@@ -3,7 +3,7 @@
 
 	<%= render partial: 'karin/prtcpnts/objt/email_verification', locals: {objeto: objeto} %>
 
-	<% if @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, 'verificar_email') or objeto.email_direccion? %>
+	<% if (@acts_hsh[act_id] and @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, 'verificar_email')) or objeto.email_direccion? %>
 		<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Envío de información y notificaciones', gly: 'caret-right-fill'} do %>
 			<%= render partial: 'pdf/pdf_registros/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
 		<% end %>
@@ -13,7 +13,7 @@
 		<%= render partial: '0p/tbl_box', locals: {source: 'krn_declaraciones', dir: 'indx', ownr: objeto, clss_ttl: 'bg_azul_claro'} %>
 	<% end %>
 
-	<% unless @acts_hsh[objeto.clss_id][:cdgs].empty? %>
+	<% unless (@acts_hsh[objeto.clss_id] and @acts_hsh[objeto.clss_id][:cdgs].empty?) %>
 		<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Documentos controlados', gly: 'caret-right-fill'} do %>
 			<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
 		<% end %>

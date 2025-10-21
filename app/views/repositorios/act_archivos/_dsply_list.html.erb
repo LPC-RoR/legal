@@ -1,4 +1,5 @@
 <% act_id = "#{ownr.class.name}_#{ownr.id}" %>
+<% if hsh[act_id] %>
 <% hsh[act_id][:cdgs].each do |act| %>
 
 	<div class="row gx-1 text-<%=mdl.act_lst?(act) ? 'secodary' : 'primary'%>">
@@ -86,4 +87,5 @@
 		</div>
 	<% end %>
 
+<% end %>
 <% end %>

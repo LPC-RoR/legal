@@ -22,6 +22,12 @@ class ProcessKrnReportJob < ApplicationJob
     controller = controller_instance
     controller.send(:init_rprt, oid, rprt)
 
+    denuncia = controller.instance_variable_get(:@dnnc)
+    unless denuncia
+      logger.warn "KrnDenuncia ya no existe (oid: #{oid}, rprt: #{rprt}) – se cancela el job."
+      return
+    end
+
     controller.instance_variable_get(:@dstntrs).each do |dstntr|
       ownr = ClssPdfRprt.dnnc_rprts.include?(rprt) ? controller.instance_variable_get(:@dnnc) : dstntr[:objt]
 
@@ -90,7 +96,7 @@ class ProcessKrnReportJob < ApplicationJob
     controller.instance_variable_get(:@dstntrs).each do |dstntr|
       ownr = ClssPdfRprt.dnnc_rprts.include?(rprt) ? denuncia : dstntr[:objt]
       # creamos el hash una sola vez por denuncia
-      reporte = DenunciaReport.new(ownr).to_h
+      reporte = DenunciaReport.new(ownr.dnnc).to_h
 
       pdf_data = controller.send(:get_grover_pdf_data, ownr, dstntr, oid, rprt, controller.instance_variable_get(:@ref), nil, nil)
 

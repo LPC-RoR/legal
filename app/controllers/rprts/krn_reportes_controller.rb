@@ -63,6 +63,8 @@ class Rprts::KrnReportesController < ApplicationController
     dnnc_id = ClssPdfRprt.rcrd_rprts.include?(params[:rprt]) ? ClssPdfRprt::RCRD_CLSS[params[:rprt].to_sym].find(params[:oid]).dnnc.id : params[:oid]
     @dnnc = KrnDenuncia.estrctr.find(dnnc_id)
 
+    Rails.logger.info "[ProcessKrnReportJob] encolando (send) dnnc para denuncia #{params[:oid]}"
+
     ProcessKrnReportJob.perform_later('generate_and_send', params[:oid], params[:rprt])
     redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt]),
                 notice: 'El reporte se está generando y enviando por correo. Recibirá una notificación cuando finalice.'
@@ -80,6 +82,8 @@ class Rprts::KrnReportesController < ApplicationController
   def generate_and_store_report
     dnnc_id = ClssPdfRprt.rcrd_rprts.include?(params[:rprt]) ? ClssPdfRprt::RCRD_CLSS[params[:rprt].to_sym].find(params[:oid]).dnnc.id : params[:oid]
     @dnnc = KrnDenuncia.estrctr.find(dnnc_id)
+
+    Rails.logger.info "[ProcessKrnReportJob] encolando (store) dnnc para denuncia #{params[:oid]}"
 
     ProcessKrnReportJob.perform_later('generate_and_store', params[:oid], params[:rprt])
     redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt]),
@@ -106,7 +110,7 @@ class Rprts::KrnReportesController < ApplicationController
 
     def get_grover_pdf_data(ownr, dstntr, oid, rprt, ref, reporte = nil, acts = nil)
 
-      acts ||= ActLoad.for_tree(ownr)   # fallback for controller calls
+      acts ||= ActLoad.for_tree(ownr.dnnc)   # fallback for controller calls
       if ClssPdfRprt.attch_rprt.include?(rprt)
         # Attachar archivo existente
         # act_archivo: 'mdds_rsgrd', es así porque es distinto a rprt
@@ -127,7 +131,7 @@ class Rprts::KrnReportesController < ApplicationController
             ownr:    ownr,
             ref:     ref,
             rprt:    rprt,
-            reporte: reporte || DenunciaReport.new(ownr).to_h, # fallback por si acaso
+            reporte: reporte || DenunciaReport.new(ownr.dnnc).to_h, # fallback por si acaso
             acts: acts          # ← now available in every partial
           }
         )

@@ -12,18 +12,22 @@ class ActLoad
 
   # Devuelve el hash para un solo objeto (compatible con el formato viejo)
   def self.for(obj)
-    new(obj).to_h
+    new(obj.dnnc).to_h
   end
 
   # Devuelve el hash completo para una Denuncia y toda su familia
   def self.for_tree(denuncia)
-    ActiveRecord::Base.transaction do
+
+    Rails.logger.info "ActLoad.for_tree recibió: #{denuncia.class} ID: #{denuncia&.id}"
+    
+    unless denuncia.is_a?(KrnDenuncia)
+      Rails.logger.error "ERROR: Se esperaba KrnDenuncia pero se recibió: #{denuncia.inspect}"
+      raise ArgumentError, "Se esperaba una KrnDenuncia, pero se recibió: #{denuncia.class}"
+    end
+
+    denuncia.transaction do        # <- en lugar de ActiveRecord::Base.transaction
       den = preload_tree(denuncia)
-
-      # Agrupamos todos los act_archivos una sola vez
       archivo_cache = build_archivo_cache(den)
-
-      # Construimos el hash grande
       {}.tap do |h|
         objects_to_visit(den).each do |o|
           h.merge!(new(o, archivo_cache).to_h)

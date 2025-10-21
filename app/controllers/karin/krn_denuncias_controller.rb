@@ -12,7 +12,6 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
-#    @rprt = DenunciaReport.new(@objeto).to_h
     @acts_hsh = ActLoad.for_tree(@objeto)
     @kproc = KrnPrcdmnt.for(@objeto)
 
