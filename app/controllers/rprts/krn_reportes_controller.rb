@@ -14,6 +14,14 @@ class Rprts::KrnReportesController < ApplicationController
     @dstntrs = rprt == 'dclrcn' ? @ref.destinatario : (ClssPdfRprt.dnnc_rprts.include?(rprt) ? @dnnc.ownr.destinatarios(rprt) : @dnnc.destinatarios(rprt))
   end
 
+  def init_store_rprt(oclss, oid, rprt)
+    @ownr = oclss.constantize.find(oid)
+    dnnc_id = ClssPdfRprt.rcrd_rprts.include?(rprt) ? ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(oid).dnnc.id : @ownr.dnnc.id
+    @dnnc = KrnDenuncia.estrctr.find(dnnc_id)
+    @logo_url = @dnnc.ownr.logo_url
+    @ref = ClssPdfRprt.rcrd_rprts.include?(rprt) ? ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(oid) : nil
+  end
+
   def dnncnt_info_oblgtr
     respond_to_pdf('dnncnt_info_oblgtr')
   end
@@ -63,8 +71,6 @@ class Rprts::KrnReportesController < ApplicationController
     dnnc_id = ClssPdfRprt.rcrd_rprts.include?(params[:rprt]) ? ClssPdfRprt::RCRD_CLSS[params[:rprt].to_sym].find(params[:oid]).dnnc.id : params[:oid]
     @dnnc = KrnDenuncia.estrctr.find(dnnc_id)
 
-    Rails.logger.info "[ProcessKrnReportJob] encolando (send) dnnc para denuncia #{params[:oid]}"
-
     ProcessKrnReportJob.perform_later('generate_and_send', params[:oid], params[:rprt])
     redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt]),
                 notice: 'El reporte se está generando y enviando por correo. Recibirá una notificación cuando finalice.'
@@ -80,12 +86,11 @@ class Rprts::KrnReportesController < ApplicationController
   end
 
   def generate_and_store_report
-    dnnc_id = ClssPdfRprt.rcrd_rprts.include?(params[:rprt]) ? ClssPdfRprt::RCRD_CLSS[params[:rprt].to_sym].find(params[:oid]).dnnc.id : params[:oid]
-    @dnnc = KrnDenuncia.estrctr.find(dnnc_id)
+    # Es este método oid es siempre el ownr, el el envío muchas veces es dnnc
+    ownr = params[:oclss].constantize.find(params[:oid])
+    @dnnc = ownr.dnnc
 
-    Rails.logger.info "[ProcessKrnReportJob] encolando (store) dnnc para denuncia #{params[:oid]}"
-
-    ProcessKrnReportJob.perform_later('generate_and_store', params[:oid], params[:rprt])
+    ProcessKrnReportJob.perform_later('generate_and_store', params[:oid], params[:rprt], params[:oclss])
     redirect_to ClssPdfRprt.rdrct_path(@dnnc, params[:rprt]),
                 notice: 'Los archivos se están generando en segundo plano.'
   end

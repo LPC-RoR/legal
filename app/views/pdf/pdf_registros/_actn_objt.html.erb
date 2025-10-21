@@ -34,7 +34,7 @@
 			<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: hsh, act_id: ownr.clss_id, ownr: ownr, act:code} %>
 			<% unless mdl.ref_generated?(code) %>
 				<% if ['krnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name) and ownr.articulo_516 %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_store_report?oid=#{ownr.dnnc.id}&rprt=#{code}", tltp: 'Generar y almacenar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar almacenamiento'}} do %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_store_report#{ownr_prms(ownr)}&rprt=#{code}", tltp: 'Generar y almacenar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar almacenamiento'}} do %>
 						<i class="bi bi-archive"></i>
 					<% end %>
 				<% else %>

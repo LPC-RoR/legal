@@ -3,11 +3,11 @@ class ProcessKrnReportJob < ApplicationJob
   queue_as :pdf          # create a dedicated queue if you wish
 
   # entry point – decide what to do from the params we receive
-  def perform(action, oid, rprt, current_user_id = nil)
+  def perform(action, oid, rprt, oclss = nil, current_user_id = nil)
     case action
     when 'generate_and_send'   then generate_and_send_report(oid, rprt)
     when 'generate_and_store_dnnc' then generate_and_store_dnnc(oid, rprt)
-    when 'generate_and_store'  then generate_and_store_report(oid, rprt)
+    when 'generate_and_store'  then generate_and_store_report(oclss, oid, rprt)
     else
       raise ArgumentError, "Unknown action #{action}"
     end
@@ -22,15 +22,8 @@ class ProcessKrnReportJob < ApplicationJob
     controller = controller_instance
     controller.send(:init_rprt, oid, rprt)
 
-    denuncia = controller.instance_variable_get(:@dnnc)
-    unless denuncia
-      logger.warn "KrnDenuncia ya no existe (oid: #{oid}, rprt: #{rprt}) – se cancela el job."
-      return
-    end
-
     controller.instance_variable_get(:@dstntrs).each do |dstntr|
       ownr = ClssPdfRprt.dnnc_rprts.include?(rprt) ? controller.instance_variable_get(:@dnnc) : dstntr[:objt]
-
       pdf_data = controller.send(:get_grover_pdf_data, ownr, dstntr, oid, rprt, controller.instance_variable_get(:@ref), nil, nil)
 
       # store file
@@ -88,16 +81,15 @@ class ProcessKrnReportJob < ApplicationJob
   # ------------------------------------------------------------------
   # 3)  generate_and_store_report
   # ------------------------------------------------------------------
-  def generate_and_store_report(oid, rprt)
+  def generate_and_store_report(oclss, oid, rprt)
     controller = controller_instance
-    controller.send(:init_rprt, oid, rprt)
-    denuncia = controller.instance_variable_get(:@dnnc)
+    controller.send(:init_store_rprt, oclss, oid, rprt)
+#    denuncia = controller.instance_variable_get(:@dnnc)
 
-    controller.instance_variable_get(:@dstntrs).each do |dstntr|
-      ownr = ClssPdfRprt.dnnc_rprts.include?(rprt) ? denuncia : dstntr[:objt]
-      # creamos el hash una sola vez por denuncia
-      reporte = DenunciaReport.new(ownr.dnnc).to_h
+#    controller.instance_variable_get(:@dstntrs).each do |dstntr|
 
+      ownr = controller.instance_variable_get(:@ownr)
+      dstntr = { objt: ownr, email: ((ownr.dnnc.ownr.demo? and ownr.dnnc.ownr_type == 'Empresa') ? ownr.dnnc.ownr.email_administrador : ownr.email), nombre: ownr.nombre }
       pdf_data = controller.send(:get_grover_pdf_data, ownr, dstntr, oid, rprt, controller.instance_variable_get(:@ref), nil, nil)
 
       act_archivo = ownr.act_archivos.new(
@@ -113,8 +105,9 @@ class ProcessKrnReportJob < ApplicationJob
       )
       act_archivo.save!
 
-      ownr.pdf_registros.create(cdg: rprt)
-    end
+      ownr.pdf_registros.create(cdg: rprt, ref: controller.instance_variable_get(:@ref))
+#    end
+
   end
 
   # helper – build a *throw-away* controller instance so we can re-use
