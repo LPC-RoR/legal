@@ -2,7 +2,11 @@
 <div class="row gx-1">
 	<div class="col-10 <%= 'text-primary' if ownr.pdf_registros.exists?(cdg: code) %>">
 
-		<% unless mdl.actn_multpl?(code) or mdl.ref_generated?(code) %>· <% end %>
+		<% unless mdl.actn_multpl?(code) or mdl.ref_generated?(code) %>
+			<i class="bi bi-file-earmark-pdf"></i>
+		<% else %>
+			<i class="bi bi-list-task"></i>
+		<% end %>
 		<span class="text-<%=mdl.act_lst?(code) ? 'secondary' : 'primary'%>"><%=mdl.act_nombre[code]%></span>
 
 	</div>

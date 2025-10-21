@@ -57,13 +57,16 @@ class ProcessKrnReportJob < ApplicationJob
   # 2)  generate_and_store_dnnc
   # ------------------------------------------------------------------
   def generate_and_store_dnnc(oid, rprt)
-    ownr   = KrnDenuncia.estrctr.find(oid)
-    logo   = ownr.dnnc.ownr.logo_url
+    controller = controller_instance
+    controller.send(:init_rprt, oid, rprt)  # ← Esto establecerá @logo_url
+
+    ownr   = controller.instance_variable_get(:@dnnc)
+    logo   = controller.instance_variable_get(:@logo_url)
     reporte = DenunciaReport.new(ownr).to_h
     kproc  = KrnPrcdmnt.for(ownr)
     acts   = ActLoad.for_tree(ownr)
 
-    pdf_data = controller_instance.send(:get_grover_pdf_data, ownr, nil, oid, rprt, nil, reporte, acts)
+    pdf_data = controller.send(:get_grover_pdf_data, ownr, nil, oid, rprt, nil, reporte, acts)
 
     act_archivo = ownr.act_archivos.new(
       act_archivo: rprt,

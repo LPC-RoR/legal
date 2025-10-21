@@ -1,9 +1,13 @@
-<%= render layout: 'rprts/krn_reportes/rprt_dnnc/box_tmplt', locals: {ttl: 'Documentos generales externos', fnt_rem: 0.9} do %>
+<%= render layout: 'rprts/krn_reportes/rprt_dnnc/box_tmplt', locals: {ttl: 'Documentos controlados', fnt_rem: 0.9} do %>
 	<% acts[objeto.clss_id][:cdgs].each do |act| %>
 
 		<div class="row gx-1 text-<%=ClssPrcdmnt.act_lst?(act) ? 'secodary' : 'primary'%>">
 			<div class="col-10" style="font-size: <%='0.7rem;' if ClssPrcdmnt.act_lst?(act) %>">
-				<% unless ClssPrcdmnt.act_lst?(act) %>· <% end %>
+				<% unless ClssPrcdmnt.act_lst?(act) %>
+					<i class="bi bi-file-earmark-pdf"></i>
+				<% else %>
+					<i class="bi bi-list-task"></i>
+				<% end %>
 				<%=ClssPrcdmnt.act_nombre[act]%>
 			</div>
 			<div class="col-2 text-end">
@@ -27,7 +31,7 @@
 					<div class="row gx-1">
 						<div class="col-10">
 							<i class="bi bi-arrow-return-right"></i>
-							· <%=lst_fl.nombre%>
+							<i class="bi bi-file-earmark-pdf"></i><%=lst_fl.nombre%>
 						</div>
 						<div class="col-2 text-end">
 							<% if lst_fl.rlzd? %>
