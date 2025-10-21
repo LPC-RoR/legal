@@ -1,7 +1,7 @@
 <% if tab_proceso? %>
 	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Asignar investigador a la denuncia:', gly: 'lightbulb'} do %>
 
-		<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_inv_denuncias', blngs: @objeto, fs: 6} %>
+		<%= render partial: '0p/ttl_clss', locals: {source: 'krn_inv_denuncias', clss: :sub, dir: 'indx', hide_gly: true} %>
 		<%= render partial: '0p/tbl/tbl_clccn', locals: {source: 'krn_inv_denuncias', clccn: @objeto.krn_inv_denuncias.order(:created_at), typ: 'ln', crud: 'lnks', new_hnt: true} %>
 
 	<% end %>

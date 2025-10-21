@@ -3,7 +3,6 @@
 <%= render partial: 'cuentas/indx/emprs_head', locals: {objt: @objeto} %>
 <%= render partial: 'cuentas/indx/tab', locals: {objt: @objeto} if current_usuario.admin? %>
 
-<%#= render partial: 'cuentas/indx/ttl', locals: {source: source, ownr: @objeto, fs: 5, brdr_clr: 'dark-subtle'} %>
 <%= render partial: '0p/ttl_clss', locals: {source: source, dir: 'indx', hide_gly: true} %>
 
 <!-- Manejo de mensajes de inicio de cuenta! -->
