@@ -8,6 +8,8 @@
 	<% if typ == 'tr' %>
 	<table class="<%= ClssTbl.clss_lyt[clss][:tbl_clss] %>">
 		<tbody>
+	<% else %>
+		<div class="container-fluid">			
 	<% end %>
 
 			<% clccn.each do |objt| %>
@@ -24,5 +26,7 @@
 	<% if typ == 'tr' %>
 		</tbody>
 	</table>
+	<% else %>
+		</div>
 	<% end %>
 </div>

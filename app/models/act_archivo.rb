@@ -1,7 +1,12 @@
 class ActArchivo < ApplicationRecord
   attr_accessor :skip_pdf_presence
 
-  belongs_to :ownr, polymorphic: true
+  belongs_to :ownr, polymorphic: true, optional: true
+
+  belongs_to :anonimizado_de, class_name: 'ActArchivo', optional: true
+  has_one    :anonimizado_como, class_name: 'ActArchivo',
+  foreign_key: 'anonimizado_de_id', dependent: :destroy
+
   has_one_attached :pdf
 
   MAX_PDF_SIZE = 20.megabytes
@@ -14,11 +19,23 @@ class ActArchivo < ApplicationRecord
   validates_presence_of :act_archivo
   validates :nombre, presence: true, if: -> { mdl.present? && mdl.constantize.try(:act_lst?, act_archivo) }
 
+  scope :originales,   -> { where(anonimizado: false) }
+  scope :anonimizados, -> { where(anonimizado: true) }
+
   scope :act_ordr, -> { order(:act_archivo) }
   scope :crtd_ordr, -> { order(created_at: :desc) }
   scope :fecha_ordr, -> { order(:fecha) }
 
   scope :with_attached_pdf, -> { includes(pdf_attachment: :blob) }
+
+  def pdf_para(modo = :original)
+    case modo
+    when :anonimizado
+      anonimizado_como || self
+    else
+      self
+    end
+  end
 
   private
 

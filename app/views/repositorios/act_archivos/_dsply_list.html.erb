@@ -1,10 +1,8 @@
 <% act_id = "#{ownr.class.name}_#{ownr.id}" %>
-<%#= lnks %>
-<%# lnks ||= true %>
 <% hsh[act_id][:cdgs].each do |act| %>
 
 	<div class="row gx-1 text-<%=mdl.act_lst?(act) ? 'secodary' : 'primary'%>">
-		<div class="col-10 fw-bold">
+		<div class="col-10">
 			<% if mdl.act_lst?(act) %>
 				<i class="bi bi-list-task"></i>
 			<% elsif (mdl.act_lst?(act) and hsh[act_id][act].any? and hsh[act_id][act].exists?(rlzd: true)) or ((not mdl.act_lst?(act)) and hsh[act_id][act]&.rlzd?) %>
@@ -18,20 +16,31 @@
 			<%=mdl.act_nombre[act]%>
 		</div>
 		<div class="col-2 text-end app_lnk">
+			<!-- Verificar uso de lnks, puede que el reporte no lo esté usando -->
 			<% if lnks %>
-			<% if mdl.act_lst?(act) or ((not mdl.act_lst?(act)) and @acts_hsh[act_id][act].nil?) %>
-				<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', gly: (mdl.act_lst?(act) ? 'plus-circle' : 'upload') ,ownr: ownr, tltp: "Agrega #{mdl.act_nombre[act].downcase}", prms: {act: act, mdl: mdl}} %>
-			<% end %>
-			<% unless mdl.act_lst?(act) %>
-				<% if hsh[act_id][act] %>
-					<% unless hsh[act_id][act].rlzd? %>		
-						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[act_id][act].id}/download", tltp: "Bajar #{mdl.act_nombre[act].downcase}", target: '_blank'} do %>
-							<i class="bi bi-download"></i>
+				<!-- anonimización -->
+				<% if mdl.annmzbl?(act) %>
+					<% unless hsh[act_id][act].anonimizado_como.present? %>
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[act_id][act].id}/annmzr", tltp: "Anonimizar #{mdl.act_nombre[act]}", data: {turbo_method: :post}} do %>
+							<i class="bi bi-diamond"></i>
 						<% end %>
 					<% end %>
-					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: hsh[act_id][act]} %>
 				<% end %>
-			<% end %>
+
+				<!-- Botón plus de una lista -->
+				<% if mdl.act_lst?(act) or ((not mdl.act_lst?(act)) and @acts_hsh[act_id][act].nil?) %>
+					<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', gly: (mdl.act_lst?(act) ? 'plus-circle' : 'upload') ,ownr: ownr, tltp: "Agrega #{mdl.act_nombre[act].downcase}", prms: {act: act, mdl: mdl}} %>
+				<% end %>
+				<% unless mdl.act_lst?(act) %>
+					<% if hsh[act_id][act] %>
+						<% unless hsh[act_id][act].rlzd? %>		
+							<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[act_id][act].id}/download", tltp: "Bajar #{mdl.act_nombre[act].downcase}", target: '_blank'} do %>
+								<i class="bi bi-download"></i>
+							<% end %>
+						<% end %>
+						<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: hsh[act_id][act]} %>
+					<% end %>
+				<% end %>
 			<% end %>
 		</div>
 	</div>
@@ -54,6 +63,25 @@
 					</div>
 				</div>
 			<% end %>
+		</div>
+	<% end %>
+
+	<% if mdl.annmzbl?(act) and hsh[act_id][act].anonimizado_como.present? %>
+		<% annmzd = hsh[act_id][act].anonimizado_como %>
+		<div class="ms-4 text-primary">
+			<div class="row gx-1">
+				<div class="col-10">
+					<i class="bi bi-arrow-return-right"></i>
+					<i class="bi bi-diamond-half"></i>
+					<%=dma_hm(annmzd.created_at)%>
+				</div>
+				<div class="col-2 text-end app_lnk">
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{annmzd.id}/download", tltp: "Bajar #{mdl.act_nombre[act].downcase}", target: '_blank'} do %>
+						<i class="bi bi-download"></i>
+					<% end %>
+					<%= render partial: '0p/tbl/lnks_e', locals: {objeto: annmzd} if lnks %>
+				</div>
+			</div>
 		</div>
 	<% end %>
 

@@ -1,0 +1,31 @@
+<div class="dropdown">
+  <a href="#"
+     class="text-reset dropdown-toggle-no-caret"
+     id="menu-<%= archivo.id %>"
+     data-bs-toggle="dropdown"
+     aria-expanded="false">
+    <i class="bi bi-three-dots-vertical"></i>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end"
+      aria-labelledby="menu-<%= archivo.id %>">
+    <li>
+      <%= link_to "Ver",
+                  act_archivo_path(archivo),
+                  class: "dropdown-item" %>
+    </li>
+    <li>
+      <%= link_to "Editar",
+                  edit_act_archivo_path(archivo),
+                  class: "dropdown-item" %>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li>
+      <%= link_to "Eliminar",
+                  act_archivo_path(archivo),
+                  method: :delete,
+                  data: { confirm: "¿Seguro?" },
+                  class: "dropdown-item text-danger" %>
+    </li>
+  </ul>
+</div>

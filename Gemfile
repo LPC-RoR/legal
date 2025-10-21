@@ -76,6 +76,7 @@ gem 'pdf-reader'                  # Leer PDF files
 gem 'combine_pdf', '~> 1.0'
 gem 'prawn'           # crea el PDF anonimizado
 gem 'prawn-table'       # si hay tablas
+gem 'prawn-markup', '~> 1.1'
 gem 'ruby-openai'       # NER (puedes usar spaCy vía API propia)
 
 gem 'rtesseract'          # wrapper de Tesseract-OCR

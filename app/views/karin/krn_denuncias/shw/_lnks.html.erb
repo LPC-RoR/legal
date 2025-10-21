@@ -1,9 +1,9 @@
 <div class="d-flex justify-content-end pt-1 fs-5">
 
-	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{objeto.ownr.class.name.downcase[0]}_#{objeto.ownr.id}/dnncs", tltp: 'Home'} do %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{@objeto.ownr.class.name.downcase[0]}_#{@objeto.ownr.id}/dnncs", tltp: 'Home'} do %>
 		<i class="bi bi-house-door"></i>
 	<% end %>
 
-	<span class="ms-2"><%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text', gly_clss: 'fs-5', tltp: 'Nueva nota de la denuncia'} %></span>
+	<span class="ms-2"><%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: @objeto, gly: 'chat-left-text', gly_clss: 'fs-5', tltp: 'Nueva nota de la denuncia'} %></span>
 
 </div>

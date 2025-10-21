@@ -173,7 +173,6 @@ Rails.application.routes.draw do
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
       match :pdf_combinado, via: :get, on: :member
-      match :annmzr, via: :post, on: :member
       # ruta para manejo de panels
       match :cndtnl_via_declaracion, via: :get, on: :collection
       match :tipo_declaracion_field, via: :get, on: :collection
@@ -348,6 +347,7 @@ Rails.application.routes.draw do
       match :download, via: :get, on: :member
       match :show_pdf, via: :get, on: :member
       match :rmv_cntrld, via: :post, on: :member
+      match :annmzr, via: :post, on: :member
     end
     resources :check_realizados
     resources :check_auditorias

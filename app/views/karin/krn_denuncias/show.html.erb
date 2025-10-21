@@ -1,16 +1,22 @@
-<%= render partial: 'cuentas/shw/ttl', locals: {objt: @objeto, col_lft: 7} %>
+<%#= render partial: 'cuentas/shw/ttl', locals: {objt: @objeto, col_lft: 7} %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'krn_denuncias', dir: 'shw', hide_gly: true} %>
 
-<%= render partial: prtl_name(@objeto, 'shw', 'shw_tab'), locals: { objt: @objeto } %>
+<div class="mx-1 montserrat-regular">
 
+	<%= render partial: prtl_name(@objeto, 'shw', 'shw_tab'), locals: { objt: @objeto } %>
+	<div class="border-start border-end border-bottom p-2">
+		<% case @tbs[@indx] %>
+		<% when 'Proceso' %>
+			<%= render partial: prtl_name(@objeto, 'shw', 'shw_proceso'), locals: {objeto: @objeto} %>
+		<% when 'Participantes' %>
+			<%= render partial: prtl_name(@objeto, 'shw', 'shw_prtcpnts'), locals: {objeto: @objeto} %>
+		<% when 'Reportes' %>
+			<%= render partial: prtl_name(@objeto, 'shw', 'shw_rcrss'), locals: {objeto: @objeto} %>
+		<% end %>
+	</div>
 
-<% case @tbs[@indx] %>
-<% when 'Proceso' %>
-	<%= render partial: prtl_name(@objeto, 'shw', 'shw_proceso'), locals: {objeto: @objeto} %>
-<% when 'Participantes' %>
-	<%= render partial: prtl_name(@objeto, 'shw', 'shw_prtcpnts'), locals: {objeto: @objeto} %>
-<% when 'Reportes' %>
-	<%= render partial: prtl_name(@objeto, 'shw', 'shw_rcrss'), locals: {objeto: @objeto} %>
-<% end %>
+</div>
+
 
 <%#= @etp_last.codigo unless @etp_last.blank? %>
 <%#= @objeto.tsk_comprobantes_firmados? %>

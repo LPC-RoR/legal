@@ -15,7 +15,7 @@
 			<% end %>
 			<i class="bi bi-cone-striped text-danger"></i>
 		<% end %>
-		<span class="text-<%=(mdl.act_lst?(code) or mdl.ref_generated?(code)) ? 'secondary' : 'primary'%> <%= 'fw-bold' if (mdl.act_lst?(code) or mdl.ref_generated?(code))%>"><%=mdl.act_nombre[code]%></span>
+		<span class="text-<%=(mdl.act_lst?(code) or mdl.ref_generated?(code)) ? 'secondary' : 'primary'%> <%= 'fw-bold2' if (mdl.act_lst?(code) or mdl.ref_generated?(code))%>"><%=mdl.act_nombre[code]%></span>
 
 	</div>
 	<div class="col-lg-2 text-end app_lnk">
@@ -34,8 +34,8 @@
 			<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: hsh, act_id: ownr.clss_id, ownr: ownr, act:code} %>
 			<% unless mdl.ref_generated?(code) %>
 				<% if ['krnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name) and ownr.articulo_516 %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_store_report?oid=#{ownr.dnnc.id}&rprt=#{code}", tltp: 'Generar y almacenar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
-						<i class="bi bi-file-earmark-pdf"></i>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_store_report?oid=#{ownr.dnnc.id}&rprt=#{code}", tltp: 'Generar y almacenar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar almacenamiento'}} do %>
+						<i class="bi bi-archive"></i>
 					<% end %>
 				<% else %>
 					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{ownr.dnnc.id}&rprt=#{code}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
@@ -49,17 +49,19 @@
 
 <% if (mdl.actn_multpl?(code) or mdl.ref_generated?(code)) and hsh[ownr.clss_id][code]&.any? %>
 	<% hsh[ownr.clss_id][code].each do |act_fl| %>
-		<div class="row gx-1 ms-4 text-primary">
+		<div class="row gx-1 mx-3 text-primary">
 			<div class="col-lg-10">
+				<i class="bi bi-arrow-return-right"></i>
 				<%= dma_hm(act_fl.created_at) %>
 			</div>
-			<div class="col-lg-2 pe-4 text-end objt_lnk">
+			<div class="col-lg-2 text-end objt_lnk">
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_fl.id}/download", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
 					<i class="bi bi-download"></i>
 				<% end %>
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_fl.id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post}} do %>
 					<i class="bi bi-trash"></i>
 				<% end %>
+				<i class="bi bi-arrow-return-left"></i>
 			</div>
 		</div>
 	<% end %>

@@ -10,7 +10,7 @@
 	<% end %>
 
 	<% if @objeto.krn_inv_denuncias.any? %>
-		<%= render partial: 'cuentas/prtls/smpl_box', locals: {source: 'krn_declaraciones', dir: 'indx', ownr: objeto, clss_ttl: 'bg_azul_claro'} %>
+		<%= render partial: '0p/tbl_box', locals: {source: 'krn_declaraciones', dir: 'indx', ownr: objeto, clss_ttl: 'bg_azul_claro'} %>
 	<% end %>
 
 	<% unless @acts_hsh[objeto.clss_id][:cdgs].empty? %>

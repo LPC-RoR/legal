@@ -1,5 +1,8 @@
+<!-- Envío de información y notificaciones -->
+
 <% act_id = "#{ownr.class.name}_#{ownr.id}" %>
-<% hsh[act_id][:actns].each do |actn| %>
+
+<% hsh[ownr.clss_id][:actns].each do |actn| %>
 	<% unless ClssPrcdmnt.list_excluded?(actn) %>
 		<%= render partial: 'pdf/pdf_registros/actn_objt', locals: {audit: ownr.dnnc.auditoria, hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: ownr, code: actn} %>
 	<% end %>

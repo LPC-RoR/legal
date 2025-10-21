@@ -1,0 +1,5 @@
+<% if current_usuario.admin? %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_store_dnnc?oid=#{@objeto.id}&rprt=dnnc", tltp: 'Generar y almacenar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar creación y almacenamiento'}} do %>
+		<i class="bi bi-plus-circle"></i>
+	<% end %>
+<% end %>

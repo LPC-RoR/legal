@@ -12,7 +12,7 @@ class ClssTbl < ApplicationRecord
 		{
 			lst: {
 				bx: {
-					clss: "p-1 open-sans-regular",
+					clss: "p-1 montserrat-regular",
 					styl: nil
 				},
 				tbl_clss: "table table-sm table-borderless table-striped table-hover",
@@ -26,7 +26,24 @@ class ClssTbl < ApplicationRecord
 					lnks: "app_lnk",
 					styl: "font-size: 1rem;margin-bottom: 1px;"
 				}
-			}
+			},
+			head: {
+				bx: {
+					clss: "p-1 montserrat-regular",
+					styl: nil
+				},
+				tbl_clss: "table table-sm table-borderless table-striped table-hover",
+				objt: {
+					mrgn_pddn: "py-1",
+					brdr: "border",
+					rndd: "rounded-2",
+					fnt: nil,
+					bg_crl: "bg_azul_claro",
+					clr: "text-primary",
+					lnks: "app_lnk",
+					styl: "font-size: 0.9rem;margin-bottom: 1px;"
+				}
+			},
 		}.freeze
 	end
 

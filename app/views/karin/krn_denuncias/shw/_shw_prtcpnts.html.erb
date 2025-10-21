@@ -16,8 +16,8 @@
 	</div>
 <% end %>
 
-<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciantes', ownr: @objeto, fs: 6, lnks: 'prtl'} %>
-<%= render partial: '0p/tbl/tbl_clccn', locals: {source: 'krn_denunciantes', clccn: @objeto.krn_denunciantes, shdw: false, typ: 'ln', crud: 'lnks'} %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'krn_denunciantes', clss: :sub, dir: 'indx', hide_gly: true} %>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciantes, clss: :head, dir: 'list', typ: 'ln'} %>
 
 
 <!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
@@ -27,9 +27,9 @@
 
 <% else %>
 
-	<%= render partial: 'cuentas/indx/ttl', locals: {source: 'krn_denunciados', ownr: @objeto, fs: 6} %>
+	<%= render partial: '0p/ttl_clss', locals: {source: 'krn_denunciados', clss: :sub, dir: 'indx', hide_gly: true} %>
 	<% if @objeto.krn_denunciantes.any? %>
-		<%= render partial: '0p/tbl/tbl_clccn', locals: {source: 'krn_denunciados', clccn: @objeto.krn_denunciados, shdw: false, typ: 'ln', crud: 'lnks'} %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciados, clss: :head, dir: 'list', typ: 'ln'} %>
 	<% end %>
 
 <% end %>

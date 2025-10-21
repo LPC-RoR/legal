@@ -1,5 +1,5 @@
 class Repositorios::ActArchivosController < ApplicationController
-  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download rmv_cntrld ]
+  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download rmv_cntrld annmzr ]
   before_action :authenticate_usuario!
   before_action :scrty_on
 
@@ -22,8 +22,14 @@ class Repositorios::ActArchivosController < ApplicationController
 
   def download
     doc = ActArchivo.find(params[:id])
-    authorize! :read, doc if defined?(authorize!) # opcional
-    redirect_to rails_blob_url(doc.pdf, disposition: "attachment")
+    authorize doc
+
+    unless doc.pdf.attached?
+      redirect_back fallback_location: root_path, alert: 'Archivo no disponible'
+      return                # <── important
+    end
+
+    redirect_to rails_blob_url(doc.pdf, disposition: 'attachment')
   end
 
   # GET /act_archivos/new
@@ -61,6 +67,17 @@ class Repositorios::ActArchivosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def annmzr
+    if @objeto
+      AnonimizaPdfJob.perform_later(@objeto.id, @objeto.pdf.blob.id)
+      ntc = 'Anonimización en curso. El nuevo archivo aparecerá en segundos.'
+    else
+      ntc = 'Archivo fuente no encontrado'
+    end
+
+    redirect_to "/krn_denuncias/#{@objeto.ownr.dnnc.id}_#{@objeto.act_archivo == 'declaracion' ? 1 : 0}", ntc: ntc
   end
 
   # DELETE /act_archivos/1 or /act_archivos/1.json

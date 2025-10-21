@@ -16,6 +16,16 @@ class ClssTtl < ApplicationRecord
 				lnks: "app_lnk",
 				styl: "margin-left: 1px;margin-right: 1px; margin-bottom: 1px;"
 			},
+			sub: {
+				mrgn_pddn: "px-1 py-1",
+				brdr: "border border-dark-subtle border-3",
+				rndd: "rounded-4",
+				fnt: "fs-6",
+				bg_crl: nil,
+				clr: "dark-subtle",
+				lnks: "app_lnk",
+				styl: "margin-left: 1px;margin-right: 1px; margin-bottom: 1px;"
+			},
 			head: {
 				mrgn_pddn: "px-1 py-1",
 				brdr: "border",

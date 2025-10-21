@@ -1,6 +1,6 @@
 <% if @objeto.krn_derivaciones.any? %>
 
-	<%= render partial: 'cuentas/prtls/smpl_box', locals: {source: 'krn_derivaciones', dir: 'indx', blngs: @objeto, clss_ttl: 'bg_azul_claro'} %>
+	<%= render partial: '0p/tbl_box', locals: {source: 'krn_derivaciones', dir: 'indx', blngs: @objeto, clss_ttl: 'bg_azul_claro'} %>
 
 	<% if @objeto.solicitud_denuncia and @objeto.on_dt? %>
 		<!-- Recibir de vuelta una denuncia desde la DT (solicitada) -->

@@ -197,6 +197,10 @@ class ClssPrcdmnt
     ['invstgdr', 'drvcn', 'dclrcn'].include?(act)
   end
 
+  def self.annmzbl?(act)
+    ['denuncia', 'acta', 'declaracion'].include?(act)
+  end
+
   def self.actn_multpl?(act)
     ['invstgdr', 'drvcn', 'mdds_rsgrd', 'medidas_resguardo'].include?(act)
   end

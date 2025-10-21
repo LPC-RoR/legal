@@ -1,0 +1,6 @@
+<% if current_usuario.admin? %>
+	<%= link_to pdf_combinado_krn_denuncia_path(@objeto),
+	              target: '_blank' do %>
+	    <i class="bi bi-plus-circle"></i>
+	<% end %>
+<% end %>

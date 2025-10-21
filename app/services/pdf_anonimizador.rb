@@ -14,30 +14,31 @@ class PdfAnonimizador
     @blob = blob
   end
 
-  # app/services/pdf_anonimizador.rb  (fragmento clave)
+  # ------------------------------------------------------------------
+  # Devuelve un StringIO con el PDF anonimizado
+  # ------------------------------------------------------------------
   def anonimizado_io
-    # 1.  texto de cada página (OCR si hace falta)
-    paginas = PdfOcrReader.texto_por_pagina(@blob)
+    # 1. Texto de cada página (OCR sobre imágenes -> conserva espacios)
+    paginas = PdfImageTextExtractor.texto_por_pagina(@blob)
 
-    # 2.  texto de las imágenes incrustadas
-    imgs_por_pag = PdfImageTextExtractor.textos_por_pagina(@blob)
+    # 2. Texto de las imágenes incrustadas (si las hay)
+#    imgs_por_pag = PdfImageTextExtractor.textos_por_pagina(@blob)
 
-    # 3.  ensamblar cuerpo
+    # 3. Ensamblar cuerpo
     texto_completo = paginas.map do |p|
       base = p[:text]
-      if (imgs = imgs_por_pag[p[:page]])
-        imgs.each { |img| base += "\n[IMAGEN-#{p[:page]}-#{img[:idx]}]\n#{img[:text]}\n[IMAGEN-#{p[:page]}-#{img[:idx]}]\n" }
-      end
+#      if (imgs = imgs_por_pag[p[:page]])
+#        imgs.each { |img| base += "\n[IMAGEN-#{p[:page]}-#{img[:idx]}]\n#{img[:text]}\n[IMAGEN-#{p[:page]}-#{img[:idx]}]\n" }
+#      end
       base
     end.join("\n")
 
-    # 3b.  garantía: nunca envíes cadena vacía a GPT
     texto_completo = texto_completo.presence || '[sin texto]'
 
-    # 4.  anonimizar con GPT-4o
-    texto_anonimizado = anonimiza_con_gpt(texto_completo)
+    # 4. Anonimizar con GPT-4o
+    texto_anonimizado = anonimiza_manteniendo_formato(texto_completo)
 
-    # 5.  PDF limpio
+    # 5. Generar PDF limpio
     io = StringIO.new
     generar_pdf_desde_texto(texto_anonimizado, io)
     io.rewind
@@ -46,26 +47,25 @@ class PdfAnonimizador
 
   private
 
-  def anonimiza_con_gpt(texto)
+  # ------------------------------------------------------------------
+  # GPT anonimiza *sin* tocar espacios ni saltos
+  # ------------------------------------------------------------------
+  def anonimiza_manteniendo_formato(texto)
     prompt = <<~TXT
-      Anonimiza el siguiente texto.
-      Reemplaza:
+      Actúa como anonimizador legal.
+      Reemplaza únicamente los datos sensibles indicados.
+      DEBES conservar **cada espacio y salto de línea** exactamente como aparece.
+      NO añadas ni elimines ningún carácter que no sea el dato a reemplazar.
+
+      Sustituciones:
       - Nombres de personas → [NOMBRE]
       - Cargos → [CARGO]
+      - RUT/DNI → [RUT/CI]
       - Emails → [EMAIL]
       - Teléfonos → [TELEFONO]
-      - RUT/DNI → [RUT/CI]
-      - Direcciones postales → solo hasta el número (calle+número), deja la comuna/ciudad/region sin cambio.
-      - Deja intactos los marcadores [IMAGEN-X]
+      - Direcciones (calle+número) → [DIRECCIÓN]
 
-      Ejemplos de salida esperada:
-      ENTRADA:  DOMICILIO : Gálvez Nº 1569 27 Comuna de Isla de Maipo
-      SALIDA:   DOMICILIO : [DIRECCION]
-
-      ENTRADA:  Avda. Providencia N° 1208, Of. 207, Providencia
-      SALIDA:   [DIRECCION]
-
-      Texto:
+      Texto a anonimizar:
       #{texto}
     TXT
 
@@ -76,14 +76,21 @@ class PdfAnonimizador
         temperature: 0
       }
     )
-    response.dig('choices', 0, 'message', 'content') || texto
+    raw = response.dig('choices', 0, 'message', 'content') || texto
+
+    # restaura espacio tras tag si GPT lo olvida
+    raw.gsub!(/\[(NOMBRE|CARGO|RUT\/CI|EMAIL|TELEFONO|DIRECCIÓN)\](?!\s)/, '[\1] ')
+    raw
   end
 
+  # ------------------------------------------------------------------
+  # PDF desde texto plano (respeta saltos)
+  # ------------------------------------------------------------------
   def generar_pdf_desde_texto(texto, io)
     Prawn::Fonts::AFM.hide_m17n_warning = true
     Prawn::Document.new(page_size: 'A4', page_layout: :portrait) do |pdf|
       pdf.font 'Helvetica'
-      pdf.text texto, size: 11, inline_format: true
+      pdf.text texto, size: 11
     end.render(io)
   end
 end

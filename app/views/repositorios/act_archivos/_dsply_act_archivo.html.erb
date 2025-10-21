@@ -1,7 +1,7 @@
 <% act_id = "#{objeto.class.name}_#{objeto.id}" %>
-<div class="row gx-1 mx-1 mb-1 py-1 px-2 border rounded-4" style="font-size: .9rem;">
+<div class="row gx-1 mx-1 mb-1 py-1 px-2 border rounded-2" style="font-size: .9rem;">
 	<div class="col-8">
-		<% if not @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, rprt) %>
+		<% if not @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, rprt) and @acts_hsh[act_id][rprt].none? %>
 			<i class="bi bi-cone-striped text-danger"></i> 
 		<% else %>
 			<% if @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, rprt) %>
@@ -24,17 +24,19 @@
 			<%= render partial: 'repositorios/check_realizados/rlzd', locals: {hsh: @acts_hsh, act_id: act_id, ownr: objeto, act: rprt} %>
 		<% end %>
 	</div>
-</div>
 
 <!-- @acts_hsh[act_id][rprt] en un act_archivo si lo pongo coo acción --> 
 <% @acts_hsh[act_id][rprt].each do |rgstr| %>
-	<div class="row gx-1 px-5 text-primary objt_lnk">
-		<div class="col-10"><%= dma_hm(rgstr.created_at)%><i class="bi bi-dot"></i><%= ClssPrcdmnt.act_nombre[rprt] %></div>
+	<div class="row gx-1 px-4 text-primary objt_lnk">
+		<div class="col-10"><i class="bi bi-arrow-return-right"></i><%= dma_hm(rgstr.created_at)%></div>
 		<div class="col-2 text-end">
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{rgstr.id}/show_pdf", tltp: "Bajar #{ClssPrcdmnt.act_nombre[rprt].downcase}", target: '_blank'} do %>
 				<i class="bi bi-download"></i>
 			<% end %>
 			<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: rgstr} %>
+			<i class="bi bi-arrow-return-left"></i>
 		</div>
 	</div>
 <% end %>
+
+</div>

@@ -1,0 +1,18 @@
+<table class="table table-sm table-borderless table-striped table-hover">
+	<tbody>
+		<% @rprts.each do |rprt| %>
+			<tr class="px-1">
+			<td><%=dma_hm(rprt.created_at)%></td>
+			<td class="text-end app_lnk">
+				<!--%= link_to act_archivo_show_path(rprt),-->
+				<%= link_to "/act_archivos/#{rprt.id}/show_pdf",
+				            target: '_blank',
+				            title:  "Ver #{ClssPrcdmnt.act_nombre['dnnc'].downcase}" do %>
+				  <i class="bi bi-download"></i>
+				<% end %>
+				<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: rprt}  if current_usuario.admin? %>
+			</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
