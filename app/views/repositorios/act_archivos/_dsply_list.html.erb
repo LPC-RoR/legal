@@ -19,7 +19,8 @@
 			<!-- Verificar uso de lnks, puede que el reporte no lo esté usando -->
 			<% if lnks %>
 				<!-- anonimización -->
-				<% if mdl.annmzbl?(act) %>
+				<!-- puse hsh[act_id][act] para resolver caída en producción, investigar -->
+				<% if mdl.annmzbl?(act) and hsh[act_id][act] %>
 					<% unless hsh[act_id][act].anonimizado_como.present? %>
 						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[act_id][act].id}/annmzr", tltp: "Anonimizar #{mdl.act_nombre[act]}", data: {turbo_method: :post}} do %>
 							<i class="bi bi-diamond"></i>
