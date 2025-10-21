@@ -13,6 +13,10 @@
 
 			<% unless ClssPrcdmnt.act_lst?(act) %>
 				<% if acts[ownr.clss_id][act] %>
+					<% if acts[ownr.clss_id][act].anonimizado_como %>
+						<i class="bi bi-diamond-half"></i>
+					<% end %>
+								
 					<% if acts[ownr.clss_id][act].rlzd? %>
 						Revisado
 					<% else %>
