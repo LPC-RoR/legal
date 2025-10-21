@@ -1,5 +1,7 @@
 class Empresa < ApplicationRecord
     attr_accessor :website  # honeypot
+
+    DEMO_DURATION = 5
     
     has_one :tenant, as: :owner, dependent: :destroy
     has_many :usuarios, through: :tenant
@@ -89,7 +91,8 @@ class Empresa < ApplicationRecord
     # PRODUCTOS
 
     def fecha_demo_activa?
-        self.created_at.to_date.in_time_zone > 10.days.ago.in_time_zone
+        fecha = fecha_demo? ? fecha_demo : created_at.to_date.in_time_zone
+        fecha > DEMO_DURATION.days.ago.in_time_zone
     end
 
 

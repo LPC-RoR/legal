@@ -94,6 +94,13 @@
 			</div>
 		<% end %>
 
+		<% if current_usuario.dog? %>
+			<%= render '0p/lbld_inpts/date_clndr', 
+			     form: form, 
+			     token: :fecha_demo, 
+			     label: 'Fecha inicio demostración' %>
+		<% end %>
+
 	</div>
 </div>
 

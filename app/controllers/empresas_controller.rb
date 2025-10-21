@@ -235,7 +235,7 @@ class EmpresasController < ApplicationController
       params.require(:empresa).permit(
         :rut, :razon_social, :administrador, :email_administrador, 
         :contacto, :telefono, :informacion_comercial, :principal_usuaria, :logo,
-        :activa_devolucion, :verificacion_datos, :coordinacion_apt, :industry, :company_size, :plan_type
+        :activa_devolucion, :verificacion_datos, :coordinacion_apt, :industry, :company_size, :plan_type, :fecha_demo
         # :website NO se persiste (honeypot)
       )
     end
