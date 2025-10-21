@@ -46,12 +46,14 @@ module Karin
 
   # Reemplazar a fll_fld generalizando y creando ctr_registro correspondiente
   def set_fld
-    fecha = params[:k].start_with?('fecha_')
-    mthd  = params[:k]
-    vlr   = fecha ? Date.parse(params[mthd.to_sym]) : params[mthd.to_sym]
+    unless [nil, ''].include?(params[params[:k].to_sym])
+      fecha = params[:k].start_with?('fecha_')
+      mthd  = params[:k]
+      vlr   = fecha ? Date.parse(params[mthd.to_sym]) : params[mthd.to_sym]
 
-    @objeto[mthd] = vlr
-    @objeto.save
+      @objeto[mthd] = vlr
+      @objeto.save
+    end
 
     redirect_to @objeto
   end
