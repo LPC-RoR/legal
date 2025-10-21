@@ -67,7 +67,7 @@
 		</div>
 	<% end %>
 
-	<% if mdl.annmzbl?(act) and hsh[act_id][act].anonimizado_como.present? %>
+	<% if mdl.annmzbl?(act) and hsh[act_id][act] and hsh[act_id][act].anonimizado_como.present? %>
 		<% annmzd = hsh[act_id][act].anonimizado_como %>
 		<div class="ms-4 text-primary">
 			<div class="row gx-1">
