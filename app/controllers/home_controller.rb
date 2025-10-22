@@ -94,21 +94,24 @@ class HomeController < ApplicationController
 
 
 	def artcls
-  	@hsh = artcls_hsh[params[:tkn].to_sym]
+  	@hsh = helpers.artcls_hsh[params[:tkn].to_sym]
   	
 	  set_meta_tags(
-	    title:       @hsh[:title],
+	    title: @hsh[:title],
 	    description: @hsh[:description],
 	    og: {
-	      site_name:  'LaborSafe',
-	      title:      @hsh[:title],
-	      description:@hsh[:description],
-	      type:       'article',
-	      url:        "https://www.laborsafe.cl/artcls/#{params[:tkn]}",
-	      image:      @hsh[:image_url]
+	      title: @hsh[:title],
+	      description: @hsh[:description],
+	      image: @hsh[:image_url],
+	      url: request.original_url
+	    },
+	    twitter: {
+	      title: @hsh[:title],
+	      description: @hsh[:description],
+	      image: @hsh[:image_url]
 	    }
-		)
-	end
+	  )
+	  end
 
   def costos
   	
@@ -119,23 +122,6 @@ class HomeController < ApplicationController
 		def redirect_unauthenticated
 		  return if usuario_signed_in?          # ya está logueado
 		  redirect_to root_path and return      # redirige al index público
-		end
-
-  	def artcls_hsh
-  		{
-	  		costos: {
-	  			image_url: view_context.image_url('artcls/costos_1200.jpg'),
-	  			title: 'Los costos del incumplimiento',
-	  			description: 'Crear un canal de denuncias, diseñar e implementar medidas de resguardo, contar con -al menos- un investigador con las competencias necesarias, cumplir con las exigencias formales de una investigación, entre otros, son desafíos aún presentes tras un año de vigencia de la ley. Su implementación o perfeccionamiento en el tiempo, si bien tendrá estándares distintos en cada empresa, buscará siempre satisfacer una exigencia mínima: evitar los costos asociados al incumplimiento de la ley.'.truncate(160),
-	  			type: 'article',
-	  		},
-	  		externalizacion: {
-	  			image_url: view_context.image_url('artcls/extrnlzcn_1200.jpg'),
-	  			title: 'Externalizacion de investigaciones',
-	  			description: 'La externalización de investigaciones es la modalidad en la cual se delega a una empresa externa la realización de la investigación. Si bien, solo es posible utilizarla en los casos investigados por la propia empresa, puede ser una buena alternativa dadas sus ventajas financieras y operativas.'.truncate(160),
-	  			type: 'article',
-	  		}
-  		}
 		end
 
 	  def prepare_meta_tags(meta = {})
