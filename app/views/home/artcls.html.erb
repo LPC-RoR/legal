@@ -10,30 +10,28 @@
 			<%= render partial: "home/artcls/#{params[:tkn]}/artcl", locals: {tkn: params[:tkn]} %>
         <% end %>
 
-        <div class="mb-2 p-3 border rounded-4">
-        	<p>Más información en:
-        		<ul>
-        			<li><%= render layout: '0p/tltp_lnk', locals: {lnk: "https://www.laborsafe.cl/"} do%>
-        				<i class="bi bi-cursor"></i>www.laborsafe.cl
-        			<% end %></li>
-       				<% if params[:tkn] != 'costos' %>
-	        			<li>
-							<%= render layout: '0p/tltp_lnk', locals: {lnk: "https://www.laborsafe.cl/artcls/costos"} do%>
-		        				<i class="bi bi-cursor"></i>Artículo: Los costos del incumplimiento
-		        			<% end %>
-    	    			</li>
-       				<% end %>
-       				<% if params[:tkn] != 'externalizacion' %>
-	        			<li>
-							<%= render layout: '0p/tltp_lnk', locals: {lnk: "https://www.laborsafe.cl/artcls/externalizacion"} do%>
-		        				<i class="bi bi-cursor"></i>Artículo: Externalización de investigaciones
-		        			<% end %>
-    	    			</li>
-       				<% end %>
-        		</ul>
-        	</p>
-			<p class="text-center"><i class="bi bi-c-circle"></i> Equipo de LaborSafe<br>www.laborsafe.cl</p>
-        </div>
+    	<p>Más información en:
+    		<ul>
+    			<li><%= render layout: '0p/tltp_lnk', locals: {lnk: "https://www.laborsafe.cl/"} do%>
+    				www.laborsafe.cl
+    			<% end %></li>
+   				<% if params[:tkn] != 'costos' %>
+        			<li>
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "https://www.laborsafe.cl/artcls/costos"} do%>
+	        				Artículo: Los costos del incumplimiento
+	        			<% end %>
+	    			</li>
+   				<% end %>
+   				<% if params[:tkn] != 'externalizacion' %>
+        			<li>
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "https://www.laborsafe.cl/artcls/externalizacion"} do%>
+	        				Artículo: Externalización de investigaciones
+	        			<% end %>
+	    			</li>
+   				<% end %>
+    		</ul>
+    	</p>
+		<p class="text-center"><i class="bi bi-c-circle"></i> Equipo de LaborSafe<br>www.laborsafe.cl</p>
 
 	</div>
 
