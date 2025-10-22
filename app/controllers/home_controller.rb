@@ -136,7 +136,7 @@ class HomeController < ApplicationController
 	        site_name: site,
 	        type: 'website',
 	        url: request.original_url,
-	        image: view_context.image_url('logo/logo_100.png'),
+	        image: view_context.image_url('logo/logo_150.png'),
 	        locale: 'es_LA'
 	      },
 	      twitter: {
