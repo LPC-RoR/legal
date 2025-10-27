@@ -2,7 +2,7 @@
 <% return unless menu_for_current_context %>
 <% enlaces_app = RcrsEnlace.gnrl %>
 <% enlaces_user = current_usuario.rcrs_enlaces %>
-<% return if enlaces_app.empty? and enlaces_user.empty %>
+<% return if enlaces_app.empty? and enlaces_user.empty? %>
 
 <!-- links de la aplicación y del usuario -->
 <div class="ms-3 mt-3 app_lnk">
