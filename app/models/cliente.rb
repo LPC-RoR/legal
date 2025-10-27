@@ -19,8 +19,6 @@ class Cliente < ApplicationRecord
 	has_many :tar_servicios, as: :ownr
 	has_many :tar_aprobaciones
 
-	has_many :pro_dtll_ventas, as: :ownr
-
 	has_many :krn_denuncias, as: :ownr
 	has_many :krn_empresa_externas, as: :ownr
 	has_many :krn_investigadores, as: :ownr
@@ -41,8 +39,6 @@ class Cliente < ApplicationRecord
     scope :cl_ordr, -> { order(preferente: :desc, razon_social: :asc) }
 
 
-    include Prdct
-
     # Procedimiento Investigación y Sanción
 
     def logo_url
@@ -55,10 +51,6 @@ class Cliente < ApplicationRecord
             'Backup'].compact
     end
 
-    def productos?
-        self.pro_dtll_ventas.any?
-    end
-
     def nomina?
         self.app_nominas.any?
     end
@@ -69,28 +61,6 @@ class Cliente < ApplicationRecord
 
     def empresas_externas?
         self.krn_empresa_externas.any?
-    end
-
-    # PRODUCTOS
-
-    def fecha_demo_activa?
-        self.created_at.to_date.in_time_zone > 10.days.ago.in_time_zone
-    end
-
-    def formatos
-        self.productos? ? self.pro_dtll_ventas.map {|pro| pro.formato} : []
-    end
-
-    def n_dnncs
-    	self.productos? ? (self.formatos.include?('B') ? 1 : 20) : 1
-    end
-
-    def new_bttn?
-    	self.krn_denuncias.count < self.n_dnncs
-    end
-
-    def demo_activo?
-        true
     end
 
     # CHILDS

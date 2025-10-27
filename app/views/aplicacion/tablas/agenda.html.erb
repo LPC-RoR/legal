@@ -1,3 +1,4 @@
 <%= render partial: '0p/ttl_nav', locals: {source: 'cal_feriados', div: 'nav'} %>
 
-<%= render partial: '0p/tbl_ttl', locals: {source: 'cal_feriados'} %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'cal_feriados', clss: :gray, dir: 'indx'} %>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @feriados, dir: 'list', typ: 'tr'} %>

@@ -6,7 +6,7 @@ class Comercial::ComDocumentosController < ApplicationController
 
   # GET /com_documentos or /com_documentos.json
   def index
-    set_tabla('com_documentos', ComDocumento.all.order(issued_on: :desc), true)
+    set_pgnt_tbl('com_documentos', ComDocumento.all.order(issued_on: :desc))
   end
 
   # GET /com_documentos/1 or /com_documentos/1.json

@@ -1,6 +1,7 @@
 class Usuario < ApplicationRecord
   rolify strict: true
   belongs_to :tenant, optional: false   # todos los usuarios SIEMPRE van a un tenant
+  has_many :rcrs_enlaces, as: :ownr
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

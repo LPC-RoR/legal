@@ -8,7 +8,7 @@ class Aplicacion::SlidesController < ApplicationController
 
   # GET /slides or /slides.json
   def index
-    set_tabla('slides', Slide.list, false)
+    @slides = Slide.list
   end
 
   # GET /slides/1 or /slides/1.json

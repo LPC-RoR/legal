@@ -1,0 +1,8 @@
+<%= render partial: '0p/ttl_clss', locals: {source: 'rcrs_enlaces', clss: :gray, ttl: 'Mis enlaces', ownr: current_usuario, hide_gly: true} %>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @enlaces_user} %>
+
+<% if current_usuario.admin? %>
+  <%= render partial: '0p/ttl_clss', locals: {source: 'rcrs_enlaces', clss: :gray, ttl: 'Enlaces de la aplicación', hide_gly: true} %>
+  <%= render partial: '0p/tbl_clss', locals: {clccn: @enlaces_app} %>
+<% end %>
+

@@ -1,9 +1,11 @@
-<%= render partial: prtl_name('causas', 'indx', 'srch') %>
-
-<%= render partial: '0p/ttl_tbl', locals: {source: 'causas'} %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'causas', clss: :gray, dir: 'indx'} %>
+<%= render partial: prtl_name('causas', 'indx', 'srch_causas') %>
 
 <% unless @srch %>
   <%= render partial: '0p/tbl/tbl', locals: {source: 'causas', typ: 'frame'} %>
+  
+  <!-- NO funciona con tbl_clss por uso del frame -->
+  <%#= render partial: '0p/tbl_clss', locals: {clccn: @coleccion['causas'], dir: 'list', typ: 'ln'} %>
 <% else %>
   <% @cs_array.each do |fnd| %>
     <%= render partial: '0p/objt/objt_frame', locals: {objt: fnd} %>

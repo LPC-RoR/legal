@@ -54,6 +54,8 @@ class CuentasController < ApplicationController
       prms = params[:id].split('_')
       @mdl = prms[0] == 'e' ? Empresa : Cliente
       @objeto = @mdl.includes(:krn_investigadores, :krn_empresa_externas, :krn_denuncias, :app_nominas, :app_contactos).find(prms[1])
+      @licencia = @objeto.licencia_actual
+      @licencia_activa = @objeto.licencia_activa?
       @tab_flags = {
         invstgdrs: @objeto.krn_investigadores.none?,
         extrns: @objeto.krn_empresa_externas.none?,

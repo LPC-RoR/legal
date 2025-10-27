@@ -1,0 +1,53 @@
+/* ---- botón del acordeón ---- */
+.accordion-button {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+/* hover: sólo cambia el color del texto */
+.accordion-button:hover {
+  color: #adb5bd !important;
+}
+
+/* cuando está expandido (collapsed = false) */
+.accordion-button:not(.collapsed) {
+  background-color: transparent !important;
+  color: #adb5bd !important;   /* mismo que hover, opcional */
+}
+
+/* opcional: quitar la flecha azul si quieres que parezca un link plano */
+.accordion-button::after {
+  display: none;
+}
+
+/* achicar la fuente y mover todo ligeramente a la derecha */
+.accordion-header {
+  font-size: 0.875rem;        /* 14 px; ajusta al gusto */
+  padding-left: 0.5rem;       /* 8 px; aumenta/disminuye */
+}
+
+/* si quieres que el botón interno también use ese tamaño y herede el padding */
+.accordion-header .accordion-button {
+  font-size: inherit;
+  padding-left: inherit;
+}
+
+/* acordeón: quita el borde y achica el margen entre filas */
+.accordion-item {
+  border: none !important;
+  margin-bottom: 0.125rem;   /* 2 px; antes eran ±8 px */
+}
+
+/* botón interno: padding vertical pequeño */
+.accordion-button {
+  padding-top: 0.375rem;    /* 6 px */
+  padding-bottom: 0.375rem;
+}
+
+/* ítems sueltos (primer nivel sin hijos) */
+.nav-link {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  margin-bottom: 0.125rem;
+}

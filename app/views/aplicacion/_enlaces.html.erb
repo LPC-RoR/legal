@@ -1,0 +1,31 @@
+<!-- app/views/shared/_rcrs_enlaces.html.erb -->
+<% return unless menu_for_current_context %>
+<% enlaces_app = RcrsEnlace.gnrl %>
+<% enlaces_user = current_usuario.rcrs_enlaces %>
+<% return if enlaces_app.empty? and enlaces_user.empty %>
+
+<!-- links de la aplicación y del usuario -->
+<div class="ms-3 mt-3 app_lnk">
+  <h6 class="ps-2">Enlaces</h6>
+  <ul>
+    <% if enlaces_user.any? %>
+      <% enlaces_user.each do |enlc| %>
+        <li>
+          <%= render layout: '0p/tltp_lnk', locals: {lnk: enlc.link, tltp: nil, target: (enlc.blank ? '_blank' : nil)} do %>
+            <%= enlc.descripcion %>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+
+    <% if enlaces_app.any? %>
+      <% enlaces_app.each do |enlc| %>
+        <li>
+          <%= render layout: '0p/tltp_lnk', locals: {lnk: enlc.link, tltp: nil, target: (enlc.blank ? '_blank' : nil)} do %>
+            <%= enlc.descripcion %>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

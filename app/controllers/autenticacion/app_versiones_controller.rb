@@ -7,7 +7,7 @@ class Autenticacion::AppVersionesController < ApplicationController
 
   # GET /app_versiones or /app_versiones.json
   def index
-    set_tabla('app_versiones', AppVersion.all, false)
+    @versiones = AppVersion.all
   end
 
   # GET /app_versiones/1/edit

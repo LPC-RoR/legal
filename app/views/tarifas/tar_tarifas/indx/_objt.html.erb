@@ -1,4 +1,4 @@
-<% if controller_name == 'clientes' %>
+<% if ['clientes', 'tablas'].include?(controller_name) %>
 	Tarifas de Causas
 <% elsif controller_name == 'causas' %>
 	Tarifa de la causa: 

@@ -1,0 +1,2 @@
+module RcrsEnlacesHelper
+end

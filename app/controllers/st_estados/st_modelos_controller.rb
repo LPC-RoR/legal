@@ -5,6 +5,7 @@ class StEstados::StModelosController < ApplicationController
 
   # GET /st_modelos or /st_modelos.json
   def index
+    @st_modelos = StModelo.ordr
     set_tabla('st_modelos', StModelo.ordr, false)
   end
 

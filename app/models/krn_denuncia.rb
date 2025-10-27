@@ -50,8 +50,9 @@ class KrnDenuncia < ApplicationRecord
 	validates :tipo_declaracion, presence: true, if: -> { via_declaracion == 'Presencial' }
 	validates :representante, presence: true, if: -> { presentado_por == 'Representante' }
 
-	include Cptn
+	validate :licencia_valida
 
+	include Cptn
 	include Dnnc
 	include DnncProc
 	include Fls
@@ -88,7 +89,7 @@ class KrnDenuncia < ApplicationRecord
 	# KrnDenuncia
 	def destinatarios(rprt)
 	  # bloque re-utilizable
-	  build_hash = ->(obj) { { objt: obj, email: ((ownr.demo? and ownr_type == 'Empresa') ? ownr.email_administrador : obj.email), nombre: obj.nombre } }
+	  build_hash = ->(obj) { { objt: obj, email: (ownr.demo? ? ownr.email_administrador : obj.email), nombre: obj.nombre } }
 
 	  [].tap do |list|
 	    # 1) denunciantes y sus testigos
@@ -395,5 +396,14 @@ class KrnDenuncia < ApplicationRecord
 	  nuevo.save!
 	  nuevo
 	end
+
+	private
 	
+	def licencia_valida
+		lic = ownr.licencia_actual
+		errors.add(:base, 'No tienes licencia activa')               and return unless lic
+		errors.add(:base, 'Licencia expirada')                       and return if lic.expirada?
+		errors.add(:base, 'Has alcanzado el límite de denuncias')    and return if lic.tope_alcanzado?
+	end
+
 end

@@ -4,11 +4,11 @@
 		<% if objt.auditoria %>
 			<i class="bi bi-clipboard2-pulse"></i>
 		<% end %>
-		<%= render layout: '0p/tltp_lnk', locals: {lnk: objt, tltp: 'Ver denuncia'} do %>
-			<%= objt.identificador %>
-		<% end %>
 		<% if current_usuario.dog? %>
 			<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: objt} %>
+		<% end %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: objt, tltp: 'Ver denuncia'} do %>
+			<%= objt.identificador %>
 		<% end %>
 	</td>
 	<td><%= objt.motivo_denuncia %></td>

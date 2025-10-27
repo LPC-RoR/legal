@@ -1,0 +1,55 @@
+<!-- app/views/shared/_offcanvas_menu.html.erb -->
+<% menu = menu_for_current_context %>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="verticalMenu" aria-labelledby="verticalMenuLabel">
+  <div class="offcanvas-header">
+    <!--h5 class="offcanvas-title" id="verticalMenuLabel"><%#= t("menus.#{menu.key}.title") %></h5-->
+    <h5 class="offcanvas-title text-secondary" id="verticalMenuLabel">
+      <%= image_tag 'logo/istp_30.png', size: '24', class: 'me-2' %>Menú
+    </h5>
+
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body p-0">
+    <nav class="nav flex-column app_lnk">
+      
+      <div class="ps-2">
+      <% visible_menu_items(menu).each do |item| %>
+        <% if item['children'].present? %>
+          <div class="accordion-item border-0">
+            <h2 class="accordion-header" id="heading-<%= item['id'] %>">
+              <button class="accordion-button collapsed nav-link"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapse-<%= item['id'] %>">
+                <i class="<%= item['icon'] %> me-2 app_lnk"></i><%= item['name'] %>
+              </button>
+            </h2>
+            <div id="collapse-<%= item['id'] %>" class="accordion-collapse collapse">
+              <div class="accordion-body py-0">
+                <% item['children'].each do |sub| %>
+                  <%= link_to sub['path'], class: 'nav-link ps-4' do %>
+                    <i class="<%= sub['icon'] %> me-2"></i><%= sub['name'] %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <%= link_to item['path'], class: 'nav-link' do %>
+            <i class="<%= item['icon'] %> me-2"></i><%= item['name'] %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    </nav>
+
+    <%#  lista dinámica de RcrsEnlace %>
+    <%= render 'aplicacion/enlaces' %>
+
+  </div>
+</div>
+
+

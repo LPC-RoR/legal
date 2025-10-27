@@ -92,6 +92,9 @@ gem 'mime-types'
 gem 'rqrcode'
 gem 'chunky_png'  # Necesario para convertir el QR a imagen
 
+# gema para programar tareas en el tiempo
+gem 'whenever'
+
 # Busqueda
 gem 'pg_search'
 

@@ -54,6 +54,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.irregular 'dt_tramo_multa', 'dt_tramo_multas'
     inflect.irregular 'cuenta', 'cuentas'
     inflect.irregular 'pro_dtll_venta', 'pro_dtll_ventas'
+    inflect.irregular 'licencia', 'licencias'
 end
 
 # These inflection rules are supported but not enabled by default:

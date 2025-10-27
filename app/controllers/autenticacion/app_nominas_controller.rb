@@ -6,6 +6,7 @@ class Autenticacion::AppNominasController < ApplicationController
 
   # GET /app_nominas or /app_nominas.json
   def index
+    set_pgnt_tbl('app_nominas', AppNomina.gnrl.nombre_ordr)
     set_tabla('app_nominas', AppNomina.gnrl.nombre_ordr, false)
   end
 

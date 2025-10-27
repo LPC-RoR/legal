@@ -1,0 +1,11 @@
+<% content_for :title, "New menu" %>
+
+<h1>New menu</h1>
+
+<%= render "form", menu: @menu %>
+
+<br>
+
+<div>
+  <%= link_to "Back to menus", menus_path %>
+</div>

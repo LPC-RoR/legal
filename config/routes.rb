@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       patch 'usuarios/:usuario_id/rol', to: 'empresa_usuarios#update_role', as: :update_rol
       patch :update_rol
     end
+    match :renovar_demo, via: :post, on: :member
     match :swtch, via: :post, on: :member
     match :prg, via: :get, on: :member
   end
@@ -102,14 +103,6 @@ Rails.application.routes.draw do
       match :generate_and_store_dnnc, via: :get, on: :collection
       match :audit_rprt, via: :get, on: :collection
     end
-  end
-
-  scope module: 'producto' do
-    resources :productos do
-      match :agrega_producto, via: :get, on: :member
-      match :elimina_producto, via: :get, on: :member
-    end
-    resources :pro_dtll_ventas
   end
 
   scope module: 'lgl' do
@@ -321,6 +314,7 @@ Rails.application.routes.draw do
     resources :comunas
     resources :rcrs_logos
     resources :cal_feriados
+    resources :rcrs_enlaces
   end
 
   scope module: 'repositorios' do
@@ -390,6 +384,7 @@ Rails.application.routes.draw do
       match :arriba, via: :post, on: :member
       match :abajo, via: :post, on: :member
     end
+    resources :menus
   end
 
   scope module: 'organizacion' do

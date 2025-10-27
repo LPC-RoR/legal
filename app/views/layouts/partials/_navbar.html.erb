@@ -2,11 +2,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
   <div class="container-fluid">
 
-    <!-- Logo (izquierda) -->
-    <%= link_to root_path, class: "navbar-brand" do %>
-      <%#= image_tag logo_path, height: 60, alt: "Logo" %>
+    <% if menu_for_current_context %>
+      <%= link_to '#', data: { bs_toggle: 'offcanvas', bs_target: '#verticalMenu' } do %>
+        <%= image_tag logo_path, alt: "Logo", class: 'img-fluid' %>
+      <% end %>
+    <% else %>
       <%= image_tag logo_path, alt: "Logo", class: 'img-fluid' %>
     <% end %>
+
 
     <!-- Botón hamburguesa (móviles) -->
     <button class="navbar-toggler" type="button"

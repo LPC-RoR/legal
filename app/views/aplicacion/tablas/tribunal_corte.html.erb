@@ -1,1 +1,2 @@
-<%= render partial: '0p/tbl_ttl', locals: {source: 'tribunal_cortes'} %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'tribunal_cortes', clss: :gray, dir: 'indx'} %>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @pgnt['tribunal_cortes'], dir: 'list', typ: 'tr', pgnt: true} %>

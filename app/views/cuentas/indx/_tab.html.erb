@@ -22,6 +22,7 @@
     </li>
     <% end %>
 
+    <% if (@licencia_activa and current_usuario.admin?) or current_usuario.dog? %>
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "nmn" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/nmn">
         <% if @tab_flags[:nmn] or @tab_flags[:cntcts] %>
@@ -29,6 +30,7 @@
         <% end %>
       Nómina</a>
     </li>
+    <% end %>
 
     <!-- La vista de los usuarios sólo es de DOG por ahora -->
     <% if current_usuario.dog? %>

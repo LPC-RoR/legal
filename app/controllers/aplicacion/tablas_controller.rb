@@ -5,12 +5,13 @@ class Aplicacion::TablasController < ApplicationController
   layout 'addt'
 
   def tribunal_corte
-    set_tabla('tribunal_cortes', TribunalCorte.trbnl_ordr, false)
+    set_pgnt_tbl('tribunal_cortes', TribunalCorte.trbnl_ordr)
   end
 
   def uf_regiones
-      set_tabla('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc), false)
-      set_tabla('regiones', Region.order(:orden), false)
+    set_pgnt_tbl('tar_uf_sistemas', TarUfSistema.all.order(fecha: :desc))
+#    @ufs      = TarUfSistema.all.order(fecha: :desc)
+    @regiones = Region.order(:orden)
   end
 
   def enlaces
@@ -22,8 +23,6 @@ class Aplicacion::TablasController < ApplicationController
       @annio = params[:a].blank? ? Time.zone.today.year : params[:a].to_i
 
       @feriados = CalFeriado.where('extract(year  from cal_fecha) = ?', @annio).fecha_ordr
-
-      set_tabla('cal_feriados', @feriados, false)
   end
 
   def tipos
@@ -33,33 +32,12 @@ class Aplicacion::TablasController < ApplicationController
   end
 
   def cuantias_tribunales
-      set_tabla('tar_detalle_cuantias', TarDetalleCuantia.all.order(:tar_detalle_cuantia), false)
-      set_tabla('tribunal_cortes', TribunalCorte.all.order(:tribunal_corte), false)
+      @cuantias = TarDetalleCuantia.all.order(:tar_detalle_cuantia)
   end
 
   def tarifas_generales
-      set_tabla('tar_tarifas', TarTarifa.where(ownr_type: ''), false)
-      set_tabla('tar_servicios', TarServicio.where(ownr_type: ''), false)
-  end
-
-  def modelo
-      if usuario_signed_in?
-        # Repositorio de la plataforma
-        general_sha1 = Digest::SHA1.hexdigest("Modelo de Negocios General")
-        @modelo = MModelo.find_by(m_modelo: general_sha1)
-        @modelo = MModelo.create(m_modelo: general_sha1) if @modelo.blank?
-
-        set_tabla('m_cuentas', @modelo.m_cuentas.order(:m_cuenta), false)
-      end
-  end
-
-  def periodos_bancos
-      set_tabla('m_bancos', MBanco.all.order(:m_banco), false) 
-      set_tabla('m_periodos', MPeriodo.order(clave: :desc), false) 
-  end
-
-  # GET /tablas or /tablas.json
-  def index
+    @tar_causas     = TarTarifa.where(ownr_type: '')
+    @tar_servicios  = TarServicio.where(ownr_type: '')
   end
 
   private

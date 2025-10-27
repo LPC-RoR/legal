@@ -43,10 +43,6 @@ module CptnLayoutsHelper
 		controller_name.start_with?('krn_') or cuentas_routes? or krn_non_krn_routes? or krn_hlp_routes? or devise_routes? or blg_routes?
 	end
 
-	def krn_user_error?
-		get_scp_activo.present? and (not (krn_routes? or not_authenticate_routes?))
-	end
-
 	# Resuelve el directorio donde encontrar el layout
 	def lyt_prtl_dir
 		if public_controller_routes? or devise_routes? or (controller_name == 'home' and ['index', 'costos', 'artcls'].include?(action_name))

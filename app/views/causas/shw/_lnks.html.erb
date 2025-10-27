@@ -3,7 +3,7 @@
 <% end %>
 
 <% if controller_name == 'causas' %>
-	<%= link_to "/clientes/#{objeto.cliente.id}?html_options[menu]=Causas" do %>
+	<%= link_to "/clientes/#{@objeto.cliente.id}?html_options[menu]=Causas" do %>
 		<i class="bi bi-building"></i>
 	<% end %>
 <% end %>

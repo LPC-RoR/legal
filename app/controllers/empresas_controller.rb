@@ -1,7 +1,7 @@
 class EmpresasController < ApplicationController
   before_action :authenticate_usuario!, except: [:create, :verify]
   before_action :scrty_on
-  before_action :set_empresa, only: %i[ show edit update destroy swtch prg ]
+  before_action :set_empresa, only: %i[ show edit update destroy swtch prg renovar_demo ]
 
   # anti-bot para create
   MIN_FILL_SECONDS = 3
@@ -20,7 +20,6 @@ class EmpresasController < ApplicationController
 
   # GET /empresas/1 or /empresas/1.json
   def show
-    set_tabla('pro_dtll_ventas', @objeto.pro_dtll_ventas, false)
   end
 
   # GET /empresas/new
@@ -150,6 +149,13 @@ class EmpresasController < ApplicationController
     end
   end
 
+  def renovar_demo
+    licencia = @objeto.licencia_actual
+    licencia.renovar_demo! if licencia.puede_renovar_demo?
+    
+    redirect_to empresas_path
+  end
+
   # DELETE /empresas/1 or /empresas/1.json
   def destroy
     @objeto.destroy!
@@ -164,7 +170,6 @@ class EmpresasController < ApplicationController
     @objeto.krn_investigadores.delete_all
     @objeto.krn_denuncias.delete_all
     @objeto.krn_empresa_externas.delete_all
-    @objeto.pro_dtll_ventas.delete_all
     @objeto.rcrs_logo.delete if @objeto.rcrs_logo.present?
     @objeto.app_contactos.delete_all
     @objeto.app_nominas.each do |nmn|

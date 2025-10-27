@@ -1,9 +1,9 @@
 Causa : 
-<%= objeto.rit unless objeto.rit.blank? %>
+<%= @objeto.rit unless @objeto.rit.blank? %>
 <% if controller_name == 'servicios' and action_name == 'aprobacion' %>
-	<%= link_to "/causas/#{objeto.id}/?html_options[menu]=Tarifa+%26+Pagos" do %>
+	<%= link_to "/causas/#{@objeto.id}/?html_options[menu]=Tarifa+%26+Pagos" do %>
 		<i class="bi bi-box-arrow-up-right"></i>
 	<% end %>
 <% end %>
 <i class="bi bi-dot"></i>
-<%= objeto.causa %>
+<%= @objeto.causa %>

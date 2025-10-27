@@ -1,8 +1,10 @@
 <div class="row gx-1">
 	<div class="col-lg-6 col-xs-12">
-		<%= render partial: '0p/tbl_ttl', locals: {source: 'tar_uf_sistemas'} %>
+		<%= render partial: '0p/ttl_clss', locals: {source: 'tar_uf_sistemas', clss: :gray, dir: 'indx'} %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @pgnt['tar_uf_sistemas'], dir: 'list', typ: 'tr', pgnt: true} %>
 	</div>
 	<div class="col-lg-6">
-		<%= render partial: '0p/tbl_ttl', locals: {source: 'regiones', ordr: true} %>
+		<%= render partial: '0p/ttl_clss', locals: {source: 'regiones', clss: :gray, dir: 'indx'} %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @regiones, dir: 'list', typ: 'tr'} %>
 	</div>
 </div>

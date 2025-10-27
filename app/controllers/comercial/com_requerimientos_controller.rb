@@ -9,7 +9,7 @@ class Comercial::ComRequerimientosController < ApplicationController
 
   # GET /com_requerimientos or /com_requerimientos.json
   def index
-    set_tabla('com_requerimientos', ComRequerimiento.order(created_at: :desc), true)
+    set_pgnt_tbl('com_requerimientos', ComRequerimiento.order(created_at: :desc))
   end
 
   # GET /com_requerimientos/1 or /com_requerimientos/1.json

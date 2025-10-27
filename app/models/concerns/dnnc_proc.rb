@@ -193,18 +193,9 @@ module DnncProc
  	
  	# ================================= PROC Etapas
 
-	def rgstrs_mnms?
-		self.krn_denunciantes.any? and (self.krn_denunciados.any? or self.violencia?)
-	end
-
  	# Los datos de los participantes ingresados hasta el momento están completos
 	def rgstrs_ok?
 		self.krn_denunciantes.rgstrs_ok? and (self.krn_denunciados.rgstrs_ok? or self.violencia?)
-	end
-
-	# ETAPA Para resolver el comienzo de las etapas
-	def rgstrs_info_mnm?
-		self.rgstrs_mnms? and self.rgstrs_ok?
 	end
 
  	# Reconocer declaración Verbal: recibida en la empresa, entregada presencial en forma verbal

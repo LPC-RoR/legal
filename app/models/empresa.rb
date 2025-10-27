@@ -1,8 +1,6 @@
 class Empresa < ApplicationRecord
     attr_accessor :website  # honeypot
 
-    DEMO_DURATION = 5
-    
     has_one :tenant, as: :owner, dependent: :destroy
     has_many :usuarios, through: :tenant
 #    after_create :crear_tenant
@@ -12,7 +10,7 @@ class Empresa < ApplicationRecord
 
 	has_many :app_nominas, as: :ownr
 
-	has_many :pro_dtll_ventas, as: :ownr
+    has_many :licencias, dependent: :destroy
 
 	has_many :krn_investigadores, as: :ownr
 	has_many :krn_denuncias, as: :ownr
@@ -36,7 +34,8 @@ class Empresa < ApplicationRecord
     validates :razon_social, length: { maximum: 200 }
     validates :administrador, length: { maximum: 120 }
 
-    include Prdct
+    # crea la demo la primera vez que se registra
+    after_create :crear_demo!
 
     def cnt_cntrllr
     	'emprss'
@@ -70,10 +69,31 @@ class Empresa < ApplicationRecord
       end
     end
 
-    # Procedimiento Investigación y Snación
+    # Licencias
 
-    def productos?
-        self.pro_dtll_ventas.any?
+    # la licencia “vigente” es la última activa
+    def licencia_actual
+        licencias.active.order(:created_at).last
+    end
+
+    def licencia_activa?
+        actual = licencia_actual
+        actual.present? and (not actual.expirada?) and (not actual.tope_alcanzado?)
+    end
+
+    # Procedimiento Investigación y Sanción
+
+    def cnfgrcn_ok?
+        krn_investigadores.any? and 
+        app_nominas.any? and 
+        (plan_type == 'extendido' ? krn_empresa_externas.any? : true ) and
+        (verificacion_datos ? app_contactos.where(grupo: 'RRHH').any? : true) and 
+        (coordinacion_apt ? app_contactos.where(grupo: 'Apt').any? : true ) and
+        app_contactos.where(grupo: 'Backup').any?
+    end
+
+    def demo?
+        licencia_actual? and licencia_actual.plan == 'demo'
     end
 
     def nomina?
@@ -88,47 +108,34 @@ class Empresa < ApplicationRecord
         self.krn_empresa_externas.any?
     end
 
-    # PRODUCTOS
-
-    def fecha_demo_activa?
-        fecha = fecha_demo? ? fecha_demo : created_at.to_date.in_time_zone
-        fecha > DEMO_DURATION.days.ago.in_time_zone
-    end
-
-
-	# OBJETO
-
-    def formatos
-        self.productos? ? self.pro_dtll_ventas.map {|pro| pro.formato} : []
-    end
-
-    def n_dnncs
-        # Si tiene productos puede ser 1 (B) o 20, si no (DEMO) son 10
-    	self.productos? ? (self.formatos.include?('B') ? 1 : 10) : 10
-    end
-
-    def new_bttn?
-    	self.krn_denuncias.count < self.n_dnncs
-    end
-
     # ---------------------------------------------------------------------------------
     private
 
-        def crear_tenant
-            Tenant.create!(nombre: razon_social, owner: self)
+    def crear_tenant
+        Tenant.create!(nombre: razon_social, owner: self)
+    end
+
+    def acceptable_logo
+        return unless logo.attached?
+
+        unless logo.blob.byte_size <= 2.megabytes
+          errors.add(:logo, "debe pesar 2MB o menos")
         end
 
-        def acceptable_logo
-            return unless logo.attached?
-
-            unless logo.blob.byte_size <= 2.megabytes
-              errors.add(:logo, "debe pesar 2MB o menos")
-            end
-
-            acceptable_types = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"]
-            unless acceptable_types.include?(logo.content_type)
-              errors.add(:logo, "debe ser PNG, JPG, WEBP o SVG")
-            end
+        acceptable_types = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"]
+        unless acceptable_types.include?(logo.content_type)
+          errors.add(:logo, "debe ser PNG, JPG, WEBP o SVG")
         end
+    end
+
+    def crear_demo!
+        licencias.create!(
+            plan:            'demo',
+            status:          'active',
+            max_denuncias:   5,
+            started_at:      Time.current,
+            finished_at:     10.days.from_now
+        )
+    end
 
 end

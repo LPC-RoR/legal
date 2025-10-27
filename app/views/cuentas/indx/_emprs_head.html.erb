@@ -12,10 +12,16 @@
 			<% if objt.plan_type == 'extendido' %>
 				<i class="bi bi-diagram-3"></i>
 			<% end %>
+			<% unless objt.cnfgrcn_ok? %>
+				<i class="bi bi-cone-striped text-danger"></i>
+			<% end %>
 		</div>
 		<div class="col-lg-4 pe-2 text-end">
+			<% unless @licencia_activa %>
+				<i class="bi bi-cone-striped text-danger"></i>
+			<% end %>
 			<i class="bi bi-box2"></i>
-			<% if objt.demo? %>
+			<% if @licencia.plan == 'demo' %>
 				<%= render layout: '0p/collapse/link', locals: {label: 'InfoProducto', objeto: nil, tooltip: 'Información del producto'} do %>
 					<small>DEMO</small>
 				<% end %>
@@ -27,10 +33,24 @@
 
 <%= render layout: '0p/collapse/dsply', locals: {label: 'InfoProducto', objeto: nil} do %>
 	<div class="p-3 border rounded-2">
-		<% if objt.demo? %>
-			<i class="bi bi-lightbulb"></i>
-			Su cuenta le permite crear hasta 5 denuncias y estará activa por diez días contados desde el registro de su empresa.
+		<i class="bi bi-lightbulb"></i>
+		<% if @licencia.plan == 'demo' %>
+			Su cuenta le permite crear hasta 5 denuncias y estará activa por 10 días contados desde el registro de su empresa.
 		<% else %>
+			Su cuenta le permite crear hasta 20 denuncias y estará activa por un año.
+		<% end %>
+		<% if @licencia.blank? or @licencia.expirada? or @licencia.tope_alcanzado? %>
+			<ul>
+				<% if @licencia.blank? %>
+					<li>Empresa sin licencia.</li>
+				<% end %>
+				<% if @licencia.expirada? %>
+					<li>Licencia expirada.</li>
+				<% end %>
+				<% if @licencia.tope_alcanzado? %>
+					<li>Se ha alcanzado el tope de denuncias de la licencia.</li>
+				<% end %>
+			</ul>
 		<% end %>
 	</div>
 <% end %>

@@ -1,1 +1,2 @@
-<%= render partial: '0p/tbl_ttl', locals: {source: 'com_documentos'} %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'com_documentos', clss: :head, dir: 'indx', hide_gly: true} %>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @pgnt['com_documentos'], dir: 'list', typ: 'tr', pgnt: true} %>

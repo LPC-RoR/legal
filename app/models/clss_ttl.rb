@@ -16,6 +16,26 @@ class ClssTtl < ApplicationRecord
 				lnks: "app_lnk",
 				styl: "margin-left: 1px;margin-right: 1px; margin-bottom: 1px;"
 			},
+			clear: {
+				mrgn_pddn: "px-1 py-2",
+				brdr: "border",
+				rndd: "rounded-3",
+				fnt: "fs-5",
+				bg_crl: "bg_azul_claro",
+				clr: "text-primary",
+				lnks: "objt_lnk",
+				styl: "margin-left: 1px;margin-right: 1px; margin-bottom: 1px;"
+			},
+			gray: {
+				mrgn_pddn: "px-1 py-2",
+				brdr: "border",
+				rndd: "rounded-3",
+				fnt: "fs-5",
+				bg_crl: "bg-secondary-subtle",
+				clr: "text-secondary",
+				lnks: "app_lnk",
+				styl: "margin-left: 1px;margin-right: 1px; margin-bottom: 1px;"
+			},
 			sub: {
 				mrgn_pddn: "px-1 py-1",
 				brdr: "border border-dark-subtle border-3",
@@ -33,7 +53,7 @@ class ClssTtl < ApplicationRecord
 				fnt: "fs-5",
 				bg_crl: "bg_azul_claro",
 				clr: "text-primary",
-				lnks: "app_lnk",
+				lnks: "objt_lnk",
 				styl: "margin-left: 1px;margin-right: 1px; margin-bottom: 1px;"
 			},
 		}.freeze

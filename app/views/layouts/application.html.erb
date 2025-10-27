@@ -5,9 +5,9 @@
   <body>
     <%= render partial: 'layouts/partials/navbar', locals: {logo_path: "logo/logo_60.png"} unless controller_name == 'servicios' %>
 
-    <%= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('main')} %>
+    <%#= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('main')} %>
+    <%= render partial: 'layouts/main' %>
 
-    <%#= render partial: 'layouts/partials/dsply_lyt_prtl', locals: {prtl: lyt_prtl('footer')} %>
     <%= render partial: 'layouts/partials/footer', locals: {logo_path: "logo/logo_60.png"} unless controller_name == 'servicios' %>
 
   </body>

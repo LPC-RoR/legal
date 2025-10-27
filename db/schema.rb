@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_013423) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_27_185403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1150,6 +1150,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_013423) do
     t.index ["orden"], name: "index_lgl_tramo_empresas_on_orden"
   end
 
+  create_table "licencias", force: :cascade do |t|
+    t.bigint "empresa_id", null: false
+    t.string "plan", null: false
+    t.string "status", null: false
+    t.integer "max_denuncias", default: 0
+    t.datetime "started_at", null: false
+    t.datetime "finished_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "demo_renews", default: 0, null: false
+    t.index ["empresa_id"], name: "index_licencias_on_empresa_id"
+  end
+
   create_table "m_bancos", force: :cascade do |t|
     t.string "m_banco"
     t.integer "m_modelo_id"
@@ -1330,6 +1343,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_013423) do
     t.index ["orden"], name: "index_m_valores_on_orden"
   end
 
+  create_table "menus", force: :cascade do |t|
+    t.string "key", null: false
+    t.boolean "enabled", default: false, null: false
+    t.jsonb "items", default: [], null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_menus_on_key", unique: true
+  end
+
   create_table "monto_conciliaciones", force: :cascade do |t|
     t.integer "causa_id"
     t.string "tipo"
@@ -1429,33 +1451,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_013423) do
     t.index ["orden"], name: "index_preguntas_on_orden"
   end
 
-  create_table "pro_dtll_ventas", force: :cascade do |t|
+  create_table "rcrs_enlaces", force: :cascade do |t|
     t.string "ownr_type"
     t.integer "ownr_id"
-    t.integer "producto_id"
-    t.datetime "fecha_activacion"
+    t.string "descripcion"
+    t.string "link"
+    t.boolean "blank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ownr_id"], name: "index_pro_dtll_ventas_on_ownr_id"
-    t.index ["ownr_type"], name: "index_pro_dtll_ventas_on_ownr_type"
-    t.index ["producto_id"], name: "index_pro_dtll_ventas_on_producto_id"
-  end
-
-  create_table "productos", force: :cascade do |t|
-    t.string "producto"
-    t.string "codigo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "tipo"
-    t.integer "procedimiento_id"
-    t.string "formato"
-    t.boolean "prepago"
-    t.integer "capacidad"
-    t.string "moneda"
-    t.decimal "precio"
-    t.index ["codigo"], name: "index_productos_on_codigo"
-    t.index ["procedimiento_id"], name: "index_productos_on_procedimiento_id"
-    t.index ["tipo"], name: "index_productos_on_tipo"
+    t.index ["ownr_id"], name: "index_rcrs_enlaces_on_ownr_id"
+    t.index ["ownr_type"], name: "index_rcrs_enlaces_on_ownr_type"
   end
 
   create_table "rcrs_logos", force: :cascade do |t|
@@ -2079,5 +2084,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_013423) do
   add_foreign_key "act_archivos", "act_archivos", column: "anonimizado_de_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "licencias", "empresas"
   add_foreign_key "usuarios", "tenants"
 end
