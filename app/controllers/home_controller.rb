@@ -52,7 +52,7 @@ class HomeController < ApplicationController
 	def dshbrd
 
 		if Menu.all.empty?
-			Menu.create(helper.h_menus[:admin])
+			Menu.create(helpers.h_menus[:admin])
 		end
 
 	  # 1. Salida temprana si el usuario está en un scope especial
