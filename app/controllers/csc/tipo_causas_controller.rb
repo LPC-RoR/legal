@@ -72,6 +72,6 @@ class Csc::TipoCausasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tipo_causa_params
-      params.require(:tipo_causa).permit(:tipo_causa)
+      params.require(:tipo_causa).permit(:tipo_causa, :code_causa)
     end
 end

@@ -1,6 +1,7 @@
-class ClssCuantia
+class ClssTipos
 
-	def self.cncptos
+	# tar_detalle_cuantias
+	def self.cuantias
 		{
 			'moral' 		=> 'Daño moral',
 			'sgr_csntia' 	=> 'Descuento seguro de cesantía',
@@ -16,6 +17,15 @@ class ClssCuantia
 			'artcl_168'		=> 'Recargo legal art. 168 CT',
 			'rmnrcn'		=> 'Remuneración',
 			'otro'			=> 'Otro'
+		}
+	end
+
+	def tipos_causa
+		{
+			'letras'		=> 'Juzgado de letras',
+			'cobranza'		=> 'Juzgado de Cobranza',
+			'apelaciones'	=> 'Corte de apelaciones',
+			'suprema'		=> 'Corte suprema'
 		}
 	end
 

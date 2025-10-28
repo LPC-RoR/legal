@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_28_174353) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_28_205057) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -439,8 +439,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_28_174353) do
     t.boolean "archivada"
     t.string "estado_pago"
     t.boolean "archvd"
+    t.string "code_causa"
     t.index ["archivos_registrados"], name: "index_causas_on_archivos_registrados"
     t.index ["causa_ganada"], name: "index_causas_on_causa_ganada"
+    t.index ["code_causa"], name: "index_causas_on_code_causa"
     t.index ["era"], name: "index_causas_on_era"
     t.index ["estado"], name: "index_causas_on_estado"
     t.index ["estado_causa"], name: "index_causas_on_estado_causa"
@@ -1875,6 +1877,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_28_174353) do
     t.decimal "valor_hora"
     t.boolean "cuantia_tarifa"
     t.integer "tipo_causa_id"
+    t.string "code_causa"
+    t.index ["code_causa"], name: "index_tar_tarifas_on_code_causa"
     t.index ["estado"], name: "index_tar_tarifas_on_estado"
     t.index ["facturables"], name: "index_tar_tarifas_on_facturables"
     t.index ["moneda"], name: "index_tar_tarifas_on_moneda"
@@ -1889,6 +1893,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_28_174353) do
     t.decimal "variable_tipo_causa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code_causa"
+    t.index ["code_causa"], name: "index_tar_tipo_variables_on_code_causa"
     t.index ["tar_tarifa_id"], name: "index_tar_tipo_variables_on_tar_tarifa_id"
     t.index ["tipo_causa_id"], name: "index_tar_tipo_variables_on_tipo_causa_id"
   end
@@ -1987,6 +1993,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_28_174353) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "tar_tarifa_id"
+    t.string "code_causa"
+    t.index ["code_causa"], name: "index_tipo_causas_on_code_causa"
     t.index ["tar_tarifa_id"], name: "index_tipo_causas_on_tar_tarifa_id"
     t.index ["tipo_causa"], name: "index_tipo_causas_on_tipo_causa"
   end
