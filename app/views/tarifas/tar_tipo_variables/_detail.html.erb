@@ -1,6 +1,9 @@
+<% tipos_causa = ClssTipos.tipos_causa.map {|codigo, nombre| [nombre, codigo]} %>
+
 <div class='row'>
 	<div class='col-lg-6'>
 		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, display_field: 'Tipo Causa', prompt: nil, label: 'Tipo de Causa' } %>
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :code_causa, sel_list: tipos_causa, display_field: 'Tipo Causa', prompt: 'Seleccione tipo de causa', label: 'Tipo de Causa' } %>
 	</div>
 	<div class='col-lg-6'>
 		<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :variable_tipo_causa, label: 'Tarifa variable ( % base )' } %>

@@ -17,15 +17,39 @@ class ClssTipos
 			'artcl_168'		=> 'Recargo legal art. 168 CT',
 			'rmnrcn'		=> 'Remuneración',
 			'otro'			=> 'Otro'
-		}
+		}.freeze
 	end
 
-	def tipos_causa
+	def self.tipos_causa
 		{
 			'letras'		=> 'Juzgado de letras',
 			'cobranza'		=> 'Juzgado de Cobranza',
 			'apelaciones'	=> 'Corte de apelaciones',
 			'suprema'		=> 'Corte suprema'
+		}.freeze
+	end
+
+	def self.audiencias
+		{
+			letras: [
+				['Audiencia preparatoria', false],
+				['Audiencia de juicio', true],
+				['Audiencia única', false]
+			]
+		}		
+	end
+
+	def self.archivos
+		{
+			letras: [
+				['demanda', 'Demanda', false],
+				['contestacion', 'Contestación', false]
+			],
+			cobranza: [
+				['sentencia', 'Sentencia', false],
+				['carta_despido', 'Carta despido', false],
+				['demanda', 'Demanda', false]
+			]
 		}
 	end
 

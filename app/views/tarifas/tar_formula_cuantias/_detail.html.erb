@@ -1,6 +1,9 @@
+<% cuantias = ClssTipos.cuantias.map {|codigo, nombre| [nombre, codigo]} %>
+
 <div class='row'>
 	<div class='col-lg-4'>
 		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tar_detalle_cuantia_id, colection: TarDetalleCuantia.all.order(:tar_detalle_cuantia).collect { |dc| [dc.tar_detalle_cuantia, dc.id] }, display_field: 'tar_detalle_cuantia', prompt: 'Cuantía', label: 'Cuantía' } %>
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :code_cuantia, sel_list: cuantias, display_field: 'code_cuantia', prompt: 'Seleccione concepto de la cuantía', label: 'Concepto de la cuantía' } %>
 	</div>
 	<div class='col-lg-4'>
 		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tar_formula_cuantia, label: 'Fórmula de la tarifa' } %>

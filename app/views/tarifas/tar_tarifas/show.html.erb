@@ -6,10 +6,13 @@
 
 		<% if @objeto.cuantia_tarifa %>
 			<hr>
-			<%= render partial: '0p/tbl_ttl', locals: {source: 'tar_formula_cuantias', typ: 'ln', blngs: @objeto} %>
+			<%= render partial: '0p/ttl_clss', locals: {source: 'tar_formula_cuantias', clss: :sub, dir: 'indx', blngs: @objeto, hide_gly: true} %>
+			<%= render partial: '0p/tbl_clss', locals: {clccn: @coleccion['tar_formula_cuantias'], clss: :head, dir: 'list', typ: 'ln'} %>
 		<% end %>
 		<hr>
-		<%= render partial: '0p/tbl_ttl', locals: {source: 'tar_tipo_variables', blngs: @objeto} %>
+
+		<%= render partial: '0p/ttl_clss', locals: {source: 'tar_tipo_variables', clss: :sub, dir: 'indx', blngs: @objeto, hide_gly: true} %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @coleccion['tar_tipo_variables'], clss: :head, dir: 'list'} %>
 	</div>
 	<div class="col">
 		<%= render partial: '0p/tbl_ttl', locals: {source: 'tar_formulas', typ: 'ln', blngs: @objeto, ordr: true} %>
