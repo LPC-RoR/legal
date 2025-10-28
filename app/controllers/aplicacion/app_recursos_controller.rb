@@ -20,6 +20,34 @@ class Aplicacion::AppRecursosController < ApplicationController
   def procesos
   end
 
+  def migrar_cuantias
+    TarValorCuantia.where(code_cuantia: nil).each do |rcrd|
+      if rcrd.ownr_id.nil?
+        rcrd.delete
+      elsif rcrd.tar_detalle_cuantia.present?
+        rcrd.moneda = 'Pesos' if rcrd.moneda.nil?
+        rcrd.code_cuantia = rcrd.tar_detalle_cuantia.code_cuantia
+        rcrd.save
+      else
+        rcrd.delete
+      end
+    end
+
+    TarFormulaCuantia.where(code_cuantia: nil).each do |rcrd|
+      if rcrd.ownr_id.nil?
+        rcrd.delete
+      elsif rcrd.tar_detalle_cuantia.present?
+        rcrd.moneda = 'Pesos' if rcrd.moneda.nil?
+        rcrd.code_cuantia = rcrd.tar_detalle_cuantia.code_cuantia
+        rcrd.save
+      else
+        rcrd.delete
+      end
+    end
+
+    redirect_to root_path
+  end
+
   def migrar_tenants
     u = Usuario.find_by(email: 'afiwugogida18@gmail.com')
     u.delete

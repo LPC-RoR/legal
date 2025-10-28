@@ -365,6 +365,7 @@ Rails.application.routes.draw do
         match :migrar_notas, via: :post
         match :purge_rep_archivos, via: :post
         match :migrar_tenants, via: :post
+        match :migrar_cuantias, via: :post
       end
     end
     resources :tablas do

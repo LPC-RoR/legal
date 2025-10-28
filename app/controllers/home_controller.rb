@@ -35,8 +35,6 @@ class HomeController < ApplicationController
 		@req = ComRequerimiento.new
 		# @slides = Slide.activas.ordr
 
-#		@prfl_laborsafe = ComDocumento.find_by(codigo: 'prfl_laborsafe')
-#		@prfl_externalizacion = ComDocumento.find_by(codigo: 'prfl_externalizacion')
 		@prsntcn = ComDocumento.find_by(codigo: 'presentacion')
 		@rprt_dnnc = ComDocumento.find_by(codigo: 'dnnc')
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_27_185403) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_28_174353) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1724,6 +1724,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_27_185403) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "formula_cuantia"
     t.string "formula_honorarios"
+    t.string "code_cuantia"
+    t.index ["code_cuantia"], name: "index_tar_detalle_cuantias_on_code_cuantia"
     t.index ["tar_detalle_cuantia"], name: "index_tar_detalle_cuantias_on_tar_detalle_cuantia"
   end
 
@@ -1784,6 +1786,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_27_185403) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.decimal "porcentaje_base"
+    t.string "code_cuantia"
+    t.index ["code_cuantia"], name: "index_tar_formula_cuantias_on_code_cuantia"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_formula_cuantias_on_tar_detalle_cuantia_id"
     t.index ["tar_tarifa_id"], name: "index_tar_formula_cuantias_on_tar_tarifa_id"
   end
@@ -1926,6 +1930,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_27_185403) do
     t.integer "demandante_id"
     t.string "ownr_type"
     t.integer "ownr_id"
+    t.string "code_cuantia"
+    t.index ["code_cuantia"], name: "index_tar_valor_cuantias_on_code_cuantia"
     t.index ["demandante_id"], name: "index_tar_valor_cuantias_on_demandante_id"
     t.index ["desactivado"], name: "index_tar_valor_cuantias_on_desactivado"
     t.index ["owner_class"], name: "index_tar_valor_cuantias_on_owner_class"
