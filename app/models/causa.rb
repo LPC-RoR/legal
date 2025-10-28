@@ -49,7 +49,7 @@ class Causa < ApplicationRecord
     scope :std_pago, ->(estado_pago) { where(estado_pago: estado_pago).order(:fecha_audiencia) }
     # DEPRECATED : Se cambia por std('ingreso'), se deben migrar todas las causas que están en estado 'tramitación'
     scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.tar_calculos.empty?}.compact)}
-    scope :trmtcn, -> { where(estado: ['ingreso', 'tramitación']).order(:fecha_audiencia) }
+    scope :trmtcn, -> { where(archvd: [nil, false]).where(estado: ['ingreso', 'tramitación']).order(:fecha_audiencia) }
 
 	scope :sin_tar_calculos, -> {
 		left_outer_joins(:tar_calculos).where(tar_calculos: { id: nil })

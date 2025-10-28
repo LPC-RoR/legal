@@ -30,13 +30,13 @@ class CausasController < ApplicationController
       when 'ingrs'
         cllcn = Causa.std('ingreso')
       when 'trmtcn'
-        cllcn = Causa.std('tramitación')
+        cllcn = Causa.trmtcn
       when 'archvd'
         cllcn = Causa.std('archivada')
       when 'vacios'
-        cllcn = Causa.std('tramitación').sin_tar_calculos
+        cllcn = Causa.trmtcn.sin_tar_calculos
       when 'incmplt'
-        cllcn = Causa.std('tramitación').con_un_solo_tar_calculo
+        cllcn = Causa.trmtcn.con_un_solo_tar_calculo
       when 'monto'
         cllcn = Causa.std_pago('monto')
       when 'cmplt'

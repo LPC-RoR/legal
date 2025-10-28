@@ -59,14 +59,14 @@ class ClientesController < ApplicationController
       when 'ingrs'
         cllcn = @objeto.causas.std('ingreso')
       when 'trmtcn'
-        cllcn = @objeto.causas.std('tramitación')
+        cllcn = @objeto.causas.trmtcn
       when 'archvd'
         cllcn = @objeto.causas.std('archivada')
       when 'vacios'
-        cllcn = @objeto.causas.std('tramitación').sin_tar_calculos
+        cllcn = @objeto.causas.trmtcn.sin_tar_calculos
       when 'incmplt'
         cllcn = @objeto.causas
-               .where(id: @objeto.causas.std('tramitación')
+               .where(id: @objeto.causas.trmtcn
                                    .joins(:tar_calculos)
                                    .group('causas.id')
                                    .having('COUNT(tar_calculos.id) = 1')
