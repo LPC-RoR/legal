@@ -21,24 +21,26 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
-    TarValorCuantia.where(code_cuantia: nil).each do |rcrd|
-      if rcrd.ownr_id.nil?
+    Causa.where(code_causa: nil).each do |rcrd|
+      if rcrd.cliente_id.nil?
         rcrd.delete
-      elsif rcrd.tar_detalle_cuantia.present?
-        rcrd.moneda = 'Pesos' if rcrd.moneda.nil?
-        rcrd.code_cuantia = rcrd.tar_detalle_cuantia.code_cuantia
+      elsif rcrd.tipo_causa.present?
+        rcrd.code_causa = rcrd.tipo_causa.code_causa
         rcrd.save
-      else
-        rcrd.delete
       end
     end
 
-    TarFormulaCuantia.where(code_cuantia: nil).each do |rcrd|
-      if rcrd.tar_detalle_cuantia.present?
-        rcrd.code_cuantia = rcrd.tar_detalle_cuantia.code_cuantia
+    TarTarifa.where(code_causa: nil).each do |rcrd|
+      if rcrd.tipo_causa.present?
+        rcrd.code_causa = rcrd.tipo_causa.code_causa
         rcrd.save
-      else
-        rcrd.delete
+      end
+    end
+
+    TarTipoVariable.where(code_causa: nil).each do |rcrd|
+      if rcrd.tipo_causa.present?
+        rcrd.code_causa = rcrd.tipo_causa.code_causa
+        rcrd.save
       end
     end
 

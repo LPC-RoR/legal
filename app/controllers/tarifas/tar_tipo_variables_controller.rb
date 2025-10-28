@@ -74,6 +74,6 @@ class Tarifas::TarTipoVariablesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def objeto_params
-      params.require(:tar_tipo_variable).permit(:tar_tarifa_id, :tipo_causa_id, :variable_tipo_causa)
+      params.require(:tar_tipo_variable).permit(:tar_tarifa_id, :tipo_causa_id, :variable_tipo_causa, :code_causa)
     end
 end
