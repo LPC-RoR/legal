@@ -34,9 +34,7 @@ class Aplicacion::AppRecursosController < ApplicationController
     end
 
     TarFormulaCuantia.where(code_cuantia: nil).each do |rcrd|
-      if rcrd.ownr_id.nil?
-        rcrd.delete
-      elsif rcrd.tar_detalle_cuantia.present?
+      if rcrd.tar_detalle_cuantia.present?
         rcrd.moneda = 'Pesos' if rcrd.moneda.nil?
         rcrd.code_cuantia = rcrd.tar_detalle_cuantia.code_cuantia
         rcrd.save
