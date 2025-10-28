@@ -35,8 +35,9 @@ class HomeController < ApplicationController
 		@req = ComRequerimiento.new
 		# @slides = Slide.activas.ordr
 
-		@prfl_laborsafe = ComDocumento.find_by(codigo: 'prfl_laborsafe')
-		@prfl_externalizacion = ComDocumento.find_by(codigo: 'prfl_externalizacion')
+#		@prfl_laborsafe = ComDocumento.find_by(codigo: 'prfl_laborsafe')
+#		@prfl_externalizacion = ComDocumento.find_by(codigo: 'prfl_externalizacion')
+		@prsntcn = ComDocumento.find_by(codigo: 'presentacion')
 		@rprt_dnnc = ComDocumento.find_by(codigo: 'dnnc')
 
     @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
