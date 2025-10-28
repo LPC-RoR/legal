@@ -1,4 +1,5 @@
 class Srvcs::AsesoriasController < ApplicationController
+  include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_asesoria, only: %i[ show edit update destroy swtch set_tar_servicio facturar liberar_factura elimina_cobro ]

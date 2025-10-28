@@ -1,4 +1,5 @@
 class Srvcs::CargosController < ApplicationController
+  include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_cargo, only: %i[ show edit update destroy ]

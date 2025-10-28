@@ -1,4 +1,5 @@
 class ClientesController < ApplicationController
+  include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_cliente, only: %i[ show edit update destroy swtch_stt cambio_estado crea_factura aprueba_factura swtch_urgencia swtch_pendiente ]
