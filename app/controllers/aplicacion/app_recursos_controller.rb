@@ -22,7 +22,12 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def migrar_cuantias
     TarValorCuantia.all.each do |rcrd|
-      if rcrd.valor?
+      if rcrd.valor.nil? and rcrd.valor_tarifa.nil? and rcrd.code_cuantia == 'artcl_489'
+        dmndnt = rcrd.ownr.demandantes.find(rcrd.demandante_id)
+        rcrd.valor = 11 * dmndnt.remuneracion
+        rcrd.valor_tarifa = 8 * dmndnt.remuneracion
+        rcrd.save
+      elsif rcrd.valor?
         rcrd.valor_tarifa = rcrd.calc_valor_tarifa
         rcrd.porcentaje   = rcrd.get_porcentaje_ahorro
         rcrd.save
