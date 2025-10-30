@@ -41,8 +41,8 @@ class TarValorCuantia < ApplicationRecord
 	end
 
 	def get_porcentaje_ahorro
-		prcntj_code_cuantia = ownr&.tar_tarifa&.tar_formula_cuantias.find_by(code_cuantia: code_cuantia)&.porcentaje_base
-		prcntj_code_causa   = ownr&.tar_tarifa&.tar_tipo_variables.find_by(code_causa: ownr.code_causa)&.variable_tipo_causa
+		prcntj_code_cuantia = ownr&.tar_tarifa&.tar_formula_cuantias&.find_by(code_cuantia: code_cuantia)&.porcentaje_base
+		prcntj_code_causa   = ownr&.tar_tarifa&.tar_tipo_variables&.find_by(code_causa: ownr.code_causa)&.variable_tipo_causa
 
 		prcntj_code_cuantia.nil? ? ( prcntj_code_causa.nil? ? 0 : prcntj_code_causa ) : prcntj_code_cuantia
 	end
