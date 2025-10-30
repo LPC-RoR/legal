@@ -3,6 +3,28 @@
 		<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto} %>
 	</div>
 	<div class="col-lg-6">
+		<%= render partial: '0p/ttl_clss', locals: {source: 'act_archivos', clss: :sub, ttl: 'Archivos de la causa', hide_lnks: true} %>
+		<%#= @objeto.code_causa %>
+		<% ClssTipos.archivos[@objeto.code_causa.to_sym].each do |arch| %>
+			<% archivo = @objeto.act_archivos.find_by(act_archivo: arch[0]) %>
+			<div class="row gx-1 px-2 app_lnk">
+				<div class="col-8">
+					<%= arch[1] %>
+				</div>
+				<div class="col-4 text-end">
+					<% if archivo %>
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/show_pdf", tltp: 'Ver PDF', target: '_blank'} do %>
+							<i class="bi bi-download"></i>
+						<% end %>
+						<i class="bi bi-dot"></i>
+						<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: archivo} %>
+					<% else %>
+						<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', ownr: @objeto, prms: [['act', arch[0]], ['mdl', 'ClssTipos']]} %>
+					<% end %>
+				</div>
+			</div>
+			<%#= arch %>
+		<% end %>
 		<%= render partial: 'repositorios/shr/repositorio', locals: {objeto: @objeto, d_pendientes: @d_pendientes, a_pendientes: @a_pendientes} %>
 	</div>
 </div>

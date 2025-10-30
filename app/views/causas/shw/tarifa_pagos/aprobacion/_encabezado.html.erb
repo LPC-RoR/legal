@@ -1,8 +1,9 @@
 <!-- Versión 2.0 OK -->
 <!-- Encabezado del pago: usado en despliegue del pago de una causa+tarifa -->
 <!-- pago: tar_pago, ownr: causa -->
-<% valor_uf = ownr.calc_valor_uf(pago.codigo_formula) %>
-<% fecha_uf = ownr.calc_fecha_uf(pago.codigo_formula) %>
+<% valor_uf  = ownr.calc_valor_uf(pago.codigo_formula) %>
+<% fecha_uf  = ownr.calc_fecha_uf(pago.codigo_formula) %>
+<% origen_uf = ownr.calc_origen_uf(pago.codigo_formula) %>
 
 <div class="row px-2 gx-1 open-sans-regular" style="font-size: 16px;line-height: 1.2;">
 	<div class="col">
@@ -15,10 +16,27 @@
 			<small><b class="text-danger">UF del dia <%= dma(fecha_uf) %> no encontrada</b></small>
 		<% else %>
 			<small>
-			<%= s_uf5(@h_pgs[pago.id][:v_tarifa][0]) %>
+				<% if valor_uf.nil? %>
+					<i class="bi bi-cone-striped text-danger"></i>
+				<% end %>
+			<% case pago.codigo_formula %>
+			<% when 'monto_fijo' %>
+				<%= s_uf5(ownr.monto_fijo_uf(pago.codigo_formula)) %>
+			<% when 'monto_variable' %>
+				<%= s_uf5(ownr.monto_variable_uf(pago.codigo_formula)) %>
+			<% end %>
+
 			<i class="bi bi-arrow-left-right"></i>
 			</small>
-			<b><%= s_pesos(@h_pgs[pago.id][:v_tarifa][1]) %></b>
+
+			<b>
+			<% case pago.codigo_formula %>
+			<% when 'monto_fijo' %>
+				<%= s_pesos(ownr.monto_fijo(pago.codigo_formula)) %>
+			<% when 'monto_variable' %>
+				<%= s_pesos(ownr.monto_variable) %>
+			<% end %>
+			</b>
 		<% end %>
 	</div>
 </div>
@@ -50,14 +68,14 @@
 		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/form_uf_facturacion", locals: {causa: ownr, pago: pago} %>
 	<% end %>
 
-	<% unless @h_pgs[pago.id][:uf_calculo].blank? %>
+	<% unless valor_uf.nil? %>
 		<b>
 		<div class="row px-2 gx-1 open-sans-regular">
 			<div class="col">
-				<%= @h_pgs[pago.id][:origen_fecha_uf] %>
+				<%= origen_uf %>
 			</div>
 			<div class="col text-end">
-				<%= s_pesos2( @h_pgs[pago.id][:uf_calculo] ) %>
+				<%= s_pesos2( valor_uf ) %>
 			</div>
 		</div>
 		</b>

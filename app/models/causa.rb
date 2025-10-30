@@ -25,6 +25,7 @@ class Causa < ApplicationRecord
 	has_many :rep_archivos, as: :ownr
 
 	has_many :app_archivos, as: :ownr
+	has_many :act_archivos, as: :ownr
 
 	has_many :secciones
 	has_many :parrafos
@@ -142,6 +143,13 @@ class Causa < ApplicationRecord
 		fecha
 	end
 
+	def calc_origen_uf(codigo_formula)
+		objt = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)
+		objt ||= tar_calculos.find_by(codigo_formula: codigo_formula)
+		objt ||= tar_facturaciones.find_by(codigo_formula: codigo_formula)
+		objt ? (objt.class == TarFechaCalculo ? 'Uf asignada para el cálculo' : 'UF de la fecha de cálculo') : 'UF del día'
+	end
+
 	def calc_valor_uf(codigo_formula)
 		TarUfSistema.find_by(fecha: calc_fecha_uf(codigo_formula))&.valor
 	end
@@ -174,12 +182,34 @@ class Causa < ApplicationRecord
 		monto_pagado.nil? ? 0 : ttl_tarifa - monto_pagado
 	end
 
-	def monto_variable
-		dist = distribucion_porcentaje
-		dist.keys.map {|r| (dist[r].to_f*monto_ahorro/100)*(r.to_f/100)}.sum
+	def monto_fijo_uf(codigo_formula)
+		cuantia_uf = ttl_tarifa_uf(codigo_formula)
+		menor = cuantia_uf < 180
+		prcntje = menor ? cuantia_uf * 0.1 : cuantia_uf * 0.08
+		if menor
+			prcntje = 12 if prcntje < 12
+		else
+			prcntje = 27.5 	if prcntje < 27.5
+			prcntje = 50 	if prcntje > 50
+		end
+		prcntje
 	end
 
-	def monto_fijo
+	def monto_fijo(codigo_formula)
+		monto_fijo_uf(codigo_formula) * calc_valor_uf(codigo_formula)
+	end
+
+	def monto_variable
+		dist = distribucion_porcentaje
+		monto_pagado.present? ? dist.keys.map {|r| (dist[r].to_f*monto_ahorro/100)*(r.to_f/100)}.sum : 0
+	end
+
+	def monto_variable_uf(codigo_formula)
+		valor_uf = calc_valor_uf(codigo_formula)
+		monto_pagado && valor_uf ? (monto_variable / valor_uf) : 0
+	end
+
+	def calculo_monto_fijo
 		tar_calculos.find_by(codigo_formula: 'monto_fijo')&.monto
 	end
 
@@ -189,7 +219,7 @@ class Causa < ApplicationRecord
 		pagado 		= monto_pagado
 		ahorro		= monto_ahorro
 		variable 	= monto_variable
-		fijo 		= monto_fijo
+		fijo 		= calculo_monto_fijo
 
 		if formula
 			Keisan::Calculator.new.evaluate(

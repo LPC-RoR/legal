@@ -1,10 +1,10 @@
-<div class="p-2 border-start border-right border-bottom" style="margin-top: -1px">
+<div class="p-2 border-start border-end border-bottom" style="margin-top: -1px">
 
 	<%= render partial: '0p/ttl_clss', locals: {source: 'tar_pagos', clss: :sub, dir: 'pgs', blngs: objeto} %>
 	<%= render layout: '0p/collapse/display', locals: {label: 'CambioTarifa', objeto: nil} do %>
 		<%= render partial: prtl_name('tar_tarifas', 'indx/cllps', "cambio_tarifa"), locals: {blngs: objeto} %>
 	<% end %>
-	
+
 	<%= render partial: 'causas/shw/tarifa_pagos/aprobacion', locals: {objeto: objeto} %>
 	
 </div>
