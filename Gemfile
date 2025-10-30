@@ -103,7 +103,8 @@ gem "chartkick"
 gem "rails_charts"
 
 # Evaluación de expresiones
-gem "dentaku"
+gem "dentaku"   # Recomendación de DeepSeek
+gem 'keisan'    # Recomendación de KIMI
 
 # Servidor y optimización
 #gem 'puma', '~> 3.11'

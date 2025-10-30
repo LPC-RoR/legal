@@ -441,6 +441,7 @@ Rails.application.routes.draw do
       match :crea_uf_facturacion, via: :get, on: :collection
       match :elimina_uf_facturacion, via: :get, on: :member
     end
+    resources :tar_fecha_calculos
     resources :tar_detalle_cuantias do
       match :agrega_control_documento, via: :get, on: :member
       match :elimina_control_documento, via: :get, on: :member

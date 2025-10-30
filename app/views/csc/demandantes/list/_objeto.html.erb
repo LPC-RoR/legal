@@ -3,11 +3,18 @@
 		<%= "#{objeto.orden}.- #{objeto.nombres} #{objeto.apellidos}" %>
 	</div>
 	<div class="col-2 text-end">
+		<% if objeto.remuneracion.nil? %>
+			<i class="bi bi-cone-striped text-danger"></i>
+		<% end %>
 		<%= s_pesos(objeto.remuneracion) %>
 	</div>
 	<% if controller_name == 'causas' %>
 		<div class="col-1 text-end">
+			<% if objeto.causa.tar_calculos.none? %>
 				<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} %>
+			<% else %>
+				<i class="bi bi-ban"></i>
+			<% end %>
 		</div>
 	<% end %>
 </div>

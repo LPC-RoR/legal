@@ -6,14 +6,36 @@
 		<b>Detalle aplicación de tarifa</b>
 	</div>
 	
-	<% unless pago.tar_comentarios.empty? %>
-		<% pago.tar_comentarios.order(:orden).each do |comentario| %>
+	<!-- APLICA sólo si hay un pago -->
+	<%# if causa.tar_calculos.find_by(codigo_formula: pago.codigo_formula) %>
+		<% cmntrs = ClssTarifa.cmntrs_que_aplican(causa, pago) %>
+		<% cmntrs.each do |com| %>
 
-			<% if comentario.formula.blank? or calcula2(comentario.formula.strip, causa, pago) %>
-				<%= render partial: 'causas/shw/tarifa_pagos/display_comentario', locals: {comentario: comentario, causa:causa, pago: pago} %>
-			<% end  %>
-			
+			<div class="row gx-1 mx-2 open-sans-regular">
+				<div class="col-8">
+					<% if com[1] == 'cmntr' %>
+						<i class="bi bi-lightbulb"></i>
+					<% else %>
+						<i class="bi bi-arrow-right"></i>
+					<% end %>
+					<%= ClssTarifa.cmntrs[com[0]] %>
+				</div>
+				<div class="col-4 text-end">
+					<% if com[1] != 'cmntr' %>
+						<% case ClssTarifa.formato[com[0]] %>
+						<% when 'Pesos' %>
+							<%= s_pesos(causa.calc_valor_cmntr(com[1], pago)) %>
+						<% when 'UF' %>
+							<%= s_uf(causa.calc_valor_cmntr(com[1], pago)) %>
+						<% else %>
+							<%= causa.calc_valor_cmntr(com[1], pago) %>
+						<% end %>
+						
+					<% end %>
+				</div>
+			</div>
+
 		<% end %>
-	<% end %>
+	<%# end %>
 		
 <% end %>

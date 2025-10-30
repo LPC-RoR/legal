@@ -3,11 +3,11 @@
 		<b>TOTALES</b>
 	</div>
 	<div class="col-2 text-end">
-		<b><%= s_pesos(get_total_cuantia(objeto, 'tarifa')) %></b>
+		<b><%= s_pesos(objeto.ttl_tarifa) %></b>
 	</div>
 	<% if controller_name == 'causas' %>
 		<div class="col-2 text-end">
-			<b><%= s_pesos(get_total_cuantia(objeto, 'real')) %></b>
+			<b><%= s_pesos(objeto.ttl_cuantia) %></b>
 		</div>
 	<% end %>
 

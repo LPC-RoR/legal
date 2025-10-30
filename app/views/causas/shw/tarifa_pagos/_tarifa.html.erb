@@ -1,7 +1,0 @@
-<!-- Versión 2.0 -->
-<!-- Cambio de Tarifa en Tarifa & Pagos de la Causa -->
-<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'tar_tarifas', blngs: objeto, lnks: 'prtl'} %>
-
-<%= render layout: '0p/collapse/display', locals: {label: 'CambioTarifa', objeto: nil} do %>
-	<%= render partial: prtl_name('tar_tarifas', 'indx/cllps', "cambio_tarifa"), locals: {blngs: objeto} %>
-<% end %>

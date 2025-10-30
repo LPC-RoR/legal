@@ -1,19 +1,28 @@
+<!-- Nueva versión: Los campos se llenan al ingresar el registro -->
+
 <div class="row gx-1 px-2" style="font-size: 12px; line-height: 1.2;">
 	<div class="col-<%= controller_name == 'causas' ? 7 : 10 %>">
 		<%= render partial: 'tarifas/tar_valor_cuantias/list/cnt', locals: {objeto: objeto} %>
 	</div>
 	<div class="col-2 text-end">
-			<%= render partial: 'tarifas/tar_valor_cuantias/list/icono_check', locals: {check_valor: chck_tarifa(objeto)} if controller_name != 'servicios' %>
 			<% unless objeto.activado? %><del><% end %>
-				<%= s_moneda( objeto.moneda, vlr_tarifa(objeto) ) %>
+				<% if objeto.valor_tarifa.nil? %>
+					<i class="bi bi-cone-striped text-danger"></i>
+				<% end %>
+				<% if objeto.valor_tarifa and objeto.valor != objeto.valor_tarifa %>
+					<i class="bi bi-calculator"></i>
+				<% end %>
+				<%= s_moneda( objeto.moneda, objeto.valor_tarifa ) %>
 			<% unless objeto.activado? %></del><% end %>
 	</div>
 	<% if controller_name == 'causas' %>
 		<div class="col-2 text-end">
 			<% if controller_name == 'causas' %>
-				<%= render partial: 'tarifas/tar_valor_cuantias/list/icono_check', locals: {check_valor: chck_cuantia(objeto, 'real')} if controller_name != 'servicios' %>
+				<% if objeto.valor.nil? %>
+					<i class="bi bi-cone-striped text-danger"></i>
+				<% end %>
 				<% unless objeto.activado? %><del><% end %>
-					<%= s_moneda( objeto.moneda, vlr_cuantia(objeto, 'real') ) %>
+					<%= s_moneda( objeto.moneda, objeto.valor ) %>
 				<% unless objeto.activado? %></del><% end %>
 			<% end %>
 		</div>
@@ -21,7 +30,11 @@
 
 	<% if controller_name == 'causas' %>
 		<div class="col-1 text-end">
-			<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} %>
+			<% if objeto.ownr.tar_calculos.none? %>
+				<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} %>
+			<% else %>
+				<i class="bi bi-ban"></i>
+			<% end %>
 		</div>
 	<% end %>
 </div>

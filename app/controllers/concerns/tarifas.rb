@@ -354,15 +354,15 @@ module Tarifas
     # Versión 2.0
     def origen_fecha_calculo_pago(objt_clss)
 		case objt_clss
-		when 'TarUfFacturacion'
-			'UF definida para este pago.'
-		when 'TarCalculo'
-			'UF de la fecha de cálculo.'
-		when 'TarFacturacion'
-			'UF de la fecha de aprobación.'
-		else
-			'UF del día de hoy.'
-		end
+			when 'TarUfFacturacion'
+				'UF definida para este pago.'
+			when 'TarCalculo'
+				'UF de la fecha de cálculo.'
+			when 'TarFacturacion'
+				'UF de la fecha de aprobación.'
+			else
+				'UF del día de hoy.'
+			end
     end
 
 	# Version 2.0

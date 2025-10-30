@@ -2,7 +2,8 @@
 	<div class="col">
 
 		<i class="bi bi-cash-coin"></i> 
-		<%= s_pesos(objeto.detalle_cuantia('Pesos')) %>
+		<!-- Actualizado con uso de cuantía en el registro -->
+		<%= s_pesos(objeto.ttl_cuantia) %>
 		<i class="bi bi-arrow-right"></i>
 
 		<% unless objeto.monto_pagado.blank? %>

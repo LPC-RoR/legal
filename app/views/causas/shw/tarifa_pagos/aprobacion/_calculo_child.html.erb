@@ -1,11 +1,16 @@
+<% calculo 		= ownr.tar_calculos.find_by(codigo_formula: pago.codigo_formula) %>
+<% facturacion 	= ownr.tar_facturaciones.find_by(codigo_formula: pago.codigo_formula) %>
+<% rgstr = calculo.nil? ? facturacion : calculo %>
+
 <!-- Version 2.0 -->
 <hr>
-<% unless @h_pgs[pago.id][:objt_calculo].blank? %>
+<% unless rgstr.nil? %>
+
 	<div class="px-2">
 		<b>Autorización</b>
 		<!-- BOTÓN ELIMINA CALCULO -->
-		<% if @h_pgs[pago.id][:objt_calculo].class.name == 'TarCalculo' and @h_pgs[pago.id][:objt_calculo].tar_aprobacion_id.blank? %>
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{@h_pgs[pago.id][:objt_calculo].id}/elimina_calculo", tltp: 'Eliminar autorización', data: {turbo_method: :post}} do %>
+		<% if rgstr.class.name == 'TarCalculo' and rgstr.tar_aprobacion_id.blank? %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{rgstr.id}/elimina_calculo", tltp: 'Eliminar autorización', data: {turbo_method: :post}} do %>
 				<i class="bi bi-trash"></i>
 			<% end %>
 		<% end %>
@@ -15,7 +20,7 @@
 			<i class="bi bi-dot"></i>Fecha autorización
 		</div>
 		<div class="col text-end">
-			<%= dma( @h_pgs[pago.id][:objt_calculo].created_at ) %>
+			<%= dma( rgstr.created_at ) %>
 		</div>
 	</div>
 	<div class="row px-2 gx-1">
@@ -23,16 +28,16 @@
 			<i class="bi bi-dot"></i>Cuantía utilizada para el cálculo
 		</div>
 		<div class="col text-end">
-			<%= s_pesos( @h_pgs[pago.id][:objt_calculo].cuantia_calculo ) %>
+			<%= s_pesos( rgstr.cuantia_calculo ) %>
 		</div>
 	</div>
 
-	<% unless @h_pgs[pago.id][:ownr_fctrcn].tar_facturaciones.empty? %>
+	<% unless rgstr.tar_facturaciones.empty? %>
 		<div class="px-2">
 			<b>Pago(s)</b>
 		</div>
 
-		<% @h_pgs[pago.id][:ownr_fctrcn].tar_facturaciones.order(:created_at).each do |fctn| %>
+		<% rgstr.tar_facturaciones.order(:created_at).each do |fctn| %>
 			<div class="row px-2 gx-1">
 				<div class="col">
 					<i class="bi bi-dot"></i><%= fctn.glosa %>
@@ -48,6 +53,7 @@
 	<% end %>
 
 <% else %>
+
 	<% if ownr.class.name == 'Causa' and controller_name == 'causas' %>
 		</br>
 		<%= render layout: '0p/bttn', locals: {lnk: "/tar_calculos/crea_calculo#{ownr_prms(ownr)}&pid=#{pago.id}", mthd: :post} do %>

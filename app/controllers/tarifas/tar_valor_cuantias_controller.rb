@@ -13,7 +13,7 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
   # GET /tar_valor_cuantias/new
   def new
-    @objeto = TarValorCuantia.new(ownr_type: params[:oclss], ownr_id: params[:oid])
+    @objeto = TarValorCuantia.new(ownr_type: params[:oclss], ownr_id: params[:oid], moneda: 'Pesos')
   end
 
   # GET /tar_valor_cuantias/1/edit
@@ -72,6 +72,6 @@ class Tarifas::TarValorCuantiasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_valor_cuantia_params
-      params.require(:tar_valor_cuantia).permit(:ownr_type, :ownr_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda, :valor_tarifa, :nota, :desactivado, :demandante_id)
+      params.require(:tar_valor_cuantia).permit(:ownr_type, :ownr_id, :tar_detalle_cuantia_id, :otro_detalle, :valor, :valor_uf, :moneda, :valor_tarifa, :nota, :desactivado, :demandante_id, :code_cuantia)
     end
 end

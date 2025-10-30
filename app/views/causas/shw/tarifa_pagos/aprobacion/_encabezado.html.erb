@@ -1,16 +1,18 @@
 <!-- Versión 2.0 OK -->
 <!-- Encabezado del pago: usado en despliegue del pago de una causa+tarifa -->
 <!-- pago: tar_pago, ownr: causa -->
+<% valor_uf = ownr.calc_valor_uf(pago.codigo_formula) %>
+<% fecha_uf = ownr.calc_fecha_uf(pago.codigo_formula) %>
 
-<div class="row px-2 gx-1" style="font-size: 16px;line-height: 1.2;">
+<div class="row px-2 gx-1 open-sans-regular" style="font-size: 16px;line-height: 1.2;">
 	<div class="col">
 		<b><%= pago.tar_pago %></b>
 	</div>
 	<div class="col text-end">
 		<!-- el pago requiere el valor de la UF y la UF no se ha ingresado -->
 		<!-- Se usa la nuevas funciones get_uf_calculo_pago, get_fecha_calculo_pago y get_v_tarifa_pago -->
-		<% if pago.requiere_uf == true and @h_pgs[pago.id][:uf_calculo].blank? %>
-			<small><b class="text-danger">UF del dia <%= dma(@h_pgs[pago.id][:fecha_calculo]) %> no encontrada</b></small>
+		<% if pago.requiere_uf == true and valor_uf.nil? %>
+			<small><b class="text-danger">UF del dia <%= dma(fecha_uf) %> no encontrada</b></small>
 		<% else %>
 			<small>
 			<%= s_uf5(@h_pgs[pago.id][:v_tarifa][0]) %>
@@ -21,23 +23,26 @@
 	</div>
 </div>
 
+<% tar_fecha_calculo = ownr.tar_fecha_calculos.find_by(codigo_formula: pago.codigo_formula) %>
+
 <% if pago.requiere_uf %>             
-	<div class="row px-2 gx-1">
+	<div class="row px-2 gx-1 open-sans-regular">
 		<div class="col">
 			Fecha cálculo
-			<% if controller_name == 'causas' and ownr.tar_calculos.empty? %>
-				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "#{@h_pgs[pago.id][:tar_uf_facturacion].blank? ? 'Agrega' : 'Modifica'} fecha UF de cálculo" } do %>
+			<% if controller_name == 'causas' and ownr.tar_calculos.none? %>
+				<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "#{tar_fecha_calculo.nil? ? 'Agrega' : 'Modifica'} fecha UF de cálculo" } do %>
 					<i class="bi bi-pencil-square"></i>
 				<% end %>
-				<% if @h_pgs[pago.id][:tar_uf_facturacion].present? %>
-					<%= link_to "/causas/#{ownr.id}/del_uf_facturacion?pid=#{pago.id}" do %>
-						<i class="bi bi-trash"></i>
-					<% end %>
+				<% if tar_fecha_calculo %>
+					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: tar_fecha_calculo} %>
+					<%#= link_to "/causas/#{ownr.id}/del_uf_facturacion?pid=#{pago.id}" do %>
+						<!--i class="bi bi-trash"></i-->
+					<%# end %>
 				<% end %>
 			<% end %>
 		</div>
 		<div class="col text-end">
-			<%= dma(@h_pgs[pago.id][:fecha_calculo]) %>
+			<%= dma(ownr.calc_fecha_uf(pago.codigo_formula)) %>
 		</div>
 	</div>
 
@@ -47,7 +52,7 @@
 
 	<% unless @h_pgs[pago.id][:uf_calculo].blank? %>
 		<b>
-		<div class="row px-2 gx-1">
+		<div class="row px-2 gx-1 open-sans-regular">
 			<div class="col">
 				<%= @h_pgs[pago.id][:origen_fecha_uf] %>
 			</div>

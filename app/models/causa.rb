@@ -35,6 +35,7 @@ class Causa < ApplicationRecord
 	has_many :tar_calculos, as: :ownr
 	has_many :tar_facturaciones, as: :ownr
 	has_many :tar_uf_facturaciones, as: :ownr
+	has_many :tar_fecha_calculos, as: :ownr
 	has_many :tar_valor_cuantias, as: :ownr
 
 	has_many :notas, as: :ownr
@@ -130,6 +131,81 @@ class Causa < ApplicationRecord
 
 	def dcs
 		self.tipo_causa.dcs
+	end
+
+	# ----------------------------------------------------------------------------------------- CUANTIA
+	def calc_fecha_uf(codigo_formula)
+		fecha = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)&.fecha
+		fecha ||= tar_calculos.find_by(codigo_formula: codigo_formula)&.fecha_uf
+		fecha ||= tar_facturaciones.find_by(codigo_formula: codigo_formula)&.fecha_uf
+		fecha ||= Time.zone.today.to_date
+		fecha
+	end
+
+	def calc_valor_uf(codigo_formula)
+		TarUfSistema.find_by(fecha: calc_fecha_uf(codigo_formula))&.valor
+	end
+
+	def ttl_tarifa
+#		tar_valor_cuantias.map {|r| r.valor_tarifa}.compact.sum
+	    tar_valor_cuantias.sum(:valor_tarifa)
+	end
+
+	def ttl_tarifa_uf(codigo_formula)
+		valor_uf = calc_valor_uf(codigo_formula)
+		valor_uf.nil? ? 0 : tar_valor_cuantias.map {|r| r.valor_tarifa}.compact.sum / valor_uf
+	end
+
+	def ttl_cuantia
+#		tar_valor_cuantias.map {|r| r.valor}.compact.sum
+	    tar_valor_cuantias.sum(:valor)
+	end
+
+	def distribucion_porcentaje
+		total_montos = ttl_tarifa
+		return {} if total_montos.zero? or total_montos.nil?
+
+		tar_valor_cuantias.group(:porcentaje).sum(:valor_tarifa).transform_values do |suma_montos|
+		  (suma_montos.to_f / total_montos * 100).round(2)
+		end
+	end
+
+	def monto_ahorro
+		monto_pagado.nil? ? 0 : ttl_tarifa - monto_pagado
+	end
+
+	def monto_variable
+		dist = distribucion_porcentaje
+		dist.keys.map {|r| (dist[r].to_f*monto_ahorro/100)*(r.to_f/100)}.sum
+	end
+
+	def monto_fijo
+		tar_calculos.find_by(codigo_formula: 'monto_fijo')&.monto
+	end
+
+	def calc_valor_cmntr(formula, pago)
+		cuantia 	= ttl_tarifa
+		cuantia_uf 	= ttl_tarifa_uf(pago.codigo_formula)
+		pagado 		= monto_pagado
+		ahorro		= monto_ahorro
+		variable 	= monto_variable
+		fijo 		= monto_fijo
+
+		if formula
+			Keisan::Calculator.new.evaluate(
+			  formula,
+			  "ttl_tarifa"      => cuantia.to_f,
+			  "ttl_tarifa_uf"	=> cuantia_uf.to_f,
+			  "monto_pagado"	=> pagado.to_f,
+			  "ahorro"			=> ahorro.to_f,
+			  "variable"		=> variable.to_f,
+			  "fijo"			=> fijo.to_f
+			)
+		else
+			0
+		end
+	rescue Keisan::Exceptions::StandardError   # <= aquí
+		nil
 	end
 
 	# -------------------------------------------------------------------------------------------------------

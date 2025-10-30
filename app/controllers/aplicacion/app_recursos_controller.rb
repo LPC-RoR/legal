@@ -21,26 +21,43 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
-    Causa.where(code_causa: nil).each do |rcrd|
-      if rcrd.cliente_id.nil?
+    TarValorCuantia.all.each do |rcrd|
+      if rcrd.valor?
+        rcrd.valor_tarifa = rcrd.calc_valor_tarifa
+        rcrd.porcentaje   = rcrd.get_porcentaje_ahorro
+        rcrd.save
+      end
+    end
+
+    TarUfFacturacion.all.each do |rcrd|
+      if rcrd.ownr.present?
+        if rcrd.tar_pago.present?
+          rcrd.ownr.tar_fecha_calculos.create(codigo_formula: rcrd.tar_pago.codigo_formula, fecha: rcrd.fecha_uf)
+        end
+      else
         rcrd.delete
-      elsif rcrd.tipo_causa.present?
-        rcrd.code_causa = rcrd.tipo_causa.code_causa
-        rcrd.save
       end
     end
 
-    TarTarifa.where(code_causa: nil).each do |rcrd|
-      if rcrd.tipo_causa.present?
-        rcrd.code_causa = rcrd.tipo_causa.code_causa
-        rcrd.save
+    TarFacturacion.all.each do |rcrd|
+      if rcrd.ownr.present?
+        if rcrd.tar_pago.present?
+          rcrd.codigo_formula = rcrd.tar_pago.codigo_formula
+          rcrd.save
+        end
+      else
+        rcrd.delete
       end
     end
 
-    TarTipoVariable.where(code_causa: nil).each do |rcrd|
-      if rcrd.tipo_causa.present?
-        rcrd.code_causa = rcrd.tipo_causa.code_causa
-        rcrd.save
+    TarCalculo.all.each do |rcrd|
+      if rcrd.ownr.present?
+        if rcrd.tar_pago.present?
+          rcrd.codigo_formula = rcrd.tar_pago.codigo_formula
+          rcrd.save
+        end
+      else
+        rcrd.delete
       end
     end
 

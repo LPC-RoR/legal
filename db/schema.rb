@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_28_205057) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_29_235030) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1684,7 +1684,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_28_205057) do
     t.integer "tar_aprobacion_id"
     t.integer "cliente_id"
     t.string "ownr_type"
+    t.string "codigo_formula"
     t.index ["cliente_id"], name: "index_tar_calculos_on_cliente_id"
+    t.index ["codigo_formula"], name: "index_tar_calculos_on_codigo_formula"
     t.index ["ownr_id"], name: "index_tar_calculos_on_ownr_id"
     t.index ["ownr_type"], name: "index_tar_calculos_on_ownr_type"
     t.index ["tar_aprobacion_id"], name: "index_tar_calculos_on_tar_aprobacion_id"
@@ -1747,6 +1749,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_28_205057) do
     t.datetime "fecha_uf", precision: nil
     t.string "ownr_type"
     t.integer "ownr_id"
+    t.string "codigo_formula"
+    t.index ["codigo_formula"], name: "index_tar_facturaciones_on_codigo_formula"
     t.index ["facturable"], name: "index_tar_facturaciones_on_facturable"
     t.index ["moneda"], name: "index_tar_facturaciones_on_moneda"
     t.index ["ownr_id"], name: "index_tar_facturaciones_on_ownr_id"
@@ -1779,6 +1783,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_28_205057) do
     t.index ["m_registro_id"], name: "index_tar_facturas_on_m_registro_id"
     t.index ["owner_class"], name: "index_tar_facturas_on_owner_class"
     t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"
+  end
+
+  create_table "tar_fecha_calculos", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.date "fecha"
+    t.string "codigo_formula"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["codigo_formula"], name: "index_tar_fecha_calculos_on_codigo_formula"
+    t.index ["ownr_id"], name: "index_tar_fecha_calculos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_tar_fecha_calculos_on_ownr_type"
   end
 
   create_table "tar_formula_cuantias", force: :cascade do |t|
@@ -1937,6 +1953,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_28_205057) do
     t.string "ownr_type"
     t.integer "ownr_id"
     t.string "code_cuantia"
+    t.decimal "porcentaje"
     t.index ["code_cuantia"], name: "index_tar_valor_cuantias_on_code_cuantia"
     t.index ["demandante_id"], name: "index_tar_valor_cuantias_on_demandante_id"
     t.index ["desactivado"], name: "index_tar_valor_cuantias_on_desactivado"

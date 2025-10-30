@@ -1,7 +1,36 @@
-<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'tar_valor_cuantias', blngs: objeto, lnks: 'prtl'} %>
+<div class="mt-2 app_lnk open-sans-regular">
+	<%= render partial: '0p/ttl_clss', locals: {source: 'tar_valor_cuantias', clss: :sub, dir: 'indx', blngs: objeto} %>
 
-<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: objeto} %>
+	<div class="mt-1 mx-1 border rounded-2">
+		<div class="py-1 border-bottom">
 
-<% if objeto.tar_valor_cuantias.any? %>
-	<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: objeto, porcentaje_cuantia: false } %>
-<% end %>
+			<% if objeto.demandantes.any? %>
+				<%= render partial: '/csc/demandantes/list/th' %>
+				<% objeto.demandantes.each do |dmndnt| %>
+					<%= render partial: '/csc/demandantes/list/objeto', locals: {objeto: dmndnt} %>
+				<% end %>
+			<% else %>
+				<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'No se pueden ingresar cuantías hasta tener al menos un demandante.'} %>
+			<% end %>
+
+		</div>
+		<div class="mt-1">
+
+			<% if objeto.tar_valor_cuantias.any? %>
+
+				<%= render partial: 'tarifas/tar_valor_cuantias/list/th' %>
+
+				<!-- Detalles de cuantía -->
+				<% objeto.tar_valor_cuantias.dsply.each do |vc| %>
+					<%= render partial: 'tarifas/tar_valor_cuantias/list/objeto', locals: {objeto: vc } %>
+				<% end %>
+
+				<%= render partial: 'tarifas/tar_valor_cuantias/list/ttls', locals: {objeto: objeto} %>
+
+			<% else %>
+				<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Lista vacía.'} %>
+			<% end %>
+
+		</div>
+	</div>
+</div>
