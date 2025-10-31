@@ -63,7 +63,7 @@ class CausasController < ApplicationController
 
     # Objeto que contiene act_texto con el lista de hechos
     demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
-    @lista = demanda&.act_textos.find_by(tipo_documento: 'lista_hechos')
+    @lista = demanda&.act_textos&.find_by(tipo_documento: 'lista_hechos')
 
     set_st_estado(@objeto)
     set_tab( :menu, ['General', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Lista de hechos', @lista]] )
@@ -77,7 +77,7 @@ class CausasController < ApplicationController
 
       # Objeto que contiene act_texto con el resumen de la cuantía
       demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
-      @resumen = demanda&.act_textos.find_by(tipo_documento: 'resumen_anonimizado')
+      @resumen = demanda&.act_textos&.find_by(tipo_documento: 'resumen_anonimizado')
 
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
       set_tabla('notas', @objeto.notas.rlzds, false)
