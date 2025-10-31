@@ -1,4 +1,4 @@
-<%= render partial: '0p/ttl_sub_tbl', locals: {source: 'age_actividades', ownr: objeto, lnks: 'prtl'} %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'age_actividades', clss: :sub, dir: 'indx', ownr: objeto} %>
 
 <%= render layout: '0p/collapse/display', locals: {label: 'new_actvdd', objeto: nil} do %>
 	<%= render partial: prtl_name('age_actividades', 'indx', 'new_list'), locals: {ownr: objeto} %>

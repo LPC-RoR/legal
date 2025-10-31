@@ -7,6 +7,6 @@
 	<% if objeto.privada %>
 		<p><i class="bi bi-dot"></i> Actividad privada</p>
 	<% end %>
-	<%= render partial: 'notas/shr/notas_realizadas', locals: {objeto: objeto} %>
+	<%= render partial: prtl('notas', 'shr', 'notas_realizadas'), locals: {objeto: objeto} %>
 	
 </div>

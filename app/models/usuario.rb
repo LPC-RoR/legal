@@ -2,6 +2,7 @@ class Usuario < ApplicationRecord
   rolify strict: true
   belongs_to :tenant, optional: false   # todos los usuarios SIEMPRE van a un tenant
   has_many :rcrs_enlaces, as: :ownr
+  has_many :notas
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -22,6 +23,10 @@ class Usuario < ApplicationRecord
   end
 
   scope :ordered, -> { order(:created_at) }
+
+  def surname
+    nombre || email.split('@')[0].split('.')[0].uppercase
+  end
 
   def global?
     tenant_id.nil?

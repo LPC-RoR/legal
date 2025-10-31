@@ -98,6 +98,27 @@ class Repositorios::ActArchivosController < ApplicationController
     redirect_to act_archivo_rdrccn(@objeto.ownr)
   end
 
+  # Para descargar los archivos generados por OpenAI
+  def descargar_archivo_generado
+    @act_archivo = ActArchivo.find(params[:id])
+    tipo = params[:tipo]
+    
+    archivo = case tipo
+    when 'participantes'
+      @act_archivo.lista_participantes
+    when 'resumen'
+      @act_archivo.resumen_anonimizado
+    when 'hechos'
+      @act_archivo.lista_hechos
+    end
+
+    if archivo.attached?
+      redirect_to rails_blob_url(archivo, disposition: "attachment")
+    else
+      redirect_to @act_archivo, alert: "El archivo no está disponible"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_act_archivo

@@ -1,20 +1,13 @@
 <div class="row gx-1">
   <div class="col-lg-6 col-xs-12">
     <%= render partial: '0p/ttl_clss', locals: {source: 'age_actividades', clss: :gray, dir: 'indx'} %>
+    <%= render partial: '0p/tbl_clss', locals: {source: 'age_actividades', clccn: @actividades} %>
     <%= render partial: '0p/tbl/tbl', locals: {source: 'age_actividades', lnks: 'prtl'}  %>
 
   </div>
   <div class="col-lg-6">
-    <% unless @usuario.blank? %>
       <%= render partial: '0p/ttl_clss', locals: {source: 'notas', clss: :gray, dir: 'indx'} %>
-      <%= render partial: '0p/tbl/tbl', locals: {source: 'notas', lnks: 'prtl'} %>
-    <% end %>
-    <%#= render partial: '0p/ttl_tbl', locals: {source: 'notas', lnks: 'prtl'} %>
-
-    <%= render layout: '0p/collapse/display', locals: {label: 'Personaliza', objeto: nil} do %>
-      <%= render partial: 'actividades/age_actividades/partials/form_nombre' %>
-    <% end %>
-
-    <%= render partial: '0p/tbl/tbl', locals: {source: 'notas'} unless @usuario.blank? %>
+      <%= render partial: '0p/tbl_clss', locals: {source: 'notas', clccn: @notas} %>
+      <%= render partial: '0p/tbl/tbl', locals: {source: 'notas', lnks: 'prtl'} if @usuario %>
   </div>
 </div>

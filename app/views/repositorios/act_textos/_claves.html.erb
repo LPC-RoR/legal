@@ -1,0 +1,17 @@
+<div class="border rounded-2 my-1 p-2">
+	<% claves.each do |code| %>
+		<div class="fw-bold">Persona(s) <%=code.singularize%>(s)</div>
+		<div class="ps-2">
+			<% if act.metadata['identificadores'][code] == {} %>
+				Lista vacía
+			<% else %>
+				<% act.metadata['identificadores'][code].keys.each do |key| %>
+					<div class="row gx-1">
+						<div class="col-8"><%= key %></div>
+						<div class="col-4 text-end"><%= act.metadata['identificadores'][code][key] %></div>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	<% end %>
+</div>

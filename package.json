@@ -4,13 +4,15 @@
   "dependencies": {
     "@hotwired/turbo-rails": "^8.0.13",
     "@popperjs/core": "^2.11.8",
+    "@rails/actiontext": "^8.1.100",
     "autoprefixer": "^10.4.21",
     "bootstrap": "5",
     "lucide": "^0.488.0",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "puppeteer": "^24.22.2",
-    "sass": "^1.89.2"
+    "sass": "^1.89.2",
+    "trix": "^2.1.15"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",

@@ -23,3 +23,5 @@ pin "controllers/logo_preview_controller",		to: "controllers/logo_preview_contro
 
 # Tus scripts propios
 pin "ticker", to: "ticker.js", preload: true
+pin "trix"
+pin "@rails/actiontext", to: "actiontext.esm.js"

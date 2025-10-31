@@ -18,13 +18,9 @@
 	<%= render partial: 'causas/shw/hechos/ndx_hechos', locals: {objeto: @objeto} %>
 <% when 'Tarifa & Pagos' %>
 	<%= render partial: 'causas/shw/tarifa_pagos/ndx_tarifa_pagos', locals: {objeto: @objeto, tar_cliente: @tar_cliente, tar_generales: @tar_generales } %>
-<% when 'Demanda' %>
-	<div class="prrf_box">
-		<% @coleccion['parrafos'].each do |parrafo| %>
-			<b>[<%= parrafo.orden %>]</b>
-			<%= parrafo.texto.html_safe%>
-			<hr>
-		<% end %>
+<% when 'Lista de hechos' %>
+	<div class="border-start border-end border-bottom p-1" style="margin-top: -1px;">
+		<%= render partial: prtl(@lista, nil, 'show_ai_text'), locals: {act: @lista} %>	
 	</div>
 <% when 'Registro' %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>

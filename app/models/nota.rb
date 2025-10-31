@@ -2,6 +2,7 @@ class Nota < ApplicationRecord
 
 	belongs_to :ownr, polymorphic: true
 	belongs_to :app_perfil
+	belongs_to :usuario
 
 	has_many :age_usu_notas
 	has_many :age_usuarios, through: :age_usu_notas

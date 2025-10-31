@@ -1,0 +1,14 @@
+<% return if objeto.nil? %>
+<%= link_to objeto,
+            method: :delete,
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: "¿Estás seguro?",
+              bs_toggle:    'tooltip',
+              bs_placement: 'right',
+              bs_title:     'Eliminar',
+              bs_custom_class: 'custom-tooltip'
+            },
+            title: 'Eliminar' do %>
+  <i class="bi bi-trash"></i>
+<% end %>

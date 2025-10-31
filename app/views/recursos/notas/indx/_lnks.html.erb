@@ -1,0 +1,6 @@
+<% case controller_name %>
+<% when 'causas' %>
+  <%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: @objeto, gly: 'plus-circle', tltp: 'Nueva nota de la causa'} %>
+<% when 'com_requerimientos' %>
+  <%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text', gly_clss: 'fs-4', tltp: 'Nueva nota de la denuncia'} %>
+<% end %>

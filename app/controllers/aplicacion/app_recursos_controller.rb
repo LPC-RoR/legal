@@ -21,49 +21,10 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
-    TarValorCuantia.all.each do |rcrd|
-      if rcrd.valor.nil? and rcrd.valor_tarifa.nil? and rcrd.code_cuantia == 'artcl_489' and rcrd.demandante_id?
-        dmndnt = rcrd.ownr.demandantes.find(rcrd.demandante_id)
-        rcrd.valor = 11 * dmndnt.remuneracion
-        rcrd.valor_tarifa = 8 * dmndnt.remuneracion
-        rcrd.save
-      elsif rcrd.valor?
-        rcrd.valor_tarifa = rcrd.calc_valor_tarifa
-        rcrd.porcentaje   = rcrd.get_porcentaje_ahorro
-        rcrd.save
-      end
-    end
 
-    TarUfFacturacion.all.each do |rcrd|
-      if rcrd.ownr.present?
-        if rcrd.tar_pago.present?
-          rcrd.ownr.tar_fecha_calculos.create(codigo_formula: rcrd.tar_pago.codigo_formula, fecha: rcrd.fecha_uf)
-        end
-      else
-        rcrd.delete
-      end
-    end
-
-    TarFacturacion.all.each do |rcrd|
-      if rcrd.ownr.present?
-        if rcrd.tar_pago.present?
-          rcrd.codigo_formula = rcrd.tar_pago.codigo_formula
-          rcrd.save
-        end
-      else
-        rcrd.delete
-      end
-    end
-
-    TarCalculo.all.each do |rcrd|
-      if rcrd.ownr.present?
-        if rcrd.tar_pago.present?
-          rcrd.codigo_formula = rcrd.tar_pago.codigo_formula
-          rcrd.save
-        end
-      else
-        rcrd.delete
-      end
+    Nota.all.each do |nota|
+      usuario = Usuario.find_by(email: nota.app_perfil.email)
+      usuario.notas << nota if usuario
     end
 
     redirect_to root_path

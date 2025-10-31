@@ -8,7 +8,7 @@
 <% end %>
 
 
-<%= render partial: '0p/lbld_inpts/datetime', locals: { form: form, token: :fecha, label: 'Fecha' } %>
+<%= render partial: '0p/lbld_inpts/datetime_clndr', locals: { form: form, token: :fecha, label: 'Fecha' } %>
 
 <% unless @objeto.tipo == 'Audiencia' %>
 	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :age_actividad, label: 'Actividad' } %>

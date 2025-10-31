@@ -1,0 +1,27 @@
+<!-- app/views/act_textos/edit.html.erb -->
+<div class="container">
+  <h1>Editar <%= @act_texto.nombre_tipo %></h1>
+
+  <%= form_with(model: [@act_archivo, @act_texto], local: true) do |form| %>
+    <div class="form-group mb-3">
+      <%= form.label :titulo %>
+      <%= form.text_field :titulo, class: "form-control" %>
+    </div>
+
+    <div class="form-group mb-3">
+      <%= form.label :contenido %>
+      <%= form.rich_text_area :contenido, class: "form-control", rows: 20 %>
+    </div>
+
+    <div class="form-group mb-3">
+      <%= form.label :notas %>
+      <%= form.text_area :notas, class: "form-control", rows: 3, 
+          placeholder: "Agregar notas internas sobre este documento" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Guardar cambios", class: "btn btn-primary" %>
+      <%= link_to "Cancelar", act_archivo_act_texto_path(@act_archivo, @act_texto), class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

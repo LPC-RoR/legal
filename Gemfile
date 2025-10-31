@@ -79,6 +79,11 @@ gem 'prawn-table'       # si hay tablas
 gem 'prawn-markup', '~> 1.1'
 gem 'ruby-openai'       # NER (puedes usar spaCy vía API propia)
 
+
+# Para OpenAI sobre Demanda
+gem 'actiontext'
+
+
 gem 'rtesseract'          # wrapper de Tesseract-OCR
 gem 'mini_magick'         # convertir pdf → png
 
@@ -125,9 +130,6 @@ gem "kamal", require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
-
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
 
 
   # Si lo pongo en development me reclama

@@ -50,6 +50,7 @@ class HomeController < ApplicationController
   
 	def dshbrd
 
+		# Modificaciones al Menu de OffCanvas
 		if Menu.all.empty?
 			Menu.create(helpers.h_menus[:admin])
 		end
@@ -59,6 +60,14 @@ class HomeController < ApplicationController
 	    redirect_to "/cuentas/#{current_usuario&.tenant.owner_type[0].downcase}_#{current_usuario&.tenant.owner_id}/dnncs"
 	    return               # <-- evita el doble render
 	  end
+
+	  @notas = current_usuario.notas.order(urgente: :desc,
+	                                   pendiente: :desc,
+	                                   created_at: :desc)
+
+	  @actividades = AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day)
+	                        .adncs
+	                        .fecha_ordr
 
 	  # 2. Resto de la lógica del dashboard
 	  prfl = get_perfil_activo

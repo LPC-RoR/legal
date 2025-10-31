@@ -61,8 +61,12 @@ class CausasController < ApplicationController
   # GET /causas/1 or /causas/1.json
   def show
 
+    # Objeto que contiene act_texto con el lista de hechos
+    demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
+    @lista = demanda&.act_textos.find_by(tipo_documento: 'lista_hechos')
+
     set_st_estado(@objeto)
-    set_tab( :menu, ['General', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Demanda', dog?]] )
+    set_tab( :menu, ['General', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Lista de hechos', @lista]] )
 
     # Prueba de Docsplit
 
@@ -70,6 +74,10 @@ class CausasController < ApplicationController
     when 'General'
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
       @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
+
+      # Objeto que contiene act_texto con el resumen de la cuantía
+      demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
+      @resumen = demanda&.act_textos.find_by(tipo_documento: 'resumen_anonimizado')
 
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
       set_tabla('notas', @objeto.notas.rlzds, false)
@@ -88,8 +96,9 @@ class CausasController < ApplicationController
       @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
 
-    when 'Demanda'
-      set_tabla('parrafos', @objeto.parrafos.order(:orden), false)
+    when 'Lista de hechos'
+
+#      set_tabla('parrafos', @objeto.parrafos.order(:orden), false)
     when 'Registro'
       set_tabla('registros', @objeto.registros, false)
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?

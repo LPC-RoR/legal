@@ -24,13 +24,6 @@ Rails.application.routes.draw do
     match :etp_mdds, via: :get, on: :member
   end
   resources :parrafos
-  resources :notas do
-    match :agrega_nota, via: :post, on: :collection
-    match :swtch, via: :post, on: :member
-    match :dssgn_usr, via: :post, on: :member
-    match :assgn_usr, via: :post, on: :member
-    match :swtch_clr, via: :post, on: :member
-  end
 
 #  get 'dwnldwrd' => 'causas/dwnldwrd', format: :docx
 
@@ -298,6 +291,13 @@ Rails.application.routes.draw do
   end
 
   scope module: 'recursos' do
+    resources :notas do
+      match :agrega_nota, via: :post, on: :collection
+      match :swtch, via: :post, on: :member
+      match :dssgn_usr, via: :post, on: :member
+      match :assgn_usr, via: :post, on: :member
+      match :swtch_clr, via: :post, on: :member
+    end
     resources :app_contactos
     resources :app_enlaces
     resources :app_mensajes do
@@ -338,6 +338,14 @@ Rails.application.routes.draw do
     end
     resources :rep_archivos
     resources :act_archivos do
+      resources :act_textos, only: [:show, :edit, :update] do
+        member do
+          post 'exportar/:formato', to: 'act_textos#exportar', as: :exportar
+        end
+      end
+      member do
+        get 'descargar/:tipo', to: 'act_archivos#descargar_archivo_generado', as: :descargar
+      end
       match :download, via: :get, on: :member
       match :show_pdf, via: :get, on: :member
       match :rmv_cntrld, via: :post, on: :member

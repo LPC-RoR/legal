@@ -1,3 +1,11 @@
+<% if @resumen %>
+	<%= render layout: '0p/collapse/link', locals: {label: 'ActMontos', objeto: nil, tooltip: 'Resumen de cuantía'} do %>
+		<i class="bi bi-filetype-ai"></i>
+	<% end %>
+<% end %>
+
+
+
 <%= render layout: '0p/tltp_lnk', locals: {lnk: "/causas/#{blngs.id}/cuantia_to_xlsx", tltp: 'Exportar a Excel'} do %>
 	<i class="bi bi-download"></i>
 <% end %>

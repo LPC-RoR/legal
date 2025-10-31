@@ -2,7 +2,7 @@
 <% blue_dot = [nil, true].include?(blue_dot) ? true : false %>
 <div class="m-1 border border-success rounded">
 
-	<%= render partial: 'notas/list/objt', locals: {objeto: objeto, prrdds: prrdds, blue_dot: blue_dot} %>
+	<%= render partial: prtl(objeto, 'list', 'objt'), locals: {objeto: objeto, prrdds: prrdds, blue_dot: blue_dot} %>
 
 	<%= render partial: 'actividades/shr/prtcpnts', locals: {objeto: objeto} unless krn_routes? unless controller_name == 'com_requerimientos' %>
 

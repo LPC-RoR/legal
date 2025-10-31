@@ -1,0 +1,35 @@
+<% prrdds 	= [nil, true].include?(prrdds) ? true : false %>
+<% blue_dot = [nil, true].include?(blue_dot) ? true : false %>
+<div class="m-1 border border-secondary-subtle rounded-2 open-sans-regular">
+
+	<!-- ENCABEZADO -->
+	<div class="row m-0 py-1 bg-secondary-subtle rounded app_lnk" style="font-size: 0.7rem;line-height: 1.2;">
+		<div class="col-8">
+			<%= render partial: prtl(objeto, 'lst', 'objt'), locals: {objeto: objeto, prrdds: prrdds, blue_dot: blue_dot} %>
+		</div>
+		<div class="col-4 text-end">
+			<%= render partial: prtl(objeto, 'lst', 'lnks'), locals: {objeto: objeto, prrdds: prrdds, blue_dot: blue_dot} %>
+		</div>
+	</div>
+
+	<%= render layout: '0p/collapse/dsply', locals: {label: 'Participantes', objeto: objeto} do %>
+		<%= render partial: prtl(objeto, 'lst', 'prtcpnts'), locals: {objeto: objeto} unless krn_routes? unless controller_name == 'com_requerimientos' %>
+	<% end %>
+
+	<%= render layout: '0p/collapse/dsply', locals: {label: 'Detalle', objeto: objeto} do %>
+		<div class="m-2 p-2 border rounded-2" style="font-size: 0.7rem;line-height: 1.5;">
+			<%= objeto.class.name %>
+			<%= objeto.usuario.surname %>
+		</div>
+	<% end %>
+
+	<div class="px-2 app_lnk" style="font-size: 0.7rem;line-height: 1.5;">
+		<% if objeto.tarea_con_plazo %>
+			<span class="text-primary"><i class="bi bi-alarm"></i> <%= dma(objeto.fecha_gestion) %></span>
+			<i class="bi bi-dot"></i>
+		<% end %>
+		<i class="bi bi-chat-right-text text-<%=objeto.realizado ? 'muted' : objeto.prioridad %>"></i>
+		<%= objeto.nota %>
+	</div>
+
+</div>

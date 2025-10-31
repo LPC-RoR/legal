@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_29_235030) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_31_003411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -36,6 +36,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_29_235030) do
     t.index ["ownr_id"], name: "index_act_archivos_on_ownr_id"
     t.index ["ownr_type"], name: "index_act_archivos_on_ownr_type"
     t.index ["rlzd"], name: "index_act_archivos_on_rlzd"
+  end
+
+  create_table "act_textos", force: :cascade do |t|
+    t.bigint "act_archivo_id", null: false
+    t.string "tipo_documento", null: false
+    t.string "titulo", null: false
+    t.text "notas"
+    t.jsonb "metadata", default: {}
+    t.integer "version", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["act_archivo_id", "tipo_documento"], name: "index_act_textos_on_act_archivo_id_and_tipo_documento", unique: true
+    t.index ["act_archivo_id"], name: "index_act_textos_on_act_archivo_id"
+  end
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -1379,9 +1402,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_29_235030) do
     t.datetime "fecha_gestion"
     t.boolean "sin_fecha_gestion"
     t.boolean "tarea_con_plazo"
+    t.integer "usuario_id"
     t.index ["app_perfil_id"], name: "index_notas_on_app_perfil_id"
     t.index ["ownr_id"], name: "index_notas_on_ownr_id"
     t.index ["ownr_type"], name: "index_notas_on_ownr_type"
+    t.index ["usuario_id"], name: "index_notas_on_usuario_id"
   end
 
   create_table "parrafos", force: :cascade do |t|
@@ -2113,6 +2138,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_29_235030) do
   end
 
   add_foreign_key "act_archivos", "act_archivos", column: "anonimizado_de_id"
+  add_foreign_key "act_textos", "act_archivos"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "licencias", "empresas"

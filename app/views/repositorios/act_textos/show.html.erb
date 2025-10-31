@@ -1,0 +1,47 @@
+<!-- app/views/act_textos/show.html.erb -->
+<div class="container">
+  <h1><%= @act_texto.titulo %></h1>
+  
+  <!-- Información de debugging -->
+  <div class="card mb-4">
+    <div class="card-header bg-info text-white">
+      <h5>Información del Documento</h5>
+    </div>
+    <div class="card-body">
+      <p><strong>Tipo:</strong> <%= @act_texto.nombre_tipo %></p>
+      <p><strong>ID:</strong> <%= @act_texto.id %></p>
+      <p><strong>Procesado en:</strong> <%= @act_texto.metadata['procesado_en'] %></p>
+      <p><strong>Identificadores:</strong></p>
+      <pre><%= JSON.pretty_generate(@act_texto.metadata['identificadores'] || {}) %></pre>
+    </div>
+  </div>
+
+  <!-- Contenido del documento -->
+  <div class="card">
+    <div class="card-header">
+      <h5>Contenido</h5>
+    </div>
+    <div class="card-body trix-content">
+      <% @act_texto.contenido.body.to_s.split("===").each do |bloque| %>
+        <% next if bloque.blank? %>
+        <div class="hecho mb-3">
+          <%= simple_format(bloque.strip) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Debugging: ver contenido sin procesar -->
+  <% if params[:debug] == 'true' %>
+    <div class="card mt-4">
+      <div class="card-header bg-warning">
+        <h5>Debug - Contenido sin procesar</h5>
+      </div>
+      <div class="card-body">
+        <pre><%= @act_texto.contenido.to_plain_text %></pre>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "Ver con debug", act_archivo_act_texto_path(@act_archivo, @act_texto, debug: true) if params[:debug].nil? %>

@@ -1,4 +1,4 @@
-class NotasController < ApplicationController
+class Recursos::NotasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_nota, only: %i[ show edit update destroy swtch swtch_clr dssgn_usr assgn_usr ]
@@ -18,7 +18,7 @@ class NotasController < ApplicationController
   # GET /notas/new
   def new
     ownr = params[:oclss].constantize.find(params[:oid])
-    @objeto = ownr.notas.new(app_perfil_id: current_usuario.id, prioridad: 'success', fecha_gestion: Time.zone.now)
+    @objeto = ownr.notas.new(usuario_id: current_usuario.id, app_perfil_id: perfil_activo.id, prioridad: 'success', fecha_gestion: Time.zone.now)
     set_bck_rdrccn
   end
 
@@ -87,6 +87,6 @@ class NotasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def nota_params
-      params.require(:nota).permit(:ownr_type, :ownr_id, :app_perfil_id, :nota, :prioridad, :realizado, :fecha_gestion, :sin_fecha_gestion, :tarea_con_plazo)
+      params.require(:nota).permit(:ownr_type, :ownr_id, :usuario_id, :app_perfil_id, :nota, :prioridad, :realizado, :fecha_gestion, :sin_fecha_gestion, :tarea_con_plazo)
     end
 end

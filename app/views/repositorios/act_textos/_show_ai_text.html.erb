@@ -1,0 +1,10 @@
+<%= render partial: prtl(act, nil, 'claves'), locals: {act: act, claves: ['demandantes', 'demandados', 'testigos']} %>
+
+<div class="p-2 border rounded-2 trix-content" style="font-size: 0.8rem;line-height: 1.5;">
+	<% act.contenido.body.to_s.split("===").each do |bloque| %>
+		<% next if bloque.blank? %>
+		<div class="hecho mb-3">
+			<%= simple_format(bloque.strip) %>
+		</div>
+	<% end %>
+</div>

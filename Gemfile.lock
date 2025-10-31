@@ -516,6 +516,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actiontext
   bootsnap
   brakeman
   byebug

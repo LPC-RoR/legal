@@ -39,3 +39,6 @@ application.register("logo-preview", LogoPreviewController)
 // 6) Debug
 console.log("[app] window.Turbo:", typeof window.Turbo)
 console.log("[app] Stimulus controllers:", Array.from(application.router.modulesByIdentifier.keys()))
+
+import "trix"
+import "@rails/actiontext"

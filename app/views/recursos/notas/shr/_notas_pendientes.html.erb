@@ -1,6 +1,6 @@
 <% objeto ||= ownr %>
 <% unless objeto.notas.empty? %>
 	<% objeto.notas.order(:created_at).each do |nota| %>
-		<%= render partial: 'notas/list/objeto', locals: {objeto: nota} unless nota.realizado %>
+		<%= render partial: prtl('notas', 'lst', 'objeto'), locals: {objeto: nota} unless nota.realizado %>
 	<% end %>
 <% end %>
