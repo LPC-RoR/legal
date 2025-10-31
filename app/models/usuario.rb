@@ -25,7 +25,7 @@ class Usuario < ApplicationRecord
   scope :ordered, -> { order(:created_at) }
 
   def surname
-    nombre || email.split('@')[0].split('.')[0].uppercase
+    nombre || email.split('@')[0].split('.')[0].upcase
   end
 
   def global?
