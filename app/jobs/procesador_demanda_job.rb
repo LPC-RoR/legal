@@ -1,24 +1,23 @@
-# app/jobs/procesador_demanda_job.rb
 class ProcesadorDemandaJob < ApplicationJob
   queue_as :default
 
   # 1) Re-intentos por problemas de BD (hasta 5 veces)
   retry_on ActiveRecord::RecordNotFound,
-           wait:  :exponentially_longer,
+           wait: :exponentially_longer,
            attempts: 5
 
-  # 2) Re-intentos generales (hasta 3 veces) …
+  # 2) Re-intentos generales (hasta 3 veces)
   retry_on StandardError,
-           wait:  :exponentially_longer,
+           wait: :exponentially_longer,
            attempts: 3
 
   # 3) …pero si el error es 429 lo re-encolamos nosotros mismos
   #    con un tiempo fijo (5 min) y sin límite de pasadas
-  #    (Rails 7+ permite :unlimited)
   retry_on StandardError,
            wait: 5.minutes,
-           attempts: :unlimited,
-           if: ->(job, error) { error.message.include?('status 429') }
+           attempts: :unlimited do |job, error|
+    error.message.include?('status 429')
+  end
 
   def perform(act_archivo)
     # sanity-check rápido
