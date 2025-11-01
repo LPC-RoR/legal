@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_31_003411) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_01_231358) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -29,12 +29,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_31_003411) do
     t.string "tipo"
     t.boolean "anonimizado", default: false, null: false
     t.bigint "anonimizado_de_id"
+    t.string "processing_status", default: "pending"
+    t.datetime "processed_at"
     t.index ["act_archivo"], name: "index_act_archivos_on_act_archivo"
     t.index ["anonimizado_de_id"], name: "index_act_archivos_on_anonimizado_de_id"
     t.index ["control_fecha"], name: "index_act_archivos_on_control_fecha"
     t.index ["mdl"], name: "index_act_archivos_on_mdl"
     t.index ["ownr_id"], name: "index_act_archivos_on_ownr_id"
     t.index ["ownr_type"], name: "index_act_archivos_on_ownr_type"
+    t.index ["processing_status"], name: "index_act_archivos_on_processing_status"
     t.index ["rlzd"], name: "index_act_archivos_on_rlzd"
   end
 

@@ -55,14 +55,37 @@ class ActArchivo < ApplicationRecord
     end
   end
 
-  private
+    # Add processing status methods
+  def processing_status
+    self[:processing_status] || 'pending'
+  end
+
+  def mark_processing!
+    update_column(:processing_status, 'processing')
+    Rails.logger.info("[ActArchivo] 🏷️ Marked as processing: #{id}")
+  end
+
+  def mark_completed!
+    update_columns(
+      processing_status: 'completed',
+      processed_at: Time.current
+    )
+    Rails.logger.info("[ActArchivo] ✅ Marked as completed: #{id}")
+  end
+
+  def mark_failed!
+    update_column(:processing_status, 'failed')
+    Rails.logger.info("[ActArchivo] ❌ Marked as failed: #{id}")
+  end
+
+private
 
   def es_demanda?
     act_archivo == "demanda"
   end
 
   def procesar_demanda
-    ProcesadorDemandaJob.perform_later(self)
+    ProcesadorDemandaJob.perform_later(self.id)
   end
 
   def pdf_must_be_attached_unless_rlzd
