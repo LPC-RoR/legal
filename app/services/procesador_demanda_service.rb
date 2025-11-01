@@ -3,8 +3,8 @@
 class ProcesadorDemandaService
   include Rails.application.routes.url_helpers
 
-  MAX_OPENAI_RETRIES = 5
-  OPENAI_BACKOFF_BASE = 0.5
+  MAX_OPENAI_RETRIES = 8
+  OPENAI_BACKOFF_BASE = 1.5
 
   def initialize(act_archivo)
     @act_archivo = act_archivo
