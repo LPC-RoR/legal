@@ -48,15 +48,14 @@ class ProcesadorDemandaService
     nil
   end
 
-  # --------------------------------------------------
-  # OpenAI helper with exponential back-off for 429/500/503
-  # --------------------------------------------------
+  # app/services/procesador_demanda_service.rb
   def chat_with_retry(parameters)
     retries = 0
     begin
       cliente_openai.chat(parameters: parameters)
     rescue Faraday::Error => e
-      status = e.response&.status
+      # e.response es un Hash
+      status = e.response&.dig(:status) || e.response&.dig("status")
       raise unless [429, 500, 502, 503, 504].include?(status)
       raise if retries >= MAX_OPENAI_RETRIES
 
