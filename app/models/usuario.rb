@@ -2,7 +2,17 @@ class Usuario < ApplicationRecord
   rolify strict: true
   belongs_to :tenant, optional: false   # todos los usuarios SIEMPRE van a un tenant
   has_many :rcrs_enlaces, as: :ownr
-  has_many :notas
+#  has_many :notas
+
+  has_many :notas_creadas,     class_name: 'Nota',
+                               foreign_key: 'usuario_id',
+                               dependent: :nullify
+
+  has_many :responsables_notas,
+           class_name: 'ResponsableNota', # <-- aquí
+           dependent: :destroy
+  has_many :notas_responsable, through: :responsables_notas,
+                               source: :nota
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

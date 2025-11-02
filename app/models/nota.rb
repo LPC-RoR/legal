@@ -4,6 +4,12 @@ class Nota < ApplicationRecord
 	belongs_to :app_perfil
 	belongs_to :usuario
 
+	has_many :responsables_notas,
+           class_name: 'ResponsableNota',   # <-- aquí
+           dependent: :destroy
+	has_many :responsables, through: :responsables_notas,
+	                          source: :usuario
+
 	has_many :age_usu_notas
 	has_many :age_usuarios, through: :age_usu_notas
 

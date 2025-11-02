@@ -61,7 +61,7 @@ class HomeController < ApplicationController
 	    return               # <-- evita el doble render
 	  end
 
-	  @notas = current_usuario.notas.order(urgente: :desc,
+	  @notas = current_usuario.notas_responsable.order(urgente: :desc,
 	                                   pendiente: :desc,
 	                                   created_at: :desc)
 

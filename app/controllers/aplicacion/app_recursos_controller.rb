@@ -21,11 +21,17 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
-
-    Nota.all.each do |nota|
-      usuario = Usuario.find_by(email: nota.app_perfil.email)
-      usuario.notas << nota if usuario
+    AgeUsuario.all.each do |ausu|
+      usu = Usuario.find_by(email: ausu.app_perfil&.email)
+      if usu
+        usu.notas_responsable << ausu.notas
+      end
     end
+
+#    Nota.all.each do |nota|
+#      usuario = Usuario.find_by(email: nota.app_perfil.email)
+#      usuario.notas << nota if usuario
+#    end
 
     redirect_to root_path
   end
