@@ -32,4 +32,8 @@
 		<%= objeto.nota %>
 	</div>
 
+	<% objeto.responsables.each do |rspnsbl| %>
+		<div><%=rspnsbl.surname%></div>
+	<% end %>
+
 </div>
