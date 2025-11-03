@@ -61,6 +61,7 @@ class CausasController < ApplicationController
 
   # GET /causas/1 or /causas/1.json
   def show
+    @usrs = Usuario.where(tenant_id: nil)
 
     # Objeto que contiene act_texto con el lista de hechos
     demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
