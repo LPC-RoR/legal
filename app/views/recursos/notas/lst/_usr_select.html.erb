@@ -3,7 +3,7 @@
 	<% if usrs_dspnbls.any? %>
 		<b>Seleccione un nuevo participante</b></br>
 		<% usrs_dspnbls.each do |usr| %>
-			<%= usr.class.name %>
+			<%#= usr.class.name %>
 			<% usr.id %>
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/assgn_usr?oid=#{usr.id}", tltp: "Asigna participante", data: {turbo_method: :post}} do %>
 				<i class="bi bi-dot"></i>
