@@ -13,5 +13,5 @@
 	<% end %>
 <% end %>
 
-<%= render partial: 'notas/shr/notas_pendientes', locals: {objeto: objeto} %>
-<%= render partial: 'notas/shr/notas_realizadas', locals: {objeto: objeto} %>
+<%= render partial: prtl('notas', 'shr', 'notas_pendientes'), locals: {objeto: objeto} %>
+<%= render partial: prtl('notas', 'shr', 'notas_realizadas'), locals: {objeto: objeto} %>
