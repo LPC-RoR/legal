@@ -54,6 +54,7 @@ class ClientesController < ApplicationController
       limpia_audiencias
       scp = params[:scp].blank? ? 'rvsn' : params[:scp]
 
+      @usrs = Usuario.where(tenant_id: nil)
       case scp
       when 'rvsn'
         cllcn = @objeto.causas.trmtcn

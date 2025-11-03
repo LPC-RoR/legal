@@ -16,6 +16,7 @@ class CausasController < ApplicationController
     # Usuarios que no tienen ownr
     limpia_audiencias
     @age_usuarios = AgeUsuario.no_ownr
+    @usrs = Usuario.where(tenant_id: nil)
 
     scp = params[:scp].blank? ? 'rvsn' : params[:scp]
 

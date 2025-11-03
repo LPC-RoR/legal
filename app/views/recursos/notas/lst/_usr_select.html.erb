@@ -1,0 +1,17 @@
+<div class="px-2 app_lnk" style="font-size: 12px;">
+	<% usrs_dspnbls = @usrs.where.not(id: objeto.responsables.ids) %>
+	<% if usrs_dspnbls.any? %>
+		<b>Seleccione un nuevo participante</b></br>
+		<% usrs_dspnbls.each do |usr| %>
+			<%= usr.class.name %>
+			<% usr.id %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/assgn_usr?oid=#{usr.id}", tltp: "Asigna participante", data: {turbo_method: :post}} do %>
+				<i class="bi bi-dot"></i>
+				<i class="bi bi-plus-circle"></i>
+				<%= usr.age_usuario %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<div class="text-danger"><i class="bi bi-exclamation-diamond"></i> No hay usuarios disponibles</div>
+	<% end %>
+</div>

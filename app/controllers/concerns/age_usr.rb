@@ -2,15 +2,15 @@ module AgeUsr
   extend ActiveSupport::Concern
 
   def dssgn_usr
-    prtcpnt = AgeUsuario.find(params[:oid])
-    @objeto.age_usuarios.delete(prtcpnt)
+    usr = Usuario.find(params[:oid])
+    @objeto.responsables.delete(usr)
 
     redirect_to(request.referer || root_path)
   end
 
   def assgn_usr
-    prtcpnt = AgeUsuario.find(params[:oid])
-    @objeto.age_usuarios << prtcpnt
+    usr = Usuario.find(params[:oid])
+    @objeto.responsables << usr
 
     redirect_to(request.referer || root_path)
   end
