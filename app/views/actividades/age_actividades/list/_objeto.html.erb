@@ -3,7 +3,7 @@
 	<%= render partial: 'actividades/age_actividades/list/objt', locals: {objeto: objeto} %>
 	<%= render partial: prtl_name('age_actividades', 'list', 'age_ownr'), locals: {objeto: objeto} %>
 
-	<%= render partial: 'actividades/shr/prtcpnts', locals: {objeto: objeto, muted: objeto.muted?} %>
+	<%= render partial: 'actividades/age_actividades/list/prtcpnts', locals: {objeto: objeto, muted: objeto.muted?} %>
 
 	<div class=" px-4 txt text-<%= objeto.text_color %>">
 		<b><%= objeto.descripcion %></b>

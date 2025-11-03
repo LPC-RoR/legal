@@ -14,6 +14,14 @@ class Usuario < ApplicationRecord
   has_many :notas_responsable, through: :responsables_notas,
                                source: :nota
 
+  has_many :responsables_actividades,
+           class_name: 'ResponsableActividad',
+           dependent: :destroy
+
+  has_many :actividades_responsable,
+           through: :responsables_actividades,
+           source: :age_actividad
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

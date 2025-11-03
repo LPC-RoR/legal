@@ -55,6 +55,8 @@ class HomeController < ApplicationController
 			Menu.create(helpers.h_menus[:admin])
 		end
 
+		@usrs = Usuario.where(tenant_id: nil)
+
 	  # 1. Salida temprana si el usuario está en un scope especial
 	  if ['Cliente', 'Empresa'].include?(current_usuario&.tenant.owner_type)
 	    redirect_to "/cuentas/#{current_usuario&.tenant.owner_type[0].downcase}_#{current_usuario&.tenant.owner_id}/dnncs"

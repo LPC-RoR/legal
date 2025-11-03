@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_02_155237) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_03_004504) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1603,6 +1603,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_02_155237) do
     t.index ["tipo"], name: "index_rep_doc_controlados_on_tipo"
   end
 
+  create_table "responsable_actividades", force: :cascade do |t|
+    t.bigint "age_actividad_id", null: false
+    t.bigint "usuario_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age_actividad_id"], name: "index_responsable_actividades_on_age_actividad_id"
+    t.index ["usuario_id"], name: "index_responsable_actividades_on_usuario_id"
+  end
+
   create_table "responsable_notas", force: :cascade do |t|
     t.bigint "nota_id", null: false
     t.bigint "usuario_id", null: false
@@ -2154,6 +2163,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_02_155237) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "licencias", "empresas"
+  add_foreign_key "responsable_actividades", "age_actividades"
+  add_foreign_key "responsable_actividades", "usuarios"
   add_foreign_key "responsable_notas", "notas"
   add_foreign_key "responsable_notas", "usuarios"
   add_foreign_key "usuarios", "tenants"

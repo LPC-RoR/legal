@@ -8,6 +8,14 @@ class AgeActividad < ApplicationRecord
 #	belongs_to :app_perfil
 	belongs_to :ownr, polymorphic: true
 
+  has_many :responsables_actividades,
+           class_name: 'ResponsableActividad',
+           dependent: :destroy
+
+  has_many :responsables,
+           through: :responsables_actividades,
+           source: :usuario
+
 	has_many :age_usu_acts
 	has_many :age_usuarios, through: :age_usu_acts
 
