@@ -8,7 +8,7 @@
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/assgn_usr?oid=#{usr.id}", tltp: "Asigna participante", data: {turbo_method: :post}} do %>
 				<i class="bi bi-dot"></i>
 				<i class="bi bi-plus-circle"></i>
-				<%= usr.age_usuario %>
+				<%= usr.surname %>
 			<% end %>
 		<% end %>
 	<% else %>
