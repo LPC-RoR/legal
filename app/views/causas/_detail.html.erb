@@ -4,13 +4,17 @@
 	<div class="col-lg-6 col-xs-12">
 		<%#= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, display_field: 'tipo_causa', label: 'Etapa' } %>
 		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :code_causa, sel_list: tipos_causa, display_field: 'code_causa', prompt: 'Seleccione la etapa', label: 'Etapa' } %>
-
-
-		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tribunal_corte_id, colection: TribunalCorte.all.order(:tribunal_corte).collect { |tc| [tc.tribunal_corte, tc.id] }, display_field: 'tribunal_corte', prompt: 'Tribunal/Corte', label: 'Tribunal/Corte' } %>
 	</div>
 	<div class="col-lg-6">
 		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :cliente_id, colection: Cliente.where(estado: 'activo').order(:razon_social).collect { |cliente| [cliente.razon_social, cliente.id] }, display_field: 'cliente', prompt: 'Cliente', label: 'Cliente' } %>
+	</div>
+</div>
 
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tribunal_corte_id, colection: TribunalCorte.all.order(:tribunal_corte).collect { |tc| [tc.tribunal_corte, tc.id] }, display_field: 'tribunal_corte', prompt: 'Tribunal/Corte', label: 'Tribunal/Corte' } %>
+	</div>
+	<div class="col-lg-6">
 		<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rit, label: 'RIT / Rol : Era' } %>
 	</div>
 </div>

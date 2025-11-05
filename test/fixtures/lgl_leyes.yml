@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lgl_repositorio_id: 1
+  cdg: MyString
+  nombre: MyString
+
+two:
+  lgl_repositorio_id: 1
+  cdg: MyString
+  nombre: MyString

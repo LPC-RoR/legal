@@ -36,5 +36,7 @@ module Legal
     config.decimales_pesos = 0
     config.decimales_uf = 5
 
+#    Rails.autoloaders.main.push_dir(Rails.root.join('app/services'))
+
   end
 end

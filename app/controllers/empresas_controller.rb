@@ -86,8 +86,8 @@ class EmpresasController < ApplicationController
 
     usuario = Usuario.find_or_initialize_by(email: @objeto.email_administrador)
 
+    random_password = usuario.new_record? ? Devise.friendly_token.first(12) : nil
     if usuario.new_record?
-      random_password = Devise.friendly_token.first(12)
       usuario.assign_attributes(
         password:              random_password,
         password_confirmation: random_password,
@@ -105,8 +105,13 @@ class EmpresasController < ApplicationController
       bypass_sign_in(usuario) # actualiza sesión de Devise
     end
 
+
+puts "--------------------------------------------------"
+puts "random_password: #{random_password.inspect}"
+puts "--------------------------------------------------"
+
     # Bienvenida
-    EmpresaMailer.wellcome_email(usuario.email, random_password).deliver_later
+    EmpresaMailer.wellcome_email(usuario.email, random_password).deliver_later if random_password
 
     redirect_to root_path, notice: 'Correo verificado correctamente'
   rescue ActiveRecord::RecordNotFound
@@ -167,6 +172,7 @@ class EmpresasController < ApplicationController
   end
 
   def prg
+    @objeto.licencias.delete_all
     @objeto.krn_investigadores.delete_all
     @objeto.krn_denuncias.delete_all
     @objeto.krn_empresa_externas.delete_all
@@ -177,6 +183,7 @@ class EmpresasController < ApplicationController
       prfl.delete unless prfl.blank?
       nmn.delete
     end
+    @objeto.destroy
 
     redirect_to empresas_path
   end

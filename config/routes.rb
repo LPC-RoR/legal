@@ -99,30 +99,8 @@ Rails.application.routes.draw do
   end
 
   scope module: 'lgl' do
-    resources :lgl_entidades
-    resources :lgl_recursos
-    resources :lgl_temas
-    resources :lgl_citas do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-    resources :lgl_parrafos do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-      match :swtch, via: :post, on: :member
-      match :padd, via: :get, on: :member
-      match :chk_tgs, via: :get, on: :member
-      match :prnt, via: :get, on: :member
-    end
-    resources :lgl_documentos
-    resources :lgl_datos
-    resources :lgl_parra_parras
-    resources :lgl_puntos do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-    resources :lgl_tipo_entidades
-    resources :lgl_tramo_empresas
+    resources :lgl_repositorios
+    resources :lgl_leyes
   end 
 
   scope module: 'karin' do
@@ -374,6 +352,7 @@ Rails.application.routes.draw do
         match :purge_rep_archivos, via: :post
         match :migrar_tenants, via: :post
         match :migrar_cuantias, via: :post
+        match :cargar_menu, via: :post
       end
     end
     resources :tablas do

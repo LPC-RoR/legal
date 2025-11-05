@@ -16,7 +16,7 @@ class Causa < ApplicationRecord
 	belongs_to :tribunal_corte
 	belongs_to :tar_tarifa, optional: true
 
-	belongs_to :tipo_causa
+#	belongs_to :tipo_causa
 
 	has_many :temas
 	has_many :hechos

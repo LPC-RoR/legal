@@ -1,0 +1,26 @@
+<div class="row gx-1 app_lnk">
+	<div class="col-3">
+		<%= objt.cdg%>
+	</div>
+	<div class="col-6">
+		<%= link_to objt.nombre, objt %>
+	</div>
+	<div class="col-3 text-end">
+		<%= render partial: '0p/tbl/plldwn_lnks', locals: {objt: objt} %>
+		<%#= render partial: prtl(objt, 'lst', 'plldwn_lnks'), locals: {objt: objt} %>
+	</div>
+</div>
+<% objt.lgl_leyes.each do |ley| %>
+	<div class="row gx-1 mx-2 app_lnk">
+		<div class="col-3">
+			<i class="bi bi-arrow-return-right"></i>
+			<%= ley.cdg%>
+		</div>
+		<div class="col-6">
+			<%= link_to ley.nombre, ley %>
+		</div>
+		<div class="col-3 text-end">
+			<%= render partial: '0p/tbl/plldwn_lnks', locals: {objt: ley} %>
+		</div>
+	</div>
+<% end %>

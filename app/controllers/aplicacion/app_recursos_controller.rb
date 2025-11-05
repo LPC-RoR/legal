@@ -20,6 +20,13 @@ class Aplicacion::AppRecursosController < ApplicationController
   def procesos
   end
 
+  def cargar_menu
+    Menu.delete_all
+    Menu.create!(key: :admin, enabled: true, items: helpers.h_menus[:admin][:items])
+
+    redirect_to root_path
+  end
+
   def migrar_cuantias
     AgeUsuario.all.each do |ausu|
       usu = Usuario.find_by(email: ausu.app_perfil&.email)

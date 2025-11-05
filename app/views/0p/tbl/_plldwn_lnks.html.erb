@@ -1,0 +1,9 @@
+<div class="dropdown">
+  <a href="#" class="text-muted" id="dropdownMenuButton<%= objt.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-three-dots-vertical"></i>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton<%= objt.id %>">
+    <%= render partial: prtl(objt, 'lst', 'plldwn_lnks'), locals: {objt: objt} %>
+  </ul>
+</div>

@@ -1,2 +1,0 @@
-class LglRecurso < ApplicationRecord
-end

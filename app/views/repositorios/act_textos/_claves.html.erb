@@ -2,7 +2,7 @@
 	<% claves.each do |code| %>
 		<div class="fw-bold">Persona(s) <%=code.singularize%>(s)</div>
 		<div class="ps-2">
-			<% if act.metadata['identificadores'][code] == {} %>
+			<% if act.metadata.nil? or act.metadata['identificadores'].nil? or act.metadata['identificadores'][code] == {} %>
 				Lista vacía
 			<% else %>
 				<% act.metadata['identificadores'][code].keys.each do |key| %>
@@ -15,3 +15,4 @@
 		</div>
 	<% end %>
 </div>
+<%= act.metadata %>

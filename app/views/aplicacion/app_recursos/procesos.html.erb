@@ -22,6 +22,12 @@
 		<% end %>
 
 		<div>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: '/app_recursos/cargar_menu', tltp: 'Cargar menu', data: {turbo_method: :post}} do %>
+			<i class="bi bi-cursor"></i> Cargar menú!
+		<% end %>
+		</div>
+
+		<div>
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: '/app_recursos/migrar_cuantias', tltp: 'Migrar cuantias', data: {turbo_method: :post}} do %>
 			<i class="bi bi-cursor"></i> Migrar cuantias!
 		<% end %>

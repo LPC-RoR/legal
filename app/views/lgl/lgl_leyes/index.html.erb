@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Lgl leyes" %>
+
+<h1>Lgl leyes</h1>
+
+<div id="lgl_leyes">
+  <% @lgl_leyes.each do |lgl_ley| %>
+    <%= render lgl_ley %>
+    <p>
+      <%= link_to "Show this lgl ley", lgl_ley %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New lgl ley", new_lgl_ley_path %>

@@ -1,0 +1,12 @@
+   <% ClssActs.lgl_dcmnts.each do |act| %>
+      <li>
+        <%= link_to 'Nueva ley', "/lgl_leyes/new#{blngs_prms(objt)}", class: "dropdown-item" %>
+      </li>
+    <% end %>
+    <li><hr class="dropdown-divider"></li>
+    <li><%= link_to "Ver", lgl_repositorio_path(objt), class: "dropdown-item" %></li>
+    <li><%= link_to "Editar", edit_lgl_repositorio_path(objt), class: "dropdown-item" %></li>
+    <li><hr class="dropdown-divider"></li>
+    <li>
+      <%= link_to "Eliminar", lgl_repositorio_path(objt), method: :delete, data: { confirm: "¿Estás seguro?" }, class: "dropdown-item text-danger" %>
+    </li>

@@ -25,12 +25,18 @@
 		</div>
 		<% end %>
 
-		<% unless detail_partial(@objeto).blank? %>
-			<%= render partial: detail_partial(@objeto), locals: {c: controller_name, form: form} %>
-			<!-- Saber desde donde se llamó el formulario -->
+		<% form_prtl = prtl?(@objeto, nil, 'form') ? prtl(@objeto, nil, 'form') : (prtl?(@objeto, nil, 'detail') ? prtl(@objeto, nil, 'detail') : nil) %>
+
+		<% if form_prtl %>
+			<%= render partial: form_prtl, locals: {c: controller_name, form: form} %>
 			<%= hidden_field_tag :bck_rdrccn, @bck_rdrccn %>
 		<% else %>
 			<h3>Ne se encontró archivo con el formulario</h3>
+		<% end %>
+
+		<% unless detail_partial(@objeto).blank? %>
+		<% else %>
+			
 		<% end %>
 
 		<div class="my-3">

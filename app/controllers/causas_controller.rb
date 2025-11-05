@@ -280,10 +280,9 @@ class CausasController < ApplicationController
 
   private
 
+    # Se debe cambiar al nuevo modele code_causa
     def asigna_tarifa_defecto
-      etapa = @objeto.tipo_causa
-      tarifas = etapa.blank? ? [] : @objeto.cliente.tar_tarifas.where(tipo_causa_id: etapa.id)
-      tarifa = tarifas.empty? ? nil : tarifas.first
+      tarifa = @objeto&.cliente&.tar_tarifas&.find_by(code_causa: @objeto.code_causa)
 
       unless tarifa.blank?
         @objeto.tar_tarifa_id = tarifa.id

@@ -2,8 +2,10 @@ class Empresa < ApplicationRecord
     attr_accessor :website  # honeypot
 
     has_one :tenant, as: :owner, dependent: :destroy
-    has_many :usuarios, through: :tenant
-#    after_create :crear_tenant
+    has_many :usuarios, through: :tenant        # sin dependent aquí
+
+    # fuerza que esto corra ANTES que el dependent: :destroy del tenant
+    before_destroy :destroy_usuarios, prepend: true
 
     # Logo con Active Storage
     has_one_attached :logo
@@ -113,6 +115,10 @@ class Empresa < ApplicationRecord
 
     def crear_tenant
         Tenant.create!(nombre: razon_social, owner: self)
+    end
+
+    def destroy_usuarios
+        tenant.usuarios.destroy_all
     end
 
     def acceptable_logo

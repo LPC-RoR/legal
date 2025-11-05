@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_03_004504) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_03_222756) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1041,51 +1041,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_004504) do
     t.index ["rut"], name: "index_krn_testigos_on_rut"
   end
 
-  create_table "lgl_citas", force: :cascade do |t|
-    t.integer "lgl_parrafo_id"
-    t.integer "orden"
-    t.string "codigo"
-    t.string "lgl_cita"
-    t.string "referencia"
+  create_table "lgl_leyes", force: :cascade do |t|
+    t.integer "lgl_repositorio_id"
+    t.string "cdg"
+    t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["codigo"], name: "index_lgl_citas_on_codigo"
-    t.index ["lgl_parrafo_id"], name: "index_lgl_citas_on_lgl_parrafo_id"
-    t.index ["orden"], name: "index_lgl_citas_on_orden"
-  end
-
-  create_table "lgl_datos", force: :cascade do |t|
-    t.integer "lgl_parrafo_id"
-    t.integer "orden"
-    t.string "lgl_dato"
-    t.text "cita"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["lgl_parrafo_id"], name: "index_lgl_datos_on_lgl_parrafo_id"
-    t.index ["orden"], name: "index_lgl_datos_on_orden"
-  end
-
-  create_table "lgl_documentos", force: :cascade do |t|
-    t.string "lgl_documento"
-    t.string "tipo"
-    t.string "archivo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "codigo"
-    t.string "referencia"
-    t.index ["codigo"], name: "index_lgl_documentos_on_codigo"
-    t.index ["tipo"], name: "index_lgl_documentos_on_tipo"
-  end
-
-  create_table "lgl_entidades", force: :cascade do |t|
-    t.string "lgl_entidad"
-    t.string "tipo"
-    t.string "dependencia"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "lgl_tipo_entidad_id"
-    t.index ["lgl_tipo_entidad_id"], name: "index_lgl_entidades_on_lgl_tipo_entidad_id"
-    t.index ["tipo"], name: "index_lgl_entidades_on_tipo"
+    t.index ["cdg"], name: "index_lgl_leyes_on_cdg"
+    t.index ["lgl_repositorio_id"], name: "index_lgl_leyes_on_lgl_repositorio_id"
   end
 
   create_table "lgl_n_empleados", force: :cascade do |t|
@@ -1096,86 +1059,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_004504) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "lgl_parra_parras", force: :cascade do |t|
-    t.integer "child_id"
-    t.integer "parent_id"
+  create_table "lgl_repositorios", force: :cascade do |t|
+    t.string "cdg"
+    t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["child_id"], name: "index_lgl_parra_parras_on_child_id"
-    t.index ["parent_id"], name: "index_lgl_parra_parras_on_parent_id"
-  end
-
-  create_table "lgl_parrafos", force: :cascade do |t|
-    t.integer "lgl_documento_id"
-    t.integer "orden"
-    t.text "lgl_parrafo"
-    t.string "tipo"
-    t.integer "pdd_lft"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "definicion"
-    t.string "accion"
-    t.string "resumen"
-    t.boolean "ocultar"
-    t.string "codigo"
-    t.boolean "txt_bld"
-    t.boolean "txt_cntr"
-    t.string "referencia"
-    t.boolean "dsply"
-    t.index ["codigo"], name: "index_lgl_parrafos_on_codigo"
-    t.index ["lgl_documento_id"], name: "index_lgl_parrafos_on_lgl_documento_id"
-    t.index ["orden"], name: "index_lgl_parrafos_on_orden"
-    t.index ["tipo"], name: "index_lgl_parrafos_on_tipo"
-  end
-
-  create_table "lgl_puntos", force: :cascade do |t|
-    t.integer "orden"
-    t.integer "lgl_parrafo_id"
-    t.string "lgl_punto"
-    t.text "cita"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["lgl_parrafo_id"], name: "index_lgl_puntos_on_lgl_parrafo_id"
-    t.index ["orden"], name: "index_lgl_puntos_on_orden"
-  end
-
-  create_table "lgl_recursos", force: :cascade do |t|
-    t.string "lgl_recurso"
-    t.string "tipo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["tipo"], name: "index_lgl_recursos_on_tipo"
-  end
-
-  create_table "lgl_temas", force: :cascade do |t|
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.integer "orden"
-    t.string "codigo"
-    t.string "lgl_tema"
-    t.boolean "heredado"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["codigo"], name: "index_lgl_temas_on_codigo"
-    t.index ["orden"], name: "index_lgl_temas_on_orden"
-    t.index ["ownr_id"], name: "index_lgl_temas_on_ownr_id"
-    t.index ["ownr_type"], name: "index_lgl_temas_on_ownr_type"
-  end
-
-  create_table "lgl_tipo_entidades", force: :cascade do |t|
-    t.string "lgl_tipo_entidad"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "lgl_tramo_empresas", force: :cascade do |t|
-    t.integer "orden"
-    t.string "lgl_tramo_empresa"
-    t.decimal "min"
-    t.decimal "max"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["orden"], name: "index_lgl_tramo_empresas_on_orden"
+    t.index ["cdg"], name: "index_lgl_repositorios_on_cdg"
   end
 
   create_table "licencias", force: :cascade do |t|

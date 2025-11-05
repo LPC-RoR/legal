@@ -8,4 +8,30 @@ class ClssActs
 			'lista_hechos'			=> 'Lista de Hechos'
 		}		
 	end
+
+	# Definidas para LglRepositorio
+
+	def self.lgl_dcmnts
+		['ley']
+	end
+
+	def self.act_nombre
+		{
+			'ley'						=> 'Ley'
+		}
+	end
+
+	def self.act_lst?(act_code)
+		case act_code
+		when nil
+			false
+		end
+	end
+
+	def self.act_fecha(act_code)
+		case act_code
+		when nil
+			false
+		end
+	end
 end

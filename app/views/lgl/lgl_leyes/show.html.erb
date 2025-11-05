@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @lgl_ley %>
+
+<div>
+  <%= link_to "Edit this lgl ley", edit_lgl_ley_path(@lgl_ley) %> |
+  <%= link_to "Back to lgl leyes", lgl_leyes_path %>
+
+  <%= button_to "Destroy this lgl ley", @lgl_ley, method: :delete %>
+</div>
