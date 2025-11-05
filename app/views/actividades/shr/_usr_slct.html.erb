@@ -4,12 +4,13 @@
 		<b>Seleccione un nuevo participante</b></br>
 		<% usrs_dspnbls.each do |usr| %>
 			<%#= usr.class.name %>
-			<% usr.id %>
+			<span class="border border-secondary-subtle rounded-pill p-1">
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/assgn_usr?oid=#{usr.id}", tltp: "Asigna participante", data: {turbo_method: :post}} do %>
 				<i class="bi bi-dot"></i>
 				<i class="bi bi-plus-circle"></i>
 				<%= usr.surname %>
 			<% end %>
+			</span>
 		<% end %>
 	<% else %>
 		<div class="text-danger"><i class="bi bi-exclamation-diamond"></i> No hay usuarios disponibles</div>
