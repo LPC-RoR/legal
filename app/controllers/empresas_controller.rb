@@ -105,11 +105,6 @@ class EmpresasController < ApplicationController
       bypass_sign_in(usuario) # actualiza sesión de Devise
     end
 
-
-puts "--------------------------------------------------"
-puts "random_password: #{random_password.inspect}"
-puts "--------------------------------------------------"
-
     # Bienvenida
     EmpresaMailer.wellcome_email(usuario.email, random_password).deliver_later if random_password
 
