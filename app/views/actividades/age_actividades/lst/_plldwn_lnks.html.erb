@@ -14,6 +14,16 @@
   <% end %>
 </li>
 
+<% if objt.age_logs.any? %>
+<li>
+  <%= render layout: '0p/collapse/link', locals: {label: 'Logs', objeto: objt, tooltip: 'Ver logs', clss: 'dropdown-item'} do %>
+    Ver logs
+  <% end %>
+</li>
+<% end %>
+
+
+
 <li><hr class="dropdown-divider"></li>
 
 <%= render partial: '0p/tbl/plldwn_show', locals: {objt: objt} %>

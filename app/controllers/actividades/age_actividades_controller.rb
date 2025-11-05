@@ -134,12 +134,12 @@ class Actividades::AgeActividadesController < ApplicationController
 
   def cambio_fecha
     prms = params[:form_cambio_fecha]
-    unless prms['nueva_fecha(3i)'].blank? or prms['nueva_fecha(2i)'].blank? or prms['nueva_fecha(1i)'].blank?
+    if prms[:nueva_fecha]
       # crea LOG
       # Agregar email del usuario que cambió la fecha
       log = @objeto.age_logs.create(fecha: @objeto.fecha, actividad: @objeto.age_actividad)
       unless log.blank?
-        @objeto.fecha = prms_to_date_raw(prms, 'nueva_fecha')
+        @objeto.fecha = Date.parse(prms[:nueva_fecha])
         @objeto.estado = 'pendiente' if @objeto.estado == 'suspendida'
         @objeto.save
 

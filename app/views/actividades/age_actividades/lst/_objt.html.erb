@@ -8,6 +8,10 @@
 
 				<%= dma_hm(objt.fecha) %>
 
+				<% if objt.age_logs.any? %>
+					<i class="bi bi-calendar-plus text-primary"></i>
+				<% end %>
+
 				<% if objt.tipo == 'Audiencia' %>
 					<%= render layout: '0p/tltp_lnk', locals: {lnk: objt.ownr, tltp: objt.ownr.causa} do %>
 						<%= objt.ownr.rit %>

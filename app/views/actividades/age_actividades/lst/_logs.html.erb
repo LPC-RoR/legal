@@ -1,0 +1,12 @@
+<% unless objt.muted? %>
+	<div class="px-2 text-danger" style="font-size: 10px; line-height: 1.2;">
+		<% unless objt.age_logs.empty? %>
+			<% objt.age_logs.order(:created_at).each do |log| %>
+				<div class="text-primary">
+					<i class="bi bi-cone-striped"></i>
+					Cambio de fecha. Fecha anterior <%= dma(log.fecha) %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>

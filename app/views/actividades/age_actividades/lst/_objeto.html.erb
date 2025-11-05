@@ -13,11 +13,9 @@
 		<%= render partial: prtl(objeto, 'lst', 'prtcpnts'), locals: {objt: objeto} %>
 	<% end %>
 
-	<%#= render partial: 'actividades/age_actividades/list/prtcpnts', locals: {objeto: objeto, muted: objeto.muted?} %>
+	<%#= render partial: 'actividades/age_actividades/list/wrnngs', locals: {objeto: objeto} %>
 
-	<%= render partial: 'actividades/age_actividades/list/wrnngs', locals: {objeto: objeto} %>
-
-	<%= render partial: prtl('notas', 'shr', 'notas_pendientes'), locals: {objeto: objeto} %>
+	<%#= render partial: prtl('notas', 'shr', 'notas_pendientes'), locals: {objeto: objeto} %>
 
 </div>
 
@@ -27,4 +25,10 @@
 
 <%= render layout: '0p/collapse/display', locals: {label: 'CambioFecha', objeto: objeto} do %>
   	<%= render partial: prtl(objeto, 'lst', 'frm_cambio_fecha'), locals: {objt: objeto} %>
+<% end %>
+
+<% if objeto.age_logs.any? %>
+	<%= render layout: '0p/collapse/display', locals: {label: 'Logs', objeto: objeto} do %>
+	  	<%= render partial: prtl(objeto, 'lst', 'logs'), locals: {objt: objeto} %>
+	<% end %>
 <% end %>
