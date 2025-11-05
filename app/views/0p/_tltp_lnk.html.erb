@@ -1,6 +1,7 @@
 <% data ||= {} %>
 <% target ||= nil %>
 <% tltp ||= nil %>
+<% clss ||= nil %>
 <%# 
   default_data = {
     toggle: 'tooltip',
@@ -23,6 +24,6 @@
     } %>
 <% combined = default_data.merge(data).merge(extra_opts) %>
 
-<%= link_to lnk, target: target, data: combined do %>
+<%= link_to lnk, class: clss, target: target, data: combined do %>
   <% yield %>
 <% end %>

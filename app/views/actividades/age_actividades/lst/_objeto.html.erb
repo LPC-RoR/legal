@@ -1,0 +1,30 @@
+<div class="mb-1 pb-2 shadow border border-secondary-subtle rounded bg-white text-primary app_lnk" style="font-size: 12px; line-height: 1.2;">
+
+	<%= render partial: prtl(objeto, 'lst', 'objt'), locals: {objt: objeto} %>
+
+	<div class="mx-3">
+		<div class="fw-bold text-<%= objeto.text_color %>"><%= objeto.descripcion %></div>
+		<% if objeto.tipo == 'Audiencia' %>
+			<div class="text-secondary"><%= objeto.ownr.causa %></div>
+		<% end %>
+	</div>
+
+	<% if objeto.responsables.any? %>
+		<%= render partial: prtl(objeto, 'lst', 'prtcpnts'), locals: {objt: objeto} %>
+	<% end %>
+
+	<%#= render partial: 'actividades/age_actividades/list/prtcpnts', locals: {objeto: objeto, muted: objeto.muted?} %>
+
+	<%= render partial: 'actividades/age_actividades/list/wrnngs', locals: {objeto: objeto} %>
+
+	<%= render partial: prtl('notas', 'shr', 'notas_pendientes'), locals: {objeto: objeto} %>
+
+</div>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'AgregaParticipante', objeto: objeto} do %>
+	<%= render partial: "actividades/shr/usr_slct", locals: {objeto: objeto} %>
+<% end %>
+
+<%= render layout: '0p/collapse/display', locals: {label: 'CambioFecha', objeto: objeto} do %>
+  	<%= render partial: prtl(objeto, 'lst', 'frm_cambio_fecha'), locals: {objt: objeto} %>
+<% end %>

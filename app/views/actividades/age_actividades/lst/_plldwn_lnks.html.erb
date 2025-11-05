@@ -1,0 +1,24 @@
+<li>
+  <%= render partial: '0p/swtch_lnk', locals: {objeto: objt, tkn: 'suspendida', stts: ['Marcar como no suspendida', 'Marcar coma suspendida'], clss: 'dropdown-item'} %>
+</li>
+
+<li>
+  <%= render layout: '0p/collapse/link', locals: {label: 'CambioFecha', objeto: objt, tooltip: 'Cambiar fecha de la actividad', clss: 'dropdown-item'} do %>
+    Cambio de fecha
+  <% end %>
+</li>
+
+<li>
+  <%= render layout: '0p/collapse/link', locals: {label: 'AgregaParticipante', objeto: objt, tooltip: 'Agrega participante', clss: 'dropdown-item'} do %>
+    Agrega participante
+  <% end %>
+</li>
+
+<li><hr class="dropdown-divider"></li>
+
+<%= render partial: '0p/tbl/plldwn_show', locals: {objt: objt} %>
+<%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt} %>
+
+<li><hr class="dropdown-divider"></li>
+
+<%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt} %>

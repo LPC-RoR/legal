@@ -1,13 +1,15 @@
 <div class="mb-1 pb-2 shadow border border-secondary-subtle rounded bg-white text-primary app_lnk" style="font-size: 12px; line-height: 1.2;">
 
 	<%= render partial: 'actividades/age_actividades/list/objt', locals: {objeto: objeto} %>
+	<div class=" px-4 txt text-<%= objeto.text_color %>">
+		<b><%= objeto.descripcion %></b>
+	</div>
+
+
 	<%= render partial: prtl_name('age_actividades', 'list', 'age_ownr'), locals: {objeto: objeto} %>
 
 	<%= render partial: 'actividades/age_actividades/list/prtcpnts', locals: {objeto: objeto, muted: objeto.muted?} %>
 
-	<div class=" px-4 txt text-<%= objeto.text_color %>">
-		<b><%= objeto.descripcion %></b>
-	</div>
 
 	<%= render partial: 'actividades/age_actividades/list/wrnngs', locals: {objeto: objeto} %>
 

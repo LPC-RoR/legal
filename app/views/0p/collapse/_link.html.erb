@@ -1,10 +1,12 @@
+<% clss ||= nil %>
+
 <%#= render layout: '0p/collapse/link', locals: {label: 'label', objeto: nil, tooltip: nil} do %>
 	<!-- ... -->
 <%# end %>
 
 <% id = "#{label}#{objeto.blank? ? nil : objeto.id}" %>
 
-<a data-bs-toggle="collapse"
+<a class=<%=clss%> data-bs-toggle="collapse"
    href="#<%= id %>"
    role="button"
    aria-expanded="false"

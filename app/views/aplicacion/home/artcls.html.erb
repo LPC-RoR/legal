@@ -1,13 +1,13 @@
 <div class="row gx-1 mt-3 border rounded-4 fs-3 text-white" style="margin-left: 3%; margin-right: 3%;">
 
 	<% if prtl?('home', "artcls/#{params[:tkn]}", 'img') %>
-		<%= render partial: "home/artcls/#{params[:tkn]}/img" %>
+		<%= render partial: "aplicacion/home/artcls/#{params[:tkn]}/img" %>
     <% end %>
 
 	<div class="mt-4 px-5 text-start text-secondary app_lnk" style="font-size: .9rem;line-height: 1.5;color: #3c6e71;">
 
-		<% if prtl?('home', "artcls/#{params[:tkn]}", 'artcl') %>
-			<%= render partial: "home/artcls/#{params[:tkn]}/artcl", locals: {tkn: params[:tkn]} %>
+		<% if prtl?('aplicacion/home', "artcls/#{params[:tkn]}", 'artcl') %>
+			<%= render partial: "aplicacion/home/artcls/#{params[:tkn]}/artcl", locals: {tkn: params[:tkn]} %>
         <% end %>
 
     	<p>Más información en:

@@ -1,4 +1,4 @@
-class HomeController < ApplicationController
+class Aplicacion::HomeController < ApplicationController
 	before_action :redirect_unauthenticated, only: :dshbrd
 #  before_action :authenticate_usuario!, only: [:dshbrd]
   before_action :scrty_on, only: [:dshbrd]
@@ -49,12 +49,6 @@ class HomeController < ApplicationController
   end
   
 	def dshbrd
-
-		# Modificaciones al Menu de OffCanvas
-		if Menu.all.empty?
-			Menu.create(helpers.h_menus[:admin])
-		end
-
 		@usrs = Usuario.where(tenant_id: nil)
 
 	  # 1. Salida temprana si el usuario está en un scope especial

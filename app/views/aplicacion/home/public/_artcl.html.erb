@@ -1,0 +1,15 @@
+<div style="margin: 0 5%;">
+
+  <div class="mt-5 mb-2 mx-3">
+    <%= image_tag 'logo/logo_blog_50.webp', class: 'img-fluid' %>
+  </div>
+
+  <div class="row gx-1 mx-3 border rounded-4 text-secondary" style="font-size: 0.8rem;line-height: 1.5;color: #3c6e71;">
+    <div class="col-lg-6 col-xs-12">
+      <%= render partial: "aplicacion/home/artcls/abstrct", locals: {tkn: 'costos', tema: 'Ley 21.643 (Ley Karin):',ttl: 'Los costos del incumplimiento', img: 'artcls/costos_1000.webp'} %>
+    </div>
+    <div class="col-lg-6">
+      <%= render partial: "aplicacion/home/artcls/abstrct", locals: {tkn: 'externalizacion', tema: 'Ley 21.643 (Ley Karin):', ttl: 'Externalizacion de investigaciones', img: 'artcls/extrnlzcn_1000.webp'} %>
+    </div>
+  </div>
+</div>

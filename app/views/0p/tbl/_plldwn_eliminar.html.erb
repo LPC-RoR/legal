@@ -1,0 +1,19 @@
+<li>
+  <!-- NO usa has_child? -->
+  <% return if objt.nil? %>
+  <%= link_to objt,
+              class: 'dropdown-item text-danger',
+              method: :delete,
+              data: {
+                turbo_method: :delete,
+                turbo_confirm: "¿Estás seguro?",
+                bs_toggle:    'tooltip',
+                bs_placement: 'right',
+                bs_title:     'Eliminar',
+                bs_custom_class: 'custom-tooltip'
+              },
+              title: 'Eliminar' do %>
+    Eliminar
+  <% end %>
+
+</li>

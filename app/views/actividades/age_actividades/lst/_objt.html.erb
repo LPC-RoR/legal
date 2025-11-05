@@ -1,0 +1,29 @@
+<!-- RESOLVER por FORM -->
+<% unless objt.fecha.blank? %>
+
+	<div class="row m-1 px-2 py-1 gx-1 text-<%= objt.text_color %> bg-secondary-subtle">
+		<div class="col-8 text-<%= objt.text_color %>">
+			<b class="">
+				<%= render partial: prtl(objt, 'lst', 'age_icon'), locals: {objt: objt} %>
+
+				<%= dma_hm(objt.fecha) %>
+
+				<% if objt.tipo == 'Audiencia' %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: objt.ownr, tltp: objt.ownr.causa} do %>
+						<%= objt.ownr.rit %>
+					<% end %>
+				<% end %>
+				<% if objt.suspendida %>
+					<span class="text-danger">SUSPENDIDA</span>
+				<% end %>
+			</b>
+			<i class="bi bi-people-fill text-<%=objt.responsables.any? ? 'primary' : 'danger'%>"></i>
+
+		</div>
+		<div class="col-4 text-end">
+			<%= render partial: '0p/tbl/plldwn_lnks', locals: {objt: objt} %>
+		</div>
+	</div>
+
+
+<% end %>
