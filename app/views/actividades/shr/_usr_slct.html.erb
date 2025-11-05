@@ -1,7 +1,7 @@
 <div class="mt-2 app_lnk" style="font-size: 12px;">
 	<% usrs_dspnbls = @usrs.where.not(id: objeto.responsables.ids) %>
 	<% if usrs_dspnbls.any? %>
-		<b>Seleccione un nuevo participante</b></br>
+		<div class="mb-2 fw-bold">Seleccione un nuevo participante</div>
 		<% usrs_dspnbls.each do |usr| %>
 			<%#= usr.class.name %>
 			<span class="border border-secondary-subtle rounded-pill px-1">
