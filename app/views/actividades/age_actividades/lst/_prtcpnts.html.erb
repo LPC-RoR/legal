@@ -5,7 +5,7 @@
 			<i class="bi bi-caret-right"></i> 
 			<% objt.responsables.each do |usr| %>
 				<i class="bi bi-dot"></i> 
-				<span class="border border-secondary-subtle rounded-pill p-1">
+				<span class="border border-secondary-subtle rounded-pill px-1">
 					<%= usr.surname %>
 					<% unless muted %>
 						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objt)}/#{objt.id}/dssgn_usr?oid=#{usr.id}", tltp: "Elimina participante", data: {turbo_method: :post}} do %>
