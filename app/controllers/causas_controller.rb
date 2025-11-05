@@ -85,7 +85,7 @@ class CausasController < ApplicationController
       set_tabla('notas', @objeto.notas.rlzds, false)
       set_tabla('monto_conciliaciones', @objeto.monto_conciliaciones.ordr_fecha, false)
       set_tabla('estados', @objeto.estados.ordr_dfecha, false)
-      set_tabla('app_archivos', @objeto.as, false)
+      set_tabla('app_archivos', @objeto.app_archivos, false)
 
     when 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), false)

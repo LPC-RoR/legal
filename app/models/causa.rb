@@ -120,20 +120,6 @@ class Causa < ApplicationRecord
 		self.app_archivos.find_by(app_archivo: app_archivo)
 	end
 
-	# Archivos controlados
-	def acs
-		self.tipo_causa.acs
-	end
-
-	# Archivos NO Controlados
-	def as
-		self.app_archivos.where.not(app_archivo: self.acs.nms)
-	end
-
-	def dcs
-		self.tipo_causa.dcs
-	end
-
 	# ----------------------------------------------------------------------------------------- CUANTIA
 	def calc_fecha_uf(codigo_formula)
 		fecha = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)&.fecha
