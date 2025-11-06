@@ -4,6 +4,8 @@ class Usuario < ApplicationRecord
   has_many :rcrs_enlaces, as: :ownr
 #  has_many :notas
 
+  has_many :age_pendientes
+
   has_many :notas_creadas,     class_name: 'Nota',
                                foreign_key: 'usuario_id',
                                dependent: :nullify

@@ -28,17 +28,18 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
-    AgeUsuario.all.each do |ausu|
-      usu = Usuario.find_by(email: ausu.app_perfil&.email)
-      if usu
-        usu.notas_responsable << ausu.notas
+    AgePendiente.all.each do |pndnt|
+      age = pndnt&.age_usuario
+      if age
+        usu = Usuario.find_by(email: age&.app_perfil&.email)
+        if usu && age
+          usu.age_pendientes << age.age_pendientes
+        end
+      else
+        pndnt.destroy
       end
     end
 
-#    Nota.all.each do |nota|
-#      usuario = Usuario.find_by(email: nota.app_perfil.email)
-#      usuario.notas << nota if usuario
-#    end
 
     redirect_to root_path
   end

@@ -58,4 +58,12 @@ module Paths
 		end
 	end
 
+	# ------------------------------------------------------ AGE_ACTIVIDAD
+
+	def actvdd_path(orgn)
+		case orgn
+		when 'dshbrd'
+			authenticated_root_path
+		end
+	end
 end

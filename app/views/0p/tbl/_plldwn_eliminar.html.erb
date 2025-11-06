@@ -1,7 +1,9 @@
+<% orgn ||= nil %>
 <li>
   <!-- NO usa has_child? -->
   <% return if objt.nil? %>
   <%= link_to objt,
+              orgn: orgn,
               class: 'dropdown-item text-danger',
               method: :delete,
               data: {

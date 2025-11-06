@@ -1,13 +1,18 @@
 <div class="row gx-1">
   <div class="col-lg-6 col-xs-12">
-    <%= render partial: '0p/ttl_clss', locals: {source: 'age_actividades', clss: :gray, dir: 'indx', ttl: 'Audiencias'} %>
+    <%= render partial: '0p/ttl_clss', locals: {source: 'age_actividades', clss: :gray, dir: 'indx', ttl: 'Audiencias futuras', hide_lnks: true} %>
     <%= render partial: '0p/tbl_clss', locals: {source: 'age_actividades', clccn: @actividades} %>
-    <%#= render partial: '0p/tbl/tbl', locals: {source: 'age_actividades', lnks: 'prtl'}  %>
 
   </div>
   <div class="col-lg-6">
-      <%= render partial: '0p/ttl_clss', locals: {source: 'notas', clss: :gray, dir: 'indx'} %>
-      <%= render partial: '0p/tbl_clss', locals: {source: 'notas', clccn: @notas} %>
-      <%#= render partial: '0p/tbl/tbl', locals: {source: 'notas', lnks: 'prtl'} if @usuario %>
+      <%= render partial: '0p/ttl_clss', locals: {source: 'age_pendientes', clss: :gray, dir: 'indx', ttl: "Pendientes de #{current_usuario.surname}"} %>
+
+      <div class="mt-1">
+        <%= render partial: '0p/tabs/tabs', locals: {token: :tab} %>
+        <div class="p-1 border-start border-end border-bottom" style="margin-top: -1px;">
+          <%= render partial: "/actividades/age_pendientes/display", locals: {owner: @usuario} %>
+        </div>
+      </div>
+
   </div>
 </div>

@@ -1,1 +1,2 @@
-<li><%= link_to "Ver", objt, class: "dropdown-item" %></li>
+<% orgn ||= nil %>
+<li><%= link_to "Ver", objt, orgn: orgn, class: "dropdown-item" %></li>

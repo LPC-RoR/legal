@@ -1,0 +1,17 @@
+<% src    ||= 'source' %>
+<% dir    ||= 'lst' %>
+<% ownr   ||= nil %>
+<% blngs  ||= nil %>
+<% label  ||= 'Indx' %>
+
+<% gly  ||= 'bi bi-three-dots-vertical' %>
+
+<div class="dropdown">
+  <a href="#" class="text-muted" id="dropdownMenuButton<%= label %>" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="<%=gly%>"></i>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton<%= label %>">
+    <%= render partial: prtl(src, dir, 'plldwn_lnks'), locals: {ownr: ownr, blngs: blngs} %>
+  </ul>
+</div>

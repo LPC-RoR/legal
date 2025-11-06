@@ -1,7 +1,14 @@
-<% data ||= {} %>
+<% orgn   ||= nil %>
+<% data   ||= {} %>
 <% target ||= nil %>
-<% tltp ||= nil %>
-<% clss ||= nil %>
+<% tltp   ||= nil %>
+<% clss   ||= nil %>
+
+<% sgn    ||= nil %>
+<% ownr   ||= nil %>
+<% blngs  ||= nil %>
+
+<% lnk_completo = (ownr || blngs) ? "#{lnk}#{ownr_prms(ownr, false) if ownr}#{blngs_prms(blngs) if blngs}" : lnk %>
 <%# 
   default_data = {
     toggle: 'tooltip',
@@ -24,6 +31,6 @@
     } %>
 <% combined = default_data.merge(data).merge(extra_opts) %>
 
-<%= link_to lnk, class: clss, target: target, data: combined do %>
+<%= link_to lnk_completo, class: clss, target: target, orgn: orgn, data: combined do %>
   <% yield %>
 <% end %>

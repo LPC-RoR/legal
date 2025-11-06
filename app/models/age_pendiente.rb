@@ -1,5 +1,6 @@
 class AgePendiente < ApplicationRecord
-	belongs_to :age_usuario
+	belongs_to :age_usuario, optional: true
+	belongs_to :usuario
 
 
 	def text_color

@@ -1,7 +1,8 @@
-<% clr   ||= nil %>
-<% stts  ||= ['falso', 'verdadero'] %>
-<% clss  ||= nil %>
+<% orgn		||= nil %>
+<% clr   	||= nil %>
+<% stts  	||= ['falso', 'verdadero'] %>
+<% clss  	||= nil %>
 
-<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/swtch?tkn=#{tkn}", tltp: "#{objeto.send(tkn) ? stts[0] : stts[1]}", clss: clss, data: {turbo_method: :post}} do %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/swtch?tkn=#{tkn}#{prms([['orgn', orgn]], true) if orgn}", tltp: "#{objeto.send(tkn) ? stts[0] : stts[1]}", clss: clss, data: {turbo_method: :post}} do %>
 	<%= objeto.send(tkn) ? stts[0] : stts[1] %>
 <% end %>

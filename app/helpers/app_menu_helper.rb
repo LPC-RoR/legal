@@ -26,7 +26,7 @@ module AppMenuHelper
         key:     'admin',
         enabled: true,
         items:   [
-          { id: 'actividades',  name: 'Actividades',        path: '/age_actividades',   icon: 'bi bi-calendar4-event' },
+#          { id: 'actividades',  name: 'Actividades',        path: '/age_actividades',   icon: 'bi bi-calendar4-event' },
           { id: 'clientes',     name: 'Clientes',           path: '/clientes',          icon: 'bi bi-building' },
           { id: 'causas',       name: 'Causas',             path: '/causas',            icon: 'bi bi-journal-text' },
           { id: 'asesorias',    name: 'Asesorías',          path: '/asesorias',         icon: 'bi bi-briefcase' },

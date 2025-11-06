@@ -49,7 +49,20 @@ class Aplicacion::HomeController < ApplicationController
   end
   
 	def dshbrd
+		@orgn = 'dshbrd'
 		@usrs = Usuario.where(tenant_id: nil)
+
+    set_tab( :tab, ['Pendientes', 'Realizados'])
+#    @estado = @options[:tab].singularize.downcase
+
+    if @options[:tab] == 'Pendientes'
+    	@pndnts_danger 	= current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'danger').order(:created_at)
+    	@pndnts_warning = current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'warning').order(:created_at)
+    	@pndnts_success = current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'success').order(:created_at)
+    	@pndnts_nuevos 	= current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: nil).order(:created_at)
+    else
+    	@pndnts_rlzds 	= current_usuario.age_pendientes.where(estado: 'realizado').order(:created_at)
+    end
 
 	  # 1. Salida temprana si el usuario está en un scope especial
 	  if ['Cliente', 'Empresa'].include?(current_usuario&.tenant.owner_type)
@@ -64,39 +77,6 @@ class Aplicacion::HomeController < ApplicationController
 	  @actividades = AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day)
 	                        .adncs
 	                        .fecha_ordr
-
-	  # 2. Resto de la lógica del dashboard
-	  prfl = get_perfil_activo
-	  @usuario = prfl.age_usuario unless prfl.blank?
-	  @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
-
-	  unless @usuario.blank?
-	    set_tabla('notas',
-	              @usuario.notas.order(urgente: :desc,
-	                                   pendiente: :desc,
-	                                   created_at: :desc),
-	              false)
-	  end
-
-	  set_tabla('age_actividades',
-	            AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day)
-	                        .adncs
-	                        .fecha_ordr,
-	            false)
-
-	  @hoy = Time.zone.today
-	  @estados = nil
-	  @tipos  = ['Causas', 'Pagos', 'Facturas']
-	  @tipo   = params[:t].presence || @tipos[0]
-	  @estado = nil
-	  @path   = '/?'
-
-	  inicia_sesion if perfil_activo.blank?
-
-	  if operacion?
-	    set_tabla('tramitacion-causas', Causa.where(estado: 'tramitación'), false)
-	    @causas_en_proceso = Causa.where(estado: 'tramitación')
-	  end
 
 	  render layout: 'addt'   # solo se ejecuta cuando no hubo redirect
 	end

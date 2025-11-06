@@ -5,7 +5,6 @@ class AgeActividad < ApplicationRecord
 	UNC 	= 'Audiencia única'
 	RNN 	= 'Reunión'
 
-#	belongs_to :app_perfil
 	belongs_to :ownr, polymorphic: true
 
   has_many :responsables_actividades,

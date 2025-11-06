@@ -39,16 +39,11 @@ class Actividades::AgeActividadesController < ApplicationController
 
   # GET /age_actividades/new
   def new
+    # AgeActividad NO tiene usuario_id: las actividades NO registran el usuario que las creo
     ownr = params[:oid].blank? ? nil : params[:oclss].constantize.find(params[:oid])
-    if ['prprtr', 'unc', 'd_jc'].include?(params[:k])
-      tipo = 'Audiencia'
-      age_actividad = 'Audiencia de juicio' if params[:k] == 'd_jc'
-      age_actividad = 'Audiencia preparatoria' if params[:k] == 'prprtr'
-      age_actividad = 'Audiencia única' if params[:k] == 'unc'
-    elsif params[:k] == 'rnn'
-      tipo = 'Reunión'
-    end
-    @objeto = AgeActividad.new(ownr_type: params[:oclss], ownr_id: params[:oid], app_perfil_id: perfil_activo.id, age_actividad: age_actividad, estado: 'pendiente', tipo: tipo)
+    tipo = ClssActvdd.tipo(params[:k])
+    actvdd = ClssActvdd.actvdd[params[:k]]
+    @objeto = AgeActividad.new(ownr_type: params[:oclss], ownr_id: params[:oid], age_actividad: actvdd, estado: 'pendiente', tipo: tipo)
   end
 
   def cu_actividad
@@ -87,7 +82,7 @@ class Actividades::AgeActividadesController < ApplicationController
       mensaje = 'Error de ingreso Actividad: Fecha y Descripción son campos obligatorios'
     end
 
-    redirect_to "/#{params[:cn]}/#{params[:oid]}", notice: mensaje
+    redirect_to orgn_path, notice: mensaje
   end
 
   # GET /age_actividades/1/edit
@@ -101,7 +96,7 @@ class Actividades::AgeActividadesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Actividad fue exitosamente creada." }
+        format.html { redirect_to orgn_path, notice: "Actividad fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -114,8 +109,7 @@ class Actividades::AgeActividadesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(age_actividad_params)
-        get_rdrccn
-        format.html { redirect_to @rdrccn, notice: "Actividad fue exitosamente actualizada." }
+        format.html { redirect_to orgn_path, notice: "Actividad fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -148,16 +142,14 @@ class Actividades::AgeActividadesController < ApplicationController
       end
     end
 
-    get_rdrccn
-    redirect_to @rdrccn
+    redirect_to orgn_path
   end
 
   # DELETE /age_actividades/1 or /age_actividades/1.json
   def destroy
-    get_rdrccn
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @rdrccn, notice: "Actividad fue exitosamente eliminada." }
+      format.html { redirect_to orgn_path, notice: "Actividad fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -185,6 +177,15 @@ class Actividades::AgeActividadesController < ApplicationController
 
     def get_rdrccn
       @rdrccn = @objeto.ownr_id.blank? ? "/age_actividades" : @objeto.ownr
+    end
+
+    def orgn_path
+      case params[:orgn]
+      when 'dshbrd'
+        authenticated_root_path
+      else
+        @objeto.ownr_id.blank? ? "/age_actividades" : @objeto.ownr
+      end
     end
 
     # Only allow a list of trusted parameters through.

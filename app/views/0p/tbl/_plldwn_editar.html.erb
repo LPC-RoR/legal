@@ -1,1 +1,2 @@
-<li><%= link_to "Editar", [:edit, objt], class: "dropdown-item" %></li>
+<% orgn ||= nil %>
+<li><%= link_to "Editar", [:edit, objt, { orgn: orgn }], class: "dropdown-item" %></li>

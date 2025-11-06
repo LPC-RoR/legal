@@ -1,10 +1,1 @@
-<% ownr ||= nil %>
-<% unless controller_name == 'publicos' %>
-	<%= render layout: '0p/collapse/link', locals: {label: 'new_actvdd', objeto: nil, tooltip: nil} do %>
-		<i class="bi bi-plus-circle"></i>
-	<% end %>
-<% else %>
-	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/servicios/adncs", tltp: 'Lista de Audiencias'} do %>
-		<i class="bi bi-printer"></i>
-	<% end %>
-<% end %>
+<%= render partial: '0p/tbl/plldwn_indx_lnks', locals: {src: 'age_actividades', ownr: ownr, dir: 'indx', gly: 'bi bi-plus-circle'} %>

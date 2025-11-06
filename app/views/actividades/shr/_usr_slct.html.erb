@@ -5,7 +5,7 @@
 		<% usrs_dspnbls.each do |usr| %>
 			<%#= usr.class.name %>
 			<span class="border border-secondary-subtle rounded-pill px-1">
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/assgn_usr?oid=#{usr.id}", tltp: "Asigna participante", data: {turbo_method: :post}} do %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/assgn_usr?oid=#{usr.id}&orgn=#{@orgn}", tltp: "Asigna participante", data: {turbo_method: :post}} do %>
 				<!--i class="bi bi-dot"></i-->
 				<i class="bi bi-plus-circle"></i>
 				<%= usr.surname %>

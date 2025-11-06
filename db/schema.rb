@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_03_222756) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_06_005227) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -130,7 +130,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_03_222756) do
     t.string "prioridad"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "usuario_id"
     t.index ["age_usuario_id"], name: "index_age_pendientes_on_age_usuario_id"
+    t.index ["usuario_id"], name: "index_age_pendientes_on_usuario_id"
   end
 
   create_table "age_usu_acts", force: :cascade do |t|

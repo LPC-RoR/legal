@@ -1,11 +1,28 @@
 <% if @options[:tab] == 'Pendientes' %>
-	<% ['d-age_pendientes', 'w-age_pendientes', 's-age_pendientes', 'n-age_pendientes'].each do |tabla_id| %>
-		<% @coleccion[tabla_id].each do |age_pendiente| %>
-			<%= render partial: 'actividades/age_pendientes/list/objeto', locals: {objeto: age_pendiente} %>
+	<% if @pndnts_danger.any? %>
+		<% @pndnts_danger.each do |pndnt| %>
+			<%= render partial: 'actividades/age_pendientes/list/objeto', locals: {objeto: pndnt} %>
+		<% end %>
+	<% end %>
+	<% if @pndnts_warning.any? %>
+		<% @pndnts_warning.each do |pndnt| %>
+			<%= render partial: 'actividades/age_pendientes/list/objeto', locals: {objeto: pndnt} %>
+		<% end %>
+	<% end %>
+	<% if @pndnts_success.any? %>
+		<% @pndnts_success.each do |pndnt| %>
+			<%= render partial: 'actividades/age_pendientes/list/objeto', locals: {objeto: pndnt} %>
+		<% end %>
+	<% end %>
+	<% if @pndnts_nuevos.any? %>
+		<% @pndnts_nuevos.each do |pndnt| %>
+			<%= render partial: 'actividades/age_pendientes/list/objeto', locals: {objeto: pndnt} %>
 		<% end %>
 	<% end %>
 <% else %>
-	<% @coleccion['r-age_pendientes'].each do |age_pendiente| %>
-		<%= render partial: 'actividades/age_pendientes/list/objeto', locals: {objeto: age_pendiente} %>
+	<% if @pndnts_rlzds.any? %>
+		<% @pndnts_rlzds.each do |pndnt| %>
+			<%= render partial: 'actividades/age_pendientes/list/objeto', locals: {objeto: pndnt} %>
+		<% end %>
 	<% end %>
 <% end %>

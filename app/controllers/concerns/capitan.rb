@@ -109,6 +109,7 @@ module Capitan
 			rdrccn = nil
 		end
 
+
 		set_bck_rdrccn
 #		redirect_to rdrccn.blank? ? cptn_rdrccn : rdrccn
 		redirect_to @bck_rdrccn

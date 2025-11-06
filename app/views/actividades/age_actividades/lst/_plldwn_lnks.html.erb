@@ -1,5 +1,5 @@
 <li>
-  <%= render partial: '0p/swtch_lnk', locals: {objeto: objt, tkn: 'suspendida', stts: ['Marcar como no suspendida', 'Marcar coma suspendida'], clss: 'dropdown-item'} %>
+  <%= render partial: '0p/swtch_lnk', locals: {objeto: objt, tkn: 'suspendida', stts: ['Marcar como no suspendida', 'Marcar coma suspendida'], orgn: @orgn, clss: 'dropdown-item'} %>
 </li>
 
 <li>
@@ -26,9 +26,9 @@
 
 <li><hr class="dropdown-divider"></li>
 
-<%= render partial: '0p/tbl/plldwn_show', locals: {objt: objt} %>
-<%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt} %>
+<%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
+<%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
 
 <li><hr class="dropdown-divider"></li>
 
-<%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt} %>
+<%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>

@@ -16,7 +16,7 @@ class Actividades::AgePendientesController < ApplicationController
 
   # GET /age_pendientes/new
   def new
-    @objeto = AgePendiente.new(age_usuario_id: params[:oid], estado: 'pendiente')
+    @objeto = AgePendiente.new(usuario: current_usuario, estado: 'pendiente')
   end
 
   # GET /age_pendientes/1/edit
@@ -29,8 +29,7 @@ class Actividades::AgePendientesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Pendiente fue exitosamente creado." }
+        format.html { redirect_to authenticated_root_path, notice: "Pendiente fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,8 +42,7 @@ class Actividades::AgePendientesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(age_pendiente_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Pendiente fue exitosamente actualizado." }
+        format.html { redirect_to authenticated_root_path, notice: "Pendiente fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +55,7 @@ class Actividades::AgePendientesController < ApplicationController
     @objeto.estado = ( @objeto.estado == 'pendiente' ? 'realizado' : 'pendiente' )
     @objeto.save
 
-    redirect_to "/age_actividades"
+    redirect_to authenticated_root_path
   end
 
   def cambia_prioridad
@@ -65,15 +63,14 @@ class Actividades::AgePendientesController < ApplicationController
     @objeto.prioridad = params[:prioridad] == 'nil' ? nil : params[:prioridad]
     @objeto.save
 
-    redirect_to "/age_actividades"
+    redirect_to authenticated_root_path
   end
 
   # DELETE /age_pendientes/1 or /age_pendientes/1.json
   def destroy
-    set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Pendiente fue exitosamente eliminado." }
+      format.html { redirect_to authenticated_root_path, notice: "Pendiente fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -84,12 +81,8 @@ class Actividades::AgePendientesController < ApplicationController
       @objeto = AgePendiente.find(params[:id])
     end
 
-    def set_redireccion
-      @redireccion = "/age_actividades"
-    end
-
     # Only allow a list of trusted parameters through.
     def age_pendiente_params
-      params.require(:age_pendiente).permit(:age_usuario_id, :age_pendiente, :estado, :prioridad)
+      params.require(:age_pendiente).permit(:usuario_id, :age_pendiente, :estado, :prioridad)
     end
 end
