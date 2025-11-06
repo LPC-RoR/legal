@@ -1,6 +1,8 @@
+<% unless objt.muted? %>
 <li>
   <%= render partial: '0p/swtch_lnk', locals: {objeto: objt, tkn: 'suspendida', stts: ['Marcar como no suspendida', 'Marcar coma suspendida'], orgn: @orgn, clss: 'dropdown-item'} %>
 </li>
+<% end %>
 
 <li>
   <%= render layout: '0p/collapse/link', locals: {label: 'CambioFecha', objeto: objt, tooltip: 'Cambiar fecha de la actividad', clss: 'dropdown-item'} do %>
@@ -8,6 +10,7 @@
   <% end %>
 </li>
 
+<% unless objt.muted? %>
 <li>
   <%= render layout: '0p/collapse/link', locals: {label: 'AgregaParticipante', objeto: objt, tooltip: 'Agrega participante', clss: 'dropdown-item'} do %>
     Agrega participante
@@ -32,3 +35,4 @@
 <li><hr class="dropdown-divider"></li>
 
 <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+<% end %>

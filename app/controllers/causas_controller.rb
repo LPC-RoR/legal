@@ -74,6 +74,7 @@ class CausasController < ApplicationController
 
     case @options[:menu]
     when 'General'
+      @orgn = 'cs_shw'
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
       @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
 
@@ -81,7 +82,9 @@ class CausasController < ApplicationController
       demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
       @resumen = demanda&.act_textos&.find_by(tipo_documento: 'resumen_anonimizado')
 
-      set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
+      @actvdds  = @objeto.age_actividades.fecha_ordr
+      @notas    = @objeto.notas.rlzds
+
       set_tabla('notas', @objeto.notas.rlzds, false)
       set_tabla('monto_conciliaciones', @objeto.monto_conciliaciones.ordr_fecha, false)
       set_tabla('estados', @objeto.estados.ordr_dfecha, false)

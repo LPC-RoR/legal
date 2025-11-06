@@ -8,7 +8,7 @@
 <% ownr   ||= nil %>
 <% blngs  ||= nil %>
 
-<% lnk_completo = (ownr || blngs) ? "#{lnk}#{ownr_prms(ownr, false) if ownr}#{blngs_prms(blngs) if blngs}" : lnk %>
+<% lnk_completo = (ownr || blngs) ? "#{lnk}#{ownr_prms(ownr, sgn == 'q') if ownr}#{blngs_prms(blngs, sgn == 'q') if blngs}" : lnk %>
 <%# 
   default_data = {
     toggle: 'tooltip',

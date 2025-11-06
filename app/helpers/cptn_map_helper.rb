@@ -89,12 +89,12 @@ module CptnMapHelper
 
 	# ----------------------------------------------------------------- TABLE PARTIALS
 
-	def ownr_prms(objeto, frst = nil)
+	def ownr_prms(objeto, frst = true)
 		"#{frst ? '?' : '&'}oclss=#{objeto.class.name}&oid=#{objeto.id}"
 	end
 
-	def blngs_prms(objeto)
-		"?oid=#{objeto.id}"
+	def blngs_prms(objeto, frst = true)
+		"#{frst ? '?' : '&'}oid=#{objeto.id}"
 	end
 
 	# source = {controller, objeto}

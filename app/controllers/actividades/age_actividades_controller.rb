@@ -183,6 +183,8 @@ class Actividades::AgeActividadesController < ApplicationController
       case params[:orgn]
       when 'dshbrd'
         authenticated_root_path
+      when 'cs_shw'
+        @objeto.ownr
       else
         @objeto.ownr_id.blank? ? "/age_actividades" : @objeto.ownr
       end

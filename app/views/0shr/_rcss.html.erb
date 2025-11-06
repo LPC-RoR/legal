@@ -1,6 +1,9 @@
 <div class="row gx-1">
 	<div class="col-lg-6 col-xs-12">
-		<%= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto} %>
+		<%#= render partial: 'actividades/shr/bjt_agenda', locals: {objeto: @objeto} %>
+
+		<%= render partial: '0p/ttl_clss', locals: {source: 'age_actividades', clss: :sub, dir: 'indx', ownr: @objeto, ttl: 'Actividades de la causa'} %>
+		<%= render partial: '0p/tbl_clss', locals: {source: 'age_actividades', clccn: @actvdds} %>
 	</div>
 	<div class="col-lg-6">
 		<%= render partial: '0p/ttl_clss', locals: {source: 'act_archivos', clss: :sub, ttl: 'Archivos de la causa', hide_lnks: true} %>
