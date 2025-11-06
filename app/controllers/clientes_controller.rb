@@ -38,6 +38,7 @@ class ClientesController < ApplicationController
   # GET /clientes/1 or /clientes/1.json
   def show
     @usrs = Usuario.where(tenant_id: nil)
+    @actvdds  = @objeto.age_actividades.fecha_ordr
     
     set_st_estado(@objeto)
     set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))]] )
