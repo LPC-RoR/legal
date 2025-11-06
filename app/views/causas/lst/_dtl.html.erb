@@ -1,5 +1,10 @@
 <%= render partial: prtl(objt, 'lst', 'audnc'), locals: {objt: objt} %>
 <%= render partial: prtl(objt, 'lst', 'monto_pagado'), locals: {objt: objt} %>
-<%#= render partial: 'causas/list/dtl/monto_pagado', locals: {objeto: objt} %>
+
+<%= render layout: '0p/collapse/dsply', locals: {label: 'Estado', objeto: objt} do %>
+	<div class="m-2 p-1 border rounded-2">
+		<%= objt.ultimo_estado %>
+	</div>
+<% end %>
 
 <%= render partial: prtl('notas', 'shr', 'notas_pendientes'), locals: {objeto: objt} %>

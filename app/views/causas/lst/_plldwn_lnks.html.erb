@@ -24,9 +24,9 @@
 <% if current_usuario.operacion? %>
 
   <!-- Bajar archivo Demanda -->
-  <% if objt.demanda? %>
+  <% if objt.tiene_demanda_pdf? %>
     <li>
-    <%= link_to objt.demanda.archivo.url, class: 'dropdown-item', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+    <%= link_to show_pdf_act_archivo_path(causa.demanda_archivo_id), class: 'dropdown-item', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
       Ver demanda
     <% end %>
     </li>

@@ -1,4 +1,8 @@
 <%= render partial: 'causas/list/dtl/audiencia', locals: {objeto: objeto} %>
 <%= render partial: 'causas/list/dtl/monto_pagado', locals: {objeto: objeto} %>
 
+<%= render layout: '0p/collapse/link', locals: {label: 'Warnings', objeto: objeto, tooltip: 'Desplegar advertencias'} do %>
+	<i class="bi bi-cone-striped text-danger"></i>
+<% end %>
+
 <%= render partial: prtl('notas', 'shr', 'notas_pendientes'), locals: {objeto: objeto} %>
