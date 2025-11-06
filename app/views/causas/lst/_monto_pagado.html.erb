@@ -1,0 +1,21 @@
+<div class="row px-3 pb-1 gx-1 app_lnk" style="font-size: 13px;line-height: 1.2;">
+	<div class="col">
+
+		<i class="bi bi-cash-coin"></i> 
+		<!-- Actualizado con uso de cuantía en el registro -->
+		<%= s_pesos(objt.suma_tarifas) %>
+		<i class="bi bi-arrow-right"></i>
+
+		<% if objt.ultimo_valor_conciliacion.present? %>
+			<%= s_pesos(objt.ultimo_valor_conciliacion) %>
+		<% end %>
+
+	</div>
+	<div class="col text-end">
+		<% if objt.estado == 'tramitación' and objt.ultimo_valor_conciliacion.nil? %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: url_params('/monto_conciliaciones/new', {blngs: objt, orgn: @orgn})} do %>
+				<i class="bi bi-plus-circle"></i>
+			<% end %>
+		<% end %>
+	</div>
+</div>

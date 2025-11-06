@@ -1,0 +1,8 @@
+<div class="mx-3 py-1 text-danger" style="font-size: 0.7rem;">
+	<% if objeto.tar_tarifa.blank? %>
+		<div><i class="bi bi-cone-striped"></i> Causa sin tarifa asignada</div>
+	<% end %>
+	<% if objeto.tar_valor_cuantias.empty? %>
+		<div><i class="bi bi-cone-striped"></i> Causa sin cuantía</div>
+	<% end %>
+</div>

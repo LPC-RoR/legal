@@ -1,13 +1,13 @@
 <div class="row gx-1">
     <div class="col">
-        <%= render partial: '0p/ttl_clss', locals: {source: 'notas', clss: :sub, dir: 'indx', ownr: @objeto, ttl: 'Notas realizadas o vencidas'} %>
+        <%= render partial: '0p/ttl_clss', locals: {source: 'notas', clss: :sub, dir: 'indx', ownr: @objeto, ttl: 'Notas realizadas o vencidas', hide_lnks: true} %>
         <%= render partial: '0p/tbl_clss', locals: {clccn: @notas} %>
-        <%#= render partial: '0p/tbl_ttl', locals: {source: 'notas', ownr: @objeto} %>
     </div>
     <div class="col">
         <%= render partial: '0p/ttl_clss', locals: {source: 'monto_conciliaciones', clss: :sub, dir: 'indx', blngs: @objeto} %>
         <%= render partial: '0p/tbl_clss', locals: {source: 'monto_conciliaciones', clccn: @coleccion['monto_conciliaciones'], dir: 'list'} %>
-        <%#= render partial: '0p/tbl_ttl', locals: {source: 'monto_conciliaciones', blngs: @objeto, crud: 'lnks'} %>
     </div>
 </div>
-<%= render partial: '0p/tbl_ttl', locals: {source: 'estados', blngs: @objeto} %>
+
+<%= render partial: '0p/ttl_clss', locals: {source: 'estados', clss: :sub, dir: 'indx', blngs: @objeto} %>
+<%= render partial: '0p/tbl_clss', locals: {source: 'estados', clccn: @coleccion['estados'], dir: 'list'} %>

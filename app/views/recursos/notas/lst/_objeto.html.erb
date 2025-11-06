@@ -5,10 +5,10 @@
 	<!-- ENCABEZADO -->
 	<div class="row m-0 py-1 bg-secondary-subtle rounded app_lnk" style="font-size: 0.7rem;line-height: 1.2;">
 		<div class="col-8">
-			<%= render partial: prtl(objeto, 'lst', 'objt'), locals: {objeto: objeto, prrdds: prrdds, blue_dot: blue_dot} %>
+			<%= render partial: prtl(objeto, 'lst', 'objt'), locals: {objt: objeto, prrdds: prrdds, blue_dot: blue_dot} %>
 		</div>
 		<div class="col-4 text-end">
-			<%= render partial: prtl(objeto, 'lst', 'lnks'), locals: {objeto: objeto, prrdds: prrdds, blue_dot: blue_dot} %>
+			<%= render partial: prtl(objeto, 'lst', 'lnks'), locals: {objt: objeto, prrdds: prrdds, blue_dot: blue_dot} %>
 		</div>
 	</div>
 

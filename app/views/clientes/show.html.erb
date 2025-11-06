@@ -4,15 +4,19 @@
 <%#= render partial: 'st_estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
-<% case @options[:menu] %>
-<% when 'General' %>
-	<%= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
-<% when 'Causas' %>
-	<%= render partial: 'causas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
-<% when 'Asesorias' %>
-	<%= render partial: prtl_name('asesorias', 'indx', 'indx'), locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
-<% when 'Facturas' %>
-	<%= render partial: 'tarifas/tar_facturas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
-<% when 'Tarifas' %>
-	<%= render partial: 'clientes/shw/ndx_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
-<% end %>
+<div class="p-1 border-start border-end border-bottom" style="margin-top: -1px;">
+	
+	<% case @options[:menu] %>
+	<% when 'General' %>
+		<%= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
+	<% when 'Causas' %>
+		<%= render partial: 'causas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+	<% when 'Asesorias' %>
+		<%= render partial: prtl_name('asesorias', 'indx', 'indx'), locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+	<% when 'Facturas' %>
+		<%= render partial: 'tarifas/tar_facturas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+	<% when 'Tarifas' %>
+		<%= render partial: 'clientes/shw/ndx_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
+	<% end %>
+	
+</div>

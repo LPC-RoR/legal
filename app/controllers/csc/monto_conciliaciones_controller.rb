@@ -3,7 +3,7 @@ class Csc::MontoConciliacionesController < ApplicationController
   before_action :scrty_on
   before_action :set_monto_conciliacion, only: %i[ show edit update destroy ]
 
-  after_action :actualiza_monto, only: %i[ update create ]
+#  after_action :actualiza_monto, only: %i[ update create ]
 
   # GET /monto_conciliaciones or /monto_conciliaciones.json
   def index
@@ -16,7 +16,7 @@ class Csc::MontoConciliacionesController < ApplicationController
 
   # GET /monto_conciliaciones/new
   def new
-    @objeto = MontoConciliacion.new(causa_id: params[:oid])
+    @objeto = MontoConciliacion.new(causa_id: params[:bid])
   end
 
   # GET /monto_conciliaciones/1/edit
@@ -29,8 +29,7 @@ class Csc::MontoConciliacionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Monto fue exitosamente creado." }
+        format.html { redirect_to orgn_path, notice: "Monto fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,8 +42,7 @@ class Csc::MontoConciliacionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(monto_conciliacion_params)
-        set_redireccion
-        format.html { redirect_to @redireccion, notice: "Monto fue exitosamente actualizado." }
+        format.html { redirect_to orgn_path, notice: "Monto fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,17 +53,17 @@ class Csc::MontoConciliacionesController < ApplicationController
 
   # DELETE /monto_conciliaciones/1 or /monto_conciliaciones/1.json
   def destroy
-    set_redireccion
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Monto fue exitosamente eliminado." }
+      format.html { redirect_to orgn_path, notice: "Monto fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end
 
   private
 
+    # DEPRECATED
     def actualiza_monto
       causa = @objeto.causa
       ultimo = causa.monto_conciliaciones.last
@@ -92,6 +90,19 @@ class Csc::MontoConciliacionesController < ApplicationController
 
     def set_redireccion
       @redireccion = "/causas/#{@objeto.causa.id}"
+    end
+
+    def orgn_path
+      case params[:orgn]
+      when 'cs_shw'
+        @objeto.causa
+      when 'css'
+        causas_path
+      when 'clnt_shw'
+        "clientes/#{@objeto.causa.id}?html_options[menu]=Causas"
+      else
+        @objeto.causa
+      end
     end
 
     # Only allow a list of trusted parameters through.

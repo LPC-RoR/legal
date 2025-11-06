@@ -1,0 +1,16 @@
+<% clss   ||= nil %>
+<% objt   ||= nil %>
+
+<!-- NO usa has_child? -->
+<% return if objt.nil? and clss.nil? %>
+<%= link_to url_params(objt || clss, local_assigns[:prms] || {}, :new),
+            method: :get,
+            data: {
+              bs_toggle:    'tooltip',
+              bs_placement: 'right',
+              bs_title:     'Nuevo',
+              bs_custom_class: 'custom-tooltip'
+            },
+            title: 'Nuevo' do %>
+  <i class="bi bi-plus-circle"></i>
+<% end %>

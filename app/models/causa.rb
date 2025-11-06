@@ -32,7 +32,7 @@ class Causa < ApplicationRecord
 	has_many :estados
 	has_many :monto_conciliaciones
 
-	has_many :age_actividades, as: :ownr
+	has_many :age_actividades, as: :ownr, dependent: :destroy
 	has_many :tar_calculos, as: :ownr
 	has_many :tar_facturaciones, as: :ownr
 	has_many :tar_uf_facturaciones, as: :ownr
@@ -46,12 +46,75 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
+	scope :with_todos_los_datos, -> {
+		joins(
+		  <<~SQL
+		    LEFT JOIN LATERAL (
+		      SELECT COALESCE(SUM(valor_tarifa), 0) AS suma_tarifas
+		      FROM   tar_valor_cuantias
+		      WHERE  tar_valor_cuantias.ownr_id = causas.id
+		    ) tv ON true
+		    LEFT JOIN LATERAL (
+		      SELECT monto AS ultimo_valor
+		      FROM   monto_conciliaciones
+		      WHERE  monto_conciliaciones.causa_id = causas.id
+		      AND    tipo IN ('Acuerdo', 'Sentencia')
+		      ORDER  BY fecha DESC, id DESC
+		      LIMIT  1
+		    ) mc ON true
+		    LEFT JOIN LATERAL (
+		      SELECT fecha AS proxima_fecha, suspendida AS proxima_suspendida, age_actividad AS actividad
+		      FROM   age_actividades
+		      WHERE  age_actividades.ownr_id = causas.id
+		      AND    fecha >= CURRENT_DATE
+		      ORDER  BY fecha ASC
+		      LIMIT  1
+		    ) pf ON true
+		  SQL
+		).select('causas.*, tv.suma_tarifas, mc.ultimo_valor, pf.proxima_fecha, pf.proxima_suspendida, pf.actividad')
+	}
+
+	# 3. Métodos de lectura seguros
+	def suma_tarifas
+		self[:suma_tarifas] || 0
+	end
+
+	def ultimo_valor_conciliacion
+		self[:ultimo_valor]
+	end
+
+	scope :ordenadas_por_proxima_actividad, -> {
+		with_todos_los_datos.order(Arel.sql('pf.fecha ASC NULLS LAST'))
+	}
+
+	# Métodos de lectura para la vista
+	def proxima_fecha
+		self[:proxima_fecha]
+	end
+
+	def actividad
+		self[:actividad]
+	end
+
+	def proxima_suspendida?
+		self[:proxima_suspendida]
+	end
+
+	# En el controlador
+		def self.pagina(page = 1, per = 20)
+		# Primero IDs
+		ids = order(:id).page(page).per(per).pluck(:id)
+		# Luego datos
+		where(id: ids).with_todos_los_datos.order(Arel.sql('pf.proxima_fecha ASC NULLS LAST, causas.id ASC'))
+	end
+
+
     # en MIGRACIÓN
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
     scope :std_pago, ->(estado_pago) { where(estado_pago: estado_pago).order(:fecha_audiencia) }
     # DEPRECATED : Se cambia por std('ingreso'), se deben migrar todas las causas que están en estado 'tramitación'
     scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.tar_calculos.empty?}.compact)}
-    scope :trmtcn, -> { where(archvd: [nil, false]).where(estado: ['ingreso', 'tramitación']).order(:fecha_audiencia) }
+    scope :trmtcn, -> { where(archvd: [nil, false]).where(estado: ['ingreso', 'tramitación']) }
 
 	scope :sin_tar_calculos, -> {
 		left_outer_joins(:tar_calculos).where(tar_calculos: { id: nil })

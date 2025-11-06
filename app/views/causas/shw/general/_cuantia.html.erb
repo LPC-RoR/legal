@@ -11,7 +11,7 @@
 	<% end %>
 
 
-	<div class="mt-1 mx-1 border rounded-2">
+	<div class="my-1 mx-1 border rounded-2">
 		<div class="py-1 border-bottom">
 
 			<% if objeto.demandantes.any? %>
@@ -20,7 +20,9 @@
 					<%= render partial: '/csc/demandantes/list/objeto', locals: {objeto: dmndnt} %>
 				<% end %>
 			<% else %>
-				<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'No se pueden ingresar cuantías hasta tener al menos un demandante.'} %>
+				<div class="px-2 py-1 text-danger">
+					<i class="bi bi-cone-striped"></i> No se pueden ingresar cuantías hasta tener al menos un demandante.
+				</div>
 			<% end %>
 
 		</div>
@@ -38,7 +40,9 @@
 				<%= render partial: 'tarifas/tar_valor_cuantias/list/ttls', locals: {objeto: objeto} %>
 
 			<% else %>
-				<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Lista vacía.'} %>
+				<div class="px-2 py-1 text-danger">
+					<i class="bi bi-cone-striped"></i> Lista de ítems de cuantía vacía.
+				</div>
 			<% end %>
 
 		</div>

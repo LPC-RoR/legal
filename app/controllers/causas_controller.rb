@@ -13,6 +13,7 @@ class CausasController < ApplicationController
 
   # GET /causas or /causas.json
   def index
+    @orgn = 'css'
     # Usuarios que no tienen ownr
     limpia_audiencias
     @age_usuarios = AgeUsuario.no_ownr
@@ -31,7 +32,7 @@ class CausasController < ApplicationController
       when 'ingrs'
         cllcn = Causa.std('ingreso')
       when 'trmtcn'
-        cllcn = Causa.trmtcn
+        cllcn = Causa.trmtcn.ordenadas_por_proxima_actividad
       when 'archvd'
         cllcn = Causa.std('archivada')
       when 'vacios'
@@ -48,6 +49,7 @@ class CausasController < ApplicationController
     end
 
     set_tabla('causas', cllcn, true)
+    @causas = Causa.trmtcn.pagina(params[:page])
 
   end
 
@@ -61,6 +63,7 @@ class CausasController < ApplicationController
 
   # GET /causas/1 or /causas/1.json
   def show
+    @orgn = 'cs_shw'
     @usrs = Usuario.where(tenant_id: nil)
 
     # Objeto que contiene act_texto con el lista de hechos
@@ -74,7 +77,6 @@ class CausasController < ApplicationController
 
     case @options[:menu]
     when 'General'
-      @orgn = 'cs_shw'
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
       @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
 

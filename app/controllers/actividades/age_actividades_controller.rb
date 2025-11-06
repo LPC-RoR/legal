@@ -2,7 +2,6 @@ class Actividades::AgeActividadesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_age_actividad, only: %i[ show edit update destroy swtch dssgn_usr assgn_usr cambia_estado cambio_fecha ]
-  after_action :set_fecha_audiencia, only: %i[ create update ]
 
   layout 'addt'
 
@@ -14,7 +13,6 @@ class Actividades::AgeActividadesController < ApplicationController
     @usuario = perfil_activo.age_usuario
 
     @usrs = Usuario.where(tenant_id: nil)
-#    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
 
     set_tab( :tab, ['Pendientes', 'Realizados'])
     @estado = @options[:tab].singularize.downcase
@@ -95,7 +93,6 @@ class Actividades::AgeActividadesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        get_rdrccn
         format.html { redirect_to orgn_path, notice: "Actividad fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
@@ -156,27 +153,9 @@ class Actividades::AgeActividadesController < ApplicationController
 
   private
 
-    def set_fecha_audiencia
-      if @objeto.tipo == 'Audiencia'
-        ownr = @objeto.ownr
-        adncs = ownr.age_actividades.adncs.ftrs.fecha_ordr
-        ownr.fecha_audiencia = adncs.empty? ? nil : adncs.first.fecha
-        ownr.audiencia = adncs.empty? ? nil : adncs.first.age_actividad
-
-        ownr.estado = ownr.get_estado
-        ownr.save
-      end
-    end
-
-    # ---------------------------------------------------------------------
-
     # Use callbacks to share common setup or constraints between actions.
     def set_age_actividad
       @objeto = AgeActividad.find(params[:id])
-    end
-
-    def get_rdrccn
-      @rdrccn = @objeto.ownr_id.blank? ? "/age_actividades" : @objeto.ownr
     end
 
     def orgn_path

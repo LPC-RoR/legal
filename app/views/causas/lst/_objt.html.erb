@@ -1,0 +1,21 @@
+<% dir ||= 'lst' %>
+<%#= render partial: prtl_name(objt, 'list', 'stts'), locals: {objt: objt} %>
+<b>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: objt, tltp: 'Ver Causa'} do %>
+			<%= objt.rit %>
+	<% end %> : 
+	<%= objt.causa %>
+
+	<!-- ICONO DE CAUSA GANADA -->
+	<%# if (objt.monto_pagado? or objt.monto_pagado == 0) and objt.estado == 'terminada' %>
+		<!--i class="bi bi-award text-primary"></i> Causa Ganada -->
+	<%# end %> 
+</b>
+
+<!-- Warnings de la Causa -->
+<% if objt.tar_tarifa.blank? or objt.tar_valor_cuantias.empty? %>
+	<i class="bi bi-dot"></i>
+	<%= render layout: '0p/collapse/link', locals: {label: 'Warnings', objeto: objt, tooltip: 'Desplegar advertencias'} do %>
+		<i class="bi bi-cone-striped text-danger"></i>
+	<% end %>
+<% end %>

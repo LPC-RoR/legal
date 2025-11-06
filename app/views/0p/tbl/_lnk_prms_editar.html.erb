@@ -1,0 +1,13 @@
+<!-- NO usa has_child? -->
+<% return if objt.nil? %>
+<%= link_to url_params(objt, local_assigns[:prms] || {}, :edit),
+            method: :get,
+            data: {
+              bs_toggle:    'tooltip',
+              bs_placement: 'right',
+              bs_title:     'Editar',
+              bs_custom_class: 'custom-tooltip'
+            },
+            title: 'Editar' do %>
+  <i class="bi bi-pencil"></i>
+<% end %>

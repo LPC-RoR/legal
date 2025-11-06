@@ -8,7 +8,6 @@
 <% case @options[:menu] %>
 <% when 'General' %>
 	<div class="p-2 border-start border-end border-bottom" style="margin-top: -1px">
-		<%#= render partial: prtl_name('causas', 'shw/general', 'vw_dnnc'), locals: {objeto: @objeto} %>
 		<%= render partial: prtl_name('causas', 'shw/general', 'cuantia'), locals: {objeto: @objeto} %>
 		<%= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
 		<%= render partial: prtl_name('causas', 'shw/general', 'rcrss'), locals: {objeto: @objeto} %>

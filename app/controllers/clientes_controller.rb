@@ -37,6 +37,7 @@ class ClientesController < ApplicationController
 
   # GET /clientes/1 or /clientes/1.json
   def show
+    @orgn = 'clnt_shw'
     @usrs = Usuario.where(tenant_id: nil)
     @actvdds  = @objeto.age_actividades.fecha_ordr
     
@@ -86,6 +87,7 @@ class ClientesController < ApplicationController
       @scp = scp_item[:causas][scp.to_sym]
 
       set_tabla('causas', cllcn, true)
+      @causas = @objeto.causas.trmtcn.pagina(params[:page])
 
     elsif @options[:menu] == 'Asesorias'
 

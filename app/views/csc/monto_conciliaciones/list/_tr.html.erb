@@ -1,0 +1,8 @@
+<tr class="app_lnk">
+	<td><%= objt.tipo %></td>
+	<td><%= s_pesos(objt.monto) %></td>
+	<td class="text-end">
+		<%= render partial: '0p/tbl/lnk_prms_editar', locals: {objt: objt, prms: {orgn: @orgn}} %>
+		<%= render partial: '0p/tbl/lnk_prms_eliminar', locals: {objt: objt, prms: {orgn: @orgn}} %>
+	</td>
+</tr>

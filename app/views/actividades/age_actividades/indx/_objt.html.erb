@@ -1,5 +1,8 @@
-<% if controller_name == 'publicos' %>
-	Audiencias
+<% case controller_name %>
+<% when 'casuas' %>
+	Actividades de la causa
+<% when 'clientes' %>
+	Reuniones con el cliente
 <% else %>
 	Actividades
 <% end %>

@@ -1,0 +1,17 @@
+<div class="px-3" style="font-size: 13px; line-height: 1.2;">
+	<%= objt.tribunal_corte.tribunal_corte %>
+</div>
+
+<% if objt.proxima_fecha %>
+	<div class="row px-3 pb-1 gx-1 text-primary" style="font-size: 13px;line-height: 1.2;">
+		<div class="col">
+			<%= objt.actividad %> 
+			<% if objt.proxima_suspendida? %>
+				<span class="text-danger">SUSPENDIDA</span>
+			<% end %>
+		</div>
+		<div class="col text-end">
+			<%= dma_hm(objt.proxima_fecha) %>
+		</div>
+	</div>
+<% end %>

@@ -1,8 +1,8 @@
 <%#= render layout: '0p/collapse/display', locals: {label: 'label', objeto: nil} do %>
 	<!-- ... -->
 <%# end %>
-
-<div class="collapse" id="<%=label%><%= objeto.blank? ? nil : objeto.id%>">
+<% id = "collapse-#{label.parameterize}-#{objeto&.id || '0'}" %>
+<div class="collapse" id="<%= id %>">
 	<div class="card card-body">
 		<%= yield %>
 	</div>

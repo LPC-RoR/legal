@@ -2,7 +2,6 @@ class Recursos::NotasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_nota, only: %i[ show edit update destroy swtch swtch_clr dssgn_usr assgn_usr ]
-  before_action :set_bck_rdrccn, only:  %i[ edit update destroy agrega_nota ]
 
   include AgeUsr
 
@@ -19,7 +18,6 @@ class Recursos::NotasController < ApplicationController
   def new
     ownr = params[:oclss].constantize.find(params[:oid])
     @objeto = ownr.notas.new(usuario_id: current_usuario.id, app_perfil_id: perfil_activo.id, prioridad: 'success', fecha_gestion: Time.zone.now)
-    set_bck_rdrccn
   end
 
   # REVISAR
@@ -33,7 +31,7 @@ class Recursos::NotasController < ApplicationController
       noticia = 'Error de ingreso: Nota vacía'
     end
 
-    redirect_to @bck_rdrccn, notice: noticia
+    redirect_to orgn_path, notice: noticia
   end
 
   # GET /notas/1/edit
@@ -43,11 +41,10 @@ class Recursos::NotasController < ApplicationController
   # POST /notas or /notas.json
   def create
     @objeto = Nota.new(nota_params)
-    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Nota fue exitosamente creada." }
+        format.html { redirect_to orgn_path, notice: "Nota fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -60,7 +57,7 @@ class Recursos::NotasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(nota_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Nota fue exitosamente actualizada." }
+        format.html { redirect_to orgn_path, notice: "Nota fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,7 +71,7 @@ class Recursos::NotasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @bck_rdrccn, notice: "Nota fue exitosamente eliminada." }
+      format.html { redirect_to orgn_path, notice: "Nota fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -83,6 +80,19 @@ class Recursos::NotasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_nota
       @objeto = Nota.find(params[:id])
+    end
+
+    def orgn_path
+      case params[:orgn]
+      when 'cs_shw'
+        @objeto.ownr
+      when 'css'
+        causas_path
+      when 'clnt_shw'
+        @objeto.ownr.cliente
+      else
+        @objeto.ownr
+      end
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,5 +1,11 @@
 class Nota < ApplicationRecord
 
+	CLRS = {
+		'normal'	=> 'success',
+		'mediana'	=> 'warning',
+		'urgente'	=> 'danger',
+	}
+
 	belongs_to :ownr, polymorphic: true
 	belongs_to :app_perfil
 	belongs_to :usuario

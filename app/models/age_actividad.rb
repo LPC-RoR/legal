@@ -33,6 +33,12 @@ class AgeActividad < ApplicationRecord
 	scope :prprtrs,	-> {where(age_actividad: PRPRTR)}
 	scope :uncs,	-> {where(age_actividad: UNC)}
 
+  # fecha estrictamente pasada
+  scope :pasadas,  -> { where('fecha < ?', Date.current) }
+
+  # fecha hoy o futura
+  scope :futuras,  -> { where('fecha >= ?', Date.current) }
+
   validates_presence_of :age_actividad, :fecha
 
 	after_destroy :update_audiencia

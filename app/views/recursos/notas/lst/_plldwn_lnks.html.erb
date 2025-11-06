@@ -1,0 +1,25 @@
+<li>
+  <%= render partial: '0p/swtch_lnk', locals: {objeto: objt, tkn: 'realizado', stts: ['Marcar como pendiente', 'Marcar como realizada'], orgn: @orgn, clss: 'dropdown-item'} %>
+</li>
+
+
+<% ['normal', 'mediana', 'urgente'].each do |prrdd| %>
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/#{objt.class.name.tableize}/#{objt.id}/swtch_clr", {tkn: 'prioridad', clr: Nota::CLRS[prrdd]}), tltp: "Prioridad #{prrdd}", data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Prioridad <%= prrdd %>
+    <% end %>
+  </li>
+<% end %>
+
+
+<%#= render partial: '0p/swtch_clr', locals: {objeto: objeto, tkn: 'prioridad', ttl: ['normal', 'mediana', 'urgente']} %>
+
+<% if objt.usuario == current_usuario or current_usuario.admin? %>
+  <li><hr class="dropdown-divider"></li>
+  <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
+  <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+
+  <li><hr class="dropdown-divider"></li>
+
+  <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+<% end %>

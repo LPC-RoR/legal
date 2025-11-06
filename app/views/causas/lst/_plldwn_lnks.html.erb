@@ -1,0 +1,53 @@
+<% if current_usuario.dog? %>
+  <li>
+  <%= render layout: '0p/tltp_lnk', locals: {lnk: "causas/#{objt.id}/chck_estds", tltp: 'Revisa estado', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+    Revisa estado de la causa
+  <% end %>
+</li>
+<li><hr class="dropdown-divider"></li>
+<% end %>
+
+<li>
+<%= render layout: '0p/collapse/link', locals: {label: 'Estado', objeto: objt, tooltip: 'Var último estado', clss: 'dropdown-item'} do %>
+  Ver último estado
+<% end %>
+</li>
+
+<% unless controller_name == 'clientes' %>
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/clientes/#{objt.cliente.id}?html_options[menu]=Causas", tltp: 'Ir al cliente', clss: 'dropdown-item'} do %>
+      Ver causas del cliente
+    <% end %>
+  </li>
+<% end %>
+
+<% if current_usuario.operacion? %>
+
+  <!-- Bajar archivo Demanda -->
+  <% if objt.demanda? %>
+    <li>
+    <%= link_to objt.demanda.archivo.url, class: 'dropdown-item', target: :_blank, title: 'Archivo Demanda', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+      Ver demanda
+    <% end %>
+    </li>
+  <% end %>
+
+  <li>
+    <%= render partial: '0p/swtch_lnk', locals: {objeto: objt, tkn: 'archvd', stts: ['Marcar como no archivada', 'Marcar coma archivada'], orgn: @orgn, clss: 'dropdown-item'} %>
+  </li>
+
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params(Nota, {ownr: objt, orgn: @orgn}, :new), tltp: 'Nueva nota', clss: 'dropdown-item'} do %>
+      Agregar nota
+    <% end %>
+  </li>
+
+  <li><hr class="dropdown-divider"></li>
+  <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
+  <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+
+  <li><hr class="dropdown-divider"></li>
+
+  <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+
+<% end %>

@@ -1,5 +1,23 @@
 module CptnMapHelper
 
+	def url_params(url, params = {}, action = :show)
+		# Convertir objeto a URL con la acción especificada
+		target_url = convert_to_url(url, action)
+		return target_url unless target_url.is_a?(String)
+
+		uri = URI(target_url)
+		existing_params = Rack::Utils.parse_query(uri.query)
+
+		# Transformar y filtrar parámetros
+		new_params = transform_special_params(params.to_h)
+
+		merged_params = existing_params.merge(new_params)
+		uri.query = Rack::Utils.build_query(merged_params) unless merged_params.empty?
+		uri.to_s
+	rescue URI::InvalidURIError
+		target_url
+	end
+
 	#------------------------------------------------------------------ PARTIALS
 
 	# Obtiene el cntrllr cuando tiene prefijo
@@ -132,5 +150,57 @@ module CptnMapHelper
 	def ordered_controller?(controller)
 		ordered_controllers.include?(controller)
 	end
+
+  private
+
+  # Se usa para  url_params
+  def convert_to_url(value, action)
+    return value if value.is_a?(String)
+    
+    # Verificar si es un modelo o una clase
+    if (value.respond_to?(:to_param) && value.respond_to?(:model_name)) || 
+       (value.is_a?(Class) && value.respond_to?(:model_name))
+      
+      case action
+      when :edit
+        polymorphic_url([:edit, value])
+      when :new
+        # Para :new, necesitamos la clase del modelo
+        model_class = value.is_a?(Class) ? value : value.class
+        polymorphic_url(model_class, action: :new)
+      when :destroy, :show
+        polymorphic_url(value)
+      else
+        polymorphic_url(value)
+      end
+    else
+      value.to_s
+    end
+  rescue StandardError
+    value.to_s
+  end
+
+  def transform_special_params(params)
+    return {} unless params.is_a?(Hash)
+    
+    result = params.stringify_keys.compact
+    
+    # Transformar ownr
+    if result.key?('ownr')
+      ownr = result.delete('ownr')
+      if ownr.present?
+        result['oclss'] = ownr.class.name
+        result['oid'] = ownr.id if ownr.respond_to?(:id)
+      end
+    end
+    
+    # Transformar blngs
+    if result.key?('blngs')
+      blngs = result.delete('blngs')
+      result['bid'] = blngs.id if blngs.present? && blngs.respond_to?(:id)
+    end
+    
+    result.compact
+  end
 
 end

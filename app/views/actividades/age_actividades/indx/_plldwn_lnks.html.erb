@@ -1,12 +1,14 @@
-<% ['prprtr', 'd_jc', 'unc'].each do |clave| %>
-<li>
-    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/age_actividades/new#{prms([['k', clave], ['orgn', @orgn]], nil)}", sgn: 'a', ownr: ownr, clss: 'dropdown-item'} do %>
-      Nueva <%= ClssActvdd.actvdd[clave].downcase %>
-    <% end %>
-</li>
+<% if controller_name == 'causas' %>
+  <% ['prprtr', 'd_jc', 'unc'].each do |clave| %>
+  <li>
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: "/age_actividades/new#{prms([['k', clave], ['orgn', @orgn]], nil)}", sgn: 'a', ownr: ownr, clss: 'dropdown-item'} do %>
+        Nueva <%= ClssActvdd.actvdd[clave].downcase %>
+      <% end %>
+  </li>
 <% end %>
 
 <li><hr class="dropdown-divider"></li>
+<% end %>
 
 <li>
     <%= render layout: '0p/tltp_lnk', locals: {lnk: "/age_actividades/new#{prms([['k', 'rnn'], ['orgn', @orgn]], nil)}", sgn: 'a', ownr: ownr, clss: 'dropdown-item'} do %>

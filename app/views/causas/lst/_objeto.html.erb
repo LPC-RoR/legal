@@ -1,0 +1,4 @@
+<div class="my-1 shadow bg-white border rounded-2" id="<%=cntrllr(objeto).singularize%>_<%=objeto.id%>">
+	<%= render partial: prtl(objeto, 'lst', 'objt_row'), locals: {objt: objeto} %>
+	<%= render partial: prtl(objeto, 'lst', 'dtl'), locals: {objt: objeto} %>
+</div>
