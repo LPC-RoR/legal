@@ -46,98 +46,83 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
-	# Scope único que trae todo sin añadir columnas al "causas.*"
-	scope :with_todos_los_datos, -> {
-		joins(
-		  <<~SQL
-		    LEFT JOIN LATERAL (
-		     -- Último estado
-		     SELECT estado AS ultimo_estado
-		     FROM   estados
-		     WHERE  estados.causa_id = causas.id
-		     ORDER  BY fecha DESC, id DESC
-		     LIMIT  1
-		    ) ult_est ON true
-		    LEFT JOIN LATERAL (
-		     -- Próxima actividad (fecha y suspendida)
-		     SELECT fecha AS proxima_fecha, suspendida AS proxima_suspendida, age_actividad AS actividad
-		     FROM   age_actividades
-	       	 WHERE  age_actividades.ownr_type = 'Causa'
-	         AND    age_actividades.ownr_id = causas.id
-		     AND    fecha >= CURRENT_DATE
-		     ORDER  BY fecha ASC
-		     LIMIT  1
-		    ) pf ON true
-		    LEFT JOIN LATERAL (
-		     -- Suma de tarifas
-		     SELECT COALESCE(SUM(valor_tarifa), 0) AS suma_tarifas
-		     FROM   tar_valor_cuantias
-		     WHERE  tar_valor_cuantias.ownr_id = causas.id
-		     AND    tar_valor_cuantias.ownr_type = 'Causa'
-		    ) tv ON true
-		    LEFT JOIN LATERAL (
-		     -- Último monto (acuerdo o sentencia)
-		     SELECT monto AS ultimo_valor
-		     FROM   monto_conciliaciones
-		     WHERE  monto_conciliaciones.causa_id = causas.id
-		     AND    tipo IN ('Acuerdo', 'Sentencia')
-		     ORDER  BY fecha DESC, id DESC
-		     LIMIT  1
-		    ) mc ON true
-		    LEFT JOIN LATERAL (
-		     -- ID del archivo PDF de demanda
-		     SELECT act_archivos.id AS demanda_archivo_id
-		     FROM   act_archivos
-		     INNER JOIN active_storage_attachments 
-		             ON active_storage_attachments.record_type = 'ActArchivo'
-		            AND active_storage_attachments.record_id = act_archivos.id
-		            AND active_storage_attachments.name = 'pdf'
-		     WHERE  act_archivos.ownr_type = 'Causa'
-		     AND    act_archivos.ownr_id = causas.id
-		     AND    act_archivos.act_archivo = 'demanda'
-		     LIMIT  1
-		    ) arch_dem ON true
-		  SQL
-		).select(
-		  <<~SQL
-		    causas.*,
-		    ult_est.ultimo_estado,
-		    pf.proxima_fecha,
-		    pf.proxima_suspendida,
-		    pf.actividad,
-		    tv.suma_tarifas,
-		    mc.ultimo_valor,
-		    arch_dem.demanda_archivo_id
-		  SQL
-		)
-	}
-
-	# Métodos de lectura seguros (no nils)
-	def ultimo_estado; self[:ultimo_estado] || 'Sin estado'; end
-	def proxima_fecha; self[:proxima_fecha]; end
-	def proxima_suspendida?; self[:proxima_suspendida]; end
-	def actividad; self[:actividad] || 'Sin actividad programada'; end
-	def suma_tarifas; self[:suma_tarifas] || 0; end
-	def ultimo_valor_conciliacion; self[:ultimo_valor]; end
-	def demanda_archivo_id; self[:demanda_archivo_id]; end
-	def tiene_demanda_pdf?; demanda_archivo_id.present?; end
-	  
-	scope :ordenadas_por_proxima_actividad, -> {
-		with_todos_los_datos.order(Arel.sql('pf.fecha ASC NULLS LAST'))
-	}
-
-	# Scope para la página: primero pagina IDs, luego carga datos
-	def self.pagina(page = 1, per = 20)
-		# 1. Query ligera: solo IDs de la página actual
-		ids = order(:id).page(page).per(per).pluck(:id)
-
-		# 2. Query completa: datos calculados para esos IDs, ordenados
-		where(id: ids)
-		  .with_todos_los_datos
-		  .order(Arel.sql('pf.proxima_fecha ASC NULLS LAST, causas.id ASC'))
+	# 1. Subquery que ordena y pagina IDs (sin cálculos)
+	def self.paginated_ids(page = 1, per = 20)
+	    page = (page || 1).to_i
+	    per = (per || 20).to_i
+	    
+	    # Solo IDs y orden, sin joins pesados
+	    select('causas.id, pf.orden_fecha')
+	      .joins(
+	        <<~SQL
+	          LEFT JOIN LATERAL (
+	           SELECT fecha AS orden_fecha
+	           FROM   age_actividades
+	           WHERE  ownr_type = 'Causa' AND ownr_id = causas.id
+	           AND    fecha >= CURRENT_DATE
+	           ORDER  BY fecha ASC LIMIT 1
+	          ) pf ON true
+	        SQL
+	      )
+	      .order(Arel.sql('pf.orden_fecha ASC NULLS LAST, causas.id ASC'))
+	      .page(page).per(per)
 	end
 
+	# 2. Método de clase que devuelve un objeto Kaminari completo
+	def self.index_page(page = 1, per = 20)
+	    # Obtener el scope paginado con metadata
+	    paginated_scope = paginated_ids(page, per)
+	    
+	    # Extraer IDs y metadata
+	    ids = paginated_scope.pluck(:id)
+	    total_count = paginated_scope.total_count
+	    current_page = paginated_scope.current_page
+	    
+	    # Cargar causas con cálculos (sin afectar SELECT)
+	    results = where(id: ids).with_calculos
+	    
+	    # Preservar orden exacto
+	    results_by_id = results.index_by(&:id)
+	    ordered_results = ids.map { |id| results_by_id[id] }.compact
+	    
+	    # Crear objeto paginado con metadata correcta
+	    Kaminari.paginate_array(
+	      ordered_results,
+	      total_count: total_count,
+	      limit: per,
+	      offset: (current_page - 1) * per
+	    ).page(current_page).per(per)
+	end
 
+	# 4. Métodos de lectura que calculan on-the-fly si no están cacheados
+	def ultimo_estado
+		@ultimo_estado ||= (attributes['ultimo_estado'] || 'Sin estado')
+	end
+
+	def proxima_fecha
+		@proxima_fecha ||= attributes['proxima_fecha']
+	end
+
+	def actividad
+		@actividad ||= (attributes['actividad'] || 'Sin actividad programada')
+	end
+
+	def suma_tarifas
+		@suma_tarifas ||= (attributes['suma_tarifas'] || 0)
+	end
+
+	def ultimo_valor_conciliacion
+		@ultimo_valor_conciliacion ||= attributes['ultimo_valor']
+	end
+
+	def demanda_archivo_id
+		@demanda_archivo_id ||= attributes['demanda_archivo_id']
+	end
+
+	def tiene_demanda_pdf?
+		demanda_archivo_id.present?
+	end
+	  
     # en MIGRACIÓN
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
     scope :std_pago, ->(estado_pago) { where(estado_pago: estado_pago).order(:fecha_audiencia) }
@@ -425,6 +410,52 @@ class Causa < ApplicationRecord
 	def detalle_cuantia(moneda)
 		valor = self.tar_valor_cuantias.map { |vc| vc.valor if vc.moneda == moneda }.compact.sum
 		valor.blank? ? 0 : valor
+	end
+
+	private
+
+	# 3. Helper que hace los LATERAL sin tocar SELECT
+	def self.with_calculos
+	    joins(
+	      <<~SQL
+	        LEFT JOIN LATERAL (
+	         SELECT estado AS ultimo_estado
+	         FROM   estados
+	         WHERE  causa_id = causas.id
+	         ORDER  BY fecha DESC, id DESC LIMIT 1
+	        ) ult_est ON true
+	        
+	        LEFT JOIN LATERAL (
+	         SELECT fecha AS proxima_fecha, suspendida, age_actividad AS actividad
+	         FROM   age_actividades
+	         WHERE  ownr_type = 'Causa' AND ownr_id = causas.id
+	         AND    fecha >= CURRENT_DATE
+	         ORDER  BY fecha ASC LIMIT 1
+	        ) pf ON true
+	        
+	        LEFT JOIN LATERAL (
+	         SELECT COALESCE(SUM(valor_tarifa), 0) AS suma_tarifas
+	         FROM   tar_valor_cuantias
+	         WHERE  ownr_type = 'Causa' AND ownr_id = causas.id
+	        ) tv ON true
+	        
+	        LEFT JOIN LATERAL (
+	         SELECT monto AS ultimo_valor
+	         FROM   monto_conciliaciones
+	         WHERE  causa_id = causas.id AND tipo IN ('Acuerdo', 'Sentencia')
+	         ORDER  BY fecha DESC, id DESC LIMIT 1
+	        ) mc ON true
+	        
+	        LEFT JOIN LATERAL (
+	         SELECT act_archivos.id AS demanda_archivo_id
+	         FROM   act_archivos
+	         INNER JOIN active_storage_attachments 
+	                 ON record_type = 'ActArchivo' AND record_id = act_archivos.id AND name = 'pdf'
+	         WHERE  ownr_type = 'Causa' AND ownr_id = causas.id AND act_archivo = 'demanda'
+	         LIMIT  1
+	        ) arch_dem ON true
+	      SQL
+	    )
 	end
 
 end

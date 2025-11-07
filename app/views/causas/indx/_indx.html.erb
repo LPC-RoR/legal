@@ -2,11 +2,7 @@
 <%= render partial: prtl_name('causas', 'indx', 'srch_causas') %>
 
 <% unless @srch %>
-  <%#= render partial: '0p/tbl/tbl', locals: {source: 'causas', typ: 'frame'} %>
-  <%#= render partial: '0p/tbl_clss', locals: {source: 'causas', clccn: @coleccion['causas']} %>
-  <%= render partial: '0p/tbl_clss', locals: {source: 'causas', clccn: @causas} %>
-  <!-- NO funciona con tbl_clss por uso del frame -->
-  <%#= render partial: '0p/tbl_clss', locals: {clccn: @coleccion['causas'], dir: 'list', typ: 'ln'} %>
+  <%= render partial: '0p/tbl_clss', locals: {source: 'causas', clccn: @causas, pgnt: true} %>
 <% else %>
   <% @cs_array.each do |fnd| %>
     <%= render partial: '0p/objt/objt_frame', locals: {objt: fnd} %>

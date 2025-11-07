@@ -31,7 +31,7 @@ class CausasController < ApplicationController
       when 'ingrs'
         cllcn = Causa.std('ingreso')
       when 'trmtcn'
-        cllcn = Causa.trmtcn.ordenadas_por_proxima_actividad
+        cllcn = Causa.trmtcn
       when 'archvd'
         cllcn = Causa.std('archivada')
       when 'vacios'
@@ -48,7 +48,7 @@ class CausasController < ApplicationController
     end
 
     set_tabla('causas', cllcn, true)
-    @causas = Causa.trmtcn.pagina(params[:page])
+    @causas = cllcn.index_page(params[:page])
 
   end
 
