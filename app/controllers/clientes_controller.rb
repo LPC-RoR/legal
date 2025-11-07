@@ -54,7 +54,6 @@ class ClientesController < ApplicationController
 
     elsif @options[:menu] == 'Causas'
 
-      limpia_audiencias
       scp = params[:scp].blank? ? 'rvsn' : params[:scp]
 
       @usrs = Usuario.where(tenant_id: nil)

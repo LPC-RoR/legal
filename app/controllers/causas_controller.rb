@@ -15,7 +15,6 @@ class CausasController < ApplicationController
   def index
     @orgn = 'css'
     # Usuarios que no tienen ownr
-    limpia_audiencias
     @age_usuarios = AgeUsuario.no_ownr
     @usrs = Usuario.where(tenant_id: nil)
 

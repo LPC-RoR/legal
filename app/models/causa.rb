@@ -60,9 +60,10 @@ class Causa < ApplicationRecord
 		    ) ult_est ON true
 		    LEFT JOIN LATERAL (
 		     -- Próxima actividad (fecha y suspendida)
-		     SELECT fecha AS proxima_fecha, suspendida AS proxima_suspendida
+		     SELECT fecha AS proxima_fecha, suspendida AS proxima_suspendida, age_actividad AS actividad
 		     FROM   age_actividades
-		     WHERE  age_actividades.ownr_id = causas.id
+	       	 WHERE  age_actividades.ownr_type = 'Causa'
+	         AND    age_actividades.ownr_id = causas.id
 		     AND    fecha >= CURRENT_DATE
 		     ORDER  BY fecha ASC
 		     LIMIT  1
@@ -72,13 +73,14 @@ class Causa < ApplicationRecord
 		     SELECT COALESCE(SUM(valor_tarifa), 0) AS suma_tarifas
 		     FROM   tar_valor_cuantias
 		     WHERE  tar_valor_cuantias.ownr_id = causas.id
+		     AND    tar_valor_cuantias.ownr_type = 'Causa'
 		    ) tv ON true
 		    LEFT JOIN LATERAL (
 		     -- Último monto (acuerdo o sentencia)
 		     SELECT monto AS ultimo_valor
 		     FROM   monto_conciliaciones
 		     WHERE  monto_conciliaciones.causa_id = causas.id
-		     AND    tipo IN ('acuerdo', 'sentencia')
+		     AND    tipo IN ('Acuerdo', 'Sentencia')
 		     ORDER  BY fecha DESC, id DESC
 		     LIMIT  1
 		    ) mc ON true
@@ -102,6 +104,7 @@ class Causa < ApplicationRecord
 		    ult_est.ultimo_estado,
 		    pf.proxima_fecha,
 		    pf.proxima_suspendida,
+		    pf.actividad,
 		    tv.suma_tarifas,
 		    mc.ultimo_valor,
 		    arch_dem.demanda_archivo_id
@@ -113,18 +116,15 @@ class Causa < ApplicationRecord
 	def ultimo_estado; self[:ultimo_estado] || 'Sin estado'; end
 	def proxima_fecha; self[:proxima_fecha]; end
 	def proxima_suspendida?; self[:proxima_suspendida]; end
+	def actividad; self[:actividad] || 'Sin actividad programada'; end
 	def suma_tarifas; self[:suma_tarifas] || 0; end
 	def ultimo_valor_conciliacion; self[:ultimo_valor]; end
 	def demanda_archivo_id; self[:demanda_archivo_id]; end
 	def tiene_demanda_pdf?; demanda_archivo_id.present?; end
-
+	  
 	scope :ordenadas_por_proxima_actividad, -> {
 		with_todos_los_datos.order(Arel.sql('pf.fecha ASC NULLS LAST'))
 	}
-
-	def actividad
-		self[:actividad]
-	end
 
 	# Scope para la página: primero pagina IDs, luego carga datos
 	def self.pagina(page = 1, per = 20)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_06_005227) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_07_130122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -36,6 +36,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_005227) do
     t.index ["control_fecha"], name: "index_act_archivos_on_control_fecha"
     t.index ["mdl"], name: "index_act_archivos_on_mdl"
     t.index ["ownr_id"], name: "index_act_archivos_on_ownr_id"
+    t.index ["ownr_type", "ownr_id", "act_archivo"], name: "idx_act_archivos_polymorphic_tipo"
     t.index ["ownr_type"], name: "index_act_archivos_on_ownr_type"
     t.index ["processing_status"], name: "index_act_archivos_on_processing_status"
     t.index ["rlzd"], name: "index_act_archivos_on_rlzd"
@@ -72,6 +73,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_005227) do
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+    t.index ["record_type", "record_id", "name"], name: "idx_as_attachments_record_name"
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
@@ -110,6 +112,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_005227) do
     t.index ["estado"], name: "index_age_actividades_on_estado"
     t.index ["fecha"], name: "index_age_actividades_on_fecha"
     t.index ["ownr_id"], name: "index_age_actividades_on_ownr_id"
+    t.index ["ownr_type", "ownr_id", "fecha"], name: "idx_age_actividades_polymorphic_fecha"
     t.index ["ownr_type"], name: "index_age_actividades_on_ownr_type"
     t.index ["privada"], name: "index_age_actividades_on_privada"
   end
@@ -761,6 +764,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_005227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "fecha"
+    t.index ["causa_id", "fecha", "id"], name: "idx_estados_causa_fecha_id"
     t.index ["causa_id"], name: "index_estados_on_causa_id"
     t.index ["fecha"], name: "index_estados_on_fecha"
   end
@@ -1279,6 +1283,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_005227) do
     t.string "nota"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["causa_id", "fecha", "id"], name: "idx_montos_conc_causa_fecha_id_tipo", where: "((tipo)::text = ANY ((ARRAY['Acuerdo'::character varying, 'Sentencia'::character varying])::text[]))"
     t.index ["causa_id"], name: "index_monto_conciliaciones_on_causa_id"
   end
 
@@ -1897,6 +1902,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_005227) do
     t.index ["owner_class"], name: "index_tar_valor_cuantias_on_owner_class"
     t.index ["owner_id"], name: "index_tar_valor_cuantias_on_owner_id"
     t.index ["ownr_id"], name: "index_tar_valor_cuantias_on_ownr_id"
+    t.index ["ownr_type", "ownr_id"], name: "idx_tar_valor_cuantias_polymorphic"
     t.index ["ownr_type"], name: "index_tar_valor_cuantias_on_ownr_type"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_valor_cuantias_on_tar_detalle_cuantia_id"
   end
