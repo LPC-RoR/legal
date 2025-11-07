@@ -1,9 +1,0 @@
-<% unless objeto.muted? %>
-	<div class="px-2 text-danger" style="font-size: 10px; line-height: 1.2;">
-		<% unless objeto.age_logs.empty? %>
-			<% objeto.age_logs.order(:created_at).each do |log| %>
-				<%= render partial: '0p/nota/wrnng', locals: {wrnng: "Cambio de fecha desde el #{dma(log.fecha)}" } %>
-			<% end %>
-		<% end %>
-	</div>
-<% end %>

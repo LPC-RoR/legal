@@ -1,8 +1,0 @@
-<div style="font-size: 12px;">
-	<% if objeto.tar_tarifa.blank? %>
-		<%= render partial: '0p/nota/wrnng', locals: {wrnng: "Causa sin tarifa asignada" } %>
-	<% end %>
-	<% if objeto.tar_valor_cuantias.empty? %>
-		<%= render partial: '0p/nota/wrnng', locals: {wrnng: "Causa sin cuantía" } %>
-	<% end %>
-</div>

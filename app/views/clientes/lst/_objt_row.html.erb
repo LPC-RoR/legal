@@ -1,0 +1,15 @@
+<% dir ||= 'lst' %>
+<div class="row gx-1 px-2 py-1 bg_gray">
+	<div class="col-10 objt_lnk">
+		<%= render partial: prtl(objt, dir, 'objt'), locals: {objt: objt} %>
+	</div>
+	<div class="col-2 text-end">
+		<%= render partial: prtl(objt, dir, 'lnks'), locals: {objt: objt} %>
+	</div>
+</div>
+
+<% unless objt.archivos_faltantes.empty? and objeto.archivos_vacios.empty? %>
+	<%= render layout: '0p/collapse/dsply', locals: {label: 'Warnings', objeto: objt} do %>
+		<%= render partial: prtl_name(objt, dir, 'cllps_dsply'), locals: {objt: objt} %>
+	<% end %>
+<% end %>

@@ -9,6 +9,8 @@ class ClientesController < ApplicationController
 
   # GET /clientes or /clientes.json
   def index
+    @orgn = 'clts'
+    @usrs = Usuario.where(tenant_id: nil)
     # Usuarios que no tienen ownr
     @age_usuarios = AgeUsuario.no_ownr
 

@@ -88,6 +88,8 @@ class Recursos::NotasController < ApplicationController
         @objeto.ownr
       when 'css'
         causas_path
+      when 'clnts'
+        clientes_path
       when 'clnt_shw'
         @objeto.ownr.cliente
       else

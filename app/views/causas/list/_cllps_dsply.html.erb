@@ -1,8 +1,0 @@
-<%= render layout: '0p/collapse/display', locals: {label: 'Estado', objeto: objeto} do %>
-	<%= render partial: 'causas/list/cllps/ultimo_estado', locals: {objeto: objeto} %>
-<% end %>
-
-<!-- Despliegue de Warnings -->
-<%= render layout: '0p/collapse/display', locals: {label: 'Warnings', objeto: objeto} do %>
-	<%= render partial: prtl_name(objeto, 'list/cllps', 'wrnngs'), locals: {objeto: objeto} %>
-<% end %>
