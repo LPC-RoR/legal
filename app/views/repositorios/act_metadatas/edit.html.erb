@@ -1,0 +1,12 @@
+<% content_for :title, "Editing act metadata" %>
+
+<h1>Editing act metadata</h1>
+
+<%= render "form", act_metadata: @act_metadata %>
+
+<br>
+
+<div>
+  <%= link_to "Show this act metadata", @act_metadata %> |
+  <%= link_to "Back to act metadatas", act_metadatas_path %>
+</div>

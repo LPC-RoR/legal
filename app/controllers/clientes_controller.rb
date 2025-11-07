@@ -88,7 +88,7 @@ class ClientesController < ApplicationController
       @scp = scp_item[:causas][scp.to_sym]
 
       set_tabla('causas', cllcn, true)
-      @causas = @objeto.causas.trmtcn.pagina(params[:page])
+      @causas = cllcn.index_page(params[:page])
 
     elsif @options[:menu] == 'Asesorias'
 

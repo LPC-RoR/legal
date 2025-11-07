@@ -1,0 +1,17 @@
+<div class="border rounded-2 my-1 p-2">
+	<% ['demandantes', 'demandados'].each do |code| %>
+		<div class="fw-bold">Persona(s) <%=code.singularize%>(s)</div>
+		<div class="ps-2">
+			<% if @dmnd_cdgs.metadata.nil? or @dmnd_cdgs.metadata['identificadores'].nil? or @dmnd_cdgs.metadata['identificadores'][code] == {} %>
+				Lista vacía
+			<% else %>
+				<% @dmnd_cdgs.metadata['identificadores'][code].keys.each do |key| %>
+					<div class="row gx-1">
+						<div class="col-8"><%= key %></div>
+						<div class="col-4 text-end"><%= @dmnd_cdgs.metadata['identificadores'][code][key] %></div>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	<% end %>
+</div>

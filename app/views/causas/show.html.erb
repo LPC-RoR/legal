@@ -9,7 +9,7 @@
 <% when 'General' %>
 	<div class="p-2 border-start border-end border-bottom" style="margin-top: -1px">
 		<%= render partial: prtl_name('causas', 'shw/general', 'cuantia'), locals: {objeto: @objeto} %>
-		<%= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
+		<%#= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
 		<%= render partial: prtl_name('causas', 'shw/general', 'rcrss'), locals: {objeto: @objeto} %>
 	</div>
 
@@ -19,7 +19,7 @@
 	<%= render partial: 'causas/shw/tarifa_pagos/ndx_tarifa_pagos', locals: {objeto: @objeto, tar_cliente: @tar_cliente, tar_generales: @tar_generales } %>
 <% when 'Lista de hechos' %>
 	<div class="border-start border-end border-bottom p-1" style="margin-top: -1px;">
-		<%= render partial: prtl(@lista, nil, 'show_ai_text'), locals: {act: @lista} %>	
+		<%= render partial: prtl(@objeto, 'shw/general', 'hechos') %>
 	</div>
 <% when 'Registro' %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>

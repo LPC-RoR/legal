@@ -32,7 +32,7 @@ class ProcesadorDemandaService
     processor_class = TiposDocumento::REGISTRY[@act_archivo.act_archivo]
     raise ArgumentError, "Unknown act_archivo kind: #{@act_archivo.act_archivo}" unless processor_class
 
-    processor_class.new(self).procesar!
+    processor_class.new(self, texto).procesar!
     Rails.logger.info("[ProcesadorDemandaService] 🎉 Processing completed successfully")
     true
   rescue StandardError => e

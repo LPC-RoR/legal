@@ -9,6 +9,13 @@ class ClssActs
 		}		
 	end
 
+	def self.mtdt_nombre
+		{
+			'cdgs'		=> 'Codigos del archivo',
+			'vlrs'		=> 'Valores del archivo'
+		}		
+	end
+
 	# Definidas para LglRepositorio
 
 	def self.lgl_dcmnts

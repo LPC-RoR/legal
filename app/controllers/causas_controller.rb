@@ -67,10 +67,14 @@ class CausasController < ApplicationController
 
     # Objeto que contiene act_texto con el lista de hechos
     demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
-    @lista = demanda&.act_textos&.find_by(tipo_documento: 'lista_hechos')
+    @dmnd_cdgs  = demanda&.act_metadatas&.find_by(act_metadata: 'cdgs')
+    @dmnd_vlrs  = demanda&.act_metadatas&.find_by(act_metadata: 'vlrs')
+    @hechos = demanda&.act_textos&.find_by(tipo_documento: 'lista_hechos')
+    @resumen = demanda&.act_textos&.find_by(tipo_documento: 'resumen_anonimizado')
+
 
     set_st_estado(@objeto)
-    set_tab( :menu, ['General', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Lista de hechos', @lista]] )
+    set_tab( :menu, ['General', ['Hechos', operacion?], ['Tarifa & Pagos', finanzas?], ['Lista de hechos', @hechos]] )
 
     # Prueba de Docsplit
 
@@ -78,10 +82,6 @@ class CausasController < ApplicationController
     when 'General'
       @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
       @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
-
-      # Objeto que contiene act_texto con el resumen de la cuantía
-      demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
-      @resumen = demanda&.act_textos&.find_by(tipo_documento: 'resumen_anonimizado')
 
       @actvdds  = @objeto.age_actividades.fecha_ordr
       @notas    = @objeto.notas.rlzds

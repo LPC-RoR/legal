@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_07_130122) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_07_171247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -40,6 +40,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_07_130122) do
     t.index ["ownr_type"], name: "index_act_archivos_on_ownr_type"
     t.index ["processing_status"], name: "index_act_archivos_on_processing_status"
     t.index ["rlzd"], name: "index_act_archivos_on_rlzd"
+  end
+
+  create_table "act_metadatas", force: :cascade do |t|
+    t.bigint "act_archivo_id", null: false
+    t.string "act_metadata", null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["act_archivo_id", "act_metadata"], name: "idx_act_metadatas_unique_codigo", unique: true
+    t.index ["act_archivo_id"], name: "index_act_metadatas_on_act_archivo_id"
+    t.index ["metadata"], name: "index_act_metadatas_on_metadata", using: :gin
   end
 
   create_table "act_textos", force: :cascade do |t|
@@ -2056,6 +2067,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_07_130122) do
   end
 
   add_foreign_key "act_archivos", "act_archivos", column: "anonimizado_de_id"
+  add_foreign_key "act_metadatas", "act_archivos"
   add_foreign_key "act_textos", "act_archivos"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"

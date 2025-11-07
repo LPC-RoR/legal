@@ -329,6 +329,7 @@ Rails.application.routes.draw do
       match :rmv_cntrld, via: :post, on: :member
       match :annmzr, via: :post, on: :member
     end
+    resources :act_metadatas
     resources :check_realizados
     resources :check_auditorias
     resources :audit_notas

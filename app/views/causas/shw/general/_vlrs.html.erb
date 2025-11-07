@@ -1,0 +1,24 @@
+<div class="border rounded-2 my-1 p-2">
+	<% @dmnd_vlrs.metadata['denunciantes'].each do |dnncnt| %>
+		<div class="row gx-1">
+			<div class="col-4">Nombre</div>
+			<div class="col-4"><%= dnncnt['nombre'] %></div>
+		</div>
+		<div class="row gx-1">
+			<div class="col-4">Cargo</div>
+			<div class="col-4"><%= dnncnt['cargo'] %></div>
+		</div>
+		<div class="row gx-1">
+			<div class="col-4">Inicio relación laboral</div>
+			<div class="col-4"><%= dnncnt['fecha_inicio'] %></div>
+		</div>
+		<div class="row gx-1">
+			<div class="col-4">Termino relación laboral</div>
+			<div class="col-4"><%= dnncnt['fecha_termino'] %></div>
+		</div>
+		<div class="row gx-1">
+			<div class="col-4">Remuneración</div>
+			<div class="col-4"><%= dnncnt['remuneracion'] %></div>
+		</div>
+	<% end %>
+</div>

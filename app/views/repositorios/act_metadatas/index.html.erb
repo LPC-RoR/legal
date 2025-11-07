@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Act metadatas" %>
+
+<h1>Act metadatas</h1>
+
+<div id="act_metadatas">
+  <% @act_metadatas.each do |act_metadata| %>
+    <%= render act_metadata %>
+    <p>
+      <%= link_to "Show this act metadata", act_metadata %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New act metadata", new_act_metadata_path %>

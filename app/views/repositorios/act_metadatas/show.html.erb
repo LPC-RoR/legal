@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @act_metadata %>
+
+<div>
+  <%= link_to "Edit this act metadata", edit_act_metadata_path(@act_metadata) %> |
+  <%= link_to "Back to act metadatas", act_metadatas_path %>
+
+  <%= button_to "Destroy this act metadata", @act_metadata, method: :delete %>
+</div>
