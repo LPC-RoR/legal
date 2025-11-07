@@ -1,4 +1,8 @@
 <!-- Despliegue de Warnings -->
 <%= render layout: '0p/collapse/display', locals: {label: 'Warnings', objeto: objt} do %>
-	<%= render partial: prtl_name(objt, 'list/cllps', 'wrnngs'), locals: {objeto: objt} %>
+	<div style="font-size: 12px;">
+		<% unless objt.archivos_faltantes.empty? and objt.archivos_vacios.empty? %>
+			<%= render partial: '0p/nota/wrnng', locals: {wrnng: "Faltan #{objt.archivos_faltantes.count + objt.archivos_vacios.count} documentos controlados" } %>
+		<% end %>
+	</div>
 <% end %>

@@ -1,10 +1,25 @@
 <% dir ||= 'lst' %>
-<div class="row gx-1 px-2 py-1 bg_gray">
-	<div class="col-10 objt_lnk">
-		<%= render partial: prtl(objt, dir, 'objt'), locals: {objt: objt} %>
+<div class="row gx-1 px-2 py-1">
+	<div class="col-2 objt_lnk">
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: objt, tltp: 'Ver Cliente' } do %>
+			<%= s_rut(objt.rut) %>
+		<% end %>
+	</div>
+	<div class="col-8 objt_lnk">
+		<%= objt.razon_social %>
+
+		<!-- Warnings del -->
+		<% unless objt.archivos_faltantes.empty? and objt.archivos_vacios.empty? %>
+			<i class="bi bi-dot"></i>
+			<%= render layout: '0p/collapse/link', locals: {label: 'Warnings', objeto: objt, tooltip: 'Desplegar advertencias'} do %>
+				<i class="bi bi-cone-striped text-danger"></i>
+			<% end %>
+		<% end %>
 	</div>
 	<div class="col-2 text-end">
-		<%= render partial: prtl(objt, dir, 'lnks'), locals: {objt: objt} %>
+		<% if current_usuario.operacion? %>
+			<%= render partial: '0p/tbl/plldwn_lnks', locals: {objt: objt} %>
+		<% end %>
 	</div>
 </div>
 
