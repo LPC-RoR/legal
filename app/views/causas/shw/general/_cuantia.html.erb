@@ -4,11 +4,11 @@
 	<%= render partial: '0p/ttl_clss', locals: {source: 'tar_valor_cuantias', clss: :sub, dir: 'indx', blngs: objeto} %>
 
 	<!-- COLLAPSE con ActTexto con resumen de los montos -->
-	<% if @resumen and @dmnd_cdgs and @dmnd_vlrs %>
+	<% if @resumen or @dmnd_cdgs or @dmnd_vlrs %>
 		<%= render layout: '0p/collapse/dsply', locals: {label: 'ActMontos', objeto: nil} do %>
-			<%= render partial: prtl(objeto, 'shw/general', 'cdgs') %>
-			<%= render partial: prtl(objeto, 'shw/general', 'vlrs') %>
-			<%= render partial: prtl(objeto, 'shw/general', 'rsmn') %>
+			<%= render partial: prtl(objeto, 'shw/general', 'cdgs') if @dmnd_cdgs %>
+			<%= render partial: prtl(objeto, 'shw/general', 'vlrs') if @dmnd_vlrs %>
+			<%= render partial: prtl(objeto, 'shw/general', 'rsmn') if @resumen %>
 		<% end %>
 	<% end %>
 

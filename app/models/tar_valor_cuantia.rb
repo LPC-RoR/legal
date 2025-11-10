@@ -2,7 +2,7 @@ class TarValorCuantia < ApplicationRecord
 #	attr_readonly :valor_tarifa
 	before_save :set_valor_tarifa
 
-	belongs_to :tar_detalle_cuantia
+#	belongs_to :tar_detalle_cuantia
 	belongs_to :demandante, optional: true
 	belongs_to :ownr, polymorphic: true
 

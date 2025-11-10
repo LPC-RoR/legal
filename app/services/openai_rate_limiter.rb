@@ -1,29 +1,37 @@
-# app/services/open_ai_rate_limiter.rb
 class OpenaiRateLimiter
   include Singleton
-
-  def initialize(requests_per_minute: 50)
+  
+  MAX_REQUESTS = 30
+  WINDOW_SECONDS = 60
+  WAIT_TIME = 65  # Espera 65s para asegurar ventana nueva
+  
+  def initialize
     @mutex = Mutex.new
     @requests = []
-    @limit = requests_per_minute
-    Rails.logger.info("[OpenAIRateLimiter] 🔧 Initialized with #{requests_per_minute} requests per minute")
   end
-
+  
   def wait_for_capacity
     @mutex.synchronize do
-      now = Time.now
-      @requests.reject! { |time| time < now - 60 }
-
-      if @requests.size >= @limit
-        sleep_until = @requests.first + 60
-        sleep_time = [sleep_until - now, 0].max
-        Rails.logger.info("[OpenAIRateLimiter] ⏳ Rate limit reached, sleeping for #{sleep_time.round(2)}s")
-        sleep(sleep_time) if sleep_time > 0
-        @requests.shift
+      loop do
+        cleanup_old_requests
+        
+        if @requests.size < MAX_REQUESTS
+          @requests << Time.current
+          Rails.logger.info("[OpenaiRateLimiter] ✅ Request allowed: #{@requests.size}/#{MAX_REQUESTS}")
+          break
+        end
+        
+        Rails.logger.warn("[OpenaiRateLimiter] 🚫 Rate limit reached: #{@requests.size}/#{MAX_REQUESTS}. Waiting #{WAIT_TIME}s")
+        @mutex.sleep(WAIT_TIME)  # Espera sin liberar el mutex
+        redo  # Vuelve al inicio del loop
       end
-
-      @requests << now
-      Rails.logger.info("[OpenAIRateLimiter] ✅ Capacity available, current requests in window: #{@requests.size}/#{@limit}")
     end
+  end
+  
+  private
+  
+  def cleanup_old_requests
+    now = Time.current
+    @requests.reject! { |timestamp| timestamp < now - WINDOW_SECONDS.seconds }
   end
 end

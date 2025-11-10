@@ -22,33 +22,25 @@ class CausasController < ApplicationController
 
     @scp = scp_item[:causas][scp.to_sym]
 
-    if params[:query].present?
-      cllcn = Causa.search_for(params[:query])
-    else
-      case scp
-      when 'rvsn'
-        cllcn = Causa.trmtcn
-      when 'ingrs'
-        cllcn = Causa.std('ingreso')
-      when 'trmtcn'
-        cllcn = Causa.trmtcn
-      when 'archvd'
-        cllcn = Causa.std('archivada')
-      when 'vacios'
-        cllcn = Causa.trmtcn.sin_tar_calculos
-      when 'incmplt'
-        cllcn = Causa.trmtcn.con_un_solo_tar_calculo
-      when 'monto'
-        cllcn = Causa.std_pago('monto')
-      when 'cmplt'
-        cllcn = Causa.std_pago('completos')
-      when 'en_rvsn'
-        cllcn = Causa.std('revisión')
-      end
-    end
+    # **APLICAR SCOPE PRIMERO**
+    cllcn = if params[:query].present?
+              Causa.search_for(params[:query])
+            else
+              case scp
+              when 'rvsn'      then Causa.trmtcn
+              when 'ingrs'     then Causa.std('ingreso')
+              when 'trmtcn'    then Causa.trmtcn
+              when 'archvd'    then Causa.std('archivada')
+              when 'vacios'    then Causa.trmtcn.sin_tar_calculos
+              when 'incmplt'   then Causa.trmtcn.con_un_solo_tar_calculo
+              when 'monto'     then Causa.std_pago('monto')
+              when 'cmplt'     then Causa.std_pago('completos')
+              when 'en_rvsn'   then Causa.std('revisión')
+              end
+            end
 
     set_tabla('causas', cllcn, true)
-    @causas = cllcn.index_page(params[:page])
+    @causas = cllcn.with_paginated_calculos(params[:page])
 
   end
 

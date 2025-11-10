@@ -6,7 +6,7 @@
 	<div class="row px-3 pb-1 gx-1 text-primary" style="font-size: 13px;line-height: 1.2;">
 		<div class="col">
 			<%= objt.actividad %> 
-			<% if objt.proxima_suspendida? %>
+			<% if objt.suspendida %>
 				<span class="text-danger">SUSPENDIDA</span>
 			<% end %>
 		</div>

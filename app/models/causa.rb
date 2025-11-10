@@ -68,31 +68,121 @@ class Causa < ApplicationRecord
 	      .page(page).per(per)
 	end
 
-	# 2. Método de clase que devuelve un objeto Kaminari completo
-	def self.index_page(page = 1, per = 20)
-	    # Obtener el scope paginado con metadata
-	    paginated_scope = paginated_ids(page, per)
-	    
-	    # Extraer IDs y metadata
-	    ids = paginated_scope.pluck(:id)
-	    total_count = paginated_scope.total_count
-	    current_page = paginated_scope.current_page
-	    
-	    # Cargar causas con cálculos (sin afectar SELECT)
-	    results = where(id: ids).with_calculos
-	    
-	    # Preservar orden exacto
-	    results_by_id = results.index_by(&:id)
-	    ordered_results = ids.map { |id| results_by_id[id] }.compact
-	    
-	    # Crear objeto paginado con metadata correcta
-	    Kaminari.paginate_array(
-	      ordered_results,
-	      total_count: total_count,
-	      limit: per,
-	      offset: (current_page - 1) * per
-	    ).page(current_page).per(per)
-	end
+# app/models/causa.rb
+def self.with_paginated_calculos(page = 1, per = 20)
+  page = (page || 1).to_i
+  per = (per || 20).to_i
+  offset = (page - 1) * per
+  
+  scope_base = all
+  
+  # **SOLUCIÓN CLAVE: Extraer WHERE del SQL completo con valores interpolados**
+  full_sql = scope_base.to_sql
+  where_clause = full_sql.split('WHERE ')[1].to_s.split(' ORDER BY ')[0].to_s.strip
+  
+  cte_sql = <<~SQL
+    WITH ordered_causas AS (
+      SELECT causas.id,
+             (SELECT fecha 
+              FROM age_actividades 
+              WHERE ownr_type = 'Causa' AND ownr_id = causas.id 
+              AND fecha >= CURRENT_DATE 
+              ORDER BY fecha ASC LIMIT 1) AS orden_fecha
+      FROM causas
+  SQL
+  
+  # Añadir WHERE si existe
+  if where_clause.present?
+    cte_sql += "WHERE #{where_clause}\n"
+  end
+  
+  # **FIX: Interpolar limit/offset directamente (seguro, son enteros)**
+  cte_sql += <<~SQL
+      ORDER BY orden_fecha ASC NULLS LAST, causas.id ASC
+      LIMIT #{per} OFFSET #{offset}
+    )
+    SELECT causas.*,
+           ult_est.ultimo_estado,
+           pf.proxima_fecha,
+           pf.suspendida,
+           pf.actividad,
+           tv.suma_tarifas,
+           mc.ultimo_valor,
+           arch_dem.demanda_archivo_id
+    FROM causas
+    INNER JOIN ordered_causas oc ON oc.id = causas.id
+    LEFT JOIN LATERAL (
+     SELECT estado AS ultimo_estado
+     FROM estados
+     WHERE estados.causa_id = causas.id
+     ORDER BY fecha DESC, id DESC LIMIT 1
+    ) ult_est ON true
+    
+    LEFT JOIN LATERAL (
+     SELECT fecha AS proxima_fecha, suspendida, age_actividad AS actividad
+     FROM age_actividades
+     WHERE age_actividades.ownr_type = 'Causa'
+     AND age_actividades.ownr_id = causas.id
+     AND fecha >= CURRENT_DATE
+     ORDER BY fecha ASC LIMIT 1
+    ) pf ON true
+    
+    LEFT JOIN LATERAL (
+     SELECT COALESCE(SUM(valor_tarifa), 0) AS suma_tarifas
+     FROM tar_valor_cuantias
+     WHERE tar_valor_cuantias.ownr_type = 'Causa'
+     AND tar_valor_cuantias.ownr_id = causas.id
+    ) tv ON true
+    
+    LEFT JOIN LATERAL (
+     SELECT monto AS ultimo_valor
+     FROM monto_conciliaciones
+     WHERE monto_conciliaciones.causa_id = causas.id
+     AND tipo IN ('Acuerdo', 'Sentencia')
+     ORDER BY fecha DESC, id DESC LIMIT 1
+    ) mc ON true
+    
+    LEFT JOIN LATERAL (
+     SELECT act_archivos.id AS demanda_archivo_id
+     FROM act_archivos
+     INNER JOIN active_storage_attachments 
+             ON active_storage_attachments.record_type = 'ActArchivo'
+            AND active_storage_attachments.record_id = act_archivos.id
+            AND active_storage_attachments.name = 'pdf'
+     WHERE act_archivos.ownr_type = 'Causa'
+     AND act_archivos.ownr_id = causas.id
+     AND act_archivos.act_archivo = 'demanda'
+     LIMIT 1
+    ) arch_dem ON true
+    
+    ORDER BY oc.orden_fecha ASC NULLS LAST, oc.id ASC
+  SQL
+  
+  # **EJECUTAR DIRECTAMENTE**
+  result_set = connection.execute(cte_sql)
+  
+  causas = result_set.map do |row|
+    Causa.instantiate(row).tap do |causa|
+      causa.readonly!
+      # Cachear atributos calculados
+      causa.instance_variable_set(:@ultimo_estado, row['ultimo_estado'] || 'Sin estado')
+      causa.instance_variable_set(:@proxima_fecha, row['proxima_fecha'])
+      causa.instance_variable_set(:@actividad, row['actividad'] || 'Sin actividad programada')
+      causa.instance_variable_set(:@suma_tarifas, row['suma_tarifas'] || 0)
+      causa.instance_variable_set(:@ultimo_valor_conciliacion, row['ultimo_valor'])
+      causa.instance_variable_set(:@demanda_archivo_id, row['demanda_archivo_id'])
+    end
+  end
+  
+  # Calcular total_count
+  count_sql = "SELECT COUNT(*) FROM causas"
+  count_sql += " WHERE #{where_clause}" if where_clause.present?
+  total_count = connection.select_value(count_sql).to_i
+  
+  # Devolver paginador completo
+  Kaminari.paginate_array(causas, total_count: total_count, limit: per, offset: offset)
+          .page(page).per(per)
+end
 
 	# 4. Métodos de lectura que calculan on-the-fly si no están cacheados
 	def ultimo_estado
@@ -352,16 +442,6 @@ class Causa < ApplicationRecord
 		self.tar_uf_facturaciones.find_by(tar_pago_id: pago.id)
 	end
 
-	def origen_fecha_pago(pago)
-		if self.tar_uf_facturacion(pago).present?
-			'TarUfFacturacion'
-		elsif self.pago_generado(pago).present?
-			'TarPago'
-		else
-			'Today'
-		end
-	end
-
 	# REVISAR --> DEPRECATED, se agregó fecha_uf a TarFacturacion, en ella se almacenará la fecha de cálculo
 	# Ya sea que esta provenga de TarUfFacturacion o sea la fecha de la creación de TarFacturacion
 	def fecha_calculo_pago(pago)
@@ -397,38 +477,30 @@ class Causa < ApplicationRecord
 		self.cliente.tar_tarifas
 	end
 
-	def monto_pagado_pesos(pago)
-		self.monto_pagado
-	end
-
 	def monto_pagado_uf(pago)
 		uf = self.uf_calculo_pago(pago)
 		(uf.blank? or self.monto_pagado.blank?) ? 0 : self.monto_pagado / uf.valor
 	end
 
-	# /legal/app/views/causas/list/_monto_pagado.html.erb:
-	def detalle_cuantia(moneda)
-		valor = self.tar_valor_cuantias.map { |vc| vc.valor if vc.moneda == moneda }.compact.sum
-		valor.blank? ? 0 : valor
-	end
-
 	private
 
-	# 3. Helper que hace los LATERAL sin tocar SELECT
+	# 2. Helper privado que hace los LATERAL (sin tocar SELECT)
 	def self.with_calculos
 	    joins(
 	      <<~SQL
 	        LEFT JOIN LATERAL (
 	         SELECT estado AS ultimo_estado
 	         FROM   estados
-	         WHERE  causa_id = causas.id
+	         WHERE  estados.causa_id = causas.id
 	         ORDER  BY fecha DESC, id DESC LIMIT 1
 	        ) ult_est ON true
 	        
 	        LEFT JOIN LATERAL (
-	         SELECT fecha AS proxima_fecha, suspendida, age_actividad AS actividad
+	         -- ▶️ CORREGIDO: usa el nombre real de columna (probablemente solo 'actividad')
+	         SELECT fecha AS proxima_fecha, suspendida, actividad AS actividad
 	         FROM   age_actividades
-	         WHERE  ownr_type = 'Causa' AND ownr_id = causas.id
+	         WHERE  age_actividades.ownr_type = 'Causa'
+	         AND    age_actividades.ownr_id = causas.id
 	         AND    fecha >= CURRENT_DATE
 	         ORDER  BY fecha ASC LIMIT 1
 	        ) pf ON true
@@ -436,13 +508,15 @@ class Causa < ApplicationRecord
 	        LEFT JOIN LATERAL (
 	         SELECT COALESCE(SUM(valor_tarifa), 0) AS suma_tarifas
 	         FROM   tar_valor_cuantias
-	         WHERE  ownr_type = 'Causa' AND ownr_id = causas.id
+	         WHERE  tar_valor_cuantias.ownr_type = 'Causa'
+	         AND    tar_valor_cuantias.ownr_id = causas.id
 	        ) tv ON true
 	        
 	        LEFT JOIN LATERAL (
 	         SELECT monto AS ultimo_valor
 	         FROM   monto_conciliaciones
-	         WHERE  causa_id = causas.id AND tipo IN ('Acuerdo', 'Sentencia')
+	         WHERE  monto_conciliaciones.causa_id = causas.id
+	         AND    tipo IN ('Acuerdo', 'Sentencia')
 	         ORDER  BY fecha DESC, id DESC LIMIT 1
 	        ) mc ON true
 	        
@@ -450,8 +524,12 @@ class Causa < ApplicationRecord
 	         SELECT act_archivos.id AS demanda_archivo_id
 	         FROM   act_archivos
 	         INNER JOIN active_storage_attachments 
-	                 ON record_type = 'ActArchivo' AND record_id = act_archivos.id AND name = 'pdf'
-	         WHERE  ownr_type = 'Causa' AND ownr_id = causas.id AND act_archivo = 'demanda'
+	                 ON active_storage_attachments.record_type = 'ActArchivo'
+	                AND active_storage_attachments.record_id = act_archivos.id
+	                AND active_storage_attachments.name = 'pdf'
+	         WHERE  act_archivos.ownr_type = 'Causa'
+	         AND    act_archivos.ownr_id = causas.id
+	         AND    act_archivos.act_archivo = 'demanda'
 	         LIMIT  1
 	        ) arch_dem ON true
 	      SQL
