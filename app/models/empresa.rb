@@ -118,7 +118,7 @@ class Empresa < ApplicationRecord
     end
 
     def destroy_usuarios
-        tenant.usuarios.destroy_all
+        tenant&.usuarios&.destroy_all
     end
 
     def acceptable_logo
