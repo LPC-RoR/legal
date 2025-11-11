@@ -1,7 +1,7 @@
 <%#= render layout: '0p/collapse/btnn', locals: {clss-bttn. 'clss_btnn', label: 'label', objeto: nil, tooltip: nil} do %>
   <!-- ... -->
 <%# end %>
-
-<button class="btn <%=clss_bttn%>" type="button" data-bs-toggle="collapse" data-bs-target="#<%=label%><%= objeto.blank? ? nil : objeto.id%>" aria-expanded="false" aria-controls="<%=label%><%= objeto.blank? ? nil : objeto.id%>%>">
+<% id = "collapse-#{label.parameterize}-#{objeto&.id || '0'}" %>
+<button class="btn <%=clss_bttn%>" type="button" data-bs-toggle="collapse" data-bs-target="#<%=id%>" aria-expanded="false" aria-controls="<%=id%>">
   <span data-toggle="tooltip" title="<%=tooltip%>"><%= yield %></span>
 </button>
