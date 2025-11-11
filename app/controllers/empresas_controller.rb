@@ -1,4 +1,5 @@
 class EmpresasController < ApplicationController
+  include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario! Impide paso a usuarios de Empresas
   before_action :authenticate_usuario!, except: [:create, :verify]
   before_action :scrty_on
   before_action :set_empresa, only: %i[ show edit update destroy swtch prg renovar_demo ]
@@ -152,6 +153,20 @@ class EmpresasController < ApplicationController
   def renovar_demo
     licencia = @objeto.licencia_actual
     licencia.renovar_demo! if licencia.puede_renovar_demo?
+    
+    redirect_to empresas_path
+  end
+
+  def activar_compra
+    licencia = @objeto.licencia_actual
+    licencia.activar_compra! if licencia.plan == 'demo'
+    
+    redirect_to empresas_path
+  end
+
+  def renovar
+    licencia = @objeto.licencia_actual
+    licencia.renovar! if licencia.plan == 'anual'
     
     redirect_to empresas_path
   end

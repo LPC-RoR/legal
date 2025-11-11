@@ -59,6 +59,8 @@ Rails.application.routes.draw do
       patch :update_rol
     end
     match :renovar_demo, via: :post, on: :member
+    match :activar_compra, via: :post, on: :member
+    match :renovar, via: :post, on: :member
     match :swtch, via: :post, on: :member
     match :prg, via: :get, on: :member
   end
