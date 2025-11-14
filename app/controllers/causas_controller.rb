@@ -39,8 +39,7 @@ class CausasController < ApplicationController
               end
             end
 
-    set_tabla('causas', cllcn, true)
-    @causas = cllcn.with_paginated_calculos(params[:page])
+    @causas = params[:query].present? ? cllcn : cllcn.with_paginated_calculos(params[:page])
 
   end
 
