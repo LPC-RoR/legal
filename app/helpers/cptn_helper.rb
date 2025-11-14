@@ -1,5 +1,14 @@
 module CptnHelper
 
+# O mejor, usa la zona horaria explícitamente:
+def ajustar_fecha_santiago(fecha)
+  return nil if fecha.blank?
+  
+  # Si la fecha viene del LATERAL JOIN (sin zona), forzala a Santiago
+  Time.use_zone('America/Santiago') do
+    Time.zone.parse(fecha.to_s)
+  end
+end
 
 # ******************************************************************** CONSTANTES 
 
