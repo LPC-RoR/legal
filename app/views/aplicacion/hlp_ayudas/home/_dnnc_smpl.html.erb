@@ -12,10 +12,10 @@
 </ol>
 
 
-<p>Para ingresar una denuncia, se debe seleccionar el ítem <b>Denuncias</b> en el menú de la denuncia.</p> 
+<p>Para ingresar una denuncia, se debe seleccionar la pestaña <b>Denuncias</b> en el menú de la empresa.</p> 
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_1.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_01.png', width: "700" %>
 </div>
 
 <p><b>NOTA:</b>Si a la derecha del encabezado <i>Denuncias</i> no aparece el botón <i class="bi bi-plus-circle"></i>, puede deberse a alguna de las siguientes razones:</p>
@@ -24,7 +24,8 @@
 	<li>Ha vencido el plazo de su producto DEMO</li>
 	<li>Ha completado el número de denuncias asignadas a su producto</li>
 </ol>
-<p>En el primer caso, encontrará lo necesario para completar la configuración básica en el siguiente enlace: <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Configuración básica', tltp: 'Configuración básica'} %></p>
+
+<p>En el primer caso, encontrará lo necesario para completar la configuración básica en el siguiente enlace: <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'ambnt', dscrpcn: 'Configuración básica', tltp: 'Configuración básica'} %>. Las otras dos opciones aparecerán señaladas en el encabezado de la empresa.</p>
 
 
 <%= render partial: prtl_name('hlp_ayudas', 'home/dnnc_smpl', 'crear_dnnc') %>
