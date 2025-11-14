@@ -1,9 +1,6 @@
-<tr class="app_lnk" style="font-size: 1rem;line-height: 1.5;">
+<tr style="font-size: 1rem;line-height: 1.5;">
 	<td class="ps-3"><%= dma_hm(objt.fecha_hora) %></td>
-	<td class="fw-bold">
-		<% if objt.auditoria %>
-			<i class="bi bi-clipboard2-pulse"></i>
-		<% end %>
+	<td class="fw-bold objt_lnk">
 		<% if current_usuario.dog? %>
 			<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: objt} %>
 		<% end %>

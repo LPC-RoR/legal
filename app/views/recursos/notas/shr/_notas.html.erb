@@ -13,12 +13,12 @@
 		</div>
 	</div>
 	<% unless ownr.notas.no_rlzds.empty? %>
-		<%= render partial: 'notas/shr/pndnts', locals: {ownr: ownr, blue_dot: false} %>
+		<%= render partial: prtl('notas', 'shr', 'pndnts'), locals: {ownr: ownr, blue_dot: false} %>
 	<% end %>
 
 	<% unless ownr.notas.rlzds.empty? %>
 		<%= render layout: '0p/collapse/dsply', locals: {label: 'NotasRealizadas', objeto: nil} do %>
-			<%= render partial: 'notas/shr/rlzds', locals: {ownr: ownr, blue_dot: false} %>
+			<%= render partial: prtl('notas', 'shr', 'rlzds'), locals: {ownr: ownr, blue_dot: false} %>
 		<% end %>
 	<% end %>
 

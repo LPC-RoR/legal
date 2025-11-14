@@ -17,7 +17,7 @@ class Recursos::NotasController < ApplicationController
   # GET /notas/new
   def new
     ownr = params[:oclss].constantize.find(params[:oid])
-    @objeto = ownr.notas.new(usuario_id: current_usuario.id, app_perfil_id: perfil_activo.id, prioridad: 'success', fecha_gestion: Time.zone.now)
+    @objeto = ownr.notas.new(usuario_id: current_usuario.id, prioridad: 'success', fecha_gestion: Time.zone.now)
   end
 
   # REVISAR

@@ -3,6 +3,6 @@
 
 <% unless ownr.notas.empty? %>
 	<% ownr.notas.no_rlzds.crtd_at_asc.each do |nota| %>
-		<%= render partial: 'notas/list/objeto', locals: {objeto: nota, prrdds: prrdds, blue_dot: blue_dot} %>
+		<%= render partial: prtl('notas', 'lst', 'objeto'), locals: {objeto: nota, prrdds: prrdds, blue_dot: blue_dot} %>
 	<% end %>
 <% end %>

@@ -1,13 +1,15 @@
 <tr class="objt_lnk" style="font-size: 0.9rem;">
 	<td><%= s_rut(objt.rut) %></td>
 	<td>
-		<% if objt.licencia_activa? %>
-			<i class="bi bi-bookmark text-primary"></i>
-		<% else %>
-			<i class="bi bi-cone-striped text-danger"></i>
-		<% end %>
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{objt.class.name.downcase[0]}_#{objt.id}/dnncs", tltp: 'Acceder a la cuenta' } do %>
 			<%= objt.razon_social %>
+		<% end %>
+	</td>
+	<td>
+		<% if objt.licencia_activa? %>
+			Activa
+		<% else %>
+			Renovación
 		<% end %>
 	</td>
 	<td class="text-end">

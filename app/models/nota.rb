@@ -7,7 +7,6 @@ class Nota < ApplicationRecord
 	}
 
 	belongs_to :ownr, polymorphic: true
-	belongs_to :app_perfil
 	belongs_to :usuario
 
 	has_many :responsables_notas,
