@@ -497,7 +497,7 @@ end
 	        
 	        LEFT JOIN LATERAL (
 	         -- ▶️ CORREGIDO: usa el nombre real de columna (probablemente solo 'actividad')
-	         SELECT fecha AT TIME ZONE 'America/Santiago' AT TIME ZONE 'UTC' AS proxima_fecha, suspendida, age_actividad AS actividad
+	         SELECT (fecha AT TIME ZONE 'America/Santiago')::timestamp AS proxima_fecha, suspendida, age_actividad AS actividad
 	         FROM   age_actividades
 	         WHERE  age_actividades.ownr_type = 'Causa'
 	         AND    age_actividades.ownr_id = causas.id
