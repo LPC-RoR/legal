@@ -2,9 +2,11 @@
 module EmailVerifiable
   extend ActiveSupport::Concern
 
-  included do
-    # OLD: after_create :send_verification_email
-    after_create_commit :send_verification_email   # 1️⃣ enqueue after COMMIT
+  # Métodos de clase disponibles al incluir el concern
+  class_methods do
+    def envia_verificacion_despues_crear
+      after_create_commit :send_verification_email
+    end
   end
 
   def email_present?

@@ -1,0 +1,38 @@
+<% if objt.email != objt.email_ok and (not objt.tiene_check_realizado?) %>
+
+  <li>
+    <%= link_to send_verification_email_path(model_type: objt.class.name.tableize, id: objt.id), class: 'dropdown-item',  
+                data: { turbo_method: :post, turbo_confirm: 'Verificar envio de email' } do %>  
+      <%= objt.n_vrfccn_lnks.blank? ? 'Enviar' : 'Reenviar' %> link de verificación
+    <% end %>
+  </li>
+
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_investigadores/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: true}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Marcar como validado
+    <% end %>
+  </li>
+
+<% else %>
+  <% unless objt.verified? and objt.email == objt.email_ok %>
+
+    <li>
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_investigadores/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: 'trash'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
+        Eliminar marca de validado
+      <% end %>
+    </li>
+
+  <% end %>
+<% end %>
+
+<% if current_usuario.admin? %>
+
+  <li><hr class="dropdown-divider"></li>
+  <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
+  <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+
+  <li><hr class="dropdown-divider"></li>
+
+  <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+
+<% end %>

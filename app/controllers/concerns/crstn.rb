@@ -54,7 +54,8 @@ module Crstn
 			'ProDtllVenta' => 'Producto de la Empresa',
 			'KrnInvDenuncia' => 'Investigador',
 			'ComDocumento' => 'Documento comercial',
-			'ComRequerimiento' => 'Requerimiento comercial'
+			'ComRequerimiento' => 'Requerimiento comercial',
+			'AppNomina' => 'Perfil'
 		}
 	end
 

@@ -1,0 +1,8 @@
+<tr class="app_lnk" style="font-size: 1rem;line-height: 1.5;">
+	<td class="ps-3"><%= s_rut(objt.rut) %></td>	
+	<td><%= objt.razon_social %></td>
+	<td><%= objt.tipo %></td>
+	<td class="pe-3 text-end">
+		<%= render partial: '0p/tbl/plldwn_lnks', locals: {objt: objt} %>
+	</td>
+</tr>

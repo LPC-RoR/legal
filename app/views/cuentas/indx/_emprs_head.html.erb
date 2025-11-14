@@ -9,12 +9,6 @@
 			<% else %>
 				<%= objt.razon_social %>
 			<% end %>
-			<% if objt.plan_type == 'extendido' %>
-				<i class="bi bi-diagram-3"></i>
-			<% end %>
-			<% unless objt.cnfgrcn_ok? %>
-				<i class="bi bi-cone-striped text-danger"></i>
-			<% end %>
 		</div>
 		<div class="col-lg-4 pe-2 text-end">
 			<% unless @licencia_activa %>
@@ -26,6 +20,12 @@
 					<small>DEMO</small>
 				<% end %>
 			<% end %>
+
+			<%# Renderiza el link SOLO si la condición es verdadera %>
+			<%= link_to_if ((@licencia_activa  and @licencia.plan == 'demo') or current_usuario.dog?), "plan #{@objeto.plan_type == 'extendido' ? 'extendido' : 'estándar'}", "/empresas/#{@objeto.id}/swtch_plan_type", data: { turbo_method: :post, turbo_confirm: "¿Estás seguro?" } do %>
+			  <span class="text-primary">plan <%= @objeto.plan_type == 'extendido' ? 'extendido' : 'estándar' %></span>
+			<% end %>
+
 		</div>
 	</div>
 

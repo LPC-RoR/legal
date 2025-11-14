@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     match :dnncs, via: :get, on: :member
     match :invstgdrs, via: :get, on: :member
     match :extrns, via: :get, on: :member
+    match :cntcts, via: :get, on: :member
     match :nmn, via: :get, on: :member
     match :usrs, via: :get, on: :member
     match :ctp_mdds, via: :get, on: :member
@@ -62,6 +63,7 @@ Rails.application.routes.draw do
     match :activar_compra, via: :post, on: :member
     match :renovar, via: :post, on: :member
     match :swtch, via: :post, on: :member
+    match :swtch_plan_type, via: :post, on: :member
     match :prg, via: :get, on: :member
   end
 
@@ -140,7 +142,6 @@ Rails.application.routes.draw do
       match :prsnt, via: :post, on: :member
       match :pdf_combinado, via: :get, on: :member
       # ruta para manejo de panels
-      match :cndtnl_via_declaracion, via: :get, on: :collection
       match :tipo_declaracion_field, via: :get, on: :collection
     end
 

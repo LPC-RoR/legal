@@ -1,7 +1,2 @@
 <!-- Se controla aqui el acceso para no complejizar el uso de indx/lnks de AppNomina y AppContacto -->
-<% if current_usuario.admin? or current_usuario.dog? %>
-	<%= render partial: 'cuentas/indx/indx', locals: {source: 'app_nominas'} %>
-
-<% else %>
-	<%= render partial: prtl_name('cuentas', 'indx/mssgs', 'no_access') %>
-<% end %>
+<%= render partial: 'cuentas/indx/indx', locals: {source: 'app_nominas'} %>

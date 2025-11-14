@@ -49,10 +49,6 @@ class Karin::KrnDenunciasController < ApplicationController
   def edit
   end
 
-  def cndtnl_via_declaracion
-    @data = KrnDenuncia.recent_data
-  end
-
   # POST /krn_denuncias or /krn_denuncias.json
   def create
     @objeto = KrnDenuncia.new(krn_denuncia_params)

@@ -1,8 +1,11 @@
 class EmpresasController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario! Impide paso a usuarios de Empresas
+  skip_before_action :redirect_if_user_has_tenant, only: [:edit, :update, :swtch_plan_type]
+
   before_action :authenticate_usuario!, except: [:create, :verify]
   before_action :scrty_on
-  before_action :set_empresa, only: %i[ show edit update destroy swtch prg renovar_demo ]
+  before_action :set_empresa, only: %i[ show edit update destroy swtch swtch_plan_type prg renovar_demo ]
+  before_action :authorize_tenant_user, only: [:edit, :update, :swtch_plan_type]
 
   # anti-bot para create
   MIN_FILL_SECONDS = 3
@@ -171,6 +174,13 @@ class EmpresasController < ApplicationController
     redirect_to empresas_path
   end
 
+  def swtch_plan_type
+    @objeto.plan_type = @objeto.plan_type == 'extendido' ? 'estandar' : 'extendido'
+    @objeto.save
+
+    redirect_to "/cuentas/e_#{@objeto.id}/dnncs"
+  end
+
   # DELETE /empresas/1 or /empresas/1.json
   def destroy
     @objeto.destroy!
@@ -199,6 +209,13 @@ class EmpresasController < ApplicationController
   end
 
   private
+
+  def authorize_tenant_user
+    # Asegura que el usuario solo acceda a su propia empresa
+    if current_usuario&.tenant_id.present? && @objeto.tenant.id != current_usuario.tenant_id
+      redirect_to root_path, alert: 'No tienes permiso para realizar esta acción.'
+    end
+  end
 
     # devuelve el scope que el usuario puede ver
     def empresas_visibles
@@ -257,7 +274,7 @@ class EmpresasController < ApplicationController
       params.require(:empresa).permit(
         :rut, :razon_social, :administrador, :email_administrador, 
         :contacto, :telefono, :informacion_comercial, :principal_usuaria, :logo,
-        :activa_devolucion, :verificacion_datos, :coordinacion_apt, :industry, :company_size, :plan_type, :fecha_demo
+        :activa_devolucion, :verificacion_datos, :coordinacion_apt, :mail_backup, :industry, :company_size, :plan_type, :fecha_demo
         # :website NO se persiste (honeypot)
       )
     end

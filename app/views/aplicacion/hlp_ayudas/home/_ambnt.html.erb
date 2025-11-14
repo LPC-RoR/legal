@@ -1,20 +1,17 @@
-<h3 class="mb-4">Configuración básica</h3>
-<p><b>NOTA</b>: Esta configuración debe ser realizada únicamente por el administrador de la cuenta. Se recomienda completarla antes de otorgar acceso a los demás usuarios, de manera que ingresen a una cuenta ya preparada y operativa.</p>
+<h3 class="mb-4">Configuración inicial</h3>
 
-<p>Este tutorial ha sido diseñado para guiar al administrador en el proceso de configuración inicial de la cuenta, asegurando que quede lista para su uso.</p>
-
-<p>Por simplicidad, llevaremos a cabo la configuración considerando el caso de una empresa principal o usuaria. Este procedimiento contempla únicamente una tarea adicional respecto del que corresponde a una empresa que no participa en un régimen de subcontratación. Dicha tarea será destacada de manera diferenciada para facilitar su identificación.</p>
+<p>Se trata del registro de la información básica necesaria para dejar una cuenta operativa. Esta configuración debe ser realizada por el administrador de la cuenta o por un usuario con perfil de administrador. Este tutorial aplica tanto para cuentas con plan estándar como con plan extendido.</p>
 
 <h4>Primer ingreso a LABORSAFE</h4>
 
 <p>
-Los datos del administrador de la cuenta, ingresados a través del formulario de registro de empresa disponible en nuestra página principal, se utilizarán para generar el primer <i>usuario administrador</i> de su organización. Este usuario recibirá, vía correo electrónico, las instrucciones necesarias para completar su registro junto con sus credenciales de acceso.
+Los datos del administrador de la cuenta, ingresados mediante el formulario de registro de empresa disponible en nuestra página principal, se utilizarán para crear el primer <i>usuario administrador</i> de su organización. Este usuario recibirá por correo electrónico las instrucciones necesarias para completar su registro, junto con sus credenciales de acceso.
 </p>
 
 <p>Al ingresar por primera vez a la plataforma, el usuario administrador visualizará la página principal correspondiente a la cuenta de su empresa.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_1.png', width: "700" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_01.png', width: "700" %>
 </div>
 
 <p>En la parte superior de la imagen podemos distinguir tres elementos generales:</p>
@@ -22,133 +19,232 @@ Los datos del administrador de la cuenta, ingresados a través del formulario de
 <p><b>Menú de LABORSAFE</b></p>
 <p>En el primer nivel de la imagen: a la izquierda el logo de LABORSAFE y a la derecha los tres ítems del menú.</p>
 
+
+<!--section-->
+  <p><b>Encabezado de la cuenta</b></p></h3>
+  <p>El encabezado de la cuenta está compuesto por dos elementos principales:</p>
+  <ul>
+    <li>
+      <strong>Nombre de la empresa:</strong> ubicado a la izquierda, despliega el nombre de la empresa titular de la cuenta.
+    </li>
+    <li>
+      <strong>Producto:</strong> ubicado a la derecha. Muestra el producto activado para la cuenta (en este caso, <i>DEMO plan extendido</i>). Al hacer clic sobre la palabra DEMO, se despliega la información de la capacidad y vigencia del producto.
+    </li>
+  </ul>
+<!--/section-->
+
+
 <p><b>Mensaje emergente</b></p>
-<p>En la imagen el mensaje nos cuenta que nuestra sesión se inició correctamente.</p>
+<p>En la imagen, bajo el encabezado de la cuenta, un mensaje nos cuenta que nuestra sesión se inició correctamente.</p>
 
-<p><b>Encabezado de la cuenta</b></p>
-<p>Cuenta con tres elementos:
-	<ul>
-		<li>Nombre de la empresa: a la izquierda. Si el usuario es administrador de la cuenta, el nombre es además in link que lo conduce a un ambiente en el cual puede, por ejemplo, subir el ícono de su empresa para personalizar la cuenta.</li>
-		<li>Producto: a continuación del nombre de la empresa, en este caso <i>DEMO</i>. Al presionar sobre él nos muestra información del producto activo.</li>
-		<li>Usuario activo: A la derecha. Es un link que nos lleva al ambiente de edición del usuario, donde podemos cambiar la contraseña o eliminar nuestro usuario.</li>
-	</ul>
-</p>
-
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_2.png', width: "700" %>
-</div>
-
-<div class="border-start border-secondary border-5 px-3 pt-1" style="font-size: 0.7rem; line-height: 1.5;">
-	<p><b>Confidencialidad de las denuncias</b></p>
-	<p>En el ejemplo aparece la dirección de correo <i>admin@empresa.cl</i> dando a entender que se trata del <i>usuario administrador</i> y que se trata de un <i>correo corporativo</i>.</p>
-	<p>El usuario administrador tendrá acceso a la información de todas las denuncias, por ello este rol debe ser asignado a quien comprenda y garantice los estándares de confidencialidad exigidos por el reglamento.</p>
-</div>
+<%= render layout: 'aplicacion/hlp_ayudas/hlp_nota', locals: {ttl: 'Confidencialidad de las denuncias'} do %>
+	<p>El reglamento que regula la aplicación del procedimiento no distingue al <i>administrador de la cuenta</i> ni a ningún otro trabajador de la empresa que pueda tener acceso a la información de una investigación como <i>participante en el procedimiento</i>.</p>
+	<p>No obstante, se entiende que toda persona de la empresa con acceso a dicha información debe conocer y garantizar el estándar de confidencialidad exigido por el reglamento.</p>
+<% end %>
 
 <p><b>Cuenta de la empresa</b></p>
 
-<p>Finalmente llegamos a la información de la cuenta. El tab superior nos permite seleccionar cuatro opciones:
+<p>Finalmente llegamos a la información de la cuenta. El tab superior nos permite seleccionar cinco opciones:
 	<ol>
 		<li>Denuncias</li>
-		<li>Invetigadores</li>
+		<li>Investigadores</li>
 		<li>Empresas externas (sólo para empresas principales o usuarias)</li>
+		<li>Contactos</li>
 		<li>Nómina</li>
 	</ol>
 </p>
 
-<p>Podemos ver que la opción seleccionada por defecto es <i>Denuncias</i></p>
+<p>Podemos observar que la opción seleccionada por defecto es <i>Denuncias</i>, mientras que dos de las demás opciones muestran el ícono <i class="bi bi-cone-striped text-danger"></i>, el cual indica que aún no disponen de la información mínima necesaria para crear una primera denuncia.</p>
+
+
+
+<h4>Perfil de la empresa</h4>
+
+<p>El perfil de la empresa son las características que determina el comportamiento de la plataforma en cuatro aspectos específicos:</p>
+<ul>
+	<li>Plan de la cuenta</li>
+	<li>Verificación de datos de participantes</li>
+	<li>Coordinación de atención psicológica temprana</li>
+	<li>Respaldo de correos electrónicos</li>
+</ul>
+
+<p>Todos estos aspectos se configuran desde el encabezado de la cuenta:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_3.png', width: "700" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_02.png', width: "700" %>
 </div>
 
-<p>Al final de este encabezado, a la derecha del texto “Denuncias”, debería aparecer el botón <i class="bi bi-plus-circle"></i> para agregar una nueva denuncia. Si no se muestra, es porque la plataforma requiere completar primero la configuración mínima, tal como se indica en el mensaje de bienvenida bajo el encabezado.</p>
+<h5>Plan de la cuenta</h5>
 
-<p>La configuración mínima solicitada es:
-	<ul>
-		<li>Ingresar al menos un investigador.</li>
-		<li>Ingresar al menos una empresa externa (sólo para empresas principales o usuarias).</li>
-		<li>Ingresar al menos un contacto de RRHH. Este contacto se utiliza para solicitar la verificación y complementación de los datos de los participantes. También para solicitar la documentación de los participantes solicitada por el investigador.</li>
-		<li>Ingresar al menos un contacto para <i>atención psicológica temprana</i>. Se trata de la persona que debe coordinar y acompañar la atención psicologica temprana de las personas denucniantes.</li>
-		<li>Ingresar al menos un contacto de <i>respaldo de correos electrónicos</i>. Todos los correos electrónicos enviados desde la plataforma quedan respaldados en esta dirección de correo.</li>
-	</ul>
-</p>
+<p> En la parte derecha del encabezado, la plataforma muestra que estamos utilizando una versión <i>DEMO</i> del plan <i>extendido</i>, opción seleccionada durante el registro de la empresa. El plan extendido está diseñado para empresas que cumplen el rol de empresa principal o usuaria dentro de un régimen de subcontratación. Si su empresa no tiene este rol, debe seleccionar el plan <i>estándar</i>. </p> <p> Si se equivocó al registrar su empresa, modificarlo es muy sencillo: solo debe hacer clic en la palabra <i>extendido</i> en el encabezado, y esta cambiará automáticamente a <i>estándar</i>. Esta funcionalidad está disponible únicamente en las versiones <i>DEMO</i>. </p>
 
-<p><b>NOTA</b>: Un contacto no es un usuario, es una dirección de correo que la cuenta usa con un fin específico.</p>
+<h5>Verificación de datos de participantes</h5>
 
-<h5 class="mb-3">Investigadores</h5>
+<p>Esta funcionalidad forma parte de nuestro modelo de confidencialidad y permite solicitar la verificación y complementación de los datos presentados en una denuncia.</p>
 
-<p>Para acceder a la lista de investigadores seleccione la opción <i>Investigadores</i>.</p>
+<p>Dado que la persona denunciante puede no conocer todos los antecedentes de la o las personas denunciadas, el reglamento permite que la información sea entregada de manera parcial. 
+Por lo tanto, corresponde al equipo encargado de la aplicación del procedimiento completar y verificar los datos contenidos en la denuncia, especialmente aquellos que puedan tener consecuencias en la aplicación del procedimiento.</p>
+
+<p>Una vez finalizado el ingreso de la denuncia, la plataforma permite enviar una solicitud de verificación de datos de todos los participantes. 
+Dicha solicitud incluye únicamente la información que se desea verificar, sin incorporar detalles sobre el rol que cada participante cumple en la denuncia, el motivo de la misma ni los hechos que la sustentan.</p>
+
+<p>La solicitud se genera automáticamente y se envía a todos los contactos de la empresa clasificados dentro del grupo <i>RRHH</i>.</p>
+
+<p>Con la información recibida, se deben completar los datos de los participantes. 
+La plataforma considera todas estas acciones como parte del proceso de recepción de la denuncia, previo a las etapas de derivación o al informe de inicio de investigación que se remite a la Dirección del Trabajo.</p>
+
+<h5>Coordinación de atención psicológica temprana</h5>
+
+<p>En el contexto de la recepción de una denuncia, el reglamento establece la obligación de proporcionar atención psicológica temprana a todas las personas denunciantes.</p>
+
+<p>Cuando la persona encargada de coordinar la atención psicológica temprana sea distinta de quien recibe la denuncia, la plataforma permite enviar un correo electrónico a la persona responsable solicitando dicha coordinación para la o las personas denunciantes. 
+Este correo se genera automáticamente y se envía a todos los contactos que pertenezcan al grupo <i>Apt</i> dentro de la plataforma.</p>
+
+<h5>Respaldo de correos electrónicos</h5>
+
+<p>La mayoría de los correos electrónicos enviados desde la plataforma a los participantes se generan de forma automática. 
+Por razones de seguridad, la información que se transmite en cada correo se incluye en un archivo PDF adjunto. 
+Este archivo incorpora en su encabezado la fecha y hora de creación y envío, además de identificadores que permiten establecer el destinatario. 
+Una copia de cada documento se almacena en la plataforma, y cada uno cuenta con una firma digital que permite detectar posibles adulteraciones.</p>
+
+<p>Para respaldar los envíos realizados por correo electrónico y evitar la creación de copias innecesarias o la circulación excesiva de información relacionada con la investigación, 
+se recomienda destinar una única cuenta de correo para almacenar copias de todos los mensajes enviados desde la plataforma a los participantes.</p>
+
+<p>Esta cuenta se registra en la lista de contactos de la empresa en el grupo Backup.</p>
+
+<h5>Configuración del perfil de la empresa</h5>
+
+<p>Con excepción del plan de la cuenta, explicado más arriba, los otros tres parámetros se configuran mediante la edición del perfil de la empresa. 
+Esta acción solo puede ser realizada por el administrador de la empresa o por un usuario con perfil de administrador.</p>
+
+<p>Para acceder al perfil de la empresa, haga clic sobre el nombre de la empresa en el encabezado de la cuenta.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_4.png', width: "700" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_03.png', width: "700" %>
 </div>
 
-<p>Como aún no se cumple con la configuración básica, la plataforma despliega el mismo mensaje, pero a diferencia del encabezado de las denuncias, en el encabezado de los investigadores está habilitado el botón <i class="bi bi-plus-circle"></i> que permite crear nuestro primer investigador.</p>
+<p>En la imagen se puede observar que la activación de las características descritas anteriormente se realiza mediante un simple <i>check</i>. 
+Para la versión <i>DEMO</i>, se recomienda no activar la opción de respaldo de correos electrónicos, con el fin de mantener la configuración simple.</p>
 
-<p>Al presionar el botón <i class="bi bi-plus-circle"></i> accedemos al formulario para crea un investigador:</p>
+<p>Además, la plataforma permite subir un logotipo para personalizar la documentación generada automáticamente.</p>
+
+<h4>Información mínima para operar la cuenta</h4>
+
+<p>Una vez definido el perfil de la empresa, la plataforma guiará al usuario para completar la información mínima requerida y así activar la cuenta.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_5.png', width: "700" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_04.png', width: "700" %>
 </div>
 
-<p>Los campos del formulario no requieren mayor explicación, sólo algunas observaciones:
+<p>La plataforma identifica con el ícono <i class="bi bi-cone-striped text-danger"></i> los elementos que requieren información mínima. 
+En el ejemplo, se solicita lo siguiente:</p>
+
 <ol>
-	<li>La plataforma verificará la cédula de identidad del investigador utilizando para ello el dígito verificador.</li>
-	<li>La plataforma reconoce todos los formatos de <i>cédulas de identidad</i>, no es necesario ingresar el guión.</li>
-	<li>El reglamento establece que todos los participantes en el Procedimiento de Investigación y Sanción deben usar su <b>correo personal</b> y el investigador también debe cumplir con esta exigencia.</li>
+	<li>Registrar al menos un investigador.</li>
+	<li>Registrar al menos una empresa externa (en este caso, se trata de un plan extendido para una empresa principal o usuaria).</li>
+	<li>
+		Dado que el perfil tiene habilitadas dos opciones, también se solicita:
+		<ul>
+			<li>Al menos un contacto asociado al grupo <i>RRHH</i>.</li>
+			<li>Al menos un contacto asociado al grupo <i>Apt</i>.</li>
+		</ul>
+	</li>
 </ol>
-</p>
 
-<p>Para efectos del ejemplo, ingresaremos como nombre del investigador: <b>Investigador de la empresa</b> Una vez ingresado el nuevo investigador nuestra página actualizada lucirá así:</p>
+
+
+<h5>Crear un investigador</h5>
+
+<p>Para crear un investigador presione el tab <i>Investigadores</i> y a continuación presione el botón <i class="bi bi-plus-circle"></i> ubicado a la derecha del encabezado <i>Investigadores</i>.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_6.png', width: "700" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_05.png', width: "700" %>
 </div>
 
-<p>Podemos ver que bajo el encabezado se muestra el primer registro de nuestra lista de investigadores.</p>
-<p>En el extremo derecho del registro hay dos botones caracterizados por un ícono: <ol>
-	<li><i class="bi bi-pencil"></i> : este botón le permitirá <b>modificar</b> la información del investigador.</li>
-	<li><i class="bi bi-trash"></i> : este botón le permitirá <b>eliminar</b> investigador.</li>
+<p>Al hacerlo desplegará el formulario para el ingreso de un investigador.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_06.png', width: "700" %>
+</div>
+
+<p>Los campos del formulario son autoexplicativos, por lo que solo entregamos indicaciones acerca de su uso:</p>
+
+<ol>
+	<li>La plataforma verificará la cédula de identidad del investigador utilizando el dígito verificador.</li>
+	<li>La plataforma reconoce todos los formatos de <i>cédula de identidad</i>; no es necesario ingresar el guion.</li>
+	<li>El reglamento establece que todos los participantes del Procedimiento de Investigación y Sanción deben utilizar su <b>correo personal</b>, 
+		exigencia que también aplica al investigador.</li>
 </ol>
-</p>
 
-<p><b>Verificación de la dirección de correo electrónico</b></p>
-
-<p>Bajo el nombre del investigador verá una leyenda que dice: <i class="bi bi-cone-striped text-danger"></i> <i>Verificación de la dirección de correo electrónico</i> que finaliza con dos botones:
-	<ul>
-		<li><i class="bi bi-envelope-at"></i> Enviar : este botón envía un correo electrónico con el link que le permitirá al investigador verificar la dirección registrada.</li>
-		<li><i class="bi bi-check-square"></i> : este botón permite la <i>verificación manual</i> de la dirección registrada.</li>
-	</ul>
-</p>
-
-<p>La funcionalidad de verificación de direcciones de correo electrónico está disponible para todos los participantes de una denuncia.</p>
-
-<p>Podemos ver que el mensaje ya no tiene como pendiente ingresar al menos un investigador y que el ícono de alerta ha desaparecido del tab <i>Investigadores</i>.</p>
-
-<h5 class="mb-3">Empresas externas</h5>
-
-<p><b>NOTA</b>: Sólo las empresas principales o usuaria requieren el ingreso de empresas externas.</p>
-
-<p>Para acceder a la lista de empresas externas seleccione la opción <i>Empresas externas</i></p>
+<p>Para efectos del ejemplo, ingresaremos como nombre del investigador: <b>Nombre del investigador de la empresa</b>. 
+Una vez agregado el nuevo investigador, la página actualizada se verá de la siguiente manera:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_7.png', width: "700" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_07.png', width: "700" %>
 </div>
 
-<p>Para agregar una empresa externa presionamos el botón <i class="bi bi-plus-circle"></i> que se encuentra a la derecha del encabezado.</p>
+<p>Podemos observar que, debajo del encabezado, se muestra el primer registro de la lista de investigadores.</p>
+
+<p>
+El registro está compuesto por tres columnas: 
+la primera, ubicada a la izquierda, muestra el nombre del investigador; 
+la segunda, al centro, indica la fecha y hora en que la plataforma envió el correo electrónico para que el investigador verifique la dirección registrada; 
+y la tercera, a la derecha, incluye el enlace representado por el ícono <i class="bi bi-three-dots-vertical"></i>, 
+que permite desplegar las acciones disponibles sobre el registro.
+</p>
+
+<%= render layout: 'aplicacion/hlp_ayudas/hlp_nota', locals: {ttl: 'Verificación de correos electrónicos de los participantes'} do %>
+	<p>Cada vez que se crea un nuevo investigador, la plataforma envía automáticamente un correo electrónico a la dirección registrada. Dicho correo contiene un enlace que permite verificar la dirección directamente en la plataforma.</p>
+
+	<p>Esta funcionalidad está disponible para el registro de todos los participantes de una denuncia; 
+	sin embargo, el envío del correo es automático solo en el caso de un nuevo investigador. 
+	Para el resto de los participantes, el envío es manual y debe realizarse en un momento posterior.</p>
+
+	<p>El envío de un enlace de verificación no es el único método disponible: 
+	también es posible realizar la validación de forma manual. 
+	Este método, aplicable a todos los registros y envíos de información desde la plataforma, 
+	resulta especialmente útil para auditar el cumplimiento formal del procedimiento en denuncias cuya investigación ya ha sido realizada.</p>
+<% end %>
+
+<p>Al presionar el enlace <i class="bi bi-three-dots-vertical"></i> podrá ver las acciones disponibles para este registro:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_8.png', width: "700" %>
+	<%= image_tag 'hlp/cnfgrcn_bsc_08.png', width: "700" %>
 </div>
 
-<p>El campo <i>Tipo de empresa</i> tiene dos opciones:
+<p>El enlace de verificación puede enviarse más de una vez. 
+Esto resulta útil cuando el participante lo solicita o cuando se ha modificado su dirección de correo electrónico y es necesario enviar el enlace a la nueva dirección. 
+Por esta razón, la primera acción disponible para el registro es <i>Reenviar enlace de verificación</i>.</p>
+
+<p>La segunda acción disponible es <i>Marcar como validado</i>, 
+la cual debe utilizarse como alternativa manual al proceso de verificación mediante correo electrónico.</p>
+
+
+
+<h5>Crear una empresa externa.</h5>
+
+<p><b>NOTA</b>: Sólo las empresas principales o usuaria (plan extendido) requieren el ingreso de empresas externas.</p>
+
+<p>Para crear una empresa externa presione el tab <i>Empresas externas</i> y a continuación presione el botón <i class="bi bi-plus-circle"></i> ubicado a la derecha del encabezado <i>Empresas externas</i>.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_09.png', width: "700" %>
+</div>
+
+<p>Al hacerlo desplegará el formulario para el ingreso de una empresa externa.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_10.png', width: "700" %>
+</div>
+
+<p>El campo <i>Tipo de empresa</i> es de selección y tiene dos opciones:
 	<ol>
 		<li>Contrato</li>
 		<li>EST</li>
 	</ol>
 </p>
 
-<p>Observaciones:
+<p>Indicaciones de uso:
 	<ol>
 		<li>El RUT de la empresa es verificado ultilizando el dígito verificador.</li>
 		<li>Se recomienda que el <i>email de contacto</i> sea corporativo.</li>
@@ -158,81 +254,126 @@ Los datos del administrador de la cuenta, ingresados a través del formulario de
 <p>Una vez ingresa la empresa externa, veremos lo siguiente:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_9.png', width: "700" %>
-</div>
-
-<p>Bajo el encabezado vemos los datos de la empresa ingresada, solo nos resta ingresar los contactos mínimos solicitados.</p>
-
-<h3 class="mb-3">Ingreso de contactos</h3>
-
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/cnfgrcn_bsc_10.png', width: "700" %>
-</div>
-
-<p>A diferencia de los otros ítems, en este nos encontramos con dos encabezados: Nómina y Contactos. En la primera ingresamos los usuarios que tendran acceso a esta cuenta y en la segunda los contactos.</p>
-
-<p>Como usted puede apreciar, basta el usuario administrador para que la cuenta quede operativa.</p>
-
-<p><b>Nomina</b></p>
-
-<p>La nómina contiene <i>perfiles de usuario</i>. Se trata de un registro que contiene los datos del usuario, los que la plataforma usará para saber a qué empresa debe tener accerso un usuario recién registrado.</p>
-
-<div class="mb-2 text-center">
 	<%= image_tag 'hlp/cnfgrcn_bsc_11.png', width: "700" %>
 </div>
 
-<p>Vemos en el formulario que los campos requeridos para ingresar un perfil de usuario son:
-	<ul>
-		<li><i>Tipo de usuario</i>: este campo determina la información y la funcionalidad que estará disponible para este usuario.</li>
-		<li><i>Nombe de usuario</i></li>
-		<li><i>Email del usuario</i>: LABRSAFE utiliza el email como nombre de usuario.</li>
-	</ul>
-</p>
+<p>Podemos observar el registro de la empresa recién creada. 
+En este caso, las únicas acciones disponibles para el registro son <i>Editar</i> y <i>Eliminar</i>.</p>
 
-<p>Los tipos de usuario son:
-	<ul>
-		<li><i>admin</i>: este usuario tiene acceso a toda la información y funcionalidad de la cuenta.</li>
-		<li><i>recpción</i>: este usuario tiene acceso a la información y funcionalidad de la recepción de denuncias.</li>
-		<li><i>investigador</i>: este usuario tiene acceso a toda la información pero no a la funcionalidad asociada a la recepción de denuncias.</li>
-		<li><i>auditoría</i>: este usuario tiene acceso a toda la información pero sólo a la funcionalidad propia de la ejecución de la auditoría. Ningún otro usuario tiene acceso a esta funcionalidad.</li>
-	</ul>
-</p>
 
-<p>El usuario incluido en la nómina sólo debe registrarse en la plataforma como usuario utilizando el email que contiene la nómina y verificar su correo electrónico a través del link que recibirá para dicho efecto.</p>
 
-<p><b>Contactos</b></p>
+<h5 class="mb-3">Crear contactos</h5>
 
-<p>Un contacto no es un usuario, son direcciones de correo que la platafora utilizará para enviar los correos propios del procedimiento de investigación y sanción.</p>
+<p>Para crear un contacto presione el tab <i>Contactos</i> y a continuación presione el botón <i class="bi bi-plus-circle"></i> ubicado a la derecha del encabezado <i>Contactos</i>.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/cnfgrcn_bsc_12.png', width: "700" %>
 </div>
 
-<p>Los campos del formulario de un contacto son:
-	<ul>
-		<li><i>Grupo</i>: este campo determina cuales correos recibirá.</li>
-		<li><i>Nombre completo</i>.</li>
-		<li><i>Email</i></li>
-		<li><i>Telefono</i></li>
-	</ul>
-</p>
-
-<p>Los grupos disponibles son:
-	<ul>
-		<li><i>RRHH</i>: estos contactos son utilizados por la plataforma para dos propósitos: solicitar la verificación de los datos de los participantes y para solicitar documentación de los participantes.</li>
-		<li><i>Apt</i>: estos contactos son utilizados por la plataforma para coordinar la atención psicológica temprana de las personas denunciantes.</li>
-		<li><i>Backup</i>: este correo no es un destinatario propiamente tal, a esta dirección de correo llega una copia de todos los correos electrónicos enviados por la plataforma a los destinatarios de la empresa.</li>
-	</ul>
-</p>
-
-<p>La plataforma nos exige tener al menos uno de cada uno. Una vez hemos completado esta tarea, estamos en condiciones de crear nuestra primera denuncia.</p>
-
-<h3 class="mb-3">Ingreso de denuncias</h3>
-
-<p>Ahora, ya está disponible el botón <i class="bi bi-plus-circle"></i> a la derecha del encabezado para ingresar nuestra primera denuncia.</p>
+<p>Al hacerlo desplegará el formulario para el ingreso de un contacto.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/cnfgrcn_bsc_13.png', width: "700" %>
 </div>
 
-<p>La plataforma permite el ingreso de todos los tipos de denuncia posibles, para ilustrar el ingreso de una denuncia simple, hemos creado un tutorial que le permitirá familiarizarse con el ambiente de trabajo. <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dnnc_smpl', dscrpcn: 'Ejemplo de denuncia simple', tltp: 'Ejemplo de denuncia simple'} %>.</p>
+<p>Un contacto no es un usuario, sino una dirección de correo electrónico que la plataforma utiliza para enviar información y notificaciones propias del procedimiento.</p>
+
+<p>Los campos del formulario de un contacto son los siguientes:</p>
+<ul>
+    <li><i>Grupo</i>: determina qué tipo de correos recibirá el contacto.</li>
+    <li><i>Nombre completo</i></li>
+    <li><i>Email</i></li>
+    <li><i>Teléfono</i></li>
+</ul>
+
+<p>Los grupos disponibles son:</p>
+<ul>
+    <li><i>RRHH</i>: utilizados por la plataforma para solicitar la verificación de los datos de los participantes y para requerir documentación asociada al procedimiento.</li>
+    <li><i>Apt</i>: utilizados para coordinar la atención psicológica temprana de las personas denunciantes.</li>
+    <li><i>Backup</i>: no es un destinatario directo; esta dirección recibe una copia de todos los correos electrónicos enviados por la plataforma a los contactos de la empresa.</li>
+</ul>
+
+<p>Según la configuración del perfil de la empresa, la plataforma puede exigir la creación de al menos un contacto por cada grupo requerido. 
+En este ejemplo, se necesita un contacto del grupo <i>RRHH</i> y otro del grupo <i>Apt</i>.</p>
+
+<p>Una vez ingresados ambos contactos, la apariencia de nuestra página será la siguiente:</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_14.png', width: "700" %>
+</div>
+
+<p>A medida que completamos los requisitos mínimos, los íconos <i class="bi bi-cone-striped text-danger"></i> desaparecen. Con esto, ya estamos en condiciones de ingresar una primera denuncia. Sin embargo, antes de hacerlo, revisaremos la gestión de la nómina de la empresa.</p>
+
+
+
+<h5>Nómina de la empresa</h5>
+
+<p>Para acceder a la nómina de la empresa, presione la pestaña <i>Nómina</i>.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_15.png', width: "700" %>
+</div>
+
+<p>En la imagen se observa que la nómina ya incluye el perfil del administrador, creado automáticamente a partir de la información ingresada en el formulario de registro de la empresa.</p>
+
+<p>La nómina no corresponde a una lista de usuarios activos, sino a una lista de perfiles que permiten a la plataforma reconocer a un futuro usuario como miembro de una empresa existente.</p>
+
+<p>El procedimiento para agregar usuarios a la cuenta de una empresa es el siguiente:</p>
+
+<h6>Registro del perfil en la nómina de la empresa</h6>
+
+<p>Para crear un nuevo perfil en la nómina, presione el botón <i class="bi bi-plus-circle"></i> ubicado a la derecha del encabezado. Al hacerlo, se desplegará el formulario para ingresar el nuevo perfil.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_16.png', width: "700" %>
+</div>
+
+<p>Los campos requeridos para registrar un perfil de usuario son:</p>
+<ul>
+  <li><i>Tipo de usuario</i>: determina la información y las funcionalidades a las que tendrá acceso.</li>
+  <li><i>Nombre de usuario</i>.</li>
+  <li><i>Email del usuario</i>: LABRSAFE utiliza esta dirección como nombre de usuario, junto con una contraseña, para acceder a la plataforma.</li>
+</ul>
+
+<p>Los tipos de usuario disponibles son:</p>
+<ul>
+  <li><i>admin</i>: tiene acceso a toda la información y funcionalidades de la cuenta.</li>
+  <li><i>recepción</i>: tiene acceso a la información y funcionalidades relacionadas con la recepción de denuncias.</li>
+  <li><i>investigador</i>: tiene acceso a toda la información, pero no a las funcionalidades de recepción de denuncias.</li>
+  <li><i>auditoría</i>: tiene acceso a toda la información, pero únicamente a las funcionalidades propias de la ejecución de auditorías. Ningún otro tipo de usuario tiene acceso a esta sección.</li>
+</ul>
+
+<h6>Registro del usuario</h6>
+
+<p>El paso siguiente es registrar al usuario que utilizará el perfil recién creado. Para ello, la persona deberá inscribirse en la plataforma mediante el formulario de registro de usuarios, al cual se accede desde el menú principal de la página de inicio.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_17.png', width: "700" %>
+</div>
+
+<p>Para abrir el formulario de registro, basta con presionar el ítem <i>Registro</i>.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_18.png', width: "300" %>
+</div>
+
+<p>El correo electrónico utilizado en el registro debe coincidir exactamente con el ingresado al crear el perfil. De este modo, la plataforma podrá asociar automáticamente al nuevo usuario con la empresa correspondiente.</p>
+
+<p>El proceso de registro incluye la verificación del correo electrónico. Una vez realizada dicha verificación, el registro quedará completo y el usuario podrá acceder a la cuenta de la empresa utilizando el formulario <i>Iniciar sesión</i>, disponible también en el menú principal.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_19.png', width: "300" %>
+</div>
+
+<h3 class="mb-3">Ingreso de denuncias</h3>
+
+<p>Para crear nuestra primera denuncia, debemos presionar la pestaña <i>Denuncias</i>.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/cnfgrcn_bsc_20.png', width: "700" %>
+</div>
+
+<p>A continuación, presione el botón <i class="bi bi-plus-circle"></i>, ubicado a la derecha del encabezado, para acceder al formulario de ingreso.</p>
+
+
+<p>La plataforma permite ingresar todos los tipos de denuncia disponibles. Para ilustrar el proceso de una denuncia simple, hemos preparado un tutorial que le permitirá familiarizarse con el entorno de trabajo. <%= render partial: prtl_name('hlp_ayudas', 'prtls', 'hlp_lnk'), locals: {hlp: 'dnnc_smpl', dscrpcn: 'Ejemplo de denuncia simple', tltp: 'Ejemplo de denuncia simple'} %>.</p>

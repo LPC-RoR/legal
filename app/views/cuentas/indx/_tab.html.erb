@@ -1,4 +1,4 @@
-<div class="my-2 fs-6">
+<div class="fs-6">
   <ul class="nav nav-tabs">
     <li class="nav-item">
       <a class="nav-link <%= 'active' if action_name == "dnncs" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/dnncs">Denuncias</a>
@@ -23,13 +23,21 @@
     <% end %>
 
     <% if (@licencia_activa and current_usuario.admin?) or current_usuario.dog? %>
-    <li class="nav-item">
-      <a class="nav-link <%= 'active' if action_name == "nmn" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/nmn">
-        <% if @tab_flags[:nmn] or @tab_flags[:cntcts] %>
-          <i class="bi bi-cone-striped text-danger"></i> 
-        <% end %>
-      Nómina</a>
-    </li>
+      <li class="nav-item">
+        <a class="nav-link <%= 'active' if action_name == "cntcts" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/cntcts">
+          <% if @tab_flags[:cntcts] %>
+            <i class="bi bi-cone-striped text-danger"></i> 
+          <% end %>
+        Contactos</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link <%= 'active' if action_name == "nmn" %>" aria-current="page" href="/cuentas/<%=objt.class.name[0].downcase%>_<%=objt.id%>/nmn">
+          <% if @tab_flags[:nmn] %>
+            <i class="bi bi-cone-striped text-danger"></i> 
+          <% end %>
+        Nómina</a>
+      </li>
     <% end %>
 
     <!-- La vista de los usuarios sólo es de DOG por ahora -->

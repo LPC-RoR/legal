@@ -50,9 +50,9 @@ class Empresa < ApplicationRecord
     # Configuración reportes
 
     def cntcts_array
-        [(verificacion_datos? ? 'RRHH' : nil),
-            (coordinacion_apt? ? 'Apt' : nil),
-            'Backup'].compact
+        [(verificacion_datos ? 'RRHH' : nil),
+            (coordinacion_apt ? 'Apt' : nil),
+            (mail_backup ? 'Backup' : nil)].compact
     end
 
     # KrnDenuncia
@@ -91,7 +91,7 @@ class Empresa < ApplicationRecord
         (plan_type == 'extendido' ? krn_empresa_externas.any? : true ) and
         (verificacion_datos ? app_contactos.where(grupo: 'RRHH').any? : true) and 
         (coordinacion_apt ? app_contactos.where(grupo: 'Apt').any? : true ) and
-        app_contactos.where(grupo: 'Backup').any?
+        (mail_backup ? app_contactos.where(grupo: 'Backup').any? : true)
     end
 
     def demo?

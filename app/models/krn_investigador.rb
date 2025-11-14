@@ -1,5 +1,7 @@
 class KrnInvestigador < ApplicationRecord
+	
 	include EmailVerifiable
+    envia_verificacion_despues_crear  # Activa el callback
 
 	ACCTN = 'invstgdrs'
 
