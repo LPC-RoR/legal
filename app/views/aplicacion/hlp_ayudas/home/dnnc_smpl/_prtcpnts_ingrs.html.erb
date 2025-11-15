@@ -1,30 +1,30 @@
-<h4>Ingreso de personas denunciantes, denunciadas y testigos</h4>
+<h4>Ingreso de datos de los participantes</h4>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_3.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_03.png', width: "700" %>
 </div>
 
-<p>A la derecha de los encabezados de personas denunciantes y denunciadas se encuentran dos botones con íconos:</p>
+<p>A la derecha de los encabezados de <i>personas denunciantes y denunciadas</i> se encuentran dos botones con íconos:</p>
 <ul>
-	<li><i class="bi bi-question-circle"></i>: dirige a la ayuda que describe la información y la funcionalidad asociada al despliegue de un registro de denunciante o denunciado.</li>
-	<li><i class="bi bi-plus-circle"></i>: permite agregar una persona denunciante o denunciada.</li>
+	<li><i class="bi bi-question-circle"></i>: ayuda que describe la información y la funcionalidad asociada al despliegue de un registro de denunciante, denunciado o testigo.</li>
+	<li><i class="bi bi-plus-circle"></i>: permite agregar una persona denunciante o denunciada según corresponda.</li>
 </ul>
 
-<p>La plataforma exige registrar al menos a una persona denunciante antes de poder ingresar datos de una persona denunciada. Por esta razón, solo el primer encabezado dispone inicialmente de un botón de ingreso. De manera recíproca, tampoco es posible eliminar a la única persona denunciante registrada si ya existe alguna persona denunciada en la lista.</p>
-
+<p>La plataforma exige registrar al menos a una persona denunciante antes de permitir el ingreso de datos de una persona denunciada. Por este motivo, solo el primer encabezado dispone inicialmente de un botón para agregar registros. Del mismo modo, no es posible eliminar a la única persona denunciante registrada si ya existe alguna persona denunciada en la lista.</p>
 
 
 <h5>Denuncias con múltiples personas denunciantes</h5>
+
 <p>Aunque el reglamento no contempla expresamente que una denuncia pueda ser presentada por más de una persona denunciante, consideramos natural habilitar esta posibilidad por las siguientes razones:</p>
 <ol>
 	<li>El reglamento establece que el sindicato de la empresa puede presentar una denuncia en representación de la persona denunciante. En este contexto, resulta razonable entender que dicha representación pueda extenderse a varias personas denunciantes.</li>
-	<li>Dividir una denuncia conjunta en tantas denuncias como denunciantes existan no solo incrementa la carga administrativa y multiplica las declaraciones de testigos, sino que también complica la definición de medidas correctivas y sanciones. Ello podría generar situaciones en las que una misma persona denunciada reciba más de una sanción por hechos que forman parte de un mismo caso.</li>
+	<li>Dividir una denuncia conjunta en tantas denuncias como denunciantes existan no solo incrementa la carga administrativa y multiplica las declaraciones de testigos, sino que también complica la definición de medidas correctivas y sanciones.</li>
 </ol>
 
 <p>Al presionar el botón <i class="bi bi-plus-circle"></i> para ingresar una persona denunciante, se desplegará el siguiente formulario:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_4.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_04.png', width: "700" %>
 </div>
 
 <p><b>NOTA:</b> El campo <i>Empleado externo</i>, ubicado en la segunda línea del formulario, se despliega únicamente cuando se trata de una empresa principal o usuaria, la cual está obligada a recibir denuncias de trabajadores pertenecientes a empresas con las que mantiene un régimen de subcontratación.</p>
@@ -32,15 +32,28 @@
 <p>La mayoría de los datos solicitados se explican por sí solos, por lo que solo corresponde destacar algunas consideraciones:</p>
 <ol>
 	<li><b>Verificación de cédula de identidad:</b> la plataforma valida automáticamente el número ingresado mediante el dígito verificador.</li>
-	<li><b>Aplicación del artículo 516 del Código del Trabajo:</b> se marca este campo cuando la persona denunciante <b>no tiene ni utiliza correo electrónico y ha solicitado que la información y notificaciones del procedimiento sean enviadas por correo certificado</b>. Al seleccionarlo, se habilitará un campo adicional para ingresar la dirección postal correspondiente.</li>
+	<li><b>Aplicación del artículo 516 del Código del Trabajo:</b> se marca este campo cuando la persona denunciante <b>no tiene ni utiliza correo electrónico y ha solicitado por escrito que la información y notificaciones del procedimiento sean enviadas por correo certificado</b>. Al seleccionarlo, se habilitará un campo adicional para ingresar la dirección postal correspondiente.</li>
 	<li><b>Aplicación del artículo 4, inciso primero, del Código del Trabajo:</b> se marca este campo cuando la persona trabajadora ocupa un <b>cargo de gerencia</b>. En tal situación, la denuncia debe ser obligatoriamente derivada a la Dirección del Trabajo.</li>
 </ol>
 
 <p>El registro de personas denunciadas y testigos se realiza de la misma forma que el de la persona denunciante. Una vez ingresada la información de los participantes disponible al momento de la denuncia, la página se verá aproximadamente como en la siguiente imagen:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_5.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_05.png', width: "700" %>
 </div>
+
+<p>Se puede apreciar que en el ejemplo se marco la opción <i>Aplica el artículo 516 del Código del Trabajo</i> para la persona denunciante, este hecho tiene tres consecuencias en el curso del procedimiento:</p>
+
+<ol>
+	<li>Deja de ser obligatorio el ingreso del correo electrónico para la persona denunciante.</li>
+	<li>La plataforma no enviará la información y notificaciones por correo electrónico sino por correo certificado. Este cambio se refleja en dos elementos del despliegue de datos:
+		<ul>
+			<li>Bajo el nombre de la persona denunciante aparece la leyenda <i>Notificaciones se envían por correo certificado</i>.</li>
+			<li>La funcionalidad asociada a la documentación y notificaciones cambia. (se explica en detalle más adelante)</li>
+		</ul>
+	</li>
+	<li>Los documentos controlados de la persona denunciantes nos solicitan ahora que el documento <i>Solicitud de aplicación artículo 516</i> sea subido a la plataforma.</li>
+</ol>
 
 <p>La barra de navegación indica que la siguiente tarea también se realiza en la vista <i>Participantes</i>, y la instrucción para llevarla a cabo consta ahora de dos pasos:</p>
 
@@ -66,53 +79,54 @@
 <p>Bajo el registro que contiene los datos de cada participante se encuentra un apartado destinado a gestionar la verificación de su dirección de correo electrónico.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_6.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_06.png', width: "700" %>
 </div>
 
 <p>El ícono <i class="bi bi-cone-striped text-danger"></i> indica que la <i>verificación de la dirección de correo electrónico</i> aún no se ha realizado. Al final del registro de verificación se presentan dos botones:</p>
 <ul>
-	<li><i class="bi bi-check-square"></i>: permite <i>marcar manualmente</i> la dirección como verificada.</li>
+	<li><i class="bi bi-check-square"></i>: permite <i>marcar manualmente</i> la dirección como validada.</li>
 	<li><i class="bi bi-envelope-at"></i> Enviar: <i>remite un correo electrónico</i> a la dirección registrada con un enlace para completar la verificación.</li>
 </ul>
 
 <p>El envío del correo de verificación no deshabilita el botón, lo que permite reenviar el mensaje tantas veces como sea necesario. Una vez que la dirección de correo electrónico sea verificada a través del enlace, el registro lo reflejará automáticamente de la siguiente manera:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_7.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_07.png', width: "700" %>
 </div>
 
+<p><b>NOTA:</b> Marcar manualmente que el correo electrónico fue validado es útil en distintos contextos. Cuando se ingresa una denuncia en curso, no resulta adecuado que los participantes reciban, fuera de plazo, correos electrónicos que no corresponden a la etapa actual del procedimiento. Sin embargo, su principal utilidad es en la <i>auditoría de procedimientos</i>: esta función permite registrar cada detalle de un procedimiento ya realizado y generar un informe completo sobre su cumplimiento formal. Para más información, consulte el tutorial de auditoría de procedimientos.</p>
 
 
 <h4>Entrega de información obligatoria a la persona denunciante</h4>
 
-<p>Una vez verificada la dirección de correo electrónico de la persona denunciante, se habilita bajo su registro una sección titulada <i>Envío de información y notificaciones</i>. La primera opción, señalada con una flecha, corresponde a la que debemos realizar: <i>Información obligatoria para la persona participante</i>.</p>
+<p>Una vez verificadas las direcciones de correo electrónico de la persona denunciante y de su testigo, se habilita en sus áreas respectivas una sección denominada <i>Envío de información y notificaciones</i>. El primer elemento de esta sección —señalado con una flecha para indicar que es la acción que se debe ejecutar— corresponde a: <i>Información obligatoria para la persona participante</i>.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_8.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_08.png', width: "700" %>
 </div>
 
-<p>Como se observa en la imagen, todos los elementos de la sección disponen a su derecha de los mismos botones de gestión:</p>
+<p>Como se observa, todos los elementos de la sección presentan, a su derecha, los mismos botones de gestión:</p>
 <ul>
 	<li><i class="bi bi-check-square"></i>: permite <i>marcar manualmente</i> la acción como realizada.</li>
-	<li><i class="bi bi-envelope-at"></i>: permite <i>ejecutar la acción a través de la plataforma.</i></li>
+	<li><i class="bi bi-envelope-at"></i>: permite <i>ejecutar la acción directamente desde la plataforma</i>.</li>
 </ul>
 
-<p>En todos los casos, <i>marcar manualmente como realizada</i> significa que la información fue entregada por otra vía y que damos fe de ello. En cambio, realizar la acción desde la plataforma implica no solo que la información se envió por correo electrónico, sino también que se generaron respaldos asociados.</p>
+<p>En todos los casos, <i>marcar manualmente como realizada</i> indica que la información fue entregada por otra vía y que dejamos constancia de ello. En cambio, ejecutar la acción desde la plataforma implica que la información se envía por correo electrónico y que se genera automáticamente un archivo PDF de respaldo.</p>
 
-<p>Al enviar información o notificaciones mediante la plataforma, se ejecutan automáticamente las siguientes acciones:</p>
+<p>Al enviar información o notificaciones mediante la plataforma, se realizan automáticamente las siguientes acciones:</p>
 <ol>
-	<li>Se genera un documento PDF con la información que se desea entregar, siempre con fecha y hora de creación.</li>
-	<li>Una copia del PDF queda asociada al registro del participante destinatario.</li>
-	<li>Otra copia se adjunta al correo electrónico enviado al participante destinatario.</li>
-	<li>Todos los correos electrónicos enviados desde la plataforma se respaldan en una dirección designada por la empresa propietaria de la cuenta.</li>
+	<li>Se genera un documento PDF con la información entregada, con fecha y hora de creación y un código asociado al destinatario.</li>
+	<li>Una copia del PDF queda vinculada al registro del participante.</li>
+	<li>Otra copia se adjunta al correo electrónico enviado al participante.</li>
+	<li>Si la empresa activó esta opción en su perfil, se envía además una copia a la dirección designada como respaldo.</li>
 </ol>
 
-<p>El que toda la información y notificaciones se generen en formato PDF permite a la plataforma crear, en cualquier momento, un archivo <i>combinado</i> que reúna todos los documentos asociados a la denuncia. Este recurso resulta especialmente útil para derivar denuncias, responder a fiscalizaciones o archivarlas correctamente.</p>
+<p>Toda la información y notificaciones enviadas desde la plataforma se generan en formato PDF, lo que permite crear en cualquier momento un archivo <i>combinado</i> que consolida todos los documentos asociados a la denuncia. Este recurso es especialmente útil para derivaciones, fiscalizaciones o archivado del procedimiento.</p>
 
-<p>Al ejecutar la acción a través de la plataforma cambian las acciones disponibles para el elemento:</p>
+<p>Al ejecutar la acción desde la plataforma, las opciones disponibles para ese elemento cambian automáticamente:</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_9.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_09.png', width: "700" %>
 </div>
 
 <p>Los botones originales han sido reemplazados por los siguientes:</p>
@@ -121,37 +135,39 @@
 	<li><i class="bi bi-trash"></i>: permite <i>eliminar el PDF enviado</i>. Esta acción permite volverlo a enviar si es necesario.</li>
 </ul>
 
-<p>Antes de reenviar el PDF es necesario eliminar la versión previamente enviada, de modo de asegurar que en el archivo combinado no existan duplicados. En caso de requerir una copia del primer PDF enviado, esta puede obtenerse desde la copia respaldada en la dirección de correo designada para tal efecto.</p>
+<p>Antes de reenviar el PDF, es necesario eliminar la versión enviada previamente, con el fin de asegurar que el archivo combinado no incluya documentos duplicados. Si se requiere conservar una copia del primer PDF, esta puede obtenerse desde el respaldo enviado a la dirección de correo designada para tal efecto.</p>
 
-<p>Asimismo, en la imagen anterior puede observarse que la parte superior que para realizar la próxima tarea debemos movernos a la vista <i>Proceso</i> y que la tarea que debemos realizar ahora es: <i>La persona denunciante debe manifestar su preferencia respecto a que entidad realizará la investigación.</i>.</p>
+<p>Asimismo, en la imagen anterior se observa, en la parte superior, que para realizar la siguiente tarea es necesario cambiar a la vista <i>Proceso</i>.</p>
 
-<h4>Registro de la preferencia de la persona denunciante respecto a la entidad que investigará la denuncia.</h4>
+<h4>Preguntar opción de derivación a la persona denunciante</h4>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_10.png', width: "700" %>
 </div>
 
-<p>Para realizar esta tarea sólo debemos presionar el enlace <i class="bi bi-cursor text-primary"></i> <span class="text-primary">La persona denunciante manifiesta su deseo de que la investigación sea realizada por la empresa</span>.</p>
+<p>Esta es la primera tarea que debemos realizar en la pestaña <i>Proceso</i>. En la imagen podemos ver lo siguiente:</p>
+
+<ul>
+	<li>Estamos en la etapa descrita como <i>Tramites propios de la recepción de denuncia</i>, cuyo plazo de ejecución vence el 19-11-2025.</li>
+	<li>La tarea que debemos realizar es <i>Preguntar opción de derivación a la persona denunciante</i>.</li>
+	<li>Luego nos presenta la descripción de la tarea y las dos opciones que podemos tomar.</li>
+</ul>
+
+<p>Para realizar esta tarea sólo debemos presionar el enlace <i class="bi bi-cursor text-primary"></i> <span class="text-primary">La persona denunciante expresa su voluntad de que la investigación sea llevada a cabo por la empresa</span>.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_11.png', width: "700" %>
 </div>
 
-<p>Ahora la plataforma nos indica que nuestra próxima tarea se realiza en la vista <i>Participantes</i>.</p>
+<p>Ahora la plataforma nos indica que nuestra próxima tarea es <i>Coordinar la entrega de atención psicológica temprana para las personas denunciantes</i> y debe ser realizada en la pestaña <i>Participantes</i>.</p>
+
+<h4>Coordinar la entrega de atención psicológica temprana para las personas denunciantes</h4>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_12.png', width: "700" %>
 </div>
 
-
-
-<h4>Coordinar la entrega de atención psicológica temprana para las personas denunciantes</h4>
-
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_13.png', width: "700" %>
-</div>
-
-<p>El reglamento establece la obligación de <i>brindar atención psicológica temprana de manera inmediata</i> una vez recibida la denuncia. Esta tarea puede ser realizada directamente por la persona que recibe la denuncia o, en su defecto, solicitarse a un encargado designado. La plataforma contempla ambas alternativas.</p>
+<p>El reglamento establece la obligación de <i>brindar atención psicológica temprana de manera inmediata a las personas denunciantes</i> una vez recibida la denuncia. Esta tarea puede ser realizada directamente por la persona que recibe la denuncia o, en su defecto, solicitarse a un encargado designado. La plataforma contempla ambas alternativas.</p>
 
 <p>Debajo del mensaje, la vista presenta dos acciones posibles:</p>
 <ul>
@@ -159,33 +175,35 @@
 	<li><i class="bi bi-cone-striped text-danger"></i> Verificación de datos de los participantes</li>
 </ul>
 
-<p>Ambas acciones se encuentran por encima de la estructura de participantes, ya que pueden involucrar a más de una persona y no tendría sentido enviar un correo individual para cada una de ellas.</p>
+<p>Ambas acciones se encuentran por encima de la estructura de participantes, ya que pueden involucrar a más de un participante y el destinatiario forma parte del equipo de recepción de denuncias.</p>
 
 <p>Los botones para gestionarlas son los mismos que se utilizan en los envíos de información o notificaciones. En este ejemplo, asumiremos que la coordinación es realizada directamente por la persona que recibe la denuncia; en consecuencia, no corresponde enviar el correo electrónico de solicitud. Por ello, marcaremos la tarea manualmente como realizada.</p>
 
 <p>La segunda acción, <i class="bi bi-cone-striped text-danger"></i> <i>Verificación de datos de los participantes</i>, se utiliza para solicitar al área de Recursos Humanos la validación de la información de los participantes registrados en la denuncia. La plataforma envía un correo que contiene únicamente los datos a verificar. Si la organización cuenta con un encargado para esta labor, se recomienda enviar el correo en este momento, a fin de disponer de los datos verificados antes del cierre de la recepción. En este ejemplo enviaremos el correo asociado a la segunda opción.</p>
 
-
-
-<h4>Comprobante de denuncia firmado</h4>
-
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_14.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_13.png', width: "700" %>
 </div>
 
-<p>Observamos que esta tarea ha incorporado un elemento en la sección <i>Envío de información y notificaciones</i> y otro en la sección <i>Documentos controlados</i>. El primero se encarga de generar y enviar el comprobante, mientras que el segundo permite subir el comprobante firmado por la persona denunciante.</p>
+<p>En la imagen podemos ver que, en el segundo caso, la plataforma permite enviar el correo sin borrar el anterior. Esto es porque las personas denunciantes pueden agregar testigos hasta el día de su declaración, por lo que podría ser necesario verificar datos en más de una vez.</p>
+
+<p>la siguiente tarea es <i>Entregar comprobante de rececpión de denuncia y subirlos firmados.</i>.</p>
+
+<h4>Comprobante de recepción de denuncia firmado</h4>
+
+<p>Esta tarea incorpora un elemento en la sección <i>Envío de información y notificaciones</i> y otro en la sección <i>Documentos controlados</i>. El primero se encarga de generar y enviar el comprobante, mientras que el segundo permite subir el comprobante firmado por la persona denunciante.</p>
 
 <p>Lo anterior permite destacar la diferencia entre ambas secciones. Como hemos visto, la sección <i>Envío de información y notificaciones</i> agrupa documentos generados automáticamente por la plataforma y enviados al destinatario correspondiente. En cambio, la sección <i>Documentos controlados</i> reúne documentos que no son producidos por la plataforma, ya sea porque provienen de instituciones externas —por ejemplo, el alta de la atención psicológica temprana emitida por la entidad administradora del seguro— o porque requieren la firma de un participante para tener validez, como ocurre con el comprobante firmado.</p>
 
 <p>En primer lugar, se debe enviar el comprobante, del mismo modo que con los demás elementos de la sección <i>Envío de información y notificaciones</i>.</p>
 
-<p>A continuación, se debe cargar el comprobante firmado. Para ello, utilice el botón <i class="bi bi-download"></i> ubicado a la derecha del elemento correspondiente en la sección <i>Documentos controlados</i>.</p>
+<p>A continuación, se debe cargar el comprobante firmado. Para ello, utilice el botón <i class="bi bi-upload"></i> ubicado a la derecha del elemento correspondiente en la sección <i>Documentos controlados</i>.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_15.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_14.png', width: "700" %>
 </div>
 
-<p>Como podemos ver, el formulario para subir un archivo único asigna automáticamente un nombre por defecto. Solo permite dos acciones: seleccionar el archivo a subir o marcarlo directamente como subido. Para este ejemplo, realizaremos la primera opción.</p>
+<p>Como podemos ver, el formulario para subir un archivo único asigna automáticamente un nombre por defecto. Solo permite dos acciones: seleccionar el archivo a subir o marcarlo directamente como revisado. Para este ejemplo, realizaremos la primera opción.</p>
 
 <p>Una vez completada la acción, la plataforma actualiza el estado del elemento modificando los botones disponibles.</p>
 <ul>
@@ -194,68 +212,81 @@
 </ul>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_16.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_15.png', width: "700" %>
 </div>
 
 
 
 <h4>Notificación de recepción de denuncia ley 21.643</h4>
 
+<p>Llegó el momento de notificar la recepción de la denuncia a todos los participantes.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_16.png', width: "700" %>
+</div>
+
+<p>La plataforma nos recuerda que, antes de ejecutar esta acción, debemos verificar los correos electrónicos de todas las personas participantes.</p>
+
+
+<p>La notificación de recepción de la denuncia debe enviarse a todas las personas involucradas. Como se trata de un documento que puede generarse automáticamente, la plataforma incorpora una acción específica en la sección <i>Envío de información y notificaciones</i> de cada participante. Por simplicidad, basta con ejecutar una de estas acciones para que se envíen todas.</p>
+
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_17.png', width: "700" %>
 </div>
 
-<p>La notificación de recepción de la denuncia debe enviarse a todos los participantes. Dado que se trata de un documento que puede generarse automáticamente, la plataforma incorpora una acción específica para ello en la sección <i>Envío de información y notificaciones</i>.</p>
+<p>Todas las personas participantes disponen de la acción <i>Notificación de recepción de denuncia ley 21.643</i>. En este ejemplo, ejecutaremos la correspondiente a la persona denunciante.</p>
 
-<p>Para este ejemplo, utilizaremos la plataforma para enviar dicha notificación. Sin embargo, antes debemos resolver un problema: las direcciones de correo electrónico de los demás participantes aún no han sido verificadas. Para continuar, realizaremos la verificación de manera manual.</p>
+<p>Sin embargo, nuestro caso tiene una particularidad: toda la información y notificaciones destinadas a la persona denunciante deben enviarse por correo certificado. Por ello, la acción disponible para este participante muestra un ícono distinto:</p>
 
-<p>Todos los participantes tiene la acción <i>Notificación de recepción de denuncia ley 21.643</i>. Afortunadamente, basta con que le enviemos la notificación a un participante para que la plataforma se las envíe a los restantes.</p>
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_18.png', width: "700" %>
+</div>
+
+<p>El botón con el ícono <i class="bi bi-archive"></i> genera la notificación y registra una copia en el sistema, tal como en los casos anteriores, pero no la envía por correo electrónico. La persona encargada deberá imprimirla y remitirla mediante correo certificado.</p>
 
 
 
 <h4>Envío de las medidas de resguardo</h4>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_18.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_19.png', width: "700" %>
 </div>
 
 <p>Como se puede ver en las instrucciones de la tarea, la primera parte se hace en la vista <i>Proceso</i> y la segunda parte en la vista <i>Participantes</i>.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_19.png', width: "700" %>
-</div>
-
-<p>Podemos ver en la sección <i>Documentos controlados de la denuncia</i>, que la plataforma nos pide subir la denuncia, la cual es un documento único, y las medidas de resguardo, que están definidas como una lista de documentos. Efectivamente, puede haber más de un documento de medidas de resguardo. Subiremos el archivo tal como lo solicita la plataforma.</p>
-
-<div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_20.png', width: "700" %>
 </div>
 
-<p>Esta vez el formulario es distinto, como se trata de una lista de documentos, necesitamos darle un nombre que lo individualice y por razones de control, registrar además, la fecha del documento.</p> 
+<p>En la sección <i>Documentos controlados de la denuncia</i> podemos observar que la plataforma solicita subir la denuncia —un documento único— y las medidas de resguardo, definidas como una lista de documentos. Esto se debe a que puede existir más de un archivo asociado a las medidas de resguardo. Subiremos el archivo conforme a lo solicitado por la plataforma.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_21.png', width: "700" %>
 </div>
 
-<p>Ahora que contamos con el archivo, se lo podemos enviar a los participantes, para ello volvemos a la vista <i>Participantes</i>.</p>
+<p>En este caso, el formulario es distinto: al tratarse de una lista de documentos, debemos asignar un nombre que permita identificarlo y, por razones de control, registrar además la fecha del documento.</p>
+
+<p>Una vez cargado el archivo, podemos enviarlo a las personas participantes. Para ello, regresamos a la vista <i>Participantes</i>.</p>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_22.png', width: "700" %>
 </div>
 
-<p>Podemos ver que se agregó la acción <i>Notificación de las medidas de resguardo</i> y que se trata de una lista para que se pueda repetir la acción para cada documento que se suba. Como se puede ver, los botones para gestionar una lista son los mismo.</p>
+<p>Podemos ver que se ha incorporado la acción <i>Notificación de las medidas de resguardo</i>, presentada como una lista que permite repetir la acción para cada documento subido. Los botones para gestionar esta lista mantienen el mismo funcionamiento que en casos anteriores.</p>
 
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_23.png', width: "700" %>
-</div>
+<p>En esta ocasión, también es necesario generar el documento para enviarlo por correo a la persona denunciada.</p>
 
-<p>La plataforma registra este primer envío de medidas de resguado en una lista que se despliega bajo el elemento, donde se puede ver la fecha y hora del envió.</p>
+<p>La plataforma registra este primer envío de medidas de resguardo en una lista que se muestra bajo el elemento correspondiente, donde se puede consultar la fecha y hora del envío.</p>
 
 
 
 <h4>Subir evidencia de la atención psicológica temprarna</h4>
 
 <p>Se trata de de una lista de documentos que se encuentra unicamente en la lista de documentos controlados de las personas denunciantes.</p>
+
+<div class="mb-2 text-center">
+	<%= image_tag 'hlp/dnnc_smpl_23.png', width: "700" %>
+</div>
 
 <div class="mb-2 text-center">
 	<%= image_tag 'hlp/dnnc_smpl_24.png', width: "700" %>
@@ -267,25 +298,16 @@
 	<%= image_tag 'hlp/dnnc_smpl_25.png', width: "700" %>
 </div>
 
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_26.png', width: "700" %>
-</div>
-
-
 
 <h4>La empresa determina su opción de derivación</h4>
 
 <p>Tal como se indica en la barra de navegación, para realizar esta tarea debemos ingresar a la vista <i>Proceso</i>.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_27.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_26.png', width: "700" %>
 </div>
 
 <p>En esta etapa, la empresa debe decidir si llevará a cabo la investigación de manera interna o si derivará la denuncia a la Dirección del Trabajo.</p>
-
-<div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_27.png', width: "700" %>
-</div>
 
 <p>La acción es muy sencilla: basta con presionar el enlace <i class="bi bi-cursor"></i> <i>La empresa decide realizar la investigación</i>.</p>
 
@@ -294,7 +316,7 @@
 <h4>Registrar el cierre de la recepción</h4>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_28.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_27.png', width: "700" %>
 </div>
 
 <p>Esta tarea consiste en registrar la fecha en que se informó el inicio de la investigación. Una advertencia bajo el formulario señala que la fecha ingresada será utilizada para evaluar el cumplimiento del plazo de la etapa.</p>
@@ -304,7 +326,7 @@
 <p>Ingresaremos la fecha que cumple en forma exacta el plazo establecido.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_29.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_28.png', width: "700" %>
 </div>
 
 <p>Podemos apreciar que en una nueva sección llamada <i>Etapas concluidas</i> aparece la etapa <i>Recepción de la denuncia</i> con el detalle del cumplimiento de su plazo.</p>

@@ -3,20 +3,22 @@
 <p>Al presionar el botón <i class="bi bi-plus-circle"></i> a la derecha del encabezado <b>Denuncias</b>, accederá al formulario de ingreso de denuncia.</p>
 
 <div class="mb-2 text-center">
-	<%= image_tag 'hlp/dnnc_smpl_2.png', width: "700" %>
+	<%= image_tag 'hlp/dnnc_smpl_02.png', width: "700" %>
 </div>
 
 <p>Para simplificar el ingreso de fecha, el campo fecha aparecerá siempre inicializado con la fecha actual.</p>
 
 <p>A la derecha del encabezado del formulario encontrará el botón <i class="bi bi-arrow-left"></i>, que permite volver a la lista de denuncias sin crear una nueva, en caso de que desee abortar el ingreso.</p>
 
-<p>El formulario mostrado en la imagen contiene tres tipos de campos: dos de <i>ingreso</i>, cuatro de <i>selección</i> y uno <i>opcional</i>.</p>
+<p>El formulario mostrado en la imagen contiene tres tipos de campos: dos de <i>ingreso</i>, cuatro de <i>selección</i> y uno <i>condicional</i>.</p>
 
 <p>Los dos campos superiores corresponden a <i>ingreso de información</i>:</p>
 <ul>
 	<li><b>Fecha y hora</b> en que fue presentada o enviada la denuncia.</li>
-	<li><b>Identificador de la denuncia</b>, propio de cada empresa. Por ejemplo, una empresa puede utilizar los apellidos de las personas involucradas (<b>"Pérez - Rivera"</b>), mientras que otra puede emplear un código estructurado (<b>"L-2-2025"</b>, que corresponde a la denuncia por acoso laboral Nº 2 del año 2025). <b>El ingreso de un identificador es obligatorio.</b></li>
+	<li><b>Identificador de la denuncia</b>, propio de cada empresa. Por ejemplo, se puede emplear un código estructurado (<b>"L-2-2025"</b>, que corresponde a la denuncia por acoso laboral Nº 2 del año 2025). <b>El ingreso de un identificador es obligatorio.</b></li>
 </ul>
+
+<p><b>NOTA:</b> No se recomienda incluir los apellidos de las personas participantes o datos de los participantes en el descriptor, con el fin de resguardar un alto estándar de confidencialidad.</p>
 
 <p>Los campos de <i>selección</i> son los siguientes:</p>
 <ul>
@@ -49,8 +51,8 @@
 	</li>
 </ul>
 
-<p>Por último, el campo <b>Formato de la denuncia</b> es opcional y aparece únicamente si se selecciona <b>Presencial</b> en el campo <i>Canal de denuncia</i>, ya que una denuncia presencial puede ser presentada por <i>escrito</i> o de forma <i>verbal</i>.</p>
+<p>Por último, el campo <b>Formato de la denuncia</b> es condicional: aparece únicamente si se selecciona <b>Presencial</b> en el campo <i>Canal de denuncia</i>, ya que una denuncia presencial puede ser presentada por <i>escrito</i> o de forma <i>verbal</i>.</p>
 
 <p>Para obtener más detalles sobre los campos, sus opciones y otros campos opcionales, puede presionar el enlace <b>¿Necesita ayuda para llenar este formulario?</b>, ubicado en la parte inferior derecha del formulario.</p>
 
-<p>Una vez completado el formulario y presionado el botón <b>Crear denuncia</b>, la plataforma generará la denuncia y mostrará la página donde se debe ingresar la información de las personas denunciantes y denunciadas y, en su caso, la de los testigos presentados por la persona denunciante.</p>
+<p>Una vez completado el formulario y presionado el botón <b>Crear denuncia</b>, la plataforma generará la denuncia y mostrará la página donde se debe ingresar la información de las personas denunciantes y denunciadas y, si es el caso, la de los testigos presentados por la persona denunciante.</p>

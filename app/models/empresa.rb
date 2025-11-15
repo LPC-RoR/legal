@@ -95,7 +95,7 @@ class Empresa < ApplicationRecord
     end
 
     def demo?
-        licencia_actual? and licencia_actual.plan == 'demo'
+        licencia_actual.present? and licencia_actual.plan == 'demo'
     end
 
     def nomina?
