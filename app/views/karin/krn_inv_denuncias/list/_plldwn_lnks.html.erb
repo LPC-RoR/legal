@@ -1,0 +1,13 @@
+<% unless (@coleccion['krn_inv_denuncias'].count == 2 and objeto == @coleccion['krn_inv_denuncias'].first) or objeto.objetado or @objeto.fecha_trmn? %>
+  <% if current_usuario.operacion? %>
+
+    <!--li><hr class="dropdown-divider"></li-->
+    <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
+    <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+
+    <li><hr class="dropdown-divider"></li>
+
+    <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+
+  <% end %>
+<% end %>

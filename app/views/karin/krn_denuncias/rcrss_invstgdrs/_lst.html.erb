@@ -1,0 +1,5 @@
+<% if ownr.krn_inv_denuncias.none? %>
+	<span class="text-danger"><i class="bi bi-cone-striped"></i> Denuncia sin investigador asignado</span>
+<% else %>
+	<%= render partial: '0p/tbl_clss', locals: {source: 'krn_inv_denuncias', clccn: @objeto.krn_inv_denuncias, typ: 'ln'} %>
+<% end %>
