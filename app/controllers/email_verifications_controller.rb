@@ -91,7 +91,7 @@ class EmailVerificationsController < ApplicationController
     if [KrnDenunciante, KrnDenunciado, KrnTestigo].include?(model_class)
       redirect_to "/krn_denuncias/#{record.dnnc.id}_1"
     elsif model_class == KrnInvestigador
-      redirect_to "/cuentas/#{record.ownr.class.name[0].downcase}_#{record.ownr.id}"
+      redirect_to "/cuentas/#{record.ownr.class.name[0].downcase}_#{record.ownr.id}/invstgdrs"
     else
       redirect_to root_path
     end
