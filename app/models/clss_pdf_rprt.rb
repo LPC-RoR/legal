@@ -12,6 +12,9 @@ class ClssPdfRprt
 	  def self.sbjcts
 	    {
 	    	dnncnt_info_oblgtr:	'Entrega de información obligatoria',
+	    	comprobante:		'Comprobante de recepción de denuncia',
+	    	drchs:				'Derechos y obligaciones de los participantes',
+	    	medidas_resguardo:  'Medidas de resguardo',
 	    	infrmcn:    		'Verificación de datos de los participantes.',
 	    	crdncn_apt: 		'Coordinación de atención psicológica temprana.',
 	    	drvcn:      		'Notificación de derivación de la denuncia.',
