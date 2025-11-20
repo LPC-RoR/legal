@@ -44,7 +44,7 @@ class Empresa < ApplicationRecord
     end
 
     def logo_url
-        self.rcrs_logo.blank? ? 'logo/logo_60.png' : self.rcrs_logo.logo.resized.url
+        self.rcrs_logo.blank? ? 'logo/logo_60.png' : self.logo.url
     end
 
     # Configuración reportes
