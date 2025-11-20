@@ -210,12 +210,12 @@ class EmpresasController < ApplicationController
 
   private
 
-  def authorize_tenant_user
-    # Asegura que el usuario solo acceda a su propia empresa
-    if current_usuario&.tenant_id.present? && @objeto.tenant.id != current_usuario.tenant_id
-      redirect_to root_path, alert: 'No tienes permiso para realizar esta acción.'
+    def authorize_tenant_user
+      # Asegura que el usuario solo acceda a su propia empresa
+      if current_usuario&.tenant_id.present? && @objeto.tenant.id != current_usuario.tenant_id && (not current_usuario.dog?)
+        redirect_to root_path, alert: 'No tienes permiso para realizar esta acción.'
+      end
     end
-  end
 
     # devuelve el scope que el usuario puede ver
     def empresas_visibles
