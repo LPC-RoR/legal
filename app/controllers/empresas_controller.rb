@@ -4,7 +4,7 @@ class EmpresasController < ApplicationController
 
   before_action :authenticate_usuario!, except: [:create, :verify]
   before_action :scrty_on
-  before_action :set_empresa, only: %i[ show edit update destroy swtch swtch_plan_type prg renovar_demo ]
+  before_action :set_empresa, only: %i[ show edit update destroy swtch swtch_plan_type prg renovar_demo activar_compra renovar ]
   before_action :authorize_tenant_user, only: [:edit, :update, :swtch_plan_type]
 
   # anti-bot para create

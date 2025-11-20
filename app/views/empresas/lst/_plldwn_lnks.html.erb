@@ -1,6 +1,6 @@
 <% if objt.licencia_actual&.puede_renovar_demo? %>
 <li>
-  <%= render layout: '0p/tltp_lnk', locals: {lnk: '/empresas/renovar_demo', tltp: 'Renovar demo', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+  <%= render layout: '0p/tltp_lnk', locals: {lnk: "/empresas/#{objt.id}/renovar_demo", tltp: 'Renovar demo', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
     Renovar demo
   <% end %>
 </li>
@@ -8,14 +8,14 @@
 
 <% if objt.licencia_actual&.plan == 'demo' %>
 <li>
-  <%= render layout: '0p/tltp_lnk', locals: {lnk: '/empresas/activar_compra', tltp: 'Activar compra', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+  <%= render layout: '0p/tltp_lnk', locals: {lnk: "/empresas/#{objt.id}/activar_compra", tltp: 'Activar compra', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
     Activar compra
   <% end %>
 </li>
 <% end %>
 <% if objt.licencia_actual&.plan == 'anual' %>
 <li>
-  <%= render layout: '0p/tltp_lnk', locals: {lnk: '/empresas/renovar', tltp: 'Renovar licencia', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+  <%= render layout: '0p/tltp_lnk', locals: {lnk: "/empresas/#{objt.id}/renovar", tltp: 'Renovar licencia', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
     Renovar licencia
   <% end %>
 </li>
