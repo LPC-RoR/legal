@@ -47,10 +47,6 @@
   <% end %>
 
   <li>
-    <%= render partial: '0p/swtch_lnk', locals: {objeto: objt, tkn: 'archvd', stts: ['Marcar como no archivada', 'Marcar coma archivada'], orgn: @orgn, clss: 'dropdown-item'} %>
-  </li>
-
-  <li>
     <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params(Nota, {ownr: objt, orgn: @orgn}, :new), tltp: 'Nueva nota', clss: 'dropdown-item'} do %>
       Agregar nota
     <% end %>

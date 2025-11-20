@@ -20,7 +20,7 @@ class CausasController < ApplicationController
     @age_usuarios = AgeUsuario.no_ownr
     @usrs = Usuario.where(tenant_id: nil)
 
-    scp = params[:scp].blank? ? 'rvsn' : params[:scp]
+    scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
 
     @scp = scp_item[:causas][scp.to_sym]
 
@@ -29,8 +29,8 @@ class CausasController < ApplicationController
               Causa.search_for(params[:query])
             else
               case scp
-              when 'rvsn'      then Causa.trmtcn
-              when 'ingrs'     then Causa.std('ingreso')
+#              when 'rvsn'      then Causa.trmtcn
+#              when 'ingrs'     then Causa.std('ingreso')
 #              when 'trmtcn'    then Causa.trmtcn
 #              when 'archvd'    then Causa.std('archivada')
               when 'trmtcn'    then Causa.std_oprtv('tramitacion')
