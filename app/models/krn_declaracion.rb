@@ -4,6 +4,7 @@ class KrnDeclaracion < ApplicationRecord
  	belongs_to :ownr, polymorphic: true
 
 	has_many :pdf_registros, as: :ref
+	has_many :check_realizados, as: :ownr, dependent: :destroy
 
 	before_validation :truncate_seconds
 
@@ -15,6 +16,10 @@ class KrnDeclaracion < ApplicationRecord
  		self.ownr.dnnc
  	end
 
+	def tiene_check_realizado?
+		check_realizados.exists?(cdg: 'dclrcn',rlzd: true)
+	end
+
  	def destinatario
  		[{ objt: ownr, email: ownr.email, nombre: ownr.nombre }]
  	end
@@ -22,10 +27,6 @@ class KrnDeclaracion < ApplicationRecord
 	def dflt_bck_rdrccn
 		"/krn_denuncias/#{self.dnnc.id}_1"
 	end
-
- 	def fl_dclrcn?
- 		self.ownr.fl?('prtcpnts_dclrcn').present?
- 	end
 
  	def invstgdr_objtd?
  		self.krn_denuncia.objcn_invstgdr? and self.krn_denuncia.krn_inv_denuncias.first.id == self.krn_investigador_id

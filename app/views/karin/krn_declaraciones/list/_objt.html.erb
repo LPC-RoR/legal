@@ -1,14 +1,11 @@
 <% if objeto.invstgdr_objtd? or objeto.invstgdr_elmnd? %>
-	<% if objeto.fl_dclrcn? or objeto.krn_denuncia.krn_investigadores.count == 1 %>
+	<% if objeto.krn_denuncia.krn_investigadores.count == 1 %>
 		<i class="bi bi-bug"></i>
 	<% else %>
 		<%= render partial: '0p/tltp_lnk', locals: {lnk: "/krn_declaraciones/#{objeto.id}/migrar" , tltp: 'Traspasar agenda'} do %>
 			<i class="bi bi-pencil-square"></i>
 		<% end %>
 	<% end %>
-<% end %>
-<% if objeto.fl_dclrcn? %>
-	<i class="bi bi-journal-check"></i>
 <% end %>
 
 <b><%= dma_hm(objeto.fecha) %></b> : <%= objeto.ownr.nombre %>

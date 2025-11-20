@@ -87,29 +87,28 @@ class ProcessKrnReportJob < ApplicationJob
   def generate_and_store_report(oclss, oid, rprt)
     controller = controller_instance
     controller.send(:init_store_rprt, oclss, oid, rprt)
-#    denuncia = controller.instance_variable_get(:@dnnc)
 
-#    controller.instance_variable_get(:@dstntrs).each do |dstntr|
 
-      ownr = controller.instance_variable_get(:@ownr)
-      dstntr = { objt: ownr, email: ((ownr.dnnc.ownr.demo? and ownr.dnnc.ownr_type == 'Empresa') ? ownr.dnnc.ownr.email_administrador : ownr.email), nombre: ownr.nombre }
-      pdf_data = controller.send(:get_grover_pdf_data, ownr, dstntr, oid, rprt, controller.instance_variable_get(:@ref), nil, nil)
+    ownr = controller.instance_variable_get(:@ownr)
+    ownr = ownr.ownr if rprt == 'dclrcn'
 
-      act_archivo = ownr.act_archivos.new(
-        act_archivo: rprt,
-        nombre:      ClssPrcdmnt.act_nombre[rprt],
-        mdl:         'ClssPrcdmnt',
-        skip_pdf_presence: true
-      )
-      act_archivo.pdf.attach(
-        io:       StringIO.new(pdf_data),
-        filename: "#{ClssPrcdmnt.act_nombre[rprt]}.pdf",
-        content_type: 'application/pdf'
-      )
-      act_archivo.save!
+    dstntr = { objt: ownr, email: ((ownr.dnnc.ownr.demo? and ownr.dnnc.ownr_type == 'Empresa') ? ownr.dnnc.ownr.email_administrador : ownr.email), nombre: ownr.nombre }
+    pdf_data = controller.send(:get_grover_pdf_data, ownr, dstntr, oid, rprt, controller.instance_variable_get(:@ref), nil, nil)
 
-      ownr.pdf_registros.create(cdg: rprt, ref: controller.instance_variable_get(:@ref))
-#    end
+    act_archivo = ownr.act_archivos.new(
+      act_archivo: rprt,
+      nombre:      ClssPrcdmnt.act_nombre[rprt],
+      mdl:         'ClssPrcdmnt',
+      skip_pdf_presence: true
+    )
+    act_archivo.pdf.attach(
+      io:       StringIO.new(pdf_data),
+      filename: "#{ClssPrcdmnt.act_nombre[rprt]}.pdf",
+      content_type: 'application/pdf'
+    )
+    act_archivo.save!
+
+    ownr.pdf_registros.create(cdg: rprt, ref: controller.instance_variable_get(:@ref))
 
   end
 
