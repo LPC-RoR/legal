@@ -3,8 +3,6 @@ module Cmenu
 	def scp_menu 
 		{
 			causas: [
-				{scp: 'rvsn',	cndcn: operacion?},
-				{scp: 'ingrs',	cndcn: operacion?},
 				{scp: 'trmtcn',	cndcn: operacion?},
 				{scp: 'archvd',	cndcn: operacion?},
 				{scp: 'vacios', cndcn: finanzas?},
