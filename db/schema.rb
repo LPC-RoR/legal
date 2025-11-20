@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_17_205253) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_20_135204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1026,7 +1026,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_17_205253) do
     t.boolean "verified"
     t.string "verification_token"
     t.datetime "verification_sent_at"
-    t.boolean "email_ok"
+    t.string "email_ok"
     t.integer "n_vrfccn_lnks"
     t.datetime "fecha_vrfccn_lnk"
     t.boolean "email_adtd"

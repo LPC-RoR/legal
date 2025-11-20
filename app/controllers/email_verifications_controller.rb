@@ -30,7 +30,6 @@ class EmailVerificationsController < ApplicationController
     end
 
     # Marcar como verificado
-#    record.update!(email_ok: true, verification_sent_at: Time.current)
     record.update!(email_ok: record.email, verification_sent_at: Time.current)
 
     redirect_to root_path, notice: 'Correo electrónico verificado exitosamente'

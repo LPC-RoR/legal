@@ -1,3 +1,7 @@
+<%= objt.email != objt.email_ok %>
+<%= objt.verified? %>
+<%= (not objt.tiene_check_realizado?) %>
+
 <% if objt.email != objt.email_ok and (not objt.tiene_check_realizado?) %>
 
   <li>
@@ -14,7 +18,8 @@
   </li>
 
 <% else %>
-  <% unless objt.verified? and objt.email == objt.email_ok %>
+  <%# verified? incluye email == email_ok en investigadores %>
+  <% unless objt.verified? %>
 
     <li>
       <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_investigadores/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: 'trash'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
