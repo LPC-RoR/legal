@@ -1,37 +1,39 @@
-<% ClssTipos.archivos[@objeto.code_causa.to_sym].each do |arch| %>
-    <% archivo = @objeto.act_archivos.find_by(act_archivo: arch[0]) %>
-    <div class="row gx-1 px-2 app_lnk">
-        <div class="col-8">
-            <i class="bi bi-file-earmark-pdf"></i>
-            <%= arch[1] %>
-        </div>
-        <div class="col-4 text-end">
-            <% if archivo %>
-                <%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/show_pdf", tltp: 'Ver PDF', target: '_blank'} do %>
-                    <i class="bi bi-download"></i>
-                <% end %>
-                <i class="bi bi-dot"></i>
-                <%= render partial: '0p/tbl/link_eliminar', locals: {objeto: archivo} %>
-            <% else %>
-                <%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', ownr: @objeto, prms: [['act', arch[0]], ['mdl', 'ClssTipos']]} %>
-            <% end %>
-        </div>
-    </div>
-    <% if archivo %>
-        <% archivo.act_metadatas.each do |mtdt| %>
-            <div class="mx-3">
-                <i class="bi bi-file-earmark-ruled"></i> <%=ClssActs.mtdt_nombre[mtdt.act_metadata]%>
+<div class="border rounded-2 m-1 p-1">
+    <% ClssTipos.archivos[@objeto.code_causa.to_sym].each do |arch| %>
+        <% archivo = @objeto.act_archivos.find_by(act_archivo: arch[0]) %>
+        <div class="row gx-1 px-2 app_lnk">
+            <div class="col-8">
+                <i class="bi bi-file-earmark-pdf"></i>
+                <%= arch[1] %>
             </div>
-        <% end %>
-        <% archivo.act_textos.each do |txt| %>
-            <div class="row gx-1 mx-3 app_lnk">
-                <div class="col-8"><i class="bi bi-file-earmark-font"></i> <%=ClssActs.nombre[txt.tipo_documento]%></div>
-                <div class="col-4 text-end">
-                    <% if current_usuario.admin? %>
-                        <%= link_to edit_act_archivo_act_texto_path(archivo, txt) do %><i class="bi bi-pencil-square"></i><% end %>
+            <div class="col-4 text-end">
+                <% if archivo %>
+                    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/show_pdf", tltp: 'Ver PDF', target: '_blank'} do %>
+                        <i class="bi bi-download"></i>
                     <% end %>
-                </div>
+                    <i class="bi bi-dot"></i>
+                    <%= render partial: '0p/tbl/link_eliminar', locals: {objeto: archivo} %>
+                <% else %>
+                    <%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', ownr: @objeto, prms: [['act', arch[0]], ['mdl', 'ClssTipos']]} %>
+                <% end %>
             </div>
+        </div>
+        <% if archivo %>
+            <% archivo.act_metadatas.each do |mtdt| %>
+                <div class="mx-3">
+                    <i class="bi bi-file-earmark-ruled"></i> <%=ClssActs.mtdt_nombre[mtdt.act_metadata]%>
+                </div>
+            <% end %>
+            <% archivo.act_textos.each do |txt| %>
+                <div class="row gx-1 mx-3 app_lnk">
+                    <div class="col-8"><i class="bi bi-file-earmark-font"></i> <%=ClssActs.nombre[txt.tipo_documento]%></div>
+                    <div class="col-4 text-end">
+                        <% if current_usuario.admin? %>
+                            <%= link_to edit_act_archivo_act_texto_path(archivo, txt) do %><i class="bi bi-pencil-square"></i><% end %>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
         <% end %>
     <% end %>
-<% end %>
+</div>
