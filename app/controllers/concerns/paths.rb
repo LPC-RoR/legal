@@ -49,10 +49,10 @@ module Paths
 	end
 
 	def act_archivo_rdrccn(objt)
-		if objt.anonimizado_de.present?
-			dnnc_shw_path(objt.anonimizado_de)
-		elsif ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(objt.ownr.class.name)
+		if ['KrnDenuncia', 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(objt.ownr.class.name)
 			dnnc_shw_path(objt)
+		elsif objt.anonimizado_de.present?
+			dnnc_shw_path(objt.anonimizado_de)
 		else
 			objt.ownr
 		end
