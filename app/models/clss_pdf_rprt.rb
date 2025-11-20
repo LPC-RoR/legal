@@ -11,12 +11,13 @@ class ClssPdfRprt
 
 	  def self.sbjcts
 	    {
-	      infrmcn:    'Verificación de datos de los participantes.',
-	      crdncn_apt: 'Coordinación de atención psicológica temprana.',
-	      drvcn:      'Notificación de derivación de la denuncia.',
-	      invstgcn:   'Notificación de recepción de denuncia.',
-	      invstgdr:   'Notificación de asignación de Investigador.',
-	      dclrcn:     'Citación a declarar.'
+	    	dnncnt_info_oblgtr:	'Entrega de información obligatoria',
+	    	infrmcn:    		'Verificación de datos de los participantes.',
+	    	crdncn_apt: 		'Coordinación de atención psicológica temprana.',
+	    	drvcn:      		'Notificación de derivación de la denuncia.',
+	    	invstgcn:   		'Notificación de recepción de denuncia.',
+	    	invstgdr:   		'Notificación de asignación de Investigador.',
+	    	dclrcn:     		'Citación a declarar.'
 	    }.freeze
 	  end
 
