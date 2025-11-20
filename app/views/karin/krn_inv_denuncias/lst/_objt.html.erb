@@ -1,7 +1,7 @@
 <% clccn  = @objeto.krn_inv_denuncias %>
 <% rgstrs = objeto.pdf_registros %>
 
-<%= objeto.krn_investigador.krn_investigador %>
+<%= objeto.krn_investigador&.krn_investigador %>
 <span class="ps-1" style="font-size: 0.8rem;">
 	<% if rgstrs.none? %>
 		<span class="text-danger">SIN NOTIFICAR</span>

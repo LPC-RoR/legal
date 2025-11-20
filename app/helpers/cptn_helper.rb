@@ -10,6 +10,22 @@ def ajustar_fecha_santiago(fecha)
   end
 end
 
+	# Permite personalizar los PDF con el logo de la empresa
+	# app/helpers/application_helper.rb
+	def pdf_image_base64(source)
+	  if source.respond_to?(:attached?) && source.attached?
+	    # Para Active Storage
+	    "data:#{source.content_type};base64,#{Base64.strict_encode64(source.download)}"
+	  else
+	    # Para archivos en app/assets/images
+	    path = Rails.root.join('app/assets/images', source.to_s)
+	    "data:image/png;base64,#{Base64.strict_encode64(File.read(path))}"
+	  end
+	rescue
+	  # Imagen por defecto si algo falla
+	  "data:image/png;base64,#{Base64.strict_encode64(File.read(Rails.root.join('app/assets/images/logo/logo_60.png')))}"
+	end
+
 # ******************************************************************** CONSTANTES 
 
 	#Cambiar paulatinamente por cfg_color
