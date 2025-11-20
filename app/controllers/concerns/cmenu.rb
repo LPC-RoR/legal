@@ -5,6 +5,7 @@ module Cmenu
 			causas: [
 				{scp: 'trmtcn',	cndcn: operacion?},
 				{scp: 'archvd',	cndcn: operacion?},
+				{scp: 'rcnts',	cndcn: operacion?},
 				{scp: 'vacios', cndcn: finanzas?},
 				{scp: 'incmplt',	cndcn: finanzas?},
 				{scp: 'monto',	cndcn: finanzas?},
@@ -45,10 +46,9 @@ module Cmenu
 	def scp_item 
 		{
 			causas: {
-				rvsn: 	'revisión de causas',
-				ingrs: 	'ingreso',
 				trmtcn: 'en tramitación',
 				archvd: 'archivadas',
+				rcnts: 'últimos 30 días',
 				vacios: 	'sin pagos',
 				incmplt: 'pagos incompletos',
 				monto: 	'con monto',

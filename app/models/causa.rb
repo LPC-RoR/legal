@@ -216,6 +216,7 @@ class Causa < ApplicationRecord
 
 		scope :std_oprtv, ->(std) {where(estado_operativo: std)}
 		scope :std_fnncr, ->(std) {where(estado_financiero: std)}
+		scope :rcnts, 		-> { where("created_at >= ?", 30.days.ago) }
 	  
     # en MIGRACIÓN
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }

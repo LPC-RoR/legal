@@ -35,6 +35,7 @@ class CausasController < ApplicationController
 #              when 'archvd'    then Causa.std('archivada')
               when 'trmtcn'    then Causa.std_oprtv('tramitacion')
               when 'archvd'    then Causa.std_oprtv('archivada')
+              when 'rcnts'     then Causa.rcnts
               when 'vacios'    then Causa.trmtcn.sin_tar_calculos
               when 'incmplt'   then Causa.trmtcn.con_un_solo_tar_calculo
               when 'monto'     then Causa.std_pago('monto')
