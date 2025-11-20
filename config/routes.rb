@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   get '/verify_custom_email', to: 'email_verifications#verify', as: :verify_custom_email
   post '/send_verification_email', to: 'email_verifications#send_verification', as: :send_verification_email
 
-  get '/krn_csts', to: 'home#costos'
-  get '/artcls/:tkn', to: 'home#artcls', as: 'artcls'
+  get '/krn_csts', to: 'aplicacion/home#costos'
+  get '/artcls/:tkn', to: 'aplicacion/home#artcls', as: 'artcls'
 
   # config/routes.rb
   namespace :producto do
@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     match :del_uf_facturacion, via: :get, on: :member
     match :rsltd, via: :post, on: :member
     match :estmcn, via: :post, on: :member
+    match :ejecutar_evento, via: :post, on: :member
   end
   resources :clientes do
     resources :tenant_usuarios, only: %i[index update], controller: 'tenant_usuarios'

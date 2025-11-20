@@ -44,6 +44,9 @@ gem "stimulus-rails"
 gem 'jbuilder'                    # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'execjs'
 
+# Para Máquinas de estados
+gem 'aasm'
+
 # Autenticación y autorización
 gem 'devise'
 # Para manejor roles de Usuarios

@@ -28,18 +28,15 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
-    AgePendiente.all.each do |pndnt|
-      age = pndnt&.age_usuario
-      if age
-        usu = Usuario.find_by(email: age&.app_perfil&.email)
-        if usu && age
-          usu.age_pendientes << age.age_pendientes
-        end
-      else
-        pndnt.destroy
-      end
-    end
 
+    Causa.all.each do |r|
+      if ['ingreso', 'tramitación'].include?(r.estado) and [nil, false].include?(r.archvd)
+        r.estado_operativo = 'tramitacion'
+      else
+        r.estado_operativo = 'archivada'
+      end
+      r.save
+    end
 
     redirect_to root_path
   end

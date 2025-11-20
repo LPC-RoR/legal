@@ -2,11 +2,13 @@ class CausasController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy swtch swtch_stt asigna_tarifa cambio_estado chck_estds rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion cuantia_to_xlsx hchstowrd ntcdntstowrd ]
+  before_action :set_causa, only: %i[ show edit update destroy swtch swtch_stt asigna_tarifa cambio_estado chck_estds rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion cuantia_to_xlsx hchstowrd ntcdntstowrd ejecutar_evento ]
+  before_action :validar_evento, only: [:ejecutar_evento]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   layout 'addt'
 
+  include Aasm
   include Tarifas
 
   respond_to :docx
@@ -29,8 +31,10 @@ class CausasController < ApplicationController
               case scp
               when 'rvsn'      then Causa.trmtcn
               when 'ingrs'     then Causa.std('ingreso')
-              when 'trmtcn'    then Causa.trmtcn
-              when 'archvd'    then Causa.std('archivada')
+#              when 'trmtcn'    then Causa.trmtcn
+#              when 'archvd'    then Causa.std('archivada')
+              when 'trmtcn'    then Causa.std_oprtv('tramitacion')
+              when 'archvd'    then Causa.std_oprtv('archivada')
               when 'vacios'    then Causa.trmtcn.sin_tar_calculos
               when 'incmplt'   then Causa.trmtcn.con_un_solo_tar_calculo
               when 'monto'     then Causa.std_pago('monto')

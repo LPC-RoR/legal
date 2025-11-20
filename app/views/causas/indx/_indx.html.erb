@@ -1,4 +1,5 @@
 <%= render partial: '0p/ttl_clss', locals: {source: 'causas', clss: :gray, dir: 'indx'} %>
 <%= render partial: prtl_name('causas', 'indx', 'srch_causas') %>
+<%= render partial: 'layouts/partials/notice_alert' %>
 
 <%= render partial: '0p/tbl_clss', locals: {source: 'causas', clccn: @causas, pgnt: params[:query].nil?} %>

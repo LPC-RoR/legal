@@ -1,6 +1,7 @@
 class Causa < ApplicationRecord
 
 	include PgSearch
+  include AASM
 
 	pg_search_scope :search_for, against: {
 		causa: 'A',
@@ -68,121 +69,121 @@ class Causa < ApplicationRecord
 	      .page(page).per(per)
 	end
 
-# app/models/causa.rb
-def self.with_paginated_calculos(page = 1, per = 20)
-  page = (page || 1).to_i
-  per = (per || 20).to_i
-  offset = (page - 1) * per
-  
-  scope_base = all
-  
-  # **SOLUCIÓN CLAVE: Extraer WHERE del SQL completo con valores interpolados**
-  full_sql = scope_base.to_sql
-  where_clause = full_sql.split('WHERE ')[1].to_s.split(' ORDER BY ')[0].to_s.strip
-  
-  cte_sql = <<~SQL
-    WITH ordered_causas AS (
-      SELECT causas.id,
-             (SELECT fecha 
-              FROM age_actividades 
-              WHERE ownr_type = 'Causa' AND ownr_id = causas.id 
-              AND fecha >= CURRENT_DATE 
-              ORDER BY fecha ASC LIMIT 1) AS orden_fecha
-      FROM causas
-  SQL
-  
-  # Añadir WHERE si existe
-  if where_clause.present?
-    cte_sql += "WHERE #{where_clause}\n"
-  end
-  
-  # **FIX: Interpolar limit/offset directamente (seguro, son enteros)**
-  cte_sql += <<~SQL
-      ORDER BY orden_fecha ASC NULLS LAST, causas.id ASC
-      LIMIT #{per} OFFSET #{offset}
-    )
-    SELECT causas.*,
-           ult_est.ultimo_estado,
-           pf.proxima_fecha,
-           pf.suspendida,
-           pf.actividad,
-           tv.suma_tarifas,
-           mc.ultimo_valor,
-           arch_dem.demanda_archivo_id
-    FROM causas
-    INNER JOIN ordered_causas oc ON oc.id = causas.id
-    LEFT JOIN LATERAL (
-     SELECT estado AS ultimo_estado
-     FROM estados
-     WHERE estados.causa_id = causas.id
-     ORDER BY fecha DESC, id DESC LIMIT 1
-    ) ult_est ON true
-    
-    LEFT JOIN LATERAL (
-     SELECT fecha AS proxima_fecha, suspendida, age_actividad AS actividad
-     FROM age_actividades
-     WHERE age_actividades.ownr_type = 'Causa'
-     AND age_actividades.ownr_id = causas.id
-     AND fecha >= CURRENT_DATE
-     ORDER BY fecha ASC LIMIT 1
-    ) pf ON true
-    
-    LEFT JOIN LATERAL (
-     SELECT COALESCE(SUM(valor_tarifa), 0) AS suma_tarifas
-     FROM tar_valor_cuantias
-     WHERE tar_valor_cuantias.ownr_type = 'Causa'
-     AND tar_valor_cuantias.ownr_id = causas.id
-    ) tv ON true
-    
-    LEFT JOIN LATERAL (
-     SELECT monto AS ultimo_valor
-     FROM monto_conciliaciones
-     WHERE monto_conciliaciones.causa_id = causas.id
-     AND tipo IN ('Acuerdo', 'Sentencia')
-     ORDER BY fecha DESC, id DESC LIMIT 1
-    ) mc ON true
-    
-    LEFT JOIN LATERAL (
-     SELECT act_archivos.id AS demanda_archivo_id
-     FROM act_archivos
-     INNER JOIN active_storage_attachments 
-             ON active_storage_attachments.record_type = 'ActArchivo'
-            AND active_storage_attachments.record_id = act_archivos.id
-            AND active_storage_attachments.name = 'pdf'
-     WHERE act_archivos.ownr_type = 'Causa'
-     AND act_archivos.ownr_id = causas.id
-     AND act_archivos.act_archivo = 'demanda'
-     LIMIT 1
-    ) arch_dem ON true
-    
-    ORDER BY oc.orden_fecha ASC NULLS LAST, oc.id ASC
-  SQL
-  
-  # **EJECUTAR DIRECTAMENTE**
-  result_set = connection.execute(cte_sql)
-  
-  causas = result_set.map do |row|
-    Causa.instantiate(row).tap do |causa|
-      causa.readonly!
-      # Cachear atributos calculados
-      causa.instance_variable_set(:@ultimo_estado, row['ultimo_estado'] || 'Sin estado')
-      causa.instance_variable_set(:@proxima_fecha, row['proxima_fecha'])
-      causa.instance_variable_set(:@actividad, row['actividad'] || 'Sin actividad programada')
-      causa.instance_variable_set(:@suma_tarifas, row['suma_tarifas'] || 0)
-      causa.instance_variable_set(:@ultimo_valor_conciliacion, row['ultimo_valor'])
-      causa.instance_variable_set(:@demanda_archivo_id, row['demanda_archivo_id'])
-    end
-  end
-  
-  # Calcular total_count
-  count_sql = "SELECT COUNT(*) FROM causas"
-  count_sql += " WHERE #{where_clause}" if where_clause.present?
-  total_count = connection.select_value(count_sql).to_i
-  
-  # Devolver paginador completo
-  Kaminari.paginate_array(causas, total_count: total_count, limit: per, offset: offset)
-          .page(page).per(per)
-end
+	# app/models/causa.rb
+	def self.with_paginated_calculos(page = 1, per = 20)
+	  page = (page || 1).to_i
+	  per = (per || 20).to_i
+	  offset = (page - 1) * per
+	  
+	  scope_base = all
+	  
+	  # **SOLUCIÓN CLAVE: Extraer WHERE del SQL completo con valores interpolados**
+	  full_sql = scope_base.to_sql
+	  where_clause = full_sql.split('WHERE ')[1].to_s.split(' ORDER BY ')[0].to_s.strip
+	  
+	  cte_sql = <<~SQL
+	    WITH ordered_causas AS (
+	      SELECT causas.id,
+	             (SELECT fecha 
+	              FROM age_actividades 
+	              WHERE ownr_type = 'Causa' AND ownr_id = causas.id 
+	              AND fecha >= CURRENT_DATE 
+	              ORDER BY fecha ASC LIMIT 1) AS orden_fecha
+	      FROM causas
+	  SQL
+	  
+	  # Añadir WHERE si existe
+	  if where_clause.present?
+	    cte_sql += "WHERE #{where_clause}\n"
+	  end
+	  
+	  # **FIX: Interpolar limit/offset directamente (seguro, son enteros)**
+	  cte_sql += <<~SQL
+	      ORDER BY orden_fecha ASC NULLS LAST, causas.id ASC
+	      LIMIT #{per} OFFSET #{offset}
+	    )
+	    SELECT causas.*,
+	           ult_est.ultimo_estado,
+	           pf.proxima_fecha,
+	           pf.suspendida,
+	           pf.actividad,
+	           tv.suma_tarifas,
+	           mc.ultimo_valor,
+	           arch_dem.demanda_archivo_id
+	    FROM causas
+	    INNER JOIN ordered_causas oc ON oc.id = causas.id
+	    LEFT JOIN LATERAL (
+	     SELECT estado AS ultimo_estado
+	     FROM estados
+	     WHERE estados.causa_id = causas.id
+	     ORDER BY fecha DESC, id DESC LIMIT 1
+	    ) ult_est ON true
+	    
+	    LEFT JOIN LATERAL (
+	     SELECT fecha AS proxima_fecha, suspendida, age_actividad AS actividad
+	     FROM age_actividades
+	     WHERE age_actividades.ownr_type = 'Causa'
+	     AND age_actividades.ownr_id = causas.id
+	     AND fecha >= CURRENT_DATE
+	     ORDER BY fecha ASC LIMIT 1
+	    ) pf ON true
+	    
+	    LEFT JOIN LATERAL (
+	     SELECT COALESCE(SUM(valor_tarifa), 0) AS suma_tarifas
+	     FROM tar_valor_cuantias
+	     WHERE tar_valor_cuantias.ownr_type = 'Causa'
+	     AND tar_valor_cuantias.ownr_id = causas.id
+	    ) tv ON true
+	    
+	    LEFT JOIN LATERAL (
+	     SELECT monto AS ultimo_valor
+	     FROM monto_conciliaciones
+	     WHERE monto_conciliaciones.causa_id = causas.id
+	     AND tipo IN ('Acuerdo', 'Sentencia')
+	     ORDER BY fecha DESC, id DESC LIMIT 1
+	    ) mc ON true
+	    
+	    LEFT JOIN LATERAL (
+	     SELECT act_archivos.id AS demanda_archivo_id
+	     FROM act_archivos
+	     INNER JOIN active_storage_attachments 
+	             ON active_storage_attachments.record_type = 'ActArchivo'
+	            AND active_storage_attachments.record_id = act_archivos.id
+	            AND active_storage_attachments.name = 'pdf'
+	     WHERE act_archivos.ownr_type = 'Causa'
+	     AND act_archivos.ownr_id = causas.id
+	     AND act_archivos.act_archivo = 'demanda'
+	     LIMIT 1
+	    ) arch_dem ON true
+	    
+	    ORDER BY oc.orden_fecha ASC NULLS LAST, oc.id ASC
+	  SQL
+	  
+	  # **EJECUTAR DIRECTAMENTE**
+	  result_set = connection.execute(cte_sql)
+	  
+	  causas = result_set.map do |row|
+	    Causa.instantiate(row).tap do |causa|
+	      causa.readonly!
+	      # Cachear atributos calculados
+	      causa.instance_variable_set(:@ultimo_estado, row['ultimo_estado'] || 'Sin estado')
+	      causa.instance_variable_set(:@proxima_fecha, row['proxima_fecha'])
+	      causa.instance_variable_set(:@actividad, row['actividad'] || 'Sin actividad programada')
+	      causa.instance_variable_set(:@suma_tarifas, row['suma_tarifas'] || 0)
+	      causa.instance_variable_set(:@ultimo_valor_conciliacion, row['ultimo_valor'])
+	      causa.instance_variable_set(:@demanda_archivo_id, row['demanda_archivo_id'])
+	    end
+	  end
+	  
+	  # Calcular total_count
+	  count_sql = "SELECT COUNT(*) FROM causas"
+	  count_sql += " WHERE #{where_clause}" if where_clause.present?
+	  total_count = connection.select_value(count_sql).to_i
+	  
+	  # Devolver paginador completo
+	  Kaminari.paginate_array(causas, total_count: total_count, limit: per, offset: offset)
+	          .page(page).per(per)
+	end
 
 	# 4. Métodos de lectura que calculan on-the-fly si no están cacheados
 	def ultimo_estado
@@ -212,6 +213,9 @@ end
 	def tiene_demanda_pdf?
 		demanda_archivo_id.present?
 	end
+
+		scope :std_oprtv, ->(std) {where(estado_operativo: std)}
+		scope :std_fnncr, ->(std) {where(estado_financiero: std)}
 	  
     # en MIGRACIÓN
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
@@ -237,6 +241,82 @@ end
 
     # ---------------------------------------------------------------- ESTADO Y ESTADO PAGO
 
+	  # Proceso Operativo
+	  aasm(:operativo, column: 'estado_operativo') do
+	    state :tramitacion, initial: true
+	    state :archivada
+
+	    event :up_to_archivada do
+	      transitions from: :tramitacion, to: :archivada
+	    end
+	    
+	    event :dwn_to_tramitacion do
+	      transitions from: :archivada, to: :tramitacion
+	    end
+	  end
+
+	  # Proceso Financiero
+	  aasm(:financiero, column: 'estado_financiero') do
+	    state :sin_cobros, initial: true
+	    state :con_cobros
+	    state :cobrada
+	    state :facturada
+	    state :carrada
+
+	    event :up_to_con_cobros do
+	      transitions from: :sin_cobros, to: :con_cobros
+	    end
+	    
+	    event :dwn_to_sin_cobros do
+	      transitions from: :con_cobros, to: :sin_cobros
+	    end
+	    
+	    event :up_to_cobrada do
+	      transitions from: :con_cobros, to: :cobrada
+	    end
+	    
+	    event :dwn_to_con_cobros do
+	      transitions from: :cobrada, to: :con_cobros
+	    end
+	    
+	    event :up_to_facturada do
+	      transitions from: :cobrada, to: :facturada
+	    end
+
+	    event :dwn_to_cobrada do
+	      transitions from: :facturada, to: :cobrada
+	    end
+
+	    event :up_to_cerrada do
+	      transitions from: :facturada, to: :cerrada
+	    end
+
+	    event :dwn_to_facturada do
+	      transitions from: :cerrada, to: :facturada
+	    end
+	  end
+
+		def evento_permitido?(proceso, evento)
+		  # Método 100% funcional (verificado en consola)
+		  aasm(proceso.to_sym).may_fire_event?(evento.to_sym)
+		rescue StandardError => e
+		  Rails.logger.error "🔴 Error verificando evento: #{e.message}"
+		  false
+		end
+
+		def ejecutar_evento(proceso, evento)
+		  # Verificación segura
+		  unless evento_permitido?(proceso, evento)
+		    raise ArgumentError, "Evento '#{evento}' no permitido desde estado '#{send("estado_#{proceso}")}'"
+		  end
+
+		  # Ejecutar con AASM API nativa
+		  aasm(proceso.to_sym).fire!(evento.to_sym)
+		end
+
+		# ---------------------------------------------------------------------
+
+    # DEPRECATED
     def get_estado
     	audncs 		= self.age_actividades.adncs
     	n_audncs 	= audncs.count

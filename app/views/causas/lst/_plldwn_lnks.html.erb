@@ -32,6 +32,20 @@
     </li>
   <% end %>
 
+  <% if objt.estado_operativo == 'tramitacion' %>
+    <li>
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: ejecutar_evento_causa_path(objt, proceso: 'operativo', evento: 'up_to_archivada'), tltp: 'Archivar causa', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+        Archivar causa
+      <% end %>
+    </li>
+  <% else %>
+    <li>
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: ejecutar_evento_causa_path(objt, proceso: 'operativo', evento: 'dwn_to_tramitacion'), tltp: 'Desarchivar causa', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+        Desarchivar causa
+      <% end %>
+    </li>
+  <% end %>
+
   <li>
     <%= render partial: '0p/swtch_lnk', locals: {objeto: objt, tkn: 'archvd', stts: ['Marcar como no archivada', 'Marcar coma archivada'], orgn: @orgn, clss: 'dropdown-item'} %>
   </li>

@@ -6,7 +6,7 @@
 
 	<div class="mt-4 px-5 text-start text-secondary app_lnk" style="font-size: .9rem;line-height: 1.5;color: #3c6e71;">
 
-		<% if prtl?('aplicacion/home', "artcls/#{params[:tkn]}", 'artcl') %>
+		<% if prtl?('home', "artcls/#{params[:tkn]}", 'artcl') %>
 			<%= render partial: "aplicacion/home/artcls/#{params[:tkn]}/artcl", locals: {tkn: params[:tkn]} %>
         <% end %>
 
