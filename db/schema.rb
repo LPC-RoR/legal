@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_20_135204) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_21_141153) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -482,7 +482,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_135204) do
     t.string "estado_pago"
     t.boolean "archvd"
     t.string "code_causa"
-    t.string "estado_operativo", default: "en_tramitacion"
+    t.string "estado_operativo", default: "tramitacion"
     t.string "estado_financiero", default: "sin_cobros"
     t.index ["archivos_registrados"], name: "index_causas_on_archivos_registrados"
     t.index ["causa_ganada"], name: "index_causas_on_causa_ganada"

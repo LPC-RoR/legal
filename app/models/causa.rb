@@ -1,7 +1,7 @@
 class Causa < ApplicationRecord
 
 	include PgSearch
-  include AASM
+  	include AASM
 
 	pg_search_scope :search_for, against: {
 		causa: 'A',
@@ -44,6 +44,7 @@ class Causa < ApplicationRecord
 
 	# antecedentes de los hechos de la tabla
 	has_many :antecedentes
+	after_initialize :debug_states
 
     validates_presence_of :causa, :rit
 
@@ -564,6 +565,12 @@ class Causa < ApplicationRecord
 	end
 
 	private
+
+  def debug_states
+    puts "🔍 DEBUG - estado_operativo: #{estado_operativo.inspect}"
+    puts "🔍 DEBUG - estado_operativo class: #{estado_operativo.class}"
+    puts "🔍 DEBUG - new_record?: #{new_record?}"
+  end
 
 	# 2. Helper privado que hace los LATERAL (sin tocar SELECT)
 	def self.with_calculos
