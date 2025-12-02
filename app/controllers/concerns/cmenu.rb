@@ -8,9 +8,9 @@ module Cmenu
 				{scp: 'rcnts',	cndcn: operacion?},
 				{scp: 'vacios', cndcn: finanzas?},
 				{scp: 'incmplt',	cndcn: finanzas?},
-				{scp: 'monto',	cndcn: finanzas?},
+#				{scp: 'monto',	cndcn: finanzas?},
 				{scp: 'cmplt', cndcn: finanzas?},
-				{scp: 'en_rvsn', cndcn: admin?}
+#				{scp: 'en_rvsn', cndcn: admin?}
 			],
 			clientes: [
 				{scp: 'emprss', cndcn: operacion?},

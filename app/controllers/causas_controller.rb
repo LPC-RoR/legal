@@ -29,18 +29,14 @@ class CausasController < ApplicationController
               Causa.search_for(params[:query])
             else
               case scp
-#              when 'rvsn'      then Causa.trmtcn
-#              when 'ingrs'     then Causa.std('ingreso')
-#              when 'trmtcn'    then Causa.trmtcn
-#              when 'archvd'    then Causa.std('archivada')
               when 'trmtcn'    then Causa.std_oprtv('tramitacion')
               when 'archvd'    then Causa.std_oprtv('archivada')
               when 'rcnts'     then Causa.rcnts
-              when 'vacios'    then Causa.trmtcn.sin_tar_calculos
-              when 'incmplt'   then Causa.trmtcn.con_un_solo_tar_calculo
-              when 'monto'     then Causa.std_pago('monto')
-              when 'cmplt'     then Causa.std_pago('completos')
-              when 'en_rvsn'   then Causa.std('revisión')
+              when 'vacios'    then Causa.std_fnncr('sin_cobros')
+              when 'incmplt'   then Causa.std_fnncr('con_cobros')
+#              when 'monto'     then Causa.std_pago('monto')
+              when 'cmplt'     then Causa.std_fnncr('cobrada')
+#              when 'en_rvsn'   then Causa.std('revisión')
               end
             end
 

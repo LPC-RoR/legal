@@ -29,13 +29,17 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def migrar_cuantias
 
-    Causa.all.each do |r|
-      if ['ingreso', 'tramitación'].include?(r.estado) and [nil, false].include?(r.archvd)
-        r.estado_operativo = 'tramitacion'
-      else
-        r.estado_operativo = 'archivada'
+    Causa.std_oprtv('tramitacion').each do |r|
+      n_pgs   = r&.tar_tarifa&.tar_pagos&.count
+      n_clcs  = r.tar_calculos.count
+      if n_clcs == 0
+        r.estado_financiero == 'sin_cobros'
+      elsif n_pgs && n_clcs < n_pgs
+        r.estado_financiero == 'con_cobros'
+      elsif n_pgs && n_clcs == n_pgs
+        r.estado_financiero == 'cobrada'
       end
-      r.save
+      r.save if r.estado_financiero?
     end
 
     redirect_to root_path

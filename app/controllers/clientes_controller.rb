@@ -56,39 +56,30 @@ class ClientesController < ApplicationController
 
     elsif @options[:menu] == 'Causas'
 
-      scp = params[:scp].blank? ? 'rvsn' : params[:scp]
-
       @usrs = Usuario.where(tenant_id: nil)
-      case scp
-      when 'rvsn'
-        cllcn = @objeto.causas.trmtcn
-      when 'ingrs'
-        cllcn = @objeto.causas.std('ingreso')
-      when 'trmtcn'
-        cllcn = @objeto.causas.trmtcn
-      when 'archvd'
-        cllcn = @objeto.causas.std('archivada')
-      when 'vacios'
-        cllcn = @objeto.causas.trmtcn.sin_tar_calculos
-      when 'incmplt'
-        cllcn = @objeto.causas
-               .where(id: @objeto.causas.trmtcn
-                                   .joins(:tar_calculos)
-                                   .group('causas.id')
-                                   .having('COUNT(tar_calculos.id) = 1')
-                                   .select('causas.id'))
-      when 'monto'
-        cllcn = @objeto.causas.std_pago('monto')
-      when 'cmplt'
-        cllcn = @objeto.causas.std_pago('completos')
-      when 'en_rvsn'
-        cllcn = @objeto.causas.std('revisión')
-      end
 
+      scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
       @scp = scp_item[:causas][scp.to_sym]
 
-      set_tabla('causas', cllcn, true)
-      @causas = cllcn.index_page(params[:page])
+    # **APLICAR SCOPE PRIMERO**
+    cllcn = if params[:query].present?
+              Causa.search_for(params[:query])
+            else
+              case scp
+              when 'trmtcn'    then @objeto.causas.std_oprtv('tramitacion')
+              when 'archvd'    then @objeto.causas.std_oprtv('archivada')
+              when 'rcnts'     then @objeto.causas.rcnts
+              when 'vacios'    then @objeto.causas.std_fnncr('sin_cobros')
+              when 'incmplt'   then @objeto.causas.std_fnncr('con_cobros')
+#              when 'monto'     then @objeto.causas.std_pago('monto')
+              when 'cmplt'     then @objeto.causas.std_fnncr('cobrada')
+#              when 'en_rvsn'   then @objeto.causas.std('revisión')
+              end
+            end
+
+#      set_tabla('causas', cllcn, true)
+#      @causas = cllcn.index_page(params[:page])
+      @causas = params[:query].present? ? cllcn : cllcn.with_paginated_calculos(params[:page])
 
     elsif @options[:menu] == 'Asesorias'
 
