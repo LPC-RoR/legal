@@ -88,7 +88,8 @@ class CausasController < ApplicationController
       set_tabla('hechos', @objeto.hechos.where(tema_id: nil).order(:orden), false)
       set_tabla('rep_archivos', @objeto.rep_archivos.ordr, false)
     when 'Tarifa & Pagos'
-      @h_pgs = @objeto.tar_tarifa.blank? ? {} : h_pgs(@objeto)
+      # AUN se usa sin controller == 'servicios'
+#      @h_pgs = @objeto.tar_tarifa.blank? ? {} : h_pgs(@objeto)
 
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)
