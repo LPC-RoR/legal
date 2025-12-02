@@ -69,10 +69,10 @@ class ClientesController < ApplicationController
               when 'trmtcn'    then @objeto.causas.std_oprtv('tramitacion')
               when 'archvd'    then @objeto.causas.std_oprtv('archivada')
               when 'rcnts'     then @objeto.causas.rcnts
-              when 'vacios'    then @objeto.causas.std_fnncr('sin_cobros')
-              when 'incmplt'   then @objeto.causas.std_fnncr('con_cobros')
+              when 'vacios'    then @objeto.causas.std_oprtv('tramitacion').std_fnncr('sin_cobros')
+              when 'incmplt'   then @objeto.causas.std_oprtv('tramitacion').std_fnncr('con_cobros')
 #              when 'monto'     then @objeto.causas.std_pago('monto')
-              when 'cmplt'     then @objeto.causas.std_fnncr('cobrada')
+              when 'cmplt'     then @objeto.causas.std_oprtv('tramitacion').std_fnncr('cobrada')
 #              when 'en_rvsn'   then @objeto.causas.std('revisión')
               end
             end

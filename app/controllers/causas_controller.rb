@@ -32,10 +32,10 @@ class CausasController < ApplicationController
               when 'trmtcn'    then Causa.std_oprtv('tramitacion')
               when 'archvd'    then Causa.std_oprtv('archivada')
               when 'rcnts'     then Causa.rcnts
-              when 'vacios'    then Causa.std_fnncr('sin_cobros')
-              when 'incmplt'   then Causa.std_fnncr('con_cobros')
+              when 'vacios'    then Causa.std_oprtv('tramitacion').std_fnncr('sin_cobros')
+              when 'incmplt'   then Causa.std_oprtv('tramitacion').std_fnncr('con_cobros')
 #              when 'monto'     then Causa.std_pago('monto')
-              when 'cmplt'     then Causa.std_fnncr('cobrada')
+              when 'cmplt'     then Causa.std_oprtv('tramitacion').std_fnncr('cobrada')
 #              when 'en_rvsn'   then Causa.std('revisión')
               end
             end
