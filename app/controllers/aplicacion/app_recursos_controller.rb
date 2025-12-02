@@ -33,11 +33,11 @@ class Aplicacion::AppRecursosController < ApplicationController
       n_pgs   = r&.tar_tarifa&.tar_pagos&.count
       n_clcs  = r.tar_calculos.count
       if n_clcs == 0
-        r.estado_financiero == 'sin_cobros'
+        r.estado_financiero = 'sin_cobros'
       elsif n_pgs && n_clcs < n_pgs
-        r.estado_financiero == 'con_cobros'
+        r.estado_financiero = 'con_cobros'
       elsif n_pgs && n_clcs == n_pgs
-        r.estado_financiero == 'cobrada'
+        r.estado_financiero = 'cobrada'
       end
       r.save if r.estado_financiero?
     end

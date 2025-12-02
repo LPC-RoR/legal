@@ -12,7 +12,7 @@
         <% if current_usuario.dog? %>
             <% @objeto.app_archivos.each do |pdf| %>
                 <div class="px-2 app_lnk">
-                    <%= link_to "Ver PDF", pdf.archivo.url, target: "_blank" if pdf.archivo.file.exists? %>
+                    <%= link_to "Ver PDF", pdf.archivo.url, target: "_blank" if pdf.archivo&.file&.exists? %>
                     <i class="bi bi-dot"></i>
                     <%= render partial: '0p/tbl/link_eliminar', locals: {objeto: pdf} %>
                 </div>
