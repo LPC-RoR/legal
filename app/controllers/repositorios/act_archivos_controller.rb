@@ -69,16 +69,24 @@ class Repositorios::ActArchivosController < ApplicationController
     end
   end
 
+  # app/controllers/repositorios/act_archivos_controller.rb
   def annmzr
-    if @objeto
-      AnonimizaPdfJob.perform_later(@objeto.id, @objeto.pdf.blob.id)
-      ntc = 'Anonimización en curso. El nuevo archivo aparecerá en segundos.'
+    @archivo = ActArchivo.find(params[:id])
+    
+    # 🚨 REGENERAR METADATA ANTES DE ANONIMIZAR
+    @archivo.generar_metadata_anonimizacion
+    
+    resultado = @archivo.generar_pdf_anonimizado!
+    
+    if resultado
+      redirect_to "/krn_denuncias/#{@objeto.ownr.dnnc.id}_#{@objeto.act_archivo == 'declaracion' ? 1 : 0}", 
+        notice: "Documento anonimizado correctamente"
     else
-      ntc = 'Archivo fuente no encontrado'
+      redirect_to "/krn_denuncias/#{@objeto.ownr.dnnc.id}_#{@objeto.act_archivo == 'declaracion' ? 1 : 0}", 
+        alert: "No se pudo anonimizar. Verifica que la denuncia tenga datos reales."
     end
-
-    redirect_to "/krn_denuncias/#{@objeto.ownr.dnnc.id}_#{@objeto.act_archivo == 'declaracion' ? 1 : 0}", ntc: ntc
   end
+
 
   # DELETE /act_archivos/1 or /act_archivos/1.json
   def destroy

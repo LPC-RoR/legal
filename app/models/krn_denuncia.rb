@@ -86,6 +86,76 @@ class KrnDenuncia < ApplicationRecord
 	end
 
 
+	# ------------------------------------------------------------------ CDGS_PRTCPNTS
+	# app/models/krn_denuncia.rb
+	def cdgs_prtcpnts
+	  # Precarga en 3 queries: denunciantes + testigos + denunciados + testigos
+	  self.class.preload(self, 
+	    krn_denunciantes: :krn_testigos,
+	    krn_denunciados: :krn_testigos
+	  )
+
+	  {}.tap do |hash|
+	    procesar_tipo(hash, krn_denunciantes, 'DNNCNT')
+	    procesar_tipo(hash, krn_denunciados, 'DNNCD')
+	  end
+	end
+
+	def procesar_tipo(hash, registros, prefijo)
+	  registros.each do |registro|
+	    # Registro principal (denunciante/denunciado)
+	    agregar_metadatos(hash, registro, prefijo)
+	    
+	    # Testigos asociados
+	    registro.krn_testigos.each do |testigo|
+	      agregar_metadatos(hash, testigo, 'TSTG')
+	    end
+	  end
+	end
+
+	def agregar_metadatos(hash, registro, prefijo)
+	  # Nombre: código específico por ID
+	  if (valor = registro.nombre.to_s.strip).present?
+	    hash[valor] = { 
+	      codigo: "[#{prefijo}-#{registro.id}-NOMBRE]",
+	      tipo: :nombre
+	    }
+	  end
+	  
+	  # RUT: código genérico
+	  if (valor = registro.rut.to_s.strip).present?
+	    hash[valor] = { 
+	      codigo: "[PRTCPNT-RUT-CI]",
+	      tipo: :rut
+	    }
+	  end
+	  
+	  # Email: código genérico
+	  if (valor = registro.email.to_s.strip).present?
+	    hash[valor] = { 
+	      codigo: "[PRTCPNT-EMAIL]",
+	      tipo: :email
+	    }
+	  end
+	  
+	  # Cargo: código genérico
+	  if (valor = registro.cargo.to_s.strip).present?
+	    hash[valor] = { 
+	      codigo: "[PRTCPNT-CARGO]",
+	      tipo: :cargo
+	    }
+	  end
+	  
+	  # Domicilio: código genérico
+	  if (valor = registro.direccion_notificacion.to_s.strip).present?
+	    hash[valor] = { 
+	      codigo: "[PRTCPNT-DOMICILIO]",
+	      tipo: :domicilio
+	    }
+	  end
+	end
+	# ------------------------------------------------------------------ CDGS_PRTCPNTS
+
 	# KrnDenuncia
 	def destinatarios(rprt)
 	  # bloque re-utilizable
