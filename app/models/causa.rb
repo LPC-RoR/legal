@@ -431,7 +431,8 @@ class Causa < ApplicationRecord
 	end
 
 	def monto_fijo(codigo_formula)
-		monto_fijo_uf(codigo_formula) * calc_valor_uf(codigo_formula)
+		valor_uf = calc_valor_uf(codigo_formula)
+		valor_uf.nil? ? 0 : monto_fijo_uf(codigo_formula) * calc_valor_uf(codigo_formula)
 	end
 
 	def monto_variable
