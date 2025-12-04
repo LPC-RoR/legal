@@ -18,33 +18,45 @@ class Tarifas::TarCalculosController < ApplicationController
   end
 
   def crea_calculo
+    # ownr.monto_fijo(pago.codigo_formula)
     ownr = params[:oclss].constantize.find(params[:oid])
     case params[:oclss]
     when 'Causa'
-      pid = params[:pid]
-      pago = pid.blank? ? nil : TarPago.find(pid)
-      cuotas = pago.blank? ? [] : pago.tar_cuotas.ordr
-      moneda  = (pago.moneda.blank? ? 'UF' : pago.moneda)
-      cuantia_calculo = get_total_cuantia(ownr, 'tarifa')
+      # En esta versión aún se usa relación con TarPago, en futuras versiones se usará codigo_formula
+      # Hay que evaluar el manejo de cuotas
+      pid             = params[:pid]
+      pago            = pid.blank? ? nil : TarPago.find(pid)
+      codigo_formula  = pago.codigo_formula
 
+      cuotas          = pago.blank? ? [] : pago.tar_cuotas.ordr
+      moneda          = (pago.moneda.blank? ? 'UF' : pago.moneda)
+      cuantia_calculo = ownr.ttl_tarifa
+      fecha_calculo   = ownr.calc_fecha_uf(codigo_formula)
+#      uf_calculo      = ownr.calc_valor_uf(codigo_formula)
+
+
+      # Revisar DEPRECATED
       tar_uf_facturacion    = get_tar_uf_facturacion_pago(ownr, pago)
       objt_calculo          = get_objt_pago(ownr, pago)
       objt_origen           = tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion
-      fecha_calculo         = objt_origen.blank? ? Time.zone.today : objt_origen.fecha_uf
-      uf_calculo            = vlr_uf(fecha_calculo)
+
       # REVISAR calcula2 y evitar pasar formula si ya está en el pago
       if pago.valor.blank?
-        formula = pago.codigo_formula
-        mnt = calcula2( formula, ownr, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5))
+        monto = codigo_formula == 'monto_fijo' ? ownr.monto_fijo('monto_fijo') : ownr.monto_variable
+        monto = monto.round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5))
+#        formula = pago.codigo_formula
+#        mnt = calcula2( formula, ownr, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5))
       else
-        mnt = pago.valor
+        monto = pago.valor
       end
       # monto siempre está en Pesos, las cuotas dividen un monto único establecido en el cálculo
-      monto = moneda == 'UF' ? (uf_calculo.blank? ? 0 : uf_calculo * mnt) : mnt
+      # La UF se resuelve en el método de cálculo
+#      monto = moneda == 'UF' ? (uf_calculo.blank? ? 0 : uf_calculo * mnt) : mnt
       glosa = "#{pago.tar_pago} : #{ownr.rit} #{ownr.causa}"
 
       # en esta version le sacamos la relación con Cliente. No tiene sentido ver lso cálculos de un cliente
-      cll = ownr.tar_calculos.create(tar_pago_id: pid, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia: cuantia_calculo)
+      cll = ownr.tar_calculos.create(tar_pago_id: pid, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
+
       unless cll.blank? or monto == 0
         if cuotas.empty?
           ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia_calculo: cuantia_calculo)
@@ -137,10 +149,7 @@ class Tarifas::TarCalculosController < ApplicationController
     @objeto.tar_facturaciones.each do |fctn|
       fctn.delete
     end
-    @objeto.delete
-
-    causa.estado_pago = causa.get_estado_pago
-    causa.save
+    @objeto.destroy
 
     redirect_to "/causas/#{causa.id}?html_options[menu]=Tarifa+%26+Pagos"
   end

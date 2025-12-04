@@ -430,6 +430,9 @@ class Causa < ApplicationRecord
 		prcntje
 	end
 
+	# codigo_formula == 'monto_fijo'
+	# Se puede reemplazar para unificar manejo de monto_fijo y monto_variable
+	# el codigo_formula se usa para acceder a la UF asignada si se está usando
 	def monto_fijo(codigo_formula)
 		valor_uf = calc_valor_uf(codigo_formula)
 		valor_uf.nil? ? 0 : monto_fijo_uf(codigo_formula) * calc_valor_uf(codigo_formula)
