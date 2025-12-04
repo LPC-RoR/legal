@@ -188,27 +188,27 @@ class Causa < ApplicationRecord
 
 	# 4. Métodos de lectura que calculan on-the-fly si no están cacheados
 	def ultimo_estado
-		@ultimo_estado ||= (attributes['ultimo_estado'] || 'Sin estado')
+	    @ultimo_estado || 'Sin estado'
 	end
 
 	def proxima_fecha
-		@proxima_fecha ||= attributes['proxima_fecha']
+		@proxima_fecha
 	end
 
 	def actividad
-		@actividad ||= (attributes['actividad'] || 'Sin actividad programada')
+	    @actividad || 'Sin actividad programada'
 	end
 
 	def suma_tarifas
-		@suma_tarifas ||= (attributes['suma_tarifas'] || 0)
+		@suma_tarifas || 0
 	end
 
 	def ultimo_valor_conciliacion
-		@ultimo_valor_conciliacion ||= attributes['ultimo_valor']
+		@ultimo_valor_conciliacion
 	end
 
 	def demanda_archivo_id
-		@demanda_archivo_id ||= attributes['demanda_archivo_id']
+		@demanda_archivo_id
 	end
 
 	def tiene_demanda_pdf?
