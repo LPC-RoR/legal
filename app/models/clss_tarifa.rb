@@ -28,7 +28,7 @@ class ClssTarifa < ApplicationRecord
 
   def self.cmntrs
   	{
-  		'menos_180uf'	=> 'Cuantía menor de UF 180: aplica 8% de la cuantía, con un piso de UF 27,5 y un máximo de UF 50.',
+  		'menos_180uf'	=> 'Cuantía menor de UF 180: aplica el valor máximo entre el 10% de la cuantía y 12 UF.',
   		'menos_12uf'	=> 'El 10% de la cuantía es menor a UF 12, se aplica el mínimo de UF 12.',
   		'mas_12uf'		=> 'El 10% de la cuantía es mayor o igual al mínimo de UF 12, aplica el 10% de la cuantía.',
   		'mas_180uf'		=> 'Cuantía mayor de UF 180: aplica 8% de la cuantía, con un piso de UF 27,5 y un máximo de UF 50.',
