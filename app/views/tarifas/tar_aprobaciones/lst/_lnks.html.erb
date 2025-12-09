@@ -1,0 +1,9 @@
+<% if objt.act_archivo&.pdf&.attached? %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: descargar_pdf_reportes_path(modelo: 'tar_aprobacion', id: objt.id), tltp: 'Descargar PDF'} do %>
+		<i class="bi bi-download"></i>
+	<% end %>
+	<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: objt.act_archivo} %>
+<% end %>
+<span class="d-inline-block">
+<%= render partial: '0p/tbl/plldwn_lnks', locals: {objt: objt} %>
+</span>

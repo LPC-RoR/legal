@@ -101,6 +101,12 @@ Rails.application.routes.draw do
       match :generate_and_store_dnnc, via: :get, on: :collection
       match :audit_rprt, via: :get, on: :collection
     end
+    resources :pdf_reportes, path: 'pdf_reportes', only: [] do
+      collection do
+        post :generar
+        get :descargar
+      end
+    end
   end
 
   scope module: 'lgl' do

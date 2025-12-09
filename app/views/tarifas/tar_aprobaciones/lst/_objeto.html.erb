@@ -1,0 +1,12 @@
+<div class="border border-secondary-subtle rounded-2 shadow-sm mt-1 open-sans-regular">
+	<div class="row gx-1 border-bottom rounded-2 mx-1 mt-1 px-2 py-1 bg_gray">
+		<div class="col-10">
+			<%= render partial: prtl(objeto, 'lst', 'objt'), locals: {objt: objeto} %>
+		</div>
+		<div class="col-2 text-end">
+			<%= render partial: prtl(objeto, 'lst', 'lnks'), locals: {objt: objeto} %>
+		</div>
+	</div>
+
+	<%= render partial: prtl(objeto, 'lst', 'dsply'), locals: {objt: objeto} %>
+</div>

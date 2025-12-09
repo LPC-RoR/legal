@@ -1,0 +1,16 @@
+<% unless objt.tar_calculos.empty? %>
+	<% objt.tar_calculos.order(:created_at).each do |ccl| %>
+		<div class="row px-2 py-1">
+			<div class="col-8">
+				<%= render partial:'0p/general/gly', locals: {gly: controller_icon['tar_calculos']} %>
+				<%= ccl.glosa %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{ccl.id}/liberar_calculo", tltp: 'Libera cálculo'} do %>
+					<i class="bi bi-trash"></i>
+				<% end %>
+			</div>
+			<div class="col-4 text-end">
+				<%= s_pesos(ccl.monto) %>
+			</div>
+		</div>
+	<% end %>
+<% end %>

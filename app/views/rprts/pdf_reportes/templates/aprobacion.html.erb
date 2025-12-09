@@ -1,0 +1,57 @@
+<% content_for :title, "Aprobación Tarifaria ##{@tar_aprobacion.id}" %>
+
+<div class="header" style="text-align: center; border-bottom: 3px solid #007bff; padding-bottom: 20px; margin-bottom: 30px;">
+  <h1>Aprobación de pagos</h1>
+  <p style="color: #6c757d;">Generado el <%= l(Time.current, format: :long) %></p>
+</div>
+
+<div class="info-box">
+  <h2>📋 Información General</h2>
+  <p><strong>ID Aprobación:</strong> <%= @tar_aprobacion.id %></p>
+  <p><strong>Fecha Creación:</strong> <%= l(@tar_aprobacion.created_at, format: :long) %></p>
+  <% if @tar_aprobacion.respond_to?(:estado) %>
+    <p><strong>Estado:</strong> <span style="color: <%= @tar_aprobacion.estado == 'aprobado' ? '#28a745' : '#dc3545' %>;">
+      <%= @tar_aprobacion.estado.humanize %></span></p>
+  <% end %>
+</div>
+
+<div class="calculos-section">
+  <h2>📊 Cálculos Asociados (<%= @tar_calculos.count %>)</h2>
+  
+  <% if @tar_calculos.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Código</th>
+          <th class="text-right">Monto</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tar_calculos.each do |calculo| %>
+          <tr>
+            <td><%= calculo.id %></td>
+            <td><%= calculo.glosa %></td>
+            <td class="text-right"><%= number_to_currency(calculo.monto) %></td>
+            <td><%= l(calculo.fecha_uf, format: :short) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr style="background: #e9ecef; font-weight: bold;">
+          <td colspan="2">TOTAL</td>
+          <td class="text-right"><%= number_to_currency(@total_monto) %></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  <% else %>
+    <div class="alert alert-info">No hay cálculos asociados a esta aprobación.</div>
+  <% end %>
+</div>
+
+<div class="footer-info" style="margin-top: 40px; font-size: 12px; color: #6c757d; text-align: center;">
+  <p>Este documento es generado automáticamente y es de carácter confidencial.</p>
+  <p>Generado el <%= l(Time.current, format: :long) %> por Sistema Automatizado</p>
+</div>

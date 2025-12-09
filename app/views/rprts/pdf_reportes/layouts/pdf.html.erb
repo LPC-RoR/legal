@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="grover-format" content="A4">
+  
+  <!-- MÁRGENES IMPORTANTES: Aumenta top/bottom para dar espacio -->
+  <meta name="grover-margin-top" content="80px">
+  <meta name="grover-margin-bottom" content="60px">
+  
+  <!-- ACTIVAR HEADER Y FOOTER -->
+  <meta name="grover-display-header-footer" content="true">
+
+  <!-- TEMPLATE DEL HEADER (ícono a la izquierda) -->
+  <%
+    logo_path = Rails.root.join('app', 'assets', 'images', 'logo', 'tyc_60.png')
+  %>
+  <meta name="grover-header-template" content="
+    <div style='width: 100%; padding: 10px 20px; font-size: 10px; border-bottom: 1px solid #ddd;'>
+      <img src='file://<%= logo_path %>' alt='Logo' style='height: 30px; width: auto;'>
+    </div>
+  ">
+
+  <!-- TEMPLATE DEL FOOTER (ícono centrado) -->
+  <meta name="grover-footer-template" content="
+    <div style='width: 100%; text-align: center; padding: 10px 20px; font-size: 10px; border-top: 1px solid #ddd;'>
+      <img src='file://<%= logo_path %>' alt='Logo' style='height: 20px; width: auto;'>
+      <div style='margin-top: 5px;'>Página <span class='pageNumber'></span> de <span class='totalPages'></span></div>
+    </div>
+  ">
+
+  <title><%= yield(:title) || "Reporte ##{@registro.id}" %></title>
+  
+  <style>
+    /* Tu CSS existente */
+    * { box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; color: #333; }
+    .content { padding: 20px; }
+    /* ... resto de tus estilos ... */
+  </style>
+</head>
+<body>
+  <div class="content">
+    <%= yield %>
+  </div>
+</body>
+</html>

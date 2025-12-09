@@ -1,0 +1,21 @@
+<% content_for :title, "Causa ##{@causa.codigo}" %>
+
+<div class="header">
+  <h1>Reporte de Causa</h1>
+  <p>Código: <strong><%= @causa.codigo %></strong></p>
+</div>
+
+<%# Contenido específico de Causa %>
+<div class="causa-details">
+  <h2>Detalles de la Causa</h2>
+  <p><strong>Descripción:</strong> <%= @causa.descripcion %></p>
+  <p><strong>Estado:</strong> <%= @causa.estado %></p>
+</div>
+
+<%# Tareas asociadas %>
+<% if @tareas.any? %>
+  <h2>Tareas (<%= @tareas.count %>)</h2>
+  <table>
+    <!-- Lista de tareas -->
+  </table>
+<% end %>
