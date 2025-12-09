@@ -2,7 +2,11 @@
 
 module PdfGenerator
   class CausaService < BaseService
-    registrar Causa, self
+    # ✅ CAMBIA ESTO:
+    # registrar Causa, self
+    
+    # ✅ A ESTO:
+    PdfGenerator.registrar Causa, self
 
     def generar_y_guardar
       @registro = Causa.includes(:tareas, :documentos).find(@registro.id)

@@ -1,6 +1,10 @@
 module PdfGenerator
   class TarAprobacionService < BaseService
-    # ✅ ELIMINA la línea `registrar` completamente
+    # ✅ CAMBIA ESTO:
+    # registrar TarAprobacion, self
+    
+    # ✅ A ESTO:
+    PdfGenerator.registrar TarAprobacion, self
 
     def generar_y_guardar
       @registro = TarAprobacion.includes(:tar_calculos).find(@registro.id)
