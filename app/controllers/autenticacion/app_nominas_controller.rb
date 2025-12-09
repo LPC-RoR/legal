@@ -19,7 +19,6 @@ class Autenticacion::AppNominasController < ApplicationController
     oid = params[:oid].blank? ? nil : params[:oid]
     oclss = params[:oid].blank? ? nil : params[:oclss]
     @objeto = AppNomina.new(ownr_type: oclss, ownr_id: oid)
-    
   end
 
   # GET /app_nominas/1/edit

@@ -15,8 +15,10 @@ module Paths
 		case objt.class.name
 		when 'Empresa', 'Cliente' 
 			"/cuentas/#{objt.class.name[0].downcase}_#{objt.id}/dnncs"
-		when 'KrnDenuncia', 'KrnInvestigador', 'KrnEmpresaExterna', 'AppNomina', 'AppContacto'
+		when 'KrnDenuncia', 'KrnInvestigador', 'KrnEmpresaExterna', 'AppContacto'
 			"/cuentas/#{objt.ownr.class.name[0].downcase}_#{objt.ownr.id}/#{krn_indx_action[objt.class.name]}"
+		when 'AppNomina'
+			objt.ownr_id.nil? ? app_nominas_path : "/cuentas/e_#{objt.ownr_id}/nmn"
 		else
 			objt.ownr
 		end
