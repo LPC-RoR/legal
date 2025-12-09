@@ -5,9 +5,9 @@ class MenuPolicy < ApplicationPolicy
     return false unless record.enabled?
 
     case record.key
-    when 'admin' then user.admin?
-    when 'operacion' then user.operacion?
-    when 'finanzas' then user.finanzas?
+    when 'admin' then user.admin? or user.operacion? or user.finanzas?
+#    when 'operacion' then user.operacion?
+#    when 'finanzas' then user.finanzas?
     else
       false
     end
