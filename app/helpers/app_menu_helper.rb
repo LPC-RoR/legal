@@ -6,7 +6,7 @@ module AppMenuHelper
   def menu_for_current_context
     # Prioridad: el primero que cumpla la policy
 #    %w[admin accounting vendor].each do |key|
-    %w[admin].each do |key|
+    %w[admin operacion finanzas].each do |key|
       menu = Menu.enabled.find_by(key:)
       next unless menu
       return menu if policy(menu).show?
