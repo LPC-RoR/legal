@@ -6,6 +6,8 @@ class MenuPolicy < ApplicationPolicy
 
     case record.key
     when 'admin' then user.admin?
+    when 'operacion' then user.operacion?
+    when 'finanzas' then user.finanzas?
     else
       false
     end
