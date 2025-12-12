@@ -42,7 +42,7 @@
 	</div>
 
 	<%= render layout: '0p/collapse/display', locals: {label: 'AgregaModifica', objeto: cll.tar_pago} do %>
-		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/form_uf_facturacion", locals: {causa: ownr, pago: cll.tar_pago} %>
+		<%#= render partial: "causas/shw/tarifa_pagos/aprobacion/form_uf_facturacion", locals: {causa: ownr, pago: cll.tar_pago} %>
 	<% end %>
 
 	<% unless @h_pgs[cll.id][:uf_calculo].blank? %>
