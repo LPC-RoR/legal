@@ -1,0 +1,14 @@
+<%= form_for :form_fecha_calculo, url: "/#{causa.class.name.tableize}/#{causa.id}/add_fecha_calculo?cdg=#{pago.codigo_formula unless pago.blank?}" do |form| %>
+
+	<div class="row">
+		<div class="col-8">
+			<%= render partial: '0p/lbld_inpts/date_clndr', locals: { form: form, token: :fecha, label: 'Fecha UF del pago' } %>
+		</div>
+		<div class="col-4" align='right'>
+			<button type="submit" class="btn btn-primary">
+			  <i class="bi bi-caret-right icon-white"></i>
+			</button>
+		</div>
+	</div>
+
+<% end  %>

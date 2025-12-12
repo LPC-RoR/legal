@@ -39,8 +39,8 @@ Rails.application.routes.draw do
     match :asigna_tarifa, via: :post, on: :member
     match :chck_estds, via: :post, on: :member
     # ultima version
-    match :add_uf_facturacion, via: :post, on: :member
-    match :del_uf_facturacion, via: :get, on: :member
+    match :add_fecha_calculo, via: :post, on: :member
+    match :del_fecha_calculo, via: :get, on: :member
     match :rsltd, via: :post, on: :member
     match :estmcn, via: :post, on: :member
     match :ejecutar_evento, via: :post, on: :member

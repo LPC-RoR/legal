@@ -2,7 +2,7 @@ class CausasController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy swtch swtch_stt asigna_tarifa cambio_estado chck_estds rsltd estmcn procesa_registros add_uf_facturacion del_uf_facturacion cuantia_to_xlsx hchstowrd ntcdntstowrd ejecutar_evento ]
+  before_action :set_causa, only: %i[ show edit update destroy swtch swtch_stt asigna_tarifa cambio_estado chck_estds rsltd estmcn procesa_registros add_fecha_calculo del_fecha_calculo cuantia_to_xlsx hchstowrd ntcdntstowrd ejecutar_evento ]
   before_action :validar_evento, only: [:ejecutar_evento]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
@@ -227,26 +227,20 @@ class CausasController < ApplicationController
   end
 
   # Manegos de TarUfFacturacion
-  def add_uf_facturacion
-    prms = params[:form_uf_facturacion]
-    unless prms['fecha_uf(1i)'].blank? or prms['fecha_uf(2i)'].blank? or prms['fecha_uf(3i)'].blank?
-      tar_pago = TarPago.find(params[:pid])
-      unless tar_pago.blank?
-        tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
-        fecha_uf = prms_to_date_raw(prms, 'fecha_uf')
-
-        if tar_uf_facturacion.blank?
-          tar_uf_facturacion = TarUfFacturacion.create( ownr_type: 'Causa', ownr_id: @objeto.id, tar_pago_id: tar_pago.id )
-        end
-        tar_uf_facturacion.fecha_uf = fecha_uf
-        tar_uf_facturacion.save
-      end
+  def add_fecha_calculo
+    fecha    = params[:form_fecha_calculo][:fecha]
+    cdg      = params[:cdg]
+    unless fecha.blank? or cdg.blank?
+      puts "**************************************************************************** add_fecha_calculo"
+      @objeto.tar_fecha_calculos.create(fecha: Date.parse(fecha), codigo_formula: cdg)
     end
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}"
   end
 
-  def del_uf_facturacion
+  # DEPRECATED
+  # Será necesario, basta con el destroy del registro 
+  def del_fecha_calculo
     tar_pago = TarPago.find(params[:pid])
     tar_uf_facturacion = @objeto.tar_uf_facturacion(tar_pago)
     tar_uf_facturacion.delete

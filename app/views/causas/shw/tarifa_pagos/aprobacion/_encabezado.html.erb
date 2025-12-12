@@ -65,7 +65,7 @@
 	</div>
 
 	<%= render layout: '0p/collapse/display', locals: {label: 'AgregaModifica', objeto: pago} do %>
-		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/form_uf_facturacion", locals: {causa: ownr, pago: pago} %>
+		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/form_fecha_calculo", locals: {causa: ownr, pago: pago} %>
 	<% end %>
 
 	<% unless valor_uf.nil? %>
