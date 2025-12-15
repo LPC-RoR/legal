@@ -33,7 +33,7 @@ class Tarifas::TarCalculosController < ApplicationController
       cuantia_calculo = ownr.ttl_tarifa
       fecha_calculo   = ownr.calc_fecha_uf(codigo_formula)
       # Se usa cuando hay cuotas
-      uf_calculo      = ownr.calc_valor_uf(codigo_formula)
+#      uf_calculo      = ownr.calc_valor_uf(codigo_formula)
 
 
       # Revisar DEPRECATED
@@ -74,8 +74,8 @@ class Tarifas::TarCalculosController < ApplicationController
             else
               monto_cuota = monto * (cuota.porcentaje / 100)
             end
-            monto_cta = moneda == 'UF' ? (uf_calculo.blank? ? 0 : uf_calculo * monto_cuota) : monto_cuota
-            ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto_cta, glosa: c_glosa, cuantia_calculo: cuantia_calculo)
+#            monto_cta = moneda == 'UF' ? (uf_calculo.blank? ? 0 : uf_calculo * monto_cuota) : monto_cuota
+            ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto_cuota, glosa: c_glosa, cuantia_calculo: cuantia_calculo)
           end
         end
       end
