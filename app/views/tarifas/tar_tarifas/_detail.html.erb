@@ -12,7 +12,7 @@
 
 		<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :cuantia_tarifa, label: 'Diferencia cuantia para la tarifa' } %>
 		<% unless @objeto.ownr_id.blank? %>
-			<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, label: 'Definir como tarifa por defecto' } %>
+			<%#= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_causa_id, colection: TipoCausa.all.order(:tipo_causa).collect { |tc| [tc.tipo_causa, tc.id] }, label: 'Definir como tarifa por defecto' } %>
 
 			<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :code_causa, sel_list: tipos_causa, display_field: 'code_causa', prompt: 'Seleccione el tipo de causa', label: 'Definir como tarifa por defecto' } %>
 		<% end %>

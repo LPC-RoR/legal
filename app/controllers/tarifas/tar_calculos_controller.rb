@@ -32,7 +32,8 @@ class Tarifas::TarCalculosController < ApplicationController
       moneda          = (pago.moneda.blank? ? 'UF' : pago.moneda)
       cuantia_calculo = ownr.ttl_tarifa
       fecha_calculo   = ownr.calc_fecha_uf(codigo_formula)
-#      uf_calculo      = ownr.calc_valor_uf(codigo_formula)
+      # Se usa cuando hay cuotas
+      uf_calculo      = ownr.calc_valor_uf(codigo_formula)
 
 
       # Revisar DEPRECATED
