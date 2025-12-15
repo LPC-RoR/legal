@@ -72,7 +72,7 @@ class Tarifas::TarCalculosController < ApplicationController
             elsif cuota.ultima_cuota
               monto_cuota = (monto - monto_procesado)
             else
-              monto_cuota = monto * (cuota.porcentaje / 100)
+              monto_cuota = (monto * (cuota.porcentaje / 100)).truncate
             end
 #            monto_cta = moneda == 'UF' ? (uf_calculo.blank? ? 0 : uf_calculo * monto_cuota) : monto_cuota
             ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto_cuota, glosa: c_glosa, cuantia_calculo: cuantia_calculo)
