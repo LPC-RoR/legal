@@ -91,6 +91,17 @@ class CausasController < ApplicationController
       # AUN se usa sin controller == 'servicios'
 #      @h_pgs = @objeto.tar_tarifa.blank? ? {} : h_pgs(@objeto)
 
+      @objeto.tar_facturaciones.each do |fct|
+        cdg = fct.codigo_formula? ? fct.codigo_formula : fct.tar_pago&.codigo_formula
+        if cdg
+          clc = @objeto.tar_calculos.find_by(codigo_formula: cdg)
+          if clc and fct.tar_calculo_id != clc.id
+            fct.tar_calculo_id = clc.id
+            fct.save
+          end
+        end
+      end
+
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
