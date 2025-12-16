@@ -8,6 +8,14 @@
 		<% fctrcns 	= objeto.tar_facturaciones.where(codigo_formula: pago.codigo_formula) %>
 		<div><%= pago.codigo_formula %> | <%= calculos.count %> - <%= fctrcns.count %></div>
 	<% end %>
+	<hr>
+	<% objeto.tar_calculos.each do |r| %>
+		<div><%= r.id %> · <%= r.codigo_formula %></div>
+	<% end %>
+	<hr>
+	<% objeto.tar_facturaciones.each do |r| %>
+		<div><%= r.tar_calculo_id %> · <%= r.codigo_formula %></div>
+	<% end %>
 <% end %>
 
 <% if objeto.tar_tarifa.blank? %>
