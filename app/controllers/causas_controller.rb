@@ -95,11 +95,20 @@ class CausasController < ApplicationController
         cdg = fct.codigo_formula? ? fct.codigo_formula : fct.tar_pago&.codigo_formula
         if cdg
           clc = @objeto.tar_calculos.find_by(codigo_formula: cdg)
-          mnt = cdg == 'monto_fijo' ? @objeto.monto_fijo('monto_fijo') : @objeto.monto_variable
-          if clc.monto != mnt
-            clc.monto = mnt
-            clc.save
+
+          if cdg == 'monto_fijo'
+            if clc.monto != fct.monto
+              clc.monto = fct.monto
+              clc.save
+            end
+          else
+            mnt = cdg == 'monto_fijo' ? @objeto.monto_fijo('monto_fijo') : @objeto.monto_variable
+            if clc.monto != mnt
+              clc.monto = mnt
+              clc.save
+            end
           end
+
           if clc and fct.tar_calculo_id != clc.id
             fct.tar_calculo_id = clc.id
             fct.save
