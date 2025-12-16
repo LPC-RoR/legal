@@ -97,8 +97,8 @@ class CausasController < ApplicationController
           clc = @objeto.tar_calculos.find_by(codigo_formula: cdg)
 
           if cdg == 'monto_fijo'
-            if clc.monto != fct.monto
-              clc.monto = fct.monto
+            if clc.monto != fct.monto_pesos
+              clc.monto = fct.monto_pesos
               clc.save
             end
           else
