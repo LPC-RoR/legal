@@ -45,14 +45,6 @@ class Asesoria < ApplicationRecord
     	self.tar_facturacion.present? ? self.tar_facturacion.monto : (self.tar_servicio_moneda == 'Pesos' ? self.tar_servicio_monto : (self.tar_servicio_monto * self.get_uf_facturacion.valor))
     end
 
-	def archivos
-		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def exclude_files
-		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
-	end
-
 	def actividades
 		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
 	end

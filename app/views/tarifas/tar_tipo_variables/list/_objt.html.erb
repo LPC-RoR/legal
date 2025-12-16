@@ -1,4 +1,4 @@
 <% if objeto.code_causa? %>
 	<i class="bi bi-check"></i>
 <% end %>
-<%= objeto.tipo_causa.tipo_causa %> : <%= s_p100(objeto.variable_tipo_causa, 2) %>
+<%= ClssTipos.tipos_causa[objeto.code_causa] %> : <%= s_p100(objeto.variable_tipo_causa, 2) %>

@@ -5,23 +5,23 @@ class ClssTarifa < ApplicationRecord
     	monto_fijo: [
 	    	{cdg: 'menos_180uf',	frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) <= 180 }},
 	    	{cdg: 'menos_12uf',		frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) <= 180 && ( causa.ttl_tarifa_uf(pago.codigo_formula) * 0.1 < 12 ) }},
-	    	{cdg: 'mas_12uf',		frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) <= 180 && ( causa.ttl_tarifa_uf(pago.codigo_formula) * 0.1 >= 12 ) }},
+	    	{cdg: 'mas_12uf',			frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) <= 180 && ( causa.ttl_tarifa_uf(pago.codigo_formula) * 0.1 >= 12 ) }},
 	    	{cdg: 'mas_180uf',		frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) > 180 }},
 	    	{cdg: 'menos_27_5uf',	frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) > 180 && ( causa.ttl_tarifa_uf(pago.codigo_formula) * 0.08 < 27.5 ) }},
-	    	{cdg: 'mas_50uf',		frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) > 180 && ( causa.ttl_tarifa_uf(pago.codigo_formula) * 0.08 > 50 ) }},
-	    	{cdg: 'en_rango',		frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) > 180 && ( causa.ttl_tarifa_uf(pago.codigo_formula) * 0.08 >= 27.5 && causa.ttl_tarifa_uf(pago.codigo_formula) * 0.08 <= 50 ) }},
+	    	{cdg: 'mas_50uf',			frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) > 180 && ( causa.ttl_tarifa_uf(pago.codigo_formula) * 0.08 > 50 ) }},
+	    	{cdg: 'en_rango',			frml: 'cmntr',					si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) > 180 && ( causa.ttl_tarifa_uf(pago.codigo_formula) * 0.08 >= 27.5 && causa.ttl_tarifa_uf(pago.codigo_formula) * 0.08 <= 50 ) }},
 
-	    	{cdg: 'cuantia', 		frml: 'ttl_tarifa',				si: ->(causa, pago) { true }},
-	    	{cdg: 'cuantia_uf', 	frml: 'ttl_tarifa_uf',			si: ->(causa, pago) { pago.requiere_uf }},
-	    	{cdg: '10_prcnt',		frml: 'ttl_tarifa_uf * 0.1',	si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) <= 180 }},
-	    	{cdg: '8_prcnt',		frml: 'ttl_tarifa_uf * 0.08',	si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) > 180 }}
+	    	{cdg: 'cuantia', 			frml: 'ttl_tarifa',						si: ->(causa, pago) { true }},
+	    	{cdg: 'cuantia_uf', 	frml: 'ttl_tarifa_uf',				si: ->(causa, pago) { pago.requiere_uf }},
+	    	{cdg: '10_prcnt',			frml: 'ttl_tarifa_uf * 0.1',	si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) <= 180 }},
+	    	{cdg: '8_prcnt',			frml: 'ttl_tarifa_uf * 0.08',	si: ->(causa, pago) { causa.ttl_tarifa_uf(pago.codigo_formula) > 180 }}
     	],
     	monto_variable: [
-	    	{cdg: 'cuantia', 		frml: 'ttl_tarifa',				si: ->(causa, pago) { true }},
-	    	{cdg: 'monto_pagado', 	frml: 'monto_pagado',			si: ->(causa, pago) { causa.monto_pagado.present? }},
-	    	{cdg: 'ahorro', 		frml: 'ahorro',					si: ->(causa, pago) { causa.monto_pagado.present? }},
-	    	{cdg: 'variable', 		frml: 'variable',				si: ->(causa, pago) { causa.monto_pagado.present? }},
-	    	{cdg: 'fijo', 			frml: 'fijo',					si: ->(causa, pago) { causa.monto_pagado.present? }},
+	    	{cdg: 'cuantia', 			frml: 'ttl_tarifa',				si: ->(causa, pago) { true }},
+	    	{cdg: 'monto_pagado', frml: 'monto_pagado',			si: ->(causa, pago) { causa.monto_pagado.present? }},
+	    	{cdg: 'ahorro', 			frml: 'ahorro',						si: ->(causa, pago) { causa.monto_pagado.present? }},
+	    	{cdg: 'variable', 		frml: 'variable',					si: ->(causa, pago) { causa.monto_pagado.present? }},
+	    	{cdg: 'fijo', 				frml: 'fijo',							si: ->(causa, pago) { causa.monto_pagado.present? }},
     	]
     }
   }.freeze

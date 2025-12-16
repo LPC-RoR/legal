@@ -190,9 +190,6 @@ Rails.application.routes.draw do
 
   # Usado para poner las entidades necesarias para mantener Causa
   scope module: 'csc' do
-    resources :tipo_causas do
-      resources :audiencias
-    end
     resources :temas do
       match :arriba, via: :post, on: :member
       match :abajo, via: :post, on: :member
@@ -208,10 +205,6 @@ Rails.application.routes.draw do
     resources :hecho_archivos do 
       match :eliminar, via: :get, on: :member
       match :set_establece, via: :get, on: :member
-    end
-    resources :audiencias do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
     end
     resources :causa_archivos do 
       match :arriba, via: :post, on: :member
@@ -242,7 +235,6 @@ Rails.application.routes.draw do
     resources :valores do
       match :nuevo, via: :get, on: :collection
     end
-    resources :var_tp_causas
     resources :var_clis
   end
 

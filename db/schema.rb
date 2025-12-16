@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_21_141153) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_15_223309) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -372,17 +372,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_141153) do
     t.index ["tipo_asesoria_id"], name: "index_asesorias_on_tipo_asesoria_id"
   end
 
-  create_table "audiencias", force: :cascade do |t|
-    t.integer "tipo_causa_id"
-    t.string "audiencia"
-    t.string "tipo"
-    t.integer "orden"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["orden"], name: "index_audiencias_on_orden"
-    t.index ["tipo_causa_id"], name: "index_audiencias_on_tipo_causa_id"
-  end
-
   create_table "audit_notas", force: :cascade do |t|
     t.string "ownr_type"
     t.integer "ownr_id"
@@ -448,7 +437,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_141153) do
     t.string "estado"
     t.integer "tar_tarifa_id"
     t.string "tipo"
-    t.integer "tipo_causa_id"
     t.integer "tar_hora_id"
     t.integer "juzgado_id"
     t.string "rol"
@@ -502,7 +490,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_141153) do
     t.index ["tar_hora_id"], name: "index_causas_on_tar_hora_id"
     t.index ["tar_tarifa_id"], name: "index_causas_on_tar_tarifa_id"
     t.index ["tipo"], name: "index_causas_on_tipo"
-    t.index ["tipo_causa_id"], name: "index_causas_on_tipo_causa_id"
     t.index ["tribunal_corte_id"], name: "index_causas_on_tribunal_corte_id"
   end
 
@@ -1851,7 +1838,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_141153) do
     t.decimal "valor"
     t.decimal "valor_hora"
     t.boolean "cuantia_tarifa"
-    t.integer "tipo_causa_id"
     t.string "code_causa"
     t.index ["code_causa"], name: "index_tar_tarifas_on_code_causa"
     t.index ["estado"], name: "index_tar_tarifas_on_estado"
@@ -1859,19 +1845,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_141153) do
     t.index ["moneda"], name: "index_tar_tarifas_on_moneda"
     t.index ["ownr_id"], name: "index_tar_tarifas_on_ownr_id"
     t.index ["ownr_type"], name: "index_tar_tarifas_on_ownr_type"
-    t.index ["tipo_causa_id"], name: "index_tar_tarifas_on_tipo_causa_id"
   end
 
   create_table "tar_tipo_variables", force: :cascade do |t|
     t.integer "tar_tarifa_id"
-    t.integer "tipo_causa_id"
     t.decimal "variable_tipo_causa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "code_causa"
     t.index ["code_causa"], name: "index_tar_tipo_variables_on_code_causa"
     t.index ["tar_tarifa_id"], name: "index_tar_tipo_variables_on_tar_tarifa_id"
-    t.index ["tipo_causa_id"], name: "index_tar_tipo_variables_on_tipo_causa_id"
   end
 
   create_table "tar_uf_facturaciones", force: :cascade do |t|
@@ -1965,17 +1948,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_141153) do
     t.index ["tipo_cargo"], name: "index_tipo_cargos_on_tipo_cargo"
   end
 
-  create_table "tipo_causas", force: :cascade do |t|
-    t.string "tipo_causa"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "tar_tarifa_id"
-    t.string "code_causa"
-    t.index ["code_causa"], name: "index_tipo_causas_on_code_causa"
-    t.index ["tar_tarifa_id"], name: "index_tipo_causas_on_tar_tarifa_id"
-    t.index ["tipo_causa"], name: "index_tipo_causas_on_tipo_causa"
-  end
-
   create_table "tribunal_cortes", force: :cascade do |t|
     t.string "tribunal_corte"
     t.datetime "created_at", precision: nil, null: false
@@ -2043,15 +2015,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_141153) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["cliente_id"], name: "index_var_clis_on_cliente_id"
     t.index ["variable_id"], name: "index_var_clis_on_variable_id"
-  end
-
-  create_table "var_tp_causas", force: :cascade do |t|
-    t.integer "variable_id"
-    t.integer "tipo_causa_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["tipo_causa_id"], name: "index_var_tp_causas_on_tipo_causa_id"
-    t.index ["variable_id"], name: "index_var_tp_causas_on_variable_id"
   end
 
   create_table "variables", force: :cascade do |t|

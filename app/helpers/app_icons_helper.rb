@@ -14,7 +14,6 @@ module AppIconsHelper
 			'cargos' => 'currency-dollar',
 			'tablas' => 'table',
 			'regiones' => 'geo-alt',
-			'tipo_causas' => 'file-check',
 			'tribunal_cortes' => 'bank',
 			'hechos' => 'check2-circle',
 			'tar_aprobaciones' => 'check-all',

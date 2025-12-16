@@ -17,8 +17,6 @@ class Causa < ApplicationRecord
 	belongs_to :tribunal_corte
 	belongs_to :tar_tarifa, optional: true
 
-#	belongs_to :tipo_causa
-
 	has_many :temas
 	has_many :hechos
 	has_many :demandantes
@@ -231,7 +229,6 @@ class Causa < ApplicationRecord
 	}
 
     delegate :tar_pagos, to: :tar_tarifa, prefix: true
-	delegate :tipo_causa, to: :tipo_causa, prefix: true
 
 	def demanda
 		self.app_archivos.find_by(app_archivo: 'Demanda')
@@ -438,9 +435,15 @@ class Causa < ApplicationRecord
 		valor_uf.nil? ? 0 : monto_fijo_uf(codigo_formula) * calc_valor_uf(codigo_formula)
 	end
 
-	def monto_variable
+	def total_variable
 		dist = distribucion_porcentaje
 		monto_pagado.present? ? dist.keys.map {|r| (dist[r].to_f*monto_ahorro/100)*(r.to_f/100)}.sum : 0
+	end
+
+	def monto_variable
+		variable 	= total_variable
+		fijo 		= calculo_monto_fijo
+		variable > fijo ? variable - fijo : 0
 	end
 
 	def monto_variable_uf(codigo_formula)
@@ -457,7 +460,7 @@ class Causa < ApplicationRecord
 		cuantia_uf 	= ttl_tarifa_uf(pago.codigo_formula)
 		pagado 		= monto_pagado
 		ahorro		= monto_ahorro
-		variable 	= monto_variable
+		variable 	= total_variable
 		fijo 		= calculo_monto_fijo
 
 		if formula
@@ -487,20 +490,12 @@ class Causa < ApplicationRecord
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
-	def archivos_controlados
-		self.tipo_causa.control_documentos.where(tipo: 'Archivo').order(:nombre)
-	end
-
 	def archivos_pendientes
 		ids = self.archivos_controlados.map {|control| control.id unless self.nombres_usados.include?(control.nombre) }.compact
 		ControlDocumento.where(id: ids)
 	end
 
 	# ------------------------------------------------------------
-
-	def exclude_files
-		self.tipo_causa.blank? ? [] : self.tipo_causa.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
-	end
 
 	def reportes
 		RegReporte.where(owner_class: self.class.name, owner_id: self.id)

@@ -1,6 +1,5 @@
 class TarTarifa < ApplicationRecord
 
-	belongs_to :tipo_causa, optional: true
 	belongs_to :ownr, polymorphic: true, optional: true
 
 	has_many :tar_pagos

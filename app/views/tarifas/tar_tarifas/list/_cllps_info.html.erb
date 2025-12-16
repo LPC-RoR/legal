@@ -3,8 +3,8 @@
 			<i class="bi bi-dot"></i> Diferencia cuantía para cálculo de honorarios.</br>
 		<% end %>
 
-		<% unless objeto.tipo_causa.blank? %>
-			<i class="bi bi-dot"></i> Tarifa por defecto de la etapa <%= objeto.tipo_causa.tipo_causa %>
+		<% unless objeto.code_causa.blank? %>
+			<i class="bi bi-dot"></i> Tarifa por defecto de la etapa <%= ClssTipos.tipos_causa[objeto.code_causa] %>
 		<% end %>
 		<% unless objeto.tar_pagos.empty? and objeto.valor_hora.blank? %>
 			<% unless objeto.tar_pagos.empty? %>

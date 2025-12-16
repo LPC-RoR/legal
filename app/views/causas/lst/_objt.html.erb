@@ -3,6 +3,9 @@
 <b>
 	<%= render layout: '0p/tltp_lnk', locals: {lnk: objt, tltp: 'Ver Causa'} do %>
 			<%= objt.rit %>
+	<% end %>
+	<% if objt.estado_operativo == 'archivada' %>
+		<i class="bi bi-archive-fill"></i>
 	<% end %> : 
 	<%= objt.causa %>
 

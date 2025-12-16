@@ -292,6 +292,6 @@ class CausasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def causa_params
-      params.require(:causa).permit(:causa, :identificador, :cliente_id, :estado, :juzgado_id, :rol, :era, :fecha_ingreso, :caratulado, :ubicacion, :fecha_ubicacion, :tribunal_corte_id, :rit, :estado_causa, :tipo_causa_id, :fecha_uf, :monto_pagado, :query, :urgente, :pendiente, :en_cobranza, :code_causa, :estado_operativo, :estado_financiero)
+      params.require(:causa).permit(:causa, :identificador, :cliente_id, :estado, :juzgado_id, :rol, :era, :fecha_ingreso, :caratulado, :ubicacion, :fecha_ubicacion, :tribunal_corte_id, :rit, :estado_causa, :fecha_uf, :monto_pagado, :query, :urgente, :pendiente, :en_cobranza, :code_causa, :estado_operativo, :estado_financiero)
     end
 end

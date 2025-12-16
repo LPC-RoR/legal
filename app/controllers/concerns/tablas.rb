@@ -22,7 +22,6 @@ module Tablas
 			app_enlaces: 'enlaces',
 			cal_feriados: 'calendario',
 			age_usuarios: 'agenda',
-			tipo_causas: 'tipos',
 			tipo_asesorias: 'tipos',
 			audiencias: 'tipos',
 			tar_detalle_cuantias: 'cuantias_tribunales',

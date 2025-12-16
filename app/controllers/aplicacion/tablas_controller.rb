@@ -26,7 +26,6 @@ class Aplicacion::TablasController < ApplicationController
   end
 
   def tipos
-      set_tabla('tipo_causas', TipoCausa.all.order(:tipo_causa), false)
       set_tabla('tipo_asesorias', TipoAsesoria.all.order(:tipo_asesoria), false)
       set_tabla('tipo_cargos', TipoCargo.all.order(:tipo_cargo), false)
   end
