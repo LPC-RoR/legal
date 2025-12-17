@@ -452,7 +452,8 @@ class Causa < ApplicationRecord
 	end
 
 	def calculo_monto_fijo
-		tar_calculos.find_by(codigo_formula: 'monto_fijo')&.monto
+		mnt = tar_calculos.find_by(codigo_formula: 'monto_fijo')&.monto
+		mnt.nil? ? 0 : mnt
 	end
 
 	def calc_valor_cmntr(formula, pago)
