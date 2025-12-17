@@ -1,23 +1,6 @@
 <!-- Versión 2.0 -->
 <!-- Parobación de pagos -->
 
-<% if current_usuario.dog? %>
-	<div><%= objeto.tar_calculos.count %> - <%= objeto.tar_facturaciones.count %></div>
-	<% objeto.tar_tarifa_tar_pagos.ordr.each do |pago| %>
-		<% calculos = objeto.tar_calculos.where(codigo_formula: pago.codigo_formula) %>
-		<% fctrcns 	= objeto.tar_facturaciones.where(codigo_formula: pago.codigo_formula) %>
-		<div><%= pago.codigo_formula %> | <%= calculos.count %> - <%= fctrcns.count %></div>
-	<% end %>
-	<hr>
-	<% objeto.tar_calculos.each do |r| %>
-		<div><%= r.id %> · <%= r.codigo_formula %></div>
-	<% end %>
-	<hr>
-	<% objeto.tar_facturaciones.each do |r| %>
-		<div><%= r.tar_calculo_id %> · <%= r.codigo_formula %></div>
-	<% end %>
-<% end %>
-
 <% if objeto.tar_tarifa.blank? %>
 	<%= render partial: '0p/ntc', locals: {color: 'danger', gly: 'check-lg', ntc: "La causa no tiene tarifa asignada."} %>
 <% elsif objeto.tar_tarifa_tar_pagos.empty? %>
