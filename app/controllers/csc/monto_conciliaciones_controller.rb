@@ -3,8 +3,6 @@ class Csc::MontoConciliacionesController < ApplicationController
   before_action :scrty_on
   before_action :set_monto_conciliacion, only: %i[ show edit update destroy ]
 
-#  after_action :actualiza_monto, only: %i[ update create ]
-
   # GET /monto_conciliaciones or /monto_conciliaciones.json
   def index
     @coleccion = MontoConciliacion.all
@@ -62,26 +60,6 @@ class Csc::MontoConciliacionesController < ApplicationController
   end
 
   private
-
-    # DEPRECATED
-    def actualiza_monto
-      causa = @objeto.causa
-      ultimo = causa.monto_conciliaciones.last
-      if @objeto == ultimo
-        causa.monto_pagado = @objeto.persisted? ? (['Acuerdo', 'Sentencia'].include?(@objeto.tipo) ? @objeto.monto : nil) : nil
-
-        n_clcls = causa.tar_calculos.count 
-        n_pgs   = causa.tar_tarifa.blank? ? 0 : causa.tar_tarifa.tar_pagos.count
-
-        if causa.tar_tarifa.present?
-          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminada' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
-        else
-          causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
-        end
-
-        causa.save
-      end
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_monto_conciliacion

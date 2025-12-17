@@ -6,22 +6,23 @@ class MontoConciliacion < ApplicationRecord
 
 	scope :ordr_fecha, -> { order(:created_at) }
 
-	after_destroy :update_monto_pagado
+	after_commit :actualizar_monto_pagado_causa, on: [:create, :update, :destroy]
 
-	def update_monto_pagado
-      causa = self.causa
-      ultimo = causa.monto_conciliaciones.last
-      if ultimo.present? and ['Acuerdo', 'Sentencia'].include?(ultimo.tipo)
-	      causa.monto_pagado = ultimo.monto
-	      causa.estado = 'pagada'
-	    else
-	      causa.monto_pagado = nil
-        if causa.tar_tarifa.present?
-          causa.estado = n_clcls == 0 ? 'ingreso' : (n_clcls == n_pgs ? 'terminada' : (causa.monto_pagado.blank? ? 'tramitación' : 'pagada'))
-        else
-          causa.estado = causa.monto_pagado.blank? ? 'tramitación' : 'pagada'
-        end
-	    end
-      causa.save
-	end
+	private
+
+  def actualizar_monto_pagado_causa
+    return unless causa.present?
+    
+    # Buscar el monto conciliación con fecha más reciente para esta causa
+    ultimo_monto = causa.monto_conciliaciones.order(fecha: :desc).first
+    
+    # Si existe un registro y cumple la condición, actualizar
+    if ultimo_monto.present? && ['Acuerdo', 'Sentencia'].include?(ultimo_monto.tipo)
+      causa.update_column(:monto_pagado, ultimo_monto.monto)
+    else
+      # Si no hay registros o ninguno cumple la condición, establecer en nil
+      causa.update_column(:monto_pagado, nil)
+    end
+  end
+
 end
