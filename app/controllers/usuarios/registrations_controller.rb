@@ -1,6 +1,7 @@
 # app/controllers/usuarios/registrations_controller.rb
 module Usuarios
   class RegistrationsController < Devise::RegistrationsController
+    before_action :configure_sign_up_params, only: :create
     before_action :configure_account_update_params, only: [:update]
     respond_to :html, :turbo_stream
 
@@ -78,6 +79,10 @@ module Usuarios
 
     def after_inactive_sign_up_path_for(resource)
       signed_up_but_unconfirmed_path
+    end
+
+    def configure_sign_up_params
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:nombre])
     end
 
     def configure_account_update_params
