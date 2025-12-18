@@ -238,7 +238,39 @@ class Causa < ApplicationRecord
 		self.demanda.present?
 	end
 
-    # ---------------------------------------------------------------- ESTADO Y ESTADO PAGO
+    # ---------------------------------------------------------------- SCOPEs del RIT
+	# Scope base: ordena por número de causa (extraído del formato)
+	# Considera ambos formatos 234-2025 y T-12-2025
+	scope :ordenar_por_numero, -> {
+	    order(Arel.sql("CAST(
+	      CASE 
+	        WHEN rit ~ '^\\d+-\\d{4}$' THEN SUBSTRING(rit FROM '(\\d+)-\\d{4}$')
+	        WHEN rit ~ '^[TMSOC]-\\d+-\\d{4}$' THEN SUBSTRING(rit FROM '^[MSO]-(\\d+)-')
+	      END AS INTEGER
+	    ) ASC"))
+	}
+
+	# Scope para el primer formato: número-año 234-2025
+	scope :formato_simple, -> {
+	    where("rit ~ ?", '^\\d+-\\d{4}$')
+	}
+
+	# Scope para el segundo formato: letra-número-año T-234-2025
+	scope :formato_con_tipo, -> {
+	    where("rit ~ ?", '^[TMSOC]-\\d+-\\d{4}$')
+	}
+
+	# Filtra por año (extrae los últimos 4 dígitos)
+	scope :por_ano, ->(ano) {
+	    where("SUBSTRING(rit FROM '\\d{4}$') = ?", ano.to_s)
+	}
+
+	# Filtra por tipo (M, S, O)
+	scope :por_tipo, ->(tipo) {
+	    where("SUBSTRING(rit FROM '^([TMSOC])-') = ?", tipo.to_s)
+	}
+
+    # ---------------------------------------------------------------- ESTADOS con AASM
 
 	  # Proceso Operativo
 	  aasm(:operativo, column: 'estado_operativo') do

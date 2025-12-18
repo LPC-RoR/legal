@@ -1,5 +1,8 @@
 Causas <%= @scp %>
+
+<%# Intente mover desde el concer a un modelo pero se cae en el manejo de los tipos de usuarios y me dio paja %>
 <%= render partial: '0p/cmenu/drpdwn', locals: {tkn: :causas, objeto: @objeto} %>
+
 <% if dog? and controller_name == 'Clientes' %>
 	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/servicios/causas?oid=#{@objeto.id}", tltp: 'Reporte de causas con cuantía'} do %>
 		<i class="bi bi-file-earmark-pdf"></i>

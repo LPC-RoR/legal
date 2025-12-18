@@ -71,9 +71,8 @@ class ClientesController < ApplicationController
               when 'rcnts'     then @objeto.causas.rcnts
               when 'vacios'    then @objeto.causas.std_oprtv('tramitacion').std_fnncr('sin_cobros')
               when 'incmplt'   then @objeto.causas.std_oprtv('tramitacion').std_fnncr('con_cobros')
-#              when 'monto'     then @objeto.causas.std_pago('monto')
               when 'cmplt'     then @objeto.causas.std_oprtv('tramitacion').std_fnncr('cobrada')
-#              when 'en_rvsn'   then @objeto.causas.std('revisión')
+              when 'anno'      then @objeto.causas.por_ano(2025)
               end
             end
 
