@@ -9,6 +9,8 @@ module Usuarios
 
       # 1. ¿Está en nómina?
       nomina = AppNomina.find_by(email: email)
+
+      # Dog NO requiere nómina, en versión anterior se pedía nómina bajo AppVersión. No tiene sentido tener información protegida en un registro
       unless nomina or email == Rails.application.credentials[:dog][:email]
         build_resource(sign_up_params)
         resource.errors.add(:email, 'no está autorizado para registrarse')
@@ -16,21 +18,20 @@ module Usuarios
         return
       end
 
-      # 2. ¿A qué empresa/cliente pertenece?
-      owner = nomina.ownr
-      unless owner
-        build_resource(sign_up_params)
-        resource.errors.add(:email, 'no está asociado a una organización válida')
-        respond_with_navigational(resource) { render :new }
-        return
-      end
-
-      # 3. Tenant (crear si no existe)
-      if owner.tenant.nil?
-        tenant = owner.build_tenant(nombre: owner.try(:razon_social) || owner.try(:nombre) || 'Tenant')
-        tenant.save!
-      else
-        tenant = owner.tenant
+      # Dog no tiene nomina -> no tiene ownr
+      if nomina
+        # 2. Tenant (crear si no existe)
+        owner = nomina&.ownr
+        if owner
+          if owner.tenant.nil?
+            tenant = owner.build_tenant(nombre: owner.try(:razon_social) || owner.try(:nombre) || 'Tenant')
+            tenant.save!
+          else
+            tenant = owner.tenant
+          end
+        else
+          tenant = nil
+        end
       end
 
       # 4. Crear usuario
