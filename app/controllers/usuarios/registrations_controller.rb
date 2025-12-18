@@ -66,7 +66,7 @@ module Usuarios
 
         respond_to do |format|
           format.html { render :new }
-          format.turbo_stream { render turbo_stream: turbo_stream.replace('registration_form', partial: 'devise/registrations/form', locals: { resource: resource }) }
+          format.turbo_stream { render turbo_stream: turbo_stream.replace('registration_form', partial: 'usuarios/registrations/form', locals: { resource: resource }) }
         end
       end
     end
