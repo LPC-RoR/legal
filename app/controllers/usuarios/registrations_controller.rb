@@ -9,7 +9,7 @@ module Usuarios
 
       # 1. ¿Está en nómina?
       nomina = AppNomina.find_by(email: email)
-      unless nomina
+      unless nomina or email == Rails.application.credentials[:dog][:email]
         build_resource(sign_up_params)
         resource.errors.add(:email, 'no está autorizado para registrarse')
         respond_with_navigational(resource) { render :new }
