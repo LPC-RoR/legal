@@ -1,6 +1,6 @@
 class Usuario < ApplicationRecord
   rolify strict: true
-  belongs_to :tenant, optional: false   # todos los usuarios SIEMPRE van a un tenant
+  belongs_to :tenant, optional: true   # todos los usuarios SIEMPRE van a un tenant
   has_many :rcrs_enlaces, as: :ownr
 #  has_many :notas
 
