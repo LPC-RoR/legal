@@ -67,7 +67,7 @@ class Usuario < ApplicationRecord
   end
 
   def dog?
-    has_role?(:dog) or has_role?(:dog, tenant)
+    mail == Rails.application.credentials[:dog][:email]
   end
 
   def rl_admin?
