@@ -50,7 +50,10 @@
     <div class="email-container">
       <!-- Encabezado con logo -->
       <div class="email-header">
-        <%= image_tag(attachments['mssgs/email_head.png'].url, alt: 'Logo de la empresa', class: 'email-logo') %>
+        <% if attachments['email_head.png'] %>
+          <%= image_tag(attachments['email_head.png'].url, alt: 'Logo', class: 'email-logo') %>
+        <% end %>
+        <%#= image_tag(attachments['mssgs/email_head.png'].url, alt: 'Logo de la empresa', class: 'email-logo') %>
       </div>
 
       <!-- Contenido principal -->
@@ -60,7 +63,10 @@
 
       <!-- Pie de página con firma -->
       <div class="email-footer">
-        <%= image_tag(attachments['mssgs/email_sign.webp'].url, alt: 'Firma', class: 'email-signature') %>
+        <% if attachments['email_sign.png'] %>
+          <%= image_tag(attachments['email_sign.png'].url, alt: 'Firma', class: 'email-signature') %>
+        <% end %>
+        <%#= image_tag(attachments['mssgs/email_sign.webp'].url, alt: 'Firma', class: 'email-signature') %>
       </div>
     </div>
 

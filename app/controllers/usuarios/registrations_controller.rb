@@ -12,7 +12,7 @@ module Usuarios
       nomina = AppNomina.find_by(email: email)
 
       # Dog NO requiere nómina, en versión anterior se pedía nómina bajo AppVersión. No tiene sentido tener información protegida en un registro
-      unless nomina or email == Rails.application.credentials[:dog][:email]
+      unless nomina or email == Rails.application.credentials[:dog][:email] or valid_domain?(email)
         build_resource(sign_up_params)
         resource.errors.add(:email, 'no está autorizado para registrarse')
         respond_with_navigational(resource) { render :new }
@@ -72,6 +72,17 @@ module Usuarios
     end
 
     protected
+
+    def valid_domain?(email, allowed_domains = ['laborsafe.cl', 'edasoft.cl', 'tapiaycia.cl'])
+      # Extrae el dominio después del @
+      domain = email.to_s.split('@').last
+      
+      # Verifica si el dominio está en el array
+      allowed_domains.include?(domain)
+    rescue
+      # Retorna false si el email es nil o no tiene formato válido
+      false
+    end
 
     def after_sign_up_path_for(resource)
       resource.active_for_authentication? ? root_path : new_user_session_path
