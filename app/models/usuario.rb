@@ -67,7 +67,7 @@ class Usuario < ApplicationRecord
   end
 
   def dog?
-    mail == Rails.application.credentials[:dog][:email]
+    email == Rails.application.credentials[:dog][:email]
   end
 
   def rl_admin?
