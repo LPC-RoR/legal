@@ -1,2 +1,0 @@
-class Modelo < ApplicationRecord
-end

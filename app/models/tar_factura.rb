@@ -3,9 +3,6 @@ class TarFactura < ApplicationRecord
 	has_one :tar_nota_credito
 	has_many :tar_facturaciones
 
-	has_many :m_reg_facts
-	has_many :m_registros, through: :m_reg_facts
-
 	scope :fac_ordr, -> { order(created_at: :desc) }
 
     scope :std, ->(std) { where(estado: std).fac_ordr}
@@ -42,10 +39,6 @@ class TarFactura < ApplicationRecord
 
 	def d_concepto
 		self.concepto.blank? ? 'concepto no ingresado' : self.concepto
-	end
-
-	def pagado
-		self.m_reg_facts.map {|mrf| mrf.monto}.sum
 	end
 
 	def pagada?

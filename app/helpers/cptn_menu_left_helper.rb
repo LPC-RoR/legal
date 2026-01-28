@@ -75,14 +75,6 @@ module CptnMenuLeftHelper
 								['Tarifas generales', 'tarifas_generales'],
 							]
 						},
-						{
-							titulo: 'Modelo de Negocios',
-							condicion: admin?,
-							items: [
-								['Modelo', 'modelo'],
-								['Períodos & Bancos', 'periodos_bancos']
-							]
-						}
 					]
 				},
 				{

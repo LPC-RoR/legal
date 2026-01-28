@@ -367,8 +367,6 @@ Rails.application.routes.draw do
       match :tipos, via: :get, on: :collection
       match :cuantias_tribunales, via: :get, on: :collection
       match :tarifas_generales, via: :get, on: :collection
-      match :modelo, via: :get, on: :collection
-      match :periodos_bancos, via: :get, on: :collection
     end
     resources :hlp_ayudas
     resources :slides do
@@ -484,55 +482,6 @@ Rails.application.routes.draw do
       match :reporta_registro, via: :get, on: :member
       match :excluye_registro, via: :get, on: :member
     end
-  end
-
-  scope module: 'modelos' do
-    resources :modelos
-    resources :m_modelos
-    resources :m_periodos
-    resources :m_conceptos do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-    resources :m_items do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-
-    resources :m_bancos do
-      resources :m_cuentas
-      resources :m_formatos
-    end
-    resources :m_cuentas do
-      resources :m_conciliaciones
-      match :set_formato, via: :post, on: :member
-    end
-    resources :m_formatos do
-      resources :m_elementos
-      resources :m_datos
-    end
-    resources :m_elementos do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-    resources :m_datos do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-    resources :m_conciliaciones do
-      match :conciliacion, via: :get, on: :member
-    end
-    resources :m_valores
-    resources :m_registros do
-      match :asigna, via: :get, on: :member
-      match :asigna_factura, via: :post, on: :member
-      match :libera_factura, via: :get, on: :member
-    end
-    resources :m_campos
-    resources :m_movimientos
-
-    # tabla de relación para resolver pagos
-    resources :m_reg_facts
   end
 
   scope module: 'dt' do

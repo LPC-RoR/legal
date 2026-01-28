@@ -25,19 +25,4 @@
 			<% end %>
 		</div>
 	</div>
-
-	<% unless objeto.m_registros.empty? %>
-	<div style="padding-left: 2em;">
-		<div class="row text-info">
-			<% objeto.m_reg_facts.each do |mrf| %>
-				<div class="col-8">
-					<i class="bi bi-arrow-right"></i><%= dma(mrf.tar_factura.fecha_factura) %>
-				</div>
-				<div class="col-4" align='right'>
-					<%= s_pesos(mrf.monto) %>
-				</div>
-			<% end %>
-		</div>
-	</div>
-	<% end %>
 </small></small>

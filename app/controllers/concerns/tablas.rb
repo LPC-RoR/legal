@@ -28,10 +28,6 @@ module Tablas
 			tribunal_cortes: 'cuantias_tribunales',
 			tar_tarifas: 'tarifas_generales',
 			tar_servicios: 'tarifas_generales',
-			m_conceptos: 'modelo',
-			m_items: 'modelo',
-			m_cuentas: 'modelo',
-			m_bancos: 'periodos_bancos',
 			receptor_denuncias: 'archivos_denuncia',
 			motivo_denuncias: 'archivos_denuncia',
 		}

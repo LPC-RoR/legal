@@ -1,2 +1,0 @@
-class MCampo < ApplicationRecord
-end
