@@ -14,7 +14,4 @@ class ComRequerimiento < ApplicationRecord
 
 	scope :rut_ordr, -> {order(:rut)}
 
-    include EmailVerifiable
-    envia_verificacion_despues_crear  # Activa el callback
-
 end

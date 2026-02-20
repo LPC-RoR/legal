@@ -1,0 +1,10 @@
+# config/locales/mailers/platform.es.yml
+es:
+  mailers:
+    platform:
+      verification:
+        empresa_confirmation:
+          subject: "Verifica tu correo - %{brand_name}"
+      account:
+        welcome_email:
+          subject: "¡Bienvenido a %{brand_name}!"

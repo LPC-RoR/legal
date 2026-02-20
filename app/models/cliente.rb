@@ -1,4 +1,6 @@
 class Cliente < ApplicationRecord
+	# Manejo de logos
+	include Brandeable
 
 	TIPOS = ['Empresa', 'Sindicato', 'Trabajador']
 
@@ -25,7 +27,10 @@ class Cliente < ApplicationRecord
 
 	has_many :age_actividades, as: :ownr
 
-    has_one :rcrs_logo, as: :ownr
+	# Manejo de logos y footer
+	has_one_attached :logo
+	has_rich_text :email_footer
+
 	has_many :app_contactos, as: :ownr
 	has_many :app_archivos, as: :ownr
 	has_many :notas, as: :ownr
@@ -40,10 +45,6 @@ class Cliente < ApplicationRecord
 
 
     # Procedimiento Investigación y Sanción
-
-    def logo_url
-        self.rcrs_logo.blank? ? 'tyc.png' : self.rcrs_logo.logo.resized.url
-    end
 
     def cntcts_array
         [(verificacion_datos? ? 'RRHH' : nil),
@@ -171,6 +172,16 @@ class Cliente < ApplicationRecord
 
 	def monto_factura_aprobacion_uf
 		self.facturaciones.where(tar_factura_id: nil).map {|fctrcn| fctrcn.moneda == 'Pesos' ? fctrcn.monto / self.uf_dia : fctrcn.monto }.sum
+	end
+
+	# Manejo de logos y footer
+
+	def footer_content
+		email_footer
+	end
+
+	def brand_name
+		razon_social
 	end
 
 end

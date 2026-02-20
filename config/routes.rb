@@ -292,7 +292,6 @@ Rails.application.routes.draw do
       match :abajo, via: :post, on: :member
     end
     resources :comunas
-    resources :rcrs_logos
     resources :cal_feriados
     resources :rcrs_enlaces
   end
@@ -515,4 +514,7 @@ Rails.application.routes.draw do
   # manejo formulario de registro de empresas
   post '/register', to: 'empresas#create', as: 'register'
   get '/verify_email', to: 'empresas#verify', as: 'verify_email'
+
+  # manejo formulario de registro de contactos comerciales
+  get '/verify_cntct', to: 'comercial/com_requerimientos#verify', as: 'verify_cntct'
 end

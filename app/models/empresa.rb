@@ -1,4 +1,7 @@
 class Empresa < ApplicationRecord
+    # Manejo de logos
+    include Brandeable
+
     attr_accessor :website  # honeypot
 
     has_one :tenant, as: :owner, dependent: :destroy
@@ -6,9 +9,6 @@ class Empresa < ApplicationRecord
 
     # fuerza que esto corra ANTES que el dependent: :destroy del tenant
     before_destroy :destroy_usuarios, prepend: true
-
-    # Logo con Active Storage
-    has_one_attached :logo
 
 	has_many :app_nominas, as: :ownr
 
@@ -18,7 +18,11 @@ class Empresa < ApplicationRecord
 	has_many :krn_denuncias, as: :ownr
 	has_many :krn_empresa_externas, as: :ownr
 
-    has_one :rcrs_logo, as: :ownr
+    # Manejo de logos
+    # Logo con Active Storage
+    has_one_attached :logo
+    has_rich_text :email_footer
+
     has_many :app_contactos, as: :ownr
 
 	scope :rut_ordr, -> {order(:rut)}
@@ -28,6 +32,7 @@ class Empresa < ApplicationRecord
     validates_uniqueness_of :rut, :email_administrador
     validates_presence_of :razon_social, :email_administrador
 
+    # Manejo de logos
     # Valida logo ingresado por Active Storage
     validate :acceptable_logo
 
@@ -44,7 +49,7 @@ class Empresa < ApplicationRecord
     end
 
     def logo_url
-        self.rcrs_logo.blank? ? 'logo/logo_60.png' : self.logo.url
+        self.logo.present? ? self.logo.url : 'logo/logo_60.png'
     end
 
     # Configuración reportes
@@ -110,6 +115,19 @@ class Empresa < ApplicationRecord
         self.krn_empresa_externas.any?
     end
 
+    # Manejo de Logo y Footer
+
+    # Enmascara nombre del campo
+    def footer_content
+        email_footer
+    end
+
+    # Enmascara nombre del campo
+    def brand_name
+        razon_social
+    end
+
+
     # ---------------------------------------------------------------------------------
     private
 
@@ -120,6 +138,18 @@ class Empresa < ApplicationRecord
     def destroy_usuarios
         tenant&.usuarios&.destroy_all
     end
+
+    def crear_demo!
+        licencias.create!(
+            plan:            'demo',
+            status:          'active',
+            max_denuncias:   5,
+            started_at:      Time.current,
+            finished_at:     10.days.from_now
+        )
+    end
+
+    # Manejo de Logo y Footer
 
     def acceptable_logo
         return unless logo.attached?
@@ -132,16 +162,6 @@ class Empresa < ApplicationRecord
         unless acceptable_types.include?(logo.content_type)
           errors.add(:logo, "debe ser PNG, JPG, WEBP o SVG")
         end
-    end
-
-    def crear_demo!
-        licencias.create!(
-            plan:            'demo',
-            status:          'active',
-            max_denuncias:   5,
-            started_at:      Time.current,
-            finished_at:     10.days.from_now
-        )
     end
 
 end

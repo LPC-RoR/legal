@@ -73,6 +73,9 @@ class Licencia < ApplicationRecord
   end
 
   def no_superar_limite
-    errors.add(:base, 'Ya existe una demo activa') if empresa.licencias.active.exists?
+    # Solo verifica licencias guardadas en BD, excluyendo la actual en memoria
+    existing_active = empresa.licencias.active.where.not(id: id)
+    errors.add(:base, 'Ya existe una demo activa') if existing_active.exists?
   end
+
 end

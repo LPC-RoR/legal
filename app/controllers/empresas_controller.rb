@@ -1,13 +1,14 @@
 class EmpresasController < ApplicationController
-  include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario! Impide paso a usuarios de Empresas
-  skip_before_action :redirect_if_user_has_tenant, only: [:edit, :update, :swtch_plan_type]
+  include BlockTenantUsers
+  # skip_before_action :redirect_if_user_has_tenant, only: [:edit, :update, :swtch_plan_type]
+  skip_before_action :redirect_if_user_has_tenant, raise: false
+  before_action :redirect_if_user_has_tenant, only: [:edit, :update, :create] # Only 
 
   before_action :authenticate_usuario!, except: [:create, :verify]
   before_action :scrty_on
   before_action :set_empresa, only: %i[ show edit update destroy swtch swtch_plan_type prg renovar_demo activar_compra renovar ]
   before_action :authorize_tenant_user, only: [:edit, :update, :swtch_plan_type]
 
-  # anti-bot para create
   MIN_FILL_SECONDS = 3
 
   after_action :add_admin, only: :create
@@ -33,6 +34,8 @@ class EmpresasController < ApplicationController
 
   # GET /empresas/1/edit
   def edit
+    # Precarga el logo pero no lo toques en la vista directamente
+    @has_logo = @objeto.logo.blob.present? rescue false
   end
 
   # POST /empresas or /empresas.json
@@ -55,9 +58,12 @@ class EmpresasController < ApplicationController
     @objeto.verification_token = SecureRandom.urlsafe_base64
     @objeto.email_verified = false
 
-    respond_to do |format|          # <-- FALTABA ESTE BLOQUE
+    respond_to do |format|
       if @objeto.save
-        EmpresaMailer.with(empresa_id: @objeto.id).verification_email.deliver_later
+        # NUEVO: Usar mailer de Platform context directamente
+        Contexts::Platform::VerificationMailer
+          .empresa_confirmation(@objeto.id)
+          .deliver_later
 
         format.html { redirect_to root_path, notice: 'Te hemos enviado un correo de verificación' }
         format.turbo_stream do
@@ -99,18 +105,18 @@ class EmpresasController < ApplicationController
       )
     end
 
-    # Asignar tenant y rol
     usuario.tenant = @objeto.tenant
     usuario.save!
     usuario.add_role(:admin, @objeto.tenant)
 
-    # <-- AQUÍ -->
-    if usuario == current_usuario
-      bypass_sign_in(usuario) # actualiza sesión de Devise
-    end
+    bypass_sign_in(usuario) if usuario == current_usuario
 
-    # Bienvenida
-    EmpresaMailer.wellcome_email(usuario.email, random_password).deliver_later if random_password
+    # NUEVO: Usar mailer de Platform context directamente
+    if random_password
+      Contexts::Platform::AccountMailer
+        .welcome_email(usuario.id, random_password)
+        .deliver_later
+    end
 
     redirect_to root_path, notice: 'Correo verificado correctamente'
   rescue ActiveRecord::RecordNotFound
@@ -196,7 +202,6 @@ class EmpresasController < ApplicationController
     @objeto.krn_investigadores.delete_all
     @objeto.krn_denuncias.delete_all
     @objeto.krn_empresa_externas.delete_all
-    @objeto.rcrs_logo.delete if @objeto.rcrs_logo.present?
     @objeto.app_contactos.delete_all
     @objeto.app_nominas.each do |nmn|
       prfl = nmn.app_perfil
@@ -210,14 +215,13 @@ class EmpresasController < ApplicationController
 
   private
 
+
     def authorize_tenant_user
-      # Asegura que el usuario solo acceda a su propia empresa
       if current_usuario&.tenant_id.present? && @objeto.tenant.id != current_usuario.tenant_id && (not current_usuario.dog?)
         redirect_to root_path, alert: 'No tienes permiso para realizar esta acción.'
       end
     end
 
-    # devuelve el scope que el usuario puede ver
     def empresas_visibles
       if current_usuario.tenant.nil?
         Empresa.all
@@ -228,7 +232,7 @@ class EmpresasController < ApplicationController
         when 'Empresa'
           Empresa.where(id: current_usuario.tenant.owner_id)
         when 'Cliente'
-          Empresa.none # o la lógica que corresponda si un Cliente puede ver empresas
+          Empresa.none
         else
           Empresa.none
         end
@@ -243,12 +247,6 @@ class EmpresasController < ApplicationController
       if params.dig(:empresa, :remove_logo) == "1" && @objeto.logo.attached?
         @objeto.logo.purge
       end
-    end
-
-    def current_tenant_id
-      return nil unless defined?(::Current)
-      return nil unless ::Current.respond_to?(:tenant)
-      ::Current.tenant&.id
     end
 
     def add_admin

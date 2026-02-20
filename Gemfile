@@ -174,3 +174,5 @@ gem "marcel", "~> 1.0"
 gem "ruby-filemagic", "~> 0.7.3"
 
 gem "redcarpet", "~> 3.6"
+
+gem "flipper", "~> 1.3"

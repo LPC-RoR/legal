@@ -1,7 +1,9 @@
+<%# views/0p/form/_form.html.erb  %>
 <% fml  ||= false %>
 <% data ||= nil %>
 <% @bck_rdrccn ||= "/#{@objeto.class.name.tableize}" %>
 
+<% Rails.logger.debug ">>> krn_routes?: #{krn_routes?}" %>
 <% if krn_routes? %>
 	<%= render partial: 'cuentas/frm/header', locals: {fml: fml} %>
 <% else %>
@@ -25,18 +27,19 @@
 		</div>
 		<% end %>
 
-		<% form_prtl = prtl?(@objeto, nil, 'form') ? prtl(@objeto, nil, 'form') : (prtl?(@objeto, nil, 'detail') ? prtl(@objeto, nil, 'detail') : nil) %>
+		<% form_prtl = fields_prtl(@objeto) %>
 
 		<% if form_prtl %>
+
+<% Rails.logger.debug ">>> form_prtl: #{form_prtl.inspect}" %>
+<% Rails.logger.debug ">>> @objeto.class: #{@objeto.class.name}" %>
+<% Rails.logger.debug ">>> caller methods: #{caller.select{|c| c.include?('views')}.join("\n")}" %>
+
 			<%= render partial: form_prtl, locals: {c: controller_name, form: form} %>
+
 			<%= hidden_field_tag :bck_rdrccn, @bck_rdrccn %>
 		<% else %>
 			<h3>Ne se encontró archivo con el formulario</h3>
-		<% end %>
-
-		<% unless detail_partial(@objeto).blank? %>
-		<% else %>
-			
 		<% end %>
 
 		<div class="my-3">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_26_200813) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_19_135646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1211,16 +1211,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_26_200813) do
     t.datetime "updated_at", null: false
     t.index ["ownr_id"], name: "index_rcrs_enlaces_on_ownr_id"
     t.index ["ownr_type"], name: "index_rcrs_enlaces_on_ownr_type"
-  end
-
-  create_table "rcrs_logos", force: :cascade do |t|
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.string "logo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["ownr_id"], name: "index_rcrs_logos_on_ownr_id"
-    t.index ["ownr_type"], name: "index_rcrs_logos_on_ownr_type"
   end
 
   create_table "reg_reportes", force: :cascade do |t|

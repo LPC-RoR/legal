@@ -1,6 +1,7 @@
+<%# 0p/lbld_inpts/_text.html.erb %>
 <div class="form-floating mb-3">
 
-    <%= form.text_field token, class: "form-control #{'is-invalid' if @objeto.errors[:name].any?}", id: label.parameterize, placeholder: label %>
+    <%= form.text_field token, class: "form-control #{'is-invalid' if @objeto.errors[token].any?}", id: label.parameterize, placeholder: label %>
     <%= form.label token, label, for: label.parameterize unless @objeto.errors[token].any? %>
     
     <% if @objeto.errors[token].any? %>
