@@ -3,6 +3,7 @@ class Karin::KrnDenunciantesController < ApplicationController
   before_action :scrty_on
   before_action :set_krn_denunciante, only: %i[ show edit update destroy swtch rlzd prsnt set_fld ]
 
+  include MailDesk
   include Karin
 
   # GET /krn_denunciantes or /krn_denunciantes.json
@@ -17,7 +18,6 @@ class Karin::KrnDenunciantesController < ApplicationController
   # GET /krn_denunciantes/new
   def new
     @objeto = KrnDenunciante.new(krn_denuncia_id: params[:oid])
-    set_bck_rdrccn
   end
 
   # GET /krn_denunciantes/1/edit
@@ -27,11 +27,21 @@ class Karin::KrnDenunciantesController < ApplicationController
   # POST /krn_denunciantes or /krn_denunciantes.json
   def create
     @objeto = KrnDenunciante.new(krn_denunciante_params)
-    set_bck_rdrccn
+
+    # -----------------------------------------------------------
+    # MailDesk: llena los campos del modelo que registra el envío
+    # En este modelo la varificación es manual
+    # set_vrfccn_fields
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to dnnc_shw_path(@objeto), notice: "Denunciante fue exitosamente creado." }
+
+        # ------------------------------------
+        # MailDesk
+        # En este modelo la varificación es manual
+        # enviar_correo_verificacion('dnncnt')
+
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Denunciante fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,11 +50,20 @@ class Karin::KrnDenunciantesController < ApplicationController
     end
   end
 
+  def verify
+    @objeto = KrnDenunciante.find_by!(verification_token: params[:token])
+    @objeto.update!(email_ok: @objeto.email, verification_token: nil)
+
+    redirect_to default_redirect_path(@objeto), notice: 'Correo verificado correctamente'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to default_redirect_path(@objeto), alert: 'Token inválido'
+  end
+
   # PATCH/PUT /krn_denunciantes/1 or /krn_denunciantes/1.json
   def update
     respond_to do |format|
       if @objeto.update(krn_denunciante_params)
-        format.html { redirect_to dnnc_shw_path(@objeto), notice: "Denunciante fue exitosamente actualizado." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Denunciante fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,7 +77,7 @@ class Karin::KrnDenunciantesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to dnnc_shw_path(@objeto), notice: "Denunciante fue exitosamente eliminado." }
+      format.html { redirect_to default_redirect_path(@objeto), notice: "Denunciante fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

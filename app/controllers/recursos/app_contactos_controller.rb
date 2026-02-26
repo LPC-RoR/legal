@@ -1,8 +1,9 @@
 class Recursos::AppContactosController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_app_contacto, only: %i[ show edit update destroy ]
-  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
+  before_action :set_app_contacto, only: %i[ show edit update destroy rlzd ]
+
+  include MailDesk
 
   # GET /app_contactos or /app_contactos.json
   def index
@@ -15,7 +16,6 @@ class Recursos::AppContactosController < ApplicationController
   # GET /app_contactos/new
   def new
     @objeto = AppContacto.new(ownr_type: params[:oclss], ownr_id: params[:oid])
-    set_bck_rdrccn
   end
 
   # GET /app_contactos/1/edit
@@ -25,11 +25,19 @@ class Recursos::AppContactosController < ApplicationController
   # POST /app_contactos or /app_contactos.json
   def create
     @objeto = AppContacto.new(app_contacto_params)
-    set_bck_rdrccn
+
+    # -----------------------------------------------------------
+    # MailDesk: llena los campos del modelo que registra el envío
+    set_vrfccn_fields
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Contacto fue exitosamente creado." }
+
+        # ------------------------------------
+        # MailDesk
+        enviar_correo_verificacion('cntct')
+
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Contacto fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,11 +46,20 @@ class Recursos::AppContactosController < ApplicationController
     end
   end
 
+  def verify
+    @objeto = AppContacto.find_by!(verification_token: params[:token])
+    @objeto.update!(email_ok: @objeto.email, verification_token: nil)
+
+    redirect_to default_redirect_path(@objeto), notice: 'Correo verificado correctamente'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to default_redirect_path(@objeto), alert: 'Token inválido'
+  end
+
   # PATCH/PUT /app_contactos/1 or /app_contactos/1.json
   def update
     respond_to do |format|
       if @objeto.update(app_contacto_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Contacto fue exitosamente actualizado." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Contacto fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +72,7 @@ class Recursos::AppContactosController < ApplicationController
   def destroy
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @bck_rdrccn, notice: "Contacto fue exitosamente eliminado." }
+      format.html { redirect_to default_redirect_path(@objeto), notice: "Contacto fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

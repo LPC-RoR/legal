@@ -1,0 +1,38 @@
+<% if @rol == 'investigador' %>
+	<h1>Verifique su correo electrónico para recibir notificaciones e información de los procedimientos en los cuales participe en calidad de investigador</h1>
+<% elsif @rol == 'empresa externa' %>
+	<h1>Verifique su correo electrónico para recibir notificaciones e información de los procedimientos en los cuales participe en calidad de empresa externa</h1>
+<% elsif @rol == 'contacto' %>
+	<h1>Verifique su correo electrónico para recibir requerimientos en calidad de integrante del equipo de apoyo del procedimiento de investigación de la Ley 21.643</h1>
+<% elsif @rol == 'nómina' %>
+	<% if @objeto.ownr.present? %>
+		<h1>Ha sido incorporado a la nómina de usuarios de LaborSafe</h1>
+	<% else %>
+		<h1>Ha sido incorporado a la nómina de usuarios de Addt</h1>
+	<% end %>
+<% elsif ['denunciante', 'denunciado', 'testigo'].include?(@rol) %>
+	<h1>Ha sido incorporado a la nómina de usuarios de LaborSafe</h1>
+<% else %>
+	<h1>Verifique su correo electrónico para recibir notificaciones e información del procedimiento de investigación en el cual participa</h1>
+<% end %>
+
+<% if @rol == 'empresa externa' %>
+	<p>Esta dirección de correo electrónico ha sido establecida como contacto de su empresa para el envío de información de procedimientos de investigación de la Ley 21.643.</p>
+<% elsif @rol == 'contacto' %>
+	<p>Este correo electrónico ha sido establecido como el correo que formalmente recibe los requerimientos de: <%= @tarea %></p>
+<% elsif @rol == 'nómina' %>
+	<p>Verifique su correo electrónico para completar el proceso de registro.</p>
+<% elsif ['denunciante', 'denunciado', 'testigo'].include?(@rol) %>
+	<p>Plataforma en la cual se registrará la investigación relativa a la Ley 21.643 en la cual usted participa como <%=@rol%>.</p>
+<% else %>
+	<p>Le recordamos que el reglamento que rige la Ley 21.643 establece que, para estos efectos, se debe utilizar el correo electrónico personal. Si usted ha recibido este correo de verificación en su correo institucional, le rogamos proporcionar a la brevedad su correo electrónico personal a nuestra área de recursos humanos.</p>
+<% end %>
+
+<% if ['denunciante', 'denunciado', 'testigo'].include?(@rol) %>
+	<p>Si usted no cuenta con correo electrónico y desea que la comunicación sea realizada por correo certificado, háganos llegar su solicitud de acogerse al artículo 516 del Código del Trabajo, comunicándonos en dicha solicitud la dirección a la cual se debe enviar la información.</p>
+<% end %>
+
+<p>Por favor, verifique su dirección de correo presionando el siguiente enlace:</p>
+<%= link_to 'Verificar su correo', @verification_url %>
+
+<p><em>Este enlace tendrá validez por 24 horas.</em></p>

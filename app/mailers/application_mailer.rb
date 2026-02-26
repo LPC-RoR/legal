@@ -12,6 +12,8 @@ class ApplicationMailer < ActionMailer::Base
   # Layout determinado por contexto automáticamente
   layout 'mailers/base'
 
+  before_action :set_active_storage_url_options
+
   before_action :set_branding
 
   helper_method :current_branding, :logo_url, :footer_html, :brand_name, :support_email
@@ -51,5 +53,60 @@ class ApplicationMailer < ActionMailer::Base
   def footer_html; @branding&.footer_html; end
   def brand_name; @branding&.brand_name; end
   def support_email; @branding&.support_email; end
+
+  private
+
+  def set_active_storage_url_options
+    ActiveStorage::Current.url_options = active_storage_url_options
+  end
+
+  # ¡Cambiamos el nombre para evitar conflicto con el método nativo url_options!
+  def active_storage_url_options
+    {
+      host: mailer_host,
+      protocol: mailer_protocol,
+      port: mailer_port
+    }.compact
+  end
+
+  def mailer_host
+    ActionMailer::Base.default_url_options[:host] ||
+      Rails.application.routes.default_url_options[:host] ||
+      Rails.application.config.action_mailer.default_url_options&.dig(:host) ||
+      environment_fallback_host
+  end
+
+  def mailer_protocol
+    ActionMailer::Base.default_url_options[:protocol] ||
+      Rails.application.config.action_mailer.default_url_options&.dig(:protocol) ||
+      'https'
+  end
+
+  def mailer_port
+    port = ActionMailer::Base.default_url_options[:port] ||
+           Rails.application.routes.default_url_options[:port]
+    
+    # No incluir puerto si es el default del protocolo
+    return nil if port.blank? || 
+                  (mailer_protocol == 'https' && port.to_i == 443) ||
+                  (mailer_protocol == 'http' && port.to_i == 80)
+    
+    port
+  end
+
+  def environment_fallback_host
+    case Rails.env
+    when 'production'
+      raise ArgumentError, 
+            "ERROR: config.action_mailer.default_url_options[:host] no está configurado en production. " \
+            "Añade: config.action_mailer.default_url_options = { host: 'tudominio.com' } en config/environments/production.rb"
+    when 'development'
+      'localhost:3000'
+    when 'test'
+      'www.example.com'
+    else
+      'localhost:3000'
+    end
+  end
 
 end

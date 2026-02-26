@@ -1,11 +1,15 @@
 <%# views/0p/form/_form.html.erb  %>
-<% fml  ||= false %>
+<%# female: reemplaza Nuevo por Nueva. Por defecto es false %>
+<% fml  ||= false %>	
 <% data ||= nil %>
+
+<%# @bck_rdrccn se utiliza para pasar la ruta a la que debe volver el formulario %>
+<%# No tengo claro aún de donde viene y cómo se usa (Reemplazar este comentario por la explicación) %>
 <% @bck_rdrccn ||= "/#{@objeto.class.name.tableize}" %>
 
-<% Rails.logger.debug ">>> krn_routes?: #{krn_routes?}" %>
 <% if krn_routes? %>
-	<%= render partial: 'cuentas/frm/header', locals: {fml: fml} %>
+	<%# Se hereda fml (female) %>
+	<%= render partial: '0p/form/krn_header', locals: {fml: fml} %>
 <% else %>
 	<div class="form-box">
 		<%= render partial: '0p/form/header', locals: {text: to_name(@objeto.class.name), size: config[:font_size][:title]} %>
@@ -28,15 +32,10 @@
 		<% end %>
 
 		<% form_prtl = fields_prtl(@objeto) %>
-
 		<% if form_prtl %>
-
-<% Rails.logger.debug ">>> form_prtl: #{form_prtl.inspect}" %>
-<% Rails.logger.debug ">>> @objeto.class: #{@objeto.class.name}" %>
-<% Rails.logger.debug ">>> caller methods: #{caller.select{|c| c.include?('views')}.join("\n")}" %>
-
 			<%= render partial: form_prtl, locals: {c: controller_name, form: form} %>
 
+			<%# La ruta de redirección se pasa como campo oculto al controlador para garantizar la redirección %>
 			<%= hidden_field_tag :bck_rdrccn, @bck_rdrccn %>
 		<% else %>
 			<h3>Ne se encontró archivo con el formulario</h3>

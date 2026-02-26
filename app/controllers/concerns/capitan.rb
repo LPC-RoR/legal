@@ -12,6 +12,7 @@ module Capitan
 	  @objeto.update_column(:rut, normalizado) if normalizado.present?
 	end
 
+	# DEPRECATED en proceso
 	def extract_action_from_referer
 	  referer = request.referer
 	  unless referer.present?
@@ -115,7 +116,7 @@ module Capitan
 		redirect_to @bck_rdrccn
 	end
 
-	# Auditoria
+	# Auditoria Marca algo como realizado!
 	def rlzd
 		if params[:p] == 'trash'
 			chck = @objeto.check_realizados.find_by(cdg: params[:cdg])
@@ -132,8 +133,8 @@ module Capitan
 			)
 		end
 
-		set_bck_rdrccn
-		redirect_to @bck_rdrccn
+		redirect_path = params[:pth] ? key_redirect_path(@objeto, params[:pth]) : default_redirect_path(@objeto)
+		redirect_to redirect_path
 	end
 
 	# Auditoria

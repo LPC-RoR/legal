@@ -3,11 +3,18 @@
 	<div class="col-8">
 		<i class="bi bi-arrow-return-right"></i>
 		<% if objeto.articulo_516 %>
+
+			<%# Articulo 516 %>
 			<i class="bi bi-mailbox-flag text-primary"></i> Notificaciones se envían por correo certificado.
+
 		<% elsif objeto.email.blank? %>
+
+			<%# Correo electrónico NO ingresado %>
 			<i class="bi bi-cone-striped text-danger"></i> El correo electrónico del participante no se ha ingresado.
+
 		<% else %>
-			<% if objeto.email != objeto.email_ok and (not (@acts_hsh[act_id] and @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, 'verificar_email'))) %>
+
+			<% if objeto.email != objeto.email_ok and (not objeto.tiene_check_realizado?) %>
 				<i class="bi bi-cone-striped text-danger"></i> 
 				<%= ClssPrcdmnt.act_nombre['verificar_email'] %>
 				<!-- NO se han enviado emails de verificación -->
@@ -15,7 +22,7 @@
 					: <span class="text-primary"><%=objeto.n_vrfccn_lnks%><i class="bi bi-dot"></i><%=dma(objeto.fecha_vrfccn_lnk)%></span>
 				<% end %>		
 			<% else %>
-				<% if @acts_hsh[objeto.clss_id][:rlzds].objt_rlzd?(objeto, 'verificar_email') %>
+				<% if objeto.tiene_check_realizado? %>
 					<i class="bi bi-clipboard-check text-primary"></i>
 				<% end %>
 				<% if objeto.verified? %>
@@ -23,22 +30,15 @@
 				<% end %>
 				<span class="text-primary"><%= email_mask(objeto.email) %></span>
 			<% end %>
+
 		<% end %>
 	</div>
 	<div class="col-4 text-end app_lnk">
 		<% unless objeto.articulo_516 or objeto.email.blank? %>
-			<% if objeto.email != objeto.email_ok and (not (@acts_hsh[act_id] and @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, 'verificar_email'))) %>
-				<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: @acts_hsh, act_id: act_id, ownr: objeto, act: 'verificar_email'} %>
-				<%= link_to send_verification_email_path(model_type: objeto.class.name.tableize, id: objeto.id),  
-				            data: { turbo_method: :post, turbo_confirm: 'Verificar envio de email' } do %>  
-				  <i class="bi bi-envelope-at"></i><%#= objeto.n_vrfccn_lnks.blank? ? 'Enviar' : 'Reenviar' %>
-				<% end %>
-			<% else %>
-				<% if objeto.verified? %>
-					 <b>verificado!</b>
-				<% else %>
-					<%= render partial: 'repositorios/check_realizados/rlzd', locals: {hsh: @acts_hsh, act_id: objeto.clss_id, ownr: objeto, act: 'verificar_email'} %>
-				<% end %>
+			<% if objeto.email == objeto.email_ok or objeto.tiene_check_realizado? %>
+
+				<b><%= objeto.verified? ? 'verificado!' : 'validado!' %></b>
+
 			<% end %>
 		<% end %>
 	</div>

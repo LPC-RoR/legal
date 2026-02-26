@@ -114,15 +114,19 @@ module CptnMapHelper
     model_name = record.class.name
     model_path = model_name.underscore.pluralize
     
-    # Define los posibles paths de los partials
-    form_partial = Rails.root.join('app', 'views', model_path, '_form.html.erb')
-    detail_partial = Rails.root.join('app', 'views', model_path, '_detail.html.erb')
-    
-    # Retorna el path relativo para render (sin _ ni extensión)
-    if form_partial.exist?
-      "#{model_path}/form"
-    elsif detail_partial.exist?
-      "#{model_path}/detail"
+    # Partials posibles de encontrar
+		prtl_frm	= prtl(record, nil, 'form')
+		prtl_dtl	= prtl(record, nil, 'detail')
+
+		# Path donde buscar los partials
+    path_frm	= prtl_to_file( prtl_frm )
+    path_dtl 	= prtl_to_file( prtl_dtl )
+
+    # Primera opción es del partial _form.html.erb
+    if File.exist?(path_frm)
+      prtl_frm
+    elsif File.exist?(path_dtl)
+      prtl_dtl
     else
       nil # o un fallback por defecto
     end

@@ -2,7 +2,8 @@ class Karin::KrnInvestigadoresController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_investigador, only: %i[ show edit update destroy rlzd prsnt swtch ]
-  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
+
+  include MailDesk
 
   # GET /krn_investigadores or /krn_investigadores.json
   def index
@@ -16,7 +17,6 @@ class Karin::KrnInvestigadoresController < ApplicationController
   # GET /krn_investigadores/new
   def new
     @objeto = KrnInvestigador.new(ownr_type: params[:oclss], ownr_id: params[:oid])
-    set_bck_rdrccn
   end
 
   # GET /krn_investigadores/1/edit
@@ -26,11 +26,19 @@ class Karin::KrnInvestigadoresController < ApplicationController
   # POST /krn_investigadores or /krn_investigadores.json
   def create
     @objeto = KrnInvestigador.new(krn_investigador_params)
-    set_bck_rdrccn
+
+    # -----------------------------------------------------------
+    # MailDesk: llena los campos del modelo que registra el envío
+    set_vrfccn_fields
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Investigador fue exitosamente creado." }
+
+        # ------------------------------------
+        # MailDesk
+        enviar_correo_verificacion('invstgdr')
+
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Investigador fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,11 +47,20 @@ class Karin::KrnInvestigadoresController < ApplicationController
     end
   end
 
+  def verify
+    @objeto = KrnInvestigador.find_by!(verification_token: params[:token])
+    @objeto.update!(email_ok: @objeto.email, verification_token: nil)
+
+    redirect_to default_redirect_path(@objeto), notice: 'Correo verificado correctamente'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to default_redirect_path(@objeto), alert: 'Token inválido'
+  end
+
   # PATCH/PUT /krn_investigadores/1 or /krn_investigadores/1.json
   def update
     respond_to do |format|
       if @objeto.update(krn_investigador_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Investigador fue exitosamente actualizado." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Investigador fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +74,7 @@ class Karin::KrnInvestigadoresController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @bck_rdrccn, notice: "Investigador fue exitosamente eliminado." }
+      format.html { redirect_to default_redirect_path(@objeto), notice: "Investigador fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

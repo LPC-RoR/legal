@@ -43,9 +43,11 @@
           <li class="nav-item">
               <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'nav-link' %>
           </li>
-          <li class="nav-item">
-              <%= link_to 'Registro', new_usuario_registration_path, class: 'nav-link' %>
-          </li>
+
+          <%# HOME : Eliminamos el Registro porque ahora todo se gestiona desde AppNomina %>
+          <!--li class="nav-item">
+              <%#= link_to 'Registro', new_usuario_registration_path, class: 'nav-link' %>
+          </li-->
         </ul>
       </div>
     </div>

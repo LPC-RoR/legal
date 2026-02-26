@@ -1,4 +1,20 @@
 <tr>
 	<td><%= objt.nombre %></td>
+	<td>
+		<% if objt.verified? and objt.email == objt.email_ok %>
+			<b class="text-primary"><i class="bi bi-at"></i> verificado!</b>
+		<% elsif objt.tiene_check_realizado? %>
+			<b class="text-primary"><i class="bi bi-clipboard-check text-primary"></i> validado</b>
+		<% end %>
+	</td>
+	<td>
+		<% n_mails = objt.n_vrfccn_lnks %>
+		<% unless n_mails.blank? %>
+			<%=dma_hm(objt.fecha_vrfccn_lnk)%>
+			<% unless n_mails == 1 %>
+				(<%=objt.n_vrfccn_lnks%>)
+			<% end %>
+		<% end %>		
+	</td>
 	<td class="text-end"><%= render partial: '0p/tbl/plldwn_lnks', locals: {objt: objt} %></td>
 </tr>

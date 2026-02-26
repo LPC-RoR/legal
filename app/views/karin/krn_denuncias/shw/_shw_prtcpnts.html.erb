@@ -16,7 +16,7 @@
 <% end %>
 
 <%= render partial: '0p/ttl_clss', locals: {source: 'krn_denunciantes', clss: :sub, dir: 'indx', hide_gly: true} %>
-<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciantes, clss: :head, dir: 'list', typ: 'ln'} %>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciantes, clss: :head, dir: 'lst', typ: 'ln'} %>
 
 
 <!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
@@ -28,7 +28,7 @@
 
 	<%= render partial: '0p/ttl_clss', locals: {source: 'krn_denunciados', clss: :sub, dir: 'indx', hide_gly: true} %>
 	<% if @objeto.krn_denunciantes.any? %>
-		<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciados, clss: :head, dir: 'list', typ: 'ln'} %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciados, clss: :head, dir: 'lst', typ: 'ln'} %>
 	<% end %>
 
 <% end %>

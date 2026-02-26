@@ -1,5 +1,4 @@
 class KrnTestigo < ApplicationRecord
-	include EmailVerifiable
 
  	belongs_to :ownr, polymorphic: true
 
@@ -50,5 +49,15 @@ class KrnTestigo < ApplicationRecord
  	def declaraciones?
  		self.krn_declaraciones.any?
  	end
+
+	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
+	# verification_sent_at marca recepción de la verificación, se añade email == email_ok para manejar cambios de email
+	def verified?
+	  verification_sent_at.present? and email == email_ok
+	end
+
+	def tiene_check_realizado?
+		check_realizados.exists?(cdg: 'verificar_email',rlzd: true)
+	end
 
 end

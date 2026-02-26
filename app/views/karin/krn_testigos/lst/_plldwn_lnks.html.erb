@@ -1,0 +1,50 @@
+<% if objt.email != objt.email_ok and (not objt.tiene_check_realizado?) %>
+
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_testigos/#{objt.id}/reenviar_correo", {key: 'tstg'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Enviar verificación de email
+    <% end %>
+  </li>
+
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_testigos/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: true}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Marcar como validado
+    <% end %>
+  </li>
+
+<% else %>
+  <%# verified? incluye email == email_ok en investigadores %>
+  <% unless objt.verified? %>
+
+    <li>
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_testigos/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: 'trash'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
+        Eliminar marca de validado
+      <% end %>
+    </li>
+
+  <% end %>
+<% end %>
+
+<% if current_usuario.admin? %>
+
+  <%# Verificar si hay items de verificación visibles para decidir si mostrar divider %>
+  <% hay_items_verificacion = (objt.email != objt.email_ok and (not objt.tiene_check_realizado?)) || (!objt.verified? && !(objt.email != objt.email_ok and (not objt.tiene_check_realizado?))) %>
+
+  <%# En el caso de los testigos, cuida que se puedan ingresar hasta en la declaración del participante %>
+  <%# modificable = @objeto.fecha_hora_dt.nil? and @objeto.fecha_trmtcn.nil? %>
+  <%# REVISAR %>
+  <% modificable = @objeto.fecha_trmtcn.nil? %>
+
+  <% if hay_items_verificacion and modificable %>
+    <li><hr class="dropdown-divider"></li>
+  <% end %>
+
+    <% if modificable %>
+      <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+      <li><hr class="dropdown-divider"></li>
+      <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+    <% end %>
+
+  <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
+
+<% end %>

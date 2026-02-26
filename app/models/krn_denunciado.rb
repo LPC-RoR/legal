@@ -1,5 +1,4 @@
 class KrnDenunciado < ApplicationRecord
-	include EmailVerifiable
 
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true
@@ -67,5 +66,15 @@ class KrnDenunciado < ApplicationRecord
  	def testigos?
  		self.krn_testigos.any?
  	end
+
+	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
+	# verification_sent_at marca recepción de la verificación, se añade email == email_ok para manejar cambios de email
+	def verified?
+	  verification_sent_at.present? and email == email_ok
+	end
+
+	def tiene_check_realizado?
+		check_realizados.exists?(cdg: 'verificar_email',rlzd: true)
+	end
 
 end

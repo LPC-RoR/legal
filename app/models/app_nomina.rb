@@ -6,6 +6,8 @@ class AppNomina < ApplicationRecord
 
 	belongs_to :ownr, polymorphic: true, optional: true
 
+	has_many :check_realizados, as: :ownr, dependent: :destroy
+
 	has_one :app_perfil
 
 	validates :nombre, :email, presence: true
@@ -38,6 +40,16 @@ class AppNomina < ApplicationRecord
 	# DEPRECATED Antiguo 'perfil'
 	def perfil2
 		perfil = AppPerfil.find_by(email: self.email)
+	end
+
+	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
+	# verification_sent_at marca recepción de la verificación, se añade email == email_ok para manejar cambios de email
+	def verified?
+	  verification_sent_at.present? and email == email_ok
+	end
+
+	def tiene_check_realizado?
+		check_realizados.exists?(cdg: 'verificar_email',rlzd: true)
 	end
 
 end

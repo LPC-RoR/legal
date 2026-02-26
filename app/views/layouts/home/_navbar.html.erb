@@ -20,8 +20,10 @@
 				<% if usuario_signed_in? %>
 				  <span class="ms-4"><%= render partial: 'usuarios/lnks/lnk_salir' %></span>
 				<% else %>
-				  <%= render partial: 'usuarios/lnks/lnk_ingrs' %>
-				  <span class="ms-2"><%= render partial: 'usuarios/lnks/lnk_rgstr' %></span>
+				  <span class="ms-2"><%= render partial: 'usuarios/lnks/lnk_ingrs' %></span>
+
+				  <%# Sacamos el registro porque ahora todo se resuelve desde la AppNomina %>
+				  <!--span class="ms-2"><%#= render partial: 'usuarios/lnks/lnk_rgstr' %></span-->
 				<% end %>
 		</div>
 	</div>

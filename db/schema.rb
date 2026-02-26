@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_19_135646) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_23_214829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -228,6 +228,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_19_135646) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "grupo"
+    t.string "verification_token"
+    t.datetime "verification_sent_at"
+    t.datetime "fecha_vrfccn_lnk"
+    t.integer "n_vrfccn_lnks"
+    t.string "email_ok"
     t.index ["grupo"], name: "index_app_contactos_on_grupo"
     t.index ["ownr_id"], name: "index_app_contactos_on_ownr_id"
     t.index ["ownr_type"], name: "index_app_contactos_on_ownr_type"
@@ -324,6 +329,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_19_135646) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "ownr_type"
     t.integer "ownr_id"
+    t.string "verification_token"
+    t.datetime "verification_sent_at"
+    t.datetime "fecha_vrfccn_lnk"
+    t.integer "n_vrfccn_lnks"
+    t.string "email_ok"
     t.index ["email"], name: "index_app_nominas_on_email"
     t.index ["ownr_id"], name: "index_app_nominas_on_ownr_id"
     t.index ["ownr_type"], name: "index_app_nominas_on_ownr_type"
@@ -981,11 +991,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_19_135646) do
     t.string "razon_social"
     t.string "tipo"
     t.string "contacto"
-    t.string "email_contacto"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ownr_type"
     t.integer "ownr_id"
+    t.string "verification_token"
+    t.datetime "verification_sent_at"
+    t.datetime "fecha_vrfccn_lnk"
+    t.integer "n_vrfccn_lnks"
+    t.string "email_ok"
     t.index ["ownr_id"], name: "index_krn_empresa_externas_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_empresa_externas_on_ownr_type"
     t.index ["rut"], name: "index_krn_empresa_externas_on_rut"

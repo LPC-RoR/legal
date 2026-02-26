@@ -1,8 +1,5 @@
 class KrnInvestigador < ApplicationRecord
 	
-	include EmailVerifiable
-    envia_verificacion_despues_crear  # Activa el callback
-
 	ACCTN = 'invstgdrs'
 
 	belongs_to :ownr, polymorphic: true
@@ -24,6 +21,10 @@ class KrnInvestigador < ApplicationRecord
 
 	include Cptn
 
+	def dflt_bck_rdrccn
+		"/cuentas/#{self.ownr.class.name[0].downcase}_#{self.ownr.id}/invstgdrs"
+	end
+
 	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
 	# verification_sent_at marca recepción de la verificación, se añade email == email_ok para manejar cambios de email
 	def verified?
@@ -34,7 +35,4 @@ class KrnInvestigador < ApplicationRecord
 		check_realizados.exists?(cdg: 'verificar_email',rlzd: true)
 	end
 
-	def dflt_bck_rdrccn
-		"/cuentas/#{self.ownr.class.name[0].downcase}_#{self.ownr.id}/invstgdrs"
-	end
 end

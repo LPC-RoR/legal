@@ -1,7 +1,0 @@
-<%#= render partial: '0p/tbl/lnk_new', locals: {source: 'audit_notas', ownr: objeto, gly: 'chat-right-quote'} %>
-<% unless @objeto.fecha_hora_dt? or @objeto.fecha_trmtcn? %>
-	<%= render partial: '0p/tbl/lnk_editar', locals: {objeto: objeto} %>
-	<% unless @objeto.krn_denunciados.any? and @objeto.krn_denunciantes.count == 1 %>
-		<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: objeto} %>
-	<% end %>
-<% end %>

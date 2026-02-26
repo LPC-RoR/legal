@@ -1,6 +1,33 @@
 module Paths
 	extend ActiveSupport::Concern
 
+	## Manejo de redirect_to
+	def default_redirect_path(objeto)
+		case objeto.class.name
+		when 'KrnInvestigador'
+			"/cuentas/e_#{objeto.ownr.id}/invstgdrs"
+		when 'KrnEmpresaExterna'
+			"/cuentas/e_#{objeto.ownr.id}/extrns"
+		when 'AppContacto'
+			"/cuentas/e_#{objeto.ownr.id}/cntcts"
+		when 'AppNomina'
+			"/cuentas/e_#{objeto.ownr.id}/nmn"
+		else
+			if ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(objeto.class.name)
+				"/krn_denuncias/#{objeto.dnnc.id}_1"
+			end
+		end
+	end
+
+	def key_redirect_path(objeto, key)
+		nil
+	end
+
+
+
+
+
+
   	def krn_indx_action
 		{
 			'KrnDenuncia' => 'dnncs',

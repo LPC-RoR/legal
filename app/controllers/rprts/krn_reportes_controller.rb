@@ -4,8 +4,6 @@ class Rprts::KrnReportesController < ApplicationController
 
   layout :pdf
 
-  include Karin
-
   def init_rprt(oid, rprt)
     dnnc_id = ClssPdfRprt.rcrd_rprts.include?(rprt) ? ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(oid).dnnc.id : oid
     @dnnc = KrnDenuncia.estrctr.find(dnnc_id)

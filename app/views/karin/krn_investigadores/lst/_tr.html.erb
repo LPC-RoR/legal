@@ -1,6 +1,8 @@
 <tr>
 	<td>
 		<%= objt.krn_investigador %>
+	</td>
+	<td>
 		<% if objt.verified? and objt.email == objt.email_ok %>
 			<b class="text-primary"><i class="bi bi-at"></i> verificado!</b>
 		<% elsif objt.tiene_check_realizado? %>

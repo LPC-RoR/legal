@@ -127,18 +127,23 @@ Rails.application.routes.draw do
     resources :receptor_denuncias
     resources :motivo_denuncias
 
-    resources :krn_empresa_externas
+    resources :krn_empresa_externas do
+      match :rlzd, via: :post, on: :member
+      match :reenviar_correo, via: :post, on: :member
+    end
     resources :krn_denunciados do
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
       match :set_fld, via: :post, on: :member
+      match :reenviar_correo, via: :post, on: :member
     end
     resources :krn_denunciantes do
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
       match :set_fld, via: :post, on: :member
+      match :reenviar_correo, via: :post, on: :member
     end
     resources :krn_denuncias do
       match :swtch, via: :post, on: :member
@@ -157,6 +162,7 @@ Rails.application.routes.draw do
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
+      match :reenviar_correo, via: :post, on: :member
     end
     resources :krn_declaraciones do
       match :swtch, via: :post, on: :member
@@ -167,6 +173,7 @@ Rails.application.routes.draw do
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
       match :set_fld, via: :post, on: :member
+      match :reenviar_correo, via: :post, on: :member
     end
     resources :krn_inv_denuncias do
       match :swtch, via: :post, on: :member
@@ -264,7 +271,10 @@ Rails.application.routes.draw do
     resources :age_usu_notas
   end
   scope module: 'autenticacion' do
-    resources :app_nominas
+    resources :app_nominas do
+      match :rlzd, via: :post, on: :member
+      match :reenviar_correo, via: :post, on: :member
+    end
     resources :app_perfiles
     resources :app_versiones
     resources :cfg_valores
@@ -278,7 +288,10 @@ Rails.application.routes.draw do
       match :assgn_usr, via: :post, on: :member
       match :swtch_clr, via: :post, on: :member
     end
-    resources :app_contactos
+    resources :app_contactos do
+      match :rlzd, via: :post, on: :member
+      match :reenviar_correo, via: :post, on: :member
+    end
     resources :app_enlaces
     resources :app_mensajes do
       match :respuesta, via: :post, on: :collection
@@ -516,5 +529,12 @@ Rails.application.routes.draw do
   get '/verify_email', to: 'empresas#verify', as: 'verify_email'
 
   # manejo formulario de registro de contactos comerciales
-  get '/verify_cntct', to: 'comercial/com_requerimientos#verify', as: 'verify_cntct'
+  get '/verify_cntct',      to: 'comercial/com_requerimientos#verify',  as: 'verify_cntct'
+  get '/verify_invstgdr',   to: 'karin/krn_investigadores#verify',      as: 'verify_invstgdr'
+  get '/verify_extrn',      to: 'karin/krn_empresa_externas#verify',    as: 'verify_extrn'
+  get '/verify_app_cntct',  to: 'recursos/app_contactos#verify',        as: 'verify_app_cntct'
+  get '/verify_nmn',        to: 'autenticacion/app_nominas#verify',     as: 'verify_nmn'
+  get '/verify_dnncnt',     to: 'karin/krn_denunciantes#verify',        as: 'verify_dnncnt'
+  get '/verify_dnncd',      to: 'karin/krn_denunciados#verify',         as: 'verify_dnncd'
+  get '/verify_tstg',       to: 'karin/krn_testigos#verify',            as: 'verify_tstg'
 end
