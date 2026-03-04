@@ -74,6 +74,47 @@
               <%= form.label :remove_logo, "Eliminar logo", class: "form-check-label" %>
             </div>
         <% end %>
+
+        <hr>
+
+        <% if @objeto.sign.blank? %>
+        <div class="mb-3">
+            <%= form.label :sign, "Logo (PNG/JPG/WEBP/SVG)", class: "form-label" %>
+            <%= form.file_field :sign,
+                  class: "form-control",
+                  accept: "image/png,image/jpeg,image/webp,image/svg+xml",
+                  direct_upload: true,
+                  data: { action: "change->sign-preview#show" } %>
+
+            <div class="form-text">Máx. 2MB.</div>
+        </div>
+        <% end %>
+
+        <div class="mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <div>
+                <%# Vista previa actual o placeholder %>
+                <% if @objeto.sign.attached? %>
+                  <%= image_tag(
+                        @objeto.sign.variable? ? @objeto.sign.variant(resize_to_limit: [200, 200]) : url_for(@objeto.sign),
+                        class: "img-thumbnail",
+                        data: { logo_preview_target: "img" }
+                      ) %>
+                <% else %>
+                  <img src="https://via.placeholder.com/200x200?text=Logo" class="img-thumbnail" data-sign-preview-target="img">
+                <% end %>
+              </div>
+              <div data-sign-preview-target="filename" class="text-muted small"></div>
+            </div>
+        </div>
+
+        <% if @objeto.sign.present? %>
+            <div class="form-check mb-3">
+              <%= form.check_box :remove_sign, class: "form-check-input", value: 1 %>
+              <%= form.label :remove_sign, "Eliminar firma", class: "form-check-label" %>
+            </div>
+        <% end %>
+
     </div>
     <div class="col-lg-6">
         <h5>Configuracion de la empresa</h5>

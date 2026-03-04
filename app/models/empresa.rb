@@ -10,6 +10,12 @@ class Empresa < ApplicationRecord
     # fuerza que esto corra ANTES que el dependent: :destroy del tenant
     before_destroy :destroy_usuarios, prepend: true
 
+    # Manejo de logos
+    # Logo con Active Storage
+    has_one_attached :logo
+    has_one_attached :sign
+    has_rich_text :email_footer
+
 	has_many :app_nominas, as: :ownr
 
     has_many :licencias, dependent: :destroy
@@ -17,11 +23,6 @@ class Empresa < ApplicationRecord
 	has_many :krn_investigadores, as: :ownr
 	has_many :krn_denuncias, as: :ownr
 	has_many :krn_empresa_externas, as: :ownr
-
-    # Manejo de logos
-    # Logo con Active Storage
-    has_one_attached :logo
-    has_rich_text :email_footer
 
     has_many :app_contactos, as: :ownr
 

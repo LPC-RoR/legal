@@ -7,7 +7,6 @@
 	<% pdf_rgstr = objeto.get_pdf_registro(code) %>
 	<% pdf_archv = PdfArchivo.find_by(codigo: code) %>
 	<br>
-	<%# if objeto.info_oblgtr? %>
 	<% if pdf_rgstr.present? %>
 		<% if pdf_rgstr.audtd %>
 			<i class="bi bi-clipboard-check text-primary"></i>

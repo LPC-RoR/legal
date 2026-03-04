@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :act_referencias
   # Verificación de correos electrónicos de participantes
   # Nuevas rutas para la verificación
 
@@ -155,6 +156,8 @@ Rails.application.routes.draw do
       match :pdf_combinado, via: :get, on: :member
       # ruta para manejo de panels
       match :tipo_declaracion_field, via: :get, on: :collection
+      # rutas para la nueva estructura de mails
+      match :dnncnt_info_oblgtr, via: :post, on: :member
     end
 
     resources :krn_derivaciones

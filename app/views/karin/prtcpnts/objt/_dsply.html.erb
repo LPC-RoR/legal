@@ -1,11 +1,18 @@
-<% act_id = "#{objeto.class.name}_#{objeto.id}" %>
+<% act_id 		= "#{objeto.class.name}_#{objeto.id}" %>
+<% validado 	= objeto.tiene_email_verificado? %>
+<% verificado 	= objeto.tiene_email_validado? %>
+<% articulo_516 = objeto.articulo_516 %>
+
 <div style="margin-left: 4%;">
 
+	<%# Despliega email con email_mask & estado verificado|validado %>
 	<%= render partial: 'karin/prtcpnts/objt/email_verification', locals: {objeto: objeto} %>
 
-	<% if (@acts_hsh[act_id] and @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, 'verificar_email')) or objeto.email_direccion? %>
+	<%# Despliegue de INFORMACIÓN Y NOTIFICACIONES %>
+
+	<% if articulo_516 or verificado or validado %>
 		<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Envío de información y notificaciones', gly: 'caret-right-fill'} do %>
-			<%= render partial: 'pdf/pdf_registros/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
+			<%= render partial: 'karin/prtcpnts/objt/lst_info_ntfccns', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
 		<% end %>
 	<% end %>
 

@@ -1,5 +1,5 @@
 class KrnDenunciante < ApplicationRecord
-#	include EmailVerifiable
+	include VerificacionEmails
 
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true
@@ -40,10 +40,21 @@ class KrnDenunciante < ApplicationRecord
 	include Prtcpnt
 	include Fls
 
+	def kywrd
+		{
+			rol: 	'denunciante',
+			abrev: 	"dnncnt-#{id}",
+			sym: 	:dnncnt,
+			krn: 	"prtcpnt-#{id}-1"
+		}
+	end
+
+	# DEPRECATED
 	def sym
 		:dnncnt
 	end
 
+	# DEPRECATED
 	def rol
 		'denunciante'
 	end
@@ -86,10 +97,6 @@ class KrnDenunciante < ApplicationRecord
 	# verification_sent_at marca recepción de la verificación, se añade email == email_ok para manejar cambios de email
 	def verified?
 	  verification_sent_at.present? and email == email_ok
-	end
-
-	def tiene_check_realizado?
-		check_realizados.exists?(cdg: 'verificar_email',rlzd: true)
 	end
 
 end

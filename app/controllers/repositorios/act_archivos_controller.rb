@@ -13,10 +13,29 @@ class Repositorios::ActArchivosController < ApplicationController
   # GET /act_archivos/1 or /act_archivos/1.json
   def show_pdf
     archivo = ActArchivo.find(params[:id])
-    # importante: disposition: :inline
-    send_data archivo.pdf.download,
-              filename:    archivo.pdf.filename.to_s,
-              type:        'application/pdf',
+    
+    # DEBUG CRÍTICO
+    Rails.logger.info "=== SHOW_PDF DEBUG ==="
+    Rails.logger.info "Archivo ID: #{archivo.id}"
+    Rails.logger.info "PDF attached? #{archivo.pdf.attached?}"
+    Rails.logger.info "PDF filename: #{archivo.pdf.filename}"
+    Rails.logger.info "PDF byte_size: #{archivo.pdf.byte_size}"
+    
+    content = archivo.pdf.download
+    Rails.logger.info "Downloaded class: #{content.class}"
+    Rails.logger.info "Downloaded length: #{content.length}"
+    Rails.logger.info "Downloaded is PDF? #{content.start_with?('%PDF')}"
+    Rails.logger.info "Downloaded first 100 chars: #{content[0..99].inspect}"
+    
+    # Si no es PDF, guardar para inspeccionar
+    unless content.start_with?('%PDF')
+      File.write(Rails.root.join('tmp', "error_show_pdf_#{archivo.id}.txt"), content)
+      Rails.logger.error "ERROR: Contenido no es PDF, guardado en tmp/error_show_pdf_#{archivo.id}.txt"
+    end
+    
+    send_data content,
+              filename: archivo.pdf.filename.to_s,
+              type: 'application/pdf',
               disposition: 'inline'
   end
 

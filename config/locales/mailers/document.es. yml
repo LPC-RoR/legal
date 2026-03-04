@@ -1,0 +1,22 @@
+# config/locales/mailers/investigations/document.es.yml
+es:
+  mailers:
+    investigations:
+      document:
+        dnncnt_info_oblgtr:
+          title: "Información Obligatoria - Denuncia %{investigation_id}"
+          subtitle: "Se requiere su atención para entregar información dentro del plazo legal"
+          investigation_data: "Datos de la Investigación"
+          field_id: "Número"
+          field_date: "Fecha de creación"
+          field_status: "Estado"
+          field_reception_date: "Fecha de recepción"
+          mandatory_info: "Información Requerida"
+          required_actions: "Acciones Requeridas"
+          action_review: "Revisar el documento adjunto"
+          action_respond: "Entregar la información solicitada"
+          action_deadline: "Responder dentro de %{days} días hábiles"
+          button_access: "Acceder a la Plataforma"
+          attachment_notice: "Documento PDF adjunto:"
+          attachment_description: "Contiene el requerimiento oficial con validez legal"
+          footer_confidential: "Documento confidencial generado automáticamente. No responda a este correo."

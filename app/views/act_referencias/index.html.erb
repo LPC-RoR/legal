@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Act referencias" %>
+
+<h1>Act referencias</h1>
+
+<div id="act_referencias">
+  <% @act_referencias.each do |act_referencia| %>
+    <%= render act_referencia %>
+    <p>
+      <%= link_to "Show this act referencia", act_referencia %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New act referencia", new_act_referencia_path %>

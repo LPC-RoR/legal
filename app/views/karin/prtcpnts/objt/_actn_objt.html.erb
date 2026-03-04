@@ -1,0 +1,117 @@
+<%# Despliegue de una accion (generación y envíos de reportes) %>
+<%# code : código del reporte %>
+<%# mdl : ClssPrcdmnt %>
+
+<% existe_archivo 	= ownr.act_archivos.exists?(act_archivo: code) %>
+<% revisado 		= ownr.check_realizados.exists?(cdg: code) %>
+<% es_lista 		= mdl.actn_multpl?(code) or mdl.ref_generated?(code) %>
+
+<div class="row gx-1">
+
+	<div class="col-lg-10 <%= 'text-primary' if existe_archivo %>">
+
+		<% if mdl.act_lst?(code) %>
+			<%# Lista de act_archivos %>
+			<i class="bi bi-list-task text-secondary"></i>
+
+		<% elsif mdl.ref_generated?(code) %>
+			<%# Act_files con Referencia %>
+			<i class="bi bi-files text-secondary"></i>
+
+		<% elsif existe_archivo %>
+			<%# Hay al menos un archivo asociado %>
+			<i class="bi bi-file-earmark-pdf"></i>
+
+		<% elsif revisado %>
+			<i class="bi bi-clipboard-check"></i>
+		<% else %>
+			<%# tsk_name agrega prefijo 'tsk_' al nombre del reporte %>
+			<% if @kproc.tarea == mdl.tsk_name[code] %>
+				<i class="bi bi-arrow-right text-primary"></i>
+			<% end %>
+			<i class="bi bi-cone-striped text-danger"></i>
+		<% end %>
+
+		<%# secondary : Si se trata de una lista %>
+		<span class="text-<%= es_lista ? 'secondary' : 'primary'%>">
+			<%=mdl.act_nombre[code]%>
+		</span>
+
+	</div>
+
+	<div class="col-lg-2 text-end app_lnk">
+
+		<% if (not es_lista) and (existe_archivo or revisado) %>
+
+			<% if revisado %>
+				<%# Eliminar Check de revisado %>
+				<%= render partial: 'repositorios/check_realizados/rlzd', locals: {hsh: hsh, act_id: ownr.clss_id, ownr: ownr, act:code} %>
+			<% else %>
+
+				<%# DOWNLOAD de ActArchivo %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][code].id}/show_pdf", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
+					<i class="bi bi-download"></i>
+				<% end %>
+				<%# ELIMINAR ActArchivo %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][code].id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post}} do %>
+					<i class="bi bi-trash"></i>
+				<% end %>
+
+			<% end %>
+
+		<% else %>
+			<%# Marcar Check de revisado %>
+			<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: hsh, act_id: ownr.clss_id, ownr: ownr, act:code} %>
+
+			<% unless mdl.ref_generated?(code) %>
+				<%# Los reportes ref_generated se generan en el modelo REF %>
+
+				<% if ['krnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name) and ownr.articulo_516 %>
+					<%# SOLO generar PDF y Adjuntar %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_store_report#{ownr_prms(ownr)}&rprt=#{code}", tltp: 'Generar y almacenar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar almacenamiento'}} do %>
+						<i class="bi bi-archive"></i>
+					<% end %>
+				<% else %>
+					<%# Generar, adjuntar y enviar PDF %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{ownr.dnnc.id}&rprt=#{code}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
+						<i class="bi bi-envelope-at"></i>
+					<% end %>
+
+					<%# NUEVO Generar, adjuntar y enviar PDF %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{ownr.dnnc.id}/dnncnt_info_oblgtr", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
+						<i class="bi bi-envelope-at"></i>
+					<% end %>
+				<% end %>
+
+			<% end %>
+
+		<% end %>
+	</div>
+
+</div>
+
+<% if es_lista %>
+
+	<% lista = ownr.act_archivos.where(act_archivo: 'code') %>
+
+	<% lista.each do |act_fl| %>
+		<div class="row gx-1 mx-3 text-primary">
+			<div class="col-lg-10">
+				<i class="bi bi-arrow-return-right"></i>
+				<%= dma_hm(act_fl.created_at) %>
+			</div>
+			<div class="col-lg-2 text-end objt_lnk">
+				<%# DOWNLOAD de ActArchivo %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_fl.id}/download", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
+					<i class="bi bi-download"></i>
+				<% end %>
+				<%# ELIMINAR ActArchivo %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_fl.id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post}} do %>
+					<i class="bi bi-trash"></i>
+				<% end %>
+				<i class="bi bi-arrow-return-left"></i>
+			</div>
+		</div>
+	<% end %>
+
+<% end %>

@@ -1,36 +1,28 @@
-<% if objt.email != objt.email_ok and (not objt.tiene_check_realizado?) %>
-
+<% unless objt.tiene_email_verificado? %>
   <li>
     <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_investigadores/#{objt.id}/reenviar_correo", {key: 'invstgdr'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
       Enviar verificación de email
     <% end %>
   </li>
 
-  <li>
-    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_investigadores/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: true}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
-      Marcar como validado
-    <% end %>
-  </li>
-
-<% else %>
-  <%# verified? incluye email == email_ok en investigadores %>
-  <% unless objt.verified? %>
-
+  <% unless objt.tiene_email_validado? %>
+    <li>
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_investigadores/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: true}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
+        Marcar como validado
+      <% end %>
+    </li>
+  <% else %>
     <li>
       <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_investigadores/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: 'trash'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
         Eliminar marca de validado
       <% end %>
     </li>
-
   <% end %>
 <% end %>
 
-<% if current_usuario.admin? %>
+<% if current_usuario.operacion? %>
 
-  <%# Verificar si hay items de verificación visibles para decidir si mostrar divider %>
-  <% hay_items_verificacion = (objt.email != objt.email_ok and (not objt.tiene_check_realizado?)) || (!objt.verified? && !(objt.email != objt.email_ok and (not objt.tiene_check_realizado?))) %>
-
-  <% if hay_items_verificacion %>
+  <% unless objt.tiene_email_verificado? or (not modificable) %>
     <li><hr class="dropdown-divider"></li>
   <% end %>
 

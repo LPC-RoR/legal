@@ -189,6 +189,7 @@ class ClssPrcdmnt
     ['mdds_rsgrd', 'medidas_sanciones', 'antecedentes', 'apt'].include?(act)
   end
 
+  ## VERIFICAR USO, las verificaciones de mail se resuelven por otro lado, quizá se puede simplificar
   def self.list_excluded?(act)
     ['verificar_email'].include?(act)
   end

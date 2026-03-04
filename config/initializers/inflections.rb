@@ -57,6 +57,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.irregular 'licencia', 'licencias'
     inflect.irregular 'metadata', 'metadatas'
     inflect.irregular 'ley', 'leyes'
+    inflect.irregular 'act_referencia', 'act_referencias'
 end
 
 # These inflection rules are supported but not enabled by default:

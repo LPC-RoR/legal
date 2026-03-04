@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_23_214829) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_02_175935) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -51,6 +51,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_23_214829) do
     t.index ["act_archivo_id", "act_metadata"], name: "idx_act_metadatas_unique_codigo", unique: true
     t.index ["act_archivo_id"], name: "index_act_metadatas_on_act_archivo_id"
     t.index ["metadata"], name: "index_act_metadatas_on_metadata", using: :gin
+  end
+
+  create_table "act_referencias", force: :cascade do |t|
+    t.integer "act_archivo_id"
+    t.string "ref_type"
+    t.integer "ref_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["act_archivo_id"], name: "index_act_referencias_on_act_archivo_id"
+    t.index ["ref_id"], name: "index_act_referencias_on_ref_id"
+    t.index ["ref_type"], name: "index_act_referencias_on_ref_type"
   end
 
   create_table "act_textos", force: :cascade do |t|

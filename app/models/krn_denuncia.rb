@@ -26,6 +26,7 @@ class KrnDenuncia < ApplicationRecord
 	has_many :rep_archivos, as: :ownr, dependent: :destroy
 
 	has_many :notas, as: :ownr, dependent: :destroy
+	
 	# Los ownr de los pdf_registros SIEMPRE son destinatarios
 	has_many :pdf_registros, as: :ownr, dependent: :destroy
 

@@ -1,4 +1,7 @@
 class AppContacto < ApplicationRecord
+
+	include VerificacionEmails
+
 	belongs_to :ownr, polymorphic: true
 
 	has_many :check_realizados, as: :ownr, dependent: :destroy
@@ -15,14 +18,12 @@ class AppContacto < ApplicationRecord
 		:cntct
 	end
 
+
+	## DEPRECATED tiene reemplazo en en tiene_email_verificado?
 	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
 	# verification_sent_at marca recepción de la verificación, se añade email == email_ok para manejar cambios de email
 	def verified?
 	  verification_sent_at.present? and email == email_ok
-	end
-
-	def tiene_check_realizado?
-		check_realizados.exists?(cdg: 'verificar_email',rlzd: true)
 	end
 
 end

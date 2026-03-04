@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   before_action :prepare_meta_tags
 
   include SetCurrentTenant
-  include Pundit
-#  include Pundit::Authorization   # <-- línea clave
+#  include Pundit
+  include Pundit::Authorization   # <-- línea clave
 
 #	helper PdfHelper
 	include PdfHelper

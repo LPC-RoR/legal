@@ -11,6 +11,8 @@ class ActArchivo < ApplicationRecord
   has_many :act_textos, dependent: :destroy
   has_many :act_metadatas, dependent: :destroy
 
+  has_many :act_referencias
+
   MAX_PDF_SIZE = 20.megabytes
 
   validate :pdf_valid, unless: -> {self.rlzd}
