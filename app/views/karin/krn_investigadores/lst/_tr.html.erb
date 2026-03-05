@@ -3,9 +3,9 @@
 		<%= objt.krn_investigador %>
 	</td>
 	<td>
-		<% if tiene_email_verificado? %>
+		<% if objt.tiene_email_verificado? %>
 			<b class="text-primary"><i class="bi bi-at"></i> verificado!</b>
-		<% elsif tiene_email_validado? %>
+		<% elsif objt.tiene_email_validado? %>
 			<b class="text-primary"><i class="bi bi-clipboard-check text-primary"></i> validado</b>
 		<% end %>
 	</td>

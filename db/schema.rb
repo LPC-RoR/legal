@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_02_175935) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_05_125717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -662,17 +662,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_02_175935) do
     t.index ["visible_para"], name: "index_control_documentos_on_visible_para"
   end
 
-  create_table "cuestionarios", force: :cascade do |t|
-    t.integer "orden"
-    t.integer "pauta_id"
-    t.string "cuestionario"
-    t.string "referencia"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["orden"], name: "index_cuestionarios_on_orden"
-    t.index ["pauta_id"], name: "index_cuestionarios_on_pauta_id"
-  end
-
   create_table "demandantes", force: :cascade do |t|
     t.integer "causa_id"
     t.integer "orden"
@@ -839,13 +828,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_02_175935) do
     t.datetime "updated_at", null: false
     t.index ["ownr_id"], name: "index_hlp_ayudas_on_ownr_id"
     t.index ["ownr_type"], name: "index_hlp_ayudas_on_ownr_type"
-  end
-
-  create_table "k_sesiones", force: :cascade do |t|
-    t.datetime "fecha"
-    t.string "sesion"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "krn_declaraciones", force: :cascade do |t|
@@ -1171,15 +1153,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_02_175935) do
     t.index ["seccion_id"], name: "index_parrafos_on_seccion_id"
   end
 
-  create_table "pautas", force: :cascade do |t|
-    t.integer "orden"
-    t.string "pauta"
-    t.string "referencia"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["orden"], name: "index_pautas_on_orden"
-  end
-
   create_table "pdf_archivos", force: :cascade do |t|
     t.string "ownr_type"
     t.integer "ownr_id"
@@ -1213,18 +1186,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_02_175935) do
     t.index ["pdf_archivo_id"], name: "index_pdf_registros_on_pdf_archivo_id"
     t.index ["ref_id"], name: "index_pdf_registros_on_ref_id"
     t.index ["ref_type"], name: "index_pdf_registros_on_ref_type"
-  end
-
-  create_table "preguntas", force: :cascade do |t|
-    t.integer "orden"
-    t.integer "cuestionario_id"
-    t.string "pregunta"
-    t.string "tipo"
-    t.string "referencia"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cuestionario_id"], name: "index_preguntas_on_cuestionario_id"
-    t.index ["orden"], name: "index_preguntas_on_orden"
   end
 
   create_table "rcrs_enlaces", force: :cascade do |t|
@@ -1355,19 +1316,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_02_175935) do
     t.datetime "updated_at", null: false
     t.index ["nota_id"], name: "index_responsable_notas_on_nota_id"
     t.index ["usuario_id"], name: "index_responsable_notas_on_usuario_id"
-  end
-
-  create_table "respuestas", force: :cascade do |t|
-    t.integer "campania_id"
-    t.integer "k_sesion_id"
-    t.string "respuesta"
-    t.string "propuesta"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "pregunta_id"
-    t.index ["campania_id"], name: "index_respuestas_on_campania_id"
-    t.index ["k_sesion_id"], name: "index_respuestas_on_k_sesion_id"
-    t.index ["pregunta_id"], name: "index_respuestas_on_pregunta_id"
   end
 
   create_table "roles", force: :cascade do |t|

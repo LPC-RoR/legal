@@ -86,13 +86,6 @@ module CptnMenuLeftHelper
 					]
 				},
 				{
-					titulo: 'Ley Karin',
-					condicion: admin?,
-					items: [
-						'Pautas'
-					]
-				},
-				{
 					titulo: 'Legal',
 					condicion: admin?,
 					items: [

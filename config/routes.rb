@@ -116,15 +116,6 @@ Rails.application.routes.draw do
   end 
 
   scope module: 'karin' do
-    resources :respuestas do
-      match :nueva, via: :post, on: :collection
-    end
-    resources :k_sesiones do 
-      match :borrar_encuesta, via: :get, on: :member
-    end
-    resources :cuestionarios
-    resources :preguntas
-    resources :pautas
     resources :receptor_denuncias
     resources :motivo_denuncias
 
@@ -354,8 +345,6 @@ Rails.application.routes.draw do
 
   scope module: 'aplicacion' do
     resources :publicos do
-      match :encuesta, via: :get, on: :collection
-      match :preguntas, via: :get, on: :collection
       match :ayuda, via: :get, on: :collection
     end
     resources :app_recursos do

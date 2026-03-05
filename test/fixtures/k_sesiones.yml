@@ -1,9 +1,0 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  fecha: 2024-07-09 18:28:25
-  sesion: MyString
-
-two:
-  fecha: 2024-07-09 18:28:25
-  sesion: MyString

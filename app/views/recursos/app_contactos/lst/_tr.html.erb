@@ -1,9 +1,9 @@
 <tr>
 	<td><%= objt.nombre %></td>
 	<td>
-		<% if objt.verified? and objt.email == objt.email_ok %>
+		<% if objt.tiene_email_verificado? %>
 			<b class="text-primary"><i class="bi bi-at"></i> verificado!</b>
-		<% elsif objt.tiene_check_realizado? %>
+		<% elsif objt.tiene_email_validado? %>
 			<b class="text-primary"><i class="bi bi-clipboard-check text-primary"></i> validado</b>
 		<% end %>
 	</td>
