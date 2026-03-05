@@ -29,8 +29,13 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       limpiar_temporales(sign_path) if sign_path.present?
     end
     
-  rescue ActiveRecord::RecordNotFound
-    Rails.logger.error "Denuncia #{denuncia_id} no encontrada"
+  rescue => e
+    # En caso de error, limpiar el bloqueo para permitir reintento
+    Rails.cache.delete("pdf_generation:#{denuncia_id}")
+    raise
+  ensure
+    # Asegurar que se limpie el bloqueo al finalizar (éxito o fracaso)
+    Rails.cache.delete("pdf_generation:#{denuncia_id}")
   end
 
   private
