@@ -1,8 +1,24 @@
+<%# app/views/0p/lbld_inpts/select.html.erb %>
+
 <% objeto ||= @objeto %>
+<% form   ||= nil %>
+<% token  ||= nil %>
+<% label  ||= token.to_s.humanize %>
+<% sel_list ||= [] %>
 <% prompt ||= nil %>
 <% id     ||= nil %>
 <% data   ||= nil %>
-<div class="form-floating mb-3" id="<%=id%>">
-	<%= form.select token, options_for_select(sel_list, (objeto.blank? ? nil : objeto.send(token.to_s))), { prompt: prompt }, class: 'form-select', data: data %>
-	<%= form.label token, label, for: token.to_s %>
-</div>
+
+<% if form.present? && token.present? %>
+  <div class="form-floating mb-3" id="<%= id %>">
+    <% selected_value = objeto&.send(token.to_s) %>
+    <%= form.select token, 
+          options_for_select(sel_list, selected_value), 
+          { prompt: prompt }, 
+          class: 'form-select', 
+          data: data %>
+    <%= form.label token, label, for: token.to_s %>
+  </div>
+<% else %>
+  <% Rails.logger.error "Partial select: falta 'form' o 'token'" %>
+<% end %>

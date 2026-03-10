@@ -148,7 +148,7 @@ Rails.application.routes.draw do
       # ruta para manejo de panels
       match :tipo_declaracion_field, via: :get, on: :collection
       # rutas para la nueva estructura de mails
-      match :dnncnt_info_oblgtr, via: :post, on: :member
+      match :krn_pdf_rprt, via: :post, on: :member
     end
 
     resources :krn_derivaciones

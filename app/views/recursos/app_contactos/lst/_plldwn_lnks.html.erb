@@ -1,6 +1,6 @@
 <% unless objt.tiene_email_verificado? %>
   <li>
-    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("//#{objt.id}/reenviar_correo", {key: 'cntct'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/app_contactos/#{objt.id}/reenviar_correo", {key: 'cntct'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
       Enviar verificación de email
     <% end %>
   </li>

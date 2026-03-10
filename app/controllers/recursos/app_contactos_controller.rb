@@ -1,5 +1,5 @@
 class Recursos::AppContactosController < ApplicationController
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
   before_action :set_app_contacto, only: %i[ show edit update destroy rlzd ]
 

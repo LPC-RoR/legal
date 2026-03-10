@@ -22,7 +22,7 @@
 
 <% if current_usuario.operacion? %>
 
-  <% unless objt.tiene_email_verificado? %>
+  <% unless objt.tiene_email_verificado? or objt.articulo_516 %>
     <li><hr class="dropdown-divider"></li>
   <% end %>
 

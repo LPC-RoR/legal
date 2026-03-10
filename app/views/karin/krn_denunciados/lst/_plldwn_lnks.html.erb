@@ -1,5 +1,4 @@
-<%= objt.tiene_email_verificado? %>
-<% unless objt.tiene_email_verificado? %>
+<% unless objt.tiene_email_verificado? or objt.articulo_516 %>
 
   <li>
     <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_denunciados/#{objt.id}/reenviar_correo", {key: 'dnncd'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
@@ -8,14 +7,12 @@
   </li>
 
   <% unless objt.tiene_email_validado? %>
-  1111
     <li>
       <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_denunciados/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: true}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
         Marcar como validado
       <% end %>
     </li>
   <% else %>
-  222
     <li>
       <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_denunciados/#{objt.id}/rlzd", {mdl: 'act', cdg: 'verificar_email', p: 'trash'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
         Eliminar marca de validado

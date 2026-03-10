@@ -1115,7 +1115,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_05_125717) do
     t.string "nota"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["causa_id", "fecha", "id"], name: "idx_montos_conc_causa_fecha_id_tipo", where: "((tipo)::text = ANY ((ARRAY['Acuerdo'::character varying, 'Sentencia'::character varying])::text[]))"
+    t.index ["causa_id", "fecha", "id"], name: "idx_montos_conc_causa_fecha_id_tipo", where: "((tipo)::text = ANY (ARRAY[('Acuerdo'::character varying)::text, ('Sentencia'::character varying)::text]))"
     t.index ["causa_id"], name: "index_monto_conciliaciones_on_causa_id"
   end
 

@@ -7,6 +7,8 @@ class ClientesController < ApplicationController
 
   layout 'addt'
 
+  include Aasm
+
   # GET /clientes or /clientes.json
   def index
     @orgn = 'clts'
@@ -52,7 +54,10 @@ class ClientesController < ApplicationController
     if @options[:menu] == 'General'
 
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
-      set_tabla('app_archivos', @objeto.as, false)
+
+      # DEPRECATED : Se debe migrar a la otra tabla
+      # Hay que borrar los archivos asociados (a todos los clientes les faltan los archivos, no tiene sentido conservar estructura para verificar)
+#      set_tabla('app_archivos', @objeto.as, false)
 
     elsif @options[:menu] == 'Causas'
 
@@ -138,8 +143,7 @@ class ClientesController < ApplicationController
 
   # GET /clientes/new
   def new
-    modelo_cliente = StModelo.find_by(st_modelo: 'Cliente')
-    @objeto = Cliente.new(estado: modelo_cliente.primer_estado.st_estado, preferente: false)
+    @objeto = Cliente.new(preferente: false)
   end
 
   # GET /clientes/1/edit

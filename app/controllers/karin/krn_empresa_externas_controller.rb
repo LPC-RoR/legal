@@ -1,5 +1,5 @@
 class Karin::KrnEmpresaExternasController < ApplicationController
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
   before_action :set_krn_empresa_externa, only: %i[ show edit update destroy rlzd ]
 
@@ -50,6 +50,8 @@ class Karin::KrnEmpresaExternasController < ApplicationController
   def verify
     @objeto = KrnEmpresaExterna.find_by!(verification_token: params[:token])
     @objeto.update!(email_ok: @objeto.email, verification_token: nil)
+
+    # NO se crea usuario, pero en lo futuro podría incorporarse para el caso de acceso a contratistas | EST
 
     redirect_to default_redirect_path(@objeto), notice: 'Correo verificado correctamente'
   rescue ActiveRecord::RecordNotFound

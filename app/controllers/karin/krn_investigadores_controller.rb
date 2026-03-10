@@ -1,5 +1,5 @@
 class Karin::KrnInvestigadoresController < ApplicationController
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
   before_action :set_krn_investigador, only: %i[ show edit update destroy rlzd prsnt swtch ]
 
@@ -51,9 +51,42 @@ class Karin::KrnInvestigadoresController < ApplicationController
     @objeto = KrnInvestigador.find_by!(verification_token: params[:token])
     @objeto.update!(email_ok: @objeto.email, verification_token: nil)
 
+    usuario = Usuario.find_or_initialize_by(email: @objeto.email)
+
+    random_password = if usuario.new_record?
+      pass = Devise.friendly_token.first(12)
+      Rails.logger.info "Generando nuevo password: #{pass}"
+      pass
+    else
+      Rails.logger.info "Usuario existente, no se genera password"
+      nil
+    end
+
+    if usuario.new_record?
+      usuario.assign_attributes(
+        password:              random_password,
+        password_confirmation: random_password,
+        confirmed_at:          Time.current
+      )
+    end
+
+    # Uso @objeto&.ownr&.tenant para prevenir el caso de usuarios de la plataforma, pero en este caso no debiera ser.
+    usuario.tenant = @objeto&.ownr&.tenant
+    usuario.save!
+    usuario.add_role(:investigador, @objeto&.ownr&.tenant)
+
+    bypass_sign_in(usuario) if usuario == current_usuario
+
+    # NUEVO: Usar mailer de Platform context directamente
+    if random_password
+      Contexts::Platform::AccountMailer
+        .welcome_email(usuario.id, random_password)
+        .deliver_later
+    end
+
     redirect_to default_redirect_path(@objeto), notice: 'Correo verificado correctamente'
   rescue ActiveRecord::RecordNotFound
-    redirect_to default_redirect_path(@objeto), alert: 'Token inválido'
+    redirect_to root_path, alert: 'Token inválido'  # Use root_path or a safe fallback
   end
 
   # PATCH/PUT /krn_investigadores/1 or /krn_investigadores/1.json

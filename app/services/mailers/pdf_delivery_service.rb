@@ -30,34 +30,6 @@ module Mailers
 
     private
 
-#    def generate_pdf
-#      html_content = render_pdf_template
-#      
-#      # Asegura que sea string plano, no SafeBuffer
-#      html_string = html_content.to_s
-#      
-#      # Hash con opciones - SIN DUPLICADOS
-#      options = {
-#        html: html_string,
-#        format: 'A4',
-#        margin: { top: '15mm', bottom: '15mm', left: '15mm', right: '15mm' },
-#        emulate_media: 'screen',
-#        print_background: true,  # Solo una vez
-#        prefer_css_page_size: false,
-#        scale: 1.25,
-#        wait_until: 'networkidle0',
-#        timeout: 30000,
-#        launch_args: ['--no-sandbox', '--disable-setuid-sandbox']
-#      }
-      
-      # Si necesitas display_url, agrégalo aquí una sola vez
-      # options[:display_url] = "http://localhost:3000" if necesario
-      
-#      Rails.logger.debug "Grover options: #{options.inspect}"
-      
-#      Grover.new(options).to_pdf
-#    end
-
     def render_pdf_template
       template_path = @options[:pdf_template] || default_pdf_template
       layout_path = @options[:pdf_layout] || default_pdf_layout

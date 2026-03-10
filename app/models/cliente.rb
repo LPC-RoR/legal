@@ -1,6 +1,7 @@
 class Cliente < ApplicationRecord
 	# Manejo de logos
 	include Brandeable
+  	include AASM
 
 	TIPOS = ['Empresa', 'Sindicato', 'Trabajador']
 
@@ -43,6 +44,40 @@ class Cliente < ApplicationRecord
 
     scope :cl_ordr, -> { order(preferente: :desc, razon_social: :asc) }
 
+    # ---------------------------------------------------------------- ESTADOS con AASM
+
+	# Proceso Operativo
+	aasm(:comercial, column: 'estado') do
+		state :activo, initial: true
+		state :inactivo
+
+		event :up_to_inactivo do
+		  transitions from: :activo, to: :inactivo
+		end
+
+		event :dwn_to_activo do
+		  transitions from: :inactivo, to: :activo
+		end
+	end
+
+	def evento_permitido?(proceso, evento)
+	  # Método 100% funcional (verificado en consola)
+	  aasm(proceso.to_sym).may_fire_event?(evento.to_sym)
+	rescue StandardError => e
+	  Rails.logger.error "🔴 Error verificando evento: #{e.message}"
+	  false
+	end
+
+	def ejecutar_evento(proceso, evento)
+	  # Verificación segura
+	  unless evento_permitido?(proceso, evento)
+	    raise ArgumentError, "Evento '#{evento}' no permitido desde estado '#{send("estado_#{proceso}")}'"
+	  end
+
+	  # Ejecutar con AASM API nativa
+	  aasm(proceso.to_sym).fire!(evento.to_sym)
+	end
+    # ---------------------------------------------------------------- ESTADOS con AASM (FIN)
 
     # Procedimiento Investigación y Sanción
 
@@ -84,6 +119,11 @@ class Cliente < ApplicationRecord
 		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
 	end
 
+	# ----------------------------------------------------
+	# DEPRECATED : Se sacó control de archivos desde el despliegue del registro
+	# Hay que borrar registros asociados si es que los hay
+	# Luego borrar métodos verificando previamente su uso
+
 	# Archivos y control de archivos
 
 	# Nombres de los archivos
@@ -107,8 +147,6 @@ class Cliente < ApplicationRecord
 	def dcs
 		self.st_modelo.dcs
 	end
-
-	# ----------------------------------------------------
 
 	def nombres_usados
 		self.archivos.map {|archivo| archivo.app_archivo}

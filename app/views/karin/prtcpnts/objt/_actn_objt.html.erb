@@ -53,7 +53,7 @@
 					<i class="bi bi-download"></i>
 				<% end %>
 				<%# ELIMINAR ActArchivo %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][code].id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post}} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][code].id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post, turbo_confirm: 'Confirmar eliminación del pdf'}} do %>
 					<i class="bi bi-trash"></i>
 				<% end %>
 
@@ -78,7 +78,7 @@
 					<% end %>
 
 					<%# NUEVO Generar, adjuntar y enviar PDF %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{ownr.dnnc.id}/dnncnt_info_oblgtr", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{ownr.dnnc.id}/krn_pdf_rprt?rprt=#{code}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
 						<i class="bi bi-envelope-at"></i>
 					<% end %>
 				<% end %>

@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt pdf_combinado annmzr set_fld prg dnncnt_info_oblgtr ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt pdf_combinado annmzr set_fld prg krn_pdf_rprt ]
 
   include MailDesk
   include Karin

@@ -1,5 +1,5 @@
 class Autenticacion::AppNominasController < ApplicationController
-  before_action :authenticate_usuario!
+  before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
   before_action :set_app_nomina, only: %i[ show edit update destroy rlzd ]
 
@@ -52,9 +52,10 @@ class Autenticacion::AppNominasController < ApplicationController
 
   def verify
     @objeto = AppNomina.find_by!(verification_token: params[:token])
-    @objeto.update!(email_verified: true, verification_token: nil)
+    @objeto.update!(email_ok: @objeto.email, verification_token: nil)
+#    @objeto.update!(email_verified: true, verification_token: nil)
 
-    usuario = Usuario.find_or_initialize_by(email: @objeto.email_administrador)
+    usuario = Usuario.find_or_initialize_by(email: @objeto.email)
 
     random_password = usuario.new_record? ? Devise.friendly_token.first(12) : nil
     if usuario.new_record?
@@ -65,9 +66,10 @@ class Autenticacion::AppNominasController < ApplicationController
       )
     end
 
-    usuario.tenant = @objeto.tenant
+    # Uso @objeto&.ownr&.tenant para prevenir el caso de usuarios de la plataforma, pero en este caso no debiera ser.
+    usuario.tenant = @objeto&.ownr&.tenant
     usuario.save!
-    usuario.add_role(@objeto.tipo.to_sym, @objeto.tenant)
+    usuario.add_role(@objeto.tipo.to_sym, @objeto&.ownr&.tenant)
 
     bypass_sign_in(usuario) if usuario == current_usuario
 

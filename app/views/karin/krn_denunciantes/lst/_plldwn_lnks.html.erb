@@ -1,4 +1,4 @@
-<% unless objt.tiene_email_verificado? %>
+<% unless objt.tiene_email_verificado? or objt.articulo_516 %>
   <li>
     <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/krn_denunciantes/#{objt.id}/reenviar_correo", {key: 'dnncnt'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
       Enviar verificación de email
@@ -24,7 +24,7 @@
 
   <% modificable = @objeto.fecha_hora_dt.nil? and @objeto.fecha_trmtcn.nil? %>
 
-  <% unless objt.tiene_email_verificado? or (not modificable) %>
+  <% unless objt.tiene_email_verificado? or (not modificable) or objt.articulo_516 %>
     <li><hr class="dropdown-divider"></li>
   <% end %>
 

@@ -4,7 +4,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
   retry_on StandardError, wait: :polynomially_longer, attempts: 3
 
-  def perform(denuncia_id)
+  def perform(denuncia_id, rprt)
     setup_chromium_environment!
     
     denuncia = KrnDenuncia.find(denuncia_id)
@@ -22,7 +22,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
     begin
       denuncia.krn_denunciantes.each do |dnncnt|
-        process_denunciante(denuncia, dnncnt, context, head_path, sign_path_final)
+        process_denunciante(denuncia, rprt, dnncnt, context, head_path, sign_path_final)
       end
     ensure
       limpiar_temporales(logo_path) if logo_path.present?
@@ -83,11 +83,15 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     tempfile.close if tempfile.respond_to?(:close) && !tempfile.closed?
   end
 
-  def process_denunciante(denuncia, dnncnt, context, head_path, sign_path)
-    filename = "info_obligatoria_dnncnt_#{dnncnt.id}_#{Time.current.to_i}.pdf"
+  def process_denunciante(denuncia, rprt, dnncnt, context, head_path, sign_path)
+
+    # Se agrega rprt en el nombre del PDF
+    filename = "#{rprt}_#{dnncnt.id}_#{Time.current.to_i}.pdf"
+
     krn_kywrd = dnncnt.kywrd[:krn]
 
-    html = generar_html_pdf(denuncia, dnncnt, context, head_path, sign_path, krn_kywrd)
+    # Se agrega rprt
+    html = generar_html_pdf(denuncia, rprt, dnncnt, context, head_path, sign_path, krn_kywrd)
     
     Rails.logger.info "HTML generado, longitud: #{html.length} caracteres"
     
@@ -96,13 +100,15 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     Rails.logger.info "PDF generado, longitud: #{pdf_content&.length || 'NIL'} bytes"
     Rails.logger.info "Es PDF válido? #{pdf_content&.start_with?('%PDF')}"
     
-    act_archivo = crear_act_archivo(dnncnt, pdf_content, filename)
+    # Se agrega rprt
+    act_archivo = crear_act_archivo(dnncnt, rprt, pdf_content, filename)
     
     optn_email = dnncnt.tiene_email_validado? || dnncnt.tiene_email_verificado?
     optn_certf = dnncnt.articulo_516?
 
     if !optn_certf && optn_email
-      enviar_pdf_por_correo(denuncia, dnncnt, act_archivo, context)
+      # Se agrega rprt
+      enviar_pdf_por_correo(denuncia, rprt, dnncnt, act_archivo, filename, context)
     end
   rescue => e
     Rails.logger.error "Error procesando denunciante #{dnncnt.id}: #{e.message}"
@@ -119,7 +125,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     Rails.logger.error "Error eliminando temporal #{path}: #{e.message}"
   end
 
-  def generar_html_pdf(objeto, dnncnt, context, head_path, sign_path, krn_kywrd)
+  def generar_html_pdf(objeto, rprt, dnncnt, context, head_path, sign_path, krn_kywrd)
     recipient = OpenStruct.new(
       email: dnncnt.email,
       nombre: dnncnt.nombre
@@ -131,10 +137,12 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     sign_url = imagen_a_data_url(sign_path)
 
     html = ApplicationController.render(
-      template: 'mailers/contexts/investigations/document/dnncnt_info_oblgtr_pdf',
+      # rprt se usa para encontrar el template del PDF
+      template: "mailers/contexts/investigations/document/#{rprt}_pdf",
       layout: 'mailers/pdf/base',
       assigns: {
         record: objeto,
+        prtcpnt: dnncnt,
         recipient: recipient,
         branding: branding,
         logo_url: head_url,
@@ -197,8 +205,8 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     Grover.new(html,
       format: 'Letter',
       margin: {
-        top: '25mm',
-        bottom: '25mm',
+        top: '15mm',
+        bottom: '15mm',
         left: '15mm',
         right: '15mm'
       },
@@ -230,10 +238,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     raise
   end
 
-  def crear_act_archivo(dnncnt, pdf_content, filename)
-    Rails.logger.info "=== CREAR_ACT_ARCHIVO ==="
-    Rails.logger.info "pdf_content class: #{pdf_content.class}, size: #{pdf_content&.length || 'nil'} bytes"
-    Rails.logger.info "Es PDF? #{pdf_content&.start_with?('%PDF')}"
+  def crear_act_archivo(dnncnt, rprt, pdf_content, filename)
 
     raise "PDF content es nil" if pdf_content.nil?
     raise "PDF content está vacío" if pdf_content.empty?
@@ -243,7 +248,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     ActArchivo.transaction do
       act_archivo = ActArchivo.new(
         ownr: dnncnt,
-        act_archivo: 'dnncnt_info_oblgtr',
+        act_archivo: rprt,
         nombre: "Información Obligatoria - Denuncia #{dnncnt.krn_denuncia&.id}",
         tipo: 'pdf',
       )
@@ -266,7 +271,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     raise
   end
 
-  def enviar_pdf_por_correo(objeto, dnncnt, act_archivo, context)
+  def enviar_pdf_por_correo(objeto, rprt, dnncnt, act_archivo, filename, context)
     recipient = OpenStruct.new(
       email: dnncnt.email,
       nombre: dnncnt.nombre
@@ -275,11 +280,12 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     pdf_data = act_archivo.pdf.download
 
     options = {
-      mailer_action: :dnncnt_info_oblgtr,
+      # Se usa rprt
+      mailer_action: rprt.to_sym,
       subject: "Información obligatoria para personas denunciantes - Denuncia N° #{objeto.id}",
       act_archivo: act_archivo,
       pdf_data: pdf_data,
-      filename: "información_obligatoria_denunciante - #{dnncnt.kywrd[:krn]}"
+      filename: filename
     }
 
     Mailers::PdfDeliveryService.new(
