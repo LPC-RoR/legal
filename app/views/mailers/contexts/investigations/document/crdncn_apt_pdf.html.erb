@@ -1,0 +1,51 @@
+<div class="pdf-header">
+  <div class="text-center">
+    <% if @head_url.present? %>
+      <img src="<%= @head_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Recepción de denuncias
+</div>
+
+<div class="text-center fs-5">
+  Coordinación de atención psicológica temprana para personas denunciantes
+</div>
+
+<div class="row mt-5">
+  <div class="col-6">
+    REFERENCIA:<br>
+    Denuncia N° <%= @record.id %>
+  </div>
+  <div class="col-6 text-end">
+    DESTINATARIO:<br>
+    <%= @krn_kywrd %>
+  </div>
+</div>
+
+	<p>Le solicitamos coordinar a la brevedad atención psicológica temprana para la(s) siguiente(s) personas trabajadoras:</p>
+
+	<table class="pdf-minimal">
+	<thead>
+	</thead>
+	<tbody>
+		<% @record.krn_denunciantes.each do |dnncnt| %>
+			<tr><td><b>Nombre</b></td><td><b><%=dnncnt.nombre%></b></td></tr>
+			<tr><td><b>Cédula de identidad</b></td><td><%=s_rut(dnncnt.rut)%></td></tr>
+			<tr><td><b>Email</b></td><td><%=dnncnt.email%></td></tr>
+			<!--tr><td><b>Teléfono</b></td><td><%#=dnncnt.telefono%></td></tr-->
+		<% end %>
+	</tbody>
+	</table>
+
+<div class="pdf-footer mt-5">
+  <div class="text-center">
+    <% if @sign_url.present? %>
+      <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="pdf-header">
+  <div class="text-center">
+    <% if @head_url.present? %>
+      <img src="<%= @head_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Recepción de denuncias
+</div>
+
+<div class="text-center fs-5">
+  Notificación de Asignación de Investigador a la Denuncia
+</div>
+
+<div class="row mt-5">
+  <div class="col-6">
+    REFERENCIA:<br>
+    Denuncia N° <%= @record.id %>
+  </div>
+  <div class="col-6 text-end">
+    DESTINATARIO:<br>
+    <%= @krn_kywrd %>
+  </div>
+</div>
+
+	<div class="mt-4" style="font-weight: bold;">
+		<p>Sr(a) <%= @prtcpnt.nombre %></p>
+		<p>PRESENTE</p>
+	</div>
+
+	<p>
+	  Por medio de la presente, le informamos que el(la) Sr(a). <%= @ntfcdr.krn_investigador.krn_investigador %> ha sido designado(a) como 
+	  investigador(a) de la denuncia en la cual usted participa en calidad de <%= @prtcpnt.kywrd[:rol] %>.
+	</p>
+
+	<p>
+	  Quedamos a su disposición para resolver cualquier consulta respecto de la presente notificación.
+	</p>
+
+
+	<% unless @prtcpnt.class.name == 'KrnTestigo' %>
+	  <h4>Objeción del Investigador</h4>
+
+	  <p>
+	    El reglamento establece que las personas denunciantes y denunciadas podrán objetar al investigador designado, 
+	    siempre que cuenten con antecedentes que sustenten dicha objeción.
+	  </p>
+
+	  <p>
+	    La única causal válida para objetar es la falta de imparcialidad del investigador asignado.
+	  </p>
+
+	  <p>
+	    Solo se admitirán objeciones que estén debidamente respaldadas con antecedentes. 
+	    La ausencia de fundamentos implicará el rechazo inmediato de la objeción presentada.
+	  </p>
+
+	  <p>
+	    Corresponde a la empresa evaluar la procedencia de la objeción. 
+	    En caso de ser acogida, se procederá a designar un nuevo investigador; de lo contrario, 
+	    se confirmará al investigador originalmente asignado.
+	  </p>
+	<% end %>
+
+<div class="pdf-footer mt-5">
+  <div class="text-center">
+    <% if @sign_url.present? %>
+      <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>

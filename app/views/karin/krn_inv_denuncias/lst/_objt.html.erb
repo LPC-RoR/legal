@@ -1,8 +1,8 @@
 <% clccn  = @objeto.krn_inv_denuncias %>
-<% rgstrs = objeto.pdf_registros %>
+<% rgstrs = objeto.act_referencias %>
 
 <%= objeto.krn_investigador&.krn_investigador %>
-<span class="ps-1" style="font-size: 0.8rem;">
+<span class="ps-1" style="font-size: 0.6rem;">
 	<% if rgstrs.none? %>
 		<span class="text-danger">SIN NOTIFICAR</span>
 	<% else %>
@@ -10,7 +10,7 @@
 	<% end %> 
 </span>
 
-<span class="ps-1" style="font-size: 0.8rem;">
+<span class="ps-1" style="font-size: 0.6rem;">
 	<% if clccn.first == objeto %>
 	    <% unless clccn.count == 2 or @objeto.objcn_acogida or @objeto.objcn_rechazada or @objeto.fecha_trmn? %>
 			<% if objeto.objetado %>

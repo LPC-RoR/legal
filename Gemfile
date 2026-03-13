@@ -86,6 +86,7 @@ gem 'ruby-openai'       # NER (puedes usar spaCy vía API propia)
 # Para OpenAI sobre Demanda
 gem 'actiontext'
 
+gem 'ferrum'
 
 gem 'rtesseract'          # wrapper de Tesseract-OCR
 gem 'mini_magick'         # convertir pdf → png

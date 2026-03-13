@@ -10,6 +10,11 @@
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=drvcn", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
 				<i class="bi bi-envelope-at"></i> Enviar!
 			<% end %>
+
+			<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=drvcn&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
+				<i class="bi bi-envelope-at"></i>
+			<% end %>
+
 		<% else %>
 			<% if objeto.pdf_registros.first.audtd %>
 				<i class="bi bi-clipboard-check text-primary"></i> Notificación de la derivación de la denuncia a los participantes auditada.

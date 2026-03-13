@@ -2,13 +2,16 @@
 <%# code : código del reporte %>
 <%# mdl : ClssPrcdmnt %>
 
-<% existe_archivo 	= ownr.act_archivos.exists?(act_archivo: code) %>
-<% revisado 		= ownr.check_realizados.exists?(cdg: code) %>
-<% es_lista 		= mdl.actn_multpl?(code) or mdl.ref_generated?(code) %>
+<% act_archivo 		= ownr.act_archivos.find_by(act_archivo: code) %>
+<% act_referencia	= ownr.act_referencias.find_by(code: code) %>
+<% revisado			= ownr.check_realizados.exists?(cdg: code) %>
+<%# es_lista			= mdl.actn_multpl?(code) or mdl.ref_generated?(code) %>
+
+<% es_lista 		= ClssPdfRprt.lista_rprt?(code) %>
 
 <div class="row gx-1">
 
-	<div class="col-lg-10 <%= 'text-primary' if existe_archivo %>">
+	<div class="col-lg-10 <%= 'text-primary' if act_archivo %>">
 
 		<% if mdl.act_lst?(code) %>
 			<%# Lista de act_archivos %>
@@ -18,7 +21,7 @@
 			<%# Act_files con Referencia %>
 			<i class="bi bi-files text-secondary"></i>
 
-		<% elsif existe_archivo %>
+		<% elsif act_archivo %>
 			<%# Hay al menos un archivo asociado %>
 			<i class="bi bi-file-earmark-pdf"></i>
 
@@ -41,29 +44,40 @@
 
 	<div class="col-lg-2 text-end app_lnk">
 
-		<% if (not es_lista) and (existe_archivo or revisado) %>
+		<% if (not es_lista) and (act_archivo or act_referencia or revisado) %>
 
 			<% if revisado %>
 				<%# Eliminar Check de revisado %>
 				<%= render partial: 'repositorios/check_realizados/rlzd', locals: {hsh: hsh, act_id: ownr.clss_id, ownr: ownr, act:code} %>
 			<% else %>
+				<%# Puede tener ActArchivo o ActReferencia %>
 
-				<%# DOWNLOAD de ActArchivo %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][code].id}/show_pdf", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
-					<i class="bi bi-download"></i>
+				<% if act_archivo %>
+					<%# DOWNLOAD de ActArchivo %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_archivo.id}/show_pdf", tltp: "Bajar #{mdl.act_nombre[code].downcase}", target: '_blank'} do %>
+						<i class="bi bi-download"></i>
+					<% end %>
+					<%# ELIMINAR ActArchivo %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_archivo.id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post, turbo_confirm: 'Confirmar eliminación del pdf'}} do %>
+						<i class="bi bi-trash"></i>
+					<% end %>
+				<% else %>
+					<%# DOWNLOAD de ActReferencia %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_referencia.act_archivo.id}/show_pdf", tltp: "Bajar #{act_referencia.act_archivo.nombre.downcase}", target: '_blank'} do %>
+						<i class="bi bi-download"></i>
+					<% end %>
 				<% end %>
-				<%# ELIMINAR ActArchivo %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{hsh[ownr.clss_id][code].id}/rmv_cntrld", tltp: 'Remover archivo controlado', data: {turbo_method: :post, turbo_confirm: 'Confirmar eliminación del pdf'}} do %>
-					<i class="bi bi-trash"></i>
-				<% end %>
+
 
 			<% end %>
 
 		<% else %>
 			<%# Marcar Check de revisado %>
-			<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: hsh, act_id: ownr.clss_id, ownr: ownr, act:code} %>
+			<% unless act_referencia %>
+				<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: hsh, act_id: ownr.clss_id, ownr: ownr, act: code} %>
+			<% end %>
 
-			<% unless mdl.ref_generated?(code) %>
+			<% unless mdl.ref_generated?(code) or ClssPdfRprt.ntfccn_rprt?(code) %>
 				<%# Los reportes ref_generated se generan en el modelo REF %>
 
 				<% if ['krnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name) and ownr.articulo_516 %>
@@ -72,11 +86,6 @@
 						<i class="bi bi-archive"></i>
 					<% end %>
 				<% else %>
-					<%# Generar, adjuntar y enviar PDF %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_send_report?oid=#{ownr.dnnc.id}&rprt=#{code}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}} do %>
-						<i class="bi bi-envelope-at"></i>
-					<% end %>
-
 					<%# NUEVO Generar, adjuntar y enviar PDF %>
 					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{ownr.dnnc.id}/krn_pdf_rprt?rprt=#{code}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
 						<i class="bi bi-envelope-at"></i>
@@ -92,9 +101,11 @@
 
 <% if es_lista %>
 
-	<% lista = ownr.act_archivos.where(act_archivo: 'code') %>
+	<% lista = ClssPdfRprt.ownr_rfrnc_rprt?(code) ? ownr.act_referencias.where(code: code) : ownr.act_archivos.where(act_archivo: code) %>
 
-	<% lista.each do |act_fl| %>
+	<% lista.each do |objt| %>
+		<% act_fl = objt.class.name == 'ActArchivo' ? objt : objt.act_archivo %>
+
 		<div class="row gx-1 mx-3 text-primary">
 			<div class="col-lg-10">
 				<i class="bi bi-arrow-return-right"></i>
@@ -112,6 +123,7 @@
 				<i class="bi bi-arrow-return-left"></i>
 			</div>
 		</div>
+
 	<% end %>
 
 <% end %>

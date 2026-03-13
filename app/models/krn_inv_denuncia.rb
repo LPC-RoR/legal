@@ -2,6 +2,8 @@ class KrnInvDenuncia < ApplicationRecord
 	belongs_to :krn_denuncia
 	belongs_to :krn_investigador
 
+	has_many :act_referencias, as: :ref
+
 	has_many :pdf_registros, as: :ref, dependent: :destroy
 
 	def dnnc

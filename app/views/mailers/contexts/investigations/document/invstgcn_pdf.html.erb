@@ -1,0 +1,64 @@
+<div class="pdf-header">
+  <div class="text-center">
+    <% if @head_url.present? %>
+      <img src="<%= @head_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Recepción de denuncias
+</div>
+
+<div class="text-center fs-5">
+  Notificación de recepción de denuncia Ley 21.643
+</div>
+
+<div class="row mt-5">
+  <div class="col-6">
+    REFERENCIA:<br>
+    Denuncia N° <%= @record.id %>
+  </div>
+  <div class="col-6 text-end">
+    DESTINATARIO:<br>
+    <%= @krn_kywrd %>
+  </div>
+</div>
+
+	<div class="mt-4" style="font-weight: bold;">
+		<p>Sr(a) <%= @prtcpnt.nombre %></p>
+		<p>PRESENTE</p>
+	</div>
+
+	<p>
+	  Con fecha <%= dma(@record.fecha_hora) %>, se ha presentado una denuncia en la cual usted participa en calidad de 
+	  <%= @prtcpnt.kywrd[:rol] %>.
+	</p>
+
+	<p>
+	  La normativa dictada por la Dirección del Trabajo establece la obligación de adoptar <b>Medidas de Resguardo</b>, destinadas a asegurar que todo el <i>procedimiento de investigación y sanción</i> se desarrolle en un ambiente que evite la revictimización de las personas denunciantes, prevenga cualquier tipo de represalia y garantice la objetividad e imparcialidad de la investigación. 
+	  El cumplimiento de estas medidas es obligatorio para todas las partes intervinientes.
+	</p>
+
+	<p>
+	  Asimismo, nuestra empresa tiene la obligación de resguardar la confidencialidad de la información en todas las etapas del procedimiento. En particular:
+	</p>
+
+	<ol>
+	  <li>
+	    Las personas denunciantes y denunciadas tendrán acceso al contenido de la denuncia; sin embargo, se excluirá la identidad de terceras personas mencionadas en los hechos, así como la identidad de los testigos ofrecidos por ambas partes.
+	  </li>
+	  <li>
+	    Todos los participantes tienen la responsabilidad de mantener en estricta reserva cualquier información relativa a su intervención en el procedimiento, absteniéndose de compartirla con otros trabajadores de la empresa.
+	  </li>
+	</ol>
+
+<div class="pdf-footer mt-5">
+  <div class="text-center">
+    <% if @sign_url.present? %>
+      <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>

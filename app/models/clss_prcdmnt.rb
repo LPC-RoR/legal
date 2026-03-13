@@ -36,9 +36,9 @@ class ClssPrcdmnt
         { tipo: 'verificar_email',      si: ->(o) { true } },
         { tipo: 'dnncnt_info_oblgtr',   si: ->(o) { o.dnnc.rcp_empresa? or (o.dnnc.rcp_externa? and o.dnnc.empresa?) } },
         { tipo: 'comprobante',          si: ->(o) { o.dnnc.rcp_empresa? } },
+        { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'drchs',                si: ->(o) { true } },
         { tipo: 'medidas_resguardo',    si: ->(o) { o.dnnc.tiene_mdds_rsgrd? } },
-        { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
         { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
         { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } }
@@ -52,9 +52,9 @@ class ClssPrcdmnt
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
+        { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'drchs',                si: ->(o) { true } },
         { tipo: 'medidas_resguardo',    si: ->(o) { o.dnnc.tiene_mdds_rsgrd? } },
-        { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
         { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
         { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } }
@@ -68,8 +68,8 @@ class ClssPrcdmnt
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
-        { tipo: 'drchs',                si: ->(o) { true } },
         { tipo: 'invstgcn',             si: ->(o) { true } },
+        { tipo: 'drchs',                si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
         { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
         { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } }

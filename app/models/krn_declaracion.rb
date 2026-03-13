@@ -3,6 +3,8 @@ class KrnDeclaracion < ApplicationRecord
 	belongs_to :krn_investigador
  	belongs_to :ownr, polymorphic: true
 
+	has_many :act_referencias, as: :ref
+
 	has_many :pdf_registros, as: :ref
 	has_many :check_realizados, as: :ownr, dependent: :destroy
 

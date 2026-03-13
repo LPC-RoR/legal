@@ -122,7 +122,7 @@ class Repositorios::ActArchivosController < ApplicationController
     pdf_registro.delete unless pdf_registro.blank?
     @objeto.delete
 
-    redirect_to act_archivo_rdrccn(@objeto.ownr)
+    redirect_to act_archivo_rdrccn(@objeto)
   end
 
   # Para descargar los archivos generados por OpenAI

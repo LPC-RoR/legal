@@ -7,9 +7,11 @@
 
   <% if rgstrs.none? %>
     <li>
-      <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_reportes/generate_and_send_report?oid=#{objt.id}&rprt=invstgdr", data: {turbo_method: :get, turbo_confirm: 'Confirmar envío de email'}, clss: 'dropdown-item'} do %>
+
+      <%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=invstgdr&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}, clss: 'dropdown-item'} do %>
         Notificar asignación
       <% end %>
+
     </li>
   <% end %>
 

@@ -1,0 +1,61 @@
+<div class="pdf-header">
+  <div class="text-center">
+    <% if @head_url.present? %>
+      <img src="<%= @head_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Recepción de denuncias
+</div>
+
+<div class="text-center fs-5">
+  Agendamiento de declaración del participante
+</div>
+
+<div class="row mt-5">
+  <div class="col-6">
+    REFERENCIA:<br>
+    Denuncia N° <%= @record.id %>
+  </div>
+  <div class="col-6 text-end">
+    DESTINATARIO:<br>
+    <%= @krn_kywrd %>
+  </div>
+</div>
+
+	<div class="mt-4" style="font-weight: bold;">
+		<p>Sr(a) <%= @prtcpnt.nombre %></p>
+		<p>PRESENTE</p>
+	</div>
+
+	<p>
+	Le informamos que su declaración en el marco de la investigación en la cual participa en calidad de <%= @prtcpnt.kywrd[:rol] %> ha sido agendada para el próximo <%= dma_hm(@ntfcdr.fecha) %>.
+	</p>
+
+	<p>
+	La diligencia será realizada por el(la) investigador(a) asignado(a), Sr(a). <%= @record.invstgdr_activo.krn_investigador.krn_investigador %>, quien podrá atender cualquier consulta o requerimiento que usted tenga respecto de esta citación.
+	</p>
+
+	<p>
+	Atentamente,
+	</p>
+
+	<p>
+	<%= @record.invstgdr_activo.krn_investigador.krn_investigador %><br/>
+	<small>
+	Investigador(a) asignado(a)<br/>
+	<%= @record.invstgdr_activo.krn_investigador.email %>
+	</small>
+	</p>
+
+<div class="pdf-footer mt-5">
+  <div class="text-center">
+    <% if @sign_url.present? %>
+      <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>

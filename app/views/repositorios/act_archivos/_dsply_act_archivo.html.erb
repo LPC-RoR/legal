@@ -16,10 +16,12 @@
 	<div class="col-4 text-end app_lnk">
 		<% if not @acts_hsh[act_id][:rlzds].objt_rlzd?(objeto, rprt) %>
 			<%= render partial: 'repositorios/check_realizados/rlzbl', locals: {hsh: @acts_hsh, act_id: act_id, ownr: objeto, act: rprt} %>
-			<%= link_to "/krn_reportes/generate_and_send_report?oid=#{objeto.id}&rprt=#{rprt}",  
-			            data: { turbo_method: :get, turbo_confirm: 'Verificar envio de email' } do %>  
-			  <i class="bi bi-envelope-at"></i>
+
+			<%# REPORTES ADMINISTRATIVOS : ownr = dstntr y ref = Denuncia %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=#{rprt}&nid=#{objeto.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
+				<i class="bi bi-envelope-at"></i>
 			<% end %>
+
 		<% else %>
 			<%= render partial: 'repositorios/check_realizados/rlzd', locals: {hsh: @acts_hsh, act_id: act_id, ownr: objeto, act: rprt} %>
 		<% end %>

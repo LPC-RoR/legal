@@ -3,26 +3,86 @@
 
 class ClssPdfRprt
 
+
+	# ********************************************************* NUEVA VERSION CENTRALIZADA DE REPORTES
+
 	RCRD_CLSS = {
+		medidas_resguardo: ActArchivo,
 		invstgdr: KrnInvDenuncia,
 		drvcn: KrnDerivacion,
-		dclrcn: KrnDeclaracion
+		dclrcn: KrnDeclaracion,
+		crdncn_apt: KrnDenuncia,
+		infrmcn: KrnDenuncia,
 	}.freeze
 
-	  def self.sbjcts
-	    {
-	    	dnncnt_info_oblgtr:	'Entrega de información obligatoria',
-	    	comprobante:		'Comprobante de recepción de denuncia',
-	    	drchs:				'Derechos y obligaciones de los participantes',
-	    	medidas_resguardo:  'Medidas de resguardo',
-	    	infrmcn:    		'Verificación de datos de los participantes.',
-	    	crdncn_apt: 		'Coordinación de atención psicológica temprana.',
-	    	drvcn:      		'Notificación de derivación de la denuncia.',
-	    	invstgcn:   		'Notificación de recepción de denuncia.',
-	    	invstgdr:   		'Notificación de asignación de Investigador.',
-	    	dclrcn:     		'Citación a declarar.'
-	    }.freeze
-	  end
+	# El reporte debe ser enviado a las personas denunciantes?
+	def self.dnncnt_rprt?(rprt)
+		['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'medidas_resguardo', 'invstgdr'].include?(rprt)
+	end
+
+	# El reporte debe ser enviado a las personas denunciados?
+	def self.dnncd_rprt?(rprt)
+		['invstgcn', 'drchs', 'medidas_resguardo', 'invstgdr'].include?(rprt)
+	end
+
+	# El reporte debe ser enviado a las personas testigos?
+	def self.tstg_rprt?(rprt)
+		['invstgcn', 'drchs', 'invstgdr'].include?(rprt)
+	end
+
+	# El reporte tiene un adjunto que se subió a la plataforma
+	def self.ntfccn_rprt?(rprt)
+		['medidas_resguardo', 'invstgdr'].include?(rprt)
+	end
+
+	def self.ownr_rfrnc_rprt?(rprt)
+		['medidas_resguardo'].include?(rprt)
+	end
+
+	def self.cntct_rprt?(rprt)
+		['crdncn_apt', 'infrmcn'].include?(rprt)
+	end
+
+	def self.adjunto_subido?(rprt)
+		['medidas_resguardo'].include?(rprt)
+	end
+
+	def self.spcl_rprt?(rprt)
+		['dclrcn'].include?(rprt)
+	end
+
+	def self.lista_rprt?(rprt)
+		['medidas_resguardo', 'invstgdr', 'dclrcn'].include?(rprt)
+	end
+
+	# El reporte es notificable: Primer caso 'mdds_rsgrd'
+	def self.rprt_ntfcbl?
+		{
+			mdds_rsgrd: 'medidas_resguardo'
+		}
+	end
+
+	def self.act_dnnc?
+		{
+			medidas_resguardo: 'mdds_rsgrd'
+		}
+	end
+
+	def self.sbjcts
+		{
+			dnncnt_info_oblgtr:	'Entrega de información obligatoria para personas denunciantes',
+			comprobante:		'Comprobante de recepción de denuncia',
+			drchs:				'Derechos y obligaciones de los participantes',
+			medidas_resguardo:  'Medidas de resguardo',
+			infrmcn:    		'Verificación de datos de los participantes.',
+			crdncn_apt: 		'Coordinación de atención psicológica temprana.',
+			drvcn:      		'Notificación de derivación de la denuncia.',
+			invstgcn:   		'Notificación de recepción de denuncia.',
+			invstgdr:   		'Notificación de asignación de investigador.',
+			dclrcn:     		'Citación a declarar.'
+		}.freeze
+	end
+	# ************************************************************************************************
 
 	def self.dnnc_rprts
 		['infrmcn', 'crdncn_apt'].freeze

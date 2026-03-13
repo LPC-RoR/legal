@@ -4,11 +4,19 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
   retry_on StandardError, wait: :polynomially_longer, attempts: 3
 
-  def perform(denuncia_id, rprt)
-    setup_chromium_environment!
+  def perform(denuncia_id, rprt, nid)
+    browser_path = setup_chromium_environment!
+    
+    browser = Ferrum::Browser.new(
+      headless: true,
+      browser_path: browser_path,
+      args: ["--no-sandbox", "--disable-dev-shm-usage"]
+    )
     
     denuncia = KrnDenuncia.find(denuncia_id)
     return unless denuncia
+
+    ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid) if nid
 
     context = :investigations
     
@@ -21,9 +29,45 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     sign_path_final = sign_path || Rails.root.join('public', 'mssgs', 'email_sign.png').to_s
 
     begin
-      denuncia.krn_denunciantes.each do |dnncnt|
-        process_denunciante(denuncia, rprt, dnncnt, context, head_path, sign_path_final)
+      # Proceso de reportes de denunciantes, denunciados y testigos
+      # process_denunciante tiene que funcionar como process_participante
+      if ClssPdfRprt.dnncnt_rprt?(rprt)
+        denuncia.krn_denunciantes.each do |dnncnt|
+          process_participante(denuncia, rprt, dnncnt, context, head_path, sign_path_final, ntfcdr)
+          if ClssPdfRprt.tstg_rprt?(rprt)
+            dnncnt.krn_testigos.each do |tstg|
+              process_participante(denuncia, rprt, tstg, context, head_path, sign_path_final, ntfcdr)
+            end
+          end
+        end
       end
+
+      if ClssPdfRprt.dnncd_rprt?(rprt)
+        denuncia.krn_denunciados.each do |dnncd|
+          process_participante(denuncia, rprt, dnncd, context, head_path, sign_path_final, ntfcdr)
+          if ClssPdfRprt.tstg_rprt?(rprt)
+            dnncd.krn_testigos.each do |tstg|
+              process_participante(denuncia, rprt, tstg, context, head_path, sign_path_final, ntfcdr)
+            end
+          end
+        end
+      end
+
+      if ClssPdfRprt.spcl_rprt?(rprt)
+        dstntr = ntfcdr.ownr if rprt == 'dclrcn'
+        process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, ntfcdr)
+      end
+
+      if ClssPdfRprt.cntct_rprt?(rprt)
+        grupo = 'Apt' if rprt == 'crdncn_apt'
+        grupo = 'RRHH' if rprt == 'infrmcn'
+        dstntrs = AppContacto.where(grupo: grupo)
+
+        dstntrs.each do |dstntr|
+          process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, denuncia)
+        end
+      end
+
     ensure
       limpiar_temporales(logo_path) if logo_path.present?
       limpiar_temporales(sign_path) if sign_path.present?
@@ -36,19 +80,37 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
   ensure
     # Asegurar que se limpie el bloqueo al finalizar (éxito o fracaso)
     Rails.cache.delete("pdf_generation:#{denuncia_id}")
+    browser&.quit
+  end
+
+  def setup_chromium_environment!
+    # Detectar navegador disponible
+    browser_path = detect_browser_path
+    
+    Rails.logger.info "Browser path: #{browser_path}"
+    
+    # Configurar locale
+    ENV['LANG'] ||= 'es_CL.UTF-8'
+    ENV['LC_ALL'] ||= 'es_CL.UTF-8'
+    
+    browser_path
   end
 
   private
 
-  def setup_chromium_environment!
-    ENV['PUPPETEER_EXECUTABLE_PATH'] ||= `which chromium-browser`.strip.presence || `which chromium`.strip.presence || `which google-chrome`.strip.presence || `which google-chrome-stable`.strip.presence
-    ENV['DISPLAY'] ||= ':99'
-    ENV['LANG'] ||= 'es_CL.UTF-8'
-    ENV['LC_ALL'] ||= 'es_CL.UTF-8'
+  def detect_browser_path
+    candidates = [
+      '/usr/bin/google-chrome-stable',
+      '/usr/bin/google-chrome',
+      '/usr/bin/chromium-browser',
+      '/usr/bin/chromium',
+      '/mnt/c/Program Files/Google/Chrome/Application/chrome.exe' # fallback WSL-Windows
+    ]
     
-    Rails.logger.debug "Chromium path: #{ENV['PUPPETEER_EXECUTABLE_PATH']}"
-    Rails.logger.debug "Display: #{ENV['DISPLAY']}"
+    candidates.find { |path| File.exist?(path) } || 
+      raise("No se encontró Chrome/Chromium. Instala con: sudo apt install google-chrome-stable")
   end
+
 
   def obtener_ruta_imagen_logo(denuncia)
     return nil unless denuncia&.ownr&.logo&.attached?
@@ -83,35 +145,51 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     tempfile.close if tempfile.respond_to?(:close) && !tempfile.closed?
   end
 
-  def process_denunciante(denuncia, rprt, dnncnt, context, head_path, sign_path)
+  def process_participante(denuncia, rprt, prtcpnt, context, head_path, sign_path, ntfcdr)
+    # migrando a nueva versión en la que dnncnt == prtcpnt
 
-    # Se agrega rprt en el nombre del PDF
-    filename = "#{rprt}_#{dnncnt.id}_#{Time.current.to_i}.pdf"
+    # MIGRADO: kywrd esta definido para todos los participantes
+    krn_kywrd =     prtcpnt.kywrd[:krn]
 
-    krn_kywrd = dnncnt.kywrd[:krn]
+    # Se agrega rprt en el nombre del PDF (MIGRADO)
+    filename = "#{rprt}_#{krn_kywrd}_#{Time.current.to_i}.pdf"
 
+    unless ClssPdfRprt.adjunto_subido?(rprt)
+      # Se agrega rprt (MIGRADO: prueba de templates pendiente)
+      html = generar_html_pdf(denuncia, rprt, prtcpnt, context, head_path, sign_path, krn_kywrd, ntfcdr)
+      
+      Rails.logger.info "HTML generado, longitud: #{html.length} caracteres"
+      
+      # MIGRADO No usa prtcpnt
+      pdf_content = generar_pdf_con_grover(html, denuncia)
+      
+      Rails.logger.info "PDF generado, longitud: #{pdf_content&.length || 'NIL'} bytes"
+      Rails.logger.info "Es PDF válido? #{pdf_content&.start_with?('%PDF')}"
+    end
+    
     # Se agrega rprt
-    html = generar_html_pdf(denuncia, rprt, dnncnt, context, head_path, sign_path, krn_kywrd)
+    # MIGRADO
+    if ClssPdfRprt.adjunto_subido?(rprt)
+      act_archivo = referenciar_act_archivo_dnnc(denuncia, prtcpnt, rprt, ntfcdr)
+    else
+      act_archivo = crear_act_archivo(prtcpnt, rprt, pdf_content, filename, ntfcdr)
+    end
+
+    # Verificar que se obtuvo un act_archivo válido
+    unless act_archivo
+      Rails.logger.error "No se pudo obtener o crear act_archivo para prtcpnt #{prtcpnt.id}, rprt #{rprt}"
+      return # Salir del método sin enviar email
+    end
     
-    Rails.logger.info "HTML generado, longitud: #{html.length} caracteres"
-    
-    pdf_content = generar_pdf_con_grover(html, denuncia)
-    
-    Rails.logger.info "PDF generado, longitud: #{pdf_content&.length || 'NIL'} bytes"
-    Rails.logger.info "Es PDF válido? #{pdf_content&.start_with?('%PDF')}"
-    
-    # Se agrega rprt
-    act_archivo = crear_act_archivo(dnncnt, rprt, pdf_content, filename)
-    
-    optn_email = dnncnt.tiene_email_validado? || dnncnt.tiene_email_verificado?
-    optn_certf = dnncnt.articulo_516?
+    optn_email = prtcpnt.tiene_email_validado? || prtcpnt.tiene_email_verificado?
+    optn_certf = ClssPdfRprt.cntct_rprt?(rprt) ? false : prtcpnt.articulo_516?
 
     if !optn_certf && optn_email
-      # Se agrega rprt
-      enviar_pdf_por_correo(denuncia, rprt, dnncnt, act_archivo, filename, context)
+      # Se agrega rprt (MIGRAGDO falta prueba del template)
+      enviar_pdf_por_correo(denuncia, rprt, prtcpnt, act_archivo, filename, context)
     end
   rescue => e
-    Rails.logger.error "Error procesando denunciante #{dnncnt.id}: #{e.message}"
+    Rails.logger.error "Error procesando denunciante #{prtcpnt.id}: #{e.message}"
     Rails.logger.error e.backtrace.first(10).join("\n")
     raise
   end
@@ -125,10 +203,10 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     Rails.logger.error "Error eliminando temporal #{path}: #{e.message}"
   end
 
-  def generar_html_pdf(objeto, rprt, dnncnt, context, head_path, sign_path, krn_kywrd)
+  def generar_html_pdf(objeto, rprt, prtcpnt, context, head_path, sign_path, krn_kywrd, ntfcdr)
     recipient = OpenStruct.new(
-      email: dnncnt.email,
-      nombre: dnncnt.nombre
+      email: prtcpnt.email,
+      nombre: prtcpnt.nombre
     )
 
     branding = objeto.ownr&.tenant&.branding_for(context)
@@ -142,7 +220,8 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       layout: 'mailers/pdf/base',
       assigns: {
         record: objeto,
-        prtcpnt: dnncnt,
+        prtcpnt: prtcpnt,
+        ntfcdr: ntfcdr,
         recipient: recipient,
         branding: branding,
         logo_url: head_url,
@@ -206,7 +285,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       format: 'Letter',
       margin: {
         top: '15mm',
-        bottom: '15mm',
+        bottom: '25mm',
         left: '15mm',
         right: '15mm'
       },
@@ -238,7 +317,21 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     raise
   end
 
-  def crear_act_archivo(dnncnt, rprt, pdf_content, filename)
+  def referenciar_act_archivo_dnnc(denuncia, prtcpnt, rprt, ntfcdr)
+    if ClssPdfRprt.act_dnnc?[rprt.to_sym]
+      # act_archivo = denuncia.act_archivos.find_by(act_archivo: ClssPdfRprt.act_dnnc?[rprt.to_sym])
+      ntfcdr.act_referencias.create(ref: prtcpnt, code: rprt)
+    end
+  # Verificar que se obtuvo un act_archivo válido
+  unless ntfcdr
+    Rails.logger.error "Referenciar #{prtcpnt.id}, rprt #{rprt} #{ClssPdfRprt.act_dnnc?[rprt.to_sym]}"
+    return # Salir del método sin enviar email
+  end
+
+    ntfcdr
+  end
+
+  def crear_act_archivo(prtcpnt, rprt, pdf_content, filename, ntfcdr)
 
     raise "PDF content es nil" if pdf_content.nil?
     raise "PDF content está vacío" if pdf_content.empty?
@@ -246,10 +339,13 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     raise "PDF no válido (no empieza con %PDF)" unless pdf_content.start_with?('%PDF')
 
     ActArchivo.transaction do
+
+      dnnc_id = ClssPdfRprt.cntct_rprt?(rprt) ? ntfcdr.id : prtcpnt.dnnc&.id
+
       act_archivo = ActArchivo.new(
-        ownr: dnncnt,
+        ownr: prtcpnt,
         act_archivo: rprt,
-        nombre: "Información Obligatoria - Denuncia #{dnncnt.krn_denuncia&.id}",
+        nombre: "#{rprt} - Denuncia #{dnnc_id}",
         tipo: 'pdf',
       )
 
@@ -260,6 +356,8 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       )
 
       act_archivo.save!
+
+      act_archivo.act_referencias.create(ref: ntfcdr, code: rprt) if ntfcdr
       
       Rails.logger.info "ActArchivo guardado: ID #{act_archivo.id}, PDF adjunto: #{act_archivo.pdf.attached?}, tamaño: #{act_archivo.pdf.byte_size}"
       
@@ -271,10 +369,10 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     raise
   end
 
-  def enviar_pdf_por_correo(objeto, rprt, dnncnt, act_archivo, filename, context)
+  def enviar_pdf_por_correo(objeto, rprt, prtcpnt, act_archivo, filename, context)
     recipient = OpenStruct.new(
-      email: dnncnt.email,
-      nombre: dnncnt.nombre
+      email: prtcpnt.email,
+      nombre: prtcpnt.nombre
     )
 
     pdf_data = act_archivo.pdf.download
@@ -282,7 +380,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     options = {
       # Se usa rprt
       mailer_action: rprt.to_sym,
-      subject: "Información obligatoria para personas denunciantes - Denuncia N° #{objeto.id}",
+      subject: "#{ClssPdfRprt.sbjcts[rprt.to_sym]} - Denuncia N° #{objeto.id}",
       act_archivo: act_archivo,
       pdf_data: pdf_data,
       filename: filename

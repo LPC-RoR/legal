@@ -45,7 +45,9 @@ module MailDesk
   end
 
   def krn_pdf_rprt
-    rprt = params[:rprt]
+    rprt  = params[:rprt]
+    nid   = params[:nid]
+
     # Verificar si ya hay un job en ejecución para esta denuncia
     if job_en_ejecucion?(@objeto.id)
       redirect_to "/krn_denuncias/#{@objeto.id}_1", 
@@ -56,7 +58,7 @@ module MailDesk
     # Marcar que hay un job en ejecución (expira en 10 minutos)
     marcar_job_en_ejecucion(@objeto.id)
     
-    Mailers::PdfGenerationAndDeliveryJob.perform_later(@objeto.id, rprt)
+    Mailers::PdfGenerationAndDeliveryJob.perform_later(@objeto.id, rprt, nid)
     
     redirect_to "/krn_denuncias/#{@objeto.id}_1", 
       notice: 'Generación de documentos iniciada. Los PDFs se procesarán en segundo plano.'

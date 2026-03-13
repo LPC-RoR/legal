@@ -10,6 +10,19 @@ class AppContacto < ApplicationRecord
 
 	validates :nombre, :email, presence: true
 
+	def rol_contacto
+		grupo = 'RRHH' ? 'revisión de datos' : (grupo == 'Apt' ? 'coordinador Apt' : 'sin rol definido')
+	end
+
+	def kywrd
+		{
+			rol: 	rol_contacto,
+			abrev: 	"cntct-#{id}",
+			sym: 	:cntct,
+			krn: 	"cntct-#{id}-0"
+		}
+	end
+
 	def dflt_bck_rdrccn
 		['Cliente', 'Empresa'].include?(self.ownr_type) ? "/cuentas/#{self.ownr_type[0].downcase}_#{self.ownr.id}/nmn" : "/app_contactos"
 	end

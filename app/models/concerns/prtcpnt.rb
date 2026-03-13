@@ -66,7 +66,7 @@ module Prtcpnt
     end
 
     def tiene_mdds_rsgrd_fl?
-      act_archivos.any? { |a| a.act_archivo == 'medidas_resguardo' && a.pdf.attached? || a.rlzd? }
+      act_referencias.any? { |a| a.code == 'medidas_resguardo' }
     end
 
     def tiene_mdds_rsgrd_chk?
