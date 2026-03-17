@@ -1,0 +1,33 @@
+<div class="pdf-header">
+  <div class="text-center">
+    <% if @head_url.present? %>
+      <img src="<%= @head_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+</div>
+
+<div class="text-center fs-5">
+  Resporte del estado de la denuncia a la fecha de emisión
+</div>
+
+<%= render partial: "mailers/contexts/investigations/document/rprt_dnnc/encbzd", locals: {reporte: @reporte} %>
+<%= render partial: "mailers/contexts/investigations/document/rprt_dnnc/etps_rlzds", locals: {objeto: @record} %>
+<%= render partial: "mailers/contexts/investigations/document/rprt_dnnc/drvcns_invstgdrs", locals: {reporte: @reporte} %>
+<%= render partial: "mailers/contexts/investigations/document/rprt_dnnc/accns", locals: {reporte: @reporte} %>
+
+<%#= render partial: prtl_name(@ownr, 'shw/rprt', 'docs_dnnc'), locals: {objeto: @ownr} %>
+<%= render partial: "mailers/contexts/investigations/document/rprt_dnnc/docs_dnnc", locals: {objeto: @record, acts: @acts} %>
+<%= render partial: "mailers/contexts/investigations/document/rprt_dnnc/docs_prtcpnts", locals: {objeto: @record, acts: @acts} %>
+
+<div class="pdf-footer mt-5">
+  <div class="text-center">
+    <% if @sign_url.present? %>
+      <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<% clccn  = @objeto.krn_derivaciones %>
+
+<% if clccn.last == objt %>
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=drvcn&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}, clss: 'dropdown-item'} do %>
+      Notificar derivación
+    <% end %>
+
+  </li>
+<% end %>
+
+<%# if objt.destino == 'Dirección del Trabajo' and @objeto.krn_derivaciones.count == 1 %>
+  <!--li>
+    <%#= render partial: '0p/swtch', locals: {objeto: @objeto, tkn: 'solicitud_denuncia', stts: ['sin solicitud de devolución', 'con solicitud de devolución'], glys: ['arrow-counterclockwise', 'arrow-left'], clss: 'dropdown-item'} %>
+  </li-->
+<%# end %>
+
+<% if clccn.last == objt %>
+  <% if current_usuario.operacion? %>
+
+    <li><hr class="dropdown-divider"></li>
+    <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
+    <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+
+    <li><hr class="dropdown-divider"></li>
+
+    <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+
+  <% end %>
+<% end %>

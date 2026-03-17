@@ -1,0 +1,5 @@
+<% hsh[ownr.clss_id][:actns].each do |actn| %>
+	<% unless ClssPrcdmnt.list_excluded?(actn) %>
+		<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/pltfrm_objt', locals: {hsh: hsh, mdl: ClssPrcdmnt, ownr: ownr, code: actn} %>
+	<% end %>
+<% end %>

@@ -16,6 +16,8 @@ module Paths
 			else
 				if ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(objeto.class.name)
 					"/krn_denuncias/#{objeto.dnnc.id}_1"
+				elsif ['KrnDerivacion'].include?(objeto.class.name)
+					"/krn_denuncias/#{objeto.krn_denuncia.id}_1"
 				end
 			end
 		else
@@ -50,6 +52,8 @@ module Paths
 			"/cuentas/#{objt.ownr.class.name[0].downcase}_#{objt.ownr.id}/#{krn_indx_action[objt.class.name]}"
 		when 'AppNomina'
 			objt.ownr_id.nil? ? app_nominas_path : "/cuentas/e_#{objt.ownr_id}/nmn"
+		when 'KrnDerivacion'
+			"/krn_denuncias/#{objt.krn_denuncia.id}_1"
 		else
 			objt.ownr
 		end

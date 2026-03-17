@@ -16,6 +16,9 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     denuncia = KrnDenuncia.find(denuncia_id)
     return unless denuncia
 
+    Rails.logger.info "Job en curso: #{rprt}"
+
+
     ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid) if nid
 
     context = :investigations
@@ -66,6 +69,11 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
         dstntrs.each do |dstntr|
           process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, denuncia)
         end
+      end
+
+      if ClssPdfRprt.rcrs_rprt?(rprt)
+        Rails.logger.info "Entro en rcrs_rprt, reporte: #{rprt}"
+        process_participante(denuncia, rprt, nil, context, head_path, sign_path_final, denuncia)
       end
 
     ensure
@@ -149,15 +157,16 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     # migrando a nueva versión en la que dnncnt == prtcpnt
 
     # MIGRADO: kywrd esta definido para todos los participantes
-    krn_kywrd =     prtcpnt.kywrd[:krn]
+    krn_kywrd = prtcpnt ? prtcpnt.kywrd[:krn] : "dnnc_#{denuncia.id}"
 
     # Se agrega rprt en el nombre del PDF (MIGRADO)
     filename = "#{rprt}_#{krn_kywrd}_#{Time.current.to_i}.pdf"
 
     unless ClssPdfRprt.adjunto_subido?(rprt)
       # Se agrega rprt (MIGRADO: prueba de templates pendiente)
+      # Se expande para que permita generar el reporte dnnc (que no tiene destinatario)
       html = generar_html_pdf(denuncia, rprt, prtcpnt, context, head_path, sign_path, krn_kywrd, ntfcdr)
-      
+
       Rails.logger.info "HTML generado, longitud: #{html.length} caracteres"
       
       # MIGRADO No usa prtcpnt
@@ -172,7 +181,9 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     if ClssPdfRprt.adjunto_subido?(rprt)
       act_archivo = referenciar_act_archivo_dnnc(denuncia, prtcpnt, rprt, ntfcdr)
     else
-      act_archivo = crear_act_archivo(prtcpnt, rprt, pdf_content, filename, ntfcdr)
+      # Se expande para que permita generar el reporte dnnc (que no tiene destinatario)
+      ownr = rprt == 'dnnc' ? denuncia : prtcpnt
+      act_archivo = crear_act_archivo(ownr, rprt, pdf_content, filename, ntfcdr)
     end
 
     # Verificar que se obtuvo un act_archivo válido
@@ -181,15 +192,15 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       return # Salir del método sin enviar email
     end
     
-    optn_email = prtcpnt.tiene_email_validado? || prtcpnt.tiene_email_verificado?
-    optn_certf = ClssPdfRprt.cntct_rprt?(rprt) ? false : prtcpnt.articulo_516?
+    optn_email = prtcpnt&.tiene_email_validado? || prtcpnt&.tiene_email_verificado?
+    optn_certf = ClssPdfRprt.cntct_rprt?(rprt) ? false : prtcpnt&.articulo_516?
 
     if !optn_certf && optn_email
       # Se agrega rprt (MIGRAGDO falta prueba del template)
       enviar_pdf_por_correo(denuncia, rprt, prtcpnt, act_archivo, filename, context)
     end
   rescue => e
-    Rails.logger.error "Error procesando denunciante #{prtcpnt.id}: #{e.message}"
+    Rails.logger.error "Error procesando denunciante #{prtcpnt&.id}: #{e.message}"
     Rails.logger.error e.backtrace.first(10).join("\n")
     raise
   end
@@ -204,10 +215,22 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
   end
 
   def generar_html_pdf(objeto, rprt, prtcpnt, context, head_path, sign_path, krn_kywrd, ntfcdr)
-    recipient = OpenStruct.new(
-      email: prtcpnt.email,
-      nombre: prtcpnt.nombre
-    )
+    if prtcpnt
+      recipient = OpenStruct.new(
+        email: prtcpnt.email,
+        nombre: prtcpnt.nombre
+      )
+    else
+      recipient = nil
+    end
+
+    if rprt == 'dnnc'
+      @reporte  = DenunciaReport.new(objeto).to_h
+      @acts     = ActLoad.for_tree(objeto)
+    else
+      @reporte  = nil
+      @acts     = nil
+    end
 
     branding = objeto.ownr&.tenant&.branding_for(context)
     
@@ -224,6 +247,8 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
         ntfcdr: ntfcdr,
         recipient: recipient,
         branding: branding,
+        reporte: @reporte,
+        acts: @acts,
         logo_url: head_url,
         head_url: head_url,
         sign_url: sign_url,
@@ -331,7 +356,8 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     ntfcdr
   end
 
-  def crear_act_archivo(prtcpnt, rprt, pdf_content, filename, ntfcdr)
+  def crear_act_archivo(ownr, rprt, pdf_content, filename, ntfcdr)
+    # Se incluyó menejo de reporte dnnc
 
     raise "PDF content es nil" if pdf_content.nil?
     raise "PDF content está vacío" if pdf_content.empty?
@@ -340,10 +366,12 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
     ActArchivo.transaction do
 
-      dnnc_id = ClssPdfRprt.cntct_rprt?(rprt) ? ntfcdr.id : prtcpnt.dnnc&.id
+      dnnc_id = (ClssPdfRprt.cntct_rprt?(rprt) or ClssPdfRprt.rcrs_rprt?(rprt)) ? ntfcdr&.id : ownr.dnnc&.id
+
+
 
       act_archivo = ActArchivo.new(
-        ownr: prtcpnt,
+        ownr: ownr,
         act_archivo: rprt,
         nombre: "#{rprt} - Denuncia #{dnnc_id}",
         tipo: 'pdf',
@@ -357,7 +385,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
       act_archivo.save!
 
-      act_archivo.act_referencias.create(ref: ntfcdr, code: rprt) if ntfcdr
+      act_archivo.act_referencias.create(ref: ntfcdr, code: rprt) if ntfcdr unless rprt == 'dnnc'
       
       Rails.logger.info "ActArchivo guardado: ID #{act_archivo.id}, PDF adjunto: #{act_archivo.pdf.attached?}, tamaño: #{act_archivo.pdf.byte_size}"
       

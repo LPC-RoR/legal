@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-end gap-1 text-dark">
+<% if prtl?(ownr, 'hlp', 'invstgdrs') %>
+	<%= render layout: '0p/mdl/link', locals: {cdg: "hlp_invstgdrs", tltp: 'Ayuda acerca del registro de asignación de investigador'} do %>
+		<i class="bi bi-question-circle"></i>
+	<% end %>
+<% end %>
+
+<% unless ownr.fecha_trmn? %>
+	<% if ownr.objcn_acogida and ownr.krn_investigadores.count == 1 %>
+		<%= render partial: '0p/niler', locals: {objeto: ownr, tkn: :objcn_acogida, tltp: 'Borrar opción de objeción acogida'} %>
+	<% end %>
+	<% if ownr.objcn_rechazada %>
+		<%= render partial: '0p/niler', locals: {objeto: ownr, tkn: :objcn_rechazada, tltp: 'Borrar opción de objeción rechazada'} %>
+	<% end %>
+<% end %>
+
+<% if ownr.krn_investigadores.count == 0 or ( ownr.krn_investigadores.count == 1 and ownr.objcn_acogida ) %>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'krn_inv_denuncias', blngs: ownr} %>
+<% end %>
+</div>

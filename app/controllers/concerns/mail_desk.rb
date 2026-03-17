@@ -35,6 +35,7 @@ module MailDesk
   def mdl_sym_to_mld
     {
       invstgdr: KrnInvestigador,
+      drvcn:    KrnDerivacion,
       extrn:    KrnEmpresaExterna,
       cntct:    AppContacto,
       nmn:      AppNomina,
@@ -65,22 +66,22 @@ module MailDesk
   end
 
   # AHORA ASÍNCRONO: Solo encola el job y redirige inmediatamente
-  def dnncnt_info_oblgtr
+#  def dnncnt_info_oblgtr
     # Verificar si ya hay un job en ejecución para esta denuncia
-    if job_en_ejecucion?(@objeto.id)
-      redirect_to "/krn_denuncias/#{@objeto.id}_1", 
-        alert: 'La generación de documentos ya está en proceso. Por favor espere.'
-      return
-    end
+#    if job_en_ejecucion?(@objeto.id)
+#      redirect_to "/krn_denuncias/#{@objeto.id}_1", 
+#        alert: 'La generación de documentos ya está en proceso. Por favor espere.'
+#      return
+#    end
 
     # Marcar que hay un job en ejecución (expira en 10 minutos)
-    marcar_job_en_ejecucion(@objeto.id)
+#    marcar_job_en_ejecucion(@objeto.id)
     
-    Mailers::PdfGenerationAndDeliveryJob.perform_later(@objeto.id)
+#    Mailers::PdfGenerationAndDeliveryJob.perform_later(@objeto.id)
     
-    redirect_to "/krn_denuncias/#{@objeto.id}_1", 
-      notice: 'Generación de documentos iniciada. Los PDFs se procesarán en segundo plano.'
-  end
+#    redirect_to "/krn_denuncias/#{@objeto.id}_1", 
+#      notice: 'Generación de documentos iniciada. Los PDFs se procesarán en segundo plano.'
+#  end
 
   private
 

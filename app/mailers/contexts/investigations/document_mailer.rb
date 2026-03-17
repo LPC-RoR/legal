@@ -109,6 +109,16 @@ module Contexts
         )
       end
 
+      def drvcn(investigation, recipient, pdf_data = nil, options = {})
+        setup_and_send_email(
+          investigation, 
+          recipient, 
+          pdf_data, 
+          options,
+          default_filename: "comprobante_#{investigation.id}_#{Time.current.strftime('%Y%m%d')}.pdf"
+        )
+      end
+
       private
 
       def setup_and_send_email(investigation, recipient, pdf_data, options, default_filename:)

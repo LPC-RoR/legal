@@ -13,26 +13,27 @@ class ClssPdfRprt
 		dclrcn: KrnDeclaracion,
 		crdncn_apt: KrnDenuncia,
 		infrmcn: KrnDenuncia,
+		dnnc: KrnDenuncia
 	}.freeze
 
 	# El reporte debe ser enviado a las personas denunciantes?
 	def self.dnncnt_rprt?(rprt)
-		['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'medidas_resguardo', 'invstgdr'].include?(rprt)
+		['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'medidas_resguardo', 'invstgdr', 'drvcn'].include?(rprt)
 	end
 
 	# El reporte debe ser enviado a las personas denunciados?
 	def self.dnncd_rprt?(rprt)
-		['invstgcn', 'drchs', 'medidas_resguardo', 'invstgdr'].include?(rprt)
+		['invstgcn', 'drchs', 'medidas_resguardo', 'invstgdr', 'drvcn'].include?(rprt)
 	end
 
 	# El reporte debe ser enviado a las personas testigos?
 	def self.tstg_rprt?(rprt)
-		['invstgcn', 'drchs', 'invstgdr'].include?(rprt)
+		['invstgcn', 'drchs', 'invstgdr', 'drvcn'].include?(rprt)
 	end
 
 	# El reporte tiene un adjunto que se subió a la plataforma
 	def self.ntfccn_rprt?(rprt)
-		['medidas_resguardo', 'invstgdr'].include?(rprt)
+		['medidas_resguardo', 'invstgdr', 'drvcn'].include?(rprt)
 	end
 
 	def self.ownr_rfrnc_rprt?(rprt)
@@ -52,7 +53,11 @@ class ClssPdfRprt
 	end
 
 	def self.lista_rprt?(rprt)
-		['medidas_resguardo', 'invstgdr', 'dclrcn'].include?(rprt)
+		['medidas_resguardo', 'invstgdr', 'dclrcn', 'drvcn'].include?(rprt)
+	end
+
+	def self.rcrs_rprt?(rprt)
+		['dnnc'].include?(rprt)
 	end
 
 	# El reporte es notificable: Primer caso 'mdds_rsgrd'

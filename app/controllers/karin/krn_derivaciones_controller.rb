@@ -32,7 +32,7 @@ class Karin::KrnDerivacionesController < ApplicationController
       motivo      = ClssDrvcn.glosa(params[:cdg].to_sym)
 
       @objeto = ownr.krn_derivaciones.new(codigo: codigo, tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)
-      set_bck_rdrccn
+#      redirect_to default_redirect_path(objeto)
     end
   end
 

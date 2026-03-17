@@ -1,0 +1,9 @@
+<% align ||= 'left' %>
+<% fnt_rem ||= 1 %>
+<div class="rprt_bx">
+	<div class="text-<%=align%> rprt_bx_ttl" style="font-size: <%=fnt_rem%>rem;"><%= ttl%></div>
+
+	<div class="mt-2">
+		<%= yield %>
+	</div>
+</div>

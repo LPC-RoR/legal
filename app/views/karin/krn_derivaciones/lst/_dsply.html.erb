@@ -1,4 +1,4 @@
-<div style="margin-left: 7%;">
+<!--div style="margin-left: 7%;"-->
 
 	<div class="ms-5 objt_lnk" style="font-size: 14px;">
 
@@ -11,7 +11,7 @@
 				<i class="bi bi-envelope-at"></i> Enviar!
 			<% end %>
 
-			<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=drvcn&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=drvcn&nid=#{objeto.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
 				<i class="bi bi-envelope-at"></i>
 			<% end %>
 
@@ -24,4 +24,5 @@
 		<% end %>
 
 	</div>
-</div>
+
+<!--/div-->
