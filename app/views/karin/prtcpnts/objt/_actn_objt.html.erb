@@ -79,17 +79,9 @@
 
 			<% unless mdl.ref_generated?(code) or ClssPdfRprt.ntfccn_rprt?(code) %>
 				<%# Los reportes ref_generated se generan en el modelo REF %>
-
-				<% if ['krnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(ownr.class.name) and ownr.articulo_516 %>
-					<%# SOLO generar PDF y Adjuntar %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_reportes/generate_and_store_report#{ownr_prms(ownr)}&rprt=#{code}", tltp: 'Generar y almacenar reporte', data: {turbo_method: :get, turbo_confirm: 'Confirmar almacenamiento'}} do %>
-						<i class="bi bi-archive"></i>
-					<% end %>
-				<% else %>
-					<%# NUEVO Generar, adjuntar y enviar PDF %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{ownr.dnnc.id}/krn_pdf_rprt?rprt=#{code}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
-						<i class="bi bi-envelope-at"></i>
-					<% end %>
+				<%# krn_pdf_rprt diferencia env{io directo de correos de  partcpnts con artículo 516 %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{ownr.dnnc.id}/krn_pdf_rprt?rprt=#{code}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
+					<i class="bi bi-envelope-at"></i>
 				<% end %>
 
 			<% end %>

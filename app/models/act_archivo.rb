@@ -11,7 +11,7 @@ class ActArchivo < ApplicationRecord
   has_many :act_textos, dependent: :destroy
   has_many :act_metadatas, dependent: :destroy
 
-  has_many :act_referencias
+  has_many :act_referencias, dependent: :destroy
 
   MAX_PDF_SIZE = 20.megabytes
 
