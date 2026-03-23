@@ -203,29 +203,10 @@ module DnncProc
  		self.rcp_empresa? and self.via_declaracion == 'Presencial' and self.tipo_declaracion == 'Verbal'
  	end
 
- 	def dnncnts_info_oblgtr?
- 		self.krn_denunciantes.map {|dnncnt| dnncnt.info_oblgtr?}.uniq.join('-') == 'true'
- 	end
-
  	def fechas_crr_rcpcn?
  		self.fecha_trmtcn? or self.fecha_ntfccn? or (self.solicitud_denuncia ? self.fecha_dvlcn? : self.fecha_hora_dt?)
  	end
 
- 	def invstgcn_sents?
- 		self.krn_denunciantes.invstgcn_sents? and self.krn_denunciados.invstgcn_sents?
- 	end
-
- 	def mdds_rsgrd_sents?
- 		self.krn_denunciantes.mdds_rsgrd_sents? and self.krn_denunciados.mdds_rsgrd_sents?
- 	end
-
- 	def invstgdr_sents?
- 		self.krn_denunciantes.invstgdr_sents? and self.krn_denunciados.invstgdr_sents?
- 	end
-
- 	def ntfcn_drvcns_sents?
- 		self.krn_derivaciones.empty? ? true : self.krn_derivaciones.map {|drvcn| drvcn.pdf_registros.any? }.join('-') == 'true'
- 	end
 
  	# ---------------------------------------------------- ARCHIVOS CONTROLADOS RECEPCION
 

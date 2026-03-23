@@ -22,7 +22,7 @@
 
 	<% unless (@acts_hsh[objeto.clss_id] and @acts_hsh[objeto.clss_id][:cdgs].empty?) %>
 		<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Documentos controlados', gly: 'caret-right-fill'} do %>
-			<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
+			<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, dsply_lnks: true} %>
 		<% end %>
 	<% end %>
 

@@ -49,7 +49,6 @@ class ProcessKrnReportJob < ApplicationJob
         ClssPdfRprt.sbjcts[rprt.to_sym]
       ).deliver_now
 
-      ownr.pdf_registros.create(cdg: rprt, ref: controller.instance_variable_get(:@ref))
     end
   end
 
@@ -107,8 +106,6 @@ class ProcessKrnReportJob < ApplicationJob
       content_type: 'application/pdf'
     )
     act_archivo.save!
-
-    ownr.pdf_registros.create(cdg: rprt, ref: controller.instance_variable_get(:@ref))
 
   end
 

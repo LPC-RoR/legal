@@ -4,8 +4,6 @@ class KrnInvDenuncia < ApplicationRecord
 
 	has_many :act_referencias, as: :ref
 
-	has_many :pdf_registros, as: :ref, dependent: :destroy
-
 	def dnnc
 		self.krn_denuncia
 	end

@@ -52,7 +52,6 @@ class ActLoad
 
     @checks     = obj.check_realizados.pluck(:cdg)
     @realizados = obj.check_realizados
-    @registros  = obj.pdf_registros
   end
 
   # Estructura que espera la vista
@@ -105,19 +104,15 @@ class ActLoad
       krn_denunciantes: [:act_archivos,
                          :check_auditorias,
                          :check_realizados,
-                         :pdf_registros,
                          { krn_testigos: [:act_archivos,
                                           :check_auditorias,
-                                          :check_realizados,
-                                          :pdf_registros] }],
+                                          :check_realizados] }],
       krn_denunciados:  [:act_archivos,
                          :check_auditorias,
                          :check_realizados,
-                         :pdf_registros,
                          { krn_testigos: [:act_archivos,
                                           :check_auditorias,
-                                          :check_realizados,
-                                          :pdf_registros] }]
+                                          :check_realizados] }]
     ).find(den.id)
   end
 

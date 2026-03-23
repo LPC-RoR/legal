@@ -1,5 +1,5 @@
 class Repositorios::ActArchivosController < ApplicationController
-  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download rmv_cntrld annmzr ]
+  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr ]
   before_action :authenticate_usuario!
   before_action :scrty_on
 
@@ -115,14 +115,6 @@ class Repositorios::ActArchivosController < ApplicationController
       format.html { redirect_to act_archivo_rdrccn(@objeto), status: :see_other, notice: "Archivo fue exitosamente eliminado." }
       format.json { head :no_content }
     end
-  end
-
-  def rmv_cntrld
-    pdf_registro = @objeto.ownr.pdf_registros.find_by(cdg: @objeto.act_archivo)
-    pdf_registro.delete unless pdf_registro.blank?
-    @objeto.delete
-
-    redirect_to act_archivo_rdrccn(@objeto)
   end
 
   # Para descargar los archivos generados por OpenAI

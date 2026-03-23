@@ -4,7 +4,7 @@
 			<div class="col-10"><%= dma_hm(dclrcn.fecha) %> : <%= dclrcn.ownr.nombre %></div>
 			<div class="col-2 text-end">
 
-				<% if dclrcn.pdf_registros.empty? %>
+				<% if dclrcn.act_referencias.empty? %>
 					Sin notificar
 				<% else %>
 					<i class="bi bi-check2-all"></i> Notificada

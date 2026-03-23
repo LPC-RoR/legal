@@ -15,7 +15,6 @@ class KrnDenunciado < ApplicationRecord
 	has_many :rep_archivos, as: :ownr, dependent: :destroy
 	
 	has_many :notas, as: :ownr, dependent: :destroy
-	has_many :pdf_registros, as: :ownr, dependent: :destroy
 
 	has_many :krn_declaraciones, as: :ownr, dependent: :destroy
 	has_many :krn_testigos, as: :ownr, dependent: :destroy

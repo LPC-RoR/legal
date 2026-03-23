@@ -29,9 +29,6 @@ class KrnDenuncia < ApplicationRecord
 
 	has_many :notas, as: :ownr, dependent: :destroy
 	
-	# Los ownr de los pdf_registros SIEMPRE son destinatarios
-	has_many :pdf_registros, as: :ownr, dependent: :destroy
-
 	has_many :krn_denunciantes, -> { order(created_at: :asc) }, dependent: :destroy
 	has_many :krn_denunciados, -> { order(created_at: :asc) }, dependent: :destroy
 	has_many :krn_derivaciones, -> { order(created_at: :asc) }, dependent: :destroy

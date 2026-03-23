@@ -6,8 +6,6 @@ class AppContacto < ApplicationRecord
 
 	has_many :check_realizados, as: :ownr, dependent: :destroy
 
-	has_many :pdf_registros, as: :ref
-
 	validates :nombre, :email, presence: true
 
 	def rol_contacto

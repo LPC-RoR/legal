@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_11_200344) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_23_144524) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1153,41 +1153,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_11_200344) do
     t.index ["causa_id"], name: "index_parrafos_on_causa_id"
     t.index ["orden"], name: "index_parrafos_on_orden"
     t.index ["seccion_id"], name: "index_parrafos_on_seccion_id"
-  end
-
-  create_table "pdf_archivos", force: :cascade do |t|
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.string "codigo"
-    t.string "nombre"
-    t.string "modelos"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "tipo"
-    t.integer "orden"
-    t.index ["codigo"], name: "index_pdf_archivos_on_codigo"
-    t.index ["orden"], name: "index_pdf_archivos_on_orden"
-    t.index ["ownr_id"], name: "index_pdf_archivos_on_ownr_id"
-    t.index ["ownr_type"], name: "index_pdf_archivos_on_ownr_type"
-    t.index ["tipo"], name: "index_pdf_archivos_on_tipo"
-  end
-
-  create_table "pdf_registros", force: :cascade do |t|
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.integer "pdf_archivo_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "ref_type"
-    t.integer "ref_id"
-    t.boolean "audtd"
-    t.string "cdg"
-    t.index ["cdg"], name: "index_pdf_registros_on_cdg"
-    t.index ["ownr_id"], name: "index_pdf_registros_on_ownr_id"
-    t.index ["ownr_type"], name: "index_pdf_registros_on_ownr_type"
-    t.index ["pdf_archivo_id"], name: "index_pdf_registros_on_pdf_archivo_id"
-    t.index ["ref_id"], name: "index_pdf_registros_on_ref_id"
-    t.index ["ref_type"], name: "index_pdf_registros_on_ref_type"
   end
 
   create_table "rcrs_enlaces", force: :cascade do |t|

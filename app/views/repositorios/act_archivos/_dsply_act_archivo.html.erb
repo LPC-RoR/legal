@@ -1,4 +1,3 @@
-<% act_id = "#{objeto.class.name}_#{objeto.id}" %>
 <% act_archivos 	= @objeto.act_archivos.exists?(act_archivo: rprt) %>
 <% act_referencias 	= @objeto.act_referencias.exists?(code: rprt) %>
 <% realizado 		= @objeto.check_realizados.exists?(cdg: rprt) %>

@@ -1,6 +1,11 @@
 <% act_id = "#{ownr.class.name}_#{ownr.id}" %>
+
+<% act_archivos 	= ownr.act_archivos.exists?(act_archivo: code) %>
+<% act_referencias	= ownr.act_referencias.exists?(code: code) %>
+<% subido 			= act_archivos || act_referencias %>
+
 <div class="row gx-1">
-	<div class="col-10 <%= 'text-primary' if ownr.pdf_registros.exists?(cdg: code) %>">
+	<div class="col-10 <%= 'text-primary' if subido %>">
 
 		<% unless mdl.actn_multpl?(code) or mdl.ref_generated?(code) %>
 			<i class="bi bi-file-earmark-pdf"></i>

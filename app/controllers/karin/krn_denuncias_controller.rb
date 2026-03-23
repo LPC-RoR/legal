@@ -118,8 +118,6 @@ class Karin::KrnDenunciasController < ApplicationController
       arch.delete
     end
 
-    @objeto.pdf_registros.delete_all
-
     @objeto.notas.each do |nota|
       nota.age_usu_notas.delete_all
       nota.delete
@@ -133,18 +131,14 @@ class Karin::KrnDenunciasController < ApplicationController
         nota.age_usu_notas.delete_all
         nota.delete
       end
-      dnncnt.pdf_registros.delete_all
       dnncnt.krn_declaraciones.each do |dclrcn|
-        dclrcn.pdf_registros.delete_all
         dclrcn.delete
       end
       dnncnt.krn_testigos.each do |tstg|
         tstg.rep_archivos.each do |arch|
           arch.delete
         end
-        tstg.pdf_registros.delete_all
         tstg.krn_declaraciones.each do |dclrcn|
-          dclrcn.pdf_registros.delete_all
           dclrcn.delete
         end
         tstg.delete
@@ -160,18 +154,14 @@ class Karin::KrnDenunciasController < ApplicationController
         nota.age_usu_notas.delete_all
         nota.delete
       end
-      dnncd.pdf_registros.delete_all
       dnncd.krn_declaraciones.each do |dclrcn|
-        dclrcn.pdf_registros.delete_all
         dclrcn.delete
       end
       dnncd.krn_testigos.each do |tstg|
         tstg.rep_archivos.each do |arch|
           arch.delete
         end
-        tstg.pdf_registros.delete_all
         tstg.krn_declaraciones.each do |dclrcn|
-          dclrcn.pdf_registros.delete_all
           dclrcn.delete
         end
         tstg.delete
@@ -180,7 +170,6 @@ class Karin::KrnDenunciasController < ApplicationController
     end
 
     @objeto.krn_derivaciones.each do |drvcn|
-      drvcn.pdf_registros.delete_all
       drvcn.delete
     end
 

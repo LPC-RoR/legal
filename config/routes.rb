@@ -84,7 +84,6 @@ Rails.application.routes.draw do
 
   scope module: 'pdf' do
     resources :pdf_registros
-    resources :pdf_archivos
     resources :pdf_auditorias
   end
   scope module: 'rprts' do

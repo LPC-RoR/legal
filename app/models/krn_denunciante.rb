@@ -14,7 +14,6 @@ class KrnDenunciante < ApplicationRecord
 	has_many :rep_archivos, as: :ownr, dependent: :destroy
 	
 	has_many :notas, as: :ownr, dependent: :destroy
-	has_many :pdf_registros, as: :ownr, dependent: :destroy
 
 	has_many :krn_declaraciones, as: :ownr, dependent: :destroy
 	has_many :krn_testigos, as: :ownr, dependent: :destroy
@@ -66,13 +65,6 @@ class KrnDenunciante < ApplicationRecord
 	def ownr
 		self.krn_denuncia
 	end
-
- 	# --------------------------------- PDF Archivos y registros
-
- 	def info_oblgtr?
- 		pdf = PdfArchivo.find_by(codigo: 'dnncnt_info_oblgtr')
- 		pdf.blank? ? nil : self.pdf_registros.find_by(pdf_archivo_id: pdf.id).present?
- 	end
 
  	# --------------------------------- Asociaciones
 

@@ -5,7 +5,6 @@ class KrnDeclaracion < ApplicationRecord
 
 	has_many :act_referencias, as: :ref
 
-	has_many :pdf_registros, as: :ref
 	has_many :check_realizados, as: :ownr, dependent: :destroy
 
 	before_validation :truncate_seconds

@@ -53,7 +53,7 @@ class ClssPdfRprt
 	end
 
 	def self.lista_rprt?(rprt)
-		['medidas_resguardo', 'invstgdr', 'dclrcn', 'drvcn'].include?(rprt)
+		['medidas_resguardo', 'mdds_rsgrd', 'drvcn', 'invstgdr', 'dclrcn'].include?(rprt)
 	end
 
 	# Reportes que se pueden generar|verificar más de una vez
