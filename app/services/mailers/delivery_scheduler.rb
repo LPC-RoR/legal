@@ -32,19 +32,19 @@ class Mailers::DeliveryScheduler
 end
 
 # Uso simplificado en toda la app:
-Mailers::DeliveryScheduler.schedule(
-  :platform,           # context
-  :account,            # mailer type
-  :welcome,            # action
-  [new_admin],         # recipients
-  { account_id: account.id }
-)
+#Mailers::DeliveryScheduler.schedule(
+#  :platform,           # context
+#  :account,            # mailer type
+#  :welcome,            # action
+#  [new_admin],         # recipients
+#  { account_id: account.id }
+#)
 
 # O para soporte:
-Mailers::DeliveryScheduler.schedule(
-  :support,
-  :ticket,
-  :created,
-  [ticket.requester, ticket.assigned_agent].compact,
-  { ticket_id: ticket.id }
-)
+#Mailers::DeliveryScheduler.schedule(
+#  :support,
+#  :ticket,
+#  :created,
+#  [ticket.requester, ticket.assigned_agent].compact,
+#  { ticket_id: ticket.id }
+#)
