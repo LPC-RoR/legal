@@ -18,11 +18,12 @@
       <% end %>
     </li>
   <% end %>
+
 <% end %>
 
 <% if current_usuario.operacion? %>
 
-  <% unless objt.tiene_email_verificado? or objt.articulo_516 %>
+  <% unless objt.tiene_email_verificado? %>
     <li><hr class="dropdown-divider"></li>
   <% end %>
 
