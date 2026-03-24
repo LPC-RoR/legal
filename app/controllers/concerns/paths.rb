@@ -12,7 +12,11 @@ module Paths
 			when 'AppContacto'
 				"/cuentas/e_#{objeto.ownr.id}/cntcts"
 			when 'AppNomina'
-				"/cuentas/e_#{objeto.ownr.id}/nmn"
+				if objt.ownr
+					"/cuentas/e_#{objeto.ownr.id}/nmn"
+				else
+					app_nominas_path
+				end
 			else
 				if ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(objeto.class.name)
 					"/krn_denuncias/#{objeto.dnnc.id}_1"
