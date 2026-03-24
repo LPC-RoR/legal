@@ -44,10 +44,10 @@ class Mailers::DeliveryJob < ApplicationJob
 end
 
 # Uso desde cualquier contexto:
-Mailers::DeliveryJob.perform_later(
-  'Contexts::Platform::AccountMailer',
-  :payment_failed,
-  current_tenant.id,
-  [account_owner.id],
-  { invoice_id: invoice.id }
-)
+# Mailers::DeliveryJob.perform_later(
+#  'Contexts::Platform::AccountMailer',
+#  :payment_failed,
+#  current_tenant.id,
+#  [account_owner.id],
+#  { invoice_id: invoice.id }
+#)
