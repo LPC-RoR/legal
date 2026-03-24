@@ -29,7 +29,7 @@ class Contexts::Investigations::VrfccnEmailMailer < ApplicationMailer
     end
     @mail_context     = 'investigations'
 
-    if @emprs.logo.present? 
+    if @emprs&.logo.present? 
       @head_url         = @emprs.logo.url
     else
       @head_url         = "#{root_url}mssgs/email_head.png"
