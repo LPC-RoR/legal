@@ -1,5 +1,8 @@
 class CheckRealizado < ApplicationRecord
   belongs_to :ownr, polymorphic: true
+  belongs_to :usuario
+
+  has_many :check_fuentes
 
   validates :cdg, presence: true
   validates :rlzd, inclusion: { in: [true, false] }

@@ -14,18 +14,8 @@ class Repositorios::ActArchivosController < ApplicationController
   def show_pdf
     archivo = ActArchivo.find(params[:id])
     
-    # DEBUG CRÍTICO
-    Rails.logger.info "=== SHOW_PDF DEBUG ==="
-    Rails.logger.info "Archivo ID: #{archivo.id}"
-    Rails.logger.info "PDF attached? #{archivo.pdf.attached?}"
-    Rails.logger.info "PDF filename: #{archivo.pdf.filename}"
-    Rails.logger.info "PDF byte_size: #{archivo.pdf.byte_size}"
     
     content = archivo.pdf.download
-    Rails.logger.info "Downloaded class: #{content.class}"
-    Rails.logger.info "Downloaded length: #{content.length}"
-    Rails.logger.info "Downloaded is PDF? #{content.start_with?('%PDF')}"
-    Rails.logger.info "Downloaded first 100 chars: #{content[0..99].inspect}"
     
     # Si no es PDF, guardar para inspeccionar
     unless content.start_with?('%PDF')

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :act_referencias
   # Verificación de correos electrónicos de participantes
   # Nuevas rutas para la verificación
 
@@ -82,10 +81,6 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'pdf' do
-    resources :pdf_registros
-    resources :pdf_auditorias
-  end
   scope module: 'rprts' do
     resources :krn_reportes do
       match :dnncnt_info_oblgtr, via: :get, on: :collection
@@ -336,10 +331,18 @@ Rails.application.routes.draw do
       match :rmv_cntrld, via: :post, on: :member
       match :annmzr, via: :post, on: :member
     end
+
+    resources :act_referencias
     resources :act_metadatas
     resources :check_realizados
+    resources :check_fuentes do
+      match :show_pdf, via: :get, on: :member
+    end
+
     resources :check_auditorias
     resources :audit_notas
+
+
   end
 
   scope module: 'aplicacion' do

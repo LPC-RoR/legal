@@ -1,4 +1,4 @@
-class ActReferenciasController < ApplicationController
+class Repositorios::ActReferenciasController < ApplicationController
   before_action :set_act_referencia, only: %i[ show edit update destroy ]
 
   # GET /act_referencias or /act_referencias.json

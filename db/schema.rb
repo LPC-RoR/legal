@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_23_144524) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_23_195404) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -551,22 +551,33 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_23_144524) do
     t.index ["ownr_type"], name: "index_check_auditorias_on_ownr_type"
   end
 
+  create_table "check_fuentes", force: :cascade do |t|
+    t.integer "check_realizado_id"
+    t.integer "usuario_id"
+    t.datetime "fecha"
+    t.string "fuente"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_realizado_id"], name: "index_check_fuentes_on_check_realizado_id"
+    t.index ["usuario_id"], name: "index_check_fuentes_on_usuario_id"
+  end
+
   create_table "check_realizados", force: :cascade do |t|
     t.string "ownr_type"
     t.integer "ownr_id"
-    t.integer "app_perfil_id"
+    t.integer "usuario_id"
     t.string "mdl"
     t.string "cdg"
     t.boolean "rlzd"
     t.datetime "chequed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["app_perfil_id"], name: "index_check_realizados_on_app_perfil_id"
     t.index ["cdg"], name: "index_check_realizados_on_cdg"
     t.index ["mdl"], name: "index_check_realizados_on_mdl"
     t.index ["ownr_id"], name: "index_check_realizados_on_ownr_id"
     t.index ["ownr_type"], name: "index_check_realizados_on_ownr_type"
     t.index ["rlzd"], name: "index_check_realizados_on_rlzd"
+    t.index ["usuario_id"], name: "index_check_realizados_on_usuario_id"
   end
 
   create_table "clientes", force: :cascade do |t|

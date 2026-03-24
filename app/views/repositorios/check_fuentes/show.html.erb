@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @check_fuente %>
+
+<div>
+  <%= link_to "Edit this check fuente", edit_check_fuente_path(@check_fuente) %> |
+  <%= link_to "Back to check fuentes", check_fuentes_path %>
+
+  <%= button_to "Destroy this check fuente", @check_fuente, method: :delete %>
+</div>

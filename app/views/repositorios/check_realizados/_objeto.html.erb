@@ -1,0 +1,21 @@
+<div class="row gx-1 px-4 text-primary objt_lnk">
+	<div class="col-10">
+		<i class="bi bi-arrow-return-right"></i>
+		<i class="bi bi-check-circle"></i>
+		<%= dma_hm(objt.created_at)%>
+	</div>
+	<div class="col-2 text-end">
+		<%# No hay restricci{on para eliminar una marca de realizado %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/check_fuentes/new?oid=#{objt.id}", tltp: 'Crear fuente'} do %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+		<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: objt} if current_usuario.dog? %>
+		<i class="bi bi-arrow-return-left"></i>
+	</div>
+</div>
+
+<% if objt.check_fuentes.any? %>
+	<% objt.check_fuentes.each do |fnt| %>
+		<%= render partial: prtl(fnt, nil, 'objeto'), locals: {objt: fnt} %>
+	<% end %>
+<% end %>

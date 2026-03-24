@@ -53,9 +53,9 @@
 			<% end %>
 		<% else %>
 			<% unless es_lista %>
-				<% archivo = act_archivo ? act_archivo : act_referencia.act_archivo %>
+				<% archivo = act_archivo ? act_archivo : (act_referencia ? act_referencia.act_archivo : nil) %>
 
-				<% if subido && act_archivo %>
+				<% if subido && archivo %>
 					<%# DOWNLOAD de ActArchivo %>
 					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/show_pdf", tltp: "Bajar #{ClssPrcdmnt.act_nombre[code].downcase}", target: '_blank'} do %>
 						<i class="bi bi-download"></i>
@@ -65,7 +65,7 @@
 					<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: archivo} if current_usuario.dog? %>
 
 				<% end %>
-				<% if realizado %>
+				<% if realizado && archivo %>
 					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{objeto.class.name.tableize}/#{objeto.id}/rlzd?mdl=act&cdg=#{code}&p=trash", tltp: 'Eliminar marca de realizado', data: {turbo_method: :post}} do %>
 						<i class="bi bi-trash"></i>
 					<% end %>
@@ -103,19 +103,10 @@
 <% end %>
 
 <% if realizado %>
-	<% lista = @objeto.check_realizados.where(cdg: code) %>
+
+	<% lista = ownr.check_realizados.where(cdg: code) %>
 	<% lista.each do |rgstr| %>
-		<div class="row gx-1 px-4 text-primary objt_lnk">
-			<div class="col-10">
-				<i class="bi bi-arrow-return-right"></i>
-				<i class="bi bi-check-circle"></i>
-				<%= dma_hm(rgstr.created_at)%>
-			</div>
-			<div class="col-2 text-end">
-				<%# No hay restricci{on para eliminar una marca de realizado %>
-				<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: rgstr} if current_usuario.dog? %>
-				<i class="bi bi-arrow-return-left"></i>
-			</div>
-		</div>
+		<%= render partial: prtl(rgstr, nil, 'objeto'), locals: {objt: rgstr} %>
 	<% end %>
+
 <% end %>

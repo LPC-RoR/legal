@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Check fuentes" %>
+
+<h1>Check fuentes</h1>
+
+<div id="check_fuentes">
+  <% @check_fuentes.each do |check_fuente| %>
+    <%= render check_fuente %>
+    <p>
+      <%= link_to "Show this check fuente", check_fuente %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New check fuente", new_check_fuente_path %>
