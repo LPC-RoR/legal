@@ -6,7 +6,7 @@ class Contexts::Investigations::VrfccnEmailMailer < ApplicationMailer
     @objeto           = prtcpnt_model[@prtcpnt].find(prtcpnt_id)
 
     if ['invstgdr', 'extrn', 'cntct', 'nmn'].include?(prtcpnt)
-      @emprs = @objeto.ownr
+      @emprs = @objeto&.ownr
     else
       @emprs = @objeto.dnnc.ownr
     end
