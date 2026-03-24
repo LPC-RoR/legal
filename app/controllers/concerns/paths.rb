@@ -12,7 +12,7 @@ module Paths
 			when 'AppContacto'
 				"/cuentas/e_#{objeto.ownr.id}/cntcts"
 			when 'AppNomina'
-				if objt.ownr
+				if objeto.ownr
 					"/cuentas/e_#{objeto.ownr.id}/nmn"
 				else
 					app_nominas_path
