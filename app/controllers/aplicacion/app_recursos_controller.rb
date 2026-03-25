@@ -31,8 +31,8 @@ class Aplicacion::AppRecursosController < ApplicationController
 
     Usuario.all.each do |usr|
       @objeto = AppNomina.find_by(email: usr.email)
-      if @objeto.tipo == 'operación'
-        if @objeto
+      if @objeto
+        if @objeto.tipo == 'operación'
           tenant = @objeto&.ownr&.tenant
           unless usr.has_role?(:operacion, tenant)
             usr.add_role(:operacion, @objeto&.ownr&.tenant)
