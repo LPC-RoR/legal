@@ -5,6 +5,8 @@ module Paths
 	def default_redirect_path(objeto)
 		if usuario_signed_in?
 			case objeto.class.name
+			when 'KrnDenuncia' 
+				"/krn_denuncias/#{objeto.dnnc.id}_1"
 			when 'KrnInvestigador'
 				"/cuentas/e_#{objeto.ownr.id}/invstgdrs"
 			when 'KrnEmpresaExterna'

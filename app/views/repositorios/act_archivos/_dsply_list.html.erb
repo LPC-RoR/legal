@@ -1,4 +1,5 @@
 <% act_id = "#{ownr.class.name}_#{ownr.id}" %>
+
 <% if hsh[act_id] %>
 
 	<%# Se recorren los códigos de archivos %>
@@ -14,8 +15,8 @@
 		<% act_referencia	= es_lista ? nil : ownr.act_referencias.find_by(code: code) %>
 		<% chk_realizado 	= es_lista ? nil : ownr.check_realizados.find_by(cdg: code) %>
 
-		<% subido 			= act_archivos || act_referencias || act_archivo || act_referencia %>
-		<% realizado 		= chk_realizados || chk_realizado %>
+		<% subido 			= act_archivos&.any? || act_referencias&.any? || act_archivo || act_referencia %>
+		<% realizado 		= chk_realizados&.any? || chk_realizado %>
 
 		<div class="row gx-1 text-<%=mdl.act_lst?(code) ? 'secondary' : 'primary'%>">
 
@@ -56,7 +57,15 @@
 					<!-- Botón plus de una lista | archivo -->
 					<%# Se puede subir un archivo a menos que no sea lista y ya tenga uno %>
 					<% unless !es_lista && act_archivo %>
-						<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', gly: (mdl.act_lst?(code) ? 'plus-circle' : 'upload') ,ownr: ownr, tltp: "Agrega #{mdl.act_nombre[code].downcase}", prms: {act: code, mdl: mdl}} %>
+
+						<% unless realizado %>
+							<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.name.tableize}/#{@objeto.id}/rlzd?mdl=act&cdg=#{code}&p=true", tltp: 'Realizado', data: {turbo_method: :post}} do %>
+								<i class="bi bi-check-square"></i>
+							<% end %>
+
+
+							<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', gly: (mdl.act_lst?(code) ? 'plus-circle' : 'upload') ,ownr: ownr, tltp: "Agrega #{mdl.act_nombre[code].downcase}", prms: {act: code, mdl: mdl}} %>
+						<% end %>
 					<% end %>
 
 					<%# Manejo de un archivo ya subido. Realizado se maneja en listas, se puede realizar más de una vez %>
@@ -126,6 +135,13 @@
 					</div>
 				</div>
 			</div>
+		<% end %>
+
+		<% if realizado %>
+			<% lista = ownr.check_realizados.where(cdg: code) %>
+			<% lista.each do |rgstr| %>
+				<%= render partial: prtl(rgstr, nil, 'objeto'), locals: {objt: rgstr} %>
+			<% end %>
 		<% end %>
 
 	<% end %>

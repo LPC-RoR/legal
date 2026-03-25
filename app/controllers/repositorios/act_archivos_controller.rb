@@ -136,6 +136,6 @@ class Repositorios::ActArchivosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def act_archivo_params
-      params.expect(act_archivo: [ :ownr_type, :ownr_id, :act_archivo, :mdl, :control_fecha, :nombre, :fecha, :pdf, :rlzd ])
+      params.expect(act_archivo: [ :ownr_type, :ownr_id, :act_archivo, :mdl, :control_fecha, :nombre, :fecha, :pdf ])
     end
 end
