@@ -69,7 +69,10 @@ class Autenticacion::AppNominasController < ApplicationController
     # Uso @objeto&.ownr&.tenant para prevenir el caso de usuarios de la plataforma, pero en este caso no debiera ser.
     usuario.tenant = @objeto&.ownr&.tenant
     usuario.save!
-    usuario.add_role(@objeto.tipo.to_sym, @objeto&.ownr&.tenant)
+
+    # Parcha el tipo operación (con acento) para llevarlo a sym
+    rol = @objeto.tipo == 'operación' ? :operacion : @objeto.tipo.to_sym
+    usuario.add_role(rol, @objeto&.ownr&.tenant)
 
     bypass_sign_in(usuario) if usuario == current_usuario
 

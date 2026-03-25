@@ -29,6 +29,18 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def migrar_cuantias
 
+    Usuario.all.each do |usr|
+      @objeto = AppNomina.find_by(email: usr.email)
+      if @objeto.tipo == 'operación'
+        if @objeto
+          tenant = @objeto&.ownr&.tenant
+          unless usr.has_role?(:operacion, tenant)
+            usr.add_role(:operacion, @objeto&.ownr&.tenant)
+          end
+        end
+      end
+    end
+
 #    Causa.std_oprtv('tramitacion').each do |r|
 #      n_pgs   = r&.tar_tarifa&.tar_pagos&.count
 #      n_clcs  = r.tar_calculos.count
