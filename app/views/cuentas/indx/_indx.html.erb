@@ -1,6 +1,8 @@
 <% typ ||= 'tr' %>
 
+<%# Encabezado de la empresa %>
 <%= render partial: 'cuentas/indx/emprs_head', locals: {objt: @objeto} %>
+
 <%= render partial: 'cuentas/indx/tab', locals: {objt: @objeto} if current_usuario.admin? %>
 
 <div class="border-start border-end border-bottom px-1 py-2" style="margin-top: -1px;">

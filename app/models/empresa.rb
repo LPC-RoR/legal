@@ -3,6 +3,7 @@ class Empresa < ApplicationRecord
     include Brandeable
 
     attr_accessor :website  # honeypot
+    attr_accessor :skip_email_validation  # NUEVO: flag para bypass de validación
 
     has_one :tenant, as: :owner, dependent: :destroy
     has_many :usuarios, through: :tenant        # sin dependent aquí
@@ -29,8 +30,15 @@ class Empresa < ApplicationRecord
 	scope :rut_ordr, -> {order(:rut)}
 
 	validates :rut, valida_rut: true
-    validates :email_administrador, valida_admin_empresa: true, unless: :persisted?
-    validates_uniqueness_of :rut, :email_administrador
+    # MODIFICADO: Validación condicional al skip_email_validation
+
+    validates :email_administrador, valida_admin_empresa: true, 
+              unless: -> { persisted? || (email_administrador == Rails.application.credentials[:dog][:email]) }
+
+#    validates :email_administrador, valida_admin_empresa: true, unless: :persisted?
+
+    validates_uniqueness_of :rut
+
     validates_presence_of :razon_social, :email_administrador
 
     # Manejo de logos

@@ -5,7 +5,7 @@ class ValidaAdminEmpresaValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
 
     nmn = AppNomina.find_by(email: value)
-    vrfy = nmn.blank?
+    vrfy = nmn.blank? || nmn.email == Rails.application.credentials[:dog][:email]
 
     unless vrfy
       record.errors.add(attribute, :invalid_rut, message: "email del administrador ya ha sido utilizado.")

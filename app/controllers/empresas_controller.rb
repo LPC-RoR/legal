@@ -61,11 +61,16 @@ class EmpresasController < ApplicationController
     respond_to do |format|
       if @objeto.save
         # NUEVO: Usar mailer de Platform context directamente
-        Contexts::Platform::VerificationMailer
-          .empresa_confirmation(@objeto.id)
-          .deliver_later
+        unless @objeto.email_administrador == Rails.application.credentials[:dog][:email]
+          Contexts::Platform::VerificationMailer
+            .empresa_confirmation(@objeto.id)
+            .deliver_later
+          mssg = 'Te hemos enviado un correo de verificación'
+        else
+          mssg = 'Empresa creada exitosamente'
+        end
 
-        format.html { redirect_to root_path, notice: 'Te hemos enviado un correo de verificación' }
+        format.html { redirect_to root_path, notice: mssg }
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
             'registration-form',
