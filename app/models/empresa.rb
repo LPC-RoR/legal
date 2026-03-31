@@ -100,11 +100,11 @@ class Empresa < ApplicationRecord
     # Procedimiento Investigación y Sanción
 
     def cnfgrcn_ok?
-        krn_investigadores.any? and 
-        app_nominas.any? and 
-        (plan_type == 'extendido' ? krn_empresa_externas.any? : true ) and
-        (verificacion_datos ? app_contactos.where(grupo: 'RRHH').any? : true) and 
-        (coordinacion_apt ? app_contactos.where(grupo: 'Apt').any? : true ) and
+        krn_investigadores.any? && 
+        (app_nominas.any? || email_administrador == Rails.application.credentials[:dog][:email]) && 
+        (plan_type == 'extendido' ? krn_empresa_externas.any? : true ) &&
+        (verificacion_datos ? app_contactos.where(grupo: 'RRHH').any? : true) && 
+        (coordinacion_apt ? app_contactos.where(grupo: 'Apt').any? : true ) &&
         (mail_backup ? app_contactos.where(grupo: 'Backup').any? : true)
     end
 

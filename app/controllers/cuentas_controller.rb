@@ -57,7 +57,7 @@ class CuentasController < ApplicationController
       @tab_flags = {
         invstgdrs: @objeto.krn_investigadores.none?,
         extrns: @objeto.krn_empresa_externas.none?,
-        nmn: @objeto.app_nominas.none?,
+        nmn: @objeto.app_nominas.none? && @objeto.email_administrador != Rails.application.credentials[:dog][:email],
         cntcts: @objeto.app_contactos.where(grupo: @objeto.cntcts_array).distinct.count(:grupo) < @objeto.cntcts_array.count
       }
     end
