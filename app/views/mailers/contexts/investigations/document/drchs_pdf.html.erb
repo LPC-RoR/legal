@@ -18,23 +18,21 @@
 
 <div class="row mt-5">
   <div class="col-6">
-    REFERENCIA:<br>
-    Denuncia N° <%= @record.id %>
+    Sr(a) <%= @prtcpnt.nombre %><br>
+    PRESENTE
   </div>
   <div class="col-6 text-end">
-    DESTINATARIO:<br>
-    <%= @krn_kywrd %>
+    REFERENCIA:<br>
+    Denuncia <%= @record.identificador %>
   </div>
 </div>
 
 	<p class="mt-4">
-	  Las personas denunciantes y denunciadas que participan en una investigación cuentan con derechos y obligaciones regulados por el 
-	  <i>Reglamento del Procedimiento de Investigación y Sanción</i> de la Ley 21.643, publicado el 3 de julio de 2024.
+	  Las personas denunciantes y denunciadas que participan en una investigación cuentan con derechos y obligaciones regulados por la Ley 21.643 y su reglamento.
 	</p>
 
 	<p>
-	  A continuación, se presenta una transcripción íntegra y sin modificaciones de los artículos de dicho reglamento que regulan los derechos y 
-	  obligaciones tanto de las personas participantes como de las instituciones involucradas en este procedimiento.
+	  A continuación, se presentan los artículos que regulan los derechos y obligaciones tanto de las personas participantes como de las instituciones involucradas en este procedimiento.
 	</p>
 
 
@@ -108,7 +106,7 @@
 
 <div class="pdf-footer mt-5">
   <div class="text-center">
-    <% if @sign_url.present? %>
+    <% if false %>
       <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
     <% end %>
   </div>

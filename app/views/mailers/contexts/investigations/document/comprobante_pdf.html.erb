@@ -21,48 +21,39 @@
 
 <div class="row mt-5">
   <div class="col-6">
-    REFERENCIA:<br>
-    Denuncia N° <%= @record.id %>
+    Sr(a) <%= @prtcpnt.nombre %><br>
+    PRESENTE
   </div>
   <div class="col-6 text-end">
-    DESTINATARIO:<br>
-    <%= @krn_kywrd %>
+    REFERENCIA:<br>
+    Denuncia <%= @record.identificador %>
   </div>
 </div>
 
 <div class="mt-4" style="font-size: 14px; line-height: 1.5;">
-  <p>
-    Con fecha <%= dma(@record.fecha_hora) %>, usted presentó, en calidad de persona denunciante, una denuncia en el marco de la Ley 21.643. 
-    Para fines administrativos y de consulta, dicha denuncia ha sido registrada con el identificador <%= @record.identificador %>.
-  </p>
+  <p>Junto con saludarlo(la), informamos a usted que con fecha <%= dma(@record.fecha_hora) %> La Corporación ha recibido su denuncia en el marco del procedimiento establecido en la Ley N° 21.643.</p>
+</div>
+
+<div class="mt-4" style="font-size: 14px; line-height: 1.5;">
+  <p>Al respecto, queremos señalar que durante todo el desarrollo del procedimiento se resguardará la confidencialidad de los antecedentes, el acceso a información clara y oportuna sobre el estado del proceso, siendo asimismo deber de todas las personas participantes velar por el cumplimiento de dicha confidencialidad.</p>
 </div>
 
 <div class="mb-3">
   <p><b>Entrega de información obligatoria</b></p>
   <p>
-    La información que el reglamento exige entregar a la persona denunciante le será enviada por correo <%= @prtcpnt.articulo_516 ? 'certificado' : 'electrónico' %>. Si la denuncia fue presentada presencialmente, esta información también fue entregada de manera verbal por nuestro equipo de recepción.
+    Toda información que la ley y su reglamento exige entregar a la persona denunciante le será enviada por correo <%= @prtcpnt.articulo_516 ? 'certificado' : 'electrónico' %>.
   </p>
 </div>
 
 <div class="mb-3">
   <p><b>Próximos pasos</b></p>
-  <p>Nos comunicaremos con usted para coordinar la entrega de atención psicológica temprana, la cual es obligatoria.</p>
-  <p>Asimismo, le informaremos a la brevedad las medidas de resguardo adoptadas.</p>
-  <p>En ambos casos, es obligatoria su colaboración y la adopción inmediata de las medidas de resguardo.</p>
-</div>
-
-<div class="mb-3">
-  <small>
-  <p><b>Confidencialidad</b></p>
-  <p>
-    Este documento no incluye información que pueda vulnerar el derecho a la confidencialidad exigido por el reglamento. Le recordamos su obligación de no compartir el contenido de este documento con terceras personas.
-  </p>
-  </small>
+  <p>Coordinar la entrega de atención psicológica temprana.</p>
+  <p>Notificar e implementar a la brevedad las medidas de resguardo adoptadas.</p>
 </div>
 
 <div class="pdf-footer mt-5">
   <div class="text-center">
-    <% if @sign_url.present? %>
+    <% if false %>
       <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
     <% end %>
   </div>

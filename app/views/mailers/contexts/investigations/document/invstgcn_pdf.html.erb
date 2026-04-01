@@ -18,46 +18,38 @@
 
 <div class="row mt-5">
   <div class="col-6">
-    REFERENCIA:<br>
-    Denuncia N° <%= @record.id %>
+    Sr(a) <%= @prtcpnt.nombre %><br>
+    PRESENTE
   </div>
   <div class="col-6 text-end">
-    DESTINATARIO:<br>
-    <%= @krn_kywrd %>
+    REFERENCIA:<br>
+    Denuncia <%= @record.identificador %>
   </div>
 </div>
 
-	<div class="mt-4" style="font-weight: bold;">
-		<p>Sr(a) <%= @prtcpnt.nombre %></p>
-		<p>PRESENTE</p>
-	</div>
-
+<div class="mt-4" style="font-size: 14px; line-height: 1.5;">
 	<p>
-	  Con fecha <%= dma(@record.fecha_hora) %>, se ha presentado una denuncia en la cual usted participa en calidad de 
-	  <%= @prtcpnt.kywrd[:rol] %>.
+	  Junto con saludarlo(la), le informamos que se ha iniciado una investigación interna en el marco de la Ley N° 21.643 en la cual usted tiene la calidad de <%= @prtcpnt.kywrd[:rol] %>.
 	</p>
+</div>
 
+<div class="mt-4" style="font-size: 14px; line-height: 1.5;">
 	<p>
-	  La normativa dictada por la Dirección del Trabajo establece la obligación de adoptar <b>Medidas de Resguardo</b>, destinadas a asegurar que todo el <i>procedimiento de investigación y sanción</i> se desarrolle en un ambiente que evite la revictimización de las personas denunciantes, prevenga cualquier tipo de represalia y garantice la objetividad e imparcialidad de la investigación. 
-	  El cumplimiento de estas medidas es obligatorio para todas las partes intervinientes.
+	  Durante el desarrollo del procedimiento, usted tendrá derecho a ser oído(a), a formular descargos, a aportar pruebas y antecedentes .
 	</p>
+</div>
 
-	<p>
-	  Asimismo, nuestra empresa tiene la obligación de resguardar la confidencialidad de la información en todas las etapas del procedimiento. En particular:
-	</p>
+<div class="mt-4" style="font-size: 14px; line-height: 1.5;">
+	<p>La investigación será llevada a cabo por un investigador imparcial  y tendrá una duración máxima de 30 días hábiles.</p>
+</div>
 
-	<ol>
-	  <li>
-	    Las personas denunciantes y denunciadas tendrán acceso al contenido de la denuncia; sin embargo, se excluirá la identidad de terceras personas mencionadas en los hechos, así como la identidad de los testigos ofrecidos por ambas partes.
-	  </li>
-	  <li>
-	    Todos los participantes tienen la responsabilidad de mantener en estricta reserva cualquier información relativa a su intervención en el procedimiento, absteniéndose de compartirla con otros trabajadores de la empresa.
-	  </li>
-	</ol>
+<div class="mt-4" style="font-size: 14px; line-height: 1.5;">
+	<p>Asimismo, se deja constancia de que este procedimiento es de carácter confidencial, por lo que todas las personas que participen en él deberán mantener estricta reserva respecto de los antecedentes y del desarrollo del proceso.</p>
+</div>
 
 <div class="pdf-footer mt-5">
   <div class="text-center">
-    <% if @sign_url.present? %>
+    <% if false %>
       <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
     <% end %>
   </div>

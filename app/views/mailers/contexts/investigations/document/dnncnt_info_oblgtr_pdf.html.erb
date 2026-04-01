@@ -20,23 +20,25 @@
 
 <div class="row mt-5">
   <div class="col-6">
-    REFERENCIA:<br>
-    Denuncia N° <%= @record.id %>
+    Sr(a) <%= @prtcpnt.nombre %><br>
+    PRESENTE
   </div>
   <div class="col-6 text-end">
-    DESTINATARIO:<br>
-    Código participante: <%= @krn_kywrd %>
+    REFERENCIA:<br>
+    Denuncia <%= @record.identificador %>
   </div>
 </div>
 
 <div class="mt-5" style='font-size: 14px; line-height: 1.5;'>
-  <p>En el contexto de la recepción de una denuncia relativa a la Ley 21.643, el reglamento establece la obligación de entregar a la persona denunciante la siguiente información:</p>
+  <p>En el marco de la Ley 21.643, se establece la obligación de entregar a la persona denunciante la siguiente información:</p>
 </div>
 
 <div class="mb-1">
   <p><b>Derivación de la denuncia</b></p>
-  <p>Sin perjuicio de que la persona denunciante puede presentar la denuncia directamente en la Dirección del Trabajo, al momento de presentarla en el canal de denuncias de su empresa puede solicitar que la denuncia sea derivada a la Dirección del Trabajo para su investigación. Solicitud que debe ser siempre cumplida por la empresa.</p>
+  <p>Sin perjuicio de que la persona denunciante puede presentar la denuncia directamente en la Dirección del Trabajo, al momento de presentarla en el canal de denuncias de su empresa puede solicitar que ésta sea derivada a la Dirección del Trabajo para su investigación, constituyendo ésto una exigencia que debe ser cumplida por la empresa.</p>
+
   <p>Respecto de las denuncias en las que la persona denunciante ha manifestado su deseo de que sea investigada por la empresa, esta última puede, por razones propias, derivar la denuncia para su investigación a la Dirección del Trabajo.</p>
+
   <p>En el caso particular de una empresa principal o usuaria, si la empresa no tiene competencia para investigar dicha denuncia, deberá solicitar a la persona denunciante elegir entre su empleador o la Dirección del Trabajo como destinatario de la derivación de la denuncia.</p>
 </div>
 
@@ -54,12 +56,13 @@
 
 <div class="mb-1">
   <p><b>Colaboración de los participantes</b></p>
-  <p>Las personas denunciantes, denunciadas y testigos presentados tienen la obligación de colaborar con el procedimiento de investigación y sanción.</p>
+  <p>Los participantes tienen la obligación de colaborar con el procedimiento de investigación y sanción.</p>
 </div>
 
 <div class="pdf-footer mt-5">
   <div class="text-center">
-    <% if @sign_url.present? %>
+    <%# if @sign_url.present? %>
+    <% if false %>
       <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
     <% end %>
   </div>
