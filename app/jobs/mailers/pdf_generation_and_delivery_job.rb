@@ -336,8 +336,20 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 def generar_pdf_con_ferrum(html, objeto, browser)
   page = browser.create_page
   
-  page.set_content(html)
-  page.wait_for_selector('body', visible: true, timeout: 10000)
+  # Método 1: Usar content= (versión moderna de Ferrum)
+  # page.content = html
+  
+  # Método 2: Navegar a about:blank y luego setear contenido (más compatible)
+  page.go_to("about:blank")
+  page.execute(%Q{
+    document.open();
+    document.write(#{html.to_json});
+    document.close();
+  })
+  
+  # Esperar que el DOM esté listo
+  page.network.wait_for_idle(timeout: 5) rescue nil  # Ignorar si timeout
+  sleep 0.5  # Pequeña espera adicional para CSS
   
   empresa = objeto&.ownr
   razon_social = empresa&.razon_social || "Empresa"
