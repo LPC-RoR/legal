@@ -336,10 +336,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 def generar_pdf_con_ferrum(html, objeto, browser)
   page = browser.create_page
   
-  # Método 1: Usar content= (versión moderna de Ferrum)
-  # page.content = html
-  
-  # Método 2: Navegar a about:blank y luego setear contenido (más compatible)
+  # Establecer contenido HTML
   page.go_to("about:blank")
   page.execute(%Q{
     document.open();
@@ -348,8 +345,7 @@ def generar_pdf_con_ferrum(html, objeto, browser)
   })
   
   # Esperar que el DOM esté listo
-  page.network.wait_for_idle(timeout: 5) rescue nil  # Ignorar si timeout
-  sleep 0.5  # Pequeña espera adicional para CSS
+  sleep 0.5
   
   empresa = objeto&.ownr
   razon_social = empresa&.razon_social || "Empresa"
@@ -364,13 +360,26 @@ def generar_pdf_con_ferrum(html, objeto, browser)
     </div>
   HTML
 
+  # CORREGIDO: Opciones válidas para Ferrum 0.17.1
   pdf_data = page.pdf(
-    format: 'Letter',
-    margin: { top: '15mm', bottom: '25mm', left: '15mm', right: '15mm' },
+    # Tamaño de papel en pulgadas (Letter = 8.5 x 11 pulgadas)
+    paper_width: 8.5,
+    paper_height: 11.0,
+    
+    # Márgenes en pulgadas (1cm ≈ 0.39 pulgadas)
+    margin_top: 0.39,      # 1cm
+    margin_bottom: 0.98,   # 2.5cm (más espacio para footer)
+    margin_left: 0.39,       # 1cm
+    margin_right: 0.39,      # 1cm
+    
+    # Opciones de impresión
     print_background: true,
     display_header_footer: true,
     header_template: ' ',
-    footer_template: footer_template
+    footer_template: footer_template,
+    
+    # Escala (1.0 = 100%)
+    scale: 1.0
   )
   
   pdf_data
