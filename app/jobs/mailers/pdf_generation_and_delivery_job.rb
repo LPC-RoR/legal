@@ -36,10 +36,10 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       # process_denunciante tiene que funcionar como process_participante
       if ClssPdfRprt.dnncnt_rprt?(rprt)
         denuncia.krn_denunciantes.each do |dnncnt|
-          process_participante(denuncia, rprt, dnncnt, context, head_path, sign_path_final, ntfcdr)
+          process_participante(denuncia, rprt, dnncnt, context, head_path, sign_path_final, ntfcdr, browser)
           if ClssPdfRprt.tstg_rprt?(rprt)
             dnncnt.krn_testigos.each do |tstg|
-              process_participante(denuncia, rprt, tstg, context, head_path, sign_path_final, ntfcdr)
+              process_participante(denuncia, rprt, tstg, context, head_path, sign_path_final, ntfcdr, browser)
             end
           end
         end
@@ -47,10 +47,10 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
       if ClssPdfRprt.dnncd_rprt?(rprt)
         denuncia.krn_denunciados.each do |dnncd|
-          process_participante(denuncia, rprt, dnncd, context, head_path, sign_path_final, ntfcdr)
+          process_participante(denuncia, rprt, dnncd, context, head_path, sign_path_final, ntfcdr, browser)
           if ClssPdfRprt.tstg_rprt?(rprt)
             dnncd.krn_testigos.each do |tstg|
-              process_participante(denuncia, rprt, tstg, context, head_path, sign_path_final, ntfcdr)
+              process_participante(denuncia, rprt, tstg, context, head_path, sign_path_final, ntfcdr, browser)
             end
           end
         end
@@ -58,7 +58,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
       if ClssPdfRprt.spcl_rprt?(rprt)
         dstntr = ntfcdr.ownr if rprt == 'dclrcn'
-        process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, ntfcdr)
+        process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, ntfcdr, browser)
       end
 
       if ClssPdfRprt.cntct_rprt?(rprt)
@@ -67,18 +67,19 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
         dstntrs = AppContacto.where(grupo: grupo)
 
         dstntrs.each do |dstntr|
-          process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, denuncia)
+          process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, denuncia, browser)
         end
       end
 
       if ClssPdfRprt.rcrs_rprt?(rprt)
         Rails.logger.info "Entro en rcrs_rprt, reporte: #{rprt}"
-        process_participante(denuncia, rprt, nil, context, head_path, sign_path_final, denuncia)
+        process_participante(denuncia, rprt, nil, context, head_path, sign_path_final, denuncia, browser)
       end
 
     ensure
       limpiar_temporales(logo_path) if logo_path.present?
       limpiar_temporales(sign_path) if sign_path.present?
+      browser&.quit
     end
     
   rescue => e
@@ -153,7 +154,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     tempfile.close if tempfile.respond_to?(:close) && !tempfile.closed?
   end
 
-  def process_participante(denuncia, rprt, prtcpnt, context, head_path, sign_path, ntfcdr)
+  def process_participante(denuncia, rprt, prtcpnt, context, head_path, sign_path, ntfcdr, browser)
     # migrando a nueva versión en la que dnncnt == prtcpnt
 
     # MIGRADO: kywrd esta definido para todos los participantes
@@ -170,7 +171,8 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       Rails.logger.info "HTML generado, longitud: #{html.length} caracteres"
       
       # MIGRADO No usa prtcpnt
-      pdf_content = generar_pdf_con_grover(html, denuncia)
+#      pdf_content = generar_pdf_con_grover(html, denuncia)
+      pdf_content = generar_pdf_con_ferrum(html, denuncia, browser)
       
       Rails.logger.info "PDF generado, longitud: #{pdf_content&.length || 'NIL'} bytes"
       Rails.logger.info "Es PDF válido? #{pdf_content&.start_with?('%PDF')}"
@@ -296,10 +298,16 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     # Necesitas pasar el browser como argumento o usar variable de instancia
     
     # O crear página temporal con Ferrum
-    page = browser.create_page
-    page.set_content(html)
+#    page = browser.create_page
+#    page.set_content(html)
     
     # Esperar a que el DOM esté listo (no networkidle)
+#    page.wait_for_selector('body', visible: true, timeout: 10000)
+
+    # CAMBIO: Usar @browser en lugar de browser
+    page = @browser.create_page
+    
+    page.set_content(html)
     page.wait_for_selector('body', visible: true, timeout: 10000)
     
     # Generar PDF
@@ -321,7 +329,47 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     Rails.logger.error "Error en Ferrum PDF: #{e.class} - #{e.message}"
     Rails.logger.error "HTML length: #{html.length}"
     raise
+  ensure
+    page&.close  # Asegurar cierre de página
   end
+
+def generar_pdf_con_ferrum(html, objeto, browser)
+  page = browser.create_page
+  
+  page.set_content(html)
+  page.wait_for_selector('body', visible: true, timeout: 10000)
+  
+  empresa = objeto&.ownr
+  razon_social = empresa&.razon_social || "Empresa"
+  fecha = I18n.l(Time.current, format: :long)
+
+  footer_template = <<-HTML
+    <div style="font-size: 8pt; font-family: 'Open Sans', sans-serif; 
+                width: 100%; padding: 0 15mm; margin-bottom: 10mm;
+                display: flex; justify-content: space-between; align-items: center;">
+      <span style="color: #adb5bd;">#{razon_social}</span>
+      <span style="color: #adb5bd; font-size: 7pt;">#{fecha}</span>
+    </div>
+  HTML
+
+  pdf_data = page.pdf(
+    format: 'Letter',
+    margin: { top: '15mm', bottom: '25mm', left: '15mm', right: '15mm' },
+    print_background: true,
+    display_header_footer: true,
+    header_template: ' ',
+    footer_template: footer_template
+  )
+  
+  pdf_data
+  
+rescue => e
+  Rails.logger.error "Error en Ferrum PDF: #{e.class} - #{e.message}"
+  Rails.logger.error "HTML length: #{html.length}"
+  raise
+ensure
+  page&.close
+end
 
   def footer_template_para(objeto)
     empresa = objeto&.ownr
