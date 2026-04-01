@@ -292,11 +292,43 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
   # CORREGIDO: Argumentos de palabra clave, no un hash
   def generar_pdf_con_grover(html, objeto = nil)
+    # Usar el browser Ferrum ya inicializado en perform
+    # Necesitas pasar el browser como argumento o usar variable de instancia
+    
+    # O crear página temporal con Ferrum
+    page = browser.create_page
+    page.set_content(html)
+    
+    # Esperar a que el DOM esté listo (no networkidle)
+    page.wait_for_selector('body', visible: true, timeout: 10000)
+    
+    # Generar PDF
+    pdf_data = page.pdf(
+      format: 'Letter',
+      margin: { top: '15mm', bottom: '25mm', left: '15mm', right: '15mm' },
+      print_background: true,
+      prefer_css_page_size: false,
+      display_header_footer: true,
+      header_template: ' ',
+      footer_template: footer_template_para(objeto)
+    )
+    
+    page.close
+    
+    pdf_data
+    
+  rescue => e
+    Rails.logger.error "Error en Ferrum PDF: #{e.class} - #{e.message}"
+    Rails.logger.error "HTML length: #{html.length}"
+    raise
+  end
+
+  def footer_template_para(objeto)
     empresa = objeto&.ownr
     razon_social = empresa&.razon_social || "Empresa"
     fecha = I18n.l(Time.current, format: :long)
 
-    footer_template = <<-HTML
+    <<-HTML
       <div style="font-size: 8pt; font-family: 'Open Sans', sans-serif; 
                   width: 100%; padding: 0 15mm; margin-bottom: 10mm;
                   display: flex; justify-content: space-between; align-items: center;">
@@ -304,42 +336,6 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
         <span style="color: #adb5bd; font-size: 7pt;">#{fecha}</span>
       </div>
     HTML
-
-    # CORREGIDO: Argumentos de palabra clave individuales, NO un hash
-    Grover.new(html,
-      format: 'Letter',
-      margin: {
-        top: '15mm',
-        bottom: '25mm',
-        left: '15mm',
-        right: '15mm'
-      },
-      print_background: true,
-      prefer_css_page_size: false,
-      emulate_media: 'print',
-      wait_until: 'networkidle0',
-      display_url: Rails.application.routes.url_helpers.root_url(
-        host: ActiveStorage::Current.url_options[:host],
-        port: ActiveStorage::Current.url_options[:port],
-        protocol: ActiveStorage::Current.url_options[:protocol]
-      ),
-      header_template: ' ',
-      footer_template: footer_template,
-      launch_args: [
-        '--no-sandbox', 
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process',
-        '--disable-gpu'
-      ]
-    ).to_pdf
-  rescue => e
-    Rails.logger.error "Error en Grover: #{e.class} - #{e.message}"
-    Rails.logger.error "HTML length: #{html.length}"
-    raise
   end
 
   def referenciar_act_archivo_dnnc(denuncia, prtcpnt, rprt, ntfcdr)
