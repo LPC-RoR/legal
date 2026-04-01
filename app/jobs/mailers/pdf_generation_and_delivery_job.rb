@@ -336,7 +336,6 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 def generar_pdf_con_ferrum(html, objeto, browser)
   page = browser.create_page
   
-  # Establecer contenido HTML
   page.go_to("about:blank")
   page.execute(%Q{
     document.open();
@@ -344,7 +343,6 @@ def generar_pdf_con_ferrum(html, objeto, browser)
     document.close();
   })
   
-  # Esperar que el DOM esté listo
   sleep 0.5
   
   empresa = objeto&.ownr
@@ -353,34 +351,31 @@ def generar_pdf_con_ferrum(html, objeto, browser)
 
   footer_template = <<-HTML
     <div style="font-size: 8pt; font-family: 'Open Sans', sans-serif; 
-                width: 100%; padding: 0 15mm; margin-bottom: 10mm;
-                display: flex; justify-content: space-between; align-items: center;">
+                width: 100%; padding: 0 15mm; margin-bottom: 10mm;">
       <span style="color: #adb5bd;">#{razon_social}</span>
-      <span style="color: #adb5bd; font-size: 7pt;">#{fecha}</span>
+      <span style="color: #adb5bd; float: right; font-size: 7pt;">#{fecha}</span>
     </div>
   HTML
 
-  # CORREGIDO: Opciones válidas para Ferrum 0.17.1
+  # CORREGIDO: Especificar encoding: :binary para obtener bytes crudos
   pdf_data = page.pdf(
-    # Tamaño de papel en pulgadas (Letter = 8.5 x 11 pulgadas)
     paper_width: 8.5,
     paper_height: 11.0,
-    
-    # Márgenes en pulgadas (1cm ≈ 0.39 pulgadas)
-    margin_top: 0.39,      # 1cm
-    margin_bottom: 0.98,   # 2.5cm (más espacio para footer)
-    margin_left: 0.39,       # 1cm
-    margin_right: 0.39,      # 1cm
-    
-    # Opciones de impresión
+    margin_top: 0.39,
+    margin_bottom: 0.98,
+    margin_left: 0.39,
+    margin_right: 0.39,
     print_background: true,
     display_header_footer: true,
     header_template: ' ',
     footer_template: footer_template,
-    
-    # Escala (1.0 = 100%)
-    scale: 1.0
+    encoding: :binary  # <-- Clave para obtener bytes crudos
   )
+  
+  pdf_data = pdf_data.force_encoding('ASCII-8BIT')
+  
+  Rails.logger.info "PDF generado, longitud: #{pdf_data.length} bytes"
+  Rails.logger.info "Es PDF válido? #{pdf_data.start_with?('%PDF')}"
   
   pdf_data
   
