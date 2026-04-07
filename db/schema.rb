@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_23_195404) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_07_200450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1072,6 +1072,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_23_195404) do
     t.index ["rut"], name: "index_krn_testigos_on_rut"
   end
 
+  create_table "krn_textos", force: :cascade do |t|
+    t.bigint "krn_denuncia_id", null: false
+    t.string "codigo", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["krn_denuncia_id", "codigo"], name: "index_krn_textos_on_krn_denuncia_id_and_codigo", unique: true
+    t.index ["krn_denuncia_id"], name: "index_krn_textos_on_krn_denuncia_id"
+  end
+
   create_table "lgl_leyes", force: :cascade do |t|
     t.integer "lgl_repositorio_id"
     t.string "cdg"
@@ -1802,6 +1811,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_23_195404) do
   add_foreign_key "act_textos", "act_archivos"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "krn_textos", "krn_denuncias"
   add_foreign_key "licencias", "empresas"
   add_foreign_key "responsable_actividades", "age_actividades"
   add_foreign_key "responsable_actividades", "usuarios"

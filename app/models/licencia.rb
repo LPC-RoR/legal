@@ -69,7 +69,7 @@ class Licencia < ApplicationRecord
     self.started_at  ||= Time.current
     self.finished_at ||= (plan == 'demo' ? 10.days.from_now : 1.year.from_now)
     self.status      ||= 'active'
-    self.denuncias_usadas ||= 0
+#    self.denuncias_usadas ||= 0 Es un método arriba
   end
 
   def no_superar_limite

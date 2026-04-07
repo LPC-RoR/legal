@@ -145,6 +145,8 @@ Rails.application.routes.draw do
       match :krn_pdf_rprt, via: :post, on: :member
     end
 
+    resources :krn_textos
+
     resources :krn_derivaciones
     resources :krn_investigadores do
       match :swtch, via: :post, on: :member
