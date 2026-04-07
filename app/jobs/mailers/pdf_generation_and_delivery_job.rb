@@ -333,59 +333,59 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     page&.close  # Asegurar cierre de página
   end
 
-def generar_pdf_con_ferrum(html, objeto, browser)
-  page = browser.create_page
-  
-  page.go_to("about:blank")
-  page.execute(%Q{
-    document.open();
-    document.write(#{html.to_json});
-    document.close();
-  })
-  
-  sleep 0.5
-  
-  empresa = objeto&.ownr
-  razon_social = empresa&.razon_social || "Empresa"
-  fecha = I18n.l(Time.current, format: :long)
+  def generar_pdf_con_ferrum(html, objeto, browser)
+    page = browser.create_page
+    
+    page.go_to("about:blank")
+    page.execute(%Q{
+      document.open();
+      document.write(#{html.to_json});
+      document.close();
+    })
+    
+    sleep 0.5
+    
+    empresa = objeto&.ownr
+    razon_social = empresa&.razon_social || "Empresa"
+    fecha = I18n.l(Time.current, format: :long)
 
-  footer_template = <<-HTML
-    <div style="font-size: 8pt; font-family: 'Open Sans', sans-serif; 
-                width: 100%; padding: 0 15mm; margin-bottom: 10mm;">
-      <span style="color: #adb5bd;">#{razon_social}</span>
-      <span style="color: #adb5bd; float: right; font-size: 7pt;">#{fecha}</span>
-    </div>
-  HTML
+    footer_template = <<-HTML
+      <div style="font-size: 8pt; font-family: 'Open Sans', sans-serif; 
+                  width: 100%; padding: 0 15mm; margin-bottom: 10mm;">
+        <span style="color: #adb5bd;">#{razon_social}</span>
+        <span style="color: #adb5bd; float: right; font-size: 7pt;">#{fecha}</span>
+      </div>
+    HTML
 
-  # CORREGIDO: Especificar encoding: :binary para obtener bytes crudos
-  pdf_data = page.pdf(
-    paper_width: 8.5,
-    paper_height: 11.0,
-    margin_top: 0.39,
-    margin_bottom: 0.98,
-    margin_left: 0.39,
-    margin_right: 0.39,
-    print_background: true,
-    display_header_footer: true,
-    header_template: ' ',
-    footer_template: footer_template,
-    encoding: :binary  # <-- Clave para obtener bytes crudos
-  )
-  
-  pdf_data = pdf_data.force_encoding('ASCII-8BIT')
-  
-  Rails.logger.info "PDF generado, longitud: #{pdf_data.length} bytes"
-  Rails.logger.info "Es PDF válido? #{pdf_data.start_with?('%PDF')}"
-  
-  pdf_data
-  
-rescue => e
-  Rails.logger.error "Error en Ferrum PDF: #{e.class} - #{e.message}"
-  Rails.logger.error "HTML length: #{html.length}"
-  raise
-ensure
-  page&.close
-end
+    # CORREGIDO: Especificar encoding: :binary para obtener bytes crudos
+    pdf_data = page.pdf(
+      paper_width: 8.5,
+      paper_height: 11.0,
+      margin_top: 0.39,
+      margin_bottom: 0.98,
+      margin_left: 0.39,
+      margin_right: 0.39,
+      print_background: true,
+      display_header_footer: true,
+      header_template: ' ',
+      footer_template: footer_template,
+      encoding: :binary  # <-- Clave para obtener bytes crudos
+    )
+    
+    pdf_data = pdf_data.force_encoding('ASCII-8BIT')
+    
+    Rails.logger.info "PDF generado, longitud: #{pdf_data.length} bytes"
+    Rails.logger.info "Es PDF válido? #{pdf_data.start_with?('%PDF')}"
+    
+    pdf_data
+    
+  rescue => e
+    Rails.logger.error "Error en Ferrum PDF: #{e.class} - #{e.message}"
+    Rails.logger.error "HTML length: #{html.length}"
+    raise
+  ensure
+    page&.close
+  end
 
   def footer_template_para(objeto)
     empresa = objeto&.ownr
