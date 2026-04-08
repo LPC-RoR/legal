@@ -62,7 +62,7 @@ module Prtcpnt
     end
 
     def tiene_comprobante?
-      act_archivos.any? { |a| (a.act_archivo == 'comprobante_firmado' && a.pdf.attached?) || a.rlzd? }
+      act_archivos.any? { |a| (a.act_archivo == 'comprobante_firmado' && a.pdf.attached?) || CheckRealizado.objt_rlzd?(self, 'comprobante_firmado') }
     end
 
     def tiene_mdds_rsgrd_fl?

@@ -101,7 +101,7 @@ module DnncProc
 
  	# Las personas denunciantes tienen su comprobante, pero hay que verificar que se haya subido el comprobante firmado.
  	def tsk_comprobantes_firmados?
- 		not_on_dt? and apt_coordinada? and (not comprobantes_firmados?)
+ 		not_on_dt? and apt_coordinada? && !comprobantes_firmados?
  	end
 
  	# Enviar notificación de la recepción de la denuncia a todos los participantes
