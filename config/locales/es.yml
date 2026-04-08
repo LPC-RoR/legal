@@ -25,6 +25,8 @@ es:
           has_one: No se puede eliminar el registro porque existe un %{record} dependiente
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
   date:
+    formats:
+      dia_mes_completo: "%A %e de %B"  # lunes 6 de abril
     abbr_day_names:
     - dom
     - lun
@@ -60,7 +62,7 @@ es:
       long: "%-d de %B de %Y"
       short: "%-d de %b"
     month_names:
-    - 
+    - ~
     - enero
     - febrero
     - marzo
@@ -123,6 +125,9 @@ es:
       day: Día
       month: Mes
       year: Año
+  time:
+    formats:
+      solo_hora: "%H:%M"  # 16:45
   errors:
     format: "%{attribute} %{message}"
     messages:

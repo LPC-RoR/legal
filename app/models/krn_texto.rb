@@ -1,6 +1,6 @@
 # app/models/krn_texto.rb
 class KrnTexto < ApplicationRecord
-  belongs_to :krn_denuncia
+  belongs_to :ownr, polymorphic: true
   
   # Reemplaza tu campo 'texto' por contenido enriquecido
   has_rich_text :contenido

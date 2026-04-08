@@ -60,6 +60,8 @@ module Paths
 			objt.ownr_id.nil? ? app_nominas_path : "/cuentas/e_#{objt.ownr_id}/nmn"
 		when 'KrnDerivacion'
 			"/krn_denuncias/#{objt.krn_denuncia.id}_1"
+		when 'KrnTexto'
+			"/krn_denuncias/#{objt.ownr_id}_1"
 		else
 			objt.ownr
 		end

@@ -59,7 +59,7 @@
 					<% unless !es_lista && act_archivo %>
 
 						<% unless realizado %>
-							<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.name.tableize}/#{@objeto.id}/rlzd?mdl=act&cdg=#{code}&p=true", tltp: 'Realizado', data: {turbo_method: :post}} do %>
+							<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.name.tableize}/#{ownr.id}/rlzd?mdl=act&cdg=#{code}&p=true", tltp: 'Realizado', data: {turbo_method: :post}} do %>
 								<i class="bi bi-check-square"></i>
 							<% end %>
 

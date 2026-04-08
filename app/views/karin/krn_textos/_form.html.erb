@@ -1,9 +1,9 @@
   <div class="mb-3">
-    <%= f.label :codigo, "Código", class: "form-label" %>
+    <%= form.label :codigo, "Código", class: "form-label" %>
     
-    <% if params[:codigo].present? || f.object.codigo.present? %>
+    <% if params[:codigo].present? || form.object.codigo.present? %>
       <%# Código predefinido - solo lectura %>
-      <%= f.text_field :codigo, 
+      <%= form.text_field :codigo, 
                        class: "form-control", 
                        readonly: true,
                        style: "background-color: #e9ecec;" %>
@@ -12,17 +12,24 @@
       </small>
     <% else %>
       <%# Código editable (cuando no viene por parámetro) %>
-      <%= f.text_field :codigo, 
+      <%= form.text_field :codigo, 
                        class: "form-control",
-                       placeholder: "Ej: INTRODUCCION, ANTECEDENTES, etc." %>
+                       placeholder: "Código del reporte" %>
     <% end %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :contenido, "Texto", class: "form-label" %>
+    <%= form.label :codigo, "Código", class: "form-label" %>
+    <%= form.text_field :titulo, 
+                       class: "form-control",
+                       placeholder: "Título del reporte" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :contenido, "Texto", class: "form-label" %>
     
     <%# Trix editor nativo de Rails 8 %>
-    <%= f.rich_text_area :contenido, 
+    <%= form.rich_text_area :contenido, 
                         class: "trix-content",
                         placeholder: "Escribe o pega el contenido aquí...",
                         data: { 

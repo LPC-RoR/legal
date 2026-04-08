@@ -13,58 +13,35 @@
 </div>
 
 <div class="text-center fs-5">
-  Notificación de Asignación de Investigador a la Denuncia
+  Notifica designación de Investigador(a)
 </div>
 
 <div class="row mt-5">
   <div class="col-6">
-    REFERENCIA:<br>
-    Denuncia N° <%= @record.id %>
+    <%= @krn_kywrd %><br>
+    Sr(a) <%= @prtcpnt.nombre %><br>
+    PRESENTE
   </div>
   <div class="col-6 text-end">
-    DESTINATARIO:<br>
-    <%= @krn_kywrd %>
+    REFERENCIA:<br>
+    Denuncia <%= @record.identificador %>
   </div>
 </div>
 
-	<div class="mt-4" style="font-weight: bold;">
-		<p>Sr(a) <%= @prtcpnt.nombre %></p>
-		<p>PRESENTE</p>
-	</div>
+	<p>De nuestra consideración:</p>
 
 	<p>
-	  Por medio de la presente, le informamos que el(la) Sr(a). <%= @ntfcdr.krn_investigador.krn_investigador %> ha sido designado(a) como 
-	  investigador(a) de la denuncia en la cual usted participa en calidad de <%= @prtcpnt.kywrd[:rol] %>.
+	  Por medio de la presente, informamos que el(la) Sr(a) <%= @ntfcdr.krn_investigador.krn_investigador %> ha sido designado(a) como investigador(a) en el procedimiento individualizado en la referencia.</p>
+
+	<p>
+	  Para efectos del presente procedimiento, usted participa en calidad de <%= @prtcpnt.kywrd[:rol] %>.
 	</p>
 
 	<p>
-	  Quedamos a su disposición para resolver cualquier consulta respecto de la presente notificación.
+	  A partir de este momento, la investigadora designada queda a su disposición para resolver cualquier consulta a través de la casilla de correo electrónico <%= @ntfcdr.krn_investigador.email %>
 	</p>
 
-
-	<% unless @prtcpnt.class.name == 'KrnTestigo' %>
-	  <h4>Objeción del Investigador</h4>
-
-	  <p>
-	    El reglamento establece que las personas denunciantes y denunciadas podrán objetar al investigador designado, 
-	    siempre que cuenten con antecedentes que sustenten dicha objeción.
-	  </p>
-
-	  <p>
-	    La única causal válida para objetar es la falta de imparcialidad del investigador asignado.
-	  </p>
-
-	  <p>
-	    Solo se admitirán objeciones que estén debidamente respaldadas con antecedentes. 
-	    La ausencia de fundamentos implicará el rechazo inmediato de la objeción presentada.
-	  </p>
-
-	  <p>
-	    Corresponde a la empresa evaluar la procedencia de la objeción. 
-	    En caso de ser acogida, se procederá a designar un nuevo investigador; de lo contrario, 
-	    se confirmará al investigador originalmente asignado.
-	  </p>
-	<% end %>
+	<p>Sin otro particular, le saluda atentamente,<br>Recepción de Denuncias – Ley N° 21.643</p>
 
 <div class="pdf-footer mt-5">
   <div class="text-center">

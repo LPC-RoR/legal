@@ -101,12 +101,22 @@ end
 		date.blank? ? '__:__' : date.strftime("%I:%M%p")
 	end
 
+	def hm_24(datetime)
+		date.blank? ? '__:__' : date.strftime("%H:%M")
+	end
+
 	def s_mes(datetime)
 		"#{datetime.year} #{nombre_mes[datetime.month]}"
 	end
 
 	def s_rut(rut)
 		rut.blank? ? '__.___.___-_' : rut.gsub(' ', '').insert(-8, '.').insert(-5, '.').insert(-2, '-')
+	end
+
+	# USANDO I18n
+
+	def dia_dm(datetime)
+		I18n.l(datetime, format: "%A %e de %B")
 	end
 
 end

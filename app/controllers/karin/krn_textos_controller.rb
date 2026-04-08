@@ -1,10 +1,10 @@
 # app/controllers/krn_textos_controller.rb
 class Karin::KrnTextosController < ApplicationController
-  before_action :set_krn_denuncia
+  before_action :set_ownr
   before_action :set_krn_texto, only: [:edit, :update, :destroy]
 
   def new
-    @objeto = @krn_denuncia.krn_textos.build(codigo: params[:cdg])
+    @objeto = @ownr.krn_textos.build(codigo: params[:cdg])
   end
 
   def create
@@ -34,15 +34,15 @@ class Karin::KrnTextosController < ApplicationController
 
   private
 
-  def set_krn_denuncia
-    @krn_denuncia = KrnDenuncia.find(params[:krn_denuncia_id])
+  def set_ownr
+    @ownr = params[:oclss].constantize.find(params[:oid])
   end
 
   def set_krn_texto
     @objeto = @krn_denuncia.krn_textos.find(params[:id])
   end
 
-  def krnn_texto_params
-    params.require(:krn_texto).permit(:codigo, :contenido)
+  def krn_texto_params
+    params.require(:krn_texto).permit(:codigo, :titulo, :contenido)
   end
 end
