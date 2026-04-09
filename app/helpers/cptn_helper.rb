@@ -102,7 +102,7 @@ end
 	end
 
 	def hm_24(datetime)
-		date.blank? ? '__:__' : date.strftime("%H:%M")
+		datetime.blank? ? '__:__' : datetime.strftime("%H:%M")
 	end
 
 	def s_mes(datetime)
