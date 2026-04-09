@@ -78,7 +78,7 @@ module Prtcpnt
     end
 
     def tiene_dclrcn?
-      act_archivos.any? { |a| a.act_archivo == 'declaracion' && a.pdf.attached? || a.rlzd? }
+      act_archivos.any? { |a| a.act_archivo == 'declaracion' && a.pdf.attached? || CheckRealizado.objt_rlzd?(self, 'declaracion') }
     end
 
 
