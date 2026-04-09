@@ -1,0 +1,36 @@
+<% clccn  = @objeto.krn_inv_denuncias %>
+<% rgstrs = objeto.act_referencias %>
+
+<div class="px-4 objt_lnk">
+	<i class="bi bi-arrow-return-right"></i>
+	<% if rgstrs.none? %>
+		<i class="bi bi-cone-striped text-danger"></i>
+		Investigador sin notificar
+	<% else %>
+		<i class="bi bi-check2-all text-primary"></i>
+		Investigador notificado (<%= rgstrs.count %>)
+	<% end %>
+</div>
+
+<% if clccn.first == objeto %>
+	<div class="px-4 objt_lnk">
+		<i class="bi bi-arrow-return-right"></i>
+	    <% unless clccn.count == 2 or @objeto.objcn_acogida or @objeto.objcn_rechazada or @objeto.fecha_trmn? %>
+			<% if objeto.objetado %>
+				<i class="bi bi-ban text-danger"></i>
+				Investigador objetado
+			<% else %>
+				Investigador sin objeción de participantes
+			<% end %>
+	    <% else %>
+			<% if @objeto.objcn_acogida %>
+				<i class="bi bi-ban text-danger"></i>
+				Investigador objetado : 
+				Objeción acogida
+			<% elsif @objeto.objcn_rechazada %>
+				Investigador objetado : 
+				Objeción rechazada
+			<% end %>
+	    <% end %> 
+	</div>
+<% end %> 

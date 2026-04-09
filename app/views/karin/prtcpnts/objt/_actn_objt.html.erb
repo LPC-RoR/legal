@@ -79,8 +79,10 @@
 
 <% if act_archivos or act_referencias %>
 
-	<% lista = act_archivos ? @objeto.act_archivos.where(act_archivo: code) : @objeto.act_referencias.where(code: code) %>
+	<% lista = act_archivos ? ownr.act_archivos.where(act_archivo: code) : ownr.act_referencias.where(code: code) %>
+	
 	<% lista.each do |rgstr| %>
+
 		<% archivo = act_archivos ? rgstr : rgstr.act_archivo %>
 		<% if archivo %>
 		<div class="row gx-1 px-4 text-primary objt_lnk">
@@ -93,12 +95,13 @@
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/show_pdf", tltp: "Bajar #{ClssPrcdmnt.act_nombre[code].downcase}", target: '_blank'} do %>
 					<i class="bi bi-download"></i>
 				<% end %>
-				<%# Sólo Dog puede eliminar un archivo enviado o generado %>
+				<%# Sólo DOG puede eliminar un archivo enviado o generado %>
 				<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: archivo} if current_usuario.dog? %>
 				<i class="bi bi-arrow-return-left"></i>
 			</div>
 		</div>
 		<% end %>
+
 	<% end %>
 <% end %>
 
