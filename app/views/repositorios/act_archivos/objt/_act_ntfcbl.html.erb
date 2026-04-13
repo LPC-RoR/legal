@@ -1,0 +1,9 @@
+<%# ActArchivo Notificable que NO tiene referencia %>
+<% act_sym = act_archivo.act_archivo.to_sym %>
+
+<% if ClssPdfRprt.rprt_ntfcbl?[act_sym] and act_archivo.act_referencias.none? %>
+	<%# NUEVO Generar, adjuntar y enviar PDF %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{ownr.dnnc.id}/krn_pdf_rprt?rprt=#{ClssPdfRprt.rprt_ntfcbl?[act_sym]}&nid=#{act_archivo.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
+		<i class="bi bi-envelope-at"></i>
+	<% end %>
+<% end %>

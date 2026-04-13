@@ -19,7 +19,7 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :codigo, "Código", class: "form-label" %>
+    <%= form.label :titulo, "Título", class: "form-label" %>
     <%= form.text_field :titulo, 
                        class: "form-control",
                        placeholder: "Título del reporte" %>
@@ -42,3 +42,6 @@
       Usa los botones de la barra para listas, negritas, etc.
     </small>
   </div>
+
+  <%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :ownr_type } %>
+  <%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :ownr_id } %>

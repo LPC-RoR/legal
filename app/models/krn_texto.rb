@@ -5,7 +5,8 @@ class KrnTexto < ApplicationRecord
   # Reemplaza tu campo 'texto' por contenido enriquecido
   has_rich_text :contenido
   
-  validates :codigo, presence: true, uniqueness: { scope: :krn_denuncia_id }
+  validates :codigo, presence: true
+  validates :titulo, presence: true
   
   # Helper para renderizado consistente
   def to_html

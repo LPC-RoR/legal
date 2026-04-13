@@ -1,0 +1,7 @@
+<% if mdl.annmzbl?(code) and act_archivo %>
+	<% unless act_archivo.anonimizado_como.present? %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act_archivo.id}/annmzr", tltp: "Anonimizar #{mdl.act_nombre[code]}", data: {turbo_method: :post}} do %>
+			<i class="bi bi-eyeglasses"></i>
+		<% end %>
+	<% end %>
+<% end %>

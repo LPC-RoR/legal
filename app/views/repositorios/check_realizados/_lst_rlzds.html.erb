@@ -1,0 +1,4 @@
+<% lista = ownr.check_realizados.where(cdg: code) %>
+<% lista.each do |rgstr| %>
+	<%= render partial: prtl(rgstr, nil, 'objeto'), locals: {objt: rgstr} %>
+<% end %>

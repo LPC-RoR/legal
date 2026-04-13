@@ -1,8 +1,6 @@
 <%# LISTA de envío : %>
 <!-- Información y notificaciones -->
 
-<% act_id = "#{ownr.class.name}_#{ownr.id}" %>
-
 <%# hsh[código participante][acciones] %>
 <%# each recorre las acciones que aplican a este participante %>
 <% hsh[ownr.clss_id][:actns].each do |actn| %>
