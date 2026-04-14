@@ -13,6 +13,8 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1 or /krn_denuncias/1.json
   def show
+    # Para simpificar parciales, están en @act_hsh
+
     @acts_hsh = ActLoad.for_tree(@objeto)
     @kproc = KrnPrcdmnt.for(@objeto)
 

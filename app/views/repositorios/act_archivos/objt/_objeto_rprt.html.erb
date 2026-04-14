@@ -2,17 +2,18 @@
 <%# _dsply_act_archivo se usa para controlar los reportes administrativos. En ese contexto, el reporte es el título %>
 <%# en este partial el reporte es una línea de una lista %>
 
+<%# Usa Modelo de REPORTES %>
 <% es_lista 		= ClssPdfRprt.lista_rprt?(code) %>
 
-<% act_archivos 	= es_lista ? ownr.act_archivos.exists?(act_archivo: code) : nil %>
-<% act_referencias 	= es_lista ? ownr.act_referencias.exists?(code: code) : nil %>
-<% chk_realizados 	= es_lista ? ownr.check_realizados.exists?(cdg: code) : nil %>
+<% act_archivos 	= es_lista ? ownr.act_archivos.where(act_archivo: code) : nil %>
+<% act_referencias 	= es_lista ? ownr.act_referencias.where(code: code) : nil %>
+<% chk_realizados 	= es_lista ? ownr.check_realizados.where(cdg: code) : nil %>
 
 <% act_archivo 		= es_lista ? nil : ownr.act_archivos.find_by(act_archivo: code) %>
 <% act_referencia	= es_lista ? nil : ownr.act_referencias.find_by(code: code) %>
 <% chk_realizado 	= es_lista ? nil : ownr.check_realizados.find_by(cdg: code) %>
 
-<% subido 			= act_archivos || act_referencias || act_archivo || act_referencia %>
+<% subido 			= act_archivos&.any? || act_referencias&.any? || act_archivo || act_referencia %>
 <% realizado 		= chk_realizados || chk_realizado %>
 
 
@@ -43,32 +44,26 @@
 		<% unless (subido || realizado) && !ClssPdfRprt.mltpl_rprt(code) %>
 			<%# Si hay más de uno como lo registro y se puede enviar uno y otro verificado!! %>
 
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.name.tableize}/#{ownr.id}/rlzd?mdl=act&cdg=#{code}&p=true", tltp: 'Realizado', data: {turbo_method: :post}} do %>
-				<i class="bi bi-check-square"></i>
-			<% end %>
+			<!-- BTN REALIZADO -->
+			<%= render partial: prtl('act_archivos', 'objt', 'btn_rlzd'), locals: {ownr: ownr, code: code} %>
 
 			<%# REPORTES ADMINISTRATIVOS : ownr = dstntr y ref = Denuncia %>
-			<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=#{code}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
-				<i class="bi bi-envelope-at"></i>
-			<% end %>
+			<%= render partial: prtl('act_archivos', 'objt', 'btn_email_rprt'), locals: {objeto: ownr, code: code} %>
+
 		<% else %>
 			<% unless es_lista %>
 				<% archivo = act_archivo ? act_archivo : (act_referencia ? act_referencia.act_archivo : nil) %>
 
 				<% if subido && archivo %>
 					<%# DOWNLOAD de ActArchivo %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/show_pdf", tltp: "Bajar #{ClssPrcdmnt.act_nombre[code].downcase}", target: '_blank'} do %>
-						<i class="bi bi-download"></i>
-					<% end %>
+					<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: archivo, mdl: ClssPrcdmnt, code: code} %>
+					<%#= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/show_pdf", tltp: "Bajar #{ClssPrcdmnt.act_nombre[code].downcase}", target: '_blank'} do %>
+						<!--i class="bi bi-download"></i-->
+					<%# end %>
 
 					<%# ELIMINAR ActArchivo %>
 					<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: archivo} if current_usuario.dog? %>
 
-				<% end %>
-				<% if realizado && archivo %>
-					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{objeto.class.name.tableize}/#{objeto.id}/rlzd?mdl=act&cdg=#{code}&p=trash", tltp: 'Eliminar marca de realizado', data: {turbo_method: :post}} do %>
-						<i class="bi bi-trash"></i>
-					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>
@@ -77,13 +72,14 @@
 
 </div>
 
-<% if act_archivos or act_referencias %>
+<% if act_archivos&.any? or act_referencias&.any? %>
 
-	<% lista = act_archivos ? ownr.act_archivos.where(act_archivo: code) : ownr.act_referencias.where(code: code) %>
+	<% lista = act_archivos&.any? ? act_archivos : act_referencias %>
 	
 	<% lista.each do |rgstr| %>
 
-		<% archivo = act_archivos ? rgstr : rgstr.act_archivo %>
+		<% archivo = act_archivos&.any? ? rgstr : rgstr.act_archivo %>
+
 		<% if archivo %>
 		<div class="row gx-1 px-4 text-primary objt_lnk">
 			<div class="col-10">
@@ -92,9 +88,7 @@
 				<%= dma_hm(archivo.created_at)%>
 			</div>
 			<div class="col-2 text-end">
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/show_pdf", tltp: "Bajar #{ClssPrcdmnt.act_nombre[code].downcase}", target: '_blank'} do %>
-					<i class="bi bi-download"></i>
-				<% end %>
+				<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: archivo, mdl: ClssPrcdmnt, code: code} %>
 				<%# Sólo DOG puede eliminar un archivo enviado o generado %>
 				<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: archivo} if current_usuario.dog? %>
 				<i class="bi bi-arrow-return-left"></i>
@@ -107,9 +101,6 @@
 
 <% if realizado %>
 
-	<% lista = ownr.check_realizados.where(cdg: code) %>
-	<% lista.each do |rgstr| %>
-		<%= render partial: prtl(rgstr, nil, 'objeto'), locals: {objt: rgstr} %>
-	<% end %>
+	<%= render partial: prtl('check_realizados', nil, 'lst_rlzds'), locals: {ownr: ownr, code: code} %>
 
 <% end %>

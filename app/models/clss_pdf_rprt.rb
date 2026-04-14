@@ -13,17 +13,18 @@ class ClssPdfRprt
 		dclrcn: KrnDeclaracion,
 		crdncn_apt: KrnDenuncia,
 		infrmcn: KrnDenuncia,
-		dnnc: KrnDenuncia
+		dnnc: KrnDenuncia,
+		txt_mdds_rsgrd: KrnTexto
 	}.freeze
 
 	# El reporte debe ser enviado a las personas denunciantes?
 	def self.dnncnt_rprt?(rprt)
-		['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'medidas_resguardo', 'invstgdr', 'drvcn'].include?(rprt)
+		['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'medidas_resguardo', 'txt_mdds_rsgrd', 'txt_acta', 'invstgdr', 'drvcn'].include?(rprt)
 	end
 
 	# El reporte debe ser enviado a las personas denunciados?
 	def self.dnncd_rprt?(rprt)
-		['invstgcn', 'drchs', 'medidas_resguardo', 'invstgdr', 'drvcn'].include?(rprt)
+		['invstgcn', 'drchs', 'medidas_resguardo', 'txt_mdds_rsgrd', 'invstgdr', 'drvcn'].include?(rprt)
 	end
 
 	# El reporte debe ser enviado a las personas testigos?
@@ -31,11 +32,11 @@ class ClssPdfRprt
 		['invstgcn', 'drchs', 'invstgdr', 'drvcn'].include?(rprt)
 	end
 
-	# El reporte tiene un adjunto que se subió a la plataforma
 	def self.ntfccn_rprt?(rprt)
-		['medidas_resguardo', 'invstgdr', 'drvcn'].include?(rprt)
+		['medidas_resguardo', 'txt_mdds_rsgrd', 'txt_acta', 'invstgdr', 'drvcn'].include?(rprt)
 	end
 
+	# El reporte tiene un archivo que se subió a la plataforma
 	def self.ownr_rfrnc_rprt?(rprt)
 		['medidas_resguardo'].include?(rprt)
 	end
@@ -53,7 +54,7 @@ class ClssPdfRprt
 	end
 
 	def self.lista_rprt?(rprt)
-		['medidas_resguardo', 'mdds_rsgrd', 'drvcn', 'invstgdr', 'dclrcn'].include?(rprt)
+		['medidas_resguardo', 'mdds_rsgrd', 'txt_mdds_rsgrd', 'drvcn', 'invstgdr', 'dclrcn'].include?(rprt)
 	end
 
 	# Reportes que se pueden generar|verificar más de una vez
@@ -80,16 +81,18 @@ class ClssPdfRprt
 
 	def self.sbjcts
 		{
-			dnncnt_info_oblgtr:	'Entrega de información obligatoria para personas denunciantes',
-			comprobante:		'Comprobante de recepción de denuncia',
-			drchs:				'Derechos y obligaciones de los participantes',
-			medidas_resguardo:  'Medidas de resguardo',
-			infrmcn:    		'Verificación de datos de los participantes.',
-			crdncn_apt: 		'Coordinación de atención psicológica temprana.',
-			drvcn:      		'Notificación de derivación de la denuncia.',
-			invstgcn:   		'Notificación de recepción de denuncia.',
-			invstgdr:   		'Notificación de asignación de investigador.',
-			dclrcn:     		'Citación a declarar.'
+			dnncnt_info_oblgtr:	'Entrega de información obligatoria para personas denunciantes - Ley 21.643',
+			comprobante:		'Comprobante de recepción de denuncia - Ley 21.643',
+			drchs:				'Derechos y obligaciones de los participantes - Ley 21.643',
+			medidas_resguardo:  'Medidas de resguardo - Ley 21.643',
+			txt_mdds_rsgrd:  	'Medidas de resguardo - Ley 21.643',
+			txt_acta: 			'Acta de denuncia - Ley 21.643', 
+			infrmcn:    		'Verificación de datos de los participantes - Ley 21.643',
+			crdncn_apt: 		'Coordinación de atención psicológica temprana - Ley 21.643',
+			drvcn:      		'Notificación de derivación de la denuncia - Ley 21.643',
+			invstgcn:   		'Notificación de recepción de denuncia - Ley 21.643',
+			invstgdr:   		'Notificación de asignación de investigador - Ley 21.643',
+			dclrcn:     		'Citación a declarar - Ley 21.643'
 		}.freeze
 	end
 	# ************************************************************************************************

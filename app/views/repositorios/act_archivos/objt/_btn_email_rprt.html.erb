@@ -1,0 +1,5 @@
+<% nid 	||= nil %>
+
+<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{objeto.id}/krn_pdf_rprt?rprt=#{code}&nid=#{nid}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
+	<i class="bi bi-envelope-at"></i>
+<% end %>

@@ -1,0 +1,12 @@
+<% rgstrs = objeto.act_referencias %>
+
+<div class="px-4 objt_lnk">
+	<i class="bi bi-arrow-return-right"></i>
+	<% if rgstrs.none? %>
+		<i class="bi bi-cone-striped text-danger"></i>
+		Reporte sin enviar
+	<% else %>
+		<i class="bi bi-check2-all text-primary"></i>
+		Reporte enviado (<%= rgstrs.count %>)
+	<% end %>
+</div>

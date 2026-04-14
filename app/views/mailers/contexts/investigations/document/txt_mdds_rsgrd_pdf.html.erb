@@ -1,0 +1,59 @@
+<div class="pdf-header">
+  <div class="text-center">
+    <% if @head_url.present? %>
+      <img src="<%= @head_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Recepción de denuncias
+</div>
+
+<div class="text-center fs-5">
+  <%= @ntfcdr.titulo %>
+</div>
+
+<div class="row mt-5">
+  <div class="col-6">
+    <%= @krn_kywrd %><br>
+    Sr(a) <%= @prtcpnt.nombre %><br>
+    PRESENTE
+  </div>
+  <div class="col-6 text-end">
+    REFERENCIA:<br>
+    Denuncia <%= @record.identificador %>
+  </div>
+</div>
+
+	<p>De nuestra consideración:</p>
+
+	<p>
+	  A continuación detallamos las medidas de resguardo que se aplican a las personas denunciantes y denunciadas que participan de la denuncia <%= @record.identificador %>.
+  </p>
+	<p>
+    Para efectos del presente procedimiento, usted participa en calidad de <%= @prtcpnt.kywrd[:rol] %>.
+	</p>
+
+  <p>
+    <%= @ntfcdr.contenido.to_s.html_safe %>
+  </p>
+
+	<p>
+	  Las presentes medidas de resguardo pueden ser modificadas o reemplazadas por la Dirección del Trabajo. La corporación puede, por su parte, dictar medidas complementarias, si las presentes resultaran insuficientes.
+	</p>
+
+  <p>
+    Finalmente, les recordamos que es obligación de los participantes de la denuncia acatar las medidas establecidas y cooperar con el éxito de la investigación. Así como también, resguardar la confidencialidad de todo el proceso de investigación y sanción en el cual se inscribe la presente investigación  </p>
+
+	<p>Sin otro particular, le saluda atentamente,<br>Recepción de Denuncias – Ley N° 21.643</p>
+
+<div class="pdf-footer mt-5">
+  <div class="text-center">
+    <% if false %>
+      <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>

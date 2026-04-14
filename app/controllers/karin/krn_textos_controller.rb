@@ -1,6 +1,10 @@
 class Karin::KrnTextosController < ApplicationController
-  before_action :set_krn_texto, only: [:edit, :update, :destroy]
+  before_action :set_krn_texto, only: [:show, :edit, :update, :destroy]
   before_action :set_ownr
+
+  def show
+    
+  end
 
   def new
     @objeto = @ownr.krn_textos.build(codigo: params[:cdg])
@@ -35,16 +39,12 @@ class Karin::KrnTextosController < ApplicationController
 
   def set_ownr
     if params[:oclss].present? && params[:oid].present?
-      # Viene de la URL (acción new)
       @ownr = params[:oclss].constantize.find(params[:oid])
     elsif params[:krn_texto].present? && params[:krn_texto][:ownr_type].present?
-      # Viene del formulario (acción create)
       @ownr = params[:krn_texto][:ownr_type].constantize.find(params[:krn_texto][:ownr_id])
     elsif @objeto.present?
-      # Para edit/update/destroy, obtener del objeto existente
       @ownr = @objeto.ownr
     else
-      # Fallback por si acaso
       redirect_to root_path, alert: 'No se pudo determinar el propietario.'
     end
   end

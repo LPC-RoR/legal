@@ -2,6 +2,8 @@
 class KrnTexto < ApplicationRecord
   belongs_to :ownr, polymorphic: true
   
+  has_many :act_referencias, as: :ref
+
   # Reemplaza tu campo 'texto' por contenido enriquecido
   has_rich_text :contenido
   

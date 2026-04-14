@@ -1,7 +1,7 @@
-<% act_id 		= "#{objeto.class.name}_#{objeto.id}" %>
-<% validado 	= objeto.tiene_email_verificado? %>
-<% verificado 	= objeto.tiene_email_validado? %>
-<% articulo_516 = objeto.articulo_516 %>
+<% act_id 			= "#{objeto.class.name}_#{objeto.id}" %>
+<% email_validado 	= objeto.tiene_email_verificado? %>
+<% email_verificado = objeto.tiene_email_validado? %>
+<% articulo_516 	= objeto.articulo_516 %>
 
 <div style="margin-left: 4%;">
 
@@ -10,9 +10,11 @@
 
 	<%# Despliegue de INFORMACIÓN Y NOTIFICACIONES %>
 
-	<% if articulo_516 or verificado or validado %>
+	<% if articulo_516 or email_verificado or email_validado %>
 		<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Envío de información y notificaciones', gly: 'caret-right-fill'} do %>
-			<%= render partial: 'karin/prtcpnts/objt/lst_info_ntfccns', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
+
+			<%= render partial: prtl('act_archivos', nil, 'dsply_rprts'), locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
+
 		<% end %>
 	<% end %>
 
@@ -22,7 +24,7 @@
 
 	<% unless (@acts_hsh[objeto.clss_id] and @acts_hsh[objeto.clss_id][:cdgs].empty?) %>
 		<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Documentos controlados', gly: 'caret-right-fill'} do %>
-			<%= render partial: 'repositorios/act_archivos/dsply_list', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, dsply_lnks: true} %>
+			<%= render partial: 'repositorios/act_archivos/dsply_cntrlds', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, dsply_lnks: true} %>
 		<% end %>
 	<% end %>
 

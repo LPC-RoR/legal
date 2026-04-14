@@ -1,0 +1,43 @@
+<div class="pdf-header">
+  <div class="text-center">
+    <% if @head_url.present? %>
+      <img src="<%= @head_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Recepción de denuncias
+</div>
+
+<div class="text-center fs-5">
+  <%= @ntfcdr.titulo %>
+</div>
+
+<div class="row mt-5">
+  <div class="col-6">
+    <%= @krn_kywrd %><br>
+    Sr(a) <%= @prtcpnt.nombre %><br>
+    PRESENTE
+  </div>
+  <div class="col-6 text-end">
+    REFERENCIA:<br>
+    Denuncia <%= @record.identificador %>
+  </div>
+</div>
+
+
+<p>
+  <%= @ntfcdr.contenido.to_s.html_safe %>
+</p>
+
+
+<div class="pdf-footer mt-5">
+  <div class="text-center">
+    <% if false %>
+      <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>

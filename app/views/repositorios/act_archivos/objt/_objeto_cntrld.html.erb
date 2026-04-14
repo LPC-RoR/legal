@@ -1,0 +1,71 @@
+<%# Usa Modelo de DOCUMENTOS CONTROLADOS %>
+<% es_lista 		= mdl.act_lst?(code) %>
+
+<% act_archivos 	= es_lista ? ownr.act_archivos.where(act_archivo: code) : nil %>
+<% act_referencias 	= es_lista ? ownr.act_referencias.where(code: code) : nil %>
+<% chk_realizados 	= es_lista ? ownr.check_realizados.where(cdg: code) : nil %>
+
+<% act_archivo 		= es_lista ? nil : ownr.act_archivos.find_by(act_archivo: code) %>
+<% act_referencia	= es_lista ? nil : ownr.act_referencias.find_by(code: code) %>
+<% chk_realizado 	= es_lista ? nil : ownr.check_realizados.find_by(cdg: code) %>
+
+<% subido 			= act_archivos&.any? || act_referencias&.any? || act_archivo || act_referencia %>
+<% realizado 		= chk_realizados&.any? || chk_realizado %>
+
+<div class="row gx-1 text-<%=mdl.act_lst?(code) ? 'secondary' : 'primary'%>">
+
+	<div class="col-10">
+
+		<%# repositorios/act_archivos/objt/objt.html.erb %>
+		<%= render partial: prtl('act_archivos', 'objt', 'objt'), locals: {es_lista: es_lista, subido: subido, realizado: realizado, mdl: mdl, code: code} %>
+
+	</div>
+	<div class="col-2 text-end app_lnk">
+		<!-- Verificar uso de lnks, puede que el reporte no lo esté usando -->
+		<% if dsply_lnks %>
+
+			<%# repositorios/act_archivos/objt/lnks.html.erb %>
+			<%= render partial: prtl('act_archivos', 'objt', 'lnks'), locals: {act_archivo: act_archivo, ownr: ownr, mdl: mdl, code: code, es_lista: es_lista, realizado: realizado} %>
+
+		<% end %>
+	</div>
+</div>
+
+<%# LISTA de ActArchivo %>
+<% if es_lista %>
+	<div class="ms-4 text-primary">
+		<% act_archivos.each do |lst_fl| %>
+			<div class="row gx-1">
+				<div class="col-10">
+					<i class="bi bi-arrow-return-right"></i>
+
+					<%# repositorios/act_archivos/objt/objt.html.erb %>
+					<%= render partial: prtl('act_archivos', 'objt', 'objt'), locals: {es_lista: false, subido: subido, realizado: realizado, mdl: mdl, code: code} %>
+
+				</div>
+				<div class="col-2 text-end app_lnk">
+
+					<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: lst_fl, mdl: mdl, code: code} %>
+
+					<%# NOTIFICACIÖN DE ActArchivo: envío de reporte asociado %>
+					<%= render partial: prtl('act_archivos', 'objt', 'act_ntfcbl'), locals: {act_archivo: lst_fl, ownr: ownr, mdl: mdl, code: code} %>
+
+					<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: act_archivo} if dsply_lnks  %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+<% end %>
+
+<%# LISTA de REALIZADOS %>
+<% if realizado %>
+	<%= render partial: prtl('check_realizados', nil, 'lst_rlzds'), locals: {ownr: ownr, code: code} %>
+<% end %>
+
+<%# Archivo ANONIMIZADO %>
+<% if mdl.annmzbl?(code) and act_archivo and act_archivo.anonimizado_como.present? %>
+
+	<%# NOTIFICACIÖN DE ActArchivo: envío de reporte asociado %>
+	<%= render partial: prtl('act_archivos', 'objt', 'act_annmzd'), locals: {act_archivo: act_archivo, ownr: ownr, mdl: mdl, code: code} %>
+
+<% end %>

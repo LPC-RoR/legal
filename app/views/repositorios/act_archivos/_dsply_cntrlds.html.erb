@@ -1,0 +1,12 @@
+<% act_id = "#{ownr.class.name}_#{ownr.id}" %>
+
+<% if hsh[act_id] %>
+
+	<%# Se recorren los códigos de archivos %>
+	<% hsh[act_id][:cdgs].each do |code| %>
+
+		<%= render partial: prtl('act_archivos', 'objt', 'objeto_cntrld'), locals: {audit: ownr.dnnc.auditoria, hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: ownr, code: code, dsply_lnks: dsply_lnks} %>
+
+	<% end %>
+
+<% end %>

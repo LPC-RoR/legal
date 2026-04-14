@@ -1,12 +1,15 @@
 <!-- BTN ANONIMIZACIÓN -->
 <%= render partial: prtl('act_archivos', 'objt', 'btn_annmzr'), locals: {act_archivo: act_archivo, mdl: mdl, code: code} %>
 
-<!-- BTNs PLUS + RLZD (Lista | Archivo) -->
-<%= render partial: prtl('act_archivos', 'objt', 'btns_plus_rlzd'), locals: {act_archivo: act_archivo, ownr: ownr, mdl: mdl, code: code, es_lista: es_lista, realizado: realizado} %>
-
 <% if act_archivo %>
 	<!-- BTNs DWNLD + ELMNR (Archivo) -->
 	<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: act_archivo, mdl: mdl, code: code} %>
 
 	<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: act_archivo} %>
+<% else %>	
+	<!-- BTN REALIZADO -->
+	<%= render partial: prtl('act_archivos', 'objt', 'btn_rlzd'), locals: {ownr: ownr, code: code} %>
+
+	<!-- BTN PLUS -->
+	<%= render partial: prtl('act_archivos', 'objt', 'btn_plus'), locals: {ownr: ownr, mdl: mdl, code: code} %>
 <% end %>

@@ -1,0 +1,6 @@
+<h4>Previsualización</h4>
+<h5><%= @objeto.titulo %></h5>
+
+<%= @objeto.contenido.to_s.html_safe %>
+
+<%= link_to 'Volver', bck_path_krn_objt(@objeto) %>

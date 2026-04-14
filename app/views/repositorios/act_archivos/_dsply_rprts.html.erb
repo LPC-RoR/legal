@@ -8,7 +8,7 @@
 	<%# verifica que la accion no sea 'verificar_email', porque se resuelve por otro lado %>
 	<% unless ClssPrcdmnt.list_excluded?(actn) %>
 
-		<%= render partial: 'karin/prtcpnts/objt/actn_objt', locals: {audit: ownr.dnnc.auditoria, hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: ownr, code: actn} %>
+		<%= render partial: prtl('act_archivos', 'objt', 'objeto_rprt'), locals: {audit: ownr.dnnc.auditoria, hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: ownr, code: actn} %>
 		
 	<% end %>
 
