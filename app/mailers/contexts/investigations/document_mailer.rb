@@ -40,6 +40,16 @@ module Contexts
         )
       end
 
+      def txt_acta(investigation, recipient, pdf_data = nil, options = {})
+        setup_and_send_email(
+          investigation, 
+          recipient, 
+          pdf_data, 
+          options,
+          default_filename: "comprobante_#{investigation.id}_#{Time.current.strftime('%Y%m%d')}.pdf"
+        )
+      end
+
       def invstgcn(investigation, recipient, pdf_data = nil, options = {})
         setup_and_send_email(
           investigation, 
@@ -91,6 +101,16 @@ module Contexts
       end
 
       def dclrcn(investigation, recipient, pdf_data = nil, options = {})
+        setup_and_send_email(
+          investigation, 
+          recipient, 
+          pdf_data, 
+          options,
+          default_filename: "comprobante_#{investigation.id}_#{Time.current.strftime('%Y%m%d')}.pdf"
+        )
+      end
+
+      def txt_dclrcn(investigation, recipient, pdf_data = nil, options = {})
         setup_and_send_email(
           investigation, 
           recipient, 

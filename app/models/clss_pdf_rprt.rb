@@ -14,7 +14,9 @@ class ClssPdfRprt
 		crdncn_apt: KrnDenuncia,
 		infrmcn: KrnDenuncia,
 		dnnc: KrnDenuncia,
-		txt_mdds_rsgrd: KrnTexto
+		txt_acta: KrnTexto,
+		txt_mdds_rsgrd: KrnTexto,
+		txt_dclrcn: KrnTexto
 	}.freeze
 
 	# El reporte debe ser enviado a las personas denunciantes?
@@ -49,8 +51,9 @@ class ClssPdfRprt
 		['medidas_resguardo'].include?(rprt)
 	end
 
+
 	def self.spcl_rprt?(rprt)
-		['dclrcn'].include?(rprt)
+		['dclrcn', 'txt_dclrcn'].include?(rprt)
 	end
 
 	def self.lista_rprt?(rprt)
@@ -133,5 +136,16 @@ class ClssPdfRprt
 	def self.rdrct_path(dnnc, rprt)
 		"/krn_denuncias/#{dnnc.id}_#{ClssPdfRprt.shw_index(rprt)}"
 	end
+
+  # Métodos para el manejo de reportes TXT
+
+  def self.txt_list
+    {
+      dnnc:   ['txt_mdds_rsgrd', 'txt_objcn_rslcn', 'txt_anlss', 'txt_infrm'],
+      dnncnt: ['txt_rprsntcn', 'txt_slctd_516', 'txt_acta', 'txt_dclrcn'],
+      dnncd:  ['txt_slctd_516', 'txt_dclrcn'],
+      tstg:   ['txt_slctd_516', 'txt_dclrcn']
+    }
+  end
 
 end

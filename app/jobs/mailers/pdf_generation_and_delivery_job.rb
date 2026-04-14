@@ -56,8 +56,9 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
         end
       end
 
+      # ['dclrcn', 'txt_dclrcn']
       if ClssPdfRprt.spcl_rprt?(rprt)
-        dstntr = ntfcdr.ownr if rprt == 'dclrcn'
+        dstntr = ntfcdr.ownr
         process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, ntfcdr, browser)
       end
 

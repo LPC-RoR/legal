@@ -42,7 +42,8 @@ class ClssPrcdmnt
         { tipo: 'txt_mdds_rsgrd',       si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
         { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } }
+        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.tiene_investigador? } }
       ]
     },
     dnncd: {
@@ -59,7 +60,8 @@ class ClssPrcdmnt
         { tipo: 'txt_mdds_rsgrd',       si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
         { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } }
+        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.tiene_investigador? } }
       ]
     },
     tstg: {
@@ -74,7 +76,8 @@ class ClssPrcdmnt
         { tipo: 'drchs',                si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
         { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } }
+        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.tiene_investigador? } }
       ]
     }
   }.freeze
@@ -126,6 +129,7 @@ class ClssPrcdmnt
           'tsk_cierre_rcpcn'          => 'Registrar el cierre de la recepción',
           'tsk_asigna_invstgdr'       => 'Asigna investigador a la denuncia',
           'tsk_analisis_dnnc'         => 'Análisis de la denuncia',
+          'txt_anlss'                 => 'Análisis de la denuncia',
           'tsk_dclrcns'               => 'Agendamiento y toma de declaraciones',
           'tsk_redaccion_infrm'       => 'Redacción del informe de investigación',
           'tsk_cierre_invstgcn'       => 'Cierre de la investigación',
@@ -143,19 +147,25 @@ class ClssPrcdmnt
           'dvlcn_rslcn'           => 'Resolución de la solicitud de devolución',
           'objecion_antcdnts'     => 'Antecedentes de la objeción al investigador',
           'objecion_rslcn'        => 'Resolución de la objeción al investigador',
+          'txt_objcn_rslcn'       => 'Resolución de la objeción al investigador',
           'analisis'              => 'Análisis de la denuncia',
           'denuncia_corregida'    => 'Denuncia corregida',
           'informe'               => 'Informe de investigación',
+          'txt_infrm'             => 'Informe de investigación',
           'pronunciamiento'       => 'Pronunciamiento de la Dirección del Trabajo',
           'medidas_sanciones'     => 'Evidencia de la aplicación de medidas correctivas y sanciones',
           'crdncn_apt'            => 'Coordinación de atención psicológica temprana',
           'infrmcn'               => 'Verificación de datos de los participantes',
           'representacion'      => 'Documento que respalda representación de la persona denunciante',
+          'txt_rprsntcn'        => 'Documento que respalda representación de la persona denunciante',
           'antecedentes'        => 'Documentos presentados por el participante',
           'solicitud_516'       => 'Solicitud de aplicación artículo 516',
+          'txt_slctd_516'       => 'Solicitud de aplicación artículo 516',
+          'txt_acta'            => 'Acta de denuncia',
           'comprobante_firmado' => 'Comprobante de recepción de denuncia firmado',
           'apt'                 => 'Evidencia de atención psicológica temprana',
           'declaracion'         => 'Declaración del participante',
+          'txt_dclrcn'          => 'Declaración del participante',
           'verificar_email'       => 'Verificación de la dirección de correo electrónico',
           'dnncnt_info_oblgtr'    => 'Información obligatoria para la persona denunciante',
           'comprobante'           => 'Comprobante de recepción de denuncia',
@@ -216,4 +226,5 @@ class ClssPrcdmnt
       dnnc.plz_fecha_cmplmnt(etp_sym)
     end 
   end
+
 end

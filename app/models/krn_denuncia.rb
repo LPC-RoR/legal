@@ -16,7 +16,6 @@ class KrnDenuncia < ApplicationRecord
 	belongs_to :ownr, polymorphic: true
 
 	belongs_to :krn_empresa_externa, optional: true
-#	belongs_to :krn_investigador, optional: true
 
 	has_many :act_archivos, as: :ownr, dependent: :destroy
 	has_many :act_referencias, as: :ref
@@ -61,6 +60,15 @@ class KrnDenuncia < ApplicationRecord
 	include Dnnc
 	include DnncProc
 	include Fls
+
+	def kywrd
+		{
+			rol: 	'denuncia',
+			abrev: 	"dnnc-#{id}",
+			sym: 	:dnnc,
+			krn: 	"dnnc-#{id}-2"
+		}
+	end
 
 	def self.estrctr
 		includes(

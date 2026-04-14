@@ -48,7 +48,9 @@
 			<%= render partial: prtl('act_archivos', 'objt', 'btn_rlzd'), locals: {ownr: ownr, code: code} %>
 
 			<%# REPORTES ADMINISTRATIVOS : ownr = dstntr y ref = Denuncia %>
+			<% unless code.start_with?('txt_') %>
 			<%= render partial: prtl('act_archivos', 'objt', 'btn_email_rprt'), locals: {objeto: ownr, code: code} %>
+			<% end %>
 
 		<% else %>
 			<% unless es_lista %>
@@ -57,9 +59,6 @@
 				<% if subido && archivo %>
 					<%# DOWNLOAD de ActArchivo %>
 					<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: archivo, mdl: ClssPrcdmnt, code: code} %>
-					<%#= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/show_pdf", tltp: "Bajar #{ClssPrcdmnt.act_nombre[code].downcase}", target: '_blank'} do %>
-						<!--i class="bi bi-download"></i-->
-					<%# end %>
 
 					<%# ELIMINAR ActArchivo %>
 					<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: archivo} if current_usuario.dog? %>

@@ -1,21 +1,13 @@
   <div class="mb-3">
-    <%= form.label :codigo, "Código", class: "form-label" %>
-    
-    <% if params[:codigo].present? || form.object.codigo.present? %>
-      <%# Código predefinido - solo lectura %>
-      <%= form.text_field :codigo, 
-                       class: "form-control", 
-                       readonly: true,
-                       style: "background-color: #e9ecec;" %>
-      <small class="form-text text-muted">
-        Código predefinido para esta sección
-      </small>
-    <% else %>
-      <%# Código editable (cuando no viene por parámetro) %>
-      <%= form.text_field :codigo, 
-                       class: "form-control",
-                       placeholder: "Código del reporte" %>
-    <% end %>
+
+    <%= form.label :codigo, "Formato", class: "form-label" %>
+    <%= form.select :codigo, 
+        options_for_select(
+          @cdgs_list.map { |codigo| [ClssPrcdmnt.act_nombre[codigo], codigo] },
+          @objeto.codigo
+        ) 
+    %>    
+
   </div>
 
   <div class="mb-3">

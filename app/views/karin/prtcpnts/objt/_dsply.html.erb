@@ -28,6 +28,9 @@
 		<% end %>
 	<% end %>
 
+	<%# KrnTexto list del ownr %>
+	<%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {objeto: objeto} %>
+
 	<% if objeto.audit_notas.any? %>
 		<%= render partial: prtl_name('audit_notas', nil, 'ownr_list'), locals: {objeto: objeto} %>
 	<% end %>
