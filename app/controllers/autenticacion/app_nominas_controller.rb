@@ -53,7 +53,6 @@ class Autenticacion::AppNominasController < ApplicationController
   def verify
     @objeto = AppNomina.find_by!(verification_token: params[:token])
     @objeto.update!(email_ok: @objeto.email, verification_token: nil)
-#    @objeto.update!(email_verified: true, verification_token: nil)
 
     usuario = Usuario.find_or_initialize_by(email: @objeto.email)
 

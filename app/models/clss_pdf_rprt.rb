@@ -6,6 +6,8 @@ class ClssPdfRprt
 
 	# ********************************************************* NUEVA VERSION CENTRALIZADA DE REPORTES
 
+	# Relaciona rprt con el modelo de la referencia
+	# Por la url se pasa el nid
 	RCRD_CLSS = {
 		medidas_resguardo: ActArchivo,
 		invstgdr: KrnInvDenuncia,
@@ -19,6 +21,7 @@ class ClssPdfRprt
 		txt_dclrcn: KrnTexto
 	}.freeze
 
+	# ********************************************************* Destinatarios
 	# El reporte debe ser enviado a las personas denunciantes?
 	def self.dnncnt_rprt?(rprt)
 		['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'medidas_resguardo', 'txt_mdds_rsgrd', 'txt_acta', 'invstgdr', 'drvcn'].include?(rprt)
@@ -34,6 +37,11 @@ class ClssPdfRprt
 		['invstgcn', 'drchs', 'invstgdr', 'drvcn'].include?(rprt)
 	end
 
+	def self.cntct_rprt?(rprt)
+		['crdncn_apt', 'infrmcn'].include?(rprt)
+	end
+
+	# ********************************************************* D...
 	def self.ntfccn_rprt?(rprt)
 		['medidas_resguardo', 'txt_mdds_rsgrd', 'txt_acta', 'invstgdr', 'drvcn'].include?(rprt)
 	end
@@ -41,10 +49,6 @@ class ClssPdfRprt
 	# El reporte tiene un archivo que se subió a la plataforma
 	def self.ownr_rfrnc_rprt?(rprt)
 		['medidas_resguardo'].include?(rprt)
-	end
-
-	def self.cntct_rprt?(rprt)
-		['crdncn_apt', 'infrmcn'].include?(rprt)
 	end
 
 	def self.adjunto_subido?(rprt)
