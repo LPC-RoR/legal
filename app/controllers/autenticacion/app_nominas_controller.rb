@@ -1,7 +1,7 @@
 class Autenticacion::AppNominasController < ApplicationController
   before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
-  before_action :set_app_nomina, only: %i[ show edit update destroy rlzd ]
+  before_action :set_app_nomina, only: %i[ show edit update destroy rlzd resend_welcome_email ]
 
   include MailDesk
 
@@ -87,8 +87,19 @@ class Autenticacion::AppNominasController < ApplicationController
     redirect_to default_redirect_path(@objeto), alert: 'Token inválido'
   end
 
+  def resend_welcome_email
+    authorize @objeto, :update?
+    
+    result = @objeto.resend_user_welcome_email(reset_password: params[:reset_password].present?)
+    
+    if result[:success]
+      redirect_to default_redirect_path(@objeto), notice: result[:message]
+    else
+      redirect_to default_redirect_path(@objeto), alert: result[:error]
+    end
+  end
 
-# PATCH/PUT /app_nominas/1 or /app_nominas/1.json
+  # PATCH/PUT /app_nominas/1 or /app_nominas/1.json
   def update
     respond_to do |format|
       if @objeto.update(app_nomina_params)

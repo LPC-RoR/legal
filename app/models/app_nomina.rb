@@ -50,4 +50,27 @@ class AppNomina < ApplicationRecord
 	  verification_sent_at.present? and email == email_ok
 	end
 
+	def resend_user_welcome_email(reset_password: true)  # <-- Default true
+	  usuario = Usuario.find_by(email: email)
+	  return { success: false, error: 'Usuario no encontrado' } if usuario.nil?
+
+	  # Siempre generar nueva contraseña al reenviar
+	  new_password = Devise.friendly_token.first(12)
+	  usuario.password = new_password
+	  usuario.password_confirmation = new_password
+	  
+	  unless usuario.save
+	    return { success: false, error: usuario.errors.full_messages.join(', ') }
+	  end
+
+	  Contexts::Platform::AccountMailer
+	    .welcome_email(usuario.id, new_password)
+	    .deliver_now
+
+	  { success: true, message: 'Correo reenviado con nueva contraseña' }
+	rescue => e
+	  Rails.logger.error "Error en resend_user_welcome_email: #{e.message}"
+	  { success: false, error: e.message }
+	end
+
 end

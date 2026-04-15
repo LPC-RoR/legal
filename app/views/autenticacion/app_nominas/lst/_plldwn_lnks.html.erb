@@ -1,12 +1,15 @@
-<% if objt.email != objt.email_ok %>
 
-  <li>
+<li>
+  <% if objt.email != objt.email_ok %>
     <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/app_nominas/#{objt.id}/reenviar_correo", {key: 'nmn'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
       Enviar verificación de email
     <% end %>
-  </li>
-
-<% end %>
+  <% else %>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params("/app_nominas/#{objt.id}/resend_welcome_email", {key: 'nmn'}), tltp: nil, data: { turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Reenviar correo de bienvenida
+    <% end %>
+  <% end %>
+</li>
 
 <% if current_usuario.admin? %>
 

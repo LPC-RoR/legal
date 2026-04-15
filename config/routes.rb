@@ -264,6 +264,7 @@ Rails.application.routes.draw do
     resources :app_nominas do
       match :rlzd, via: :post, on: :member
       match :reenviar_correo, via: :post, on: :member
+      match :resend_welcome_email, via: :post, on: :member
     end
     resources :app_perfiles
     resources :app_versiones

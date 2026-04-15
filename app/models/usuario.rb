@@ -125,4 +125,20 @@ class Usuario < ApplicationRecord
     dog? || rl_admin? || rl_investigador? || rl_operacion?
   end
 
+  def resend_welcome_email!(reset_password: false)
+    if reset_password || encrypted_password.blank?
+      new_password = Devise.friendly_token.first(12)
+      update!(
+        password: new_password,
+        password_confirmation: new_password
+      )
+    else
+      new_password = nil
+    end
+
+    Contexts::Platform::AccountMailer
+      .welcome_email(id, new_password)
+      .deliver_now
+  end
+
 end
