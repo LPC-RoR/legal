@@ -23,19 +23,14 @@
 <% if current_usuario.operacion? %>
 
   <%# En el caso de los testigos, cuida que se puedan ingresar hasta en la declaración del participante %>
-  <%# modificable = @objeto.fecha_hora_dt.nil? and @objeto.fecha_trmtcn.nil? %>
-  <%# REVISAR %>
-  <% modificable = @objeto.fecha_trmtcn.nil? %>
 
-  <% unless objt.tiene_email_verificado? or (not modificable) or objt.articulo_516 %>
+  <% unless objt.tiene_email_verificado? or objt.articulo_516 %>
     <li><hr class="dropdown-divider"></li>
   <% end %>
 
-  <% if modificable %>
-    <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
-    <li><hr class="dropdown-divider"></li>
-    <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
-  <% end %>
+  <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+  <li><hr class="dropdown-divider"></li>
+  <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
 
   <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
 
