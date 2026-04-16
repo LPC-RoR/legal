@@ -25,7 +25,8 @@ module Paths
 				elsif ['KrnDerivacion'].include?(objeto.class.name)
 					"/krn_denuncias/#{objeto.krn_denuncia.id}_1"
 				elsif ['KrnTexto'].include?(objeto.class.name)
-					objeto.ownr.class.name == 'KrnDenuncia' ? "/krn_denuncias/#{objeto.krn_denuncia.id}_0" : "/krn_denuncias/#{objeto.krn_denuncia.id}_1"
+					tab = objeto.ownr.class.name == 'KrnDenuncia' ? '0' : '1'
+					"/krn_denuncias/#{objeto.ownr.dnnc.id}_#{tab}"
 				end
 			end
 		else
@@ -63,7 +64,8 @@ module Paths
 		when 'KrnDerivacion'
 			"/krn_denuncias/#{objt.krn_denuncia.id}_1"
 		when 'KrnTexto'
-			"/krn_denuncias/#{objt.ownr_id}_1"
+			tab = objt.ownr.class.name == 'KrnDenuncia' ? '0' : '1'
+			"/krn_denuncias/#{objt.ownr.dnnc.id}_#{tab}"
 		else
 			objt.ownr
 		end

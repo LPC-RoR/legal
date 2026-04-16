@@ -1,5 +1,7 @@
 # config/sidekiq.yml
-:concurrency: 2          # máx 2 threads → máx 2 req simultáneos
+:concurrency: 2
 :queues:
   - default
-  - pdf
+  - pdf_generation
+  - mailers
+  - low_priority

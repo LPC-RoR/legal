@@ -1,5 +1,4 @@
 class ActArchivo < ApplicationRecord
-  attr_accessor :skip_pdf_presence
 
   belongs_to :ownr, polymorphic: true, optional: true
 
@@ -15,9 +14,9 @@ class ActArchivo < ApplicationRecord
 
   MAX_PDF_SIZE = 20.megabytes
 
+  validate :pdf_must_be_attached
   validate :pdf_valid, unless: -> {self.rlzd}
   validate :safe_pdf, unless: -> {self.rlzd}
-  validate :pdf_must_be_attached_unless_rlzd
 
   validates :fecha, presence: true, if: -> { mdl.present? && mdl.constantize.try(:act_fecha, act_archivo) }
   validates_presence_of :act_archivo
@@ -334,30 +333,25 @@ private
     ProcesadorDemandaJob.perform_later(self.id)
   end
 
-  def pdf_must_be_attached_unless_rlzd
-    return if rlzd || skip_pdf_presence
-    errors.add(:pdf, "debe estar adjunto si no está realizado") unless pdf.attached?
+  def pdf_must_be_attached
+    errors.add(:pdf, "debe estar adjunto") unless pdf.attached?
   end
 
   def pdf_valid
     return unless pdf.attached?
 
-    # 1. Validar contenido MIME real (no solo la extensión)
     unless pdf.content_type.in?(%w[application/pdf])
       errors.add(:pdf, "debe ser un archivo PDF")
       return
     end
 
-    # 2. Validar tamaño máximo (ej. 5 MB)
     if pdf.byte_size > MAX_PDF_SIZE
       errors.add(:pdf, "supera el límite de #{MAX_PDF_SIZE / 1.megabyte}MB")
     end
 
-    # 3. Validar extensión del archivo (doble seguridad)
     unless pdf.filename.to_s.downcase.end_with?('.pdf')
       errors.add(:pdf, "debe tener extensión .pdf")
     end
-
   end
 
   def safe_pdf
@@ -458,20 +452,17 @@ private
 
   def crear_registro_anonimizado(pdf_tempfile)
     ActArchivo.transaction do
-      # 1. Crear registro SALTÁNDOSE la validación
+      pdf_tempfile.rewind
+      
       anonimizado = ActArchivo.create!(
         ownr: ownr,
         act_archivo: 'anonimizado',
         anonimizado_de: self,
-        skip_pdf_presence: true  # <-- CLAVE: evita la validación
-      )
-      
-      # 2. Adjuntar PDF después
-      pdf_tempfile.rewind
-      anonimizado.pdf.attach(
-        io: File.open(pdf_tempfile.path),
-        filename: "anonimizado_#{pdf.filename}",
-        content_type: 'application/pdf'
+        pdf: {
+          io: File.open(pdf_tempfile.path),
+          filename: "anonimizado_#{pdf.filename}",
+          content_type: 'application/pdf'
+        }
       )
       
       pdf_tempfile.close

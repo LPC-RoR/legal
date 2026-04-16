@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_08_165314) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_15_223757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -572,6 +572,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_08_165314) do
     t.datetime "chequed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "fuente"
     t.index ["cdg"], name: "index_check_realizados_on_cdg"
     t.index ["mdl"], name: "index_check_realizados_on_mdl"
     t.index ["ownr_id"], name: "index_check_realizados_on_ownr_id"

@@ -5,16 +5,16 @@ class ClssPrcdmnt
   REGLAS = {
     dnnc: {
       archivos: [
-        { nombre: 'denuncia',           si: ->(o) { o.via_declaracion != 'Presencial' or (o.via_declaracion == 'Presencial' and o.tipo_declaracion != 'Verbal') } },
+        { nombre: 'denuncia',           si: ->(o) { o.via_declaracion != 'Presencial' || (o.via_declaracion == 'Presencial' && o.tipo_declaracion != 'Verbal') } },
         { nombre: 'acta',               si: ->(o) { o.via_declaracion == 'Presencial' and o.tipo_declaracion == 'Verbal' } },
         { nombre: 'mdds_rsgrd',         si: ->(o) { true } },
         { nombre: 'notificacion',       si: ->(o) { o.rcp_dt? } },
         { nombre: 'certificado',        si: ->(o) { o.on_dt? and o.krn_derivaciones.any? } },
         { nombre: 'dvlcn_slctd',        si: ->(o) { o.ownr.activa_devolucion } },
         { nombre: 'dvlcn_rslcn',        si: ->(o) { o.solicitud_denuncia } },
-        { nombre: 'objecion_antcdnts',  si: ->(o) { o.krn_inv_denuncias.any? ? o.krn_inv_denuncias.first.objetado : false } },
-        { nombre: 'objecion_rslcn',     si: ->(o) { o.antecedentes_objecion? } },
-        { nombre: 'analisis',           si: ->(o) { o.evlcn_incnsstnt } },
+#        { nombre: 'objecion_antcdnts',  si: ->(o) { o.krn_inv_denuncias.any? ? o.krn_inv_denuncias.first.objetado : false } },
+#        { nombre: 'objecion_rslcn',     si: ->(o) { o.antecedentes_objecion? } },
+#        { nombre: 'analisis',           si: ->(o) { o.evlcn_incnsstnt } },
         { nombre: 'denuncia_corregida', si: ->(o) { o.evlcn_incnsstnt } },
         { nombre: 'informe',            si: ->(o) { o.declaraciones_completas? } },
         { nombre: 'pronunciamiento',    si: ->(o) { o.fecha_prnncmnt? } },
@@ -30,11 +30,13 @@ class ClssPrcdmnt
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
         { nombre: 'comprobante_firmado',si: ->(o) { o.act_archivos.exists?(act_archivo: 'comprobante') || o.check_realizados.exists?(cdg: 'comprobante') } },
         { nombre: 'apt',                si: ->(o) { true } },
+        { nombre: 'objcn_invstgdr',     si: ->(o) { true } },
         { nombre: 'declaracion',        si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
         { tipo: 'dnncnt_info_oblgtr',   si: ->(o) { o.dnnc.rcp_empresa? or (o.dnnc.rcp_externa? and o.dnnc.empresa?) } },
+        { tipo: 'txt_acta',             si: ->(o) { o.dnnc.via_declaracion == 'Presencial' && o.dnnc.tipo_declaracion == 'Verbal' } },
         { tipo: 'comprobante',          si: ->(o) { o.dnnc.rcp_empresa? } },
         { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'drchs',                si: ->(o) { true } },
@@ -42,6 +44,9 @@ class ClssPrcdmnt
         { tipo: 'txt_mdds_rsgrd',       si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
         { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'txt_objcn_rspst',      si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'txt_objcn_rslcn',      si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'txt_anlss',            si: ->(o) { o.dnnc.tiene_investigador? } },
         { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } },
         { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.tiene_investigador? } }
       ]
@@ -50,6 +55,7 @@ class ClssPrcdmnt
       archivos: [
         { nombre: 'antecedentes',       si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
+        { nombre: 'objcn_invstgdr',     si: ->(o) { true } },
         { nombre: 'declaracion',        si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       ],
       acciones: [
@@ -60,6 +66,8 @@ class ClssPrcdmnt
         { tipo: 'txt_mdds_rsgrd',       si: ->(o) { true } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
         { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'txt_objcn_rspst',      si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'txt_objcn_rslcn',      si: ->(o) { o.dnnc.tiene_investigador? } },
         { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } },
         { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.tiene_investigador? } }
       ]
@@ -147,7 +155,6 @@ class ClssPrcdmnt
           'dvlcn_rslcn'           => 'Resolución de la solicitud de devolución',
           'objecion_antcdnts'     => 'Antecedentes de la objeción al investigador',
           'objecion_rslcn'        => 'Resolución de la objeción al investigador',
-          'txt_objcn_rslcn'       => 'Resolución de la objeción al investigador',
           'analisis'              => 'Análisis de la denuncia',
           'denuncia_corregida'    => 'Denuncia corregida',
           'informe'               => 'Informe de investigación',
@@ -164,6 +171,9 @@ class ClssPrcdmnt
           'txt_acta'            => 'Acta de denuncia',
           'comprobante_firmado' => 'Comprobante de recepción de denuncia firmado',
           'apt'                 => 'Evidencia de atención psicológica temprana',
+          'txt_objcn_rspst'     => 'Respuesta a la objeción del investigador',
+          'txt_objcn_rslcn'     => 'Resolución a la objeción del investigador',
+          'txt_anlss'           => 'Análisis de la denuncia',
           'declaracion'         => 'Declaración del participante',
           'txt_dclrcn'          => 'Declaración del participante',
           'verificar_email'       => 'Verificación de la dirección de correo electrónico',

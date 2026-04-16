@@ -41,6 +41,11 @@ class ClssPdfRprt
 		['crdncn_apt', 'infrmcn'].include?(rprt)
 	end
 
+	# Reporte cuyo destinatario es el ownr del registro notificador
+	def self.ownr_rprt?(rprt)
+		['dclrcn', 'txt_dclrcn'].include?(rprt)
+	end
+
 	# ********************************************************* D...
 	def self.ntfccn_rprt?(rprt)
 		['medidas_resguardo', 'txt_mdds_rsgrd', 'txt_acta', 'invstgdr', 'drvcn'].include?(rprt)
@@ -53,11 +58,6 @@ class ClssPdfRprt
 
 	def self.adjunto_subido?(rprt)
 		['medidas_resguardo'].include?(rprt)
-	end
-
-
-	def self.spcl_rprt?(rprt)
-		['dclrcn', 'txt_dclrcn'].include?(rprt)
 	end
 
 	def self.lista_rprt?(rprt)

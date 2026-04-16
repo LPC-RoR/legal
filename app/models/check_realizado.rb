@@ -2,6 +2,8 @@ class CheckRealizado < ApplicationRecord
   belongs_to :ownr, polymorphic: true
   belongs_to :usuario
 
+  has_one_attached :pdf
+
   has_many :check_fuentes
 
   validates :cdg, presence: true
