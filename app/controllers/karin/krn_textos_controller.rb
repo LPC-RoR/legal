@@ -15,7 +15,7 @@ class Karin::KrnTextosController < ApplicationController
     @objeto = @ownr.krn_textos.build(krn_texto_params)
     
     if @objeto.save
-      redirect_to @ownr, notice: 'Texto creado correctamente.'
+      redirect_to default_redirect_path(@objeto), notice: 'Texto creado correctamente.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Karin::KrnTextosController < ApplicationController
 
   def update
     if @objeto.update(krn_texto_params)
-      redirect_to @ownr, notice: 'Texto actualizado correctamente.'
+      redirect_to default_redirect_path(@objeto), notice: 'Texto actualizado correctamente.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -35,7 +35,7 @@ class Karin::KrnTextosController < ApplicationController
 
   def destroy
     @objeto.destroy
-    redirect_to @ownr, notice: 'Texto eliminado.'
+    redirect_to default_redirect_path(@objeto), notice: 'Texto eliminado.'
   end
 
   private
