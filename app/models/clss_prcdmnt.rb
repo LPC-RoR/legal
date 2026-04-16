@@ -153,9 +153,6 @@ class ClssPrcdmnt
           'certificado'           => 'Certificado de denuncia derivada a la Dirección del Trabajo',
           'dvlcn_slctd'           => 'Solicitud de devolución de denuncia',
           'dvlcn_rslcn'           => 'Resolución de la solicitud de devolución',
-          'objecion_antcdnts'     => 'Antecedentes de la objeción al investigador',
-          'objecion_rslcn'        => 'Resolución de la objeción al investigador',
-          'analisis'              => 'Análisis de la denuncia',
           'denuncia_corregida'    => 'Denuncia corregida',
           'informe'               => 'Informe de investigación',
           'txt_infrm'             => 'Informe de investigación',
@@ -171,10 +168,11 @@ class ClssPrcdmnt
           'txt_acta'            => 'Acta de denuncia',
           'comprobante_firmado' => 'Comprobante de recepción de denuncia firmado',
           'apt'                 => 'Evidencia de atención psicológica temprana',
+          'objcn_invstgdr'      => 'Objeción al investigador',
           'txt_objcn_rspst'     => 'Respuesta a la objeción del investigador',
           'txt_objcn_rslcn'     => 'Resolución a la objeción del investigador',
           'txt_anlss'           => 'Análisis de la denuncia',
-          'declaracion'         => 'Declaración del participante',
+          'declaracion'         => 'Declaración del participante firmada',
           'txt_dclrcn'          => 'Declaración del participante',
           'verificar_email'       => 'Verificación de la dirección de correo electrónico',
           'dnncnt_info_oblgtr'    => 'Información obligatoria para la persona denunciante',
@@ -187,8 +185,8 @@ class ClssPrcdmnt
           'invstgdr'              => 'Notificación del investigador asignado a la denuncia',
           'dclrcn'                => 'Citación a toma de declaración',
 
-    }
-  end.freeze
+    }.freeze
+  end
 
   def self.prcs_tsks
     ['tsk_dnncnt_optn_drvcn', 'tsk_mdds_rsgrd', 'tsk_emprs_optn_drvcn', 'tsk_cierre_rcpcn', 
