@@ -45,14 +45,14 @@ module ActsChecks
 				blobs += chk_lst.map {|chk| chk.pdf.blob unless !!chk.excluir}
 			end
 		end
-		blobs.compact!
+		blobs.compact
 	end
 
 	def unir_pdfs!
 		# with_attached_pdf es un scope de ActArchivo
 
-#		blobs = cmbnds_blobs
-		blobs = cmbnds_blobs || []
+		blobs = cmbnds_blobs
+#		blobs = cmbnds_blobs || []
 
 		if self.class.name == 'KrnDenuncia'
 			krn_denunciantes.each do |dnncnt|
