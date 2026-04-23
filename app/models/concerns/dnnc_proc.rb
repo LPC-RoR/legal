@@ -1,189 +1,137 @@
 module DnncProc
  	extend ActiveSupport::Concern
 
- 	# ================================= KrnPrcdmnt
-
- 	def plz_fecha_inicio(etapa)
- 		case etapa
- 		when :etp_rcpcn
- 			fecha_hora
- 		when :etp_invstgcn
- 			# 1.- En caso de 'devolución' esta fecha prima por sobre todas las anteriores
- 			# 2.- Si la denuncia fue derivada a la DT, se usa la fecha del certificado
- 			# 3.- Se usa la evcha de recepción
- 			fecha_dvlcn? ? fecha_dvlcn : (fecha_hora_dt? ? fecha_hora_dt : fecha_hora)
- 		when :etp_infrm
- 			# ¿Es necesario fijar un hito 'término de la investigación' por ahora no lo tenemos
- 			# Mientras asumimos que el plazo es SIEMPRE dos hábiles despues de 30
- 			base = fecha_dvlcn? ? fecha_dvlcn : (fecha_hora_dt? ? fecha_hora_dt : fecha_hora)
- 			::CalFeriado.plazo_habil(base, 30)
- 		when :etp_prnncmnt
- 			# No aplica a las investigaciones investigadas por la DT
- 			# Si aplica, se calcula a partir de la fecha en la cual se envió el informe a la DT
- 			unless on_dt?
- 				fecha_env_infrm
- 			end
- 		when :etp_mdds_sncns
- 			# 1.- Investigada en la DT: fecha de recepción del informe
- 			# 2.- Plazo para el pronunciamiento vencido: 30 hábiles desde la fecha de envío
- 			# 3.- Fecha del pronunciamiento
- 			on_dt? ? fecha_rcpcn_infrm : (prnncmnt_vncd ? ::CalFeriado.plazo_habil(fecha_env_infrm, 30) : fecha_prnncmnt)
- 		end
- 	end
-
- 	def plz_fecha_cmplmnt(etapa)
- 		case etapa
- 		when :etp_rcpcn
- 			rcp_dt? ? nil : (on_dt? ? krn_derivaciones.last.fecha.to_date : fecha_trmtcn)
- 		when :etp_invstgcn
- 			on_dt? ? nil : dnnc.fecha_trmn
- 		when :etp_infrm
- 			on_dt? ? fecha_rcpcn_infrm : fecha_env_infrm
- 		when :etp_prnncmnt
- 			on_dt? ? nil : dnnc.fecha_prnncmnt
- 		when :etp_mdds_sncns
- 			fecha_cierre
- 		end
- 	end
-
- 	def plazo(etapa)
- 		case etapa
- 		when :etp_rcpcn
- 			CalFeriado.plazo_habil(plz_fecha_inicio(:etp_rcpcn), 3)
- 		when :etp_invstgcn
- 			CalFeriado.plazo_habil(plz_fecha_inicio(:etp_invstgcn), 30)
- 		when :etp_infrm
- 			CalFeriado.plazo_habil(plz_fecha_inicio(:etp_infrm), 2)
- 		when :etp_prnncmnt
- 			CalFeriado.plazo_habil(plz_fecha_inicio(:etp_prnncmnt), 30)
- 		when :etp_mdds_sncns
- 			CalFeriado.plazo_corrido(plz_fecha_inicio(:etp_mdds_sncns), 15)
- 		end
- 	end
-
- 	# Ingreso de datos de dnnc y prtcpants
+ 	# TAREA Ingreso de datos de dnnc y prtcpnts
  	def tsk_ingrs?
- 		not prtcpnts_minimos?
+ 		!prtcpnts_minimos?								# NO cumple con el ingreso mínimo
  	end
 
- 	# La empresa recibe denuncia de externa
- 	def tsk_emprs_drvcn_extrn?
- 		on_rcp? and
- 		extrn_recibida_por_emprs?
+ 	def tsk_rdrccn_dnnc?
+ 		prtcpnts_minimos? &&							# Cumple con el ingreso mínimo
+ 		krn_derivaciones.none? &&						# NO tiene derivaciones
+ 		((rcp_empresa? && externa?) || 	
+ 		(rcp_externa? && !empleados_externos?))			# Denuncia recibida por entidad sin competencia
  	end
 
- 	# Empresa externa recibe denuncia de la empresa
- 	def tsk_extrn_drvcn_emprs?
- 		on_rcp? and
- 		emprs_recibida_por_extrn?
+ 	# Tarea de envío de mails de coordinación
+ 	def tsk_mails_crdncn?
+ 		prtcpnts_minimos? &&							# Cumple con el ingreso mínimo
+ 		!tsk_rdrccn_dnnc? &&							# NO hay redirección de dnnc pendiente
+ 		(ubccn_dnnc != KrnDenuncia::RECEPTORES[1]) &&	# La denuncia no está en una Empresa Externa
+ 		(!apt_coordinada? || !vrfccn_solicitada?)		# No se ha completado el envío de correos de coordinación
  	end
 
- 	# Entrega de información obligatoria a los denunciantes
- 	# 1.- No puede haber derivaciones entre empresas pendientes
- 	# 2.- No puede esta en la DT
  	def tsk_dnncnt_info_oblgtr? 
- 		proc_not_drvcn_entre_empresas? and
- 		not_on_dt? and (not dnncnts_infrmds?)
+ 		prtcpnts_minimos? &&							# Cumple con el ingreso mínimo
+ 		!tsk_rdrccn_dnnc? &&							# NO hay redirección de dnnc pendiente				
+ 		(ubccn_dnnc != KrnDenuncia::RECEPTORES[2]) && 	# La denuncia no está en la DT
+ 		apt_coordinada? && vrfccn_solicitada? &&		# Se ha completado ele envío de correos de coordinación
+ 		!dnncnts_infrmds?								# Al menos una persona denunciante NO recibió la info obligatoria
  	end
 
  	# Opciones de derivación del denunciante
  	def tsk_dnncnt_optn_drvcn?
- 		campos = [dnncnt_investigacion_local]
- 		prtcpnts_minimos? and not_on_dt? and dnncnts_infrmds? and
- 		campos.count(true) == 0
+ 		prtcpnts_minimos? &&							# Cumple con el ingreso mínimo
+ 		!tsk_rdrccn_dnnc? &&							# NO hay redirección de dnnc pendiente
+ 		(ubccn_dnnc != KrnDenuncia::RECEPTORES[2]) && 	# La denuncia no está en la DT
+ 		apt_coordinada? && vrfccn_solicitada? &&		# Se ha completado ele envío de correos de coordinación
+ 		dnncnts_infrmds? &&								# Las personas denunciantes recibieron info obligatoria
+ 		!!dnncnt_investigacion_local != true			# NO se ha registrado voluntad del participante para investigación local
  	end
 
- 	# Coordinación de atención psicológica temprana
- 	def tsk_crdncn_apt?
- 		(on_dt? or (on_empresa? and dnncnt_investigacion_local) or empresa?) and
- 		(not apt_coordinada?)
+ 	# REVISAR Condición no verifica todo lo anterior
+ 	def tsk_cmprbnt_rcpcn?
+ 		!!dnncnt_investigacion_local && 				# La persona denunciante optó por una investigación interna
+ 		!cmprbnts_enviados?								# No se ha subido o verificado el comprobante de recepción de denuncia
  	end
 
- 	# Las personas denunciantes tienen su comprobante, pero hay que verificar que se haya subido el comprobante firmado.
- 	def tsk_comprobantes_firmados?
- 		not_on_dt? and apt_coordinada? && !comprobantes_firmados?
+ 	def tsk_vrfccn_dts_incmbnts?
+ 		cmprbnts_enviados? &&							# Se ha subido o verificado el comprobante de recepción de denuncia
+ 		!!vrfccn_dts_incmbnts != true					# NO se han verificado los datos de los incumbentes
  	end
 
  	# Enviar notificación de la recepción de la denuncia a todos los participantes
  	def tsk_notificar_dnnc?
- 		(on_dt? or (not_on_dt? and apt_coordinada? and comprobantes_firmados?)) and
- 		( not dnnc_notificada?)
+ 		!!vrfccn_dts_incmbnts &&						# Se verificaron los datos de los incumbentes
+ 		!dnnc_notificada?								# No se ha notificado la denuncia
  	end
 
  	# Enviar medidas de resguardo a los participantes
  	def tsk_mdds_rsgrd?
- 		(on_dt? or (not_on_dt? and apt_coordinada? and comprobantes_firmados? and dnnc_notificada?)) and
- 		(not mdds_rsgrd?)
+ 		dnnc_notificada? &&								# Se ha notificado la denuncia
+ 		!dnnc_mdds_rsgrd?								# NO se han notificado las medidas de resguardo
  	end
 
  	# Subir evidencia de la entrega de la apt a las personas denunciantes
  	def tsk_evidencia_apt?
- 		(on_dt? or (not_on_dt? and apt_coordinada? and comprobantes_firmados?)) and
- 		(not evidencia_apt?)
+ 		dnnc_mdds_rsgrd? &&								# Se han notificado las medidas de resguardo
+ 		!apts?											# NO se han subido evidencias de atención psicológica temprana
  	end
 
  	# Opcion de derivación de la empresa
  	def tsk_emprs_optn_drvcn?
- 		campos = [investigacion_local, investigacion_externa]
- 		not_on_dt? and evidencia_apt? and
- 		campos.count(true) == 0
+ 		dnnc_notificada? &&								# Se ha notificado la denuncia
+ 		dnnc_mdds_rsgrd? &&								# Se han notificado las medidas de resguardo
+ 		apts? &&										# Se han subido evidencias de atención psicológica temprana
+ 		!investigacion_local && !investigacion_externa	# La empresa no ha definido investigación local/externa
  	end
 
  	# Cierre de la recepción de la denuncia
  	def tsk_cierre_rcpcn?
- 		evidencia_apt? and 
- 		(on_dt? or investigacion_local or investigacion_externa) and
- 		(not fecha_hora_dt) and (not fecha_trmtcn) and (not fecha_ntfccn)
+ 		(!!investigacion_local || !!investigacion_externa || ubccn_dnnc == RECEPTORES[2]) &&
+ 		!cierre_rcpcn?									# No se ha cerrado la recepción de la denuncia
  	end
 
  	# Asignar investigador
  	def tsk_asigna_invstgdr?
- 		campos = [fecha_hora_dt?, fecha_trmtcn?, fecha_ntfccn?]
- 		not_on_dt? and
- 		campos.count(true) == 1 and krn_inv_denuncias.none?
+ 		ubccn_dnnc != KrnDenuncia::RECEPTORES[2] &&		# NO se encuentra en la DT
+ 		cierre_rcpcn? &&								# Se ha cerrado la recepción de la denuncia
+ 		!invstgdr_ok?									# NO tiene investigador (no objetado) || NO está notificado
  	end
 
  	# Análisis de la denuncia
  	def tsk_analisis_dnnc?
- 		not_on_dt? and krn_inv_denuncias.any? and
- 		(not analizada?)
+ 		invstgdr_ok? &&									# Tiene investigador (no objetado) && está notificado
+ 		!analisis_ok?									# Análisis pendiente
  	end
 
  	# Agendamiento y toma de las declaraciones
  	def tsk_dclrcns?
- 		not_on_dt? and analizada? and
- 		(not tienen_dclrcn?)
+ 		invstgdr_ok? &&									# Tiene investigador (no objetado)
+ 		analisis_ok? &&									# Análisis OK
+ 		!tienen_dclrcn?									# NO se han subido los archivos de declaración firmados
  	end
 
  	# Redacción del Informe de investigación (subir)
  	def tsk_redaccion_infrm?
- 		not_on_dt? and tienen_dclrcn? and
- 		(not tiene_infrm?)
+ 		invstgdr_ok? &&									# Tiene investigador (no objetado)
+ 		tienen_dclrcn? && 								# Se subieron todas las declaraciones
+ 		!tiene_infrm?									# NO se ha subido el informe de investigación
  	end
 
  	# Cierre de la investigación
  	def tsk_cierre_invstgcn?
- 		not_on_dt? and tiene_infrm? and
- 		(not fecha_trmn?)
+ 		tiene_infrm?									# Tiene informe de investigación
+ 		!fecha_trmn?									# NO se ha ingresado fecha de término del a investigación
  	end
 
  	# Envio o recepción del informe de investigación
  	def tsk_infrm?
- 		((not_on_dt? and fecha_trmn?) or on_dt?) and
- 		(not fecha_env_infrm?) and (not fecha_rcpcn_infrm?)
+ 		!env_rcpcn_infrm?								# NO se ha registrado el envio/recepción del informe de investigación
  	end
 
  	# Pronunciamiento de la Dirección del Trabajo
  	def tsk_prnncmnt?
- 		not_on_dt? and
- 		fecha_env_infrm? and
- 		(not fecha_prnncmnt?) and (not prnncmnt_vncd)
+ 		ubccn_dnnc != KrnDenuncia::RECEPTORES[2] &&		# NO fue investigada por la DT
+ 		fecha_env_infrm? &&
+ 		!fecha_prnncmnt? && !prnncmnt_vncd
  	end
 
  	# Aplicación de las medidas de resguardo y sanciones
  	def tsk_mdds_sncns?
- 		(on_dt? or (fecha_prnncmnt? or prnncmnt_vncd)) and
- 		(not fecha_cierre?)
+ 		(fecha_rcpcn_infrm? ||
+ 		fecha_prnncmnt? || prnncmnt_vncd) &&
+ 		!fecha_cierre?
  	end
 
  	# Procedimiento terminado

@@ -1,14 +1,15 @@
 <%# LISTA de envío : %>
 <!-- Información y notificaciones -->
 
-<%# hsh[código participante][acciones] %>
+<% actns = ClssPrcdmnt.acciones_que_aplican(ownr) %>
+
 <%# each recorre las acciones que aplican a este participante %>
-<% hsh[ownr.clss_id][:actns].each do |actn| %>
+<% actns.each do |actn| %>
 
 	<%# verifica que la accion no sea 'verificar_email', porque se resuelve por otro lado %>
 	<% unless ClssPrcdmnt.list_excluded?(actn) %>
 
-		<%= render partial: prtl('act_archivos', 'objt', 'objeto_rprt'), locals: {audit: ownr.dnnc.auditoria, hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: ownr, code: actn} %>
+		<%= render partial: prtl('act_archivos', 'objt', 'objeto_rprt'), locals: {audit: ownr.dnnc.auditoria, mdl: ClssPrcdmnt, ownr: ownr, code: actn} %>
 		
 	<% end %>
 

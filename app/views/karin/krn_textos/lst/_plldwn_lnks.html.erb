@@ -5,7 +5,7 @@
   <li>
 
     <%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=#{objt.codigo}&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}, clss: 'dropdown-item'} do %>
-      Enviar reporte
+      <%= ClssPdfRprt.no_email_rprt?(objt.codigo) ? 'Generar' : 'Enviar' %> reporte
     <% end %>
 
   </li>

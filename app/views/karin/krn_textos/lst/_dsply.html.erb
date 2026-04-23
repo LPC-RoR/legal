@@ -2,11 +2,13 @@
 
 <div class="px-4 objt_lnk">
 	<i class="bi bi-arrow-return-right"></i>
+
 	<% if rgstrs.none? %>
 		<i class="bi bi-cone-striped text-danger"></i>
-		Reporte sin enviar
+		<%= ClssPdfRprt.no_email_rprt?(objeto.codigo) ? 'PDF sin generar' : 'Reporte sin enviar' %>
 	<% else %>
 		<i class="bi bi-check2-all text-primary"></i>
-		Reporte enviado (<%= rgstrs.count %>)
+		<%= ClssPdfRprt.no_email_rprt?(objeto.codigo) ? 'PDF generado' : 'Reporte enviado' %> 
+		(<%= rgstrs.count %>)
 	<% end %>
 </div>

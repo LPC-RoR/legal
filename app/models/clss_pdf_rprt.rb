@@ -9,16 +9,17 @@ class ClssPdfRprt
 	# Relaciona rprt con el modelo de la referencia
 	# Por la url se pasa el nid
 	RCRD_CLSS = {
-		medidas_resguardo: ActArchivo,
-		invstgdr: KrnInvDenuncia,
-		drvcn: KrnDerivacion,
-		dclrcn: KrnDeclaracion,
-		crdncn_apt: KrnDenuncia,
-		infrmcn: KrnDenuncia,
-		dnnc: KrnDenuncia,
-		txt_acta: KrnTexto,
-		txt_mdds_rsgrd: KrnTexto,
-		txt_dclrcn: KrnTexto
+		medidas_resguardo: 	ActArchivo,
+		invstgdr: 					KrnInvDenuncia,
+		drvcn: 							KrnDerivacion,
+		dclrcn: 						KrnDeclaracion,
+		crdncn_apt: 				KrnDenuncia,
+		infrmcn: 						KrnDenuncia,
+		dnnc: 							KrnDenuncia,
+		txt_acta: 					KrnTexto,
+		txt_mdds_rsgrd: 		KrnTexto,
+		txt_dclrcn: 				KrnTexto,
+		txt_infrm: 					KrnTexto
 	}.freeze
 
 	# ********************************************************* Destinatarios
@@ -34,7 +35,7 @@ class ClssPdfRprt
 
 	# El reporte debe ser enviado a las personas testigos?
 	def self.tstg_rprt?(rprt)
-		['invstgcn', 'drchs', 'invstgdr', 'drvcn'].include?(rprt)
+		['drchs'].include?(rprt)
 	end
 
 	def self.cntct_rprt?(rprt)
@@ -47,6 +48,10 @@ class ClssPdfRprt
 	end
 
 	# ********************************************************* D...
+	def self.no_email_rprt?(rprt)
+		['txt_infrm'].include?(rprt)
+	end
+
 	def self.ntfccn_rprt?(rprt)
 		['medidas_resguardo', 'txt_mdds_rsgrd', 'txt_acta', 'invstgdr', 'drvcn'].include?(rprt)
 	end
@@ -71,6 +76,11 @@ class ClssPdfRprt
 
 	def self.rcrs_rprt?(rprt)
 		['dnnc'].include?(rprt)
+	end
+
+	# Tiene el mismo uso que arriba pero se usa para los reportes txt
+	def self.txt_rcrs_rprt?(rprt)
+		['txt_infrm'].include?(rprt)
 	end
 
 	# El reporte es notificable: Primer caso 'mdds_rsgrd'
@@ -105,7 +115,7 @@ class ClssPdfRprt
 	# ************************************************************************************************
 
 	def self.dnnc_rprts
-		['infrmcn', 'crdncn_apt'].freeze
+		['infrmcn', 'crdncn_apt', 'txt_infrm'].freeze
 	end
 
 	def self.dstn_rprts
@@ -126,7 +136,7 @@ class ClssPdfRprt
 		{
 			krn_denunciantes: ['dnncnt_info_oblgtr', 'comprobante', 'drchs', 'invstgcn', 'medidas_resguardo', 'invstgdr', 'drvcn', 'dclrcn'],
 			krn_denunciados: ['drchs', 'invstgcn', 'medidas_resguardo', 'invstgdr', 'drvcn', 'dclrcn'],
-			krn_testigos: ['drchs', 'invstgcn', 'invstgdr', 'drvcn', 'dclrcn'],
+			krn_testigos: ['drchs', 'drvcn', 'dclrcn'],
 			app_contactos: ['crdncn_apt', 'infrmcn']
 		}.freeze
 	end

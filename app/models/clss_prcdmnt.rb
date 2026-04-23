@@ -7,16 +7,13 @@ class ClssPrcdmnt
       archivos: [
         { nombre: 'denuncia',           si: ->(o) { o.via_declaracion != 'Presencial' || (o.via_declaracion == 'Presencial' && o.tipo_declaracion != 'Verbal') } },
         { nombre: 'acta',               si: ->(o) { o.via_declaracion == 'Presencial' and o.tipo_declaracion == 'Verbal' } },
-        { nombre: 'mdds_rsgrd',         si: ->(o) { true } },
+#        { nombre: 'mdds_rsgrd',         si: ->(o) { true } },
         { nombre: 'notificacion',       si: ->(o) { o.rcp_dt? } },
         { nombre: 'certificado',        si: ->(o) { o.on_dt? and o.krn_derivaciones.any? } },
         { nombre: 'dvlcn_slctd',        si: ->(o) { o.ownr.activa_devolucion } },
         { nombre: 'dvlcn_rslcn',        si: ->(o) { o.solicitud_denuncia } },
-#        { nombre: 'objecion_antcdnts',  si: ->(o) { o.krn_inv_denuncias.any? ? o.krn_inv_denuncias.first.objetado : false } },
-#        { nombre: 'objecion_rslcn',     si: ->(o) { o.antecedentes_objecion? } },
-#        { nombre: 'analisis',           si: ->(o) { o.evlcn_incnsstnt } },
         { nombre: 'denuncia_corregida', si: ->(o) { o.evlcn_incnsstnt } },
-        { nombre: 'informe',            si: ->(o) { o.declaraciones_completas? } },
+        { nombre: 'txt_infrm',          si: ->(o) { o.tienen_dclrcn? } },
         { nombre: 'pronunciamiento',    si: ->(o) { o.fecha_prnncmnt? } },
         { nombre: 'medidas_sanciones',  si: ->(o) { o.fecha_env_infrm? or o.plz_prnncmnt_vncd? } }
       ],
@@ -30,62 +27,62 @@ class ClssPrcdmnt
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
         { nombre: 'comprobante_firmado',si: ->(o) { o.act_archivos.exists?(act_archivo: 'comprobante') || o.check_realizados.exists?(cdg: 'comprobante') } },
         { nombre: 'apt',                si: ->(o) { true } },
-        { nombre: 'objcn_invstgdr',     si: ->(o) { true } },
-        { nombre: 'declaracion',        si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
+        { nombre: 'objcn_invstgdr',     si: ->(o) { o.dnnc.invstgdr_ok? } },
+        { nombre: 'declaracion',        si: ->(o) { o.dnnc.invstgdr_ok? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
         { tipo: 'dnncnt_info_oblgtr',   si: ->(o) { o.dnnc.rcp_empresa? or (o.dnnc.rcp_externa? and o.dnnc.empresa?) } },
         { tipo: 'txt_acta',             si: ->(o) { o.dnnc.via_declaracion == 'Presencial' && o.dnnc.tipo_declaracion == 'Verbal' } },
         { tipo: 'comprobante',          si: ->(o) { o.dnnc.rcp_empresa? } },
-        { tipo: 'invstgcn',             si: ->(o) { true } },
+        { tipo: 'invstgcn',             si: ->(o) { o.dnnc.envio_emails_prtcpnts_2? } },
         { tipo: 'drchs',                si: ->(o) { true } },
-        { tipo: 'medidas_resguardo',    si: ->(o) { o.dnnc.tiene_mdds_rsgrd? } },
-        { tipo: 'txt_mdds_rsgrd',       si: ->(o) { true } },
+#        { tipo: 'medidas_resguardo',    si: ->(o) { o.dnnc.tiene_mdds_rsgrd? } },
+        { tipo: 'txt_mdds_rsgrd',       si: ->(o) { o.dnnc.envio_emails_prtcpnts_2? } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
-        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'txt_objcn_rspst',      si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'txt_objcn_rslcn',      si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'txt_anlss',            si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.tiene_investigador? } }
+        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.invstgdr_ok? } },
+        { tipo: 'txt_objcn_rspst',      si: ->(o) { o.dnnc.file_or_check?('objcn_invstgdr') } },
+        { tipo: 'txt_objcn_rslcn',      si: ->(o) { o.dnnc.file_or_check?('txt_objcn_rspst') } },
+        { tipo: 'txt_anlss',            si: ->(o) { o.dnnc.invstgdr_ok? } },
+        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
+        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
       ]
     },
     dnncd: {
       archivos: [
-        { nombre: 'antecedentes',       si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
+        { nombre: 'antecedentes',       si: ->(o) { true } },
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
-        { nombre: 'objcn_invstgdr',     si: ->(o) { true } },
-        { nombre: 'declaracion',        si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
+        { nombre: 'objcn_invstgdr',     si: ->(o) { o.dnnc.invstgdr_ok? } },
+        { nombre: 'declaracion',        si: ->(o) { o.dnnc.invstgdr_ok? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
-        { tipo: 'invstgcn',             si: ->(o) { true } },
+        { tipo: 'invstgcn',             si: ->(o) { o.dnnc.envio_emails_prtcpnts_2? } },
         { tipo: 'drchs',                si: ->(o) { true } },
-        { tipo: 'medidas_resguardo',    si: ->(o) { o.dnnc.tiene_mdds_rsgrd? } },
-        { tipo: 'txt_mdds_rsgrd',       si: ->(o) { true } },
+#        { tipo: 'medidas_resguardo',    si: ->(o) { o.dnnc.tiene_mdds_rsgrd? } },
+        { tipo: 'txt_mdds_rsgrd',       si: ->(o) { o.dnnc.envio_emails_prtcpnts_2? } },
         { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
-        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'txt_objcn_rspst',      si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'txt_objcn_rslcn',      si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.tiene_investigador? } }
+        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.invstgdr_ok? } },
+        { tipo: 'txt_objcn_rspst',      si: ->(o) { o.dnnc.file_or_check?('objcn_invstgdr') } },
+        { tipo: 'txt_objcn_rslcn',      si: ->(o) { o.dnnc.file_or_check?('txt_objcn_rspst') } },
+        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
+        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
       ]
     },
     tstg: {
       archivos: [
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
-        { nombre: 'antecedentes',       si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
-        { nombre: 'declaracion',        si: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
+        { nombre: 'antecedentes',       si: ->(o) { o.dnnc.invstgdr_ok? } },
+        { nombre: 'declaracion',        si: ->(o) { o.dnnc.invstgdr_ok? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
-        { tipo: 'invstgcn',             si: ->(o) { true } },
+#        { tipo: 'invstgcn',             si: ->(o) { true } },
         { tipo: 'drchs',                si: ->(o) { true } },
-        { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
-        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.tiene_investigador? } },
-        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.tiene_investigador? } }
+#        { tipo: 'drvcn',                si: ->(o) { o.dnnc.krn_derivaciones.any? } },
+#        { tipo: 'invstgdr',             si: ->(o) { o.dnnc.tiene_investigador? } },
+        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
+        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
       ]
     }
   }.freeze
@@ -111,7 +108,8 @@ class ClssPrcdmnt
   def self.tsk_name
     {
       'dnncnt_info_oblgtr'    => 'tsk_dnncnt_info_oblgtr',
-      'comprobante'           => 'tsk_comprobantes_firmados'
+      'comprobante'           => 'tsk_cmprbnt_rcpcn',
+      'invstgcn'              => 'tsk_notificar_dnnc'
     }.freeze
   end
 
@@ -124,18 +122,18 @@ class ClssPrcdmnt
           'etp_mdds_sncns'            => 'Aplicación de las medidas correctivas y sanciones',
           'etp_prcdmnt_cerrado'       => 'Procedimiento cerrado',
           'tsk_ingrs'                 => 'Ingreso de datos',
-          'tsk_extrn_drvcn_emprs'     => 'Denuncia de la empresa recibida en empresa externa',
-          'tsk_emprs_drvcn_extrn'     => 'Denuncia de empresa externa recibida en la empresa',
+          'tsk_rdrccn_dnnc'           => 'Denuncia presentada en entidad que no tiene la responsabilidad de investigar',
+          'tsk_mails_crdncn'          => 'Envío de mails de coordinación del equipo de recepción.',
           'tsk_dnncnt_info_oblgtr'    => 'Entrega de información obligatoria a la persona denunciante',
           'tsk_dnncnt_optn_drvcn'     => 'Preguntar opción de derivación a la persona denunciante',
-          'tsk_crdncn_apt'            => 'Coordinación de la atención psicológica temprana.',
-          'tsk_comprobantes_firmados' => 'Subir comprobante(s) de denuncia firmado(s).',
+          'tsk_cmprbnt_rcpcn'         => 'Envío del comprobante de recepción de denuncia a la(s) persona(s) denunciante(s)',
+          'tsk_vrfccn_dts_incmbnts'   => 'Verificación de datos de las personas denunciates y denunciadas',
           'tsk_notificar_dnnc'        => 'Notificar a los participantes el inicio de la investigación.',
           'tsk_mdds_rsgrd'            => 'Notificar medidas de resguardo',
           'tsk_evidencia_apt'         => 'Subir evidencia de la atención psicológica temprana',
           'tsk_emprs_optn_drvcn'      => 'La empresa determina su opción de derivación',
           'tsk_cierre_rcpcn'          => 'Registrar el cierre de la recepción',
-          'tsk_asigna_invstgdr'       => 'Asigna investigador a la denuncia',
+          'tsk_asigna_invstgdr'       => 'Asigna investigador a la denuncia y notificarlo',
           'tsk_analisis_dnnc'         => 'Análisis de la denuncia',
           'txt_anlss'                 => 'Análisis de la denuncia',
           'tsk_dclrcns'               => 'Agendamiento y toma de declaraciones',
@@ -177,7 +175,7 @@ class ClssPrcdmnt
           'verificar_email'       => 'Verificación de la dirección de correo electrónico',
           'dnncnt_info_oblgtr'    => 'Información obligatoria para la persona denunciante',
           'comprobante'           => 'Comprobante de recepción de denuncia',
-          'invstgcn'              => 'Notificación de recepción de denuncia - ley 21.643',
+          'invstgcn'              => 'Notificación de recepción de denuncia',
           'drchs'                 => 'Derechos y obligaciones de los participantes',
           'medidas_resguardo'     => 'Notificación de las medidas de resguardo',
           'txt_mdds_rsgrd'        => 'Notificación de las medidas de resguardo',
@@ -189,17 +187,17 @@ class ClssPrcdmnt
   end
 
   def self.prcs_tsks
-    ['tsk_dnncnt_optn_drvcn', 'tsk_mdds_rsgrd', 'tsk_emprs_optn_drvcn', 'tsk_cierre_rcpcn', 
+    ['tsk_dnncnt_optn_drvcn', 'tsk_vrfccn_dts_incmbnts', 'tsk_mdds_rsgrd', 'tsk_emprs_optn_drvcn', 'tsk_cierre_rcpcn', 
       'tsk_asigna_invstgdr', 'tsk_analisis_dnnc', 'tsk_redaccion_infrm', 'tsk_cierre_invstgcn',
       'tsk_infrm', 'tsk_prnncmnt', 'tsk_mdds_sncns'].freeze
   end
 
   def self.prtcpnts_tsks
-    ['tsk_ingrs', 'tsk_dnncnt_info_oblgtr', 'tsk_crdncn_apt', 'tsk_comprobantes_firmados', 'tsk_notificar_dnnc', 'tsk_mdds_rsgrd', 'tsk_evidencia_apt', 'tsk_dclrcns'].freeze
+    ['tsk_ingrs', 'tsk_mails_crdncn', 'tsk_dnncnt_info_oblgtr', 'tsk_cmprbnt_rcpcn', 'tsk_notificar_dnnc', 'tsk_evidencia_apt', 'tsk_dclrcns'].freeze
   end
 
   def self.act_optnl?(act)
-    ['antecedentes'].include?(act)
+    ['drchs', 'antecedentes', 'comprobante_firmado', 'objcn_invstgdr'].include?(act)
   end
 
   def self.act_lst?(act)
@@ -229,7 +227,7 @@ class ClssPrcdmnt
 
   def self.plz_dsply(etp_sym, dnnc)
     if etp_sym == :etp_prnncmnt
-      dnnc.not_on_dt? and dnnc.fecha_env_infrm?
+      dnnc.ubccn_dnnc != KrnDenuncia::RECEPTORES[2] && dnnc.fecha_env_infrm?
     else
       dnnc.plz_fecha_cmplmnt(etp_sym)
     end 

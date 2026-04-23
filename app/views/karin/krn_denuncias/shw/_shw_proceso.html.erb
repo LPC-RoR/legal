@@ -11,11 +11,13 @@
 	<%= render partial: 'recursos/notas/shr/notas', locals: {ownr: objeto} %>
 </div>
 
-<%# DOCUMENTOS CONTROLADOS %>
-<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Documentos controlados de la denuncia', gly: 'caret-right-fill'} do %>
-	<%= render partial: 'repositorios/act_archivos/dsply_cntrlds', locals: {hsh: @acts_hsh, mdl: ClssPrcdmnt, ownr: objeto, dsply_lnks: true} %>
+<% if objeto.krn_denunciantes.any? %>
+	<%# KrnTexto list del ownr %>
+	<%#= render partial: prtl_name(objeto, 'shw/proceso', 'txt_rprts_lst'), locals: {objeto: objeto} %>
+	<%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {objeto: objeto} %>
 <% end %>
 
-<%# KrnTexto list del ownr %>
-<%#= render partial: prtl_name(objeto, 'shw/proceso', 'txt_rprts_lst'), locals: {objeto: objeto} %>
-<%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {objeto: objeto} %>
+<%# DOCUMENTOS CONTROLADOS %>
+<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Documentos controlados de la denuncia', gly: 'caret-right-fill'} do %>
+	<%= render partial: 'repositorios/act_archivos/dsply_cntrlds', locals: {mdl: ClssPrcdmnt, ownr: objeto, dsply_lnks: true} %>
+<% end %>

@@ -25,7 +25,6 @@ class Usuario < ApplicationRecord
            source: :age_actividad
 
   has_many :check_realizados
-  has_many :check_fuentes
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

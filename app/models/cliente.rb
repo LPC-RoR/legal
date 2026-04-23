@@ -91,10 +91,6 @@ class Cliente < ApplicationRecord
         self.app_nominas.any?
     end
 
-    def investigadores?
-        self.krn_investigadores.any?
-    end
-
     def empresas_externas?
         self.krn_empresa_externas.any?
     end

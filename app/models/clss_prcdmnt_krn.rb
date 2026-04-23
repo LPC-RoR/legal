@@ -1,9 +1,10 @@
-# app/reports/denuncia_report.rb
-class DenunciaReport
-  attr_reader :denuncia
+# app/models/clss_prcdmnt_krn.rb
+# Se usa con ClssPrcdmntKrn.new(dnnc).to_h
+class ClssPrcdmntKrn
+  attr_reader :dnnc
 
-  def initialize(denuncia)
-    @denuncia = denuncia
+  def initialize(dnnc)
+    @dnnc = dnnc
   end
 
   # Único punto de entrada

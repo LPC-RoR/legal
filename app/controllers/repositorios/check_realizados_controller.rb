@@ -1,5 +1,5 @@
 class Repositorios::CheckRealizadosController < ApplicationController
-  before_action :set_check_realizado, only: %i[ show edit update destroy ]
+  before_action :set_check_realizado, only: %i[ show show_pdf edit update destroy ]
 
   # GET /check_realizados or /check_realizados.json
   def index
@@ -10,9 +10,27 @@ class Repositorios::CheckRealizadosController < ApplicationController
   def show
   end
 
+  # GET /act_archivos/1 or /act_archivos/1.json
+  def show_pdf
+    
+    content = @objeto.pdf.download
+    
+    # Si no es PDF, guardar para inspeccionar
+    unless content.start_with?('%PDF')
+      File.write(Rails.root.join('tmp', "error_show_pdf_#{@objeto.id}.txt"), content)
+      Rails.logger.error "ERROR: Contenido no es PDF, guardado en tmp/error_show_pdf_#{@objeto.id}.txt"
+    end
+    
+    send_data content,
+              filename: @objeto.pdf.filename.to_s,
+              type: 'application/pdf',
+              disposition: 'inline'
+  end
+
   # GET /check_realizados/new
   def new
-    @objeto = CheckRealizado.new
+    ownr = params[:oclss].constantize.find(params[:oid])
+    @objeto = ownr.check_realizados.new(usuario_id: current_usuario.id, chequed_at: Time.zone.now, mdl: 'act', cdg: params[:cdg])
   end
 
   # GET /check_realizados/1/edit
@@ -25,7 +43,7 @@ class Repositorios::CheckRealizadosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Chequeo fue exitosamente creado." }
+        format.html { redirect_to act_archivo_rdrccn(@objeto), notice: "Chequeo fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +56,7 @@ class Repositorios::CheckRealizadosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(check_realizado_params)
-        format.html { redirect_to @objeto, notice: "Chequeo fue exitosamente actualizado." }
+        format.html { redirect_to act_archivo_rdrccn(@objeto), notice: "Chequeo fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +70,7 @@ class Repositorios::CheckRealizadosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to check_realizados_path, status: :see_other, notice: "Eliminado." }
+      format.html { redirect_to act_archivo_rdrccn(@objeto), status: :see_other, notice: "Eliminado." }
       format.json { head :no_content }
     end
   end
@@ -65,6 +83,6 @@ class Repositorios::CheckRealizadosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def check_realizado_params
-      params.expect(check_realizado: [ :ownr_type, :ownr_id, :app_perfil_id, :mdl, :cdg, :rlzd, :chequed_at ])
+      params.expect(check_realizado: [ :ownr_type, :ownr_id, :usuario_id, :mdl, :cdg, :rlzd, :chequed_at, :fuente, :pdf ])
     end
 end

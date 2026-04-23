@@ -19,7 +19,12 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     Rails.logger.info "Job en curso: #{rprt}"
 
 
-    ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid) if nid
+    #ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid) if nid
+    ntfcdr = if nid && ClssPdfRprt::RCRD_CLSS[rprt.to_sym]
+           ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid)
+         else
+           nil
+         end
 
     context = :investigations
     
@@ -34,25 +39,24 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     begin
       # Proceso de reportes de denunciantes, denunciados y testigos
       # process_denunciante tiene que funcionar como process_participante
+      # REPORTES DEL DENUNCIANTE
       if ClssPdfRprt.dnncnt_rprt?(rprt)
         denuncia.krn_denunciantes.each do |dnncnt|
           process_participante(denuncia, rprt, dnncnt, context, head_path, sign_path_final, ntfcdr, browser)
-          if ClssPdfRprt.tstg_rprt?(rprt)
-            dnncnt.krn_testigos.each do |tstg|
-              process_participante(denuncia, rprt, tstg, context, head_path, sign_path_final, ntfcdr, browser)
-            end
-          end
         end
       end
 
+      # REPORTES DEL DENUNCIADO
       if ClssPdfRprt.dnncd_rprt?(rprt)
         denuncia.krn_denunciados.each do |dnncd|
           process_participante(denuncia, rprt, dnncd, context, head_path, sign_path_final, ntfcdr, browser)
-          if ClssPdfRprt.tstg_rprt?(rprt)
-            dnncd.krn_testigos.each do |tstg|
-              process_participante(denuncia, rprt, tstg, context, head_path, sign_path_final, ntfcdr, browser)
-            end
-          end
+        end
+      end
+
+      # REPORTES DEL TESTIGO
+      if ClssPdfRprt.tstg_rprt?(rprt)
+        denuncia.krn_testigos.each do |tstg|
+          process_participante(denuncia, rprt, tstg, context, head_path, sign_path_final, ntfcdr, browser)
         end
       end
 
@@ -75,6 +79,11 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       if ClssPdfRprt.rcrs_rprt?(rprt)
         Rails.logger.info "Entro en rcrs_rprt, reporte: #{rprt}"
         process_participante(denuncia, rprt, nil, context, head_path, sign_path_final, denuncia, browser)
+      end
+
+      if ClssPdfRprt.txt_rcrs_rprt?(rprt)
+        Rails.logger.info "Entro en txt_rcrs_rprt, reporte: #{rprt}"
+        process_participante(denuncia, rprt, nil, context, head_path, sign_path_final, ntfcdr, browser)
       end
 
     ensure
@@ -185,7 +194,13 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       act_archivo = referenciar_act_archivo_dnnc(denuncia, prtcpnt, rprt, ntfcdr)
     else
       # Se expande para que permita generar el reporte dnnc (que no tiene destinatario)
-      ownr = rprt == 'dnnc' ? denuncia : prtcpnt
+      # ownr = rprt == 'dnnc' ? denuncia : prtcpnt
+      ownr = if prtcpnt.nil?
+               denuncia
+             else
+               prtcpnt
+             end
+
       act_archivo = crear_act_archivo(ownr, rprt, pdf_content, filename, ntfcdr)
     end
 
@@ -195,10 +210,11 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       return # Salir del método sin enviar email
     end
     
+    # Condiciones para evaluar el envío del correo electrónico
     optn_email = prtcpnt&.tiene_email_validado? || prtcpnt&.tiene_email_verificado?
     optn_certf = ClssPdfRprt.cntct_rprt?(rprt) ? false : prtcpnt&.articulo_516?
 
-    if !optn_certf && optn_email
+    if !optn_certf && optn_email && !no_email_rprt(rprt)
       # Se agrega rprt (MIGRAGDO falta prueba del template)
       enviar_pdf_por_correo(denuncia, rprt, prtcpnt, act_archivo, filename, context)
     end
@@ -427,7 +443,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
     ActArchivo.transaction do
 
-      dnnc_id = (ClssPdfRprt.cntct_rprt?(rprt) or ClssPdfRprt.rcrs_rprt?(rprt)) ? ntfcdr&.id : ownr.dnnc&.id
+      dnnc_id = (ClssPdfRprt.cntct_rprt?(rprt) || ClssPdfRprt.rcrs_rprt?(rprt) || ClssPdfRprt.txt_rcrs_rprt?(rprt)) ? ntfcdr&.id : ownr.dnnc&.id
 
 
 

@@ -4,11 +4,6 @@
 
 		<% objeto.krn_denunciantes.each do |dnncnt| %>
 			<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/stts', locals: {objt: dnncnt, acts: acts} %>
-			<div class="mt-2">
-				<% dnncnt.krn_testigos.each do |tstg| %>
-					<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/stts', locals: {objt: tstg, acts: acts} %>
-				<% end %>
-			</div>
 		<% end %>
 
 		<!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
@@ -18,13 +13,12 @@
 
 			<% objeto.krn_denunciados.each do |dnncd| %>
 				<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/stts', locals: {objt: dnncd, acts: acts} %>
-				<div class="mt-2">
-					<% dnncd.krn_testigos.each do |tstg| %>
-						<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/stts', locals: {objt: tstg, acts: acts} %>
-					<% end %>
-				</div>
 			<% end %>
 
+		<% end %>
+
+		<% objeto.krn_testigos.each do |tstg| %>
+			<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/stts', locals: {objt: tstg, acts: acts} %>
 		<% end %>
 
 	</div>

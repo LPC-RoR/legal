@@ -6,12 +6,21 @@
 <%= render partial: prtl_name(objeto, 'shw/proceso', 'tsk_dsply'), locals: {ownr: objeto} %>
 
 <!-- ActArchivo de DNNC -->
-<% rprt_apt = @objeto.ownr.coordinacion_apt %>
-<% rprt_dts = @objeto.ownr.verificacion_datos %>
-<% if @objeto.prtcpnts_minimos? and (rprt_apt or rprt_dts) %>
+<% rqrd_apt 	= !!@objeto.ownr.coordinacion_apt %>
+<% rqrd_dts 	= !!@objeto.ownr.verificacion_datos %>
+<% cntcts_apt 	= @objeto.ownr.app_contactos.exists?(grupo: 'Apt') %>
+<% cntcts_dts 	= @objeto.ownr.app_contactos.exists?(grupo: 'RRHH') %>
+
+<% if @objeto.prtcpnts_minimos? %>
 	<div class="my-2">
-		<%= render partial: 'repositorios/act_archivos/objt/objeto_rprt_rrhh', locals: {objeto: @objeto, rprt: 'crdncn_apt'} if rprt_apt %>
-		<%= render partial: 'repositorios/act_archivos/objt/objeto_rprt_rrhh', locals: {objeto: @objeto, rprt: 'infrmcn'} if rprt_dts %>
+		<%= render partial: 'repositorios/act_archivos/objt/objeto_rprt_rrhh', locals: {objeto: @objeto, rprt: 'crdncn_apt', rqrd: rqrd_apt} if cntcts_apt %>
+		<% if rqrd_apt && !cntcts_apt %>
+			<i class="bi bi-cone-striped text-danger"></i> No se ha(n) ingresado contacto(s) para la coordinación de la atención psicológica temprana.
+		<% end %>
+		<%= render partial: 'repositorios/act_archivos/objt/objeto_rprt_rrhh', locals: {objeto: @objeto, rprt: 'infrmcn', rqrd: rqrd_dts} if cntcts_dts%>
+		<% if rqrd_dts && !cntcts_dts %>
+			<i class="bi bi-cone-striped text-danger"></i> No se ha(n) ingresado contacto(s) para la verificación de los datos de los participantes.
+		<% end %>
 	</div>
 <% end %>
 
@@ -33,6 +42,11 @@
 		<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciados, clss: :head, dir: 'lst', typ: 'ln'} %>
 	<% end %>
 
+<% end %>
+
+<% if @objeto.krn_denunciantes.any? %>
+	<%= render partial: '0p/ttl_clss', locals: {source: 'krn_testigos', clss: :sub, dir: 'indx', hide_gly: true} %>
+	<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_testigos, clss: :head, dir: 'lst', typ: 'ln'} %>
 <% end %>
 
 <div class="text-end" style="font-size: 14px;">

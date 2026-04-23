@@ -26,9 +26,9 @@ class Karin::KrnDerivacionesController < ApplicationController
     if ClssDrvcn.valid?(params[:cdg])
       codigo      = params[:cdg]
       tipo        = ClssDrvcn.tipo(params[:cdg])
-      origen      = ownr.donde_estoy?
+      origen      = ownr.ubccn_dnnc
       destino     = ClssDrvcn.destino(params[:cdg])
-      empresa_id  = ownr.externa_id
+      empresa_id  = ownr.rcp_externa? ? ownr.krn_empresa_externa_id : (ownr.externa? ? ownr.emprss_ids[0] : nil)
       motivo      = ClssDrvcn.glosa(params[:cdg].to_sym)
 
       @objeto = ownr.krn_derivaciones.new(codigo: codigo, tipo: tipo, motivo: motivo, origen: origen, destino: destino, krn_empresa_externa_id: empresa_id)

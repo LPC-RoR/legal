@@ -1,5 +1,5 @@
 <% if current_usuario.recepcion? %>
-	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Coordinar la entrega de atención psicológica temprana para las personas denunciantes.', gly: 'lightbulb', clr: 'dark'} %>
+	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Enviar los mail de coordinación con el equipo de recepción.', gly: 'lightbulb', clr: 'dark'} %>
 <% else %>
 	<%= render partial: 'cuentas/prtls/inline_mssg', locals: {txt: 'Su usuario no tienen el perfil necesario para realizar esta tarea.',clr: 'danger'} %>
 <% end %>

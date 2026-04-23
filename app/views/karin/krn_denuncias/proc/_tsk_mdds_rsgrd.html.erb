@@ -1,8 +1,10 @@
+<% if tab_proceso? %>
 <%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Notificar a los participantes las medidas de resguardo.', gly: 'lightbulb'} do %>
 
 	<ol>
-		<li><b>Proceso:</b> Subir las medidas de resguardo a la plataforma</li>
-		<li><b>Participantes:</b> Notificar a todos los participantes las medidas de resguardo.</li>
+		<li>Crear la notificación editable <i>Medidas de resguardo</i></li>
+		<li>Notificar las medidas de resguardo (Enviar reporte).</li>
 	</ol>
 
+<% end %>
 <% end %>

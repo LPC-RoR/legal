@@ -3,23 +3,23 @@ module KrnPrcdmnt
   class Definicion < Base
     # Ejemplo de procedimiento "Krn" 
     etapa :etp_rcpcn do
-#      plazo ->(d) { CalFeriado.plazo_habil(d.plz_fecha_inicio(:etp_rcpcn), 3) }
+
       plazo ->(d) { d.plazo(:etp_rcpcn) }
+
       # Todos los casos pasan por esta tarea
       tarea 'tsk_ingrs',
             si: ->(d) { d.tsk_ingrs? },
             entonces: ->(d) { d.update!(krn_validada: true) }
-
-      # Empresa principal recibe dnnc de externa
-      tarea 'tsk_emprs_drvcn_extrn',
-            si: ->(d) { d.tsk_emprs_drvcn_extrn? },
-            entonces: ->(d) { d.update!(krn_validada: true) }
-
-      # Empresa externa recibe dnnc de principal tsk_drvcn_art4_1
-      tarea 'tsk_extrn_drvcn_emprs',
-            si: ->(d) { d.tsk_extrn_drvcn_emprs? },
-            entonces: ->(d) { d.update!(krn_validada: true) }
             
+      # Empresa externa recibe dnnc de principal tsk_drvcn_art4_1
+      tarea 'tsk_rdrccn_dnnc',
+            si: ->(d) { d.tsk_rdrccn_dnnc? },
+            entonces: ->(d) { d.update!(krn_validada: true) }
+
+      tarea 'tsk_mails_crdncn',
+            si: ->(d) { d.tsk_mails_crdncn? },
+            entonces: ->(d) { d.update!(krn_validada: true) }
+
       # Empresa externa recibe dnnc de principal tsk_drvcn_art4_1
       tarea 'tsk_dnncnt_info_oblgtr',
             si: ->(d) { d.tsk_dnncnt_info_oblgtr? },
@@ -27,11 +27,11 @@ module KrnPrcdmnt
       tarea 'tsk_dnncnt_optn_drvcn',
             si: ->(d) { d.tsk_dnncnt_optn_drvcn? },
             entonces: ->(d) { d.update!(krn_validada: true) }
-      tarea 'tsk_crdncn_apt',
-            si: ->(d) { d.tsk_crdncn_apt? },
+      tarea 'tsk_cmprbnt_rcpcn',
+            si: ->(d) { d.tsk_cmprbnt_rcpcn? },
             entonces: ->(d) { d.update!(krn_validada: true) }
-      tarea 'tsk_comprobantes_firmados',
-            si: ->(d) { d.tsk_comprobantes_firmados? },
+      tarea 'tsk_vrfccn_dts_incmbnts',
+            si: ->(d) { d.tsk_vrfccn_dts_incmbnts? },
             entonces: ->(d) { d.update!(krn_validada: true) }
       tarea 'tsk_notificar_dnnc',
             si: ->(d) { d.tsk_notificar_dnnc? },
@@ -53,7 +53,6 @@ module KrnPrcdmnt
     end
 
     etapa :etp_invstgcn do
-#      plazo ->(d) { CalFeriado.plazo_habil(d.plz_fecha_inicio(:etp_invstgcn), 30) }
       plazo ->(d) { d.plazo(:etp_invstgcn) }
       tarea 'tsk_asigna_invstgdr',
             si:    ->(d) { d.tsk_asigna_invstgdr? },
@@ -73,21 +72,18 @@ module KrnPrcdmnt
     end
 
     etapa :etp_infrm do
-#      plazo ->(d) { CalFeriado.plazo_habil(d.plz_fecha_inicio(:etp_infrm), 2) }
       plazo ->(d) { d.plazo(:etp_infrm) }
       tarea 'tsk_infrm',
             si:    ->(d) { d.tsk_infrm? },
             entonces: ->(d) { d.pedir_analisis_krn! }
     end
     etapa :etp_prnncmnt do
-#      plazo ->(d) { CalFeriado.plazo_habil(d.plz_fecha_inicio(:etp_prnncmnt), 30) }
       plazo ->(d) { d.plazo(:etp_prnncmnt) }
       tarea 'tsk_prnncmnt',
             si:    ->(d) { d.tsk_prnncmnt? },
             entonces: ->(d) { d.emitir_resolucion_krn! }
     end
     etapa :etp_mdds_sncns do
-#      plazo ->(d) { CalFeriado.plazo_corrido(d.plz_fecha_inicio(:etp_mdds_sncns), 15) }
       plazo ->(d) { d.plazo(:etp_mdds_sncns) }
       tarea 'tsk_mdds_sncns',
             si:    ->(d) { d.tsk_mdds_sncns? },

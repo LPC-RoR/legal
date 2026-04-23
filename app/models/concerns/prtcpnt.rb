@@ -4,6 +4,15 @@ module Prtcpnt
   # Métodos de instancia
   included do
 
+    # ********************************************** Métodos para before and after actions
+
+    # Se utiliza para garantizar la consistencia entre krn_empresa_externa_id y empleado_externo
+    def limpiar_empresa_externa
+      self.krn_empresa_externa_id = nil unless empleado_externo?
+    end
+
+    # ********************************************** Labels
+
     def cnfdntl_key
       "[CONFIDENCIAL: #{sym.to_s.upcase}-#{id}]"
     end
@@ -42,10 +51,6 @@ module Prtcpnt
       self.class.name == 'KrnTestigo' ? self.ownr.krn_denuncia : self.krn_denuncia
     end
 
-    def empleador
-      self.empleado_externo ? (self.krn_empresa_externa.present? ? self.krn_empresa_externa.razon_social : 'Pendiente de ingreso') : 'Empleado de la empresa'
-    end
-
   	def dflt_bck_rdrccn
   		"/krn_denuncias/#{self.dnnc.id}_1"
   	end
@@ -56,36 +61,9 @@ module Prtcpnt
   	end
 
     # --------------------------------- PDF Archivos y registros
-    def act_operativo?(cdg)
-      act_archivos.exists?(act_archivo: cdg) ||
-      CheckRealizado.objt_rlzd?(self, cdg)
-    end
-
-    def tiene_comprobante?
-      act_archivos.any? { |a| (a.act_archivo == 'comprobante_firmado' && a.pdf.attached?) || CheckRealizado.objt_rlzd?(self, 'comprobante_firmado') }
-    end
-
-    def tiene_mdds_rsgrd_fl?
-      act_referencias.any? { |a| a.code == 'medidas_resguardo' }
-    end
-
-    def tiene_mdds_rsgrd_chk?
-      check_realizados.any? { |c| c.cdg == 'medidas_resguardo' }
-    end
-
-    def tiene_mdds_rsgrd?
-      tiene_mdds_rsgrd_fl? || tiene_mdds_rsgrd_chk? 
-    end
 
     def tiene_dclrcn?
-      act_archivos.any? { |a| a.act_archivo == 'declaracion' && a.pdf.attached? || CheckRealizado.objt_rlzd?(self, 'declaracion') }
-    end
-
-
-
-    # DEPRECATED
-    def dclrcn?
-      self.fl?('prtcpnts_dclrcn') and (self.class.name == 'KrnTestigo' ? true : self.krn_testigos.dclrcns?)
+      file_or_check?('declaracion')
     end
 
   end
@@ -104,10 +82,6 @@ module Prtcpnt
       name == 'KrnTestigo' ? nil : all.map {|den| den.krn_empresa_externa_id if !!den.empleado_externo}.uniq
     end
 
-    # DEPRECATED
-    def dclrcns?
-      all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|objt| objt.dclrcn?}.uniq.join('-') == 'true'
-    end
 
   end
 end

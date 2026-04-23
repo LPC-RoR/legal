@@ -29,17 +29,27 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def migrar_cuantias
 
-    Usuario.all.each do |usr|
-      @objeto = AppNomina.find_by(email: usr.email)
-      if @objeto
-        if @objeto.tipo == 'operación'
-          tenant = @objeto&.ownr&.tenant
-          unless usr.has_role?(:operacion, tenant)
-            usr.add_role(:operacion, @objeto&.ownr&.tenant)
-          end
-        end
+    KrnTestigo.all.each do |tstg|
+      dnnc = tstg&.ownr&.dnnc
+      if dnnc
+        tstg.krn_denuncia_id = dnnc.id
+        tstg.save
+      else
+#        tstg.delete
       end
     end
+
+#    Usuario.all.each do |usr|
+#      @objeto = AppNomina.find_by(email: usr.email)
+#      if @objeto
+#        if @objeto.tipo == 'operación'
+#          tenant = @objeto&.ownr&.tenant
+#          unless usr.has_role?(:operacion, tenant)
+#            usr.add_role(:operacion, @objeto&.ownr&.tenant)
+#          end
+#        end
+#      end
+#    end
 
 #    Causa.std_oprtv('tramitacion').each do |r|
 #      n_pgs   = r&.tar_tarifa&.tar_pagos&.count

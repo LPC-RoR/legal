@@ -17,7 +17,7 @@ class Karin::KrnTestigosController < ApplicationController
 
   # GET /krn_testigos/new
   def new
-    @objeto = KrnTestigo.new(ownr_type: params[:oclss], ownr_id: params[:oid])
+    @objeto = KrnTestigo.new(krn_denuncia_id: params[:oid])
   end
 
   # GET /krn_testigos/1/edit
@@ -90,6 +90,6 @@ class Karin::KrnTestigosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_testigo_params
-      params.require(:krn_testigo).permit(:ownr_type, :ownr_id, :empleado_externo, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :articulo_516, :direccion_notificacion)
+      params.require(:krn_testigo).permit(:krn_denuncia_id, :ownr_type, :ownr_id, :empleado_externo, :krn_empresa_externa_id, :rut, :nombre, :cargo, :lugar_trabajo, :email, :email_ok, :articulo_4_1, :articulo_516, :direccion_notificacion)
     end
 end

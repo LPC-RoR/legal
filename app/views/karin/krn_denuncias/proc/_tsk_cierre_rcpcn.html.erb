@@ -2,8 +2,8 @@
 	<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Tareas de cierre de la recepción de la denuncia', gly: 'lightbulb'} do %>
 
 		<ol>
-			<% unless @objeto.dnnc? %>
-				<li>Suba la dennuncia a la plataforma.</li>
+			<% unless @objeto.file_or_check?('denuncia') %>
+				<li>Suba la denuncia a la plataforma.</li>
 			<% end %>
 
 			<% if @objeto.rcp_dt? %>

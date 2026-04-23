@@ -337,14 +337,12 @@ Rails.application.routes.draw do
 
     resources :act_referencias
     resources :act_metadatas
-    resources :check_realizados
-    resources :check_fuentes do
+    resources :check_realizados do
       match :show_pdf, via: :get, on: :member
     end
 
     resources :check_auditorias
     resources :audit_notas
-
 
   end
 

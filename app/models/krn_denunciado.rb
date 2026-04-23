@@ -37,10 +37,14 @@ class KrnDenunciado < ApplicationRecord
 	validates_presence_of :krn_empresa_externa_id, if: -> {empleado_externo}
 	validates_presence_of :direccion_notificacion, if: -> {articulo_516}
 
+	# Nos aseguramos que no haya asignada una empresa para un participante que no está marcado como externo
+	before_save :limpiar_empresa_externa
+
 	include Cptn
 
 	include Prtcpnt
 	include Fls
+	include ActsChecks
 
 	def kywrd
 		{
@@ -73,10 +77,6 @@ class KrnDenunciado < ApplicationRecord
 	end
 
 	# --------------------------------- Asociaciones
-
- 	def declaraciones?
- 		self.krn_declaraciones.any?
- 	end
 
  	def testigos?
  		self.krn_testigos.any?

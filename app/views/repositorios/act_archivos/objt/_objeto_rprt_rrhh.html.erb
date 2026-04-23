@@ -5,7 +5,7 @@
 <div class="row gx-1 mx-1 mb-1 py-1 px-2 border rounded-2" style="font-size: .9rem;">
 	<div class="col-8">
 		<% unless act_archivos&.any? or act_referencias&.any? or realizado&.any? %>
-			<i class="bi bi-cone-striped text-danger"></i> 
+			<i class="bi bi-cone-striped text-<%=rqrd ? 'danger' : 'primary'%>"></i> 
 		<% end %>
 		<%= ClssPrcdmnt.act_nombre[rprt] %>
 	</div>

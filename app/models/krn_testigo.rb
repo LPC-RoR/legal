@@ -2,7 +2,9 @@ class KrnTestigo < ApplicationRecord
 
 	include VerificacionEmails
 
- 	belongs_to :ownr, polymorphic: true
+	belongs_to :krn_denuncia, optional: true
+	# DEPRECATED
+ 	belongs_to :ownr, polymorphic: true, optional: true
 
 	belongs_to :krn_empresa_externa, optional: true
 
@@ -31,10 +33,14 @@ class KrnTestigo < ApplicationRecord
 	validates_presence_of :krn_empresa_externa_id, if: -> {empleado_externo}
 	validates_presence_of :direccion_notificacion, if: -> {articulo_516}
 
+	# Nos aseguramos que no haya asignada una empresa para un participante que no está marcado como externo
+	before_save :limpiar_empresa_externa
+
 	include Cptn
 
 	include Prtcpnt
 	include Fls
+	include ActsChecks
 
 	def kywrd
 		{
@@ -54,14 +60,10 @@ class KrnTestigo < ApplicationRecord
 	end
 
 	def dnnc
-		self.ownr.krn_denuncia
+		self.krn_denuncia
 	end
 
  	# --------------------------------- Asociaciones
-
- 	def declaraciones?
- 		self.krn_declaraciones.any?
- 	end
 
 	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
 	# verification_sent_at marca recepción de la verificación, se añade email == email_ok para manejar cambios de email

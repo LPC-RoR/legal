@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_15_223757) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_23_015112) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -551,17 +551,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_223757) do
     t.index ["ownr_type"], name: "index_check_auditorias_on_ownr_type"
   end
 
-  create_table "check_fuentes", force: :cascade do |t|
-    t.integer "check_realizado_id"
-    t.integer "usuario_id"
-    t.datetime "fecha"
-    t.string "fuente"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["check_realizado_id"], name: "index_check_fuentes_on_check_realizado_id"
-    t.index ["usuario_id"], name: "index_check_fuentes_on_usuario_id"
-  end
-
   create_table "check_realizados", force: :cascade do |t|
     t.string "ownr_type"
     t.integer "ownr_id"
@@ -962,6 +951,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_223757) do
     t.boolean "dnncnt_opcn_escrita"
     t.boolean "plz_invstgcn_vncd"
     t.boolean "auditoria"
+    t.boolean "vrfccn_dts_incmbnts"
     t.index ["auditoria"], name: "index_krn_denuncias_on_auditoria"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
@@ -1068,6 +1058,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_223757) do
     t.integer "n_vrfccn_lnks"
     t.datetime "fecha_vrfccn_lnk"
     t.boolean "email_adtd"
+    t.integer "krn_denuncia_id"
+    t.index ["krn_denuncia_id"], name: "index_krn_testigos_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_testigos_on_krn_empresa_externa_id"
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_testigos_on_ownr_type"

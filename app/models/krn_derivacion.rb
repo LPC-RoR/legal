@@ -31,10 +31,6 @@ class KrnDerivacion < ApplicationRecord
 		all.empty? ? false : all.ordr.last.destino == 'Empresa'
 	end
 
-	def self.on_externa?
-		all.empty? ? false : all.ordr.last.destino == 'Externa'
-	end
-
 	def dstn_dt?
 		self.destino == 'Dirección del Trabajo'
 	end

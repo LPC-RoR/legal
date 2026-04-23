@@ -4,10 +4,8 @@ class CheckRealizado < ApplicationRecord
 
   has_one_attached :pdf
 
-  has_many :check_fuentes
-
   validates :cdg, presence: true
-  validates :rlzd, inclusion: { in: [true, false] }
+#  validates :rlzd, inclusion: { in: [true, false] }
   validates :chequed_at, presence: true
 
   # Evita duplicados a nivel de modelo

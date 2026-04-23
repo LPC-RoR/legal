@@ -8,7 +8,7 @@
 	<!-- Para saber si DRVCNS está terminado -->
 	<% unless @objeto.fecha_hora_dt? or @objeto.fecha_trmtcn? %>
 		<% if  @objeto.krn_denunciantes.any? %>
-			<%= render partial: '0p/tabla/lnk_new', locals: {lnk: new_path('krn_denunciados', @objeto), tltp: "Agrega Denunciado"} %>
+			<%= render partial: '0p/tbl/lnk_new', locals: {source: 'krn_denunciados', blngs: @objeto, tltp: "Agrega Denunciado"} %>
 		<% end %>
 	<% end %>
 </div>

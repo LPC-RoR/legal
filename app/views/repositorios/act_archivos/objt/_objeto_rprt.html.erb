@@ -14,17 +14,17 @@
 <% chk_realizado 	= es_lista ? nil : ownr.check_realizados.find_by(cdg: code) %>
 
 <% subido 			= act_archivos&.any? || act_referencias&.any? || act_archivo || act_referencia %>
-<% realizado 		= chk_realizados || chk_realizado %>
-
+<% realizado 		= chk_realizados&.any? || chk_realizado %>
 
 <div class="row gx-1">
 	<div class="col-lg-10 <%= 'text-primary' if (subido || realizado) %>">
 
 		<% unless (subido || realizado) %>
+			<%# Existe un traductor de código de reporte -> código de la tarea en ClssPrcdmnt %>
 			<% if @kproc.tarea == mdl.tsk_name[code] %>
 				<i class="bi bi-arrow-right"></i>
 			<% end %>
-			<i class="bi bi-cone-striped text-danger"></i> 
+			<i class="bi bi-cone-striped text-<%= mdl.act_optnl?(code) ? 'primary' : 'danger' %>"></i> 
 		<% else %>
 			<% if realizado %>
 				<i class="bi bi-clipboard-check"></i>
@@ -44,12 +44,14 @@
 		<% unless (subido || realizado) && !ClssPdfRprt.mltpl_rprt(code) %>
 			<%# Si hay más de uno como lo registro y se puede enviar uno y otro verificado!! %>
 
+			<!-- BTN REALIZADO NEW -->
+			<%= render partial: '0p/tbl/lnk_new', locals: {source: 'check_realizados', ownr: ownr, gly: 'check2-square', gly_clss: 'text-success', prms: {cdg: code}} %>
 			<!-- BTN REALIZADO -->
-			<%= render partial: prtl('act_archivos', 'objt', 'btn_rlzd'), locals: {ownr: ownr, code: code} %>
+			<%#= render partial: prtl('act_archivos', 'objt', 'btn_rlzd'), locals: {ownr: ownr, code: code} %>
 
 			<%# REPORTES ADMINISTRATIVOS : ownr = dstntr y ref = Denuncia %>
 			<% unless code.start_with?('txt_') %>
-			<%= render partial: prtl('act_archivos', 'objt', 'btn_email_rprt'), locals: {objeto: ownr, code: code} %>
+				<%= render partial: prtl('act_archivos', 'objt', 'btn_email_rprt'), locals: {objeto: ownr, code: code} %>
 			<% end %>
 
 		<% else %>
@@ -97,9 +99,7 @@
 
 	<% end %>
 <% end %>
-
 <% if realizado %>
-
 	<%= render partial: prtl('check_realizados', nil, 'lst_rlzds'), locals: {ownr: ownr, code: code} %>
 
 <% end %>
