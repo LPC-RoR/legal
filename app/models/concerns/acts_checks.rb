@@ -51,7 +51,8 @@ module ActsChecks
 	def unir_pdfs!
 		# with_attached_pdf es un scope de ActArchivo
 
-		blobs = cmbnds_blobs
+#		blobs = cmbnds_blobs
+		blobs = cmbnds_blobs || []
 
 		if self.class.name == 'KrnDenuncia'
 			krn_denunciantes.each do |dnncnt|
