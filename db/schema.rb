@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_23_015112) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_23_183239) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -31,9 +31,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_23_015112) do
     t.bigint "anonimizado_de_id"
     t.string "processing_status", default: "pending"
     t.datetime "processed_at"
+    t.boolean "excluir"
     t.index ["act_archivo"], name: "index_act_archivos_on_act_archivo"
     t.index ["anonimizado_de_id"], name: "index_act_archivos_on_anonimizado_de_id"
     t.index ["control_fecha"], name: "index_act_archivos_on_control_fecha"
+    t.index ["excluir"], name: "index_act_archivos_on_excluir"
     t.index ["mdl"], name: "index_act_archivos_on_mdl"
     t.index ["ownr_id"], name: "index_act_archivos_on_ownr_id"
     t.index ["ownr_type", "ownr_id", "act_archivo"], name: "idx_act_archivos_polymorphic_tipo"
@@ -562,7 +564,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_23_015112) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "fuente"
+    t.datetime "fecha_envio"
+    t.boolean "excluir"
     t.index ["cdg"], name: "index_check_realizados_on_cdg"
+    t.index ["excluir"], name: "index_check_realizados_on_excluir"
     t.index ["mdl"], name: "index_check_realizados_on_mdl"
     t.index ["ownr_id"], name: "index_check_realizados_on_ownr_id"
     t.index ["ownr_type"], name: "index_check_realizados_on_ownr_type"

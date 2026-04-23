@@ -1,9 +1,9 @@
 class Repositorios::ActArchivosController < ApplicationController
-  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr ]
+  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr excluir]
   before_action :authenticate_usuario!
   before_action :scrty_on
 
-  include Paths
+  include ActCheck
 
   # GET /act_archivos or /act_archivos.json
   def index

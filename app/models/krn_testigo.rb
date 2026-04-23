@@ -2,6 +2,12 @@ class KrnTestigo < ApplicationRecord
 
 	include VerificacionEmails
 
+	CMBND_PDF_LST = [
+	  'solicitud_516', 'antecedentes',
+	  'declaracion',
+	  'dclrcn'
+	].freeze
+
 	belongs_to :krn_denuncia, optional: true
 	# DEPRECATED
  	belongs_to :ownr, polymorphic: true, optional: true

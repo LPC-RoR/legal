@@ -1,6 +1,18 @@
 class KrnDenunciante < ApplicationRecord
 	include VerificacionEmails
 
+	CMBND_PDF_LST = [
+	  'representacion', 'solicitud_516', 'antecedentes', 'comprobante_firmado',
+	  'apt',
+	  'objcn_invstgdr', 'declaracion',
+	  'dnncnt_info_oblgtr', 'comprobante',
+	  'invstgcn', 'drchs',
+	  'txt_mdds_rsgrd',
+	  'drvcn', 'invstgdr',
+	  'txt_objcn_rspst', 'txt_objcn_rslcn', 'txt_anlss',
+	  'dclrcn'
+	].freeze
+
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true
 	belongs_to :krn_empleado, optional: true

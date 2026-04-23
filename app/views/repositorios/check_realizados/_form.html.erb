@@ -2,6 +2,11 @@
 
 <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :fuente, label: 'Fuente' } %>
 
+<%= render '0p/lbld_inpts/datetime_clndr', 
+     form: form, 
+     token: :fecha_envio, 
+     label: 'Fecha y hora del envío' %>
+
 <%= render partial: '0p/lbld_inpts/act_file', locals: { form: form, token: :pdf } %>
 
 <%= render partial: '0p/lbld_inpts/hidden_lst', locals: { form: form, hddn_lst: [:ownr_type, :ownr_id, :usuario_id, :mdl, :cdg, :chequed_at ] } %>

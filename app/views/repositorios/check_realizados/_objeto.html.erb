@@ -6,12 +6,20 @@
 		<% else %>
 			<i class="bi bi-check-circle"></i>
 		<% end %>
-		<%= dma_hm(objt.created_at)%> <%= objt.fuente if objt.fuente? %>
+		<% fecha = objt.fecha_envio? ? objt.fecha_envio : objt.created_at %>
+		<i class="bi bi-calendar<%='-check' if objt.fecha_envio? %> text-<%=objt.fecha_envio? ? 'primary' : 'warning'%>"></i>
+		<%= dma_hm(fecha)%> <%= objt.fuente if objt.fuente? %>
 	</div>
 	<div class="col-2 text-end">
-		<%# No hay restricci{on para eliminar una marca de realizado %>
+		<%# El boton EXCLUIR aparece sólo en los códigos excluibles y siempre que tengan un pdf adjunto %>
+		<% if ClssPdfRprt.exclbl_pdf?(objt.cdg) and objt.pdf.attached? %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/check_realizados/#{objt.id}/excluir", tltp: "#{!!objt.excluir ? 'Incluir' : 'Excluir'} pdf", data: {turbo_method: :post}} do %>
+				<i class="bi bi-file-earmark-<%= !!objt.excluir ? 'plus' : 'minus'%>"></i>
+			<% end %>
+		<% end %>
 
 		<%= render partial: prtl('check_realizados', 'objt', 'btn_dwnld'), locals: {objt: objt, mdl: ClssPrcdmnt, code: objt.cdg} if objt.pdf.attached? %>
+		<%# No hay restricción para eliminar una marca de realizado %>
 		<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: objt} if current_usuario.dog? %>
 		<i class="bi bi-arrow-return-left"></i>
 	</div>

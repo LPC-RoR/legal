@@ -11,6 +11,17 @@ class KrnDenuncia < ApplicationRecord
 	TIPOS_DENUNCIANTE = ['Denunciante', 'Representante'].freeze
 	TIPOS_DENUNCIA = ['Escrita', 'Verbal'].freeze
 
+	CMBND_PDF_LST = [
+	  'dnnc', 'denuncia', 'acta',
+	  'notificacion',
+	  'certificado',
+	  'dvlcn_slctd', 'dvlcn_rslcn',
+	  'denuncia_corregida',
+	  'txt_infrm',
+	  'pronunciamiento',
+	  'medidas_sanciones'
+	].freeze
+
 	PROC = 'krn_invstgcn'
 
 	belongs_to :ownr, polymorphic: true
@@ -226,60 +237,6 @@ class KrnDenuncia < ApplicationRecord
 	end
 
 	# ------------------------------------------------------------------------ RCPS & DRVS
-
-
-
-
-	def unir_pdfs!
-	  blobs = []
-
-	  # 1.a → propios de la denuncia
-	  blobs += act_archivos.with_attached_pdf.map { |aa| aa.pdf.blob }
-
-	  # 1.b → de denunciantes y sus testigos
-	  den_ids  = krn_denunciantes.pluck(:id)
-	  tst_ids  = krn_denunciantes.joins(:krn_testigos).pluck('krn_testigos.id')
-	  blobs += ActArchivo
-	             .with_attached_pdf
-	             .where(ownr_type: 'KrnDenunciante', ownr_id: den_ids)
-	             .or(
-	               ActArchivo.with_attached_pdf
-	                         .where(ownr_type: 'KrnTestigo', ownr_id: tst_ids)
-	             )
-	             .map { |aa| aa.pdf.blob }
-
-	  # 1.c → de denunciados y sus testigos
-	  den_ids2 = krn_denunciados.pluck(:id)
-	  tst_ids2 = krn_denunciados.joins(:krn_testigos).pluck('krn_testigos.id')
-	  blobs += ActArchivo
-	             .with_attached_pdf
-	             .where(ownr_type: 'KrnDenunciado', ownr_id: den_ids2)
-	             .or(
-	               ActArchivo.with_attached_pdf
-	                         .where(ownr_type: 'KrnTestigo', ownr_id: tst_ids2)
-	             )
-	             .map { |aa| aa.pdf.blob }
-
-	  blobs.compact!
-	  return if blobs.empty?
-
-	  # 2. combinar … (resto idéntico)
-	  combined = CombinePDF.new
-	  blobs.each { |b| combined << CombinePDF.parse(b.download) }
-
-	  nuevo = act_archivos.new(
-	    mdl:         'ClssPrcdmnt',
-	    act_archivo: 'combinado',
-	    nombre:      "pdf_#{id}_combinado.pdf"
-	  )
-	  nuevo.pdf.attach(
-	    io:           StringIO.new(combined.to_pdf),
-	    filename:     "denuncia_#{id}_combinado.pdf",
-	    content_type: 'application/pdf'
-	  )
-	  nuevo.save!
-	  nuevo
-	end
 
 	private
 	

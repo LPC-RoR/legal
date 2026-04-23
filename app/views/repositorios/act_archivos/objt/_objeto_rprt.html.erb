@@ -89,6 +89,14 @@
 				<%= dma_hm(archivo.created_at)%>
 			</div>
 			<div class="col-2 text-end">
+
+				<%# El boton EXCLUIR aparece sólo en los códigos excluibles y siempre que tengan un pdf adjunto %>
+				<% if ClssPdfRprt.exclbl_pdf?(code) and archivo.pdf.attached? %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{archivo.id}/excluir", tltp: "#{!!archivo.excluir ? 'Incluir' : 'Excluir'} pdf", data: {turbo_method: :post}} do %>
+						<i class="bi bi-file-earmark-<%= !!archivo.excluir ? 'plus' : 'minus'%>"></i>
+					<% end %>
+				<% end %>
+
 				<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: archivo, mdl: ClssPrcdmnt, code: code} %>
 				<%# Sólo DOG puede eliminar un archivo enviado o generado %>
 				<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: archivo} if current_usuario.dog? %>

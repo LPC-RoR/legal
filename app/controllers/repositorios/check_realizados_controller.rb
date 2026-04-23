@@ -1,5 +1,7 @@
 class Repositorios::CheckRealizadosController < ApplicationController
-  before_action :set_check_realizado, only: %i[ show show_pdf edit update destroy ]
+  before_action :set_check_realizado, only: %i[ show show_pdf edit update destroy excluir ]
+
+  include ActCheck
 
   # GET /check_realizados or /check_realizados.json
   def index
@@ -83,6 +85,6 @@ class Repositorios::CheckRealizadosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def check_realizado_params
-      params.expect(check_realizado: [ :ownr_type, :ownr_id, :usuario_id, :mdl, :cdg, :rlzd, :chequed_at, :fuente, :pdf ])
+      params.expect(check_realizado: [ :ownr_type, :ownr_id, :usuario_id, :mdl, :cdg, :rlzd, :chequed_at, :fecha_envio, :fuente, :pdf ])
     end
 end

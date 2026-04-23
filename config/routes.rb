@@ -333,12 +333,14 @@ Rails.application.routes.draw do
       match :show_pdf, via: :get, on: :member
       match :rmv_cntrld, via: :post, on: :member
       match :annmzr, via: :post, on: :member
+      match :excluir, via: :post, on: :member
     end
 
     resources :act_referencias
     resources :act_metadatas
     resources :check_realizados do
       match :show_pdf, via: :get, on: :member
+      match :excluir, via: :post, on: :member
     end
 
     resources :check_auditorias

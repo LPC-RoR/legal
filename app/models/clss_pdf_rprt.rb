@@ -162,4 +162,17 @@ class ClssPdfRprt
     }
   end
 
+  # ******************************************** Manejo de ActArchivo y CheckRealizado en PDF controlado
+
+  # Códigos de PDF excluibles
+  # En KrnDenuncia no hay códigos excluibles
+  def self.exclbl_pdf?(rprt)
+  	['dclrcn'].include?(rprt)
+  end
+
+  # Códigos de PDF omitidos siempre
+  def self.omtd_pdf?(rprt)
+  	['txt_acta', 'txt_dclrcn'].include?(rprt)
+  end
+
 end
