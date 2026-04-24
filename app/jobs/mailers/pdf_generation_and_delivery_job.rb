@@ -19,7 +19,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     Rails.logger.info "Job en curso: #{rprt}"
 
 
-    #ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid) if nid
+    Rails.logger.info "DEBUG rprt=#{rprt.inspect}, sym=#{rprt.to_sym.inspect}, hash_value=#{ClssPdfRprt::RCRD_CLSS[rprt.to_sym].inspect}, has_key=#{ClssPdfRprt::RCRD_CLSS.key?(rprt.to_sym)}"    #ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid) if nid
     ntfcdr = if nid && ClssPdfRprt::RCRD_CLSS[rprt.to_sym]
            ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid)
          else
