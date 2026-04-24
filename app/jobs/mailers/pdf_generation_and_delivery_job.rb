@@ -19,12 +19,15 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     Rails.logger.info "Job en curso: #{rprt}"
 
 
-    Rails.logger.info "DEBUG rprt=#{rprt.inspect}, sym=#{rprt.to_sym.inspect}, hash_value=#{ClssPdfRprt::RCRD_CLSS[rprt.to_sym].inspect}, has_key=#{ClssPdfRprt::RCRD_CLSS.key?(rprt.to_sym)}"    #ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid) if nid
-    ntfcdr = if nid && ClssPdfRprt::RCRD_CLSS[rprt.to_sym]
-           ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid)
-         else
-           nil
-         end
+    Rails.logger.info "DEBUG: nid=#{nid.inspect}, rprt=#{rprt.inspect}, hash_has_key=#{ClssPdfRprt::RCRD_CLSS.key?(rprt.to_sym)}"
+    clss = ClssPdfRprt::RCRD_CLSS[rprt.to_sym]
+    ntfcdr = if nid.present? && clss.respond_to?(:find)
+               clss.find(nid)
+             else
+               Rails.logger.warn "PDF report '#{rprt}' no soportado o nid inválido"
+               nil
+             end
+
 
     context = :investigations
     
