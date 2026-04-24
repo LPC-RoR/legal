@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_23_183239) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_24_170323) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -32,6 +32,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_23_183239) do
     t.string "processing_status", default: "pending"
     t.datetime "processed_at"
     t.boolean "excluir"
+    t.boolean "sndd"
     t.index ["act_archivo"], name: "index_act_archivos_on_act_archivo"
     t.index ["anonimizado_de_id"], name: "index_act_archivos_on_anonimizado_de_id"
     t.index ["control_fecha"], name: "index_act_archivos_on_control_fecha"
@@ -42,6 +43,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_23_183239) do
     t.index ["ownr_type"], name: "index_act_archivos_on_ownr_type"
     t.index ["processing_status"], name: "index_act_archivos_on_processing_status"
     t.index ["rlzd"], name: "index_act_archivos_on_rlzd"
+    t.index ["sndd"], name: "index_act_archivos_on_sndd"
   end
 
   create_table "act_metadatas", force: :cascade do |t|

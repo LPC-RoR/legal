@@ -66,7 +66,7 @@ class ClssPdfRprt
 	end
 
 	def self.lista_rprt?(rprt)
-		['medidas_resguardo', 'mdds_rsgrd', 'txt_mdds_rsgrd', 'drvcn', 'invstgdr', 'dclrcn'].include?(rprt)
+		['medidas_resguardo', 'mdds_rsgrd', 'txt_mdds_rsgrd', 'drvcn', 'invstgdr', 'dclrcn', 'antecedentes', 'objecion_antcdnts', 'medidas_sanciones', 'apt'].include?(rprt)
 	end
 
 	# Reportes que se pueden generar|verificar más de una vez

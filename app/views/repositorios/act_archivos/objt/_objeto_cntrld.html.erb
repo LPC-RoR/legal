@@ -1,5 +1,6 @@
 <%# Usa Modelo de DOCUMENTOS CONTROLADOS %>
-<% es_lista 		= mdl.act_lst?(code) %>
+<%# es_lista 		= mdl.act_lst?(code) %>
+<% es_lista 		= ClssPdfRprt.lista_rprt?(code) %> 
 
 <% act_archivos 	= es_lista ? ownr.act_archivos.where(act_archivo: code) : nil %>
 <% act_referencias 	= es_lista ? ownr.act_referencias.where(code: code) : nil %>
@@ -17,7 +18,7 @@
 	<div class="col-10">
 
 		<%# repositorios/act_archivos/objt/objt.html.erb %>
-		<%= render partial: prtl('act_archivos', 'objt', 'objt'), locals: {es_lista: es_lista, subido: subido, realizado: realizado, mdl: mdl, code: code} %>
+		<%= render partial: prtl('act_archivos', 'objt', 'objt'), locals: {act_archivo: act_archivo, es_lista: es_lista, subido: subido, realizado: realizado, mdl: mdl, code: code} %>
 
 	</div>
 	<div class="col-2 text-end app_lnk">
@@ -33,14 +34,15 @@
 
 <%# LISTA de ActArchivo %>
 <% if es_lista %>
-	<div class="ms-4 text-primary">
+	<div class="mx-4 text-primary">
 		<% act_archivos.each do |lst_fl| %>
 			<div class="row gx-1">
 				<div class="col-10">
 					<i class="bi bi-arrow-return-right"></i>
-
+					<i class="bi bi-file-earmark-pdf"></i>
+					<%= lst_fl.nombre? ? lst_fl.nombre : mdl.act_nombre[code] %>
 					<%# repositorios/act_archivos/objt/objt.html.erb %>
-					<%= render partial: prtl('act_archivos', 'objt', 'objt'), locals: {es_lista: false, subido: subido, realizado: realizado, mdl: mdl, code: code} %>
+					<%#= render partial: prtl('act_archivos', 'objt', 'objt'), locals: {act_archivo: lst_fl, es_lista: false, subido: subido, realizado: realizado, mdl: mdl, code: code} %>
 
 				</div>
 				<div class="col-2 text-end app_lnk">
@@ -51,6 +53,7 @@
 					<%= render partial: prtl('act_archivos', 'objt', 'act_ntfcbl'), locals: {act_archivo: lst_fl, ownr: ownr, mdl: mdl, code: code} %>
 
 					<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: act_archivo} if dsply_lnks  %>
+					<i class="bi bi-arrow-return-left"></i>
 				</div>
 			</div>
 		<% end %>

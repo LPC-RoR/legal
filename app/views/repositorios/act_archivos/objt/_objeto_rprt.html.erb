@@ -2,12 +2,24 @@
 <%# _dsply_act_archivo se usa para controlar los reportes administrativos. En ese contexto, el reporte es el título %>
 <%# en este partial el reporte es una línea de una lista %>
 
+<%# VERSION 2.0 : Todo se maneja con listas act_archivos, act_referencias y chk_realizados %>
+
+<%# DEBUG: Identificar qué clase de ownr está causando el error %>
+<%# DEBUG: Capturar el error exacto con backtrace %>
+
+<%# Resto del código original del partial... %>
 <%# Usa Modelo de REPORTES %>
 <% es_lista 		= ClssPdfRprt.lista_rprt?(code) %>
 
-<% act_archivos 	= es_lista ? ownr.act_archivos.where(act_archivo: code) : nil %>
-<% act_referencias 	= es_lista ? ownr.act_referencias.where(code: code) : nil %>
-<% chk_realizados 	= es_lista ? ownr.check_realizados.where(cdg: code) : nil %>
+<%# Se cambia el código operativo antes de sacar es_lista para llevar a nil %>
+<%# act_archivos 	ownr.act_archivos.where(act_archivo: code) %>
+<%# act_referencias 	ownr.act_referencias.where(code: code) %>
+<%# chk_realizados 	ownr.check_realizados.where(cdg: code) %>
+
+<%# Líneas 53-55 con protección %>
+<% act_archivos    = ownr.respond_to?(:act_archivos) ? ownr.act_archivos.where(act_archivo: code) : ActArchivo.none %>
+<% act_referencias = ownr.respond_to?(:act_referencias) ? ownr.act_referencias.where(code: code) : ActReferencia.none %>
+<% chk_realizados  = ownr.respond_to?(:check_realizados) ? ownr.check_realizados.where(cdg: code) : CheckRealizado.none %>
 
 <% act_archivo 		= es_lista ? nil : ownr.act_archivos.find_by(act_archivo: code) %>
 <% act_referencia	= es_lista ? nil : ownr.act_referencias.find_by(code: code) %>
@@ -20,21 +32,18 @@
 	<div class="col-lg-10 <%= 'text-primary' if (subido || realizado) %>">
 
 		<% unless (subido || realizado) %>
-			<%# Existe un traductor de código de reporte -> código de la tarea en ClssPrcdmnt %>
 			<% if @kproc.tarea == mdl.tsk_name[code] %>
 				<i class="bi bi-arrow-right"></i>
 			<% end %>
 			<i class="bi bi-cone-striped text-<%= mdl.act_optnl?(code) ? 'primary' : 'danger' %>"></i> 
-		<% else %>
-			<% if realizado %>
-				<i class="bi bi-clipboard-check"></i>
-			<% elsif es_lista %>
-				<%# Se unificó el ícono para las listas %>
-				<i class="bi bi-list-task text-secondary"></i>
-			<% elsif act_archivo or act_referencia %>
-				<i class="bi bi-file-earmark-pdf"></i>
-			<% end %>
 		<% end %>
+
+		<% if es_lista %>
+			<i class="bi bi-list-task text-secondary"></i>
+		<% else %>
+			<i class="bi bi-file-earmark-pdf"></i>
+		<% end %>
+
 		<%= ClssPrcdmnt.act_nombre[code] %>
 
 	</div>
@@ -46,6 +55,7 @@
 
 			<!-- BTN REALIZADO NEW -->
 			<%= render partial: '0p/tbl/lnk_new', locals: {source: 'check_realizados', ownr: ownr, gly: 'check2-square', gly_clss: 'text-success', prms: {cdg: code}} %>
+
 			<!-- BTN REALIZADO -->
 			<%#= render partial: prtl('act_archivos', 'objt', 'btn_rlzd'), locals: {ownr: ownr, code: code} %>
 
@@ -60,10 +70,10 @@
 
 				<% if subido && archivo %>
 					<%# DOWNLOAD de ActArchivo %>
-					<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: archivo, mdl: ClssPrcdmnt, code: code} %>
+					<%#= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: archivo, mdl: ClssPrcdmnt, code: code} %>
 
 					<%# ELIMINAR ActArchivo %>
-					<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: archivo} if current_usuario.dog? %>
+					<%#= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: archivo} if current_usuario.dog? %>
 
 				<% end %>
 			<% end %>
@@ -73,7 +83,7 @@
 
 </div>
 
-<% if act_archivos&.any? or act_referencias&.any? %>
+<% if subido %>
 
 	<% lista = act_archivos&.any? ? act_archivos : act_referencias %>
 	
@@ -86,7 +96,13 @@
 			<div class="col-10">
 				<i class="bi bi-arrow-return-right"></i>
 				<i class="bi bi-file-pdf"></i>
+				<% if archivo.sndd %>
+					<i class="bi bi-send-check"></i>
+				<% end %>
 				<%= dma_hm(archivo.created_at)%>
+				<% if es_lista %>
+					<%= archivo.nombre %>
+				<% end %>
 			</div>
 			<div class="col-2 text-end">
 
@@ -107,6 +123,7 @@
 
 	<% end %>
 <% end %>
+
 <% if realizado %>
 	<%= render partial: prtl('check_realizados', nil, 'lst_rlzds'), locals: {ownr: ownr, code: code} %>
 

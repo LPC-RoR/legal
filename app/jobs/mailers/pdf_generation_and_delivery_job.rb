@@ -217,7 +217,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     optn_email = prtcpnt&.tiene_email_validado? || prtcpnt&.tiene_email_verificado?
     optn_certf = ClssPdfRprt.cntct_rprt?(rprt) ? false : prtcpnt&.articulo_516?
 
-    if !optn_certf && optn_email && !ClssPdfRprt.no_email_rprt(rprt)
+    if !optn_certf && optn_email && !ClssPdfRprt.no_email_rprt?(rprt)
       # Se agrega rprt (MIGRAGDO falta prueba del template)
       enviar_pdf_por_correo(denuncia, rprt, prtcpnt, act_archivo, filename, context)
     end
@@ -486,7 +486,6 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     pdf_data = act_archivo.pdf.download
 
     options = {
-      # Se usa rprt
       mailer_action: rprt.to_sym,
       subject: "#{ClssPdfRprt.sbjcts[rprt.to_sym]} - Denuncia N° #{objeto.id}",
       act_archivo: act_archivo,
@@ -501,5 +500,9 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       recipient,
       options
     ).deliver_now
+
+    # Marcar como enviado
+    act_archivo.update!(sndd: true)
   end
+
 end
