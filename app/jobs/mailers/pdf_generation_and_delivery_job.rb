@@ -2,46 +2,56 @@
 class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
   queue_as :pdf_generation
 
-  retry_on StandardError, wait: :polynomially_longer, attempts: 3
-
   def perform(denuncia_id, rprt, nid)
-    browser_path = setup_chromium_environment!
-    
-    browser = Ferrum::Browser.new(
-      headless: true,
-      browser_path: browser_path,
-      args: ["--no-sandbox", "--disable-dev-shm-usage"]
-    )
-    
-    denuncia = KrnDenuncia.find(denuncia_id)
-    return unless denuncia
 
-    Rails.logger.info "Job en curso: #{rprt}"
+    # BLOQUEO DISTRIBUIDO: Evitar ejecuciones concurrentes del mismo PDF
+    lock_key = "pdf_generation:#{denuncia_id}:#{rprt}:#{nid}"
 
+    unless Rails.cache.write(lock_key, true, expires_in: 30.minutes, unless_exist: true)
+      Rails.logger.warn "Job bloqueado - ya en ejecución: #{lock_key}"
+      return
+    end
 
-    Rails.logger.info "DEBUG: nid=#{nid.inspect}, rprt=#{rprt.inspect}, hash_has_key=#{ClssPdfRprt::RCRD_CLSS.key?(rprt.to_sym)}"
-    clss = ClssPdfRprt::RCRD_CLSS[rprt.to_sym]
-    ntfcdr = if nid.present? && clss.respond_to?(:find)
-               clss.find(nid)
-             else
-               Rails.logger.warn "PDF report '#{rprt}' no soportado o nid inválido"
-               nil
-             end
-
-
-    context = :investigations
-    
-    set_active_storage_url_options!
-
-    logo_path = obtener_ruta_imagen_logo(denuncia)
-    sign_path = obtener_ruta_imagen_sign(denuncia)
-    
-    head_path = logo_path || Rails.root.join('public', 'mssgs', 'email_head.png').to_s
-    sign_path_final = sign_path || Rails.root.join('public', 'mssgs', 'email_sign.png').to_s
+    browser = nil
+    logo_path = nil
+    sign_path = nil
 
     begin
-      # Proceso de reportes de denunciantes, denunciados y testigos
-      # process_denunciante tiene que funcionar como process_participante
+
+      browser_path = setup_chromium_environment!
+    
+      browser = Ferrum::Browser.new(
+        headless: true,
+        browser_path: browser_path,
+        args: ["--no-sandbox", "--disable-dev-shm-usage"]
+      )
+    
+      denuncia = KrnDenuncia.find(denuncia_id)
+      return unless denuncia
+
+      Rails.logger.info "Job en curso: #{rprt}"
+
+      clss = ClssPdfRprt::RCRD_CLSS[rprt.to_sym]
+      ntfcdr = if nid.present? && clss.respond_to?(:find)
+                 clss.find(nid)
+               else
+                 Rails.logger.warn "PDF report '#{rprt}' no soportado o nid inválido"
+                 nil
+               end
+
+
+      context = :investigations
+      
+      set_active_storage_url_options!
+
+      logo_path = obtener_ruta_imagen_logo(denuncia)
+      sign_path = obtener_ruta_imagen_sign(denuncia)
+      
+      head_path = logo_path || Rails.root.join('public', 'mssgs', 'email_head.png').to_s
+      sign_path_final = sign_path || Rails.root.join('public', 'mssgs', 'email_sign.png').to_s
+
+
+      # PROCESAR PARTICIPANTES CON PROTECCIÓN ANTI-DUPLICADOS
       # REPORTES DEL DENUNCIANTE
       if ClssPdfRprt.dnncnt_rprt?(rprt)
         denuncia.krn_denunciantes.each do |dnncnt|
@@ -93,25 +103,21 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       limpiar_temporales(logo_path) if logo_path.present?
       limpiar_temporales(sign_path) if sign_path.present?
       browser&.quit
+      Rails.cache.delete(lock_key)
     end
     
   rescue => e
-    # En caso de error, limpiar el bloqueo para permitir reintento
-    Rails.cache.delete("pdf_generation:#{denuncia_id}")
-    raise
-  ensure
-    # Asegurar que se limpie el bloqueo al finalizar (éxito o fracaso)
-    Rails.cache.delete("pdf_generation:#{denuncia_id}")
-    browser&.quit
+    Rails.logger.error "Error fatal en PDF job: #{e.class} - #{e.message}"
+    Rails.logger.error e.backtrace.first(10).join("\n")
+    # NO relanzamos el error para evitar reintentos automáticos que reenvíen emails
+    # En su lugar, notificar a administradores o sistema de monitoreo
+    # raise  <- COMENTADO INTENCIONALMENTE
   end
 
   def setup_chromium_environment!
-    # Detectar navegador disponible
     browser_path = detect_browser_path
-    
     Rails.logger.info "Browser path: #{browser_path}"
     
-    # Configurar locale
     ENV['LANG'] ||= 'es_CL.UTF-8'
     ENV['LC_ALL'] ||= 'es_CL.UTF-8'
     
@@ -126,17 +132,15 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       '/usr/bin/google-chrome',
       '/usr/bin/chromium-browser',
       '/usr/bin/chromium',
-      '/mnt/c/Program Files/Google/Chrome/Application/chrome.exe' # fallback WSL-Windows
+      '/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'
     ]
     
     candidates.find { |path| File.exist?(path) } || 
       raise("No se encontró Chrome/Chromium. Instala con: sudo apt install google-chrome-stable")
   end
 
-
   def obtener_ruta_imagen_logo(denuncia)
     return nil unless denuncia&.ownr&.logo&.attached?
-    
     descargar_a_temporal(denuncia.ownr.logo)
   rescue => e
     Rails.logger.error "Error obteniendo logo: #{e.message}"
@@ -145,7 +149,6 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
   def obtener_ruta_imagen_sign(denuncia)
     return nil unless denuncia&.ownr&.sign&.attached?
-    
     descargar_a_temporal(denuncia.ownr.sign)
   rescue => e
     Rails.logger.error "Error obteniendo sign: #{e.message}"
@@ -168,63 +171,54 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
   end
 
   def process_participante(denuncia, rprt, prtcpnt, context, head_path, sign_path, ntfcdr, browser)
-    # migrando a nueva versión en la que dnncnt == prtcpnt
+    # CLAVE: Verificar si ya se envió este reporte a este participante recientemente
+    # Esto previene reenvíos incluso si el job se reintenta
+    prtcpnt_id = prtcpnt&.id || 'sin_prtcpt'
+    cache_key = "pdf_enviado:#{denuncia.id}:#{rprt}:#{prtcpnt_id}:#{Date.current}"
+    
+    if Rails.cache.exist?(cache_key)
+      Rails.logger.info "PDF ya enviado hoy para #{cache_key}, saltando..."
+      return
+    end
 
-    # MIGRADO: kywrd esta definido para todos los participantes
     krn_kywrd = prtcpnt ? prtcpnt.kywrd[:krn] : "dnnc_#{denuncia.id}"
-
-    # Se agrega rprt en el nombre del PDF (MIGRADO)
     filename = "#{rprt}_#{krn_kywrd}_#{Time.current.to_i}.pdf"
 
     unless ClssPdfRprt.adjunto_subido?(rprt)
-      # Se agrega rprt (MIGRADO: prueba de templates pendiente)
-      # Se expande para que permita generar el reporte dnnc (que no tiene destinatario)
       html = generar_html_pdf(denuncia, rprt, prtcpnt, context, head_path, sign_path, krn_kywrd, ntfcdr)
-
       Rails.logger.info "HTML generado, longitud: #{html.length} caracteres"
       
-      # MIGRADO No usa prtcpnt
-#      pdf_content = generar_pdf_con_grover(html, denuncia)
       pdf_content = generar_pdf_con_ferrum(html, denuncia, browser)
       
       Rails.logger.info "PDF generado, longitud: #{pdf_content&.length || 'NIL'} bytes"
       Rails.logger.info "Es PDF válido? #{pdf_content&.start_with?('%PDF')}"
     end
     
-    # Se agrega rprt
-    # MIGRADO
     if ClssPdfRprt.adjunto_subido?(rprt)
       act_archivo = referenciar_act_archivo_dnnc(denuncia, prtcpnt, rprt, ntfcdr)
     else
-      # Se expande para que permita generar el reporte dnnc (que no tiene destinatario)
-      # ownr = rprt == 'dnnc' ? denuncia : prtcpnt
-      ownr = if prtcpnt.nil?
-               denuncia
-             else
-               prtcpnt
-             end
-
+      ownr = prtcpnt.nil? ? denuncia : prtcpnt
       act_archivo = crear_act_archivo(ownr, rprt, pdf_content, filename, ntfcdr)
     end
 
-    # Verificar que se obtuvo un act_archivo válido
     unless act_archivo
-      Rails.logger.error "No se pudo obtener o crear act_archivo para prtcpnt #{prtcpnt.id}, rprt #{rprt}"
-      return # Salir del método sin enviar email
+      Rails.logger.error "No se pudo obtener o crear act_archivo para prtcpnt #{prtcpnt&.id}, rprt #{rprt}"
+      return
     end
     
-    # Condiciones para evaluar el envío del correo electrónico
     optn_email = prtcpnt&.tiene_email_validado? || prtcpnt&.tiene_email_verificado?
     optn_certf = ClssPdfRprt.cntct_rprt?(rprt) ? false : prtcpnt&.articulo_516?
 
     if !optn_certf && optn_email && !ClssPdfRprt.no_email_rprt?(rprt)
-      # Se agrega rprt (MIGRAGDO falta prueba del template)
       enviar_pdf_por_correo(denuncia, rprt, prtcpnt, act_archivo, filename, context)
+      
+      # MARCAR COMO ENVIADO EN CACHE (24 horas)
+      Rails.cache.write(cache_key, true, expires_in: 24.hours)
     end
   rescue => e
-    Rails.logger.error "Error procesando denunciante #{prtcpnt&.id}: #{e.message}"
+    Rails.logger.error "Error procesando participante #{prtcpnt&.id}: #{e.message}"
     Rails.logger.error e.backtrace.first(10).join("\n")
-    raise
+    raise  # Relanzar para que falle el job pero sin reenviar a otros que ya se procesaron
   end
 
   def limpiar_temporales(path)
@@ -260,7 +254,6 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     sign_url = imagen_a_data_url(sign_path)
 
     html = ApplicationController.render(
-      # rprt se usa para encontrar el template del PDF
       template: "mailers/contexts/investigations/document/#{rprt}_pdf",
       layout: 'mailers/pdf/base',
       assigns: {
@@ -312,47 +305,6 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     }
   end
 
-  # CORREGIDO: Argumentos de palabra clave, no un hash
-  def generar_pdf_con_grover(html, objeto = nil)
-    # Usar el browser Ferrum ya inicializado en perform
-    # Necesitas pasar el browser como argumento o usar variable de instancia
-    
-    # O crear página temporal con Ferrum
-#    page = browser.create_page
-#    page.set_content(html)
-    
-    # Esperar a que el DOM esté listo (no networkidle)
-#    page.wait_for_selector('body', visible: true, timeout: 10000)
-
-    # CAMBIO: Usar @browser en lugar de browser
-    page = @browser.create_page
-    
-    page.set_content(html)
-    page.wait_for_selector('body', visible: true, timeout: 10000)
-    
-    # Generar PDF
-    pdf_data = page.pdf(
-      format: 'Letter',
-      margin: { top: '15mm', bottom: '25mm', left: '15mm', right: '15mm' },
-      print_background: true,
-      prefer_css_page_size: false,
-      display_header_footer: true,
-      header_template: ' ',
-      footer_template: footer_template_para(objeto)
-    )
-    
-    page.close
-    
-    pdf_data
-    
-  rescue => e
-    Rails.logger.error "Error en Ferrum PDF: #{e.class} - #{e.message}"
-    Rails.logger.error "HTML length: #{html.length}"
-    raise
-  ensure
-    page&.close  # Asegurar cierre de página
-  end
-
   def generar_pdf_con_ferrum(html, objeto, browser)
     page = browser.create_page
     
@@ -389,7 +341,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       display_header_footer: true,
       header_template: ' ',
       footer_template: footer_template,
-      encoding: :binary  # <-- Clave para obtener bytes crudos
+      encoding: :binary
     )
     
     pdf_data = pdf_data.force_encoding('ASCII-8BIT')
@@ -424,31 +376,25 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
   def referenciar_act_archivo_dnnc(denuncia, prtcpnt, rprt, ntfcdr)
     if ClssPdfRprt.act_dnnc?[rprt.to_sym]
-      # act_archivo = denuncia.act_archivos.find_by(act_archivo: ClssPdfRprt.act_dnnc?[rprt.to_sym])
       ntfcdr.act_referencias.create(ref: prtcpnt, code: rprt)
     end
-  # Verificar que se obtuvo un act_archivo válido
-  unless ntfcdr
-    Rails.logger.error "Referenciar #{prtcpnt.id}, rprt #{rprt} #{ClssPdfRprt.act_dnnc?[rprt.to_sym]}"
-    return # Salir del método sin enviar email
-  end
+    
+    unless ntfcdr
+      Rails.logger.error "Referenciar #{prtcpnt.id}, rprt #{rprt} #{ClssPdfRprt.act_dnnc?[rprt.to_sym]}"
+      return
+    end
 
     ntfcdr
   end
 
   def crear_act_archivo(ownr, rprt, pdf_content, filename, ntfcdr)
-    # Se incluyó menejo de reporte dnnc
-
     raise "PDF content es nil" if pdf_content.nil?
     raise "PDF content está vacío" if pdf_content.empty?
     raise "PDF content no es String" unless pdf_content.is_a?(String)
     raise "PDF no válido (no empieza con %PDF)" unless pdf_content.start_with?('%PDF')
 
     ActArchivo.transaction do
-
       dnnc_id = (ClssPdfRprt.cntct_rprt?(rprt) || ClssPdfRprt.rcrs_rprt?(rprt) || ClssPdfRprt.txt_rcrs_rprt?(rprt)) ? ntfcdr&.id : ownr.dnnc&.id
-
-
 
       act_archivo = ActArchivo.new(
         ownr: ownr,
@@ -465,7 +411,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
       act_archivo.save!
 
-      act_archivo.act_referencias.create(ref: ntfcdr, code: rprt) if ntfcdr unless rprt == 'dnnc'
+      act_archivo.act_referencias.create(ref: ntfcdr, code: rprt) if ntfcdr && rprt != 'dnnc'
       
       Rails.logger.info "ActArchivo guardado: ID #{act_archivo.id}, PDF adjunto: #{act_archivo.pdf.attached?}, tamaño: #{act_archivo.pdf.byte_size}"
       
@@ -478,6 +424,12 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
   end
 
   def enviar_pdf_por_correo(objeto, rprt, prtcpnt, act_archivo, filename, context)
+    # IDEMPOTENCIA: Verificar en base de datos si ya fue enviado
+    if act_archivo.sndd?
+      Rails.logger.info "Email ya enviado para act_archivo #{act_archivo.id}, saltando..."
+      return
+    end
+
     recipient = OpenStruct.new(
       email: prtcpnt.email,
       nombre: prtcpnt.nombre

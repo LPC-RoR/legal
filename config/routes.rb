@@ -81,29 +81,6 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'rprts' do
-    resources :krn_reportes do
-      match :dnncnt_info_oblgtr, via: :get, on: :collection
-      match :dnnc, via: :get, on: :collection
-      match :drchs, via: :get, on: :collection
-      match :infrmcn, via: :get, on: :collection
-      match :invstgcn, via: :get, on: :collection
-      match :invstgdr, via: :get, on: :collection
-      match :dclrcn, via: :get, on: :collection
-      match :drvcn, via: :get, on: :collection
-      match :generate_and_send_report, via: :get, on: :collection
-      match :generate_and_store_report, via: :get, on: :collection
-      match :generate_and_store_dnnc, via: :get, on: :collection
-      match :audit_rprt, via: :get, on: :collection
-    end
-    resources :pdf_reportes, path: 'pdf_reportes', only: [] do
-      collection do
-        post :generar
-        get :descargar
-      end
-    end
-  end
-
   scope module: 'lgl' do
     resources :lgl_repositorios
     resources :lgl_leyes

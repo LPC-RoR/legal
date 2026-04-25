@@ -12,14 +12,6 @@
   </li>
 <% end %>
 
-<% unless objt.act_archivo&.pdf&.attached? %>
-  <li>
-  <%= render layout: '0p/tltp_lnk', locals: {lnk: generar_pdf_reportes_path(modelo: 'tar_aprobacion', id: objt.id), tltp: objt.cliente.razon_social, clss: 'dropdown-item', data: { turbo_method: :post } } do %>
-    Generar PDF
-  <% end %>
-  </li>
-<% end %>
-
 <% unless objt.tar_calculos.any? %>
 
   <!--li><hr class="dropdown-divider"></li-->
