@@ -4,14 +4,6 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
   def perform(denuncia_id, rprt, nid)
 
-    # BLOQUEO DISTRIBUIDO: Evitar ejecuciones concurrentes del mismo PDF
-    lock_key = "pdf_generation:#{denuncia_id}:#{rprt}:#{nid}"
-
-    unless Rails.cache.write(lock_key, true, expires_in: 30.minutes, unless_exist: true)
-      Rails.logger.warn "Job bloqueado - ya en ejecución: #{lock_key}"
-      return
-    end
-
     browser = nil
     logo_path = nil
     sign_path = nil
@@ -174,10 +166,21 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     # CLAVE: Verificar si ya se envió este reporte a este participante recientemente
     # Esto previene reenvíos incluso si el job se reintenta
     prtcpnt_id = prtcpnt&.id || 'sin_prtcpt'
+
+    # LOCK DISTRIBUIDO POR PARTICIPANTE
+    lock_key = "pdf_generation:#{denuncia.id}:#{rprt}:#{prtcpnt_id}:#{Date.current}"
+
+    unless Rails.cache.write(lock_key, true, expires_in: 30.minutes, unless_exist: true)
+      Rails.logger.warn "Job bloqueado - ya en ejecución para participante: #{lock_key}"
+      return
+    end
+
+    # DEDUPLICACIÓN DIARIA (ya existente)
     cache_key = "pdf_enviado:#{denuncia.id}:#{rprt}:#{prtcpnt_id}:#{Date.current}"
     
     if Rails.cache.exist?(cache_key)
       Rails.logger.info "PDF ya enviado hoy para #{cache_key}, saltando..."
+      Rails.cache.delete(lock_key) # Liberar lock inmediatamente
       return
     end
 
@@ -219,6 +222,8 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     Rails.logger.error "Error procesando participante #{prtcpnt&.id}: #{e.message}"
     Rails.logger.error e.backtrace.first(10).join("\n")
     raise  # Relanzar para que falle el job pero sin reenviar a otros que ya se procesaron
+  ensure
+    Rails.cache.delete(lock_key) if defined?(lock_key) && lock_key.present?
   end
 
   def limpiar_temporales(path)
