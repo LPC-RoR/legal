@@ -95,7 +95,6 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       limpiar_temporales(logo_path) if logo_path.present?
       limpiar_temporales(sign_path) if sign_path.present?
       browser&.quit
-      Rails.cache.delete(lock_key)
     end
     
   rescue => e
