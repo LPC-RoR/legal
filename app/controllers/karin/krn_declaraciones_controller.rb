@@ -16,7 +16,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
   # GET /krn_declaraciones/new
   def new
     ownr = params[:oclss].constantize.find(params[:oid])
-    dnnc = ownr.class.name == 'KrnTestigo' ? ownr.ownr.krn_denuncia : ownr.krn_denuncia
+    dnnc = ownr.krn_denuncia
     invstgdr = dnnc.krn_investigadores.last
 
     @objeto = ownr.krn_declaraciones.new(krn_denuncia_id: dnnc.id, krn_investigador_id: invstgdr.id, fecha: Time.zone.now)
