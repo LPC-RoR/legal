@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_24_170323) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_29_001559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -415,7 +415,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_24_170323) do
   end
 
   create_table "cal_feriados", force: :cascade do |t|
-    t.datetime "cal_fecha", precision: nil
+    t.date "cal_fecha"
     t.string "descripcion"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
