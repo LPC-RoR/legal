@@ -1,0 +1,34 @@
+<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Primeros plazos', gly: 'caret-right-fill'} do %>
+	<table class="table table-sm table-borderless table-striped table-hover">
+		<tbody>
+			<tr>
+				<td>Fecha de recepción de denuncia</td>
+				<td class="text-end"><%= dma(@objeto.fecha_hora) %></td>
+			</tr>
+			<tr>
+				<td>Fecha de inicio</td>
+				<td class="text-end"><%= dma(@objeto.fecha_inicio) %></td>
+			</tr>
+			<tr>
+				<td>Trámites propios de la recepción ( +3 )</td>
+				<td class="text-end"><%= dma(CalFeriado.plazo_habil(@objeto.fecha_inicio, 3)) %></td>
+			</tr>
+			<tr>
+				<td class="ps-3 text-success">Término de declaraciones de denunciantes y denunciados ( +7 )</td>
+				<td class="pe-3 text-success text-end"><%= dma(CalFeriado.plazo_habil(@objeto.fecha_inicio, 7)) %></td>
+			</tr>
+			<tr>
+				<td class="ps-3 text-success">Término de las declaraciones ( -7 )</td>
+				<td class="pe-3 text-success text-end"><%= dma(CalFeriado.plazo_habil(@objeto.fecha_inicio, 25)) %></td>
+			</tr>
+			<tr>
+				<td class="ps-3 text-success">Redacción del informe ( -2 )</td>
+				<td class="pe-3 text-success text-end"><%= dma(CalFeriado.plazo_habil(@objeto.fecha_inicio, 27)) %></td>
+			</tr>
+			<tr>
+				<td>Investigación</td>
+				<td class="text-end"><%= dma(CalFeriado.plazo_habil(@objeto.fecha_inicio, 30)) %></td>
+			</tr>
+		</tbody>
+	</table>
+<% end %>

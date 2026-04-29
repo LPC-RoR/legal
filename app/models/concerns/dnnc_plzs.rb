@@ -3,6 +3,10 @@ module DnncPlzs
 
  	# ================================= KrnPrcdmnt
 
+ 	def fecha_inicio
+ 		fecha_dvlcn? ? fecha_dvlcn : (fecha_hora_dt? ? fecha_hora_dt : fecha_hora)
+ 	end
+
  	def plz_fecha_inicio(etapa)
  		case etapa
  		when :etp_rcpcn
