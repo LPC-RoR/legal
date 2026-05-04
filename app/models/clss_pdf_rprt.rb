@@ -62,6 +62,11 @@ class ClssPdfRprt
 		['txt_infrm'].include?(rprt)
 	end
 
+	# Se salta las verificaciones que impiden enviar el mismo reporte, participante de un mismo día
+	def self.no_lock?(rprt)
+		['txt_dclrcn', 'dclrcn'].include?(rprt)
+	end
+
 	# ********************************************************* D...
 
 	# DEPRECATED Revisar

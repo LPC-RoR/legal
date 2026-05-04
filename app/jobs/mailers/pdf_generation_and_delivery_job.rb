@@ -166,20 +166,22 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     # Esto previene reenvíos incluso si el job se reintenta
     prtcpnt_id = prtcpnt&.id || 'sin_prtcpt'
 
-    # LOCK DISTRIBUIDO POR PARTICIPANTE
+    # LOCK DISTRIBUIDO POR PARTICIPANTE (solo si el reporte no está exento)
     lock_key = "pdf_generation:#{denuncia.id}:#{rprt}:#{prtcpnt_id}:#{Date.current}"
 
-    unless Rails.cache.write(lock_key, true, expires_in: 30.minutes, unless_exist: true)
-      Rails.logger.warn "Job bloqueado - ya en ejecución para participante: #{lock_key}"
-      return
+    unless ClssPdfRprt.no_lock?(rprt)
+      unless Rails.cache.write(lock_key, true, expires_in: 30.minutes, unless_exist: true)
+        Rails.logger.warn "Job bloqueado - ya en ejecución para participante: #{lock_key}"
+        return
+      end
     end
 
-    # DEDUPLICACIÓN DIARIA (ya existente)
+    # DEDUPLICACIÓN DIARIA (solo si el reporte no está exento)
     cache_key = "pdf_enviado:#{denuncia.id}:#{rprt}:#{prtcpnt_id}:#{Date.current}"
     
-    if Rails.cache.exist?(cache_key)
+    if !ClssPdfRprt.no_lock?(rprt) && Rails.cache.exist?(cache_key)
       Rails.logger.info "PDF ya enviado hoy para #{cache_key}, saltando..."
-      Rails.cache.delete(lock_key) # Liberar lock inmediatamente
+      Rails.cache.delete(lock_key) if defined?(lock_key) && lock_key.present? # Liberar lock inmediatamente
       return
     end
 
@@ -214,15 +216,15 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     if !optn_certf && optn_email && !ClssPdfRprt.no_email_rprt?(rprt)
       enviar_pdf_por_correo(denuncia, rprt, prtcpnt, act_archivo, filename, context)
       
-      # MARCAR COMO ENVIADO EN CACHE (24 horas)
-      Rails.cache.write(cache_key, true, expires_in: 24.hours)
+      # MARCAR COMO ENVIADO EN CACHE (24 horas) — solo si el reporte no está exento
+      Rails.cache.write(cache_key, true, expires_in: 24.hours) unless ClssPdfRprt.no_lock?(rprt)
     end
   rescue => e
     Rails.logger.error "Error procesando participante #{prtcpnt&.id}: #{e.message}"
     Rails.logger.error e.backtrace.first(10).join("\n")
-    raise  # Relanzar para que falle el job pero sin reenviar a otros que ya se procesaron
+    raise  # Relanzar para que falle el job pero sin reenviar a otros que ya se 
   ensure
-    Rails.cache.delete(lock_key) if defined?(lock_key) && lock_key.present?
+    Rails.cache.delete(lock_key) if defined?(lock_key) && lock_key.present? && !ClssPdfRprt.no_lock?(rprt)
   end
 
   def limpiar_temporales(path)
