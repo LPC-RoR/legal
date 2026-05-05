@@ -61,7 +61,7 @@
 		</div>
 	<% end %>
 
-	<% unless acts[objt.clss_id][:cdgs].empty? %>
+	<% unless cdgs.empty? %>
 		<div class="fw-bold">Documentos controlados</div>
 		<div class="ms-3">
 			<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/extrns_fls', locals: {cdgs: cdgs, mdl: ClssPrcdmnt, ownr: objt} %>

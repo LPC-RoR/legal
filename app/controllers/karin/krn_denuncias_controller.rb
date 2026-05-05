@@ -16,7 +16,6 @@ class Karin::KrnDenunciasController < ApplicationController
     # Para simpificar parciales, están en @act_hsh
 
     # En el despliegue de KrnDenuncia ya no se usa ActLoad pero se usa en algún reporte, probablemnte en dnnc
-    # @acts_hsh = ActLoad.for_tree(@objeto)
     @kproc = KrnPrcdmnt.for(@objeto)
 
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)

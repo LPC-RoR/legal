@@ -246,13 +246,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       recipient = nil
     end
 
-    if rprt == 'dnnc'
-      @reporte  = DenunciaReport.new(objeto).to_h
-      @acts     = ActLoad.for_tree(objeto)
-    else
-      @reporte  = nil
-      @acts     = nil
-    end
+    @reporte  = rprt == 'dnnc' ? DenunciaReport.new(objeto).to_h : nil
 
     branding = objeto.ownr&.tenant&.branding_for(context)
     
@@ -269,7 +263,6 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
         recipient: recipient,
         branding: branding,
         reporte: @reporte,
-        acts: @acts,
         logo_url: head_url,
         head_url: head_url,
         sign_url: sign_url,
