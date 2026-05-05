@@ -22,11 +22,15 @@ module Prtcpnt
     end
 
     def email_verificado?
-      verified? and (email == email_ok)
+      verified? && (email == email_ok)
+    end
+
+    def email_autorizado?
+      check_realizados.exists?(cdg: 'verificar_email')
     end
 
     def email_direccion?
-      (articulo_516 and direccion_notificacion?) or email_verificado?
+      (articulo_516 && direccion_notificacion?) || email_verificado? || email_autorizado?
     end
 
     # ----------------------------------------------------------------- FUTURO DEPRECATED
@@ -39,8 +43,9 @@ module Prtcpnt
     # Este método debe funcionar para todos los modelos
     # RUT  e email/dirección
     # No se incluye caso de violencia, porque no se puede preguntar desde un registro que no existe
+    # email_dirección puede no estar si artículo_516
     def cmplt?
-      rut? and email_direccion?
+      rut? && (email_direccion? || (articulo_516 && direccion_notificacion?))
     end
 
   	def rgstr_ok?

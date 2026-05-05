@@ -1,51 +1,66 @@
-<% acts[ownr.clss_id][:cdgs].each do |act| %>
+<% cdgs.each do |cdg| %>
+
+	<% act_archivos 	= ownr.act_archivos.where(act_archivo: cdg) %>
+	<% chk_rlzds 		= ownr.check_realizados.where(cdg: cdg) %>
+
+	<% subido 			= act_archivos&.any? %>
+
+	<% ln_clr			= subido ? 'primary' : (chk_rlzds.any? ? 'success' : 'secondary') %>
+	<% icn_sz			= 14 %>
 	
-	<div class="row gx-1 text-<%=ClssPrcdmnt.act_lst?(act) ? 'secodary' : 'primary'%>">
+	<div class="row gx-1 text-<%=ln_clr%>">
 		<div class="col-10">
-			<% unless mdl.act_lst?(act) or mdl.ref_generated?(act) %>
-				<i class="bi bi-file-earmark-pdf"></i>
+
+			<% if ClssPdfRprt.lista_rprt?(cdg) %>
+				<%= bi_icon('list-task', width: icn_sz, height: icn_sz, fill: ln_clr) %>
 			<% else %>
-				<i class="bi bi-list-task"></i>
+				<%= bi_icon('file-earmark', width: icn_sz, height: icn_sz, fill: ln_clr) %>
 			<% end %>
-			<%=ClssPrcdmnt.act_nombre[act]%>
+			<%=ClssPrcdmnt.act_nombre[cdg]%>
 		</div>
 		<div class="col-2 text-end">
 
-			<% unless ClssPrcdmnt.act_lst?(act) %>
-				<% if acts[ownr.clss_id][act] %>
-					<% if acts[ownr.clss_id][act].anonimizado_como %>
-						<i class="bi bi-diamond-half"></i>
+			<% none_txt = ClssPdfRprt.lista_rprt?(cdg) ? 'Lista vacía' : 'Faltante' %>
+
+			<% unless ClssPdfRprt.lista_rprt?(cdg) %>
+
+				<%# Archivo único %>
+				<% archv = act_archivos&.last %>
+
+				<% if archv %>
+					<% if archv.anonimizado_como %>
+						<%= bi_icon('diamond-half', width: icn_sz, height: icn_sz, fill: ln_clr) %>
 					<% end %>
-								
-					<% if acts[ownr.clss_id][act].rlzd? %>
-						Revisado
+					<% if chk_rlzds.any? %>
+						Pendiente
 					<% else %>
-						PDF
+						Almacenado
 					<% end %>
 				<% else %>
 					Faltante
 				<% end %>
 			<% else %>
-				<% if acts[ownr.clss_id][act].none? %>Lista vacía<% end %>
+				<% if act_archivos.none? && chk_rlzds.none? %>
+					Lista vacía
+				<% elsif act_archivos.none? && chk_rlzds.any? %>
+					Pendiente(s)
+				<% end %>				
 			<% end %>
 		</div>
 	</div>
 
-	<% if ClssPrcdmnt.act_lst?(act) %>
+	<% if ClssPdfRprt.lista_rprt?(cdg) %>
 		<div class="ms-4 text-primary">
-			<% acts[ownr.clss_id][act].each do |lst_fl| %>
+			<% act_archivos.each do |archv| %>
 
 				<div class="row gx-1">
 					<div class="col-10">
-						<i class="bi bi-arrow-return-right"></i>
-						<i class="bi bi-file-earmark-pdf"></i><%=lst_fl.nombre%>
+						<%= bi_icon('arrow-return-right', width: icn_sz, height: icn_sz, fill: ln_clr) %>
+						<%= bi_icon('file-earmark', width: icn_sz, height: icn_sz, fill: ln_clr) %>
+						<%=archv.nombre%>
 					</div>
 					<div class="col-2 text-end">
-						<% if lst_fl.rlzd? %>
-							Revisado
-						<% else %>
-							PDF
-						<% end %>
+						Almacenado
 					</div>
 				</div>
 

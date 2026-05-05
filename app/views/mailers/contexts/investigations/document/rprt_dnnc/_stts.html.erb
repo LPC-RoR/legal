@@ -1,9 +1,13 @@
 <!-- PARTICIPANTE -->
+
+<% accns  		= ClssPrcdmnt.acciones_que_aplican(objt) %>
+<% cdgs  		= ClssPrcdmnt.archivos_que_aplican(objt) %>
+
 <div class="row gx-1">
-	<div class="col-10">
-		<%=objt.cnfdntl_key%>
+	<div class="col-8 fw-bold">
+		[CONFIDENCIAL: <%=objt.kywrd[:krn]%>]
 	</div>
-	<div class="col-2 text-end">
+	<div class="col-4 text-end">
 		Datos <%= objt.cmplt? ? 'completos' : 'incompletos' %>
 	</div>
 </div>
@@ -15,19 +19,25 @@
 			<% if objt.articulo_516 %>
 				El participante solicitó que la información y las notificaciones le sean enviadas por correo certificado.
 			<% elsif objt.email %>
-				<%=objt.cnfdntl_email%>
+				[CONFIDENCIAL: email-<%=objt.kywrd[:krn]%>]
 			<% else %>
 				El participante no registra una dirección de correo electrónico en la plataforma.
 			<% end %>
 		</div>
 		<div class="col-2 text-end">
 			<% unless objt.articulo_516  %>
-				<% if objt.email %>
-					<% if objt.email != objt.email_ok and (not acts[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email')) %>
-						Sin validar
+				
+
+				<% if objt.email? %>
+					<% if objt.email_verificado? %>
+						Verificado
+					<% elsif objt.email_autorizado? %>
+						Autorizado
 					<% else %>
-						<%= objt.verified? ? 'Verificado' : 'Revisado' %>
+						Pendiente
 					<% end %>
+				<% else %>
+					Faltante
 				<% end %>
 			<% end %>
 		</div>
@@ -37,10 +47,10 @@
 		<div>Respecto de este participante, resulta aplicable lo dispuesto en el artículo 4°, inciso primero, del Código del Trabajo.</div>
 	<% end %>
 
-	<% if acts[objt.clss_id][:rlzds].objt_rlzd?(objt, 'verificar_email') or objt.email_direccion? %>
-		<div class="fw-bold">Documentos del participante generados por la plataforma</div>
+	<% if objt.email_direccion? %>
+		<div class="fw-bold">Información y notificaciones</div>
 		<div class="ms-3">
-			<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/pltfrm_fls', locals: {hsh: acts, mdl: ClssPrcdmnt, ownr: objt, lnks: true} %>
+			<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/pltfrm_fls', locals: {accns: accns, mdl: ClssPrcdmnt, ownr: objt, lnks: true} %>
 		</div>
 	<% end %>
 
@@ -54,7 +64,7 @@
 	<% unless acts[objt.clss_id][:cdgs].empty? %>
 		<div class="fw-bold">Documentos controlados</div>
 		<div class="ms-3">
-			<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/extrns_fls', locals: {acts: acts, mdl: ClssPrcdmnt, ownr: objt} %>
+			<%= render partial: 'mailers/contexts/investigations/document/rprt_dnnc/extrns_fls', locals: {cdgs: cdgs, mdl: ClssPrcdmnt, ownr: objt} %>
 		</div>
 	<% end %>
 

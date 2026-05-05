@@ -1,47 +1,61 @@
-<%= render layout: 'mailers/contexts/investigations/document/rprt_dnnc/box_tmplt', locals: {ttl: 'Documentos controlados', fnt_rem: 0.9} do %>
-	<% acts[objeto.clss_id][:cdgs].each do |act| %>
+<% cdgs  = ClssPrcdmnt.archivos_que_aplican(objeto) %>
 
-		<div class="row gx-1 text-<%=ClssPrcdmnt.act_lst?(act) ? 'secodary' : 'primary'%>">
-			<div class="col-10" style="font-size: <%='0.7rem;' if ClssPrcdmnt.act_lst?(act) %>">
-				<% unless ClssPrcdmnt.act_lst?(act) %>
-					<i class="bi bi-file-earmark-pdf"></i>
+<%= render layout: 'mailers/contexts/investigations/document/rprt_dnnc/box_tmplt', locals: {ttl: 'Documentos controlados', fnt_rem: 1} do %>
+
+	<% cdgs.each do |code| %>
+
+		<% archvs 	= objeto.act_archivos.where(act_archivo: code) %>
+		<% rlzds 	= objeto.check_realizados.where(cdg: code) %>
+
+		<% ln_clr			= archvs.any? ? 'primary' : (rlzds.any? ? 'success' : 'secondary') %>
+		<% icn_sz			= 14 %>
+
+		<div class="row gx-1 text-<%=ln_clr%>">
+			<div class="col-10" style="font-size: <%='0.7rem;' if ClssPdfRprt.lista_rprt?(code) %>">
+				<% unless ClssPdfRprt.lista_rprt?(code) %>
+					<%= bi_icon('file-earmark', width: icn_sz, height: icn_sz, fill: ln_clr) %>
 				<% else %>
-					<i class="bi bi-list-task"></i>
+					<%= bi_icon('list-task', width: icn_sz, height: icn_sz, fill: ln_clr) %>
 				<% end %>
-				<%=ClssPrcdmnt.act_nombre[act]%>
+				<%=ClssPrcdmnt.act_nombre[code]%>
 			</div>
 			<div class="col-2 text-end">
-				<% unless ClssPrcdmnt.act_lst?(act) %>
-					<% if acts[objeto.clss_id][act] %>
-						<% if acts[objeto.clss_id][act].anonimizado_como %>
-							<i class="bi bi-diamond-half"></i>
+				<% unless ClssPdfRprt.lista_rprt?(code) %>
+
+					<%# Archivo único %>
+					<% archv = archvs.last %>
+
+					<% if archv %>
+						<% if archv.anonimizado_como %>
+							<%= bi_icon('diamond-half', width: icn_sz, height: icn_sz, fill: ln_clr) %>
 						<% end %>
-						<% if acts[objeto.clss_id][act].rlzd? %>
-							Revisado
+						<% if rlzds.any? %>
+							Pendiente
 						<% else %>
-							PDF
+							Almacenado
 						<% end %>
 					<% else %>
 						Faltante
 					<% end %>
+				<% else %>
+					<% if act_archivos.none? && chk_rlzds.none? %>
+						Lista vacía
+					<% end %>				
 				<% end %>
 			</div>
 		</div>
 
-		<% if ClssPrcdmnt.act_lst?(act) %>
+		<% if ClssPdfRprt.lista_rprt?(code) %>
 			<div class="ms-3 text-primary">
-				<% acts[objeto.clss_id][act].each do |lst_fl| %>
+				<% archvs.each do |archv| %>
 					<div class="row gx-1">
 						<div class="col-10">
-							<i class="bi bi-arrow-return-right"></i>
-							<i class="bi bi-file-earmark-pdf"></i><%=lst_fl.nombre%>
+							<%= bi_icon('arrow-return-right', width: icn_sz, height: icn_sz, fill: ln_clr) %>
+							<%= bi_icon('file-earmark', width: icn_sz, height: icn_sz, fill: ln_clr) %>
+							</i><%=archv.nombre%>
 						</div>
 						<div class="col-2 text-end">
-							<% if lst_fl.rlzd? %>
-								Revisado
-							<% else %>
-								PDF
-							<% end %>
+							Almacenado
 						</div>
 					</div>
 				<% end %>
@@ -49,4 +63,6 @@
 		<% end %>
 
 	<% end %>
+
+
 <% end %>

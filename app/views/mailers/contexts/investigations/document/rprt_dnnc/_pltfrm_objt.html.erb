@@ -1,25 +1,53 @@
-<% act_id = "#{ownr.class.name}_#{ownr.id}" %>
+<% act_archivos 	= ownr.act_archivos.where(act_archivo: code) %>
+<% act_referencias	= ownr.act_referencias.where(code: code) %>
+<% chk_rlzds 		= ownr.check_realizados.where(cdg: code) %>
 
-<% act_archivos 	= ownr.act_archivos.exists?(act_archivo: code) %>
-<% act_referencias	= ownr.act_referencias.exists?(code: code) %>
-<% subido 			= act_archivos || act_referencias %>
+<% subido 			= act_archivos&.any? || act_referencias&.any? || chk_rlzds&.with_attached_pdf&.any? %>
 
-<div class="row gx-1">
-	<div class="col-10 <%= 'text-primary' if subido %>">
+<% ln_clr			= subido ? 'primary' : (chk_rlzds.any? ? 'success' : 'secondary') %>
+<% icn_sz			= 14 %>
 
-		<% unless mdl.actn_multpl?(code) or mdl.ref_generated?(code) %>
-			<i class="bi bi-file-earmark-pdf"></i>
+<div class="row gx-1 text-<%= ln_clr %>">
+	<div class="col-10">
+
+		<% if ClssPdfRprt.lista_rprt?(code) %>
+			<%= bi_icon('list-task', width: icn_sz, height: icn_sz, fill: ln_clr) %>
 		<% else %>
-			<i class="bi bi-list-task"></i>
+			<%= bi_icon('file-earmark', width: icn_sz, height: icn_sz, fill: ln_clr) %>
 		<% end %>
-		<span class="text-<%=mdl.act_lst?(code) ? 'secondary' : 'primary'%>"><%=mdl.act_nombre[code]%></span>
+		<%=mdl.act_nombre[code]%>
 
 	</div>
 	<div class="col-2 text-end ">
-		<% if mdl.actn_multpl?(code) or mdl.ref_generated?(code) %>
-			<%= hsh[act_id][code].none? ? 'Lista vacía' : (hsh[act_id][:rlzds].objt_rlzd?(ownr, code) ? 'Revisado' : 'PDF') %>
-		<% else %>
-			<%= hsh[act_id][code].nil? ? 'Faltante' : (hsh[act_id][:rlzds].objt_rlzd?(ownr, code) ? 'Revisado' : 'PDF') %>
-		<% end %>
+		<% none_txt = ClssPdfRprt.lista_rprt?(code) ? 'Lista vacía' : 'Faltante' %>
+
+		<%= subido ? (ClssPdfRprt.lista_rprt?(code) ? '' : 'Almacenado') : ( chk_rlzds&.any? ? 'Autorizado' : none_txt) %>
+
 	</div>
 </div>
+
+<% lista = act_archivos.any? ? act_archivos : (act_referencias.any? ? act_referencias : chk_rlzds&.with_attached_pdf ) %>
+
+<% if ClssPdfRprt.lista_rprt?(code) && lista&.any? %>
+
+	<div class="ms-4">
+		<% lista.each do |elem| %>
+
+			<% archv 	= ['ActArchivo', 'CheckRealizado'].include?(elem.class.name) ? elem : elem.act_archivo %>
+			<% nombre 	= elem.class.name == 'CheckRealizado' ? elem.fuente : elem.nombre %>
+			<% elem_clr = elem.class.name == 'CheckRealizado' ? 'success' : 'primary' %>
+
+			<div class="row gx-1 text-<%=elem_clr%>">
+				<div class="col-10">
+					<%= bi_icon('arrow-return-right', width: icn_sz, height: icn_sz, fill: elem_clr) %>
+					<%= bi_icon('file-earmark', width: icn_sz, height: icn_sz, fill: elem_clr) %>
+					<%=nombre%>
+				</div>
+				<div class="col-2 text-end">
+					Almacenado
+				</div>
+			</div>
+
+		<% end %>
+	</div>
+<% end %>

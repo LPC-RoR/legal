@@ -60,8 +60,10 @@ module MailDesk
 #    marcar_job_en_ejecucion(@objeto.id)
     
     Mailers::PdfGenerationAndDeliveryJob.perform_later(@objeto.id, rprt, nid)
+
+    shw_tab_id = ClssPdfRprt.rcrs_rprt?(rprt) ? '2' : '1'
     
-    redirect_to "/krn_denuncias/#{@objeto.id}_1", 
+    redirect_to "/krn_denuncias/#{@objeto.id}_#{shw_tab_id}", 
       notice: 'Generación de documentos iniciada. Los PDFs se procesarán en segundo plano.'
   end
 

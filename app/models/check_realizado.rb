@@ -11,6 +11,8 @@ class CheckRealizado < ApplicationRecord
   # Evita duplicados a nivel de modelo
 #  validates :cod, uniqueness: { scope: :ownr_type, :ownr_id }
 
+  scope :with_attached_pdf, -> { includes(pdf_attachment: :blob) }
+
 	def self.objt_rlzd?(ownr, cdg)
 	  CheckRealizado.exists?(ownr_type: ownr.class.name, ownr_id: ownr.id, cdg: cdg, rlzd: true)
 	end

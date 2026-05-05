@@ -9,25 +9,26 @@ class DenunciaReport
   # Único punto de entrada
   def to_h
     {
-      identificador:           denuncia.identificador,
-      ownr_type:               denuncia.ownr_type,
-      razon_social:            denuncia.ownr.razon_social,
-      fecha_hora:              denuncia.fecha_hora,           
-      motivo:                  denuncia.motivo_denuncia,
-      receptor:                receptor_text,
-      empresa_externa:         empresa_externa,
-      canal:                   canal_text,
-      denunciante:             denunciante_text, 
-      derivaciones:            denuncia.krn_derivaciones.order(:fecha).map {|drv| [drv.fecha, drv.codigo]},
-      investigadores:          denuncia.krn_inv_denuncias.order(:created_at).map {|inv| [inv.krn_investigador.krn_investigador, inv.objetado]},
-      estructura:              KrnDenuncia.estrctr.find(denuncia.id),
-      prtcpnts_minimos:        participantes_minimos_text,
-      coordinacion_apt:        coordinacion_apt_text,
-      vrfccn_solicitada:       vrfccn_solicitada_text,
-      dnncnt_invstgcn_local:   dnnct_invstgcn_local_text,
-      invstgcn_local_externa:  invstgcn_local_externa_text,
-      evlcn_ok:                evlcn_ok_text,
-      plz_prnncmnt:            plz_prnncmnt_text,
+      identificador:            denuncia.identificador,
+      ownr_type:                denuncia.ownr_type,
+      razon_social:             denuncia.ownr.razon_social,
+      fecha_hora:               denuncia.fecha_hora,           
+      motivo:                   denuncia.motivo_denuncia,
+      receptor:                 receptor_text,
+      empresa_externa:          empresa_externa,
+      canal:                    canal_text,
+      denunciante:              denunciante_text, 
+      derivaciones:             denuncia.krn_derivaciones.order(:fecha).map {|drv| [drv.fecha, drv.codigo]},
+      investigadores:           denuncia.krn_inv_denuncias.order(:created_at).map {|inv| [inv.krn_investigador.krn_investigador, inv.objetado]},
+      estructura:               KrnDenuncia.estrctr.find(denuncia.id),
+      prtcpnts_minimos:         participantes_minimos_text,
+      coordinacion_apt:         coordinacion_apt_text,
+      vrfccn_solicitada:        vrfccn_solicitada_text,
+      datos_incmbnts_ok:        datos_incmbnts_ok_text,
+      dnncnt_invstgcn_local:    dnnct_invstgcn_local_text,
+      invstgcn_local_externa:   invstgcn_local_externa_text,
+      evlcn_ok:                 evlcn_ok_text,
+      plz_prnncmnt:             plz_prnncmnt_text,
     }
   end
 
@@ -75,6 +76,10 @@ class DenunciaReport
 
   def vrfccn_solicitada_text
     denuncia.ownr.verificacion_datos ? "#{denuncia.vrfccn_solicitada? ? 'Se solicitó' : 'No se ha solicitado, hasta la fecha,'} la verificación de la información correspondiente a los participantes." : nil
+  end
+
+  def datos_incmbnts_ok_text
+     "Los datos de las personas denunciantes y denunciadas#{ ' no' unless !!denuncia.vrfccn_dts_incmbnts } han sido verificados"
   end
 
   def dnnct_invstgcn_local_text
