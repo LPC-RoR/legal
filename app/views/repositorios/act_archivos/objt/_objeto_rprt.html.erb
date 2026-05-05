@@ -66,7 +66,10 @@
 			<% end %>
 
 		<% else %>
-			<% unless es_lista %>
+			<% if es_lista %>
+				<!-- BTN REALIZADO NEW -->
+				<%= render partial: '0p/tbl/lnk_new', locals: {source: 'check_realizados', ownr: ownr, gly: 'check2-square', gly_clss: 'text-success', prms: {cdg: code}} %>
+			<% else es_lista %>
 				<% archivo = act_archivo ? act_archivo : (act_referencia ? act_referencia.act_archivo : nil) %>
 
 				<% if subido && archivo %>
