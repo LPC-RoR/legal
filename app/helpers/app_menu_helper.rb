@@ -33,7 +33,6 @@ module AppMenuHelper
           { id: 'cargos',       name: 'Cargos',             path: '/cargos',            icon: 'bi bi-currency-dollar' },
           { id: 'aprobaciones', name: 'Aprobaciones',       path: '/tar_aprobaciones',  icon: 'bi bi-check-all' },
           { id: 'facturas',     name: 'Facturas',           path: '/tar_facturas',      icon: 'bi bi-receipt' },
-          { id: 'repositorios', name: 'Documentos legales', path: '/lgl_repositorios',  icon: 'bi bi-archive' },
           { id: 'laborsafe',              name: 'Laborsafe',                icon: 'bi bi-caret-right-fill',
             children: [
               { id: 'empresas',           name: 'Empresas',                 path: '/empresas',              icon: 'bi bi-buildings' },

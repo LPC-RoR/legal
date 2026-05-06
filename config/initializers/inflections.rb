@@ -48,7 +48,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.irregular 'nota', 'notas'
     inflect.irregular 'lgl_cita', 'lgl_citas'
     inflect.irregular 'denuncia', 'denuncias'
-    inflect.irregular 'dt_tramo_multa', 'dt_tramo_multas'
     inflect.irregular 'cuenta', 'cuentas'
     inflect.irregular 'pro_dtll_venta', 'pro_dtll_ventas'
     inflect.irregular 'licencia', 'licencias'

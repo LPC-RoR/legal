@@ -59,11 +59,6 @@ class Organizacion::ServiciosController < ApplicationController
     @objeto = Causa.find(params[:cid])
   end
 
-  def multas
-    @objt = DtMateria.find(params[:oid])
-    set_tabla('dt_infracciones', @objt.dt_infracciones.order(:codigo), false)
-  end
-
   private
 
   # crea el array con el cálculo del pago

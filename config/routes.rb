@@ -81,11 +81,6 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'lgl' do
-    resources :lgl_repositorios
-    resources :lgl_leyes
-  end 
-
   scope module: 'karin' do
     resources :receptor_denuncias
     resources :motivo_denuncias
@@ -370,7 +365,6 @@ Rails.application.routes.draw do
       match :auditoria, via: :get, on: :collection
       match :adncs, via: :get, on: :collection
       match :antecedentes, via: :get, on: :collection
-      match :multas, via: :get, on: :collection
     end
   end
   
@@ -468,19 +462,6 @@ Rails.application.routes.draw do
       match :reporta_registro, via: :get, on: :member
       match :excluye_registro, via: :get, on: :member
     end
-  end
-
-  scope module: 'dt' do
-    resources :dt_tabla_multas do
-      resources :dt_multas
-    end
-    resources :dt_multas
-    resources :dt_infracciones do
-    end
-    resources :dt_materias do
-      resources :dt_infracciones
-    end
-    resources :dt_tramos
   end
 
 #  devise_for :usuarios

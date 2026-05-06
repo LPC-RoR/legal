@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_29_001559) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_05_223909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -686,67 +686,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_29_001559) do
     t.index ["orden"], name: "index_demandantes_on_orden"
   end
 
-  create_table "dt_infracciones", force: :cascade do |t|
-    t.string "codigo"
-    t.string "normas"
-    t.string "dt_infraccion"
-    t.text "tipificacion"
-    t.string "criterios"
-    t.integer "dt_materia_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "dt_tabla_multa_id"
-    t.string "nota_multa"
-    t.index ["dt_materia_id"], name: "index_dt_infracciones_on_dt_materia_id"
-    t.index ["dt_tabla_multa_id"], name: "index_dt_infracciones_on_dt_tabla_multa_id"
-  end
-
-  create_table "dt_materias", force: :cascade do |t|
-    t.string "dt_materia"
-    t.integer "capitulo"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["capitulo"], name: "index_dt_materias_on_capitulo"
-  end
-
-  create_table "dt_multas", force: :cascade do |t|
-    t.integer "orden"
-    t.string "tamanio"
-    t.decimal "leve"
-    t.decimal "grave"
-    t.decimal "gravisima"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "dt_infraccion_id"
-    t.integer "dt_tabla_multa_id"
-    t.integer "dt_tramo_id"
-    t.index ["dt_infraccion_id"], name: "index_dt_multas_on_dt_infraccion_id"
-    t.index ["dt_tabla_multa_id"], name: "index_dt_multas_on_dt_tabla_multa_id"
-    t.index ["dt_tramo_id"], name: "index_dt_multas_on_dt_tramo_id"
-    t.index ["orden"], name: "index_dt_multas_on_orden"
-  end
-
-  create_table "dt_tabla_multas", force: :cascade do |t|
-    t.string "dt_tabla_multa"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "moneda"
-    t.decimal "p100_leve"
-    t.decimal "p100_grave"
-    t.decimal "p100_gravisima"
-    t.index ["dt_tabla_multa"], name: "index_dt_tabla_multas_on_dt_tabla_multa"
-  end
-
-  create_table "dt_tramos", force: :cascade do |t|
-    t.string "dt_tramo"
-    t.integer "orden"
-    t.decimal "min"
-    t.decimal "max"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["orden"], name: "index_dt_tramos_on_orden"
-  end
-
   create_table "empresas", force: :cascade do |t|
     t.string "rut"
     t.string "razon_social"
@@ -1082,32 +1021,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_29_001559) do
     t.integer "ownr_id"
     t.index ["ownr_id"], name: "index_krn_textos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_textos_on_ownr_type"
-  end
-
-  create_table "lgl_leyes", force: :cascade do |t|
-    t.integer "lgl_repositorio_id"
-    t.string "cdg"
-    t.string "nombre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cdg"], name: "index_lgl_leyes_on_cdg"
-    t.index ["lgl_repositorio_id"], name: "index_lgl_leyes_on_lgl_repositorio_id"
-  end
-
-  create_table "lgl_n_empleados", force: :cascade do |t|
-    t.string "lgl_n_empleados"
-    t.decimal "n_min"
-    t.decimal "n_max"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "lgl_repositorios", force: :cascade do |t|
-    t.string "cdg"
-    t.string "nombre"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cdg"], name: "index_lgl_repositorios_on_cdg"
   end
 
   create_table "licencias", force: :cascade do |t|

@@ -29,7 +29,6 @@ module AppIconsHelper
 			'tar_formulas' => 'lightbulb',
 			'tar_comentarios' => 'chat',
 			'st_modelos' => 'box',
-			'dt_materias' => 'bank',
 			'app_empresas' => 'buildings',
 			'app_directorios' => 'folder',
 			'app_escaneos' => 'images',
@@ -50,7 +49,6 @@ module AppIconsHelper
 			'krn_investigadores' => 'binoculars',
 			'krn_empresa_externas' => 'building',
 			'krn_tipo_medidas' => 'exclamation-triangle',
-			'dt_tabla_multas' => 'table',
 			'slides' => 'file-slides'
 #			'rep_archivos' => 'file-earmark-richtext'
 		}
