@@ -1,0 +1,20 @@
+<% sin_agendamiento = objt.krn_declaraciones.none? %>
+<% txt_dclrcns = objt.act_archivos.exists?(act_archivo: 'txt_dclrcn') %>
+<% dclrcns = objt.act_archivos.exists?(act_archivo: 'declaracion') %>
+<tr>
+	<td><%=objt.nombre%></td>
+	<td><%= objt.email %></td>
+	<td><%=objt.kywrd[:rol]%></td>
+	<td>
+		<% if sin_agendamiento %>
+			Sin agendamiento
+		<% elsif !txt_dclrcns %>
+			Declaración pendiente
+		<% elsif !dclrcns %>
+			Esperando firma
+		<% else %>
+			Declaración firmada
+		<% end %>
+	</td>
+
+</tr>

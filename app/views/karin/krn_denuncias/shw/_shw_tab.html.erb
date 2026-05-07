@@ -1,3 +1,5 @@
+<%# Revisado mayo 2026 %>
+
 <div class="mt-2 fs-6">
   <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -16,8 +18,18 @@
         Participantes
       </a>
     </li>
+    <% if @kproc.etapa != :etp_rcpcn %>
+      <li class="nav-item">
+        <a class="nav-link <%= 'active' if ["#{objt.id}_2"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_2">
+          <% if ClssPrcdmnt.prtcpnts_tsks.include?(@kproc.tarea) %>
+            <i class="bi bi-arrow-right"></i> 
+          <% end %>
+          Declaraciones
+        </a>
+      </li>
+    <% end %>
     <li class="nav-item">
-      <a class="nav-link <%= 'active' if ["#{objt.id}_2"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_2">Recursos</a>
+      <a class="nav-link <%= 'active' if ["#{objt.id}_3"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_3">Recursos</a>
     </li>
   </ul>
 </div>

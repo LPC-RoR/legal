@@ -24,8 +24,10 @@ class Karin::KrnDenunciasController < ApplicationController
     when 0
     when 1
     when 2
-      @combinados = @objeto.act_archivos.where(act_archivo: 'combinado')
-      @rprts = @objeto.act_archivos.where(act_archivo: 'dnnc').order(created_at: :desc)
+    when 3
+      @combinados   = @objeto.act_archivos.where(act_archivo: 'combinado')
+      @rprts        = @objeto.act_archivos.where(act_archivo: 'dnnc').order(created_at: :desc)
+      @st_dclrcns   = @objeto.act_archivos.where(act_archivo: 'st_dclrcns').order(created_at: :desc)
     end
 
   end
@@ -88,7 +90,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
     combinado = @objeto.unir_pdfs!        # genera si aún no existe
 
-    redirect_to "/krn_denuncias/#{@objeto.id}_2"              # redirige a la URL permanente de ActiveStorage
+    redirect_to "/krn_denuncias/#{@objeto.id}_3"              # redirige a la URL permanente de ActiveStorage
   end
 
   # DELETE /krn_denuncias/1 or /krn_denuncias/1.json
@@ -207,7 +209,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia
-      @tbs = ['Proceso', 'Participantes', 'Reportes']
+      @tbs = ['Proceso', 'Participantes', 'Declaraciones', 'Reportes']
       prms = params[:id].split('_')
       @indx = prms[1].blank? ? (tipo_usuario == 'recepción' ? 1 : 0) : prms[1].to_i
       @objeto = action_name == 'show' ? KrnDenuncia.estrctr.find(prms[0]) : KrnDenuncia.find(prms[0])

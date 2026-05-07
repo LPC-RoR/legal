@@ -1,0 +1,8 @@
+<% if current_usuario.operacion? %>
+
+    <%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=st_dclrcns&nid=#{@objeto.id}", tltp: 'Generar y almacenar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email', turbo_action: "advance"}} do %>
+      <i class="bi bi-plus-circle"></i>
+    <% end %>
+
+
+<% end %>

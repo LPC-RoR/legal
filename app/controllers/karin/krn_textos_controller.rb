@@ -8,11 +8,7 @@ class Karin::KrnTextosController < ApplicationController
 
   def new
     @objeto = @ownr.krn_textos.build(codigo: params[:cdg])
-    puts "************************************ flag"
-    puts @ownr.class.name
-    puts @ownr.id
-    puts "************************************ flag"
-    @cdgs_list = ClssPdfRprt.txt_list[@ownr.kywrd[:sym]]
+    @cdgs_list = ClssPdfRprt.txt_lst[params[:cdg].to_sym]
   end
 
   def create
@@ -26,7 +22,7 @@ class Karin::KrnTextosController < ApplicationController
   end
 
   def edit
-    @cdgs_list = ClssPdfRprt.txt_list[@ownr.kywrd[:sym]]
+    @cdgs_list = ClssPdfRprt.txt_lst[params[:cdg].to_sym]
   end
 
   def update

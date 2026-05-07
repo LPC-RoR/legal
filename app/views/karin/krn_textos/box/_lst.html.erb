@@ -1,1 +1,4 @@
-<%= render partial: '0p/tbl_clss', locals: {clccn: ownr.krn_textos, source: 'krn_textos', crud: 'lnks', typ: 'ln'} %>
+<% lst 		= ClssPdfRprt.txt_lst[lst_cdg.to_sym] %>
+<% clccn 	= ownr.krn_textos.where(codigo: lst) %>
+
+<%= render partial: '0p/tbl_clss', locals: {clccn: clccn, source: 'krn_textos', crud: 'lnks', typ: 'ln'} %>

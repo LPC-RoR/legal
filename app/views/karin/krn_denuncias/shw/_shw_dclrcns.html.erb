@@ -1,0 +1,50 @@
+<!-- NOTA Ingresar participantes -->
+<%#= render partial: prtl_name(@objeto, 'mssgs', 'dclrcn') if @objt['dnnc_evld?'] and not (@objt['dclrcns_ok?']) %>
+<%#= render partial: prtl_name(@objeto, 'mssgs', 'dclrcns_ok') if @etp_last.codigo == 'etp_invstgcn' and @objt['dclrcns_ok?'] %>
+
+<%= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>
+<%= render partial: prtl_name(objeto, 'shw/proceso', 'tsk_dsply'), locals: {ownr: objeto} %>
+
+<%# DENUNCIATES (TBL) %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'krn_denunciantes', clss: :sub, dir: 'indx', hide_gly: true} %>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciantes, clss: :head, dir: 'lst', typ: 'ln'} %>
+
+
+<!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
+<% if @objeto.violencia? %>
+
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Denuncia de violencia en el trabajo ejercida por terceros. Las personas denunciadas (si las hay) se detallan en las declaraciones.'} %>
+
+<% else %>
+
+	<%= render partial: '0p/ttl_clss', locals: {source: 'krn_denunciados', clss: :sub, dir: 'indx', hide_gly: true} %>
+	<% if @objeto.krn_denunciantes.any? %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciados, clss: :head, dir: 'lst', typ: 'ln'} %>
+	<% end %>
+
+<% end %>
+
+<% if @objeto.krn_denunciantes.any? %>
+	<%= render partial: '0p/ttl_clss', locals: {source: 'krn_testigos', clss: :sub, dir: 'indx', hide_gly: true} %>
+	<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_testigos, clss: :head, dir: 'lst', typ: 'ln'} %>
+<% end %>
+
+<div class="text-end" style="font-size: 14px;">
+	<% if prtl?(@objeto, 'hlp', 'prtcpnts') %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_prtcpnts", ttl: "Registros de participantes", sz: 'lg'} do %>
+			<%= render partial: prtl_name(@objeto, 'hlp', 'prtcpnts') %>
+		<% end %>
+	<% end %>
+
+	<% if prtl?(@objeto, 'hlp', 'archvs_rqrds') %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_archvs_rqrds", ttl: "Documentación obligatoria", sz: 'lg'} do %>
+			<%= render partial: prtl_name(@objeto, 'hlp', 'archvs_rqrds') %>
+		<% end %>
+	<% end %>
+
+	<% if prtl?(@objeto, 'hlp', 'prtcpnts') %>
+		<%= render layout: '0p/mdl/modal', locals: {cdg: "hlp_prtcpnts", ttl: "Testigos del participante", sz: 'lg'} do %>
+			<%= render partial: prtl_name(@objeto, 'hlp', 'prtcpnts') %>
+		<% end %>
+	<% end %>
+</div>

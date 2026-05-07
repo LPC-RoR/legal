@@ -2,7 +2,6 @@ class Karin::KrnDeclaracionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_declaracion, only: %i[ show edit update destroy swtch migrar ]
-  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   # GET /krn_declaraciones or /krn_declaraciones.json
   def index
@@ -20,7 +19,6 @@ class Karin::KrnDeclaracionesController < ApplicationController
     invstgdr = dnnc.krn_investigadores.last
 
     @objeto = ownr.krn_declaraciones.new(krn_denuncia_id: dnnc.id, krn_investigador_id: invstgdr.id, fecha: Time.zone.now)
-    set_bck_rdrccn
   end
 
   # GET /krn_declaraciones/1/edit
@@ -30,11 +28,10 @@ class Karin::KrnDeclaracionesController < ApplicationController
   # POST /krn_declaraciones or /krn_declaraciones.json
   def create
     @objeto = KrnDeclaracion.new(krn_declaracion_params)
-    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Declaración fue exitosamente creada." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Declaración fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +44,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_declaracion_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Declaración fue exitosamente actualizada." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Declaración fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,7 +59,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
       @objeto.save
     end
 
-    redirect_to params[:bck_rdrccn]
+    redirect_to default_redirect_path(@objeto)
   end
 
   # DELETE /krn_declaraciones/1 or /krn_declaraciones/1.json
@@ -70,7 +67,7 @@ class Karin::KrnDeclaracionesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @bck_rdrccn, notice: "Declaración fue exitosamente eliminada." }
+      format.html { redirect_to default_redirect_path(@objeto), notice: "Declaración fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

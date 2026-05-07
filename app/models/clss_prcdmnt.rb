@@ -139,6 +139,7 @@ class ClssPrcdmnt
           'tsk_mdds_sncns'            => 'Aplicación de medidas correctivas y sanciones',
           'tsk_prcdmnt_trmnd'         => 'Procedimiento terminado',
           'dnnc'                => 'Reporte del estado de la denuncia',
+          'st_dclrcns'          => 'Reporte del estado de las declaraciones',
           'denuncia'              => 'Denuncia',
           'acta'                  => 'Acta de denuncia firmada y timbrada',
           'mdds_rsgrd'            => 'Medidas de resguardo',

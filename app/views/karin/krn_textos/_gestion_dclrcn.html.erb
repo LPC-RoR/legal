@@ -1,0 +1,16 @@
+<div class="border rounded-2 shadow-sm my-1 objt_lnk">
+	<div class="p-2 rounded-2 bg_azul_claro clr_azul_oscuro" style="font-size: 0.9rem;line-height: 1.5;">
+		<div class="row gx-1">
+			<div class="col-10">
+				Gestión de la declaración
+			</div>
+			<div class="col-2">
+			</div>
+		</div>
+	</div>
+	<div class="p-2">
+		<%= render partial: prtl('act_archivos', 'objt', 'objeto_rprt'), locals: {audit: objeto.dnnc.auditoria, mdl: ClssPrcdmnt, ownr: objeto, code: 'txt_dclrcn'} %>
+
+		<%= render partial: prtl('act_archivos', 'objt', 'objeto_cntrld'), locals: {audit: objeto.dnnc.auditoria, mdl: ClssPrcdmnt, ownr: objeto, code: 'declaracion', dsply_lnks: true} %>
+	</div>
+</div>

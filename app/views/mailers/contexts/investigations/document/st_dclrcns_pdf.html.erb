@@ -1,0 +1,58 @@
+<div class="pdf-header">
+  <div class="text-center">
+    <% if @head_url.present? %>
+      <img src="<%= @head_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+</div>
+
+<div class="text-center fs-5">
+  Reporte del estado de las declaraciones
+</div>
+
+<div class="rprt_bx" style="line-height: 1.6;">
+  <div class="mt-2 ms-3">
+    <table class="table table-sm">
+      <tbody>
+
+  <th>Nombre</th>
+  <th>Email</th>
+  <th>Rol</th>
+  <th>Estado</th>
+
+
+        <% @record.krn_denunciantes.each do |dnncnt| %>
+          <%= render partial: 'mailers/contexts/investigations/document/rprt_st_dclrcns/tr_stts', locals: {objt: dnncnt} %>
+        <% end %>
+
+        <!-- DENUNCIANTES OK Y MOTIVO DISTINTO DE VIOLENCIA -->
+        <% unless @record.violencia? %>
+
+          <% @record.krn_denunciados.each do |dnncd| %>
+            <%= render partial: 'mailers/contexts/investigations/document/rprt_st_dclrcns/tr_stts', locals: {objt: dnncd} %>
+          <% end %>
+
+        <% end %>
+
+        <% @record.krn_testigos.each do |tstg| %>
+          <%= render partial: 'mailers/contexts/investigations/document/rprt_st_dclrcns/tr_stts', locals: {objt: tstg} %>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="pdf-footer mt-5">
+  <div class="text-center">
+    <% if false %>
+      <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>

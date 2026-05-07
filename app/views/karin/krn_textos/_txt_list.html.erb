@@ -1,1 +1,26 @@
-<%= render partial: '0p/tbl_box', locals: {source: 'krn_textos', ownr: objeto, clss_ttl: 'bg_azul_claro'} %>
+<%# Código para seleccionar lista de txt_textos %>
+<% txt_lst_cdg ||= nil %>
+
+<% ownr  	||= nil %>
+<% clss_ttl ||= nil %>
+<% clss_lst ||= nil %>
+
+<% col_lft 	||= 10 %>
+
+<% if txt_lst_cdg && ownr %>
+	<div class="border rounded-2 shadow-sm my-1 objt_lnk">
+		<div class="p-2 rounded-2 bg_azul_claro clr_azul_oscuro" style="font-size: 0.9rem;line-height: 1.5;">
+			<div class="row gx-1">
+				<div class="col-<%=col_lft%>">
+					<%= render partial: prtl('krn_textos', 'box', 'objt'), locals: {ownr: ownr} %>
+				</div>
+				<div class="col-<%=12-col_lft%> text-end">
+					<%= render partial: prtl('krn_textos', 'box', 'lnks'), locals: {ownr: ownr, lst_cdg: txt_lst_cdg} %>
+				</div>
+			</div>
+		</div>
+		<div class="py-1 <%=clss_lst%>">
+			<%= render partial: prtl('krn_textos', 'box', 'lst'), locals: {ownr: ownr, lst_cdg: txt_lst_cdg} %>
+		</div>
+	</div>
+<% end %>

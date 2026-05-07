@@ -1,4 +1,16 @@
-<div class="row gx-1 px-2">
-	<div class="col-4"><%= objeto.codigo %></div>
+<% rgstrs = objeto.act_referencias %>
+
+<div class="row gx-1 px-2" style="font-size: .9rem;line-height: 1.5;">
+	<div class="col-4">
+		<%= objeto.codigo %>
+
+		<% if rgstrs.none? %>
+			<i class="bi bi-cone-striped text-danger"></i>
+		<% else %>
+			<i class="bi bi-check2-all text-primary"></i>
+			(<%= rgstrs.count %>)
+		<% end %>
+		
+	</div>
 	<div class="col-8"><%= link_to objeto.titulo, objeto %></div>
 </div>

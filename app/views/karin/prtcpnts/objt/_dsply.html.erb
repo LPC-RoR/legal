@@ -10,31 +10,44 @@
 
 	<%# Despliegue de INFORMACIÓN Y NOTIFICACIONES %>
 	<% if articulo_516 or email_verificado or email_validado %>
-		<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Envío de información y notificaciones', gly: 'caret-right-fill'} do %>
 
-			<%= render partial: prtl('act_archivos', nil, 'dsply_rprts'), locals: {mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
+		<% if @tbs[@indx] == 'Declaraciones' %>
 
+			<%# Despliegue de CITACIONES A DECLARAR %>
+			<% if @objeto.krn_inv_denuncias.any? %>
+				<%= render partial: '0p/tbl_box', locals: {source: 'krn_declaraciones', dir: 'indx', ownr: objeto, clss_ttl: 'bg_azul_claro'} %>
+			<% end %>
 		<% end %>
+
+		<%# SEPARACIÓN DE DECLARACIONES %>
+		<% if @tbs[@indx] == 'Participantes' %>
+			<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Envío de información y notificaciones', gly: 'caret-right-fill'} do %>
+
+				<%= render partial: prtl('act_archivos', nil, 'dsply_rprts'), locals: {mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
+
+			<% end %>
+		<% end %>
+
 		<%# Gestión de PDFs EDITABLES %>
 		<%# KrnTexto list del ownr %>
-		<%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {objeto: objeto} %>
+		<% txt_lst_cdg = ClssPdfRprt.txt_lst_cdg(objeto, @indx) %>
+		<%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {ownr: objeto, txt_lst_cdg: txt_lst_cdg} %>
 
 	<% end %>
 
 	<%# Despliegue de DOCUMENTOS CONTROLADOS %>
-	<% cdgs  = ClssPrcdmnt.archivos_que_aplican(objeto) %>
+	<% if @tbs[@indx] == 'Participantes' %>
+		<% cdgs  = ClssPrcdmnt.archivos_que_aplican(objeto) %>
 
-	<% unless cdgs.empty? %>
-		<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Documentos controlados', gly: 'caret-right-fill'} do %>
-			<%= render partial: 'repositorios/act_archivos/dsply_cntrlds', locals: {mdl: ClssPrcdmnt, ownr: objeto, dsply_lnks: true} %>
+		<% unless cdgs.empty? %>
+			<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Documentos controlados', gly: 'caret-right-fill'} do %>
+				<%= render partial: 'repositorios/act_archivos/dsply_cntrlds', locals: {mdl: ClssPrcdmnt, ownr: objeto, dsply_lnks: true} %>
+			<% end %>
 		<% end %>
-	<% end %>
 
-	<%# Despliegue de CITACIONES A DECLARAR %>
-	<% if @objeto.krn_inv_denuncias.any? %>
-		<%= render partial: '0p/tbl_box', locals: {source: 'krn_declaraciones', dir: 'indx', ownr: objeto, clss_ttl: 'bg_azul_claro'} %>
+	<% else %>
+		<%= render partial: prtl_name('krn_textos', nil, 'gestion_dclrcn'), locals: {objeto: objeto} %>
 	<% end %>
-
 
 	<% if objeto.audit_notas.any? %>
 		<%= render partial: prtl_name('audit_notas', nil, 'ownr_list'), locals: {objeto: objeto} %>

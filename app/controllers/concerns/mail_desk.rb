@@ -49,36 +49,12 @@ module MailDesk
     rprt  = params[:rprt]
     nid   = params[:nid]
 
-    # Verificar si ya hay un job en ejecución para esta denuncia
-#    if job_en_ejecucion?(@objeto.id)
-#      redirect_to "/krn_denuncias/#{@objeto.id}_1", 
-#        alert: 'La generación de documentos ya está en proceso. Por favor espere.'
-#      return
-#    end
-
-    # Marcar que hay un job en ejecución (expira en 10 minutos)
-#    marcar_job_en_ejecucion(@objeto.id)
-    
     Mailers::PdfGenerationAndDeliveryJob.perform_later(@objeto.id, rprt, nid)
 
-    shw_tab_id = ClssPdfRprt.rcrs_rprt?(rprt) ? '2' : '1'
+    shw_tab_id = ClssPdfRprt.rcrs_rprt?(rprt) ? '3' : (['declaracion', 'txt_dclrcn'].include?(rprt) ? '2' : '1')
     
     redirect_to "/krn_denuncias/#{@objeto.id}_#{shw_tab_id}", 
       notice: 'Generación de documentos iniciada. Los PDFs se procesarán en segundo plano.'
   end
 
-  private
-
-#  def job_en_ejecucion?(denuncia_id)
-#    Rails.cache.exist?("pdf_generation:#{denuncia_id}")
-#  end
-
-#  def marcar_job_en_ejecucion(denuncia_id)
-#    Rails.cache.write("pdf_generation:#{denuncia_id}", true, expires_in: 10.minutes)
-#  end
-
-  def desmarcar_job_en_ejecucion(denuncia_id)
-    Rails.cache.delete("pdf_generation:#{denuncia_id}")
-  end
-  
 end

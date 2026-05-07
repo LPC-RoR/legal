@@ -15,6 +15,7 @@ class ClssPdfRprt
 		crdncn_apt: 				KrnDenuncia,
 		infrmcn: 						KrnDenuncia,
 		dnnc: 							KrnDenuncia,
+		st_dclrcns:    			KrnDenuncia,
 		txt_acta: 					KrnTexto,
 		txt_mdds_rsgrd: 		KrnTexto,
 		txt_dclrcn: 				KrnTexto,
@@ -54,7 +55,7 @@ class ClssPdfRprt
 
 	# El PDF es un recurso
 	def self.rcrs_rprt?(rprt)
-		['dnnc'].include?(rprt)
+		['dnnc', 'st_dclrcns'].include?(rprt)
 	end
 
 	# Tiene el mismo uso que arriba pero se usa para los reportes txt
@@ -64,7 +65,7 @@ class ClssPdfRprt
 
 	# Se salta las verificaciones que impiden enviar el mismo reporte, participante de un mismo día
 	def self.no_lock?(rprt)
-		['txt_dclrcn', 'dclrcn'].include?(rprt)
+		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns'].include?(rprt)
 	end
 
 	# ********************************************************* D...
@@ -154,13 +155,23 @@ class ClssPdfRprt
 
   # Métodos para el manejo de reportes TXT
 
-  def self.txt_list
-    {
-      dnnc:   ['txt_mdds_rsgrd', 'txt_objcn_rslcn', 'txt_anlss', 'txt_infrm'],
-      dnncnt: ['txt_rprsntcn', 'txt_slctd_516', 'txt_acta', 'txt_dclrcn'],
-      dnncd:  ['txt_slctd_516', 'txt_dclrcn'],
-      tstg:   ['txt_slctd_516', 'txt_dclrcn']
-    }
+  def self.txt_lst_cdg(ownr_rol, tab_id)
+  	if ownr_rol == 'denuncia'
+  		'dnnc'
+  	elsif ownr_rol == 'denunciante'
+  		tab_id == 1 ? 'dnncnt_1' : 'prtcpnts_2'
+  	else
+  		tab_id == 1 ? 'prtcpnts_1' : 'prtcpnts_2'
+  	end
+  end
+
+  def self.txt_lst
+  	{
+  		dnnc: 			['txt_mdds_rsgrd', 'txt_objcn_rslcn', 'txt_anlss', 'txt_infrm'],
+  		dnncnt_1: 	['txt_rprsntcn', 'txt_slctd_516', 'txt_acta'],
+  		prtcpnts_1: ['txt_slctd_516'],
+  		prtcpnts_2: ['txt_dclrcn']
+  	}
   end
 
   # ******************************************** Manejo de ActArchivo y CheckRealizado en PDF controlado
