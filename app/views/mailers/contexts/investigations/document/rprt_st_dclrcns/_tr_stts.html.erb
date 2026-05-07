@@ -3,8 +3,9 @@
 <% dclrcns = objt.act_archivos.exists?(act_archivo: 'declaracion') %>
 <tr>
 	<td><%=objt.nombre%></td>
-	<td><%= objt.email %></td>
 	<td><%=objt.kywrd[:rol]%></td>
+	<td><%= objt.email %></td>
+	<td><%= objt.telefono %></td>
 	<td>
 		<% if sin_agendamiento %>
 			Sin agendamiento

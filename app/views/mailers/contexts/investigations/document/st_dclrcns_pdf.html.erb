@@ -16,16 +16,16 @@
   Denuncia <%= @record.identificador %>
 </div>
 
-<div class="rprt_bx" style="line-height: 1.6;">
+<div class="rprt_bx" style="font-size: .6rem;line-height: 1.5;">
   <div class="mt-2 ms-3">
     <table class="table table-sm">
       <tbody>
 
-  <th>Nombre</th>
-  <th>Email</th>
-  <th>Rol</th>
-  <th>Estado</th>
-
+        <th>Nombre</th>
+        <th>Rol</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Estado</th>
 
         <% @record.krn_denunciantes.each do |dnncnt| %>
           <%= render partial: 'mailers/contexts/investigations/document/rprt_st_dclrcns/tr_stts', locals: {objt: dnncnt} %>

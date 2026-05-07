@@ -1,5 +1,7 @@
 <b>
-<!--i class="bi bi-eyeglasses"--></i> <%= s_rut(objeto.rut) %>
+	<% clr_key = objeto.origen == 'Denunciante' ? 'primary' : (objeto.origen == 'Denunciado' ? 'warning' : 'secondary') %>
+	<i class="bi bi-circle text-<%=clr_key%>"></i>
+<%= s_rut(objeto.rut) %>
 <i class="bi bi-dot"></i>
 <%= objeto.nombre %>
 </b>
