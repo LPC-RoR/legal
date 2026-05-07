@@ -1,7 +1,7 @@
 <% sin_agendamiento = objt.krn_declaraciones.none? %>
 <% txt_dclrcns = objt.act_archivos.exists?(act_archivo: 'txt_dclrcn') %>
 <% dclrcns = objt.act_archivos.exists?(act_archivo: 'declaracion') %>
-<tr>
+<tr style="font-size: .7rem;line-height: 1.5;">
 	<td><%=objt.nombre%></td>
 	<td><%=objt.kywrd[:rol]%></td>
 	<td><%= objt.email %></td>
