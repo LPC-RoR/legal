@@ -6,14 +6,14 @@
 
 	<small>
 
-	<% if validado || verificado || articulo_516 %>
-	<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=dclrcn&nid=#{objeto.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
-		<% if articulo_516 %>
-			<i class="bi bi-archive"></i>
-		<% else %>
-			<i class="bi bi-envelope-at"></i>
+	<% if (validado || verificado || articulo_516) && objeto.enlace? %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=dclrcn&nid=#{objeto.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}} do %>
+			<% if articulo_516 %>
+				<i class="bi bi-archive"></i>
+			<% else %>
+				<i class="bi bi-envelope-at"></i>
+			<% end %>
 		<% end %>
-	<% end %>
 	<% end %>
 
 	<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} %></small>
