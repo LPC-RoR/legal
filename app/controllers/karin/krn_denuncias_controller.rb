@@ -60,7 +60,7 @@ class Karin::KrnDenunciasController < ApplicationController
     set_bck_rdrccn
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to "/krn_denuncias/#{@objeto.id}_1", notice: "Denuncia fue exitosamente creada." }
+        format.html { redirect_to new_dnnc_path(@objeto), notice: "Denuncia fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -73,7 +73,7 @@ class Karin::KrnDenunciasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_denuncia_params)
-        format.html { redirect_to cta_dnncs_path, notice: "Denuncia fue exitosamente actualizada." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Denuncia fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -90,7 +90,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
     combinado = @objeto.unir_pdfs!        # genera si aún no existe
 
-    redirect_to "/krn_denuncias/#{@objeto.id}_3"              # redirige a la URL permanente de ActiveStorage
+    redirect_to dnnc_path(@objeto, 3)     
   end
 
   # DELETE /krn_denuncias/1 or /krn_denuncias/1.json
@@ -98,7 +98,7 @@ class Karin::KrnDenunciasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to cta_dnncs_path, notice: "Denuncia fue exitosamente eliminada." }
+      format.html { redirect_to default_redirect_path(@objeto), notice: "Denuncia fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -114,7 +114,7 @@ class Karin::KrnDenunciasController < ApplicationController
       ntc = 'Archivo fuente no encontrado'
     end
 
-    redirect_to "/krn_denuncias/#{@objeto.id}_2", ntc: ntc
+    redirect_to dnnc_path(@objeto, 0), ntc: ntc
   end
 
   def prg
@@ -198,14 +198,10 @@ class Karin::KrnDenunciasController < ApplicationController
 
     @objeto.save
 
-    redirect_to @objeto
+    redirect_to dnnc_path(@objeto, 0)
   end
 
   private
-
-    def cta_dnncs_path
-      "/cuentas/#{@objeto.ownr.class.name[0].downcase}_#{@objeto.ownr_id}/dnncs"
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia

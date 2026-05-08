@@ -14,6 +14,11 @@ class KrnInvestigador < ApplicationRecord
 	has_many :krn_inv_denuncias
 	has_many :krn_denuncias, through: :krn_inv_denuncias
 
+	# KrnTexto se usa para guardar texto personalizado para ser insertado en los reportes
+	# el campo 'codigo' es el código del reporte
+	has_many :krn_textos, as: :ownr, dependent: :destroy
+	accepts_nested_attributes_for :krn_textos, allow_destroy: true
+
 	scope :rut_ordr, -> { order(:rut) }
 
 	validates :rut, valida_rut: true

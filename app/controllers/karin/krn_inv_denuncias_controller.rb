@@ -2,7 +2,6 @@ class Karin::KrnInvDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_inv_denuncia, only: %i[ show edit update destroy swtch ]
-  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   # GET /krn_inv_denuncias or /krn_inv_denuncias.json
   def index
@@ -16,7 +15,6 @@ class Karin::KrnInvDenunciasController < ApplicationController
   # GET /krn_inv_denuncias/new
   def new
     @objeto = KrnInvDenuncia.new(krn_denuncia_id: params[:oid])
-    set_bck_rdrccn
   end
 
   # GET /krn_inv_denuncias/1/edit
@@ -26,11 +24,10 @@ class Karin::KrnInvDenunciasController < ApplicationController
   # POST /krn_inv_denuncias or /krn_inv_denuncias.json
   def create
     @objeto = KrnInvDenuncia.new(krn_inv_denuncia_params)
-    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Investigador fue exitosamente creado." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Investigador fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +40,7 @@ class Karin::KrnInvDenunciasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_inv_denuncia_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Investigador fue exitosamente actualizado." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Investigador fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +54,7 @@ class Karin::KrnInvDenunciasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @bck_rdrccn, notice: "Investigador fue exitosamente eliminado." }
+      format.html { redirect_to default_redirect_path(@objeto), notice: "Investigador fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

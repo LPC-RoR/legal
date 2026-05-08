@@ -1,4 +1,4 @@
-<%= render partial: '0p/ttl_clss', locals: {source: 'empresas', dir: 'shw', hide_gly: true, hide_lnks: false} %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'krn_investigadores', dir: 'shw', hide_gly: true, hide_lnks: false} %>
 
 <% lst_cdg = ClssPdfRprt.txt_lst_cdg(@objeto, nil) %>
 <%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {ownr: @objeto, txt_lst_cdg: lst_cdg} %>

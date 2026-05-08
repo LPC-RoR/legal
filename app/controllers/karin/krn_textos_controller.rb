@@ -7,7 +7,8 @@ class Karin::KrnTextosController < ApplicationController
   end
 
   def new
-    @objeto = @ownr.krn_textos.build(codigo: params[:cdg])
+    cdg = 
+    @objeto   = @ownr.krn_textos.build(codigo: params[:cdg])
     @cdgs_list = ClssPdfRprt.txt_lst[params[:cdg].to_sym]
   end
 
@@ -22,7 +23,8 @@ class Karin::KrnTextosController < ApplicationController
   end
 
   def edit
-    @cdgs_list = ClssPdfRprt.txt_lst[params[:cdg].to_sym]
+    cdg_list    = ClssPdfRprt.sym_from_cdg(@objeto.ownr, @objeto.codigo)
+    @cdgs_list  = ClssPdfRprt.txt_lst[cdg_list]
   end
 
   def update

@@ -208,6 +208,21 @@ class KrnDenuncia < ApplicationRecord
 	  end
 	end
 
+	# HASH de nombres para el resumen anonimizado
+	def hash_nombres_anonimizacion
+		nombres = {}
+
+		krn_denunciantes.each_with_index do |denunciante, i|
+			nombres[denunciante.nombre] = "Denunciante #{i + 1}"
+		end
+
+		krn_denunciados.each_with_index do |denunciado, i|
+			nombres[denunciado.nombre] = "Denunciado #{i + 1}"
+		end
+
+		nombres
+	end
+
 	# ------------------------------------------------------------------------ MOTIVOS
 
 	def laboral?

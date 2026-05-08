@@ -9,17 +9,17 @@ class ClssPdfRprt
 	# Por la url se pasa el nid
 	RCRD_CLSS = {
 		medidas_resguardo: 	ActArchivo,
-		invstgdr: 					KrnInvDenuncia,
-		drvcn: 							KrnDerivacion,
-		dclrcn: 						KrnDeclaracion,
-		crdncn_apt: 				KrnDenuncia,
-		infrmcn: 						KrnDenuncia,
-		dnnc: 							KrnDenuncia,
-		st_dclrcns:    			KrnDenuncia,
-		txt_acta: 					KrnTexto,
-		txt_mdds_rsgrd: 		KrnTexto,
-		txt_dclrcn: 				KrnTexto,
-		txt_infrm: 					KrnTexto
+		invstgdr: 			KrnInvDenuncia,
+		drvcn: 				KrnDerivacion,
+		dclrcn: 			KrnDeclaracion,
+		crdncn_apt: 		KrnDenuncia,
+		infrmcn: 			KrnDenuncia,
+		dnnc: 				KrnDenuncia,
+		st_dclrcns:    		KrnDenuncia,
+		txt_acta: 			KrnTexto,
+		txt_mdds_rsgrd: 	KrnTexto,
+		txt_dclrcn: 		KrnTexto,
+		txt_infrm: 			KrnTexto
 	}.freeze
 
 	# ********************************************************* Destinatarios
@@ -66,6 +66,10 @@ class ClssPdfRprt
 	# Se salta las verificaciones que impiden enviar el mismo reporte, participante de un mismo día
 	def self.no_lock?(rprt)
 		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns'].include?(rprt)
+	end
+
+	def self.tab_dclrcns_rprt?(rprt)
+		['txt_dclrcn'].include?(rprt)
 	end
 
 	# ********************************************************* D...
@@ -155,23 +159,54 @@ class ClssPdfRprt
 
   # Métodos para el manejo de reportes TXT
 
-  def self.txt_lst_cdg(ownr_rol, tab_id)
-  	if ownr_rol == 'denuncia'
+  def self.txt_lst_cdg(ownr, tab_id)
+  	case ownr.class.name
+  	when 'KrnDenuncia'
   		'dnnc'
-  	elsif ownr_rol == 'denunciante'
+  	when 'KrnDenunciante'
   		tab_id == 1 ? 'dnncnt_1' : 'prtcpnts_2'
-  	else
+  	when 'KrnDenunciado', 'KrnTestigo'
   		tab_id == 1 ? 'prtcpnts_1' : 'prtcpnts_2'
+  	when 'KrnInvestigador'
+  		'invstgdr'
+  	when 'Empresa'
+  		'emprs'
+  	end
+  end
+
+  def self.sym_from_cdg(ownr, cdg)
+  	case ownr.class.name
+  	when 'KrnDenuncia'
+  		:dnnc
+  	when 'KrnInvestigador'
+  		:invstgdr
+  	when 'KrnDenunciante'
+  		cdg == 'txt_dclrcn' ? :dnncnt_1 : :prtcpnts_2
+  	when 'KrnDenunciado', 'KrnTestigo'
+  		cdg == 'txt_dclrcn' ? :prtcpnts_1 : :prtcpnts_2
+  	when 'Empresa'
+  		:emprs
   	end
   end
 
   def self.txt_lst
   	{
-  		dnnc: 			['txt_mdds_rsgrd', 'txt_objcn_rslcn', 'txt_anlss', 'txt_infrm'],
+  		dnnc: 		['txt_mdds_rsgrd', 'txt_objcn_rslcn', 'txt_anlss', 'txt_infrm', 'txt_emprs_dnnc'],
   		dnncnt_1: 	['txt_rprsntcn', 'txt_slctd_516', 'txt_acta'],
   		prtcpnts_1: ['txt_slctd_516'],
-  		prtcpnts_2: ['txt_dclrcn']
+  		prtcpnts_2: ['txt_dclrcn'],
+  		invstgdr:  	['txt_firma', 'txt_invstgdr'],
+  		emprs: 		['txt_emprs']
   	}
+  end
+
+  # Estos son los textos plantillas para ser llamados desde cualquie reporte.
+  def self.txt_plntlls?(cdg)
+  	['txt_firma', 'txt_invstgdr', 'txt_emprs', 'txt_emprs_dnnc'].include?(cdg)
+  end
+
+  def self.pdf_rsmbl?(cdg)
+  	['denuncia', 'txt_dclrcn'].include?(cdg)
   end
 
   # ******************************************** Manejo de ActArchivo y CheckRealizado en PDF controlado

@@ -2,7 +2,6 @@ class Karin::KrnDerivacionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_krn_derivacion, only: %i[ show edit update destroy ]
-  before_action :set_bck_rdrccn, only:  %i[ edit update destroy ]
 
   include Karin
 
@@ -43,11 +42,10 @@ class Karin::KrnDerivacionesController < ApplicationController
   # POST /krn_derivaciones or /krn_derivaciones.json
   def create
     @objeto = KrnDerivacion.new(krn_derivacion_params)
-    set_bck_rdrccn
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to params[:bck_rdrccn], notice: "Derivacion fue exitosamente creada." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Derivacion fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -60,7 +58,7 @@ class Karin::KrnDerivacionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_derivacion_params)
-        format.html { redirect_to params[:bck_rdrccn], notice: "Derivacion fue exitosamente actualiada." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Derivacion fue exitosamente actualiada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,7 +72,7 @@ class Karin::KrnDerivacionesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @bck_rdrccn, notice: "Derivacion fue exitosamente eliminada." }
+      format.html { redirect_to default_redirect_path(@objeto), notice: "Derivacion fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end

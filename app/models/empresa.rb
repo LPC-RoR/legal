@@ -8,6 +8,9 @@ class Empresa < ApplicationRecord
     has_one :tenant, as: :owner, dependent: :destroy
     has_many :usuarios, through: :tenant        # sin dependent aquí
 
+    has_many :krn_textos, as: :ownr, dependent: :destroy
+    accepts_nested_attributes_for :krn_textos, allow_destroy: true
+
     # fuerza que esto corra ANTES que el dependent: :destroy del tenant
     before_destroy :destroy_usuarios, prepend: true
 

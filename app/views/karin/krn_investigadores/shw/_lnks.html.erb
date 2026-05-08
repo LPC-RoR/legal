@@ -1,0 +1,7 @@
+<% if @objeto.ownr %>
+
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/e_#{@objeto&.ownr&.id}/dnncs", tltp: 'Volver a la cuenta'} do %>
+		<i class="bi bi-arrow-left"></i>
+	<% end %>
+
+<% end %>

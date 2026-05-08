@@ -133,7 +133,7 @@ class EmpresasController < ApplicationController
     respond_to do |format|
       if @objeto.update(empresa_params)
         purge_logo_if_requested
-        format.html { redirect_to cta_root_path, notice: "Empresa fue exitosamente actualizada." }
+        format.html { redirect_to default_redirect_path(@objeto), notice: "Empresa fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -168,28 +168,28 @@ class EmpresasController < ApplicationController
     licencia = @objeto.licencia_actual
     licencia.renovar_demo! if licencia.puede_renovar_demo?
     
-    redirect_to empresas_path
+    redirect_to default_redirect_path(@objeto)
   end
 
   def activar_compra
     licencia = @objeto.licencia_actual
     licencia.activar_compra! if licencia.plan == 'demo'
     
-    redirect_to empresas_path
+    redirect_to default_redirect_path(@objeto)
   end
 
   def renovar
     licencia = @objeto.licencia_actual
     licencia.renovar! if licencia.plan == 'anual'
     
-    redirect_to empresas_path
+    redirect_to default_redirect_path(@objeto)
   end
 
   def swtch_plan_type
     @objeto.plan_type = @objeto.plan_type == 'extendido' ? 'estandar' : 'extendido'
     @objeto.save
 
-    redirect_to "/cuentas/e_#{@objeto.id}/dnncs"
+    redirect_to default_redirect_path(@objeto)
   end
 
   # DELETE /empresas/1 or /empresas/1.json
@@ -197,7 +197,7 @@ class EmpresasController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to empresas_path, notice: "Empresa fue exitosamente eliminada." }
+      format.html { redirect_to default_redirect_path(@objeto), notice: "Empresa fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
@@ -215,7 +215,7 @@ class EmpresasController < ApplicationController
     end
     @objeto.destroy
 
-    redirect_to empresas_path
+    redirect_to default_redirect_path(@objeto)
   end
 
   private

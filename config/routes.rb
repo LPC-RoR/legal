@@ -306,6 +306,7 @@ Rails.application.routes.draw do
       match :rmv_cntrld, via: :post, on: :member
       match :annmzr, via: :post, on: :member
       match :excluir, via: :post, on: :member
+      match :resumir, via: :post, on: :member
     end
 
     resources :act_referencias

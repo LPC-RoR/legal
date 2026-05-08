@@ -1,47 +1,79 @@
 module Paths
 	extend ActiveSupport::Concern
 
+	## default_redirect_path(objeto) se usa para modelos sin muchos contextos
+	## ActArchivo y KrnTexto tienen sus propios métodos
+
+	## DENUNCIA
+	def dnnc_path(dnnc, tab_id)
+		"/krn_denuncias/#{dnnc.id}_#{tab_id}"
+	end
+
+	def new_dnnc_path(dnnc)
+		"/krn_denuncias/#{dnnc.id}_1"
+	end
+
+	# EMPRESA
+	def emprs_path(emprs, mthd)
+		"/cuentas/e_#{emprs.id}/#{mthd}"
+	end
+
+	def emprs_tab_mthd(objt)
+		case objt.class.name
+		when 'KrnDenuncia'
+			'dnncs'
+		when 'KrnInvestigador'
+			'invstgdrs'
+		when 'KrnEmpresaExterna'
+			'extrns'
+		when 'AppContacto'
+			'cntcts'
+		end
+	end
+
 	## Manejo de redirect_to
 	def default_redirect_path(objeto)
 		if usuario_signed_in?
 			case objeto.class.name
-			when 'KrnDenuncia' 
-				"/krn_denuncias/#{objeto.dnnc.id}_1"
-			when 'KrnInvestigador'
-				"/cuentas/e_#{objeto.ownr.id}/invstgdrs"
-			when 'KrnEmpresaExterna'
-				"/cuentas/e_#{objeto.ownr.id}/extrns"
-			when 'AppContacto'
-				"/cuentas/e_#{objeto.ownr.id}/cntcts"
+			when 'Empresa'
+				empresas_path
+			when 'KrnDenuncia', 'KrnInvestigador', 'KrnEmpresaExterna', 'AppContacto'
+				emprs_path(objeto.ownr, emprs_tab_mthd(objeto))
 			when 'AppNomina'
-				if objeto.ownr
-					"/cuentas/e_#{objeto.ownr.id}/nmn"
-				else
-					app_nominas_path
-				end
-			else
-				if ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo', 'KrnDerivacion'].include?(objeto.class.name)
-					"/krn_denuncias/#{objeto.krn_denuncia.id}_1"
-				elsif ['KrnDeclaracion'].include?(objeto.class.name)
-					"/krn_denuncias/#{objeto.ownr.dnnc.id}_2"
-				elsif ['KrnTexto'].include?(objeto.class.name)
-					tab = objeto.ownr.class.name == 'KrnDenuncia' ? '0' : '1'
-					"/krn_denuncias/#{objeto.ownr.dnnc.id}_#{tab}"
-				end
+				objeto.ownr ? emprs_path(objeto.ownr, 'nmn') : app_nominas_path
+			when 'KrnInvDenuncia', 'KrnDerivacion'
+				dnnc_path(objeto.krn_denuncia, 0)
+			when 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'
+				dnnc_path(objeto.krn_denuncia, 1)
+			when 'KrnDeclaracion'
+				dnnc_path(objeto.ownr.dnnc, 2)
+			when 'KrnTexto'
+				txt_path(objeto)
 			end
 		else
 			root_path
 		end
 	end
 
+	## KrnTexto
+	def txt_path(objt)
+		case objt.ownr.class.name
+		when 'KrnDenuncia'
+			dnnc_path(objt.ownr, 0)
+		when 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'
+			ClssPdfRprt.tab_dclrcns_rprt?(objt.codigo) ? dnnc_path(objt.ownr.dnnc, 3) : dnnc_path(objt.ownr.dnnc, 2)
+		when 'KrnInvestigador'
+			krn_investigador_path(objt.ownr)
+		when 'ActArchivo'
+			bck_act_archivo_path(objt.ownr)
+		end
+	end
+
+	## Hasta aquí revisado pero sin una prueba exhaustiva
+
 	def key_redirect_path(objeto, key)
 		nil
 	end
-
-
-
-
-
 
   	def krn_indx_action
 		{
@@ -66,8 +98,7 @@ module Paths
 		when 'KrnDerivacion'
 			"/krn_denuncias/#{objt.krn_denuncia.id}_1"
 		when 'KrnTexto'
-			tab = objt.ownr.class.name == 'KrnDenuncia' ? '0' : '1'
-			"/krn_denuncias/#{objt.ownr.dnnc.id}_#{tab}"
+			txt_path(objt)
 		else
 			objt.ownr
 		end

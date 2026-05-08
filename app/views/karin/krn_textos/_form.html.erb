@@ -1,12 +1,21 @@
   <div class="mb-3">
 
     <%= form.label :codigo, "Formato", class: "form-label" %>
-    <%= form.select :codigo, 
-        options_for_select(
-          @cdgs_list.map { |codigo| [ClssPrcdmnt.act_nombre[codigo], codigo] },
-          @objeto.codigo
-        ) 
-    %>    
+    <% if @objeto.ownr.class.name == 'ActArchivo' %>
+      <div class="mb-3">
+        <%= form.label :codigo, "Código", class: "form-label" %>
+        <%= form.text_field :codigo, 
+                           class: "form-control",
+                           placeholder: "Código" %>
+      </div>
+    <% else %>
+      <%= form.select :codigo, 
+          options_for_select(
+            @cdgs_list.map { |codigo| [ClssPrcdmnt.act_nombre[codigo], codigo] },
+            @objeto.codigo
+          ) 
+      %>    
+    <% end %>
 
   </div>
 

@@ -1,5 +1,5 @@
 class Repositorios::ActArchivosController < ApplicationController
-  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr excluir]
+  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr excluir resumir]
   before_action :authenticate_usuario!
   before_action :scrty_on
 
@@ -94,6 +94,15 @@ class Repositorios::ActArchivosController < ApplicationController
       redirect_to "/krn_denuncias/#{@objeto.ownr.dnnc.id}_#{@objeto.act_archivo == 'declaracion' ? 1 : 0}", 
         alert: "No se pudo anonimizar. Verifica que la denuncia tenga datos reales."
     end
+  end
+
+  def resumir
+    dnnc = @objeto.ownr.dnnc
+    nombres = dnnc.hash_nombres_anonimizacion
+
+    GenerarResumenJob.perform_later(@objeto.id, nombres)
+
+    redirect_to act_archivo_rdrccn(@objeto), notice: "Documento cargado, el resumen se generará en breve"
   end
 
 

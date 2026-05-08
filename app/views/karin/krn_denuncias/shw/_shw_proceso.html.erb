@@ -17,8 +17,8 @@
 
 <% if objeto.krn_denunciantes.any? %>
 	<%# KrnTexto list del ownr %>
-	<%#= render partial: prtl_name(objeto, 'shw/proceso', 'txt_rprts_lst'), locals: {objeto: objeto} %>
-	<%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {objeto: objeto} %>
+	<% txt_lst_cdg = ClssPdfRprt.txt_lst_cdg(objeto, nil) %>
+	<%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {ownr: objeto, txt_lst_cdg: txt_lst_cdg} %>
 <% end %>
 
 <%# DOCUMENTOS CONTROLADOS %>

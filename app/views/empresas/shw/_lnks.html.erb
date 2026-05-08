@@ -1,5 +1,3 @@
-<% if @scrty_vls[:addt_usr] and admin? and controller_name == 'cuentas' %>
-	<%= link_to "/#{@objeto.class.name.tableize}", title: 'Addt', 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
-		<i class="bi bi-menu-button-wide"></i>
-	<% end %>
+<%= render layout: '0p/tltp_lnk', locals: {lnk: empresas_path, tltp: 'Volver a Empresas registradas'} do %>
+	<i class="bi bi-arrow-left"></i>
 <% end %>

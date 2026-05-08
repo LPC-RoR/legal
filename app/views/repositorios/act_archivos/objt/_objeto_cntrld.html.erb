@@ -72,3 +72,11 @@
 	<%= render partial: prtl('act_archivos', 'objt', 'act_annmzd'), locals: {act_archivo: act_archivo, ownr: ownr, mdl: mdl, code: code} %>
 
 <% end %>
+
+<% if ClssPdfRprt.pdf_rsmbl?(code) and act_archivo %>
+	<div class="mx-4">
+	<% act_archivo.krn_textos.each do |txt| %>
+		<%= render partial: prtl('krn_textos', nil, 'ai_objt'), locals: {objt: txt, code: code} %>
+	<% end %>
+	</div>
+<% end %>
