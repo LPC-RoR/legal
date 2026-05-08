@@ -181,9 +181,9 @@ class ClssPdfRprt
   	when 'KrnInvestigador'
   		:invstgdr
   	when 'KrnDenunciante'
-  		cdg == 'txt_dclrcn' ? :dnncnt_1 : :prtcpnts_2
+  		cdg == 'txt_dclrcn' ? :prtcpnts_2 : :dnncnt_1
   	when 'KrnDenunciado', 'KrnTestigo'
-  		cdg == 'txt_dclrcn' ? :prtcpnts_1 : :prtcpnts_2
+  		cdg == 'txt_dclrcn' ? :prtcpnts_2 : :prtcpnts_1
   	when 'Empresa'
   		:emprs
   	end
