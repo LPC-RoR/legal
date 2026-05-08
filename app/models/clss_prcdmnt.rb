@@ -181,7 +181,8 @@ class ClssPrcdmnt
           'txt_firma'         => 'Firma del investigador',
           'txt_invstgdr'      => 'Datos del investigador',
           'txt_emprs'         => 'Datos de la empresa',
-          'txt_emprs_dnnc'    => 'Datos de la empresa tomados de la denuncia'
+          'txt_emprs_dnnc'    => 'Datos de la empresa tomados de la denuncia',
+          'txt_firma_rcpcn'   => 'Firma del canal de denucias'
 
     }.freeze
   end

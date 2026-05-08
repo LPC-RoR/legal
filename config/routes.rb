@@ -307,6 +307,7 @@ Rails.application.routes.draw do
       match :annmzr, via: :post, on: :member
       match :excluir, via: :post, on: :member
       match :resumir, via: :post, on: :member
+      match :anonimizar, via: :post, on: :member
     end
 
     resources :act_referencias

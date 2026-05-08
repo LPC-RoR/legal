@@ -104,6 +104,16 @@
 		<%= content_tag :li, 'Otorgar a los empleadores la asistencia técnica necesaria para el cumplimiento de las obligaciones establecidas en el presente reglamento, conforme las directrices impartidas por la Superintendencia de Seguridad Social.' %>
 	<% end %>
 
+
+<div class="mt-5 text-center">
+  <% firma = @record.firma_rcpcn %>
+  <% if firma %>
+    <%= firma.to_s.html_safe %>
+  <% else %>
+    Canal de denuncias ley 21.643 (Ley Karin)
+  <% end %>
+</div>
+
 <div class="pdf-footer mt-5">
   <div class="text-center">
     <% if false %>

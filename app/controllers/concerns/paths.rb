@@ -64,6 +64,8 @@ module Paths
 			ClssPdfRprt.tab_dclrcns_rprt?(objt.codigo) ? dnnc_path(objt.ownr.dnnc, 3) : dnnc_path(objt.ownr.dnnc, 2)
 		when 'KrnInvestigador'
 			krn_investigador_path(objt.ownr)
+		when 'Empresa'
+			objt.ownr
 		when 'ActArchivo'
 			bck_act_archivo_path(objt.ownr)
 		end

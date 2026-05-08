@@ -21,6 +21,20 @@
     <%= @ntfcdr.contenido.to_s.html_safe %>
   </p>
 
+<div class="mt-5 text-center">
+  <% firma = @record.firma_invstgdr %>
+  <% if firma %>
+    <%= firma.to_s.html_safe %>
+  <% else %>
+    <p class="text-center">
+    <%= @record.invstgdr_activo.krn_investigador.krn_investigador %><br/>
+    <small>
+    Investigador(a) asignado(a)<br/>
+    <%= @record.invstgdr_activo.krn_investigador.email %>
+    </small>
+    </p>
+  <% end %>
+</div>
 
 <div class="pdf-footer mt-5">
   <div class="text-center">

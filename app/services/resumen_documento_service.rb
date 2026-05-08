@@ -1,5 +1,7 @@
 # app/services/resumen_documento_service.rb
 class ResumenDocumentoService
+  include PdfExtractor  # ← Incluye el módulo
+  
   class OpenAIError < StandardError; end
   class ExtraccionError < StandardError; end
 
@@ -13,42 +15,19 @@ class ResumenDocumentoService
   end
 
   def generar_resumen!
-    texto_pdf = extraer_texto_pdf
+    texto_pdf = extraer_texto_pdf(@act_archivo)  # ← Llama al método del módulo
     raise ExtraccionError, "No se pudo extraer texto del PDF" if texto_pdf.blank?
 
-    texto_pdf = texto_pdf.unicode_normalize(:nfc)
-    
     Rails.logger.info "[ResumenDocumentoService] Texto extraído: #{texto_pdf.length} caracteres"
-    Rails.logger.debug "[ResumenDocumentoService] Primeros 500 chars: #{texto_pdf[0..500]}"
 
-    resumen = solicitar_resumen_a_openai(texto_pdf)
-    guardar_resumen!(resumen)
+    resumen_html = solicitar_resumen_a_openai(texto_pdf)
+    guardar_resumen!(resumen_html)
   end
 
   private
 
   def normalizar_hash_nombres(hash)
     hash.transform_keys { |k| k.to_s.unicode_normalize(:nfc) }
-  end
-
-  def extraer_texto_pdf
-    return nil unless @act_archivo.pdf.attached?
-
-    pdf_blob = @act_archivo.pdf.download
-    reader = PDF::Reader.new(StringIO.new(pdf_blob))
-    texto = reader.pages.map(&:text).join("\n")
-    
-    Rails.logger.info "=== DEBUG PDF ==="
-    Rails.logger.info "Texto primeros 200 chars: #{texto[0..200]}"
-    Rails.logger.info "Texto bytes: #{texto[0..50].bytes.inspect}"
-    
-    texto.unicode_normalize(:nfc)
-  rescue PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError => e
-    Rails.logger.error "[ResumenDocumentoService] Error leyendo PDF: #{e.message}"
-    nil
-  rescue => e
-    Rails.logger.error "[ResumenDocumentoService] Error inesperado extrayendo PDF: #{e.message}"
-    nil
   end
 
   def solicitar_resumen_a_openai(texto_pdf)
@@ -63,7 +42,12 @@ class ResumenDocumentoService
       4. Si no se proporciona alias para un nombre, reemplázalo por "[Persona X]" donde X es una letra secuencial.
       5. Omite datos personales sensibles: RUT, direcciones exactas, teléfonos, correos electrónicos.
       6. El resumen debe ser conciso pero completo: incluye fechas, lugares y descripción de los hechos.
-      7. Si el documento no contiene hechos concretos, indica: "El documento no contiene relato de hechos identificables."
+      
+      FORMATO DE SALIDA (MUY IMPORTANTE):
+      - Devuelve el resumen en HTML válido y bien formateado.
+      - Usa etiquetas semánticas: <h2> para el título, <h3> para fechas/etapas, <p> para párrafos, <ul>/<li> para listas.
+      - NO uses markdown. Solo HTML puro.
+      - NO incluyas <html>, <head>, <body>. Solo el contenido del resumen dentro de un <article>.
     PROMPT
 
     user_prompt = construir_user_prompt(texto_pdf)
@@ -83,39 +67,66 @@ class ResumenDocumentoService
     contenido = response.dig("choices", 0, "message", "content")
     raise OpenAIError, "Respuesta vacía de OpenAI" if contenido.blank?
 
-    contenido
+    limpiar_html(contenido)
   rescue OpenAI::Error => e
     Rails.logger.error "[ResumenDocumentoService] Error OpenAI: #{e.message}"
     raise OpenAIError, "Error en la API de OpenAI: #{e.message}"
   end
 
   def construir_user_prompt(texto_pdf)
-    prompt = +"DOCUMENTO A RESUMIR:\n\n#{texto_pdf}\n\n"
+    prompt = <<~PROMPT
+      DOCUMENTO A RESUMIR:
+
+      #{texto_pdf}
+
+    PROMPT
 
     if @nombres_anonimizar.any?
-      prompt << "MAPA DE ANONIMIZACIÓN (reemplaza EXACTAMENTE estos nombres por los alias indicados):\n"
+      prompt << <<~MAPA
+        MAPA DE ANONIMIZACIÓN (usa estos alias cuando encuentres los nombres correspondientes):
+      MAPA
+      
       @nombres_anonimizar.each do |nombre_real, alias_anonimo|
         prompt << "- \"#{nombre_real}\" → \"#{alias_anonimo}\"\n"
       end
-      prompt << "\n"
+      
+      prompt << <<~INSTRUCCIONES
+        
+        INSTRUCCIONES DE ANONIMIZACIÓN:
+        - Si encuentras en el documento los nombres del mapa anterior, reemplázalos por sus alias.
+        - Si encuentras otros nombres propios de personas NO listados en el mapa, anonimízalos así:
+          * Quien presenta la denuncia → "Denunciante"
+          * Contra quien se dirige la denuncia → "Denunciado"  
+          * Testigos u otros mencionados → "Testigo A", "Testigo B", etc.
+        - Si no puedes determinar el rol, usa "Persona A", "Persona B", etc.
+      INSTRUCCIONES
+    else
+      prompt << <<~INSTRUCCIONES
+        
+        INSTRUCCIONES DE ANONIMIZACIÓN:
+        - Anonimiza TODOS los nombres propios de personas:
+          * Quien presenta la denuncia → "Denunciante"
+          * Contra quien se dirige la denuncia → "Denunciado"
+          * Testigos u otros mencionados → "Testigo A", "Testigo B", etc.
+      INSTRUCCIONES
     end
 
-    prompt << "INSTRUCCIONES FINALES:\n"
-    prompt << "- Reemplaza cada nombre del mapa por su alias correspondiente en todo el resumen.\n"
-    prompt << "- Si encuentras variantes o abreviaciones de los nombres (ej: 'María' en lugar de 'María Belén Leiva Olea'), anonimízalas también.\n"
-    prompt << "- Genera el resumen cronológico en español formal.\n"
-
+    prompt << "\nGenera ahora el resumen cronológico anonimizado en español formal, con formato HTML."
     prompt
   end
 
-  def guardar_resumen!(contenido_resumen)
+  def limpiar_html(contenido)
+    contenido.gsub(/```html\s*/, '').gsub(/```\s*/, '').strip
+  end
+
+  def guardar_resumen!(contenido_html)
     KrnTexto.find_or_initialize_by(
       ownr: @act_archivo,
       codigo: "resumen_cronologico"
     ).tap do |krn_texto|
       krn_texto.assign_attributes(
         titulo: "Resumen cronológico - #{@act_archivo.pdf.filename.to_s}",
-        contenido: contenido_resumen
+        contenido: contenido_html
       )
       krn_texto.save!
     end

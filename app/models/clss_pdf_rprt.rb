@@ -118,6 +118,13 @@ class ClssPdfRprt
 			dclrcn:     				'Citación a declarar - Ley 21.643'
 		}.freeze
 	end
+
+	def self.ai_tag
+		{
+			'resumen_cronologico' 	=> 'Resumen cronológico de hechos',
+			'texto_anonimizado'		=> 'Texto anonimizado'
+		}
+	end
 	# ************************************************************************************************
 
 	def self.dnnc_rprts
@@ -196,13 +203,13 @@ class ClssPdfRprt
   		prtcpnts_1: ['txt_slctd_516'],
   		prtcpnts_2: ['txt_dclrcn'],
   		invstgdr:  	['txt_firma', 'txt_invstgdr'],
-  		emprs: 		['txt_emprs']
+  		emprs: 		['txt_firma_rcpcn', 'txt_emprs']
   	}
   end
 
   # Estos son los textos plantillas para ser llamados desde cualquie reporte.
   def self.txt_plntlls?(cdg)
-  	['txt_firma', 'txt_invstgdr', 'txt_emprs', 'txt_emprs_dnnc'].include?(cdg)
+  	['txt_firma', 'txt_firma_rcpcn', 'txt_invstgdr', 'txt_emprs', 'txt_emprs_dnnc'].include?(cdg)
   end
 
   def self.pdf_rsmbl?(cdg)

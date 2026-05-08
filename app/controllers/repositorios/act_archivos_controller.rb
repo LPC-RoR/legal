@@ -1,5 +1,5 @@
 class Repositorios::ActArchivosController < ApplicationController
-  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr excluir resumir]
+  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr excluir resumir anonimizar]
   before_action :authenticate_usuario!
   before_action :scrty_on
 
@@ -102,9 +102,17 @@ class Repositorios::ActArchivosController < ApplicationController
 
     GenerarResumenJob.perform_later(@objeto.id, nombres)
 
-    redirect_to act_archivo_rdrccn(@objeto), notice: "Documento cargado, el resumen se generará en breve"
+    redirect_to act_archivo_rdrccn(@objeto), notice: "El resumen cronológico se está generando."
   end
 
+  def anonimizar
+    dnnc = @objeto.ownr.dnnc
+    nombres = dnnc.hash_nombres_anonimizacion
+
+    AnonimizarTextoJob.perform_later(@objeto.id, nombres)
+
+    redirect_to act_archivo_rdrccn(@objeto), notice: "El texto anonimizado se está generando."
+  end
 
   # DELETE /act_archivos/1 or /act_archivos/1.json
   def destroy

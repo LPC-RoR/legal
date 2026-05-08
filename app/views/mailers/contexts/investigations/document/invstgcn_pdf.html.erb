@@ -47,6 +47,15 @@
 	<p>Asimismo, se deja constancia de que este procedimiento es de carácter confidencial, por lo que todas las personas que participen en él deberán mantener estricta reserva respecto de los antecedentes y del desarrollo del proceso.</p>
 </div>
 
+<div class="mt-5 text-center">
+  <% firma = @record.firma_rcpcn %>
+  <% if firma %>
+    <%= firma.to_s.html_safe %>
+  <% else %>
+    Canal de denuncias ley 21.643 (Ley Karin)
+  <% end %>
+</div>
+
 <div class="pdf-footer mt-5">
   <div class="text-center">
     <% if false %>
