@@ -219,7 +219,7 @@ class ClssPrcdmnt
   end
 
   def self.annmzbl?(act)
-    ['denuncia', 'acta', 'declaracion'].include?(act)
+    ['denuncia', 'acta', 'txt_dclrcn'].include?(act)
   end
 
   def self.actn_multpl?(act)
