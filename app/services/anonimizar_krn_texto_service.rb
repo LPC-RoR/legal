@@ -1,6 +1,7 @@
 # app/services/anonimizar_krn_texto_service.rb
 class AnonimizarKrnTextoService
-  include TextExtractor  # ← Usa el nuevo módulo para texto plano
+  include TextExtractor
+  include AnonimizacionPrompt  # ← Módulo compartido de prompts
   
   class OpenAIError < StandardError; end
   class ExtraccionError < StandardError; end
@@ -33,20 +34,18 @@ class AnonimizarKrnTextoService
   def solicitar_anonimizacion_a_openai(texto_plano)
     system_prompt = <<~PROMPT
       Eres un asistente especializado en procesamiento de documentos jurídicos.
-      Tu única tarea es anonimizar un documento reemplazando nombres propios de personas por alias.
-
+      Tu única tarea es anonimizar un documento reemplazando datos personales por etiquetas estandarizadas.
+      
       REGLAS OBLIGATORIAS:
-      1. Mantén TODO el texto original, palabra por palabra, excepto los nombres a reemplazar.
+      1. Mantén TODO el texto original, palabra por palabra, excepto los datos personales a reemplazar.
       2. Conserva el formato, párrafos, saltos de línea y estructura del documento original.
-      3. Reemplaza los nombres del mapa por sus alias exactos.
-      4. Si encuentras otros nombres propios no listados, reemplázalos por "[Persona A]", "[Persona B]", etc.
-      5. NO resumas. NO omitas contenido. NO agregues comentarios.
-      6. Omite solo datos personales sensibles: RUT, direcciones exactas, teléfonos, correos electrónicos.
-      7. Devuelve el resultado en HTML válido: <p> para párrafos, <br> para saltos de línea, <strong> solo si el original tenía énfasis.
-      8. NO uses markdown. NO incluyas <html>, <head>, <body>. Solo el contenido dentro de <article>.
+      3. NO resumas. NO omitas contenido. NO agregues comentarios.
+      4. Devuelve el resultado en HTML válido: <p> para párrafos, <br> para saltos de línea.
+      5. NO uses markdown. NO incluyas <html>, <head>, <body>. Solo el contenido dentro de <article>.
     PROMPT
 
-    user_prompt = construir_user_prompt(texto_plano)
+    # Usa el método del módulo compartido
+    user_prompt = construir_prompt_anonimizacion(texto_plano, @nombres_anonimizar)
 
     response = @client.chat(
       parameters: {
@@ -69,33 +68,13 @@ class AnonimizarKrnTextoService
     raise OpenAIError, "Error en la API de OpenAI: #{e.message}"
   end
 
-  def construir_user_prompt(texto_plano)
-    prompt = +"DOCUMENTO A ANONIMIZAR (mantén TODO el texto, solo reemplaza nombres):\n\n#{texto_plano}\n\n"
-
-    if @nombres_anonimizar.any?
-      prompt << "MAPA DE ANONIMIZACIÓN (reemplaza EXACTAMENTE estos nombres por los alias indicados):\n"
-      @nombres_anonimizar.each do |nombre_real, alias_anonimo|
-        prompt << "- \"#{nombre_real}\" → \"#{alias_anonimo}\"\n"
-      end
-      prompt << "\n"
-    end
-
-    prompt << "INSTRUCCIONES FINALES:\n"
-    prompt << "- Devuelve el documento COMPLETO anonimizado, sin resumir ni omitir nada.\n"
-    prompt << "- Conserva la estructura de párrafos y el formato.\n"
-    prompt << "- Usa HTML con <p> para párrafos y <br> para saltos de línea simples.\n"
-
-    prompt
-  end
-
   def limpiar_html(contenido)
     contenido.gsub(/```html\s*/, '').gsub(/```\s*/, '').strip
   end
 
-  # El nuevo KrnTexto tiene el MISMO ownr que el origen
   def guardar_texto_anonimizado!(contenido_html)
     KrnTexto.find_or_initialize_by(
-      ownr: @krn_texto_origen.ownr,  # ← Mismo ownr que el origen
+      ownr: @krn_texto_origen.ownr,
       codigo: "texto_anonimizado"
     ).tap do |krn_texto|
       krn_texto.assign_attributes(
