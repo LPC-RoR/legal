@@ -1,12 +1,13 @@
   <div class="mb-3">
 
     <%= form.label :codigo, "Formato", class: "form-label" %>
-    <% if @objeto.ownr.class.name == 'ActArchivo' %>
+    <% if ClssPdfRprt.txt_gnrds?(@objeto.codigo) %>
       <div class="mb-3">
         <%= form.label :codigo, "Código", class: "form-label" %>
         <%= form.text_field :codigo, 
                            class: "form-control",
-                           placeholder: "Código" %>
+                           placeholder: "Código",
+                           readonly: ClssPdfRprt.txt_gnrds?(@objeto.codigo) %>
       </div>
     <% else %>
       <%= form.select :codigo, 

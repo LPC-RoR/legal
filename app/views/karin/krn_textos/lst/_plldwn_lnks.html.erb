@@ -1,6 +1,20 @@
 <%# Se puede enviar más de una vez para permitir modificaciones %>
 <%# rgstrs = objt.act_referencias %>
 
+<% if objt.codigo == 'txt_dclrcn' %>
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_textos/#{objt.id}/anonimizar", tltp: "Anonimizar #{ClssPrcdmnt.act_nombre['txt_dclrcn']}", data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Anonimizar
+    <% end %>
+  </li>
+
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_textos/#{objt.id}/resumir", tltp: "Resumir #{ClssPrcdmnt.act_nombre['txt_dclrcn']}", data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Resumen de hechos
+    <% end %>
+  </li>
+<% end %>
+
 <% unless ClssPdfRprt.txt_plntlls?(objt.codigo) %>
   <li>
 

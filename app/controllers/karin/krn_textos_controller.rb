@@ -1,5 +1,5 @@
 class Karin::KrnTextosController < ApplicationController
-  before_action :set_krn_texto, only: [:show, :edit, :update, :destroy]
+  before_action :set_krn_texto, only: [:show, :edit, :update, :destroy, :resumir, :anonimizar]
   before_action :set_ownr
 
   def show
@@ -33,6 +33,24 @@ class Karin::KrnTextosController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def resumir
+    dnnc = @objeto.ownr.dnnc
+    nombres = dnnc.hash_nombres_anonimizacion
+
+    GenerarResumenKrnTextoJob.perform_later(@objeto.id, nombres)
+
+    redirect_to dnnc_path(@objeto.ownr.dnnc, 3), notice: "El resumen cronológico se está generando."
+  end
+
+  def anonimizar
+    dnnc = @objeto.ownr.dnnc
+    nombres = dnnc.hash_nombres_anonimizacion
+
+    AnonimizarKrnTextoJob.perform_later(@objeto.id, nombres)
+
+    redirect_to dnnc_path(@objeto.ownr.dnnc, 3), notice: "El texto anonimizado se está generando."
   end
 
   def destroy

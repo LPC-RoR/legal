@@ -69,7 +69,7 @@ class ClssPdfRprt
 	end
 
 	def self.tab_dclrcns_rprt?(rprt)
-		['txt_dclrcn'].include?(rprt)
+		['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico'].include?(rprt)
 	end
 
 	# ********************************************************* D...
@@ -188,9 +188,9 @@ class ClssPdfRprt
   	when 'KrnInvestigador'
   		:invstgdr
   	when 'KrnDenunciante'
-  		cdg == 'txt_dclrcn' ? :prtcpnts_2 : :dnncnt_1
+  		['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico'].include?(cdg) ? :prtcpnts_2 : :dnncnt_1
   	when 'KrnDenunciado', 'KrnTestigo'
-  		cdg == 'txt_dclrcn' ? :prtcpnts_2 : :prtcpnts_1
+  		['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico'].include?(cdg) ? :prtcpnts_2 : :prtcpnts_1
   	when 'Empresa'
   		:emprs
   	end
@@ -201,7 +201,7 @@ class ClssPdfRprt
   		dnnc: 		['txt_mdds_rsgrd', 'txt_objcn_rslcn', 'txt_anlss', 'txt_infrm', 'txt_emprs_dnnc'],
   		dnncnt_1: 	['txt_rprsntcn', 'txt_slctd_516', 'txt_acta'],
   		prtcpnts_1: ['txt_slctd_516'],
-  		prtcpnts_2: ['txt_dclrcn'],
+  		prtcpnts_2: ['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico'],
   		invstgdr:  	['txt_firma', 'txt_invstgdr'],
   		emprs: 		['txt_firma_rcpcn', 'txt_emprs']
   	}
@@ -212,8 +212,13 @@ class ClssPdfRprt
   	['txt_firma', 'txt_firma_rcpcn', 'txt_invstgdr', 'txt_emprs', 'txt_emprs_dnnc'].include?(cdg)
   end
 
+  # Códigos de ActArchivo resumibles
   def self.pdf_rsmbl?(cdg)
   	['denuncia', 'txt_dclrcn'].include?(cdg)
+  end
+
+  def self.txt_gnrds?(cdg)
+  	['texto_anonimizado', 'resumen_cronologico'].include?(cdg)
   end
 
   # ******************************************** Manejo de ActArchivo y CheckRealizado en PDF controlado

@@ -178,11 +178,13 @@ class ClssPrcdmnt
           'drvcn'                 => 'Notificación de la derivación de la denuncia',
           'invstgdr'              => 'Notificación del investigador asignado a la denuncia',
           'dclrcn'                => 'Citación a toma de declaración',
-          'txt_firma'         => 'Firma del investigador',
-          'txt_invstgdr'      => 'Datos del investigador',
-          'txt_emprs'         => 'Datos de la empresa',
-          'txt_emprs_dnnc'    => 'Datos de la empresa tomados de la denuncia',
-          'txt_firma_rcpcn'   => 'Firma del canal de denucias'
+          'txt_firma'               => 'Firma del investigador',
+          'txt_invstgdr'            => 'Datos del investigador',
+          'txt_emprs'               => 'Datos de la empresa',
+          'txt_emprs_dnnc'          => 'Datos de la empresa tomados de la denuncia',
+          'txt_firma_rcpcn'         => 'Firma del canal de denucias',
+          'texto_anonimizado'       => 'Texto anonimizado',
+          'resumen_cronologico'     => 'Resumen cronológico'
 
     }.freeze
   end

@@ -118,8 +118,8 @@
 				<% end %>
 
 				<%# RESUMIR & ANONIMIZAR %>
-				<%= render partial: prtl('act_archivos', 'objt', 'btn_anonimizar'), locals: {act_archivo: archivo, mdl: mdl, code: code} %>
-				<%= render partial: prtl('act_archivos', 'objt', 'btn_resumir'), locals: {act_archivo: archivo, mdl: mdl, code: code} %>
+				<%#= render partial: prtl('act_archivos', 'objt', 'btn_anonimizar'), locals: {act_archivo: archivo, mdl: mdl, code: code} %>
+				<%#= render partial: prtl('act_archivos', 'objt', 'btn_resumir'), locals: {act_archivo: archivo, mdl: mdl, code: code} %>
 
 				<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: archivo, mdl: ClssPrcdmnt, code: code} %>
 				<%# Sólo DOG puede eliminar un archivo enviado o generado %>
@@ -129,13 +129,13 @@
 		</div>
 
 		<%# LISTA DE ANONIMIZACIONES Y RESÚMENES %>
-		<% if (ClssPdfRprt.pdf_rsmbl?(code) || ClssPrcdmnt.annmzbl?(code)) %>
-			<div class="mx-4">
-			<% archivo.krn_textos.each do |txt| %>
-				<%= render partial: prtl('krn_textos', nil, 'ai_objt'), locals: {objt: txt, code: code} %>
-			<% end %>
-			</div>
-		<% end %>
+		<%# if (ClssPdfRprt.pdf_rsmbl?(code) || ClssPrcdmnt.annmzbl?(code)) %>
+			<!--div class="mx-4">
+			<%# archivo.krn_textos.each do |txt| %>
+				<%#= render partial: prtl('krn_textos', nil, 'ai_objt'), locals: {objt: txt, code: code} %>
+			<%# end %>
+			</div-->
+		<%# end %>
 
 		<% end %>
 
