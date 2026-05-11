@@ -2,6 +2,10 @@
 class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
   queue_as :pdf_generation
 
+  FERRUM_TIMEOUT = 60  # segundos para operaciones del navegador
+  PAGE_TIMEOUT = 45    # segundos para carga de página
+  PDF_TIMEOUT = 45     # segundos para generación de PDF
+
   def perform(denuncia_id, rprt, nid)
 
     browser = nil
@@ -15,7 +19,23 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       browser = Ferrum::Browser.new(
         headless: true,
         browser_path: browser_path,
-        args: ["--no-sandbox", "--disable-dev-shm-usage"]
+        timeout: FERRUM_TIMEOUT,  # ← TIMEOUT GLOBAL DEL NAVEGADOR
+        window_size: [1280, 1024],
+        args: [
+          "--no-sandbox",
+          "--disable-dev-shm-usage",
+          "--disable-gpu",
+          "--disable-software-rasterizer",
+          "--disable-extensions",
+          "--disable-background-networking",
+          "--disable-sync",
+          "--disable-translate",
+          "--disable-default-apps",
+          "--mute-audio",
+          "--no-first-run",
+          "--memory-pressure-off",
+          "--max_old_space_size=4096"
+        ]
       )
     
       denuncia = KrnDenuncia.find(denuncia_id)
@@ -307,14 +327,23 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
   def generar_pdf_con_ferrum(html, objeto, browser)
     page = browser.create_page
     
-    page.go_to("about:blank")
-    page.execute(%Q{
-      document.open();
-      document.write(#{html.to_json});
-      document.close();
-    })
+    # ← TIMEOUT PARA OPERACIONES DE PÁGINA
+    page.timeout = PAGE_TIMEOUT
     
-    sleep 0.5
+    # Usar data URI en lugar de document.write para HTML grande
+    # Esto es más eficiente y evita problemas de parsing
+    data_uri = "data:text/html;base64,#{Base64.strict_encode64(html)}"
+    
+    Rails.logger.info "Cargando página via data URI, HTML size: #{html.length} chars"
+    
+    page.go_to(data_uri)
+    
+    # Esperar a que el DOM esté listo y las fuentes carguen
+    # ← TIMEOUT PARA ESPERA DE RED INACTIVA
+    page.network.wait_for_idle(timeout: PAGE_TIMEOUT)
+    
+    # Esperar adicionalmente por fuentes web y renderizado
+    sleep 1.5
     
     empresa = objeto&.ownr
     razon_social = empresa&.razon_social || "Empresa"
@@ -328,7 +357,9 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       </div>
     HTML
 
-    # CORREGIDO: Especificar encoding: :binary para obtener bytes crudos
+    Rails.logger.info "Generando PDF con timeout: #{PDF_TIMEOUT}s"
+    
+    # ← TIMEOUT PARA GENERACIÓN DE PDF
     pdf_data = page.pdf(
       paper_width: 8.5,
       paper_height: 11.0,
@@ -340,7 +371,8 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       display_header_footer: true,
       header_template: ' ',
       footer_template: footer_template,
-      encoding: :binary
+      encoding: :binary,
+      timeout: PDF_TIMEOUT  # ← EXPLÍCITO PARA PDF
     )
     
     pdf_data = pdf_data.force_encoding('ASCII-8BIT')
