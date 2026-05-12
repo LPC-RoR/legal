@@ -1,5 +1,15 @@
 <%# Se puede enviar más de una vez para permitir modificaciones %>
-<%# rgstrs = objt.act_referencias %>
+<%# individualizar excepciones %>
+
+<% unless ClssPdfRprt.txt_plntlls?(objt.codigo) %>
+  <li>
+
+    <%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=#{objt.codigo}&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}, clss: 'dropdown-item'} do %>
+      <%= ClssPdfRprt.no_email_rprt?(objt.codigo) ? 'Generar' : 'Enviar' %> reporte
+    <% end %>
+
+  </li>
+<% end %>
 
 <% if objt.codigo == 'txt_dclrcn' %>
   <li>
@@ -15,26 +25,14 @@
   </li>
 <% end %>
 
-<% unless ClssPdfRprt.txt_plntlls?(objt.codigo) %>
-  <li>
+<% if current_usuario.operacion? %>
 
-    <%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=#{objt.codigo}&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}, clss: 'dropdown-item'} do %>
-      <%= ClssPdfRprt.no_email_rprt?(objt.codigo) ? 'Generar' : 'Enviar' %> reporte
-    <% end %>
+  <!--li><hr class="dropdown-divider"></li-->
+  <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
+  <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
 
-  </li>
+  <li><hr class="dropdown-divider"></li>
+
+  <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+
 <% end %>
-
-  <%# unless (clccn.count == 2 and objt == clccn.first) or objt.objetado or @objeto.fecha_trmn? %>
-  <% if current_usuario.operacion? %>
-
-    <!--li><hr class="dropdown-divider"></li-->
-    <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
-    <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
-
-    <li><hr class="dropdown-divider"></li>
-
-    <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
-
-  <% end %>
-<%# end %>

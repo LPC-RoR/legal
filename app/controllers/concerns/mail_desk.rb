@@ -51,9 +51,21 @@ module MailDesk
 
     Mailers::PdfGenerationAndDeliveryJob.perform_later(@objeto.id, rprt, nid)
 
-    shw_tab_id = ClssPdfRprt.rcrs_rprt?(rprt) ? '3' : (['declaracion', 'txt_dclrcn'].include?(rprt) ? '2' : '1')
+    ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid)
+
+    if ntfcdr.class.name == 'KrnTexto' && ['texto_anonimizado', 'resumen_cronologico'].include?(rprt)
+      shw_tab_id = 2
+    else
+      # rcrs_rprt? : ['dnnc', 'st_dclrcns']
+      shw_tab_id = ClssPdfRprt.rcrs_rprt?(rprt) ? 3 : (['dclrcn', 'declaracion', 'txt_dclrcn'].include?(rprt) ? 2 : 1)
+    end
+
+    puts "***************************************************************************** reenvío de krn_pdf_rprt"
+    puts shw_tab_id
+    puts dnnc_path(@objeto, shw_tab_id)
+    puts "***************************************************************************** reenvío de krn_pdf_rprt"
     
-    redirect_to "/krn_denuncias/#{@objeto.id}_#{shw_tab_id}", 
+    redirect_to dnnc_path(@objeto, shw_tab_id), 
       notice: 'Generación de documentos iniciada. Los PDFs se procesarán en segundo plano.'
   end
 

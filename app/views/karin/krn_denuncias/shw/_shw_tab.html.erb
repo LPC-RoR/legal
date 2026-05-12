@@ -21,7 +21,7 @@
     <% if @kproc.etapa != :etp_rcpcn %>
       <li class="nav-item">
         <a class="nav-link <%= 'active' if ["#{objt.id}_2"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_2">
-          <% if ClssPrcdmnt.prtcpnts_tsks.include?(@kproc.tarea) %>
+          <% if ClssPrcdmnt.dclrcns_tsks.include?(@kproc.tarea) %>
             <i class="bi bi-arrow-right"></i> 
           <% end %>
           Declaraciones

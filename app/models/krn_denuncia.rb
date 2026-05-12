@@ -87,8 +87,9 @@ class KrnDenuncia < ApplicationRecord
 
 	def self.estrctr
 		includes(
-			krn_denunciantes: [:krn_testigos, :krn_declaraciones],
-			krn_denunciados: [:krn_testigos, :krn_declaraciones],
+			krn_denunciantes: [:krn_declaraciones],
+			krn_denunciados: [:krn_declaraciones],
+			krn_testigos: [:krn_declaraciones],
 			krn_inv_denuncias: [], krn_derivaciones: []
 			)
 	end
@@ -114,13 +115,15 @@ class KrnDenuncia < ApplicationRecord
 	def cdgs_prtcpnts
 	  # Precarga en 3 queries: denunciantes + testigos + denunciados + testigos
 	  self.class.preload(self, 
-	    krn_denunciantes: :krn_testigos,
-	    krn_denunciados: :krn_testigos
+	    :krn_denunciantes,
+	    :krn_denunciados,
+	    :krn_testigos
 	  )
 
 	  {}.tap do |hash|
 	    procesar_tipo(hash, krn_denunciantes, 'DNNCNT')
 	    procesar_tipo(hash, krn_denunciados, 'DNNCD')
+	    procesar_tipo(hash, krn_testigos, 'TSTG')
 	  end
 	end
 
@@ -128,11 +131,6 @@ class KrnDenuncia < ApplicationRecord
 	  registros.each do |registro|
 	    # Registro principal (denunciante/denunciado)
 	    agregar_metadatos(hash, registro, prefijo)
-	    
-	    # Testigos asociados
-	    registro.krn_testigos.each do |testigo|
-	      agregar_metadatos(hash, testigo, 'TSTG')
-	    end
 	  end
 	end
 

@@ -1,6 +1,7 @@
 class KrnInvestigador < ApplicationRecord
 
 	include VerificacionEmails
+	include RutNormalizable
 	
 	ACCTN = 'invstgdrs'
 
@@ -21,7 +22,6 @@ class KrnInvestigador < ApplicationRecord
 
 	scope :rut_ordr, -> { order(:rut) }
 
-	validates :rut, valida_rut: true
 	validates_presence_of :rut, :krn_investigador, :email
 
 	scope :verified, -> { where.not(email_verified_at: nil) }

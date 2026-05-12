@@ -1,5 +1,6 @@
 class KrnDenunciante < ApplicationRecord
 	include VerificacionEmails
+	include RutNormalizable
 
 	CMBND_PDF_LST = [
 	  'representacion', 'solicitud_516', 'antecedentes', 'comprobante_firmado',
@@ -15,20 +16,26 @@ class KrnDenunciante < ApplicationRecord
 
 	belongs_to :krn_denuncia
 	belongs_to :krn_empresa_externa, optional: true
+
+	# VERIFICAR
 	belongs_to :krn_empleado, optional: true
 
 	has_many :act_archivos, as: :ownr, dependent: :destroy
 	has_many :act_referencias, as: :ref
 	has_many :check_realizados, as: :ownr, dependent: :destroy
+
+	# VERIFICAR
 	has_many :check_auditorias, as: :ownr, dependent: :destroy
 	has_many :audit_notas, as: :ownr, dependent: :destroy
 
+	# DEPRECATED
 	has_many :rep_archivos, as: :ownr, dependent: :destroy
-	
+
+	# DEPRECATED	
 	has_many :notas, as: :ownr, dependent: :destroy
 
 	has_many :krn_declaraciones, as: :ownr, dependent: :destroy
-	has_many :krn_testigos, as: :ownr, dependent: :destroy
+
 	has_many :krn_textos, as: :ownr, dependent: :destroy
 	accepts_nested_attributes_for :krn_textos, allow_destroy: true
 
@@ -43,7 +50,6 @@ class KrnDenunciante < ApplicationRecord
 	scope :extrns, -> { where.not(krn_empresa_externa_id: nil) }
 	scope :prps, -> { where(krn_empresa_externa_id: nil) }
 
-	validates :rut, valida_rut: true
 	validates_presence_of :rut, :nombre, :cargo, :lugar_trabajo
 	validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 	validates_presence_of :krn_empresa_externa_id, if: -> {empleado_externo}
@@ -91,14 +97,6 @@ class KrnDenunciante < ApplicationRecord
  	end
 
  	# ================================= 020_prtcpnts: Ingreso de(l) denunciante(s)
-
-	def fl_diat_diep?
-		self.fl?('dnncnt_diat_diep')
-	end 
-
-	def self.diats_dieps_ok?
-		all.empty? ? false : all.map {|arc| arc.fl_diat_diep?}.exclude?(false)
-	end
 
 	# En cada modelo (KrnDenunciante, KrnInvestigador, etc.)
 	# verification_sent_at marca recepción de la verificación, se añade email == email_ok para manejar cambios de email

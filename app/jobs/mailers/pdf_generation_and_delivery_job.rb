@@ -91,6 +91,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
         process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, ntfcdr, browser)
       end
 
+      # ['crdncn_apt', 'infrmcn']
       if ClssPdfRprt.cntct_rprt?(rprt)
         grupo = 'Apt' if rprt == 'crdncn_apt'
         grupo = 'RRHH' if rprt == 'infrmcn'
@@ -101,11 +102,13 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
         end
       end
 
+      # ['dnnc', 'st_dclrcns']
       if ClssPdfRprt.rcrs_rprt?(rprt)
         Rails.logger.info "Entro en rcrs_rprt, reporte: #{rprt}"
         process_participante(denuncia, rprt, nil, context, head_path, sign_path_final, denuncia, browser)
       end
 
+      # ['txt_infrm', 'texto_anonimizado', 'resumen_cronologico']
       if ClssPdfRprt.txt_rcrs_rprt?(rprt)
         Rails.logger.info "Entro en txt_rcrs_rprt, reporte: #{rprt}"
         process_participante(denuncia, rprt, nil, context, head_path, sign_path_final, ntfcdr, browser)
@@ -205,11 +208,22 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
       return
     end
 
-    krn_kywrd = prtcpnt ? prtcpnt.kywrd[:krn] : "dnnc_#{denuncia.id}"
-    filename = "#{rprt}_#{krn_kywrd}_#{Time.current.to_i}.pdf"
+    # A partir de este punto en process_participante rprt y ntfcdr puede cambiar para cubrir txt_rcrs_rprt
+    if ClssPdfRprt.txt_rcrs_rprt?(rprt)
+      pdf_ntfcdr  = ntfcdr.ownr
+      pdf_rprt    = ClssPdfRprt.pdf_rprt(pdf_ntfcdr, rprt)
+      krn_kywrd = pdf_ntfcdr.kywrd[:krn]
+      filename = "#{rprt}_#{krn_kywrd}_#{Time.current.to_i}.pdf"
+    else
+      pdf_ntfcdr  = ntfcdr
+      pdf_rprt    = rprt
+      krn_kywrd = prtcpnt ? prtcpnt.kywrd[:krn] : "dnnc_#{denuncia.id}"
+      filename = "#{pdf_rprt}_#{krn_kywrd}_#{Time.current.to_i}.pdf"
+    end
+
 
     unless ClssPdfRprt.adjunto_subido?(rprt)
-      html = generar_html_pdf(denuncia, rprt, prtcpnt, context, head_path, sign_path, krn_kywrd, ntfcdr)
+      html = generar_html_pdf(denuncia, pdf_rprt, prtcpnt, context, head_path, sign_path, krn_kywrd, ntfcdr)
       Rails.logger.info "HTML generado, longitud: #{html.length} caracteres"
       
       pdf_content = generar_pdf_con_ferrum(html, denuncia, browser)
@@ -221,12 +235,18 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     if ClssPdfRprt.adjunto_subido?(rprt)
       act_archivo = referenciar_act_archivo_dnnc(denuncia, prtcpnt, rprt, ntfcdr)
     else
-      ownr = prtcpnt.nil? ? denuncia : prtcpnt
-      act_archivo = crear_act_archivo(ownr, rprt, pdf_content, filename, ntfcdr)
+      if ClssPdfRprt.txt_rcrs_rprt?(rprt)
+        ownr = pdf_ntfcdr
+      else
+        ownr = prtcpnt.nil? ? denuncia : prtcpnt
+      end
+      # Si es txt_rcrs_rprt? el notificador debe seguir siendo KrnTexto
+      # Ya se corrigió el ownr y el nombre del reporte
+      act_archivo = crear_act_archivo(ownr, pdf_rprt, pdf_content, filename, ntfcdr)
     end
 
     unless act_archivo
-      Rails.logger.error "No se pudo obtener o crear act_archivo para prtcpnt #{prtcpnt&.id}, rprt #{rprt}"
+      Rails.logger.error "No se pudo obtener o crear act_archivo, rprt : #{pdf_rprt}"
       return
     end
     

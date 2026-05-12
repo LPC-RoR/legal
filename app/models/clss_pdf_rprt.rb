@@ -8,18 +8,20 @@ class ClssPdfRprt
 	# Relaciona rprt con el modelo de la referencia
 	# Por la url se pasa el nid
 	RCRD_CLSS = {
-		medidas_resguardo: 	ActArchivo,
-		invstgdr: 			KrnInvDenuncia,
-		drvcn: 				KrnDerivacion,
-		dclrcn: 			KrnDeclaracion,
-		crdncn_apt: 		KrnDenuncia,
-		infrmcn: 			KrnDenuncia,
-		dnnc: 				KrnDenuncia,
-		st_dclrcns:    		KrnDenuncia,
-		txt_acta: 			KrnTexto,
-		txt_mdds_rsgrd: 	KrnTexto,
-		txt_dclrcn: 		KrnTexto,
-		txt_infrm: 			KrnTexto
+		medidas_resguardo: 		ActArchivo,
+		invstgdr: 				KrnInvDenuncia,
+		drvcn: 					KrnDerivacion,
+		dclrcn: 				KrnDeclaracion,
+		crdncn_apt: 			KrnDenuncia,
+		infrmcn: 				KrnDenuncia,
+		dnnc: 					KrnDenuncia,
+		st_dclrcns:    			KrnDenuncia,
+		txt_acta: 				KrnTexto,
+		txt_mdds_rsgrd: 		KrnTexto,
+		txt_dclrcn: 			KrnTexto,
+		texto_anonimizado: 		KrnTexto,
+		resumen_cronologico:  	KrnTexto,
+		txt_infrm: 				KrnTexto
 	}.freeze
 
 	# ********************************************************* Destinatarios
@@ -50,7 +52,7 @@ class ClssPdfRprt
 
 	# El reporte no se envía, sólo se genera el PDF
 	def self.no_email_rprt?(rprt)
-		['txt_infrm'].include?(rprt)
+		['txt_infrm', 'texto_anonimizado', 'resumen_cronologico'].include?(rprt)
 	end
 
 	# El PDF es un recurso
@@ -60,18 +62,30 @@ class ClssPdfRprt
 
 	# Tiene el mismo uso que arriba pero se usa para los reportes txt
 	def self.txt_rcrs_rprt?(rprt)
-		['txt_infrm'].include?(rprt)
+		['txt_infrm', 'texto_anonimizado', 'resumen_cronologico'].include?(rprt)
 	end
 
 	# Se salta las verificaciones que impiden enviar el mismo reporte, participante de un mismo día
 	def self.no_lock?(rprt)
-		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns'].include?(rprt)
+		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns', 'texto_anonimizado', 'resumen_cronologico'].include?(rprt)
 	end
 
 	def self.tab_dclrcns_rprt?(rprt)
-		['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico'].include?(rprt)
+		['txt_dclrcn', 'dnnc_annmzd', 'dclrcn_annmzd', 'dnnc_rsmn', 'dclrcn_rsmn'].include?(rprt)
 	end
 
+	def self.tab_rcrss_rprt?(rprt)
+		['combinado', 'dnnc', 'st_dclrcns'].include?(rprt)
+	end
+
+	# Metodo para resolver cdg del ActArchivo generado por un txt_rcrs_rprt
+	def self.pdf_rprt(ownr, rprt)
+		if rprt == 'texto_anonimizado'
+			ownr.class.name == 'KrnDenuncia' ? 'dnnc_annmzd' : 'dclrcn_annmzd'
+		elsif rprt == 'resumen_cronologico'
+			ownr.class.name == 'KrnDenuncia' ? 'dnnc_rsmn' : 'dclrcn_rsmn'
+		end
+	end
 	# ********************************************************* D...
 
 	# DEPRECATED Revisar

@@ -1,6 +1,7 @@
 class KrnTestigo < ApplicationRecord
 
 	include VerificacionEmails
+	include RutNormalizable
 
 	CMBND_PDF_LST = [
 	  'solicitud_516', 'antecedentes',
@@ -33,9 +34,7 @@ class KrnTestigo < ApplicationRecord
 
 	scope :rut_ordr, -> {order(:rut)}
 
-	validates :rut, valida_rut: true, if: -> {rut.present?}
     validates_presence_of :nombre, :cargo, :lugar_trabajo
-#    validates_presence_of :email, if: -> {[nil, false].include?(articulo_516)}
 	validates_presence_of :krn_empresa_externa_id, if: -> {empleado_externo}
 	validates_presence_of :direccion_notificacion, if: -> {articulo_516}
 

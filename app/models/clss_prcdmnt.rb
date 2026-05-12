@@ -6,8 +6,9 @@ class ClssPrcdmnt
     dnnc: {
       archivos: [
         { nombre: 'denuncia',           si: ->(o) { o.via_declaracion != 'Presencial' || (o.via_declaracion == 'Presencial' && o.tipo_declaracion != 'Verbal') } },
+        { nombre: 'dnnc_annmzd',        si: ->(o) { o.via_declaracion != 'Presencial' || (o.via_declaracion == 'Presencial' && o.tipo_declaracion != 'Verbal') } },
+        { nombre: 'dnnc_rsmn',          si: ->(o) { o.via_declaracion != 'Presencial' || (o.via_declaracion == 'Presencial' && o.tipo_declaracion != 'Verbal') } },
         { nombre: 'acta',               si: ->(o) { o.via_declaracion == 'Presencial' and o.tipo_declaracion == 'Verbal' } },
-#        { nombre: 'mdds_rsgrd',         si: ->(o) { true } },
         { nombre: 'notificacion',       si: ->(o) { o.rcp_dt? } },
         { nombre: 'certificado',        si: ->(o) { o.on_dt? and o.krn_derivaciones.any? } },
         { nombre: 'dvlcn_slctd',        si: ->(o) { o.ownr.activa_devolucion } },
@@ -28,7 +29,6 @@ class ClssPrcdmnt
         { nombre: 'comprobante_firmado',si: ->(o) { o.act_archivos.exists?(act_archivo: 'comprobante') || o.check_realizados.exists?(cdg: 'comprobante') } },
         { nombre: 'apt',                si: ->(o) { true } },
         { nombre: 'objcn_invstgdr',     si: ->(o) { o.dnnc.invstgdr_ok? } },
-        { nombre: 'declaracion',        si: ->(o) { o.dnnc.invstgdr_ok? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
@@ -43,7 +43,7 @@ class ClssPrcdmnt
         { tipo: 'txt_objcn_rspst',      si: ->(o) { o.dnnc.file_or_check?('objcn_invstgdr') } },
         { tipo: 'txt_objcn_rslcn',      si: ->(o) { o.dnnc.file_or_check?('txt_objcn_rspst') } },
         { tipo: 'txt_anlss',            si: ->(o) { o.dnnc.invstgdr_ok? } },
-        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
+#        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
         { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
       ]
     },
@@ -52,7 +52,6 @@ class ClssPrcdmnt
         { nombre: 'antecedentes',       si: ->(o) { true } },
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
         { nombre: 'objcn_invstgdr',     si: ->(o) { o.dnnc.invstgdr_ok? } },
-        { nombre: 'declaracion',        si: ->(o) { o.dnnc.invstgdr_ok? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
@@ -63,21 +62,20 @@ class ClssPrcdmnt
         { tipo: 'invstgdr',             si: ->(o) { o.dnnc.invstgdr_ok? } },
         { tipo: 'txt_objcn_rspst',      si: ->(o) { o.dnnc.file_or_check?('objcn_invstgdr') } },
         { tipo: 'txt_objcn_rslcn',      si: ->(o) { o.dnnc.file_or_check?('txt_objcn_rspst') } },
-        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
-        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
+#        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
+#        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
       ]
     },
     tstg: {
       archivos: [
         { nombre: 'solicitud_516',      si: ->(o) { o.articulo_516 } },
         { nombre: 'antecedentes',       si: ->(o) { o.dnnc.invstgdr_ok? } },
-        { nombre: 'declaracion',        si: ->(o) { o.dnnc.invstgdr_ok? } },
       ],
       acciones: [
         { tipo: 'verificar_email',      si: ->(o) { true } },
         { tipo: 'drchs',                si: ->(o) { true } },
-        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
-        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
+#        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
+#        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
       ]
     }
   }.freeze
@@ -184,7 +182,11 @@ class ClssPrcdmnt
           'txt_emprs_dnnc'          => 'Datos de la empresa tomados de la denuncia',
           'txt_firma_rcpcn'         => 'Firma del canal de denucias',
           'texto_anonimizado'       => 'Texto anonimizado',
-          'resumen_cronologico'     => 'Resumen cronológico'
+          'resumen_cronologico'     => 'Resumen cronológico',
+          'dnnc_annmzd'             => 'Denuncia anonimizada',
+          'dnnc_rsmn'               => 'Resumen de los hechos de la denuncia',
+          'dclrcn_annmzd'           => 'Declaración anonimizada',
+          'dclrcn_rsmn'             => 'Resumen de los hechos de la declaración'
 
     }.freeze
   end
@@ -196,7 +198,11 @@ class ClssPrcdmnt
   end
 
   def self.prtcpnts_tsks
-    ['tsk_ingrs', 'tsk_mails_crdncn', 'tsk_dnncnt_info_oblgtr', 'tsk_cmprbnt_rcpcn', 'tsk_notificar_dnnc', 'tsk_evidencia_apt', 'tsk_dclrcns'].freeze
+    ['tsk_ingrs', 'tsk_mails_crdncn', 'tsk_dnncnt_info_oblgtr', 'tsk_cmprbnt_rcpcn', 'tsk_notificar_dnnc', 'tsk_evidencia_apt'].freeze
+  end
+
+  def self.dclrcns_tsks
+    ['tsk_dclrcns'].freeze
   end
 
   def self.act_optnl?(act)

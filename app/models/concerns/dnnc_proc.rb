@@ -158,11 +158,6 @@ module DnncProc
 
  	# ---------------------------------------------------- ARCHIVOS CONTROLADOS RECEPCION
 
- 	def mdds_rsgrd_for_attchmnt?
- 		lst = fl_last_tkn('mdds_rsgrd', :fecha)
- 		lst.present? and lst.archivo.present?
- 	end
-
  	# ---------------------------------------------------- 
  	# Sirve para controlar crud de los investigadores
  	def objcn_invstgdr?

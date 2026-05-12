@@ -1,6 +1,7 @@
 class KrnDenunciado < ApplicationRecord
 
 	include VerificacionEmails
+	include RutNormalizable
 
 	CMBND_PDF_LST = [
 	  'solicitud_516', 'antecedentes',
@@ -19,15 +20,17 @@ class KrnDenunciado < ApplicationRecord
 	has_many :act_archivos, as: :ownr, dependent: :destroy
 	has_many :act_referencias, as: :ref
 	has_many :check_realizados, as: :ownr, dependent: :destroy
+
+	# REVISAR
 	has_many :check_auditorias, as: :ownr, dependent: :destroy
 	has_many :audit_notas, as: :ownr, dependent: :destroy
 
+	# DEPRECATED
 	has_many :rep_archivos, as: :ownr, dependent: :destroy
 	
 	has_many :notas, as: :ownr, dependent: :destroy
 
 	has_many :krn_declaraciones, as: :ownr, dependent: :destroy
-	has_many :krn_testigos, as: :ownr, dependent: :destroy
 	has_many :krn_textos, as: :ownr, dependent: :destroy
 	accepts_nested_attributes_for :krn_textos, allow_destroy: true
 
@@ -42,7 +45,6 @@ class KrnDenunciado < ApplicationRecord
 	scope :extrns, -> { where.not(krn_empresa_externa_id: nil) }
 	scope :prps, -> { where(krn_empresa_externa_id: nil) }
 
-	validates :rut, valida_rut: true, if: -> {rut.present?}
     validates_presence_of :nombre, :cargo, :lugar_trabajo, :relacion_denunciante
 	validates_presence_of :krn_empresa_externa_id, if: -> {empleado_externo}
 	validates_presence_of :direccion_notificacion, if: -> {articulo_516}

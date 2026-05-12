@@ -61,7 +61,7 @@ module Paths
 		when 'KrnDenuncia'
 			dnnc_path(objt.ownr, 0)
 		when 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'
-			ClssPdfRprt.tab_dclrcns_rprt?(objt.codigo) ? dnnc_path(objt.ownr.dnnc, 3) : dnnc_path(objt.ownr.dnnc, 2)
+			ClssPdfRprt.tab_dclrcns_rprt?(objt.codigo) ? dnnc_path(objt.ownr.dnnc, 2) : dnnc_path(objt.ownr.dnnc, 1)
 		when 'KrnInvestigador'
 			krn_investigador_path(objt.ownr)
 		when 'Empresa'
@@ -123,7 +123,15 @@ module Paths
 
 	def dnnc_shw_path(objt)
 		if objt.class == ActArchivo
-			dnnc_id = "#{objt.ownr.dnnc.id}_#{objt.ownr.class.name == 'KrnDenuncia' ? (['combinado', 'dnnc'].include?(objt.act_archivo) ? '2' : '0') : '1'}"
+			if ClssPdfRprt.tab_rcrss_rprt?(objt.act_archivo)
+				dnnc_id = "#{objt.ownr.dnnc.id}_3"
+			elsif ClssPdfRprt.tab_dclrcns_rprt?(objt.act_archivo)
+				dnnc_id = "#{objt.ownr.dnnc.id}_2"
+			elsif objt.ownr.class.name == 'KrnDenuncia'
+				dnnc_id = "#{objt.ownr.dnnc.id}_0"
+			else
+				dnnc_id = "#{objt.ownr.dnnc.id}_1"
+			end
 		elsif ['KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'].include?(objt.class.name)
 			dnnc_id = "#{objt.ownr.dnnc.id}_1"
 		else

@@ -1,12 +1,13 @@
 class ComRequerimiento < ApplicationRecord
     attr_accessor :website  # honeypot
 
+    include RutNormalizable
+
     belongs_to :ownr, optional: true
 
     has_many :notas, as: :ownr
 
-	validates :rut, valida_rut: true
-    validates_presence_of :razon_social, :nombre, :email
+    validates_presence_of :rut, :razon_social, :nombre, :email
 
     validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :razon_social, length: { maximum: 50 }

@@ -12,6 +12,10 @@ module CptnProcsHelper
 		params[:id].split('_')[1] == '1'
 	end
 
+	def tab_declaraciones?
+		params[:id].split('_')[1] == '2'
+	end
+
 	def proc_file_path(objt, dir, tsk)
 		"app/views#{'/' if PRFXS[objt.class.name.to_s]}#{PRFXS[objt.class.name.to_s]}/#{cntrllr(objt)}/#{dir}/_#{tsk}.html.erb"
 	end

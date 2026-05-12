@@ -1,4 +1,15 @@
 <% lst 		= ClssPdfRprt.txt_lst[lst_cdg.to_sym] %>
 <% clccn 	= ownr.krn_textos.where(codigo: lst) %>
 
-<%= render partial: '0p/tbl_clss', locals: {clccn: clccn, source: 'krn_textos', crud: 'lnks', typ: 'ln'} %>
+<%#= render partial: '0p/tbl_clss', locals: {clccn: clccn, source: 'krn_textos', crud: 'lnks', typ: 'ln'} %>
+
+<% clccn.each do |txt| %>
+	<div class="row gx-1">
+		<div class="col-10 ps-2">
+			<%= render partial: prtl(txt, 'lst', 'objt'), locals: {objeto: txt} %>
+		</div>
+		<div class="col-2 pe-2 text-end">
+			<%= render partial: prtl(txt, 'lst', 'lnks'), locals: {objeto: txt} %>
+		</div>
+	</div>
+<% end %>

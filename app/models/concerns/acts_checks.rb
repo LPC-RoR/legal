@@ -5,6 +5,7 @@ module ActsChecks
 
 	def file_or_check?(code)
     act_archivos.exists?(act_archivo: code) ||
+    act_referencias.exists?(code: code) ||
     check_realizados.exists?(cdg: code)
 	end
 

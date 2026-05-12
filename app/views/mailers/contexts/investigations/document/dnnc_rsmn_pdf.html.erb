@@ -1,0 +1,31 @@
+<div class="pdf-header">
+  <div class="text-center">
+    <% if @head_url.present? %>
+      <img src="<%= @head_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>
+
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+</div>
+
+<div class="text-center fs-5">
+  Resumen de los hechos de la denuncia<br>
+  Denuncia <%= @record.identificador %>
+</div>
+
+<p class="mt-4"><b>El siguiente texto ha sido anonimizado con el propósito de cumplir con el estándar de confidencialidad y resguardo de los participantes adoptado para este procedimiento.</b></p>
+
+<p>
+  <%= @ntfcdr.contenido.to_s.html_safe %>
+</p>
+
+<div class="pdf-footer mt-5">
+  <div class="text-center">
+    <% if false %>
+      <img src="<%= @sign_url.to_s.strip %>" alt="Logo empresa" style="max-height: 48px;">
+    <% end %>
+  </div>
+</div>

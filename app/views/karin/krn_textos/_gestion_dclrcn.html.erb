@@ -9,8 +9,11 @@
 		</div>
 	</div>
 	<div class="p-2">
+		<%= render partial: prtl('act_archivos', 'objt', 'objeto_rprt'), locals: {audit: objeto.dnnc.auditoria, mdl: ClssPrcdmnt, ownr: objeto, code: 'dclrcn'} %>
 		<%= render partial: prtl('act_archivos', 'objt', 'objeto_rprt'), locals: {audit: objeto.dnnc.auditoria, mdl: ClssPrcdmnt, ownr: objeto, code: 'txt_dclrcn'} %>
 
 		<%= render partial: prtl('act_archivos', 'objt', 'objeto_cntrld'), locals: {audit: objeto.dnnc.auditoria, mdl: ClssPrcdmnt, ownr: objeto, code: 'declaracion', dsply_lnks: true} %>
+		<%= render partial: prtl('act_archivos', 'objt', 'objeto_cntrld'), locals: {audit: objeto.dnnc.auditoria, mdl: ClssPrcdmnt, ownr: objeto, code: 'dclrcn_annmzd', dsply_lnks: true} %>
+		<%= render partial: prtl('act_archivos', 'objt', 'objeto_cntrld'), locals: {audit: objeto.dnnc.auditoria, mdl: ClssPrcdmnt, ownr: objeto, code: 'dclrcn_rsmn', dsply_lnks: true} %>
 	</div>
 </div>
