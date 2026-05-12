@@ -62,16 +62,16 @@ class ClssPdfRprt
 
 	# Tiene el mismo uso que arriba pero se usa para los reportes txt
 	def self.txt_rcrs_rprt?(rprt)
-		['txt_infrm', 'texto_anonimizado', 'resumen_cronologico'].include?(rprt)
+		['txt_infrm', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos'].include?(rprt)
 	end
 
 	# Se salta las verificaciones que impiden enviar el mismo reporte, participante de un mismo día
 	def self.no_lock?(rprt)
-		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns', 'texto_anonimizado', 'resumen_cronologico'].include?(rprt)
+		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos'].include?(rprt)
 	end
 
 	def self.tab_dclrcns_rprt?(rprt)
-		['txt_dclrcn', 'dnnc_annmzd', 'dclrcn_annmzd', 'dnnc_rsmn', 'dclrcn_rsmn'].include?(rprt)
+		['txt_dclrcn', 'dnnc_annmzd', 'dclrcn_annmzd', 'dnnc_rsmn', 'dclrcn_rsmn', 'dclrcn_anlss', 'dclrcn_anlss'].include?(rprt)
 	end
 
 	def self.tab_rcrss_rprt?(rprt)
@@ -84,6 +84,8 @@ class ClssPdfRprt
 			ownr.class.name == 'KrnDenuncia' ? 'dnnc_annmzd' : 'dclrcn_annmzd'
 		elsif rprt == 'resumen_cronologico'
 			ownr.class.name == 'KrnDenuncia' ? 'dnnc_rsmn' : 'dclrcn_rsmn'
+		elsif rprt == 'confirmacion_hechos'
+			'dclrcn_anlss'
 		end
 	end
 	# ********************************************************* D...
@@ -212,10 +214,10 @@ class ClssPdfRprt
 
   def self.txt_lst
   	{
-  		dnnc: 		['txt_mdds_rsgrd', 'txt_objcn_rslcn', 'txt_anlss', 'txt_infrm', 'txt_emprs_dnnc'],
+  		dnnc: 		['txt_mdds_rsgrd', 'txt_objcn_rslcn', 'txt_anlss', 'txt_infrm', 'txt_emprs_dnnc', 'dnnc_annmzd', 'dnnc_rsmn'],
   		dnncnt_1: 	['txt_rprsntcn', 'txt_slctd_516', 'txt_acta'],
   		prtcpnts_1: ['txt_slctd_516'],
-  		prtcpnts_2: ['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico'],
+  		prtcpnts_2: ['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos'],
   		invstgdr:  	['txt_firma', 'txt_invstgdr'],
   		emprs: 		['txt_firma_rcpcn', 'txt_emprs']
   	}

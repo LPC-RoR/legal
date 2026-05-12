@@ -9,6 +9,7 @@ class MenuItemPolicy < ApplicationPolicy
     when 'cargos'             then user.admin? || user.operacion?
     when 'aprobaciones'       then user.admin? || user.finanzas? 
     when 'facturas'           then user.admin? || user.finanzas? 
+    when 'planillas'          then user.admin? || user.operacion? 
     when 'repositorios'       then user.admin? || user.operacion? 
     when 'laborsafe'          then user.admin? || user.operacion?
     when 'empresas'           then user.admin? || user.finanzas? 

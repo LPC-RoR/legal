@@ -13,14 +13,20 @@
 
 <% if objt.codigo == 'txt_dclrcn' %>
   <li>
-    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_textos/#{objt.id}/anonimizar", tltp: "Anonimizar #{ClssPrcdmnt.act_nombre['txt_dclrcn']}", data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_textos/#{objt.id}/anonimizar", tltp: "Anonimizar #{ClssPrcdmnt.act_nombre['txt_dclrcn']}", data: {turbo_method: :post, turbo_confirm: 'Confirmar generación PDF'}, clss: 'dropdown-item'} do %>
       Anonimizar
     <% end %>
   </li>
 
   <li>
-    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_textos/#{objt.id}/resumir", tltp: "Resumir #{ClssPrcdmnt.act_nombre['txt_dclrcn']}", data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_textos/#{objt.id}/resumir", tltp: "Resumir #{ClssPrcdmnt.act_nombre['txt_dclrcn']}", data: {turbo_method: :post, turbo_confirm: 'Confirmar generación PDF'}, clss: 'dropdown-item'} do %>
       Resumen de hechos
+    <% end %>
+  </li>
+
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_textos/#{objt.id}/confirmar_hechos", tltp: "Analizar #{ClssPrcdmnt.act_nombre['txt_dclrcn']}", data: {turbo_method: :post, turbo_confirm: 'Confirmar generación PDF'}, clss: 'dropdown-item'} do %>
+      Analizar
     <% end %>
   </li>
 <% end %>

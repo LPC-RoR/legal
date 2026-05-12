@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_07_155812) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_12_222027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -684,6 +684,60 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_07_155812) do
     t.datetime "updated_at", null: false
     t.index ["causa_id"], name: "index_demandantes_on_causa_id"
     t.index ["orden"], name: "index_demandantes_on_orden"
+  end
+
+  create_table "doc_emitidos", force: :cascade do |t|
+    t.integer "tipo_dte", null: false
+    t.integer "folio", null: false
+    t.date "fecha_emision", null: false
+    t.string "rut_emisor", limit: 12, null: false
+    t.string "razon_social_emisor", limit: 100, null: false
+    t.string "giro_emisor", limit: 100
+    t.string "acteco", limit: 10
+    t.string "cod_sii_sucursal", limit: 20
+    t.string "direccion_emisor", limit: 200
+    t.string "comuna_emisor", limit: 50
+    t.string "ciudad_emisor", limit: 50
+    t.string "rut_receptor", limit: 12, null: false
+    t.string "razon_social_receptor", limit: 100, null: false
+    t.string "giro_receptor", limit: 100
+    t.string "direccion_receptor", limit: 200
+    t.string "comuna_receptor", limit: 50
+    t.string "ciudad_receptor", limit: 50
+    t.integer "tipo_despacho"
+    t.integer "forma_pago"
+    t.decimal "total_neto", precision: 15, scale: 2
+    t.decimal "total_exento", precision: 15, scale: 2
+    t.decimal "total_iva", precision: 15, scale: 2
+    t.decimal "total_monto_total", precision: 15, scale: 2
+    t.decimal "monto_periodo", precision: 15, scale: 2
+    t.decimal "monto_no_facturable", precision: 15, scale: 2
+    t.decimal "saldo_anterior", precision: 15, scale: 2
+    t.decimal "valor_pagar", precision: 15, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "cliente_id"
+    t.bigint "doc_planilla_id"
+    t.index ["cliente_id"], name: "index_doc_emitidos_on_cliente_id"
+    t.index ["doc_planilla_id"], name: "index_doc_emitidos_on_doc_planilla_id"
+    t.index ["fecha_emision"], name: "index_doc_emitidos_on_fecha"
+    t.index ["rut_receptor", "fecha_emision"], name: "index_doc_emitidos_on_receptor_fecha"
+    t.index ["tipo_dte", "folio", "rut_emisor"], name: "index_doc_emitidos_on_dte_folio_emisor", unique: true
+    t.index ["tipo_dte", "folio"], name: "index_doc_emitidos_on_tipo_folio"
+  end
+
+  create_table "doc_planillas", force: :cascade do |t|
+    t.string "nombre_original", null: false
+    t.string "tipo", default: "emitidos", null: false
+    t.integer "mes", null: false
+    t.integer "anio", null: false
+    t.string "estado", default: "pendiente", null: false
+    t.integer "total_documentos", default: 0
+    t.integer "documentos_cargados", default: 0
+    t.text "errores"
+    t.datetime "procesado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "empresas", force: :cascade do |t|
@@ -1731,6 +1785,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_07_155812) do
   add_foreign_key "act_textos", "act_archivos"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "doc_emitidos", "clientes"
+  add_foreign_key "doc_emitidos", "doc_planillas"
   add_foreign_key "licencias", "empresas"
   add_foreign_key "responsable_actividades", "age_actividades"
   add_foreign_key "responsable_actividades", "usuarios"

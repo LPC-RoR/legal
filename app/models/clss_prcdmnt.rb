@@ -44,7 +44,7 @@ class ClssPrcdmnt
         { tipo: 'txt_objcn_rslcn',      si: ->(o) { o.dnnc.file_or_check?('txt_objcn_rspst') } },
         { tipo: 'txt_anlss',            si: ->(o) { o.dnnc.invstgdr_ok? } },
 #        { tipo: 'dclrcn',               si: ->(o) { o.dnnc.invstgdr_ok? } },
-        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
+#        { tipo: 'txt_dclrcn',           si: ->(o) { o.dnnc.invstgdr_ok? } }
       ]
     },
     dnncd: {
@@ -186,7 +186,8 @@ class ClssPrcdmnt
           'dnnc_annmzd'             => 'Denuncia anonimizada',
           'dnnc_rsmn'               => 'Resumen de los hechos de la denuncia',
           'dclrcn_annmzd'           => 'Declaración anonimizada',
-          'dclrcn_rsmn'             => 'Resumen de los hechos de la declaración'
+          'dclrcn_rsmn'             => 'Resumen de los hechos de la declaración',
+          'dclrcn_anlss'            => 'Análisis de la declaración'
 
     }.freeze
   end

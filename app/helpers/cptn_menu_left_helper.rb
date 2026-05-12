@@ -36,6 +36,7 @@ module CptnMenuLeftHelper
 						'Cargo',
 						'TarAprobacion',
 						'TarFactura',
+						'DocPlanilla'
 					]
 				},
 				{

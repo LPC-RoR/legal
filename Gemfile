@@ -70,6 +70,7 @@ gem 'image_processing', '~> 1.2'
 # Manejo de Archivos y exportación
 gem 'csv'                         # excel
 gem "roo", "~> 2.10.0"            # Leer archivos excel
+gem 'roo-xls'                     # Soporte .xls antiguo
 gem 'caxlsx'                      # Crear planillas excel
 gem 'caxlsx_rails'
 gem 'carrierwave', '~> 2.0'       # Subir archivos

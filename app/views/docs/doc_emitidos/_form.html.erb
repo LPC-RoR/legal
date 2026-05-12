@@ -1,0 +1,22 @@
+<%= form_with(model: doc_emitido) do |form| %>
+  <% if doc_emitido.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(doc_emitido.errors.count, "error") %> prohibited this doc_emitido from being saved:</h2>
+
+      <ul>
+        <% doc_emitido.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nombre_original, style: "display: block" %>
+    <%= form.text_field :nombre_original %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

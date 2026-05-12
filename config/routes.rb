@@ -72,6 +72,15 @@ Rails.application.routes.draw do
 
 # SCOPES *********************************************************
 
+  scope module: 'docs' do
+    resources :doc_emitidos, only: [:index, :show]
+    resources :doc_planillas do
+      member do
+        post :procesar
+      end
+    end
+  end
+
   scope module: 'comercial' do
     post '/requerimiento', to: 'com_requerimientos#create', as: 'requerimiento'
     resources :com_requerimientos
@@ -120,6 +129,7 @@ Rails.application.routes.draw do
     resources :krn_textos do
       match :resumir, via: :post, on: :member
       match :anonimizar, via: :post, on: :member
+      match :confirmar_hechos, via: :post, on: :member
     end
 
     resources :krn_derivaciones

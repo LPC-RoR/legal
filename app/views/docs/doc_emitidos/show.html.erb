@@ -1,0 +1,203 @@
+<!-- app/views/docs/doc_emitidos/show.html.erb -->
+<div class="container mx-auto px-4 py-6">
+  <!-- Encabezado -->
+  <div class="mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">
+          <%= @documento.tipo_dte_nombre %> N° <%= @documento.folio %>
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">
+          Emitida el <%= l(@documento.fecha_emision, format: :long) %>
+        </p>
+      </div>
+      <div class="flex gap-2">
+        <%= link_to "Volver", doc_emitidos_path, class: "px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado y cliente -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white rounded-lg shadow p-4">
+      <p class="text-xs font-semibold text-gray-500 uppercase">Estado</p>
+      <p class="text-lg font-medium">
+        <% if @documento.cliente.present? %>
+          <span class="text-green-600">● Cliente asociado</span>
+        <% else %>
+          <span class="text-amber-500">○ Sin cliente</span>
+        <% end %>
+      </p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4">
+      <p class="text-xs font-semibold text-gray-500 uppercase">Forma de Pago</p>
+      <p class="text-lg font-medium"><%= @documento.forma_pago_nombre %></p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4">
+      <p class="text-xs font-semibold text-gray-500 uppercase">Monto Total</p>
+      <p class="text-lg font-medium">
+        <%= number_to_currency(@documento.monto_total, unit: "$", delimiter: ".", separator: ",") %>
+      </p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Emisor -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Emisor</h2>
+      <dl class="space-y-3">
+        <div>
+          <dt class="text-sm font-medium text-gray-500">RUT</dt>
+          <dd class="text-sm text-gray-900"><%= @documento.rut_emisor %></dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Razón Social</dt>
+          <dd class="text-sm text-gray-900"><%= @documento.razon_social_emisor %></dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Giro</dt>
+          <dd class="text-sm text-gray-900"><%= @documento.giro_emisor.presence || "—" %></dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Dirección</dt>
+          <dd class="text-sm text-gray-900">
+            <%= @documento.direccion_emisor.presence || "—" %>,
+            <%= @documento.comuna_emisor.presence || "—" %>,
+            <%= @documento.ciudad_emisor.presence || "—" %>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- Receptor -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Receptor</h2>
+      <dl class="space-y-3">
+        <div>
+          <dt class="text-sm font-medium text-gray-500">RUT</dt>
+          <dd class="text-sm text-gray-900"><%= @documento.rut_receptor %></dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Razón Social</dt>
+          <dd class="text-sm text-gray-900"><%= @documento.razon_social_receptor %></dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Giro</dt>
+          <dd class="text-sm text-gray-900"><%= @documento.giro_receptor.presence || "—" %></dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium text-gray-500">Dirección</dt>
+          <dd class="text-sm text-gray-900">
+            <%= @documento.direccion_receptor.presence || "—" %>,
+            <%= @documento.comuna_receptor.presence || "—" %>,
+            <%= @documento.ciudad_receptor.presence || "—" %>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+  <!-- Cliente asociado -->
+  <% if @documento.cliente.present? %>
+    <div class="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
+      <h3 class="text-sm font-semibold text-green-800 mb-2">Cliente Asociado</h3>
+      <p class="text-sm text-green-700">
+        <%= @documento.cliente.razon_social %> (RUT: <%= @documento.cliente.rut %>)
+      </p>
+      <%= link_to "Ver cliente", cliente_path(@documento.cliente), class: "text-sm text-green-600 hover:underline mt-1 inline-block" %>
+    </div>
+  <% else %>
+    <div class="mt-6 bg-amber-50 border border-amber-200 rounded-lg p-4">
+      <h3 class="text-sm font-semibold text-amber-800 mb-2">Sin Cliente Asociado</h3>
+      <p class="text-sm text-amber-700">
+        Este documento no tiene un cliente vinculado. RUT receptor: <%= @documento.rut_receptor %>
+      </p>
+    </div>
+  <% end %>
+
+  <!-- Detalles / Ítems -->
+  <div class="mt-6 bg-white rounded-lg shadow overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900">Detalle de Ítems</h2>
+      <p class="text-sm text-gray-500"><%= @documento.doc_emitido_detalles.count %> ítem(s)</p>
+    </div>
+
+    <% if @documento.doc_emitido_detalles.any? %>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ítem</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Descripción</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Cantidad</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Precio Unit.</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Monto</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @documento.doc_emitido_detalles.order(:item).each do |detalle| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= detalle.item %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= detalle.codigo.presence || "—" %></td>
+                <td class="px-6 py-4 text-sm text-gray-900"><%= detalle.descripcion %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+                  <%= number_with_precision(detalle.cantidad, precision: 2, delimiter: ".", separator: ",") %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+                  <%= number_to_currency(detalle.precio_unitario, unit: "$", delimiter: ".", separator: ",") %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-right">
+                  <%= number_to_currency(detalle.monto_item, unit: "$", delimiter: ".", separator: ",") %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot class="bg-gray-50">
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-right text-sm font-semibold text-gray-900">Total:</td>
+              <td class="px-6 py-4 text-right text-sm font-bold text-gray-900">
+                <%= number_to_currency(@documento.monto_total, unit: "$", delimiter: ".", separator: ",") %>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    <% else %>
+      <div class="px-6 py-8 text-center text-gray-500">
+        <p>No hay ítems registrados para este documento.</p>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Totales -->
+  <div class="mt-6 bg-white rounded-lg shadow p-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Totales del Documento</h2>
+    <dl class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Neto</dt>
+        <dd class="text-sm text-gray-900"><%= number_to_currency(@documento.total_neto, unit: "$", delimiter: ".", separator: ",") %></dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Exento</dt>
+        <dd class="text-sm text-gray-900"><%= number_to_currency(@documento.total_exento, unit: "$", delimiter: ".", separator: ",") %></dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">IVA</dt>
+        <dd class="text-sm text-gray-900"><%= number_to_currency(@documento.total_iva, unit: "$", delimiter: ".", separator: ",") %></dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Monto Total</dt>
+        <dd class="text-sm font-bold text-gray-900"><%= number_to_currency(@documento.total_monto_total, unit: "$", delimiter: ".", separator: ",") %></dd>
+      </div>
+    </dl>
+  </div>
+
+  <!-- Metadatos -->
+  <div class="mt-6 text-xs text-gray-400">
+    <p>Registrado: <%= l(@documento.created_at, format: :long) %> | Última modificación: <%= l(@documento.updated_at, format: :long) %></p>
+    <% if @documento.doc_planilla.present? %>
+      <p>Planilla origen: <%= link_to @documento.doc_planilla.nombre_original, doc_planilla_path(@documento.doc_planilla), class: "text-blue-500 hover:underline" %></p>
+    <% end %>
+  </div>
+</div>

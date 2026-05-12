@@ -1,5 +1,5 @@
 class Karin::KrnTextosController < ApplicationController
-  before_action :set_krn_texto, only: [:show, :edit, :update, :destroy, :resumir, :anonimizar]
+  before_action :set_krn_texto, only: [:show, :edit, :update, :destroy, :resumir, :anonimizar, :confirmar_hechos]
   before_action :set_ownr
 
   def show
@@ -41,7 +41,7 @@ class Karin::KrnTextosController < ApplicationController
 
     GenerarResumenKrnTextoJob.perform_later(@objeto.id, nombres)
 
-    redirect_to dnnc_path(@objeto.ownr.dnnc, 3), notice: "El resumen cronológico se está generando."
+    redirect_to dnnc_path(@objeto.ownr.dnnc, 2), notice: "El resumen cronológico se está generando."
   end
 
   def anonimizar
@@ -50,7 +50,36 @@ class Karin::KrnTextosController < ApplicationController
 
     AnonimizarKrnTextoJob.perform_later(@objeto.id, nombres)
 
-    redirect_to dnnc_path(@objeto.ownr.dnnc, 3), notice: "El texto anonimizado se está generando."
+    redirect_to dnnc_path(@objeto.ownr.dnnc, 2), notice: "El texto anonimizado se está generando."
+  end
+
+  def confirmar_hechos
+    dnnc = @objeto.ownr.dnnc
+    nombres = dnnc.hash_nombres_anonimizacion
+    # El ActArchivo de la denuncia viene como parámetro
+    act_archivo_denuncia = dnnc.act_archivos.find_by(act_archivo: 'denuncia')
+    nombres_denunciantes = dnnc.krn_denunciantes.map { |d| d.nombre || d.nombre }.compact
+    nombres_denunciados  = dnnc.krn_denunciados.map  { |d| d.nombre || d.nombre }.compact
+
+    # Hash completo de anonimización
+    nombres = {}
+    nombres_denunciantes.each_with_index { |n, i| nombres[n] = "Denunciante #{i + 1}" }
+    nombres_denunciados.each_with_index  { |n, i| nombres[n] = "Denunciado #{i + 1}" }
+
+    tipo = @objeto.ownr.kywrd[:rol]
+
+    ConfirmarHechosJob.perform_later(
+      @objeto.id,
+      act_archivo_denuncia.id,
+      nombres_anonimizar: nombres,
+      tipo_declarante: tipo,
+      nombres_denunciantes: nombres_denunciantes,
+      nombres_denunciados: nombres_denunciados
+    )
+
+    redirect_to dnnc_path(@objeto.ownr.dnnc, 2), notice: "El reporte de confirmación de hechos se está generando."
+  rescue ActiveRecord::RecordNotFound
+    redirect_to dnnc_path(@objeto.ownr.dnnc, 2), alert: "No se encontró el archivo de denuncia especificado."
   end
 
   def destroy

@@ -1,0 +1,49 @@
+<h1><%= @objeto.nombre_original %></h1>
+<p>Estado: <strong><%= @objeto.estado %></strong><br>
+Período: <%= @objeto.periodo %><br>
+Documentos: <%= @objeto.documentos_cargados %> / <%= @objeto.total_documentos %></p>
+
+<% if @objeto.errores.present? %>
+  <div class="errores">
+    <h3>Errores:</h3>
+    <pre><%= @objeto.errores %></pre>
+  </div>
+<% end %>
+
+<h2>Documentos Cargados</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Folio</th>
+      <th>Fecha</th>
+      <th>Receptor</th>
+      <th>Monto Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @documentos.each do |doc| %>
+      <% ln_clr = [56, 61].include?(doc.tipo_dte) ? 'danger' : 'dark' %>
+      <tr class="text-<%=ln_clr%>">
+        <td><%= doc.tipo_dte_nombre %></td>
+        <td class="pe-3 text-end"><%= doc.folio %></td>
+        <td class="pe-3 text-end"><%= l(doc.fecha_emision) %></td>
+        <td><%= doc.razon_social_receptor %></td>
+        <td class="pe-3 text-end"><%= s_pesos(doc.monto_total) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% facturas = @documentos.facturas.map {|f| f.monto_total}.sum %>
+<% creditos = @documentos.creditos.map {|f| f.monto_total}.sum %>
+
+<div class="mt-5 pe-5 text-end">
+  Facturas: <%= s_pesos(facturas) %><br>
+  Créditos: <%= s_pesos(creditos) %><br>
+  TOTAL: <%= s_pesos(facturas - creditos) %>
+</div>
+
+<div class="mt-5 pe-5 text-end objt_lnk">
+  <%= link_to 'Volver', doc_planilla_path %>
+</div>

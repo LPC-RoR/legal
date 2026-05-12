@@ -1,0 +1,14 @@
+  <div>
+    <%= form.label :archivo, "Archivo Excel (.xls / .xlsx)" %>
+    <%= form.file_field :archivo, accept: ".xls,.xlsx" %>
+  </div>
+
+  <div>
+    <%= form.label :mes %>
+    <%= form.select :mes, 1..12 %>
+  </div>
+
+  <div>
+    <%= form.label :anio %>
+    <%= form.number_field :anio, value: Date.current.year %>
+  </div>
