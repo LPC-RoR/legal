@@ -184,4 +184,46 @@ module ActsChecks
 		
 	end
 
+	def generar_dclrcns!
+  	blobs = []
+
+		if self.class.name == 'KrnDenuncia'
+			krn_denunciantes.each do |dnncnt|
+				act = dnncnt.act_archivos.find_by(act_archivo: 'declaracion')
+				blobs += [act.pdf.blob] if act
+			end
+
+			krn_denunciados.each do |dnncd|
+				act = dnncd.act_archivos.find_by(act_archivo: 'declaracion')
+				blobs += [act.pdf.blob] if act
+			end
+
+			krn_testigos.each do |tstg|
+				act = tstg.act_archivos.find_by(act_archivo: 'declaracion')
+				blobs += [act.pdf.blob] if act
+			end
+		end
+
+		blobs.compact
+		return if blobs.empty?
+
+	  # 2. combinar … (resto idéntico)
+	  combined = CombinePDF.new
+	  blobs.each { |b| combined << CombinePDF.parse(b.download) }
+
+	  nuevo = act_archivos.new(
+	    mdl:         'ClssPrcdmnt',
+	    act_archivo: 'dclrcns',
+	    nombre:      "Declaraciones de la denuncia"
+	  )
+	  nuevo.pdf.attach(
+	    io:           StringIO.new(combined.to_pdf),
+	    filename:     "declaraciones.pdf",
+	    content_type: 'application/pdf'
+	  )
+	  nuevo.save!
+	  nuevo
+
+	end
+
 end
