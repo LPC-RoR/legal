@@ -28,7 +28,12 @@ Documentos: <%= @objeto.documentos_cargados %> / <%= @objeto.total_documentos %>
         <td><%= doc.tipo_dte_nombre %></td>
         <td class="pe-3 text-end"><%= doc.folio %></td>
         <td class="pe-3 text-end"><%= l(doc.fecha_emision) %></td>
-        <td><%= doc.razon_social_receptor %></td>
+        <td>
+          <% if doc.cliente.present? %>
+            <i class="bi bi-check-circle"></i>
+          <% end %>
+          <%= doc.razon_social_receptor %>
+        </td>
         <td class="pe-3 text-end"><%= s_pesos(doc.monto_total) %></td>
       </tr>
     <% end %>
