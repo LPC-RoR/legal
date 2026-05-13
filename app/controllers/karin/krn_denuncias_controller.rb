@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones annmzr set_fld prg krn_pdf_rprt ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
 
   include MailDesk
   include Karin
@@ -26,7 +26,7 @@ class Karin::KrnDenunciasController < ApplicationController
     when 2
     when 3
       @combinados   = @objeto.act_archivos.where(act_archivo: 'combinado')
-      @rcrss_infrm  = @objeto.act_archivos.where(act_archivo: ['dsgncn_invstgdr', 'ntfccns', 'dclrcns'])
+      @rcrss_infrm  = @objeto.act_archivos.where(act_archivo: ['dsgncn_invstgdr', 'ntfccns', 'dclrcns', 'mds_prb'])
       @rprts        = @objeto.act_archivos.where(act_archivo: 'dnnc').order(created_at: :desc)
       @st_dclrcns   = @objeto.act_archivos.where(act_archivo: 'st_dclrcns').order(created_at: :desc)
     end
@@ -104,6 +104,12 @@ class Karin::KrnDenunciasController < ApplicationController
 
   def pdf_declaraciones
     combinado = @objeto.generar_dclrcns!        # genera si aún no existe
+
+    redirect_to dnnc_path(@objeto, 3)     
+  end
+
+  def pdf_pruebas
+    combinado = @objeto.generar_prbs!        # genera si aún no existe
 
     redirect_to dnnc_path(@objeto, 3)     
   end

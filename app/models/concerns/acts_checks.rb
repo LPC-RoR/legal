@@ -226,4 +226,47 @@ module ActsChecks
 
 	end
 
+	def generar_prbs!
+
+  	blobs = []
+
+		if self.class.name == 'KrnDenuncia'
+			krn_denunciantes.each do |dnncnt|
+				acts = dnncnt.act_archivos.where(act_archivo: 'antecedentes')
+				blobs += acts.map {|act| act.pdf.blob unless !!act.excluir}
+			end
+
+			krn_denunciados.each do |dnncd|
+				acts = dnncd.act_archivos.where(act_archivo: 'antecedentes')
+				blobs += acts.map {|act| act.pdf.blob unless !!act.excluir}
+			end
+
+			krn_testigos.each do |tstg|
+				acts = tstg.act_archivos.where(act_archivo: 'antecedentes')
+				blobs += acts.map {|act| act.pdf.blob unless !!act.excluir}
+			end
+		end
+
+		blobs.compact
+		return if blobs.empty?
+
+	  # 2. combinar … (resto idéntico)
+	  combined = CombinePDF.new
+	  blobs.each { |b| combined << CombinePDF.parse(b.download) }
+
+	  nuevo = act_archivos.new(
+	    mdl:         'ClssPrcdmnt',
+	    act_archivo: 'mds_prb',
+	    nombre:      "Medios de prueba de la denuncia"
+	  )
+	  nuevo.pdf.attach(
+	    io:           StringIO.new(combined.to_pdf),
+	    filename:     "medios_prueba.pdf",
+	    content_type: 'application/pdf'
+	  )
+	  nuevo.save!
+	  nuevo
+		
+	end
+
 end

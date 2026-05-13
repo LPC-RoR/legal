@@ -127,6 +127,7 @@ Rails.application.routes.draw do
       match :pdf_designacion, via: :get, on: :member
       match :pdf_notificaciones, via: :get, on: :member
       match :pdf_declaraciones, via: :get, on: :member
+      match :pdf_pruebas, via: :get, on: :member
       # ruta para manejo de panels
       match :tipo_declaracion_field, via: :get, on: :collection
       # rutas para la nueva estructura de mails
