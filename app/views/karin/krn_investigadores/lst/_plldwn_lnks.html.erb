@@ -19,6 +19,16 @@
     </li>
   <% end %>
 
+  <li><hr class="dropdown-divider"></li>
+
+<% end %>
+
+<% titulo = objt.act_archivos.find_by(act_archivo: 'titulo_prfsnl') %>
+
+<% if titulo %>
+  <%# ver, modificar o eliminar %>
+<% else %>
+  <%# subir título %>
 <% end %>
 
 <% if current_usuario.operacion? %>

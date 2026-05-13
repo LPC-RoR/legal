@@ -1,0 +1,12 @@
+<% @objeto.act_archivos.each do |act| %>
+<div class="row gx-1" style="font-size: .9rem;">
+	<div class="col-8"><%= ClssPrcdmnt.act_nombre[act.act_archivo] %></div>
+	<div class="col-4 text-end">
+		<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: act, mdl: ClssPrcdmnt, code: act.act_archivo} %>
+
+		<%# Sólo Dog puede eliminar un archivo enviado o generado %>
+		<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: act} if current_usuario.dog? %>
+		<i class="bi bi-arrow-return-left"></i>
+	</div>
+</div>
+<% end %>

@@ -182,12 +182,14 @@ class ClssPrcdmnt
           'txt_emprs_dnnc'          => 'Datos de la empresa tomados de la denuncia',
           'txt_firma_rcpcn'         => 'Firma del canal de denucias',
           'texto_anonimizado'       => 'Texto anonimizado',
+          'txt_dsgncn'              => 'Designación del investigador',
           'resumen_cronologico'     => 'Resumen cronológico',
           'dnnc_annmzd'             => 'Denuncia anonimizada',
           'dnnc_rsmn'               => 'Resumen de los hechos de la denuncia',
           'dclrcn_annmzd'           => 'Declaración anonimizada',
           'dclrcn_rsmn'             => 'Resumen de los hechos de la declaración',
-          'dclrcn_anlss'            => 'Análisis de la declaración'
+          'dclrcn_anlss'            => 'Análisis de la declaración',
+          'titulo_prfsnl'           => 'Título profesional'
 
     }.freeze
   end

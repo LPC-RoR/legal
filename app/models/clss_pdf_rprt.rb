@@ -218,12 +218,14 @@ class ClssPdfRprt
   		dnncnt_1: 	['txt_rprsntcn', 'txt_slctd_516', 'txt_acta'],
   		prtcpnts_1: ['txt_slctd_516'],
   		prtcpnts_2: ['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos'],
-  		invstgdr:  	['txt_firma', 'txt_invstgdr'],
+  		invstgdr:  	['txt_firma', 'txt_invstgdr', 'txt_dsgncn'],
   		emprs: 		['txt_firma_rcpcn', 'txt_emprs']
   	}
   end
 
   # Estos son los textos plantillas para ser llamados desde cualquie reporte.
+  # NO incluí txt_dsgncn (designación del investigador) porque debo generarlo desde la denuncia (referido a la dnnc)
+  # Una vez generado se debe combinar con el título
   def self.txt_plntlls?(cdg)
   	['txt_firma', 'txt_firma_rcpcn', 'txt_invstgdr', 'txt_emprs', 'txt_emprs_dnnc'].include?(cdg)
   end
