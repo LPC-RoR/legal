@@ -1,3 +1,4 @@
+# app/models/doc_emitido.rb
 class DocEmitido < ApplicationRecord
   belongs_to :doc_planilla, optional: true
   belongs_to :cliente, optional: true
@@ -17,6 +18,8 @@ class DocEmitido < ApplicationRecord
     3 => 'Gratuito'
   }.freeze
 
+  TIPOS_FACTURA = %w[asesoria cargo causa varios].freeze
+
   validates :tipo_dte, presence: true, inclusion: { in: TIPOS_DTE.keys }
   validates :folio, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :fecha_emision, presence: true
@@ -24,27 +27,23 @@ class DocEmitido < ApplicationRecord
   validates :razon_social_emisor, presence: true
   validates :rut_receptor, presence: true
   validates :razon_social_receptor, presence: true
+  validates :tipo_factura, inclusion: { in: TIPOS_FACTURA, allow_blank: true }
 
   validates :folio, uniqueness: { scope: [:tipo_dte, :rut_emisor] }
 
-  scope :por_periodo, ->(anio, mes) {
-    where(fecha_emision: Date.new(anio, mes, 1)..Date.new(anio, mes, -1))
-  }
-  scope :por_receptor, ->(rut) { where(rut_receptor: rut) }
-  scope :por_tipo, ->(tipo) { where(tipo_dte: tipo) }
-  scope :por_fecha, ->(desde, hasta) { where(fecha_emision: desde..hasta) }
-  scope :sin_cliente, -> { where(cliente_id: nil) }
-  scope :con_cliente, -> { where.not(cliente_id: nil) }
+  scope :por_tipo_factura, ->(tipo) { where(tipo_factura: tipo) }
+  scope :sin_tipo_factura, -> { where(tipo_factura: nil) }
 
   scope :facturas, -> { where(tipo_dte: [33, 34, 56]) }
-  scope :creditos, -> { where(tipo_dte: [61]) }
+  scope :creditos, -> { where(tipo_dte: [61] )}
 
   def tipo_dte_nombre
     TIPOS_DTE[tipo_dte] || 'Desconocido'
   end
 
-  def forma_pago_nombre
-    FORMAS_PAGO[forma_pago] || 'No especificada'
+  def tipo_factura_nombre
+    return 'Sin clasificar' if tipo_factura.blank?
+    tipo_factura.capitalize
   end
 
   def monto_total

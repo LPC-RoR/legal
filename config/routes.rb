@@ -73,7 +73,11 @@ Rails.application.routes.draw do
 # SCOPES *********************************************************
 
   scope module: 'docs' do
-    resources :doc_emitidos, only: [:index, :show]
+    resources :doc_emitidos do
+      member do
+        patch :update_tipo_factura
+      end
+    end
     resources :doc_planillas do
       member do
         post :procesar

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_12_222027) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_13_012139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -718,6 +718,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_12_222027) do
     t.datetime "updated_at", null: false
     t.bigint "cliente_id"
     t.bigint "doc_planilla_id"
+    t.string "tipo_factura"
     t.index ["cliente_id"], name: "index_doc_emitidos_on_cliente_id"
     t.index ["doc_planilla_id"], name: "index_doc_emitidos_on_doc_planilla_id"
     t.index ["fecha_emision"], name: "index_doc_emitidos_on_fecha"

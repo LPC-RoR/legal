@@ -1,5 +1,5 @@
 class Docs::DocEmitidosController < ApplicationController
-  before_action :set_doc_emitido, only: %i[ show edit update destroy ]
+  before_action :set_doc_emitido, only: %i[ show edit update destroy update_tipo_factura ]
 
   layout 'addt'
 
@@ -57,12 +57,20 @@ class Docs::DocEmitidosController < ApplicationController
     end
   end
 
+  def update_tipo_factura
+    if @objeto.update(tipo_factura: params[:tipo_factura])
+      redirect_back fallback_location: @objeto.doc_planilla, notice: 'Tipo de factura actualizado.'
+    else
+      redirect_back fallback_location: @objeto.doc_planilla, alert: 'No se pudo actualizar.'
+    end
+  end
+
   # DELETE /doc_emitidos/1 or /doc_emitidos/1.json
   def destroy
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to doc_emitidos_path, status: :see_other, notice: "Doc emitido was successfully destroyed." }
+      format.html { redirect_to @objeto.doc_planilla, status: :see_other, notice: "Doc emitido was successfully destroyed." }
       format.json { head :no_content }
     end
   end
