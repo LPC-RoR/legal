@@ -49,6 +49,31 @@ module ActsChecks
 		blobs.compact
 	end
 
+	def ntfccns_blobs
+		ntfccns_lst = ['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'txt_mdds_rsgrd', 'drvcn', 'invstgdr', 'dclrcn'].freeze
+  	blobs = []
+  	acts 	= act_archivos.with_attached_pdf
+  	chks  = check_realizados.with_attached_pdf
+
+  	refs = act_referencias
+
+		ntfccns_lst.each do |code|
+			act_lst = acts.where(act_archivo: code)
+			chk_lst = chks.where(cdg: code)
+			ref_lst = refs.where(code: code)
+			if act_lst.any?
+				blobs += act_lst.map {|act| act.pdf.blob unless !!act.excluir}
+			end
+			if chk_lst.any?
+				blobs += chk_lst.map {|chk| chk.pdf.blob unless !!chk.excluir}
+			end
+			if ref_lst.any?
+				blobs += ref_lst.map {|ref| ref&.act_archivo&.pdf&.blob unless !!chk&.act_archivo&.excluir}
+			end
+		end
+		blobs.compact
+	end
+
 	def unir_pdfs!
 		# with_attached_pdf es un scope de ActArchivo
 
@@ -118,6 +143,45 @@ module ActsChecks
 		  nuevo.save!
 		  nuevo
 		end
+	end
+
+	def generar_ntfccns!
+  	blobs = []
+
+		if self.class.name == 'KrnDenuncia'
+			krn_denunciantes.each do |dnncnt|
+				blobs += dnncnt.ntfccns_blobs
+			end
+
+			krn_denunciados.each do |dnncd|
+				blobs += dnncd.ntfccns_blobs
+			end
+
+			krn_testigos.each do |tstg|
+				blobs += tstg.ntfccns_blobs
+			end
+		end
+
+		blobs.compact
+		return if blobs.empty?
+
+	  # 2. combinar … (resto idéntico)
+	  combined = CombinePDF.new
+	  blobs.each { |b| combined << CombinePDF.parse(b.download) }
+
+	  nuevo = act_archivos.new(
+	    mdl:         'ClssPrcdmnt',
+	    act_archivo: 'ntfccns',
+	    nombre:      "Notificaciones de la denuncia"
+	  )
+	  nuevo.pdf.attach(
+	    io:           StringIO.new(combined.to_pdf),
+	    filename:     "notificaciones.pdf",
+	    content_type: 'application/pdf'
+	  )
+	  nuevo.save!
+	  nuevo
+		
 	end
 
 end
