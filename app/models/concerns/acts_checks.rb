@@ -90,4 +90,34 @@ module ActsChecks
 	  nuevo
 	end
 
+	def generar_dsgncn!
+
+		inv = krn_inv_denuncias&.last
+		dsgncn = inv&.act_referencias&.find_by(code: 'txt_dsgncn')&.act_archivo
+		titulo = inv&.krn_investigador&.act_archivos.find_by(act_archivo: 'titulo_prfsnl')
+
+		if dsgncn && titulo
+			blobs = [dsgncn.pdf.blob, titulo.pdf.blob]
+
+		 	blobs.compact!
+			return if blobs.empty?
+
+		  combined = CombinePDF.new
+		  blobs.each { |b| combined << CombinePDF.parse(b.download) }
+
+		  nuevo = act_archivos.new(
+		    mdl:         'ClssPrcdmnt',
+		    act_archivo: 'dsgncn_invstgdr',
+		    nombre:      "Designación del investigador"
+		  )
+		  nuevo.pdf.attach(
+		    io:           StringIO.new(combined.to_pdf),
+		    filename:     "designacion_investigador.pdf",
+		    content_type: 'application/pdf'
+		  )
+		  nuevo.save!
+		  nuevo
+		end
+	end
+
 end

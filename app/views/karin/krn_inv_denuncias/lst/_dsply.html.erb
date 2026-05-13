@@ -1,16 +1,38 @@
 <% clccn  = @objeto.krn_inv_denuncias %>
 <% rgstrs = objeto.act_referencias %>
 
+<% ntfccns = objeto.act_referencias.where(code: 'invstgdr') %>
+<% dsgncn = objeto.act_referencias.find_by(code: 'txt_dsgncn') %>
+
 <div class="px-4 objt_lnk">
 	<i class="bi bi-arrow-return-right"></i>
-	<% if rgstrs.none? %>
+	<% if ntfccns.none? %>
 		<i class="bi bi-cone-striped text-danger"></i>
 		Investigador sin notificar
 	<% else %>
 		<i class="bi bi-check2-all text-primary"></i>
-		Investigador notificado (<%= rgstrs.count %>)
+		Investigador notificado (<%= ntfccns.count %>)
 	<% end %>
+
+	<% if dsgncn %>
+		<% archv = dsgncn.act_archivo %>
+		<div class="row gx-1">
+			<div class="col-8">
+				<i class="bi bi-arrow-return-right"></i>
+				<%= ClssPrcdmnt.act_nombre[archv.act_archivo] %>
+			</div>
+			<div class="col-4 text-end">
+				<%= render partial: prtl('act_archivos', 'objt', 'btn_dwnld'), locals: {act_archivo: archv, mdl: ClssPrcdmnt, code: archv.act_archivo} %>
+
+				<%# Sólo Dog puede eliminar un archivo enviado o generado %>
+				<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: archv} if current_usuario.dog? %>
+				<i class="bi bi-arrow-return-left"></i>
+			</div>
+		</div>
+	<% end %>
+
 </div>
+
 
 <% if clccn.first == objeto && objeto.objetado %>
 	<div class="px-4 objt_lnk">
@@ -34,3 +56,4 @@
 	    <% end %> 
 	</div>
 <% end %> 
+

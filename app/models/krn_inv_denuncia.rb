@@ -2,6 +2,8 @@ class KrnInvDenuncia < ApplicationRecord
 	belongs_to :krn_denuncia
 	belongs_to :krn_investigador
 
+	include ActsChecks
+
 	has_many :act_referencias, as: :ref
 
 	def dnnc

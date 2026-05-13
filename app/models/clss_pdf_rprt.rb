@@ -10,6 +10,7 @@ class ClssPdfRprt
 	RCRD_CLSS = {
 		medidas_resguardo: 		ActArchivo,
 		invstgdr: 				KrnInvDenuncia,
+		txt_dsgncn: 			KrnInvDenuncia,
 		drvcn: 					KrnDerivacion,
 		dclrcn: 				KrnDeclaracion,
 		crdncn_apt: 			KrnDenuncia,
@@ -46,13 +47,15 @@ class ClssPdfRprt
 	end
 
 	# Reporte cuyo destinatario es el ownr del registro notificador
+	# txt_dsgncn no aplicaca para txt_rcrs_rprt? porque su notificador es su ownr, no ownr.ownr
+	# txt_dsgncn no aplicaca para rcrs_rprt? porque su ownr no es denuncia
 	def self.ownr_rprt?(rprt)
-		['dclrcn', 'txt_dclrcn'].include?(rprt)
+		['dclrcn', 'txt_dclrcn', 'txt_dsgncn'].include?(rprt)
 	end
 
 	# El reporte no se envía, sólo se genera el PDF
 	def self.no_email_rprt?(rprt)
-		['txt_infrm', 'texto_anonimizado', 'resumen_cronologico'].include?(rprt)
+		['txt_infrm', 'texto_anonimizado', 'resumen_cronologico', 'txt_dsgncn'].include?(rprt)
 	end
 
 	# El PDF es un recurso
@@ -67,7 +70,7 @@ class ClssPdfRprt
 
 	# Se salta las verificaciones que impiden enviar el mismo reporte, participante de un mismo día
 	def self.no_lock?(rprt)
-		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos'].include?(rprt)
+		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos', 'txt_dsgncn'].include?(rprt)
 	end
 
 	def self.tab_dclrcns_rprt?(rprt)

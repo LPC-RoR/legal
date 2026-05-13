@@ -87,7 +87,7 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
 
       # ['dclrcn', 'txt_dclrcn']
       if ClssPdfRprt.ownr_rprt?(rprt)
-        dstntr = ntfcdr.ownr
+        dstntr = ClssPdfRprt.no_email_rprt?(rprt) ? nil : ntfcdr.ownr
         process_participante(denuncia, rprt, dstntr, context, head_path, sign_path_final, ntfcdr, browser)
       end
 

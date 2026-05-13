@@ -1,15 +1,27 @@
 <% clccn  = @objeto.krn_inv_denuncias %>
-<% rgstrs = objt.act_referencias %>
+
+<% ntfccns = objt.act_referencias.where(code: 'invstgdr')&.any? %>
+<% dsgncn = objt.act_referencias.find_by(code: 'txt_dsgncn') %>
 
 <%# Notificación: a menos que sea el investigador objetado %>
 <%# Manejo de notificaciones no se despliega en un investigador objetado %>
 <% unless clccn.first == objt and clccn.count == 2 %>
 
-  <% if rgstrs.none? %>
+  <% unless ntfccns %>
     <li>
 
       <%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=invstgdr&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}, clss: 'dropdown-item'} do %>
         Notificar asignación
+      <% end %>
+
+    </li>
+  <% end %>
+
+  <% unless dsgncn %>
+    <li>
+
+      <%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=txt_dsgncn&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}, clss: 'dropdown-item'} do %>
+        Generar designación
       <% end %>
 
     </li>
