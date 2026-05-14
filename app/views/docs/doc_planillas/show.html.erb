@@ -26,7 +26,7 @@ Documentos: <%= @objeto.documentos_cargados %> / <%= @objeto.total_documentos %>
       <% ln_clr = [56, 61].include?(doc.tipo_dte) ? 'danger' : 'dark' %>
       <tr class="text-<%=ln_clr%>">
         <td><%= doc.tipo_dte_nombre %></td>
-        <td class="pe-3 text-end"><%= doc.folio %></td>
+        <td class="pe-3 text-end objt_lnk"><%= link_to doc.folio, doc %></td>
         <td class="pe-3 text-end"><%= l(doc.fecha_emision) %></td>
         <td>
           <% if doc.cliente.present? %>

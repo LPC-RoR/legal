@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @doc_detalle %>
+
+<div>
+  <%= link_to "Edit this doc detalle", edit_doc_detalle_path(@doc_detalle) %> |
+  <%= link_to "Back to doc detalles", doc_detalles_path %>
+
+  <%= button_to "Destroy this doc detalle", @doc_detalle, method: :delete %>
+</div>

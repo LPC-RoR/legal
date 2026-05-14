@@ -16,8 +16,8 @@ class Docs::DocEmitidosController < ApplicationController
 
   # GET /doc_emitidos/1 or /doc_emitidos/1.json
   def show
-    @documento = DocEmitido.includes(:cliente, :doc_emitido_detalles, :doc_planilla)
-                          .find(params[:id])
+#    @documento = DocEmitido.includes(:cliente, :doc_emitido_detalles, :doc_planilla)
+    @detalles = @objeto.doc_detalles
   end
 
   # GET /doc_emitidos/new

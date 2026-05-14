@@ -36,6 +36,9 @@ class Causa < ApplicationRecord
 	has_many :tar_facturaciones, as: :ownr
 	has_many :tar_uf_facturaciones, as: :ownr
 	has_many :tar_fecha_calculos, as: :ownr
+
+	has_many :doc_detalles, as: :ownr
+
 	has_many :tar_valor_cuantias, as: :ownr, dependent: :destroy
 
 	has_many :notas, as: :ownr

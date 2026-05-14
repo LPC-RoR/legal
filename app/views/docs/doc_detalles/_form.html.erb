@@ -1,0 +1,9 @@
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :ownr_type, label: 'Clase ownr' } %>
+<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :ownr_id, label: 'Id ownr' } %>
+<hr>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tipo_detalle, label: 'Tipo detalle' } %>
+<%= render partial: '0p/lbld_inpts/date_clndr', locals: { form: form, token: :fecha_uf, label: 'Fecha UF' } %>
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :glosa, label: 'Glosa' } %>
+<%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :monto, label: 'Monto' } %>
+
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :doc_emitido_id } %>

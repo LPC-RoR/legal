@@ -3,6 +3,8 @@ class DocEmitido < ApplicationRecord
   belongs_to :doc_planilla, optional: true
   belongs_to :cliente, optional: true
 
+  has_many :doc_detalles
+
   TIPOS_DTE = {
     33 => 'Factura Electrónica',
     34 => 'Factura Exenta Electrónica',

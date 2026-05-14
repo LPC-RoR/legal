@@ -83,6 +83,7 @@ Rails.application.routes.draw do
         post :procesar
       end
     end
+    resources :doc_detalles
   end
 
   scope module: 'comercial' do

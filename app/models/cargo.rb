@@ -4,6 +4,9 @@ class Cargo < ApplicationRecord
 
 	has_one :tar_calculo, as: :ownr
 	has_one :tar_facturacion, as: :ownr
+
+    has_many :doc_detalles, as: :ownr
+
 	has_many :notas, as: :ownr
 
 	scope :crg_ordr, -> { order(created_at: :desc) }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_13_012139) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_14_183407) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -684,6 +684,22 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_13_012139) do
     t.datetime "updated_at", null: false
     t.index ["causa_id"], name: "index_demandantes_on_causa_id"
     t.index ["orden"], name: "index_demandantes_on_orden"
+  end
+
+  create_table "doc_detalles", force: :cascade do |t|
+    t.integer "doc_emitido_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.string "tipo_detalle"
+    t.date "fecha_uf"
+    t.string "glosa"
+    t.decimal "monto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doc_emitido_id"], name: "index_doc_detalles_on_doc_emitido_id"
+    t.index ["ownr_id"], name: "index_doc_detalles_on_ownr_id"
+    t.index ["ownr_type"], name: "index_doc_detalles_on_ownr_type"
+    t.index ["tipo_detalle"], name: "index_doc_detalles_on_tipo_detalle"
   end
 
   create_table "doc_emitidos", force: :cascade do |t|
