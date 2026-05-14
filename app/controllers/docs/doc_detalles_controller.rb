@@ -26,7 +26,7 @@ class Docs::DocDetallesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Doc detalle was successfully created." }
+        format.html { redirect_to @objeto.doc_emitido, notice: "Doc detalle was successfully created." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class Docs::DocDetallesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(doc_detalle_params)
-        format.html { redirect_to @objeto, notice: "Doc detalle was successfully updated." }
+        format.html { redirect_to @objeto.doc_emitido, notice: "Doc detalle was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class Docs::DocDetallesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to doc_detalles_path, status: :see_other, notice: "Doc detalle was successfully destroyed." }
+      format.html { redirect_to @objeto.doc_emitido, status: :see_other, notice: "Doc detalle was successfully destroyed." }
       format.json { head :no_content }
     end
   end
