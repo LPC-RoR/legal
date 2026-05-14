@@ -35,7 +35,7 @@
           <% end %>
         </td>
         <td><%= dtll.tipo_detalle %></td>
-        <td class="pe-3 text-end"><%= l(dtll.fecha_uf) %></td>
+        <td class="pe-3 text-end"><%= l(dtll.fecha_uf) if dtll.fecha_uf? %></td>
         <td><%= dtll.glosa %></td>
         <td class="pe-3 text-end"><%= s_pesos(dtll.monto) %></td>
         <td>
