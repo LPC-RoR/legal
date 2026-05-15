@@ -49,6 +49,8 @@
 					<%# NOTIFICACIÖN DE ActArchivo: envío de reporte asociado %>
 					<%= render partial: prtl('act_archivos', 'objt', 'act_ntfcbl'), locals: {act_archivo: lst_fl, ownr: ownr, mdl: mdl, code: code} %>
 
+					<%= render partial: '0p/tbl/lnk_editar', locals: {objeto: lst_fl} if dsply_lnks  %>
+					<i class="bi bi-arrow-return-left"></i>
 					<%= render partial: '0p/tbl/lnk_elmnr', locals: {objeto: lst_fl} if dsply_lnks  %>
 					<i class="bi bi-arrow-return-left"></i>
 				</div>

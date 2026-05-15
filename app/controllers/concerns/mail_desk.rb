@@ -51,6 +51,8 @@ module MailDesk
 
     Mailers::PdfGenerationAndDeliveryJob.perform_later(@objeto.id, rprt, nid)
 
+    # Esta línea genera un error en el LOG cuando ntfcdr.nil?, no todo los reportes tienen notificador
+    # Revisar el manejo de ClssPdfRprt para evitar falsos errores
     ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid)
 
     if ntfcdr.class.name == 'KrnTexto' && ['texto_anonimizado', 'resumen_cronologico'].include?(rprt)

@@ -123,11 +123,11 @@ class ClssPdfRprt
 
 	def self.sbjcts
 		{
-			dnncnt_info_oblgtr:	'Entrega de información obligatoria para personas denunciantes - Ley 21.643',
+			dnncnt_info_oblgtr:			'Entrega de información obligatoria para personas denunciantes - Ley 21.643',
 			comprobante:				'Comprobante de recepción de denuncia - Ley 21.643',
-			drchs:							'Derechos y obligaciones de los participantes - Ley 21.643',
-			medidas_resguardo:  'Medidas de resguardo - Ley 21.643',
-			txt_mdds_rsgrd:  		'Medidas de resguardo - Ley 21.643',
+			drchs:						'Derechos y obligaciones de los participantes - Ley 21.643',
+			medidas_resguardo:  		'Medidas de resguardo - Ley 21.643',
+			txt_mdds_rsgrd:  			'Medidas de resguardo - Ley 21.643',
 			txt_acta: 					'Acta de denuncia - Ley 21.643', 
 			infrmcn:    				'Verificación de datos de los participantes - Ley 21.643',
 			crdncn_apt: 				'Coordinación de atención psicológica temprana - Ley 21.643',
