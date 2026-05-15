@@ -112,6 +112,8 @@ class ClientesController < ApplicationController
 
     elsif @options[:menu] == 'Facturas'
 
+      @causas_revision = @objeto.causas.revision
+
       scp = params[:scp].blank? ? 'ingrss' : params[:scp]
 
       case scp

@@ -47,6 +47,8 @@ class Causa < ApplicationRecord
 	has_many :antecedentes
 	after_initialize :debug_states
 
+	scope :revision, -> {order(created_at: :desc)}
+
     validates_presence_of :causa, :rit
 
 	# 1. Subquery que ordena y pagina IDs (sin cálculos)
