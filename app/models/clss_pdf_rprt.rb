@@ -29,7 +29,7 @@ class ClssPdfRprt
 		['medidas_resguardo', 'invstgdr', 'txt_dsgncn', 'drvcn', 
 			'dclrcn', 'crdncn_apt', 'infrmcn', 'dnnc', 
 			'st_dclrcns', 'txt_acta', 'txt_mdds_rsgrd', 
-			'txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico', 'txt_infrm']
+			'txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico', 'txt_infrm'].include?(rprt)
 	end
 
 	# ********************************************************* Destinatarios
