@@ -53,7 +53,11 @@ module MailDesk
 
     # Esta línea genera un error en el LOG cuando ntfcdr.nil?, no todo los reportes tienen notificador
     # Revisar el manejo de ClssPdfRprt para evitar falsos errores
-    ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid)
+    if ClssPdfRprt.ntfcdr_rprt?(rprt)
+      ntfcdr = ClssPdfRprt::RCRD_CLSS[rprt.to_sym].find(nid)
+    else
+      ntfcdr = nil
+    end
 
     if ntfcdr.class.name == 'KrnTexto' && ['texto_anonimizado', 'resumen_cronologico'].include?(rprt)
       shw_tab_id = 2
@@ -62,10 +66,10 @@ module MailDesk
       shw_tab_id = ClssPdfRprt.rcrs_rprt?(rprt) ? 3 : (['dclrcn', 'declaracion', 'txt_dclrcn'].include?(rprt) ? 2 : 1)
     end
 
-    puts "***************************************************************************** reenvío de krn_pdf_rprt"
-    puts shw_tab_id
-    puts dnnc_path(@objeto, shw_tab_id)
-    puts "***************************************************************************** reenvío de krn_pdf_rprt"
+#    puts "***************************************************************************** reenvío de krn_pdf_rprt"
+#    puts shw_tab_id
+#    puts dnnc_path(@objeto, shw_tab_id)
+#    puts "***************************************************************************** reenvío de krn_pdf_rprt"
     
     redirect_to dnnc_path(@objeto, shw_tab_id), 
       notice: 'Generación de documentos iniciada. Los PDFs se procesarán en segundo plano.'

@@ -25,6 +25,13 @@ class ClssPdfRprt
 		txt_infrm: 				KrnTexto
 	}.freeze
 
+	def self.ntfcdr_rprt?(rprt)
+		['medidas_resguardo', 'invstgdr', 'txt_dsgncn', 'drvcn', 
+			'dclrcn', 'crdncn_apt', 'infrmcn', 'dnnc', 
+			'st_dclrcns', 'txt_acta', 'txt_mdds_rsgrd', 
+			'txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico', 'txt_infrm']
+	end
+
 	# ********************************************************* Destinatarios
 	# El reporte debe ser enviado a las personas denunciantes?
 	def self.dnncnt_rprt?(rprt)
