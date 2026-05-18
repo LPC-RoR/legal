@@ -350,13 +350,22 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     # ← TIMEOUT PARA OPERACIONES DE PÁGINA
     page.timeout = PAGE_TIMEOUT
     
-    # Usar data URI en lugar de document.write para HTML grande
-    # Esto es más eficiente y evita problemas de parsing
-    data_uri = "data:text/html;base64,#{Base64.strict_encode64(html)}"
+    # ============================================================
+    # CAMBIO: Usar archivo temporal en lugar de data URI
+    # Esto evita que Addressable::URI.parse procese 121KB+ en una regex
+    # ============================================================
+    require 'tempfile'
     
-    Rails.logger.info "Cargando página via data URI, HTML size: #{html.length} chars"
+    tempfile = Tempfile.new(['pdf_reporte', '.html'])
+    tempfile.write(html)
+    tempfile.flush  # Asegurar que se escriba en disco
     
-    page.go_to(data_uri)
+    file_url = "file://#{tempfile.path}"
+    
+    Rails.logger.info "Cargando página via archivo temporal: #{tempfile.path}, HTML size: #{html.length} chars"
+    
+    page.go_to(file_url)
+    # ============================================================
     
     # Esperar a que el DOM esté listo y las fuentes carguen
     # ← TIMEOUT PARA ESPERA DE RED INACTIVA
@@ -408,6 +417,14 @@ class Mailers::PdfGenerationAndDeliveryJob < ApplicationJob
     raise
   ensure
     page&.close
+    # ============================================================
+    # LIMPIEZA: Eliminar archivo temporal
+    # ============================================================
+    if defined?(tempfile) && tempfile.respond_to?(:close)
+      tempfile.close
+      tempfile.unlink
+    end
+    # ============================================================
   end
 
   def footer_template_para(objeto)
