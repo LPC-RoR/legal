@@ -1,0 +1,21 @@
+<%= render partial: '0p/ttl_clss', locals: {source: 'causas', clss: :sub, dir: 'cdrtr', blngs: objeto} %>
+
+<div class="row gx-1">
+	<div class="col-6">
+		<h6>Cálculos</h6>
+		<% @clcls.each do |clcl| %>
+			<%= render partial: prtl(clcl, 'list', 'objt_fin'), locals: {objeto: clcl} %>
+		<% end %>
+
+		<h6>Facturaciones</h6>
+		<% @fctrcns.each do |fctrcn| %>
+			<%= render partial: prtl(fctrcn, 'list', 'objt_fin'), locals: {objeto: fctrcn} %>
+		<% end %>
+	</div>
+	<div class="col-6">
+		<h6>Detalles de facturas</h6>
+		<% @dtlls.each do |dtll| %>
+			<%= render partial: prtl(dtll, 'lst', 'objeto'), locals: {objeto: dtll} %>
+		<% end %>
+	</div>
+</div>

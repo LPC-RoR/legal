@@ -87,8 +87,16 @@ class CausasController < ApplicationController
       set_tabla('hechos', @objeto.hechos.where(tema_id: nil).order(:orden), false)
       set_tabla('rep_archivos', @objeto.rep_archivos.ordr, false)
     when 'Tarifa & Pagos'
+
+      @clcls = @objeto.tar_calculos
+      @fctrcns = @objeto.tar_facturaciones
+      @dtlls = @objeto.doc_detalles
+
+      # Tarifas para seleccionar
+      @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)
+      @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
+
       # AUN se usa sin controller == 'servicios'
-#      @h_pgs = @objeto.tar_tarifa.blank? ? {} : h_pgs(@objeto)
 
       @objeto.tar_facturaciones.each do |fct|
         cdg = fct.codigo_formula? ? fct.codigo_formula : fct.tar_pago&.codigo_formula
@@ -114,10 +122,6 @@ class CausasController < ApplicationController
           end
         end
       end
-
-      # Tarifas para seleccionar
-      @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)
-      @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
 
     when 'Lista de hechos'
 

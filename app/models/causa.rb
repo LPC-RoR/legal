@@ -297,7 +297,7 @@ class Causa < ApplicationRecord
 	    state :con_cobros
 	    state :cobrada
 	    state :facturada
-	    state :carrada
+	    state :cerrada
 
 	    event :up_to_con_cobros do
 	      transitions from: :sin_cobros, to: :con_cobros
