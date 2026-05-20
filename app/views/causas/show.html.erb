@@ -7,16 +7,11 @@
 
 <% case @options[:menu] %>
 <% when 'General' %>
-	<div class="p-2 border-start border-end border-bottom" style="margin-top: -1px">
-		<%= render partial: prtl_name('causas', 'shw/general', 'cuantia'), locals: {objeto: @objeto} %>
-		<%#= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
-		<%= render partial: prtl_name('causas', 'shw/general', 'rcrss'), locals: {objeto: @objeto} %>
-	</div>
-
+	<%= render partial: prtl(@objeto, 'shw', 'shw_general'), locals: {objeto: @objeto} %>
 <% when 'Hechos' %>
-	<%= render partial: 'causas/shw/hechos/ndx_hechos', locals: {objeto: @objeto} %>
+	<%= render partial: prtl(@objeto, 'shw', 'shw_hechos'), locals: {objeto: @objeto} %>
 <% when 'Tarifa & Pagos' %>
-	<%= render partial: 'causas/shw/tarifa_pagos/ndx_tarifa_pagos', locals: {objeto: @objeto, tar_cliente: @tar_cliente, tar_generales: @tar_generales } %>
+	<%= render partial: prtl(@objeto, 'shw', 'shw_tarifas_pagos'), locals: {objeto: @objeto} %>
 <% when 'Lista de hechos' %>
 	<div class="border-start border-end border-bottom p-1" style="margin-top: -1px;">
 		<%= render partial: prtl(@objeto, 'shw/general', 'hechos') %>

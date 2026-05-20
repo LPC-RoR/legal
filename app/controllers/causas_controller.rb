@@ -88,9 +88,11 @@ class CausasController < ApplicationController
       set_tabla('rep_archivos', @objeto.rep_archivos.ordr, false)
     when 'Tarifa & Pagos'
 
-      @clcls = @objeto.tar_calculos
-      @fctrcns = @objeto.tar_facturaciones
-      @dtlls = @objeto.doc_detalles
+      @clcls    = @objeto.tar_calculos
+      @fctrcns  = @objeto.tar_facturaciones
+      @dtlls    = @objeto.doc_detalles
+      @ufs      = @objeto.tar_uf_facturaciones
+      @fchs     = @objeto.tar_fecha_calculos
 
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)

@@ -69,7 +69,7 @@ module Paths
 		when 'ActArchivo'
 			bck_act_archivo_path(objt.ownr)
 		when 'Causa'
-			"/causas/#{@objeto.id}?html_options[menu]=#{prm_safe('Tarifa & Pagos')}"
+			"/causas/#{objt.ownr.id}?html_options[menu]=#{prm_safe('Tarifa & Pagos')}"
 		end
 	end
 

@@ -1,0 +1,13 @@
+<div class="p-2 border-start border-end border-bottom" style="margin-top: -1px">
+
+	<%# Detalle de pagos de la CAUSA %>
+	<div class="row gx-1">
+		<div class="col-4">
+			<%= render partial: 'causas/shw/tarifa_pagos/cuadratura', locals: {objeto: objeto} %>
+		</div>
+		<div class="col-8">
+			<%= render partial: 'causas/shw/tarifa_pagos/aprobacion', locals: {objeto: objeto} %>
+		</div>
+	</div>
+	
+</div>

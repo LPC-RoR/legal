@@ -1,58 +1,66 @@
 <!-- Versión 2.0 OK -->
+<%# Revisada 20-05-2026 %>
 <!-- Encabezado del pago: usado en despliegue del pago de una causa+tarifa -->
 <!-- pago: tar_pago, ownr: causa -->
-<% valor_uf  = ownr.calc_valor_uf(pago.codigo_formula) %>
-<% fecha_uf  = ownr.calc_fecha_uf(pago.codigo_formula) %>
-<% origen_uf = ownr.calc_origen_uf(pago.codigo_formula) %>
+
+<%# El despliegue se hace considerando sólo la estructura actual %>
+<% clcl 		= ownr.tar_calculos.find_by(codigo_formula: pago.codigo_formula) %>
+<% fecha_clcl 	= ownr.tar_fecha_calculos.find_by(codigo_formula: pago.codigo_formula) %>
+
+<% valor_uf  	= ownr.calc_valor_uf(pago.codigo_formula) %>
+<% fecha_uf  	= ownr.calc_fecha_uf(pago.codigo_formula) %>
+<% origen_uf 	= ownr.calc_origen_uf(pago.codigo_formula) %>
 
 <div class="row px-2 gx-1 open-sans-regular" style="font-size: 16px;line-height: 1.2;">
 	<div class="col">
 		<b><%= pago.tar_pago %></b>
 	</div>
 	<div class="col text-end">
-		<!-- el pago requiere el valor de la UF y la UF no se ha ingresado -->
-		<!-- Se usa la nuevas funciones get_uf_calculo_pago, get_fecha_calculo_pago y get_v_tarifa_pago -->
 		<% if pago.requiere_uf == true and valor_uf.nil? %>
-			<small><b class="text-danger">UF del dia <%= dma(fecha_uf) %> no encontrada</b></small>
+			<!-- el pago requiere el valor de la UF y la UF no se ha ingresado -->
+			<small><i class="bi bi-cone-striped text-danger"></i> UF del dia <%= dma(fecha_uf) %> no encontrada</small>
 		<% else %>
+			<!-- UF presente o NO se requiere UF -->
+			<%# Valor en UF %>
 			<small>
-				<% if valor_uf.nil? %>
-					<i class="bi bi-cone-striped text-danger"></i>
+				<% case pago.codigo_formula %>
+				<% when 'monto_fijo' %>
+					<%= s_uf5(ownr.monto_fijo_uf(pago.codigo_formula)) %>
+				<% when 'monto_variable' %>
+					<%= s_uf5(ownr.monto_variable_uf(pago.codigo_formula)) %>
 				<% end %>
-			<% case pago.codigo_formula %>
-			<% when 'monto_fijo' %>
-				<%= s_uf5(ownr.monto_fijo_uf(pago.codigo_formula)) %>
-			<% when 'monto_variable' %>
-				<%= s_uf5(ownr.monto_variable_uf(pago.codigo_formula)) %>
-			<% end %>
 
-			<i class="bi bi-arrow-left-right"></i>
+				<i class="bi bi-arrow-left-right"></i>
 			</small>
 
+			<%# Valor en Pesos %>
 			<b>
-			<% case pago.codigo_formula %>
-			<% when 'monto_fijo' %>
-				<%= s_pesos(ownr.monto_fijo(pago.codigo_formula)) %>
-			<% when 'monto_variable' %>
-				<%= s_pesos(ownr.monto_variable) %>
-			<% end %>
+				<% case pago.codigo_formula %>
+				<% when 'monto_fijo' %>
+					<%= s_pesos(ownr.monto_fijo(pago.codigo_formula)) %>
+				<% when 'monto_variable' %>
+					<%= s_pesos(ownr.monto_variable) %>
+				<% end %>
 			</b>
 		<% end %>
 	</div>
 </div>
 
-<% tar_fecha_calculo = ownr.tar_fecha_calculos.find_by(codigo_formula: pago.codigo_formula) %>
 
-<% if pago.requiere_uf %>             
-	<div class="row px-2 gx-1 open-sans-regular">
+<% if pago.requiere_uf %>
+	<div class="mx-2 mb-1">
+		<i class="bi bi-arrow-return-right"></i> Cálculo del pago requiere valor de la UF
+	</div>
+
+	<div class="row px-4 gx-1 open-sans-regular objt_lnk">
 		<div class="col">
 			Fecha cálculo
 			<% if controller_name == 'causas' and ownr.tar_calculos.none? %>
-				<% if tar_fecha_calculo %>
-					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: tar_fecha_calculo} %>
+				<% if fecha_clcl %>
+					<%= render partial: '0p/tbl/lnk_eliminar', locals: {objeto: fecha_clcl} %>
 				<% else %>
-					<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "#{tar_fecha_calculo.nil? ? 'Agrega' : 'Modifica'} fecha UF de cálculo" } do %>
-						<i class="bi bi-pencil-square"></i>
+					<%= render layout: '0p/collapse/link', locals: {label: 'AgregaModifica', objeto: pago, tooltip: "Agrega fecha UF de cálculo" } do %>
+						<i class="bi bi-plus-circle"></i>
 					<% end %>
 				<% end %>
 			<% end %>
@@ -68,7 +76,7 @@
 
 	<% unless valor_uf.nil? %>
 		<b>
-		<div class="row px-2 gx-1 open-sans-regular">
+		<div class="row px-4 gx-1 open-sans-regular">
 			<div class="col">
 				<%= origen_uf %>
 			</div>

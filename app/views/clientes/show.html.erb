@@ -9,6 +9,7 @@
 	
 	<% case @options[:menu] %>
 	<% when 'General' %>
+		<%= render partial: prtl(@objeto, 'shw/general', 'txt_cuantias'), locals: {objeto: @objeto} %>
 		<%# DEPRECATED PENDIENTE en despliegue de app_archivos %>
 		<%= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
 	<% when 'Causas' %>

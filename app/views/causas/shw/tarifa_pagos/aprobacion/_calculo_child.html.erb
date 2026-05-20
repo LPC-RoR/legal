@@ -1,6 +1,6 @@
 <% calculo 		= ownr.tar_calculos.find_by(codigo_formula: pago.codigo_formula) %>
 <% facturacion 	= ownr.tar_facturaciones.find_by(codigo_formula: pago.codigo_formula) %>
-<% rgstr = calculo.nil? ? facturacion : calculo %>
+<% rgstr 		= calculo.nil? ? facturacion : calculo %>
 
 <!-- Version 2.0 -->
 <hr>
