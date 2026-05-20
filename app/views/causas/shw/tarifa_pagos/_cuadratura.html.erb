@@ -3,35 +3,46 @@
 <div class="p-2" style="font-size: .7rem; line-height: 1.5;">
 
 	<p><b>PAGO AL TRABAJADOR</b></p>
-	<% if objeto.monto_pagado? %>
-		<p>Monto pagado al trabajador: <%= s_pesos(objeto.monto_pagado) %></p>
-	<% else %>
-		<p><i class="bi bi-cone-striped text-danger"></i> No se ha acordado/sentenciado pago al trabajador.</p>
-	<% end %>
+	<div class="m-1 p-2">
+		<% if objeto.monto_pagado? %>
+			Monto pagado al trabajador: <%= s_pesos(objeto.monto_pagado) %>
+		<% else %>
+			<i class="bi bi-cone-striped text-danger"></i> No se ha acordado/sentenciado pago al trabajador.
+		<% end %>
+	</div>
 
 	<p><b>DETALLES DE FACTURAS</b></p>
-	<% @dtlls.each do |dtll| %>
-		<%= render partial: prtl(dtll, 'lst', 'objt_fin'), locals: {objeto: dtll} %>
-	<% end %>
+	<div class="m-1 p-2">
+		<% @dtlls.each do |dtll| %>
+			<%= render partial: prtl(dtll, 'lst', 'objt_fin'), locals: {objeto: dtll} %>
+		<% end %>
+	</div>
 
 	<p><b>CÁLCULOS</b></p>
-	<% @clcls.each do |clcl| %>
-		<%= render partial: prtl(clcl, 'list', 'objt_fin'), locals: {objeto: clcl} %>
-	<% end %>
+	<div class="m-1 p-2">
+		<% @clcls.each do |clcl| %>
+			<%= render partial: prtl(clcl, 'list', 'objt_fin'), locals: {objeto: clcl} %>
+		<% end %>
+	</div>
 
 	<p><b>DETALLES DE APROBACIÓN</b></p>
-	<% @fctrcns.each do |fctrcn| %>
-		<%= render partial: prtl(fctrcn, 'list', 'objt_fin'), locals: {objeto: fctrcn} %>
-	<% end %>
+	<div class="m-1 p-2">
+		<% @fctrcns.each do |fctrcn| %>
+			<%= render partial: prtl(fctrcn, 'list', 'objt_fin'), locals: {objeto: fctrcn} %>
+		<% end %>
+	</div>
 
 	<p><b>UFS DE FACTURACION</b></p>
-	<% @ufs.each do |uf| %>
-		<%= render partial: prtl(uf, 'list', 'objt_fin'), locals: {objeto: uf} %>
-	<% end %>
-
+	<div class="m-1 p-2">
+		<% @ufs.each do |uf| %>
+			<%= render partial: prtl(uf, 'list', 'objt_fin'), locals: {objeto: uf} %>
+		<% end %>
+	</div>
 
 	<p><b>FECHAS DE FACTURACIÓN</b></p>
-	<% @fchs.each do |fch| %>
-		<%= render partial: prtl(fch, 'list', 'objt_fin'), locals: {objeto: fch} %>
-	<% end %>
+	<div class="m-1 p-2">
+		<% @fchs.each do |fch| %>
+			<%= render partial: prtl(fch, 'list', 'objt_fin'), locals: {objeto: fch} %>
+		<% end %>
+	</div>
 </div>
