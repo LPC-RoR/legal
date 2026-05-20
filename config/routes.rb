@@ -44,6 +44,11 @@ Rails.application.routes.draw do
     match :rsltd, via: :post, on: :member
     match :estmcn, via: :post, on: :member
     match :ejecutar_evento, via: :post, on: :member
+    member do
+      patch :cambiar_estado_financiero
+      put   :cambiar_estado_financiero
+      patch :migrar_estado_financiero
+    end
   end
   resources :clientes do
     resources :tenant_usuarios, only: %i[index update], controller: 'tenant_usuarios'

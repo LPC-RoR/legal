@@ -2,7 +2,7 @@ class CausasController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy swtch swtch_stt asigna_tarifa cambio_estado chck_estds rsltd estmcn procesa_registros add_fecha_calculo del_fecha_calculo cuantia_to_xlsx hchstowrd ntcdntstowrd ejecutar_evento ]
+  before_action :set_causa, only: %i[ show edit update destroy swtch swtch_stt asigna_tarifa cambio_estado cambiar_estado_financiero migrar_estado_financiero chck_estds rsltd estmcn procesa_registros add_fecha_calculo del_fecha_calculo cuantia_to_xlsx hchstowrd ntcdntstowrd ejecutar_evento ]
   before_action :validar_evento, only: [:ejecutar_evento]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
@@ -287,6 +287,43 @@ class CausasController < ApplicationController
 
 #    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
     redirect_to "/causas/#{@objeto.id}"
+  end
+
+  # MIENTRAS DURA LA MIGRACION
+  # app/controllers/causas_controller.rb
+  def migrar_estado_financiero
+    @causa = Causa.find(params[:id])
+    
+    # Mapeo de estados antiguos a nuevos
+    mapeo = {
+      'sin_cobros' => 'ingreso',
+      'con_cobros' => 'con_facturaciones',  # o 'facturable', según corresponda
+      'cobrada'    => 'cobrada',
+      'facturada'  => 'facturada',
+      'cerrada'    => 'cobrada'             # o el que definas
+    }
+
+    nuevo_estado = mapeo[@causa.estado_financiero]
+
+    if nuevo_estado && @causa.update_column(:estado_financiero, nuevo_estado)
+      redirect_to @causa, notice: "Estado migrado de '#{@causa.estado_financiero_was}' a '#{nuevo_estado}'"
+    else
+      redirect_to @causa, alert: "No se pudo migrar el estado"
+    end
+  end
+
+  # Creada 20-05-2026
+  def cambiar_estado_financiero
+    evento = params[:evento]
+
+    if @objeto.aasm(:financiero).events(permitted: true).map(&:name).include?(evento.to_sym)
+      @objeto.send("#{evento}!")
+      redirect_to @objeto, notice: "Estado financiero actualizado a: #{@objeto.estado_financiero}"
+    else
+      redirect_to @objeto, alert: "Transición no permitida desde el estado actual."
+    end
+  rescue AASM::InvalidTransition => e
+    redirect_to @objeto, alert: "Error: #{e.message}"
   end
 
   # DELETE /causas/1 or /causas/1.json

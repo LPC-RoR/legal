@@ -45,4 +45,35 @@
 			<%= render partial: prtl(fch, 'list', 'objt_fin'), locals: {objeto: fch} %>
 		<% end %>
 	</div>
+
+	<% if current_usuario.dog? %>
+	<div class="card mb-4">
+	  <div class="card-header d-flex justify-content-between align-items-center">
+	    <h5 class="mb-0">Estado Financiero</h5>
+	    <%= badge_estado_financiero(@objeto) %>
+	  </div>
+	  <div class="card-body">
+	    <p class="text-muted mb-3">
+	      Estado actual: <strong><%= @objeto.estado_financiero.humanize %></strong>
+	    </p>
+
+	    <div class="d-flex flex-wrap">
+			<% estados_antiguos = %w[sin_cobros con_cobros cobrada facturada cerrada] %>
+
+			<% if estados_antiguos.include?(@objeto.estado_financiero) %>
+			  <div class="alert alert-warning">
+			    Esta causa tiene un estado financiero antiguo: <strong><%= @objeto.estado_financiero %></strong>
+			    <%= button_to "Migrar a nuevo estado", 
+			                  migrar_estado_financiero_causa_path(@objeto), 
+			                  method: :patch, 
+			                  class: "btn btn-warning" %>
+			  </div>
+			<% else %>
+			  <%= botones_estado_financiero(@objeto) %>
+			<% end %>
+	    </div>
+	  </div>
+	</div>
+	<% end %>
+
 </div>

@@ -280,8 +280,8 @@ class Causa < ApplicationRecord
 
     # ---------------------------------------------------------------- ESTADOS con AASM
 
-	  # Proceso Operativo
-	  aasm(:operativo, column: 'estado_operativo') do
+	# Proceso Operativo
+	aasm(:operativo, column: 'estado_operativo') do
 	    state :tramitacion, initial: true
 	    state :archivada
 
@@ -292,48 +292,51 @@ class Causa < ApplicationRecord
 	    event :dwn_to_tramitacion do
 	      transitions from: :archivada, to: :tramitacion
 	    end
-	  end
+	end
 
-	  # Proceso Financiero
-	  aasm(:financiero, column: 'estado_financiero') do
-	    state :sin_cobros, initial: true
-	    state :con_cobros
-	    state :cobrada
-	    state :facturada
-	    state :cerrada
+	# Proceso Financiero
+	# app/models/causa.rb
+	aasm(:financiero, column: 'estado_financiero') do
+		state :ingreso, initial: true
+		state :facturable
+		state :con_facturaciones
+		state :facturada
+		state :cobrada
 
-	    event :up_to_con_cobros do
-	      transitions from: :sin_cobros, to: :con_cobros
-	    end
-	    
-	    event :dwn_to_sin_cobros do
-	      transitions from: :con_cobros, to: :sin_cobros
-	    end
-	    
-	    event :up_to_cobrada do
-	      transitions from: :con_cobros, to: :cobrada
-	    end
-	    
-	    event :dwn_to_con_cobros do
-	      transitions from: :cobrada, to: :con_cobros
-	    end
-	    
-	    event :up_to_facturada do
-	      transitions from: :cobrada, to: :facturada
-	    end
+		# Transiciones principales (flujo normal)
+		event :marcar_facturable do
+			transitions from: :ingreso, to: :facturable
+		end
 
-	    event :dwn_to_cobrada do
-	      transitions from: :facturada, to: :cobrada
-	    end
+		event :marcar_con_facturaciones do
+			transitions from: :facturable, to: :con_facturaciones
+		end
 
-	    event :up_to_cerrada do
-	      transitions from: :facturada, to: :cerrada
-	    end
+		event :marcar_facturada do
+			transitions from: [:facturable, :con_facturaciones], to: :facturada
+		end
 
-	    event :dwn_to_facturada do
-	      transitions from: :cerrada, to: :facturada
-	    end
-	  end
+		event :marcar_cobrada do
+			transitions from: :facturada, to: :cobrada
+		end
+
+		# Transiciones de retroceso
+		event :volver_a_ingreso do
+			transitions from: :facturable, to: :ingreso
+		end
+
+		event :volver_a_facturable do
+			transitions from: [:con_facturaciones, :facturada], to: :facturable
+		end
+
+		event :volver_a_con_facturaciones do
+			transitions from: :facturada, to: :con_facturaciones
+		end
+
+		event :volver_a_facturada do
+			transitions from: :cobrada, to: :facturada
+		end
+	end
 
 		def evento_permitido?(proceso, evento)
 		  # Método 100% funcional (verificado en consola)
