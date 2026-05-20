@@ -1,6 +1,11 @@
   <div class="mb-3">
 
+    <%# Se selecciona la Clase que gestiona el código %>
+    <% lst_clss = ClssTxt.txt_clss?(@objeto.codigo) %>
+    <% name_clss = ClssTxt.txt_name_clss?(@objeto.codigo) %>
+
     <%= form.label :codigo, "Formato", class: "form-label" %>
+    <%# texto_aninimizado, resumen_cronologico %>
     <% if ClssPdfRprt.txt_gnrds?(@objeto.codigo) %>
       <div class="mb-3">
         <%= form.label :codigo, "Código", class: "form-label" %>
@@ -12,7 +17,7 @@
     <% else %>
       <%= form.select :codigo, 
           options_for_select(
-            @cdgs_list.map { |codigo| [ClssPrcdmnt.act_nombre[codigo], codigo] },
+            @cdgs_list.map { |codigo| [name_clss.act_nombre[codigo], codigo] },
             @objeto.codigo
           ) 
       %>    

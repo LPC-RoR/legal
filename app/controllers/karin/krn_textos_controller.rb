@@ -7,9 +7,11 @@ class Karin::KrnTextosController < ApplicationController
   end
 
   def new
-    cdg = 
-    @objeto   = @ownr.krn_textos.build(codigo: params[:cdg])
-    @cdgs_list = ClssPdfRprt.txt_lst[params[:cdg].to_sym]
+    code = params[:cdg]
+    lst_clss    = ClssTxt.txt_clss?(code)
+    name_clss   = ClssTxt.txt_name_clss?(code)
+    @objeto   = @ownr.krn_textos.build(codigo: code, titulo: name_clss.act_nombre[code])
+    @cdgs_list = lst_clss.txt_lst[code.to_sym]
   end
 
   def create

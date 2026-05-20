@@ -37,6 +37,9 @@ class Causa < ApplicationRecord
 	has_many :tar_uf_facturaciones, as: :ownr
 	has_many :tar_fecha_calculos, as: :ownr
 
+	has_many :krn_textos, as: :ownr, dependent: :destroy
+	accepts_nested_attributes_for :krn_textos, allow_destroy: true
+
 	has_many :doc_detalles, as: :ownr
 
 	has_many :tar_valor_cuantias, as: :ownr, dependent: :destroy
