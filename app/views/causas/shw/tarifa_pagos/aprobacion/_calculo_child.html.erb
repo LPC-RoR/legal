@@ -5,14 +5,18 @@
 <% dtlls 		= ownr.doc_detalles.where(codigo_formula: pago.codigo_formula) %>
 
 <!-- Version 2.0 -->
-<hr>
 
 <% if dtlls.any? %>
+	<hr>
 	<b>Facturación</b><br>
 	<% dtlls.each do |dtll| %>
 		<%= render partial: prtl(dtll, 'lst', 'objt_fin'), locals: {objeto: dtll} %>
 	<% end %>
-<% elsif rgstr %>
+<% end %>
+
+<hr>
+
+<% if rgstr %>
 	<div class="px-2">
 		<b>Autorización</b><br>
 		<!-- BOTÓN ELIMINA CALCULO -->
