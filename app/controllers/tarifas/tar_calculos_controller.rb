@@ -18,7 +18,8 @@ class Tarifas::TarCalculosController < ApplicationController
   end
 
   def crea_calculo
-    # ownr.monto_fijo(pago.codigo_formula)
+    # REVISADO 20-05-2025
+
     ownr = params[:oclss].constantize.find(params[:oid])
     case params[:oclss]
     when 'Causa'
@@ -32,58 +33,48 @@ class Tarifas::TarCalculosController < ApplicationController
       moneda          = (pago.moneda.blank? ? 'UF' : pago.moneda)
       cuantia_calculo = ownr.ttl_tarifa
       fecha_calculo   = ownr.calc_fecha_uf(codigo_formula)
-      # Se usa cuando hay cuotas
-#      uf_calculo      = ownr.calc_valor_uf(codigo_formula)
-
 
       # Revisar DEPRECATED
       tar_uf_facturacion    = get_tar_uf_facturacion_pago(ownr, pago)
       objt_calculo          = get_objt_pago(ownr, pago)
       objt_origen           = tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion
 
-      # REVISAR calcula2 y evitar pasar formula si ya está en el pago
       if pago.valor.blank?
         monto = codigo_formula == 'monto_fijo' ? ownr.monto_fijo('monto_fijo') : ownr.monto_variable
         monto = monto.round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5))
-#        formula = pago.codigo_formula
-#        mnt = calcula2( formula, ownr, pago).round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5))
       else
         monto = pago.valor
       end
+
       # monto siempre está en Pesos, las cuotas dividen un monto único establecido en el cálculo
       # La UF se resuelve en el método de cálculo
-#      monto = moneda == 'UF' ? (uf_calculo.blank? ? 0 : uf_calculo * mnt) : mnt
       glosa = "#{pago.tar_pago} : #{ownr.rit} #{ownr.causa}"
 
-      # en esta version le sacamos la relación con Cliente. No tiene sentido ver lso cálculos de un cliente
-      cll = ownr.tar_calculos.create(tar_pago_id: pid, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
+      # En una próxima versión sacaremos la relación con tar_pago, lo cual fue reemplazado con codigo_formula
+      unless monto == 0   # Tratándose de aprobaciones no es necesario generar pagos de valor 0
+        cll = ownr.tar_calculos.create(tar_pago_id: pid, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
 
-      unless cll.blank? or monto == 0
-        if cuotas.empty?
-          ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia_calculo: cuantia_calculo)
-        else
-          # PROBAR: Generación de cuotas!
-          cuotas.each do |cuota|
-            monto_procesado = ownr.tar_facturaciones.map {|fctcn| fctcn.monto}.sum
-            c_glosa = "#{glosa} #{cuota.orden} de #{cuotas.count}"
+        if cll
+          if cuotas.empty?
+            ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia_calculo: cuantia_calculo)
+          else
+            # PROBAR: Generación de cuotas!
+            cuotas.each do |cuota|
+              monto_procesado = ownr.tar_facturaciones.map {|fctcn| fctcn.monto}.sum
+              c_glosa = "#{glosa} #{cuota.orden} de #{cuotas.count}"
 
-            if cuota.monto.present?
-              monto_cuota = cuota.monto
-            elsif cuota.ultima_cuota
-              monto_cuota = (monto - monto_procesado)
-            else
-              monto_cuota = (monto * (cuota.porcentaje / 100)).truncate
+              if cuota.monto.present?
+                monto_cuota = cuota.monto
+              elsif cuota.ultima_cuota
+                monto_cuota = (monto - monto_procesado)
+              else
+                monto_cuota = (monto * (cuota.porcentaje / 100)).truncate
+              end
+              ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto_cuota, glosa: c_glosa, cuantia_calculo: cuantia_calculo)
             end
-#            monto_cta = moneda == 'UF' ? (uf_calculo.blank? ? 0 : uf_calculo * monto_cuota) : monto_cuota
-            ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto_cuota, glosa: c_glosa, cuantia_calculo: cuantia_calculo)
           end
         end
       end
-
-      n_clcls = ownr.tar_calculos.count 
-      n_pgs   = ownr.tar_tarifa.tar_pagos.count
-
-      ownr.estado_pago = ownr.get_estado_pago
 
       # CAUSA GANADA !!
       ownr.causa_ganada = ownr.monto_pagado == 0

@@ -2,7 +2,7 @@
 
 <div class="p-2" style="font-size: .7rem; line-height: 1.5;">
 
-	<p><b>PAGO AL TRABAJADOR</b></p>
+	<b>PAGO AL TRABAJADOR</b><br>
 	<div class="m-1 p-2">
 		<% if objeto.monto_pagado? %>
 			Monto pagado al trabajador: <%= s_pesos(objeto.monto_pagado) %>
@@ -11,35 +11,35 @@
 		<% end %>
 	</div>
 
-	<p><b>DETALLES DE FACTURAS</b></p>
+	<b>DETALLES DE FACTURAS</b><br>
 	<div class="m-1 p-2">
 		<% @dtlls.each do |dtll| %>
 			<%= render partial: prtl(dtll, 'lst', 'objt_fin'), locals: {objeto: dtll} %>
 		<% end %>
 	</div>
 
-	<p><b>CÁLCULOS</b></p>
+	<b>CÁLCULOS</b><br>
 	<div class="m-1 p-2">
 		<% @clcls.each do |clcl| %>
 			<%= render partial: prtl(clcl, 'list', 'objt_fin'), locals: {objeto: clcl} %>
 		<% end %>
 	</div>
 
-	<p><b>DETALLES DE APROBACIÓN</b></p>
+	<b>DETALLES DE APROBACIÓN</b><br>
 	<div class="m-1 p-2">
 		<% @fctrcns.each do |fctrcn| %>
 			<%= render partial: prtl(fctrcn, 'list', 'objt_fin'), locals: {objeto: fctrcn} %>
 		<% end %>
 	</div>
 
-	<p><b>UFS DE FACTURACION</b></p>
+	<b>UFS DE FACTURACION</b><br>
 	<div class="m-1 p-2">
 		<% @ufs.each do |uf| %>
 			<%= render partial: prtl(uf, 'list', 'objt_fin'), locals: {objeto: uf} %>
 		<% end %>
 	</div>
 
-	<p><b>FECHAS DE FACTURACIÓN</b></p>
+	<b>FECHAS DE FACTURACIÓN</b><br>
 	<div class="m-1 p-2">
 		<% @fchs.each do |fch| %>
 			<%= render partial: prtl(fch, 'list', 'objt_fin'), locals: {objeto: fch} %>

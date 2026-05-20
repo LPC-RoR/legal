@@ -25,10 +25,6 @@ class Cliente < ApplicationRecord
 
 	has_many :doc_emitidos
 
-	has_many :krn_denuncias, as: :ownr
-	has_many :krn_empresa_externas, as: :ownr
-	has_many :krn_investigadores, as: :ownr
-
 	has_many :age_actividades, as: :ownr
 
 	# Manejo de logos y footer
