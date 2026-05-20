@@ -2,12 +2,19 @@
 <% facturacion 	= ownr.tar_facturaciones.find_by(codigo_formula: pago.codigo_formula) %>
 <% rgstr 		= calculo.nil? ? facturacion : calculo %>
 
+<% dtlls 		= ownr.doc_detalles.where(codigo_formula: pago.codigo_formula) %>
+
 <!-- Version 2.0 -->
 <hr>
-<% unless rgstr.nil? %>
 
+<% if dtlls.any? %>
+	<b>Facturación</b><br>
+	<% dtlls.each do |dtll| %>
+		<%= render partial: prtl(dtll, 'lst', 'objt_fin'), locals: {objeto: dtll} %>
+	<% end %>
+<% elsif rgstr %>
 	<div class="px-2">
-		<b>Autorización</b>
+		<b>Autorización</b><br>
 		<!-- BOTÓN ELIMINA CALCULO -->
 		<% if rgstr.class.name == 'TarCalculo' and rgstr.tar_aprobacion_id.blank? %>
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/#{rgstr.id}/elimina_calculo", tltp: 'Eliminar autorización', data: {turbo_method: :post}} do %>
@@ -51,14 +58,11 @@
 			</div>
 		<% end %>
 	<% end %>
-
 <% else %>
-
 	<% if ownr.class.name == 'Causa' and controller_name == 'causas' %>
 		</br>
 		<%= render layout: '0p/bttn', locals: {lnk: "/tar_calculos/crea_calculo#{ownr_prms(ownr)}&pid=#{pago.id}", mthd: :post} do %>
 			<i class="bi bi-cursor"></i> Autorizar pago
 		<% end %>
     <% end %>
-	
 <% end %>

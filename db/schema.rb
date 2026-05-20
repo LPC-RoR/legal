@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_14_183407) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_20_204532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -696,6 +696,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_14_183407) do
     t.decimal "monto"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "codigo_formula"
+    t.index ["codigo_formula"], name: "index_doc_detalles_on_codigo_formula"
     t.index ["doc_emitido_id"], name: "index_doc_detalles_on_doc_emitido_id"
     t.index ["ownr_id"], name: "index_doc_detalles_on_ownr_id"
     t.index ["ownr_type"], name: "index_doc_detalles_on_ownr_type"
