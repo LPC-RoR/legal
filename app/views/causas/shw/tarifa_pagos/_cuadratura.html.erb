@@ -58,7 +58,7 @@
 	    </p>
 
 	    <div class="d-flex flex-wrap">
-			<% estados_antiguos = %w[sin_cobros con_cobros cobrada facturada cerrada] %>
+			<% estados_antiguos = %w[sin_cobros con_cobros cerrada] %>
 
 			<% if estados_antiguos.include?(@objeto.estado_financiero) %>
 			  <div class="alert alert-warning">
