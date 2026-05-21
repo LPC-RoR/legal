@@ -42,7 +42,7 @@
 	<b>FECHAS DE FACTURACIÓN</b><br>
 	<div class="m-1 p-2">
 		<% @fchs.each do |fch| %>
-			<%= render partial: prtl(fch, 'list', 'objt_fin'), locals: {objeto: fch} %>
+			<%= render partial: prtl(fch, 'lst', 'objt_fin'), locals: {objeto: fch} %>
 		<% end %>
 	</div>
 
