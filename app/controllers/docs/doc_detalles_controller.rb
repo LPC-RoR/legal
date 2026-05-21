@@ -66,6 +66,6 @@ class Docs::DocDetallesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def doc_detalle_params
-      params.expect(doc_detalle: [ :doc_emitido_id, :ownr_type, :ownr_id, :tipo_detalle, :fecha_uf, :glosa, :monto ])
+      params.expect(doc_detalle: [ :doc_emitido_id, :ownr_type, :ownr_id, :tipo_detalle, :fecha_uf, :glosa, :monto :codigo_formula ])
     end
 end
