@@ -28,6 +28,7 @@ class TarValorCuantia < ApplicationRecord
 
 	# Busca fórmula de honorarios
 	def formula_honorarios
+		# tarifa.cuantia_tarifa (boolean) true si la tarifa diferencia valor para la tarifa (cálculo a través de una fórmula)
 		tarifa = ownr.class.name == 'Causa' ? ownr&.tar_tarifa : nil
 		tarifa&.cuantia_tarifa ? tarifa&.tar_formula_cuantias.find_by(code_cuantia: code_cuantia)&.tar_formula_cuantia : nil
 	end

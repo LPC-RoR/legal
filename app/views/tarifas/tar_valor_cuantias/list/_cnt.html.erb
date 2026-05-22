@@ -2,7 +2,7 @@
 	[ <%=objeto.demandante.orden %>* ]
 <% end %>
 
-<% if objeto.code_cuantia == 'Otro' and controller_name == 'causas' %>
+<% if objeto.code_cuantia == 'otro' && controller_name == 'causas' %>
 	<i class="bi bi-asterisk"></i>
 <% end %>
 <%= ClssTipos.cuantias[objeto.code_cuantia] %>
