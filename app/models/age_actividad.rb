@@ -1,9 +1,9 @@
 class AgeActividad < ApplicationRecord
 
-	D_JC 	= 'Audiencia de juicio'
+	D_JC 		= 'Audiencia de juicio'
 	PRPRTR 	= 'Audiencia preparatoria'
-	UNC 	= 'Audiencia única'
-	RNN 	= 'Reunión'
+	UNC 		= 'Audiencia única'
+	RNN 		= 'Reunión'
 
 	belongs_to :ownr, polymorphic: true
 

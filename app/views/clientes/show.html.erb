@@ -19,11 +19,22 @@
 		<h4>Revisión de facturas</h4>
 		<% @causas_revision.each do |causa| %>
 			<div class="row gx-1">
-				<div class="col-1"><%= causa.monto_conciliaciones.count %></div>
+				<div class="col-1"><%= causa.monto_conciliaciones.where(tipo: ['Acuerdo', 'Sentencia']).count %></div>
+				<div class="col-1">
+					<% if causa&.age_actividades&.d_jcs&.any? %>
+						J
+					<% elsif causa&.age_actividades&.prprtrs&.any? %>
+						P
+					<% elsif causa&.age_actividades&.uncs&.any? %>
+						U
+					<% else %>
+						-
+					<% end %>
+				</div>
 				<div class="col-2"><%=dma(causa.created_at)%></div>
 				<div class="col-2"><%= link_to causa.rit, causa %></div>
 				<div class="col-2"><%= causa.causa %></div>
-				<div class="col-2"><%= causa.tribunal_corte.tribunal_corte %></div>
+				<!--div class="col-2"><%#= causa.tribunal_corte.tribunal_corte %></div-->
 				<div class="col-2"><%= causa.estado_financiero%></div>
 			</div>
 		<% end %>
