@@ -94,6 +94,8 @@ class CausasController < ApplicationController
       @ufs      = @objeto.tar_uf_facturaciones
       @fchs     = @objeto.tar_fecha_calculos
 
+      @actvdds  = @objeto.age_actividades.fecha_ordr
+
       # Tarifas para seleccionar
       @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
