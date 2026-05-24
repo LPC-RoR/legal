@@ -19,7 +19,7 @@
 		<h4>Revisión de facturas</h4>
 		<% @causas_revision.each do |causa| %>
 			<div class="row gx-1">
-				<div class="col-1"><%= causa.tar_facturaciones.count %> : <%= causa.doc_detalles.count %></div>
+				<div class="col-1"><%= causa.monto_conciliaciones.count %></div>
 				<div class="col-2"><%=dma(causa.created_at)%></div>
 				<div class="col-2"><%= link_to causa.rit, causa %></div>
 				<div class="col-2"><%= causa.causa %></div>
