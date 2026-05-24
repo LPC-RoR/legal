@@ -4,7 +4,7 @@
 
 	<b>PAGO AL TRABAJADOR</b><br>
 	<div class="m-1 p-2">
-		<% if objeto.monto_pagado? %>
+		<% if objeto.monto_pagado.present? %>
 			Monto pagado al trabajador: <%= s_pesos(objeto.monto_pagado) %>
 		<% else %>
 			<i class="bi bi-cone-striped text-danger"></i> No se ha acordado/sentenciado pago al trabajador.

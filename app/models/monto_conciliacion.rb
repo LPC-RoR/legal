@@ -1,28 +1,31 @@
 class MontoConciliacion < ApplicationRecord
+  TIPOS = ['Autorizado', 'Ofrecido', 'Propuesta', 'Contrapropuesta', 'Acuerdo', 'Sentencia']
 
-	TIPOS = ['Autorizado', 'Ofrecido', 'Propuesta', 'Contrapropuesta', 'Acuerdo', 'Sentencia']
+  belongs_to :causa
 
-	belongs_to :causa
+  scope :ordr_fecha, -> { order(:created_at) }
 
-	scope :ordr_fecha, -> { order(:created_at) }
+  after_commit :actualizar_monto_pagado_causa, on: [:create, :update, :destroy]
 
-	after_commit :actualizar_monto_pagado_causa, on: [:create, :update, :destroy]
-
-	private
+  private
 
   def actualizar_monto_pagado_causa
     return unless causa.present?
-    
-    # Buscar el monto conciliación con fecha más reciente para esta causa
-    ultimo_monto = causa.monto_conciliaciones.order(fecha: :desc).first
-    
-    # Si existe un registro y cumple la condición, actualizar
-    if ultimo_monto.present? && ['Acuerdo', 'Sentencia'].include?(ultimo_monto.tipo)
-      causa.update_column(:monto_pagado, ultimo_monto.monto)
-    else
-      # Si no hay registros o ninguno cumple la condición, establecer en nil
-      causa.update_column(:monto_pagado, nil)
-    end
-  end
 
+    # CORRECCIÓN CRÍTICA: Buscar SOLO entre 'Acuerdo' y 'Sentencia', 
+    # ordenar por fecha DESC y id DESC (determinístico), y tomar el primero
+    ultimo_monto = causa.monto_conciliaciones
+                         .where(tipo: ['Acuerdo', 'Sentencia'])
+                         .order(fecha: :desc, id: :desc)
+                         .first
+
+    # CORRECCIÓN: Manejar nil, 0, y valores positivos correctamente
+    # El error original era que si monto era 0 (falsy en algunos contextos de JS/frontend
+    # pero no en Ruby), pero el verdadero problema era que ultimo_monto podía no ser
+    # el registro esperado debido al orden no determinístico
+    nuevo_monto = ultimo_monto&.monto
+    
+    # update_columns salta callbacks y validaciones, pero respeta el valor 0
+    causa.update_columns(monto_pagado: nuevo_monto)
+  end
 end
