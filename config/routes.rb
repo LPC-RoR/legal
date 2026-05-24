@@ -283,11 +283,6 @@ Rails.application.routes.draw do
       match :reenviar_correo, via: :post, on: :member
     end
     resources :app_enlaces
-    resources :app_mensajes do
-      match :respuesta, via: :post, on: :collection
-      match :estado, via: :get, on: :member
-    end
-    resources :app_msg_msgs
 
     resources :regiones do
       resources :comunas
@@ -300,15 +295,7 @@ Rails.application.routes.draw do
   end
 
   scope module: 'repositorios' do
-    resources :app_directorios do
-      match :nuevo, via: :post, on: :collection
-    end
-    resources :app_dir_dires
     resources :app_archivos
-    resources :app_imagenes
-    resources :app_escaneos do
-      match :crea_escaneo, via: :get, on: :collection
-    end
     resources :control_documentos do
       match :crea_documento_controlado, via: :get, on: :member
       match :arriba, via: :post, on: :member

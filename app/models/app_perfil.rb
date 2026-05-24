@@ -8,8 +8,6 @@ class AppPerfil < ApplicationRecord
 	has_many :check_auditorias, as: :ownr
 	has_many :audit_notas, as: :ownr
 
-	has_many :app_mensajes
-
 	# Aplicacion
 	# Si cfg_defaults[:activa_tipos_usuario] = true
 	has_one :age_usuario

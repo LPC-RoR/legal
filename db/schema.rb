@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_20_204532) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_24_233917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -255,29 +255,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_20_204532) do
     t.index ["ownr_type"], name: "index_app_contactos_on_ownr_type"
   end
 
-  create_table "app_dir_dires", force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "child_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["child_id"], name: "index_app_dir_dires_on_child_id"
-    t.index ["parent_id"], name: "index_app_dir_dires_on_parent_id"
-  end
-
-  create_table "app_directorios", force: :cascade do |t|
-    t.string "directorio"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.string "app_directorio"
-    t.boolean "directorio_control"
-    t.index ["app_directorio"], name: "index_app_directorios_on_app_directorio"
-    t.index ["directorio"], name: "index_app_directorios_on_directorio"
-    t.index ["owner_class"], name: "index_app_directorios_on_owner_class"
-    t.index ["owner_id"], name: "index_app_directorios_on_owner_id"
-  end
-
   create_table "app_enlaces", force: :cascade do |t|
     t.string "descripcion"
     t.string "enlace"
@@ -288,54 +265,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_20_204532) do
     t.boolean "blank"
     t.index ["ownr_id"], name: "index_app_enlaces_on_ownr_id"
     t.index ["ownr_type"], name: "index_app_enlaces_on_ownr_type"
-  end
-
-  create_table "app_escaneos", force: :cascade do |t|
-    t.string "ownr_class"
-    t.integer "ownr_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["ownr_class"], name: "index_app_escaneos_on_ownr_class"
-    t.index ["ownr_id"], name: "index_app_escaneos_on_ownr_id"
-  end
-
-  create_table "app_imagenes", force: :cascade do |t|
-    t.string "nombre"
-    t.string "imagen"
-    t.string "credito_imagen"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["nombre"], name: "index_app_imagenes_on_nombre"
-    t.index ["owner_class"], name: "index_app_imagenes_on_owner_class"
-    t.index ["owner_id"], name: "index_app_imagenes_on_owner_id"
-  end
-
-  create_table "app_mensajes", force: :cascade do |t|
-    t.string "mensaje"
-    t.string "tipo"
-    t.string "estado"
-    t.string "email"
-    t.datetime "fecha_envio", precision: nil
-    t.text "detalle"
-    t.integer "app_perfil_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["app_perfil_id"], name: "index_app_mensajes_on_app_perfil_id"
-    t.index ["email"], name: "index_app_mensajes_on_email"
-    t.index ["estado"], name: "index_app_mensajes_on_estado"
-    t.index ["fecha_envio"], name: "index_app_mensajes_on_fecha_envio"
-    t.index ["tipo"], name: "index_app_mensajes_on_tipo"
-  end
-
-  create_table "app_msg_msgs", force: :cascade do |t|
-    t.integer "parent_id"
-    t.integer "child_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["child_id"], name: "index_app_msg_msgs_on_child_id"
-    t.index ["parent_id"], name: "index_app_msg_msgs_on_parent_id"
   end
 
   create_table "app_nominas", force: :cascade do |t|

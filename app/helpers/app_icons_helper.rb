@@ -30,8 +30,6 @@ module AppIconsHelper
 			'tar_comentarios' => 'chat',
 			'st_modelos' => 'box',
 			'app_empresas' => 'buildings',
-			'app_directorios' => 'folder',
-			'app_escaneos' => 'images',
 			'age_actividades' => 'calendar4-event',
 			'age_usuarios' => 'person-workspace',
 			'age_pendientes' => 'list-check',
