@@ -27,7 +27,6 @@ module AppIconsHelper
 			'tar_uf_facturaciones' => 'currency-dollar',
 			'tar_pagos' => 'currency-dollar',
 			'tar_formulas' => 'lightbulb',
-			'tar_comentarios' => 'chat',
 			'st_modelos' => 'box',
 			'app_empresas' => 'buildings',
 			'age_actividades' => 'calendar4-event',

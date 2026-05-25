@@ -402,7 +402,6 @@ Rails.application.routes.draw do
     end
     resources :tar_tipo_variables
     resources :tar_pagos do
-      resources :tar_comentarios
       resources :tar_cuotas
       match :arriba, via: :post, on: :member
       match :abajo, via: :post, on: :member
@@ -434,10 +433,6 @@ Rails.application.routes.draw do
     # REVISAR de aquí en adelante
     resources :tar_formula_cuantias
     resources :tar_uf_sistemas
-    resources :tar_comentarios do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
     resources :tar_detalles
     resources :tar_facturaciones do
       match :facturable, via: :get, on: :member

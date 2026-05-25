@@ -10,7 +10,6 @@ class Tarifas::TarPagosController < ApplicationController
 
   # GET /tar_pagos/1 or /tar_pagos/1.json
   def show
-    set_tabla('tar_comentarios', @objeto.tar_comentarios.order(:orden), false)
     set_tabla('tar_cuotas', @objeto.tar_cuotas.order(:orden), false)
   end
 
