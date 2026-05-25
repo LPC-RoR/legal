@@ -39,7 +39,7 @@
 					</div>
 				<% end %>
 			</div>
-			<div class="col-6">
+			<div class="col-6 pt-4">
 				<% if tar_calculo.ownr.class.name == 'Causa' %>
 					<% unless tar_calculo.tar_pago.requiere_uf == true and uf_fecha(get_fecha_calculo(tar_calculo.ownr, tar_calculo.tar_pago)).blank? %>
 						<div style="font-size: .6rem;line-height: 1.5;">
