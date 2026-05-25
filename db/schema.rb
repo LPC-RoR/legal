@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_24_233917) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_25_024006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1332,20 +1332,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_24_233917) do
     t.index ["tar_pago_id"], name: "index_tar_calculos_on_tar_pago_id"
   end
 
-  create_table "tar_comentarios", force: :cascade do |t|
-    t.integer "tar_pago_id"
-    t.integer "orden"
-    t.string "tipo"
-    t.string "formula"
-    t.text "comentario"
-    t.text "opcional"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "despliegue"
-    t.string "moneda"
-    t.index ["tar_pago_id"], name: "index_tar_comentarios_on_tar_pago_id"
-  end
-
   create_table "tar_cuotas", force: :cascade do |t|
     t.integer "tar_pago_id"
     t.integer "orden"
@@ -1447,22 +1433,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_24_233917) do
     t.index ["code_cuantia"], name: "index_tar_formula_cuantias_on_code_cuantia"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_formula_cuantias_on_tar_detalle_cuantia_id"
     t.index ["tar_tarifa_id"], name: "index_tar_formula_cuantias_on_tar_tarifa_id"
-  end
-
-  create_table "tar_formulas", force: :cascade do |t|
-    t.integer "orden"
-    t.integer "tar_pago_id"
-    t.string "tar_formula"
-    t.string "mensaje"
-    t.string "error"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "codigo"
-    t.integer "tar_tarifa_id"
-    t.index ["codigo"], name: "index_tar_formulas_on_codigo"
-    t.index ["tar_formula"], name: "index_tar_formulas_on_tar_formula"
-    t.index ["tar_pago_id"], name: "index_tar_formulas_on_tar_pago_id"
-    t.index ["tar_tarifa_id"], name: "index_tar_formulas_on_tar_tarifa_id"
   end
 
   create_table "tar_nota_creditos", force: :cascade do |t|

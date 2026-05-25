@@ -12,7 +12,6 @@ class Tarifas::TarTarifasController < ApplicationController
   # GET /tar_tarifas/1 or /tar_tarifas/1.json
   def show
     set_tabla('tar_pagos', @objeto.tar_pagos.order(:orden), false)
-    set_tabla('tar_formulas', @objeto.tar_formulas.order(:orden), false)
 
     set_tabla('tar_formula_cuantias', @objeto.tar_formula_cuantias, false)
     set_tabla('tar_tipo_variables', @objeto.tar_tipo_variables, false)

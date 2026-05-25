@@ -3,7 +3,6 @@ class TarTarifa < ApplicationRecord
 	belongs_to :ownr, polymorphic: true, optional: true
 
 	has_many :tar_pagos
-	has_many :tar_formulas
 	has_many :causas
 
 	# Contiene el porcentaje para el cálculo del variable y la fórmula de cálculo del valor tarifa

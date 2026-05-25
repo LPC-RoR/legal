@@ -398,15 +398,10 @@ Rails.application.routes.draw do
   scope module: 'tarifas' do
     resources :tar_tarifas do 
       resources :tar_pagos
-      resources :tar_formulas
     end
     resources :tar_tipo_variables
     resources :tar_pagos do
       resources :tar_cuotas
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-    resources :tar_formulas do
       match :arriba, via: :post, on: :member
       match :abajo, via: :post, on: :member
     end
