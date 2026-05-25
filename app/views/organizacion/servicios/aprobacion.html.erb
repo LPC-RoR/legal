@@ -3,7 +3,7 @@
 <% @coleccion['tar_calculos'].each do |tar_calculo| %>
 
 	<div class="border border-2 mb-1 p-2">
-		<div class="border-bottom">
+		<div class="border-bottom pb-2">
 			<%= render partial: "tarifas/tar_calculos/shr/titulo_aprobacion", locals: {objeto: tar_calculo} %>
 
 			<% if ['Asesoria', 'Cargo'].include?(tar_calculo.ownr_type) %>
@@ -22,7 +22,7 @@
 		</div>
 
 
-		<div class="row gx-1 mx-2">
+		<div class="row gx-1 mt-1 mx-2">
 			<div class="col-6">
 				<% if tar_calculo.ownr.class.name == 'Causa' %>
 					<% if controller_name == 'servicios' %>
