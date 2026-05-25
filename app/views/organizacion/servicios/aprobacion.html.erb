@@ -44,42 +44,6 @@
 		</div>
 	</div>
 
-	<div class="cs_box">
-		<div class="f_50lft_col">
-			<div class="lft">
-				<% if tar_calculo.ownr.class.name == 'Causa' %>
-					<% if controller_name == 'servicios' %>
-						<h6><b>Detalle Cuantía</b></h6>
-					<% end %>
-
-					<% unless tar_calculo.ownr.demandantes.empty? %>
-						<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: tar_calculo.ownr} %>
-					<% end %>
-					<% unless tar_calculo.ownr.tar_valor_cuantias.empty? %>
-						<%= render partial: 'causas/shr/list_cuantia', locals: {objeto: tar_calculo.ownr, porcentaje_cuantia: false } %>
-					<% end %>
-				<% end %>
-			</div>
-			<div class="rght">
-				<% if ['Asesoria', 'Cargo'].include?(tar_calculo.ownr_type) %>
-					<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado_asesoria", locals: {objeto: tar_calculo.ownr, pago: (tar_calculo.tar_pago unless tar_calculo.tar_pago.blank? ), ownr: tar_calculo.ownr} %>
-				<% elsif controller_name == 'servicios' %>
-					<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado_calculo", locals: {objeto: tar_calculo.ownr, cll: tar_calculo, ownr: tar_calculo.ownr} %>
-				<% else %>
-					<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado", locals: {objeto: tar_calculo.ownr, pago: (tar_calculo.tar_pago unless tar_calculo.tar_pago.blank? ), ownr: tar_calculo.ownr} %>
-				<% end %>
-
-				<% if tar_calculo.ownr.class.name == 'Causa' %>
-					<% if tar_calculo.tar_pago.requiere_uf == true and uf_fecha(get_fecha_calculo(tar_calculo.ownr, tar_calculo.tar_pago)).blank? %>
-						<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(tar_calculo.ownr, tar_calculo.tar_pago)) %> no encontrada</b></small>
-					<% else %>
-						<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: tar_calculo.tar_pago, causa: tar_calculo.ownr } %>
-					<% end %>
-				<% end %>
-			</div>
-		</div>
-	</div>
-
 <% end %>
 
 <b>
