@@ -1,0 +1,26 @@
+<div class="mx-4" style="font-size: .7rem;line-height: 1.5;">
+	<% if objeto.cuantia_tarifa %>
+		<div><i class="bi bi-arrow-return-right"></i> Diferencia cuantía para cálculo de honorarios.</div>
+	<% end %>
+
+	<% unless objeto.code_causa.blank? %>
+		<div><i class="bi bi-arrow-return-right"></i> Tarifa por defecto de la etapa <b><%= ClssTipos.tipos_causa[objeto.code_causa] %></b></div>
+	<% end %>
+
+	<% unless objeto.tar_pagos.empty? %>
+		<div><i class="bi bi-arrow-return-right"></i> <b>Pagos de la tarifa:</b></div>
+		<% objeto.tar_pagos.order(:orden).each do |pago| %>
+			<div class="mx-3">
+				<i class="bi bi-arrow-return-right"></i> 
+				<%= pago.orden %> : <%= pago.tar_pago %> <%= pago.codigo_formula.blank? ? '( valor )' : '( fórmula )' %></br>
+			</div>
+		<% end %>
+	<% end %>
+
+	<% unless objeto.valor_hora.blank? %>
+		<div>
+			<i class="bi bi-arrow-return-right"></i> Tarifa hora asociada: 
+			<i class="bi bi-alarm"></i> <%= s_moneda(objeto.moneda, objeto.valor_hora) %>
+		</div>
+	<% end %>
+</div>

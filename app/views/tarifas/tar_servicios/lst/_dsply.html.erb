@@ -1,0 +1,6 @@
+<div class="mx-4" style="font-size: .7rem;line-height: 1.5;">
+	<% unless objeto.detalle.blank? %>
+		<div><i class="bi bi-arrow-return-right"></i> <%= objeto.detalle %></div>
+	<% end %>
+	<div><i class="bi bi-arrow-return-right"></i> <%= objeto.tipo %> : <%= s_moneda(objeto.moneda, objeto.monto) %></div>
+</div>

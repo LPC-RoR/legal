@@ -1,7 +1,10 @@
-<%= render partial: '0p/general/clss_dir_objt_ttl', locals: {clss: 'shw_ttl', dir: 'shw', objt: @objeto, bck: nil} %>
+<%= render partial: '0p/ttl_clss', locals: {source: 'tar_tarifas', clss: :gray, dir: 'shw'} %>
 
 <div class="row gx-1">
 	<div class="col">
+		<%= render partial: '0p/ttl_clss', locals: {source: 'tar_pagos', clss: :sub, dir: 'indx', blngs: @objeto, hide_gly: true} %>
+		<%= render partial: '0p/tbl_clss', locals: {clccn: @coleccion['tar_pagos'], dir: 'list', typ: 'ln'} %>
+
 		<%= render partial: '0p/tbl_ttl', locals: {source: 'tar_pagos', blngs: @objeto, ordr: true} %>
 
 		<% if @objeto.cuantia_tarifa %>
