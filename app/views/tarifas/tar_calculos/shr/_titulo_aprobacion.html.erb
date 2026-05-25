@@ -1,6 +1,6 @@
 <b>
 <div class="row gx-1" style="font-size: 1rem;line-height: 1.5;">
-	<div class="col-10 p-2">
+	<div class="col-10 pt-2">
 		<% case objeto.ownr_type %>
 		<% when 'Causa' %>
 			Causa : <%= objeto.ownr.rit %>
@@ -12,7 +12,7 @@
 			Asesoria : <%= objeto.ownr.cargo %>
 		<% end %>
 	</div>
-	<div class="col-2 p-2 text-end">
+	<div class="col-2 pt-2 text-end">
 		<% if objeto.ownr.class.name == 'Causa' %>
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/causas/#{objeto.ownr.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}", tltp: objeto.ownr.class.name} do %>
 				<i class="bi bi-box-arrow-up-right"></i>
