@@ -1,12 +1,8 @@
-<%= render prtl_name('servicios', 'shr', 'logo_org') %>
+<div class="border border-2 mb-2 p-2">
+	<%= render prtl_name('servicios', 'shr', 'logo_org') %>
 
-<div style="padding-left: 1em; padding-right: 1em,">
-	<h3>
-		Aprobación de pagos : <%= dma(objeto.fecha) %>
-	</h3>
-
-	<h5>
-		<i class="bi bi-building"></i>
-		<%= objeto.cliente.razon_social %> 
-	</h5>
+	<div style="padding-left: 1em; padding-right: 1em,">
+		<h3>Aprobación de pagos : <%= dma(objeto.fecha) %></h3>
+		<h5><i class="bi bi-building"></i> <%= objeto.cliente.razon_social %></h5>
+	</div>
 </div>

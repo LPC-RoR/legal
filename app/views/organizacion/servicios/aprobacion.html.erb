@@ -1,6 +1,4 @@
-<div class="border border-2 p-2">
-	<%= render partial: 'organizacion/servicios/aprobacion/encabezado_aprobacion', locals: {objeto: @objeto} %>
-</div>
+<%= render partial: 'organizacion/servicios/aprobacion/encabezado_aprobacion', locals: {objeto: @objeto} %>
 
 <% @coleccion['tar_calculos'].each do |tar_calculo| %>
 	<%= render partial: "tarifas/tar_calculos/shr/titulo_aprobacion", locals: {objeto: tar_calculo} %>
