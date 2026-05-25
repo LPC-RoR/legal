@@ -21,4 +21,24 @@
 	</div>
 </div>
 </b>
+
+	<% if ['Asesoria', 'Cargo'].include?(tar_calculo.ownr_type) %>
+		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado_asesoria", locals: {objeto: tar_calculo.ownr, pago: (tar_calculo.tar_pago unless tar_calculo.tar_pago.blank? ), ownr: tar_calculo.ownr} %>
+	<% elsif controller_name == 'servicios' %>
+		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado_calculo", locals: {objeto: tar_calculo.ownr, cll: tar_calculo, ownr: tar_calculo.ownr} %>
+	<% else %>
+		<%= render partial: "causas/shw/tarifa_pagos/aprobacion/encabezado", locals: {objeto: tar_calculo.ownr, pago: (tar_calculo.tar_pago unless tar_calculo.tar_pago.blank? ), ownr: tar_calculo.ownr} %>
+	<% end %>
+
+	<% if tar_calculo.ownr.class.name == 'Causa' %>
+		<% if tar_calculo.tar_pago.requiere_uf == true and uf_fecha(get_fecha_calculo(tar_calculo.ownr, tar_calculo.tar_pago)).blank? %>
+			<small><b class="text-danger">UF del dia <%= dma(get_fecha_calculo(tar_calculo.ownr, tar_calculo.tar_pago)) %> no encontrada</b></small>
+		<% else %>
+			<div style="font-size: .6rem;line-height: 1.5;">
+				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/comentarios_pago', locals: {pago: tar_calculo.tar_pago, causa: tar_calculo.ownr } %>
+			</div>
+		<% end %>
+	<% end %>
+
+
 <hr>
