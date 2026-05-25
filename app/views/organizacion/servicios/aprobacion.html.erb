@@ -25,11 +25,11 @@
 		<div class="row gx-1 mt-1 mx-2">
 			<div class="col-6 pe-2">
 				<% if tar_calculo.ownr.class.name == 'Causa' %>
-					<% if controller_name == 'servicios' %>
-						<b>Detalle Cuantía</b>
-					<% end %>
-
 					<div style="font-size: .5rem;line-height: 1.5;">
+						<% if controller_name == 'servicios' %>
+							<b>Detalle Cuantía</b>
+						<% end %>
+
 						<% unless tar_calculo.ownr.demandantes.empty? %>
 							<%= render partial: 'causas/shr/list_demandantes', locals: {objeto: tar_calculo.ownr} %>
 						<% end %>
@@ -39,7 +39,7 @@
 					</div>
 				<% end %>
 			</div>
-			<div class="col-6 pt-4 ps-2">
+			<div class="col-6 ps-2">
 				<% if tar_calculo.ownr.class.name == 'Causa' %>
 					<% unless tar_calculo.tar_pago.requiere_uf == true and uf_fecha(get_fecha_calculo(tar_calculo.ownr, tar_calculo.tar_pago)).blank? %>
 						<div style="font-size: .5rem;line-height: 1.5;">
