@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_26_140222) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_26_153855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1502,6 +1502,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_26_140222) do
     t.decimal "valor_hora"
     t.boolean "cuantia_tarifa"
     t.string "code_causa"
+    t.boolean "aprobacion_con_detalle"
+    t.index ["aprobacion_con_detalle"], name: "index_tar_tarifas_on_aprobacion_con_detalle"
     t.index ["code_causa"], name: "index_tar_tarifas_on_code_causa"
     t.index ["estado"], name: "index_tar_tarifas_on_estado"
     t.index ["facturables"], name: "index_tar_tarifas_on_facturables"

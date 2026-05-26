@@ -1,5 +1,7 @@
 <%= render partial: 'organizacion/servicios/aprobacion/encabezado_aprobacion', locals: {objeto: @objeto} %>
 
+<% con_detalle = tar_calculo.ownr.class.name == 'Causa' ? @objeto&.tar_tarifa&.aprobacion_con_detalle : false %>
+
 <% @coleccion['tar_calculos'].each do |tar_calculo| %>
 
 	<div class="border border-2 mb-1 p-2 open-sans-regular">
@@ -21,7 +23,7 @@
 			<% end %>
 		</div>
 
-
+		<% if tar_calculo.ownr.class.name == 'Causa' && con_detalle %>
 		<div class="row gx-1 mt-1 mx-2">
 			<div class="col-6 pe-2">
 				<% if tar_calculo.ownr.class.name == 'Causa' %>
@@ -49,6 +51,7 @@
 				<% end %>
 			</div>
 		</div>
+		<$% end %>
 	</div>
 
 <% end %>

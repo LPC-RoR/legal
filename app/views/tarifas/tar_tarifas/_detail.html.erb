@@ -11,6 +11,7 @@
     <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tarifa, label: 'Nombre tarifa' } %>
 
     <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :cuantia_tarifa, label: 'Diferencia cuantia para la tarifa' } %>
+    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :aprobacion_con_detalle, label: 'Aprobación con detalle' } %>
     
     <% unless @objeto.ownr_id.blank? %>
       <%= render partial: '0p/lbld_inpts/select', locals: { 
