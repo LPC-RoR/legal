@@ -45,6 +45,9 @@ class Tarifas::TarCalculosController < ApplicationController
         monto = monto.round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5))
       else
         monto = pago.moneda == 'UF' ? pago.valor * valor_uf : pago.valor
+        puts "************************************************* crea calculo"
+        puts pago.moneda
+        puts monto
       end
 
       # monto siempre está en Pesos, las cuotas dividen un monto único establecido en el cálculo
@@ -53,6 +56,8 @@ class Tarifas::TarCalculosController < ApplicationController
 
       # En una próxima versión sacaremos la relación con tar_pago, lo cual fue reemplazado con codigo_formula
       unless monto == 0   # Tratándose de aprobaciones no es necesario generar pagos de valor 0
+        puts "¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ before create"
+        puts monto
         cll = ownr.tar_calculos.create(tar_pago_id: pid, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
 
         if cll
