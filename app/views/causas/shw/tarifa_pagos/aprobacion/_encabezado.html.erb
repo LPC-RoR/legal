@@ -23,7 +23,7 @@
 			<!-- UF presente o NO se requiere UF -->
 			<%# Valor en UF %>
 			<small>
-				<% if pago.codigo_formula.present? %>
+				<% if pago.valor.present? %>
 					<% if pago.moneda == 'UF' %>
 						<%= s_uf5(pago.valor) %>
 					<% else %>
@@ -43,7 +43,7 @@
 
 			<%# Valor en Pesos %>
 			<b>
-				<% if pago.codigo_formula.present? %>
+				<% if pago.valor.present? %>
 					<% if pago.moneda == 'UF' %>
 						<%= s_pesos(pago.valor * valor_uf) %>
 					<% else %>
