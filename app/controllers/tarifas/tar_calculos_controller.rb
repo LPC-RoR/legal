@@ -33,6 +33,7 @@ class Tarifas::TarCalculosController < ApplicationController
       moneda          = (pago.moneda.blank? ? 'UF' : pago.moneda)
       cuantia_calculo = ownr.ttl_tarifa
       fecha_calculo   = ownr.calc_fecha_uf(codigo_formula)
+      valor_uf        = ownr.calc_valor_uf(codigo_formula)
 
       # Revisar DEPRECATED
       tar_uf_facturacion    = get_tar_uf_facturacion_pago(ownr, pago)
@@ -43,7 +44,7 @@ class Tarifas::TarCalculosController < ApplicationController
         monto = codigo_formula == 'monto_fijo' ? ownr.monto_fijo('monto_fijo') : ownr.monto_variable
         monto = monto.round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5))
       else
-        monto = pago.valor
+        monto = pago.moneda == 'UF' ? pago.valor * valor_uf : pago.valor
       end
 
       # monto siempre está en Pesos, las cuotas dividen un monto único establecido en el cálculo
