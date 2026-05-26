@@ -1,8 +1,8 @@
 <%= render partial: 'organizacion/servicios/aprobacion/encabezado_aprobacion', locals: {objeto: @objeto} %>
 
-<% con_detalle = tar_calculo.ownr.class.name == 'Causa' ? @objeto&.tar_tarifa&.aprobacion_con_detalle : false %>
-
 <% @coleccion['tar_calculos'].each do |tar_calculo| %>
+
+	<% con_detalle = tar_calculo.ownr.class.name == 'Causa' ? @objeto&.tar_tarifa&.aprobacion_con_detalle : false %>
 
 	<div class="border border-2 mb-1 p-2 open-sans-regular">
 		<div class="border-bottom pb-2">
