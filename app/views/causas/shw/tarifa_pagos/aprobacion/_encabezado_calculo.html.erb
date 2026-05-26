@@ -2,6 +2,10 @@
 <!-- Encabezado del calculo: usado en despliegue del calculo de una causa+tarifa -->
 <!-- cll: tar_calculo tar_pago, ownr: causa -->
 
+<%# El despliegue se hace considerando sólo la estructura actual %>
+
+<% valor_uf  	= TarUfSistemas.find_by(fecha cll.fecha_uf) %>
+
 <div class="row px-2 gx-1" style="font-size: 16px;line-height: 1.2;">
 	<div class="col">
 		<b><%= cll.tar_pago.tar_pago %></b>
@@ -9,14 +13,14 @@
 	<div class="col text-end">
 		<!-- el pago requiere el valor de la UF y la UF no se ha ingresado -->
 		<!-- Se usa la nuevas funciones get_uf_calculo_pago, get_fecha_calculo_pago y get_v_tarifa_pago -->
-		<% if cll.tar_pago.requiere_uf == true and @h_pgs[cll.id][:uf_calculo].blank? %>
-			<small><b class="text-danger">UF del dia <%= dma(@h_pgs[cll.id][:fecha_calculo]) %> no encontrada</b></small>
+		<% if cll.tar_pago.requiere_uf == true && valor_uf.blank? %>
+			<small><b class="text-danger">UF del dia <%= dma(cll.fecha_uf) %> no encontrada</b></small>
 		<% else %>
 			<small>
-			<%= s_uf5(@h_pgs[cll.id][:v_tarifa][0]) %>
+			<%= cll.valor / valor_uf if valor_uf %>
 			<i class="bi bi-arrow-left-right"></i>
 			</small>
-			<b><%= s_pesos(@h_pgs[cll.id][:v_tarifa][1]) %></b>
+			<b><%= cll.valor %></b>
 		<% end %>
 	</div>
 </div>
@@ -37,7 +41,7 @@
 			<% end %>
 		</div>
 		<div class="col text-end">
-			<%= dma(@h_pgs[cll.id][:fecha_calculo]) %>
+			<%= dma(cll.fecha_uf) %>
 		</div>
 	</div>
 
