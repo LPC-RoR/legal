@@ -17,10 +17,10 @@
 			<small><b class="text-danger">UF del dia <%= dma(cll.fecha_uf) %> no encontrada</b></small>
 		<% else %>
 			<small>
-			<%= cll.monto / valor_uf if valor_uf %>
+			<%= s_uf5(cll.monto / valor_uf) if valor_uf %>
 			<i class="bi bi-arrow-left-right"></i>
 			</small>
-			<b><%= cll.monto %></b>
+			<b><%= s_pesos(cll.monto) %></b>
 		<% end %>
 	</div>
 </div>
