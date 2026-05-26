@@ -23,11 +23,19 @@
 			<!-- UF presente o NO se requiere UF -->
 			<%# Valor en UF %>
 			<small>
-				<% case pago.codigo_formula %>
-				<% when 'monto_fijo' %>
-					<%= s_uf5(ownr.monto_fijo_uf(pago.codigo_formula)) %>
-				<% when 'monto_variable' %>
-					<%= s_uf5(ownr.monto_variable_uf(pago.codigo_formula)) %>
+				<% if pago.codigo_formula.present? %>
+					<% if pago.moneda == 'UF' %>
+						<%= s_uf5(pago.valor) %>
+					<% else %>
+						<%= s_uf5(pago.valor / valor_uf) %>
+					<% end %>
+				<% else %>	
+					<% case pago.codigo_formula %>
+					<% when 'monto_fijo' %>
+						<%= s_uf5(ownr.monto_fijo_uf(pago.codigo_formula)) %>
+					<% when 'monto_variable' %>
+						<%= s_uf5(ownr.monto_variable_uf(pago.codigo_formula)) %>
+					<% end %>
 				<% end %>
 
 				<i class="bi bi-arrow-left-right"></i>
@@ -35,11 +43,19 @@
 
 			<%# Valor en Pesos %>
 			<b>
-				<% case pago.codigo_formula %>
-				<% when 'monto_fijo' %>
-					<%= s_pesos(ownr.monto_fijo(pago.codigo_formula)) %>
-				<% when 'monto_variable' %>
-					<%= s_pesos(ownr.monto_variable) %>
+				<% if pago.codigo_formula.present? %>
+					<% if pago.moneda == 'UF' %>
+						<%= s_pesos(pago.valor * valor_uf) %>
+					<% else %>
+						<%= s_pesos(pago.valor) %>
+					<% end %>
+				<% else %>
+					<% case pago.codigo_formula %>
+					<% when 'monto_fijo' %>
+						<%= s_pesos(ownr.monto_fijo(pago.codigo_formula)) %>
+					<% when 'monto_variable' %>
+						<%= s_pesos(ownr.monto_variable) %>
+					<% end %>
 				<% end %>
 			</b>
 		<% end %>
