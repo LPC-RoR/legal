@@ -47,7 +47,8 @@ class Tarifas::TarCalculosController < ApplicationController
         monto = pago.moneda == 'UF' ? pago.valor * valor_uf : pago.valor
         puts "************************************************* crea calculo"
         puts pago.moneda
-        puts monto
+        puts monto.inspect
+        puts valor_uf
       end
 
       # monto siempre está en Pesos, las cuotas dividen un monto único establecido en el cálculo
@@ -57,8 +58,27 @@ class Tarifas::TarCalculosController < ApplicationController
       # En una próxima versión sacaremos la relación con tar_pago, lo cual fue reemplazado con codigo_formula
       unless monto == 0   # Tratándose de aprobaciones no es necesario generar pagos de valor 0
         puts "¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ before create"
-        puts monto
+puts "=== DEBUG ANTES DE CREATE ==="
+puts "monto class: #{monto.class}"
+puts "monto value: #{monto.inspect}"
+puts "monto to_f: #{monto.to_f}"
+puts "monto zero?: #{monto.zero?}" if monto.respond_to?(:zero?)
+puts "=============================="
         cll = ownr.tar_calculos.create(tar_pago_id: pid, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
+        puts "¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ afer create"
+puts "=== INMEDIATAMENTE DESPUÉS DEL CREATE ==="
+puts "cll.id: #{cll.id}"
+puts "cll.monto (sin reload): #{cll.monto.inspect}"
+puts "cll.attributes['monto']: #{cll.attributes['monto'].inspect}"
+
+# Forzar reload
+cll_recargado = TarCalculo.find(cll.id)
+puts "cll_recargado.monto: #{cll_recargado.monto.inspect}"
+
+# Verificar en base de datos directamente
+result = ActiveRecord::Base.connection.execute("SELECT monto FROM tar_calculos WHERE id = #{cll.id}")
+puts "DB directa: #{result.first['monto'].inspect}"
+puts "=========================================="
 
         if cll
           if cuotas.empty?
@@ -85,6 +105,10 @@ class Tarifas::TarCalculosController < ApplicationController
       # CAUSA GANADA !!
       ownr.causa_ganada = ownr.monto_pagado == 0
       ownr.save
+puts "=== DESPUÉS DEL SAVE DE CAUSA ==="
+cll_post_save = TarCalculo.find(cll.id)
+puts "cll_post_save.monto: #{cll_post_save.monto.inspect}"
+puts "================================="
     end
 
     redirect_to "/#{ownr.class.name.tableize}/#{ownr.id}?html_options[menu]=Tarifa+%26+Pagos"
