@@ -27,17 +27,20 @@
 					<b><%= link_to causa.causa, causa %></b><br>
 					<small><i class="bi bi-arrow-return-right"></i><%= con_monto ? 'Hay acuerdo o sentencia' : 'En curso' %></small>
 				</div>
-				<div class="col-1">
+				<div class="col-4">
 					<% j = causa&.age_actividades&.d_jcs&.last&.fecha %>
 					<% pr = causa&.age_actividades&.prprtrs&.last&.fecha %>
 					<% u = causa&.age_actividades&.uncs&.last&.fecha %>
 
 					<% if j %>
-						Audiencia de Juicio <%= dma_hm(j) %>
+						Audiencia de Juicio<br>
+						<%= dma_hm(j) %>
 					<% elsif pr %>
-						Audiencia preparatoria <%= dma_hm(pr) %>
+						Audiencia preparatoria<br>
+						<%= dma_hm(pr) %>
 					<% elsif u %>
-						Audiencia única <%= dma_hm(u) %>
+						Audiencia única<br>
+						<%= dma_hm(u) %>
 					<% else %>
 						Sin audiencias
 					<% end %>
