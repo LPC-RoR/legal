@@ -2,7 +2,6 @@
 <%= render partial: 'layouts/partials/notice_alert' %>
 
 <%= render partial: '0p/objt/cambio_estado', locals: { stts: ['ingreso', 'activo', 'baja'] } if dog? %>
-<%#= render partial: 'st_estados/st_estados/partials/change_state', locals: {objeto: @objeto} %>
 
 <%= render partial: '0p/tabs/tabs', locals: { token: :menu } %>
 <div class="p-2 border-start border-end border-bottom" style="margin-top: -1px;">
@@ -18,22 +17,31 @@
 	<% when 'Facturas' %>
 		<h4>Revisión de facturas</h4>
 		<% @causas_revision.each do |causa| %>
-			<div class="row gx-1">
-				<div class="col-1"><%= causa.monto_conciliaciones.where(tipo: ['Acuerdo', 'Sentencia']).count %></div>
+			<% con_monto = causa.monto_conciliaciones.where(tipo: ['Acuerdo', 'Sentencia']).any? %>
+			<div class="row gx-1 mb-1">
+				<div class="col-4 objt_lnk">
+					<%=dma(causa.created_at)%> <b><%= causa.rit %></b><br>
+					<small><i class="bi bi-arrow-return-right"></i><%= causa.tribunal_corte.tribunal_corte %></small>
+				</div>
+				<div class="col-2 objt_lnk">
+					<b><%= link_to causa.causa, causa %></b><br>
+					<small><i class="bi bi-arrow-return-right"></i><%= con_monto ? 'Hay acuerdo o sentencia' : 'En curso' %></small>
+				</div>
 				<div class="col-1">
-					<% if causa&.age_actividades&.d_jcs&.any? %>
-						J
-					<% elsif causa&.age_actividades&.prprtrs&.any? %>
-						P
-					<% elsif causa&.age_actividades&.uncs&.any? %>
-						U
+					<% j = causa&.age_actividades&.d_jcs&.last&.fecha %>
+					<% pr = causa&.age_actividades&.prprtrs&.last&.fecha %>
+					<% u = causa&.age_actividades&.uncs&.last&.fecha %>
+
+					<% if j %>
+						Audiencia de Juicio <%= dma_hm(j.fecha) %>
+					<% elsif pr %>
+						Audiencia preparatoria <%= dma_hm(pr.fecha) %>
+					<% elsif u %>
+						Audiencia única <%= dma_hm(u.fecha) %>
 					<% else %>
-						-
+						Sin audiencias
 					<% end %>
 				</div>
-				<div class="col-2"><%=dma(causa.created_at)%></div>
-				<div class="col-2"><%= link_to causa.rit, causa %></div>
-				<div class="col-2"><%= causa.causa %></div>
 				<!--div class="col-2"><%#= causa.tribunal_corte.tribunal_corte %></div-->
 				<div class="col-2"><%= causa.estado_financiero%></div>
 			</div>
