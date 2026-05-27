@@ -1,23 +1,6 @@
 module Tarifas
 	extend ActiveSupport::Concern
 
-	# ------------------------------------------------------------------- CALCULA
-
-
-
-	# **************************** Métodos usados para la evaluación y el despliegue de pagos
-	def chck_cuantia(tar_valor_cuantia, tipo)
-		formula = tipo == 'real' ? tar_valor_cuantia.formula : tar_valor_cuantia.formula_honorarios
-		valor = tipo == 'real' ? tar_valor_cuantia.valor : tar_valor_cuantia.valor_tarifa
-		valor.blank? ? 'formula' : ( formula.blank? ? 'campo' : valor == calcula2(formula, tar_valor_cuantia.ownr, nil) ? 'ok' : 'fail' )
-	end
-
-	def chck_tarifa(tar_valor_cuantia)
-		tarifa = vlr_tarifa(tar_valor_cuantia)
-		tarifa == 0 ? chck_cuantia(tar_valor_cuantia, 'real') : chck_cuantia(tar_valor_cuantia, 'tarifa')
-	end
-
-	# -----------------------------------------------------------------------------------------------------------------
 	# ----------------------------------------------------------------------------------------------------- Versión 2.0
 	# ----------------------------------------------------------------------------------------------------- Cuantía
 

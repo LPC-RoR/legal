@@ -4,30 +4,9 @@ module CptnTablaHelper
 		['directorios', 'documentos', 'archivos', 'imagenes']
 	end
 
-	def table_types_base
-		{
-			simple: '',
-			striped: 'table-striped',
-			bordered: 'table-bordered',
-			borderless: 'table-borderless',
-			hover: 'table-hover',
-			small: 'table-small'
-		}
-	end
-
 	# Obtiene los campos a desplegar en la tabla desde el objeto
 	def m_tabla_fields(objeto)
 		objeto.class::TABLA_FIELDS
-	end
-
-	# Objtiene LINK DEL BOTON NEW
-	def get_new_link(controller)
-		# distingue cuando la tabla está en un index o en un show
-		(controller_name == get_controller(controller) or @objeto.blank?) ? "/#{get_controller(controller)}/new" : "/#{@objeto.class.name.tableize}/#{@objeto.id}/#{get_controller(controller)}/new"
-	end
-
-	def new_path(src, ownr)
-		"/#{cntrllr(src)}/new#{ownr_prms(ownr) unless ownr.blank?}"
 	end
 
 	def sortable?(controller, field)

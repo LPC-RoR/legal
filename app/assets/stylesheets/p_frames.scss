@@ -14,11 +14,6 @@
     }
 }
 
-.f_search {
-	@include frm_bsc(auto 42px);
-	margin-bottom: 4px;
-}
-
 .f_50_col {
 	@include frm_bsc(50% 50%);
 }

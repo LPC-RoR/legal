@@ -262,14 +262,6 @@ module Capitan
 	end
 
 	# **************************************************************************** GENERAL
-	def object_class_sym(objeto)
-		objeto.class.name.tableize.to_sym
-	end
-
-	def uf_del_dia
-		uf = TarUfSistema.find_by(fecha: Time.zone.today.to_date)
-		uf.blank? ? nil : uf.valor
-	end
 
 	# usado en el cálculo de tarifas y despliegue de pagos
 	def uf_fecha(fecha)
@@ -282,10 +274,6 @@ module Capitan
 	def vlr_uf(fecha)
 		uf = fecha.blank? ? nil : TarUfSistema.find_by(fecha: fecha.to_date)
 		uf.blank? ? nil : uf.valor
-	end
-
-	def limpia_nombre(string)
-		string.gsub(/\t|\r|\n/, ' ').strip.downcase
 	end
 
 	def v_enlaces_general
@@ -306,10 +294,6 @@ module Capitan
 
 	def dt_hoy
 		Time.zone.today
-	end
-
-	def s_hoy
-		dt_hoy.strftime("%Y-%m-%dT%k:%M")
 	end
 
 	def params_to_date(prms, date_field)

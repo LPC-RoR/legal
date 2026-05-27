@@ -7,11 +7,6 @@ module CptnTablaAppHelper
 		}
 	end
 
-	def new?(cntrllr)
-		cntrllr = source.class.name == 'String' ? source : source.class.name.tableize
-		h_new[cntrllr] == nil ? true : h_new[cntrllr]
-	end
-
 	def sortable_fields
 		{
 			'controller' => ['campo1', 'campo2']

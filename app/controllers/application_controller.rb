@@ -37,11 +37,11 @@ class ApplicationController < ActionController::Base
 	helper_method :scp_err?, :scp_activo?, :dog_perfil, :dog_perfil?, :tipo_usuario, :version_activa, :version_activa?, :nomina_activa, :nomina_activa?, :perfil_activo, :perfil_activo?, :usuario_agenda, :usuario_agenda?
 	helper_method :dog?, :admin?, :usuario_activo?, :publico?, :seguridad 
 	helper_method :operacion?, :finanzas?
-	helper_method :vlr_uf, :uf_del_dia, :uf_fecha, :enlaces_general, :v_enlaces_general, :enlaces_perfil, :v_enlaces_perfil, :v_enlaces, :set_st_estado, :object_class_sym
+	helper_method :vlr_uf, :uf_fecha, :enlaces_general, :v_enlaces_general, :enlaces_perfil, :v_enlaces_perfil, :v_enlaces, :set_st_estado
 	helper_method :arriba, :abajo, :reordenar
-	helper_method :params_to_date, :dt_hoy, :s_hoy
+	helper_method :params_to_date, :dt_hoy
 	helper_method :swtch_urgencia, :swtch_pendiente
-	helper_method :set_formulas, :vlr_cuantia, :chck_cuantia, :vlr_tarifa, :chck_tarifa, :get_total_cuantia 
+	helper_method :set_formulas, :vlr_cuantia, :vlr_tarifa, :get_total_cuantia 
 	helper_method :get_fecha_calculo, :leyenda_origen_fecha_calculo, :get_uf_calculo, :get_tar_facturacion, :get_monto_calculo_pesos, :get_monto_calculo_uf
 	helper_method :nombre_dia, :dyf, :prfx_dia
 	helper_method :itm_scrty, :lm_seguridad, :check_crud, :check_k_estados, :check_st_estado

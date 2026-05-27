@@ -84,11 +84,6 @@ $app_ln_gp: 0;
     @include ln_2auto(blue, gray);
 }
 
-.ln_ordr {
-    @include ln_bsc_prprty(white, $app_tb_fnt, 13px);
-    @include ln_ord_nm_lnks(blue, gray);
-}
-
 
 // Cajas de tablas y objetos
 

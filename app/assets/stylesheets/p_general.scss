@@ -16,20 +16,9 @@
     background-color: $bg_clr;
 }
 
-.app_box {
-	@include box_bsc(gray, white, 5px);
-    color: black;
-}
-
 .cntnt_box {
 	@include box_bsc(gray, white, 10px);
     color: black;
-}
-
-.prrf_box {
-	@include box_bsc(gray, white, 10px);
-    color: black;
-	font-size: 13px;
 }
 
 /* ELEMENTOS */

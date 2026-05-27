@@ -22,12 +22,4 @@ module Rut
     vrfy_rut(rut) == vrfy_dgt(rut)
   end
 
-  def valid_rut?(rut)
-    rut_format?(rut) ? verified_rut?(rut) : false
-  end
-
-  def rut_format(rut)
-    rut.gsub(/[\.\-]/, '')
-  end
-
 end
