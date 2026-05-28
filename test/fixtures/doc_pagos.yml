@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  doc_transaccion_id: 1
+  ownr_type: MyString
+  ownr_id: 1
+  folio_referencia: 1
+  monto: 9.99
+
+two:
+  doc_transaccion_id: 1
+  ownr_type: MyString
+  ownr_id: 1
+  folio_referencia: 1
+  monto: 9.99

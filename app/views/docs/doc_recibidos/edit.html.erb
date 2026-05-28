@@ -1,0 +1,12 @@
+<% content_for :title, "Editing doc recibido" %>
+
+<h1>Editing doc recibido</h1>
+
+<%= render "form", doc_recibido: @doc_recibido %>
+
+<br>
+
+<div>
+  <%= link_to "Show this doc recibido", @doc_recibido %> |
+  <%= link_to "Back to doc recibidos", doc_recibidos_path %>
+</div>

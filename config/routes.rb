@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :doc_pagos
+  resources :proveedores
+  resources :trabajadores
   # Verificación de correos electrónicos de participantes
   # Nuevas rutas para la verificación
 
@@ -86,9 +89,23 @@ Rails.application.routes.draw do
     resources :doc_planillas do
       member do
         post :procesar
+        post :verificar
       end
     end
     resources :doc_detalles
+    resources :doc_transacciones do
+      member do
+        post :vincular
+      end
+    end
+    resources :doc_cartolas do
+      member do
+        post :reintentar_vinculacion
+      end
+    end
+    resources :doc_cuentas
+    resources :doc_bancos
+    resources :doc_recibidos
   end
 
   scope module: 'comercial' do

@@ -11,7 +11,11 @@ class Docs::DocPlanillasController < ApplicationController
   # GET /doc_planillas/1 or /doc_planillas/1.json
   def show
     @objeto = DocPlanilla.find(params[:id])
-    @documentos = @objeto.doc_emitidos.order(fecha_emision: :desc, folio: :desc)
+    if @objeto.tipo == 'emitidos'
+      @documentos = @objeto.doc_emitidos.order(fecha_emision: :desc, folio: :desc)
+    else
+      @documentos = @objeto.doc_recibidos.order(fecha_emision: :desc, folio: :desc)
+    end
   end
 
   # GET /doc_planillas/new
@@ -41,7 +45,7 @@ class Docs::DocPlanillasController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(doc_planilla_params)
-        format.html { redirect_to @objeto, notice: "Doc planilla was successfully updated." }
+        format.html { redirect_to doc_planillas_path, notice: "Doc planilla was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,6 +67,28 @@ class Docs::DocPlanillasController < ApplicationController
     else
       redirect_to doc_planilla_path(@objeto), alert: "La planilla ya fue procesada."
     end
+  end
+
+  def verificar
+    @objeto = DocPlanilla.find(params[:id])
+    
+    clccn = @objeto.tipo == 'recibidos' ? @objeto.doc_recibidos : @objeto.doc_emitidos
+
+    clccn.each do |doc|
+      if @objeto.tipo == 'recibidos'
+        prvdr = Proveedor.find_by(rut: doc.rut_emisor)
+        unless prvdr
+          prvdr = Proveedor.create(rut: doc.rut_emisor, razon_social: doc.razon_social_emisor)
+        end
+        doc.proveedor = prvdr
+      else
+        clnt = Cliente.find_by(rut: doc.rut_recepctor)
+        doc.cliente = clnt if clnt
+      end
+      doc.save
+    end
+
+    redirect_to @objeto, notice: 'Proceso terminado'
   end
 
   # DELETE /doc_planillas/1 or /doc_planillas/1.json

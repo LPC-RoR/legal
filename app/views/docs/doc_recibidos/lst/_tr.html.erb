@@ -1,0 +1,16 @@
+<tr>
+  <td class="text-<%=[56, 61].include?(objt.tipo_dte) ? 'danger' : 'dark'%>">
+    <%= objt.tipo_dte_nombre %>
+  </td>
+  <td class="pe-3 text-end objt_lnk"><%= link_to objt.folio, objt %></td>
+  <td class="pe-3 text-end"><%= l(objt.fecha_emision) %></td>
+  <td>
+    <% if objt.proveedor.present? %>
+      <i class="bi bi-check-circle"></i>
+    <% end %>
+    <%= objt.rut_emisor %>
+    <%= objt.razon_social_emisor %>
+  </td>
+  <td class="pe-3 text-end text-<%=[56, 61].include?(objt.tipo_dte) ? 'danger' : 'dark'%>"><%= s_pesos(objt.monto_total) %></td>
+
+</tr>

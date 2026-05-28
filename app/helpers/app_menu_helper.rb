@@ -33,7 +33,6 @@ module AppMenuHelper
           { id: 'cargos',       name: 'Cargos',             path: '/cargos',            icon: 'bi bi-currency-dollar' },
           { id: 'aprobaciones', name: 'Aprobaciones',       path: '/tar_aprobaciones',  icon: 'bi bi-check-all' },
           { id: 'facturas',     name: 'Facturas',           path: '/tar_facturas',      icon: 'bi bi-receipt' },
-          { id: 'planillas',    name: 'Carga de Planillas', path: '/doc_planillas',     icon: 'bi bi-file-earmark-spreadsheet' },
           { id: 'laborsafe',              name: 'Laborsafe',                icon: 'bi bi-caret-right-fill',
             children: [
               { id: 'empresas',           name: 'Empresas',                 path: '/empresas',              icon: 'bi bi-buildings' },
@@ -54,6 +53,9 @@ module AppMenuHelper
           },
           { id: 'administracion',         name: 'Administración',           icon: 'bi bi-caret-right-fill',
             children: [
+              { id: 'planillas',          name: 'Carga de Planillas',       path: '/doc_planillas',         icon: 'bi bi-file-earmark-spreadsheet' },
+              { id: 'cartolas',           name: 'Carga de Cartolas',        path: '/doc_cartolas',          icon: 'bi bi-safe2' },
+              { id: 'proveedores',        name: 'Proveedores',              path: '/proveedores',           icon: 'bi bi-person-rolodex' },
               { id: 'nomina',             name: 'Nómina',                   path: '/app_nominas',           icon: 'bi bi-person-workspace' },
               { id: 'personalizacion',    name: 'Personalización',          path: '/st_modelos',            icon: 'bi bi-question' },
             ]

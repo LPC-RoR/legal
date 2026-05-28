@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @doc_cuenta %>
+
+<div>
+  <%= link_to "Edit this doc cuenta", edit_doc_cuenta_path(@doc_cuenta) %> |
+  <%= link_to "Back to doc cuentas", doc_cuentas_path %>
+
+  <%= button_to "Destroy this doc cuenta", @doc_cuenta, method: :delete %>
+</div>

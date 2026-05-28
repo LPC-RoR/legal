@@ -1,0 +1,2 @@
+class DocPago < ApplicationRecord
+end

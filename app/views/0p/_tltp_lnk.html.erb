@@ -11,18 +11,6 @@
 <% blngs  ||= nil %>
 
 <% lnk_completo = (ownr || blngs) ? "#{lnk}#{ownr_prms(ownr, sgn == 'q') if ownr}#{blngs_prms(blngs, sgn == 'q') if blngs}" : lnk %>
-<%# 
-  default_data = {
-    toggle: 'tooltip',
-    placement: 'right'
-  }
-  combined_data = default_data.merge(data)
-%>
-
-<%#= link_to lnk, data: combined_data, target: target, title: tltp do %>
-    <%# yield %>
-<%# end %>
-
 
 <% default_data = { toggle: 'tooltip', placement: 'right' } %>
 <% extra_opts   = {

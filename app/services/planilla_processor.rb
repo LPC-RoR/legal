@@ -189,9 +189,13 @@ class PlanillaProcessor
   end
 
   def guardar_documento(doc_data)
-    cliente = buscar_cliente(doc_data[:rut_receptor])
+    if @planilla.tipo == 'recibidos'
+      proveedor = buscar_proveedor(doc_data[:rut_receptor])
+    else
+      cliente = buscar_cliente(doc_data[:rut_receptor])
+    end
 
-    doc = DocEmitido.find_or_initialize_by(
+    doc = modelo_documento.find_or_initialize_by(
       tipo_dte: doc_data[:tipo_dte],
       folio: doc_data[:folio],
       rut_emisor: doc_data[:rut_emisor]
@@ -199,7 +203,6 @@ class PlanillaProcessor
 
     doc.assign_attributes(
       doc_planilla: @planilla,
-      cliente: cliente,
       fecha_emision: doc_data[:fecha_emision],
       tipo_despacho: doc_data[:tipo_despacho],
       forma_pago: doc_data[:forma_pago],
@@ -226,6 +229,12 @@ class PlanillaProcessor
       valor_pagar: doc_data[:valor_pagar]
     )
 
+      if @planilla.tipo == 'recibidos'
+        doc.proveedor = proveedor
+      else
+        doc.cliente = cliente
+      end
+
     doc.save!
     @documentos_procesados += 1
 
@@ -235,11 +244,22 @@ class PlanillaProcessor
     @errores << "Folio #{doc_data[:folio]}: #{e.message}"
   end
 
+  def modelo_documento
+    @planilla.tipo == 'recibidos' ? DocRecibido : DocEmitido
+  end
+
   def buscar_cliente(rut_limpio)
     return nil if rut_limpio.blank?
     cliente = Cliente.find_by(rut: rut_limpio)
     cliente ? @clientes_encontrados += 1 : @clientes_no_encontrados += 1
     cliente
+  end
+
+  def buscar_proveedor(rut_limpio)
+    return nil if rut_limpio.blank?
+    proveedor = Proveedor.find_by(rut: rut_limpio)
+    proveedor ? @clientes_encontrados += 1 : @clientes_no_encontrados += 1
+    proveedor
   end
 
   def limpiar_rut(valor)

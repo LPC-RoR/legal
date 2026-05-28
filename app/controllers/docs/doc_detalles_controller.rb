@@ -1,6 +1,8 @@
 class Docs::DocDetallesController < ApplicationController
   before_action :set_doc_detalle, only: %i[ show edit update destroy ]
 
+  layout 'addt'
+
   # GET /doc_detalles or /doc_detalles.json
   def index
     @coleccion = DocDetalle.all

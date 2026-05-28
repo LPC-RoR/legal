@@ -10,6 +10,8 @@ class MenuItemPolicy < ApplicationPolicy
     when 'aprobaciones'       then user.admin? || user.finanzas? 
     when 'facturas'           then user.admin? || user.finanzas? 
     when 'planillas'          then user.admin? || user.operacion? 
+    when 'cartolas'           then user.admin? || user.operacion? 
+    when 'proveedores'        then user.admin? || user.operacion? 
     when 'repositorios'       then user.admin? || user.operacion? 
     when 'laborsafe'          then user.admin? || user.operacion?
     when 'empresas'           then user.admin? || user.finanzas? 

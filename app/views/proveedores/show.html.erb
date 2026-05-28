@@ -1,0 +1,15 @@
+<%= render partial: '0p/ttl_clss', locals: {source: 'proveedores', clss: :gray, dir: 'shw', hide_lnks: false} %>
+<%= render partial: 'layouts/partials/notice_alert' %>
+
+<h5>Conciliación de transacciones</h5>
+
+<div class="row gx-1">
+  <div class="col-6">
+    <h6>Transacciones</h6>
+    <%= render partial: '0p/tbl_clss', locals: {clccn: @trnsccns, typ: 'tr'} %>
+  </div>
+  <div class="col-6">
+    <h6>Documentos recibidos</h6>
+    <%= render partial: '0p/tbl_clss', locals: {clccn: @doc_recibidos, typ: 'tr'} %>
+  </div>
+</div>

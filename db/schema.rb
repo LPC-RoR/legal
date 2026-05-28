@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_26_153855) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_28_224055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -615,6 +615,46 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_26_153855) do
     t.index ["orden"], name: "index_demandantes_on_orden"
   end
 
+  create_table "doc_bancos", force: :cascade do |t|
+    t.string "nombre", null: false
+    t.string "rut", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rut"], name: "index_doc_bancos_on_rut", unique: true
+  end
+
+  create_table "doc_cartolas", force: :cascade do |t|
+    t.bigint "doc_cuenta_id"
+    t.integer "numero_cartola"
+    t.date "fecha_desde"
+    t.date "fecha_hasta"
+    t.decimal "saldo_inicial", precision: 15, scale: 2
+    t.decimal "depositos", precision: 15, scale: 2
+    t.decimal "otros_abonos", precision: 15, scale: 2
+    t.decimal "cheques", precision: 15, scale: 2
+    t.decimal "otros_cargos", precision: 15, scale: 2
+    t.decimal "impuestos", precision: 15, scale: 2
+    t.decimal "saldo_final", precision: 15, scale: 2
+    t.decimal "cupo_aprobado", precision: 15, scale: 2
+    t.decimal "monto_utilizado", precision: 15, scale: 2
+    t.decimal "saldo_disponible", precision: 15, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doc_cuenta_id"], name: "index_doc_cartolas_on_doc_cuenta_id"
+  end
+
+  create_table "doc_cuentas", force: :cascade do |t|
+    t.bigint "doc_banco_id", null: false
+    t.string "numero_cuenta", null: false
+    t.string "moneda"
+    t.string "sucursal"
+    t.string "tipo_cuenta", default: "corriente"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doc_banco_id"], name: "index_doc_cuentas_on_doc_banco_id"
+    t.index ["numero_cuenta"], name: "index_doc_cuentas_on_numero_cuenta", unique: true
+  end
+
   create_table "doc_detalles", force: :cascade do |t|
     t.integer "doc_emitido_id"
     t.string "ownr_type"
@@ -674,6 +714,19 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_26_153855) do
     t.index ["tipo_dte", "folio"], name: "index_doc_emitidos_on_tipo_folio"
   end
 
+  create_table "doc_pagos", force: :cascade do |t|
+    t.integer "doc_transaccion_id"
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.integer "folio_referencia"
+    t.decimal "monto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doc_transaccion_id"], name: "index_doc_pagos_on_doc_transaccion_id"
+    t.index ["ownr_id"], name: "index_doc_pagos_on_ownr_id"
+    t.index ["ownr_type"], name: "index_doc_pagos_on_ownr_type"
+  end
+
   create_table "doc_planillas", force: :cascade do |t|
     t.string "nombre_original", null: false
     t.string "tipo", default: "emitidos", null: false
@@ -686,6 +739,69 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_26_153855) do
     t.datetime "procesado"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "doc_recibidos", force: :cascade do |t|
+    t.integer "tipo_dte", null: false
+    t.integer "folio", null: false
+    t.date "fecha_emision", null: false
+    t.string "rut_emisor", limit: 12, null: false
+    t.string "razon_social_emisor", limit: 100, null: false
+    t.string "giro_emisor", limit: 100
+    t.string "acteco", limit: 10
+    t.string "cod_sii_sucursal", limit: 20
+    t.string "direccion_emisor", limit: 200
+    t.string "comuna_emisor", limit: 50
+    t.string "ciudad_emisor", limit: 50
+    t.string "rut_receptor", limit: 12, null: false
+    t.string "razon_social_receptor", limit: 100, null: false
+    t.string "giro_receptor", limit: 100
+    t.string "direccion_receptor", limit: 200
+    t.string "comuna_receptor", limit: 50
+    t.string "ciudad_receptor", limit: 50
+    t.integer "tipo_despacho"
+    t.integer "forma_pago"
+    t.decimal "total_neto", precision: 15, scale: 2
+    t.decimal "total_exento", precision: 15, scale: 2
+    t.decimal "total_iva", precision: 15, scale: 2
+    t.decimal "total_monto_total", precision: 15, scale: 2
+    t.decimal "monto_periodo", precision: 15, scale: 2
+    t.decimal "monto_no_facturable", precision: 15, scale: 2
+    t.decimal "saldo_anterior", precision: 15, scale: 2
+    t.decimal "valor_pagar", precision: 15, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "proveedor_id"
+    t.bigint "doc_planilla_id"
+    t.string "tipo_factura"
+    t.index ["doc_planilla_id"], name: "index_doc_recibidos_on_doc_planilla_id"
+    t.index ["fecha_emision"], name: "index_doc_recibidos_on_fecha"
+    t.index ["proveedor_id"], name: "index_doc_recibidos_on_cliente_id"
+    t.index ["rut_receptor", "fecha_emision"], name: "index_doc_recibidos_on_receptor_fecha"
+    t.index ["tipo_dte", "folio", "rut_emisor"], name: "index_doc_recibidos_on_dte_folio_emisor", unique: true
+    t.index ["tipo_dte", "folio"], name: "index_doc_recibidos_on_tipo_folio"
+  end
+
+  create_table "doc_transacciones", force: :cascade do |t|
+    t.bigint "doc_cartola_id", null: false
+    t.bigint "doc_cuenta_id", null: false
+    t.decimal "monto", precision: 15, scale: 2, null: false
+    t.string "descripcion", null: false
+    t.string "descripcion_rut"
+    t.date "fecha"
+    t.string "numero_documento"
+    t.string "sucursal"
+    t.string "tipo_movimiento"
+    t.string "relacionable_type"
+    t.bigint "relacionable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["descripcion_rut"], name: "index_doc_transacciones_on_descripcion_rut"
+    t.index ["doc_cartola_id", "fecha"], name: "index_doc_transacciones_on_doc_cartola_id_and_fecha"
+    t.index ["doc_cartola_id"], name: "index_doc_transacciones_on_doc_cartola_id"
+    t.index ["doc_cuenta_id"], name: "index_doc_transacciones_on_doc_cuenta_id"
+    t.index ["relacionable_type", "relacionable_id"], name: "idx_on_relacionable_type_relacionable_id_845b638d96"
+    t.index ["relacionable_type", "relacionable_id"], name: "index_doc_transacciones_on_relacionable"
   end
 
   create_table "empresas", force: :cascade do |t|
@@ -1095,6 +1211,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_26_153855) do
     t.index ["causa_id"], name: "index_parrafos_on_causa_id"
     t.index ["orden"], name: "index_parrafos_on_orden"
     t.index ["seccion_id"], name: "index_parrafos_on_seccion_id"
+  end
+
+  create_table "proveedores", force: :cascade do |t|
+    t.string "razon_social"
+    t.string "rut"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rut"], name: "index_proveedores_on_rut"
   end
 
   create_table "rcrs_enlaces", force: :cascade do |t|
@@ -1613,6 +1737,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_26_153855) do
     t.index ["tipo_cargo"], name: "index_tipo_cargos_on_tipo_cargo"
   end
 
+  create_table "trabajadores", force: :cascade do |t|
+    t.string "nombre"
+    t.string "rut"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rut"], name: "index_trabajadores_on_rut"
+  end
+
   create_table "tribunal_cortes", force: :cascade do |t|
     t.string "tribunal_corte"
     t.datetime "created_at", precision: nil, null: false
@@ -1705,8 +1837,12 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_26_153855) do
   add_foreign_key "act_textos", "act_archivos"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "doc_cartolas", "doc_cuentas"
+  add_foreign_key "doc_cuentas", "doc_bancos"
   add_foreign_key "doc_emitidos", "clientes"
   add_foreign_key "doc_emitidos", "doc_planillas"
+  add_foreign_key "doc_transacciones", "doc_cartolas"
+  add_foreign_key "doc_transacciones", "doc_cuentas"
   add_foreign_key "licencias", "empresas"
   add_foreign_key "responsable_actividades", "age_actividades"
   add_foreign_key "responsable_actividades", "usuarios"

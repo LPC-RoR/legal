@@ -1,0 +1,27 @@
+<%= form_with(model: doc_banco) do |form| %>
+  <% if doc_banco.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(doc_banco.errors.count, "error") %> prohibited this doc_banco from being saved:</h2>
+
+      <ul>
+        <% doc_banco.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nombre, style: "display: block" %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div>
+    <%= form.label :rut, style: "display: block" %>
+    <%= form.text_field :rut %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @doc_recibido %>
+
+<div>
+  <%= link_to "Edit this doc recibido", edit_doc_recibido_path(@doc_recibido) %> |
+  <%= link_to "Back to doc recibidos", doc_recibidos_path %>
+
+  <%= button_to "Destroy this doc recibido", @doc_recibido, method: :delete %>
+</div>

@@ -1,0 +1,354 @@
+require 'roo'
+
+class CartolaLoader
+  DESCRIPCION_RUT_PATTERN = /\A(\d+[Kk]?)\s+(.*)\z/
+  HTML_TAG_PATTERN = /<[^>]+>/
+
+  def initialize(doc_cartola)
+    @doc_cartola = doc_cartola
+    @errores = []
+  end
+
+  attr_reader :errores
+
+  def cargar!
+    return false unless @doc_cartola.archivo.attached?
+
+    @errores = []
+    archivo_temp = descargar_archivo_temporal
+
+    begin
+      spreadsheet = Roo::Spreadsheet.open(archivo_temp.path)
+      sheet = spreadsheet.sheet(0)
+
+      # Buscar dinámicamente las filas clave
+      filas = encontrar_filas_clave(sheet)
+
+      Rails.logger.info "[CartolaLoader] Filas encontradas: #{filas.inspect}"
+
+      # Extraer todos los datos del Excel
+      datos_banco   = extraer_datos_banco(sheet, filas[:rut_empresa])
+      datos_cuenta  = extraer_datos_cuenta(sheet, filas)
+      datos_saldos  = extraer_datos_saldos(sheet, filas[:saldos])
+      datos_credito = extraer_datos_credito(sheet, filas[:credito])
+
+      Rails.logger.info "[CartolaLoader] datos_cuenta: #{datos_cuenta.inspect}"
+      Rails.logger.info "[CartolaLoader] datos_saldos: #{datos_saldos.inspect}"
+      Rails.logger.info "[CartolaLoader] datos_credito: #{datos_credito.inspect}"
+
+      # Crear o encontrar banco y cuenta
+      banco  = buscar_o_crear_banco(datos_banco)
+      cuenta = buscar_o_crear_cuenta(banco, datos_cuenta)
+
+      # Guardar la cartola con todos sus datos
+      @doc_cartola.assign_attributes(
+        doc_cuenta: cuenta,
+        numero_cartola: datos_cuenta[:numero_cartola],
+        fecha_desde: datos_cuenta[:fecha_desde],
+        fecha_hasta: datos_cuenta[:fecha_hasta],
+        **datos_saldos,
+        **datos_credito
+      )
+      
+      @doc_cartola.save(validate: false)
+
+      Rails.logger.info "[CartolaLoader] Cartola guardada: id=#{@doc_cartola.id}, numero_cartola=#{@doc_cartola.numero_cartola}, saldo_final=#{@doc_cartola.saldo_final}"
+
+      # Crear transacciones
+      transacciones = crear_transacciones(sheet, cuenta, filas[:movimientos])
+      vincular_transacciones(transacciones)
+
+      true
+    rescue => e
+      @errores << "Error al procesar la cartola: #{e.message}"
+      Rails.logger.error "[CartolaLoader] ERROR: #{e.message}"
+      Rails.logger.error e.backtrace.first(15).join("\n")
+      false
+    ensure
+      archivo_temp.close
+      archivo_temp.unlink
+    end
+  end
+
+  private
+
+  def descargar_archivo_temporal
+    extension = @doc_cartola.archivo.filename.to_s.split('.').last.downcase
+    temp = Tempfile.new(['cartola', ".#{extension}"])
+    temp.binmode
+    temp.write(@doc_cartola.archivo.download)
+    temp.rewind
+    temp
+  end
+
+  # Busca filas clave por contenido en lugar de usar índices fijos
+  def encontrar_filas_clave(sheet)
+    filas = {
+      empresa: nil,
+      rut_empresa: nil,
+      datos_cuenta: nil,
+      numero_cartola: nil,
+      saldos: nil,
+      credito: nil,
+      movimientos: nil
+    }
+
+    (1..[sheet.last_row, 20].min).each do |fila|
+      valor_celda = limpiar_celda(sheet.cell(fila, 1))
+      next if valor_celda.blank?
+
+      case valor_celda
+      when /Empresa:/i
+        filas[:empresa] = fila
+      when /RUT empresa:/i
+        filas[:rut_empresa] = fila
+      when /Cuenta Corriente/i, /Cuenta.*N°/i
+        filas[:datos_cuenta] = fila
+      when /Número cartola/i
+        filas[:numero_cartola] = fila
+      when /SALDO INICIAL/i
+        filas[:saldos] = fila + 1  # La fila de valores está debajo
+      when /CUPO APROBADO/i
+        filas[:credito] = fila + 1  # La fila de valores está debajo
+      when /Detalle movimientos/i
+        filas[:movimientos] = fila + 2  # Los datos empiezan 2 filas debajo (header + subheader)
+      end
+    end
+
+    filas
+  end
+
+  def limpiar_celda(valor)
+    return nil if valor.blank?
+    texto = valor.to_s
+    texto = texto.gsub(HTML_TAG_PATTERN, '')
+    texto.strip.presence
+  end
+
+  def extraer_datos_banco(sheet, fila_rut)
+    fila_rut ||= 4
+    {
+      rut_empresa: limpiar_celda(sheet.cell(fila_rut, 2)),
+      nombre_empresa: limpiar_celda(sheet.cell(fila_rut - 1, 2))
+    }
+  end
+
+  def extraer_datos_cuenta(sheet, filas)
+    fila_cuenta = filas[:datos_cuenta] || 7
+    fila_cartola = filas[:numero_cartola] || 8
+    
+    cuenta_raw = limpiar_celda(sheet.cell(fila_cuenta, 1))
+    moneda_raw = limpiar_celda(sheet.cell(fila_cuenta, 3))
+    sucursal_raw = limpiar_celda(sheet.cell(fila_cuenta, 4))
+    
+    numero_cartola_raw = limpiar_celda(sheet.cell(fila_cartola, 1))
+    fecha_desde_raw = limpiar_celda(sheet.cell(fila_cartola, 3))
+    fecha_hasta_raw = limpiar_celda(sheet.cell(fila_cartola, 4))
+
+    Rails.logger.info "[CartolaLoader] numero_cartola_raw (limpio): #{numero_cartola_raw.inspect}"
+
+    {
+      numero_cuenta: extraer_numero_cuenta(cuenta_raw),
+      moneda: extraer_valor_despues_dos_puntos(moneda_raw),
+      sucursal: extraer_valor_despues_dos_puntos(sucursal_raw),
+      numero_cartola: extraer_numero_cartola(numero_cartola_raw),
+      fecha_desde: parsear_fecha(extraer_valor_despues_dos_puntos(fecha_desde_raw)),
+      fecha_hasta: parsear_fecha(extraer_valor_despues_dos_puntos(fecha_hasta_raw))
+    }
+  end
+
+  def extraer_numero_cartola(valor_raw)
+    return nil if valor_raw.blank?
+
+    valor_limpio = extraer_valor_despues_dos_puntos(valor_raw)
+    
+    if valor_limpio.blank?
+      Rails.logger.warn "[CartolaLoader] No se pudo extraer número de cartola de: #{valor_raw.inspect}"
+      return nil
+    end
+
+    numero = valor_limpio.to_i
+    
+    Rails.logger.info "[CartolaLoader] Número de cartola extraído: #{numero}"
+    numero
+  end
+
+  def extraer_datos_saldos(sheet, fila_saldos)
+    fila_saldos ||= 10
+    
+    Rails.logger.info "[CartolaLoader] Leyendo saldos de fila #{fila_saldos}"
+    
+    valores = {
+      saldo_inicial: sheet.cell(fila_saldos, 1),
+      depositos: sheet.cell(fila_saldos, 2),
+      otros_abonos: sheet.cell(fila_saldos, 3),
+      cheques: sheet.cell(fila_saldos, 4),
+      otros_cargos: sheet.cell(fila_saldos, 5),
+      impuestos: sheet.cell(fila_saldos, 6),
+      saldo_final: sheet.cell(fila_saldos, 7)
+    }
+    
+    Rails.logger.info "[CartolaLoader] Valores crudos saldos: #{valores.inspect}"
+    
+    {
+      saldo_inicial: parsear_monto(valores[:saldo_inicial]),
+      depositos: parsear_monto(valores[:depositos]),
+      otros_abonos: parsear_monto(valores[:otros_abonos]),
+      cheques: parsear_monto(valores[:cheques]),
+      otros_cargos: parsear_monto(valores[:otros_cargos]),
+      impuestos: parsear_monto(valores[:impuestos]),
+      saldo_final: parsear_monto(valores[:saldo_final])
+    }
+  end
+
+  def extraer_datos_credito(sheet, fila_credito)
+    fila_credito ||= 13
+    
+    Rails.logger.info "[CartolaLoader] Leyendo crédito de fila #{fila_credito}"
+    
+    valores = {
+      cupo_aprobado: sheet.cell(fila_credito, 1),
+      monto_utilizado: sheet.cell(fila_credito, 3),
+      saldo_disponible: sheet.cell(fila_credito, 5)
+    }
+    
+    Rails.logger.info "[CartolaLoader] Valores crudos crédito: #{valores.inspect}"
+    
+    {
+      cupo_aprobado: parsear_monto(valores[:cupo_aprobado]),
+      monto_utilizado: parsear_monto(valores[:monto_utilizado]),
+      saldo_disponible: parsear_monto(valores[:saldo_disponible])
+    }
+  end
+
+  def buscar_o_crear_banco(datos)
+    rut = normalizar_rut(datos[:rut_empresa])
+    
+    DocBanco.find_or_create_by!(rut: rut) do |b|
+      b.nombre = datos[:nombre_empresa]
+    end
+  end
+
+  def buscar_o_crear_cuenta(banco, datos)
+    banco.doc_cuentas.find_or_create_by!(numero_cuenta: datos[:numero_cuenta]) do |c|
+      c.moneda = datos[:moneda]
+      c.sucursal = datos[:sucursal]
+    end
+  end
+
+  def crear_transacciones(sheet, cuenta, fila_inicio)
+    transacciones = []
+    fila = fila_inicio || 17
+
+    Rails.logger.info "[CartolaLoader] Creando transacciones desde fila #{fila}"
+
+    while fila <= sheet.last_row
+      monto = sheet.cell(fila, 1)
+      descripcion = limpiar_celda(sheet.cell(fila, 2))
+      fecha = sheet.cell(fila, 4)
+      numero_documento = limpiar_celda(sheet.cell(fila, 5))
+      sucursal = limpiar_celda(sheet.cell(fila, 6))
+      tipo_movimiento = limpiar_celda(sheet.cell(fila, 8))
+
+      break if monto.blank? && descripcion.blank?
+      break if seccion_nueva?(descripcion)
+
+      next if monto.blank?
+
+      descripcion_rut = extraer_rut_descripcion(descripcion)
+
+      transaccion = DocTransaccion.create!(
+        doc_cartola: @doc_cartola,
+        doc_cuenta: cuenta,
+        monto: parsear_monto(monto),
+        descripcion: descripcion,
+        descripcion_rut: descripcion_rut,
+        fecha: parsear_fecha(fecha),
+        numero_documento: numero_documento,
+        sucursal: sucursal,
+        tipo_movimiento: tipo_movimiento
+      )
+
+      transacciones << transaccion
+      fila += 1
+    end
+
+    transacciones
+  end
+
+  def vincular_transacciones(transacciones)
+    transacciones.each do |transaccion|
+      next if transaccion.descripcion_rut.blank?
+      transaccion.vincular!
+    end
+  end
+
+  def seccion_nueva?(descripcion)
+    return false if descripcion.blank?
+    palabras_clave = ['Resumen', 'Saldos diarios', 'Información de la Línea de Crédito']
+    palabras_clave.any? { |palabra| descripcion.to_s.include?(palabra) }
+  end
+
+  def extraer_rut_descripcion(descripcion)
+    return nil if descripcion.blank?
+    
+    match = DESCRIPCION_RUT_PATTERN.match(descripcion.to_s.strip)
+    return nil unless match
+    
+    rut_raw = match[1]
+    rut_limpio = rut_raw.sub(/\A0+/, '')
+    rut_limpio = '0' if rut_limpio.empty?
+    
+    rut_limpio.upcase
+  end
+
+  def extraer_numero_cuenta(cuenta_raw)
+    return nil if cuenta_raw.blank?
+    match = cuenta_raw.match(/N°?:\s*(.+)/)
+    match ? match[1].strip : cuenta_raw
+  end
+
+  def extraer_valor_despues_dos_puntos(texto)
+    return nil if texto.blank?
+    partes = texto.split(':', 2)
+    partes.length > 1 ? partes[1].strip : texto.strip
+  end
+
+  def parsear_fecha(valor)
+    return nil if valor.blank?
+    return valor.to_date if valor.is_a?(Date) || valor.is_a?(Time)
+    
+    Date.strptime(valor.to_s.strip, '%d/%m/%Y')
+  rescue
+    Date.parse(valor.to_s.strip) rescue nil
+  end
+
+  def parsear_monto(valor)
+    Rails.logger.info "[CartolaLoader] parsear_monto input: #{valor.inspect} (class: #{valor.class})"
+    
+    return 0 if valor.blank?
+    return valor if valor.is_a?(Numeric)
+    
+    # PRIMERO limpiar HTML si existe
+    limpio = valor.to_s.gsub(HTML_TAG_PATTERN, '')
+    # Luego quitar $ y espacios
+    limpio = limpio.gsub(/[\$\s]/, '')
+    # Reemplazar coma por punto (decimal)
+    limpio = limpio.gsub(',', '.')
+    
+    Rails.logger.info "[CartolaLoader] parsear_monto limpio: #{limpio.inspect}"
+    
+    resultado = BigDecimal(limpio)
+    
+    Rails.logger.info "[CartolaLoader] parsear_monto output: #{resultado}"
+    resultado
+  rescue => e
+    Rails.logger.error "[CartolaLoader] parsear_monto error: #{e.message} for value: #{valor.inspect}"
+    0
+  end
+
+  def normalizar_rut(rut)
+    return nil if rut.blank?
+    rut.to_s.gsub(/[\.\-]/, '').upcase
+  end
+end

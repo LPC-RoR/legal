@@ -12,3 +12,7 @@
     <%= form.label :anio %>
     <%= form.number_field :anio, value: Date.current.year %>
   </div>
+
+<div class="my-3">
+  <%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :tipo, label: 'Tipo de planilla', sel_list: ['emitidos', 'recibidos'] } %>
+</div>

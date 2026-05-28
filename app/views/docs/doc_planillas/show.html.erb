@@ -1,7 +1,13 @@
-<h1><%= @objeto.nombre_original %></h1>
-<p>Estado: <strong><%= @objeto.estado %></strong><br>
-Período: <%= @objeto.periodo %><br>
-Documentos: <%= @objeto.documentos_cargados %> / <%= @objeto.total_documentos %></p>
+<%= render partial: '0p/ttl_clss', locals: {source: 'doc_planillas', clss: :gray, dir: 'shw', hide_lnks: false} %>
+<%= render partial: 'layouts/partials/notice_alert' %>
+
+<div class="m-2">
+  <p>Estado: <strong><%= @objeto.estado %></strong><br>
+  Período: <%= @objeto.periodo %><br>
+  Documentos: <%= @objeto.documentos_cargados %> / <%= @objeto.total_documentos %></p>
+</div>
+
+<h6>Documentos cargados</h6>
 
 <% if @objeto.errores.present? %>
   <div class="errores">
@@ -10,67 +16,8 @@ Documentos: <%= @objeto.documentos_cargados %> / <%= @objeto.total_documentos %>
   </div>
 <% end %>
 
-<h2>Documentos Cargados</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Tipo</th>
-      <th>Folio</th>
-      <th>Fecha</th>
-      <th>Receptor</th>
-      <th>Monto Total</th>
-      <th>Actn</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @documentos.each do |doc| %>
-      <% ln_clr = [56, 61].include?(doc.tipo_dte) ? 'danger' : 'dark' %>
-      <tr class="text-<%=ln_clr%>">
-        <td>
-          <% if doc.doc_detalles.any? %>
-            <i class="bi bi-check-all"></i>
-          <% end %>
-          <%= doc.tipo_dte_nombre %>
-        </td>
-        <td class="pe-3 text-end objt_lnk"><%= link_to doc.folio, doc %></td>
-        <td class="pe-3 text-end"><%= l(doc.fecha_emision) %></td>
-        <td>
-          <% if doc.cliente.present? %>
-            <i class="bi bi-check-circle"></i>
-          <% end %>
-          <%= doc.razon_social_receptor %>
-        </td>
-        <td class="pe-3 text-end"><%= s_pesos(doc.monto_total) %></td>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @documentos, typ: 'tr'} %>
 
-        <td>
-          <div class="dropdown" style="position: relative; display: inline-block;">
-            <button type="button" onclick="toggleDropdown(this)" 
-                    style="padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer;">
-              <%= doc.tipo_factura_nombre %> ▼
-            </button>
-            <div class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; z-index: 1000; min-width: 140px; background: white; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
-              
-              <%= button_to "Sin clasificar", 
-                  update_tipo_factura_doc_emitido_path(doc, tipo_factura: ''), 
-                  method: :patch,
-                  style: "color: #000000; display: block; width: 100%; padding: 6px 12px; text-align: left; border: none; background: none; cursor: pointer; #{doc.tipo_factura.blank? ? 'background: #f0f0f0; font-weight: bold;' : ''}" %>
-              
-              <div style="height: 1px; background: #e0e0e0; margin: 4px 0;"></div>
-              
-              <% DocEmitido::TIPOS_FACTURA.each do |tipo| %>
-                <%= button_to tipo.capitalize, 
-                    update_tipo_factura_doc_emitido_path(doc, tipo_factura: tipo), 
-                    method: :patch,
-                    style: "color: #000000; display: block; width: 100%; padding: 6px 12px; text-align: left; border: none; background: none; cursor: pointer; #{doc.tipo_factura == tipo ? 'background: #f0f0f0; font-weight: bold;' : ''}" %>
-              <% end %>
-            </div>
-          </div>
-        </td>
-
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <% facturas = @documentos.facturas.map {|f| f.monto_total}.sum %>
 <% creditos = @documentos.creditos.map {|f| f.monto_total}.sum %>

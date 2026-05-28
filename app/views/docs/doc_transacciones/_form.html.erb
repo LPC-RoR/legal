@@ -1,0 +1,22 @@
+<%= form_with(model: doc_transaccion) do |form| %>
+  <% if doc_transaccion.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(doc_transaccion.errors.count, "error") %> prohibited this doc_transaccion from being saved:</h2>
+
+      <ul>
+        <% doc_transaccion.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :descripcion, style: "display: block" %>
+    <%= form.text_field :descripcion %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

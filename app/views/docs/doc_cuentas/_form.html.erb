@@ -1,0 +1,22 @@
+<%= form_with(model: doc_cuenta) do |form| %>
+  <% if doc_cuenta.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(doc_cuenta.errors.count, "error") %> prohibited this doc_cuenta from being saved:</h2>
+
+      <ul>
+        <% doc_cuenta.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :sucursal, style: "display: block" %>
+    <%= form.text_field :sucursal %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

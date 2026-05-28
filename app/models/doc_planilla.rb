@@ -1,5 +1,6 @@
 class DocPlanilla < ApplicationRecord
   has_many :doc_emitidos, dependent: :nullify
+  has_many :doc_recibidos, dependent: :nullify
 
   has_one_attached :archivo
 

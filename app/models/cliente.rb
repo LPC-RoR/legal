@@ -24,6 +24,7 @@ class Cliente < ApplicationRecord
 	has_many :tar_aprobaciones
 
 	has_many :doc_emitidos
+	has_many :doc_transacciones, as: :relacionable
 
 	has_many :age_actividades, as: :ownr
 
