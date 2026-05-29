@@ -1,12 +1,1 @@
-<% content_for :title, "Editing trabajador" %>
-
-<h1>Editing trabajador</h1>
-
-<%= render "form", trabajador: @trabajador %>
-
-<br>
-
-<div>
-  <%= link_to "Show this trabajador", @trabajador %> |
-  <%= link_to "Back to trabajadores", trabajadores_path %>
-</div>
+<%= render partial: '0p/form/form', locals: {fml: true, data: { controller: 'prtcpnts-fields' } } %>

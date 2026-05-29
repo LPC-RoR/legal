@@ -1,9 +1,11 @@
 class TrabajadoresController < ApplicationController
   before_action :set_trabajador, only: %i[ show edit update destroy ]
 
+  layout 'addt'
+
   # GET /trabajadores or /trabajadores.json
   def index
-    @trabajadores = Trabajador.all
+    @clccn = Trabajador.all
   end
 
   # GET /trabajadores/1 or /trabajadores/1.json
@@ -12,7 +14,7 @@ class TrabajadoresController < ApplicationController
 
   # GET /trabajadores/new
   def new
-    @trabajador = Trabajador.new
+    @objeto = Trabajador.new
   end
 
   # GET /trabajadores/1/edit
@@ -21,15 +23,15 @@ class TrabajadoresController < ApplicationController
 
   # POST /trabajadores or /trabajadores.json
   def create
-    @trabajador = Trabajador.new(trabajador_params)
+    @objeto = Trabajador.new(trabajador_params)
 
     respond_to do |format|
-      if @trabajador.save
-        format.html { redirect_to @trabajador, notice: "Trabajador was successfully created." }
-        format.json { render :show, status: :created, location: @trabajador }
+      if @objeto.save
+        format.html { redirect_to trabajadores_path, notice: "Trabajador was successfully created." }
+        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @trabajador.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -37,19 +39,19 @@ class TrabajadoresController < ApplicationController
   # PATCH/PUT /trabajadores/1 or /trabajadores/1.json
   def update
     respond_to do |format|
-      if @trabajador.update(trabajador_params)
-        format.html { redirect_to @trabajador, notice: "Trabajador was successfully updated." }
-        format.json { render :show, status: :ok, location: @trabajador }
+      if @objeto.update(trabajador_params)
+        format.html { redirect_to trabajadores_path, notice: "Trabajador was successfully updated." }
+        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @trabajador.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /trabajadores/1 or /trabajadores/1.json
   def destroy
-    @trabajador.destroy!
+    @objeto.destroy!
 
     respond_to do |format|
       format.html { redirect_to trabajadores_path, status: :see_other, notice: "Trabajador was successfully destroyed." }
@@ -60,7 +62,7 @@ class TrabajadoresController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trabajador
-      @trabajador = Trabajador.find(params.expect(:id))
+      @objeto = Trabajador.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

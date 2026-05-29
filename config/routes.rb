@@ -100,6 +100,7 @@ Rails.application.routes.draw do
     resources :doc_cartolas do
       member do
         post :reintentar_vinculacion
+        post :verificar
       end
     end
     resources :doc_cuentas

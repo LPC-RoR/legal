@@ -1,16 +1,4 @@
-<p style="color: green"><%= notice %></p>
+<%= render partial: '0p/ttl_clss', locals: {source: 'trabajadores', clss: :gray, dir: 'indx'} %>
+<%= render partial: 'layouts/partials/notice_alert' %>
 
-<% content_for :title, "Trabajadores" %>
-
-<h1>Trabajadores</h1>
-
-<div id="trabajadores">
-  <% @trabajadores.each do |trabajador| %>
-    <%= render trabajador %>
-    <p>
-      <%= link_to "Show this trabajador", trabajador %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New trabajador", new_trabajador_path %>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @clccn, typ: 'tr'} %>

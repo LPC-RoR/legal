@@ -1,27 +1,11 @@
-<%= form_with(model: trabajador) do |form| %>
-  <% if trabajador.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(trabajador.errors.count, "error") %> prohibited this trabajador from being saved:</h2>
-
-      <ul>
-        <% trabajador.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :nombre, style: "display: block" %>
-    <%= form.text_field :nombre %>
+<div class="row gx-1">
+  <div class="col-2">
+    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'Cédula de identidad' } %>
   </div>
-
-  <div>
-    <%= form.label :rut, style: "display: block" %>
-    <%= form.text_field :rut %>
+  <div class="col-5">
+    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre completo' } %>
   </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="col-5">
+    <%#= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email, label: 'Email personal' } %>
   </div>
-<% end %>
+</div>

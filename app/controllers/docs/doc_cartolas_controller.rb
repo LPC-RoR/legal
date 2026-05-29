@@ -93,7 +93,39 @@ class Docs::DocCartolasController < ApplicationController
       redirect_to @objeto, notice: "#{vinculadas} transacciones vinculadas exitosamente."
     end
 
-  # DELETE /doc_cartolas/1 or /doc_cartolas/1.json
+  def verificar
+    @objeto = DocCartola.find(params[:id])
+    
+    clccn = @objeto.doc_transacciones
+
+    clccn.each do |doc|
+
+      if doc.descripcion_rut
+        puts "******************************** descripcion_rut"
+        puts doc.descripcion_rut
+        clnt = Cliente.find_by(rut: doc.descripcion_rut)
+        if clnt
+          puts "****************************** clnt"
+          doc.relacionable = clnt
+        else
+          prvdr = Proveedor.find_by(rut: doc.descripcion_rut)
+          if prvdr
+            puts "****************************** prvdr"
+            doc.relacionable = prvdr
+          else
+            trbjdr = Trabajador.find_by(rut: doc.descripcion_rut)
+            doc.relacionable = trbjdr if trbjdr
+          end
+        end
+
+        doc.save
+      end
+    end
+
+    redirect_to @objeto, notice: 'Proceso terminado'
+  end
+
+# DELETE /doc_cartolas/1 or /doc_cartolas/1.json
   def destroy
     @objeto.destroy!
 
