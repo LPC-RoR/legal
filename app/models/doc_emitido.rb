@@ -4,6 +4,7 @@ class DocEmitido < ApplicationRecord
   belongs_to :cliente, optional: true
 
   has_many :doc_detalles
+  has_many :doc_pagos, as: :ownr
 
   TIPOS_DTE = {
     33 => 'Factura Electrónica',

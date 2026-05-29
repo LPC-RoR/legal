@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :doc_pagos
   resources :proveedores
   resources :trabajadores
   # Verificación de correos electrónicos de participantes
@@ -106,6 +105,7 @@ Rails.application.routes.draw do
     resources :doc_cuentas
     resources :doc_bancos
     resources :doc_recibidos
+    resources :doc_pagos
   end
 
   scope module: 'comercial' do

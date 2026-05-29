@@ -2,7 +2,7 @@ class DocRecibido < ApplicationRecord
   belongs_to :doc_planilla, optional: true
   belongs_to :proveedor, optional: true
 
-#  has_many :doc_detalles
+  has_many :doc_pagos, as: :ownr
 
   TIPOS_DTE = {
     33 => 'Factura Electrónica',

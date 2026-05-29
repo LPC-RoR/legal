@@ -1,9 +1,9 @@
-class DocPagosController < ApplicationController
+class Docs::DocPagosController < ApplicationController
   before_action :set_doc_pago, only: %i[ show edit update destroy ]
 
   # GET /doc_pagos or /doc_pagos.json
   def index
-    @doc_pagos = DocPago.all
+    @clccn = DocPago.all
   end
 
   # GET /doc_pagos/1 or /doc_pagos/1.json
@@ -12,7 +12,7 @@ class DocPagosController < ApplicationController
 
   # GET /doc_pagos/new
   def new
-    @doc_pago = DocPago.new
+    @objeto = DocPago.new(doc_transaccion_id: params[:oid])
   end
 
   # GET /doc_pagos/1/edit
@@ -21,15 +21,15 @@ class DocPagosController < ApplicationController
 
   # POST /doc_pagos or /doc_pagos.json
   def create
-    @doc_pago = DocPago.new(doc_pago_params)
+    @objeto = DocPago.new(doc_pago_params)
 
     respond_to do |format|
-      if @doc_pago.save
-        format.html { redirect_to @doc_pago, notice: "Doc pago was successfully created." }
-        format.json { render :show, status: :created, location: @doc_pago }
+      if @objeto.save
+        format.html { redirect_to @objeto.doc_transaccion.relacionable, notice: "Doc pago was successfully created." }
+        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @doc_pago.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -37,22 +37,22 @@ class DocPagosController < ApplicationController
   # PATCH/PUT /doc_pagos/1 or /doc_pagos/1.json
   def update
     respond_to do |format|
-      if @doc_pago.update(doc_pago_params)
-        format.html { redirect_to @doc_pago, notice: "Doc pago was successfully updated." }
-        format.json { render :show, status: :ok, location: @doc_pago }
+      if @objeto.update(doc_pago_params)
+        format.html { redirect_to @objeto.doc_transaccion.relacionable, notice: "Doc pago was successfully updated." }
+        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @doc_pago.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /doc_pagos/1 or /doc_pagos/1.json
   def destroy
-    @doc_pago.destroy!
+    @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to doc_pagos_path, status: :see_other, notice: "Doc pago was successfully destroyed." }
+      format.html { redirect_to @objeto.doc_transaccion.relacionable, status: :see_other, notice: "Doc pago was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -60,7 +60,7 @@ class DocPagosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_doc_pago
-      @doc_pago = DocPago.find(params.expect(:id))
+      @objeto = DocPago.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

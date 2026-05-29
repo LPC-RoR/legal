@@ -1,0 +1,11 @@
+<div>
+  <%= form.label :folio_referencia %>
+  <%= form.number_field :folio_referencia %>
+</div>
+
+<div>
+  <%= form.label :monto %>
+  <%= form.number_field :monto %>
+</div>
+
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :doc_transaccion_id} %>

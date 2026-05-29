@@ -4,12 +4,17 @@
 <td>
 	<% if objt.relacionable %>
 		<i class="bi bi-check-circle"></i>
-		<%= objt.relacionable.class.name %>
+		<%= objt.relacionable.class.name unless ['clientes', 'proveedores'].include?(controller_name)%>
 	<% else %>
 		Pendiente
 	<% end %>
 </td>
 <td class="text-end"><%= objt.descripcion_rut %></td>
 <td><%= objt.tipo_movimiento %></td>
-<td class="text-end"><%= s_pesos(objt.monto) %></td>
+<td class="text-end <%= 'text-primary' if objt.doc_pagos.any? %>">
+	<%= s_pesos(objt.monto) %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/doc_pagos/new#{blngs_prms(objt)}", tltp: 'Conciliar'} do %>
+		<i class="bi bi-plus-circle"></i>
+	<% end %>
+</td>
 </tr>

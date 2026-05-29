@@ -1,50 +1,21 @@
-<h1><%= @objeto.tipo_dte_nombre %> : <%= @objeto.folio %></h1>
-<p>
-  <% if @objeto.cliente.present? %>
-    <i class="bi bi-check-circle"></i>
-  <% end %>
-  Cliente: <strong><%= @objeto.razon_social_receptor %></strong><br>
-  Fecha: <%= l(@objeto.fecha_emision) %>
-</p>
+<%= render partial: '0p/ttl_clss', locals: {source: 'doc_emitidos', clss: :gray, dir: 'shw'} %>
+<%= render partial: 'layouts/partials/notice_alert' %>
 
-<%= render layout: '0p/tltp_lnk', locals: {lnk: "/doc_detalles/new?bid=#{@objeto.id}"} do %>
-  <div class="objt_lnk">Nuevo detalle</div>
-<% end %>
-
-<h2>Detalle del documento emitido</h2>
-<table>
-  <thead>
-    <tr>
-      <th>ownr</th>
-      <th>Tipo</th>
-      <th>Fecha</th>
-      <th>Glosa</th>
-      <th>Monto</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @detalles.each do |dtll| %>
-      <% ln_clr = dtll.tipo_detalle == 'Causa' ? 'Primary' : 'dark' %>
-      <tr class="text-<%=ln_clr%>">
-
-        <td>
-          <% if dtll.ownr %>
-            <i class="bi bi-arrow-return-right"></i>
-          <% else %>
-            <i class="bi bi-question-circle"></i>
-          <% end %>
-        </td>
-        <td><%= dtll.tipo_detalle %></td>
-        <td class="pe-3 text-end"><%= l(dtll.fecha_uf) if dtll.fecha_uf? %></td>
-        <td><%= dtll.glosa %></td>
-        <td class="pe-3 text-end"><%= s_pesos(dtll.monto) %></td>
-        <td>
-          <%= render partial: '0p/tbl/lnks_e', locals: {objeto: dtll} %>
-        </td>
-
-      </tr>
+<div class="m-2">
+  <p>
+    <% if @objeto.cliente.present? %>
+      <i class="bi bi-check-circle"></i>
     <% end %>
-  </tbody>
-</table>
+    Cliente: <strong><%= @objeto.razon_social_receptor %></strong><br>
+    Fecha: <%= l(@objeto.fecha_emision) %>
+    Monto: <b><%= s_pesos(@objeto.monto_total) %></b>
+  </p>
+</div>
 
-<%= link_to 'Volver', @objeto.doc_planilla %>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @detalles, typ: 'tr'} %>
+
+<p><b>Pagos conciliados</b></p>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.doc_pagos, typ: 'tr'} %>
+
+<%#= link_to 'Volver', @objeto.doc_planilla %>
+

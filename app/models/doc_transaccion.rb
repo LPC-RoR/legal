@@ -3,6 +3,8 @@ class DocTransaccion < ApplicationRecord
   belongs_to :doc_cuenta
   belongs_to :relacionable, polymorphic: true, optional: true
 
+  has_many :doc_pagos
+
   validates :monto, presence: true
   validates :descripcion, presence: true
 
