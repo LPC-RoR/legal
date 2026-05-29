@@ -15,29 +15,4 @@
   </td>
   <td class="pe-3 text-end text-<%=[56, 61].include?(objt.tipo_dte) ? 'danger' : 'dark'%>"><%= s_pesos(objt.monto_total) %></td>
 
-  <td>
-    <div class="dropdown" style="position: relative; display: inline-block;">
-      <button type="button" onclick="toggleDropdown(this)" 
-              style="padding: 4px 8px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer;">
-        <%= objt.tipo_factura_nombre %> ▼
-      </button>
-      <div class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; z-index: 1000; min-width: 140px; background: white; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
-        
-        <%= button_to "Sin clasificar", 
-            update_tipo_factura_doc_emitido_path(objt, tipo_factura: ''), 
-            method: :patch,
-            style: "color: #000000; display: block; width: 100%; padding: 6px 12px; text-align: left; border: none; background: none; cursor: pointer; #{objt.tipo_factura.blank? ? 'background: #f0f0f0; font-weight: bold;' : ''}" %>
-        
-        <div style="height: 1px; background: #e0e0e0; margin: 4px 0;"></div>
-        
-        <% DocEmitido::TIPOS_FACTURA.each do |tipo| %>
-          <%= button_to tipo.capitalize, 
-              update_tipo_factura_doc_emitido_path(objt, tipo_factura: tipo), 
-              method: :patch,
-              style: "color: #000000; display: block; width: 100%; padding: 6px 12px; text-align: left; border: none; background: none; cursor: pointer; #{objt.tipo_factura == tipo ? 'background: #f0f0f0; font-weight: bold;' : ''}" %>
-        <% end %>
-      </div>
-    </div>
-  </td>
-
 </tr>
