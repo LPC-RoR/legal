@@ -201,25 +201,33 @@ class CartolaLoader
     }
   end
 
-  def extraer_datos_credito(sheet, fila_credito)
-    fila_credito ||= 13
-    
-    Rails.logger.info "[CartolaLoader] Leyendo crédito de fila #{fila_credito}"
-    
-    valores = {
-      cupo_aprobado: sheet.cell(fila_credito, 1),
-      monto_utilizado: sheet.cell(fila_credito, 3),
-      saldo_disponible: sheet.cell(fila_credito, 5)
-    }
-    
-    Rails.logger.info "[CartolaLoader] Valores crudos crédito: #{valores.inspect}"
-    
-    {
-      cupo_aprobado: parsear_monto(valores[:cupo_aprobado]),
-      monto_utilizado: parsear_monto(valores[:monto_utilizado]),
-      saldo_disponible: parsear_monto(valores[:saldo_disponible])
+def extraer_datos_credito(sheet, fila_credito)
+  # Si no se encontró fila de crédito, retornar valores por defecto
+  if fila_credito.nil?
+    Rails.logger.info "[CartolaLoader] No hay sección de crédito en esta cartola"
+    return {
+      cupo_aprobado: 0,
+      monto_utilizado: 0,
+      saldo_disponible: 0
     }
   end
+
+  Rails.logger.info "[CartolaLoader] Leyendo crédito de fila #{fila_credito}"
+
+  valores = {
+    cupo_aprobado: sheet.cell(fila_credito, 1),
+    monto_utilizado: sheet.cell(fila_credito, 3),
+    saldo_disponible: sheet.cell(fila_credito, 5)
+  }
+
+  Rails.logger.info "[CartolaLoader] Valores crudos crédito: #{valores.inspect}"
+
+  {
+    cupo_aprobado: parsear_monto(valores[:cupo_aprobado]),
+    monto_utilizado: parsear_monto(valores[:monto_utilizado]),
+    saldo_disponible: parsear_monto(valores[:saldo_disponible])
+  }
+end
 
   def buscar_o_crear_banco(datos)
     rut = normalizar_rut(datos[:rut_empresa])
@@ -236,45 +244,48 @@ class CartolaLoader
     end
   end
 
-  def crear_transacciones(sheet, cuenta, fila_inicio)
-    transacciones = []
-    fila = fila_inicio || 17
+def crear_transacciones(sheet, cuenta, fila_inicio)
+  transacciones = []
+  fila = fila_inicio || 17
 
-    Rails.logger.info "[CartolaLoader] Creando transacciones desde fila #{fila}"
+  Rails.logger.info "[CartolaLoader] Creando transacciones desde fila #{fila}"
 
-    while fila <= sheet.last_row
-      monto = sheet.cell(fila, 1)
-      descripcion = limpiar_celda(sheet.cell(fila, 2))
-      fecha = sheet.cell(fila, 4)
-      numero_documento = limpiar_celda(sheet.cell(fila, 5))
-      sucursal = limpiar_celda(sheet.cell(fila, 6))
-      tipo_movimiento = limpiar_celda(sheet.cell(fila, 8))
+  while fila <= sheet.last_row
+    monto = sheet.cell(fila, 1)
+    descripcion = limpiar_celda(sheet.cell(fila, 2))
+    fecha = sheet.cell(fila, 4)
+    numero_documento_raw = sheet.cell(fila, 5)  # ← No limpiar todavía
+    sucursal = limpiar_celda(sheet.cell(fila, 6))
+    tipo_movimiento = limpiar_celda(sheet.cell(fila, 8))
 
-      break if monto.blank? && descripcion.blank?
-      break if seccion_nueva?(descripcion)
+    break if monto.blank? && descripcion.blank?
+    break if seccion_nueva?(descripcion)
 
-      next if monto.blank?
+    next if monto.blank?
 
-      descripcion_rut = extraer_rut_descripcion(descripcion)
+    # Validar: solo guardar si es numérico puro
+    numero_documento = validar_numero_documento(numero_documento_raw)
 
-      transaccion = DocTransaccion.create!(
-        doc_cartola: @doc_cartola,
-        doc_cuenta: cuenta,
-        monto: parsear_monto(monto),
-        descripcion: descripcion,
-        descripcion_rut: descripcion_rut,
-        fecha: parsear_fecha(fecha),
-        numero_documento: numero_documento,
-        sucursal: sucursal,
-        tipo_movimiento: tipo_movimiento
-      )
+    descripcion_rut = extraer_rut_descripcion(descripcion)
 
-      transacciones << transaccion
-      fila += 1
-    end
+    transaccion = DocTransaccion.create!(
+      doc_cartola: @doc_cartola,
+      doc_cuenta: cuenta,
+      monto: parsear_monto(monto),
+      descripcion: descripcion,
+      descripcion_rut: descripcion_rut,
+      fecha: parsear_fecha(fecha),
+      numero_documento: numero_documento,  # ← nil si es alfanumérico
+      sucursal: sucursal,
+      tipo_movimiento: tipo_movimiento
+    )
 
-    transacciones
+    transacciones << transaccion
+    fila += 1
   end
+
+  transacciones
+end
 
   def vincular_transacciones(transacciones)
     transacciones.each do |transaccion|
@@ -323,32 +334,83 @@ class CartolaLoader
     Date.parse(valor.to_s.strip) rescue nil
   end
 
-  def parsear_monto(valor)
-    Rails.logger.info "[CartolaLoader] parsear_monto input: #{valor.inspect} (class: #{valor.class})"
-    
-    return 0 if valor.blank?
-    return valor if valor.is_a?(Numeric)
-    
-    # PRIMERO limpiar HTML si existe
-    limpio = valor.to_s.gsub(HTML_TAG_PATTERN, '')
-    # Luego quitar $ y espacios
-    limpio = limpio.gsub(/[\$\s]/, '')
-    # Reemplazar coma por punto (decimal)
-    limpio = limpio.gsub(',', '.')
-    
-    Rails.logger.info "[CartolaLoader] parsear_monto limpio: #{limpio.inspect}"
-    
-    resultado = BigDecimal(limpio)
-    
-    Rails.logger.info "[CartolaLoader] parsear_monto output: #{resultado}"
-    resultado
-  rescue => e
-    Rails.logger.error "[CartolaLoader] parsear_monto error: #{e.message} for value: #{valor.inspect}"
-    0
-  end
+def parsear_monto(valor)
+  Rails.logger.info "[CartolaLoader] parsear_monto input: #{valor.inspect} (class: #{valor.class})"
+
+  return 0 if valor.blank?
+  return valor if valor.is_a?(Numeric)
+
+  # FIX: Forzar encoding UTF-8 para evitar errores de concatenación en logs
+  valor_str = valor.to_s.dup.force_encoding('UTF-8')
+
+  # PRIMERO limpiar HTML si existe
+  limpio = valor_str.gsub(HTML_TAG_PATTERN, '')
+  # Luego quitar $ y espacios
+  limpio = limpio.gsub(/[\$\s]/, '')
+  # Reemplazar coma por punto (decimal)
+  limpio = limpio.gsub(',', '.')
+
+  Rails.logger.info "[CartolaLoader] parsear_monto limpio: #{limpio.inspect}"
+
+  resultado = BigDecimal(limpio)
+
+  Rails.logger.info "[CartolaLoader] parsear_monto output: #{resultado}"
+  resultado
+rescue => e
+  Rails.logger.error "[CartolaLoader] parsear_monto error: #{e.message} for value: #{valor.inspect}"
+  0
+end
 
   def normalizar_rut(rut)
     return nil if rut.blank?
     rut.to_s.gsub(/[\.\-]/, '').upcase
   end
+
+  def validar_numero_documento(valor)
+    return nil if valor.blank?
+    
+    limpio = valor.to_s.strip
+    # Solo permite dígitos (y opcionalmente letras K/k para casos especiales de RUT)
+    # Para cartolas bancarias, N° DOCUMENTO debería ser solo números
+    return nil unless limpio.match?(/\A\d+\z/)
+    
+    limpio
+  end
+
+  def encontrar_filas_clave(sheet)
+    filas = {
+      empresa: nil,
+      rut_empresa: nil,
+      datos_cuenta: nil,
+      numero_cartola: nil,
+      saldos: nil,
+      credito: nil,
+      movimientos: nil
+    }
+
+    (1..[sheet.last_row, 25].min).each do |fila|
+      valor_celda = limpiar_celda(sheet.cell(fila, 1))
+      next if valor_celda.blank?
+
+      case valor_celda
+      when /Empresa:/i
+        filas[:empresa] = fila
+      when /RUT empresa:/i
+        filas[:rut_empresa] = fila
+      when /Cuenta Corriente/i, /Cuenta.*N°/i
+        filas[:datos_cuenta] = fila
+      when /Número cartola/i
+        filas[:numero_cartola] = fila
+      when /SALDO INICIAL/i
+        filas[:saldos] = fila + 1
+      when /CUPO APROBADO/i
+        filas[:credito] = fila + 1
+      when /Detalle movimientos/i
+        filas[:movimientos] = fila + 2
+      end
+    end
+
+    filas
+  end
+
 end
