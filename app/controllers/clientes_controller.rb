@@ -141,8 +141,8 @@ class ClientesController < ApplicationController
       set_tabla('tar_servicios', @objeto.tar_servicios.order(:created_at), false)
 
     elsif @options[:menu] == 'Conciliar'
-      @trnsccns       = @objeto.doc_transacciones.order(:fecha)
-      @doc_emitidos   = @objeto.doc_emitidos.order(:fecha_emision)
+      @trnsccns       = @objeto.doc_transacciones.order(fecha: :desc)
+      @doc_emitidos   = @objeto.doc_emitidos.order(fecha_emision: :desc)
     end
   end
 
