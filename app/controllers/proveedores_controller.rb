@@ -1,6 +1,8 @@
 class ProveedoresController < ApplicationController
   before_action :set_proveedor, only: %i[ show edit update destroy ]
 
+  layout 'addt'
+
   # GET /proveedores or /proveedores.json
   def index
     @clccn = Proveedor.all

@@ -46,7 +46,7 @@ class ClientesController < ApplicationController
     @actvdds  = @objeto.age_actividades.fecha_ordr
     
     set_st_estado(@objeto)
-    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))]] )
+    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Conciliar', current_usuario.admin?]] )
 
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
     @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
@@ -140,6 +140,9 @@ class ClientesController < ApplicationController
       set_tabla('tar_tarifas', @objeto.tar_tarifas.order(:created_at), false)
       set_tabla('tar_servicios', @objeto.tar_servicios.order(:created_at), false)
 
+    elsif @options[:menu] == 'Conciliar'
+      @trnsccns       = @objeto.doc_transacciones.order(:fecha)
+      @doc_emitidos   = @objeto.doc_emitidos.order(:fecha_emision)
     end
   end
 
