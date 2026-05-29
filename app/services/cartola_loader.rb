@@ -54,9 +54,11 @@ class CartolaLoader
 
       Rails.logger.info "[CartolaLoader] Cartola guardada: id=#{@doc_cartola.id}, numero_cartola=#{@doc_cartola.numero_cartola}, saldo_final=#{@doc_cartola.saldo_final}"
 
-      # Crear transacciones
+      # Crear transacciones (con deduplicación inteligente)
       transacciones = crear_transacciones(sheet, cuenta, filas[:movimientos])
       vincular_transacciones(transacciones)
+
+      Rails.logger.info "[CartolaLoader] Transacciones creadas: #{transacciones.count}, omitidas por duplicado: #{@transacciones_omitidas || 0}"
 
       true
     rescue => e
@@ -93,7 +95,7 @@ class CartolaLoader
       movimientos: nil
     }
 
-    (1..[sheet.last_row, 20].min).each do |fila|
+    (1..[sheet.last_row, 25].min).each do |fila|
       valor_celda = limpiar_celda(sheet.cell(fila, 1))
       next if valor_celda.blank?
 
@@ -201,33 +203,33 @@ class CartolaLoader
     }
   end
 
-def extraer_datos_credito(sheet, fila_credito)
-  # Si no se encontró fila de crédito, retornar valores por defecto
-  if fila_credito.nil?
-    Rails.logger.info "[CartolaLoader] No hay sección de crédito en esta cartola"
-    return {
-      cupo_aprobado: 0,
-      monto_utilizado: 0,
-      saldo_disponible: 0
+  def extraer_datos_credito(sheet, fila_credito)
+    # Si no se encontró fila de crédito, retornar valores por defecto
+    if fila_credito.nil?
+      Rails.logger.info "[CartolaLoader] No hay sección de crédito en esta cartola"
+      return {
+        cupo_aprobado: 0,
+        monto_utilizado: 0,
+        saldo_disponible: 0
+      }
+    end
+
+    Rails.logger.info "[CartolaLoader] Leyendo crédito de fila #{fila_credito}"
+
+    valores = {
+      cupo_aprobado: sheet.cell(fila_credito, 1),
+      monto_utilizado: sheet.cell(fila_credito, 3),
+      saldo_disponible: sheet.cell(fila_credito, 5)
+    }
+
+    Rails.logger.info "[CartolaLoader] Valores crudos crédito: #{valores.inspect}"
+
+    {
+      cupo_aprobado: parsear_monto(valores[:cupo_aprobado]),
+      monto_utilizado: parsear_monto(valores[:monto_utilizado]),
+      saldo_disponible: parsear_monto(valores[:saldo_disponible])
     }
   end
-
-  Rails.logger.info "[CartolaLoader] Leyendo crédito de fila #{fila_credito}"
-
-  valores = {
-    cupo_aprobado: sheet.cell(fila_credito, 1),
-    monto_utilizado: sheet.cell(fila_credito, 3),
-    saldo_disponible: sheet.cell(fila_credito, 5)
-  }
-
-  Rails.logger.info "[CartolaLoader] Valores crudos crédito: #{valores.inspect}"
-
-  {
-    cupo_aprobado: parsear_monto(valores[:cupo_aprobado]),
-    monto_utilizado: parsear_monto(valores[:monto_utilizado]),
-    saldo_disponible: parsear_monto(valores[:saldo_disponible])
-  }
-end
 
   def buscar_o_crear_banco(datos)
     rut = normalizar_rut(datos[:rut_empresa])
@@ -244,48 +246,115 @@ end
     end
   end
 
-def crear_transacciones(sheet, cuenta, fila_inicio)
-  transacciones = []
-  fila = fila_inicio || 17
+  # ============================================================
+  # NUEVO: Métodos de deduplicación con contador de ocurrencias
+  # ============================================================
 
-  Rails.logger.info "[CartolaLoader] Creando transacciones desde fila #{fila}"
+  # Construye la clave de deduplicación para una transacción
+  def clave_deduplicacion(fecha, monto, descripcion)
+    fecha_key = fecha.is_a?(Date) ? fecha.to_s : fecha.to_s.strip
+    
+    monto_key = begin
+      decimal = monto.is_a?(BigDecimal) ? monto : BigDecimal(monto.to_s)
+      decimal.to_s('F')
+    rescue
+      monto.to_s.strip
+    end
+    
+    desc_key = descripcion.to_s.strip.downcase
+    
+    "#{fecha_key}|#{monto_key}|#{desc_key}"
+  end
+  
+  # Cuenta las ocurrencias de cada clave en las transacciones existentes de la cuenta
+  # dentro del rango de fechas de la cartola actual
+  def contar_transacciones_existentes(cuenta, fecha_desde, fecha_hasta)
+    return {} unless fecha_desde && fecha_hasta
 
-  while fila <= sheet.last_row
-    monto = sheet.cell(fila, 1)
-    descripcion = limpiar_celda(sheet.cell(fila, 2))
-    fecha = sheet.cell(fila, 4)
-    numero_documento_raw = sheet.cell(fila, 5)  # ← No limpiar todavía
-    sucursal = limpiar_celda(sheet.cell(fila, 6))
-    tipo_movimiento = limpiar_celda(sheet.cell(fila, 8))
+    conteo = Hash.new(0)
+    
+    DocTransaccion
+      .where(doc_cuenta: cuenta)
+      .where(fecha: fecha_desde..fecha_hasta)
+      .find_each do |trans|
+        clave = clave_deduplicacion(trans.fecha, trans.monto, trans.descripcion)
+        conteo[clave] += 1
+      end
 
-    break if monto.blank? && descripcion.blank?
-    break if seccion_nueva?(descripcion)
-
-    next if monto.blank?
-
-    # Validar: solo guardar si es numérico puro
-    numero_documento = validar_numero_documento(numero_documento_raw)
-
-    descripcion_rut = extraer_rut_descripcion(descripcion)
-
-    transaccion = DocTransaccion.create!(
-      doc_cartola: @doc_cartola,
-      doc_cuenta: cuenta,
-      monto: parsear_monto(monto),
-      descripcion: descripcion,
-      descripcion_rut: descripcion_rut,
-      fecha: parsear_fecha(fecha),
-      numero_documento: numero_documento,  # ← nil si es alfanumérico
-      sucursal: sucursal,
-      tipo_movimiento: tipo_movimiento
-    )
-
-    transacciones << transaccion
-    fila += 1
+    Rails.logger.info "[CartolaLoader] Transacciones existentes en rango #{fecha_desde} a #{fecha_hasta}: #{conteo.size} claves únicas"
+    conteo
   end
 
-  transacciones
-end
+  def crear_transacciones(sheet, cuenta, fila_inicio)
+    transacciones = []
+    fila = fila_inicio || 17
+    @transacciones_omitidas = 0
+
+    Rails.logger.info "[CartolaLoader] Creando transacciones desde fila #{fila}"
+
+    # Obtener conteo de transacciones existentes para deduplicación
+    conteo_existentes = contar_transacciones_existentes(
+      cuenta, 
+      @doc_cartola.fecha_desde, 
+      @doc_cartola.fecha_hasta
+    )
+    
+    # Contador de ocurrencias procesadas en esta carga (para manejar duplicados en la misma cartola)
+    conteo_nuevas = Hash.new(0)
+
+    while fila <= sheet.last_row
+      monto = sheet.cell(fila, 1)
+      descripcion = limpiar_celda(sheet.cell(fila, 2))
+      fecha = sheet.cell(fila, 4)
+      numero_documento_raw = sheet.cell(fila, 5)
+      sucursal = limpiar_celda(sheet.cell(fila, 6))
+      tipo_movimiento = limpiar_celda(sheet.cell(fila, 8))
+
+      break if monto.blank? && descripcion.blank?
+      break if seccion_nueva?(descripcion)
+
+      next if monto.blank?
+
+      # Parsear valores
+      monto_parsed = parsear_monto(monto)
+      fecha_parsed = parsear_fecha(fecha)
+      numero_documento = validar_numero_documento(numero_documento_raw)
+      descripcion_rut = extraer_rut_descripcion(descripcion)
+
+      # Construir clave de deduplicación
+      clave = clave_deduplicacion(fecha_parsed, monto_parsed, descripcion)
+      
+      # Incrementar contador de esta nueva transacción
+      conteo_nuevas[clave] += 1
+      
+      # DEDUPLICACIÓN: Solo crear si la ocurrencia actual excede las existentes
+      # Ejemplo: Si ya hay 2 transacciones idénticas en BD y esta es la 3ra, se crea.
+      # Si ya hay 2 y esta es la 1ra o 2da, se omite.
+      if conteo_nuevas[clave] <= conteo_existentes[clave]
+        @transacciones_omitidas += 1
+        Rails.logger.info "[CartolaLoader] Omitiendo transacción duplicada (ocurrencia #{conteo_nuevas[clave]} de #{conteo_existentes[clave]} existentes): #{clave}"
+        fila += 1
+        next
+      end
+
+      transaccion = DocTransaccion.create!(
+        doc_cartola: @doc_cartola,
+        doc_cuenta: cuenta,
+        monto: monto_parsed,
+        descripcion: descripcion,
+        descripcion_rut: descripcion_rut,
+        fecha: fecha_parsed,
+        numero_documento: numero_documento,
+        sucursal: sucursal,
+        tipo_movimiento: tipo_movimiento
+      )
+
+      transacciones << transaccion
+      fila += 1
+    end
+
+    transacciones
+  end
 
   def vincular_transacciones(transacciones)
     transacciones.each do |transaccion|
@@ -334,32 +403,32 @@ end
     Date.parse(valor.to_s.strip) rescue nil
   end
 
-def parsear_monto(valor)
-  Rails.logger.info "[CartolaLoader] parsear_monto input: #{valor.inspect} (class: #{valor.class})"
+  def parsear_monto(valor)
+    Rails.logger.info "[CartolaLoader] parsear_monto input: #{valor.inspect} (class: #{valor.class})"
 
-  return 0 if valor.blank?
-  return valor if valor.is_a?(Numeric)
+    return 0 if valor.blank?
+    return valor if valor.is_a?(Numeric)
 
-  # FIX: Forzar encoding UTF-8 para evitar errores de concatenación en logs
-  valor_str = valor.to_s.dup.force_encoding('UTF-8')
+    # FIX: Forzar encoding UTF-8 para evitar errores de concatenación en logs
+    valor_str = valor.to_s.dup.force_encoding('UTF-8')
 
-  # PRIMERO limpiar HTML si existe
-  limpio = valor_str.gsub(HTML_TAG_PATTERN, '')
-  # Luego quitar $ y espacios
-  limpio = limpio.gsub(/[\$\s]/, '')
-  # Reemplazar coma por punto (decimal)
-  limpio = limpio.gsub(',', '.')
+    # PRIMERO limpiar HTML si existe
+    limpio = valor_str.gsub(HTML_TAG_PATTERN, '')
+    # Luego quitar $ y espacios
+    limpio = limpio.gsub(/[\$\s]/, '')
+    # Reemplazar coma por punto (decimal)
+    limpio = limpio.gsub(',', '.')
 
-  Rails.logger.info "[CartolaLoader] parsear_monto limpio: #{limpio.inspect}"
+    Rails.logger.info "[CartolaLoader] parsear_monto limpio: #{limpio.inspect}"
 
-  resultado = BigDecimal(limpio)
+    resultado = BigDecimal(limpio)
 
-  Rails.logger.info "[CartolaLoader] parsear_monto output: #{resultado}"
-  resultado
-rescue => e
-  Rails.logger.error "[CartolaLoader] parsear_monto error: #{e.message} for value: #{valor.inspect}"
-  0
-end
+    Rails.logger.info "[CartolaLoader] parsear_monto output: #{resultado}"
+    resultado
+  rescue => e
+    Rails.logger.error "[CartolaLoader] parsear_monto error: #{e.message} for value: #{valor.inspect}"
+    0
+  end
 
   def normalizar_rut(rut)
     return nil if rut.blank?
@@ -376,41 +445,4 @@ end
     
     limpio
   end
-
-  def encontrar_filas_clave(sheet)
-    filas = {
-      empresa: nil,
-      rut_empresa: nil,
-      datos_cuenta: nil,
-      numero_cartola: nil,
-      saldos: nil,
-      credito: nil,
-      movimientos: nil
-    }
-
-    (1..[sheet.last_row, 25].min).each do |fila|
-      valor_celda = limpiar_celda(sheet.cell(fila, 1))
-      next if valor_celda.blank?
-
-      case valor_celda
-      when /Empresa:/i
-        filas[:empresa] = fila
-      when /RUT empresa:/i
-        filas[:rut_empresa] = fila
-      when /Cuenta Corriente/i, /Cuenta.*N°/i
-        filas[:datos_cuenta] = fila
-      when /Número cartola/i
-        filas[:numero_cartola] = fila
-      when /SALDO INICIAL/i
-        filas[:saldos] = fila + 1
-      when /CUPO APROBADO/i
-        filas[:credito] = fila + 1
-      when /Detalle movimientos/i
-        filas[:movimientos] = fila + 2
-      end
-    end
-
-    filas
-  end
-
 end
