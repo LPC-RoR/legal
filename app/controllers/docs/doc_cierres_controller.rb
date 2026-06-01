@@ -14,6 +14,7 @@ class Docs::DocCierresController < ApplicationController
 
     @cbrnz    = @trnsccns.where(relacionable_type: 'Cliente')
     @prvdrs   = @trnsccns.where(relacionable_type: 'Proveedor')
+    @trbjdrs  = @trnsccns.where(relacionable_type: 'Trabajador').where.not(clasificacion: 'Socio/a')
   end
 
   # GET /doc_cierres/new
