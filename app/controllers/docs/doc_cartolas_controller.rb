@@ -114,7 +114,10 @@ class Docs::DocCartolasController < ApplicationController
             doc.relacionable = prvdr
           else
             trbjdr = Trabajador.find_by(rut: doc.descripcion_rut)
-            doc.relacionable = trbjdr if trbjdr
+            if trbjdr
+              doc.relacionable  = trbjdr
+              doc.clasificacion = trbjdr.clasificacion
+            end
           end
         end
 
