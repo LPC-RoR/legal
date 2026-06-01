@@ -1,0 +1,31 @@
+<div class="row gx-1" style="font-size: 0.7rem;line-height: 1.5;">
+	<div class="col-4">
+		<%= dma (objt.fecha) %> <%= objt.descripcion %>
+	</div>
+	<div class="col-2">
+		<% if objt.relacionable %>
+			<i class="bi bi-check-circle"></i>
+			<%= objt.relacionable.class.name unless ['clientes', 'proveedores'].include?(controller_name)%>
+		<% else %>
+			Pendiente
+		<% end %>
+	</div>
+	<div class="col-4 text-end">
+		<%= s_pesos(objt.monto) %> <%= objt.tipo_movimiento %>
+	</div>
+	<div class="col-2 text-end">
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/doc_pagos/new#{blngs_prms(objt)}", tltp: 'Conciliar'} do %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+	</div>
+</div>
+
+<div class="mx-2" style="font-size: 0.6rem;line-height: 1.5;">
+	<% objt.doc_pagos.each do |pg| %>
+		<div>
+			<i class="bi bi-arrow-return-right"></i> 
+			<%= objt.relacionable.razon_social %> <i class="bi bi-arrow-right"></i> 
+			[Factura <%= pg.folio_referencia %>]: <%= s_pesos(pg.monto)%>
+		</div>
+	<% end %>
+</div>

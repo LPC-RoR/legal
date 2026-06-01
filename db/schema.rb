@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_28_224055) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_01_174745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -641,6 +641,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_28_224055) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["doc_cuenta_id"], name: "index_doc_cartolas_on_doc_cuenta_id"
+  end
+
+  create_table "doc_cierres", force: :cascade do |t|
+    t.date "fecha_inicio"
+    t.date "fecha_termino"
+    t.decimal "saldo_inicial"
+    t.decimal "saldo_final"
+    t.string "encabezado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "doc_cuentas", force: :cascade do |t|

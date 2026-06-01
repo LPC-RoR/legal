@@ -1,0 +1,11 @@
+<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :encabezado, label: 'Encabezado' } %>
+<div class="row">
+  <div class="col-6">
+    <%= render partial: '0p/lbld_inpts/date_clndr', locals: { form: form, token: :fecha_inicio, label: 'Fecha inicio' } %>
+    <%= render partial: '0p/lbld_inpts/date_clndr', locals: { form: form, token: :fecha_termino, label: 'Fecha término' } %>
+  </div>
+  <div class="col-6">
+    <%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :saldo_inicial, label: 'Saldo inicial' } %>
+    <%= render partial: '0p/lbld_inpts/number', locals: { form: form, token: :saldo_final, label: 'Saldo final' } %>
+  </div>
+</div>

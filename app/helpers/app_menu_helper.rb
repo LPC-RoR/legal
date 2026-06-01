@@ -53,6 +53,7 @@ module AppMenuHelper
           },
           { id: 'administracion',         name: 'Administración',           icon: 'bi bi-caret-right-fill',
             children: [
+              { id: 'cierres',            name: 'Cierres mensuales',        path: '/doc_cierres',           icon: 'bi bi-calendar3' },
               { id: 'planillas',          name: 'Carga de Planillas',       path: '/doc_planillas',         icon: 'bi bi-file-earmark-spreadsheet' },
               { id: 'cartolas',           name: 'Carga de Cartolas',        path: '/doc_cartolas',          icon: 'bi bi-safe2' },
               { id: 'proveedores',        name: 'Proveedores',              path: '/proveedores',           icon: 'bi bi-person-rolodex' },

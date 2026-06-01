@@ -5,6 +5,11 @@ class DocTransaccion < ApplicationRecord
 
   has_many :doc_pagos
 
+  scope :entre_fechas, ->(fecha_inicial, fecha_termino) {
+    where(fecha: fecha_inicial..fecha_termino)
+      .order(fecha: :asc, id: :asc)
+  }
+
   validates :monto, presence: true
   validates :descripcion, presence: true
 
