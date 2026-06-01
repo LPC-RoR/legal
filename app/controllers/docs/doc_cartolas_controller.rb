@@ -101,23 +101,29 @@ class Docs::DocCartolasController < ApplicationController
     clccn.each do |doc|
 
       if doc.descripcion_rut
-        puts "******************************** descripcion_rut"
-        puts doc.descripcion_rut
+        asignado = false
+
         clnt = Cliente.find_by(rut: doc.descripcion_rut)
-        if clnt
-          puts "****************************** clnt"
+        if clnt && !asignado
           doc.relacionable = clnt
-        else
+          asignado = true
+        end
+
+        unless asignado
           prvdr = Proveedor.find_by(rut: doc.descripcion_rut)
-          if prvdr
-            puts "****************************** prvdr"
+          is_trbjdr = doc.clasificacion == 'Trabajador'
+          if prvdr && !is_trbjdr
             doc.relacionable = prvdr
-          else
-            trbjdr = Trabajador.find_by(rut: doc.descripcion_rut)
-            if trbjdr
-              doc.relacionable  = trbjdr
-              doc.clasificacion = trbjdr.clasificacion
-            end
+            asignado = true
+          end
+        end
+
+        unless asignado
+          trbjdr = Trabajador.find_by(rut: doc.descripcion_rut)
+          if trbjdr
+            doc.relacionable  = trbjdr
+            doc.clasificacion = trbjdr.clasificacion
+            asignado = true
           end
         end
 
