@@ -27,7 +27,7 @@ class Docs::DocTransaccionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Doc transaccion was successfully created." }
+        format.html { redirect_to crud_redirect_to, notice: "Doc transaccion was successfully created." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class Docs::DocTransaccionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(doc_transaccion_params)
-        format.html { redirect_to @objeto, notice: "Doc transaccion was successfully updated." }
+        format.html { redirect_to crud_redirect_to, notice: "Doc transaccion was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -71,7 +71,7 @@ class Docs::DocTransaccionesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to doc_transacciones_path, status: :see_other, notice: "Doc transaccion was successfully destroyed." }
+      format.html { redirect_to crud_redirect_to, status: :see_other, notice: "Doc transaccion was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -82,8 +82,13 @@ class Docs::DocTransaccionesController < ApplicationController
       @objeto = DocTransaccion.find(params.expect(:id))
     end
 
+    def crud_redirect_to
+      # @objeto.doc_cierre.present? ? @objeto.doc_cierre : @objeto.doc_cartola
+      @objeto.doc_cartola
+    end
+
     # Only allow a list of trusted parameters through.
     def doc_transaccion_params
-      params.expect(doc_transaccion: [ :descripcion ])
+      params.expect(doc_transaccion: [ :descripcion, :clasificacion ])
     end
 end

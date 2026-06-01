@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @doc_nota %>
+
+<div>
+  <%= link_to "Edit this doc nota", edit_doc_nota_path(@doc_nota) %> |
+  <%= link_to "Back to doc notas", doc_notas_path %>
+
+  <%= button_to "Destroy this doc nota", @doc_nota, method: :delete %>
+</div>

@@ -4,6 +4,7 @@ class DocTransaccion < ApplicationRecord
   belongs_to :relacionable, polymorphic: true, optional: true
 
   has_many :doc_pagos
+  has_many :doc_notas, as: :ownr
 
   scope :entre_fechas, ->(fecha_inicial, fecha_termino) {
     where(fecha: fecha_inicial..fecha_termino)

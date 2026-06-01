@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_01_174745) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_01_210840) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -724,6 +724,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_01_174745) do
     t.index ["tipo_dte", "folio"], name: "index_doc_emitidos_on_tipo_folio"
   end
 
+  create_table "doc_notas", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.string "nota"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ownr_id"], name: "index_doc_notas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_doc_notas_on_ownr_type"
+  end
+
   create_table "doc_pagos", force: :cascade do |t|
     t.integer "doc_transaccion_id"
     t.string "ownr_type"
@@ -806,6 +816,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_01_174745) do
     t.bigint "relacionable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "clasificacion"
+    t.index ["clasificacion"], name: "index_doc_transacciones_on_clasificacion"
     t.index ["descripcion_rut"], name: "index_doc_transacciones_on_descripcion_rut"
     t.index ["doc_cartola_id", "fecha"], name: "index_doc_transacciones_on_doc_cartola_id_and_fecha"
     t.index ["doc_cartola_id"], name: "index_doc_transacciones_on_doc_cartola_id"

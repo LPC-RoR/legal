@@ -108,6 +108,7 @@ Rails.application.routes.draw do
     resources :doc_recibidos
     resources :doc_pagos
     resources :doc_cierres
+    resources :doc_notas
   end
 
   scope module: 'comercial' do
