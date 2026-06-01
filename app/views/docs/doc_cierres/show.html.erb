@@ -1,9 +1,26 @@
 <%= render partial: '0p/ttl_clss', locals: {source: 'doc_cierres', clss: :gray, dir: 'shw'} %>
 <%= render partial: 'layouts/partials/notice_alert' %>
 
-<p><b>Cobranza</b></p>
+<b>Cobranza</b><br>
 <%= render partial: '0p/tbl_clss', locals: {clccn: @cbrnz, typ: 'ln'} %>
-<p><b>Pago proveedores</b></p>
+<div class="row gx-1">
+  <div class="col-8">
+    TOTAL COBRANZA
+  </div>
+  <div class="col-2 text-end">
+    <%= s_pesos(@cbrnz.map {|tr| tr.monto}).sum %>
+  </div>
+</div>
+
+<b>Pago proveedores</b><br>
 <%= render partial: '0p/tbl_clss', locals: {clccn: @prvdrs, typ: 'ln'} %>
+<div class="row gx-1">
+  <div class="col-8">
+    TOTAL PROVEEDORES
+  </div>
+  <div class="col-2 text-end">
+    <%= s_pesos(@prvdrs.map {|tr| tr.monto}).sum %>
+  </div>
+</div>
 
 <%= render partial: '0p/tbl_clss', locals: {clccn: @trnsccns, typ: 'ln'} %>
