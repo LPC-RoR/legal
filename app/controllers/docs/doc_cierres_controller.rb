@@ -11,6 +11,9 @@ class Docs::DocCierresController < ApplicationController
   # GET /doc_cierres/1 or /doc_cierres/1.json
   def show
     @trnsccns = DocTransaccion.entre_fechas(@objeto.fecha_inicio, @objeto.fecha_termino)
+
+    @cbrnz    = @trnsccns.where(relacionable_type: 'Cliente')
+    @prvdrs   = @trnsccns.where(relacionable_type: 'Proveedor')
   end
 
   # GET /doc_cierres/new

@@ -1,4 +1,9 @@
 <%= render partial: '0p/ttl_clss', locals: {source: 'doc_cierres', clss: :gray, dir: 'shw'} %>
 <%= render partial: 'layouts/partials/notice_alert' %>
 
+<p><b>Cobranza</b></p>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @cbrnz, typ: 'ln'} %>
+<p><b>Pago proveedores</b></p>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @prvdrs, typ: 'ln'} %>
+
 <%= render partial: '0p/tbl_clss', locals: {clccn: @trnsccns, typ: 'ln'} %>
