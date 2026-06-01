@@ -8,7 +8,7 @@
     TOTAL COBRANZA
   </div>
   <div class="col-2 text-end">
-    <%= s_pesos(@cbrnz.map {|tr| tr.monto}).sum %>
+    <%= s_pesos(@cbrnz.map {|tr| tr.monto}.sum) %>
   </div>
 </div>
 
@@ -19,7 +19,7 @@
     TOTAL PROVEEDORES
   </div>
   <div class="col-2 text-end">
-    <%= s_pesos(@prvdrs.map {|tr| tr.monto}).sum %>
+    <%= s_pesos(@prvdrs.map {|tr| tr.monto}.sum) %>
   </div>
 </div>
 
