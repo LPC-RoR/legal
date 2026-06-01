@@ -3,7 +3,7 @@
 
 <b>Cobranza</b><br>
 <%= render partial: '0p/tbl_clss', locals: {clccn: @cbrnz, typ: 'ln'} %>
-<div class="row gx-1 th-bold">
+<div class="row gx-1 fh-bold">
   <div class="col-8">
     TOTAL COBRANZA
   </div>
@@ -14,7 +14,7 @@
 
 <b>Pago proveedores</b><br>
 <%= render partial: '0p/tbl_clss', locals: {clccn: @prvdrs, typ: 'ln'} %>
-<div class="row gx-1 th-bold">
+<div class="row gx-1 fh-bold">
   <div class="col-8">
     TOTAL PROVEEDORES
   </div>
@@ -23,9 +23,20 @@
   </div>
 </div>
 
+<b>Socios</b><br>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @scs, typ: 'ln'} %>
+<div class="row gx-1 fh-bold">
+  <div class="col-8">
+    TOTAL SOCIOS
+  </div>
+  <div class="col-2 text-end">
+    <%= s_pesos(@scs.map {|tr| tr.monto}.sum) %>
+  </div>
+</div>
+
 <b>RRHH</b><br>
 <%= render partial: '0p/tbl_clss', locals: {clccn: @trbjdrs, typ: 'ln'} %>
-<div class="row gx-1 th-bold">
+<div class="row gx-1 fh-bold">
   <div class="col-8">
     TOTAL RRHH
   </div>
