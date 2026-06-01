@@ -5,7 +5,11 @@
 	<div class="col-2">
 		<% if objt.relacionable %>
 			<% if objt.clasificacion.present? %>
-				<i class="bi bi-check2-square"></i>
+				<% if objt.clasificacion == objt.relacionable_type %>
+					<i class="bi bi-check-circle"></i>
+				<% else %>
+					<i class="bi bi-check2-square"></i>
+				<% end %>
 				<%= objt.clasificacion %>
 			<% else %>
 				<i class="bi bi-check-circle"></i>
