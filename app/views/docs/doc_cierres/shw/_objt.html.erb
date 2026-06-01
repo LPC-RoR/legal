@@ -1,1 +1,2 @@
-<%= @objeto.encabezado %>
+<%= @objeto.encabezado %> [ <%=@objeto.fecha_inicio%> : <b><%=s_pesos(@objeto.saldo_inicial)%></b> 
+	<i class="bi bi-arrow-right"></i> <%=@objeto.fecha_termino%> : <b><%= s_pesos(@objeto.saldo_final) %></b> ]
