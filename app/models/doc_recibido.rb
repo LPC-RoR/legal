@@ -38,6 +38,11 @@ class DocRecibido < ApplicationRecord
   scope :facturas, -> { where(tipo_dte: [33, 34, 56]) }
   scope :creditos, -> { where(tipo_dte: [61] )}
 
+  scope :entre_fechas, ->(fecha_inicial, fecha_termino) {
+    where(fecha_emision: fecha_inicial..fecha_termino)
+      .order(fecha_emision: :asc, id: :asc)
+  }
+
   def tipo_dte_nombre
     TIPOS_DTE[tipo_dte] || 'Desconocido'
   end
