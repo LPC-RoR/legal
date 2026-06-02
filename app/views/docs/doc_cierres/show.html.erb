@@ -56,6 +56,17 @@
   </div>
 </div>
 
+<b>Facturas recibidas</b><br>
+<div style="font-size: .6rem;line-height: 1.5;"><%= render partial: '0p/tbl_clss', locals: {clccn: @rcbds, typ: 'tr'} %></div>
+<div class="row gx-1 fw-bold">
+  <div class="col-8">
+    TOTAL Facturas recibidas
+  </div>
+  <div class="col-2 text-end">
+    <%= s_pesos(@emtds.map {|tr| tr.monto_sumable}.sum) %>
+  </div>
+</div>
+
 <hr>
-<b>Cartola de Mayo</b><br>
+<b>Detalle de la cartola</b><br>
 <%= render partial: '0p/tbl_clss', locals: {clccn: @trnsccns, typ: 'ln'} %>

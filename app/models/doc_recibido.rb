@@ -55,4 +55,8 @@ class DocRecibido < ApplicationRecord
   def monto_total
     total_monto_total || total_exento || total_neto || 0
   end
+
+  def monto_sumable
+    tipo_dte == 61 ? -monto_total : monto_total
+  end
 end

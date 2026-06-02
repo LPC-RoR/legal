@@ -17,6 +17,7 @@ class Docs::DocCierresController < ApplicationController
     @scs      = @trnsccns.where(relacionable_type: 'Trabajador').where(clasificacion: 'Socio/a')
     @trbjdrs  = @trnsccns.where(relacionable_type: 'Trabajador').where.not(clasificacion: 'Socio/a')
     @emtds    = DocEmitido.entre_fechas(@objeto.fecha_inicio, @objeto.fecha_termino)
+    @rcbds    = DocRecibido.entre_fechas(@objeto.fecha_inicio, @objeto.fecha_termino)
   end
 
   # GET /doc_cierres/new
