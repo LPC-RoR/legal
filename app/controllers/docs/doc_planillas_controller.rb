@@ -82,7 +82,7 @@ class Docs::DocPlanillasController < ApplicationController
         end
         doc.proveedor = prvdr
       else
-        clnt = Cliente.find_by(rut: doc.rut_recepctor)
+        clnt = Cliente.find_by(rut: doc.rut_receptor)
         doc.cliente = clnt if clnt
       end
       doc.save
