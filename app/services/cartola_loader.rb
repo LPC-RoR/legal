@@ -95,7 +95,7 @@ class CartolaLoader
       movimientos: nil
     }
 
-    (1..[sheet.last_row, 25].min).each do |fila|
+    (1..[sheet.last_row, 30].min).each do |fila|
       valor_celda = limpiar_celda(sheet.cell(fila, 1))
       next if valor_celda.blank?
 
@@ -113,19 +113,23 @@ class CartolaLoader
       when /CUPO APROBADO/i
         filas[:credito] = fila + 1
       when /Detalle movimientos/i
-        # Detectar dinámicamente cuántas filas de header hay antes de los datos
-        filas[:movimientos] = detectar_fila_datos(sheet, fila)        
-        # En este formato, hay una fila extra con "Fecha desde/hasta" entre
-        # "Detalle movimientos" y los headers de tabla. Entonces:
-        # fila 10 = "Detalle movimientos"
-        # fila 11 = "Fecha desde/hasta"
-        # fila 12 = headers (MONTO, DESCRIPCIÓN...)
-        # fila 13 = primer dato
-        filas[:movimientos] = fila + 3
+        # Buscar dinámicamente la primera fila con datos numéricos después del header
+        filas[:movimientos] = encontrar_primera_fila_datos(sheet, fila)
       end
     end
 
     filas
+  end
+
+  def encontrar_primera_fila_datos(sheet, fila_inicio)
+    # Buscar desde fila_inicio+1 hasta fila_inicio+5
+    ((fila_inicio + 1)..[sheet.last_row, fila_inicio + 5].min).each do |f|
+      valor = limpiar_celda(sheet.cell(f, 1))
+      next if valor.blank?
+      # Es una fila de datos si la columna A es un número (positivo, negativo, o con $)
+      return f if valor.match?(/\A-?[\$\d]/)
+    end
+    fila_inicio + 2  # fallback conservador
   end
 
   def detectar_fila_datos(sheet, fila_detalle)
@@ -337,6 +341,10 @@ class CartolaLoader
 
       next if monto.blank?
 
+      # Defensa: saltar si el "monto" es texto de header
+      monto_limpio = limpiar_celda(monto)
+      next if monto_limpio&.match?(/\A(MONTO|SALDO|DEPOSITOS|CARGOS|ABONOS)\z/i)
+      
       # Parsear valores
       monto_parsed = parsear_monto(monto)
       fecha_parsed = parsear_fecha(fecha)
