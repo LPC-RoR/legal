@@ -109,15 +109,33 @@ class CartolaLoader
       when /Número cartola/i
         filas[:numero_cartola] = fila
       when /SALDO INICIAL/i
-        filas[:saldos] = fila + 1  # La fila de valores está debajo
+        filas[:saldos] = fila + 1
       when /CUPO APROBADO/i
-        filas[:credito] = fila + 1  # La fila de valores está debajo
+        filas[:credito] = fila + 1
       when /Detalle movimientos/i
-        filas[:movimientos] = fila + 2  # Los datos empiezan 2 filas debajo (header + subheader)
+        # Detectar dinámicamente cuántas filas de header hay antes de los datos
+        filas[:movimientos] = detectar_fila_datos(sheet, fila)        
+        # En este formato, hay una fila extra con "Fecha desde/hasta" entre
+        # "Detalle movimientos" y los headers de tabla. Entonces:
+        # fila 10 = "Detalle movimientos"
+        # fila 11 = "Fecha desde/hasta"
+        # fila 12 = headers (MONTO, DESCRIPCIÓN...)
+        # fila 13 = primer dato
+        filas[:movimientos] = fila + 3
       end
     end
 
     filas
+  end
+
+  def detectar_fila_datos(sheet, fila_detalle)
+    # Buscar desde fila_detalle+1 hacia abajo la primera fila con un número en col A
+    ((fila_detalle + 1)..[sheet.last_row, fila_detalle + 5].min).each do |f|
+      valor = limpiar_celda(sheet.cell(f, 1))
+      next if valor.blank?
+      return f if valor.match?(/\A-?\d/)  # Empieza con dígito (positivo o negativo)
+    end
+    fila_detalle + 2  # fallback
   end
 
   def limpiar_celda(valor)
@@ -313,6 +331,10 @@ class CartolaLoader
       break if monto.blank? && descripcion.blank?
       break if seccion_nueva?(descripcion)
 
+      # Saltar filas que son headers de tabla (MONTO, DESCRIPCIÓN MOVIMIENTO, etc.)
+      next if monto.to_s.strip.match?(/\A<.*>?(MONTO|SALDO|DEPOSITOS|CARGOS)\b/i) ||
+              descripcion.to_s.strip.match?(/\A<.*>?DESCRIPCI[ÓO]N/i)
+
       next if monto.blank?
 
       # Parsear valores
@@ -330,7 +352,7 @@ class CartolaLoader
       # DEDUPLICACIÓN: Solo crear si la ocurrencia actual excede las existentes
       # Ejemplo: Si ya hay 2 transacciones idénticas en BD y esta es la 3ra, se crea.
       # Si ya hay 2 y esta es la 1ra o 2da, se omite.
-      if conteo_nuevas[clave] <= conteo_existentes[clave]
+      if conteo_nuevas[clave] <= (conteo_existentes[clave] || 0)
         @transacciones_omitidas += 1
         Rails.logger.info "[CartolaLoader] Omitiendo transacción duplicada (ocurrencia #{conteo_nuevas[clave]} de #{conteo_existentes[clave]} existentes): #{clave}"
         fila += 1
