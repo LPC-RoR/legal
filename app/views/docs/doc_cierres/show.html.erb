@@ -23,6 +23,39 @@
   </div>
 </div>
 
+<b>RRHH</b><br>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @trbjdrs, typ: 'ln'} %>
+<div class="row gx-1 fw-bold">
+  <div class="col-8">
+    TOTAL RRHH
+  </div>
+  <div class="col-2 text-end">
+    <%= s_pesos(@trbjdrs.map {|tr| tr.monto}.sum) %>
+  </div>
+</div>
+
+<b>Costo financiero</b><br>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @fnncr, typ: 'ln'} %>
+<div class="row gx-1 fw-bold">
+  <div class="col-8">
+    TOTAL Costo financiero
+  </div>
+  <div class="col-2 text-end">
+    <%= s_pesos(@fnncr.map {|tr| tr.monto}.sum) %>
+  </div>
+</div>
+
+<b>Control Unitarios</b><br>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @untrs, typ: 'ln'} %>
+<div class="row gx-1 fw-bold">
+  <div class="col-8">
+    TOTAL Unitarios
+  </div>
+  <div class="col-2 text-end">
+    <%= s_pesos(@untrs.map {|tr| tr.monto}.sum) %>
+  </div>
+</div>
+
 <b>Socios</b><br>
 <%= render partial: '0p/tbl_clss', locals: {clccn: @scs, typ: 'ln'} %>
 <div class="row gx-1 fw-bold">
@@ -34,16 +67,29 @@
   </div>
 </div>
 
-<b>RRHH</b><br>
-<%= render partial: '0p/tbl_clss', locals: {clccn: @trbjdrs, typ: 'ln'} %>
+<b>Línea de crédito</b><br>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @ln_crdt, typ: 'ln'} %>
 <div class="row gx-1 fw-bold">
   <div class="col-8">
-    TOTAL RRHH
+    TOTAL Línea de crédito
   </div>
   <div class="col-2 text-end">
-    <%= s_pesos(@trbjdrs.map {|tr| tr.monto}.sum) %>
+    <%= s_pesos(@ln_crdt.map {|tr| tr.monto}.sum) %>
   </div>
 </div>
+
+<b>Control pendientes</b><br>
+<%= render partial: '0p/tbl_clss', locals: {clccn: @pndnts, typ: 'ln'} %>
+<div class="row gx-1 fw-bold">
+  <div class="col-8">
+    TOTAL Pendientes
+  </div>
+  <div class="col-2 text-end">
+    <%= s_pesos(@pndnts.map {|tr| tr.monto}.sum) %>
+  </div>
+</div>
+
+<hr>
 
 <b>Facturas emitidas</b><br>
 <div style="font-size: .6rem;line-height: 1.5;"><%= render partial: '0p/tbl_clss', locals: {clccn: @emtds, typ: 'tr'} %></div>

@@ -18,6 +18,13 @@ class Docs::DocCierresController < ApplicationController
     @trbjdrs  = @trnsccns.where(relacionable_type: 'Trabajador').where.not(clasificacion: 'Socio/a')
     @emtds    = DocEmitido.entre_fechas(@objeto.fecha_inicio, @objeto.fecha_termino)
     @rcbds    = DocRecibido.entre_fechas(@objeto.fecha_inicio, @objeto.fecha_termino)
+
+    @fnncr    = @trnsccns.where(clasificacion: 'Financiero')
+    @untrs    = @trnsccns.where(clasificacion: 'Pago TC', 'Imposiciones', 'IVA', 'Devolución impuestos')
+
+    @ln_crdt  = @trnsccns.where(clasificacion: ['Pago LC', 'Abono a LC'])
+
+    @pndnts   = @trnsccns.where(clasificacion: 'Pendiente')
   end
 
   # GET /doc_cierres/new
