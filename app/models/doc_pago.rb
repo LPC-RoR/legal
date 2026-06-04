@@ -30,6 +30,7 @@ class DocPago < ApplicationRecord
     if registro_encontrado && doc_transaccion.relacionable_type == 'Trabajador'
       cliente = registro_encontrado.cliente
       doc_transaccion.relacionable = cliente
+      doc_transaccion.save
     end
 
     if registro_encontrado
