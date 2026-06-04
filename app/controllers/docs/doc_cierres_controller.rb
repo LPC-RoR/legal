@@ -22,7 +22,7 @@ class Docs::DocCierresController < ApplicationController
     @fnncr    = @trnsccns.where(clasificacion: 'Financiero')
     @untrs    = @trnsccns.where(clasificacion: ['Pago TC', 'Imposiciones', 'IVA', 'Devolución impuestos'])
 
-    @ln_crdt  = @trnsccns.where(clasificacion: ['Pago LC', 'Abono a LC'])
+    @ln_crdt  = @trnsccns.where(clasificacion: ['Pago LC', 'Abono desde LC'])
 
     @pndnts   = @trnsccns.where(relacionable_type: nil, clasificacion: nil)
   end
