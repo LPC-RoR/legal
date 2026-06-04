@@ -27,6 +27,11 @@ class DocPago < ApplicationRecord
                             nil
                           end
 
+    if registro_encontrado && doc_transaccion.relacionable_type == 'Trabajador'
+      cliente = registro_encontrado.cliente
+      doc_transaccion.relacionable = cliente
+    end
+
     if registro_encontrado
       self.ownr = registro_encontrado
     else
