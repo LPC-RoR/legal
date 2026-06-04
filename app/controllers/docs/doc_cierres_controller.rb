@@ -24,7 +24,7 @@ class Docs::DocCierresController < ApplicationController
 
     @ln_crdt  = @trnsccns.where(clasificacion: ['Pago LC', 'Abono a LC'])
 
-    @pndnts   = @trnsccns.where(clasificacion: [relacionable_type: nil, 'Pendiente', nil])
+    @pndnts   = @trnsccns.where(relacionable_type: nil, clasificacion: nil)
   end
 
   # GET /doc_cierres/new
