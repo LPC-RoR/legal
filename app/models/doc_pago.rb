@@ -24,10 +24,10 @@ class DocPago < ApplicationRecord
                           when Proveedor
                             relacionable.doc_recibidos.find_by(folio: folio_referencia)
                           else
-                            nil
+                            DocEmitido.find_by(folio: folio_referencia)
                           end
 
-    if registro_encontrado && doc_transaccion.relacionable_type == 'Trabajador'
+    if registro_encontrado && ['Trabajador', nil].include?(doc_transaccion.relacionable_type)
       cliente = registro_encontrado.cliente
       doc_transaccion.relacionable = cliente
       doc_transaccion.save
