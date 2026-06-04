@@ -100,7 +100,7 @@ class Docs::DocCartolasController < ApplicationController
 
     clccn.each do |doc|
 
-      if doc.descripcion_rut
+      if doc.descripcion_rut && doc.doc_pagos.empty?
         asignado = false
 
         clnt = Cliente.find_by(rut: doc.descripcion_rut)
