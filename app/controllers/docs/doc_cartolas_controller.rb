@@ -112,7 +112,7 @@ class Docs::DocCartolasController < ApplicationController
         unless asignado
           prvdr = Proveedor.find_by(rut: doc.descripcion_rut)
           is_trbjdr = doc.clasificacion == 'Trabajador'
-          is_impst  = ['Imposiciones', 'IVA'].include?(doc.clasificacion)
+          is_impst  = ['Imposiciones', 'PPM'].include?(doc.clasificacion)
           if prvdr && !is_trbjdr && !is_impst
             doc.relacionable = prvdr
             asignado = true
@@ -124,7 +124,7 @@ class Docs::DocCartolasController < ApplicationController
 
         unless asignado
           trbjdr = Trabajador.find_by(rut: doc.descripcion_rut)
-          is_impst  = ['Imposiciones', 'IVA'].include?(doc.clasificacion)
+          is_impst  = ['Imposiciones', 'PPM'].include?(doc.clasificacion)
           if trbjdr && !is_impst
             doc.relacionable  = trbjdr
             doc.clasificacion = trbjdr.clasificacion
