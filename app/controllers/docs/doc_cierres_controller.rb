@@ -5,7 +5,7 @@ class Docs::DocCierresController < ApplicationController
 
   # GET /doc_cierres or /doc_cierres.json
   def index
-    @clccn = DocCierre.all
+    @clccn = DocCierre.all.order(:fecha_inicio)
   end
 
   # GET /doc_cierres/1 or /doc_cierres/1.json
