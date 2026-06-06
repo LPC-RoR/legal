@@ -20,7 +20,7 @@ class Docs::DocCierresController < ApplicationController
     @rcbds    = DocRecibido.entre_fechas(@objeto.fecha_inicio, @objeto.fecha_termino)
 
     @fnncr    = @trnsccns.where(clasificacion: 'Financiero')
-    @untrs    = @trnsccns.where(clasificacion: ['Pago TC', 'Imposiciones', 'IVA', 'Devolución impuestos'])
+    @untrs    = @trnsccns.where(clasificacion: ['Pago TC', 'Imposiciones', 'PPM', 'Devolución impuestos'])
 
     @ln_crdt  = @trnsccns.where(clasificacion: ['Pago LC', 'Abono desde LC'])
 
