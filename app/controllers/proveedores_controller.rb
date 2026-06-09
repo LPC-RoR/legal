@@ -12,6 +12,7 @@ class ProveedoresController < ApplicationController
   def show
     @trnsccns       = @objeto.doc_transacciones.order(fecha: :desc)
     @doc_recibidos  = @objeto.doc_recibidos.order(fecha_emision: :desc)
+    @bol_recibidas  = @objeto.doc_boletas.order(fecha: :desc)
   end
 
   # GET /proveedores/new

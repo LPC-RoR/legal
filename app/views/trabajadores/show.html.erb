@@ -1,10 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<%= render partial: '0p/ttl_clss', locals: {source: 'trabajadores', clss: :gray, dir: 'shw', hide_lnks: false} %>
+<%= render partial: 'layouts/partials/notice_alert' %>
 
-<%= render @trabajador %>
+<h5>Conciliación de transacciones</h5>
 
-<div>
-  <%= link_to "Edit this trabajador", edit_trabajador_path(@trabajador) %> |
-  <%= link_to "Back to trabajadores", trabajadores_path %>
-
-  <%= button_to "Destroy this trabajador", @trabajador, method: :delete %>
+<div class="row gx-1">
+  <div class="col-6">
+    <h6>Boletas recibidos</h6>
+    <%= render partial: '0p/tbl_clss', locals: {clccn: @bol_recibidas, typ: 'tr'} %>
+  </div>
+  <div class="col-6">
+    <h6>Transacciones</h6>
+    <%= render partial: '0p/tbl_clss', locals: {clccn: @trnsccns, typ: 'tr'} %>
+  </div>
 </div>

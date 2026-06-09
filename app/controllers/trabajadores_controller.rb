@@ -10,6 +10,8 @@ class TrabajadoresController < ApplicationController
 
   # GET /trabajadores/1 or /trabajadores/1.json
   def show
+    @trnsccns       = @objeto.doc_transacciones.order(fecha: :desc)
+    @bol_recibidas  = @objeto.doc_boletas.order(fecha: :desc)
   end
 
   # GET /trabajadores/new
