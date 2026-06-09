@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_01_213730) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_09_000242) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -623,6 +623,32 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_01_213730) do
     t.index ["rut"], name: "index_doc_bancos_on_rut", unique: true
   end
 
+  create_table "doc_boletas", force: :cascade do |t|
+    t.bigint "doc_honorario_id", null: false
+    t.integer "numero", null: false
+    t.date "fecha", null: false
+    t.string "estado", default: "VIGENTE", null: false
+    t.date "fecha_anulacion"
+    t.string "emisor_rut", null: false
+    t.string "emisor_nombre", null: false
+    t.boolean "sociedad_profesional", default: false
+    t.integer "brutos", default: 0
+    t.integer "retenido", default: 0
+    t.integer "pagado", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.string "detalle"
+    t.index ["doc_honorario_id", "numero", "emisor_rut"], name: "index_dos_boletas_on_doc_numero_rut", unique: true
+    t.index ["doc_honorario_id"], name: "index_doc_boletas_on_doc_honorario_id"
+    t.index ["emisor_rut"], name: "index_doc_boletas_on_emisor_rut"
+    t.index ["estado"], name: "index_doc_boletas_on_estado"
+    t.index ["fecha"], name: "index_doc_boletas_on_fecha"
+    t.index ["ownr_id"], name: "index_doc_boletas_on_ownr_id"
+    t.index ["ownr_type"], name: "index_doc_boletas_on_ownr_type"
+  end
+
   create_table "doc_cartolas", force: :cascade do |t|
     t.bigint "doc_cuenta_id"
     t.integer "numero_cartola"
@@ -722,6 +748,19 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_01_213730) do
     t.index ["rut_receptor", "fecha_emision"], name: "index_doc_emitidos_on_receptor_fecha"
     t.index ["tipo_dte", "folio", "rut_emisor"], name: "index_doc_emitidos_on_dte_folio_emisor", unique: true
     t.index ["tipo_dte", "folio"], name: "index_doc_emitidos_on_tipo_folio"
+  end
+
+  create_table "doc_honorarios", force: :cascade do |t|
+    t.string "contribuyente_nombre", null: false
+    t.string "contribuyente_rut", null: false
+    t.integer "mes", null: false
+    t.integer "anio", null: false
+    t.integer "total_brutos", default: 0
+    t.integer "total_retenido", default: 0
+    t.integer "total_pagado", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contribuyente_rut", "mes", "anio"], name: "index_doc_honorarios_on_rut_mes_anio", unique: true
   end
 
   create_table "doc_notas", force: :cascade do |t|
@@ -1860,6 +1899,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_01_213730) do
   add_foreign_key "act_textos", "act_archivos"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "doc_boletas", "doc_honorarios"
   add_foreign_key "doc_cartolas", "doc_cuentas"
   add_foreign_key "doc_cuentas", "doc_bancos"
   add_foreign_key "doc_emitidos", "clientes"
