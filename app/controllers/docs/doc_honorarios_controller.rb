@@ -1,6 +1,8 @@
 class Docs::DocHonorariosController < ApplicationController
   before_action :set_doc_honorario, only: [:show, :destroy, :reprocesar]
 
+  layout 'addt'
+
   def index
     @clccn = DocHonorario.order(anio: :desc, mes: :desc)
   end
