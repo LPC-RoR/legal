@@ -1,0 +1,11 @@
+// app/assets/stylesheets/_bootstrap.scss
+// Este archivo configura y exporta Bootstrap con tus variables
+
+// 1. Tus variables personalizadas (antes de Bootstrap)
+$body-color: #444;
+$body-bg: #fff;
+$font-family-base: 'Ubuntu', sans-serif;
+
+// 2. Importa Bootstrap (usamos @import aquí porque Bootstrap aún lo requiere)
+// Esto generará warnings, pero funcionará
+@import "bootstrap/scss/bootstrap";
