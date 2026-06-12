@@ -9,20 +9,10 @@
       </div>
     <% end %>
 
-  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT de la empresa', objeto: @req } %>
-    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razón social de la empresa', objeto: @req } %>
-  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre del solicitante', objeto: @req } %>
-  	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email, label: 'Email del solicitante', objeto: @req } %>
-
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :contacto_comercial, label: 'Deseo que me contacte un ejecutivo comercial.', objeto: @req } %>
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :reunion_telematica, label: 'Deseo coordinar una reunión telemática.' } %>
-    <div class="mb-2 text-center fw-bold">Seleccione los productos que son de su interés:</div>
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :laborsafe, label: 'Laborsafe' } %>
-  	<%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :auditoria, label: 'Auditoría de procedimientos ya realiados' } %>
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :externalizacion, label: 'Externalización de investigaciones' } %>
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :consultoria, label: 'Consultoría' } %>
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :capacitacion, label: 'Capacitación' } %>
-    <%= render partial: '0p/lbld_inpts/check_box', locals: { form: form, token: :asesoria_legal, label: 'Asesoría legal' } %>
+  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT de la empresa', objeto: @req, mrgn_bttm: 1 } %>
+    <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razón social de la empresa', objeto: @req, mrgn_bttm: 1 } %>
+  	<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :nombre, label: 'Nombre del solicitante', objeto: @req, mrgn_bttm: 1 } %>
+  	<%= render partial: '0p/lbld_inpts/email', locals: { form: form, token: :email, label: 'Email del solicitante', objeto: @req, mrgn_bttm: 1 } %>
 
     <!-- Honeypot (campo que un humano no completa) -->
     <div class="hp-field" aria-hidden="true">
@@ -34,7 +24,7 @@
     <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
 
     <div class="actions">
-      <%= form.submit "Enviar requerimiento", class: "btn btn-sm btn-outline-primary" %>
+      <%= form.submit "Enviar solicitud", class: "btn btn-sm btn-outline-primary" %>
     </div>
   <% end %>
 

@@ -4,8 +4,6 @@ class Comercial::ComRequerimientosController < ApplicationController
   before_action :set_com_requerimiento, only: %i[ show edit update destroy ]
   after_action :rut_puro, only: %i[ create update ]
 
-  skip_before_action :verify_authenticity_token, only: [:verify]
-
   # anti-bot para create
   MIN_FILL_SECONDS = 3
 
@@ -41,20 +39,19 @@ class Comercial::ComRequerimientosController < ApplicationController
 
     @objeto = ComRequerimiento.new(com_requerimiento_params)
 
-    @objeto.verification_token    = SecureRandom.urlsafe_base64,
-    @objeto.n_vrfccn_lnks         = (@objeto.n_vrfccn_lnks || 0) + 1,
-    @objeto.fecha_vrfccn_lnk      = Time.zone.now,
-    @objeto.verification_sent_at  = Time.current
+    # Marcar como verificado automáticamente (confiamos en el anti-bot)
+    @objeto.email_ok = @objeto.email
 
     respond_to do |format|
       if @objeto.save
 
-        # NUEVO: Usar mailer de Platform context directamente
-        Contexts::Platform::VrfccnContactoMailer
-          .contacto_confirmation(@objeto.id)
+        # NUEVO: Notificar al equipo comercial
+        Contexts::Platform::ContactoComercialMailer
+          .nueva_solicitud(@objeto.id)
           .deliver_later
 
-        format.html { redirect_to root_path, notice: "Requerimiento fue exitosamente creado." }
+
+        format.html { redirect_to root_path, notice: "Gracias por contactarnos. Nuestro equipo comercial se comunicará contigo en las próximas 24 horas." }
         format.json { render :show, status: :created, location: @objeto }
       else
         @objeto = Empresa.new
@@ -64,15 +61,6 @@ class Comercial::ComRequerimientosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def verify
-    @objeto = ComRequerimiento.find_by!(verification_token: params[:token])
-    @objeto.update!(email_ok: @objeto.email, verification_token: nil)
-
-    redirect_to root_path, notice: 'Correo verificado correctamente'
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: 'Token inválido'
   end
 
   # PATCH/PUT /com_requerimientos/1 or /com_requerimientos/1.json

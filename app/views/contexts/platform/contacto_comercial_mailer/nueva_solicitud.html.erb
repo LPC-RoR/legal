@@ -1,0 +1,24 @@
+<%# app/views/contexts/platform/contacto_comercial_mailer/nueva_solicitud.html.erb %>
+<h2>Nueva solicitud de contacto comercial</h2>
+
+<table>
+  <tr><td><strong>Empresa:</strong></td><td><%= @requerimiento.razon_social %></td></tr>
+  <tr><td><strong>RUT:</strong></td><td><%= @requerimiento.rut %></td></tr>
+  <tr><td><strong>Solicitante:</strong></td><td><%= @requerimiento.nombre %></td></tr>
+  <tr><td><strong>Email:</strong></td><td><%= mail_to @requerimiento.email %></td></tr>
+  <tr><td><strong>Fecha:</strong></td><td><%= l @requerimiento.created_at, format: :long %></td></tr>
+</table>
+
+<% if @requerimiento.motivo.present? %>
+  <h3>Motivo del contacto:</h3>
+  <p><%= @requerimiento.motivo %></p>
+<% end %>
+
+<% if @requerimiento.mensaje.present? %>
+  <h3>Mensaje:</h3>
+  <p><%= @requerimiento.mensaje %></p>
+<% end %>
+
+<p>
+  <%= link_to "Ver en el sistema", com_requerimiento_url(@requerimiento) %>
+</p>
