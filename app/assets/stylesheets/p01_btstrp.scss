@@ -31,27 +31,27 @@
 }
 
 .bg_gray {
-	background-color: #dee2e6; /* Color personalizado */
-	color: cnfg.$pltt_4;
-	@include bscs.a_hover(cnfg.$pltt_4, cnfg.$pltt_5);
+  background-color: #dee2e6; /* Color personalizado */
+  color: cnfg.$pltt_4;
+  @include bscs.a_hover(cnfg.$pltt_4, cnfg.$pltt_5);
 }
 
 .bg_blue {
-	background-color: cnfg.$ls_blue_1; /* Color personalizado */
-	color: white;
-	@include bscs.a_hover(white, cnfg.$pltt_5);
+  background-color: cnfg.$ls_blue_1; /* Color personalizado */
+  color: white;
+  @include bscs.a_hover(white, cnfg.$pltt_5);
 }
 
 .bg_tbl {
-	background-color: cnfg.$ls_blue_2; /* Color personalizado */
-	color: white;
-	@include bscs.a_hover(white, cnfg.$pltt_5);
+  background-color: cnfg.$ls_blue_2; /* Color personalizado */
+  color: white;
+  @include bscs.a_hover(white, cnfg.$pltt_5);
 }
 
 .bg_sub_tbl {
-	background-color: cnfg.$pltt_7; /* Color personalizado */
-//	color: white;
-	@include bscs.a_hover(black, cnfg.$pltt_5);
+  background-color: cnfg.$pltt_7; /* Color personalizado */
+//  color: white;
+  @include bscs.a_hover(black, cnfg.$pltt_5);
 }
 
 .bg-black {
@@ -66,6 +66,28 @@
   color: cnfg.$azul_principal;
 }
 
+// HOME 
+
+/* ===== AJUSTES RESPONSIVE PARA CONTENIDO DEBAJO DEL NAVBAR ===== */
+/* Solo afecta a .content-below-nav, NO al .overlay-nav del hero */
+
+@media (max-width: 767.98px) {
+  .hero .content-below-nav {
+    padding-top: 4rem;      /* Espacio para el navbar flotante + logo */
+    margin-left: 1rem;    /* Margen reducido en móviles */
+    margin-right: 1rem;
+    font-size: 1.5rem !important; /* Texto más pequeño en móviles */
+    text-align: center;   /* Centrar texto en móviles */
+  }
+}
+
+@media (min-width: 768px) {
+  .hero .content-below-nav {
+    padding-top: 6rem;      /* Ajusta según la altura de tu navbar */
+    margin-left: 10rem;
+  }
+}
+
 // LINKS
 
 .lnk_principal {
@@ -73,15 +95,15 @@
 }
 
 .navbar_lnk {
-   	@include bscs.a_hover(cnfg.$pltt_4, cnfg.$pltt_6);
+    @include bscs.a_hover(cnfg.$pltt_4, cnfg.$pltt_6);
 }
 
 .app_lnk {
-   	@include bscs.a_hover(cnfg.$pltt_2, cnfg.$pltt_5);
+    @include bscs.a_hover(cnfg.$pltt_2, cnfg.$pltt_5);
 }
 
 .objt_lnk {
-   	@include bscs.a_hover(cnfg.$blue_1, cnfg.$blue_3);
+    @include bscs.a_hover(cnfg.$blue_1, cnfg.$blue_3);
 }
 
 .artcl_lnk {
@@ -89,11 +111,11 @@
 }
 
 .app_fnt {
-   	font-family: cnfg.$app_fnt;
+    font-family: cnfg.$app_fnt;
 }
 
 .fnt_arial {
-   	font-family: Arial;
+    font-family: Arial;
 }
 
 // TABLA CON LÍNEAS MÁS PEQUEÑAS
@@ -105,18 +127,18 @@
 // TXT
 
 .txt_hght {
-	line-height: 1.2;
-	font-size: 35px;
+  line-height: 1.2;
+  font-size: 35px;
 }
 
 .txt_mdm {
-	line-height: 1.2;
-	font-size: 25px;
+  line-height: 1.2;
+  font-size: 25px;
 }
 
 .txt_smll {
-	line-height: 1.2;
-	font-size: 16px;
+  line-height: 1.2;
+  font-size: 16px;
 }
 
 // Manejo de lo :hover de los dropdowns
@@ -180,7 +202,7 @@
 /* ===== MÓVIL (≤ md): SOLO ÍCONO, SIN BARRA QUE CUBRA LA IMAGEN ===== */
 @media (max-width: 767.98px) {
   .hero .overlay-nav {
-    /* En móvil NO queremos “barra” a lo ancho */
+    /* En móvil NO queremos "barra" a lo ancho */
     top: .5rem;
     right: .5rem;
     left: auto;
@@ -196,7 +218,15 @@
   /* Oculta brand en móvil (opcional) */
   .hero .overlay-nav .navbar-brand { display: none !important; }
 
-  /* El botón hamburguesa como “chip” pequeño en la esquina */
+  /* Centrar el logo cuando no hay navbar-brand */
+  .hero .overlay-nav .container-fluid > a:first-child,
+  .hero .overlay-nav .container-fluid > .d-inline-block {
+    margin: 0 auto;
+    display: block !important;
+    text-align: center;
+  }
+
+  /* El botón hamburguesa como "chip" pequeño en la esquina */
   .hero .overlay-nav .navbar-toggler {
     position: relative;
     z-index: 12;                 /* sobre el panel */
@@ -287,7 +317,6 @@
   }
 }
 
-
 // HOVER Productos
 
 /* Wrapper para que el mouseleave no cierre al pasar al panel (no necesario si solo abrimos/cerramos por eventos) */
@@ -335,4 +364,31 @@
 }
 .tooltip.custom-tooltip.bs-tooltip-top .tooltip-arrow::before {
   border-top-color: #fff !important;
+}
+
+@media (max-width: 767.98px) {
+  // En móvil: ancho completo, sin márgenes laterales
+  .mx-0 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  // Desactivar background-attachment: fixed en móviles (problemas de rendimiento)
+  div[style*="background-attachment: fixed"] {
+    background-attachment: scroll !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .mx-md-4 {
+    margin-left: 1.5rem !important;
+    margin-right: 1.5rem !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .mx-lg-5 {
+    margin-left: 3rem !important;
+    margin-right: 3rem !important;
+  }
 }

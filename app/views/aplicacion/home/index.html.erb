@@ -4,10 +4,9 @@
 	<!-- Navbar superpuesta -->
 	<nav class="navbar navbar-expand-md navbar-light overlay-nav">
 	    <div class="container-fluid px-3">
-	      <!-- Branding (opcional, a la izquierda) -->
-	      <%#= link_to 'LaborSafe', root_path, class: 'navbar-brand d-none d-md-inline' %>
+	      <!-- Branding centrado en móviles -->
 	      <%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: nil} do %>
-	      	<%= image_tag 'logo/logo_130.png', class: 'img-fluid' %>
+	      	<%= image_tag 'logo/logo_130.png', class: 'img-fluid mx-auto d-block' %>
 	      <% end %>
 
 	      <!-- Botón hamburguesa -->
@@ -19,6 +18,17 @@
 
 	      <!-- Ítems de menú -->
 	      <div class="collapse navbar-collapse" id="heroNav">
+
+	        <!-- CENTRO: Nuevo grupo de ítems -->
+	        <ul class="navbar-nav mx-auto align-items-md-center">
+	          <li class="nav-item">
+	            <%= link_to 'Laborsafe', root_path, class: 'nav-link fs-6' %>
+	          </li>
+	          <li class="nav-item">
+	            <%= link_to 'Nuestro equipo', root_path, class: 'nav-link fs-6' %>
+	          </li>
+	        </ul>
+
 	        <ul class="navbar-nav ms-auto align-items-md-center">
 	          <li class="nav-item">
 	              <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'me-5 nav-link fs-6' %>
@@ -28,111 +38,18 @@
 	    </div>
 	</nav>
 
-	<div class="ubuntu_titulo" style="font-size: 2.5rem;line-height: 1.2;margin-left: 10rem;">
+	<!-- Contenedor con padding-top para compensar navbar fijo y responsive en móviles -->
+	<div class="content-below-nav ubuntu_titulo" style="margin-left: 5%;font-size: 2rem; line-height: 1.2;">
 		Software para la gestión integral de<br>
 		procedimientos de investigación y sanción<br>
 		Ley 21.643 (Ley Karin)
 	</div>
 </div>
 
-
 <!-- Carousel -->
 <%#= render partial: 'aplicacion/home/public/banner' %>
-<div style="background-image: url('<%= asset_path('home/bg_home.webp') %>'); background-size: cover; background-position: top;background-attachment: fixed;">
 
-
-	<div class="row gx-1" style="margin-left: 5rem;margin-right: 5rem;margin-top: 2rem;">
-		<div class="col-lg-6 col-xs-12">
-			<%= image_tag 'Flujo externalizacion.png', class: 'img-fluid', style: 'max-width: 650px;' %>
-		</div>
-		<div class="col-lg-6 col-xs-12">
-			<div class="p-5 fs-4 text-center">
-				La externalización de investigaciones constituye una solución estratégica para organizaciones que buscan gestionar sus denuncias bajo estándares de excelencia, sin asumir la inversión asociada a la conformación de un equipo de investigación interno.
-			</div>
-
-			<div class="mt-1 px-5 fs-6">
-			    Minimice el riesgo de judicialización de sus investigaciones:
-			    <ul>
-			        <li class="my-1">Investigación realizada por abogados especialistas.</li>
-			        <li class="my-1">Modelo de confidencialidad.</li>
-			        <li class="my-1">Control de plazos legales.</li>
-			        <li class="my-1">Verificación de correo electrónico de los participantes.</li>
-			        <li class="my-1">Anonimización de denuncias y declaraciones.</li>
-			        <li class="my-1">Carpeta de investigación electrónica.</li>
-			        <li class="my-1">Control documental de toda la investigación.</li>
-			        <li class="my-1">Envío de notificaciones e información obligatoria desde nuestra plataforma tecnológica.</li>
-			        <li class="my-1">Documentos personalizados para su empresa, redactados por un abogado especialista.</li>
-			        <li class="my-1">Seguimiento del avance de sus investigaciones y control de la carpeta de investigación mediante reportes anonimizados.</li>
-			        <li class="my-1">Asesoría legal y operativa integral durante la investigación.</li>
-			    </ul>
-			</div>
-			<div class="mt-1 p-2 fs-3 text-center">
-				¡Solicite una presentación comercial!
-			</div>
-			<div class="px-3 pb-3">
-				<%= render partial: prtl('com_requerimientos', nil, 'requerimiento') %>
-			</div>
-		</div>
-	</div>
-
-	<!--div class="row gx-1">
-		<div class="col-lg-6 col-xs-12">
-			<%#= image_tag 'Protocolo_Recepcion_Ley_Karin.png', width: 750 %>
-		</div>
-		<div class="col-lg-6">
-			<%#= image_tag 'Guía_de_Plazos_ley_karin_mitad.png', width: 750 %>
-		</div>
-	</div-->
-
-	<!--div class="mt-4 text-center clr_azul_principal montserrat-regular"-->
-		<%#= render 'aplicacion/home/public/prdct_gnrl' %>
-		<%#= render 'aplicacion/home/public/prdct_perfil' %>
-
-		<!--div class="row gx-4" style="margin: 0.5rem 5%;">
-			<div class="col-lg-6 col-xs-12 pb-1">
-				<%#= link_to "Ver reporte de denuncia simple", "/com_documentos/#{@rprt_dnnc.id}/show_pdf", class: "btn btn-primary w-100", target: '_blank' if @rprt_dnnc %>
-			</div>
-			<div class="col-lg-6 pb-1">
-				<%#= render layout: '0p/collapse/bttn', locals: {clss_bttn: 'btn btn-primary w-100', label: 'Cntct', objeto: nil, tooltip: nil} do %>
-					Contacto comercial
-				<%# end %>
-			</div>
-		</div-->
-		<!--div class="row gx-4" style="margin: 0.5rem 5%;">
-			<div class="col-lg-6 col-xs-12 pb-1">
-				<%#= link_to "Presentación comercial", "/com_documentos/#{@prsntcn.id}/show_pdf", class: "btn btn-primary w-100", target: '_blank' if @prsntcn %>
-			</div>
-			<div class="col-lg-6 pb-1">
-				<%#= render layout: '0p/collapse/bttn', locals: {clss_bttn: 'btn btn-primary w-100', label: 'Demo', objeto: nil, tooltip: nil} do %>
-					Versión demostrativa personalizada
-				<%# end %>
-			</div>
-		</div-->
-
-		<!-- COLLAPSE partials -->
-		<%#= render layout: '0p/collapse/dsply', locals: {label: 'Cntct', objeto: nil} do %>
-			<!--div class="container mt-5">
-			  <div class="row justify-content-center">
-					<div class="col-lg-6">
-						<%#= render partial: 'empresas/contacto' %>
-					</div>
-				</div>
-			</div-->
-		<%# end %>
-
-		<%#= render layout: '0p/collapse/dsply', locals: {label: 'Demo', objeto: nil} do %>
-			<!--div class="container mt-5">
-			  <div class="row justify-content-center">
-					<div class="col-lg-6">
-						<%#= render partial: 'empresas/registro' %>
-					</div>
-				</div>
-			</div-->
-		<%# end %>
-
-	<!--/div-->
-
-</div>
+<%= render partial: 'aplicacion/home/home_tab_extrnlzcn' %>
 
 <%= render partial: 'aplicacion/home/public/artcl' %>
 

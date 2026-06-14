@@ -35,8 +35,8 @@ class Aplicacion::HomeController < ApplicationController
 		@req = ComRequerimiento.new
 		# @slides = Slide.activas.ordr
 
-		@prsntcn = ComDocumento.find_by(codigo: 'presentacion')
-		@rprt_dnnc = ComDocumento.find_by(codigo: 'dnnc')
+#		@prsntcn = ComDocumento.find_by(codigo: 'presentacion')
+#		@rprt_dnnc = ComDocumento.find_by(codigo: 'dnnc')
 
     @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
  	
