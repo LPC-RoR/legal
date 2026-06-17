@@ -1,0 +1,74 @@
+<div class="my-4 mx-3 mx-md-4 mx-lg-5" style="background-image: url('<%= asset_path('home/bg_home.webp') %>'); background-size: cover; background-position: top; background-attachment: fixed;">
+
+  <div class="border rounded-2 mb-1 p-2 text-center">
+    <h3>PLAZOS LEGALES</h3>
+  </div>
+
+  <div class="row g-0 align-items-stretch mx-0">
+
+    <!-- Imagen: arriba en móvil, izquierda en desktop -->
+    <div class="col-12 col-lg-6 px-0">
+      <%= image_tag 'guia_plazos_mitad.png', class: 'img-fluid w-100', style: 'display: block;', alt: 'Flujo de externalización' %>
+    </div>
+
+    <!-- Contenido: abajo en móvil, derecha en desktop -->
+    <div class="col-12 col-lg-6 py-3 py-lg-5 px-2">
+
+      <div class="px-2 px-sm-3 px-lg-4 px-xl-5">
+        <p class="fs-5 fs-md-4 mb-3 mb-md-4">
+          En control y cumplimiento de los plazos legales obligatorios para las distintas etapas del procedimiento es fundamental para la adecuada planificación, coordinación y ejecución de las tareas.
+        </p>
+
+        <p class="fs-5 fs-md-4 mb-3 mb-md-4">
+          Dada la complejidad asociada al cálculo de plazos legales, esta información es también la más solicitada por los participantes.
+        </p>
+
+        <p class="fs-5 fs-md-4 mb-3 mb-md-4 fw-bold text-center">
+          Plazo en días hábiles vs plazo en días corridos
+        </p>
+
+        <div class="border rounded-2 text-center">
+            <div>Hoy</div>
+          <h3><%= dma(@hoy) %></h3>
+        </div>
+        <div class="row gx-1 mb-2">
+          <div class="col-lg-6 col-xs-12 border rounded-2 text-center">
+            <div>30 días hábiles</div>
+            <h3><%= dma(@hbls_30) %></h3>
+          </div>
+          <div class="col-lg-6 border rounded-2 text-center">
+            <div>30 días corridos</div>
+            <h3><%= dma(@crrds_30) %></h3>
+          </div>
+        </div>
+
+        <p class="fs-5 fs-md-4 mb-3 mb-md-4 fw-bold text-center">
+          Errores frecuentes
+        </p>
+
+        <p class="fs-5 fs-md-4 mb-3 mb-md-4">
+          1) La etapa 1 y la etapa 2 (ver diagrama) no son consecutivas. Ambos plazos se cuentan comenzando en la fecha de recepción de la denuncia.
+        </p>
+        <p class="fs-5 fs-md-4 mb-3 mb-md-4">
+          2) La fecha de comienzo de una etapa puede modificarse si la etapa anterior se cumple anticipadamente:
+          <ul class="fs-6 fs-md-5">
+            <li class="mb-1">La fecha de inicio de la etapa de <i>Pronunciamiento de la Dirección del Trabajo</i> puede anticiparse si el depósito del informe de investigación se realiza antes del vencimiento del plazo para realizarlo.</li>
+            <li class="mb-1">La fecha a partir de la cual se cuenta el plazo para ejecutar las medidas correctivas y aplicar sanciones se adelantará si la Dirección del Trabajo envía su pronunciamiento. En este caso el plazo se debe contar a partir de la fecha de recepción del pronunciamiento.</li>
+          </ul>
+        </p>
+
+
+        <p class="fs-4 fs-md-3 text-center fw-bold mb-3">
+          ¡Solicite una presentación comercial!
+        </p>
+
+        <div class="px-1 px-sm-2">
+          <%= render partial: prtl('com_requerimientos', nil, 'requerimiento') %>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

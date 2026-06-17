@@ -1,0 +1,50 @@
+<!-- Navbar superpuesta -->
+<nav class="navbar navbar-expand-md navbar-light overlay-nav">
+    <div class="container-fluid px-3">
+      <!-- Branding centrado en móviles -->
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: nil} do %>
+      	<%= image_tag 'logo/logo_130.png', class: 'img-fluid mx-auto d-block' %>
+      <% end %>
+
+      <!-- Botón hamburguesa -->
+      <button class="navbar-toggler ms-auto" type="button"
+              data-bs-toggle="collapse" data-bs-target="#heroNav"
+              aria-controls="heroNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Ítems de menú -->
+      <div class="collapse navbar-collapse" id="heroNav">
+
+        <!-- CENTRO: Nuevo grupo de ítems -->
+        <ul class="navbar-nav mx-auto align-items-md-center">
+          <% unless action_name == 'index' %>
+            <li class="nav-item">
+              <%= link_to 'Home', root_path, class: 'nav-link fs-6' %>
+            </li>
+          <% end %>
+          <% unless action_name == 'laborsafe' %>
+            <li class="nav-item">
+              <%= link_to 'Laborsafe', '/laborsafe', class: 'nav-link fs-6' %>
+            </li>
+          <% end %>
+          <%# unless action_name == 'equipo' %>
+            <!--li class="nav-item">
+              <%#= link_to 'Nuestro equipo', '/equipo', class: 'nav-link fs-6' %>
+            </li-->
+          <%# end %>
+          <%# unless action_name == 'blog' %>
+            <!--li class="nav-item">
+              <%#= link_to 'Blog', '/blog', class: 'nav-link fs-6' %>
+            </li-->
+          <%# end %>
+        </ul>
+
+        <ul class="navbar-nav ms-auto align-items-md-center">
+          <li class="nav-item">
+              <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'me-5 nav-link fs-6' %>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>

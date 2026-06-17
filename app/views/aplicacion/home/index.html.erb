@@ -1,56 +1,24 @@
 <%= render partial: 'aplicacion/home/public/ticker' %>
 <div class="m-3">
-
-	<!-- Navbar superpuesta -->
-	<nav class="navbar navbar-expand-md navbar-light overlay-nav">
-	    <div class="container-fluid px-3">
-	      <!-- Branding centrado en móviles -->
-	      <%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: nil} do %>
-	      	<%= image_tag 'logo/logo_130.png', class: 'img-fluid mx-auto d-block' %>
-	      <% end %>
-
-	      <!-- Botón hamburguesa -->
-	      <button class="navbar-toggler ms-auto" type="button"
-	              data-bs-toggle="collapse" data-bs-target="#heroNav"
-	              aria-controls="heroNav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="navbar-toggler-icon"></span>
-	      </button>
-
-	      <!-- Ítems de menú -->
-	      <div class="collapse navbar-collapse" id="heroNav">
-
-	        <!-- CENTRO: Nuevo grupo de ítems -->
-	        <ul class="navbar-nav mx-auto align-items-md-center">
-	          <li class="nav-item">
-	            <%= link_to 'Laborsafe', root_path, class: 'nav-link fs-6' %>
-	          </li>
-	          <li class="nav-item">
-	            <%= link_to 'Nuestro equipo', root_path, class: 'nav-link fs-6' %>
-	          </li>
-	        </ul>
-
-	        <ul class="navbar-nav ms-auto align-items-md-center">
-	          <li class="nav-item">
-	              <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'me-5 nav-link fs-6' %>
-	          </li>
-	        </ul>
-	      </div>
-	    </div>
-	</nav>
+	<%= render partial: 'aplicacion/home/public/public_banner' %>
 
 	<!-- Contenedor con padding-top para compensar navbar fijo y responsive en móviles -->
 	<div class="content-below-nav ubuntu_titulo" style="margin-left: 5%;font-size: 2rem; line-height: 1.2;">
-		Software para la gestión integral de<br>
-		procedimientos de investigación y sanción<br>
-		Ley 21.643 (Ley Karin)
+		<p>Externalización de investigaciones<br>
+		Ley 21.643 (Ley Karin)</p>
+		<small>
+		<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
+		Minimice el riesgo de judicialización de sus investigaciones.<br>
+		<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
+		Optimice su costo por investigación.
+		</small>
 	</div>
 </div>
 
 <!-- Carousel -->
 <%#= render partial: 'aplicacion/home/public/banner' %>
 
-<%= render partial: 'aplicacion/home/home_tab_extrnlzcn' %>
+<%= render partial: 'aplicacion/home/extrnlzcn' %>
 
-<%= render partial: 'aplicacion/home/public/artcl' %>
-
+<%= render partial: 'aplicacion/home/public/alianzas' %>
 <%= render partial: 'aplicacion/home/public/modal_errores_form' %>

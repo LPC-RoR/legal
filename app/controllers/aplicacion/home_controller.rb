@@ -81,6 +81,25 @@ class Aplicacion::HomeController < ApplicationController
 	  render layout: 'addt'   # solo se ejecuta cuando no hubo redirect
 	end
 
+	def laborsafe
+		@hoy	 		= Date.today
+		@hbls_30 	= CalFeriado.plazo_habil(@hoy, 30)
+		@crrds_30 	= CalFeriado.plazo_corrido(@hoy, 30)
+
+		@objeto = Empresa.new
+		@req = ComRequerimiento.new
+
+		render layout: 'public'
+	end
+
+	def equipo
+		render layout: 'public'
+	end
+
+	def blog
+		render layout: 'public'
+	end
+
 
 	def artcls
   	@hsh = helpers.artcls_hsh[params[:tkn].to_sym]
@@ -103,7 +122,6 @@ class Aplicacion::HomeController < ApplicationController
 	  end
 
   def costos
-  	
   end
 
   private
