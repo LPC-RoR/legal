@@ -23,92 +23,72 @@ class Tarifas::TarCalculosController < ApplicationController
     ownr = params[:oclss].constantize.find(params[:oid])
     case params[:oclss]
     when 'Causa'
-      # En esta versión aún se usa relación con TarPago, en futuras versiones se usará codigo_formula
-      # Hay que evaluar el manejo de cuotas
       pid             = params[:pid]
       pago            = pid.blank? ? nil : TarPago.find(pid)
-      codigo_formula  = pago.codigo_formula
 
-      cuotas          = pago.blank? ? [] : pago.tar_cuotas.ordr
-      moneda          = (pago.moneda.blank? ? 'UF' : pago.moneda)
+      codigo_formula  = pago.present? ? pago.codigo_formula : nil
+      moneda          = pago.present? ? ( pago.moneda.blank? ? 'UF' : pago.moneda ) : nil
+      tar_metodo      = moneda == 'UF' ? "#{codigo_formula}_uf" : codigo_formula
+
       cuantia_calculo = ownr.ttl_tarifa
-      fecha_calculo   = ownr.calc_fecha_uf(codigo_formula)
-      valor_uf        = ownr.calc_valor_uf(codigo_formula)
+
+      fecha_calculo   = moneda == 'UF' ? ownr.calc_fecha_uf(codigo_formula) : nil
+      valor_uf        = moneda == 'UF' ? ownr.calc_valor_uf(codigo_formula) : nil
 
       # Revisar DEPRECATED
-      tar_uf_facturacion    = get_tar_uf_facturacion_pago(ownr, pago)
-      objt_calculo          = get_objt_pago(ownr, pago)
-      objt_origen           = tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion
+#      tar_uf_facturacion    = get_tar_uf_facturacion_pago(ownr, pago)
+#      objt_calculo          = get_objt_pago(ownr, pago)
+#      objt_origen           = tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion
 
+      # CORRECCIÓN: Se conserva el monto en UF si el pago es en UF
       if pago.valor.blank?
-        monto = codigo_formula == 'monto_fijo' ? ownr.monto_fijo('monto_fijo') : ownr.monto_variable
+        # Se ajusta el método a usar para recuperar el valor en UF o Pesos según corresponda
+        # monto = codigo_formula == 'monto_fijo' ? ownr.monto_fijo('monto_fijo') : ownr.monto_variable
+        monto = ownr.send(tar_metodo)
         monto = monto.round(pago.moneda.blank? ? 5 : (pago.moneda == 'Pesos' ? 0 : 5))
       else
-        monto = pago.moneda == 'UF' ? pago.valor * valor_uf : pago.valor
-        puts "************************************************* crea calculo"
-        puts pago.moneda
-        puts monto.inspect
-        puts valor_uf
+        # monto = pago.moneda == 'UF' ? pago.valor * valor_uf : pago.valor
+        monto = pago.valor
       end
 
-      # monto siempre está en Pesos, las cuotas dividen un monto único establecido en el cálculo
       # La UF se resuelve en el método de cálculo
       glosa = "#{pago.tar_pago} : #{ownr.rit} #{ownr.causa}"
 
       # En una próxima versión sacaremos la relación con tar_pago, lo cual fue reemplazado con codigo_formula
       unless monto == 0   # Tratándose de aprobaciones no es necesario generar pagos de valor 0
-        puts "¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ before create"
-puts "=== DEBUG ANTES DE CREATE ==="
-puts "monto class: #{monto.class}"
-puts "monto value: #{monto.inspect}"
-puts "monto to_f: #{monto.to_f}"
-puts "monto zero?: #{monto.zero?}" if monto.respond_to?(:zero?)
-puts "=============================="
-        cll = ownr.tar_calculos.create(tar_pago_id: pid, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
-        puts "¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ afer create"
-puts "=== INMEDIATAMENTE DESPUÉS DEL CREATE ==="
-puts "cll.id: #{cll.id}"
-puts "cll.monto (sin reload): #{cll.monto.inspect}"
-puts "cll.attributes['monto']: #{cll.attributes['monto'].inspect}"
+        # cll = ownr.tar_calculos.create(tar_pago_id: pid, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
+        cll = ownr.tar_calculos.create(fecha_uf: fecha_calculo, moneda: moneda, monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
 
-# Forzar reload
-cll_recargado = TarCalculo.find(cll.id)
-puts "cll_recargado.monto: #{cll_recargado.monto.inspect}"
+        # Creación de TarFacturaciones y Manejo de Cuotas
+#        cuotas          = pago.blank? ? [] : pago.tar_cuotas.ordr
 
-# Verificar en base de datos directamente
-result = ActiveRecord::Base.connection.execute("SELECT monto FROM tar_calculos WHERE id = #{cll.id}")
-puts "DB directa: #{result.first['monto'].inspect}"
-puts "=========================================="
+#        if cll
+#          if cuotas.empty?
+#            ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia_calculo: cuantia_calculo)
+#          else
+#            # PROBAR: Generación de cuotas!
+#            cuotas.each do |cuota|
+#              monto_procesado = ownr.tar_facturaciones.map {|fctcn| fctcn.monto}.sum
+#              c_glosa = "#{glosa} #{cuota.orden} de #{cuotas.count}"
 
-        if cll
-          if cuotas.empty?
-            ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia_calculo: cuantia_calculo)
-          else
-            # PROBAR: Generación de cuotas!
-            cuotas.each do |cuota|
-              monto_procesado = ownr.tar_facturaciones.map {|fctcn| fctcn.monto}.sum
-              c_glosa = "#{glosa} #{cuota.orden} de #{cuotas.count}"
+#              if cuota.monto.present?
+#                monto_cuota = cuota.monto
+#              elsif cuota.ultima_cuota
+#                monto_cuota = (monto - monto_procesado)
+#              else
+#                monto_cuota = (monto * (cuota.porcentaje / 100)).truncate
+#              end
+#              ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto_cuota, glosa: c_glosa, cuantia_calculo: cuantia_calculo)
+#            end
+#          end
+#        end
 
-              if cuota.monto.present?
-                monto_cuota = cuota.monto
-              elsif cuota.ultima_cuota
-                monto_cuota = (monto - monto_procesado)
-              else
-                monto_cuota = (monto * (cuota.porcentaje / 100)).truncate
-              end
-              ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto_cuota, glosa: c_glosa, cuantia_calculo: cuantia_calculo)
-            end
-          end
-        end
       end
 
       # CAUSA GANADA !!
       ownr.causa_ganada = ownr.monto_pagado == 0
       ownr.save
-puts "=== DESPUÉS DEL SAVE DE CAUSA ==="
-cll_post_save = TarCalculo.find(cll.id)
-puts "cll_post_save.monto: #{cll_post_save.monto.inspect}"
-puts "================================="
+
     end
 
     redirect_to "/#{ownr.class.name.tableize}/#{ownr.id}?html_options[menu]=Tarifa+%26+Pagos"

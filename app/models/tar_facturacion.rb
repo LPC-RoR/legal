@@ -8,6 +8,8 @@ class TarFacturacion < ApplicationRecord
 
 	belongs_to :ownr, polymorphic: true
 
+	before_save :procesar_campos
+
 	scope :no_aprbcn, -> { where(tar_aprobacion_id: nil) }
 	scope :dspnbls, -> {where(tar_aprobacion_id: nil, tar_factura_id: nil)}
 
@@ -58,5 +60,33 @@ class TarFacturacion < ApplicationRecord
 	def monto_uf
 		self.moneda == 'Pesos' ? self.to_uf : self.monto_ingreso
 	end
+
+	private
+
+	def procesar_campos
+		# UF de recalcular
+		if tar_calculo&.moneda == 'UF'
+			fecha_calculo = recalcular && fecha_uf ? fecha_uf : tar_calculo.fecha_uf
+			valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor
+			valor_uf ||= 0
+		end
+		case tipo_monto
+		when 'Parcial'
+			if monto_parcial.present?
+				total_calculo = monto_parcial
+			elsif porcentaje.present?
+				total_calculo = tar_calculo.monto * (porcentaje / 100)
+			else
+				total_calculo = 0
+			end
+		when 'Total'
+			total_calculo = tar_calculo.monto
+		end
+
+		monto_fctrcns 	= tar_calculo.tar_facturaciones.any? ? tar_calculo.tar_facturaciones.sum(:monto) : 0
+		monto_total 	= tar_calculo&.moneda == 'UF' ? total_calculo * valor_uf : total_calculo
+		self.monto 		= monto_total - monto_fctrcns
+	end
+
 
 end

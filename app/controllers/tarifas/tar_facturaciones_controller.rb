@@ -13,6 +13,13 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
   # GET /tar_facturaciones/new
   def new
+    # Hay que completar con los casos de Asesoría y Cargos (si corresponde)
+    case params[:code]
+    when 'clcl'
+      calculo = TarCalculo.find(params[:bid])
+      ownr    = calculo.ownr
+    end
+    @objeto = ownr.tar_facturaciones.new(tar_calculo_id: params[:bid], codigo_formula: calculo.codigo_formula, glosa: calculo.glosa)
   end
 
   def crea_aprobacion
@@ -40,7 +47,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
     respond_to do |format|
       if @objeto.save
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar facturacion was successfully created." }
+        format.html { redirect_to @redireccion, notice: "El pago fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +61,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
     respond_to do |format|
       if @objeto.update(tar_facturacion_params)
         set_redireccion
-        format.html { redirect_to @redireccion, notice: "Tar facturacion was successfully updated." }
+        format.html { redirect_to @redireccion, notice: "El pago fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -102,7 +109,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
     set_redireccion
     @objeto.destroy
     respond_to do |format|
-      format.html { redirect_to @redireccion, notice: "Tar facturacion was successfully destroyed." }
+      format.html { redirect_to @redireccion, notice: "El pago fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end
@@ -114,11 +121,14 @@ class Tarifas::TarFacturacionesController < ApplicationController
     end
 
     def set_redireccion
-      @redireccion = ( @objeto.owner.class.name == 'Asesoria' ? asesorias_path : "/#{@objeto.owner.class.name.tableize}/#{@objeto.owner.id}?html_options[menu]=Tarifa+%26+Pagos" )
+      case @objeto.ownr_type
+      when 'Causa'
+        @redireccion = "/#{@objeto.ownr.class.name.tableize}/#{@objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos"
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def tar_facturacion_params
-      params.require(:tar_facturacion).permit(:facturable, :glosa, :monto, :estado, :owner_class, :owner_id, :tar_factura_id, :moneda)
+      params.require(:tar_facturacion).permit(:ownr_type, :ownr_id, :tar_calculo_id, :glosa, :monto, :monto_parcial, :porcentaje, :estado, :moneda, :recalcular, :tipo_monto)
     end
 end

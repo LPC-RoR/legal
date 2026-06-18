@@ -410,10 +410,12 @@ class Causa < ApplicationRecord
 	end
 
 	# ----------------------------------------------------------------------------------------- CUANTIA
+	# Al momento de de crear un TarCalculo no pueden existir TarCalculo o TarFactutacion con el mismo codigo_formula
+	# Hay que revisar despliegue en Aprobación de pagos para corregir el uso de este método
 	def calc_fecha_uf(codigo_formula)
 		fecha = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)&.fecha
-		fecha ||= tar_calculos.find_by(codigo_formula: codigo_formula)&.fecha_uf
-		fecha ||= tar_facturaciones.find_by(codigo_formula: codigo_formula)&.fecha_uf
+#		fecha ||= tar_calculos.find_by(codigo_formula: codigo_formula)&.fecha_uf
+#		fecha ||= tar_facturaciones.find_by(codigo_formula: codigo_formula)&.fecha_uf
 		fecha ||= Time.zone.today.to_date
 		fecha
 	end
@@ -425,22 +427,23 @@ class Causa < ApplicationRecord
 		objt ? (objt.class == TarFechaCalculo ? 'Uf asignada para el cálculo' : 'UF de la fecha de cálculo') : 'UF del día'
 	end
 
+	# calc_fecha_uf en el peor de los casos es igual a la fecha de hoy
 	def calc_valor_uf(codigo_formula)
 		TarUfSistema.find_by(fecha: calc_fecha_uf(codigo_formula))&.valor
 	end
 
+	# Total de cuantia para tarifa
 	def ttl_tarifa
-#		tar_valor_cuantias.map {|r| r.valor_tarifa}.compact.sum
 	    tar_valor_cuantias.sum(:valor_tarifa)
 	end
 
+	# Total en UF de cuantia para tarifa
 	def ttl_tarifa_uf(codigo_formula)
 		valor_uf = calc_valor_uf(codigo_formula)
 		valor_uf.nil? ? 0 : tar_valor_cuantias.map {|r| r.valor_tarifa}.compact.sum / valor_uf
 	end
 
 	def ttl_cuantia
-#		tar_valor_cuantias.map {|r| r.valor}.compact.sum
 	    tar_valor_cuantias.sum(:valor)
 	end
 
@@ -457,8 +460,8 @@ class Causa < ApplicationRecord
 		monto_pagado.nil? ? 0 : ttl_tarifa - monto_pagado
 	end
 
-	def monto_fijo_uf(codigo_formula)
-		cuantia_uf = ttl_tarifa_uf(codigo_formula)
+	def monto_fijo_uf
+		cuantia_uf = ttl_tarifa_uf('monto_fijo')
 		menor = cuantia_uf < 180
 		prcntje = menor ? cuantia_uf * 0.1 : cuantia_uf * 0.08
 		if menor
@@ -473,9 +476,9 @@ class Causa < ApplicationRecord
 	# codigo_formula == 'monto_fijo'
 	# Se puede reemplazar para unificar manejo de monto_fijo y monto_variable
 	# el codigo_formula se usa para acceder a la UF asignada si se está usando
-	def monto_fijo(codigo_formula)
-		valor_uf = calc_valor_uf(codigo_formula)
-		valor_uf.nil? ? 0 : monto_fijo_uf(codigo_formula) * calc_valor_uf(codigo_formula)
+	def monto_fijo
+		valor_uf = calc_valor_uf('monto_fijo')
+		valor_uf.nil? ? 0 : monto_fijo_uf * valor_uf
 	end
 
 	def total_variable
@@ -495,8 +498,8 @@ class Causa < ApplicationRecord
 	end
 
 	def calculo_monto_fijo
-		mnt = tar_calculos.find_by(codigo_formula: 'monto_fijo')&.monto
-		mnt.nil? ? 0 : mnt
+		tar_calculo_fijo = tar_calculos.find_by(codigo_formula: 'monto_fijo')
+		tar_calculo_fijo.tar_facturaciones.any? ? tar_calculo_fijo.tar_facturaciones.sum(:monto) : 0
 	end
 
 	def calc_valor_cmntr(formula, pago)

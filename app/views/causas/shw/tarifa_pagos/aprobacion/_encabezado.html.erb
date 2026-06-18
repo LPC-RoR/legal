@@ -32,7 +32,7 @@
 				<% else %>	
 					<% case pago.codigo_formula %>
 					<% when 'monto_fijo' %>
-						<%= s_uf5(ownr.monto_fijo_uf(pago.codigo_formula)) %>
+						<%= s_uf5(ownr.monto_fijo_uf) %>
 					<% when 'monto_variable' %>
 						<%= s_uf5(ownr.monto_variable_uf(pago.codigo_formula)) %>
 					<% end %>
@@ -52,7 +52,7 @@
 				<% else %>
 					<% case pago.codigo_formula %>
 					<% when 'monto_fijo' %>
-						<%= s_pesos(ownr.monto_fijo(pago.codigo_formula)) %>
+						<%= s_pesos(ownr.monto_fijo) %>
 					<% when 'monto_variable' %>
 						<%= s_pesos(ownr.monto_variable) %>
 					<% end %>
