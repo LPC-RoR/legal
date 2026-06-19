@@ -27,7 +27,7 @@ class DocPago < ApplicationRecord
                             DocEmitido.find_by(folio: folio_referencia)
                           end
 
-    if registro_encontrado && ['Trabajador', nil].include?(doc_transaccion.relacionable_type)
+    if registro_encontrado && registro_encontrado.class.name == 'DocEmitido'
       cliente = registro_encontrado.cliente
       doc_transaccion.relacionable = cliente
       doc_transaccion.save
