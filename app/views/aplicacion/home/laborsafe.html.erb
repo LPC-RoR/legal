@@ -3,43 +3,59 @@
 	<%= render partial: 'aplicacion/home/public/public_banner' %>
 
 	<!-- Contenedor con padding-top para compensar navbar fijo y responsive en móviles -->
-	<div class="content-below-nav ubuntu_titulo" style="margin-left: 5%;font-size: 2rem; line-height: 1.2;">
-		<p>Software para la gestión integral de<br>
-		procedimientos de investigación y sanción<br>
-		Ley 21.643 (Ley Karin)</p>
-		<div class="my-3" style="font-size: 1.3rem; line-height: 1.3;">
-			<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-			Conozca en cualquier minuto el estado de avance de sus investigaciones<br>
-			<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-			Genere y envíe en un click notificaciones e información obligatoria del procedimiento.
+	<div class="content-below-nav ubuntu_titulo" style="margin-left: 5%; font-size: 2rem; line-height: 1.2;">
+	    <p>Software para la gestión integral de<br>
+	    procedimientos de investigación y sanción<br>
+	    Ley 21.643 (Ley Karin)</p>
+	</div>
+
+	<div class="row gx-1" style="margin-left: 5%;margin-right: 5%;margin-top: 3rem;">
+		<div class="col-lg-6 col-xs-12">
+			<p class="fs-5 fs-md-4 mb-3 mb-md-4 mx-3 mx-md-5">
+			    Laborsafe ha sido desarrollado por un equipo de abogados especialistas en Derecho del Trabajo y desarrolladores de software con vasta experiencia.
+			</p>
+			<p class="fs-5 fs-md-4 mb-3 mb-md-4 mx-3 mx-md-5">
+			    Un riguroso control documental, el registro exhaustivo de todos los hechos relevantes, la generación automática del 95% de los documentos requeridos y el envío trazable de notificaciones, citaciones e información obligatoria hacen de Laborsafe una herramienta especializada en el registro y control del procedimiento de investigación de la Ley 21.643.
+			</p>
+			<p class="fs-5 fs-md-4 mb-3 mb-md-4 mx-3 mx-md-5">
+			    Reportes anonimizados para visualizar el estado de avance, códigos QR para compartir información con los participantes y la anonimización de denuncias y declaraciones, entre otros recursos, simplifican significativamente las tareas complementarias a la ejecución del procedimiento.
+			</p>
+		    <div class="mb-3 mb-md-4 mx-3 mx-md-5" style="font-size: .9rem; line-height: 1.3;">
+		        
+		        <span class="me-2 text-primary flex-shrink-0">&#10003;</span>
+		        Control de plazos legales.<br>
+		        <span class="me-2 text-primary flex-shrink-0">&#10003;</span>
+		        Carpeta de investigación electrónica centralizada y trazable.<br>
+		        <span class="me-2 text-primary flex-shrink-0">&#10003;</span>
+		        Acceso controlado y modelo de confidencialidad.<br>
+		        <span class="me-2 text-primary flex-shrink-0">&#10003;</span>
+		        Incluye capacitación del personal del canal de denuncias.
+		    </div>
+		</div>
+		<div class="col-lg-6">
+      		<%= image_tag 'software.png', class: 'img-fluid w-100', style: 'display: block;', alt: 'Laborsafe' %>
+		</div>
+	</div>
+	<div class="row gx-1" style="margin-left: 5%;margin-right: 5%;">
+		<div class="col-lg-6 col-xs-12">
+			<p class="fs-5 fs-md-4 mb-3 mb-md-4 mx-3 mx-md-5">
+			    Los temas que presentan mayor dificultad en la práctica son: contar con un modelo de confidencialidad efectivo, y definir, implementar y modificar las medidas de resguardo mientras dura el procedimiento. Ambos desafíos exigen un tratamiento integral: protocolos claros, documentación con estándar legal sólido y un equipo debidamente formado y capacitado.
+			</p>
+			<p class="fs-5 fs-md-4 mb-3 mb-md-4 mx-3 mx-md-5">
+			    Por ello, nuestro modelo de implementación incluye consultoría para detectar brechas existentes y capacitación del equipo encargado.
+			</p>
+		</div>
+		<div class="col-lg-6">
+	        <p class="fs-4 fs-md-3 text-center fw-bold mb-3">
+	          ¡Solicite una presentación comercial!
+	        </p>
+
+	        <div class="px-1 px-sm-2">
+	          <%= render partial: prtl('com_requerimientos', nil, 'requerimiento') %>
+	        </div>
 		</div>
 	</div>
 
-	<div style="margin-left: 2rem;margin-right: 2rem;margin-top: 3rem;">
-		<div class="border rounded-2 p-2 text-center">
-			<h3>CARACTERÍSTICAS</h3>
-		</div>
-		<div class="mb-3" style="font-size: 1rem; line-height: 1.3;">
-			<div class="row gx-2" style="margin-left: 1px;margin-right: 1px;">
-				<div class="col-lg-6 col-xs-12 border rounded-2 p-3">
-					<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-					Control de plazos legales.<br>
-					<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-					Carpeta de investigación electrónica.<br>
-					<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-					Envío de notificaciones e información obligatoria vía email.<br>
-				</div>
-				<div class="col-lg-6 border rounded-2 p-3">
-					<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-					Documentación redactada por abogados especializados.<br>
-					<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-					Reportes anonimizados.<br>
-					<span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-					Anonimización de denuncias y declaraciones.<br>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
-<%= render partial: 'aplicacion/home/lbrsf' %>
+<%#= render partial: 'aplicacion/home/lbrsf' %>
 <%= render partial: 'aplicacion/home/public/alianzas' %>
