@@ -42,11 +42,8 @@
 	<% objt.doc_pagos.each do |pg| %>
 		<div>
 			<i class="bi bi-arrow-return-right"></i> 
-			<% documento = pg.ownr.class.name == 'DocEmitido' ? 'Factura' : 'Boleta' %>
-
-
 			<%= pg.titular_ownr %> <i class="bi bi-arrow-right"></i> 
-			[<%= pg.documento.ownr %> <%= pg.folio_referencia %>]: <%= s_pesos(pg.monto)%>
+			[<%= pg.documento_ownr %> <%= pg.folio_referencia %>]: <%= s_pesos(pg.monto)%>
 		</div>
 	<% end %>
 
