@@ -4,6 +4,21 @@ class DocPago < ApplicationRecord
 
   before_create :asignar_ownr
 
+  def documento_ownr
+    ownr.class.name == 'DocBoleta' ? 'Boleta' : 'Factura'
+  end
+
+  def titular_ownr
+    case ownr.class.name
+    when 'DocBoleta'
+      ownr.ownr.class.name == 'Proveedor' ? ownr.ownr.razon_social : ownr.ownr.nombre
+    when 'DocEmitido'
+      ownr.cliente.razon_social
+    when 'DocRecibido'
+      ownr.proveedor.razon_social
+    end
+  end
+
   private
 
   def asignar_ownr
@@ -38,21 +53,6 @@ class DocPago < ApplicationRecord
     else
       errors.add(:base, "No se pudo crear el registro porque no se encontró su ownr")
       throw(:abort)
-    end
-  end
-
-  def documento_ownr
-    ownr.class.name == 'DocBoleta' ? 'Boleta' : 'Factura'
-  end
-
-  def titular_ownr
-    case ownr.class.name
-    when 'DocBoleta'
-      ownr.ownr.class.name == 'Proveedor' ? ownr.ownr.razon_social : ownr.ownr.nombre
-    when 'DocEmitido'
-      ownr.cliente.razon_social
-    when 'DocRecibido'
-      ownr.proveedor.razon_social
     end
   end
 
