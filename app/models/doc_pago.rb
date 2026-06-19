@@ -18,11 +18,11 @@ class DocPago < ApplicationRecord
     # Buscar según el tipo de relacionable
     registro_encontrado = case relacionable
                           when Trabajador
-                            DocEmitido.find_by(folio: folio_referencia)
+                            relacionable.doc_boletas.find_by(numero: folio_referencia)
                           when Cliente
                             relacionable.doc_emitidos.find_by(folio: folio_referencia)
                           when Proveedor
-                            relacionable.doc_recibidos.find_by(folio: folio_referencia)
+                            relacionable.doc_recibidos.find_by(folio: folio_referencia) || relacionable.doc_boletas.find_by(numero: folio_referencia)
                           else
                             DocEmitido.find_by(folio: folio_referencia)
                           end
