@@ -41,4 +41,19 @@ class DocPago < ApplicationRecord
     end
   end
 
+  def documento_ownr
+    ownr.class.name == 'DocBoleta' ? 'Boleta' : 'Factura'
+  end
+
+  def titular_ownr
+    case ownr.class.name
+    when 'DocBoleta'
+      ownr.ownr.class.name == 'Proveedor' ? ownr.ownr.razon_social : ownr.ownr.nombre
+    when 'DocEmitido'
+      ownr.cliente.razon_social
+    when 'DocRecibido'
+      ownr.proveedor.razon_social
+    end
+  end
+
 end
