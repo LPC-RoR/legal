@@ -2,6 +2,8 @@ class DocBoleta < ApplicationRecord
   belongs_to :doc_honorario
   belongs_to :ownr, polymorphic: true, optional: true
 
+  has_many :doc_pagos, as: :ownr
+
   before_validation :normalizar_emisor_rut
 
   validates :numero, presence: true
