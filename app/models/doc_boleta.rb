@@ -20,6 +20,15 @@ class DocBoleta < ApplicationRecord
   scope :vigentes, -> { where(estado: 'VIGENTE') }
   scope :anuladas, -> { where(estado: 'ANULADA') }
 
+  def ownr_titular
+    case ownr_type
+    when 'Trabajador'
+      ownr.nombre
+    when 'Proveedor'
+      ownr.razon_social
+    end    
+  end
+
   def anulada?
     estado == 'ANULADA'
   end

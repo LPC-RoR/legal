@@ -1,5 +1,5 @@
 <tr>
-	<td><%= objt.numero %></td>
+	<td><%= link_to objt.numero, objt %></td>
 	<td><%= dma(objt.fecha) %></td>
 	<td>
 		<% if objt.ownr.present? %>
