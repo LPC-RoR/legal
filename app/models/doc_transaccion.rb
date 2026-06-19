@@ -15,8 +15,20 @@ class DocTransaccion < ApplicationRecord
   validates :descripcion, presence: true
 
   # Método para determinar el tipo de monto (positivo/negativo)
-  def tipo_monto
-    monto.negative? ? 'Negativo' : 'Positivo'
+  def clasifica_columna
+    if relacionable
+      if clasificacion.present?
+        clasificacion
+      else
+        relacionable.class.name
+      end
+    else
+      if clasificacion.present?
+        clasificacion
+      else
+        'Pendiente'
+      end
+    end
   end
 
   # Exportación a Excel
@@ -35,7 +47,7 @@ class DocTransaccion < ApplicationRecord
         sheet.add_row [
           transaccion.fecha&.strftime('%d/%m/%Y'),
           transaccion.descripcion,
-          transaccion.clasificacion,
+          transaccion.clasifica_columna,
           transaccion.monto,
           transaccion.tipo_movimiento
         ]
