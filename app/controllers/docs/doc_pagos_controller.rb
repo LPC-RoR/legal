@@ -25,7 +25,7 @@ class Docs::DocPagosController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto.doc_transaccion.relacionable, notice: "Doc pago was successfully created." }
+        format.html { redirect_to @objeto.doc_transaccion.relacionable, notice: "Asignación de transacción exitósamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class Docs::DocPagosController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(doc_pago_params)
-        format.html { redirect_to @objeto.doc_transaccion.relacionable, notice: "Doc pago was successfully updated." }
+        format.html { redirect_to @objeto.doc_transaccion.relacionable, notice: "Asignación de transacción exitósamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class Docs::DocPagosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to @objeto.doc_transaccion.relacionable, status: :see_other, notice: "Doc pago was successfully destroyed." }
+      format.html { redirect_to @objeto.doc_transaccion.relacionable, status: :see_other, notice: "Asignación de transacción exitósamente eliminada." }
       format.json { head :no_content }
     end
   end

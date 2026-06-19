@@ -10,6 +10,7 @@
 	<td><%= objt.emisor_nombre %></td>
 	<td class="text-end"><%= s_pesos(objt.brutos) %></td>
 	<td class="text-end"><%= s_pesos(objt.retenido) %></td>
-	<td class="text-end"><%= s_pesos(objt.pagado) %></td>
+	<td class="text-end text-<%=objt.doc_pagos.any? ? 'primary' : 'dark'%>">
+		<%= s_pesos(objt.pagado) %></td>
 	<td class="text-end objt_lnk"><%= render partial: '0p/tbl/lnks_e', locals: {objeto: objt} %></td>
 </tr>
