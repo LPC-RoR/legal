@@ -3,7 +3,7 @@
 
 <div class="m-2">
   <p>
-    <% if @objeto.cliente.present? %>
+    <% if @objeto.ownr.present? %>
       <i class="bi bi-check-circle"></i>
     <% end %>
     <%= @objeto.ownr.class.name %>: <strong><%= @objeto.ownr_titular %></strong><br>
