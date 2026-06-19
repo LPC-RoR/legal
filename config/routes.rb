@@ -96,6 +96,9 @@ Rails.application.routes.draw do
       member do
         post :vincular
       end
+      collection do
+        get :exportar  # si prefieres POST
+      end
     end
     resources :doc_cartolas do
       member do

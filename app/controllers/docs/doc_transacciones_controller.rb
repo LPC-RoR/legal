@@ -49,6 +49,19 @@ class Docs::DocTransaccionesController < ApplicationController
     end
   end
 
+  def exportar
+    fecha_inicio = Date.parse(params[:fecha_inicio])
+    fecha_termino = Date.parse(params[:fecha_termino])
+
+    package = DocTransaccion.exportar_a_excel(fecha_inicio, fecha_termino)
+
+    send_data package.to_stream.read,
+              filename: "transacciones_#{fecha_inicio}_#{fecha_termino}.xlsx",
+              type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  rescue ArgumentError => e
+    redirect_back fallback_location: root_path, alert: 'Fechas inválidas'
+  end
+
   def vincular
     @objeto = DocTransaccion.find(params[:id])
     

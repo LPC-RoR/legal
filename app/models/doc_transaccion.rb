@@ -14,6 +14,54 @@ class DocTransaccion < ApplicationRecord
   validates :monto, presence: true
   validates :descripcion, presence: true
 
+  # Método para determinar el tipo de monto (positivo/negativo)
+  def tipo_monto
+    monto.negative? ? 'Negativo' : 'Positivo'
+  end
+
+  # Exportación a Excel
+  def self.exportar_a_excel(fecha_inicio, fecha_termino)
+    transacciones = entre_fechas(fecha_inicio, fecha_termino)
+
+    package = Axlsx::Package.new
+    workbook = package.workbook
+
+    workbook.add_worksheet(name: 'Transacciones') do |sheet|
+      # Encabezados
+      sheet.add_row ['Fecha', 'Descripción', 'Clasificación', 'Monto', 'Tipo Monto']
+      
+      # Datos
+      transacciones.find_each do |transaccion|
+        sheet.add_row [
+          transaccion.fecha&.strftime('%d/%m/%Y'),
+          transaccion.descripcion,
+          transaccion.clasificacion,
+          transaccion.monto,
+          transaccion.tipo_movimiento
+        ]
+        transaccion.doc_pagos.each do |pg|
+          sheet.add_row [
+            'Análisis',
+            pg.titular_ownr,
+            "#{pg.documento_ownr} - #{pg.folio_referencia}",
+            pg.monto
+          ]
+        end
+        transaccion.doc_notas.each do |nt|
+          sheet.add_row [
+            'Nota',
+            nt.nota
+          ]
+        end
+      end
+
+      # Estilos opcionales
+      sheet.column_widths 15, 40, 20, 15, 15
+    end
+
+    package
+  end
+
   # Busca y vincula la transacción con Cliente, Proveedor o Trabajador
   def vincular!
     return if descripcion_rut.blank?
