@@ -5,6 +5,7 @@ class Organizacion::ServiciosController < ApplicationController
   include Tarifas
 
   def aprobacion
+    # id de la causa
     @indice = params[:indice]
     @objeto = TarAprobacion.find(params[:indice])
     set_tabla('tar_facturaciones', @objeto.tar_facturaciones, false)
