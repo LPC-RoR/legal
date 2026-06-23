@@ -28,6 +28,19 @@
               <%= link_to 'Laborsafe', '/laborsafe', class: 'nav-link fs-6' %>
             </li>
           <% end %>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Guías Ley Karin
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/guias?p=plzs">Plazos legales</a></li>
+              <!--li><a class="dropdown-item" href="/guias?p=rcpcn">Recepción de denuncias</a></li-->
+              <!--li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li-->
+            </ul>
+          </li>
+
           <%# unless action_name == 'equipo' %>
             <!--li class="nav-item">
               <%#= link_to 'Nuestro equipo', '/equipo', class: 'nav-link fs-6' %>

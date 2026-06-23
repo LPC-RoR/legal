@@ -513,9 +513,10 @@ Rails.application.routes.draw do
   
   root 'aplicacion/home#index'
 
-  get 'laborsafe', to: 'aplicacion/home#laborsafe'
-  get 'equipo',    to: 'aplicacion/home#equipo'
-  get 'blog',      to: 'aplicacion/home#blog'
+  get 'laborsafe',  to: 'aplicacion/home#laborsafe'
+  get 'guias',      to: 'aplicacion/home#guias'
+  get 'equipo',     to: 'aplicacion/home#equipo'
+  get 'blog',       to: 'aplicacion/home#blog'
 
   # manejo formulario de registro de empresas
   post '/register', to: 'empresas#create', as: 'register'

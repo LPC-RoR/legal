@@ -82,9 +82,20 @@ class Aplicacion::HomeController < ApplicationController
 	end
 
 	def laborsafe
-		@hoy	 		= Date.today
-		@hbls_30 	= CalFeriado.plazo_habil(@hoy, 30)
-		@crrds_30 	= CalFeriado.plazo_corrido(@hoy, 30)
+		@objeto = Empresa.new
+		@req = ComRequerimiento.new
+
+		render layout: 'public'
+	end
+
+	def guias
+		@p = params[:p]
+
+		if params[:p] == 'plzs'
+			@hoy	 		= Date.today
+			@hbls_30 	= CalFeriado.plazo_habil(@hoy, 30)
+			@crrds_30 	= CalFeriado.plazo_corrido(@hoy, 30)
+		end
 
 		@objeto = Empresa.new
 		@req = ComRequerimiento.new
