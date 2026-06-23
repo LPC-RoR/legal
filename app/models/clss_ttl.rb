@@ -32,7 +32,7 @@ class ClssTtl < ApplicationRecord
 				rndd: "rounded-3",
 				fnt: "fs-5",
 #				bg_crl: "bg-secondary-subtle",
-				clr: "text-secondary",
+#				clr: "text-secondary",
 				lnks: "app_lnk",
 				styl: "margin-left: 1px;margin-right: 1px; margin-bottom: 1px;"
 			},
