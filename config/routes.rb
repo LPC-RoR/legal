@@ -450,6 +450,8 @@ Rails.application.routes.draw do
     resources :tar_uf_sistemas
     resources :tar_detalles
     resources :tar_facturaciones do
+      match :swtch, via: :post, on: :member
+      # Más nueva aún
       match :facturable, via: :get, on: :member
       match :facturar, via: :get, on: :member
       # nueva lógica

@@ -1,0 +1,15 @@
+<% prmpt ||= nil %>
+<% clr   ||= nil %>
+
+<%#      En orden de llenado, inicialmente es nil => false ['false', true] %>
+<% glys  ||= ['square', 'check2-square'] %>
+<% tltps ||= ['Marcar como verdadero', 'Marcar como falso'] %>
+
+<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(objeto)}/#{objeto.id}/swtch?tkn=#{tkn}", tltp: "Marcar como #{objeto.send(tkn) ? stts[0] : stts[1]}", data: {turbo_method: :post}} do %>
+	<% if objeto.send(tkn) %>
+		<i class="bi bi-<%=glys[0]%> text-<%=clr%>"></i>
+	<% else %>
+		<i class="bi bi-<%=glys[1]%> text-<%=clr%>"></i>
+	<% end %>
+	<%= prmpt %>
+<% end %>

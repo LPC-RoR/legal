@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_24_010626) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_24_154835) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1574,9 +1574,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_24_010626) do
     t.decimal "monto_parcial"
     t.decimal "porcentaje"
     t.bigint "cli_aprobacion_id"
+    t.boolean "facturado"
     t.index ["cli_aprobacion_id"], name: "index_tar_facturaciones_on_cli_aprobacion_id"
     t.index ["codigo_formula"], name: "index_tar_facturaciones_on_codigo_formula"
     t.index ["facturable"], name: "index_tar_facturaciones_on_facturable"
+    t.index ["facturado"], name: "index_tar_facturaciones_on_facturado"
     t.index ["moneda"], name: "index_tar_facturaciones_on_moneda"
     t.index ["ownr_id"], name: "index_tar_facturaciones_on_ownr_id"
     t.index ["ownr_type"], name: "index_tar_facturaciones_on_ownr_type"
