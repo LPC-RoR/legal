@@ -25,7 +25,7 @@ class CliAprobacionesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Cli aprobacion was successfully created." }
+        format.html { redirect_to @objeto.cliente, notice: "Aprobacion fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class CliAprobacionesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(cli_aprobacion_params)
-        format.html { redirect_to @objeto, notice: "Cli aprobacion was successfully updated." }
+        format.html { redirect_to @objeto.cliente, notice: "Aprobacion fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -61,7 +61,7 @@ class CliAprobacionesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to cli_aprobaciones_path, status: :see_other, notice: "Cli aprobacion was successfully destroyed." }
+      format.html { redirect_to @objeto.cliente, status: :see_other, notice: "Aprobacion fue exitosamente eliminada." }
       format.json { head :no_content }
     end
   end
