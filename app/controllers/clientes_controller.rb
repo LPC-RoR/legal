@@ -105,10 +105,6 @@ class ClientesController < ApplicationController
     elsif @options[:menu] == 'Aprobaciones'
       @clccn = @objeto.cli_aprobaciones.order(fecha: :desc)
       @fctrcns = @objeto.tar_facturaciones.sin_aprobar.order(created_at: :desc)
-      @debug_ids = @fctrcns.pluck(:id, :tar_aprobacion_id, :cli_aprobacion_id, :facturado)
-
-      # Verificar que NINGUNO tenga tar_aprobacion_id
-      @con_aprobacion = @fctrcns.where.not(tar_aprobacion_id: nil)
     elsif @options[:menu] == 'Facturas'
 
       @causas_revision = @objeto.causas.revision
