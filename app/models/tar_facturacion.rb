@@ -11,7 +11,12 @@ class TarFacturacion < ApplicationRecord
 
 	belongs_to :cli_aprobacion, optional: true
 
-	scope :sin_aprobar, -> { where(tar_aprobacion_id: nil, cli_aprobacion_id: nil, facturado: [nil, false]) }
+	scope :sin_aprobar, -> { 
+	  joins(:tar_calculo)
+	    .where(tar_calculos: { tar_aprobacion_id: nil })
+	    .where(cli_aprobacion_id: nil)
+	    .where(facturado: [nil, false])
+	}
 
 	# Scope para obtener facturaciones de un cliente específico sin aprobar
 	scope :sin_aprobar_de_cliente, ->(cliente_id) {
