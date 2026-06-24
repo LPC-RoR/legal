@@ -20,6 +20,7 @@ class TarFacturacion < ApplicationRecord
 
 		sin_aprobar.where(tar_calculo_id: calculos_ids)
 	}
+	scope :no_facturado, -> { where(facturado: [nil, false]) }
 
 	before_save :procesar_campos, if: -> { tipo_monto.present? }
 
