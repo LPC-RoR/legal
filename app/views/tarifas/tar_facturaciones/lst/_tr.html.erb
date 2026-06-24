@@ -1,0 +1,11 @@
+<tr>
+	<td><%= objt.ownr.class.name unless objt.ownr_id.blank? %></td>
+	<td class="text-end fw-bold">
+		<%= s_uf(objt.monto_uf) %>
+		<i class="bi bi-arrow-left-right"></i>
+		<%= s_pesos(objt.monto_pesos) %>
+	</td>
+	<td class="text-end">
+		<%= render partial: '0p/lnks_e', locals: {objeto: objt} %>
+	</td>
+</tr>
