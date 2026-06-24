@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_18_210454) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_24_010626) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -504,6 +504,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_18_210454) do
     t.index ["ownr_type"], name: "index_check_realizados_on_ownr_type"
     t.index ["rlzd"], name: "index_check_realizados_on_rlzd"
     t.index ["usuario_id"], name: "index_check_realizados_on_usuario_id"
+  end
+
+  create_table "cli_aprobaciones", force: :cascade do |t|
+    t.date "fecha", null: false
+    t.bigint "cliente_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id", "fecha"], name: "index_cli_aprobaciones_on_cliente_id_and_fecha", unique: true
+    t.index ["cliente_id"], name: "index_cli_aprobaciones_on_cliente_id"
   end
 
   create_table "clientes", force: :cascade do |t|
@@ -1564,6 +1573,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_18_210454) do
     t.string "tipo_monto"
     t.decimal "monto_parcial"
     t.decimal "porcentaje"
+    t.bigint "cli_aprobacion_id"
+    t.index ["cli_aprobacion_id"], name: "index_tar_facturaciones_on_cli_aprobacion_id"
     t.index ["codigo_formula"], name: "index_tar_facturaciones_on_codigo_formula"
     t.index ["facturable"], name: "index_tar_facturaciones_on_facturable"
     t.index ["moneda"], name: "index_tar_facturaciones_on_moneda"
@@ -1855,54 +1866,12 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_18_210454) do
     t.index ["usuario_id"], name: "index_usuarios_roles_on_usuario_id"
   end
 
-  create_table "valores", force: :cascade do |t|
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.integer "variable_id"
-    t.string "c_string"
-    t.text "c_text"
-    t.datetime "c_fecha", precision: nil
-    t.decimal "c_numero"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.boolean "c_booleano"
-    t.index ["ownr_id"], name: "index_valores_on_ownr_id"
-    t.index ["ownr_type"], name: "index_valores_on_ownr_type"
-    t.index ["variable_id"], name: "index_valores_on_variable_id"
-  end
-
-  create_table "var_clis", force: :cascade do |t|
-    t.integer "variable_id"
-    t.integer "cliente_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["cliente_id"], name: "index_var_clis_on_cliente_id"
-    t.index ["variable_id"], name: "index_var_clis_on_variable_id"
-  end
-
-  create_table "variables", force: :cascade do |t|
-    t.string "tipo"
-    t.string "variable"
-    t.string "control"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "orden"
-    t.string "descripcion"
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.index ["control"], name: "index_variables_on_control"
-    t.index ["descripcion"], name: "index_variables_on_descripcion"
-    t.index ["orden"], name: "index_variables_on_orden"
-    t.index ["ownr_id"], name: "index_variables_on_ownr_id"
-    t.index ["ownr_type"], name: "index_variables_on_ownr_type"
-    t.index ["tipo"], name: "index_variables_on_tipo"
-  end
-
   add_foreign_key "act_archivos", "act_archivos", column: "anonimizado_de_id"
   add_foreign_key "act_metadatas", "act_archivos"
   add_foreign_key "act_textos", "act_archivos"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cli_aprobaciones", "clientes"
   add_foreign_key "doc_boletas", "doc_honorarios"
   add_foreign_key "doc_cartolas", "doc_cuentas"
   add_foreign_key "doc_cuentas", "doc_bancos"
@@ -1915,5 +1884,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_18_210454) do
   add_foreign_key "responsable_actividades", "usuarios"
   add_foreign_key "responsable_notas", "notas"
   add_foreign_key "responsable_notas", "usuarios"
+  add_foreign_key "tar_facturaciones", "cli_aprobaciones"
   add_foreign_key "usuarios", "tenants"
 end

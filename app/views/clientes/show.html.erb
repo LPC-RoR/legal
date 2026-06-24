@@ -14,6 +14,20 @@
 		<%= render partial: 'causas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 	<% when 'Asesorias' %>
 		<%= render partial: prtl_name('asesorias', 'indx', 'indx'), locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+	<% when 'Aprobaciones' %>
+		<div class="row gx-1">
+			<div class="col-lg-6 col-xs-12">
+				<%= render partial: '0p/ttl_clss', locals: {source: 'cli_aprobaciones', clss: :gray, dir: 'indx'} %>
+				<%= render partial: 'layouts/partials/notice_alert' if controller_name == 'causas' %>
+
+				<%= render partial: '0p/tbl_clss', locals: {source: 'cli_aprobaciones', clccn: @clccn, typ: 'ln'} %>	
+			</div>
+			<div class="col-lg-6">
+				<%= render partial: '0p/ttl_clss', locals: {source: 'tar_facturaciones', clss: :gray, dir: 'indx', hide_lnks: true} %>
+
+				<%= render partial: '0p/tbl_clss', locals: {source: 'tar_facturaciones', clccn: @fctrcns} %>	
+			</div>
+		</div>
 	<% when 'Facturas' %>
 		<h4>Revisión de facturas</h4>
 		<% @causas_revision.each do |causa| %>

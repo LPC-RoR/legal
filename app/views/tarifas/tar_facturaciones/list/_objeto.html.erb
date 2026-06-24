@@ -1,11 +1,42 @@
 <small>
-<div class="list-item">
+	<div class="row gx-1 mx-4 objt_lnk">
+		<div class="col-2">
+			<%= objeto.ownr.class.name unless objeto.ownr_id.blank? %> : 
+			<%# case objeto.ownr.class.name %>
+			<%# when 'Causa' %>
+				<%#= link_to objeto.ownr.rit, "/causas/#{objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos" %> <%#= objeto.ownr.causa %>
+			<%# when 'TarServicio' %>
+				<%#= link_to objeto.ownr.codigo, objeto.ownr %> <%#= objeto.ownr.descripcion %>
+			<%# when 'RegReporte' %>
+				<%#= link_to objeto.ownr.nombre_padre, objeto.ownr %>
+			<%# when 'Asesoria' %>
+				<%#= link_to objeto.ownr.descripcion, objeto.ownr %>
+			<%# end %>
+		</div>
+		<div class="col-6">
+			<% case objeto.ownr.class.name %>
+			<% when 'Causa' %>
+				<%= objeto.glosa %>
+				<%#= objeto.tar_pago.tar_pago %> 
+			<% when 'Asesoria' %>
+				<%= "Asesoría #{objeto.ownr.tipo_asesoria.tipo_asesoria}" %>
+			<% end %>
+		</div>
+		<div class="col-4 text-end">
+			<b>
+			<%= s_uf(objeto.monto_uf) %>
+			<i class="bi bi-arrow-left-right"></i>
+			<%= s_pesos(objeto.monto_pesos) %>
+			</b>
+		</div>
+	</div>
+<!--div class="list-item"-->
 
-	<%= render partial: 'tarifas/tar_facturaciones/list/pago', locals: {objeto: objeto} %>
+	<%#= render partial: 'tarifas/tar_facturaciones/list/pago', locals: {objeto: objeto} %>
 
-	<%= render partial: 'tarifas/tar_facturaciones/list/owner', locals: {objeto: objeto} %>
+	<%#= render partial: 'tarifas/tar_facturaciones/list/owner', locals: {objeto: objeto} %>
 
-	<%= render partial: 'tarifas/tar_facturaciones/list/bottom_links', locals: {objeto: objeto} %>
+	<%#= render partial: 'tarifas/tar_facturaciones/list/bottom_links', locals: {objeto: objeto} %>
 
-</div>
+<!--/div-->
 </small>

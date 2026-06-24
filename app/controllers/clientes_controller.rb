@@ -2,7 +2,7 @@ class ClientesController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_cliente, only: %i[ show edit update destroy swtch_stt cambio_estado crea_factura aprueba_factura swtch_urgencia swtch_pendiente ]
+  before_action :set_cliente, only: %i[ show edit update destroy crear_aprobacion swtch_stt cambio_estado crea_factura aprueba_factura swtch_urgencia swtch_pendiente ]
   after_action :rut_puro, only: %i[ create update ]
 
   layout 'addt'
@@ -33,8 +33,6 @@ class ClientesController < ApplicationController
 
     @scp = scp_item[:clientes][scp.to_sym]
 
-    @vrbls = Variable.all.order(:variable)
-
     set_tabla('clientes', cllcn, true)
 
   end
@@ -46,7 +44,7 @@ class ClientesController < ApplicationController
     @actvdds  = @objeto.age_actividades.fecha_ordr
     
     set_st_estado(@objeto)
-    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Conciliar', current_usuario.admin?]] )
+    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Aprobaciones', finanzas?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Conciliar', current_usuario.admin?]] )
 
     @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
     @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
@@ -55,10 +53,6 @@ class ClientesController < ApplicationController
 
       set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
 
-      # DEPRECATED : Se debe migrar a la otra tabla
-      # Hay que borrar los archivos asociados (a todos los clientes les faltan los archivos, no tiene sentido conservar estructura para verificar)
-#      set_tabla('app_archivos', @objeto.as, false)
-
     elsif @options[:menu] == 'Causas'
 
       @usrs = Usuario.where(tenant_id: nil)
@@ -66,23 +60,21 @@ class ClientesController < ApplicationController
       scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
       @scp = scp_item[:causas][scp.to_sym]
 
-    # **APLICAR SCOPE PRIMERO**
-    cllcn = if params[:query].present?
-              Causa.search_for(params[:query])
-            else
-              case scp
-              when 'trmtcn'    then @objeto.causas.std_oprtv('tramitacion')
-              when 'archvd'    then @objeto.causas.std_oprtv('archivada')
-              when 'rcnts'     then @objeto.causas.rcnts
-              when 'vacios'    then @objeto.causas.std_oprtv('tramitacion').std_fnncr('sin_cobros')
-              when 'incmplt'   then @objeto.causas.std_oprtv('tramitacion').std_fnncr('con_cobros')
-              when 'cmplt'     then @objeto.causas.std_oprtv('tramitacion').std_fnncr('cobrada')
-              when 'anno'      then @objeto.causas.por_ano(2025)
+      # **APLICAR SCOPE PRIMERO**
+      cllcn = if params[:query].present?
+                Causa.search_for(params[:query])
+              else
+                case scp
+                when 'trmtcn'    then @objeto.causas.std_oprtv('tramitacion')
+                when 'archvd'    then @objeto.causas.std_oprtv('archivada')
+                when 'rcnts'     then @objeto.causas.rcnts
+                when 'vacios'    then @objeto.causas.std_oprtv('tramitacion').std_fnncr('sin_cobros')
+                when 'incmplt'   then @objeto.causas.std_oprtv('tramitacion').std_fnncr('con_cobros')
+                when 'cmplt'     then @objeto.causas.std_oprtv('tramitacion').std_fnncr('cobrada')
+                when 'anno'      then @objeto.causas.por_ano(2025)
+                end
               end
-            end
 
-#      set_tabla('causas', cllcn, true)
-#      @causas = cllcn.index_page(params[:page])
       @causas = params[:query].present? ? cllcn : cllcn.with_paginated_calculos(params[:page])
 
     elsif @options[:menu] == 'Asesorias'
@@ -110,6 +102,9 @@ class ClientesController < ApplicationController
 
       set_tabla('asesorias', cllcn, true)
 
+    elsif @options[:menu] == 'Aprobaciones'
+      @clccn = @objeto.cli_aprobaciones.order(fecha: :desc)
+      @fctrcns = @objeto.tar_facturaciones.no_aprbcn.sin_aprobar
     elsif @options[:menu] == 'Facturas'
 
       @causas_revision = @objeto.causas.revision
@@ -143,6 +138,16 @@ class ClientesController < ApplicationController
     elsif @options[:menu] == 'Conciliar'
       @trnsccns       = @objeto.doc_transacciones.order(fecha: :desc)
       @doc_emitidos   = @objeto.doc_emitidos.order(fecha_emision: :desc)
+    end
+  end
+
+  def crear_aprobacion
+    @aprobacion = @objeto.cli_aprobaciones.build(fecha: Date.current)
+
+    if @aprobacion.save
+      redirect_to cliente_path(@cliente), notice: "Aprobación del #{l(Date.current, format: :long)} creada exitosamente. Se asociaron #{@aprobacion.tar_facturaciones.count} facturaciones."
+    else
+      redirect_to cliente_path(@cliente), alert: @aprobacion.errors.full_messages.to_sentence
     end
   end
 

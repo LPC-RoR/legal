@@ -1,6 +1,7 @@
 class TarFacturacion < ApplicationRecord
 
 	belongs_to :tar_factura, optional: true
+	# DEPRECATED
 	belongs_to :tar_aprobacion, optional: true
 	belongs_to :tar_pago, optional: true
 	belongs_to :tar_cuota, optional: true
@@ -8,8 +9,21 @@ class TarFacturacion < ApplicationRecord
 
 	belongs_to :ownr, polymorphic: true
 
+	belongs_to :cli_aprobacion, optional: true
+
+	scope :sin_aprobar, -> { where(cli_aprobacion_id: nil) }
+
+	# Scope para obtener facturaciones de un cliente específico sin aprobar
+	scope :sin_aprobar_de_cliente, ->(cliente_id) {
+		causas_ids = Causa.where(cliente_id: cliente_id).pluck(:id)
+		calculos_ids = TarCalculo.where(ownr_type: 'Causa', ownr_id: causas_ids).pluck(:id)
+
+		sin_aprobar.where(tar_calculo_id: calculos_ids)
+	}
+
 	before_save :procesar_campos
 
+	# DEPRECATED
 	scope :no_aprbcn, -> { where(tar_aprobacion_id: nil) }
 	scope :dspnbls, -> {where(tar_aprobacion_id: nil, tar_factura_id: nil)}
 
@@ -18,9 +32,6 @@ class TarFacturacion < ApplicationRecord
 	# Dejamos el campo facturable por si lo necesitamos en los casos en los que tar_pago_id == nil
 
 	# DEPRECATED: Es necesario para diferenciar el caso de las tarifas por hora. Se puede cambiar para que padre == ownr
-#	def padre
-#		self.owner_id.blank? ? nil : (self.owner_class == 'RegReporte' ? self.owner_class.constantize.find(self.owner_id).owner : self.owner_class.constantize.find(self.owner_id))
-#	end
 	# ******************************************************************************** Manejo de Tarifas
 
 	# /legal/app/controllers/organizacion/servicios_controller.rb:

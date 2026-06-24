@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :cli_aprobaciones
   resources :proveedores
   resources :trabajadores
   # Verificación de correos electrónicos de participantes
@@ -53,6 +54,9 @@ Rails.application.routes.draw do
     end
   end
   resources :clientes do
+    member do
+      post :crear_aprobacion
+    end
     resources :tenant_usuarios, only: %i[index update], controller: 'tenant_usuarios'
     match :swtch_stt, via: :post, on: :member
     # ------------------------------------------
@@ -249,18 +253,6 @@ Rails.application.routes.draw do
     resources :monto_conciliaciones
     resources :estados
     resources :tribunal_cortes
-  end
-
-  # Usado para poner las entidades necesarias para mantener Variables y su relación con causas y clientes
-  scope module: 'dts' do
-    resources :variables do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-    resources :valores do
-      match :nuevo, via: :get, on: :collection
-    end
-    resources :var_clis
   end
 
   scope module: 'actividades' do 

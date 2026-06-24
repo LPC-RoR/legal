@@ -33,9 +33,13 @@ class Causa < ApplicationRecord
 
 	has_many :age_actividades, as: :ownr, dependent: :destroy
 	has_many :tar_calculos, as: :ownr
-	has_many :tar_facturaciones, as: :ownr
+	# Verificar que se puede acceder desde Causa con la otra opción.
+#	has_many :tar_facturaciones, as: :ownr
 	has_many :tar_uf_facturaciones, as: :ownr
 	has_many :tar_fecha_calculos, as: :ownr
+	has_many :tar_calculos, as: :ownr, dependent: :destroy
+	has_many :tar_facturaciones, through: :tar_calculos
+
 
 	has_many :krn_textos, as: :ownr, dependent: :destroy
 	accepts_nested_attributes_for :krn_textos, allow_destroy: true

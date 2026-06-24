@@ -21,7 +21,10 @@ class Cliente < ApplicationRecord
 
 	has_many :tar_tarifas, as: :ownr
 	has_many :tar_servicios, as: :ownr
+	# DEPRECATED
 	has_many :tar_aprobaciones
+
+	has_many :tar_facturaciones, through: :causas
 
 	has_many :doc_emitidos
 	has_many :doc_transacciones, as: :relacionable
@@ -35,6 +38,8 @@ class Cliente < ApplicationRecord
 	has_many :app_contactos, as: :ownr
 	has_many :app_archivos, as: :ownr
 	has_many :notas, as: :ownr
+
+	has_many :cli_aprobaciones, dependent: :destroy
 
     validates_presence_of :rut, :razon_social, :tipo_cliente
 
@@ -77,6 +82,19 @@ class Cliente < ApplicationRecord
 	  aasm(proceso.to_sym).fire!(evento.to_sym)
 	end
     # ---------------------------------------------------------------- ESTADOS con AASM (FIN)
+
+    # ---------------------------------------------------------------- CliAprobacion
+
+	def crear_aprobacion(fecha: Date.current)
+		cli_aprobaciones.create!(fecha: fecha)
+	end
+
+	def facturaciones_pendientes
+		causas_ids = causas.pluck(:id)
+		calculos_ids = TarCalculo.where(ownr_type: 'Causa', ownr_id: causas_ids).pluck(:id)
+
+		TarFacturacion.where(cli_aprobacion_id: nil, tar_calculo_id: calculos_ids)
+	end
 
     # Procedimiento Investigación y Sanción
 
