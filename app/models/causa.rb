@@ -413,22 +413,37 @@ class Causa < ApplicationRecord
 		self.app_archivos.find_by(app_archivo: app_archivo)
 	end
 
+	# ----------------------------------------------------------------------------------------- DESPLPIEGUE APROBACION
+
+	def dsply_fecha_uf(codigo_formula)
+		fecha = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)&.fecha
+		fecha ||= tar_calculos.find_by(codigo_formula: codigo_formula)&.fecha_uf
+		fecha ||= Time.zone.today.to_date
+		fecha
+	end
+
+	def dsply_valor_uf(codigo_formula)
+		TarUfSistema.find_by(fecha: dsply_fecha_uf(codigo_formula))&.valor
+	end
+
+	def dsply_origen_uf(codigo_formula)
+		objt = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)
+		objt ||= tar_calculos.find_by(codigo_formula: codigo_formula)
+		objt ? (objt.class == TarFechaCalculo ? 'Uf asignada para el cálculo' : 'UF de la fecha de cálculo') : 'UF del día'
+	end
 	# ----------------------------------------------------------------------------------------- CUANTIA
 	# Al momento de de crear un TarCalculo no pueden existir TarCalculo o TarFactutacion con el mismo codigo_formula
 	# Hay que revisar despliegue en Aprobación de pagos para corregir el uso de este método
 	def calc_fecha_uf(codigo_formula)
 		fecha = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)&.fecha
 #		fecha ||= tar_calculos.find_by(codigo_formula: codigo_formula)&.fecha_uf
-#		fecha ||= tar_facturaciones.find_by(codigo_formula: codigo_formula)&.fecha_uf
 		fecha ||= Time.zone.today.to_date
 		fecha
 	end
 
 	def calc_origen_uf(codigo_formula)
 		objt = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)
-		objt ||= tar_calculos.find_by(codigo_formula: codigo_formula)
-		objt ||= tar_facturaciones.find_by(codigo_formula: codigo_formula)
-		objt ? (objt.class == TarFechaCalculo ? 'Uf asignada para el cálculo' : 'UF de la fecha de cálculo') : 'UF del día'
+		objt ? 'Uf asignada para el cálculo' : 'UF del día'
 	end
 
 	# calc_fecha_uf en el peor de los casos es igual a la fecha de hoy
