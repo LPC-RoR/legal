@@ -104,7 +104,7 @@ class ClientesController < ApplicationController
 
     elsif @options[:menu] == 'Aprobaciones'
       @clccn = @objeto.cli_aprobaciones.order(fecha: :desc)
-      @fctrcns = @objeto.tar_facturaciones.no_facturado.no_aprbcn.sin_aprobar.order(created_at: :desc)
+      @fctrcns = @objeto.tar_facturaciones.no_facturado.sin_aprobar.order(created_at: :desc)
     elsif @options[:menu] == 'Facturas'
 
       @causas_revision = @objeto.causas.revision
