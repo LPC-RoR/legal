@@ -21,7 +21,7 @@ class TarFacturacion < ApplicationRecord
 		sin_aprobar.where(tar_calculo_id: calculos_ids)
 	}
 
-	before_save :procesar_campos
+	before_save :procesar_campos, if: -> { tipo_monto.present? }
 
 	# DEPRECATED
 	scope :no_aprbcn, -> { where(tar_aprobacion_id: nil) }
