@@ -15,6 +15,9 @@
 	<% when 'Asesorias' %>
 		<%= render partial: prtl_name('asesorias', 'indx', 'indx'), locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 	<% when 'Aprobaciones' %>
+		<%= @debug_ids.inspect %>
+		<br>
+		Con aprobacion: <%= @con_aprobacion.count %>
 		<div class="row gx-1">
 			<div class="col-lg-6 col-xs-12">
 				<%= render partial: '0p/ttl_clss', locals: {source: 'cli_aprobaciones', clss: :gray, dir: 'indx'} %>
