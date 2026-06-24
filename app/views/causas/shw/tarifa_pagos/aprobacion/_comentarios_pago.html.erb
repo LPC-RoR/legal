@@ -1,8 +1,8 @@
 <!-- Version 2.0 OK -->
 <%# Rev: 20-05-2026 %>
 <% if pago.valor.blank? %>
-	<div class="px-2">
-		<p><b>Detalle aplicación de tarifa</b></p>
+	<div class="mt-2 px-2">
+		<b>Detalle aplicación de tarifa</b>
 	</div>
 	
 	<!-- APLICA sólo si hay un pago -->
@@ -10,7 +10,7 @@
 		<% cmntrs = ClssTarifa.cmntrs_que_aplican(causa, pago) %>
 		<% cmntrs.each do |com| %>
 
-			<div class="row gx-1 mx-2 open-sans-regular">
+			<div class="row gx-1 mx-3 open-sans-regular" style="font-size: .6rem;line-height: 1.2;">
 				<div class="col-8">
 					<% if com[1] == 'cmntr' %>
 						<i class="bi bi-lightbulb"></i>
