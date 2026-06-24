@@ -24,9 +24,9 @@
 		</div>
 		<div class="col-4 text-end">
 			<b>
-			<%= s_uf(objeto.monto_uf) %>
-			<i class="bi bi-arrow-left-right"></i>
-			<%= s_pesos(objeto.monto_pesos) %>
+			<%#= s_uf(objeto.monto_uf) %>
+			<!--i class="bi bi-arrow-left-right"></i-->
+			<%= s_pesos(objeto.monto) %>
 			</b>
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_facturaciones/#{objeto.id}/niler?tkn=cli_aprobacion_id", tltp: 'Libera pago', data: {turbo_method: :post}} do %>
 				<i class="bi bi-arrow-counterclockwise"></i>
