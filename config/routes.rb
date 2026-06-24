@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :cli_aprobaciones
+  resources :cli_aprobaciones do
+    member do
+      post :liberar_pagos
+    end
+  end
   resources :proveedores
   resources :trabajadores
   # Verificación de correos electrónicos de participantes

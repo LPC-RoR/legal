@@ -1,9 +1,9 @@
 class CliAprobacionesController < ApplicationController
-  before_action :set_cli_aprobacion, only: %i[ show edit update destroy ]
+  before_action :set_cli_aprobacion, only: %i[ show edit update destroy liberar_pagos ]
 
   # GET /cli_aprobaciones or /cli_aprobaciones.json
   def index
-    @cli_aprobaciones = CliAprobacion.all
+    @clccn = CliAprobacion.all
   end
 
   # GET /cli_aprobaciones/1 or /cli_aprobaciones/1.json
@@ -12,7 +12,7 @@ class CliAprobacionesController < ApplicationController
 
   # GET /cli_aprobaciones/new
   def new
-    @cli_aprobacion = CliAprobacion.new
+    @objeto = CliAprobacion.new
   end
 
   # GET /cli_aprobaciones/1/edit
@@ -21,15 +21,15 @@ class CliAprobacionesController < ApplicationController
 
   # POST /cli_aprobaciones or /cli_aprobaciones.json
   def create
-    @cli_aprobacion = CliAprobacion.new(cli_aprobacion_params)
+    @objeto = CliAprobacion.new(cli_aprobacion_params)
 
     respond_to do |format|
-      if @cli_aprobacion.save
-        format.html { redirect_to @cli_aprobacion, notice: "Cli aprobacion was successfully created." }
-        format.json { render :show, status: :created, location: @cli_aprobacion }
+      if @objeto.save
+        format.html { redirect_to @objeto, notice: "Cli aprobacion was successfully created." }
+        format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @cli_aprobacion.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -37,19 +37,28 @@ class CliAprobacionesController < ApplicationController
   # PATCH/PUT /cli_aprobaciones/1 or /cli_aprobaciones/1.json
   def update
     respond_to do |format|
-      if @cli_aprobacion.update(cli_aprobacion_params)
-        format.html { redirect_to @cli_aprobacion, notice: "Cli aprobacion was successfully updated." }
-        format.json { render :show, status: :ok, location: @cli_aprobacion }
+      if @objeto.update(cli_aprobacion_params)
+        format.html { redirect_to @objeto, notice: "Cli aprobacion was successfully updated." }
+        format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @cli_aprobacion.errors, status: :unprocessable_entity }
+        format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  def liberar_pagos
+    @objeto.tar_facturaciones.each do |pago|
+      pago.cli_aprobacion_id = nil
+      pago.save
+    end
+
+    redirect_to @objeto.cliente
+  end
+
   # DELETE /cli_aprobaciones/1 or /cli_aprobaciones/1.json
   def destroy
-    @cli_aprobacion.destroy!
+    @objeto.destroy!
 
     respond_to do |format|
       format.html { redirect_to cli_aprobaciones_path, status: :see_other, notice: "Cli aprobacion was successfully destroyed." }
@@ -60,7 +69,7 @@ class CliAprobacionesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cli_aprobacion
-      @cli_aprobacion = CliAprobacion.find(params.expect(:id))
+      @objeto = CliAprobacion.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
