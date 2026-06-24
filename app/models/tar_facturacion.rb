@@ -7,7 +7,7 @@ class TarFacturacion < ApplicationRecord
 	belongs_to :tar_cuota, optional: true
 	belongs_to :tar_calculo, optional: true
 
-	belongs_to :ownr, polymorphic: true
+	belongs_to :ownr, polymorphic: true, optional: true
 
 	belongs_to :cli_aprobacion, optional: true
 

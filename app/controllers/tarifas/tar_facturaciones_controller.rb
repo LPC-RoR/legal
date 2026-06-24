@@ -17,9 +17,10 @@ class Tarifas::TarFacturacionesController < ApplicationController
     case params[:code]
     when 'clcl'
       calculo = TarCalculo.find(params[:bid])
-      ownr    = calculo.ownr
+      # No es necesario relacionarlo con la causa si OWNR es Causa, Modificar cuando se trabaje con Asesorias
+#      ownr    = calculo.ownr
     end
-    @objeto = ownr.tar_facturaciones.new(tar_calculo_id: params[:bid], codigo_formula: calculo.codigo_formula, glosa: calculo.glosa)
+    @objeto = calculo.tar_facturaciones.new(codigo_formula: calculo.codigo_formula, glosa: calculo.glosa)
   end
 
   def crea_aprobacion
@@ -121,9 +122,13 @@ class Tarifas::TarFacturacionesController < ApplicationController
     end
 
     def set_redireccion
-      case @objeto.ownr_type
-      when 'Causa'
-        @redireccion = "/#{@objeto.ownr.class.name.tableize}/#{@objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos"
+      if @objeto.tar_calculo_id.present?
+          @redireccion = "/causas/#{@objeto.tar_calculo.ownr.id}?html_options[menu]=Tarifa+%26+Pagos"
+      else
+        case @objeto.ownr_type
+        when 'Causa'
+          @redireccion = "/causas/#{@objeto.ownr.id}?html_options[menu]=Tarifa+%26+Pagos"
+        end
       end
     end
 
