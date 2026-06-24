@@ -1,9 +1,9 @@
 <tr style="font-size: .6rem;line-height: 1.2;">
 	<td><%= objt.glosa %></td>
 	<td class="text-end fw-bold">
-		<%= s_uf(objt.monto_uf) %>
-		<i class="bi bi-arrow-left-right"></i>
-		<%= s_pesos(objt.monto_pesos) %>
+		<%#= s_uf(objt.monto_uf) %>
+		<!--i class="bi bi-arrow-left-right"></i-->
+		<%= s_pesos(objt.monto) %>
 	</td>
 	<td class="text-end objt_lnk">
 		<%= render partial: '0p/swtch_bool', locals: {objeto: objt, tkn: 'facturado',tltps: ['Marcar como facturado', 'Marcar como sin facturar']} %>
