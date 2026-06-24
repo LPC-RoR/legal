@@ -59,8 +59,8 @@
 			<div class="row px-2 gx-1">
 				<div class="col">
 					<i class="bi bi-dot"></i><%= fctn.glosa %>
-					<% unless fctn.tar_aprobacion.blank? %> 
-						[aprob: <%=fctn.tar_aprobacion.id%>]
+					<% unless fctn.cli_aprobacion_id.blank? %> 
+						[aprob: <%=fctn.tar_aprobacion_id%>]
 					<% end %>
 				</div>
 				<div class="col text-end">

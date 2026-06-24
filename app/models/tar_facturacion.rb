@@ -27,7 +27,7 @@ class TarFacturacion < ApplicationRecord
 	}
 	scope :no_facturado, -> { where(facturado: [nil, false]) }
 
-	before_save :procesar_campos, if: -> { tipo_monto.present? }
+	before_create :procesar_campos, if: -> { tipo_monto.present? }
 
 	# DEPRECATED
 	scope :no_aprbcn, -> { where(tar_aprobacion_id: nil) }
@@ -81,29 +81,33 @@ class TarFacturacion < ApplicationRecord
 	private
 
 	def procesar_campos
-		# UF de recalcular
-		if tar_calculo&.moneda == 'UF'
-			fecha_calculo = recalcular && fecha_uf ? fecha_uf : tar_calculo.fecha_uf
-			valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor
-			valor_uf ||= 0
-		end
-		case tipo_monto
-		when 'Parcial'
-			if monto_parcial.present?
-				total_calculo = monto_parcial
-			elsif porcentaje.present?
-				total_calculo = tar_calculo.monto * (porcentaje / 100)
-			else
-				total_calculo = 0
-			end
-		when 'Total'
-			total_calculo = tar_calculo.monto
-		end
+	  return unless tar_calculo.present? && tipo_monto.present?
 
-		monto_fctrcns 	= tar_calculo.tar_facturaciones.any? ? tar_calculo.tar_facturaciones.sum(:monto) : 0
-		monto_total 	= tar_calculo&.moneda == 'UF' ? total_calculo * valor_uf : total_calculo
-		self.monto 		= monto_total - monto_fctrcns
+	  # UF de recalcular
+	  if tar_calculo.moneda == 'UF'
+	    fecha_calculo = recalcular && fecha_uf ? fecha_uf : tar_calculo.fecha_uf
+	    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
+	  end
+
+	  total_calculo = case tipo_monto
+	                  when 'Parcial'
+	                    if monto_parcial.present?
+	                      monto_parcial
+	                    elsif porcentaje.present?
+	                      tar_calculo.monto * (porcentaje / 100.0)
+	                    else
+	                      0
+	                    end
+	                  when 'Total'
+	                    tar_calculo.monto
+	                  else
+	                    0
+	                  end
+
+	  monto_fctrcns = tar_calculo.tar_facturaciones.sum(:monto) || 0
+	  monto_total = tar_calculo.moneda == 'UF' ? total_calculo * valor_uf : total_calculo
+	  
+	  self.monto = monto_total - monto_fctrcns
 	end
-
-
+	
 end
