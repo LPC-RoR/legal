@@ -16,18 +16,8 @@ class CliAprobacion < ApplicationRecord
   private
 
   def asociar_facturaciones_pendientes
-    # Obtiene los IDs de causas del cliente
-    causas_ids = Causa.where(cliente_id: cliente_id).pluck(:id)
-    
-    # Obtiene los IDs de tar_calculos donde ownr es una Causa del cliente
-    calculos_ids = TarCalculo
-      .where(ownr_type: 'Causa', ownr_id: causas_ids)
-      .pluck(:id)
     
     # Actualiza las tar_facturaciones pendientes de esos cálculos
-    TarFacturacion
-      .where(cli_aprobacion_id: nil)
-      .where(tar_calculo_id: calculos_ids)
-      .update_all(cli_aprobacion_id: id)
+    cliente.tar_facturaciones.sin_aprobar.update_all(cli_aprobacion_id: id)
   end
 end
