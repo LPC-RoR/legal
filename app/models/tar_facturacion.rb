@@ -81,13 +81,18 @@ class TarFacturacion < ApplicationRecord
 	private
 
 	def procesar_campos
-	  return unless tar_calculo.present? && tipo_monto.present?
+	  return unless (tar_calculo.present? || ownr.present?) && tipo_monto.present?
 
 	  # UF de recalcular
-	  if tar_calculo.moneda == 'UF'
+	  if tar_calculo.present? && tar_calculo.moneda == 'UF'
 	    fecha_calculo = recalcular && fecha_uf ? fecha_uf : tar_calculo.fecha_uf
 	    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
 	  end
+	  if ownr.present? && ownr.moneda == 'UF'
+	    fecha_calculo = fecha_uf.present? ? fecha_uf : Time.zone.today.to_date
+	    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
+	  end
+
 
 	  total_calculo = case tipo_monto
 	                  when 'Parcial'
