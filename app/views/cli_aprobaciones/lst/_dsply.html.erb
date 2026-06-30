@@ -1,3 +1,10 @@
 <% objeto.tar_facturaciones.each do |objt| %>
 	<%= render partial: prtl('tar_facturaciones', 'list', 'objeto'), locals: {objeto: objt} %>
 <% end %>
+<div class="fw-bold">PDF Aprobación</div>
+<% aprobaciones = objeto.act_archivos.where(act_archivo: 'aprobacion') %>
+<% if aprobaciones.any? %>
+	<%= render partial: '0t/tbl', locals: {source: 'act_archivos', clccn: aprobaciones, dir: 'pdf'} %>
+<% else %>
+	<i class="bi bi-cone-striped text-danger"></i> Aprobación sin PDF generado.
+<% end %>

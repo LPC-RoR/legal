@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :cli_aprobaciones do
     member do
       post :liberar_pagos
+      post :generar_aprobacion
     end
   end
   resources :proveedores

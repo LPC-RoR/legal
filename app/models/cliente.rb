@@ -35,6 +35,9 @@ class Cliente < ApplicationRecord
 	has_one_attached :logo
 	has_rich_text :email_footer
 
+	# Se agregó para relacionar pdfs de aprobaciones, después se cambió a cli_aprobaciones
+	has_many :act_archivos, as: :ownr, dependent: :destroy
+
 	has_many :app_contactos, as: :ownr
 	has_many :app_archivos, as: :ownr
 	has_many :notas, as: :ownr

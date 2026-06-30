@@ -1,0 +1,10 @@
+<% unless objt.orden == 1 %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{objt.class.name.tableize}/#{objt.id}/arriba", tltp: 'Mover arriba', data: {turbo_method: :post}} do %>
+		<i class="bi bi-arrow-up-short"></i>
+	<% end %>
+<% end %>
+<% unless objt.orden == objt.n_list %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{objt.class.name.tableize}/#{objt.id}/abajo", tltp: 'Mover abajo', data: {turbo_method: :post}} do %>
+		<i class="bi bi-arrow-down-short"></i>
+	<% end %>
+<% end %>

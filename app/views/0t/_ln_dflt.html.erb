@@ -1,0 +1,67 @@
+<%# Hereda de 0p/tbl/ln_clss %>
+
+<%# se repiten para posibilitar un llamado directo %>
+<% clss 		||= ClssTbl.clss_dflt %>
+<% dir  		||= clss.to_s %>
+<% ordr			||= false %>
+<% hide_crud    ||= false %>
+
+<%# indnt no se viene de lst, REVISAR USO %>
+<% indnt ||= 0 %>
+
+<div class="row <%= ClssTbl.clss_str(clss) %>" style="<%= ClssTbl.styl_str(clss) %>" id="<%=cntrllr(objt)%>#cid<%=objt.id%>">
+
+	<%# ORDEN %>
+	<% if ordr %>
+		<div class=" col-2 objt_lnk" style="padding-left: <%=indnt+1%>rem;">
+			<%= render partial: '0t/ordr', locals: {objt: objt} %>
+		</div>
+	<% end %>
+
+	<%# OBJT %>
+	<div class="col-<%=ordr ? '7' : '9'%> objt_lnk" style="padding-left: <%=indnt+1%>rem;">
+		<% if prtl?(objt, dir, "objt") %>
+			<%= render partial: prtl(objt, dir, "objt"), locals: {objt: objt} %>
+		<% end %>
+	</div>
+
+	<%# LNKS %>
+	<div class="col-3 text-end objt_lnk" style="padding-right: <%=indnt+1%>rem;">
+		<% unless hide_crud %>
+
+			<%# BTN COLLAPSE : REVISAR una versión especial para 0t %>
+			<% if prtl?(objt, dir, "cllps") %>
+				<%= render layout: '0p/collapse/link', locals: {label: objt.class.name, objeto: objt, tooltip: nil} do %>
+					<i class="bi bi-arrow-bar-down"></i>
+				<% end %>
+			<% end %>
+
+			<%# 1ra opcion: existe el partial plldwn_lnks %>
+			<% if prtl?(objt, dir, "plldwn_lnks") %>
+				<%= render partial: prtl(objt, dir, "plldwn_lnks"), locals: {objt: objt} %>
+
+			<%# 2da opcion: existe el partial lnks %>
+			<% elsif prtl?(objt, dir, "lnks") %>
+				<%= render partial: prtl(objt, dir, "lnks"), locals: {objt: objt} %>
+
+			<%# 3da opcion: lnks_e con lft_lnks (opcional) %>
+			<% else %>
+				<%= render partial: prtl(objt, dir, "lft_lnks"), locals: {objt: objt} if prtl?(objt, dir, 'lft_lnks') %>
+				<%= render partial: '0t/lnks_e', locals: {objt: objt} %>
+			<% end %>
+
+		<% end %>
+	</div>
+
+</div>
+
+<%# COLLAPSE DSPLY : REVISAR %>
+<% if prtl?(objt, dir, "cllps") %>
+	<%= render layout: '0p/collapse/display', locals: {label: objt.class.name, objeto: objt} do %>
+		<%= render partial: prtl(objt, dir, "cllps"), locals: {objt: objt} %>
+	<% end %>
+<% end %>
+
+<% if prtl?(objt, dir, "dsply") %>
+	<%= render partial: prtl(objt, dir, "dsply"), locals: {objt: objt} %>
+<% end %>

@@ -24,8 +24,10 @@
 			</div>
 			<div class="col-lg-6">
 				<%= render partial: '0p/ttl_clss', locals: {source: 'tar_facturaciones', clss: :gray, dir: 'indx', hide_lnks: true} %>
-
 				<%= render partial: '0p/tbl_clss', locals: {source: 'tar_facturaciones', clccn: @fctrcns} %>	
+
+				<%#= render partial: '0p/ttl_clss', locals: {source: 'act_archivos', clss: :gray, dir: 'indx_pdf', hide_lnks: true} %>
+				<%#= render partial: '0t/tbl', locals: {source: 'act_archivos', clccn: @aprbcns, dir: 'pdf'} %>	
 			</div>
 		</div>
 	<% when 'Facturas' %>

@@ -68,10 +68,6 @@ class ClientesController < ApplicationController
                 when 'trmtcn'    then @objeto.causas.std_oprtv('tramitacion')
                 when 'archvd'    then @objeto.causas.std_oprtv('archivada')
                 when 'rcnts'     then @objeto.causas.rcnts
-                when 'vacios'    then @objeto.causas.std_oprtv('tramitacion').std_fnncr('sin_cobros')
-                when 'incmplt'   then @objeto.causas.std_oprtv('tramitacion').std_fnncr('con_cobros')
-                when 'cmplt'     then @objeto.causas.std_oprtv('tramitacion').std_fnncr('cobrada')
-                when 'anno'      then @objeto.causas.por_ano(2025)
                 end
               end
 
@@ -105,6 +101,7 @@ class ClientesController < ApplicationController
     elsif @options[:menu] == 'Aprobaciones'
       @clccn = @objeto.cli_aprobaciones.order(fecha: :desc)
       @fctrcns = @objeto.tar_facturaciones.sin_aprobar.order(created_at: :desc)
+      @aprbcns = @objeto.act_archivos.where(act_archivo: 'aprobacion').order(created_at: :desc)
     elsif @options[:menu] == 'Facturas'
 
       @causas_revision = @objeto.causas.revision
@@ -145,9 +142,9 @@ class ClientesController < ApplicationController
     @aprobacion = @objeto.cli_aprobaciones.build(fecha: Date.current)
 
     if @aprobacion.save
-      redirect_to cliente_path(@cliente), notice: "Aprobación del #{l(Date.current, format: :long)} creada exitosamente. Se asociaron #{@aprobacion.tar_facturaciones.count} facturaciones."
+      redirect_to cliente_path(@objeto), notice: "Aprobación del #{l(Date.current, format: :long)} creada exitosamente. Se asociaron #{@aprobacion.tar_facturaciones.count} facturaciones."
     else
-      redirect_to cliente_path(@cliente), alert: @aprobacion.errors.full_messages.to_sentence
+      redirect_to cliente_path(@objeto), alert: @aprobacion.errors.full_messages.to_sentence
     end
   end
 

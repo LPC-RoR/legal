@@ -1,0 +1,27 @@
+<%# _tbl tiene como base 0p/tbl_clss. Se asume el manejo de clss %>
+
+<%# Por defecto no tiene paginación %>
+<% pgnt     	||= false %>
+
+<%# Tiene una clase por defecto :lst %>
+<% clss     	||= ClssTbl.clss_dflt %>
+
+<%# el directorio por defecto es el nombre de la clase to_s 'lst' %>
+<% dir      	||= clss.to_s %>
+
+<%# por defecto es una tabla %>
+<% typ      	||= 'tr' %>
+
+<%# Por defecto no es una tabla ordenada: con campo orden %>
+<% ordr     	||= false %>
+
+<%# por defecto NO oculta los botones crud %>
+<% hide_crud    ||= false %>
+
+<%# Despliegua paginación superior %>
+<%= render partial: '0t/pgnt', locals: {clccn: clccn, lctn: 'arriba'} if pgnt %>
+
+<%= render partial: "0t/lst", locals: {clccn: clccn, clss: clss, dir: dir, typ: typ, ordr: ordr, hide_crud: hide_crud} %>
+
+<%# Despliegua paginación inferior %>
+<%= render partial: '0t/pgnt', locals: {clccn: clccn, lctn: 'abajo'} if pgnt %>

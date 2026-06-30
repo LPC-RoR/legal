@@ -1,0 +1,61 @@
+<div class="fw-bold"><%= objt.glosa %></div>
+<div style="font-size: .6rem;line-height: 1.2;">
+	<% causa = objt.tar_calculo.ownr %>
+
+	<b>Demandantes(s)</b>
+	<% if causa.demandantes.any? %>
+		<% causa.demandantes.each do |dmndnt| %>
+			<%= render partial: "pdfs/pdf_ln", locals: {objt: dmndnt, trck: 'dmndnt', dir: 'fnnzs/aprobacion'} %>
+		<% end %>
+	<% else %>
+		<i class="bi bi-cone-striped"></i> Causa sin información de demandantes.
+	<% end %>
+
+	<b class="mt-2">Detalle de la cuantía usada para la tarifa</b>
+	<% if causa.tar_valor_cuantias.any? %>
+		<% causa.tar_valor_cuantias.each do |tvc| %>
+			<%= render partial: "pdfs/pdf_ln", locals: {objt: tvc, trck: 'tvc', dir: 'fnnzs/aprobacion'} %>
+		<% end %>
+		<div class="fw-bold">
+			<%= render partial: "pdfs/pdf_ln", locals: {objt: causa, trck: 'tot_tvc', dir: 'fnnzs/aprobacion'} %>
+		</div>
+	<% else %>
+		<i class="bi bi-cone-striped"></i> Causa sin detalles de la cuantía.
+	<% end %>
+
+	<div class="mx-2"><hr></div>
+	<b>Criterio usado para el cálculo de la tarifa</b>
+
+	<% tarifa = causa&.tar_tarifa %>
+	<% pago   = tarifa&.tar_pagos.find_by(codigo_formula: objt&.tar_calculo&.codigo_formula) %>
+
+	<% cmntrs = ClssTarifa.cmntrs_que_aplican(causa, pago) %>
+	<% cmntrs.each do |com| %>
+
+		<div class="row gx-1 mx-3 open-sans-regular" style="font-size: .6rem;line-height: 1.2;">
+			<div class="col-8">
+				<% if com[1] == 'cmntr' %>
+					<i class="bi bi-lightbulb"></i>
+				<% else %>
+					<i class="bi bi-arrow-right"></i>
+				<% end %>
+				<%= ClssTarifa.cmntrs[com[0]] %>
+			</div>
+			<div class="col-4 text-end">
+				<% if com[1] != 'cmntr' %>
+					<% case ClssTarifa.formato[com[0]] %>
+					<% when 'Pesos' %>
+						<%= s_pesos(causa.calc_valor_cmntr(com[1], pago)) %>
+					<% when 'UF' %>
+						<%= s_uf(causa.calc_valor_cmntr(com[1], pago)) %>
+					<% else %>
+						<%= causa.calc_valor_cmntr(com[1], pago) %>
+					<% end %>
+					
+				<% end %>
+			</div>
+		</div>
+
+	<% end %>
+
+</div>

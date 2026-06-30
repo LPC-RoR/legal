@@ -70,7 +70,7 @@ class Autenticacion::AppNominasController < ApplicationController
     usuario.save!
 
     # Parcha el tipo operación (con acento) para llevarlo a sym
-    rol = @objeto.tipo == 'operación' ? :operacion : @objeto.tipo.to_sym
+    rol = ['operacion', 'operación'].include(@objeto.tipo) ? :operacion : @objeto.tipo.to_sym
     usuario.add_role(rol, @objeto&.ownr&.tenant)
 
     bypass_sign_in(usuario) if usuario == current_usuario

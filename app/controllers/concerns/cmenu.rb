@@ -6,10 +6,6 @@ module Cmenu
 				{scp: 'trmtcn',		cndcn: operacion?},
 				{scp: 'archvd',		cndcn: operacion?},
 				{scp: 'rcnts',		cndcn: operacion?},
-				{scp: 'vacios', 	cndcn: finanzas?},
-				{scp: 'incmplt',	cndcn: finanzas?},
-				{scp: 'cmplt', 		cndcn: finanzas?},
-				{scp: 'anno', 		cndcn: finanzas?},
 			],
 			clientes: [
 				{scp: 'emprss', 	cndcn: operacion?},

@@ -21,8 +21,7 @@
 				<%# Rev: 20-05-2026 %>
 				<%= render partial: 'causas/shw/tarifa_pagos/aprobacion/encabezado', locals: {pago: pago, ownr: objeto} %>
 
-				<%# dsply_valor_uf considera tar_calculo %>
-				<% valor_uf = objeto.dsply_valor_uf(pago.codigo_formula) %>
+				<% valor_uf = objeto.calc_valor_uf(pago.codigo_formula) %>
 
 				<% unless !!pago.requiere_uf == true and valor_uf.nil? %>
 					<%# Rev: 20-05-2026 %>

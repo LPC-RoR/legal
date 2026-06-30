@@ -225,9 +225,10 @@ class Causa < ApplicationRecord
 		demanda_archivo_id.present?
 	end
 
-		scope :std_oprtv, ->(std) {where(estado_operativo: std)}
-		scope :std_fnncr, ->(std) {where(estado_financiero: std)}
-		scope :rcnts, 		-> { where("created_at >= ?", 30.days.ago) }
+	# Activos!
+	scope :std_oprtv, ->(std) {where(estado_operativo: std)}
+	scope :std_fnncr, ->(std) {where(estado_financiero: std)}
+	scope :rcnts, 		-> { where("created_at >= ?", 30.days.ago) }
 	  
     # en MIGRACIÓN
     scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
@@ -272,10 +273,6 @@ class Causa < ApplicationRecord
 	    where("rit ~ ?", '^[TMSOC]-\\d+-\\d{4}$')
 	}
 
-	# Filtra por año (extrae los últimos 4 dígitos)
-	scope :por_ano, ->(ano) {
-	    where("SUBSTRING(rit FROM '\\d{4}$') = ?", ano.to_s)
-	}
 
 	# Filtra por tipo (M, S, O)
 	scope :por_tipo, ->(tipo) {
@@ -413,30 +410,13 @@ class Causa < ApplicationRecord
 		self.app_archivos.find_by(app_archivo: app_archivo)
 	end
 
-	# ----------------------------------------------------------------------------------------- DESPLPIEGUE APROBACION
-
-	def dsply_fecha_uf(codigo_formula)
-		fecha = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)&.fecha
-		fecha ||= tar_calculos.find_by(codigo_formula: codigo_formula)&.fecha_uf
-		fecha ||= Time.zone.today.to_date
-		fecha
-	end
-
-	def dsply_valor_uf(codigo_formula)
-		TarUfSistema.find_by(fecha: dsply_fecha_uf(codigo_formula))&.valor
-	end
-
-	def dsply_origen_uf(codigo_formula)
-		objt = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)
-		objt ||= tar_calculos.find_by(codigo_formula: codigo_formula)
-		objt ? (objt.class == TarFechaCalculo ? 'Uf asignada para el cálculo' : 'UF de la fecha de cálculo') : 'UF del día'
-	end
 	# ----------------------------------------------------------------------------------------- CUANTIA
 	# Al momento de de crear un TarCalculo no pueden existir TarCalculo o TarFactutacion con el mismo codigo_formula
 	# Hay que revisar despliegue en Aprobación de pagos para corregir el uso de este método
+	# Cree métodos dsply_ pero fueron una complicación mayor, evaluar con mas detenimiento la próxima vez
 	def calc_fecha_uf(codigo_formula)
 		fecha = tar_fecha_calculos.find_by(codigo_formula: codigo_formula)&.fecha
-#		fecha ||= tar_calculos.find_by(codigo_formula: codigo_formula)&.fecha_uf
+		fecha ||= tar_calculos.find_by(codigo_formula: codigo_formula)&.fecha_uf
 		fecha ||= Time.zone.today.to_date
 		fecha
 	end

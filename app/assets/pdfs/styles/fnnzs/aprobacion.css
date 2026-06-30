@@ -1,0 +1,22 @@
+/* app/assets/pdfs/styles/fnnzs/aprobacion.css */
+/* Overrides específicos para el reporte de aprobación */
+
+.report-header {
+  border-bottom-color: #1a365d;
+}
+
+.report-title {
+  color: #1a365d;
+}
+
+.facturaciones-table thead th {
+  background-color: #1a365d;
+}
+
+.total-monto {
+  color: #1a365d;
+}
+
+.observaciones-content {
+  border-left-color: #1a365d;
+}

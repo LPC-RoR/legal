@@ -1,0 +1,12 @@
+<% if objt.demandante_id.present? %>
+	[ <%=objt.demandante.orden %>* ]
+<% end %>
+
+<% if objt.code_cuantia == 'otro' && controller_name == 'causas' %>
+	<i class="bi bi-asterisk"></i>
+<% end %>
+<%= objt.code_cuantia == 'otro' ? objt.otro_detalle : ClssTipos.cuantias[objt.code_cuantia] %>
+<% unless objt.nota.blank? %>
+	 ( <%= objt.nota %> )
+<% end %>
+<%= "( #{objt.porcentaje}% )" unless objt.porcentaje.blank? %>

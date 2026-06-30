@@ -1,0 +1,43 @@
+<%# Hereda de 0p/tbl/lst_clss %>
+
+<%# Repite asignaciones de 0t/tbl por si se llegara a llamar directamente este partial %>
+<% clss 		||= ClssTbl.clss_dflt %>
+<% dir  		||= clss.to_s %>
+<% typ  		||= 'tr' %>
+<% ordr			||= false %>
+<% hide_crud    ||= false %>
+
+<%# Se cargan la class y style definidos en ClssTbl %>
+<div class="<%= ClssTbl.clss_lyt[clss][:bx][:clss] %>" style="<%= ClssTbl.clss_lyt[clss][:bx][:style] %>">
+
+	<%# comienzo del contenedor según typ %>
+	<% if typ == 'tr' %>
+	<%# Se carga clss de la tabla según clss %>
+	<table class="<%= ClssTbl.clss_lyt[clss][:tbl_clss] %>">
+		<tbody>
+	<% else %>
+		<div class="container-fluid">			
+	<% end %>
+
+		<% clccn.each do |objt| %>
+			<%# 1ra prioridad: presencia de un partial _objeto %>
+			<% if prtl?(objt, dir, "objeto") %>
+				<%= render partial: prtl(objt, dir, "objeto") , locals: {objt: objt} %>
+			<%# 2da prioridad: presencia de un partial _#{typ} %>
+			<% elsif prtl?(objt, dir, typ) %>
+				<%= render partial: prtl(objt, dir, typ), locals: {objt: objt} %>
+			<%# 3ra prioridad: se usa el partial por defecto ubicado en 0t/ _#{typ}_dflt %>
+			<% else %>
+				<!-- NO se puede pasar clss, porque la clase del objeto no puede ser la del título -->
+				<%= render partial: "0t/#{typ}_dflt", locals: {objt: objt, clss: clss, dir: dir, ordr: ordr, hide_crud: hide_crud} %>
+			<% end %>
+		<% end %>
+
+	<%# Fin del contenedor según typ %>
+	<% if typ == 'tr' %>
+		</tbody>
+	</table>
+	<% else %>
+		</div>
+	<% end %>
+</div>

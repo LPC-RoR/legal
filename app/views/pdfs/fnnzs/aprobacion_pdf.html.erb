@@ -1,0 +1,85 @@
+<!-- app/views/pdfs/fnnzs/aprobacion_pdf.html.erb -->
+<%# 
+  Reporte: Aprobación de Facturaciones
+  Contexto: Finanzas (fnnzs)
+%>
+
+<!-- ENCABEZADO -->
+<div class="pdf-header row align-items-center">
+  <div class="col-auto">
+    <% if @logo_url.present? %>
+      <img src="<%= @logo_url %>" alt="Logo" class="img-fluid" style="max-height: 50px;">
+    <% end %>
+  </div>
+  <div class="col text-end">
+    <h1 class="pdf-title h3 mb-1">Solicitud de aprobación N° <%= @numero_documento %></h1>
+    <div class="text-muted small">
+      <% if @fecha_aprobacion.present? %>
+        <span class="me-3"><strong>Fecha:</strong> <%= l @fecha_aprobacion, format: :long %></span>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- INFORMACIÓN DEL CLIENTE -->
+<div>
+  <h2 class="h5 mb-1"><i class="bi bi-building"></i>Cliente</h2>
+  <p class="mb-1"><strong>Razón Social:</strong> <%= @cliente.razon_social %></p>
+  <p class="mb-1"><strong>RUT:</strong> <%= s_rut(@cliente.rut) %></p>
+</div>
+
+<!-- TABLA DE FACTURACIONES -->
+<div class="border-bottom">
+  <h2 class="h5 mt-3 mb-1">Pagos por aprobar</h2>
+  <!--span class="badge bg-light text-primary"><%#= @cantidad_facturaciones || 0 %> ítems</span-->
+  <% if @facturaciones.present? && @facturaciones.any? %>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover mb-0">
+        <thead>
+          <tr>
+            <th class="text-center" style="width: 60px;">N°</th>
+            <th>Glosa</th>
+            <th class="text-end" style="width: 150px;">Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @facturaciones.each_with_index do |facturacion, index| %>
+            <tr>
+              <td class="text-center text-muted"><%= index + 1 %></td>
+              <td><%= facturacion.glosa %></td>
+              <td class="text-end">
+                <%= s_pesos(facturacion.monto) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr class="table-active2">
+            <td colspan="2" class="text-end"><strong>Total por aprobar</strong></td>
+            <td class="text-end fs2-6 text-primary">
+              <strong><%= s_pesos(@total.to_f) %></strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  <% else %>
+    <div class="text-center py-4 text-muted">
+      <p class="mb-0">No hay facturaciones asociadas a esta aprobación.</p>
+    </div>
+  <% end %>
+</div>
+
+<div class="mt-5">
+  <% if ClssPdfFnnzs.pagos_con_detalle(@facturaciones.map {|a| a&.tar_calculo&.codigo_formula}) %>
+    <h2 class="h5">Información utilizada para el cálculo de la tarifa</h2>
+
+    <% @facturaciones.each do |fctrcn| %>
+      <% if ClssPdfFnnzs.pago_con_detalle(fctrcn&.tar_calculo&.codigo_formula) %>
+        <div class="border rounded-2 p-2">
+          <%= render partial: "pdfs/fnnzs/aprobacion/dtll_#{fctrcn&.tar_calculo&.codigo_formula}", locals: {objt: fctrcn}  %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

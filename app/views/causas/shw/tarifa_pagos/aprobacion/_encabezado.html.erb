@@ -7,9 +7,9 @@
 <% clcl 		= ownr.tar_calculos.find_by(codigo_formula: pago.codigo_formula) %>
 <% fecha_clcl 	= ownr.tar_fecha_calculos.find_by(codigo_formula: pago.codigo_formula) %>
 
-<% valor_uf  	= ownr.dsply_valor_uf(pago.codigo_formula) %>
-<% fecha_uf  	= ownr.dsply_fecha_uf(pago.codigo_formula) %>
-<% origen_uf 	= ownr.dsply_origen_uf(pago.codigo_formula) %>
+<% valor_uf  	= ownr.calc_valor_uf(pago.codigo_formula) %>
+<% fecha_uf  	= ownr.calc_fecha_uf(pago.codigo_formula) %>
+<% origen_uf 	= ownr.calc_origen_uf(pago.codigo_formula) %>
 
 <div class="row px-2 gx-1 open-sans-regular" style="font-size: 16px;line-height: 1.2;">
 	<div class="col">

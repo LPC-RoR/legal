@@ -1,3 +1,9 @@
+<% aprbcns = objeto.act_archivos.where(act_archivo: 'aprobacion') %>
+<% unless aprbcns.any? %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cli_aprobaciones/#{objeto.id}/generar_aprobacion", tltp: 'Generar PDF', data: {turbo_method: :post}} do %>
+		<i class="bi bi-file-earmark-pdf"></i>
+	<% end %>
+<% end %>
 <%= render layout: '0p/tltp_lnk', locals: {lnk: "/cli_aprobaciones/#{objeto.id}/liberar_pagos", tltp: 'Liberar pagos', data: {turbo_method: :post}} do %>
 	<i class="bi bi-arrow-counterclockwise"></i>
 <% end %>

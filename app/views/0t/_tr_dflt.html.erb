@@ -1,0 +1,50 @@
+<%# Hereda de 0p/tbl/tr_clss %>
+
+<%# se repiten para posibilitar un llamado directo %>
+<% clss 		||= ClssTbl.clss_dflt %>
+<% dir  		||= clss.to_s %>
+<% ordr			||= false %>
+<% hide_crud    ||= false %>
+
+<%# indnt no se viene de lst, REVISAR USO %>
+<% indnt ||= 0 %>
+
+<%# Manejo del anchor por elemento, REVISAR funcionamiento %>
+<tr id="<%=cntrllr(objt)%>#cid<%=objt.id%>" style="font-size: 1rem;">
+
+	<%# ORDR %>
+	<% if ordr %>
+		<th class="objt_lnk" style="padding-left: <%=indnt+1%>rem;"><%= render partial: '0t/ordr', locals: {objt: objt} %></th>
+	<% end %>
+
+	<%# OBJT %>
+	<%# Se puede flexibilizar usando un nuevo partial _tds.html.erb que puede contener más de un td %>
+	<% if prtl?(objt, dir, "tds") %>
+		<%= render partial: prtl(objt, dir, "tds"), locals: {objt: objt} %>
+	<% else %>
+		<td class="objt_lnk" style="padding-left: <%=indnt+1%>rem;">
+			<% if prtl?(objt, dir, "objt") %>
+				<%= render partial: prtl(objt, dir, "objt"), locals: {objt: objt} %>
+			<% end %>
+		</td>
+	<% end %>
+
+	<%# LNKS %>
+	<% unless hide_crud %>
+		<td class="objt_lnk" style="text-align: right; padding-right: <%=indnt+1%>rem;">
+
+			<%# 1ra opcion: existe el partial plldwn_lnks %>
+			<% if prtl?(objt, dir, "plldwn_lnks") %>
+				<%= render partial: prtl(objt, dir, "plldwn_lnks"), locals: {objt: objt} %>
+			<%# 2da opcion: existe el partial lnks %>
+			<% elsif prtl?(objt, dir, "lnks") %>
+				<%= render partial: prtl(objt, dir, "lnks"), locals: {objt: objt} %>
+			<%# 3da opcion: lnks_e con lft_lnks (opcional) %>
+			<% else %>
+				<%= render partial: prtl(objt, dir, "lft_lnks"), locals: {objt: objt} if prtl?(objt, dir, 'lft_lnks') %>
+				<%= render partial: '0t/lnks_e', locals: {objt: objt} %>
+			<% end %>
+
+		</td>
+	<% end %>
+</tr>

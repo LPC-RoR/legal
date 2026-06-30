@@ -1,0 +1,5 @@
+<% if clccn.total_pages > 1 %>
+	<% if lctn == 'abajo' %><div style="font-size: 0.6rem;"><%= page_entries_info(clccn) %></div><% end %>
+		<%= paginate clccn %>
+	<% if lctn == 'arriba' %><div style="font-size: 0.6rem;"><%= page_entries_info(clccn) %></div><% end %>
+<% end %>

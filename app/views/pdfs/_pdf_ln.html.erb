@@ -1,0 +1,11 @@
+<% dir 	||= nil %>
+<% trck ||= 'objt' %>
+
+<div class="row gx-1">
+	<div class="col-8">
+		<%= render partial: "pdfs/#{dir}#{'/' unless dir.nil?}lo_#{trck}", locals: {objt: objt} %>
+	</div>
+	<div class="col-4 text-end">
+		<%= render partial: "pdfs/#{dir}/ll_#{trck}", locals: {objt: objt} %>
+	</div>
+</div>

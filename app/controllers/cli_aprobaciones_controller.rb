@@ -1,5 +1,7 @@
 class CliAprobacionesController < ApplicationController
-  before_action :set_cli_aprobacion, only: %i[ show edit update destroy liberar_pagos ]
+  before_action :set_cli_aprobacion, only: %i[ show edit update destroy liberar_pagos generar_aprobacion ]
+
+  include PdfGeneratable
 
   # GET /cli_aprobaciones or /cli_aprobaciones.json
   def index
@@ -56,6 +58,16 @@ class CliAprobacionesController < ApplicationController
     redirect_to @objeto.cliente
   end
 
+  def generar_aprobacion
+    # ownr: el cliente es el propietario polimórfico del ActArchivo
+    # ownr cambiado a CliAprobacion
+    generar_pdf('aprobacion',
+      ownr: @objeto,
+      objeto_id: @objeto.id,
+      enviar_email: false
+    )
+  end
+
   # DELETE /cli_aprobaciones/1 or /cli_aprobaciones/1.json
   def destroy
     @objeto.destroy!
@@ -74,6 +86,6 @@ class CliAprobacionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cli_aprobacion_params
-      params.expect(cli_aprobacion: [ :fecha ])
+      params.expect(cli_aprobacion: [ :fecha, tar_facturaciones_attributes: [:id, :glosa, :monto, :_destroy]])
     end
 end
