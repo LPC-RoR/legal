@@ -434,8 +434,6 @@ Rails.application.routes.draw do
       match :crea_calculo, via: :post, on: :collection
       match :elimina_calculo, via: :post, on: :member
       match :add_to_last_aprbcn, via: :post, on: :member
-      match :crea_pago_asesoria, via: :post, on: :collection
-      match :elimina_pago_asesoria, via: :post, on: :collection
       # revisar desde aqui
       match :liberar_calculo, via: :get, on: :member
       match :crea_aprobacion, via: :get, on: :member

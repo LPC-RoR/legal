@@ -35,11 +35,6 @@ class Tarifas::TarCalculosController < ApplicationController
       fecha_calculo   = moneda == 'UF' ? ownr.calc_fecha_uf(codigo_formula) : nil
       valor_uf        = moneda == 'UF' ? ownr.calc_valor_uf(codigo_formula) : nil
 
-      # Revisar DEPRECATED
-#      tar_uf_facturacion    = get_tar_uf_facturacion_pago(ownr, pago)
-#      objt_calculo          = get_objt_pago(ownr, pago)
-#      objt_origen           = tar_uf_facturacion.blank? ? objt_calculo : tar_uf_facturacion
-
       # CORRECCIÓN: Se conserva el monto en UF si el pago es en UF
       if pago.valor.blank?
         # Se ajusta el método a usar para recuperar el valor en UF o Pesos según corresponda
@@ -59,30 +54,6 @@ class Tarifas::TarCalculosController < ApplicationController
         # cll = ownr.tar_calculos.create(tar_pago_id: pid, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
         cll = ownr.tar_calculos.create(fecha_uf: fecha_calculo, moneda: moneda, monto: monto, glosa: glosa, cuantia: cuantia_calculo, codigo_formula: codigo_formula)
 
-        # Creación de TarFacturaciones y Manejo de Cuotas
-#        cuotas          = pago.blank? ? [] : pago.tar_cuotas.ordr
-
-#        if cll
-#          if cuotas.empty?
-#            ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto, glosa: glosa, cuantia_calculo: cuantia_calculo)
-#          else
-#            # PROBAR: Generación de cuotas!
-#            cuotas.each do |cuota|
-#              monto_procesado = ownr.tar_facturaciones.map {|fctcn| fctcn.monto}.sum
-#              c_glosa = "#{glosa} #{cuota.orden} de #{cuotas.count}"
-
-#              if cuota.monto.present?
-#                monto_cuota = cuota.monto
-#              elsif cuota.ultima_cuota
-#                monto_cuota = (monto - monto_procesado)
-#              else
-#                monto_cuota = (monto * (cuota.porcentaje / 100)).truncate
-#              end
-#              ownr.tar_facturaciones.create(tar_pago_id: pid, tar_calculo_id: cll.id, tar_cuota_id: cuota.id, fecha_uf: fecha_calculo, moneda: 'Pesos', monto: monto_cuota, glosa: c_glosa, cuantia_calculo: cuantia_calculo)
-#            end
-#          end
-#        end
-
       end
 
       # CAUSA GANADA !!
@@ -94,6 +65,7 @@ class Tarifas::TarCalculosController < ApplicationController
     redirect_to "/#{ownr.class.name.tableize}/#{ownr.id}?html_options[menu]=Tarifa+%26+Pagos"
   end
 
+  # DEPRECATED, Ahora se crea directo la TarFacturacion
   def crea_pago_asesoria
     @objeto = params[:oclss].constantize.find(params[:oid])
     dscrpcn = params[:oclss] == 'Asesoria' ? @objeto.descripcion : @objeto.cargo
@@ -103,6 +75,7 @@ class Tarifas::TarCalculosController < ApplicationController
     redirect_to "/#{@objeto.class.name.tableize}"
   end
 
+  # DEPRECATED, Ahora se crea directo la TarFacturacion
   def elimina_pago_asesoria
     @objeto = params[:oclss].constantize.find(params[:oid])
     calculo = @objeto.tar_calculo
