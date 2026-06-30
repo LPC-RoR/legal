@@ -90,6 +90,7 @@ class TarFacturacion < ApplicationRecord
 		    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
 	  	end
 
+	  	ownr_objt = tar_calculo
 		total_calculo = case tipo_monto
 		              when 'Parcial'
 		                if monto_parcial.present?
@@ -113,6 +114,7 @@ class TarFacturacion < ApplicationRecord
 		    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
 		    total_calculo = (ownr&.tar_servicio&.monto || 0) * valor_uf
 		end
+		ownr_objt = ownr
 	  end
 
 
