@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_24_154835) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_30_203028) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -322,9 +322,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_24_154835) do
     t.integer "tipo_asesoria_id"
     t.boolean "pendiente"
     t.boolean "urgente"
+    t.string "tipo"
     t.index ["cliente_id"], name: "index_asesorias_on_cliente_id"
     t.index ["estado"], name: "index_asesorias_on_estado"
     t.index ["tar_servicio_id"], name: "index_asesorias_on_tar_servicio_id"
+    t.index ["tipo"], name: "index_asesorias_on_tipo"
     t.index ["tipo_asesoria_id"], name: "index_asesorias_on_tipo_asesoria_id"
   end
 

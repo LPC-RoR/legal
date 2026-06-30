@@ -1,5 +1,9 @@
+<% tipos = ClssTipos.tipos_asesoria.map {|codigo, nombre| [nombre, codigo]} %>
+
 <div class="row gx-1">
 	<div class="col-lg-3">
+		<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :tipo, sel_list: tipos, display_field: 'tipo_asesoria', prompt: 'Seleccione tipo de asesoria', label: 'Tipo de asesoría' } %>
+
 		<%= render partial: '0p/lbld_inpts/select_id', locals: { form: form, token: :tipo_asesoria_id, colection: TipoAsesoria.all.order(:tipo_asesoria).collect { |ta| [ta.descripcion, ta.id] }, display_field: 'descripcion', label: 'Tipo Asesoría' } %>
 	</div>
 	<div class="col-lg-9">

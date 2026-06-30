@@ -38,7 +38,6 @@ class Srvcs::AsesoriasController < ApplicationController
 
   # GET /asesorias/1 or /asesorias/1.json
   def show
-    set_tabla('app_archivos', @objeto.archivos.order(:app_archivo), false)
     set_tabla('app_enlaces', @objeto.enlaces.order(:descripcion), false)
     set_tabla('audiencia-age_actividades', @objeto.actividades.where(tipo: 'Audiencia').order(fecha: :desc), false)
     set_tabla('reunion-age_actividades', @objeto.actividades.where(tipo: 'Reunión').order(fecha: :desc), false)
@@ -47,8 +46,7 @@ class Srvcs::AsesoriasController < ApplicationController
 
   # GET /asesorias/new
   def new
-    modelo_asesoria = StModelo.find_by(st_modelo: 'Asesoria')
-    @objeto = Asesoria.new(estado: modelo_asesoria.primer_estado.st_estado, urgente: false, pendiente: false)
+    @objeto = Asesoria.new(estado: 'tramitación', urgente: false, pendiente: false)
   end
 
   # GET /asesorias/1/edit
@@ -166,6 +164,6 @@ class Srvcs::AsesoriasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def asesoria_params
-      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf, :moneda, :monto, :tipo_asesoria_id, :urgente, :pendiente)
+      params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf, :moneda, :monto, :tipo_asesoria_id, :urgente, :pendiente, :tipo)
     end
 end

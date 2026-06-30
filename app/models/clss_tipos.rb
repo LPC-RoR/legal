@@ -1,5 +1,22 @@
 class ClssTipos
 
+	# ******************************************** TIPOS DE ASESORIA
+
+	def self.tipos_asesoria
+		{
+			'carta_despido'		=> 'Carta de despido',
+			'consulta'			=> 'Asesoría legal',
+			'multa'				=> 'Multa',
+			'ngccn_extrjdcl'	=> 'Negociación extrajudicial',
+			'redaccion'			=> 'Redacción documento legal',
+			'auditoria_karin'	=> 'Revisión investigación Ley Karin',
+			'extrnlzcn_karin'	=> 'Externalización investigación Ley Karin',
+		}
+	end
+
+
+	# ******************************************** TIPOS DE CUANTÍA
+
 	# tar_detalle_cuantias
 	def self.cuantias
 		{

@@ -1,16 +1,9 @@
 <div class="row gx-1 px-2 text-primary" style="font-size: 14px;">
 	<div class="col">
-		<% if objeto.tar_calculo.blank? %>
+		<% if objeto.tar_facturaciones.none? %>
 			Pendiente
-		<% elsif objeto.tar_calculo.tar_aprobacion.blank? %>
+		<% elsif objeto.tar_facturaciones.any? %>
 			Pago generado
-		<% elsif objeto.tar_facturacion.tar_factura.blank? %>
-			Pago por facturar
-		<% else %>
-			Facturado
-		<% end %>
-		<% unless objeto.tar_calculo.blank? %>
-			<%= s_pesos(objeto.tar_calculo.monto) %>
 		<% end %>
 	</div>
 	<div class="col text-end app_lnk">
@@ -19,27 +12,34 @@
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_facturaciones/new?code=assr&bid=#{calculo.id}", tltp: 'Nuevo pago'} do %>
 					<i class="bi bi-plus-circle"></i> Generar pago
 				<% end %>
-
-				<%#= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_calculos/crea_pago_asesoria?oclss=#{objeto.class.name}&oid=#{objeto.id}", tltp: 'Genera pago', data: {turbo_method: :post}} do %>
-					<!--Generar pago-->
-				<%# end %>
 			<% else %>
 				UF no encontrada
-			<% end %>
-		<% else %>
-			<% objeto.tar_facturaciones.order(:created_at).each do |fctn| %>
-				<div class="row px-2 gx-1">
-					<div class="col">
-						<i class="bi bi-dot"></i><%= fctn.glosa %>
-						<% unless fctn.cli_aprobacion_id.blank? %> 
-							[aprob: <%=fctn.tar_aprobacion_id%>]
-						<% end %>
-					</div>
-					<div class="col text-end">
-						<%= s_pesos(fctn.monto) %>
-					</div>
-				</div>
 			<% end %>
 		<% end %>
 	</div>
 </div>
+
+<div class="px-2"><b>
+	Pago(s)
+	<% if objeto.tar_facturaciones.none? %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_facturaciones/new?code=assr&bid=#{objeto.id}", tltp: 'Nuevo pago'} do %>
+			<i class="bi bi-plus-circle"></i>
+		<% end %>
+	<% end %>
+</b></div>
+<% if objeto.tar_facturaciones.any? %>
+	<% objeto.tar_facturaciones.each do |fctn| %>
+		<div class="row px-2 gx-1">
+			<div class="col">
+				<i class="bi bi-dot"></i><%= fctn.glosa %>
+				<% unless fctn.cli_aprobacion_id.blank? %> 
+					[aprob: <%=fctn.tar_aprobacion_id%>]
+				<% end %>
+			</div>
+			<div class="col text-end objt_lnk">
+				<%= s_pesos(fctn.monto) %>
+				<%= render partial: '0t/lnks_e', locals: {objt: fctn} %>
+			</div>
+		</div>
+	<% end %>
+<% end %>

@@ -3,10 +3,10 @@ class Asesoria < ApplicationRecord
 	belongs_to :tipo_asesoria
 	belongs_to :tar_servicio, optional: true
 
-	has_one :tar_facturacion, as: :ownr
-
 	has_one :tar_calculo, as: :ownr
 	has_one :tar_uf_facturacion, as: :ownr
+
+	has_many :tar_facturaciones, as: :ownr
 
 	has_many :doc_detalles, as: :ownr
 
