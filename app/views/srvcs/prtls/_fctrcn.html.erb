@@ -9,7 +9,7 @@
 	<div class="col text-end app_lnk">
 		<% if objeto.tar_facturaciones.none? %>
 			<% if objeto.facturable? %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_facturaciones/new?code=assr&bid=#{calculo.id}", tltp: 'Nuevo pago'} do %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/tar_facturaciones/new?code=assr&bid=#{objeto.id}", tltp: 'Nuevo pago'} do %>
 					<i class="bi bi-plus-circle"></i> Generar pago
 				<% end %>
 			<% else %>
