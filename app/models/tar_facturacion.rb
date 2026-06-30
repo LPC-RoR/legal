@@ -87,10 +87,12 @@ class TarFacturacion < ApplicationRecord
 	  if tar_calculo.present? && tar_calculo.moneda == 'UF'
 	    fecha_calculo = recalcular && fecha_uf ? fecha_uf : tar_calculo.fecha_uf
 	    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
+	    ownr_objt = tar_calculo
 	  end
 	  if ownr.present? && ownr.moneda == 'UF'
 	    fecha_calculo = fecha_uf.present? ? fecha_uf : Time.zone.today.to_date
 	    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
+	    ownr_objt = ownr
 	  end
 
 
@@ -99,18 +101,18 @@ class TarFacturacion < ApplicationRecord
 	                    if monto_parcial.present?
 	                      monto_parcial
 	                    elsif porcentaje.present?
-	                      tar_calculo.monto * (porcentaje / 100.0)
+	                      ownr_objt.monto * (porcentaje / 100.0)
 	                    else
 	                      0
 	                    end
 	                  when 'Total'
-	                    tar_calculo.monto
+	                    ownr_objt.monto
 	                  else
 	                    0
 	                  end
 
-	  monto_fctrcns = tar_calculo.tar_facturaciones.sum(:monto) || 0
-	  monto_total = tar_calculo.moneda == 'UF' ? total_calculo * valor_uf : total_calculo
+	  monto_fctrcns = ownr_objt.tar_facturaciones.sum(:monto) || 0
+	  monto_total = ownr_objt.moneda == 'UF' ? total_calculo * valor_uf : total_calculo
 	  
 	  self.monto = monto_total - monto_fctrcns
 	end
