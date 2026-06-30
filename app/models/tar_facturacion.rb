@@ -111,7 +111,8 @@ class TarFacturacion < ApplicationRecord
 	                  end
 
 	  monto_fctrcns = ownr_objt.tar_facturaciones.sum(:monto) || 0
-	  monto_total = ownr_objt.moneda == 'UF' ? total_calculo * valor_uf : total_calculo
+	  # Le pongo || 0 para ver si ahí está el error, que seguro ocurre antes
+	  monto_total = (ownr_objt.moneda == 'UF' ? total_calculo * valor_uf : total_calculo) || 0
 	  
 	  self.monto = monto_total - monto_fctrcns
 	end
