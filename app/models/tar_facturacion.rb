@@ -87,14 +87,13 @@ class TarFacturacion < ApplicationRecord
 	  if tar_calculo.present? && tar_calculo.moneda == 'UF'
 	    fecha_calculo = recalcular && fecha_uf ? fecha_uf : tar_calculo.fecha_uf
 	    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
-	    ownr_objt = tar_calculo
 	  end
 	  if ownr.present? && ownr.moneda == 'UF'
 	    fecha_calculo = fecha_uf.present? ? fecha_uf : Time.zone.today.to_date
 	    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
-	    ownr_objt = ownr
 	  end
 
+	  ownr_objt = tar_calculo.present? ? tar_calculo : ownr
 
 	  total_calculo = case tipo_monto
 	                  when 'Parcial'
