@@ -46,7 +46,13 @@
           <% @facturaciones.each_with_index do |facturacion, index| %>
             <tr>
               <td class="text-center text-muted"><%= index + 1 %></td>
-              <td><%= facturacion.glosa %></td>
+              <td>
+                <%= facturacion.glosa %>
+                <% if facturacion.ownr.present? && facturacion.ownr_type == 'Asesoria' && facturacion&.ownr&.tar_servicio.present? %>
+                  <% tarifa = facturacion&.ownr&.tar_servicio %>
+                  : Tarifa <%= s_moneda(tarifa.moneda, tarifa.monto) %>
+                <% end %>
+              </td>
               <td class="text-end">
                 <%= s_pesos(facturacion.monto) %>
               </td>
