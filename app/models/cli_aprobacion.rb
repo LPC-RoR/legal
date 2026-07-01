@@ -6,7 +6,7 @@ class CliAprobacion < ApplicationRecord
   has_many :act_archivos, as: :ownr, dependent: :destroy
 
   validates :fecha, presence: true
-  validates :cliente_id, uniqueness: { scope: :fecha, message: "ya tiene una aprobación para esta fecha" }
+#  validates :cliente_id, uniqueness: { scope: :fecha, message: "ya tiene una aprobación para esta fecha" }
 
   after_create :asociar_facturaciones_pendientes
 
