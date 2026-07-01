@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_30_203028) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_01_013508) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -513,7 +513,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_30_203028) do
     t.bigint "cliente_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cliente_id", "fecha"], name: "index_cli_aprobaciones_on_cliente_id_and_fecha", unique: true
     t.index ["cliente_id"], name: "index_cli_aprobaciones_on_cliente_id"
   end
 
