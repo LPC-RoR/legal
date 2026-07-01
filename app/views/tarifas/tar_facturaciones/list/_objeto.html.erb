@@ -18,14 +18,7 @@
 			<%# end %>
 		</div>
 		<div class="col-6">
-			<% if objeto.tar_calculo.present? %>
-				<%= objeto.glosa %>
-			<% else %>
-				<% case objeto.ownr.class.name %>
-				<% when 'Asesoria' %>
-					<%= "Asesoría #{objeto.ownr.tipo_asesoria.tipo_asesoria}" %>
-				<% end %>
-			<% end %>
+			<%= objeto.glosa %>
 		</div>
 		<div class="col-4 text-end">
 			<b>
