@@ -1,3 +1,4 @@
+<%= render partial: '0t/tbl', locals: {source: 'tar_facturaciones', clccn: objeto.tar_facturaciones} %>
 <% objeto.tar_facturaciones.each do |objt| %>
 	<%= render partial: prtl('tar_facturaciones', 'list', 'objeto'), locals: {objeto: objt} %>
 <% end %>
