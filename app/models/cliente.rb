@@ -65,7 +65,7 @@ class Cliente < ApplicationRecord
 		  "(ownr_type = 'TarCalculo' AND ownr_id IN (?)) OR (ownr_type = 'Asesoria' AND ownr_id IN (?))",
 		  tar_calculo_ids,
 		  asesoria_ids
-		).where(cli_aprobacion_id: nil, tar_aprobacion_id: nil)
+		).where(cli_aprobacion_id: nil, tar_aprobacion_id: nil, facturado: [nil, false])
 	end
 
     # ---------------------------------------------------------------- ESTADOS con AASM
