@@ -19,6 +19,6 @@ class CliAprobacion < ApplicationRecord
   def asociar_facturaciones_pendientes
     
     # Actualiza las tar_facturaciones pendientes de esos cálculos
-    cliente.tar_facturaciones.sin_aprobar.update_all(cli_aprobacion_id: id)
+    cliente.tar_facturaciones_pendientes_aprobacion.update_all(cli_aprobacion_id: id)
   end
 end
