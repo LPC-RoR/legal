@@ -102,6 +102,6 @@ class Docs::DocTransaccionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def doc_transaccion_params
-      params.expect(doc_transaccion: [ :descripcion, :clasificacion ])
+      params.expect(doc_transaccion: [ :descripcion, :clasificacion, :relacionable_type, :relacionable_id ])
     end
 end
