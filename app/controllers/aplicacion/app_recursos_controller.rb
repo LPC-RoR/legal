@@ -115,18 +115,6 @@ class Aplicacion::AppRecursosController < ApplicationController
     redirect_to root_path, notice: KrnDenuncia.all.count
   end
 
-  def chck_estds
-    Causa.all.each do |causa|
-      if ['ingreso', 'pagada', 'tramitación'].include?(causa.estado)
-        causa.estado = causa.get_estado
-        causa.estado_pago = causa.get_estado_pago
-        causa.save
-      end
-    end
-    
-    redirect_to root_path, notice: Causa.all.count
-  end
-
   def migrar_notas
     Nota.all.each do |nota|
       nota.tarea_con_plazo = nota.sin_fecha_gestion ? false : true

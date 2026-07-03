@@ -8,11 +8,6 @@ class Causa < ApplicationRecord
 		rit: 'B'
 	}, using: { tsearch: {prefix: true, any_word: true} }
 
-	CALC_VALORES = [ 
-		'#cuantia_pesos', '#cuantia_uf', '#monto_pagado', '#monto_pagado_uf', '#facturado_pesos', '#facturado_uf',
-		'$Remuneración'
-	]
-
 	belongs_to :cliente
 	belongs_to :tribunal_corte
 	belongs_to :tar_tarifa, optional: true
@@ -52,33 +47,10 @@ class Causa < ApplicationRecord
 
 	# antecedentes de los hechos de la tabla
 	has_many :antecedentes
-	after_initialize :debug_states
 
 	scope :revision, -> {order(created_at: :desc)}
 
     validates_presence_of :causa, :rit
-
-	# 1. Subquery que ordena y pagina IDs (sin cálculos)
-	def self.paginated_ids(page = 1, per = 20)
-	    page = (page || 1).to_i
-	    per = (per || 20).to_i
-	    
-	    # Solo IDs y orden, sin joins pesados
-	    select('causas.id, pf.orden_fecha')
-	      .joins(
-	        <<~SQL
-	          LEFT JOIN LATERAL (
-	           SELECT fecha AS orden_fecha
-	           FROM   age_actividades
-	           WHERE  ownr_type = 'Causa' AND ownr_id = causas.id
-	           AND    fecha >= CURRENT_DATE
-	           ORDER  BY fecha ASC LIMIT 1
-	          ) pf ON true
-	        SQL
-	      )
-	      .order(Arel.sql('pf.orden_fecha ASC NULLS LAST, causas.id ASC'))
-	      .page(page).per(per)
-	end
 
 	# app/models/causa.rb
 	def self.with_paginated_calculos(page = 1, per = 20)
@@ -230,19 +202,9 @@ class Causa < ApplicationRecord
 	scope :std_fnncr, ->(std) {where(estado_financiero: std)}
 	scope :rcnts, 		-> { where("created_at >= ?", 30.days.ago) }
 	  
-    # en MIGRACIÓN
-    scope :std, ->(estado) { where(estado: estado).order(:fecha_audiencia) }
-    scope :std_pago, ->(estado_pago) { where(estado_pago: estado_pago).order(:fecha_audiencia) }
-    # DEPRECATED : Se cambia por std('ingreso'), se deben migrar todas las causas que están en estado 'tramitación'
-    scope :no_fctrds, -> {where(id: all.map {|cs| cs.id if cs.tar_calculos.empty?}.compact)}
-    scope :trmtcn, -> { where(archvd: [nil, false]).where(estado: ['ingreso', 'tramitación']) }
-
-	scope :sin_tar_calculos, -> {
-		left_outer_joins(:tar_calculos).where(tar_calculos: { id: nil })
-	}
-
     delegate :tar_pagos, to: :tar_tarifa, prefix: true
 
+    # DEPRECATED
 	def demanda
 		self.app_archivos.find_by(app_archivo: 'Demanda')
 	end
@@ -250,34 +212,6 @@ class Causa < ApplicationRecord
 	def demanda?
 		self.demanda.present?
 	end
-
-    # ---------------------------------------------------------------- SCOPEs del RIT
-	# Scope base: ordena por número de causa (extraído del formato)
-	# Considera ambos formatos 234-2025 y T-12-2025
-	scope :ordenar_por_numero, -> {
-	    order(Arel.sql("CAST(
-	      CASE 
-	        WHEN rit ~ '^\\d+-\\d{4}$' THEN SUBSTRING(rit FROM '(\\d+)-\\d{4}$')
-	        WHEN rit ~ '^[TMSOC]-\\d+-\\d{4}$' THEN SUBSTRING(rit FROM '^[MSO]-(\\d+)-')
-	      END AS INTEGER
-	    ) ASC"))
-	}
-
-	# Scope para el primer formato: número-año 234-2025
-	scope :formato_simple, -> {
-	    where("rit ~ ?", '^\\d+-\\d{4}$')
-	}
-
-	# Scope para el segundo formato: letra-número-año T-234-2025
-	scope :formato_con_tipo, -> {
-	    where("rit ~ ?", '^[TMSOC]-\\d+-\\d{4}$')
-	}
-
-
-	# Filtra por tipo (M, S, O)
-	scope :por_tipo, ->(tipo) {
-	    where("SUBSTRING(rit FROM '^([TMSOC])-') = ?", tipo.to_s)
-	}
 
     # ---------------------------------------------------------------- ESTADOS con AASM
 
@@ -367,19 +301,7 @@ class Causa < ApplicationRecord
     	n_audncs == 0 ? 'ingreso' : (self.archvd ? 'archivada' : 'tramitación')
     end
 
-    def get_estado_pago
-    	n_clcls	= self.tar_calculos.count
-    	n_pgs 	= self.tar_tarifa.blank? ? 0 : self.tar_tarifa.tar_pagos.count
-
-    	n_clcls == 0 ? 'vacios' : (n_clcls == n_pgs ? 'completos' : (self.monto_pagado? ? 'monto' : 'incompletos'))
-    end
-
     # ---------------------------------------------------------------- ACTIVIDADES
-
-    def audiencia_proxima
-    	audiencias = self.age_actividades.adncs.ftrs.fecha_ordr
-    	audiencias.empty? ? nil : audiencias.first
-    end
 
     def get_age_actividad(nombre)
     	self.age_actividades.find_by(age_actividad: nombre)
@@ -389,22 +311,7 @@ class Causa < ApplicationRecord
 
 	# PAGOS
 
-	# Número de cálculos de tarifa realizados
-	def clcls
-		self.tar_calculos.count
-	end
-
-	# Número de pagos en la tarifa
-	def pgs_trf
-		self.tar_tarifa.blank? ? 0 : self.tar_tarifa.tar_pagos.count
-	end
-
 	# Archivos y control de archivos
-
-	# Nombres de los archivos
-	def nms
-		self.app_archivos.nms.union(self.documentos.nms)
-	end
 
 	def fnd_fl(app_archivo)
 		self.app_archivos.find_by(app_archivo: app_archivo)
@@ -528,17 +435,8 @@ class Causa < ApplicationRecord
 
 	# -------------------------------------------------------------------------------------------------------
 
-	def nombres_usados
-		self.archivos.map {|archivo| archivo.app_archivo}
-	end
-
 	def archivos
 		AppArchivo.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
-	def archivos_pendientes
-		ids = self.archivos_controlados.map {|control| control.id unless self.nombres_usados.include?(control.nombre) }.compact
-		ControlDocumento.where(id: ids)
 	end
 
 	# ------------------------------------------------------------
@@ -585,14 +483,6 @@ class Causa < ApplicationRecord
 		TarUfSistema.find_by(fecha: fecha_calculo_pago(pago))
 	end
 
-	def facturado_pesos
-		self.tar_facturaciones.map {|factn| factn.monto_pesos}.sum
-	end
-
-	def facturado_uf
-		self.tar_facturaciones.map {|factn| factn.monto_uf}.sum
-	end
-
     # ****************************************************
 
     # Revisar uso
@@ -604,69 +494,6 @@ class Causa < ApplicationRecord
 		self.cliente.tar_tarifas
 	end
 
-	def monto_pagado_uf(pago)
-		uf = self.uf_calculo_pago(pago)
-		(uf.blank? or self.monto_pagado.blank?) ? 0 : self.monto_pagado / uf.valor
-	end
-
 	private
-
-  def debug_states
-    puts "🔍 DEBUG - estado_operativo: #{estado_operativo.inspect}"
-    puts "🔍 DEBUG - estado_operativo class: #{estado_operativo.class}"
-    puts "🔍 DEBUG - new_record?: #{new_record?}"
-  end
-
-	# 2. Helper privado que hace los LATERAL (sin tocar SELECT)
-	def self.with_calculos
-	    joins(
-	      <<~SQL
-	        LEFT JOIN LATERAL (
-	         SELECT estado AS ultimo_estado
-	         FROM   estados
-	         WHERE  estados.causa_id = causas.id
-	         ORDER  BY fecha DESC, id DESC LIMIT 1
-	        ) ult_est ON true
-	        
-	        LEFT JOIN LATERAL (
-	         -- ▶️ CORREGIDO: usa el nombre real de columna (probablemente solo 'actividad')
-	         SELECT (fecha AT TIME ZONE 'America/Santiago')::timestamp AS proxima_fecha, suspendida, age_actividad AS actividad
-	         FROM   age_actividades
-	         WHERE  age_actividades.ownr_type = 'Causa'
-	         AND    age_actividades.ownr_id = causas.id
-	         AND    fecha >= CURRENT_DATE
-	         ORDER  BY fecha ASC LIMIT 1
-	        ) pf ON true
-	        
-	        LEFT JOIN LATERAL (
-	         SELECT COALESCE(SUM(valor_tarifa), 0) AS suma_tarifas
-	         FROM   tar_valor_cuantias
-	         WHERE  tar_valor_cuantias.ownr_type = 'Causa'
-	         AND    tar_valor_cuantias.ownr_id = causas.id
-	        ) tv ON true
-	        
-	        LEFT JOIN LATERAL (
-	         SELECT monto AS ultimo_valor
-	         FROM   monto_conciliaciones
-	         WHERE  monto_conciliaciones.causa_id = causas.id
-	         AND    tipo IN ('Acuerdo', 'Sentencia')
-	         ORDER  BY fecha DESC, id DESC LIMIT 1
-	        ) mc ON true
-	        
-	        LEFT JOIN LATERAL (
-	         SELECT act_archivos.id AS demanda_archivo_id
-	         FROM   act_archivos
-	         INNER JOIN active_storage_attachments 
-	                 ON active_storage_attachments.record_type = 'ActArchivo'
-	                AND active_storage_attachments.record_id = act_archivos.id
-	                AND active_storage_attachments.name = 'pdf'
-	         WHERE  act_archivos.ownr_type = 'Causa'
-	         AND    act_archivos.ownr_id = causas.id
-	         AND    act_archivos.act_archivo = 'demanda'
-	         LIMIT  1
-	        ) arch_dem ON true
-	      SQL
-	    )
-	end
 
 end

@@ -24,11 +24,6 @@ class AppArchivo < ApplicationRecord
 		end
 	end
 
-	# Nombres
-	def self.nms
-		all.map {|archv| archv.app_archivo}		
-	end
-
 	# REVISAR, probablemente DEPRECATED
 
 	def objeto_destino

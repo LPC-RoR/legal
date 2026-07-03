@@ -2,7 +2,7 @@ class ClientesController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_cliente, only: %i[ show edit update destroy crear_aprobacion swtch_stt cambio_estado crea_factura aprueba_factura swtch_urgencia swtch_pendiente ]
+  before_action :set_cliente, only: %i[ show edit update destroy crear_aprobacion swtch_stt cambio_estado swtch_urgencia swtch_pendiente ]
   after_action :rut_puro, only: %i[ create update ]
 
   layout 'addt'
@@ -106,21 +106,6 @@ class ClientesController < ApplicationController
 
       @causas_revision = @objeto.causas.revision
 
-      scp = params[:scp].blank? ? 'ingrss' : params[:scp]
-
-      case scp
-      when 'ingrss'
-        cllcn = @objeto.facturas.std('ingreso')
-      when 'fctrds'
-        cllcn = @objeto.facturas.std('facturada')
-      when 'pgds'
-        cllcn = @objeto.facturas.std('pagada')
-      end
-
-      @scp = scp_item[:tar_facturas][scp.to_sym]
-
-      set_tabla('tar_facturas', cllcn, true)
-
     elsif @options[:menu] == 'Tarifas'
       
       @estados = []
@@ -195,31 +180,6 @@ class ClientesController < ApplicationController
     @objeto.save
 
     redirect_to "/clientes/#{@objeto.id}"
-  end
-
-  # DEPRECATED
-  def crea_factura
-    concepto = (@objeto.facturacion_pendiente.count == 1 ? @objeto.facturacion_pendiente.first.glosa : "Varios de cliente #{@objeto.razon_social}")
-    factura = TarFactura.create(concepto: concepto, owner_class: 'Cliente', owner_id: @objeto.id, estado: 'ingreso',fecha_factura: Time.zone.today.to_date)
-
-    @objeto.facturacion_pendiente.each do |facturacion|
-      factura.tar_facturaciones << facturacion
-    end
-
-    redirect_to tar_facturas_path
-  end
-
-  #DEPRECATED
-  def aprueba_factura
-    factura = TarFactura.create(owner_class: @objeto.class.name, owner_id: @objeto.id, concepto: "Varios #{@objeto.razon_social}", fecha_factura: Time.zone.today.to_date, estado: 'ingreso')
-    
-    @objeto.aprobaciones.each do |aprobacion|
-      aprobacion.estado = 'aprobado'
-      aprobacion.save
-      factura.tar_facturaciones << aprobacion
-    end
-
-    redirect_to factura
   end
 
   # DELETE /clientes/1 or /clientes/1.json

@@ -116,32 +116,6 @@ class Cliente < ApplicationRecord
 		TarFacturacion.where(cli_aprobacion_id: nil, tar_calculo_id: calculos_ids)
 	end
 
-    # Procedimiento Investigación y Sanción
-
-    def cntcts_array
-        [(verificacion_datos? ? 'RRHH' : nil),
-            (coordinacion_apt? ? 'Apt' : nil),
-            'Backup'].compact
-    end
-
-    def nomina?
-        self.app_nominas.any?
-    end
-
-    def empresas_externas?
-        self.krn_empresa_externas.any?
-    end
-
-    # CHILDS
-
-	def actividades
-		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
-	end
-
-	def facturas
-		TarFactura.where(owner_class: self.class.name, owner_id: self.id)
-	end
-
 	# OBJETO
 
     def st_modelo
@@ -208,12 +182,6 @@ class Cliente < ApplicationRecord
 	end
 	# ------------------------------------------------------------
 
-	def exclude_files
-		self.st_modelo.blank? ? [] : self.st_modelo.control_documentos.where(tipo: 'Archivo').order(:nombre).map {|cd| cd.nombre}
-	end
-
-	# Hasta aqui revisado!
-
 	def aprobaciones
 		self.facturaciones.where(estado: 'aprobación').order(created_at: :desc)
 	end
@@ -222,27 +190,9 @@ class Cliente < ApplicationRecord
 		self.facturaciones.where(estado: 'aprobado', tar_factura_id: nil)
 	end
 
-	# DEPRECATED
-	def aprob_total_uf
-		self.aprobaciones.map {|facturacion| facturacion.monto_uf}.sum
-	end
-
-	# DEPRECATED
-	def aprob_total_pesos
-		self.aprobaciones.map {|facturacion| facturacion.monto_pesos}.sum
-	end
-
 	def uf_dia
 		uf = TarUfSistema.find_by(fecha: Time.zone.today.to_date)
 		uf.blank? ? 0 : uf.valor
-	end
-
-	def monto_factura_aprobacion_pesos
-		self.facturaciones.where(tar_factura_id: nil).map {|fctrcn| fctrcn.moneda == 'Pesos' ? fctrcn.monto : fctrcn.monto * self.uf_dia }.sum
-	end
-
-	def monto_factura_aprobacion_uf
-		self.facturaciones.where(tar_factura_id: nil).map {|fctrcn| fctrcn.moneda == 'Pesos' ? fctrcn.monto / self.uf_dia : fctrcn.monto }.sum
 	end
 
 	# Manejo de logos y footer
