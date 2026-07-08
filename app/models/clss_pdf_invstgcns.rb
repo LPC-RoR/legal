@@ -13,6 +13,8 @@ class ClssPdfInvstgcns
     dnncd: [
       { code: 'txt_mdds_rsgrd', condition: ->(o) { true } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } },
+    ],
+    emprs: [
     ]
   }
 
