@@ -19,7 +19,8 @@ class ClssPdfInvstgcns
   }
 
   def self.dsply_codes_for(ownr)
-    available_codes_for(ownr, DSPLY_CDGS[ownr.kywrd[:sym]])
+    items = DSPLY_CDGS[ownr.kywrd[:sym]] || []
+    available_codes_for(ownr, items)
   end
 
   def self.nombre
