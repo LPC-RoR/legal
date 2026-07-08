@@ -1,0 +1,25 @@
+<% source 	||= nil %>
+<% ownr  	||= nil %>
+<% blngs  	||= nil %>
+<% dir    	||= 'box' %>
+<% data 	||= {} %>
+
+<% clss_lst ||= nil %>
+
+<% col_lft 	||= 10 %>
+
+<div class="border rounded-2 shadow-sm my-1 objt_lnk">
+	<div class="p-2 rounded-2 bg_azul_claro clr_azul_oscuro" style="font-size: 0.9rem;line-height: 1.5;">
+		<div class="row gx-1">
+			<div class="col-<%=col_lft%>">
+				<%= render partial: prtl(source, dir, 'objt'), locals: {objt: source, ownr: ownr, blngs: blngs, data: data} if prtl?(source, dir, 'objt') %>
+			</div>
+			<div class="col-<%=12-col_lft%> text-end">
+				<%= render partial: prtl(source, dir, 'lnks'), locals: {objt: source, ownr: ownr, blngs: blngs, data: data} if prtl?(source, dir, 'lnks') %>
+			</div>
+		</div>
+	</div>
+	<div class="py-2 px-3 <%=clss_lst%>">
+		<%= render partial: prtl(source, dir, 'lst'), locals: {objt: source, ownr: ownr, blngs: blngs, data: data} if prtl?(source, dir, 'lst') %>
+	</div>
+</div>

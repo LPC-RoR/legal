@@ -33,6 +33,7 @@ class KrnDenuncia < ApplicationRecord
 	has_many :krn_testigos, 		-> { order(created_at: :asc) }, dependent: :destroy
 
 	has_many :act_archivos, as: :ownr, dependent: :destroy
+	has_many :txt_editables, as: :ownr, dependent: :destroy
 	has_many :act_referencias, as: :ref
 
 	has_many :check_realizados, as: :ownr, dependent: :destroy

@@ -14,3 +14,12 @@
 	<% end %>
 
 <% end %>
+
+<div><hr></div>
+
+<%# PDFs GENERADOS DESDE SERVICIOS CON CONTEXTO %>
+<% pdf_codes = ClssPdfInvstgcns.dsply_codes_for(ownr) %>
+
+<% pdf_codes.each do |code| %>
+	<%= render partial: prtl('act_archivos', 'objt', 'objeto_cntxt'), locals: {code: code, mdl: ClssPdfInvstgcns, ownr: ownr} %>
+<% end %>

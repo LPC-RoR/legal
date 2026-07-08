@@ -27,6 +27,7 @@ es:
   date:
     formats:
       dia_mes_completo: "%A %e de %B"  # lunes 6 de abril
+      long: "%d de %B de %Y"
     abbr_day_names:
     - dom
     - lun
@@ -128,6 +129,7 @@ es:
   time:
     formats:
       solo_hora: "%H:%M"  # 16:45
+      long: "%d de %B de %Y %H:%M"
   errors:
     format: "%{attribute} %{message}"
     messages:

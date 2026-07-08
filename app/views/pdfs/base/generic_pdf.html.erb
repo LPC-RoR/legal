@@ -1,0 +1,18 @@
+<!-- app/views/pdfs/base/generic_pdf.html.erb -->
+<%# Template genérico fallback para reportes sin template específico %>
+
+<div class="container-fluid">
+  <div class="alert alert-warning">
+    <h4>Reporte: <%= @reporte %></h4>
+    <p>No se encontró template específico para este reporte.</p>
+  </div>
+
+  <% if @datos.present? %>
+    <div class="card">
+      <div class="card-header">Datos del Reporte</div>
+      <div class="card-body">
+        <pre><%= JSON.pretty_generate(@datos.as_json) rescue @datos.inspect %></pre>
+      </div>
+    </div>
+  <% end %>
+</div>

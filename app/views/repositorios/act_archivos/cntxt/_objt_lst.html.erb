@@ -1,0 +1,20 @@
+<% ownr.act_archivos.where(act_archivo: code).each do |act| %>
+	<% nombre = act.nombre.present? ? act.nombre : mdl.nombre[code] %>
+
+	<% if act.pdf.attached? %>
+		<% clr = act.crtn_mode == 'upload' ? 'text-success' : 'text-primary' %>
+	<% else %>
+		<% clr = 'text-secondary' %>
+	<% end %>
+
+	<div class="row gx-1 <%=clr%>">
+		<div class="col-10">
+			<i class="bi bi-arrow-return-right"></i> 
+			<%= nombre %>
+		</div>
+		<div class="col-2 text-end">
+			<%=render partial: '0t/lnk_dwnld', locals: {objt: act, tltp: "Bajar PDF"} %>
+			<%=render partial: '0t/lnks_e', locals: {objt: act} %>
+		</div>
+	</div>
+<% end %>

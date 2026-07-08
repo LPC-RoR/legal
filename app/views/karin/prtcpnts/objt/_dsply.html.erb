@@ -1,4 +1,3 @@
-<% act_id 			= "#{objeto.class.name}_#{objeto.id}" %>
 <% email_validado 	= objeto.tiene_email_verificado? %>
 <% email_verificado = objeto.tiene_email_validado? %>
 <% articulo_516 	= objeto.articulo_516 %>
@@ -11,6 +10,17 @@
 	<%# Despliegue de INFORMACIÓN Y NOTIFICACIONES %>
 	<% if articulo_516 or email_verificado or email_validado %>
 
+		<%# TAB DE PARTICIPANTES %>
+		<% if @tbs[@indx] == 'Participantes' %>
+			<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Envío de información y notificaciones', gly: 'caret-right-fill'} do %>
+
+				<%# Contiene una mezcla del manejo antiguo y el nuevo %>
+				<%= render partial: prtl('act_archivos', nil, 'dsply_rprts'), locals: {mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
+
+			<% end %>
+		<% end %>
+
+		<%# TAB DE DECLARACIONES %>
 		<% if @tbs[@indx] == 'Declaraciones' %>
 
 			<%# Despliegue de CITACIONES A DECLARAR %>
@@ -19,16 +29,12 @@
 			<% end %>
 		<% end %>
 
-		<%# SEPARACIÓN DE DECLARACIONES %>
-		<% if @tbs[@indx] == 'Participantes' %>
-			<%= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Envío de información y notificaciones', gly: 'caret-right-fill'} do %>
+		<%# CREACIÓN de TXTs EDITABLES %>
+		<%# TxtEditable list del ownr %>
 
-				<%= render partial: prtl('act_archivos', nil, 'dsply_rprts'), locals: {mdl: ClssPrcdmnt, ownr: objeto, lnks: true} %>
+		<% etxt_lst = ClssTxtInvstgcns.codes_for(objeto) %>
+		<%= render partial: '0g/lst_box', locals: {source: 'txt_editables', ownr: objeto, data: {etxt_lst: etxt_lst}} %>
 
-			<% end %>
-		<% end %>
-
-		<%# Gestión de PDFs EDITABLES %>
 		<%# KrnTexto list del ownr %>
 		<% txt_lst_cdg = ClssPdfRprt.txt_lst_cdg(objeto, @indx) %>
 		<%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {ownr: objeto, txt_lst_cdg: txt_lst_cdg} %>

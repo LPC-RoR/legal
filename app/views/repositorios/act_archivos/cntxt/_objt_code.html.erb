@@ -1,0 +1,13 @@
+<% nombre = mdl.nombre[code] %>
+
+<div class="row gx-1">
+	<div class="col-10">
+		<i class="bi bi-file-pdf"></i>
+		<%= nombre %>
+	</div>
+	<div class="col-2 text-end objt_lnk">
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/new?code=#{code}", tltp: 'Subir PDF'} do %>
+			<i class="bi bi-upload"></i>
+		<% end %>
+	</div>
+</div>

@@ -275,7 +275,7 @@ class EmpresasController < ApplicationController
     # Only allow a list of trusted parameters through.
     def empresa_params
       params.require(:empresa).permit(
-        :rut, :razon_social, :administrador, :email_administrador, 
+        :rut, :razon_social, :administrador, :email_administrador, :tipo_empresa,
         :contacto, :telefono, :informacion_comercial, :principal_usuaria, :logo,
         :activa_devolucion, :verificacion_datos, :coordinacion_apt, :mail_backup, :industry, :company_size, :plan_type, :fecha_demo
         # :website NO se persiste (honeypot)

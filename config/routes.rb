@@ -360,6 +360,13 @@ Rails.application.routes.draw do
     resources :check_auditorias
     resources :audit_notas
 
+    # Equivalente a KrnTexto, no se hizo ActTexto porque estaba ocupado.
+    resources :txt_editables do
+      member do
+        post :generar_pdf
+      end
+    end
+
   end
 
   scope module: 'aplicacion' do

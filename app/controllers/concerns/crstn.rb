@@ -55,7 +55,8 @@ module Crstn
 			'KrnInvDenuncia' => 'Investigador',
 			'ComDocumento' => 'Documento comercial',
 			'ComRequerimiento' => 'Requerimiento comercial',
-			'AppNomina' => 'Perfil'
+			'AppNomina' => 'Perfil',
+			'TxtEditable' => 'Texto editable'
 		}
 	end
 

@@ -3,15 +3,10 @@ module PdfGeneratable
   extend ActiveSupport::Concern
 
   # Método único para generar PDFs.
-  # @param reporte [String] Identificador del reporte (ej: 'doc_honorario')
-  # @param ownr [ActiveRecord::Base, nil] Propietario polimórfico del ActArchivo. 
-  #   Puede ser nil si el reporte no requiere ownr.
+  # @param reporte [String] Identificador del reporte (ej: 'txt_mdds_crrctvs_sncns')
+  # @param ownr [ActiveRecord::Base, nil] Propietario polimórfico del ActArchivo
   # @param objeto_id [Integer, String, nil] ID del objeto principal del reporte
   # @param opciones [Hash] Opciones adicionales
-  # @option opciones [Boolean] :async Ejecutar en background (default: auto-detect)
-  # @option opciones [Boolean] :descargar Responder con redirect a descarga
-  # @option opciones [Boolean] :enviar_email Enviar por email tras generar
-  # @option opciones [Hash] :datos_extra Datos adicionales para el contexto
   def generar_pdf(reporte, ownr: nil, objeto_id: nil, **opciones)
     objeto_id ||= params[:id]
     
@@ -47,9 +42,47 @@ module PdfGeneratable
         end
       rescue => e
         Rails.logger.error "[PdfGeneratable] Error generando PDF: #{e.message}"
-        render json: { error: e.message }, status: :unprocessable_entity
+        render json: { error: e.message }, status: :unprocessable_content
       end
     end
+  end
+
+  # ============================================
+  # GENERAR PDFs MÚLTIPLES (uno por participante)
+  # ============================================
+  # @param reporte [String] Código del reporte
+  # @param objeto_id [Integer] ID del objeto principal (TxtEditable)
+  # @param participantes [Array] Colección de participantes
+  # @param opciones [Hash] Opciones adicionales
+  def generar_pdf_multiples(reporte, objeto_id:, participantes:, **opciones)
+    unless ClssPdf.valid_report?(reporte)
+      return render json: { error: "Reporte no válido: #{reporte}" }, status: :bad_request
+    end
+
+    act_archivos = participantes.map do |participante|
+      # Cada participante es el ownr del ActArchivo
+      Pdfs::ContextPdfService.generar_pdf(reporte, 
+        ownr: participante,
+        objeto_id: objeto_id,
+        participante: participante,
+        **opciones
+      )
+    end
+
+    render json: {
+      message: "PDFs generados exitosamente",
+      reporte: reporte,
+      cantidad: act_archivos.length,
+      act_archivos: act_archivos.map { |a| { 
+        id: a.id, 
+        nombre: a.nombre,
+        ownr_type: a.ownr_type,
+        ownr_id: a.ownr_id
+      }}
+    }
+  rescue => e
+    Rails.logger.error "[PdfGeneratable] Error generando PDFs múltiples: #{e.message}"
+    render json: { error: e.message }, status: :unprocessable_content
   end
 
   private

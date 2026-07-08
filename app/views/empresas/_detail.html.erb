@@ -6,6 +6,7 @@
         <% else %>
             <%= s_rut(@objeto.rut)%>
         <% end %>
+        <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tipo_empresa, label: 'Tipo empresa' } %>
     </div>
     <div class="col-9">
         <% if current_usuario.dog? %>
@@ -133,6 +134,10 @@
             <%= form.check_box :mail_backup, class: "form-check-input", value: 1 %>
             <%= form.label :coordinacion_apt, "Respaldo de correos electrónicos", class: "form-check-label" %>
         </div>
+
+        <h5>Textos editables</h5>
+        <% etxt_lst = ['firma_mdds'] %>
+        <%= render partial: '0g/lst_box', locals: {source: 'txt_editables', ownr: @objeto, data: {etxt_lst: etxt_lst}} %>
 
     </div>
 </div>

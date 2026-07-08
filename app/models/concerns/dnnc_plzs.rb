@@ -31,7 +31,7 @@ module DnncPlzs
  			# 1.- Investigada en la DT: fecha de recepción del informe
  			# 2.- Plazo para el pronunciamiento vencido: 30 hábiles desde la fecha de envío
  			# 3.- Fecha del pronunciamiento
- 			on_dt? ? fecha_rcpcn_infrm : (prnncmnt_vncd ? ::CalFeriado.plazo_habil(fecha_env_infrm, 30) : fecha_prnncmnt)
+ 			on_dt? ? fecha_rcpcn_infrm : (prnncmnt_vncd? ? ::CalFeriado.plazo_habil(fecha_env_infrm, 30) : fecha_prnncmnt)
  		end
  	end
 

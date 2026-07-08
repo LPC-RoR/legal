@@ -17,6 +17,7 @@ class KrnTestigo < ApplicationRecord
 
 
 	has_many :act_archivos, as: :ownr, dependent: :destroy
+	has_many :txt_editables, as: :ownr, dependent: :destroy
 	has_many :act_referencias, as: :ref
 	has_many :check_realizados, as: :ownr, dependent: :destroy
 	has_many :check_auditorias, as: :ownr, dependent: :destroy

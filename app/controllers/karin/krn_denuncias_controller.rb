@@ -234,6 +234,8 @@ class Karin::KrnDenunciasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denuncia_params
-      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :identificador, :fecha_hora, :receptor_denuncia, :motivo_denuncia, :krn_empresa_externa_id, :krn_investigador_id, :fecha_hora_dt, :presentado_por, :via_declaracion, :tipo_declaracion, :representante, :auditoria, :fecha_trmtcn)
+      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :identificador, :fecha_hora, :causal_establecida,
+        :receptor_denuncia, :motivo_denuncia, :krn_empresa_externa_id, :krn_investigador_id, :fecha_hora_dt, 
+        :presentado_por, :via_declaracion, :tipo_declaracion, :representante, :auditoria, :fecha_trmtcn)
     end
 end

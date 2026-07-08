@@ -5,9 +5,9 @@ module Pdfs
     PAGE_TIMEOUT   = 45
     PDF_TIMEOUT    = 45
 
-    # Logos fijos por contexto (fallbacks)
+    # Logos por contexto
     LOGO_DEFAULT_PATH = Rails.root.join('app', 'assets', 'images', 'logo', 'tyc_60.png').freeze
-    LOGO_INVESTIGACIONES_FALLBACK = Rails.root.join('public', 'mssgs', 'email_head.png').freeze
+    LOGO_INVESTIGACIONES_FALLBACK = Rails.root.join('app', 'assets', 'images', 'logo', 'logo_60.png').freeze
 
     class << self
       def generate(html, options = {})
@@ -40,7 +40,6 @@ module Pdfs
           page.network.wait_for_idle(timeout: PAGE_TIMEOUT)
           sleep 1.5
 
-          # Header con logo proporcionado o default
           header_template = build_header_template(options[:header_logo_data_url])
           footer_template = build_footer_template(options[:empresa])
 
@@ -81,14 +80,11 @@ module Pdfs
       # ============================================
       # RESOLVER LOGO POR CONTEXTO
       # ============================================
-      # @param contexto [Symbol] :pltfrm, :fnnzs, :invstgcns, :srvcs
-      # @param empresa [Empresa, nil] Modelo con logo (solo para invstgcns)
-      # @return [String, nil] Data URL del logo o nil
       def resolve_header_logo(contexto, empresa = nil)
         case contexto
         when :invstgcns
-          # Investigaciones: logo de empresa, o fallback
-          logo_empresa_data_url(empresa) || logo_fallback_investigaciones
+          # Investigaciones: logo de empresa, o fallback logo_60.png
+          logo_empresa_data_url(empresa) || logo_investigaciones_fallback
         else
           # Plataforma, Finanzas, Servicios: logo fijo tyc_60
           logo_default_data_url
@@ -117,7 +113,7 @@ module Pdfs
       end
 
       def build_footer_template(empresa)
-        razon_social = empresa&.razon_social || "Empresa"
+        razon_social = empresa&.respond_to?(:razon_social) ? empresa.razon_social : "Empresa"
         fecha = I18n.l(Time.current, format: :long)
 
         <<~HTML
@@ -129,16 +125,12 @@ module Pdfs
         HTML
       end
 
-      # ============================================
-      # LOGOS
-      # ============================================
-
       def logo_default_data_url
         @logo_default_data_url ||= path_to_data_url(LOGO_DEFAULT_PATH)
       end
 
-      def logo_fallback_investigaciones
-        @logo_fallback_investigaciones ||= path_to_data_url(LOGO_INVESTIGACIONES_FALLBACK)
+      def logo_investigaciones_fallback
+        @logo_investigaciones_fallback ||= path_to_data_url(LOGO_INVESTIGACIONES_FALLBACK)
       end
 
       def logo_empresa_data_url(empresa)

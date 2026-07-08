@@ -12,6 +12,7 @@ class KrnInvestigador < ApplicationRecord
 
 	# Utilizado para almacenar el pdf del título profesional
 	has_many :act_archivos, as: :ownr, dependent: :destroy
+	has_many :txt_editables, as: :ownr, dependent: :destroy
 
 	has_many :krn_declaraciones
 

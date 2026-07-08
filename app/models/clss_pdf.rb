@@ -17,6 +17,7 @@ class ClssPdf
     'txt_infrm'                 => :invstgcns,
     'texto_anonimizado'         => :invstgcns,
     'resumen_cronologico'       => :invstgcns,
+    'txt_mdds_crrctvs_sncns'    => :invstgcns,   # ← NUEVO
     
     # === FINANZAS (fnnzs) ===
     'aprobacion'                => :fnnzs,

@@ -1,0 +1,42 @@
+<% cntxt_clss = @objeto.cntxt_clss.constantize %>
+<% clss_lst   = cntxt_clss.codes_for(@objeto.ownr) %>
+
+<div class="mb-3">
+
+  <%= form.label :codigo, "Formato", class: "form-label" %>
+  <div class="mb-3">
+    <%= form.label :codigo, "Código", class: "form-label" %>
+    <%= form.text_field :codigo, 
+                       class: "form-control",
+                       placeholder: "Código",
+                       readonly: true %>
+  </div>
+</div>
+
+<div class="mb-3">
+  <%= form.label :titulo, "Título", class: "form-label" %>
+  <%= form.text_field :titulo, 
+                     class: "form-control",
+                     placeholder: "Título del reporte" %>
+</div>
+
+<div class="mb-3">
+  <%= form.label :contenido, "Texto", class: "form-label" %>
+  <%# Trix editor nativo de Rails 8 %>
+  <%= form.rich_text_area :contenido, 
+                      class: "trix-content",
+                      placeholder: "Escribe o pega el contenido aquí...",
+                      data: { 
+                        # Permite pegar desde Word/Google Docs
+                        action: "trix-paste->editor#sanitize" 
+                      } %>
+  
+  <small class="form-text text-muted">
+    Puedes pegar contenido desde Word o Google Docs. 
+    Usa los botones de la barra para listas, negritas, etc.
+  </small>
+</div>
+
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :ownr_type } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :ownr_id } %>
+<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :cntxt_clss } %>

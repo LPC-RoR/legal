@@ -21,6 +21,7 @@ class KrnDenunciante < ApplicationRecord
 	belongs_to :krn_empleado, optional: true
 
 	has_many :act_archivos, as: :ownr, dependent: :destroy
+	has_many :txt_editables, as: :ownr, dependent: :destroy
 	has_many :act_referencias, as: :ref
 	has_many :check_realizados, as: :ownr, dependent: :destroy
 

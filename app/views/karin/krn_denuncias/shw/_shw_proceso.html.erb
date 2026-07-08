@@ -16,6 +16,9 @@
 </div>
 
 <% if objeto.krn_denunciantes.any? %>
+	<% etxt_lst = ClssTxtInvstgcns.codes_for(objeto) %>
+	<%= render partial: '0g/lst_box', locals: {source: 'txt_editables', ownr: objeto, data: {etxt_lst: etxt_lst}} %>
+
 	<%# KrnTexto list del ownr %>
 	<% txt_lst_cdg = ClssPdfRprt.txt_lst_cdg(objeto, nil) %>
 	<%= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {ownr: objeto, txt_lst_cdg: txt_lst_cdg} %>

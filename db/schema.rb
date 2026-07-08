@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_01_013508) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_08_220106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -33,9 +33,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_01_013508) do
     t.datetime "processed_at"
     t.boolean "excluir"
     t.boolean "sndd"
+    t.string "crtn_mode"
+    t.string "fuente"
+    t.datetime "feha_envio"
     t.index ["act_archivo"], name: "index_act_archivos_on_act_archivo"
     t.index ["anonimizado_de_id"], name: "index_act_archivos_on_anonimizado_de_id"
     t.index ["control_fecha"], name: "index_act_archivos_on_control_fecha"
+    t.index ["crtn_mode"], name: "index_act_archivos_on_crtn_mode"
     t.index ["excluir"], name: "index_act_archivos_on_excluir"
     t.index ["mdl"], name: "index_act_archivos_on_mdl"
     t.index ["ownr_id"], name: "index_act_archivos_on_ownr_id"
@@ -900,6 +904,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_01_013508) do
     t.string "plan_type"
     t.date "fecha_demo"
     t.boolean "mail_backup"
+    t.string "tipo_empresa"
     t.index ["company_size"], name: "index_empresas_on_company_size"
     t.index ["industry"], name: "index_empresas_on_industry"
     t.index ["mail_backup"], name: "index_empresas_on_mail_backup"
@@ -1089,7 +1094,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_01_013508) do
     t.boolean "plz_invstgcn_vncd"
     t.boolean "auditoria"
     t.boolean "vrfccn_dts_incmbnts"
+    t.boolean "causal_establecida"
     t.index ["auditoria"], name: "index_krn_denuncias_on_auditoria"
+    t.index ["causal_establecida"], name: "index_krn_denuncias_on_causal_establecida"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["identificador"], name: "index_krn_denuncias_on_identificador"
@@ -1830,6 +1837,20 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_01_013508) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["tribunal_corte"], name: "index_tribunal_cortes_on_tribunal_corte"
+  end
+
+  create_table "txt_editables", force: :cascade do |t|
+    t.string "ownr_type"
+    t.integer "ownr_id"
+    t.string "codigo"
+    t.string "titulo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "cntxt_clss"
+    t.index ["cntxt_clss"], name: "index_txt_editables_on_cntxt_clss"
+    t.index ["codigo"], name: "index_txt_editables_on_codigo"
+    t.index ["ownr_id"], name: "index_txt_editables_on_ownr_id"
+    t.index ["ownr_type"], name: "index_txt_editables_on_ownr_type"
   end
 
   create_table "usuarios", force: :cascade do |t|

@@ -1,0 +1,56 @@
+<!-- app/views/pdfs/invstgcns/txt_mdds_crrctvs_sncns_pdf.html.erb -->
+<%# 
+  Reporte: Medidas Correctivas y Sanciones
+  Contexto: Investigaciones (invstgcns)
+  Variables:
+    - @krn_denuncia      → Instancia de KrnDenuncia
+    - @participante      → KrnDenunciante o KrnDenunciado
+    - @tipo_participante → 'denunciante' o 'denunciado'
+    - @txt_editable      → Instancia de TxtEditable
+    - @contenido         → ActionText del txt_editable
+%>
+
+<!-- ENCABEZADO -->
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+</div>
+<div class="text-center fs-5">
+  Notificación conclusiones investigación Ley 21.643
+</div>
+<div class="row mt-5">
+  <div class="col-6">
+    REFERENCIA:<br>
+    Denuncia <%= @krn_denuncia.identificador %>
+  </div>
+  <div class="col-6 text-end">
+    DESTINATARIO:<br>
+    <%= @participante.kywrd[:krn] %>
+  </div>
+</div>
+<div class="mt-4" style="font-weight: bold;">
+  <p>Sr(a) <%= @participante.nombre %></p>
+  <p>PRESENTE</p>
+</div>
+
+<div>
+  <p>De mi consideración:</p>
+
+  <% fecha_control = @krn_denuncia.plz_fecha_inicio(:etp_mdds_sncns) %>
+  <p>Junto con saludar, informo a usted que, con fecha <%= l(fecha_control, format: :long) if fecha_control %>, <% if @krn_denuncia.fecha_prnncmnt.present? %> este empleador fue notificado del pronunciamiento emitido por la Dirección del Trabajo <% else %> ha vencido el plazo para el pronunciamiento de la Dirección del Trabajo<% end %> respecto de la investigación interna iniciada con ocasión de la denuncia presentada <% if @tipo_participante == 'denunciante' %>por usted<% else %> en su contra <% end %> el día <%= l(@krn_denuncia.fecha_hora, format: :long) %>.</p>
+  <p>En cumplimiento de lo dispuesto en el artículo 19 del Reglamento de la Ley N.° 21.643, se comunica que, atendidas las conclusiones de la investigación y <% unless @krn_denuncia.causal_establecida %>no<% end %> habiéndose acreditado la existencia de conductas constitutivas de acoso laboral, este empleador ha resuelto adoptar las siguientes medidas preventivas:</p>
+
+  <p><%= @txt_editable.contenido.to_s.html_safe %></p>
+
+  <p>Asimismo, se informa que las medidas de resguardo dispuestas con ocasión de la investigación tenían un carácter estrictamente preventivo y transitorio, por lo que, habiendo concluido el procedimiento, estas quedarán sin efecto a contar de la fecha de la presente comunicación, cesando su aplicación.</p>
+
+  <p>Finalmente, reiteramos que la <%= @krn_denuncia.ownr.tipo_empresa.capitalize %> mantiene su compromiso con la prevención del acoso laboral, sexual y de la violencia en el trabajo, promoviendo un ambiente laboral seguro, respetuoso y libre de conductas contrarias a la dignidad de las personas.</p>
+
+  <p>Saluda atentamente.</p>
+</div>
+
+<% txt_firma = @krn_denuncia.ownr.txt_editables.find_by(codigo: 'firma_mdds') %>
+
+<% if txt_firma.present? %>
+  <div class="text-center"><%= txt_firma.contenido.to_s.html_safe %></div>
+<% end %>

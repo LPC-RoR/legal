@@ -1,0 +1,33 @@
+<% lst = data[:etxt_lst] %>
+
+<% if lst.empty? %>
+	Lista sin elementos
+<% else %>
+	<% lst.each do |cdg| %>
+		<% cntxt_clss = ClssTxt.context_class(cdg) %>
+		<% txt_objt = ownr.txt_editables.find_by(codigo: cdg) %>
+
+		<div class="row">
+			<div class="col-10">
+				<% if txt_objt.present? %>
+					<i class="bi bi-check-circle"></i>
+					<%= link_to cntxt_clss.txt_name[cdg], txt_objt %>
+				<% else %>
+					<%= cntxt_clss.txt_name[cdg] %>
+				<% end %>
+			</div>
+			<div class="col-2 text-end objt_lnk">
+				<% if (@licencia_activa || current_usuario.operacion?) %>
+					<% if txt_objt.nil? %>
+						<%= render partial: '0p/tbl/lnk_new', locals: {source: 'txt_editables', ownr: ownr, prms: {cdg: cdg}} %>
+					<% else %>
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/txt_editables/#{txt_objt.id}/generar_pdf?codigo_pdf=#{txt_objt.codigo}", tltp: "Generar pdf", data: {turbo_method: :post}} do %>
+							<i class="bi bi-file-pdf"></i>
+						<% end %>
+						<%= render partial: '0t/lnks_e', locals: {objt: txt_objt} %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+<% end %>

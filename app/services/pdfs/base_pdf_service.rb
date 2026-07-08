@@ -21,6 +21,27 @@ module Pdfs
       almacenar!(pdf_content)
     end
 
+    # ============================================
+    # GENERAR MÚLTIPLES PDFs (uno por participante)
+    # ============================================
+    def self.generar_multiples(reporte, opciones = {})
+      servicio = new(reporte, opciones)
+      servicio.cargar_datos!
+      
+      # Obtener participantes del contexto
+      participantes = servicio.datos[:denunciantes].to_a + servicio.datos[:denunciados].to_a
+      
+      resultados = participantes.map do |participante|
+        opciones_participante = opciones.merge(
+          ownr: participante,           # ← Ownr es el participante
+          participante: participante     # ← También pasado para el template
+        )
+        new(reporte, opciones_participante).generar
+      end
+      
+      resultados
+    end
+
     protected
 
     def cargar_datos!
@@ -81,16 +102,18 @@ module Pdfs
 
       filename ||= "#{@reporte}_#{Time.current.to_i}.pdf"
 
-      nombre = case @reporte
-               when 'aprobacion'
-                 "#{@reporte} #{@objeto_id}"
+      # ============================================
+      # NOMBRE DEL ACT_ARCHIVO: incluye ID del ownr (participante)
+      # ============================================
+      nombre = if @ownr.present?
+                 "#{@reporte} #{@ownr.id}"
                else
                  "#{@reporte} - #{Time.current.strftime('%d/%m/%Y')}"
                end
 
       ActArchivo.transaction do
         act_archivo = ActArchivo.new(
-          ownr: @ownr,
+          ownr: @ownr,                    # ← Participante como ownr
           act_archivo: @reporte,
           nombre: nombre,
           tipo: 'pdf'
@@ -119,9 +142,6 @@ module Pdfs
 
     private
 
-    # ============================================
-    # RESOLVER EMPRESA: entidad con razon_social
-    # ============================================
     def resolver_empresa
       empresa = @datos[:empresa] || @datos[:cliente]
 
@@ -146,12 +166,9 @@ module Pdfs
       end
     end
 
-    # ============================================
-    # CORRECCIÓN: Usar resolver_empresa en pdf_options
-    # ============================================
     def pdf_options
       {
-        empresa: resolver_empresa,  # ← CORREGIDO: no usar @datos[:empresa] || @ownr
+        empresa: resolver_empresa,
         display_header_footer: @opciones.fetch(:display_header_footer, true),
         header_template: @opciones[:header_template],
         footer_template: @opciones[:footer_template],
@@ -167,6 +184,13 @@ module Pdfs
         datos: @datos,
         assets: @assets,
         opciones: @opciones,
+        txt_editable: @datos[:txt_editable],
+        contenido: @datos[:contenido],
+        krn_denuncia: @datos[:krn_denuncia],
+        participante: @datos[:participante],
+        tipo_participante: @datos[:tipo_participante],
+        denunciantes: @datos[:denunciantes],
+        denunciados: @datos[:denunciados],
         aprobacion: @datos[:aprobacion],
         cliente: @datos[:cliente],
         facturaciones: @datos[:facturaciones],
@@ -179,7 +203,7 @@ module Pdfs
         logo_url: @assets.dig(:images, :logo),
         head_url: @assets.dig(:images, :header) || @assets.dig(:images, :logo),
         sign_url: @assets.dig(:images, :sign),
-        empresa: resolver_empresa,  # ← Usa el mismo método
+        empresa: resolver_empresa,
         fecha_generacion: Time.current
       }
     end

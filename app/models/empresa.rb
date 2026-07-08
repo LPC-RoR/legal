@@ -9,6 +9,8 @@ class Empresa < ApplicationRecord
     has_one :tenant, as: :owner, dependent: :destroy
     has_many :usuarios, through: :tenant        # sin dependent aquí
 
+    has_many :txt_editables, as: :ownr, dependent: :destroy
+
     has_many :krn_textos, as: :ownr, dependent: :destroy
     accepts_nested_attributes_for :krn_textos, allow_destroy: true
 
@@ -53,6 +55,16 @@ class Empresa < ApplicationRecord
 
     # crea la demo la primera vez que se registra
     after_create :crear_demo!
+
+    def kywrd
+        {
+            rol:    'empresa',
+            abrev:  "emprs-#{id}",
+            sym:    :emprs,
+            krn:    "emprs-#{id}-e"
+        }
+    end
+
 
     def cnt_cntrllr
     	'emprss'
