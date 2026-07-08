@@ -26,7 +26,7 @@ class ClssTxtInvstgcns
   end
 
   def self.codes_for(ownr)
-    items = CDGS[ownr.kywrd[:sym] || []
+    items = CDGS[ownr.kywrd[:sym]] || []
     available_codes_for(ownr, items)
   end
 
