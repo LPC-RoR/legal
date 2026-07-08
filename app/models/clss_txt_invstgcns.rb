@@ -26,7 +26,8 @@ class ClssTxtInvstgcns
   end
 
   def self.codes_for(ownr)
-    available_codes_for(ownr, CDGS[ownr.kywrd[:sym]])
+    items = CDGS[ownr.kywrd[:sym] || []
+    available_codes_for(ownr, items)
   end
 
   def self.rdrccn_path(txt_objt)
