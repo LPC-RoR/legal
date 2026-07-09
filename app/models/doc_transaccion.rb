@@ -74,7 +74,7 @@ class DocTransaccion < ApplicationRecord
 #            nt.nota
 #          ]
 #        end
-#      end
+      end
 
       # Estilos opcionales
       sheet.column_widths 15, 40, 20, 30, 15, 15, 30
