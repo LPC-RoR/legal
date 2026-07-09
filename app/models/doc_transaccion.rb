@@ -88,18 +88,24 @@ class DocTransaccion < ApplicationRecord
   end
 
   def dtll_cnclcn
-    cnclcn_ownr = doc_pagos.map {|pg| pg&.ownr.class.name}.compact.first
+    cnclcn_ownr = doc_pagos.map { |pg| pg&.ownr.class.name }.compact.first
 
-    cnclcn_rut  = doc_pagos.map {|pg| pg&.ownr&.emisor_rut}.compact.first if cnclcn_ownr == 'DocBoleta'
-    cnclcn_rut  = doc_pagos.map {|pg| pg&.ownr&.rut_emisor}.compact.first if cnclcn_ownr == 'DocRecibido'
-    cnclcn_rut  = doc_pagos.map {|pg| pg&.ownr&.rut_receptor}.compact.first if cnclcn_ownr == 'DocEmitido'
+    cnclcn_rut = case cnclcn_ownr
+                 when 'DocBoleta'    then doc_pagos.map { |pg| pg&.ownr&.emisor_rut }.compact.first
+                 when 'DocRecibido'  then doc_pagos.map { |pg| pg&.ownr&.rut_emisor }.compact.first
+                 when 'DocEmitido'   then doc_pagos.map { |pg| pg&.ownr&.rut_receptor }.compact.first
+                 end
 
-    cnclcn_docs = doc_pagos.map {|pg| pg&.ownr&.numero}.join('-') if cnclcn_ownr == 'DocBoleta'
-    cnclcn_docs = doc_pagos.map {|pg| pg&.ownr&.folio}.join('-') if ['DocEmitido', 'DocRecibido'].include?(cnclcn_ownr)
+    cnclcn_docs = case cnclcn_ownr
+                  when 'DocBoleta'   then doc_pagos.map { |pg| pg&.ownr&.numero }.join('-')
+                  when 'DocRecibido', 'DocEmitido'
+                    then doc_pagos.map { |pg| pg&.ownr&.folio }.join('-')
+                  end
 
-    "#{TNSCCN_CTA[cnclcn_ownr]} #{cnclcn_rut}: #{cnclcn_ownr == 'DocBoleta' ? 'Boleta(s)' : 'Factura(s)'} #{cnclcn_docs}"
-  end
-  # *****************************************************  Exportación a Excel (final)
+    tipo_doc = cnclcn_ownr == 'DocBoleta' ? 'Boleta(s)' : 'Factura(s)'
+
+    "#{TNSCCN_CTA[cnclcn_ownr]} #{cnclcn_rut}: #{tipo_doc} #{cnclcn_docs}"
+  end  # *****************************************************  Exportación a Excel (final)
 
   # Busca y vincula la transacción con Cliente, Proveedor o Trabajador
   def vincular!
