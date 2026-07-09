@@ -42,23 +42,15 @@ class ActArchivo < ApplicationRecord
 
   # ****************************************************** CONTEXT MAIL
 
-  MAILER_MAPPING = {
-    pltfrm:     'PdfPltfrmMailer',
-    invstgcns:  'PdfInvstgcnsMailer',
-    fnnzs:      'PdfFnnzsMailer',
-    srvcs:      'PdfSrvcsMailer'
-  }.freeze
-
   def enviar_pdf_por_email(destinatario:, asunto: nil, **opciones)
     contexto = ClssPdf.context_for(act_archivo)
-    mailer_class = mailer_para_contexto(contexto)
     datos_layout = cargar_datos_para_layout(contexto)
 
-    mailer_class
+    PdfBaseMailer
       .with(
         act_archivo: self,
         destinatario: destinatario,
-        layout_name: layout_name,
+        contexto: contexto,
         datos_layout: datos_layout,
         **opciones
       )
@@ -359,16 +351,6 @@ class ActArchivo < ApplicationRecord
 private
 
   # ****************************************************** CONTEXT MAIL
-  def mailer_para_contexto(contexto)
-    nombre_mailer = MAILER_MAPPING[contexto]
-    raise ArgumentError, "No hay mailer para el contexto: #{contexto}" unless nombre_mailer
-    nombre_mailer.constantize
-  end
-
-  def layout_name
-    "#{act_archivo}_lyt"
-  end
-
   def asunto_por_defecto
     contexto = ClssPdf.context_for(act_archivo)
     "Documento PDF - #{contexto.to_s.upcase} - #{act_archivo}"
