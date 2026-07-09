@@ -67,7 +67,6 @@ class PdfBaseMailer < ApplicationMailer
     empresa = @act_archivo.ownr&.emprs
     return unless empresa
 
-    # Crea un objeto branding simple compatible con los helpers del ApplicationMailer
     @branding = OpenStruct.new(
       logo_url: logo_url_desde_empresa(empresa),
       footer_html: "<p>#{empresa.razon_social}</p>",
