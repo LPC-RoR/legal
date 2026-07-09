@@ -3,7 +3,8 @@ class DocTransaccion < ApplicationRecord
   TNSCCN_CTA = {
     'DocBoleta'   => 'Honorarios',
     'DocEmiido'   => 'Cliente',
-    'DocRecibido' => 'Proveedor'
+    'DocRecibido' => 'Proveedor',
+    'Trabajador'  => 'Trabajador'
   }.freeze
 
   belongs_to :doc_cartola
@@ -21,33 +22,26 @@ class DocTransaccion < ApplicationRecord
   validates :monto, presence: true
   validates :descripcion, presence: true
 
-  # Método para determinar el tipo de monto (positivo/negativo)
   def clasifica_columna
     if relacionable
-      if clasificacion.present?
-        clasificacion
-      else
-        relacionable.class.name
-      end
+      clasificacion.present? ? clasificacion : relacionable.class.name
     else
-      if clasificacion.present?
-        clasificacion
-      else
-        'Pendiente'
-      end
+      clasificacion.present? ? clasificacion : 'Pendiente'
     end
   end
 
   # *****************************************************  Exportación a Excel
   def self.exportar_a_excel(fecha_inicio, fecha_termino)
+    # Precarga las asociaciones para evitar N+1 y asegurar que los datos estén disponibles
     transacciones = entre_fechas(fecha_inicio, fecha_termino)
+      .includes(:doc_notas, doc_pagos: :ownr)
 
     package = Axlsx::Package.new
     workbook = package.workbook
 
     workbook.add_worksheet(name: 'Transacciones') do |sheet|
       # Encabezados
-      sheet.add_row ['Fecha', 'Descripción', 'Clasificación', 'Monto', 'Tipo Monto']
+      sheet.add_row ['Fecha', 'Descripción', 'Clasificación', 'Detalle', 'Monto', 'Tipo Monto', 'Nota']
       
       # Datos
       transacciones.find_each do |transaccion|
@@ -58,25 +52,10 @@ class DocTransaccion < ApplicationRecord
           transaccion.dtll_cnclcn,
           transaccion.monto,
           transaccion.tipo_movimiento,
-          transaccion.nota_cnclcn
+          transaccion.nota_cnclcn || ''  # Asegura string vacío en lugar de nil
         ]
-#        transaccion.doc_pagos.each do |pg|
-#          sheet.add_row [
-#            'Análisis',
-#            pg.titular_ownr,
-#            "#{pg.documento_ownr} - #{pg.folio_referencia}",
-#            pg.monto
-#          ]
-#        end
-#        transaccion.doc_notas.each do |nt|
-#          sheet.add_row [
-#            'Nota',
-#            nt.nota
-#          ]
-#        end
       end
 
-      # Estilos opcionales
       sheet.column_widths 15, 40, 20, 30, 15, 15, 30
     end
 
@@ -84,49 +63,53 @@ class DocTransaccion < ApplicationRecord
   end
 
   def nota_cnclcn
-    doc_notas&.first&.nota
+    # Usa el association cache si está precargado, o carga la primera nota
+    nota = doc_notas.loaded? ? doc_notas.first : doc_notas&.first
+    nota&.nota
   end
 
   def dtll_cnclcn
-    cnclcn_ownr = doc_pagos.map { |pg| pg&.ownr.class.name }.compact.first
+    # Usa el association cache si está precargado
+    pagos = doc_pagos.loaded? ? doc_pagos.to_a : doc_pagos.to_a
+    
+    cnclcn_ownr = pagos.map { |pg| pg&.ownr&.class&.name }.compact.first
+
+    return 'Sin documentos asociados' unless cnclcn_ownr
 
     cnclcn_rut = case cnclcn_ownr
-                 when 'DocBoleta'    then doc_pagos.map { |pg| pg&.ownr&.emisor_rut }.compact.first
-                 when 'DocRecibido'  then doc_pagos.map { |pg| pg&.ownr&.rut_emisor }.compact.first
-                 when 'DocEmitido'   then doc_pagos.map { |pg| pg&.ownr&.rut_receptor }.compact.first
+                 when 'DocBoleta'    then pagos.map { |pg| pg&.ownr&.emisor_rut }.compact.first
+                 when 'DocRecibido'  then pagos.map { |pg| pg&.ownr&.rut_emisor }.compact.first
+                 when 'DocEmitido'   then pagos.map { |pg| pg&.ownr&.rut_receptor }.compact.first
                  end
 
     cnclcn_docs = case cnclcn_ownr
-                  when 'DocBoleta'   then doc_pagos.map { |pg| pg&.ownr&.numero }.join('-')
+                  when 'DocBoleta'   then pagos.map { |pg| pg&.ownr&.numero }.compact.join('-')
                   when 'DocRecibido', 'DocEmitido'
-                    then doc_pagos.map { |pg| pg&.ownr&.folio }.join('-')
+                    then pagos.map { |pg| pg&.ownr&.folio }.compact.join('-')
                   end
 
-    tipo_doc = cnclcn_ownr == 'DocBoleta' ? 'Boleta(s)' : 'Factura(s)'
+    tipo_doc = cnclcn_ownr == 'DocBoleta' ? 'Boleta(s)' : (['DocEmiido', 'DocRecibido'].include?(cnclcn_ownr) ? 'Factura(s)' : nil )
 
-    "#{TNSCCN_CTA[cnclcn_ownr]} #{cnclcn_rut}: #{tipo_doc} #{cnclcn_docs}"
-  end  # *****************************************************  Exportación a Excel (final)
+    "#{TNSCCN_CTA[cnclcn_ownr] || 'Remuneraciones'} #{cnclcn_rut}: #{tipo_doc} #{cnclcn_docs}"
+  end  
+  # *****************************************************  Exportación a Excel (final)
 
-  # Busca y vincula la transacción con Cliente, Proveedor o Trabajador
   def vincular!
     return if descripcion_rut.blank?
     return if vinculada?
 
-    # 1. Buscar en Cliente
     cliente = Cliente.find_by(rut: descripcion_rut)
     if cliente
       update!(relacionable: cliente)
       return
     end
 
-    # 2. Buscar en Proveedor
     proveedor = Proveedor.find_by(rut: descripcion_rut)
     if proveedor
       update!(relacionable: proveedor)
       return
     end
 
-    # 3. Buscar en Colaborador
     colaborador = Trabajador.find_by(rut: descripcion_rut)
     if colaborador
       update!(relacionable: colaborador)
@@ -134,7 +117,6 @@ class DocTransaccion < ApplicationRecord
     end
   end
 
-  # Verifica si está vinculada
   def vinculada?
     relacionable.present?
   end
