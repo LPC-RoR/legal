@@ -120,7 +120,7 @@ class Repositorios::ActArchivosController < ApplicationController
     asunto      = "Ley 21.643 - #{cntxt_clss.nombre[@objeto.act_archivo]}"
     
     # Envía el email y verifica si fue exitoso
-    if @objeto.enviar_pdf_por_email(destinatario: 'hugo@edasoft.cl', asunto: asunto)
+    if @objeto.enviar_pdf_por_email(destinatario: @objeto.ownr.email, asunto: asunto)
       # Si el envío es exitoso, marca sndd como true
       @objeto.update(sndd: true)
     end

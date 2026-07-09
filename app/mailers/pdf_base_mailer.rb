@@ -72,7 +72,7 @@ class PdfBaseMailer < ApplicationMailer
       logo_url: logo_url_desde_empresa(empresa),
       footer_html: "<p>#{empresa.razon_social}</p>",
       brand_name: empresa.razon_social,
-      support_email: empresa.email || 'no-reply@laborsafe.cl'
+      support_email: 'no-reply@laborsafe.cl'
     )
   end
 
