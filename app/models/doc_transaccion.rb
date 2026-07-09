@@ -1,4 +1,11 @@
 class DocTransaccion < ApplicationRecord
+
+  TNSCCN_CTA = {
+    'DocBoleta'   => 'Honorarios',
+    'DocEmiido'   => 'Cliente',
+    'DocRecibido' => 'Proveedor'
+  }.freeze
+
   belongs_to :doc_cartola
   belongs_to :doc_cuenta
   belongs_to :relacionable, polymorphic: true, optional: true
@@ -31,7 +38,7 @@ class DocTransaccion < ApplicationRecord
     end
   end
 
-  # Exportación a Excel
+  # *****************************************************  Exportación a Excel
   def self.exportar_a_excel(fecha_inicio, fecha_termino)
     transacciones = entre_fechas(fecha_inicio, fecha_termino)
 
@@ -48,31 +55,53 @@ class DocTransaccion < ApplicationRecord
           transaccion.fecha&.strftime('%d/%m/%Y'),
           transaccion.descripcion,
           transaccion.clasifica_columna,
+          transaccion.dtll_cnclcn,
           transaccion.monto,
-          transaccion.tipo_movimiento
+          transaccion.tipo_movimiento,
+          transaccion.nota_cnclcn
         ]
-        transaccion.doc_pagos.each do |pg|
-          sheet.add_row [
-            'Análisis',
-            pg.titular_ownr,
-            "#{pg.documento_ownr} - #{pg.folio_referencia}",
-            pg.monto
-          ]
-        end
-        transaccion.doc_notas.each do |nt|
-          sheet.add_row [
-            'Nota',
-            nt.nota
-          ]
-        end
-      end
+#        transaccion.doc_pagos.each do |pg|
+#          sheet.add_row [
+#            'Análisis',
+#            pg.titular_ownr,
+#            "#{pg.documento_ownr} - #{pg.folio_referencia}",
+#            pg.monto
+#          ]
+#        end
+#        transaccion.doc_notas.each do |nt|
+#          sheet.add_row [
+#            'Nota',
+#            nt.nota
+#          ]
+#        end
+#      end
 
       # Estilos opcionales
-      sheet.column_widths 15, 40, 20, 15, 15
+      sheet.column_widths 15, 40, 20, 30, 15, 15, 30
     end
 
     package
   end
+
+  def nota_cnclcn
+    doc_notas&.first&.nota
+  end
+
+  def dtll_cnclcn
+    cnclcn_ownr = doc_pagos.map {|pg| pg&.ownr.class.name}.compact.first
+
+    cnclcn_rut  = doc_pagos.map {|pg| pg&.ownr&.emisor_rut}.compact.first if cnclcn_ownr == 'DocBoleta'
+    cnclcn_rut  = doc_pagos.map {|pg| pg&.ownr&.rut_emisor}.compact.first if cnclcn_ownr == 'DocRecibido'
+    cnclcn_rut  = doc_pagos.map {|pg| pg&.ownr&.rut_receptor}.compact.first if cnclcn_ownr == 'DocEmitido'
+
+    cnclcn_docs = doc_pagos.map {|pg| pg&.ownr&.numero}.join('-') if cnclcn_ownr == 'DocBoleta'
+    cnclcn_docs = doc_pagos.map {|pg| pg&.ownr&.folio}.join('-') if ['DocEmitido', 'DocRecibido'].include?(cnclcn_ownr)
+    case cnclcn_ownr
+    when 'DocBoleta'
+      "#{TNSCCN_CTA[cnclcn_ownr]} #{s_rut(cnclcn_rut)}: #{cnclcn_ownr == 'DocBoleta' ? 'Boleta(s)' : 'Factura(s)'} #{cnclcn_docs}"
+    end
+  end
+  # *****************************************************  Exportación a Excel (final)
 
   # Busca y vincula la transacción con Cliente, Proveedor o Trabajador
   def vincular!
