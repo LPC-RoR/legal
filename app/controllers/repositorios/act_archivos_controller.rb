@@ -1,5 +1,5 @@
 class Repositorios::ActArchivosController < ApplicationController
-  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr excluir resumir anonimizar]
+  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr excluir resumir anonimizar enviar_pdf_por_email]
   before_action :authenticate_usuario!
   before_action :scrty_on
 
@@ -112,6 +112,18 @@ class Repositorios::ActArchivosController < ApplicationController
     AnonimizarTextoJob.perform_later(@objeto.id, nombres)
 
     redirect_to act_archivo_rdrccn(@objeto), notice: "El texto anonimizado se está generando."
+  end
+
+  # CONTEXT MAIL
+  def enviar_pdf_por_email
+    cntxt_clss  = ClssPdf.context_class(@objeto.act_archivo)
+    asunto      = "Ley 21.643 - #{cntxt_clss.nombre[@objeto.act_archivo]}"
+    
+    # Envía el email y verifica si fue exitoso
+    if @objeto.enviar_pdf_por_email(destinatario: 'hugo@edasoft.cl', asunto: asunto)
+      # Si el envío es exitoso, marca sndd como true
+      @objeto.update(sndd: true)
+    end
   end
 
   # DELETE /act_archivos/1 or /act_archivos/1.json

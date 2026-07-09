@@ -1,0 +1,24 @@
+<%# app/views/mail_layouts/enviar_pdf.html.erb %>
+
+<div class="email-body">
+  <p>Estimado/a,</p>
+  
+  <p>Se adjunta el documento PDF correspondiente al código 
+     <strong><%= @act_archivo.act_archivo %></strong>.</p>
+  
+  <% if @datos_layout.present? && @datos_layout.any? %>
+    <div class="details">
+      <h4>Información adicional:</h4>
+      <ul>
+        <% @datos_layout.each do |key, value| %>
+          <li>
+            <strong><%= key.to_s.humanize %>:</strong> 
+            <%= value.respond_to?(:to_s) ? value.to_s : value %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <p>Saludos cordiales,</p>
+</div>

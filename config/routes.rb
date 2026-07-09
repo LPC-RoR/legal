@@ -340,6 +340,7 @@ Rails.application.routes.draw do
       end
       member do
         get 'descargar/:tipo', to: 'act_archivos#descargar_archivo_generado', as: :descargar
+        post :enviar_pdf_por_email
       end
       match :download, via: :get, on: :member
       match :show_pdf, via: :get, on: :member

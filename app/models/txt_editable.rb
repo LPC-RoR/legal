@@ -1,7 +1,8 @@
 class TxtEditable < ApplicationRecord
   belongs_to :ownr, polymorphic: true
   
-  has_many :act_referencias, as: :ref
+  has_many :act_referencias, as: :ref, dependent: :destroy
+  has_many :act_archivos, through: :act_referencias
 
   # Reemplaza tu campo 'texto' por contenido enriquecido
   has_rich_text :contenido

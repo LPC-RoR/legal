@@ -30,6 +30,17 @@ class ClssPdfInvstgcns
     }
   end
 
+  def self.ref_code?(code)
+    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd'].include?(code)
+  end
+
+  def self.ref_clss(code)
+    case code
+    when 'txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd'
+      TxtEditable
+    end
+  end
+
   class << self
 
     # ============================================

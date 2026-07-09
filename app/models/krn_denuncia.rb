@@ -86,6 +86,14 @@ class KrnDenuncia < ApplicationRecord
 		}
 	end
 
+	def dnnc
+		self
+	end
+
+	def emprs
+		ownr
+	end
+
 	def self.estrctr
 		includes(
 			krn_denunciantes: [:krn_declaraciones],
@@ -97,10 +105,6 @@ class KrnDenuncia < ApplicationRecord
 
 	def sym
 		:dnnc
-	end
-
-	def dnnc
-		self
 	end
 
 	def invstgdr_activo

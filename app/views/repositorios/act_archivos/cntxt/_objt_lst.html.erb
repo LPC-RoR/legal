@@ -13,6 +13,9 @@
 			<%= nombre %>
 		</div>
 		<div class="col-2 text-end">
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act.id}/enviar_pdf_por_email", tltp: 'Enviar por correo electrónico', data: {turbo_method: :post}} do %>
+				<i class="bi bi-envelope-paper"></i>
+			<% end %>
 			<%=render partial: '0t/lnk_dwnld', locals: {objt: act, tltp: "Bajar PDF"} %>
 			<%=render partial: '0t/lnks_e', locals: {objt: act} %>
 		</div>

@@ -11,6 +11,7 @@ class ActArchivo < ApplicationRecord
   has_many :act_metadatas, dependent: :destroy
 
   has_many :act_referencias, dependent: :destroy
+  has_many :refs, through: :act_referencias  # o el nombre que prefieras
 
   has_many :krn_textos, as: :ownr, dependent: :destroy
   accepts_nested_attributes_for :krn_textos, allow_destroy: true
@@ -38,6 +39,35 @@ class ActArchivo < ApplicationRecord
   # Cambiar after_create por after_commit
   after_commit :procesar_demanda, on: :create, if: :es_demanda?
   after_commit :generar_metadata_anonimizacion, on: [:create, :update]
+
+  # ****************************************************** CONTEXT MAIL
+
+  MAILER_MAPPING = {
+    pltfrm:     'PdfPltfrmMailer',
+    invstgcns:  'PdfInvstgcnsMailer',
+    fnnzs:      'PdfFnnzsMailer',
+    srvcs:      'PdfSrvcsMailer'
+  }.freeze
+
+  def enviar_pdf_por_email(destinatario:, asunto: nil, **opciones)
+    contexto = ClssPdf.context_for(act_archivo)
+    mailer_class = mailer_para_contexto(contexto)
+    datos_layout = cargar_datos_para_layout(contexto)
+
+    mailer_class
+      .with(
+        act_archivo: self,
+        destinatario: destinatario,
+        layout_name: layout_name,
+        datos_layout: datos_layout,
+        **opciones
+      )
+      .enviar_pdf(asunto: asunto || asunto_por_defecto)
+      .deliver_later
+  end
+
+  # tienes otros métodos en private
+  # ****************************************************** CONTEXT MAIL (END)
 
   # Métodos para acceder fácilmente a los textos
   def lista_participantes_texto
@@ -327,6 +357,65 @@ class ActArchivo < ApplicationRecord
 # --------------------------------------------------------------------------------------------- ANONIMIZACIÓN
 
 private
+
+  # ****************************************************** CONTEXT MAIL
+  def mailer_para_contexto(contexto)
+    nombre_mailer = MAILER_MAPPING[contexto]
+    raise ArgumentError, "No hay mailer para el contexto: #{contexto}" unless nombre_mailer
+    nombre_mailer.constantize
+  end
+
+  def layout_name
+    "#{act_archivo}_lyt"
+  end
+
+  def asunto_por_defecto
+    contexto = ClssPdf.context_for(act_archivo)
+    "Documento PDF - #{contexto.to_s.upcase} - #{act_archivo}"
+  end
+
+  # ── Carga flexible de objetos según contexto ───────────────────────────────
+  def cargar_datos_para_layout(contexto)
+    case contexto
+    when :invstgcns
+      {
+        ownr:         ownr,
+        dnnc:         ownr.dnnc,
+        emprs:        ownr.dnnc.ownr
+      }
+    when :fnnzs
+      {
+        financiamiento: financiamiento_relacionado,
+        presupuesto:    presupuesto_asociado,
+        entidad:        entidad_financiera
+      }
+    when :srvcs
+      {
+        servicio:  servicio_relacionado,
+        cliente:   cliente_asociado,
+        contrato:  contrato_vigente
+      }
+    when :pltfrm
+      {
+        plataforma: modulo_asociado,
+        usuario:    usuario_solicitante
+      }
+    else
+      {}
+    end
+  end
+
+  # Placeholders — implementa según tus relaciones reales ????
+  def financiamiento_relacionado; end
+  def presupuesto_asociado;       end
+  def entidad_financiera;         end
+  def servicio_relacionado;       end
+  def cliente_asociado;           end
+  def contrato_vigente;           end
+  def plataforma_relacionada;     end
+  def modulo_asociado;            end
+  def usuario_solicitante;        end
+  # ****************************************************** CONTEXT MAIL (END)
 
   def es_demanda?
     act_archivo == "demanda"

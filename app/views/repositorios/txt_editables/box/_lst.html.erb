@@ -12,9 +12,12 @@
 				<% if txt_objt.present? %>
 					<i class="bi bi-check-circle"></i>
 					<%= link_to cntxt_clss.txt_name[cdg], txt_objt %>
+					<% if txt_objt.act_referencias.any? %>
+						( <%= txt_objt.act_referencias.count %> )
+					<% end %>
 				<% else %>
 					<%= cntxt_clss.txt_name[cdg] %>
-				<% end %>
+				<% end %> 
 			</div>
 			<div class="col-2 text-end objt_lnk">
 				<% if (@licencia_activa || current_usuario.operacion?) %>

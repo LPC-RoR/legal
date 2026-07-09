@@ -1,0 +1,1 @@
+class PdfFnnzsMailer     < PdfBaseMailer; end

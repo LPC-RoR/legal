@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
+    .wrapper { max-width: 600px; margin: 0 auto; background: #fff; }
+    .header { padding: 24px 32px; border-bottom: 1px solid #e2e8f0; background: #fff; }
+    .header img { max-height: 60px; display: block; }
+    .body { padding: 32px; }
+    .footer { padding: 20px 32px; background: #f7fafc; border-top: 1px solid #e2e8f0; font-size: 12px; color: #718096; text-align: center; }
+    .details { background: #f7fafc; padding: 16px; border-radius: 6px; margin: 20px 0; }
+    .details h4 { margin: 0 0 12px 0; color: #2c5282; font-size: 14px; text-transform: uppercase; }
+    .label { font-weight: 600; color: #4a5568; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <% if attachments.inline['logo.png'] %>
+        <%= image_tag attachments.inline['logo.png'].url, alt: 'Logo' %>
+      <% end %>
+    </div>
+
+    <div class="body">
+      <%= yield %>
+    </div>
+
+    <div class="footer">
+      <p>Este correo fue generado automáticamente. Por favor no responda a esta dirección.</p>
+    </div>
+  </div>
+</body>
+</html>

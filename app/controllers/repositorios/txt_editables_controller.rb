@@ -73,11 +73,6 @@ class Repositorios::TxtEditablesController < ApplicationController
     # Obtener la denuncia asociada
     krn_denuncia = @objeto.ownr
     
-    # CAMBIAR el ownr puede ser de distintas clases
-    unless krn_denuncia.is_a?(KrnDenuncia)
-      return render json: { error: "El Texto Editable no pertenece a una KrnDenuncia" }, status: :unprocessable_content
-    end
-
     # Determinar participantes según el tipo de reporte
     participantes = obtener_participantes(krn_denuncia, codigo_pdf)
     

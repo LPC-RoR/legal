@@ -74,6 +74,14 @@ class KrnDenunciante < ApplicationRecord
 		}
 	end
 
+	def dnnc
+		self.krn_denuncia
+	end
+
+	def emprs
+		dnnc.emprs
+	end
+
 	# DEPRECATED
 	def sym
 		:dnncnt

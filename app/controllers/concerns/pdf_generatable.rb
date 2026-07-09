@@ -59,14 +59,33 @@ module PdfGeneratable
       return render json: { error: "Reporte no válido: #{reporte}" }, status: :bad_request
     end
 
+    cntxt_clss  = ClssPdf.context_class(reporte)
+    ref_code    = cntxt_clss.ref_code?(reporte)
+
+    if ref_code
+      ref_clss    = cntxt_clss.ref_clss(reporte) 
+      # Obtener el ref que está llamando a este método
+      ref = ref_clss.find(objeto_id)
+    end
+
     act_archivos = participantes.map do |participante|
-      # Cada participante es el ownr del ActArchivo
-      Pdfs::ContextPdfService.generar_pdf(reporte, 
+      # Generar el PDF para cada participante
+      act_archivo = Pdfs::ContextPdfService.generar_pdf(reporte, 
         ownr: participante,
         objeto_id: objeto_id,
         participante: participante,
         **opciones
       )
+
+      if ref_code
+        # Crear la referencia polimórfica entre TxtEditable y ActArchivo
+        ActReferencia.create!(
+          ref: ref,        # Polimórfico: guarda ref_type = "TxtEditable", ref_id = ref.id
+          act_archivo: act_archivo
+        )
+      end
+
+      act_archivo
     end
 
     render json: {
@@ -80,6 +99,9 @@ module PdfGeneratable
         ownr_id: a.ownr_id
       }}
     }
+  rescue ActiveRecord::RecordNotFound => e
+    Rails.logger.error "[PdfGeneratable] TxtEditable no encontrado: #{e.message}"
+    render json: { error: "TxtEditable no encontrado" }, status: :not_found
   rescue => e
     Rails.logger.error "[PdfGeneratable] Error generando PDFs múltiples: #{e.message}"
     render json: { error: e.message }, status: :unprocessable_content

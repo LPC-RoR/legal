@@ -1,0 +1,1 @@
+class PdfInvstgcnsMailer < PdfBaseMailer; end

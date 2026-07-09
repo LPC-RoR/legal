@@ -57,16 +57,21 @@ class KrnTestigo < ApplicationRecord
 		}
 	end
 
+	def dnnc
+		self.krn_denuncia
+	end
+
+	def emprs
+		dnnc.emprs
+	end
+
+	# DEPRECATED
 	def sym
 		:tstg
 	end
 
 	def rol
 		'testigo'
-	end
-
-	def dnnc
-		self.krn_denuncia
 	end
 
  	# --------------------------------- Asociaciones

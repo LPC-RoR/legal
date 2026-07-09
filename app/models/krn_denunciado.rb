@@ -68,6 +68,14 @@ class KrnDenunciado < ApplicationRecord
 		}
 	end
 
+	def dnnc
+		self.krn_denuncia
+	end
+
+	def emprs
+		dnnc.emprs
+	end
+
 	# DEPRECATED
 	def sym
 		:dnncd
@@ -79,10 +87,6 @@ class KrnDenunciado < ApplicationRecord
 	end
 
 	# -------------------------------- General
-
-	def dnnc
-		self.krn_denuncia
-	end
 
 	# Se usa para resolver bck_rdrccn
 	def ownr
