@@ -88,7 +88,7 @@ class DocTransaccion < ApplicationRecord
                     then pagos.map { |pg| pg&.ownr&.folio }.compact.join('-')
                   end
 
-    tipo_doc = cnclcn_ownr == 'DocBoleta' ? 'Boleta(s)' : (['DocEmiido', 'DocRecibido'].include?(cnclcn_ownr) ? 'Factura(s)' : nil )
+    tipo_doc = cnclcn_ownr == 'DocBoleta' ? 'Boleta(s)' : (['DocEmitido', 'DocRecibido'].include?(cnclcn_ownr) ? 'Factura(s)' : nil )
 
     "#{TNSCCN_CTA[cnclcn_ownr] || 'Remuneraciones'} #{cnclcn_rut}: #{tipo_doc} #{cnclcn_docs}"
   end  
