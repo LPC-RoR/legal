@@ -2,7 +2,7 @@ class DocTransaccion < ApplicationRecord
 
   TNSCCN_CTA = {
     'DocBoleta'   => 'Honorarios',
-    'DocEmiido'   => 'Cliente',
+    'DocEmitido'  => 'Cliente',
     'DocRecibido' => 'Proveedor',
     'Trabajador'  => 'Trabajador'
   }.freeze
@@ -74,7 +74,7 @@ class DocTransaccion < ApplicationRecord
     
     cnclcn_ownr = pagos.map { |pg| pg&.ownr&.class&.name }.compact.first
 
-    return 'Sin documentos asociados' unless cnclcn_ownr
+    return '-' unless cnclcn_ownr
 
     cnclcn_rut = case cnclcn_ownr
                  when 'DocBoleta'    then pagos.map { |pg| pg&.ownr&.emisor_rut }.compact.first
