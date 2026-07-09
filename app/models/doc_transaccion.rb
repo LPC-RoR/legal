@@ -96,10 +96,8 @@ class DocTransaccion < ApplicationRecord
 
     cnclcn_docs = doc_pagos.map {|pg| pg&.ownr&.numero}.join('-') if cnclcn_ownr == 'DocBoleta'
     cnclcn_docs = doc_pagos.map {|pg| pg&.ownr&.folio}.join('-') if ['DocEmitido', 'DocRecibido'].include?(cnclcn_ownr)
-    case cnclcn_ownr
-    when 'DocBoleta'
-      "#{TNSCCN_CTA[cnclcn_ownr]} #{cnclcn_rut}: #{cnclcn_ownr == 'DocBoleta' ? 'Boleta(s)' : 'Factura(s)'} #{cnclcn_docs}"
-    end
+
+    "#{TNSCCN_CTA[cnclcn_ownr]} #{cnclcn_rut}: #{cnclcn_ownr == 'DocBoleta' ? 'Boleta(s)' : 'Factura(s)'} #{cnclcn_docs}"
   end
   # *****************************************************  Exportación a Excel (final)
 
