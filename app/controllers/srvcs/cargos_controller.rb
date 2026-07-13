@@ -4,7 +4,7 @@ class Srvcs::CargosController < ApplicationController
   before_action :scrty_on
   before_action :set_cargo, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /cargos or /cargos.json
   def index

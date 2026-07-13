@@ -1,13 +1,13 @@
+<%# CONTEXTO: devise %>
 <!DOCTYPE html>
 <html>
   <%= render partial: 'layouts/partials/head_div', locals: {title: 'Laborsafe'} %>
-
   <body>
 
     <%# CONTEXTOS %>
     <%# public, pltfrm, invstgcns, srvcs %>
 
-    <%= render partial: 'layouts/partials/navbar', locals: {logo_path: "logo/logo_60.png"} unless controller_name == 'servicios' %>
+    <%= render partial: 'layouts/devise/navbar', locals: {logo_path: "logo/logo_130.png"} unless controller_name == 'servicios' %>
 
     <%= render partial: 'layouts/main' %>
 

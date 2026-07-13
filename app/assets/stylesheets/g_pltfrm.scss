@@ -1,0 +1,15 @@
+.pltfrm-titulo-borde {
+  border: 3px solid #748cab;
+  padding-bottom: 0.5rem;
+  /* El borde ocupa el ancho menos el gap */
+  width: calc(100% - .1rem);
+  margin: 0 auto; /* centra el borde */
+}
+
+.pltfrm-titulo-borde-md {
+  border: 2px solid #748cab;
+  padding-bottom: 0.1rem;
+  /* El borde ocupa el ancho menos el gap */
+  width: calc(100% - .1rem);
+  margin: 0 auto; /* centra el borde */
+}

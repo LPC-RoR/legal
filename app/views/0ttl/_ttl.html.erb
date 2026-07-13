@@ -1,0 +1,62 @@
+<%# Se necesita un source %>
+<% source 		||= 'home' %>
+
+<% cntxt_clss	||= ClssTtl.cntxt_clss(source) %>
+<% clss 		||= cntxt_clss.clss_dflt %>
+<%# Poner bajo home información que no tiene source %>
+<% dir 			||= clss.to_s %>
+
+<% row_clss		||= cntxt_clss.lyt[clss][:clss_str] %>
+<% row_styl		||= cntxt_clss.lyt[clss][:styl_str] %>
+
+<% col_lft 		||= 10 %>
+
+<% hide_lnks	||= false %>
+<% hide_gly 	||= false %>
+
+<% ownr      	||= nil %>
+<% blngs     	||= nil %>
+
+<%# Elimine parámetro ttl: porque es muy dificil de mantener %>
+<%# En esta versión se pueden concatenar lnks con plldwn_lnks y lnk_new %>
+
+<div class="row mb-1 <%= row_clss %>" style="<%= row_styl %>" >
+
+	<div class="col-<%=col_lft%> ps-2">
+
+		<%# POR HACER: controller_icon[] por contexto %>
+		<% unless hide_gly %>
+			<i class="bi bi-<%= controller_icon[cntrllr(source)] %>"></i>
+		<% end %>
+
+		<% if prtl?(source, dir, 'objt') %>
+			<%= render partial: prtl_name(source, dir, 'objt'), locals: {ownr: ownr, blngs: blngs} %>
+		<% else %>
+			<%= to_name(source).pluralize %>
+		<% end %>
+
+	</div>
+	<div class="col-<%=12 - col_lft%> pe-2 text-end">
+
+		<% unless hide_lnks %>
+			<% if prtl?(source, dir, 'lnks') %>
+				<%= render partial: prtl_name(source, dir, 'lnks'), locals: {ownr: ownr, blngs: blngs} %>
+			<% end %>
+			<% if prtl?(source, dir, 'plldwn_lnks') %>
+				<%= render partial: prtl_name(source, dir, 'plldwn_lnks'), locals: {ownr: ownr, blngs: blngs} %>
+			<% else %>
+				<%= render partial: '0t/lnk_new', locals: {source: source, ownr: ownr, blngs: blngs}%>
+			<% end %>
+		<% end %>
+
+	</div>
+
+</div>
+
+<% if prtl?(source, dir, 'cllps') %>
+	<%= render partial: prtl_name(source, dir, 'cllps'), locals: {ownr: ownr, blngs: blngs} %>
+<% end %>
+
+<% if prtl?(source, dir, 'lst') %>
+	<%= render partial: prtl_name(source, dir, 'lst'), locals: {ownr: ownr, blngs: blngs} %>
+<% end %>

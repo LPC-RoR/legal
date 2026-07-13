@@ -17,46 +17,46 @@ module Crstn
 	# corrección de palabras
 	def correcciones 
 		{
-			'cuantia' => 'cuantía',
-			'nomina' => 'nómina',
-			'observacion' => 'observación',
-			'formula' => 'fórmula',
-			'consultoria' => 'consultoría',
-			'codigo' => 'código',
-			'descripcion' => 'descripción',
-			'facturacion' => 'facturación',
-			'conciliacion' => 'conciliación',
-			'articulo' => 'artículo',
-			'aprobacion' => 'aprobación',
-			'region' => 'región',
-			'declaracion' => 'declaración'
+			'cuantia' 			=> 'cuantía',
+			'nomina' 			=> 'nómina',
+			'observacion' 		=> 'observación',
+			'formula' 			=> 'fórmula',
+			'consultoria' 		=> 'consultoría',
+			'codigo' 			=> 'código',
+			'descripcion' 		=> 'descripción',
+			'facturacion' 		=> 'facturación',
+			'conciliacion' 		=> 'conciliación',
+			'articulo' 			=> 'artículo',
+			'aprobacion' 		=> 'aprobación',
+			'region' 			=> 'región',
+			'declaracion' 		=> 'declaración'
 		}
 	end
 
 	# excepciones de nombres de un modelo
 	def m_excepciones
 		{
-			'TarUfSistema' => 'Uf del día',
-			'TribunalCorte' => 'Juzgado',
+			'TarUfSistema' 		=> 'Uf del día',
+			'TribunalCorte' 	=> 'Juzgado',
 			'TarDetalleCuantia' => 'Item de cuantía',
-			'TarUfFacturacion' => 'UF de cálculo',
-			'TarTarifa' => 'Tarifa de Causa',
-			'TarServicio' => 'Tarifa de Asesoría',
-			'TipoCausa' => 'Etapa',
-			'Tema' => 'Materia',
-			'AutTipoUsuario' => 'Tipo de Usuario',
-			'ControlDocumento' => 'Documento controlado',
-			'RepDocControlado' => 'Documento controlado',
-			'HmPagina' => 'Página',
-			'HmParrafo' => 'Párrafo',
-			'LglDocumento' => 'Documento legal',
-			'Region' => 'Región',
-			'ProDtllVenta' => 'Producto de la Empresa',
-			'KrnInvDenuncia' => 'Investigador',
-			'ComDocumento' => 'Documento comercial',
-			'ComRequerimiento' => 'Requerimiento comercial',
-			'AppNomina' => 'Perfil',
-			'TxtEditable' => 'Texto editable'
+			'TarUfFacturacion' 	=> 'UF de cálculo',
+			'TarTarifa' 		=> 'Tarifa de Causa',
+			'TarServicio' 		=> 'Tarifa de Asesoría',
+			'TipoCausa' 		=> 'Etapa',
+			'Tema' 				=> 'Materia',
+			'AutTipoUsuario' 	=> 'Tipo de Usuario',
+			'ControlDocumento' 	=> 'Documento controlado',
+			'RepDocControlado' 	=> 'Documento controlado',
+			'HmPagina' 			=> 'Página',
+			'HmParrafo' 		=> 'Párrafo',
+			'LglDocumento' 		=> 'Documento legal',
+			'Region' 			=> 'Región',
+			'ProDtllVenta' 		=> 'Producto de la Empresa',
+			'KrnInvDenuncia' 	=> 'Investigador',
+			'ComDocumento' 		=> 'Documento comercial',
+			'ComRequerimiento' 	=> 'Requerimiento comercial',
+			'AppNomina' 		=> 'Perfil',
+			'TxtEditable' 		=> 'Texto editable'
 		}
 	end
 

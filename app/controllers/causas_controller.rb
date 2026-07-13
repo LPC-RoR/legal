@@ -6,7 +6,7 @@ class CausasController < ApplicationController
   before_action :validar_evento, only: [:ejecutar_evento]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   include Aasm
   include Tarifas

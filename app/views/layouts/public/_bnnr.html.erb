@@ -1,0 +1,61 @@
+<%= render partial: 'layouts/public/ticker', locals: {dsply: false} %>
+
+<div class="mx-3">
+  <nav class="navbar navbar-expand-md navbar-light overlay-nav">
+    <div class="container-fluid px-3">
+      
+      <!-- Botón hamburguesa: pequeño en móvil, oculto en desktop (Bootstrap lo maneja) -->
+      <button class="navbar-toggler order-0 me-2 p-1" type="button"
+              data-bs-toggle="collapse" data-bs-target="#heroNav"
+              aria-controls="heroNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="width: 1em; height: 1em;"></span>
+      </button>
+
+      <!-- Logo: versión móvil (pequeña) -->
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: nil} do %>
+        <%= image_tag 'logo/logo_130.png', 
+            class: 'img-fluid d-md-none', 
+            style: 'max-height: 40px;' %>
+      <% end %>
+
+      <!-- Logo: versión desktop (tamaño original) -->
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: nil} do %>
+        <%= image_tag 'logo/logo_130.png', 
+            class: 'img-fluid d-none d-md-block' %>
+      <% end %>
+
+      <!-- Ítems de menú -->
+      <div class="collapse navbar-collapse order-last" id="heroNav">
+
+        <!-- CENTRO: Nuevo grupo de ítems -->
+        <ul class="navbar-nav mx-auto align-items-md-center">
+          <% unless action_name == 'index' %>
+            <li class="nav-item">
+              <%= link_to 'Home', root_path, class: 'nav-link fs-6' %>
+            </li>
+          <% end %>
+          <% unless action_name == 'laborsafe' %>
+            <li class="nav-item">
+              <%= link_to 'Laborsafe', '/laborsafe', class: 'nav-link fs-6' %>
+            </li>
+          <% end %>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Guías Ley Karin
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/guias?p=plzs">Plazos legales</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto align-items-md-center">
+          <li class="nav-item">
+            <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'me-5 nav-link fs-6' %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

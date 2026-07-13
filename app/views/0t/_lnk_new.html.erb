@@ -1,0 +1,21 @@
+<%# 0t/lnk_new.html.erb %>
+
+<% gly 		||= 'plus-circle' %>
+<% gly_clss ||= nil %>
+
+<% tltp 	||= "Agrega #{to_name(cntrllr(source))}" %>
+
+<% ownr 	||= nil %>
+<% blngs 	||= nil %>
+<% prms 	||= nil %>
+<% txt 		||= nil %>
+
+<%# ownr_prms y blngs_prms están en cptn_map_helper %>
+
+<% if source.nil? %>
+	<i class="bi bi-cone-striped"></i> lnk_new sin source!
+<% else %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{cntrllr(source)}/new#{ownr_prms(ownr) unless ownr.blank?}#{blngs_prms(blngs) unless blngs.blank?}#{prms(prms, ownr || blngs)}", tltp: tltp} do %>
+		<i class="bi bi-<%=gly%> <%=gly_clss%>"></i> <%= txt %>
+	<% end %>
+<% end %>

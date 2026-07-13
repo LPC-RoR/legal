@@ -1,12 +1,10 @@
-<%= render partial: 'aplicacion/home/public/ticker' %>
 <div class="m-3">
-	<%= render partial: 'aplicacion/home/public/public_banner' %>
+  <!-- Título fluido entre 1.5rem y 2.5rem -->
+  <h1 class="mb-5 text-center" style="font-size: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);">Guías para comprender la Ley 21.643 (Ley Karin)</h1>
 
-	<h1 class="mb-5 text-center">Guías para comprender la Ley 21.643 (Ley Karin)</h1>
-
-	<!-- Contenedor con padding-top para compensar navbar fijo y responsive en móviles -->
-	<div class="content-below-nav ubuntu_titulo" style="margin-left: 5%">
-		<%= render partial: "aplicacion/home/#{@p}" %>
-	</div>
+  <!-- Contenedor con padding-top para compensar navbar fijo y responsive en móviles -->
+  <div class="content-below-nav ubuntu_titulo" style="margin-left: 5%;">
+    <%= render partial: "aplicacion/home/#{@p}" %>
+  </div>
 </div>
 <%= render partial: 'aplicacion/home/public/alianzas' %>

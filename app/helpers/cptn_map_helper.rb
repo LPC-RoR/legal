@@ -132,7 +132,7 @@ module CptnMapHelper
     end
   end
 
-  	def ownr_prms(objeto, frst = true)
+ 	def ownr_prms(objeto, frst = true)
 		"#{frst ? '?' : '&'}oclss=#{objeto.class.name}&oid=#{objeto.id}"
 	end
 

@@ -5,7 +5,7 @@ class ClientesController < ApplicationController
   before_action :set_cliente, only: %i[ show edit update destroy crear_aprobacion swtch_stt cambio_estado swtch_urgencia swtch_pendiente ]
   after_action :rut_puro, only: %i[ create update ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   include Aasm
 

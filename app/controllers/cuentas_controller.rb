@@ -3,6 +3,8 @@ class CuentasController < ApplicationController
   before_action :scrty_on
   before_action :set_cuenta, only: %i[ dnncs invstgdrs extrns nmn usrs cntcts ]
 
+  layout 'invstgcns'
+
   def dnncs
     @clccn = @objeto.krn_denuncias.ordr
   end

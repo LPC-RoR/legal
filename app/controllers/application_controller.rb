@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  layout :resolve_layout
+
   before_action :prepare_meta_tags
 
   include SetCurrentTenant
@@ -52,6 +54,10 @@ class ApplicationController < ActionController::Base
 	helper_method :bck_path_krn_objt
 
   private
+
+  def resolve_layout
+    devise_controller? ? 'devise' : 'application'
+  end
 
   def prepare_meta_tags(meta = {})
     site = "Mi Sitio"

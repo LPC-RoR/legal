@@ -7,43 +7,51 @@
       const panel    = wrapper.querySelector('[data-role="panel"]');
       const panelTxt = wrapper.querySelector('[data-role="panel-text"]');
       const btnClose = wrapper.querySelector('[data-role="panel-close"]');
-      if (!ticker || !track || !panel || !panelTxt) return;
+      
+      if (!ticker || !track) return;
 
-      // Velocidad desde data-speed (en segundos)
+      // ── DUPLICAR ITEMS PARA LOOP INFINITO ──
+      const originalItems = track.innerHTML;
+      track.innerHTML = originalItems + originalItems;
+
+      // Velocidad desde data-speed
       const speedAttr = ticker.getAttribute('data-speed');
       if (speedAttr) track.style.setProperty('--ticker-speed', `${Number(speedAttr)}s`);
 
-      // Usa Bootstrap Collapse si está disponible (Importmap: import "bootstrap" en application.js)
-      const BsCollapse = window.bootstrap && window.bootstrap.Collapse ? window.bootstrap.Collapse : null;
+      // ── PANEL OPCIONAL ──
+      const hasPanel = !!(panel && panelTxt);
       let collapse = null;
 
-      if (BsCollapse) {
-        try {
-          collapse = new BsCollapse(panel, { toggle: false });
-        } catch (e) {
-          console.warn('[ticker] Error inicializando Bootstrap Collapse:', e);
+      if (hasPanel) {
+        const BsCollapse = window.bootstrap && window.bootstrap.Collapse ? window.bootstrap.Collapse : null;
+        if (BsCollapse) {
+          try {
+            collapse = new BsCollapse(panel, { toggle: false });
+          } catch (e) {
+            console.warn('[ticker] Error inicializando Bootstrap Collapse:', e);
+          }
         }
-      } else if (!window.__tickerBootstrapWarned) {
-        console.warn('[ticker] Bootstrap JS no detectado; se usará fallback sin animación.');
-        window.__tickerBootstrapWarned = true;
       }
 
-      const isOpen = () => panel.classList.contains('show');
+      const isOpen = () => hasPanel && panel.classList.contains('show');
 
       const openPanel = (text) => {
+        if (!hasPanel) return;
         panelTxt.textContent = text || '';
         if (collapse) collapse.show();
-        else panel.classList.add('show'); // fallback sin animación
+        else panel.classList.add('show');
       };
 
       const closePanel = () => {
+        if (!hasPanel) return;
         if (collapse) collapse.hide();
-        else panel.classList.remove('show'); // fallback sin animación
+        else panel.classList.remove('show');
         panelTxt.textContent = '';
       };
 
       const items = Array.from(wrapper.querySelectorAll('.ticker__item'));
 
+      // ... resto del código igual
       const markActive = (el) => {
         items.forEach(i => {
           i.classList.remove('text-dark', 'is-active');
@@ -64,30 +72,17 @@
       };
 
       items.forEach((item) => {
-        if (item.dataset.tickerBound) return; // evita doble bind con Turbo
+        if (item.dataset.tickerBound) return;
         item.dataset.tickerBound = '1';
 
         const detail = item.getAttribute('data-detail') || '';
 
-        // Mostrar panel al pasar (hover/focus) — no cambia color
-        item.addEventListener('mouseenter', () => openPanel(detail));
-        item.addEventListener('focusin',   () => openPanel(detail));
+        // ── Solo bindear eventos de panel si existe ──
+        if (hasPanel) {
+          item.addEventListener('mouseenter', () => openPanel(detail));
+          item.addEventListener('focusin',   () => openPanel(detail));
 
-        // Selección con click/tap: alterna y cambia a text-dark
-        item.addEventListener('click', (e) => {
-          e.preventDefault();
-          if (isOpen() && item.classList.contains('is-active') && panelTxt.textContent === detail) {
-            closePanel();
-            clearActive();
-          } else {
-            openPanel(detail);
-            markActive(item);
-          }
-        });
-
-        // Teclado accesible (Enter/Espacio)
-        item.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
+          item.addEventListener('click', (e) => {
             e.preventDefault();
             if (isOpen() && item.classList.contains('is-active') && panelTxt.textContent === detail) {
               closePanel();
@@ -96,26 +91,42 @@
               openPanel(detail);
               markActive(item);
             }
-          }
-        });
+          });
+
+          item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              if (isOpen() && item.classList.contains('is-active') && panelTxt.textContent === detail) {
+                closePanel();
+                clearActive();
+              } else {
+                openPanel(detail);
+                markActive(item);
+              }
+            }
+          });
+        }
       });
 
       // Cerrar con botón
-      btnClose && btnClose.addEventListener('click', () => {
-        closePanel();
-        clearActive();
-      });
-
-      // Si el mouse sale de la CINTA (no del panel): cierra solo si no hay un ítem seleccionado
-      ticker.addEventListener('mouseleave', () => {
-        if (!wrapper.querySelector('.ticker__item.is-active')) {
+      if (hasPanel && btnClose) {
+        btnClose.addEventListener('click', () => {
           closePanel();
-        }
-      });
+          clearActive();
+        });
+      }
+
+      // Si el mouse sale de la CINTA: cierra solo si no hay ítem seleccionado
+      if (hasPanel) {
+        ticker.addEventListener('mouseleave', () => {
+          if (!wrapper.querySelector('.ticker__item.is-active')) {
+            closePanel();
+          }
+        });
+      }
     });
   };
 
-  // Soporta Turbo y DOM clásico
   document.addEventListener('turbo:load', ready);
   document.addEventListener('DOMContentLoaded', ready);
 })();

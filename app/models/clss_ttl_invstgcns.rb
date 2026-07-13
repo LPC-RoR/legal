@@ -1,0 +1,3 @@
+class ClssTtlInvstgcns < ApplicationRecord
+
+end

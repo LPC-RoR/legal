@@ -78,7 +78,7 @@ class Aplicacion::HomeController < ApplicationController
 	                        .adncs
 	                        .fecha_ordr
 
-	  render layout: 'addt'   # solo se ejecuta cuando no hubo redirect
+	  render layout: 'pltfrm'   # solo se ejecuta cuando no hubo redirect
 	end
 
 	def laborsafe

@@ -1,5 +1,16 @@
 class ClssTtl < ApplicationRecord
 
+	CNTXT_CLSS = {
+		invstgcns: 	ClssTtlInvstgcns,
+		pltfrm:		ClssTtlPltfrm
+	}.freeze
+
+	def self.cntxt_clss(source)
+		CNTXT_CLSS[ClssCntxt.cntxt_for(source)]
+	end
+
+
+
 	def self.clss_dflt
 		:indx
 	end
