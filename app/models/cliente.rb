@@ -8,7 +8,6 @@ class Cliente < ApplicationRecord
 
     has_one :tenant, as: :owner, dependent: :destroy
 	has_many :usuarios, through: :tenant
-#    after_create :crear_tenant
 
 	# tabla de CLIENTES
 	# 1.- Evaluar has_many tar_facturas

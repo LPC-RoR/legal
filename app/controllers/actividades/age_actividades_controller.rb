@@ -44,45 +44,6 @@ class Actividades::AgeActividadesController < ApplicationController
     @objeto = AgeActividad.new(ownr_type: params[:oclss], ownr_id: params[:oid], age_actividad: actvdd, estado: 'pendiente', tipo: tipo)
   end
 
-  def cu_actividad
-    f_params = params[:form_actividad]
-
-    # defauls datetime fields
-    hoy = Time.zone.today
-    annio = f_params['fecha(1i)'].blank? ? hoy.year : f_params['fecha(1i)']
-    mes = f_params['fecha(2i)'].blank? ? hoy.month : f_params['fecha(2i)']
-    hora = f_params['fecha(4i)']
-    minutos = f_params['fecha(5i)']
-
-    age_actividad = params[:t] == 'A' ? params[:aud] : f_params[:age_actividad]
-
-    unless age_actividad.blank? or f_params['fecha(3i)'].blank?
-      tipo = params[:t].blank? ? f_params[:tipo] : (params[:t] == 'A' ? 'Audiencia' : ( params[:t] == 'H' ? 'Hito' : ( params[:t] == 'R' ? 'Reunión' : 'Tarea' ) ))
-      app_perfil_id = perfil_activo.id
-      ownr_id = params[:oid]
-      ownr_type = ownr_id.blank? ? nil : params[:cn].classify
-      fecha = Time.zone.parse("#{f_params['fecha(3i)']}-#{mes}-#{annio} #{hora}:#{minutos}")
-      audiencia_especial = f_params[:audiencia_especial]
-      privada = f_params[:privada]
-
-      AgeActividad.create(app_perfil_id: app_perfil_id, ownr_type: ownr_type, ownr_id: ownr_id, tipo: tipo, age_actividad: age_actividad, fecha: fecha, estado: 'pendiente', privada: privada, audiencia_especial: audiencia_especial)
-      mensaje = 'Actividad fue creada exitosamente'
-
-      if params[:t] == 'A'
-        causa = Causa.find(params[:oid])
-        unless causa.blank?
-          causa.fecha_audiencia = fecha
-          causa.audiencia = params[:aud]
-          causa.save
-        end
-      end
-    else
-      mensaje = 'Error de ingreso Actividad: Fecha y Descripción son campos obligatorios'
-    end
-
-    redirect_to orgn_path, notice: mensaje
-  end
-
   # GET /age_actividades/1/edit
   def edit
   end

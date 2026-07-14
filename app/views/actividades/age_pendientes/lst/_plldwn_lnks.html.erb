@@ -1,0 +1,7 @@
+<% unless objt.estado == 'realizado' %>
+
+  <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+  <li><hr class="dropdown-divider"></li>
+  <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+
+<% end %>

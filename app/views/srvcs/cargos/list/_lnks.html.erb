@@ -8,7 +8,6 @@
 	<%#= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'urgente', stts: ['normal', 'urgente'], glys: ['circle-fill', 'circle-fill'], clr: 'danger'} %>
 	<%#= render partial: '0p/swtch', locals: {objeto: objeto, tkn: 'pendiente', stts: ['pendiente oficina', 'pendiente cliente'], glys: ['circle-fill', 'circle-fill'], clr: 'primary'} %>
 </small-->
-<%= render partial: 'clientes/shr/lnk_cl', locals: {objeto: objeto} %>
 <i class="bi bi-dot"></i>
 <% if operacion? %>
 	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'notas', ownr: objeto, gly: 'chat-left-text'} %>

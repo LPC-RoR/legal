@@ -1,2 +1,4 @@
-<%= render partial: '0p/ttl_clss', locals: {source: 'clientes', clss: :gray, dir: 'indx'} %>
-<%= render partial: '0p/tbl_clss', locals: {source: 'clientes', clccn: @coleccion['clientes']} %>
+<%= render partial: '0ttl/ttl', locals: { source: 'clientes' } %>
+<%= render partial: 'layouts/partials/notice_alert' %>
+
+<%= render partial: '0t/tbl', locals: {source: 'clientes', clccn: @coleccion['clientes'], pgnt: true} %>

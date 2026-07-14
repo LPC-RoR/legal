@@ -2,16 +2,10 @@
 	<td class="objt_lnk">
 		<%= render layout: '0p/tltp_lnk', locals: {lnk: objt, tltp: 'Ver Cliente' } do %>
 			<%= s_rut(objt.rut) %>
-		<% end %> : 
-		<%= objt.razon_social %>
-
-		<!-- Warnings del -->
-		<% unless objt.archivos_faltantes.empty? and objt.archivos_vacios.empty? %>
-			<%= render layout: '0p/collapse/link', locals: {label: 'Warnings', objeto: objt, tooltip: 'Desplegar advertencias'} do %>
-				<i class="bi bi-cone-striped text-danger"></i>
-			<% end %>
 		<% end %>
 	</td>
+
+	<td><%= objt.razon_social %></td>
 
 	<td class="text-end app_lnk">
 		<% if operacion? %>

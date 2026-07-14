@@ -12,7 +12,7 @@ module Cmenu
 				{scp: 'sndcts', 	cndcn: operacion?},
 				{scp: 'trbjdrs',	cndcn: operacion?},
 				{scp: 'actvs', 		cndcn: operacion?},
-				{scp: 'de_bj', 		cndcn: admin?},
+				{scp: 'inctvs', 	cndcn: admin?},
 			],
 			asesorias: [
 				{scp: 'trmtcn', 	cndcn: operacion?},
@@ -54,7 +54,7 @@ module Cmenu
 				sndcts: 	'Sindicatos',
 				trbjdrs: 	'Trabajadores',
 				actvs: 		'Activos',
-				de_bj: 		'Dados de Baja'
+				inctvs: 	'Inactivos'
 			},
 			asesorias: {
 				trmtcn: 	'en tramitación',

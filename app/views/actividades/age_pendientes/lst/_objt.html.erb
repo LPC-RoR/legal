@@ -1,0 +1,8 @@
+<% if objt.estado == 'realizado' %>
+	<i class="bi bi-check-lg text-primary"></i>
+<% else %>
+	<i class="bi bi-circle-fill text-<%=objt.prioridad%>"></i> 
+<% end %>
+<span class="fw-bold">
+	<%= dma_hm(objt.created_at) %>
+</span>

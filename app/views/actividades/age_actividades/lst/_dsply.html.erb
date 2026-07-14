@@ -1,0 +1,10 @@
+<div class="mx-2">
+	<div class="fw-bold"><%= objt.descripcion %></div>
+	<% if objt.tipo == 'Audiencia' %>
+		<div class="text-secondary"><%= objt.ownr.causa %></div>
+	<% end %>
+</div>
+
+<% if objt.responsables.any? %>
+	<%= render partial: prtl(objt, 'lst', 'prtcpnts'), locals: {objt: objt} %>
+<% end %>

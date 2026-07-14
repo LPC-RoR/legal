@@ -24,7 +24,6 @@ class ClssTbl < ApplicationRecord
 					bg_crl: nil,
 					clr: "text-secondary",
 					lnks: "app_lnk",
-					styl: "font-size: 1rem;margin-bottom: 1px;"
 				}
 			},
 			head: {
@@ -41,7 +40,6 @@ class ClssTbl < ApplicationRecord
 					bg_crl: "bg_azul_claro",
 					clr: "text-primary",
 					lnks: "app_lnk",
-					styl: "font-size: 0.9rem;margin-bottom: 1px;"
 				}
 			},
 		}.freeze

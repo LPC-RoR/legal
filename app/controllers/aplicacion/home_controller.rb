@@ -53,15 +53,15 @@ class Aplicacion::HomeController < ApplicationController
 		@usrs = Usuario.where(tenant_id: nil)
 
     set_tab( :tab, ['Pendientes', 'Realizados'])
-#    @estado = @options[:tab].singularize.downcase
 
     if @options[:tab] == 'Pendientes'
-    	@pndnts_danger 	= current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'danger').order(:created_at)
-    	@pndnts_warning = current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'warning').order(:created_at)
-    	@pndnts_success = current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'success').order(:created_at)
-    	@pndnts_nuevos 	= current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: nil).order(:created_at)
+    	@pndnts = current_usuario.age_pendientes.where.not(estado: 'realizado').order(:created_at)
+#    	@pndnts_danger 	= current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'danger').order(:created_at)
+#    	@pndnts_warning = current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'warning').order(:created_at)
+#    	@pndnts_success = current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'success').order(:created_at)
+#    	@pndnts_nuevos 	= current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: nil).order(:created_at)
     else
-    	@pndnts_rlzds 	= current_usuario.age_pendientes.where(estado: 'realizado').order(:created_at)
+    	@pndnts = current_usuario.age_pendientes.where(estado: 'realizado').order(:created_at)
     end
 
 	  # 1. Salida temprana si el usuario está en un scope especial

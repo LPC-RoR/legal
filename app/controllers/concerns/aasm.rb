@@ -8,12 +8,12 @@ module Aasm
     # Ejecutar
     @objeto.ejecutar_evento(proceso, evento)
     
-    redirect_to causas_path, notice: "✅ Evento ejecutado correctamente"
+    redirect_to "/#{@objeto.class.name.tableize}", notice: "✅ Evento ejecutado correctamente"
 
   rescue ArgumentError => e
-    redirect_to causas_path, alert: "⚠️ #{e.message}"
+    redirect_to "/#{@objeto.class.name.tableize}", alert: "⚠️ #{e.message}"
   rescue AASM::InvalidTransition => e
-    redirect_to causas_path, alert: "❌ Transición no válida: #{e.message}"
+    redirect_to "/#{@objeto.class.name.tableize}", alert: "❌ Transición no válida: #{e.message}"
   end
 
   def validar_evento
@@ -27,7 +27,7 @@ module Aasm
     evento = params[:evento]
 
     unless eventos_validos[proceso]&.include?(evento)
-      redirect_to causas_path, alert: "❌ Evento no autorizado"
+      redirect_to "/#{@objeto.class.name.tableize}", alert: "❌ Evento no autorizado"
       return false
     end
 

@@ -70,8 +70,3 @@
 .d_h {
 	@include dia_hd(cnfg.$blue_5, cnfg.$blue_1, cnfg.$blue_5);
 }
-
-.pndt_bjt {
-	@include ac_bjt_bs(cnfg.$pltt_8, cnfg.$pltt_7);
-	@include ac_dtll(black, gray);
-}

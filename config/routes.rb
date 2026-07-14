@@ -53,7 +53,6 @@ Rails.application.routes.draw do
     match :estmcn, via: :post, on: :member
     match :ejecutar_evento, via: :post, on: :member
     member do
-      patch :cambiar_estado_financiero
       put   :cambiar_estado_financiero
       patch :migrar_estado_financiero
     end
@@ -61,6 +60,7 @@ Rails.application.routes.draw do
   resources :clientes do
     member do
       post :crear_aprobacion
+      post  :ejecutar_evento
     end
     resources :tenant_usuarios, only: %i[index update], controller: 'tenant_usuarios'
     match :swtch_stt, via: :post, on: :member
@@ -268,7 +268,6 @@ Rails.application.routes.draw do
       match :cambio_fecha, via: :post, on: :member
       # desde aqui revisar
       # -----------------------
-      match :cu_actividad, via: :post, on: :collection
       match :cambia_estado, via: :get, on: :member
     end
     resources :age_pendientes do

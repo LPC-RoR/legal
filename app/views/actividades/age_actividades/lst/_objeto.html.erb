@@ -1,23 +1,8 @@
-<div class="mb-1 pb-2 shadow border border-secondary-subtle rounded bg-white text-primary app_lnk" style="font-size: 12px; line-height: 1.2;">
-
-	<%= render partial: prtl(objt, 'lst', 'objt_row'), locals: {objt: objt} %>
-
-	<div class="mx-3">
-		<div class="fw-bold text-<%= objt.text_color %>"><%= objt.descripcion %></div>
-		<% if objt.tipo == 'Audiencia' %>
-			<div class="text-secondary"><%= objt.ownr.causa %></div>
-		<% end %>
-	</div>
-
-	<% if objt.responsables.any? %>
-		<%= render partial: prtl(objt, 'lst', 'prtcpnts'), locals: {objt: objt} %>
-	<% end %>
-
-	<%#= render partial: 'actividades/age_actividades/list/wrnngs', locals: {objeto: objeto} %>
-
-	<%#= render partial: prtl('notas', 'shr', 'notas_pendientes'), locals: {objeto: objeto} %>
-
-</div>
+<%= render partial: '0t/objeto_dflt', locals: {objt: objt, 
+	box_clss: 'border border-2 rounded-2', box_styl: 'font-size: .7rem;line-height: 1.2;',
+	row_clss: 'px-1 py-1 rounded-2 objt_lnk', row_styl: 'margin: 1px;background-color: #e9ecef;',
+	dsply_clss: 'px-2'
+} %>
 
 <%= render layout: '0p/collapse/display', locals: {label: 'AgregaParticipante', objeto: objt} do %>
 	<%= render partial: "actividades/shr/usr_slct", locals: {objeto: objt} %>

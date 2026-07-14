@@ -7,7 +7,6 @@
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/servicios/aprobacion?indice=#{objeto.id}", tltp: 'Ver aprobacion'} do %>
 				<i class="bi bi-file-pdf"></i>
 			<% end %>
-			<%= render partial: 'clientes/shr/lnk_cl', locals: {objeto: objeto} %>
 			<i class="bi bi-dot"></i>
 			<%= render partial: '0p/tbl/lnks_e', locals: {objeto: objeto} %>
 		</div>

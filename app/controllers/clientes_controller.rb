@@ -2,7 +2,7 @@ class ClientesController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_cliente, only: %i[ show edit update destroy crear_aprobacion swtch_stt cambio_estado swtch_urgencia swtch_pendiente ]
+  before_action :set_cliente, only: %i[ show edit update destroy crear_aprobacion swtch_stt cambio_estado swtch_urgencia swtch_pendiente ejecutar_evento ]
   after_action :rut_puro, only: %i[ create update ]
 
   layout 'pltfrm'
@@ -13,8 +13,6 @@ class ClientesController < ApplicationController
   def index
     @orgn = 'clts'
     @usrs = Usuario.where(tenant_id: nil)
-    # Usuarios que no tienen ownr
-    @age_usuarios = AgeUsuario.no_ownr
 
     scp = params[:scp].blank? ? 'emprss' : params[:scp]
 
@@ -27,8 +25,8 @@ class ClientesController < ApplicationController
       cllcn = Cliente.typ('Trabajador').cl_ordr
     when 'actvs'
       cllcn = Cliente.std('activo').cl_ordr
-    when 'de_bj'
-      cllcn = Cliente.std('baja').cl_ordr
+    when 'inctvs'
+      cllcn = Cliente.std('inactivo').cl_ordr
     end
 
     @scp = scp_item[:clientes][scp.to_sym]
@@ -43,10 +41,8 @@ class ClientesController < ApplicationController
     @usrs = Usuario.where(tenant_id: nil)
     @actvdds  = @objeto.age_actividades.fecha_ordr
     
-    set_st_estado(@objeto)
     set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Aprobaciones', finanzas?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Conciliar', current_usuario.admin?]] )
 
-    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
     @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
 
     if @options[:menu] == 'General'

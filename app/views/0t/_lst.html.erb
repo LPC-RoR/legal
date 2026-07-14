@@ -22,7 +22,7 @@
 		<% clccn.each do |objt| %>
 			<%# 1ra prioridad: presencia de un partial _objeto %>
 			<% if prtl?(objt, dir, "objeto") %>
-				<%= render partial: prtl(objt, dir, "objeto") , locals: {objt: objt} %>
+				<%= render partial: prtl(objt, dir, "objeto") , locals: { objt: objt } %>
 			<%# 2da prioridad: presencia de un partial _#{typ} %>
 			<% elsif prtl?(objt, dir, typ) %>
 				<%= render partial: prtl(objt, dir, typ), locals: {objt: objt} %>

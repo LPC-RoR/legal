@@ -1,0 +1,19 @@
+<b class="">
+	<%= render partial: prtl(objt, 'lst', 'age_icon'), locals: {objt: objt} %>
+
+	<%= dma_hm(objt.fecha) %>
+
+	<% if objt.age_logs.any? %>
+		<i class="bi bi-calendar-plus text-warning"></i>
+	<% end %>
+
+	<% if objt.tipo == 'Audiencia' %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: objt.ownr, tltp: objt.ownr.causa} do %>
+			<%= objt.ownr.rit %>
+		<% end %>
+	<% end %>
+	<% if objt.suspendida %>
+		<span class="text-danger">SUSPENDIDA</span>
+	<% end %>
+</b>
+<i class="bi bi-people-fill text-<%=objt.responsables.any? ? 'primary' : 'danger'%>"></i>

@@ -1,0 +1,45 @@
+<% dir 			||= 'lst' %>
+<% hide_lnks	||= false %>
+
+<% box_clss		||= nil %>
+<% box_styl		||= nil %>
+<% row_clss		||= 'px-1' %>
+<% row_styl		||= nil %>
+<% lnk_styl		||= 'app_lnk' %>
+<% dsply_clss 	||= 'px-1' %>
+<% dsply_styl 	||= nil %>
+
+<% col_lft		||= 10 %>
+
+<div class="<%= box_clss %>" style="<%= box_styl %>">
+
+	<div class="row gx-1 <%=row_clss%>" style="<%=row_styl%>">
+
+		<div class="col-<%=col_lft%>">
+			<% if prtl?(objt, dir, 'objt') %>
+				<%= render partial: prtl(objt, dir, 'objt'), locals: {objt:objt} %>
+			<% end %>
+		</div>
+		<div class="col-<%=12-col_lft%> text-end <%=lnk_styl%>">
+			<% unless hide_lnks %>
+				<% if prtl?(objt, dir, 'lnks') %>
+					<%= render partial: prtl(objt, dir, 'lnks'), locals: {objt:objt} %>
+				<% end %>
+
+				<% if prtl?(objt, dir, 'plldwn_lnks') %>
+					<%= render partial: '0t/plldwn_lnks', locals: {objt: objt} %>
+				<% else %>
+					<% render partial: '0t/lnks_e', locals: {objt: objt} %>
+				<% end %>
+			<% end %>
+		</div>
+
+	</div>
+
+	<% if prtl?(objt, dir, 'dsply') %>
+		<div class="<%= dsply_clss %>" style="<%= dsply_styl %>">
+			<%= render partial: prtl(objt, dir, 'dsply'), locals: {objt:objt} %>
+		</div>
+	<% end %>	
+
+</div>

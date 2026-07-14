@@ -1,0 +1,11 @@
+<% unless objt.estado == 'realizado' %>
+	<%= render partial: 'actividades/age_pendientes/lst/set_prioridad', locals: {objt: objt} %>
+<% end %>
+
+<%= link_to "/age_pendientes/#{objt.id}/realizado_pendiente", title: "#{objt.estado == 'pendiente' ? 'Marcar como realizada' : 'Marcar como pendiente' }", 'data-toggle' => 'tooltip', 'data-placement' => 'right' do %>
+  <% if objt.estado == 'realizado' %>
+    <i class="bi bi-arrow-left"></i> 
+  <% else %>
+    <i class="bi bi-check-lg"></i>
+  <% end %>
+<% end %>

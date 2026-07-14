@@ -21,7 +21,7 @@
 <%# Despliegua paginación superior %>
 <%= render partial: '0t/pgnt', locals: {clccn: clccn, lctn: 'arriba'} if pgnt %>
 
-<%= render partial: "0t/lst", locals: {clccn: clccn, clss: clss, dir: dir, typ: typ, ordr: ordr, hide_crud: hide_crud} %>
+<%= render partial: "0t/lst", locals: {clccn: clccn, clss: clss, dir: dir, typ: typ, ordr: ordr, hide_crud: hide_crud } %>
 
 <%# Despliegua paginación inferior %>
 <%= render partial: '0t/pgnt', locals: {clccn: clccn, lctn: 'abajo'} if pgnt %>
