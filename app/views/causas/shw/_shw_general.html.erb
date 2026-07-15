@@ -1,6 +1,32 @@
 <div class="p-2 border-start border-end border-bottom" style="margin-top: -1px">
+
 	<%= render partial: prtl_name('causas', 'shw/general', 'cuantia'), locals: {objeto: @objeto} %>
 	<%= render partial: prtl_name('causas', 'shw/general', 'txt_cuantias'), locals: {objeto: @objeto} %>
-	<%#= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
-	<%= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
+
+	<div class="row gx-1">
+		<div class="col-lg-6 col-xs-12">
+			<%= render partial: '0ttl/ttl', locals: {source: 'age_actividades', clss: :indx_md, dir: 'indx', ownr: @objeto} %>
+			<%= render partial: '0t/tbl', locals: {source: 'age_actividades', clccn: @actvdds} %>
+		</div>
+		<div class="col-lg-6">
+			<%= render partial: '0ttl/ttl', locals: {source: 'act_archivos', clss: :indx_md, dir: 'indx', ownr: @objeto, hide_lnks: true} %>
+			<%= render partial: prtl(@objeto, 'shw/general', 'lst_archivos') %>
+		</div>
+	</div>
+
+	<div class="row gx-1">
+	    <div class="col">
+			<%= render partial: '0ttl/ttl', locals: {source: 'notas', clss: :indx_md, dir: 'indx', ownr: @objeto, hide_lnks: true} %>
+	        <%= render partial: '0p/tbl_clss', locals: {clccn: @notas} %>
+	    </div>
+	    <div class="col">
+			<%= render partial: '0ttl/ttl', locals: {source: 'monto_conciliaciones', clss: :indx_md, dir: 'indx', blngs: @objeto, hide_new: true} %>
+	        <%#= render partial: '0p/ttl_clss', locals: {source: 'monto_conciliaciones', clss: :sub, dir: 'indx', blngs: @objeto} %>
+	        <%= render partial: '0p/tbl_clss', locals: {source: 'monto_conciliaciones', clccn: @coleccion['monto_conciliaciones'], dir: 'list'} %>
+	    </div>
+	</div>
+
+	<%= render partial: '0ttl/ttl', locals: {source: 'estados', clss: :indx_md, dir: 'indx', blngs: @objeto} %>
+	<%= render partial: '0p/tbl_clss', locals: {source: 'estados', clccn: @coleccion['estados'], dir: 'list'} %>
+
 </div>

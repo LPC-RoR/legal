@@ -1,0 +1,14 @@
+<% source ||= 'home' %>
+<% dir    ||= 'indx' %>
+<% gly    ||= 'bi bi-three-dots-vertical' %>
+
+
+<div class="dropdown d-inline-block">
+  <a href="#" class="text-muted" id="dropdownMenuButton<%= source %>" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="<%=gly%>"></i>
+  </a>
+
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton<%= source %>">
+    <%= render partial: prtl(source, dir, 'plldwn_ttl_lnks') %>
+  </ul>
+</div>

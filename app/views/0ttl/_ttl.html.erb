@@ -8,16 +8,17 @@
 <%# --- SAFE LOOKUP: fallback a clss_dflt si la variante no existe --- %>
 <% lyt_entry     = cntxt_clss.lyt[clss] || cntxt_clss.lyt[cntxt_clss.clss_dflt] %>
 
-<% row_clss      ||= lyt_entry[:clss_str] %>
-<% row_styl      ||= lyt_entry[:styl_str] %>
+<% row_clss       ||= lyt_entry[:clss_str] %>
+<% row_styl       ||= lyt_entry[:styl_str] %>
 
-<% col_lft       ||= 10 %>
+<% col_lft        ||= 10 %>
 
-<% hide_lnks     ||= false %>
-<% hide_gly      ||= false %>
+<% hide_lnks      ||= false %>
+<% hide_gly       ||= false %>
+<% hide_new       ||= false %>
 
-<% ownr          ||= nil %>
-<% blngs         ||= nil %>
+<% ownr           ||= nil %>
+<% blngs          ||= nil %>
 
 <div class="row mb-1 <%= row_clss %> responsive-ttl" style="<%= row_styl %>" >
 
@@ -40,10 +41,10 @@
       <% if prtl?(source, dir, 'lnks') %>
         <%= render partial: prtl_name(source, dir, 'lnks'), locals: {ownr: ownr, blngs: blngs} %>
       <% end %>
-      <% if prtl?(source, dir, 'plldwn_lnks') %>
-        <%= render partial: prtl_name(source, dir, 'plldwn_lnks'), locals: {ownr: ownr, blngs: blngs} %>
+      <% if prtl?(source, dir, 'plldwn_ttl_lnks') %>
+        <%= render partial: '0t/plldwn_ttl_lnks', locals: {source: source} %>
       <% else %>
-        <%= render partial: '0t/lnk_new', locals: {source: source, ownr: ownr, blngs: blngs}%>
+        <%= render partial: '0t/lnk_new', locals: {source: source, ownr: ownr, blngs: blngs} unless hide_new %>
       <% end %>
     <% end %>
 
