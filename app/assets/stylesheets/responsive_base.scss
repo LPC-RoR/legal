@@ -1,0 +1,32 @@
+// responsive_base.scss
+
+.responsive-ttl,
+.responsive-box {
+  // Desktop: lee variables directamente
+  font-size: var(--rb-font, 1rem);
+  line-height: var(--rb-lh, 1.5);
+  padding: var(--rb-pad-y, .25rem) var(--rb-pad-x, .5rem);
+  border-width: var(--rb-border, 2px);
+}
+
+@media (max-width: 768px) {
+  .responsive-ttl,
+  .responsive-box {
+    // Tablet: lee variables *_md, fallback a base
+    font-size: var(--rb-font-md, var(--rb-font, 1rem));
+    line-height: var(--rb-lh-md, var(--rb-lh, 1.5));
+    padding: var(--rb-pad-y-md, var(--rb-pad-y, .25rem)) var(--rb-pad-x-md, var(--rb-pad-x, .5rem));
+    border-width: var(--rb-border-md, var(--rb-border, 2px));
+  }
+}
+
+@media (max-width: 576px) {
+  .responsive-ttl,
+  .responsive-box {
+    // Móvil: lee variables *_sm, fallback a *_md, fallback a base
+    font-size: var(--rb-font-sm, var(--rb-font-md, var(--rb-font, 1rem)));
+    line-height: var(--rb-lh-sm, var(--rb-lh-md, var(--rb-lh, 1.5)));
+    padding: var(--rb-pad-y-sm, var(--rb-pad-y-md, var(--rb-pad-y, .25rem))) var(--rb-pad-x-sm, var(--rb-pad-x-md, var(--rb-pad-x, .5rem)));
+    border-width: var(--rb-border-sm, var(--rb-border-md, var(--rb-border, 2px)));
+  }
+}

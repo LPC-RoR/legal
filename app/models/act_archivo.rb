@@ -11,7 +11,7 @@ class ActArchivo < ApplicationRecord
   has_many :act_metadatas, dependent: :destroy
 
   has_many :act_referencias, dependent: :destroy
-  has_many :refs, through: :act_referencias  # o el nombre que prefieras
+  has_many :refs, through: :act_referencias, source: :ref  # o el nombre que prefieras
 
   has_many :krn_textos, as: :ownr, dependent: :destroy
   accepts_nested_attributes_for :krn_textos, allow_destroy: true
