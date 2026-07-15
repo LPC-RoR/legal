@@ -11,7 +11,6 @@ class ActArchivo < ApplicationRecord
   has_many :act_metadatas, dependent: :destroy
 
   has_many :act_referencias, dependent: :destroy
-  has_many :refs, through: :act_referencias, source: :ref, source_type: "Ref"  # o el nombre que prefieras
 
   has_many :krn_textos, as: :ownr, dependent: :destroy
   accepts_nested_attributes_for :krn_textos, allow_destroy: true
@@ -39,6 +38,13 @@ class ActArchivo < ApplicationRecord
   # Cambiar after_create por after_commit
   after_commit :procesar_demanda, on: :create, if: :es_demanda?
   after_commit :generar_metadata_anonimizacion, on: [:create, :update]
+
+  # Reemplaza lo siguiente
+  # has_many :refs, through: :act_referencias, source: :ref, source_type: "Ref"  # o el nombre que prefieras
+  # If you need to fetch refs, do it through the join records
+  def refs
+    act_referencias.includes(:ref).map(&:ref)
+  end
 
   # ****************************************************** CONTEXT MAIL
 
