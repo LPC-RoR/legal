@@ -54,10 +54,11 @@ class CausasController < ApplicationController
 
     # Objeto que contiene act_texto con el lista de hechos
     demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
-    @dmnd_cdgs  = demanda&.act_metadatas&.find_by(act_metadata: 'cdgs')
-    @dmnd_vlrs  = demanda&.act_metadatas&.find_by(act_metadata: 'vlrs')
     @hechos = demanda&.act_textos&.find_by(tipo_documento: 'lista_hechos')
-    @resumen = demanda&.act_textos&.find_by(tipo_documento: 'resumen_anonimizado')
+
+#    @dmnd_cdgs  = demanda&.act_metadatas&.find_by(act_metadata: 'cdgs')
+#    @dmnd_vlrs  = demanda&.act_metadatas&.find_by(act_metadata: 'vlrs')
+#    @resumen = demanda&.act_textos&.find_by(tipo_documento: 'resumen_anonimizado')
 
 
     set_st_estado(@objeto)

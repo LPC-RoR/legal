@@ -34,9 +34,10 @@ class ActArchivo < ApplicationRecord
 
   scope :with_attached_pdf, -> { includes(pdf_attachment: :blob) }
 
+  # Procesador de demanda Version 2-0 DESCONECTADO
 #  after_create :procesar_demanda, if: :es_demanda?
   # Cambiar after_create por after_commit
-  after_commit :procesar_demanda, on: :create, if: :es_demanda?
+#  after_commit :procesar_demanda, on: :create, if: :es_demanda?
   after_commit :generar_metadata_anonimizacion, on: [:create, :update]
 
   # Reemplaza lo siguiente
@@ -409,9 +410,10 @@ private
     act_archivo == "demanda"
   end
 
-  def procesar_demanda
-    ProcesadorDemandaJob.perform_later(self.id)
-  end
+  # Procesador de demanda Version 2-0 DESCONECTADO
+#  def procesar_demanda
+#    ProcesadorDemandaJob.perform_later(self.id)
+#  end
 
   def pdf_must_be_attached
     errors.add(:pdf, "debe estar adjunto") unless pdf.attached?

@@ -27,7 +27,7 @@ class Causa < ApplicationRecord
 	has_many :monto_conciliaciones, dependent: :destroy
 
 	has_many :age_actividades, as: :ownr, dependent: :destroy
-#	has_many :tar_calculos, as: :ownr
+
 	# Verificar que se puede acceder desde Causa con la otra opción.
 #	has_many :tar_facturaciones, as: :ownr
 	has_many :tar_uf_facturaciones, as: :ownr
