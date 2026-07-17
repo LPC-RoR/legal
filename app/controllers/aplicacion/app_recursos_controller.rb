@@ -29,42 +29,44 @@ class Aplicacion::AppRecursosController < ApplicationController
 
   def migrar_cuantias
 
-    KrnTestigo.all.each do |tstg|
-      dnnc = tstg&.ownr&.dnnc
-      if dnnc
-        tstg.krn_denuncia_id = dnnc.id
-        tstg.save
-      else
-#        tstg.delete
+    causas_con_app_archivo = Causa.joins(:app_archivos)
+                                .where(app_archivos: { app_archivo: 'Denuncia' })
+                                .where.not(app_archivos: { archivo: nil })
+                                .distinct      
+
+    contador = { creados: 0, existentes: 0, errores: 0 }
+    causas_con_app_archivo.find_each do |causa|
+
+      app_archivo = causa.app_archivos.find_by(app_archivo: 'Denuncia')
+      next unless app_archivo&.archivo&.present?
+      
+      act_archivo = causa.act_archivos.find_or_initialize_by(act_archivo: 'denuncia')
+      
+      if act_archivo.pdf.attached?
+        contador[:existentes] += 1
+        next
       end
+      
+      # Descargar archivo de CarrierWave y adjuntar a Active Storage
+      archivo_path = app_archivo.archivo.path
+      
+      if File.exist?(archivo_path)
+        act_archivo.pdf.attach(
+          io: File.open(archivo_path),
+          filename: File.basename(archivo_path),
+          content_type: 'application/pdf'
+        )
+        act_archivo.save!
+        contador[:creados] += 1
+        puts "✓ Causa #{causa.id}: PDF migrado"
+      else
+        puts "✗ Causa #{causa.id}: Archivo no encontrado en #{archivo_path}"
+        contador[:errores] += 1
+      end
+        
     end
 
-#    Usuario.all.each do |usr|
-#      @objeto = AppNomina.find_by(email: usr.email)
-#      if @objeto
-#        if @objeto.tipo == 'operación'
-#          tenant = @objeto&.ownr&.tenant
-#          unless usr.has_role?(:operacion, tenant)
-#            usr.add_role(:operacion, @objeto&.ownr&.tenant)
-#          end
-#        end
-#      end
-#    end
-
-#    Causa.std_oprtv('tramitacion').each do |r|
-#      n_pgs   = r&.tar_tarifa&.tar_pagos&.count
-#      n_clcs  = r.tar_calculos.count
-#      if n_clcs == 0
-#        r.estado_financiero = 'sin_cobros'
-#      elsif n_pgs && n_clcs < n_pgs
-#        r.estado_financiero = 'con_cobros'
-#      elsif n_pgs && n_clcs == n_pgs
-#        r.estado_financiero = 'cobrada'
-#      end
-#      r.save if r.estado_financiero?
-#    end
-
-    redirect_to root_path
+    redirect_to root_path, notice: "creados #{contador[:creados]}, existentes #{contador[:existentes]} y errores #{contador[:errores]}"
   end
 
   def migrar_tenants

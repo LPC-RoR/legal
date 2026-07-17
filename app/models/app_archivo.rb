@@ -9,10 +9,10 @@ class AppArchivo < ApplicationRecord
 	has_many :hechos, through: :hecho_archivos
 
 	require 'carrierwave/orm/activerecord'
+	mount_uploader :archivo, ArchivoUploader
 
 #	before_save { self.app_archivo.capitalize! }
 
-	mount_uploader :archivo, ArchivoUploader
 
 	def dflt_bck_rdrccn
 		if ['KrnDenuncia'].include?(self.ownr.class.name)
