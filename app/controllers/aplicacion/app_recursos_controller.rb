@@ -30,7 +30,7 @@ class Aplicacion::AppRecursosController < ApplicationController
   def migrar_cuantias
 
     causas_con_app_archivo = Causa.joins(:app_archivos)
-                                  .where(app_archivos: { app_archivo: 'Denuncia' })
+                                  .where(app_archivos: { app_archivo: 'Demanda' })
                                   .distinct
 
     procesadas = 0
@@ -41,7 +41,7 @@ class Aplicacion::AppRecursosController < ApplicationController
 
     causas_con_app_archivo.find_each do |causa|
 
-      app_archivo = causa.app_archivos.find_by(app_archivo: 'Denuncia')
+      app_archivo = causa.app_archivos.find_by(app_archivo: 'Demanda')
 
       # Verificar si realmente tiene un archivo
       unless app_archivo && archivo_existe?(app_archivo)
@@ -51,7 +51,7 @@ class Aplicacion::AppRecursosController < ApplicationController
       end
 
       # Buscar o crear el ActArchivo de denuncia
-      act_archivo = causa.act_archivos.find_or_initialize_by(act_archivo: 'denuncia')
+      act_archivo = causa.act_archivos.find_or_initialize_by(act_archivo: 'demanda')
       
       # Verificar si el archivo ya existe en Active Storage
       if act_archivo.pdf.attached?
