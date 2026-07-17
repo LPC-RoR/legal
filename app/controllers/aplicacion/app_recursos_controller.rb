@@ -30,43 +30,50 @@ class Aplicacion::AppRecursosController < ApplicationController
   def migrar_cuantias
 
     causas_con_app_archivo = Causa.joins(:app_archivos)
-                                .where(app_archivos: { app_archivo: 'Denuncia' })
-                                .where.not(app_archivos: { archivo: nil })
-                                .distinct      
+                                  .where(app_archivos: { app_archivo: 'Denuncia' })
+                                  .distinct
 
-    contador = { creados: 0, existentes: 0, errores: 0 }
+    procesadas = 0
+    creadas = 0
+    actualizadas = 0
+    errores = 0
+    sin_archivo = 0
+
     causas_con_app_archivo.find_each do |causa|
 
       app_archivo = causa.app_archivos.find_by(app_archivo: 'Denuncia')
-      next unless app_archivo&.archivo&.present?
-      
-      act_archivo = causa.act_archivos.find_or_initialize_by(act_archivo: 'denuncia')
-      
-      if act_archivo.pdf.attached?
-        contador[:existentes] += 1
+
+      # Verificar si realmente tiene un archivo
+      unless app_archivo && archivo_existe?(app_archivo)
+        sin_archivo += 1
+        puts "  Causa #{causa.id}: AppArchivo sin archivo adjunto"
         next
       end
+
+      # Buscar o crear el ActArchivo de denuncia
+      act_archivo = causa.act_archivos.find_or_initialize_by(act_archivo: 'denuncia')
       
-      # Descargar archivo de CarrierWave y adjuntar a Active Storage
-      archivo_path = app_archivo.archivo.path
-      
-      if File.exist?(archivo_path)
-        act_archivo.pdf.attach(
-          io: File.open(archivo_path),
-          filename: File.basename(archivo_path),
-          content_type: 'application/pdf'
-        )
-        act_archivo.save!
-        contador[:creados] += 1
-        puts "✓ Causa #{causa.id}: PDF migrado"
-      else
-        puts "✗ Causa #{causa.id}: Archivo no encontrado en #{archivo_path}"
-        contador[:errores] += 1
+      # Verificar si el archivo ya existe en Active Storage
+      if act_archivo.pdf.attached?
+        actualizadas += 1
+        puts "  Causa #{causa.id}: ActArchivo ya tiene PDF adjunto, omitiendo..."
+        next
       end
-        
+
+      # Migrar el archivo
+      if migrar_archivo(app_archivo, act_archivo)
+        creadas += 1
+        puts "  ✓ Causa #{causa.id}: PDF de denuncia migrado correctamente"
+      else
+        errores += 1
+        puts "  ✗ Causa #{causa.id}: Error al migrar el archivo"
+      end
+      
+      procesadas += 1        
+
     end
 
-    redirect_to root_path, notice: "creados #{contador[:creados]}, existentes #{contador[:existentes]} y errores #{contador[:errores]}"
+    redirect_to root_path, notice: "procesadas #{procesadas}, creadas #{creadas}, actualizadas #{actualizadas}, sin archivos #{sin_archivo} y errores #{errores}"
   end
 
   def migrar_tenants
@@ -149,6 +156,110 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   private
+
+    # ************** Migracion de AppArchivo a ActArchivo
+    def archivo_existe?(app_archivo)
+      return false unless app_archivo.archivo.present?
+      
+      # Verificar de múltiples formas
+      archivo = app_archivo.archivo
+      
+      # 1. Verificar si tiene un archivo subido
+      return false unless archivo.file.present?
+      
+      # 2. Verificar el path
+      if archivo.path.present?
+        return File.exist?(archivo.path)
+      end
+      
+      # 3. Verificar URL para archivos remotos
+      if archivo.url.present?
+        return true
+      end
+      
+      # 4. Verificar el identificador en la base de datos
+      if app_archivo.archivo_identifier.present?
+        return true
+      end
+      
+      false
+    rescue => e
+      Rails.logger.error "Error al verificar archivo: #{e.message}"
+      false
+    end
+  
+    def migrar_archivo(app_archivo, act_archivo)
+      archivo = app_archivo.archivo
+      
+      # Intentar obtener el contenido del archivo
+      contenido = obtener_contenido_archivo(archivo)
+      return false unless contenido
+      
+      filename = obtener_nombre_archivo(archivo)
+      
+      # Adjuntar a Active Storage
+      act_archivo.pdf.attach(
+        io: contenido,
+        filename: filename,
+        content_type: 'application/pdf'
+      )
+      
+      act_archivo.save!
+      true
+    rescue => e
+      Rails.logger.error "Error al migrar archivo: #{e.message}"
+      false
+    end
+  
+    def obtener_contenido_archivo(archivo)
+      # Método 1: Usar el path si existe
+      if archivo.path.present? && File.exist?(archivo.path)
+        return File.open(archivo.path, 'rb')
+      end
+      
+      # Método 2: Usar el file de CarrierWave
+      if archivo.file.respond_to?(:read)
+        temp = Tempfile.new(['migracion', File.extname(archivo.path || '.pdf')])
+        temp.binmode
+        temp.write(archivo.file.read)
+        temp.rewind
+        return temp
+      end
+      
+      # Método 3: Usar URL remota
+      if archivo.url.present?
+        require 'open-uri'
+        temp = Tempfile.new(['migracion', '.pdf'])
+        temp.binmode
+        
+        URI.open(archivo.url) do |remote_file|
+          temp.write(remote_file.read)
+          temp.rewind
+        end
+        return temp
+      end
+      
+      # Método 4: Usar el identificador para buscar en el almacenamiento
+      if archivo.identifier.present?
+        # Esto es más complejo y depende de tu configuración de CarrierWave
+        Rails.logger.warn "No se pudo obtener el archivo usando métodos convencionales"
+        return nil
+      end
+      
+      nil
+    rescue => e
+      Rails.logger.error "Error al obtener contenido: #{e.message}"
+      nil
+    end
+  
+    def obtener_nombre_archivo(archivo)
+      return archivo.filename if archivo.respond_to?(:filename) && archivo.filename.present?
+      return File.basename(archivo.path) if archivo.path.present?
+      return archivo.identifier if archivo.identifier.present?
+      "denuncia_#{Time.current.to_i}.pdf"
+    end
+    # ************** Migracion de AppArchivo a ActArchivo (final)
+
     # helper local dentro de la task
     def safe_add_role(user, role_name, resource = nil)
       role = Role.find_or_create_by!(
