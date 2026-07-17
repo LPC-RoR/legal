@@ -52,7 +52,6 @@ class CausasController < ApplicationController
     @orgn = 'cs_shw'
     @usrs = Usuario.where(tenant_id: nil)
 
-    # Objeto que contiene act_texto con el lista de hechos
     demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
 
     set_st_estado(@objeto)
@@ -71,7 +70,7 @@ class CausasController < ApplicationController
       set_tabla('notas', @objeto.notas.rlzds, false)
       set_tabla('monto_conciliaciones', @objeto.monto_conciliaciones.ordr_fecha, false)
       set_tabla('estados', @objeto.estados.ordr_dfecha, false)
-      set_tabla('app_archivos', @objeto.app_archivos, false)
+#      set_tabla('app_archivos', @objeto.app_archivos, false)
 
     when 'Hechos'
       set_tabla('temas', @objeto.temas.order(:orden), false)
@@ -91,9 +90,6 @@ class CausasController < ApplicationController
       @tar_generales = TarTarifa.where(ownr_id: nil).order(:tarifa)
       @tar_cliente = @objeto.tarifas_cliente.order(:tarifa)
 
-    when 'Lista de hechos'
-
-#      set_tabla('parrafos', @objeto.parrafos.order(:orden), false)
     when 'Registro'
       set_tabla('registros', @objeto.registros, false)
       @coleccion['registros'] = @coleccion['registros'].order(fecha: :desc) unless @coleccion['registros'].blank?

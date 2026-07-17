@@ -1,0 +1,10 @@
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0ttl/ttl', locals: {source: 'age_actividades', clss: :indx_md, dir: 'indx', ownr: @objeto} %>
+		<%= render partial: '0t/tbl', locals: {source: 'age_actividades', clccn: @actvdds} %>
+	</div>
+	<div class="col-lg-6">
+		<%= render partial: '0ttl/ttl', locals: {source: 'act_archivos', clss: :indx_md, dir: 'cntrlds', ownr: @objeto, hide_lnks: true} %>
+		<%= render partial: prtl('act_archivos', 'cntrlds', 'lst_cntrlds'), locals: {ownr: @objeto} %>
+	</div>
+</div>

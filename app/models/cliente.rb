@@ -50,6 +50,14 @@ class Cliente < ApplicationRecord
 
     scope :cl_ordr, -> { order(preferente: :desc, razon_social: :asc) }
 
+	def kywrd
+		{
+			rol: 	'cliente',
+			abrev: 	"clnt-#{id}",
+			sym: 	:clnt,
+		}
+	end
+
 	# Método para obtener todas las tar_facturaciones pendientes de aprobación del cliente
 	def tar_facturaciones_pendientes_aprobacion
 		# Obtener IDs de TarCalculo que pertenecen a las causas del cliente

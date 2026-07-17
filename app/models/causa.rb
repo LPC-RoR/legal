@@ -52,6 +52,14 @@ class Causa < ApplicationRecord
 
     validates_presence_of :causa, :rit
 
+	def kywrd
+		{
+			rol: 	'causa',
+			abrev: 	"cs-#{id}",
+			sym: 	:cs,
+		}
+	end
+
 	# app/models/causa.rb
 	def self.with_paginated_calculos(page = 1, per = 20)
 	  page = (page || 1).to_i

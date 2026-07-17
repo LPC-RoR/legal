@@ -6,8 +6,7 @@
 	
 	<% case @options[:menu] %>
 	<% when 'General' %>
-		<%# DEPRECATED PENDIENTE en despliegue de app_archivos %>
-		<%= render partial: '0shr/rcss', locals: {objeto: @objeto} %>
+		<%= render partial: 'clientes/shw/shw_general', locals: {objeto: @objeto} %>
 	<% when 'Causas' %>
 		<%= render partial: 'causas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 	<% when 'Asesorias' %>

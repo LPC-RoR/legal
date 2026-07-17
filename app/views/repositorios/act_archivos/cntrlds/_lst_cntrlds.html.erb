@@ -1,5 +1,8 @@
-<% ClssTipos.archivos[@objeto.code_causa.to_sym].each do |arch| %>
-	<% archivo = @objeto.act_archivos.find_by(act_archivo: arch[0]) %>
+<% cntxt_clss 	= ClssCntrld.cntxt_clss(ownr.class.name.tableize) %>
+<% cntxt_key	= cntxt_clss.cntxt_key(ownr) %>
+
+<% cntxt_clss.archivos[cntxt_key].each do |arch| %>
+	<% archivo = ownr.act_archivos.find_by(act_archivo: arch[0]) %>
 	<div class="row gx-1 px-2 app_lnk">
 		<div class="col-8">
 			<i class="bi bi-file-earmark-pdf"></i>
@@ -13,7 +16,7 @@
 				<i class="bi bi-dot"></i>
 				<%= render partial: '0p/tbl/link_eliminar', locals: {objeto: archivo} %>
 			<% else %>
-				<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', ownr: @objeto, prms: [['act', arch[0]], ['mdl', 'ClssTipos']]} %>
+				<%= render partial: '0p/tbl/lnk_new', locals: {source: 'act_archivos', ownr: ownr, prms: [['act', arch[0]], ['mdl', cntxt_clss.to_s]]} %>
 			<% end %>
 		</div>
 	</div>

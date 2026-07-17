@@ -8,8 +8,8 @@
 			<%= render partial: '0t/tbl', locals: {source: 'age_actividades', clccn: @actvdds} %>
 		</div>
 		<div class="col-lg-6">
-			<%= render partial: '0ttl/ttl', locals: {source: 'act_archivos', clss: :indx_md, dir: 'indx', ownr: @objeto, hide_lnks: true} %>
-			<%= render partial: prtl(@objeto, 'shw/general', 'lst_archivos') %>
+			<%= render partial: '0ttl/ttl', locals: {source: 'act_archivos', clss: :indx_md, dir: 'cntrlds', ownr: @objeto, hide_lnks: true} %>
+			<%= render partial: prtl('act_archivos', 'cntrlds', 'lst_cntrlds'), locals: {ownr: @objeto} %>
 		</div>
 	</div>
 

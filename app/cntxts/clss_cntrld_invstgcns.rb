@@ -1,0 +1,2 @@
+class ClssCntrldInvstgcns < ApplicationRecord
+end

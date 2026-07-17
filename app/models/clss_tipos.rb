@@ -56,32 +56,6 @@ class ClssTipos
 		}		
 	end
 
-	def self.archivos
-		{
-			instancia: [
-				['demanda', 'Demanda', false],
-				['contestacion', 'Contestación', false]
-			],
-			letras: [
-				['demanda', 'Demanda', false],
-				['contestacion', 'Contestación', false]
-			],
-			cobranza: [
-				['sentencia', 'Sentencia', false],
-				['carta_despido', 'Carta despido', false],
-				['demanda', 'Demanda', false]
-			]
-		}
-	end
-
-	def self.act_nombre
-		{
-			'demanda' 		=> 'Demanda',
-			'contestación'	=> 'Contestación',
-			'sentencia'		=> 'Sentencia'
-		}
-	end
-
 	def self.act_lst?(code)
 		false
 	end
