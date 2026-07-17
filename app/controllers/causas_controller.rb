@@ -54,15 +54,9 @@ class CausasController < ApplicationController
 
     # Objeto que contiene act_texto con el lista de hechos
     demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
-    @hechos = demanda&.act_textos&.find_by(tipo_documento: 'lista_hechos')
-
-#    @dmnd_cdgs  = demanda&.act_metadatas&.find_by(act_metadata: 'cdgs')
-#    @dmnd_vlrs  = demanda&.act_metadatas&.find_by(act_metadata: 'vlrs')
-#    @resumen = demanda&.act_textos&.find_by(tipo_documento: 'resumen_anonimizado')
-
 
     set_st_estado(@objeto)
-    set_tab( :menu, ['General', ['Hechos', current_usuario.operacion?], ['Tarifa & Pagos', finanzas?], ['Lista de hechos', @hechos]] )
+    set_tab( :menu, ['General', ['Hechos', current_usuario.operacion?], ['Tarifa & Pagos', finanzas?]] )
 
     # Prueba de Docsplit
 

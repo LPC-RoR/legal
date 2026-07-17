@@ -103,14 +103,6 @@ class ProcesadorDemandaService
   # Creación de registros
   # ------------------------------------------------------------
   def crear_act_texto(tipo:, titulo:, contenido:)
-    act_texto = @act_archivo.act_textos.find_or_initialize_by(tipo_documento: tipo)
-    act_texto.titulo = titulo
-    act_texto.contenido = contenido
-    act_texto.metadata = {
-      procesado_en: Time.current,
-      version: (act_texto.metadata&.dig('version') || 0) + 1
-    }
-    act_texto.save!
   end
 
   # ------------------------------------------------------------

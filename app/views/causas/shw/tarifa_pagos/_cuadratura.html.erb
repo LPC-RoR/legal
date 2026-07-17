@@ -1,5 +1,5 @@
 <%# causas/shw/tarifa_pagos/cuadratura.html.erb %>
-<%= render partial: '0p/ttl_clss', locals: {source: 'causas', clss: :sub, dir: 'cdrtr', blngs: objeto, hide_lnks: true} %>
+<%= render partial: '0ttl/ttl', locals: {source: 'causas', clss: :indx_md, dir: 'cdrtr', blngs: objeto, hide_lnks: true} %>
 
 <div class="p-2" style="font-size: .7rem; line-height: 1.5;">
 
@@ -48,7 +48,7 @@
 	</div>
 
 
-    <%= render partial: '0p/ttl_clss', locals: {source: 'age_actividades', clss: :sub, dir: 'indx', ownr: @objeto} %>
+	<%= render partial: '0ttl/ttl', locals: {source: 'age_actividades', clss: :indx_md, dir: 'indx', hide_lnks: true} %>
     <%= render partial: '0t/tbl', locals: {source: 'age_actividades', clccn: @actvdds} %>
 
 	<% if current_usuario.dog? %>

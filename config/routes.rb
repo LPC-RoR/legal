@@ -332,11 +332,6 @@ Rails.application.routes.draw do
     end
     resources :rep_archivos
     resources :act_archivos do
-      resources :act_textos, only: [:show, :edit, :update] do
-        member do
-          post 'exportar/:formato', to: 'act_textos#exportar', as: :exportar
-        end
-      end
       member do
         get 'descargar/:tipo', to: 'act_archivos#descargar_archivo_generado', as: :descargar
         post :enviar_pdf_por_email
@@ -351,7 +346,6 @@ Rails.application.routes.draw do
     end
 
     resources :act_referencias
-    resources :act_metadatas
     resources :check_realizados do
       match :show_pdf, via: :get, on: :member
       match :excluir, via: :post, on: :member

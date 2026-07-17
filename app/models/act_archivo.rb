@@ -7,8 +7,6 @@ class ActArchivo < ApplicationRecord
   foreign_key: 'anonimizado_de_id', dependent: :destroy
 
   has_one_attached :pdf
-  has_many :act_textos, dependent: :destroy
-  has_many :act_metadatas, dependent: :destroy
 
   has_many :act_referencias, dependent: :destroy
 
@@ -67,19 +65,6 @@ class ActArchivo < ApplicationRecord
 
   # tienes otros métodos en private
   # ****************************************************** CONTEXT MAIL (END)
-
-  # Métodos para acceder fácilmente a los textos
-  def lista_participantes_texto
-    act_textos.lista_participantes.first
-  end
-
-  def resumen_anonimizado_texto
-    act_textos.resumen_anonimizado.first
-  end
-
-  def lista_hechos_texto
-    act_textos.lista_hechos.first
-  end
 
   def pdf_para(modo = :original)
     case modo

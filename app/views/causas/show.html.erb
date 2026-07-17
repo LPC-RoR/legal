@@ -12,10 +12,6 @@
 	<%= render partial: prtl(@objeto, 'shw', 'shw_hechos'), locals: {objeto: @objeto} %>
 <% when 'Tarifa & Pagos' %>
 	<%= render partial: prtl(@objeto, 'shw', 'shw_tarifas_pagos'), locals: {objeto: @objeto} %>
-<% when 'Lista de hechos' %>
-	<div class="border-start border-end border-bottom p-1" style="margin-top: -1px;">
-		<%= render partial: prtl(@objeto, 'shw/general', 'hechos') %>
-	</div>
 <% when 'Registro' %>
 	<%= render partial: '0p/tabla/tabla', locals: {c: 'registros'} %>
 	<%= render partial: '0p/tabla/ext_btn_nuevo', locals: {o: @objeto ,c: 'registros', gly: 'plus-circle', clr: color('causas')} %>

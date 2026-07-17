@@ -26,16 +26,6 @@
                         <i class="bi bi-file-earmark-ruled"></i> <%=ClssActs.mtdt_nombre[mtdt.act_metadata]%>
                     </div>
                 <% end %>
-                <% archivo.act_textos.each do |txt| %>
-                    <div class="row gx-1 mx-3 app_lnk">
-                        <div class="col-8"><i class="bi bi-file-earmark-font"></i> <%=ClssActs.nombre[txt.tipo_documento]%></div>
-                        <div class="col-4 text-end">
-                            <% if current_usuario.admin? %>
-                                <%= link_to edit_act_archivo_act_texto_path(archivo, txt) do %><i class="bi bi-pencil-square"></i><% end %>
-                            <% end %>
-                        </div>
-                    </div>
-                <% end %>
             <% end %>
         <% end %>
     <% end %>
