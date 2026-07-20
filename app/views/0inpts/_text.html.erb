@@ -1,0 +1,15 @@
+<% mrgn_bttm ||= 3 %>
+
+<%# 0p/lbld_inpts/_text.html.erb %>
+<div class="form-floating mb-<%=mrgn_bttm%>">
+
+    <%= f.text_field tkn, class: "form-control #{'is-invalid' if @objeto.errors[tkn].any?}", id: label.parameterize, placeholder: label %>
+    <%= f.label tkn, label, for: label.parameterize unless @objeto.errors[tkn].any? %>
+    
+    <% if @objeto.errors[tkn].any? %>
+      <div class="invalid-feedback">
+        <%= @objeto.errors[tkn].join(', ') %>
+      </div>
+    <% end %>
+
+</div>

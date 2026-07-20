@@ -281,25 +281,25 @@ class Causa < ApplicationRecord
 		end
 	end
 
-		def evento_permitido?(proceso, evento)
-		  # Método 100% funcional (verificado en consola)
-		  aasm(proceso.to_sym).may_fire_event?(evento.to_sym)
-		rescue StandardError => e
-		  Rails.logger.error "🔴 Error verificando evento: #{e.message}"
-		  false
-		end
+	def evento_permitido?(proceso, evento)
+	  # Método 100% funcional (verificado en consola)
+	  aasm(proceso.to_sym).may_fire_event?(evento.to_sym)
+	rescue StandardError => e
+	  Rails.logger.error "🔴 Error verificando evento: #{e.message}"
+	  false
+	end
 
-		def ejecutar_evento(proceso, evento)
-		  # Verificación segura
-		  unless evento_permitido?(proceso, evento)
-		    raise ArgumentError, "Evento '#{evento}' no permitido desde estado '#{send("estado_#{proceso}")}'"
-		  end
+	def ejecutar_evento(proceso, evento)
+	  # Verificación segura
+	  unless evento_permitido?(proceso, evento)
+	    raise ArgumentError, "Evento '#{evento}' no permitido desde estado '#{send("estado_#{proceso}")}'"
+	  end
 
-		  # Ejecutar con AASM API nativa
-		  aasm(proceso.to_sym).fire!(evento.to_sym)
-		end
+	  # Ejecutar con AASM API nativa
+	  aasm(proceso.to_sym).fire!(evento.to_sym)
+	end
 
-		# ---------------------------------------------------------------------
+	# ---------------------------------------------------------------------
 
     # DEPRECATED
     def get_estado

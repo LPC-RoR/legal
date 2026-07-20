@@ -1,4 +1,7 @@
-<%= render partial: '0ttl/ttl', locals: {source: 'causas', clss: (controller_name == 'causas' ? :indx : :indx_md), dir: 'indx'} %>
+<% ttl_clss = controller_name == 'causas' ? :indx : :indx_md %>
+<% ownr 	= controller_name == 'causas' ? nil : @objeto %>
+
+<%= render partial: '0ttl/ttl', locals: {source: 'causas', clss: ttl_clss, dir: 'indx', ownr: ownr} %>
 <%= render partial: prtl_name('causas', 'indx', 'srch_causas') %>
 
 <%= render partial: 'layouts/partials/notice_alert' if controller_name == 'causas' %>

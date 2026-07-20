@@ -1,0 +1,14 @@
+<% data ||= nil %>
+
+<div class="mb-3 form-check">
+
+  <% check_box_lst.each do |chck| %>
+
+    <%= f.check_box chck[0], 
+          class: "form-check-input border border-2", 
+          data: data %>
+    <%= f.label chck[0], chck[1], class: "form-check-label" %>
+
+  <% end %>
+
+</div>

@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     match :ejecutar_evento, via: :post, on: :member
     member do
       put   :cambiar_estado_financiero
+      patch :cambiar_estado_financiero
       patch :migrar_estado_financiero
     end
   end

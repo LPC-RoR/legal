@@ -75,6 +75,7 @@ class Tarifas::TarServiciosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_servicio_params
-      params.require(:tar_servicio).permit(:codigo, :descripcion, :detalle, :tipo, :moneda, :monto, :ownr_type, :ownr_id, :tipo_asesoria_id, :estado)
+      params.require(:tar_servicio).permit(:codigo, :descripcion, :detalle, :tipo, :moneda, :monto, 
+        :ownr_type, :ownr_id, :tarifa_por_defecto, :tarifa_variable, :servicio_base, :estado)
     end
 end

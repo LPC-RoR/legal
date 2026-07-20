@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_17_211954) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_18_235501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -303,8 +303,12 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_17_211954) do
     t.boolean "pendiente"
     t.boolean "urgente"
     t.string "tipo"
+    t.string "estado_operativo"
+    t.string "estado_financiero"
     t.index ["cliente_id"], name: "index_asesorias_on_cliente_id"
     t.index ["estado"], name: "index_asesorias_on_estado"
+    t.index ["estado_financiero"], name: "index_asesorias_on_estado_financiero"
+    t.index ["estado_operativo"], name: "index_asesorias_on_estado_operativo"
     t.index ["tar_servicio_id"], name: "index_asesorias_on_tar_servicio_id"
     t.index ["tipo"], name: "index_asesorias_on_tipo"
     t.index ["tipo_asesoria_id"], name: "index_asesorias_on_tipo_asesoria_id"
@@ -1667,6 +1671,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_17_211954) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "estado"
     t.integer "tipo_asesoria_id"
+    t.boolean "tarifa_por_defecto"
+    t.boolean "tarifa_variable"
+    t.boolean "servicio_base"
     t.index ["codigo"], name: "index_tar_servicios_on_codigo"
     t.index ["estado"], name: "index_tar_servicios_on_estado"
     t.index ["ownr_id"], name: "index_tar_servicios_on_ownr_id"

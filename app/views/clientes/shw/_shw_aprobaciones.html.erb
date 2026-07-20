@@ -1,0 +1,12 @@
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0ttl/ttl', locals: {source: 'cli_aprobaciones', clss: :indx_md, dir: 'indx', ownr: @objeto, hide_new: true} %>
+		<%= render partial: 'layouts/partials/notice_alert' if controller_name == 'causas' %>
+
+		<%= render partial: '0p/tbl_clss', locals: {source: 'cli_aprobaciones', clccn: @clccn, typ: 'ln'} %>	
+	</div>
+	<div class="col-lg-6">
+		<%= render partial: '0ttl/ttl', locals: {source: 'tar_facturaciones', clss: :indx_md, dir: 'indx', ownr: @objeto, hide_new: true} %>
+		<%= render partial: '0p/tbl_clss', locals: {source: 'tar_facturaciones', clccn: @fctrcns} %>	
+	</div>
+</div>

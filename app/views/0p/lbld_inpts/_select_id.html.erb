@@ -1,7 +1,8 @@
-<% objeto ||= @objeto %>
-<% include_blank ||= false %>
-<% prompt ||= nil %>
-<% data ||= nil %>
+<% objeto 			||= @objeto %>
+<% include_blank 	||= false %>
+<% prompt 			||= nil %>
+<% data 			||= nil %>
+
 <div class="form-floating">
 	<%= form.select token, options_for_select(colection, (objeto.send(token.to_s) unless objeto.blank?)), { prompt: prompt }, include_blank: include_blank, class: 'form-select', id: token.to_s, data: data %>
 	<%= form.label token, label, for: token.to_s %>

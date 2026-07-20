@@ -1,0 +1,9 @@
+<% objeto         ||= @objeto %>
+<% include_blank  ||= false %>
+<% prompt         ||= nil %>
+<% data           ||= nil %>
+
+<div class="form-floating mb-3">
+  <%= f.select tkn, hsh.invert, {prompt: prompt}, class: 'form-select' %>
+  <%= f.label tkn, label %>
+</div>

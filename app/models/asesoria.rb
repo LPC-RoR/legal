@@ -1,4 +1,6 @@
 class Asesoria < ApplicationRecord
+  	include AASM
+
 	belongs_to :cliente
 	belongs_to :tipo_asesoria
 	belongs_to :tar_servicio, optional: true
@@ -21,6 +23,87 @@ class Asesoria < ApplicationRecord
     scope :typ, ->(typ) { where(tipo_asesoria_id: TipoAsesoria.find_by(tipo_asesoria: typ).id, estado: 'tramitación').assr_ordr }
 
     delegate :descripcion, :moneda, :monto, to: :tar_servicio, prefix: true
+
+
+    # ---------------------------------------------------------------- ESTADOS con AASM
+
+	# Proceso Operativo
+	aasm(:operativo, column: 'estado_operativo') do
+	    state :tramitacion, initial: true
+	    state :archivada
+
+	    event :up_to_archivada do
+	      transitions from: :tramitacion, to: :archivada
+	    end
+	    
+	    event :dwn_to_tramitacion do
+	      transitions from: :archivada, to: :tramitacion
+	    end
+	end
+
+	# Proceso Financiero
+	# app/models/causa.rb
+	aasm(:financiero, column: 'estado_financiero') do
+		state :ingreso, initial: true
+		state :facturable
+		state :con_facturaciones
+		state :facturada
+		state :cobrada
+
+		# Transiciones principales (flujo normal)
+		event :marcar_facturable do
+			transitions from: :ingreso, to: :facturable
+		end
+
+		event :marcar_con_facturaciones do
+			transitions from: :facturable, to: :con_facturaciones
+		end
+
+		event :marcar_facturada do
+			transitions from: [:facturable, :con_facturaciones], to: :facturada
+		end
+
+		event :marcar_cobrada do
+			transitions from: :facturada, to: :cobrada
+		end
+
+		# Transiciones de retroceso
+		event :volver_a_ingreso do
+			transitions from: :facturable, to: :ingreso
+		end
+
+		event :volver_a_facturable do
+			transitions from: [:con_facturaciones, :facturada], to: :facturable
+		end
+
+		event :volver_a_con_facturaciones do
+			transitions from: :facturada, to: :con_facturaciones
+		end
+
+		event :volver_a_facturada do
+			transitions from: :cobrada, to: :facturada
+		end
+	end
+
+	def evento_permitido?(proceso, evento)
+	  # Método 100% funcional (verificado en consola)
+	  aasm(proceso.to_sym).may_fire_event?(evento.to_sym)
+	rescue StandardError => e
+	  Rails.logger.error "🔴 Error verificando evento: #{e.message}"
+	  false
+	end
+
+	def ejecutar_evento(proceso, evento)
+	  # Verificación segura
+	  unless evento_permitido?(proceso, evento)
+	    raise ArgumentError, "Evento '#{evento}' no permitido desde estado '#{send("estado_#{proceso}")}'"
+	  end
+
+	  # Ejecutar con AASM API nativa
+	  aasm(proceso.to_sym).fire!(evento.to_sym)
+	end
+
+	# ---------------------------------------------------------------------
 
     def self.crstn(typ)
     	typ.singularize == 'Redaccion' ? 'Redacción' : typ.singularize

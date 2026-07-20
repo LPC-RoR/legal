@@ -1,0 +1,30 @@
+<% lst = [[:tarifa_por_defecto, 'Tarifa por defecto'],[:tarifa_variable, 'Tarifa variable'], [:servicio_base, 'Servicio base']] %>
+
+<div class="row gx-1">
+	<div class="col-lg-3 col-xs-12">
+		<%= render partial: '0inpts/select_code', locals: { f: form, tkn: :tipo, hsh: ClssTiposPltfrm.tipos_asesoria, label: 'Tipo de asesoría' } %>
+	</div>
+	<div class="col-lg-9">
+		<%= render partial: '0inpts/text', locals: { f: form, tkn: :descripcion, label: 'Descripción' } %>
+	</div>
+</div>
+
+<div class="row gx-1">
+	<div class="col-lg-3 col-xs-12">
+		<%= render partial: '0inpts/check_box_lst', locals: { f: form, check_box_lst: lst } %>
+	</div>
+	<div class="col-lg-9">
+		<div class="row gx-1">
+			<div class="col-lg-6 col-xs-12">
+				<%= render partial: '0inpts/number', locals: { f: form, tkn: :monto, label: 'Monto' } %>
+			</div>
+			<div class="col-lg-6">
+				<%= render partial: '0inpts/select', locals: { f: form, tkn: :moneda, sel_list: ClssGnrl::MONEDAS, label: 'Moneda' } %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= render partial: '0inpts/text_area', locals: { f: form, tkn: :detalle, label: 'Detalle' } %>
+
+<%= render partial: '0inpts/hidden_lst', locals: { f: form, hddn_lst: [:estado, :ownr_type, :ownr_id] } %>
