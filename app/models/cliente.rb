@@ -59,27 +59,21 @@ class Cliente < ApplicationRecord
 
 	# Método para obtener todas las tar_facturaciones pendientes de aprobación del cliente
 	def tar_facturaciones_pendientes_aprobacion
-	  # IDs de asesorías
 	  asesoria_ids = asesorias.pluck(:id)
 
-	  # Por causas: TarFacturacion -> TarCalculo -> Causa -> Cliente
-	  por_causas = TarFacturacion
-	    .joins(tar_calculo: { causa: :cliente })
-	    .where(clientes: { id: id })
+	  # Subconsulta: TarCalculos de las causas del cliente
+	  tar_calculos_de_causas = TarCalculo.where(
+	    ownr_type: 'Causa',
+	    ownr_id: causas.select(:id)
+	  )
+
+	  TarFacturacion
+	    .where(
+	      "(tar_calculo_id IN (?)) OR (ownr_type = 'Asesoria' AND ownr_id IN (?))",
+	      tar_calculos_de_causas.select(:id),
+	      asesoria_ids
+	    )
 	    .where(cli_aprobacion_id: nil, tar_aprobacion_id: nil, facturado: [nil, false])
-
-	  # Por asesorías: polimórfica
-	  por_asesorias = if asesoria_ids.any?
-	    TarFacturacion
-	      .where(ownr_type: 'Asesoria', ownr_id: asesoria_ids)
-	      .where(cli_aprobacion_id: nil, tar_aprobacion_id: nil, facturado: [nil, false])
-	  else
-	    TarFacturacion.none
-	  end
-
-	  # Unir IDs y retornar relation
-	  ids = por_causas.pluck(:id) + por_asesorias.pluck(:id)
-	  TarFacturacion.where(id: ids)
 	end
 
 	# Método que me entrega el hacs id => razon_social
