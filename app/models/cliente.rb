@@ -59,32 +59,27 @@ class Cliente < ApplicationRecord
 
 	# Método para obtener todas las tar_facturaciones pendientes de aprobación del cliente
 	def tar_facturaciones_pendientes_aprobacion
-	  # Obtener IDs de TarCalculo que pertenecen a las causas del cliente
-	  tar_calculo_ids = causas.joins(:tar_calculos).pluck('tar_calculos.id')
-
-	  # Obtener IDs de Asesoria que pertenecen al cliente
+	  # IDs de asesorías
 	  asesoria_ids = asesorias.pluck(:id)
 
-	  # Construir condiciones dinámicamente para evitar arrays vacíos
-	  conditions = []
-	  values = []
-
-	  if tar_calculo_ids.any?
-	    conditions << "(ownr_type = 'TarCalculo' AND ownr_id IN (?))"
-	    values << tar_calculo_ids
-	  end
-
-	  if asesoria_ids.any?
-	    conditions << "(ownr_type = 'Asesoria' AND ownr_id IN (?))"
-	    values << asesoria_ids
-	  end
-
-	  # Si no hay condiciones, retornar relation vacía
-	  return TarFacturacion.none if conditions.empty?
-
-	  TarFacturacion
-	    .where(conditions.join(' OR '), *values)
+	  # Por causas: TarFacturacion -> TarCalculo -> Causa -> Cliente
+	  por_causas = TarFacturacion
+	    .joins(tar_calculo: { causa: :cliente })
+	    .where(clientes: { id: id })
 	    .where(cli_aprobacion_id: nil, tar_aprobacion_id: nil, facturado: [nil, false])
+
+	  # Por asesorías: polimórfica
+	  por_asesorias = if asesoria_ids.any?
+	    TarFacturacion
+	      .where(ownr_type: 'Asesoria', ownr_id: asesoria_ids)
+	      .where(cli_aprobacion_id: nil, tar_aprobacion_id: nil, facturado: [nil, false])
+	  else
+	    TarFacturacion.none
+	  end
+
+	  # Unir IDs y retornar relation
+	  ids = por_causas.pluck(:id) + por_asesorias.pluck(:id)
+	  TarFacturacion.where(id: ids)
 	end
 
 	# Método que me entrega el hacs id => razon_social
