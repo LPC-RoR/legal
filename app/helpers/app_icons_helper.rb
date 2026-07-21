@@ -11,7 +11,6 @@ module AppIconsHelper
 			'empresas' => 'buildings',
 			'causas' => 'journal-text',
 			'asesorias' => 'briefcase',
-			'cargos' => 'currency-dollar',
 			'tablas' => 'table',
 			'regiones' => 'geo-alt',
 			'tribunal_cortes' => 'bank',

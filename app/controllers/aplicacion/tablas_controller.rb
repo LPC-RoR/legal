@@ -25,11 +25,6 @@ class Aplicacion::TablasController < ApplicationController
       @feriados = CalFeriado.where('extract(year  from cal_fecha) = ?', @annio).fecha_ordr
   end
 
-  def tipos
-      set_tabla('tipo_asesorias', TipoAsesoria.all.order(:tipo_asesoria), false)
-      set_tabla('tipo_cargos', TipoCargo.all.order(:tipo_cargo), false)
-  end
-
   def cuantias_tribunales
       @cuantias = TarDetalleCuantia.all.order(:tar_detalle_cuantia)
   end

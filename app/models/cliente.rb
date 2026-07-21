@@ -16,7 +16,6 @@ class Cliente < ApplicationRecord
 
 	has_many :causas
 	has_many :asesorias
-	has_many :cargos
 
 	has_many :tar_tarifas, as: :ownr
 	has_many :tar_servicios, as: :ownr
@@ -73,6 +72,12 @@ class Cliente < ApplicationRecord
 		  tar_calculo_ids,
 		  asesoria_ids
 		).where(cli_aprobacion_id: nil, tar_aprobacion_id: nil, facturado: [nil, false])
+	end
+
+	# Método que me entrega el hacs id => razon_social
+	# Alternativa usando pluck (más eficiente para ActiveRecord::Relation)
+	def self.to_options_hash
+		pluck(:id, :razon_social).to_h
 	end
 
     # ---------------------------------------------------------------- ESTADOS con AASM

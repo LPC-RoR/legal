@@ -1,0 +1,11 @@
+<% if objt.fecha.blank? %>
+	<%= dma(objt.created_at) %>
+<% else %>
+	<i class="bi bi-calendar-event"></i> <%= dma(objt.fecha) %>
+<% end %>
+<% unless objt.plazo == objt.fecha %>
+	<i class="bi bi-dot"></i>
+	<i class="bi bi-alarm"></i> <%= dma(objt.plazo) %>
+<% end %>
+<i class="bi bi-dot"></i>
+<%= ClssTipos.tipos_asesoria[objt.tipo] %>

@@ -23,13 +23,6 @@ module Cmenu
 				{scp: 'rdccns', 	cndcn: operacion?},
 				{scp: 'cnslts',		cndcn: operacion?},
 			],
-			cargos: [
-				{scp: 'trmtcn', 	cndcn: operacion?},
-				{scp: 'trmnds', 	cndcn: operacion?},
-				{scp: 'crrds', 		cndcn: finanzas?},
-				{scp: 'crgs', 		cndcn: operacion?},
-				{scp: 'mnsls', 		cndcn: operacion?},
-			],
 			tar_facturas: [
 				{scp: 'ingrss',		cndcn: admin?},
 				{scp: 'fctrds', 	cndcn: admin?},
@@ -64,13 +57,6 @@ module Cmenu
 				crts_dspd: 	'Cartas de despido',
 				rdccns: 	'Redacciones',
 				cnslts: 	'Consultas'
-			},
-			cargos: {
-				trmtcn: 	'en tramitación',
-				trmnds: 	'terminadas',
-				crrds: 		'cerradas',
-				crgs: 		'Cargos',
-				mnsls: 		'Mensuales'
 			},
 			tar_facturas: {
 				ingrss: 	'ingresadas',

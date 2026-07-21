@@ -1,7 +1,5 @@
 <% ttl_clss = controller_name == 'asesorias' ? :indx : :indx_md %>
 <% ownr 	= controller_name == 'asesorias' ? nil : @objeto %>
 
-<%= render partial: '0ttl/ttl', locals: {source: 'asesorias', clss: ttl_clss, dir: 'indx', ownr: } %>
-<%= render partial: '0p/tbl_clss', locals: {source: 'asesorias', clccn: @coleccion['asesorias'], pgnt: true} %>
-
-<%= render partial: '0p/tbl_ttl', locals: {source: 'asesorias', ownr: ownr, typ: 'frame'} %>
+<%= render partial: '0ttl/ttl', locals: {source: 'asesorias', clss: ttl_clss, dir: 'indx', ownr: ownr} %>
+<%= render partial: '0t/tbl', locals: {source: 'asesorias', clccn: @coleccion['asesorias'], pgnt: true} %>

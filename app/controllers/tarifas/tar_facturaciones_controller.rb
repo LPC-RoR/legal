@@ -13,7 +13,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
   # GET /tar_facturaciones/new
   def new
-    # Hay que completar con los casos de Asesoría y Cargos (si corresponde)
+    # Hay que completar con los casos de Asesoría (si corresponde)
     case params[:code]
     when 'clcl'
       ownr            = TarCalculo.find(params[:bid])

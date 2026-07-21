@@ -30,7 +30,6 @@ module AppMenuHelper
           { id: 'clientes',     name: 'Clientes',           path: '/clientes',          icon: 'bi bi-building' },
           { id: 'causas',       name: 'Causas',             path: '/causas',            icon: 'bi bi-journal-text' },
           { id: 'asesorias',    name: 'Asesorías',          path: '/asesorias',         icon: 'bi bi-briefcase' },
-          { id: 'cargos',       name: 'Cargos',             path: '/cargos',            icon: 'bi bi-currency-dollar' },
           { id: 'aprobaciones', name: 'Aprobaciones',       path: '/tar_aprobaciones',  icon: 'bi bi-check-all' },
           { id: 'facturas',     name: 'Facturas',           path: '/tar_facturas',      icon: 'bi bi-receipt' },
           { id: 'laborsafe',              name: 'Laborsafe',                icon: 'bi bi-caret-right-fill',
@@ -43,7 +42,6 @@ module AppMenuHelper
           { id: 'tablas',                 name: 'Tablas',                   icon: 'bi bi-caret-right-fill',
             children: [
               { id: 'tribunales_cortes',  name: 'Tribunales / Cortes',      path: '/tablas/tribunal_corte',       icon: nil },
-              { id: 'etapas_tipos',       name: 'Etapas & Tipos',           path: '/tablas/tipos',                icon: nil },
               { id: 'cuantias',           name: 'Cuantías',                 path: '/tablas/cuantias_tribunales',  icon: nil },
               { id: 'tarifas_generales',  name: 'Tarifas generales',        path: '/tablas/tarifas_generales',    icon: nil },
               { id: 'uf_regiones',        name: 'UF & Regiones',            path: '/tablas/uf_regiones',          icon: nil },

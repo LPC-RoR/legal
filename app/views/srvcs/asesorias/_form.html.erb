@@ -1,0 +1,31 @@
+<% tipos = ClssTiposPltfrm.tipos_asesoria.map {|codigo, nombre| [nombre, codigo]} %>
+<% clnts = Cliente.where(estado: 'activo').order(:razon_social).to_options_hash %>
+
+<div class="row gx-1">
+	<div class="col-lg-4">
+		<%= render partial: '0inpts/select_code', locals: { f: form, tkn: :tipo, hsh: ClssTiposPltfrm.tipos_asesoria, label: 'Tipo de asesoría' } %>
+	</div>
+	<div class="col-lg-8">
+		<%= render partial: '0inpts/select_code', locals: { f: form, tkn: :cliente_id, hsh: clnts, label: 'Cliente' } %>
+	</div>
+</div>
+
+<div class="row gx-1">
+	<div class="col-lg-4 col-xs-12">
+		<%= render partial: '0inpts/date', locals: { f: form, tkn: :fecha, label: 'Fecha recepción' } %>
+	</div>
+	<div class="col-lg-4 col-xs-12">
+		<%= render partial: '0inpts/date', locals: { f: form, tkn: :plazo, label: 'Plazo' } %>
+	</div>
+	<div class="col-lg-4">
+		<%= render partial: '0inpts/date', locals: { f: form, tkn: :fecha_uf, label: 'Fecha UF' } %>
+	</div>
+</div>
+
+
+<%= render partial: '0inpts/text', locals: { f: form, tkn: :descripcion, label: 'Descripción' } %>
+
+<%= render partial: '0inpts/text_area', locals: { f: form, tkn: :detalle, label: 'Antecedentes adicionales' } %>
+
+
+<%= render partial: '0inpts/hidden_lst', locals: { f: form, hddn_lst: [:estado] } %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_18_235501) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_21_011858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -299,9 +299,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_235501) do
     t.datetime "fecha_uf", precision: nil
     t.string "moneda"
     t.decimal "monto"
-    t.integer "tipo_asesoria_id"
-    t.boolean "pendiente"
-    t.boolean "urgente"
     t.string "tipo"
     t.string "estado_operativo"
     t.string "estado_financiero"
@@ -311,7 +308,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_235501) do
     t.index ["estado_operativo"], name: "index_asesorias_on_estado_operativo"
     t.index ["tar_servicio_id"], name: "index_asesorias_on_tar_servicio_id"
     t.index ["tipo"], name: "index_asesorias_on_tipo"
-    t.index ["tipo_asesoria_id"], name: "index_asesorias_on_tipo_asesoria_id"
   end
 
   create_table "audit_notas", force: :cascade do |t|
@@ -337,24 +333,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_235501) do
     t.string "tipo"
     t.index ["cal_fecha"], name: "index_cal_feriados_on_cal_fecha"
     t.index ["tipo"], name: "index_cal_feriados_on_tipo"
-  end
-
-  create_table "cargos", force: :cascade do |t|
-    t.integer "tipo_cargo_id"
-    t.integer "cliente_id"
-    t.string "cargo"
-    t.text "detalle"
-    t.datetime "fecha", precision: nil
-    t.datetime "fecha_uf", precision: nil
-    t.string "moneda"
-    t.integer "dia_cargo"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "estado"
-    t.decimal "monto"
-    t.index ["cliente_id"], name: "index_cargos_on_cliente_id"
-    t.index ["estado"], name: "index_cargos_on_estado"
-    t.index ["tipo_cargo_id"], name: "index_cargos_on_tipo_cargo_id"
   end
 
   create_table "causa_archivos", force: :cascade do |t|
@@ -1659,7 +1637,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_235501) do
   end
 
   create_table "tar_servicios", force: :cascade do |t|
-    t.string "codigo"
     t.string "descripcion"
     t.text "detalle"
     t.string "tipo"
@@ -1670,16 +1647,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_235501) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "estado"
-    t.integer "tipo_asesoria_id"
     t.boolean "tarifa_por_defecto"
     t.boolean "tarifa_variable"
     t.boolean "servicio_base"
-    t.index ["codigo"], name: "index_tar_servicios_on_codigo"
     t.index ["estado"], name: "index_tar_servicios_on_estado"
     t.index ["ownr_id"], name: "index_tar_servicios_on_ownr_id"
     t.index ["ownr_type"], name: "index_tar_servicios_on_ownr_type"
     t.index ["tipo"], name: "index_tar_servicios_on_tipo"
-    t.index ["tipo_asesoria_id"], name: "index_tar_servicios_on_tipo_asesoria_id"
   end
 
   create_table "tar_tarifas", force: :cascade do |t|
@@ -1784,26 +1758,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_18_235501) do
     t.integer "owner_id"
     t.index ["owner_id"], name: "index_tenants_on_owner_id"
     t.index ["owner_type"], name: "index_tenants_on_owner_type"
-  end
-
-  create_table "tipo_asesorias", force: :cascade do |t|
-    t.string "tipo_asesoria"
-    t.boolean "facturable"
-    t.boolean "documento"
-    t.boolean "archivos"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "descripcion"
-    t.string "descipcion"
-    t.index ["tipo_asesoria"], name: "index_tipo_asesorias_on_tipo_asesoria"
-  end
-
-  create_table "tipo_cargos", force: :cascade do |t|
-    t.string "tipo_cargo"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "descipcion"
-    t.index ["tipo_cargo"], name: "index_tipo_cargos_on_tipo_cargo"
   end
 
   create_table "trabajadores", force: :cascade do |t|

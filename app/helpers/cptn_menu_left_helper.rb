@@ -71,7 +71,6 @@ module CptnMenuLeftHelper
 							titulo: 'Causas & Asesorias',
 							condicion: admin?,
 							items:  [
-								['Etapas & Tipos', 'tipos'],
 								['Cuantías', 'cuantias_tribunales'],
 								['Tarifas generales', 'tarifas_generales'],
 							]

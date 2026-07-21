@@ -2,11 +2,8 @@ class Asesoria < ApplicationRecord
   	include AASM
 
 	belongs_to :cliente
-	belongs_to :tipo_asesoria
 	belongs_to :tar_servicio, optional: true
-
-	has_one :tar_calculo, as: :ownr
-	has_one :tar_uf_facturacion, as: :ownr
+	before_save :asignar_tarifa_por_defecto, if: :debe_asignar_tarifa?
 
 	has_many :tar_facturaciones, as: :ownr
 
@@ -16,11 +13,9 @@ class Asesoria < ApplicationRecord
 
     validates_presence_of :descripcion
 
-    scope :assr_ordr, -> { order(urgente: :desc, pendiente: :desc, created_at: :desc) }
+    scope :assr_ordr, -> { order(created_at: :desc) }
 
-    scope :std, ->(std) { where(estado: std).order(urgente: :desc, pendiente: :desc, created_at: :desc)}
-    scope :typ_id, ->(typ_id) { where(estado: 'tramitación', tipo_asesoria_id: typ_id).assr_ordr }
-    scope :typ, ->(typ) { where(tipo_asesoria_id: TipoAsesoria.find_by(tipo_asesoria: typ).id, estado: 'tramitación').assr_ordr }
+    scope :std, ->(std) { where(estado: std).order(created_at: :desc)}
 
     delegate :descripcion, :moneda, :monto, to: :tar_servicio, prefix: true
 
@@ -105,38 +100,21 @@ class Asesoria < ApplicationRecord
 
 	# ---------------------------------------------------------------------
 
-    def self.crstn(typ)
-    	typ.singularize == 'Redaccion' ? 'Redacción' : typ.singularize
-    end
+	private
 
-    def fecha_uf_facturacion
-    	self.fecha_uf? ? self.fecha_uf : Time.zone.today.to_date
-    end
-
-    def get_uf_facturacion
-    	TarUfSistema.find_by(fecha: self.fecha_uf_facturacion)
-    end
-
-    def facturable?
-    	# SOLO se facturan tarifas
-    	if self.tar_servicio.present?
-	    	self.get_uf_facturacion.present? or self.tar_servicio_moneda == 'Pesos'
-    	else
-    		false
-    	end
-    end
-
-    def monto_factura
-    	self.tar_facturacion.present? ? self.tar_facturacion.monto : (self.tar_servicio_moneda == 'Pesos' ? self.tar_servicio_monto : (self.tar_servicio_monto * self.get_uf_facturacion.valor))
-    end
-
-	def actividades
-		AgeActividad.where(owner_class: self.class.name, owner_id: self.id).order(fecha: :desc)
+	# Solo asigna si el tipo está presente y no hay tar_servicio ya asignada
+	# (o si se cambió el tipo y hay que actualizar la tarifa)
+	def debe_asignar_tarifa?
+    	tipo.present? && (tar_servicio_id.blank? || tipo_changed?)
 	end
 
-	def sin_cargo?
-		self.tar_servicio_id.blank? and self.monto.blank?
+	def asignar_tarifa_por_defecto
+	    tarifa = TarServicio
+	      .where(tipo: tipo, tarifa_por_defecto: true)
+	      .order(created_at: :desc)  # la más reciente
+	      .first
+
+	    self.tar_servicio = tarifa if tarifa.present?
 	end
 
-	# Hasta aqui revisado!
 end

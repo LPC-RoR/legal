@@ -6,7 +6,6 @@ class MenuItemPolicy < ApplicationPolicy
     when 'clientes'           then user.admin? || user.operacion?
     when 'causas'             then user.admin? || user.operacion?
     when 'asesorias'          then user.admin? || user.operacion?
-    when 'cargos'             then user.admin? || user.operacion?
     when 'aprobaciones'       then user.admin? || user.finanzas? 
     when 'facturas'           then user.admin? || user.finanzas? 
     when 'cierres'            then user.admin? || user.operacion? 
@@ -21,7 +20,6 @@ class MenuItemPolicy < ApplicationPolicy
     when 'com_documentos'     then user.admin? || user.finanzas? 
     when 'tablas'             then user.admin? || user.operacion? || user.finanzas?
     when 'tribunales_cortes'  then user.admin? || user.operacion?
-    when 'etapas_tipos'       then user.admin?
     when 'cuantias'           then user.admin?
     when 'tarifas_generales'  then user.admin?
     when 'uf_regiones'        then user.admin? || user.finanzas? 

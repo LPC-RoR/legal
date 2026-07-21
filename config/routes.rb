@@ -209,7 +209,6 @@ Rails.application.routes.draw do
   end
 
   scope module: 'srvcs' do
-    resources :tipo_asesorias
     resources :asesorias do
       match :swtch, via: :post, on: :member
       match :set_tar_servicio, via: :post, on: :member
@@ -218,9 +217,6 @@ Rails.application.routes.draw do
       match :facturar, via: :get, on: :member
       match :liberar_factura, via: :get, on: :member
     end
-
-    resources :tipo_cargos
-    resources :cargos
   end
 
   # Usado para poner las entidades necesarias para mantener Causa

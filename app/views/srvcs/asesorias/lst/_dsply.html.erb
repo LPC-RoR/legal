@@ -1,0 +1,16 @@
+<div class="px-2">
+	<b><%= objt.descripcion %></b>
+
+	<%# Despliegue de tarifa %>
+	
+
+</div>
+
+<%= render partial: prtl_name('asesorias', 'lst/dtl', 'tarifa'), locals: {objt: objt} %>
+
+<% if admin? %>
+	<%= render partial: 'srvcs/prtls/fctrcn', locals: {objeto: objt} %>
+<% end %>
+
+<%= render partial: prtl('notas', 'shr', 'notas_pendientes'), locals: {objeto: objt} %>
+<%= render partial: prtl('notas', 'shr', 'notas_realizadas'), locals: {objeto: objt} %>

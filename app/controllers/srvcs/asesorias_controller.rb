@@ -3,7 +3,6 @@ class Srvcs::AsesoriasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_asesoria, only: %i[ show edit update destroy swtch set_tar_servicio facturar liberar_factura elimina_cobro ]
-  after_action :asigna_tarifa_defecto, only: %i[ create ]
 
   layout 'pltfrm'
 
@@ -142,17 +141,6 @@ class Srvcs::AsesoriasController < ApplicationController
 
   private
 
-    def asigna_tarifa_defecto
-      tipo_asesoria = @objeto.tipo_asesoria
-      servicios = tipo_asesoria.blank? ? [] : @objeto.cliente.tar_servicios.where(tipo_asesoria_id: tipo_asesoria.id)
-      servicio = servicios.empty? ? nil : servicios.first
-
-      unless servicio.blank?
-        @objeto.tar_servicio_id = servicio.id
-        @objeto.save
-      end
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_asesoria
       @objeto = Asesoria.find(params[:id])
@@ -166,4 +154,5 @@ class Srvcs::AsesoriasController < ApplicationController
     def asesoria_params
       params.require(:asesoria).permit(:cliente_id, :tar_servicio_id, :descripcion, :detalle, :fecha, :plazo, :estado, :fecha_uf, :moneda, :monto, :tipo_asesoria_id, :urgente, :pendiente, :tipo)
     end
+
 end
