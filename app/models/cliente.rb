@@ -59,19 +59,32 @@ class Cliente < ApplicationRecord
 
 	# Método para obtener todas las tar_facturaciones pendientes de aprobación del cliente
 	def tar_facturaciones_pendientes_aprobacion
-		# Obtener IDs de TarCalculo que pertenecen a las causas del cliente
-		tar_calculo_ids = causas.joins(:tar_calculos).pluck('tar_calculos.id')
+	  # Obtener IDs de TarCalculo que pertenecen a las causas del cliente
+	  tar_calculo_ids = causas.joins(:tar_calculos).pluck('tar_calculos.id')
 
-		# Obtener IDs de Asesoria que pertenecen al cliente
-		asesoria_ids = asesorias.pluck(:id)
+	  # Obtener IDs de Asesoria que pertenecen al cliente
+	  asesoria_ids = asesorias.pluck(:id)
 
-		# Buscar todas las TarFacturacion donde ownr sea cualquiera de esos registros
-		# y que no tengan cli_aprobacion_id
-		TarFacturacion.where(
-		  "(ownr_type = 'TarCalculo' AND ownr_id IN (?)) OR (ownr_type = 'Asesoria' AND ownr_id IN (?))",
-		  tar_calculo_ids,
-		  asesoria_ids
-		).where(cli_aprobacion_id: nil, tar_aprobacion_id: nil, facturado: [nil, false])
+	  # Construir condiciones dinámicamente para evitar arrays vacíos
+	  conditions = []
+	  values = []
+
+	  if tar_calculo_ids.any?
+	    conditions << "(ownr_type = 'TarCalculo' AND ownr_id IN (?))"
+	    values << tar_calculo_ids
+	  end
+
+	  if asesoria_ids.any?
+	    conditions << "(ownr_type = 'Asesoria' AND ownr_id IN (?))"
+	    values << asesoria_ids
+	  end
+
+	  # Si no hay condiciones, retornar relation vacía
+	  return TarFacturacion.none if conditions.empty?
+
+	  TarFacturacion
+	    .where(conditions.join(' OR '), *values)
+	    .where(cli_aprobacion_id: nil, tar_aprobacion_id: nil, facturado: [nil, false])
 	end
 
 	# Método que me entrega el hacs id => razon_social
