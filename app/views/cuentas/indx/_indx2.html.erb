@@ -1,6 +1,7 @@
 <% typ ||= 'tr' %>
 
 <%# Encabezado de la empresa %>
+<%= render partial: '0ttl/ttl', locals: {source: 'cuentas', dir: 'shw', hide_new: true} %>
 <%= render partial: 'cuentas/indx/emprs_head', locals: {objt: @objeto} %>
 
 <%= render partial: 'cuentas/indx/tab', locals: {objt: @objeto} if current_usuario.admin? %>

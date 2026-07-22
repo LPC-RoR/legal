@@ -17,6 +17,6 @@ class ClssCntxt < ApplicationRecord
 	private 
 
 	def self.krn_source?(source)
-		source == 'empresas' || source.split('_')[0] == 'krn'
+		['empresas', 'cuentas'].include?(source) || source.split('_')[0] == 'krn'
 	end
 end

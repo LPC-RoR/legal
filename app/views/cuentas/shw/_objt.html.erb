@@ -1,0 +1,8 @@
+			<i class="bi bi-buildings"></i> 
+			<% if current_usuario.admin? %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: [:edit, @objeto], tltp: 'Editar cuenta'} do %>
+					<%= @objeto.razon_social %>
+				<% end %>
+			<% else %>
+				<%= @objeto.razon_social %>
+			<% end %>
