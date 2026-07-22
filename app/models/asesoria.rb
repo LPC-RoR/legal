@@ -15,11 +15,22 @@ class Asesoria < ApplicationRecord
 
     scope :assr_ordr, -> { order(created_at: :desc) }
 
-    scope :std, ->(std) { where(estado: std).order(created_at: :desc)}
+	# Activos!
+	scope :std_oprtv, ->(std) {where(estado_operativo: std)}
+	scope :std_fnncr, ->(std) {where(estado_financiero: std)}
+	scope :rcnts, 		-> { where("created_at >= ?", 30.days.ago) }
 
     delegate :descripcion, :moneda, :monto, to: :tar_servicio, prefix: true
 
+    def dsply_moneda
+    	# tar_servicio.nil? => servicio_base (incluido en la tarifa mensual)
+    	tar_servicio.nil? ? nil : (tar_servicio.tarifa_variable ? moneda : tar_servicio_moneda)
+    end
 
+    def dsply_monto
+    	# tar_servicio.nil? => servicio_base (incluido en la tarifa mensual)
+    	tar_servicio.nil? ? nil : (tar_servicio.tarifa_variable ? monto : tar_servicio_monto)
+    end
     # ---------------------------------------------------------------- ESTADOS con AASM
 
 	# Proceso Operativo

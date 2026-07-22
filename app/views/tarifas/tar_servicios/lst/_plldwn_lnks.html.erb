@@ -1,0 +1,20 @@
+<% if objt.estado == 'vigente' %>
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: ejecutar_evento_tar_servicio_path(objt, proceso: 'operativo', evento: 'up_to_vencida'), tltp: 'Marcar como vencida', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Marcar como vencida
+    <% end %>
+  </li>
+<% else %>
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: ejecutar_evento_tar_servicio_path(objt, proceso: 'operativo', evento: 'dwn_to_vigente'), tltp: 'Marcar como vigente', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Marcar como vigente
+    <% end %>
+  </li>
+<% end %>
+
+<li><hr class="dropdown-divider"></li>
+<%= render partial: '0t/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+
+<li><hr class="dropdown-divider"></li>
+
+<%= render partial: '0t/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>

@@ -1,0 +1,32 @@
+<% if current_usuario.admin? %>
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params(TarFacturacion, {code: 'assr', bid: objt.id}, :new), tltp: 'Generar pago', clss: 'dropdown-item'} do %>
+      Generar pago
+    <% end %>
+  </li>
+<% end %>
+
+<% if objt.estado_operativo == 'tramitacion' %>
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: ejecutar_evento_asesoria_path(objt, proceso: 'operativo', evento: 'up_to_archivada'), tltp: 'Archivar asesoría', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Archivar asesoría
+    <% end %>
+  </li>
+<% else %>
+  <li>
+    <%= render layout: '0p/tltp_lnk', locals: {lnk: ejecutar_evento_asesoria_path(objt, proceso: 'operativo', evento: 'dwn_to_tramitacion'), tltp: 'Desarchivar asesoría', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
+      Desarchivar asesoría
+    <% end %>
+  </li>
+<% end %>
+
+<li>
+  <%= render layout: '0p/tltp_lnk', locals: {lnk: url_params(Nota, {ownr: objt, orgn: @orgn}, :new), tltp: 'Nueva nota', clss: 'dropdown-item'} do %>
+    Agregar nota
+  <% end %>
+</li>
+
+<li><hr class="dropdown-divider"></li>
+<%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
+<li><hr class="dropdown-divider"></li>
+<%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>

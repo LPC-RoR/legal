@@ -83,46 +83,96 @@ class TarFacturacion < ApplicationRecord
 	def procesar_campos
 	  return unless (tar_calculo.present? || ownr.present?) && tipo_monto.present?
 
-	  # UF de recalcular
 	  if tar_calculo.present?
-	  	if tar_calculo.moneda == 'UF'
-		    fecha_calculo = recalcular && fecha_uf ? fecha_uf : tar_calculo.fecha_uf
-		    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
-	  	end
+	    if tar_calculo.moneda == 'UF'
+	      fecha_calculo = recalcular && fecha_uf ? fecha_uf : tar_calculo.fecha_uf
+	      valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor.to_f
+	    end
 
-	  	ownr_objt = tar_calculo
-		total_calculo = case tipo_monto
-		              when 'Parcial'
-		                if monto_parcial.present?
-		                  monto_parcial
-		                elsif porcentaje.present?
-		                  ownr_objt.monto * (porcentaje / 100.0)
-		                else
-		                  0
-		                end
-		              when 'Total'
-		                ownr_objt.monto
-		              else
-		                0
-		              end
-
+	    ownr_objt = tar_calculo
+	    total_calculo = case tipo_monto
+	                    when 'Parcial'
+	                      if monto_parcial.present?
+	                        monto_parcial.to_f
+	                      elsif porcentaje.present?
+	                        ownr_objt.monto.to_f * (porcentaje.to_f / 100.0)
+	                      else
+	                        0.0
+	                      end
+	                    when 'Total'
+	                      ownr_objt.monto.to_f
+	                    else
+	                      0.0
+	                    end
+	    moneda = ownr_objt.moneda
 	  end
 
+	  # --- Caso Ownr (Asesoria, Causa, etc.) ---
 	  if ownr.present?
-	  	if ownr&.tar_servicio&.moneda == 'UF'
-		    fecha_calculo = fecha_uf.present? ? fecha_uf : Time.zone.today.to_date
-		    valor_uf = TarUfSistema.find_by(fecha: fecha_calculo)&.valor || 0
-		    total_calculo = (ownr&.tar_servicio&.monto || 0) * valor_uf
-		end
-		ownr_objt = ownr
+	    ownr_moneda = ownr.dsply_moneda
+	    ownr_monto = ownr.dsply_monto.to_f
+
+	    if ownr_moneda == 'UF'
+	      fecha_calculo = fecha_uf.present? ? fecha_uf : Time.zone.today.to_date
+	      uf = TarUfSistema.find_by(fecha: fecha_calculo)
+	      valor_uf = uf&.valor.to_f
+
+	      # FIX: Si no hay UF o valor es 0, buscar la más reciente anterior
+	      if valor_uf == 0
+	        uf = TarUfSistema.where("fecha <= ?", fecha_calculo).order(fecha: :desc).first
+	        valor_uf = uf&.valor.to_f
+	      end
+
+	      # Si sigue sin haber UF válida, usar 1.0 (sin conversión) o lanzar error
+	      if valor_uf == 0
+	        Rails.logger.error "❌ No se encontró UF válida para fecha #{fecha_calculo}"
+	        valor_uf = 1.0
+	      end
+	    else
+	      valor_uf = 1.0
+	    end
+
+#	    total_calculo = ownr_monto
+	    total_calculo = case tipo_monto
+	                    when 'Parcial'
+	                      if monto_parcial.present?
+	                        monto_parcial.to_f
+	                      elsif porcentaje.present?
+	                        ownr_monto.to_f * (porcentaje.to_f / 100.0)
+	                      else
+	                        0.0
+	                      end
+	                    when 'Total'
+	                      ownr_monto.to_f
+	                    else
+	                      0.0
+	                    end
+	    ownr_objt = ownr
+	    moneda = ownr_moneda || 'Pesos'
 	  end
 
 
-	  monto_fctrcns = ownr_objt.tar_facturaciones.sum(:monto) || 0
-	  # Le pongo || 0 para ver si ahí está el error, que seguro ocurre antes
-	  monto_total = ownr_objt.moneda == 'UF' ? total_calculo * valor_uf : total_calculo
-	  
+	  # --- Calcular monto acumulado de facturaciones previas ---
+	  monto_fctrcns = if new_record?
+	    ownr_objt.tar_facturaciones.where.not(id: nil).sum(:monto).to_f
+	  else
+	    ownr_objt.tar_facturaciones.where.not(id: self.id).sum(:monto).to_f
+	  end
+
+	  # --- Calcular monto final ---
+	  monto_total = if moneda == 'UF'
+	    total_calculo * valor_uf
+	  else
+	    total_calculo
+	  end
+
 	  self.monto = monto_total - monto_fctrcns
+	end
+
+	private
+
+	def calculo_pago
+		
 	end
 	
 end

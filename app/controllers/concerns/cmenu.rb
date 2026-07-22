@@ -16,12 +16,8 @@ module Cmenu
 			],
 			asesorias: [
 				{scp: 'trmtcn', 	cndcn: operacion?},
-				{scp: 'trmnds',		cndcn: operacion?},
-				{scp: 'crrds', 		cndcn: finanzas?},
-				{scp: 'mlts', 		cndcn: operacion?},
-				{scp: 'crts_dspd', 	cndcn: operacion?},
-				{scp: 'rdccns', 	cndcn: operacion?},
-				{scp: 'cnslts',		cndcn: operacion?},
+				{scp: 'archvd',		cndcn: operacion?},
+				{scp: 'rcnts',		cndcn: operacion?},
 			],
 			tar_facturas: [
 				{scp: 'ingrss',		cndcn: admin?},
@@ -51,12 +47,8 @@ module Cmenu
 			},
 			asesorias: {
 				trmtcn: 	'en tramitación',
-				trmnds: 	'terminadas',
-				crrds: 		'cerradas',
-				mlts: 		'Multas',
-				crts_dspd: 	'Cartas de despido',
-				rdccns: 	'Redacciones',
-				cnslts: 	'Consultas'
+				archvd: 	'archivadas',
+				rcnts: 		'últimos 30 días',
 			},
 			tar_facturas: {
 				ingrss: 	'ingresadas',

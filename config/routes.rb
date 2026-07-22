@@ -45,7 +45,6 @@ Rails.application.routes.draw do
     match :hchstowrd, via: :get, on: :member, format: 'docx'
     match :ntcdntstowrd, via: :get, on: :member, format: 'docx'
     match :asigna_tarifa, via: :post, on: :member
-    match :chck_estds, via: :post, on: :member
     # ultima version
     match :add_fecha_calculo, via: :post, on: :member
     match :del_fecha_calculo, via: :get, on: :member
@@ -61,7 +60,7 @@ Rails.application.routes.draw do
   resources :clientes do
     member do
       post :crear_aprobacion
-      post  :ejecutar_evento
+      post :ejecutar_evento
     end
     resources :tenant_usuarios, only: %i[index update], controller: 'tenant_usuarios'
     match :swtch_stt, via: :post, on: :member
@@ -86,6 +85,18 @@ Rails.application.routes.draw do
   end
 
   resources :global_usuarios, only: %i[index update]
+
+  resources :asesorias do
+    member do
+      post :ejecutar_evento
+    end
+    match :swtch, via: :post, on: :member
+    match :set_tar_servicio, via: :post, on: :member
+    match :generar_cobro, via: :get, on: :member
+    match :elimina_cobro, via: :get, on: :member
+    match :facturar, via: :get, on: :member
+    match :liberar_factura, via: :get, on: :member
+  end
 
 # SCOPES *********************************************************
 
@@ -205,17 +216,6 @@ Rails.application.routes.draw do
     end
     resources :krn_inv_denuncias do
       match :swtch, via: :post, on: :member
-    end
-  end
-
-  scope module: 'srvcs' do
-    resources :asesorias do
-      match :swtch, via: :post, on: :member
-      match :set_tar_servicio, via: :post, on: :member
-      match :generar_cobro, via: :get, on: :member
-      match :elimina_cobro, via: :get, on: :member
-      match :facturar, via: :get, on: :member
-      match :liberar_factura, via: :get, on: :member
     end
   end
 
@@ -461,7 +461,11 @@ Rails.application.routes.draw do
       match :a_aprobacion, via: :get, on: :member
       match :libera_facturacion, via: :get, on: :member
     end
-    resources :tar_servicios
+    resources :tar_servicios do
+      member do
+        post :ejecutar_evento
+      end
+    end
 
     resources :tar_facturas do 
       resources :tar_facturaciones

@@ -1,8 +1,9 @@
-class Srvcs::AsesoriasController < ApplicationController
+class AsesoriasController < ApplicationController
+  include Aasm
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_asesoria, only: %i[ show edit update destroy swtch set_tar_servicio facturar liberar_factura elimina_cobro ]
+  before_action :set_asesoria, only: %i[ show edit update destroy swtch set_tar_servicio facturar liberar_factura elimina_cobro ejecutar_evento ]
 
   layout 'pltfrm'
 
@@ -14,25 +15,16 @@ class Srvcs::AsesoriasController < ApplicationController
 
     case scp
     when 'trmtcn'
-      cllcn = Asesoria.std('tramitación')
-    when 'trmnds'
-      cllcn = Asesoria.std('terminada')
-    when 'crrds'
-      cllcn = Asesoria.std('cerradas')
-    when 'mlts'
-      cllcn = Asesoria.typ('Multa')
-    when 'crts_dspd'
-      cllcn = Asesoria.typ('CartaDespido')
-    when 'rdccns'
-      cllcn = Asesoria.typ('Redacción')
-    when 'cnslts'
-      cllcn = Asesoria.typ('Consulta')
+      cllcn = Asesoria.std_oprtv('tramitacion')
+    when 'archvd'
+      cllcn = Asesoria.std_oprtv('archivada')
+    when 'rcnts'
+      cllcn = Asesoria.rcnts
     end
 
     @scp = scp_item[:asesorias][scp.to_sym]
 
     set_tabla('asesorias', cllcn, true)
-
   end
 
   # GET /asesorias/1 or /asesorias/1.json
@@ -45,7 +37,7 @@ class Srvcs::AsesoriasController < ApplicationController
 
   # GET /asesorias/new
   def new
-    @objeto = Asesoria.new(estado: 'tramitación', urgente: false, pendiente: false)
+    @objeto = Asesoria.new
   end
 
   # GET /asesorias/1/edit

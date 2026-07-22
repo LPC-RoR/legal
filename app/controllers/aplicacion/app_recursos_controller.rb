@@ -28,6 +28,15 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
+    TarServicio.all.each do |srvc|
+      srvc.estado = 'vigente'
+      srvc.save
+    end
+
+    Asesoria.all.each do |ass|
+      ass.estado_operativo = 'tramitacion'
+      ass.save
+    end
 
     redirect_to root_path
   end

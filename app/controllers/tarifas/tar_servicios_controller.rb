@@ -1,7 +1,9 @@
 class Tarifas::TarServiciosController < ApplicationController
+  include Aasm
+
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_tar_servicio, only: %i[ show edit update destroy ]
+  before_action :set_tar_servicio, only: %i[ show edit update destroy ejecutar_evento ]
 
   # GET /tar_servicios or /tar_servicios.json
   def index

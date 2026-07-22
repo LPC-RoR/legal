@@ -75,19 +75,11 @@ class ClientesController < ApplicationController
 
       case scp
       when 'trmtcn'
-        cllcn = @objeto.asesorias.std('tramitación')
-      when 'trmnds'
-        cllcn = @objeto.asesorias.std('terminada')
-      when 'crrds'
-        cllcn = @objeto.asesorias.std('cerradas')
-      when 'mlts'
-        cllcn = @objeto.asesorias.typ('Multa')
-      when 'crts_dspd'
-        cllcn = @objeto.asesorias.typ('CartaDespido')
-      when 'rdccns'
-        cllcn = @objeto.asesorias.typ('Redacción')
-      when 'cnslts'
-        cllcn = @objeto.asesorias.typ('Consulta')
+        cllcn = @objeto.asesorias.std_oprtv('tramitacion')
+      when 'archvd'
+        cllcn = @objeto.asesorias.std_oprtv('archivada')
+      when 'rcnts'
+        cllcn = @objeto.asesorias.rcnts
       end
 
       @scp = scp_item[:asesorias][scp.to_sym]

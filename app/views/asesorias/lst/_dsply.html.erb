@@ -1,0 +1,41 @@
+<div class="px-2">
+	<%= objt.descripcion %>
+
+	<%# Despliegue de tarifa %>
+	<div>
+		<i class="bi bi-arrow-return-right"></i> 
+		<% if objt.tar_servicio.present? %>
+			<%= s_moneda(objt.dsply_moneda, objt.dsply_monto) %>
+		<% else %>
+			Servicio base
+		<% end %>
+
+		<% if objt.tar_facturaciones.any? %>
+			<div class="px-2">
+				<% objt.tar_facturaciones.each do |fctrcn| %>
+					<div class="row gx-1">
+						<div class="col-8">
+							<i class="bi bi-arrow-return-right"></i> 
+							<%= fctrcn.glosa %> 
+							<% if objt.dsply_moneda == 'UF' %>
+								<% fecha = fctrcn.fecha_uf.present? ? fctrcn.fecha_uf : fctrcn.created_at %>
+								( UF del día <%= dma(fecha) %> )
+							<% end %>
+						</div>
+						<div class="col-2 text-end objt_lnk">
+							<%= s_pesos(fctrcn.monto) %>
+						</div>
+						<div class="col-2 text-end objt_lnk">
+							<%= render partial: '0t/lnks_e', locals: {objt: fctrcn} %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+	
+
+</div>
+
+<%= render partial: prtl('notas', 'shr', 'notas_pendientes'), locals: {objeto: objt} %>
+<%= render partial: prtl('notas', 'shr', 'notas_realizadas'), locals: {objeto: objt} %>

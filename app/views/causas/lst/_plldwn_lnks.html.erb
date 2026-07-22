@@ -1,14 +1,5 @@
-<% if current_usuario.dog? %>
-  <li>
-  <%= render layout: '0p/tltp_lnk', locals: {lnk: "causas/#{objt.id}/chck_estds", tltp: 'Revisa estado', data: {turbo_method: :post}, clss: 'dropdown-item'} do %>
-    Revisa estado de la causa
-  <% end %>
-</li>
-<li><hr class="dropdown-divider"></li>
-<% end %>
-
 <li>
-<%= render layout: '0p/collapse/link', locals: {label: 'Estado', objeto: objt, tooltip: 'Var último estado', clss: 'dropdown-item'} do %>
+<%= render layout: '0p/collapse/link', locals: {label: 'Estado', objeto: objt, tooltip: 'Ver último estado', clss: 'dropdown-item'} do %>
   Ver último estado
 <% end %>
 </li>

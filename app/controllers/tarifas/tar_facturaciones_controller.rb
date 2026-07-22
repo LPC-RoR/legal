@@ -21,10 +21,8 @@ class Tarifas::TarFacturacionesController < ApplicationController
       glosa           = ownr.glosa
     when 'assr'
       ownr            = Asesoria.find(params[:bid])
-      codigo_formula  = ownr.tipo_asesoria.tipo_asesoria
+      codigo_formula  = ownr.tipo
       glosa           = ownr.descripcion
-      # No es necesario relacionarlo con la causa si OWNR es Causa, Modificar cuando se trabaje con Asesorias
-#      ownr    = calculo.ownr
     end
     @objeto = ownr.tar_facturaciones.new(codigo_formula: codigo_formula, glosa: glosa)
   end
@@ -49,7 +47,11 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
   # POST /tar_facturaciones or /tar_facturaciones.json
   def create
+  Rails.logger.debug "🔍 PARAMS COMPLETOS: #{params.inspect}"
+  Rails.logger.debug "🔍 TAR_FACTURACION PARAMS: #{params[:tar_facturacion].inspect}"
+  Rails.logger.debug "🔍 FECHA_UF EN PARAMS: #{params.dig(:tar_facturacion, :fecha_uf).inspect}"
     @objeto = TarFacturacion.new(tar_facturacion_params)
+  Rails.logger.debug "🔍 FECHA_UF EN OBJETO: #{@objeto.fecha_uf.inspect}"
 
     respond_to do |format|
       if @objeto.save
@@ -142,6 +144,7 @@ class Tarifas::TarFacturacionesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tar_facturacion_params
-      params.require(:tar_facturacion).permit(:ownr_type, :ownr_id, :tar_calculo_id, :glosa, :monto, :monto_parcial, :porcentaje, :estado, :moneda, :recalcular, :tipo_monto)
+      params.require(:tar_facturacion).permit(:ownr_type, :ownr_id, :tar_calculo_id, :glosa, 
+        :monto, :monto_parcial, :porcentaje, :estado, :moneda, :recalcular, :tipo_monto, :fecha_uf, :codigo_formula)
     end
 end

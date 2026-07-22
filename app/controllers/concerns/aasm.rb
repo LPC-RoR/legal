@@ -8,12 +8,12 @@ module Aasm
     # Ejecutar
     @objeto.ejecutar_evento(proceso, evento)
     
-    redirect_to "/#{@objeto.class.name.tableize}", notice: "✅ Evento ejecutado correctamente"
+    redirect_to aasm_rdrccn(@objeto), notice: "✅ Evento ejecutado correctamente"
 
   rescue ArgumentError => e
-    redirect_to "/#{@objeto.class.name.tableize}", alert: "⚠️ #{e.message}"
+    redirect_to aasm_rdrccn(@objeto), alert: "⚠️ #{e.message}"
   rescue AASM::InvalidTransition => e
-    redirect_to "/#{@objeto.class.name.tableize}", alert: "❌ Transición no válida: #{e.message}"
+    redirect_to aasm_rdrccn(@objeto), alert: "❌ Transición no válida: #{e.message}"
   end
 
   def validar_evento
@@ -35,6 +35,17 @@ module Aasm
     unless @objeto.evento_permitido?(proceso, evento)
       redirect_to @objeto, alert: "⚠️ No puedes ejecutar '#{evento}' en estado '#{@objeto.send("estado_#{proceso}")}'"
       return false
+    end
+  end
+
+  private
+
+  def aasm_rdrccn(objt)
+    case objt.class.name
+    when 'TarServicio'
+      objt.ownr_id.blank? ? tabla_path(objt) : "/clientes/#{objt.ownr.id}?html_options[menu]=Tarifas"
+    else
+      "/#{objt.class.name.tableize}"
     end
   end
 

@@ -2,7 +2,7 @@ class CausasController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy swtch swtch_stt asigna_tarifa cambio_estado cambiar_estado_financiero migrar_estado_financiero chck_estds rsltd estmcn procesa_registros add_fecha_calculo del_fecha_calculo cuantia_to_xlsx hchstowrd ntcdntstowrd ejecutar_evento ]
+  before_action :set_causa, only: %i[ show edit update destroy swtch swtch_stt asigna_tarifa cambio_estado cambiar_estado_financiero migrar_estado_financiero rsltd estmcn procesa_registros add_fecha_calculo del_fecha_calculo cuantia_to_xlsx hchstowrd ntcdntstowrd ejecutar_evento ]
   before_action :validar_evento, only: [:ejecutar_evento]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
@@ -165,15 +165,6 @@ class CausasController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def chck_estds
-    @objeto.estado = @objeto.get_estado
-    @objeto.estado_pago = @objeto.estado_pago
-    
-    @objeto.save
-
-    redirect_to causas_path
   end
 
   def asigna_tarifa
