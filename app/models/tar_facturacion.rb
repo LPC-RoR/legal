@@ -117,12 +117,6 @@ class TarFacturacion < ApplicationRecord
 	      uf = TarUfSistema.find_by(fecha: fecha_calculo)
 	      valor_uf = uf&.valor.to_f
 
-	      # FIX: Si no hay UF o valor es 0, buscar la más reciente anterior
-	      if valor_uf == 0
-	        uf = TarUfSistema.where("fecha <= ?", fecha_calculo).order(fecha: :desc).first
-	        valor_uf = uf&.valor.to_f
-	      end
-
 	      # Si sigue sin haber UF válida, usar 1.0 (sin conversión) o lanzar error
 	      if valor_uf == 0
 	        Rails.logger.error "❌ No se encontró UF válida para fecha #{fecha_calculo}"
@@ -132,7 +126,6 @@ class TarFacturacion < ApplicationRecord
 	      valor_uf = 1.0
 	    end
 
-#	    total_calculo = ownr_monto
 	    total_calculo = case tipo_monto
 	                    when 'Parcial'
 	                      if monto_parcial.present?

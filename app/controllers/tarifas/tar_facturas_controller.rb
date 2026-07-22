@@ -1,7 +1,7 @@
 class Tarifas::TarFacturasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento cambio_estado set_pago libera_factura crea_nota_credito elimina_nota_credito a_facturada]
+  before_action :set_tar_factura, only: %i[ show edit update destroy elimina set_documento set_pago libera_factura crea_nota_credito elimina_nota_credito a_facturada]
 
   layout 'addt'
 
@@ -116,23 +116,6 @@ class Tarifas::TarFacturasController < ApplicationController
 
     @objeto.save if modificado
 
-    redirect_to @objeto
-  end
-
-  def cambio_estado
-    StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
-
-    if params[:st] == 'ingreso'
-      @objeto.documento = nil
-      @objeto.fecha_uf = nil 
-    elsif params[:st] == 'facturada'
-        @objeto.detalle_pago = nil
-    end
-
-    @objeto.estado = params[:st]
-    @objeto.save
-
-#    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
     redirect_to @objeto
   end
 

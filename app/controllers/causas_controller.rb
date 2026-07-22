@@ -2,7 +2,7 @@ class CausasController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_causa, only: %i[ show edit update destroy swtch swtch_stt asigna_tarifa cambio_estado cambiar_estado_financiero migrar_estado_financiero rsltd estmcn procesa_registros add_fecha_calculo del_fecha_calculo cuantia_to_xlsx hchstowrd ntcdntstowrd ejecutar_evento ]
+  before_action :set_causa, only: %i[ show edit update destroy swtch asigna_tarifa cambiar_estado_financiero migrar_estado_financiero rsltd estmcn procesa_registros add_fecha_calculo del_fecha_calculo cuantia_to_xlsx hchstowrd ntcdntstowrd ejecutar_evento ]
   before_action :validar_evento, only: [:ejecutar_evento]
   after_action :asigna_tarifa_defecto, only: %i[ create ]
 
@@ -228,17 +228,6 @@ class CausasController < ApplicationController
     tar_uf_facturacion.delete
 
     redirect_to "/causas/#{@objeto.id}?html_options[menu]=#{CGI.escape('Tarifa & Pagos')}"
-  end
-
-  # se utiliza para Clases que manejan estados porque se declaró el modelo
-  def cambio_estado
-    StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
-
-    @objeto.estado = params[:st]
-    @objeto.save
-
-#    redirect_to "/st_bandejas?m=#{@objeto.class.name}&e=#{@objeto.estado}"
-    redirect_to "/causas/#{@objeto.id}"
   end
 
   # MIENTRAS DURA LA MIGRACION

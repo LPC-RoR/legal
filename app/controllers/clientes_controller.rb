@@ -2,7 +2,7 @@ class ClientesController < ApplicationController
   include BlockTenantUsers          # <-- muro  before_action :authenticate_usuario!
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_cliente, only: %i[ show edit update destroy crear_aprobacion swtch_stt cambio_estado swtch_urgencia swtch_pendiente ejecutar_evento ]
+  before_action :set_cliente, only: %i[ show edit update destroy crear_aprobacion swtch_stt swtch_urgencia swtch_pendiente ejecutar_evento ]
   after_action :rut_puro, only: %i[ create update ]
 
   layout 'pltfrm'
@@ -158,16 +158,6 @@ class ClientesController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  # se utiliza para Clases que manejan estados porque se declaró el modelo
-  def cambio_estado
-    StLog.create(perfil_id: current_usuario.id, class_name: @objeto.class.name, objeto_id: @objeto.id, e_origen: @objeto.estado, e_destino: params[:st])
-
-    @objeto.estado = params[:st]
-    @objeto.save
-
-    redirect_to "/clientes/#{@objeto.id}"
   end
 
   # DELETE /clientes/1 or /clientes/1.json

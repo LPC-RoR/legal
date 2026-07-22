@@ -39,7 +39,6 @@ Rails.application.routes.draw do
   resources :causas do
     match :swtch, via: :post, on: :member
     match :swtch_stt, via: :post, on: :member
-    match :cambio_estado, via: :get, on: :member
     match :procesa_registros, via: :get, on: :member
     match :cuantia_to_xlsx, via: :get, on: :member
     match :hchstowrd, via: :get, on: :member, format: 'docx'
@@ -65,7 +64,6 @@ Rails.application.routes.draw do
     resources :tenant_usuarios, only: %i[index update], controller: 'tenant_usuarios'
     match :swtch_stt, via: :post, on: :member
     # ------------------------------------------
-    match :cambio_estado, via: :get, on: :member
     match :swtch_pendiente, via: :post, on: :member
     match :swtch_urgencia, via: :post, on: :member
   end
@@ -475,7 +473,6 @@ Rails.application.routes.draw do
       match :set_pago, via: :post, on: :member
       match :set_facturada, via: :get, on: :member
       match :crea_factura, via: :get, on: :collection
-      match :cambio_estado, via: :get, on: :member
       # nueva lógica
       match :libera_factura, via: :get, on: :member
       match :crea_nota_credito, via: :post, on: :member
