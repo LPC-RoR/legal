@@ -52,6 +52,7 @@ class ApplicationController < ActionController::Base
 	helper_method :krn_fl_cntrl, :krn_cntrllrs?, :drvcn_text
 	helper_method :to_name, :corrige
 	helper_method :bck_path_krn_objt
+	helper_method :cntxt_bck_rdrctn
 
   private
 

@@ -50,10 +50,6 @@ module CptnProcsHelper
 
 	# ----------------------------------------------- HASTA AQUI LA LÓGICA NUEVA
 
-	def rcptr_lst(ownr)
-		['Empresa', 'Dirección del Trabajo', ('Empresa externa' if ownr.plan_type == 'extendido')].compact
-	end
-
 	def email_mask(email)
 		mask = controller_name == 'krn_denuncias' ? 'prtcpnt@casa.cl' : 'admin@empresa.cl'
 		[Rails.application.credentials[:dog][:email], 'hugo@edasoft.cl', 'hugo@laborsafe.cl'].include?(email) ? mask : email

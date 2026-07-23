@@ -1,0 +1,13 @@
+<div class="row gx-1">
+	<div class="col-lg-3 col-xs-12">	
+		<%= render partial: '0inpts/select', locals: { f: f, tkn: :tipo, sel_list: h_tipos_usuario(@objeto), prompt: nil, label: 'Tipo de usuario' } %>
+	</div>
+	<div class="col-lg-3 col-xs-12">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :nombre, label: 'Nombre Usuario de Nómina' } %>
+	</div>
+	<div class="col-lg-6">
+		<%= render partial: '0inpts/email', locals: { f: f, tkn: :email, label: 'e-mail' } %>
+	</div>
+</div>
+
+<%= render partial: '0inpts/hidden_ownr', locals: { f: f } %>

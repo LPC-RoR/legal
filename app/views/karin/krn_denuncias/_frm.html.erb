@@ -1,0 +1,56 @@
+<h5><%= @objeto.ownr.razon_social %></h5>
+
+<%= render '0inpts/datetime', 
+     f: f, 
+     tkn: :fecha_hora, 
+     label: 'Fecha y hora de la denuncia' %>
+
+<%= render partial: '0inpts/text', locals: { f: f, tkn: :identificador, label: 'Identificador de la denuncia' } %>
+
+<div class="row gx-1">
+	<div class="col-lg-3 col-xs-12">
+		<%= render partial: '0inpts/select', locals: { f: f, tkn: :motivo_denuncia, sel_list: KrnDenuncia::MOTIVOS, label: 'Motivo de la denuncia' } %>
+	</div>
+	<div class="col-lg-3 col-xs-12">
+  <!-- Grupo condicional para empresa_externa -->
+			<%= render partial: '0inpts/select', locals: { f: f, tkn: :receptor_denuncia, sel_list: KrnDenuncia::RECEPTORES, label: 'Receptor de la denuncia', data: { 
+              'conditional-fields-target': 'receptorDenuncia',
+              action: 'change->conditional-fields#toggleEmpresaExterna'
+            } } %>
+	</div>
+	<div class="col-lg-3 col-xs-12">
+		<%= render partial: '0inpts/select', locals: { f: f, tkn: :via_declaracion, sel_list: KrnDenuncia::VIAS_DENUNCIA, label: 'Canal de denuncia', data: { 'conditional-fields-target': 'viaDeclaracion', action: 'change->conditional-fields#toggleTipoDeclaracion'} } %>
+	</div>
+	<div class="col-lg-3">
+		<%= render partial: '0inpts/select', locals: { f: f, tkn: :presentado_por, sel_list: KrnDenuncia::TIPOS_DENUNCIANTE, label: 'Quien denuncia', data: { 
+              'conditional-fields-target': 'presentadoPor',
+              action: 'change->conditional-fields#toggleRepresentante'
+            } } %>
+	</div>
+
+</div>
+
+<div data-conditional-fields-target="empresaExternaGroup" hidden>
+	  <%= render "krn_empresa_externa_id", f: f %>
+</div>
+
+<div data-conditional-fields-target="tipoDeclaracionGroup" hidden>
+  <%= render "tipo_declaracion", f: f %>
+</div>
+
+<div data-conditional-fields-target="representanteGroup" hidden>
+  <%= render "representante", f: f %>
+</div>
+
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :lugar_ocurrencia, label: 'Lugar donde ocurre los hechos' } %>
+	</div>
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :direccion_ocurrencia, label: 'Dirección donde ocurre los hechos' } %>
+	</div>
+</div>
+
+<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :causal_establecida, label: 'Causal acreditada'} %>
+
+<%= render partial: '0inpts/hidden_ownr', locals: { f: f } %>

@@ -1,0 +1,15 @@
+<%# views/0frm/_frm.html.erb  %>
+<%# form cntxt: :invstgcns %>
+<%# fml 	== female: reemplaza Nuevo por Nueva. Por defecto es false %>
+<%# data 	== data: para formularios que usan controladores (comprtamiento) %>
+<%# Siempre se pasan como parámetros desde _cntxt_frm %>
+<%# fml  ||= false %>
+<%# data ||= nil %>
+
+<%# @bck_rdrccn se utiliza para pasar la ruta a la que debe volver el formulario %>
+<%# No tengo claro aún de donde viene y cómo se usa (Reemplazar este comentario por la explicación) %>
+<% @bck_rdrccn ||= cntxt_bck_rdrctn(@objeto) %>
+<div class="border rounded-2 p-1">
+	<%= render partial: '0frm/invstgcns/hdr', locals: {fml: fml, sz: 4} %>
+	<%= render partial: '0frm/invstgcns/frm_body', locals: {data: data} %>
+</div>

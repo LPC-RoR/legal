@@ -4,7 +4,7 @@ class KrnDenuncia < ApplicationRecord
 
 	ACCTN = 'dnncs'.freeze
 
-	RECEPTORES = ['Empresa', 'Empresa externa', 'Dirección del Trabajo'].freeze
+	RECEPTORES = ['Empresa', 'Dirección del Trabajo', 'Empresa externa'].freeze
 	MOTIVOS = ['Acoso laboral', 'Acoso sexual', 'Violencia en el trabajo ejercida por terceros'].freeze
 
 	VIAS_DENUNCIA = ['Presencial', 'Correo electrónico', 'Plataforma'].freeze

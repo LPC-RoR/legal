@@ -1,1 +1,3 @@
-<%= render partial: '0p/lbld_inpts/select_id', locals: {form: form, token: :krn_empresa_externa_id, colection: @objeto.ownr.krn_empresa_externas.order(:razon_social).collect { |externa| [externa.razon_social, externa.id] }, label: 'Empresa que recibió la denuncia' } %>
+<%# Partial para manejo condicional del form %>
+<% emprss = @objeto&.ownr&.krn_empresa_externas.order(:razon_social).to_options_hash %>
+<%= render partial: '0inpts/select_code', locals: {f: f, tkn: :krn_empresa_externa_id, hsh: emprss, label: 'Empresa que recibió la denuncia' } %>

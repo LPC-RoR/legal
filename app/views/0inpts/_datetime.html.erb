@@ -1,0 +1,8 @@
+<% value = f.object ? f&.object[tkn]&.strftime("%Y-%m-%dT%H:%M") : nil %> 
+
+<div class="mb-3">
+  <%= f.label tkn %>
+  <%=
+    f.datetime_local_field tkn, value: value
+  %>
+</div>

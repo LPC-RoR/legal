@@ -53,7 +53,7 @@ module CptnMapHelper
 	end
 
 	def with_scope(controller)
-		if ['layouts', '0capitan', '0p', 'repositorios', 'karin'].include?(controller)
+		if ['layouts', 'repositorios', 'karin'].include?(controller) || controller[0] == '0'
 			controller
 		else
 			rutas = Rails.application.routes.routes.map {|route| route.defaults[:controller]}.uniq.compact

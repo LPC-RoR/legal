@@ -1,0 +1,15 @@
+<%= render partial: '0inpts/select', locals: {f: f, tkn: :tipo, sel_list: KrnEmpresaExterna::TIPOS, prompt: nil, label: 'Tipo de empresa'} %>
+
+<div class="row gx-0">
+	<div class="col-3">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :rut, label: 'RUT' } %>
+	</div>
+	<div class="col-9">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :razon_social, label: 'Razon social' } %>
+	</div>
+</div>
+
+<%= render partial: '0inpts/text', locals: { f: f, tkn: :contacto, label: 'Contacto:' } %>
+<%= render partial: '0inpts/email', locals: { f: f, tkn: :email, label: 'e-mail del contacto' } %>
+
+<%= render partial: '0inpts/hidden_ownr', locals: { f: f } %>

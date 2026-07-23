@@ -1,0 +1,19 @@
+<div class="row">
+	<div class="col-3">
+		<%= render partial: '0inpts/select', locals: { f: f, tkn: :grupo, sel_list: ['RRHH', 'Apt', 'Backup'], label: 'Grupo' } %>
+	</div>
+	<div class="col-9">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :nombre, label: 'Nombre completo' } %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-6">
+		<%= render partial: '0inpts/email', locals: { f: f, tkn: :email, label: 'Email' } %>
+	</div>
+	<div class="col-6">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :telefono, label: 'Teléfono' } %>
+	</div>
+</div>
+
+<%= render partial: '0inpts/hidden_ownr', locals: { f: f } %>

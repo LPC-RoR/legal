@@ -1,0 +1,16 @@
+<% objeto ||= @objeto %>
+<div class="form-floating mb-3">
+  <%= f.email_field tkn, 
+      class: "form-control #{'is-invalid' if objeto&.errors&.[](tkn)&.any?}", 
+      id: "#{tkn}_#{objeto&.id || 'new'}", 
+      placeholder: label,
+      value: f.object.send(tkn) %>
+
+  <%= f.label tkn, label %>
+
+  <% if objeto&.errors&.[](tkn)&.any? %>
+    <div class="invalid-feedback">
+      <%= objeto.errors[tkn].join(', ') %>
+    </div>
+  <% end %>
+</div>

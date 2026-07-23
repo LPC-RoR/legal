@@ -1,0 +1,12 @@
+<div class="row gx-0">
+	<div class="col-3">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :rut, label: 'Cédula de identidad' } %>
+	</div>
+	<div class="col-9">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :krn_investigador, label: 'Nombre completo' } %>
+	</div>
+</div>
+
+<%= render partial: '0inpts/email', locals: { f: f, tkn: :email, label: 'e-mail' } %>
+
+<%= render partial: '0inpts/hidden_ownr', locals: { f: f } %>

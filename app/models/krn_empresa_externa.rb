@@ -14,6 +14,14 @@ class KrnEmpresaExterna < ApplicationRecord
 	has_many :krn_denuncias
 	has_many :krn_derivaciones
 
+	# Método que me entrega el hacs id => razon_social
+	# Alternativa usando pluck (más eficiente para ActiveRecord::Relation)
+	def self.to_options_hash
+		pluck(:id, :razon_social).to_h
+	end
+
+	# REVISAR desde aquí
+
     validates_presence_of :rut, :razon_social, :contacto, :email
 	def dflt_bck_rdrccn
 		"/cuentas/#{self.ownr.class.name[0].downcase}_#{self.ownr.id}/extrns"

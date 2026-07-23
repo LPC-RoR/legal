@@ -1,6 +1,46 @@
 module Paths
 	extend ActiveSupport::Concern
 
+	# **************************************************** Paths con Contexto
+	def cntxt_bck_rdrctn(objt)
+		cntxt = ClssCntxt.cntxt_for_objt(objt)
+		case cntxt.to_s
+		when 'invstgcns'
+			invstgcns_bck_rdrctn(objt).nil? ? "/#{objt.class.table_name}" : invstgcns_bck_rdrctn(objt)
+		else
+			pltfrm_bck_rdrctn(objt).nil? ? "/#{objt.class.table_name}" : pltfrm_bck_rdrctn(objt)
+		end
+	end
+
+	def invstgcns_bck_rdrctn(objt)
+		ClssCntxt.rcrss?(objt.class.table_name) ? invstgcns_rcrss_bck_rdrctn(objt) : invstgcns_lcls_bck_rdrctn(objt)
+	end
+
+	def invstgcns_rcrss_bck_rdrctn(objt)
+		case objt.class.table_name
+		when 'app_contactos'
+			shw_cnt_tab_indx(objt, 'cntcts')
+		when 'app_nominas'
+			shw_cnt_tab_indx(objt, 'nmn')
+		end
+	end
+
+	def invstgcns_lcls_bck_rdrctn(objt)
+		case objt.class.table_name
+		when 'krn_denuncias'
+			shw_cnt_tab_indx(objt, 'dnncs')
+		when 'krn_investigadores'
+			shw_cnt_tab_indx(objt, 'invstgdrs')
+		when 'krn_empresa_externas'
+			shw_cnt_tab_indx(objt, 'extrns')
+		end
+	end
+
+	def shw_cnt_tab_indx(objt, tab)
+		"/cuentas/e_#{objt.ownr.id}/#{tab}"
+	end
+	# **************************************************** Paths con Contexto (final)
+
 	## default_redirect_path(objeto) se usa para modelos sin muchos contextos
 	## ActArchivo y KrnTexto tienen sus propios métodos
 
@@ -160,4 +200,6 @@ module Paths
 			authenticated_root_path
 		end
 	end
+
+
 end

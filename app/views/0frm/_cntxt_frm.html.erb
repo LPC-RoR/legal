@@ -1,0 +1,13 @@
+<%# views/0frm/_cntxt_frm.html.erb  %>
+<%# form con contexto %>
+<%# female: reemplaza Nuevo por Nueva. Por defecto es false %>
+<% fml  ||= false %>	
+<% data ||= nil %>
+
+<% cntxt = ClssCntxt.cntxt_for_objt(@objeto) %>
+
+<% if prtl?('0frm', "#{cntxt}", 'frm') %>
+	<%= render partial: prtl('0frm', "#{cntxt}", 'frm'), locals: {fml: fml, data: data} %>
+<% else %>
+	<%= render partial: prtl('0frm', nil, 'frm'), locals: {fml: fml, data: data} %>
+<% end %>
