@@ -39,4 +39,16 @@ class ClssCntrldPltfrm < ApplicationRecord
 		}
 	end
 
+	def self.has_one?(code)
+		['demanda'].include?(code)
+	end
+
+	def self.cntrl_fecha?(code)
+		[].include?(code)
+	end
+
+	def self.cntrl_fecha_hora?(code)
+		[].include?(code)
+	end
+
 end
