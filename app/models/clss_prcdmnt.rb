@@ -217,7 +217,6 @@ class ClssPrcdmnt
           'tsk_cierre_rcpcn'          => 'Registrar el cierre de la recepción',
           'tsk_asigna_invstgdr'       => 'Asigna investigador a la denuncia y notificarlo',
           'tsk_analisis_dnnc'         => 'Análisis de la denuncia',
-          'txt_anlss'                 => 'Análisis de la denuncia',
           'tsk_dclrcns'               => 'Agendamiento y toma de declaraciones',
           'tsk_redaccion_infrm'       => 'Redacción del informe de investigación',
           'tsk_cierre_invstgcn'       => 'Cierre de la investigación',
