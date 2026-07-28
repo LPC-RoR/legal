@@ -8,19 +8,21 @@ class ClssPdf
     'estadisticas_generales'    => :pltfrm,
     
     # === INVESTIGACIONES (invstgcns) ===
+    'crdncn_apt'                => :invstgcns,    # ← COORDINACIÓN DE APT
+    'dts_prncpls'               => :invstgcns,    # ← DATOS DE LOS PARTICIPANTES PRINCIPALES
+    'dts_tstgs'                 => :invstgcns,    # ← DATOS DE LOS TESTIGOS
+    'infrmcn'                   => :invstgcns,    # ← DEPRECATED
     'dnnc'                      => :invstgcns,
     'st_dclrcns'                => :invstgcns,
     'dclrcn'                    => :invstgcns,
     'txt_dclrcn'                => :invstgcns,
-    'crdncn_apt'                => :invstgcns,
-    'infrmcn'                   => :invstgcns,
     'txt_infrm'                 => :invstgcns,
     'texto_anonimizado'         => :invstgcns,
     'resumen_cronologico'       => :invstgcns,
-    'txt_mdds_crrctvs_sncns'    => :invstgcns,   # ← NUEVO
+    'txt_mdds_crrctvs_sncns'    => :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES
     
     # === FINANZAS (fnnzs) ===
-    'aprobacion'                => :fnnzs,
+    'aprobacion'                => :fnnzs,    # ← APROBACIÓNES DE CAUSAS
     'estado_resultados'         => :fnnzs,
     'flujo_efectivo'            => :fnnzs,
     'honorarios'                => :fnnzs,
@@ -49,6 +51,11 @@ class ClssPdf
   }.freeze
 
   class << self
+
+    def txt_code?(code)
+      code.start_with?('txt_')
+    end
+
     # Obtiene el contexto de un reporte
     def context_for(reporte)
       CONTEXT_MAP[reporte.to_s] || raise("Reporte '#{reporte}' no está mapeado en ClssPdf")

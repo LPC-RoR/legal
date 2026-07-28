@@ -1,0 +1,28 @@
+<!-- app/views/pdfs/invstgcns/dts_prncpls_pdf.html.erb -->
+
+<!-- ENCABEZADO -->
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Canal de denuncias Ley 21.643 (Ley Karin)
+</div>
+<div class="text-center fs-5">
+  Verificación de datos de testigos Ley 21.643
+</div>
+
+<p class="mt-4">REFERENCIA: Denuncia <%= @ownr.identificador %></p>
+
+<p>Como parte de la etapa de recepción de denuncia en el contexto de la Ley 21.643, solicitamos lo siguiente:</p>
+
+<p>Verifique y/o complete los datos de los siguientes participantes:</p>
+
+<p><b>Información del testigo(s)</b></p>
+<% @ownr.krn_testigos.each do |prtcpnt| %>
+  <%= render partial: 'pdfs/invstgcns/objt_dts_prtcpnt', locals: {objt: prtcpnt} %>
+<% end %>
+
+<% txt_firma = @ownr.ownr.txt_editables.find_by(codigo: 'firma_mdds') %>
+
+<% if txt_firma.present? %>
+  <div class="text-center"><%= txt_firma.contenido.to_s.html_safe %></div>
+<% end %>

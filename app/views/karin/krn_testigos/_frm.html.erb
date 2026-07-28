@@ -1,0 +1,5 @@
+<%= render partial: 'karin/prtcpnts/frm_base', locals: {f: f} %>
+
+<%= render partial: '0inpts/select', locals: { f: f, tkn: :origen, sel_list: ['Investigador', 'Denunciante', 'Denunciado'], label: 'Solicitado por' } %>
+
+<%= render partial: '0inpts/hidden_lst', locals: { f: f, hddn_lst: [:krn_denuncia_id] } %>

@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  resources :cli_aprobaciones do
-    member do
-      post :liberar_pagos
-      post :generar_aprobacion
-    end
-  end
   resources :proveedores
   resources :trabajadores
   # Verificación de correos electrónicos de participantes
@@ -66,6 +60,12 @@ Rails.application.routes.draw do
     # ------------------------------------------
     match :swtch_pendiente, via: :post, on: :member
     match :swtch_urgencia, via: :post, on: :member
+  end
+  resources :cli_aprobaciones do
+    member do
+      post :liberar_pagos
+      post :generar_aprobacion
+    end
   end
 
   resources :empresas do
@@ -171,6 +171,9 @@ Rails.application.routes.draw do
       match :reenviar_correo, via: :post, on: :member
     end
     resources :krn_denuncias do
+      member do
+        post :generar_ownr_pdf
+      end
       match :swtch, via: :post, on: :member
       match :niler, via: :post, on: :member
       match :set_fld, via: :post, on: :member
@@ -330,6 +333,9 @@ Rails.application.routes.draw do
       member do
         get 'descargar/:tipo', to: 'act_archivos#descargar_archivo_generado', as: :descargar
         post :enviar_pdf_por_email
+      end
+      collection do
+        post :generar_pdf
       end
       match :download, via: :get, on: :member
       match :show_pdf, via: :get, on: :member

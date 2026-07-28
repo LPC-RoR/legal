@@ -10,7 +10,7 @@
 			<i class="bi bi-upload"></i>
 		<% end %>
 		<% unless ClssPdf.txt_code?(code) %>
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/generar_pdf?codigo_pdf=#{code}", tltp: "Generar pdf", data: {turbo_method: :post}} do %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.table_name}/#{ownr.id}/generar_ownr_pdf?code=#{code}", tltp: "Generar pdf", data: {turbo_method: :post}} do %>
 				<i class="bi bi-file-pdf"></i>
 			<% end %>
 		<% end %>

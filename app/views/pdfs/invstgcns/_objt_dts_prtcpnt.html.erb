@@ -1,0 +1,7 @@
+<div class="p-2">
+  <%= render partial: 'pdfs/invstgcns/dsply_row', locals: {str_lft: 'Nombre', str_rght: objt.nombre} %>
+  <%= render partial: 'pdfs/invstgcns/dsply_row', locals: {str_lft: 'Email personal', str_rght: objt.email} %>
+  <%= render partial: 'pdfs/invstgcns/dsply_row', locals: {str_lft: 'Equipo gerencial', str_rght: objt.articulo_4_1 ? 'Sí' : 'No'} %>
+  <%= render partial: 'pdfs/invstgcns/dsply_row', locals: {str_lft: 'Carta certificada', str_rght: objt.articulo_516 ? 'Sí' : 'No'} %>
+  <%= render partial: 'pdfs/invstgcns/dsply_row', locals: {str_lft: 'Dirección de notificación', str_rght: objt.direccion_notificacion} %>
+</div>

@@ -1,0 +1,25 @@
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Canal de denuncias Ley 21.643 (Ley Karin)
+</div>
+<div class="text-center fs-5">
+  Coordinación Atención Psicológica Temprana Ley 21.643
+</div>
+
+<p class="mt-4">REFERENCIA: Denuncia <%= @ownr.identificador %></p>
+
+<p>Como parte de la etapa de recepción de denuncia en el contexto de la Ley 21.643, solicitamos lo siguiente:</p>
+
+<p>Coordinar Atención Psicológica Temprana a los siguientes perticipantes:</p>
+
+<p><b>Información de la(s) persona(s) denunciantes</b></p>
+<% @ownr.krn_denunciantes.each do |prtcpnt| %>
+  <%= render partial: 'pdfs/invstgcns/objt_dts_prtcpnt', locals: {objt: prtcpnt} %>
+<% end %>
+
+<% txt_firma = @ownr.ownr.txt_editables.find_by(codigo: 'firma_mdds') %>
+
+<% if txt_firma.present? %>
+  <div class="text-center"><%= txt_firma.contenido.to_s.html_safe %></div>
+<% end %>

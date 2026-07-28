@@ -1,32 +1,34 @@
-<!-- NOTA Ingresar participantes -->
-<%#= render partial: prtl_name(@objeto, 'mssgs', 'dclrcn') if @objt['dnnc_evld?'] and not (@objt['dclrcns_ok?']) %>
-<%#= render partial: prtl_name(@objeto, 'mssgs', 'dclrcns_ok') if @etp_last.codigo == 'etp_invstgcn' and @objt['dclrcns_ok?'] %>
-
-<%= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>
 <%= render partial: prtl_name(objeto, 'shw/proceso', 'tsk_dsply'), locals: {ownr: objeto} %>
-
-<!-- ActArchivo de DNNC -->
-<% rqrd_apt 	= !!@objeto.ownr.coordinacion_apt %>
-<% rqrd_dts 	= !!@objeto.ownr.verificacion_datos %>
-<% cntcts_apt 	= @objeto.ownr.app_contactos.exists?(grupo: 'Apt') %>
-<% cntcts_dts 	= @objeto.ownr.app_contactos.exists?(grupo: 'RRHH') %>
-
-<% if @objeto.prtcpnts_minimos? %>
-	<div class="my-2">
-		<%= render partial: 'repositorios/act_archivos/objt/objeto_rprt_rrhh', locals: {objeto: @objeto, rprt: 'crdncn_apt', rqrd: rqrd_apt} if cntcts_apt %>
-		<% if rqrd_apt && !cntcts_apt %>
-			<i class="bi bi-cone-striped text-danger"></i> No se ha(n) ingresado contacto(s) para la coordinación de la atención psicológica temprana.
-		<% end %>
-		<%= render partial: 'repositorios/act_archivos/objt/objeto_rprt_rrhh', locals: {objeto: @objeto, rprt: 'infrmcn', rqrd: rqrd_dts} if cntcts_dts%>
-		<% if rqrd_dts && !cntcts_dts %>
-			<i class="bi bi-cone-striped text-danger"></i> No se ha(n) ingresado contacto(s) para la verificación de los datos de los participantes.
-		<% end %>
-	</div>
+<% if ClssKrnHnts.tsk_tab_hnt?(@kproc, @indx) %>
+	<%= render partial: 'karin/kproc/hnt_box', locals: {kproc: @kproc, tab: @indx} %>
 <% end %>
 
+<%# REVISAR DEPRECATED %>
+<%= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>
+
+<!-- ActArchivo de DNNC -->
+<%# rqrd_apt 	= !!@objeto.ownr.coordinacion_apt %>
+<%# rqrd_dts 	= !!@objeto.ownr.verificacion_datos %>
+<%# cntcts_apt 	= @objeto.ownr.app_contactos.exists?(grupo: 'Apt') %>
+<%# cntcts_dts 	= @objeto.ownr.app_contactos.exists?(grupo: 'RRHH') %>
+
+<%# if @objeto.prtcpnts_minimos? %>
+	<!--div class="my-2"-->
+		<%#= render partial: 'repositorios/act_archivos/objt/objeto_rprt_rrhh', locals: {objeto: @objeto, rprt: 'crdncn_apt', rqrd: rqrd_apt} if cntcts_apt %>
+		<%# if rqrd_apt && !cntcts_apt %>
+			<!--i class="bi bi-cone-striped text-danger"></i> No se ha(n) ingresado contacto(s) para la coordinación de la atención psicológica temprana. -->
+		<%# end %>
+		<%#= render partial: 'repositorios/act_archivos/objt/objeto_rprt_rrhh', locals: {objeto: @objeto, rprt: 'infrmcn', rqrd: rqrd_dts} if cntcts_dts%>
+		<%# if rqrd_dts && !cntcts_dts %>
+			<!--i class="bi bi-cone-striped text-danger"></i> No se ha(n) ingresado contacto(s) para la verificación de los datos de los participantes. -->
+		<%# end %>
+	<!--/div-->
+<%# end %>
+
+<%= render partial: 'karin/kproc/dsply_ownr_codes', locals: {ownr: @objeto} %>
 
 <%# DENUNCIATES (TBL) %>
-<%= render partial: '0p/ttl_clss', locals: {source: 'krn_denunciantes', clss: :sub, dir: 'indx', hide_gly: true} %>
+<%= render partial: '0ttl/ttl', locals: {source: 'krn_denunciantes', clss: :indx_md, dir: 'indx', blngs: @objeto, hide_gly: true, hide_new: true} %>
 <%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciantes, clss: :head, dir: 'lst', typ: 'ln'} %>
 
 
@@ -37,7 +39,7 @@
 
 <% else %>
 
-	<%= render partial: '0p/ttl_clss', locals: {source: 'krn_denunciados', clss: :sub, dir: 'indx', hide_gly: true} %>
+	<%= render partial: '0ttl/ttl', locals: {source: 'krn_denunciados', clss: :indx_md, dir: 'indx', hide_gly: true, hide_new: true} %>
 	<% if @objeto.krn_denunciantes.any? %>
 		<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_denunciados, clss: :head, dir: 'lst', typ: 'ln'} %>
 	<% end %>
@@ -45,7 +47,7 @@
 <% end %>
 
 <% if @objeto.krn_denunciantes.any? %>
-	<%= render partial: '0p/ttl_clss', locals: {source: 'krn_testigos', clss: :sub, dir: 'indx', hide_gly: true} %>
+	<%= render partial: '0ttl/ttl', locals: {source: 'krn_testigos', clss: :indx_md, dir: 'indx', blngs: @objeto, hide_gly: true, hide_new: true} %>
 	<%= render partial: '0p/tbl_clss', locals: {clccn: @objeto.krn_testigos, clss: :head, dir: 'lst', typ: 'ln'} %>
 <% end %>
 

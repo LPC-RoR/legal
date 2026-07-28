@@ -1,8 +1,11 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy generar_ownr_pdf swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
 
+  include PdfGeneratable
+
+  # REVISAR Reemplazo con PdfGeneratable
   include MailDesk
   include Karin
 
@@ -18,8 +21,7 @@ class Karin::KrnDenunciasController < ApplicationController
     # En el despliegue de KrnDenuncia ya no se usa ActLoad pero se usa en algún reporte, probablemnte en dnnc
     @kproc = KrnPrcdmnt.for(@objeto)
 
-    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
-
+#    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
     case @indx
     when 0
     when 1
@@ -80,6 +82,18 @@ class Karin::KrnDenunciasController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def generar_ownr_pdf
+
+    unless params[:code].blank?
+      code = params[:code]
+      generar_pdf(code,
+        ownr: @objeto,
+        objeto_id: @objeto.id,
+        enviar_email: false
+      )
     end
   end
 

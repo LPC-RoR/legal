@@ -1,4 +1,6 @@
 class Repositorios::ActArchivosController < ApplicationController
+  include PdfGeneratable
+
   before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr excluir resumir anonimizar enviar_pdf_por_email]
   before_action :authenticate_usuario!
   before_action :scrty_on
@@ -76,6 +78,44 @@ class Repositorios::ActArchivosController < ApplicationController
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # ============================================
+  # GENERAR PDF USANDO FORMATO
+  # ============================================
+  # @param codigo_pdf [String] Código del reporte a generar
+  # @param did [integer] id de la dnnc
+  def generar_pdf
+    codigo_pdf = params[:codigo_pdf]
+
+    cntxt_clss = ClssPdf.context_for(codigo_pdf)
+    ownr_multiples = cntxt_clss.ownr_mltpls?(codigo_pdf)
+    
+    # Verificaciones de codigo_pdf y valid_report?: REVISAR funcionamiento
+    unless codigo_pdf.present?
+      return render json: { error: "Se requiere parámetro codigo_pdf" }, status: :bad_request
+    end
+
+    unless ClssPdf.valid_report?(codigo_pdf)
+      return render json: { error: "Reporte no válido: #{codigo_pdf}" }, status: :bad_request
+    end
+
+    # Obtener la denuncia asociada
+    krn_denuncia = KrnDenuncia.find(params[:did])
+    
+    # Determinar participantes según el tipo de reporte
+    participantes = obtener_participantes(krn_denuncia, codigo_pdf)
+    
+    if participantes.empty?
+      return render json: { error: "No hay participantes para generar el PDF" }, status: :unprocessable_content
+    end
+
+    # Generar PDFs múltiples (uno por participante)
+    generar_pdf_multiples(codigo_pdf, 
+      objeto_id: @objeto.id,
+      participantes: participantes,
+      async: false
+    )
   end
 
   # app/controllers/repositorios/act_archivos_controller.rb
@@ -158,6 +198,21 @@ class Repositorios::ActArchivosController < ApplicationController
   end
 
   private
+    # ============================================
+    # DETERMINAR PARTICIPANTES SEGÚN REPORTE
+    # ============================================
+    def obtener_participantes(krn_denuncia, codigo_pdf)
+      case codigo_pdf
+      when 'crdncn_apt'
+        # Todos los denunciantes y denunciados
+        krn_denuncia.ownr.app_contactos.where(grupo: 'Apt')
+      when 'infrmcn'
+        krn_denuncia.ownr.app_contactos.where(grupo: 'RRHH')
+      else
+        krn_denuncia.krn_denunciantes + krn_denuncia.krn_denunciados
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_act_archivo
       @objeto = ActArchivo.find(params.expect(:id))

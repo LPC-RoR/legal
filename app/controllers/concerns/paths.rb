@@ -2,6 +2,7 @@ module Paths
 	extend ActiveSupport::Concern
 
 	# **************************************************** Paths con Contexto
+	# Redirecciona bck_rdrctn según contexto
 	def cntxt_bck_rdrctn(objt)
 		cntxt = ClssCntxt.cntxt_for_objt(objt)
 		case cntxt.to_s
@@ -12,10 +13,13 @@ module Paths
 		end
 	end
 
+	# Bck_rdrctn del contexto invstgcn
+	# Redirecciona según tablas de recursos o tablas del contexto
 	def invstgcns_bck_rdrctn(objt)
 		ClssCntxt.rcrss?(objt.class.table_name) ? invstgcns_rcrss_bck_rdrctn(objt) : invstgcns_lcls_bck_rdrctn(objt)
 	end
 
+	# Bck_rdrctn del contexto invstgcn:rcrss
 	def invstgcns_rcrss_bck_rdrctn(objt)
 		case objt.class.table_name
 		when 'app_contactos'
@@ -25,6 +29,7 @@ module Paths
 		end
 	end
 
+	# Bck_rdrctn del contexto invstgcn:lcls
 	def invstgcns_lcls_bck_rdrctn(objt)
 		case objt.class.table_name
 		when 'krn_denuncias'
@@ -33,11 +38,19 @@ module Paths
 			shw_cnt_tab_indx(objt, 'invstgdrs')
 		when 'krn_empresa_externas'
 			shw_cnt_tab_indx(objt, 'extrns')
+		when 'krn_denunciantes', 'krn_denunciados', 'krn_testigos'
+			shw_dnnc_tab_indx(objt.krn_denuncia, 1)
 		end
 	end
 
+	# Path del show de cuentas + tab
 	def shw_cnt_tab_indx(objt, tab)
 		"/cuentas/e_#{objt.ownr.id}/#{tab}"
+	end
+
+	# Path del show de denuncia + tab
+	def shw_dnnc_tab_indx(objt, tab)
+		"/krn_denuncias/#{objt.id}_#{tab}"
 	end
 	# **************************************************** Paths con Contexto (final)
 

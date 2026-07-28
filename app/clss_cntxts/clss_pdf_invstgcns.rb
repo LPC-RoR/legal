@@ -5,6 +5,9 @@ class ClssPdfInvstgcns
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS = {
     dnnc: [
+      { code: 'crdncn_apt',   condition: ->(o) { !!o.ownr.coordinacion_apt && o.ownr.app_contactos.exists?(grupo: 'Apt') } },
+      { code: 'dts_prncpls',  condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') } },
+      { code: 'dts_tstgs',    condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') } }
     ],
     dnncnt: [
       { code: 'txt_mdds_rsgrd', condition: ->(o) { true } },
@@ -25,9 +28,18 @@ class ClssPdfInvstgcns
 
   def self.nombre
     {
+      'crdncn_apt'              => 'Coordinación de Atención Psicológica Temprana',
+      'dts_prncpls'             => 'Verificación de datos de las personas denunciantes y denunciadas',
+      'dts_tstgs'               => 'Verificación de datos de los testigos',
+      'infrmcn'                 => 'Verificación de datos de los participantes',
       'txt_mdds_rsgrd'          => 'Notificación de las medidas de resguardo',
       'txt_mdds_crrctvs_sncns'  => 'Notificación de las medidas correctivas y sanciones'
     }
+  end
+
+  # Un reporte puede generar pdfs para múltiples ownr y no tener ref
+  def ownr_mltpls?(code)
+    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd'].include?(code)
   end
 
   def self.ref_code?(code)
@@ -81,6 +93,16 @@ class ClssPdfInvstgcns
 
     def datos_para(reporte, objeto_id, opciones = {})
       case reporte.to_s
+      when 'crdncn_apt', 'dts_prncpls', 'dts_tstgs'
+        objeto = KrnDenuncia.find(objeto_id)
+        grupo  = reporte.to_s == 'crdncn_apt' ? 'Apt' : 'RRHH'
+        {
+          objeto: objeto,
+          ownr: opciones[:ownr] || objeto.ownr,
+          contactos: objeto.ownr.app_contactos.where(grupo: grupo),
+          grupo: grupo
+        }
+        { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
       when 'dnnc', 'st_dclrcns'
         objeto = KrnDenuncia.find(objeto_id)
         { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
@@ -96,8 +118,8 @@ class ClssPdfInvstgcns
       case reporte.to_s
       when 'dclrcn', 'txt_dclrcn'
         denuncia.krn_denunciantes + denuncia.krn_denunciados
-      when 'crdncn_apt', 'infrmcn'
-        AppContacto.where(grupo: reporte == 'crdncn_apt' ? 'Apt' : 'RRHH')
+      when 'crdncn_apt', 'dts_prncpls', 'dts_tstgs'
+        denuncia.ownr.app_contactos.where(grupo: reporte == 'crdncn_apt' ? 'Apt' : 'RRHH')
       else
         [denuncia]
       end
