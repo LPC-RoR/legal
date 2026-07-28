@@ -282,6 +282,21 @@ class ClssPrcdmnt
     }.freeze
   end
 
+  # Agregado temporalmente mientras se migra a la estructura por contexto
+  def self.has_one?(code)
+    ['demanda'].include?(code)
+  end
+
+  # Agregado temporalmente mientras se migra a la estructura por contexto
+  def self.cntrl_fecha?(code)
+    [].include?(code)
+  end
+
+  # Agregado temporalmente mientras se migra a la estructura por contexto
+  def self.cntrl_fecha_hora?(code)
+    [].include?(code)
+  end
+
   def self.prcs_tsks
     ['tsk_dnncnt_optn_drvcn', 'tsk_vrfccn_dts_incmbnts', 'tsk_mdds_rsgrd', 'tsk_emprs_optn_drvcn', 'tsk_cierre_rcpcn', 
       'tsk_asigna_invstgdr', 'tsk_analisis_dnnc', 'tsk_redaccion_infrm', 'tsk_cierre_invstgcn',
