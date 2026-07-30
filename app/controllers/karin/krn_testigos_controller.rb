@@ -1,7 +1,7 @@
 class Karin::KrnTestigosController < ApplicationController
   before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
-  before_action :set_krn_testigo, only: %i[ show edit update destroy swtch rlzd prsnt set_fld ]
+  before_action :set_krn_testigo, only: %i[ show edit update destroy cargar_pdf swtch rlzd prsnt set_fld ]
 
   include PdfGeneratable
 
@@ -71,6 +71,19 @@ class Karin::KrnTestigosController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  ### DEPRECATED
+  def generar_ownr_pdf
+
+    unless params[:code].blank?
+      code = params[:code]
+      generar_pdf(code,
+        ownr: @objeto,
+        objeto_id: @objeto.id,
+        enviar_email: false
+      )
     end
   end
 

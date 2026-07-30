@@ -16,7 +16,6 @@ class Repositorios::ActArchivosController < ApplicationController
   def show_pdf
     archivo = ActArchivo.find(params[:id])
     
-    
     content = archivo.pdf.download
     
     # Si no es PDF, guardar para inspeccionar
@@ -45,7 +44,9 @@ class Repositorios::ActArchivosController < ApplicationController
 
   # GET /act_archivos/new
   def new
-    @objeto = ActArchivo.new(ownr_type: params[:oclss], ownr_id: params[:oid], act_archivo: params[:act], mdl: params[:mdl], control_fecha: params[:control_fecha])
+    mdl   = ClssPdf.context_class(params[:code])
+    code  = params[:code]
+    @objeto = ActArchivo.new(ownr_type: params[:oclss], ownr_id: params[:oid], act_archivo: code, mdl: mdl, crtn_mode: 'upload')
   end
 
   # GET /act_archivos/1/edit
@@ -89,7 +90,6 @@ class Repositorios::ActArchivosController < ApplicationController
     codigo_pdf = params[:codigo_pdf]
 
     cntxt_clss = ClssPdf.context_for(codigo_pdf)
-    ownr_multiples = cntxt_clss.ownr_mltpls?(codigo_pdf)
     
     # Verificaciones de codigo_pdf y valid_report?: REVISAR funcionamiento
     unless codigo_pdf.present?
@@ -220,6 +220,6 @@ class Repositorios::ActArchivosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def act_archivo_params
-      params.expect(act_archivo: [ :ownr_type, :ownr_id, :act_archivo, :mdl, :control_fecha, :nombre, :fecha, :pdf ])
+      params.expect(act_archivo: [ :ownr_type, :ownr_id, :act_archivo, :mdl, :control_fecha, :nombre, :fecha, :pdf, :crtn_mode ])
     end
 end

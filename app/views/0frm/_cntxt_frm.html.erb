@@ -5,6 +5,7 @@
 <% data ||= nil %>
 
 <% cntxt = ClssCntxt.cntxt_for_objt(@objeto) %>
+<%#= @objeto.ownr.class.name %>
 
 <% if prtl?('0frm', "#{cntxt}", 'frm') %>
 	<%= render partial: prtl('0frm', "#{cntxt}", 'frm'), locals: {fml: fml, data: data} %>

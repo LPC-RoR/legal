@@ -157,6 +157,9 @@ Rails.application.routes.draw do
       match :reenviar_correo, via: :post, on: :member
     end
     resources :krn_denunciados do
+      member do
+        post :cargar_pdf
+      end
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
@@ -164,6 +167,9 @@ Rails.application.routes.draw do
       match :reenviar_correo, via: :post, on: :member
     end
     resources :krn_denunciantes do
+      member do
+        post :cargar_pdf
+      end
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
@@ -172,7 +178,7 @@ Rails.application.routes.draw do
     end
     resources :krn_denuncias do
       member do
-        post :generar_ownr_pdf
+        post :cargar_pdf
       end
       match :swtch, via: :post, on: :member
       match :niler, via: :post, on: :member
@@ -209,6 +215,9 @@ Rails.application.routes.draw do
       match :migrar, via: :get, on: :member
     end
     resources :krn_testigos do
+      member do
+        post :cargar_pdf
+      end
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member
       match :prsnt, via: :post, on: :member
@@ -358,7 +367,7 @@ Rails.application.routes.draw do
     # Equivalente a KrnTexto, no se hizo ActTexto porque estaba ocupado.
     resources :txt_editables do
       member do
-        post :generar_pdf
+        post :cargar_pdf
       end
     end
 

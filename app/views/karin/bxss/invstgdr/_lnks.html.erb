@@ -1,0 +1,5 @@
+<% unless ownr.krn_inv_denuncias.any? %>
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_inv_denuncias/new#{blngs_prms(ownr)}", tltp: 'Asignar investigador'} do %>
+		<i class="bi bi-plus-circle"></i>
+	<% end %>
+<% end %>

@@ -2,6 +2,57 @@
 module PdfGeneratable
   extend ActiveSupport::Concern
 
+  def cargar_pdf
+    code = params[:code]
+    context_class = ClssPdf.context_class(code)
+    if context_class.has_one?(code)
+      cargar_ownr_pdf(@objeto, code)
+    else
+      cargar_ownr_pdf_mltpls(@objeto, code)
+    end
+  end
+
+  # Método que se llama desde cargar_pdf en el controlador
+  def cargar_ownr_pdf(ownr, code)
+    unless code.blank?
+      generar_pdf(code,
+        ownr: ownr,
+        objeto_id: @objeto.id,
+        enviar_email: false
+      )
+    end
+  end
+
+  # Método que se llama desde cargar_pdf en el controlador
+  def cargar_ownr_pdf_mltpls(ownr, code)
+    # Verificaciones de code y valid_report?: REVISAR funcionamiento
+    unless code.present?
+      return render json: { error: "Se requiere parámetro code" }, status: :bad_request
+    end
+
+    unless ClssPdf.valid_report?(code)
+      return render json: { error: "Reporte no válido: #{code}" }, status: :bad_request
+    end
+
+    # Obtener la denuncia asociada
+    dnnc = ownr.dnnc
+    
+    # Determinar participantes según el tipo de reporte
+    participantes = obtener_participantes(dnnc, code)
+    
+    if participantes.empty?
+      return render json: { error: "No hay participantes para generar el PDF" }, status: :unprocessable_content
+    end
+
+    # Generar PDFs múltiples (uno por participante)
+    generar_pdf_multiples(code, 
+      dnnc_id: dnnc.id,
+      objeto_id: ownr.id,
+      participantes: participantes,
+      async: false
+    )
+  end
+
   # Método único para generar PDFs.
   # @param reporte [String] Identificador del reporte (ej: 'txt_mdds_crrctvs_sncns')
   # @param ownr [ActiveRecord::Base, nil] Propietario polimórfico del ActArchivo
@@ -108,6 +159,26 @@ module PdfGeneratable
   end
 
   private
+  # ============================================
+  # DETERMINAR PARTICIPANTES SEGÚN REPORTE
+  # Sólo para cargar_ownr_pdf_mltpls
+  # ============================================
+  def obtener_participantes(krn_denuncia, codigo_pdf)
+    case codigo_pdf
+    when 'txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd', 'invstgcn', 'drchs'
+      # Todos los denunciantes y denunciados
+      krn_denuncia.krn_denunciantes + krn_denuncia.krn_denunciados
+    when 'dnncnt_info_oblgtr', 'comprobante'
+      krn_denuncia.krn_denunciantes
+    when 'txt_dclrcn_dnncd'   # Ejemplo futuro: solo denunciados
+      krn_denuncia.krn_denunciados
+    when 'txt_tstg'            # Ejemplo futuro: testigos
+      krn_denuncia.krn_testigos
+    else
+      # Default: todos los participantes
+      krn_denuncia.krn_denunciantes + krn_denuncia.krn_denunciados
+    end
+  end
 
   def async_reporte?(reporte)
     %w[dnnc st_dclrcns balance_general].include?(reporte.to_s)

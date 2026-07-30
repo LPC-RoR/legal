@@ -34,6 +34,12 @@ class KrnInvestigador < ApplicationRecord
 
 	include Cptn
 
+	# Método que me entrega el hacs id => razon_social
+	# Alternativa usando pluck (más eficiente para ActiveRecord::Relation)
+	def self.to_options_hash
+		pluck(:id, :krn_investigador).to_h
+	end
+
 	def dflt_bck_rdrccn
 		"/cuentas/#{self.ownr.class.name[0].downcase}_#{self.ownr.id}/invstgdrs"
 	end

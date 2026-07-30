@@ -1,6 +1,9 @@
-<% ownr.act_archivos.where(act_archivo: code).each do |act| %>
+<% lst.each do |act| %>
 	<% nombre = act.nombre.present? ? act.nombre : mdl.nombre[code] %>
 
+	<%# Se puede crear un registro que no tenga PDF, como una forma de marcar como realizado %>
+	<%# Se diferencia un PDF generado de uno subido (upload) %>
+	<%# TODO lo anterior tiene un look diferenciado %>
 	<% if act.pdf.attached? %>
 		<% clr = act.crtn_mode == 'upload' ? 'text-success' : 'text-primary' %>
 	<% else %>
@@ -13,13 +16,17 @@
 			<% if act.sndd %>
 				<i class="bi bi-send-check"></i>
 			<% end %>
-			<%= nombre %>
+			<%= dma_hm(act.created_at) %> <%= nombre %>
 		</div>
 		<div class="col-2 text-end objt_lnk">
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act.id}/enviar_pdf_por_email", tltp: 'Enviar por correo electrónico', data: {turbo_method: :post, turbo_confirm: "¿Estás seguro?"}} do %>
-				<i class="bi bi-envelope-paper"></i>
+			<% if act.pdf.attached? %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act.id}/enviar_pdf_por_email", tltp: 'Enviar por correo electrónico', data: {turbo_method: :post, turbo_confirm: "Confirmar envío del email"}} do %>
+					<i class="bi bi-envelope-paper"></i>
+				<% end %>
+				<%=render partial: '0t/lnk_dwnld', locals: {objt: act, tltp: "Bajar PDF"} %>
+			<% else %>
+				<i class="bi bi-ban text-danger"></i>
 			<% end %>
-			<%=render partial: '0t/lnk_dwnld', locals: {objt: act, tltp: "Bajar PDF"} %>
 			<%=render partial: '0t/lnks_e', locals: {objt: act} %>
 		</div>
 	</div>

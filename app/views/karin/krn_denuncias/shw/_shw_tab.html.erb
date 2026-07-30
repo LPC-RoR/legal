@@ -2,22 +2,25 @@
 
 <div class="mt-2 fs-6">
   <ul class="nav nav-tabs">
+
     <li class="nav-item">
       <a class="nav-link <%= 'active' if ["#{objt.id}", "#{objt.id}_0"].include?(params[:id]) %>" aria-current="page" href="/krn_denuncias/<%=objt.id%>_0">
-        <% if ClssPrcdmnt.prcs_tsks.include?(@kproc.tarea) %>
+        <% if ClssPrcdmnt.dnnc_tsks.include?(@kproc.tarea) %>
           <i class="bi bi-arrow-right"></i> 
         <% end %>
-        Proceso
+        Denuncia
       </a>
     </li>
+
     <li class="nav-item">
       <a class="nav-link <%= 'active' if ["#{objt.id}_1"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_1">
         <% if ClssPrcdmnt.prtcpnts_tsks.include?(@kproc.tarea) %>
           <i class="bi bi-arrow-right"></i> 
         <% end %>
-        Participantes
+        Notificaciones
       </a>
     </li>
+
     <% if @kproc.etapa != :etp_rcpcn %>
       <li class="nav-item">
         <a class="nav-link <%= 'active' if ["#{objt.id}_2"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_2">
@@ -27,9 +30,17 @@
           Declaraciones
         </a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link <%= 'active' if ["#{objt.id}_3"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_3">
+          Plazos
+        </a>
+      </li>
     <% end %>
+
     <li class="nav-item">
-      <a class="nav-link <%= 'active' if ["#{objt.id}_3"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_3">Recursos</a>
+      <a class="nav-link <%= 'active' if ["#{objt.id}_4"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_4">Recursos</a>
     </li>
+
   </ul>
 </div>

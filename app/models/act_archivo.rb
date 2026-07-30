@@ -15,7 +15,7 @@ class ActArchivo < ApplicationRecord
 
   MAX_PDF_SIZE = 40.megabytes
 
-  validate :pdf_must_be_attached
+#  validate :pdf_must_be_attached
   validate :pdf_valid, unless: -> {self.rlzd}
   validate :safe_pdf, unless: -> {self.rlzd}
 
@@ -30,12 +30,9 @@ class ActArchivo < ApplicationRecord
   scope :crtd_ordr, -> { order(created_at: :desc) }
   scope :fecha_ordr, -> { order(:fecha) }
 
+  scope :where_code, ->(code) {where(act_archivo: code)}
   scope :with_attached_pdf, -> { includes(pdf_attachment: :blob) }
 
-  # Procesador de demanda Version 2-0 DESCONECTADO
-#  after_create :procesar_demanda, if: :es_demanda?
-  # Cambiar after_create por after_commit
-#  after_commit :procesar_demanda, on: :create, if: :es_demanda?
   after_commit :generar_metadata_anonimizacion, on: [:create, :update]
 
   # Reemplaza lo siguiente

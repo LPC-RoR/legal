@@ -41,11 +41,11 @@ module DnncMthds
 	end
 
 	def apt_coordinada?
-		!!ownr.coordinacion_apt ? file_or_check?('crdncn_apt') : true
+		!!ownr.coordinacion_apt ? act_archivos.where_code('crdncn_apt').any? : true
 	end
 
 	def vrfccn_solicitada?
-		!!ownr.verificacion_datos ? file_or_check?('infrmcn') : true
+		!!ownr.verificacion_datos ? act_archivos.where_code('dts_prncpls').any? : true
 	end
 
 	def dnncnts_infrmds?

@@ -1,23 +1,27 @@
 <%= render partial: '0ttl/ttl', locals: {source: 'krn_denuncias', dir: 'shw', hide_gly: true, hide_new: true} %>
-
-<%#= @kproc.etapa.to_s %>
-<%#= @kproc.tarea %>
-
-<%#= render partial: '0p/ttl_clss', locals: {source: 'krn_denuncias', dir: 'shw', hide_gly: true} %>
 <%= render partial: 'layouts/partials/notice_alert' %>
+
+<%= render partial: prtl_name(@objeto, 'shw', 'etapa_tarea'), locals: {ownr: @objeto} %>
 
 <div class="mx-1 montserrat-regular">
 
 	<%= render partial: prtl_name(@objeto, 'shw', 'shw_tab'), locals: { objt: @objeto } %>
-	<div class="border-start border-end border-bottom p-2">
-		<% case @tbs[@indx] %>
-		<% when 'Proceso' %>
-			<%= render partial: prtl_name(@objeto, 'shw', 'shw_proceso'), locals: {objeto: @objeto} %>
-		<% when 'Participantes' %>
-			<%= render partial: prtl_name(@objeto, 'shw', 'shw_prtcpnts'), locals: {objeto: @objeto} %>
-		<% when 'Declaraciones' %>
+	<div class="border-start border-end border-bottom p-2" style=" min-height: 20rem;">
+		<% case @indx %>
+		<% when 0 %>
+			<%# Denuncia %>
+			<%= render partial: prtl_name(@objeto, 'shw', 'shw_denuncia'), locals: {objeto: @objeto} %>
+		<% when 1 %>
+			<%# Notificaciones %>
+			<%= render partial: prtl_name(@objeto, 'shw', 'shw_ntfccns'), locals: {objeto: @objeto} %>
+		<% when 2 %>
+			<%# Declaraciones %>
 			<%= render partial: prtl_name(@objeto, 'shw', 'shw_dclrcns'), locals: {objeto: @objeto} %>
-		<% when 'Reportes' %>
+		<% when 3 %>
+			<%# Plazos %>
+			<%= render partial: prtl_name(@objeto, 'shw', 'shw_plzs'), locals: {objeto: @objeto} %>
+		<% when 4 %>
+			<%# Recursos %>
 			<%= render partial: prtl_name(@objeto, 'shw', 'shw_rcrss'), locals: {objeto: @objeto} %>
 		<% end %>
 	</div>

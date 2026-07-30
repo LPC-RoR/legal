@@ -19,4 +19,8 @@ class TxtEditable < ApplicationRecord
   def to_plain_text
     contenido.to_plain_text
   end
+
+  def dnnc
+    ownr.dnnc
+  end
 end

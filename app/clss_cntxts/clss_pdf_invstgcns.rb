@@ -2,22 +2,43 @@
 class ClssPdfInvstgcns
   include ConditionalArray
 
+  DCLRCN_CDGS = ['dclrcn', 'txt_dclrcn', 'declaracion', 'dclrcn_annmzd', 'dclrcn_rsmn']
+
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS = {
     dnnc: [
-      { code: 'crdncn_apt',   condition: ->(o) { !!o.ownr.coordinacion_apt && o.ownr.app_contactos.exists?(grupo: 'Apt') } },
-      { code: 'dts_prncpls',  condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') } },
-      { code: 'dts_tstgs',    condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') } }
+      { code: 'crdncn_apt',   condition: ->(o) { !!o.ownr.coordinacion_apt && o.ownr.app_contactos.exists?(grupo: 'Apt') && o.krn_denunciantes.any? } },
+      { code: 'dts_prncpls',  condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_denunciantes.any? } },
+      { code: 'dts_tstgs',    condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_testigos.any? } },
+      { code: 'denuncia',     condition: ->(o) { true } },
+      { code: 'dnnc_annmzd',  condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } },
+      { code: 'dnnc_rsmn',    condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } }
     ],
     dnncnt: [
-      { code: 'txt_mdds_rsgrd', condition: ->(o) { true } },
+      { code: 'rprsntcn',               condition: ->(o) { o.dnnc.presentado_por == 'Representante' } },
+      { code: 'artcl_516',              condition: ->(o) { !!o.articulo_516 } },
+      { code: 'dnncnt_info_oblgtr',     condition: ->(o) { true } },
+      { code: 'comprobante',            condition: ->(o) { true } },
+      { code: 'invstgcn',               condition: ->(o) { true } },
+      { code: 'drchs',                  condition: ->(o) { true } },
+      { code: 'apt',                    condition: ->(o) { true } },
+      { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
+      { code: 'antecedentes',           condition: ->(o) { true } },
+      { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } }
     ],
     dnncd: [
-      { code: 'txt_mdds_rsgrd', condition: ->(o) { true } },
+      { code: 'artcl_516',              condition: ->(o) { !!o.articulo_516 } },
+      { code: 'invstgcn',               condition: ->(o) { true } },
+      { code: 'drchs',                  condition: ->(o) { true } },
+      { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
+      { code: 'antecedentes',           condition: ->(o) { true } },
+      { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } }
     ],
     tstg: [
+      { code: 'drchs',                  condition: ->(o) { true } },
+      { code: 'antecedentes',           condition: ->(o) { true } },
     ]
   }
 
@@ -28,18 +49,55 @@ class ClssPdfInvstgcns
 
   def self.nombre
     {
+      'rprsntcn'                => 'Poder simple que establece la representación',
+      'artcl_516'               => 'Solicitud de aplicación del artículo 516',
       'crdncn_apt'              => 'Coordinación de Atención Psicológica Temprana',
       'dts_prncpls'             => 'Verificación de datos de las personas denunciantes y denunciadas',
       'dts_tstgs'               => 'Verificación de datos de los testigos',
-      'infrmcn'                 => 'Verificación de datos de los participantes',
+      'denuncia'                => 'Denuncia',
+      'dnnc_annmzd'             => 'Denuncia anonimizada',
+      'dnnc_rsmn'               => 'Resumen de la denuncia',
+      'dnncnt_info_oblgtr'      => 'Información obligatoria para las personas denunciantes',
+      'comprobante'             => 'Comprobante de recpción de denuncia',
+      'invstgcn'                => 'Notificación de recepción de denuncia',
+      'drchs'                   => 'Derechos y obligaciones de los participantes',
+      'apt'                     => 'Evidencias de atención psicológica temprana',
       'txt_mdds_rsgrd'          => 'Notificación de las medidas de resguardo',
+      'antecedentes'            => 'Documentos presentados por el participante',
+      'invstgdr'                => 'Notificación del investigador asignado',
+      'dclrcn'                    => 'Citación a declarar para el participante',
+      'txt_dclrcn'                => 'Texto de la declaración',
+      'declaracion'               => 'Declaración firmada',
+      'dclrcn_annmzd'             => 'Declaración anonimizada',
+      'dclrcn_rsmn'               => 'Hechos de la declaración',
       'txt_mdds_crrctvs_sncns'  => 'Notificación de las medidas correctivas y sanciones'
     }
   end
 
+  # ---------------------- Control de despliegue
+  # Se usa para el despliegue pero también para seleccionar en carga_pdf la opción mltpls si corresponde generar más de un PDF
+  def self.has_one?(code)
+    ['crdncn_apt', 'dts_prncpls', 'dts_tstgs', 'denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 
+      'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs'].include?(code)
+  end
+
+  def self.cntrl_fecha?(code)
+    ['apt', 'txt_mdds_crrctvs_sncns'].include?(code)
+  end
+
+  def self.cntrl_fecha_hora?(code)
+    [].include?(code)
+  end
+
+  def self.no_tmplt?(code)
+    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr'].include?(code)
+  end
+  # ---------------------- Control de despliegue (final)
+
   # Un reporte puede generar pdfs para múltiples ownr y no tener ref
-  def ownr_mltpls?(code)
-    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd'].include?(code)
+  ### DEPRECATED
+  def self.ownr_mltpls?(code)
+    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd', 'invstgcn'].include?(code)
   end
 
   def self.ref_code?(code)
@@ -93,6 +151,14 @@ class ClssPdfInvstgcns
 
     def datos_para(reporte, objeto_id, opciones = {})
       case reporte.to_s
+      when 'invstgcn', 'drchs'
+        ownr = opciones[:ownr]
+        dnnc = ownr.dnnc
+        {
+          ownr: ownr,
+          dnnc: dnnc,
+          empresa: dnnc.ownr
+        }
       when 'crdncn_apt', 'dts_prncpls', 'dts_tstgs'
         objeto = KrnDenuncia.find(objeto_id)
         grupo  = reporte.to_s == 'crdncn_apt' ? 'Apt' : 'RRHH'
@@ -102,13 +168,27 @@ class ClssPdfInvstgcns
           contactos: objeto.ownr.app_contactos.where(grupo: grupo),
           grupo: grupo
         }
-        { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
+#        { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
+      when 'txt_mdds_rsgrd', 'txt_mdds_crrctvs_sncns'
+        objeto = TxtEditable.find(objeto_id)  # ← el texto editable
+        ownr   = opciones[:ownr]                # ← el participante
+        {
+          objeto: objeto,
+          ownr: ownr,
+          dnnc: ownr.dnnc,
+          empresa: ownr.dnnc.ownr
+        }
       when 'dnnc', 'st_dclrcns'
         objeto = KrnDenuncia.find(objeto_id)
         { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
       when 'dclrcn', 'txt_dclrcn'
         objeto = KrnDeclaracion.find(objeto_id)
         { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
+      when 'dnncnt_info_oblgtr', 'comprobante'
+        objeto = KrnDenunciante.find(objeto_id)
+        { objeto: objeto, 
+          empresa: objeto.krn_denuncia.ownr,
+          ownr: opciones[:ownr] || objeto.ownr }
       else
         raise "Reporte de investigaciones no soportado: #{reporte}"
       end
@@ -116,6 +196,8 @@ class ClssPdfInvstgcns
 
     def participantes_para(denuncia, reporte)
       case reporte.to_s
+      when 'dnncnt_info_oblgtr'
+        denuncia.krn_denunciantes
       when 'dclrcn', 'txt_dclrcn'
         denuncia.krn_denunciantes + denuncia.krn_denunciados
       when 'crdncn_apt', 'dts_prncpls', 'dts_tstgs'

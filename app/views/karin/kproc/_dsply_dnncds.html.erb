@@ -1,0 +1,14 @@
+<% dir ||= 'lst_dsply' %>
+
+<% if @objeto.violencia? %>
+
+	<%= render partial: '0p/ntc', locals: {color: 'danger', ntc: 'Denuncia de violencia en el trabajo ejercida por terceros. Las personas denunciadas (si las hay) se detallan en las declaraciones.'} %>
+
+<% else %>
+
+	<%= render partial: '0ttl/ttl', locals: {source: 'krn_denunciados', clss: :indx_md, dir: 'indx', hide_lnks: true} %>
+	<% if @objeto.krn_denunciantes.any? %>
+		<%= render partial: '0t/tbl', locals: {clccn: @objeto.krn_denunciados, dir: dir} %>
+	<% end %>
+
+<% end %>

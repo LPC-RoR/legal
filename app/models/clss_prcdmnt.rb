@@ -297,14 +297,14 @@ class ClssPrcdmnt
     [].include?(code)
   end
 
-  def self.prcs_tsks
-    ['tsk_dnncnt_optn_drvcn', 'tsk_vrfccn_dts_incmbnts', 'tsk_mdds_rsgrd', 'tsk_emprs_optn_drvcn', 'tsk_cierre_rcpcn', 
+  def self.dnnc_tsks
+    ['tsk_ingrs', 'tsk_mails_crdncn', 'tsk_dnncnt_optn_drvcn', 'tsk_vrfccn_dts_incmbnts', 'tsk_mdds_rsgrd', 'tsk_emprs_optn_drvcn', 'tsk_cierre_rcpcn', 
       'tsk_asigna_invstgdr', 'tsk_analisis_dnnc', 'tsk_redaccion_infrm', 'tsk_cierre_invstgcn',
       'tsk_infrm', 'tsk_prnncmnt', 'tsk_mdds_sncns'].freeze
   end
 
   def self.prtcpnts_tsks
-    ['tsk_ingrs', 'tsk_mails_crdncn', 'tsk_dnncnt_info_oblgtr', 'tsk_cmprbnt_rcpcn', 'tsk_notificar_dnnc', 'tsk_evidencia_apt'].freeze
+    ['tsk_dnncnt_info_oblgtr', 'tsk_cmprbnt_rcpcn', 'tsk_notificar_dnnc', 'tsk_evidencia_apt'].freeze
   end
 
   def self.dclrcns_tsks

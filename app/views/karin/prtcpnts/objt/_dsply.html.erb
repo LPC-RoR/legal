@@ -32,7 +32,7 @@
 		<%# CREACIÓN de TXTs EDITABLES %>
 		<%# TxtEditable list del ownr %>
 
-		<% etxt_lst = ClssTxtInvstgcns.codes_for(objeto) %>
+		<% etxt_lst = ClssTxtInvstgcns.dsply_codes_for(objeto) %>
 		<%= render partial: '0g/lst_box', locals: {source: 'txt_editables', ownr: objeto, data: {etxt_lst: etxt_lst}} %>
 
 		<%# KrnTexto list del ownr %>

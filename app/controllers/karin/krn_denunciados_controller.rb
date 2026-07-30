@@ -1,7 +1,7 @@
 class Karin::KrnDenunciadosController < ApplicationController
   before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
-  before_action :set_krn_denunciado, only: %i[ show edit update destroy swtch rlzd prsnt set_fld ]
+  before_action :set_krn_denunciado, only: %i[ show edit update destroy cargar_pdf swtch rlzd prsnt set_fld ]
 
   include PdfGeneratable
 
@@ -56,16 +56,16 @@ class Karin::KrnDenunciadosController < ApplicationController
     @objeto = KrnDenunciado.find_by!(verification_token: params[:token])
     @objeto.update!(email_ok: @objeto.email, verification_token: nil)
 
-    redirect_to default_redirect_path(@objeto), notice: 'Correo verificado correctamente'
+    redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: 'Correo verificado correctamente'
   rescue ActiveRecord::RecordNotFound
-    redirect_to default_redirect_path(@objeto), alert: 'Token inválido'
+    redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), alert: 'Token inválido'
   end
 
   # PATCH/PUT /krn_denunciantes/1 or /krn_denunciantes/1.json
   def update
     respond_to do |format|
       if @objeto.update(krn_denunciante_params)
-        format.html { redirect_to default_redirect_path(@objeto), notice: "Denunciado fue exitosamente actualizado." }
+        format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: "Denunciado fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,11 +74,24 @@ class Karin::KrnDenunciadosController < ApplicationController
     end
   end
 
+  ### DEPRECATED
+  def generar_ownr_pdf
+
+    unless params[:code].blank?
+      code = params[:code]
+      generar_pdf(code,
+        ownr: @objeto,
+        objeto_id: @objeto.id,
+        enviar_email: false
+      )
+    end
+  end
+
   # PATCH/PUT /krn_denunciados/1 or /krn_denunciados/1.json
   def update
     respond_to do |format|
       if @objeto.update(krn_denunciado_params)
-        format.html { redirect_to default_redirect_path(@objeto), notice: "Denunciado fue exitosamente actualizado." }
+        format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: "Denunciado fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -92,7 +105,7 @@ class Karin::KrnDenunciadosController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to default_redirect_path(@objeto), notice: "Denunciado fue exitosamente eliminado." }
+      format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: "Denunciado fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

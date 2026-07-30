@@ -1,0 +1,8 @@
+<% ntfccns = objt.act_referencias.where(code: 'invstgdr') %>
+<% dsgncn = objt.act_referencias.find_by(code: 'txt_dsgncn') %>
+
+<% estd_1 = ntfccns.none? ? 'sin notificar' : "notificado (#{ntfccns.count})" %>
+<% estd_2 = dsgncn.present? ? 'sin designación' : "designado" %>
+
+<td><%= objt.krn_investigador&.krn_investigador %></td>
+<td><%= estd_1 %> | <%= estd_2 %></td>

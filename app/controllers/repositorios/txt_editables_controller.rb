@@ -1,7 +1,7 @@
 class Repositorios::TxtEditablesController < ApplicationController
   include PdfGeneratable
 
-  before_action :set_txt_editable, only: %i[ show edit update destroy generar_pdf ]
+  before_action :set_txt_editable, only: %i[ show edit update destroy cargar_pdf ]
 
   # GET /txt_editables or /txt_editables.json
   def index
@@ -18,7 +18,7 @@ class Repositorios::TxtEditablesController < ApplicationController
     cntxt_clss  = ClssTxt.context_class(code)
     @ownr       = params[:oclss].constantize.find(params[:oid])
 
-    @objeto     = @ownr.txt_editables.build(codigo: code, titulo: cntxt_clss.txt_name[code], cntxt_clss: cntxt_clss.to_s)
+    @objeto     = @ownr.txt_editables.build(codigo: code, titulo: cntxt_clss.nombre[code], cntxt_clss: cntxt_clss.to_s)
   end
 
   # GET /txt_editables/1/edit
@@ -53,6 +53,7 @@ class Repositorios::TxtEditablesController < ApplicationController
     end
   end
 
+  ### DEPRECATED
   # ============================================
   # GENERAR PDF DESDE TXT_EDITABLE
   # ============================================
@@ -100,25 +101,6 @@ class Repositorios::TxtEditablesController < ApplicationController
 
   private
 
-    # ============================================
-    # DETERMINAR PARTICIPANTES SEGÚN REPORTE
-    # ============================================
-    def obtener_participantes(krn_denuncia, codigo_pdf)
-      case codigo_pdf
-      when 'txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd'
-        # Todos los denunciantes y denunciados
-        krn_denuncia.krn_denunciantes + krn_denuncia.krn_denunciados
-      when 'txt_dclrcn_dnncnt'  # Ejemplo futuro: solo denunciantes
-        krn_denuncia.krn_denunciantes
-      when 'txt_dclrcn_dnncd'   # Ejemplo futuro: solo denunciados
-        krn_denuncia.krn_denunciados
-      when 'txt_tstg'            # Ejemplo futuro: testigos
-        krn_denuncia.krn_testigos
-      else
-        # Default: todos los participantes
-        krn_denuncia.krn_denunciantes + krn_denuncia.krn_denunciados
-      end
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_txt_editable

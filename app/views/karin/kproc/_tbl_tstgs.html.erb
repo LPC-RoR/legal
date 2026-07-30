@@ -1,0 +1,4 @@
+<% if @objeto.krn_denunciantes.any? %>
+	<%= render partial: '0ttl/ttl', locals: {source: 'krn_testigos', clss: :indx_md, dir: 'indx', blngs: @objeto, hide_gly: true, hide_new: true} %>
+	<%= render partial: '0t/tbl', locals: {clccn: @objeto.krn_testigos, dir: 'lst_dnnc'} %>
+<% end %>

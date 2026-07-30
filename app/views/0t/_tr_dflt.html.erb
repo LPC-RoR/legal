@@ -35,7 +35,7 @@
 
 			<%# 1ra opcion: existe el partial plldwn_lnks %>
 			<% if prtl?(objt, dir, "plldwn_lnks") %>
-				<%= render partial: prtl(objt, dir, "plldwn_lnks"), locals: {objt: objt} %>
+				<%= render partial: '0t/plldwn_lnks', locals: {objt: objt} %>
 			<%# 2da opcion: existe el partial lnks %>
 			<% elsif prtl?(objt, dir, "lnks") %>
 				<%= render partial: prtl(objt, dir, "lnks"), locals: {objt: objt} %>

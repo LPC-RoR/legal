@@ -33,8 +33,8 @@ module Pdfs
       
       resultados = participantes.map do |participante|
         opciones_participante = opciones.merge(
-          ownr: participante,           # ← Ownr es el participante
-          participante: participante     # ← También pasado para el template
+          ownr: participante,             # ← Ownr es el participante
+          participante: participante      # ← También pasado para el template
         )
         new(reporte, opciones_participante).generar
       end
@@ -187,6 +187,8 @@ module Pdfs
         txt_editable: @datos[:txt_editable],
         contenido: @datos[:contenido],
         krn_denuncia: @datos[:krn_denuncia],
+        dnnc: @datos[:dnnc],           # ← AGREGAR
+        objeto: @datos[:objeto],      # ← AGREGAR (por consistencia)
         participante: @datos[:participante],
         tipo_participante: @datos[:tipo_participante],
         denunciantes: @datos[:denunciantes],

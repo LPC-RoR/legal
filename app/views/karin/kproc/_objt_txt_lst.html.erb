@@ -1,0 +1,30 @@
+<% if lst.empty? %>
+	Lista sin elementos
+<% else %>
+	<% lst.each do |objt_txt| %>
+		<% cntxt_clss = ClssTxt.context_class(objt_txt.codigo) %>
+		<% txt_objt = ownr.txt_editables.find_by(codigo: objt_txt.codigo) %>
+
+		<div class="row">
+			<div class="col-10">
+				<i class="bi bi-arrow-return-right"></i> 
+				<%= link_to dma_hm(txt_objt.created_at), txt_objt %>
+				<% if txt_objt.act_referencias.any? %>
+					( <%= txt_objt.act_referencias.count %> )
+				<% end %>
+			</div>
+			<div class="col-2 text-end objt_lnk">
+				<% if (@licencia_activa || current_usuario.operacion?) %>
+					<% if txt_objt.nil? %>
+						<%= render partial: '0p/tbl/lnk_new', locals: {source: 'txt_editables', ownr: ownr, prms: {cdg: cdg}} %>
+					<% else %>
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/txt_editables/#{txt_objt.id}/cargar_pdf?code=#{txt_objt.codigo}", tltp: "Generar pdf", data: {turbo_method: :post, turbo_confirm: "Confirmar generación de PDF"}} do %>
+							<i class="bi bi-file-earmark-plus"></i>
+						<% end %>
+						<%= render partial: '0t/lnks_e', locals: {objt: txt_objt} %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+<% end %>

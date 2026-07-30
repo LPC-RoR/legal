@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy generar_ownr_pdf swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy cargar_pdf swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
 
   include PdfGeneratable
 
@@ -27,6 +27,7 @@ class Karin::KrnDenunciasController < ApplicationController
     when 1
     when 2
     when 3
+    when 4
       @combinados   = @objeto.act_archivos.where(act_archivo: 'combinado')
       @rcrss_infrm  = @objeto.act_archivos.where(act_archivo: ['dsgncn_invstgdr', 'ntfccns', 'dclrcns', 'mds_prb'])
       @rprts        = @objeto.act_archivos.where(act_archivo: 'dnnc').order(created_at: :desc)
@@ -63,7 +64,7 @@ class Karin::KrnDenunciasController < ApplicationController
     set_bck_rdrccn
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to new_dnnc_path(@objeto), notice: "Denuncia fue exitosamente creada." }
+        format.html { redirect_to shw_dnnc_tab_indx(@objeto, 0), notice: "Denuncia fue exitosamente creada." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -85,6 +86,7 @@ class Karin::KrnDenunciasController < ApplicationController
     end
   end
 
+  ### DEPRECATED
   def generar_ownr_pdf
 
     unless params[:code].blank?

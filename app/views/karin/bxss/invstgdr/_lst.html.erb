@@ -1,0 +1,6 @@
+<% if @objeto.krn_inv_denuncias.any? %>
+	<%= render partial: '0t/tbl', locals: {source: 'krn_inv_denuncias', clccn: ownr.krn_inv_denuncias.order(:created_at)} %>
+<% else %>
+	<i class="bi bi-cone-striped text-danger"></i> 
+	Sin investigador asignado
+<% end %>

@@ -1,0 +1,14 @@
+<% array_codes ||= nil %>
+
+<div class="p-2">
+	<% if array_codes.nil? %>
+		<i class="bi bi-cone-striped text-danger"></i> Lista de PDFs vacía.
+	<% else %>
+		<%# PDFs GENERADOS DESDE SERVICIOS CON CONTEXTO %>
+		<% pdf_codes = array_codes %>
+
+		<% pdf_codes.each do |code| %>
+			<%= render partial: 'karin/kproc/objeto_cntxt_ownr', locals: {code: code, mdl: ClssPdfInvstgcns, ownr: ownr} %>
+		<% end %>
+	</div>
+<% end %>

@@ -82,7 +82,8 @@ class KrnDenuncia < ApplicationRecord
 			rol: 	'denuncia',
 			abrev: 	"dnnc-#{id}",
 			sym: 	:dnnc,
-			krn: 	"dnnc-#{id}-2"
+			krn: 	"dnnc-#{id}-2",
+			fml: 	true, 
 		}
 	end
 

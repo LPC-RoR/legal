@@ -2,13 +2,16 @@
 class ClssTxtInvstgcns
   include ConditionalArray
 
+  DCLRCN_CDGS = ['txt_dclrcn']
+
   # Definición estática de códigos con condiciones
   CDGS = {
     dnnc: [
-      { code: 'txt_mdds_rsgrd', condition: ->(o) { true } },
+      { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } },
     ],
     dnncnt: [
+      { code: 'acta',           condition: ->(o) { o.dnnc.via_declaracion == 'Presencial' && o.dnnc.tipo_declaracion == 'Verbal' } },
     ],
     dnncd: [
     ],
@@ -17,18 +20,28 @@ class ClssTxtInvstgcns
     ]
   }
 
-  def self.txt_name
+  def self.nombre
     {
       'txt_mdds_rsgrd'          => 'Medidas de resguardo',
       'txt_mdds_crrctvs_sncns'  => 'Medidas correctivas y sanciones',
-      'firma_mdds'              => 'Firma para notificación de medidas'
+      'firma_mdds'              => 'Firma para notificación de medidas',
+      'txt_dclrcn'              => 'Declaración del participante (editable)'
     }
   end
 
-  def self.codes_for(ownr)
+  def self.dsply_codes_for(ownr)
     items = CDGS[ownr.kywrd[:sym]] || []
     available_codes_for(ownr, items)
   end
+
+  # ---------------------- Control de despliegue
+  def self.has_one?(code)
+    ['firma_mdds'].include?(code)
+  end
+
+  # ---------------------- Control de despliegue (final)
+
+
 
   def self.rdrccn_path(txt_objt)
     case txt_objt.ownr.class.name

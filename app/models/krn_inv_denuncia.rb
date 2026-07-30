@@ -6,6 +6,9 @@ class KrnInvDenuncia < ApplicationRecord
 
 	has_many :act_referencias, as: :ref
 
+	# Método que me entrega el hacs id => razon_social
+	# Alternativa usando pluck (más eficiente para ActiveRecord::Relation)
+
 	def dnnc
 		self.krn_denuncia
 	end
