@@ -1,0 +1,7 @@
+<h5><%= @objeto.ownr.nombre %></h5>
+
+<%= render partial: '0inpts/datetime', locals: { f: f, tkn: :fecha, label: 'Fecha y hora de la declaración' } %>
+
+<%= render partial: '0inpts/text', locals: { f: f, tkn: :enlace, label: 'Enlace para la declaración' } %>
+
+<%= render partial: '0inpts/hidden_lst', locals: { f: f, hddn_lst: [:ownr_type, :ownr_id, :krn_denuncia_id, :krn_investigador_id] } %>

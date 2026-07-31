@@ -1,5 +1,7 @@
+<% clccn = ownr.krn_declaraciones.order(:fecha) %>
+
 <% if ownr.krn_declaraciones.any? %>
-	<%= render partial: '0t/tbl', locals: {source: 'krn_declaraciones', clccn: ownr.krn_declaraciones.order(:fecha)} %>
+	<%= render partial: '0t/tbl', locals: {clccn: clccn, typ: 'ln', hide_ee: true} %>
 <% else %>
-	<i class="bi bi-cone-striped"></i> Agenda vacía
+	<i class="bi bi-cone-striped text-danger"></i> Agenda vacía 
 <% end %>

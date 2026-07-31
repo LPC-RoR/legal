@@ -5,7 +5,8 @@
 <% dir  		||= clss.to_s %>
 <% typ  		||= 'tr' %>
 <% ordr			||= false %>
-<% hide_crud    ||= false %>
+<% hide_lnks    ||= false %>
+<% hide_ee    	||= false %>
 
 <%# Se cargan la class y style definidos en ClssTbl %>
 <div class="<%= ClssTbl.clss_lyt[clss][:bx][:clss] %>" style="<%= ClssTbl.clss_lyt[clss][:bx][:style] %>">
@@ -29,7 +30,7 @@
 			<%# 3ra prioridad: se usa el partial por defecto ubicado en 0t/ _#{typ}_dflt %>
 			<% else %>
 				<!-- NO se puede pasar clss, porque la clase del objeto no puede ser la del título -->
-				<%= render partial: "0t/#{typ}_dflt", locals: {objt: objt, clss: clss, dir: dir, ordr: ordr, hide_crud: hide_crud} %>
+				<%= render partial: "0t/#{typ}_dflt", locals: {objt: objt, clss: clss, dir: dir, ordr: ordr, hide_lnks: hide_lnks, hide_ee: hide_ee} %>
 			<% end %>
 		<% end %>
 

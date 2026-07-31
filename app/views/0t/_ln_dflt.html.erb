@@ -4,7 +4,8 @@
 <% clss 		||= ClssTbl.clss_dflt %>
 <% dir  		||= clss.to_s %>
 <% ordr			||= false %>
-<% hide_crud    ||= false %>
+<% hide_lnks    ||= false %>
+<% hide_ee    	||= false %>
 
 <%# indnt no se viene de lst, REVISAR USO %>
 <% indnt ||= 0 %>
@@ -27,7 +28,7 @@
 
 	<%# LNKS %>
 	<div class="col-3 text-end objt_lnk" style="padding-right: <%=indnt+1%>rem;">
-		<% unless hide_crud %>
+		<% unless hide_lnks %>
 
 			<%# BTN COLLAPSE : REVISAR una versión especial para 0t %>
 			<% if prtl?(objt, dir, "cllps") %>
@@ -46,7 +47,7 @@
 
 			<%# 3da opcion: lnks_e con lft_lnks (opcional) %>
 			<% else %>
-				<%= render partial: '0t/lnks_e', locals: {objt: objt} %>
+				<%= render partial: '0t/lnks_e', locals: {objt: objt} unless hide_ee %>
 			<% end %>
 
 		<% end %>
