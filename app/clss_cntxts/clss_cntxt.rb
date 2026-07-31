@@ -19,6 +19,17 @@ class ClssCntxt < ApplicationRecord
 		end
 	end
 
+	def self.cntxt_pdf_clss_for_objt(objt)
+		src = objt.class.table_name
+		if rcrss?(src)
+			objt.ownr.present? ? cntxt_for(objt.ownr.class.table_name) : :pltfrm
+		elsif krn_source?(src)
+			ClssPdfInvstgcns
+		else
+			ClssPdfPltfrm
+		end
+	end
+
 	# En esta clase no se asignan contxt_clss porque no sabemos de que clase se trata: Ttl, Tipo, etc.
 
 	private 

@@ -1,5 +1,29 @@
 # app/models/clss_pltfrm.rb
 class ClssPdfPltfrm
+
+  CAUSAS_CDGS = {
+      'letras'      => ['demanda'],
+      'cobranza'    => [],
+      'apelaciones' => [],
+      'suprema'     => []
+  }.freeze
+
+  def self.codes(objt)
+    case objt.class.table_name
+    when 'causas'
+      CAUSAS_CDGS[objt.code_causa]
+    when 'clientes'
+      ['contrato']
+    end
+  end
+
+  def self.nombre
+    {
+      demanda:      'Demanda',
+      contrato:     'Contrato'
+    }.freeze
+  end
+
   class << self
     def datos_usuarios_registrados(objeto_id, opciones = {}, ownr: nil)
       {
