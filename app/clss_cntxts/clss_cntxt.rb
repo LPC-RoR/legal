@@ -40,6 +40,6 @@ class ClssCntxt < ApplicationRecord
 
 	def self.rcrss?(source)
 		src = source.class.name == 'String' ? source : source.class.tabla_name
-		['app_contactos', 'app_nominas', 'act_archivos', 'notas'].include?(src)		
+		['app_contactos', 'app_nominas', 'act_archivos', 'notas', 'txt_editables'].include?(src)		
 	end
 end

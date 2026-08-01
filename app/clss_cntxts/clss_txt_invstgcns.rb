@@ -6,6 +6,13 @@ class ClssTxtInvstgcns
 
   # Definición estática de códigos con condiciones
   CDGS = {
+    emprs: [
+      { code: 'firma_mdds', condition: ->(o) { true } },
+    ],
+    invstgdr: [
+      { code: 'txt_invstgdr_firma',     condition: ->(o) { true } },
+      { code: 'txt_invstgdr_dsgncn', condition: ->(o) { true } },
+    ],
     dnnc: [
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } },
@@ -14,9 +21,6 @@ class ClssTxtInvstgcns
       { code: 'acta',           condition: ->(o) { o.dnnc.via_declaracion == 'Presencial' && o.dnnc.tipo_declaracion == 'Verbal' } },
     ],
     dnncd: [
-    ],
-    emprs: [
-      { code: 'firma_mdds', condition: ->(o) { true } },
     ]
   }
 
@@ -25,7 +29,9 @@ class ClssTxtInvstgcns
       'txt_mdds_rsgrd'          => 'Medidas de resguardo',
       'txt_mdds_crrctvs_sncns'  => 'Medidas correctivas y sanciones',
       'firma_mdds'              => 'Firma para notificación de medidas',
-      'txt_dclrcn'              => 'Declaración del participante (editable)'
+      'txt_dclrcn'              => 'Declaración del participante (editable)',
+      'txt_invstgdr_firma'      => 'Firma del investigador',
+      'txt_invstgdr_dsgncn'     => 'Designación del investigador'
     }
   end
 
@@ -47,6 +53,8 @@ class ClssTxtInvstgcns
     case txt_objt.ownr.class.name
     when 'Empresa'
       "/empresas/#{txt_objt.ownr.id}/edit"
+    when 'KrnInvestigador'
+      txt_objt.ownr
     else
       txt_objt.ownr.dnnc
     end

@@ -40,6 +40,18 @@ class KrnInvestigador < ApplicationRecord
 		pluck(:id, :krn_investigador).to_h
 	end
 
+	def kywrd
+		{
+			rol: 	'investigador',
+			abrev: 	"invstgdr-#{id}",
+			sym: 	:invstgdr,
+			krn: 	"invstgdr-#{id}",
+			fml: 	false
+		}
+	end
+
+	## REVISAR desde aqui
+
 	def dflt_bck_rdrccn
 		"/cuentas/#{self.ownr.class.name[0].downcase}_#{self.ownr.id}/invstgdrs"
 	end

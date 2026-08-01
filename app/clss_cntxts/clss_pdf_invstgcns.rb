@@ -6,6 +6,10 @@ class ClssPdfInvstgcns
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS = {
+    invstgdr: [
+      { code: 'txt_invstgdr_dsgncn',    condition: ->(o) { true } },
+      { code: 'invstgdr_titulo_prfsnl', condition: ->(o) { true } }
+    ],
     dnnc: [
       { code: 'crdncn_apt',   condition: ->(o) { !!o.ownr.coordinacion_apt && o.ownr.app_contactos.exists?(grupo: 'Apt') && o.krn_denunciantes.any? } },
       { code: 'dts_prncpls',  condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_denunciantes.any? } },
@@ -49,6 +53,8 @@ class ClssPdfInvstgcns
 
   def self.nombre
     {
+      'txt_invstgdr_dsgncn'     => 'Designación del investigador',
+      'invstgdr_titulo_prfsnl'  => 'Título profesional del investigador',
       'rprsntcn'                => 'Poder simple que establece la representación',
       'artcl_516'               => 'Solicitud de aplicación del artículo 516',
       'crdncn_apt'              => 'Coordinación de Atención Psicológica Temprana',

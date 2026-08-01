@@ -12,15 +12,6 @@
 	<%= render partial: 'recursos/notas/shr/notas', locals: {ownr: objeto} %>
 </div>
 
-<%# if objeto.krn_denunciantes.any? %>
-	<%# etxt_lst = ClssTxtInvstgcns.dsply_codes_for(objeto) %>
-	<%#= render partial: '0g/lst_box', locals: {source: 'txt_editables', ownr: objeto, data: {etxt_lst: etxt_lst}} %>
-
-	<%# KrnTexto list del ownr %>
-	<%# txt_lst_cdg = ClssPdfRprt.txt_lst_cdg(objeto, nil) %>
-	<%#= render partial: prtl_name('krn_textos', nil, 'txt_list'), locals: {ownr: objeto, txt_lst_cdg: txt_lst_cdg} %>
-<%# end %>
-
 <%# DOCUMENTOS CONTROLADOS %>
 <%#= render layout: 'karin/krn_denuncias/shw/proceso/tsk_tmplt', locals: {ttl: 'Documentos controlados de la denuncia', gly: 'caret-right-fill'} do %>
 	<%#= render partial: 'repositorios/act_archivos/dsply_cntrlds', locals: {mdl: ClssPrcdmnt, ownr: objeto, dsply_lnks: true} %>

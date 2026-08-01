@@ -26,6 +26,11 @@ module Paths
 			shw_cnt_tab_indx(objt, 'cntcts')
 		when 'app_nominas'
 			shw_cnt_tab_indx(objt, 'nmn')
+		when 'txt_editables'
+			case objt.ownr.class.table_name
+			when 'krn_investigadores'
+				objt.ownr
+			end
 		end
 	end
 
@@ -39,7 +44,7 @@ module Paths
 		when 'krn_empresa_externas'
 			shw_cnt_tab_indx(objt, 'extrns')
 		when 'krn_denunciantes', 'krn_denunciados', 'krn_testigos'
-			shw_dnnc_tab_indx(objt.krn_denuncia, 1)
+			shw_dnnc_tab_indx(objt.krn_denuncia, 0)
 		end
 	end
 

@@ -9,7 +9,9 @@ class ClssTxt
 	    'estadisticas_generales'    => :pltfrm,
 	    
 	    # === INVESTIGACIONES (invstgcns) ===
-	    'txt_mdds_rsgrd'			=> :invstgcns,
+	    'txt_invstgdr_firma'		=> :invstgcns,    # ← FIRMA DEL INVESTIGADOR
+	    'txt_invstgdr_dsgncn'		=> :invstgcns,    # ← DESIGNACION DEL INVESTIGADOR
+	    'txt_mdds_rsgrd'			=> :invstgcns,    # ← MEDIDAS DE RESGUARDO
 	    'txt_objcn_rslcn'			=> :invstgcns,
 	    'txt_anlss'					=> :invstgcns,
 	    'txt_infrm'					=> :invstgcns,
@@ -28,7 +30,7 @@ class ClssTxt
 	    'txt_dsgncn'				=> :invstgcns,
 	    'txt_firma_rcpcn'			=> :invstgcns,
 	    'txt_emprs'					=> :invstgcns,
-	    'txt_mdds_crrctvs_sncns'	=> :invstgcns,
+	    'txt_mdds_crrctvs_sncns'	=> :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES
 	    'firma_mdds'				=> :invstgcns,
 	    
 	    # === FINANZAS (fnnzs) ===
