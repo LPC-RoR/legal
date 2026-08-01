@@ -3,7 +3,7 @@ class ClssPdfInvstgcns
   include ConditionalArray
 
   DCLRCN_CDGS = ['dclrcn', 'txt_dclrcn', 'declaracion', 'dclrcn_annmzd', 'dclrcn_rsmn']
-  RCRSS_CDGS  = ['txt_invstgdr_dsgncn']
+  RCRSS_CDGS  = ['txt_invstgdr_dsgncn', 'dsgncn_invstgdr']
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS = {
@@ -54,7 +54,8 @@ class ClssPdfInvstgcns
 
   def self.nombre
     {
-      'txt_invstgdr_dsgncn'     => 'Designación del investigador',
+      'txt_invstgdr_dsgncn'       => 'Designación del investigador (declaración)',
+      'dsgncn_invstgdr'           => 'Designación del investigador',
       'invstgdr_titulo_prfsnl'  => 'Título profesional del investigador',
       'rprsntcn'                => 'Poder simple que establece la representación',
       'artcl_516'               => 'Solicitud de aplicación del artículo 516',
