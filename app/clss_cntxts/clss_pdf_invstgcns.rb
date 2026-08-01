@@ -7,7 +7,6 @@ class ClssPdfInvstgcns
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS = {
     invstgdr: [
-      { code: 'txt_invstgdr_dsgncn',    condition: ->(o) { true } },
       { code: 'invstgdr_titulo_prfsnl', condition: ->(o) { true } }
     ],
     dnnc: [
@@ -96,7 +95,7 @@ class ClssPdfInvstgcns
   end
 
   def self.no_tmplt?(code)
-    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr'].include?(code)
+    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl'].include?(code)
   end
   # ---------------------- Control de despliegue (final)
 

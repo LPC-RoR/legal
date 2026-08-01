@@ -28,14 +28,11 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
-    TarServicio.all.each do |srvc|
-      srvc.estado = 'vigente'
-      srvc.save
-    end
+    lst = ActArchivo.where(act_archivo: 'titulo_prfsnl')
 
-    Asesoria.all.each do |ass|
-      ass.estado_operativo = 'tramitacion'
-      ass.save
+    lst.each do |act|
+      act.act_archivo = 'invstgdr_titulo_prfsnl'
+      act.save
     end
 
     redirect_to root_path
