@@ -5,9 +5,9 @@
 <% clr = email_verificado || articulo_516 ? 'text-primary' : (email_validado ? 'text-success' : 'text-secondary')  %>
 
 <tr>
-	<td class="fw-bold"><%= s_rut(objt.rut) %></td>
-	<td class="fw-bold"><%= objt.nombre %></td>
-	<td class="fw-bold <%=clr%>">
+	<td><%= s_rut(objt.rut) %></td>
+	<td><%= objt.nombre %></td>
+	<td class="<%=clr%>">
 		<%= articulo_516 ? objt.direccion_notificacion : objt.email %>
 	</td>
 	<td class="text-end"><%= render partial: '0t/plldwn_lnks', locals: {objt: objt} %></td>

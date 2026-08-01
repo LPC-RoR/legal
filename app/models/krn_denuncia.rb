@@ -40,11 +40,6 @@ class KrnDenuncia < ApplicationRecord
 	has_many :check_auditorias, as: :ownr, dependent: :destroy
 	has_many :audit_notas, as: :ownr, dependent: :destroy
 
-	# KrnTexto se usa para guardar texto personalizado para ser insertado en los reportes
-	# el campo 'codigo' es el código del reporte
-	has_many :krn_textos, as: :ownr, dependent: :destroy
-	accepts_nested_attributes_for :krn_textos, allow_destroy: true
-
 	has_many :rep_archivos, as: :ownr, dependent: :destroy
 
 	has_many :notas, as: :ownr, dependent: :destroy

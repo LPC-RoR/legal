@@ -37,9 +37,6 @@ class KrnDenunciante < ApplicationRecord
 
 	has_many :krn_declaraciones, as: :ownr, dependent: :destroy
 
-	has_many :krn_textos, as: :ownr, dependent: :destroy
-	accepts_nested_attributes_for :krn_textos, allow_destroy: true
-
 	delegate :rut, :razon_social, to: :krn_empresa_externa, prefix: true
 
 	scope :rut_ordr, -> {order(:rut)}
