@@ -28,12 +28,6 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
-    lst = ActArchivo.where(act_archivo: 'txt_dsgncn')
-
-    lst.each do |act|
-      act.act_archivo = 'txt_invstgdr_dsgncn'
-      act.save
-    end
 
     redirect_to root_path
   end

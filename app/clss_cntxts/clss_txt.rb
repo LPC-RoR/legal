@@ -27,7 +27,6 @@ class ClssTxt
 	    'confirmacion_hechos'		=> :invstgcns,
 	    'txt_firma'					=> :invstgcns,
 	    'txt_invstgdr'				=> :invstgcns,
-	    'txt_dsgncn'				=> :invstgcns,
 	    'txt_firma_rcpcn'			=> :invstgcns,
 	    'txt_emprs'					=> :invstgcns,
 	    'txt_mdds_crrctvs_sncns'	=> :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES

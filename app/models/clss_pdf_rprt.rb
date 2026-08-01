@@ -10,7 +10,6 @@ class ClssPdfRprt
 	RCRD_CLSS = {
 		medidas_resguardo: 		ActArchivo,
 		invstgdr: 				KrnInvDenuncia,
-		txt_dsgncn: 			KrnInvDenuncia,
 		drvcn: 					KrnDerivacion,
 		dclrcn: 				KrnDeclaracion,
 		crdncn_apt: 			KrnDenuncia,
@@ -26,7 +25,7 @@ class ClssPdfRprt
 	}.freeze
 
 	def self.ntfcdr_rprt?(rprt)
-		['medidas_resguardo', 'invstgdr', 'txt_dsgncn', 'drvcn', 
+		['medidas_resguardo', 'invstgdr', 'drvcn', 
 			'dclrcn', 'crdncn_apt', 'infrmcn', 'dnnc', 
 			'st_dclrcns', 'txt_acta', 'txt_mdds_rsgrd', 
 			'txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico', 'txt_infrm'].include?(rprt)
@@ -54,15 +53,13 @@ class ClssPdfRprt
 	end
 
 	# Reporte cuyo destinatario es el ownr del registro notificador
-	# txt_dsgncn no aplicaca para txt_rcrs_rprt? porque su notificador es su ownr, no ownr.ownr
-	# txt_dsgncn no aplicaca para rcrs_rprt? porque su ownr no es denuncia
 	def self.ownr_rprt?(rprt)
-		['dclrcn', 'txt_dclrcn', 'txt_dsgncn'].include?(rprt)
+		['dclrcn', 'txt_dclrcn'].include?(rprt)
 	end
 
 	# El reporte no se envía, sólo se genera el PDF
 	def self.no_email_rprt?(rprt)
-		['txt_infrm', 'texto_anonimizado', 'resumen_cronologico', 'txt_dsgncn'].include?(rprt)
+		['txt_infrm', 'texto_anonimizado', 'resumen_cronologico'].include?(rprt)
 	end
 
 	# El PDF es un recurso
@@ -77,7 +74,7 @@ class ClssPdfRprt
 
 	# Se salta las verificaciones que impiden enviar el mismo reporte, participante de un mismo día
 	def self.no_lock?(rprt)
-		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos', 'txt_dsgncn'].include?(rprt)
+		['txt_dclrcn', 'dclrcn', 'dnnc', 'st_dclrcns', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos'].include?(rprt)
 	end
 
 	def self.tab_dclrcns_rprt?(rprt)
@@ -228,13 +225,12 @@ class ClssPdfRprt
   		dnncnt_1: 	['txt_rprsntcn', 'txt_slctd_516', 'txt_acta'],
   		prtcpnts_1: ['txt_slctd_516'],
   		prtcpnts_2: ['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos'],
-  		invstgdr:  	['txt_firma', 'txt_invstgdr', 'txt_dsgncn'],
+  		invstgdr:  	['txt_firma', 'txt_invstgdr'],
   		emprs: 		['txt_firma_rcpcn', 'txt_emprs']
   	}
   end
 
   # Estos son los textos plantillas para ser llamados desde cualquie reporte.
-  # NO incluí txt_dsgncn (designación del investigador) porque debo generarlo desde la denuncia (referido a la dnnc)
   # Una vez generado se debe combinar con el título
   def self.txt_plntlls?(cdg)
   	['txt_firma', 'txt_firma_rcpcn', 'txt_invstgdr', 'txt_emprs', 'txt_emprs_dnnc'].include?(cdg)
