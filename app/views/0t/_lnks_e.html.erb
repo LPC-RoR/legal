@@ -1,4 +1,6 @@
 <%# lnk_eliminar no tiene has_child? : La idea es implementar cuando tenga sentido REVISAR el cómo %>
+<% hide_edtr	||= false %>
+<% hide_elmnr	||= false %>
 
-<%= render partial: '0t/lnk_editar', locals: {objt: objt} %>
-<%= render partial: '0t/lnk_eliminar', locals: {objt: objt} %>
+<%= render partial: '0t/lnk_editar', locals: {objt: objt} unless hide_edtr %>
+<%= render partial: '0t/lnk_eliminar', locals: {objt: objt} unless hide_elmnr %>
