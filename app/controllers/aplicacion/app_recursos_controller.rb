@@ -28,10 +28,10 @@ class Aplicacion::AppRecursosController < ApplicationController
   end
 
   def migrar_cuantias
-    lst = ActArchivo.where(act_archivo: 'titulo_prfsnl')
+    lst = ActArchivo.where(act_archivo: 'txt_dsgncn')
 
     lst.each do |act|
-      act.act_archivo = 'invstgdr_titulo_prfsnl'
+      act.act_archivo = 'txt_invstgdr_dsgncn'
       act.save
     end
 

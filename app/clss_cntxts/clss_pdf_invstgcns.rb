@@ -7,6 +7,7 @@ class ClssPdfInvstgcns
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS = {
     invstgdr: [
+      { code: 'txt_invstgdr_dsgncn',    condition: ->(o) { true } },
       { code: 'invstgdr_titulo_prfsnl', condition: ->(o) { true } }
     ],
     dnnc: [
