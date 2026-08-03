@@ -33,7 +33,7 @@ class ActArchivo < ApplicationRecord
   scope :where_code, ->(code) {where(act_archivo: code)}
   scope :with_attached_pdf, -> { includes(pdf_attachment: :blob) }
 
-  after_commit :generar_metadata_anonimizacion, on: [:create, :update]
+#  after_commit :generar_metadata_anonimizacion, on: [:create, :update]
 
   # Reemplaza lo siguiente
   # has_many :refs, through: :act_referencias, source: :ref, source_type: "Ref"  # o el nombre que prefieras

@@ -53,42 +53,6 @@ class Repositorios::TxtEditablesController < ApplicationController
     end
   end
 
-  ### DEPRECATED
-  # ============================================
-  # GENERAR PDF DESDE TXT_EDITABLE
-  # ============================================
-  # @param codigo_pdf [String] Código del reporte a generar
-  # @param id [Integer] ID del TxtEditable
-  def generar_pdf
-    codigo_pdf = params[:codigo_pdf]
-    
-    # Verificaciones de codigo_pdf y valid_report?: REVISAR funcionamiento
-    unless codigo_pdf.present?
-      return render json: { error: "Se requiere parámetro codigo_pdf" }, status: :bad_request
-    end
-
-    unless ClssPdf.valid_report?(codigo_pdf)
-      return render json: { error: "Reporte no válido: #{codigo_pdf}" }, status: :bad_request
-    end
-
-    # Obtener la denuncia asociada
-    krn_denuncia = @objeto.ownr
-    
-    # Determinar participantes según el tipo de reporte
-    participantes = obtener_participantes(krn_denuncia, codigo_pdf)
-    
-    if participantes.empty?
-      return render json: { error: "No hay participantes para generar el PDF" }, status: :unprocessable_content
-    end
-
-    # Generar PDFs múltiples (uno por participante)
-    generar_pdf_multiples(codigo_pdf, 
-      objeto_id: @objeto.id,
-      participantes: participantes,
-      async: false
-    )
-  end
-
   # DELETE /txt_editables/1 or /txt_editables/1.json
   def destroy
     @objeto.destroy!

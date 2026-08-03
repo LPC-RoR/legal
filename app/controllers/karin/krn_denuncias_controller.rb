@@ -1,9 +1,10 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy cargar_pdf swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy cargar_pdf combinar_pdf swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
 
   include PdfGeneratable
+  include PdfCombinable
 
   # REVISAR Reemplazo con PdfGeneratable
   include MailDesk

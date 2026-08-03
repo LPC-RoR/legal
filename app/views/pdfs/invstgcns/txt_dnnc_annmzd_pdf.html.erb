@@ -1,0 +1,25 @@
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Modelo de confidencialidad
+</div>
+
+<div class="text-center fs-5">
+  Denuncia anonimizada: <%= @dnnc.identificador %>
+</div>
+
+<small>
+<ul class="mt-4">
+  <li>El modelo de anonimización aplicado a la presente denuncia, consiste el en reemplazo de la información de los participantes por códigos representativos.</li>
+  <li>Específicamente se reemplazan nombres, direcciones de correo electrónico, cargos y cédulas de identidad. No se realizan modificaciones en la redacción del documento, siendo en este sentido, copia fiel del original.</li>
+  <li>El proceso de anonimización es realizado por un agente de inteligencia artificial y revisado por un integrante del equipo cuya función es exclusivamente revisar que toda la información sensible haya sido efectivamente reemplazada.</li>
+</ul>
+</small>
+
+<h6>Documento anonimizado:</h6>
+
+<p>
+  <small>
+  <%= @objeto.contenido.to_s.html_safe %>
+  </small>
+</p>

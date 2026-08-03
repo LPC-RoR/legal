@@ -17,11 +17,17 @@ class ClssTxtInvstgcns
     dnnc: [
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } },
+      { code: 'txt_dnnc_annmzd',        condition: ->(o) { true } },
     ],
     dnncnt: [
       { code: 'txt_acta',               condition: ->(o) { o.dnnc.via_declaracion == 'Presencial' && o.dnnc.tipo_declaracion == 'Verbal' } },
+      { code: 'txt_dcrcn_annmzd',       condition: ->(o) { o.dnnc.act_archivos.exists?(act_archivo: 'denuncia') } },
     ],
     dnncd: [
+      { code: 'txt_dcrcn_annmzd',       condition: ->(o) { o.dnnc.act_archivos.exists?(act_archivo: 'denuncia') } },
+    ],
+    tstg: [
+      { code: 'txt_dcrcn_annmzd',       condition: ->(o) { o.dnnc.act_archivos.exists?(act_archivo: 'denuncia') } },
     ]
   }
 
@@ -34,7 +40,8 @@ class ClssTxtInvstgcns
       'txt_mdds_crrctvs_sncns'  => 'Medidas correctivas y sanciones',
       'txt_dclrcn'              => 'Declaración del participante (editable)',
       'txt_invstgdr_firma'      => 'Firma del investigador',
-      'txt_invstgdr_dsgncn'     => 'Designación del investigador'
+      'txt_invstgdr_dsgncn'     => 'Designación del investigador',
+      'txt_dnnc_annmzd'         => 'Denuncia anonimizada'
     }
   end
 
@@ -48,8 +55,8 @@ class ClssTxtInvstgcns
     ['firma_mdds'].include?(code)
   end
 
-  def self.txt_with_tmplt?(code)
-    ['txt_invstgdr_dsgncn'].include?(code)
+  def self.txt_no_tmplt?(code)
+    ['txt_firma_cnl_dnncs', 'txt_firma_mdds', 'txt_invstgdr_firma', 'txt_invstgdr_dsgncn'].include?(code)
   end
   # ---------------------- Control de despliegue (final)
 
@@ -67,21 +74,6 @@ class ClssTxtInvstgcns
   end
 
   class << self
-
-
-    # DEPRECATED
-    def datos_para(reporte, objeto_id, opciones = {})
-      case reporte.to_s
-      when 'dnnc', 'st_dclrcns'
-        objeto = KrnDenuncia.find(objeto_id)
-        { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
-      when 'dclrcn', 'txt_dclrcn'
-        objeto = KrnDeclaracion.find(objeto_id)
-        { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
-      else
-        raise "Reporte de investigaciones no soportado: #{reporte}"
-      end
-    end
 
     def participantes_para(denuncia, reporte)
       case reporte.to_s

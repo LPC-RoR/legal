@@ -3,7 +3,7 @@ class ClssPdfInvstgcns
   include ConditionalArray
 
   DCLRCN_CDGS = ['dclrcn', 'txt_dclrcn', 'declaracion', 'dclrcn_annmzd', 'dclrcn_rsmn']
-  RCRSS_CDGS  = ['txt_invstgdr_dsgncn', 'dsgncn_invstgdr']
+  RCRSS_CDGS  = ['txt_invstgdr_dsgncn']
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS = {
@@ -12,12 +12,12 @@ class ClssPdfInvstgcns
       { code: 'invstgdr_titulo_prfsnl', condition: ->(o) { true } }
     ],
     dnnc: [
-      { code: 'crdncn_apt',   condition: ->(o) { !!o.ownr.coordinacion_apt && o.ownr.app_contactos.exists?(grupo: 'Apt') && o.krn_denunciantes.any? } },
-      { code: 'dts_prncpls',  condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_denunciantes.any? } },
-      { code: 'dts_tstgs',    condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_testigos.any? } },
-      { code: 'denuncia',     condition: ->(o) { true } },
-      { code: 'dnnc_annmzd',  condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } },
-      { code: 'dnnc_rsmn',    condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } }
+      { code: 'crdncn_apt',       condition: ->(o) { !!o.ownr.coordinacion_apt && o.ownr.app_contactos.exists?(grupo: 'Apt') && o.krn_denunciantes.any? } },
+      { code: 'dts_prncpls',      condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_denunciantes.any? } },
+      { code: 'dts_tstgs',        condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_testigos.any? } },
+      { code: 'denuncia',         condition: ->(o) { true } },
+      { code: 'txt_dnnc_annmzd',  condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } },
+      { code: 'txt_dnnc_rsmn',    condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } }
     ],
     dnncnt: [
       { code: 'rprsntcn',               condition: ->(o) { o.dnnc.presentado_por == 'Representante' } },
@@ -63,8 +63,8 @@ class ClssPdfInvstgcns
       'dts_prncpls'             => 'Verificación de datos de las personas denunciantes y denunciadas',
       'dts_tstgs'               => 'Verificación de datos de los testigos',
       'denuncia'                => 'Denuncia',
-      'dnnc_annmzd'             => 'Denuncia anonimizada',
-      'dnnc_rsmn'               => 'Resumen de la denuncia',
+      'txt_dnnc_annmzd'         => 'Denuncia anonimizada',
+      'txt_dnnc_rsmn'           => 'Resumen de la denuncia',
       'dnncnt_info_oblgtr'      => 'Información obligatoria para las personas denunciantes',
       'comprobante'             => 'Comprobante de recpción de denuncia',
       'invstgcn'                => 'Notificación de recepción de denuncia',
@@ -86,7 +86,8 @@ class ClssPdfInvstgcns
   # Se usa para el despliegue pero también para seleccionar en carga_pdf la opción mltpls si corresponde generar más de un PDF
   def self.has_one?(code)
     ['crdncn_apt', 'dts_prncpls', 'dts_tstgs', 'denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 
-      'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs'].include?(code)
+      'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs',
+      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn'].include?(code)
   end
 
   def self.cntrl_fecha?(code)
@@ -99,6 +100,10 @@ class ClssPdfInvstgcns
 
   def self.no_tmplt?(code)
     ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl'].include?(code)
+  end
+
+  def self.no_sndng_code?(code)
+    ['txt_invstgdr_dsgncn'].include?(code)
   end
 
   # ---------------------- Control de despliegue (final)
@@ -178,9 +183,18 @@ class ClssPdfInvstgcns
           grupo: grupo
         }
 #        { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
-      when 'txt_mdds_rsgrd', 'txt_mdds_crrctvs_sncns'
-        objeto = TxtEditable.find(objeto_id)  # ← el texto editable
-        ownr   = opciones[:ownr]                # ← el participante
+      when 'txt_mdds_rsgrd', 'txt_mdds_crrctvs_sncns', 'txt_invstgdr_dsgncn'
+        objeto = TxtEditable.find(objeto_id)    # ← el texto editable
+        ownr   = opciones[:ownr]                # ← el participante | dnnc
+        {
+          objeto: objeto,
+          ownr: ownr,
+          dnnc: ownr.dnnc,
+          empresa: ownr.dnnc.ownr
+        }
+      when 'txt_dnnc_annmzd'
+        objeto = TxtEditable.find(objeto_id)    # ← el texto editable
+        ownr   = objeto.ownr                    # ← dnnc
         {
           objeto: objeto,
           ownr: ownr,

@@ -22,6 +22,9 @@ class ClssPdf
     'txt_mdds_rsgrd'            => :invstgcns,    # ← MEDIDAS DE RESGUARDO
     'antecedentes'              => :invstgcns,    # ← DOCUMENTOS PRESENTADOS POR EL PARTICIPANTE
     'invstgdr'                  => :invstgcns,    # ← NOTIFICACIÓN DEL INVESTIGADOR ASIGNADO
+    'invstgdr_titulo_prfsnl'    => :invstgcns,    # ← TÍTULO PROFESIONAL DEL INVESTIGADOR
+    'txt_invstgdr_dsgncn'       => :invstgcns,    # ← DECLARACIÓN DE LA DESIGNACIÓN DEL INVESTIGADOR
+    'dsgncn_invstgdr'           => :invstgcns, #Temporal
     'dnnc'                      => :invstgcns,
     'st_dclrcns'                => :invstgcns,
     'dclrcn'                    => :invstgcns,
@@ -30,6 +33,7 @@ class ClssPdf
     'texto_anonimizado'         => :invstgcns,
     'resumen_cronologico'       => :invstgcns,
     'txt_mdds_crrctvs_sncns'    => :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES
+    'txt_dnnc_annmzd'           => :invstgcns,    # ← DENUNCIA ANONIMIZADA
     
     # === FINANZAS (fnnzs) ===
     'aprobacion'                => :fnnzs,    # ← APROBACIÓNES DE CAUSAS

@@ -179,6 +179,7 @@ Rails.application.routes.draw do
     resources :krn_denuncias do
       member do
         post :cargar_pdf
+        post :combinar_pdf
       end
       match :swtch, via: :post, on: :member
       match :niler, via: :post, on: :member

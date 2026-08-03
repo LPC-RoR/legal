@@ -1,0 +1,15 @@
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+</div>
+
+<div class="text-center fs-5">
+  Designación del investigador<br>
+  Denuncia <%= @ownr.identificador %>
+</div>
+
+<% dsgncn = @ownr&.krn_inv_denuncias&.last&.krn_investigador&.txt_editables.find_by(codigo: 'txt_invstgdr_dsgncn') %>
+
+<% if dsgncn %>
+<p><%= dsgncn.contenido.to_s.html_safe %></p>
+<% end %>

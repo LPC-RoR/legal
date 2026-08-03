@@ -18,8 +18,10 @@
 					<% if txt_objt.nil? %>
 						<%= render partial: '0p/tbl/lnk_new', locals: {source: 'txt_editables', ownr: ownr, prms: {cdg: cdg}} %>
 					<% else %>
-						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/txt_editables/#{txt_objt.id}/cargar_pdf?code=#{txt_objt.codigo}", tltp: "Generar pdf", data: {turbo_method: :post, turbo_confirm: "Confirmar generación de PDF"}} do %>
-							<i class="bi bi-file-earmark-plus"></i>
+						<% unless ClssTxtInvstgcns.txt_no_tmplt?(txt_objt.codigo) %>
+							<%= render layout: '0p/tltp_lnk', locals: {lnk: "/txt_editables/#{txt_objt.id}/cargar_pdf?code=#{txt_objt.codigo}", tltp: "Generar pdf", data: {turbo_method: :post, turbo_confirm: "Confirmar generación de PDF"}} do %>
+								<i class="bi bi-file-earmark-plus"></i>
+							<% end %>
 						<% end %>
 						<%= render partial: '0t/lnks_e', locals: {objt: txt_objt, hide_elmnr: txt_objt.act_referencias.any? } %>
 					<% end %>

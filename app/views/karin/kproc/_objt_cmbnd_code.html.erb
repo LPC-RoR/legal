@@ -11,11 +11,11 @@
 			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/new#{ownr_prms(ownr)}&code=#{code}", tltp: 'Subir PDF'} do %>
 				<i class="bi bi-upload"></i>
 			<% end %>
-			<% unless ClssPdf.txt_code?(code) || mdl.no_tmplt?(code) %>
-				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.table_name}/#{ownr.id}/cargar_pdf?code=#{code}", tltp: "Generar pdf", data: {turbo_method: :post, turbo_confirm: "Confirmar generación de PDF",}} do %>
-					<i class="bi bi-file-earmark-plus"></i>
+			<%# unless ClssPdf.txt_code?(code) || mdl.no_tmplt?(code) %>
+				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.table_name}/#{ownr.id}/combinar_pdf?code=#{code}", tltp: "Combinar pdf", data: {turbo_method: :post, turbo_confirm: "Confirmar PDF combinado",}} do %>
+					<i class="bi bi-files-alt"></i>
 				<% end %>
-			<% end %>
+			<%# end %>
 		<% end %>
 	</div>
 </div>

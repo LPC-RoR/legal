@@ -1,7 +1,8 @@
-# app/models/clss_txt.rb
-# Gestión de KrnTexto en sus distintos usos
+# app/models/clss_cmbnd.rb
+# Gestión de combinación de PDFs
+# Cáda código es un PDF combinado
 # Esta clase distribuye a las diferentes clases
-class ClssTxt
+class ClssCmbnd
 
 	CONTEXT_MAP = {
 	    # === PLATAFORMA (pltfrm) ===
@@ -9,11 +10,7 @@ class ClssTxt
 	    'estadisticas_generales'    => :pltfrm,
 	    
 	    # === INVESTIGACIONES (invstgcns) ===
-	    'txt_firma_cnl_dnncs'		=> :invstgcns,    # ← FIRMA DEL CANAL DE DENUNCIAS
-	    'txt_firma_mdds'			=> :invstgcns,    # ← FIRMA DEL MEDIDAS DE RESGUARDO Y MEDIDAS CORRECTIVAS & SANCIONES
-	    'txt_invstgdr_firma'		=> :invstgcns,    # ← FIRMA DEL INVESTIGADOR
-	    'txt_invstgdr_dsgncn'		=> :invstgcns,    # ← DESIGNACION DEL INVESTIGADOR
-	    'txt_mdds_rsgrd'			=> :invstgcns,    # ← MEDIDAS DE RESGUARDO
+	    'dsgncn_invstgdr'			=> :invstgcns,    # ← Designación del investigador
 	    'txt_objcn_rslcn'			=> :invstgcns,
 	    'txt_anlss'					=> :invstgcns,
 	    'txt_infrm'					=> :invstgcns,
@@ -24,13 +21,14 @@ class ClssTxt
 	    'txt_slctd_516'				=> :invstgcns,
 	    'txt_acta'					=> :invstgcns,
 	    'txt_dclrcn'				=> :invstgcns,
+	    'texto_anonimizado'			=> :invstgcns,
+	    'resumen_cronologico'		=> :invstgcns,
+	    'confirmacion_hechos'		=> :invstgcns,
 	    'txt_firma'					=> :invstgcns,
 	    'txt_invstgdr'				=> :invstgcns,
 	    'txt_firma_rcpcn'			=> :invstgcns,
 	    'txt_emprs'					=> :invstgcns,
-	    'txt_mdds_crrctvs_sncns'	=> :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES
 	    'firma_mdds'				=> :invstgcns,
-	    'txt_dnnc_annmzd'			=> :invstgcns,    # ← DENUNCIA ANONIMIZADA
 	    
 	    # === FINANZAS (fnnzs) ===
 	    'aprobacion'                => :fnnzs,
@@ -47,10 +45,10 @@ class ClssTxt
 
     # Clases de contexto asociadas
 	CONTEXT_CLASSES = {
-	    pltfrm:     'ClssTxtPltfrm',
-	    invstgcns:  'ClssTxtInvstgcns',
-	    fnnzs:      'ClssTxtFnnzs',
-	    srvcs:      'ClssTxtSrvcs',
+	    pltfrm:     'ClssCmbndPltfrm',
+	    invstgcns:  'ClssCmbndInvstgcns',
+	    fnnzs:      'ClssCmbndFnnzs',
+	    srvcs:      'ClssCmbndSrvcs',
 	}.freeze
 
   # Directorios de templates por contexto
@@ -93,22 +91,6 @@ class ClssTxt
 	    def todos_los_reportes
 	      CONTEXT_MAP.keys
 	    end
-	end
-
-
-	# DEPRECATED
-	CAUSA_TXTS = ['causa_cuantia']	
-
-	def self.causa_txt?(code)
-		ClssTxt::CAUSA_TXTS.include?(code)
-	end
-
-	def self.txt_clss?(code)
-		ClssTxt::CAUSA_TXTS.include?(code) ? ClssTxtCausa : ClssPdfRprt
-	end
-
-	def self.txt_name_clss?(code)
-		ClssTxt::CAUSA_TXTS.include?(code) ? ClssTxtCausa : ClssPrcdmnt
 	end
 
 end

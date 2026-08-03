@@ -15,8 +15,9 @@ module PdfGeneratable
   # Método que se llama desde cargar_pdf en el controlador
   def cargar_ownr_pdf(ownr, code)
     unless code.blank?
+      ownr_efective = ownr.is_a?(TxtEditable) ? ownr.ownr : ownr
       generar_pdf(code,
-        ownr: ownr,
+        ownr: ownr_efective,
         objeto_id: @objeto.id,
         enviar_email: false
       )
