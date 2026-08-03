@@ -133,7 +133,7 @@ class EmpresasController < ApplicationController
     respond_to do |format|
       if @objeto.update(empresa_params)
         purge_logo_if_requested
-        format.html { redirect_to default_redirect_path(@objeto), notice: "Empresa fue exitosamente actualizada." }
+        format.html { redirect_to cntxt_bck_rdrctn(@objeto), notice: "Empresa fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -242,10 +242,6 @@ class EmpresasController < ApplicationController
           Empresa.none
         end
       end
-    end
-
-    def cta_root_path
-      "/cuentas/e_#{@objeto.id}/dnncs"
     end
 
     def purge_logo_if_requested

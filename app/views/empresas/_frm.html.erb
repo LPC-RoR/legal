@@ -2,15 +2,15 @@
 <div class="row gx-0">
     <div class="col-3">
         <% if current_usuario.dog? %>
-            <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :rut, label: 'RUT/Cédula de identidad' } %>
+            <%= render partial: '0inpts/text', locals: { f: f, tkn: :rut, label: 'RUT/Cédula de identidad' } %>
         <% else %>
             <%= s_rut(@objeto.rut)%>
         <% end %>
-        <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :tipo_empresa, label: 'Tipo empresa' } %>
+        <%= render partial: '0inpts/text', locals: { f: f, tkn: :tipo_empresa, label: 'Tipo empresa' } %>
     </div>
     <div class="col-9">
         <% if current_usuario.dog? %>
-            <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :razon_social, label: 'Razon social/Nombre completo' } %>
+            <%= render partial: '0inpts/text', locals: { f: f, tkn: :razon_social, label: 'Razon social/Nombre completo' } %>
         <% else %>
             <%= @objeto.razon_social %>
         <% end %>
@@ -20,14 +20,14 @@
 <div class="row gx-0">
     <div class="col-3">
         <% if current_usuario.dog? %>
-            <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :administrador, label: 'Administrador' } %>
+            <%= render partial: '0inpts/text', locals: { f: f, tkn: :administrador, label: 'Administrador' } %>
         <% else %>
             <%= @objeto.administrador %>
         <% end %>
     </div>
     <div class="col-9">
         <% if current_usuario.dog? %>
-            <%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :email_administrador, label: 'Email administrador' } %>
+            <%= render partial: '0inpts/email', locals: { f: f, tkn: :email_administrador, label: 'Email administrador' } %>
         <% else %>
             <%= @objeto.email_administrador %>
         <% end %>
@@ -40,8 +40,8 @@
 
         <% if @objeto.logo.blank? %>
         <div class="mb-3">
-            <%= form.label :logo, "Logo (PNG/JPG/WEBP/SVG)", class: "form-label" %>
-            <%= form.file_field :logo,
+            <%= f.label :logo, "Logo (PNG/JPG/WEBP/SVG)", class: "form-label" %>
+            <%= f.file_field :logo,
                   class: "form-control",
                   accept: "image/png,image/jpeg,image/webp,image/svg+xml",
                   direct_upload: true,
@@ -71,8 +71,8 @@
 
         <% if @objeto.logo.present? %>
             <div class="form-check mb-3">
-              <%= form.check_box :remove_logo, class: "form-check-input", value: 1 %>
-              <%= form.label :remove_logo, "Eliminar logo", class: "form-check-label" %>
+              <%= f.check_box :remove_logo, class: "form-check-input", value: 1 %>
+              <%= f.label :remove_logo, "Eliminar logo", class: "form-check-label" %>
             </div>
         <% end %>
 
@@ -80,8 +80,8 @@
 
         <% if @objeto.sign.blank? %>
         <div class="mb-3">
-            <%= form.label :sign, "Logo (PNG/JPG/WEBP/SVG)", class: "form-label" %>
-            <%= form.file_field :sign,
+            <%= f.label :sign, "Logo (PNG/JPG/WEBP/SVG)", class: "form-label" %>
+            <%= f.file_field :sign,
                   class: "form-control",
                   accept: "image/png,image/jpeg,image/webp,image/svg+xml",
                   direct_upload: true,
@@ -111,8 +111,8 @@
 
         <% if @objeto.sign.present? %>
             <div class="form-check mb-3">
-              <%= form.check_box :remove_sign, class: "form-check-input", value: 1 %>
-              <%= form.label :remove_sign, "Eliminar firma", class: "form-check-label" %>
+              <%= f.check_box :remove_sign, class: "form-check-input", value: 1 %>
+              <%= f.label :remove_sign, "Eliminar firma", class: "form-check-label" %>
             </div>
         <% end %>
 
@@ -121,23 +121,21 @@
         <h5>Configuracion de la empresa</h5>
         <div class="form-check mb-3">
             <% if current_usuario.dog? %>
-                <%= form.check_box :activa_devolucion, class: "form-check-input", value: 1 %>
-                <%= form.label :activa_devolucion, "Activa solicitud de devolución", class: "form-check-label" %>
+                <%= f.check_box :activa_devolucion, class: "form-check-input", value: 1 %>
+                <%= f.label :activa_devolucion, "Activa solicitud de devolución", class: "form-check-label" %>
             <% end %>
             
-            <%= form.check_box :verificacion_datos, class: "form-check-input", value: 1 %>
-            <%= form.label :verificacion_datos, "Verificación de datos de participantes", class: "form-check-label" %>
+            <%= f.check_box :verificacion_datos, class: "form-check-input", value: 1 %>
+            <%= f.label :verificacion_datos, "Verificación de datos de participantes", class: "form-check-label" %>
 
-            <%= form.check_box :coordinacion_apt, class: "form-check-input", value: 1 %>
-            <%= form.label :coordinacion_apt, "Coordinación de atención psicológica temprana", class: "form-check-label" %>
+            <%= f.check_box :coordinacion_apt, class: "form-check-input", value: 1 %>
+            <%= f.label :coordinacion_apt, "Coordinación de atención psicológica temprana", class: "form-check-label" %>
 
-            <%= form.check_box :mail_backup, class: "form-check-input", value: 1 %>
-            <%= form.label :coordinacion_apt, "Respaldo de correos electrónicos", class: "form-check-label" %>
+            <%= f.check_box :mail_backup, class: "form-check-input", value: 1 %>
+            <%= f.label :coordinacion_apt, "Respaldo de correos electrónicos", class: "form-check-label" %>
         </div>
 
-        <h5>Textos editables</h5>
-        <% etxt_lst = ['firma_mdds'] %>
-        <%= render partial: '0g/lst_box', locals: {source: 'txt_editables', ownr: @objeto, data: {etxt_lst: etxt_lst}} %>
+        <%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_txts'} %>
 
     </div>
 </div>

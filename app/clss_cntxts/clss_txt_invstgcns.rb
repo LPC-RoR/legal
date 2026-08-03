@@ -7,18 +7,19 @@ class ClssTxtInvstgcns
   # Definición estática de códigos con condiciones
   CDGS = {
     emprs: [
-      { code: 'firma_mdds', condition: ->(o) { true } },
+      { code: 'txt_firma_cnl_dnncs',    condition: ->(o) { true } },
+      { code: 'txt_firma_mdds',         condition: ->(o) { true } }
     ],
     invstgdr: [
       { code: 'txt_invstgdr_firma',     condition: ->(o) { true } },
-      { code: 'txt_invstgdr_dsgncn', condition: ->(o) { true } },
+      { code: 'txt_invstgdr_dsgncn',    condition: ->(o) { true } },
     ],
     dnnc: [
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } },
     ],
     dnncnt: [
-      { code: 'acta',           condition: ->(o) { o.dnnc.via_declaracion == 'Presencial' && o.dnnc.tipo_declaracion == 'Verbal' } },
+      { code: 'txt_acta',               condition: ->(o) { o.dnnc.via_declaracion == 'Presencial' && o.dnnc.tipo_declaracion == 'Verbal' } },
     ],
     dnncd: [
     ]
@@ -26,9 +27,11 @@ class ClssTxtInvstgcns
 
   def self.nombre
     {
+      'txt_firma_cnl_dnncs'     => 'Firma del canal de denuncias',
+      'txt_firma_mdds'          => 'Firma para notificación de medidas',
       'txt_mdds_rsgrd'          => 'Medidas de resguardo',
+      'txt_acta'                => 'Acta de la denuncia',
       'txt_mdds_crrctvs_sncns'  => 'Medidas correctivas y sanciones',
-      'firma_mdds'              => 'Firma para notificación de medidas',
       'txt_dclrcn'              => 'Declaración del participante (editable)',
       'txt_invstgdr_firma'      => 'Firma del investigador',
       'txt_invstgdr_dsgncn'     => 'Designación del investigador'
@@ -45,6 +48,9 @@ class ClssTxtInvstgcns
     ['firma_mdds'].include?(code)
   end
 
+  def self.txt_with_tmplt?(code)
+    ['txt_invstgdr_dsgncn'].include?(code)
+  end
   # ---------------------- Control de despliegue (final)
 
 

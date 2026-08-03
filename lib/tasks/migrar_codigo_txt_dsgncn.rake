@@ -1,6 +1,6 @@
 # lib/tasks/migrar_codigo_txt_dsgncn.rake
 namespace :migrar do
-  desc "Cambia codigo 'txt_dsgncn' → 'txt_invstgdr_dsgncn' en TxtEditables vía ActReferencia. Usa DRY_RUN=1."
+  desc "Cambia codigo 'firma_mdds' → 'txt_firma_mdds' en TxtEditables. Usa DRY_RUN=1."
   task codigo_txt_dsgncn: :environment do
     dry_run = ENV['DRY_RUN'].present?
     total   = 0
@@ -9,30 +9,23 @@ namespace :migrar do
 
     puts "=" * 60
     puts "MODO: #{dry_run ? 'SIMULACIÓN (dry_run)' : 'EJECUCIÓN REAL'}"
-    puts "Cambiando codigo: txt_dsgncn → txt_invstgdr_dsgncn"
+    puts "Cambiando codigo: firma_mdds → txt_firma_mdds"
     puts "=" * 60
 
-    # Buscar TxtEditables con codigo 'txt_dsgncn' que estén referenciados por ActReferencia
-    TxtEditable.where(codigo: 'txt_dsgncn').find_each do |txt|
+    # Buscar TxtEditables con codigo 'firma_mdds'
+    TxtEditable.where(codigo: 'firma_mdds').find_each do |txt|
       total += 1
 
-      # Verificar que tenga al menos una ActReferencia (opcional, para confirmar contexto)
-      unless ActReferencia.exists?(ref_type: 'TxtEditable', ref_id: txt.id)
-        skipped += 1
-        puts "[SALTADO] TxtEditable ##{txt.id} → sin ActReferencia asociada"
-        next
-      end
-
       if dry_run
-        puts "[DRY RUN] TxtEditable ##{txt.id} → codigo: #{txt.codigo} → txt_invstgdr_dsgncn"
+        puts "[DRY RUN] TxtEditable ##{txt.id} → codigo: #{txt.codigo} → txt_firma_mdds"
         updated += 1
         next
       end
 
       begin
-        txt.update!(codigo: 'txt_invstgdr_dsgncn')
+        txt.update!(codigo: 'txt_firma_mdds')
         updated += 1
-        puts "[OK] TxtEditable ##{txt.id} → codigo actualizado a txt_invstgdr_dsgncn"
+        puts "[OK] TxtEditable ##{txt.id} → codigo actualizado a txt_firma_mdds"
       rescue => e
         puts "[ERROR] TxtEditable ##{txt.id}: #{e.message}"
       end

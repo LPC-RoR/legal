@@ -23,9 +23,9 @@ module Paths
 	def invstgcns_rcrss_bck_rdrctn(objt)
 		case objt.class.table_name
 		when 'app_contactos'
-			shw_cnt_tab_indx(objt, 'cntcts')
+			shw_cnt_tab_indx(objt.ownr, 'cntcts')
 		when 'app_nominas'
-			shw_cnt_tab_indx(objt, 'nmn')
+			shw_cnt_tab_indx(objt.ownr, 'nmn')
 		when 'txt_editables'
 			case objt.ownr.class.table_name
 			when 'krn_investigadores'
@@ -37,12 +37,14 @@ module Paths
 	# Bck_rdrctn del contexto invstgcn:lcls
 	def invstgcns_lcls_bck_rdrctn(objt)
 		case objt.class.table_name
-		when 'krn_denuncias'
+		when 'empresas'
 			shw_cnt_tab_indx(objt, 'dnncs')
+		when 'krn_denuncias'
+			shw_cnt_tab_indx(objt.ownr, 'dnncs')
 		when 'krn_investigadores'
-			shw_cnt_tab_indx(objt, 'invstgdrs')
+			shw_cnt_tab_indx(objt.ownr, 'invstgdrs')
 		when 'krn_empresa_externas'
-			shw_cnt_tab_indx(objt, 'extrns')
+			shw_cnt_tab_indx(objt.ownr, 'extrns')
 		when 'krn_denunciantes', 'krn_denunciados', 'krn_testigos'
 			shw_dnnc_tab_indx(objt.krn_denuncia, 0)
 		end
@@ -50,7 +52,7 @@ module Paths
 
 	# Path del show de cuentas + tab
 	def shw_cnt_tab_indx(objt, tab)
-		"/cuentas/e_#{objt.ownr.id}/#{tab}"
+		"/cuentas/e_#{objt.id}/#{tab}"
 	end
 
 	# Path del show de denuncia + tab

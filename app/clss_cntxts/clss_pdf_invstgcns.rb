@@ -100,6 +100,7 @@ class ClssPdfInvstgcns
   def self.no_tmplt?(code)
     ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl'].include?(code)
   end
+
   # ---------------------- Control de despliegue (final)
 
   # Un reporte puede generar pdfs para múltiples ownr y no tener ref
