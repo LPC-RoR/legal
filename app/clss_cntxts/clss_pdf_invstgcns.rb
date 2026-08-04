@@ -87,7 +87,7 @@ class ClssPdfInvstgcns
   def self.has_one?(code)
     ['crdncn_apt', 'dts_prncpls', 'dts_tstgs', 'denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 
       'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs',
-      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn'].include?(code)
+      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion'].include?(code)
   end
 
   def self.cntrl_fecha?(code)
@@ -99,7 +99,7 @@ class ClssPdfInvstgcns
   end
 
   def self.no_tmplt?(code)
-    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl'].include?(code)
+    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl', 'declaracion'].include?(code)
   end
 
   def self.no_sndng_code?(code)

@@ -25,6 +25,7 @@ class ClssPdf
     'invstgdr_titulo_prfsnl'    => :invstgcns,    # ← TÍTULO PROFESIONAL DEL INVESTIGADOR
     'txt_invstgdr_dsgncn'       => :invstgcns,    # ← DECLARACIÓN DE LA DESIGNACIÓN DEL INVESTIGADOR
     'dsgncn_invstgdr'           => :invstgcns, #Temporal
+    'declaracion'               => :invstgcns,    # ← DECLARACIÓN FIRMADA
     'dnnc'                      => :invstgcns,
     'st_dclrcns'                => :invstgcns,
     'dclrcn'                    => :invstgcns,
