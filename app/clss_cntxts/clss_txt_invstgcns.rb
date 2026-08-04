@@ -35,7 +35,7 @@ class ClssTxtInvstgcns
       'txt_mdds_rsgrd'          => 'Medidas de resguardo',
       'txt_acta'                => 'Acta de la denuncia',
       'txt_mdds_crrctvs_sncns'  => 'Medidas correctivas y sanciones',
-      'txt_dclrcn'              => 'Declaración del participante (editable)',
+      'txt_dclrcn'              => 'Declaración del participante',
       'txt_invstgdr_firma'      => 'Firma del investigador',
       'txt_invstgdr_dsgncn'     => 'Designación del investigador',
       'txt_dnnc_annmzd'         => 'Denuncia anonimizada',

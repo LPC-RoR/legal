@@ -87,7 +87,7 @@ class ClssPdfInvstgcns
   def self.has_one?(code)
     ['crdncn_apt', 'dts_prncpls', 'dts_tstgs', 'denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 
       'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs',
-      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion'].include?(code)
+      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'txt_dclrcn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion'].include?(code)
   end
 
   def self.cntrl_fecha?(code)
@@ -192,7 +192,7 @@ class ClssPdfInvstgcns
           dnnc: ownr.dnnc,
           empresa: ownr.dnnc.ownr
         }
-      when 'txt_dnnc_annmzd', 'txt_dclrcn_annmzd'
+      when 'txt_dnnc_annmzd', 'txt_dclrcn_annmzd', 'txt_dclrcn'
         objeto = TxtEditable.find(objeto_id)    # ← el texto editable
         ownr   = objeto.ownr                    # ← dnnc
         {
@@ -204,7 +204,7 @@ class ClssPdfInvstgcns
       when 'dnnc', 'st_dclrcns'
         objeto = KrnDenuncia.find(objeto_id)
         { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
-      when 'dclrcn', 'txt_dclrcn'
+      when 'dclrcn'
         objeto = KrnDeclaracion.find(objeto_id)
         { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
       when 'dnncnt_info_oblgtr', 'comprobante'

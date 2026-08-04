@@ -4,7 +4,7 @@ class ClssPdf
   # Cada reporte pertenece a un único contexto
   CONTEXT_MAP = {
     # === PLATAFORMA (pltfrm) ===
-    'actividad_plataforma'      => :pltfrm,
+    'demanda'                   => :pltfrm,
     'estadisticas_generales'    => :pltfrm,
     
     # === INVESTIGACIONES (invstgcns) ===
@@ -29,13 +29,14 @@ class ClssPdf
     'dnnc'                      => :invstgcns,
     'st_dclrcns'                => :invstgcns,
     'dclrcn'                    => :invstgcns,
-    'txt_dclrcn'                => :invstgcns,
+    'txt_dclrcn'                => :invstgcns,    # ← DECLARACIÓN (texto para firma)
     'txt_infrm'                 => :invstgcns,
     'texto_anonimizado'         => :invstgcns,
     'resumen_cronologico'       => :invstgcns,
     'txt_mdds_crrctvs_sncns'    => :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES
     'txt_dnnc_annmzd'           => :invstgcns,    # ← DENUNCIA ANONIMIZADA
     'txt_dclrcn_annmzd'         => :invstgcns,    # ← DECLARACIÓN ANONIMIZADA
+    'txt_dclrcn_rsmn'           => :invstgcns,    # ← HECHOS DE LA DECLARACIÓN
     
     # === FINANZAS (fnnzs) ===
     'aprobacion'                => :fnnzs,    # ← APROBACIÓNES DE CAUSAS

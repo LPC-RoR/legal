@@ -19,10 +19,37 @@ class ClssPdfPltfrm
 
   def self.nombre
     {
-      demanda:      'Demanda',
-      contrato:     'Contrato'
+      'demanda'   =>    'Demanda',
+      'contrato'  =>    'Contrato'
     }.freeze
   end
+
+  # ---------------------- Control de despliegue
+  # Se usa para el despliegue pero también para seleccionar en carga_pdf la opción mltpls si corresponde generar más de un PDF
+  def self.has_one?(code)
+    ['demanda'].include?(code)
+  end
+
+  def self.cntrl_fecha?(code)
+    [].include?(code)
+  end
+
+  def self.cntrl_fecha_hora?(code)
+    [].include?(code)
+  end
+
+  def self.no_tmplt?(code)
+    ['demanda'].include?(code)
+  end
+
+  def self.no_sndng_code?(code)
+    ['demanda'].include?(code)
+  end
+
+  # ---------------------- Control de despliegue (final)
+
+
+
 
   class << self
     def datos_usuarios_registrados(objeto_id, opciones = {}, ownr: nil)

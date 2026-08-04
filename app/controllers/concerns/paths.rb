@@ -19,11 +19,30 @@ module Paths
 		ClssCntxt.rcrss?(objt.class.table_name) ? invstgcns_rcrss_bck_rdrctn(objt) : invstgcns_lcls_bck_rdrctn(objt)
 	end
 
+	def pltfrm_bck_rdrctn(objt)
+		ClssCntxt.rcrss?(objt.class.table_name) ? pltfrm_rcrss_bck_rdrctn(objt) : pltfrm_lcls_bck_rdrctn(objt)
+	end
+
 	# Bck_rdrctn del contexto invstgcn:rcrss
 	def invstgcns_rcrss_bck_rdrctn(objt)
 		case objt.class.table_name
 		when 'app_contactos'
 			shw_cnt_tab_indx(objt.ownr, 'cntcts')
+		when 'app_nominas'
+			shw_cnt_tab_indx(objt.ownr, 'nmn')
+		when 'txt_editables'
+			case objt.ownr.class.table_name
+			when 'krn_investigadores'
+				objt.ownr
+			end
+		end
+	end
+
+	# Bck_rdrctn del contexto pltfrm:rcrss
+	def pltfrm_rcrss_bck_rdrctn(objt)
+		case objt.class.table_name
+		when 'act_archivos'
+			objt.ownr
 		when 'app_nominas'
 			shw_cnt_tab_indx(objt.ownr, 'nmn')
 		when 'txt_editables'

@@ -225,11 +225,11 @@ class KrnDenuncia < ApplicationRecord
 	# ------------------------------------------------------------------------ FIRMAS EN NOTIFICACIONES
 
 	def firma_rcpcn
-		ownr&.krn_textos.where(codigo: 'txt_firma_rcpcn')&.last&.contenido
+		ownr&.txt_editables&.where(codigo: 'txt_firma_rcpcn')&.last&.contenido
 	end
 
 	def firma_invstgdr
-		krn_inv_denuncias&.last&.krn_investigador&.krn_textos.where(codigo: 'txt_firma')&.last&.contenido
+		krn_inv_denuncias&.last&.krn_investigador&.txt_editables&.where(codigo: 'txt_invstgdr_firma')&.last&.contenido
 	end
 
 	# ------------------------------------------------------------------------ MOTIVOS
