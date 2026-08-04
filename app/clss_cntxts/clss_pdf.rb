@@ -34,6 +34,7 @@ class ClssPdf
     'resumen_cronologico'       => :invstgcns,
     'txt_mdds_crrctvs_sncns'    => :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES
     'txt_dnnc_annmzd'           => :invstgcns,    # ← DENUNCIA ANONIMIZADA
+    'txt_dclrcn_annmzd'         => :invstgcns,    # ← DECLARACIÓN ANONIMIZADA
     
     # === FINANZAS (fnnzs) ===
     'aprobacion'                => :fnnzs,    # ← APROBACIÓNES DE CAUSAS

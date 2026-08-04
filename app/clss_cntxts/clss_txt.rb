@@ -31,6 +31,7 @@ class ClssTxt
 	    'txt_mdds_crrctvs_sncns'	=> :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES
 	    'firma_mdds'				=> :invstgcns,
 	    'txt_dnnc_annmzd'			=> :invstgcns,    # ← DENUNCIA ANONIMIZADA
+	    'txt_dclrcn_annmzd'			=> :invstgcns,    # ← DECLARACION ANONIMIZADA
 	    
 	    # === FINANZAS (fnnzs) ===
 	    'aprobacion'                => :fnnzs,

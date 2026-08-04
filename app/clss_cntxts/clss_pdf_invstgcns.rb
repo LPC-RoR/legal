@@ -2,7 +2,7 @@
 class ClssPdfInvstgcns
   include ConditionalArray
 
-  DCLRCN_CDGS = ['dclrcn', 'txt_dclrcn', 'declaracion', 'dclrcn_annmzd', 'dclrcn_rsmn']
+  DCLRCN_CDGS = ['dclrcn', 'txt_dclrcn', 'declaracion', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn']
   RCRSS_CDGS  = ['txt_invstgdr_dsgncn']
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
@@ -76,8 +76,8 @@ class ClssPdfInvstgcns
       'dclrcn'                    => 'Citación a declarar para el participante',
       'txt_dclrcn'                => 'Texto de la declaración',
       'declaracion'               => 'Declaración firmada',
-      'dclrcn_annmzd'             => 'Declaración anonimizada',
-      'dclrcn_rsmn'               => 'Hechos de la declaración',
+      'txt_dclrcn_annmzd'         => 'Declaración anonimizada',
+      'txt_dclrcn_rsmn'           => 'Hechos de la declaración',
       'txt_mdds_crrctvs_sncns'  => 'Notificación de las medidas correctivas y sanciones'
     }
   end
@@ -87,7 +87,7 @@ class ClssPdfInvstgcns
   def self.has_one?(code)
     ['crdncn_apt', 'dts_prncpls', 'dts_tstgs', 'denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 
       'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs',
-      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn'].include?(code)
+      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn'].include?(code)
   end
 
   def self.cntrl_fecha?(code)
@@ -192,7 +192,7 @@ class ClssPdfInvstgcns
           dnnc: ownr.dnnc,
           empresa: ownr.dnnc.ownr
         }
-      when 'txt_dnnc_annmzd'
+      when 'txt_dnnc_annmzd', 'txt_dclrcn_annmzd'
         objeto = TxtEditable.find(objeto_id)    # ← el texto editable
         ownr   = objeto.ownr                    # ← dnnc
         {

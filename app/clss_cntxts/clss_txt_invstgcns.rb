@@ -2,7 +2,7 @@
 class ClssTxtInvstgcns
   include ConditionalArray
 
-  DCLRCN_CDGS = ['txt_dclrcn']
+  DCLRCN_CDGS = ['txt_dclrcn', 'txt_dclrcn_annmzd']
 
   # Definición estática de códigos con condiciones
   CDGS = {
@@ -21,13 +21,10 @@ class ClssTxtInvstgcns
     ],
     dnncnt: [
       { code: 'txt_acta',               condition: ->(o) { o.dnnc.via_declaracion == 'Presencial' && o.dnnc.tipo_declaracion == 'Verbal' } },
-      { code: 'txt_dcrcn_annmzd',       condition: ->(o) { o.dnnc.act_archivos.exists?(act_archivo: 'denuncia') } },
     ],
     dnncd: [
-      { code: 'txt_dcrcn_annmzd',       condition: ->(o) { o.dnnc.act_archivos.exists?(act_archivo: 'denuncia') } },
     ],
     tstg: [
-      { code: 'txt_dcrcn_annmzd',       condition: ->(o) { o.dnnc.act_archivos.exists?(act_archivo: 'denuncia') } },
     ]
   }
 
@@ -41,7 +38,8 @@ class ClssTxtInvstgcns
       'txt_dclrcn'              => 'Declaración del participante (editable)',
       'txt_invstgdr_firma'      => 'Firma del investigador',
       'txt_invstgdr_dsgncn'     => 'Designación del investigador',
-      'txt_dnnc_annmzd'         => 'Denuncia anonimizada'
+      'txt_dnnc_annmzd'         => 'Denuncia anonimizada',
+      'txt_dclrcn_annmzd'       => 'Declaración anonimizada',
     }
   end
 
