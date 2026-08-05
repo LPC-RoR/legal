@@ -3,7 +3,7 @@ class ClssPdfInvstgcns
   include ConditionalArray
 
   DCLRCN_CDGS = ['dclrcn', 'txt_dclrcn', 'declaracion', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn']
-  RCRSS_CDGS  = ['txt_invstgdr_dsgncn']
+  RCRSS_CDGS  = ['txt_invstgdr_dsgncn', 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas']
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS = {
@@ -56,6 +56,9 @@ class ClssPdfInvstgcns
     {
       'txt_invstgdr_dsgncn'       => 'Designación del investigador (declaración)',
       'dsgncn_invstgdr'           => 'Designación del investigador',
+      'expdnt_annmzd'             => 'Expediente anonimizado',    # Este funciona para combinados REVISAR
+      'expdnt_annmzd_crtl'        => 'Carátula del expediente anonimizado',
+      'expdnt_annmzd_pruebas'     => 'Sección medios de prueba del expediente anonimizado',
       'invstgdr_titulo_prfsnl'  => 'Título profesional del investigador',
       'rprsntcn'                => 'Poder simple que establece la representación',
       'artcl_516'               => 'Solicitud de aplicación del artículo 516',
@@ -87,7 +90,8 @@ class ClssPdfInvstgcns
   def self.has_one?(code)
     ['crdncn_apt', 'dts_prncpls', 'dts_tstgs', 'denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 
       'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs',
-      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'txt_dclrcn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion'].include?(code)
+      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'txt_dclrcn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion',
+      'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas'].include?(code)
   end
 
   def self.cntrl_fecha?(code)
@@ -201,9 +205,9 @@ class ClssPdfInvstgcns
           dnnc: ownr.dnnc,
           empresa: ownr.dnnc.ownr
         }
-      when 'dnnc', 'st_dclrcns'
+      when 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas', 'dnnc'
         objeto = KrnDenuncia.find(objeto_id)
-        { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
+        { objeto: objeto, ownr: objeto }
       when 'dclrcn'
         objeto = KrnDeclaracion.find(objeto_id)
         { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }

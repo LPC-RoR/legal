@@ -1,0 +1,77 @@
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Canal de denuncias
+</div>
+
+<div class="mb-5 text-center fs-5">
+  Expediente anonimizado<br>
+  Denuncia <%= @objeto.identificador %><br>
+  Sección Medios de prueba
+</div>
+
+
+<% dnncnts = @objeto.krn_denunciantes
+       .joins(:act_archivos)
+       .where(act_archivos: { act_archivo: 'antecedentes' })
+       .distinct %>
+
+<% if dnncnts.any? %>
+
+  <% dnncnts.each do |prtcpnt| %>
+    <% lista = prtcpnt.act_archivos.where(act_archivo: 'antecedentes') %>
+    <div>Medios de prueba presentados por <%=prtcpnt.kywrd[:krn]%></div>
+    <div class="ps-3">
+      <ol>
+        <% lista.each do |act| %>
+          <li><%=act.nombre%></li>
+        <% end %>
+    </ol>
+    </div>
+  <% end %>
+
+<% else %>
+  <div class="ps-3"><i class="bi bi-cone-striped"></i> la(s) persona(s) denunciante(s) no presentaron medios de prueba.</div>
+<% end %>
+
+<% dnncds = @objeto.krn_denunciados
+       .joins(:act_archivos)
+       .where(act_archivos: { act_archivo: 'antecedentes' })
+       .distinct %>
+
+<% if dnncds.any? %>
+  <% dnncds.each do |prtcpnt| %>
+    <% lista = prtcpnt.act_archivos.where(act_archivo: 'antecedentes') %>
+    <div>Medios de prueba presentados por <%=prtcpnt.kywrd[:krn]%></div>
+    <div class="ps-3">
+      <ol>
+        <% lista.each do |act| %>
+          <li><%=act.nombre%></li>
+        <% end %>
+    </ol>
+    </div>
+  <% end %>
+<% else %>
+  <div class="ps-3"><i class="bi bi-cone-striped"></i> la(s) persona(s) denunciada(s) no presentaron medios de prueba.</div>
+<% end %>
+
+<% tstgs = @objeto.krn_testigos
+       .joins(:act_archivos)
+       .where(act_archivos: { act_archivo: 'antecedentes' })
+       .distinct %>
+
+<% if tstgs.any? %>
+  <% tstgs.each do |prtcpnt| %>
+    <% lista = prtcpnt.act_archivos.where(act_archivo: 'antecedentes') %>
+    <div>Medios de prueba presentados por <%=prtcpnt.kywrd[:krn]%></div>
+    <div class="ps-3">
+      <ol>
+        <% lista.each do |act| %>
+          <li><%=act.nombre%></li>
+        <% end %>
+    </ol>
+    </div>
+  <% end %>
+<% else %>
+  <div class="ps-3"><i class="bi bi-cone-striped"></i> la(s) persona(s) testigos(s) no presentaron medios de prueba.</div>
+<% end %>

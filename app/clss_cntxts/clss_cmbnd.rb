@@ -11,7 +11,7 @@ class ClssCmbnd
 	    
 	    # === INVESTIGACIONES (invstgcns) ===
 	    'dsgncn_invstgdr'			=> :invstgcns,    # ← Designación del investigador
-	    'txt_objcn_rslcn'			=> :invstgcns,
+	    'expdnt_annmzd'				=> :invstgcns,    # ← Expediente anonimizado
 	    'txt_anlss'					=> :invstgcns,
 	    'txt_infrm'					=> :invstgcns,
 	    'txt_emprs_dnnc'			=> :invstgcns,

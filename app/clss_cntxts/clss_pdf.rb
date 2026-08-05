@@ -37,6 +37,8 @@ class ClssPdf
     'txt_dnnc_annmzd'           => :invstgcns,    # ← DENUNCIA ANONIMIZADA
     'txt_dclrcn_annmzd'         => :invstgcns,    # ← DECLARACIÓN ANONIMIZADA
     'txt_dclrcn_rsmn'           => :invstgcns,    # ← HECHOS DE LA DECLARACIÓN
+    'expdnt_annmzd_crtl'        => :invstgcns,    # ← CARÁTULA DEL EXPEDIENTE ANONIMIZADO
+    'expdnt_annmzd_pruebas'     => :invstgcns,    # ← SECCIÓN MEDIOS DE PRUEBA DEL EXPEDIENTE ANONIMIZADO
     
     # === FINANZAS (fnnzs) ===
     'aprobacion'                => :fnnzs,    # ← APROBACIÓNES DE CAUSAS

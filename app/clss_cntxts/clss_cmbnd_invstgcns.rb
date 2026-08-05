@@ -3,12 +3,13 @@ class ClssCmbndInvstgcns
   include ConditionalArray
 
   RCRSS_CDGS = [
-    'dsgncn_invstgdr'
+    'dsgncn_invstgdr', 'expdnt_annmzd'
   ]
 
   def self.nombre
     {
-      'dsgncn_invstgdr'     => 'Designación del investigador'
+      'dsgncn_invstgdr'     => 'Designación del investigador',
+      'expdnt_annmzd'       => 'Expediente anonimizado'
     }
   end
 
@@ -48,6 +49,29 @@ class ClssCmbndInvstgcns
       else
         []
       end
+    when 'expdnt_annmzd'
+      crtl        = ownr&.act_archivos&.find_by(act_archivo: 'expdnt_annmzd_crtl')
+      dnnc_annmzd = ownr&.act_archivos&.find_by(act_archivo: 'txt_dnnc_annmzd')
+      blobs       = [crtl&.pdf&.blob, dnnc_annmzd&.pdf&.blob]
+
+      ownr.krn_denunciantes.each do |prtcpnt|
+        act = prtcpnt&.act_archivos&.find_by(act_archivo: 'txt_dclrcn_annmzd')
+        blobs << act&.pdf&.blob
+      end
+
+      ownr.krn_denunciados.each do |prtcpnt|
+        act = prtcpnt&.act_archivos&.find_by(act_archivo: 'txt_dclrcn_annmzd')
+        blobs << act&.pdf&.blob
+      end
+
+      ownr.krn_testigos.each do |prtcpnt|
+        act = prtcpnt&.act_archivos&.find_by(act_archivo: 'txt_dclrcn_annmzd')
+        blobs << act&.pdf&.blob
+      end
+      pruebas     = ownr&.act_archivos&.find_by(act_archivo: 'expdnt_annmzd_pruebas')
+
+      blobs << pruebas&.pdf&.blob
+      blobs.compact
     end
   end
 
