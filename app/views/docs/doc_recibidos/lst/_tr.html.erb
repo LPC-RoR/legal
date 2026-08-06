@@ -12,5 +12,6 @@
     <%= objt.razon_social_emisor %>
   </td>
   <td class="pe-3 text-end text-<%=[56, 61].include?(objt.tipo_dte) ? 'danger' : (objt.doc_pagos.any? ? 'primary' : 'dark')%>"><%= s_pesos(objt.monto_total) %></td>
+  <td class="objt_lnk"><%= render partial: '0t/lnks_e', locals: {objt: objt} %></td>
 
 </tr>
