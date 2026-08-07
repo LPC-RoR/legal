@@ -45,6 +45,11 @@ class Aplicacion::HomeController < ApplicationController
     	redirect_to authenticated_root_path and return
   	end
 
+  	# =================== Variables para el timeline de plazos
+    @fecha_base = parse_fecha_param || Time.zone.today
+    @plazos_ejemplo = calcular_plazos_maximos(@fecha_base)
+  	# =================== Variables para el timeline de plazos (final)
+
   	render layout: 'public'
   end
   
@@ -164,4 +169,49 @@ class Aplicacion::HomeController < ApplicationController
 	    }
 	    set_meta_tags defaults.merge(meta)
 	  end
+
+  def parse_fecha_param
+    return nil if params[:fecha].blank?
+    
+    # Parseo explícito en zona horaria de Santiago
+    Time.zone.parse(params[:fecha]).to_date
+  rescue ArgumentError
+    nil
+  end
+
+  def calcular_plazos_maximos(fecha_base)
+    f_investigacion = CalFeriado.plazo_habil(fecha_base, 30)
+    f_deposito      = CalFeriado.plazo_habil(f_investigacion, 2)
+    f_pronunciamiento = CalFeriado.plazo_habil(f_deposito, 30)
+    f_aplicacion    = CalFeriado.plazo_corrido(f_pronunciamiento, 15)
+
+    [
+      {
+        numero: 1, nombre: 'Recepción de denuncia', dias: 3, tipo: 'hábiles',
+        desde: fecha_base, hasta: CalFeriado.plazo_habil(fecha_base, 3),
+        color: 'success', icono: 'bi-inbox', descripcion: 'Trámites propios de la recepción'
+      },
+      {
+        numero: 2, nombre: 'Investigación', dias: 30, tipo: 'hábiles',
+        desde: fecha_base, hasta: f_investigacion,
+        color: 'primary', icono: 'bi-search', descripcion: 'Investigar los hechos denunciados'
+      },
+      {
+        numero: 3, nombre: 'Depósito del informe', dias: 2, tipo: 'hábiles',
+        desde: f_investigacion, hasta: f_deposito,
+        color: 'info', icono: 'bi-upload', descripcion: 'Remitir informe a la Dirección del Trabajo'
+      },
+      {
+        numero: 4, nombre: 'Pronunciamiento DT', dias: 30, tipo: 'hábiles',
+        desde: f_deposito, hasta: f_pronunciamiento,
+        color: 'warning', icono: 'bi-building', descripcion: 'Plazo legal para pronunciamiento de la DT'
+      },
+      {
+        numero: 5, nombre: 'Aplicación de medidas', dias: 15, tipo: 'corridos',
+        desde: f_pronunciamiento, hasta: f_aplicacion,
+        color: 'danger', icono: 'bi-check2-square', descripcion: 'Aplicar medidas y sanciones propuestas'
+      }
+    ]
+  end
+
 end

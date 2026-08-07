@@ -1,0 +1,90 @@
+<!-- app/views/home/_timeline_plazos.html.erb -->
+<div class="card border-0 shadow-sm">
+  <div class="card-header bg-white border-bottom py-3">
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
+      <h5 class="mb-0 fw-bold fs-6">
+        <i class="bi bi-clock-history me-2 text-primary"></i>
+        Plazos del Procedimiento
+      </h5>
+    </div>
+    
+    <%# Selector de fecha - siempre en zona horaria Santiago %>
+    <div class="mt-3 p-2 bg-light rounded-3 border">
+      <%= form_with url: root_path, method: :get, local: true, class: 'd-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2' do |f| %>
+        <label for="fecha" class="small text-muted fw-medium mb-0">
+          <i class="bi bi-geo-alt-fill text-danger me-1"></i>
+          Denuncia recibida (Santiago, CL):
+        </label>
+        
+        <%= date_field_tag :fecha, @fecha_base, 
+              class: 'form-control form-control-sm', 
+              style: 'max-width: 160px;', 
+              onchange: 'this.form.submit()' %>
+        
+        <%# Botón Hoy: usa Time.zone.today explícitamente %>
+        <%= link_to root_path(fecha: Time.zone.today.to_fs(:db)), 
+              class: 'btn btn-sm btn-dark' do %>
+          <i class="bi bi-calendar-check me-1"></i> Hoy
+        <% end %>
+        
+        <span class="small text-muted ms-sm-auto">
+          <i class="bi bi-clock me-1"></i>
+          Hoy en Santiago: <strong><%= l(Time.zone.today, format: '%d/%m/%Y') %></strong>
+        </span>
+      <% end %>
+    </div>
+    
+    <p class="text-muted small mb-0 mt-2 fs-7">
+      Proyección con plazos máximos legales. Considera días hábiles y feriados registrados en Chile.
+    </p>
+  </div>
+
+  <div class="card-body p-2 p-sm-3">
+    <div class="position-relative ps-4 ps-sm-0">
+      <%# Línea vertical %>
+      <div class="position-absolute top-0 bottom-0 start-0 ms-2 ms-sm-4" 
+           style="width: 2px; background: #e5e7eb;"></div>
+
+      <% @plazos_ejemplo.each do |plazo| %>
+        <div class="d-flex gap-2 gap-sm-3 mb-3 position-relative">
+          
+          <%# Círculo numerado %>
+          <div class="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-sm"
+               style="width: 2rem; height: 2rem; font-size: 0.75rem; background: var(--bs-<%= plazo[:color] %>); z-index: 1; border: 2px solid white; box-shadow: 0 0 0 1px var(--bs-<%= plazo[:color] %>-border-subtle);">
+            <%= plazo[:numero] %>
+          </div>
+
+          <%# Card de la etapa %>
+          <div class="flex-grow-1 border rounded-3 p-2 p-sm-3 bg-white">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start gap-1 mb-1">
+              <h6 class="mb-0 fw-semibold fs-7 fs-sm-6"><%= plazo[:nombre] %></h6>
+              <span class="badge bg-<%= plazo[:color] %>-subtle text-<%= plazo[:color] %>-emphasis border border-<%= plazo[:color] %>-subtle fs-7 flex-shrink-0">
+                <%= plazo[:dias] %> días <%= plazo[:tipo] %>
+              </span>
+            </div>
+            
+            <p class="text-muted mb-2 fs-7 d-none d-sm-block"><%= plazo[:descripcion] %></p>
+            
+            <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-1 gap-sm-2 small">
+              <i class="bi <%= plazo[:icono] %> text-muted fs-7"></i>
+              <span class="text-muted fs-7">
+                <span class="d-inline d-sm-none">Desde: </span>
+                <%= l(plazo[:desde], format: '%d/%m/%Y') %>
+                <i class="bi bi-arrow-right-short mx-1"></i>
+                <strong class="text-dark"><%= l(plazo[:hasta], format: '%d/%m/%Y') %></strong>
+              </span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%# Total acumulado %>
+    <% total_dias = (@plazos_ejemplo.last[:hasta] - @fecha_base).to_i %>
+    <div class="mt-2 p-2 p-sm-3 bg-light rounded-3 border border-dashed text-center">
+      <span class="text-muted small fs-7">Duración máxima total del procedimiento</span>
+      <div class="fw-bold fs-5 fs-sm-4 text-dark"><%= total_dias %> días corridos</div>
+      <small class="text-muted fs-7">Desde recepción hasta aplicación de medidas</small>
+    </div>
+  </div>
+</div>

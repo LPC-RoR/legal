@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_31_232310) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_06_224342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1055,6 +1055,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_31_232310) do
     t.boolean "causal_establecida"
     t.string "lugar_ocurrencia"
     t.string "direccion_ocurrencia"
+    t.date "fecha_termino_investigacion"
+    t.date "fecha_recepcion_pronunciamiento"
+    t.date "fecha_aplicacion_medidas"
     t.index ["auditoria"], name: "index_krn_denuncias_on_auditoria"
     t.index ["causal_establecida"], name: "index_krn_denuncias_on_causal_establecida"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
@@ -1181,6 +1184,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_31_232310) do
     t.integer "ownr_id"
     t.index ["ownr_id"], name: "index_krn_textos_on_ownr_id"
     t.index ["ownr_type"], name: "index_krn_textos_on_ownr_type"
+  end
+
+  create_table "krn_tramites", force: :cascade do |t|
+    t.bigint "krn_denuncia_id", null: false
+    t.string "tipo", null: false
+    t.string "numero_solicitud", null: false
+    t.datetime "fecha_hora", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["krn_denuncia_id", "tipo"], name: "index_krn_tramites_on_krn_denuncia_id_and_tipo", unique: true
+    t.index ["krn_denuncia_id"], name: "index_krn_tramites_on_krn_denuncia_id"
+    t.index ["numero_solicitud"], name: "index_krn_tramites_on_numero_solicitud", unique: true
   end
 
   create_table "licencias", force: :cascade do |t|
@@ -1840,6 +1855,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_31_232310) do
   add_foreign_key "doc_emitidos", "doc_planillas"
   add_foreign_key "doc_transacciones", "doc_cartolas"
   add_foreign_key "doc_transacciones", "doc_cuentas"
+  add_foreign_key "krn_tramites", "krn_denuncias"
   add_foreign_key "licencias", "empresas"
   add_foreign_key "responsable_actividades", "age_actividades"
   add_foreign_key "responsable_actividades", "usuarios"

@@ -1,0 +1,21 @@
+<div class="my-5 mx-3 mx-md-4 mx-lg-5">
+  <div class="border-top mb-1 p-2 text-center">
+    <!-- Título fluido entre 1.25rem y 2rem -->
+    <h3 style="font-size: clamp(1.25rem, 2.2vw + 0.5rem, 2rem);">Simulador de plazos del procedimiento.</h3>
+  </div>
+</div>
+
+<!-- app/views/home/index.html.erb -->
+<div class="container py-3 py-lg-4">
+  <div class="row g-3">
+    <!-- Timeline: primero en móvil, izquierda en desktop -->
+    <div class="col-12 col-lg-8">
+      <%= render 'timeline_plazos' %>
+    </div>
+    
+    <!-- Notas: debajo en móvil, derecha en desktop -->
+    <div class="col-12 col-lg-4">
+      <%= render 'notas_plazos' %>
+    </div>
+  </div>
+</div>

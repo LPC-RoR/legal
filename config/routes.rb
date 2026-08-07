@@ -228,6 +228,7 @@ Rails.application.routes.draw do
     resources :krn_inv_denuncias do
       match :swtch, via: :post, on: :member
     end
+    resources :krn_tramites
   end
 
   # Usado para poner las entidades necesarias para mantener Causa

@@ -1,0 +1,37 @@
+<%= form_with(model: krn_tramite) do |form| %>
+  <% if krn_tramite.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(krn_tramite.errors.count, "error") %> prohibited this krn_tramite from being saved:</h2>
+
+      <ul>
+        <% krn_tramite.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :krn_denuncia_id, style: "display: block" %>
+    <%= form.number_field :krn_denuncia_id %>
+  </div>
+
+  <div>
+    <%= form.label :tipo, style: "display: block" %>
+    <%= form.text_field :tipo %>
+  </div>
+
+  <div>
+    <%= form.label :numero_solicitutud, style: "display: block" %>
+    <%= form.text_field :numero_solicitutud %>
+  </div>
+
+  <div>
+    <%= form.label :fecha_hora, style: "display: block" %>
+    <%= form.datetime_field :fecha_hora %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

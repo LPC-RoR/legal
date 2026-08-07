@@ -1,2 +1,210 @@
-<%= render partial: prtl_name(objeto, 'shw/proceso', 'prmrs_plzs'), locals: {ownr: objeto} %>
-<%= render partial: prtl_name(objeto, 'shw/proceso', 'etps_rlzds'), locals: {ownr: objeto} %>
+<!-- app/views/krn_denuncias/_tab_plazos.html.erb -->
+<%# Recibe: @plazos (array de hashes desde @objeto.plazos) %>
+
+<% total      = @plazos.count %>
+<% cumplidos  = @plazos.count { |p| p[:estado] == :cumplido } %>
+<% vencidos   = @plazos.count { |p| [:vencido, :incumplido].include?(p[:estado]) } %>
+<% proximos   = @plazos.count { |p| p[:estado] == :proximo } %>
+
+<div class="card border-0 shadow-sm">
+  
+  <%# Header con progreso %>
+  <div class="card-header bg-white border-bottom py-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5 class="mb-0 fw-bold text-dark">
+        <i class="bi bi-clock-history me-2 text-primary"></i>
+        Control de Plazos Legales
+      </h5>
+      <span class="badge bg-dark rounded-pill">
+        <%= cumplidos %> / <%= total %> completados
+      </span>
+    </div>
+    
+    <%# Barra de progreso %>
+    <div class="progress" style="height: 8px;">
+      <% ancho = total.zero? ? 0 : (cumplidos.to_f / total * 100).round %>
+      <div class="progress-bar bg-success" role="progressbar" style="width: <%= ancho %>%;" 
+           aria-valuenow="<%= ancho %>" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    
+    <%# Resumen de alertas %>
+    <div class="d-flex gap-2 mt-2">
+      <% if vencidos > 0 %>
+        <span class="badge bg-danger"><%= vencidos %> vencido(s)</span>
+      <% end %>
+      <% if proximos > 0 %>
+        <span class="badge bg-warning text-dark"><%= proximos %> próximo(s) a vencer</span>
+      <% end %>
+      <% if @plazos.any? { |p| p[:aprobado_por_vencimiento] } %>
+        <span class="badge bg-warning text-dark">
+          <i class="bi bi-exclamation-triangle-fill me-1"></i>
+          Aprobado por vencimiento
+        </span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card-body p-0">
+
+    <%# Alerta especial: pronunciamiento aprobado por vencimiento %>
+    <% if @plazos.any? { |p| p[:aprobado_por_vencimiento] } %>
+      <div class="alert alert-warning alert-dismissible fade show rounded-0 border-0 m-3" role="alert">
+        <div class="d-flex">
+          <i class="bi bi-exclamation-triangle-fill fs-4 me-3 flex-shrink-0"></i>
+          <div>
+            <strong>Informe dado por aprobado</strong>
+            <p class="mb-0 small">
+              El plazo para el pronunciamiento de la Dirección del Trabajo ha vencido. 
+              El informe se entiende <strong>aprobado por ministerio de la ley</strong>. 
+              Debe proceder inmediatamente a la aplicación de las medidas y sanciones propuestas.
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <%# Alerta: incumplimientos detectados %>
+    <% if @incumplimientos.present? %>
+      <div class="alert alert-danger rounded-0 border-0 m-3 mb-0" role="alert">
+        <i class="bi bi-x-octagon-fill me-2"></i>
+        <strong>Atención:</strong> Se detectaron <strong><%= @incumplimientos.count %></strong> plazo(s) incumplido(s).
+      </div>
+    <% end %>
+
+    <%# Lista de plazos %>
+    <div class="list-group list-group-flush">
+      <% @plazos.each_with_index do |plazo, index| %>
+        
+        <%# Clases de borde según estado %>
+        <% border_class = case plazo[:estado]
+                          when :cumplido    then 'border-start border-1 border-success'
+                          when :incumplido  then 'border-start border-1 border-danger'
+                          when :vencido     then 'border-start border-1 border-danger'
+                          when :proximo     then 'border-start border-1 border-warning'
+                          else 'border-start border-1 border-secondary'
+                          end %>
+        
+        <% bg_class = case plazo[:estado]
+                       when :cumplido   then 'bg-success bg-opacity-10'
+                       when :incumplido then 'bg-danger bg-opacity-10'
+                       when :vencido    then 'bg-danger bg-opacity-10'
+                       when :proximo    then 'bg-warning bg-opacity-10'
+                       else ''
+                       end %>
+
+        <div class="list-group-item <%= border_class %> rounded-2 <%= bg_class %> mb-1 py-3">
+          <div class="d-flex justify-content-between align-items-start mb-1">
+            <div class="d-flex align-items-center gap-2">
+              <%# Icono de estado %>
+              <% icono = case plazo[:estado]
+                         when :cumplido   then 'bi-check-circle-fill text-success'
+                         when :incumplido then 'bi-x-circle-fill text-danger'
+                         when :vencido    then 'bi-calendar-x-fill text-danger'
+                         when :proximo    then 'bi-exclamation-circle-fill text-warning'
+                         else 'bi-circle text-secondary'
+                         end %>
+              <i class="bi <%= icono %> fs-5"></i>
+              
+              <div>
+                <h6 class="mb-0 fw-semibold">
+                  <%= plazo[:nombre] %>
+                  <% if plazo[:aprobado_por_vencimiento] %>
+                    <span class="badge bg-warning text-dark ms-1 align-top">Aprobado por vencimiento</span>
+                  <% end %>
+                </h6>
+                <small class="text-muted">
+                  <%= plazo[:dias] %> días <%= plazo[:tipo] %> — Desde: 
+                  <strong><%= l(plazo[:referencia], format: '%d/%m/%Y') rescue '—' %></strong>
+                </small>
+              </div>
+            </div>
+            
+            <%# Badge de estado %>
+            <% badge_class = case plazo[:estado]
+                              when :cumplido   then 'bg-success'
+                              when :incumplido then 'bg-danger'
+                              when :vencido    then 'bg-danger'
+                              when :proximo    then 'bg-warning text-dark'
+                              else 'bg-secondary'
+                              end %>
+            <span class="badge <%= badge_class %>">
+              <%= t("plazos.estados.#{plazo[:estado]}", default: plazo[:estado].to_s.humanize) %>
+            </span>
+          </div>
+
+          <%# Grid de fechas %>
+          <div class="row g-2 mt-2 small">
+            <div class="col-md-4">
+              <span class="text-muted">Fecha límite:</span><br>
+              <strong class="<%= 'text-danger' if [:vencido, :incumplido].include?(plazo[:estado]) %>">
+                <%= plazo[:fecha_limite] ? l(plazo[:fecha_limite], format: '%d/%m/%Y') : '—' %>
+              </strong>
+            </div>
+            <div class="col-md-4">
+              <span class="text-muted">Cumplimiento:</span><br>
+              <% if plazo[:fecha_cumplimiento] %>
+                <strong class="<%= plazo[:incumplido] ? 'text-danger' : 'text-success' %>">
+                  <%= l(plazo[:fecha_cumplimiento], format: '%d/%m/%Y') %>
+                </strong>
+                <% if plazo[:incumplido] %>
+                  <i class="bi bi-arrow-right-short text-muted"></i>
+                  <span class="badge bg-danger bg-opacity-75">Fuera de plazo</span>
+                <% end %>
+              <% else %>
+                <span class="text-muted fst-italic">Pendiente</span>
+              <% end %>
+            </div>
+            <div class="col-md-4">
+              <span class="text-muted">Días restantes:</span><br>
+              <% if plazo[:dias_restantes].present? && plazo[:estado] == :pendiente %>
+                <strong><%= plazo[:dias_restantes] %> días</strong>
+              <% elsif plazo[:estado] == :proximo %>
+                <strong class="text-warning"><%= plazo[:dias_restantes] %> días</strong>
+              <% elsif plazo[:estado] == :cumplido %>
+                <span class="text-success">—</span>
+              <% else %>
+                <span class="text-danger">—</span>
+              <% end %>
+            </div>
+          </div>
+
+          <%# Observación / Comentario %>
+          <% if plazo[:observacion].present? %>
+            <div class="mt-2 p-2 rounded <%= plazo[:incumplido] || plazo[:aprobado_por_vencimiento] ? 'bg-white bg-opacity-50 border border-danger border-opacity-25' : 'bg-light' %>">
+              <small class="<%= plazo[:incumplido] ? 'text-danger' : 'text-muted' %>">
+                <i class="bi bi-info-circle me-1"></i>
+                <%= plazo[:observacion] %>
+              </small>
+            </div>
+          <% end %>
+
+          <%# Si hay trámite asociado, mostrar número de solicitud %>
+          <%# Esto requiere que el modelo exponga el trámite en el hash, 
+              o se puede buscar aquí directamente %>
+          <% tramite = case plazo[:nombre]
+                       when 'Recepción de denuncia'
+                         @objeto.tramite_derivacion_dt || @objeto.tramite_aviso_inicio
+                       when 'Depósito del informe'
+                         @objeto.tramite_deposito
+                       else nil
+                       end %>
+          <% if tramite.present? %>
+            <div class="mt-2">
+              <span class="badge bg-light text-dark border">
+                <i class="bi bi-ticket-perforated me-1"></i>
+                Solicitud <%= tramite.numero_solicitud %>
+              </span>
+              <small class="text-muted ms-1">
+                <%= l(tramite.fecha_hora, format: '%d/%m/%Y %H:%M') %>
+              </small>
+            </div>
+          <% end %>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%#= render partial: prtl_name(objeto, 'shw/proceso', 'prmrs_plzs'), locals: {ownr: objeto} %>
+<%#= render partial: prtl_name(objeto, 'shw/proceso', 'etps_rlzds'), locals: {ownr: objeto} %>

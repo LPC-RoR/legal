@@ -1,0 +1,67 @@
+<!-- app/views/home/_notas_plazos.html.erb -->
+<div class="card border-0 shadow-sm h-100">
+  <div class="card-header bg-white border-bottom py-3">
+    <h5 class="mb-0 fw-bold fs-6">
+      <i class="bi bi-journal-text me-2 text-secondary"></i>
+      Notas sobre plazos
+    </h5>
+  </div>
+  
+  <div class="card-body p-2 p-sm-3">
+    <div class="d-flex flex-column gap-2">
+      
+      <!-- Nota 1: Días hábiles -->
+      <div class="d-flex gap-2 p-2 rounded-3 bg-primary bg-opacity-10 border border-primary border-opacity-25">
+        <div class="flex-shrink-0 pt-1">
+          <i class="bi bi-calendar-check text-primary fs-5"></i>
+        </div>
+        <div>
+          <h6 class="mb-1 fw-semibold fs-7">Días hábiles</h6>
+          <p class="text-muted small mb-0 fs-7">
+            Se excluyen sábados, domingos y feriados legales. El plazo se cuenta desde el día siguiente hábil a la recepción.
+          </p>
+        </div>
+      </div>
+
+      <!-- Nota 2: Pronunciamiento -->
+      <div class="d-flex gap-2 p-2 rounded-3 bg-warning bg-opacity-10 border border-warning border-opacity-25">
+        <div class="flex-shrink-0 pt-1">
+          <i class="bi bi-exclamation-triangle text-warning fs-5"></i>
+        </div>
+        <div>
+          <h6 class="mb-1 fw-semibold fs-7">Pronunciamiento tácito</h6>
+          <p class="text-muted small mb-0 fs-7">
+            Si la DT no se pronuncia dentro de los 30 días hábiles, el informe se entiende <strong>aprobado</strong> y debe procederse a aplicar medidas.
+          </p>
+        </div>
+      </div>
+
+      <!-- Nota 3: Aplicación -->
+      <div class="d-flex gap-2 p-2 rounded-3 bg-danger bg-opacity-10 border border-danger border-opacity-25">
+        <div class="flex-shrink-0 pt-1">
+          <i class="bi bi-check2-square text-danger fs-5"></i>
+        </div>
+        <div>
+          <h6 class="mb-1 fw-semibold fs-7">Aplicación de medidas</h6>
+          <p class="text-muted small mb-0 fs-7">
+            Último plazo: <strong>30 días corridos</strong> desde la recepción del pronunciamiento o, en su defecto, desde el vencimiento del plazo anterior.
+          </p>
+        </div>
+      </div>
+
+      <!-- Nota 4: Derivación -->
+      <div class="d-flex gap-2 p-2 rounded-3 bg-info bg-opacity-10 border border-info border-opacity-25">
+        <div class="flex-shrink-0 pt-1">
+          <i class="bi bi-upload text-info fs-5"></i>
+        </div>
+        <div>
+          <h6 class="mb-1 fw-semibold fs-7">Trámites en plataforma DT</h6>
+          <p class="text-muted small mb-0 fs-7">
+            Depósito de informe, aviso de inicio y derivación se realizan mediante solicitudes en la plataforma de la Dirección del Trabajo.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

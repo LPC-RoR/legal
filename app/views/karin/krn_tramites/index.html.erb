@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Krn tramites" %>
+
+<h1>Krn tramites</h1>
+
+<div id="krn_tramites">
+  <% @krn_tramites.each do |krn_tramite| %>
+    <%= render krn_tramite %>
+    <p>
+      <%= link_to "Show this krn tramite", krn_tramite %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New krn tramite", new_krn_tramite_path %>

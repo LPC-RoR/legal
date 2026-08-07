@@ -7,30 +7,6 @@ class Actividades::AgeActividadesController < ApplicationController
 
   include AgeUsr
 
-  # GET /age_actividades or /age_actividades.json
-  def index
-    # Manejo actual de age_usuarios
-    @usuario = perfil_activo.age_usuario
-
-    @usrs = Usuario.where(tenant_id: nil)
-
-    set_tab( :tab, ['Pendientes', 'Realizados'])
-    @estado = @options[:tab].singularize.downcase
-
-    if @options[:tab] == 'Pendientes'
-      set_tabla('d-age_pendientes', @usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'danger').order(:created_at), false)
-      set_tabla('w-age_pendientes', @usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'warning').order(:created_at), false)
-      set_tabla('s-age_pendientes', @usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'success').order(:created_at), false)
-      set_tabla('n-age_pendientes', @usuario.age_pendientes.where(estado: 'pendiente', prioridad: nil).order(:created_at), false)
-    else
-      set_tabla('r-age_pendientes', @usuario.age_pendientes.where(estado: 'realizado', prioridad: nil).order(updated_at: :desc), false)
-    end
- 
-    # concerns/calendario#load_calendario
-    load_calendario
-
-  end
-
   # GET /age_actividades/1 or /age_actividades/1.json
   def show
   end

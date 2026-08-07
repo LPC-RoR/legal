@@ -28,9 +28,17 @@ class KrnDenuncia < ApplicationRecord
 
 	belongs_to :krn_empresa_externa, optional: true
 
+	has_many :krn_inv_denuncias, -> { order(created_at: :asc) }, dependent: :destroy
+	has_many :krn_investigadores, through: :krn_inv_denuncias
+
 	has_many :krn_denunciantes, 	-> { order(created_at: :asc) }, dependent: :destroy
 	has_many :krn_denunciados, 		-> { order(created_at: :asc) }, dependent: :destroy
 	has_many :krn_testigos, 		-> { order(created_at: :asc) }, dependent: :destroy
+
+	has_many :krn_tramites, 		-> { order(created_at: :asc) }, dependent: :destroy
+	has_many :krn_derivaciones, 	-> { order(created_at: :asc) }, dependent: :destroy
+	has_many :krn_declaraciones, 	-> { order(created_at: :asc) }, dependent: :destroy
+
 
 	has_many :act_archivos, as: :ownr, dependent: :destroy
 	has_many :txt_editables, as: :ownr, dependent: :destroy
@@ -44,11 +52,7 @@ class KrnDenuncia < ApplicationRecord
 
 	has_many :notas, as: :ownr, dependent: :destroy
 	
-	has_many :krn_derivaciones, -> { order(created_at: :asc) }, dependent: :destroy
-	has_many :krn_declaraciones, -> { order(created_at: :asc) }, dependent: :destroy
 
-	has_many :krn_inv_denuncias, -> { order(created_at: :asc) }, dependent: :destroy
-	has_many :krn_investigadores, through: :krn_inv_denuncias
 
 #	enum etapa: { recepcion: 0, investigacion: 1, informe: 2, pronunciamiento: 3, aplicacion: 4 }
 
@@ -65,6 +69,7 @@ class KrnDenuncia < ApplicationRecord
 
 	validate :licencia_valida
 
+	include KrnPlazos
 	include Cptn
 	include DnncPlzs
 	include DnncMthds

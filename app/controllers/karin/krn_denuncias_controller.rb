@@ -28,6 +28,12 @@ class Karin::KrnDenunciasController < ApplicationController
     when 1
     when 2
     when 3
+      # --- Variable única para el tab de plazos ---
+      @plazos = @objeto.plazos
+      
+      # Opcional: si quieres alertas globales en el header de la página
+      @alerta_activa = @plazos.any? { |p| p[:estado] == :proximo || p[:aprobado_por_vencimiento] }
+      @incumplimientos = @plazos.select { |p| p[:incumplido] }
     when 4
       @combinados   = @objeto.act_archivos.where(act_archivo: 'combinado')
       @rcrss_infrm  = @objeto.act_archivos.where(act_archivo: ['dsgncn_invstgdr', 'ntfccns', 'dclrcns', 'mds_prb'])
