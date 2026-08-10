@@ -38,7 +38,7 @@
 
   <% fecha_control = @krn_denuncia.plazo_pronunciamiento_fecha %>
   <p>Junto con saludar, informo a usted que, con fecha <%= l(fecha_control, format: :long) if fecha_control %>, <% if @krn_denuncia.fecha_prnncmnt.present? %> este empleador fue notificado del pronunciamiento emitido por la Dirección del Trabajo <% else %> ha vencido el plazo para el pronunciamiento de la Dirección del Trabajo<% end %> respecto de la investigación interna iniciada con ocasión de la denuncia presentada <% if @tipo_participante == 'denunciante' %>por usted<% else %> en su contra <% end %> el día <%= l(@krn_denuncia.fecha_hora, format: :long) %>.</p>
-  <p>En cumplimiento de lo dispuesto en el artículo 19 del Reglamento de la Ley N.° 21.643, se comunica que, atendidas las conclusiones de la investigación y <% unless @krn_denuncia.causal_establecida %>no<% end %> habiéndose acreditado la existencia de conductas constitutivas de acoso laboral, este empleador ha resuelto adoptar las siguientes medidas preventivas:</p>
+  <p>En cumplimiento de lo dispuesto en el artículo 19 del Reglamento de la Ley N.° 21.643, se comunica que, atendidas las conclusiones de la investigación y <% unless @krn_denuncia.causal_establecida %>no<% end %> habiéndose acreditado la existencia de conductas constitutivas de <%= @krn_denuncia&.motivo_denuncia&.downcase %>, este empleador ha resuelto adoptar las siguientes medidas<%= @krn_denuncia.causal_establecida ? '.' : ' preventivas'%>:</p>
 
   <p><%= @txt_editable.contenido.to_s.html_safe %></p>
 
