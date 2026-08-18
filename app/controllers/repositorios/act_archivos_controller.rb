@@ -155,14 +155,55 @@ class Repositorios::ActArchivosController < ApplicationController
   end
 
   # CONTEXT MAIL
+  # ============================================
+  # ENVIAR PDF POR EMAIL — DOCUMENTACIÓN LEGAL
+  # ============================================
   def enviar_pdf_por_email
-    cntxt_clss  = ClssPdf.context_class(@objeto.act_archivo)
-    asunto      = "Ley 21.643 - #{cntxt_clss.nombre[@objeto.act_archivo]}"
-    
-    # Envía el email y verifica si fue exitoso
-    if @objeto.enviar_pdf_por_email(destinatario: @objeto.ownr.email, asunto: asunto)
-      # Si el envío es exitoso, marca sndd como true
+    unless @objeto.pdf.attached?
+      respond_to do |format|
+        format.html { redirect_back fallback_location: root_path, alert: "El PDF no está disponible. Genérelo primero." }
+        format.json { render json: { error: "PDF no adjunto" }, status: :not_found }
+      end
+      return
+    end
+
+    cntxt_clss = ClssPdf.context_class(@objeto.act_archivo)
+    asunto     = "Ley 21.643 - #{cntxt_clss.nombre[@objeto.act_archivo]}"
+
+    # Si necesitas datos_layout específicos, constrúyelos aquí y pásalos.
+    # Si no, el modelo usa reconstruir_datos_layout_por_defecto.
+    datos_layout = nil  # o construir_datos_layout_desde_controller(@objeto)
+
+    exito = @objeto.enviar_pdf_por_email(
+      destinatario: @objeto.ownr&.email,
+      asunto:       asunto,
+      datos_layout: datos_layout
+    )
+
+    if exito
       @objeto.update(sndd: true)
+      respond_to do |format|
+        format.html { redirect_back fallback_location: root_path, notice: "Documento enviado correctamente." }
+        format.json { render json: { exito: true, mensaje: "Email enviado", email_legal_id: @objeto.email_legals.enviado.last&.id } }
+      end
+    else
+      # El email_legal ya fue creado con estado :fallido y el error guardado
+      ultimo_error = @objeto.email_legales.fallidos.last&.error || "Error desconocido"
+      
+      respond_to do |format|
+        format.html { 
+          redirect_back fallback_location: root_path, 
+          alert: "ERROR: El email NO fue enviado. Motivo: #{ultimo_error}. Reintente manualmente." 
+        }
+        format.json { 
+          render json: { 
+            exito: false, 
+            error: "Email no enviado",
+            detalle: ultimo_error,
+            advertencia: "Documento legal NO notificado. Reintente manualmente inmediatamente."
+          }, status: :unprocessable_content 
+        }
+      end
     end
   end
 

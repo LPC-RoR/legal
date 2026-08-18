@@ -2,211 +2,71 @@
 module PdfGeneratable
   extend ActiveSupport::Concern
 
+  # ============================================
+  # ÚNICO PUNTO DE ENTRADA — la vista solo pasa 'code'
+  # ============================================
   def cargar_pdf
     code = params[:code]
-    context_class = ClssPdf.context_class(code)
-    if context_class.has_one?(code)
-      cargar_ownr_pdf(@objeto, code)
+    
+    unless code.present? && ClssPdf.valid_report?(code)
+      return render json: { error: "Reporte no válido" }, status: :bad_request
+    end
+
+    cntxt_clss = ClssPdf.context_class(code)
+    
+    if cntxt_clss.has_one?(code)
+      generar_pdf_simple(code)
     else
-      cargar_ownr_pdf_mltpls(@objeto, code)
+      generar_pdf_multiples(code)
     end
-  end
-
-  # Método que se llama desde cargar_pdf en el controlador
-  def cargar_ownr_pdf(ownr, code)
-    unless code.blank?
-      ownr_efective = ownr.is_a?(TxtEditable) ? ownr.ownr : ownr
-      generar_pdf(code,
-        ownr: ownr_efective,
-        objeto_id: @objeto.id,
-        enviar_email: false
-      )
-    end
-  end
-
-  # Método que se llama desde cargar_pdf en el controlador
-  def cargar_ownr_pdf_mltpls(ownr, code)
-    # Verificaciones de code y valid_report?: REVISAR funcionamiento
-    unless code.present?
-      return render json: { error: "Se requiere parámetro code" }, status: :bad_request
-    end
-
-    unless ClssPdf.valid_report?(code)
-      return render json: { error: "Reporte no válido: #{code}" }, status: :bad_request
-    end
-
-    # Obtener la denuncia asociada
-    dnnc = ownr.is_a?(KrnInvDenuncia) ? ownr.krn_denuncia : ownr.dnnc
-    
-    # Determinar participantes según el tipo de reporte
-    participantes = obtener_participantes(dnnc, code)
-    
-    if participantes.empty?
-      return render json: { error: "No hay participantes para generar el PDF" }, status: :unprocessable_content
-    end
-
-    # Generar PDFs múltiples (uno por participante)
-    generar_pdf_multiples(code, 
-      dnnc_id: dnnc.id,
-      objeto_id: ownr.id,
-      participantes: participantes,
-      async: false
-    )
-  end
-
-  # Método único para generar PDFs.
-  # @param reporte [String] Identificador del reporte (ej: 'txt_mdds_crrctvs_sncns')
-  # @param ownr [ActiveRecord::Base, nil] Propietario polimórfico del ActArchivo
-  # @param objeto_id [Integer, String, nil] ID del objeto principal del reporte
-  # @param opciones [Hash] Opciones adicionales
-  def generar_pdf(reporte, ownr: nil, objeto_id: nil, **opciones)
-    objeto_id ||= params[:id]
-    
-    unless ClssPdf.valid_report?(reporte)
-      return render json: { error: "Reporte no válido: #{reporte}" }, status: :bad_request
-    end
-
-    opciones.merge!(ownr: ownr, objeto_id: objeto_id)
-
-    if opciones[:async] || async_reporte?(reporte)
-      Pdfs::PdfGenerationJob.perform_later(reporte, opciones)
-      render json: { 
-        message: "PDF en proceso de generación", 
-        reporte: reporte,
-        ownr_type: ownr&.class&.name,
-        ownr_id: ownr&.id
-      }, status: :accepted
-    else
-      begin
-        cntxt_clss  = ClssPdf.context_class(reporte)
-        ref_code    = cntxt_clss.ref_code?(reporte)
-
-        # ============================================================
-        # CORRECCIÓN: Forzar ownr al participante según el contexto
-        # ============================================================
-        if cntxt_clss.respond_to?(:datos_para)
-          datos = cntxt_clss.datos_para(reporte, objeto_id, opciones)
-          opciones[:ownr] = datos[:ownr] if datos[:ownr].present?
-        end
-        # ============================================================
-
-        if ref_code
-          ref_clss = cntxt_clss.ref_clss(reporte) 
-          ref      = ref_clss.find(objeto_id)
-        end
-        
-        act_archivo = Pdfs::ContextPdfService.generar_pdf(reporte, opciones)
-
-        if ref_code
-          ActReferencia.create!(
-            ref: ref,
-            act_archivo: act_archivo,
-            code: reporte
-          )
-        end
-
-        if opciones[:descargar]
-          redirect_to rails_blob_path(act_archivo.pdf, disposition: 'attachment')
-        else
-          render json: { 
-            act_archivo_id: act_archivo.id,
-            pdf_url: url_for(act_archivo.pdf),
-            reporte: reporte,
-            ownr_type: act_archivo.ownr_type,
-            ownr_id: act_archivo.ownr_id
-          }
-        end
-      rescue => e
-        Rails.logger.error "[PdfGeneratable] Error generando PDF: #{e.message}"
-        render json: { error: e.message }, status: :unprocessable_content
-      end
-    end
-  end
-
-  # ============================================
-  # GENERAR PDFs MÚLTIPLES (uno por participante)
-  # ============================================
-  # @param reporte [String] Código del reporte
-  # @param objeto_id [Integer] ID del objeto principal (TxtEditable)
-  # @param participantes [Array] Colección de participantes
-  # @param opciones [Hash] Opciones adicionales
-  def generar_pdf_multiples(reporte, objeto_id:, participantes:, **opciones)
-    unless ClssPdf.valid_report?(reporte)
-      return render json: { error: "Reporte no válido: #{reporte}" }, status: :bad_request
-    end
-
-    cntxt_clss  = ClssPdf.context_class(reporte)
-    ref_code    = cntxt_clss.ref_code?(reporte)
-
-    if ref_code
-      ref_clss    = cntxt_clss.ref_clss(reporte) 
-      # Obtener el ref que está llamando a este método
-      ref = ref_clss.find(objeto_id)
-    end
-
-    act_archivos = participantes.map do |participante|
-      # Generar el PDF para cada participante
-      act_archivo = Pdfs::ContextPdfService.generar_pdf(reporte, 
-        ownr: participante,
-        objeto_id: objeto_id,
-        participante: participante,
-        **opciones
-      )
-
-      if ref_code
-        # Crear la referencia polimórfica entre TxtEditable y ActArchivo
-        ActReferencia.create!(
-          ref: ref,        # Polimórfico: guarda ref_type = "TxtEditable", ref_id = ref.id
-          act_archivo: act_archivo,
-          code: reporte
-        )
-      end
-
-      act_archivo
-    end
-
-    render json: {
-      message: "PDFs generados exitosamente",
-      reporte: reporte,
-      cantidad: act_archivos.length,
-      act_archivos: act_archivos.map { |a| { 
-        id: a.id, 
-        nombre: a.nombre,
-        ownr_type: a.ownr_type,
-        ownr_id: a.ownr_id
-      }}
-    }
-  rescue ActiveRecord::RecordNotFound => e
-    Rails.logger.error "[PdfGeneratable] TxtEditable no encontrado: #{e.message}"
-    render json: { error: "TxtEditable no encontrado" }, status: :not_found
-  rescue => e
-    Rails.logger.error "[PdfGeneratable] Error generando PDFs múltiples: #{e.message}"
-    render json: { error: e.message }, status: :unprocessable_content
   end
 
   private
-  # ============================================
-  # DETERMINAR PARTICIPANTES SEGÚN REPORTE
-  # Sólo para cargar_ownr_pdf_mltpls
-  # ============================================
-  def obtener_participantes(krn_denuncia, codigo_pdf)
-    case codigo_pdf
-    when 'txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd', 'invstgcn', 'drchs'
-      # Todos los denunciantes y denunciados
-      krn_denuncia.krn_denunciantes + krn_denuncia.krn_denunciados
-    when 'dnncnt_info_oblgtr', 'comprobante'
-      krn_denuncia.krn_denunciantes
-    when 'txt_dclrcn_dnncd'   # Ejemplo futuro: solo denunciados
-      krn_denuncia.krn_denunciados
-    when 'txt_tstg'            # Ejemplo futuro: testigos
-      krn_denuncia.krn_testigos
-    else
-      # Default: todos los participantes
-      krn_denuncia.krn_denunciantes + krn_denuncia.krn_denunciados
+
+  # --------------------------------------------
+  # Un solo PDF (has_one)
+  # --------------------------------------------
+  def generar_pdf_simple(code)
+    ownr = @objeto.is_a?(TxtEditable) ? @objeto.ownr : @objeto
+    
+    # Corrección de ownr para 'dclrcn' y similares
+    if ownr.respond_to?(:ownr) && %w[dclrcn txt_dclrcn txt_dclrcn_annmzd txt_dclrcn_rsmn].include?(code)
+      ownr = ownr.ownr
     end
+
+    generar_pdf(code, ownr: ownr, objeto_id: @objeto.id)
   end
 
-  def async_reporte?(reporte)
-    %w[dnnc st_dclrcns balance_general].include?(reporte.to_s)
+  # --------------------------------------------
+  # Múltiples PDFs (uno por participante)
+  # --------------------------------------------
+  def generar_pdf_multiples(code)
+    dnnc = @objeto.is_a?(KrnInvDenuncia) ? @objeto.krn_denuncia : @objeto.dnnc
+    
+    participantes = case code
+    when 'crdncn_apt'
+      dnnc.ownr.app_contactos.where(grupo: 'Apt')
+    when 'dts_prncpls', 'dts_tstgs'
+      dnnc.ownr.app_contactos.where(grupo: 'RRHH')
+    when 'dnncnt_info_oblgtr', 'comprobante'
+      dnnc.krn_denunciantes
+    when 'txt_dclrcn_dnncd'
+      dnnc.krn_denunciados
+    when 'txt_tstg'
+      dnnc.krn_testigos
+    else
+      dnnc.krn_denunciantes + dnnc.krn_denunciados
+    end
+
+    if participantes.empty?
+      return render json: { error: "No hay participantes" }, status: :unprocessable_content
+    end
+
+    super(code, 
+      dnnc_id: dnnc.id,
+      objeto_id: @objeto.id,
+      participantes: participantes,
+      async: false
+    )
   end
 end

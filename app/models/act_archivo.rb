@@ -10,6 +10,9 @@ class ActArchivo < ApplicationRecord
 
   has_many :act_referencias, dependent: :destroy
 
+  # Para el control deĺ envío exitoso de emails
+  has_many :email_legales, dependent: :nullify
+
   has_many :krn_textos, as: :ownr, dependent: :destroy
   accepts_nested_attributes_for :krn_textos, allow_destroy: true
 
@@ -44,20 +47,59 @@ class ActArchivo < ApplicationRecord
 
   # ****************************************************** CONTEXT MAIL
 
-  def enviar_pdf_por_email(destinatario:, asunto: nil, **opciones)
-    contexto = ClssPdf.context_for(act_archivo)
-    datos_layout = cargar_datos_para_layout(contexto)
+  # ============================================
+  # ENVIAR PDF POR EMAIL — SINCRÓNICO Y TRAZABLE
+  # ============================================
+  # Usar SIEMPRE para documentación legal. 
+  # deliver_now garantiza que el usuario sabe inmediatamente si falló.
+  def enviar_pdf_por_email(destinatario:, asunto:, datos_layout: nil)
+    return false unless pdf.attached?
 
-    PdfBaseMailer
-      .with(
-        act_archivo: self,
-        destinatario: destinatario,
-        contexto: contexto,
-        datos_layout: datos_layout,
-        **opciones
-      )
-      .enviar_pdf(asunto: asunto || asunto_por_defecto)
-      .deliver_later
+    # 1. Crear trazabilidad
+    email_legal = EmailLegal.create!(
+      act_archivo:  self,
+      ownr:         self.ownr,
+      reporte:      self.act_archivo,
+      destinatario: destinatario,
+      asunto:       asunto,
+      estado:       :pendiente
+    )
+
+    # 2. Preparar datos para el mailer
+    contexto     = ClssPdf.context_for(self.act_archivo)
+    layout_data  = datos_layout #|| reconstruir_datos_layout_por_defecto
+
+    # 3. Enviar sincrónicamente (deliver_now)
+    email_legal.update!(estado: :encolado)
+
+    PdfBaseMailer.with(
+      act_archivo:  self,
+      destinatario: destinatario,
+      contexto:     contexto,
+      datos_layout: layout_data
+    ).enviar_pdf(asunto: asunto).deliver_now
+
+    # 4. Confirmar éxito
+    email_legal.update!(estado: :enviado, enviado_en: Time.current)
+    true
+
+  rescue => e
+    email_legal&.update!(
+      estado:   :fallido,
+      error:    e.message,
+      intentos: email_legal.intentos + 1
+    )
+
+    Rails.logger.error "[ActArchivo##{id}] Email NO enviado: #{e.message}"
+    Rails.logger.error e.backtrace.first(5).join("\n")
+    false
+  end
+
+  # ============================================
+  # REENVIAR PDF YA ENVIADO (para reintentos manuales)
+  # ============================================
+  def reenviar_pdf_por_email(destinatario:, asunto:, datos_layout: nil)
+    enviar_pdf_por_email(destinatario: destinatario, asunto: asunto, datos_layout: datos_layout)
   end
 
   # tienes otros métodos en private

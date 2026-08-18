@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_17_191633) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_18_163323) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -835,6 +835,25 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_17_191633) do
     t.index ["doc_cuenta_id"], name: "index_doc_transacciones_on_doc_cuenta_id"
     t.index ["relacionable_type", "relacionable_id"], name: "idx_on_relacionable_type_relacionable_id_845b638d96"
     t.index ["relacionable_type", "relacionable_id"], name: "index_doc_transacciones_on_relacionable"
+  end
+
+  create_table "email_legales", force: :cascade do |t|
+    t.bigint "act_archivo_id", null: false
+    t.string "ownr_type"
+    t.bigint "ownr_id"
+    t.string "reporte", null: false
+    t.string "destinatario", null: false
+    t.string "asunto"
+    t.integer "estado", default: 0, null: false
+    t.text "error"
+    t.datetime "enviado_en"
+    t.integer "intentos", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["act_archivo_id", "estado"], name: "index_email_legales_on_act_archivo_id_and_estado"
+    t.index ["act_archivo_id"], name: "index_email_legales_on_act_archivo_id"
+    t.index ["estado", "created_at"], name: "index_email_legales_on_estado_and_created_at"
+    t.index ["ownr_type", "ownr_id"], name: "index_email_legales_on_ownr"
   end
 
   create_table "empresas", force: :cascade do |t|
@@ -1860,6 +1879,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_17_191633) do
   add_foreign_key "doc_emitidos", "doc_planillas"
   add_foreign_key "doc_transacciones", "doc_cartolas"
   add_foreign_key "doc_transacciones", "doc_cuentas"
+  add_foreign_key "email_legales", "act_archivos"
   add_foreign_key "krn_tramites", "krn_denuncias"
   add_foreign_key "licencias", "empresas"
   add_foreign_key "responsable_actividades", "age_actividades"
