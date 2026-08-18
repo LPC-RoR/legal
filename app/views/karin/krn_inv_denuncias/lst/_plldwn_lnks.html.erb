@@ -14,7 +14,7 @@
   <% unless ntfccns&.any? %>
     <li>
       <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_inv_denuncias/#{objt.id}/cargar_pdf?code=invstgdr", tltp: 'Generar PDF', data: {turbo_method: :post, turbo_confirm: 'generación del PDF'}, clss: 'dropdown-item'} do %>
-        Notificar asignación
+        Generar PDF notificaciones
       <% end %>
     </li>
   <% end %>
