@@ -1,4 +1,4 @@
-// app/javascript/controllers/dynamic_form_controller.js
+// app/javascript/controllers/conditional_fields_controller.js
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {

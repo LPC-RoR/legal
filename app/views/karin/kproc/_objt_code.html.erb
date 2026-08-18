@@ -8,13 +8,13 @@
 	</div>
 	<div class="col-2 text-end objt_lnk">
 		<% unless mdl.has_one?(code) && lst.any? %>
-			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/new#{ownr_prms(ownr)}&code=#{code}", tltp: 'Subir PDF'} do %>
-				<i class="bi bi-upload"></i>
-			<% end %>
 			<% unless ClssPdf.txt_code?(code) || mdl.no_tmplt?(code) %>
 				<%= render layout: '0p/tltp_lnk', locals: {lnk: "/#{ownr.class.table_name}/#{ownr.id}/cargar_pdf?code=#{code}", tltp: "Generar pdf", data: {turbo_method: :post, turbo_confirm: "Confirmar generación de PDF",}} do %>
 					<i class="bi bi-file-earmark-plus"></i>
 				<% end %>
+			<% end %>
+			<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/new#{ownr_prms(ownr)}&code=#{code}", tltp: 'Subir PDF'} do %>
+				<i class="bi bi-upload"></i>
 			<% end %>
 		<% end %>
 	</div>

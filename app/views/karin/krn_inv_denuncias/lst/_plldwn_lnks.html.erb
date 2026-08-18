@@ -1,19 +1,19 @@
 <% clccn  = @objeto.krn_inv_denuncias %>
 
-<% ntfccns = objt.act_referencias.where(code: 'invstgdr')&.any? %>
+<% ntfccns = objt.act_referencias.where(code: 'invstgdr') %>
 <% dsgncn = objt.act_referencias.find_by(code: 'txt_dsgncn') %>
 
-<% estd_1 = ntfccns ? 'sin notificar' : "notificado (#{ntfccns.count})" %>
+<% estd_1 = ntfccns.any? ? "notificado (#{ntfccns.count})" : 'sin notificar' %>
 <% estd_2 = dsgncn.present? ? 'sin designación' : "designado" %>
 
 
 <%# Notificación: a menos que sea el investigador objetado %>
 <%# Manejo de notificaciones no se despliega en un investigador objetado %>
-<% unless clccn.first == objt and clccn.count == 2 %>
+<% unless objt.objetado %>
 
-  <% unless ntfccns %>
+  <% unless ntfccns&.any? %>
     <li>
-      <%= render layout: '0p/tltp_lnk', locals: {lnk:"/krn_denuncias/#{@objeto.id}/krn_pdf_rprt?rprt=invstgdr&nid=#{objt.id}", tltp: 'Generar, almacenar y enviar reporte', data: {turbo_method: :post, turbo_confirm: 'Confirmar envío de email'}, clss: 'dropdown-item'} do %>
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_inv_denuncias/#{objt.id}/cargar_pdf?code=invstgdr", tltp: 'Generar PDF', data: {turbo_method: :post, turbo_confirm: 'generación del PDF'}, clss: 'dropdown-item'} do %>
         Notificar asignación
       <% end %>
     </li>
@@ -29,27 +29,19 @@
 
 <% end %>
 
-<%# OBJECIÓN de Investigador %>
-<% if clccn.first == objt %>
-
-  <% unless clccn.count == 2 or @objeto.objcn_acogida or @objeto.objcn_rechazada or @objeto.fecha_trmn? %>
-    <li>
-      <%= render partial: '0p/swtch_lnk', locals: {objeto: objt, tkn: 'objetado', stts: ['Eliminar objeción', 'Objetar investigador'], orgn: @orgn, clss: 'dropdown-item'} %>
-    </li>
-  <% end %>
-
-<% end %>
-
-<% unless (clccn.count == 2 and objt == clccn.first) or objt.objetado or @objeto.fecha_trmn? %>
+<%# unless (clccn.count == 2 and objt == clccn.first) or objt.objetado or @objeto.fecha_trmn? %>
   <% if current_usuario.operacion? %>
 
-    <!--li><hr class="dropdown-divider"></li-->
-    <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
+    <% unless objt.objetado %>
+      <li><hr class="dropdown-divider"></li>
+    <% end %>
     <%= render partial: '0p/tbl/plldwn_editar', locals: {objt: objt, orgn: @orgn} %>
 
-    <li><hr class="dropdown-divider"></li>
-
-    <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+    <%# No se puede eliminar una asignación objetada %>
+    <% unless objt.objetado %>
+      <li><hr class="dropdown-divider"></li>
+      <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
+    <% end %>
 
   <% end %>
-<% end %>
+<%# end %>

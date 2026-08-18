@@ -212,6 +212,9 @@ Rails.application.routes.draw do
       match :reenviar_correo, via: :post, on: :member
     end
     resources :krn_declaraciones do
+      member do
+        post :cargar_pdf
+      end
       match :swtch, via: :post, on: :member
       match :migrar, via: :get, on: :member
     end
@@ -226,6 +229,9 @@ Rails.application.routes.draw do
       match :reenviar_correo, via: :post, on: :member
     end
     resources :krn_inv_denuncias do
+      member do
+        post :cargar_pdf
+      end
       match :swtch, via: :post, on: :member
     end
     resources :krn_tramites

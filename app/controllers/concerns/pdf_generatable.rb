@@ -36,7 +36,7 @@ module PdfGeneratable
     end
 
     # Obtener la denuncia asociada
-    dnnc = ownr.dnnc
+    dnnc = ownr.is_a?(KrnInvDenuncia) ? ownr.krn_denuncia : ownr.dnnc
     
     # Determinar participantes según el tipo de reporte
     participantes = obtener_participantes(dnnc, code)
@@ -70,7 +70,6 @@ module PdfGeneratable
 
     if opciones[:async] || async_reporte?(reporte)
       Pdfs::PdfGenerationJob.perform_later(reporte, opciones)
-      
       render json: { 
         message: "PDF en proceso de generación", 
         reporte: reporte,
@@ -79,8 +78,33 @@ module PdfGeneratable
       }, status: :accepted
     else
       begin
-        act_archivo = Pdfs::ContextPdfService.generar_pdf(reporte, opciones)
+        cntxt_clss  = ClssPdf.context_class(reporte)
+        ref_code    = cntxt_clss.ref_code?(reporte)
+
+        # ============================================================
+        # CORRECCIÓN: Forzar ownr al participante según el contexto
+        # ============================================================
+        if cntxt_clss.respond_to?(:datos_para)
+          datos = cntxt_clss.datos_para(reporte, objeto_id, opciones)
+          opciones[:ownr] = datos[:ownr] if datos[:ownr].present?
+        end
+        # ============================================================
+
+        if ref_code
+          ref_clss = cntxt_clss.ref_clss(reporte) 
+          ref      = ref_clss.find(objeto_id)
+        end
         
+        act_archivo = Pdfs::ContextPdfService.generar_pdf(reporte, opciones)
+
+        if ref_code
+          ActReferencia.create!(
+            ref: ref,
+            act_archivo: act_archivo,
+            code: reporte
+          )
+        end
+
         if opciones[:descargar]
           redirect_to rails_blob_path(act_archivo.pdf, disposition: 'attachment')
         else
@@ -133,7 +157,8 @@ module PdfGeneratable
         # Crear la referencia polimórfica entre TxtEditable y ActArchivo
         ActReferencia.create!(
           ref: ref,        # Polimórfico: guarda ref_type = "TxtEditable", ref_id = ref.id
-          act_archivo: act_archivo
+          act_archivo: act_archivo,
+          code: reporte
         )
       end
 

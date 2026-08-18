@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_06_224342) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_17_191633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1058,8 +1058,12 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_06_224342) do
     t.date "fecha_termino_investigacion"
     t.date "fecha_recepcion_pronunciamiento"
     t.date "fecha_aplicacion_medidas"
+    t.string "etapa"
+    t.string "dnncnt_optn_invstgcn"
+    t.string "emprs_optn_invstgcn"
     t.index ["auditoria"], name: "index_krn_denuncias_on_auditoria"
     t.index ["causal_establecida"], name: "index_krn_denuncias_on_causal_establecida"
+    t.index ["etapa"], name: "index_krn_denuncias_on_etapa"
     t.index ["fecha_hora"], name: "index_krn_denuncias_on_fecha_hora"
     t.index ["fecha_hora_dt"], name: "index_krn_denuncias_on_fecha_hora_dt"
     t.index ["identificador"], name: "index_krn_denuncias_on_identificador"
@@ -1118,6 +1122,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_06_224342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "objetado"
+    t.string "objecion_rslcn"
     t.index ["krn_denuncia_id"], name: "index_krn_inv_denuncias_on_krn_denuncia_id"
     t.index ["krn_investigador_id"], name: "index_krn_inv_denuncias_on_krn_investigador_id"
   end

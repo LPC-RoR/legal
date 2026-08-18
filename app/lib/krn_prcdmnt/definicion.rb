@@ -24,6 +24,7 @@ module KrnPrcdmnt
       tarea 'tsk_dnncnt_info_oblgtr',
             si: ->(d) { d.tsk_dnncnt_info_oblgtr? },
             entonces: ->(d) { d.update!(krn_validada: true) }
+      # DEPRECATED, migrada al formulario de ingreso
       tarea 'tsk_dnncnt_optn_drvcn',
             si: ->(d) { d.tsk_dnncnt_optn_drvcn? },
             entonces: ->(d) { d.update!(krn_validada: true) }

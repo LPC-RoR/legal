@@ -74,6 +74,13 @@ class Empresa < ApplicationRecord
         self.logo.present? ? self.logo.url : 'logo/logo_60.png'
     end
 
+    # ----------------------------------------------- FIRMAS
+    def firma_cnl_dnncs
+        txt_editables&.find_by(codigo: 'txt_firma_cnl_dnncs')&.contenido
+    end
+    # ----------------------------------------------- FIRMAS (final)
+
+
     # Configuración reportes
 
     def cntcts_array

@@ -1,0 +1,11 @@
+<% codes = KrnTramite.dsply_codes_for(ownr) %>
+
+<div class="p-2">
+	<% if codes.empty? %>
+		<i class="bi bi-cone-striped"></i> No hay trámites activos para est<%=ownr.kywrd[:fml] ? 'a' : 'o' %> <%= ownr.kywrd[:rol] %>.
+	<% else %>
+		<% codes.each do |code| %>
+			<%= render partial: 'karin/kproc/objeto_trmt', locals: {code: code, mdl: ClssPdfInvstgcns, ownr: ownr} %>
+		<% end %>
+	<% end %>
+</div>

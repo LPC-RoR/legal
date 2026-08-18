@@ -1,0 +1,6 @@
+<h5><%= KrnTramite.nombre[@objeto.tipo] %></h5>
+
+<%= render partial: '0inpts/datetime', locals: { f: f, tkn: :fecha_hora, label: 'Fecha y hora'} %>
+<%= render partial: '0inpts/text', locals: { f: f, tkn: :numero_solicitud, label: 'Número de solicitud'} %>
+
+<%= render partial: '0inpts/hidden_lst', locals: { f: f, hddn_lst: [:krn_denuncia_id, :tipo] } %>

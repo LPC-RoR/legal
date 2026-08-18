@@ -35,6 +35,12 @@ module Paths
 			when 'krn_investigadores'
 				objt.ownr
 			end
+		when 'act_archivos'
+			case objt.ownr.class.table_name
+			when 'krn_denuncias'
+				objt.ownr
+			else
+			end
 		end
 	end
 
@@ -64,7 +70,7 @@ module Paths
 			shw_cnt_tab_indx(objt.ownr, 'invstgdrs')
 		when 'krn_empresa_externas'
 			shw_cnt_tab_indx(objt.ownr, 'extrns')
-		when 'krn_denunciantes', 'krn_denunciados', 'krn_testigos'
+		when 'krn_denunciantes', 'krn_denunciados', 'krn_testigos', 'krn_inv_denuncias', 'krn_tramites'
 			shw_dnnc_tab_indx(objt.krn_denuncia, 0)
 		end
 	end

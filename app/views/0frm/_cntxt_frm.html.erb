@@ -1,11 +1,12 @@
 <%# views/0frm/_cntxt_frm.html.erb  %>
 <%# form con contexto %>
+<%# objeto puede ser @form en el caso de KrnDenuncia %>
+<% objeto	= @objeto %>
 <%# female: reemplaza Nuevo por Nueva. Por defecto es false %>
-<% fml  ||= false %>	
-<% data ||= nil %>
+<% fml  	||= false %>	
+<% data 	||= nil %>
 
-<% cntxt = ClssCntxt.cntxt_for_objt(@objeto) %>
-<%#= @objeto.ownr.class.name %>
+<% cntxt = ClssCntxt.cntxt_for_objt(objeto) %>
 
 <% if prtl?('0frm', "#{cntxt}", 'frm') %>
 	<%= render partial: prtl('0frm', "#{cntxt}", 'frm'), locals: {fml: fml, data: data} %>

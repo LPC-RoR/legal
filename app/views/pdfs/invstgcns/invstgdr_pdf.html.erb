@@ -1,0 +1,45 @@
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Recepción de denuncias
+</div>
+
+<div class="text-center fs-5">
+  Notifica designación de Investigador(a)
+</div>
+
+<div class="row mt-5">
+  <div class="col-6">
+    <%= @krn_kywrd %><br>
+    Sr(a) <%= @ownr.nombre %><br>
+    PRESENTE
+  </div>
+  <div class="col-6 text-end">
+    REFERENCIA:<br>
+    Denuncia <%= @dnnc.identificador %>
+  </div>
+</div>
+
+	<p>De nuestra consideración:</p>
+
+	<p>
+	  Por medio de la presente, informamos que el(la) Sr(a) <%= @objeto.krn_investigador.krn_investigador %> ha sido designado(a) como investigador(a) en el procedimiento individualizado en la referencia.</p>
+
+	<p>
+	  Para efectos del presente procedimiento, usted participa en calidad de <%= @ownr.kywrd[:rol] %>.
+	</p>
+
+	<p>
+	  A partir de este momento, la investigadora designada queda a su disposición para resolver cualquier consulta a través de la casilla de correo electrónico <%= @objeto.krn_investigador.email %>
+	</p>
+
+	<p>Sin otro particular, le saluda atentamente</p>
+
+<div class="mt-5 text-center">
+  <% firma = @empresa.firma_cnl_dnncs %>
+  <% if firma %>
+    <%= firma.to_s.html_safe %>
+  <% else %>
+    Canal de denuncias ley 21.643 (Ley Karin)
+  <% end %>
+</div>

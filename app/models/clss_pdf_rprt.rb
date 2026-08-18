@@ -221,7 +221,7 @@ class ClssPdfRprt
 
   def self.txt_lst
   	{
-  		dnnc: 		['txt_mdds_rsgrd', 'txt_objcn_rslcn', 'txt_anlss', 'txt_infrm', 'txt_emprs_dnnc', 'dnnc_annmzd', 'dnnc_rsmn'],
+  		dnnc: 		['txt_mdds_rsgrd', 'txt_anlss', 'txt_infrm', 'txt_emprs_dnnc', 'dnnc_annmzd', 'dnnc_rsmn'],
   		dnncnt_1: 	['txt_rprsntcn', 'txt_slctd_516', 'txt_acta'],
   		prtcpnts_1: ['txt_slctd_516'],
   		prtcpnts_2: ['txt_dclrcn', 'texto_anonimizado', 'resumen_cronologico', 'confirmacion_hechos'],

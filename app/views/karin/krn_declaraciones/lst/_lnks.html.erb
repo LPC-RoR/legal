@@ -2,7 +2,7 @@
 <% verificado 	= objt.ownr.tiene_email_verificado? %>
 <% articulo_516	= objt.ownr.articulo_516 %>
 
-<% if objt.act_referencias.empty? and (not objt.tiene_check_realizado?) %>
+<% if objt.act_referencias.empty? %>
 
 	<small>
 
@@ -16,7 +16,7 @@
 		<% end %>
 	<% end %>
 
-	<%= render partial: '0t/lnks_e', locals: {objt: objt} %></small>
+	<%#= render partial: '0t/plldwn_lnks', locals: {objt: objt} %></small>
 <% else %>
 	<i class="bi bi-check2-all"></i>
 <% end %>

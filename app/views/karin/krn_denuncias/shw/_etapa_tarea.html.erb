@@ -5,7 +5,7 @@
 	<div class="border-bottom mx-1 my-1 px-2 py-1 rounded-2 fw-bold">
 		<div class="row">
 			<div class="col-8 fs-6"><i class="bi bi-caret-right-fill"></i> Etapa  <small><i class="bi bi-caret-right"></i> Tarea</small> </div>
-			<div class="col-4 text-end fs-6">Plazo</div>
+			<div class="col-4 pe-4 text-end fs-6">Plazo</div>
 		</div>
 	</div>
 
@@ -14,9 +14,6 @@
 			<div class="col-8">
 				<div class="d-flex justify-content-start gap-1 text-dark">
 					<i class="bi bi-caret-right-fill"></i><b><%= ClssPrcdmnt.act_nombre[@kproc.etapa.to_s] %></b>
-					<%= render layout: '0p/mdl/link', locals: {cdg: @kproc.etapa.to_s, tltp: "Ayuda de la etapa"} do %>
-						<i class="bi bi-question-circle"></i>
-					<% end %>
 				</div>
 			</div>
 			<!-- Etapa del procedimiento cerrado no tiene plazo -->
@@ -35,34 +32,22 @@
 			</div>
 		</div>
 
-		<div class="ps-4">
+		<div class="ps-4 objt_lnk">
 			<b><i class="bi bi-caret-right"></i><%= ClssPrcdmnt.act_nombre[@kproc.tarea] %></b>
-
-			<% if undo_exist?(@objeto, @kproc.tarea) %>
-				<div class="text-end app_lnk">
-					<%= render layout: '0p/collapse/link', locals: {label: 'Undo', objeto: nil, tooltip: nil} do %>
-						<i class="bi bi-cursor"></i> ¿Desea deshacer la última acción realizada?
-					<% end %>
-				</div>
+			<%= render layout: '0p/collapse/link', locals: {label: 'DetalleTarea', objeto: nil, tooltip: nil} do %>
+				<small>Detalle <i class="bi bi-arrow-bar-down"></i></small>
 			<% end %>
 
-			<div class="ps-2">
-				<% if prtl?('karin', 'kproc/hnts', @kproc.tarea) %>
-					<%= render partial: prtl('karin', 'kproc/hnts', @kproc.tarea) %>
+			<% if prtl?('karin', 'kproc/hnts', @kproc.tarea) %>
+				<%= render layout: '0p/collapse/dsply', locals: {label: 'DetalleTarea', objeto: nil} do %>
+					<div class="ps-2">
+						<%= render partial: prtl('karin', 'kproc/hnts', @kproc.tarea) %>
+					</div>
 				<% end %>
-			</div>
+			<% end %>
 		</div>
 	</div>
 
 
 
 </div>
-
-<%= render layout: '0p/mdl/modal', locals: {cdg: @kproc.etapa.to_s, ttl: ClssPrcdmnt.act_nombre[@kproc.etapa.to_s], sz: 'lg'} do %>
-	<%= render partial: prtl_name(@objeto, 'hlp', @kproc.etapa.to_s) %>
-<% end %>
-<% if undo_exist?(@objeto, @kproc.tarea) %>
-	<%= render layout: '0p/collapse/dsply', locals: {label: 'Undo', objeto: nil} do %>
-		<%= render partial: undo_prtl(@objeto, @kproc.tarea), locals: {objt: @objeto} %>
-	<% end %>
-<% end %>

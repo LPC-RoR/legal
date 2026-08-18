@@ -1,0 +1,24 @@
+<% lst.each do |trmt| %>
+	<%# NO es necesario porque está en el título %>
+	<%# nombre = KrnTramite.nombre[trmt.tipo] %>
+
+	<%# Se puede crear un registro que no tenga PDF, como una forma de marcar como realizado %>
+	<%# Se diferencia un PDF generado de uno subido (upload) %>
+	<%# TODO lo anterior tiene un look diferenciado %>
+	<% if trmt.numero_solicitud.present? %>
+		<% clr = 'text-primary' %>
+	<% else %>
+		<% clr = 'text-secondary' %>
+	<% end %>
+
+	<div class="row gx-1 <%=clr%>">
+		<div class="col-10">
+			<i class="bi bi-arrow-return-right"></i> 
+			<%= dma_hm(trmt.fecha_hora) %> <i class="bi bi-arrow-right"></i> <%= trmt.numero_solicitud %>
+		</div>
+		<div class="col-2 text-end objt_lnk">
+			<%=render partial: '0t/lnk_editar', locals: {objt: trmt} %>
+			<%=render partial: '0t/lnk_eliminar', locals: {objt: trmt} %>
+		</div>
+	</div>
+<% end %>

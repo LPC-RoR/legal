@@ -10,7 +10,7 @@ class KrnDenunciante < ApplicationRecord
 	  'invstgcn', 'drchs',
 	  'txt_mdds_rsgrd',
 	  'drvcn', 'invstgdr',
-	  'txt_objcn_rspst', 'txt_objcn_rslcn', 'txt_anlss',
+	  'txt_objcn_rspst', 'txt_anlss',
 	  'dclrcn'
 	].freeze
 

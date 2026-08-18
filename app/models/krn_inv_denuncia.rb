@@ -21,4 +21,5 @@ class KrnInvDenuncia < ApplicationRecord
 	def ownr
 		self.krn_denuncia
 	end
+
 end

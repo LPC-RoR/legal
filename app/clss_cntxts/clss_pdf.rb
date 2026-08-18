@@ -28,7 +28,7 @@ class ClssPdf
     'declaracion'               => :invstgcns,    # ← DECLARACIÓN FIRMADA
     'dnnc'                      => :invstgcns,
     'st_dclrcns'                => :invstgcns,
-    'dclrcn'                    => :invstgcns,
+    'dclrcn'                    => :invstgcns,    # ← AGENDAMIENTO DE LA DECLARACIÓN
     'txt_dclrcn'                => :invstgcns,    # ← DECLARACIÓN (texto para firma)
     'txt_infrm'                 => :invstgcns,
     'texto_anonimizado'         => :invstgcns,

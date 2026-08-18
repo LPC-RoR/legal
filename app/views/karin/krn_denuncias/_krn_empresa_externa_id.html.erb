@@ -1,3 +1,5 @@
+<% objeto = @objeto || @form.to_model %>
+
 <%# Partial para manejo condicional del form %>
-<% emprss = @objeto&.ownr&.krn_empresa_externas.order(:razon_social).to_options_hash %>
+<% emprss = objeto&.ownr&.krn_empresa_externas.order(:razon_social).to_options_hash %>
 <%= render partial: '0inpts/select_code', locals: {f: f, tkn: :krn_empresa_externa_id, hsh: emprss, label: 'Empresa que recibió la denuncia' } %>

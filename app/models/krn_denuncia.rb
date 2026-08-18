@@ -54,7 +54,6 @@ class KrnDenuncia < ApplicationRecord
 	
 
 
-#	enum etapa: { recepcion: 0, investigacion: 1, informe: 2, pronunciamiento: 3, aplicacion: 4 }
 
 	scope :ordr, -> { order(fecha_hora: :desc, id: :desc) }
 
@@ -69,6 +68,8 @@ class KrnDenuncia < ApplicationRecord
 
 	validate :licencia_valida
 
+	include AASM
+	include DnncEtapas
 	include KrnPlazos
 	include Cptn
 	include DnncPlzs
@@ -108,6 +109,17 @@ class KrnDenuncia < ApplicationRecord
 		:dnnc
 	end
 
+	# ------------------------------------------------------------------------ FIRMAS EN NOTIFICACIONES
+
+	def firma_rcpcn
+		ownr&.txt_editables&.where(codigo: 'txt_firma_rcpcn')&.last&.contenido
+	end
+
+	def firma_invstgdr
+		krn_inv_denuncias&.last&.objetado ? nil : krn_inv_denuncias&.last&.krn_investigador&.txt_editables&.find_by(codigo: 'txt_invstgdr_firma')&.contenido
+	end
+	# ------------------------------------------------------------------------ FIRMAS EN NOTIFICACIONES (final)
+
 	def invstgdr_activo
 		krn_inv_denuncias&.last&.objetado ? nil : krn_inv_denuncias.last
 	end
@@ -115,6 +127,36 @@ class KrnDenuncia < ApplicationRecord
 	def dflt_bck_rdrccn
 		"/cuentas/#{self.ownr.class.name[0].downcase}_#{self.ownr.id}/dnncs"
 	end
+
+	# ================================================== AASM
+	aasm column: 'etapa' do
+	    state :etp_rcpcn, initial: true
+	    state :etp_invstgcn
+	    state :etp_infrm
+	    state :etp_prnncmnt
+	    state :etp_mdds_sncns
+	    state :etp_cerrada
+
+	    event :avanzar do
+	      transitions from: :etp_rcpcn,			to: :etp_invstgcn
+	      transitions from: :etp_invstgcn,		to: :etp_infrm
+	      transitions from: :etp_infrm,			to: :etp_prnncmnt
+	      transitions from: :etp_prnncmnt,		to: :etp_mdds_sncns
+	      transitions from: :etp_mdds_sncns,	to: :etp_cerrada
+	    end
+
+	    event :retroceder do
+	      transitions from: :etp_invstgcn,		to: :etp_rcpcn
+	      transitions from: :etp_infrm,			to: :etp_invstgcn
+	      transitions from: :etp_prnncmnt,		to: :etp_infrm
+	      transitions from: :etp_mdds_sncns,	to: :etp_prnncmnt
+	      transitions from: :etp_cerrada,		to: :etp_mdds_sncns
+	    end
+	end
+
+	# Valida que no se modifiquen campos de etapas anteriores
+	validate :campos_congelados_respetados, on: :update
+	# ================================================== AASM (final)
 
 	# ------------------------------------------------------------------ CDGS_PRTCPNTS
 	# app/models/krn_denuncia.rb
@@ -227,16 +269,6 @@ class KrnDenuncia < ApplicationRecord
 		nombres
 	end
 
-	# ------------------------------------------------------------------------ FIRMAS EN NOTIFICACIONES
-
-	def firma_rcpcn
-		ownr&.txt_editables&.where(codigo: 'txt_firma_rcpcn')&.last&.contenido
-	end
-
-	def firma_invstgdr
-		krn_inv_denuncias&.last&.krn_investigador&.txt_editables&.where(codigo: 'txt_invstgdr_firma')&.last&.contenido
-	end
-
 	# ------------------------------------------------------------------------ MOTIVOS
 
 	def laboral?
@@ -270,10 +302,12 @@ class KrnDenuncia < ApplicationRecord
 	private
 	
 	def licencia_valida
-		lic = ownr.licencia_actual
-		errors.add(:base, 'No tienes licencia activa')               and return unless lic
-		errors.add(:base, 'Licencia expirada')                       and return if lic.expirada?
-		errors.add(:base, 'Has alcanzado el límite de denuncias')    and return if lic.tope_alcanzado?
+	  return errors.add(:base, 'No se ha especificado el propietario') if ownr.nil?
+
+	  lic = ownr.licencia_actual
+	  errors.add(:base, 'No tienes licencia activa')               and return unless lic
+	  errors.add(:base, 'Licencia expirada')                       and return if lic.expirada?
+	  errors.add(:base, 'Has alcanzado el límite de denuncias')    and return if lic.tope_alcanzado?
 	end
 
 end

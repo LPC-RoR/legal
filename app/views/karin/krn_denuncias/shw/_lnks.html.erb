@@ -1,4 +1,9 @@
 <div class="d-flex justify-content-end pt-1 fs-5">
+	<%= render layout: '0p/tltp_lnk', locals: {lnk: edit_krn_denuncia_path, tltp: 'Editar denuncia'} do %>
+		<i class="bi bi-pencil-square"></i>
+	<% end %>
+
+	<i class="bi bi-dot"></i>
 
 	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/cuentas/#{@objeto.ownr.class.name.downcase[0]}_#{@objeto.ownr.id}/dnncs", tltp: 'Home'} do %>
 		<i class="bi bi-house-door"></i>

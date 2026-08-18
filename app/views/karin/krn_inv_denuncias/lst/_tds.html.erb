@@ -4,5 +4,10 @@
 <% estd_1 = ntfccns.none? ? 'sin notificar' : "notificado (#{ntfccns.count})" %>
 <% estd_2 = dsgncn.present? ? 'sin designación' : "designado" %>
 
-<td><%= objt.krn_investigador&.krn_investigador %></td>
+<td class="ps-2">
+	<% if objt.objetado %>
+		<i class="bi bi-ban text-danger"></i>
+	<% end %>
+	<%= objt.krn_investigador&.krn_investigador %>
+</td>
 <td><%= estd_1 %> | <%= estd_2 %></td>

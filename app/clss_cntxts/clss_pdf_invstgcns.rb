@@ -42,7 +42,7 @@ class ClssPdfInvstgcns
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } }
     ],
     tstg: [
-      { code: 'drchs',                  condition: ->(o) { true } },
+#      { code: 'drchs',                  condition: ->(o) { true } },
       { code: 'antecedentes',           condition: ->(o) { true } },
     ]
   }
@@ -90,7 +90,7 @@ class ClssPdfInvstgcns
   def self.has_one?(code)
     ['crdncn_apt', 'dts_prncpls', 'dts_tstgs', 'denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 
       'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs',
-      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'txt_dclrcn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion',
+      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'dclrcn', 'txt_dclrcn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion',
       'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas'].include?(code)
   end
 
@@ -103,7 +103,7 @@ class ClssPdfInvstgcns
   end
 
   def self.no_tmplt?(code)
-    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl', 'declaracion'].include?(code)
+    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl', 'dclrcn', 'declaracion'].include?(code)
   end
 
   def self.no_sndng_code?(code)
@@ -119,13 +119,17 @@ class ClssPdfInvstgcns
   end
 
   def self.ref_code?(code)
-    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd'].include?(code)
+    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd', 'invstgdr', 'dclrcn'].include?(code)
   end
 
   def self.ref_clss(code)
     case code
     when 'txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd'
       TxtEditable
+    when 'invstgdr'
+      KrnInvDenuncia
+    when 'dclrcn'
+      KrnDeclaracion
     end
   end
 
@@ -186,7 +190,24 @@ class ClssPdfInvstgcns
           contactos: objeto.ownr.app_contactos.where(grupo: grupo),
           grupo: grupo
         }
-#        { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
+      when 'invstgdr'
+        objeto = KrnInvDenuncia.find(objeto_id)    # ← el texto editable
+        ownr   = opciones[:ownr]                   # ← el participante | dnnc
+        {
+          objeto: objeto,
+          ownr: ownr,
+          dnnc: ownr.dnnc,
+          empresa: ownr.dnnc.ownr
+        }
+      when 'dclrcn'
+        objeto = KrnDeclaracion.find(objeto_id)    # ← la declaración
+        ownr   = objeto.ownr                        # ← el participante (forzado)
+        {
+          objeto: objeto,
+          ownr: ownr,
+          dnnc: ownr.dnnc,
+          empresa: ownr.dnnc.ownr
+        }
       when 'txt_mdds_rsgrd', 'txt_mdds_crrctvs_sncns', 'txt_invstgdr_dsgncn'
         objeto = TxtEditable.find(objeto_id)    # ← el texto editable
         ownr   = opciones[:ownr]                # ← el participante | dnnc
@@ -208,9 +229,6 @@ class ClssPdfInvstgcns
       when 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas', 'dnnc'
         objeto = KrnDenuncia.find(objeto_id)
         { objeto: objeto, ownr: objeto }
-      when 'dclrcn'
-        objeto = KrnDeclaracion.find(objeto_id)
-        { objeto: objeto, ownr: opciones[:ownr] || objeto.ownr }
       when 'dnncnt_info_oblgtr', 'comprobante'
         objeto = KrnDenunciante.find(objeto_id)
         { objeto: objeto, 
@@ -225,7 +243,7 @@ class ClssPdfInvstgcns
       case reporte.to_s
       when 'dnncnt_info_oblgtr'
         denuncia.krn_denunciantes
-      when 'dclrcn', 'txt_dclrcn'
+      when 'dclrcn', 'txt_dclrcn', 'invstgdr'
         denuncia.krn_denunciantes + denuncia.krn_denunciados
       when 'crdncn_apt', 'dts_prncpls', 'dts_tstgs'
         denuncia.ownr.app_contactos.where(grupo: reporte == 'crdncn_apt' ? 'Apt' : 'RRHH')

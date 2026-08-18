@@ -45,8 +45,10 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/new
   def new
-    @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid], fecha_hora: Time.zone.now)
-    set_bck_rdrccn
+#    @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid], fecha_hora: Time.zone.now)
+    @ownr = params[:oclss].present? && params[:oid].present? ? params[:oclss].constantize.find(params[:oid]) : nil
+    @form = DenunciaForms::EtpRcpcnForm.new(ownr_type: params[:oclss], ownr_id: params[:oid], fecha_hora: Time.zone.now, etapa: 'etp_rcpcn')
+    @form.denuncia.ownr = @ownr  # precargamos la empresa
   end
 
   def tipo_declaracion_field
@@ -63,32 +65,41 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # GET /krn_denuncias/1/edit
   def edit
+    @form = form_class.new(form_attributes_from_denuncia)
+    @form.denuncia_id = @objeto.id
   end
 
   # POST /krn_denuncias or /krn_denuncias.json
   def create
-    @objeto = KrnDenuncia.new(krn_denuncia_params)
-    set_bck_rdrccn
+#    @objeto = KrnDenuncia.new(krn_denuncia_params)
+    @form = DenunciaForms::EtpRcpcnForm.new(krn_denuncia_params)
+
     respond_to do |format|
-      if @objeto.save
-        format.html { redirect_to shw_dnnc_tab_indx(@objeto, 0), notice: "Denuncia fue exitosamente creada." }
-        format.json { render :show, status: :created, location: @objeto }
+#      if @objeto.save
+      if @form.save
+#        format.html { redirect_to shw_dnnc_tab_indx(@objeto, 0), notice: "Denuncia fue exitosamente creada." }
+        format.html { redirect_to shw_dnnc_tab_indx(@form.to_model, 0), notice: "Denuncia fue exitosamente creada." }
+        format.json { render :show, status: :created, location: @form }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @objeto.errors, status: :unprocessable_entity }
+        format.json { render json: @form.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /krn_denuncias/1 or /krn_denuncias/1.json
   def update
+    @form = form_class.new(krn_denuncia_params)
+    @form.denuncia_id = @objeto.id
+
     respond_to do |format|
-      if @objeto.update(krn_denuncia_params)
-        format.html { redirect_to default_redirect_path(@objeto), notice: "Denuncia fue exitosamente actualizada." }
-        format.json { render :show, status: :ok, location: @objeto }
+#      if @objeto.update(krn_denuncia_params)
+      if @form.save
+        format.html { redirect_to shw_dnnc_tab_indx(@form.to_model, 0), notice: "Denuncia fue exitosamente actualizada." }
+        format.json { render :show, status: :ok, location: @form }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @objeto.errors, status: :unprocessable_entity }
+        format.json { render json: @form.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -247,6 +258,44 @@ class Karin::KrnDenunciasController < ApplicationController
 
   private
 
+    def form_class
+      case @objeto.etapa
+      when 'etp_rcpcn'      then DenunciaForms::EtpRcpcnForm
+      when 'etp_invstgcn'   then DenunciaForms::EtpinvstgcnForm
+      when 'etp_infrm'      then DenunciaForms::EtpInfrmForm
+      when 'etp_prnncmnt'   then DenunciaForms::EtpPrnncmntForm
+      when 'etp_mdds_sncns' then DenunciaForms::EtpMddsSncnsForm
+      when 'etp_cerrada'    then DenunciaForms::EtpCerradaForm
+      end
+    end
+
+    def form_attributes_from_denuncia
+      # Solo los campos que el Form Object entiende
+      @objeto.slice(form_class.attribute_types.keys.map(&:to_s))
+    end
+
+    def campos_permitidos
+      etapa = if @form.present?
+                @form.etapa
+              elsif @objeto.present?
+                @objeto.etapa
+              elsif params[:action] == 'create'
+                'etp_rcpcn'  # En create siempre es recepción
+              else
+                params.dig(:krn_denuncia, :etapa) || 'etp_rcpcn'
+              end
+
+      case etapa
+      when 'etp_rcpcn'      then DnncEtapas::FLDS_RCPCN
+      when 'etp_invstgcn'   then DnncEtapas::FLDS_INVSTGCN
+      when 'etp_infrm'      then DnncEtapas::FLDS_INFRM
+      when 'etp_prnncmnt'   then DnncEtapas::FLDS_PRNNCMNT
+      when 'etp_mdds_sncns' then DnncEtapas::FLDS_MDDS_SNCNS
+      when 'etp_cerrada'    then DnncEtapas::FLDS_CERRADA
+      else []
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_krn_denuncia
       @tbs = ['Proceso', 'Participantes', 'Declaraciones', 'Reportes']
@@ -257,10 +306,11 @@ class Karin::KrnDenunciasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_denuncia_params
-      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :fecha_hora, :identificador, :motivo_denuncia,
-        :receptor_denuncia, :krn_empresa_externa_id, :via_declaracion, :tipo_declaracion, :presentado_por, :representante,
-        :lugar_ocurrencia, :direccion_ocurrencia,
-        :krn_investigador_id, :causal_establecida, :fecha_hora_dt, 
-        :auditoria, :fecha_trmtcn)
+      params.require(:krn_denuncia).permit(campos_permitidos)
+#      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :fecha_hora, :identificador, :motivo_denuncia,
+#        :receptor_denuncia, :krn_empresa_externa_id, :via_declaracion, :tipo_declaracion, :presentado_por, :representante,
+#        :lugar_ocurrencia, :direccion_ocurrencia,
+#        :krn_investigador_id, :causal_establecida, :fecha_hora_dt, 
+#        :auditoria, :fecha_trmtcn)
     end
 end

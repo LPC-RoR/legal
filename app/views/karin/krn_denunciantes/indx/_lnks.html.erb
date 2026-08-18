@@ -1,12 +1,3 @@
 <div class="d-flex justify-content-end gap-1">
-	<% if prtl?(@objeto, 'hlp', 'prtcpnts') %>
-		<%= render layout: '0p/mdl/link', locals: {cdg: "hlp_prtcpnts", tltp: 'Detalle del registro de denunciantes'} do %>
-			<i class="bi bi-question-circle"></i>
-		<% end %>
-	<% end %>
-
-	<!-- Sacamos mdds_rsgrd porque NO estos controlando rep_archivos por tarea -->
-	<% unless @objeto.fecha_hora_dt? or @objeto.fecha_trmtcn? %>
-		<%= render partial: '0p/tbl/lnk_new', locals: {source: 'krn_denunciantes', blngs: @objeto, tltp: "Agrega Denunciante"} %>
-	<% end %>
+	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'krn_denunciantes', blngs: @objeto, tltp: "Agrega Denunciante"} %>
 </div>

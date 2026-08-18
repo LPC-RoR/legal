@@ -13,7 +13,8 @@ class Karin::KrnTramitesController < ApplicationController
 
   # GET /krn_tramites/new
   def new
-    @objeto = KrnTramite.new
+    dnnc = KrnDenuncia.find(params[:oid])
+    @objeto = dnnc.krn_tramites.new(tipo: params[:code])
   end
 
   # GET /krn_tramites/1/edit
@@ -26,7 +27,7 @@ class Karin::KrnTramitesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to @objeto, notice: "Krn tramite was successfully created." }
+        format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: "Krn tramite was successfully created." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +40,7 @@ class Karin::KrnTramitesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_tramite_params)
-        format.html { redirect_to @objeto, notice: "Krn tramite was successfully updated." }
+        format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: "Krn tramite was successfully updated." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +54,7 @@ class Karin::KrnTramitesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to krn_tramites_path, status: :see_other, notice: "Krn tramite was successfully destroyed." }
+      format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), status: :see_other, notice: "Krn tramite was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -66,6 +67,6 @@ class Karin::KrnTramitesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_tramite_params
-      params.expect(krn_tramite: [ :krn_denuncia_id, :tipo, :numero_solicitutud, :fecha_hora ])
+      params.expect(krn_tramite: [ :krn_denuncia_id, :tipo, :numero_solicitud, :fecha_hora ])
     end
 end

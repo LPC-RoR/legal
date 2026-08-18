@@ -1,0 +1,13 @@
+<%# views/0frm/_cntxt_frm.html.erb  %>
+<%# form con contexto %>
+<%# objeto puede ser @form en el caso de KrnDenuncia %>
+<% objeto	= @objeto || @form %>
+<%# female: reemplaza Nuevo por Nueva. Por defecto es false %>
+<% fml  	||= false %>	
+<% data 	||= nil %>
+
+<% cntxt 		= 'invstgcns' %>
+
+<% if prtl?('krn_denuncias', "frm", 'frm') %>
+	<%= render partial: prtl('krn_denuncias', "frm", 'frm'), locals: {fml: fml, data: data} %>
+<% end %>

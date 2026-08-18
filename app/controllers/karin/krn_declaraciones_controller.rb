@@ -1,7 +1,9 @@
 class Karin::KrnDeclaracionesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_declaracion, only: %i[ show edit update destroy swtch migrar ]
+  before_action :set_krn_declaracion, only: %i[ show edit update destroy cargar_pdf swtch migrar ]
+
+  include PdfGeneratable
 
   # GET /krn_declaraciones or /krn_declaraciones.json
   def index

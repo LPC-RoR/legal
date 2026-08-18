@@ -29,7 +29,8 @@
 			<% else %>
 				<i class="bi bi-ban text-danger"></i>
 			<% end %>
-			<%=render partial: '0t/lnks_e', locals: {objt: act} %>
+			<%=render partial: '0t/lnk_editar', locals: {objt: act} if act.crtn_mode == 'upload' %>
+			<%=render partial: '0t/lnk_eliminar', locals: {objt: act} %>
 		</div>
 	</div>
 <% end %>

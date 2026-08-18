@@ -1,12 +1,14 @@
+<%# FALTAN DERIVACIONES %>
 <%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'invstgdr'} %>
 <%#= render partial: prtl_name(objeto, 'shw/proceso', 'drvcns_invstgdrs'), locals: {ownr: objeto} %>
 
 <!-- Hay uno identico a este en shw_participantes -->
-<%= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>
+<%#= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>
 <%= render partial: prtl_name(objeto, 'shw/proceso', 'tsk_dsply'), locals: {ownr: objeto} %>
 
-<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'tbls_prtcpnts'} %>
 <%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_codes'} %>
+<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_trmts'} %>
+<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'tbls_prtcpnts'} %>
 
 <div class="pt-2" style="margin-left: 5%;">
 	<%= render partial: 'recursos/notas/shr/notas', locals: {ownr: objeto} %>

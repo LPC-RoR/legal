@@ -1,7 +1,9 @@
 class Karin::KrnInvDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_inv_denuncia, only: %i[ show edit update destroy swtch ]
+  before_action :set_krn_inv_denuncia, only: %i[ show edit update destroy cargar_pdf swtch ]
+
+  include PdfGeneratable
 
   # GET /krn_inv_denuncias or /krn_inv_denuncias.json
   def index
@@ -67,6 +69,6 @@ class Karin::KrnInvDenunciasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def krn_inv_denuncia_params
-      params.require(:krn_inv_denuncia).permit(:krn_investigador_id, :krn_denuncia_id)
+      params.require(:krn_inv_denuncia).permit(:krn_investigador_id, :krn_denuncia_id, :objetado, :objecion_rslcn)
     end
 end
