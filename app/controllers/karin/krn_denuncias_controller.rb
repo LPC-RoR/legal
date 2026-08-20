@@ -43,6 +43,26 @@ class Karin::KrnDenunciasController < ApplicationController
 
   end
 
+  def avanzar
+    if @objeto.may_avanzar?
+      @objeto.avanzar!
+      flash[:notice] = "Etapa avanzada a #{@objeto.etapa}."
+    else
+      flash[:alert] = "No es posible avanzar la etapa."
+    end
+    redirect_to @objeto
+  end
+
+  def retroceder
+    if @objeto.may_retroceder?
+      @objeto.retroceder!
+      flash[:notice] = "Etapa retrocedida a #{@objeto.etapa}."
+    else
+      flash[:alert] = "No es posible retroceder la etapa."
+    end
+    redirect_to @objeto
+  end
+
   # GET /krn_denuncias/new
   def new
 #    @objeto = KrnDenuncia.new(ownr_type: params[:oclss], ownr_id: params[:oid], fecha_hora: Time.zone.now)
@@ -293,6 +313,13 @@ class Karin::KrnDenunciasController < ApplicationController
       when 'etp_mdds_sncns' then DnncEtapas::FLDS_MDDS_SNCNS
       when 'etp_cerrada'    then DnncEtapas::FLDS_CERRADA
       else []
+      end
+    end
+
+    def authorize_admin
+      unless current_usuario.admin?
+        flash[:alert] = "No tienes permisos para retroceder etapas."
+        redirect_to @objeto
       end
     end
 

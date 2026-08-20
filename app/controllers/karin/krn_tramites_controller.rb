@@ -27,7 +27,7 @@ class Karin::KrnTramitesController < ApplicationController
 
     respond_to do |format|
       if @objeto.save
-        format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: "Krn tramite was successfully created." }
+        format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: "Tramite fue exitosamente creado." }
         format.json { render :show, status: :created, location: @objeto }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class Karin::KrnTramitesController < ApplicationController
   def update
     respond_to do |format|
       if @objeto.update(krn_tramite_params)
-        format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: "Krn tramite was successfully updated." }
+        format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), notice: "Tramite fue exitosamente actualizado." }
         format.json { render :show, status: :ok, location: @objeto }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class Karin::KrnTramitesController < ApplicationController
     @objeto.destroy!
 
     respond_to do |format|
-      format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), status: :see_other, notice: "Krn tramite was successfully destroyed." }
+      format.html { redirect_to shw_dnnc_tab_indx(@objeto.krn_denuncia, 0), status: :see_other, notice: "Tramite fue exitosamente eliminado." }
       format.json { head :no_content }
     end
   end

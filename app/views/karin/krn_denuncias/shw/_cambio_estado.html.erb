@@ -1,0 +1,40 @@
+<div class="border rounded-2 m-1 p-1">
+  <%= @objeto.etapa %>
+
+  <!-- Dropdown de cambio de etapa -->
+  <div class="dropdown d-inline-block">
+    <button class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+      ⚡ Cambiar etapa
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+
+      <%# Avanzar: visible para todos, excepto si ya está cerrada %>
+      <% unless @objeto.etapa == 'etp_cerrada' %>
+        <li>
+          <%= button_to "Avanzar a etapa siguiente",
+                        avanzar_krn_denuncia_path(@objeto),
+                        method: :patch,
+                        class: "dropdown-item",
+                        data: { confirm: "¿Confirmar avance de etapa?" } %>
+        </li>
+      <% end %>
+
+      <%# Retroceder: solo administrador, excepto si está en la primera etapa %>
+      <% if current_usuario.admin? && @objeto.etapa != 'etp_rcpcn' %>
+        <li><hr class="dropdown-divider"></li>
+        <li><h6 class="dropdown-header">Administrador</h6></li>
+        <li>
+          <%= button_to "Retroceder a etapa anterior",
+                        retroceder_krn_denuncia_path(@objeto),
+                        method: :patch,
+                        class: "dropdown-item text-danger",
+                        data: { confirm: "¿Retroceder etapa? Esta acción es irreversible." } %>
+        </li>
+      <% end %>
+
+    </ul>
+  </div>
+</div>
