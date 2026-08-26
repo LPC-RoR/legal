@@ -9,7 +9,7 @@ module KrnDenuncia::DnncEtapas
     	:emprs_optn_invstgcn, :vrfccn_dts_incmbnts]
     FLDS_INVSTGCN =		[:evlcn_dnnc, :fecha_dnnc_crrgd, :vrfccn_dts_tstgs, :fecha_termino_investigacion]
     FLDS_INFRM =		[]
-    FLDS_PRNNCMNT =		[:fecha_recepcion_pronunciamiento, :prnncmnt_vncd]
+    FLDS_PRNNCMNT =		[:fecha_recepcion_pronunciamiento, :prnncmnt_vncd, :prnncmnt]
     FLDS_MDDS_SNCNS =	[:resolucion, :sancion, :fecha_cierre]
     FLDS_CERRADA =		[:resolucion, :sancion, :fecha_cierre]
 

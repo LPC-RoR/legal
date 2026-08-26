@@ -317,12 +317,12 @@ class Karin::KrnDenunciasController < ApplicationController
               end
 
       case etapa
-      when 'etp_rcpcn'      then DnncEtapas::FLDS_RCPCN
-      when 'etp_invstgcn'   then DnncEtapas::FLDS_INVSTGCN
-      when 'etp_infrm'      then DnncEtapas::FLDS_INFRM
-      when 'etp_prnncmnt'   then DnncEtapas::FLDS_PRNNCMNT
-      when 'etp_mdds_sncns' then DnncEtapas::FLDS_MDDS_SNCNS
-      when 'etp_cerrada'    then DnncEtapas::FLDS_CERRADA
+      when 'etp_rcpcn'      then KrnDenuncia::DnncEtapas::FLDS_RCPCN
+      when 'etp_invstgcn'   then KrnDenuncia::DnncEtapas::FLDS_INVSTGCN
+      when 'etp_infrm'      then KrnDenuncia::DnncEtapas::FLDS_INFRM
+      when 'etp_prnncmnt'   then KrnDenuncia::DnncEtapas::FLDS_PRNNCMNT
+      when 'etp_mdds_sncns' then KrnDenuncia::DnncEtapas::FLDS_MDDS_SNCNS
+      when 'etp_cerrada'    then KrnDenuncia::DnncEtapas::FLDS_CERRADA
       else []
       end
     end
@@ -345,10 +345,5 @@ class Karin::KrnDenunciasController < ApplicationController
     # Only allow a list of trusted parameters through.
     def krn_denuncia_params
       params.require(:krn_denuncia).permit(campos_permitidos)
-#      params.require(:krn_denuncia).permit(:ownr_type, :ownr_id, :fecha_hora, :identificador, :motivo_denuncia,
-#        :receptor_denuncia, :krn_empresa_externa_id, :via_declaracion, :tipo_declaracion, :presentado_por, :representante,
-#        :lugar_ocurrencia, :direccion_ocurrencia,
-#        :krn_investigador_id, :causal_establecida, :fecha_hora_dt, 
-#        :auditoria, :fecha_trmtcn)
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_24_224621) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_26_213742) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1085,6 +1085,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_24_224621) do
     t.boolean "vrfccn_dts_tstgs"
     t.string "evlcn_dnnc"
     t.date "fecha_dnnc_crrgd"
+    t.string "prnncmnt"
     t.index ["auditoria"], name: "index_krn_denuncias_on_auditoria"
     t.index ["causal_establecida"], name: "index_krn_denuncias_on_causal_establecida"
     t.index ["etapa"], name: "index_krn_denuncias_on_etapa"

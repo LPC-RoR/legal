@@ -2,6 +2,7 @@ module DenunciaForms
   class EtpPrnncmntForm < ApplicationForm
     attribute :fecha_recepcion_pronunciamiento, :date
     attribute :prnncmnt_vncd, :boolean
+    attribute :prnncmnt, :string
     attribute :etapa, :string
 
 #    validates :evlcn_dnnc, presence: true
@@ -20,6 +21,7 @@ module DenunciaForms
       {
         prnncmnt_vncd: prnncmnt_vncd,
         fecha_recepcion_pronunciamiento: fecha_recepcion_pronunciamiento,
+        prnncmnt: prnncmnt
       }
     end
   end
