@@ -70,12 +70,12 @@ class KrnDenuncia < ApplicationRecord
 
 	include AASM
 	include KrnDenuncia::AnonimizadorExpediente
+	include KrnDenuncia::DnncProc
 	include DnncEtapas
 	include KrnPlazos
 	include Cptn
 	include DnncPlzs
 	include DnncMthds
-	include DnncProc
 	include Fls
 	include ActsChecks
 
