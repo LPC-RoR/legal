@@ -30,8 +30,12 @@ class Aplicacion::AppRecursosController < ApplicationController
   def migrar_cuantias
 
     KrnDenuncia.all.each do |dnnc|
-      dnnc.fecha_termino_investigacion = dnnc.fecha_trmn
-      dnnc.save
+      if dnnc.ownr.is_a?(Cliente)
+        dnnc.delete
+      else
+        dnnc.fecha_termino_investigacion = dnnc.fecha_trmn
+        dnnc.save
+      end
     end
 
     redirect_to root_path
