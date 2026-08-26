@@ -2,35 +2,46 @@
 class ClssPdfInvstgcns
   include ConditionalArray
 
-  DCLRCN_CDGS = ['dclrcn', 'txt_dclrcn', 'declaracion', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn']
-  RCRSS_CDGS  = ['txt_invstgdr_dsgncn', 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas']
+  DNNCNT_CDGS   = ['rprsntcn', 'artcl_516', 'dnncnt_info_oblgtr', 'comprobante', 'apt'].freeze
+  INCMBNTS_CDGS = ['invstgcn', 'drchs', 'txt_mdds_rsgrd'].freeze
+  PRTCPNTS_CDGS = ['antecedentes'].freeze
+
+  OPTNL_CDGS    = ['crdncn_apt', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'drchs', 'antecedentes', 'dts_incmbnts', 'dts_tstgs']
+
+  INVSTGCN_CDGS = ['dts_tstgs', 'txt_dnnc_obsrvcns', 'dnnc_crrgd', 'txt_infrm']
+
+  DCLRCN_CDGS   = ['dclrcn', 'txt_dclrcn', 'declaracion', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn']
+  RCRSS_CDGS    = ['txt_invstgdr_dsgncn', 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas']
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
-  DSPLY_CDGS = {
+  DSPLY_CDGS    = {
     invstgdr: [
       { code: 'txt_invstgdr_dsgncn',    condition: ->(o) { true } },
       { code: 'invstgdr_titulo_prfsnl', condition: ->(o) { true } }
     ],
     dnnc: [
-      { code: 'crdncn_apt',       condition: ->(o) { !!o.ownr.coordinacion_apt && o.ownr.app_contactos.exists?(grupo: 'Apt') && o.krn_denunciantes.any? } },
-      { code: 'dts_prncpls',      condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_denunciantes.any? } },
-      { code: 'dts_tstgs',        condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_testigos.any? } },
-      { code: 'denuncia',         condition: ->(o) { true } },
-      { code: 'txt_dnnc_annmzd',  condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } },
-      { code: 'txt_dnnc_rsmn',    condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } }
+      { code: 'denuncia',           condition: ->(o) { true } },
+      { code: 'crdncn_apt',         condition: ->(o) { !!o.ownr.coordinacion_apt && o.ownr.app_contactos.exists?(grupo: 'Apt') && o.krn_denunciantes.any? } },
+      { code: 'dts_incmbnts',       condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_denunciantes.any? } },
+      { code: 'dts_tstgs',          condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_testigos.any? } },
+      { code: 'txt_dnnc_annmzd',    condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } },
+      { code: 'txt_dnnc_rsmn',      condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } },
+      { code: 'txt_dnnc_obsrvcns',  condition: ->(o) { o&.evlcn_dnnc == 'Con observaciones' } },
+      { code: 'dnnc_crrgd',         condition: ->(o) { o&.evlcn_dnnc == 'Con observaciones' } },
+      { code: 'txt_infrm',          condition: ->(o) { o&.dclrcns_completas? } }
     ],
     dnncnt: [
       { code: 'rprsntcn',               condition: ->(o) { o.dnnc.presentado_por == 'Representante' } },
       { code: 'artcl_516',              condition: ->(o) { !!o.articulo_516 } },
       { code: 'dnncnt_info_oblgtr',     condition: ->(o) { true } },
       { code: 'comprobante',            condition: ->(o) { true } },
+      { code: 'apt',                    condition: ->(o) { true } },
       { code: 'invstgcn',               condition: ->(o) { true } },
       { code: 'drchs',                  condition: ->(o) { true } },
-      { code: 'apt',                    condition: ->(o) { true } },
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'antecedentes',           condition: ->(o) { true } },
       { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
-      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } }
+      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } },
     ],
     dnncd: [
       { code: 'artcl_516',              condition: ->(o) { !!o.articulo_516 } },
@@ -52,6 +63,34 @@ class ClssPdfInvstgcns
     available_codes_for(ownr, items)
   end
 
+  def self.etp_nombre
+    {
+      etp_rcpcn:      'Tramites propios de la recepción',
+      etp_invstgcn:   'Investigación de la denuncia',
+      etp_infrm:      'Informe de investigación',
+      etp_prnncmnt:   'Pronunciamiento de la Direccón del Trabajo',
+      etp_mdds_sncns: 'Aplicación de las medidas correctivas y sanciones',
+      etp_cerrada:    'Procedimiento cerrado'
+    }
+  end
+
+  def self.tsk_nombre
+    {
+      'tsk_ingrs'                   => 'Ingreso de datos de la denuncia',
+      'tsk_dcmnts_cntrlds'          => 'Subir o Generar & enviar los documentos controlados',
+      'tsk_cierre_rcpcn'            => 'Registrar el cierre de la recepción',
+      'tsk_frm_invstgcn'            => 'Asignación del investigador y evaluación de la denuncia',
+      'tsk_dcmnts_cntrlds_invstgcn' => 'Documentos controlados de la investigación de la denuncia',
+      'tsk_dclrcns'                 => 'Agendamiento y toma de las declaraciones',
+      'tsk_redaccion_infrm'         => 'Redacción del informe de investigación',
+      'tsk_cierre_invstgcn'         => 'Cierre de la investigación',
+      'tsk_infrm'                   => 'Envio/Recepción de informe de investigación',
+      'tsk_prnncmnt'                => 'Pronunciamiento de la Dirección del Trabajo',
+      'tsk_mdds_sncns'              => 'Aplicación de medidas correctivas y sanciones',
+      'tsk_prcdmnt_trmnd'           => 'Procedimiento terminado',
+    }
+  end
+
   def self.nombre
     {
       'txt_invstgdr_dsgncn'       => 'Designación del investigador (declaración)',
@@ -63,7 +102,7 @@ class ClssPdfInvstgcns
       'rprsntcn'                => 'Poder simple que establece la representación',
       'artcl_516'               => 'Solicitud de aplicación del artículo 516',
       'crdncn_apt'              => 'Coordinación de Atención Psicológica Temprana',
-      'dts_prncpls'             => 'Verificación de datos de las personas denunciantes y denunciadas',
+      'dts_incmbnts'            => 'Verificación de datos de las personas denunciantes y denunciadas',
       'dts_tstgs'               => 'Verificación de datos de los testigos',
       'denuncia'                => 'Denuncia',
       'txt_dnnc_annmzd'         => 'Denuncia anonimizada',
@@ -81,8 +120,13 @@ class ClssPdfInvstgcns
       'declaracion'               => 'Declaración firmada',
       'txt_dclrcn_annmzd'         => 'Declaración anonimizada',
       'txt_dclrcn_rsmn'           => 'Hechos de la declaración',
+      'txt_infrm'                 => 'Informe de investigación',
       'txt_mdds_crrctvs_sncns'  => 'Notificación de las medidas correctivas y sanciones'
     }
+  end
+
+  def self.optnl_code?(code)
+    OPTNL_CDGS.include?(code)
   end
 
   # ---------------------- Control de despliegue
@@ -91,7 +135,7 @@ class ClssPdfInvstgcns
     ['crdncn_apt', 'dts_prncpls', 'dts_tstgs', 'denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 
       'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs',
       'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'dclrcn', 'txt_dclrcn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion',
-      'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas'].include?(code)
+      'txt_infrm', 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas'].include?(code)
   end
 
   def self.cntrl_fecha?(code)
@@ -132,6 +176,50 @@ class ClssPdfInvstgcns
       KrnDeclaracion
     end
   end
+
+  # ----------------------------------------------- Métodos para usar en DnncMthds
+  # ============================================================
+  # VALIDACIÓN: Archivos controlados completos para etp_rcpcn
+  # ============================================================
+  # Verifica que, para la denuncia y cada participante, todos los códigos
+  # obligatorios desplegados tengan un ActArchivo asociado.
+  #
+  # @param denuncia [KrnDenuncia]
+  # @return [Boolean]
+
+  def self.archivos_controlados_rcpcn_completos?(denuncia)
+    ownrs = [
+      denuncia,
+      *denuncia.krn_denunciantes,
+      *denuncia.krn_denunciados,
+      *denuncia.krn_testigos
+    ]
+
+    # Códigos obligatorios: los de los tres grupos menos los opcionales
+    codigos_obligatorios = (DNNCNT_CDGS + INCMBNTS_CDGS + PRTCPNTS_CDGS) - OPTNL_CDGS
+
+    ownrs.all? do |ownr|
+      codigos_a_verificar = dsply_codes_for(ownr) & codigos_obligatorios
+
+      codigos_a_verificar.all? do |code|
+        ownr.act_archivos.exists?(act_archivo: code)
+      end
+    end
+  end
+
+  def self.archivos_controlados_invstgcn_completos?(denuncia)
+    # Códigos obligatorios: los de los tres grupos menos los opcionales
+    codigos_obligatorios = INVSTGCN_CDGS - OPTNL_CDGS
+    codigos_a_verificar = dsply_codes_for(denuncia) & codigos_obligatorios
+    if codigos_a_verificar.empty?
+      true
+    else
+      codigos_a_verificar.all? do |code|
+        denuncia.act_archivos.exists?(act_archivo: code)
+      end
+    end
+  end
+  # ----------------------------------------------- Métodos para usar en DnncMthds (final)
 
   class << self
 

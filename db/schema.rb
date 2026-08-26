@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_18_163323) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_24_224621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -993,6 +993,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_18_163323) do
     t.datetime "fecha_vrfccn_lnk"
     t.boolean "email_adtd"
     t.string "telefono"
+    t.string "dclrcn_intrrmpd"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciados_on_krn_denuncia_id"
     t.index ["krn_empleado_id"], name: "index_krn_denunciados_on_krn_empleado_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciados_on_krn_empresa_externa_id"
@@ -1023,6 +1024,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_18_163323) do
     t.datetime "fecha_vrfccn_lnk"
     t.boolean "email_adtd"
     t.string "telefono"
+    t.string "dclrcn_intrrmpd"
     t.index ["krn_denuncia_id"], name: "index_krn_denunciantes_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_denunciantes_on_krn_empresa_externa_id"
     t.index ["rut"], name: "index_krn_denunciantes_on_rut"
@@ -1080,6 +1082,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_18_163323) do
     t.string "etapa"
     t.string "dnncnt_optn_invstgcn"
     t.string "emprs_optn_invstgcn"
+    t.boolean "vrfccn_dts_tstgs"
+    t.string "evlcn_dnnc"
+    t.date "fecha_dnnc_crrgd"
     t.index ["auditoria"], name: "index_krn_denuncias_on_auditoria"
     t.index ["causal_establecida"], name: "index_krn_denuncias_on_causal_establecida"
     t.index ["etapa"], name: "index_krn_denuncias_on_etapa"
@@ -1192,6 +1197,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_18_163323) do
     t.integer "krn_denuncia_id"
     t.string "telefono"
     t.string "origen"
+    t.string "dclrcn_intrrmpd"
     t.index ["krn_denuncia_id"], name: "index_krn_testigos_on_krn_denuncia_id"
     t.index ["krn_empresa_externa_id"], name: "index_krn_testigos_on_krn_empresa_externa_id"
     t.index ["ownr_id"], name: "index_krn_testigos_on_ownr_id"

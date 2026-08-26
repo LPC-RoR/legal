@@ -180,8 +180,7 @@ Rails.application.routes.draw do
       member do
         post :cargar_pdf
         post :combinar_pdf
-        patch :avanzar          # Cambio de estado, Avanzar
-        patch :retroceder       # Cambio de estado, Retroceder
+        patch :cambiar_etapa    # Cambio de etapa
       end
       match :swtch, via: :post, on: :member
       match :niler, via: :post, on: :member

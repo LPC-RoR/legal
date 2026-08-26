@@ -1,139 +1,87 @@
 module DnncProc
  	extend ActiveSupport::Concern
 
- 	# TAREA Ingreso de datos de dnnc y prtcpnts
+ 	# TAREAS -------------------------------------- etp_rcpcn
  	def tsk_ingrs?
  		!prtcpnts_minimos?								# NO cumple con el ingreso mínimo
  	end
 
- 	def tsk_rdrccn_dnnc?
- 		prtcpnts_minimos? &&							# Cumple con el ingreso mínimo
- 		krn_derivaciones.none? &&						# NO tiene derivaciones
- 		((rcp_empresa? && externa?) || 	
- 		(rcp_externa? && !empleados_externos?))			# Denuncia recibida por entidad sin competencia
- 	end
-
- 	# Tarea de envío de mails de coordinación
- 	def tsk_mails_crdncn?
- 		prtcpnts_minimos? &&							# Cumple con el ingreso mínimo
- 		!tsk_rdrccn_dnnc? &&							# NO hay redirección de dnnc pendiente
- 		(ubccn_dnnc != KrnDenuncia::RECEPTORES[1]) &&	# La denuncia no está en una Empresa Externa
- 		(!apt_coordinada? || !vrfccn_solicitada?)		# No se ha completado el envío de correos de coordinación
- 	end
-
- 	def tsk_dnncnt_info_oblgtr? 
- 		prtcpnts_minimos? &&							# Cumple con el ingreso mínimo
- 		!tsk_rdrccn_dnnc? &&							# NO hay redirección de dnnc pendiente				
- 		(ubccn_dnnc != KrnDenuncia::RECEPTORES[2]) && 	# La denuncia no está en la DT
- 		apt_coordinada? && vrfccn_solicitada? &&		# Se ha completado ele envío de correos de coordinación
- 		!dnncnts_infrmds?								# Al menos una persona denunciante NO recibió la info obligatoria
- 	end
-
- 	# Opciones de derivación del denunciante
- 	def tsk_dnncnt_optn_drvcn?
- 		prtcpnts_minimos? &&							# Cumple con el ingreso mínimo
- 		!tsk_rdrccn_dnnc? &&							# NO hay redirección de dnnc pendiente
- 		(ubccn_dnnc != KrnDenuncia::RECEPTORES[2]) && 	# La denuncia no está en la DT
- 		apt_coordinada? && vrfccn_solicitada? &&		# Se ha completado ele envío de correos de coordinación
- 		dnncnts_infrmds? &&								# Las personas denunciantes recibieron info obligatoria
- 		!!dnncnt_investigacion_local != true			# NO se ha registrado voluntad del participante para investigación local
- 	end
-
- 	# REVISAR Condición no verifica todo lo anterior
- 	def tsk_cmprbnt_rcpcn?
- 		!!dnncnt_investigacion_local && 				# La persona denunciante optó por una investigación interna
- 		!cmprbnts_enviados?								# No se ha subido o verificado el comprobante de recepción de denuncia
- 	end
-
- 	def tsk_vrfccn_dts_incmbnts?
- 		cmprbnts_enviados? &&							# Se ha subido o verificado el comprobante de recepción de denuncia
- 		!!vrfccn_dts_incmbnts != true					# NO se han verificado los datos de los incumbentes
- 	end
-
- 	# Enviar notificación de la recepción de la denuncia a todos los participantes
- 	def tsk_notificar_dnnc?
- 		!!vrfccn_dts_incmbnts &&						# Se verificaron los datos de los incumbentes
- 		!dnnc_notificada?								# No se ha notificado la denuncia
- 	end
-
- 	# Enviar medidas de resguardo a los participantes
- 	def tsk_mdds_rsgrd?
- 		dnnc_notificada? &&								# Se ha notificado la denuncia
- 		!dnnc_mdds_rsgrd?								# NO se han notificado las medidas de resguardo
- 	end
-
- 	# Subir evidencia de la entrega de la apt a las personas denunciantes
- 	def tsk_evidencia_apt?
- 		dnnc_mdds_rsgrd? &&								# Se han notificado las medidas de resguardo
- 		!apts?											# NO se han subido evidencias de atención psicológica temprana
- 	end
-
- 	# Opcion de derivación de la empresa
- 	def tsk_emprs_optn_drvcn?
- 		dnnc_notificada? &&								# Se ha notificado la denuncia
- 		dnnc_mdds_rsgrd? &&								# Se han notificado las medidas de resguardo
- 		apts? &&										# Se han subido evidencias de atención psicológica temprana
- 		!investigacion_local && !investigacion_externa	# La empresa no ha definido investigación local/externa
+ 	# TAREA Ingreso de datos de dnnc y prtcpnts
+ 	def tsk_dcmnts_cntrlds?
+ 		prtcpnts_minimos? && 							# NO cumple con el ingreso mínimo
+ 		!dcmnts_cntrlds_rcpcn?							# No se han generado los documentos obligatorios de recepción
  	end
 
  	# Cierre de la recepción de la denuncia
  	def tsk_cierre_rcpcn?
- 		(!!investigacion_local || !!investigacion_externa || ubccn_dnnc == RECEPTORES[2]) &&
- 		!cierre_rcpcn?									# No se ha cerrado la recepción de la denuncia
+ 		dcmnts_cntrlds_rcpcn? &&						# Se han ingresado los documentos obligatorios de recepción
+ 		(!flds_cierre? || !trmts_cierre?)
  	end
 
+ 	# TAREAS -------------------------------------- etp_invstgcn
  	# Asignar investigador
- 	def tsk_asigna_invstgdr?
- 		ubccn_dnnc != KrnDenuncia::RECEPTORES[2] &&		# NO se encuentra en la DT
- 		cierre_rcpcn? &&								# Se ha cerrado la recepción de la denuncia
- 		!invstgdr_ok?									# NO tiene investigador (no objetado) || NO está notificado
+ 	def tsk_frm_invstgcn?
+ 		flds_cierre? && trmts_cierre? &&				# Se ha realizado los trámites de cierre
+ 		!on_dt? &&										# Nose recibió ni se derivó a la DT
+ 		(!tiene_invstgdr_valido? ||						# NO tiene investigador (no objetado) || Con objeción rechazada
+ 			!resuelta_o_corregida?)
  	end
 
- 	# Análisis de la denuncia
- 	def tsk_analisis_dnnc?
- 		invstgdr_ok? &&									# Tiene investigador (no objetado) && está notificado
- 		!analisis_ok?									# Análisis pendiente
+ 	def tsk_dcmnts_cntrlds_invstgcn?
+ 		flds_cierre? && trmts_cierre? &&				# Se ha realizado los trámites de cierre
+ 		!on_dt? &&										# Nose recibió ni se derivó a la DT
+ 		tiene_invstgdr_valido? &&						# NO tiene investigador (no objetado) || Con objeción rechazada
+ 		resuelta_o_corregida? &&						# Denuncia resuelta o corregida (Evaluación)
+ 		!dcmnts_cntrlds_invstgcn?						# No se han generado los documentos obligatorios de investigación
  	end
 
  	# Agendamiento y toma de las declaraciones
  	def tsk_dclrcns?
- 		invstgdr_ok? &&									# Tiene investigador (no objetado)
- 		analisis_ok? &&									# Análisis OK
- 		!tienen_dclrcn?									# NO se han subido los archivos de declaración firmados
+ 		flds_cierre? && trmts_cierre? &&				# Se ha realizado los trámites de cierre
+ 		!on_dt? &&										# Nose recibió ni se derivó a la DT
+ 		tiene_invstgdr_valido? &&						# NO tiene investigador (no objetado) || Con objeción rechazada
+ 		resuelta_o_corregida? &&						# Denuncia resuelta o corregida (Evaluación)
+ 		dcmnts_cntrlds_invstgcn? &&						# Documentos obligatorios de investigación OK
+ 		!dclrcns_completas?								# NO se han subido los archivos de declaración firmados || No son excepciones
  	end
 
  	# Redacción del Informe de investigación (subir)
  	def tsk_redaccion_infrm?
- 		invstgdr_ok? &&									# Tiene investigador (no objetado)
- 		tienen_dclrcn? && 								# Se subieron todas las declaraciones
+ 		!on_dt? &&										# Nose recibió ni se derivó a la DT
+ 		dclrcns_completas? && 							# Se subieron todas las declaraciones
  		!tiene_infrm?									# NO se ha subido el informe de investigación
  	end
 
  	# Cierre de la investigación
  	def tsk_cierre_invstgcn?
- 		tiene_infrm?									# Tiene informe de investigación
- 		!fecha_trmn?									# NO se ha ingresado fecha de término del a investigación
+ 		tiene_infrm? &&									# Tiene informe de investigación
+ 		!fecha_termino_investigacion.present?			# NO se ha ingresado fecha de término del a investigación
  	end
 
+ 	# TAREAS -------------------------------------- etp_infrm
  	# Envio o recepción del informe de investigación
  	def tsk_infrm?
- 		!env_rcpcn_infrm?								# NO se ha registrado el envio/recepción del informe de investigación
+ 		fecha_termino_investigacion.present? &&			# NO se ha registrado el envio/recepción del informe de investigación
+ 		!krn_tramites.deposito_investigacion.present?	# NO se ha realizado el depósito del informe de investigación.
  	end
 
+ 	# TAREAS -------------------------------------- etp_prnncmnt
  	# Pronunciamiento de la Dirección del Trabajo
  	def tsk_prnncmnt?
- 		ubccn_dnnc != KrnDenuncia::RECEPTORES[2] &&		# NO fue investigada por la DT
- 		fecha_env_infrm? &&
- 		!fecha_prnncmnt? && !prnncmnt_vncd
+ 		krn_tramites.deposito_investigacion.present? &&
+ 		!fecha_recepcion_pronunciamiento.present? && !prnncmnt_vncd
  	end
 
+ 	# TAREAS -------------------------------------- etp_mdds_sncns
+ 	# REVISAR fecha_rcpcn_infrm?
  	# Aplicación de las medidas de resguardo y sanciones
  	def tsk_mdds_sncns?
  		(fecha_rcpcn_infrm? ||
- 		fecha_prnncmnt? || prnncmnt_vncd) &&
+ 		fecha_recepcion_pronunciamiento.present? || prnncmnt_vncd) &&
  		!fecha_cierre?
  	end
 
+ 	# TAREAS -------------------------------------- etp_terminada (?)
  	# Procedimiento terminado
  	def tsk_prcdmnt_trmnd?
  		fecha_cierre?

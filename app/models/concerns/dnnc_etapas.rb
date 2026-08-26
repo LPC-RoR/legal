@@ -1,12 +1,15 @@
 module DnncEtapas
  	extend ActiveSupport::Concern
+ 	# 1ra implementación: Manejo de formularios por etápa específica
+ 	# 2da implementación: Botones para cambio de etapa de una denuncia específica
 
-    FLDS_RCPCN =		[:ownr_type, :ownr_id, :fecha_hora, :identificador, :etapa, :motivo_denuncia, :receptor_denuncia, :krn_empresa_externa_id, 
+ 	# Estos arrays determinan que campos se permite modificar en cada etapa
+    FLDS_RCPCN =		[:ownr_type, :ownr_id, :fecha_hora, :identificador, :motivo_denuncia, :receptor_denuncia, :krn_empresa_externa_id, 
     	:via_declaracion, :tipo_declaracion, :presentado_por, :representante, :lugar_ocurrencia, :direccion_ocurrencia, :dnncnt_optn_invstgcn, 
     	:emprs_optn_invstgcn, :vrfccn_dts_incmbnts]
-    FLDS_INVSTGCN =		[:denunciante_id, :abogado_id, :medidas_inmediatas]
-    FLDS_INFRM =		[:hechos, :testigos, :evidencia_adjunta]
-    FLDS_PRNNCMNT =		[:resolucion, :sancion, :fecha_cierre]
+    FLDS_INVSTGCN =		[:evlcn_dnnc, :fecha_dnnc_crrgd, :vrfccn_dts_tstgs, :fecha_termino_investigacion]
+    FLDS_INFRM =		[]
+    FLDS_PRNNCMNT =		[:fecha_recepcion_pronunciamiento, :prnncmnt_vncd]
     FLDS_MDDS_SNCNS =	[:resolucion, :sancion, :fecha_cierre]
     FLDS_CERRADA =		[:resolucion, :sancion, :fecha_cierre]
 
@@ -21,9 +24,42 @@ module DnncEtapas
 	    etp_cerrada:	FLDS_CERRADA
 	}.freeze
 
+	# Al inicio de la clase
+	# Usados para el cambio de etapa (botones)
+	ETAPAS = %w[etp_rcpcn etp_invstgcn etp_infrm etp_prnncmnt etp_mdds_sncns etp_cerrada].freeze
+
+	# Dentro de la clase
+	# 2da Detemina cuando una etapa está completa
+	def etapa_completa?
+	  case etapa
+	  when 'etp_rcpcn'										
+	    tramite_aviso_inicio || tramite_derivacion_dt	# 1ra versión
+	  when 'etp_invstgcn'
+	    fecha_termino_investigacion  					# 1ra versión
+	  when 'etp_infrm'
+	    tramite_deposito  								# 1ra versión
+	  when 'etp_prnncmnt'
+	    fecha_deposito_informe || plazo_deposito_informe_fecha  	# 1ra versión
+	  when 'etp_mdds_sncns'
+	    fecha_aplicacion_medidas  									# 1ra versión
+	  else
+	    true
+	  end
+	end
+
+	# 2da
+	def puede_avanzar?
+	  may_avanzar? && etapa_completa?
+	end
+
+	# 2da
+	def puede_retroceder?(usuario)
+	  usuario.admin? && may_retroceder?
+	end
 
 	private
 
+	# Métodos usados en los formularios por etapa
 	def campos_congelados_respetados
 	    return unless etapa_was.present? && etapa_changed?
 

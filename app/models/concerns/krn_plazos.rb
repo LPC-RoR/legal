@@ -1,4 +1,4 @@
-# app/models/krn_denuncia.rb
+# Concern de app/models/krn_denuncia.rb
 module KrnPlazos
   extend ActiveSupport::Concern
 
@@ -97,6 +97,25 @@ module KrnPlazos
       plazos.any? { |p| p[:aprobado_por_vencimiento] }
   end
 
+  # Agregados para desplegar plazos de la etapa actual
+  # Retorna el plazo (hash) para una etapa específica
+  def plazo_por_etapa(etapa_codigo)
+    case etapa_codigo.to_s
+    when 'etp_rcpcn'      then build_plazo_recepcion
+    when 'etp_invstgcn'   then build_plazo_investigacion
+    when 'etp_infrm'      then build_plazo_deposito
+    when 'etp_prnncmnt'   then build_plazo_pronunciamiento
+    when 'etp_mdds_sncns' then build_plazo_aplicacion
+    else
+      nil
+    end
+  end
+
+  # Conveniencia: plazo de la etapa actual
+  def plazo_actual
+    plazo_por_etapa(etapa)
+  end
+
   private
 
   # ============================================================
@@ -141,19 +160,6 @@ module KrnPlazos
       referencia: fecha_termino_investigacion || plazo_investigacion_fecha,
       tarea: 'Remitir informe a Dirección del Trabajo',
       observacion: observacion_deposito
-    )
-  end
-
-  def build_plazo_deposito
-    build_plazo(
-      nombre: 'Depósito del informe',
-      dias: 2,
-      tipo: 'hábiles',
-      fecha_limite: plazo_deposito_informe_fecha,
-      fecha_cumplimiento: fecha_deposito_informe,
-      referencia: fecha_termino_investigacion || plazo_investigacion_fecha,
-      tarea: 'Remitir informe a Dirección del Trabajo',
-      observacion: fecha_termino_investigacion ? nil : 'Investigación aún no finaliza'
     )
   end
 
@@ -220,16 +226,16 @@ module KrnPlazos
   end
 
   def vencido?(fecha)
-    fecha.present? && fecha < Date.current
+    fecha.present? && fecha < Time.zone.today
   end
 
   def proximo_a_vencer?(limite, tipo)
     return false unless limite.present?
 
     restantes = if tipo == 'hábiles'
-                  CalFeriado.dias_habiles_entre(Date.current, limite)
+                  CalFeriado.dias_habiles_entre(Time.zone.today, limite)
                 else
-                  (limite - Date.current).to_i
+                  (limite - Time.zone.today).to_i
                 end
 
     restantes >= 0 && restantes <= 3
@@ -240,9 +246,9 @@ module KrnPlazos
     return nil unless limite.present?
 
     if tipo == 'hábiles'
-      CalFeriado.dias_habiles_entre(Date.current, limite)
+      CalFeriado.dias_habiles_entre(Time.zone.today, limite)
     else
-      (limite - Date.current).to_i
+      (limite - Time.zone.today).to_i
     end
   end
 
@@ -293,4 +299,5 @@ module KrnPlazos
       'En plazo para aplicación'
     end
   end
+
 end

@@ -65,16 +65,11 @@ module Prtcpnt
   	  verification_sent_at.present?
   	end
 
-    # --------------------------------- PDF Archivos y registros
-
-    def tiene_dclrcn?
-      file_or_check?('declaracion')
-    end
-
   end
 
   # Métodos de clase
   class_methods do
+
     def rgstrs_ok?
       all.empty? ? (name == 'KrnTestigo' ? true : false) : all.map {|den| den.rgstr_ok?}.uniq.join('-') == 'true'
     end

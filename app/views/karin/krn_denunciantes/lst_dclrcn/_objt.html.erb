@@ -10,4 +10,8 @@
 <%= objt.nombre %>
 <i class="bi bi-dot"></i>
 <%= articulo_516 ? objt.direccion_notificacion : email_mask(objt.email) %>
-</b>
+</b> 
+<% unless objt.dclrcn_intrrmpd.nil? %>
+	<i class="bi bi-dot"></i>
+	<span class="text-danger"><%= objt.dclrcn_intrrmpd %></span>
+<% end %>

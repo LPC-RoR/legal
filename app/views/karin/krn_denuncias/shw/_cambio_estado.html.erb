@@ -1,40 +1,71 @@
+
+
 <div class="border rounded-2 m-1 p-1">
-  <%= @objeto.etapa %>
 
-  <!-- Dropdown de cambio de etapa -->
-  <div class="dropdown d-inline-block">
-    <button class="btn btn-primary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
-      ⚡ Cambiar etapa
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end">
-
-      <%# Avanzar: visible para todos, excepto si ya está cerrada %>
-      <% unless @objeto.etapa == 'etp_cerrada' %>
-        <li>
-          <%= button_to "Avanzar a etapa siguiente",
-                        avanzar_krn_denuncia_path(@objeto),
-                        method: :patch,
-                        class: "dropdown-item",
-                        data: { confirm: "¿Confirmar avance de etapa?" } %>
-        </li>
-      <% end %>
-
-      <%# Retroceder: solo administrador, excepto si está en la primera etapa %>
-      <% if current_usuario.admin? && @objeto.etapa != 'etp_rcpcn' %>
-        <li><hr class="dropdown-divider"></li>
-        <li><h6 class="dropdown-header">Administrador</h6></li>
-        <li>
-          <%= button_to "Retroceder a etapa anterior",
-                        retroceder_krn_denuncia_path(@objeto),
-                        method: :patch,
-                        class: "dropdown-item text-danger",
-                        data: { confirm: "¿Retroceder etapa? Esta acción es irreversible." } %>
-        </li>
-      <% end %>
-
-    </ul>
+  <div class="row gx-1">
+    <div class="col-8"><h6 class="px-1"><b>Etapa</b></h6></div>
+    <div class="col-4 text-end"><h6 class="px-1"><b>Plazo</b></h6></div>
   </div>
+
+  <div class="row gx-1 py-2">
+    <div class="col-8">
+      <h6><b><i class="bi bi-caret-right-fill"></i> <%= ClssPdfInvstgcns.etp_nombre[@objeto.etapa.to_sym] %></b></h6>
+    </div>
+    <div class="col-4 text-end">
+      <h6>
+      <% plazo    = @objeto.plazo_actual[:fecha_limite] %>
+      <% cmplmnt  = @objeto.plazo_actual[:fecha_cumplimiento] || Time.zone.today %>
+      <% ontime   = cmplmnt <= plazo %>
+      <% clr      = ontime ? 'primary' : 'danger' %>
+      <% clndr    = ontime ? 'check' : 'x' %>
+      <div class="text-<%=clr%> fw-bold">
+        <i class="bi bi-calendar-<%=clndr%>"></i>
+        <%= dma(plazo) %>
+      </div>
+      </h6>
+    </div>
+  </div>
+  
+
+  <!-- Barra de estados tipo stepper -->
+  <div class="etapa-stepper d-flex align-items-center gap-1 p-3 bg-light rounded overflow-auto">
+    <% KrnDenuncia::ETAPAS.each_with_index do |etapa_key, idx| %>
+      <% is_current = (@objeto.etapa == etapa_key) %>
+      <% idx_actual = KrnDenuncia::ETAPAS.index(@objeto.etapa) %>
+      <% is_next  = (idx == idx_actual + 1) %>
+      <% is_prev  = (idx == idx_actual - 1) %>
+      <% enabled  = (is_next && @objeto.puede_avanzar?) ||
+                     (is_prev && current_usuario.admin? && @objeto.may_retroceder?) %>
+
+      <%= button_to etapa_nombre(etapa_key),
+                    cambiar_etapa_krn_denuncia_path(@objeto, etapa_destino: etapa_key),
+                    method: :patch,
+                    class: "step-btn #{stepper_classes(@objeto, etapa_key)}",
+                    disabled: !enabled && !is_current,
+                    form: { class: "d-inline" },
+                    data: { confirm: "¿Cambiar a #{etapa_nombre(etapa_key)}?" } %>
+
+      <% unless idx == KrnDenuncia::ETAPAS.size - 1 %>
+        <span class="step-arrow mx-1 text-muted">→</span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="mt-2 px-5 fw-bold objt_lnk">
+    <i class="bi bi-caret-right"></i> Tarea: <%= ClssPdfInvstgcns.tsk_nombre[@kproc.tarea] %>
+
+    <% if prtl?('karin', 'kproc/hnts', @kproc.tarea) %>
+      <%= render layout: '0p/collapse/link', locals: {label: 'DetalleTarea', objeto: nil, tooltip: nil} do %>
+        <small>Detalle <i class="bi bi-arrow-bar-down"></i></small>
+      <% end %>
+
+      <%= render layout: '0p/collapse/dsply', locals: {label: 'DetalleTarea', objeto: nil} do %>
+        <div class="ps-2">
+          <%= render partial: prtl('karin', 'kproc/hnts', @kproc.tarea) %>
+        </div>
+      <% end %>
+    <% end %>
+
+  </div>
+
 </div>

@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy cargar_pdf combinar_pdf swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy cargar_pdf combinar_pdf cambiar_etapa swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
 
   include PdfGeneratable
   include PdfCombinable
@@ -22,14 +22,14 @@ class Karin::KrnDenunciasController < ApplicationController
     # En el despliegue de KrnDenuncia ya no se usa ActLoad pero se usa en algún reporte, probablemnte en dnnc
     @kproc = KrnPrcdmnt.for(@objeto)
 
-#    @age_usuarios = AgeUsuario.where(owner_class: nil, owner_id: nil)
+    # Plazos disponibles para todos los tabs
+    @plazos = @objeto.plazos 
     case @indx
     when 0
     when 1
     when 2
     when 3
       # --- Variable única para el tab de plazos ---
-      @plazos = @objeto.plazos
       
       # Opcional: si quieres alertas globales en el header de la página
       @alerta_activa = @plazos.any? { |p| p[:estado] == :proximo || p[:aprobado_por_vencimiento] }
@@ -43,23 +43,32 @@ class Karin::KrnDenunciasController < ApplicationController
 
   end
 
-  def avanzar
-    if @objeto.may_avanzar?
-      @objeto.avanzar!
-      flash[:notice] = "Etapa avanzada a #{@objeto.etapa}."
-    else
-      flash[:alert] = "No es posible avanzar la etapa."
-    end
-    redirect_to @objeto
-  end
+  def cambiar_etapa
+    destino = params[:etapa_destino]
+    idx_actual = KrnDenuncia::ETAPAS.index(@objeto.etapa)
+    idx_destino = KrnDenuncia::ETAPAS.index(destino)
 
-  def retroceder
-    if @objeto.may_retroceder?
-      @objeto.retroceder!
-      flash[:notice] = "Etapa retrocedida a #{@objeto.etapa}."
-    else
-      flash[:alert] = "No es posible retroceder la etapa."
+    unless idx_destino && (idx_destino - idx_actual).abs == 1
+      flash[:alert] = "Solo puedes cambiar al estado adyacente."
+      return redirect_to @objeto
     end
+
+    if idx_destino > idx_actual
+      if @objeto.puede_avanzar?
+        @objeto.avanzar!
+        flash[:notice] = "Etapa avanzada a #{ClssPdfInvstgcns.etp_nombre[@objeto.etapa.to_sym]}."
+      else
+        flash[:alert] = "No se puede avanzar: falta información requerida."
+      end
+    elsif idx_destino < idx_actual
+      if @objeto.puede_retroceder?(current_usuario)
+        @objeto.retroceder!
+        flash[:notice] = "Etapa retrocedida a #{ClssPdfInvstgcns.etp_nombre[@objeto.etapa.to_sym]}."
+      else
+        flash[:alert] = "No tienes permisos para retroceder."
+      end
+    end
+
     redirect_to @objeto
   end
 
@@ -112,8 +121,10 @@ class Karin::KrnDenunciasController < ApplicationController
     @form = form_class.new(krn_denuncia_params)
     @form.denuncia_id = @objeto.id
 
+    Rails.logger.debug ">>> PARAMS FECHA: #{params[:krn_denuncia][:fecha].inspect}"
+    Rails.logger.debug ">>> PERMITTED: #{krn_denuncia_params[:fecha].inspect}"
+
     respond_to do |format|
-#      if @objeto.update(krn_denuncia_params)
       if @form.save
         format.html { redirect_to shw_dnnc_tab_indx(@form.to_model, 0), notice: "Denuncia fue exitosamente actualizada." }
         format.json { render :show, status: :ok, location: @form }
@@ -281,7 +292,7 @@ class Karin::KrnDenunciasController < ApplicationController
     def form_class
       case @objeto.etapa
       when 'etp_rcpcn'      then DenunciaForms::EtpRcpcnForm
-      when 'etp_invstgcn'   then DenunciaForms::EtpinvstgcnForm
+      when 'etp_invstgcn'   then DenunciaForms::EtpInvstgcnForm
       when 'etp_infrm'      then DenunciaForms::EtpInfrmForm
       when 'etp_prnncmnt'   then DenunciaForms::EtpPrnncmntForm
       when 'etp_mdds_sncns' then DenunciaForms::EtpMddsSncnsForm
@@ -295,12 +306,12 @@ class Karin::KrnDenunciasController < ApplicationController
     end
 
     def campos_permitidos
-      etapa = if @form.present?
-                @form.etapa
-              elsif @objeto.present?
+      etapa = if @objeto.present? && %w[update edit].include?(params[:action])
                 @objeto.etapa
+              elsif @form.present? && @form.etapa.present?
+                @form.etapa
               elsif params[:action] == 'create'
-                'etp_rcpcn'  # En create siempre es recepción
+                'etp_rcpcn'
               else
                 params.dig(:krn_denuncia, :etapa) || 'etp_rcpcn'
               end

@@ -35,6 +35,10 @@
 	</div>
 </div>
 
+<%= render partial: '0inpts/select', locals: { f: f, tkn: :dclrcn_intrrmpd, sel_list: ['No se presenta', 'No firma declaración'], include_blank: 'Sin interrupcion', label: 'El participante interrumple el proceso de declaración:'} %>
+
+<%= render '0inpts/date', f: f, tkn: :fecha_dnnc_crrgd, label: 'Plazo para presentar la denuncia corregida' %>
+
 <!-- ARTÍCULO 516 -->
 <%= render partial: '0inpts/check_box', locals: {f: f, tkn: :articulo_516, label: 'Aplica artículo 516 del Código del Trabajo', data: { 
             prtcpnts_fields_target: "articuloCheckbox",

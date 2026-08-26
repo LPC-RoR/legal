@@ -20,7 +20,7 @@
 		</div>
 		<div class="col-2 text-end objt_lnk">
 			<% if act.pdf.attached? %>
-				<% unless ClssPdfInvstgcns.no_sndng_code?(act.act_archivo) %>
+				<% unless ClssPdfInvstgcns.no_sndng_code?(act.act_archivo) || act.sndd %>
 					<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act.id}/enviar_pdf_por_email", tltp: 'Enviar por correo electrónico', data: {turbo_method: :post, turbo_confirm: "Confirmar envío del email"}} do %>
 						<i class="bi bi-envelope-paper"></i>
 					<% end %>

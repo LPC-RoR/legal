@@ -1,13 +1,67 @@
 module DnncMthds
  	extend ActiveSupport::Concern
 
- 	# ================================= Ingreso de datos
+ 	# ================================= etp_rcpcn: Ingreso de datos de la denuncia
 
  	# TAREA 1 tsk_ingrs?
  	# Una denuncia debe tener al menos una persona denunciante y 
  	# (salvo que se trate de una denuncia de violencia, una persona denunciada)
 	def prtcpnts_minimos?
 		krn_denunciantes.exists? && (krn_denunciados.exists? || violencia?)
+	end
+
+	def dcmnts_cntrlds_rcpcn?
+	    ClssPdfInvstgcns.archivos_controlados_rcpcn_completos?(self)
+	end
+
+	def flds_cierre?
+		!!vrfccn_dts_incmbnts && emprs_optn_invstgcn && emprs_optn_invstgcn != 'Pendiente'
+	end
+
+	def trmts_cierre?
+ 		krn_tramites.aviso_inicio_investigacion.present? ||		# Se ha realiado el trámite de informar a la DT
+ 		krn_tramites.derivacion_denuncia_dt.present?			# Se ha derivado a la DT
+	end
+
+ 	# ================================= etp_invstgcn: Investigación de la denuncia
+ 	def on_dt?
+ 		rcp_dt? || krn_tramites.derivacion_denuncia_dt.any?	# Se presentó o se derivó a la DT
+ 	end
+
+	# Verdadero si existe al menos un krn_inv_denuncia que:
+	# - NO esté objetado (false o nil)
+	# - O esté objetado PERO la objeción fue rechazada
+	def tiene_invstgdr_valido?
+		krn_inv_denuncias.validos_para_denuncia.exists?
+	end
+
+	def resuelta_o_corregida?
+	    evlcn_dnnc == 'Sin observaciones' ||
+	      (evlcn_dnnc == 'Con observaciones' && fecha_dnnc_crrgd.present?)
+	end
+
+	def dcmnts_cntrlds_invstgcn?
+	    ClssPdfInvstgcns.archivos_controlados_invstgcn_completos?(self)
+	end
+
+	# Retorna true cuando TODOS los participantes tienen declaración
+	# o están exceptuados por dclrcn_intrrmpd
+	def dclrcns_completas?
+	    participantes = krn_denunciantes + krn_denunciados + krn_testigos
+
+	    # Si no hay participantes, consideramos que no está completo
+	    return false if participantes.empty?
+
+	    participantes.all? do |participante|
+	      tiene_declaracion = participante.act_archivos.exists?(act_archivo: 'declaracion')
+	      exceptuado = ['No se presenta', 'No firma declaración'].include?(participante.dclrcn_intrrmpd)
+
+	      tiene_declaracion || exceptuado
+	    end
+	end
+
+	def tiene_infrm?
+		act_archivos.exists?(act_archivo: 'txt_infrm')
 	end
 
  	# ================================= Entidad investigadora
@@ -34,10 +88,6 @@ module DnncMthds
 
 	def on_empresa?
 		ubccn_dnnc == KrnDenuncia::RECEPTORES[0]
-	end
-
-	def on_dt?
-		ubccn_dnnc == KrnDenuncia::RECEPTORES[2]
 	end
 
 	def apt_coordinada?
@@ -88,26 +138,8 @@ module DnncMthds
  	end
 
  	# Se enfoca en el investigador y no en la presencia de registros en los participantes
- 	def invstgdr_ok?
- 		invstgdr = krn_inv_denuncias.where(objetado: [false, nil]).last
- 		!!invstgdr && invstgdr.act_referencias&.any?
- 	end
-
 	def analisis_ok?
 		!!evlcn_ok || (!!evlcn_incnsstnt && fecha_hora_corregida? && file_or_check?('denuncia_corregida'))
-	end
-
-	def tienen_dclrcn?
-	  return false if krn_denunciantes.none?
-
-	  # Solo chequea denunciados si violencia? es falso
-	  if !violencia? && krn_denunciados.none?
-	    return false
-	  end
-
-	  krn_denunciantes.all?(&:tiene_dclrcn?) &&
-	  krn_denunciados.all?(&:tiene_dclrcn?) &&
-	  krn_testigos.all?(&:tiene_dclrcn?)
 	end
 
 	def tiene_infrm?

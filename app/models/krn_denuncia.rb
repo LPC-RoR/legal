@@ -69,6 +69,7 @@ class KrnDenuncia < ApplicationRecord
 	validate :licencia_valida
 
 	include AASM
+	include KrnDenuncia::AnonimizadorExpediente
 	include DnncEtapas
 	include KrnPlazos
 	include Cptn
@@ -300,7 +301,7 @@ class KrnDenuncia < ApplicationRecord
 	# ------------------------------------------------------------------------ RCPS & DRVS
 
 	private
-	
+
 	def licencia_valida
 	  return errors.add(:base, 'No se ha especificado el propietario') if ownr.nil?
 

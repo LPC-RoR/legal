@@ -6,6 +6,10 @@ class KrnInvDenuncia < ApplicationRecord
 
 	has_many :act_referencias, as: :ref
 
+	scope :validos_para_denuncia, -> {
+    	where("objetado IS NOT TRUE OR (objetado = ? AND objecion_rslcn = ?)", true, 'Rechazada')
+  	}
+
 	# Método que me entrega el hacs id => razon_social
 	# Alternativa usando pluck (más eficiente para ActiveRecord::Relation)
 

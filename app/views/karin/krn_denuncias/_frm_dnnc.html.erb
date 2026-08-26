@@ -55,12 +55,20 @@
 			<%= render partial: '0inpts/select', locals: { f: f, tkn: :dnncnt_optn_invstgcn, sel_list: ['Empresa', 'Direccion del Trabajo'], label: 'La persona denunciante manifiesta su opción que la denuncia sea investigada por:'} %>
 		</div>
 		<div class="col-lg-6 col-xs-12">
-			<%= render partial: '0inpts/select', locals: { f: f, tkn: :emprs_optn_invstgcn, sel_list: ['Pendiente', 'Empresa', 'Direccion del Trabajo'], label: 'La empresa manifiesta su opción que la denuncia sea investigada por:'} %>
+			<%= render partial: '0inpts/select', locals: { f: f, tkn: :emprs_optn_invstgcn, sel_list: ['Empresa', 'Direccion del Trabajo'], include_blank: 'Pendiente', label: 'La empresa manifiesta su opción que la denuncia sea investigada por:'} %>
 		</div>
 	</div>
 
 	<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :vrfccn_dts_incmbnts, label: 'Se han verificado y completado los datos de los incumbentes.'} %>
 
+<% elsif @form.etapa == 'etp_invstgcn' %>
+	<%= render partial: '0inpts/select', locals: { f: f, tkn: :evlcn_dnnc, sel_list: ['Sin observaciones', 'Con observaciones'], include_blank: 'Sin evaluar', label: 'Evaluación de la denuncia por el investigador:'} %>
+
+	<%= render '0inpts/date', f: f, tkn: :fecha_dnnc_crrgd, label: 'Plazo para presentar la denuncia corregida' %>
+
+	<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :vrfccn_dts_tstgs, label: 'Se han verificado y completado los datos de los testigos.'} %>
+
+	<%= render '0inpts/date', f: f, tkn: :fecha_termino_investigacion, label: 'Fecha en la que terminó la investigación' %>
 <% else %>
 	<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :causal_establecida, label: 'Causal acreditada'} %>
 <% end %>
