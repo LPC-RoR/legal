@@ -69,6 +69,9 @@
 	<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :vrfccn_dts_tstgs, label: 'Se han verificado y completado los datos de los testigos.'} %>
 
 	<%= render '0inpts/date', f: f, tkn: :fecha_termino_investigacion, label: 'Fecha en la que terminó la investigación' %>
+<% elsif @form.etapa == 'etp_prnncmnt' %>
+	<%= render '0inpts/date', f: f, tkn: :fecha_recepcion_pronunciamiento, label: 'Fecha en la que recibió el pronunciamiento' %>
+	<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :prnncmnt_vncd, label: 'Ha vencido el plazo para el pronunciamiento de la Direccón del Trabajo'} %>
 <% else %>
 	<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :causal_establecida, label: 'Causal acreditada'} %>
 <% end %>
