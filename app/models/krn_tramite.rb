@@ -9,7 +9,7 @@ class KrnTramite < ApplicationRecord
       { code: 'derivacion_denuncia_empresa',  condition: ->(o) { o.rcp_externa? && !o.externa? } },
       { code: 'derivacion_denuncia_dt',       condition: ->(o) { o.dnncnt_optn_invstgcn == 'Dirección del Trabajo' || (o.dnncnt_optn_invstgcn == 'Empresa' && o.emprs_optn_invstgcn == 'Dirección del Trabajo') } },
       { code: 'aviso_inicio_investigacion',   condition: ->(o) { o.dnncnt_optn_invstgcn == 'Empresa' && o.emprs_optn_invstgcn == 'Empresa' } },
-      { code: 'deposito_investigacion',       condition: ->(o) { o.etapa == 'etp_infrm' } },
+      { code: 'deposito_investigacion',       condition: ->(o) { o.etapa != 'etp_rcpcn' } },
     ]
   }
 
