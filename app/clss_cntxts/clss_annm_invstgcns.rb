@@ -14,7 +14,6 @@ class ClssAnnmInvstgcns
   # ================================================================
 
   CONFIGURACION = {
-  CONFIGURACION = {
     # ------------------------------------------------------------
     # GRUPO: Medios de prueba (antecedentes de todos los participantes)
     # ------------------------------------------------------------
@@ -29,7 +28,6 @@ class ClssAnnmInvstgcns
       },
       mensaje_vacio: "El participante no presentó medios de prueba."
     },
-
   }.freeze
 
   class << self
