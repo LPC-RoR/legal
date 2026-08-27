@@ -2,6 +2,11 @@
 <%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'invstgdr'} %>
 <%#= render partial: prtl_name(objeto, 'shw/proceso', 'drvcns_invstgdrs'), locals: {ownr: objeto} %>
 
+<%= @objeto.tsk_prnncmnt? %>
+<%= @objeto.tsk_mdds_sncns? %>
+<%= @objeto.tsk_prcdmnt_trmnd? %>
+
+
 <!-- Hay uno identico a este en shw_participantes -->
 <%#= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>
 <%= render partial: prtl_name(objeto, 'shw/proceso', 'tsk_dsply'), locals: {ownr: objeto} %>

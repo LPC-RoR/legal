@@ -1,5 +1,5 @@
 # Concern de app/models/krn_denuncia.rb
-module KrnPlazos
+module KrnDenuncia::KrnPlazos
   extend ActiveSupport::Concern
 
   # ============================================================
@@ -34,6 +34,42 @@ module KrnPlazos
   # Plazo depósito informe: trámite de depósito de investigación
   def fecha_deposito_informe
     tramite_deposito&.fecha_tramite
+  end
+
+  # ============================================================
+  # MEDIDAS Y SANCIONES 
+  # ============================================================
+  # Retorna true si TODOS los denunciantes y denunciados
+  # tienen al menos un ActArchivo con act_archivo == 'txt_mdds_sncns'
+  def todos_tienen_txt_mdds_sncns?
+    sin_archivo = ->(rel) {
+      rel.where.not(
+        id: rel.joins(:act_archivos).where(act_archivos: { act_archivo: 'txt_mdds_sncns' }).select(:id)
+      )
+    }
+
+    sin_archivo.call(krn_denunciantes).none? && sin_archivo.call(krn_denunciados).none?
+  end
+
+  def fecha_mas_reciente_txt_mdds_sncns
+    total_dnts = krn_denunciantes.count
+    total_dnds = krn_denunciados.count
+
+    # Verificar que haya al menos uno de cada tipo y que todos tengan el archivo
+    return nil if total_dnts.zero? || total_dnds.zero?
+
+    con_archivo_dnts = krn_denunciantes.joins(:act_archivos)
+                                       .where(act_archivos: { act_archivo: 'txt_mdds_sncns' })
+                                       .distinct.count
+    con_archivo_dnds = krn_denunciados.joins(:act_archivos)
+                                      .where(act_archivos: { act_archivo: 'txt_mdds_sncns' })
+                                      .distinct.count
+
+    return nil unless con_archivo_dnts == total_dnts && con_archivo_dnds == total_dnds
+
+    # Una sola query para el máximo global
+    ActArchivo.where(ownr: krn_denunciantes + krn_denunciados, act_archivo: 'txt_mdds_sncns')
+              .maximum(:created_at)
   end
 
   # ============================================================
@@ -186,7 +222,7 @@ module KrnPlazos
       dias: 15,
       tipo: 'corridos',
       fecha_limite: plazo_aplicacion_medidas_fecha,
-      fecha_cumplimiento: fecha_aplicacion_medidas,
+      fecha_cumplimiento: fecha_mas_reciente_txt_mdds_sncns,
       referencia: fecha_recepcion_pronunciamiento || plazo_pronunciamiento_fecha,
       tarea: 'Aplicar medidas y sanciones propuestas',
       observacion: observacion_aplicacion
@@ -289,7 +325,7 @@ module KrnPlazos
   end
 
   def observacion_aplicacion
-    if fecha_aplicacion_medidas
+    if fecha_mas_reciente_txt_mdds_sncns
       nil
     elsif fecha_recepcion_pronunciamiento.nil? && vencido?(plazo_pronunciamiento_fecha)
       'Plazo de pronunciamiento vencido. Aplicación desde fecha de vencimiento del plazo anterior.'

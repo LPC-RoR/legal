@@ -73,7 +73,7 @@
 	<%= render '0inpts/date', f: f, tkn: :fecha_recepcion_pronunciamiento, label: 'Fecha en la que recibió el pronunciamiento' %>
 	<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :prnncmnt_vncd, label: 'Ha vencido el plazo para el pronunciamiento de la Direccón del Trabajo'} %>
 	<%= render partial: '0inpts/select', locals: { f: f, tkn: :prnncmnt, sel_list: ['Sin observaciones', 'Con observaciones'], include_blank: 'Sin pronunciamiento', label: 'Pronunciamiento de la Dirección del Trabajo'} %>
-<% else %>
+<% elsif @form.etapa == 'etp_mdds_sncns' %>
 	<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :causal_establecida, label: 'Causal acreditada'} %>
 <% end %>
 

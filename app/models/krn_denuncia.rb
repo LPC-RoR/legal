@@ -71,8 +71,8 @@ class KrnDenuncia < ApplicationRecord
 	include AASM
 	include KrnDenuncia::AnonimizadorExpediente
 	include KrnDenuncia::DnncProc
-	include DnncEtapas
-	include KrnPlazos
+	include KrnDenuncia::KrnPlazos
+	include KrnDenuncia::DnncEtapas
 	include Cptn
 	include DnncPlzs
 	include DnncMthds

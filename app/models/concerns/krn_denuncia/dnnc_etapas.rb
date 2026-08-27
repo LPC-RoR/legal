@@ -10,8 +10,8 @@ module KrnDenuncia::DnncEtapas
     FLDS_INVSTGCN =		[:evlcn_dnnc, :fecha_dnnc_crrgd, :vrfccn_dts_tstgs, :fecha_termino_investigacion]
     FLDS_INFRM =		[]
     FLDS_PRNNCMNT =		[:fecha_recepcion_pronunciamiento, :prnncmnt_vncd, :prnncmnt]
-    FLDS_MDDS_SNCNS =	[:resolucion, :sancion, :fecha_cierre]
-    FLDS_CERRADA =		[:resolucion, :sancion, :fecha_cierre]
+    FLDS_MDDS_SNCNS =	[:causal_establecida]
+    FLDS_CERRADA =		[]
 
 
 	# Campos que se definen en cada etapa
@@ -33,15 +33,15 @@ module KrnDenuncia::DnncEtapas
 	def etapa_completa?
 	  case etapa
 	  when 'etp_rcpcn'										
-	    tramite_aviso_inicio || tramite_derivacion_dt	# 1ra versión
+	    tramite_aviso_inicio || tramite_derivacion_dt		# 1ra versión
 	  when 'etp_invstgcn'
-	    fecha_termino_investigacion  					# 1ra versión
+	    fecha_termino_investigacion  						# 1ra versión
 	  when 'etp_infrm'
-	    tramite_deposito  								# 1ra versión
+	    tramite_deposito  									# 1ra versión
 	  when 'etp_prnncmnt'
-	    fecha_deposito_informe || plazo_deposito_informe_fecha  	# 1ra versión
+	    fecha_recepcion_pronunciamiento || prnncmnt_vncd	# 1ra versión
 	  when 'etp_mdds_sncns'
-	    fecha_aplicacion_medidas  									# 1ra versión
+	    fecha_mas_reciente_txt_mdds_sncns					# 1ra versión
 	  else
 	    true
 	  end

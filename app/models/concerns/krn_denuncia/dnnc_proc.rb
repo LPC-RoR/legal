@@ -78,13 +78,13 @@ module KrnDenuncia::DnncProc
  	def tsk_mdds_sncns?
  		(fecha_rcpcn_infrm? ||
  		fecha_recepcion_pronunciamiento.present? || prnncmnt_vncd) &&
- 		!fecha_cierre?
+ 		fecha_mas_reciente_txt_mdds_sncns.nil?
  	end
 
  	# TAREAS -------------------------------------- etp_terminada (?)
  	# Procedimiento terminado
  	def tsk_prcdmnt_trmnd?
- 		fecha_cierre?
+ 		fecha_mas_reciente_txt_mdds_sncns.present?
  	end
  	
  	# ================================= PROC Etapas
