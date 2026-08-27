@@ -203,12 +203,15 @@ module KrnDenuncia::KrnPlazos
     limite = plazo_pronunciamiento_fecha
     aprobado = !fecha_recepcion_pronunciamiento && vencido?(limite)
 
+    fecha_cumplimiento = fecha_recepcion_pronunciamiento
+    fecha_cumplimiento ||= limite if vencido?(limite)
+
     build_plazo(
       nombre: 'Pronunciamiento Dirección del Trabajo',
       dias: 30,
       tipo: 'hábiles',
       fecha_limite: limite,
-      fecha_cumplimiento: fecha_recepcion_pronunciamiento,
+      fecha_cumplimiento: fecha_cumplimiento,
       referencia: fecha_deposito_informe || plazo_deposito_informe_fecha,
       tarea: 'Recibir pronunciamiento DT',
       observacion: observacion_pronunciamiento(limite),
