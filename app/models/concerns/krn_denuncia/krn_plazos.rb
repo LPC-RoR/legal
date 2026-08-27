@@ -226,7 +226,7 @@ module KrnDenuncia::KrnPlazos
       dias: 15,
       tipo: 'corridos',
       fecha_limite: plazo_aplicacion_medidas_fecha,
-      fecha_cumplimiento: fecha_mas_reciente_txt_mdds_sncns.to_date,
+      fecha_cumplimiento: fecha_mas_reciente_txt_mdds_sncns&.to_date,
       referencia: fecha_recepcion_pronunciamiento || plazo_pronunciamiento_fecha,
       tarea: 'Aplicar medidas y sanciones propuestas',
       observacion: observacion_aplicacion
