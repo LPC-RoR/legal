@@ -3,7 +3,7 @@ class ClssPdfInvstgcns
   include ConditionalArray
 
   DNNCNT_CDGS   = ['rprsntcn', 'artcl_516', 'dnncnt_info_oblgtr', 'comprobante', 'apt'].freeze
-  INCMBNTS_CDGS = ['invstgcn', 'drchs', 'txt_mdds_rsgrd'].freeze
+  INCMBNTS_CDGS = ['invstgcn', 'drchs', 'txt_mdds_rsgrd', 'txt_mdds_crrctvs_sncns'].freeze
   PRTCPNTS_CDGS = ['antecedentes'].freeze
 
   OPTNL_CDGS    = ['crdncn_apt', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'drchs', 'antecedentes', 'dts_incmbnts', 'dts_tstgs']
@@ -41,7 +41,7 @@ class ClssPdfInvstgcns
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'antecedentes',           condition: ->(o) { true } },
       { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
-      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } },
+      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { o.dnnc.todos_tienen_txt_mdds_sncns? } },
     ],
     dnncd: [
       { code: 'artcl_516',              condition: ->(o) { !!o.articulo_516 } },
@@ -50,7 +50,7 @@ class ClssPdfInvstgcns
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'antecedentes',           condition: ->(o) { true } },
       { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
-      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } }
+      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { o.dnnc.todos_tienen_txt_mdds_sncns? } }
     ],
     tstg: [
 #      { code: 'drchs',                  condition: ->(o) { true } },

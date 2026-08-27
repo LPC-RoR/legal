@@ -40,11 +40,11 @@ module KrnDenuncia::KrnPlazos
   # MEDIDAS Y SANCIONES 
   # ============================================================
   # Retorna true si TODOS los denunciantes y denunciados
-  # tienen al menos un ActArchivo con act_archivo == 'txt_mdds_sncns'
+  # tienen al menos un ActArchivo con act_archivo == 'txt_mdds_crrctvs_sncns'
   def todos_tienen_txt_mdds_sncns?
     sin_archivo = ->(rel) {
       rel.where.not(
-        id: rel.joins(:act_archivos).where(act_archivos: { act_archivo: 'txt_mdds_sncns' }).select(:id)
+        id: rel.joins(:act_archivos).where(act_archivos: { act_archivo: 'txt_mdds_crrctvs_sncns' }).select(:id)
       )
     }
 
@@ -59,16 +59,16 @@ module KrnDenuncia::KrnPlazos
     return nil if total_dnts.zero? || total_dnds.zero?
 
     con_archivo_dnts = krn_denunciantes.joins(:act_archivos)
-                                       .where(act_archivos: { act_archivo: 'txt_mdds_sncns' })
+                                       .where(act_archivos: { act_archivo: 'txt_mdds_crrctvs_sncns' })
                                        .distinct.count
     con_archivo_dnds = krn_denunciados.joins(:act_archivos)
-                                      .where(act_archivos: { act_archivo: 'txt_mdds_sncns' })
+                                      .where(act_archivos: { act_archivo: 'txt_mdds_crrctvs_sncns' })
                                       .distinct.count
 
     return nil unless con_archivo_dnts == total_dnts && con_archivo_dnds == total_dnds
 
     # Una sola query para el máximo global
-    ActArchivo.where(ownr: krn_denunciantes + krn_denunciados, act_archivo: 'txt_mdds_sncns')
+    ActArchivo.where(ownr: krn_denunciantes + krn_denunciados, act_archivo: 'txt_mdds_crrctvs_sncns')
               .maximum(:created_at)
   end
 
