@@ -1,4 +1,4 @@
-
+<%# krn_denuncias/shw/_cambio_estado.html.erb %>
 
 <div class="border rounded-2 m-1 p-1">
 
@@ -11,19 +11,25 @@
     <div class="col-8">
       <h6><b><i class="bi bi-caret-right-fill"></i> <%= ClssPdfInvstgcns.etp_nombre[@objeto.etapa.to_sym] %></b></h6>
     </div>
-    <div class="col-4 text-end">
-      <h6>
-      <% plazo    = @objeto.plazo_actual[:fecha_limite] %>
-      <% cmplmnt  = @objeto.plazo_actual[:fecha_cumplimiento] || Time.zone.today %>
-      <% ontime   = cmplmnt <= plazo %>
-      <% clr      = ontime ? 'primary' : 'danger' %>
-      <% clndr    = ontime ? 'check' : 'x' %>
-      <div class="text-<%=clr%> fw-bold">
-        <i class="bi bi-calendar-<%=clndr%>"></i>
-        <%= dma(plazo) %>
+      <div class="col-4 text-end">
+        <h6>
+          <% if @objeto.plazo_actual.present? && @objeto.plazo_actual[:fecha_limite].present? %>
+            <% plazo    = @objeto.plazo_actual[:fecha_limite] %>
+            <% cmplmnt  = @objeto.plazo_actual[:fecha_cumplimiento] || Time.zone.today %>
+            <% ontime   = cmplmnt <= plazo %>
+            <% clr      = ontime ? 'primary' : 'danger' %>
+            <% clndr    = ontime ? 'check' : 'x' %>
+            <div class="text-<%= clr %> fw-bold">
+              <i class="bi bi-calendar-<%= clndr %>"></i>
+              <%= dma(plazo) %>
+            </div>
+          <% else %>
+            <div class="text-muted fw-bold">
+              <i class="bi bi-check-circle"></i> Cerrada
+            </div>
+          <% end %>
+        </h6>
       </div>
-      </h6>
-    </div>
   </div>
   
 
