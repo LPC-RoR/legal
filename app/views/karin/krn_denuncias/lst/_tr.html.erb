@@ -9,6 +9,7 @@
 		<% end %>
 	</td>
 	<td><%= objt.motivo_denuncia %></td>
+	<td><%= objt.etapa %></td>
 	<td class="pe-3 text-end">
 		<% if current_usuario.recepcion? %>
 			<% unless (objt.krn_derivaciones.any? or objt.rep_archivos.any?) %>
