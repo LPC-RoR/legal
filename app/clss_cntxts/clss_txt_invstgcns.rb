@@ -4,6 +4,8 @@ class ClssTxtInvstgcns
 
   DCLRCN_CDGS = ['txt_dclrcn', 'txt_dclrcn_annmzd']
 
+  OPTNL_CDGS  = ['txt_dnnc_annmzd']
+
   # Definición estática de códigos con condiciones
   CDGS = {
     emprs: [
@@ -16,7 +18,7 @@ class ClssTxtInvstgcns
     ],
     dnnc: [
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
-      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { true } },
+      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { ['etp_mdds_sncns', 'etp_cerrada'].include?(o.etapa) } },
       { code: 'txt_dnnc_annmzd',        condition: ->(o) { true } },
     ],
     dnncnt: [
@@ -46,6 +48,10 @@ class ClssTxtInvstgcns
   def self.dsply_codes_for(ownr)
     items = CDGS[ownr.kywrd[:sym]] || []
     available_codes_for(ownr, items)
+  end
+
+  def self.optnl_code?(code)
+    OPTNL_CDGS.include?(code)
   end
 
   # ---------------------- Control de despliegue

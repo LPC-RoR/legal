@@ -9,7 +9,7 @@
 
   <div class="row gx-1 py-2">
     <div class="col-8">
-      <h6><b><i class="bi bi-caret-right-fill"></i> <%= ClssPdfInvstgcns.etp_nombre[@objeto.etapa.to_sym] %></b></h6>
+      <h6><b><i class="bi bi-caret-right-fill"></i> <%= ClssEtpTsk.etp_nombre[@objeto.etapa.to_sym] %></b></h6>
     </div>
       <div class="col-4 text-end">
         <h6>
@@ -58,7 +58,7 @@
   </div>
 
   <div class="mt-2 px-5 fw-bold objt_lnk">
-    <i class="bi bi-caret-right"></i> Tarea: <%= ClssPdfInvstgcns.tsk_nombre[@kproc.tarea] %>
+    <i class="bi bi-caret-right"></i> <span class="text-primary">Tarea</span>: <%= ClssEtpTsk.tsk_nombre[@kproc.tarea] %>
 
     <% if prtl?('karin', 'kproc/hnts', @kproc.tarea) %>
       <%= render layout: '0p/collapse/link', locals: {label: 'DetalleTarea', objeto: nil, tooltip: nil} do %>

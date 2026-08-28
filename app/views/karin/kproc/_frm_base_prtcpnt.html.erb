@@ -35,9 +35,9 @@
 	</div>
 </div>
 
-<%= render partial: '0inpts/select', locals: { f: f, tkn: :dclrcn_intrrmpd, sel_list: ['No se presenta', 'No firma declaración'], include_blank: 'Sin interrupcion', label: 'El participante interrumple el proceso de declaración:'} %>
-
-<%= render '0inpts/date', f: f, tkn: :fecha_dnnc_crrgd, label: 'Plazo para presentar la denuncia corregida' %>
+<% unless @objeto.is_a?(KrnTestigo) %>
+	<%= render partial: '0inpts/check_box', locals: {f: f, tkn: :articulo_4_1, label: 'Aplica artículo 4 inciso primero del Código del Trabajo'} %>
+<% end %>
 
 <!-- ARTÍCULO 516 -->
 <%= render partial: '0inpts/check_box', locals: {f: f, tkn: :articulo_516, label: 'Aplica artículo 516 del Código del Trabajo', data: { 
@@ -49,3 +49,8 @@
    style="display: <%= f.object.articulo_516? ? 'block' : 'none' %>">
 	  <%= render "direccion", form: f %>
 </div>
+
+<% unless @objeto.dnnc.etapa == 'etp_rcpcn' %>
+	<%= render '0inpts/date', f: f, tkn: :fecha_dnnc_crrgd, label: 'Plazo para presentar la denuncia corregida' %>
+	<%= render partial: '0inpts/select', locals: { f: f, tkn: :dclrcn_intrrmpd, sel_list: ['No se presenta', 'No firma declaración'], include_blank: 'Sin interrupcion', label: 'El participante interrumple el proceso de declaración:'} %>
+<% end %>

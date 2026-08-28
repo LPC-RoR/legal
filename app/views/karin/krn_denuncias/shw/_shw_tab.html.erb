@@ -5,8 +5,8 @@
 
     <li class="nav-item">
       <a class="nav-link <%= 'active' if ["#{objt.id}", "#{objt.id}_0"].include?(params[:id]) %>" aria-current="page" href="/krn_denuncias/<%=objt.id%>_0">
-        <% if ClssPrcdmnt.dnnc_tsks.include?(@kproc.tarea) %>
-          <i class="bi bi-arrow-right"></i> 
+        <% if ClssEtpTsk.dnnc_tsks.include?(@kproc.tarea) %>
+          <i class="bi bi-arrow-right text-primary"></i> 
         <% end %>
         Denuncia
       </a>
@@ -14,8 +14,8 @@
 
     <li class="nav-item">
       <a class="nav-link <%= 'active' if ["#{objt.id}_1"].include?(params[:id]) %>" href="/krn_denuncias/<%=objt.id%>_1">
-        <% if ClssPrcdmnt.prtcpnts_tsks.include?(@kproc.tarea) %>
-          <i class="bi bi-arrow-right"></i> 
+        <% if ClssEtpTsk.ntfccns_tsks.include?(@kproc.tarea) %>
+          <i class="bi bi-arrow-right text-primary"></i> 
         <% end %>
         Notificaciones
       </a>

@@ -100,14 +100,11 @@ class Karin::KrnDenunciasController < ApplicationController
 
   # POST /krn_denuncias or /krn_denuncias.json
   def create
-#    @objeto = KrnDenuncia.new(krn_denuncia_params)
     @form = DenunciaForms::EtpRcpcnForm.new(krn_denuncia_params)
 
     respond_to do |format|
-#      if @objeto.save
       if @form.save
-#        format.html { redirect_to shw_dnnc_tab_indx(@objeto, 0), notice: "Denuncia fue exitosamente creada." }
-        format.html { redirect_to shw_dnnc_tab_indx(@form.to_model, 0), notice: "Denuncia fue exitosamente creada." }
+        format.html { redirect_to shw_dnnc_tab_indx(@form.to_model, 1), notice: "Denuncia fue exitosamente creada." }
         format.json { render :show, status: :created, location: @form }
       else
         format.html { render :new, status: :unprocessable_entity }
