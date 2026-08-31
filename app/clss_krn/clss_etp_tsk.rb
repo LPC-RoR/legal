@@ -1,5 +1,14 @@
 class ClssEtpTsk < ApplicationRecord
 
+  DNNCNT_CDGS   = ['rprsntcn', 'artcl_516', 'dnncnt_info_oblgtr', 'comprobante', 'apt'].freeze
+  INCMBNTS_CDGS = ['invstgcn', 'drchs', 'txt_mdds_rsgrd', 'txt_mdds_crrctvs_sncns'].freeze
+  PRTCPNTS_CDGS = ['antecedentes'].freeze
+
+  INVSTGCN_CDGS = ['dts_tstgs', 'txt_dnnc_obsrvcns', 'dnnc_crrgd', 'txt_infrm']
+
+  DCLRCN_CDGS   = ['dclrcn', 'txt_dclrcn', 'declaracion', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn']
+  RCRSS_CDGS    = ['txt_invstgdr_dsgncn', 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas']
+
   def self.etp_nombre
     {
       etp_rcpcn:      'Tramites propios de la recepción',
@@ -8,6 +17,17 @@ class ClssEtpTsk < ApplicationRecord
       etp_prnncmnt:   'Pronunciamiento de la Direccón del Trabajo',
       etp_mdds_sncns: 'Aplicación de las medidas correctivas y sanciones',
       etp_cerrada:    'Procedimiento cerrado'
+    }
+  end
+
+  def self.etp_status
+    {
+      etp_rcpcn:      'Recepción',
+      etp_invstgcn:   'Investigación',
+      etp_infrm:      'Informe',
+      etp_prnncmnt:   'Pronunciamiento',
+      etp_mdds_sncns: 'Medidas & sanciones',
+      etp_cerrada:    'Cerrada'
     }
   end
 
@@ -37,6 +57,42 @@ class ClssEtpTsk < ApplicationRecord
 
   def self.ntfccns_tsks
     ['tsk_dcmnts_cntrlds']
+  end
+
+  # *************************************************
+  # ARCHIVOS CONTROLADOS POR ETAPA
+  # *************************************************
+  def self.archivos_controlados_rcpcn_completos?(denuncia)
+    ownrs = [
+      denuncia,
+      *denuncia.krn_denunciantes,
+      *denuncia.krn_denunciados,
+      *denuncia.krn_testigos
+    ]
+
+    # Códigos obligatorios: los de los tres grupos menos los opcionales
+    codigos_obligatorios = (DNNCNT_CDGS + INCMBNTS_CDGS + PRTCPNTS_CDGS) - ClssPdfInvstgcns::OPTNL_CDGS
+
+    ownrs.all? do |ownr|
+      codigos_a_verificar = ClssPdfInvstgcns.dsply_codes_for(ownr) & codigos_obligatorios
+
+      codigos_a_verificar.all? do |code|
+        ownr.act_archivos.exists?(act_archivo: code)
+      end
+    end
+  end
+
+  def self.archivos_controlados_invstgcn_completos?(denuncia)
+    # Códigos obligatorios: los de los tres grupos menos los opcionales
+    codigos_obligatorios = INVSTGCN_CDGS - ClssPdfInvstgcns::OPTNL_CDGS
+    codigos_a_verificar = ClssPdfInvstgcns.dsply_codes_for(denuncia) & codigos_obligatorios
+    if codigos_a_verificar.empty?
+      true
+    else
+      codigos_a_verificar.all? do |code|
+        denuncia.act_archivos.exists?(act_archivo: code)
+      end
+    end
   end
 
 end

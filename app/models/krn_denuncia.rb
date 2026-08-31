@@ -73,9 +73,9 @@ class KrnDenuncia < ApplicationRecord
 	include KrnDenuncia::DnncProc
 	include KrnDenuncia::KrnPlazos
 	include KrnDenuncia::DnncEtapas
+	include KrnDenuncia::DnncMthds
 	include Cptn
 	include DnncPlzs
-	include DnncMthds
 	include Fls
 	include ActsChecks
 

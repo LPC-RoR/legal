@@ -1,4 +1,4 @@
-module DnncMthds
+module KrnDenuncia::DnncMthds
  	extend ActiveSupport::Concern
 
  	# ================================= etp_rcpcn: Ingreso de datos de la denuncia
@@ -11,7 +11,7 @@ module DnncMthds
 	end
 
 	def dcmnts_cntrlds_rcpcn?
-	    ClssPdfInvstgcns.archivos_controlados_rcpcn_completos?(self)
+	    ClssEtpTsk.archivos_controlados_rcpcn_completos?(self)
 	end
 
 	def flds_cierre?
@@ -41,7 +41,7 @@ module DnncMthds
 	end
 
 	def dcmnts_cntrlds_invstgcn?
-	    ClssPdfInvstgcns.archivos_controlados_invstgcn_completos?(self)
+	    ClssEtpTsk.archivos_controlados_invstgcn_completos?(self)
 	end
 
 	# Retorna true cuando TODOS los participantes tienen declaración
