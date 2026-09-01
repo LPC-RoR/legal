@@ -10,8 +10,12 @@ module KrnDenuncia::DnncMthds
 		krn_denunciantes.exists? && (krn_denunciados.exists? || violencia?)
 	end
 
+	def dnnc_o_acta?
+		act_archivos.exists?(act_archivo: 'denuncia') || act_archivos.exists?(act_archivo: 'txt_acta')
+	end
+
 	def dcmnts_cntrlds_rcpcn?
-	    ClssEtpTsk.archivos_controlados_rcpcn_completos?(self)
+	    ClssEtpTsk.archivos_controlados_rcpcn_completos?(self) && dnnc_o_acta?
 	end
 
 	def flds_cierre?
@@ -54,7 +58,7 @@ module KrnDenuncia::DnncMthds
 
 	    participantes.all? do |participante|
 	      tiene_declaracion = participante.act_archivos.exists?(act_archivo: 'declaracion')
-	      exceptuado = ['No se presenta', 'No firma declaración'].include?(participante.dclrcn_intrrmpd)
+	      exceptuado = ['No se presenta a declarar', 'No firma declaración'].include?(participante.dclrcn_intrrmpd)
 
 	      tiene_declaracion || exceptuado
 	    end

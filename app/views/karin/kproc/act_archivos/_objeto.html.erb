@@ -1,0 +1,9 @@
+<% lst = ownr.act_archivos.where(act_archivo: code) %>
+
+<%= render partial: 'karin/kproc/act_archivos/objt_row', locals: {code: code, mdl: mdl, ownr: ownr, lst: lst} %>
+
+<% if lst.any? %>
+	<div class="px-3">
+		<%= render partial: 'karin/kproc/act_archivos/lst', locals: {code: code, mdl: mdl, ownr: ownr, lst: lst} %>
+	</div>
+<% end %>

@@ -51,6 +51,5 @@
 </div>
 
 <% unless @objeto.dnnc.etapa == 'etp_rcpcn' %>
-	<%= render '0inpts/date', f: f, tkn: :fecha_dnnc_crrgd, label: 'Plazo para presentar la denuncia corregida' %>
-	<%= render partial: '0inpts/select', locals: { f: f, tkn: :dclrcn_intrrmpd, sel_list: ['No se presenta', 'No firma declaración'], include_blank: 'Sin interrupcion', label: 'El participante interrumple el proceso de declaración:'} %>
+	<%= render partial: '0inpts/select', locals: { f: f, tkn: :dclrcn_intrrmpd, sel_list: ['No se presenta a declarar', 'No firma declaración'], include_blank: 'Sin interrupcion', label: 'El participante interrumple el proceso de declaración:'} %>
 <% end %>

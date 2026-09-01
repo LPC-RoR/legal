@@ -56,14 +56,14 @@ class Karin::KrnDenunciasController < ApplicationController
     if idx_destino > idx_actual
       if @objeto.puede_avanzar?
         @objeto.avanzar!
-        flash[:notice] = "Etapa avanzada a #{ClssPdfInvstgcns.etp_nombre[@objeto.etapa.to_sym]}."
+        flash[:notice] = "Etapa avanzada a #{ClssEtpTsk.etp_nombre[@objeto.etapa.to_sym]}."
       else
         flash[:alert] = "No se puede avanzar: falta información requerida."
       end
     elsif idx_destino < idx_actual
       if @objeto.puede_retroceder?(current_usuario)
         @objeto.retroceder!
-        flash[:notice] = "Etapa retrocedida a #{ClssPdfInvstgcns.etp_nombre[@objeto.etapa.to_sym]}."
+        flash[:notice] = "Etapa retrocedida a #{ClssEtpTsk.etp_nombre[@objeto.etapa.to_sym]}."
       else
         flash[:alert] = "No tienes permisos para retroceder."
       end

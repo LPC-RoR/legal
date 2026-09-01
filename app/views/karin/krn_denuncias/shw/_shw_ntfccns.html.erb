@@ -1,8 +1,8 @@
-<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_txts'} %>
+<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_txts', codes: ClssTxtInvstgcns.dsply_codes_for(@objeto)} %>
 
-<%= render partial: prtl('karin', 'kproc', 'dsply_dnncnts') %>
-<%= render partial: prtl('karin', 'kproc', 'dsply_dnncds') %>
-<%= render partial: prtl('karin', 'kproc', 'dsply_tstgs') %>
+<%= render partial: prtl('karin', 'kproc/prtcpnts', 'dsply_dnncnts') %>
+<%= render partial: prtl('karin', 'kproc/prtcpnts', 'dsply_dnncds') %>
+<%= render partial: prtl('karin', 'kproc/prtcpnts', 'dsply_tstgs') %>
 
 <%= render partial: prtl_name(objeto, 'shw/proceso', 'tsk_dsply'), locals: {ownr: objeto} %>
 

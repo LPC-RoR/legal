@@ -38,7 +38,7 @@ class KrnTramite < ApplicationRecord
       'derivacion_denuncia_externa' => 'Derivación a una empresa externa',
       'derivacion_denuncia_empresa' => 'Derivación desde una empresa externa',
       'derivacion_denuncia_dt'      => 'Derivación de denuncia a la Dirección del Trabajo',
-      'aviso_inicio_investigacion'  => 'Aviso de inico de investigación a la Dirección del Trabajo',
+      'aviso_inicio_investigacion'  => 'Aviso de inicio de investigación a la Dirección del Trabajo',
       'deposito_investigacion'      => 'Depósito del informe de investigación'
     }    
   end

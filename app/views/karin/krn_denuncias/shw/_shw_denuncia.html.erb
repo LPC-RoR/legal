@@ -1,6 +1,6 @@
-<%# FALTAN DERIVACIONES %>
-<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'invstgdr'} %>
-<%#= render partial: prtl_name(objeto, 'shw/proceso', 'drvcns_invstgdrs'), locals: {ownr: objeto} %>
+<% if @kproc.etapa != 'etp_rcpcn' %>
+	<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'invstgdr'} %>
+<% end %>
 
 <!-- Hay uno identico a este en shw_participantes -->
 <%#= render partial: prtl_name(objeto, 'shw/proceso', 'mssgs_tsk'), locals: {ownr: objeto} %>

@@ -2,7 +2,8 @@
 class ClssPdfInvstgcns
   include ConditionalArray
 
-  OPTNL_CDGS    = ['crdncn_apt', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'drchs', 'antecedentes', 'dts_incmbnts', 'dts_tstgs']
+  OPTNL_CDGS    = ['crdncn_apt', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'drchs', 'antecedentes', 'dts_incmbnts', 'dts_tstgs', 
+    'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn']
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS    = {
@@ -11,7 +12,8 @@ class ClssPdfInvstgcns
       { code: 'invstgdr_titulo_prfsnl', condition: ->(o) { true } }
     ],
     dnnc: [
-      { code: 'denuncia',           condition: ->(o) { true } },
+      { code: 'denuncia',           condition: ->(o) { o.via_declaracion != 'Presencial' || o.tipo_declaracion != 'Verbal' } },
+      { code: 'txt_acta',           condition: ->(o) { o.via_declaracion == 'Presencial' && o.tipo_declaracion == 'Verbal' } },
       { code: 'crdncn_apt',         condition: ->(o) { !!o.ownr.coordinacion_apt && o.ownr.app_contactos.exists?(grupo: 'Apt') && o.krn_denunciantes.any? } },
       { code: 'dts_incmbnts',       condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_denunciantes.any? } },
       { code: 'dts_tstgs',          condition: ->(o) { !!o.ownr.verificacion_datos && o.ownr.app_contactos.exists?(grupo: 'RRHH') && o.krn_testigos.any? } },
@@ -71,7 +73,7 @@ class ClssPdfInvstgcns
       'txt_dnnc_annmzd'         => 'Denuncia anonimizada',
       'txt_dnnc_rsmn'           => 'Resumen de la denuncia',
       'dnncnt_info_oblgtr'      => 'Información obligatoria para las personas denunciantes',
-      'comprobante'             => 'Comprobante de recpción de denuncia',
+      'comprobante'             => 'Comprobante de recepción de denuncia',
       'invstgcn'                => 'Notificación de recepción de denuncia',
       'drchs'                   => 'Derechos y obligaciones de los participantes',
       'apt'                     => 'Evidencias de atención psicológica temprana',
@@ -79,7 +81,7 @@ class ClssPdfInvstgcns
       'antecedentes'            => 'Documentos presentados por el participante',
       'invstgdr'                => 'Notificación del investigador asignado',
       'dclrcn'                    => 'Citación a declarar para el participante',
-      'txt_dclrcn'                => 'Texto de la declaración',
+      'txt_dclrcn'                => 'Declaración para firmar',
       'declaracion'               => 'Declaración firmada',
       'txt_dclrcn_annmzd'         => 'Declaración anonimizada',
       'txt_dclrcn_rsmn'           => 'Hechos de la declaración',

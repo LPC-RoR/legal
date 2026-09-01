@@ -6,7 +6,7 @@ module DenunciaForms
     attribute :fecha_termino_investigacion, :date
     attribute :etapa, :string
 
-    validates :evlcn_dnnc, presence: true
+#    validates :evlcn_dnnc, presence: true
     validates :fecha_dnnc_crrgd, presence: true, if: -> { evlcn_dnnc == 'Con observaciones' }
 
     def save

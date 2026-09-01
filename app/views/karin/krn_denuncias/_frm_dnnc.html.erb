@@ -52,10 +52,10 @@
 
 	<div class="row gx-1">
 		<div class="col-lg-6 col-xs-12">
-			<%= render partial: '0inpts/select', locals: { f: f, tkn: :dnncnt_optn_invstgcn, sel_list: ['Empresa', 'Direccion del Trabajo'], label: 'La persona denunciante manifiesta su opción que la denuncia sea investigada por:'} %>
+			<%= render partial: '0inpts/select', locals: { f: f, tkn: :dnncnt_optn_invstgcn, sel_list: ['Empresa', 'Direccion del Trabajo'], label: 'La persona denunciante decide que la denuncia sea investigada por:'} %>
 		</div>
 		<div class="col-lg-6 col-xs-12">
-			<%= render partial: '0inpts/select', locals: { f: f, tkn: :emprs_optn_invstgcn, sel_list: ['Empresa', 'Direccion del Trabajo'], include_blank: 'Pendiente', label: 'La empresa manifiesta su opción que la denuncia sea investigada por:'} %>
+			<%= render partial: '0inpts/select', locals: { f: f, tkn: :emprs_optn_invstgcn, sel_list: ['Empresa', 'Direccion del Trabajo'], include_blank: 'Pendiente', label: 'La empresa detetrmina que la denuncia será investigada por:'} %>
 		</div>
 	</div>
 

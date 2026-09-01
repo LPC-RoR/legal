@@ -1,3 +1,5 @@
 <div class="d-flex justify-content-end gap-1">
-	<%= render partial: '0p/tbl/lnk_new', locals: {source: 'krn_testigos', blngs: @objeto, tltp: "Agrega Testigo"} %>
+	<% if ['etp_rcpcn', 'etp_invstgcn'].include?(@objeto.etapa) %>
+		<%= render partial: '0p/tbl/lnk_new', locals: {source: 'krn_testigos', blngs: @objeto, tltp: "Agrega Testigo"} %>
+	<% end %>
 </div>

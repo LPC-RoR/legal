@@ -19,6 +19,7 @@
       <% end %>
     </li>
   <% end %>
+
 <% end %>
 
 <% if current_usuario.operacion? %>
@@ -35,7 +36,5 @@
     <%= render partial: '0p/tbl/plldwn_eliminar', locals: {objt: objt, orgn: @orgn} %>
 
   <% end %>
-
-  <%#= render partial: '0p/tbl/plldwn_show', locals: {objt: objt, orgn: @orgn} %>
 
 <% end %>

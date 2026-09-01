@@ -4,7 +4,7 @@ class ClssTxtInvstgcns
 
   DCLRCN_CDGS = ['txt_dclrcn', 'txt_dclrcn_annmzd']
 
-  OPTNL_CDGS  = ['txt_dnnc_annmzd']
+  OPTNL_CDGS  = ['txt_dnnc_annmzd', 'txt_dclrcn_annmzd']
 
   # Definición estática de códigos con condiciones
   CDGS = {

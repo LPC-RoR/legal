@@ -33,7 +33,12 @@
 		</div>
 
 		<div class="ps-4 objt_lnk">
-			<b><i class="bi bi-caret-right"></i><%= ClssPrcdmnt.act_nombre[@kproc.tarea] %></b>
+			<b><i class="bi bi-caret-right"></i>
+				<% if @kproc.tarea == 'tsk_infrm' %>
+					<%= ClssEtpTsk.tsk_infrm_nombre(@objeto) %>
+				<% else %>
+					<%= ClssEtpTsk.tsk_nombre[@kproc.tarea] %></b>
+				<% end %>
 			<%= render layout: '0p/collapse/link', locals: {label: 'DetalleTarea', objeto: nil, tooltip: nil} do %>
 				<small>Detalle <i class="bi bi-arrow-bar-down"></i></small>
 			<% end %>

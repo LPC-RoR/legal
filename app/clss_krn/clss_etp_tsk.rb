@@ -25,7 +25,7 @@ class ClssEtpTsk < ApplicationRecord
       etp_rcpcn:      'Recepción',
       etp_invstgcn:   'Investigación',
       etp_infrm:      'Informe',
-      etp_prnncmnt:   'Pronunciamiento',
+      etp_prnncmnt:   'Pronunciamiento DT',
       etp_mdds_sncns: 'Medidas & sanciones',
       etp_cerrada:    'Cerrada'
     }
@@ -48,15 +48,27 @@ class ClssEtpTsk < ApplicationRecord
     }
   end
 
+  def self.tsk_infrm_nombre(dnnc)
+    dnnc.tramite_aviso_inicio.present? ? 'Depósito de la denuncia en la plataforma de la DT' : 'Recepción de la denuncia investigada por la DT'
+  end
+
   # *************************************************
   # SEÑALIZADORES del TAB
   # *************************************************
+  def self.frm_tsks
+    ['tsk_cierre_rcpcn', 'tsk_frm_invstgcn', 'tsk_prnncmnt'].freeze
+  end
+
   def self.dnnc_tsks
-    ['tsk_ingrs'].freeze
+    ['tsk_ingrs', 'tsk_cierre_rcpcn', 'tsk_frm_invstgcn', 'tsk_dclrcns'].freeze
   end
 
   def self.ntfccns_tsks
     ['tsk_dcmnts_cntrlds']
+  end
+
+  def self.dclrcns_tsks
+    ['tsk_dclrcns']
   end
 
   # *************************************************
@@ -64,7 +76,6 @@ class ClssEtpTsk < ApplicationRecord
   # *************************************************
   def self.archivos_controlados_rcpcn_completos?(denuncia)
     ownrs = [
-      denuncia,
       *denuncia.krn_denunciantes,
       *denuncia.krn_denunciados,
       *denuncia.krn_testigos

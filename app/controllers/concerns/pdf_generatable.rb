@@ -140,7 +140,7 @@ module PdfGeneratable
     ownr = @objeto.is_a?(TxtEditable) ? @objeto.ownr : @objeto
     
     # Corrección de ownr para reportes que deben tener al participante
-    if ownr.respond_to?(:ownr) && %w[dclrcn txt_dclrcn txt_dclrcn_annmzd txt_dclrcn_rsmn invstgdr].include?(code)
+    if ownr.respond_to?(:ownr) && %w[dclrcn invstgdr].include?(code)
       ownr = ownr.ownr
     end
 

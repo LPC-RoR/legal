@@ -58,7 +58,13 @@
   </div>
 
   <div class="mt-2 px-5 fw-bold objt_lnk">
-    <i class="bi bi-caret-right"></i> <span class="text-primary">Tarea</span>: <%= ClssEtpTsk.tsk_nombre[@kproc.tarea] %>
+    <i class="bi bi-caret-right"></i> <span class="text-primary">Tarea</span>: 
+    <% if @kproc.tarea == 'tsk_infrm' %>
+      <%= ClssEtpTsk.tsk_infrm_nombre(@objeto) %>
+    <% else %>
+      <%= ClssEtpTsk.tsk_nombre[@kproc.tarea] %></b>
+    <% end %>
+        <%#= ClssEtpTsk.tsk_nombre[@kproc.tarea] %>
 
     <% if prtl?('karin', 'kproc/hnts', @kproc.tarea) %>
       <%= render layout: '0p/collapse/link', locals: {label: 'DetalleTarea', objeto: nil, tooltip: nil} do %>

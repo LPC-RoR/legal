@@ -1,0 +1,9 @@
+<% lst = ownr.krn_tramites.where(tipo: code) %>
+
+<%= render partial: 'karin/kproc/krn_tramites/objt_row', locals: {code: code, mdl: mdl, ownr: ownr, lst: lst} %>
+
+<% if lst.any? %>
+	<div class="px-3">
+		<%= render partial: 'karin/kproc/krn_tramites/lst', locals: {code: code, mdl: mdl, ownr: ownr, lst: lst} %>
+	</div>
+<% end %>
