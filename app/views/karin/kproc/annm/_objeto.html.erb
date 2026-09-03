@@ -1,0 +1,10 @@
+<%# Los textos anonimizados van a parar a un TXtEditable %>
+<% lst = ownr.txt_editables.where(codigo: code) %>
+
+<%= render partial: 'karin/kproc/annm/objt_row', locals: {code: code, mdl: mdl, ownr: ownr, lst: lst} %>
+
+<% if lst.any? %>
+	<div class="px-3">
+		<%= render partial: 'karin/kproc/annm/lst', locals: {code: code, mdl: mdl, ownr: ownr, lst: lst} %>
+	</div>
+<% end %>

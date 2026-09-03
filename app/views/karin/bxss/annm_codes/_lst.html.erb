@@ -1,0 +1,7 @@
+<div class="p-2">
+	<% codes ||= ClssAnnmInvstgcns::ANNM_CDGS %>
+
+	<% codes.each do |code| %>
+		<%= render partial: 'karin/kproc/annm/objeto', locals: {code: code, mdl: ClssTxtInvstgcns, ownr: ownr} %>
+	<% end %>
+</div>

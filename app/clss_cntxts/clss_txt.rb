@@ -74,8 +74,9 @@ class ClssTxt
 
 	    # Obtiene la clase de contexto
 	    def context_class(reporte)
-	      context = CONTEXT_MAP[reporte]
-	      CONTEXT_CLASSES[context].constantize
+	    	"Clss#{clss_type(reporte)}#{CONTEXT_MAP[reporte].to_s.capitalize}"
+#	      context = CONTEXT_MAP[reporte]
+#	      CONTEXT_CLASSES[context].constantize
 	    end
 
 	    # Obtiene el directorio de templates
@@ -93,6 +94,13 @@ class ClssTxt
 	    def todos_los_reportes
 	      CONTEXT_MAP.keys
 	    end
+
+	    # HCH
+
+	    def clss_type(code)
+	    	code.start_with?("txt_annm") ? 'Annm' : 'Txt'
+	    end
+
 	end
 
 

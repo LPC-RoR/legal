@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy cargar_pdf combinar_pdf cambiar_etapa swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy cargar_pdf combinar_pdf cambiar_etapa anonimizar_expediente swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
 
   include PdfGeneratable
   include PdfCombinable
@@ -130,6 +130,18 @@ class Karin::KrnDenunciasController < ApplicationController
         format.json { render json: @form.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def anonimizar_expediente
+    if params[:g].present?
+      grupo = params[:g].to_sym
+      @objeto.generar_expediente_anonimizado_async!(:txt_annm_declaraciones)
+      ntc = "Grupo #{params[:g]} anonimizado exitosamente!"
+    else
+      ntc = 'Error de anonimización: grupo no identificado.'
+    end
+
+    redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: ntc
   end
 
   ### DEPRECATED

@@ -1,0 +1,35 @@
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  Recepción de denuncias
+</div>
+
+<div class="mt-4 text-center fs-5">
+  Expediente: Declaraciones anonimizadas de los participantes
+  <div class="fs-6">
+    Denuncia <%= @dnnc.identificador %>
+  </div>
+</div>
+
+<hr>
+
+<small>
+<p>
+  <%= @objeto.contenido.to_s.html_safe %>
+</p>
+</small>
+
+<div class="mt-5 text-center">
+  <% firma = @dnnc.firma_invstgdr %>
+  <% if firma %>
+    <%= firma.to_s.html_safe %>
+  <% else %>
+    <p class="text-center">
+    <%= @dnnc.invstgdr_activo.krn_investigador.krn_investigador %><br/>
+    <small>
+    Investigador(a) asignado(a)<br/>
+    <%= @dnnc.invstgdr_activo.krn_investigador.email %>
+    </small>
+    </p>
+  <% end %>
+</div>

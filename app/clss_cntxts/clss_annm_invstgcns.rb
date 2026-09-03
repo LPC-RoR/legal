@@ -1,5 +1,11 @@
 # app/models/clss_annm_invstgcns.rb
 class ClssAnnmInvstgcns
+
+  ANNM_CDGS     = ['txt_annm_medios_de_prueba', 'txt_annm_declaraciones']
+
+  OPTNL_CDGS    = []
+  NO_TMPLT_CDGS = []
+
   # ================================================================
   # CONFIGURACIÓN DE GRUPOS DE ANONIMIZACIÓN
   # ================================================================
@@ -15,9 +21,21 @@ class ClssAnnmInvstgcns
 
   CONFIGURACION = {
     # ------------------------------------------------------------
-    # GRUPO: Medios de prueba (antecedentes de todos los participantes)
+    # GRUPO: Declaraciones (TxtEditable 'txt_dclrcn' de participantes)
+    # ------------------------------------------------------------
+    txt_annm_declaraciones: {
+      titulo: "Declaraciones anonimizadas",
+      descripcion: 'Expediente anonimizado — Declaraciones de los participantes',
+      tipo_grupo: :declaraciones,
+      codigo_txt_editable: 'txt_dclrcn',
+      origenes: [:krn_denunciantes, :krn_denunciados, :krn_testigos]
+    },
+
+    # ------------------------------------------------------------
+    # GRUPO: Medios de prueba (PDF 'antecedentes' de participantes)
     # ------------------------------------------------------------
     txt_annm_medios_de_prueba: {
+      titulo: "Medios de prueba anonimizados",
       descripcion: 'Expediente anonimizado — Medios de prueba presentados por los participantes',
       tipo_grupo: :coleccion_participantes,
       codigo_act_archivo: 'antecedentes',
@@ -27,7 +45,7 @@ class ClssAnnmInvstgcns
         "Anonimización de los medios de prueba presentados por #{nombre}"
       },
       mensaje_vacio: "El participante no presentó medios de prueba."
-    },
+    }
   }.freeze
 
   class << self
@@ -43,35 +61,37 @@ class ClssAnnmInvstgcns
       grupo.to_sym
     end
 
+    def titulo(grupo)
+      configuracion(grupo)&.dig(:titulo) || "Expediente anonimizado"
+    end
+
     def descripcion(grupo)
-      configuracion(grupo)&.dig(:descripcion)
+      configuracion(grupo)&.dig(:descripcion) || ""
     end
 
-    def archivos_para(grupo)
-      configuracion(grupo)&.dig(:archivos) || []
+    def tipo_grupo(grupo)
+      configuracion(grupo)&.dig(:tipo_grupo) || :fragmentos
     end
 
-    # --------------------------------------------------------------
-    # Inferencia por convención (fallback si no se declara :tipo)
-    # --------------------------------------------------------------
-    def tipo_para(codigo)
-      codigo_str = codigo.to_s
-
-      if codigo_str.start_with?('txt_')
-        :mixto
-      elsif template_conocido?(codigo_str)
-        :template
-      else
-        :pdf_upload
-      end
+    # ******************************** HCH
+    def nombre
+      {
+        'txt_annm_medios_de_prueba'     => 'Medios de prueba',
+        'txt_annm_declaraciones'        => 'Declaraciones de los participantes'
+      }.freeze
     end
 
-    def template_conocido?(codigo)
-      %w[
-        denuncia carta notificacion memorandum
-        crdncn_apt dts_prncpls dts_tstgs
-        dnncnt_info_oblgtr comprobante
-      ].include?(codigo.to_s)
+    def optnl_code?(code)
+      OPTNL_CDGS.include?(code)
     end
+
+    def no_tmplt?(code)
+      NO_TMPLT_CDGS.include?(code)
+    end
+
+    def rdrccn_path(txt_objt)
+      "/krn_denuncias/#{txt_objt.ownr.id}_4"
+    end
+
   end
 end

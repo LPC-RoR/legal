@@ -178,9 +178,10 @@ Rails.application.routes.draw do
     end
     resources :krn_denuncias do
       member do
-        post :cargar_pdf
-        post :combinar_pdf
-        patch :cambiar_etapa    # Cambio de etapa
+        post  :cargar_pdf
+        post  :combinar_pdf
+        patch :cambiar_etapa          # Cambio de etapa
+        patch :anonimizar_expediente  # Cambio de etapa
       end
       match :swtch, via: :post, on: :member
       match :niler, via: :post, on: :member

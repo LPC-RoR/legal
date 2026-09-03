@@ -86,7 +86,9 @@ class ClssPdfInvstgcns
       'txt_dclrcn_annmzd'         => 'Declaración anonimizada',
       'txt_dclrcn_rsmn'           => 'Hechos de la declaración',
       'txt_infrm'                 => 'Informe de investigación',
-      'txt_mdds_crrctvs_sncns'  => 'Notificación de las medidas correctivas y sanciones'
+      'txt_mdds_crrctvs_sncns'    => 'Notificación de las medidas correctivas y sanciones',
+      'txt_annm_declaraciones'    => 'Expediente anonimizado: declaraciones de los participantes',
+      'txt_annm_medios_de_prueba' => 'Expediente anonimizado: medios de prueba'
     }
   end
 
@@ -99,8 +101,10 @@ class ClssPdfInvstgcns
   def self.has_one?(code)
     ['crdncn_apt', 'dts_prncpls', 'dts_tstgs', 'denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 
       'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs',
-      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'dclrcn', 'txt_dclrcn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion',
-      'txt_infrm', 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas'].include?(code)
+      'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 
+      'dclrcn', 'txt_dclrcn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion',
+      'txt_infrm', 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas', 
+      'txt_annm_medios_de_prueba', 'txt_annm_declaraciones'].include?(code)
   end
 
   def self.cntrl_fecha?(code)
@@ -112,11 +116,12 @@ class ClssPdfInvstgcns
   end
 
   def self.no_tmplt?(code)
-    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl', 'dclrcn', 'declaracion'].include?(code)
+    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl', 
+      'dclrcn', 'declaracion'].include?(code)
   end
 
   def self.no_sndng_code?(code)
-    ['txt_invstgdr_dsgncn'].include?(code)
+    ['txt_invstgdr_dsgncn', 'txt_annm_medios_de_prueba', 'txt_annm_declaraciones'].include?(code)
   end
 
   # ---------------------- Control de despliegue (final)
@@ -217,7 +222,7 @@ class ClssPdfInvstgcns
           dnnc: ownr.dnnc,
           empresa: ownr.dnnc.ownr
         }
-      when 'txt_mdds_rsgrd', 'txt_mdds_crrctvs_sncns', 'txt_invstgdr_dsgncn'
+      when 'txt_mdds_rsgrd', 'txt_mdds_crrctvs_sncns', 'txt_invstgdr_dsgncn', 'txt_annm_declaraciones'
         objeto = TxtEditable.find(objeto_id)    # ← el texto editable
         ownr   = opciones[:ownr]                # ← el participante | dnnc
         {
