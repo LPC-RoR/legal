@@ -6,10 +6,11 @@ module Annm
     end
 
     # Retorna Hash { "texto_a_buscar" => "placeholder" }
+    # Ordenado por longitud descendente para evitar reemplazos parciales
     def mapa_reemplazos
       mapa = {}
       participantes.each { |p| agregar_participante(mapa, p) }
-      mapa
+      mapa.sort_by { |k, _| -k.to_s.length }.to_h
     end
 
     private
@@ -23,14 +24,14 @@ module Annm
     def agregar_participante(mapa, prtcpnt)
       abrev = prtcpnt.kywrd[:abrev] rescue "P#{prtcpnt.id}"
 
-      # --- RUT / CI ---
+      # --- RUT / CI (todas las variantes de formato) ---
       if prtcpnt.rut.present?
         variantes_rut(prtcpnt.rut).each do |v|
           mapa[v] = "[CI-#{abrev}]"
         end
       end
 
-      # --- NOMBRE (completo, parcial, etc.) ---
+      # --- NOMBRE (completo, parcial e individuales) ---
       if prtcpnt.nombre.present?
         variantes_nombre(prtcpnt.nombre).each do |v|
           mapa[v] = "[#{abrev}]"
@@ -45,25 +46,63 @@ module Annm
       mapa[cargo] = "[CARGO-#{abrev}]" if cargo.present?
     end
 
+    # --------------------------------------------------------------
+    # RUT: genera todas las variantes de formato comunes
+    # --------------------------------------------------------------
     def variantes_rut(rut)
       original = rut.to_s.strip
       sin_puntos = original.gsub('.', '')
       solo_numeros = original.gsub(/[.\-]/, '')
+      con_guion = solo_numeros.dup
+      con_guion = con_guion[0...-1] + '-' + con_guion[-1] if con_guion.length > 1
 
-      [original, sin_puntos, solo_numeros].uniq.reject(&:blank?)
+      [original, sin_puntos, solo_numeros, con_guion].uniq.reject(&:blank?)
     end
 
+    # --------------------------------------------------------------
+    # NOMBRE: genera TODAS las combinaciones relevantes
+    #
+    # Heurística para español de Chile:
+    #   - 1 palabra:  nombre único
+    #   - 2 palabras: nombre + apellido
+    #   - 3 palabras: nombre + 2 apellidos  O  2 nombres + 1 apellido
+    #   - 4+ palabras: 2 nombres + 2 apellidos (asume últimas 2 = apellidos)
+    # --------------------------------------------------------------
     def variantes_nombre(nombre)
       base = nombre.to_s.strip
-      partes = base.split(/\s+/)
-      variantes = [base]
+      partes = base.split(/\s+/).reject(&:blank?)
+      return [base] if partes.empty?
 
-      if partes.length >= 2
-        variantes << partes.first(2).join(' ')   # Nombre + 1er apellido
-        variantes << partes.last(2).join(' ')    # Apellidos
+      variantes = [base]  # Nombre completo
+
+      case partes.size
+      when 2
+        # A B → A, B
+        variantes.concat(partes)
+      when 3
+        # A B C → A C, A B, B C, A, B, C
+        # Cubre tanto 2 nombres+1 apellido como 1 nombre+2 apellidos
+        variantes << "#{partes[0]} #{partes[2]}"  # primero + último
+        variantes << "#{partes[0]} #{partes[1]}"  # primero + medio
+        variantes << "#{partes[1]} #{partes[2]}"  # medio + último
+        variantes.concat(partes)                   # A, B, C
+      else
+        # 4+ palabras: asume últimas 2 = apellidos
+        nombres   = partes[0..-3]
+        apellidos = partes[-2..-1]
+
+        # Primer nombre + todos los apellidos
+        variantes << "#{partes[0]} #{apellidos.join(' ')}"
+        # Primer nombre + primer apellido
+        variantes << "#{partes[0]} #{apellidos[0]}"
+        # Todos los nombres juntos
+        variantes << nombres.join(' ') if nombres.size > 1
+        # Todos los apellidos juntos
+        variantes << apellidos.join(' ')
+        # Cada palabra individual (CRÍTICO: antes faltaba esto)
+        variantes.concat(partes)
       end
 
-      variantes << partes.first if partes.length > 1   # Solo nombre
       variantes.uniq.reject(&:blank?)
     end
   end
