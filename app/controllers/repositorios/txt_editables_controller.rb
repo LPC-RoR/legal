@@ -18,7 +18,7 @@ class Repositorios::TxtEditablesController < ApplicationController
     cntxt_clss  = ClssTxt.context_class(code)
     @ownr       = params[:oclss].constantize.find(params[:oid])
 
-    @objeto     = @ownr.txt_editables.build(codigo: code, titulo: cntxt_clss.nombre[code], cntxt_clss: cntxt_clss.to_s)
+    @objeto     = @ownr.txt_editables.build(codigo: code, titulo: cntxt_clss.constantize.nombre[code], cntxt_clss: cntxt_clss.to_s)
   end
 
   # GET /txt_editables/1/edit

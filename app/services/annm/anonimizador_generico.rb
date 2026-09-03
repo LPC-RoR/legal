@@ -2,25 +2,25 @@
 module Annm
   class AnonimizadorGenerico
     PROMPT_TEMPLATE = <<~PROMPT
-      El siguiente texto ya ha sido parcialmente anonimizado. Contiene placeholders de participantes como [CI-DN-001], [DN-001], [EMAIL-DD-002], [CARGO-TG-001], etc.
-      NO debes modificar estos placeholders bajo ninguna circunstancia.
+      Eres un sistema forense de anonimización. El texto YA CONTIENE placeholders de participantes como [DN-001], [CI-TG-002], [EMAIL-DD-003], [CARGO-DN-001], [dnncnt-47], etc.
 
-      Tu tarea es identificar y reemplazar ÚNICAMENTE los elementos que aún no estén anonimizados:
+      REGLAS ABSOLUTAS:
+      1. NO toques NADA que esté entre corchetes [...].
+      2. NO toques palabras que estén INMEDIATAMENTE ANTES o DESPUÉS de un placeholder.
+      3. Si una palabra podría ser un nombre pero está cerca de un placeholder, ASUME que ya fue anonimizada.
+      4. Sé CONSERVADOR: si tienes duda, NO reemplaces.
 
-      1. Cédulas de identidad o RUT chilenos (formatos: XX.XXX.XXX-X, XXXXXXXX-X, XXXXXXXXX) → [CI|RUT]
-      2. Nombres propios de personas (completos, parciales, compuestos) → [NOMBRE]
-      3. Direcciones de correo electrónico → [EMAIL]
-      4. Cargos o puestos laborales → [CARGO]
-      5. Profesiones u oficios → [PROFESION]
-
-      REGLAS ESTRICTAS:
-      - Conserva exactamente todos los placeholders existentes.
-      - No modifiques atributos HTML ni etiquetas.
-      - No agregues explicaciones, comentarios ni markdown.
-      - Devuelve ÚNICAMENTE el texto procesado.
+      Reemplaza ÚNICAMENTE elementos claramente genéricos y sin placeholder cercano:
+      - RUTs chilenos → [CI|RUT]
+      - Nombres de personas sin placeholder cercano → [NOMBRE]
+      - Emails genéricos → [EMAIL]
+      - Cargos genéricos → [CARGO]
+      - Profesiones → [PROFESION]
 
       TEXTO:
       %s
+
+      Devuelve ÚNICAMENTE el texto procesado. Sin explicaciones.
     PROMPT
 
     def initialize(api_key = nil)
@@ -30,7 +30,9 @@ module Annm
     def anonimizar(texto)
       return texto if texto.blank? || @api_key.blank?
 
-      # Truncar si es excesivamente largo para no quemar tokens
+      # Si el texto ya no tiene palabras que parezcan nombres propios (todo es placeholder o común), saltar LLM
+      return texto unless texto.match?(/\b[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,}\b/)
+
       texto_prompt = texto.length > 12_000 ? texto[0..12_000] + "\n[...]" : texto
       prompt = format(PROMPT_TEMPLATE, texto_prompt)
 
@@ -46,10 +48,20 @@ module Annm
       )
 
       resultado = respuesta.dig("choices", 0, "message", "content")
-      resultado.present? ? resultado.strip : texto
+      resultado = resultado.present? ? resultado.strip : texto
+
+      limpiar_duplicados(resultado)
     rescue => e
       Rails.logger.error "[Annm::AnonimizadorGenerico] #{e.class}: #{e.message}"
       texto
+    end
+
+    private
+
+    def limpiar_duplicados(texto)
+      texto.gsub(/\[NOMBRE\](?:\s*\[NOMBRE\])+/, '[NOMBRE]')
+           .gsub(/\[CARGO\](?:\s*\[CARGO\])+/, '[CARGO]')
+           .gsub(/\[EMAIL\](?:\s*\[EMAIL\])+/, '[EMAIL]')
     end
   end
 end

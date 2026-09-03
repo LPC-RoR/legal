@@ -1,16 +1,22 @@
 # app/services/annm/diccionario_participantes.rb
 module Annm
   class DiccionarioParticipantes
+    TITULOS = %w[Sr. Sra. Dr. Dra. Ing. Lic. Prof. Don Doña].freeze
+
     def initialize(denuncia)
       @denuncia = denuncia
     end
 
-    # Retorna Hash { "texto_a_buscar" => "placeholder" }
-    # Ordenado por longitud descendente para evitar reemplazos parciales
     def mapa_reemplazos
       mapa = {}
       participantes.each { |p| agregar_participante(mapa, p) }
-      mapa.sort_by { |k, _| -k.to_s.length }.to_h
+
+      ordenado = mapa.sort_by { |k, _| -k.to_s.length }.to_h
+
+      Rails.logger.info "[Annm::Diccionario] Total entradas: #{ordenado.size}"
+      Rails.logger.info "[Annm::Diccionario] Primeras 20: #{ordenado.keys.first(20).join(' | ')}"
+
+      ordenado
     end
 
     private
@@ -22,20 +28,17 @@ module Annm
     end
 
     def agregar_participante(mapa, prtcpnt)
-      abrev = prtcpnt.kywrd[:abrev] rescue "P#{prtcpnt.id}"
+      abrev = prtcpnt.respond_to?(:kywrd) ? prtcpnt.kywrd[:abrev] : "P#{prtcpnt.id}"
+      Rails.logger.info "[Annm::Diccionario] Participante #{prtcpnt.class.name}##{prtcpnt.id} → abrev: #{abrev}, nombre: #{prtcpnt.nombre.inspect}, rut: #{prtcpnt.rut.inspect}, email: #{prtcpnt.email.inspect}, cargo: #{prtcpnt.try(:cargo).inspect}"
 
-      # --- RUT / CI (todas las variantes de formato) ---
+      # --- RUT / CI ---
       if prtcpnt.rut.present?
-        variantes_rut(prtcpnt.rut).each do |v|
-          mapa[v] = "[CI-#{abrev}]"
-        end
+        variantes_rut(prtcpnt.rut).each { |v| mapa[v] = "[CI-#{abrev}]" }
       end
 
-      # --- NOMBRE (completo, parcial e individuales) ---
+      # --- NOMBRE ---
       if prtcpnt.nombre.present?
-        variantes_nombre(prtcpnt.nombre).each do |v|
-          mapa[v] = "[#{abrev}]"
-        end
+        variantes_nombre(prtcpnt.nombre).each { |v| mapa[v] = "[#{abrev}]" }
       end
 
       # --- EMAIL ---
@@ -46,9 +49,6 @@ module Annm
       mapa[cargo] = "[CARGO-#{abrev}]" if cargo.present?
     end
 
-    # --------------------------------------------------------------
-    # RUT: genera todas las variantes de formato comunes
-    # --------------------------------------------------------------
     def variantes_rut(rut)
       original = rut.to_s.strip
       sin_puntos = original.gsub('.', '')
@@ -59,51 +59,54 @@ module Annm
       [original, sin_puntos, solo_numeros, con_guion].uniq.reject(&:blank?)
     end
 
-    # --------------------------------------------------------------
-    # NOMBRE: genera TODAS las combinaciones relevantes
-    #
-    # Heurística para español de Chile:
-    #   - 1 palabra:  nombre único
-    #   - 2 palabras: nombre + apellido
-    #   - 3 palabras: nombre + 2 apellidos  O  2 nombres + 1 apellido
-    #   - 4+ palabras: 2 nombres + 2 apellidos (asume últimas 2 = apellidos)
-    # --------------------------------------------------------------
-    def variantes_nombre(nombre)
-      base = nombre.to_s.strip
+    def variantes_nombre(nombre_completo)
+      base = nombre_completo.to_s.strip
       partes = base.split(/\s+/).reject(&:blank?)
       return [base] if partes.empty?
 
-      variantes = [base]  # Nombre completo
+      variantes = Set.new
 
-      case partes.size
-      when 2
-        # A B → A, B
-        variantes.concat(partes)
-      when 3
-        # A B C → A C, A B, B C, A, B, C
-        # Cubre tanto 2 nombres+1 apellido como 1 nombre+2 apellidos
-        variantes << "#{partes[0]} #{partes[2]}"  # primero + último
-        variantes << "#{partes[0]} #{partes[1]}"  # primero + medio
-        variantes << "#{partes[1]} #{partes[2]}"  # medio + último
-        variantes.concat(partes)                   # A, B, C
-      else
-        # 4+ palabras: asume últimas 2 = apellidos
-        nombres   = partes[0..-3]
-        apellidos = partes[-2..-1]
+      # 1. Nombre completo original
+      variantes << base
 
-        # Primer nombre + todos los apellidos
-        variantes << "#{partes[0]} #{apellidos.join(' ')}"
-        # Primer nombre + primer apellido
-        variantes << "#{partes[0]} #{apellidos[0]}"
-        # Todos los nombres juntos
-        variantes << nombres.join(' ') if nombres.size > 1
-        # Todos los apellidos juntos
-        variantes << apellidos.join(' ')
-        # Cada palabra individual (CRÍTICO: antes faltaba esto)
-        variantes.concat(partes)
+      # 2. Todas las combinaciones de 2+ palabras consecutivas
+      (2..partes.size).each do |len|
+        partes.each_cons(len) do |slice|
+          variantes << slice.join(' ')
+        end
       end
 
-      variantes.uniq.reject(&:blank?)
+      # 3. Cada palabra individual (CRÍTICO para "Armijo", "Pérez", etc.)
+      variantes.merge(partes)
+
+      # 4. Con títulos
+      con_titulos = Set.new
+      variantes.each do |v|
+        next if v.blank?
+        TITULOS.each { |t| con_titulos << "#{t} #{v}" }
+      end
+      variantes.merge(con_titulos)
+
+      # 5. Sin tildes (normalización NFD)
+      sin_tildes = Set.new
+      variantes.each do |v|
+        next if v.blank?
+        st = v.unicode_normalize(:nfd).gsub(/\p{Mn}/, '')
+        sin_tildes << st if st != v
+      end
+      variantes.merge(sin_tildes)
+
+      # 6. En minúsculas (fallback por si acaso)
+      minusculas = Set.new
+      variantes.each do |v|
+        next if v.blank?
+        minusculas << v.downcase if v.downcase != v
+      end
+      variantes.merge(minusculas)
+
+      resultado = variantes.to_a.uniq.reject(&:blank?)
+      Rails.logger.info "[Annm::Diccionario] Nombre '#{base}' → #{resultado.size} variantes: #{resultado.join(', ')}"
+      resultado
     end
   end
 end

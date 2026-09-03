@@ -2,10 +2,6 @@
 module KrnDenuncia::AnonimizadorExpediente
   extend ActiveSupport::Concern
 
-  # ================================================================
-  # API PÚBLICA
-  # ================================================================
-
   def generar_expediente_anonimizado!(grupo)
     config = ClssAnnmInvstgcns.configuracion(grupo)
     raise ArgumentError, "Grupo '#{grupo}' no configurado" unless config
@@ -65,13 +61,16 @@ module KrnDenuncia::AnonimizadorExpediente
                      .order(created_at: :desc)
                      .first
 
-        if txt.nil? || txt.contenido.blank?
+        # CRÍTICO: Extraer HTML como String desde ActionText::RichText
+        html_raw = txt&.contenido&.to_s
+
+        if html_raw.blank?
           secciones << construir_seccion_declaracion_vacia(prtcpnt)
           next
         end
 
         Rails.logger.info "[AnonimizadorExpediente] Anonimizando declaración de #{prtcpnt.class.name}##{prtcpnt.id}"
-        contenido_anon = anonimizador.anonimizar(txt.contenido)
+        contenido_anon = anonimizador.anonimizar(html_raw)
 
         secciones << <<~HTML
           <section class="annm-declaracion" data-participante-id="#{prtcpnt.id}" data-participante-type="#{prtcpnt.class.name}" data-abrev="#{prtcpnt.kywrd[:abrev]}">
@@ -87,13 +86,9 @@ module KrnDenuncia::AnonimizadorExpediente
     secciones.join("\n<hr class='annm-separador' style='margin:24px 0;border:none;border-top:2px solid #ddd;' />\n")
   end
 
-  # --------------------------------------------------------------
-  # Encabezado enriquecido de cada declaración
-  # --------------------------------------------------------------
   def encabezado_declaracion(prtcpnt)
     abrev = prtcpnt.respond_to?(:kywrd) ? prtcpnt.kywrd[:abrev] : "P#{prtcpnt.id}"
 
-    # Fecha de la última declaración asociada al participante
     fecha_declaracion = if prtcpnt.respond_to?(:dnnc) && prtcpnt.dnnc.respond_to?(:krn_declaraciones)
                           ultima = prtcpnt.dnnc.krn_declaraciones.last
                           ultima&.fecha ? formatear_fecha_hora(ultima.fecha) : "fecha no registrada"
@@ -101,7 +96,6 @@ module KrnDenuncia::AnonimizadorExpediente
                           "fecha no registrada"
                         end
 
-    # Línea condicional: declaración interrumpida
     linea_interrumpida = if prtcpnt.respond_to?(:dclrcn_intrrmpd) && prtcpnt.dclrcn_intrrmpd.present?
                            <<~HTML
                              <p class="annm-meta-interrumpido" style="color:#b45309;background:#fffbeb;padding:6px 10px;border-radius:4px;margin:6px 0 0 0;">
@@ -144,8 +138,7 @@ module KrnDenuncia::AnonimizadorExpediente
   end
 
   # ================================================================
-  # COLECCIÓN POR PARTICIPANTE (PDFs / antecedentes)
-  # (caso txt_annm_medios_de_prueba)
+  # COLECCIÓN PARTICIPANTES (PDFs / antecedentes)
   # ================================================================
 
   def construir_html_coleccion_participantes(config)
@@ -219,28 +212,7 @@ module KrnDenuncia::AnonimizadorExpediente
   end
 
   # ================================================================
-  # PATRÓN FRAGMENTOS (fallback / otros grupos)
-  # ================================================================
-
-  def recolectar_fragmentos(archivos_config)
-    # ... (mismo código que en la versión anterior, omitido por brevedad)
-    # Retorna un Array de Hashes { codigo:, tipo:, contenido: }
-    []
-  end
-
-  def fragmentos_to_html(fragmentos)
-    fragmentos.map.with_index do |f, idx|
-      <<~HTML
-        <section class="annm-seccion" data-codigo="#{f[:codigo]}" data-orden="#{idx + 1}">
-          <header class="annm-header"><strong>#{f[:codigo]}</strong></header>
-          <div class="annm-contenido">#{f[:contenido]}</div>
-        </section>
-      HTML
-    end.join("\n<hr class='annm-separador' />\n")
-  end
-
-  # ================================================================
-  # PERSISTENCIA & UTILIDADES
+  # PERSISTENCIA
   # ================================================================
 
   def guardar_txt_editable(grupo, html)
@@ -248,9 +220,9 @@ module KrnDenuncia::AnonimizadorExpediente
 
     txt = txt_editables.find_or_initialize_by(codigo: codigo)
     txt.assign_attributes(
-      contenido: html,
+      contenido: html.to_s,
       titulo: ClssAnnmInvstgcns.titulo(grupo),
-      cntxt_clss: 'ClssAnnmInvstgcns'
+      cntxt_clss: ClssAnnmInvstgcns
     )
 
     if txt.save
@@ -269,7 +241,6 @@ module KrnDenuncia::AnonimizadorExpediente
   def formatear_fecha_hora(fecha)
     return "fecha no registrada" unless fecha.respond_to?(:strftime)
 
-    # Fallback si dma_hm no está disponible en el modelo
     if respond_to?(:dma_hm)
       dma_hm(fecha)
     else
@@ -280,7 +251,6 @@ module KrnDenuncia::AnonimizadorExpediente
     "fecha no registrada"
   end
 
-  # Convierte texto plano extraído de PDF a HTML básico respetando párrafos
   def simple_format_html(texto)
     return "" if texto.blank?
 
@@ -289,9 +259,9 @@ module KrnDenuncia::AnonimizadorExpediente
   end
 
   def escape_html(texto)
-    texto.gsub('&', '&amp;')
-         .gsub('<', '&lt;')
-         .gsub('>', '&gt;')
+    texto.to_s.gsub('&', '&amp;')
+              .gsub('<', '&lt;')
+              .gsub('>', '&gt;')
   end
 
   def fragmentos_to_html(fragmentos)
@@ -304,5 +274,4 @@ module KrnDenuncia::AnonimizadorExpediente
       HTML
     end.join("\n<hr class='annm-separador' />\n")
   end
-
 end
