@@ -93,5 +93,9 @@ class ClssAnnmInvstgcns
       "/krn_denuncias/#{txt_objt.ownr.id}_4"
     end
 
+    def dsply_codes_for(ownr)
+      ANNM_CDGS
+    end
+
   end
 end
