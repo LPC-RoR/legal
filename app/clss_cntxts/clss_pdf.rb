@@ -20,6 +20,7 @@ class ClssPdf
     'drchs'                     => :invstgcns,    # ← DERECHOS Y OBLIGACIONES DE LOS PARTICIPANTES
     'apt'                       => :invstgcns,    # ← EVIDENCIAS DE ATENCIÓN PSICOLÓGICA TEMPRANA
     'txt_mdds_rsgrd'            => :invstgcns,    # ← MEDIDAS DE RESGUARDO
+    'txt_mdfccn_mdds_rsgrd'     => :invstgcns,    # ← COMPLEMENTACIÓN O MODIFICACIÓN DE MEDIDAS DE RESGUARDO
     'antecedentes'              => :invstgcns,    # ← DOCUMENTOS PRESENTADOS POR EL PARTICIPANTE
     'invstgdr'                  => :invstgcns,    # ← NOTIFICACIÓN DEL INVESTIGADOR ASIGNADO
     'invstgdr_titulo_prfsnl'    => :invstgcns,    # ← TÍTULO PROFESIONAL DEL INVESTIGADOR

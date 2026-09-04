@@ -3,7 +3,7 @@ class ClssPdfInvstgcns
   include ConditionalArray
 
   OPTNL_CDGS    = ['crdncn_apt', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'drchs', 'antecedentes', 'dts_incmbnts', 'dts_tstgs', 
-    'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn']
+    'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'txt_mdfccn_mdds_rsgrd']
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS    = {
@@ -32,6 +32,7 @@ class ClssPdfInvstgcns
       { code: 'invstgcn',               condition: ->(o) { true } },
       { code: 'drchs',                  condition: ->(o) { true } },
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
+      { code: 'txt_mdfccn_mdds_rsgrd',  condition: ->(o) { true } },
       { code: 'antecedentes',           condition: ->(o) { true } },
       { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { o.dnnc.todos_tienen_txt_mdds_sncns? } },
@@ -41,6 +42,7 @@ class ClssPdfInvstgcns
       { code: 'invstgcn',               condition: ->(o) { true } },
       { code: 'drchs',                  condition: ->(o) { true } },
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
+      { code: 'txt_mdfccn_mdds_rsgrd',  condition: ->(o) { true } },
       { code: 'antecedentes',           condition: ->(o) { true } },
       { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { o.dnnc.todos_tienen_txt_mdds_sncns? } }
@@ -78,6 +80,7 @@ class ClssPdfInvstgcns
       'drchs'                   => 'Derechos y obligaciones de los participantes',
       'apt'                     => 'Evidencias de atención psicológica temprana',
       'txt_mdds_rsgrd'          => 'Notificación de las medidas de resguardo',
+      'txt_mdfccn_mdds_rsgrd'   => 'Complementación o modificación de medidas de resguardo',
       'antecedentes'            => 'Documentos presentados por el participante',
       'invstgdr'                => 'Notificación del investigador asignado',
       'dclrcn'                    => 'Citación a declarar para el participante',
@@ -124,27 +127,27 @@ class ClssPdfInvstgcns
     ['txt_invstgdr_dsgncn', 'txt_annm_medios_de_prueba', 'txt_annm_declaraciones'].include?(code)
   end
 
-  # ---------------------- Control de despliegue (final)
-
-  # Un reporte puede generar pdfs para múltiples ownr y no tener ref
-  ### DEPRECATED
-  def self.ownr_mltpls?(code)
-    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd', 'invstgcn'].include?(code)
-  end
-
   def self.ref_code?(code)
-    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd', 'invstgdr', 'dclrcn'].include?(code)
+    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd', 'invstgdr', 'dclrcn'].include?(code)
   end
 
   def self.ref_clss(code)
     case code
-    when 'txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd'
+    when 'txt_mdds_crrctvs_sncns', 'txt_mdfccn_mdds_rsgrd', 'txt_mdds_rsgrd'
       TxtEditable
     when 'invstgdr'
       KrnInvDenuncia
     when 'dclrcn'
       KrnDeclaracion
     end
+  end
+
+  # ---------------------- Control de despliegue (final)
+
+  # Un reporte puede generar pdfs para múltiples ownr y no tener ref
+  ### DEPRECATED
+  def self.ownr_mltpls?(code)
+    ['txt_mdds_crrctvs_sncns', 'txt_mdds_rsgrd', 'invstgcn'].include?(code)
   end
 
   class << self
@@ -222,7 +225,7 @@ class ClssPdfInvstgcns
           dnnc: ownr.dnnc,
           empresa: ownr.dnnc.ownr
         }
-      when 'txt_mdds_rsgrd', 'txt_mdds_crrctvs_sncns', 'txt_invstgdr_dsgncn', 'txt_annm_declaraciones'
+      when 'txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd', 'txt_mdds_crrctvs_sncns', 'txt_invstgdr_dsgncn', 'txt_annm_declaraciones'
         objeto = TxtEditable.find(objeto_id)    # ← el texto editable
         ownr   = opciones[:ownr]                # ← el participante | dnnc
         {

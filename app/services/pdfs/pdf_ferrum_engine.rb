@@ -119,7 +119,6 @@ module Pdfs
         <<~HTML
           <div style="font-size: 8pt; font-family: 'Open Sans', sans-serif; 
                       width: 100%; padding: 0 15mm; margin-bottom: 10mm;">
-            <span style="color: #adb5bd;">#{razon_social}</span>
             <span style="color: #adb5bd; float: right; font-size: 7pt;">#{fecha}</span>
           </div>
         HTML

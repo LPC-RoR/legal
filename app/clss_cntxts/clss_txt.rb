@@ -14,6 +14,7 @@ class ClssTxt
 	    'txt_invstgdr_firma'		=> :invstgcns,    # ← FIRMA DEL INVESTIGADOR
 	    'txt_invstgdr_dsgncn'		=> :invstgcns,    # ← DESIGNACION DEL INVESTIGADOR
 	    'txt_mdds_rsgrd'			=> :invstgcns,    # ← MEDIDAS DE RESGUARDO
+	    'txt_mdfccn_mdds_rsgrd'		=> :invstgcns,    # ← COMPLEMENTACIÓN O MODIFICACIÓN DE MEDIDAS DE RESGUARDO
 	    'txt_anlss'					=> :invstgcns,
 	    'txt_infrm'					=> :invstgcns,
 	    'txt_emprs_dnnc'			=> :invstgcns,

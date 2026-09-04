@@ -4,26 +4,32 @@
 	<% if @indx == 1 %>
 		<% if ownr.is_a?(KrnDenunciante) %>
 			<% dnncnt_cdgs = codes & ClssEtpTsk::DNNCNT_CDGS %>
-			<span class="pt-2 ps-3 text-primary">De la persona denunciante</span><br>
-			<% dnncnt_cdgs.each do |code| %>
-				<%= render partial: 'karin/kproc/act_archivos/objeto', locals: {code: code, mdl: ClssPdfInvstgcns, ownr: ownr} %>
-			<% end %>
+			<div class="text-primary"><i class="bi bi-caret-right-fill"></i> De la persona denunciante</div>
+			<div class="ms-3">
+				<% dnncnt_cdgs.each do |code| %>
+					<%= render partial: 'karin/kproc/act_archivos/objeto', locals: {code: code, mdl: ClssPdfInvstgcns, ownr: ownr} %>
+				<% end %>
+			</div>
 		<% end %>
 
 		<% if ownr.is_a?(KrnDenunciante) || ownr.is_a?(KrnDenunciado) %>
 			<% incmbnts_cdgs = codes & ClssEtpTsk::INCMBNTS_CDGS %>
-			<span class="pt-2 ps-3 text-primary">De los incumbentes</span><br>
-			<% incmbnts_cdgs.each do |code| %>
-				<%= render partial: 'karin/kproc/act_archivos/objeto', locals: {code: code, mdl: ClssPdfInvstgcns, ownr: ownr} %>
-			<% end %>
+			<div class="text-primary"><i class="bi bi-caret-right-fill"></i> De los incumbentes</div>
+			<div class="ms-3">
+				<% incmbnts_cdgs.each do |code| %>
+					<%= render partial: 'karin/kproc/act_archivos/objeto', locals: {code: code, mdl: ClssPdfInvstgcns, ownr: ownr} %>
+				<% end %>
+			</div>
 		<% end %>
 
 		<% if ownr.is_a?(KrnDenunciante) || ownr.is_a?(KrnDenunciado) || ownr.is_a?(KrnTestigo) %>
 			<% prtcpnts_cdgs = codes & ClssEtpTsk::PRTCPNTS_CDGS %>
-			<span class="pt-2 ps-3 text-primary">De los participantes</span><br>
-			<% prtcpnts_cdgs.each do |code| %>
-				<%= render partial: 'karin/kproc/act_archivos/objeto', locals: {code: code, mdl: ClssPdfInvstgcns, ownr: ownr} %>
-			<% end %>
+			<div class="text-primary"><i class="bi bi-caret-right-fill"></i> De los participantes</div>
+			<div class="ms-3">
+				<% prtcpnts_cdgs.each do |code| %>
+					<%= render partial: 'karin/kproc/act_archivos/objeto', locals: {code: code, mdl: ClssPdfInvstgcns, ownr: ownr} %>
+				<% end %>
+			</div>
 		<% end %>
 	<% else %>
 		<% codes.each do |code| %>
