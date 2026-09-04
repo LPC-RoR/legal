@@ -48,10 +48,10 @@
 
 
 <div class="mt-5 text-center">
-  <%# firma = @record.firma_rcpcn %>
-  <%# if firma %>
-    <%#= firma.to_s.html_safe %>
-  <%# else %>
+  <% firma = @empresa.firma_cnl_dnncs %>
+  <% if firma %>
+    <%= firma.to_s.html_safe %>
+  <% else %>
     Canal de denuncias ley 21.643 (Ley Karin)
-  <%# end %>
+  <% end %>
 </div>
