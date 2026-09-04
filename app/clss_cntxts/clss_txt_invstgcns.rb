@@ -18,6 +18,7 @@ class ClssTxtInvstgcns
     ],
     dnnc: [
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
+      { code: 'txt_mdfccn_mdds_rsgrd',  condition: ->(o) { o.txt_editables.exists?(codigo: 'txt_mdds_rsgrd') } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { ['etp_mdds_sncns', 'etp_cerrada'].include?(o.etapa) } },
       { code: 'txt_dnnc_annmzd',        condition: ->(o) { true } },
     ],
@@ -35,6 +36,7 @@ class ClssTxtInvstgcns
       'txt_firma_cnl_dnncs'     => 'Firma del canal de denuncias',
       'txt_firma_mdds'          => 'Firma para notificación de medidas',
       'txt_mdds_rsgrd'          => 'Medidas de resguardo',
+      'txt_mdfccn_mdds_rsgrd'   => 'Complementación o modificación de medidas de resguardo',
       'txt_acta'                => 'Acta de la denuncia',
       'txt_mdds_crrctvs_sncns'  => 'Medidas correctivas y sanciones',
       'txt_dclrcn'              => 'Declaración del participante',

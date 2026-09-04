@@ -48,7 +48,7 @@ module KrnDenuncia::AnonimizadorExpediente
     codigo_busqueda = config[:codigo_txt_editable]
     origenes        = config[:origenes] || []
 
-    anonimizador = Annm::AnonimizadorDeclaraciones.new(self)
+    anonimizador = Annm::AnonimizadorContenido.new(self)
     secciones    = []
 
     origenes.each do |origen|
@@ -61,7 +61,6 @@ module KrnDenuncia::AnonimizadorExpediente
                      .order(created_at: :desc)
                      .first
 
-        # CRÍTICO: Extraer HTML como String desde ActionText::RichText
         html_raw = txt&.contenido&.to_s
 
         if html_raw.blank?
@@ -147,7 +146,9 @@ module KrnDenuncia::AnonimizadorExpediente
     mensaje_vacio   = config[:mensaje_vacio] || "Sin registros."
     encabezado_fn   = config[:encabezado_participante]
 
-    secciones = []
+    # MISMO modelo de anonimización que declaraciones
+    anonimizador = Annm::AnonimizadorContenido.new(self)
+    secciones    = []
 
     origenes.each do |origen|
       participantes = send(origen)
@@ -158,7 +159,7 @@ module KrnDenuncia::AnonimizadorExpediente
         archivos = prtcpnt.act_archivos.where(act_archivo: codigo_busqueda).order(:created_at)
 
         html_archivos = if archivos.any?
-                          archivos.map { |act| construir_bloque_archivo(act) }.join("\n")
+                          archivos.map { |act| construir_bloque_archivo(act, anonimizador) }.join("\n")
                         else
                           "<p class='annm-vacio'>#{mensaje_vacio}</p>"
                         end
@@ -177,7 +178,10 @@ module KrnDenuncia::AnonimizadorExpediente
     secciones.join("\n")
   end
 
-  def construir_bloque_archivo(act)
+  # --------------------------------------------------------------
+  # Procesa un PDF de antecedentes con el nuevo modelo de anonimización
+  # --------------------------------------------------------------
+  def construir_bloque_archivo(act, anonimizador)
     return "" unless act.pdf.attached?
 
     if act.pdf.byte_size > 10.megabytes
@@ -199,7 +203,8 @@ module KrnDenuncia::AnonimizadorExpediente
       HTML
     end
 
-    contenido_anon = act.anonimizar_inteligente(texto, cdgs_prtcpnts)
+    # NUEVO: Usa el mismo pipeline que las declaraciones
+    contenido_anon = anonimizador.anonimizar(texto)
 
     <<~HTML
       <div class="annm-archivo" data-act-archivo-id="#{act.id}">

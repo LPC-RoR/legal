@@ -1,7 +1,7 @@
 <%= render partial: '0ttl/ttl', locals: {source: 'krn_investigadores', dir: 'shw', hide_gly: true, hide_new: true} %>
 <div class="row gx-1">
 	<div class="col-6">
-		<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_txts'} %>
+		<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_txts', codes: ClssTxtInvstgcns.dsply_codes_for(@objeto)} %>
 	</div>
 	<div class="col-6">
 		<%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_codes'} %>

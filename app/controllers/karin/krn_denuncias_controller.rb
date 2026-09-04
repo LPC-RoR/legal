@@ -135,7 +135,7 @@ class Karin::KrnDenunciasController < ApplicationController
   def anonimizar_expediente
     if params[:g].present?
       grupo = params[:g].to_sym
-      @objeto.generar_expediente_anonimizado_async!(:txt_annm_declaraciones)
+      @objeto.generar_expediente_anonimizado_async!(grupo)
       ntc = "Grupo #{params[:g]} anonimizado exitosamente!"
     else
       ntc = 'Error de anonimización: grupo no identificado.'

@@ -7,14 +7,12 @@ module Annm
       @denuncia = denuncia
     end
 
-    # Hash completo para reemplazo exacto: { "texto" => "placeholder" }
     def mapa_reemplazos
       mapa = {}
       participantes.each { |p| agregar_participante(mapa, p) }
       mapa.sort_by { |k, _| -k.to_s.length }.to_h
     end
 
-    # Hash resumido para el LLM: { "abrev" => { nombre:, cargo:, email:, rut: } }
     def resumen_para_llm
       resumen = {}
       participantes.each do |p|
@@ -40,16 +38,26 @@ module Annm
     def agregar_participante(mapa, prtcpnt)
       abrev = prtcpnt.respond_to?(:kywrd) ? prtcpnt.kywrd[:abrev] : "P#{prtcpnt.id}"
 
+      # --- RUT / CI ---
       if prtcpnt.rut.present?
         variantes_rut(prtcpnt.rut).each { |v| mapa[v] = "[CI-#{abrev}]" }
       end
 
+      # --- NOMBRE ---
       if prtcpnt.nombre.present?
         variantes_nombre(prtcpnt.nombre).each { |v| mapa[v] = "[#{abrev}]" }
       end
 
-      mapa[prtcpnt.email] = "[EMAIL-#{abrev}]" if prtcpnt.email.present?
+      # --- EMAIL (incluye variantes con < >) ---
+      if prtcpnt.email.present?
+        email = prtcpnt.email.to_s.strip
+        mapa[email] = "[EMAIL-#{abrev}]"
+        mapa["<#{email}>"] = "[EMAIL-#{abrev}]"   # <canaldedenuncias@emprender.cl>
+        mapa["#{email}>"] = "[EMAIL-#{abrev}]"    # canaldedenuncias@emprender.cl>
+        mapa["<#{email}"] = "[EMAIL-#{abrev}]"    # <canaldedenuncias@emprender.cl
+      end
 
+      # --- CARGO ---
       cargo = prtcpnt.try(:cargo)
       mapa[cargo] = "[CARGO-#{abrev}]" if cargo.present?
     end

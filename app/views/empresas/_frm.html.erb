@@ -135,7 +135,7 @@
             <%= f.label :coordinacion_apt, "Respaldo de correos electrónicos", class: "form-check-label" %>
         </div>
 
-        <%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_txts'} %>
+        <%= render partial: 'karin/kproc/dsply_box', locals: {ownr: @objeto, dir: 'ownr_txts', codes: ClssTxtInvstgcns.dsply_codes_for(@objeto)} %>
 
     </div>
 </div>
