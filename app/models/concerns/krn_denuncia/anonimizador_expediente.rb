@@ -144,9 +144,7 @@ module KrnDenuncia::AnonimizadorExpediente
     codigo_busqueda = config[:codigo_act_archivo]
     origenes        = config[:origenes] || []
     mensaje_vacio   = config[:mensaje_vacio] || "Sin registros."
-    encabezado_fn   = config[:encabezado_participante]
 
-    # MISMO modelo de anonimización que declaraciones
     anonimizador = Annm::AnonimizadorContenido.new(self)
     secciones    = []
 
@@ -155,8 +153,14 @@ module KrnDenuncia::AnonimizadorExpediente
       next if participantes.none?
 
       participantes.each do |prtcpnt|
-        titulo = encabezado_fn ? encabezado_fn.call(prtcpnt) : "Participante ##{prtcpnt.id}"
-        archivos = prtcpnt.act_archivos.where(act_archivo: codigo_busqueda).order(:created_at)
+        # Encabezado inline: ya no depende de lambda de configuración
+        nombre = prtcpnt.respond_to?(:kywrd) ? prtcpnt.kywrd[:krn] : "Participante ##{prtcpnt.id}"
+        titulo = "Anonimización de los medios de prueba presentados por #{nombre}"
+
+        archivos = prtcpnt.act_archivos
+                          .where(act_archivo: codigo_busqueda)
+                          .where(no_annm: [false, nil])
+                          .order(:created_at)
 
         html_archivos = if archivos.any?
                           archivos.map { |act| construir_bloque_archivo(act, anonimizador) }.join("\n")

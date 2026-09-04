@@ -15,9 +15,9 @@
 <%= render partial: '0inpts/pdf_file', locals: { f: f, tkn: :pdf } %>
 
 <%# if @objeto.mdl.constantize.act_lst?(@objeto.act_archivo)  %>
-	<!--div class="mt-3">
-		<%#= render partial: '0inpts/check_box', locals: { f: f, tkn: :rlzd, label: 'Marcar como revisado' } %>
-	</div-->
+	<div class="mt-3">
+		<%= render partial: '0inpts/check_box', locals: { f: f, tkn: :no_annm, label: 'Anonimización manual' } %>
+	</div>
 <%# end %>
 
 <%= render partial: '0inpts/hidden_lst', locals: { f: f, hddn_lst: [:ownr_type, :ownr_id, :act_archivo, :mdl, :crtn_mode ] } %>

@@ -3,7 +3,7 @@ class ClssPdfInvstgcns
   include ConditionalArray
 
   OPTNL_CDGS    = ['crdncn_apt', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'drchs', 'antecedentes', 'dts_incmbnts', 'dts_tstgs', 
-    'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'txt_mdfccn_mdds_rsgrd']
+    'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'txt_mdfccn_mdds_rsgrd', 'antecedentes_annm']
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS    = {
@@ -34,6 +34,7 @@ class ClssPdfInvstgcns
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'txt_mdfccn_mdds_rsgrd',  condition: ->(o) { true } },
       { code: 'antecedentes',           condition: ->(o) { true } },
+      { code: 'antecedentes_annm',      condition: ->(o) { true } },
       { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { o.dnnc.todos_tienen_txt_mdds_sncns? } },
     ],
@@ -44,12 +45,14 @@ class ClssPdfInvstgcns
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'txt_mdfccn_mdds_rsgrd',  condition: ->(o) { true } },
       { code: 'antecedentes',           condition: ->(o) { true } },
+      { code: 'antecedentes_annm',      condition: ->(o) { true } },
       { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { o.dnnc.todos_tienen_txt_mdds_sncns? } }
     ],
     tstg: [
 #      { code: 'drchs',                  condition: ->(o) { true } },
       { code: 'antecedentes',           condition: ->(o) { true } },
+      { code: 'antecedentes_annm',      condition: ->(o) { true } },
     ]
   }
 
@@ -82,6 +85,7 @@ class ClssPdfInvstgcns
       'txt_mdds_rsgrd'          => 'Notificación de las medidas de resguardo',
       'txt_mdfccn_mdds_rsgrd'   => 'Complementación o modificación de medidas de resguardo',
       'antecedentes'            => 'Documentos presentados por el participante',
+      'antecedentes_annm'       => 'Antecedentes anonimizados manualmente',
       'invstgdr'                => 'Notificación del investigador asignado',
       'dclrcn'                    => 'Citación a declarar para el participante',
       'txt_dclrcn'                => 'Declaración para firmar',
@@ -119,7 +123,7 @@ class ClssPdfInvstgcns
   end
 
   def self.no_tmplt?(code)
-    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'invstgdr', 'invstgdr_titulo_prfsnl', 
+    ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'antecedentes_annm', 'invstgdr', 'invstgdr_titulo_prfsnl', 
       'dclrcn', 'declaracion'].include?(code)
   end
 

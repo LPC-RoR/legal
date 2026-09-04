@@ -2,7 +2,7 @@ class ClssEtpTsk < ApplicationRecord
 
   DNNCNT_CDGS   = ['rprsntcn', 'artcl_516', 'dnncnt_info_oblgtr', 'comprobante', 'apt'].freeze
   INCMBNTS_CDGS = ['invstgcn', 'drchs', 'txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd', 'txt_mdds_crrctvs_sncns'].freeze
-  PRTCPNTS_CDGS = ['antecedentes'].freeze
+  PRTCPNTS_CDGS = ['antecedentes', 'antecedentes_annm'].freeze
 
   INVSTGCN_CDGS = ['dts_tstgs', 'txt_dnnc_obsrvcns', 'dnnc_crrgd', 'txt_infrm']
 

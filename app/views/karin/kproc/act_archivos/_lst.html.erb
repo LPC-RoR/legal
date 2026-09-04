@@ -16,6 +16,9 @@
 			<% if act.sndd %>
 				<i class="bi bi-send-check"></i>
 			<% end %>
+			<% if act.no_annm %>
+				<i class="bi bi-highlighter"></i>
+			<% end %>
 			<%= dma_hm(act.created_at) %> <%= nombre %>
 		</div>
 		<div class="col-2 text-end objt_lnk">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_26_213742) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_04_170940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -36,6 +36,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_26_213742) do
     t.string "crtn_mode"
     t.string "fuente"
     t.datetime "fecha_envio"
+    t.boolean "no_annm"
     t.index ["act_archivo"], name: "index_act_archivos_on_act_archivo"
     t.index ["anonimizado_de_id"], name: "index_act_archivos_on_anonimizado_de_id"
     t.index ["control_fecha"], name: "index_act_archivos_on_control_fecha"
