@@ -116,9 +116,9 @@ module PdfGeneratable
           act_archivos = participante.act_archivos.where(act_archivo: code)
           
           act_archivos.each do |act_original|
-            objeto_id = resolver_objeto_id_para_anonimizacion(code, participante, denuncia)
+            # CORRECCIÓN: pasamos act_original para resolver el TxtEditable correcto
+            objeto_id = resolver_objeto_id_para_anonimizacion(code, participante, denuncia, act_original)
             
-            # CORRECCIÓN: genera contenido binario en memoria, sin ActArchivo intermedio
             pdf_content = generar_pdf_contenido(code, 
               ownr: participante,
               objeto_id: objeto_id,
@@ -222,7 +222,7 @@ module PdfGeneratable
   # --------------------------------------------
   # Resuelve objeto_id según el tipo de reporte
   # --------------------------------------------
-  def resolver_objeto_id_para_anonimizacion(code, participante, denuncia)
+  def resolver_objeto_id_para_anonimizacion(code, participante, denuncia, act_original)
     case code
     when 'invstgdr'
       if participante.respond_to?(:krn_inv_denuncia) && participante.krn_inv_denuncia.present?
@@ -237,12 +237,26 @@ module PdfGeneratable
         participante.id
       end
     when 'txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd', 'txt_mdds_crrctvs_sncns'
-      denuncia.id
+      # CORRECCIÓN: datos_txt_mdds_crrctvs_sncns espera el ID del TxtEditable,
+      # no el ID de la denuncia. Lo resolvemos desde la referencia del ActArchivo
+      # o buscando en la denuncia por código.
+      txt = nil
+      
+      if act_original.respond_to?(:act_referencias) && act_original.act_referencias.any?
+        ref = act_original.act_referencias.first.ref
+        txt = ref if ref.is_a?(TxtEditable)
+      end
+      
+      if txt.nil?
+        txt = denuncia.txt_editables.find_by(codigo: code)
+      end
+      
+      txt&.id || participante.id
     else
       participante.id
     end
   end
-
+  
   def denuncia_actual
     @objeto.is_a?(KrnDenuncia) ? @objeto : @objeto.dnnc
   end
