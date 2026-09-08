@@ -1,11 +1,14 @@
 <!-- app/views/pdfs/invstgcns/txt_mdds_crrctvs_sncns_pdf.html.erb -->
 <% code = 'txt_mdds_crrctvs_sncns' %>
+
 <% dstntr   = @opciones[:anonimizar] ? @act.ownr : @ownr %>
 <%= render partial: 'pdfs/invstgcns/head_ttl', locals: {code: code} %>
 <%= render partial: 'pdfs/invstgcns/dstntr_rfrnc', locals: {dstntr: dstntr, pdf: @pdf, annm: @opciones[:anonimizar]} %>
 <%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
 
-<% txt = @opciones[:anonimizar] ? @dnnc.txt_editables.find_by(codigo: "#{code}_annm") : nil %>
+<% dnnc = @objeto.ownr %>
+
+<% txt = @opciones[:anonimizar] ? dnnc.txt_editables.find_by(codigo: "#{code}_annm") : nil %>
 <% texto_verificado = @opciones[:anonimizar] && txt.present? ? txt.contenido : @objeto.contenido %>
 
 <div>

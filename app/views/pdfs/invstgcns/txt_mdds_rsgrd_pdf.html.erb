@@ -6,6 +6,7 @@
 <%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
 
 <%# Verificamos la existencia de texto anonimizado %>
+
 <% txt = @opciones[:anonimizar] ? @dnnc.txt_editables.find_by(codigo: "#{code}_annm") : nil %>
 <% texto_verificado = @opciones[:anonimizar] && txt.present? ? txt.contenido : @objeto.contenido %>
 
