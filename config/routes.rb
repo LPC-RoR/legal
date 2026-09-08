@@ -180,8 +180,9 @@ Rails.application.routes.draw do
       member do
         post  :cargar_pdf
         post  :combinar_pdf
-        patch :cambiar_etapa          # Cambio de etapa
-        patch :anonimizar_expediente  # Cambio de etapa
+        patch :cambiar_etapa            # Cambio de etapa
+        patch :anonimizar_expediente    # Cambio de etapa
+        post  :preparar_txt_anonimizado # Anonimización de TxtEditables
       end
       match :swtch, via: :post, on: :member
       match :niler, via: :post, on: :member
@@ -352,7 +353,6 @@ Rails.application.routes.draw do
       member do
         get 'descargar/:tipo', to: 'act_archivos#descargar_archivo_generado', as: :descargar
         post :enviar_pdf_por_email
-        post :preparar_anonimizacion
       end
       collection do
         post :generar_pdf

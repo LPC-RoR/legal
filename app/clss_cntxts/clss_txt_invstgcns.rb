@@ -4,7 +4,7 @@ class ClssTxtInvstgcns
 
   DCLRCN_CDGS = ['txt_dclrcn', 'txt_dclrcn_annmzd']
 
-  OPTNL_CDGS  = ['txt_dnnc_annmzd', 'txt_dclrcn_annmzd', 'txt_mdfccn_mdds_rsgrd']
+  OPTNL_CDGS  = ['txt_dnnc_annmzd', 'txt_dclrcn_annmzd', 'txt_mdfccn_mdds_rsgrd', 'txt_mdds_rsgrd_annm', 'txt_mdfccn_mdds_rsgrd_annm', 'txt_mdds_crrctvs_sncns_annm']
 
   # Definición estática de códigos con condiciones
   CDGS = {
@@ -17,10 +17,13 @@ class ClssTxtInvstgcns
       { code: 'txt_invstgdr_dsgncn',    condition: ->(o) { true } },
     ],
     dnnc: [
-      { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
-      { code: 'txt_mdfccn_mdds_rsgrd',  condition: ->(o) { o.txt_editables.exists?(codigo: 'txt_mdds_rsgrd') } },
-      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { ['etp_mdds_sncns', 'etp_cerrada'].include?(o.etapa) } },
-      { code: 'txt_dnnc_annmzd',        condition: ->(o) { true } },
+      { code: 'txt_mdds_rsgrd',               condition: ->(o) { true } },
+      { code: 'txt_mdfccn_mdds_rsgrd',        condition: ->(o) { o.txt_editables.exists?(codigo: 'txt_mdds_rsgrd') } },
+      { code: 'txt_mdds_crrctvs_sncns',       condition: ->(o) { ['etp_mdds_sncns', 'etp_cerrada'].include?(o.etapa) } },
+      { code: 'txt_dnnc_annmzd',              condition: ->(o) { true } },
+      { code: 'txt_mdds_rsgrd_annm',          condition: ->(o) { o.txt_editables.exists?(codigo: 'txt_mdds_rsgrd') } },
+      { code: 'txt_mdfccn_mdds_rsgrd_annm',   condition: ->(o) { o.txt_editables.exists?(codigo: 'txt_mdfccn_mdds_rsgrd') } },
+      { code: 'txt_mdds_crrctvs_sncns_annm',  condition: ->(o) { o.txt_editables.exists?(codigo: 'txt_mdds_crrctvs_sncns') } },
     ],
     dnncnt: [
       { code: 'txt_acta',               condition: ->(o) { o.dnnc.via_declaracion == 'Presencial' && o.dnnc.tipo_declaracion == 'Verbal' } },
@@ -33,17 +36,20 @@ class ClssTxtInvstgcns
 
   def self.nombre
     {
-      'txt_firma_cnl_dnncs'     => 'Firma del canal de denuncias',
-      'txt_firma_mdds'          => 'Firma para notificación de medidas',
-      'txt_mdds_rsgrd'          => 'Medidas de resguardo',
-      'txt_mdfccn_mdds_rsgrd'   => 'Complementación o modificación de medidas de resguardo',
-      'txt_acta'                => 'Acta de la denuncia',
-      'txt_mdds_crrctvs_sncns'  => 'Medidas correctivas y sanciones',
-      'txt_dclrcn'              => 'Declaración del participante',
-      'txt_invstgdr_firma'      => 'Firma del investigador',
-      'txt_invstgdr_dsgncn'     => 'Designación del investigador',
-      'txt_dnnc_annmzd'         => 'Denuncia anonimizada',
-      'txt_dclrcn_annmzd'       => 'Declaración anonimizada',
+      'txt_firma_cnl_dnncs'         => 'Firma del canal de denuncias',
+      'txt_firma_mdds'              => 'Firma para notificación de medidas',
+      'txt_mdds_rsgrd'              => 'Medidas de resguardo',
+      'txt_mdds_rsgrd_annm'         => 'Medidas de resguardo anonimizadas',
+      'txt_mdfccn_mdds_rsgrd'       => 'Complementación o modificación de medidas de resguardo',
+      'txt_mdfccn_mdds_rsgrd_annm'  => 'Complementación o modificación de medidas de resguardo anonimizada',
+      'txt_acta'                    => 'Acta de la denuncia',
+      'txt_mdds_crrctvs_sncns'      => 'Medidas correctivas y sanciones',
+      'txt_mdds_crrctvs_sncns_annm' => 'Medidas correctivas y sanciones anonimizadas',
+      'txt_dclrcn'                  => 'Declaración del participante',
+      'txt_invstgdr_firma'          => 'Firma del investigador',
+      'txt_invstgdr_dsgncn'         => 'Designación del investigador',
+      'txt_dnnc_annmzd'             => 'Denuncia anonimizada',
+      'txt_dclrcn_annmzd'           => 'Declaración anonimizada',
     }
   end
 

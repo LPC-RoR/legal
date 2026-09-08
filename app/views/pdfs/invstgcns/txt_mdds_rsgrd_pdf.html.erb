@@ -1,11 +1,13 @@
 <% code = 'txt_mdds_rsgrd' %>
+
 <% dstntr   = @opciones[:anonimizar] ? @act.ownr : @ownr %>
 <%= render partial: 'pdfs/invstgcns/head_ttl', locals: {code: code} %>
 <%= render partial: 'pdfs/invstgcns/dstntr_rfrnc', locals: {dstntr: dstntr, pdf: @pdf, annm: @opciones[:anonimizar]} %>
 <%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
 
 <%# Verificamos la existencia de texto anonimizado %>
-<% texto_verificado = @opciones[:anonimizar] && @act.txt_anonimizado.present? ? @act.txt_anonimizado.contenido : @objeto.contenido %>
+<% txt = @opciones[:anonimizar] ? @dnnc.txt_editables.find_by(codigo: "#{code}_annm") : nil %>
+<% texto_verificado = @opciones[:anonimizar] && txt.present? ? txt.contenido : @objeto.contenido %>
 
 <div class="mt-5">
   <p>De nuestra consideración:</p>

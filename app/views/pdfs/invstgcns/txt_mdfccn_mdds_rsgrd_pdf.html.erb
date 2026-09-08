@@ -4,8 +4,8 @@
 <%= render partial: 'pdfs/invstgcns/dstntr_rfrnc', locals: {dstntr: dstntr, pdf: @pdf, annm: @opciones[:anonimizar]} %>
 <%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
 
-<% texto_base = @objeto.contenido.to_s %>
-<% texto_verificado = @opciones[:anonimizar] ? @pdf.procesar_texto(texto_base) : texto_base %>
+<% txt = @opciones[:anonimizar] ? @dnnc.txt_editables.find_by(codigo: "#{code}_annm") : nil %>
+<% texto_verificado = @opciones[:anonimizar] && txt.present? ? txt.contenido : @objeto.contenido %>
 
 <div class="mt-5">
   <p>De nuestra consideración:</p>

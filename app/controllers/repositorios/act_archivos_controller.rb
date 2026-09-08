@@ -1,7 +1,7 @@
 class Repositorios::ActArchivosController < ApplicationController
   include PdfGeneratable
 
-  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download preparar_anonimizacion annmzr excluir resumir anonimizar enviar_pdf_por_email]
+  before_action :set_act_archivo, only: %i[ show_pdf edit update destroy download annmzr excluir resumir anonimizar enviar_pdf_por_email]
   before_action :authenticate_usuario!
   before_action :scrty_on
 
@@ -78,16 +78,6 @@ class Repositorios::ActArchivosController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @objeto.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  def preparar_anonimizacion
-    @txt = @objeto.crear_txt_anonimizado!
-
-    if @txt.present?
-      redirect_to edit_txt_editable_path(@txt), notice: "Texto listo para anonimización manual"
-    else
-      redirect_back fallback_location: root_path, alert: "No se encontró el texto original para copiar"
     end
   end
 

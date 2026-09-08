@@ -23,6 +23,14 @@
 								<i class="bi bi-file-earmark-plus"></i>
 							<% end %>
 						<% end %>
+						<% if ClssAnnmInvstgcns::ANNM_COPY_TXT.include?(txt_objt.codigo) %>
+							<% annm = @objeto.txt_editables.find_by(codigo: "#{txt_objt.codigo}_annm") %>
+							<% unless annm.present? %>
+								<%= render layout: '0p/tltp_lnk', locals: {lnk: "/krn_denuncias/#{@objeto.id}/preparar_txt_anonimizado?code=#{txt_objt.codigo}", tltp: "Generar Texto anonimizado", data: {turbo_method: :post}} do %>
+									<i class="bi bi-marker-tip"></i>
+								<% end %>
+							<% end %>
+						<% end %>
 						<%= render partial: '0t/lnks_e', locals: {objt: txt_objt, hide_elmnr: txt_objt.act_referencias.any? } %>
 					<% end %>
 				<% end %>

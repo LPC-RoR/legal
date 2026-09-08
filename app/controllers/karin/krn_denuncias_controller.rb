@@ -1,7 +1,7 @@
 class Karin::KrnDenunciasController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
-  before_action :set_krn_denuncia, only: %i[ show edit update destroy cargar_pdf combinar_pdf cambiar_etapa anonimizar_expediente swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
+  before_action :set_krn_denuncia, only: %i[ show edit update destroy cargar_pdf combinar_pdf cambiar_etapa preparar_txt_anonimizado anonimizar_expediente swtch niler rlzd prsnt pdf_combinado pdf_designacion pdf_notificaciones pdf_declaraciones pdf_pruebas annmzr set_fld prg krn_pdf_rprt ]
 
   include PdfGeneratable
   include PdfCombinable
@@ -130,6 +130,23 @@ class Karin::KrnDenunciasController < ApplicationController
         format.json { render json: @form.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # Ejemplo: en KrnDenunciasController o consola
+  def preparar_txt_anonimizado
+    code = params[:code] # ej: 'txt_mdds_rsgrd'
+    original = @objeto.txt_editables.find_by(codigo: code)
+    
+    return if original.nil?
+    
+    # Crea o encuentra el TxtEditable de anonimización
+    anon = @objeto.txt_editables.find_or_initialize_by(codigo: "#{code}_annm")
+    anon.titulo     = "Anon. #{original.titulo}"
+    anon.cntxt_clss = 'ClssAnnmInvstgcns'
+    anon.contenido  = original.contenido.body.to_html
+    anon.save!
+    
+    redirect_to edit_txt_editable_path(anon)
   end
 
   def anonimizar_expediente

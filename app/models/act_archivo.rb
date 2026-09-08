@@ -5,9 +5,6 @@ class ActArchivo < ApplicationRecord
 
   belongs_to :ownr, polymorphic: true, optional: true
 
-  # Última versión, se usa para anonimizar códigos que se generan desde un TxtEditable, como 'txt_mdds_rsgrd'
-  has_one :txt_anonimizado, class_name: 'TxtEditable', as: :ownr, dependent: :destroy
-
   belongs_to :anonimizado_de, class_name: 'ActArchivo', optional: true
   has_one    :anonimizado_como, class_name: 'ActArchivo',
              foreign_key: 'anonimizado_de_id', dependent: :destroy
@@ -100,20 +97,6 @@ class ActArchivo < ApplicationRecord
   end
 
   private
-
-  # Usado para generar la copia que permite anonimizar los generados desde un TxtEditable
-  def resolver_txt_editable_original
-    # Opción 1: vía referencia directa del ActArchivo
-    if respond_to?(:act_referencias) && act_referencias.any?
-      ref = act_referencias.first.ref
-      return ref if ref.is_a?(TxtEditable)
-    end
-
-    # Opción 2: buscar en la denuncia del participante por código
-    if ownr.present? && ownr.respond_to?(:dnnc) && ownr.dnnc.present?
-      ownr.dnnc.txt_editables.find_by(codigo: act_archivo)
-    end
-  end
 
   def es_demanda?
     act_archivo == "demanda"
