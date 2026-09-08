@@ -352,6 +352,7 @@ Rails.application.routes.draw do
       member do
         get 'descargar/:tipo', to: 'act_archivos#descargar_archivo_generado', as: :descargar
         post :enviar_pdf_por_email
+        post :preparar_anonimizacion
       end
       collection do
         post :generar_pdf

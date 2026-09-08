@@ -95,7 +95,8 @@ class ClssPdfInvstgcns
       'txt_infrm'                 => 'Informe de investigación',
       'txt_mdds_crrctvs_sncns'    => 'Notificación de las medidas correctivas y sanciones',
       'txt_annm_declaraciones'    => 'Expediente anonimizado: declaraciones de los participantes',
-      'txt_annm_medios_de_prueba' => 'Expediente anonimizado: medios de prueba'
+      'txt_annm_medios_de_prueba' => 'Expediente anonimizado: medios de prueba',
+      'txt_annm_ntfccns'          => 'Expediente anonimizado: declaraciones de los participantes'
     }
   end
 

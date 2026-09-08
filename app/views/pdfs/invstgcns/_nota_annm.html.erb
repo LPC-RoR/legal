@@ -1,0 +1,8 @@
+<% if @es_anonimizado && @act.present? %>
+  <div class="nota-anonimizacion" style="font-size: 9px; color: #666; border-top: 1px solid #ccc; margin-top: 20px; padding-top: 5px;">
+    Este documento es una copia anonimizada del archivo original <i><%= ClssPdfInvstgcns.nombre[@act.nombre] %> (ID: <%= @act.id %>)</i>.<br>
+    El archivo original fue generado por la plaforma Laborsafe y enviado al participante el <%= l(@act.created_at, format: :short) %>.<br>
+    Nuestra plataforma cuenta con una copia del documento original y el registro del envío de dicho documento vía correo electrónico.<br>
+    Los nombres y emails de los participantes ha sido reemplazado por códigos únicos para toda la plataforma para garantizar la unicidad del documento. Los nombres, cargos y profesiones de personas citadas que no tienen la calidad de participantes de la denuncia, serán reemplazadas por códigos genéricos.
+  </div>
+<% end %>

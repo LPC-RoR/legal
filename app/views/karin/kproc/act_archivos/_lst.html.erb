@@ -36,4 +36,32 @@
 			<%=render partial: '0t/lnk_eliminar', locals: {objt: act} %>
 		</div>
 	</div>
+
+	<%# Anonimización de ActArchivo generado desde un TxtEditable %>
+	<% if ClssAnnmInvstgcns::ANNM_COPY_TXT.include?(act.act_archivo) %>
+		<% txt_objt = act.txt_anonimizado %>
+		<div class="mx-3">
+			<div class="row gx-1">
+				<div class="col-10">
+					<i class="bi bi-arrow-return-right"></i> 
+					<% if txt_objt.present? %>
+						Anonimizado
+					<% else %>
+						Sin anonimizado
+					<% end %>
+				</div>
+				<div class="col-2 text-end objt_lnk">
+					<% if txt_objt.present? %>
+						<%=render partial: '0t/lnk_editar', locals: {objt: txt_objt} %>
+						<%=render partial: '0t/lnk_eliminar', locals: {objt: txt_objt} %>
+					<% else %>
+						<%= render layout: '0p/tltp_lnk', locals: {lnk: "/act_archivos/#{act.id}/preparar_anonimizacion", tltp: "Generar Texto anonimizado", data: {turbo_method: :post}} do %>
+							<i class="bi bi-marker-tip"></i>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+
 <% end %>

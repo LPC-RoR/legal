@@ -1,0 +1,15 @@
+<div class="text-center fs-6">
+  Ley 21.643<br>
+  Procedimiento de investigación y sanción<br>
+  <% case code %>
+  <% when 'dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd' %>
+    Recepción de denuncias
+  <% when 'invstgdr', 'txt_mdds_crrctvs_sncns' %>
+    Canal de denuncias
+  <% when 'dclrcn' %>
+    Investigación de la denuncia
+  <% end %>
+</div>
+<div class="text-center fs-5">
+  <%= ClssPdfInvstgcns.nombre[code] %>
+</div>

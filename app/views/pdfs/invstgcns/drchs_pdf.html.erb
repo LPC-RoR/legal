@@ -1,32 +1,18 @@
-<div class="text-center fs-6">
-  Ley 21.643<br>
-  Procedimiento de investigación y sanción<br>
-  Recepción de denuncias
-</div>
+<% code = 'drchs' %>
+<% dstntr   = @opciones[:anonimizar] ? @act.ownr : @ownr %>
+<%= render partial: 'pdfs/invstgcns/head_ttl', locals: {code: code} %>
+<%= render partial: 'pdfs/invstgcns/dstntr_rfrnc', locals: {dstntr: dstntr, pdf: @pdf, annm: @opciones[:anonimizar]} %>
+<%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
 
-<div class="text-center fs-5">
-  Derechos y obligaciones de los participantes
-</div>
-
-<div class="row mt-5">
-  <div class="col-6">
-    Sr(a) <%= @ownr.nombre %><br>
-    PRESENTE
-  </div>
-  <div class="col-6 text-end">
-    REFERENCIA:<br>
-    Denuncia <%= @dnnc.identificador %>
-  </div>
-</div>
-
-	<p class="mt-4">
+<div class="mt-5">
+	<p>
 	  Las personas denunciantes y denunciadas que participan en una investigación cuentan con derechos y obligaciones regulados por la Ley 21.643 y su reglamento.
 	</p>
 
 	<p>
 	  A continuación, se presentan los artículos que regulan los derechos y obligaciones tanto de las personas participantes como de las instituciones involucradas en este procedimiento.
 	</p>
-
+</div>
 
 	<p><b>Artículo 5º.- Derechos generales de las personas trabajadoras.</b> Sin perjuicio de otros derechos que consagre la ley, las personas trabajadoras, en el contexto de una investigación de acoso sexual, laboral y de violencia en el trabajo, tendrán derecho a:</p>
 
@@ -97,11 +83,4 @@
 	<% end %>
 
 
-<div class="mt-5 text-center">
-  <%# firma = @record.firma_rcpcn %>
-  <%# if firma %>
-    <%#= firma.to_s.html_safe %>
-  <%# else %>
-    Canal de denuncias ley 21.643 (Ley Karin)
-  <%# end %>
-</div>
+<%= render partial: 'pdfs/invstgcns/firma_rcpcn', locals: {emprs: @empresa} %>

@@ -32,6 +32,7 @@ class ClssTxt
 	    'firma_mdds'				=> :invstgcns,
 	    'txt_dnnc_annmzd'			=> :invstgcns,    # ← DENUNCIA ANONIMIZADA
 	    'txt_dclrcn_annmzd'			=> :invstgcns,    # ← DECLARACION ANONIMIZADA
+	    'annm'						=> :invstgcns,    # ← ANONIMIZACION DE PDFs GENERADOS DESDE UN TxtEditable
 	    
 	    # === FINANZAS (fnnzs) ===
 	    'aprobacion'                => :fnnzs,

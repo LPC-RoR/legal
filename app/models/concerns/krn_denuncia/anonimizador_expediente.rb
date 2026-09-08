@@ -13,6 +13,8 @@ module KrnDenuncia::AnonimizadorExpediente
              construir_html_coleccion_participantes(config)
            when :declaraciones
              construir_html_declaraciones(config)
+           when :notificaciones
+             construir_html_notificaciones(config)
            else
              fragmentos = recolectar_fragmentos(config[:archivos] || [])
              fragmentos_to_html(fragmentos)
@@ -220,6 +222,51 @@ module KrnDenuncia::AnonimizadorExpediente
     HTML
   end
 
+  # ================================================================
+  # NOTIFICACIONES
+  # ================================================================
+
+  def construir_html_notificaciones(config)
+    origenes      = config[:origenes] || []
+    mensaje_vacio = config[:mensaje_vacio] || "Sin registros."
+    codigos       = ClssAnnmInvstgcns::NTFCCNS_CDGS
+
+    anonimizador = Annm::AnonimizadorContenido.new(self)
+    secciones    = []
+
+    origenes.each do |origen|
+      participantes = send(origen)
+      next if participantes.none?
+
+      participantes.each do |prtcpnt|
+        nombre = prtcpnt.respond_to?(:kywrd) ? prtcpnt.kywrd[:krn] : "Participante ##{prtcpnt.id}"
+        titulo = "Anonimización de notificaciones enviadas a #{nombre}"
+
+        archivos = prtcpnt.act_archivos
+                          .where(act_archivo: codigos)
+                          .where(no_annm: [false, nil])
+                          .order(:created_at)
+
+        html_archivos = if archivos.any?
+                          archivos.map { |act| construir_bloque_archivo(act, anonimizador) }.join("\n")
+                        else
+                          "<p class='annm-vacio'>#{mensaje_vacio}</p>"
+                        end
+
+        secciones << <<~HTML
+          <section class="annm-participante" data-participante-id="#{prtcpnt.id}" data-participante-type="#{prtcpnt.class.name}">
+            <h2 class="annm-titulo-participante">#{titulo}</h2>
+            <div class="annm-archivos">
+              #{html_archivos}
+            </div>
+          </section>
+        HTML
+      end
+    end
+
+    secciones.join("\n")
+  end
+  
   # ================================================================
   # PERSISTENCIA
   # ================================================================

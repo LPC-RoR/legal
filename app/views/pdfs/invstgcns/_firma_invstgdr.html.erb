@@ -1,0 +1,8 @@
+<div class="mt-5 text-center">
+  <% firma = dnnc.firma_invstgdr %>
+  <% if firma %>
+    <%= firma.to_s.html_safe %>
+  <% else %>
+    Investigación de denuncias ley 21.643 (Ley Karin)
+  <% end %>
+</div>

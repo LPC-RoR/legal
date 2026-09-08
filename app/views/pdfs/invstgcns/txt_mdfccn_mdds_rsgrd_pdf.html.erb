@@ -1,41 +1,28 @@
-<div class="text-center fs-6">
-  Ley 21.643<br>
-  Procedimiento de investigación y sanción<br>
-  Recepción de denuncias
-</div>
+<% code = 'txt_mdfccn_mdds_rsgrd' %>
+<% dstntr   = @opciones[:anonimizar] ? @act.ownr : @ownr %>
+<%= render partial: 'pdfs/invstgcns/head_ttl', locals: {code: code} %>
+<%= render partial: 'pdfs/invstgcns/dstntr_rfrnc', locals: {dstntr: dstntr, pdf: @pdf, annm: @opciones[:anonimizar]} %>
+<%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
 
-<div class="text-center fs-5">
-  <%= @objeto.titulo %>
-</div>
+<% texto_base = @objeto.contenido.to_s %>
+<% texto_verificado = @opciones[:anonimizar] ? @pdf.procesar_texto(texto_base) : texto_base %>
 
-<div class="row mt-5">
-  <div class="col-6">
-    <%= @krn_kywrd %><br>
-    Sr(a) <%= @ownr.nombre %><br>
-    PRESENTE
-  </div>
-  <div class="col-6 text-end">
-    REFERENCIA:<br>
-    Denuncia <%= @dnnc.identificador %>
-  </div>
-</div>
+<div class="mt-5">
+  <p>De nuestra consideración:</p>
 
-	<p>De nuestra consideración:</p>
-
-	<p>
-	  A continuación detallamos las medidas de resguardo que se aplican a las personas denunciantes y denunciadas que participan de la denuncia <%= @dnnc.identificador %>.
+  <p>
+    A continuación detallamos las medidas de resguardo que se aplican a las personas denunciantes y denunciadas que participan de la denuncia <%= @dnnc.identificador %>.
   </p>
-	<p>
+  <p>
     Para efectos del presente procedimiento, usted participa en calidad de <%= @ownr.kywrd[:rol] %>.
-	</p>
+  </p>
 
   <p>
     La vigencia de estas medidas se extiende desde el día de su notificación y hasta que sean dejadas sin efecto, circunstancia que será oportunamente comunicada a las personas participantes del procedimiento. Momento en el cual, si corresponde, se aplicarán las medidas correctivas y sanciones establecidas en dicho informe.
   </p>
+</div>
 
-  <p>
-    <%= @objeto.contenido.to_s.html_safe %>
-  </p>
+  <p><%= raw(texto_verificado) %></p>
 
 	<p>
 	  Las presentes medidas de resguardo pueden ser modificadas o reemplazadas por la Dirección del Trabajo. La <%=@dnnc.ownr.tipo_empresa%> puede, por su parte, dictar medidas complementarias, si las presentes resultaran insuficientes.
@@ -47,11 +34,4 @@
 	<p>Sin otro particular, le saluda atentamente,<br>Recepción de Denuncias – Ley N° 21.643</p>
 
 
-<div class="mt-5 text-center">
-  <% firma = @empresa.firma_cnl_dnncs %>
-  <% if firma %>
-    <%= firma.to_s.html_safe %>
-  <% else %>
-    Canal de denuncias ley 21.643 (Ley Karin)
-  <% end %>
-</div>
+<%= render partial: 'pdfs/invstgcns/firma_mdds', locals: {emprs: @empresa} %>

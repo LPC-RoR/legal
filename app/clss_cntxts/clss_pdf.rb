@@ -42,6 +42,7 @@ class ClssPdf
     'expdnt_annmzd_pruebas'     => :invstgcns,    # ← SECCIÓN MEDIOS DE PRUEBA DEL EXPEDIENTE ANONIMIZADO
     'txt_annm_medios_de_prueba' => :invstgcns,    # ← EXPEDIENTE ANONIMIZADO: MEDIOS DE PRUEBA
     'txt_annm_declaraciones'    => :invstgcns,    # ← EXPEDIENTE ANONIMIZADO: DECLARACIONES
+    'txt_annm_ntfccns'          => :invstgcns,    # ← EXPEDIENTE ANONIMIZADO: NOTIFICACIONES CON FORMATO
     
     # === FINANZAS (fnnzs) ===
     'aprobacion'                => :fnnzs,    # ← APROBACIÓNES DE CAUSAS

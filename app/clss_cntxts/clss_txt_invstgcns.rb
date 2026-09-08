@@ -4,7 +4,7 @@ class ClssTxtInvstgcns
 
   DCLRCN_CDGS = ['txt_dclrcn', 'txt_dclrcn_annmzd']
 
-  OPTNL_CDGS  = ['txt_dnnc_annmzd', 'txt_dclrcn_annmzd']
+  OPTNL_CDGS  = ['txt_dnnc_annmzd', 'txt_dclrcn_annmzd', 'txt_mdfccn_mdds_rsgrd']
 
   # Definición estática de códigos con condiciones
   CDGS = {
@@ -74,6 +74,8 @@ class ClssTxtInvstgcns
       "/empresas/#{txt_objt.ownr.id}/edit"
     when 'KrnInvestigador'
       txt_objt.ownr
+    when 'ActArchivo'
+      "/krn_denuncias/#{txt_objt.ownr.ownr.dnnc.id}_1"
     else
       txt_objt.ownr.dnnc
     end

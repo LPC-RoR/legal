@@ -1,25 +1,8 @@
-<!-- app/views/mailers/contexts/investigations/document/dnncnt_info_oblgtr_pdf.html.erb -->
-<!-- NOTA: Sin <!DOCTYPE>, <html>, <head> ni <body> - eso lo provee el layout -->
-
-<div class="text-center fs-6">
-  Ley 21.643<br>
-  Procedimiento de investigación y sanción<br>
-  Recepción de denuncias
-</div>
-<div class="text-center fs-5">
-  Información obligatoria para personas denunciantes
-</div>
-
-<div class="row mt-5">
-  <div class="col-6">
-    Sr(a) <%= @ownr.nombre %><br>
-    PRESENTE
-  </div>
-  <div class="col-6 text-end">
-    REFERENCIA:<br>
-    Denuncia <%= @ownr.dnnc.identificador %>
-  </div>
-</div>
+<% code     = 'dnncnt_info_oblgtr' %>
+<% dstntr   = @opciones[:anonimizar] ? @act.ownr : @ownr %>
+<%= render partial: 'pdfs/invstgcns/head_ttl', locals: {code: code} %>
+<%= render partial: 'pdfs/invstgcns/dstntr_rfrnc', locals: {dstntr: dstntr, pdf: @pdf, annm: @opciones[:anonimizar]} %>
+<%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
 
 <div class="mt-5" style='font-size: 14px; line-height: 1.5;'>
   <p>En el marco de la Ley 21.643, se establece la obligación de entregar a la persona denunciante la siguiente información:</p>
@@ -51,11 +34,4 @@
   <p>Los participantes tienen la obligación de colaborar con el procedimiento de investigación y sanción.</p>
 </div>
 
-<div class="mt-5 text-center">
-  <%# firma = @ownr.dnnc.ownr.firma_rcpcn %>
-  <%# if firma %>
-    <%#= firma.to_s.html_safe %>
-  <%# else %>
-    Canal de denuncias ley 21.643 (Ley Karin)
-  <%# end %>
-</div>
+<%= render partial: 'pdfs/invstgcns/firma_rcpcn', locals: {emprs: @empresa} %>

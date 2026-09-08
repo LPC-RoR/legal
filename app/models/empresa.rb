@@ -78,8 +78,11 @@ class Empresa < ApplicationRecord
     def firma_cnl_dnncs
         txt_editables&.find_by(codigo: 'txt_firma_cnl_dnncs')&.contenido
     end
-    # ----------------------------------------------- FIRMAS (final)
 
+    def firma_mdds
+        txt_editables&.find_by(codigo: 'txt_firma_mdds')&.contenido
+    end
+    # ----------------------------------------------- FIRMAS (final)
 
     # Configuración reportes
 

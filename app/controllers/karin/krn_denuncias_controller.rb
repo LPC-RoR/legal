@@ -104,7 +104,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
     respond_to do |format|
       if @form.save
-        format.html { redirect_to shw_dnnc_tab_indx(@form.to_model, 1), notice: "Denuncia fue exitosamente creada." }
+        format.html { redirect_to shw_dnnc_tab_indx(@form.to_model, 0), notice: "Denuncia fue exitosamente creada." }
         format.json { render :show, status: :created, location: @form }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -133,27 +133,28 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   def anonimizar_expediente
-    if params[:g].present?
-      grupo = params[:g].to_sym
-      @objeto.generar_expediente_anonimizado_async!(grupo)
-      ntc = "Grupo #{params[:g]} anonimizado exitosamente!"
-    else
-      ntc = 'Error de anonimización: grupo no identificado.'
+    unless params[:g].present?
+      redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: 'Error de anonimización: grupo no identificado.'
+      return
     end
 
-    redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: ntc
-  end
+    grupo = params[:g].to_sym
 
-  ### DEPRECATED
-  def generar_ownr_pdf
-
-    unless params[:code].blank?
-      code = params[:code]
-      generar_pdf(code,
-        ownr: @objeto,
-        objeto_id: @objeto.id,
-        enviar_email: false
-      )
+    case grupo
+    when :txt_annm_ntfccns
+      begin
+        codes = ClssAnnmInvstgcns::NTFCCNS_CDGS
+        generar_expediente_anonimizado(codes, result_code: params[:g])
+        redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: "Grupo #{params[:g]} anonimizado exitosamente!"
+      rescue => e
+        Rails.logger.error "[Anonimización] #{e.message}"
+        redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: "Error de anonimización: #{e.message}"
+      end
+    when :txt_annm_medios_de_prueba, :txt_annm_declaraciones
+      @objeto.generar_expediente_anonimizado_async!(grupo)
+      redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: "Grupo #{params[:g]} anonimizado exitosamente!"
+    else
+      redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: 'Error de anonimización: grupo no identificado.'
     end
   end
 

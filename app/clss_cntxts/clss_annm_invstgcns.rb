@@ -1,10 +1,14 @@
 # app/models/clss_annm_invstgcns.rb
 class ClssAnnmInvstgcns
 
-  ANNM_CDGS     = ['txt_annm_medios_de_prueba', 'txt_annm_declaraciones']
+  ANNM_CDGS     = ['txt_annm_medios_de_prueba', 'txt_annm_declaraciones', 'txt_annm_ntfccns']
 
   OPTNL_CDGS    = []
   NO_TMPLT_CDGS = []
+
+  NTFCCNS_CDGS  = ['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd', 'invstgdr', 'txt_mdds_crrctvs_sncns', 'dclrcn']
+
+  ANNM_COPY_TXT = ['txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd', 'txt_mdds_crrctvs_sncns']
 
   # ================================================================
   # CONFIGURACIÓN DE GRUPOS DE ANONIMIZACIÓN
@@ -77,7 +81,8 @@ class ClssAnnmInvstgcns
     def nombre
       {
         'txt_annm_medios_de_prueba'     => 'Medios de prueba',
-        'txt_annm_declaraciones'        => 'Declaraciones de los participantes'
+        'txt_annm_declaraciones'        => 'Declaraciones de los participantes',
+        'txt_annm_ntfccns'              => 'Notificaciones enviadas a los participantes'
       }.freeze
     end
 
