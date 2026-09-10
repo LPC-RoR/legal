@@ -1,5 +1,4 @@
 class Comercial::LeadsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[create gracias]
 
   # Tercera capa anti-bot: máximo 5 envíos por IP cada 3 minutos
   rate_limit to: 5, within: 3.minutes, only: :create,
