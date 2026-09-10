@@ -1,0 +1,40 @@
+<%# Renderizable en cualquier página: %>
+<%#   render "leads/form", fuente: "hero" %>
+<%#   render "leads/form", fuente: "cta_final" %>
+
+<div id="lead-form" class="ubuntu-regular">
+  <%= form_with(model: Lead.new(fuente: local_assigns[:fuente]),
+                url: leads_path,
+                data: { turbo: false }) do |form| %>
+
+    <!-- Honeypot: visible para bots, fuera de pantalla para humanos -->
+    <div class="hp-field" aria-hidden="true">
+      <%= label_tag :website, "Deje este campo vacío" %>
+      <%= text_field_tag :website, nil, autocomplete: "off", tabindex: -1 %>
+    </div>
+
+    <!-- Timestamp de carga (tiempo mínimo de llenado) -->
+    <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
+    <%= hidden_field_tag :fuente, local_assigns[:fuente] %>
+
+    <%= render partial: '0inpts/text',  locals: { f: form, tkn: :nombre,   label: 'Tu nombre', objeto: form.object, mrgn_bttm: 1 } %>
+    <%= render partial: '0inpts/email', locals: { f: form, tkn: :email,    label: 'Tu correo de trabajo', objeto: form.object, mrgn_bttm: 1 } %>
+    <%= render partial: '0inpts/text',  locals: { f: form, tkn: :telefono, label: 'Teléfono o WhatsApp', objeto: form.object, mrgn_bttm: 1 } %>
+    <%= render partial: '0inpts/text',  locals: { f: form, tkn: :empresa,  label: 'Empresa (opcional)', objeto: form.object, mrgn_bttm: 1 } %>
+
+    <div class="actions">
+      <%= form.submit "Agendar demo de 30 minutos", class: "btn btn-sm btn-outline-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<style>
+.hp-field {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+</style>

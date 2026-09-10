@@ -40,6 +40,18 @@
             </li>
           <% end %>
 
+          <% unless action_name == 'equipo' %>
+            <li class="nav-item">
+              <%= link_to 'Equipo legal', '/equipo', class: 'nav-link fs-6' %>
+            </li>
+          <% end %>
+
+          <% unless action_name == 'simulador' %>
+            <li class="nav-item">
+              <%= link_to 'Simulador plazos', '/simulador', class: 'nav-link fs-6' %>
+            </li>
+          <% end %>
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Guías Ley Karin

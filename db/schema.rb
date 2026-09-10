@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_04_170940) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_09_225512) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -311,21 +311,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_04_170940) do
     t.index ["tipo"], name: "index_asesorias_on_tipo"
   end
 
-  create_table "audit_notas", force: :cascade do |t|
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.integer "app_perfil_id"
-    t.text "nota"
-    t.text "recomendacion"
-    t.integer "prioridad"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["app_perfil_id"], name: "index_audit_notas_on_app_perfil_id"
-    t.index ["ownr_id"], name: "index_audit_notas_on_ownr_id"
-    t.index ["ownr_type"], name: "index_audit_notas_on_ownr_type"
-    t.index ["prioridad"], name: "index_audit_notas_on_prioridad"
-  end
-
   create_table "cal_feriados", force: :cascade do |t|
     t.date "cal_fecha"
     t.string "descripcion"
@@ -431,24 +416,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_04_170940) do
     t.index ["tipo"], name: "index_cfg_valores_on_tipo"
   end
 
-  create_table "check_auditorias", force: :cascade do |t|
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.string "mdl"
-    t.string "cdg"
-    t.boolean "prsnt"
-    t.datetime "audited_at"
-    t.integer "app_perfil_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["app_perfil_id"], name: "index_check_auditorias_on_app_perfil_id"
-    t.index ["cdg"], name: "index_check_auditorias_on_cdg"
-    t.index ["mdl"], name: "index_check_auditorias_on_mdl"
-    t.index ["ownr_id"], name: "index_check_auditorias_on_ownr_id"
-    t.index ["ownr_type", "ownr_id", "cdg"], name: "index_check_auditorias_on_ownr_type_and_ownr_id_and_cdg", unique: true
-    t.index ["ownr_type"], name: "index_check_auditorias_on_ownr_type"
-  end
-
   create_table "check_realizados", force: :cascade do |t|
     t.string "ownr_type"
     t.integer "ownr_id"
@@ -549,29 +516,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_04_170940) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["region_id"], name: "index_comunas_on_region_id"
-  end
-
-  create_table "control_documentos", force: :cascade do |t|
-    t.string "nombre"
-    t.string "descripcion"
-    t.string "tipo"
-    t.string "control"
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "orden"
-    t.string "visible_para"
-    t.string "codigo"
-    t.string "ownr_type"
-    t.integer "ownr_id"
-    t.index ["codigo"], name: "index_control_documentos_on_codigo"
-    t.index ["orden"], name: "index_control_documentos_on_orden"
-    t.index ["owner_class"], name: "index_control_documentos_on_owner_class"
-    t.index ["owner_id"], name: "index_control_documentos_on_owner_id"
-    t.index ["ownr_id"], name: "index_control_documentos_on_ownr_id"
-    t.index ["ownr_type"], name: "index_control_documentos_on_ownr_type"
-    t.index ["visible_para"], name: "index_control_documentos_on_visible_para"
   end
 
   create_table "demandantes", force: :cascade do |t|
@@ -1228,6 +1172,21 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_04_170940) do
     t.index ["krn_denuncia_id", "tipo"], name: "index_krn_tramites_on_krn_denuncia_id_and_tipo", unique: true
     t.index ["krn_denuncia_id"], name: "index_krn_tramites_on_krn_denuncia_id"
     t.index ["numero_solicitud"], name: "index_krn_tramites_on_numero_solicitud", unique: true
+  end
+
+  create_table "leads", force: :cascade do |t|
+    t.string "nombre"
+    t.string "email"
+    t.string "telefono"
+    t.string "empresa"
+    t.string "cargo"
+    t.text "mensaje"
+    t.integer "estado"
+    t.string "fuente"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "empresa_id", null: false
+    t.index ["empresa_id"], name: "index_leads_on_empresa_id"
   end
 
   create_table "licencias", force: :cascade do |t|
@@ -1889,6 +1848,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_04_170940) do
   add_foreign_key "doc_transacciones", "doc_cuentas"
   add_foreign_key "email_legales", "act_archivos"
   add_foreign_key "krn_tramites", "krn_denuncias"
+  add_foreign_key "leads", "empresas"
   add_foreign_key "licencias", "empresas"
   add_foreign_key "responsable_actividades", "age_actividades"
   add_foreign_key "responsable_actividades", "usuarios"

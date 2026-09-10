@@ -18,3 +18,23 @@
 .responsive-heading small {
   font-size: clamp(0.875rem, 1.5vw + 0.4rem, 1.125rem);
 }
+
+
+/* Ajustar el formulario de leads a un tercio del ancho en la página equipos  */
+
+.lead-form-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.lead-form-wrapper > #lead-form {
+  width: 33.333%;
+  min-width: 300px;
+}
+
+@media (max-width: 768px) {
+  .lead-form-wrapper > #lead-form {
+    width: 90%;
+  }
+}

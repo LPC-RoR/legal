@@ -31,12 +31,9 @@ class Aplicacion::HomeController < ApplicationController
       }
     )
 
-		@objeto = Empresa.new
-		@req = ComRequerimiento.new
+#		@objeto = Empresa.new
+#		@req = ComRequerimiento.new
 		# @slides = Slide.activas.ordr
-
-#		@prsntcn = ComDocumento.find_by(codigo: 'presentacion')
-#		@rprt_dnnc = ComDocumento.find_by(codigo: 'dnnc')
 
     @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
  	
@@ -45,12 +42,7 @@ class Aplicacion::HomeController < ApplicationController
     	redirect_to authenticated_root_path and return
   	end
 
-  	# =================== Variables para el timeline de plazos
-    @fecha_base = parse_fecha_param || Time.zone.today
-    @plazos_ejemplo = calcular_plazos_maximos(@fecha_base)
-  	# =================== Variables para el timeline de plazos (final)
-
-  	render layout: 'public'
+   	render layout: 'public'
   end
   
 	def dshbrd
@@ -61,10 +53,6 @@ class Aplicacion::HomeController < ApplicationController
 
     if @options[:tab] == 'Pendientes'
     	@pndnts = current_usuario.age_pendientes.where.not(estado: 'realizado').order(:created_at)
-#    	@pndnts_danger 	= current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'danger').order(:created_at)
-#    	@pndnts_warning = current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'warning').order(:created_at)
-#    	@pndnts_success = current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: 'success').order(:created_at)
-#    	@pndnts_nuevos 	= current_usuario.age_pendientes.where(estado: 'pendiente', prioridad: nil).order(:created_at)
     else
     	@pndnts = current_usuario.age_pendientes.where(estado: 'realizado').order(:created_at)
     end
@@ -87,8 +75,8 @@ class Aplicacion::HomeController < ApplicationController
 	end
 
 	def laborsafe
-		@objeto = Empresa.new
-		@req = ComRequerimiento.new
+#		@objeto = Empresa.new
+#		@req = ComRequerimiento.new
 
 		render layout: 'public'
 	end
@@ -109,6 +97,21 @@ class Aplicacion::HomeController < ApplicationController
 	end
 
 	def equipo
+
+	  @equipo = YAML.load_file(Rails.root.join("config/data/equipo.yml"))["abogados"]
+	  @coordinadores = @equipo.select { |a| a["rol"] == "coordinador" }
+	  @investigadores = @equipo.reject { |a| a["rol"] == "coordinador" }
+
+		render layout: 'public'
+	end
+
+	def simulador
+
+	 	# =================== Variables para el timeline de plazos
+    @fecha_base = parse_fecha_param || Time.zone.today
+    @plazos_ejemplo = calcular_plazos_maximos(@fecha_base)
+  	# =================== Variables para el timeline de plazos (final)
+
 		render layout: 'public'
 	end
 

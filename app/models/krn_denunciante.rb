@@ -25,10 +25,6 @@ class KrnDenunciante < ApplicationRecord
 	has_many :act_referencias, as: :ref
 	has_many :check_realizados, as: :ownr, dependent: :destroy
 
-	# VERIFICAR
-	has_many :check_auditorias, as: :ownr, dependent: :destroy
-	has_many :audit_notas, as: :ownr, dependent: :destroy
-
 	# DEPRECATED
 	has_many :rep_archivos, as: :ownr, dependent: :destroy
 

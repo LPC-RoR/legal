@@ -3,19 +3,8 @@ class StModelo < ApplicationRecord
 	has_many :st_estados
 
 	has_many :rep_doc_controlados, as: :ownr
-	has_many :control_documentos, as: :ownr
 
     validates_presence_of :st_modelo
-
-	# Archivos controlados
-	def acs
-		control_documentos.acs
-	end
-
-	def dcs
-		control_documentos.dcs
-	end
-
 
 
 

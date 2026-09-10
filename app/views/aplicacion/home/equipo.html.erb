@@ -1,10 +1,195 @@
-<%= render partial: 'aplicacion/home/public/ticker' %>
+<%#= render partial: 'aplicacion/home/public/ticker' %>
 <div class="m-3">
-	<%= render partial: 'aplicacion/home/public/public_banner' %>
 
-	<!-- Contenedor con padding-top para compensar navbar fijo y responsive en móviles -->
-	<div class="content-below-nav ubuntu_titulo" style="margin-left: 5%;font-size: 2rem; line-height: 1.2;">
-		Los profesionales detrás de Laborsafe.
+	<%# app/views/home/equipo.html.erb %>
+	<% content_for :title, "Equipo Legal | Investigaciones Ley 21.643 | LaborSafe" %>
+
+	<%# Hero %>
+	<div class="m-3">
+	  <div class="content-below-nav ubuntu_titulo responsive-heading" style="margin-left: 5%; line-height: 1.2;">
+	    <p>Nuestro equipo de abogados<br>
+	    Externalización de investigaciones
+	    Ley 21.643 (Ley Karin)</p>
+	    <!--small>
+	      <span class="me-2 text-primary flex-shrink-0">&#10003;</span>
+	      Investigadores designados oportunamente, dentro del plazo de 3 días hábiles.<br>
+	      <span class="me-2 text-primary flex-shrink-0">&#10003;</span>
+	      Informes elaborados por abogados especialistas, con respaldo técnico-jurídico.
+	    </small-->
+	  </div>
 	</div>
+
+	<div class="mt-5 mx-3 mx-md-4 mx-lg-5">
+	  <p class="text-center mb-4 mb-md-5 mx-auto" style="max-width: 48rem; font-size: clamp(1rem, 1.8vw + 0.5rem, 1.25rem);">
+	    Cada investigación es conducida por un equipo de abogados especialistas en derecho laboral,
+	    con experiencia en procedimientos ante la Dirección del Trabajo y en la gestión de denuncias
+	    por acoso laboral, sexual y violencia en el trabajo.
+	  </p>
+	</div>
+
+<%# Coordinadores del equipo %>
+<% if @coordinadores.any? %>
+<div class="my-4 mx-3 mx-md-4 mx-lg-5">
+  <div class="row g-3 g-md-4">
+    <% @coordinadores.each do |coordinador| %>
+      <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body p-3 p-md-4">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-sm"
+                   style="width: 5rem; height: 5rem; font-size: 1.5rem; background: var(--bs-primary);">
+                <%= coordinador["iniciales"] %>
+              </div>
+              <div>
+                <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle fs-7">
+                  Coordinación del equipo
+                </span>
+                <h4 class="fw-bold mt-1 mb-0" style="font-size: clamp(1.1rem, 1.8vw + 0.5rem, 1.35rem);">
+                  <%= coordinador["nombre"] %>
+                </h4>
+              </div>
+            </div>
+
+            <p class="text-muted mb-1 fs-7">
+              <i class="bi bi-briefcase me-1 text-primary"></i><%= coordinador["cargo"] %>
+              · <%= coordinador["experiencia"] %> de experiencia
+            </p>
+            <p class="mb-2 fs-7"><%= coordinador["resumen"] %></p>
+
+            <div class="d-flex flex-wrap gap-1 mb-3">
+              <% coordinador["especialidades"].each do |esp| %>
+                <span class="badge bg-light text-dark border fs-7"><%= esp %></span>
+              <% end %>
+            </div>
+
+            <% if coordinador["biografia"].present? %>
+              <div class="border-top pt-2">
+                <p class="fs-7 mb-0" style="text-align: justify;">
+                  <%= simple_format(coordinador["biografia"], {}, wrapper_tag: "span") %>
+                </p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% end %>
+<%# Título sección %>
+<div class="my-5 mx-3 mx-md-4 mx-lg-5">
+  <div class="border-top mb-1 p-2 text-center">
+    <h3 style="font-size: clamp(1.25rem, 2.2vw + 0.5rem, 2rem);">Abogados investigadores</h3>
+  </div>
+</div>
+
+<%# Grid de abogados %>
+<div class="container pb-3 pb-lg-4">
+  <div class="row g-3 g-md-4">
+    <% @investigadores.each do |abogado| %>
+      <div class="col-12 col-md-6">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body p-3">
+            <div class="d-flex align-items-center gap-3 mb-2">
+              <div class="flex-shrink-0 rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-sm"
+                   style="width: 3.5rem; height: 3.5rem; font-size: 1.25rem; background: var(--bs-primary);">
+                <%= abogado["iniciales"] %>
+              </div>
+              <div>
+                <h5 class="mb-0 fw-semibold fs-6"><%= abogado["nombre"] %></h5>
+                <small class="text-muted"><%= abogado["cargo"] %></small>
+              </div>
+            </div>
+            <p class="text-muted fs-7 mb-2">
+              <i class="bi bi-briefcase me-1 text-primary"></i><%= abogado["experiencia"] %> de experiencia
+            </p>
+ <p class="fs-7 mb-2"><%= abogado["resumen"] %></p>
+
+<% if abogado["biografia"].present? %>
+  <div id="bio-<%= abogado["iniciales"].parameterize %>-<%= abogado["experiencia"].parameterize %>">
+    <button class="btn btn-link btn-sm p-0 fs-7 text-primary"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse-bio-<%= abogado["iniciales"].parameterize %>-<%= abogado["experiencia"].parameterize %>"
+            aria-expanded="false"
+            aria-controls="collapse-bio-<%= abogado["iniciales"].parameterize %>-<%= abogado["experiencia"].parameterize %>">
+      <i class="bi bi-chevron-down me-1"></i>Ver trayectoria completa
+    </button>
+    <div class="collapse mt-2" id="collapse-bio-<%= abogado["iniciales"].parameterize %>-<%= abogado["experiencia"].parameterize %>">
+      <p class="fs-7 mb-0" style="text-align: justify;"><%= simple_format(abogado["biografia"], {}, wrapper_tag: "span") %></p>
+    </div>
+  </div>
+<% end %>            <div class="d-flex flex-wrap gap-1">
+              <% abogado["especialidades"].each do |esp| %>
+                <span class="badge bg-light text-dark border fs-7"><%= esp %></span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%# Garantías del servicio %>
+<div class="my-5 mx-3 mx-md-4 mx-lg-5">
+  <div class="border-top mb-1 p-2 text-center">
+    <h3 style="font-size: clamp(1.25rem, 2.2vw + 0.5rem, 2rem);">Garantías de nuestro equipo</h3>
+  </div>
+  <div class="row g-3 pt-2">
+    <div class="col-12 col-md-6">
+      <div class="d-flex gap-2 p-2 p-sm-3 rounded-3 bg-primary bg-opacity-10 border border-primary border-opacity-25 h-100">
+        <div class="flex-shrink-0 pt-1"><i class="bi bi-patch-check text-primary fs-5"></i></div>
+        <div>
+          <h6 class="mb-1 fw-semibold fs-7">Especialización</h6>
+          <p class="text-muted small mb-0 fs-7">Abogados especialistas derecho laboral conducen las investigaciones.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="d-flex gap-2 p-2 p-sm-3 rounded-3 bg-success bg-opacity-10 border border-success border-opacity-25 h-100">
+        <div class="flex-shrink-0 pt-1"><i class="bi bi-shield-lock text-success fs-5"></i></div>
+        <div>
+          <h6 class="mb-1 fw-semibold fs-7">Confidencialidad y anonimización</h6>
+          <p class="text-muted small mb-0 fs-7">Modelo de confidencialidad y servicio de anonimización de expedientes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="d-flex gap-2 p-2 p-sm-3 rounded-3 bg-warning bg-opacity-10 border border-warning border-opacity-25 h-100">
+        <div class="flex-shrink-0 pt-1"><i class="bi bi-clock-history text-warning fs-5"></i></div>
+        <div>
+          <h6 class="mb-1 fw-semibold fs-7">Control de plazos legales y documentación obligatoria</h6>
+          <p class="text-muted small mb-0 fs-7">Extricto control de plazos y control documental.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="d-flex gap-2 p-2 p-sm-3 rounded-3 bg-info bg-opacity-10 border border-info border-opacity-25 h-100">
+        <div class="flex-shrink-0 pt-1"><i class="bi bi-folder2-open text-info fs-5"></i></div>
+        <div>
+          <h6 class="mb-1 fw-semibold fs-7">Carpeta de investigación electrónica</h6>
+          <p class="text-muted small mb-0 fs-7">Control documental completo y reportes anonimizados del avance de cada investigación.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# CTA %>
+<div class="my-5 mx-3 mx-md-4 mx-lg-5">
+  <div class="p-3 p-md-4 rounded-3 bg-light border text-center">
+    <p class="fw-bold mb-1" style="font-size: clamp(1.25rem, 2vw + 0.5rem, 1.5rem);">
+      Conozca a nuestro equipo en una presentación comercial
+    </p>
+    <p class="text-muted mb-3" style="font-size: clamp(0.875rem, 1.2vw + 0.4rem, 1rem);">
+      Externalice sus investigaciones con el respaldo de abogados especialistas.
+    </p>
+    <div class="lead-form-wrapper">
+    	<%= render "comercial/leads/form", fuente: "equipo" %>
+	</div>
+  </div>
+</div>
+
 </div>
 <%= render partial: 'aplicacion/home/public/alianzas' %>

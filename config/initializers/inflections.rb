@@ -44,6 +44,11 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
     inflect.singular 'slides', 'slide'
     inflect.singular 'Slides', 'Slide'
 
+    inflect.plural 'lead', 'leads'
+    inflect.plural 'Lead', 'Leads'
+    inflect.singular 'leads', 'lead'
+    inflect.singular 'Leads', 'Lead'
+
     inflect.irregular 'auditoria', 'auditorias'
     inflect.irregular 'nota', 'notas'
     inflect.irregular 'lgl_cita', 'lgl_citas'

@@ -1,7 +1,7 @@
 class Karin::KrnDenunciadosController < ApplicationController
   before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
-  before_action :set_krn_denunciado, only: %i[ show edit update destroy cargar_pdf swtch rlzd prsnt set_fld ]
+  before_action :set_krn_denunciado, only: %i[ show edit update destroy cargar_pdf swtch rlzd set_fld ]
 
   include PdfGeneratable
 

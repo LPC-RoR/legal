@@ -36,7 +36,8 @@ module Legal
     config.decimales_pesos = 0
     config.decimales_uf = 5
 
-#    Rails.autoloaders.main.push_dir(Rails.root.join('app/services'))
+    config.lead_notification_recipients =
+      Rails.application.credentials.dig(:lead_notification_emails) || ["ventas@laborsafe.cl"]
 
   end
 end

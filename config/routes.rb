@@ -140,6 +140,11 @@ Rails.application.routes.draw do
   end
 
   scope module: 'comercial' do
+
+    resources :leads, only: %i[index show update] do
+      resource :conversion, only: %i[new create], controller: "conversiones"
+    end
+
     post '/requerimiento', to: 'com_requerimientos#create', as: 'requerimiento'
     resources :com_requerimientos
     resources :com_documentos do
@@ -372,9 +377,6 @@ Rails.application.routes.draw do
       match :excluir, via: :post, on: :member
     end
 
-    resources :check_auditorias
-    resources :audit_notas
-
     # Equivalente a KrnTexto, no se hizo ActTexto porque estaba ocupado.
     resources :txt_editables do
       member do
@@ -539,7 +541,11 @@ Rails.application.routes.draw do
   get 'laborsafe',  to: 'aplicacion/home#laborsafe'
   get 'guias',      to: 'aplicacion/home#guias'
   get 'equipo',     to: 'aplicacion/home#equipo'
+  get 'simulador',  to: 'aplicacion/home#simulador'
   get 'blog',       to: 'aplicacion/home#blog'
+
+  post "leads",          to: "leads#create"
+  get  "leads/gracias",  to: "leads#gracias", as: :leads_gracias
 
   # manejo formulario de registro de empresas
   post '/register', to: 'empresas#create', as: 'register'

@@ -1,7 +1,7 @@
 class Karin::KrnInvestigadoresController < ApplicationController
   before_action :authenticate_usuario!, except: [:verify]
   before_action :scrty_on
-  before_action :set_krn_investigador, only: %i[ show edit update destroy rlzd prsnt swtch ]
+  before_action :set_krn_investigador, only: %i[ show edit update destroy rlzd swtch ]
 
   include MailDesk
 

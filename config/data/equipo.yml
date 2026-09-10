@@ -1,0 +1,37 @@
+# config/data/equipo.yml
+abogados:
+  - nombre: "Solange Mena C."
+    rol: coordinador
+    cargo: "Abogada Coordinadora de Investigaciones"
+    especialidades: ["Derecho laboral", "Ley 21.643", "Procedimientos sancionatorios"]
+    experiencia: "15+ años"
+    resumen: "Especialista en derecho del trabajo y procedimientos de investigación."
+    biografia: |
+      Abogada, Licenciada en Ciencias Jurídicas y Sociales por la Universidad de Chile. Magíster en Derecho del Trabajo y de la Seguridad Social por la Universidad de Talca (Chile) y la Universidad de Valencia (España). Profesora en el Magíster en Derecho del Trabajo y de la Seguridad Social de la Universidad de Talca. También es profesora en la Facultad de Economía de la Universidad de Chile, Área Corporativa. Con especialidad en Litigación laboral y Gestión de Negocios, Facultad de Economía de la Universidad de Chile. Ex Directora del "Manual de Consultas Laborales y Previsionales" y Ex Directora Editorial en Legal Publishing.
+    iniciales: "NC"
+
+  - nombre: "paula Donoso V."
+    rol: coordinador
+    cargo: "Abogada Coordinador de Investigaciones"
+    especialidades: ["Derecho laboral", "Litigación laboral", "Ley 21.643"]
+    experiencia: "12+ años"
+    resumen: "Especialista en litigación laboral y conducción de investigaciones ante la Dirección del Trabajo."
+    biografia: |
+      Abogada, Licenciada en Ciencias Jurídicas y Sociales por la Universidad de Chile. Magíster en Ciencia Política por la misma Universidad. Magíster en Derecho del Trabajo y de la Seguridad Social por la Universidad de Talca (Chile) y la Universidad de Valencia (España). Fue Asesora en la Dirección Nacional del Trabajo, encargada de revisión y tramitación de dictámenes, resoluciones de servicios mínimos y recursos administrativos, entre otras gestiones. Profesora en el LLM, Pontificia Universidad Católica de Chile, mención laboral y profesora tutora en el Magíster de Derecho del Trabajo y Seguridad Social de la Universidad de Talca.
+    iniciales: "NC"
+
+  - nombre: "Nombre Apellido 3"
+    rol: investigador
+    cargo: "Abogada Investigadora"
+    especialidades: ["Violencia y acoso laboral", "Recursos humanos", "Cumplimiento"]
+    experiencia: "8+ años"
+    resumen: "Experiencia en acompañamiento a comités paritarios y elaboración de protocolos de prevención."
+    iniciales: "NA"
+
+  - nombre: "Nombre Apellido 4"
+    rol: investigador
+    cargo: "Abogado Investigador Senior"
+    especialidades: ["Control de plazos", "Depósito de informes DT", "Carpeta de investigación"]
+    experiencia: "7+ años"
+    resumen: "Responsable del control documental, anonimización y cumplimiento de plazos legales de cada carpeta."
+    iniciales: "NA"

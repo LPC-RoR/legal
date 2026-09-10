@@ -1,0 +1,10 @@
+<h2>Nuevo lead desde el sitio</h2>
+
+<table>
+  <tr><td><strong>Nombre</strong></td><td><%= @lead.nombre %></td></tr>
+  <tr><td><strong>Email</strong></td><td><%= @lead.email %></td></tr>
+  <tr><td><strong>Teléfono</strong></td><td><%= @lead.telefono %></td></tr>
+  <tr><td><strong>Empresa</strong></td><td><%= @lead.empresa.presence || "—" %></td></tr>
+  <tr><td><strong>Fuente</strong></td><td><%= @lead.fuente %></td></tr>
+  <tr><td><strong>Fecha</strong></td><td><%= l @lead.created_at, format: :long %></td></tr>
+</table>

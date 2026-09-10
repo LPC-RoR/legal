@@ -1,0 +1,41 @@
+<%# app/views/leads/new.html.erb %>
+<%= form_with model: @lead, url: leads_path, data: { turbo: false } do |f| %>
+  <% if @lead.errors.any? %>
+    <div class="errores">
+      <%= @lead.errors.full_messages.to_sentence %>
+    </div>
+  <% end %>
+
+  <%# Honeypots: invisibles para humanos %>
+  <div style="position:absolute;left:-9999px;" aria-hidden="true">
+    <%= text_field_tag :empresa_sitio_web %>
+    <%= f.text_field :email_confirmation, tabindex: -1, autocomplete: "off" %>
+  </div>
+
+  <div class="campo">
+    <%= f.label :nombre, "Tu nombre *" %>
+    <%= f.text_field :nombre, required: true, autocomplete: "name" %>
+  </div>
+
+  <div class="campo">
+    <%= f.label :email, "Correo de trabajo *" %>
+    <%= f.email_field :email, required: true, autocomplete: "email" %>
+  </div>
+
+  <div class="campo">
+    <%= f.label :telefono, "Teléfono o WhatsApp *" %>
+    <%= f.telephone_field :telefono, required: true, autocomplete: "tel" %>
+  </div>
+
+  <div class="campo">
+    <%= f.label :empresa, "Empresa (opcional)" %>
+    <%= f.text_field :empresa, autocomplete: "organization" %>
+  </div>
+
+  <div class="campo">
+    <%= f.label :mensaje, "¿Qué necesitas resolver? (opcional)" %>
+    <%= f.text_area :mensaje, rows: 3 %>
+  </div>
+
+  <%= f.submit "Agendar demo de 30 minutos" %>
+<% end %>
