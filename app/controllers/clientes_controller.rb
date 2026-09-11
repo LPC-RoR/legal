@@ -41,7 +41,7 @@ class ClientesController < ApplicationController
     @usrs = Usuario.where(tenant_id: nil)
     @actvdds  = @objeto.age_actividades.fecha_ordr
     
-    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Aprobaciones', finanzas?], ['Facturas', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Conciliar', current_usuario.admin?]] )
+    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Aprobaciones', finanzas?], ['Facturación', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Conciliar', current_usuario.admin?]] )
 
     @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
 
@@ -90,7 +90,7 @@ class ClientesController < ApplicationController
       @clccn = @objeto.cli_aprobaciones.order(fecha: :desc)
       @fctrcns = @objeto.tar_facturaciones_pendientes_aprobacion.order(created_at: :desc)
       @aprbcns = @objeto.act_archivos.where(act_archivo: 'aprobacion').order(created_at: :desc)
-    elsif @options[:menu] == 'Facturas'
+    elsif @options[:menu] == 'Facturación'
 
       @causas_revision = @objeto.causas.revision
 

@@ -13,23 +13,29 @@
 		<%= render partial: prtl_name('asesorias', 'indx', 'indx'), locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
 	<% when 'Aprobaciones' %>
 		<%= render partial: 'clientes/shw/shw_aprobaciones', locals: {objeto: @objeto} %>
-	<% when 'Facturas' %>
+	<% when 'Facturación' %>
 		<h4>Revisión de facturas</h4>
 		<% @causas_revision.each do |causa| %>
 			<% con_monto = causa.monto_conciliaciones.where(tipo: ['Acuerdo', 'Sentencia']).any? %>
+
+			<% clr_monto = con_monto ? 'text-primary' : nil %>
+
+			<% j	= causa&.age_actividades&.d_jcs&.last&.fecha %>
+			<% pr	= causa&.age_actividades&.prprtrs&.last&.fecha %>
+			<% u	= causa&.age_actividades&.uncs&.last&.fecha %>
+
+			<% clr_adnc = j.present? || u.present? ? 'text-success' : nil %>
+
 			<div class="row gx-1 mb-1">
 				<div class="col-4 objt_lnk">
 					<%=dma(causa.created_at)%> <b><%= causa.rit %></b><br>
 					<small><i class="bi bi-arrow-return-right"></i><%= causa.tribunal_corte.tribunal_corte %></small>
 				</div>
-				<div class="col-4 objt_lnk">
+				<div class="col-4 objt_lnk <%=clr_monto%>">
 					<b><%= link_to causa.causa, causa %></b><br>
 					<small><i class="bi bi-arrow-return-right"></i><%= con_monto ? 'Hay acuerdo o sentencia' : 'En curso' %></small>
 				</div>
-				<div class="col-2">
-					<% j = causa&.age_actividades&.d_jcs&.last&.fecha %>
-					<% pr = causa&.age_actividades&.prprtrs&.last&.fecha %>
-					<% u = causa&.age_actividades&.uncs&.last&.fecha %>
+				<div class="col-2 <%=clr_adnc%>">
 
 					<% if j %>
 						Audiencia de Juicio<br>

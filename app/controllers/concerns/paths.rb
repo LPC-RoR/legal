@@ -75,6 +75,13 @@ module Paths
 		end
 	end
 
+	def pltfrm_lcls_bck_rdrctn(objt)
+		case objt.class.table_name
+		when 'causas'
+			"/clientes/#{objt.cliente.id}?html_options[menu]=Causas"
+		end
+	end
+
 	# Path del show de cuentas + tab
 	def shw_cnt_tab_indx(objt, tab)
 		"/cuentas/e_#{objt.id}/#{tab}"

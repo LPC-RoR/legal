@@ -34,9 +34,16 @@
               <%= link_to 'Home', root_path, class: 'nav-link fs-6' %>
             </li>
           <% end %>
+
+          <% unless action_name == 'metodologia' %>
+            <li class="nav-item">
+              <%= link_to 'Metodología', '/metodologia', class: 'nav-link fs-6' %>
+            </li>
+          <% end %>
+
           <% unless action_name == 'laborsafe' %>
             <li class="nav-item">
-              <%= link_to 'Laborsafe', '/laborsafe', class: 'nav-link fs-6' %>
+              <%= link_to 'Plataforma tecnológica', '/laborsafe', class: 'nav-link fs-6' %>
             </li>
           <% end %>
 
@@ -52,14 +59,15 @@
             </li>
           <% end %>
 
-          <li class="nav-item dropdown">
+          <!--li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Guías Ley Karin
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/guias?p=plzs">Plazos legales</a></li>
             </ul>
-          </li>
+          </li-->
+
         </ul>
 
         <ul class="navbar-nav ms-auto align-items-md-center">

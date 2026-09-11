@@ -1,0 +1,27 @@
+<% tipos_causa = ClssTipos.tipos_causa.map {|codigo, nombre| [nombre, codigo]} %>
+
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<%= render partial: '0inpts/select', locals: { f: f, tkn: :code_causa, sel_list: tipos_causa, display_field: 'code_causa', prompt: 'Seleccione la etapa', label: 'Etapa' } %>
+	</div>
+	<div class="col-lg-6">
+		<% clnts = Cliente.where(estado: 'activo').order(:razon_social).to_options_hash %>
+		<%= render partial: '0inpts/select_code', locals: {f: f, tkn: :cliente_id, hsh: clnts, label: 'Cliente' } %>
+	</div>
+</div>
+
+<div class="row gx-1">
+	<div class="col-lg-6 col-xs-12">
+		<% trbnls = TribunalCorte.all.order(:tribunal_corte).to_options_hash %>
+		<%= render partial: '0inpts/select_code', locals: {f: f, tkn: :tribunal_corte_id, hsh: trbnls, label: 'Tribunal/Corte' } %>
+	</div>
+	<div class="col-lg-6">
+		<%= render partial: '0inpts/text', locals: { f: f, tkn: :rit, label: 'RIT / Rol : Era' } %>
+	</div>
+</div>
+
+<%= render partial: '0inpts/text', locals: { f: f, tkn: :causa, label: 'Caratulado' } %>
+
+<%= render partial: '0inpts/check_box_lst', locals: { f: f, check_box_lst: [[:nulidad_despido, 'Nulidad del despido'], [:medida_prejudicial, 'Medida prejudicial']] } %>
+
+<%= render partial: '0inpts/hidden_lst', locals: { f: f, hddn_lst: [:estado_operativo, :estado_financiero] } %>

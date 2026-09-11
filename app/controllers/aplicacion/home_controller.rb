@@ -115,6 +115,11 @@ class Aplicacion::HomeController < ApplicationController
 		render layout: 'public'
 	end
 
+	def metodologia
+		
+		render layout: 'public'
+	end
+
 	def blog
 		render layout: 'public'
 	end
