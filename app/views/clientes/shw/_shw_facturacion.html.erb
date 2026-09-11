@@ -35,12 +35,15 @@
 		<div class="col-2 <%=clr_adnc%>">
 
 			<% if j %>
+				<% if j.to_date <= Date.current %><i class="bi bi-alarm text-danger"></i><% end %>
 				Audiencia de Juicio<br>
 				<%= dma_hm(j) %>
 			<% elsif pr %>
+				<% if pr.to_date <= Date.current %><i class="bi bi-alarm text-danger"></i><% end %>
 				Audiencia preparatoria<br>
 				<%= dma_hm(pr) %>
 			<% elsif u %>
+				<% if u.to_date <= Date.current %><i class="bi bi-alarm text-danger"></i><% end %>
 				Audiencia única<br>
 				<%= dma_hm(u) %>
 			<% else %>
