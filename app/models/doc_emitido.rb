@@ -3,6 +3,9 @@ class DocEmitido < ApplicationRecord
   belongs_to :doc_planilla, optional: true
   belongs_to :cliente, optional: true
 
+  # Conciliacion de Aprobaciones
+  belongs_to :cli_aprobacion, optional: true
+
   has_many :doc_detalles
   has_many :doc_pagos, as: :ownr
 

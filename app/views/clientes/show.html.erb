@@ -14,77 +14,11 @@
 	<% when 'Aprobaciones' %>
 		<%= render partial: 'clientes/shw/shw_aprobaciones', locals: {objeto: @objeto} %>
 	<% when 'Facturación' %>
-		<h4>Revisión de facturas</h4>
-		<% @causas_revision.each do |causa| %>
-			<% con_monto = causa.monto_conciliaciones.where(tipo: ['Acuerdo', 'Sentencia']).any? %>
-
-			<% clr_monto = con_monto ? 'text-primary' : nil %>
-
-			<% j	= causa&.age_actividades&.d_jcs&.last&.fecha %>
-			<% pr	= causa&.age_actividades&.prprtrs&.last&.fecha %>
-			<% u	= causa&.age_actividades&.uncs&.last&.fecha %>
-
-			<% clr_adnc = j.present? || u.present? ? 'text-primary' : nil %>
-
-			<div class="row gx-1 mb-1 border-bottom">
-				<div class="col-4 objt_lnk">
-					<%=dma(causa.created_at)%> <b><%= causa.rit %></b><br>
-					<small>
-						<i class="bi bi-arrow-return-right"></i><%= causa.tribunal_corte.tribunal_corte %>
-						<% if causa.medida_prejudicial %>
-							<br><span class="text-primary"><i class="bi bi-arrow-return-right"></i> Medida prejudicial</span>
-						<% end %>
-						<% if causa.nulidad_despido %>
-							<br><span class="text-primary"><i class="bi bi-arrow-return-right"></i> Nulidad del despido</span>
-						<% end %>
-					</small>
-				</div>
-				<div class="col-4 objt_lnk <%=clr_monto%>">
-					<b><%= link_to causa.causa, causa %></b><br>
-					<small>
-						<i class="bi bi-arrow-return-right"></i><%= con_monto ? 'Hay acuerdo o sentencia' : 'En curso' %>
-					</small>
-				</div>
-				<div class="col-2 <%=clr_adnc%>">
-
-					<% if j %>
-						Audiencia de Juicio<br>
-						<%= dma_hm(j) %>
-					<% elsif pr %>
-						Audiencia preparatoria<br>
-						<%= dma_hm(pr) %>
-					<% elsif u %>
-						Audiencia única<br>
-						<%= dma_hm(u) %>
-					<% else %>
-						Sin audiencias
-					<% end %>
-				</div>
-				<!--div class="col-2"><%#= causa.tribunal_corte.tribunal_corte %></div-->
-				<div class="col-2">
-					<%= causa.estado_financiero%>
-					<% if causa.tar_calculos.any? %>
-						[<%=causa.tar_calculos.count%>]
-					<% end %>		
-				</div>
-			</div>
-		<% end %>
-		<hr>
+		<%= render partial: 'clientes/shw/shw_facturacion', locals: {objeto: @objeto} %>
 	<% when 'Tarifas' %>
 		<%= render partial: 'clientes/shw/shw_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
 	<% when 'Conciliar' %>
-		<h5>Conciliación de transacciones</h5>
-
-		<div class="row gx-1">
-		  <div class="col-6">
-		    <h6>Documentos emitidos</h6>
-		    <%= render partial: '0p/tbl_clss', locals: {clccn: @doc_emitidos, typ: 'tr'} %>
-		  </div>
-		  <div class="col-6">
-		    <h6>Transacciones</h6>
-		    <%= render partial: '0p/tbl_clss', locals: {clccn: @trnsccns, typ: 'tr'} %>
-		  </div>
-		</div>
+		<%= render partial: 'clientes/shw/shw_conciliar', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
 	<% end %>
 	
 </div>

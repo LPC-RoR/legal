@@ -8,7 +8,7 @@
 	</div>
 </div>
 
-<% if objt.tar_tarifa.blank? || objt.tar_valor_cuantias.empty? || objt.nulidad_despido || objt.medida_prejudicial %>
+<% if objt.tar_tarifa.blank? || objt.tar_valor_cuantias.empty? || objt.nulidad_despido || objt.medida_prejudicial || objt.sin_cuantia %>
 	<%= render layout: '0p/collapse/dsply', locals: {label: 'Warnings', objeto: objt} do %>
 		<%= render partial: prtl_name(objt, dir, 'wrnngs'), locals: {objeto: objt} %>
 	<% end %>

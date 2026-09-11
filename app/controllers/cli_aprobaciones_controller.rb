@@ -49,6 +49,14 @@ class CliAprobacionesController < ApplicationController
     end
   end
 
+  # Para conciliacion con DocEmitidos
+  def search
+    @aprobaciones = CliAprobacion
+      .where("folio ILIKE ? OR cliente_nombre ILIKE ?", "%#{params[:q]}%", "%#{params[:q]}%")
+      .limit(10)
+    render json: @aprobaciones.map { |a| { id: a.id, text: "#{a.folio} · #{a.cliente_nombre}" } }
+  end
+
   def liberar_pagos
     @objeto.tar_facturaciones.each do |pago|
       pago.cli_aprobacion_id = nil

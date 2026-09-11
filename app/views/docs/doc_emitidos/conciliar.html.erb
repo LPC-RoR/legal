@@ -1,0 +1,19 @@
+<%= form_with url: conciliar_doc_emitidos_path, method: :patch do |f| %>
+  <table>
+    <% @doc_emitidos.each do |doc| %>
+      <tr>
+        <td><%= doc.folio %></td>
+        <td><%= doc.fecha %></td>
+        <td><%= doc.monto %></td>
+        <td>
+          <!-- Select poblado vía Ajax según lo que escriba el usuario -->
+          <select name="conciliaciones[<%= doc.id %>]"
+                  data-controller="aprobacion-select"
+                  data-aprobacion-select-url-value="<%= search_cli_aprobaciones_path %>">
+          </select>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= f.submit "Conciliar seleccionadas" %>
+<% end %>

@@ -5,6 +5,9 @@ class CliAprobacion < ApplicationRecord
   has_many :tar_facturaciones, dependent: :nullify
   has_many :act_archivos, as: :ownr, dependent: :destroy
 
+  # Conciliación con facturas cargadas
+  has_many :doc_emitidos, dependent: :nullify
+
   validates :fecha, presence: true
 #  validates :cliente_id, uniqueness: { scope: :fecha, message: "ya tiene una aprobación para esta fecha" }
 

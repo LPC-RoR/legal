@@ -65,6 +65,15 @@ class Docs::DocEmitidosController < ApplicationController
     end
   end
 
+  # Conciliar con Aprobaciones
+  def conciliar
+    params[:conciliaciones].each do |doc_emitido_id, cli_aprobacion_id|
+      next if cli_aprobacion_id.blank?
+      DocEmitido.find(doc_emitido_id).update!(cli_aprobacion_id: cli_aprobacion_id)
+    end
+    redirect_to doc_emitidos_path, notice: "Conciliación exitosa"
+  end
+
   # DELETE /doc_emitidos/1 or /doc_emitidos/1.json
   def destroy
     @objeto.destroy!

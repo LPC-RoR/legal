@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_10_235123) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_11_120918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -380,6 +380,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_10_235123) do
     t.string "estado_financiero", default: "ingreso"
     t.boolean "medida_prejudicial"
     t.boolean "nulidad_despido"
+    t.boolean "sin_cuantia"
     t.index ["archivos_registrados"], name: "index_causas_on_archivos_registrados"
     t.index ["causa_ganada"], name: "index_causas_on_causa_ganada"
     t.index ["code_causa"], name: "index_causas_on_code_causa"
@@ -395,6 +396,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_10_235123) do
     t.index ["hechos_registrados"], name: "index_causas_on_hechos_registrados"
     t.index ["juzgado_id"], name: "index_causas_on_juzgado_id"
     t.index ["rol"], name: "index_causas_on_rol"
+    t.index ["sin_cuantia"], name: "index_causas_on_sin_cuantia"
     t.index ["tar_hora_id"], name: "index_causas_on_tar_hora_id"
     t.index ["tar_tarifa_id"], name: "index_causas_on_tar_tarifa_id"
     t.index ["tipo"], name: "index_causas_on_tipo"
@@ -661,6 +663,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_10_235123) do
     t.bigint "cliente_id"
     t.bigint "doc_planilla_id"
     t.string "tipo_factura"
+    t.bigint "cli_aprobacion_id"
+    t.index ["cli_aprobacion_id"], name: "index_doc_emitidos_on_cli_aprobacion_id"
     t.index ["cliente_id"], name: "index_doc_emitidos_on_cliente_id"
     t.index ["doc_planilla_id"], name: "index_doc_emitidos_on_doc_planilla_id"
     t.index ["fecha_emision"], name: "index_doc_emitidos_on_fecha"
@@ -1844,6 +1848,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_10_235123) do
   add_foreign_key "doc_boletas", "doc_honorarios"
   add_foreign_key "doc_cartolas", "doc_cuentas"
   add_foreign_key "doc_cuentas", "doc_bancos"
+  add_foreign_key "doc_emitidos", "cli_aprobaciones"
   add_foreign_key "doc_emitidos", "clientes"
   add_foreign_key "doc_emitidos", "doc_planillas"
   add_foreign_key "doc_transacciones", "doc_cartolas"

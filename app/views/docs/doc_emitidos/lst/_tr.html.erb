@@ -3,8 +3,9 @@
     <% if objt.doc_detalles.any? %>
       <i class="bi bi-check-all"></i>
     <% end %>
-    <%= objt.tipo_dte_nombre %>
+    <%= objt.tipo_dte_nombre.split(' ').map {|w| w[0]}.join('') %>
   </td>
+
   <td class="pe-3 text-end objt_lnk"><%= link_to objt.folio, objt %></td>
   <td class="pe-3 text-end"><%= l(objt.fecha_emision) %></td>
   <td>

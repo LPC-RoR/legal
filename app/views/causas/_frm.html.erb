@@ -22,6 +22,6 @@
 
 <%= render partial: '0inpts/text', locals: { f: f, tkn: :causa, label: 'Caratulado' } %>
 
-<%= render partial: '0inpts/check_box_lst', locals: { f: f, check_box_lst: [[:nulidad_despido, 'Nulidad del despido'], [:medida_prejudicial, 'Medida prejudicial']] } %>
+<%= render partial: '0inpts/check_box_lst', locals: { f: f, check_box_lst: [[:nulidad_despido, 'Nulidad del despido'], [:medida_prejudicial, 'Medida prejudicial'], [:sin_cuantia, 'Causa sin cuantía']] } %>
 
 <%= render partial: '0inpts/hidden_lst', locals: { f: f, hddn_lst: [:estado_operativo, :estado_financiero] } %>

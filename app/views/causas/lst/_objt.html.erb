@@ -11,7 +11,7 @@
 </b>
 
 <!-- Warnings de la Causa -->
-<% if objt.tar_tarifa.blank? || objt.tar_valor_cuantias.empty? || objt.medida_prejudicial || objt.nulidad_despido %>
+<% if objt.tar_tarifa.blank? || objt.tar_valor_cuantias.empty? || objt.medida_prejudicial || objt.nulidad_despido || objt.sin_cuantia %>
 	<% clr_cone = objt.tar_tarifa.blank? || objt.tar_valor_cuantias.empty? ? 'danger' : 'primary' %>
 	<i class="bi bi-dot"></i>
 	<%= render layout: '0p/collapse/link', locals: {label: 'Warnings', objeto: objt, tooltip: 'Desplegar advertencias'} do %>
