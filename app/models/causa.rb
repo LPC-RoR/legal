@@ -49,6 +49,7 @@ class Causa < ApplicationRecord
 	has_many :antecedentes
 
 	scope :revision, -> {order(created_at: :desc)}
+	scope :not_fctrd, -> {where.not(estado_financiero: 'facturada')}
 
     validates_presence_of :causa, :rit
 

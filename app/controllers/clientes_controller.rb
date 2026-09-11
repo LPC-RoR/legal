@@ -92,7 +92,7 @@ class ClientesController < ApplicationController
       @aprbcns = @objeto.act_archivos.where(act_archivo: 'aprobacion').order(created_at: :desc)
     elsif @options[:menu] == 'Facturación'
 
-      @causas_revision = @objeto.causas.revision
+      @causas_revision = @objeto.causas.revision.not_fctrd
 
     elsif @options[:menu] == 'Tarifas'
       
