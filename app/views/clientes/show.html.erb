@@ -26,14 +26,22 @@
 
 			<% clr_adnc = j.present? || u.present? ? 'text-primary' : nil %>
 
-			<div class="row gx-1 mb-1">
+			<div class="row gx-1 mb-1 border-bottom">
 				<div class="col-4 objt_lnk">
 					<%=dma(causa.created_at)%> <b><%= causa.rit %></b><br>
 					<small><i class="bi bi-arrow-return-right"></i><%= causa.tribunal_corte.tribunal_corte %></small>
 				</div>
 				<div class="col-4 objt_lnk <%=clr_monto%>">
 					<b><%= link_to causa.causa, causa %></b><br>
-					<small><i class="bi bi-arrow-return-right"></i><%= con_monto ? 'Hay acuerdo o sentencia' : 'En curso' %></small>
+					<small>
+						<i class="bi bi-arrow-return-right"></i><%= con_monto ? 'Hay acuerdo o sentencia' : 'En curso' %>
+						<% if causa.medida_prejudicial %>
+							<br><i class="bi bi-arrow-return-right"></i> Medida prejudicial
+						<% end %>
+						<% if causa.nulidad_despido %>
+							<br><i class="bi bi-arrow-return-right"></i> Nulidad del despido
+						<% end %>
+					</small>
 				</div>
 				<div class="col-2 <%=clr_adnc%>">
 
