@@ -61,7 +61,12 @@
 					<% end %>
 				</div>
 				<!--div class="col-2"><%#= causa.tribunal_corte.tribunal_corte %></div-->
-				<div class="col-2"><%= causa.estado_financiero%></div>
+				<div class="col-2">
+					<%= causa.estado_financiero%>
+					<% if causa.tar_calculos.any? %>
+						[<%=causa.tar_calculos.count%>]
+					<% end %>		
+				</div>
 			</div>
 		<% end %>
 		<hr>
