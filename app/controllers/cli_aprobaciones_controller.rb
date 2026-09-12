@@ -54,9 +54,9 @@ class CliAprobacionesController < ApplicationController
     response.headers["Cache-Control"] = "no-store"   # ← no cachear búsquedas Ajax
     @aprobaciones = CliAprobacion
       .where(cliente_id: params[:cliente_id])
-      .includes(:doc_emitidos)          # evita N+1 al contar docs
-      .order(fecha: :desc)
-      .limit(10)
+      .includes(:doc_emitidos)
+      .order(fecha: :desc, id: :desc)   # ← mismo día: gana el id mayor (más reciente)
+      .limit(20)
 
     # Si el usuario escribe algo, filtra por fecha (texto) o id
     if params[:q].present?
