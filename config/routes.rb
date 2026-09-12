@@ -66,6 +66,9 @@ Rails.application.routes.draw do
       post :liberar_pagos
       post :generar_aprobacion
     end
+    collection do
+      get :search
+    end
   end
 
   resources :empresas do
@@ -102,6 +105,9 @@ Rails.application.routes.draw do
     resources :doc_emitidos do
       member do
         patch :update_tipo_factura
+        get :edit_conciliacion
+        patch :conciliar
+        delete :desconciliar          # ← nuevo
       end
     end
     resources :doc_planillas do

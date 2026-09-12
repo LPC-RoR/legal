@@ -91,6 +91,10 @@ module Paths
 	def shw_dnnc_tab_indx(objt, tab)
 		"/krn_denuncias/#{objt.id}_#{tab}"
 	end
+
+	def shw_clnt_tab(objt, tab)
+		"/clientes/#{objt.id}?html_options[menu]=#{tab}"
+	end
 	# **************************************************** Paths con Contexto (final)
 
 	## default_redirect_path(objeto) se usa para modelos sin muchos contextos

@@ -6,6 +6,18 @@
     <%= objt.tipo_dte_nombre.split(' ').map {|w| w[0]}.join('') %>
   </td>
 
+  <td>
+    <% if objt.cli_aprobacion.present? %>
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: desconciliar_doc_emitido_path(objt), tltp: "Desconciliar (Aprob. ##{objt.cli_aprobacion.id})",data: {turbo_method: :delete}} do %>
+        <i class="bi bi-x-circle text-danger"></i>
+      <% end %>
+    <% else %>
+      <%= render layout: '0p/tltp_lnk', locals: {lnk: edit_conciliacion_doc_emitido_path(objt), tltp: 'Conciliar'} do %>
+        <i class="bi bi-check2-circle"></i>
+      <% end %>
+    <% end %>
+  </td>
+
   <td class="pe-3 text-end objt_lnk"><%= link_to objt.folio, objt %></td>
   <td class="pe-3 text-end"><%= l(objt.fecha_emision) %></td>
   <td>

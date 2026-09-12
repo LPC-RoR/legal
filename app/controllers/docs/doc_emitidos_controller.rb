@@ -65,13 +65,22 @@ class Docs::DocEmitidosController < ApplicationController
     end
   end
 
+  def edit_conciliacion
+    @objeto = DocEmitido.find(params[:id])
+  end
+
   # Conciliar con Aprobaciones
   def conciliar
-    params[:conciliaciones].each do |doc_emitido_id, cli_aprobacion_id|
-      next if cli_aprobacion_id.blank?
-      DocEmitido.find(doc_emitido_id).update!(cli_aprobacion_id: cli_aprobacion_id)
-    end
-    redirect_to doc_emitidos_path, notice: "Conciliación exitosa"
+    @objeto = DocEmitido.find(params[:id])
+    @objeto.update!(cli_aprobacion_id: params[:cli_aprobacion_id])
+    redirect_to shw_clnt_tab(@objeto.cliente, 'Conciliar'), notice: "Factura conciliada"
+  end
+
+  # DesConciliar con Aprobaciones
+  def desconciliar
+    @objeto = DocEmitido.find(params[:id])
+    @objeto.update!(cli_aprobacion_id: nil)
+    redirect_back fallback_location: doc_emitidos_path, notice: "Conciliación eliminada"
   end
 
   # DELETE /doc_emitidos/1 or /doc_emitidos/1.json

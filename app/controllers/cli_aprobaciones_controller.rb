@@ -51,10 +51,22 @@ class CliAprobacionesController < ApplicationController
 
   # Para conciliacion con DocEmitidos
   def search
+    response.headers["Cache-Control"] = "no-store"   # ← no cachear búsquedas Ajax
     @aprobaciones = CliAprobacion
-      .where("folio ILIKE ? OR cliente_nombre ILIKE ?", "%#{params[:q]}%", "%#{params[:q]}%")
+      .where(cliente_id: params[:cliente_id])
+      .includes(:doc_emitidos)          # evita N+1 al contar docs
+      .order(fecha: :desc)
       .limit(10)
-    render json: @aprobaciones.map { |a| { id: a.id, text: "#{a.folio} · #{a.cliente_nombre}" } }
+
+    # Si el usuario escribe algo, filtra por fecha (texto) o id
+    if params[:q].present?
+      @aprobaciones = @aprobaciones.where(
+        "CAST(cli_aprobaciones.id AS TEXT) LIKE ? OR TO_CHAR(fecha, 'DD-MM-YYYY') LIKE ?",
+        "%#{params[:q]}%", "%#{params[:q]}%"
+      )
+    end
+
+    render json: @aprobaciones.map { |a| { id: a.id, text: "Aprobación ##{a.id} · #{a.fecha.strftime('%d-%m-%Y')} · #{a.doc_emitidos.size} docs" } }
   end
 
   def liberar_pagos

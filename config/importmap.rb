@@ -17,6 +17,7 @@ pin "controllers/hover_partial_controller",     to: "controllers/hover_partial_c
 pin "controllers/prtcpnts_fields_controller",   to: "controllers/prtcpnts_fields_controller.js"
 pin "controllers/conditional_fields_controller",to: "controllers/conditional_fields_controller.js"
 pin "controllers/logo_preview_controller",		to: "controllers/logo_preview_controller.js"
+pin "controllers/aprobacion_select_controller", to: "controllers/aprobacion_select_controller.js"
 
 # (IMPORTANTE) Quita cualquier pin_all_from previo para evitar duplicados/ambigüedad.
 # # pin_all_from "app/javascript/controllers", under: "controllers"
@@ -25,3 +26,4 @@ pin "controllers/logo_preview_controller",		to: "controllers/logo_preview_contro
 pin "ticker", to: "ticker.js", preload: true
 pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
+pin "tom-select", to: "https://cdn.jsdelivr.net/npm/tom-select@2.6.2/+esm"
