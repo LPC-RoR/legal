@@ -1,6 +1,6 @@
 <!-- app/views/docs/doc_emitidos/edit_conciliacion.html.erb -->
 <%= form_with url: conciliar_doc_emitido_path(@objeto), method: :patch do |f| %>
-  <label>Factura <%= @objeto.folio %> · <%= s_pesos(@objeto.monto_total) %></label>
+  <h4>Factura <%= @objeto.folio %> · <%= s_pesos(@objeto.monto_total) %></h4>
   <select name="cli_aprobacion_id"
           data-controller="aprobacion-select"
           data-aprobacion-select-url-value="<%= search_cli_aprobaciones_path %>"

@@ -87,9 +87,9 @@ class ClientesController < ApplicationController
 
     elsif @options[:menu] == 'Aprobaciones'
 
-      @clccn = @objeto.cli_aprobaciones.order(fecha: :desc)
-      @fctrcns = @objeto.tar_facturaciones_pendientes_aprobacion.order(created_at: :desc)
-      @aprbcns = @objeto.act_archivos.where(act_archivo: 'aprobacion').order(created_at: :desc)
+      @clccn    = @objeto.cli_aprobaciones.order(id: :desc)
+      @fctrcns  = @objeto.tar_facturaciones_pendientes_aprobacion.order(created_at: :desc)
+      @aprbcns  = @objeto.act_archivos.where(act_archivo: 'aprobacion').order(created_at: :desc)
       
     elsif @options[:menu] == 'Facturación'
 
