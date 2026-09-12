@@ -105,15 +105,36 @@ class Aplicacion::HomeController < ApplicationController
 		render layout: 'public'
 	end
 
-	def simulador
+  def simulador
+    preparar_simulacion
+    @lead ||= Lead.new(fuente: "Simulador")
 
-	 	# =================== Variables para el timeline de plazos
-    @fecha_base = parse_fecha_param || Time.zone.today
-    @plazos_ejemplo = calcular_plazos_maximos(@fecha_base)
-  	# =================== Variables para el timeline de plazos (final)
 
 		render layout: 'public'
-	end
+  end
+
+  def enviar_simulacion
+    preparar_simulacion
+    @lead = Lead.new(lead_params.merge(fuente: "Simulador"))
+
+    if @lead.save
+      # Aviso interno (mailer existente)
+      Comercial::LeadMailer.with(lead: @lead).nuevo_lead.deliver_later
+
+      # Copia de la simulación para el lead
+      Comercial::LeadMailer.with(
+        lead: @lead,
+        fecha_base: @fecha_base,
+        plazos: @plazos_ejemplo,
+        total_dias: (@plazos_ejemplo.last[:hasta] - @fecha_base).to_i
+      ).copia_simulacion.deliver_later
+
+      redirect_to simulador_path(fecha: @fecha_base.to_fs(:db), enviado: true),
+                  notice: "Listo. Te enviamos una copia de la simulación a tu correo."
+    else
+      render :simulador, status: :unprocessable_entity
+    end
+  end
 
 	def metodologia
 		
@@ -149,6 +170,19 @@ class Aplicacion::HomeController < ApplicationController
   end
 
   private
+
+  	# --------------------------- Métodos para el simulador
+	  def preparar_simulacion
+	    @fecha_base     = parsear_fecha(params[:fecha]) || Time.zone.today
+	    @plazos_ejemplo = SimulacionPlazos.calcular(@fecha_base)
+	  end
+
+	  def parsear_fecha(valor)
+	    Date.iso8601(valor.to_s)
+	  rescue ArgumentError
+	    nil
+	  end
+  	# --------------------------- Métodos para el simulador (final)
 
 		def redirect_unauthenticated
 		  return if usuario_signed_in?          # ya está logueado
@@ -220,6 +254,12 @@ class Aplicacion::HomeController < ApplicationController
         color: 'danger', icono: 'bi-check2-square', descripcion: 'Aplicar medidas y sanciones propuestas'
       }
     ]
+  end
+
+  def lead_params
+    # Rails 8: params.expect. Si prefieres el API clásico:
+    # params.require(:lead).permit(:nombre, :email, :telefono, :empresa)
+    params.expect(lead: [:nombre, :email, :telefono, :empresa])
   end
 
 end

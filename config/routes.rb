@@ -544,12 +544,13 @@ Rails.application.routes.draw do
   
   root 'aplicacion/home#index'
 
-  get 'laborsafe',    to: 'aplicacion/home#laborsafe'
-  get 'guias',        to: 'aplicacion/home#guias'
-  get 'equipo',       to: 'aplicacion/home#equipo'
-  get 'simulador',    to: 'aplicacion/home#simulador'
-  get 'metodologia',  to: 'aplicacion/home#metodologia'
-  get 'blog',         to: 'aplicacion/home#blog'
+  get   'laborsafe',            to: 'aplicacion/home#laborsafe'
+  get   'guias',                to: 'aplicacion/home#guias'
+  get   'equipo',               to: 'aplicacion/home#equipo'
+  get   "simulador",            to: "aplicacion/home#simulador",           as: :simulador
+  post  "simulador/simulacion", to: "aplicacion/home#enviar_simulacion",   as: :enviar_simulacion
+  get   'metodologia',          to: 'aplicacion/home#metodologia'
+  get   'blog',                 to: 'aplicacion/home#blog'
 
   post "leads",          to: "leads#create"
   get  "leads/gracias",  to: "leads#gracias", as: :leads_gracias

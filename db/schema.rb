@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_11_120918) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_12_194507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1187,11 +1187,12 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_11_120918) do
     t.string "empresa"
     t.string "cargo"
     t.text "mensaje"
-    t.integer "estado"
+    t.integer "estado", default: 0
     t.string "fuente"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "empresa_id", null: false
+    t.bigint "empresa_id"
+    t.string "empresa_nombre"
     t.index ["empresa_id"], name: "index_leads_on_empresa_id"
   end
 

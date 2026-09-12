@@ -27,7 +27,7 @@ class Comercial::LeadsController < ApplicationController
   private
 
   def lead_params
-    params.expect(lead: [:nombre, :email, :telefono, :empresa])
+    params.expect(lead: [:nombre, :email, :telefono, :empresa_nombre])
   end
 
   # Capa 1: honeypot — un humano nunca lo completa

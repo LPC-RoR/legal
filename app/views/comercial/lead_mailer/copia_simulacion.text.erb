@@ -1,0 +1,19 @@
+Tu simulación de plazos del procedimiento
+==========================================
+
+Hola <%= @lead.nombre %>, como lo solicitaste, te enviamos una copia de la
+simulación realizada en laborsafe.cl/simulador.
+
+Fecha de recepción de la denuncia (Santiago, CL): <%= l(@fecha_base, format: '%d/%m/%Y') %>
+
+<% @plazos.each do |plazo| %>
+<%= plazo[:numero] %>. <%= plazo[:nombre] %>
+   Plazo: <%= plazo[:dias] %> días <%= plazo[:tipo] %>
+   Desde: <%= l(plazo[:desde], format: '%d/%m/%Y') %>  ->  Hasta: <%= l(plazo[:hasta], format: '%d/%m/%Y') %>
+<% end %>
+
+Duración máxima total del procedimiento: <%= @total_dias %> días corridos
+
+Proyección con plazos máximos legales, considerando días hábiles y feriados
+registrados en Chile. Este correo fue generado automáticamente; no es una
+asesoría legal.

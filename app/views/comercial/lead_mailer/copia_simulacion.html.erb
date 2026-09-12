@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <body style="margin:0;padding:0;background:#f5f6f8;font-family:Arial,Helvetica,sans-serif;">
+    <div style="max-width:600px;margin:0 auto;padding:24px;">
+      <div style="background:#ffffff;border-radius:12px;padding:24px;border:1px solid #e5e7eb;">
+        <h1 style="font-size:18px;color:#111827;margin:0 0 8px;">
+          Tu simulación de plazos del procedimiento
+        </h1>
+        <p style="font-size:14px;color:#6b7280;margin:0 0 24px;">
+          Hola <%= @lead.nombre %>, como lo solicitaste, te enviamos una copia de la simulación
+          realizada en <a href="https://www.laborsafe.cl/simulador" style="color:#2563eb;">laborsafe.cl/simulador</a>.
+        </p>
+
+        <p style="font-size:14px;color:#111827;margin:0 0 16px;">
+          <strong>Fecha de recepción de la denuncia (Santiago, CL):</strong>
+          <%= l(@fecha_base, format: '%d/%m/%Y') %>
+        </p>
+
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="background:#f3f4f6;text-align:left;">
+              <th style="padding:10px;border:1px solid #e5e7eb;">#</th>
+              <th style="padding:10px;border:1px solid #e5e7eb;">Etapa</th>
+              <th style="padding:10px;border:1px solid #e5e7eb;">Plazo</th>
+              <th style="padding:10px;border:1px solid #e5e7eb;">Desde</th>
+              <th style="padding:10px;border:1px solid #e5e7eb;">Hasta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @plazos.each do |plazo| %>
+              <tr>
+                <td style="padding:10px;border:1px solid #e5e7eb;"><%= plazo[:numero] %></td>
+                <td style="padding:10px;border:1px solid #e5e7eb;"><%= plazo[:nombre] %></td>
+                <td style="padding:10px;border:1px solid #e5e7eb;"><%= plazo[:dias] %> días <%= plazo[:tipo] %></td>
+                <td style="padding:10px;border:1px solid #e5e7eb;"><%= l(plazo[:desde], format: '%d/%m/%Y') %></td>
+                <td style="padding:10px;border:1px solid #e5e7eb;"><strong><%= l(plazo[:hasta], format: '%d/%m/%Y') %></strong></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <div style="margin-top:16px;padding:16px;background:#f3f4f6;border-radius:8px;text-align:center;">
+          <p style="font-size:12px;color:#6b7280;margin:0;">Duración máxima total del procedimiento</p>
+          <p style="font-size:22px;font-weight:bold;color:#111827;margin:4px 0;"><%= @total_dias %> días corridos</p>
+        </div>
+
+        <p style="font-size:12px;color:#9ca3af;margin:24px 0 0;">
+          Proyección con plazos máximos legales, considerando días hábiles y feriados registrados en Chile.
+          Este correo fue generado automáticamente; no es una asesoría legal.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
