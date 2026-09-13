@@ -1,0 +1,17 @@
+<%# Fragmento para incluir al inicio del body de
+    app/views/comercial/lead_mailer/nuevo_lead.html.erb
+    Muestra las respuestas del mini-diagnóstico cuando el lead las trae. %>
+<% if @lead.diagnostico? && @lead.respuestas.present? %>
+  <h3>Mini-diagnóstico (<%= @lead.fuente %>)</h3>
+  <table border="1" cellpadding="6" cellspacing="0">
+    <tr><th align="left">Pregunta</th><th align="left">Respuesta</th></tr>
+    <tr><td>Denuncia en curso</td><td><%= @lead.respuesta(:denuncia_abierta) %></td></tr>
+    <tr><td>Quién investiga hoy</td><td><%= @lead.respuesta(:investigador_actual) %></td></tr>
+    <tr><td>Conocimiento trámite DT</td><td><%= @lead.respuesta(:informe_dt) %></td></tr>
+  </table>
+  <% if @lead.pregunta.present? %>
+    <h4>Pregunta del cliente</h4>
+    <p><%= simple_format(@lead.pregunta) %></p>
+  <% end %>
+  <hr>
+<% end %>

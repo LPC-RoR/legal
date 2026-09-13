@@ -1,23 +1,230 @@
-<div class="m-3">
-  <div class="content-below-nav ubuntu_titulo responsive-heading" 
-       style="margin-left: 5%; line-height: 1.2;">
-    <p>Externalización de investigaciones<br>
-    Ley 21.643 (Ley Karin)</p>
-    <small>
-      <span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-      Minimice el riesgo de judicialización de sus investigaciones.<br>
-      <span class="me-2 text-primary flex-shrink-0">&#10003;</span>
-      Optimice su costo por investigación.
-    </small>
+<%# content_for :head do %>
+  <%#= stylesheet_link_tag "home" %>
+<%# end %>
+
+<%# 1. Hero %>
+<section class="ls-hero text-white text-center">
+  <div class="container py-5">
+    <p class="ls-kicker">Externalización de investigaciones · Ley 21.643 (Ley Karin)</p>
+    <h1 class="display-5 fw-bold mb-4">Sus investigaciones internas pueden terminar en juicio.</h1>
+    <p class="lead mb-5 mx-auto" style="max-width: 720px;">
+      Externalice sus investigaciones de la Ley 21.643 (Ley Karin) con abogados
+      especialistas: minimice riesgos, cumpla los plazos legales y proteja la
+      confidencialidad del procedimiento.
+    </p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <%= link_to "Agende una presentación comercial", "#contacto", class: "btn btn-light btn-lg" %>
+      <%= link_to "Haga el mini-diagnóstico gratuito", "#diagnostico", class: "btn btn-outline-light btn-lg" %>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- Carousel -->
-<%#= render partial: 'aplicacion/home/public/banner' %>
+<%# 2. Riesgos de investigar por dentro %>
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">El costo de investigar por dentro</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="h5 card-title">Judicialización del caso</h3>
+            <p class="card-text text-secondary ls-card-text">
+              Una investigación mal ejecutada expone a la empresa a reclamos ante los
+              tribunales. Nuestro procedimiento está diseñado para resistir el
+              escrutinio judicial.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="h5 card-title">Imparcialidad cuestionable</h3>
+            <p class="card-text text-secondary ls-card-text">
+              Un investigador interno puede ser objetado por las partes. Un investigador
+              externo, especialista en la Ley 21.643, prácticamente elimina ese riesgo.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="h5 card-title">Costo oculto</h3>
+            <p class="card-text text-secondary ls-card-text">
+              Cada investigación consume horas-hombre de su equipo jurídico y de
+              RR.HH. La externalización convierte un costo variable y difuso en uno
+              fijo y predecible.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<%= render partial: 'aplicacion/home/extrnlzcn' %>
+<%# 3. Cómo funciona %>
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5">Cómo funciona</h2>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <span class="ls-paso-numero">1</span>
+            <h3 class="h6 card-title mt-2">Taller de puesta en marcha</h3>
+            <p class="card-text text-secondary ls-card-text">
+              Definimos roles, tareas y responsabilidades junto a su canal de denuncias,
+              e incorporamos las particularidades de su empresa al protocolo de trabajo conjunto.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <span class="ls-paso-numero">2</span>
+            <h3 class="h6 card-title mt-2">Recepción de la carpeta</h3>
+            <p class="card-text text-secondary ls-card-text">
+              El servicio parte de la carpeta de investigación resultante de la recepción
+              de la denuncia e informada a la Dirección del Trabajo.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <span class="ls-paso-numero">3</span>
+            <h3 class="h6 card-title mt-2">Investigación por abogado externo</h3>
+            <p class="card-text text-secondary ls-card-text">
+              Un investigador asignado evalúa la denuncia, cita y toma declaraciones, y
+              redacta el informe conforme a los estándares del reglamento, con asesoría legal integral.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <span class="ls-paso-numero">4</span>
+            <h3 class="h6 card-title mt-2">Depósito en la plataforma DT</h3>
+            <p class="card-text text-secondary ls-card-text">
+              Entregamos los archivos PDF requeridos para cada trámite y el informe listo
+              para su depósito en la plataforma de la Dirección del Trabajo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<%# 4. Lo que entregamos %>
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">Lo que entregamos</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="h5 card-title">Equipo legal</h3>
+            <ul class="text-secondary ls-card-text">
+              <li>Investigación realizada por abogados especialistas.</li>
+              <li>Asesoría legal y operativa integral durante todo el proceso.</li>
+              <li>Evaluación de medidas de resguardo, correctivas y sanciones, si corresponde.</li>
+              <li>Apoyo en la relación de la empresa con los participantes de la denuncia.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="h5 card-title">Plataforma y documentos</h3>
+            <ul class="text-secondary ls-card-text">
+              <li>Documentos personalizados para su empresa, redactados por abogados especialistas.</li>
+              <li>Envío de notificaciones e información obligatoria desde la plataforma.</li>
+              <li>Anonimización de denuncias y declaraciones, con versiones trazables.</li>
+              <li>Carpeta de investigación electrónica y control documental completo.</li>
+              <li>Verificación de correo electrónico de los participantes.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="h5 card-title">Control de plazos</h3>
+            <ul class="text-secondary ls-card-text">
+              <li>Control exhaustivo de los plazos legales del procedimiento.</li>
+              <li>Registro verificado de la ejecución de cada tarea con plazo.</li>
+              <li>Seguimiento del avance mediante reportes anonimizados.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<%# 5. Confidencialidad %>
+<section class="py-5 bg-light">
+  <div class="container" style="max-width: 760px;">
+    <h2 class="text-center mb-4">Confidencialidad por diseño</h2>
+    <p class="text-secondary text-center ls-card-text">
+      Nuestro modelo de confidencialidad regula qué información accede cada rol del
+      procedimiento y con qué responsabilidad. Toda la documentación generada y enviada
+      desde la plataforma es redactada por abogados especialistas, y ofrecemos versiones
+      anonimizadas trazables hacia el documento original.
+    </p>
+  </div>
+</section>
 
-<%= render partial: 'aplicacion/home/public/alianzas' %>
-<%= render partial: 'aplicacion/home/public/modal_errores_form' %>
+<%# 6. Mini-diagnóstico %>
+<section class="py-5" id="diagnostico">
+  <div class="container" style="max-width: 960px;">
+    <h2 class="text-center mb-3">Mini-diagnóstico gratuito</h2>
+    <p class="text-secondary text-center ls-card-text">
+      Responda tres preguntas y reciba orientación inmediata sobre su situación ante
+      la Ley 21.643. Complete sus datos y, si quiere, escriba su pregunta a un especialista.
+    </p>
+    <%= render "diagnostico" %>
+  </div>
+</section>
+
+<%# 7. Cierre comercial %>
+<section class="py-5 bg-light" id="contacto">
+  <div class="container" style="max-width: 640px;">
+    <h2 class="text-center mb-3">Solicite una presentación comercial</h2>
+    <p class="text-secondary text-center ls-card-text">
+      Cuéntenos sobre su empresa y agendaremos una presentación del servicio de
+      externalización de investigaciones.
+    </p>
+
+    <%= form_with model: @lead, url: leads_path, class: "mt-4", data: { turbo: false } do |f| %>
+      <%= f.hidden_field :kind, value: "presentacion" %>
+      <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
+      <%# Honeypot anti-bot: invisible para humanos %>
+      <input type="text" name="website" class="ls-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="mb-3">
+        <%= f.label :nombre, "Tu nombre", class: "form-label" %>
+        <%= f.text_field :nombre, class: "form-control", required: true, autocomplete: "name" %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :email, "Tu correo de trabajo", class: "form-label" %>
+        <%= f.email_field :email, class: "form-control", required: true, autocomplete: "email" %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :telefono, "Teléfono o WhatsApp", class: "form-label" %>
+        <%= f.telephone_field :telefono, class: "form-control", required: true, autocomplete: "tel" %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :empresa_nombre, "Empresa (opcional)", class: "form-label" %>
+        <%= f.text_field :empresa_nombre, class: "form-control", autocomplete: "organization" %>
+      </div>
+      <%= f.submit "Solicitar presentación", class: "btn btn-primary btn-lg" %>
+    <% end %>
+  </div>
+</section>

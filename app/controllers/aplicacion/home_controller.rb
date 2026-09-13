@@ -3,7 +3,7 @@ class Aplicacion::HomeController < ApplicationController
 #  before_action :authenticate_usuario!, only: [:dshbrd]
   before_action :scrty_on, only: [:dshbrd]
 
-  def index
+  def index2
   	prepare_meta_tags
 
     set_meta_tags(
@@ -44,6 +44,45 @@ class Aplicacion::HomeController < ApplicationController
 
    	render layout: 'public'
   end
+
+def index
+  prepare_meta_tags
+
+  set_meta_tags(
+    title: "Externalización de investigaciones Ley 21.643 | LaborSafe",
+    description: "Externalice las investigaciones de sus denuncias Ley 21.643 (Ley Karin) con abogados especialistas: minimice riesgos de judicialización, cumpla los plazos legales y proteja la confidencialidad del procedimiento.",
+    keywords: %w[externalización investigaciones ley 21.643 ley karin denuncias acoso laboral investigador externo chile],
+    canonical: root_url,
+    og: {
+      type: 'website',
+      url: root_url,
+      title: "LaborSafe - Externalización de investigaciones Ley 21.643",
+      description: "Investigaciones de denuncias Ley 21.643 realizadas por abogados especialistas, con control de plazos, confidencialidad y documentos redactados por expertos.",
+      image: {
+        _:  view_context.image_url('logo/logo_100.png'), # JPG/PNG 1200x630
+        width: 392,
+        height: 100,
+        type: 'image/jpeg'
+      }
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: "LaborSafe - Externalización de investigaciones Ley 21.643",
+      description: "Investigaciones de denuncias Ley 21.643 realizadas por abogados especialistas.",
+      image: view_context.image_url('logo/logo_100.png')
+    }
+  )
+
+  @lead = Lead.new
+  @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
+
+  # Puedes redirigir a dashboard si ya está autenticado
+  if usuario_signed_in?
+    redirect_to authenticated_root_path and return
+  end
+
+  render layout: 'public'
+end
   
 	def dshbrd
 		@orgn = 'dshbrd'

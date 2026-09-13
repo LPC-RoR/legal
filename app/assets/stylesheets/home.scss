@@ -1,0 +1,94 @@
+/* Home LaborSafe — complementos de Bootstrap (no reemplaza Bootstrap) */
+
+/* Rótulo del servicio sobre el titular del hero */
+.ls-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+
+.ls-hero {
+  background: linear-gradient(160deg, #1e3a8a, #1d4ed8);
+  padding: 96px 0;
+}
+
+/* Texto de las tarjetas de información: un punto más grande que el body */
+.ls-card-text {
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.ls-paso-numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1d4ed8;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Mini-diagnóstico */
+
+.ls-pregunta legend {
+  float: none;
+  width: auto;
+  margin-bottom: 0;
+}
+
+.ls-opcion {
+  border-color: #d9dee8;
+  color: #16233b;
+}
+
+.ls-opcion:hover {
+  border-color: #1d4ed8;
+  background: #fff;
+  color: #16233b;
+}
+
+/* Estado seleccionado: radio nativo :checked + etiqueta.
+   Pintado por CSS puro, sin depender de JS. El !important vence las
+   reglas del tema sobre .btn-outline-primary (que pintaban el botón
+   de negro sólido al seleccionar). */
+.ls-diagnostico .ls-opcion-check:checked + .btn.ls-opcion {
+  background-color: #e8eefc !important;
+  background-image: none !important;
+  border-color: #1d4ed8 !important;
+  color: #16233b !important;
+  box-shadow: none !important;
+}
+
+.ls-diagnostico .ls-opcion-check:checked + .btn.ls-opcion:hover,
+.ls-diagnostico .ls-opcion-check:checked + .btn.ls-opcion:focus {
+  background-color: #e8eefc !important;
+  color: #16233b !important;
+}
+
+.ls-feedback {
+  padding: 12px 14px;
+  border-left: 3px solid #1d4ed8;
+  background: #f4f6fa;
+  color: #4b5a75;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Honeypot anti-bot: fuera de pantalla y fuera del flujo */
+.ls-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+@media (max-width: 640px) {
+  .ls-hero {
+    padding: 64px 0;
+  }
+}

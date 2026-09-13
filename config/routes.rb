@@ -552,8 +552,8 @@ Rails.application.routes.draw do
   get   'metodologia',          to: 'aplicacion/home#metodologia'
   get   'blog',                 to: 'aplicacion/home#blog'
 
-  post "leads",          to: "leads#create"
-  get  "leads/gracias",  to: "leads#gracias", as: :leads_gracias
+  post "leads",          to: "comercial/leads#create"
+  get  "leads/gracias",  to: "comercial/leads#gracias", as: :leads_gracias
 
   # manejo formulario de registro de empresas
   post '/register', to: 'empresas#create', as: 'register'

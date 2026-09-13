@@ -1,0 +1,199 @@
+<%#
+  Mini-diagnóstico en dos columnas:
+    - Izquierda: wizard de 3 preguntas (una a la vez con JS, todas apiladas sin JS)
+    - Derecha: formulario de contacto compacto, siempre visible
+
+  Las opciones son radios nativos con el patrón .btn-check de Bootstrap:
+  el estado seleccionado lo pinta CSS (:checked), sin depender de JS, y el
+  valor se envía de forma nativa como lead[respuestas][clave].
+
+  El script embebido solo hace: wizard (mostrar de a una), feedback al elegir
+  y envío por fetch. Sin JavaScript todo se ve apilado y el formulario se
+  envía de forma tradicional a leads_gracias, con las respuestas incluidas.
+
+  PARA EDITAR LOS TEXTOS: modifica el array `preguntas` de abajo.
+  Cada opción es [valor, etiqueta_del_botón, feedback].
+  No cambie los `valor` ("si", "interno", ...) sin avisar: se guardan en la
+  base de datos y los usa el scope Lead.con_denuncia_abierta.
+%>
+<div class="ls-diagnostico" id="ls-diagnostico">
+  <%= form_with model: @lead, url: leads_path, class: "mt-4", data: { turbo: false } do |f| %>
+    <%= f.hidden_field :kind, value: "diagnostico" %>
+    <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
+    <%# Honeypot anti-bot: invisible para humanos %>
+    <input type="text" name="website" class="ls-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <% preguntas = [
+      {
+        clave: "denuncia_abierta",
+        texto: "¿Su empresa tiene hoy una denuncia por acoso, violencia o discriminación en curso?",
+        opciones: [
+          ["si", "Sí, tenemos una denuncia abierta",
+           "La Ley 21.643 exige investigar con garantías formales. Los plazos corren desde que el inicio de la investigación es informado a la Dirección del Trabajo."],
+          ["tramite", "Estamos evaluando una denuncia recién recibida",
+           "La forma en que se recibe y valida la denuncia condiciona toda la investigación. Es el mejor momento para ordenar el procedimiento."],
+          ["no", "No tenemos denuncias en curso",
+           "La ley obliga a estar preparado igual: la mayoría de las empresas descubre sus vacíos recién con la primera denuncia."]
+        ]
+      },
+      {
+        clave: "investigador_actual",
+        texto: "¿Quién realizaría hoy las investigaciones de esas denuncias?",
+        opciones: [
+          ["interno", "Un equipo interno (jurídico o RR.HH.)",
+           "Un investigador interno puede ser objetado por las partes por falta de imparcialidad. Un investigador externo, especialista en la ley, prácticamente elimina ese riesgo."],
+          ["externo", "Un proveedor externo",
+           "Revise dos cosas: que el investigador sea abogado especialista en la Ley 21.643 y que el procedimiento tenga control documental y de plazos verificable."],
+          ["nadie", "Nadie está asignado a eso",
+           "Sin un responsable definido, los plazos legales se pierden y la empresa queda expuesta. La externalización resuelve la asignación desde el día uno."]
+        ]
+      },
+      {
+        clave: "informe_dt",
+        texto: "¿Ha informado o sabría hoy cómo informar a la Dirección del Trabajo el inicio de una investigación?",
+        opciones: [
+          ["si", "Sí, conocemos el trámite",
+           "Entonces el foco está en ejecutar la investigación con estándares que resistan una eventual judicialización."],
+          ["parcial", "Lo conocemos parcialmente",
+           "Es el escenario más común: la ley es reciente y el reglamento tiene exigencias específicas por trámite. Un error de forma puede invalidar el esfuerzo posterior."],
+          ["no", "No lo conocemos",
+           "Partimos por ahí: nuestro servicio incluye la generación de los archivos PDF que cada trámite en la plataforma de la Dirección del Trabajo requiere."]
+        ]
+      }
+    ] %>
+
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <% preguntas.each_with_index do |pregunta, i| %>
+          <fieldset class="card shadow-sm mb-3 ls-pregunta" data-ls-paso="<%= i + 1 %>">
+            <div class="card-body">
+              <legend class="h6 card-title fw-bold">
+                <span class="text-primary"><%= i + 1 %>/3</span> <%= pregunta[:texto] %>
+              </legend>
+              <div class="d-grid gap-2 mt-3">
+                <% pregunta[:opciones].each do |valor, etiqueta, feedback| %>
+                  <% input_id = "ls_#{pregunta[:clave]}_#{valor}" %>
+                  <%# Radio nativo: el :checked lo pinta CSS y el valor viaja en el form %>
+                  <input type="radio" class="btn-check ls-opcion-check" name="lead[respuestas][<%= pregunta[:clave] %>]"
+                         id="<%= input_id %>" value="<%= valor %>" data-feedback="<%= feedback %>">
+                  <label class="btn btn-outline-primary text-start ls-opcion" for="<%= input_id %>"><%= etiqueta %></label>
+                <% end %>
+              </div>
+              <p class="ls-feedback mt-3 mb-0" hidden></p>
+              <button type="button" class="btn btn-primary mt-3 ls-siguiente" hidden>
+                <%= i == preguntas.size - 1 ? "Continuar" : "Siguiente" %>
+              </button>
+            </div>
+          </fieldset>
+        <% end %>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card shadow-sm ls-form-card">
+          <div class="card-body">
+            <h3 class="h6 card-title fw-bold">Sus datos</h3>
+            <p class="text-secondary small">
+              Déjenos sus datos y, si quiere, escriba su pregunta concreta: un especialista
+              le responderá dentro de un día hábil.
+            </p>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <%= f.label :nombre, "Tu nombre", class: "form-label" %>
+                <%= f.text_field :nombre, class: "form-control", required: true, autocomplete: "name" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :email, "Tu correo de trabajo", class: "form-label" %>
+                <%= f.email_field :email, class: "form-control", required: true, autocomplete: "email" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :telefono, "Teléfono o WhatsApp", class: "form-label" %>
+                <%= f.telephone_field :telefono, class: "form-control", required: true, autocomplete: "tel" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :empresa_nombre, "Empresa (opcional)", class: "form-label" %>
+                <%= f.text_field :empresa_nombre, class: "form-control", autocomplete: "organization" %>
+              </div>
+              <div class="col-12">
+                <%= f.label :pregunta, "Su pregunta (opcional)", class: "form-label" %>
+                <%= f.text_area :pregunta, rows: 3, class: "form-control",
+                      placeholder: "Ej: tenemos una denuncia recibida hace una semana y no sabemos quién debería investigarla…" %>
+              </div>
+            </div>
+
+            <%= f.submit "Enviar y recibir orientación", class: "btn btn-primary w-100 mt-3 ls-enviar" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="alert alert-success text-center mt-3 ls-exito" hidden>
+    <h3 class="h5 alert-heading">Diagnóstico enviado</h3>
+    <p class="mb-0">Gracias. Un especialista le contactará dentro de un día hábil con la
+    orientación correspondiente a sus respuestas.</p>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var root = document.getElementById("ls-diagnostico");
+  if (!root) return;
+
+  // Wizard: solo la primera pregunta visible
+  var pasos = Array.prototype.slice.call(root.querySelectorAll("[data-ls-paso]"));
+  pasos.forEach(function (p) { p.hidden = Number(p.getAttribute("data-ls-paso")) !== 1; });
+
+  // Feedback al elegir una opción (el resaltado lo pinta CSS con :checked, no JS)
+  root.querySelectorAll(".ls-opcion-check").forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      var paso = radio.closest("[data-ls-paso]");
+      var feedback = paso.querySelector(".ls-feedback");
+      feedback.textContent = radio.getAttribute("data-feedback");
+      feedback.hidden = false;
+      paso.querySelector(".ls-siguiente").hidden = false;
+    });
+  });
+
+  // Avance entre preguntas; en la última, scroll al formulario
+  root.querySelectorAll(".ls-siguiente").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var actual = Number(btn.closest("[data-ls-paso]").getAttribute("data-ls-paso"));
+      if (actual === pasos.length) {
+        root.querySelector(".ls-form-card").scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+      pasos.forEach(function (p) { p.hidden = Number(p.getAttribute("data-ls-paso")) !== actual + 1; });
+    });
+  });
+
+  // Envío por fetch; sin conexión, envío tradicional
+  var form = root.querySelector("form");
+  var enviar = root.querySelector(".ls-enviar");
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    enviar.disabled = true;
+    var tokenMeta = document.querySelector("meta[name='csrf-token']");
+    fetch(form.action, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "X-CSRF-Token": tokenMeta ? tokenMeta.content : ""
+      },
+      body: new FormData(form)
+    }).then(function (resp) {
+      if (resp.ok) {
+        form.hidden = true;
+        var exito = root.querySelector(".ls-exito");
+        exito.hidden = false;
+        exito.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else {
+        resp.json().then(function (datos) {
+          alert((datos.errors || []).join("\n") || "No pudimos enviar el formulario. Revise los datos.");
+          enviar.disabled = false;
+        });
+      }
+    }).catch(function () { form.submit(); });
+  });
+});
+</script>

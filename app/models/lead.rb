@@ -1,4 +1,6 @@
 class Lead < ApplicationRecord
+  KINDS = %w[presentacion diagnostico].freeze
+
   belongs_to :empresa, optional: true
 
   enum :estado, {
@@ -11,8 +13,22 @@ class Lead < ApplicationRecord
 
   validates :nombre, :email, :telefono, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
+  validates :kind, inclusion: { in: KINDS }
+  validates :pregunta, length: { maximum: 2000 }
 
   scope :pendientes, -> { where(estado: %i[nuevo contactado calificado]) }
+  scope :diagnosticos, -> { where(kind: "diagnostico") }
+
+  # Prioridad comercial: diagnósticos con una denuncia abierta real
+  scope :con_denuncia_abierta, -> { diagnosticos.where("respuestas ->> 'denuncia_abierta' = 'si'") }
+
+  def diagnostico?
+    kind == "diagnostico"
+  end
+
+  def respuesta(clave)
+    respuestas[clave.to_s]
+  end
 
   # Solo se llama cuando la gestión comercial fue exitosa.
   # RUT y razón social se piden aquí, no en el formulario público.

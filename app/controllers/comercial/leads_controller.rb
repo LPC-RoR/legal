@@ -8,17 +8,19 @@ class Comercial::LeadsController < ApplicationController
     @objeto = Lead.new(lead_params)
     @objeto.fuente = params[:fuente].presence || "formulario_web"
 
+    # El diagnóstico tarda más que 3 segundos en completarse en humanos;
+    # un bot que lo envíe rápido cae aquí igual que en el formulario simple.
     if spam? || too_fast?
       # Respuesta idéntica al éxito: no le decimos al bot que lo detectamos
-      redirect_to leads_gracias_path and return
+      responder({ ok: true }) and return
     end
 
     if @objeto.save
       Comercial::LeadMailer.with(lead: @objeto).nuevo_lead.deliver_later
-      redirect_to leads_gracias_path, notice: "¡Gracias! Te contactaremos en menos de 24 horas."
+      responder({ ok: true }, notice: "¡Gracias! Te contactaremos en menos de 24 horas.") and return
     else
-      redirect_to leads_gracias_path,
-                  alert: "Revisa los datos ingresados (nombre, email y teléfono son obligatorios)."
+      responder({ ok: false, errors: @objeto.errors.full_messages },
+                alert: "Revisa los datos ingresados (nombre, email y teléfono son obligatorios).") and return
     end
   end
 
@@ -27,7 +29,16 @@ class Comercial::LeadsController < ApplicationController
   private
 
   def lead_params
-    params.expect(lead: [:nombre, :email, :telefono, :empresa_nombre])
+    # Rails 8: params.expect. respuestas: {} permite valores escalares arbitrarios
+    # bajo lead[respuestas][clave] (las 3 respuestas del diagnóstico).
+    params.expect(lead: [:kind, :nombre, :email, :telefono, :empresa_nombre, :pregunta, { respuestas: {} }])
+  end
+
+  def responder(datos, flash_msg = {})
+    respond_to do |format|
+      format.html { redirect_to leads_gracias_path, flash_msg }
+      format.json { render json: datos, status: datos[:ok] ? :created : :unprocessable_entity }
+    end
   end
 
   # Capa 1: honeypot — un humano nunca lo completa
