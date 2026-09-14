@@ -1,0 +1,66 @@
+<div class="ubuntu-regular">
+  <h1>Seguimiento de leads</h1>
+
+  <%# Pestañas del pipeline con contadores %>
+  <div class="pipeline-tabs" style="margin-bottom: 1.5rem;">
+    <%= link_to "Todos (#{Lead.count})", leads_path,
+                class: "btn btn-sm #{@estado.blank? ? 'btn-primary' : 'btn-outline-primary'}" %>
+    <% Lead.estados.each do |key, _| %>
+      <%= link_to "#{key.humanize} (#{@conteos[key] || 0})",
+                  leads_path(estado: key),
+                  class: "btn btn-sm #{@estado == key ? 'btn-primary' : 'btn-outline-primary'}" %>
+    <% end %>
+  </div>
+
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Nombre</th>
+        <th>Contacto</th>
+        <th>Fuente</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @leads.each do |lead| %>
+        <tr>
+          <td><%= l lead.created_at, format: :short %></td>
+          <td>
+            <%= link_to lead.nombre, lead_path(lead) %>
+            <% if lead.empresa.present? %>
+              <br><small class="text-muted">→ <%= lead.empresa.razon_social %></small>
+            <% end %>
+          </td>
+          <td>
+            <%= lead.email %><br>
+            <small><%= lead.telefono %></small>
+          </td>
+          <td><span class="badge bg-secondary"><%= lead.fuente %></span></td>
+          <td><span class="badge bg-<%= badge_color(lead.estado) %>"><%= lead.estado.humanize %></span></td>
+          <td>
+            <%# Transiciones rápidas según el estado actual %>
+            <% case lead.estado %>
+            <% when "nuevo" %>
+              <%= button_to "Contactado", lead_path(lead, lead: { estado: :contactado }),
+                            method: :patch, class: "btn btn-xs btn-outline-secondary" %>
+            <% when "contactado" %>
+              <%= button_to "Calificar", lead_path(lead, lead: { estado: :calificado }),
+                            method: :patch, class: "btn btn-xs btn-outline-secondary" %>
+            <% when "calificado" %>
+              <%= link_to "Convertir → Empresa", new_admin_lead_conversion_path(lead),
+                          class: "btn btn-xs btn-success" %>
+              <%= button_to "Descartar", lead_path(lead, lead: { estado: :descartado }),
+                            method: :patch, class: "btn btn-xs btn-outline-danger" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @leads.empty? %>
+    <p class="text-muted">No hay leads en este estado.</p>
+  <% end %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_13_153037) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_14_025349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1196,6 +1196,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_13_153037) do
     t.string "kind", default: "presentacion", null: false
     t.text "pregunta"
     t.jsonb "respuestas", default: {}, null: false
+    t.text "nota_seguimiento"
     t.index ["empresa_id"], name: "index_leads_on_empresa_id"
     t.index ["kind"], name: "index_leads_on_kind"
   end

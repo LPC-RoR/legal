@@ -1,8 +1,21 @@
 class Comercial::LeadsController < ApplicationController
 
+  before_action :set_lead, only: %i[show update]
+
   # Tercera capa anti-bot: máximo 5 envíos por IP cada 3 minutos
   rate_limit to: 5, within: 3.minutes, only: :create,
              with: -> { redirect_to root_path, alert: "Demasiados intentos, inténtalo más tarde." }
+
+  def index
+    @estado = params[:estado]
+    @leads  = Lead.order(created_at: :desc)
+    @leads  = @leads.where(estado: @estado) if @estado.present?
+
+    # Contadores para las pestañas del pipeline
+    @conteos = Lead.group(:estado).count
+  end
+
+  def show; end
 
   def create
     @objeto = Lead.new(lead_params)
@@ -24,9 +37,22 @@ class Comercial::LeadsController < ApplicationController
     end
   end
 
+  def update
+    if @lead.update(lead_params)
+      redirect_to admin_leads_path(estado: @lead.estado),
+                  notice: "Lead actualizado a «#{@lead.estado.humanize}»."
+    else
+      redirect_to admin_leads_path, alert: "No se pudo actualizar el lead."
+    end
+  end
+
   def gracias; end
 
   private
+
+  def set_lead
+    @lead = Lead.find(params[:id])
+  end
 
   def lead_params
     # Rails 8: params.expect. respuestas: {} permite valores escalares arbitrarios

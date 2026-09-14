@@ -1,0 +1,11 @@
+<h2><%= @lead.nombre %></h2>
+<p><%= @lead.email %> · <%= @lead.telefono %> · Fuente: <%= @lead.fuente %></p>
+<p>Estado: <span class="badge bg-<%= badge_color(@lead.estado) %>"><%= @lead.estado.humanize %></span></p>
+
+<%= form_with(model: [:admin, @lead]) do |form| %>
+  <div class="campo">
+    <%= form.label :nota_seguimiento, "Nota de seguimiento" %>
+    <%= form.text_area :nota_seguimiento, rows: 4, class: "form-control" %>
+  </div>
+  <%= form.submit "Guardar nota", class: "btn btn-sm btn-outline-primary" %>
+<% end %>

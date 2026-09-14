@@ -16,6 +16,7 @@ class MenuItemPolicy < ApplicationPolicy
     when 'laborsafe'          then user.admin? || user.operacion?
     when 'empresas'           then user.admin? || user.finanzas? 
     when 'contactos'          then user.admin? || user.finanzas? 
+    when 'leads'              then user.admin? || user.finanzas? 
     when 'productos'          then user.admin? || user.finanzas? 
     when 'com_documentos'     then user.admin? || user.finanzas? 
     when 'tablas'             then user.admin? || user.operacion? || user.finanzas?

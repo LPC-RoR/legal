@@ -36,6 +36,7 @@ module AppMenuHelper
             children: [
               { id: 'empresas',           name: 'Empresas',                 path: '/empresas',              icon: 'bi bi-buildings' },
               { id: 'contactos',          name: 'Contactos comerciales',    path: '/com_requerimientos',    icon: 'bi bi-person-raised-hand' },
+              { id: 'leads',              name: 'Leads recibidos',          path: '/leads',                 icon: 'bi bi-person-raised-hand' },
               { id: 'com_documentos',     name: 'Documentos comerciales',   path: '/com_documentos',        icon: 'bi bi-file-earmark-pdf' },
             ]
           },
