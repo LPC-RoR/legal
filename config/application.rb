@@ -37,7 +37,7 @@ module Legal
     config.decimales_uf = 5
 
     config.lead_notification_recipients =
-      Rails.application.credentials.dig(:lead_notification_emails) || ["ventas@laborsafe.cl"]
+      Rails.application.credentials.dig(:lead_notification_emails) || ["hugo@laborsafe.cl"]
 
   end
 end

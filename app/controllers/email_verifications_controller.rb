@@ -1,7 +1,7 @@
 # app/controllers/email_verifications_controller.rb
 class EmailVerificationsController < ApplicationController
-  before_action :authenticate_usuario!, except: [:verify], if: -> { params[:model_type] != 'com_requerimientos' }
-  before_action :scrty_on, except: [:verify], if: -> { params[:model_type] != 'com_requerimientos' }
+  before_action :authenticate_usuario!, except: [:verify]
+  before_action :scrty_on, except: [:verify]
 
   def verify
     token = params[:token]
@@ -42,7 +42,7 @@ class EmailVerificationsController < ApplicationController
   end
 
   def send_verification
-    unless authorized_user? or params[:model_type] == 'com_requerimientos'
+    unless authorized_user?
       redirect_to root_path, alert: 'No autorizado'
       return
     end

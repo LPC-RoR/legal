@@ -18,7 +18,6 @@ class MenuItemPolicy < ApplicationPolicy
     when 'contactos'          then user.admin? || user.finanzas? 
     when 'leads'              then user.admin? || user.finanzas? 
     when 'productos'          then user.admin? || user.finanzas? 
-    when 'com_documentos'     then user.admin? || user.finanzas? 
     when 'tablas'             then user.admin? || user.operacion? || user.finanzas?
     when 'tribunales_cortes'  then user.admin? || user.operacion?
     when 'cuantias'           then user.admin?

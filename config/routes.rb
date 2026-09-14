@@ -146,16 +146,9 @@ Rails.application.routes.draw do
   end
 
   scope module: 'comercial' do
-
-    resources :leads, only: %i[index show update] do
+    resources :leads, only: %i[index show create update] do
+      get :gracias, on: :collection          # /leads/gracias
       resource :conversion, only: %i[new create], controller: "conversiones"
-    end
-
-    post '/requerimiento', to: 'com_requerimientos#create', as: 'requerimiento'
-    resources :com_requerimientos
-    resources :com_documentos do
-      match :download, via: :get, on: :member
-      match :show_pdf, via: :get, on: :member
     end
   end
 
@@ -552,15 +545,11 @@ Rails.application.routes.draw do
   get   'metodologia',          to: 'aplicacion/home#metodologia'
   get   'blog',                 to: 'aplicacion/home#blog'
 
-  post "leads",          to: "comercial/leads#create"
-  get  "leads/gracias",  to: "comercial/leads#gracias", as: :leads_gracias
-
   # manejo formulario de registro de empresas
   post '/register', to: 'empresas#create', as: 'register'
   get '/verify_email', to: 'empresas#verify', as: 'verify_email'
 
   # manejo formulario de registro de contactos comerciales
-  get '/verify_cntct',      to: 'comercial/com_requerimientos#verify',  as: 'verify_cntct'
   get '/verify_invstgdr',   to: 'karin/krn_investigadores#verify',      as: 'verify_invstgdr'
   get '/verify_extrn',      to: 'karin/krn_empresa_externas#verify',    as: 'verify_extrn'
   get '/verify_app_cntct',  to: 'recursos/app_contactos#verify',        as: 'verify_app_cntct'

@@ -13,7 +13,7 @@
 	</div>
 
 	<%= render layout: '0p/collapse/dsply', locals: {label: 'Participantes', objeto: objeto} do %>
-		<%= render partial: prtl(objeto, 'lst', 'prtcpnts'), locals: {objeto: objeto} unless krn_routes? unless controller_name == 'com_requerimientos' %>
+		<%= render partial: prtl(objeto, 'lst', 'prtcpnts'), locals: {objeto: objeto} unless krn_routes? %>
 	<% end %>
 
 	<%= render layout: '0p/collapse/dsply', locals: {label: 'Detalle', objeto: objeto} do %>
