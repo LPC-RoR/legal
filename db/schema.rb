@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_14_171848) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_14_213733) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1394,48 +1394,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_14_171848) do
     t.index ["orden"], name: "index_slides_on_orden"
   end
 
-  create_table "st_estados", force: :cascade do |t|
-    t.integer "orden"
-    t.string "st_estado"
-    t.string "destinos"
-    t.string "destinos_admin"
-    t.integer "st_modelo_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.boolean "aprobacion"
-    t.string "check"
-    t.index ["check"], name: "index_st_estados_on_check"
-    t.index ["orden"], name: "index_st_estados_on_orden"
-    t.index ["st_estado"], name: "index_st_estados_on_st_estado"
-    t.index ["st_modelo_id"], name: "index_st_estados_on_st_modelo_id"
-  end
-
-  create_table "st_logs", force: :cascade do |t|
-    t.integer "perfil_id"
-    t.string "class_name"
-    t.integer "objeto_id"
-    t.string "e_origen"
-    t.string "e_destino"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["e_destino"], name: "index_st_logs_on_e_destino"
-    t.index ["e_origen"], name: "index_st_logs_on_e_origen"
-    t.index ["objeto_id"], name: "index_st_logs_on_objeto_id"
-    t.index ["perfil_id"], name: "index_st_logs_on_perfil_id"
-  end
-
-  create_table "st_modelos", force: :cascade do |t|
-    t.string "st_modelo"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.boolean "bandeja"
-    t.string "crud"
-    t.string "k_estados"
-    t.index ["bandeja"], name: "index_st_modelos_on_bandeja"
-    t.index ["crud"], name: "index_st_modelos_on_crud"
-    t.index ["st_modelo"], name: "index_st_modelos_on_st_modelo"
-  end
-
   create_table "tar_aprobaciones", force: :cascade do |t|
     t.integer "cliente_id"
     t.datetime "fecha", precision: nil
@@ -1530,29 +1488,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_14_171848) do
     t.index ["tar_pago_id"], name: "index_tar_facturaciones_on_tar_pago_id"
   end
 
-  create_table "tar_facturas", force: :cascade do |t|
-    t.string "owner_class"
-    t.integer "owner_id"
-    t.integer "documento"
-    t.string "estado"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "detalle_pago"
-    t.datetime "fecha_uf", precision: nil
-    t.decimal "uf_factura"
-    t.string "concepto"
-    t.datetime "fecha_pago", precision: nil
-    t.datetime "fecha_factura", precision: nil
-    t.integer "clave"
-    t.integer "m_registro_id"
-    t.index ["clave"], name: "index_tar_facturas_on_clave"
-    t.index ["estado"], name: "index_tar_facturas_on_estado"
-    t.index ["fecha_pago"], name: "index_tar_facturas_on_fecha_pago"
-    t.index ["m_registro_id"], name: "index_tar_facturas_on_m_registro_id"
-    t.index ["owner_class"], name: "index_tar_facturas_on_owner_class"
-    t.index ["owner_id"], name: "index_tar_facturas_on_owner_id"
-  end
-
   create_table "tar_fecha_calculos", force: :cascade do |t|
     t.string "ownr_type"
     t.integer "ownr_id"
@@ -1576,19 +1511,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_14_171848) do
     t.index ["code_cuantia"], name: "index_tar_formula_cuantias_on_code_cuantia"
     t.index ["tar_detalle_cuantia_id"], name: "index_tar_formula_cuantias_on_tar_detalle_cuantia_id"
     t.index ["tar_tarifa_id"], name: "index_tar_formula_cuantias_on_tar_tarifa_id"
-  end
-
-  create_table "tar_nota_creditos", force: :cascade do |t|
-    t.integer "numero"
-    t.datetime "fecha", precision: nil
-    t.decimal "monto"
-    t.boolean "monto_total"
-    t.integer "tar_factura_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["fecha"], name: "index_tar_nota_creditos_on_fecha"
-    t.index ["numero"], name: "index_tar_nota_creditos_on_numero"
-    t.index ["tar_factura_id"], name: "index_tar_nota_creditos_on_tar_factura_id"
   end
 
   create_table "tar_pagos", force: :cascade do |t|

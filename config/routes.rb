@@ -432,17 +432,6 @@ Rails.application.routes.draw do
     end
   end
   
-  scope module: 'st_estados' do
-    resources :st_estados do
-      match :arriba, via: :post, on: :member
-      match :abajo, via: :post, on: :member
-    end
-    resources :st_modelos do 
-      resources :st_estados
-    end
-    resources :st_bandejas
-  end
-
   scope module: 'tarifas' do
     resources :tar_tarifas do 
       resources :tar_pagos
@@ -491,22 +480,6 @@ Rails.application.routes.draw do
         post :ejecutar_evento
       end
     end
-
-    resources :tar_facturas do 
-      resources :tar_facturaciones
-      match :set_documento, via: :post, on: :member
-      match :elimina, via: :get, on: :member
-      match :back_estado, via: :get, on: :member
-      match :set_pago, via: :post, on: :member
-      match :set_facturada, via: :get, on: :member
-      match :crea_factura, via: :get, on: :collection
-      # nueva lógica
-      match :libera_factura, via: :get, on: :member
-      match :crea_nota_credito, via: :post, on: :member
-      match :elimina_nota_credito, via: :get, on: :member
-      match :a_facturada, via: :get, on: :member
-    end
-    resources :tar_nota_creditos
 
     resources :tar_aprobaciones
     resources :tar_cuotas

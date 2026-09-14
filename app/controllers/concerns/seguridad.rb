@@ -209,35 +209,4 @@ module Seguridad
 		end
 	end
 
-	# ***************************************************** MANEJO DE TIPOS DE USUARIO
-
-	def itm_scrty(item)
-		item.class.name == 'Array' ? item[1] : true
-	end
-
-	#DEPRECATED : Revisar si siempre se puede reemplazar por itm_scrty
-	# Se usa en LMENU
-	def lm_seguridad(modelo)
-		modelo.class.name == 'Array' ? seguridad(modelo[1]) : true
-	end
-
-	def check_crud(objeto)
-		class_name = objeto.class.name == 'String' ? objeto : objeto.class.name
-		model = StModelo.find_by(st_modelo: class_name)
-		model.blank? ? true : ( model.crud.blank? ? false : (model.crud == 'operación' ? operacion? : finanzas?) )
-	end
-
-	def check_k_estados(objeto)
-		class_name = objeto.class.name == 'String' ? objeto : objeto.class.name
-		model = StModelo.find_by(st_modelo: class_name)
-		model.blank? ? true : ( model.k_estados.blank? ? false : (model.k_estados == 'operación' ? operacion? : finanzas?) )
-	end
-
-	def check_st_estado(objeto, estado)
-		class_name = objeto.class.name == 'String' ? objeto : objeto.class.name
-		model = StModelo.find_by(st_modelo: class_name)
-		estado = model.st_estados.find_by(st_estado: estado)
-		(model.blank? or estado.blank?) ? true : ( estado.check.blank? ? true : (estado.check == 'operación' ? operacion? : finanzas?) )
-	end
-
 end

@@ -3,7 +3,7 @@ class ClientesController < ApplicationController
   before_action :authenticate_usuario!
   before_action :scrty_on
   before_action :set_cliente, only: %i[ show edit update destroy crear_aprobacion swtch_stt swtch_urgencia swtch_pendiente ejecutar_evento ]
-  after_action :rut_puro, only: %i[ create update ]
+  after_action  :rut_puro, only: %i[ create update ]
 
   layout 'pltfrm'
 
@@ -37,23 +37,27 @@ class ClientesController < ApplicationController
 
   # GET /clientes/1 or /clientes/1.json
   def show
+    # ---------------------------- Variables para TODOS los TABs
     @orgn = 'clnt_shw'
-    @usrs = Usuario.where(tenant_id: nil)
-    @actvdds  = @objeto.age_actividades.fecha_ordr
+#    @usrs = Usuario.pltfrm_usrs
     @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
     
-    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Aprobaciones', finanzas?], ['Facturación', finanzas?], ['Tarifas', (admin? or (operacion? and @objeto.tipo_cliente == 'Trabajador'))], ['Conciliar', current_usuario.admin?]] )
+    # ---------------------------- TAB Definición y despliegue
+    set_tab( :menu, [['General', operacion?], 'Causas', ['Asesorias', admin?], ['Facturación', finanzas?], 
+      ['Aprobaciones', finanzas?], ['Facturas', finanzas?],['Tarifas', current_usuario.admin?]] )
 
     if @options[:menu] == 'General'
-
-      set_tabla('age_actividades', @objeto.age_actividades.fecha_ordr, false)
+      # -------------------------- clientes/show/_shw_general
+      @actvdds  = @objeto.age_actividades.fecha_ordr
 
     elsif @options[:menu] == 'Causas'
+      # -------------------------- causas/indx/_indx
+      @usrs = Usuario.pltfrm_usrs # Duplicado
 
-      @usrs = Usuario.where(tenant_id: nil)
-
-      scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
-      @scp = scp_item[:causas][scp.to_sym]
+      scp   = params[:scp] || 'trmtcn'
+      # scp_item esta en el concern de controller cmenu
+      # REVISAR cambio a una Clase de ClssPltfrmMenu (algo así)
+      @scp  = scp_item[:causas][scp.to_sym]
 
       # **APLICAR SCOPE PRIMERO**
       cllcn = if params[:query].present?
@@ -70,7 +74,8 @@ class ClientesController < ApplicationController
 
     elsif @options[:menu] == 'Asesorias'
 
-      scp = params[:scp].blank? ? 'trmtcn' : params[:scp]
+      scp = params[:scp] || 'trmtcn'
+      @scp = scp_item[:asesorias][scp.to_sym]
 
       case scp
       when 'trmtcn'
@@ -81,9 +86,11 @@ class ClientesController < ApplicationController
         cllcn = @objeto.asesorias.rcnts
       end
 
-      @scp = scp_item[:asesorias][scp.to_sym]
-
       set_tabla('asesorias', cllcn, true)
+
+    elsif @options[:menu] == 'Facturación'
+
+      @causas_revision = @objeto.causas.revision.not_fctrd
 
     elsif @options[:menu] == 'Aprobaciones'
 
@@ -91,9 +98,10 @@ class ClientesController < ApplicationController
       @fctrcns  = @objeto.tar_facturaciones_pendientes_aprobacion.order(created_at: :desc)
       @aprbcns  = @objeto.act_archivos.where(act_archivo: 'aprobacion').order(created_at: :desc)
       
-    elsif @options[:menu] == 'Facturación'
+    elsif @options[:menu] == 'Facturas'
 
-      @causas_revision = @objeto.causas.revision.not_fctrd
+      @trnsccns       = @objeto.doc_transacciones.order(fecha: :desc)
+      @doc_emitidos   = @objeto.doc_emitidos.order(fecha_emision: :desc)
 
     elsif @options[:menu] == 'Tarifas'
       
@@ -106,10 +114,8 @@ class ClientesController < ApplicationController
       set_tabla('tar_tarifas', @objeto.tar_tarifas.order(:created_at), false)
       set_tabla('tar_servicios', @objeto.tar_servicios.order(:created_at), false)
 
-    elsif @options[:menu] == 'Conciliar'
-      @trnsccns       = @objeto.doc_transacciones.order(fecha: :desc)
-      @doc_emitidos   = @objeto.doc_emitidos.order(fecha_emision: :desc)
     end
+
   end
 
   def crear_aprobacion

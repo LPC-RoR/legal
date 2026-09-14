@@ -8,17 +8,17 @@
 	<% when 'General' %>
 		<%= render partial: 'clientes/shw/shw_general', locals: {objeto: @objeto} %>
 	<% when 'Causas' %>
-		<%= render partial: 'causas/indx/indx', locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
+		<%= render partial: 'causas/indx/indx' %>
 	<% when 'Asesorias' %>
-		<%= render partial: prtl_name('asesorias', 'indx', 'indx'), locals: {estados: @estados, tipos: @tipos, tipo: @tipo, estado: @estado, path: @path} %>
-	<% when 'Aprobaciones' %>
-		<%= render partial: 'clientes/shw/shw_aprobaciones', locals: {objeto: @objeto} %>
+		<%= render partial: 'asesorias/indx/indx' %>
 	<% when 'Facturación' %>
 		<%= render partial: 'clientes/shw/shw_facturacion', locals: {objeto: @objeto} %>
+	<% when 'Aprobaciones' %>
+		<%= render partial: 'clientes/shw/shw_aprobaciones', locals: {objeto: @objeto} %>
+	<% when 'Facturas' %>
+		<%= render partial: 'clientes/shw/shw_facturas', locals: {objeto: @objeto} %>
 	<% when 'Tarifas' %>
-		<%= render partial: 'clientes/shw/shw_tarifas', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
-	<% when 'Conciliar' %>
-		<%= render partial: 'clientes/shw/shw_conciliar', locals: {objeto: @objeto, estado: @estado, tipo: @tipo, path: @path} %>
+		<%= render partial: 'clientes/shw/shw_tarifas' %>
 	<% end %>
 	
 </div>

@@ -34,17 +34,18 @@ class Usuario < ApplicationRecord
 
   delegate :owner, to: :tenant, allow_nil: true   # Company/Client o nil
 
-  ROLES = %i[dog admin general auditor operacion finanzas recepcion investigador].freeze
+#  ROLES = %i[dog admin general auditor operacion finanzas recepcion investigador].freeze
   ADDT_ROLES = %i[dog admin general operacion finanzas].freeze
   LBSF_ROLES = %i[admin auditor recepcion investigador].freeze
 
 #  validate :role_must_be_in_list
 
-  def role_must_be_in_list
-    errors.add(:role, 'no es válido') unless ROLES.include?(role)
-  end
+#  def role_must_be_in_list
+#    errors.add(:role, 'no es válido') unless ROLES.include?(role)
+#  end
 
-  scope :ordered, -> { order(:created_at) }
+  scope :ordered,     -> { order(:created_at) }   # ordenados por órden de creación
+  scope :pltfrm_usrs, -> {where(tenant_id: nil)}  # usuarios de la plataforma
 
   def surname
     nombre || email.split('@')[0].split('.')[0].capitalize

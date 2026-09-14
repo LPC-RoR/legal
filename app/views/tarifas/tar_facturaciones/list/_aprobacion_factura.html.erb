@@ -3,8 +3,3 @@
 		<i class="bi bi-check2-all"></i>
 	<% end %>
 <% end %>
-<% unless objeto.tar_factura.blank? or controller_name == 'tar_facturas' %>
-	<%= render layout: '0p/tltp_lnk', locals: {lnk: objeto.tar_factura, tltp: "Ver factura #{objeto.tar_factura.documento}" } do %>
-		<i class="bi bi-receipt"></i>
-	<% end %>
-<% end %>

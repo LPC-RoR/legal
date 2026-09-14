@@ -6,22 +6,20 @@ class Cliente < ApplicationRecord
 
 	TIPOS = ['Empresa', 'Sindicato', 'Trabajador']
 
-    has_one :tenant, as: :owner, dependent: :destroy
-	has_many :usuarios, through: :tenant
-
-	# tabla de CLIENTES
-	# 1.- Evaluar has_many tar_facturas
-
-	has_many :app_nominas, as: :ownr
+    has_one		:tenant, as: :owner, dependent: :destroy
+	has_many	:app_nominas, as: :ownr
+	has_many 	:usuarios, through: :tenant
 
 	has_many :causas
 	has_many :asesorias
-
 	has_many :tar_tarifas, as: :ownr
 	has_many :tar_servicios, as: :ownr
+
+	has_many :cli_aprobaciones, dependent: :destroy
 	# DEPRECATED
 	has_many :tar_aprobaciones
 
+	# DEPRECATED? REVISAR
 	has_many :tar_facturaciones, through: :causas
 
 	has_many :doc_emitidos
@@ -30,23 +28,22 @@ class Cliente < ApplicationRecord
 	has_many :age_actividades, as: :ownr
 
 	# Manejo de logos y footer
-	has_one_attached :logo
-	has_rich_text :email_footer
+	has_one_attached	:logo
+	has_rich_text		:email_footer
 
 	# Se agregó para relacionar pdfs de aprobaciones, después se cambió a cli_aprobaciones
+	# PENDIENTE: Implementar documentos controlados del Cliente
 	has_many :act_archivos, as: :ownr, dependent: :destroy
 
 	has_many :app_contactos, as: :ownr
-	has_many :app_archivos, as: :ownr
 	has_many :notas, as: :ownr
-
-	has_many :cli_aprobaciones, dependent: :destroy
+	# DEPRECATED
+	has_many :app_archivos, as: :ownr
 
     validates_presence_of :rut, :razon_social, :tipo_cliente
 
-    scope :std, ->(estado) { where(estado: estado)}
-    scope :typ, ->(tipo) { where(estado: 'activo', tipo_cliente: tipo) }
-
+    scope :std,		->(estado) { where(estado: estado)}
+    scope :typ, 	->(tipo) { where(estado: 'activo', tipo_cliente: tipo) }
     scope :cl_ordr, -> { order(preferente: :desc, razon_social: :asc) }
 
 	def kywrd
@@ -132,10 +129,6 @@ class Cliente < ApplicationRecord
 
 	# OBJETO
 
-    def st_modelo
-    	StModelo.find_by(st_modelo: self.class.name)
-    end
-
 	def enlaces
 		AppEnlace.where(owner_class: self.class.name, owner_id: self.id)
 	end
@@ -156,17 +149,9 @@ class Cliente < ApplicationRecord
 		self.app_archivos.find_by(app_archivo: app_archivo)
 	end
 
-	def acs
-		self.st_modelo.acs
-	end
-
 	# Archivos NO Controlados
 	def as
 		self.app_archivos.where.not(app_archivo: self.acs.nms)
-	end
-
-	def dcs
-		self.st_modelo.dcs
 	end
 
 	def nombres_usados

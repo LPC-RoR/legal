@@ -53,8 +53,6 @@ class CausasController < ApplicationController
     @usrs = Usuario.where(tenant_id: nil)
 
     demanda = @objeto.act_archivos.find_by(act_archivo: 'demanda')
-
-    set_st_estado(@objeto)
     set_tab( :menu, ['General', ['Hechos', current_usuario.operacion?], ['Tarifa & Pagos', finanzas?]] )
 
     # Prueba de Docsplit

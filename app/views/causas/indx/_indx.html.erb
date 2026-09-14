@@ -1,9 +1,16 @@
+<%# Variables para diferenciar el uso bajo Causas y Cliente#show %>
 <% ttl_clss = controller_name == 'causas' ? :indx : :indx_md %>
 <% ownr 	= controller_name == 'causas' ? nil : @objeto %>
 
+<%# ---------------------------- Título %>
 <%= render partial: '0ttl/ttl', locals: {source: 'causas', clss: ttl_clss, dir: 'indx', ownr: ownr} %>
+
+<%# ---------------------------- Search form %>
 <%= render partial: prtl_name('causas', 'indx', 'srch_causas') %>
 
+<%# ---------------------------- Notice | Alert %>
 <%= render partial: 'layouts/partials/notice_alert' if controller_name == 'causas' %>
 
+<%# ---------------------------- Tabla %>
+<%# Revisar cambio a 0t %>
 <%= render partial: '0p/tbl_clss', locals: {source: 'causas', clccn: @causas, pgnt: params[:query].nil?} %>

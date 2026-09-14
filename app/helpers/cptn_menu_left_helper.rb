@@ -2,7 +2,7 @@ module CptnMenuLeftHelper
 	## ------------------------------------------------------- MENU
 
 	def scp_clnt(tkn, objeto)
-		tab = tkn == :tar_facturas ? 'Facturas' : tkn.to_s.capitalize
+		tab = tkn.to_s.capitalize
 		objeto.blank? ? '' : "/clientes/#{objeto.id unless objeto.blank?}?html_options[menu]=#{tab}&scp="
 	end
 
@@ -35,7 +35,6 @@ module CptnMenuLeftHelper
 					items: [
 						'Cargo',
 						'TarAprobacion',
-						'TarFactura',
 						'DocPlanilla'
 					]
 				},
@@ -99,7 +98,6 @@ module CptnMenuLeftHelper
 					condicion: admin?, 
 					items: [
 						'AppNomina',
-						'StModelo',
 					]
 				},
 				{
@@ -180,7 +178,6 @@ module CptnMenuLeftHelper
 	def h_modelo_item
 		{
 			'AppNomina' => 'Nomina',
-			'StModelo' => 'Personalización',
 			'TarAprobacion' => 'Aprobaciones',
 			'Asesoria' => 'Asesorías',
 			'TarUfSistema' => 'UF del día',

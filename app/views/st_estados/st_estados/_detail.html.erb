@@ -1,8 +1,0 @@
-<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :st_estado, label: 'Estado' } %>
-<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :destinos, label: 'Destinos' } %>
-<%= render partial: '0p/lbld_inpts/text', locals: { form: form, token: :destinos_admin, label: 'Destinos para Administradores' } %>
-
-<%= render partial: '0p/lbld_inpts/select', locals: { form: form, token: :check, sel_list: AutTipoUsuario.all.order(:aut_tipo_usuario).map {|atu| atu.aut_tipo_usuario}, label: 'Desplegar?' } %>
-
-<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :st_modelo_id} %>
-<%= render partial: '0p/lbld_inpts/hidden', locals: { form: form, token: :orden} %>

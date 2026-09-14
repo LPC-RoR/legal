@@ -32,8 +32,7 @@ module CptnMenuAppHelper
 		case item
 		when 'Valores'
 			[
-				['Tarifas Base', '/tar_tarifas'],
-				['Facturas', 'tar_facturas']
+				['Tarifas Base', '/tar_tarifas']
 			]
 		when 'Documentos'
 			[

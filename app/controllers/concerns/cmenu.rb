@@ -18,11 +18,6 @@ module Cmenu
 				{scp: 'trmtcn', 	cndcn: operacion?},
 				{scp: 'archvd',		cndcn: operacion?},
 				{scp: 'rcnts',		cndcn: operacion?},
-			],
-			tar_facturas: [
-				{scp: 'ingrss',		cndcn: admin?},
-				{scp: 'fctrds', 	cndcn: admin?},
-				{scp: 'pgds', 		cndcn: admin?}
 			]
 		}
 	end
@@ -49,11 +44,6 @@ module Cmenu
 				trmtcn: 	'en tramitación',
 				archvd: 	'archivadas',
 				rcnts: 		'últimos 30 días',
-			},
-			tar_facturas: {
-				ingrss: 	'ingresadas',
-				fctrds: 	'facturadas',
-				pgds: 		'pagadas'
 			}
 		}
 	end

@@ -48,8 +48,14 @@ class Causa < ApplicationRecord
 	# antecedentes de los hechos de la tabla
 	has_many :antecedentes
 
-	scope :revision, -> {order(created_at: :desc)}
-	scope :not_fctrd, -> {where.not(estado_financiero: 'facturada')}
+	# ---------------- indx_drpdwn_filter en título de la tabla
+	scope :std_oprtv, ->(std) {where(estado_operativo: std)}
+	scope :std_fnncr, ->(std) {where(estado_financiero: std)}
+	scope :rcnts, 		-> { where("created_at >= ?", 30.days.ago) }
+
+	# ---------------- usados para TAB facturación en Cliente#show
+	scope :revision, 	-> {order(created_at: :desc)}
+	scope :not_fctrd, 	-> {where.not(estado_financiero: 'facturada')}
 
     validates_presence_of :causa, :rit
 
@@ -61,7 +67,7 @@ class Causa < ApplicationRecord
 		}
 	end
 
-	# app/models/causa.rb
+	# --------------- Usado en Cliente#show#causas
 	def self.with_paginated_calculos(page = 1, per = 20)
 	  page = (page || 1).to_i
 	  per = (per || 20).to_i
@@ -206,11 +212,6 @@ class Causa < ApplicationRecord
 		demanda_archivo_id.present?
 	end
 
-	# Activos!
-	scope :std_oprtv, ->(std) {where(estado_operativo: std)}
-	scope :std_fnncr, ->(std) {where(estado_financiero: std)}
-	scope :rcnts, 		-> { where("created_at >= ?", 30.days.ago) }
-	  
     delegate :tar_pagos, to: :tar_tarifa, prefix: true
 
     # DEPRECATED
@@ -493,11 +494,6 @@ class Causa < ApplicationRecord
 	end
 
     # ****************************************************
-
-    # Revisar uso
-    def st_modelo
-    	StModelo.find_by(st_modelo: self.class.name)
-    end
 
 	def tarifas_cliente
 		self.cliente.tar_tarifas

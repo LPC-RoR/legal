@@ -73,7 +73,7 @@ class Recursos::AppEnlacesController < ApplicationController
     def set_redireccion
       if @objeto.ownr_id.blank? or @objeto.ownr.class.name == 'AppPerfil'
         @redireccion = tabla_path(@objeto)
-      elsif ['AppDirectorio', 'TarFactura'].include?(@objeto.ownr.class.name)
+      elsif ['AppDirectorio'].include?(@objeto.ownr.class.name)
         @redireccion = @objeto.ownr
       end
     end
