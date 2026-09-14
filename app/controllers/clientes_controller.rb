@@ -39,7 +39,7 @@ class ClientesController < ApplicationController
   def show
     # ---------------------------- Variables para TODOS los TABs
     @orgn = 'clnt_shw'
-#    @usrs = Usuario.pltfrm_usrs
+    @usrs = Usuario.pltfrm_usrs
     @actividades = @objeto.age_actividades.map {|act| act.age_actividad}
     
     # ---------------------------- TAB Definición y despliegue
@@ -52,8 +52,6 @@ class ClientesController < ApplicationController
 
     elsif @options[:menu] == 'Causas'
       # -------------------------- causas/indx/_indx
-      @usrs = Usuario.pltfrm_usrs # Duplicado
-
       scp   = params[:scp] || 'trmtcn'
       # scp_item esta en el concern de controller cmenu
       # REVISAR cambio a una Clase de ClssPltfrmMenu (algo así)
