@@ -88,10 +88,14 @@
                 <% end %>
               </div>
               <p class="ls-feedback mt-3 mb-0" hidden></p>
-              <button type="button" class="btn btn-primary mt-3 ls-siguiente" hidden
-                      data-action="click->diagnostico#siguiente">
-                Siguiente
-              </button>
+
+              <% if i < preguntas.size - 1 %>
+                <button type="button" class="btn btn-primary mt-3 ls-siguiente" hidden
+                        data-action="click->diagnostico#siguiente">
+                  Siguiente
+                </button>
+              <% end %>
+
             </div>
           </fieldset>
         <% end %>
