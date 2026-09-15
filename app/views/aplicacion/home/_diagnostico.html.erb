@@ -1,3 +1,4 @@
+<%# aplicacion/home/_diagnostico.html.erb %>
 <%#
   Mini-diagnóstico en dos columnas:
     - Izquierda: wizard de 3 preguntas (una a la vez con JS, todas apiladas sin JS)
@@ -16,8 +17,12 @@
   No cambie los `valor` ("si", "interno", ...) sin avisar: se guardan en la
   base de datos y los usa el scope Lead.con_denuncia_abierta.
 %>
-<div class="ls-diagnostico" id="ls-diagnostico">
-  <%= form_with model: @lead, url: leads_path, class: "mt-4", data: { turbo: false } do |f| %>
+<div class="ls-diagnostico" id="ls-diagnostico" data-controller="diagnostico">
+  <%= form_with model: @lead, url: leads_path,
+                class: "mt-4", data: { turbo: false,
+                                       diagnostico_target: "form",
+                                       action: "submit->diagnostico#enviar" } do |f| %>
+
     <%= f.hidden_field :kind, value: "diagnostico" %>
     <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
     <%# Honeypot anti-bot: invisible para humanos %>
@@ -65,12 +70,15 @@
     <div class="row g-4">
       <div class="col-lg-7">
         <% preguntas.each_with_index do |pregunta, i| %>
-          <fieldset class="card shadow-sm mb-3 ls-pregunta" data-ls-paso="<%= i + 1 %>">
+          <fieldset class="card shadow-sm mb-3 ls-pregunta"
+                    data-ls-paso="<%= i + 1 %>" data-diagnostico-target="paso">
+
             <div class="card-body">
               <legend class="h6 card-title fw-bold">
                 <span class="text-primary"><%= i + 1 %>/3</span> <%= pregunta[:texto] %>
               </legend>
-              <div class="d-grid gap-2 mt-3">
+              <div class="d-grid gap-2 mt-3" data-action="change->diagnostico#mostrarFeedback">
+
                 <% pregunta[:opciones].each do |valor, etiqueta, feedback| %>
                   <% input_id = "ls_#{pregunta[:clave]}_#{valor}" %>
                   <%# Radio nativo: el :checked lo pinta CSS y el valor viaja en el form %>
@@ -80,8 +88,9 @@
                 <% end %>
               </div>
               <p class="ls-feedback mt-3 mb-0" hidden></p>
-              <button type="button" class="btn btn-primary mt-3 ls-siguiente" hidden>
-                <%= i == preguntas.size - 1 ? "Continuar" : "Siguiente" %>
+              <button type="button" class="btn btn-primary mt-3 ls-siguiente" hidden
+                      data-action="click->diagnostico#siguiente">
+                Siguiente
               </button>
             </div>
           </fieldset>
@@ -89,7 +98,8 @@
       </div>
 
       <div class="col-lg-5">
-        <div class="card shadow-sm ls-form-card">
+        <div class="card shadow-sm ls-form-card" data-diagnostico-target="formCard">
+
           <div class="card-body">
             <h3 class="h6 card-title fw-bold">Sus datos</h3>
             <p class="text-secondary small">
@@ -128,72 +138,9 @@
     </div>
   <% end %>
 
-  <div class="alert alert-success text-center mt-3 ls-exito" hidden>
+  <div class="ls-exito" hidden data-diagnostico-target="exito">
     <h3 class="h5 alert-heading">Diagnóstico enviado</h3>
     <p class="mb-0">Gracias. Un especialista le contactará dentro de un día hábil con la
     orientación correspondiente a sus respuestas.</p>
   </div>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  var root = document.getElementById("ls-diagnostico");
-  if (!root) return;
-
-  // Wizard: solo la primera pregunta visible
-  var pasos = Array.prototype.slice.call(root.querySelectorAll("[data-ls-paso]"));
-  pasos.forEach(function (p) { p.hidden = Number(p.getAttribute("data-ls-paso")) !== 1; });
-
-  // Feedback al elegir una opción (el resaltado lo pinta CSS con :checked, no JS)
-  root.querySelectorAll(".ls-opcion-check").forEach(function (radio) {
-    radio.addEventListener("change", function () {
-      var paso = radio.closest("[data-ls-paso]");
-      var feedback = paso.querySelector(".ls-feedback");
-      feedback.textContent = radio.getAttribute("data-feedback");
-      feedback.hidden = false;
-      paso.querySelector(".ls-siguiente").hidden = false;
-    });
-  });
-
-  // Avance entre preguntas; en la última, scroll al formulario
-  root.querySelectorAll(".ls-siguiente").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var actual = Number(btn.closest("[data-ls-paso]").getAttribute("data-ls-paso"));
-      if (actual === pasos.length) {
-        root.querySelector(".ls-form-card").scrollIntoView({ behavior: "smooth", block: "center" });
-        return;
-      }
-      pasos.forEach(function (p) { p.hidden = Number(p.getAttribute("data-ls-paso")) !== actual + 1; });
-    });
-  });
-
-  // Envío por fetch; sin conexión, envío tradicional
-  var form = root.querySelector("form");
-  var enviar = root.querySelector(".ls-enviar");
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    enviar.disabled = true;
-    var tokenMeta = document.querySelector("meta[name='csrf-token']");
-    fetch(form.action, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "X-CSRF-Token": tokenMeta ? tokenMeta.content : ""
-      },
-      body: new FormData(form)
-    }).then(function (resp) {
-      if (resp.ok) {
-        form.hidden = true;
-        var exito = root.querySelector(".ls-exito");
-        exito.hidden = false;
-        exito.scrollIntoView({ behavior: "smooth", block: "center" });
-      } else {
-        resp.json().then(function (datos) {
-          alert((datos.errors || []).join("\n") || "No pudimos enviar el formulario. Revise los datos.");
-          enviar.disabled = false;
-        });
-      }
-    }).catch(function () { form.submit(); });
-  });
-});
-</script>
