@@ -1,4 +1,6 @@
 class Usuarios::SessionsController < Devise::SessionsController
+  before_action :set_login_meta_tags
+
   respond_to :html, :turbo_stream
 
   def create
@@ -14,6 +16,14 @@ class Usuarios::SessionsController < Devise::SessionsController
   end
 
   private
+
+  def set_login_meta_tags
+    set_meta_tags(
+      title: "Iniciar sesión",
+      robots: "noindex, nofollow",
+      canonical: new_usuario_session_url
+    )
+  end
 
   def respond_to_on_destroy
     respond_to do |format|

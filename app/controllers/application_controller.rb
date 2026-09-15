@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
   layout :resolve_layout
 
-  before_action :prepare_meta_tags
+  DEFAULT_DESCRIPTION = "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)".freeze
+  DEFAULT_OG_IMAGE = 'og/og_laborsafe.png'.freeze
+
+  before_action :redirect_to_canonical_host
+  before_action :prepare_meta_tags, if: -> { request.format.html? }
 
   include SetCurrentTenant
 #  include Pundit
@@ -55,6 +59,15 @@ class ApplicationController < ActionController::Base
 
   private
 
+	def redirect_to_canonical_host
+	  return unless Rails.env.production?
+	  canonical_host = "www.laborsafe.cl"
+	  if request.host != canonical_host
+	    redirect_to "https://#{canonical_host}#{request.fullpath}",
+	                status: :moved_permanently, allow_other_host: true
+	  end
+	end
+
   def resolve_layout
     devise_controller? ? 'devise' : 'application'
   end
@@ -64,20 +77,28 @@ class ApplicationController < ActionController::Base
     defaults = {
       site: site,
       title: meta[:title] || site,
-      description: meta[:description] || "Descripción del sitio",
-      reverse: true,
+      description: meta[:description] || DEFAULT_DESCRIPTION,
+      reverse: true, # "Título | Laborsafe"
+      canonical: meta[:canonical] || request.original_url,
       og: {
         site_name: site,
-        title: meta[:title] || site,
-        description: meta[:description] || "Descripción del sitio",
+        title: meta[:og_title] || meta[:title] || site,
+        description: meta[:og_description] || meta[:description] || DEFAULT_DESCRIPTION,
         type: meta[:type] || 'website',
-        url: request.original_url,
-        image: meta[:image],
+        url: meta[:canonical] || request.original_url,
+        image: meta[:image] || view_context.image_url(DEFAULT_OG_IMAGE),
+        locale: 'es_LA'
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: meta[:og_title] || meta[:title] || site,
+        description: meta[:description] || DEFAULT_DESCRIPTION,
+        image: meta[:image] || view_context.image_url(DEFAULT_OG_IMAGE)
       }
     }
     set_meta_tags defaults
   end
-
+  
   def storable_location?
     request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
   end
