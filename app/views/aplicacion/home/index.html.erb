@@ -57,58 +57,21 @@ solidez del proceso importa desde el inicio.</h1>
 </section>
 
 <%# 3. Cómo funciona %>
-<section class="py-5 bg-light">
+<section class="py-5 bg-light" id="como-funciona">
   <div class="container">
     <h2 class="text-center mb-5">Cómo funciona</h2>
     <div class="row g-4">
-      <div class="col-lg-3 col-md-6">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <span class="ls-paso-numero">1</span>
-            <h3 class="h6 card-title mt-2">Taller de puesta en marcha</h3>
-            <p class="card-text text-secondary ls-card-text">
-              Definimos roles, tareas y responsabilidades junto a su canal de denuncias,
-              e incorporamos las particularidades de su empresa al protocolo de trabajo conjunto.
-            </p>
+      <% pasos.each do |paso| %>
+        <div class="col-lg-4 col-md-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <span class="ls-paso-numero"><%= paso[:numero] %></span>
+              <h3 class="h6 card-title mt-2"><%= paso[:titulo] %></h3>
+              <p class="card-text text-secondary ls-card-text"><%= paso[:texto] %></p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <span class="ls-paso-numero">2</span>
-            <h3 class="h6 card-title mt-2">Recepción de la carpeta de investigación</h3>
-            <p class="card-text text-secondary ls-card-text">
-              Nuestro servicio se inicia con la recepción de la carpeta de investigación resultante de la recepción
-              de la denuncia, incluido el tramite de informar el inicio de la investigación a la Dirección del Trabajo.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <span class="ls-paso-numero">3</span>
-            <h3 class="h6 card-title mt-2">Investigación realizada por un abogado especializado</h3>
-            <p class="card-text text-secondary ls-card-text">
-              Nuestro investigador asignado, evalúa la denuncia, cita y toma declaraciones a los participantes Finalmente
-              redacta el informe conforme a los estándares del reglamento.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <span class="ls-paso-numero">4</span>
-            <h3 class="h6 card-title mt-2">Depósito en la plataforma DT</h3>
-            <p class="card-text text-secondary ls-card-text">
-              Entregamos los archivos PDF requeridos para cada trámite y el informe listo
-              para su depósito en la plataforma de la Dirección del Trabajo.
-            </p>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </section>
