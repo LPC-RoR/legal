@@ -1,6 +1,0 @@
-<small>
-	<%= link_to (objeto.estado == 'ingreso' ? 'no emitida' : objeto.documento), objeto, title: 'Detalle Factura', 'data-toggle' => 'tooltip', 'data-placement' => 'right' %><i class="bi bi-dot"></i><%= objeto.owner.razon_social %>
-	<% unless objeto.tar_nota_credito.blank? %>
-		<i class="bi bi-dot"></i><b class="text-danger">Nota de crédito asociada</b>
-	<% end %>
-</small>

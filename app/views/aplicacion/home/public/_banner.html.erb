@@ -1,11 +1,11 @@
 <div class="hero position-relative mb-2">
-  <%= image_tag 'home/bg_laborsafe.webp', class: 'img-fluid w-100 d-block', alt: 'LaborSafe' %>
+  <%= image_tag 'home/bg_laborsafe.webp', class: 'img-fluid w-100 d-block', alt: 'Laborsafe' %>
 
   <!-- Navbar superpuesta -->
   <nav class="navbar navbar-expand-md navbar-dark overlay-nav">
     <div class="container-fluid px-3">
       <!-- Branding (opcional, a la izquierda) -->
-      <%= link_to 'LaborSafe', root_path, class: 'navbar-brand d-none d-md-inline' %>
+      <%= link_to 'Laborsafe', root_path, class: 'navbar-brand d-none d-md-inline' %>
 
       <!-- Botón hamburguesa -->
       <button class="navbar-toggler ms-auto" type="button"
@@ -44,10 +44,6 @@
               <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'nav-link' %>
           </li>
 
-          <%# HOME : Eliminamos el Registro porque ahora todo se gestiona desde AppNomina %>
-          <!--li class="nav-item">
-              <%#= link_to 'Registro', new_usuario_registration_path, class: 'nav-link' %>
-          </li-->
         </ul>
       </div>
     </div>

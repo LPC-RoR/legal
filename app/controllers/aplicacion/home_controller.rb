@@ -14,7 +14,7 @@ class Aplicacion::HomeController < ApplicationController
       og: {
         type: 'website',
         url: root_url,
-        title: "LaborSafe - Gestión Profesional de Denuncias Ley 21.643",
+        title: "Laborsafe - Gestión Profesional de Denuncias Ley 21.643",
         description: "Transforma la gestión de denuncias con cumplimiento automático de plazos y reportes normativos.",
         image: {
           _:  view_context.image_url('logo/logo_100.png'), # JPG/PNG 1200x630
@@ -25,7 +25,7 @@ class Aplicacion::HomeController < ApplicationController
       },
       twitter: {
         card: 'summary_large_image',
-        title: "LaborSafe - Gestión de Denuncias Ley 21.643",
+        title: "Laborsafe - Gestión de Denuncias Ley 21.643",
         description: "Plataforma especializada para empresas que gestionan denuncias bajo la Ley 21.643 en Chile.",
         image: view_context.image_url('logo/logo_100.png')
       }
@@ -49,14 +49,14 @@ def index
   prepare_meta_tags
 
   set_meta_tags(
-    title: "Externalización de investigaciones Ley 21.643 | LaborSafe",
+    title: "Externalización de investigaciones Ley 21.643 | Laborsafe",
     description: "Externalice las investigaciones de sus denuncias Ley 21.643 (Ley Karin) con abogados especialistas: minimice riesgos de judicialización, cumpla los plazos legales y proteja la confidencialidad del procedimiento.",
     keywords: %w[externalización investigaciones ley 21.643 ley karin denuncias acoso laboral investigador externo chile],
     canonical: root_url,
     og: {
       type: 'website',
       url: root_url,
-      title: "LaborSafe - Externalización de investigaciones Ley 21.643",
+      title: "Laborsafe - Externalización de investigaciones Ley 21.643",
       description: "Investigaciones de denuncias Ley 21.643 realizadas por abogados especialistas, con control de plazos, confidencialidad y documentos redactados por expertos.",
       image: {
         _:  view_context.image_url('logo/logo_100.png'), # JPG/PNG 1200x630
@@ -67,7 +67,7 @@ def index
     },
     twitter: {
       card: 'summary_large_image',
-      title: "LaborSafe - Externalización de investigaciones Ley 21.643",
+      title: "Laborsafe - Externalización de investigaciones Ley 21.643",
       description: "Investigaciones de denuncias Ley 21.643 realizadas por abogados especialistas.",
       image: view_context.image_url('logo/logo_100.png')
     }
@@ -229,11 +229,11 @@ end
 		end
 
 	  def prepare_meta_tags(meta = {})
-	    site = "LaborSafe"
+	    site = "Laborsafe"
 	    defaults = {
 	      site: site,
 	      title: site,
-	      reverse: true, # "Página | LaborSafe"
+	      reverse: true, # "Página | Laborsafe"
 	      description: "Software para la gestión integral de procedimientos de investigación y sanción. Ley 21.643 (Ley Karin)",
 	      canonical: request.original_url,
 	      og: {
