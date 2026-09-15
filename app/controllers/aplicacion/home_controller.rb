@@ -124,9 +124,6 @@ class Aplicacion::HomeController < ApplicationController
       @crrds_30  = CalFeriado.plazo_corrido(@hoy, 30)
     end
 
-    @objeto = Empresa.new
-    @req = ComRequerimiento.new
-
     render layout: 'public'
   end
 

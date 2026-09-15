@@ -11,6 +11,8 @@ solidez del proceso importa desde el inicio.</h1>
       confidencialidad del procedimiento.
     </p>
     <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <%#= render partial: 'aplicacion/home/btn_simulador' %>
+      <%= link_to "Simule los plazos de su caso en 1 minuto", simulador_path, class: "btn btn-outline-light btn-lg" %>
       <%= link_to "Agende una presentación comercial", "#contacto", class: "btn btn-light btn-lg" %>
       <%= link_to "Haga el mini-diagnóstico gratuito", "#diagnostico", class: "btn btn-outline-light btn-lg" %>
     </div>
