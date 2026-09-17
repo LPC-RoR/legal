@@ -56,12 +56,6 @@
             </p>
             <p class="mb-2 fs-7"><%= coordinador["resumen"] %></p>
 
-            <div class="d-flex flex-wrap gap-1 mb-3">
-              <% coordinador["especialidades"].each do |esp| %>
-                <span class="badge bg-light text-dark border fs-7"><%= esp %></span>
-              <% end %>
-            </div>
-
             <% if coordinador["biografia"].present? %>
               <div class="border-top pt-2">
                 <p class="fs-7 mb-0" style="text-align: justify;">
