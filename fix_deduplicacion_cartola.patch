@@ -1,0 +1,182 @@
+diff --git a/app/services/cartola_loader.rb b/app/services/cartola_loader.rb
+index 355cbb1..ff40d65 100644
+--- a/app/services/cartola_loader.rb
++++ b/app/services/cartola_loader.rb
+@@ -275,33 +275,38 @@ class CartolaLoader
+   # Construye la clave de deduplicación para una transacción
+   def clave_deduplicacion(fecha, monto, descripcion)
+     fecha_key = fecha.is_a?(Date) ? fecha.to_s : fecha.to_s.strip
+-    
++
++    # Normalizar siempre a 2 decimales: la columna monto es decimal(15,2),
++    # así la clave coincide sin importar si el valor viene como Integer, Float o BigDecimal
+     monto_key = begin
+-      decimal = monto.is_a?(BigDecimal) ? monto : BigDecimal(monto.to_s)
+-      decimal.to_s('F')
++      BigDecimal(monto.to_s).round(2).to_s('F')
+     rescue
+       monto.to_s.strip
+     end
+-    
+-    desc_key = descripcion.to_s.strip.downcase
+-    
++
++    desc_key = descripcion.to_s.squish.downcase
++
+     "#{fecha_key}|#{monto_key}|#{desc_key}"
+   end
+   
+   # Cuenta las ocurrencias de cada clave en las transacciones existentes de la cuenta
+   # dentro del rango de fechas de la cartola actual
+   def contar_transacciones_existentes(cuenta, fecha_desde, fecha_hasta)
+-    return {} unless fecha_desde && fecha_hasta
+-
+     conteo = Hash.new(0)
+-    
+-    DocTransaccion
+-      .where(doc_cuenta: cuenta)
+-      .where(fecha: fecha_desde..fecha_hasta)
+-      .find_each do |trans|
+-        clave = clave_deduplicacion(trans.fecha, trans.monto, trans.descripcion)
+-        conteo[clave] += 1
+-      end
++
++    # Si no se pudieron extraer las fechas de la cartola, no limitar por rango:
++    # es preferible deduplicar de más que duplicar registros
++    scope = DocTransaccion.where(doc_cuenta: cuenta)
++    if fecha_desde && fecha_hasta
++      scope = scope.where(fecha: fecha_desde..fecha_hasta)
++    else
++      Rails.logger.warn "[CartolaLoader] fecha_desde/fecha_hasta no disponibles, deduplicando sobre toda la cuenta"
++    end
++
++    scope.find_each do |trans|
++      clave = clave_deduplicacion(trans.fecha, trans.monto, trans.descripcion)
++      conteo[clave] += 1
++    end
+ 
+     Rails.logger.info "[CartolaLoader] Transacciones existentes en rango #{fecha_desde} a #{fecha_hasta}: #{conteo.size} claves únicas"
+     conteo
+@@ -414,8 +419,25 @@ class CartolaLoader
+ 
+   def extraer_numero_cuenta(cuenta_raw)
+     return nil if cuenta_raw.blank?
+-    match = cuenta_raw.match(/N°?:\s*(.+)/)
+-    match ? match[1].strip : cuenta_raw
++
++    texto = cuenta_raw.to_s.strip
++
++    # Formato histórico: "Cuenta Corriente N°: 0-000-7309054-7"
++    if (match = texto.match(/N°?\s*:\s*(.+)/))
++      return match[1].strip
++    end
++
++    # Formato provisorio: "Cuenta 0-000-7309054-7" (sin "N°:")
++    if (match = texto.match(/\bCuenta\b\s*(.+)/i))
++      return match[1].strip
++    end
++
++    # Fallback: extraer el patrón de número de cuenta (ej: 0-000-7309054-7)
++    if (match = texto.match(/\d+(?:-\d+)+/))
++      return match[0]
++    end
++
++    texto
+   end
+ 
+   def extraer_valor_despues_dos_puntos(texto)
+diff --git a/db/migrate/20260917120000_normalizar_numero_cuenta_bancaria.rb b/db/migrate/20260917120000_normalizar_numero_cuenta_bancaria.rb
+new file mode 100644
+index 0000000..b82ea6d
+--- /dev/null
++++ b/db/migrate/20260917120000_normalizar_numero_cuenta_bancaria.rb
+@@ -0,0 +1,49 @@
++# La extracción del número de cuenta era inconsistente entre formatos:
++#   - Cartola histórica (mensual): "Cuenta Corriente N°: 0-000-7309054-7" -> "0-000-7309054-7"
++#   - Cartola provisoria:          "Cuenta 0-000-7309054-7"               -> "Cuenta 0-000-7309054-7"
++# Esto creaba DOS DocCuenta para la misma cuenta bancaria y la deduplicación
++# de transacciones dejaba de funcionar al cargar la cartola mensual.
++#
++# Esta migración normaliza numero_cuenta y fusiona las cuentas duplicadas.
++class NormalizarNumeroCuentaBancaria < ActiveRecord::Migration[8.0]
++  def normalizar(valor)
++    return valor if valor.blank?
++
++    texto = valor.to_s.strip
++    if (match = texto.match(/N°?\s*:\s*(.+)/))
++      match[1].strip
++    elsif (match = texto.match(/\bCuenta\b\s*(.+)/i))
++      match[1].strip
++    elsif (match = texto.match(/\d+(?:-\d+)+/))
++      match[0]
++    else
++      texto
++    end
++  end
++
++  def up
++    DocCuenta.reset_column_information
++
++    DocCuenta.find_each do |cuenta|
++      normalizado = normalizar(cuenta.numero_cuenta)
++      next if normalizado == cuenta.numero_cuenta
++
++      existente = DocCuenta.where.not(id: cuenta.id).find_by(numero_cuenta: normalizado)
++
++      if existente
++        say "Fusionando DocCuenta ##{cuenta.id} (#{cuenta.numero_cuenta}) en DocCuenta ##{existente.id} (#{normalizado})"
++        cuenta.doc_cartolas.update_all(doc_cuenta_id: existente.id)
++        cuenta.doc_transacciones.update_all(doc_cuenta_id: existente.id)
++        cuenta.delete
++      else
++        say "Normalizando DocCuenta ##{cuenta.id}: #{cuenta.numero_cuenta} -> #{normalizado}"
++        cuenta.update_column(:numero_cuenta, normalizado)
++      end
++    end
++  end
++
++  def down
++    # No reversible: no se puede reconstruir el texto original mal formado
++    raise ActiveRecord::IrreversibleMigration
++  end
++end
+diff --git a/lib/tasks/cartola.rake b/lib/tasks/cartola.rake
+new file mode 100644
+index 0000000..94b9079
+--- /dev/null
++++ b/lib/tasks/cartola.rake
+@@ -0,0 +1,34 @@
++namespace :cartola do
++  desc "Elimina DocTransacciones duplicadas (misma cuenta, fecha, monto y descripción). " \
++       "Conserva el registro con asociaciones (pagos/notas/relacionable) o, en su defecto, el más antiguo."
++  task depurar_duplicados: :environment do
++    grupos = DocTransaccion.includes(:doc_pagos, :doc_notas).find_each.each_with_object({}) do |trans, hash|
++      clave = [
++        trans.doc_cuenta_id,
++        trans.fecha&.to_s,
++        trans.monto&.round(2).to_s,
++        trans.descripcion.to_s.squish.downcase
++      ]
++      (hash[clave] ||= []) << trans
++    end
++
++    duplicados = grupos.select { |_, v| v.size > 1 }
++    eliminadas = 0
++
++    duplicados.each_value do |transacciones|
++      # Prioridad: con asociaciones primero, luego la de menor id (la original)
++      conservar = transacciones.sort_by do |t|
++        [t.doc_pagos.any? || t.doc_notas.any? || t.relacionable.present? ? 0 : 1, t.id]
++      end.first
++
++      transacciones.reject { |t| t.id == conservar.id }.each do |duplicada|
++        puts "Eliminando DocTransaccion ##{duplicada.id} (duplicada de ##{conservar.id}): " \
++             "#{duplicada.fecha} | #{duplicada.monto} | #{duplicada.descripcion}"
++        duplicada.destroy!
++        eliminadas += 1
++      end
++    end
++
++    puts "Listo: #{duplicados.size} grupos con duplicados, #{eliminadas} transacciones eliminadas."
++  end
++end

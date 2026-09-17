@@ -275,33 +275,38 @@ class CartolaLoader
   # Construye la clave de deduplicación para una transacción
   def clave_deduplicacion(fecha, monto, descripcion)
     fecha_key = fecha.is_a?(Date) ? fecha.to_s : fecha.to_s.strip
-    
+
+    # Normalizar siempre a 2 decimales: la columna monto es decimal(15,2),
+    # así la clave coincide sin importar si el valor viene como Integer, Float o BigDecimal
     monto_key = begin
-      decimal = monto.is_a?(BigDecimal) ? monto : BigDecimal(monto.to_s)
-      decimal.to_s('F')
+      BigDecimal(monto.to_s).round(2).to_s('F')
     rescue
       monto.to_s.strip
     end
-    
-    desc_key = descripcion.to_s.strip.downcase
-    
+
+    desc_key = descripcion.to_s.squish.downcase
+
     "#{fecha_key}|#{monto_key}|#{desc_key}"
   end
   
   # Cuenta las ocurrencias de cada clave en las transacciones existentes de la cuenta
   # dentro del rango de fechas de la cartola actual
   def contar_transacciones_existentes(cuenta, fecha_desde, fecha_hasta)
-    return {} unless fecha_desde && fecha_hasta
-
     conteo = Hash.new(0)
-    
-    DocTransaccion
-      .where(doc_cuenta: cuenta)
-      .where(fecha: fecha_desde..fecha_hasta)
-      .find_each do |trans|
-        clave = clave_deduplicacion(trans.fecha, trans.monto, trans.descripcion)
-        conteo[clave] += 1
-      end
+
+    # Si no se pudieron extraer las fechas de la cartola, no limitar por rango:
+    # es preferible deduplicar de más que duplicar registros
+    scope = DocTransaccion.where(doc_cuenta: cuenta)
+    if fecha_desde && fecha_hasta
+      scope = scope.where(fecha: fecha_desde..fecha_hasta)
+    else
+      Rails.logger.warn "[CartolaLoader] fecha_desde/fecha_hasta no disponibles, deduplicando sobre toda la cuenta"
+    end
+
+    scope.find_each do |trans|
+      clave = clave_deduplicacion(trans.fecha, trans.monto, trans.descripcion)
+      conteo[clave] += 1
+    end
 
     Rails.logger.info "[CartolaLoader] Transacciones existentes en rango #{fecha_desde} a #{fecha_hasta}: #{conteo.size} claves únicas"
     conteo
@@ -414,8 +419,25 @@ class CartolaLoader
 
   def extraer_numero_cuenta(cuenta_raw)
     return nil if cuenta_raw.blank?
-    match = cuenta_raw.match(/N°?:\s*(.+)/)
-    match ? match[1].strip : cuenta_raw
+
+    texto = cuenta_raw.to_s.strip
+
+    # Formato histórico: "Cuenta Corriente N°: 0-000-7309054-7"
+    if (match = texto.match(/N°?\s*:\s*(.+)/))
+      return match[1].strip
+    end
+
+    # Formato provisorio: "Cuenta 0-000-7309054-7" (sin "N°:")
+    if (match = texto.match(/\bCuenta\b\s*(.+)/i))
+      return match[1].strip
+    end
+
+    # Fallback: extraer el patrón de número de cuenta (ej: 0-000-7309054-7)
+    if (match = texto.match(/\d+(?:-\d+)+/))
+      return match[0]
+    end
+
+    texto
   end
 
   def extraer_valor_despues_dos_puntos(texto)
