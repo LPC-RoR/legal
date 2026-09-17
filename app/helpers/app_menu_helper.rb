@@ -30,6 +30,7 @@ module AppMenuHelper
           { id: 'clientes',     name: 'Clientes',           path: '/clientes',          icon: 'bi bi-building' },
           { id: 'causas',       name: 'Causas',             path: '/causas',            icon: 'bi bi-journal-text' },
           { id: 'asesorias',    name: 'Asesorías',          path: '/asesorias',         icon: 'bi bi-briefcase' },
+          { id: 'facturacion',  name: 'Facturación',        path: '/doc_emitidos',      icon: 'bi bi-receipt-cutoff' },
           { id: 'laborsafe',              name: 'Laborsafe',                icon: 'bi bi-caret-right-fill',
             children: [
               { id: 'empresas',           name: 'Empresas',                 path: '/empresas',              icon: 'bi bi-buildings' },

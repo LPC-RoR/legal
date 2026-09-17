@@ -14,6 +14,27 @@ class DocTransaccion < ApplicationRecord
   has_many :doc_pagos
   has_many :doc_notas, as: :ownr
 
+  include AASM
+
+  enum :estado, {
+    cargada:     0,
+    conciliada:  1
+  }, prefix: true
+
+  aasm column: :estado, enum: true do
+    state :cargada, initial: true
+    state :conciliada
+
+    event :conciliar do
+      transitions from: :cargada, to: :conciliada
+    end
+
+    # Opcional, por si necesitas revertir una conciliación errónea
+    event :revertir_conciliacion do
+      transitions from: :conciliada, to: :cargada
+    end
+  end
+
   scope :entre_fechas, ->(fecha_inicial, fecha_termino) {
     where(fecha: fecha_inicial..fecha_termino)
       .order(fecha: :asc, id: :asc)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_14_213733) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_17_005017) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -447,7 +447,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_14_213733) do
     t.bigint "cliente_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "estado", default: 0, null: false
     t.index ["cliente_id"], name: "index_cli_aprobaciones_on_cliente_id"
+    t.index ["estado"], name: "index_cli_aprobaciones_on_estado"
   end
 
   create_table "clientes", force: :cascade do |t|
@@ -619,10 +621,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_14_213733) do
     t.bigint "doc_planilla_id"
     t.string "tipo_factura"
     t.bigint "cli_aprobacion_id"
+    t.integer "estado", default: 0, null: false
+    t.bigint "nota_credito_id"
+    t.string "nota_credito_folio"
     t.index ["cli_aprobacion_id"], name: "index_doc_emitidos_on_cli_aprobacion_id"
     t.index ["cliente_id"], name: "index_doc_emitidos_on_cliente_id"
     t.index ["doc_planilla_id"], name: "index_doc_emitidos_on_doc_planilla_id"
+    t.index ["estado"], name: "index_doc_emitidos_on_estado"
     t.index ["fecha_emision"], name: "index_doc_emitidos_on_fecha"
+    t.index ["nota_credito_id"], name: "index_doc_emitidos_on_nota_credito_id"
     t.index ["rut_receptor", "fecha_emision"], name: "index_doc_emitidos_on_receptor_fecha"
     t.index ["tipo_dte", "folio", "rut_emisor"], name: "index_doc_emitidos_on_dte_folio_emisor", unique: true
     t.index ["tipo_dte", "folio"], name: "index_doc_emitidos_on_tipo_folio"
@@ -734,11 +741,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_14_213733) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "clasificacion"
+    t.integer "estado", default: 0, null: false
     t.index ["clasificacion"], name: "index_doc_transacciones_on_clasificacion"
     t.index ["descripcion_rut"], name: "index_doc_transacciones_on_descripcion_rut"
     t.index ["doc_cartola_id", "fecha"], name: "index_doc_transacciones_on_doc_cartola_id_and_fecha"
     t.index ["doc_cartola_id"], name: "index_doc_transacciones_on_doc_cartola_id"
     t.index ["doc_cuenta_id"], name: "index_doc_transacciones_on_doc_cuenta_id"
+    t.index ["estado"], name: "index_doc_transacciones_on_estado"
     t.index ["relacionable_type", "relacionable_id"], name: "idx_on_relacionable_type_relacionable_id_845b638d96"
     t.index ["relacionable_type", "relacionable_id"], name: "index_doc_transacciones_on_relacionable"
   end
@@ -1733,6 +1742,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_14_213733) do
   add_foreign_key "doc_cuentas", "doc_bancos"
   add_foreign_key "doc_emitidos", "cli_aprobaciones"
   add_foreign_key "doc_emitidos", "clientes"
+  add_foreign_key "doc_emitidos", "doc_emitidos", column: "nota_credito_id"
   add_foreign_key "doc_emitidos", "doc_planillas"
   add_foreign_key "doc_transacciones", "doc_cartolas"
   add_foreign_key "doc_transacciones", "doc_cuentas"
