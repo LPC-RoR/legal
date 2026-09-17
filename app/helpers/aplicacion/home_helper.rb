@@ -8,40 +8,33 @@ module Aplicacion
         {
           numero: 1,
           titulo: "Taller de puesta en marcha",
-          texto: "Definimos roles, tareas y responsabilidades junto a su canal de denuncias, " \
-                 "e incorporamos las particularidades de su empresa al protocolo de trabajo conjunto."
+          texto: "Antes de iniciar el servicio, realizamos un taller con las personas que participarán en la gestión de las denuncias, destinado a implementar el modelo de trabajo y coordinar la actuación de ambos equipos."
         },
         {
           numero: 2,
-          titulo: "Recepción de la carpeta de investigación",
-          texto: "Nuestro servicio se inicia con la recepción de la carpeta de investigación " \
-                 "resultante de la recepción de la denuncia, incluido el trámite de informar el " \
-                 "inicio de la investigación a la Dirección del Trabajo."
+          titulo: "Recepción de la denuncia",
+          texto: "Recibimos la denuncia, considerando la forma en que fue presentada, la suficiencia de sus antecedentes y cualquier aspecto que deba ser complementado. Asimismo, apoyamos la ejecución oportuna de las actuaciones que correspondan dentro de los primeros tres días, para dar correcto inicio al procedimiento."
         },
         {
           numero: 3,
-          titulo: "Investigación realizada por un abogado especializado",
+          titulo: "Investigación a cargo de abogado especialista",
           texto: "Nuestro investigador asignado evalúa la denuncia, cita y toma declaraciones a " \
                  "los participantes. Finalmente redacta el informe conforme a los estándares del reglamento."
         },
         {
           numero: 4,
-          titulo: "Depósito en la plataforma DT",
-          texto: "Entregamos los archivos PDF requeridos para cada trámite y el informe listo " \
-                 "para su depósito en la plataforma de la Dirección del Trabajo."
+          titulo: "Expediente preparado para su presentación ante la DT",
+          texto: "Entregamos el expediente completo, con toda la información requerida por la Dirección del Trabajo (informe de investigación y antecedentes correspondientes), organizado y preparado en el formato exigido para su carga en la plataforma de la DT."
         },
         {
           numero: 5,
-          titulo: "Pronunciamiento de la Dirección del Trabajo",
-          texto: "Si la Dirección del Trabajo se pronuncia, le entregamos asesoría legal frente a " \
-                 "sus eventuales observaciones y activamos la aplicación de las medidas correctivas " \
-                 "y sanciones, si corresponde."
+          titulo: "Seguimiento y control de plazos",
+          texto: "Mantenemos informada a la empresa sobre el estado de avance de la investigación y las etapas cumplidas, resguardando en todo momento la confidencialidad de su contenido. Asimismo, efectuamos un seguimiento permanente de los plazos y alertamos oportunamente sobre las actuaciones que corresponda realizar."
         },
         {
           numero: 6,
-          titulo: "Aplicación de medidas correctivas y sanciones",
-          texto: "Asesoría legal en la redacción de las medidas correctivas y sanciones, con " \
-                 "generación y entrega a los participantes a través de nuestra plataforma tecnológica. "
+          titulo: "Pronunciamiento de la Dirección del Trabajo",
+          texto: "Una vez recibido el pronunciamiento de la Dirección del Trabajo, analizamos su contenido e informamos a la empresa sus alcances y las actuaciones que corresponda adoptar para dar continuidad y cierre al procedimiento."
         }
       ]
     end

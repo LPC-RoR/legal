@@ -2,7 +2,7 @@
 <%# 1. Hero %>
 <section class="ls-hero text-white text-center">
   <div class="container py-5">
-    <p class="ls-kicker">Externalización de investigaciones · Ley 21.643 (Ley Karin)</p>
+    <p class="ls-kicker">GESTIÓN E INVESTIGACIÓN DE DENUNCIAS · LEY 21.643 (LEY KARIN)</p>
     <h1 class="display-5 fw-bold mb-4">Una investigación mal conducida puede generar una contingencia judicial. La
 solidez del proceso importa desde el inicio.</h1>
     <p class="lead mb-5 mx-auto" style="max-width: 720px;">
@@ -12,9 +12,9 @@ solidez del proceso importa desde el inicio.</h1>
     </p>
     <div class="d-flex gap-3 justify-content-center flex-wrap">
       <%#= render partial: 'aplicacion/home/btn_simulador' %>
-      <%= link_to "Simule los plazos de su caso en 1 minuto", simulador_path, class: "btn btn-outline-light btn-lg" %>
+      <%= link_to "Simule los plazos de su caso", simulador_path, class: "btn btn-outline-light btn-lg" %>
       <%= link_to "Agende una presentación comercial", "#contacto", class: "btn btn-light btn-lg" %>
-      <%= link_to "Haga el mini-diagnóstico gratuito", "#diagnostico", class: "btn btn-outline-light btn-lg" %>
+      <%= link_to "Realice su autodiagnóstico inicial", "#diagnostico", class: "btn btn-outline-light btn-lg" %>
     </div>
   </div>
 </section>
@@ -86,7 +86,7 @@ solidez del proceso importa desde el inicio.</h1>
       <div class="col-md-4">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
-            <h3 class="h5 card-title">Equipo legal</h3>
+            <h3 class="h5 card-title">Respaldo legal especializado</h3>
             <ul class="text-secondary ls-card-text">
               <li>Investigación realizada por abogados especialistas.</li>
               <li>Asesoría legal y operativa integral durante todo el proceso.</li>
@@ -99,7 +99,7 @@ solidez del proceso importa desde el inicio.</h1>
       <div class="col-md-4">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
-            <h3 class="h5 card-title">Plataforma y documentos</h3>
+            <h3 class="h5 card-title">Gestión documental y soporte operativo</h3>
             <ul class="text-secondary ls-card-text">
               <li>Documentos personalizados para su empresa, redactados por abogados especialistas.</li>
               <li>Envío de notificaciones e información obligatoria desde la plataforma.</li>
@@ -113,7 +113,7 @@ solidez del proceso importa desde el inicio.</h1>
       <div class="col-md-4">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
-            <h3 class="h5 card-title">Control de plazos</h3>
+            <h3 class="h5 card-title">Seguimiento y cumplimiento de plazos</h3>
             <ul class="text-secondary ls-card-text">
               <li>Control exhaustivo de los plazos legales del procedimiento.</li>
               <li>Registro verificado de la ejecución de cada tarea con plazo.</li>
@@ -131,10 +131,7 @@ solidez del proceso importa desde el inicio.</h1>
   <div class="container" style="max-width: 760px;">
     <h2 class="text-center mb-4">Confidencialidad por diseño</h2>
     <p class="text-secondary text-center ls-card-text">
-      Nuestro modelo de confidencialidad regula qué información accede cada rol del
-      procedimiento y con qué responsabilidad. Toda la documentación generada y enviada
-      desde la plataforma es redactada por abogados especialistas, y ofrecemos versiones
-      anonimizadas trazables hacia el documento original.
+      La confidencialidad está incorporada en cada etapa de nuestro servicio. El acceso a la información se limita según el rol de cada interviniente, resguardando el contenido de la investigación durante todo el procedimiento. La documentación y las comunicaciones se gestionan bajo el mismo estándar, utilizando versiones anonimizadas cuando corresponde.
     </p>
   </div>
 </section>
@@ -142,9 +139,9 @@ solidez del proceso importa desde el inicio.</h1>
 <%# 6. Mini-diagnóstico %>
 <section class="py-5" id="diagnostico">
   <div class="container" style="max-width: 960px;">
-    <h2 class="text-center mb-3">Mini-diagnóstico gratuito</h2>
+    <h2 class="text-center mb-3">Autodiagnóstico inicial</h2>
     <p class="text-secondary text-center ls-card-text">
-      Responda tres preguntas y obtenga una primera orientación sobre su situación ante la Ley 21.643. Un especialista le responderá dentro de un día hábil.
+      Revise si su procedimiento está correctamente encaminado.
     </p>
     <%= render "diagnostico" %>
   </div>
@@ -153,10 +150,9 @@ solidez del proceso importa desde el inicio.</h1>
 <%# 7. Cierre comercial %>
 <section class="py-5 bg-light" id="contacto">
   <div class="container" style="max-width: 640px;">
-    <h2 class="text-center mb-3">Solicite una presentación comercial</h2>
+    <h2 class="text-center mb-3">Conversemos sobre las necesidades de su empresa</h2>
     <p class="text-secondary text-center ls-card-text">
-      Cuéntenos sobre su empresa y agendaremos una presentación del servicio de
-      externalización de investigaciones.
+      Cuéntenos cómo gestionan actualmente sus investigaciones y coordinemos una reunión para presentarles nuestro servicio y evaluar cómo podemos apoyarlos.
     </p>
 
     <%= form_with model: @lead, url: leads_path, class: "mt-4", data: { turbo: false } do |f| %>
@@ -181,7 +177,7 @@ solidez del proceso importa desde el inicio.</h1>
         <%= f.label :empresa_nombre, "Empresa (opcional)", class: "form-label" %>
         <%= f.text_field :empresa_nombre, class: "form-control", autocomplete: "organization" %>
       </div>
-      <%= f.submit "Solicitar presentación", class: "btn btn-primary btn-lg" %>
+      <%= f.submit "Agendar una reunión", class: "btn btn-primary btn-lg" %>
     <% end %>
   </div>
 </section>
