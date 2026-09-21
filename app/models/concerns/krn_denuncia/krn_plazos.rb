@@ -36,21 +36,6 @@ module KrnDenuncia::KrnPlazos
     tramite_deposito&.fecha_tramite
   end
 
-  # ============================================================
-  # MEDIDAS Y SANCIONES 
-  # ============================================================
-  # Retorna true si TODOS los denunciantes y denunciados
-  # tienen al menos un ActArchivo con act_archivo == 'txt_mdds_crrctvs_sncns'
-  def todos_tienen_txt_mdds_sncns?
-    sin_archivo = ->(rel) {
-      rel.where.not(
-        id: rel.joins(:act_archivos).where(act_archivos: { act_archivo: 'txt_mdds_crrctvs_sncns' }).select(:id)
-      )
-    }
-
-    sin_archivo.call(krn_denunciantes).none? && sin_archivo.call(krn_denunciados).none?
-  end
-
   def fecha_mas_reciente_txt_mdds_sncns
     total_dnts = krn_denunciantes.count
     total_dnds = krn_denunciados.count
