@@ -7,7 +7,12 @@
 <%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
 
 <% txt = @opciones[:anonimizar] ? @krn_denuncia.txt_editables.find_by(codigo: "#{code}_annm") : nil %>
-<% texto_verificado = @opciones[:anonimizar] && txt.present? ? txt.contenido : @objeto.contenido %>
+<% if @opciones[:anonimizar] %>
+  <% raise "No existe TxtEditable anonimizado (codigo: #{code}_annm) para denuncia #{@krn_denuncia.id}" unless txt.present? %>
+  <% texto_verificado = txt.contenido %>
+<% else %>
+  <% texto_verificado = (@objeto || @txt_editable).contenido %>
+<% end %>
 
 <div>
   <p>De mi consideración:</p>

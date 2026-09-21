@@ -180,14 +180,13 @@ class ClssPdfInvstgcns
                           end
       
       {
+        objeto: txt_editable,          # ← AGREGAR
         txt_editable: txt_editable,
         contenido: txt_editable.contenido,  # ActionText
         krn_denuncia: krn_denuncia,
-#        fecha_mdds_crrctvs_sncns: krn_denuncia&.plz_fecha_inicio(:etp_mdds_sncns),
         participante: participante,
         tipo_participante: tipo_participante,
-        # ownr será el participante (lo establece el servicio)
-        empresa: krn_denuncia.ownr,  # Para logo y footer
+        empresa: krn_denuncia.ownr,
         denunciantes: krn_denuncia.krn_denunciantes,
         denunciados: krn_denuncia.krn_denunciados
       }
