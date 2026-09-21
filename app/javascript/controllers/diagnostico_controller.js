@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["form", "formCard", "exito"]
+  static targets = ["form", "formCard", "exito", "invitacion"]
 
   connect() {
     this.mostrarPaso(1)
@@ -28,6 +28,8 @@ export default class extends Controller {
   siguiente(event) {
     const actual = Number(event.target.closest("[data-ls-paso]").dataset.lsPaso)
     if (actual === this.pasos.length) {
+      if (this.hasInvitacionTarget) this.invitacionTarget.hidden = false
+      this.formCardTarget.classList.add("ls-form-card--destacado")
       this.formCardTarget.scrollIntoView({ behavior: "smooth", block: "center" })
       return
     }

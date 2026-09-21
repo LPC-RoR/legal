@@ -1,0 +1,30 @@
+<h2>Su autodiagnóstico Ley 21.643 (Ley Karin)</h2>
+
+<p>Hola <strong><%= @lead.nombre %></strong>, como lo solicitaste en
+<a href="https://www.laborsafe.cl">laborsafe.cl</a>, te enviamos el detalle de tu autoevaluación,
+con las indicaciones de nuestro equipo para cada una de tus respuestas.</p>
+
+<% Lead::DIAGNOSTICO_PREGUNTAS.each do |pregunta| %>
+  <h3><%= pregunta[:texto] %></h3>
+  <p><strong>Su respuesta:</strong> <%= @lead.respuesta_legible(pregunta[:clave]) %></p>
+  <% if (feedback = @lead.feedback_respuesta(pregunta[:clave])).present? %>
+    <p style="background:#f3f4f6;padding:12px;border-radius:8px;">
+      <strong>Nuestra indicación:</strong> <%= feedback %>
+    </p>
+  <% end %>
+<% end %>
+
+<p><strong>¿Y ahora qué?</strong> Cada denuncia en curso activa plazos legales que corren
+en contra de la empresa. Nuestro equipo de abogados especialistas puede hacerse cargo de la
+investigación completa: recepción de la denuncia, investigación, informe y presentación ante
+la Dirección del Trabajo, con control de plazos y confidencialidad por diseño.</p>
+
+<p>
+  <%= link_to "Agende una presentación comercial de 30 minutos",
+              "https://www.laborsafe.cl/#contacto" %> — sin costo ni compromiso.
+</p>
+
+<p style="font-size:12px;color:#9ca3af;">
+  Este correo fue generado automáticamente a partir de tu autodiagnóstico; no constituye asesoría legal.
+  <%= "Como enviaste una pregunta, un especialista te la responderá dentro de un día hábil." if @lead.pregunta.present? %>
+</p>

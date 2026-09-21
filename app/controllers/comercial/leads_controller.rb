@@ -41,16 +41,43 @@ module Comercial
       end
 
       if @objeto.save
-        LeadMailer.with(lead: @objeto).nuevo_lead.deliver_later
-        redirect_to gracias_leads_path, notice: "¡Gracias! Te contactaremos en menos de 24 horas."
+        Comercial::LeadMailer.with(lead: @objeto).nuevo_lead.deliver_later
+
+        if @objeto.diagnostico?
+          Comercial::LeadMailer.with(lead: @objeto).resultado_diagnostico.deliver_later
+        end
+
+        if @objeto.pregunta.present?
+          Comercial::LeadMailer.with(lead: @objeto).nueva_pregunta.deliver_later
+        end
+
+        respond_to do |format|
+          format.html do
+            redirect_to gracias_leads_path,
+                        notice: "¡Gracias! Te enviamos tu resultado por correo y te contactaremos en menos de 24 horas."
+          end
+          format.json { render json: { ok: true } }
+        end
       else
-        redirect_to gracias_leads_path,
-                    alert: "Revisa los datos ingresados (nombre, email y teléfono son obligatorios)."
+        respond_to do |format|
+          format.html do
+            redirect_to gracias_leads_path,
+                        alert: "Revisa los datos ingresados (nombre, email y teléfono son obligatorios)."
+          end
+          format.json do
+            render json: { errors: @objeto.errors.full_messages }, status: :unprocessable_entity
+          end
+        end
       end
     end
 
-    def gracias; end
-
+    def gracias
+      respond_to do |format|
+        format.html
+        format.json { head :ok }
+      end
+    end
+    
     private
 
     def set_lead
@@ -59,7 +86,9 @@ module Comercial
 
     # Params del formulario público: NUNCA estado (evita que alguien se auto-marque convertido)
     def lead_params
-      params.expect(lead: [:nombre, :email, :telefono, :empresa, :fuente])
+      params.expect(lead: [:nombre, :email, :telefono, :empresa, :empresa_nombre,
+                           :pregunta, :kind, :fuente,
+                           { respuestas: %i[denuncia_abierta investigador_actual informe_dt] }])
     end
 
     # Params de gestión interna

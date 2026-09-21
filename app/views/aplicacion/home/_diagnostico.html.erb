@@ -28,44 +28,15 @@
     <%# Honeypot anti-bot: invisible para humanos %>
     <input type="text" name="website" class="ls-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-    <% preguntas = [
-      {
-        clave: "denuncia_abierta",
-        texto: "¿Su empresa tiene hoy una denuncia por acoso, violencia o discriminación en curso?",
-        opciones: [
-          ["si", "Sí, tenemos una denuncia abierta",
-           "La Ley 21.643 impone plazos estrictos. La investigación de la denuncia tiene un plazo de 30 días hábiles contados a partir de la fecha de rececpión de la denuncia. Los tramites propios de la recepción de la denuncia el trámite de informar a la Dirección del Trabajo el inicio de la investigación, deben realizarse dentro de los 3 primeros días hábiles."],
-          ["tramite", "Estamos evaluando una denuncia recién recibida",
-           "En este minuto el foco es cumplir con los trámites propios de la recepción de la denuncia e informar el inicio de la investigación dentro de los 3 primeros días hábiles. Es el mejor momento para decidir la expernalización de la investigación."],
-          ["no", "No tenemos denuncias en curso",
-           "La ley obliga a estar preparado igual: la mayoría de las empresas descubre sus vacíos recién con la primera denuncia."]
-        ]
-      },
-      {
-        clave: "investigador_actual",
-        texto: "¿Quién realizaría hoy las investigaciones de esas denuncias?",
-        opciones: [
-          ["interno", "Un equipo interno (jurídico o RR.HH.)",
-           "Un investigador interno puede ser objetado por las partes por falta de imparcialidad. Un investigador externo, especialista en la ley, prácticamente elimina ese riesgo."],
-          ["externo", "Un proveedor externo",
-           "Revise tres cosas: que el investigador sea abogado especialista en la Ley 21.643, que el procedimiento tenga control documental y que provea control de plazos legales."],
-          ["nadie", "Nadie está asignado a eso",
-           "Esto puede indicar que su empresa no cuenta con el Protocolo de prevención del acoso laboral, sexual y la violencia en el trabajo ejercida por terceros. Verifique la existencia del protocolo, y que los trabajadores encargados del canal de denuncias y el equipo de investigadores tengan el perfil y la capacitación necesaria."]
-        ]
-      },
-      {
-        clave: "informe_dt",
-        texto: "¿Ha informado o sabría hoy cómo informar a la Dirección del Trabajo el inicio de una investigación?",
-        opciones: [
-          ["si", "Sí, conocemos el trámite",
-           "Entonces el foco está en ejecutar la investigación con estándares que resistan una eventual judicialización."],
-          ["parcial", "Lo conocemos parcialmente",
-           "Es el escenario más común: la ley es reciente y el reglamento tiene exigencias específicas por trámite. Un error de forma puede invalidar el esfuerzo posterior."],
-          ["no", "No lo conocemos",
-           "Nuestro servicio incluye la capacitación en la implementación de los trámites que se realizan en la plataforma de la Dirección del Trabajo. También ofrecemos nuestra plataforma tecnológica para la generación automatizada de notificaciones y documentación obligatoria, además de su envío automatizado a los participantes de la denuncia."]
-        ]
-      }
-    ] %>
+    <%# Las preguntas, etiquetas y feedbacks ahora viven en Lead::DIAGNOSTICO_PREGUNTAS
+        (app/models/lead.rb). Edítalos allá; el wizard y el correo los comparten. %>
+    <% preguntas = Lead::DIAGNOSTICO_PREGUNTAS %>
+
+    <div class="alert alert-primary ls-invitacion" hidden data-diagnostico-target="invitacion">
+      <strong>¡Autodiagnóstico completado!</strong>
+      Ahora complete sus datos a la derecha: le enviaremos su resultado por correo de inmediato.
+      Si tiene una pregunta concreta, inclúyala y se la responderemos dentro de un día hábil.
+    </div>
 
     <div class="row g-4">
       <div class="col-lg-7">
@@ -79,12 +50,11 @@
               </legend>
               <div class="d-grid gap-2 mt-3" data-action="change->diagnostico#mostrarFeedback">
 
-                <% pregunta[:opciones].each do |valor, etiqueta, feedback| %>
+                <% pregunta[:opciones].each do |valor, opcion| %>
                   <% input_id = "ls_#{pregunta[:clave]}_#{valor}" %>
-                  <%# Radio nativo: el :checked lo pinta CSS y el valor viaja en el form %>
                   <input type="radio" class="btn-check ls-opcion-check" name="lead[respuestas][<%= pregunta[:clave] %>]"
-                         id="<%= input_id %>" value="<%= valor %>" data-feedback="<%= feedback %>">
-                  <label class="btn btn-outline-primary text-start ls-opcion" for="<%= input_id %>"><%= etiqueta %></label>
+                         id="<%= input_id %>" value="<%= valor %>" data-feedback="<%= opcion[:feedback] %>">
+                  <label class="btn btn-outline-primary text-start ls-opcion" for="<%= input_id %>"><%= opcion[:etiqueta] %></label>
                 <% end %>
               </div>
               <p class="ls-feedback mt-3 mb-0" hidden></p>
@@ -105,12 +75,13 @@
         <div class="card shadow-sm ls-form-card" data-diagnostico-target="formCard">
 
           <div class="card-body">
-            <h3 class="h6 card-title fw-bold">Sus datos</h3>
+            <h3 class="h6 card-title fw-bold">Reciba su resultado por correo</h3>
             <p class="text-secondary small">
-              Déjenos sus datos y, si quiere, escriba su pregunta concreta: un especialista
-              le responderá dentro de un día hábil.
+              Complete sus datos y <strong>le enviaremos de inmediato el detalle de su
+              autodiagnóstico</strong> con una lectura de los próximos pasos. Si además
+              escribe una pregunta, nuestro equipo se la responderá
+              <strong>dentro de un día hábil</strong>.
             </p>
-
             <div class="row g-3">
               <div class="col-md-6">
                 <%= f.label :nombre, "Su nombre", class: "form-label" %>
@@ -135,16 +106,16 @@
               </div>
             </div>
 
-            <%= f.submit "Enviar y recibir orientación", class: "btn btn-primary w-100 mt-3 ls-enviar" %>
+            <%= f.submit "Enviar y recibir mi resultado por correo", class: "btn btn-primary w-100 mt-3 ls-enviar" %>
           </div>
         </div>
       </div>
     </div>
   <% end %>
 
-  <div class="ls-exito" hidden data-diagnostico-target="exito">
-    <h3 class="h5 alert-heading">Diagnóstico enviado</h3>
-    <p class="mb-0">Gracias. Un especialista le contactará dentro de un día hábil con la
-    orientación correspondiente a sus respuestas.</p>
+  <div class="ls-exito alert alert-success" hidden data-diagnostico-target="exito">
+    <h3 class="h5 alert-heading">Resultado en camino</h3>
+    <p class="mb-0">Gracias. <strong>Te enviamos el detalle de tu autodiagnóstico a tu correo.</strong>
+    Si escribiste una pregunta, nuestro equipo te la responderá dentro de un día hábil.</p>
   </div>
 </div>

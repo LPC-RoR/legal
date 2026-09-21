@@ -1,8 +1,7 @@
-<%# Fragmento para incluir al inicio del body de
-    app/views/comercial/lead_mailer/nuevo_lead.html.erb
+<%# Partial compartido por los correos de Comercial::LeadMailer.
     Muestra las respuestas del mini-diagnóstico cuando el lead las trae. %>
 <% if @lead.diagnostico? && @lead.respuestas.present? %>
-  <h3>Mini-diagnóstico (<%= @lead.fuente %>)</h3>
+  <h3>Autodiagnóstico (<%= @lead.fuente %>)</h3>
   <table border="1" cellpadding="6" cellspacing="0">
     <tr><th align="left">Pregunta</th><th align="left">Respuesta</th></tr>
     <tr><td>Denuncia en curso</td><td><%= @lead.respuesta(:denuncia_abierta) %></td></tr>
