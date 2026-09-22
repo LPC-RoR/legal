@@ -17,8 +17,8 @@
     <%= hidden_field_tag :form_loaded_at, Time.current.to_i %>
     <%= hidden_field_tag :fuente, local_assigns[:fuente] %>
 
-    <%= render partial: '0inpts/text',  locals: { f: form, tkn: :nombre,   label: 'Tu nombre', objeto: form.object, mrgn_bttm: 1 } %>
-    <%= render partial: '0inpts/email', locals: { f: form, tkn: :email,    label: 'Tu correo de trabajo', objeto: form.object, mrgn_bttm: 1 } %>
+    <%= render partial: '0inpts/text',  locals: { f: form, tkn: :nombre,   label: 'Su nombre', objeto: form.object, mrgn_bttm: 1 } %>
+    <%= render partial: '0inpts/email', locals: { f: form, tkn: :email,    label: 'Su correo de trabajo', objeto: form.object, mrgn_bttm: 1 } %>
     <%= render partial: '0inpts/text',  locals: { f: form, tkn: :telefono, label: 'Teléfono o WhatsApp', objeto: form.object, mrgn_bttm: 1 } %>
     <%= render partial: '0inpts/text',  locals: { f: form, tkn: :empresa,  label: 'Empresa (opcional)', objeto: form.object, mrgn_bttm: 1 } %>
 

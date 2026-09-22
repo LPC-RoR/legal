@@ -23,15 +23,9 @@
 <div class="row gx-3 mx-5 px-5">
 	<div class="col-6">
 		<h4>Otras consideraciones</h4>
-		<p>Los plazos mostrados son los máximos permitidos por el reglamento. En la medida en que una fecha de cumplimiento se anticipe al plazo máximo de su etapa, las fechas de inicio y término de las etapas siguientes se ajustan al nuevo escenario.</p>
+		<p>Los plazos mostrados corresponden a los máximos establecidos por el reglamento. Si una etapa se cumple antes de su vencimiento, las fechas de las etapas siguientes se recalculan considerando la fecha efectiva de cumplimiento.</p>
 
 		<p>En las investigaciones realizadas por la Dirección del Trabajo no se debe considerar la etapa <i>Pronunciamiento de la Dirección del Trabajo</i>.</p>
-
-		<p>Las etapas de mayor exigencia son:</p>
-		<ol>
-			<li><i>Recepción de denuncia</i>: requiere que el equipo del canal de denuncia tenga un buen estándar de coordinación y cumplimiento.</li>
-			<li><i>Investigación</i>: requiere un buen estándar de planificación por parte del investigador.</li>
-		</ol>
 	</div>
 
 	<div class="col-6">
@@ -50,10 +44,10 @@
 		  <div class="card-body p-3 p-sm-4">
 		    <h5 class="fw-bold mb-1">
 		      <i class="bi bi-envelope-paper me-2 text-primary"></i>
-		      Recibe una copia de esta simulación en tu correo
+		      Reciba una copia de esta simulación en su correo
 		    </h5>
 		    <p class="text-muted small mb-3">
-		      Déjenos sus datos y te enviaremos el detalle de las fechas proyectadas, listo para compartir con tu equipo.
+		      Déjenos sus datos y le enviaremos el detalle de las fechas proyectadas, listo para compartir con su equipo.
 		    </p>
 
 		    <%= form_with model: @lead, url: enviar_simulacion_path, local: true do |f| %>
@@ -94,7 +88,7 @@
 		      </div>
 
 		      <%= f.button type: "submit", class: "btn btn-primary w-100" do %>
-		        <i class="bi bi-send me-1"></i> Enviar simulación a mi correo
+		        <i class="bi bi-send me-1"></i> Recibir simulación por correo
 		      <% end %>
 		    <% end %>
 		  </div>
