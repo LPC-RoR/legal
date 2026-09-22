@@ -38,5 +38,26 @@ module Aplicacion
         }
       ]
     end
+
+    def riesgos
+      [
+        {
+          icono: 'bi-bank',
+          titulo: 'Judicialización del caso',
+          texto: 'Una investigación mal ejecutada expone a la empresa a reclamos ante los tribunales. Nuestro procedimiento está diseñado para entregar solidez y respaldo a la investigación ante una eventual revisión judicial.'
+        },
+        {
+          icono: 'bi-person-check',
+          titulo: 'Independencia e imparcialidad',
+          texto: 'Contar con un investigador externo y especialista en la Ley 21.643 aporta independencia, objetividad y una mirada especializada al proceso, fortaleciendo la confianza de las partes y la solidez de la investigación.'
+        },
+        {
+          icono: 'bi-speedometer2',
+          titulo: 'Eficiencia y optimización de recursos',
+          texto: 'Las investigaciones internas involucran costos que no siempre son visibles, especialmente el tiempo y los recursos de Recursos Humanos. Externalizar libera capacidad interna y la destina a funciones estratégicas del área.'
+        }
+      ]
+    end
+
   end
 end

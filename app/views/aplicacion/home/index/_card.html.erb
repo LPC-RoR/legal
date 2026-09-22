@@ -1,0 +1,17 @@
+<div class="col-md-4">
+  <div class="card h-100 shadow-sm">
+    <div class="card-body">
+      <h3 class="h5 card-title">
+        <% if local_assigns[:icono].present? %>
+          <i class="bi <%= icono %> me-2" aria-hidden="true"></i><%= titulo %>
+        <% else %>
+          <%= titulo %>
+        <% end %>
+      </h3>
+      <% if local_assigns[:texto].present? %>
+        <p class="card-text text-secondary ls-card-text"><%= texto %></p>
+      <% end %>
+      <%= yield %>
+    </div>
+  </div>
+</div>

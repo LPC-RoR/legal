@@ -1,0 +1,18 @@
+<%# 2. Riesgos de una investigación interna %>
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">El verdadero costo de gestionar una investigación internamente</h2>
+
+    <!--div class="text-center mb-5">
+      <%#= image_tag 'home/Coste_de_investigaciones_internas.png',
+            class: 'img-fluid rounded shadow-sm',
+            alt: 'Ilustración sobre los riesgos de gestionar una investigación internamente' %>
+    </div-->
+
+    <div class="row g-4">
+      <% riesgos.each do |riesgo| %>
+        <%= render 'aplicacion/home/index/card', titulo: riesgo[:titulo], texto: riesgo[:texto], icono: riesgo[:icono] %>
+      <% end %>
+    </div>
+  </div>
+</section>

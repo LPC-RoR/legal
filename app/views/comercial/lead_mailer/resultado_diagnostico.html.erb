@@ -8,9 +8,9 @@ con las indicaciones de nuestro equipo para cada una de tus respuestas.</p>
   <h3><%= pregunta[:texto] %></h3>
   <p><strong>Su respuesta:</strong> <%= @lead.respuesta_legible(pregunta[:clave]) %></p>
   <% if (feedback = @lead.feedback_respuesta(pregunta[:clave])).present? %>
-    <p style="background:#f3f4f6;padding:12px;border-radius:8px;">
-      <strong>Nuestra indicación:</strong> <%= feedback %>
-    </p>
+    <div style="background:#f3f4f6;padding:12px;border-radius:8px;">
+      <%= simple_format(feedback) %>
+    </div>
   <% end %>
 <% end %>
 

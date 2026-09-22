@@ -19,12 +19,18 @@ export default class extends Controller {
 
   mostrarFeedback(event) {
     const paso = event.target.closest("[data-ls-paso]")
-    const feedback = paso.querySelector(".ls-feedback")
-    feedback.textContent = event.target.dataset.feedback
-    feedback.hidden = false
+    const contenedor = paso.querySelector(".ls-feedback")
+    contenedor.innerHTML = ""
+    event.target.dataset.feedback.split(/\n\s*\n/).forEach((parrafo) => {
+      const p = document.createElement("p")
+      p.className = "mb-2"
+      p.textContent = parrafo
+      contenedor.appendChild(p)
+    })
+    contenedor.hidden = false
     paso.querySelector(".ls-siguiente").hidden = false
   }
-
+  
   siguiente(event) {
     const actual = Number(event.target.closest("[data-ls-paso]").dataset.lsPaso)
     if (actual === this.pasos.length) {

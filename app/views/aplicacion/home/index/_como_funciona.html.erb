@@ -1,0 +1,21 @@
+<%# 3. Cómo funciona %>
+<section class="py-5 bg-light" id="como-funciona">
+  <div class="container">
+    <h2 class="text-center mb-5">Cómo funciona</h2>
+    <div class="row g-4">
+      <% pasos.each do |paso| %>
+        <div class="col-lg-4 col-md-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <div class="d-flex align-items-baseline gap-2">
+                <span class="ls-paso-numero"><%= paso[:numero] %></span>
+                <h3 class="h5 card-title mb-0"><%= paso[:titulo] %></h3>
+              </div>
+              <p class="card-text text-secondary ls-card-text mt-2"><%= paso[:texto] %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

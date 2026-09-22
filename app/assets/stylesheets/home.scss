@@ -26,20 +26,15 @@
 
 /* Texto de las tarjetas de información: un punto más grande que el body */
 .ls-card-text {
-  font-size: 1.08rem;
+  font-size: 0.9rem;
   line-height: 1.7;
 }
 
 .ls-paso-numero {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #1d4ed8;
-  color: #fff;
-  font-weight: 600;
+  font-size: 1.25rem;  /* igual que h5, o 1.1rem si lo quieres más discreto */
+  font-weight: 700;
+  color: var(--bs-primary);
+  line-height: 1.2;
 }
 
 /* Mini-diagnóstico */

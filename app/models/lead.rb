@@ -14,15 +14,35 @@ class Lead < ApplicationRecord
       opciones: {
         "si" => {
           etiqueta: "Sí, tenemos una denuncia abierta",
-          feedback: "La Ley 21.643 impone plazos estrictos. La investigación de la denuncia tiene un plazo de 30 días hábiles contados a partir de la fecha de rececpión de la denuncia. Los tramites propios de la recepción de la denuncia el trámite de informar a la Dirección del Trabajo el inicio de la investigación, deben realizarse dentro de los 3 primeros días hábiles."
+          feedback: "La Ley 21.643 establece plazos estrictos para la tramitación de las denuncias.\n\n" \
+                    "¿Se realizaron las actuaciones iniciales necesarias para dar curso a la " \
+                    "investigación? Considere, entre otras, la adopción de medidas de resguardo, " \
+                    "la información obligatoria a las personas involucradas, la derivación a " \
+                    "atención psicológica temprana y, cuando corresponda, la comunicación del " \
+                    "inicio de la investigación a la Dirección del Trabajo.\n\n" \
+                    "Atención a los plazos. Algunas actuaciones iniciales deben realizarse dentro " \
+                    "de los primeros 3 días hábiles. A su vez, la investigación debe concluir " \
+                    "dentro de un plazo de 30 días hábiles, contado desde la recepción de la denuncia."
         },
         "tramite" => {
           etiqueta: "Estamos evaluando una denuncia recién recibida",
-          feedback: "En este minuto el foco es cumplir con los trámites propios de la recepción de la denuncia e informar el inicio de la investigación dentro de los 3 primeros días hábiles. Es el mejor momento para decidir la expernalización de la investigación."
+          feedback: "Los primeros días son clave.\n\n" \
+                    "Dentro de los primeros 3 días hábiles deben cumplirse las actuaciones propias " \
+                    "de la recepción de la denuncia y definirse si la investigación será realizada " \
+                    "internamente o derivada a la Dirección del Trabajo.\n\n" \
+                    "Si la empresa opta por una investigación interna, este es el momento de evaluar " \
+                    "su externalización con abogados especialistas. Una investigación externa permite " \
+                    "contar desde el inicio con asesoría especializada, control de los plazos, " \
+                    "independencia en la investigación y resguardo de la confidencialidad, reduciendo " \
+                    "los riesgos asociados a errores en la tramitación y fortaleciendo la solidez " \
+                    "jurídica del procedimiento."
         },
         "no" => {
           etiqueta: "No tenemos denuncias en curso",
-          feedback: "La ley obliga a estar preparado igual: la mayoría de las empresas descubre sus vacíos recién con la primera denuncia."
+          feedback: "La ausencia de denuncias no elimina la necesidad de estar preparados.\n\n" \
+                    "Antes de recibir una denuncia es el mejor momento para revisar si su empresa " \
+                    "cuenta con las herramientas necesarias para aplicar correctamente la Ley Karin " \
+                    "y responder oportunamente cuando sea necesario."
         }
       }
     },

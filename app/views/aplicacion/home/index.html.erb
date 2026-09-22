@@ -20,63 +20,10 @@ solidez del proceso importa desde el inicio.</h1>
 </section>
 
 <%# 2. Riesgos de una investigación interna %>
-<section class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-5">El costo de gestionar una investigación internamente</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h3 class="h5 card-title">Judicialización del caso</h3>
-            <p class="card-text text-secondary ls-card-text">
-              Una investigación mal ejecutada expone a la empresa a reclamos ante los tribunales. Nuestro procedimiento está diseñado para entregar solidez y respaldo a la investigación ante una eventual revisión judicial.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h3 class="h5 card-title">Independencia e imparcialidad</h3>
-            <p class="card-text text-secondary ls-card-text">
-              Contar con un investigador externo y especialista en la Ley 21.643 aporta independencia, objetividad y una mirada especializada al proceso, fortaleciendo la confianza de las partes y la solidez de la investigación.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h3 class="h5 card-title">Eficiencia y optimización de recursos</h3>
-            <p class="card-text text-secondary ls-card-text">
-              Las investigaciones internas involucran costos que no siempre son visibles, especialmente por el tiempo y los recursos que destinan los equipos de Recursos Humanos. Externalizar el proceso permite reducir estos costos, liberar capacidad interna y destinar esos recursos a las funciones propias y estratégicas del área.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<%= render 'aplicacion/home/index/riesgos' %>
 
 <%# 3. Cómo funciona %>
-<section class="py-5 bg-light" id="como-funciona">
-  <div class="container">
-    <h2 class="text-center mb-5">Cómo funciona</h2>
-    <div class="row g-4">
-      <% pasos.each do |paso| %>
-        <div class="col-lg-4 col-md-6">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <span class="ls-paso-numero"><%= paso[:numero] %></span>
-              <h3 class="h6 card-title mt-2"><%= paso[:titulo] %></h3>
-              <p class="card-text text-secondary ls-card-text"><%= paso[:texto] %></p>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</section>
+<%= render 'aplicacion/home/index/como_funciona' %>
 
 <%# 4. Lo que entregamos %>
 <section class="py-5">
