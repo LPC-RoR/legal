@@ -78,7 +78,7 @@ module Paths
 	def pltfrm_lcls_bck_rdrctn(objt)
 		case objt.class.table_name
 		when 'causas'
-			"/clientes/#{objt.cliente.id}?html_options[menu]=Causas"
+			causas_path
 		end
 	end
 
