@@ -20,15 +20,15 @@
   </div>
 </div>
 
-<div class="row gx-3 mx-5 px-5">
-	<div class="col-6">
+<div class="row gx-3 mx-0 px-3 mx-lg-5 px-lg-5">
+	<div class="col-12 col-lg-6">
 		<h4>Otras consideraciones</h4>
 		<p>Los plazos mostrados corresponden a los máximos establecidos por el reglamento. Si una etapa se cumple antes de su vencimiento, las fechas de las etapas siguientes se recalculan considerando la fecha efectiva de cumplimiento.</p>
 
 		<p>En las investigaciones realizadas por la Dirección del Trabajo no se debe considerar la etapa <i>Pronunciamiento de la Dirección del Trabajo</i>.</p>
 	</div>
 
-	<div class="col-6">
+	<div class="col-12 col-lg-6">
 		<%# app/views/home/simulador.html.erb — reemplaza el formulario de leads actual %>
 
 		<% if params[:enviado] %>
@@ -51,7 +51,6 @@
 		    </p>
 
 		    <%= form_with model: @lead, url: enviar_simulacion_path, local: true do |f| %>
-		      <%# Fecha de la simulación visible en pantalla; el servidor la recalcula %>
 		      <%= hidden_field_tag :fecha, @fecha_base %>
 
 		      <% if @lead.errors.any? %>
@@ -80,11 +79,11 @@
 		          <%= f.telephone_field :telefono, class: "form-control form-control-sm",
 		                placeholder: "+56 9 ..." %>
 		        </div>
-						<div class="col-md-6">
-						  <%= f.label :empresa_nombre, "Empresa (opcional)", class: "form-label small fw-medium" %>
-						  <%= f.text_field :empresa_nombre, class: "form-control form-control-sm",
-						        placeholder: "Nombre de tu empresa" %>
-						</div>
+				<div class="col-md-6">
+				  <%= f.label :empresa_nombre, "Empresa (opcional)", class: "form-label small fw-medium" %>
+				  <%= f.text_field :empresa_nombre, class: "form-control form-control-sm",
+				        placeholder: "Nombre de tu empresa" %>
+				</div>
 		      </div>
 
 		      <%= f.button type: "submit", class: "btn btn-primary w-100" do %>
