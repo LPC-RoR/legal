@@ -10,7 +10,7 @@
     
     <%# Selector de fecha - siempre en zona horaria Santiago %>
     <div class="mt-3 p-2 bg-light rounded-3 border">
-      <%= form_with url: root_path, method: :get, local: true, class: 'd-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2' do |f| %>
+      <%= form_with url: simulador_path, method: :get, local: true, class: 'd-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2' do |f| %>
         <label for="fecha" class="small text-muted fw-medium mb-0">
           <i class="bi bi-geo-alt-fill text-danger me-1"></i>
           Denuncia recibida (Santiago, CL):
@@ -22,7 +22,7 @@
               onchange: 'this.form.submit()' %>
         
         <%# Botón Hoy: usa Time.zone.today explícitamente %>
-        <%= link_to root_path(fecha: Time.zone.today.to_fs(:db)), 
+        <%= link_to simulador_path(fecha: Time.zone.today.to_fs(:db)),
               class: 'btn btn-sm btn-dark' do %>
           <i class="bi bi-calendar-check me-1"></i> Hoy
         <% end %>

@@ -12,15 +12,22 @@ class SimulacionPlazos
       descripcion: "Aplicar medidas y sanciones propuestas",             inicio: :siguiente_corridos }
   ].freeze
 
+# app/models/simulacion_plazos.rb
+
   def self.calcular(fecha_base)
     cursor = fecha_base
     ETAPAS.map do |etapa|
-      desde = case etapa[:inicio]
-              when :mismo_dia           then cursor
-              when :siguiente_habil     then siguiente_dia_habil(cursor)
-              when :siguiente_corridos  then cursor + 1
-              end
-      hasta = etapa[:tipo] == "hábiles" ? sumar_habiles(desde, etapa[:dias]) : desde + etapa[:dias]
+      # Etapa 2 (:mismo_dia) comparte ancla con la fecha de recepción;
+      # las demás arrancan desde el vencimiento de la etapa anterior.
+      anchor = etapa[:inicio] == :mismo_dia ? fecha_base : cursor
+
+      desde, hasta =
+        if etapa[:tipo] == "hábiles"
+          [siguiente_dia_habil(anchor), sumar_habiles(anchor, etapa[:dias])]
+        else
+          [anchor + 1, anchor + etapa[:dias]]
+        end
+
       cursor = hasta
       etapa.merge(desde: desde, hasta: hasta, icono: "bi-calendar-event", color: "primary")
     end
