@@ -9,30 +9,33 @@ class ClssTxt
 	    'estadisticas_generales'    => :pltfrm,
 	    
 	    # === INVESTIGACIONES (invstgcns) ===
-	    'txt_firma_cnl_dnncs'		=> :invstgcns,    # ← FIRMA DEL CANAL DE DENUNCIAS
-	    'txt_firma_mdds'			=> :invstgcns,    # ← FIRMA DEL MEDIDAS DE RESGUARDO Y MEDIDAS CORRECTIVAS & SANCIONES
-	    'txt_invstgdr_firma'		=> :invstgcns,    # ← FIRMA DEL INVESTIGADOR
-	    'txt_invstgdr_dsgncn'		=> :invstgcns,    # ← DESIGNACION DEL INVESTIGADOR
-	    'txt_mdds_rsgrd'			=> :invstgcns,    # ← MEDIDAS DE RESGUARDO
-	    'txt_mdfccn_mdds_rsgrd'		=> :invstgcns,    # ← COMPLEMENTACIÓN O MODIFICACIÓN DE MEDIDAS DE RESGUARDO
-	    'txt_anlss'					=> :invstgcns,
-	    'txt_infrm'					=> :invstgcns,
-	    'txt_emprs_dnnc'			=> :invstgcns,
-	    'dnnc_annmzd'				=> :invstgcns,
-	    'dnnc_rsmn'					=> :invstgcns,
-	    'txt_rprsntcn'				=> :invstgcns,
-	    'txt_slctd_516'				=> :invstgcns,
-	    'txt_acta'					=> :invstgcns,
-	    'txt_dclrcn'				=> :invstgcns,
-	    'txt_firma'					=> :invstgcns,
-	    'txt_invstgdr'				=> :invstgcns,
-	    'txt_firma_rcpcn'			=> :invstgcns,
-	    'txt_emprs'					=> :invstgcns,
-	    'txt_mdds_crrctvs_sncns'	=> :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES
-	    'firma_mdds'				=> :invstgcns,
-	    'txt_dnnc_annmzd'			=> :invstgcns,    # ← DENUNCIA ANONIMIZADA
-	    'txt_dclrcn_annmzd'			=> :invstgcns,    # ← DECLARACION ANONIMIZADA
-	    'annm'						=> :invstgcns,    # ← ANONIMIZACION DE PDFs GENERADOS DESDE UN TxtEditable
+	    'txt_firma_cnl_dnncs'			=> :invstgcns,    # ← FIRMA DEL CANAL DE DENUNCIAS
+	    'txt_firma_mdds'				=> :invstgcns,    # ← FIRMA DEL MEDIDAS DE RESGUARDO Y MEDIDAS CORRECTIVAS & SANCIONES
+	    'txt_invstgdr_firma'			=> :invstgcns,    # ← FIRMA DEL INVESTIGADOR
+	    'txt_invstgdr_dsgncn'			=> :invstgcns,    # ← DESIGNACION DEL INVESTIGADOR
+	    'txt_mdds_rsgrd'				=> :invstgcns,    # ← MEDIDAS DE RESGUARDO
+	    'txt_mdds_rsgrd_annm'			=> :invstgcns,    # ← MEDIDAS DE RESGUARDO ANONIMIZADAS
+	    'txt_mdfccn_mdds_rsgrd'			=> :invstgcns,    # ← COMPLEMENTACIÓN O MODIFICACIÓN DE MEDIDAS DE RESGUARDO
+	    'txt_mdfccn_mdds_rsgrd_annm'	=> :invstgcns,    # ← COMPLEMENTACIÓN O MODIFICACIÓN DE MEDIDAS DE RESGUARDO ANONIMIZADA
+	    'txt_anlss'						=> :invstgcns,
+	    'txt_infrm'						=> :invstgcns,
+	    'txt_emprs_dnnc'				=> :invstgcns,
+	    'dnnc_annmzd'					=> :invstgcns,
+	    'dnnc_rsmn'						=> :invstgcns,
+	    'txt_rprsntcn'					=> :invstgcns,
+	    'txt_slctd_516'					=> :invstgcns,
+	    'txt_acta'						=> :invstgcns,
+	    'txt_dclrcn'					=> :invstgcns,
+	    'txt_firma'						=> :invstgcns,
+	    'txt_invstgdr'					=> :invstgcns,
+	    'txt_firma_rcpcn'				=> :invstgcns,
+	    'txt_emprs'						=> :invstgcns,
+	    'txt_mdds_crrctvs_sncns'		=> :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES
+	    'txt_mdds_crrctvs_sncns_annm'	=> :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES ANONIMIZADAS
+	    'firma_mdds'					=> :invstgcns,
+	    'txt_dnnc_annmzd'				=> :invstgcns,    # ← DENUNCIA ANONIMIZADA
+	    'txt_dclrcn_annmzd'				=> :invstgcns,    # ← DECLARACION ANONIMIZADA
+	    'annm'							=> :invstgcns,    # ← ANONIMIZACION DE PDFs GENERADOS DESDE UN TxtEditable
 	    
 	    # === FINANZAS (fnnzs) ===
 	    'aprobacion'                => :fnnzs,
