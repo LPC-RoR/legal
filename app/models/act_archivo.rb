@@ -16,7 +16,7 @@ class ActArchivo < ApplicationRecord
   has_many :krn_textos, as: :ownr, dependent: :destroy
   accepts_nested_attributes_for :krn_textos, allow_destroy: true
 
-  MAX_PDF_SIZE = 40.megabytes
+  MAX_PDF_SIZE = 50.megabytes
 
   validate :pdf_valid, unless: -> { self.rlzd }
   validate :safe_pdf,  unless: -> { self.rlzd }
