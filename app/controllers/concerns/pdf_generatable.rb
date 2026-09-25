@@ -224,6 +224,13 @@ module PdfGeneratable
   # --------------------------------------------
   def resolver_objeto_id_para_anonimizacion(code, participante, denuncia, act_original)
     case code
+  when 'dclrcn'
+    # La referencia del ActArchivo apunta a la KrnDeclaracion
+    ref = act_original.act_referencias.first&.ref if act_original.respond_to?(:act_referencias)
+    ref&.id || KrnDeclaracion.find_by(ownr: participante)&.id || participante.id
+  when 'txt_dclrcn', 'txt_dclrcn_annmzd'
+    ref = act_original.act_referencias.first&.ref if act_original.respond_to?(:act_referencias)
+    ref&.id || denuncia.txt_editables.find_by(codigo: code)&.id || participante.id
     when 'invstgdr'
       if participante.respond_to?(:krn_inv_denuncia) && participante.krn_inv_denuncia.present?
         participante.krn_inv_denuncia.id
