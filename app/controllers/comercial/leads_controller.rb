@@ -53,8 +53,8 @@ module Comercial
 
         respond_to do |format|
           format.html do
-            redirect_to gracias_leads_path,
-                        notice: "¡Gracias! Te enviamos tu resultado por correo y te contactaremos en menos de 24 horas."
+            redirect_to gracias_leads_path(conv: conversion_kind),
+              notice: "¡Gracias! Te enviamos tu resultado por correo y te contactaremos en menos de 24 horas."
           end
           format.json { render json: { ok: true } }
         end
@@ -79,6 +79,10 @@ module Comercial
     end
     
     private
+
+    def conversion_kind
+      @objeto.diagnostico? ? "diagnostico" : "contacto"
+    end
 
     def set_lead
       @lead = Lead.find(params[:id])
