@@ -1,0 +1,29 @@
+<h2>Hola <%= @lead.nombre %>,</h2>
+
+<p>Este es el último correo de nuestra parte<% if @lead.diagnostico? %>, después de haberle enviado su
+autodiagnóstico<% end %>.</p>
+
+<p>No queremos convertirnos en ruido: si el timing no es el adecuado, lo entendemos perfectamente.
+Solo le dejamos dos cosas sobre la mesa:</p>
+
+<ul>
+  <% if @lead.invitar_agendamiento_directo? %>
+    <li>Su <strong>diagnóstico de preparación Ley 21.643</strong> sigue vigente y sin costo: cuando lo necesite,
+    <%= link_to "agende sus 30 minutos", agenda_url %> y retomamos desde donde quedamos.</li>
+  <% else %>
+    <li>Su <strong>reunión de 30 minutos con un especialista</strong> sigue disponible y sin costo: cuando lo
+    necesite, responda a este correo o escríbanos a <strong>ventas@laborsafe.cl</strong> y retomamos
+    desde donde quedamos.</li>
+  <% end %>
+  <li>Si su situación cambia —una denuncia recibida, un plazo que corre—, escríbanos directamente a
+    <strong>ventas@laborsafe.cl</strong> y lo tratamos con la prioridad que amerita.</li>
+</ul>
+
+<p>Quedamos atentos.</p>
+
+<%= render "firma" %>
+
+<p style="font-size:12px;color:#9ca3af;">
+  Si no desea recibir más correos de seguimiento, responda con la palabra «baja» y detendremos
+  la secuencia de inmediato.
+</p>

@@ -1,0 +1,24 @@
+<h2>Hola <%= @lead.nombre %>,</h2>
+
+<p>En su autodiagnóstico nos contó: <strong><%= @lead.respuesta_legible(:denuncia_abierta) %></strong>.</p>
+
+<% if @lead.respuesta(:denuncia_abierta) == "tramite" %>
+  <p>Los primeros días de una denuncia recién recibida son los que definen el resto del procedimiento.
+  Dentro de los primeros <strong>3 días hábiles</strong> deben cumplirse las actuaciones iniciales y definir
+  si la investigación será interna o se deriva a la Dirección del Trabajo. Decidirlo con asesoría
+  especializada ahora es mucho más barato que corregir un error de forma después.</p>
+<% else %>
+  <p>Como lo señalamos en su resultado, la Ley 21.643 corre en su contra: algunas actuaciones iniciales
+  vencen dentro de los primeros <strong>3 días hábiles</strong> y la investigación debe concluir dentro de
+  <strong>30 días hábiles</strong> desde la recepción de la denuncia. Cada día de espera reduce el margen
+  para hacerlas bien.</p>
+<% end %>
+
+<p>Una investigación externalizada le da desde el primer día: control de plazos, independencia,
+confidencialidad por diseño y un informe que resiste judicialización.</p>
+
+<p>
+  <%= link_to "Agende una revisión express de su caso (30 minutos, sin costo)", agenda_url %>
+</p>
+
+<%= render "firma" %>

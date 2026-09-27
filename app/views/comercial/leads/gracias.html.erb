@@ -7,6 +7,22 @@
 
 <div class="ubuntu-regular" style="max-width: 560px; margin: 4rem auto; text-align: center;">
   <h1>¡Solicitud recibida!</h1>
-  <p>Te contactaremos en menos de 24 horas para agendar tu demo de 30 minutos.</p>
+
+  <% if params[:conv] == "diagnostico" %>
+    <%# Autodiagnóstico: ya interactuó con la herramienta y recibió su resultado;
+        el formulario de contacto ES el agendamiento, así que el CTA sí tiene sentido. %>
+    <p>Te enviamos tu resultado por correo. El siguiente paso es una demo de 30 minutos.</p>
+    <p style="margin: 2rem 0;">
+      <%= link_to "Agendar ahora mi demo de 30 minutos",
+                  "https://www.laborsafe.cl/#contacto",
+                  class: "btn btn-sm btn-primary" %>
+    </p>
+  <% else %>
+    <%# Formulario simple: acaba de dejar sus datos precisamente para eso.
+        Invitarlo a llenar el mismo formulario sería un bucle. %>
+    <p>Un especialista te contactará dentro de las próximas 24 horas hábiles para agendar
+    tu demo de 30 minutos.</p>
+  <% end %>
+
   <%= link_to "Volver al inicio", root_path, class: "btn btn-sm btn-outline-primary" %>
 </div>

@@ -1,0 +1,18 @@
+<h2>Hola <%= @lead.nombre %>,</h2>
+
+<p>En su autodiagnóstico nos contó que <strong>nadie está asignado hoy</strong> a las investigaciones.</p>
+
+<p>Este es el hallazgo más delicado del autodiagnóstico: puede indicar que su empresa aún no cuenta con
+el <strong>Protocolo de prevención</strong> exigido por la ley, o que los encargados del canal de denuncias
+y del equipo investigador no tienen el perfil ni la capacitación necesaria. Si mañana llegara una
+denuncia, la empresa partiría en desventaja.</p>
+
+<p>La buena noticia: es corregible en semanas, no en meses. Nuestro servicio incluye el diseño del
+protocolo, la constitución del canal y la capacitación del equipo, más la plataforma tecnológica para
+la documentación y notificaciones obligatorias.</p>
+
+<p>
+  <%= link_to "Agende 30 minutos y salga con un diagnóstico de brechas de su empresa", agenda_url %>
+</p>
+
+<%= render "firma" %>

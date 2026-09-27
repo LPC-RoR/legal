@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_09_17_130000) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_27_164624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "unaccent"
@@ -1161,8 +1161,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_09_17_130000) do
     t.text "pregunta"
     t.jsonb "respuestas", default: {}, null: false
     t.text "nota_seguimiento"
+    t.datetime "seguimiento_programado_en"
     t.index ["empresa_id"], name: "index_leads_on_empresa_id"
     t.index ["kind"], name: "index_leads_on_kind"
+    t.index ["seguimiento_programado_en"], name: "index_leads_on_seguimiento_programado_en"
   end
 
   create_table "licencias", force: :cascade do |t|

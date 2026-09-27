@@ -1,0 +1,17 @@
+<h2>Hola <%= @lead.nombre %>,</h2>
+
+<p>En su autodiagnóstico nos contó que las investigaciones las realiza hoy un
+<strong><%= @lead.respuesta_legible(:investigador_actual).downcase %></strong>.</p>
+
+<p>Hay un riesgo que conviene tener presente: un investigador interno puede ser
+<strong>objetado por las partes por falta de imparcialidad</strong>. Si eso ocurre, la empresa pierde
+el control del procedimiento justo cuando los plazos siguen corriendo.</p>
+
+<p>Un investigador externo, abogado especialista en la Ley 21.643, prácticamente elimina ese riesgo
+— y suma control documental y de plazos sobre lo que su equipo ya hace bien.</p>
+
+<p>
+  <%= link_to "Conversemos 30 minutos sobre cómo blindar sus investigaciones", agenda_url %>
+</p>
+
+<%= render "firma" %>

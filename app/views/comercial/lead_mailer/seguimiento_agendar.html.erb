@@ -1,0 +1,24 @@
+<h2>Hola <%= @lead.nombre %>,</h2>
+
+<p>Nos escribió hace un par de días y queremos asegurarnos de que su reunión de 30 minutos con
+un especialista quede concretada esta misma semana.</p>
+
+<% if @lead.invitar_agendamiento_directo? %>
+  <p>Le proponemos dos caminos, elija el que le acomode:</p>
+  <ul>
+    <li><strong>Directo:</strong> <%= link_to "agenda aquí su slot de 30 minutos", agenda_url %> — confirma en menos de un minuto.</li>
+    <li><strong>Personalizado:</strong> responda a este correo con su disponibilidad (por ejemplo,
+    «mañana en la mañana» o «jueves después de las 15:00») y le enviamos la invitación con horario tentativo.</li>
+  </ul>
+<% else %>
+  <p>Responda a este correo con su disponibilidad (por ejemplo, «mañana en la mañana» o
+  «jueves después de las 15:00») y le enviamos de inmediato la invitación con horario tentativo.
+  Si prefiere, también puede escribirnos a <strong>ventas@laborsafe.cl</strong>.</p>
+<% end %>
+
+<% if @lead.diagnostico? %>
+  <p>Su autodiagnóstico ya está en manos de nuestro equipo; la reunión es donde lo convertimos en un
+  plan concreto para su empresa.</p>
+<% end %>
+
+<%= render "firma" %>

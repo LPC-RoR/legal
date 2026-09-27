@@ -1,18 +1,6 @@
 module Comercial
   class LeadsController < ApplicationController
-
-    # Correos de prueba del equipo: NO disparan conversion tracking
-    CORREOS_INTERNOS = %w[
-      hugo.chinga.g@gmail.com
-      mena.solange@gmail.com
-    ].freeze
-
-    # Dominios internos: CUALQUIER correo de estos dominios queda excluido
-    DOMINIOS_INTERNOS = %w[laborsafe.cl tapiaycia.cl].freeze
-
     # El pipeline de seguimiento requiere sesión; create y gracias son públicos.
-    # Ajusta el nombre del método según tu mapping de Devise (tu modelo es Usuario,
-    # así que probablemente sea authenticate_usuario!)
     before_action :authenticate_usuario!, only: %i[index show update]
     before_action :set_lead,             only: %i[show update]
 
@@ -55,11 +43,17 @@ module Comercial
 
         if @objeto.diagnostico?
           Comercial::LeadMailer.with(lead: @objeto).resultado_diagnostico.deliver_later
+        else
+          # Formulario simple: cubrimos la promesa de las 24 h de inmediato
+          Comercial::LeadMailer.with(lead: @objeto).bienvenida.deliver_later
         end
 
         if @objeto.pregunta.present?
           Comercial::LeadMailer.with(lead: @objeto).nueva_pregunta.deliver_later
         end
+
+        # Secuencia de seguimiento automático (+1 hábil, +3 hábiles, +7 corridos)
+        Comercial::ProgramarSeguimientoJob.perform_later(@objeto)
 
         respond_to do |format|
           format.html do
@@ -87,23 +81,11 @@ module Comercial
         format.json { head :ok }
       end
     end
-    
+
     private
 
     def conversion_kind
-      return nil if interno?(@objeto.email)
-
       @objeto.diagnostico? ? "diagnostico" : "contacto"
-    end
-
-    def interno?(email)
-      return false if email.blank?
-
-      correo = email.to_s.downcase.strip
-      return true if CORREOS_INTERNOS.include?(correo)
-
-      dominio = correo.split('@').last
-      DOMINIOS_INTERNOS.include?(dominio)
     end
 
     def set_lead

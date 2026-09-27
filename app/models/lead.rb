@@ -1,4 +1,6 @@
 class Lead < ApplicationRecord
+  include Segmentacion
+
   KINDS = %w[presentacion diagnostico].freeze
 
   # ---------------------------------------------------------------

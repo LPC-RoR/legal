@@ -1,0 +1,18 @@
+<h2>Hola <%= @lead.nombre %>,</h2>
+
+<p>En su autodiagnóstico nos contó: <strong><%= @lead.respuesta_legible(:informe_dt) %></strong>, respecto del
+trámite de informe a la Dirección del Trabajo.</p>
+
+<p>Es el escenario más común: la ley es reciente y el reglamento tiene exigencias específicas por
+trámite. Un <strong>error de forma</strong> en la plataforma de la DT puede invalidar semanas de
+investigación bien hecha.</p>
+
+<p>Nuestro servicio incluye capacitación en los trámites de la plataforma de la Dirección del Trabajo
+y una plataforma tecnológica que genera automáticamente las notificaciones y la documentación
+obligatoria, con envío automatizado a los participantes de la denuncia.</p>
+
+<p>
+  <%= link_to "Vea la plataforma en funcionamiento: 30 minutos, sin costo", agenda_url %>
+</p>
+
+<%= render "firma" %>
