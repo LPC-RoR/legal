@@ -1,5 +1,15 @@
 module Comercial
   class LeadsController < ApplicationController
+
+    # Correos de prueba del equipo: NO disparan conversion tracking
+    CORREOS_INTERNOS = %w[
+      hugo.chinga.g@gmail.com
+      mena.solange@gmail.com
+    ].freeze
+
+    # Dominios internos: CUALQUIER correo de estos dominios queda excluido
+    DOMINIOS_INTERNOS = %w[laborsafe.cl tapiaycia.cl].freeze
+
     # El pipeline de seguimiento requiere sesión; create y gracias son públicos.
     # Ajusta el nombre del método según tu mapping de Devise (tu modelo es Usuario,
     # así que probablemente sea authenticate_usuario!)
@@ -81,7 +91,19 @@ module Comercial
     private
 
     def conversion_kind
+      return nil if interno?(@objeto.email)
+
       @objeto.diagnostico? ? "diagnostico" : "contacto"
+    end
+
+    def interno?(email)
+      return false if email.blank?
+
+      correo = email.to_s.downcase.strip
+      return true if CORREOS_INTERNOS.include?(correo)
+
+      dominio = correo.split('@').last
+      DOMINIOS_INTERNOS.include?(dominio)
     end
 
     def set_lead
