@@ -62,6 +62,8 @@ module Comercial
 
     # SEGUIMIENTO: un solo método de entrada; la plantilla la elige
     # Comercial::SeguimientoLeadJob mediante params[:tipo] (ver Lead::Segmentacion).
+    # No existe una plantilla "seguimiento" genérica: hay una por tipo
+    # (seguimiento_agendar, seguimiento_urgencia, ...), por eso el template_name.
     # Desde CORREO_VENTAS: todos los pasos invitan a responder y las respuestas
     # deben caer en un buzón activo.
     def seguimiento
@@ -71,7 +73,8 @@ module Comercial
       mail(
         from: CORREO_VENTAS,
         to: @lead.email,
-        subject: asunto_seguimiento
+        subject: asunto_seguimiento,
+        template_name: "seguimiento_#{@tipo}"
       )
     end
 
