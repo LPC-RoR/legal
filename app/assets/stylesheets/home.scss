@@ -108,3 +108,104 @@
     padding: 64px 0;
   }
 }
+
+/* MARCO LEGAL */
+
+// Ajusta los valores de estas variables a la paleta de tu sitio
+// (saca los colores de tus otras páginas de home)
+$ml-color-primario: #1e3a5f;
+$ml-color-acento: #2b6cb0;
+$ml-color-texto: #2d3748;
+$ml-color-borde: #e2e8f0;
+$ml-radio: 10px;
+
+.marco-legal {
+  padding: 3rem 0;
+
+  .marco-legal-header {
+    margin-bottom: 2.5rem;
+
+    h1 {
+      font-size: 2.5rem;
+      color: $ml-color-primario;
+      margin-bottom: 1rem;
+    }
+
+    .lead {
+      max-width: 720px;
+      font-size: 1.15rem;
+      line-height: 1.6;
+    }
+  }
+
+  .marco-legal-area {
+    font-size: 1.5rem;
+    color: $ml-color-primario;
+    border-bottom: 3px solid $ml-color-acento;
+    padding-bottom: .5rem;
+    margin: 3rem 0 1.5rem;
+  }
+
+  // Distribución en dos columnas
+  .marco-legal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .documento-card {
+    background: #fff;
+    border: 1px solid $ml-color-borde;
+    border-radius: $ml-radio;
+    padding: 2rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .05);
+    display: flex;
+    flex-direction: column;
+
+    .documento-card-header {
+      border-bottom: 2px solid $ml-color-acento;
+      padding-bottom: .75rem;
+      margin-bottom: 1.25rem;
+
+      h3 { font-size: 1.25rem; color: $ml-color-primario; margin: 0 0 .25rem; }
+      .documento-card-fecha { color: #718096; font-size: .85rem; }
+    }
+
+    .documento-card-detalle {
+      margin: 0 0 1.25rem;
+      flex: 1;
+
+      .detalle-item {
+        margin-bottom: 1rem;
+
+        dt {
+          font-weight: 700;
+          color: $ml-color-acento;
+          text-transform: uppercase;
+          font-size: .75rem;
+          letter-spacing: .04em;
+          margin-bottom: .25rem;
+        }
+
+        dd { margin: 0; line-height: 1.6; color: $ml-color-texto; }
+      }
+    }
+
+    .documento-card-link {
+      align-self: flex-start;
+      background: $ml-color-acento;
+      color: #fff;
+      padding: .6rem 1.25rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background .2s ease;
+
+      &:hover { background: $ml-color-primario; }
+    }
+  }
+}

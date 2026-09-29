@@ -1,14 +1,18 @@
 # app/models/clss_annm_invstgcns.rb
 class ClssAnnmInvstgcns
 
-  ANNM_CDGS     = ['txt_annm_medios_de_prueba', 'txt_annm_declaraciones', 'txt_annm_ntfccns']
+  ANNM_CDGS     = ['txt_annm_medios_de_prueba', 'txt_annm_declaraciones', 'txt_annm_ntfccns'].freeze
 
   OPTNL_CDGS    = []
   NO_TMPLT_CDGS = []
 
-  NTFCCNS_CDGS  = ['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd', 'invstgdr', 'txt_mdds_crrctvs_sncns', 'dclrcn']
+  NTFCCNS_CDGS  = ['dnncnt_info_oblgtr', 'comprobante', 'invstgcn', 'drchs', 'txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd', 'invstgdr', 'txt_mdds_crrctvs_sncns', 'dclrcn'].freeze
 
+  # Genera una copia del TxtEditable para redactar versión anonimizada que se usará en el template
   ANNM_COPY_TXT = ['txt_mdds_rsgrd', 'txt_mdfccn_mdds_rsgrd', 'txt_mdds_crrctvs_sncns']
+
+  # Se puede agregar con new un TxtEditable para redactar una versión editable de un ActArchivo con crtn_mode == 'upload'
+  UPLOAD_ANNM_CODES = %w[comprobante txt_mdds_rsgrd txt_mdfccn_mdds_rsgrd txt_mdds_crrctvs_sncns].freeze
 
   # ================================================================
   # CONFIGURACIÓN DE GRUPOS DE ANONIMIZACIÓN

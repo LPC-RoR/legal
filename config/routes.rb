@@ -7,9 +7,6 @@ Rails.application.routes.draw do
   get '/verify_custom_email', to: 'email_verifications#verify', as: :verify_custom_email
   post '/send_verification_email', to: 'email_verifications#send_verification', as: :send_verification_email
 
-  get '/krn_csts', to: 'aplicacion/home#costos'
-  get '/artcls/:tkn', to: 'aplicacion/home#artcls', as: 'artcls'
-
   # config/routes.rb
   namespace :producto do
     get "productos/partial/:key", to: "productos#partial", as: :productos_partial
@@ -516,7 +513,12 @@ Rails.application.routes.draw do
   get   "simulador",            to: "aplicacion/home#simulador",           as: :simulador
   post  "simulador/simulacion", to: "aplicacion/home#enviar_simulacion",   as: :enviar_simulacion
   get   'metodologia',          to: 'aplicacion/home#metodologia'
+  get   "marco_legal",          to: "aplicacion/home#marco_legal"
   get   'blog',                 to: 'aplicacion/home#blog'
+
+  get   '/krn_csts',            to: 'aplicacion/home#costos'
+  get   '/artcls/:tkn',         to: 'aplicacion/home#artcls', as: 'artcls'
+
 
   # manejo formulario de registro de empresas
   post '/register', to: 'empresas#create', as: 'register'

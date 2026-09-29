@@ -116,7 +116,25 @@ module PdfGeneratable
           act_archivos = participante.act_archivos.where(act_archivo: code)
           
           act_archivos.each do |act_original|
-            # CORRECCIÓN: pasamos act_original para resolver el TxtEditable correcto
+
+            # --- EXCEPCIÓN: archivo subido por el cliente ---
+            if act_original.crtn_mode == 'upload'
+              # Etapa 1 (idempotente): asegura el TxtEditable editable
+              act_original.crear_txt_anonimizado_upload!
+
+              pdf_content = generar_pdf_contenido('annm_upload',
+                ownr:         participante,
+                objeto_id:    act_original.id,
+                participante: participante,
+                act_original: act_original,
+                anonimizar:   true,
+                **opciones_anonimizacion(participante, denuncia))
+
+              pdf_contents << pdf_content if pdf_content.present?
+              next
+            end
+
+            # --- flujo actual sin cambios ---
             objeto_id = resolver_objeto_id_para_anonimizacion(code, participante, denuncia, act_original)
             
             pdf_content = generar_pdf_contenido(code, 

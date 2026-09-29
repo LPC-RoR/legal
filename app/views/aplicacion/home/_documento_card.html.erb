@@ -1,0 +1,25 @@
+<article class="documento-card">
+  <header class="documento-card-header">
+    <h3><%= doc[:cita] %></h3>
+    <span class="documento-card-fecha"><%= doc[:fecha] %></span>
+  </header>
+
+  <dl class="documento-card-detalle">
+    <div class="detalle-item">
+      <dt>Entidad responsable</dt>
+      <dd><%= doc[:entidad] %></dd>
+    </div>
+    <div class="detalle-item">
+      <dt>Propósito</dt>
+      <dd><%= doc[:proposito] %></dd>
+    </div>
+    <div class="detalle-item">
+      <dt>Descripción</dt>
+      <dd><%= doc[:descripcion] %></dd>
+    </div>
+  </dl>
+
+  <%= link_to doc[:nombre], doc[:url],
+              target: "_blank", rel: "noopener noreferrer",
+              class: "documento-card-link" %>
+</article>

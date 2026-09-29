@@ -48,6 +48,40 @@ class ActArchivo < ApplicationRecord
     end
   end
 
+  # ============================== Anonimización cuando crtn_mode == 'upload'
+  def upload?
+    crtn_mode == 'upload'
+  end
+
+  # Solo si el archivo es upload, el ownr existe y el código está autorizado
+  def annm_upload?
+    upload? && ownr.present? && UPLOAD_ANNM_CODES.include?(act_archivo)
+  end
+
+  # p.ej. "annm_dnnc_123" (123 = id del ownr del ActArchivo)
+  def codigo_annm_upload
+    "annm_#{act_archivo}_#{ownr_id}"
+  end
+
+  def txt_anonimizado_upload
+    ownr&.txt_editables&.find_by(codigo: codigo_annm_upload)
+  end
+
+  # Etapa 1: crea el TxtEditable SIN contenido (se completa al editarlo).
+  # Idempotente: si ya existe (y fue editado), no lo toca.
+  def crear_txt_anonimizado_upload!
+    return unless annm_upload?
+
+    txt_anonimizado_upload || ownr.txt_editables.create!(
+      codigo:     codigo_annm_upload,
+      titulo:     "Anon. #{nombre.presence || act_archivo}",
+      cntxt_clss: 'ClssAnnmInvstgcns'
+      # contenido queda vacío: has_rich_text no crea registro hasta asignar
+    )
+  end
+
+  # ============================== Anonimización cuando crtn_mode == 'upload' (final)
+
   # Crea la copia editable a partir del TxtEditable que generó este PDF
   def crear_txt_anonimizado!
     return txt_anonimizado if txt_anonimizado.present?

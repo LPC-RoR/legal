@@ -95,7 +95,7 @@ class ClssPdfInvstgcns
       'txt_mdds_crrctvs_sncns'    => 'Notificación de las medidas correctivas y sanciones',
       'txt_annm_declaraciones'    => 'Expediente anonimizado: declaraciones de los participantes',
       'txt_annm_medios_de_prueba' => 'Expediente anonimizado: medios de prueba',
-      'txt_annm_ntfccns'          => 'Expediente anonimizado: declaraciones de los participantes'
+      'txt_annm_ntfccns'          => 'Expediente anonimizado: notificaciones enviadas a los participantes'
     }
   end
 
@@ -254,6 +254,8 @@ class ClssPdfInvstgcns
         { objeto: objeto, 
           empresa: objeto.krn_denuncia.ownr,
           ownr: opciones[:ownr] || objeto.ownr }
+      when 'annm_upload'
+        datos_annm_upload(objeto_id, opciones)
       else
         raise "Reporte de investigaciones no soportado: #{reporte}"
       end
@@ -278,5 +280,27 @@ class ClssPdfInvstgcns
         css:  'pdfs/invstgcns/styles.css'
       }
     end
+
+    # Quizá va fuera del Self
+    # Y el método de datos: ownr = el participante (o la denuncia),
+    # act = el ActArchivo original que contiene el PDF subido
+    def datos_annm_upload(_objeto_id, opciones = {}, ownr: nil)
+      act  = opciones[:act_original]
+      raise "Se requiere :act_original para annm_upload" unless act.present?
+
+      ownr ||= opciones[:ownr] || act.ownr
+      dnnc   = ownr.is_a?(KrnDenuncia) ? ownr : ownr.dnnc
+      txt    = ownr.txt_editables.find_by(codigo: act.codigo_annm_upload)
+
+      {
+        objeto:          act,
+        ownr:            ownr,
+        dnnc:            dnnc,
+        empresa:         dnnc.ownr,
+        txt_anonimizado: txt,
+        contenido:       txt&.contenido   # queda nil si aún no se edita
+      }
+    end
+
   end
 end

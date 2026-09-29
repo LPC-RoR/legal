@@ -1,0 +1,19 @@
+<%# Variables: @ownr (participante), @act (ActArchivo original),
+    @txt_anonimizado, @contenido, @dnnc, @empresa %>
+
+<%= render partial: 'pdfs/invstgcns/head_ttl', locals: {code: @act.act_archivo} %>
+
+<div class="nota-anonimizacion" style="font-size: 9px; color: #666; border-top: 1px solid #ccc; margin-top: 20px; padding-top: 5px;">
+  Este documento es una copia anonimizada del archivo original <i><%= ClssPdfInvstgcns.nombre[@act.act_archivo] %> (ID: <%= @act.id %>)</i>.<br>
+  El archivo original fue creado por el canal de denuncias de <%=@empresa.razon_social%> y enviado al participante el <%= l(@act.created_at, format: :short) %>.<br>
+  Nuestra plataforma cuenta con una copia del documento original.<br>
+  Los nombres y emails de los participantes ha sido reemplazado por códigos únicos para toda la plataforma para garantizar la unicidad del documento. Los nombres, cargos y profesiones de personas citadas que no tienen la calidad de participantes de la denuncia, serán reemplazadas por códigos genéricos.
+</div>
+
+<div class="annm-upload">
+  <% if @txt_anonimizado&.contenido.present? %>
+    <%= @txt_anonimizado.contenido %>
+  <% else %>
+    <p>[Versión anonimizada pendiente de edición]</p>
+  <% end %>
+</div>

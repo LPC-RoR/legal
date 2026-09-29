@@ -165,6 +165,15 @@ class Aplicacion::HomeController < ApplicationController
     end
   end
 
+  def marco_legal
+    @cuerpo_principal   = ClssHome.cuerpo_principal
+    @docs_referencia    = ClssHome.docs_referencia
+    @leyes_modificadas  = ClssHome.leyes_modificadas
+    @otros_documentos   = ClssHome.otros_documentos
+
+    render layout: 'public'
+  end
+
   def metodologia
     render layout: 'public'
   end

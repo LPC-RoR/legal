@@ -188,6 +188,10 @@ module KrnDenuncia::AnonimizadorExpediente
   # Procesa un PDF de antecedentes con el nuevo modelo de anonimización
   # --------------------------------------------------------------
   def construir_bloque_archivo(act, anonimizador)
+    if act.crtn_mode == 'upload'
+      return construir_bloque_upload(act)
+    end
+
     return "" unless act.pdf.attached?
 
     if act.pdf.byte_size > 10.megabytes
@@ -330,4 +334,32 @@ module KrnDenuncia::AnonimizadorExpediente
       HTML
     end.join("\n<hr class='annm-separador' />\n")
   end
+
+  # ------------------------------------- Anonimización de ActArchivo con crtn_mode == 'upload'
+  def construir_bloque_upload(act)
+    txt = act.ownr.txt_editables.find_by(codigo: act.codigo_annm_upload)
+
+    # Si aún no existe, se genera al vuelo (etapa 1)
+    txt ||= act.generar_txt_anonimizado_upload!
+
+    contenido = txt&.contenido.to_s
+
+    if contenido.blank?
+      return <<~HTML
+        <div class="annm-archivo" data-act-archivo-id="#{act.id}">
+          <h3 class="annm-nombre-archivo">#{act.nombre}</h3>
+          <p class="annm-error">Archivo subido por el cliente: no fue posible anonimizarlo automáticamente. Revisión manual requerida.</p>
+        </div>
+      HTML
+    end
+
+    <<~HTML
+      <div class="annm-archivo annm-upload" data-act-archivo-id="#{act.id}">
+        <h3 class="annm-nombre-archivo">#{act.nombre}</h3>
+        <div class="annm-contenido">#{contenido}</div>
+      </div>
+    HTML
+  end
+
+
 end
