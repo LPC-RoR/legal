@@ -1,4 +1,4 @@
-# app/models/clss_txt.rb
+# app/clss_cntxts/clss_txt.rb
 # Gestión de KrnTexto en sus distintos usos
 # Esta clase distribuye a las diferentes clases
 class ClssTxt
@@ -40,7 +40,10 @@ class ClssTxt
 	    'annm_txt_mdds_rsgrd'			=> :invstgcns,    # ← Versión anonimizada de las medidas de resguardo
 	    'annm_txt_mdfccn_mdds_rsgrd'	=> :invstgcns,    # ← Versión anonimizada de las modificaciones de medidas de resguardo
 	    'annm_txt_mdds_crrctvs_sncns'	=> :invstgcns,    # ← Versión anonimizada de las medidas correctivas y sanciones
-	    
+		'txt_annm_medios_de_prueba' 	=> :invstgcns,    # ← Expediente anonimizado: Medios de prueba
+		'txt_annm_declaraciones'    	=> :invstgcns,    # ← Expediente anonimizado: Declaraciones
+		'txt_annm_ntfccns'          	=> :invstgcns,    # ← Expediente anonimizado: Notificaciones
+
 	    # === FINANZAS (fnnzs) ===
 	    'aprobacion'                => :fnnzs,
 	    'estado_resultados'         => :fnnzs,
@@ -84,8 +87,6 @@ class ClssTxt
 	    # Obtiene la clase de contexto
 	    def context_class(reporte)
 	    	"Clss#{clss_type(reporte)}#{CONTEXT_MAP[reporte].to_s.capitalize}"
-#	      context = CONTEXT_MAP[reporte]
-#	      CONTEXT_CLASSES[context].constantize
 	    end
 
 	    # Obtiene el directorio de templates
