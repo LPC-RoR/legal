@@ -86,7 +86,11 @@ class ClssAnnmInvstgcns
       {
         'txt_annm_medios_de_prueba'     => 'Medios de prueba',
         'txt_annm_declaraciones'        => 'Declaraciones de los participantes',
-        'txt_annm_ntfccns'              => 'Notificaciones enviadas a los participantes'
+        'txt_annm_ntfccns'              => 'Notificaciones enviadas a los participantes',
+        'annm_comprobante'              => 'Versión anonimizada del comprobante de recepción',
+        'annm_txt_mdds_rsgrd'           => 'Versión anonimizada de las medidas de resguardo',
+        'annm_txt_mdfccn_mdds_rsgrd'    => 'Versión anonimizada de las modificaciones de medidas de resguardo',
+        'annm_txt_mdds_crrctvs_sncns'   => 'Versión anonimizada de las medidas correctivas y sanciones'
       }.freeze
     end
 

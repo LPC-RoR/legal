@@ -119,9 +119,6 @@ module PdfGeneratable
 
             # --- EXCEPCIÓN: archivo subido por el cliente ---
             if act_original.crtn_mode == 'upload'
-              # Etapa 1 (idempotente): asegura el TxtEditable editable
-              act_original.crear_txt_anonimizado_upload!
-
               pdf_content = generar_pdf_contenido('annm_upload',
                 ownr:         participante,
                 objeto_id:    act_original.id,

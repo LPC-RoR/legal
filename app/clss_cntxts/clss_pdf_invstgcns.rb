@@ -281,16 +281,15 @@ class ClssPdfInvstgcns
       }
     end
 
-    # Quizá va fuera del Self
-    # Y el método de datos: ownr = el participante (o la denuncia),
-    # act = el ActArchivo original que contiene el PDF subido
+    # Y el método de datos: ownr = participante/denuncia (para el template),
+    # act = el ActArchivo original; el TxtEditable se busca por el ActArchivo
     def datos_annm_upload(_objeto_id, opciones = {}, ownr: nil)
       act  = opciones[:act_original]
       raise "Se requiere :act_original para annm_upload" unless act.present?
 
       ownr ||= opciones[:ownr] || act.ownr
-      dnnc   = ownr.is_a?(KrnDenuncia) ? ownr : ownr.dnnc
-      txt    = ownr.txt_editables.find_by(codigo: act.codigo_annm_upload)
+      dnnc   = ownr.is_a?(KrnDenuncia) || !ownr.respond_to?(:dnnc) ? ownr : ownr.dnnc
+      txt    = act.txt_anonimizado_upload
 
       {
         objeto:          act,
@@ -298,7 +297,7 @@ class ClssPdfInvstgcns
         dnnc:            dnnc,
         empresa:         dnnc.ownr,
         txt_anonimizado: txt,
-        contenido:       txt&.contenido   # queda nil si aún no se edita
+        contenido:       txt&.contenido
       }
     end
 

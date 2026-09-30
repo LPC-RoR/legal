@@ -11,6 +11,12 @@ class ActArchivo < ApplicationRecord
 
   has_one_attached :pdf
 
+  # TxtEditable cuyo ownr es este ActArchivo (p.ej. versión anonimizada de un upload)
+  has_many :txt_editables, as: :ownr, dependent: :destroy
+  # El TxtEditable anonimizado cuelga del ActArchivo que lo origina
+  has_one :txt_anonimizado_upload, as: :ownr, class_name: 'TxtEditable',
+          dependent: :destroy
+
   has_many :act_referencias, dependent: :destroy
   has_many :email_legales, dependent: :nullify
   has_many :krn_textos, as: :ownr, dependent: :destroy
@@ -49,35 +55,22 @@ class ActArchivo < ApplicationRecord
   end
 
   # ============================== Anonimización cuando crtn_mode == 'upload'
+  # --------------------------------------------------------------
+  # EXCEPCIÓN UPLOAD: archivo subido por el cliente
+  # --------------------------------------------------------------
   def upload?
     crtn_mode == 'upload'
   end
 
-  # Solo si el archivo es upload, el ownr existe y el código está autorizado
+  # ¿Este archivo debe anonimizarse vía TxtEditable editable manualmente?
   def annm_upload?
-    upload? && ownr.present? && UPLOAD_ANNM_CODES.include?(act_archivo)
+    upload? && ownr.present? && ClssAnnmInvstgcns::UPLOAD_ANNM_CODES.include?(act_archivo)
   end
 
-  # p.ej. "annm_dnnc_123" (123 = id del ownr del ActArchivo)
+  # Código del TxtEditable: simplemente el código del ActArchivo con prefijo
+  # p.ej. 'annm_dnnc'
   def codigo_annm_upload
-    "annm_#{act_archivo}_#{ownr_id}"
-  end
-
-  def txt_anonimizado_upload
-    ownr&.txt_editables&.find_by(codigo: codigo_annm_upload)
-  end
-
-  # Etapa 1: crea el TxtEditable SIN contenido (se completa al editarlo).
-  # Idempotente: si ya existe (y fue editado), no lo toca.
-  def crear_txt_anonimizado_upload!
-    return unless annm_upload?
-
-    txt_anonimizado_upload || ownr.txt_editables.create!(
-      codigo:     codigo_annm_upload,
-      titulo:     "Anon. #{nombre.presence || act_archivo}",
-      cntxt_clss: 'ClssAnnmInvstgcns'
-      # contenido queda vacío: has_rich_text no crea registro hasta asignar
-    )
+    "annm_#{act_archivo}"
   end
 
   # ============================== Anonimización cuando crtn_mode == 'upload' (final)

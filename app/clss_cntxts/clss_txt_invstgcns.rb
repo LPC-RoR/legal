@@ -50,6 +50,10 @@ class ClssTxtInvstgcns
       'txt_invstgdr_dsgncn'         => 'Designación del investigador',
       'txt_dnnc_annmzd'             => 'Denuncia anonimizada',
       'txt_dclrcn_annmzd'           => 'Declaración anonimizada',
+      'annm_comprobante'            => 'Versión anonimizada del comprobante de recepción',
+      'annm_txt_mdds_rsgrd'         => 'Versión anonimizada de las medidas de resguardo',
+      'annm_txt_mdfccn_mdds_rsgrd'  => 'Versión anonimizada de las modificaciones de medidas de resguardo',
+      'annm_txt_mdds_crrctvs_sncns' => 'Versión anonimizada de las medidas correctivas y sanciones'
     }
   end
 

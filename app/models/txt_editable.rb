@@ -21,6 +21,11 @@ class TxtEditable < ApplicationRecord
   end
 
   def dnnc
-    ownr.dnnc
+    case ownr
+    when ActArchivo then ownr.ownr.is_a?(KrnDenuncia) ? ownr.ownr : ownr.ownr.dnnc
+    when KrnDenuncia then ownr
+    else ownr.dnnc
+    end
   end
+  
 end

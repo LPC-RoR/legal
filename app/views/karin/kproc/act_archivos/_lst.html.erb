@@ -34,6 +34,19 @@
 			<% end %>
 			<%=render partial: '0t/lnk_editar', locals: {objt: act} if act.crtn_mode == 'upload' %>
 			<%=render partial: '0t/lnk_eliminar', locals: {objt: act} %>
+
+			<%# Anonimización manual %>
+			<% if act.annm_upload? %>
+				<i class="bi bi-caret-right-fill"></i>
+				<% if act.txt_anonimizado_upload.present? %>
+					<%=render partial: '0t/lnk_editar', locals: {objt: act.txt_anonimizado_upload} %>
+					<%=render partial: '0t/lnk_eliminar', locals: {objt: act.txt_anonimizado_upload} %>
+				<% else %>
+					<%= render layout: '0p/tltp_lnk', locals: {lnk: new_txt_editable_path(oclss: 'ActArchivo', oid:   act.id, cdg:   act.codigo_annm_upload), tltp: 'Crear versión annonimizada'} do %>
+						<i class="bi bi-plus-circle"></i>
+					<% end %>
+				<% end %>
+			<% end %>
 		</div>
 	</div>
 

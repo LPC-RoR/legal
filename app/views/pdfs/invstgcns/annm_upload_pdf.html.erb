@@ -11,8 +11,8 @@
 </div>
 
 <div class="annm-upload">
-  <% if @txt_anonimizado&.contenido.present? %>
-    <%= @txt_anonimizado.contenido %>
+  <% if @contenido.present? %>
+    <%= @contenido %>
   <% else %>
     <p>[Versión anonimizada pendiente de edición]</p>
   <% end %>

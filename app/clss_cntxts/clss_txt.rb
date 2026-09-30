@@ -36,6 +36,10 @@ class ClssTxt
 	    'txt_dnnc_annmzd'				=> :invstgcns,    # ← DENUNCIA ANONIMIZADA
 	    'txt_dclrcn_annmzd'				=> :invstgcns,    # ← DECLARACION ANONIMIZADA
 	    'annm'							=> :invstgcns,    # ← ANONIMIZACION DE PDFs GENERADOS DESDE UN TxtEditable
+	    'annm_comprobante'				=> :invstgcns,    # ← Versión anonimizada del comprobante
+	    'annm_txt_mdds_rsgrd'			=> :invstgcns,    # ← Versión anonimizada de las medidas de resguardo
+	    'annm_txt_mdfccn_mdds_rsgrd'	=> :invstgcns,    # ← Versión anonimizada de las modificaciones de medidas de resguardo
+	    'annm_txt_mdds_crrctvs_sncns'	=> :invstgcns,    # ← Versión anonimizada de las medidas correctivas y sanciones
 	    
 	    # === FINANZAS (fnnzs) ===
 	    'aprobacion'                => :fnnzs,
