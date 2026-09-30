@@ -86,6 +86,8 @@ class ClssTxtInvstgcns
       txt_objt.ownr
     when 'ActArchivo'
       "/krn_denuncias/#{txt_objt.ownr.ownr.dnnc.id}_1"
+    when 'KrnDenunciante', 'KrnDenunciado', 'KrnTestigo'
+      "/krn_denuncias/#{txt_objt.dnnc.id}_4"   # tab donde se despliegan las declaraciones    
     else
       txt_objt.ownr.dnnc
     end

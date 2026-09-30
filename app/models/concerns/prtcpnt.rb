@@ -4,6 +4,20 @@ module Prtcpnt
   # Métodos de instancia
   included do
 
+    # Anonimiza la declaración del participante:
+    # txt_dclrcn (ownr = participante) → txt_dclrcn_annmzd (mismo ownr)
+    # Salta si el destino ya existe.
+    def anonimizar_dclrcn!
+      origen = txt_editables.find_by(codigo: 'txt_dclrcn')
+      return nil unless origen&.contenido.present?
+
+      Annm::AnonimizadorTxt.new(
+        denuncia:       dnnc,
+        origen:         origen,
+        codigo_destino: 'txt_dclrcn_annmzd'
+      ).ejecutar
+    end
+
     # ********************************************** Métodos para before and after actions
 
     # Se utiliza para garantizar la consistencia entre krn_empresa_externa_id y empleado_externo

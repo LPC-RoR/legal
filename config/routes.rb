@@ -160,6 +160,7 @@ Rails.application.routes.draw do
     resources :krn_denunciados do
       member do
         post :cargar_pdf
+        post :anonimizar_dclrcn
       end
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member
@@ -170,6 +171,7 @@ Rails.application.routes.draw do
     resources :krn_denunciantes do
       member do
         post :cargar_pdf
+        post :anonimizar_dclrcn
       end
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member
@@ -184,6 +186,7 @@ Rails.application.routes.draw do
         patch :cambiar_etapa            # Cambio de etapa
         patch :anonimizar_expediente    # Cambio de etapa
         post  :preparar_txt_anonimizado # Anonimización de TxtEditables
+        post  :anonimizar_dclrcns
       end
       match :swtch, via: :post, on: :member
       match :niler, via: :post, on: :member
@@ -225,6 +228,7 @@ Rails.application.routes.draw do
     resources :krn_testigos do
       member do
         post :cargar_pdf
+        post :anonimizar_dclrcn
       end
       match :swtch, via: :post, on: :member
       match :rlzd, via: :post, on: :member

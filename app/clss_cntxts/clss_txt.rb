@@ -25,7 +25,8 @@ class ClssTxt
 	    'txt_rprsntcn'					=> :invstgcns,
 	    'txt_slctd_516'					=> :invstgcns,
 	    'txt_acta'						=> :invstgcns,
-	    'txt_dclrcn'					=> :invstgcns,
+	    'txt_dclrcn'					=> :invstgcns,    # ← TEXTO CON LA DECLARACION DEL PARTICIPANTE
+	    'txt_dclrcn_annmzd'				=> :invstgcns,    # ← TEXTO CON LA DECLARACION ANONIMIZADA
 	    'txt_firma'						=> :invstgcns,
 	    'txt_invstgdr'					=> :invstgcns,
 	    'txt_firma_rcpcn'				=> :invstgcns,
@@ -34,7 +35,6 @@ class ClssTxt
 	    'txt_mdds_crrctvs_sncns_annm'	=> :invstgcns,    # ← MEDIDAS CORRECTIVAS Y SANCIONES ANONIMIZADAS
 	    'firma_mdds'					=> :invstgcns,
 	    'txt_dnnc_annmzd'				=> :invstgcns,    # ← DENUNCIA ANONIMIZADA
-	    'txt_dclrcn_annmzd'				=> :invstgcns,    # ← DECLARACION ANONIMIZADA
 	    'annm'							=> :invstgcns,    # ← ANONIMIZACION DE PDFs GENERADOS DESDE UN TxtEditable
 	    'annm_comprobante'				=> :invstgcns,    # ← Versión anonimizada del comprobante
 	    'annm_txt_mdds_rsgrd'			=> :invstgcns,    # ← Versión anonimizada de las medidas de resguardo

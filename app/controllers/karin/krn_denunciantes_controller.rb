@@ -4,6 +4,7 @@ class Karin::KrnDenunciantesController < ApplicationController
   before_action :set_krn_denunciante, only: %i[ show edit update destroy cargar_pdf swtch rlzd set_fld ]
 
   include PdfGeneratable
+  include Prtcpnts
 
   include MailDesk
   include Karin

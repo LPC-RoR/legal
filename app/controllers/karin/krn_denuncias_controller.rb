@@ -132,6 +132,14 @@ class Karin::KrnDenunciasController < ApplicationController
     end
   end
 
+  # Versión agnóstica del origen o destino
+  def anonimizar_dclrcns
+    Annm::AnonimizarDclrcnsJob.perform_later(@objeto.id)
+    redirect_to "/krn_denuncias/#{@objeto.id}_4",
+                notice: "Anonimización de declaraciones iniciada. " \
+                        "Los resultados aparecerán en el tab de declaraciones."
+  end
+
   # Ejemplo: en KrnDenunciasController o consola
   def preparar_txt_anonimizado
     code = params[:code] # ej: 'txt_mdds_rsgrd'

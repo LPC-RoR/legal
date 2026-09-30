@@ -4,6 +4,7 @@ class Karin::KrnTestigosController < ApplicationController
   before_action :set_krn_testigo, only: %i[ show edit update destroy cargar_pdf swtch rlzd set_fld ]
 
   include PdfGeneratable
+  include Prtcpnts
 
   include MailDesk
   include Karin

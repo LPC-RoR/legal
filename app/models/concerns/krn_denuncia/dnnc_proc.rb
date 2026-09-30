@@ -139,4 +139,46 @@ module KrnDenuncia::DnncProc
  		self.krn_derivaciones.find_by(codigo: code)
  	end
 
+	# app/models/concerns/krn_denuncia/dnnc_proc.rb
+
+	# Recorre todos los participantes y anonimiza sus declaraciones:
+	# txt_dclrcn → txt_dclrcn_annmzd (mismo ownr = participante).
+	# Salta los participantes cuyo destino ya existe.
+	# Devuelve un resumen para feedback/logging.
+	def anonimizar_dclrcns!
+	  resumen = { creados: [], saltados: [], sin_declaracion: [] }
+
+	  (krn_denunciantes + krn_denunciados + krn_testigos).each do |prtcpnt|
+	    origen = prtcpnt.txt_editables.find_by(codigo: 'txt_dclrcn')
+
+	    if origen.blank? || origen.contenido.blank?
+	      resumen[:sin_declaracion] << prtcpnt
+	      next
+	    end
+
+	    if prtcpnt.txt_editables.exists?(codigo: 'txt_dclrcn_annmzd')
+	      resumen[:saltados] << prtcpnt
+	      next
+	    end
+
+	    destino = Annm::AnonimizadorTxt.new(
+	      denuncia:       self,
+	      origen:         origen,
+	      codigo_destino: 'txt_dclrcn_annmzd'
+	    ).ejecutar
+
+	    if destino.present?
+	      resumen[:creados] << prtcpnt
+	    else
+	      resumen[:sin_declaracion] << prtcpnt
+	    end
+	  end
+
+	  Rails.logger.info "[Annm] Declaraciones anonimizadas: " \
+	    "#{resumen[:creados].size} creadas, #{resumen[:saltados].size} saltadas, " \
+	    "#{resumen[:sin_declaracion].size} sin declaración"
+
+	  resumen
+	end
+
 end
