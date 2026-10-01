@@ -1,7 +1,7 @@
 # app/models/clss_annm_invstgcns.rb
 class ClssAnnmInvstgcns
 
-  ANNM_CDGS = ['txt_annm_medios_de_prueba', 'txt_annm_ntfccns'].freeze
+  ANNM_CDGS = ['txt_annm_medios_de_prueba', 'txt_annm_declaraciones', 'txt_annm_ntfccns'].freeze
 
   OPTNL_CDGS    = []
   NO_TMPLT_CDGS = []
