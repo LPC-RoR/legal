@@ -179,7 +179,7 @@ module PdfGeneratable
   # combinado en UN ActArchivo (ownr = denuncia, act_archivo = txt_annm_declaraciones)
   # ============================================
   def generar_expediente_anonimizado_dclrcns!
-    denuncia  = denuncia_actual
+    denuncia  = @objeto
     pdf_contents = []
 
     participantes = denuncia.krn_denunciantes + denuncia.krn_denunciados + denuncia.krn_testigos

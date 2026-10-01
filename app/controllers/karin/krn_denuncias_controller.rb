@@ -175,7 +175,7 @@ class Karin::KrnDenunciasController < ApplicationController
                   notice: "Grupo #{params[:g]} anonimizado exitosamente!"
 
     when :txt_annm_declaraciones
-      @objeto.generar_expediente_anonimizado_dclrcns!
+      generar_expediente_anonimizado_dclrcns!    # ← sin @objeto: método de PdfGeneratable
       redirect_to "/krn_denuncias/#{@objeto.id}_4",
                   notice: "Expediente de declaraciones anonimizadas generado exitosamente."
 
