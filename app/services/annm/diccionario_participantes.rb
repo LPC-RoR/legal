@@ -3,6 +3,12 @@ module Annm
   class DiccionarioParticipantes
     TITULOS = %w[Sr. Sra. Dr. Dra. Ing. Lic. Prof. Don Doña].freeze
 
+    # Palabras que NUNCA se usan como clave de reemplazo independiente.
+    # Tipicamente preposiciones/artículos que forman parte de apellidos
+    # compuestos (p.ej. "Castro Del Villar") y aparecen con frecuencia
+    # en el texto ajeno al participante.
+    EXCEPCIONES = %w[del].freeze
+
     def initialize(denuncia)
       @denuncia = denuncia
     end
@@ -79,10 +85,15 @@ module Annm
       variantes = Set.new
       variantes << base
 
+      # Slices de 2+ palabras: se conservan completas (incluyen la
+      # excepción como parte de la cadena, p.ej. "CASTRO DEL VILLAR")
       (2..partes.size).each do |len|
         partes.each_cons(len) { |slice| variantes << slice.join(' ') }
       end
-      variantes.merge(partes)
+
+      # Palabras sueltas: se agregan como clave SOLO si no son excepción.
+      # Esta es la corrección: "DEL" ya no reemplaza "del" genérico.
+      partes.each { |p| variantes << p unless excepcion?(p) }
 
       con_titulos = Set.new
       variantes.each do |v|
@@ -108,5 +119,10 @@ module Annm
 
       variantes.to_a.uniq.reject(&:blank?)
     end
+
+    def excepcion?(palabra)
+      EXCEPCIONES.include?(palabra.to_s.downcase)
+    end
+
   end
 end
