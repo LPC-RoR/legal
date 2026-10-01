@@ -21,7 +21,7 @@ module Annm
           model: "gpt-4o-mini",
           messages: [{ role: "user", content: prompt }],
           temperature: 0.0,
-          max_tokens: 4000
+          max_tokens: 8000   # ← era 4000; el orquestador ahora manda chunks ≤ 8k chars
         }
       )
 
@@ -37,7 +37,12 @@ module Annm
     private
 
     def construir_prompt(texto)
-      texto_truncado = texto.length > 12_000 ? texto[0..12_000] + "\n[...]" : texto
+      # El chunking vive en AnonimizadorContenido; aquí solo advertimos
+      # si alguien llama al genérico directamente con texto muy largo
+      if texto.length > 16_000
+        Rails.logger.warn "[Annm::AnonimizadorGenerico] Texto de #{texto.length} chars " \
+                          "sin chunking previo — considere usar AnonimizadorContenido"
+      end
 
       if @resumen.any?
         instrucciones = @resumen.map do |abrev, datos|
@@ -61,7 +66,7 @@ module Annm
           5. Devuelve SOLO el texto anonimizado, sin explicaciones.
 
           TEXTO:
-          #{texto_truncado}
+          #{texto}
         PROMPT
       else
         <<~PROMPT
@@ -74,7 +79,7 @@ module Annm
           - NO modifiques texto entre corchetes [...]
 
           TEXTO:
-          #{texto_truncado}
+          #{texto}
         PROMPT
       end
     end

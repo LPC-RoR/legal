@@ -3,6 +3,13 @@ module Annm
   class AnonimizadorContenido
     EMAIL_REGEX = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/
 
+    # Tamaño máximo por chunk enviado al LLM (caracteres).
+    # ~8.000 chars ≈ 2.500 tokens: holgado frente al max_tokens de salida.
+    LIMITE_CHUNK = 8_000
+
+    # Tags de bloque por los que se parte (contenido ActionText/Trix)
+    BLOQUES = /(?=<(?:p|div|h[1-6]|ul|ol|li|blockquote|table|tr)\b)/
+
     def initialize(denuncia)
       @denuncia = denuncia
       dic = Annm::DiccionarioParticipantes.new(denuncia)
@@ -14,17 +21,35 @@ module Annm
       )
     end
 
+    # ------------------------------------------------------------
+    # Punto de entrada: texto completo → texto anonimizado.
+    # Parte en chunks para no truncar textos largos.
+    # ------------------------------------------------------------
     def anonimizar(texto)
-      texto = texto.to_s
+      texto = normalizar_espacios(texto.to_s)
       return "" if texto.blank?
 
-      # PASO 0: Normalización de espacios
-      # - U+00A0 (NBSP real, producto de decodificar &nbsp; del rich text)
-      # - '&nbsp;' / '&nbsp' literal (el LLM a veces lo emite como texto)
-      # Va ANTES del reemplazo exacto: 'Juan&nbsp;Pérez' no matchearía el
-      # hash, pero 'Juan Pérez' sí.
-      texto = normalizar_espacios(texto)
+      chunks = partir_en_chunks(texto)
 
+      resultado = chunks.map { |chunk| anonimizar_chunk(chunk) }.join
+
+      # Limpieza final sobre el texto REUNIDO: colapsa placeholders
+      # quedados a medias en los bordes entre chunks
+      resultado = limpiar_hibridos(resultado)
+      resultado = colapsar_genericos(resultado)
+      resultado = colapsar_placeholders(resultado)
+      resultado = normalizar_espacios(resultado)
+      resultado = colapsar_espacios_dobles(resultado)
+
+      resultado
+    end
+
+    private
+
+    # ================================================================
+    # PIPELINE POR CHUNK
+    # ================================================================
+    def anonimizar_chunk(texto)
       # PASO 1: Reemplazo exacto de participantes
       paso_1 = @reemplazador.reemplazar(texto)
       paso_1 = colapsar_placeholders(paso_1)
@@ -34,18 +59,44 @@ module Annm
 
       # PASO 3: LLM con contexto de participantes
       paso_3 = @generico.anonimizar(paso_2)
-      paso_3 = colapsar_placeholders(paso_3)
-
-      # Limpieza final
-      paso_3 = limpiar_hibridos(paso_3)
-      paso_3 = colapsar_genericos(paso_3)
-      paso_3 = normalizar_espacios(paso_3)
-      paso_3 = colapsar_espacios_dobles(paso_3)
-
-      paso_3
+      colapsar_placeholders(paso_3)
     end
 
-    private
+    # ================================================================
+    # CHUNKING
+    # ================================================================
+    def partir_en_chunks(texto, limite: LIMITE_CHUNK)
+      return [texto] if texto.length <= limite
+
+      segmentos = texto.split(BLOQUES).reject(&:blank?)
+      # Fallback para texto plano sin tags: partir por párrafos
+      segmentos = texto.split(/\n{2,}/) if segmentos.size <= 1
+
+      chunks = []
+      actual = +""
+
+      segmentos.each do |seg|
+        if actual.empty?
+          actual = seg.dup
+        elsif (actual.length + seg.length) <= limite
+          actual << seg
+        else
+          chunks << actual
+          actual = seg.dup
+        end
+      end
+      chunks << actual if actual.present?
+
+      # Segmento individual que supere el límite: corte duro aproximado
+      # por palabra (caso patológico: párrafo gigante sin estructura)
+      chunks.flat_map do |chunk|
+        if chunk.length > limite
+          chunk.scan(/.{1,#{limite}}(?=\s|\z)/m).reject(&:blank?)
+        else
+          [chunk]
+        end
+      end
+    end
 
     # ================================================================
     # Normalización de espacios: NBSP real y entidad &nbsp residual
@@ -55,8 +106,6 @@ module Annm
            .gsub(/&nbsp;?/i, ' ')    # entidad literal (Trix sin decodificar o LLM)
     end
 
-    # Los &nbsp; del original existen para preservar espacios múltiples;
-    # una vez normalizados, se colapsan a un espacio simple
     def colapsar_espacios_dobles(texto)
       texto.gsub(/ {2,}/, ' ')
     end
@@ -76,7 +125,6 @@ module Annm
       resultado.gsub!(/<\s*(#{EMAIL_REGEX})\s*>/, '[EMAIL]')
 
       # 3. Emails sueltos que aún no han sido reemplazados
-      # (los de participantes ya fueron reemplazados en paso 1 a [EMAIL-XX-NN])
       resultado.gsub!(EMAIL_REGEX, '[EMAIL]')
 
       resultado

@@ -1,4 +1,17 @@
 # app/models/concerns/krn_denuncia/anonimizador_expediente.rb
+#
+# Limpieza aplicada:
+# - Eliminado todo el flujo de declaraciones (construir_html_declaraciones y
+#   helpers): las declaraciones ahora pasan por dos pasos —
+#   paso 1: Annm::AnonimizarDclrcnsJob → txt_dclrcn_annmzd por participante
+#   paso 2: PdfGeneratable#generar_expediente_anonimizado_dclrcns! → PDF combinado
+# - Eliminado generar_expediente_anonimizado_async! (sin uso; el controlador
+#   ya no encola Annm::GenerarExpedienteJob).
+# - Eliminado construir_html_notificaciones (txt_annm_ntfccns ya es PDF
+#   combinado vía PdfGeneratable, no HTML).
+# - construir_bloque_upload actualizado al modelo nuevo: el TxtEditable
+#   anonimizado de un upload tiene ownr = el ActArchivo y se crea desde la
+#   vista (link), no al vuelo.
 module KrnDenuncia::AnonimizadorExpediente
   extend ActiveSupport::Concern
 
@@ -11,10 +24,6 @@ module KrnDenuncia::AnonimizadorExpediente
     html = case ClssAnnmInvstgcns.tipo_grupo(grupo)
            when :coleccion_participantes
              construir_html_coleccion_participantes(config)
-           when :declaraciones
-             construir_html_declaraciones(config)
-           when :notificaciones
-             construir_html_notificaciones(config)
            else
              fragmentos = recolectar_fragmentos(config[:archivos] || [])
              fragmentos_to_html(fragmentos)
@@ -28,10 +37,6 @@ module KrnDenuncia::AnonimizadorExpediente
     guardar_txt_editable(grupo, html)
   end
 
-  def generar_expediente_anonimizado_async!(grupo)
-    Annm::GenerarExpedienteJob.perform_later(id, grupo)
-  end
-
   def expediente_anonimizado?(grupo)
     txt_editables.exists?(codigo: ClssAnnmInvstgcns.codigo_destino(grupo))
   end
@@ -43,103 +48,7 @@ module KrnDenuncia::AnonimizadorExpediente
   private
 
   # ================================================================
-  # DECLARACIONES
-  # ================================================================
-
-  def construir_html_declaraciones(config)
-    codigo_busqueda = config[:codigo_txt_editable]
-    origenes        = config[:origenes] || []
-
-    anonimizador = Annm::AnonimizadorContenido.new(self)
-    secciones    = []
-
-    origenes.each do |origen|
-      participantes = send(origen)
-      next if participantes.none?
-
-      participantes.each do |prtcpnt|
-        txt = prtcpnt.txt_editables
-                     .where(codigo: codigo_busqueda)
-                     .order(created_at: :desc)
-                     .first
-
-        html_raw = txt&.contenido&.to_s
-
-        if html_raw.blank?
-          secciones << construir_seccion_declaracion_vacia(prtcpnt)
-          next
-        end
-
-        Rails.logger.info "[AnonimizadorExpediente] Anonimizando declaración de #{prtcpnt.class.name}##{prtcpnt.id}"
-        contenido_anon = anonimizador.anonimizar(html_raw)
-
-        secciones << <<~HTML
-          <section class="annm-declaracion" data-participante-id="#{prtcpnt.id}" data-participante-type="#{prtcpnt.class.name}" data-abrev="#{prtcpnt.kywrd[:abrev]}">
-            #{encabezado_declaracion(prtcpnt)}
-            <div class="annm-contenido-declaracion">
-              #{contenido_anon}
-            </div>
-          </section>
-        HTML
-      end
-    end
-
-    secciones.join("\n<hr class='annm-separador' style='margin:24px 0;border:none;border-top:2px solid #ddd;' />\n")
-  end
-
-  def encabezado_declaracion(prtcpnt)
-    abrev = prtcpnt.respond_to?(:kywrd) ? prtcpnt.kywrd[:abrev] : "P#{prtcpnt.id}"
-
-    fecha_declaracion = if prtcpnt.respond_to?(:dnnc) && prtcpnt.dnnc.respond_to?(:krn_declaraciones)
-                          ultima = prtcpnt.dnnc.krn_declaraciones.last
-                          ultima&.fecha ? formatear_fecha_hora(ultima.fecha) : "fecha no registrada"
-                        else
-                          "fecha no registrada"
-                        end
-
-    linea_interrumpida = if prtcpnt.respond_to?(:dclrcn_intrrmpd) && prtcpnt.dclrcn_intrrmpd.present?
-                           <<~HTML
-                             <p class="annm-meta-interrumpido" style="color:#b45309;background:#fffbeb;padding:6px 10px;border-radius:4px;margin:6px 0 0 0;">
-                               <strong>Declaración interrumpida:</strong> #{escape_html(prtcpnt.dclrcn_intrrmpd)}
-                             </p>
-                           HTML
-                         else
-                           ""
-                         end
-
-    <<~HTML
-      <div class="annm-encabezado-declaracion" style="margin-bottom:16px;padding:12px 16px;background:#f8fafc;border-left:4px solid #334155;border-radius:0 6px 6px 0;">
-        <h2 class="annm-titulo-principal" style="margin:0 0 8px 0;font-size:1.1em;color:#0f172a;">
-          Anonimización de declaración — #{abrev}
-        </h2>
-        <p class="annm-meta-fecha" style="margin:0 0 4px 0;font-size:0.85em;color:#475569;">
-          El texto presentado a continuación corresponde a la declaración tomada con fecha #{fecha_declaracion}
-        </p>
-        <p class="annm-meta-disclaimer" style="margin:0;font-size:0.8em;color:#64748b;font-style:italic;">
-          La procedimiento de anonimización ha sido realizado por un agente de inteligencia artificial y revisado por el investigador asignado a la denuncia.
-        </p>
-        #{linea_interrumpida}
-      </div>
-    HTML
-  end
-
-  def construir_seccion_declaracion_vacia(prtcpnt)
-    abrev = prtcpnt.respond_to?(:kywrd) ? prtcpnt.kywrd[:abrev] : "P#{prtcpnt.id}"
-
-    <<~HTML
-      <section class="annm-declaracion annm-vacia" data-participante-id="#{prtcpnt.id}" data-participante-type="#{prtcpnt.class.name}" data-abrev="#{abrev}">
-        <div class="annm-encabezado-declaracion" style="margin-bottom:16px;padding:12px 16px;background:#f8fafc;border-left:4px solid #334155;border-radius:0 6px 6px 0;">
-          <h2 class="annm-titulo-principal" style="margin:0 0 8px 0;font-size:1.1em;color:#0f172a;">
-            Anonimización de declaración — #{abrev}
-          </h2>
-        </div>
-        <p class="annm-mensaje-vacio">El participante no registró declaración.</p>
-      </section>
-    HTML
-  end
-
-  # ================================================================
-  # COLECCIÓN PARTICIPANTES (PDFs / antecedentes)
+  # COLECCIÓN PARTICIPANTES (PDFs / antecedentes) — txt_annm_medios_de_prueba
   # ================================================================
 
   def construir_html_coleccion_participantes(config)
@@ -155,7 +64,6 @@ module KrnDenuncia::AnonimizadorExpediente
       next if participantes.none?
 
       participantes.each do |prtcpnt|
-        # Encabezado inline: ya no depende de lambda de configuración
         nombre = prtcpnt.respond_to?(:kywrd) ? prtcpnt.kywrd[:krn] : "Participante ##{prtcpnt.id}"
         titulo = "Anonimización de los medios de prueba presentados por #{nombre}"
 
@@ -185,7 +93,7 @@ module KrnDenuncia::AnonimizadorExpediente
   end
 
   # --------------------------------------------------------------
-  # Procesa un PDF de antecedentes con el nuevo modelo de anonimización
+  # Procesa un PDF con el modelo de anonimización
   # --------------------------------------------------------------
   def construir_bloque_archivo(act, anonimizador)
     if act.crtn_mode == 'upload'
@@ -213,7 +121,6 @@ module KrnDenuncia::AnonimizadorExpediente
       HTML
     end
 
-    # NUEVO: Usa el mismo pipeline que las declaraciones
     contenido_anon = anonimizador.anonimizar(texto)
 
     <<~HTML
@@ -226,51 +133,33 @@ module KrnDenuncia::AnonimizadorExpediente
     HTML
   end
 
-  # ================================================================
-  # NOTIFICACIONES
-  # ================================================================
+  # --------------------------------------------------------------
+  # Upload (crtn_mode == 'upload'):
+  # El TxtEditable 'annm_<code>' tiene ownr = el ActArchivo y se crea
+  # desde la vista (link "Crear versión anonimizada"). Si no existe,
+  # se informa como pendiente — ya no se genera al vuelo.
+  # --------------------------------------------------------------
+  def construir_bloque_upload(act)
+    txt       = act.txt_anonimizado_upload
+    contenido = txt&.contenido.to_s
 
-  def construir_html_notificaciones(config)
-    origenes      = config[:origenes] || []
-    mensaje_vacio = config[:mensaje_vacio] || "Sin registros."
-    codigos       = ClssAnnmInvstgcns::NTFCCNS_CDGS
-
-    anonimizador = Annm::AnonimizadorContenido.new(self)
-    secciones    = []
-
-    origenes.each do |origen|
-      participantes = send(origen)
-      next if participantes.none?
-
-      participantes.each do |prtcpnt|
-        nombre = prtcpnt.respond_to?(:kywrd) ? prtcpnt.kywrd[:krn] : "Participante ##{prtcpnt.id}"
-        titulo = "Anonimización de notificaciones enviadas a #{nombre}"
-
-        archivos = prtcpnt.act_archivos
-                          .where(act_archivo: codigos)
-                          .where(no_annm: [false, nil])
-                          .order(:created_at)
-
-        html_archivos = if archivos.any?
-                          archivos.map { |act| construir_bloque_archivo(act, anonimizador) }.join("\n")
-                        else
-                          "<p class='annm-vacio'>#{mensaje_vacio}</p>"
-                        end
-
-        secciones << <<~HTML
-          <section class="annm-participante" data-participante-id="#{prtcpnt.id}" data-participante-type="#{prtcpnt.class.name}">
-            <h2 class="annm-titulo-participante">#{titulo}</h2>
-            <div class="annm-archivos">
-              #{html_archivos}
-            </div>
-          </section>
-        HTML
-      end
+    if contenido.blank?
+      return <<~HTML
+        <div class="annm-archivo" data-act-archivo-id="#{act.id}">
+          <h3 class="annm-nombre-archivo">#{act.nombre}</h3>
+          <p class="annm-error">Archivo subido por el cliente: versión anonimizada pendiente de redacción.</p>
+        </div>
+      HTML
     end
 
-    secciones.join("\n")
+    <<~HTML
+      <div class="annm-archivo annm-upload" data-act-archivo-id="#{act.id}">
+        <h3 class="annm-nombre-archivo">#{act.nombre}</h3>
+        <div class="annm-contenido">#{contenido}</div>
+      </div>
+    HTML
   end
-  
+
   # ================================================================
   # PERSISTENCIA
   # ================================================================
@@ -280,8 +169,8 @@ module KrnDenuncia::AnonimizadorExpediente
 
     txt = txt_editables.find_or_initialize_by(codigo: codigo)
     txt.assign_attributes(
-      contenido: html.to_s,
-      titulo: ClssAnnmInvstgcns.titulo(grupo),
+      contenido:  html.to_s,
+      titulo:     ClssAnnmInvstgcns.titulo(grupo),
       cntxt_clss: ClssAnnmInvstgcns
     )
 
@@ -297,19 +186,6 @@ module KrnDenuncia::AnonimizadorExpediente
   # ================================================================
   # UTILIDADES
   # ================================================================
-
-  def formatear_fecha_hora(fecha)
-    return "fecha no registrada" unless fecha.respond_to?(:strftime)
-
-    if respond_to?(:dma_hm)
-      dma_hm(fecha)
-    else
-      fecha.strftime("%d/%m/%Y %H:%M")
-    end
-  rescue => e
-    Rails.logger.warn "[AnonimizadorExpediente] Error formateando fecha: #{e.message}"
-    "fecha no registrada"
-  end
 
   def simple_format_html(texto)
     return "" if texto.blank?
@@ -335,31 +211,23 @@ module KrnDenuncia::AnonimizadorExpediente
     end.join("\n<hr class='annm-separador' />\n")
   end
 
-  # ------------------------------------- Anonimización de ActArchivo con crtn_mode == 'upload'
-  def construir_bloque_upload(act)
-    txt = act.ownr.txt_editables.find_by(codigo: act.codigo_annm_upload)
-
-    # Si aún no existe, se genera al vuelo (etapa 1)
-    txt ||= act.generar_txt_anonimizado_upload!
-
-    contenido = txt&.contenido.to_s
-
-    if contenido.blank?
-      return <<~HTML
-        <div class="annm-archivo" data-act-archivo-id="#{act.id}">
-          <h3 class="annm-nombre-archivo">#{act.nombre}</h3>
-          <p class="annm-error">Archivo subido por el cliente: no fue posible anonimizarlo automáticamente. Revisión manual requerida.</p>
-        </div>
-      HTML
+  def recolectar_fragmentos(archivos)
+    archivos.map do |archivo|
+      texto = extraer_texto(archivo)
+      { codigo: archivo[:codigo], contenido: texto }
     end
-
-    <<~HTML
-      <div class="annm-archivo annm-upload" data-act-archivo-id="#{act.id}">
-        <h3 class="annm-nombre-archivo">#{act.nombre}</h3>
-        <div class="annm-contenido">#{contenido}</div>
-      </div>
-    HTML
   end
 
-
+  def extraer_texto(archivo)
+    case archivo[:tipo]
+    when :mixto
+      objeto = archivo[:objeto]
+      objeto&.public_send(archivo[:campo_contenido] || :contenido).to_s
+    when :pdf_upload, :template
+      act = archivo[:act_archivo]
+      act&.pdf&.attached? ? Annm::ExtractorPdf.extract(act.pdf) : ""
+    else
+      ""
+    end
+  end
 end

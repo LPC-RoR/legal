@@ -1,7 +1,7 @@
 # app/models/clss_annm_invstgcns.rb
 class ClssAnnmInvstgcns
 
-  ANNM_CDGS     = ['txt_annm_medios_de_prueba', 'txt_annm_declaraciones', 'txt_annm_ntfccns'].freeze
+  ANNM_CDGS = ['txt_annm_medios_de_prueba', 'txt_annm_ntfccns'].freeze
 
   OPTNL_CDGS    = []
   NO_TMPLT_CDGS = []
@@ -28,17 +28,6 @@ class ClssAnnmInvstgcns
   # ================================================================
 
   CONFIGURACION = {
-    # ------------------------------------------------------------
-    # GRUPO: Declaraciones (TxtEditable 'txt_dclrcn' de participantes)
-    # ------------------------------------------------------------
-    txt_annm_declaraciones: {
-      titulo: "Declaraciones anonimizadas",
-      descripcion: 'Expediente anonimizado — Declaraciones de los participantes',
-      tipo_grupo: :declaraciones,
-      codigo_txt_editable: 'txt_dclrcn',
-      origenes: [:krn_denunciantes, :krn_denunciados, :krn_testigos]
-    },
-
     # ------------------------------------------------------------
     # GRUPO: Medios de prueba (PDF 'antecedentes' de participantes)
     # ------------------------------------------------------------

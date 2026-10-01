@@ -158,29 +158,36 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   def anonimizar_expediente
-    unless params[:g].present?
-      redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: 'Error de anonimización: grupo no identificado.'
+    grupo = params[:g]&.to_sym
+
+    # Verificación previa: ¿ya existe el resultado?
+    if @objeto.act_archivos.exists?(act_archivo: params[:g])
+      redirect_to "/krn_denuncias/#{@objeto.id}_4",
+                  notice: "El documento #{params[:g]} ya existe, saltando generación."
       return
     end
 
-    grupo = params[:g].to_sym
-
     case grupo
     when :txt_annm_ntfccns
-      begin
-        codes = ClssAnnmInvstgcns::NTFCCNS_CDGS
-        generar_expediente_anonimizado(codes, result_code: params[:g])
-        redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: "Grupo #{params[:g]} anonimizado exitosamente!"
-      rescue => e
-        Rails.logger.error "[Anonimización] #{e.message}"
-        redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: "Error de anonimización: #{e.message}"
-      end
-    when :txt_annm_medios_de_prueba, :txt_annm_declaraciones
-      @objeto.generar_expediente_anonimizado_async!(grupo)
-      redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: "Grupo #{params[:g]} anonimizado exitosamente!"
+      codes = ClssAnnmInvstgcns::NTFCCNS_CDGS
+      @objeto.generar_expediente_anonimizado!(grupo)
+      redirect_to "/krn_denuncias/#{@objeto.id}_4",
+                  notice: "Grupo #{params[:g]} anonimizado exitosamente!"
+
+    when :txt_annm_declaraciones
+      @objeto.generar_expediente_anonimizado_dclrcns!
+      redirect_to "/krn_denuncias/#{@objeto.id}_4",
+                  notice: "Expediente de declaraciones anonimizadas generado exitosamente."
+
+    when :txt_annm_medios_de_prueba
+      @objeto.generar_expediente_anonimizado!(grupo)
+      redirect_to "/krn_denuncias/#{@objeto.id}_4",
+                  notice: "Grupo #{params[:g]} anonimizado exitosamente!"
     else
-      redirect_to shw_dnnc_tab_indx(@objeto, 4), notice: 'Error de anonimización: grupo no identificado.'
+      redirect_to "/krn_denuncias/#{@objeto.id}_4", alert: "Grupo de anonimización inválido."
     end
+  rescue => e
+    redirect_to "/krn_denuncias/#{@objeto.id}_4", alert: "Error: #{e.message}"
   end
 
   # GET /krn_denuncias/:id/pdf_combinado

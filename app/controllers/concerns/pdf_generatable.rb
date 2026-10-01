@@ -173,6 +173,56 @@ module PdfGeneratable
     raise
   end
 
+  # ============================================
+  # GENERAR EXPEDIENTE ANONIMIZADO: DECLARACIONES
+  # Un PDF por participante (txt_dclrcn_annmzd → txt_dclrcn_annmzd_pdf)
+  # combinado en UN ActArchivo (ownr = denuncia, act_archivo = txt_annm_declaraciones)
+  # ============================================
+  def generar_expediente_anonimizado_dclrcns!
+    denuncia  = denuncia_actual
+    pdf_contents = []
+
+    participantes = denuncia.krn_denunciantes + denuncia.krn_denunciados + denuncia.krn_testigos
+
+    participantes.each do |participante|
+      txt = participante.txt_editables.find_by(codigo: 'txt_dclrcn_annmzd')
+      next unless txt&.contenido.present?
+
+      pdf_content = generar_pdf_contenido('txt_dclrcn_annmzd',
+        ownr:         participante,
+        objeto_id:    txt.id,
+        participante: participante,
+        anonimizar:   false,   # ← el contenido ya viene anonimizado
+        **opciones_anonimizacion(participante, denuncia)
+      )
+
+      pdf_contents << pdf_content if pdf_content.present?
+    end
+
+    if pdf_contents.empty?
+      raise "No se encontraron declaraciones anonimizadas. Ejecute primero la anonimización de declaraciones (txt_dclrcn_annmzd por participante)."
+    end
+
+    combined_content = combinar_pdfs_en_memoria(pdf_contents)
+
+    result_act = ActArchivo.create!(
+      act_archivo: 'txt_annm_declaraciones',
+      ownr:        denuncia,
+      nombre:      "Declaraciones anonimizadas - Denuncia #{denuncia.id}"
+    )
+
+    result_act.pdf.attach(
+      io:           StringIO.new(combined_content),
+      filename:     "txt_annm_declaraciones_#{denuncia.id}_#{Time.current.to_i}.pdf",
+      content_type: 'application/pdf'
+    )
+
+    result_act
+  rescue => e
+    Rails.logger.error "[PdfGeneratable] Error en anonimización de declaraciones: #{e.message}\n#{e.backtrace.first(5).join("\n")}"
+    raise
+  end
+
   private
 
   # --------------------------------------------

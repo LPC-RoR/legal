@@ -1,24 +1,10 @@
-<div class="text-center fs-6">
-  Ley 21.643<br>
-  Procedimiento de investigación y sanción<br>
-  Recepción de denuncias
-</div>
+<% code = 'txt_dclrcn' %>
 
-<div class="text-center fs-5">
-  <%= @objeto.titulo %>
-</div>
+<% dstntr   = @opciones[:anonimizar] ? @act.ownr : @ownr %>
 
-<div class="row mt-5">
-  <div class="col-6">
-    <%= @krn_kywrd %><br>
-    Sr(a) <%= @ownr.nombre %><br>
-    PRESENTE
-  </div>
-  <div class="col-6 text-end">
-    REFERENCIA:<br>
-    Denuncia <%= @dnnc.identificador %>
-  </div>
-</div>
+<%= render partial: 'pdfs/invstgcns/head_ttl', locals: {code: code} %>
+<%= render partial: 'pdfs/invstgcns/dstntr_rfrnc', locals: {dstntr: dstntr, pdf: @pdf, annm: @opciones[:anonimizar]} %>
+<%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
 
 <small>
 <p>
@@ -26,17 +12,4 @@
 </p>
 </small>
 
-<div class="mt-5 text-center">
-  <% firma = @dnnc.firma_invstgdr %>
-  <% if firma %>
-    <%= firma.to_s.html_safe %>
-  <% else %>
-    <p class="text-center">
-    <%= @dnnc.invstgdr_activo.krn_investigador.krn_investigador %><br/>
-    <small>
-    Investigador(a) asignado(a)<br/>
-    <%= @dnnc.invstgdr_activo.krn_investigador.email %>
-    </small>
-    </p>
-  <% end %>
-</div>
+<%= render partial: 'pdfs/invstgcns/firma_invstgdr', locals: {dnnc: @dnnc} %>

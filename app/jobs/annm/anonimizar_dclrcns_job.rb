@@ -1,10 +1,13 @@
 # app/jobs/annm/anonimizar_dclrcns_job.rb
+# Paso 1 del flujo de declaraciones:
+#   recorre los participantes y crea un TxtEditable 'txt_dclrcn_annmzd'
+#   por cada uno que tenga declaración (ownr = participante).
+# El paso 2 (PDF combinado 'txt_annm_declaraciones') es síncrono vía
+# generar_expediente_anonimizado_dclrcns! (PdfGeneratable).
 module Annm
   class AnonimizarDclrcnsJob < ApplicationJob
     queue_as :default
 
-    # Retry estándar de ActiveJob/Sidekiq para errores transitorios
-    # (LLM, red, etc.). RecordNotFound se descarta: la denuncia ya no existe.
     discard_on ActiveRecord::RecordNotFound do |job, error|
       Rails.logger.error "[Annm::AnonimizarDclrcnsJob] Denuncia no encontrada " \
                          "(job: #{job.job_id}): #{error.message}"
