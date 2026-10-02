@@ -185,45 +185,19 @@ module ActsChecks
 	end
 
 	def generar_dclrcns!
-  	blobs = []
+	  blobs = []
 
-		if self.class.name == 'KrnDenuncia'
-			krn_denunciantes.each do |dnncnt|
-				act = dnncnt.act_archivos.find_by(act_archivo: 'declaracion')
-				blobs += [act.pdf.blob] if act
-			end
+	  if self.class.name == 'KrnDenuncia'
+	    (krn_denunciantes + krn_denunciados + krn_testigos).each do |prtcpnt|
+	      act = prtcpnt.act_archivos.find_by(act_archivo: 'declaracion')
+	      blobs << act.pdf.blob if act
+	    end
+	  end
 
-			krn_denunciados.each do |dnncd|
-				act = dnncd.act_archivos.find_by(act_archivo: 'declaracion')
-				blobs += [act.pdf.blob] if act
-			end
-
-			krn_testigos.each do |tstg|
-				act = tstg.act_archivos.find_by(act_archivo: 'declaracion')
-				blobs += [act.pdf.blob] if act
-			end
-		end
-
-		blobs.compact
-		return if blobs.empty?
-
-	  # 2. combinar … (resto idéntico)
-	  combined = CombinePDF.new
-	  blobs.each { |b| combined << CombinePDF.parse(b.download) }
-
-	  nuevo = act_archivos.new(
-	    mdl:         'ClssPrcdmnt',
+	  combinar_blobs!(blobs,
 	    act_archivo: 'dclrcns',
-	    nombre:      "Declaraciones de la denuncia"
-	  )
-	  nuevo.pdf.attach(
-	    io:           StringIO.new(combined.to_pdf),
-	    filename:     "declaraciones.pdf",
-	    content_type: 'application/pdf'
-	  )
-	  nuevo.save!
-	  nuevo
-
+	    nombre:      "Declaraciones de la denuncia",
+	    filename:    "declaraciones.pdf")
 	end
 
 	def generar_prbs!
@@ -267,6 +241,35 @@ module ActsChecks
 	  nuevo.save!
 	  nuevo
 		
+	end
+
+	# Nuevo método helper dentro del concern
+	def combinar_blobs!(blobs, act_archivo:, nombre:, filename:)
+	  blobs = blobs.compact
+	  return nil if blobs.empty?
+
+	  combined = CombinePDF.new
+	  blobs.each do |b|
+	    combined << CombinePDF.parse(b.download, allow_optional_content: true)
+	  rescue CombinePDF::ParsingError, CombinePDF::EncryptionError => e
+	    Rails.logger.error "[ActsChecks] PDF no combinable (blob: #{b.id}, " \
+	                       "filename: #{b.filename}, ownr: #{b.attachments.first&.record_type}##{b.attachments.first&.record_id}): #{e.message}"
+	    raise "El archivo '#{b.filename}' no es un PDF válido para combinar. " \
+	          "Descárguelo, guárdelo nuevamente como PDF estándar y vuelva a intentar."
+	  end
+
+	  nuevo = act_archivos.new(
+	    mdl:         'ClssPrcdmnt',
+	    act_archivo: act_archivo,
+	    nombre:      nombre
+	  )
+	  nuevo.pdf.attach(
+	    io:           StringIO.new(combined.to_pdf),
+	    filename:     filename,
+	    content_type: 'application/pdf'
+	  )
+	  nuevo.save!
+	  nuevo
 	end
 
 end

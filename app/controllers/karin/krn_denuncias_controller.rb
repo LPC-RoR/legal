@@ -210,9 +210,13 @@ class Karin::KrnDenunciasController < ApplicationController
   end
 
   def pdf_declaraciones
-    combinado = @objeto.generar_dclrcns!        # genera si aún no existe
-
-    redirect_to dnnc_path(@objeto, 3)     
+    if @objeto.generar_dclrcns!
+      redirect_to dnnc_path(@objeto, 3), notice: "Declaraciones combinadas correctamente."
+    else
+      redirect_back fallback_location: root_path, alert: "No hay declaraciones para combinar."
+    end
+  rescue => e
+    redirect_back fallback_location: root_path, alert: e.message
   end
 
   def pdf_pruebas
