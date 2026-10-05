@@ -3,16 +3,17 @@
   <% title ||= 'Addt' %>
   <head>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1SXGV2HB5H"></script>
+    <!-- Google tag (gtag.js) — un solo loader, dos destinos -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18468802388"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-1SXGV2HB5H');
+      gtag('config', 'G-1SXGV2HB5H');    <!-- GA4 -->
+      gtag('config', 'AW-18468802388');  <!-- Google Ads -->
     </script>
-
+    
     <title><%= title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
@@ -46,16 +47,5 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.6.2/dist/css/tom-select.bootstrap5.min.css">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18468802388"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'AW-18468802388');
-    </script>
-
-    <%= javascript_importmap_tags %>
 
   </head>
