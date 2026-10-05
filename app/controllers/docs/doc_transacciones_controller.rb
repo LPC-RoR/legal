@@ -1,7 +1,7 @@
 class Docs::DocTransaccionesController < ApplicationController
   before_action :set_doc_transaccion, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /doc_transacciones or /doc_transacciones.json
   def index

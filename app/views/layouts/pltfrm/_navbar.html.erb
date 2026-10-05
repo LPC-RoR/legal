@@ -11,6 +11,42 @@
     <% end %>
 
 
+    <% if current_usuario.operacion? %>
+      <!-- Menú CENTRAL -->
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fs-6" href="#" id="centralDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Laborsafe
+          </a>
+          <ul class="dropdown-menu start-50 translate-middle-x" aria-labelledby="centralDropdown">
+            <li><%= link_to "Empresas", empresas_path, class: "dropdown-item" %></li>
+            <% if current_usuario.dog? %>
+              <li><%= link_to "Leads recibidos", leads_path, class: "dropdown-item" %></li>
+            <% end %>
+          </ul>
+        </li>
+
+        <% if current_usuario.dog? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fs-6" href="#" id="centralDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              Administración
+            </a>
+            <ul class="dropdown-menu start-50 translate-middle-x" aria-labelledby="centralDropdown">
+              <li><%= link_to "Cierres mensuales", doc_cierres_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Carga de facturas", doc_planillas_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Carga de cartolas", doc_cartolas_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Carga de boletas", doc_honorarios_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Proveedores", proveedores_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Trabajadores", trabajadores_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Nómina", app_nominas_path, class: "dropdown-item" %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
     <!-- Botón hamburguesa (móviles) -->
     <button class="navbar-toggler" type="button"
             data-bs-toggle="collapse"

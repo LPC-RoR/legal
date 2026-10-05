@@ -47,17 +47,6 @@ module AppMenuHelper
               { id: 'feriados',           name: 'Feriados',                 path: '/tablas/agenda',               icon: nil },
             ]
           },
-          { id: 'administracion',         name: 'Administración',           icon: 'bi bi-caret-right-fill',
-            children: [
-              { id: 'cierres',            name: 'Cierres mensuales',        path: '/doc_cierres',           icon: 'bi bi-calendar3' },
-              { id: 'planillas',          name: 'Carga de Planillas',       path: '/doc_planillas',         icon: 'bi bi-file-earmark-spreadsheet' },
-              { id: 'cartolas',           name: 'Carga de Cartolas',        path: '/doc_cartolas',          icon: 'bi bi-safe2' },
-              { id: 'honorarios',         name: 'Carga de Boletas',         path: '/doc_honorarios',        icon: 'bi bi-file-earmark-person' },
-              { id: 'proveedores',        name: 'Proveedores',              path: '/proveedores',           icon: 'bi bi-person-rolodex' },
-              { id: 'trabajadores',       name: 'Trabajadores',             path: '/trabajadores',          icon: 'bi bi-person-vcard' },
-              { id: 'nomina',             name: 'Nómina',                   path: '/app_nominas',           icon: 'bi bi-person-workspace' },
-            ]
-          },
           { id: 'dog',                    name: 'Dog',                      icon: 'bi bi-caret-right-fill',
             children: [
               { id: 'versiones',          name: 'Versiones',                path: '/app_versiones',         icon: 'bi bi-gear' },

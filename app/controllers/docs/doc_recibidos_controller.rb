@@ -1,7 +1,7 @@
 class Docs::DocRecibidosController < ApplicationController
   before_action :set_doc_recibido, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /doc_recibidos or /doc_recibidos.json
   def index

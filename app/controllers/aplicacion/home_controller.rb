@@ -3,6 +3,8 @@ class Aplicacion::HomeController < ApplicationController
   before_action :scrty_on, only: [:dshbrd]
   before_action :set_meta_tags_publicos, only: %i[metodologia laborsafe equipo simulador guias blog costos]
 
+  layout :resolve_home_layout   # anula el :resolve_layout de ApplicationController
+
   # ---------------------------------------------------------------
   # Datos SEO de las páginas públicas
   # Nota: NO incluir "| Laborsafe" en :title — prepare_meta_tags
@@ -78,8 +80,6 @@ class Aplicacion::HomeController < ApplicationController
     if usuario_signed_in?
       redirect_to authenticated_root_path and return
     end
-
-    render layout: 'public'
   end
 
   def dshbrd
@@ -107,12 +107,9 @@ class Aplicacion::HomeController < ApplicationController
     @actividades = AgeActividad.where('fecha > ?', Time.zone.today.beginning_of_day)
                                .adncs
                                .fecha_ordr
-
-    render layout: 'pltfrm'   # solo se ejecuta cuando no hubo redirect
   end
 
   def laborsafe
-    render layout: 'public'
   end
 
   def guias
@@ -123,23 +120,17 @@ class Aplicacion::HomeController < ApplicationController
       @hbls_30   = CalFeriado.plazo_habil(@hoy, 30)
       @crrds_30  = CalFeriado.plazo_corrido(@hoy, 30)
     end
-
-    render layout: 'public'
   end
 
   def equipo
     @equipo = YAML.load_file(Rails.root.join("config/data/equipo.yml"))["abogados"]
     @coordinadores = @equipo.select { |a| a["rol"] == "coordinador" }
     @investigadores = @equipo.reject { |a| a["rol"] == "coordinador" }
-
-    render layout: 'public'
   end
 
   def simulador
     preparar_simulacion
     @lead ||= Lead.new(fuente: "Simulador")
-
-    render layout: 'public'
   end
 
   def enviar_simulacion
@@ -170,16 +161,12 @@ class Aplicacion::HomeController < ApplicationController
     @docs_referencia    = ClssHome.docs_referencia
     @leyes_modificadas  = ClssHome.leyes_modificadas
     @otros_documentos   = ClssHome.otros_documentos
-
-    render layout: 'public'
   end
 
   def metodologia
-    render layout: 'public'
   end
 
   def blog
-    render layout: 'public'
   end
 
   def artcls
@@ -206,6 +193,10 @@ class Aplicacion::HomeController < ApplicationController
   end
 
   private
+
+  def resolve_home_layout
+    action_name == 'dshbrd' ? 'pltfrm' : 'public'
+  end
 
   # ---------------------------------------------------------------
   # Meta tags por página pública. Usa los defaults globales que ya

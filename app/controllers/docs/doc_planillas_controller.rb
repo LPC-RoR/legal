@@ -1,7 +1,7 @@
 class Docs::DocPlanillasController < ApplicationController
   before_action :set_doc_planilla, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /doc_planillas or /doc_planillas.json
   def index

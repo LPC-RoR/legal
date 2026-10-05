@@ -1,7 +1,7 @@
 class Docs::DocDetallesController < ApplicationController
   before_action :set_doc_detalle, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /doc_detalles or /doc_detalles.json
   def index

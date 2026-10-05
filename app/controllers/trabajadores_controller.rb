@@ -1,7 +1,7 @@
 class TrabajadoresController < ApplicationController
   before_action :set_trabajador, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /trabajadores or /trabajadores.json
   def index

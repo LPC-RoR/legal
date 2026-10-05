@@ -1,6 +1,8 @@
 class Docs::DocPagosController < ApplicationController
   before_action :set_doc_pago, only: %i[ show edit update destroy ]
 
+  layout 'pltfrm'
+
   # GET /doc_pagos or /doc_pagos.json
   def index
     @clccn = DocPago.all

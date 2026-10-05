@@ -1,7 +1,7 @@
 class Docs::DocCierresController < ApplicationController
   before_action :set_doc_cierre, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /doc_cierres or /doc_cierres.json
   def index

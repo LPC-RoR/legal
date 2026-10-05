@@ -14,13 +14,14 @@ class EmpresasController < ApplicationController
   after_action :add_admin, only: :create
   after_action :rut_puro, only: %i[ create update ]
 
+  layout :resolve_emprs_layout   # anula el :resolve_layout de ApplicationController
+
   include Rut
 
   # GET /empresas or /empresas.json
   def index
     set_pgnt_tbl('empresas', empresas_visibles)
     set_tabla('empresas', empresas_visibles, true)
-    render layout: 'addt'
   end
 
   # GET /empresas/1 or /empresas/1.json
@@ -220,6 +221,9 @@ class EmpresasController < ApplicationController
 
   private
 
+  def resolve_emprs_layout
+    action_name == 'index' ? 'pltfrm' : 'invstgcns'
+  end
 
     def authorize_tenant_user
       if current_usuario&.tenant_id.present? && @objeto.tenant.id != current_usuario.tenant_id && (not current_usuario.dog?)

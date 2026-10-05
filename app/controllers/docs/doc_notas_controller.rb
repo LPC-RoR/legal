@@ -1,6 +1,8 @@
 class Docs::DocNotasController < ApplicationController
   before_action :set_doc_nota, only: %i[ show edit update destroy ]
 
+  layout 'pltfrm'
+
   # GET /doc_notas or /doc_notas.json
   def index
     @clccn = DocNota.all

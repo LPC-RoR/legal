@@ -1,7 +1,7 @@
 class Docs::DocBancosController < ApplicationController
   before_action :set_doc_banco, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /doc_bancos or /doc_bancos.json
   def index

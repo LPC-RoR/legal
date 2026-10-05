@@ -1,7 +1,7 @@
 class Docs::DocBoletasController < ApplicationController
   before_action :set_doc_boleta, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /doc_boletas or /doc_boletas.json
   def index

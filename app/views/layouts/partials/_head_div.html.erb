@@ -1,6 +1,5 @@
   <%# layouts/partials/_head_div.html.erb %>
 
-  <% title ||= 'Addt' %>
   <head>
 
     <!-- Google tag (gtag.js) — un solo loader, dos destinos -->
@@ -14,10 +13,12 @@
       gtag('config', 'AW-18468802388');  <!-- Google Ads -->
     </script>
     
-    <title><%= title %></title>
+    <title><%= content_for(:title).presence || 'Laborsafe' %></title>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= javascript_importmap_tags %>
 
     <%= display_meta_tags %>
     <!-- Opcional pero recomendable -->

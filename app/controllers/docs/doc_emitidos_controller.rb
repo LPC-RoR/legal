@@ -1,7 +1,7 @@
 class Docs::DocEmitidosController < ApplicationController
   before_action :set_doc_emitido, only: %i[ show edit update destroy update_tipo_factura ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /doc_emitidos or /doc_emitidos.json
   def index
