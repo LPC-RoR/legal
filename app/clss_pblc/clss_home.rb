@@ -58,7 +58,16 @@ class ClssHome < ApplicationRecord
 		        proposito: "Fijar el sentido y alcance de las disposiciones contenidas en la Ley 21.643.",
 		        descripcion: "Dictamen interpretativo oficial del Servicio de Inspección del Trabajo que desarrolla derechos y obligaciones de empleadores y trabajadores, el procedimiento de investigación interna, el rol de la Inspección, la aplicación de sanciones y la coordinación entre los distintos niveles de prevención. Constituye el criterio administrativo vinculante para la fiscalización.",
 		        url: "https://www.dt.gob.cl/legislacion/1624/articles-126267_recurso_pdf.pdf"
-		    }
+		    },
+			{
+			  cita: "Ordinario N° 1189, Superintendencia de Educación",
+			  nombre: "Aplicación de la Ley Karin en establecimientos educacionales",
+			  entidad: "Superintendencia de Educación",
+			  fecha: "5 de agosto de 2024",
+			  proposito: "Informar a las entidades sostenedoras sobre la aplicación de la Ley 21.643 en establecimientos educacionales.",
+			  descripcion: "Contiene las consideraciones de la Superintendencia de Educación sobre la aplicación de la Ley Karin en el ámbito escolar. Distingue la relación laboral (regida por el RIOHS y el protocolo de prevención de la Ley Karin) de la relación educativa (regida por el Reglamento Interno de Convivencia Escolar), precisa que ambos protocolos no son incompatibles por perseguir finalidades distintas, y recomienda actualizar los reglamentos internos y coordinar los procedimientos de investigación para evitar decisiones contradictorias, excesiva carga administrativa y revictimización.",
+			  url: "https://www.supereduc.cl/wp-content/uploads/2024/08/ORD-No-1189-INF-SOBRE-APLICACION-DE-LEY-21.643-EN-ESTA.-EDUC.-A_ENTIDADES-SOSTENEDORAS.pdf"
+			}
     	]
 	end
 
@@ -128,6 +137,15 @@ class ClssHome < ApplicationRecord
 
 	def self.otros_documentos
 		[
+			{
+			  cita: "Infografía Superintendencia de Educación",
+			  nombre: "Infografía: Aplicación de la Ley Karin en establecimientos educacionales",
+			  entidad: "Superintendencia de Educación",
+			  fecha: "2024",
+			  proposito: "Orientar a entidades sostenedoras y comunidades educativas sobre las obligaciones de la Ley Karin en el ámbito escolar.",
+			  descripcion: "Material divulgativo que resume las obligaciones de los sostenedores frente a la Ley Karin y su articulación con la normativa de convivencia escolar, incluyendo los protocolos de prevención, canales de denuncia y medidas de protección para docentes y asistentes de la educación.",
+			  url: "https://www.supereduc.cl/wp-content/uploads/2024/09/infog_leykarin.pdf"
+			},
 	      {
 	        cita: "Reporte Ley N° 21.643",
 	        nombre: "Reporte del Poder Judicial",

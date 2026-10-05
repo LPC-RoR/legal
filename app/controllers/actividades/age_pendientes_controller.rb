@@ -3,7 +3,7 @@ class Actividades::AgePendientesController < ApplicationController
   before_action :scrty_on
   before_action :set_age_pendiente, only: %i[ show edit update destroy realizado_pendiente cambia_prioridad ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /age_pendientes or /age_pendientes.json
   def index

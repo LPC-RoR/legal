@@ -3,7 +3,7 @@ class Actividades::AgeActividadesController < ApplicationController
   before_action :scrty_on
   before_action :set_age_actividad, only: %i[ show edit update destroy swtch dssgn_usr assgn_usr cambia_estado cambio_fecha ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   include AgeUsr
 

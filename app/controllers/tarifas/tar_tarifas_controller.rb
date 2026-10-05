@@ -3,7 +3,7 @@ class Tarifas::TarTarifasController < ApplicationController
   before_action :scrty_on
   before_action :set_tar_tarifa, only: %i[ show edit update destroy asigna ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /tar_tarifas or /tar_tarifas.json
   def index

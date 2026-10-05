@@ -1,7 +1,7 @@
 class Recursos::RcrsEnlacesController < ApplicationController
   before_action :set_rcrs_enlace, only: %i[ show edit update destroy ]
 
-  layout 'addt'
+  layout 'pltfrm'
 
   # GET /rcrs_enlaces or /rcrs_enlaces.json
   def index
