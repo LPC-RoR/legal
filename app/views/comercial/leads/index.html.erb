@@ -49,8 +49,8 @@
               <%= button_to "Calificar", lead_path(lead, lead: { estado: :calificado }),
                             method: :patch, class: "btn btn-xs btn-outline-secondary" %>
             <% when "calificado" %>
-              <%= link_to "Convertir → Empresa", new_admin_lead_conversion_path(lead),
-                          class: "btn btn-xs btn-success" %>
+              <%= link_to "Convertir → Empresa", new_lead_conversion_path(lead),
+              class: "btn btn-xs btn-success" %>
               <%= button_to "Descartar", lead_path(lead, lead: { estado: :descartado }),
                             method: :patch, class: "btn btn-xs btn-outline-danger" %>
             <% end %>

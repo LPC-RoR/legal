@@ -2,7 +2,7 @@
 <h2>Convertir lead en Empresa</h2>
 <p>Lead: <strong><%= @lead.nombre %></strong> (<%= @lead.email %>)</p>
 
-<%= form_with(model: @empresa, url: admin_lead_conversion_path(@lead)) do |form| %>
+<%= form_with(model: @empresa, url: lead_conversion_path(@lead)) do |form| %>
   <% if @empresa.errors.any? %>
     <div class="error-messages">
       <% @empresa.errors.full_messages.each do |message| %>
