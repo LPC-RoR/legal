@@ -25,8 +25,10 @@
     <%= render partial: '0inpts/text',  locals: { f: form, tkn: :empresa,  label: 'Empresa (opcional)', objeto: form.object, mrgn_bttm: 1 } %>
 
     <div class="actions">
-      <%= form.submit "Agendar demo de 30 minutos", class: "btn btn-sm btn-outline-primary" %>
+      <%= form.submit local_assigns[:cta] || "Agendar reunión de 30 minutos",
+                      class: "btn btn-primary w-100 ls-enviar" %>
     </div>
+
   <% end %>
 </div>
 

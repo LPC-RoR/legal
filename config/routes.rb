@@ -511,14 +511,18 @@ Rails.application.routes.draw do
   
   root 'aplicacion/home#index'
 
-  get   'laborsafe',            to: 'aplicacion/home#laborsafe'
-  get   'guias',                to: 'aplicacion/home#guias'
-  get   'equipo',               to: 'aplicacion/home#equipo'
-  get   "simulador",            to: "aplicacion/home#simulador",           as: :simulador
-  post  "simulador/simulacion", to: "aplicacion/home#enviar_simulacion",   as: :enviar_simulacion
-  get   'metodologia',          to: 'aplicacion/home#metodologia'
-  get   "marco_legal",          to: "aplicacion/home#marco_legal"
-  get   'blog',                 to: 'aplicacion/home#blog'
+  get   'laborsafe',                to: 'aplicacion/home#laborsafe'
+  get   'guias',                    to: 'aplicacion/home#guias'
+  get   'equipo',                   to: 'aplicacion/home#equipo'
+  get   "simulador",                to: "aplicacion/home#simulador",            as: :simulador
+  post  "simulador/simulacion",     to: "aplicacion/home#enviar_simulacion",    as: :enviar_simulacion
+  get   'metodologia',              to: 'aplicacion/home#metodologia'
+  get   "marco_legal",              to: "aplicacion/home#marco_legal"
+  get   'blog',                     to: 'aplicacion/home#blog'
+  get   'capacitaciones-ley-karin', to: 'aplicacion/home#capacitaciones',       as: :capacitaciones
+  get   "datos_personales",         to: "aplicacion/home#datos_personales"
+  get   "datos_personales_karin",   to: "aplicacion/home#datos_personales_karin"
+  get   "legal_annm",               to: "aplicacion/home#legal_annm"
 
   get   '/krn_csts',            to: 'aplicacion/home#costos'
   get   '/artcls/:tkn',         to: 'aplicacion/home#artcls', as: 'artcls'

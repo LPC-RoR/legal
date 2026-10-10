@@ -1,21 +1,62 @@
 <%# 3. Cómo funciona %>
-<section class="py-5 bg-light" id="como-funciona">
-  <div class="container">
-    <h2 class="text-center mb-5">Cómo funciona</h2>
-    <div class="row g-4">
-      <% pasos.each do |paso| %>
-        <div class="col-lg-4 col-md-6">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-baseline gap-2">
-                <span class="ls-paso-numero"><%= paso[:numero] %></span>
-                <h3 class="h5 card-title mb-0"><%= paso[:titulo] %></h3>
-              </div>
-              <p class="card-text text-secondary ls-card-text mt-2"><%= paso[:texto] %></p>
-            </div>
+<%# Sección "Cómo funciona" — versión comprimida: 4 pasos, detalle largo en <details> %>
+<section class="como-funciona" id="como-funciona">
+  <div class="como-funciona__container">
+    <h2 class="como-funciona__title">Cómo funciona</h2>
+    <p class="como-funciona__lead">
+      Un proceso simple para su empresa.
+    </p>
+
+    <ol class="como-funciona__steps">
+      <% pasos = [
+        {
+          titulo: "Taller de puesta en marcha",
+          resumen: "Implementamos el modelo de trabajo con su equipo y coordinamos la actuación conjunta.",
+          detalle: "Antes de iniciar el servicio, realizamos un taller con las personas que participarán en la gestión de las denuncias, destinado a implementar el modelo de trabajo y coordinar la actuación de ambos equipos."
+        },
+        {
+          titulo: "Investigación por abogado especialista",
+          resumen: "Revisión de la denuncia, toma de declaraciones e informe conforme a los estándares legales.",
+          detalle: "Revisamos la denuncia, evaluamos la suficiencia de sus antecedentes e identificamos los aspectos que deban complementarse. Apoyamos la ejecución oportuna de las actuaciones de los primeros tres días y orientamos en la definición de las medidas de resguardo. Luego, el investigador asignado cita a los participantes y toma sus declaraciones. Finalmente, elabora el informe de investigación conforme a los estándares legales."
+        },
+        {
+          titulo: "Expediente listo para su depósito en la Dirección del Trabajo",
+          resumen: "Expediente completo, organizado y en el formato exigido para su carga en la plataforma.",
+          detalle: "Entregamos el expediente completo, con toda la información requerida (informe de investigación y antecedentes correspondientes), organizado y preparado en el formato exigido para su carga en la plataforma de la Dirección del Trabajo."
+        },
+        {
+          titulo: "Seguimiento hasta el cierre",
+          resumen: "Control de plazos, análisis del pronunciamiento de la DT y notificaciones a los participantes.",
+          detalle: "Monitoreamos el plazo de 30 días para el pronunciamiento de la Dirección del Trabajo. Analizamos su respuesta y orientamos los pasos a seguir. Notificamos a los participantes el resultado de la investigación.."
+        }
+      ] %>
+
+      <% pasos.each_with_index do |paso, i| %>
+        <li class="como-funciona__step">
+          <span class="como-funciona__numero" aria-hidden="true"><%= i + 1 %></span>
+          <div class="como-funciona__contenido">
+            <h3 class="como-funciona__step-title"><%= paso[:titulo] %></h3>
+            <p class="como-funciona__resumen"><%= paso[:resumen] %></p>
+
+            <details class="como-funciona__detalle">
+              <summary>
+                Ver detalle
+                <svg class="como-funciona__chevron" width="14" height="14" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </summary>
+              <p><%= paso[:detalle] %></p>
+            </details>
           </div>
-        </div>
+        </li>
       <% end %>
-    </div>
+    </ol>
+
+    <p class="como-funciona__mas objt_lnk">
+      ¿Quiere conocer el procedimiento completo paso a paso?
+      <%= link_to "Revise nuestra metodología detallada", metodologia_path %>.
+    </p>
   </div>
 </section>

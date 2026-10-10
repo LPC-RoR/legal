@@ -53,6 +53,12 @@
             </li>
           <% end %>
 
+          <% unless action_name == 'capacitaciones' %>
+            <li class="nav-item">
+              <%= link_to 'Capacitaciones', capacitaciones_path, class: 'nav-link fs-6' %>
+            </li>
+          <% end %>
+          
           <% unless action_name == 'simulador' %>
             <li class="nav-item">
               <%= link_to 'Simulador de plazos', '/simulador', class: 'nav-link fs-6' %>

@@ -82,13 +82,16 @@
   border-radius: 0 8px 8px 0;
 }
 
-/* Honeypot anti-bot: fuera de pantalla y fuera del flujo */
-.ls-honeypot {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
+/* Honeypots anti-bot: fuera de pantalla y fuera del flujo.
+   .ls-honeypot: form del index. .hp-field: _form de leads. */
+.ls-honeypot,
+.hp-field {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
 }
 
 .ls-form-card--destacado {
@@ -97,15 +100,24 @@
   transition: box-shadow 0.4s ease;
 }
 
+/* Submit de leads/_form: el texto hace wrap en vez de desbordar.
+   (Bootstrap .btn trae white-space: nowrap; esto lo anula.)
+   Gana a .btn-lg en cascada (misma especificidad, carga después). */
 .ls-enviar {
-  white-space: normal;   /* anula el nowrap de Bootstrap */
-  line-height: 1.3;      /* airea el texto en dos líneas */
+  white-space: normal;
+  line-height: 1.3;
   padding: 0.65rem 1rem;
 }
 
 @media (max-width: 640px) {
   .ls-hero {
     padding: 64px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .ls-enviar {
+    font-size: 1rem;   /* respaldo por si algo hereda btn-lg en otro render */
   }
 }
 
@@ -209,3 +221,195 @@ $ml-radio: 10px;
     }
   }
 }
+
+/* Sprint 1: conversión */
+.ls-credibilidad {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.ls-urgencia {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1040;
+  background-color: #e63946;
+  color: #fff;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, .2);
+}
+
+/* CÓMO FUNCIONA — 4 pasos con detalle en <details> */
+.como-funciona {
+  /* Variables alineadas a la paleta del sitio (antes usaban #1f4e79,
+     distinto del azul de Bootstrap #1d4ed8) */
+  --acento: #1d4ed8;
+  --texto: #2d3748;
+  --texto-secundario: #4b5a75;
+  --seccion-bg: #f8f9fb;
+
+  padding: 4rem 1.5rem;
+  background: var(--seccion-bg);
+}
+
+.como-funciona__container {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.como-funciona__title {
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+}
+
+.como-funciona__lead {
+  margin: 0 0 2.5rem;
+  color: var(--texto-secundario);
+}
+
+/* Timeline vertical con numeración */
+.como-funciona__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.como-funciona__steps::before {
+  content: "";
+  position: absolute;
+  left: 19px;            /* alineado con el centro de los círculos */
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: var(--acento);
+  opacity: 0.15;
+}
+
+.como-funciona__step {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.1rem 0;
+  position: relative;
+}
+
+.como-funciona__numero {
+  flex: 0 0 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--acento);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.como-funciona__step-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+}
+
+.como-funciona__resumen {
+  margin: 0;
+  color: var(--texto-secundario);
+}
+
+/* Acordeón con <details> */
+.como-funciona__detalle {
+  margin-top: 0.5rem;
+}
+
+.como-funciona__detalle summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--acento);
+  list-style: none;            /* quita el marker nativo */
+  user-select: none;
+}
+
+.como-funciona__detalle summary::-webkit-details-marker { display: none; }
+
+.como-funciona__chevron { transition: transform 0.2s ease; }
+.como-funciona__detalle[open] .como-funciona__chevron { transform: rotate(180deg); }
+
+.como-funciona__detalle[open] summary { margin-bottom: 0.5rem; }
+
+.como-funciona__detalle p {
+  margin: 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--acento);
+  color: var(--texto);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.como-funciona__mas {
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  color: var(--texto-secundario);
+}
+
+/* Submit del formulario del Hero (id #formulario-contacto en el partial).
+   w-100 ya viene en el HTML; esto asegura que nunca desborde su tarjeta. */
+#formulario-contacto form {
+  width: 100%;
+}
+
+#formulario-contacto input[type="submit"],
+#formulario-contacto button[type="submit"] {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+
+/* Cómo funciona dentro de la columna derecha de Inversión */
+.ls-inversion .como-funciona {
+  padding: 0;
+  background: transparent;
+}
+
+.ls-inversion .como-funciona__container {
+  max-width: none;
+  margin: 0;
+}
+
+.ls-inversion .como-funciona__title {
+  font-size: 1.5rem;
+}
+
+.ls-inversion .como-funciona__lead {
+  margin-bottom: 1.5rem;
+}
+
+.ls-inversion .como-funciona__step {
+  padding: 0.8rem 0;
+}
+
+.ls-inversion .como-funciona__numero {
+  flex-basis: 34px;
+  height: 34px;
+  font-size: 0.9rem;
+}
+
+.ls-inversion .como-funciona__steps::before {
+  left: 16px;   /* re-centrar la línea con el círculo más chico */
+}
+
+.ls-inversion .como-funciona__detalle p {
+  font-size: 0.9rem;
+}
+
+.ls-inversion .como-funciona__mas {
+  margin-top: 1.25rem;
+}
+
+.ls-card-text b { font-weight: 600; }

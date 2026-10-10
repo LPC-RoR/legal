@@ -1,17 +1,13 @@
-<div class="col-md-4">
-  <div class="card h-100 shadow-sm">
-    <div class="card-body">
-      <h3 class="h5 card-title">
-        <% if local_assigns[:icono].present? %>
-          <i class="bi <%= icono %> me-2" aria-hidden="true"></i><%= titulo %>
-        <% else %>
-          <%= titulo %>
-        <% end %>
+<%# Tarjeta estándar de secciones informativas.
+    Locales: titulo (string), texto (string), icono (clase bi-* sin el prefijo "bi ") %>
+
+<div class="col-lg-4 d-flex">
+  <div class="card w-100 h-100 border-0 shadow-sm">
+    <div class="card-body p-4 p-lg-5 d-flex flex-column">
+      <h3 class="h4 fw-bold mb-3">
+        <i class="bi <%= icono %> text-primary me-2"></i><%= titulo %>
       </h3>
-      <% if local_assigns[:texto].present? %>
-        <p class="card-text text-secondary ls-card-text"><%= texto %></p>
-      <% end %>
-      <%= yield %>
+      <p class="text-secondary flex-grow-1 mb-0"><%= texto %></p>
     </div>
   </div>
 </div>

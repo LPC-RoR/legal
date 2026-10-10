@@ -3,6 +3,7 @@ abogados:
   - nombre: "Solange Mena C."
     rol: coordinador
     cargo: "Abogada Coordinadora de Investigaciones"
+    experiencia: "más de 30 años"   # REVISAR: fundó la BD del Diario Oficial en 1995
     biografia: |
       Abogada y Licenciada en Ciencias Jurídicas y Sociales por la Universidad de Chile. Magíster en Derecho del Trabajo y de la Seguridad Social por la Universidad de Talca y por la Universidad de Valencia (España). Profesora de Derecho del Trabajo en programas de postgrado. Experiencia en asesoría y litigación laboral. En los primeros años de su trayectoria profesional se especializó en el desarrollo de información jurídica electrónica, siendo fundadora y copartícipe de la Base de Datos del Diario Oficial (1995), primer medio electrónico legal en Chile, y ex directora editorial de publicaciones especializadas en Derecho del Trabajo.
     iniciales: "NC"
@@ -10,6 +11,7 @@ abogados:
   - nombre: "Paula Donoso V."
     rol: coordinador
     cargo: "Abogada Coordinadora de Investigaciones"
+    experiencia: "más de 30 años"   # REVISAR: estimado, confirmar con ella
     biografia: |
       Abogada, Licenciada en Ciencias Jurídicas y Sociales por la Universidad de Chile. Magíster en Ciencia Política por la misma Universidad. Magíster en Derecho del Trabajo y de la Seguridad Social por la Universidad de Talca (Chile) y la Universidad de Valencia (España). Fue asesora en la Dirección del Trabajo, encargada de revisión y tramitación de dictámenes, resoluciones de servicios mínimos y recursos administrativos, entre otras gestiones. Profesora en el LLM, Pontificia Universidad Católica de Chile, mención laboral y profesora tutora en el Magíster de Derecho del Trabajo y Seguridad Social de la Universidad de Talca.
     iniciales: "NC"

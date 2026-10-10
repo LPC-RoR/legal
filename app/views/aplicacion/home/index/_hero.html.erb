@@ -1,0 +1,47 @@
+<%# app/views/aplicacion/home/index/_hero.html.erb %>
+
+<%# 1. Hero con captura inmediata %>
+<section class="ls-hero text-white">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+
+      <%# Columna izquierda: propuesta de valor %>
+      <div class="col-lg-6 text-center text-lg-start">
+        <p class="ls-kicker mb-3">LEY 21.643 (LEY KARIN) · INVESTIGACIÓN DE DENUNCIAS DE ACOSO SEXUAL, ACOSO LABORAL Y VIOLENCIAL EN EL TRABAJO</p>
+        <h1 class="display-5 fw-bold mb-4">
+          Evite que errores en la investigación se conviertan en una contingencia judicial.
+<%#          Una investigación mal conducida puede generar una contingencia judicial. %>
+        </h1>
+        <p class="lead mb-4">
+          Confíe sus investigaciones a abogados
+          especialistas: <br>minimice riesgos, cumpla los plazos legales y proteja la
+          confidencialidad del procedimiento.
+        </p>
+
+        <%# CTAs secundarios: quien no está listo para conversar %>
+        <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start">
+          <%= link_to "Simule los plazos de su caso", simulador_path,
+                      class: "btn btn-outline-light" %>
+          <%= link_to "Realice su autodiagnóstico inicial", "#diagnostico",
+                      class: "btn btn-outline-light" %>
+        </div>
+
+      </div>
+
+      <%# Columna derecha: captura inmediata %>
+      <div class="col-lg-6">
+        <div class="bg-white text-dark rounded-3 shadow p-4 p-lg-5" id="formulario-contacto">
+          <h2 class="h4 fw-bold mb-1">Agende una presentación comercial</h2>
+          <p class="text-secondary small mb-4">
+            Cuéntenos cómo gestionan sus investigaciones y coordinemos una reunión.
+          </p>
+
+          <%# MISMO _form: se mide con fuente: "hero" %>
+          <%= render "comercial/leads/form", fuente: "hero" %>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

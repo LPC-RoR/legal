@@ -1,0 +1,38 @@
+<%# 1. Hero con captura inmediata %>
+<section class="ls-hero text-white">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 text-center text-lg-start">
+        <p class="ls-kicker mb-3">CAPACITACIÓN Y ASESORÍA · LEY 21.643 (LEY KARIN)</p>
+        <h1 class="display-5 fw-bold mb-4">
+          Capacite a su equipo antes de que llegue primera denuncia.
+        </h1>
+        <p class="lead mb-4">
+          La Ley 21.643 exige protocolos, canal de denuncias y un equipo debidamente
+          formado. Nuestros talleres son dictados por abogados especialistas y
+          profesores universitarios.
+        </p>
+        <%= link_to "¿Ya tiene una denuncia activa? Vea nuestro servicio de externalización",
+                    root_path(anchor: "formulario-contacto"),
+                    class: "btn btn-outline-light btn-sm" %>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="bg-white text-dark rounded-3 shadow p-4 p-lg-5" id="formulario-contacto">
+          <h2 class="h4 fw-bold mb-1">Cotice su capacitación</h2>
+          <p class="text-secondary small mb-4">
+            Solicite una propuesta personalizada.
+          </p>
+
+          <%# MISMO _form: KPI con fuente: "capacitaciones" %>
+          <%= render "comercial/leads/form", fuente: "capacitaciones" %>
+
+          <!--p class="text-secondary small text-center mt-3 mb-0">
+            <i class="bi bi-shield-check me-1"></i>
+            Le respondemos dentro de 24 horas hábiles.
+          </p-->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,99 @@
+<%# Sección combinada: Inversión (izquierda, apilada) + Cómo funciona (derecha) %>
+
+<%# 2 Nuestro servicio %>
+<section class="ls-inversion py-5 bg-white" id="inversion">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="h2 fw-bold">Nuestro servicio</h2>
+      <p class="text-secondary col-lg-8 mx-auto">
+        Una investigación sólida de principio a fin.
+      </p>
+    </div>
+
+    <div class="row g-4 g-lg-5 align-items-start">
+
+      <%# ============ COLUMNA IZQUIERDA: Inversión ============ %>
+      <div class="col-lg-6">
+
+        <%# Tarifa ancla %>
+        <div class="card border-primary border-2 shadow-sm ls-card-acento mb-3">
+          <div class="card-body p-4">
+            <h3 class="h5 fw-bold mb-3">Tarifa estándar</h3>
+
+            <div class="row g-3 mb-3">
+              <div class="col-sm-6">
+                <div class="d-flex align-items-baseline gap-2">
+                  <span class="fs-2 fw-bold">40 UF</span>
+                </div>
+                <span class="text-secondary small">Por cada investigación</span>
+                <p class="small text-secondary mb-0">Sin mensualidades ni mínimos de contratación.</p>
+                <p class="small text-secondary mb-0">Taller de puesta en marcha al contratar.</p>
+              </div>
+              <!--div class="col-sm-6">
+                <div class="d-flex align-items-baseline gap-2">
+                  <span class="fs-2 fw-bold">40 UF</span>
+                </div>
+                <span class="text-secondary small">por investigación</span>
+                <p class="small text-secondary mb-0"></p>
+              </div-->
+            </div>
+
+            <hr>
+
+            <p class="fw-semibold small text-uppercase text-secondary mb-2">Cada investigación incluye</p>
+            <ul class="list-unstyled small mb-4">
+              <li class="mb-1"><i class="bi bi-check2 text-primary me-2"></i>Abogado investigador especialista asignado al caso</li>
+              <li class="mb-1"><i class="bi bi-check2 text-primary me-2"></i>Formatos de toda la documentación del procedimiento</li>
+              <li class="mb-1"><i class="bi bi-check2 text-primary me-2"></i>Envío de notificaciones a los participantes desde la plataforma </li>
+              <li class="mb-1"><i class="bi bi-check2 text-primary me-2"></i>Control de plazos legales, con alertas</li>
+              <li class="mb-0"><i class="bi bi-check2 text-primary me-2"></i>Asesoría legal especializada durante todo el procedimiento</li>
+            </ul>
+
+            <%= link_to "Agende una presentación comercial", "#formulario-contacto",
+                        class: "btn btn-primary w-100" %>
+          </div>
+        </div>
+
+        <%# Rutas laterales, apiladas en móvil y lado a lado en sm+ %>
+        <div class="row g-3">
+          <div class="col-sm-6 d-flex">
+            <div class="card w-100 border-0 shadow-sm">
+              <div class="card-body p-3 d-flex flex-column">
+                <h3 class="h6 fw-bold">Empresas de menor tamaño</h3>
+                <p class="small text-secondary flex-grow-1">
+                  Conversemos
+                  una tarifa diferenciada acorde a su realidad.
+                </p>
+                <%= link_to "Consulte su tarifa", "#formulario-contacto",
+                            class: "btn btn-outline-primary btn-sm" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 d-flex">
+            <div class="card w-100 border-0 shadow-sm">
+              <div class="card-body p-3 d-flex flex-column">
+                <h3 class="h6 fw-bold">Grandes empresas</h3>
+                <p class="small text-secondary flex-grow-1">
+                  Para organizaciones con muchos colaboradores diseñamos una solución
+                  a escala: estructura, control y reportes personalizados.
+                </p>
+                <%= link_to "Evaluemos su escala", "#formulario-contacto",
+                            class: "btn btn-outline-primary btn-sm" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="small text-secondary mt-3 mb-0">
+          La tarifa por investigación se paga solo cuando se activa un caso.
+        </p>
+      </div>
+
+      <%# ============ COLUMNA DERECHA: Cómo funciona ============ %>
+      <div class="col-lg-6">
+        <%= render "aplicacion/home/index/como_funciona" %>
+      </div>
+
+    </div>
+  </div>
+</section>

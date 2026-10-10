@@ -1,0 +1,33 @@
+<%# app/views/aplicacion/home/index/_urgencia.html.erb %>
+
+<%# 1.2 Banner de urgencia %>
+<div id="ls-urgencia" class="ls-urgencia d-lg-none" style="display:none;">
+  <div class="d-flex align-items-center gap-2 p-2">
+    <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
+    <p class="mb-0 small flex-grow-1">
+      ¿Recibió una denuncia? Debe actuar <strong>Inmediatamente</strong>.
+    </p>
+    <a href="#formulario-contacto" class="btn btn-light btn-sm flex-shrink-0">Contáctenos</a>
+    <button type="button" class="btn-close btn-close-white ms-1 flex-shrink-0"
+            aria-label="Cerrar" onclick="document.getElementById('ls-urgencia').remove()"></button>
+  </div>
+</div>
+
+<%# Versión desktop: barra inline bajo el hero %>
+<div class="alert alert-info rounded-0 text-center mb-0 d-none d-lg-block">
+  <i class="bi bi-exclamation-triangle-fill me-2"></i>
+  ¿Recibió una denuncia? Debe actuar inmediatamente. Primer plazo: <strong>3 días hábiles. Contactenos.</strong>
+</div>
+
+<script>
+  // Muestra el banner sticky en móvil solo después de pasar el hero
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('ls-urgencia');
+    if (!banner) return;
+    const hero = document.querySelector('.ls-hero');
+    const observer = new IntersectionObserver(([entry]) => {
+      banner.style.display = entry.isIntersecting ? 'none' : 'block';
+    }, { threshold: 0.05 });
+    observer.observe(hero);
+  });
+</script>

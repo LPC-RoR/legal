@@ -1,0 +1,35 @@
+<% content_for :title, "Marco Legal de la Anonimización de Documentos | LaborSafe" %>
+
+<section class="marco-legal">
+  <div class="container">
+    <header class="marco-legal-header">
+      <h1>Marco legal de la anonimización de documentos en Chile</h1>
+      <p class="lead">
+        Guía completa de la normativa y jurisprudencia que regula la anonimización de documentos
+        de uso legal y de aquellos que administra una empresa: leyes de protección de datos,
+        la regulación del Poder Judicial para la publicación de sentencias, el régimen de la
+        Ley Karin y los fallos de la Corte Suprema. Cada documento enlaza a su fuente oficial.
+      </p>
+    </header>
+
+    <h2 class="marco-legal-area">Normas generales de protección de datos</h2>
+    <div class="marco-legal-grid">
+      <%= render partial: "documento_card", collection: @docs_normas_datos, as: :doc %>
+    </div>
+
+    <h2 class="marco-legal-area">Normativa específica de anonimización</h2>
+    <div class="marco-legal-grid">
+      <%= render partial: "documento_card", collection: @docs_normas_especificas, as: :doc %>
+    </div>
+
+    <h2 class="marco-legal-area">Fallos de la Corte Suprema</h2>
+    <div class="marco-legal-grid">
+      <%= render partial: "documento_card", collection: @fallos_corte_suprema, as: :doc %>
+    </div>
+
+    <h2 class="marco-legal-area">Guías y documentos complementarios</h2>
+    <div class="marco-legal-grid">
+      <%= render partial: "documento_card", collection: @docs_complementarios, as: :doc %>
+    </div>
+  </div>
+</section>

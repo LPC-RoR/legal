@@ -22,4 +22,13 @@ un especialista quede concretada esta misma semana.</p>
   plan concreto para su empresa.</p>
 <% end %>
 
+<% unless @lead.fuente == "capacitaciones" %>
+  <p style="margin-top: 24px; padding: 16px; background-color: #f8f9fa; border-radius: 8px;">
+    <strong>¿Su equipo ya está preparado?</strong><br>
+    Ofrecemos talleres y asesorías en la Ley 21.643 dictados por abogados especialistas
+    y profesores UC y U. Talca.
+    <%= link_to "Conozca nuestras capacitaciones", capacitaciones_url %>.
+  </p>
+<% end %>
+
 <%= render "firma" %>

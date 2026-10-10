@@ -1,0 +1,72 @@
+<%# app/views/aplicacion/home/capacitaciones.html.erb %>
+<% content_for :title, 'Capacitaciones y asesorías Ley 21.643 | Laborsafe' %>
+
+<%# 1. Hero con captura inmediata %>
+<%= render 'aplicacion/home/capacitacion/hero' %>
+
+<%# 2. Formatos con ancla de precio %>
+<%= render 'aplicacion/home/capacitacion/productos' %>
+
+<%# 3. Comparador: asesoría vs externalización %>
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-3">¿Qué necesita su empresa?</h2>
+    <p class="text-secondary text-center ls-card-text mb-5">
+          Dos formas de trabajar con nuestro equipo legal, según el grado de respaldo que busque.
+    </p>
+    <div class="row g-4 justify-content-center">
+
+      <div class="col-md-5">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column">
+            <h3 class="h5 card-title">Asesoría experta durante toda la investigación</h3>
+            <p class="text-secondary ls-card-text">
+              Su equipo conduce la investigación; nosotros lo acompañamos durante todo el proceso.
+            </p>
+            <ul class="text-secondary ls-card-text flex-grow-1">
+              <li>Revisión de la denuncia y de las primeras actuaciones: orientación sobre los trámites para dar inicio a la investigación.</li>
+              <li>Asesoría en medidas de resguardo: medidas pertinentes y proporcionales, considerando la realidad de su empresa.</li>
+              <li>Preparación de entrevistas y declaraciones: qué preguntar y cómo preguntar, resguardando el debido proceso.</li>
+              <li>Revisión del informe final: contenido, fundamentación y las medidas correctivas y sanciones propuestas.</li>
+            </ul>
+            <%= link_to "Cotizar asesoría", "#formulario-contacto", class: "btn btn-outline-primary mt-3" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="card h-100 shadow-sm border-primary">
+          <div class="card-body d-flex flex-column">
+            <h3 class="h5 card-title">Externalización de la investigación</h3>
+            <p class="text-secondary ls-card-text">
+              Nosotros conducimos la investigación por su empresa, con un equipo de abogados con experiencia en investigaciones internas.
+            </p>
+            <ul class="text-secondary ls-card-text flex-grow-1">
+              <li>Revisión de la denuncia y primeras actuaciones: lo acompañamos en los trámites que debe realizar para dar inicio a la investigación.</li>
+              <li>Investigación: nos encargamos de todo el proceso, desde la notificación a las personas denunciante y denunciada hasta la elaboración del informe final.</li>
+              <li>Depósito del informe final: Apoyamos en esta etapa ante Dirección del Trabajo.</li>
+            </ul>
+            <%= link_to "Conocer el servicio", root_path(anchor: "formulario-contacto"), class: "btn btn-primary mt-3" %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<%# 4. Cierre: credibilidad docente %>
+<section class="py-5">
+  <div class="container text-center" style="max-width: 720px;">
+    <h2 class="h4 mb-3">OTROS SERVICIOS LEGALES PARA SU EMPRESA</h2>
+
+    <ul class="text-secondary ls-card-text text-start mb-4">
+      <li>Litigación laboral: defensa de su empresa en juicios del trabajo.</li>
+      <li>Asesoría laboral permanente: acompañamiento en la gestión de las relaciones laborales, cumplimiento normativo y prevención de conflictos.</li>
+      <li>Negociación colectiva: asesoría estratégica y acompañamiento durante todo el proceso.</li>
+      <li>Auditoría jurídica laboral: revisión y detección de contingencias.</li>
+    </ul>
+
+    <%= link_to "Agendar reunión con nuestro equipo legal", root_path(anchor: "formulario-contacto"), class: "btn btn-primary mt-3" %>
+  </div>
+</section>

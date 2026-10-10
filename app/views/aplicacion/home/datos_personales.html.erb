@@ -1,0 +1,25 @@
+<% content_for :title, "Datos Personales – Ley 19.628 y Ley 21.719 | LaborSafe" %>
+
+<section class="marco-legal">
+  <div class="container">
+    <header class="marco-legal-header">
+      <h1>Protección de Datos Personales en Chile</h1>
+      <p class="lead">
+        Guía completa de la documentación legal sobre protección y tratamiento de datos
+        personales. Incluye la ley vigente (Ley N° 19.628) y la Ley N° 21.719,
+        promulgada en diciembre de 2024, que entrará en vigencia el 1 de diciembre de 2026.
+        Cada documento enlaza a su fuente oficial.
+      </p>
+    </header>
+
+    <h2 class="marco-legal-area">Ley vigente: Ley N° 19.628</h2>
+    <div class="marco-legal-grid">
+      <%= render partial: "documento_card", collection: @docs_ley_vigente, as: :doc %>
+    </div>
+
+    <h2 class="marco-legal-area">Ley N° 21.719 – entra en vigencia el 1 de diciembre de 2026</h2>
+    <div class="marco-legal-grid">
+      <%= render partial: "documento_card", collection: @docs_ley_21719, as: :doc %>
+    </div>
+  </div>
+</section>

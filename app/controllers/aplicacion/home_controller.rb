@@ -1,7 +1,7 @@
 class Aplicacion::HomeController < ApplicationController
   before_action :redirect_unauthenticated, only: :dshbrd
   before_action :scrty_on, only: [:dshbrd]
-  before_action :set_meta_tags_publicos, only: %i[metodologia laborsafe equipo simulador guias blog costos]
+  before_action :set_meta_tags_publicos, only: %i[metodologia laborsafe equipo simulador guias blog costos capacitaciones datos_personales datos_personales_karin legal_annm]
 
   layout :resolve_home_layout   # anula el :resolve_layout de ApplicationController
 
@@ -54,6 +54,30 @@ class Aplicacion::HomeController < ApplicationController
       description: "Conozca los planes y modalidades de contratación del servicio de externalización de investigaciones Ley 21.643. Solicite una presentación comercial.",
       keywords: %w[planes precios externalización investigaciones ley 21.643],
       canonical: :costos_url
+    },
+    capacitaciones: {
+      title: "Capacitaciones y asesorías Ley 21.643 (Ley Karin)",
+      description: "Capacite a su equipo encargado del canal de denuncias antes de que llegue la primera denuncia. Talleres online, programas in-company y asesoría experta en la Ley 21.643.",
+      keywords: %w[capacitación ley 21.643 ley karin taller curso canal de denuncias asesoría],
+      canonical: :capacitaciones_url
+    },
+    datos_personales: {
+      title: "Documentación legal de protección de datos personales en Chile",
+      description: "Ley N° 19.628 vigente y Ley N° 21.719 que entra en vigencia el 1 de diciembre de 2026: textos oficiales, guías y documentos complementarios sobre protección de datos personales en Chile.",
+      keywords: %w[ley 19.628 ley 21.719 protección datos personales privacidad agencia chile],
+      canonical: :datos_personales_url
+    },
+    datos_personales_karin: {
+      title: "Protección de datos personales en el procedimiento Ley 21.643",
+      description: "Cómo se aplican hoy la Ley 19.628 a las investigaciones Ley Karin y qué cambios obliga la Ley 21.719 desde el 1 de diciembre de 2026: confidencialidad, anonimización, derechos del titular, medidas de seguridad y sanciones.",
+      keywords: %w[ley 21.643 ley karin ley 19.628 ley 21.719 datos personales investigación confidencialidad anonimización],
+      canonical: :datos_personales_karin_url
+    },
+    legal_annm: {
+      title: "Marco legal de la anonimización de documentos en Chile",
+      description: "Normativa chilena sobre anonimización de documentos de uso legal y empresarial: Ley 19.628, Ley 21.719, Auto Acordado 164-2024 de la Corte Suprema, Ley 21.643 y Decreto 21, más jurisprudencia relevante de la Corte Suprema.",
+      keywords: %w[anonimización seudonimización datos personales documentos legales corte suprema ley karin chile],
+      canonical: :legal_annm_url
     }
   }.freeze
 
@@ -163,7 +187,25 @@ class Aplicacion::HomeController < ApplicationController
     @otros_documentos   = ClssHome.otros_documentos
   end
 
+  def datos_personales
+    @docs_ley_vigente = ClssHome.datos_personales_vigente
+    @docs_ley_21719   = ClssHome.datos_personales_ley_21719
+  end
+
+  def datos_personales_karin
+  end
+
+  def legal_annm
+    @docs_normas_datos       = ClssHome.annm_normas_datos
+    @docs_normas_especificas = ClssHome.annm_normas_especificas
+    @fallos_corte_suprema    = ClssHome.annm_fallos_corte_suprema
+    @docs_complementarios    = ClssHome.annm_docs_complementarios
+  end
+
   def metodologia
+  end
+
+  def capacitaciones
   end
 
   def blog
