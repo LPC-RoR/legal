@@ -1,4 +1,5 @@
 class TrabajadoresController < ApplicationController
+  before_action :authenticate_usuario!
   before_action :set_trabajador, only: %i[ show edit update destroy ]
 
   layout 'pltfrm'
