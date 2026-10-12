@@ -1,10 +1,10 @@
 <%= render partial: 'layouts/public/ticker', locals: {dsply: false} %>
 
 <div class="mx-3">
-  <nav class="navbar navbar-expand-md navbar-light overlay-nav">
+  <nav class="navbar navbar-expand-xl navbar-light overlay-nav">
     <div class="container-fluid px-3">
-      
-      <!-- Botón hamburguesa: pequeño en móvil, oculto en desktop (Bootstrap lo maneja) -->
+
+      <!-- Botón hamburguesa -->
       <button class="navbar-toggler order-0 me-2 p-1" type="button"
               data-bs-toggle="collapse" data-bs-target="#heroNav"
               aria-controls="heroNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,72 +13,62 @@
 
       <!-- Logo: versión móvil (pequeña) -->
       <%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: nil} do %>
-        <%= image_tag 'logo/logo_130.png', 
-            class: 'img-fluid d-md-none', 
+        <%= image_tag 'logo/logo_130.png',
+            class: 'img-fluid d-md-none',
             style: 'max-height: 40px;' %>
       <% end %>
 
-      <!-- Logo: versión desktop (tamaño original) -->
+      <!-- Logo: versión desktop -->
       <%= render layout: '0p/tltp_lnk', locals: {lnk: root_path, tltp: nil} do %>
-        <%= image_tag 'logo/logo_130.png', 
+        <%= image_tag 'logo/logo_130.png',
             class: 'img-fluid d-none d-md-block' %>
       <% end %>
 
       <!-- Ítems de menú -->
       <div class="collapse navbar-collapse order-last" id="heroNav">
 
-        <!-- CENTRO: Nuevo grupo de ítems -->
-        <ul class="navbar-nav mx-auto align-items-md-center">
+        <!-- CENTRO -->
+        <ul class="navbar-nav mx-auto align-items-xl-center">
           <% unless action_name == 'index' %>
             <li class="nav-item">
-              <%= link_to 'Home', root_path, class: 'nav-link fs-6' %>
+              <%= link_to 'Inicio', root_path, class: 'nav-link fs-6 text-nowrap' %>
             </li>
           <% end %>
 
           <% unless action_name == 'metodologia' %>
             <li class="nav-item">
-              <%= link_to 'Metodología', '/metodologia', class: 'nav-link fs-6' %>
+              <%= link_to 'Metodología', '/metodologia', class: 'nav-link fs-6 text-nowrap' %>
             </li>
           <% end %>
 
           <% unless action_name == 'laborsafe' %>
             <li class="nav-item">
-              <%= link_to 'Plataforma tecnológica', '/laborsafe', class: 'nav-link fs-6' %>
+              <%= link_to 'Plataforma', '/laborsafe', class: 'nav-link fs-6 text-nowrap' %>
             </li>
           <% end %>
 
           <% unless action_name == 'equipo' %>
             <li class="nav-item">
-              <%= link_to 'Equipo legal', '/equipo', class: 'nav-link fs-6' %>
+              <%= link_to 'Equipo', '/equipo', class: 'nav-link fs-6 text-nowrap' %>
             </li>
           <% end %>
 
           <% unless action_name == 'capacitaciones' %>
             <li class="nav-item">
-              <%= link_to 'Capacitaciones', capacitaciones_path, class: 'nav-link fs-6' %>
+              <%= link_to 'Capacitaciones', capacitaciones_path, class: 'nav-link fs-6 text-nowrap' %>
             </li>
           <% end %>
-          
+
           <% unless action_name == 'simulador' %>
             <li class="nav-item">
-              <%= link_to 'Simulador de plazos', '/simulador', class: 'nav-link fs-6' %>
+              <%= link_to 'Simulador', '/simulador', class: 'nav-link fs-6 text-nowrap' %>
             </li>
           <% end %>
-
-          <!--li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Guías Ley Karin
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/guias?p=plzs">Plazos legales</a></li>
-            </ul>
-          </li-->
-
         </ul>
 
-        <ul class="navbar-nav ms-auto align-items-md-center">
+        <ul class="navbar-nav ms-auto align-items-xl-center">
           <li class="nav-item">
-            <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'me-5 nav-link fs-6' %>
+            <%= link_to 'Iniciar sesión', new_usuario_session_path, class: 'nav-link fs-6 text-nowrap' %>
           </li>
         </ul>
       </div>
