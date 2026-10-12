@@ -6,7 +6,7 @@ class Docs::DocCartolasController < ApplicationController
 
   # GET /doc_cartolas or /doc_cartolas.json
   def index
-    @clccn = DocCartola.includes(doc_cuenta: :doc_banco).with_attached_archivo
+    @clccn = DocCartola.includes(doc_cuenta: :doc_banco).with_attached_archivo.order(numero_cartola: :desc)
   end
 
   # GET /doc_cartolas/1 or /doc_cartolas/1.json
