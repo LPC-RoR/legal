@@ -1,4 +1,5 @@
 class Docs::DocCartolasController < ApplicationController
+  before_action :authenticate_usuario!, except: [:verify]
   before_action :set_doc_cartola, only: %i[ show edit update destroy ]
 
   layout 'pltfrm'

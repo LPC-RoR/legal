@@ -1,4 +1,5 @@
 class Docs::DocPagosController < ApplicationController
+  before_action :authenticate_usuario!, except: [:verify]
   before_action :set_doc_pago, only: %i[ show edit update destroy ]
 
   layout 'pltfrm'

@@ -1,4 +1,5 @@
 class Docs::DocEmitidosController < ApplicationController
+  before_action :authenticate_usuario!, except: [:verify]
   before_action :set_doc_emitido, only: %i[ show edit update destroy update_tipo_factura ]
 
   layout 'pltfrm'

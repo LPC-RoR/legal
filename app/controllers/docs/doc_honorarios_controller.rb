@@ -1,4 +1,5 @@
 class Docs::DocHonorariosController < ApplicationController
+  before_action :authenticate_usuario!, except: [:verify]
   before_action :set_doc_honorario, only: [:show, :destroy, :reprocesar]
 
   layout 'pltfrm'
