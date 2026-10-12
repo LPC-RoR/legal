@@ -1,5 +1,5 @@
 class Docs::DocDetallesController < ApplicationController
-  before_action :authenticate_usuario!, except: [:verify]
+  before_action :authenticate_usuario!
   before_action :set_doc_detalle, only: %i[ show edit update destroy ]
 
   layout 'pltfrm'

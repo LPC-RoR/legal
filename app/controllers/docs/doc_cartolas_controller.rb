@@ -1,5 +1,5 @@
 class Docs::DocCartolasController < ApplicationController
-  before_action :authenticate_usuario!, except: [:verify]
+  before_action :authenticate_usuario!
   before_action :set_doc_cartola, only: %i[ show edit update destroy ]
 
   layout 'pltfrm'
@@ -7,8 +7,6 @@ class Docs::DocCartolasController < ApplicationController
   # GET /doc_cartolas or /doc_cartolas.json
   def index
     @clccn = DocCartola.includes(doc_cuenta: :doc_banco).with_attached_archivo
-    puts "********************************************************************** index"
-    puts @clccn.count
   end
 
   # GET /doc_cartolas/1 or /doc_cartolas/1.json
@@ -51,7 +49,18 @@ class Docs::DocCartolasController < ApplicationController
       loader = CartolaLoader.new(@objeto)
 
       if loader.cargar!
-        redirect_to doc_cartolas_path, notice: 'Cartola cargada exitosamente.'
+        notice = "Cartola #{@objeto.tipo} cargada exitosamente."
+        if @objeto.mensual?
+          partes = []
+          partes << "#{loader.transacciones_reasignadas} transacciones asociadas desde cartolas previas" if loader.transacciones_reasignadas.to_i.positive?
+          if @objeto.cuadrada? == false
+            partes << "ATENCIÓN: no cuadra (diferencia: #{@objeto.diferencia_cuadratura})"
+          elsif @objeto.cuadrada?
+            partes << "cartola cuadrada"
+          end
+          notice = "Cartola mensual cargada (#{partes.join('; ')})."
+        end
+        redirect_to doc_cartolas_path, notice: notice
       else
         @objeto.destroy
         @objeto = DocCartola.new

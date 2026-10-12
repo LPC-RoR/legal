@@ -7,9 +7,10 @@ class CartolaLoader
   def initialize(doc_cartola)
     @doc_cartola = doc_cartola
     @errores = []
+    @transacciones_reasignadas = 0
   end
 
-  attr_reader :errores
+  attr_reader :errores, :transacciones_reasignadas
 
   def cargar!
     return false unless @doc_cartola.archivo.attached?
@@ -40,25 +41,40 @@ class CartolaLoader
       banco  = buscar_o_crear_banco(datos_banco)
       cuenta = buscar_o_crear_cuenta(banco, datos_cuenta)
 
-      # Guardar la cartola con todos sus datos
       @doc_cartola.assign_attributes(
         doc_cuenta: cuenta,
         numero_cartola: datos_cuenta[:numero_cartola],
         fecha_desde: datos_cuenta[:fecha_desde],
         fecha_hasta: datos_cuenta[:fecha_hasta],
+        tipo: tipo_cartola(filas),
         **datos_saldos,
         **datos_credito
       )
-      
+
       @doc_cartola.save(validate: false)
 
-      Rails.logger.info "[CartolaLoader] Cartola guardada: id=#{@doc_cartola.id}, numero_cartola=#{@doc_cartola.numero_cartola}, saldo_final=#{@doc_cartola.saldo_final}"
+      Rails.logger.info "[CartolaLoader] Cartola guardada: id=#{@doc_cartola.id}, tipo=#{@doc_cartola.tipo}, numero_cartola=#{@doc_cartola.numero_cartola}, fecha_desde=#{@doc_cartola.fecha_desde}, fecha_hasta=#{@doc_cartola.fecha_hasta}, saldo_final=#{@doc_cartola.saldo_final}"
+
+      # Cartola MENSUAL: concentrar en ella todas las transacciones del mes
+      # (provisorias del mes y/o mensual previa en caso de recarga)
+      if @doc_cartola.mensual?
+        reasignar_transacciones_a_cartola_mensual
+      end
 
       # Crear transacciones (con deduplicación inteligente)
       transacciones = crear_transacciones(sheet, cuenta, filas[:movimientos])
       vincular_transacciones(transacciones)
 
-      Rails.logger.info "[CartolaLoader] Transacciones creadas: #{transacciones.count}, omitidas por duplicado: #{@transacciones_omitidas || 0}"
+      Rails.logger.info "[CartolaLoader] Transacciones creadas: #{transacciones.count}, omitidas por duplicado: #{@transacciones_omitidas || 0}, reasignadas: #{@transacciones_reasignadas}"
+
+      # Verificación de cuadratura al cierre del mes
+      if @doc_cartola.mensual?
+        @doc_cartola.reload
+        Rails.logger.info "[CartolaLoader] Cuadratura cartola ##{@doc_cartola.id}: " \
+          "cuadrada=#{@doc_cartola.cuadrada?}, diferencia=#{@doc_cartola.diferencia_cuadratura}, " \
+          "saldo_inicial=#{@doc_cartola.saldo_inicial}, saldo_final=#{@doc_cartola.saldo_final}, " \
+          "total_movimientos=#{@doc_cartola.total_movimientos}"
+      end
 
       true
     rescue => e
@@ -73,6 +89,72 @@ class CartolaLoader
   end
 
   private
+
+  # ============================================================
+  # Clasificación automática provisoria / mensual
+  # La cartola MENSUAL del banco trae las secciones de resumen
+  # "SALDO INICIAL" (filas[:saldos]) y "CUPO APROBADO" (filas[:credito]);
+  # la provisoria no las trae. NO se detecta por fechas porque el
+  # período mensual del banco no coincide con el mes calendario
+  # (ej: 30-abr a 29-may).
+  # ============================================================
+  def tipo_cartola(filas)
+    detectado = (filas[:saldos].present? && filas[:credito].present?) ? 'mensual' : 'provisoria'
+
+    Rails.logger.info "[CartolaLoader] Detección tipo automática: saldos=#{filas[:saldos].inspect}, " \
+      "credito=#{filas[:credito].inspect} => #{detectado}"
+
+    detectado
+  end
+
+  # ============================================================
+  # Cartola MENSUAL: concentración de transacciones del mes
+  # ============================================================
+
+  # Mueve a esta cartola mensual todas las transacciones de la cuenta cuya
+  # fecha cae dentro del período de la cartola y que están en OTRAS cartolas
+  # (provisorias cargadas durante el mes, o una mensual previa en caso de
+  # recarga). Las relaciones de cada transacción (doc_pagos, doc_notas,
+  # relacionable, clasificacion, estado) se conservan porque pertenecen a la
+  # transacción, no a la cartola.
+  #
+  # Debe ejecutarse ANTES de crear_transacciones: así la deduplicación
+  # (que cuenta por cuenta + rango de fechas) reconoce como existentes las
+  # filas ya cargadas, omite las duplicadas y solo crea las que faltan,
+  # quedando todas asociadas a esta cartola mensual.
+  def reasignar_transacciones_a_cartola_mensual
+    if @doc_cartola.fecha_desde.blank? || @doc_cartola.fecha_hasta.blank? || @doc_cartola.doc_cuenta_id.blank?
+      Rails.logger.warn "[CartolaLoader] Cartola mensual sin fechas o sin cuenta; no se reasignan transacciones"
+      return
+    end
+
+    transacciones_previas = DocTransaccion
+      .where(doc_cuenta_id: @doc_cartola.doc_cuenta_id)
+      .where.not(doc_cartola_id: @doc_cartola.id)
+      .where(fecha: @doc_cartola.fecha_desde..@doc_cartola.fecha_hasta)
+
+    cartolas_afectadas_ids = transacciones_previas.distinct.pluck(:doc_cartola_id)
+
+    @transacciones_reasignadas = transacciones_previas.update_all(
+      doc_cartola_id: @doc_cartola.id,
+      updated_at: Time.current
+    )
+
+    Rails.logger.info "[CartolaLoader] Cartola mensual ##{@doc_cartola.id}: " \
+      "#{@transacciones_reasignadas} transacciones reasignadas desde cartolas #{cartolas_afectadas_ids.inspect}"
+
+    # Las cartolas afectadas quedaron vacías (todas sus transacciones del mes
+    # se movieron). Se eliminan — tanto la mensual previa (recarga del mismo
+    # mes: garantiza un único registro mensual por mes/cuenta) como las
+    # provisorias ya vacías. Sus archivos Excel no se conservan.
+    DocCartola.where(id: cartolas_afectadas_ids).find_each do |cartola_vieja|
+      next if cartola_vieja.id == @doc_cartola.id
+      next if cartola_vieja.doc_transacciones.exists?
+
+      Rails.logger.info "[CartolaLoader] Eliminando cartola vacía ##{cartola_vieja.id} (tipo: #{cartola_vieja.tipo})"
+      cartola_vieja.destroy
+    end
+  end
 
   def descargar_archivo_temporal
     extension = @doc_cartola.archivo.filename.to_s.split('.').last.downcase
@@ -160,11 +242,11 @@ class CartolaLoader
   def extraer_datos_cuenta(sheet, filas)
     fila_cuenta = filas[:datos_cuenta] || 7
     fila_cartola = filas[:numero_cartola] || 8
-    
+
     cuenta_raw = limpiar_celda(sheet.cell(fila_cuenta, 1))
     moneda_raw = limpiar_celda(sheet.cell(fila_cuenta, 3))
     sucursal_raw = limpiar_celda(sheet.cell(fila_cuenta, 4))
-    
+
     numero_cartola_raw = limpiar_celda(sheet.cell(fila_cartola, 1))
     fecha_desde_raw = limpiar_celda(sheet.cell(fila_cartola, 3))
     fecha_hasta_raw = limpiar_celda(sheet.cell(fila_cartola, 4))
@@ -185,23 +267,23 @@ class CartolaLoader
     return nil if valor_raw.blank?
 
     valor_limpio = extraer_valor_despues_dos_puntos(valor_raw)
-    
+
     if valor_limpio.blank?
       Rails.logger.warn "[CartolaLoader] No se pudo extraer número de cartola de: #{valor_raw.inspect}"
       return nil
     end
 
     numero = valor_limpio.to_i
-    
+
     Rails.logger.info "[CartolaLoader] Número de cartola extraído: #{numero}"
     numero
   end
 
   def extraer_datos_saldos(sheet, fila_saldos)
     fila_saldos ||= 10
-    
+
     Rails.logger.info "[CartolaLoader] Leyendo saldos de fila #{fila_saldos}"
-    
+
     valores = {
       saldo_inicial: sheet.cell(fila_saldos, 1),
       depositos: sheet.cell(fila_saldos, 2),
@@ -211,9 +293,9 @@ class CartolaLoader
       impuestos: sheet.cell(fila_saldos, 6),
       saldo_final: sheet.cell(fila_saldos, 7)
     }
-    
+
     Rails.logger.info "[CartolaLoader] Valores crudos saldos: #{valores.inspect}"
-    
+
     {
       saldo_inicial: parsear_monto(valores[:saldo_inicial]),
       depositos: parsear_monto(valores[:depositos]),
@@ -255,7 +337,7 @@ class CartolaLoader
 
   def buscar_o_crear_banco(datos)
     rut = normalizar_rut(datos[:rut_empresa])
-    
+
     DocBanco.find_or_create_by!(rut: rut) do |b|
       b.nombre = datos[:nombre_empresa]
     end
@@ -269,7 +351,7 @@ class CartolaLoader
   end
 
   # ============================================================
-  # NUEVO: Métodos de deduplicación con contador de ocurrencias
+  # Deduplicación con contador de ocurrencias
   # ============================================================
 
   # Construye la clave de deduplicación para una transacción
@@ -288,7 +370,7 @@ class CartolaLoader
 
     "#{fecha_key}|#{monto_key}|#{desc_key}"
   end
-  
+
   # Cuenta las ocurrencias de cada clave en las transacciones existentes de la cuenta
   # dentro del rango de fechas de la cartola actual
   def contar_transacciones_existentes(cuenta, fecha_desde, fecha_hasta)
@@ -321,11 +403,11 @@ class CartolaLoader
 
     # Obtener conteo de transacciones existentes para deduplicación
     conteo_existentes = contar_transacciones_existentes(
-      cuenta, 
-      @doc_cartola.fecha_desde, 
+      cuenta,
+      @doc_cartola.fecha_desde,
       @doc_cartola.fecha_hasta
     )
-    
+
     # Contador de ocurrencias procesadas en esta carga (para manejar duplicados en la misma cartola)
     conteo_nuevas = Hash.new(0)
 
@@ -349,7 +431,7 @@ class CartolaLoader
       # Defensa: saltar si el "monto" es texto de header
       monto_limpio = limpiar_celda(monto)
       next if monto_limpio&.match?(/\A(MONTO|SALDO|DEPOSITOS|CARGOS|ABONOS)\z/i)
-      
+
       # Parsear valores
       monto_parsed = parsear_monto(monto)
       fecha_parsed = parsear_fecha(fecha)
@@ -358,13 +440,11 @@ class CartolaLoader
 
       # Construir clave de deduplicación
       clave = clave_deduplicacion(fecha_parsed, monto_parsed, descripcion)
-      
+
       # Incrementar contador de esta nueva transacción
       conteo_nuevas[clave] += 1
-      
+
       # DEDUPLICACIÓN: Solo crear si la ocurrencia actual excede las existentes
-      # Ejemplo: Si ya hay 2 transacciones idénticas en BD y esta es la 3ra, se crea.
-      # Si ya hay 2 y esta es la 1ra o 2da, se omite.
       if conteo_nuevas[clave] <= (conteo_existentes[clave] || 0)
         @transacciones_omitidas += 1
         Rails.logger.info "[CartolaLoader] Omitiendo transacción duplicada (ocurrencia #{conteo_nuevas[clave]} de #{conteo_existentes[clave]} existentes): #{clave}"
@@ -406,14 +486,14 @@ class CartolaLoader
 
   def extraer_rut_descripcion(descripcion)
     return nil if descripcion.blank?
-    
+
     match = DESCRIPCION_RUT_PATTERN.match(descripcion.to_s.strip)
     return nil unless match
-    
+
     rut_raw = match[1]
     rut_limpio = rut_raw.sub(/\A0+/, '')
     rut_limpio = '0' if rut_limpio.empty?
-    
+
     rut_limpio.upcase
   end
 
@@ -449,7 +529,7 @@ class CartolaLoader
   def parsear_fecha(valor)
     return nil if valor.blank?
     return valor.to_date if valor.is_a?(Date) || valor.is_a?(Time)
-    
+
     Date.strptime(valor.to_s.strip, '%d/%m/%Y')
   rescue
     Date.parse(valor.to_s.strip) rescue nil
@@ -489,12 +569,12 @@ class CartolaLoader
 
   def validar_numero_documento(valor)
     return nil if valor.blank?
-    
+
     limpio = valor.to_s.strip
     # Solo permite dígitos (y opcionalmente letras K/k para casos especiales de RUT)
     # Para cartolas bancarias, N° DOCUMENTO debería ser solo números
     return nil unless limpio.match?(/\A\d+\z/)
-    
+
     limpio
   end
 end
