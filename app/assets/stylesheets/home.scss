@@ -413,3 +413,28 @@ $ml-radio: 10px;
 }
 
 .ls-card-text b { font-weight: 600; }
+
+.documento-card-qr {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+
+  svg {
+    width: 96px;
+    height: 96px;
+    display: block;
+  }
+}
+
+.documento-card-qr-leyenda {
+  font-size: 0.75rem;
+  color: #6c757d; // ajusta a la paleta de LaborSafe
+  text-align: center;
+}
+
+.documento-card-link {
+  display: table;   // se ajusta al ancho del texto
+  margin: 0 auto;   // centrado horizontal
+}

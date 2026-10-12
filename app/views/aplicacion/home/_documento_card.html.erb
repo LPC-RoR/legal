@@ -19,6 +19,15 @@
     </div>
   </dl>
 
+  <div class="documento-card-qr">
+    <%= link_to codigo_qr_svg(doc[:url]),
+                doc[:url],
+                target: "_blank",
+                rel: "noopener noreferrer",
+                title: "Escanear para abrir: #{doc[:nombre]}" %>
+    <span class="documento-card-qr-leyenda">Escanea el código para abrir el documento</span>
+  </div>
+
   <%= link_to doc[:nombre], doc[:url],
               target: "_blank", rel: "noopener noreferrer",
               class: "documento-card-link" %>
