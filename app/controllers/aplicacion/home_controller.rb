@@ -1,102 +1,55 @@
 class Aplicacion::HomeController < ApplicationController
   before_action :redirect_unauthenticated, only: :dshbrd
   before_action :scrty_on, only: [:dshbrd]
-  before_action :set_meta_tags_publicos, only: %i[metodologia laborsafe equipo simulador guias blog costos capacitaciones datos_personales datos_personales_karin legal_annm]
+  before_action :set_meta_tags_publicos, only: %i[index metodologia laborsafe equipo simulador guias blog costos capacitaciones datos_personales datos_personales_karin legal_annm]
+  before_action :set_json_ld_publicos, only: %i[index simulador guias costos]
 
   layout :resolve_home_layout   # anula el :resolve_layout de ApplicationController
 
   # ---------------------------------------------------------------
-  # Datos SEO de las páginas públicas
-  # Nota: NO incluir "| Laborsafe" en :title — prepare_meta_tags
-  # (ApplicationController) define site: "Laborsafe" con reverse: true
-  # y agrega la marca automáticamente.
+  # Datos SEO de las páginas públicas.
+  # Ver reglas de edición en config/data/seo_publicas.yml.
   # ---------------------------------------------------------------
-  SEO_PUBLICAS = {
-    metodologia: {
-      title: "Etapas y plazos del procedimiento Ley 21.643",
-      description: "Las cinco etapas del procedimiento Ley 21.643: plazos legales, responsables y el aporte de Laborsafe en la investigación, depósito y aplicación de medidas.",
-      keywords: %w[procedimiento ley 21.643 etapas plazos ley karin investigación dirección del trabajo],
-      canonical: :metodologia_url
-    },
-    laborsafe: {
-      title: "Plataforma tecnológica para investigaciones Ley 21.643",
-      description: "Plataforma para gestionar el procedimiento Ley 21.643: control de plazos, carpeta electrónica trazable, confidencialidad por diseño y documentos de abogados.",
-      keywords: %w[plataforma ley 21.643 software denuncias gestión investigación carpeta electrónica],
-      canonical: :laborsafe_url
-    },
-    equipo: {
-      title: "Equipo legal de abogados especialistas Ley 21.643",
-      description: "Conozca al equipo legal de Laborsafe: abogados especialistas en derecho laboral y en la conducción de investigaciones ante la Dirección del Trabajo.",
-      keywords: %w[abogados especialistas ley 21.643 derecho laboral investigadores],
-      canonical: :equipo_url
-    },
-    simulador: {
-      title: "Simulador de plazos del procedimiento Ley 21.643",
-      description: "Simule gratis las fechas límite de las cinco etapas del procedimiento Ley 21.643 y reciba el detalle proyectado en su correo.",
-      keywords: %w[simulador plazos ley 21.643 calculadora días hábiles ley karin],
-      canonical: :simulador_url,
-      og_title: "Simulador gratuito: plazos del procedimiento Ley 21.643"
-    },
-    guias: {
-      title: "Guías prácticas sobre la Ley 21.643",
-      description: "Guías prácticas sobre la Ley 21.643: plazos del procedimiento, deberes del canal de denuncias y buenas prácticas para investigar denuncias laborales en Chile.",
-      keywords: %w[guías ley 21.643 ley karin canal de denuncias plazos],
-      canonical: :guias_url
-    },
-    blog: {
-      title: "Blog y actualidad sobre la Ley 21.643",
-      description: "Actualidad, análisis y consejos prácticos sobre la Ley 21.643, el procedimiento de investigación de denuncias laborales y su implementación en las empresas.",
-      keywords: %w[blog ley 21.643 ley karin denuncias laborales],
-      canonical: :blog_url
-    },
-    costos: {
-      title: "Planes y modalidades de externalización",
-      description: "Conozca los planes y modalidades de contratación del servicio de externalización de investigaciones Ley 21.643. Solicite una presentación comercial.",
-      keywords: %w[planes precios externalización investigaciones ley 21.643],
-      canonical: :costos_url
-    },
-    capacitaciones: {
-      title: "Capacitaciones y asesorías Ley 21.643 (Ley Karin)",
-      description: "Capacite a su equipo encargado del canal de denuncias antes de que llegue la primera denuncia. Talleres online, programas in-company y asesoría experta en la Ley 21.643.",
-      keywords: %w[capacitación ley 21.643 ley karin taller curso canal de denuncias asesoría],
-      canonical: :capacitaciones_url
-    },
-    datos_personales: {
-      title: "Documentación legal de protección de datos personales en Chile",
-      description: "Ley N° 19.628 vigente y Ley N° 21.719 que entra en vigencia el 1 de diciembre de 2026: textos oficiales, guías y documentos complementarios sobre protección de datos personales en Chile.",
-      keywords: %w[ley 19.628 ley 21.719 protección datos personales privacidad agencia chile],
-      canonical: :datos_personales_url
-    },
-    datos_personales_karin: {
-      title: "Protección de datos personales en el procedimiento Ley 21.643",
-      description: "Cómo se aplican hoy la Ley 19.628 a las investigaciones Ley Karin y qué cambios obliga la Ley 21.719 desde el 1 de diciembre de 2026: confidencialidad, anonimización, derechos del titular, medidas de seguridad y sanciones.",
-      keywords: %w[ley 21.643 ley karin ley 19.628 ley 21.719 datos personales investigación confidencialidad anonimización],
-      canonical: :datos_personales_karin_url
-    },
-    legal_annm: {
-      title: "Marco legal de la anonimización de documentos en Chile",
-      description: "Normativa chilena sobre anonimización de documentos de uso legal y empresarial: Ley 19.628, Ley 21.719, Auto Acordado 164-2024 de la Corte Suprema, Ley 21.643 y Decreto 21, más jurisprudencia relevante de la Corte Suprema.",
-      keywords: %w[anonimización seudonimización datos personales documentos legales corte suprema ley karin chile],
-      canonical: :legal_annm_url
-    }
+  SEO_PUBLICAS = YAML.load_file(
+    Rails.root.join("config/data/seo_publicas.yml")
+  ).deep_symbolize_keys.freeze
+
+  # ---------------------------------------------------------------
+  # Datos estructurados JSON-LD (schema.org)
+  # Requiere gema meta-tags >= 2.19 (opción json_ld).
+  # ---------------------------------------------------------------
+  JSON_LD_SERVICIO_BASE = {
+    "@context" => "https://schema.org",
+    "@type"    => "LegalService",
+    "name"     => "Laborsafe",
+    "areaServed" => { "@type" => "Country", "name" => "Chile" },
+    "description" => "Externalización de investigaciones de denuncias Ley 21.643 (Ley Karin) realizadas por abogados especialistas."
+  }.freeze
+
+  JSON_LD_FAQ_PLAZOS = {
+    "@context" => "https://schema.org",
+    "@type"    => "FAQPage",
+    "mainEntity" => [
+      {
+        "@type" => "Question",
+        "name"  => "¿Cuánto dura el procedimiento de investigación de la Ley 21.643?",
+        "acceptedAnswer" => {
+          "@type" => "Answer",
+          "text"  => "El procedimiento tiene cinco etapas: recepción de la denuncia (3 días hábiles), investigación (30 días hábiles), depósito del informe ante la Dirección del Trabajo (2 días hábiles), pronunciamiento de la DT (30 días hábiles) y aplicación de medidas (15 días corridos)."
+        }
+      },
+      {
+        "@type" => "Question",
+        "name"  => "¿Qué pasa si la empresa no cumple los plazos de la Ley 21.643?",
+        "acceptedAnswer" => {
+          "@type" => "Answer",
+          "text"  => "El incumplimiento de los plazos y deberes del procedimiento puede ser sancionado por la Dirección del Trabajo y aumenta el riesgo de judicialización de la denuncia."
+        }
+      }
+    ]
   }.freeze
 
   def index
-    set_meta_tags(
-      title: "Externalización de investigaciones Ley 21.643",
-      description: "Externalice las investigaciones de sus denuncias Ley 21.643 (Ley Karin) con abogados especialistas: minimice riesgos de judicialización, cumpla los plazos legales y proteja la confidencialidad del procedimiento.",
-      keywords: %w[externalización investigaciones ley 21.643 ley karin denuncias acoso laboral investigador externo chile],
-      canonical: root_url,
-      og: {
-        title: "Laborsafe - Externalización de investigaciones Ley 21.643",
-        description: "Investigaciones de denuncias Ley 21.643 realizadas por abogados especialistas, con control de plazos, confidencialidad y documentos redactados por expertos."
-      },
-      twitter: {
-        title: "Laborsafe - Externalización de investigaciones Ley 21.643",
-        description: "Investigaciones de denuncias Ley 21.643 realizadas por abogados especialistas."
-      }
-    )
-
     @lead = Lead.new
     @session_name = Digest::SHA1.hexdigest("#{session.id.to_s}#{Time.zone.today.to_s}")
 
@@ -217,16 +170,17 @@ class Aplicacion::HomeController < ApplicationController
     set_meta_tags(
       title: @hsh[:title],
       description: @hsh[:description],
+      canonical: request.original_url,   # evita URLs duplicadas indexables
       og: {
         title: @hsh[:title],
         description: @hsh[:description],
-        image: @hsh[:image_url],
+        image: @hsh[:image_url] || helpers.image_url("og/og-default.png"),
         url: request.original_url
       },
       twitter: {
         title: @hsh[:title],
         description: @hsh[:description],
-        image: @hsh[:image_url]
+        image: @hsh[:image_url] || helpers.image_url("og/og-default.png")
       }
     )
   end
@@ -249,7 +203,9 @@ class Aplicacion::HomeController < ApplicationController
     seo = SEO_PUBLICAS[action_name.to_sym]
     return if seo.blank?
 
-    url = send(seo[:canonical]) # p. ej. metodologia_url
+    url        = send(seo[:canonical])              # p. ej. metodologia_url
+    og_image   = og_image_url(seo[:og_image])
+    og_title   = seo[:og_title] || seo[:title]
 
     set_meta_tags(
       title: seo[:title],
@@ -257,15 +213,50 @@ class Aplicacion::HomeController < ApplicationController
       keywords: seo[:keywords],
       canonical: url,
       og: {
-        title: seo[:og_title] || seo[:title],
+        title: og_title,
         description: seo[:description],
-        url: url
+        url: url,
+        image: og_image,
+        type: "website",
+        locale: "es_CL"
       },
       twitter: {
-        title: seo[:og_title] || seo[:title],
-        description: seo[:description]
+        card: "summary_large_image",
+        title: og_title,
+        description: seo[:description],
+        image: og_image
       }
     )
+  end
+
+  # ---------------------------------------------------------------
+  # Imagen OG con fallback: si el asset específico de la página no
+  # existe, usa og-default.png. Así un archivo faltante nunca tumba
+  # la página con Propshaft::MissingAssetError.
+  # Las imágenes viven en app/assets/images/og/
+  # ---------------------------------------------------------------
+  OG_IMAGES_DIR = "og".freeze
+
+  def og_image_url(nombre)
+    archivo = nombre.to_s.presence || "og-default.png"
+    unless Rails.root.join("app/assets/images", OG_IMAGES_DIR, archivo).exist?
+      archivo = "og-default.png"
+    end
+    helpers.image_url("#{OG_IMAGES_DIR}/#{archivo}")
+  end
+
+  # ---------------------------------------------------------------
+  # Datos estructurados por página. Complementa (no reemplaza) los
+  # meta tags; schema.org mejora la elegibilidad de rich results.
+  # ---------------------------------------------------------------
+  def set_json_ld_publicos
+    json_ld =
+      case action_name
+      when "index", "costos" then JSON_LD_SERVICIO_BASE.merge("url" => root_url)
+      when "simulador", "guias" then JSON_LD_FAQ_PLAZOS
+      end
+
+    set_meta_tags(json_ld: json_ld) if json_ld.present?
   end
 
   # --------------------------- Métodos para el simulador

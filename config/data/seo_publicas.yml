@@ -1,0 +1,174 @@
+# ---------------------------------------------------------------
+# SEO de las páginas públicas de Laborsafe.
+# Este archivo lo puede editar marketing/comercial sin tocar código.
+#
+# Reglas:
+# - NO incluir "| Laborsafe" en :title — prepare_meta_tags
+#   (ApplicationController) define site: "Laborsafe" con reverse: true
+#   y agrega la marca automáticamente (+13 caracteres).
+# - Títulos: máx. 50 caracteres (ideal ≤ 57 con la marca).
+# - Descripciones: máx. 160 caracteres.
+# - :canonical es el nombre del helper de ruta (sin argumentos).
+# - :og_image es el nombre del archivo en app/assets/images/ (1200×630).
+# ---------------------------------------------------------------
+
+index:
+  title: "Externalización de investigaciones Ley 21.643"
+  description: "Externalice las investigaciones de sus denuncias Ley 21.643 (Ley Karin) con abogados especialistas y minimice los riesgos de judicialización."
+  keywords:
+    - externalización
+    - investigaciones
+    - ley 21.643
+    - ley karin
+    - denuncias
+    - acoso laboral
+    - investigador externo
+    - chile
+  canonical: root_url
+  og_title: "Laborsafe - Externalización de investigaciones Ley 21.643"
+  og_image: og-default.png
+
+metodologia:
+  title: "Etapas y plazos del procedimiento Ley 21.643"
+  description: "Las cinco etapas del procedimiento Ley 21.643: plazos legales, responsables y el aporte de Laborsafe en la investigación, depósito y aplicación de medidas."
+  keywords:
+    - procedimiento
+    - ley 21.643
+    - etapas
+    - plazos
+    - ley karin
+    - investigación
+    - dirección del trabajo
+  canonical: metodologia_url
+  og_image: og-default.png
+
+laborsafe:
+  title: "Plataforma Ley 21.643: gestión sin riesgo"
+  description: "Plataforma para gestionar el procedimiento Ley 21.643: control de plazos, carpeta electrónica trazable, confidencialidad por diseño y documentos de abogados."
+  keywords:
+    - plataforma
+    - ley 21.643
+    - software
+    - denuncias
+    - gestión
+    - investigación
+    - carpeta electrónica
+  canonical: laborsafe_url
+  og_image: og-default.png
+
+equipo:
+  title: "Equipo legal de abogados especialistas Ley 21.643"
+  description: "Conozca al equipo legal de Laborsafe: abogados especialistas en derecho laboral y en la conducción de investigaciones ante la Dirección del Trabajo."
+  keywords:
+    - abogados
+    - especialistas
+    - ley 21.643
+    - derecho laboral
+    - investigadores
+  canonical: equipo_url
+  og_image: og-equipo.png
+
+simulador:
+  title: "Simulador de plazos del procedimiento Ley 21.643"
+  description: "Simule gratis las fechas límite de las cinco etapas del procedimiento Ley 21.643 y reciba el detalle proyectado en su correo."
+  keywords:
+    - simulador
+    - plazos
+    - ley 21.643
+    - calculadora
+    - días hábiles
+    - ley karin
+  canonical: simulador_url
+  og_title: "Simulador gratuito: plazos del procedimiento Ley 21.643"
+  og_image: og-simulador.png
+
+guias:
+  title: "Guías prácticas sobre la Ley 21.643"
+  description: "Guías prácticas sobre la Ley 21.643: plazos del procedimiento, deberes del canal de denuncias y buenas prácticas para investigar denuncias laborales en Chile."
+  keywords:
+    - guías
+    - ley 21.643
+    - ley karin
+    - canal de denuncias
+    - plazos
+  canonical: guias_url
+  og_image: og-default.png
+
+blog:
+  title: "Blog y actualidad sobre la Ley 21.643"
+  description: "Actualidad, análisis y consejos prácticos sobre la Ley 21.643, el procedimiento de investigación de denuncias laborales y su implementación en las empresas."
+  keywords:
+    - blog
+    - ley 21.643
+    - ley karin
+    - denuncias laborales
+  canonical: blog_url
+  og_image: og-default.png
+
+costos:
+  title: "Planes de externalización Ley 21.643"
+  description: "Conozca los planes y modalidades de contratación del servicio de externalización de investigaciones Ley 21.643. Solicite una presentación comercial."
+  keywords:
+    - planes
+    - precios
+    - externalización
+    - investigaciones
+    - ley 21.643
+  canonical: costos_url
+  og_image: og-costos.png
+
+capacitaciones:
+  title: "Capacitaciones y asesorías Ley 21.643 (Ley Karin)"
+  description: "Capacite a su equipo del canal de denuncias antes de la primera denuncia: talleres online, in-company y asesoría experta en la Ley 21.643."
+  keywords:
+    - capacitación
+    - ley 21.643
+    - ley karin
+    - taller
+    - curso
+    - canal de denuncias
+    - asesoría
+  canonical: capacitaciones_url
+  og_image: og-default.png
+
+datos_personales:
+  title: "Protección de datos en Chile: leyes y documentos"
+  description: "Ley 19.628 vigente y Ley 21.719 (en vigencia el 1 de diciembre de 2026): textos oficiales, guías y documentos sobre protección de datos en Chile."
+  keywords:
+    - ley 19.628
+    - ley 21.719
+    - protección datos personales
+    - privacidad
+    - agencia
+    - chile
+  canonical: datos_personales_url
+  og_image: og-default.png
+
+datos_personales_karin:
+  title: "Datos personales en investigaciones Ley 21.643"
+  description: "Cómo se aplican la Ley 19.628 y la Ley 21.719 a las investigaciones Ley Karin: confidencialidad, anonimización, derechos del titular y sanciones."
+  keywords:
+    - ley 21.643
+    - ley karin
+    - ley 19.628
+    - ley 21.719
+    - datos personales
+    - investigación
+    - confidencialidad
+    - anonimización
+  canonical: datos_personales_karin_url
+  og_image: og-default.png
+
+legal_annm:
+  title: "Anonimización de documentos: marco legal en Chile"
+  description: "Leyes, Auto Acordado 164-2024 y jurisprudencia de la Corte Suprema sobre anonimización de documentos de uso legal y empresarial en Chile."
+  keywords:
+    - anonimización
+    - seudonimización
+    - datos personales
+    - documentos legales
+    - corte suprema
+    - ley karin
+    - chile
+  canonical: legal_annm_url
+  og_image: og-default.png
