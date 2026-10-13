@@ -1,16 +1,19 @@
 <tr>
 <td><%= dma (objt.fecha) %></td>
-<td><%= objt.descripcion %></td>
-<td>
-	<% if objt.relacionable %>
-		<i class="bi bi-check-circle"></i>
-		<%= objt.relacionable.class.name unless ['clientes', 'proveedores'].include?(controller_name)%>
+<td class="objt_lnk">
+	<%= objt.tipo_movimiento %>
+
+	<% if objt.relacionable.present? %>
+		<%= render layout: '0p/tltp_lnk', locals: {lnk: objt.relacionable, tltp: 'Ver Cuenta'} do %>
+			<%= objt.relacionable_type %> <i class="bi bi-arrow-right"> </i><%= s_rut(objt.descripcion_rut) %>
+		<% end %><br>
+		<small><i class="bi bi-arrow-return-right"></i><%= objt.descripcion %></small>
 	<% else %>
-		Pendiente
+		<%= objt.clasificacion.present? ? objt.clasificacion : 'sin clasificar' %> <%= s_rut(objt.descripcion_rut) if objt.descripcion_rut.present? %><br>
+		<small><i class="bi bi-arrow-return-right"></i><%= objt.descripcion %></small>
 	<% end %>
+		
 </td>
-<td class="text-end"><%= objt.descripcion_rut %></td>
-<td><%= objt.tipo_movimiento %></td>
 <td class="text-end <%= 'text-primary' if objt.doc_pagos.any? %>">
 	<%= s_pesos(objt.monto) %>
 	<%= render layout: '0p/tltp_lnk', locals: {lnk: "/doc_pagos/new#{blngs_prms(objt)}", tltp: 'Conciliar'} do %>
