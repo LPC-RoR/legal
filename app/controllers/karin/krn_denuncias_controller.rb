@@ -169,8 +169,7 @@ class Karin::KrnDenunciasController < ApplicationController
 
     case grupo
     when :txt_annm_ntfccns
-      codes = ClssAnnmInvstgcns::NTFCCNS_CDGS
-      @objeto.generar_expediente_anonimizado!(grupo)
+      generar_expediente_anonimizado(ClssAnnmInvstgcns::NTFCCNS_CDGS)
       redirect_to "/krn_denuncias/#{@objeto.id}_4",
                   notice: "Grupo #{params[:g]} anonimizado exitosamente!"
 
