@@ -35,6 +35,35 @@
   </td>
   
   <td class="pe-3 text-end objt_lnk"><%= link_to objt.folio, objt %></td>
+
+  <td>
+    <% if objt.factura? && objt.nota_credito_id.blank? %>
+      <%= form_with url: vincular_doc_emitido_path(objt), method: :patch do %>
+        <%= select_tag :documento_vinculado_id,
+              options_for_select(
+                objt.candidatas_nota_credito.map { |nc| ["NC #{nc.folio}", nc.id] },
+                objt.nota_credito_id
+              ),
+              include_blank: '—',
+              class: 'form-select form-select-sm',
+              style: 'width: auto; display: inline-block;',
+              onchange: 'this.form.requestSubmit()' %>
+      <% end %>
+    <% elsif objt.tipo_dte == 61 %>
+      <%= form_with url: vincular_doc_emitido_path(objt), method: :patch do %>
+        <%= select_tag :documento_vinculado_id,
+              options_for_select(
+                objt.candidatas_factura_anulada.map { |f| ["F #{f.folio}", f.id] },
+                objt.documento_anulado&.id
+              ),
+              include_blank: '—',
+              class: 'form-select form-select-sm',
+              style: 'width: auto; display: inline-block;',
+              onchange: 'this.form.requestSubmit()' %>
+      <% end %>
+    <% end %>
+  </td>
+
   <td class="pe-3 text-end"><%= l(objt.fecha_emision) %></td>
   <td>
     <% if objt.cliente.present? %>

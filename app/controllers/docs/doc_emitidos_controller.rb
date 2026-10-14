@@ -1,7 +1,6 @@
 class Docs::DocEmitidosController < ApplicationController
   before_action :authenticate_usuario!
-  before_action :set_doc_emitido, only: %i[ show edit update destroy update_tipo_factura ]
-
+  before_action :set_doc_emitido, only: %i[ show edit update destroy update_tipo_factura vincular ]
   layout 'pltfrm'
 
   # GET /doc_emitidos or /doc_emitidos.json
@@ -92,6 +91,40 @@ class Docs::DocEmitidosController < ApplicationController
     redirect_back fallback_location: doc_emitidos_path, notice: "Conciliación eliminada"
   end
 
+  def vincular
+    vinculo_id = params[:documento_vinculado_id].presence
+
+    if @objeto.factura?
+      factura = @objeto
+      nc      = vinculo_id ? DocEmitido.creditos.find_by(id: vinculo_id) : nil
+    else
+      if vinculo_id
+        # Se eligió una factura: esta NC pasa a anularla
+        factura = DocEmitido.facturas.find_by(id: vinculo_id)
+        nc      = @objeto
+      else
+        # Se eligió "—": desvincular la factura que actualmente apunta a esta NC
+        factura = DocEmitido.find_by(nota_credito_id: @objeto.id)
+        nc      = nil
+      end
+    end
+
+    if factura.nil?
+      redirect_back fallback_location: doc_emitidos_path,
+                    alert: 'No se encontró la factura a actualizar.'
+      return
+    end
+
+    factura.nota_credito = nc
+    if factura.save
+      redirect_back fallback_location: doc_emitidos_path,
+                    notice: 'Relación factura ↔ nota de crédito actualizada.'
+    else
+      redirect_back fallback_location: doc_emitidos_path,
+                    alert: factura.errors.full_messages.to_sentence
+    end
+  end
+  
   # DELETE /doc_emitidos/1 or /doc_emitidos/1.json
   def destroy
     @objeto.destroy!

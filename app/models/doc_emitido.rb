@@ -108,6 +108,26 @@ class DocEmitido < ApplicationRecord
     tipo_dte == 61 ? -monto_total : monto_total
   end
 
+  # NC (tipo 61) disponibles para vincular a esta factura (mismo cliente)
+  def candidatas_nota_credito
+    usadas = DocEmitido.where.not(nota_credito_id: [nil, id]).select(:nota_credito_id)
+    DocEmitido.creditos
+              .where(rut_emisor: rut_emisor)
+              .where(rut_receptor: rut_receptor)
+              .where.not(id: usadas)
+              .order(fecha_emision: :desc, folio: :desc)
+  end
+
+  # Facturas (33, 34, 56) disponibles para que esta NC las anule (mismo cliente)
+  def candidatas_factura_anulada
+    usadas = DocEmitido.where.not(nota_credito_id: [nil, id]).select(:nota_credito_id)
+    DocEmitido.facturas
+              .where(rut_emisor: rut_emisor)
+              .where(rut_receptor: rut_receptor)
+              .where.not(id: usadas)
+              .order(fecha_emision: :desc, folio: :desc)
+  end
+    
   private
 
   def estado_anulada?

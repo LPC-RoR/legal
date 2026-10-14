@@ -102,9 +102,10 @@ Rails.application.routes.draw do
     resources :doc_emitidos do
       member do
         patch :update_tipo_factura
+        patch :vincular
         get :edit_conciliacion
         patch :conciliar
-        delete :desconciliar          # ← nuevo
+        delete :desconciliar
       end
     end
     resources :doc_planillas do
