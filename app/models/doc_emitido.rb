@@ -57,7 +57,7 @@ class DocEmitido < ApplicationRecord
     3 => 'Gratuito'
   }.freeze
 
-  TIPOS_FACTURA = %w[asesoria cargo causa varios].freeze
+  TIPOS_FACTURA = %w[mensual causas fijos variables asesorias cargos].freeze
 
   validates :tipo_dte, presence: true, inclusion: { in: TIPOS_DTE.keys }
   validates :folio, presence: true, numericality: { only_integer: true, greater_than: 0 }
@@ -90,7 +90,7 @@ class DocEmitido < ApplicationRecord
   def factura?
     [33, 34, 56].include?(tipo_dte)
   end
-  
+
   def tipo_dte_nombre
     TIPOS_DTE[tipo_dte] || 'Desconocido'
   end
