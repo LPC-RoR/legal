@@ -57,7 +57,7 @@ class DocEmitido < ApplicationRecord
     3 => 'Gratuito'
   }.freeze
 
-  TIPOS_FACTURA = %w[mensual causas fijos variables asesorias cargos].freeze
+  TIPOS_FACTURA = %w[mensual causas fijos variables asesorias cargos capacitación karin].freeze
 
   validates :tipo_dte, presence: true, inclusion: { in: TIPOS_DTE.keys }
   validates :folio, presence: true, numericality: { only_integer: true, greater_than: 0 }
