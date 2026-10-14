@@ -59,10 +59,18 @@ class Docs::DocEmitidosController < ApplicationController
   end
 
   def update_tipo_factura
+    unless @objeto.factura?
+      redirect_back fallback_location: @objeto.doc_planilla || doc_emitidos_path,
+                    alert: 'Las notas de crédito no admiten tipo de factura.'
+      return
+    end
+
     if @objeto.update(tipo_factura: params[:tipo_factura])
-      redirect_back fallback_location: @objeto.doc_planilla, notice: 'Tipo de factura actualizado.'
+      redirect_back fallback_location: @objeto.doc_planilla || doc_emitidos_path,
+                    notice: 'Tipo de factura actualizado.'
     else
-      redirect_back fallback_location: @objeto.doc_planilla, alert: 'No se pudo actualizar.'
+      redirect_back fallback_location: @objeto.doc_planilla || doc_emitidos_path,
+                    alert: "No se pudo actualizar: #{@objeto.errors.full_messages.to_sentence}"
     end
   end
 

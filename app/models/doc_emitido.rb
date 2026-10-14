@@ -85,6 +85,12 @@ class DocEmitido < ApplicationRecord
       .order(fecha_emision: :asc, id: :asc)
   }
 
+  # Solo las facturas (33, 34, 56) se pueden clasificar;
+  # las notas de crédito (61) quedan excluidas.
+  def factura?
+    [33, 34, 56].include?(tipo_dte)
+  end
+  
   def tipo_dte_nombre
     TIPOS_DTE[tipo_dte] || 'Desconocido'
   end
