@@ -18,6 +18,22 @@
     <% end %>
   </td>
 
+  <td>
+    <% if objt.factura? %>
+      <%= form_with url: update_tipo_factura_doc_emitido_path(objt), method: :patch do %>
+        <%= select_tag :tipo_factura,
+              options_for_select(
+                DocEmitido::TIPOS_FACTURA.map { |t| [t.capitalize, t] },
+                objt.tipo_factura
+              ),
+              include_blank: 'Sin clasificar',
+              class: 'form-select form-select-sm',
+              style: 'width: auto; display: inline-block;',
+              onchange: 'this.form.requestSubmit()' %>
+      <% end %>
+    <% end %>
+  </td>
+  
   <td class="pe-3 text-end objt_lnk"><%= link_to objt.folio, objt %></td>
   <td class="pe-3 text-end"><%= l(objt.fecha_emision) %></td>
   <td>
