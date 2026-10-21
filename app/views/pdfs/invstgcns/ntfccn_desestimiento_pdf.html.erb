@@ -1,0 +1,26 @@
+<!-- app/views/pdfs/invstgcns/txt_mdds_crrctvs_sncns_pdf.html.erb -->
+<% code = 'ntfccn_desestimiento' %>
+
+<% dstntr   = @opciones[:anonimizar] ? @act.ownr : @ownr %>
+<%= render partial: 'pdfs/invstgcns/head_ttl', locals: {code: code} %>
+<%= render partial: 'pdfs/invstgcns/dstntr_rfrnc', locals: {dstntr: dstntr, pdf: @pdf, annm: @opciones[:anonimizar]} %>
+<%= render partial: 'pdfs/invstgcns/nota_annm', locals: {dstntr: dstntr} if @opciones[:anonimizar] %>
+
+<div>
+  <p>De mi consideración:</p>
+
+  <% fecha_control = @krn_denuncia.plazo_pronunciamiento_fecha %>
+
+  <p>Junto con saludar, informamos a usted que, con fecha <%= l(fecha_control, format: :long) if fecha_control %>, la Dirección del Trabajo emitió su pronunciamiento respecto de la investigación interna iniciada con ocasión de la denuncia presentada <% if @tipo_participante == 'denunciante' %> por usted <% else %> en su contra<% end %>, sin formular observaciones a las conclusiones del informe remitido por esta Corporación.</p>
+
+  <p>En cumplimiento de lo dispuesto en el artículo 19 del Reglamento de la Ley N.º 21.643, se comunica que, atendido el desistimiento de la denuncia formulado <% if @tipo_participante == 'denunciante' %>por usted <%else%>la persona denunciante<% end %>, ratificado posteriormente durante la investigación, y considerando que no se aportaron antecedentes adicionales que permitieran acreditar la ocurrencia de los hechos denunciados, no fue posible establecer la existencia de conductas constitutivas de acoso laboral, por lo que no corresponde la aplicación de medidas sancionatorias.</p>
+
+  <p>Asimismo, se informa que las medidas de resguardo dispuestas con ocasión de la investigación tenían un carácter estrictamente preventivo y transitorio, por lo que, habiendo concluido el procedimiento, estas quedarán sin efecto a contar de la fecha de la presente comunicación, cesando su aplicación.</p>
+
+  <p>Finalmente, reiteramos que la <%= @krn_denuncia.ownr.tipo_empresa.capitalize %> mantiene su compromiso con la prevención del acoso laboral, sexual y de la violencia en el trabajo, promoviendo un ambiente laboral seguro, respetuoso y libre de conductas contrarias a la dignidad de las personas.</p>
+
+  <p>Saluda atentamente,</p>
+
+</div>
+
+<%= render partial: 'pdfs/invstgcns/firma_mdds', locals: {emprs: @krn_denuncia.ownr} %>

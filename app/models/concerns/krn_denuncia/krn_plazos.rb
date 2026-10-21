@@ -36,6 +36,28 @@ module KrnDenuncia::KrnPlazos
     tramite_deposito&.fecha_tramite
   end
 
+  def fecha_mas_reciente_ntfccn_desestimiento
+    total_dnts = krn_denunciantes.count
+    total_dnds = krn_denunciados.count
+
+    return nil if total_dnts.zero? || total_dnds.zero?
+
+    # Notificado = tiene el ActArchivo 'ntfccn_desestimiento' con sndd: true
+    con_ntfccn_dnts = krn_denunciantes.joins(:act_archivos)
+                                      .where(act_archivos: { act_archivo: 'ntfccn_desestimiento', sndd: true })
+                                      .distinct.count
+    con_ntfccn_dnds = krn_denunciados.joins(:act_archivos)
+                                     .where(act_archivos: { act_archivo: 'ntfccn_desestimiento', sndd: true })
+                                     .distinct.count
+
+    return nil unless con_ntfccn_dnts == total_dnts && con_ntfccn_dnds == total_dnds
+
+    ActArchivo.where(ownr: krn_denunciantes + krn_denunciados,
+                     act_archivo: 'ntfccn_desestimiento',
+                     sndd: true)
+              .maximum(:created_at)
+  end
+
   def fecha_mas_reciente_txt_mdds_sncns
     total_dnts = krn_denunciantes.count
     total_dnds = krn_denunciados.count
@@ -314,7 +336,7 @@ module KrnDenuncia::KrnPlazos
   end
 
   def observacion_aplicacion
-    if fecha_mas_reciente_txt_mdds_sncns
+    if desestimiento? ? fecha_mas_reciente_ntfccn_desestimiento : fecha_mas_reciente_txt_mdds_sncns
       nil
     elsif fecha_recepcion_pronunciamiento.nil? && vencido?(plazo_pronunciamiento_fecha)
       'Plazo de pronunciamiento vencido. Aplicación desde fecha de vencimiento del plazo anterior.'

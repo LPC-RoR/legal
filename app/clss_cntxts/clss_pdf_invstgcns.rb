@@ -3,7 +3,7 @@ class ClssPdfInvstgcns
   include ConditionalArray
 
   OPTNL_CDGS    = ['crdncn_apt', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 'drchs', 'antecedentes', 'dts_incmbnts', 'dts_tstgs', 
-    'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'txt_mdfccn_mdds_rsgrd', 'antecedentes_annm']
+    'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'txt_mdfccn_mdds_rsgrd', 'antecedentes_annm', 'ntfccn_desestimiento']
 
   # UTILIZADO PARA DEFINIR QUÉ CÓDIGOS SE DESPLIEGAN
   DSPLY_CDGS    = {
@@ -21,7 +21,8 @@ class ClssPdfInvstgcns
       { code: 'txt_dnnc_rsmn',      condition: ->(o) { o&.act_archivos&.with_attached_pdf&.where_code('denuncia')&.any? } },
       { code: 'txt_dnnc_obsrvcns',  condition: ->(o) { o&.evlcn_dnnc == 'Con observaciones' } },
       { code: 'dnnc_crrgd',         condition: ->(o) { o&.evlcn_dnnc == 'Con observaciones' } },
-      { code: 'txt_infrm',          condition: ->(o) { o&.dclrcns_completas? } }
+      { code: 'txt_infrm',          condition: ->(o) { o&.dclrcns_completas? } },
+      { code: 'desestimiento',      condition: ->(o) { true } },
     ],
     dnncnt: [
       { code: 'rprsntcn',               condition: ->(o) { o.dnnc.presentado_por == 'Representante' } },
@@ -34,7 +35,8 @@ class ClssPdfInvstgcns
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       { code: 'txt_mdfccn_mdds_rsgrd',  condition: ->(o) { true } },
-      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { o.dnnc.txt_editables.exists?(codigo: 'txt_mdds_crrctvs_sncns') } },
+      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { !o.dnnc.desestimiento? && o.dnnc.txt_editables.exists?(codigo: 'txt_mdds_crrctvs_sncns') } },
+      { code: 'ntfccn_desestimiento',   condition: ->(o) { o.dnnc.desestimiento? } },
       { code: 'antecedentes',           condition: ->(o) { true } },
       { code: 'antecedentes_annm',      condition: ->(o) { true } },
     ],
@@ -45,7 +47,8 @@ class ClssPdfInvstgcns
       { code: 'txt_mdds_rsgrd',         condition: ->(o) { true } },
       { code: 'invstgdr',               condition: ->(o) { o.dnnc.krn_inv_denuncias.any? } },
       { code: 'txt_mdfccn_mdds_rsgrd',  condition: ->(o) { true } },
-      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { o.dnnc.txt_editables.exists?(codigo: 'txt_mdds_crrctvs_sncns') } },
+      { code: 'txt_mdds_crrctvs_sncns', condition: ->(o) { !o.dnnc.desestimiento? && o.dnnc.txt_editables.exists?(codigo: 'txt_mdds_crrctvs_sncns') } },
+      { code: 'ntfccn_desestimiento',   condition: ->(o) { o.dnnc.desestimiento? } },
       { code: 'antecedentes',           condition: ->(o) { true } },
       { code: 'antecedentes_annm',      condition: ->(o) { true } },
     ],
@@ -83,6 +86,8 @@ class ClssPdfInvstgcns
       'apt'                     => 'Evidencias de atención psicológica temprana',
       'txt_mdds_rsgrd'          => 'Notificación de las medidas de resguardo',
       'txt_mdfccn_mdds_rsgrd'   => 'Complementación o modificación de medidas de resguardo',
+      'desestimiento'           => 'Desestimiento presentado por la persona denunciante',
+      'ntfccn_desestimiento'    => 'Notificación del desestimiento de la denuncia',
       'antecedentes'            => 'Documentos presentados por el participante',
       'antecedentes_annm'       => 'Antecedentes anonimizados manualmente',
       'invstgdr'                => 'Notificación del investigador asignado',
@@ -111,7 +116,7 @@ class ClssPdfInvstgcns
       'txt_invstgdr_dsgncn', 'txt_dnnc_annmzd', 'txt_dnnc_rsmn', 
       'dclrcn', 'txt_dclrcn', 'txt_dclrcn_annmzd', 'txt_dclrcn_rsmn', 'declaracion',
       'txt_infrm', 'expdnt_annmzd_crtl', 'expdnt_annmzd_pruebas', 
-      'txt_annm_medios_de_prueba', 'txt_annm_declaraciones'].include?(code)
+      'txt_annm_medios_de_prueba', 'txt_annm_declaraciones', 'desestimiento'].include?(code)
   end
 
   def self.cntrl_fecha?(code)
@@ -124,7 +129,7 @@ class ClssPdfInvstgcns
 
   def self.no_tmplt?(code)
     ['denuncia', 'dnnc_annmzd', 'dnnc_rsmn', 'apt', 'antecedentes', 'antecedentes_annm', 'invstgdr', 'invstgdr_titulo_prfsnl', 
-      'dclrcn', 'declaracion'].include?(code)
+      'dclrcn', 'declaracion', 'desestimiento'].include?(code)
   end
 
   def self.no_sndng_code?(code)
@@ -191,6 +196,14 @@ class ClssPdfInvstgcns
       }
     end
 
+    def tipo_participante_de(participante)
+      case participante.class.name
+      when 'KrnDenunciante' then 'denunciante'
+      when 'KrnDenunciado'  then 'denunciado'
+      else 'participante'
+      end
+    end
+
     def datos_para(reporte, objeto_id, opciones = {})
       case reporte.to_s
       when 'invstgcn', 'drchs'
@@ -237,6 +250,19 @@ class ClssPdfInvstgcns
           dnnc: ownr.dnnc,
           empresa: ownr.dnnc.ownr
         }
+      when 'ntfccn_desestimiento'
+        ownr = opciones[:ownr]                # ← el participante
+        dnnc = ownr.dnnc
+        {
+          ownr:              ownr,
+          dnnc:              dnnc,
+          krn_denuncia:      dnnc,
+          empresa:           dnnc.ownr,
+          participante:      ownr,
+          tipo_participante: tipo_participante_de(ownr),
+          denunciantes:      dnnc.krn_denunciantes,
+          denunciados:       dnnc.krn_denunciados
+        }
       when 'txt_dnnc_annmzd', 'txt_dclrcn_annmzd', 'txt_dclrcn'
         objeto = TxtEditable.find(objeto_id)    # ← el texto editable
         ownr   = objeto.ownr                    # ← dnnc
@@ -265,12 +291,20 @@ class ClssPdfInvstgcns
       case reporte.to_s
       when 'dnncnt_info_oblgtr'
         denuncia.krn_denunciantes
-      when 'dclrcn', 'txt_dclrcn', 'invstgdr'
+      when 'dclrcn', 'txt_dclrcn', 'invstgdr', 'ntfccn_desestimiento'
         denuncia.krn_denunciantes + denuncia.krn_denunciados
       when 'crdncn_apt', 'dts_prncpls', 'dts_tstgs'
         denuncia.ownr.app_contactos.where(grupo: reporte == 'crdncn_apt' ? 'Apt' : 'RRHH')
       else
         [denuncia]
+      end
+    end
+
+    def self.tipo_participante_de(participante)
+      case participante.class.name
+      when 'KrnDenunciante' then 'denunciante'
+      when 'KrnDenunciado'  then 'denunciado'
+      else 'participante'
       end
     end
 

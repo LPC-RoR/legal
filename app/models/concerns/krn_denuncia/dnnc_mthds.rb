@@ -189,4 +189,9 @@ module KrnDenuncia::DnncMthds
 	  krn_testigos.all?(&:cmplt?)
 	end
 
+	# La existencia del PDF del desestimiento establece que ocurrió
+	def desestimiento?
+	  act_archivos.where(act_archivo: 'desestimiento').exists?
+	end
+
 end

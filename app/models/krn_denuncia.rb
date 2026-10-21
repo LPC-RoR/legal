@@ -19,7 +19,8 @@ class KrnDenuncia < ApplicationRecord
 	  'denuncia_corregida',
 	  'txt_infrm',
 	  'pronunciamiento',
-	  'medidas_sanciones'
+	  'medidas_sanciones',
+	  'desestimiento'
 	].freeze
 
 	PROC = 'krn_invstgcn'

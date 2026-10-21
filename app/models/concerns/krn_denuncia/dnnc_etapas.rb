@@ -41,7 +41,10 @@ module KrnDenuncia::DnncEtapas
 	  when 'etp_prnncmnt'
 	    fecha_recepcion_pronunciamiento || prnncmnt_vncd	# 1ra versión
 	  when 'etp_mdds_sncns'
-	    fecha_mas_reciente_txt_mdds_sncns					# 1ra versión
+		# Con desestimiento no se exige la notificación de medidas correctivas y sanciones;
+		# en su lugar se exige la notificación del desestimiento a todos los participantes
+		desestimiento? ? fecha_mas_reciente_ntfccn_desestimiento : fecha_mas_reciente_txt_mdds_sncns
+
 	  else
 	    true
 	  end

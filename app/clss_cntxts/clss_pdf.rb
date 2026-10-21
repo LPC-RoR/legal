@@ -44,6 +44,8 @@ class ClssPdf
     'txt_annm_declaraciones'    => :invstgcns,    # ← EXPEDIENTE ANONIMIZADO: DECLARACIONES
     'txt_annm_ntfccns'          => :invstgcns,    # ← EXPEDIENTE ANONIMIZADO: NOTIFICACIONES CON FORMATO
     'annm_upload'               => :invstgcns,    # ← PDF de upload anonimizado
+    'desestimiento'             => :invstgcns,    # ← DESESTIMIENTO DE LA DENUNCIA
+    'ntfccn_desestimiento'      => :invstgcns,    # ← NOTIFICACIÓN DEL DESESTIMIENTO
     
     # === FINANZAS (fnnzs) ===
     'aprobacion'                => :fnnzs,    # ← APROBACIÓNES DE CAUSAS

@@ -73,13 +73,13 @@ module KrnDenuncia::DnncProc
  	end
 
  	# TAREAS -------------------------------------- etp_mdds_sncns
- 	# REVISAR fecha_rcpcn_infrm?
- 	# Aplicación de las medidas de resguardo y sanciones
- 	def tsk_mdds_sncns?
- 		(fecha_rcpcn_infrm? ||
- 		fecha_recepcion_pronunciamiento.present? || prnncmnt_vncd) &&
- 		fecha_mas_reciente_txt_mdds_sncns.nil?
- 	end
+	def tsk_mdds_sncns?
+	  cumplida = desestimiento? ? fecha_mas_reciente_ntfccn_desestimiento : fecha_mas_reciente_txt_mdds_sncns
+
+	  (fecha_rcpcn_infrm? ||
+	  fecha_recepcion_pronunciamiento.present? || prnncmnt_vncd) &&
+	  cumplida.nil?
+	end
 
  	# TAREAS -------------------------------------- etp_terminada (?)
  	# Procedimiento terminado
