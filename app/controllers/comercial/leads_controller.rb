@@ -1,13 +1,16 @@
 module Comercial
   class LeadsController < ApplicationController
-    # El pipeline de seguimiento requiere sesión; create y gracias son públicos.
+    # El pipeline de seguimiento requiere sesión; create, gracias y
+    # confirmar son públicos.
     before_action :authenticate_usuario!, only: %i[index show update]
     before_action :set_lead,             only: %i[show update]
 
     rate_limit to: 5, within: 3.minutes, only: :create,
-               with: -> { redirect_to root_path, alert: "Demasiados intentos, inténtalo más tarde." }
+               with: -> { redirect_to root_path, alert: 'Demasiados intentos, inténtalo más tarde.' }
 
-    # ---- Seguimiento (privado) ----
+    # Solo fuentes que el sistema reconoce; cualquier otra cosa que
+    # venga manipulada del formulario se normaliza a formulario_web.
+    FUENTES_PERMITIDAS = %w[hero cta_final diagnostico simulador presentacion formulario_web].freeze
 
     def index
       @estado = params[:estado]
@@ -23,7 +26,7 @@ module Comercial
         redirect_to leads_path(estado: @lead.estado),
                     notice: "Lead actualizado a «#{@lead.estado.humanize}»."
       else
-        redirect_to leads_path, alert: "No se pudo actualizar el lead."
+        redirect_to leads_path, alert: 'No se pudo actualizar el lead.'
       end
     end
 
@@ -31,47 +34,66 @@ module Comercial
 
     def create
       @objeto = Lead.new(lead_params)
-      @objeto.estado = :nuevo
-      @objeto.fuente = params[:fuente].presence || "formulario_web"
+      @objeto.estado        = :nuevo
+      @objeto.fuente        = FUENTES_PERMITIDAS.include?(params[:fuente]) ? params[:fuente] : 'formulario_web'
+      @objeto.remote_ip     = request.remote_ip
+      @objeto.user_agent    = request.user_agent.to_s.first(500)
 
-      if spam? || too_fast?
-        redirect_to gracias_leads_path and return
-      end
+      redirect_to gracias_leads_path and return if spam? || too_fast?
 
       if @objeto.save
+        # 1) Aviso interno (sin cambios)
         Comercial::LeadMailer.with(lead: @objeto).nuevo_lead.deliver_later
 
-        if @objeto.diagnostico?
-          Comercial::LeadMailer.with(lead: @objeto).resultado_diagnostico.deliver_later
-        else
-          # Formulario simple: cubrimos la promesa de las 24 h de inmediato
-          Comercial::LeadMailer.with(lead: @objeto).bienvenida.deliver_later
-        end
-
-        if @objeto.pregunta.present?
-          Comercial::LeadMailer.with(lead: @objeto).nueva_pregunta.deliver_later
-        end
-
-        # Secuencia de seguimiento automático (+1 hábil, +3 hábiles, +7 corridos)
-        Comercial::ProgramarSeguimientoJob.perform_later(@objeto)
+        # 2) ÚNICO correo al lead en este punto: pedir confirmación.
+        #    Nada más se envía hasta que abra el enlace del token.
+        Comercial::LeadMailer.with(lead: @objeto).confirmacion_email.deliver_later
 
         respond_to do |format|
           format.html do
-            redirect_to gracias_leads_path(conv: conversion_kind),
-              notice: "¡Gracias! Te enviamos tu resultado por correo y te contactaremos en menos de 24 horas."
+            redirect_to gracias_leads_path(pendiente_confirmacion: true),
+                        notice: '¡Gracias! Te enviamos un correo para confirmar tu dirección y activar tu solicitud.'
           end
-          format.json { render json: { ok: true } }
+          format.json { render json: { ok: true, pendiente_confirmacion: true } }
         end
       else
         respond_to do |format|
           format.html do
             redirect_to gracias_leads_path,
-                        alert: "Revisa los datos ingresados (nombre, email y teléfono son obligatorios)."
+                        alert: 'Revisa los datos ingresados (nombre, email y teléfono son obligatorios).'
           end
           format.json do
             render json: { errors: @objeto.errors.full_messages }, status: :unprocessable_entity
           end
         end
+      end
+    end
+
+    def confirmar
+      @objeto = Lead.find_by(confirmacion_token: params[:token])
+
+      if @objeto.nil?
+        redirect_to root_path, alert: 'Enlace de confirmación inválido o expirado.'
+      elsif @objeto.email_confirmado?
+        # Re-apertura del enlace: no repetir correos ni encolar jobs
+        redirect_to gracias_leads_path(conv: conversion_kind(@objeto))
+      else
+        @objeto.confirmar_email!
+
+        # Acá sí se cumple la promesa del formulario:
+        if @objeto.diagnostico?
+          Comercial::LeadMailer.with(lead: @objeto).resultado_diagnostico.deliver_later
+        else
+          Comercial::LeadMailer.with(lead: @objeto).bienvenida.deliver_later
+        end
+
+        Comercial::LeadMailer.with(lead: @objeto).nueva_pregunta.deliver_later if @objeto.pregunta.present?
+
+        # La secuencia de seguimiento solo parte con correo confirmado
+        Comercial::ProgramarSeguimientoJob.perform_later(@objeto)
+
+        redirect_to gracias_leads_path(conv: conversion_kind(@objeto)),
+                    notice: 'Correo confirmado. Recibirás tu resultado en tu bandeja.'
       end
     end
 
@@ -84,24 +106,24 @@ module Comercial
 
     private
 
-    def conversion_kind
-      @objeto.diagnostico? ? "diagnostico" : "contacto"
+    def conversion_kind(lead)
+      lead.diagnostico? ? 'diagnostico' : 'contacto'
     end
 
     def set_lead
       @lead = Lead.find(params[:id])
     end
 
-    # Params del formulario público: NUNCA estado (evita que alguien se auto-marque convertido)
+    # :fuente sale de la whitelist de arriba, ya no se acepta del form.
+    # :estado sigue prohibido (evita auto-marcarse convertido).
     def lead_params
       params.expect(lead: [:nombre, :email, :telefono, :empresa, :empresa_nombre,
-                           :pregunta, :kind, :fuente,
+                           :pregunta, :kind,
                            { respuestas: %i[denuncia_abierta investigador_actual informe_dt] }])
     end
 
-    # Params de gestión interna
     def gestion_params
-      params.expect(lead: [:estado, :nota_seguimiento])
+      params.expect(lead: %i[estado nota_seguimiento])
     end
 
     def spam?

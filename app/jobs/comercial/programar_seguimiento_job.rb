@@ -11,12 +11,14 @@ class Comercial::ProgramarSeguimientoJob < ApplicationJob
 
   def perform(lead)
     return if lead.seguimiento_programado_en.present?
+    # Comercial::ProgramarSeguimientoJob#perform y SeguimientoLeadJob#perform
+    return unless lead.email_confirmado?
 
     lead.update_column(:seguimiento_programado_en, Time.current)
 
-    Comercial::SeguimientoLeadJob.set(wait_until: habiles_desde(Date.current, 1)).perform_later(lead, "agendar")
-    Comercial::SeguimientoLeadJob.set(wait_until: habiles_desde(Date.current, 3)).perform_later(lead, "medio")
-    Comercial::SeguimientoLeadJob.set(wait_until: 7.days.from_now).perform_later(lead, "cierre")
+    Comercial::SeguimientoLeadJob.set(wait_until: habiles_desde(Date.current, 1)).perform_later(lead, 'agendar')
+    Comercial::SeguimientoLeadJob.set(wait_until: habiles_desde(Date.current, 3)).perform_later(lead, 'medio')
+    Comercial::SeguimientoLeadJob.set(wait_until: 7.days.from_now).perform_later(lead, 'cierre')
   end
 
   private

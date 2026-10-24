@@ -9,10 +9,12 @@ class Comercial::SeguimientoLeadJob < ApplicationJob
 
   def perform(lead, paso)
     return unless lead.seguimiento_activo?
+    # Comercial::ProgramarSeguimientoJob#perform y SeguimientoLeadJob#perform
+    return unless lead.email_confirmado?
 
     tipo = case paso
-           when "agendar" then "agendar"
-           when "cierre"  then "cierre"
+           when 'agendar' then 'agendar'
+           when 'cierre'  then 'cierre'
            else lead.segmento_seguimiento # paso "medio": se decide con la info más fresca
            end
 

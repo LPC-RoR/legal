@@ -5,6 +5,18 @@ module Comercial
 
     helper_method :agenda_url
 
+    # DOBLE OPT-IN: único correo enviado antes de la confirmación.
+    # Sin clic en el enlace, el lead no recibe nada más: ni resultado,
+    # ni bienvenida, ni la secuencia de seguimiento.
+    def confirmacion_email
+      @lead = params[:lead]
+
+      mail(
+        to: @lead.email,
+        subject: 'Confirma tu correo para recibir tu autodiagnóstico Laborsafe'
+      )
+    end
+
     # Aviso interno: cada vez que se crea un lead
     def nuevo_lead
       @lead = params[:lead]
@@ -21,7 +33,7 @@ module Comercial
 
       mail(
         to: @lead.email,
-        subject: "Su autodiagnóstico Ley 21.643 – resultados y próximos pasos"
+        subject: 'Su autodiagnóstico Ley 21.643 – resultados y próximos pasos'
       )
     end
 
@@ -88,21 +100,21 @@ module Comercial
       nombre = @lead.nombre
 
       case @tipo
-      when "agendar"
+      when 'agendar'
         "¿Agendamos los 30 minutos, #{nombre}?"
-      when "urgencia"
-        if @lead.respuesta(:denuncia_abierta) == "tramite"
+      when 'urgencia'
+        if @lead.respuesta(:denuncia_abierta) == 'tramite'
           "#{nombre}, sus primeros 3 días hábiles son críticos"
         else
           "#{nombre}, los plazos de su denuncia siguen corriendo"
         end
-      when "prevencion"
+      when 'prevencion'
         "#{nombre}, la mejor denuncia es la que su empresa está preparada para recibir"
-      when "imparcialidad"
+      when 'imparcialidad'
         "#{nombre}, la objeción de imparcialidad que puede costarle la investigación"
-      when "protocolo"
+      when 'protocolo'
         "#{nombre}, ¿su protocolo Ley Karin está al día?"
-      when "dt"
+      when 'dt'
         "#{nombre}, el trámite ante la Dirección del Trabajo sin tecnicismos"
       else # "cierre"
         "#{nombre}, último correo: su diagnóstico queda disponible"

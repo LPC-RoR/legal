@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   # config/routes.rb
   namespace :producto do
-    get "productos/partial/:key", to: "productos#partial", as: :productos_partial
+    get 'productos/partial/:key', to: 'productos#partial', as: :productos_partial
   end
   # El helper queda producto_productos_partial_path a menos que mantengas `as: :productos_partial`
 
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   end
   resources :parrafos
 
-#  get 'dwnldwrd' => 'causas/dwnldwrd', format: :docx
+  #  get 'dwnldwrd' => 'causas/dwnldwrd', format: :docx
 
   resources :causas do
     match :swtch, via: :post, on: :member
@@ -70,7 +70,7 @@ Rails.application.routes.draw do
 
   resources :empresas do
     member do
-      get  'usuarios', to: 'empresa_usuarios#index'   # listado
+      get  'usuarios', to: 'empresa_usuarios#index' # listado
       patch 'usuarios/:usuario_id/rol', to: 'empresa_usuarios#update_role', as: :update_rol
       patch :update_rol
     end
@@ -96,7 +96,7 @@ Rails.application.routes.draw do
     match :liberar_factura, via: :get, on: :member
   end
 
-# SCOPES *********************************************************
+  # SCOPES *********************************************************
 
   scope module: 'docs' do
     resources :doc_emitidos do
@@ -120,7 +120,7 @@ Rails.application.routes.draw do
         post :vincular
       end
       collection do
-        get :exportar  # si prefieres POST
+        get :exportar # si prefieres POST
       end
     end
     resources :doc_cartolas do
@@ -145,8 +145,11 @@ Rails.application.routes.draw do
 
   scope module: 'comercial' do
     resources :leads, only: %i[index show create update] do
-      get :gracias, on: :collection          # /leads/gracias
-      resource :conversion, only: %i[new create], controller: "conversiones"
+      collection do
+        get :gracias
+        get :confirmar # ← nuevo: /leads/confirmar?token=...
+      end
+      resource :conversion, only: %i[new create], controller: 'conversiones'
     end
   end
 
@@ -260,16 +263,16 @@ Rails.application.routes.draw do
       match :set_evaluacion, via: :get, on: :member
       match :nuevo_antecedente, via: :post, on: :member
     end
-    resources :hecho_archivos do 
+    resources :hecho_archivos do
       match :eliminar, via: :get, on: :member
       match :set_establece, via: :get, on: :member
     end
-    resources :causa_archivos do 
+    resources :causa_archivos do
       match :arriba, via: :post, on: :member
       match :abajo, via: :post, on: :member
       match :eliminar, via: :get, on: :member
       match :set_seleccionado, via: :get, on: :member
-    end 
+    end
     # se reutlizó tabla para almacenar los antecedentes de un hecho
     resources :antecedentes do
       match :arriba, via: :post, on: :member
@@ -284,7 +287,7 @@ Rails.application.routes.draw do
     resources :tribunal_cortes
   end
 
-  scope module: 'actividades' do 
+  scope module: 'actividades' do
     resources :age_actividades do
       match :swtch, via: :post, on: :member
       match :dssgn_usr, via: :post, on: :member
@@ -299,7 +302,7 @@ Rails.application.routes.draw do
       match :cambia_prioridad, via: :get, on: :member
     end
     resources :age_logs
-    
+
     resources :age_usu_acts
     resources :age_usuarios do
       match :personaliza, via: :post, on: :member
@@ -384,7 +387,6 @@ Rails.application.routes.draw do
         post :cargar_pdf
       end
     end
-
   end
 
   scope module: 'aplicacion' do
@@ -433,9 +435,9 @@ Rails.application.routes.draw do
       match :antecedentes, via: :get, on: :collection
     end
   end
-  
+
   scope module: 'tarifas' do
-    resources :tar_tarifas do 
+    resources :tar_tarifas do
       resources :tar_pagos
     end
     resources :tar_tipo_variables
@@ -452,7 +454,7 @@ Rails.application.routes.draw do
       match :liberar_calculo, via: :get, on: :member
       match :crea_aprobacion, via: :get, on: :member
     end
-    resources :tar_uf_facturaciones do 
+    resources :tar_uf_facturaciones do
       match :crea_uf_facturacion, via: :get, on: :collection
       match :elimina_uf_facturacion, via: :get, on: :member
     end
@@ -497,7 +499,7 @@ Rails.application.routes.draw do
     end
   end
 
-#  devise_for :usuarios
+  #  devise_for :usuarios
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_for :usuarios, controllers: {
     confirmations: 'usuarios/confirmations',
@@ -509,25 +511,24 @@ Rails.application.routes.draw do
   authenticated :usuario do
     root 'aplicacion/home#dshbrd', as: :authenticated_root
   end
-  
+
   root 'aplicacion/home#index'
 
   get   'laborsafe',                to: 'aplicacion/home#laborsafe'
   get   'guias',                    to: 'aplicacion/home#guias'
   get   'equipo',                   to: 'aplicacion/home#equipo'
-  get   "simulador",                to: "aplicacion/home#simulador",            as: :simulador
-  post  "simulador/simulacion",     to: "aplicacion/home#enviar_simulacion",    as: :enviar_simulacion
+  get   'simulador',                to: 'aplicacion/home#simulador',            as: :simulador
+  post  'simulador/simulacion',     to: 'aplicacion/home#enviar_simulacion',    as: :enviar_simulacion
   get   'metodologia',              to: 'aplicacion/home#metodologia'
-  get   "marco_legal",              to: "aplicacion/home#marco_legal"
+  get   'marco_legal',              to: 'aplicacion/home#marco_legal'
   get   'blog',                     to: 'aplicacion/home#blog'
-  get   'capacitaciones-ley-karin', to: 'aplicacion/home#capacitaciones',       as: :capacitaciones
-  get   "datos_personales",         to: "aplicacion/home#datos_personales"
-  get   "datos_personales_karin",   to: "aplicacion/home#datos_personales_karin"
-  get   "legal_annm",               to: "aplicacion/home#legal_annm"
+  get   'capacitaciones-ley-karin', to: 'aplicacion/home#capacitaciones', as: :capacitaciones
+  get   'datos_personales',         to: 'aplicacion/home#datos_personales'
+  get   'datos_personales_karin',   to: 'aplicacion/home#datos_personales_karin'
+  get   'legal_annm',               to: 'aplicacion/home#legal_annm'
 
   get   '/krn_csts',            to: 'aplicacion/home#costos'
   get   '/artcls/:tkn',         to: 'aplicacion/home#artcls', as: 'artcls'
-
 
   # manejo formulario de registro de empresas
   post '/register', to: 'empresas#create', as: 'register'

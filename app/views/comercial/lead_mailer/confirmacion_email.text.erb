@@ -1,0 +1,10 @@
+<%# app/views/comercial/lead_mailer/confirmacion_email.text.erb %>
+Un último paso, <%= @lead.nombre %>
+
+Recibimos tu solicitud en laborsafe.cl. Confirma tu correo para recibir
+tu <%= @lead.diagnostico? ? "resultado de autodiagnóstico" : "confirmación de agendamiento" %>:
+
+<%= confirmar_leads_url(token: @lead.confirmacion_token) %>
+
+Si no fuiste tú quien envió esta solicitud, ignora este correo: no te
+enviaremos nada más.
