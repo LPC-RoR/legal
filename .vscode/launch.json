@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "rdbg",
+            "name": "Rails server",
+            "request": "launch",
+            "command": "bin/rails",
+            "args": [
+                "server"
+            ],
+            "useBundler": true
+        },
+        {
+            "type": "rdbg",
+            "name": "Test del archivo actual",
+            "request": "launch",
+            "command": "bin/rails",
+            "args": [
+                "test",
+                "${relativeFile}"
+            ],
+            "useBundler": true
+        }
+    ]
+}
